@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Auth;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;

@@ -3,9 +3,9 @@ namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelActionExecutor\SetDigiglassParametersActionExecutor;
 use SuplaBundle\Supla\SuplaServer;

@@ -20,8 +20,8 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 use Cron\CronExpression;
 use DateInterval;
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 
 class SunriseSunsetSchedulePlanner implements SchedulePlanner {
 

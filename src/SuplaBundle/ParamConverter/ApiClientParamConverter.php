@@ -2,7 +2,8 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use InvalidArgumentException;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 
 class ApiClientParamConverter extends AbstractBodyParamConverter {
@@ -19,7 +20,7 @@ class ApiClientParamConverter extends AbstractBodyParamConverter {
         foreach ($redirectUris as $redirectUri) {
             try {
                 Assertion::url($redirectUri);
-            } catch (\InvalidArgumentException $e) {
+            } catch (InvalidArgumentException $e) {
                 throw new ApiExceptionWithDetails(
                     'Invalid redirect URI: {uri}', // i18n
                     ['uri' => $redirectUri]

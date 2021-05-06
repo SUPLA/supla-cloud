@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\EventListener;
 
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;

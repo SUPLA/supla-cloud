@@ -17,7 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater;
 
-use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
@@ -32,7 +33,7 @@ class ControllingTheGateSecondaryRelatedSensorIntegrationTest extends Integratio
     private $device;
     /** @var ChannelParamsUpdater */
     private $updater;
-    /** @var \SuplaBundle\Entity\User */
+    /** @var User */
     private $user;
 
     public function initializeDatabaseForTests() {

@@ -3,11 +3,11 @@ namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\HasFunction;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\HasFunction;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelActionExecutor\SetRgbwParametersActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;

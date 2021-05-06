@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;

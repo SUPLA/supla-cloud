@@ -19,12 +19,12 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;

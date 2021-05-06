@@ -1,7 +1,7 @@
 security:
   encoders:
-    SuplaBundle\Entity\User: bcrypt
-    SuplaBundle\Entity\DirectLink:
+    SuplaBundle\Entity\Main\User: bcrypt
+    SuplaBundle\Entity\Main\DirectLink:
       algorithm: bcrypt
       cost: 4
     legacy_encoder: md5

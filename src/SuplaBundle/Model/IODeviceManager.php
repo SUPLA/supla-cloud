@@ -21,7 +21,7 @@ namespace SuplaBundle\Model;
 
 use Assert\Assertion;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

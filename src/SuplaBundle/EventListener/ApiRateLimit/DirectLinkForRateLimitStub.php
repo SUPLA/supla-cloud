@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\EventListener\ApiRateLimit;
 
-use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\Main\DirectLink;
 
 class DirectLinkForRateLimitStub extends DirectLink {
     public function __construct($encryptedSlug) {

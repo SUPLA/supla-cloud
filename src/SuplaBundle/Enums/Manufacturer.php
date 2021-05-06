@@ -18,7 +18,8 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
-use SuplaBundle\Entity\IODeviceChannel;
+use RuntimeException;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Exception\ApiException;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -106,7 +107,7 @@ final class Manufacturer extends Enum {
                 $name = strtoupper($name);
                 return self::$name();
             }
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             throw new ApiException('An incorrect manufacturer has been provided: ' . $name, 400, $e);
         }
     }

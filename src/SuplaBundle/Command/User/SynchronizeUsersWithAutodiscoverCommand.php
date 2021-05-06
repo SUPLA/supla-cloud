@@ -3,7 +3,7 @@ namespace SuplaBundle\Command\User;
 
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

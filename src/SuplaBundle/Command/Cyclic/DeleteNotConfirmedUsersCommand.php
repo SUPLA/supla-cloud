@@ -19,7 +19,7 @@ namespace SuplaBundle\Command\Cyclic;
 
 use DateInterval;
 use DateTime;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Console\Input\ArrayInput;

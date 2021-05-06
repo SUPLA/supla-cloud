@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Model\ChannelStateGetter;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 
 interface SingleChannelStateGetter {

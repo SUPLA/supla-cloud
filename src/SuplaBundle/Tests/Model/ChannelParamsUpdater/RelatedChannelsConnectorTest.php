@@ -18,7 +18,7 @@
 namespace SuplaBundle\Tests\Model\ChannelParamsUpdater;
 
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelParamsUpdater\RelatedChannelsConnector;
 use SuplaBundle\Repository\IODeviceChannelRepository;

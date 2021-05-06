@@ -19,9 +19,9 @@ namespace SuplaBundle\Auth\Voter;
 
 use Assert\Assertion;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\HasLocation;
-use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\HasLocation;
+use SuplaBundle\Entity\Main\Location;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

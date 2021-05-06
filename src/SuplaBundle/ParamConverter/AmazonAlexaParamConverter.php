@@ -18,7 +18,9 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\AmazonAlexa;
+use DateInterval;
+use DateTime;
+use SuplaBundle\Entity\Main\AmazonAlexa;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\AmazonAlexaRepository;
 
@@ -50,12 +52,12 @@ class AmazonAlexaParamConverter extends AbstractBodyParamConverter {
 
         if ($expiresIn > 0) {
             Assertion::max($expiresIn, 1000000000);
-            $interval = new \DateInterval('PT' . $expiresIn . 'S');
+            $interval = new DateInterval('PT' . $expiresIn . 'S');
         } else {
-            $interval = new \DateInterval('P20Y');
+            $interval = new DateInterval('P20Y');
         }
 
-        $date = new \DateTime;
+        $date = new DateTime;
         $expiresAt = $date->add($interval);
 
         $aegc->setAccessToken($accessToken);

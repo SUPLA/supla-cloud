@@ -3,7 +3,7 @@ namespace SuplaBundle\Repository;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
 
 /**

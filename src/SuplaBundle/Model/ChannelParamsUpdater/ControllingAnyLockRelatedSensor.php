@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelParamsUpdater;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Transactional;

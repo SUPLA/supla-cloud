@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class EntityWithRelationsRepository extends EntityRepository {

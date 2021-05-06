@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model\Audit;
 
-use SuplaBundle\Entity\AuditEntry;
+use SuplaBundle\Entity\Main\AuditEntry;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;

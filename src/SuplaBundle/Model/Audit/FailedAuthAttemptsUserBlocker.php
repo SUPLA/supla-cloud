@@ -1,8 +1,9 @@
 <?php
 namespace SuplaBundle\Model\Audit;
 
+use DateInterval;
 use Doctrine\Common\Collections\Criteria;
-use SuplaBundle\Entity\AuditEntry;
+use SuplaBundle\Entity\Main\AuditEntry;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Model\TimeProvider;
@@ -41,7 +42,7 @@ class FailedAuthAttemptsUserBlocker {
             return false;
         }
         $considerEntriesOlderThan = $this->timeProvider
-            ->getDateTime(\DateInterval::createFromDateString("-$this->blockTimeInSeconds seconds"));
+            ->getDateTime(DateInterval::createFromDateString("-$this->blockTimeInSeconds seconds"));
         $criteria = Criteria::create()
             ->where(Criteria::expr()->in('event', [
                 AuditedEvent::AUTHENTICATION_SUCCESS,

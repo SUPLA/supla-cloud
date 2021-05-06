@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;

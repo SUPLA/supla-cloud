@@ -1,9 +1,10 @@
 <?php
 namespace SuplaBundle\Model\ChannelStateGetter;
 
-use SuplaBundle\Entity\HasFunction;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use InvalidArgumentException;
+use SuplaBundle\Entity\Main\HasFunction;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 
 class ChannelStateGetter {
     /** @var SingleChannelStateGetter[] */
@@ -25,7 +26,7 @@ class ChannelStateGetter {
         } elseif ($channel instanceof IODeviceChannelGroup) {
             return $this->getStateForChannelGroup($channel);
         } else {
-            throw new \InvalidArgumentException('Could not get state for entity ' . get_class($channel));
+            throw new InvalidArgumentException('Could not get state for entity ' . get_class($channel));
         }
     }
 

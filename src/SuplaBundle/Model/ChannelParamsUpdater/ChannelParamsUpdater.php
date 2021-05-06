@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Model\ChannelParamsUpdater;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 
 class ChannelParamsUpdater {
     /** @var SingleChannelParamsUpdater[] */

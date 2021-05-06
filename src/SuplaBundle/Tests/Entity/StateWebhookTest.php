@@ -17,13 +17,14 @@
 
 namespace SuplaBundle\Tests\Entity;
 
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\StateWebhook;
-use SuplaBundle\Entity\User;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\StateWebhook;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 
-class StateWebhookTest extends \PHPUnit_Framework_TestCase {
+class StateWebhookTest extends PHPUnit_Framework_TestCase {
     /** @var StateWebhook */
     private $webhook;
 

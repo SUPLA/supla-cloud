@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelStateGetter;
 
-use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;

@@ -22,7 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;

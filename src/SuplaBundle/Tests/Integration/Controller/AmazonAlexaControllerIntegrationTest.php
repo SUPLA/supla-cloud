@@ -17,8 +17,10 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\AmazonAlexa;
-use SuplaBundle\Entity\User;
+use DateInterval;
+use DateTime;
+use SuplaBundle\Entity\Main\AmazonAlexa;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -60,11 +62,11 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($params['aeg_refresh_token'], $amazonAlexa->getRefreshToken());
         $this->assertEquals($params['aeg_region'], $amazonAlexa->getRegion());
 
-        $now = new \DateTime();
+        $now = new DateTime();
         $expiresIn = intval(@$params['aeg_expires_in']);
 
         if ($expiresIn == 0) {
-            $interval = new \DateInterval('P20Y');
+            $interval = new DateInterval('P20Y');
             $now->add($interval);
         }
 

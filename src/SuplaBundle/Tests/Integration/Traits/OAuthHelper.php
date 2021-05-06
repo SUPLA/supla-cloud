@@ -21,10 +21,10 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use Psr\Container\ContainerInterface;
 use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 
 /**

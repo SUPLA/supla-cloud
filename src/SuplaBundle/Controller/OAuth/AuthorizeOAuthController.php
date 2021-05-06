@@ -24,7 +24,7 @@ use OAuth2\OAuth2;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;

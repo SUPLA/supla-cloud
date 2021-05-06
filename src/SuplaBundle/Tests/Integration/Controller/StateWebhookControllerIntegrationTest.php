@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\StateWebhook;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\StateWebhook;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Repository\StateWebhookRepository;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;

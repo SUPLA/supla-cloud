@@ -17,7 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\ClientApp;
+use DateTime;
+use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -35,7 +36,7 @@ class ClientAppControllerIntegrationTest extends IntegrationTestCase {
         $user = $this->createConfirmedUser();
         $this->clientApp = new ClientApp();
         $this->clientApp->setEnabled(true);
-        AnyFieldSetter::set($this->clientApp, ['guid' => 'abcd', 'regDate' => new \DateTime(), 'lastAccessDate' => new \DateTime(),
+        AnyFieldSetter::set($this->clientApp, ['guid' => 'abcd', 'regDate' => new DateTime(), 'lastAccessDate' => new DateTime(),
             'softwareVersion' => '1.4', 'protocolVersion' => 22, 'user' => $user, 'name' => 'iPhone 6']);
         $this->getEntityManager()->persist($this->clientApp);
         $this->getEntityManager()->flush();

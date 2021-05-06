@@ -18,14 +18,17 @@
 namespace SuplaBundle\Tests\Model\Audit;
 
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
+use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Controller\ClientAppController;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\Audit\AuditEntryBuilder;
 
-class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
-    /** @var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+class AuditEntryBuilderTest extends PHPUnit_Framework_TestCase {
+    /** @var EntityManagerInterface|PHPUnit_Framework_MockObject_MockObject */
     private $entityManager;
     /** @var AuditEntryBuilder */
     private $builder;
@@ -37,7 +40,7 @@ class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testBuildingWithoutEvent() {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->builder->build();
     }
 
@@ -77,7 +80,7 @@ class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSettingIntParamWithInvalidNumber() {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->builder->setEvent(AuditedEvent::PASSWORD_RESET())->setIntParam('zamel')->build();
     }
 

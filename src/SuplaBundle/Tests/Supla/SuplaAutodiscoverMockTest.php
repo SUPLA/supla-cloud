@@ -17,8 +17,10 @@
 
 namespace SuplaBundle\Tests\Supla;
 
+use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit_Framework_TestCase;
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;
@@ -27,8 +29,8 @@ use SuplaBundle\Supla\SuplaAutodiscoverMock;
 /**
  * We are testing the mocked implementation here in order to be sure in behaves correctly in integration tests.
  */
-class SuplaAutodiscoverMockTest extends \PHPUnit_Framework_TestCase {
-    /** @var UserManager|\PHPUnit_Framework_MockObject_MockObject */
+class SuplaAutodiscoverMockTest extends PHPUnit_Framework_TestCase {
+    /** @var UserManager|PHPUnit_Framework_MockObject_MockObject */
     private $userManager;
     /** @var SuplaAutodiscoverMock */
     private $autodiscover;

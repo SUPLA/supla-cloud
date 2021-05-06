@@ -2,8 +2,9 @@
 namespace SuplaBundle\Command;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use InvalidArgumentException;
 use OAuth2\OAuth2;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Repository\ApiClientRepository;
 use Symfony\Component\Console\Command\Command;
@@ -34,7 +35,7 @@ class OAuthCreateWebappClientCommand extends Command {
         try {
             $this->apiClientRepository->getWebappClient();
             $output->writeln('Client for webapp exists.');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             /** @var ApiClient $client */
             $client = $this->clientManager->createClient();
             $client->setAllowedGrantTypes(['password', OAuth2::GRANT_TYPE_REFRESH_TOKEN]);

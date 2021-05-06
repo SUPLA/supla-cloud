@@ -3,7 +3,7 @@ namespace SuplaBundle\Command\User;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\EntityUtils;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;

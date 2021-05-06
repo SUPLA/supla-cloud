@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelParamsUpdater;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 

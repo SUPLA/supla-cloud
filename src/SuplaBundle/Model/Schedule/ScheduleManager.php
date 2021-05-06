@@ -27,11 +27,11 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
@@ -59,7 +59,7 @@ class ScheduleManager {
     ) {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
-        $this->scheduledExecutionsRepository = $doctrine->getRepository('SuplaBundle:ScheduledExecution');
+        $this->scheduledExecutionsRepository = $doctrine->getRepository(ScheduledExecution::class);
         $this->ioDeviceManager = $ioDeviceManager;
         $this->schedulePlanner = $schedulePlanner;
         $this->timeProvider = $timeProvider;

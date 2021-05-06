@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;

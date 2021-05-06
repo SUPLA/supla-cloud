@@ -2,10 +2,11 @@
 namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
-use SuplaBundle\Entity\HasFunction;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\Main\HasFunction;
 use SuplaBundle\Model\ChannelActionExecutor\TurnOnActionExecutor;
 
-class TurnOnActionExecutorTest extends \PHPUnit_Framework_TestCase {
+class TurnOnActionExecutorTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider validatingActionParamsProvider
      */

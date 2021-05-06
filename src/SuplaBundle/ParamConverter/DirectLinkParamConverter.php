@@ -2,9 +2,10 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\HasFunction;
+use DateTime;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\HasFunction;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -64,11 +65,11 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
             Assertion::isArray($data['activeDateRange'], 'activeDateRange must be an array');
             $activeFrom = $data['activeDateRange']['dateStart'] ?? null;
             if ($activeFrom) {
-                $link->setActiveFrom(new \DateTime($activeFrom));
+                $link->setActiveFrom(new DateTime($activeFrom));
             }
             $activeTo = $data['activeDateRange']['dateEnd'] ?? null;
             if ($activeTo) {
-                $link->setActiveTo(new \DateTime($activeTo));
+                $link->setActiveTo(new DateTime($activeTo));
             }
         }
         $link->setExecutionsLimit(isset($data['executionsLimit']) && is_numeric($data['executionsLimit'])

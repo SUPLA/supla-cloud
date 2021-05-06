@@ -17,8 +17,9 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
-use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Tests\AnyFieldSetter;
 
 class ClientAppsFixture extends SuplaFixture {
@@ -45,9 +46,9 @@ class ClientAppsFixture extends SuplaFixture {
         $clientApp = new ClientApp();
         AnyFieldSetter::set($clientApp, [
             'guid' => rand(0, 9999999),
-            'regDate' => new \DateTime('-' . rand(86400 * 7, 86400 * 60) . 'seconds'),
+            'regDate' => new DateTime('-' . rand(86400 * 7, 86400 * 60) . 'seconds'),
             'regIpv4' => implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]),
-            'lastAccessDate' => new \DateTime('-' . rand(86400, 86400 * 7) . 'seconds'),
+            'lastAccessDate' => new DateTime('-' . rand(86400, 86400 * 7) . 'seconds'),
             'lastAccessIpv4' => implode('.', [rand(0, 255), rand(0, 255), rand(0, 255), rand(0, 255)]),
             'softwareVersion' => '1.' . rand(1, 100),
             'protocolVersion' => rand(1, 100),

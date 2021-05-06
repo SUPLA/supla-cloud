@@ -19,10 +19,10 @@ namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 

@@ -1,8 +1,9 @@
 <?php
 namespace SuplaBundle\Command\User;
 
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
@@ -127,7 +128,7 @@ class ApiInfoCommand extends ContainerAwareCommand {
     private function resetInfo(ApiRateLimitStatus $globalRateLimitStatus) {
         return $globalRateLimitStatus->getReset()
             . ' ('
-            . ((new \DateTime('@' . $globalRateLimitStatus->getReset()))->format(\DateTime::ATOM))
+            . ((new DateTime('@' . $globalRateLimitStatus->getReset()))->format(DateTime::ATOM))
             . ')';
     }
 

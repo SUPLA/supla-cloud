@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 
 /**
  * @see Version20200108201101

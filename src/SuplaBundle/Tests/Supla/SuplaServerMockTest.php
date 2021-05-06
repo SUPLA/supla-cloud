@@ -19,9 +19,9 @@ namespace SuplaBundle\Tests\Supla;
 
 use PHPUnit_Framework_TestCase;
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
 

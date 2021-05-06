@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;

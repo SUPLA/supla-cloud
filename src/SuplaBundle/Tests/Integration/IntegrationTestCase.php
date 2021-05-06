@@ -22,7 +22,7 @@ use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
-use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\EntityUtils;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;

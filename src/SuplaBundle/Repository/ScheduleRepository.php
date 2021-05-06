@@ -3,7 +3,7 @@ namespace SuplaBundle\Repository;
 
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\Main\Schedule;
 
 class ScheduleRepository extends EntityRepository {
     /** @return Schedule[] */

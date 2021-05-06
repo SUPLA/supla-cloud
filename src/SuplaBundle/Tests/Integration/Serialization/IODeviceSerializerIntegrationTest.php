@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Serialization;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 

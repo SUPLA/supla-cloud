@@ -21,7 +21,7 @@ use FOS\OAuthServerBundle\Controller\AuthorizeController;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2ServerException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Supla\SuplaAutodiscover;

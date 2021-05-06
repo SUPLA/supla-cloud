@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\Main\HasFunction;
 
 abstract class SetCharValueActionExecutor extends SingleChannelActionExecutor {
     protected function getCharValue(HasFunction $subject, array $actionParams = []): int {

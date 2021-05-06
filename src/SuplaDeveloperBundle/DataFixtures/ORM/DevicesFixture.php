@@ -21,9 +21,10 @@ use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Location;
+use Faker\Generator;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
@@ -42,7 +43,7 @@ class DevicesFixture extends SuplaFixture {
 
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @var \Faker\Generator */
+    /** @var Generator */
     private $faker;
 
     public function load(ObjectManager $manager) {

@@ -17,11 +17,12 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;
 
@@ -53,7 +54,7 @@ class UsersFixture extends SuplaFixture {
         $token = new AccessToken();
         EntityUtils::setField($token, 'client', $webappClient);
         EntityUtils::setField($token, 'user', $user);
-        EntityUtils::setField($token, 'expiresAt', (new \DateTime('2035-01-01T00:00:00'))->getTimestamp());
+        EntityUtils::setField($token, 'expiresAt', (new DateTime('2035-01-01T00:00:00'))->getTimestamp());
         EntityUtils::setField($token, 'token', '0123456789012345678901234567890123456789');
         EntityUtils::setField($token, 'scope', (string)(new OAuthScope(OAuthScope::getSupportedScopes())));
         $em = $this->container->get('doctrine')->getManager();

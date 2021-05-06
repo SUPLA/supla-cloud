@@ -18,7 +18,7 @@
 namespace SuplaBundle\Auth;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;

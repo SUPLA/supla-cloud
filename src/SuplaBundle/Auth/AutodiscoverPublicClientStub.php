@@ -18,7 +18,7 @@
 namespace SuplaBundle\Auth;
 
 use OAuth2\OAuth2;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 
 class AutodiscoverPublicClientStub extends ApiClient {
 

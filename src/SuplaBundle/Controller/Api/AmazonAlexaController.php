@@ -17,14 +17,15 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\Main\AmazonAlexa;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AmazonAlexaRepository;
 use SuplaBundle\Supla\SuplaServerAware;
-use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Entity\AmazonAlexa;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -47,7 +48,7 @@ class AmazonAlexaController extends RestController {
     public function putAmazonAlexaAction(Request $request, AmazonAlexa $source) {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
-        };
+        }
 
         try {
             $aegc = $this->amazonAlexaRepository->findForUser($this->getUser());
@@ -57,8 +58,8 @@ class AmazonAlexaController extends RestController {
             $aegc->setRegion($source->getRegion());
         } catch (NotFoundHttpException $e) {
             $aegc = $source;
-            $aegc->setRegDate(new \DateTime);
-        };
+            $aegc->setRegDate(new DateTime);
+        }
 
         $this->transactional(function (EntityManagerInterface $em) use ($aegc) {
             $em->persist($aegc);

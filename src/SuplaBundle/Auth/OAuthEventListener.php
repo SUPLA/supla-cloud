@@ -19,8 +19,8 @@ namespace SuplaBundle\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Event\OAuthEvent;
-use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Repository\UserRepository;

@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\ParamConverter;
 
-use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\LocationRepository;
 

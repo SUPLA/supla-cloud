@@ -2,9 +2,9 @@
 namespace SuplaBundle\Repository;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\User;
 
 class ScheduleListQuery {
     private $user;

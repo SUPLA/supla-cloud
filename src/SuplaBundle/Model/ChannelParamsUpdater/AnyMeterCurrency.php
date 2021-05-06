@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelParamsUpdater;
 
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 
 class AnyMeterCurrency implements SingleChannelParamsUpdater {
 

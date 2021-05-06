@@ -20,8 +20,8 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 
 class IntervalSchedulePlanner implements SchedulePlanner {
 

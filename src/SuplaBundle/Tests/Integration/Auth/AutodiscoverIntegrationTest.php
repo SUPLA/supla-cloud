@@ -19,8 +19,8 @@ namespace SuplaBundle\Tests\Integration\Auth;
 
 use AppKernel;
 use SuplaBundle\Auth\AutodiscoverPublicClientStub;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;

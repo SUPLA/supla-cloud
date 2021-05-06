@@ -21,8 +21,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
 use Faker\Generator;
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 

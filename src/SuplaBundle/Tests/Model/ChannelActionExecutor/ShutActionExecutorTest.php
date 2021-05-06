@@ -1,11 +1,12 @@
 <?php
 namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ChannelActionExecutor\ShutActionExecutor;
 use SuplaBundle\Supla\SuplaServer;
 
-class ShutActionExecutorTest extends \PHPUnit_Framework_TestCase {
+class ShutActionExecutorTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider expectedServerCommandsProvider
      */

@@ -18,8 +18,8 @@
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ScheduleWithTimezone extends Schedule {

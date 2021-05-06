@@ -18,13 +18,14 @@
 namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\User;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 
-class IODeviceChannelGroupTest extends \PHPUnit_Framework_TestCase {
+class IODeviceChannelGroupTest extends PHPUnit_Framework_TestCase {
     /** @var User */
     private $user;
     /** @var Location */

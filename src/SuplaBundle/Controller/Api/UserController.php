@@ -27,7 +27,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use InvalidArgumentException;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;

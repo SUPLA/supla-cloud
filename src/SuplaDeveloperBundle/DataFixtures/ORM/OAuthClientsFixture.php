@@ -19,8 +19,8 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use OAuth2\OAuth2;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ApiClientType;
 
 class OAuthClientsFixture extends SuplaFixture {

@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use DateTime;
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;

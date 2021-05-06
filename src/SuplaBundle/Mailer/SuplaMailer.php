@@ -18,7 +18,7 @@
 namespace SuplaBundle\Mailer;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\LocalSuplaCloud;
 use Swift_Mailer;
 use Swift_Message;

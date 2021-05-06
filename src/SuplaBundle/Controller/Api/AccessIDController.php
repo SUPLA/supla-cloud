@@ -20,7 +20,7 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\AccessIdManager;
 use SuplaBundle\Model\ApiVersions;

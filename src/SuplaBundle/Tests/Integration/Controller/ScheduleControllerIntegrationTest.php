@@ -17,9 +17,9 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;

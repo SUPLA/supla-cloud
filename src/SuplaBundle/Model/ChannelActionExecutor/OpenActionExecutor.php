@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use SuplaBundle\Auth\Token\WebappToken;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\Main\HasFunction;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelStateGetter\ValveChannelStateGetter;

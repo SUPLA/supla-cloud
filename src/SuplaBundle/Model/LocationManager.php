@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Model;
 
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Repository\LocationRepository;
 use Symfony\Component\Translation\TranslatorInterface;
 

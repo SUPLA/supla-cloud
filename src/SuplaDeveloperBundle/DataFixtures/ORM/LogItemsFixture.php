@@ -19,13 +19,14 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
-use SuplaBundle\Entity\ElectricityMeterLogItem;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\ImpulseCounterLogItem;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\TemperatureLogItem;
-use SuplaBundle\Entity\TempHumidityLogItem;
+use Faker\Generator;
+use SuplaBundle\Entity\Logs\ElectricityMeterLogItem;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Logs\ImpulseCounterLogItem;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Logs\TemperatureLogItem;
+use SuplaBundle\Entity\Logs\TempHumidityLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
@@ -34,7 +35,7 @@ class LogItemsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
     /** @var ObjectManager */
     private $entityManager;
-    /** @var \Faker\Generator */
+    /** @var Generator */
     private $faker;
 
     const SINCE = '-40 day';

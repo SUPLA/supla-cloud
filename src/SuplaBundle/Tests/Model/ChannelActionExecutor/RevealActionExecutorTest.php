@@ -2,12 +2,13 @@
 namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
-use SuplaBundle\Entity\HasFunction;
-use SuplaBundle\Entity\IODeviceChannel;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\Main\HasFunction;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ChannelActionExecutor\RevealActionExecutor;
 use SuplaBundle\Supla\SuplaServer;
 
-class RevealActionExecutorTest extends \PHPUnit_Framework_TestCase {
+class RevealActionExecutorTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider validatingActionParamsProvider
      */

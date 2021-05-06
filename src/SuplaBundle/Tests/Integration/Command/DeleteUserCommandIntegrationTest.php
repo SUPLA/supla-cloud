@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Command;
 
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;

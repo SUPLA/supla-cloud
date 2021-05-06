@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 

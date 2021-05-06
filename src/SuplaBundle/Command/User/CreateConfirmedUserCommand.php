@@ -1,7 +1,8 @@
 <?php
 namespace SuplaBundle\Command\User;
 
-use SuplaBundle\Entity\User;
+use RuntimeException;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\UserManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,7 +41,7 @@ class CreateConfirmedUserCommand extends Command {
         } else {
             try {
                 $username = $this->validateUsername($username);
-            } catch (\RuntimeException $e) {
+            } catch (RuntimeException $e) {
                 if ($e->getCode() == self::USERNAME_EXISTS_CODE && $input->getOption('if-not-exists')) {
                     $output->writeln("User $username already exists.");
                     return;
@@ -69,11 +70,11 @@ class CreateConfirmedUserCommand extends Command {
 
     public function validateUsername($username): string {
         if (!is_string($username) || strlen($username) < 4 || !filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            throw new \RuntimeException('Invalid e-mail address');
+            throw new RuntimeException('Invalid e-mail address');
         }
         $username = trim($username);
         if ($this->userManager->userByEmail($username)) {
-            throw new \RuntimeException("User already exists! Choose different e-mail address.", self::USERNAME_EXISTS_CODE);
+            throw new RuntimeException("User already exists! Choose different e-mail address.", self::USERNAME_EXISTS_CODE);
         }
         return $username;
     }
@@ -88,7 +89,7 @@ class CreateConfirmedUserCommand extends Command {
 
     public function validatePassword($password): string {
         if (!is_string($password) || strlen($password) < self::MIN_PASSWORD_LENGTH) {
-            throw new \RuntimeException('Password too short (min ' . self::MIN_PASSWORD_LENGTH . ' characters).');
+            throw new RuntimeException('Password too short (min ' . self::MIN_PASSWORD_LENGTH . ' characters).');
         }
         return $password;
     }

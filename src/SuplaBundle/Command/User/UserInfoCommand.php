@@ -2,8 +2,9 @@
 namespace SuplaBundle\Command\User;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\User;
+use DateTime;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
@@ -63,7 +64,7 @@ class UserInfoCommand extends ContainerAwareCommand {
 
     private function basicInfo(SymfonyStyle $io, User $user) {
         $io->writeln('Short Unique ID: ' . $user->getShortUniqueId());
-        $io->writeln('Registered: ' . $user->getRegDate()->format(\DateTime::ATOM));
+        $io->writeln('Registered: ' . $user->getRegDate()->format(DateTime::ATOM));
         $io->writeln('Locale: ' . $user->getLocale());
     }
 
@@ -79,7 +80,7 @@ class UserInfoCommand extends ContainerAwareCommand {
         }
         $io->writeln('Remaining: ' . $status->getRemaining());
         $io->writeln('Excess: ' . $status->getExcess());
-        $io->writeln('Reset: ' . $status->getReset() . ' ' . ((new \DateTime('@' . $status->getReset()))->format(\DateTime::ATOM)));
+        $io->writeln('Reset: ' . $status->getReset() . ' ' . ((new DateTime('@' . $status->getReset()))->format(DateTime::ATOM)));
     }
 
     private function entityLimitsInfo(SymfonyStyle $io, User $user) {

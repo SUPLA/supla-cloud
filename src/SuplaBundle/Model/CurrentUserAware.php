@@ -20,9 +20,9 @@ namespace SuplaBundle\Model;
 use Assert\Assertion;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use OAuth2\Model\OAuth2AccessToken;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 

@@ -2,8 +2,8 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ChannelActionExecutor {

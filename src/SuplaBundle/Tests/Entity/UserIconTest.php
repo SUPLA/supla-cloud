@@ -17,12 +17,13 @@
 
 namespace SuplaBundle\Tests\Entity;
 
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\User;
-use SuplaBundle\Entity\UserIcon;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Entity\Main\UserIcon;
 use SuplaBundle\Enums\ChannelFunction;
 
-class UserIconTest extends \PHPUnit_Framework_TestCase {
+class UserIconTest extends PHPUnit_Framework_TestCase {
 
     /** @var UserIcon */
     private $userIcon;

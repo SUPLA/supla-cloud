@@ -17,13 +17,15 @@
 
 namespace SuplaBundle\Tests\Model\ParamConverter;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use InvalidArgumentException;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\ParamConverter\IODeviceChannelParamConverter;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
 
-class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
+class IODeviceChannelParamConverterTest extends PHPUnit_Framework_TestCase {
     /** @var IODeviceChannelParamConverter */
     private $converter;
 
@@ -46,7 +48,7 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testInvalidFunction() {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->converter->convert(['functionId' => 123]);
     }
 
@@ -57,7 +59,7 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testInvalidAltIcon() {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->converter->convert(['functionId' => ChannelFunction::POWERSWITCH,
             'altIcon' => 50]);
     }

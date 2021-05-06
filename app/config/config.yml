@@ -30,10 +30,10 @@ doctrine_migrations:
   namespace: Supla\Migrations
 
 fos_oauth_server:
-  access_token_class: SuplaBundle\Entity\OAuth\AccessToken
-  auth_code_class: SuplaBundle\Entity\OAuth\AuthCode
-  client_class: SuplaBundle\Entity\OAuth\ApiClient
-  refresh_token_class: SuplaBundle\Entity\OAuth\RefreshToken
+  access_token_class: SuplaBundle\Entity\Main\OAuth\AccessToken
+  auth_code_class: SuplaBundle\Entity\Main\OAuth\AuthCode
+  client_class: SuplaBundle\Entity\Main\OAuth\ApiClient
+  refresh_token_class: SuplaBundle\Entity\Main\OAuth\RefreshToken
   db_driver: orm
   service:
     options:

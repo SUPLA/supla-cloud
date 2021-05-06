@@ -18,7 +18,7 @@
 namespace SuplaBundle\Tests\Model;
 
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelStateGetter\DigiglassChannelStateGetter;
 use SuplaBundle\Supla\SuplaServer;

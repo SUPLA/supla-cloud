@@ -19,8 +19,8 @@ namespace SuplaBundle\Tests\Entity;
 
 use DateTime;
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 

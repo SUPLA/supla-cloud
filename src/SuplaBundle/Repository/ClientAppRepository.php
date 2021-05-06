@@ -2,8 +2,8 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\ClientApp;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\ClientApp;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ClientAppRepository extends EntityRepository {

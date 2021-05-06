@@ -2,8 +2,8 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\HasFunction;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\HasFunction;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelStateGetter\DigiglassState;

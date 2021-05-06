@@ -18,8 +18,8 @@
 namespace SuplaBundle\Tests\Integration\Model\Schedule;
 
 use DateTime;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;

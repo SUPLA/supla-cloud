@@ -1,9 +1,11 @@
 <?php
 namespace SuplaBundle\Model\Audit;
 
+use DateInterval;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AuditEntry;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\RealClientIpResolver;
@@ -44,8 +46,8 @@ class Audit {
     /** @return AuditEntry|null */
     public function recentEntry(AuditedEvent $event, $period = 'PT5M', User $user = null) {
         $date = $this->timeProvider->getDateTime();
-        $date->setTimeZone(new \DateTimeZone('UTC'));
-        $date->sub(new \DateInterval($period));
+        $date->setTimeZone(new DateTimeZone('UTC'));
+        $date->sub(new DateInterval($period));
         $user = $user ?: $this->getCurrentUserOrThrow();
         $qb = $this->getRepository()->createQueryBuilder('ae');
         $recentEntry = $qb

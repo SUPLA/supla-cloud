@@ -17,8 +17,9 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\Common\HasRelationsCount;
-use SuplaBundle\Entity\EntityUtils;
+use stdClass;
+use SuplaBundle\Entity\Main\Common\HasRelationsCount;
+use SuplaBundle\Entity\Main\EntityUtils;
 use SuplaBundle\Model\ApiVersions;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
@@ -61,7 +62,7 @@ abstract class AbstractSerializer extends ObjectNormalizer {
      */
     protected function emptyArrayAsObject(array $array) {
         if (count($array) == 0) {
-            return new \stdClass();
+            return new stdClass();
         }
         return $array;
     }

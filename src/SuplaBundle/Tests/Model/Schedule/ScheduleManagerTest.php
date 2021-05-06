@@ -22,7 +22,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;

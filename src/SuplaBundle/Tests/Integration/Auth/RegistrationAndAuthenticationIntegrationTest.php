@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Auth;
 
-use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AuditEntry;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Model\Audit\Audit;

@@ -20,7 +20,7 @@ namespace SuplaBundle\Controller\Api;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;

@@ -22,7 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\EventListener\UnavailableInMaintenance;

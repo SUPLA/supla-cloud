@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\TemperatureLogItem;
+use SuplaBundle\Entity\Logs\TemperatureLogItem;
 
 /**
  * @see Version20200430113342
@@ -15,7 +15,7 @@ class Version20200430113342MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testHasLogItems() {
-        /** @var TemperatureLogItem $log */
+        /** @var \SuplaBundle\Entity\Logs\TemperatureLogItem $log */
         $log = $this->getEntityManager()->createQuery('SELECT t FROM ' . TemperatureLogItem::class . ' t')
             ->setMaxResults(1)
             ->getSingleResult();

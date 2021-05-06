@@ -19,11 +19,11 @@ namespace SuplaBundle\Tests\Integration\Auth;
 
 use DateTime;
 use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Entity\AccessID;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AccessID;
+use SuplaBundle\Entity\Main\EntityUtils;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Repository\ApiClientRepository;

@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;

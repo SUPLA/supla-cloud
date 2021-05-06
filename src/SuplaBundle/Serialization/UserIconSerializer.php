@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\UserIcon;
+use SuplaBundle\Entity\Main\UserIcon;
 
 class UserIconSerializer extends AbstractSerializer {
     /**

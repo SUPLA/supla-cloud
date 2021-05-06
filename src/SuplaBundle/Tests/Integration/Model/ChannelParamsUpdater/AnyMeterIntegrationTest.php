@@ -17,9 +17,9 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;

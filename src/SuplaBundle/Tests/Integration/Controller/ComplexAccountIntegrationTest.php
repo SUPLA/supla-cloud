@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;

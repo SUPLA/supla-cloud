@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;

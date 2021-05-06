@@ -18,7 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Supla\SuplaServerAware;

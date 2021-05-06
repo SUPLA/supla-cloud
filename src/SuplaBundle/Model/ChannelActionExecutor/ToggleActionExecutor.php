@@ -1,8 +1,8 @@
 <?php
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\HasFunction;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\HasFunction;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 

@@ -3,9 +3,9 @@ namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IODeviceRepository extends EntityWithRelationsRepository {

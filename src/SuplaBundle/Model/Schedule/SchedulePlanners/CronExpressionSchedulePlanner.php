@@ -19,8 +19,8 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
 use Cron\CronExpression;
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 
 class CronExpressionSchedulePlanner implements SchedulePlanner {
     public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {

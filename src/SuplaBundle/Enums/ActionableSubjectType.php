@@ -17,9 +17,11 @@
 
 namespace SuplaBundle\Enums;
 
+use InvalidArgumentException;
 use MyCLabs\Enum\Enum;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use RuntimeException;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Exception\ApiException;
 
 /**
@@ -38,14 +40,14 @@ final class ActionableSubjectType extends Enum {
         } elseif ($entity instanceof IODeviceChannelGroup) {
             return self::CHANNEL_GROUP();
         } else {
-            throw new \InvalidArgumentException('Invalid entity given: ' . get_class($entity));
+            throw new InvalidArgumentException('Invalid entity given: ' . get_class($entity));
         }
     }
 
     public static function fromString(string $subjectType): self {
         try {
             return new self($subjectType);
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             throw new ApiException('Invalid subjectType given: ' . $subjectType, 400, $e);
         }
     }

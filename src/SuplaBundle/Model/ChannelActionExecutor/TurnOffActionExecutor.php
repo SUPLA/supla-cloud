@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\Main\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class TurnOffActionExecutor extends TurnOnActionExecutor {

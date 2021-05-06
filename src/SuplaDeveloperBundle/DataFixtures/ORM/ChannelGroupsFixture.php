@@ -20,15 +20,16 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use Faker\Generator;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 
 class ChannelGroupsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
 
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @var \Faker\Generator */
+    /** @var Generator */
     private $faker;
 
     public function load(ObjectManager $manager) {

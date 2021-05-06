@@ -17,12 +17,14 @@
 
 namespace SuplaBundle\Tests\Entity;
 
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use InvalidArgumentException;
+use PHPUnit_Framework_TestCase;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
-class DirectLinkTest extends \PHPUnit_Framework_TestCase {
+class DirectLinkTest extends PHPUnit_Framework_TestCase {
     public function testGeneratingSlug() {
         $directLink = new DirectLink($this->createMock(IODeviceChannel::class));
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
@@ -40,7 +42,7 @@ class DirectLinkTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testCannotGenerateSlugTwice() {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $directLink = new DirectLink($this->createMock(IODeviceChannel::class));
         $directLink->generateSlug(new PlaintextPasswordEncoder());
         $directLink->generateSlug(new PlaintextPasswordEncoder());

@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use DateTime;
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 
 class IntervalSchedulePlannerTest extends PHPUnit_Framework_TestCase {

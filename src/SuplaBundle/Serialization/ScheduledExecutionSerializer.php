@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 
 class ScheduledExecutionSerializer extends AbstractSerializer {
     /**
