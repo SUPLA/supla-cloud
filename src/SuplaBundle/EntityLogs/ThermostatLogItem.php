@@ -15,16 +15,15 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Entity\Logs;
+namespace SuplaBundle\EntityLogs;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_ic_log")
+ * @ORM\Table(name="supla_thermostat_log")
  */
-class ImpulseCounterLogItem {
+class ThermostatLogItem {
     /**
      * @ORM\Id
      * @ORM\Column(name="channel_id", type="integer")
@@ -38,29 +37,37 @@ class ImpulseCounterLogItem {
     private $date;
 
     /**
-     * @ORM\Column(name="counter", type="bigint", nullable=false)
+     * @ORM\Column(name="`on`", type="boolean", nullable=false)
      */
-    private $counter;
+    private $on = false;
 
     /**
-     * @ORM\Column(name="calculated_value", type="bigint", nullable=false)
+     * @ORM\Column(name="measured_temperature", type="decimal", precision=5, scale=2)
      */
-    private $calculated_value;
+    private $measuredTemperature;
 
-    public function getChannelId(): int {
+    /**
+     * @ORM\Column(name="preset_temperature", type="decimal", precision=5, scale=2)
+     */
+    private $presetTemperature;
+
+    public function getChannelId() {
         return $this->channel_id;
     }
 
-    /** @return DateTime */
     public function getDate() {
         return $this->date;
     }
 
-    public function getCounter(): int {
-        return $this->counter;
+    public function getOn() {
+        return $this->on;
     }
 
-    public function getCalculatedValue(): float {
-        return $this->calculated_value / 1000.00;
+    public function getMeasuredTemperature() {
+        return $this->measuredTemperature;
+    }
+
+    public function getPresetTemperature() {
+        return $this->presetTemperature;
     }
 }

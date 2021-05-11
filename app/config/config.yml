@@ -6,25 +6,57 @@ imports:
 
 doctrine:
   dbal:
-    charset: utf8mb4
-    default_table_options:
-      charset: utf8mb4
-      collate: utf8mb4_unicode_ci
-    dbname: "%database_name%"
-    driver: "%database_driver%"
-    host: "%database_host%"
-    password: "%database_password%"
-    port: "%database_port%"
+    connections:
+      default:
+        charset: utf8mb4
+        dbname: "%database_name%"
+        driver: "%database_driver%"
+        host: "%database_host%"
+        password: "%database_password%"
+        port: "%database_port%"
+        user: "%database_user%"
+        server_version: 5.5
+        schema_filter: ~^(?!esp_)~
+        default_table_options:
+          charset: utf8mb4
+          collate: utf8mb4_unicode_ci
+      logs:
+        dbname: supla
+        driver: pdo_pgsql
+        host: localhost
+        user: postgres
+        password: postgres
+        port: 5433
+        schema_filter: ~^supla_.+_log$~
+    default_connection: default
     types:
       ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
       stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
       utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
-    user: "%database_user%"
-    server_version: 5.5
-    schema_filter: ~^(?!esp_)~
+
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
-    auto_mapping: true
+    default_entity_manager: default
+    entity_managers:
+      default:
+        connection: default
+        auto_mapping: true
+        mappings:
+          SuplaBundle:
+            is_bundle: false
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/Entity'
+            prefix: 'SuplaBundle\Entity'
+            alias: SuplaBundle
+      logs:
+        connection: logs
+        mappings:
+          Logs:
+            is_bundle: false
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/EntityLogs'
+            prefix: 'SuplaBundle\EntityLogs'
+            alias: LogsEntities
 
 doctrine_migrations:
   namespace: Supla\Migrations
@@ -35,6 +67,7 @@ fos_oauth_server:
   client_class: SuplaBundle\Entity\Main\OAuth\ApiClient
   refresh_token_class: SuplaBundle\Entity\Main\OAuth\RefreshToken
   db_driver: orm
+  model_manager_name: default
   service:
     options:
       access_token_lifetime: 300

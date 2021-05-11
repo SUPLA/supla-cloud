@@ -15,15 +15,16 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Entity\Logs;
+namespace SuplaBundle\EntityLogs;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_temphumidity_log")
+ * @ORM\Table(name="supla_ic_log")
  */
-class TempHumidityLogItem {
+class ImpulseCounterLogItem {
     /**
      * @ORM\Id
      * @ORM\Column(name="channel_id", type="integer")
@@ -37,28 +38,29 @@ class TempHumidityLogItem {
     private $date;
 
     /**
-     * @ORM\Column(name="temperature", type="decimal", precision=8, scale=4)
+     * @ORM\Column(name="counter", type="bigint", nullable=false)
      */
-    private $temperature;
+    private $counter;
 
     /**
-     * @ORM\Column(name="humidity", type="decimal", precision=8, scale=4)
+     * @ORM\Column(name="calculated_value", type="bigint", nullable=false)
      */
-    private $humidity;
+    private $calculated_value;
 
-    public function getChannelId() {
+    public function getChannelId(): int {
         return $this->channel_id;
     }
 
+    /** @return DateTime */
     public function getDate() {
         return $this->date;
     }
 
-    public function getTemperature() {
-        return $this->temperature;
+    public function getCounter(): int {
+        return $this->counter;
     }
 
-    public function getHumidity() {
-        return $this->humidity;
+    public function getCalculatedValue(): float {
+        return $this->calculated_value / 1000.00;
     }
 }

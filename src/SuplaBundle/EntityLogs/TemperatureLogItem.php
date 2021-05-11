@@ -15,15 +15,15 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Entity\Logs;
+namespace SuplaBundle\EntityLogs;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_thermostat_log")
+ * @ORM\Table(name="supla_temperature_log")
  */
-class ThermostatLogItem {
+class TemperatureLogItem {
     /**
      * @ORM\Id
      * @ORM\Column(name="channel_id", type="integer")
@@ -37,19 +37,9 @@ class ThermostatLogItem {
     private $date;
 
     /**
-     * @ORM\Column(name="`on`", type="boolean", nullable=false)
+     * @ORM\Column(name="temperature", type="decimal", precision=8, scale=4)
      */
-    private $on = false;
-
-    /**
-     * @ORM\Column(name="measured_temperature", type="decimal", precision=5, scale=2)
-     */
-    private $measuredTemperature;
-
-    /**
-     * @ORM\Column(name="preset_temperature", type="decimal", precision=5, scale=2)
-     */
-    private $presetTemperature;
+    private $temperature;
 
     public function getChannelId() {
         return $this->channel_id;
@@ -59,15 +49,7 @@ class ThermostatLogItem {
         return $this->date;
     }
 
-    public function getOn() {
-        return $this->on;
-    }
-
-    public function getMeasuredTemperature() {
-        return $this->measuredTemperature;
-    }
-
-    public function getPresetTemperature() {
-        return $this->presetTemperature;
+    public function getTemperature() {
+        return $this->temperature;
     }
 }

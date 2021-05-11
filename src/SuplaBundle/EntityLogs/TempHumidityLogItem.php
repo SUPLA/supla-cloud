@@ -15,15 +15,15 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Entity\Logs;
+namespace SuplaBundle\EntityLogs;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_temperature_log")
+ * @ORM\Table(name="supla_temphumidity_log")
  */
-class TemperatureLogItem {
+class TempHumidityLogItem {
     /**
      * @ORM\Id
      * @ORM\Column(name="channel_id", type="integer")
@@ -41,6 +41,11 @@ class TemperatureLogItem {
      */
     private $temperature;
 
+    /**
+     * @ORM\Column(name="humidity", type="decimal", precision=8, scale=4)
+     */
+    private $humidity;
+
     public function getChannelId() {
         return $this->channel_id;
     }
@@ -51,5 +56,9 @@ class TemperatureLogItem {
 
     public function getTemperature() {
         return $this->temperature;
+    }
+
+    public function getHumidity() {
+        return $this->humidity;
     }
 }

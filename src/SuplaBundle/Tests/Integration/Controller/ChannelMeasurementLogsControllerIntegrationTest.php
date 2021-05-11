@@ -19,13 +19,13 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use DateInterval;
 use DateTime;
-use SuplaBundle\Entity\Logs\ElectricityMeterLogItem;
+use SuplaBundle\EntityLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\Main\EntityUtils;
-use SuplaBundle\Entity\Logs\ImpulseCounterLogItem;
+use SuplaBundle\EntityLogs\ImpulseCounterLogItem;
 use SuplaBundle\Entity\Main\IODevice;
-use SuplaBundle\Entity\Logs\TemperatureLogItem;
-use SuplaBundle\Entity\Logs\TempHumidityLogItem;
-use SuplaBundle\Entity\Logs\ThermostatLogItem;
+use SuplaBundle\EntityLogs\TemperatureLogItem;
+use SuplaBundle\EntityLogs\TempHumidityLogItem;
+use SuplaBundle\EntityLogs\ThermostatLogItem;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
