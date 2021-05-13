@@ -38,6 +38,12 @@ steps:
     commands:
       - cd src/frontend && npm run lint -s
 
+  - name: audit-frontend
+    image: node:14.16.1-slim
+    depends_on: [ install-frontend ]
+    commands:
+      - cd src/frontend && npm audit --production
+
   - name: install-backend
     image: supla/supla-cloud
     #    depends_on: [restore-cache]
