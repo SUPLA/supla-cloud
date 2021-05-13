@@ -1,12 +1,17 @@
 
  # SUPLA-CLOUD
  
- [![Latest release](https://img.shields.io/github/release/SUPLA/supla-cloud.svg)](https://github.com/SUPLA/supla-cloud/releases/latest)
- [![Build Status](https://travis-ci.org/SUPLA/supla-cloud.svg?branch=master)](https://travis-ci.org/SUPLA/supla-cloud)
-
 Your home connected. www.supla.org
 
-<img src="https://www.supla.org/assets/img/app-preview-en.png" height="500">
+[![Latest release](https://img.shields.io/github/release/SUPLA/supla-cloud.svg)](https://github.com/SUPLA/supla-cloud/releases/latest)
+
+
+| `master`        | `develop`           |
+| ------------- |:-------------|
+| [![Build Status](https://ci.supla.org/api/badges/SUPLA/supla-cloud/status.svg)](https://ci.supla.org/SUPLA/supla-cloud/) | [![Build Status](https://ci.supla.org/api/badges/SUPLA/supla-cloud/status.svg?ref=refs/heads/develop)](https://ci.supla.org/SUPLA/supla-cloud/) |
+
+
+<img src="https://www.supla.org/assets/img/cloud/pl/cloud-3.png" height="500">
 
 ## Installation
 
