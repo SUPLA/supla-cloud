@@ -153,11 +153,6 @@ class IODevice implements HasLocation, HasRelationsCount {
      */
     private $productId;
 
-    /**
-     * @ORM\Column(name="server_fingerprint", type="binary", length=16, nullable=true)
-     */
-    private $serverFingerprint;
-
     public function getEnabled() {
         return $this->enabled;
     }
