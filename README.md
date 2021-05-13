@@ -6,8 +6,8 @@ Your home connected. www.supla.org
 [![Latest release](https://img.shields.io/github/release/SUPLA/supla-cloud.svg)](https://github.com/SUPLA/supla-cloud/releases/latest)
 
 
-| `master`        | `develop`           |
-| ------------- |:-------------|
+| `master`        |  `develop`           |
+| ------------- |-------------|
 | [![Build Status](https://ci.supla.org/api/badges/SUPLA/supla-cloud/status.svg)](https://ci.supla.org/SUPLA/supla-cloud/) | [![Build Status](https://ci.supla.org/api/badges/SUPLA/supla-cloud/status.svg?ref=refs/heads/develop)](https://ci.supla.org/SUPLA/supla-cloud/) |
 
 
