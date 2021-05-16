@@ -34,14 +34,14 @@ class RelatedChannelsConnector implements SingleChannelParamsUpdater {
                 $this->clearAlreadyChosenChannels($updatedChannel, $possibleParamPairs, $sensorParamNo, $controllingParamNo);
                 $controllingId = $channel->getId();
                 $sensorId = $updatedChannel->getParam($controllingParamNo);
-                $controlling = $controllingId ? $this->channelRepository->findForUser($user, $controllingId) : null;
-                $sensor = $sensorId ? $this->channelRepository->findForUser($user, $sensorId) : null;
+                $controlling = $controllingId ? $this->channelRepository->findForUserOrNull($user, $controllingId) : null;
+                $sensor = $sensorId ? $this->channelRepository->findForUserOrNull($user, $sensorId) : null;
                 $currentSensorId = $controlling ? $controlling->getParam($controllingParamNo) : $sensorId;
                 $currentControllingId = $sensor ? $sensor->getParam($sensorParamNo) : $controllingId;
                 if ($sensor && $sensor->getFunction()->getId() !== $relatedFunction) {
                     continue;
                 }
-                if (!$sensorId || !$controllingId) {
+                if (!$sensor || !$controlling) {
                     $sensorId = $controllingId = 0;
                 }
                 if ($currentSensorId && $currentSensorId != $sensorId) {

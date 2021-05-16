@@ -39,6 +39,14 @@ abstract class EntityWithRelationsRepository extends EntityRepository {
         return $entity;
     }
 
+    public function findForUserOrNull(User $user, int $id) {
+        try {
+            return $this->findForUser($user, $id);
+        } catch (NotFoundHttpException $e) {
+            return null;
+        }
+    }
+
     public function findAllForUser(User $user): Collection {
         $query = $this->getEntityWithRelationsCountQuery()
             ->where($this->alias . '.user = :user')
