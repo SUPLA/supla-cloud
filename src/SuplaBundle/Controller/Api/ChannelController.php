@@ -168,9 +168,6 @@ class ChannelController extends RestController {
             } else {
                 $channel->setLocation($updatedChannel->getLocation());
             }
-            $channel->setCaption($updatedChannel->getCaption());
-            $channel->setHidden($updatedChannel->getHidden());
-            $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
             /** @var IODeviceChannel $channel */
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
                 $updatedChannel,
@@ -178,11 +175,12 @@ class ChannelController extends RestController {
                 $request,
                 $channel
             ) {
+                $channel->setCaption($updatedChannel->getCaption());
+                $channel->setHidden($updatedChannel->getHidden());
+                $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
                 $em->persist($channel);
                 if ($functionHasBeenChanged) {
                     $channel->setFunction($updatedChannel->getFunction());
-                    $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
-                    $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
                     foreach ($channel->getSchedules() as $schedule) {
                         $this->scheduleManager->delete($schedule);
                     }
@@ -191,6 +189,7 @@ class ChannelController extends RestController {
                     }
                     $channel->removeFromAllChannelGroups($em);
                 }
+                $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
                 $channel->setAltIcon($updatedChannel->getAltIcon());
                 $channel->setUserIcon($updatedChannel->getUserIcon());
                 $em->persist($channel);

@@ -245,6 +245,24 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::NONE, $sensorChannel->getFunction()->getId());
     }
 
+    public function testChangingChannelFunctionFromPowerswitchToOpeningGate() {
+        $client = $this->createAuthenticatedClient();
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
+        ]);
+        $relayChannel = $anotherDevice->getChannels()[0];
+        // change function to the opening gate with default params from GUI
+        $client->apiRequestV23('PUT', '/api/channels/' . $relayChannel->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
+            'param1' => 500,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->getEntityManager()->refresh($relayChannel);
+        $this->assertEquals(500, $relayChannel->getParam1(), 'Opening time has been set.');
+        $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATEWAYLOCK, $relayChannel->getFunction()->getId());
+    }
+
     public function testChangingChannelCaptionToEmoji() {
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
