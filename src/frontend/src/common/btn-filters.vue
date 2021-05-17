@@ -79,3 +79,11 @@
         }
     };
 </script>
+
+<style lang="scss">
+    .btn-filters {
+        .btn-group-filters {
+            margin-left: .5em;
+        }
+    }
+</style>
