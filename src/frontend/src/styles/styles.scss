@@ -30,24 +30,14 @@ body {
   color: $supla-white;
 }
 
-// disable autofill yellow color in Chrome
-@-webkit-keyframes autofill {
-  to {
-    color: #666;
-    background: transparent;
-  }
-}
-
-@-webkit-keyframes autofill-white {
-  to {
-    color: #fff;
-    background: transparent;
-  }
-}
-
-input:-webkit-autofill {
-  -webkit-animation-name: autofill;
-  -webkit-animation-fill-mode: both;
+// disable autofill yellow/blue color in Chrome
+// https://stackoverflow.com/a/14205976/878514
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+{
+  -webkit-box-shadow: 0 0 0 30px $supla-bg inset !important;
 }
 
 .form-group-lg {
