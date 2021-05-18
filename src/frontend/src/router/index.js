@@ -16,10 +16,10 @@ router.beforeEach((to, from, next) => {
     if (Vue.config.external.regulationsAcceptRequired) {
         if (Vue.prototype.$user.username && !Vue.prototype.$user.userData.agreements.rules && to.name != 'agree-on-rules') {
             next({name: 'agree-on-rules'});
-        } else {
-            next();
+            return;
         }
     }
+    next();
 });
 
 router.beforeEach((to, from, next) => {
