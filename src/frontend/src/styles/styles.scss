@@ -40,6 +40,10 @@ input:-webkit-autofill:active
   -webkit-box-shadow: 0 0 0 30px $supla-bg inset !important;
 }
 
+.form-group > .btn {
+  margin-left: .3em;
+}
+
 .form-group-lg {
   input:-webkit-autofill::first-line {
     font-size: 18px;
