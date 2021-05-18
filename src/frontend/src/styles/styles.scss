@@ -269,8 +269,10 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
   }
 }
 
-.btn-group-flexbox {
-
+dl {
+  dd {
+    padding-right: .3em;
+  }
 }
 
 .nav-tabs {

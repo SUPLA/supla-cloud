@@ -75,9 +75,6 @@
         dl {
             margin-bottom: 0;
             font-size: .95em;
-            dd {
-                padding-right: .3em;
-            }
             dd, dt {
                 display: inline;
             }

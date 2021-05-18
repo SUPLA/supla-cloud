@@ -234,4 +234,7 @@
         margin: 0;
         display: inline-block;
     }
+    .btn .caret {
+        margin-left: .3em;
+    }
 </style>
