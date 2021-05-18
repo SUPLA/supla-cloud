@@ -53,6 +53,8 @@ DirectoryIndex app.php
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
+    RewriteRule (.+icon.*\.((png)|(ico)))$ assets/img/favicons/$1 [L]
+
     # Rewrite all other queries to the front controller.
     RewriteRule ^ %{ENV:BASE}/app.php [L]
 </IfModule>
