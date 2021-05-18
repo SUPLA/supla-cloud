@@ -1,7 +1,8 @@
 export default [
     {path: '/', component: () => import("@/home/my-supla-page"), name: 'me'},
     {path: '/me', redirect: '/'}, // backward compat
-    {path: '/old-config', component: () => import("@/home/home-page")},
+    {path: '/home', component: () => import("@/home/home-page"), name: 'home'},
+    {path: '/old-config', redirect: '/home'}, // backward compat
     {
         path: '/login',
         component: () => import("@/login/login-page"),

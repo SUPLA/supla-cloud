@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <router-link to="/"
+                <router-link :to="{name: 'home'}"
                     class="navbar-brand">
                     <supla-logo></supla-logo>
                     supla
@@ -26,7 +26,7 @@
                         active-class="link-active"
                         exact-active-class="active"
                         :class="{'active': subIsActive(['/devices', '/channels'])}"
-                        to="/">
+                        :to="{name: 'me'}">
                         <a>
                             <i class="hidden-sm hidden-xs pe-7s-plug"></i>
                             {{ $t('My SUPLA') }}
