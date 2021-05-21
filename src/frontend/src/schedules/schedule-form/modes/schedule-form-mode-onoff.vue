@@ -21,8 +21,12 @@
 
                     <div class="col-md-6">
                         <schedule-form-mode-daily-hour
+                            v-model="action.timeExpression"
+                            :weekdays="[currentDay]"
                             v-if="action.type === 'hour'"></schedule-form-mode-daily-hour>
                         <schedule-form-mode-daily-sun
+                            v-model="action.timeExpression"
+                            :weekdays="[currentDay]"
                             v-if="action.type === 'sun'"></schedule-form-mode-daily-sun>
                     </div>
                     <div class="col-md-6">
@@ -102,5 +106,10 @@
             }
             this.updateTimeExpression();
         },
+        computed: {
+            // theValue() {
+            //     this.config
+            // }
+        }
     };
 </script>
