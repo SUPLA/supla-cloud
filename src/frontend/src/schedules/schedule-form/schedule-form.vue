@@ -94,7 +94,14 @@
                         <div class="well"
                             v-else>
                             <h3 class="no-margin-top">{{ $t('Plan') }}</h3>
-                            <schedule-form-mode-onoff v-model="schedule.timeExpression" :subject="schedule.subject"></schedule-form-mode-onoff>
+                            <div v-if="schedule.subject">
+
+                                <schedule-form-mode-onoff v-model="schedule.timeExpression"
+                                    :subject="schedule.subject"></schedule-form-mode-onoff>
+                            </div>
+                            <div class="v-else">
+                                Najpier wybierz
+                            </div>
                         </div>
                     </div>
                 </div>
