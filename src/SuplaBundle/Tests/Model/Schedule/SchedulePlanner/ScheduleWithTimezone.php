@@ -30,7 +30,11 @@ class ScheduleWithTimezone extends Schedule {
         $this->setDateStart(new DateTime());
         $this->setAction(ChannelFunctionAction::TURN_ON());
         if ($timeSpec) {
-            $this->setTimeExpression($timeSpec);
+            if (is_array($timeSpec)) {
+                $this->setConfig($timeSpec);
+            } else {
+                $this->setTimeExpression($timeSpec);
+            }
         }
     }
 }
