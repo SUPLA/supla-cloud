@@ -13,19 +13,19 @@
                     @click="nextDay()">&gt;</a></div>
             </div>
         </div>
-        {{ config }}
+<!--        {{ config }}-->
+        {{ theValue }}
         <div v-if="config[currentDay]">
             <div class="form-group"
                 v-for="action in config[currentDay]">
                 <div class="row">
-
                     <div class="col-md-6">
                         <schedule-form-mode-daily-hour
-                            v-model="action.timeExpression"
+                            v-model="action.crontab"
                             :weekdays="[currentDay]"
                             v-if="action.type === 'hour'"></schedule-form-mode-daily-hour>
                         <schedule-form-mode-daily-sun
-                            v-model="action.timeExpression"
+                            v-model="action.crontab"
                             :weekdays="[currentDay]"
                             v-if="action.type === 'sun'"></schedule-form-mode-daily-sun>
                     </div>
@@ -60,6 +60,7 @@
     import ScheduleFormModeDailyHour from "@/schedules/schedule-form/modes/schedule-form-mode-daily-hour";
     import ScheduleFormModeDailySun from "@/schedules/schedule-form/modes/schedule-form-mode-daily-sun";
     import ChannelActionChooser from "@/channels/action/channel-action-chooser";
+    import {mapValues, toArray, flatten} from "lodash";
 
     export default {
         components: {ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
@@ -72,7 +73,7 @@
             };
         },
         methods: {
-            updateTimeExpression() {
+            updatecrontab() {
                 this.minutes = Math.min(Math.max(this.roundTo5(this.minutes), 5), 300);
                 const cronExpression = '*/' + this.minutes + ' * * * *';
                 // this.$emit('input', cronExpression);
@@ -100,16 +101,22 @@
             },
         },
         mounted() {
-            let currentMinutes = this.value && this.value.match(/^\*\/([0-9]+)/);
-            if (currentMinutes) {
-                this.minutes = +currentMinutes[1];
-            }
-            this.updateTimeExpression();
+            // this.crontab = this.value;
+            // const parts = this.value.split(' ');
+            // if (parts[4] != '*') {
+            //     this.weekdays = parts[4].split(',');
+            // }
+            // if (this.value[0] == 'S') {
+            //     this.hourChooseMode = 'sun';
+            // }
         },
         computed: {
-            // theValue() {
-            //     this.config
-            // }
+            theValue() {
+                const mapped = mapValues(this.config, (array) => {
+                    return array.map(({crontab, action}) => ({crontab, action}));
+                });
+                return flatten(toArray(mapped)).filter(({action}) => action);
+            }
         }
     };
 </script>

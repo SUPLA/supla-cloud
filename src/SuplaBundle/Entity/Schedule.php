@@ -160,6 +160,7 @@ class Schedule implements HasSubject {
         $this->setMode(new ScheduleMode($data['mode']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
+        $this->setConfig($data['config'] ?? null);
     }
 
     public function getId() {
@@ -232,6 +233,10 @@ class Schedule implements HasSubject {
     /** @return array|null */
     public function getConfig() {
         return $this->config ? json_decode($this->config, true) : null;
+    }
+
+    public function setConfig($config) {
+        $this->config = $config ? json_encode($config) : null;
     }
 
     public function getMode(): ScheduleMode {
