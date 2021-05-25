@@ -5,7 +5,9 @@
             <li v-for="(execution, $index) in executions.past"
                 :key="$index"
                 :class="'past past' + (executions.past.length - $index) + (execution.failed ? ' failed' : '')">
-                <span class="label label-default">{{ $t(execution.action.caption) }}</span>
+                <div>
+                    <span class="label label-default">{{ $t(execution.action.caption) }}</span>
+                </div>
                 {{ (execution.resultTimestamp || execution.plannedTimestamp) | moment('LLLL') }}
                 <div class="small"
                     v-if="execution.id != 1">
@@ -16,7 +18,9 @@
                 <li :class="'future future' + $index"
                     :key="$index"
                     v-for="(execution, $index) in executions.future">
-                    <span class="label label-default">{{ $t(execution.action.caption) }}</span>
+                    <div>
+                        <span class="label label-default">{{ $t(execution.action.caption) }}</span>
+                    </div>
                     {{ execution.plannedTimestamp | moment('LLLL') }}
                 </li>
             </template>
@@ -60,7 +64,7 @@
         font-size: 1.2em;
 
         li {
-            margin-bottom: 5px;
+            margin-bottom: .7em;
         }
 
         .past3 {

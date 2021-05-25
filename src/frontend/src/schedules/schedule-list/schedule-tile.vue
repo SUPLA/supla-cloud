@@ -47,7 +47,7 @@
                 return this.model.caption || this.$t('Schedule') + ' ID' + this.model.id;
             },
             scheduleLabel() {
-                return this.$t(this.model.action?.caption) + ' ' + channelTitle(this.model.subject, this);
+                return this.model.action ? this.$t(this.model.action.caption) : this.$t('Managing') + ' ' + channelTitle(this.model.subject, this);
             },
             nearestExecution() {
                 if (this.model.closestExecutions.future.length) {

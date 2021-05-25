@@ -170,9 +170,9 @@ class ScheduleManager {
                 Assertion::notNull($schedule->getConfig());
                 break;
         }
+        $this->schedulePlanner->validateSchedule($schedule);
         $configLength = strlen(json_encode($schedule->getConfig()));
         Assertion::lessThan($configLength, 1020, 'Config of the schedule is too complicated.'); // i18n
-        $this->schedulePlanner->validateSchedule($schedule);
         $nextScheduleExecutions = $this->getNextScheduleExecutions($schedule, '+5days', 1, true);
         Assertion::notEmpty($nextScheduleExecutions, 'Cannot calculate when to run the schedule - incorrect configuration?'); // i18n
     }

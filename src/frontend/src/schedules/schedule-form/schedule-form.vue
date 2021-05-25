@@ -91,14 +91,12 @@
                         </div>
                         <div class="well"
                             v-else>
-                            {{ schedule.config }}
-                            <h3 class="no-margin-top">{{ $t('Plan') }}</h3>
                             <div v-if="schedule.subject">
                                 <schedule-form-mode-daily v-model="schedule.config"
                                     :subject="schedule.subject"></schedule-form-mode-daily>
                             </div>
-                            <div class="v-else">
-                                Najpierw wybierz
+                            <div v-else>
+                                {{ $t('Please choose the schedule subject first.') }}
                             </div>
                         </div>
                     </div>
