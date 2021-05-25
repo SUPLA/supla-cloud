@@ -166,6 +166,7 @@ class ScheduleManager {
                 $schedule->setConfig(null);
                 break;
             case ScheduleMode::DAILY:
+            case ScheduleMode::CRONTAB:
                 Assertion::notNull($schedule->getConfig());
                 $schedule->setAction(null);
                 $schedule->setTimeExpression(null);

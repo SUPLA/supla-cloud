@@ -124,6 +124,7 @@
             removeItem(item) {
                 const index = this.config[this.currentDay].indexOf(item);
                 this.config[this.currentDay].splice(index, 1);
+                this.updateConfig();
             }
         },
         mounted() {

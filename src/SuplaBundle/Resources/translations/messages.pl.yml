@@ -610,6 +610,7 @@ choose the timezone: wybierz strefę czasową
 copied: skopiowano
 copy: kopiuj
 daily: Tygodniowy
+crontab: Zaawansowany
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
 directLinkExecutionFailureReason_expired: Link bezpośredni wygasł
