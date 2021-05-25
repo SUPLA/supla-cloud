@@ -18,17 +18,18 @@
 namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class ScheduleTest extends \PHPUnit_Framework_TestCase {
+class ScheduleTest extends PHPUnit_Framework_TestCase {
     public function testSettingTheCronExpression() {
         $schedule = new Schedule();
         $schedule->setTimeExpression('*/5 * * * * *');
         $this->assertEquals('*/5 * * * * *', $schedule->getTimeExpression());
     }
 
-    public function testFillRequiredTimeExpression() {
+    public function testErrorWhenNoMode() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
         $schedule->fill([]);

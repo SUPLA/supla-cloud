@@ -142,6 +142,8 @@ class Schedule implements HasSubject {
     }
 
     public function fill(array $data) {
+        Assertion::keyIsset($data, 'mode', 'No schedule mode given.');
+        $this->setMode(new ScheduleMode($data['mode']));
         $this->setTimeExpression($data['timeExpression'] ?? null);
         if ($data['subject'] ?? null) {
             $this->initializeSubject($data['subject']);
@@ -150,7 +152,6 @@ class Schedule implements HasSubject {
         $this->setActionParam($data['actionParam'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new DateTime() : DateTime::createFromFormat(DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : DateTime::createFromFormat(DateTime::ATOM, $data['dateEnd']));
-        $this->setMode(new ScheduleMode($data['mode']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
         $this->setConfig($data['config'] ?? null);
