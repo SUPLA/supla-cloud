@@ -31,7 +31,7 @@ interface SchedulePlanner {
      * @return ScheduledExecution the next execution
      * @throws RuntimeException if the next run date could not be calculated
      */
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate);
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution;
 
     /**
      * Checks if it can calculate the next run date for given schedule.
@@ -39,5 +39,13 @@ interface SchedulePlanner {
      * @param Schedule $schedule the schedule to calculate the next run date for
      * @return boolean true if the calculation is possible, false otherwise
      */
-    public function canCalculateFor(Schedule $schedule);
+    public function canCalculateFor(Schedule $schedule): bool;
+
+    /**
+     * Checks whether the schedule configuration is valid for this schedule planner.
+     *
+     * @param Schedule $schedule
+     * @throws RuntimeException if the schedule is invalid
+     */
+    public function validate(Schedule $schedule);
 }

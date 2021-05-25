@@ -17,17 +17,20 @@
 
 namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
+use Assert\Assertion;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use RuntimeException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ScheduleMode;
 
 class IntervalSchedulePlanner implements SchedulePlanner {
 
     const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,3})( \*)*$#';
 
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $schedule->getTimeExpression(), $matches);
         $intervalInMinutes = intval($matches[1]);
         $period = "PT{$intervalInMinutes}M";
@@ -41,7 +44,12 @@ class IntervalSchedulePlanner implements SchedulePlanner {
         return new ScheduledExecution($schedule, $nextRunDate);
     }
 
-    public function canCalculateFor(Schedule $schedule) {
-        return !!preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $schedule->getTimeExpression());
+    public function canCalculateFor(Schedule $schedule): bool {
+        return $schedule->getMode()->getValue() === ScheduleMode::MINUTELY;
+    }
+
+    public function validate(Schedule $schedule) {
+        $validCrontab = !!preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $schedule->getTimeExpression());
+        Assertion::true($validCrontab, 'Invalid cron expression for minutely schedule.');
     }
 }

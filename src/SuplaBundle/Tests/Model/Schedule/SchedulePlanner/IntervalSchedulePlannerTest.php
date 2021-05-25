@@ -19,7 +19,9 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use PHPUnit\Framework\TestCase;
 use DateTime;
+use InvalidArgumentException;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 
 class IntervalSchedulePlannerTest extends TestCase {
@@ -28,11 +30,12 @@ class IntervalSchedulePlannerTest extends TestCase {
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
         $schedulePlanner = new IntervalSchedulePlanner();
-        $schedule = new ScheduleWithTimezone($cronExpression, 'UTC');
+        $schedule = new ScheduleWithTimezone($cronExpression, 'UTC', ScheduleMode::MINUTELY());
         $format = 'Y-m-d H:i';
         $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
         $startDate = DateTime::createFromFormat($format, $startDate, $schedule->getUserTimezone());
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
+        $schedulePlanner->validate($schedule);
         $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
         $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
     }
@@ -58,8 +61,11 @@ class IntervalSchedulePlannerTest extends TestCase {
     public function testDoesNotSupportInvalidIntervalExpressions($invalidCronExpression) {
         $schedulePlanner = new IntervalSchedulePlanner();
         $schedule = new Schedule();
+        $schedule->setMode(ScheduleMode::MINUTELY());
         $schedule->setTimeExpression($invalidCronExpression);
-        $this->assertFalse($schedulePlanner->canCalculateFor($schedule));
+        $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
+        $this->expectException(InvalidArgumentException::class);
+        $schedulePlanner->validate($schedule);
     }
 
     public function invalidCronExpressions() {

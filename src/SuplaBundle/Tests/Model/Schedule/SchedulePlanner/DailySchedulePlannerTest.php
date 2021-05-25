@@ -21,6 +21,7 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use DateTime;
 use DateTimeZone;
+use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -32,7 +33,7 @@ use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 date_default_timezone_set('UTC');
 
-class DailySchedulePlannerIntegrationTest extends PHPUnit_Framework_TestCase {
+class DailySchedulePlannerTest extends PHPUnit_Framework_TestCase {
     /** @var DailySchedulePlanner */
     private $planner;
 
@@ -90,5 +91,46 @@ class DailySchedulePlannerIntegrationTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
         $this->assertEquals(ChannelFunctionAction::SET_RGBW_PARAMETERS, $nextExecution->getAction()->getId());
         $this->assertEquals(['hue' => 50], $nextExecution->getActionParam());
+    }
+
+    /** @dataProvider configs */
+    public function testSimplifyingConfig(array $config, array $expectedConfig) {
+        $schedule = new ScheduleWithTimezone($config);
+        $this->planner->validate($schedule);
+        $this->assertEquals($expectedConfig, $schedule->getConfig());
+    }
+
+    public function configs(): array {
+        return [
+            [
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+            ],
+            [
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN], 'extra' => 'unicorn']],
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+            ],
+            [
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN, 'extra' => 'unicorn']]],
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+            ],
+        ];
+    }
+
+    /** @dataProvider invalidConfigs */
+    public function testInvalidConfig(array $config) {
+        $this->expectException(InvalidArgumentException::class);
+        $schedule = new ScheduleWithTimezone($config);
+        $this->planner->validate($schedule);
+    }
+
+    public function invalidConfigs(): array {
+        return [
+            [[]],
+            [[[]]],
+            [[['unicorn' => 'blabla']]],
+            [[['cron' => '10 10 * * *']]],
+            [[['cron' => ['10 10 * * *'], 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
+        ];
     }
 }

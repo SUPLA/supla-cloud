@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
@@ -82,7 +83,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingIntervalWhenDstChangesBackward() {
-        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Europe/Warsaw');
+        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Europe/Warsaw', ScheduleMode::MINUTELY());
         $runDates = array_map(
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2018-10-28 03:05', '2018-10-28 01:50')
@@ -103,7 +104,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingIntervalWhenDstChangesBackwardInAmericaWinnipeg() {
-        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'America/Winnipeg');
+        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'America/Winnipeg', ScheduleMode::MINUTELY());
         $runDates = array_map(
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2018-11-04 02:05', '2018-11-04 00:50')
@@ -180,7 +181,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testMinutesBasedSchedulesAreRelativeToStartTime() {
-        $schedule = new ScheduleWithTimezone('*/10 * * * *', 'UTC');
+        $schedule = new ScheduleWithTimezone('*/10 * * * *', 'UTC', ScheduleMode::MINUTELY());
         $examples = [
             '2017-07-01 15:00:00' => '2017-07-01 15:10',
             '2017-07-01 15:01:00' => '2017-07-01 15:10',
@@ -194,7 +195,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingIntervalDatesWithSpecificStartTime() {
-        $schedule = new ScheduleWithTimezone('*/35 * * * *', 'Europe/Warsaw');
+        $schedule = new ScheduleWithTimezone('*/35 * * * *', 'Europe/Warsaw', ScheduleMode::MINUTELY());
         $runDates = array_map(
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2017-01-02 00:00', '2017-01-01 04:33')

@@ -171,7 +171,8 @@ class Schedule implements HasSubject {
         return $this->user;
     }
 
-    public function getTimeExpression(): string {
+    /** @return string|null */
+    public function getTimeExpression() {
         return $this->timeExpression;
     }
 

@@ -17,13 +17,15 @@
 
 namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
+use Assert\Assertion;
 use Cron\CronExpression;
 use DateTime;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ScheduleMode;
 
 class CronExpressionSchedulePlanner implements SchedulePlanner {
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         $nextRunDate = $this->calculateNextRunDateForExpression($schedule->getTimeExpression(), $currentDate);
         return new ScheduledExecution($schedule, $nextRunDate);
     }
@@ -33,7 +35,13 @@ class CronExpressionSchedulePlanner implements SchedulePlanner {
         return $cron->getNextRunDate($currentDate);
     }
 
-    public function canCalculateFor(Schedule $schedule) {
-        return CronExpression::isValidExpression($schedule->getTimeExpression());
+    public function canCalculateFor(Schedule $schedule): bool {
+        return in_array($schedule->getMode()->getValue(), [ScheduleMode::ONCE, ScheduleMode::HOURLY])
+            && CronExpression::isValidExpression($schedule->getTimeExpression());
+    }
+
+    public function validate(Schedule $schedule) {
+        $valid = CronExpression::isValidExpression($schedule->getTimeExpression());
+        Assertion::true($valid, 'Invalid CRON expression.');
     }
 }

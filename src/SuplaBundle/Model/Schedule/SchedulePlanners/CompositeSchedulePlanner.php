@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
+use Assert\Assertion;
 use DateTime;
 use DateTimeZone;
 use SuplaBundle\Entity\Schedule;
@@ -78,6 +79,17 @@ class CompositeSchedulePlanner {
             }
             return $scheduleExecutions;
         });
+    }
+
+    public function validateSchedule(Schedule $schedule) {
+        $canCalculate = false;
+        foreach ($this->planners as $planner) {
+            if ($planner->canCalculateFor($schedule)) {
+                $canCalculate = true;
+                $planner->validate($schedule);
+            }
+        }
+        Assertion::true($canCalculate, 'Invalid schedule.');
     }
 
     public static function wrapInScheduleTimezone(Schedule $schedule, $function) {

@@ -17,11 +17,14 @@
 
 namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
+use Assert\Assertion;
 use Cron\CronExpression;
 use DateInterval;
 use DateTime;
+use RuntimeException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ScheduleMode;
 
 class SunriseSunsetSchedulePlanner implements SchedulePlanner {
 
@@ -30,7 +33,7 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner {
     const MINIMUM_SECONDS_TO_NEXT_SUN = 360;
 
     /** @inheritdoc */
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
             $currentDate = $this->getNextDueDate($schedule, $currentDate);
             $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $currentDate);
@@ -90,7 +93,13 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner {
         return CronExpression::factory(implode(' ', $parts));
     }
 
-    public function canCalculateFor(Schedule $schedule) {
-        return !!preg_match(self::SPECIFICATION_REGEX, $schedule->getTimeExpression());
+    public function canCalculateFor(Schedule $schedule): bool {
+        return $schedule->getMode()->getValue() === ScheduleMode::ONCE &&
+            !!preg_match(self::SPECIFICATION_REGEX, $schedule->getTimeExpression());
+    }
+
+    public function validate(Schedule $schedule) {
+        $valid = !!preg_match(self::SPECIFICATION_REGEX, $schedule->getTimeExpression());
+        Assertion::true($valid, 'Invalid sun expression.');
     }
 }
