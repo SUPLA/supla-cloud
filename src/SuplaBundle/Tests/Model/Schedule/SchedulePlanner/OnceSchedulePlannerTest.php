@@ -22,15 +22,15 @@ use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
+use SuplaBundle\Model\Schedule\SchedulePlanners\OnceSchedulePlanner;
 
-class CronExpressionSchedulePlannerTest extends PHPUnit_Framework_TestCase {
+class OnceSchedulePlannerTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider calculatingNextRunDateProvider
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
-        $schedulePlanner = new CronExpressionSchedulePlanner();
-        $schedule = new ScheduleWithTimezone();
-        $schedule->setTimeExpression($cronExpression);
+        $schedulePlanner = new OnceSchedulePlanner();
+        $schedule = new ScheduleWithTimezone($cronExpression, 'Europe/Warsaw', ScheduleMode::ONCE());
         $format = 'Y-m-d H:i';
         $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
         $startDate = DateTime::createFromFormat($format, $startDate);
@@ -41,14 +41,7 @@ class CronExpressionSchedulePlannerTest extends PHPUnit_Framework_TestCase {
 
     public function calculatingNextRunDateProvider() {
         return [
-            ['2017-01-01 00:00', '*/5 * * * *', '2017-01-01 00:05'], // every 5 minutes
-            ['2017-01-01 00:00', '34 12 * * 4', '2017-01-05 12:34'], // 12:34 in thursdays
-            ['2017-01-01 00:00', '0 23 13 * *', '2017-01-13 23:00'], // 13 day of month, 23:00
-            ['2017-01-01 00:00', '0 7 29 2 *', '2020-02-29 07:00'], // 29 February, 7:00 from 2017 year
-            ['2021-01-01 00:00', '0 7 29 2 *', '2024-02-29 07:00'], // 29 February, 7:00 from 2021 year
-            ['2021-01-01 00:00', '0 3,19 * * *', '2021-01-01 03:00'],
-            ['2021-01-01 00:00', '0 3,19 * * WED#2,MON#3', '2021-01-13 03:00'],
-            ['2021-01-01 00:00', '0 3,19 L * *', '2021-01-31 03:00'],
+            ['2017-01-01 00:00', '23 11 5 12 * 2089', '2089-12-05 11:23'], // run once
         ];
     }
 
@@ -67,13 +60,7 @@ class CronExpressionSchedulePlannerTest extends PHPUnit_Framework_TestCase {
         return [
             [''],
             ['S * * * *'],
+            ['S * * * * 2050'],
         ];
-    }
-
-    public function testPreservingTimezone() {
-        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Australia/Sydney');
-        $schedulePlanner = new CronExpressionSchedulePlanner();
-        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, new DateTime('now', $schedule->getUserTimezone()));
-        $this->assertEquals($schedule->getUserTimezone(), $nextExecution->getPlannedTimestamp()->getTimezone());
     }
 }
