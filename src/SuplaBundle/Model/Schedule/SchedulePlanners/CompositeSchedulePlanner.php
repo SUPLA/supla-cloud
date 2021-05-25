@@ -29,7 +29,7 @@ class CompositeSchedulePlanner {
     /** @var SchedulePlanner[] */
     private $planners;
 
-    public function __construct(array $planners) {
+    public function __construct(iterable $planners) {
         $this->planners = $planners;
     }
 
