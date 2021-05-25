@@ -42,8 +42,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ScheduleController extends RestController {
     /** @var ScheduleRepository */
     private $scheduleRepository;
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
     /** @var ChannelGroupRepository */
     private $channelGroupRepository;
     /** @var IODeviceChannelRepository */
@@ -55,11 +53,9 @@ class ScheduleController extends RestController {
         ScheduleRepository $scheduleRepository,
         ChannelGroupRepository $channelGroupRepository,
         IODeviceChannelRepository $channelRepository,
-        ChannelActionExecutor $channelActionExecutor,
         ScheduleManager $scheduleManager
     ) {
         $this->scheduleRepository = $scheduleRepository;
-        $this->channelActionExecutor = $channelActionExecutor;
         $this->channelGroupRepository = $channelGroupRepository;
         $this->channelRepository = $channelRepository;
         $this->scheduleManager = $scheduleManager;
@@ -157,9 +153,7 @@ class ScheduleController extends RestController {
         Assert::that($data)
             ->notEmptyKey('subjectId')
             ->notEmptyKey('subjectType')
-            ->notEmptyKey('actionId')
-            ->notEmptyKey('mode')
-            ->notEmptyKey('timeExpression');
+            ->notEmptyKey('mode');
         $subject = null;
         if ($data['subjectType'] == ActionableSubjectType::CHANNEL) {
             $subject = $this->channelRepository->findForUser($this->getUser(), $data['subjectId']);
@@ -168,11 +162,6 @@ class ScheduleController extends RestController {
         }
         Assertion::notNull($subject, 'Invalid schedule subject.');
         $data['subject'] = $subject;
-        $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
-            $subject,
-            new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON),
-            $data['actionParam'] ?? []
-        );
         $schedule->fill($data);
         $this->scheduleManager->validateSchedule($schedule);
         return $schedule;

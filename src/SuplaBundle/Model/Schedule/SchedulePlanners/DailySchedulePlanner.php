@@ -55,11 +55,10 @@ class DailySchedulePlanner implements SchedulePlanner {
         Assertion::null($schedule->getTimeExpression(), 'Daily schedule in an old format. Use config instead.');
         Assertion::isArray($schedule->getConfig(), 'Invalid schedule config (not an array).');
         $newConfig = [];
-        $deduplicated = [];
         foreach (array_values($schedule->getConfig()) as $configItem) {
-            $configItem = ArrayUtils::leaveKeys($configItem, ['cron', 'action']);
+            $configItem = ArrayUtils::leaveKeys($configItem, ['crontab', 'action']);
             Assertion::count($configItem, 2, 'Invalid schedule config (incorrect config item).');
-            Assertion::string($configItem['cron'], 'Invalid schedule config (incorrect crontab).');
+            Assertion::string($configItem['crontab'], 'Invalid schedule config (incorrect crontab).');
             Assertion::isArray($configItem['action'], 'Invalid schedule config (incorrect action).');
             $action = ArrayUtils::leaveKeys($configItem['action'], ['id', 'param']);
             Assertion::between(count($action), 1, 2, 'Invalid schedule config (incorrect action).');
@@ -67,7 +66,7 @@ class DailySchedulePlanner implements SchedulePlanner {
             Assertion::true(ChannelFunctionAction::isValid($action['id']), 'Invalid schedule config (incorrect action ID).');
             Assertion::isArray($action['param'] ?? [], 'Invalid schedule config (incorrect action param).');
             $configItem['action'] = $action;
-            $cronParts = explode(' ', $configItem['cron']);
+            $cronParts = explode(' ', $configItem['crontab']);
             Assertion::count($cronParts, 5, 'Invalid schedule config (incorrect crontab).');
             $weekdayPart = array_pop($cronParts);
             if ($weekdayPart === '*') {
@@ -76,13 +75,13 @@ class DailySchedulePlanner implements SchedulePlanner {
                 $weekdays = explode(',', $weekdayPart);
                 foreach ($weekdays as $weekday) {
                     Assertion::numeric($weekday, 'Invalid schedule config (incorrect weekday).');
-                    Assertion::between($weekday, 1, 7, 'Invalid schedule config (incorrect weekday).');
+                    Assertion::between($weekday, 0, 7, 'Invalid schedule config (incorrect weekday).');
                 }
             }
             $cronWithoutWeekday = implode(' ', $cronParts);
             $checksum = sha1(implode('|', [$cronWithoutWeekday, $configItem['action']['id'], json_encode($configItem['action']['param'] ?? [])]));
             if (!isset($newConfig[$checksum])) {
-                $configItem['cron'] = $cronWithoutWeekday;
+                $configItem['crontab'] = $cronWithoutWeekday;
                 $newConfig[$checksum] = [
                     'item' => $configItem,
                     'weekdays' => $weekdays,
@@ -100,7 +99,7 @@ class DailySchedulePlanner implements SchedulePlanner {
                 $weekdays = implode(',', $weekdays);
             }
             return [
-                'cron' => $array['item']['cron'] . ' ' . $weekdays,
+                'crontab' => $array['item']['crontab'] . ' ' . $weekdays,
                 'action' => $array['item']['action'],
             ];
         }, $newConfig);

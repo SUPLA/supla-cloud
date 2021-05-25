@@ -33,6 +33,8 @@ use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ScheduleMode;
+use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\TimeProvider;
@@ -50,12 +52,15 @@ class ScheduleManager {
     private $schedulePlanner;
     /** @var TimeProvider */
     private $timeProvider;
+    /** @var ChannelActionExecutor */
+    private $channelActionExecutor;
 
     public function __construct(
         ManagerRegistry $doctrine,
         IODeviceManager $ioDeviceManager,
         CompositeSchedulePlanner $schedulePlanner,
-        TimeProvider $timeProvider
+        TimeProvider $timeProvider,
+        ChannelActionExecutor $channelActionExecutor
     ) {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
@@ -63,6 +68,7 @@ class ScheduleManager {
         $this->ioDeviceManager = $ioDeviceManager;
         $this->schedulePlanner = $schedulePlanner;
         $this->timeProvider = $timeProvider;
+        $this->channelActionExecutor = $channelActionExecutor;
     }
 
     /** @return IODeviceChannel[] */
@@ -146,6 +152,24 @@ class ScheduleManager {
     }
 
     public function validateSchedule(Schedule $schedule) {
+        switch ($schedule->getMode()->getValue()) {
+            case ScheduleMode::ONCE:
+            case ScheduleMode::MINUTELY:
+            case ScheduleMode::HOURLY:
+                Assertion::notNull($schedule->getTimeExpression());
+                Assertion::notNull($schedule->getAction());
+                $this->channelActionExecutor->validateActionParams(
+                    $schedule->getSubject(),
+                    $schedule->getAction(),
+                    $schedule->getActionParam() ?? []
+                );
+                break;
+            case ScheduleMode::DAILY:
+                Assertion::null($schedule->getAction());
+                Assertion::null($schedule->getTimeExpression());
+                Assertion::notNull($schedule->getConfig());
+                break;
+        }
         $configLength = strlen(json_encode($schedule->getConfig()));
         Assertion::lessThan($configLength, 1020, 'Config of the schedule is too complicated.'); // i18n
         $this->schedulePlanner->validateSchedule($schedule);
