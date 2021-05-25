@@ -27,10 +27,8 @@ use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ScheduleListQuery;
@@ -41,8 +39,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ScheduleController extends RestController {
     /** @var ScheduleRepository */
     private $scheduleRepository;
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
     /** @var ScheduleManager */
     private $scheduleManager;
     /** @var ActionableSubjectRepository */
@@ -50,12 +46,10 @@ class ScheduleController extends RestController {
 
     public function __construct(
         ScheduleRepository $scheduleRepository,
-        ChannelActionExecutor $channelActionExecutor,
         ActionableSubjectRepository $subjectRepository,
         ScheduleManager $scheduleManager
     ) {
         $this->scheduleRepository = $scheduleRepository;
-        $this->channelActionExecutor = $channelActionExecutor;
         $this->scheduleManager = $scheduleManager;
         $this->subjectRepository = $subjectRepository;
     }
@@ -164,16 +158,9 @@ class ScheduleController extends RestController {
         Assert::that($data)
             ->notEmptyKey('subjectId')
             ->notEmptyKey('subjectType')
-            ->notEmptyKey('actionId')
-            ->notEmptyKey('mode')
-            ->notEmptyKey('timeExpression');
+            ->notEmptyKey('mode');
         $subject = $this->subjectRepository->findForUser($this->getUser(), $data['subjectType'], $data['subjectId']);
         $data['subject'] = $subject;
-        $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
-            $subject,
-            new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON),
-            $data['actionParam'] ?? []
-        );
         $schedule->fill($data);
         $this->scheduleManager->validateSchedule($schedule);
         return $schedule;
