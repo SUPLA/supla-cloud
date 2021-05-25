@@ -100,7 +100,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDoesNotDisableFutureOnceSchedule() {
-        $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088', ['mode' => ScheduleMode::MINUTELY]);
+        $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088', ['mode' => ScheduleMode::ONCE]);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertTrue($schedule->getEnabled());
