@@ -21,7 +21,6 @@ use Assert\Assertion;
 use Cron\CronExpression;
 use DateInterval;
 use DateTime;
-use RuntimeException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ScheduleMode;
@@ -90,7 +89,7 @@ class SunriseSunsetSchedulePlanner implements SchedulePlanner {
         $parts = explode(' ', $schedule->getTimeExpression());
         $parts[0] = '*';
         $parts[1] = '*';
-        return CronExpression::factory(implode(' ', $parts));
+        return new CronExpression(implode(' ', $parts));
     }
 
     public function canCalculateFor(Schedule $schedule): bool {
