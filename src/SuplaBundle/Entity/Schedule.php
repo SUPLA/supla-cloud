@@ -148,12 +148,11 @@ class Schedule implements HasSubject {
     }
 
     public function fill(array $data) {
-        Assert::that($data)->notEmptyKey('timeExpression');
-        $this->setTimeExpression($data['timeExpression']);
+        $this->setTimeExpression($data['timeExpression'] ?? null);
         if ($data['subject'] ?? null) {
             $this->initializeSubject($data['subject']);
         }
-        $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
+        $this->setAction(($data['actionId'] ?? null) ? new ChannelFunctionAction($data['actionId']) : null);
         $this->setActionParam($data['actionParam'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
@@ -176,9 +175,11 @@ class Schedule implements HasSubject {
         return $this->timeExpression;
     }
 
-    public function setTimeExpression(string $timeExpression) {
-        $parts = explode(' ', $timeExpression);
-        Assert::that($parts[0])->notEq('*')->notEq('*/2')->notEq('*/3')->notEq('*/4');
+    public function setTimeExpression(?string $timeExpression) {
+        if ($timeExpression) {
+            $parts = explode(' ', $timeExpression);
+            Assert::that($parts[0])->notEq('*')->notEq('*/2')->notEq('*/3')->notEq('*/4');
+        }
         $this->timeExpression = $timeExpression;
     }
 
@@ -204,20 +205,23 @@ class Schedule implements HasSubject {
         return $this->getSubjectType() != ActionableSubjectType::CHANNEL() || $this->getSubject()->getIoDevice()->getEnabled();
     }
 
-    public function getAction(): ChannelFunctionAction {
-        return new ChannelFunctionAction($this->action);
+    public function getAction(): ?ChannelFunctionAction {
+        return $this->action ? new ChannelFunctionAction($this->action) : null;
     }
 
-    public function setAction(ChannelFunctionAction $action) {
-        if ($this->getSubject()) {
-            $function = $this->getSubject()->getFunction();
-            Assertion::inArray($action->getValue(), EntityUtils::mapToIds($function->getPossibleActions()), 'Invalid action.'); // i18n
+    public function setAction(?ChannelFunctionAction $action) {
+        if ($action) {
+            if ($this->getSubject()) {
+                $function = $this->getSubject()->getFunction();
+                Assertion::inArray($action->getValue(), EntityUtils::mapToIds($function->getPossibleActions()), 'Invalid action.'); // i18n
+            }
+            $this->action = $action->getValue();
+        } else {
+            $this->action = null;
         }
-        $this->action = $action->getValue();
     }
 
-    /** @return array|null */
-    public function getActionParam() {
+    public function getActionParam(): ?array {
         return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
     }
 

@@ -106,4 +106,9 @@ class DailySchedulePlanner implements SchedulePlanner {
         }, $newConfig);
         $schedule->setConfig(array_values($newConfig));
     }
+
+    /** @required */
+    public function setCompositePlanner(CompositeSchedulePlanner $compositePlanner): void {
+        $this->compositePlanner = $compositePlanner;
+    }
 }

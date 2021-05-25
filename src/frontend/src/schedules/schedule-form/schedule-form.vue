@@ -12,14 +12,14 @@
                         {{ $t('Cancel') }}
                     </router-link>
                     <button class="btn btn-white"
-                        :disabled="schedule.actionId == undefined || !nextRunDates.length || nextRunDates.fetching"
+                        :disabled="!nextRunDates.length || nextRunDates.fetching"
                         @click="submit()">
                         <i class="pe-7s-diskette"></i>
                         {{ $t('Save') }}
                     </button>
                     <button class="btn btn-green"
                         v-if="schedule.id && schedule.enabled === false"
-                        :disabled="schedule.actionId == undefined || !nextRunDates.length || nextRunDates.fetching"
+                        :disabled="!nextRunDates.length || nextRunDates.fetching"
                         @click="submit(true)">
                         <i class="pe-7s-diskette"></i>
                         {{ $t('Save and enable') }}
@@ -44,7 +44,7 @@
                     v-show="schedule.mode">
                     <div class="col-md-6">
                         <div class="well">
-                            <div v-if="schedule.mode != 'onoff'">
+                            <div v-if="schedule.mode != 'daily'">
                                 <h3 class="no-margin-top">{{ $t('When') }}?</h3>
                                 <div class="form-group">
                                     <schedule-form-mode-once v-if="schedule.mode == 'once'"
@@ -53,8 +53,6 @@
                                         v-model="schedule.timeExpression"></schedule-form-mode-minutely>
                                     <schedule-form-mode-hourly v-if="schedule.mode == 'hourly'"
                                         v-model="schedule.timeExpression"></schedule-form-mode-hourly>
-                                    <schedule-form-mode-daily v-if="schedule.mode == 'daily'"
-                                        v-model="schedule.timeExpression"></schedule-form-mode-daily>
                                 </div>
                             </div>
                             <div v-else>
@@ -77,7 +75,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="well"
-                            v-if="schedule.mode != 'onoff'">
+                            v-if="schedule.mode != 'daily'">
                             <h3 class="no-margin-top">{{ $t('Action') }}</h3>
                             <div class="form-group">
                                 <label>{{ $t('Subject') }}</label>
@@ -93,14 +91,14 @@
                         </div>
                         <div class="well"
                             v-else>
+                            {{ schedule.config }}
                             <h3 class="no-margin-top">{{ $t('Plan') }}</h3>
                             <div v-if="schedule.subject">
-
-                                <schedule-form-mode-onoff v-model="schedule.timeExpression"
-                                    :subject="schedule.subject"></schedule-form-mode-onoff>
+                                <schedule-form-mode-daily v-model="schedule.config"
+                                    :subject="schedule.subject"></schedule-form-mode-daily>
                             </div>
                             <div class="v-else">
-                                Najpier wybierz
+                                Najpierw wybierz
                             </div>
                         </div>
                     </div>
@@ -116,7 +114,6 @@
     import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue";
     import ScheduleFormModeHourly from "./modes/schedule-form-mode-hourly.vue";
     import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
-    import ScheduleFormModeOnoff from "./modes/schedule-form-mode-onoff.vue";
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
     import 'eonasdan-bootstrap-datetimepicker';
@@ -142,7 +139,6 @@
             ScheduleFormModeMinutely,
             ScheduleFormModeHourly,
             ScheduleFormModeDaily,
-            ScheduleFormModeOnoff,
             NextRunDatesPreview,
             ScheduleFormStartEndDate,
             Toggler,
@@ -188,7 +184,7 @@
                     .catch(response => this.error = response.status);
             } else {
                 this.schedule = {
-                    mode: 'once',
+                    mode: 'daily',
                     dateStart: moment().format(),
                     retry: true,
                 };
