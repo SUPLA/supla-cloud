@@ -56,7 +56,7 @@ class Schedule implements HasSubject {
     private $user;
 
     /**
-     * @ORM\Column(name="time_expression", type="string", length=100, nullable=false)
+     * @ORM\Column(name="time_expression", type="string", length=100, nullable=true)
      * @Groups({"basic"})
      */
     private $timeExpression;
@@ -76,7 +76,7 @@ class Schedule implements HasSubject {
     private $channelGroup;
 
     /**
-     * @ORM\Column(name="action", type="integer", nullable=false)
+     * @ORM\Column(name="action", type="integer", nullable=true)
      * @Groups({"basic"})
      */
     private $action;

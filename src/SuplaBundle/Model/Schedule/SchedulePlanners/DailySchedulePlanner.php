@@ -48,7 +48,7 @@ class DailySchedulePlanner implements SchedulePlanner {
     }
 
     public function canCalculateFor(Schedule $schedule): bool {
-        return $schedule->getMode()->getValue() === ScheduleMode::ONOFF;
+        return $schedule->getMode()->getValue() === ScheduleMode::DAILY;
     }
 
     public function validate(Schedule $schedule) {
@@ -70,10 +70,14 @@ class DailySchedulePlanner implements SchedulePlanner {
             $cronParts = explode(' ', $configItem['cron']);
             Assertion::count($cronParts, 5, 'Invalid schedule config (incorrect crontab).');
             $weekdayPart = array_pop($cronParts);
-            $weekdays = explode(',', $weekdayPart);
-            foreach ($weekdays as $weekday) {
-                Assertion::numeric($weekday, 'Invalid schedule config (incorrect weekday).');
-                Assertion::between($weekday, 1, 7, 'Invalid schedule config (incorrect weekday).');
+            if ($weekdayPart === '*') {
+                $weekdays = range(1, 7);
+            } else {
+                $weekdays = explode(',', $weekdayPart);
+                foreach ($weekdays as $weekday) {
+                    Assertion::numeric($weekday, 'Invalid schedule config (incorrect weekday).');
+                    Assertion::between($weekday, 1, 7, 'Invalid schedule config (incorrect weekday).');
+                }
             }
             $cronWithoutWeekday = implode(' ', $cronParts);
             $checksum = sha1(implode('|', [$cronWithoutWeekday, $configItem['action']['id'], json_encode($configItem['action']['param'] ?? [])]));
@@ -89,8 +93,12 @@ class DailySchedulePlanner implements SchedulePlanner {
         }
         $newConfig = array_map(function (array $array) {
             $weekdays = array_unique($array['weekdays']);
-            sort($weekdays);
-            $weekdays = implode(',', $weekdays);
+            if (count($weekdays) >= 7) {
+                $weekdays = '*';
+            } else {
+                sort($weekdays);
+                $weekdays = implode(',', $weekdays);
+            }
             return [
                 'cron' => $array['item']['cron'] . ' ' . $weekdays,
                 'action' => $array['item']['action'],
