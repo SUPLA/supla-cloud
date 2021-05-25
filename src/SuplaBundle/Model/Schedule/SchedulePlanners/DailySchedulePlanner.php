@@ -48,7 +48,7 @@ class DailySchedulePlanner implements SchedulePlanner {
     }
 
     public function canCalculateFor(Schedule $schedule): bool {
-        return $schedule->getMode()->getValue() === ScheduleMode::DAILY;
+        return $schedule->getMode()->getValue() === ScheduleMode::DAILY && $schedule->getConfig() && is_array($schedule->getConfig());
     }
 
     public function validate(Schedule $schedule) {
