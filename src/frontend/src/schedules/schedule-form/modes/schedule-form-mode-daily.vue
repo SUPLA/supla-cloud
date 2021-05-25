@@ -15,7 +15,7 @@
         </div>
         <div v-if="config[currentDay]">
             <div class="form-group"
-                :key="action"
+                :key="action.tempId"
                 v-for="action in config[currentDay]">
                 <div class="row">
                     <div class="col-md-6">
@@ -63,6 +63,7 @@
     import ScheduleFormModeDailySun from "@/schedules/schedule-form/modes/schedule-form-mode-daily-sun";
     import ChannelActionChooser from "@/channels/action/channel-action-chooser";
     import {mapValues, toArray, flatten} from "lodash";
+    import {generatePassword} from "@/common/utils";
 
     export default {
         components: {ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
@@ -94,7 +95,7 @@
                 if (!this.config[this.currentDay]) {
                     this.$set(this.config, this.currentDay, []);
                 }
-                this.config[this.currentDay].push({type});
+                this.config[this.currentDay].push({tempId: generatePassword(10, true), type});
             },
             possibleActionFilter(possibleAction) {
                 return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
