@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 use DateTime;
 use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 
 class CronExpressionSchedulePlannerTest extends PHPUnit_Framework_TestCase {
@@ -57,6 +58,7 @@ class CronExpressionSchedulePlannerTest extends PHPUnit_Framework_TestCase {
     public function testDoesNotSupportInvalidCronExpressions($invalidCronExpression) {
         $schedulePlanner = new CronExpressionSchedulePlanner();
         $schedule = new Schedule();
+        $schedule->setMode(ScheduleMode::ONCE());
         $schedule->setTimeExpression($invalidCronExpression);
         $this->assertFalse($schedulePlanner->canCalculateFor($schedule));
     }

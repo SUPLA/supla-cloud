@@ -145,6 +145,12 @@ class ScheduleManager {
         }
     }
 
+    public function validateSchedule(Schedule $schedule) {
+        $this->schedulePlanner->validateSchedule($schedule);
+        $nextScheduleExecutions = $this->getNextScheduleExecutions($schedule, '+5days', 1, true);
+        Assertion::notEmpty($nextScheduleExecutions, 'Cannot calculate when to run the schedule - incorrect configuration?'); // i18n
+    }
+
     /** @return ScheduledExecution|null */
     private function findLatestExecution(Schedule $schedule) {
         return current($this->scheduledExecutionsRepository->findBy(['schedule' => $schedule], ['plannedTimestamp' => 'DESC'], 1));

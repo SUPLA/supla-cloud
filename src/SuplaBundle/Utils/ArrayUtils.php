@@ -24,4 +24,8 @@ final class ArrayUtils {
     public static function flattenOnce(array $array): array {
         return call_user_func_array('array_merge', $array);
     }
+
+    public static function leaveKeys(array $array, array $keys): array {
+        return array_intersect_key($array, array_flip($keys));
+    }
 }

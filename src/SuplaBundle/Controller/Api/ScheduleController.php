@@ -38,7 +38,6 @@ use SuplaBundle\Repository\ScheduleListQuery;
 use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ScheduleController extends RestController {
     /** @var ScheduleRepository */
@@ -51,23 +50,19 @@ class ScheduleController extends RestController {
     private $channelRepository;
     /** @var ScheduleManager */
     private $scheduleManager;
-    /** @var ValidatorInterface */
-    private $validator;
 
     public function __construct(
         ScheduleRepository $scheduleRepository,
         ChannelGroupRepository $channelGroupRepository,
         IODeviceChannelRepository $channelRepository,
         ChannelActionExecutor $channelActionExecutor,
-        ScheduleManager $scheduleManager,
-        ValidatorInterface $validator
+        ScheduleManager $scheduleManager
     ) {
         $this->scheduleRepository = $scheduleRepository;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->channelGroupRepository = $channelGroupRepository;
         $this->channelRepository = $channelRepository;
         $this->scheduleManager = $scheduleManager;
-        $this->validator = $validator;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -179,10 +174,7 @@ class ScheduleController extends RestController {
             $data['actionParam'] ?? []
         );
         $schedule->fill($data);
-        $errors = iterator_to_array($this->validator->validate($schedule));
-        Assertion::count($errors, 0, implode(', ', $errors));
-        $nextScheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($schedule, '+5days', 1, true);
-        Assertion::notEmpty($nextScheduleExecutions, 'Schedule cannot be enabled'); // i18n
+        $this->scheduleManager->validateSchedule($schedule);
         return $schedule;
     }
 

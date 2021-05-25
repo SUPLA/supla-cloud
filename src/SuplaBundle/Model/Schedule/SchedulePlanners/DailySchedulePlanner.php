@@ -17,16 +17,19 @@
 
 namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
+use Assert\Assertion;
 use DateTime;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
+use SuplaBundle\Utils\ArrayUtils;
 
 class DailySchedulePlanner implements SchedulePlanner {
     /** @var CompositeSchedulePlanner */
     private $compositePlanner;
 
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         /** @var ScheduledExecution $closestExecution */
         $closestExecution = null;
         foreach ($schedule->getConfig() as $executionDef) {
@@ -44,7 +47,27 @@ class DailySchedulePlanner implements SchedulePlanner {
         return $closestExecution;
     }
 
-    public function canCalculateFor(Schedule $schedule) {
-        return $schedule->getMode()->getKey() === ScheduleMode::ONOFF;
+    public function canCalculateFor(Schedule $schedule): bool {
+        return $schedule->getMode()->getValue() === ScheduleMode::ONOFF;
+    }
+
+    public function validate(Schedule $schedule) {
+        Assertion::null($schedule->getTimeExpression(), 'Daily schedule in an old format. Use config instead.');
+        Assertion::isArray($schedule->getConfig(), 'Invalid schedule config (not an array).');
+        $newConfig = [];
+        foreach (array_values($schedule->getConfig()) as $configItem) {
+            $configItem = ArrayUtils::leaveKeys($configItem, ['cron', 'action']);
+            Assertion::count($configItem, 2, 'Invalid schedule config (incorrect config item).');
+            Assertion::string($configItem['cron'], 'Invalid schedule config (incorrect crontab).');
+            Assertion::isArray($configItem['action'], 'Invalid schedule config (incorrect action).');
+            $action = ArrayUtils::leaveKeys($configItem['action'], ['id', 'param']);
+            Assertion::between(count($action), 1, 2, 'Invalid schedule config (incorrect action).');
+            Assertion::keyExists($action, 'id', 'Invalid schedule config (no action ID).');
+            Assertion::true(ChannelFunctionAction::isValid($action['id']), 'Invalid schedule config (incorrect action ID).');
+            Assertion::isArray($action['param'] ?? [], 'Invalid schedule config (incorrect action param).');
+            $configItem['action'] = $action;
+            $newConfig[] = $configItem;
+        }
+        $schedule->setConfig($newConfig);
     }
 }
