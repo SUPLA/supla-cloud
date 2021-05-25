@@ -103,8 +103,12 @@ class DailySchedulePlannerTest extends TestCase {
     public function configs(): array {
         return [
             [
-                [['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
-                [['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+            ],
+            [
+                [['cron' => '10 10 * * 1,2,3,4,5,6,7', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
                 [['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN], 'extra' => 'unicorn']],
@@ -196,7 +200,7 @@ class DailySchedulePlannerTest extends TestCase {
             [[['unicorn' => 'blabla']]],
             [[['cron' => '10 10 * * *']]],
             [[['cron' => ['10 10 * * *'], 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
-            [[['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
+            [[['cron' => '10 10 * * 0', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
             [[['cron' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
             [[['cron' => '10 10 * * 1,a', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
         ];
