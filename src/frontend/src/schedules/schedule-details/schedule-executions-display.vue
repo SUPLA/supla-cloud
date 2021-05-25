@@ -5,6 +5,7 @@
             <li v-for="(execution, $index) in executions.past"
                 :key="$index"
                 :class="'past past' + (executions.past.length - $index) + (execution.failed ? ' failed' : '')">
+                <span class="label label-default">{{ $t(execution.action.caption) }}</span>
                 {{ (execution.resultTimestamp || execution.plannedTimestamp) | moment('LLLL') }}
                 <div class="small"
                     v-if="execution.id != 1">
@@ -15,7 +16,8 @@
                 <li :class="'future future' + $index"
                     :key="$index"
                     v-for="(execution, $index) in executions.future">
-                    {{ execution.plannedTimestamp|moment('LLLL') }}
+                    <span class="label label-default">{{ $t(execution.action.caption) }}</span>
+                    {{ execution.plannedTimestamp | moment('LLLL') }}
                 </li>
             </template>
         </ul>

@@ -14,11 +14,11 @@
             </div>
         </div>
         <div v-if="config[currentDay]">
-            <div class="form-group"
+            <div class="daily-action"
                 :key="action.tempId"
                 v-for="action in config[currentDay]">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <schedule-form-mode-daily-hour
                             v-model="action.crontab"
                             @input="updateConfig()"
@@ -30,7 +30,7 @@
                             :weekdays="[currentDay]"
                             v-if="action.type === 'sun'"></schedule-form-mode-daily-sun>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7 vertical">
                         <channel-action-chooser :subject="subject"
                             v-model="action.action"
                             @input="updateConfig()"
@@ -116,8 +116,18 @@
                 const mapped = mapValues(this.config, (array) => {
                     return array.map(({crontab, action}) => ({crontab, action}));
                 });
-                return flatten(toArray(mapped)).filter(({action}) => action);
+                return flatten(toArray(mapped)).filter(({crontab, action}) => crontab && action && action.id);
             }
         }
     };
 </script>
+
+<style lang="scss">
+    @import '../../../styles/variables';
+
+    .daily-action {
+        border-bottom: 1px solid $supla-green;
+        padding-bottom: 1em;
+        margin-bottom: 1.3em;
+    }
+</style>

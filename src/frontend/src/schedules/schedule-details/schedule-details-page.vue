@@ -50,8 +50,6 @@
                                     </dt>
                                 </dl>
                                 <dl>
-                                    <dd>{{ $t('Action') }}</dd>
-                                    <dt>{{ $t(schedule.action.caption) }}</dt>
                                     <dd>{{ $t('Mode') }}</dd>
                                     <dt>{{ $t(schedule.mode) }}</dt>
                                     <dd>{{ $t('Start date') }}</dd>
@@ -60,6 +58,10 @@
                                 <dl v-if="schedule.dateEnd">
                                     <dd>{{ $t('End date') }}</dd>
                                     <dt>{{ schedule.dateEnd | moment('LLL') }}</dt>
+                                </dl>
+                                <dl v-if="schedule.action">
+                                    <dd>{{ $t('Action') }}</dd>
+                                    <dt>{{ $t(schedule.action.caption) }}</dt>
                                 </dl>
                             </div>
                         </div>

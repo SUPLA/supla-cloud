@@ -143,4 +143,18 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $firstExecution = $nextExecutions[0];
         $this->assertEquals(60, $firstExecution['actionId']);
     }
+
+    public function testCreatingNewDailySchedule() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
+            'channelId' => $this->device->getChannels()[0]->getId(),
+            'config' => [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::TURN_ON]]],
+            'mode' => ScheduleMode::DAILY,
+        ]);
+        $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
+        $scheduleFromResponse = json_decode($client->getResponse()->getContent());
+        $this->assertGreaterThan(0, $scheduleFromResponse->id);
+        $schedule = $this->container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
+        $this->assertEquals($scheduleFromResponse->timeExpression, $schedule->getTimeExpression());
+    }
 }
