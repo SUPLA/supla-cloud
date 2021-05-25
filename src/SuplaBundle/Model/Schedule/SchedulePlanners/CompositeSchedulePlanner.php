@@ -20,6 +20,7 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 use Assert\Assertion;
 use DateTime;
 use DateTimeZone;
+use InvalidArgumentException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 
@@ -63,7 +64,7 @@ class CompositeSchedulePlanner {
                     $nextExecution = $this->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
                     $scheduleExecutions[] = $nextExecution;
                 } while ($nextExecution->getPlannedTimestamp()->getTimestamp() < $until && count($scheduleExecutions) < $maxCount);
-            } catch (\RuntimeException $e) {
+            } catch (\RuntimeException | InvalidArgumentException $e) {
                 // impossible cron expression
             }
             if ($nextExecution->getPlannedTimestamp()->getTimezone()->getName() != $schedule->getUser()->getTimezone()) {

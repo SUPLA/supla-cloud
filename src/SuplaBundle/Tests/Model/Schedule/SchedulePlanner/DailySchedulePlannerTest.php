@@ -22,7 +22,7 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
@@ -33,7 +33,7 @@ use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 date_default_timezone_set('UTC');
 
-class DailySchedulePlannerTest extends PHPUnit_Framework_TestCase {
+class DailySchedulePlannerTest extends TestCase {
     /** @var DailySchedulePlanner */
     private $planner;
 
