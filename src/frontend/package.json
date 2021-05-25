@@ -41,7 +41,8 @@
     "vue-moment": "^4.1.0",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.2.0",
-    "vue-switches": "2.0.1"
+    "vue-switches": "2.0.1",
+    "vue2-timepicker": "^1.1.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

@@ -44,7 +44,7 @@ class DailySchedulePlanner implements SchedulePlanner {
                 $closestExecution = $thisExecution;
             }
         }
-        return $closestExecution;
+        return new ScheduledExecution($schedule, $closestExecution->getPlannedTimestamp(), $closestExecution->getAction(), $closestExecution->getActionParam());
     }
 
     public function canCalculateFor(Schedule $schedule): bool {
