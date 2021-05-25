@@ -55,6 +55,7 @@ class DailySchedulePlanner implements SchedulePlanner {
         Assertion::null($schedule->getTimeExpression(), 'Daily schedule in an old format. Use config instead.');
         Assertion::isArray($schedule->getConfig(), 'Invalid schedule config (not an array).');
         $newConfig = [];
+        $deduplicated = [];
         foreach (array_values($schedule->getConfig()) as $configItem) {
             $configItem = ArrayUtils::leaveKeys($configItem, ['cron', 'action']);
             Assertion::count($configItem, 2, 'Invalid schedule config (incorrect config item).');
@@ -66,8 +67,35 @@ class DailySchedulePlanner implements SchedulePlanner {
             Assertion::true(ChannelFunctionAction::isValid($action['id']), 'Invalid schedule config (incorrect action ID).');
             Assertion::isArray($action['param'] ?? [], 'Invalid schedule config (incorrect action param).');
             $configItem['action'] = $action;
-            $newConfig[] = $configItem;
+            $cronParts = explode(' ', $configItem['cron']);
+            Assertion::count($cronParts, 5, 'Invalid schedule config (incorrect crontab).');
+            $weekdayPart = array_pop($cronParts);
+            $weekdays = explode(',', $weekdayPart);
+            foreach ($weekdays as $weekday) {
+                Assertion::numeric($weekday, 'Invalid schedule config (incorrect weekday).');
+                Assertion::between($weekday, 1, 7, 'Invalid schedule config (incorrect weekday).');
+            }
+            $cronWithoutWeekday = implode(' ', $cronParts);
+            $checksum = sha1(implode('|', [$cronWithoutWeekday, $configItem['action']['id'], json_encode($configItem['action']['param'] ?? [])]));
+            if (!isset($newConfig[$checksum])) {
+                $configItem['cron'] = $cronWithoutWeekday;
+                $newConfig[$checksum] = [
+                    'item' => $configItem,
+                    'weekdays' => $weekdays,
+                ];
+            } else {
+                $newConfig[$checksum]['weekdays'] = array_merge($newConfig[$checksum]['weekdays'], $weekdays);
+            }
         }
-        $schedule->setConfig($newConfig);
+        $newConfig = array_map(function (array $array) {
+            $weekdays = array_unique($array['weekdays']);
+            sort($weekdays);
+            $weekdays = implode(',', $weekdays);
+            return [
+                'cron' => $array['item']['cron'] . ' ' . $weekdays,
+                'action' => $array['item']['action'],
+            ];
+        }, $newConfig);
+        $schedule->setConfig(array_values($newConfig));
     }
 }
