@@ -21,6 +21,8 @@ services:
       tags: [supla.cyclic_command]
     SuplaBundle\Command\Initialization\InitializationCommand:
       tags: [supla.initialization_command]
+    SuplaBundle\Model\Schedule\SchedulePlanners\SchedulePlanner:
+      tags: [supla.schedule_planner]
 
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
@@ -83,12 +85,7 @@ services:
     $defaultIoDevicesRegistrationTime: '%supla.io_devices_registration.registration_active_time.initial%'
 
   SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner:
-    $planners:
-      - '@SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner'
-      - '@SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner'
-      - '@SuplaBundle\Model\Schedule\SchedulePlanners\OnceSchedulePlanner'
-      - '@SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner'
-      - '@SuplaBundle\Model\Schedule\SchedulePlanners\DailySchedulePlanner'
+    $planners: !tagged supla.schedule_planner
 
   SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
     - !tagged supla.channel_action_executor

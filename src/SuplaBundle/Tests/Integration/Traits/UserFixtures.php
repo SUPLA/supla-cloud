@@ -120,7 +120,7 @@ trait UserFixtures {
 
     private function createSchedule(HasFunction $subject, string $timeExpression, array $data = []): Schedule {
         $schedule = new Schedule($subject->getUser(), array_merge([
-            'action' => ChannelFunctionAction::TURN_ON,
+            'actionId' => ChannelFunctionAction::TURN_ON,
             'subject' => $subject,
             'mode' => ScheduleMode::ONCE,
             'timeExpression' => $timeExpression,
