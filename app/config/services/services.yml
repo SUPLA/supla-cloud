@@ -84,9 +84,11 @@ services:
 
   SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner:
     $planners:
-      - '@SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner'
-      - '@SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner'
       - '@SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner'
+      - '@SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner'
+      - '@SuplaBundle\Model\Schedule\SchedulePlanners\OnceSchedulePlanner'
+      - '@SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner'
+      - '@SuplaBundle\Model\Schedule\SchedulePlanners\DailySchedulePlanner'
 
   SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
     - !tagged supla.channel_action_executor
