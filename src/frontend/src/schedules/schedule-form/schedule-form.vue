@@ -180,6 +180,8 @@
                     mode: 'daily',
                     dateStart: moment().format(),
                     retry: true,
+                    timeExpression: undefined,
+                    config: undefined,
                 };
                 const subjectForNewSchedule = AppState.shiftTask('scheduleCreate');
                 if (subjectForNewSchedule) {
