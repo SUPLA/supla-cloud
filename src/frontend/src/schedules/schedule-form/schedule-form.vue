@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label>{{ $t("Schedule mode") }}</label>
                             <div class="clearfix"></div>
-                            <schedule-mode-chooser v-model="schedule.mode"></schedule-mode-chooser>
+                            <schedule-mode-chooser v-model="schedule.mode" @input="clearConfig()"></schedule-mode-chooser>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="well"
-                            v-if="schedule.mode != 'daily'">
+                            v-if="schedule.mode != 'daily' && schedule.mode != 'crontab'">
                             <div class="form-group">
                                 <schedule-form-mode-once v-if="schedule.mode == 'once'"
                                     v-model="schedule.timeExpression"></schedule-form-mode-once>
@@ -81,8 +81,12 @@
                         <div class="well"
                             v-else>
                             <div v-if="schedule.subject">
-                                <schedule-form-mode-daily v-model="schedule.config"
+                                <schedule-form-mode-daily v-if="schedule.mode === 'daily'"
+                                    v-model="schedule.config"
                                     :subject="schedule.subject"></schedule-form-mode-daily>
+                                <schedule-form-mode-crontab v-if="schedule.mode === 'crontab'"
+                                    v-model="schedule.config"
+                                    :subject="schedule.subject"></schedule-form-mode-crontab>
                             </div>
                             <div v-else>
                                 {{ $t('Please choose the schedule subject first.') }}
@@ -101,6 +105,7 @@
     import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue";
     import ScheduleFormModeHourly from "./modes/schedule-form-mode-hourly.vue";
     import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
+    import ScheduleFormModeCrontab from "./modes/schedule-form-mode-crontab.vue";
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
     import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
     import 'eonasdan-bootstrap-datetimepicker';
@@ -126,6 +131,7 @@
             ScheduleFormModeMinutely,
             ScheduleFormModeHourly,
             ScheduleFormModeDaily,
+            ScheduleFormModeCrontab,
             NextRunDatesPreview,
             ScheduleFormStartEndDate,
             Toggler,
@@ -207,6 +213,10 @@
             },
             possibleActionFilter(possibleAction) {
                 return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
+            },
+            clearConfig(){
+                this.schedule.config = undefined;
+                this.schedule.timeExpression = undefined;
             },
         }
     };
