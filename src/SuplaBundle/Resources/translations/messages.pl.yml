@@ -609,7 +609,7 @@ choose the channel group: wybierz grupę kanałów
 choose the timezone: wybierz strefę czasową
 copied: skopiowano
 copy: kopiuj
-daily: Cykl dzienny
+daily: Tygodniowy
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
 directLinkExecutionFailureReason_expired: Link bezpośredni wygasł
@@ -627,8 +627,8 @@ executed: wykonano
 extend: przedłuż
 from IP: z adresu IP
 from the IP: z adresu
-hourly: Cykl godzinny
-minutely: Cykl minutowy
+hourly: Codziennie
+minutely: Interwał
 minutes: minut
 once: Jednorazowy
 password: hasło
