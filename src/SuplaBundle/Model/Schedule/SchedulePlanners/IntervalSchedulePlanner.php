@@ -27,7 +27,7 @@ use SuplaBundle\Enums\ScheduleMode;
 
 class IntervalSchedulePlanner implements SchedulePlanner {
 
-    const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,3})( \*)*$#';
+    const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,9})( \*)*$#';
 
     public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $schedule->getTimeExpression(), $matches);
