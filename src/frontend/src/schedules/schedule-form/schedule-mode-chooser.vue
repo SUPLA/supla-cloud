@@ -17,11 +17,10 @@
         data() {
             return {
                 availableModes: [
+                    'daily', // i18n
                     'once', // i18n
                     'minutely', // i18n
                     'hourly', // i18n
-                    'daily', // i18n
-                    'onoff', // i18n
                 ]
             };
         },

@@ -70,7 +70,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('subjectType', $scheduleFromResponse);
     }
 
-    public function testGeneratingNextScheduleExecutions() {
+    public function testGeneratingNextScheduleExecutionsForOnceSchedule() {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/api/schedules/next-schedule-executions', [
             'channelId' => $this->device->getChannels()[0]->getId(),
@@ -83,5 +83,21 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(1, count($nextExecutions));
         $firstExecution = $nextExecutions[0];
         $this->assertEquals(ChannelFunctionAction::TURN_OFF, $firstExecution['actionId']);
+    }
+
+    public function testGeneratingNextScheduleExecutionsForDailySchedule() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest(Request::METHOD_POST, '/api/schedules/next-schedule-executions', [
+            'channelId' => $this->device->getChannels()[0]->getId(),
+            'mode' => ScheduleMode::DAILY,
+            'config' => [
+                ['crontab' => "00 20 * * 1", 'action' => ['id' => 60, 'param' => []]],
+            ],
+        ]);
+        $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
+        $nextExecutions = json_decode($client->getResponse()->getContent(), true);
+        $this->assertGreaterThan(1, count($nextExecutions));
+        $firstExecution = $nextExecutions[0];
+        $this->assertEquals(60, $firstExecution['actionId']);
     }
 }

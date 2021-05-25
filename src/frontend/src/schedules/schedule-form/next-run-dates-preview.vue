@@ -13,7 +13,7 @@
                     :key="nextScheduleExecution.plannedTimestamp"
                     v-for="nextScheduleExecution in value">
                     <span class="pull-right small text-muted">
-                        <span v-if="schedule.actionId"
+                        <span v-if="nextScheduleExecution.action"
                             class="label label-default">
                             {{ $t(nextScheduleExecution.action.caption) }}
                         </span>
@@ -42,6 +42,7 @@
                     mode: this.schedule.mode,
                     timeExpression: this.schedule.timeExpression,
                     actionId: this.schedule.actionId,
+                    config: this.schedule.config,
                     dateStart: this.schedule.mode == 'once' ? undefined : this.schedule.dateStart,
                     dateEnd: this.schedule.mode == 'once' ? undefined : this.schedule.dateEnd
                 };
@@ -53,7 +54,7 @@
         methods: {
             fetchNextScheduleExecutions() {
                 const query = this.nextRunDatesQuery;
-                if (!query.timeExpression) {
+                if (!query.timeExpression && !query.config) {
                     this.$emit('input', []);
                 } else {
                     this.$set(this.value, 'fetching', true);
@@ -88,6 +89,9 @@
                 this.fetchNextScheduleExecutions();
             },
             'schedule.actionId'() {
+                this.fetchNextScheduleExecutions();
+            },
+            'schedule.config'() {
                 this.fetchNextScheduleExecutions();
             }
         }

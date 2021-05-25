@@ -110,8 +110,10 @@ class ScheduledExecution {
             $action = $schedule->getAction();
             $actionParam = $schedule->getActionParam();
         }
-        $this->action = $action->getId();
-        $this->actionParam = $actionParam ? json_encode($actionParam) : null;
+        if ($action) {
+            $this->action = $action->getId();
+            $this->actionParam = $actionParam ? json_encode($actionParam) : null;
+        }
     }
 
     public function getPlannedTimestamp(): DateTime {
