@@ -25,7 +25,7 @@ class ScheduledExecutionSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $scheduledExecution, array $context) {
-        $normalized['actionId'] = $scheduledExecution->getAction()->getId();
+        $normalized['actionId'] = $scheduledExecution->getAction() ? $scheduledExecution->getAction()->getId() : null;
     }
 
     public function supportsNormalization($entity, $format = null) {
