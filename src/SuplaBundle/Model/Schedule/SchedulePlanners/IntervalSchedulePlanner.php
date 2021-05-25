@@ -21,7 +21,6 @@ use Assert\Assertion;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
-use RuntimeException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ScheduleMode;
