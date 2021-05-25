@@ -29,7 +29,7 @@ class ScheduleTest extends TestCase {
         $this->assertEquals('*/5 * * * * *', $schedule->getTimeExpression());
     }
 
-    public function testFillRequiredTimeExpression() {
+    public function testErrorWhenNoMode() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
         $schedule->fill([]);

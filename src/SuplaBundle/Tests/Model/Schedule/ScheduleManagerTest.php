@@ -24,6 +24,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
@@ -45,7 +46,14 @@ class ScheduleManagerTest extends TestCase {
         $this->doctrine->method('getRepository')->willReturn($this->scheduledExecutionsRepository);
         $this->deviceManager = $this->createMock(IODeviceManager::class);
         $this->schedulePlanner = $this->createMock(CompositeSchedulePlanner::class);
-        $this->manager = new ScheduleManager($this->doctrine, $this->deviceManager, $this->schedulePlanner, new TestTimeProvider());
+        $channelActionExecutor = $this->createMock(ChannelActionExecutor::class);
+        $this->manager = new ScheduleManager(
+            $this->doctrine,
+            $this->deviceManager,
+            $this->schedulePlanner,
+            new TestTimeProvider(),
+            $channelActionExecutor
+        );
     }
 
     // https://github.com/SUPLA/supla-cloud/issues/82

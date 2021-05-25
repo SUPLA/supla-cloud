@@ -103,84 +103,93 @@ class DailySchedulePlannerTest extends TestCase {
     public function configs(): array {
         return [
             [
-                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
-                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
-                [['cron' => '10 10 * * 1,2,3,4,5,6,7', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
-                [['cron' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * 1,2,3,4,5,6,7', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * *', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
-                [['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN], 'extra' => 'unicorn']],
-                [['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN], 'extra' => 'unicorn']],
+                [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
-                [['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'extra' => 'unicorn']]],
-                [['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'extra' => 'unicorn']]],
+                [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
                 [
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
-                    ['cron' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
                 ],
-                [['cron' => '10 10 * * 1,2', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * 1,2', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
                 [
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]],
-                    ['cron' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]],
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]],
+                    ['crontab' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]],
                 ],
-                [['cron' => '10 10 * * 1,2', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]]],
+                [['crontab' => '10 10 * * 1,2', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]]],
             ],
             [
                 [
-                    ['cron' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
                 ],
-                [['cron' => '10 10 * * 1,2', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * 1,2', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
                 [
-                    ['cron' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
-                    ['cron' => '10 10 * * 1,3', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 1,3', 'action' => ['id' => ChannelFunctionAction::OPEN]],
                 ],
-                [['cron' => '10 10 * * 1,2,3', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => '10 10 * * 1,2,3', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
                 [
-                    ['cron' => 'SS-10 * * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
-                    ['cron' => 'SS-10 * * * 1,3', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => 'SS-10 * * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => 'SS-10 * * * 1,3', 'action' => ['id' => ChannelFunctionAction::OPEN]],
                 ],
-                [['cron' => 'SS-10 * * * 1,2,3', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
+                [['crontab' => 'SS-10 * * * 1,2,3', 'action' => ['id' => ChannelFunctionAction::OPEN]]],
             ],
             [
                 [
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
-                    ['cron' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::CLOSE]],
-                ],
-                [
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
-                    ['cron' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::CLOSE]],
-                ],
-            ],
-            [
-                [
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
-                    ['cron' => '10 11 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::CLOSE]],
                 ],
                 [
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
-                    ['cron' => '10 11 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::CLOSE]],
                 ],
             ],
             [
                 [
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 1]]],
-                    ['cron' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]],
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 11 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
                 ],
                 [
-                    ['cron' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 1]]],
-                    ['cron' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]],
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 11 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                ],
+            ],
+            [
+                [
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 1]]],
+                    ['crontab' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]],
+                ],
+                [
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 1]]],
+                    ['crontab' => '10 10 * * 2', 'action' => ['id' => ChannelFunctionAction::OPEN, 'param' => ['a' => 2]]],
+                ],
+            ],
+            [
+                [
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
+                ],
+                [
+                    ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]],
                 ],
             ],
         ];
@@ -198,11 +207,10 @@ class DailySchedulePlannerTest extends TestCase {
             [[]],
             [[[]]],
             [[['unicorn' => 'blabla']]],
-            [[['cron' => '10 10 * * *']]],
-            [[['cron' => ['10 10 * * *'], 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
-            [[['cron' => '10 10 * * 0', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
-            [[['cron' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
-            [[['cron' => '10 10 * * 1,a', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
+            [[['crontab' => '10 10 * * *']]],
+            [[['crontab' => ['10 10 * * *'], 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
+            [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
+            [[['crontab' => '10 10 * * 1,a', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
         ];
     }
 }
