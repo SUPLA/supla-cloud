@@ -156,18 +156,19 @@ class ScheduleManager {
             case ScheduleMode::ONCE:
             case ScheduleMode::MINUTELY:
             case ScheduleMode::HOURLY:
-                Assertion::notNull($schedule->getTimeExpression());
-                Assertion::notNull($schedule->getAction());
+                Assertion::notNull($schedule->getTimeExpression(), 'No schedule time given.'); // i18n
+                Assertion::notNull($schedule->getAction(), 'No schedule action given.'); // i18n
                 $this->channelActionExecutor->validateActionParams(
                     $schedule->getSubject(),
                     $schedule->getAction(),
                     $schedule->getActionParam() ?? []
                 );
+                $schedule->setConfig(null);
                 break;
             case ScheduleMode::DAILY:
-                Assertion::null($schedule->getAction());
-                Assertion::null($schedule->getTimeExpression());
                 Assertion::notNull($schedule->getConfig());
+                $schedule->setAction(null);
+                $schedule->setTimeExpression(null);
                 break;
         }
         $this->schedulePlanner->validateSchedule($schedule);

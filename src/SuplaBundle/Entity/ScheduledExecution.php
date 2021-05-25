@@ -139,12 +139,11 @@ class ScheduledExecution {
         return $this->schedule;
     }
 
-    public function getAction(): ChannelFunctionAction {
-        return new ChannelFunctionAction($this->action);
+    public function getAction(): ?ChannelFunctionAction {
+        return $this->action ? new ChannelFunctionAction($this->action) : null;
     }
 
-    /** @return array|null */
-    public function getActionParam() {
+    public function getActionParam(): ?array {
         return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
     }
 }

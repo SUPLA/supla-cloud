@@ -44,19 +44,7 @@
                     v-show="schedule.mode">
                     <div class="col-md-6">
                         <div class="well">
-                            <div v-if="schedule.mode != 'daily'">
-                                <h3 class="no-margin-top">{{ $t('When') }}?</h3>
-                                <div class="form-group">
-                                    <schedule-form-mode-once v-if="schedule.mode == 'once'"
-                                        v-model="schedule.timeExpression"></schedule-form-mode-once>
-                                    <schedule-form-mode-minutely v-if="schedule.mode == 'minutely'"
-                                        v-model="schedule.timeExpression"></schedule-form-mode-minutely>
-                                    <schedule-form-mode-hourly v-if="schedule.mode == 'hourly'"
-                                        v-model="schedule.timeExpression"></schedule-form-mode-hourly>
-                                </div>
-                            </div>
-                            <div v-else>
-                                <h3 class="no-margin-top">{{ $t('Subject') }}</h3>
+                            <div>
                                 <div class="form-group">
                                     <subject-dropdown v-model="schedule.subject"
                                         channels-dropdown-params="io=output&hasFunction=1"
@@ -76,12 +64,13 @@
                     <div class="col-md-6">
                         <div class="well"
                             v-if="schedule.mode != 'daily'">
-                            <h3 class="no-margin-top">{{ $t('Action') }}</h3>
                             <div class="form-group">
-                                <label>{{ $t('Subject') }}</label>
-                                <subject-dropdown v-model="schedule.subject"
-                                    channels-dropdown-params="io=output&hasFunction=1"
-                                    :filter="filterOutNotSchedulableSubjects"></subject-dropdown>
+                                <schedule-form-mode-once v-if="schedule.mode == 'once'"
+                                    v-model="schedule.timeExpression"></schedule-form-mode-once>
+                                <schedule-form-mode-minutely v-if="schedule.mode == 'minutely'"
+                                    v-model="schedule.timeExpression"></schedule-form-mode-minutely>
+                                <schedule-form-mode-hourly v-if="schedule.mode == 'hourly'"
+                                    v-model="schedule.timeExpression"></schedule-form-mode-hourly>
                             </div>
                             <div v-if="schedule.subject">
                                 <channel-action-chooser :subject="schedule.subject"
