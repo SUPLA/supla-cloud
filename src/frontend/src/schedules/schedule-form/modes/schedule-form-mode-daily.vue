@@ -1,5 +1,6 @@
 <template>
     <div>
+        <schedule-form-mode-daily-day-selector></schedule-form-mode-daily-day-selector>
         <div class="form-group schedule-mode-daily-header">
             <!-- i18n:['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'] -->
             <div class="input-group">
@@ -80,9 +81,10 @@
     import {mapValues, toArray, flatten} from "lodash";
     import {generatePassword} from "@/common/utils";
     import {cloneDeep, pull} from "lodash";
+    import ScheduleFormModeDailyDaySelector from "@/schedules/schedule-form/modes/schedule-form-mode-daily-day-selector";
 
     export default {
-        components: {ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
+        components: {ScheduleFormModeDailyDaySelector, ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
         props: ['value', 'subject'],
         data() {
             return {
