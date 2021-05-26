@@ -23,14 +23,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @method static ScheduleMode ONCE()
  * @method static ScheduleMode MINUTELY()
- * @method static ScheduleMode HOURLY()
  * @method static ScheduleMode DAILY()
  * @method static ScheduleMode CRONTAB()
  */
 final class ScheduleMode extends Enum {
     const ONCE = 'once';
     const MINUTELY = 'minutely';
-    const HOURLY = 'hourly';
     const DAILY = 'daily';
     const CRONTAB = 'crontab';
 

@@ -69,8 +69,6 @@
                                     v-model="schedule.timeExpression"></schedule-form-mode-once>
                                 <schedule-form-mode-minutely v-if="schedule.mode == 'minutely'"
                                     v-model="schedule.timeExpression"></schedule-form-mode-minutely>
-                                <schedule-form-mode-hourly v-if="schedule.mode == 'hourly'"
-                                    v-model="schedule.timeExpression"></schedule-form-mode-hourly>
                             </div>
                             <div v-if="schedule.subject">
                                 <channel-action-chooser :subject="schedule.subject"
@@ -103,7 +101,6 @@
     import ScheduleModeChooser from "./schedule-mode-chooser.vue";
     import ScheduleFormModeOnce from "./modes/schedule-form-mode-once.vue";
     import ScheduleFormModeMinutely from "./modes/schedule-form-mode-minutely.vue";
-    import ScheduleFormModeHourly from "./modes/schedule-form-mode-hourly.vue";
     import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
     import ScheduleFormModeCrontab from "./modes/schedule-form-mode-crontab.vue";
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
@@ -129,7 +126,6 @@
             ScheduleModeChooser,
             ScheduleFormModeOnce,
             ScheduleFormModeMinutely,
-            ScheduleFormModeHourly,
             ScheduleFormModeDaily,
             ScheduleFormModeCrontab,
             NextRunDatesPreview,

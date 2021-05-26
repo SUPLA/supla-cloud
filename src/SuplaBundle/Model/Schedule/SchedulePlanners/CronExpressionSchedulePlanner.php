@@ -36,7 +36,7 @@ class CronExpressionSchedulePlanner implements SchedulePlanner {
     }
 
     public function canCalculateFor(Schedule $schedule): bool {
-        return in_array($schedule->getMode()->getValue(), [ScheduleMode::ONCE, ScheduleMode::HOURLY])
+        return in_array($schedule->getMode()->getValue(), [ScheduleMode::ONCE])
             && CronExpression::isValidExpression($schedule->getTimeExpression());
     }
 
