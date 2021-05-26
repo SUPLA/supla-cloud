@@ -21,6 +21,7 @@ use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ScheduleMode;
 
 class ScheduleTest extends TestCase {
     public function testSettingTheCronExpression() {
@@ -37,20 +38,20 @@ class ScheduleTest extends TestCase {
 
     public function testFillFillsCaption() {
         $schedule = new Schedule();
-        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '6', 'caption' => 'My Caption']);
+        $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'timeExpression' => '6', 'caption' => 'My Caption']);
         $this->assertEquals('My Caption', $schedule->getCaption());
     }
 
     public function testRequiresActionParamsForRgbLighting() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
-        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'actionId' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
+        $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'timeExpression' => '*', 'actionId' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
     }
 
     public function testSettingActionParamsAsArray() {
         $schedule = new Schedule();
         $schedule->fill([
-            'mode' => 'hourly',
+            'mode' => ScheduleMode::MINUTELY,
             'timeExpression' => '3',
             'actionId' => ChannelFunctionAction::REVEAL_PARTIALLY,
             'actionParam' => ['percentage' => 12],
@@ -61,7 +62,7 @@ class ScheduleTest extends TestCase {
     public function testSettingInvalidActionParam() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
-        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'actionParam' => '{"color": 123']);
+        $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'timeExpression' => '*', 'actionParam' => '{"color": 123']);
     }
 
     public function testSettingTooShortTimeExpression() {

@@ -155,7 +155,6 @@ class ScheduleManager {
         switch ($schedule->getMode()->getValue()) {
             case ScheduleMode::ONCE:
             case ScheduleMode::MINUTELY:
-            case ScheduleMode::HOURLY:
                 Assertion::notNull($schedule->getTimeExpression(), 'No schedule time given.'); // i18n
                 Assertion::notNull($schedule->getAction(), 'No schedule action given.'); // i18n
                 $this->channelActionExecutor->validateActionParams(

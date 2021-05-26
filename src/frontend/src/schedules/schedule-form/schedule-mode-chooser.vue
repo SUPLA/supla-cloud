@@ -18,7 +18,6 @@
             return {
                 availableModes: [
                     'daily', // i18n
-                    'hourly', // i18n
                     'minutely', // i18n
                     'once', // i18n
                     'crontab', // i18n
