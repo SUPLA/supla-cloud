@@ -598,7 +598,7 @@ choose the channel group: wybierz grupę kanałów
 choose the timezone: wybierz strefę czasową
 copied: skopiowano
 copy: kopiuj
-daily: Tygodniowy
+daily: Tydzień
 crontab: Zaawansowany
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
@@ -617,10 +617,10 @@ executed: wykonano
 extend: przedłuż
 from IP: z adresu IP
 from the IP: z adresu
-hourly: Codziennie
+hourly: Każdy dzień
 minutely: Interwał
 minutes: minut
-once: Jednorazowy
+once: Jeden raz
 password: hasło
 register-slide1-text: 'W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.'
 register-slide1-title: Własny Inteligentny Budynek
