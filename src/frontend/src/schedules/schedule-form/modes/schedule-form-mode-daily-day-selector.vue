@@ -1,34 +1,52 @@
 <template>
-    <div class="form-group text-center">
-        <div class="daily-checkboxes">
-            <div class="daily-checkboxes-button">
-                <a class="btn btn-default invisible"
-                    v-if="groups.length > 1 || available.length > 0">&lt;</a>
-            </div>
-            <div class="checkboxes">
-                <div :class="['checkbox-inline', {'disabled': chosen.includes(index + 1) && !currentGroup.includes(index + 1)}]"
-                    :key="weekday"
-                    v-for="(weekday, index) in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']">
-                    <label>
-                        <input type="checkbox"
-                            :value="index + 1"
-                            :disabled="chosen.includes(index + 1) && !currentGroup.includes(index + 1)"
-                            v-model="groups[currentGroupIndex]">
-                        {{ $t(weekday) }}
-                    </label>
-                </div>
-            </div>
-            <div class="daily-checkboxes-button">
-                <a class="btn btn-default"
-                    @click="nextGroup()"
-                    v-if="groups.length > 1 || available.length > 0">&gt;</a>
+    <div>
+        <div class="form-group"
+            v-if="groups.length > 1">
+            <div class="btn-group btn-group-justified">
+                <a v-for="(group, index) in groups"
+                    @click="currentGroupIndex = index"
+                    :key="index"
+                    :class="['btn', {'btn-default': index !== currentGroupIndex, 'btn-green': index === currentGroupIndex}]">
+                    {{ groupLabel(group) || $t('empty') }}
+                </a>
             </div>
         </div>
+        <div class="form-group text-center">
+            <div class="daily-checkboxes">
+                <div class="daily-checkboxes-button">
+                    <a class="btn btn-default invisible"
+                        v-if="groups.length > 1 || available.length > 0">&lt;</a>
+                </div>
+                <div class="checkboxes">
+                    <div :class="['checkbox-inline', {'disabled': chosen.includes(weekday) && !currentGroup.includes(weekday)}]"
+                        :key="weekday"
+                        v-for="weekday in [1,2,3,4,5,6,7]">
+                        <label>
+                            <input type="checkbox"
+                                :value="weekday"
+                                :disabled="chosen.includes(weekday) && !currentGroup.includes(weekday)"
+                                v-model="groups[currentGroupIndex]">
+                            {{ dayLabel(weekday) }}
+                        </label>
+                    </div>
+                </div>
+                <div class="daily-checkboxes-button">
+                    <a class="btn btn-default"
+                        @click="nextGroup()"
+                        v-if="groups.length > 1 || available.length > 0">&gt;</a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 100px;">&nbsp;</div>
+        <div class="form-group">&nbsp;</div>
+        <div class="form-group">&nbsp;</div>
+        <div class="form-group">&nbsp;</div>
     </div>
 </template>
 
 <script>
 
+    import moment from "moment";
     import {flatten, difference} from "lodash";
 
     export default {
@@ -56,6 +74,12 @@
                         this.currentGroupIndex = 0;
                     }
                 }
+            },
+            dayLabel(day) {
+                return moment(day === 7 ? 0 : day, 'd').format('ddd');
+            },
+            groupLabel(group) {
+                return [...group].sort().map(this.dayLabel).join(', ');
             }
         },
         mounted() {
