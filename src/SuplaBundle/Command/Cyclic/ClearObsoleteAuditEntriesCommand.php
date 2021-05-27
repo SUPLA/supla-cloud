@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use DateInterval;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\AuditEntryRepository;
@@ -54,7 +55,7 @@ class ClearObsoleteAuditEntriesCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $now = $this->timeProvider->getDateTime();
-        $now->sub(new \DateInterval("P{$this->deleteOlderThanDays}D"));
+        $now->sub(new DateInterval("P{$this->deleteOlderThanDays}D"));
 
         $customRules = [];
         foreach ($this->deleteOlderThanDaysCustom as $customEventName => $customDays) {
@@ -80,7 +81,7 @@ class ClearObsoleteAuditEntriesCommand extends AbstractCyclicCommand {
 
         foreach ($customRules as $eventId => $days) {
             $now = $this->timeProvider->getDateTime();
-            $now->sub(new \DateInterval("P{$days}D"));
+            $now->sub(new DateInterval("P{$days}D"));
             $deletedRows = $this->auditEntryRepository
                 ->createQueryBuilder('ae')
                 ->delete()

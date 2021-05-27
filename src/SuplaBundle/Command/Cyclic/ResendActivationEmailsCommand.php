@@ -17,6 +17,9 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use DateInterval;
+use DateTime;
+use Exception;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\TimeProvider;
@@ -61,15 +64,15 @@ class ResendActivationEmailsCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $halfHourAgo = $this->timeProvider->getDateTime();
-        $halfHourAgo->sub(new \DateInterval('PT30M'));
+        $halfHourAgo->sub(new DateInterval('PT30M'));
         $hourAgo = $this->timeProvider->getDateTime();
-        $hourAgo->sub(new \DateInterval('PT60M'));
+        $hourAgo->sub(new DateInterval('PT60M'));
 
         $qb = $this->userRepository
             ->createQueryBuilder('u')
             ->select()
             ->where('u.enabled = 0 AND u.token IS NOT NULL AND u.regDate BETWEEN :dateFrom AND :dateTo')
-            ->setParameters(['dateFrom' => $hourAgo->format(\DateTime::ATOM), 'dateTo' => $halfHourAgo->format(\DateTime::ATOM)]);
+            ->setParameters(['dateFrom' => $hourAgo->format(DateTime::ATOM), 'dateTo' => $halfHourAgo->format(DateTime::ATOM)]);
 
         /** @var User[] $usersToNotify */
         $usersToNotify = $qb->getQuery()->execute();
@@ -88,7 +91,7 @@ class ResendActivationEmailsCommand extends AbstractCyclicCommand {
                 if ($sentCount < 2) {
                     $this->userManager->sendConfirmationEmailMessage($userToNotify);
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
             }
         }
     }
