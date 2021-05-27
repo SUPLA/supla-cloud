@@ -56,12 +56,6 @@ class Schedule implements HasSubject {
     private $user;
 
     /**
-     * @ORM\Column(name="time_expression", type="string", length=100, nullable=true)
-     * @Groups({"basic"})
-     */
-    private $timeExpression;
-
-    /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
      * @Groups({"channel", "iodevice", "location"})
@@ -76,19 +70,7 @@ class Schedule implements HasSubject {
     private $channelGroup;
 
     /**
-     * @ORM\Column(name="action", type="integer", nullable=true)
-     * @Groups({"basic"})
-     */
-    private $action;
-
-    /**
-     * @ORM\Column(name="action_param", type="string", nullable=true, length=255)
-     * @Groups({"basic"})
-     */
-    private $actionParam;
-
-    /**
-     * @ORM\Column(name="config", type="string", nullable=true, length=1023)
+     * @ORM\Column(name="config", type="string", nullable=true, length=2048)
      * @Groups({"basic"})
      */
     private $config;
@@ -144,16 +126,19 @@ class Schedule implements HasSubject {
     public function fill(array $data) {
         Assertion::keyIsset($data, 'mode', 'No schedule mode given.');
         $this->setMode(new ScheduleMode($data['mode']));
-        $this->setTimeExpression($data['timeExpression'] ?? null);
         if ($data['subject'] ?? null) {
             $this->initializeSubject($data['subject']);
         }
-        $this->setAction(($data['actionId'] ?? null) ? new ChannelFunctionAction($data['actionId']) : null);
-        $this->setActionParam($data['actionParam'] ?? null);
         $this->setDateStart(empty($data['dateStart']) ? new DateTime() : DateTime::createFromFormat(DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : DateTime::createFromFormat(DateTime::ATOM, $data['dateEnd']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
+        // TODO remove the if-clause in v2.4
+        if (isset($data['timeExpression']) && isset($data['actionId']) && !isset($data['config'])) {
+            $data['config'] = [
+                ['crontab' => $data['timeExpression'], 'action' => ['id' => $data['actionId'], 'param' => $data['actionParam'] ?? null]],
+            ];
+        }
         $this->setConfig($data['config'] ?? null);
     }
 
@@ -164,19 +149,6 @@ class Schedule implements HasSubject {
     /** @return User */
     public function getUser() {
         return $this->user;
-    }
-
-    /** @return string|null */
-    public function getTimeExpression() {
-        return $this->timeExpression;
-    }
-
-    public function setTimeExpression(?string $timeExpression) {
-        if ($timeExpression) {
-            $parts = explode(' ', $timeExpression);
-            Assert::that($parts[0])->notEq('*')->notEq('*/2')->notEq('*/3')->notEq('*/4');
-        }
-        $this->timeExpression = $timeExpression;
     }
 
     /** @param IODeviceChannel|IODeviceChannelGroup|null $subject */
@@ -199,28 +171,6 @@ class Schedule implements HasSubject {
 
     public function isSubjectEnabled(): bool {
         return $this->getSubjectType() != ActionableSubjectType::CHANNEL() || $this->getSubject()->getIoDevice()->getEnabled();
-    }
-
-    public function getAction(): ?ChannelFunctionAction {
-        return $this->action ? new ChannelFunctionAction($this->action) : null;
-    }
-
-    public function setAction(?ChannelFunctionAction $action) {
-        $this->action = $action ? $action->getValue() : null;
-    }
-
-    public function getActionParam(): ?array {
-        return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
-    }
-
-    /** @param array|null */
-    public function setActionParam($actionParam) {
-        if ($actionParam) {
-            $params = json_encode($actionParam);
-        } else {
-            $params = null;
-        }
-        $this->actionParam = $params;
     }
 
     /** @return array|null */

@@ -35,9 +35,6 @@ class Version20210525104812MigrationTest extends DatabaseMigrationTestCase {
         /** @var Schedule $schedule */
         $schedule = $this->getEntityManager()->find(Schedule::class, 1);
         $this->assertEquals(ScheduleMode::DAILY, $schedule->getMode()->getValue());
-        $this->assertNull($schedule->getTimeExpression());
-        $this->assertNull($schedule->getAction());
-        $this->assertNull($schedule->getActionParam());
         $config = $schedule->getConfig();
         $this->assertNotNull($config);
         $this->assertCount(1, $config);
@@ -49,9 +46,6 @@ class Version20210525104812MigrationTest extends DatabaseMigrationTestCase {
         /** @var Schedule $schedule */
         $schedule = $this->getEntityManager()->find(Schedule::class, 6);
         $this->assertEquals(ScheduleMode::DAILY, $schedule->getMode()->getValue());
-        $this->assertNull($schedule->getTimeExpression());
-        $this->assertNull($schedule->getAction());
-        $this->assertNull($schedule->getActionParam());
         $config = $schedule->getConfig();
         $this->assertNotNull($config);
         $this->assertCount(1, $config);
@@ -63,9 +57,6 @@ class Version20210525104812MigrationTest extends DatabaseMigrationTestCase {
         /** @var Schedule $schedule */
         $schedule = $this->getEntityManager()->find(Schedule::class, 7);
         $this->assertEquals(ScheduleMode::DAILY, $schedule->getMode()->getValue());
-        $this->assertNull($schedule->getTimeExpression());
-        $this->assertNull($schedule->getAction());
-        $this->assertNull($schedule->getActionParam());
         $config = $schedule->getConfig();
         $this->assertNotNull($config);
         $this->assertCount(2, $config);
@@ -73,5 +64,16 @@ class Version20210525104812MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals('15 19 * * *', $config[1]['crontab']);
         $this->assertEquals(['id' => 80, 'param' => ['hue' => 196, 'color_brightness' => 20]], $config[0]['action']);
         $this->assertEquals(['id' => 80, 'param' => ['hue' => 196, 'color_brightness' => 20]], $config[1]['action']);
+    }
+
+    public function testMigratedMinutelyScheduleToDaily() {
+        /** @var Schedule $schedule */
+        $schedule = $this->getEntityManager()->find(Schedule::class, 2);
+        $this->assertEquals(ScheduleMode::MINUTELY, $schedule->getMode()->getValue());
+        $config = $schedule->getConfig();
+        $this->assertNotNull($config);
+        $this->assertCount(1, $config);
+        $this->assertEquals('*/10 * * * *', $config[0]['crontab']);
+        $this->assertEquals(['id' => 30, 'param' => null], $config[0]['action']);
     }
 }

@@ -18,10 +18,7 @@
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use DateTime;
-use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 
 class IntervalSchedulePlannerTest extends PHPUnit_Framework_TestCase {
@@ -30,14 +27,11 @@ class IntervalSchedulePlannerTest extends PHPUnit_Framework_TestCase {
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
         $schedulePlanner = new IntervalSchedulePlanner();
-        $schedule = new ScheduleWithTimezone($cronExpression, 'UTC', ScheduleMode::MINUTELY());
         $format = 'Y-m-d H:i';
-        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
-        $startDate = DateTime::createFromFormat($format, $startDate, $schedule->getUserTimezone());
-        $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $schedulePlanner->validate($schedule);
-        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
-        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
+        $startDate = DateTime::createFromFormat($format, $startDate);
+        $this->assertTrue($schedulePlanner->canCalculateFor($cronExpression));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($cronExpression, $startDate);
+        $this->assertEquals($expectedNextRunDate, $nextExecution->format($format));
     }
 
     public function calculatingNextRunDateProvider() {
@@ -62,12 +56,7 @@ class IntervalSchedulePlannerTest extends PHPUnit_Framework_TestCase {
      */
     public function testDoesNotSupportInvalidIntervalExpressions($invalidCronExpression) {
         $schedulePlanner = new IntervalSchedulePlanner();
-        $schedule = new Schedule();
-        $schedule->setMode(ScheduleMode::MINUTELY());
-        $schedule->setTimeExpression($invalidCronExpression);
-        $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $this->expectException(InvalidArgumentException::class);
-        $schedulePlanner->validate($schedule);
+        $this->assertFalse($schedulePlanner->canCalculateFor($invalidCronExpression));
     }
 
     public function invalidCronExpressions() {

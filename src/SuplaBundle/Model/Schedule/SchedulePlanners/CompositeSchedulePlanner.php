@@ -24,6 +24,9 @@ use InvalidArgumentException;
 use SensioLabs\Security\Exception\RuntimeException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ScheduleMode;
+use SuplaBundle\Utils\ArrayUtils;
 
 class CompositeSchedulePlanner {
     /** @var SchedulePlanner[] */
@@ -35,14 +38,29 @@ class CompositeSchedulePlanner {
 
     public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
-            foreach ($this->planners as $planner) {
-                if ($planner->canCalculateFor($schedule)) {
-                    return $planner->calculateNextScheduleExecution($schedule, $currentDate);
+            $closestExecution = null;
+            foreach ($schedule->getConfig() as $executionDef) {
+                $nextRunDate = $this->nextRunDate($executionDef['crontab'], $currentDate);
+                if (!$closestExecution || $closestExecution->getPlannedTimestamp() > $nextRunDate) {
+                    $closestExecution = new ScheduledExecution(
+                        $schedule,
+                        $nextRunDate,
+                        new ChannelFunctionAction($executionDef['action']['id']),
+                        $executionDef['action']['param'] ?? null
+                    );
                 }
             }
-            throw new RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. "
-                . "Expression: {$schedule->getTimeExpression()}");
+            return $closestExecution;
         });
+    }
+
+    private function nextRunDate(string $crontab, DateTime $currentDate): DateTime {
+        foreach ($this->planners as $planner) {
+            if ($planner->canCalculateFor($crontab)) {
+                return $planner->calculateNextScheduleExecution($crontab, $currentDate);
+            }
+        }
+        throw new RuntimeException("Could not calculate the next run date for the expression: {$crontab}");
     }
 
     /**
@@ -83,12 +101,12 @@ class CompositeSchedulePlanner {
         });
     }
 
-    public function validateSchedule(Schedule $schedule) {
+    public function validateCrontab(string $crontab) {
         $canCalculate = false;
         foreach ($this->planners as $planner) {
-            if ($planner->canCalculateFor($schedule)) {
+            if ($planner->canCalculateFor($crontab)) {
                 $canCalculate = true;
-                $planner->validate($schedule);
+                $planner->validate($crontab);
             }
         }
         Assertion::true($canCalculate, 'Invalid schedule.');
