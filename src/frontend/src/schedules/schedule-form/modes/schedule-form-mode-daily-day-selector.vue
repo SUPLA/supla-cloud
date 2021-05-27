@@ -1,43 +1,42 @@
 <template>
     <div>
-        <div class="form-group"
-            v-if="groups.length > 1">
+        <div class="form-group">
             <div class="btn-group btn-group-justified">
                 <a v-for="(group, index) in groups"
-                    @click="currentGroupIndex = index"
+                    @click="enterGroup(index)"
                     :key="index"
-                    :class="['btn', {'btn-default': index !== currentGroupIndex, 'btn-green': index === currentGroupIndex}]">
-                    {{ groupLabel(group) || $t('empty') }}
+                    :class="['btn', {'btn-warning': !groupLabel(group),'btn-default': groupLabel(group) && index !== currentGroupIndex, 'btn-green': groupLabel(group) && index === currentGroupIndex}]">
+                    <span v-if="groupLabel(group) ">{{ groupLabel(group) }}</span>
+                    <em v-else>{{ $t('empty') }}</em>
+                </a>
+                <a v-if="available.length"
+                    class="btn btn-default"
+                    @click="newGroup()">
+                    {{ groupLabel(available) }}
+                </a>
+                <a class="btn btn-default next-group-button"
+                    @click="nextGroup()">
+                    <i class="pe-7s-right-arrow"></i>
                 </a>
             </div>
         </div>
-        <div class="form-group text-center">
-            <div class="daily-checkboxes">
-                <div class="daily-checkboxes-button">
-                    <a class="btn btn-default invisible"
-                        v-if="groups.length > 1 || available.length > 0">&lt;</a>
-                </div>
-                <div class="checkboxes">
-                    <div :class="['checkbox-inline', {'disabled': chosen.includes(weekday) && !currentGroup.includes(weekday)}]"
-                        :key="weekday"
-                        v-for="weekday in [1,2,3,4,5,6,7]">
-                        <label>
-                            <input type="checkbox"
-                                :value="weekday"
-                                :disabled="chosen.includes(weekday) && !currentGroup.includes(weekday)"
-                                v-model="groups[currentGroupIndex]">
-                            {{ dayLabel(weekday) }}
-                        </label>
-                    </div>
-                </div>
-                <div class="daily-checkboxes-button">
-                    <a class="btn btn-default"
-                        @click="nextGroup()"
-                        v-if="groups.length > 1 || available.length > 0">&gt;</a>
-                </div>
+        <div class="form-group daily-checkboxes">
+            <div :class="['checkbox-inline', {'disabled': chosen.includes(weekday) && !currentGroup.includes(weekday)}]"
+                :key="weekday"
+                v-for="weekday in [1,2,3,4,5,6,7]">
+                <label>
+                    <input type="checkbox"
+                        :value="weekday"
+                        @change="updateModel()"
+                        :disabled="chosen.includes(weekday) && !currentGroup.includes(weekday)"
+                        v-model="groups[currentGroupIndex]">
+                    {{ dayLabel(weekday) }}
+                </label>
             </div>
         </div>
-        <div class="form-group" style="margin-bottom: 100px;">&nbsp;</div>
+        <div class="form-group"
+            style="margin-bottom: 100px;">&nbsp;
+        </div>
         <div class="form-group">&nbsp;</div>
         <div class="form-group">&nbsp;</div>
         <div class="form-group">&nbsp;</div>
@@ -50,7 +49,7 @@
     import {flatten, difference} from "lodash";
 
     export default {
-        props: ['value', 'current'],
+        props: ['weekdayGroups'],
         data() {
             return {
                 currentGroupIndex: 0,
@@ -64,7 +63,9 @@
                 let emptyIndex = -1;
                 while ((emptyIndex = this.groups.findIndex((group) => group.length === 0)) >= 0) {
                     this.groups.splice(emptyIndex, 1);
-                    this.currentGroupIndex = -1;
+                    if (emptyIndex <= this.currentGroupIndex) {
+                        this.currentGroupIndex -= 1;
+                    }
                 }
                 this.currentGroupIndex += 1;
                 if (this.currentGroupIndex >= this.groups.length) {
@@ -74,23 +75,47 @@
                         this.currentGroupIndex = 0;
                     }
                 }
+                this.updateModel();
+            },
+            newGroup() {
+                this.enterGroup(this.groups.length);
+            },
+            enterGroup(groupIndex) {
+                this.currentGroupIndex = groupIndex - 1;
+                this.nextGroup();
             },
             dayLabel(day) {
                 return moment(day === 7 ? 0 : day, 'd').format('ddd');
             },
             groupLabel(group) {
                 return [...group].sort().map(this.dayLabel).join(', ');
+            },
+            updateModel() {
+                const weekdayGroups = this.groups.map((group) => [...group].sort().join(','));
+                this.$emit('groups', weekdayGroups);
+                this.$emit('groupIndex', this.currentGroupIndex);
             }
         },
         mounted() {
-
+            if (this.weekdayGroups) {
+                this.groups = [];
+                this.weekdayGroups.forEach((group) => {
+                    if (group === '*') {
+                        group = '1,2,3,4,5,6,7';
+                    }
+                    const newDays = difference(group.split(','), this.chosen).map((day) => parseInt(day));
+                    if (newDays.length) {
+                        this.groups.push(newDays);
+                    }
+                });
+            }
         },
         computed: {
             chosen() {
                 return flatten(this.groups);
             },
             currentGroup() {
-                return this.groups[this.currentGroupIndex];
+                return this.groups[this.currentGroupIndex] || [];
             },
             available() {
                 return difference([1, 2, 3, 4, 5, 6, 7], this.chosen);
@@ -103,13 +128,9 @@
     @import '../../../styles/variables';
 
     .daily-checkboxes {
-        display: flex;
-        align-items: center;
-        .checkboxes {
-            flex: 1;
-            .checkbox-inline.disabled {
-                opacity: .5;
-            }
+        text-align: center;
+        .checkbox-inline.disabled {
+            opacity: .5;
         }
     }
 </style>
