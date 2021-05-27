@@ -25,8 +25,6 @@ use SensioLabs\Security\Exception\RuntimeException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ScheduleMode;
-use SuplaBundle\Utils\ArrayUtils;
 
 class CompositeSchedulePlanner {
     /** @var SchedulePlanner[] */

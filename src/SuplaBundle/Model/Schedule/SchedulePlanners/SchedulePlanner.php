@@ -32,7 +32,7 @@ abstract class SchedulePlanner {
      * @return ScheduledExecution the next execution
      * @throws RuntimeException if the next run date could not be calculated
      */
-    public abstract function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime;
+    abstract public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime;
 
     /**
      * Checks if it can calculate the next run date for given schedule.
@@ -40,7 +40,7 @@ abstract class SchedulePlanner {
      * @param Schedule $schedule the schedule to calculate the next run date for
      * @return boolean true if the calculation is possible, false otherwise
      */
-    public abstract function canCalculateFor(string $crontab): bool;
+    abstract public function canCalculateFor(string $crontab): bool;
 
     /**
      * Checks whether the crontab is valid for this schedule planner.
