@@ -59,10 +59,6 @@
                                     <dd>{{ $t('End date') }}</dd>
                                     <dt>{{ schedule.dateEnd | moment('LLL') }}</dt>
                                 </dl>
-                                <dl v-if="schedule.action">
-                                    <dd>{{ $t('Action') }}</dd>
-                                    <dt>{{ $t(schedule.action.caption) }}</dt>
-                                </dl>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -178,7 +174,7 @@
                 if (this.schedule) {
                     if (['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].includes(this.schedule.subject.function.name)) {
                         return this.$t('The gate sensor must function properly in order to execute the scheduled action.');
-                    } else if (['VALVEOPENCLOSE'].includes(this.schedule.subject.function.name) && this.schedule.action.name === 'OPEN') {
+                    } else if (['VALVEOPENCLOSE'].includes(this.schedule.subject.function.name)) {
                         return this.$t('The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.');
                     }
                 }

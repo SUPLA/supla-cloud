@@ -217,7 +217,11 @@ class ScheduleController extends RestController {
     public function getNextScheduleExecutionsAction(Request $request) {
         $data = $request->request->all();
         $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
-        $scheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+7days', 3);
-        return $this->view($scheduleExecutions, Response::HTTP_OK);
+        if ($temporarySchedule->getConfig()) {
+            $scheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+7days', 3);
+            return $this->view($scheduleExecutions, Response::HTTP_OK);
+        } else {
+            return $this->view([], Response::HTTP_OK);
+        }
     }
 }

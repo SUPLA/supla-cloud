@@ -84,6 +84,9 @@ services:
     $defaultClientsRegistrationTime: '%supla.clients_registration.registration_active_time.initial%'
     $defaultIoDevicesRegistrationTime: '%supla.io_devices_registration.registration_active_time.initial%'
 
+
+  SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner:
+    tags: [{name: supla.schedule_planner, priority: -10}]
   SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner:
     $planners: !tagged supla.schedule_planner
 

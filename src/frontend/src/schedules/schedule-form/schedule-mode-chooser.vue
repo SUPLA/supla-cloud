@@ -3,7 +3,7 @@
         <button class="btn btn-white"
             v-for="mode in availableModes"
             :key="mode"
-            @click="$emit('input', mode)"
+            @click="changeMode(mode)"
             :class="{'active btn-green': mode === value}">
             {{ $t(mode) }}
         </button>
@@ -24,5 +24,11 @@
                 ]
             };
         },
+        methods: {
+            changeMode(mode) {
+                this.$emit('beforeChange', mode);
+                this.$emit('input', mode);
+            }
+        }
     };
 </script>
