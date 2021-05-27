@@ -1,6 +1,28 @@
 <template>
     <div>
-
+        <div class="form-group">
+            <a class="btn btn-block btn-link"
+                @click="showHelp = !showHelp">
+                Instrukcja
+            </a>
+            <transition-expand>
+                <div class="well"
+                    v-if="showHelp">
+                    <p>{{ $t('This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.') }}</p>
+                    <p><a href="https://crontab.guru/">https://crontab.guru</a></p>
+                    <p>{{ $t('Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.') }}</p>
+                    <p>{{ $t('You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.') }}</p>
+                    <ul>
+                        <li><code>*/5 * 30 5 *</code> - {{ $t('At every 5th minute on day-of-month 30 in May') }}</li>
+                        <li><code>30 11 * * WED#3</code> - {{ $t('At 11:30 AM, on the third Wednesday of the month') }}</li>
+                        <li><code>45 17 L * *</code> - {{ $t('At 05:45 PM, on the last day of the month') }}</li>
+                        <li><code>SR0 * * * 1-5</code> - {{ $t('At sunrise, Monday through Friday') }}</li>
+                        <li><code>SS-10 * 10 MAY-AUG *</code> - {{ $t('10 minutes before sunset, on day 10 of the month, May through August') }}</li>
+                        <li><code>SR15 * */2 * *</code> - {{ $t('15 minutes after sunrise, every 2 days') }}</li>
+                    </ul>
+                </div>
+            </transition-expand>
+        </div>
         <div class="crontab-action"
             :key="action.tempId"
             v-for="action in config">
@@ -31,13 +53,15 @@
     import {generatePassword} from "@/common/utils";
     import ScheduleFormModeCrontabInput from "@/schedules/schedule-form/modes/schedule-form-mode-crontab-input";
     import {cloneDeep} from "lodash";
+    import TransitionExpand from "@/common/gui/transition-expand";
 
     export default {
-        components: {ScheduleFormModeCrontabInput, ChannelActionChooser},
+        components: {TransitionExpand, ScheduleFormModeCrontabInput, ChannelActionChooser},
         props: ['value', 'subject'],
         data() {
             return {
                 config: [],
+                showHelp: false,
             };
         },
         methods: {

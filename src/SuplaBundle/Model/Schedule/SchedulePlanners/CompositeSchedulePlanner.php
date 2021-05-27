@@ -37,7 +37,7 @@ class CompositeSchedulePlanner {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
             $closestExecution = null;
             foreach ($schedule->getConfig() as $executionDef) {
-                $nextRunDate = $this->nextRunDate($executionDef['crontab'], $currentDate);
+                $nextRunDate = $this->nextRunDate($executionDef['crontab'] ?? '', $currentDate);
                 if (!$closestExecution || $closestExecution->getPlannedTimestamp() > $nextRunDate) {
                     $closestExecution = new ScheduledExecution(
                         $schedule,
