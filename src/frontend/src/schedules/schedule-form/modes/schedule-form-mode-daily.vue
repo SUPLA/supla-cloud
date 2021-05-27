@@ -1,34 +1,28 @@
 <template>
     <div>
-        <schedule-form-mode-daily-day-selector></schedule-form-mode-daily-day-selector>
-        <div class="form-group schedule-mode-daily-header">
-            <!-- i18n:['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'] -->
-            <div class="input-group">
-                <div class="input-group-btn"><a class="btn btn-default"
-                    @click="nextDay(-1)">&lt;</a></div>
-                <input type="text"
-                    class="form-control text-center"
-                    readonly
-                    :value="$t(availableDays[currentDay - 1])">
-                <div class="input-group-btn"><a class="btn btn-default"
-                    @click="nextDay()">&gt;</a></div>
-            </div>
-        </div>
-        <div v-if="config[currentDay] && config[currentDay].length > 0">
+        <schedule-form-mode-daily-day-selector
+            v-if="weekdayGroups"
+            :weekday-groups="weekdayGroups"
+            @groups="weekdayGroups = $event"
+            @groupIndex="weekdayGroupIndex = $event"></schedule-form-mode-daily-day-selector>
+        {{ weekdayGroups }}
+        {{ weekdayGroupIndex }}
+        {{ scheduleConfig }}
+        <div v-if="config[weekdayGroupIndex] && config[weekdayGroupIndex].length > 0">
             <div class="daily-action"
                 :key="action.tempId"
-                v-for="action in config[currentDay]">
+                v-for="action in config[weekdayGroupIndex]">
                 <div class="row">
                     <div class="col-sm-5">
                         <schedule-form-mode-daily-hour
                             v-model="action.crontab"
                             @input="updateConfig()"
-                            :weekdays="[currentDay]"
+                            :weekdays="weekdayGroups[weekdayGroupIndex]"
                             v-if="action.type === 'hour'"></schedule-form-mode-daily-hour>
                         <schedule-form-mode-daily-sun
                             v-model="action.crontab"
                             @input="updateConfig()"
-                            :weekdays="[currentDay]"
+                            :weekdays="weekdayGroups[weekdayGroupIndex]"
                             v-if="action.type === 'sun'"></schedule-form-mode-daily-sun>
                     </div>
                     <div class="col-sm-7 vertical">
@@ -43,18 +37,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div v-else-if="weekdaysWithActions.length"
-            class="form-group">
-            {{ $t('Copy actions from:') }}
-            <ul>
-                <li v-for="weekday in weekdaysWithActions"
-                    :key="weekday">
-                    <a @click="copyFrom(weekday)">
-                        {{ $t(availableDays[weekday - 1]) }}
-                    </a>
-                </li>
-            </ul>
         </div>
         <div class="form-group">
             <h4>Dodaj akcję</h4>
@@ -78,74 +60,78 @@
     import ScheduleFormModeDailyHour from "@/schedules/schedule-form/modes/schedule-form-mode-daily-hour";
     import ScheduleFormModeDailySun from "@/schedules/schedule-form/modes/schedule-form-mode-daily-sun";
     import ChannelActionChooser from "@/channels/action/channel-action-chooser";
-    import {mapValues, toArray, flatten} from "lodash";
+    import {flatten, mapValues, toArray} from "lodash";
     import {generatePassword} from "@/common/utils";
-    import {cloneDeep, pull} from "lodash";
     import ScheduleFormModeDailyDaySelector from "@/schedules/schedule-form/modes/schedule-form-mode-daily-day-selector";
+    import {cloneDeep} from "lodash";
 
     export default {
         components: {ScheduleFormModeDailyDaySelector, ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
         props: ['value', 'subject'],
         data() {
             return {
-                currentDay: 1,
+                weekdayGroups: undefined,
+                weekdayGroupIndex: 0,
                 config: {},
-                availableDays: ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'],
             };
         },
         methods: {
             updateConfig() {
                 this.$emit('input', this.scheduleConfig);
             },
-            roundTo5(int) {
-                return Math.round(Math.floor(int / 5) * 5);
-            },
-            nextDay(change = 1) {
-                this.currentDay += change;
-                if (this.currentDay > this.availableDays.length) {
-                    this.currentDay = 1;
-                }
-                if (this.currentDay < 1) {
-                    this.currentDay = this.availableDays.length;
-                }
-            },
             addAction(type) {
-                if (!this.config[this.currentDay]) {
-                    this.$set(this.config, this.currentDay, []);
+                if (!this.config[this.weekdayGroupIndex]) {
+                    this.$set(this.config, this.weekdayGroupIndex, []);
                 }
                 const action = {tempId: generatePassword(10, true), type, crontab: '', action: {}};
-                this.config[this.currentDay].push(action);
+                this.config[this.weekdayGroupIndex].push(action);
                 return action;
             },
             possibleActionFilter(possibleAction) {
                 return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
             },
-            copyFrom(weekday) {
-                this.$set(this.config, this.currentDay, cloneDeep(this.config[weekday]));
-            },
             removeItem(item) {
-                const index = this.config[this.currentDay].indexOf(item);
-                this.config[this.currentDay].splice(index, 1);
+                const index = this.config[this.weekdayGroupIndex].indexOf(item);
+                this.config[this.weekdayGroupIndex].splice(index, 1);
                 this.updateConfig();
             }
         },
         mounted() {
             if (this.value) {
+                this.weekdayGroups = [];
                 this.value.forEach(({crontab, action}) => {
                     const parts = crontab.split(' ');
-                    const type = parts[0].charAt(0) === 'S' ? 'sun' : 'hour';
-                    const weekdayPart = parts.pop();
-                    const weekdays = weekdayPart === '*' ? [1, 2, 3, 4, 5, 6, 7] : weekdayPart.split(',');
-                    weekdays.forEach((weekday) => {
-                        weekday = weekday == 0 ? 7 : weekday;
-                        this.currentDay = weekday;
-                        const addedAction = this.addAction(type);
-                        addedAction.crontab = [...parts, weekday].join(' ');
-                        addedAction.action = cloneDeep(action);
-                    });
+                    const type = parts[0].charAt(0) === 'S' ? 'sun' : 'hour'
+                    const weekdayPart = parts[parts.length - 1];
+                    this.weekdayGroupIndex = this.weekdayGroups.indexOf(weekdayPart);
+                    if (this.weekdayGroupIndex === -1) {
+                        this.weekdayGroupIndex = this.weekdayGroups.length;
+                        this.weekdayGroups.push(weekdayPart);
+                    }
+                    const addedAction = this.addAction(type);
+                    addedAction.crontab = crontab;
+                    addedAction.action = cloneDeep(action);
                 });
-                this.currentDay = 1;
+                this.weekdayGroupIndex = 0;
+            } else {
+                this.weekdayGroups = ['*'];
             }
+            // if (this.value) {
+            //     this.value.forEach(({crontab, action}) => {
+            //         const parts = crontab.split(' ');
+            //         const type = parts[0].charAt(0) === 'S' ? 'sun' : 'hour';
+            //         const weekdayPart = parts.pop();
+            //         const weekdays = weekdayPart === '*' ? [1, 2, 3, 4, 5, 6, 7] : weekdayPart.split(',');
+            //         weekdays.forEach((weekday) => {
+            //             weekday = weekday == 0 ? 7 : weekday;
+            //             this.currentDay = weekday;
+            //             const addedAction = this.addAction(type);
+            //             addedAction.crontab = [...parts, weekday].join(' ');
+            //             addedAction.action = cloneDeep(action);
+            //         });
+            //     });
+            //     this.currentDay = 1;
+            // }
         },
         computed: {
             scheduleConfig() {
@@ -154,9 +140,6 @@
                 });
                 return flatten(toArray(mapped)).filter(({crontab, action}) => crontab && action && action.id);
             },
-            weekdaysWithActions() {
-                return [1, 2, 3, 4, 5, 6, 7].filter((weekday) => this.config[weekday] && this.config[weekday].length > 0);
-            }
         }
     };
 </script>
