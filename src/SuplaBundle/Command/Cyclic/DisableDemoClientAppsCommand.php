@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,6 +17,9 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use DateTime;
+use DateTimeZone;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Repository\ClientAppRepository;
 use SuplaBundle\Supla\SuplaServer;
@@ -46,8 +49,8 @@ class DisableDemoClientAppsCommand extends AbstractCyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $now = new \DateTime('now', new \DateTimeZone('UTC'));
-        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $criteria = new Criteria();
         $criteria
             ->where($criteria->expr()->eq('enabled', true))
             ->andWhere($criteria->expr()->lte('disableAfterDate', $now));

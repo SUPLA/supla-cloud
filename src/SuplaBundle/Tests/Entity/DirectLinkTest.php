@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,12 +17,14 @@
 
 namespace SuplaBundle\Tests\Entity;
 
+use InvalidArgumentException;
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
-class DirectLinkTest extends \PHPUnit_Framework_TestCase {
+class DirectLinkTest extends PHPUnit_Framework_TestCase {
     public function testGeneratingSlug() {
         $directLink = new DirectLink($this->createMock(IODeviceChannel::class));
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
@@ -40,7 +42,7 @@ class DirectLinkTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testCannotGenerateSlugTwice() {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $directLink = new DirectLink($this->createMock(IODeviceChannel::class));
         $directLink->generateSlug(new PlaintextPasswordEncoder());
         $directLink->generateSlug(new PlaintextPasswordEncoder());

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Model\Doctrine;
 
+use DateTime;
+use DateTimeZone;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeType;
@@ -26,14 +28,14 @@ use Doctrine\DBAL\Types\DateTimeType;
  * http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html
  */
 class UTCDateTimeType extends DateTimeType {
-    static private $utc = null;
+    private static $utc = null;
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform) {
         if ($value === null || is_string($value)) {
             return $value;
         }
         if (is_null(self::$utc)) {
-            self::$utc = new \DateTimeZone('UTC');
+            self::$utc = new DateTimeZone('UTC');
         }
         $value->setTimeZone(self::$utc);
         return $value->format($platform->getDateTimeFormatString());
@@ -44,9 +46,9 @@ class UTCDateTimeType extends DateTimeType {
             return null;
         }
         if (is_null(self::$utc)) {
-            self::$utc = new \DateTimeZone('UTC');
+            self::$utc = new DateTimeZone('UTC');
         }
-        $val = \DateTime::createFromFormat($platform->getDateTimeFormatString(), $value, self::$utc);
+        $val = DateTime::createFromFormat($platform->getDateTimeFormatString(), $value, self::$utc);
         if (!$val) {
             throw ConversionException::conversionFailed($value, $this->getName());
         }

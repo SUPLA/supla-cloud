@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -218,10 +218,12 @@ class AuthorizeOAuthController extends Controller {
         );
 
         $info = $this->getTargetCloudInfo($targetCloud);
+        // @codingStandardsIgnoreStart
         Assertion::isArray(
             $info,
             'Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.' // i18n
         );
+        // @codingStandardsIgnoreEnd
         Assertion::version(
             ApiVersions::V2_3,
             '<=',

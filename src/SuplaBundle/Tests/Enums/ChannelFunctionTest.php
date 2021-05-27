@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,13 +17,14 @@
 
 namespace SuplaBundle\Tests\Enums;
 
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Exception\ApiException;
 
-class ChannelFunctionTest extends \PHPUnit_Framework_TestCase {
+class ChannelFunctionTest extends PHPUnit_Framework_TestCase {
     public function testEveryFunctionHasCaption() {
         $diff = array_map(function (ChannelFunction $type) {
             return $type->getKey();

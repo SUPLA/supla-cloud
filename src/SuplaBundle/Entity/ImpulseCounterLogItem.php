@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,7 +51,7 @@ class ImpulseCounterLogItem {
         return $this->channel_id;
     }
 
-    /** @return \DateTime */
+    /** @return DateTime */
     public function getDate() {
         return $this->date;
     }

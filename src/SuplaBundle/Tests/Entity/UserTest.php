@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,11 +17,13 @@
 
 namespace SuplaBundle\Tests\Entity;
 
+use DateTime;
+use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\Tests\AnyFieldSetter;
 
-class UserTest extends \PHPUnit_Framework_TestCase {
+class UserTest extends PHPUnit_Framework_TestCase {
     public function testSettingDefaultTimezoneByDefault() {
         $user = new User();
         $this->assertEquals(date_default_timezone_get(), $user->getTimezone());
@@ -41,7 +43,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
 
     public function testEnablingClientAppRegistration() {
         $user = new User();
-        $now = new \DateTime();
+        $now = new DateTime();
         $user->enableClientsRegistration(600);
         $this->assertNotNull($user->getClientsRegistrationEnabled());
         $this->assertGreaterThanOrEqual($now->getTimestamp(), $user->getClientsRegistrationEnabled()->getTimestamp() - 600);
@@ -56,7 +58,7 @@ class UserTest extends \PHPUnit_Framework_TestCase {
 
     public function testReturnsClientsRegistrationNullIfTimeHasPassed() {
         $user = new User();
-        AnyFieldSetter::set($user, 'clientsRegistrationEnabled', new \DateTime('-1second'));
+        AnyFieldSetter::set($user, 'clientsRegistrationEnabled', new DateTime('-1second'));
         $this->assertNull($user->getClientsRegistrationEnabled());
     }
 
