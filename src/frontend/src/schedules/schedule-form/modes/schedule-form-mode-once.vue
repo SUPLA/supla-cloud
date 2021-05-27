@@ -20,7 +20,7 @@
             datepicker.datetimepicker({
                 minDate: moment().add(5, 'minute').toDate(),
                 locale: Vue.config.lang,
-                stepping: 5,
+                stepping: 1,
                 inline: true,
                 sideBySide: true
             }).on("dp.change", () => this.updateTimeExpression());

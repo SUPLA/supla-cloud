@@ -35,7 +35,7 @@ class IntervalSchedulePlanner extends SchedulePlanner {
             $nextRunDate->setTimezone(new DateTimeZone('UTC'));
         }
         $nextRunDate->add(new DateInterval($period));
-        $nextRunDate = CompositeSchedulePlanner::roundToClosest5Minutes($nextRunDate, $nextRunDate->getTimezone());
+        $nextRunDate = CompositeSchedulePlanner::roundToClosestMinute($nextRunDate, $nextRunDate->getTimezone());
         return $nextRunDate;
     }
 

@@ -1,7 +1,6 @@
 <template>
     <div class="form-group">
         <vue-timepicker v-model="time"
-            :minute-interval="5"
             hide-clear-button
             auto-scroll
             advanced-keyboard

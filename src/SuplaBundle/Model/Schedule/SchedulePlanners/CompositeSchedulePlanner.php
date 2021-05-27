@@ -117,9 +117,9 @@ class CompositeSchedulePlanner {
         return $result;
     }
 
-    public static function roundToClosest5Minutes($dateOrTimestamp, DateTimeZone $timezone): DateTime {
+    public static function roundToClosestMinute($dateOrTimestamp, DateTimeZone $timezone): DateTime {
         $timestamp = is_int($dateOrTimestamp) ? $dateOrTimestamp : $dateOrTimestamp->getTimestamp();
-        $timestampRoundTo5Minutes = round($timestamp / 300) * 300;
-        return (new DateTime('now', $timezone))->setTimestamp($timestampRoundTo5Minutes);
+        $roundTimestamp = round($timestamp / 60) * 60;
+        return (new DateTime('now', $timezone))->setTimestamp($roundTimestamp);
     }
 }
