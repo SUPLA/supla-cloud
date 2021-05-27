@@ -36,7 +36,8 @@
                         <div class="form-group">
                             <label>{{ $t("Schedule mode") }}</label>
                             <div class="clearfix"></div>
-                            <schedule-mode-chooser v-model="schedule.mode" @input="clearConfig()"></schedule-mode-chooser>
+                            <schedule-mode-chooser v-model="schedule.mode"
+                                @input="modeChanged()"></schedule-mode-chooser>
                         </div>
                     </div>
                 </div>
@@ -212,8 +213,10 @@
             possibleActionFilter(possibleAction) {
                 return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
             },
-            clearConfig(){
-                this.schedule.config = undefined;
+            modeChanged() {
+                if (this.schedule.mode !== 'crontab') {
+                    this.schedule.config = undefined;
+                }
                 this.schedule.timeExpression = undefined;
             },
         }

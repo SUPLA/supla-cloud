@@ -30,7 +30,7 @@
     import ChannelActionChooser from "@/channels/action/channel-action-chooser";
     import {generatePassword} from "@/common/utils";
     import ScheduleFormModeCrontabInput from "@/schedules/schedule-form/modes/schedule-form-mode-crontab-input";
-    import {cloneDeep, pull} from "lodash";
+    import {cloneDeep} from "lodash";
 
     export default {
         components: {ScheduleFormModeCrontabInput, ChannelActionChooser},
