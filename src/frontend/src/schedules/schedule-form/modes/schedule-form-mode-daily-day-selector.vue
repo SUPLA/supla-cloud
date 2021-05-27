@@ -53,6 +53,7 @@
                 let emptyIndex = -1;
                 while ((emptyIndex = this.groups.findIndex((group) => group.length === 0)) >= 0) {
                     this.groups.splice(emptyIndex, 1);
+                    this.$emit('groupIndexRemove', emptyIndex);
                     if (emptyIndex <= this.currentGroupIndex) {
                         this.currentGroupIndex -= 1;
                     }
