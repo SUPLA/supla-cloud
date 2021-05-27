@@ -10,12 +10,11 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20210525104812 extends NoWayBackMigration {
     public function migrate() {
-        $this->addSql('ALTER TABLE supla_schedule CHANGE time_expression time_expression VARCHAR(100) DEFAULT NULL, CHANGE action action INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_schedule CHANGE config config VARCHAR(2048) DEFAULT NULL');
         $updateConcat = <<<UPDATE
-CONCAT('[{"crontab":"', time_expression, '","action":{"id":', `action`, ',"param":',COALESCE(action_param, 'null'), '}}]')
+CONCAT('[{"crontab":"', time_expression, '","action":{"id":', `action`, ',"param":', COALESCE(action_param, 'null'), '}}]')
 UPDATE;
-        $this->addSql("UPDATE supla_schedule SET config=$updateConcat WHERE mode = 'daily'");
-        $this->addSql('UPDATE supla_schedule SET time_expression=NULL, action=NULL, action_param=NULL WHERE mode = "daily"');
+        $this->addSql("UPDATE supla_schedule SET config=$updateConcat WHERE mode IN('daily', 'minutely', 'once')");
         $hourly = $this->getConnection()->iterateAssociativeIndexed('SELECT id, time_expression, action, action_param FROM supla_schedule WHERE mode = "hourly"');
         foreach ($hourly as $id => $hourlySchedule) {
             $timeExpression = $hourlySchedule['time_expression'];
@@ -33,9 +32,10 @@ UPDATE;
                 ];
             }
             $this->addSql(
-                'UPDATE supla_schedule SET mode="daily", time_expression=NULL, action=NULL, action_param=NULL, config=:config WHERE id=:id',
+                'UPDATE supla_schedule SET mode="daily", config=:config WHERE id=:id',
                 ['id' => $id, 'config' => json_encode($config)]
             );
         }
+        $this->addSql('ALTER TABLE supla_schedule DROP time_expression, DROP action, DROP action_param');
     }
 }

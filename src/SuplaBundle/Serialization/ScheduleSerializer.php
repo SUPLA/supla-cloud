@@ -46,7 +46,6 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
         $normalized['subjectType'] = $subjectType;
         $normalized['subjectId'] = $schedule->getSubject()->getId();
         $normalized['mode'] = $schedule->getMode()->getValue();
-        $normalized['actionId'] = $schedule->getAction() ? $schedule->getAction()->getId() : null;
         if ($this->isSerializationGroupRequested('closestExecutions', $context)) {
             $normalized['closestExecutions'] = $this->getClosestExecutions($schedule, null, $context);
         }

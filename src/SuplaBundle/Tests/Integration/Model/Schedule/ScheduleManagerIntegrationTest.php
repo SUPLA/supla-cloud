@@ -18,8 +18,11 @@
 namespace SuplaBundle\Tests\Integration\Model\Schedule;
 
 use DateTime;
+use InvalidArgumentException;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -35,7 +38,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     /** @var IODeviceChannel */
     private $channel;
 
-    protected function setUp() {
+    protected function initializeDatabaseForTests() {
         $this->scheduleManager = self::$container->get(ScheduleManager::class);
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
@@ -104,5 +107,36 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertTrue($schedule->getEnabled());
+    }
+
+    /**
+     * @dataProvider invalidConfigs
+     * @small
+     */
+    public function testValidatingConfig(array $config, bool $expectValid = false) {
+        $schedule = new Schedule($this->channel->getUser(), [
+            'subject' => $this->channel,
+            'mode' => ScheduleMode::ONCE,
+            'config' => $config,
+        ]);
+        if (!$expectValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+        $this->scheduleManager->validateSchedule($schedule);
+    }
+
+    public function invalidConfigs(): array {
+        return [
+            [[]],
+            [[[]]],
+            [[['unicorn' => 'blabla']]],
+            [[['crontab' => '10 10 * * *']]],
+            [[['crontab' => ['10 10 * * *'], 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
+            [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::OPEN]]]], // invalid action
+            [[['crontab' => '10 10 * * 1,a', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
+            [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::TURN_ON, 'extra' => true]]]],
+            [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::TURN_ON], 'extra' => true]]],
+            [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::TURN_ON]]], true],
+        ];
     }
 }

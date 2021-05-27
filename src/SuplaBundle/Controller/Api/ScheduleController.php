@@ -199,7 +199,8 @@ class ScheduleController extends RestController {
      * @deprecated
      */
     public function getNextRunDatesAction(Request $request) {
-//        Assertion::false(ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request), 'Endpoint not available in v2.4.');
+        // TODO uncomment in v2.4
+        // Assertion::false(ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request), 'Endpoint not available in v2.4.');
         $data = $request->request->all();
         $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
         $nextRunDates = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+7days', 3);

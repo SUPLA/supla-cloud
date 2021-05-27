@@ -24,19 +24,14 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 
 class ScheduleWithTimezone extends Schedule {
-    public function __construct($timeSpec = null, $timezone = 'Europe/Warsaw', ScheduleMode $mode = null) {
+    public function __construct($config = '*/5 * * * *', $timezone = 'Europe/Warsaw') {
         $user = new User();
         parent::__construct($user);
         $user->setTimezone($timezone);
         $this->setDateStart(new DateTime());
-        $this->setAction(ChannelFunctionAction::TURN_ON());
-        $this->setMode($mode ?: ScheduleMode::ONCE());
-        if ($timeSpec) {
-            if (is_array($timeSpec)) {
-                $this->setConfig($timeSpec);
-            } else {
-                $this->setTimeExpression($timeSpec);
-            }
+        if (is_string($config)) {
+            $config = [['crontab' => $config, 'action' => ['id' => ChannelFunctionAction::TURN_ON]]];
         }
+        $this->setConfig($config);
     }
 }

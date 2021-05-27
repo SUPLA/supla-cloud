@@ -106,10 +106,6 @@ class ScheduledExecution {
     ) {
         $this->schedule = $schedule;
         $this->plannedTimestamp = $plannedTimestamp;
-        if (!$action) {
-            $action = $schedule->getAction();
-            $actionParam = $schedule->getActionParam();
-        }
         if ($action) {
             $this->action = $action->getId();
             $this->actionParam = $actionParam ? json_encode($actionParam) : null;

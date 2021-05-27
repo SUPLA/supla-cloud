@@ -30,13 +30,11 @@ class OnceSchedulePlannerTest extends TestCase {
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
         $schedulePlanner = new OnceSchedulePlanner();
-        $schedule = new ScheduleWithTimezone($cronExpression, 'Europe/Warsaw', ScheduleMode::ONCE());
         $format = 'Y-m-d H:i';
-        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
         $startDate = DateTime::createFromFormat($format, $startDate);
-        $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
-        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
+        $this->assertTrue($schedulePlanner->canCalculateFor($cronExpression));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($cronExpression, $startDate);
+        $this->assertEquals($expectedNextRunDate, $nextExecution->format($format));
     }
 
     public function calculatingNextRunDateProvider() {
@@ -50,10 +48,7 @@ class OnceSchedulePlannerTest extends TestCase {
      */
     public function testDoesNotSupportInvalidCronExpressions($invalidCronExpression) {
         $schedulePlanner = new CronExpressionSchedulePlanner();
-        $schedule = new Schedule();
-        $schedule->setMode(ScheduleMode::ONCE());
-        $schedule->setTimeExpression($invalidCronExpression);
-        $this->assertFalse($schedulePlanner->canCalculateFor($schedule));
+        $this->assertFalse($schedulePlanner->canCalculateFor($invalidCronExpression));
     }
 
     public function invalidCronExpressions() {

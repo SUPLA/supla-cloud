@@ -20,14 +20,10 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 use Assert\Assertion;
 use Cron\CronExpression;
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Enums\ScheduleMode;
 
-class OnceSchedulePlanner implements SchedulePlanner {
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
-        $parts = explode(' ', $schedule->getTimeExpression());
-        Assertion::count($parts, 6);
+class OnceSchedulePlanner extends SchedulePlanner {
+    public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime {
+        $parts = explode(' ', $crontab);
         $year = array_pop($parts);
         $withoutAYear = implode(' ', $parts);
         if ($currentDate->format('Y') < $year) {
@@ -36,15 +32,15 @@ class OnceSchedulePlanner implements SchedulePlanner {
         $cron = new CronExpression($withoutAYear);
         $nextRunDate = $cron->getNextRunDate($currentDate);
         Assertion::eq($year, $nextRunDate->format('Y'), 'Impossible cron expression.');
-        return new ScheduledExecution($schedule, $nextRunDate);
+        return $nextRunDate;
     }
 
-    public function canCalculateFor(Schedule $schedule): bool {
-        return $schedule->getMode()->getValue() === ScheduleMode::ONCE && count(explode(' ', $schedule->getTimeExpression())) === 6;
+    public function canCalculateFor(string $crontab): bool {
+        return count(explode(' ', $crontab)) === 6;
     }
 
-    public function validate(Schedule $schedule) {
-        $parts = explode(' ', $schedule->getTimeExpression());
+    public function validate(string $crontab) {
+        $parts = explode(' ', $crontab);
         Assertion::count($parts, 6);
         $year = array_pop($parts);
         $withoutAYear = implode(' ', $parts);

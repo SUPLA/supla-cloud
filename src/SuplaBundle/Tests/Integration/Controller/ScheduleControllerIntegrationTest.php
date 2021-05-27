@@ -59,7 +59,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $scheduleFromResponse = json_decode($client->getResponse()->getContent());
         $this->assertGreaterThan(0, $scheduleFromResponse->id);
         $schedule = self::$container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
-        $this->assertEquals($scheduleFromResponse->timeExpression, $schedule->getTimeExpression());
+        $this->assertEquals($scheduleFromResponse->config[0]->crontab, '2 2 * * *');
         return $schedule;
     }
 
@@ -146,15 +146,17 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCreatingNewDailySchedule() {
         $client = $this->createAuthenticatedClient();
+        $config = [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::TURN_ON]]];
         $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
             'channelId' => $this->device->getChannels()[0]->getId(),
-            'config' => [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::TURN_ON]]],
+            'config' => $config,
             'mode' => ScheduleMode::DAILY,
         ]);
         $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
-        $scheduleFromResponse = json_decode($client->getResponse()->getContent());
-        $this->assertGreaterThan(0, $scheduleFromResponse->id);
-        $schedule = $this->container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
-        $this->assertEquals($scheduleFromResponse->timeExpression, $schedule->getTimeExpression());
+        $scheduleFromResponse = json_decode($client->getResponse()->getContent(), true);
+        $this->assertGreaterThan(0, $scheduleFromResponse['id']);
+        $schedule = $this->container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse['id']);
+        $this->assertEquals($scheduleFromResponse['config'], $config);
+        $this->assertEquals($schedule->getConfig(), $config);
     }
 }

@@ -29,14 +29,11 @@ class CronExpressionSchedulePlannerTest extends TestCase {
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
         $schedulePlanner = new CronExpressionSchedulePlanner();
-        $schedule = new ScheduleWithTimezone();
-        $schedule->setTimeExpression($cronExpression);
         $format = 'Y-m-d H:i';
-        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
         $startDate = DateTime::createFromFormat($format, $startDate);
-        $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
-        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
+        $this->assertTrue($schedulePlanner->canCalculateFor($cronExpression));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($cronExpression, $startDate);
+        $this->assertEquals($expectedNextRunDate, $nextExecution->format($format));
     }
 
     public function calculatingNextRunDateProvider() {
@@ -57,10 +54,7 @@ class CronExpressionSchedulePlannerTest extends TestCase {
      */
     public function testDoesNotSupportInvalidCronExpressions($invalidCronExpression) {
         $schedulePlanner = new CronExpressionSchedulePlanner();
-        $schedule = new Schedule();
-        $schedule->setMode(ScheduleMode::ONCE());
-        $schedule->setTimeExpression($invalidCronExpression);
-        $this->assertFalse($schedulePlanner->canCalculateFor($schedule));
+        $this->assertFalse($schedulePlanner->canCalculateFor($invalidCronExpression));
     }
 
     public function invalidCronExpressions() {
@@ -68,12 +62,5 @@ class CronExpressionSchedulePlannerTest extends TestCase {
             [''],
             ['S * * * *'],
         ];
-    }
-
-    public function testPreservingTimezone() {
-        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Australia/Sydney');
-        $schedulePlanner = new CronExpressionSchedulePlanner();
-        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, new DateTime('now', $schedule->getUserTimezone()));
-        $this->assertEquals($schedule->getUserTimezone(), $nextExecution->getPlannedTimestamp()->getTimezone());
     }
 }

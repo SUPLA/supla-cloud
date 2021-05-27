@@ -24,12 +24,6 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 
 class ScheduleTest extends TestCase {
-    public function testSettingTheCronExpression() {
-        $schedule = new Schedule();
-        $schedule->setTimeExpression('*/5 * * * * *');
-        $this->assertEquals('*/5 * * * * *', $schedule->getTimeExpression());
-    }
-
     public function testErrorWhenNoMode() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
@@ -38,17 +32,11 @@ class ScheduleTest extends TestCase {
 
     public function testFillFillsCaption() {
         $schedule = new Schedule();
-        $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'timeExpression' => '6', 'caption' => 'My Caption']);
+        $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'caption' => 'My Caption']);
         $this->assertEquals('My Caption', $schedule->getCaption());
     }
 
-    public function testRequiresActionParamsForRgbLighting() {
-        $this->expectException(InvalidArgumentException::class);
-        $schedule = new Schedule();
-        $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'timeExpression' => '*', 'actionId' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
-    }
-
-    public function testSettingActionParamsAsArray() {
+    public function testSettingConfigFromOldTimeExpressionFormat() {
         $schedule = new Schedule();
         $schedule->fill([
             'mode' => ScheduleMode::MINUTELY,
@@ -56,17 +44,9 @@ class ScheduleTest extends TestCase {
             'actionId' => ChannelFunctionAction::REVEAL_PARTIALLY,
             'actionParam' => ['percentage' => 12],
         ]);
-        $this->assertEquals(['percentage' => 12], $schedule->getActionParam());
-    }
-
-    public function testSettingInvalidActionParam() {
-        $this->expectException(InvalidArgumentException::class);
-        $schedule = new Schedule();
-        $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'timeExpression' => '*', 'actionParam' => '{"color": 123']);
-    }
-
-    public function testSettingTooShortTimeExpression() {
-        $this->expectException(\InvalidArgumentException::class);
-        (new Schedule())->setTimeExpression('* * * * *');
+        $this->assertCount(1, $schedule->getConfig());
+        $this->assertEquals('3', $schedule->getConfig()[0]['crontab']);
+        $this->assertEquals(ChannelFunctionAction::REVEAL_PARTIALLY, $schedule->getConfig()[0]['action']['id']);
+        $this->assertEquals(['percentage' => 12], $schedule->getConfig()[0]['action']['param']);
     }
 }

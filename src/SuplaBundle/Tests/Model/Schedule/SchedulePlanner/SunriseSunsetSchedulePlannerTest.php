@@ -22,6 +22,7 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 use DateTimeZone;
+use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 date_default_timezone_set('UTC');
@@ -31,12 +32,13 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
      * @dataProvider calculatingNextRunDateProvider
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate, $timezone = 'Europe/Warsaw') {
-        $schedulePlanner = new SunriseSunsetSchedulePlanner();
+        $sunPlanner = new SunriseSunsetSchedulePlanner();
+        $schedulePlanner = new CompositeSchedulePlanner([$sunPlanner]); // wrap in composite to handle timezone correctly
         $schedule = new ScheduleWithTimezone($cronExpression, $timezone);
         $format = 'Y-m-d H:i';
         $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
         $startDate = DateTime::createFromFormat($format, $startDate, new DateTimeZone($timezone));
-        $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
+        $this->assertTrue($sunPlanner->canCalculateFor($cronExpression));
         $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
         $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
     }
@@ -83,7 +85,7 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
 
     // https://github.com/SUPLA/supla-cloud/issues/78
     public function testNextRunDateIsAlwaysOnTheNextDay() {
-        $schedulePlanner = new SunriseSunsetSchedulePlanner();
+        $schedulePlanner = new CompositeSchedulePlanner([new SunriseSunsetSchedulePlanner()]);
         $schedule = new ScheduleWithTimezone('SS0 * * * *', 'Europe/Warsaw');
         $format = 'Y-m-d H:i';
         $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
@@ -96,7 +98,7 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
 
     // https://github.com/SUPLA/supla-cloud/issues/405
     public function testDoubleGenerationOfScheduleExection() {
-        $schedulePlanner = new SunriseSunsetSchedulePlanner();
+        $schedulePlanner = new CompositeSchedulePlanner([new SunriseSunsetSchedulePlanner()]);
         $schedule = new ScheduleWithTimezone('SR0 * * * *', 'Europe/Warsaw');
         $format = 'Y-m-d H:i';
         $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);

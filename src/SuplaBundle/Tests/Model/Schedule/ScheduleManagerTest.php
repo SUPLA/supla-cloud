@@ -58,7 +58,7 @@ class ScheduleManagerTest extends TestCase {
 
     // https://github.com/SUPLA/supla-cloud/issues/82
     public function testDoNotCalculateForPastDates() {
-        $schedule = new ScheduleWithTimezone('*/100');
+        $schedule = new SchedulePlanner\ScheduleWithTimezone('*/100');
         $latestExecutionInThePast = new DateTime('-5days');
         $execution = new ScheduledExecution($schedule, $latestExecutionInThePast, ChannelFunctionAction::CLOSE());
         $this->scheduledExecutionsRepository->method('findBy')->willReturn([$execution]);
