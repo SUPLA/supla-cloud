@@ -4,7 +4,8 @@
             v-if="weekdayGroups"
             :weekday-groups="weekdayGroups"
             @groups="weekdayGroups = $event"
-            @groupIndex="weekdayGroupIndex = $event"></schedule-form-mode-daily-day-selector>
+            @groupIndex="weekdayGroupIndex = $event"
+            @groupIndexRemove="removeWeekdayGroup($event)"></schedule-form-mode-daily-day-selector>
         <div v-if="config[weekdayGroupIndex] && config[weekdayGroupIndex].length > 0">
             <div class="daily-action"
                 :key="action.tempId"
@@ -69,7 +70,7 @@
             return {
                 weekdayGroups: undefined,
                 weekdayGroupIndex: 0,
-                config: {},
+                config: [],
             };
         },
         methods: {
@@ -91,7 +92,10 @@
                 const index = this.config[this.weekdayGroupIndex].indexOf(item);
                 this.config[this.weekdayGroupIndex].splice(index, 1);
                 this.updateConfig();
-            }
+            },
+            removeWeekdayGroup(index) {
+                this.config.splice(index, 1);
+            },
         },
         mounted() {
             if (this.value) {
@@ -116,7 +120,7 @@
         },
         computed: {
             scheduleConfig() {
-                const mapped = mapValues(this.config, (array) => {
+                const mapped = this.config.map((array) => {
                     return array.map(({crontab, action}) => ({crontab, action}));
                 });
                 return flatten(toArray(mapped)).filter(({crontab, action}) => crontab && action && action.id);
@@ -132,6 +136,11 @@
         border-bottom: 1px solid $supla-green;
         padding-bottom: 1em;
         margin-bottom: 1.3em;
+    }
+
+    .daily-checkboxes {
+        display: flex;
+        justify-content: space-between;
     }
 
     .schedule-mode-daily-header {
