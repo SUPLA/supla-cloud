@@ -34,12 +34,6 @@
                 </label>
             </div>
         </div>
-        <div class="form-group"
-            style="margin-bottom: 100px;">&nbsp;
-        </div>
-        <div class="form-group">&nbsp;</div>
-        <div class="form-group">&nbsp;</div>
-        <div class="form-group">&nbsp;</div>
     </div>
 </template>
 
