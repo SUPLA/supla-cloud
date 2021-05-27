@@ -2,6 +2,7 @@
     <div>
         <input type="text"
             class="form-control text-center crontab-input"
+            placeholder="23 0-20/2 * * *"
             v-model="crontab"
             @input="updateValue()">
         <div class="help-block text-right">
@@ -13,6 +14,38 @@
 <script>
     import cronstrue from 'cronstrue/i18n';
 
+    if (!cronstrue.prototype.getTimeOfDayDescriptionOriginal) {
+        cronstrue.prototype.getTimeOfDayDescriptionOriginal = cronstrue.prototype.getTimeOfDayDescription;
+        cronstrue.prototype.getTimeOfDayDescription = function () {
+            const minutePart = this.expressionParts[1];
+            if (minutePart.match(/^S[SR]-?[0-9]+/)) {
+                const sunset = minutePart.charAt(1) === 'S';
+                const delay = parseInt(minutePart.substr(2));
+                if (delay === 0) {
+                    if (sunset) {
+                        return this.vue.$t('At sunset');
+                    } else {
+                        return this.vue.$t('At sunrise');
+                    }
+                } else if (delay > 0) {
+                    if (sunset) {
+                        return this.vue.$t('{minutes} minutes after sunset', {minutes: delay});
+                    } else {
+                        return this.vue.$t('{minutes} minutes after sunrise', {minutes: delay});
+                    }
+                } else {
+                    if (sunset) {
+                        return this.vue.$t('{minutes} minutes before sunset', {minutes: -delay});
+                    } else {
+                        return this.vue.$t('{minutes} minutes before sunrise', {minutes: -delay});
+                    }
+                }
+            } else {
+                return this.getTimeOfDayDescriptionOriginal();
+            }
+        };
+    }
+
     export default {
         props: ['value'],
         data() {
@@ -21,6 +54,7 @@
             };
         },
         mounted() {
+            cronstrue.prototype.vue = this;
             if (this.value) {
                 this.crontab = this.value;
             }
@@ -37,7 +71,7 @@
         computed: {
             humanizedCrontab() {
                 try {
-                    return cronstrue.toString(this.crontab, {locale: 'pl'});
+                    return cronstrue.toString(this.crontab, {locale: this.$i18n.locale});
                 } catch (error) {
                     return '';
                 }

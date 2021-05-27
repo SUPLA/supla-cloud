@@ -65,32 +65,28 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="well"
-                            v-if="schedule.mode != 'daily' && schedule.mode != 'crontab'">
-                            <div class="form-group">
-                                <schedule-form-mode-once v-if="schedule.mode == 'once'"
-                                    v-model="schedule.config[0].crontab"></schedule-form-mode-once>
-                                <schedule-form-mode-minutely v-if="schedule.mode == 'minutely'"
-                                    v-model="schedule.config[0].crontab"></schedule-form-mode-minutely>
+                        <div class="well">
+                            <div v-if="!schedule.subject">
+                                {{ $t('Please choose the schedule subject first.') }}
                             </div>
-                            <div v-if="schedule.subject">
+                            <div v-else-if="schedule.mode != 'daily' && schedule.mode != 'crontab'">
+                                <div class="form-group">
+                                    <schedule-form-mode-once v-if="schedule.mode == 'once'"
+                                        v-model="schedule.config[0].crontab"></schedule-form-mode-once>
+                                    <schedule-form-mode-minutely v-if="schedule.mode == 'minutely'"
+                                        v-model="schedule.config[0].crontab"></schedule-form-mode-minutely>
+                                </div>
                                 <channel-action-chooser :subject="schedule.subject"
                                     v-model="schedule.config[0].action"
                                     :possible-action-filter="possibleActionFilter"></channel-action-chooser>
                             </div>
-                        </div>
-                        <div class="well"
-                            v-else>
-                            <div v-if="schedule.subject">
+                            <div v-else>
                                 <schedule-form-mode-daily v-if="schedule.mode === 'daily'"
                                     v-model="schedule.config"
                                     :subject="schedule.subject"></schedule-form-mode-daily>
                                 <schedule-form-mode-crontab v-if="schedule.mode === 'crontab'"
                                     v-model="schedule.config"
                                     :subject="schedule.subject"></schedule-form-mode-crontab>
-                            </div>
-                            <div v-else>
-                                {{ $t('Please choose the schedule subject first.') }}
                             </div>
                         </div>
                     </div>
@@ -217,10 +213,10 @@
                 return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
             },
             beforeModeChange(targetMode) {
-              this.configs[this.schedule.mode] = this.schedule.config;
-              if (targetMode === 'crontab' && !this.configs.crontab.length) {
-                  this.configs.crontab = cloneDeep(this.schedule.config);
-              }
+                this.configs[this.schedule.mode] = this.schedule.config;
+                if (targetMode === 'crontab' && !this.configs.crontab.length) {
+                    this.configs.crontab = cloneDeep(this.schedule.config);
+                }
             },
             modeChanged() {
                 this.schedule.config = this.configs[this.schedule.mode];
