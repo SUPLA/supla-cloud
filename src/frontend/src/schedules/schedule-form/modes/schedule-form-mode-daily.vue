@@ -58,10 +58,9 @@
     import ScheduleFormModeDailyHour from "@/schedules/schedule-form/modes/schedule-form-mode-daily-hour";
     import ScheduleFormModeDailySun from "@/schedules/schedule-form/modes/schedule-form-mode-daily-sun";
     import ChannelActionChooser from "@/channels/action/channel-action-chooser";
-    import {flatten, mapValues, toArray} from "lodash";
+    import {cloneDeep, flatten, toArray} from "lodash";
     import {generatePassword} from "@/common/utils";
     import ScheduleFormModeDailyDaySelector from "@/schedules/schedule-form/modes/schedule-form-mode-daily-day-selector";
-    import {cloneDeep} from "lodash";
 
     export default {
         components: {ScheduleFormModeDailyDaySelector, ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
@@ -98,7 +97,7 @@
             },
         },
         mounted() {
-            if (this.value) {
+            if (this.value && this.value.length) {
                 this.weekdayGroups = [];
                 this.value.forEach(({crontab, action}) => {
                     const parts = crontab.split(' ');

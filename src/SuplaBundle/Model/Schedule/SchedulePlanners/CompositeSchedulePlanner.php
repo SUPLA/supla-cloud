@@ -45,7 +45,7 @@ class CompositeSchedulePlanner {
                     $closestExecution = new ScheduledExecution(
                         $schedule,
                         $nextRunDate,
-                        new ChannelFunctionAction($executionDef['action']['id']),
+                        $executionDef['action']['id'] ?? false ? new ChannelFunctionAction($executionDef['action']['id']) : null,
                         $executionDef['action']['param'] ?? null
                     );
                 }

@@ -48,7 +48,7 @@
         props: ['model'],
         computed: {
             scheduleLabel() {
-                return this.model.action ? this.$t(this.model.action.caption) : this.$t('Managing') + ' ' + channelTitle(this.model.subject, this);
+                return channelTitle(this.model.subject, this);
             },
             nearestExecution() {
                 if (this.model.closestExecutions.future.length) {

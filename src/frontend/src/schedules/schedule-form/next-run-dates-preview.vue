@@ -34,19 +34,20 @@
     import Vue from "vue";
 
     export default {
-        props: ['value', 'schedule'],
+        props: ['value', 'schedule', 'config'],
         components: {ButtonLoadingDots},
         computed: {
             nextRunDatesQuery() {
                 return {
                     mode: this.schedule.mode,
-                    timeExpression: this.schedule.timeExpression,
-                    actionId: this.schedule.actionId,
                     config: this.schedule.config,
                     dateStart: this.schedule.mode == 'once' ? undefined : this.schedule.dateStart,
                     dateEnd: this.schedule.mode == 'once' ? undefined : this.schedule.dateEnd
                 };
-            }
+            },
+            scheduleConfig() {
+                return JSON.stringify(this.schedule.config);
+            },
         },
         mounted() {
             this.fetchNextScheduleExecutions();
@@ -54,7 +55,7 @@
         methods: {
             fetchNextScheduleExecutions() {
                 const query = this.nextRunDatesQuery;
-                if (!query.timeExpression && !query.config) {
+                if (!query.config) {
                     this.$emit('input', []);
                 } else {
                     this.$set(this.value, 'fetching', true);
@@ -76,25 +77,16 @@
             },
         },
         watch: {
-            'schedule.timeExpression'() {
-                this.fetchNextScheduleExecutions();
-            },
-            'schedule.mode'() {
-                this.fetchNextScheduleExecutions();
-            },
             'schedule.dateStart'() {
                 this.fetchNextScheduleExecutions();
             },
             'schedule.dateEnd'() {
                 this.fetchNextScheduleExecutions();
             },
-            'schedule.actionId'() {
-                this.fetchNextScheduleExecutions();
-            },
-            'schedule.config'() {
+            scheduleConfig() {
                 this.fetchNextScheduleExecutions();
             }
-        }
+        },
     };
 </script>
 
@@ -102,6 +94,7 @@
     .opacity60 {
         opacity: .6;
     }
+
     .next-run-dates-preview {
         .label {
             margin-left: .5em;
