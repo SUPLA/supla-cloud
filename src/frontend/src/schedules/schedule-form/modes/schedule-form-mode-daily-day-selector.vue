@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-            <div class="btn-group btn-group-justified">
+            <div class="btn-group btn-group-flex">
                 <a v-for="(group, index) in groups"
                     @click="enterGroup(index)"
                     :key="index"
@@ -9,14 +9,10 @@
                     <span v-if="groupLabel(group) ">{{ groupLabel(group) }}</span>
                     <em v-else>{{ $t('empty') }}</em>
                 </a>
-                <a v-if="available.length"
-                    class="btn btn-default"
-                    @click="newGroup()">
-                    {{ groupLabel(available) }}
-                </a>
-                <a class="btn btn-default next-group-button"
-                    @click="nextGroup()">
-                    <i class="pe-7s-right-arrow"></i>
+                <a class="btn btn-black btn-no-grow new-group-button"
+                    @click="newGroup()"
+                    v-if="available.length">
+                    <i class="pe-7s-plus"></i>
                 </a>
             </div>
         </div>
@@ -125,6 +121,20 @@
         text-align: center;
         .checkbox-inline.disabled {
             opacity: .5;
+        }
+    }
+
+    .new-group-button {
+        font-weight: bold;
+    }
+
+    .btn-group-flex {
+        display: flex;
+        .btn {
+            flex-grow: 1;
+        }
+        .btn.btn-no-grow {
+            flex-grow: 0;
         }
     }
 </style>
