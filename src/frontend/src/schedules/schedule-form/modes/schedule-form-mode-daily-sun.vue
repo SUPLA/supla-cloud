@@ -4,7 +4,7 @@
             <span class="input-group">
                 <input type="number"
                     class="form-control"
-                    step="5"
+                    step="1"
                     min="0"
                     max="200"
                     maxlength="3"

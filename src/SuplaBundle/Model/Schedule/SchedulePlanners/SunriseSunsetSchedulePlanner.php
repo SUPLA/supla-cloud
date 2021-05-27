@@ -56,8 +56,7 @@ class SunriseSunsetSchedulePlanner extends SchedulePlanner {
         $function = 'date_' . ($matches[1] == 'S' ? 'sunset' : 'sunrise');
         $nextSun = $function($currentDate->getTimestamp(), SUNFUNCS_RET_TIMESTAMP, $location['latitude'], $location['longitude']);
         $nextSun += intval($matches[2]) * 60;
-        $nextSunRoundTo5Minutes = round($nextSun / 300) * 300;
-        $nextRunDate = (new DateTime('now', $timezone))->setTimestamp($nextSunRoundTo5Minutes);
+        $nextRunDate = CompositeSchedulePlanner::roundToClosestMinute($nextSun, $timezone);
         if ($nextRunDate < $currentDate) {
             // PHP sometimes returns past sunset even if we query for midnight of the next day...
             $nextRunDate->add(new DateInterval('P1D'));

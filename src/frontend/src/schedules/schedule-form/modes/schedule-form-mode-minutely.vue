@@ -6,8 +6,8 @@
             <input
                 type="number"
                 class="form-control"
-                :step="multiplier === 1 ? 5 : 1"
-                :min="multiplier === 1 ? 5 : 1"
+                step="1"
+                min="1"
                 max="1000"
                 maxlength="3"
                 v-model="minutes"
@@ -36,15 +36,8 @@
         methods: {
             updateTimeExpression() {
                 let minutes = this.minutes * this.multiplier;
-                if (this.multiplier === 1) {
-                    minutes = Math.min(Math.max(this.roundTo5(minutes), 5), 300);
-                    this.minutes = minutes;
-                }
                 const cronExpression = '*/' + minutes + ' * * * *';
                 this.$emit('input', cronExpression);
-            },
-            roundTo5(int) {
-                return Math.round(Math.floor(int / 5) * 5);
             },
             changeMultiplier() {
                 if (this.multiplier === 1) {
