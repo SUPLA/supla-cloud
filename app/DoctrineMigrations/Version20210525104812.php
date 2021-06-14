@@ -27,7 +27,7 @@ UPDATE;
                     'crontab' => implode(' ', $parts),
                     'action' => [
                         'id' => intval($hourlySchedule['action']),
-                        'param' => json_decode($hourlySchedule['action_param']),
+                        'param' => $hourlySchedule['action_param'] ? json_decode($hourlySchedule['action_param']) : null,
                     ],
                 ];
             }
