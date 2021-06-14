@@ -23,7 +23,7 @@ use DateTimeZone;
 
 class IntervalSchedulePlanner extends SchedulePlanner {
 
-    const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,9})( \*)*$#';
+    const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,7})( \*)*$#';
 
     public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime {
         preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $crontab, $matches);
@@ -40,6 +40,7 @@ class IntervalSchedulePlanner extends SchedulePlanner {
     }
 
     public function canCalculateFor(string $crontab): bool {
-        return !!preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $crontab);
+        $valid = preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $crontab, $matches);
+        return $valid && intval($matches[1]) > 0;
     }
 }
