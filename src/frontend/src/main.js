@@ -25,9 +25,10 @@ Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 
+Vue.prototype.$frontendVersion = '2.3.31';//FRONTEND_VERSION; // eslint-disable-line no-undef
 Vue.config.productionTip = false;
 Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
-Vue.http.headers.common['X-Client-Version'] = VERSION; // eslint-disable-line no-undef
+Vue.http.headers.common['X-Client-Version'] = Vue.prototype.$frontendVersion;
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
 Vue.prototype.$changingRoute = false;
@@ -38,6 +39,8 @@ Vue.http.get('server-info')
     .then(({body: info}) => {
         Vue.config.external = info.config;
         Vue.prototype.$frontendConfig = Vue.config.external;
+        Vue.prototype.$backendVersion = info.cloudVersion;
+        Vue.prototype.$backendAndFrontendVersionMatches = Vue.prototype.$frontendVersion === Vue.prototype.$backendVersion;
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }

@@ -22,7 +22,7 @@ module.exports = {
                 jQuery: 'jquery',
             }),
             new webpack.DefinePlugin({
-                VERSION: JSON.stringify(process.env.RELEASE_VERSION || process.env.npm_package_version)
+                FRONTEND_VERSION: JSON.stringify(process.env.RELEASE_VERSION || process.env.npm_package_version)
             })
         ],
     }
