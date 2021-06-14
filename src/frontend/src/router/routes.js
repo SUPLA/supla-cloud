@@ -122,5 +122,11 @@ export default [
         name: 'agree-on-rules',
         meta: {bodyClass: 'warning hide-cookies-warning'}
     },
+    {
+        path: "/update-in-progress",
+        component: () => import("@/common/errors/update-in-progress"),
+        name: 'update-in-progress',
+        meta: {bodyClass: 'warning'}
+    },
     {path: "*", component: () => import("@/common/errors/error-404"), meta: {bodyClass: 'red', unrestricted: true}}
 ];

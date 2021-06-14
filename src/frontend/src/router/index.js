@@ -34,6 +34,14 @@ router.beforeEach((to, from, next) => {
     }
 });
 
+router.beforeEach((to, from, next) => {
+    if (to.meta.requireBackendAndFrontendVersionMatches && !Vue.prototype.$backendAndFrontendVersionMatches) {
+        next({name: 'update-in-progress'});
+    } else {
+        next();
+    }
+});
+
 router.afterEach((to) => {
     let cssClass = to.meta.bodyClass || '';
     if (Vue.config.external.maintenanceMode) {
