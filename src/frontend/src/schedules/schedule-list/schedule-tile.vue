@@ -48,7 +48,7 @@
         props: ['model'],
         computed: {
             scheduleLabel() {
-                return this.$t(this.model.action.caption) + ' ' + channelTitle(this.model.subject, this);
+                return this.$t(this.model.action?.caption) + ' ' + channelTitle(this.model.subject, this);
             },
             nearestExecution() {
                 if (this.model.closestExecutions.future.length) {
