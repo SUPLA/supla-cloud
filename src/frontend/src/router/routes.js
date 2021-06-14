@@ -111,10 +111,32 @@ export default [
         component: () => import("@/integrations/register-target-cloud-form"),
         meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
-    {path: '/schedules', component: () => import("@/schedules/schedule-list/schedule-list-page"), name: 'schedules'},
-    {path: '/schedules/new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new'},
-    {path: '/schedules/:id', component: () => import("@/schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},
-    {path: '/schedules/edit/:id', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.edit', props: true},
+    {
+        path: '/schedules',
+        component: () => import("@/schedules/schedule-list/schedule-list-page"),
+        name: 'schedules',
+        meta: {requireBackendAndFrontendVersionMatches: true},
+    },
+    {
+        path: '/schedules/new',
+        component: () => import("@/schedules/schedule-form/schedule-form"),
+        name: 'schedule.new',
+        meta: {requireBackendAndFrontendVersionMatches: true},
+    },
+    {
+        path: '/schedules/:id',
+        component: () => import("@/schedules/schedule-details/schedule-details-page"),
+        name: 'schedule',
+        props: true,
+        meta: {requireBackendAndFrontendVersionMatches: true},
+    },
+    {
+        path: '/schedules/edit/:id',
+        component: () => import("@/schedules/schedule-form/schedule-form"),
+        name: 'schedule.edit',
+        props: true,
+        meta: {requireBackendAndFrontendVersionMatches: true},
+    },
     {path: '/smartphones', component: () => import("@/client-apps/client-apps-page")},
     {
         path: "/agree-on-rules",
