@@ -25,7 +25,7 @@ Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 
-Vue.prototype.$frontendVersion = '2.3.31';//FRONTEND_VERSION; // eslint-disable-line no-undef
+Vue.prototype.$frontendVersion = FRONTEND_VERSION; // eslint-disable-line no-undef
 Vue.config.productionTip = false;
 Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
 Vue.http.headers.common['X-Client-Version'] = Vue.prototype.$frontendVersion;
