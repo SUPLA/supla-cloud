@@ -42,19 +42,27 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::DIMMER],
             [ChannelType::RELAY, ChannelFunction::RGBLIGHTING],
             [ChannelType::RELAY, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::RELAY, ChannelFunction::STAIRCASETIMER],
         ]);
         $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
     }
 
     public function testGettingOnFromPowerSwitch() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE', "VALUE:1,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('on', $state);
         $this->assertTrue($state['on']);
     }
 
+    public function testGettingOnFromStaircaseTimer() {
+        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:1\n");
+        $state = $this->channelStateGetter->getState($this->device->getChannels()[4]);
+        $this->assertArrayHasKey('on', $state);
+        $this->assertTrue($state['on']);
+    }
+
     public function testGettingOffFromPowerSwitch() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:0\n");
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE', "VALUE:0,0\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
         $this->assertArrayHasKey('on', $state);
         $this->assertFalse($state['on']);
@@ -107,5 +115,19 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
         $state = $this->channelStateGetter->getState($this->device->getChannels()[3]);
         $this->assertArrayHasKey('on', $state);
         $this->assertFalse($state['on']);
+    }
+
+    public function testGettingCurrentOverloadFalseFromPowerSwitch() {
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE', "VALUE:1,0\n");
+        $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
+        $this->assertArrayHasKey('currentOverload', $state);
+        $this->assertFalse($state['currentOverload']);
+    }
+
+    public function testGettingCurrentOverloadTrueFromPowerSwitch() {
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE', "VALUE:1,1\n");
+        $state = $this->channelStateGetter->getState($this->device->getChannels()[0]);
+        $this->assertArrayHasKey('currentOverload', $state);
+        $this->assertTrue($state['currentOverload']);
     }
 }

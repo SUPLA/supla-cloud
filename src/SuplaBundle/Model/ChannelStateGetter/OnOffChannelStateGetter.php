@@ -15,8 +15,6 @@ class OnOffChannelStateGetter implements SingleChannelStateGetter {
 
     public function supportedFunctions(): array {
         return [
-            ChannelFunction::POWERSWITCH(),
-            ChannelFunction::LIGHTSWITCH(),
             ChannelFunction::STAIRCASETIMER(),
             ChannelFunction::THERMOSTAT(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),

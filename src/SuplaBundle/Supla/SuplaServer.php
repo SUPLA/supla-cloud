@@ -199,6 +199,14 @@ abstract class SuplaServer {
         return [null, null];
     }
 
+    public function getRelayValue(IODeviceChannel $channel): array {
+        $result = $this->getRawValue('RELAY', $channel);
+        if ($result !== false) {
+            return sscanf($result, "VALUE:%d,%d\n");
+        }
+        return [null, null];
+    }
+
     public function getImpulseCounterValue(IODeviceChannel $channel): array {
         $value = $this->getRawValue('IC', $channel);
         if ($value !== false) {
