@@ -67,6 +67,9 @@ supla:
     user_default_limit: 20000/5
   state_webhooks:
     only_for_public_apps: true
+  mqtt_broker:
+    enabled: true
+    integrated_auth: true
 
 swiftmailer:
   disable_delivery: true

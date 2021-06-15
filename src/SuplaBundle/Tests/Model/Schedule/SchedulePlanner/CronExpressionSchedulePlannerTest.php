@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use PHPUnit\Framework\TestCase;
+use DateTime;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 
@@ -27,13 +28,14 @@ class CronExpressionSchedulePlannerTest extends TestCase {
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
         $schedulePlanner = new CronExpressionSchedulePlanner();
-        $schedule = new Schedule();
+        $schedule = new ScheduleWithTimezone();
         $schedule->setTimeExpression($cronExpression);
         $format = 'Y-m-d H:i';
-        $startDate = \DateTime::createFromFormat($format, $startDate);
+        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
+        $startDate = DateTime::createFromFormat($format, $startDate);
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
-        $this->assertEquals($expectedNextRunDate, $nextRunDate->format($format));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
+        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
     }
 
     public function calculatingNextRunDateProvider() {
@@ -68,7 +70,7 @@ class CronExpressionSchedulePlannerTest extends TestCase {
     public function testPreservingTimezone() {
         $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Australia/Sydney');
         $schedulePlanner = new CronExpressionSchedulePlanner();
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, new \DateTime('now', $schedule->getUserTimezone()));
-        $this->assertEquals($schedule->getUserTimezone(), $nextRunDate->getTimezone());
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, new DateTime('now', $schedule->getUserTimezone()));
+        $this->assertEquals($schedule->getUserTimezone(), $nextExecution->getPlannedTimestamp()->getTimezone());
     }
 }

@@ -21,6 +21,7 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
@@ -65,64 +66,70 @@ abstract class SuplaServer {
         return $result;
     }
 
-    private function isConnected(int $userId, int $id, $what = 'iodev'): bool {
-        if ($userId == 0 || $id == 0) {
-            return false;
-        }
-        $what = $what == 'client' ? 'CLIENT' : 'IODEV';
-        $result = $this->executeCommand("IS-" . $what . "-CONNECTED:" . $userId . "," . $id);
-        return $result !== false && preg_match("/^CONNECTED:" . $id . "\n/", $result) === 1 ? true : false;
+    private function isConnected(string $what, int ...$args): bool {
+        $args = implode(',', $args);
+        $result = $this->executeCommand("IS-$what-CONNECTED:$args");
+        return $result !== false && preg_match("/^CONNECTED:\d+\n/", $result) === 1 ? true : false;
     }
 
     public function isClientAppConnected(ClientApp $clientApp): bool {
         if (!$clientApp->getEnabled()) {
             return false;
         }
-        return $this->isConnected($clientApp->getUser()->getId(), $clientApp->getId(), 'client');
+        return $this->isConnected('CLIENT', $clientApp->getUser()->getId(), $clientApp->getId());
     }
 
     public function isDeviceConnected(IODevice $device) {
         if (!$device->getEnabled()) {
             return false;
         }
-        return $this->isConnected($device->getUser()->getId(), $device->getId());
+        return $this->isConnected('IODEV', $device->getUser()->getId(), $device->getId());
     }
 
-    private function userAction($userId, $action) {
-        if (!$userId) {
-            $user = $this->getCurrentUserOrThrow();
-            $userId = $user->getId();
+    public function isChannelConnected(IODeviceChannel $channel) {
+        if (!$channel->getIoDevice()->getEnabled()) {
+            return false;
         }
-        $userId = intval($userId);
-        if ($userId != 0) {
-            $result = $this->executeCommand("USER-{$action}:{$userId}");
-            return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
+        return $this->isConnected('CHANNEL', $channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId());
+    }
+
+    public function userAction($action, $params = [], User $user = null): bool {
+        $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
+        $command = "USER-{$action}:{$userId}";
+        if ($params) {
+            $params = is_array($params) ? $params : [$params];
+            $command .= ',' . implode(',', $params);
         }
-        return false;
+        $result = $this->executeCommand($command);
+        return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
     }
 
-    public function reconnect($userId = null) {
-        return $this->userAction($userId, 'RECONNECT');
+    public function reconnect(User $user = null): bool {
+        return $this->userAction('RECONNECT', [], $user);
     }
 
-    public function amazonAlexaCredentialsChanged($userId = null) {
-        return $this->userAction($userId, 'ALEXA-CREDENTIALS-CHANGED');
+    public function amazonAlexaCredentialsChanged(): bool {
+        return $this->userAction('ALEXA-CREDENTIALS-CHANGED');
     }
 
-    public function stateWebhookChanged($userId = null) {
-        return $this->userAction($userId, 'STATE-WEBHOOK-CHANGED');
+    public function onDeviceSettingsChanged(IODevice $device): bool {
+        return $this->userAction('ON-DEVICE-SETTINGS-CHANGED', [$device->getId()]);
     }
 
-    public function googleHomeCredentialsChanged($userId = null) {
-        return $this->userAction($userId, 'GOOGLE-HOME-CREDENTIALS-CHANGED');
+    public function stateWebhookChanged(): bool {
+        return $this->userAction('STATE-WEBHOOK-CHANGED');
     }
 
-    public function onOAuthClientRemoved($userId = null) {
-        $this->amazonAlexaCredentialsChanged($userId);
+    public function mqttSettingsChanged(): bool {
+        return $this->userAction('MQTT-SETTINGS-CHANGED');
     }
 
-    public function onDeviceDeleted($userId = null) {
-        return $this->userAction($userId, 'ON-DEVICE-DELETED');
+    public function googleHomeCredentialsChanged(): bool {
+        return $this->userAction('GOOGLE-HOME-CREDENTIALS-CHANGED');
+    }
+
+    public function onOAuthClientRemoved(): bool {
+        return $this->amazonAlexaCredentialsChanged();
     }
 
     public function clientReconnect(ClientApp $clientApp) {
@@ -139,14 +146,14 @@ abstract class SuplaServer {
         return false;
     }
 
-    private function getValue($type, IODeviceChannel $channel) {
+    public function getValue(string $type, IODeviceChannel $channel) {
         $result = $this->getRawValue($type, $channel);
         if ($result !== false) {
             list($val) = sscanf($result, "VALUE:%f\n");
 
             if (is_numeric($val)) {
                 return $val;
-            };
+            }
         }
         return false;
     }

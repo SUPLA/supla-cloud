@@ -26,6 +26,7 @@ use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
@@ -116,6 +117,11 @@ class ChannelGroupController extends RestController {
             $channelGroup->getChannels()->count(),
             $user->getLimitChannelPerGroup(),
             'Too many channels in this group' // i18n
+        );
+        Assertion::notInArray(
+            $channelGroup->getFunction()->getId(),
+            [ChannelFunction::DIGIGLASS_VERTICAL, ChannelFunction::DIGIGLASS_HORIZONTAL],
+            'Channels groups are not supported for this function.' // i18n
         );
         $channelGroup = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);

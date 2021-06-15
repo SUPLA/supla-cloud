@@ -172,7 +172,7 @@
                 };
                 const subjectForNewSchedule = AppState.shiftTask('scheduleCreate');
                 if (subjectForNewSchedule) {
-                    this.schedule.subject = subjectForNewSchedule;
+                    this.$set(this.schedule, 'subject', subjectForNewSchedule);
                 }
             }
         },
@@ -195,8 +195,7 @@
                     return false;
                 }
                 if (subject.subjectType === 'channelGroup'
-                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR', 'VALVEOPENCLOSE', 'VALVEPERCENTAGE']
-                        .indexOf(subject.function.name) !== -1) {
+                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
                     return false;
                 }
                 return true;

@@ -24,6 +24,7 @@ use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
@@ -31,17 +32,18 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var ChannelParamConfigTranslator */
     private $paramsTranslator;
+    /** @var \SuplaBundle\Entity\User */
+    private $user;
 
-    /** @before */
-    public function createDeviceForTests() {
-        $user = $this->createConfirmedUser();
-        $location = $this->createLocation($user);
+    public function initializeDatabaseForTests() {
+        $this->user = $this->createConfirmedUser();
+        $location = $this->createLocation($this->user);
         $this->device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER],
         ]);
         $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
-        $this->simulateAuthentication($user);
+        $this->simulateAuthentication($this->user);
     }
 
     public function testUpdatingControllingTheRollerShutterTime() {
@@ -65,7 +67,7 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
     public function testSettingOpeningSensorForRollerShutter() {
         $channel = $this->device->getChannels()[0];
         $this->paramsTranslator->setParamsFromConfig($channel, ['openingSensorChannelId' => $this->device->getChannels()[1]->getId()]);
-        $this->getEntityManager()->refresh($this->device);
+        $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($channel->getId(), $this->device->getChannels()[1]->getParam1());
         $this->assertEquals($this->device->getChannels()[1]->getId(), $this->device->getChannels()[0]->getParam2());
     }
@@ -73,7 +75,7 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
     public function testSettingRollerShutterForOpeningSensor() {
         $sensor = $this->device->getChannels()[1];
         $this->paramsTranslator->setParamsFromConfig($sensor, ['controllingChannelId' => $this->device->getChannels()[0]->getId()]);
-        $this->getEntityManager()->refresh($this->device);
+        $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($sensor->getId(), $this->device->getChannels()[0]->getParam2());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam1());
     }

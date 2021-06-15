@@ -18,6 +18,10 @@
 namespace SuplaBundle\Model;
 
 use Assert\Assertion;
+use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
+use OAuth2\Model\OAuth2AccessToken;
+use SuplaBundle\Entity\OAuth\AccessToken;
+use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -25,10 +29,17 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 trait CurrentUserAware {
     /** @var TokenStorageInterface */
     protected $tokenStorage;
+    /** @var AccessTokenManagerInterface */
+    protected $accessTokenManager;
 
     /** @required */
     public function setTokenStorage(TokenStorageInterface $tokenStorage) {
         $this->tokenStorage = $tokenStorage;
+    }
+
+    /** @required */
+    public function setAccessTokenManager(AccessTokenManagerInterface $accessTokenManager) {
+        $this->accessTokenManager = $accessTokenManager;
     }
 
     /** @return User|null */
@@ -51,5 +62,16 @@ trait CurrentUserAware {
     /** @return TokenInterface|null */
     protected function getCurrentUserToken() {
         return $this->tokenStorage->getToken();
+    }
+
+    /** @return ApiClient|null */
+    protected function getCurrentApiClient() {
+        /** @var OAuth2AccessToken $token */
+        if (null === $token = $this->getCurrentUserToken()) {
+            return null;
+        }
+        /** @var AccessToken $accessToken */
+        $accessToken = $this->accessTokenManager->findTokenByToken($token->getToken());
+        return $accessToken ? $accessToken->getClient() : null;
     }
 }

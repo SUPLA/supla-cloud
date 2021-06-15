@@ -17,7 +17,9 @@
 
 namespace SuplaBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -45,6 +47,18 @@ class ScheduledExecution {
      * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $schedule;
+
+    /**
+     * @ORM\Column(name="action", type="integer", nullable=false)
+     * @Groups({"basic"})
+     */
+    private $action;
+
+    /**
+     * @ORM\Column(name="action_param", type="string", nullable=true, length=255)
+     * @Groups({"basic"})
+     */
+    private $actionParam;
 
     /**
      * @ORM\Column(name="planned_timestamp", type="utcdatetime", nullable=true)
@@ -84,12 +98,23 @@ class ScheduledExecution {
      */
     private $result;
 
-    public function __construct(Schedule $schedule, \DateTime $plannedTimestamp) {
+    public function __construct(
+        Schedule $schedule,
+        DateTime $plannedTimestamp,
+        ChannelFunctionAction $action = null,
+        array $actionParam = null
+    ) {
         $this->schedule = $schedule;
         $this->plannedTimestamp = $plannedTimestamp;
+        if (!$action) {
+            $action = $schedule->getAction();
+            $actionParam = $schedule->getActionParam();
+        }
+        $this->action = $action->getId();
+        $this->actionParam = $actionParam ? json_encode($actionParam) : null;
     }
 
-    public function getPlannedTimestamp(): \DateTime {
+    public function getPlannedTimestamp(): DateTime {
         return $this->plannedTimestamp;
     }
 
@@ -110,5 +135,14 @@ class ScheduledExecution {
 
     public function getSchedule(): Schedule {
         return $this->schedule;
+    }
+
+    public function getAction(): ChannelFunctionAction {
+        return new ChannelFunctionAction($this->action);
+    }
+
+    /** @return array|null */
+    public function getActionParam() {
+        return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
     }
 }

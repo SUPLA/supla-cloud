@@ -69,6 +69,8 @@ use UnexpectedValueException;
  * @method static ChannelFunction VALVEPERCENTAGE()
  * @method static ChannelFunction GENERAL_PURPOSE_MEASUREMENT()
  * @method static ChannelFunction ACTION_TRIGGER()
+ * @method static ChannelFunction DIGIGLASS_VERTICAL()
+ * @method static ChannelFunction DIGIGLASS_HORIZONTAL()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
@@ -116,6 +118,8 @@ final class ChannelFunction extends Enum {
     const VALVEPERCENTAGE = 510;
     const GENERAL_PURPOSE_MEASUREMENT = 520;
     const ACTION_TRIGGER = 700;
+    const DIGIGLASS_HORIZONTAL = 800;
+    const DIGIGLASS_VERTICAL = 810;
 
     private $unsupportedFunctionId;
 
@@ -232,6 +236,12 @@ final class ChannelFunction extends Enum {
 //                ChannelFunctionAction::OPEN_PARTIALLY(),
             ],
             self::SCENE => [ChannelFunctionAction::EXECUTE()],
+            self::DIGIGLASS_HORIZONTAL => [
+                ChannelFunctionAction::SET(),
+            ],
+            self::DIGIGLASS_VERTICAL => [
+                ChannelFunctionAction::SET(),
+            ],
         ];
     }
 
@@ -282,6 +292,8 @@ final class ChannelFunction extends Enum {
             self::VALVEPERCENTAGE => 'Valve', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
             self::ACTION_TRIGGER => 'Action trigger', // i18n
+            self::DIGIGLASS_VERTICAL => 'Digi Glass Vertical', // i18n
+            self::DIGIGLASS_HORIZONTAL => 'Digi Glass Horizontal', // i18n
         ];
     }
 
@@ -294,6 +306,8 @@ final class ChannelFunction extends Enum {
             self::STAIRCASETIMER => 1,
             self::THERMOSTAT => 3,
             self::THERMOSTATHEATPOLHOMEPLUS => 3,
+            self::DIGIGLASS_VERTICAL => 1,
+            self::DIGIGLASS_HORIZONTAL => 1,
         ];
     }
 
@@ -344,6 +358,8 @@ final class ChannelFunction extends Enum {
             self::VALVEPERCENTAGE => ['opened', 'closed'],
             self::GENERAL_PURPOSE_MEASUREMENT => ['default'],
             self::ACTION_TRIGGER => ['default'],
+            self::DIGIGLASS_VERTICAL => ['revealed', 'shut'],
+            self::DIGIGLASS_HORIZONTAL => ['revealed', 'shut'],
         ];
     }
 

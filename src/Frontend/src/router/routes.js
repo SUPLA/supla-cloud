@@ -31,7 +31,7 @@ export default [
     },
     {
         path: '/apps/:id?',
-        component: () => import("@/oauth/catalog/public-apps-catalog"),
+        component: () => import("@/integrations/catalog/public-apps-catalog"),
         name: 'publicApps',
         meta: {unrestricted: true},
         props: true,
@@ -87,25 +87,26 @@ export default [
         ]
     },
     {
-        path: '/integrations', component: () => import("@/oauth/integrations-page"), children: [
-            {path: 'authorized', component: () => import("@/oauth/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
+        path: '/integrations', component: () => import("@/integrations/integrations-page"), children: [
+            {path: 'authorized', component: () => import("@/integrations/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
             {
-                path: 'apps', component: () => import("@/oauth/oauth-apps/my-oauth-apps-page"), name: 'myOauthApps', children: [
+                path: 'apps', component: () => import("@/integrations/oauth-apps/my-oauth-apps-page"), name: 'myOauthApps', children: [
                     {
                         path: ':id',
-                        component: () => import("@/oauth/oauth-apps/my-oauth-app-details"),
+                        component: () => import("@/integrations/oauth-apps/my-oauth-app-details"),
                         name: 'myOauthApp',
                         props: true
                     }
                 ]
             },
-            {path: 'tokens', component: () => import("@/oauth/personal-tokens/personal-access-tokens"), name: 'personal-tokens'},
+            {path: 'tokens', component: () => import("@/integrations/personal-tokens/personal-access-tokens"), name: 'personal-tokens'},
+            {path: 'mqtt-broker', component: () => import("@/integrations/mqtt-broker-settings"), name: 'mqtt-broker'},
         ]
     },
     {path: '/me', component: () => import("@/home/my-supla-page"), name: 'me'},
     {
         path: '/register-cloud',
-        component: () => import("@/oauth/register-target-cloud-form"),
+        component: () => import("@/integrations/register-target-cloud-form"),
         meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
     {

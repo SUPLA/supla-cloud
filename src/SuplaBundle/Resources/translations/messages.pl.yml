@@ -15,8 +15,6 @@ Access ID: ID dostępu
 Access Identifier: Identyfikator Dostępu
 Access Identifiers: Identyfikatory dostępu
 Access identifier limit has been exceeded: Limit identyfikatorów dostępu został przekroczony
-Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
-Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
@@ -74,6 +72,8 @@ Calibration: Kalibracja
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
 Cancelled: Anulowane
+Cannot change the channel function right now.: Nie można zmienić funkcji tego kanału w tej chwili.
+Cannot delete this I/O Device right now.: Nie można usunąć tego urządzenia w tej cwili.
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Captcha token is not valid.: Niepoprawna captcha.
@@ -156,6 +156,7 @@ Direct link has been executed: Link bezpośredni został wykonany
 'Direct link is not working right now. Reason:': 'Link bezpośredni w tym momencie nie działa. Powód:'
 Direct links: Linki bezpośrednie
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
+Disable: Wyłącz
 Disabled: Wyłączone
 Disconnected: Rozłączony
 Distance: Odległość
@@ -172,6 +173,7 @@ Edit: Edytuj
 Electric: Elektryka
 Electricity meter: Licznik energii elektrycznej
 Empty!: Pusto!
+Enable: Włącz
 Enabled: Włączone
 End date: Data zakończenia
 Enter new password: Wprowadź nowe hasło
@@ -218,6 +220,7 @@ Gate opening sensor: Czujnik otwarcia bramy wjazdowej
 Gate operation: Otwieranie/zamykanie bramy wjazdowej
 Gateway lock operation: Otwieranie furtki
 Gateway opening sensor: Czujnik otwarcia furtki
+Generate new password: Wygeneruj nowe hasło
 Generate new token: Generuj nowy token
 Generate token: Generuj token
 Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
@@ -231,6 +234,7 @@ Heat meter: Licznik ciepła
 History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
 Home+ Heater: Grzałka Home+
+Host: Host
 Hours: Godziny
 'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Niestety, aktualnie wykorzystanie naszych serwerów wzrosło do niebezpiecznego poziomu. Monitorujemy sytuację, wróć za kilka chwil.'
 Humidity: Wilgotność
@@ -259,6 +263,8 @@ Incorrect password: Nieprawidłowe hasło
 Information: Informacja
 Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
 Initial value: Wartość początkowa
+Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
+Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
 Integrations: Integracje
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
@@ -279,10 +285,13 @@ Limit has been exceeded: Limit został przekroczony
 Location: Lokalizacja
 Location Identifier: Identyfikator Lokalizacji
 Location limit has been exceeded: Limit lokalizacji został przekroczony
-Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
-Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
 Locations: Lokalizacje
 Login: Logowanie
+MQTT Broker: Broker MQTT
+MQTT Broker Username: Nazwa użytkownika
+MQTT Broker is disabled.: Broker MQTT jest wyłączony.
+MQTT Broker password: Hasło brokera MQTT
+MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
 Mail sensor: Czujnik poczty
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.'
@@ -338,6 +347,8 @@ Partial opening sensor: Czujnik pośredniego otwarcia
 Password: Hasło
 Password Reset: Resetowanie hasła
 Password has been changed: Hasło zostało zmienione
+'Password must be at least {minLength} characters.': 'Hasło musi mieć co najmniej {minLength} znaków.'
+'Password must be no longer than {maxLength} characters.': 'Hasło nie może być dłuższe niż {maxLength} znaki.'
 Percentage of closing: Procent zamknięcia
 Personal access tokens: Osobiste tokeny dostępowe
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.'
@@ -352,6 +363,7 @@ Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
 Please select the schedules that should also be enabled.: 'Zaznacz harmonogramy, które także powinny zostać włączone.'
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
+Port: Port
 Pressure sensor: Czujnik ciśnienia
 Previous login: Poprzednie logowanie
 Price per: Cena za
@@ -359,6 +371,7 @@ Private Cloud domain name: Nazwa domeny prywatnej chmury
 Private instance of the SUPLA cloud with given URL is already registered.: Pod tym adresem jest już zarejestrowana prywatna chmura SUPLA.
 Proceed: Kontynuuj
 Processing: W trakcie
+Protocol: Protokół
 Public ID: Publiczny ID
 RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
@@ -443,12 +456,14 @@ Successful: Udane
 Sundays: Niedziele
 Sunrise / Sunset: Wschód / Zachód
 Supla for devices: Supla na urządzenia
+TLS: TLS
 Temperature: Temperatura
 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności
 Temperature Sensor: Czujnik temperatury
 Temperature adjustment: Dostosowanie temperatury
 Temperature and humidity sensor: Czujnik temperatury i wilgotności
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.'
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: 'Hasło do brokera MQTT jest widoczne tylko w tej chwili. Upewnij się, że zapisałeś/aś je w bezpiecznym miejscu. Nie będzie możliwe jego ponowne wyświetlenie.'
 The Terms and Conditions have changed: Regulamin uległ zmianie
 The Terms and Conditions have changed – please read them and accept.: Regulamin serwisu uległ zmianie - wymagana jest jego akceptacja.
 The activation link has been sent again. Check the inbox.: Wiadomość z linkiem aktywującym Twoje konto została wysłana ponownie. Sprawdź skrzynkę odbiorczą.
@@ -459,6 +474,7 @@ The gate sensor must function properly in order to execute the scheduled action.
 The latest execution: Ostatnie wykonanie
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.'
 The measurement history has been deleted.: Historia pomiarów została usunięta.
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: 'Nowe hasło zastąpi to, którego używasz obecnie. Niektóre integracje mogą przestać działać po jego zmianie. Kontynuować?'
 The next available executions: Najbliższe wykonania
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
@@ -523,21 +539,28 @@ With SUPLA you can operate the lights in your home or office: Z SUPLĄ możesz s
 With function: Z funkcją
 Working period: Okres działania
 YOUR LINK CODE: KOD TWOJEGO LINKU
+You are changing the settings too quickly. You have to wait a while before making this change.: Zmieniasz ustawienia zbyt szybko. Musisz chwilę odczekać przed zmianą tych ustawień.
 You can use the application but you will not be able to modify any settings.: 'Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.'
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
 You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
 You have exceeded your API Rate Limit: Wykorzystałeś/aś swój limit żądań do API
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
+You must enable MQTT Broker first.: Musisz najpierw włączyć integrację z brokerem MQTT.
 You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musisz zaktualizować swoją instancję SUPLA Cloud do wersji co najmniej 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
+Your account and MQTT Broker connection.: Połączenie Twojego konta z brokerem MQTT.
 Your account has been deleted. We hope you will come back to us soon.: 'Konto zostało usunięte. Mamy nadzieję, że wkrótce do nas wrócisz.'
 Your account has been locked.: Twoje konto zostało zablokowane.
 Your account has not been confirmed yet.: Twoje konto nie zostało jeszcze potwierdzone.
 Your account limits: Twoje limity
 Your email: Twój email
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.'
+Your password must contain at least one special character.: Hasło musi zawierać co najmniej jeden znak specjalny.
+Your password must include at least one letter.: Hasło musi zawierać co najmniej jedną literę.
+Your password must include at least one number.: Hasło musi zawierać co najmniej jedną cyfrę.
+Your password must include both upper and lower case letters.: Hasło musi zawierać małe i wielkie litery.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.
@@ -617,11 +640,12 @@ will expire: wygaśnie
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
+Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Assigned Locations: Przypisane Lokalizacje
+Change: Zmień
 Date: Data
-Disable: Wyłącz
 Email already exists: Adres e-mail już istnieje
-Enable: Włącz
 Hi: Cześć
 Hour: Godzina
 I/O: Wejście/Wyjście
@@ -629,6 +653,8 @@ I/O: Wejście/Wyjście
 Input: Wejście
 Languages: Języki
 Loading: Ładowanie
+Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
+Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
 Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer

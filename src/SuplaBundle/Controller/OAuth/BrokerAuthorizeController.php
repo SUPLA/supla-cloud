@@ -19,12 +19,15 @@ namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\AuthorizeController;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use OAuth2\OAuth2ServerException;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -51,6 +54,8 @@ class BrokerAuthorizeController extends AuthorizeController {
             return parent::authorizeAction($request);
         } catch (OAuthReauthenticateException $exception) {
             return new RedirectResponse($request->getUri());
+        } catch (OAuth2ServerException $e) {
+            throw new ApiException($e->getDescription(), Response::HTTP_BAD_REQUEST, $e);
         }
     }
 

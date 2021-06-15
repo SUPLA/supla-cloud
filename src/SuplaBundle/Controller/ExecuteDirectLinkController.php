@@ -152,14 +152,14 @@ class ExecuteDirectLinkController extends Controller {
             if ($directLink) {
                 if ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL()) {
                     $errorData['device_connected'] =
-                        $this->suplaServer->isDeviceConnected($directLink->getSubject()->getIoDevice());
+                        $this->suplaServer->isChannelConnected($directLink->getSubject());
                 } elseif ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL_GROUP()) {
                     $errorData['devices_connected'] = [];
                     /** @var IODeviceChannelGroup $channelGroup */
                     $channelGroup = $directLink->getSubject();
                     foreach ($channelGroup->getChannels() as $channel) {
                         $errorData['devices_connected'][$channel->getId()] =
-                            $this->suplaServer->isDeviceConnected($channel->getIoDevice());
+                            $this->suplaServer->isChannelConnected($channel);
                     }
                 }
             }

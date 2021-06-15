@@ -20,6 +20,8 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 // @codingStandardsIgnoreFile
 
 use PHPUnit\Framework\TestCase;
+use DateTime;
+use DateTimeZone;
 use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 date_default_timezone_set('UTC');
@@ -32,10 +34,11 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
         $schedulePlanner = new SunriseSunsetSchedulePlanner();
         $schedule = new ScheduleWithTimezone($cronExpression, $timezone);
         $format = 'Y-m-d H:i';
-        $startDate = \DateTime::createFromFormat($format, $startDate, new \DateTimeZone($timezone));
+        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
+        $startDate = DateTime::createFromFormat($format, $startDate, new DateTimeZone($timezone));
         $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
-        $this->assertEquals($expectedNextRunDate, $nextRunDate->format($format));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
+        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
     }
 
     public function calculatingNextRunDateProvider() {
@@ -50,8 +53,9 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
             ['2017-06-28 23:59', 'SS0 * * * *', '2017-06-29 16:55', 'Australia/Sydney'], // sunset: 21:02
             ['2017-06-29 00:00', 'SS0 * * * *', '2017-06-29 16:55', 'Australia/Sydney'], // sunset: 21:02
             ['2017-06-29 00:01', 'SS0 * * * *', '2017-06-29 16:55', 'Australia/Sydney'], // sunset: 21:02
-            ['2017-06-24 04:14', 'SR0 * * * *', '2017-06-24 04:15'],
-            ['2017-06-24 04:14', 'SR5 * * * *', '2017-06-24 04:20'],
+            ['2017-06-24 04:08', 'SR0 * * * *', '2017-06-24 04:15'],
+            ['2017-06-24 04:14', 'SR0 * * * *', '2017-06-25 04:15'],
+            ['2017-06-24 04:13', 'SR5 * * * *', '2017-06-24 04:20'],
             ['2017-06-24 04:14', 'SR15 * * * *', '2017-06-24 04:30'],
             ['2017-06-24 04:14', 'SR-5 * * * *', '2017-06-25 04:10'],
             ['2017-06-24 04:00', 'SR-5 * * * *', '2017-06-24 04:10'],
@@ -71,7 +75,7 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
             ['2017-02-18 13:51', 'SR0 * 14 3 *', '2017-03-14 05:50'],
             ['2017-02-19 11:36', 'SS0 * * * *', '2017-02-19 17:45', 'Asia/Shanghai'], // it caused stackoverflow in the past
             ['2017-11-19 11:36', 'SS0 * * * *', '2017-11-19 17:50', 'Asia/Colombo'], // GMT+5.5
-            ['2017-03-25 18:19', 'SS0 * * * *', '2017-03-25 18:20', 'Asia/Colombo'], // GMT+5.5
+            ['2017-03-25 18:13', 'SS0 * * * *', '2017-03-25 18:20', 'Asia/Colombo'], // GMT+5.5
             ['2017-03-25 18:20', 'SS0 * * * *', '2017-03-26 18:20', 'Asia/Colombo'], // GMT+5.5
             ['2017-03-25 18:21', 'SS0 * * * *', '2017-03-26 18:20', 'Asia/Colombo'], // GMT+5.5
         ];
@@ -82,10 +86,26 @@ class SunriseSunsetSchedulePlannerTest extends TestCase {
         $schedulePlanner = new SunriseSunsetSchedulePlanner();
         $schedule = new ScheduleWithTimezone('SS0 * * * *', 'Europe/Warsaw');
         $format = 'Y-m-d H:i';
-        $startDate = \DateTime::createFromFormat($format, '2017-04-23 15:00', new \DateTimeZone('Europe/Warsaw'));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $startDate);
-        $this->assertEquals('2017-04-23 19:50', $nextRunDate->format($format));
-        $nextRunDate = $schedulePlanner->calculateNextRunDate($schedule, $nextRunDate);
-        $this->assertEquals('2017-04-24 19:50', $nextRunDate->format($format));
+        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
+        $startDate = DateTime::createFromFormat($format, '2017-04-23 15:00', new DateTimeZone('Europe/Warsaw'));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
+        $this->assertEquals('2017-04-23 19:50', $formatter($nextExecution));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
+        $this->assertEquals('2017-04-24 19:50', $formatter($nextExecution));
+    }
+
+    // https://github.com/SUPLA/supla-cloud/issues/405
+    public function testDoubleGenerationOfScheduleExection() {
+        $schedulePlanner = new SunriseSunsetSchedulePlanner();
+        $schedule = new ScheduleWithTimezone('SR0 * * * *', 'Europe/Warsaw');
+        $format = 'Y-m-d H:i';
+        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
+        $startDate = DateTime::createFromFormat($format, '2020-11-03 01:00', new DateTimeZone('Europe/Warsaw'));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
+        $this->assertEquals('2020-11-03 06:35', $formatter($nextExecution));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
+        $this->assertEquals('2020-11-04 06:35', $formatter($nextExecution));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
+        $this->assertEquals('2020-11-05 06:40', $formatter($nextExecution));
     }
 }

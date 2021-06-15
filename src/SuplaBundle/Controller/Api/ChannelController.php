@@ -127,7 +127,7 @@ class ChannelController extends RestController {
             $connected = false;
             if ($channel->getIoDevice()->getEnabled()) {
                 $enabled = true;
-                $connected = $this->suplaServer->isDeviceConnected($channel->getIoDevice());
+                $connected = $this->suplaServer->isChannelConnected($channel);
             }
             $result = array_merge(['connected' => $connected, 'enabled' => $enabled], $this->channelStateGetter->getState($channel));
             return $this->handleView($this->view($result, Response::HTTP_OK));
@@ -170,6 +170,8 @@ class ChannelController extends RestController {
                         return $view;
                     }
                 }
+                $cannotChangeMsg = 'Cannot change the channel function right now.'; // i18n
+                Assertion::true($this->suplaServer->userAction('BEFORE-CHANNEL-FUNCTION-CHANGE', $channel->getId()), $cannotChangeMsg);
                 $channel->setUserIcon(null);
                 $channel->setAltIcon(0);
             }
@@ -181,6 +183,7 @@ class ChannelController extends RestController {
             $channel->setCaption($updatedChannel->getCaption());
             $channel->setHidden($updatedChannel->getHidden());
             $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
+            /** @var IODeviceChannel $channel */
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
                 $newParams,
                 $paramConfigTranslator,
@@ -202,6 +205,7 @@ class ChannelController extends RestController {
                 $em->persist($channel);
                 return $channel;
             });
+            $this->suplaServer->onDeviceSettingsChanged($channel->getIoDevice());
             $this->suplaServer->reconnect();
             return $this->getChannelAction($request, $channel->clearRelationsCount());
         } else {

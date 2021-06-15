@@ -2,7 +2,11 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
+use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\SceneOperation;
+use SuplaBundle\Entity\Schedule;
 
 class ChannelGroupRepository extends EntityWithRelationsRepository {
     protected $alias = 'cg';
@@ -11,16 +15,12 @@ class ChannelGroupRepository extends EntityWithRelationsRepository {
         return $this->_em->createQueryBuilder()
             ->addSelect('cg entity')
             ->addSelect('COUNT(DISTINCT c) channels')
-            ->addSelect('COUNT(DISTINCT dl) directLinks')
-            ->addSelect('COUNT(DISTINCT s) schedules')
-            ->addSelect('COUNT(DISTINCT so) sceneOperations')
-            ->addSelect('COUNT(DISTINCT sc) scenes')
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s so WHERE so.channelGroup = cg) sceneOperations', SceneOperation::class))
+//            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s so WHERE sc.channelGroup = cg) scenes', Scene::class)) // TODO
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s dl WHERE dl.channelGroup = cg) directLinks', DirectLink::class))
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s s WHERE s.channelGroup = cg) schedules', Schedule::class))
             ->from(IODeviceChannelGroup::class, 'cg')
             ->leftJoin('cg.channels', 'c')
-            ->leftJoin('cg.directLinks', 'dl')
-            ->leftJoin('cg.schedules', 's')
-            ->leftJoin('cg.sceneOperations', 'so')
-            ->leftJoin('so.owningScene', 'sc')
             ->groupBy('cg.id');
     }
 }

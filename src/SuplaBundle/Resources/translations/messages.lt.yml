@@ -15,8 +15,6 @@ Access ID: Prieigos ID
 Access Identifier: Prieigos identifikatorius
 Access Identifiers: Prieigos identifikatorius
 Access identifier limit has been exceeded: Viršutinė prieigos identifikatorių riba viršytany
-Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
-Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
 Account: Paskyra
 Account access when you are unavailable: Prieiga prie paskyros kuomet esate neprieinami
 Account has been activated. You can Sign In now.: Paskyra aktyvuota. Galite prisijungti
@@ -156,6 +154,7 @@ Direct link has been executed: Tiesioginė nuoroda atlikta
 'Direct link is not working right now. Reason:': 'Tiesioginė nuoroda šiuo metu neveikia. Priežastis:'
 Direct links: Tiesioginės nuorodos
 Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
+Disable: Išjungti
 Disabled: Išjungta
 Disconnected: Atjungta
 Distance: Atstumas
@@ -172,6 +171,7 @@ Edit: Redaguoti
 Electric: Elektra
 Electricity meter: Elektros energijos skaitiklis
 Empty!: Tuščia!
+Enable: Įjungti
 Enabled: Įjungta
 End date: Pabaigos data
 Enter new password: Įveskite naują slaptažodį
@@ -279,8 +279,6 @@ Limit has been exceeded: Viršutinė riba viršyta
 Location: Vieta
 Location Identifier: Vietos identifikatorius
 Location limit has been exceeded: Viršutinė vietų riba viršyta
-Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
-Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
 Locations: Vietos
 Login: Pieteikšanās
 Mail sensor: Pašto jutiklis
@@ -615,11 +613,11 @@ will expire: baigsis
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
+Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
 Assigned Locations: Priskirtos Vietos
 Date: Data
-Disable: Išjungti
 Email already exists: El. pašto adresas jau egzistuoja
-Enable: Įjungti
 Hi: Sveiki
 Hour: Laikas
 I/O: Įvestis/Išvestis
@@ -627,6 +625,8 @@ I/O: Įvestis/Išvestis
 Input: Įvestis
 Languages: Kalbos
 Loading: Krovimas
+Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
+Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
 Next: Toliau
 Number: Numeris
 Output: Išvestis
@@ -640,7 +640,32 @@ execute: atlik
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

@@ -59,6 +59,11 @@ export const availableScopes = [
         suffixes: ['webhook'],
         label: 'State webhook' // i18n
     },
+    {
+        prefix: 'mqtt',
+        suffixes: ['broker'],
+        label: 'MQTT Broker' // i18n
+    },
 ];
 
 export function scopeId(scope, suffix) {
@@ -71,6 +76,7 @@ export const scopeSuffixLabels = {
     ea: 'Action execution', // i18n
     access: 'Account access when you are unavailable', // i18n
     webhook: 'Be notified when your channels change state', // i18n
+    broker: 'Access to all of your devices through MQTT Broker', // i18n
 };
 
 const SCOPE_DELIMITER = ' ';

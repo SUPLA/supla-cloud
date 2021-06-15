@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -229,6 +230,7 @@ class IODeviceController extends RestController {
             $ioDevice->setComment($updatedDevice->getComment());
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
+        $this->suplaServer->onDeviceSettingsChanged($ioDevice);
         $this->suplaServer->reconnect();
         return $result;
     }
@@ -238,6 +240,7 @@ class IODeviceController extends RestController {
      * @UnavailableInMaintenance
      */
     public function deleteIodeviceAction(IODevice $ioDevice, Request $request, ChannelDependencies $channelDependencies) {
+        $deviceId = $ioDevice->getId();
         if ($request->get('safe', false)) {
             $dependencies = [];
             foreach ($ioDevice->getChannels() as $channel) {
@@ -249,6 +252,8 @@ class IODeviceController extends RestController {
                 return $view;
             }
         }
+        $cannotDeleteMsg = 'Cannot delete this I/O Device right now.'; // i18n
+        Assertion::true($this->suplaServer->userAction('BEFORE-DEVICE-DELETE', $ioDevice->getId()), $cannotDeleteMsg);
         $this->transactional(function (EntityManagerInterface $em) use ($channelDependencies, $ioDevice) {
             foreach ($ioDevice->getChannels() as $channel) {
                 $channelDependencies->clearDependencies($channel);
@@ -259,7 +264,7 @@ class IODeviceController extends RestController {
             $em->remove($ioDevice);
         });
         $this->suplaServer->reconnect();
-        $this->suplaServer->onDeviceDeleted();
+        $this->suplaServer->userAction('ON-DEVICE-DELETED', $deviceId);
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 }

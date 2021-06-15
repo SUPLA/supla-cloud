@@ -24,11 +24,16 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use OAuth2\Model\IOAuth2Client;
+use OAuth2\OAuth2AuthenticateException;
+use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\RefreshToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Enums\AuthenticationFailureReason;
+use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
@@ -43,6 +48,8 @@ class SuplaOAuthStorage extends OAuthStorage {
     private $userLoginAttemptListener;
     /** @var SuplaAutodiscover */
     private $autodiscover;
+    /** @var ApiClientAuthorizationRepository */
+    private $apiClientAuthorizationRepository;
 
     public function __construct(
         ClientManagerInterface $clientManager,
@@ -53,12 +60,14 @@ class SuplaOAuthStorage extends OAuthStorage {
         EncoderFactoryInterface $encoderFactory,
         EntityManagerInterface $entityManager,
         UserLoginAttemptListener $userLoginAttemptListener,
-        SuplaAutodiscover $autodiscover
+        SuplaAutodiscover $autodiscover,
+        ApiClientAuthorizationRepository $apiClientAuthorizationRepository
     ) {
         parent::__construct($clientManager, $accessTokenManager, $refreshTokenManager, $authCodeManager, $userProvider, $encoderFactory);
         $this->entityManager = $entityManager;
         $this->userLoginAttemptListener = $userLoginAttemptListener;
         $this->autodiscover = $autodiscover;
+        $this->apiClientAuthorizationRepository = $apiClientAuthorizationRepository;
     }
 
     /**
@@ -124,6 +133,43 @@ class SuplaOAuthStorage extends OAuthStorage {
             return true;
         } else {
             return parent::checkClientCredentials($client, $clientSecret);
+        }
+    }
+
+    public function createAccessToken($tokenString, IOAuth2Client $client, $data, $expires, $scope = null) {
+        $token = parent::createAccessToken($tokenString, $client, $data, $expires, $scope);
+        $this->setTokenApiClientAuthorization($token, $client, $data);
+        $this->accessTokenManager->updateToken($token);
+        return $token;
+    }
+
+    public function createRefreshToken($tokenString, IOAuth2Client $client, $data, $expires, $scope = null) {
+        $token = parent::createRefreshToken($tokenString, $client, $data, $expires, $scope);
+        $this->setTokenApiClientAuthorization($token, $client, $data);
+        $this->refreshTokenManager->updateToken($token);
+        return $token;
+    }
+
+    /**
+     * @param AccessToken|RefreshToken $token
+     * @param ApiClient $client
+     * @param User $user
+     * @throws OAuth2AuthenticateException
+     */
+    private function setTokenApiClientAuthorization($token, $client, $user) {
+        $clientType = $client->getType()->getValue();
+        if (!in_array($clientType, [ApiClientType::WEBAPP, ApiClientType::CLIENT_APP])) {
+            $authorization = $this->apiClientAuthorizationRepository->findOneByUserAndApiClient($user, $client);
+            if (!$authorization) {
+                throw new OAuth2AuthenticateException(
+                    Response::HTTP_UNAUTHORIZED,
+                    '',
+                    '',
+                    SuplaOAuth2::ERROR_INVALID_GRANT,
+                    'User has revoked this application.'
+                );
+            }
+            $token->setApiClientAuthorization($authorization);
         }
     }
 }

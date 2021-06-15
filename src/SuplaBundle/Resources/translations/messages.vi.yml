@@ -15,8 +15,6 @@ Access ID: địa chỉ ID
 Access Identifier: Truy cập
 Access Identifiers: Truy cập
 Access identifier limit has been exceeded: Vượt quá giới hạn truy cập
-Access identifier password must be at least 8 characters.: Mật khẩu truy cập tối thiểu 8 kí tự..
-Access identifier password must be no longer than 32 characters.: Mật khẩu truy cập không quá 32 kí tự.
 Account: Tài khoản
 Account access when you are unavailable: Truy cập tài khoản
 Account has been activated. You can Sign In now.: Tài khoản đã kích hoạt. Hiện tại có thể đăng nhập
@@ -156,6 +154,7 @@ Direct link has been executed: Đã thực thi link liên kết
 'Direct link is not working right now. Reason:': 'Link liên kết thất bại. Lý do:'
 Direct links: Các link liên kết
 Direct links below will be deleted: Link liên kết dưới đây sẽ bị xóa
+Disable: Vô hiệu hóa
 Disabled: Tắt
 Disconnected: Ngắt kết nối
 Distance: Distance
@@ -172,6 +171,7 @@ Edit: Chỉnh sửa
 Electric: Điện
 Electricity meter: Đồng hồ điện
 Empty!: Rổng!
+Enable: Kích hoạt
 Enabled: Bật
 End date: Ngày cuối
 Enter new password: Nhập mật khẩu mới.
@@ -279,8 +279,6 @@ Limit has been exceeded: Đã vượt quá giới hạn
 Location: Vị trí
 Location Identifier: Định danh vị trí
 Location limit has been exceeded: Giới hạn vị trí đã bị vượt quá
-Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
-Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
 Locations: Địa điểm
 Login: Đăng nhập
 Mail sensor: Cảm biến mail
@@ -615,11 +613,11 @@ will expire: sẽ hết hạn
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Mật khẩu truy cập tối thiểu 8 kí tự..
+Access identifier password must be no longer than 32 characters.: Mật khẩu truy cập không quá 32 kí tự.
 Assigned Locations: Địa điểm được phân công
 Date: Ngày
-Disable: Vô hiệu hóa
 Email already exists: Email đã tồn tại
-Enable: Kích hoạt
 Hi: Hi
 Hour: Giờ
 I/O: Đầu vào/Đầu ra
@@ -627,6 +625,8 @@ I/O: Đầu vào/Đầu ra
 Input: Đầu vào
 Languages: Idiomas
 Loading: Đang tải
+Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
+Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
 Next: Tiếp theo
 Number: Số
 Output: Đầu ra
@@ -640,7 +640,32 @@ execute: Thực thi
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

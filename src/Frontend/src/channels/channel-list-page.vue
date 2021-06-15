@@ -61,7 +61,7 @@
         },
         computed: {
             endpoint() {
-                let endpoint = 'channels?include=iodevice,location,state';
+                let endpoint = 'channels?include=iodevice,location,state,connected';
                 if (this.deviceId) {
                     endpoint = `iodevices/${this.deviceId}/${endpoint}`;
                 }

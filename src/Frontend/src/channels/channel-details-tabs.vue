@@ -92,7 +92,8 @@
                     count: this.channel.relationsCount.directLinks,
                 });
             }
-            var supporterFunctions = ['THERMOMETER',
+            const measurementsHistoryFunctions = [
+                'THERMOMETER',
                 'HUMIDITY',
                 'HUMIDITYANDTEMPERATURE',
                 'ELECTRICITYMETER',
@@ -100,9 +101,9 @@
                 'WATERMETER',
                 'HEATMETER',
                 'THERMOSTAT',
-                'THERMOSTATHEATPOLHOMEPLUS'];
-
-            if (supporterFunctions.indexOf(this.channel.function.name) >= 0) {
+                'THERMOSTATHEATPOLHOMEPLUS'
+            ];
+            if (measurementsHistoryFunctions.includes(this.channel.function.name)) {
                 this.availableTabs.push({
                     id: 'measurementsHistory',
                     header: 'History of measurements', // i18n

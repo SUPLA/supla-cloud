@@ -243,7 +243,7 @@
                     this.directLink = {};
                     const subjectForNewLink = AppState.shiftTask('directLinkCreate');
                     if (subjectForNewLink) {
-                        this.chooseSubjectForNewLink({subject: subjectForNewLink, type: subjectForNewLink.subjectType});
+                        this.chooseSubjectForNewLink(subjectForNewLink);
                     }
                 }
             },
@@ -317,7 +317,8 @@
                     // OPEN and CLOSE actions are not supported for valves via API
                     let disableOpenClose = ['VALVEPERCENTAGE']
                         .includes(this.directLink.subject.function.name);
-                    if (['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) !== -1) {
+                    if (this.directLink.subject.subjectType === 'channelGroup'
+                        && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) !== -1) {
                         disableOpenClose = true;
                     }
                     return [{

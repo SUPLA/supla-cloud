@@ -19,7 +19,11 @@ namespace SuplaBundle\Model\Schedule;
 
 use Assert\Assertion;
 use Cocur\Slugify\Slugify;
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -93,14 +97,14 @@ class ScheduleManager {
     }
 
     public function generateScheduledExecutions(Schedule $schedule, $until = '+5days') {
-        $nextRunDates = $this->getNextRunDates($schedule, $until);
-        foreach ($nextRunDates as $nextRunDate) {
-            $this->entityManager->persist(new ScheduledExecution($schedule, $nextRunDate));
+        $nextScheduleExecutions = $this->getNextScheduleExecutions($schedule, $until);
+        foreach ($nextScheduleExecutions as $scheduledExecution) {
+            $this->entityManager->persist($scheduledExecution);
         }
-        if (count($nextRunDates)) {
-            /** @var \DateTime $nextCalculationDate */
-            $nextCalculationDate = clone end($nextRunDates);
-            $nextCalculationDate->sub(new \DateInterval('P2D')); // the oldest scheduled execution minus 2 days
+        if (count($nextScheduleExecutions)) {
+            /** @var DateTime $nextCalculationDate */
+            $nextCalculationDate = clone (end($nextScheduleExecutions)->getPlannedTimestamp());
+            $nextCalculationDate->sub(new DateInterval('P2D')); // the oldest scheduled execution minus 2 days
             $schedule->setNextCalculationDate($nextCalculationDate);
         } else {
             $latestExecution = $this->findLatestExecution($schedule);
@@ -112,7 +116,7 @@ class ScheduleManager {
         $this->entityManager->flush();
     }
 
-    public function getNextRunDates(Schedule $schedule, $until = '+5days', $count = PHP_INT_MAX, $ignoreExisting = false) {
+    public function getNextScheduleExecutions(Schedule $schedule, $until = '+5days', $count = PHP_INT_MAX, $ignoreExisting = false) {
         $userTimezone = $schedule->getUserTimezone();
         if ($schedule->getDateEnd()) {
             $schedule->getDateEnd()->setTimezone($userTimezone);
@@ -131,13 +135,13 @@ class ScheduleManager {
             $dateStart->setTimestamp($closestTime);
         }
         $dateStart->setTimezone($userTimezone);
-        $nextRunDates = $this->schedulePlanner->calculateNextRunDatesUntil($schedule, $until, $dateStart, $count);
+        $scheduleExecutions = $this->schedulePlanner->calculateScheduleExecutionsUntil($schedule, $until, $dateStart, $count);
         if ($schedule->getDateEnd()) {
-            return array_filter($nextRunDates, function (\DateTime $date) use ($schedule) {
-                return $date->getTimestamp() <= $schedule->getDateEnd()->getTimestamp();
+            return array_filter($scheduleExecutions, function (ScheduledExecution $execution) use ($schedule) {
+                return $execution->getPlannedTimestamp()->getTimestamp() <= $schedule->getDateEnd()->getTimestamp();
             });
         } else {
-            return $nextRunDates;
+            return $scheduleExecutions;
         }
     }
 
@@ -147,7 +151,7 @@ class ScheduleManager {
     }
 
     public function findClosestExecutions(Schedule $schedule, $contextSize = 3): array {
-        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $criteria = new Criteria();
         $now = $this->getNow();
         $criteria
             ->where($criteria->expr()->gte('plannedTimestamp', $now))
@@ -155,7 +159,7 @@ class ScheduleManager {
             ->orderBy(['plannedTimestamp' => 'ASC'])
             ->setMaxResults($contextSize + 1);
         $inFuture = $this->scheduledExecutionsRepository->matching($criteria)->toArray();
-        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $criteria = new Criteria();
         $criteria
             ->where($criteria->expr()->lt('plannedTimestamp', $now))
             ->andWhere($criteria->expr()->eq('schedule', $schedule))
@@ -225,7 +229,7 @@ class ScheduleManager {
         }
     }
 
-    private function getNow(): \DateTime {
-        return new \DateTime('now', new \DateTimeZone('UTC'));
+    private function getNow(): DateTime {
+        return new DateTime('now', new DateTimeZone('UTC'));
     }
 }

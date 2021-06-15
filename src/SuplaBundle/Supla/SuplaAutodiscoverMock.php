@@ -173,6 +173,11 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             } else {
                 return ['isBroker' => false, 'isTarget' => false];
             }
+        } elseif (preg_match('#/esp-updates#', $endpoint, $match)) {
+            return [self::sampleEspUpdate(), self::sampleEspUpdate()];
+        } elseif (preg_match('#/set-broker-ip-addresses#', $endpoint, $match)) {
+            $responseStatus = 204;
+            return null;
         }
         $responseStatus = 404;
         return false;
@@ -188,11 +193,27 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         self::$userMapping['user@supla.org'] = 'supla.local';
     }
 
-    public static function mockResponse(string $endpoint, array $response = [], int $responseStatus = 200, string $method = 'GET') {
+    public static function mockResponse(string $endpoint, $response = [], int $responseStatus = 200, string $method = 'GET') {
         self::$mockedResponses[$endpoint] = [
             'method' => $method,
             'response' => $response,
             'responseStatus' => $responseStatus,
         ];
+    }
+
+    public static function sampleEspUpdate(array $data = []): array {
+        $defaults = [
+            'device_id' => 0,
+            'device_name' => 'ZAMEL ROW-01',
+            'platform' => 1,
+            'latest_software_version' => '2.7.' . rand(0, 100),
+            'fparam1' => 3,
+            'fparam2' => 5,
+            'protocols' => 1,
+            'host' => 'www.acsoftware.pl',
+            'port' => 80,
+            'path' => 'support/get_esp_firmware.php?file=zam_srw_03_user2.2048_DIO.new.5.bin',
+        ];
+        return array_replace($defaults, $data);
     }
 }

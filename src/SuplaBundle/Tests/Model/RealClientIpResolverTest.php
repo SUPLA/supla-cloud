@@ -65,7 +65,7 @@ class RealClientIpResolverTest extends TestCase {
 
     public function testRealIpWhenOverriddenByBroker() {
         $this->requestStack->method('getCurrentRequest')->willReturn($this->requestMock);
-        $this->autodiscover->method('getBrokerClouds')->willReturn([['ip' => '1.2.3.4']]);
+        $this->autodiscover->method('getBrokerClouds')->willReturn([['ips' => ['5.6.7.8', '1.2.3.4']], ['ips' => ['3.3.3.3']]]);
         $this->requestMock->headers->add(['X-REAL-IP' => '2.3.4.5']);
         $ip = $this->resolver->getRealIp();
         $this->assertEquals('2.3.4.5', $ip);

@@ -24,6 +24,7 @@ use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
+/** @small */
 class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
@@ -31,17 +32,18 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var ChannelParamConfigTranslator */
     private $paramsTranslator;
+    /** @var \SuplaBundle\Entity\User */
+    private $user;
 
-    /** @before */
-    public function createDeviceForTests() {
-        $user = $this->createConfirmedUser();
-        $location = $this->createLocation($user);
+    public function initializeDatabaseForTests() {
+        $this->user = $this->createConfirmedUser();
+        $location = $this->createLocation($this->user);
         $this->device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
         ]);
         $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
-        $this->simulateAuthentication($user);
+        $this->simulateAuthentication($this->user);
     }
 
     public function testUpdatingControllingTheDoorLockTime() {

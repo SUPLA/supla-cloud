@@ -2,6 +2,8 @@
 namespace SuplaBundle\Model\Audit;
 
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\AuditEntry;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\RealClientIpResolver;
@@ -37,6 +39,27 @@ class Audit {
             ->setUser($this->getCurrentUser())
             ->setIpv4($this->clientIpResolver->getRealIp())
             ->setEvent($event);
+    }
+
+    /** @return AuditEntry|null */
+    public function recentEntry(AuditedEvent $event, $period = 'PT5M', User $user = null) {
+        $date = $this->timeProvider->getDateTime();
+        $date->setTimeZone(new \DateTimeZone('UTC'));
+        $date->sub(new \DateInterval($period));
+        $user = $user ?: $this->getCurrentUserOrThrow();
+        $qb = $this->getRepository()->createQueryBuilder('ae');
+        $recentEntry = $qb
+                ->where('ae.event IN(:events)')
+                ->andWhere('ae.user = :user')
+                ->andWhere($qb->expr()->gte('ae.createdAt', ':date'))
+                ->setParameters([
+                    'user' => $user,
+                    'events' => [$event->getId()],
+                    'date' => $date,
+                ])
+                ->getQuery()
+                ->getResult()[0] ?? null;
+        return $recentEntry;
     }
 
     public function getRepository(): AuditEntryRepository {

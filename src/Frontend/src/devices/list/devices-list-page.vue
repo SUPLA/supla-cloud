@@ -39,9 +39,9 @@
         <div class="hidden"
             v-if="devices">
             <!--allow filtered-out items to still receive status updates-->
-            <device-connection-status-label :device="device"
+            <connection-status-label :model="device"
                 :key="device.id"
-                v-for="device in devices"></device-connection-status-label>
+                v-for="device in devices"></connection-status-label>
         </div>
     </div>
 </template>
@@ -49,7 +49,7 @@
 <script>
     import BtnFilters from "src/common/btn-filters.vue";
     import DeviceTile from "./device-tile.vue";
-    import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
+    import ConnectionStatusLabel from "./connection-status-label.vue";
     import EmptyListPlaceholder from "src/common/gui/empty-list-placeholder.vue";
     import DeviceFilters from "./device-filters";
     import EventBus from "src/common/event-bus";
@@ -58,7 +58,7 @@
         components: {
             DeviceFilters,
             BtnFilters,
-            DeviceConnectionStatusLabel,
+            ConnectionStatusLabel,
             DeviceTile,
             EmptyListPlaceholder,
         },

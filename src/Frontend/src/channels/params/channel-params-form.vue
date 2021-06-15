@@ -33,6 +33,8 @@
     import ChannelParamsIcHeatmeter from "./channel-params-ic-meter";
     import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
     import ChannelParamsActionTrigger from "./channel-params-action-trigger";
+    import ChannelParamsDigiglassVertical from "./channel-params-digiglass";
+    import ChannelParamsDigiglassHorizontal from "./channel-params-digiglass";
 
     export default {
         props: ['channel'],
@@ -64,6 +66,8 @@
             ChannelParamsIcHeatmeter,
             ChannelParamsGeneralPurposeMeasurement,
             ChannelParamsActionTrigger,
+            ChannelParamsDigiglassVertical,
+            ChannelParamsDigiglassHorizontal,
         },
         computed: {
             additionalChannelParamsComponent() {

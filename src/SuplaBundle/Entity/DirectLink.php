@@ -18,10 +18,12 @@
 namespace SuplaBundle\Entity;
 
 use Assert\Assertion;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Exception\InactiveDirectLinkException;
+use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -37,6 +39,7 @@ class DirectLink implements HasSubject {
 
     const SLUG_LENGTH_MIN = 10;
     const SLUG_LENGTH_MAX = 16;
+    const SLUG_KEYSPACE = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ_';
 
     /**
      * @ORM\Id
@@ -156,22 +159,22 @@ class DirectLink implements HasSubject {
         return $this->user;
     }
 
-    /** @return \DateTime|null */
+    /** @return DateTime|null */
     public function getActiveFrom() {
         return $this->activeFrom;
     }
 
-    /** @param \DateTime|null $activeFrom */
+    /** @param DateTime|null $activeFrom */
     public function setActiveFrom($activeFrom) {
         $this->activeFrom = $activeFrom;
     }
 
-    /** @return \DateTime|null */
+    /** @return DateTime|null */
     public function getActiveTo() {
         return $this->activeTo;
     }
 
-    /** @param \DateTime|null $activeTo */
+    /** @param DateTime|null $activeTo */
     public function setActiveTo($activeTo) {
         $this->activeTo = $activeTo;
     }
@@ -206,11 +209,7 @@ class DirectLink implements HasSubject {
     public function generateSlug(PasswordEncoderInterface $slugEncoder) {
         Assertion::null($this->slug);
         $slugLength = random_int(self::SLUG_LENGTH_MIN, self::SLUG_LENGTH_MAX);
-        do {
-            $randomBytes = bin2hex(random_bytes($slugLength * 2));
-            $almostSlug = preg_replace('#[1lI0O]#', '', preg_replace('#[^a-zA-Z0-9]#', '', base64_encode($randomBytes)));
-        } while (strlen($almostSlug) < $slugLength);
-        $slug = str_shuffle(substr($almostSlug, 0, $slugLength));
+        $slug = StringUtils::randomString($slugLength, self::SLUG_KEYSPACE);
         $this->slug = $slugEncoder->encodePassword($slug, null);
         return $slug;
     }
@@ -264,10 +263,10 @@ class DirectLink implements HasSubject {
         if (!$this->isEnabled()) {
             throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::DISABLED());
         }
-        if ($this->getActiveFrom() && $this->getActiveFrom() > new \DateTime()) {
+        if ($this->getActiveFrom() && $this->getActiveFrom() > new DateTime()) {
             throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::NOT_ACTIVE_YET());
         }
-        if ($this->getActiveTo() && $this->getActiveTo() < new \DateTime()) {
+        if ($this->getActiveTo() && $this->getActiveTo() < new DateTime()) {
             throw new InactiveDirectLinkException(DirectLinkExecutionFailureReason::EXPIRED());
         }
         if ($this->getExecutionsLimit() !== null && $this->getExecutionsLimit() <= 0) {
@@ -284,7 +283,7 @@ class DirectLink implements HasSubject {
 
     public function markExecution(Request $request) {
         $this->lastIpv4 = $request->getClientIp();
-        $this->lastUsed = new \DateTime();
+        $this->lastUsed = new DateTime();
         if ($this->executionsLimit > 0) {
             --$this->executionsLimit;
         }

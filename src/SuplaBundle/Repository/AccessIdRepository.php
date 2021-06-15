@@ -3,6 +3,7 @@ namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Entity\ClientApp;
 
 class AccessIdRepository extends EntityWithRelationsRepository {
     protected $alias = 'aid';
@@ -11,10 +12,9 @@ class AccessIdRepository extends EntityWithRelationsRepository {
         return $this->_em->createQueryBuilder()
             ->addSelect('aid entity')
             ->addSelect('COUNT(DISTINCT l) locations')
-            ->addSelect('COUNT(DISTINCT ca) clientApps')
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s ca WHERE ca.accessId = aid) clientApps', ClientApp::class))
             ->from(AccessID::class, 'aid')
             ->leftJoin('aid.locations', 'l')
-            ->leftJoin('aid.clientApps', 'ca')
-            ->groupBy('aid');
+            ->groupBy('aid.id');
     }
 }

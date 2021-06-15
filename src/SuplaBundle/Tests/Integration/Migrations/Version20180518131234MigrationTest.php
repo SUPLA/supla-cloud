@@ -44,6 +44,7 @@ class Version20180518131234MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testCanStillAuthenticateInApiWithOldCredentials() {
+        $this->markTestSkipped('Feature disabled.');
         $client = self::createClient([], ['HTTPS' => true]);
         $client->request('POST', '/oauth/v2/token', [
             'client_id' => '1_69uz20cdx6w4wg8sk0kow4ckwgsgco08s0gccwgwc4sw4kck80',
@@ -58,6 +59,7 @@ class Version20180518131234MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testCanStillMakeAuthorizedRequestWithTokenReceivedForOldCredentials() {
+        $this->markTestSkipped('Feature disabled.');
         $token = $this->testCanStillAuthenticateInApiWithOldCredentials();
         /** @var Client $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer ' . $token->access_token, 'HTTPS' => true]);

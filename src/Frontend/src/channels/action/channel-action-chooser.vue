@@ -21,7 +21,8 @@
                 <transition-expand>
                     <div class="well clearfix"
                         v-if="(possibleAction.id == 50 || possibleAction.id == 120) && action.id == possibleAction.id">
-                        <rolette-shutter-partial-percentage v-model="action.param"></rolette-shutter-partial-percentage>
+                        <rolette-shutter-partial-percentage v-model="action.param"
+                            @input="updateModel()"></rolette-shutter-partial-percentage>
                     </div>
                 </transition-expand>
                 <transition-expand>
@@ -30,6 +31,14 @@
                             class="well clearfix"
                             @input="updateModel()"
                             :channel-function="subject.function"></rgbw-parameters-setter>
+                    </div>
+                </transition-expand>
+                <transition-expand>
+                    <div v-if="possibleAction.id == 2000 && action.id == possibleAction.id">
+                        <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"
+                            v-model="action.param"
+                            @input="updateModel()"
+                            :subject="subject"></digiglass-parameters-setter>
                     </div>
                 </transition-expand>
             </div>
@@ -42,32 +51,31 @@
     import RoletteShutterPartialPercentage from "./rolette-shutter-partial-percentage";
     import RgbwParametersSetter from "./rgbw-parameters-setter";
     import Vue from "vue";
+    import DigiglassParametersSetter from "./digiglass-parameters-setter";
 
     export default {
-        components: {RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
+        components: {DigiglassParametersSetter, RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
         props: ['subject', 'value', 'possibleActionFilter'],
         data() {
             return {action: {}};
         },
         mounted() {
-            if (this.value && this.value.id) {
-                this.action = {id: this.value.id, param: this.value.param || {}};
-            } else {
-                this.selectFirstActionIfOnlyOne();
-            }
+            this.updateAction();
+            this.selectFirstActionIfOnlyOne();
         },
         methods: {
-            selectFirstActionIfOnlyOne() {
-                if (this.actionsToShow.length === 1) {
-                    this.action = {
-                        id: this.actionsToShow[0].id,
-                        param: {}
-                    };
-                    this.updateAction();
+            updateAction() {
+                if (this.value && this.value.id) {
+                    this.action = {id: this.value.id, param: this.value.param || {}};
+                } else {
+                    this.action = {};
                 }
             },
-            updateAction() {
-                this.$emit('input', this.action);
+            selectFirstActionIfOnlyOne() {
+                if (this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
+                    this.action = {id: this.actionsToShow[0].id, param: {}};
+                    this.updateModel();
+                }
             },
             shouldShowAction(possibleAction) {
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
@@ -78,7 +86,7 @@
         },
         computed: {
             actionsToShow() {
-                return this.subject.function.possibleActions.filter((action) => this.shouldShowAction(action));
+                return ((this.subject.function || {}).possibleActions || []).filter((action) => this.shouldShowAction(action));
             },
         },
         watch: {
@@ -86,6 +94,9 @@
                 this.action = {};
                 this.updateModel();
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
+            },
+            value() {
+                this.updateAction();
             }
         },
     };

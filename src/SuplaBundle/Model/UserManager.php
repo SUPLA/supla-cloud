@@ -18,6 +18,8 @@
 namespace SuplaBundle\Model;
 
 use Assert\Assertion;
+use DateInterval;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use Psr\Log\LoggerInterface;
@@ -111,21 +113,7 @@ class UserManager {
     }
 
     public function sendConfirmationEmailMessage(User $user): bool {
-        $date = $this->timeProvider->getDateTime();
-        $date->setTimeZone(new \DateTimeZone('UTC'));
-        $date->sub(new \DateInterval('PT5M'));
-        $qb = $this->audit->getRepository()->createQueryBuilder('ae');
-        $recentEmail = $qb
-                ->where('ae.event IN(:events)')
-                ->andWhere('ae.user = :user')
-                ->andWhere($qb->expr()->gte('ae.createdAt', ':date'))
-                ->setParameters([
-                    'user' => $user,
-                    'events' => [AuditedEvent::USER_ACTIVATION_EMAIL_SENT],
-                    'date' => $date,
-                ])
-                ->getQuery()
-                ->getResult()[0] ?? null;
+        $recentEmail = $this->audit->recentEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT(), 'PT5M', $user);
         Assertion::null($recentEmail, 'We have just sent you an activation link. Be patient.'); // i18n
         $this->audit->newEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT())
             ->setUser($user)
@@ -241,8 +229,8 @@ class UserManager {
         }
 
         $date = $this->timeProvider->getDateTime();
-        $date->setTimeZone(new \DateTimeZone('UTC'));
-        $date->sub(new \DateInterval('PT1H'));
+        $date->setTimeZone(new DateTimeZone('UTC'));
+        $date->sub(new DateInterval('PT1H'));
 
         $qb = $this->rep->createQueryBuilder('u');
 
@@ -261,8 +249,8 @@ class UserManager {
         }
     }
 
-    public function updateTimeZone(User $user, \DateTimeZone $timezone) {
-        $currentTimezone = new \DateTimeZone($user->getTimezone());
+    public function updateTimeZone(User $user, DateTimeZone $timezone) {
+        $currentTimezone = new DateTimeZone($user->getTimezone());
         $user->setTimezone($timezone->getName());
         $this->transactional(function (EntityManagerInterface $em) use ($timezone, $currentTimezone, $user) {
             $em->persist($user);
@@ -279,7 +267,6 @@ class UserManager {
     }
 
     public function deleteAccount(User $user) {
-        $userId = $user->getId();
         $this->transactional(function (EntityManagerInterface $em) use ($user) {
             $userServerFromAd = $this->autodiscover->getUserServerFromAd($user->getEmail());
             if ($userServerFromAd === $this->localSuplaCloud->getAddress()) {
@@ -305,14 +292,14 @@ class UserManager {
                 ->setIntParam($user->getId())
                 ->setTextParam($user->getUsername())
                 ->buildAndSave();
+            $this->suplaServer->reconnect($user);
         });
-        $this->suplaServer->reconnect($userId);
     }
 
     public function deleteAccountByToken(string $token) {
         $date = $this->timeProvider->getDateTime();
-        $date->setTimeZone(new \DateTimeZone('UTC'));
-        $date->sub(new \DateInterval('PT1H'));
+        $date->setTimeZone(new DateTimeZone('UTC'));
+        $date->sub(new DateInterval('PT1H'));
         $qb = $this->rep->createQueryBuilder('u');
         try {
             $user = $qb->where($qb->expr()->eq('u.token', ':token'))

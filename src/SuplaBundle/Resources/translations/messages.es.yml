@@ -15,8 +15,6 @@ Access ID: ID de acceso
 Access Identifier: Identificador de Acceso
 Access Identifiers: Identificadores de acceso
 Access identifier limit has been exceeded: Se ha superado el límite de identificadores de acceso
-Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
-Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
 Account: Cuenta
 Account access when you are unavailable: Acceso a la cuenta cuando estás desconectado/a
 Account has been activated. You can Sign In now.: Se ha activado la cuenta. Puedes entrar en sesión
@@ -156,6 +154,7 @@ Direct link has been executed: El enlace directo ha sido ejecutado.
 'Direct link is not working right now. Reason:': 'El enlace directo no funciona en este momento. Razón:'
 Direct links: Enlaces directos
 Direct links below will be deleted: Los enlaces directos que figuran a continuación serán eliminados
+Disable: Desactiva
 Disabled: Desactivado
 Disconnected: Desconectado
 Distance: Distancia
@@ -172,6 +171,7 @@ Edit: Edita
 Electric: Electricidad
 Electricity meter: Contador de electricidad
 Empty!: ¡Vacío!
+Enable: Activa
 Enabled: Activado
 End date: Fecha de terminación
 Enter new password: Introduce nueva contraseña
@@ -279,8 +279,6 @@ Limit has been exceeded: Se ha superado el límite
 Location: Localización
 Location Identifier: Identificador de Localización
 Location limit has been exceeded: Se ha superado el límite de localizaciones
-Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
-Location password must be no longer than 32 characters.: La contraseña para la ubicación no puede tener más de 32 caracteres.
 Locations: Localizaciones
 Login: Iniciar sesión
 Mail sensor: Sensor de correo
@@ -615,11 +613,11 @@ will expire: caducará
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
+Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
 Assigned Locations: Localizaciones asignadas
 Date: Fecha
-Disable: Desactiva
 Email already exists: El Email ya existe
-Enable: Activa
 Hi: Hola
 Hour: Hora
 I/O: Entrada/Salida
@@ -627,6 +625,8 @@ I/O: Entrada/Salida
 Input: Entrada
 Languages: Idiomas
 Loading: Carga
+Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
+Location password must be no longer than 32 characters.: La contraseña para la ubicación no puede tener más de 32 caracteres.
 Next: Siguiente
 Number: Número
 Output: Salida
@@ -640,7 +640,32 @@ execute: ejecutar
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

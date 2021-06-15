@@ -24,3 +24,7 @@ export function warningNotification(title, text = '', vue = null) {
 export function errorNotification(title, text = '', vue = null) {
     return showNotification(title, text, 'error', vue);
 }
+
+export function infoNotification(title, text = '', vue = null) {
+    return showNotification(title, text, 'info', vue);
+}

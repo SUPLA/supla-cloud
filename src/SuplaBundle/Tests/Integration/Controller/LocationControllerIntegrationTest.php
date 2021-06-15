@@ -90,6 +90,11 @@ class LocationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayNotHasKey('channels', $locationData);
         $this->assertArrayNotHasKey('channelGroups', $locationData);
         $this->assertArrayHasKey('relationsCount', $locationData);
+        $relationsCount = $locationData['relationsCount'];
+        $this->assertEquals(1, $relationsCount['channels']);
+        $this->assertEquals(1, $relationsCount['channelGroups']);
+        $this->assertEquals(1, $relationsCount['ioDevices']);
+        $this->assertEquals(1, $relationsCount['accessIds']);
     }
 
     public function testGettingLocationsListWithIncludes() {

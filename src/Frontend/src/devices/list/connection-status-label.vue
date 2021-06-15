@@ -7,20 +7,23 @@
 
 <script>
     import deviceConnectionMonitor from "../device-connection-monitor";
+    import channelConnectionMonitor from "../../channels/channel-connection-monitor";
 
     export default {
-        props: ['device'],
+        props: ['model'],
         data() {
             return {
+                monitor: undefined,
                 connected: undefined,
-                callback: (newState) => this.connected = this.$set(this.device, 'connected', newState),
+                callback: (newState) => this.connected = this.$set(this.model, 'connected', newState),
             };
         },
         mounted() {
-            deviceConnectionMonitor.register(this.device, this.callback);
+            this.monitor = this.model.functionId !== undefined ? channelConnectionMonitor : deviceConnectionMonitor;
+            this.monitor.register(this.model, this.callback);
         },
         beforeDestroy() {
-            deviceConnectionMonitor.unregister(this.device, this.callback);
+            this.monitor.unregister(this.model, this.callback);
         }
     };
 </script>

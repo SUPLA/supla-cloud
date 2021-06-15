@@ -20,18 +20,18 @@
                 <dt>ID{{device.location.id}} {{ device.location.caption }}</dt>
             </dl>
             <div class="square-link-label">
-                <device-connection-status-label :device="device"></device-connection-status-label>
+                <connection-status-label :model="device"></connection-status-label>
             </div>
         </router-link>
     </square-link>
 </template>
 
 <script>
-    import DeviceConnectionStatusLabel from "./device-connection-status-label.vue";
+    import ConnectionStatusLabel from "./connection-status-label.vue";
 
     export default {
         props: ['device', 'noLink'],
-        components: {DeviceConnectionStatusLabel},
+        components: {ConnectionStatusLabel},
         computed: {
             caption() {
                 return this.device.comment || this.$t(this.device.name);

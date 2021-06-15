@@ -18,6 +18,11 @@
                             class="btn">
                             {{ $t('Personal access tokens') }}
                         </router-link>
+                        <router-link v-if="$frontendConfig.mqttBrokerEnabled"
+                            :to="{name: 'mqtt-broker'}"
+                            class="btn">
+                            {{ $t('MQTT Broker') }}
+                        </router-link>
                     </div>
                 </div>
             </div>

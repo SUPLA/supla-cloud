@@ -19,10 +19,12 @@ namespace SuplaBundle\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Event\OAuthEvent;
+use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Repository\UserRepository;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -31,6 +33,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class OAuthEventListener {
     use Transactional;
+    use SuplaServerAware;
 
     /** @var ApiClientAuthorizationRepository */
     private $authorizationRepository;
@@ -72,20 +75,34 @@ class OAuthEventListener {
                 $formData = $request->get('fos_oauth_server_authorize_form', []);
                 $scope = $formData['scope'] ?? null;
                 if ($scope) {
-                    $this->transactional(function (EntityManagerInterface $entityManager) use ($client, $scope, $user) {
+                    $authorization = $this->transactional(function (EntityManagerInterface $entityManager) use ($client, $scope, $user) {
                         $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $client);
                         if ($authorization) {
                             $authorization->authorizeNewScope($scope);
                             $entityManager->persist($authorization);
                         } else {
-                            $user->addApiClientAuthorization($client, $scope);
+                            $authorization = $user->addApiClientAuthorization($client, $scope);
                             $entityManager->persist($user);
                         }
+                        return $authorization;
                     });
+                    $this->onAuthorizationCreated($authorization);
                 }
             }
         }
         $this->invalidateSession();
+    }
+
+    private function onAuthorizationCreated(ApiClientAuthorization $authorization) {
+        $scope = new OAuthScope($authorization->getScope());
+        $user = $authorization->getUser();
+        if ($scope->hasScope('mqtt_broker') && !$user->isMqttBrokerEnabled()) {
+            $this->transactional(function (EntityManagerInterface $entityManager) use ($user) {
+                $user->setMqttBrokerEnabled(true);
+                $entityManager->persist($user);
+            });
+            $this->suplaServer->mqttSettingsChanged();
+        }
     }
 
     private function invalidateSession() {

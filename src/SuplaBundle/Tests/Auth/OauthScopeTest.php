@@ -87,4 +87,9 @@ class OauthScopeTest extends TestCase {
         $scope = (new OAuthScope('account_rw offline_access'))->remove('offline_access');
         $this->assertEquals('account_rw', (string)$scope);
     }
+
+    public function testIsEmptyScope() {
+        $this->assertTrue((new OAuthScope(''))->isEmpty());
+        $this->assertFalse((new OAuthScope('a'))->isEmpty());
+    }
 }

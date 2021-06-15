@@ -155,7 +155,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains($expectedCommand, $commands);
+        $this->assertContains($expectedCommand, $commands, implode(PHP_EOL, $commands));
     }
 
     public function changingChannelStateDataProvider() {
@@ -164,8 +164,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [1, 'turn-off', 'SET-CHAR-VALUE:1,1,1,0'],
             [2, 'open', 'SET-CHAR-VALUE:1,1,2,1'],
             [3, 'open-close', 'SET-CHAR-VALUE:1,1,3,1'],
-//            [3, 'open', 'SET-CHAR-VALUE:1,1,3,2'],
-//            [3, 'close', 'SET-CHAR-VALUE:1,1,3,3'],
+            [3, 'open', 'ACTION-OPEN:1,1,3'],
+            [3, 'close', 'ACTION-CLOSE:1,1,3'],
             [4, 'shut', 'SET-CHAR-VALUE:1,1,4,110'],
             [4, 'reveal', 'SET-CHAR-VALUE:1,1,4,10'],
             [4, 'stop', 'SET-CHAR-VALUE:1,1,4,0'],
@@ -292,6 +292,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'functionId' => ChannelFunction::OPENINGSENSOR_GARAGEDOOR,
         ]);
         $this->assertStatusCode(409, $client->getResponse());
+        $this->assertEmpty(SuplaServerMock::$executedCommands);
         return $sensorChannel;
     }
 
@@ -305,6 +306,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(DirectLink::class, $directLink->getId()));
+        return $sensorChannel;
+    }
+
+    /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenConfirmed */
+    public function testNotifiesSuplaServerAboutFunctionChange(IODeviceChannel $sensorChannel) {
+        $this->assertContains('USER-BEFORE-CHANNEL-FUNCTION-CHANGE:1,' . $sensorChannel->getId(), SuplaServerMock::$executedCommands);
     }
 
     public function testChangingChannelFunctionDeletesExistingScenes() {

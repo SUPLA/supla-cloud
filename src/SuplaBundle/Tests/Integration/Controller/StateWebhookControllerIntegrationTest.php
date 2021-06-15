@@ -17,10 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use FOS\OAuthServerBundle\Model\ClientManagerInterface;
-use OAuth2\OAuth2;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\StateWebhook;
 use SuplaBundle\Entity\User;
@@ -28,6 +25,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Repository\StateWebhookRepository;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
+use SuplaBundle\Tests\Integration\Traits\OAuthHelper;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -35,6 +33,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use OAuthHelper;
 
     /** @var ApiClient */
     private $client;
@@ -45,22 +44,9 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
     private $stateWebhookRepository;
 
     public function initializeDatabaseForTests() {
-        $clientManager = self::$container->get(ClientManagerInterface::class);
-        /** @var ApiClient $client */
-        $client = $clientManager->createClient();
-        $client->setPublicClientId('123');
-        $client->setRedirectUris(['https://unicorns.pl']);
-        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
-        $clientManager->updateClient($client);
-        $this->client = $client;
+        $this->client = $this->createApiClient('123');
         $this->user = $this->createConfirmedUser();
-        $token = new AccessToken();
-        $token->setClient($this->client);
-        $token->setUser($this->user);
-        $token->setToken('ABC');
-        $token->setScope('state_webhook');
-        $this->getEntityManager()->persist($token);
-        $this->getEntityManager()->flush();
+        $this->createAccessToken($this->client, $this->user, 'state_webhook');
         $this->stateWebhookRepository = self::$container->get('doctrine')->getRepository(StateWebhook::class);
     }
 
@@ -148,19 +134,8 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
 
     /** @large */
     public function testCantCreateStateWebhookForNonPublicClient() {
-        $clientManager = self::$container->get(ClientManagerInterface::class);
-        /** @var ApiClient $client */
-        $client = $clientManager->createClient();
-        $client->setRedirectUris(['https://unicorns.pl']);
-        $client->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
-        $clientManager->updateClient($client);
-        $token = new AccessToken();
-        $token->setClient($client);
-        $token->setUser($this->user);
-        $token->setToken('BCD');
-        $token->setScope('state_webhook');
-        $this->getEntityManager()->persist($token);
-        $this->getEntityManager()->flush();
+        $client = $this->createApiClient();
+        $this->createAccessToken($client, $this->user, 'state_webhook', 'BCD');
 
         /** @var TestClient $client */
         $client = self::createClient(['debug' => false], ['HTTP_AUTHORIZATION' => 'Bearer BCD', 'HTTPS' => true]);

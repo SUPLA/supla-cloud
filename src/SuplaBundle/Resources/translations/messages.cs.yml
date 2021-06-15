@@ -15,8 +15,6 @@ Access ID: Přístupové ID
 Access Identifier: Přístupový identifikátor
 Access Identifiers: Identifikátory přístupu
 Access identifier limit has been exceeded: Limit přístupových ID byl překročen
-Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
-Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
 Account: Ůčet
 Account access when you are unavailable: 'Přístup k účtu, pokud nejste dostupní'
 Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
@@ -156,6 +154,7 @@ Direct link has been executed: Došlo k vytvoření přímého odkazu
 'Direct link is not working right now. Reason:': 'Přímý odkaz v tuto chvíli nefunguje. Důvod:'
 Direct links: Přímé odkazy
 Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
+Disable: Vypnout
 Disabled: Deaktivován
 Disconnected: Odpojeno
 Distance: Vzdálenost
@@ -172,6 +171,7 @@ Edit: Editovat
 Electric: Elektrika
 Electricity meter: Elektroměr
 Empty!: Prázdný!
+Enable: Zapnout
 Enabled: Aktivován
 End date: Datum ukončení
 Enter new password: Zadejte nové heslo
@@ -279,8 +279,6 @@ Limit has been exceeded: Limit byl překročen
 Location: Lokalizace
 Location Identifier: Identifikátor lokalizace
 Location limit has been exceeded: Limit umístění byl překročen
-Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
-Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
 Locations: Lokalizace
 Login: Přihlášení
 Mail sensor: Poštovní snímač
@@ -615,11 +613,11 @@ will expire: vyprší
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
+Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
 Assigned Locations: Přiřazené umístění
 Date: Datum
-Disable: Vypnout
 Email already exists: E-mailová adresa již existuje
-Enable: Zapnout
 Hi: Ahoj
 Hour: Hodina
 I/O: Vstup/ Výstup
@@ -627,6 +625,8 @@ I/O: Vstup/ Výstup
 Input: Vvstup
 Languages: Jazyky
 Loading: Načítání
+Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
+Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
 Next: Dále
 Number: Číslo
 Output: Výstup
@@ -640,7 +640,32 @@ execute: proveď
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

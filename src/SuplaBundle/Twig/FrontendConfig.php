@@ -34,6 +34,7 @@ class FrontendConfig extends AbstractExtension {
         'suplaUrl' => 'supla_url',
         'maintenanceMode' => 'supla.maintenance_mode',
         'accountsRegistrationEnabled' => 'supla.accounts_registration_enabled',
+        'mqttBrokerEnabled' => 'supla.mqtt_broker.enabled',
     ];
 
     public function __construct(ContainerInterface $container) {

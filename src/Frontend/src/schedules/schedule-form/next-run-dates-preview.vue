@@ -10,11 +10,18 @@
             <h4>{{ $t('The next available executions') }}</h4>
             <div class="list-group">
                 <div class="list-group-item"
-                    v-for="nextRunDate in humanizedNextRunDates">
+                    v-for="nextScheduleExecution in value">
                     <span class="pull-right small text-muted">
-                        {{ nextRunDate.fromNow }}
+                        <span v-if="schedule.actionId"
+                            class="label label-default">
+                            {{ $t(nextScheduleExecution.action.caption) }}
+                        </span>
+                        &nbsp;
+                        <span class="label label-default">
+                            {{ humanizeNextRunDate(nextScheduleExecution.plannedTimestamp).fromNow }}
+                        </span>
                     </span>
-                    {{ nextRunDate.date }}
+                    {{ humanizeNextRunDate(nextScheduleExecution.plannedTimestamp).date }}
                 </div>
             </div>
         </div>
@@ -30,57 +37,59 @@
         props: ['value', 'schedule'],
         components: {ButtonLoadingDots},
         computed: {
-            humanizedNextRunDates() {
-                return this.value.map(function (dateString) {
-                    return {
-                        date: moment(dateString).format('LLL'),
-                        fromNow: moment(dateString).fromNow()
-                    };
-                });
-            },
             nextRunDatesQuery() {
                 return {
                     mode: this.schedule.mode,
                     timeExpression: this.schedule.timeExpression,
+                    actionId: this.schedule.actionId,
                     dateStart: this.schedule.mode == 'once' ? undefined : this.schedule.dateStart,
                     dateEnd: this.schedule.mode == 'once' ? undefined : this.schedule.dateEnd
                 };
             }
         },
         mounted() {
-            this.fetchNextRunDates();
+            this.fetchNextScheduleExecutions();
         },
         methods: {
-            fetchNextRunDates() {
+            fetchNextScheduleExecutions() {
                 const query = this.nextRunDatesQuery;
                 if (!query.timeExpression) {
                     this.$emit('input', []);
                 } else {
                     this.$set(this.value, 'fetching', true);
-                    Vue.http.post('schedules/next-run-dates', query)
-                        .then(({body: nextRunDates}) => {
-                            this.$emit('input', nextRunDates);
+                    Vue.http.post('schedules/next-schedule-executions', query)
+                        .then(({body: nextScheduleExecutions}) => {
+                            this.$emit('input', nextScheduleExecutions);
                             if (query != this.nextRunDatesQuery) {
-                                this.fetchNextRunDates();
+                                this.fetchNextScheduleExecutions();
                             }
                         })
                         .catch(() => this.$emit('input', []));
                 }
             },
+            humanizeNextRunDate(dateString) {
+                return {
+                    date: moment(dateString).format('LLL'),
+                    fromNow: moment(dateString).fromNow()
+                };
+            },
         },
         watch: {
             'schedule.timeExpression'() {
-                this.fetchNextRunDates();
+                this.fetchNextScheduleExecutions();
             },
             'schedule.mode'() {
-                this.fetchNextRunDates();
+                this.fetchNextScheduleExecutions();
             },
             'schedule.dateStart'() {
-                this.fetchNextRunDates();
+                this.fetchNextScheduleExecutions();
             },
             'schedule.dateEnd'() {
-                this.fetchNextRunDates();
+                this.fetchNextScheduleExecutions();
             },
+            'schedule.actionId'() {
+                this.fetchNextScheduleExecutions();
+            }
         }
     };
 </script>

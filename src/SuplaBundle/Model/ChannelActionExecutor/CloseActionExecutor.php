@@ -7,26 +7,9 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class CloseActionExecutor extends SetCharValueActionExecutor {
-    protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
-        if ($this->isGateSubject($subject)) {
-            return 3;
-        } else {
-            return 0;
-        }
-    }
-
-    private function isGateSubject(HasFunction $subject): bool {
-        return in_array(
-            $subject->getFunction()->getId(),
-            [ChannelFunction::CONTROLLINGTHEGATE, ChannelFunction::CONTROLLINGTHEGARAGEDOOR]
-        );
-    }
-
+class CloseActionExecutor extends TurnOffActionExecutor {
     public function getSupportedFunctions(): array {
         return [
-//            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
-//            ChannelFunction::CONTROLLINGTHEGATE(),
             ChannelFunction::VALVEOPENCLOSE(),
         ];
     }

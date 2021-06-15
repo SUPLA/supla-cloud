@@ -24,6 +24,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use InvalidArgumentException;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\User;
@@ -37,15 +38,19 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\PasswordStrengthValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserController extends RestController {
     use Transactional;
     use AuditAware;
+    use SuplaServerAware;
 
     /** @var UserManager */
     private $userManager;
@@ -71,6 +76,12 @@ class UserController extends RestController {
     private $availableLanguages;
     /** * @var bool */
     private $accountsRegistrationEnabled;
+    /** @var bool */
+    private $mqttBrokerEnabled;
+    /** @var bool */
+    private $mqttAuthEnabled;
+    /** @var EncoderFactoryInterface */
+    private $encoderFactory;
 
     public function __construct(
         UserManager $userManager,
@@ -78,13 +89,16 @@ class UserController extends RestController {
         SuplaAutodiscover $autodiscover,
         SuplaMailer $mailer,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
+        EncoderFactoryInterface $encoderFactory,
         int $clientsRegistrationEnableTime,
         int $ioDevicesRegistrationEnableTime,
         bool $requireRegulationsAcceptance,
         bool $recaptchaEnabled,
         ?string $recaptchaSecret,
         array $availableLanguages,
-        bool $accountsRegistrationEnabled
+        bool $accountsRegistrationEnabled,
+        bool $mqttBrokerEnabled,
+        bool $mqttAuthEnabled
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -98,6 +112,9 @@ class UserController extends RestController {
         $this->recaptchaSecret = $recaptchaSecret;
         $this->availableLanguages = $availableLanguages;
         $this->accountsRegistrationEnabled = $accountsRegistrationEnabled;
+        $this->mqttBrokerEnabled = $mqttBrokerEnabled;
+        $this->mqttAuthEnabled = $mqttAuthEnabled;
+        $this->encoderFactory = $encoderFactory;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -139,7 +156,8 @@ class UserController extends RestController {
             $this->mailer->sendDeleteAccountConfirmationEmailMessage($user);
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
-        $user = $this->transactional(function (EntityManagerInterface $em) use ($user, $data) {
+        $headers = [];
+        $user = $this->transactional(function (EntityManagerInterface $em) use ($user, $data, &$headers) {
             if ($data['action'] == 'change:clientsRegistrationEnabled') {
                 $enable = $data['enable'] ?? false;
                 if ($enable) {
@@ -169,7 +187,10 @@ class UserController extends RestController {
                 $newPassword = $data['newPassword'] ?? '';
                 $oldPassword = $data['oldPassword'] ?? '';
                 Assertion::true($this->userManager->isPasswordValid($user, $oldPassword), 'Current password is incorrect'); // i18n
-                Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.'); // i18n
+                PasswordStrengthValidator::create()
+                    ->minLength(8)
+                    ->maxLength(32)
+                    ->validate($newPassword);
                 $this->userManager->setPassword($newPassword, $user);
             } elseif ($data['action'] == 'agree:rules') {
                 $this->assertNotApiUser();
@@ -177,11 +198,37 @@ class UserController extends RestController {
             } elseif ($data['action'] == 'agree:cookies') {
                 $this->assertNotApiUser();
                 $user->agreeOnCookies();
+            } elseif ($data['action'] == 'change:mqttBrokerEnabled') {
+                $this->assertNotApiUser();
+                Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
+                $enabled = boolval($data['enabled'] ?? false);
+                $recentChange = $this->audit->recentEntry(AuditedEvent::MQTT_ENABLED_DISABLED());
+                $tooQuicklyMsg = 'You are changing the settings too quickly. You have to wait a while before making this change.'; // i18n
+                Assertion::null($recentChange, $tooQuicklyMsg);
+                $this->audit->newEntry(AuditedEvent::MQTT_ENABLED_DISABLED())
+                    ->setUser($user)
+                    ->setIntParam($enabled ? 1 : 0)
+                    ->buildAndSave();
+                $user->setMqttBrokerEnabled($enabled);
+                if ($enabled && $this->mqttAuthEnabled && !$user->hasMqttBrokerAuthPassword()) {
+                    $data['action'] = 'change:mqttBrokerPassword';
+                }
+            }
+            if ($data['action'] == 'change:mqttBrokerPassword') {
+                $this->assertNotApiUser();
+                Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
+                Assertion::true($user->isMqttBrokerEnabled(), 'You must enable MQTT Broker first.'); // i18n
+                list($rawPassword, $encodedPassword) = MqttSettingsController::generateMqttBrokerPassword();
+                $user->setMqttBrokerAuthPassword($encodedPassword);
+                $headers['SUPLA-MQTT-Password'] = $rawPassword;
             }
             $em->persist($user);
             return $user;
         });
-        return $this->view($user, Response::HTTP_OK);
+        if (in_array($data['action'], ['change:mqttBrokerEnabled', 'change:mqttBrokerPassword'])) {
+            $this->suplaServer->mqttSettingsChanged();
+        }
+        return $this->view($user, Response::HTTP_OK, $headers);
     }
 
     /** @Security("has_role('ROLE_ACCOUNT_R')") */
@@ -277,7 +324,10 @@ class UserController extends RestController {
         $user->setTimezone($data['timezone']);
 
         $newPassword = $data['password'];
-        Assertion::minLength($newPassword, 8, 'The password should be 8 or more characters.'); // i18n
+        PasswordStrengthValidator::create()
+            ->minLength(8)
+            ->maxLength(32)
+            ->validate($newPassword);
         $user->setPlainPassword($newPassword);
 
         $locale = $data['locale'] ?? 'en';
@@ -333,7 +383,7 @@ class UserController extends RestController {
                     if (!$sent) {
                         throw new ServiceUnavailableHttpException(10, 'Cannot send an activation e-mail. Try again later.'); // i18n
                     }
-                } catch (\InvalidArgumentException $e) {
+                } catch (InvalidArgumentException $e) {
                     throw new ConflictHttpException($e->getMessage(), $e);
                 }
             }

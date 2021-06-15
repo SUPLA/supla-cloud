@@ -17,8 +17,10 @@
 
 namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
-use SensioLabs\Security\Exception\RuntimeException;
+use DateTime;
+use DateTimeZone;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\ScheduledExecution;
 
 class CompositeSchedulePlanner {
     /** @var SchedulePlanner[] */
@@ -28,17 +30,14 @@ class CompositeSchedulePlanner {
         $this->planners = $planners;
     }
 
-    public function calculateNextRunDate(Schedule $schedule, $currentDate = 'now') {
+    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
-            if (!($currentDate instanceof \DateTime)) {
-                $currentDate = new \DateTime($currentDate, $schedule->getUserTimezone());
-            }
             foreach ($this->planners as $planner) {
                 if ($planner->canCalculateFor($schedule)) {
-                    return $planner->calculateNextRunDate($schedule, $currentDate);
+                    return $planner->calculateNextScheduleExecution($schedule, $currentDate);
                 }
             }
-            throw new RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. "
+            throw new \RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. "
                 . "Expression: {$schedule->getTimeExpression()}");
         });
     }
@@ -48,28 +47,36 @@ class CompositeSchedulePlanner {
      * @param string $currentDate
      * @param string $until
      * @param int $maxCount
-     * @return \DateTime[]
+     * @return ScheduledExecution[]
      */
-    public function calculateNextRunDatesUntil(Schedule $schedule, $until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX) {
+    public function calculateScheduleExecutionsUntil(Schedule $schedule, $until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX) {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $until, $currentDate, $maxCount) {
             $until = is_int($until) ? $until : strtotime($until) + 1; // +1 to make it inclusive
-            $runDates = [];
-            $nextRunDate = $currentDate;
+            if (!($currentDate instanceof DateTime)) {
+                $currentDate = new DateTime($currentDate, $schedule->getUserTimezone());
+            }
+            $scheduleExecutions = [];
+            $nextExecution = new ScheduledExecution($schedule, $currentDate);
             try {
                 do {
-                    $nextRunDate = $this->calculateNextRunDate($schedule, $nextRunDate);
-                    $runDates[] = $nextRunDate;
-                } while ($nextRunDate->getTimestamp() < $until && count($runDates) < $maxCount);
+                    $nextExecution = $this->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
+                    $scheduleExecutions[] = $nextExecution;
+                } while ($nextExecution->getPlannedTimestamp()->getTimestamp() < $until && count($scheduleExecutions) < $maxCount);
             } catch (\RuntimeException $e) {
                 // impossible cron expression
             }
-            if ($nextRunDate->getTimezone()->getName() != $schedule->getUser()->getTimezone()) {
-                $runDates = array_map(function (\DateTime $nextRunDateInDifferentTimezone) use ($schedule) {
-                    $nextRunDateInDifferentTimezone->setTimezone($schedule->getUserTimezone());
-                    return $nextRunDateInDifferentTimezone;
-                }, $runDates);
+            if ($nextExecution->getPlannedTimestamp()->getTimezone()->getName() != $schedule->getUser()->getTimezone()) {
+                $scheduleExecutions = array_map(function (ScheduledExecution $executionInDifferentTimezone) use ($schedule) {
+                    $fixedDateTime = $executionInDifferentTimezone->getPlannedTimestamp()->setTimezone($schedule->getUserTimezone());
+                    return new ScheduledExecution(
+                        $schedule,
+                        $fixedDateTime,
+                        $executionInDifferentTimezone->getAction(),
+                        $executionInDifferentTimezone->getActionParam()
+                    );
+                }, $scheduleExecutions);
             }
-            return $runDates;
+            return $scheduleExecutions;
         });
     }
 
@@ -81,9 +88,9 @@ class CompositeSchedulePlanner {
         return $result;
     }
 
-    public static function roundToClosest5Minutes($dateOrTimestamp, \DateTimeZone $timezone): \DateTime {
+    public static function roundToClosest5Minutes($dateOrTimestamp, DateTimeZone $timezone): DateTime {
         $timestamp = is_int($dateOrTimestamp) ? $dateOrTimestamp : $dateOrTimestamp->getTimestamp();
         $timestampRoundTo5Minutes = round($timestamp / 300) * 300;
-        return (new \DateTime('now', $timezone))->setTimestamp($timestampRoundTo5Minutes);
+        return (new DateTime('now', $timezone))->setTimestamp($timestampRoundTo5Minutes);
     }
 }

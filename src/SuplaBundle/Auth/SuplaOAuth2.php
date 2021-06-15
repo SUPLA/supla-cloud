@@ -26,6 +26,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
+use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -36,19 +37,23 @@ class SuplaOAuth2 extends OAuth2 {
     private $autodiscover;
     /** @var LocalSuplaCloud */
     private $localSuplaCloud;
+    /** @var ApiClientAuthorizationRepository */
+    private $apiClientAuthorizationRepository;
 
     public function __construct(
         IOAuth2Storage $storage,
         array $config,
         array $tokensLifetime,
         LocalSuplaCloud $localSuplaCloud,
-        SuplaAutodiscover $autodiscover
+        SuplaAutodiscover $autodiscover,
+        ApiClientAuthorizationRepository $apiClientAuthorizationRepository
     ) {
         parent::__construct($storage, $config);
         $this->tokensLifetime = $tokensLifetime;
         $this->setVariable(self::CONFIG_SUPPORTED_SCOPES, OAuthScope::getAllKnownScopes());
         $this->localSuplaCloud = $localSuplaCloud;
         $this->autodiscover = $autodiscover;
+        $this->apiClientAuthorizationRepository = $apiClientAuthorizationRepository;
     }
 
     protected function genAccessToken() {

@@ -76,6 +76,14 @@ class SuplaExtension extends ConfigurableExtension {
             'supla.state_webhooks.only_for_public_apps',
             ($mergedConfig['state_webhooks'] ?? [])['only_for_public_apps'] ?? false
         );
+        $container->setParameter('supla.mqtt_broker.enabled', $mergedConfig['mqtt_broker']['enabled']);
+        $container->setParameter('supla.mqtt_broker.host', $mergedConfig['mqtt_broker']['host']);
+        $container->setParameter('supla.mqtt_broker.protocol', $mergedConfig['mqtt_broker']['protocol']);
+        $container->setParameter('supla.mqtt_broker.port', $mergedConfig['mqtt_broker']['port']);
+        $container->setParameter('supla.mqtt_broker.tls', $mergedConfig['mqtt_broker']['tls']);
+        $container->setParameter('supla.mqtt_broker.integrated_auth', $mergedConfig['mqtt_broker']['integrated_auth']);
+        $container->setParameter('supla.mqtt_broker.username', $mergedConfig['mqtt_broker']['username']);
+        $container->setParameter('supla.mqtt_broker.password', $mergedConfig['mqtt_broker']['password']);
     }
 
     private function buildOauthTokensConfig(array $tokensLifetimes): array {

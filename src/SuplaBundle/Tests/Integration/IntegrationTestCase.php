@@ -50,6 +50,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         $this->application->setAutoExit(false);
         if (!defined('INTEGRATION_TESTS_BOOTSTRAPPED')) {
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
+            ini_set('memory_limit', '512M');
             $this->executeCommand('doctrine:database:create --if-not-exists');
         }
         $this->clearDatabase();
@@ -80,6 +81,12 @@ abstract class IntegrationTestCase extends WebTestCase {
                 }
             }
         }
+    }
+
+    protected function initializeDatabaseWithMigrations() {
+        $this->executeCommand('doctrine:database:drop --force');
+        $this->executeCommand('doctrine:database:create --if-not-exists');
+        $this->executeCommand('supla:initialize');
     }
 
     protected function initializeDatabaseForTests() {

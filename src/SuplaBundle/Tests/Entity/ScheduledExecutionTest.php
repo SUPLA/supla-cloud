@@ -18,13 +18,15 @@
 namespace SuplaBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
+use DateTime;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 
 class ScheduledExecutionTest extends TestCase {
     public function testUnknownResultByDefault() {
-        $execution = new ScheduledExecution($this->createMock(Schedule::class), new \DateTime());
+        $execution = new ScheduledExecution($this->createMock(Schedule::class), new DateTime(), ChannelFunctionAction::CLOSE());
         $this->assertEquals(ScheduleActionExecutionResult::UNKNOWN(), $execution->getResult());
     }
 }

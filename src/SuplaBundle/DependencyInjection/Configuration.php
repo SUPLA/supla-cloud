@@ -100,6 +100,18 @@ class Configuration implements ConfigurationInterface {
                         ->info('Set to true, if the state webhooks should be registarable from the public apps only.')->end()
                 ->end()->end()
             ->end();
+            $rootNode->children()
+                ->arrayNode('mqtt_broker')->addDefaultsIfNotSet()->children()
+                    ->booleanNode('enabled')->defaultFalse()->info('When true, the MQTT settings page will be available in the GUI.')->end()
+                    ->scalarNode('host')->defaultNull()->info('MQTT Broker address to display in the settings page')->end()
+                    ->scalarNode('protocol')->defaultValue('mqtt')->info('MQTT Broker protocol')->end()
+                    ->scalarNode('port')->defaultValue(8883)->info('MQTT Broker port')->end()
+                    ->booleanNode('tls')->defaultTrue()->info('Is TLS enabled?')->end()
+                    ->booleanNode('integrated_auth')->defaultFalse()->info('Use MQTT password generation mechanism in database (require SUPLA-enhanced MQTT Broker).')->end()
+                    ->scalarNode('username')->defaultNull()->info('Username for the MQTT Broker (if integrated_auth is off).')->end()
+                    ->scalarNode('password')->defaultNull()->info('Password for the MQTT Broker (if integrated_auth is off).')->end()
+                ->end()->end()
+            ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd
         return $treeBuilder;

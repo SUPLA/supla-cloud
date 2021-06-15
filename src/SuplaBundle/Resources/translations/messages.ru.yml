@@ -15,8 +15,6 @@ Access ID: ID доступа
 Access Identifier: Ключи доступа
 Access Identifiers: Ключ Доступа
 Access identifier limit has been exceeded: Достигнут лимит Ключей Доступа
-Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
-Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
 Account: Учетка
 Account access when you are unavailable: 'Доступ к учетной записи, когда вы недоступны'
 Account has been activated. You can Sign In now.: Аккаунт создан. Можете войти
@@ -156,6 +154,7 @@ Direct link has been executed: Ссылка создана
 'Direct link is not working right now. Reason:': 'Прямая ссылка в данный момент не работает. Причина:'
 Direct links: Прямые ссылки
 Direct links below will be deleted: 'Прямые ссылки, перечисленные ниже, будут удалены'
+Disable: Выключить
 Disabled: Неиспользуется
 Disconnected: Отключено
 Distance: Расстояние
@@ -172,6 +171,7 @@ Edit: Изменить
 Electric: Электрика
 Electricity meter: Счетчик электроэнергии
 Empty!: Пусто!
+Enable: Включить
 Enabled: Используется
 End date: Дата окончания
 Enter new password: Введите новый пароль
@@ -279,8 +279,6 @@ Limit has been exceeded: Лимит был превышен
 Location: Область
 Location Identifier: ID Позиции
 Location limit has been exceeded: Достигнуто ограничение числа Областей
-Location password must be at least 4 characters.: Пароль для локализации должен быть не менее 4 символов.
-Location password must be no longer than 32 characters.: Пароль для локализации не может быть длиннее 32 символов.
 Locations: Область
 Login: Вход в систему
 Mail sensor: Сигнализатор наличия почты
@@ -615,11 +613,11 @@ will expire: Истечет
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
+Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
 Assigned Locations: Подключенные Области
 Date: Дата
-Disable: Выключить
 Email already exists: Адрес электронной почты уже существует
-Enable: Включить
 Hi: Привет
 Hour: Час
 I/O: Ввод/Вывод
@@ -627,6 +625,8 @@ I/O: Ввод/Вывод
 Input: Вход
 Languages: Язык
 Loading: Зарядка
+Location password must be at least 4 characters.: Пароль для локализации должен быть не менее 4 символов.
+Location password must be no longer than 32 characters.: Пароль для локализации не может быть длиннее 32 символов.
 Next: Далее
 Number: Номер
 Output: Выход
@@ -640,7 +640,32 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

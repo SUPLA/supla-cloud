@@ -26,9 +26,16 @@
                                 <div><code>{{currentUrl}}?color=random</code></div>
                             </div>
                         </div>
+                        <div v-if="action == 'SET'">
+                            <div v-if="directLink.subject.function.name.match(/^DIGIGLASS.+/)">
+                                <div><code>{{currentUrl}}?transparent=1,2</code></div>
+                                <div><code>{{currentUrl}}?opaque=2</code></div>
+                                <div><code>{{currentUrl}}?transparent=1,2&opaque=0,3</code></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div v-if="failureReason == 'directLinkExecutionFailureReason_invalidChannelState'">
+                <div v-else-if="failureReason == 'directLinkExecutionFailureReason_invalidChannelState'">
                     <i class="pe-7s-science"
                         style="font-size: 160px"></i>
                     <div v-if="['VALVEOPENCLOSE'].indexOf(directLink.subject.function.name) !== -1">
@@ -55,11 +62,11 @@
                                 <span class="label label-default hidden-xs">{{ $t(allowedAction.caption) }}</span>
                                 <pre><code>{{ exampleUrl(allowedAction) }}</code></pre>
                                 <div class="btn-group">
-                                    <copy-button :text="currentUrl + '/' + allowedAction.nameSlug"></copy-button>
+                                    <copy-button :text="exampleUrl(allowedAction)"></copy-button>
                                     <button :class="'btn btn-' + (allowedAction.executed ? 'success' : 'default')"
                                         :disabled="allowedAction.executing"
                                         type="button"
-                                        v-if="['READ', 'SET_RGBW_PARAMETERS', 'REVEAL_PARTIALLY'].indexOf(allowedAction.name) === -1"
+                                        v-if="['READ', 'SET_RGBW_PARAMETERS', 'REVEAL_PARTIALLY', 'SET'].indexOf(allowedAction.name) === -1"
                                         @click="executeAction(allowedAction)">
                                         <span>
                                             <i :class="'pe-7s-' + (allowedAction.executed ? 'check' : 'rocket')"></i>
@@ -138,6 +145,10 @@
                     }
                 } else if (action.nameSlug === 'reveal-partially') {
                     url += '?percentage=60';
+                } else if (action.nameSlug === 'set') {
+                    if (this.directLink.subject.function.name.match(/^DIGIGLASS.+/)) {
+                        url += '?transparent=0,2&opaque=1';
+                    }
                 }
                 return url;
             }

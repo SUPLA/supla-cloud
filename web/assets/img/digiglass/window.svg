@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:cc="http://creativecommons.org/ns#"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+        viewBox="0 0 1000 1000"
+        version="1.1"
+        id="svg3386"
+        sodipodi:docname="810-notransparent.svg"
+        inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata3390">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="773"
+     inkscape:window-height="480"
+     id="namedview3388"
+     showgrid="false"
+     inkscape:zoom="0.236"
+     inkscape:cx="500"
+     inkscape:cy="500"
+     inkscape:window-x="2626"
+     inkscape:window-y="370"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Layer_2" />
+  <defs
+     id="defs385">
+    <style
+       id="style2">
+            .cls-1,.cls-132,.cls-2{fill:none;}.cls-132,.cls-2{stroke:#000;stroke-width:30px;}.cls-2{stroke-miterlimit:10;}.cls-3{opacity:0.2;}.cls-4{clip-path:url(#clip-path);}.cls-5{fill:#231f20;}.cls-6{clip-path:url(#clip-path-2);}.cls-7{clip-path:url(#clip-path-3);}.cls-8{clip-path:url(#clip-path-4);}.cls-9{clip-path:url(#clip-path-5);}.cls-10{clip-path:url(#clip-path-6);}.cls-11{clip-path:url(#clip-path-7);}.cls-12{clip-path:url(#clip-path-8);}.cls-13{clip-path:url(#clip-path-9);}.cls-14{clip-path:url(#clip-path-10);}.cls-15{clip-path:url(#clip-path-11);}.cls-16{clip-path:url(#clip-path-12);}.cls-17{clip-path:url(#clip-path-13);}.cls-18{clip-path:url(#clip-path-14);}.cls-19{clip-path:url(#clip-path-15);}.cls-20{clip-path:url(#clip-path-16);}.cls-21{clip-path:url(#clip-path-18);}.cls-22{clip-path:url(#clip-path-20);}.cls-23{clip-path:url(#clip-path-22);}.cls-24{clip-path:url(#clip-path-24);}.cls-25{clip-path:url(#clip-path-26);}.cls-26{clip-path:url(#clip-path-28);}.cls-27{clip-path:url(#clip-path-30);}.cls-28{clip-path:url(#clip-path-32);}.cls-29{clip-path:url(#clip-path-34);}.cls-30{clip-path:url(#clip-path-36);}.cls-31{clip-path:url(#clip-path-38);}.cls-32{clip-path:url(#clip-path-40);}.cls-33{clip-path:url(#clip-path-42);}.cls-34{clip-path:url(#clip-path-43);}.cls-35{clip-path:url(#clip-path-45);}.cls-36{clip-path:url(#clip-path-47);}.cls-37{clip-path:url(#clip-path-49);}.cls-38{clip-path:url(#clip-path-51);}.cls-39{clip-path:url(#clip-path-53);}.cls-40{clip-path:url(#clip-path-55);}.cls-41{clip-path:url(#clip-path-57);}.cls-42{clip-path:url(#clip-path-59);}.cls-43{clip-path:url(#clip-path-61);}.cls-44{clip-path:url(#clip-path-63);}.cls-45{clip-path:url(#clip-path-65);}.cls-46{clip-path:url(#clip-path-67);}.cls-47{clip-path:url(#clip-path-69);}.cls-48{clip-path:url(#clip-path-70);}.cls-49{clip-path:url(#clip-path-72);}.cls-50{clip-path:url(#clip-path-74);}.cls-51{clip-path:url(#clip-path-76);}.cls-52{clip-path:url(#clip-path-78);}.cls-53{clip-path:url(#clip-path-80);}.cls-54{clip-path:url(#clip-path-82);}.cls-55{clip-path:url(#clip-path-84);}.cls-56{clip-path:url(#clip-path-86);}.cls-57{clip-path:url(#clip-path-88);}.cls-58{clip-path:url(#clip-path-90);}.cls-59{clip-path:url(#clip-path-92);}.cls-60{clip-path:url(#clip-path-94);}.cls-61{clip-path:url(#clip-path-96);}.cls-62{clip-path:url(#clip-path-97);}.cls-63{clip-path:url(#clip-path-99);}.cls-64{clip-path:url(#clip-path-101);}.cls-65{clip-path:url(#clip-path-103);}.cls-66{clip-path:url(#clip-path-105);}.cls-67{clip-path:url(#clip-path-107);}.cls-68{clip-path:url(#clip-path-109);}.cls-69{clip-path:url(#clip-path-111);}.cls-70{clip-path:url(#clip-path-113);}.cls-71{clip-path:url(#clip-path-115);}.cls-72{clip-path:url(#clip-path-117);}.cls-73{clip-path:url(#clip-path-119);}.cls-74{clip-path:url(#clip-path-121);}.cls-75{clip-path:url(#clip-path-123);}.cls-76{clip-path:url(#clip-path-124);}.cls-77{clip-path:url(#clip-path-126);}.cls-78{clip-path:url(#clip-path-128);}.cls-79{clip-path:url(#clip-path-130);}.cls-80{clip-path:url(#clip-path-132);}.cls-81{clip-path:url(#clip-path-134);}.cls-82{clip-path:url(#clip-path-136);}.cls-83{clip-path:url(#clip-path-138);}.cls-84{clip-path:url(#clip-path-140);}.cls-85{clip-path:url(#clip-path-142);}.cls-86{clip-path:url(#clip-path-144);}.cls-87{clip-path:url(#clip-path-146);}.cls-88{clip-path:url(#clip-path-148);}.cls-89{clip-path:url(#clip-path-150);}.cls-90{clip-path:url(#clip-path-151);}.cls-91{clip-path:url(#clip-path-153);}.cls-92{clip-path:url(#clip-path-155);}.cls-93{clip-path:url(#clip-path-157);}.cls-94{clip-path:url(#clip-path-159);}.cls-95{clip-path:url(#clip-path-161);}.cls-96{clip-path:url(#clip-path-163);}.cls-97{clip-path:url(#clip-path-165);}.cls-98{clip-path:url(#clip-path-167);}.cls-99{clip-path:url(#clip-path-169);}.cls-100{clip-path:url(#clip-path-171);}.cls-101{clip-path:url(#clip-path-173);}.cls-102{clip-path:url(#clip-path-175);}.cls-103{clip-path:url(#clip-path-177);}.cls-104{clip-path:url(#clip-path-178);}.cls-105{clip-path:url(#clip-path-180);}.cls-106{clip-path:url(#clip-path-182);}.cls-107{clip-path:url(#clip-path-184);}.cls-108{clip-path:url(#clip-path-186);}.cls-109{clip-path:url(#clip-path-188);}.cls-110{clip-path:url(#clip-path-190);}.cls-111{clip-path:url(#clip-path-192);}.cls-112{clip-path:url(#clip-path-194);}.cls-113{clip-path:url(#clip-path-196);}.cls-114{clip-path:url(#clip-path-198);}.cls-115{clip-path:url(#clip-path-200);}.cls-116{clip-path:url(#clip-path-202);}.cls-117{clip-path:url(#clip-path-204);}.cls-118{clip-path:url(#clip-path-205);}.cls-119{clip-path:url(#clip-path-206);}.cls-120{clip-path:url(#clip-path-208);}.cls-121{clip-path:url(#clip-path-210);}.cls-122{clip-path:url(#clip-path-212);}.cls-123{clip-path:url(#clip-path-214);}.cls-124{clip-path:url(#clip-path-216);}.cls-125{clip-path:url(#clip-path-218);}.cls-126{clip-path:url(#clip-path-220);}.cls-127{clip-path:url(#clip-path-222);}.cls-128{clip-path:url(#clip-path-224);}.cls-129{clip-path:url(#clip-path-226);}.cls-130{clip-path:url(#clip-path-228);}.cls-131{clip-path:url(#clip-path-230);}.cls-132{stroke-linecap:round;stroke-linejoin:round;}
+        </style>
+    <clipPath
+       id="clip-path">
+      <rect
+         class="cls-1"
+         x="68.59"
+         y="73.61"
+         width="430.91"
+         height="898.98"
+         id="rect4" />
+    </clipPath>
+    <clipPath
+       id="clip-path-2">
+      <polygon
+         class="cls-1"
+         points="537.74 -11.25 614.22 -11.25 614.22 65.23 537.74 65.23 537.74 -11.25 537.74 -11.25"
+         id="polygon7" />
+    </clipPath>
+    <clipPath
+       id="clip-path-3">
+      <polygon
+         class="cls-1"
+         points="537.74 65.23 614.22 65.23 614.22 141.7 537.74 141.7 537.74 65.23 537.74 65.23"
+         id="polygon10" />
+    </clipPath>
+    <clipPath
+       id="clip-path-4">
+      <polygon
+         class="cls-1"
+         points="537.74 141.7 614.22 141.7 614.22 218.18 537.74 218.18 537.74 141.7 537.74 141.7"
+         id="polygon13" />
+    </clipPath>
+    <clipPath
+       id="clip-path-5">
+      <polygon
+         class="cls-1"
+         points="537.74 218.18 614.22 218.18 614.22 294.65 537.74 294.65 537.74 218.18 537.74 218.18"
+         id="polygon16" />
+    </clipPath>
+    <clipPath
+       id="clip-path-6">
+      <polygon
+         class="cls-1"
+         points="537.74 294.65 614.22 294.65 614.22 371.13 537.74 371.13 537.74 294.65 537.74 294.65"
+         id="polygon19" />
+    </clipPath>
+    <clipPath
+       id="clip-path-7">
+      <polygon
+         class="cls-1"
+         points="537.74 371.13 614.22 371.13 614.22 447.61 537.74 447.61 537.74 371.13 537.74 371.13"
+         id="polygon22" />
+    </clipPath>
+    <clipPath
+       id="clip-path-8">
+      <polygon
+         class="cls-1"
+         points="537.74 447.61 614.22 447.61 614.22 524.08 537.74 524.08 537.74 447.61 537.74 447.61"
+         id="polygon25" />
+    </clipPath>
+    <clipPath
+       id="clip-path-9">
+      <polygon
+         class="cls-1"
+         points="537.74 524.08 614.22 524.08 614.22 600.56 537.74 600.56 537.74 524.08 537.74 524.08"
+         id="polygon28" />
+    </clipPath>
+    <clipPath
+       id="clip-path-10">
+      <polygon
+         class="cls-1"
+         points="537.74 600.56 614.22 600.56 614.22 677.03 537.74 677.03 537.74 600.56 537.74 600.56"
+         id="polygon31" />
+    </clipPath>
+    <clipPath
+       id="clip-path-11">
+      <polygon
+         class="cls-1"
+         points="537.74 677.03 614.22 677.03 614.22 753.51 537.74 753.51 537.74 677.03 537.74 677.03"
+         id="polygon34" />
+    </clipPath>
+    <clipPath
+       id="clip-path-12">
+      <polygon
+         class="cls-1"
+         points="537.74 753.51 614.22 753.51 614.22 829.98 537.74 829.98 537.74 753.51 537.74 753.51"
+         id="polygon37" />
+    </clipPath>
+    <clipPath
+       id="clip-path-13">
+      <polygon
+         class="cls-1"
+         points="537.74 829.98 614.22 829.98 614.22 906.46 537.74 906.46 537.74 829.98 537.74 829.98"
+         id="polygon40" />
+    </clipPath>
+    <clipPath
+       id="clip-path-14">
+      <polygon
+         class="cls-1"
+         points="537.74 906.46 614.22 906.46 614.22 982.93 537.74 982.93 537.74 906.46 537.74 906.46"
+         id="polygon43" />
+    </clipPath>
+    <clipPath
+       id="clip-path-15">
+      <rect
+         class="cls-1"
+         x="537.74"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect46" />
+    </clipPath>
+    <clipPath
+       id="clip-path-16">
+      <polygon
+         class="cls-1"
+         points="461.27 -11.25 537.74 -11.25 537.74 65.23 461.27 65.23 461.27 -11.25 461.27 -11.25"
+         id="polygon49" />
+    </clipPath>
+    <clipPath
+       id="clip-path-18">
+      <polygon
+         class="cls-1"
+         points="461.27 65.23 537.74 65.23 537.74 141.7 461.27 141.7 461.27 65.23 461.27 65.23"
+         id="polygon52" />
+    </clipPath>
+    <clipPath
+       id="clip-path-20">
+      <polygon
+         class="cls-1"
+         points="461.27 141.7 537.74 141.7 537.74 218.18 461.27 218.18 461.27 141.7 461.27 141.7"
+         id="polygon55" />
+    </clipPath>
+    <clipPath
+       id="clip-path-22">
+      <polygon
+         class="cls-1"
+         points="461.27 218.18 537.74 218.18 537.74 294.65 461.27 294.65 461.27 218.18 461.27 218.18"
+         id="polygon58" />
+    </clipPath>
+    <clipPath
+       id="clip-path-24">
+      <polygon
+         class="cls-1"
+         points="461.27 294.65 537.74 294.65 537.74 371.13 461.27 371.13 461.27 294.65 461.27 294.65"
+         id="polygon61" />
+    </clipPath>
+    <clipPath
+       id="clip-path-26">
+      <polygon
+         class="cls-1"
+         points="461.27 371.13 537.74 371.13 537.74 447.61 461.27 447.61 461.27 371.13 461.27 371.13"
+         id="polygon64" />
+    </clipPath>
+    <clipPath
+       id="clip-path-28">
+      <polygon
+         class="cls-1"
+         points="461.27 447.61 537.74 447.61 537.74 524.08 461.27 524.08 461.27 447.61 461.27 447.61"
+         id="polygon67" />
+    </clipPath>
+    <clipPath
+       id="clip-path-30">
+      <polygon
+         class="cls-1"
+         points="461.27 524.08 537.74 524.08 537.74 600.56 461.27 600.56 461.27 524.08 461.27 524.08"
+         id="polygon70" />
+    </clipPath>
+    <clipPath
+       id="clip-path-32">
+      <polygon
+         class="cls-1"
+         points="461.27 600.56 537.74 600.56 537.74 677.03 461.27 677.03 461.27 600.56 461.27 600.56"
+         id="polygon73" />
+    </clipPath>
+    <clipPath
+       id="clip-path-34">
+      <polygon
+         class="cls-1"
+         points="461.27 677.03 537.74 677.03 537.74 753.51 461.27 753.51 461.27 677.03 461.27 677.03"
+         id="polygon76" />
+    </clipPath>
+    <clipPath
+       id="clip-path-36">
+      <polygon
+         class="cls-1"
+         points="461.27 753.51 537.74 753.51 537.74 829.98 461.27 829.98 461.27 753.51 461.27 753.51"
+         id="polygon79" />
+    </clipPath>
+    <clipPath
+       id="clip-path-38">
+      <polygon
+         class="cls-1"
+         points="461.27 829.98 537.74 829.98 537.74 906.46 461.27 906.46 461.27 829.98 461.27 829.98"
+         id="polygon82" />
+    </clipPath>
+    <clipPath
+       id="clip-path-40">
+      <polygon
+         class="cls-1"
+         points="461.27 906.46 537.74 906.46 537.74 982.93 461.27 982.93 461.27 906.46 461.27 906.46"
+         id="polygon85" />
+    </clipPath>
+    <clipPath
+       id="clip-path-42">
+      <rect
+         class="cls-1"
+         x="461.27"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect88" />
+    </clipPath>
+    <clipPath
+       id="clip-path-43">
+      <polygon
+         class="cls-1"
+         points="384.79 -11.25 461.27 -11.25 461.27 65.23 384.79 65.23 384.79 -11.25 384.79 -11.25"
+         id="polygon91" />
+    </clipPath>
+    <clipPath
+       id="clip-path-45">
+      <polygon
+         class="cls-1"
+         points="384.79 65.23 461.27 65.23 461.27 141.7 384.79 141.7 384.79 65.23 384.79 65.23"
+         id="polygon94" />
+    </clipPath>
+    <clipPath
+       id="clip-path-47">
+      <polygon
+         class="cls-1"
+         points="384.79 141.7 461.27 141.7 461.27 218.18 384.79 218.18 384.79 141.7 384.79 141.7"
+         id="polygon97" />
+    </clipPath>
+    <clipPath
+       id="clip-path-49">
+      <polygon
+         class="cls-1"
+         points="384.79 218.18 461.27 218.18 461.27 294.65 384.79 294.65 384.79 218.18 384.79 218.18"
+         id="polygon100" />
+    </clipPath>
+    <clipPath
+       id="clip-path-51">
+      <polygon
+         class="cls-1"
+         points="384.79 294.65 461.27 294.65 461.27 371.13 384.79 371.13 384.79 294.65 384.79 294.65"
+         id="polygon103" />
+    </clipPath>
+    <clipPath
+       id="clip-path-53">
+      <polygon
+         class="cls-1"
+         points="384.79 371.13 461.27 371.13 461.27 447.61 384.79 447.61 384.79 371.13 384.79 371.13"
+         id="polygon106" />
+    </clipPath>
+    <clipPath
+       id="clip-path-55">
+      <polygon
+         class="cls-1"
+         points="384.79 447.61 461.27 447.61 461.27 524.08 384.79 524.08 384.79 447.61 384.79 447.61"
+         id="polygon109" />
+    </clipPath>
+    <clipPath
+       id="clip-path-57">
+      <polygon
+         class="cls-1"
+         points="384.79 524.08 461.27 524.08 461.27 600.56 384.79 600.56 384.79 524.08 384.79 524.08"
+         id="polygon112" />
+    </clipPath>
+    <clipPath
+       id="clip-path-59">
+      <polygon
+         class="cls-1"
+         points="384.79 600.56 461.27 600.56 461.27 677.03 384.79 677.03 384.79 600.56 384.79 600.56"
+         id="polygon115" />
+    </clipPath>
+    <clipPath
+       id="clip-path-61">
+      <polygon
+         class="cls-1"
+         points="384.79 677.03 461.27 677.03 461.27 753.51 384.79 753.51 384.79 677.03 384.79 677.03"
+         id="polygon118" />
+    </clipPath>
+    <clipPath
+       id="clip-path-63">
+      <polygon
+         class="cls-1"
+         points="384.79 753.51 461.27 753.51 461.27 829.98 384.79 829.98 384.79 753.51 384.79 753.51"
+         id="polygon121" />
+    </clipPath>
+    <clipPath
+       id="clip-path-65">
+      <polygon
+         class="cls-1"
+         points="384.79 829.98 461.27 829.98 461.27 906.46 384.79 906.46 384.79 829.98 384.79 829.98"
+         id="polygon124" />
+    </clipPath>
+    <clipPath
+       id="clip-path-67">
+      <polygon
+         class="cls-1"
+         points="384.79 906.46 461.27 906.46 461.27 982.93 384.79 982.93 384.79 906.46 384.79 906.46"
+         id="polygon127" />
+    </clipPath>
+    <clipPath
+       id="clip-path-69">
+      <rect
+         class="cls-1"
+         x="384.79"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect130" />
+    </clipPath>
+    <clipPath
+       id="clip-path-70">
+      <polygon
+         class="cls-1"
+         points="308.32 -11.25 384.79 -11.25 384.79 65.23 308.32 65.23 308.32 -11.25 308.32 -11.25"
+         id="polygon133" />
+    </clipPath>
+    <clipPath
+       id="clip-path-72">
+      <polygon
+         class="cls-1"
+         points="308.32 65.23 384.79 65.23 384.79 141.7 308.32 141.7 308.32 65.23 308.32 65.23"
+         id="polygon136" />
+    </clipPath>
+    <clipPath
+       id="clip-path-74">
+      <polygon
+         class="cls-1"
+         points="308.32 141.7 384.79 141.7 384.79 218.18 308.32 218.18 308.32 141.7 308.32 141.7"
+         id="polygon139" />
+    </clipPath>
+    <clipPath
+       id="clip-path-76">
+      <polygon
+         class="cls-1"
+         points="308.32 218.18 384.79 218.18 384.79 294.65 308.32 294.65 308.32 218.18 308.32 218.18"
+         id="polygon142" />
+    </clipPath>
+    <clipPath
+       id="clip-path-78">
+      <polygon
+         class="cls-1"
+         points="308.32 294.65 384.79 294.65 384.79 371.13 308.32 371.13 308.32 294.65 308.32 294.65"
+         id="polygon145" />
+    </clipPath>
+    <clipPath
+       id="clip-path-80">
+      <polygon
+         class="cls-1"
+         points="308.32 371.13 384.79 371.13 384.79 447.61 308.32 447.61 308.32 371.13 308.32 371.13"
+         id="polygon148" />
+    </clipPath>
+    <clipPath
+       id="clip-path-82">
+      <polygon
+         class="cls-1"
+         points="308.32 447.61 384.79 447.61 384.79 524.08 308.32 524.08 308.32 447.61 308.32 447.61"
+         id="polygon151" />
+    </clipPath>
+    <clipPath
+       id="clip-path-84">
+      <polygon
+         class="cls-1"
+         points="308.32 524.08 384.79 524.08 384.79 600.56 308.32 600.56 308.32 524.08 308.32 524.08"
+         id="polygon154" />
+    </clipPath>
+    <clipPath
+       id="clip-path-86">
+      <polygon
+         class="cls-1"
+         points="308.32 600.56 384.79 600.56 384.79 677.03 308.32 677.03 308.32 600.56 308.32 600.56"
+         id="polygon157" />
+    </clipPath>
+    <clipPath
+       id="clip-path-88">
+      <polygon
+         class="cls-1"
+         points="308.32 677.03 384.79 677.03 384.79 753.51 308.32 753.51 308.32 677.03 308.32 677.03"
+         id="polygon160" />
+    </clipPath>
+    <clipPath
+       id="clip-path-90">
+      <polygon
+         class="cls-1"
+         points="308.32 753.51 384.79 753.51 384.79 829.98 308.32 829.98 308.32 753.51 308.32 753.51"
+         id="polygon163" />
+    </clipPath>
+    <clipPath
+       id="clip-path-92">
+      <polygon
+         class="cls-1"
+         points="308.32 829.98 384.79 829.98 384.79 906.46 308.32 906.46 308.32 829.98 308.32 829.98"
+         id="polygon166" />
+    </clipPath>
+    <clipPath
+       id="clip-path-94">
+      <polygon
+         class="cls-1"
+         points="308.32 906.46 384.79 906.46 384.79 982.93 308.32 982.93 308.32 906.46 308.32 906.46"
+         id="polygon169" />
+    </clipPath>
+    <clipPath
+       id="clip-path-96">
+      <rect
+         class="cls-1"
+         x="308.32"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect172" />
+    </clipPath>
+    <clipPath
+       id="clip-path-97">
+      <polygon
+         class="cls-1"
+         points="231.84 -11.25 308.32 -11.25 308.32 65.23 231.84 65.23 231.84 -11.25 231.84 -11.25"
+         id="polygon175" />
+    </clipPath>
+    <clipPath
+       id="clip-path-99">
+      <polygon
+         class="cls-1"
+         points="231.84 65.23 308.32 65.23 308.32 141.7 231.84 141.7 231.84 65.23 231.84 65.23"
+         id="polygon178" />
+    </clipPath>
+    <clipPath
+       id="clip-path-101">
+      <polygon
+         class="cls-1"
+         points="231.84 141.7 308.32 141.7 308.32 218.18 231.84 218.18 231.84 141.7 231.84 141.7"
+         id="polygon181" />
+    </clipPath>
+    <clipPath
+       id="clip-path-103">
+      <polygon
+         class="cls-1"
+         points="231.84 218.18 308.32 218.18 308.32 294.65 231.84 294.65 231.84 218.18 231.84 218.18"
+         id="polygon184" />
+    </clipPath>
+    <clipPath
+       id="clip-path-105">
+      <polygon
+         class="cls-1"
+         points="231.84 294.65 308.32 294.65 308.32 371.13 231.84 371.13 231.84 294.65 231.84 294.65"
+         id="polygon187" />
+    </clipPath>
+    <clipPath
+       id="clip-path-107">
+      <polygon
+         class="cls-1"
+         points="231.84 371.13 308.32 371.13 308.32 447.61 231.84 447.61 231.84 371.13 231.84 371.13"
+         id="polygon190" />
+    </clipPath>
+    <clipPath
+       id="clip-path-109">
+      <polygon
+         class="cls-1"
+         points="231.84 447.61 308.32 447.61 308.32 524.08 231.84 524.08 231.84 447.61 231.84 447.61"
+         id="polygon193" />
+    </clipPath>
+    <clipPath
+       id="clip-path-111">
+      <polygon
+         class="cls-1"
+         points="231.84 524.08 308.32 524.08 308.32 600.56 231.84 600.56 231.84 524.08 231.84 524.08"
+         id="polygon196" />
+    </clipPath>
+    <clipPath
+       id="clip-path-113">
+      <polygon
+         class="cls-1"
+         points="231.84 600.56 308.32 600.56 308.32 677.03 231.84 677.03 231.84 600.56 231.84 600.56"
+         id="polygon199" />
+    </clipPath>
+    <clipPath
+       id="clip-path-115">
+      <polygon
+         class="cls-1"
+         points="231.84 677.03 308.32 677.03 308.32 753.51 231.84 753.51 231.84 677.03 231.84 677.03"
+         id="polygon202" />
+    </clipPath>
+    <clipPath
+       id="clip-path-117">
+      <polygon
+         class="cls-1"
+         points="231.84 753.51 308.32 753.51 308.32 829.98 231.84 829.98 231.84 753.51 231.84 753.51"
+         id="polygon205" />
+    </clipPath>
+    <clipPath
+       id="clip-path-119">
+      <polygon
+         class="cls-1"
+         points="231.84 829.98 308.32 829.98 308.32 906.46 231.84 906.46 231.84 829.98 231.84 829.98"
+         id="polygon208" />
+    </clipPath>
+    <clipPath
+       id="clip-path-121">
+      <polygon
+         class="cls-1"
+         points="231.84 906.46 308.32 906.46 308.32 982.93 231.84 982.93 231.84 906.46 231.84 906.46"
+         id="polygon211" />
+    </clipPath>
+    <clipPath
+       id="clip-path-123">
+      <rect
+         class="cls-1"
+         x="231.84"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect214" />
+    </clipPath>
+    <clipPath
+       id="clip-path-124">
+      <polygon
+         class="cls-1"
+         points="155.36 -11.25 231.84 -11.25 231.84 65.23 155.36 65.23 155.36 -11.25 155.36 -11.25"
+         id="polygon217" />
+    </clipPath>
+    <clipPath
+       id="clip-path-126">
+      <polygon
+         class="cls-1"
+         points="155.36 65.23 231.84 65.23 231.84 141.7 155.36 141.7 155.36 65.23 155.36 65.23"
+         id="polygon220" />
+    </clipPath>
+    <clipPath
+       id="clip-path-128">
+      <polygon
+         class="cls-1"
+         points="155.36 141.7 231.84 141.7 231.84 218.18 155.36 218.18 155.36 141.7 155.36 141.7"
+         id="polygon223" />
+    </clipPath>
+    <clipPath
+       id="clip-path-130">
+      <polygon
+         class="cls-1"
+         points="155.36 218.18 231.84 218.18 231.84 294.65 155.36 294.65 155.36 218.18 155.36 218.18"
+         id="polygon226" />
+    </clipPath>
+    <clipPath
+       id="clip-path-132">
+      <polygon
+         class="cls-1"
+         points="155.36 294.65 231.84 294.65 231.84 371.13 155.36 371.13 155.36 294.65 155.36 294.65"
+         id="polygon229" />
+    </clipPath>
+    <clipPath
+       id="clip-path-134">
+      <polygon
+         class="cls-1"
+         points="155.36 371.13 231.84 371.13 231.84 447.61 155.36 447.61 155.36 371.13 155.36 371.13"
+         id="polygon232" />
+    </clipPath>
+    <clipPath
+       id="clip-path-136">
+      <polygon
+         class="cls-1"
+         points="155.36 447.61 231.84 447.61 231.84 524.08 155.36 524.08 155.36 447.61 155.36 447.61"
+         id="polygon235" />
+    </clipPath>
+    <clipPath
+       id="clip-path-138">
+      <polygon
+         class="cls-1"
+         points="155.36 524.08 231.84 524.08 231.84 600.56 155.36 600.56 155.36 524.08 155.36 524.08"
+         id="polygon238" />
+    </clipPath>
+    <clipPath
+       id="clip-path-140">
+      <polygon
+         class="cls-1"
+         points="155.36 600.56 231.84 600.56 231.84 677.03 155.36 677.03 155.36 600.56 155.36 600.56"
+         id="polygon241" />
+    </clipPath>
+    <clipPath
+       id="clip-path-142">
+      <polygon
+         class="cls-1"
+         points="155.36 677.03 231.84 677.03 231.84 753.51 155.36 753.51 155.36 677.03 155.36 677.03"
+         id="polygon244" />
+    </clipPath>
+    <clipPath
+       id="clip-path-144">
+      <polygon
+         class="cls-1"
+         points="155.36 753.51 231.84 753.51 231.84 829.98 155.36 829.98 155.36 753.51 155.36 753.51"
+         id="polygon247" />
+    </clipPath>
+    <clipPath
+       id="clip-path-146">
+      <polygon
+         class="cls-1"
+         points="155.36 829.98 231.84 829.98 231.84 906.46 155.36 906.46 155.36 829.98 155.36 829.98"
+         id="polygon250" />
+    </clipPath>
+    <clipPath
+       id="clip-path-148">
+      <polygon
+         class="cls-1"
+         points="155.36 906.46 231.84 906.46 231.84 982.93 155.36 982.93 155.36 906.46 155.36 906.46"
+         id="polygon253" />
+    </clipPath>
+    <clipPath
+       id="clip-path-150">
+      <rect
+         class="cls-1"
+         x="155.36"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect256" />
+    </clipPath>
+    <clipPath
+       id="clip-path-151">
+      <polygon
+         class="cls-1"
+         points="78.89 -11.25 155.36 -11.25 155.36 65.23 78.89 65.23 78.89 -11.25 78.89 -11.25"
+         id="polygon259" />
+    </clipPath>
+    <clipPath
+       id="clip-path-153">
+      <polygon
+         class="cls-1"
+         points="78.89 65.23 155.36 65.23 155.36 141.7 78.89 141.7 78.89 65.23 78.89 65.23"
+         id="polygon262" />
+    </clipPath>
+    <clipPath
+       id="clip-path-155">
+      <polygon
+         class="cls-1"
+         points="78.89 141.7 155.36 141.7 155.36 218.18 78.89 218.18 78.89 141.7 78.89 141.7"
+         id="polygon265" />
+    </clipPath>
+    <clipPath
+       id="clip-path-157">
+      <polygon
+         class="cls-1"
+         points="78.89 218.18 155.36 218.18 155.36 294.65 78.89 294.65 78.89 218.18 78.89 218.18"
+         id="polygon268" />
+    </clipPath>
+    <clipPath
+       id="clip-path-159">
+      <polygon
+         class="cls-1"
+         points="78.89 294.65 155.36 294.65 155.36 371.13 78.89 371.13 78.89 294.65 78.89 294.65"
+         id="polygon271" />
+    </clipPath>
+    <clipPath
+       id="clip-path-161">
+      <polygon
+         class="cls-1"
+         points="78.89 371.13 155.36 371.13 155.36 447.61 78.89 447.61 78.89 371.13 78.89 371.13"
+         id="polygon274" />
+    </clipPath>
+    <clipPath
+       id="clip-path-163">
+      <polygon
+         class="cls-1"
+         points="78.89 447.61 155.36 447.61 155.36 524.08 78.89 524.08 78.89 447.61 78.89 447.61"
+         id="polygon277" />
+    </clipPath>
+    <clipPath
+       id="clip-path-165">
+      <polygon
+         class="cls-1"
+         points="78.89 524.08 155.36 524.08 155.36 600.56 78.89 600.56 78.89 524.08 78.89 524.08"
+         id="polygon280" />
+    </clipPath>
+    <clipPath
+       id="clip-path-167">
+      <polygon
+         class="cls-1"
+         points="78.89 600.56 155.36 600.56 155.36 677.03 78.89 677.03 78.89 600.56 78.89 600.56"
+         id="polygon283" />
+    </clipPath>
+    <clipPath
+       id="clip-path-169">
+      <polygon
+         class="cls-1"
+         points="78.89 677.03 155.36 677.03 155.36 753.51 78.89 753.51 78.89 677.03 78.89 677.03"
+         id="polygon286" />
+    </clipPath>
+    <clipPath
+       id="clip-path-171">
+      <polygon
+         class="cls-1"
+         points="78.89 753.51 155.36 753.51 155.36 829.98 78.89 829.98 78.89 753.51 78.89 753.51"
+         id="polygon289" />
+    </clipPath>
+    <clipPath
+       id="clip-path-173">
+      <polygon
+         class="cls-1"
+         points="78.89 829.98 155.36 829.98 155.36 906.46 78.89 906.46 78.89 829.98 78.89 829.98"
+         id="polygon292" />
+    </clipPath>
+    <clipPath
+       id="clip-path-175">
+      <polygon
+         class="cls-1"
+         points="78.89 906.46 155.36 906.46 155.36 982.93 78.89 982.93 78.89 906.46 78.89 906.46"
+         id="polygon295" />
+    </clipPath>
+    <clipPath
+       id="clip-path-177">
+      <rect
+         class="cls-1"
+         x="78.89"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect298" />
+    </clipPath>
+    <clipPath
+       id="clip-path-178">
+      <polygon
+         class="cls-1"
+         points="2.41 -11.25 78.89 -11.25 78.89 65.23 2.41 65.23 2.41 -11.25 2.41 -11.25"
+         id="polygon301" />
+    </clipPath>
+    <clipPath
+       id="clip-path-180">
+      <polygon
+         class="cls-1"
+         points="2.41 65.23 78.89 65.23 78.89 141.7 2.41 141.7 2.41 65.23 2.41 65.23"
+         id="polygon304" />
+    </clipPath>
+    <clipPath
+       id="clip-path-182">
+      <polygon
+         class="cls-1"
+         points="2.41 141.7 78.89 141.7 78.89 218.18 2.41 218.18 2.41 141.7 2.41 141.7"
+         id="polygon307" />
+    </clipPath>
+    <clipPath
+       id="clip-path-184">
+      <polygon
+         class="cls-1"
+         points="2.41 218.18 78.89 218.18 78.89 294.65 2.41 294.65 2.41 218.18 2.41 218.18"
+         id="polygon310" />
+    </clipPath>
+    <clipPath
+       id="clip-path-186">
+      <polygon
+         class="cls-1"
+         points="2.41 294.65 78.89 294.65 78.89 371.13 2.41 371.13 2.41 294.65 2.41 294.65"
+         id="polygon313" />
+    </clipPath>
+    <clipPath
+       id="clip-path-188">
+      <polygon
+         class="cls-1"
+         points="2.41 371.13 78.89 371.13 78.89 447.61 2.41 447.61 2.41 371.13 2.41 371.13"
+         id="polygon316" />
+    </clipPath>
+    <clipPath
+       id="clip-path-190">
+      <polygon
+         class="cls-1"
+         points="2.41 447.61 78.89 447.61 78.89 524.08 2.41 524.08 2.41 447.61 2.41 447.61"
+         id="polygon319" />
+    </clipPath>
+    <clipPath
+       id="clip-path-192">
+      <polygon
+         class="cls-1"
+         points="2.41 524.08 78.89 524.08 78.89 600.56 2.41 600.56 2.41 524.08 2.41 524.08"
+         id="polygon322" />
+    </clipPath>
+    <clipPath
+       id="clip-path-194">
+      <polygon
+         class="cls-1"
+         points="2.41 600.56 78.89 600.56 78.89 677.03 2.41 677.03 2.41 600.56 2.41 600.56"
+         id="polygon325" />
+    </clipPath>
+    <clipPath
+       id="clip-path-196">
+      <polygon
+         class="cls-1"
+         points="2.41 677.03 78.89 677.03 78.89 753.51 2.41 753.51 2.41 677.03 2.41 677.03"
+         id="polygon328" />
+    </clipPath>
+    <clipPath
+       id="clip-path-198">
+      <polygon
+         class="cls-1"
+         points="2.41 753.51 78.89 753.51 78.89 829.98 2.41 829.98 2.41 753.51 2.41 753.51"
+         id="polygon331" />
+    </clipPath>
+    <clipPath
+       id="clip-path-200">
+      <polygon
+         class="cls-1"
+         points="2.41 829.98 78.89 829.98 78.89 906.46 2.41 906.46 2.41 829.98 2.41 829.98"
+         id="polygon334" />
+    </clipPath>
+    <clipPath
+       id="clip-path-202">
+      <polygon
+         class="cls-1"
+         points="2.41 906.46 78.89 906.46 78.89 982.93 2.41 982.93 2.41 906.46 2.41 906.46"
+         id="polygon337" />
+    </clipPath>
+    <clipPath
+       id="clip-path-204">
+      <rect
+         class="cls-1"
+         x="2.41"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect340" />
+    </clipPath>
+    <clipPath
+       id="clip-path-205">
+      <polygon
+         class="cls-1"
+         points="-74.06 -11.25 2.41 -11.25 2.41 65.23 -74.06 65.23 -74.06 -11.25 -74.06 -11.25"
+         id="polygon343" />
+    </clipPath>
+    <clipPath
+       id="clip-path-206">
+      <polygon
+         class="cls-1"
+         points="-74.06 65.23 2.41 65.23 2.41 141.7 -74.06 141.7 -74.06 65.23 -74.06 65.23"
+         id="polygon346" />
+    </clipPath>
+    <clipPath
+       id="clip-path-208">
+      <polygon
+         class="cls-1"
+         points="-74.06 141.7 2.41 141.7 2.41 218.18 -74.06 218.18 -74.06 141.7 -74.06 141.7"
+         id="polygon349" />
+    </clipPath>
+    <clipPath
+       id="clip-path-210">
+      <polygon
+         class="cls-1"
+         points="-74.06 218.18 2.41 218.18 2.41 294.65 -74.06 294.65 -74.06 218.18 -74.06 218.18"
+         id="polygon352" />
+    </clipPath>
+    <clipPath
+       id="clip-path-212">
+      <polygon
+         class="cls-1"
+         points="-74.06 294.65 2.41 294.65 2.41 371.13 -74.06 371.13 -74.06 294.65 -74.06 294.65"
+         id="polygon355" />
+    </clipPath>
+    <clipPath
+       id="clip-path-214">
+      <polygon
+         class="cls-1"
+         points="-74.06 371.13 2.41 371.13 2.41 447.61 -74.06 447.61 -74.06 371.13 -74.06 371.13"
+         id="polygon358" />
+    </clipPath>
+    <clipPath
+       id="clip-path-216">
+      <polygon
+         class="cls-1"
+         points="-74.06 447.61 2.41 447.61 2.41 524.08 -74.06 524.08 -74.06 447.61 -74.06 447.61"
+         id="polygon361" />
+    </clipPath>
+    <clipPath
+       id="clip-path-218">
+      <polygon
+         class="cls-1"
+         points="-74.06 524.08 2.41 524.08 2.41 600.56 -74.06 600.56 -74.06 524.08 -74.06 524.08"
+         id="polygon364" />
+    </clipPath>
+    <clipPath
+       id="clip-path-220">
+      <polygon
+         class="cls-1"
+         points="-74.06 600.56 2.41 600.56 2.41 677.03 -74.06 677.03 -74.06 600.56 -74.06 600.56"
+         id="polygon367" />
+    </clipPath>
+    <clipPath
+       id="clip-path-222">
+      <polygon
+         class="cls-1"
+         points="-74.06 677.03 2.41 677.03 2.41 753.51 -74.06 753.51 -74.06 677.03 -74.06 677.03"
+         id="polygon370" />
+    </clipPath>
+    <clipPath
+       id="clip-path-224">
+      <polygon
+         class="cls-1"
+         points="-74.06 753.51 2.41 753.51 2.41 829.98 -74.06 829.98 -74.06 753.51 -74.06 753.51"
+         id="polygon373" />
+    </clipPath>
+    <clipPath
+       id="clip-path-226">
+      <polygon
+         class="cls-1"
+         points="-74.06 829.98 2.41 829.98 2.41 906.46 -74.06 906.46 -74.06 829.98 -74.06 829.98"
+         id="polygon376" />
+    </clipPath>
+    <clipPath
+       id="clip-path-228">
+      <polygon
+         class="cls-1"
+         points="-74.06 906.46 2.41 906.46 2.41 982.93 -74.06 982.93 -74.06 906.46 -74.06 906.46"
+         id="polygon379" />
+    </clipPath>
+    <clipPath
+       id="clip-path-230">
+      <rect
+         class="cls-1"
+         x="-74.06"
+         y="982.93"
+         width="76.48"
+         height="50.98"
+         id="rect382" />
+    </clipPath>
+  </defs>
+  <g
+     id="Layer_2"
+     data-name="Layer 2">
+    <path
+       class="cls-2"
+       d="M74.38,782.18c257,0,486.84,45.59,486.84,105.14l-51.74,66c57-94.65,186.13-161.81,416.14-161.81"
+       id="path387" />
+    <path
+       class="cls-2"
+       d="M654.75,339A102.54,102.54,0,0,1,757.19,441.42c0,.31,0,.63-.06.94,0,.76-.1,1.52-.11,2.29l-.39,15.48,15.52.06a68.27,68.27,0,0,1,.14,136.54H491.19a75.84,75.84,0,0,1-24.53-147.59l8.54-2.92,1.5-8.89a45.37,45.37,0,0,1,65.2-33l13.83,6.95,6.68-14A103,103,0,0,1,654.75,339"
+       id="path389" />
+    <path
+       class="cls-2"
+       d="M413,554c-1.76.59-24.71,7.86-47.3,7.87-75.29,0-154.95-55.72-154.95-155a155,155,0,1,1,309.91,0c0,1.82,0,4-.14,6.61"
+       id="path391" />
+    <rect
+       class="cls-132"
+       x="59.64"
+       y="72.61"
+       width="880.71"
+       height="880.71"
+       id="rect3383" />
+  </g>
+</svg>

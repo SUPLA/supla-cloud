@@ -50,9 +50,15 @@
     "test": [
       "phpunit -c app --testdox"
     ],
-    "lint": [
-      "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml",
+    "lint-backend": [
+      "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml"
+    ],
+    "lint-frontend": [
       "cd src/Frontend && npm run lint -s"
+    ],
+    "lint": [
+      "@lint-frontend",
+      "@lint-backend"
     ],
     "phpcbf": [
       "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml"
@@ -76,10 +82,11 @@
     ]
   },
   "config": {
-    "process-timeout": 0,
     "platform": {
       "php": "7.3.8"
-    }
+    },
+    "process-timeout": 0,
+    "sort-packages": true
   },
   "extra": {
     "symfony-app-dir": "app",

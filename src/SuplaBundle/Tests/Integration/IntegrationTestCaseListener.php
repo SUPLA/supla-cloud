@@ -26,7 +26,11 @@ class IntegrationTestCaseListener implements TestListener {
 
     public function startTest(Test $test): void {
         if ($test instanceof IntegrationTestCase) {
-            $test->prepareIntegrationTest();
+            try {
+                $test->prepareIntegrationTest();
+            } catch (Exception $e) {
+                throw new PHPUnit_Framework_ExpectationFailedException('Could not start the test: ' . $e->getMessage(), null, $e);
+            }
         }
     }
 }

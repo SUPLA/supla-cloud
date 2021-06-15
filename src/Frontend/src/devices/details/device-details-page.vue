@@ -20,7 +20,7 @@
                             <div class="col-sm-4">
                                 <h3>{{ $t('Device') }}</h3>
                                 <div class="text-center form-group">
-                                    <device-connection-status-label :device="device"></device-connection-status-label>
+                                    <connection-status-label :model="device"></connection-status-label>
                                 </div>
                                 <div class="hover-editable text-left">
                                     <dl>
@@ -118,7 +118,7 @@
     import Toggler from "../../common/gui/toggler";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import ChannelListPage from "../../channels/channel-list-page";
-    import DeviceConnectionStatusLabel from "../list/device-connection-status-label";
+    import ConnectionStatusLabel from "../list/connection-status-label";
     import SquareLocationChooser from "../../locations/square-location-chooser";
     import PageContainer from "../../common/pages/page-container";
     import DeleteIoWithDependenciesModal from "./delete-io-with-dependencies-modal";
@@ -130,7 +130,7 @@
             DisableIoWithDependenciesModal,
             DeleteIoWithDependenciesModal,
             PageContainer,
-            DeviceConnectionStatusLabel,
+            ConnectionStatusLabel,
             ChannelListPage,
             PendingChangesPage,
             DotsRoute,

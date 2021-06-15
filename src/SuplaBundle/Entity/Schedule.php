@@ -19,6 +19,8 @@ namespace SuplaBundle\Entity;
 
 use Assert\Assert;
 use Assert\Assertion;
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
@@ -90,6 +92,12 @@ class Schedule implements HasSubject {
      * @Groups({"basic"})
      */
     private $actionParam;
+
+    /**
+     * @ORM\Column(name="config", type="string", nullable=true, length=1023)
+     * @Groups({"basic"})
+     */
+    private $config;
 
     /**
      * @ORM\Column(name="mode", type="string", length=15, nullable=false)
@@ -175,15 +183,7 @@ class Schedule implements HasSubject {
 
     /** @param IODeviceChannel|IODeviceChannelGroup|null $subject */
     public function setSubject($subject) {
-        $this->channel = null;
-        $this->channelGroup = null;
-        if ($subject instanceof IODeviceChannel) {
-            $this->channel = $subject;
-        } elseif ($subject instanceof IODeviceChannelGroup) {
-            $this->channelGroup = $subject;
-        } elseif ($subject) {
-            Assertion::null($subject, 'Invalid subject for schedule given: ' . get_class($subject));
-        }
+        $this->initializeSubject($subject);
     }
 
     /**
@@ -230,6 +230,11 @@ class Schedule implements HasSubject {
         $this->actionParam = $params;
     }
 
+    /** @return array|null */
+    public function getConfig() {
+        return $this->config ? json_decode($this->config, true) : null;
+    }
+
     public function getMode(): ScheduleMode {
         return new ScheduleMode($this->mode);
     }
@@ -248,19 +253,19 @@ class Schedule implements HasSubject {
     /**
      * @param mixed $dateStart
      */
-    public function setDateStart(\DateTime $dateStart) {
+    public function setDateStart(DateTime $dateStart) {
         $this->dateStart = $dateStart;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getDateEnd() {
         return $this->dateEnd;
     }
 
     /**
-     * @param \DateTime|null $dateEnd
+     * @param DateTime|null $dateEnd
      */
     public function setDateEnd($dateEnd) {
         $this->dateEnd = $dateEnd;
@@ -287,7 +292,7 @@ class Schedule implements HasSubject {
         return $this->nextCalculationDate;
     }
 
-    public function setNextCalculationDate(\DateTime $nextCalculationDate) {
+    public function setNextCalculationDate(DateTime $nextCalculationDate) {
         $this->nextCalculationDate = $nextCalculationDate;
     }
 
@@ -305,9 +310,9 @@ class Schedule implements HasSubject {
         $this->caption = $caption;
     }
 
-    /** @return \DateTimeZone */
+    /** @return DateTimeZone */
     public function getUserTimezone() {
-        return new \DateTimeZone($this->getUser()->getTimezone());
+        return new DateTimeZone($this->getUser()->getTimezone());
     }
 
     public function getRetry(): bool {

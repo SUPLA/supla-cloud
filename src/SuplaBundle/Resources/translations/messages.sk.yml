@@ -15,8 +15,6 @@ Access ID: ID prístupu
 Access Identifier: Identifikátor Prístupu
 Access Identifiers: Identifikátor Prístupu
 Access identifier limit has been exceeded: Bol prekročený limit identifikátorov prístupu
-Access identifier password must be at least 8 characters.: Heslo pre identifikátor prístupu musí mať dĺžku aspoň 8 znakov.
-Access identifier password must be no longer than 32 characters.: Heslo pre identifikátor prístupu nesmie byť dlhšie ako 32 znakov.
 Account: Účet
 Account access when you are unavailable: Prístup k účtu keď nie ste dostupný/-á
 Account has been activated. You can Sign In now.: Účet bol aktivovaný. Môžete sa prihlásiť
@@ -156,6 +154,7 @@ Direct link has been executed: Priamy odkaz sa vykonal
 'Direct link is not working right now. Reason:': 'Priamy odkaz v tejto chvíli nefunguje. Dôvod:'
 Direct links: Prieme odkazy
 Direct links below will be deleted: Nižšie vymenované priame odkaz budú odstránené
+Disable: Vypnúť
 Disabled: Vypnuté
 Disconnected: Odpojené
 Distance: Vzdialenosť
@@ -172,6 +171,7 @@ Edit: Upraviť
 Electric: Elektrika
 Electricity meter: Elektromer
 Empty!: Prázdno!
+Enable: Zapnúť
 Enabled: Zapnuté
 End date: Dátum ukončenia
 Enter new password: Zadajte nové heslo
@@ -279,8 +279,6 @@ Limit has been exceeded: Bol prekročený limit
 Location: Poloha
 Location Identifier: Identifikátor Polohy
 Location limit has been exceeded: Bol prekročený limit polôh
-Location password must be at least 4 characters.: Heslo pre umiestnenie musí mať dĺžku aspoň 4 znakov.
-Location password must be no longer than 32 characters.: Heslo pre umiestnenie nesmie byť dlhší ako 32 znakov.
 Locations: Polohy
 Login: Prihlásenie
 Mail sensor: Snímač pošty
@@ -615,11 +613,11 @@ will expire: uplynie
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Access identifier password must be at least 8 characters.: Heslo pre identifikátor prístupu musí mať dĺžku aspoň 8 znakov.
+Access identifier password must be no longer than 32 characters.: Heslo pre identifikátor prístupu nesmie byť dlhšie ako 32 znakov.
 Assigned Locations: Priradené Polohy
 Date: Dátum
-Disable: Vypnúť
 Email already exists: Emailová adresa už existuje
-Enable: Zapnúť
 Hi: Dobrý deň
 Hour: Čas
 I/O: Vstup/Výstup
@@ -627,6 +625,8 @@ I/O: Vstup/Výstup
 Input: Vstup
 Languages: Jazyky
 Loading: Načítavanie
+Location password must be at least 4 characters.: Heslo pre umiestnenie musí mať dĺžku aspoň 4 znakov.
+Location password must be no longer than 32 characters.: Heslo pre umiestnenie nesmie byť dlhší ako 32 znakov.
 Next: Ďalej
 Number: Číslo
 Output: Výstup
@@ -640,7 +640,32 @@ execute: vykonať
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Cannot change the channel function right now.: ~
+Cannot delete this I/O Device right now.: ~
+Generate new password: ~
+Host: ~
+Integration with MQTT Broker has been disabled.: ~
+Integration with MQTT Broker has been enabled.: ~
+MQTT Broker: ~
+MQTT Broker Username: ~
+MQTT Broker is disabled.: ~
+MQTT Broker password: ~
+MQTT Broker password has been changed.: ~
+'Password must be at least {minLength} characters.': ~
+'Password must be no longer than {maxLength} characters.': ~
+Port: ~
+Protocol: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+TLS: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You must enable MQTT Broker first.: ~
+Your account and MQTT Broker connection.: ~
+Your password must contain at least one special character.: ~
+Your password must include at least one letter.: ~
+Your password must include at least one number.: ~
+Your password must include both upper and lower case letters.: ~
 
 #</editor-fold>

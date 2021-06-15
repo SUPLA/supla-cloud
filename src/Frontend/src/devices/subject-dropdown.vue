@@ -44,10 +44,7 @@
             };
         },
         mounted() {
-            if (this.value && this.value.subjectType) {
-                this.subject = this.value;
-                this.subjectType = this.value.subjectType;
-            }
+            this.updateBasedOnValue();
         },
         methods: {
             changeSubjectType(subjectType) {
