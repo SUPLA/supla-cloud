@@ -207,7 +207,7 @@ Fridays: Venerdì
 From IP: Dall’indirizzo IP
 From anywhere: Da ogni luogo
 Full closing time: Tempo totale di chiusura
-Full documentation: Pełna dokumentacja
+Full documentation: Documentazione completa
 Full opening time: Tempo totale di apertura
 Function: Funzione
 G5LA1A Relay: Relè G5LA1A
@@ -248,7 +248,7 @@ I/O devices registration: Registrazione dei dispositivi
 ID: ID
 INACTIVE: INATTIVA
 Idle: Inattivi
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.'
+'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Se sei uno sviluppatore che vuole fornire funzionalità aggiuntive per SUPLA, puoi creare un’applicazione OAuth che gli utenti possono autorizzare e usare.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Se sei sicuro di essere in possesso di un account su cloud.supla.org, verifica che l’applicazione che stai cercando di autorizzare, sia pubblica.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Se vuoi integrare la nuvola privata SUPLA con l’applicazione pubblica OAuth, [devi registrare la Tua istanza].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Se vuoi usare link diretto in un altro software, aggiungi un adeguato titolo della richiesta per ricevere la risposta più facile da elaborare.'
@@ -298,7 +298,7 @@ My OAuth apps: Mie applicazioni OAuth
 My SUPLA: Mio SUPLA
 Name: Nome
 Never: Mai
-New OAuth application: Nowa aplikacja OAuth
+New OAuth application: Nuova applicazione OAuth
 New channel group: Nuovo gruppo di canali
 New direct link: Nuovo link diretto
 New password: Nuova password
