@@ -209,6 +209,14 @@ class AuthorizeOAuthController extends Controller {
         Assertion::email($email, 'Please fill a valid email address'); // i18n
 
         $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $request->get('targetCloud'));
+
+        $parts = explode('.', $targetCloud->getHost());
+        $parts = array_reverse($parts);
+        Assertion::true(
+            strpos($parts[0], 'supla') === false && strpos($parts[1], 'supla') === false,
+            'You cannot use SUPLA project name in the domain name.' // i18n
+        );
+
         $info = $this->getTargetCloudInfo($targetCloud);
         // phpcs:disable
         Assertion::isArray(

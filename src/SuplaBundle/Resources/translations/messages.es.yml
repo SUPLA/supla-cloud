@@ -74,6 +74,7 @@ Cancel changes: Anula los cambios
 Cancelled: Anulado
 Cannot execute an action when the device is disconnected.: No se pueden realizar acciones cuando el dispositivo está desconectado.
 Cannot send an activation e-mail. Try again later.: No se puede enviar el mensaje con el enlace de activación. Por favor inténtalo de nuevo más tarde.
+'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': '¿El mensaje con el enlace para activar tu cuenta no ha llegado? Asegúrate de que no esté en la bandeja de correo no deseado. También puedes hacer clic [aquí] para enviarlo de nuevo.'
 Captcha token is not valid.: Captcha incorrecto.
 Caption: Título
 Change Password: Cambio de contraseña
@@ -99,6 +100,7 @@ Choose Access Identifiers to be assigned to this Location: Selecciona Identifica
 Choose client apps: Selecciona las aplicaciones del cliente
 Choose location: Elige localización
 Chosen hour: Hora seleccionada
+Client registration: Registro de clientes
 Client’s Apps: Aplicaciones cliente
 Client’s app has been deleted: Se ha eliminado la aplicación cliente
 Close: Cerrar
@@ -226,7 +228,6 @@ Go to channel details: Pasa a los detalles del canal
 Go to your account: Ve a tu cuenta
 Grant access: Otorgar acceso
 HFD4 Relay: Relé HFD4
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': '¿El mensaje con el enlace para activar tu cuenta no ha llegado? Asegúrate de que no esté en la bandeja de correo no deseado. También puedes hacer clic [aquí] para enviarlo de nuevo.'
 Heat meter: Medidor de calor
 History of measurements: Mediciones anteriores
 Home appliances: Electrodomésticos
@@ -243,6 +244,7 @@ I agree: Acepto
 I confirm! Delete my account.: Confirmo que quiero eliminar mi cuenta.
 'I do not agree, get me out of here': 'No acepto, sácame de aquí'
 I/O Devices: Dispositivos E/S
+I/O devices registration: Registro de dispositivos
 ID: ID
 INACTIVE: INACTIVA
 Idle: Inactivos
@@ -369,8 +371,6 @@ Register: Registrar
 Register a new OAuth application: Registra una nueva aplicación OAuth
 Register private SUPLA Cloud: Registra una nube privada SUPLA
 Registered: Registrado
-Registration of new I/O devices: Registro de dispositivos
-Registration of new clients: Registro de clientes
 Relay: Relé
 Relay switching time: Tiempo de activación del relé
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Antes de borrar la localización tienes que llevar los conjuntos decanales que contiene a otra localización. Identificadores: {relatedIds}.'
@@ -495,7 +495,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Espera un momento antes de ejecutar una nueva orden. Puedes comprobar el estado actual de tus límites en los ajustes de la cuenta.
 Water meter: Contador de agua
 We could not connect to your SUPLA Cloud instance.: No pudimos conectarnos a tu instancia privada de SUPLA Cloud.
-We have just sent you an activation link. Be patient.: El mensaje con el enlace para activar tu cuenta acaba de ser enviado. Ten paciencia.
+We have just sent you an activation link. You should be receiving it shortly.: El mensaje con el enlace para activar tu cuenta acaba de ser enviado. Ten paciencia.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Te hemos enviado un e-mail con un enlace para confirmar la eliminación de la cuenta. ¡A lo mejor todavía cambias de opinión!
 We should be ready shortly.: Debemos acabar en breve.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Guardamos en tu navegador la información sobre tus preferencias con el fin de facilitar el uso de la aplicación (p. ej. a través del mecanismo de cookies). [Lee el reglamento].'
@@ -602,7 +602,7 @@ sunrise-before: la salida del sol
 sunset-after: la puesta del sol
 sunset-before: la puesta del sol
 username: nombre de usuario
-will expire: caducará
+valid until: caducará
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} no puede interactuar con tu cuenta hasta que no vuelvas a otorgar el acceso.'
 '{clientName} wants to access your account.': '{clientName} quiere acceder a tu cuenta.'
 '{requests} out of {limit} / day': '{requests} de {limit} / día'
@@ -640,28 +640,48 @@ execute: ejecutar
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new personal access token has been generated.: ~
+Access to all of your devices through MQTT Broker: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
+Channel name: ~
+Channels groups are not supported for this function.: ~
+Check your email inbox: ~
+Default: ~
+Digi Glass: ~
+Digi Glass Horizontal: ~
+Digi Glass Vertical: ~
 Generate new password: ~
+Guru Meditation: ~
 Host: ~
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
+Invalid action parameters: ~
+Location name: ~
 MQTT Broker: ~
 MQTT Broker Username: ~
 MQTT Broker is disabled.: ~
 MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
+Make sure to copy it now because you won’t be able to see it again!: ~
+Number of sections: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Port: ~
 Protocol: ~
+Regeneration starts at: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You cannot use SUPLA project name in the domain name.: ~
+You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
+You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~

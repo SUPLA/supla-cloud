@@ -114,7 +114,7 @@ class UserManager {
 
     public function sendConfirmationEmailMessage(User $user): bool {
         $recentEmail = $this->audit->recentEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT(), 'PT5M', $user);
-        Assertion::null($recentEmail, 'We have just sent you an activation link. Be patient.'); // i18n
+        Assertion::null($recentEmail, 'We have just sent you an activation link. You should be receiving it shortly.'); // i18n
         $this->audit->newEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT())
             ->setUser($user)
             ->setTextParam($user->getUsername())

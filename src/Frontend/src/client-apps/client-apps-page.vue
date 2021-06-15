@@ -9,7 +9,7 @@
                 <div>
                     <devices-registration-button v-show="!$frontendConfig.maintenanceMode"
                         field="clientsRegistrationEnabled"
-                        caption-i18n="Registration of new clients"></devices-registration-button>
+                        caption-i18n="Client registration"></devices-registration-button>
                 </div>
             </div>
         </div>

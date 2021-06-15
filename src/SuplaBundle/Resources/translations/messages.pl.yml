@@ -5,6 +5,7 @@
 '...open gateways, gates or doors': '...otworzyć furtkę, bramę lub drzwi'
 ...or control home appliances: ...lub sterować sprzętem AGD/RTV
 ...you can monitor temperature: ...możesz monitorować temperaturę
+A new personal access token has been generated.: Wygenerowano nowy osobisty token dostępowy
 A-Z: A-Z
 ACTIVE: AKTYWNA
 AM2301 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2301
@@ -15,6 +16,7 @@ Access ID: ID dostępu
 Access Identifier: Identyfikator Dostępu
 Access Identifiers: Identyfikatory dostępu
 Access identifier limit has been exceeded: Limit identyfikatorów dostępu został przekroczony
+Access to all of your devices through MQTT Broker: Dostęp do wszystich Twoich urządzeń przez Brokera MQTT
 Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
@@ -76,6 +78,7 @@ Cannot change the channel function right now.: Nie można zmienić funkcji tego 
 Cannot delete this I/O Device right now.: Nie można usunąć tego urządzenia w tej cwili.
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
+'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Wiadomość z linkiem aktywującym Twoje konto nie dotarła? Upewnij się, że nie trafiła do folderu SPAM (niechciana poczta). Możesz też kliknąć [tutaj], by wysłać ją ponownie.'
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
 Change Password: Zmiana hasła
@@ -90,17 +93,21 @@ Channel group limit has been exceeded: Limit grup kanałów został przekroczony
 Channel group must consist of at least one channel.: Grupa kanałów musi zawierać przynajmniej jeden kanał.
 Channel groups: Grupy kanałów
 Channel is assigned to the I/O device location: Kanał jest przypisany do lokalizacji urządzenia
+Channel name: Nazwa kanału
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels: Kanały
+Channels groups are not supported for this function.: Ta funkcja nie wspiera grup kanałów.
 Channels in channel group: Kanały w grupach kanałów
 Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
 Check your email box: Sprawdź swoją skrzynkę email
+Check your email inbox: Sprawdź Twoją skrzynkę odbiorczą
 Choose: Wybierz
 Choose Access Identifier: Wybierz Identyfikator Dostępu
 Choose Access Identifiers to be assigned to this Location: 'Wybierz Identyfikatory Dostępu, które zostaną przypisane do tej Lokalizacji'
 Choose client apps: Wybierz aplikacje klienckie
 Choose location: Wybierz lokalizację
 Chosen hour: Wybrana godzina
+Client registration: Rejestracja klientów
 Client’s Apps: Aplikacje klienckie
 Client’s app has been deleted: Aplikacja kliencka została usunięta
 Close: Zamknij
@@ -137,6 +144,7 @@ DS18B20 Thermometer: Termometr DS18B20
 Data saved: Dane zostały zapisane
 Days: Dni
 Decline: Odmów
+Default: domyślnie
 Delete: Usuń
 Delete measurement history: Usuń historię pomiarów
 Delete my account: Usuń moje konto
@@ -147,6 +155,9 @@ Description: Opis
 Details: Szczegóły
 Device: Urządzenie
 Device unavailable: Urządzenie niedostępne
+Digi Glass: Digi Glass
+Digi Glass Horizontal: Digi Glass poziomy
+Digi Glass Vertical: Digi Glass pionowy
 Dimmer: Ściemniacz
 Dimmer & RGB led controller: Ściemniacz i kontroler oświetlenia RGB
 Dimmer and RGB lighting: Ściemniacz i oświetlenie RGB
@@ -228,8 +239,8 @@ Go to I/O device details: Przejdź do szczegółów urządzenia
 Go to channel details: Przejdź do szczegółów kanału
 Go to your account: Przejdź do swojego konta
 Grant access: Przyznaj dostęp
+Guru Meditation: Guru Meditation
 HFD4 Relay: Przekaźnik HFD4
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Wiadomość z linkiem aktywującym Twoje konto nie dotarła? Upewnij się, że nie trafiła do folderu SPAM (niechciana poczta). Możesz też kliknąć [tutaj], by wysłać ją ponownie.'
 Heat meter: Licznik ciepła
 History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
@@ -247,6 +258,7 @@ I agree: Zgadzam się
 I confirm! Delete my account.: Potwierdzam! Usuń moje konto.
 'I do not agree, get me out of here': 'Nie zgadzam się, zabierz mnie stąd'
 I/O Devices: Urządzenia we/wy
+I/O devices registration: Rejestracja urządzeń
 ID: ID
 INACTIVE: NIEAKTYWNA
 Idle: Bezczynne
@@ -258,6 +270,7 @@ Idle: Bezczynne
 Impulse counter: Licznik impulsów
 Impulses: Impulsy
 'In order to confirm account deletion, enter your password.': W celu potwierdzenia chęci usunięcia Twojego konta podaj swoje hasło.
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Aby uzyskać dane do logowania do brokera MQTT, skontaktuj się z administratorem tej instancji SUPLA Cloud.'
 Inactive: Nieaktywny
 Incorrect password: Nieprawidłowe hasło
 Information: Informacja
@@ -268,6 +281,7 @@ Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT zosta
 Integrations: Integracje
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
+Invalid action parameters: Niepoprawne parametry wykonania.
 Invalid function for channel.: Niepoprawna funkcja dla kanału.
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
 Invalid request: Niepoprawne żądanie
@@ -285,6 +299,7 @@ Limit has been exceeded: Limit został przekroczony
 Location: Lokalizacja
 Location Identifier: Identyfikator Lokalizacji
 Location limit has been exceeded: Limit lokalizacji został przekroczony
+Location name: Nazwa lokalizacji
 Locations: Lokalizacje
 Login: Logowanie
 MQTT Broker: Broker MQTT
@@ -292,8 +307,10 @@ MQTT Broker Username: Nazwa użytkownika
 MQTT Broker is disabled.: Broker MQTT jest wyłączony.
 MQTT Broker password: Hasło brokera MQTT
 MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Nazwa użytkownika lub hasło nie są skonfigurowane w tej instancji.
 Mail sensor: Czujnik poczty
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
+Make sure to copy it now because you won’t be able to see it again!: 'Upewnij się, że zachowasz je w bezpiecznym miejscu.'
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.'
 Manually closed: Zamknięty manualnie
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
@@ -328,6 +345,7 @@ No. of channels: Liczba kanałów
 No. of devices: Liczba urządzeń
 No. of locations: Liczba lokalizacji
 None: Brak
+Number of sections: Liczba sekcji
 OAuth application: Aplikacja OAuth
 OAuth apps: Aplikacje OAuth
 OAuth authorization: Autoryzacja OAuth
@@ -380,12 +398,11 @@ Rain sensor: Czujnik deszczu
 Random: Losowy
 Read: Odczyt
 Refresh: Odśwież
+Regeneration starts at: Początek regeneracji
 Register: Rejestruj
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
 Register private SUPLA Cloud: Zarejestruj prywatną chmurę SUPLA
 Registered: Zarejestrowany
-Registration of new I/O devices: Rejestracja urządzeń
-Registration of new clients: Rejestracja klientów
 Relay: Przekaźnik
 Relay switching time: Czas załączenia przekaźnika
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}.'
@@ -515,7 +532,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Odczekaj chwilę przed wykonaniem kolejnego żądania. Możesz sprawdzić aktualne wykorzystanie Twoich limitów w ustawieniach konta.
 Water meter: Licznik wody
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
-We have just sent you an activation link. Be patient.: Wiadomość z linkiem aktywującym Twoje konto została dopiero co wysłana. Cierpliwości.
+We have just sent you an activation link. You should be receiving it shortly.: Wiadomość z linkiem aktywującym Twoje konto została dopiero co wysłana. Cierpliwości.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Wysłaliśmy do Ciebie wiadomość e-mail z linkiem potwierdzającym usunięcie konta. Może się jeszcze rozmyślisz!
 We should be ready shortly.: Powinniśmy niedługo skończyć.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Przechowujemy w Twojej przeglądarce informacje o Twoich preferencjach w celu ułatwienia korzystania z aplikacji (np. za pomocą mechanizmu ciasteczek). [Przeczytaj regulamin].'
@@ -543,10 +560,13 @@ You are changing the settings too quickly. You have to wait a while before makin
 You can use the application but you will not be able to modify any settings.: 'Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.'
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
 You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
+You cannot use SUPLA project name in the domain name.: Nie możesz używać nazwy projektu SUPLA w nazwie głównej domeny.
 You have exceeded your API Rate Limit: Wykorzystałeś/aś swój limit żądań do API
+You have to choose at least one scope.: Musisz wybrać przynajmniej jeden zakres.
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
 You must enable MQTT Broker first.: Musisz najpierw włączyć integrację z brokerem MQTT.
+You must set sections with transparent or opaque parameters or both.: Musisz wybrać przezroczystość przynajmniej jednej sekcji.
 You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musisz zaktualizować swoją instancję SUPLA Cloud do wersji co najmniej 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Utworzenie linku z tym samym URL-em nie będzie możliwe.
@@ -629,7 +649,7 @@ sunrise-before: wschodem
 sunset-after: zachodzie
 sunset-before: zachodem
 username: nazwa użytkownika
-will expire: wygaśnie
+valid until: wygaśnie
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
 '{requests} out of {limit} / day': '{requests} z {limit} / dobę'

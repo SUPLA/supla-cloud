@@ -12,14 +12,14 @@
                         :is-pending="hasPendingChanges">
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-8">
-                                <div class="hover-editable text-left">
+                                <div class="hover-editable hovered text-left">
                                     <dl>
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt class="text-center">
                                             <toggler v-model="location.enabled"
                                                 @input="locationChanged()"></toggler>
                                         </dt>
-                                        <dd>{{ $t('Caption') }}</dd>
+                                        <dd>{{ $t('Location name') }}</dd>
                                         <dt>
                                             <input type="text"
                                                 class="form-control"

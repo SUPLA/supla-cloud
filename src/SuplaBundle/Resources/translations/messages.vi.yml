@@ -74,6 +74,7 @@ Cancel changes: Hủy bỏ
 Cancelled: Đã hủy
 Cannot execute an action when the device is disconnected.: Không thể thực hiện thao tác khi thiết bị bị ngắt kết nối.
 Cannot send an activation e-mail. Try again later.: Không gửi mail được. Thử lại sau.
+'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Có vấn đề với kích hoạt tài khoản? Đảm bảo rằng thư không rơi vào thư mục SPAM/Thùng Rác. Bạn cũng có thể nhấp vào [đây] để gửi lại liên kết kích hoạt tài khoản'
 Captcha token is not valid.: Captcha không đúng.
 Caption: Chú thích
 Change Password: Đổi mật khẩu
@@ -99,6 +100,7 @@ Choose Access Identifiers to be assigned to this Location: Chọn định danh t
 Choose client apps: Chọn ứng dụng khách
 Choose location: Chọn vị trí
 Chosen hour: Giờ được chọn
+Client registration: Đăng ký Client
 Client’s Apps: Ứng dụng khách
 Client’s app has been deleted: Ứng dụng khách đã xóa
 Close: Đóng
@@ -226,7 +228,6 @@ Go to channel details: Chi tiết kênh
 Go to your account: Chi tiết tài khoản
 Grant access: Cấp phép chi cập
 HFD4 Relay: Rơ le HFD4
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Có vấn đề với kích hoạt tài khoản? Đảm bảo rằng thư không rơi vào thư mục SPAM/Thùng Rác. Bạn cũng có thể nhấp vào [đây] để gửi lại liên kết kích hoạt tài khoản'
 Heat meter: đồng hồ nhiệt
 History of measurements: Lịch sử đo lường
 Home appliances: Thiết bị gia dụng
@@ -243,6 +244,7 @@ I agree: Tôi đồng ý
 I confirm! Delete my account.: Tôi xác nhận! Xóa tài khoản
 'I do not agree, get me out of here': 'Tôi không đồng ý, đưa tôi rời khỏi đây :)'
 I/O Devices: Thiết bị I/O
+I/O devices registration: Đăng ký thiết bị I/O mới
 ID: ID
 INACTIVE: KHÔNG HOẠT ĐỘNG
 Idle: Không hoạt động
@@ -369,8 +371,6 @@ Register: Đăng ký
 Register a new OAuth application: Đăng ký OAuth
 Register private SUPLA Cloud: Đăng ký private SUPLA Cloud
 Registered: Đã đăng ký
-Registration of new I/O devices: Đăng ký thiết bị I/O mới
-Registration of new clients: Đăng ký Client
 Relay: Rơle
 Relay switching time: Rơle thời gian chuyển mạch
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Di dời tất cả các nhóm kênh được liên kết trước khi bạn xóa vị trí này. Ids: {relatedIds}.'
@@ -495,7 +495,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Chờ một chút trước khi đưa ra yêu cầu khác. Bạn có thể kiểm tra việc sử dụng các giới hạn hiện tại trong cài đặt tài khoản của mình.
 Water meter: Thước đo nước
 We could not connect to your SUPLA Cloud instance.: Chúng tôi không thể kết nối với ví dụ SUPLA Cloud của bạn.
-We have just sent you an activation link. Be patient.: Chúng tôi vừa gửi cho bạn một liên kết kích hoạt. Kiên nhẫn.
+We have just sent you an activation link. You should be receiving it shortly.: Chúng tôi vừa gửi cho bạn một liên kết kích hoạt. Kiên nhẫn.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Chúng tôi đã gửi cho bạn một tin nhắn e-mail với một liên kết xác nhận xóa. Chỉ để được chắc chắn!
 We should be ready shortly.: Chúng ta nên sẵn sàng trong thời gian ngắn.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Chúng tôi lưu trữ một số dữ liệu (ví dụ: cookie) trong trình duyệt của bạn để ghi nhớ tùy chọn của bạn và để giúp việc sử dụng ứng dụng dễ dàng hơn [Vui lòng đọc Điều khoản và Điều kiện].'
@@ -602,7 +602,7 @@ sunrise-before: trước bình minh
 sunset-after: sau hoàng hôn
 sunset-before: trước hoàng hôn
 username: Tên người dùng
-will expire: sẽ hết hạn
+valid until: sẽ hết hạn
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} sẽ không thể tương tác với tài khoản của bạn cho đến khi bạn cấp lại quyền truy cập.'
 '{clientName} wants to access your account.': '{clientName} muốn truy cập tài khoản của bạn'
 '{requests} out of {limit} / day': '{requêtes} trong {limite} / ngày'
@@ -640,28 +640,48 @@ execute: Thực thi
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+A new personal access token has been generated.: ~
+Access to all of your devices through MQTT Broker: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
+Channel name: ~
+Channels groups are not supported for this function.: ~
+Check your email inbox: ~
+Default: ~
+Digi Glass: ~
+Digi Glass Horizontal: ~
+Digi Glass Vertical: ~
 Generate new password: ~
+Guru Meditation: ~
 Host: ~
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
+Invalid action parameters: ~
+Location name: ~
 MQTT Broker: ~
 MQTT Broker Username: ~
 MQTT Broker is disabled.: ~
 MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
+Make sure to copy it now because you won’t be able to see it again!: ~
+Number of sections: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Port: ~
 Protocol: ~
+Regeneration starts at: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
+You cannot use SUPLA project name in the domain name.: ~
+You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
+You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
