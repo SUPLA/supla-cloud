@@ -40,7 +40,7 @@ Vue.http.get('server-info')
         Vue.config.external = info.config;
         Vue.prototype.$frontendConfig = Vue.config.external;
         Vue.prototype.$backendVersion = info.cloudVersion;
-        Vue.prototype.$backendAndFrontendVersionMatches = Vue.prototype.$frontendVersion === Vue.prototype.$backendVersion;
+        Vue.prototype.$backendAndFrontendVersionMatches = Vue.prototype.$frontendVersion.indexOf(Vue.prototype.$backendVersion) === 0;
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }
