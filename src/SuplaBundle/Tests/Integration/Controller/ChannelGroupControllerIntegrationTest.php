@@ -167,8 +167,8 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
-        $this->assertContains('GET-CHAR-VALUE:1,1,2', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,2', $commands);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('state', $content);
         $this->assertCount(2, $content['state']);
