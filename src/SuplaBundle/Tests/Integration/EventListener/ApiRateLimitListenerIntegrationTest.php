@@ -373,7 +373,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(3, $response->headers->get('X-RateLimit-Remaining'));
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
         $this->assertContains('<direct-link-execution-result', $response->getContent());
         return $slug;
     }
