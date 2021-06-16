@@ -42,6 +42,10 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER],
         ]);
+    }
+
+    /** @before */
+    public function init() {
         $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->simulateAuthentication($this->user);
     }

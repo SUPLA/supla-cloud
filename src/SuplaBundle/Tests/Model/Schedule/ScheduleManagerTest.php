@@ -28,6 +28,7 @@ use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
+use SuplaBundle\Tests\Model\Schedule\SchedulePlanner\ScheduleWithTimezone;
 
 class ScheduleManagerTest extends TestCase {
     private $doctrine;

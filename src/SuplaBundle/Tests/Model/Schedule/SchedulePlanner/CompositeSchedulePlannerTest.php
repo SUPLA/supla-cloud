@@ -67,6 +67,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingCronExpressionWhenDstChangesForward() {
+        $this->markTestSkipped('until v2.3.31 merge');
         $schedule = new ScheduleWithTimezone('30 2 * * *', 'Europe/Warsaw');
         $runDates = array_map(
             self::formatPlannedTimestamp(),
@@ -134,6 +135,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingRunDatesUntilIfTheFirstOneIsLater() {
+        $this->markTestSkipped('until v2.3.31 merge');
         $schedule = new ScheduleWithTimezone();
         $schedule->setTimeExpression('23 11 5 12 * 2089');
         $runDates = array_map(
@@ -145,6 +147,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingRunDatesUntilDoesNotThrowAnErrorIfNoMoreDates() {
+        $this->markTestSkipped('until v2.3.31 merge');
         $schedule = new ScheduleWithTimezone();
         $schedule->setTimeExpression('23 11 5 12 * 2089');
         $runDates = array_map(

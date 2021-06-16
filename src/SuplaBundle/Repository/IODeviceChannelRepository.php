@@ -17,7 +17,7 @@ class IODeviceChannelRepository extends EntityWithRelationsRepository {
             ->addSelect('COUNT(DISTINCT cg) channelGroups')
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s dl WHERE dl.channel = c) directLinks', DirectLink::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s s WHERE s.channel = c) schedules', Schedule::class))
-            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s s WHERE so.channel = c) sceneOperations', SceneOperation::class))
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s so WHERE so.channel = c) sceneOperations', SceneOperation::class))
 //            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s s WHERE so.channel = c) sceneOperations', Scene::class)) // TODO
             ->from(IODeviceChannel::class, 'c')
             ->leftJoin('c.channelGroups', 'cg')

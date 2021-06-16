@@ -300,6 +300,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingDirectLinkForScene() {
+        $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
+        $this->channelGroup = $this->getEntityManager()->find(IODeviceChannelGroup::class, $this->channelGroup->getId());
         $scene = new Scene($this->device->getLocation());
         $scene->setOpeartions([new SceneOperation($this->channelGroup, ChannelFunctionAction::TURN_ON())]);
         $this->getEntityManager()->persist($scene);

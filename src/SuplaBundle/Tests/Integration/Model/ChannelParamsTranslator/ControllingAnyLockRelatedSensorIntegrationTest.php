@@ -59,6 +59,10 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
+    }
+    
+    /** @before */
+    public function init() {
         $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->simulateAuthentication($this->user);
     }
