@@ -17,11 +17,13 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use DateInterval;
+use DateTime;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
@@ -47,20 +49,28 @@ class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $now = $this->timeProvider->getDateTime();
-        $now->sub(new \DateInterval("PT{$this->deleteOlderThanHours}H"));
+        $now->sub(new DateInterval("PT{$this->deleteOlderThanHours}H"));
 
         $qb = $this->userRepository
             ->createQueryBuilder('u')
             ->select()
             ->where('u.enabled = 0 AND u.token IS NOT NULL AND u.regDate < :regDate')
-            ->setParameters(['regDate' => $now->format(\DateTime::ATOM)]);
+            ->setParameters(['regDate' => $now->format(DateTime::ATOM)]);
 
         /** @var User[] $usersToDelete */
         $usersToDelete = $qb->getQuery()->execute();
         $output->writeln(sprintf('Users to remove: <info>%d</info>.', count($usersToDelete)));
 
         foreach ($usersToDelete as $userToDelete) {
-            $this->getApplication()->run(new StringInput("supla:user:delete {$userToDelete->getUsername()} --no-interaction"), $output);
+            $deleteInput = new ArrayInput([
+                'command' => 'supla:user:delete',
+                'username' => $userToDelete->getUsername(),
+                '--no-interaction' => true,
+            ]);
+            $code = $this->getApplication()->run($deleteInput, $output);
+            if ($code !== 0) {
+                $output->writeln('Could not delete user ' . $userToDelete->getUsername());
+            }
         }
     }
 

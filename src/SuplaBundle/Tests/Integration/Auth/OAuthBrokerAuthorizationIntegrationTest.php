@@ -55,7 +55,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $localClient = $this->clientManager->createClient();
         $localClient->setName('Local App');
         $this->clientManager->updateClient($localClient);
-        $client = $this->createHttpsClient();
+        $client = $this->createHttpsInsulatedClient();
         $crawler = $client->request('GET', $this->oauthAuthorizeUrl($localClient->getPublicId()));
         $routerView = $crawler->filter('router-view')->getNode(0);
         $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
@@ -63,7 +63,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisplaysBrokerLoginFormIfLocalClientDoesNotExist() {
-        $client = $this->createHttpsClient();
+        $client = $this->createHttpsInsulatedClient();
         $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $routerView = $crawler->filter('router-view')->getNode(0);
         $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
@@ -136,7 +136,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisplaysErrorIfTargetCloudIsNotRegisteredInAutodiscover() {
-        $client = $this->createHttpsClient();
+        $client = $this->createHttpsInsulatedClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'target.cloud']);
         $routerView = $crawler->filter('router-view')->getNode(0);
@@ -145,7 +145,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisplaysErrorIfTargetCloudUrlIsWrong() {
-        $client = $this->createHttpsClient();
+        $client = $this->createHttpsInsulatedClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org', 'targetCloud' => 'xxx']);
         $routerView = $crawler->filter('router-view')->getNode(0);
@@ -154,7 +154,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDisplaysErrorIfUserCannotBeAutodiscovered() {
-        $client = $this->createHttpsClient();
+        $client = $this->createHttpsInsulatedClient();
         $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
         $crawler = $client->request('POST', '/oauth/v2/broker_login', ['_username' => 'ala@supla.org']);
         $routerView = $crawler->filter('router-view')->getNode(0);

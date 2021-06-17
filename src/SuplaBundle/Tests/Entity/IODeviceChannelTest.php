@@ -82,4 +82,28 @@ class IODeviceChannelTest extends TestCase {
         $this->assertEquals(ChannelType::UNSUPPORTED()->getName(), $channel->getType()->getName());
         $this->assertEquals(123, $channel->getType()->getId());
     }
+
+    public function testSettingChannelParams() {
+        $channel = new IODeviceChannel();
+        $channel->setParam(1, 1);
+        $this->assertEquals(1, $channel->getParam(1));
+        $channel->setParam(2, 10);
+        $this->assertEquals(10, $channel->getParam(2));
+        $channel->setParam(3, 33);
+        $this->assertEquals(33, $channel->getParam(3));
+        $channel->setParam(4, 11);
+        $this->assertEquals(11, $channel->getParam(4));
+    }
+
+    public function testSettingInvalidChannelParam0() {
+        $this->expectException(InvalidArgumentException::class);
+        $channel = new IODeviceChannel();
+        $channel->setParam(0, 111);
+    }
+
+    public function testSettingInvalidChannelParam5() {
+        $this->expectException(InvalidArgumentException::class);
+        $channel = new IODeviceChannel();
+        $channel->setParam(5, 111);
+    }
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0">
+    <meta name="theme-color"
+        content="#00732C">
+    <link rel="icon"
+        href="/assets/img/icons/favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+        @media (min-height: 500px) and (min-width: 768px) {  html, body {height: 100%;}  }
+        #page-preloader {display: flex;flex-direction: column;justify-content: center;height: 100%;text-align: center;font-family: 'Quicksand', sans-serif;}
+        #page-preloader img {width: 90%;max-width: 200px;margin: 0 auto;}
+        #page-preloader .if-too-long {opacity: 0;transition: opacity 1s linear;padding-top: 30px;}
+        #page-preloader.too-long .if-too-long {opacity: 1;}
+        #page-preloader noscript {color: #F60;}
+        .invisible { visibility: hidden; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+<span class="hidden">{% block beforeVue %}{% endblock %}</span>
+<div id="vue-container" class="invisible">
+    {% block vue %}{% endblock %}
+</div>
+<div id="page-preloader">
+    <img src="/assets/img/preloaders/loader_1c_200.gif">
+    <noscript>
+        <h3>SUPLA-Cloud will not work without Javascript</h3>
+    </noscript>
+    <p class="if-too-long text-muted">
+        if it takes too long, check if the JS scripts are loaded correctly
+    </p>
+</div>
+<script>
+    setTimeout(function () {
+        var preloader = document.getElementById('page-preloader');
+        if (preloader) {
+            preloader.className = 'too-long';
+        }
+    }, 8000);
+</script>
+<!-- built files will be auto injected -->
+</body>
+</html>

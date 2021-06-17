@@ -34,6 +34,7 @@ class PartialHiLowRelatedChannelStateGetter implements SingleChannelStateGetter 
     public function supportedFunctions(): array {
         return [
             ChannelFunction::CONTROLLINGTHEGATE(),
+            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
         ];
     }
 }

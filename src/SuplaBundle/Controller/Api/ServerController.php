@@ -32,6 +32,8 @@ class ServerController extends RestController {
 
     /** @var string */
     private $suplaVersion;
+    /** @var string */
+    private $suplaVersionFull;
     /** @var bool */
     private $actAsBrokerCloud;
     /** @var string */
@@ -39,11 +41,18 @@ class ServerController extends RestController {
     /** @var FrontendConfig */
     private $frontendConfig;
 
-    public function __construct(FrontendConfig $frontendConfig, string $suplaServerHost, string $suplaVersion, bool $actAsBrokerCloud) {
+    public function __construct(
+        FrontendConfig $frontendConfig,
+        string $suplaServerHost,
+        string $suplaVersion,
+        string $suplaVersionFull,
+        bool $actAsBrokerCloud
+    ) {
         $this->frontendConfig = $frontendConfig;
         $this->suplaServerHost = $suplaServerHost;
         $this->suplaVersion = $suplaVersion;
         $this->actAsBrokerCloud = $actAsBrokerCloud;
+        $this->suplaVersionFull = $suplaVersionFull;
     }
 
     /** @Get("/server-info") */
@@ -64,6 +73,7 @@ class ServerController extends RestController {
                 $result['username'] = $user->getUsername();
             }
             $result['cloudVersion'] = $this->suplaVersion;
+            $result['cloudVersionFull'] = $this->suplaVersionFull;
             $result['apiVersion'] = ApiVersions::fromRequest($request)->getValue();
             $result['supportedApiVersions'] = array_values(array_unique(ApiVersions::toArray()));
             if ($this->actAsBrokerCloud) {

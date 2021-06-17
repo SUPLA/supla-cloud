@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -47,7 +48,7 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
     private $device;
     /** @var ChannelParamConfigTranslator */
     private $paramsTranslator;
-    /** @var \SuplaBundle\Entity\User */
+    /** @var User */
     private $user;
 
     public function initializeDatabaseForTests() {
@@ -58,6 +59,8 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_GATE],
+            [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
+            [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
         ]);
     }
     
@@ -124,6 +127,28 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals(0, $this->device->getChannels()[0]->getParam2());
         $this->assertEquals(0, $this->device->getChannels()[3]->getParam1());
+    }
+
+    public function testSettingRelatedChannelForPowerswitch() {
+        // pair 4 powerswitch & 5 EM
+        $this->updater->updateChannelParams(
+            $this->device->getChannels()[4],
+            new IODeviceChannelWithParams($this->device->getChannels()[5]->getId())
+        );
+        $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
+        $this->assertEquals($this->device->getChannels()[5]->getId(), $this->device->getChannels()[4]->getParam1());
+        $this->assertEquals($this->device->getChannels()[4]->getId(), $this->device->getChannels()[5]->getParam4());
+    }
+
+    public function testSettingRelatedChannelForElectricityMeter() {
+        // pair 5 EM & 4 powerswitch
+        $this->updater->updateChannelParams(
+            $this->device->getChannels()[5],
+            new IODeviceChannelWithParams(0, 0, 0, $this->device->getChannels()[4]->getId())
+        );
+        $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
+        $this->assertEquals($this->device->getChannels()[5]->getId(), $this->device->getChannels()[4]->getParam1());
+        $this->assertEquals($this->device->getChannels()[4]->getId(), $this->device->getChannels()[5]->getParam4());
     }
 
     /** @large */

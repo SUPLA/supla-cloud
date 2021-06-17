@@ -48,6 +48,7 @@ services:
   SuplaBundle\Controller\Api\ServerController:
     $suplaServerHost: '%supla_server%'
     $suplaVersion: '%supla.version%'
+    $suplaVersionFull: '%supla.version_full%'
     $actAsBrokerCloud: '%act_as_broker_cloud%'
 
   SuplaBundle\Controller\Api\StateWebhookController:
@@ -125,11 +126,6 @@ services:
       $actAsBrokerCloud: '%act_as_broker_cloud%'
     tags:
       - {name: monolog.logger, channel: supla_autodiscover}
-
-  SuplaBundle\Twig\WebpackAssetVersionStrategy:
-    arguments:
-      - "%use_webpack_dev_server%"
-      - "%supla.webpack_hashes%"
 
   SuplaBundle\Auth\Voter\:
     resource: '../../../src/SuplaBundle/Auth/Voter'

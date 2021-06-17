@@ -2,12 +2,12 @@ language: php
 php:
   - '7.3.8'
 before_install:
-  - nvm install 8.15.1
+  - nvm install 14.16.1
 before_script:
   - mysql -e 'create database supla_test;' -uroot
   - mysql -e "grant all privileges on *.* to 'travis'@'localhost' with grant option;" -uroot
   - cp app/config/parameters.yml.travis app/config/parameters.yml
-  - cd src/Frontend && npm prune && npm install && npm run build && cd ../..
+  - cd src/frontend && npm prune && npm install && npm run build && cd ../..
   - composer self-update --1
   - composer install --no-interaction
 script:
@@ -19,6 +19,6 @@ notifications:
 cache:
   directories:
     - vendor
-    - src/Frontend/node_modules
+    - src/frontend/node_modules
 services:
   - mysql

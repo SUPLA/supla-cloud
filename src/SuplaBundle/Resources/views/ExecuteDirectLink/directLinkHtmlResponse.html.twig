@@ -1,7 +1,4 @@
-{% extends 'SuplaBundle::vue-template.html.twig' %}
-
-{% set page_title = directLink.caption ?? 'Error' %}
-{% set hide_user_context = true %}
+{% extends '@web/dist/index.html' %}
 
 {% block beforeVue %}
     <script>
@@ -10,6 +7,9 @@
 {% endblock %}
 
 {% block vue %}
-    <direct-link-execution-result {% if failureReason %}failure-reason="{{ failureReason.value }}"{% endif %}
-            action="{{ action.name is defined ? action.name : action }}"></direct-link-execution-result>
+    <div class="page-content">
+        <direct-link-execution-result {% if failureReason %}failure-reason="{{ failureReason.value }}"{% endif %}
+                action="{{ action.name is defined ? action.name : action }}"></direct-link-execution-result>
+    </div>
+    <page-footer></page-footer>
 {% endblock %}

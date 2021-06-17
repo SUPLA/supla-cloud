@@ -251,6 +251,9 @@ class ExecuteDirectLinkController extends Controller {
             return $this->channelStateGetter->getState($directLink->getSubject());
         } else {
             $params = $request->query->all();
+            if (isset($params['format'])) {
+                unset($params['format']);
+            }
             try {
                 $this->channelActionExecutor->validateActionParams($directLink->getSubject(), $action, $params);
             } catch (InvalidArgumentException $e) {

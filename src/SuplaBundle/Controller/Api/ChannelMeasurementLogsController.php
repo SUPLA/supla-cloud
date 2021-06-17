@@ -20,6 +20,7 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use PDO;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
 use SuplaBundle\Entity\ImpulseCounterLogItem;
@@ -32,6 +33,7 @@ use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,10 +50,17 @@ class ChannelMeasurementLogsController extends RestController {
     private $deviceManager;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var IODeviceChannelRepository */
+    private $channelRepository;
 
-    public function __construct(IODeviceManager $deviceManager, EntityManagerInterface $entityManager) {
+    public function __construct(
+        IODeviceManager $deviceManager,
+        IODeviceChannelRepository $channelRepository,
+        EntityManagerInterface $entityManager
+    ) {
         $this->deviceManager = $deviceManager;
         $this->entityManager = $entityManager;
+        $this->channelRepository = $channelRepository;
     }
 
     private function getMeasureLogsCount(IODeviceChannel $channel, $afterTimestamp = 0, $beforeTimestamp = 0) {
@@ -117,7 +126,7 @@ class ChannelMeasurementLogsController extends RestController {
         }
 
         $stmt->execute();
-        $stmt->setFetchMode(\PDO::FETCH_NUM);
+        $stmt->setFetchMode(PDO::FETCH_NUM);
         return $stmt->fetch();
     }
 
@@ -383,6 +392,7 @@ class ChannelMeasurementLogsController extends RestController {
         }
         $minTimestampParam = $request->query->get('afterTimestamp');
         $maxTimestampParam = $request->query->get('beforeTimestamp');
+        $channel = $this->findTargetChannel($channel);
         $logs = $this->getMeasurementLogItemsAction(
             $channel,
             $request->query->get('offset'),
@@ -409,6 +419,17 @@ class ChannelMeasurementLogsController extends RestController {
         $view->setHeader('X-Min-Timestamp', $minTimestamp);
         $view->setHeader('X-Max-Timestamp', $maxTimestamp);
         return $view;
+    }
+
+    private function findTargetChannel(IODeviceChannel $channel): IODeviceChannel {
+        $targetChannel = $channel;
+        if (in_array($channel->getFunction()->getId(), [ChannelFunction::POWERSWITCH, ChannelFunction::LIGHTSWITCH])) {
+            $relatedMeasurementChannelId = $channel->getParam1();
+            if ($relatedMeasurementChannelId) {
+                $targetChannel = $this->channelRepository->findForUser($channel->getUser(), $relatedMeasurementChannelId);
+            }
+        }
+        return $targetChannel ?: $channel;
     }
 
     private function deleteMeasurementLogs($entityClass, IODeviceChannel $channel) {

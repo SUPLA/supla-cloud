@@ -47,6 +47,12 @@
     "symfony/phpunit-bridge": "^4.4"
   },
   "scripts": {
+    "post-install-cmd": [
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
+    ],
+    "post-update-cmd": [
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
+    ],
     "test": [
       "phpunit -c app --testdox"
     ],
@@ -54,7 +60,7 @@
       "phpcs src/SuplaBundle --standard=app/phpcs-rules.xml"
     ],
     "lint-frontend": [
-      "cd src/Frontend && npm run lint -s"
+      "cd src/frontend && npm run lint -s"
     ],
     "lint": [
       "@lint-frontend",
@@ -64,21 +70,23 @@
       "phpcbf src/SuplaBundle --standard=app/phpcs-rules.xml"
     ],
     "webpack": [
-      "cd src/Frontend && npm install",
-      "cd src/Frontend && npm run build"
+      "cd src/frontend && npm install",
+      "cd src/frontend && npm run build"
     ],
     "release": [
-      "composer install --no-dev --optimize-autoloader",
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
+      "APPLICATION_ENV=prod composer install --no-dev --optimize-autoloader",
       "composer run-script webpack",
-      "cd src/Frontend && npm run release"
+      "cd src/frontend && npm run release"
     ],
     "release-dev": [
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
       "composer install --optimize-autoloader",
       "composer run-script webpack",
-      "cd src/Frontend && npm run release-dev"
+      "cd src/frontend && npm run release-dev"
     ],
     "collect-translations": [
-      "cd src/Frontend && npm run collect-translations"
+      "cd src/frontend && npm run collect-translations"
     ]
   },
   "config": {

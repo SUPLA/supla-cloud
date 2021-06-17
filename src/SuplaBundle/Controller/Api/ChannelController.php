@@ -180,9 +180,6 @@ class ChannelController extends RestController {
             } else {
                 $channel->setLocation($updatedChannel->getLocation());
             }
-            $channel->setCaption($updatedChannel->getCaption());
-            $channel->setHidden($updatedChannel->getHidden());
-            $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
             /** @var IODeviceChannel $channel */
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
                 $newParams,
@@ -193,12 +190,16 @@ class ChannelController extends RestController {
                 $request,
                 $channel
             ) {
+                $channel->setCaption($updatedChannel->getCaption());
+                $channel->setHidden($updatedChannel->getHidden());
+                $paramConfigTranslator->setParamsFromConfig($channel, $newParams); // TODO or [] ?
                 $em->persist($channel);
                 if ($functionHasBeenChanged) {
                     $channel->setFunction($updatedChannel->getFunction());
                     $channelDependencies->clearDependencies($channel);
-                    $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
                 }
+                $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
+                // TODO insane merge was here - check
                 $channel->setConfig($paramConfigTranslator->getConfigFromParams($channel));
                 $channel->setAltIcon($updatedChannel->getAltIcon());
                 $channel->setUserIcon($updatedChannel->getUserIcon());
