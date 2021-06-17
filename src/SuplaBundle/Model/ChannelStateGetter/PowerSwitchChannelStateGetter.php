@@ -12,10 +12,10 @@ class PowerSwitchChannelStateGetter implements SingleChannelStateGetter {
 
     public function getState(IODeviceChannel $channel): array {
         [$onOff, $flags] = $this->suplaServer->getRelayValue($channel);
-        if ($onOff !== null && $flags !== null) {
+        if ($onOff !== null) {
             return [
                 'on' => $onOff == '1',
-                'currentOverload' => RelayStateBits::OVERCURRENT_RELAY_OFF()->isOn($flags),
+                'currentOverload' => RelayStateBits::OVERCURRENT_RELAY_OFF()->isOn(intval($flags)),
             ];
         } else {
             return [];

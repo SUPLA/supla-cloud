@@ -57,7 +57,7 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     }
 
     public function testTogglePowerSwitchOnOff() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE', "VALUE:1\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[0], ChannelFunctionAction::TOGGLE());
         $this->assertCount(3, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
@@ -65,7 +65,7 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     }
 
     public function testTogglePowerSwitchOffOn() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:0\n");
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE', "VALUE:0\n");
         $this->channelActionExecutor->executeAction($this->device->getChannels()[0], ChannelFunctionAction::TOGGLE());
         $this->assertCount(3, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
@@ -101,8 +101,8 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     }
 
     public function testToggleOnChannelGroup() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE:1,1,1', "VALUE:0\n");
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE:1,1,4', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE:1,1,1', "VALUE:0\n");
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE:1,1,4', "VALUE:1\n");
         $this->channelActionExecutor->executeAction($this->channelGroup, ChannelFunctionAction::TOGGLE());
         $this->assertContains('SET-CHAR-VALUE:1,1,1,1', SuplaServerMock::$executedCommands);
         $this->assertContains('SET-CHAR-VALUE:1,1,4,0', SuplaServerMock::$executedCommands);
