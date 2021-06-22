@@ -9,7 +9,7 @@
                     <label>
                         <input type="radio"
                             :value="possibleAction.id"
-                            @change="updateModel()"
+                            @change="actionChanged()"
                             v-model="action.id">
                         {{ $t(possibleAction.caption) }}
                     </label>
@@ -83,7 +83,11 @@
             },
             updateModel() {
                 this.$emit('input', this.action);
-            }
+            },
+            actionChanged() {
+                this.action.param = {};
+                this.updateModel();
+            },
         },
         computed: {
             actionsToShow() {
@@ -97,7 +101,9 @@
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             },
             value() {
-                this.value.param = {};
+                if (this.value && this.value.id !== this.action.id) {
+                    this.value.param = {};
+                }
                 this.updateAction();
             }
         },

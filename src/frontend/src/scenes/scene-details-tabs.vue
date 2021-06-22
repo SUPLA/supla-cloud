@@ -5,6 +5,7 @@
             <div class="form-group">
                 <ul class="nav nav-tabs">
                     <li :class="currentTab == tabDefinition.id ? 'active' : ''"
+                        :key="tabDefinition.id"
                         v-for="tabDefinition in availableTabs">
                         <a @click="changeTab(tabDefinition.id)">
                             {{ $t(tabDefinition.header) }}

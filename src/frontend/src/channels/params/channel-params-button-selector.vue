@@ -3,6 +3,7 @@
         <div class="btn-group btn-group-flex"
             v-if="values.length < 5">
             <a :class="'btn ' + (value == valueDef.id ? 'btn-green' : 'btn-default')"
+                :key="valueDef.id"
                 v-for="valueDef in values"
                 @click="$emit('input', valueDef.id)">
                 {{ valueDef.label }}
@@ -17,7 +18,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li v-for="valueDef in values">
+                <li v-for="valueDef in values" :key="valueDef.id">
                     <a @click="$emit('input', valueDef.id)"
                         v-show="valueDef.id != value">{{ valueDef.label }}</a>
                 </li>

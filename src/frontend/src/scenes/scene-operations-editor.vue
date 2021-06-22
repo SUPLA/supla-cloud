@@ -78,7 +78,6 @@
     import FunctionIcon from "../channels/function-icon";
     import {channelTitle} from "../common/filters";
     import ChannelActionChooser from "../channels/action/channel-action-chooser";
-    import RgbwParametersSetter from "../channels/action/rgbw-parameters-setter";
     import draggable from 'vuedraggable';
     import SceneOperationDelaySlider from "./scene-operation-delay-slider";
     import Vue from 'vue';
@@ -89,7 +88,7 @@
         props: ['value'],
         components: {
             SceneOperationDelaySlider,
-            RgbwParametersSetter, ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable
+            ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable
         },
         data() {
             return {

@@ -213,7 +213,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testChangingChannelFunctionClearsRelatedSensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $channelParamsUpdater = self::$container->get(ChannelParamConfigTranslator::class);
+        $channelParamConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
@@ -224,7 +224,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         })->first();
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         // assign sensor to the gate from other device
-        $channelParamsUpdater->setParamsFromConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $channelParamConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
         $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId(), [

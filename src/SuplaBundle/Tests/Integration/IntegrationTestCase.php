@@ -147,8 +147,10 @@ abstract class IntegrationTestCase extends WebTestCase {
      * @after
      */
     public function freeUpMemory() {
-        $this->container->reset();
-        $this->container = null;
+        if (self::$container) {
+            self::$container->reset();
+            self::$container = null;
+        }
         $this->application = null;
         $refl = new ReflectionObject($this);
         foreach ($refl->getProperties() as $prop) {

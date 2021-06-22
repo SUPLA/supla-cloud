@@ -100,7 +100,7 @@ class SuplaServerMock extends SuplaServer {
             return 'VALUE:' . (rand(0, 1000000) / 100);
         } elseif (preg_match('#^GET-IC-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // IMPULSE_COUNTER
             $counter = $this->faker->randomNumber(4);
-            $impulsesPerUnit = $this->faker->randomNumber(3);
+            $impulsesPerUnit = $this->faker->randomNumber(3) + 1;
             return sprintf(
                 'VALUE:%d,%d,%d,%d,%d,%s,%s',
                 $this->faker->randomNumber(7), // TotalCost * 100

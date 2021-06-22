@@ -29,9 +29,8 @@ use SuplaBundle\Entity\ThermostatLogItem;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
-use SuplaBundle\Tests\Integration\Model\ChannelParamsUpdater\IODeviceChannelWithParams;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -463,15 +462,16 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertStatusCode('400', $response);
     }
 
-    /** @depends testGettingMeasurementLogsOfUnsupportedChannel */
     public function testGettingElectricityMeasurementsLogsCountFromRelatedRelay() {
         $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
-        $channelParamsUpdater = $this->container->get(ChannelParamsUpdater::class);
+        /** @var ChannelParamConfigTranslator $paramsTranslator */
+        $paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $relayChannel = $this->device1->getChannels()[0];
-        $channelParamsUpdater->updateChannelParams($relayChannel, new IODeviceChannelWithParams(4));
+        $paramsTranslator->setParamsFromConfig($relayChannel, ['relatedChannelId' => 4]);
         $this->getEntityManager()->persist($relayChannel);
         $this->getEntityManager()->flush();
-        $this->ensureMeasurementLogsCount(1);
+        $content = $this->getMeasurementLogsAscending($relayChannel->getId());
+        $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
     }
 
     private function deleteMeasurementLogs(int $channelId) {

@@ -8,6 +8,7 @@
             role="tablist"
             aria-multiselectable="true">
             <div :class="'panel panel-' + (channel.config.actions[trigger] ? 'success' : 'default')"
+                :key="index"
                 v-for="(trigger, index) in channel.config.supportedTriggers">
                 <div class="panel-heading"
                     role="tab"

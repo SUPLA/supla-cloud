@@ -76,13 +76,13 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
         $this->getEntityManager()->refresh($this->device);
         $channelConfig = $this->paramsTranslator->getConfigFromParams($this->device->getChannels()[0]);
         $sensorConfig = $this->paramsTranslator->getConfigFromParams($this->device->getChannels()[1]);
-        $this->assertEquals($channel->getId(), $sensorConfig['controllingChannelId']);
+        $this->assertEquals($channel->getId(), $sensorConfig['openingSensorChannelId']);
         $this->assertEquals($this->device->getChannels()[1]->getId(), $channelConfig['openingSensorChannelId']);
     }
 
     public function testSettingChannelForOpeningSensor() {
         $sensor = $this->device->getChannels()[1];
-        $this->paramsTranslator->setParamsFromConfig($sensor, ['controllingChannelId' => $this->device->getChannels()[0]->getId()]);
+        $this->paramsTranslator->setParamsFromConfig($sensor, ['openingSensorChannelId' => $this->device->getChannels()[0]->getId()]);
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($sensor->getId(), $this->device->getChannels()[0]->getParam2());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam1());
@@ -131,9 +131,9 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testSettingRelatedChannelForPowerswitch() {
         // pair 4 powerswitch & 5 EM
-        $this->updater->updateChannelParams(
+        $this->paramsTranslator->setParamsFromConfig(
             $this->device->getChannels()[4],
-            new IODeviceChannelWithParams($this->device->getChannels()[5]->getId())
+            ['relatedChannelId' => $this->device->getChannels()[5]->getId()]
         );
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($this->device->getChannels()[5]->getId(), $this->device->getChannels()[4]->getParam1());
@@ -142,9 +142,9 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testSettingRelatedChannelForElectricityMeter() {
         // pair 5 EM & 4 powerswitch
-        $this->updater->updateChannelParams(
+        $this->paramsTranslator->setParamsFromConfig(
             $this->device->getChannels()[5],
-            new IODeviceChannelWithParams(0, 0, 0, $this->device->getChannels()[4]->getId())
+            ['relatedChannelId' => $this->device->getChannels()[4]->getId()]
         );
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($this->device->getChannels()[5]->getId(), $this->device->getChannels()[4]->getParam1());

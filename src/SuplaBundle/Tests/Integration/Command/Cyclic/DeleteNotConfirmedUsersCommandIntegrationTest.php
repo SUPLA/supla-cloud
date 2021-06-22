@@ -63,7 +63,7 @@ class DeleteNotConfirmedUsersCommandIntegrationTest extends IntegrationTestCase 
     }
 
     public function testDeletingUserWithHyphenAtTheBeginning() {
-        $userManager = $this->container->get(UserManager::class);
+        $userManager = self::$container->get(UserManager::class);
         $user = new User();
         $user->setEmail('-zenon@supla.org');
         $user->setPlainPassword('januszowe');

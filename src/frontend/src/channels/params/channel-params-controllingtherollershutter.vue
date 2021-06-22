@@ -32,41 +32,23 @@
                 </span>
             </dt>
         </dl>
-            <dl>
-                <dd>{{ $t('Opening sensor') }}</dd>
-                <dt class="text-center"
-                    style="font-weight: normal">
-                    <channels-dropdown :params="channelsDropdownFilter"
-                        v-model="relatedChannel"
-                        @input="relatedChannelChanged()"></channels-dropdown>
-                </dt>
-            </dl>
+        <dl>
+            <dd>{{ $t('Opening sensor') }}</dd>
+            <dt>
+                <channels-id-dropdown :params="channelsDropdownFilter"
+                    v-model="channel.config.openingSensorChannelId"
+                    @input="$emit('change')"></channels-id-dropdown>
+            </dt>
+        </dl>
     </div>
 </template>
 
 <script>
-    import ChannelsDropdown from "../../devices/channels-dropdown";
+    import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
 
     export default {
-        components: {ChannelsDropdown},
+        components: {ChannelsIdDropdown},
         props: ['channel', 'sensorFunction'],
-        data() {
-            return {
-                relatedChannel: undefined
-            };
-        },
-        mounted() {
-            if (this.channel.config.openingSensorChannelId) {
-                this.$http.get(`channels/${this.channel.config.openingSensorChannelId}`)
-                    .then(response => this.relatedChannel = response.body);
-            }
-        },
-        methods: {
-            relatedChannelChanged() {
-                this.channel.config.openingSensorChannelId = this.relatedChannel ? this.relatedChannel.id : 0;
-                this.$emit('change');
-            }
-        },
         computed: {
             channelsDropdownFilter() {
                 return 'function=' + (this.sensorFunction || 'OPENINGSENSOR_ROLLERSHUTTER');

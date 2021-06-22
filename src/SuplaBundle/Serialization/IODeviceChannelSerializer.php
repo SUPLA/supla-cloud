@@ -78,6 +78,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['param1'] = $channel->getParam1();
             $normalized['param2'] = $channel->getParam2();
             $normalized['param3'] = $channel->getParam3();
+            $normalized['param4'] = $channel->getParam4();
             $normalized['textParam1'] = $channel->getTextParam1();
             $normalized['textParam2'] = $channel->getTextParam2();
             $normalized['textParam3'] = $channel->getTextParam3();

@@ -26,7 +26,6 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;

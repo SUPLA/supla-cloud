@@ -135,7 +135,6 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
 
     /**
      * @ORM\Column(name="param4", type="integer", nullable=false, options={"default"=0})
-     * @Groups({"basic"})
      */
     private $param4 = 0;
 

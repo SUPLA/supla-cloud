@@ -95,7 +95,7 @@
         },
         computed: {
             numberOfSections() {
-                return this.subject.param1;
+                return +this.subject.config.sectionsCount;
             },
             activeSections() {
                 return this.state.map(v => v !== undefined);

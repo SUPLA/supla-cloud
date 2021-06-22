@@ -220,6 +220,7 @@
                 } else if (this.channel.function.name === 'ACTION_TRIGGER') {
                     return false;
                 }
+                return undefined;
             },
             channelFunctionIsChosen() {
                 return this.channel.function.id > 0 && this.channel.function.name != 'UNSUPPORTED';

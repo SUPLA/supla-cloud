@@ -15,11 +15,11 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Model\ChannelParamsUpdater;
+namespace SuplaBundle\Tests\Model\ChannelParamsTranslator;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunction as CF;
 use SuplaBundle\Model\ChannelParamsTranslator\RelatedChannelsConnector;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 
@@ -35,15 +35,16 @@ class RelatedChannelsConnectorTest extends TestCase {
 
     public function testBuildingConnections() {
         $relations = RelatedChannelsConnector::getPossibleRelations();
-        $this->assertArrayHasKey(ChannelFunction::OPENINGSENSOR_DOOR, $relations);
-        $this->assertArrayHasKey(ChannelFunction::CONTROLLINGTHEDOORLOCK, $relations);
-        $this->assertEquals([1, 2], $relations[ChannelFunction::OPENINGSENSOR_DOOR][ChannelFunction::CONTROLLINGTHEDOORLOCK][0]);
-        $this->assertEquals([2, 1], $relations[ChannelFunction::CONTROLLINGTHEDOORLOCK][ChannelFunction::OPENINGSENSOR_DOOR][0]);
+        $this->assertArrayHasKey(CF::OPENINGSENSOR_DOOR, $relations);
+        $this->assertArrayHasKey(CF::CONTROLLINGTHEDOORLOCK, $relations);
+        $this->assertEquals([1, 2], $relations[CF::OPENINGSENSOR_DOOR][CF::CONTROLLINGTHEDOORLOCK]['openingSensorChannelId']);
+        $this->assertEquals([2, 1], $relations[CF::CONTROLLINGTHEDOORLOCK][CF::OPENINGSENSOR_DOOR]['openingSensorChannelId']);
+        $this->assertEquals([1, 4], $relations[CF::POWERSWITCH][CF::IC_GASMETER]['relatedChannelId']);
     }
 
     public function testSupports() {
         $channel = $this->createMock(IODeviceChannel::class);
-        $channel->method('getFunction')->willReturn(ChannelFunction::OPENINGSENSOR_DOOR());
+        $channel->method('getFunction')->willReturn(CF::OPENINGSENSOR_DOOR());
         $this->assertTrue($this->connector->supports($channel));
     }
 }

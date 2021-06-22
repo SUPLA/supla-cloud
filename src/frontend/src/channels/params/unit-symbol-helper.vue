@@ -2,6 +2,7 @@
     <span>
         {{ $t('Need one of these?') }}
         <a v-for="symbol in symbols"
+            :key="symbol"
             class="symbol"
             @click="$emit('typed', symbol)">{{ symbol }}</a>
     </span>

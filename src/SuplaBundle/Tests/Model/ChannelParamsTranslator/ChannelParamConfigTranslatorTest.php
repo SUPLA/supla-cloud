@@ -27,6 +27,7 @@ use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ControllingAnyLockRelatedSensorUpdater;
 use SuplaBundle\Model\ChannelParamsTranslator\ControllingChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ControllingSecondaryParamTranslator;
+use SuplaBundle\Model\ChannelParamsTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ElectricityMeterParamsTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\GeneralPurposeMeasurementParamsTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\HumidityAdjustmentParamTranslator;
@@ -35,9 +36,11 @@ use SuplaBundle\Model\ChannelParamsTranslator\InvertedLogicParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningClosingTimeChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningSensorParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningSensorSecondaryParamTranslator;
+use SuplaBundle\Model\ChannelParamsTranslator\RelatedChannelsConnector;
 use SuplaBundle\Model\ChannelParamsTranslator\RelayTimeMsChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\RelayTimeSChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\TemperatureAdjustmentParamTranslator;
+use SuplaBundle\Repository\IODeviceChannelRepository;
 
 class ChannelParamConfigTranslatorTest extends TestCase {
     /** @var ChannelParamConfigTranslator */
@@ -45,21 +48,17 @@ class ChannelParamConfigTranslatorTest extends TestCase {
 
     /** @before */
     public function createTranslator() {
-        $updaterMock = $this->createMock(ControllingAnyLockRelatedSensorUpdater::class);
         $this->configTranslator = new ChannelParamConfigTranslator([
             new RelayTimeMsChannelParamTranslator(),
             new RelayTimeSChannelParamTranslator(),
             new OpeningClosingTimeChannelParamTranslator(),
-            new OpeningSensorParamTranslator($updaterMock),
-            new OpeningSensorSecondaryParamTranslator($updaterMock),
             new ElectricityMeterParamsTranslator(),
             new ImpulseCounterParamsTranslator(),
             new HumidityAdjustmentParamTranslator(),
             new TemperatureAdjustmentParamTranslator(),
             new InvertedLogicParamTranslator(),
-            new ControllingChannelParamTranslator($updaterMock),
-            new ControllingSecondaryParamTranslator($updaterMock),
             new GeneralPurposeMeasurementParamsTranslator(),
+            new DigiglassParamTranslator(),
         ]);
     }
 
@@ -78,9 +77,10 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setParam1($params[0] ?? 0);
         $channel->setParam2($params[1] ?? 0);
         $channel->setParam3($params[2] ?? 0);
-        $channel->setTextParam1($params[3] ?? null);
-        $channel->setTextParam2($params[4] ?? null);
-        $channel->setTextParam3($params[5] ?? null);
+        $channel->setParam4($params[3] ?? 0);
+        $channel->setTextParam1($params[4] ?? null);
+        $channel->setTextParam2($params[5] ?? null);
+        $channel->setTextParam3($params[6] ?? null);
         $config = $this->configTranslator->getConfigFromParams($channel);
         $this->assertEquals($expectedConfig, array_intersect_key($config, $expectedConfig));
     }
@@ -101,6 +101,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setParam1(111);
         $channel->setParam2(222);
         $channel->setParam3(333);
+        $channel->setParam4(444);
         $channel->setTextParam1('aaa');
         $channel->setTextParam2('bbb');
         $channel->setTextParam3('ccc');
@@ -108,9 +109,10 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->assertEquals($expectedParams[0] ?? 111, $channel->getParam1());
         $this->assertEquals($expectedParams[1] ?? 222, $channel->getParam2());
         $this->assertEquals($expectedParams[2] ?? 333, $channel->getParam3());
-        $this->assertEquals($expectedParams[3] ?? 'aaa', $channel->getTextParam1());
-        $this->assertEquals($expectedParams[4] ?? 'bbb', $channel->getTextParam2());
-        $this->assertEquals($expectedParams[5] ?? 'ccc', $channel->getTextParam3());
+        $this->assertEquals($expectedParams[3] ?? 444, $channel->getParam4());
+        $this->assertEquals($expectedParams[4] ?? 'aaa', $channel->getTextParam1());
+        $this->assertEquals($expectedParams[5] ?? 'bbb', $channel->getTextParam2());
+        $this->assertEquals($expectedParams[6] ?? 'ccc', $channel->getTextParam3());
     }
 
     /** @dataProvider paramsConfigsExamples */
@@ -129,6 +131,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setParam1(111);
         $channel->setParam2(222);
         $channel->setParam3(333);
+        $channel->setParam4(444);
         $channel->setTextParam1('aaa');
         $channel->setTextParam2('bbb');
         $channel->setTextParam3('ccc');
@@ -137,9 +140,10 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->assertEquals(($expectedParams[0] ?? null) !== null ? 0 : 111, $channel->getParam1());
         $this->assertEquals(($expectedParams[1] ?? null) !== null ? 0 : 222, $channel->getParam2());
         $this->assertEquals(($expectedParams[2] ?? null) !== null ? 0 : 333, $channel->getParam3());
-        $this->assertEquals(($expectedParams[3] ?? null) !== null ? 0 : 'aaa', $channel->getTextParam1());
-        $this->assertEquals(($expectedParams[4] ?? null) !== null ? 0 : 'bbb', $channel->getTextParam2());
-        $this->assertEquals(($expectedParams[5] ?? null) !== null ? 0 : 'ccc', $channel->getTextParam3());
+        $this->assertEquals(($expectedParams[3] ?? null) !== null ? 0 : 444, $channel->getParam4());
+        $this->assertEquals(($expectedParams[4] ?? null) !== null ? 0 : 'aaa', $channel->getTextParam1());
+        $this->assertEquals(($expectedParams[5] ?? null) !== null ? 0 : 'bbb', $channel->getTextParam2());
+        $this->assertEquals(($expectedParams[6] ?? null) !== null ? 0 : 'ccc', $channel->getTextParam3());
     }
 
     public function paramsConfigsExamples() {
@@ -153,9 +157,9 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::CONTROLLINGTHEGATE(), [700], ['relayTimeMs' => 700]],
             [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700], ['relayTimeMs' => 700]],
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, null, 800], ['openingTimeS' => 70, 'closingTimeS' => 80]],
-            [ChannelFunction::IC_ELECTRICITYMETER(), [103, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.03, 'unit' => 'm3']],
-            [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
-            [ChannelFunction::IC_GASMETER(), [111, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
+            [ChannelFunction::IC_ELECTRICITYMETER(), [103, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.03, 'unit' => 'm3']],
+            [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
+            [ChannelFunction::IC_GASMETER(), [111, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
             [ChannelFunction::HUMIDITY(), [null, null, 124], ['humidityAdjustment' => 1.24]],
             [ChannelFunction::HUMIDITYANDTEMPERATURE(), [null, 123, 124], ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]],
             [ChannelFunction::LIGHTSWITCH(), [], []],
@@ -169,10 +173,10 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::OPENINGSENSOR_WINDOW(), [null, null, 1], ['invertedLogic' => true]],
             [ChannelFunction::STAIRCASETIMER(), [1011], ['relayTimeS' => 101.1]],
             [ChannelFunction::THERMOMETER(), [null, 123], ['temperatureAdjustment' => 1.23]],
-            [ChannelFunction::IC_WATERMETER(), [111, 123, 124, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
+            [ChannelFunction::IC_WATERMETER(), [111, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
             [
                 ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(),
-                [121230, 0b000011011, 131300, '$', 'USD'],
+                [121230, 0b000011011, 131300, null, '$', 'USD'],
                 [
                     'initialValue' => 12.123,
                     'impulsesPerUnit' => 13.13,
@@ -187,7 +191,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             ],
             [
                 ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(),
-                [121230, 0b101011101, 131300, '$', 'USD'],
+                [121230, 0b101011101, 131300, null, '$', 'USD'],
                 [
                     'initialValue' => 12.123,
                     'impulsesPerUnit' => 13.13,
@@ -200,6 +204,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
                     'unitSuffix' => 'USD',
                 ],
             ],
+            [ChannelFunction::DIGIGLASS_VERTICAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
+            [ChannelFunction::DIGIGLASS_HORIZONTAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
         ];
         // @codingStandardsIgnoreEnd
     }
@@ -218,8 +224,6 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
         $config = $this->configTranslator->getConfigFromParams($channel);
         $this->assertEquals([
-            'openingSensorChannelId' => null,
-            'openingSensorSecondaryChannelId' => null,
             'relayTimeMs' => 500,
             'timeSettingAvailable' => true,
         ], $config);

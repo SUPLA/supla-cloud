@@ -15,6 +15,7 @@
             v-model="chosenScene"
             @change="$emit('input', chosenScene)">
             <option v-for="scene in scenesForDropdown"
+                :key="scene.id"
                 :value="scene"
                 :data-content="sceneHtml(scene)">
                 {{ sceneCaption(scene) }}
@@ -29,6 +30,7 @@
     import "bootstrap-select/dist/css/bootstrap-select.css";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import {channelIconUrl} from "../common/filters";
+    import $ from "jquery";
 
     export default {
         props: ['params', 'value', 'filter'],

@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -32,7 +33,7 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var ChannelParamConfigTranslator */
     private $paramsTranslator;
-    /** @var \SuplaBundle\Entity\User */
+    /** @var User */
     private $user;
 
     public function initializeDatabaseForTests() {
@@ -78,7 +79,7 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
 
     public function testSettingRollerShutterForOpeningSensor() {
         $sensor = $this->device->getChannels()[1];
-        $this->paramsTranslator->setParamsFromConfig($sensor, ['controllingChannelId' => $this->device->getChannels()[0]->getId()]);
+        $this->paramsTranslator->setParamsFromConfig($sensor, ['openingSensorChannelId' => $this->device->getChannels()[0]->getId()]);
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($sensor->getId(), $this->device->getChannels()[0]->getParam2());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam1());
