@@ -35,13 +35,19 @@ body {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active
-{
+input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px $supla-bg inset !important;
+  -webkit-text-fill-color: $supla-black !important;
 }
 
-.form-group > .btn {
-  margin-left: .3em;
+body.green {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px $supla-green inset !important;
+    -webkit-text-fill-color: $supla-white !important;
+  }
 }
 
 .form-group-lg {
@@ -49,6 +55,10 @@ input:-webkit-autofill:active
     font-size: 18px;
     font-family: $supla-font-default;
   }
+}
+
+.form-group > .btn {
+  margin-left: .3em;
 }
 
 h1 {
@@ -311,7 +321,7 @@ body.green {
   }
 
   ::selection {
-    background: $supla-yellow;
+    background: $supla-grey-dark;
     color: $supla-white;
   }
 
@@ -322,10 +332,6 @@ body.green {
 
   p a:not(.btn) {
     color: $supla-yellow;
-  }
-
-  input:-webkit-autofill {
-    -webkit-animation-name: autofill-white;
   }
 }
 
