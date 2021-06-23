@@ -70,7 +70,6 @@ class SchedulesFixture extends SuplaFixture {
         for ($i = 0; $i < DevicesFixture::NUMBER_OF_RANDOM_DEVICES; $i++) {
             $randomDevices[] = $this->getReference(DevicesFixture::RANDOM_DEVICE_PREFIX . $i);
         }
-
         for ($i = 0; $i < 15; $i++) {
             /** @var IODeviceChannel $channel */
             $channel = $this->faker->randomElement($randomDevices)->getChannels()[$this->faker->numberBetween(0, 3)];
