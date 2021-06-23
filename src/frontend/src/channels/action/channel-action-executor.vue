@@ -124,6 +124,9 @@
                 margin: 5px auto;
                 max-width: 600px;
             }
+            .btn-grey {
+                margin-left: .5em;
+            }
         }
     }
 </style>

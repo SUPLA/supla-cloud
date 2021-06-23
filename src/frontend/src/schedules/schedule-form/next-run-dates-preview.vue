@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="next-run-dates-preview">
         <div class="text-center"
             v-if="value.fetchingNextRunDates">
             <button-loading-dots></button-loading-dots>
@@ -17,7 +17,6 @@
                             class="label label-default">
                             {{ $t(nextScheduleExecution.action.caption) }}
                         </span>
-                        &nbsp;
                         <span class="label label-default">
                             {{ humanizeNextRunDate(nextScheduleExecution.plannedTimestamp).fromNow }}
                         </span>
@@ -95,8 +94,13 @@
     };
 </script>
 
-<style>
+<style lang="scss">
     .opacity60 {
         opacity: .6;
+    }
+    .next-run-dates-preview {
+        .label {
+            margin-left: .5em;
+        }
     }
 </style>

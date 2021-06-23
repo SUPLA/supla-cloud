@@ -69,6 +69,9 @@
 
     .button-container {
         position: relative;
+        .btn {
+            margin-left: .5em;
+        }
         .btn-toolbar {
             position: absolute;
             right: 0;

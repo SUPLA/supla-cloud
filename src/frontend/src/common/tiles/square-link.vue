@@ -53,7 +53,7 @@
         &.yellow {
             background: $supla-yellow;
             color: $supla-black;
-            border-color: $supla-yellow !important;
+            border-color: $supla-yellow;
         }
         &.grey {
             background: $supla-grey-light;
@@ -72,6 +72,9 @@
         }
         &:hover {
             border-color: $supla-black;
+            a {
+                color: inherit;
+            }
         }
         dl {
             margin-bottom: 0;
