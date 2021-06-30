@@ -115,7 +115,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
         /** @var Schedule $schedule */
-        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findAll();
+        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findBy(['schedule' => $schedule]);
         $this->assertCount(1, $executions);
         $this->assertEquals(2030, $executions[0]->getPlannedTimestamp()->format('Y'));
     }
