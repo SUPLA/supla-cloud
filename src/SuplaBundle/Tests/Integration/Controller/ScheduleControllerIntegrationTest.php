@@ -17,8 +17,10 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use DateTime;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
@@ -83,5 +85,38 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(1, count($nextExecutions));
         $firstExecution = $nextExecutions[0];
         $this->assertEquals(ChannelFunctionAction::TURN_OFF, $firstExecution['actionId']);
+    }
+
+    public function testCreatingMinutelySchedule() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
+            'channelId' => $this->device->getChannels()[0]->getId(),
+            'actionId' => ChannelFunctionAction::TURN_ON,
+            'mode' => ScheduleMode::MINUTELY,
+            'timeExpression' => '10 2 * * *',
+        ]);
+        $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
+        $scheduleFromResponse = json_decode($client->getResponse()->getContent());
+        $this->assertGreaterThan(0, $scheduleFromResponse->id);
+        $schedule = $this->container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
+        $this->assertEquals($scheduleFromResponse->timeExpression, $schedule->getTimeExpression());
+        return $schedule;
+    }
+
+    /** @depends testCreatingMinutelySchedule */
+    public function testEditingStartDateOfSchedule(Schedule $schedule) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest(Request::METHOD_PUT, '/api/schedules/' . $schedule->getId(), [
+            'channelId' => $this->device->getChannels()[0]->getId(),
+            'actionId' => ChannelFunctionAction::TURN_ON,
+            'mode' => ScheduleMode::MINUTELY,
+            'timeExpression' => '10 2 * * *',
+            'dateStart' => date(DateTime::ATOM, strtotime('2030-01-01')),
+        ]);
+        $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
+        /** @var Schedule $schedule */
+        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findAll();
+        $this->assertCount(1, $executions);
+        $this->assertEquals(2030, $executions[0]->getPlannedTimestamp()->format('Y'));
     }
 }
