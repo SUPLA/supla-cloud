@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use DateTime;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
@@ -104,7 +105,14 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingMinutelySchedule */
-    public function testEditingStartDateOfSchedule(Schedule $schedule) {
+    public function testEditingStartDateOfScheduleThatHasExecutedExecutions(Schedule $schedule) {
+        /** @var ScheduledExecution[] $executions */
+        $scheduledExecutionsRepository = $this->getDoctrine()->getRepository(ScheduledExecution::class);
+        $executions = $scheduledExecutionsRepository->findBy(['schedule' => $schedule]);
+        $execution = $executions[0];
+        EntityUtils::setField($execution, 'consumed', true);
+        $this->getEntityManager()->persist($execution);
+        $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_PUT, '/api/schedules/' . $schedule->getId(), [
             'channelId' => $this->device->getChannels()[0]->getId(),
@@ -114,9 +122,9 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
             'dateStart' => date(DateTime::ATOM, strtotime('2030-01-01')),
         ]);
         $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
-        /** @var Schedule $schedule */
-        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findBy(['schedule' => $schedule]);
+        $executions = $scheduledExecutionsRepository->findBy(['schedule' => $schedule, 'consumed' => false]);
         $this->assertCount(1, $executions);
         $this->assertEquals(2030, $executions[0]->getPlannedTimestamp()->format('Y'));
+        return $schedule;
     }
 }
