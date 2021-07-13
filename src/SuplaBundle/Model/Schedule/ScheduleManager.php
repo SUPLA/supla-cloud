@@ -103,7 +103,7 @@ class ScheduleManager {
         }
         if (count($nextScheduleExecutions)) {
             /** @var DateTime $nextCalculationDate */
-            $nextCalculationDate = clone (end($nextScheduleExecutions)->getPlannedTimestamp());
+            $nextCalculationDate = clone(end($nextScheduleExecutions)->getPlannedTimestamp());
             $nextCalculationDate->sub(new DateInterval('P2D')); // the oldest scheduled execution minus 2 days
             $schedule->setNextCalculationDate($nextCalculationDate);
         } else {
@@ -128,7 +128,7 @@ class ScheduleManager {
         }
         $dateStart = $schedule->getDateStart();
         $latestExecution = $this->findLatestExecution($schedule);
-        if ($latestExecution && !$ignoreExisting) {
+        if ($latestExecution && !$ignoreExisting && $latestExecution->getPlannedTimestamp()->getTimestamp() > $dateStart->getTimestamp()) {
             $dateStart = clone $latestExecution->getPlannedTimestamp();
         }
         if ($dateStart->getTimestamp() < $closestTime) {
