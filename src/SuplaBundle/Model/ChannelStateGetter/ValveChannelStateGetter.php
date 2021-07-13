@@ -10,7 +10,7 @@ class ValveChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
-        list($closed, $flags) = $this->suplaServer->getValveValue($channel);
+        [$closed, $flags] = $this->suplaServer->getValveValue($channel);
         if ($closed !== null && $flags !== null) {
             return [
                 'closed' => $channel->getFunction()->getId() === ChannelFunction::VALVEOPENCLOSE ? boolval($closed) : $closed,

@@ -2,7 +2,7 @@
     <div>
         <div class="container text-center">
             <h1 class="nocapitalize">{{ $t(headerI18n) }}</h1>
-            <i :class="icon"
+            <i :class="[icon, 'error-page-icon']"
                 style="font-size: 160px"></i>
             <div class="form-group">
                 <h5>{{ $t(messageI18n) }}</h5>

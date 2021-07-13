@@ -32,6 +32,7 @@ Add new channel to this group: Dodaj nowy kanał do grupy
 Adjust parameters: Ustaw parametry
 'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Wszystkie kanały oraz grupy kanałów, które używają tej ikony, po jej usunięciu otrzymają ikony domyślne.'
 'After granting the access, you can always remove it by adjusting the settings in your account settings section.': Po przyznaniu dostępu zawsze możesz zmienić zdanie odbierając dostęp w ustawieniach swojego konta.
+'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Po aktualizacji aplikacja będzie szybsza, wygodniejsza... Po prostu lepsza!'
 'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Link zostanie wygenerowany tuż po wybraniu podmiotu. Wszystkie pozostałe opcje możesz wprowadzić zaraz po jego utworzeniu.
 All: Wszystko
 All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tabletu
@@ -67,6 +68,7 @@ Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Automation: Automatyka
 Back to apps list: Powrót do listy aplikacji
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
+Be right back!: Wróć za kilka chwil!
 Bridge: Most
 Brightness: Jasność
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
@@ -134,6 +136,7 @@ Create New Schedule: Utwórz nowy harmonogram
 Create an account: Utwórz konto
 Create new direct link: Utwórz nowy link bezpośredni
 Currency: Waluta
+Current Overload: Przeciążenie
 Current Password: Aktualne hasło
 Current password is incorrect: Aktualne hasło jest niepoprawne
 Custom: Niestandardowy
@@ -497,6 +500,7 @@ The new password will replace the existing one. Some of the current integrations
 The next available executions: Najbliższe wykonania
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
+'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Urządzenie zostało wyłączone zabezpieczeniem nadprądowym. Zanim je włączysz, upewnij się że rozwiązano problem, który do tego doprowadził. Czy na pewno chcesz włączyć to urządzenie zdalnie?'
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Serwer zwrócił błąd 400, co oznacza że przesłane żądanie jest niepoprawne.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.'
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.'
@@ -522,6 +526,7 @@ Unit: Jednostka
 Unknown: Nieznany
 Unsupported function: Niewspierana funkcja
 Unsupported type: Niewspierany typ
+Update in progress: Trwa aktualizacja
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.'
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
 Valve: Zawór

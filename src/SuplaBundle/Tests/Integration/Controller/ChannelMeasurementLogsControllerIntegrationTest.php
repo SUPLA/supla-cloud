@@ -653,4 +653,17 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         );
         $this->assertEquals(7, floor(($lastTimestamp - $firstTimestamp) / 86400), '', 1);
     }
+
+    /** @dataProvider invalidLimits */
+    public function testInvalidLimits(int $limit) {
+        $channelId = $this->deviceWithManyLogs->getChannels()[0]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV22('GET', '/api/channels/' . $channelId . '/measurement-logs?limit=' .  $limit);
+        $response = $client->getResponse();
+        $this->assertStatusCode('4xx', $response);
+    }
+
+    public function invalidLimits() {
+        return [[0], [-1], [5001]];
+    }
 }

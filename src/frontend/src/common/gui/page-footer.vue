@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div class="footer-center">
-                <span class="text-muted">SUPLA Cloud {{ version }}</span>
+                <span class="text-muted">SUPLA Cloud {{ versionSignature }}</span>
                 <a class="brand nav-link"
                     href="https://www.supla.org">www.supla.org</a>
             </div>
@@ -37,8 +37,14 @@
         components: {LanguageSelector, SessionCountdown},
         data() {
             return {
-                version: VERSION, // eslint-disable-line no-undef
+                versionSignature: ''
             };
+        },
+        mounted() {
+            this.versionSignature =
+                this.$backendAndFrontendVersionMatches ?
+                    this.$frontendVersion
+                    : `${this.$frontendVersion} / ${this.$backendVersion}`;
         },
         methods: {
             isPageActive(input) {

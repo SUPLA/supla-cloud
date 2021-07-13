@@ -80,6 +80,10 @@
                 v-if="currentState.connected === false">
                 {{ $t('Disconnected') }}
             </span>
+            <span class="label label-danger"
+                v-if="currentState.currentOverload === true">
+                {{ $t('Current Overload') }}
+            </span>
         </div>
     </div>
 </template>

@@ -220,7 +220,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('on', $content);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
     }
 
     /** @depends testCreatingDirectLink */
@@ -233,7 +233,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('on', $content);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
     }
 
     /** @depends testCreatingDirectLink */
@@ -257,7 +257,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $this->assertContains('ON: ', $response->getContent());
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
     }
 
     /** @depends testCreatingDirectLink */
@@ -270,7 +270,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
         $this->assertContains('"on":', $response->getContent());
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
     }
 
     /** @depends testCreatingDirectLink */
@@ -296,7 +296,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
         $this->assertContains('"on":', $response->getContent());
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
     }
 
     public function testCreatingDirectLinkForScene() {
@@ -404,8 +404,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey(1, $content);
         $this->assertArrayHasKey('on', $content[1]);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-CHAR-VALUE:1,1,1', $commands);
-        $this->assertContains('GET-CHAR-VALUE:1,1,2', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+        $this->assertContains('GET-RELAY-VALUE:1,1,2', $commands);
     }
 
     public function testExecutingDirectLinkWithParameters() {

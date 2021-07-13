@@ -189,6 +189,7 @@ class ChannelMeasurementLogsController extends RestController {
                 $stmt->bindValue($n, $limit, 'integer');
             }
         } elseif (!$sparse) {
+            Assertion::between($limit, 0, self::RECORD_LIMIT_PER_REQUEST, 'Invalid limit.');
             $stmt->bindValue(2, $limit, 'integer');
             $stmt->bindValue(3, $offset, 'integer');
         }

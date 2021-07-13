@@ -72,7 +72,7 @@
         }
         &:hover {
             border-color: $supla-black;
-            a {
+            > a {
                 color: inherit;
             }
         }

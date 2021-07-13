@@ -34,12 +34,17 @@
                 {{ $t('Cancel') }}
             </button>
         </channel-action-chooser>
-        <modal-confirm v-if="valveOpenConfirm"
+        <modal-confirm v-if="actionToConfirm"
             class="modal-warning"
-            @confirm="executeAction(valveOpenConfirm, true)"
-            @cancel="valveOpenConfirm = false"
+            @confirm="executeAction(actionToConfirm, true)"
+            @cancel="actionToConfirm = false"
             :header="$t('Are you sure?')">
-            {{ $t('The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!') }}
+            <span v-if="actionToConfirm.name === 'OPEN'">
+                {{ $t('The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!') }}
+            </span>
+            <span v-else-if="actionToConfirm.name === 'TURN_ON'">
+                {{ $t('The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?') }}
+            </span>
         </modal-confirm>
     </div>
 </template>
@@ -58,7 +63,7 @@
             return {
                 executing: false,
                 actionToExecute: {},
-                valveOpenConfirm: false,
+                actionToConfirm: false,
             };
         },
         methods: {
@@ -67,13 +72,16 @@
                     this.actionToExecute = action;
                     return;
                 }
+                this.actionToConfirm = false;
                 if (action.name == 'OPEN' && !confirmed && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
                     if (this.subject.state && (this.subject.state.manuallyClosed || this.subject.state.flooding)) {
-                        this.valveOpenConfirm = action;
+                        this.actionToConfirm = action;
                         return;
                     }
-                } else {
-                    this.valveOpenConfirm = false;
+                }
+                if (action.name == 'TURN_ON' && !confirmed && this.subject.state?.currentOverload) {
+                    this.actionToConfirm = action;
+                    return;
                 }
                 this.$set(action, 'executing', true);
                 this.executing = true;
