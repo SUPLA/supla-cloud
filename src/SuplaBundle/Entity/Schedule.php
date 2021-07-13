@@ -166,8 +166,7 @@ class Schedule implements HasSubject {
         return $this->id;
     }
 
-    /** @return User */
-    public function getUser() {
+    public function getUser(): User {
         return $this->user;
     }
 
@@ -243,45 +242,27 @@ class Schedule implements HasSubject {
         $this->mode = $mode->getValue();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDateStart() {
+    public function getDateStart(): DateTime {
         return $this->dateStart;
     }
 
-    /**
-     * @param mixed $dateStart
-     */
     public function setDateStart(DateTime $dateStart) {
         $this->dateStart = $dateStart;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getDateEnd() {
+    public function getDateEnd(): ?DateTime {
         return $this->dateEnd;
     }
 
-    /**
-     * @param DateTime|null $dateEnd
-     */
-    public function setDateEnd($dateEnd) {
+    public function setDateEnd(?DateTime $dateEnd) {
         $this->dateEnd = $dateEnd;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEnabled() {
+    public function getEnabled(): bool {
         return $this->enabled;
     }
 
-    /**
-     * @param mixed $enabled
-     */
-    public function setEnabled($enabled) {
+    public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
     }
 
@@ -296,22 +277,15 @@ class Schedule implements HasSubject {
         $this->nextCalculationDate = $nextCalculationDate;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCaption() {
+    public function getCaption(): ?string {
         return $this->caption;
     }
 
-    /**
-     * @param mixed $caption
-     */
-    public function setCaption($caption) {
+    public function setCaption(?string $caption) {
         $this->caption = $caption;
     }
 
-    /** @return DateTimeZone */
-    public function getUserTimezone() {
+    public function getUserTimezone(): DateTimeZone {
         return new DateTimeZone($this->getUser()->getTimezone());
     }
 

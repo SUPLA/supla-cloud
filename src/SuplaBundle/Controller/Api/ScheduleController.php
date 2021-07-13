@@ -144,6 +144,10 @@ class ScheduleController extends RestController {
      */
     public function putScheduleAction(Request $request, Schedule $schedule) {
         $data = $request->request->all();
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $data['subjectId'] = $data['channelId'] ?? null;
+            $data['subjectType'] = 'channel';
+        }
         $this->fillSchedule($schedule, $data);
         return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule, $request, $data) {
             $this->scheduleManager->deleteScheduledExecutions($schedule);
