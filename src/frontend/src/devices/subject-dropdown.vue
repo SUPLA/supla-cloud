@@ -7,9 +7,9 @@
             <li :class="subjectType == 'channelGroup' ? 'active' : ''">
                 <a @click="changeSubjectType('channelGroup')">{{$t('Channel groups')}}</a>
             </li>
-            <li :class="subjectType == 'scene' ? 'active' : ''">
+           <!-- <li :class="subjectType == 'scene' ? 'active' : ''">
                 <a @click="changeSubjectType('scene')">{{$t('Scenes')}}</a>
-            </li>
+            </li> -->
         </ul>
         <channels-dropdown v-model="subject"
             v-if="subjectType == 'channel'"

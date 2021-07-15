@@ -58,7 +58,7 @@
             if (!noApiActionFunctions.includes(this.channelGroup.function.name)) {
                 this.availableTabs.push({id: 'actions', header: 'Actions'});
             }
-            this.availableTabs.push({id: 'scenes', header: 'Scenes', count: this.channelGroup.relationsCount.scenes});
+            // this.availableTabs.push({id: 'scenes', header: 'Scenes', count: this.channelGroup.relationsCount.scenes});
             const noScheduleActions = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'];
             if (!noScheduleActions.includes(this.channelGroup.function.name)) {
                 this.availableTabs.push({id: 'schedules', header: 'Schedules', count: this.channelGroup.relationsCount.schedules});
