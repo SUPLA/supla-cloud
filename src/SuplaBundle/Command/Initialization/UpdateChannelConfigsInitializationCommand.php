@@ -26,7 +26,7 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
     protected function configure() {
         $this
             ->setName('supla:initialize:update-channel-configs')
-            ->setDescription('Updates channel configuration columns so it matches theKK values stored in params.');
+            ->setDescription('Updates channel configuration columns so it matches the values stored in params.');
     }
 
     /** @inheritdoc */

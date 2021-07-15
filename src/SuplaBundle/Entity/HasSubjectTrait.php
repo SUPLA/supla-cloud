@@ -1,6 +1,7 @@
 <?php
 namespace SuplaBundle\Entity;
 
+use InvalidArgumentException;
 use SuplaBundle\Enums\ActionableSubjectType;
 
 /**
@@ -20,7 +21,7 @@ trait HasSubjectTrait {
         } elseif ($subject instanceof Scene) {
             $this->scene = $subject;
         } else {
-            throw new \InvalidArgumentException('Invalid link subject given: ' . get_class($subject));
+            throw new InvalidArgumentException('Invalid subject given: ' . get_class($subject));
         }
     }
 
