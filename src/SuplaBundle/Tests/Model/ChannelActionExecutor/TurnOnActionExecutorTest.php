@@ -2,10 +2,11 @@
 namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Model\ChannelActionExecutor\TurnOnActionExecutor;
 
-class TurnOnActionExecutorTest extends \PHPUnit_Framework_TestCase {
+class TurnOnActionExecutorTest extends TestCase {
     /**
      * @dataProvider validatingActionParamsProvider
      */
@@ -14,7 +15,8 @@ class TurnOnActionExecutorTest extends \PHPUnit_Framework_TestCase {
             $this->expectException(InvalidArgumentException::class);
         }
         $executor = new TurnOnActionExecutor();
-        $executor->validateActionParams($this->createMock(HasFunction::class), $actionParams);
+        $params = $executor->validateActionParams($this->createMock(HasFunction::class), $actionParams);
+        $this->assertNotNull($params);
     }
 
     public function validatingActionParamsProvider() {

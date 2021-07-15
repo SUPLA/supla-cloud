@@ -15,6 +15,11 @@ export const availableScopes = [
         label: 'Channel groups' // i18n
     },
     {
+        prefix: 'scenes',
+        suffixes: ['r', 'rw', 'ea'],
+        label: 'Scenes' // i18n
+    },
+    {
         prefix: 'directlinks',
         suffixes: ['r', 'rw'],
         label: 'Direct links' // i18n

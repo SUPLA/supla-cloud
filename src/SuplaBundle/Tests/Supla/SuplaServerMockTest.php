@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Supla;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -28,7 +28,7 @@ use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
 /**
  * We are testing the mocked implementation here in order to be sure in behaves correctly in integration tests.
  */
-class SuplaServerMockTest extends PHPUnit_Framework_TestCase {
+class SuplaServerMockTest extends TestCase {
     /** @var SuplaServerMock */
     private $server;
 

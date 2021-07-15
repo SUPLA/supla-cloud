@@ -17,22 +17,22 @@
 
 namespace SuplaBundle\Tests\Model;
 
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Model\RealClientIpResolver;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class RealClientIpResolverTest extends PHPUnit_Framework_TestCase {
-    /** @var RequestStack|PHPUnit_Framework_MockObject_MockObject */
+class RealClientIpResolverTest extends TestCase {
+    /** @var RequestStack|MockObject */
     private $requestStack;
-    /** @var SuplaAutodiscover|PHPUnit_Framework_MockObject_MockObject */
+    /** @var SuplaAutodiscover|MockObject */
     private $autodiscover;
     /** @var RealClientIpResolver */
     private $resolver;
-    /** @var Request|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Request|MockObject */
     private $requestMock;
 
     /** @before */

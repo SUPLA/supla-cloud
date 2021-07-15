@@ -58,9 +58,7 @@
         components: {DigiglassParametersSetter, RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
         props: ['subject', 'value', 'possibleActionFilter'],
         data() {
-            return {
-                action: {},
-            };
+            return {action: {}};
         },
         mounted() {
             this.updateAction();

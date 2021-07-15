@@ -1,0 +1,80 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  SuplaBundle\Repository\:
+    resource: '../../../src/SuplaBundle/Repository'
+
+  SuplaBundle\Repository\AccessIdRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\AccessID]
+
+  SuplaBundle\Repository\AccessTokenRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\OAuth\AccessToken]
+
+  SuplaBundle\Repository\ApiClientRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\OAuth\ApiClient]
+
+  SuplaBundle\Repository\ApiClientAuthorizationRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\OAuth\ApiClientAuthorization]
+
+  SuplaBundle\Repository\AuditEntryRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\AuditEntry]
+
+  SuplaBundle\Repository\ChannelGroupRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\IODeviceChannelGroup]
+
+  SuplaBundle\Repository\SceneRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Scene]
+
+  SuplaBundle\Repository\UserIconRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\UserIcon]
+
+  SuplaBundle\Repository\ClientAppRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\ClientApp]
+
+  SuplaBundle\Repository\LocationRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Location]
+
+  SuplaBundle\Repository\ScheduleRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Schedule]
+
+  SuplaBundle\Repository\StateWebhookRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\StateWebhook]
+
+  SuplaBundle\Repository\UserRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\User]
+
+  SuplaBundle\Repository\IODeviceRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\IODevice]
+
+  SuplaBundle\Repository\IODeviceChannelRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\IODeviceChannel]
+
+  SuplaBundle\Repository\AmazonAlexaRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\AmazonAlexa]
+
+  SuplaBundle\Repository\GoogleHomeRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\GoogleHome]
+
+  SuplaBundle\Repository\DirectLinkRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\DirectLink]

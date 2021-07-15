@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,12 +17,12 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
+use PHPUnit\Framework\TestCase;
 use DateTime;
-use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 
-class IntervalSchedulePlannerTest extends PHPUnit_Framework_TestCase {
+class IntervalSchedulePlannerTest extends TestCase {
     /**
      * @dataProvider calculatingNextRunDateProvider
      */

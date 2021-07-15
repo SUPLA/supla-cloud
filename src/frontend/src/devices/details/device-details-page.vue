@@ -32,6 +32,8 @@
                                         <dt>{{ this.device.regDate | moment("LT L")}}</dt>
                                         <dd>{{ $t('Last connection') }}</dd>
                                         <dt>{{ this.device.lastConnected | moment("LT L")}}</dt>
+                                        <dd>{{ $t('SoftVer') }}</dd>
+                                        <dt>{{ device.softwareVersion }}</dt>
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt>
                                             <toggler v-model="device.enabled"
@@ -89,23 +91,23 @@
         </loading-cover>
         <channel-list-page :device-id="id"
             v-if="device"></channel-list-page>
-        <disabling-schedules-modal message-i18n="Turning this device off will result in disabling all the associated schedules."
-            v-if="showSchedulesDisablingConfirmation"
-            :schedules="schedules"
-            @confirm="saveChanges(true)"
-            @cancel="showSchedulesDisablingConfirmation = false"></disabling-schedules-modal>
-        <enabling-schedules-modal v-if="showSchedulesEnablingConfirmation"
-            :schedules="schedules"
-            @confirm="showSchedulesEnablingConfirmation = false"
-            @cancel="showSchedulesEnablingConfirmation = false"></enabling-schedules-modal>
+        <disable-io-with-dependencies-modal message-i18n="Turning this device off will result in disabling all the associated schedules."
+            v-if="dependenciesThatWillBeDisabled"
+            :dependencies="dependenciesThatWillBeDisabled"
+            @confirm="saveChanges(false)"
+            @cancel="dependenciesThatWillBeDisabled = undefined"></disable-io-with-dependencies-modal>
         <modal-confirm v-if="deleteConfirm"
             class="modal-warning"
             @confirm="deleteDevice()"
             @cancel="deleteConfirm = false"
             :header="$t('Are you sure?')"
             :loading="loading">
-            <p>{{ $t('Confirm if you want to remove {deviceName} device', {deviceName: device.name}) }}</p>
+            <p>{{ $t('Confirm if you want to remove {deviceName} device and all of its channels.', {deviceName: device.name}) }}</p>
         </modal-confirm>
+        <delete-io-with-dependencies-modal v-if="dependenciesThatPreventsDeletion"
+            :dependencies="dependenciesThatPreventsDeletion"
+            @confirm="deleteDevice(false)"
+            @cancel="dependenciesThatPreventsDeletion = undefined"></delete-io-with-dependencies-modal>
     </page-container>
 </template>
 
@@ -117,18 +119,18 @@
     import PendingChangesPage from "../../common/pages/pending-changes-page";
     import ChannelListPage from "../../channels/channel-list-page";
     import ConnectionStatusLabel from "../list/connection-status-label";
-    import DisablingSchedulesModal from "../../schedules/modals/disabling-schedules-modal";
-    import EnablingSchedulesModal from "../../schedules/modals/enabling-schedules-modal";
     import SquareLocationChooser from "../../locations/square-location-chooser";
     import PageContainer from "../../common/pages/page-container";
+    import DeleteIoWithDependenciesModal from "./delete-io-with-dependencies-modal";
+    import DisableIoWithDependenciesModal from "./disable-io-with-dependencies-modal";
     import $ from "jquery";
 
     export default {
         props: ['id'],
         components: {
+            DisableIoWithDependenciesModal,
+            DeleteIoWithDependenciesModal,
             PageContainer,
-            EnablingSchedulesModal,
-            DisablingSchedulesModal,
             ConnectionStatusLabel,
             ChannelListPage,
             PendingChangesPage,
@@ -143,9 +145,8 @@
                 loading: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
-                showSchedulesDisablingConfirmation: false,
-                showSchedulesEnablingConfirmation: false,
-                schedules: undefined
+                dependenciesThatWillBeDisabled: undefined,
+                dependenciesThatPreventsDeletion: undefined
             };
         },
         mounted() {
@@ -169,10 +170,10 @@
             cancelChanges() {
                 this.fetchDevice();
             },
-            saveChanges: throttle(function (confirm = false) {
+            saveChanges: throttle(function (safe = true) {
                 this.loading = true;
-                this.showSchedulesDisablingConfirmation = this.showSchedulesEnablingConfirmation = false;
-                this.$http.put(`iodevices/${this.id}` + (confirm ? '?confirm=1' : ''), this.device, {skipErrorHandler: true})
+                this.dependenciesThatWillBeDisabled = undefined;
+                this.$http.put(`iodevices/${this.id}` + (safe ? '?safe=1' : ''), this.device, {skipErrorHandler: true})
                     .then(response => $.extend(this.device, response.body))
                     .then(() => this.hasPendingChanges = false)
                     .then(() => {
@@ -182,17 +183,21 @@
                     })
                     .catch(({body, status}) => {
                         if (status == 409) {
-                            this.schedules = body.schedules.filter(schedule => schedule.enabled);
-                            this.showSchedulesDisablingConfirmation = true;
+                            this.dependenciesThatWillBeDisabled = body;
                         }
                     })
                     .finally(() => this.loading = false);
             }, 1000),
-            deleteDevice() {
+            deleteDevice(safe = true) {
                 this.loading = true;
-                this.$http.delete(`iodevices/${this.id}`)
+                this.$http.delete(`iodevices/${this.id}?safe=${safe ? '1' : '0'}`, {skipErrorHandler: [409]})
                     .then(() => this.$router.push({name: 'me'}))
-                    .catch(() => this.loading = false);
+                    .catch(({body, status}) => {
+                        if (status == 409) {
+                            this.dependenciesThatPreventsDeletion = body;
+                        }
+                    })
+                    .finally(() => this.loading = this.deleteConfirm = false);
             },
             onLocationChange(location) {
                 this.$set(this.device, 'location', location);

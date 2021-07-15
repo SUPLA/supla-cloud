@@ -36,7 +36,7 @@ class ResendActivationEmailsCommandIntegrationTest extends IntegrationTestCase {
     private $user;
 
     protected function initializeDatabaseForTests() {
-        $userManager = $this->container->get(UserManager::class);
+        $userManager = self::$container->get(UserManager::class);
         $user = new User();
         $user->setEmail('janusz@supla.org');
         $user->setPlainPassword('januszowe');
@@ -77,7 +77,7 @@ class ResendActivationEmailsCommandIntegrationTest extends IntegrationTestCase {
 
     /** @large */
     public function testDoNotResendIfConfirmed() {
-        $this->container->get(UserManager::class)->confirm($this->user->getToken());
+        self::$container->get(UserManager::class)->confirm($this->user->getToken());
         TestTimeProvider::setTime('+45 minutes');
         $this->executeCommand('supla:user:resend-activation-emails');
         $this->assertCount(0, TestMailer::getMessages());

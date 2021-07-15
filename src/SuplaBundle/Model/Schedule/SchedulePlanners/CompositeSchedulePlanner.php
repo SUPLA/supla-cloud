@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -19,7 +19,6 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
 use DateTime;
 use DateTimeZone;
-use SensioLabs\Security\Exception\RuntimeException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 
@@ -38,7 +37,7 @@ class CompositeSchedulePlanner {
                     return $planner->calculateNextScheduleExecution($schedule, $currentDate);
                 }
             }
-            throw new RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. "
+            throw new \RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. "
                 . "Expression: {$schedule->getTimeExpression()}");
         });
     }

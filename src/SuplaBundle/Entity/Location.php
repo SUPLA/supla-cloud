@@ -86,8 +86,16 @@ class Location implements HasRelationsCount {
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannelGroup", mappedBy="location")
      * @Groups({"location.channelGroups"})
+     * @MaxDepth(1)
      */
     private $channelGroups;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Scene", mappedBy="location")
+     * @Groups({"scenes"})
+     * @MaxDepth(1)
+     */
+    private $scenes;
 
     /**
      * @ORM\OneToMany(targetEntity="IODeviceChannel", mappedBy="location")
@@ -110,6 +118,7 @@ class Location implements HasRelationsCount {
         $this->ioDevices = new ArrayCollection();
         $this->ioDevices_ol = new ArrayCollection();
         $this->channelGroups = new ArrayCollection();
+        $this->scenes = new ArrayCollection();
         $this->channels = new ArrayCollection();
 
         if ($user) {
@@ -163,6 +172,11 @@ class Location implements HasRelationsCount {
     /** @return IODeviceChannelGroup[]|Collection */
     public function getChannelGroups(): Collection {
         return $this->channelGroups;
+    }
+
+    /** @return Scene[]|Collection */
+    public function getScenes(): Collection {
+        return $this->scenes;
     }
 
     /** @return IODeviceChannel[]|Collection */

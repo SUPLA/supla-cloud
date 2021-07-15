@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -286,6 +286,7 @@ class UserManager {
             $user->getLocations()->forAll($remove);
             $user->getSchedules()->forAll($remove);
             $user->getUserIcons()->forAll($remove);
+            $user->getScenes()->forAll($remove);
             $em->remove($user);
             $this->audit->newEntry(AuditedEvent::USER_ACCOUNT_DELETED())
                 ->setIntParam($user->getId())

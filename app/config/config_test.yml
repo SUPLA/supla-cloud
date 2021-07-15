@@ -50,6 +50,7 @@ services:
   test.client:
     class: SuplaBundle\Tests\Integration\TestClient
     shared: false
+    public: true
     arguments:
       - '@kernel'
       - '%test.client.parameters%'
@@ -63,6 +64,7 @@ supla:
     enabled: true
     blocking: true
     global_limit: 10000/5
+    user_default_limit: 20000/5
   state_webhooks:
     only_for_public_apps: true
   mqtt_broker:

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -18,6 +18,7 @@
 namespace SuplaBundle\Entity;
 
 use Assert\Assertion;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ChannelFunction;
@@ -134,11 +135,11 @@ class StateWebhook {
         $this->refreshToken = $refreshToken;
     }
 
-    public function setExpiresAt(\DateTime $expiresAt) {
+    public function setExpiresAt(DateTime $expiresAt) {
         $this->expiresAt = $expiresAt;
     }
 
-    public function getExpiresAt(): \DateTime {
+    public function getExpiresAt(): DateTime {
         return $this->expiresAt;
     }
 }

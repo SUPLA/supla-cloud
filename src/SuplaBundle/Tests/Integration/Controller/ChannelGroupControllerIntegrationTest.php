@@ -153,6 +153,18 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('relationsCount', $content[0]);
     }
 
+    public function testGettingChannelGroupsForChannel() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', sprintf('/api/channels/%d/channel-groups', $this->device->getChannels()[2]->getId()));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertArrayNotHasKey('channelsIds', $content[0]);
+        $this->assertArrayHasKey('relationsCount', $content[0]);
+        $this->assertEquals(2, $content[0]['relationsCount']['channels']);
+    }
+
     public function testChannelsIncludeForbiddenOnListV24() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channel-groups?include=channels');

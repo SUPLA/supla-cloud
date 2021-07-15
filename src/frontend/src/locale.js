@@ -18,6 +18,9 @@ Vue.config.availableLanguages = [
     {value: 'ru', text: 'Русский'},
     {value: 'sk', text: 'Slovenčina'},
     {value: 'sl', text: 'Slovenščina'},
+    {value: 'ro', text: 'Română'},
+    {value: 'hu', text: 'Magyar'},
+    {value: 'ar', text: 'العربية'},
     {value: 'vi', text: 'Tiếng Việt'}
 ];
 
@@ -29,6 +32,11 @@ Vue.prototype.$setLocale = (lang) => {
     if (i18n.locale !== lang) {
         Promise.resolve(loadedLanguages.includes(lang) ? true : loadLanguage(lang)).then(() => {
             i18n.locale = lang;
+            if (['ar'].includes(lang)) {
+                document.getElementsByTagName("html")[0].setAttribute('dir', 'rtl');
+            } else {
+                document.getElementsByTagName("html")[0].removeAttribute('dir');
+            }
             moment.locale(lang);
             if (Vue.prototype.$user.userData && Vue.prototype.$user.userData.locale != lang) {
                 Vue.prototype.$updateUserLocale(lang);

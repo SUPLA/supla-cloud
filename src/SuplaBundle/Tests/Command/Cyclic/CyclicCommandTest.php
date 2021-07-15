@@ -18,12 +18,13 @@
 namespace SuplaBundle\Tests\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Command\Cyclic\DeleteNotConfirmedUsersCommand;
 use SuplaBundle\Command\Cyclic\DeleteOrphanedMeasurementLogsCommand;
 use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
-class CyclicCommandTest extends \PHPUnit_Framework_TestCase {
+class CyclicCommandTest extends TestCase {
     /** @after */
     public function resetTimeProvider() {
         TestTimeProvider::reset();

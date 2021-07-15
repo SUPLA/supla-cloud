@@ -1,7 +1,7 @@
 imports:
   - { resource: parameters.yml }
   - { resource: security.yml }
-  - { resource: services.yml }
+  - { resource: services/*.yml }
   - { resource: config_build.yml, ignore_errors: true }
 
 doctrine:
@@ -20,7 +20,6 @@ doctrine:
       stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
       utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
     user: "%database_user%"
-    server_version: 5.5
     schema_filter: ~^(?!esp_)~
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
@@ -46,6 +45,7 @@ fos_rest:
     default_format: json
   serializer:
     groups: ['basic']
+    serialize_null: true
   versioning: true
   view:
     view_response_listener: 'force'
@@ -153,6 +153,8 @@ parameters:
 
 sensio_framework_extra:
   request: { converters: true }
+  router:
+    annotations: false
 
 supla:
   accounts_registration_enabled: true
@@ -181,11 +183,11 @@ supla:
       DIRECT_LINK_EXECUTION: 2
   oauth:
     tokens_lifetime:
-      webapp: [1200]
-      client_app: [3600, 5184000] # 60 days
-      admin: [3600, 5184000]
-      user: [3600, 5184000]
-      broker: [3600, 5184000]
+      webapp: {access: 1200}
+      client_app: {access: 3600, refresh: 5184000} # 60 days
+      admin: {access: 3600, refresh: 5184000}
+      user: {access: 3600, refresh: 5184000}
+      broker: {access: 3600, refresh: 5184000}
 
 swiftmailer:
   encryption: "%mailer_encryption%"

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -92,8 +92,8 @@ class SuplaExtension extends ConfigurableExtension {
             $clientType = strtoupper($clientType);
             $id = ApiClientType::$clientType()->getValue();
             $mapped[$id] = [
-                'access' => $lifetimes[0],
-                'refresh' => $lifetimes[1] ?? 5184000,
+                'access' => $lifetimes['access'],
+                'refresh' => $lifetimes['refresh'] ?? 5184000,
             ];
         }
         return $mapped;

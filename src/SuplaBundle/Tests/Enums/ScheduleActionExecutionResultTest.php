@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,9 +17,10 @@
 
 namespace SuplaBundle\Tests\Enums;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 
-class ScheduleActionExecutionResultTest extends \PHPUnit_Framework_TestCase {
+class ScheduleActionExecutionResultTest extends TestCase {
     public function testEveryValueHasCaption() {
         $this->assertCount(
             count(ScheduleActionExecutionResult::values()),

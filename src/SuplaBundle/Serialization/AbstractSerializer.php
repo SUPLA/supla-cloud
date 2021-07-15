@@ -25,6 +25,13 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 abstract class AbstractSerializer extends ObjectNormalizer {
+    private $defaultCircularReferenceHandler;
+
+    public function __construct() {
+        parent::__construct();
+        $this->defaultCircularReferenceHandler = new ObjectIdCircularReferenceHandler();
+    }
+
     /** @required */
     public function setPropertyAccessor(PropertyAccessorInterface $propertyAccessor) {
         $this->propertyAccessor = $propertyAccessor;
@@ -40,11 +47,6 @@ abstract class AbstractSerializer extends ObjectNormalizer {
         $this->classMetadataFactory = $classMetadataFactory;
     }
 
-    /** @required */
-    public function setCircularReferenceHandlerDependency(ObjectIdCircularReferenceHandler $handler) {
-        return $this->setCircularReferenceHandler($handler);
-    }
-
     protected function toIds($collection): array {
         return EntityUtils::mapToIds($collection);
     }
@@ -56,19 +58,10 @@ abstract class AbstractSerializer extends ObjectNormalizer {
         return false;
     }
 
-    /**
-     * Forces to serialize empty array as json object (i.e. {} instead of []).
-     */
-    protected function emptyArrayAsObject(array $array) {
-        if (count($array) == 0) {
-            return new \stdClass();
-        }
-        return $array;
-    }
-
     /** @inheritDoc */
     final public function normalize($object, $format = null, array $context = []) {
         $context[self::ENABLE_MAX_DEPTH] = true;
+        $context[self::CIRCULAR_REFERENCE_HANDLER] = $this->defaultCircularReferenceHandler;
         $normalized = parent::normalize($object, $format, $context);
         if (is_array($normalized)) {
             if ($object instanceof HasRelationsCount && ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {

@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Integration\Auth;
 
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
-use PHPUnit_Framework_ExpectationFailedException;
+use PHPUnit\Framework\ExpectationFailedException;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\OAuth\AuthCode;
 use SuplaBundle\Entity\User;
@@ -46,8 +46,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     private $user;
 
     public function initializeDatabaseForTests() {
-        $this->autodiscover = $this->container->get(SuplaAutodiscover::class);
-        $this->clientManager = $this->container->get(ClientManagerInterface::class);
+        $this->autodiscover = self::$container->get(SuplaAutodiscover::class);
+        $this->clientManager = self::$container->get(ClientManagerInterface::class);
         $this->user = $this->createConfirmedUser();
     }
 
@@ -273,7 +273,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDoesNotForwardAuthAnywhereIfNotBroker() {
-        $this->expectException(PHPUnit_Framework_ExpectationFailedException::class);
+        $this->expectException(ExpectationFailedException::class);
         SuplaAutodiscoverMock::$isBroker = false;
         $this->testForwardsIssueTokenRequestBasedOnAuthCode();
     }

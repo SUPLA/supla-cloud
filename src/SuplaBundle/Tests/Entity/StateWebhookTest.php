@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,13 +17,14 @@
 
 namespace SuplaBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\StateWebhook;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 
-class StateWebhookTest extends \PHPUnit_Framework_TestCase {
+class StateWebhookTest extends TestCase {
     /** @var StateWebhook */
     private $webhook;
 

@@ -53,6 +53,11 @@ class UserIcon {
     private $channelGroups;
 
     /**
+     * @ORM\OneToMany(targetEntity="Scene", mappedBy="userIcon")
+     */
+    private $scenes;
+
+    /**
      * @ORM\Column(name="func", type="integer", nullable=false)
      * @Groups({"basic"})
      */
@@ -105,6 +110,11 @@ class UserIcon {
     /** @return IODeviceChannelGroup[] */
     public function getChannelGroups() {
         return $this->channels;
+    }
+
+    /** @return Scene[] */
+    public function getScenes() {
+        return $this->scenes;
     }
 
     public function getImages($streamContentsGetter = null): array {

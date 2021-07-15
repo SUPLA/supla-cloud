@@ -2,7 +2,7 @@
 namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
@@ -11,7 +11,7 @@ use SuplaBundle\Model\ChannelActionExecutor\SetDigiglassParametersActionExecutor
 use SuplaBundle\Supla\SuplaServer;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
-class SetDigiglassParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
+class SetDigiglassParametersActionExecutorTest extends TestCase {
     use UnitTestHelper;
 
     /**

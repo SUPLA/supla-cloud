@@ -99,6 +99,10 @@ class UserIconController extends RestController {
                     $channelGroup->setUserIcon($icon);
                     $em->persist($channelGroup);
                 }
+                foreach ($sourceIcon->getScenes() as $scene) {
+                    $scene->setUserIcon($icon);
+                    $em->persist($scene);
+                }
                 $em->remove($sourceIcon);
             }
         });

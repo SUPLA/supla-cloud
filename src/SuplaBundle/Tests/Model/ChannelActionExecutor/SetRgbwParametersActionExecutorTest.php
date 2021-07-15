@@ -2,7 +2,7 @@
 namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODevice;
@@ -14,7 +14,7 @@ use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
 use SuplaBundle\Supla\SuplaServer;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
-class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
+class SetRgbwParametersActionExecutorTest extends TestCase {
     use UnitTestHelper;
 
     /**
@@ -25,7 +25,8 @@ class SetRgbwParametersActionExecutorTest extends PHPUnit_Framework_TestCase {
             $this->expectException(InvalidArgumentException::class);
         }
         $executor = new SetRgbwParametersActionExecutor($this->createMock(ColorAndBrightnessChannelStateGetter::class));
-        $executor->validateActionParams($this->createMock(HasFunction::class), $actionParams);
+        $params = $executor->validateActionParams($this->createMock(HasFunction::class), $actionParams);
+        $this->assertNotNull($params);
     }
 
     public function validatingActionParamsProvider() {

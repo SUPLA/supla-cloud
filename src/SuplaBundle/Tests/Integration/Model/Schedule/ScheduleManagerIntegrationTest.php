@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -36,7 +36,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     private $channel;
 
     protected function setUp() {
-        $this->scheduleManager = $this->container->get(ScheduleManager::class);
+        $this->scheduleManager = self::$container->get(ScheduleManager::class);
         $user = $this->createConfirmedUser();
         $location = $this->createLocation($user);
         $sonoff = $this->createDeviceSonoff($location);

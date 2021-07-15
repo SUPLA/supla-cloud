@@ -21,7 +21,10 @@
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">
-            <schedule-list-page :subject="channelGroup"></schedule-list-page>
+            <schedules-list :subject="channelGroup"></schedules-list>
+        </div>
+        <div v-if="currentTab == 'scenes'">
+            <scenes-list :subject="channelGroup"></scenes-list>
         </div>
         <div v-if="currentTab == 'directLinks'">
             <direct-links-list :subject="channelGroup"></direct-links-list>
@@ -30,13 +33,14 @@
 </template>
 
 <script>
-    import ScheduleListPage from "../schedules/schedule-list/schedule-list-page";
+    import SchedulesList from "../schedules/schedule-list/schedules-list";
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelActionExecutor from "../channels/action/channel-action-executor";
+    import ScenesList from "../scenes/scenes-list";
 
     export default {
         props: ['channelGroup'],
-        components: {ChannelActionExecutor, DirectLinksList, ScheduleListPage},
+        components: {ScenesList, ChannelActionExecutor, DirectLinksList, SchedulesList},
         data() {
             return {
                 currentTab: '',
@@ -54,6 +58,7 @@
             if (!noApiActionFunctions.includes(this.channelGroup.function.name)) {
                 this.availableTabs.push({id: 'actions', header: 'Actions'});
             }
+            this.availableTabs.push({id: 'scenes', header: 'Scenes', count: this.channelGroup.relationsCount.scenes});
             const noScheduleActions = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'];
             if (!noScheduleActions.includes(this.channelGroup.function.name)) {
                 this.availableTabs.push({id: 'schedules', header: 'Schedules', count: this.channelGroup.relationsCount.schedules});

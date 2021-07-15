@@ -78,7 +78,7 @@ h1, h2, h3, h4 {
 
 a {
   color: $supla-green;
-  transition: all .3s;
+  transition: color .3s;
   cursor: pointer;
 
   &:active, &:focus, &:hover {
@@ -87,6 +87,10 @@ a {
     outline: none;
     box-shadow: none;
   }
+}
+
+h1 > a {
+  color: inherit;
 }
 
 * {
@@ -244,7 +248,7 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
         background-color: transparent;
       }
 
-      .dropdown:not(.hovered) .caret, .chosen-single > div > b {
+      .dropdown:not(.hovered) .caret, .chosen-single > div > b, .help-block {
         visibility: hidden;
       }
     }
@@ -284,7 +288,7 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 }
 
 dl {
-  dd {
+  dd:not(:empty) {
     padding-right: .3em;
   }
 }
@@ -527,6 +531,21 @@ body.warning {
   }
 }
 
+.panel {
+  @mixin supla-panel($color) {
+    .panel-heading {
+      background: $color;
+      border-color: darken($color, 10%);
+      color: $supla-white;
+      font-weight: bold;
+    }
+  }
+
+  &-success {
+    @include supla-panel($supla-green);
+  }
+}
+
 .centered-form-container {
   display: none;
 }
@@ -546,6 +565,10 @@ body.warning {
       padding: 15px 0;
     }
   }
+}
+
+.col-12-if-alone:only-child {
+  width: 100%;
 }
 
 .error-page-icon {

@@ -32,7 +32,8 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Model\ChannelDependencies;
+use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
@@ -44,8 +45,6 @@ class ChannelController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    /** @var ChannelParamsUpdater */
-    private $channelParamsUpdater;
     /** @var ChannelStateGetter */
     private $channelStateGetter;
     /** @var ChannelActionExecutor */
@@ -54,12 +53,10 @@ class ChannelController extends RestController {
     private $scheduleManager;
 
     public function __construct(
-        ChannelParamsUpdater $channelParamsUpdater,
         ChannelStateGetter $channelStateGetter,
         ChannelActionExecutor $channelActionExecutor,
         ScheduleManager $scheduleManager
     ) {
-        $this->channelParamsUpdater = $channelParamsUpdater;
         $this->channelStateGetter = $channelStateGetter;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->scheduleManager = $scheduleManager;
@@ -141,22 +138,37 @@ class ChannelController extends RestController {
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
      */
-    public function putChannelAction(Request $request, IODeviceChannel $channel, IODeviceChannel $updatedChannel) {
+    public function putChannelAction(
+        Request $request,
+        IODeviceChannel $channel,
+        IODeviceChannel $updatedChannel,
+        ChannelDependencies $channelDependencies,
+        ChannelParamConfigTranslator $paramConfigTranslator
+    ) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            $functionHasBeenChanged = $channel->getFunction() != $updatedChannel->getFunction();
+            $functionHasBeenChanged = $updatedChannel->getFunction() != ChannelFunction::UNSUPPORTED()
+                && $channel->getFunction() != $updatedChannel->getFunction();
+            $newParams = $request->request->all()['config'] ?? [];
+            if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+                EntityUtils::setField($updatedChannel, 'type', $channel->getType()->getId());
+                $newParams = $paramConfigTranslator->getConfigFromParams($updatedChannel);
+            }
             if ($functionHasBeenChanged) {
                 Assertion::inArray(
                     $updatedChannel->getFunction()->getId(),
                     array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
                     'Invalid function for channel.' // i18n
                 );
-                $hasRelations = count($channel->getSchedules()) || count($channel->getChannelGroups()) || count($channel->getDirectLinks());
-                if ($hasRelations && !$request->get('confirm')) {
-                    return $this->view([
-                        'schedules' => $channel->getSchedules(),
-                        'groups' => $channel->getChannelGroups(),
-                        'directLinks' => $channel->getDirectLinks(),
-                    ], Response::HTTP_CONFLICT);
+                $shouldConfirm = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
+                    ? $request->get('safe', false)
+                    : !$request->get('confirm');
+                if ($shouldConfirm) {
+                    $dependencies = $channelDependencies->getDependencies($channel);
+                    if (array_filter($dependencies)) {
+                        $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                        $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                        return $view;
+                    }
                 }
                 $cannotChangeMsg = 'Cannot change the channel function right now.'; // i18n
                 Assertion::true($this->suplaServer->userAction('BEFORE-CHANNEL-FUNCTION-CHANGE', $channel->getId()), $cannotChangeMsg);
@@ -170,6 +182,9 @@ class ChannelController extends RestController {
             }
             /** @var IODeviceChannel $channel */
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
+                $newParams,
+                $paramConfigTranslator,
+                $channelDependencies,
                 $updatedChannel,
                 $functionHasBeenChanged,
                 $request,
@@ -177,19 +192,15 @@ class ChannelController extends RestController {
             ) {
                 $channel->setCaption($updatedChannel->getCaption());
                 $channel->setHidden($updatedChannel->getHidden());
-                $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
+                $paramConfigTranslator->setParamsFromConfig($channel, $newParams); // TODO or [] ?
                 $em->persist($channel);
                 if ($functionHasBeenChanged) {
                     $channel->setFunction($updatedChannel->getFunction());
-                    foreach ($channel->getSchedules() as $schedule) {
-                        $this->scheduleManager->delete($schedule);
-                    }
-                    foreach ($channel->getDirectLinks() as $directLink) {
-                        $em->remove($directLink);
-                    }
-                    $channel->removeFromAllChannelGroups($em);
+                    $channelDependencies->clearDependencies($channel);
                 }
-                $this->channelParamsUpdater->updateChannelParams($channel, $updatedChannel);
+                $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
+                // TODO insane merge was here - check
+                $channel->setConfig($paramConfigTranslator->getConfigFromParams($channel));
                 $channel->setAltIcon($updatedChannel->getAltIcon());
                 $channel->setUserIcon($updatedChannel->getUserIcon());
                 $em->persist($channel);

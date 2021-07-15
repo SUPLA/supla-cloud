@@ -18,14 +18,15 @@
 namespace SuplaBundle\Tests\Model\Audit;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Controller\ClientAppController;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\Audit\AuditEntryBuilder;
 
-class AuditEntryBuilderTest extends \PHPUnit_Framework_TestCase {
-    /** @var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+class AuditEntryBuilderTest extends TestCase {
+    /** @var EntityManagerInterface|MockObject */
     private $entityManager;
     /** @var AuditEntryBuilder */
     private $builder;

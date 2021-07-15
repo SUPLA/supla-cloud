@@ -26,7 +26,7 @@
             };
         },
         mounted() {
-            this.$emit('filter-function', (location) => this.matches(location));
+            this.$emit('filter-function', (channelGroup) => this.matches(channelGroup));
         },
         methods: {
             matches(channelGroup) {

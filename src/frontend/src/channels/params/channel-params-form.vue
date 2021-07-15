@@ -27,13 +27,16 @@
     import ChannelParamsMailsensor from "./channel-params-mailsensor";
     import ChannelParamsNoliquidsensor from "./channel-params-noliquidsensor";
     import ChannelParamsElectricitymeter from "./channel-params-electricity-meter";
-    import ChannelParamsGasmeter from "./channel-params-gas-meter";
-    import ChannelParamsWatermeter from "./channel-params-water-meter";
-    import ChannelParamsHeatmeter from "./channel-params-heat-meter";
+    import ChannelParamsIcElectricitymeter from "./channel-params-impulsecounter";
+    import ChannelParamsIcGasmeter from "./channel-params-impulsecounter";
+    import ChannelParamsIcWatermeter from "./channel-params-impulsecounter";
+    import ChannelParamsIcHeatmeter from "./channel-params-impulsecounter";
+    import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
+    import ChannelParamsActionTrigger from "./channel-params-action-trigger";
     import ChannelParamsDigiglassVertical from "./channel-params-digiglass";
     import ChannelParamsDigiglassHorizontal from "./channel-params-digiglass";
     import ChannelParamsPowerswitch from "./channel-params-powerswitch";
-    import ChannelParamsLightswitch from "./channel-params-lightswitch";
+    import ChannelParamsLightswitch from "./channel-params-powerswitch";
 
     export default {
         props: ['channel'],
@@ -59,9 +62,12 @@
             ChannelParamsMailsensor,
             ChannelParamsNoliquidsensor,
             ChannelParamsElectricitymeter,
-            ChannelParamsGasmeter,
-            ChannelParamsWatermeter,
-            ChannelParamsHeatmeter,
+            ChannelParamsIcElectricitymeter,
+            ChannelParamsIcGasmeter,
+            ChannelParamsIcWatermeter,
+            ChannelParamsIcHeatmeter,
+            ChannelParamsGeneralPurposeMeasurement,
+            ChannelParamsActionTrigger,
             ChannelParamsDigiglassVertical,
             ChannelParamsDigiglassHorizontal,
             ChannelParamsPowerswitch,

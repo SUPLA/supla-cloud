@@ -1,0 +1,681 @@
+# Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
+#<editor-fold desc="Complete translations" defaultstate="collapsed">
+...and start your adventure with building automation today!: ... és kezdje el kalandját intelligens épületekkel már ma!
+...open and shut roller shutters: ... felhúzni és lehúzni a redőnyöket
+'...open gateways, gates or doors': '...kinyitni a kiskaput, a nagykaput vagy az ajtót'
+...or control home appliances: ... vagy háztartási készülékeket / elektronikát működtethet
+...you can monitor temperature: ... megfigyelheti a hőmérsékletet
+ACTIVE: AKTíV
+AM2301 Temperature & Humidity Sensor: AM2301 hőmérséklet- és páratartalom-érzékelő
+AM2302 Temperature & Humidity Sensor: AM2302 hőmérséklet- és páratartalom-érzékelő
+API documentation: API dokumentáció
+Access ID: Hozzáférési Azonosító
+Access Identifier: Hozzáférési Azonosító
+Access Identifiers: Hozzáférési azonosítók
+Access identifier limit has been exceeded: A hozzáférési azonosítás korlátozása túllépve
+Access identifier password must be at least 8 characters.: A hozzáférési azonosító jelszavának legalább 8 karakter hosszúnak kell lennie.
+Access identifier password must be no longer than 32 characters.: A hozzáférési azonosító jelszava nem lehet hosszabb 32 karakternél.
+Account: Felhasznalói fiók
+Account access when you are unavailable: 'Hozzáférés a fiókhoz, ha nem  elérhető'
+Account has been activated. You can Sign In now.: A fiók aktiválva lett. A bejelentkezés megengedett.
+Action: Műveletek
+Action execution: Műveletek végrehajtása
+Actions: Műveletek
+Active: Aktív
+Add: Hozzáadás
+Add a new icon: Új ikon hozzáadása
+Add first channel to set channel group function and save it: Válassza ki az első csatornát a csoport funkció meghatározásához és mentéséhez
+Add new channel group: Új csatornacsoport hozzáadása
+Add new channel to this group: Új csatorna hozzáadása a csoporthoz
+Adjust parameters: Állítsa be a paramétereket
+'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Minden csatorna és csatornacsoport, amely ezt az ikont használja, az alapértelmezett ikonokat kapja eltávolításukkor.'
+'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'A hozzáférés megadása után bármikor meggondolhatja magát úgy, hogy visszavonja a hozzáférést a fiókbeállításokban.'
+'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': 'A link közvetlenül az entitás kiválasztása után jön létre. Az összes többi lehetőséget megadhatja, miután az entitást létrehozta.'
+All: Minden
+All the above and many more can be done from your phone or tablet: 'Mindezt és még sok mást, megtehet okostelefonon vagy táblagépen'
+Allowed actions: Megengedett műveletek
+Allows to perform an action only using the HTTP PATCH request.: Lehetővé teszi a műveletek végrehajtását csak a HTTP PATCH kéréssel.
+And more: És még sok más
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Az összes alkalmazás vagy eszköz, amely a {tokenName} tokent használja, nem fog működni.'
+Application name cannot be blank.: Az alkalmazás neve nem lehet üres
+Application requirements: Alkalmazási követelmények
+Are you lost?: Eltévedt? Keres valamit?
+Are you sure you want to change channel’s function?: Biztosan meg akarja változtatni a csatorna funkciót?
+Are you sure you want to delete the entire measurement history saved for this channel?: 'Biztos benne, hogy törli ezen a csatornán összesített mérési előzményeit?'
+Are you sure you want to delete this OAuth application?: Biztosan törli az OAuth alkalmazást?
+Are you sure you want to delete this channel group?: Biztosan törölni akarja ezt a csatorna csoportot?
+Are you sure you want to delete this client?: Biztosan törli ezt az ügyfélalkalmazást?
+Are you sure you want to delete this direct link?: Biztosan törli ezt a közvetlen linket?
+Are you sure you want to delete this icon?: Biztosan törli ezt az ikont?
+Are you sure you want to delete this schedule?: Biztosan törli ezt az ütemtervet?
+Are you sure you want to revoke permissions granted to this OAuth application?: Biztosan visszavonja az OAuth alkalmazás számára biztosított engedélyeket?
+Are you sure you want to revoke this token?: 'Biztos benne, hogy visszavonja a tokent?'
+Are you sure?: Biztosan ezt szeretné?
+Assign Access Identifiers: Rendelje hozzá  a hozzáférési azonosítókat
+Assign Client apps: Rendelje hozzá az ügyfélalkalmazásokat
+Assign Locations: Lokálizáció hozzárendelése
+Authorization callback URLs (one per line): Visszatérési engedély URL (soronként egy)
+'Authorize the application, so that it can access your account.': 'Hitelesítse az alkalmazást, hogy hozzáférhessen a fiókjához.'
+Authorized: Hitelesített
+Authorized OAuth apps: Engedélyezett OAuth alkalmazások
+Automation: Automatizálás
+Back to apps list: Vissza az alkalmazások listájához
+Brightness: Fényerő
+CLICK TO DISABLE: KATTINTSON KIKAPCSOLÁSHOZ
+CLICK TO ENABLE: KATTINTSON A BEKAPCSOLÁSHOZ
+Calibration: Kalibrálás
+Cancel: Visszavonás
+Cancel changes: A változtatások visszavonása
+Cancelled: Visszavont
+Cannot execute an action when the device is disconnected.: 'Nem végezhet műveleteket, ha az eszköz ki van kapcsolva.'
+Cannot send an activation e-mail. Try again later.: 'Nem lehet üzenetet küldeni az aktiválási linkkel. Kérjük, próbálja meg újra később.'
+Captcha token is not valid.: Érvénytelen captcha.
+Caption: Aláírás
+Change Password: Jelszó módosítása
+Change icon: Ikon váltása
+Changing channel’s function will also result in the following changes.: A csatorna funkciójának megváltoztatása a következő változásokat is okozza.
+Channel: Csatorna
+Channel No: Csatorna száma
+Channel for the partial opening sensor: Csatorna az indirekt nyitású érzékelőhöz
+Channel for the sensor: Csatorna érzékelő
+Channel group: Csatorna csoport
+Channel group limit has been exceeded: A csatorna csoportok korlátozása túllépve
+Channel group must consist of at least one channel.: A csatorna csoportnak legalább egy csatornát tartalmaznia kell.
+Channel groups: Csatornák csoportjai
+Channel is assigned to the I/O device location: A csatorna hozzá van rendelve az eszköz lokálizáláshoz
+Channels: Csatornák
+Check the direct link you used and try again.: 'Ellenőrizze a hívott közvetlen linket, és próbálja újra.'
+Check your email box: Ellenőrizze az e-mail postafiókját
+Choose: Válassza ki
+Choose Access Identifier: Wybierz Identyfikator Dostępu
+Choose Access Identifiers to be assigned to this Location: Válassza ki az ehhez a helyhez hozzárendelhető Hozzáférési Azonosítókat
+Choose client apps: Válassza ki az Ügyfélalkalmazásokat
+Choose location: Új lokálizáció kiválasztása
+Chosen hour: Kiválasztott óra
+Client’s Apps: Ügyfél alkalmazások
+Client’s app has been deleted: Az ügyfélalkalmazást eltávolították
+Close: Bezárás
+Color: Szín
+Color brightness: Szín fényerő
+Coming Soon: Hamarosan elérhető
+Comment: Megjegyzés
+Configuration: Konfigurálás
+Confirm Password: Jelszó megerősítése
+Confirm if you want to remove Access Identifier: 'Erősítse meg, hogy el akarja távolítani a Hozzáférési Azonosítót'
+'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Erősítse meg, hogy el akarja távolítani a {locationId} helyazonosítót. Nincs további I / O eszköz csatlakozási lehetőség ehhez a lokálizációhoz.'
+Connected: Csatlakozva
+Connection with a private instance of the SUPLA cloud: Csatlakozás egy magán SUPLA felhőhöz.
+Constraints: Korlátozások
+Could not reset the password.: A jelszó visszaállítása sikertelen.
+Could not reset the password. Please try again later.: 'Nem lehet visszaállítani a jelszót. Kérjük, rövidesen próbálja újra.'
+Create New Access Identifier: Hozzon létre egy új Hozzáférési Azonosítót
+Create New Location: Hozzon létre új Lokálizációt
+Create New Schedule: Hozzon létre egy új ütemezést
+Create an account: Hozz létre egy fiókot
+Create new direct link: Hozzon létre egy új közvetlen linket
+Currency: Pénznem
+Current Password: A mostani jelszó
+Current password is incorrect: A jelenlegi jelszó helytelen
+Custom: Szokásostól eltérő
+Custom execution limit: Szokásostól eltérú teljesítménykorlát
+DHT11 Temperature & Humidity Sensor: DHT 11 hőmérséklet- és páratartalom-érzékelő
+DHT21 Temperature & Humidity Sensor: DHT21 hőmérséklet- és páratartalom-érzékelő
+DHT22 Temperature & Humidity Sensor: DHT22  hőmérséklet- és páratartalom-érzékelő
+DS18B20 Thermometer: DS18B20 hőmérő
+Data saved: Az adatok mentésre kerültek
+Days: Napok
+Decline: Elutasítás
+Delete: Eltávolítás
+Delete measurement history: Mérési előzményeket törlése
+Delete my account: A fiók törlése
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'A fiók törlésével az összes adat törlődik, beleértve a csatlakoztatott eszközöket, a konfigurált csatornákat, a közvetlen linkeket és a mérési előzményeket. A fiók törlése végleges.'
+Depth: Mélység
+Depth sensor: Mélységérzékelő
+Description: Leírás
+Details: Részletek
+Device: Készülék
+Device unavailable: Az eszköz nem érhető el
+Dimmer: Fényerőszabályzó
+Dimmer & RGB led controller: Fény tompító és RGB világítási vezérlő
+Dimmer and RGB lighting: Fényerőszabályzó és RGB világítás
+Direct link: Közvetlen link
+Direct link has been created successfully!: Sikeresen létrehoztunk egy közvetlen linket!
+Direct link has been executed: Közvetlen link létrehozva
+'Direct link is not working right now. Reason:': 'A közvetlen link jelenleg nem működik. Indoklás:'
+Direct links: Közvetlen linkek
+Disabled: Kikapcsolva
+Disconnected: Szétszakadt
+Distance: Távolság
+Distance sensor: Távolságérzékelő
+'Don’t worry, you can always reset your password via email. Click here to do so.': 'Ne aggódj. A jelszavát bármikor visszaállíthatja az e-mail segítségével. Kattintson ide, ha vissza akarja állítani a jelszavát.'
+Door lock operation: Az ajtó kinyitása
+Door opening sensor: Ajtónyitás érzékelő
+Doors and gates: Ajtók és kapuk
+'Doors, Gates': 'Ajtók,  Kapuk'
+Download the history of measurement: Töltse le a mérési előzményeket
+Drag your image(s) here or click to select from the disk: 'Húzza ide a képet, vagy kattintson a lemezről való kiválasztáshoz'
+Edit: Szerkesztés
+Electric: Villamosság
+Electricity meter: Elektromos energia mérő
+Empty!: Üres!
+Enabled: Bekapcsolva
+End date: Záró dátum
+Enter new password: Adjon meg egy új jelszót
+Enter strong password: Írjon be egy erős jelszót
+Enter the data below in the settings of your control device (I/O Device).: Írja be az alábbi adatokat a vezérlőkészülék (I / O eszköz) beállításaiba.
+Enter the data below in your mobile SUPLA application on your smartphone.: Írja be az alábbi adatokat az okostelefonjára telepített SUPLA mobilalkalmazásba.
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Csak a domaint adja meg a porttal együtt, ha nem szabványos (443). HTTPS kapcsolat szükséges.'
+Enter your email address: Írja be e-mail címét
+Enter your password to prevent automatic logout.: Írja be a jelszavát az automatikus kijelentkezés megakadályozására.
+Error: Hiba
+Error when communicating the server. Try again in a while.: 'Hiba történt a szerverrel való kommunikáció során. Kérjük, rövidesen próbálja újra.'
+Every: Co
+Example Auth URL: Engedélyezési URL minta
+Executed action: Végrehajtott művelet
+Executed without confirmation: Megerősítés nélkül végrehajtott művelet
+Execution history: Végrehejtott műveletek előzményei
+Execution limit: Teljesítménykorlát
+Executions: Végrehajtott műveletek
+Expired: Lejárt
+Failed: Sikertelen
+Failed (zombie): Sikertelen (zombie)
+File is too large: A fájl túl nagy
+For devices: Eszközökhöz
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Biztonsági okokból a közvetlen link teljes URL-je csak egyszer jelenik meg a létrehozása során.
+Forgot your password?: Elfelejtetted a jelszavad?
+Forward active energy: Fogyasztott aktív energia
+Fridays: Péntekek
+From IP: IP-címről
+From anywhere: Bárhonnan
+Full closing time: Teljes bezárási idő
+Full documentation: Teljes dokumentáció
+Full opening time: Teljes nyitvatartási idő
+Function: Funkció
+G5LA1A Relay: G5LA1A relé
+G5LA1A Relay x2: 2xG5LA1A relé
+GENERATE: GENERÁLÁS
+Garage door opening sensor: Garázs kapunyitás érzékelő
+Garage door operation: Garázskapu nyitása / zárása
+Gas meter: Gázmérő
+Gate opening sensor: A bejárati kapu nyitás érzékelője
+Gate operation: Garázskapu nyitása / zárása
+Gateway lock operation: A kiskapu megnyitása
+Gateway opening sensor: Kiskapunyitás-érzékelő
+Generate new token: Generáljon egy új tokent
+Generate token: Generálj tokent
+Get SUPLA on your devices: Töltse le  SUPLA-t a készülékeire
+Go to I/O device details: Tovább az eszköz részleteihez
+Go to channel details: Ugrás a csatorna részleteihez
+Go to your account: Tovább a fiókjához
+Grant access: Hozzáférés megadása
+HFD4 Relay: HFD4 relé
+'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Nem érkezett üzenet a fiókját aktiváló linkkel? Ellenőrizze, hogy nincs-e a SPAM (levélszemét) mappában. A [ide] gombra kattintva ismét elküldheti.'
+History of measurements: Mérési előzmények
+Home appliances: Háztartási gépek / elektronika
+Home+ Heater: Fűtés Home+
+Hours: Órák
+Humidity: Nedvességtartalom
+Humidity Sensor: Páratartalom-érzékelő
+Humidity adjustment: Páratartalom beállítása
+Humidity sensor: Páratartalom-érzékelő
+'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Elfogadom a [Szabályzat] és elfogadom a személyes adataim feldolgozását a [Szabályzat] által megadott célra és hatályra.'
+I agree: Egyetértek
+'I aree, taske me to the app': 'Egyetértek, tovább az alkalmazáshoz'
+I confirm! Delete my account.: Megerősítés! A fiók törlése.
+'I do not agree, get me out of here': 'Nem értek egyet, vigyél el innen'
+I/O Devices: I / O eszközök
+INACTIVE: INAKTIV
+Idle: Üres járat
+'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ha programozó, aki további szolgáltatásokat szeretne biztosítani a SUPLI számára, hozzon létre egy OAuth alkalmazást, amelyet a felhasználók engedélyezhetnek és használhatnak.'
+'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ha biztos benne, hogy van fiókja a cloud.supla.org webhelyen, ellenőrizze, hogy az alkalmazás, amelyet engedélyezni próbál, nyilvános.'
+'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor [regisztrálnia kell a példányt].'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Ha a közvetlen linket más szoftverekben szeretné használni, akkor adja hozzá a megfelelő kérelem fejlécét, hogy könnyebben feldolgozható választ kapjon.'
+'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Ha szeretné megtekinteni az elérhető integrációkat, lépjen a [cloud.supla.org/apps] oldalra.'
+Impulse counter: Impulzusszámláló
+Impulses: impulzusok
+'In order to confirm account deletion, enter your password.': A fiók törlésére irányuló szándékának megerősítéséhez írja be a jelszavát.
+Incorrect password: Hibás jelszó
+Information: Tájékoztatás
+Inherit I/O Device location: Használja az eszköz lokálizálást
+Initial value: Kezdőérték
+Integrations: integrációk
+Interval: Intervallum
+Invalid SUPLA Cloud URL.: Érvénytelen SUPLA Cloud URL.
+'Invalid redirect URI: {uri}': 'Érvénytelen visszaküldési  URL: {uri}'
+Invalid request: Érvénytelen kérés
+Inverted logic: Fordított logika
+Invisible: Láthatatlan
+Language is not available: A nyelv nem érhető el
+Last access: Legutóbbi kapcsolat
+Last connection: Legutóbbi kapcsolat
+Last used: Utoljára használt
+Let me choose later: Hadd válasszam később
+Light switch: Fény kapcsoló
+Lighting: Világítás
+Limit has been exceeded: A határértéket túllépték
+'Liquid, Temp': 'Folyadék, hőmérséklet'
+Location: Helyszín
+Location Identifier: Helyazonosító
+Location limit has been exceeded: A helyazonosító korlát túllépve
+Location password must be at least 4 characters.: A helyazonosító jelszónak legalább 4 karakter hosszúnak kell lennie.
+Location password must be no longer than 32 characters.: A helyazonosító jelszó nem lehet hosszabb 32 karakternél.
+Locations: Helyszínek
+Login: Belépés
+Mail sensor: Levél érzékelő
+Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ügyeljen arra, hogy biztonságos helyen elmentette, ha a jövőben használni akarja. Az oldal elhagyása után a link már nem jelenik meg.'
+'Maximum filesize limit is {limit}.': 'A maximális fájlméret {limit}.'
+Meter value: Mérőóra leolvasás
+Minute: Perc
+Mobile Apps: Okostelefon-alkalmazás
+Mode: Mód
+Modification: Módosítás
+Mondays: Hétfők
+My OAuth apps: Saját OAuth alkalmazások
+My SUPLA: Saját SUPLA-m
+Name: Megnevezés
+Never: Soha
+New OAuth application: Az új OAuth alkalmazás
+New channel group: Új csatornacsoport
+New direct link: Új közvetlen link
+New password: Új jelszó
+Newer: Újabb
+Next run date: Legközelebbi végrehajtás
+'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nincs aktív hozzáférési azonosítója. Ugrás [hozzáférési azonosító lista] vagy [új hozzáférési azonosító hozzáadása].'
+No function: Nincs implementált funkció
+No future executions - schedule disabled: Nincsenek tervezett műveletek - ütemezés kikapcsolva
+No limit: Nincs korlátozás
+No liquid sensor: Folyadékhiány-érzékelő
+'No location enabled. Go to [location list] or [add a new location].': 'Nincs aktív lokálizálás. Lépjen a [helylista] vagy [új hely hozzáadása] pontra.'
+'No results match {0}': 'Nincs találat {0}'
+No. of Client’s apps: Az ügyfélalkalmazások száma
+No. of access identifiers: Hozzáférési azonosítók száma
+No. of channel groups: Csatornacsoportok száma
+No. of channels: Csatornák száma
+No. of devices: Eszközök száma
+No. of locations: Lokálizációk száma
+None: Hiány
+OAuth application: OAuth alkalmazás
+OAuth authorization: OAuth engedélyezés
+'Off': Kikapcsolás
+Offline access: Offline hozzáférés
+Older: Régebbi
+'On': Bekapcsolás
+On/Off switch: Főkapcsoló
+'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Csak az opcionális portszámmal rendelkező tartománynevek használhatók. Például. mysupla.org vagy mysupla.org:88. A HTTPS szükséges.'
+Open: Megnyitás
+Open / close: Nyitás / Bezárás
+Opening sensor: Nyitó érzékelő
+Original location: Eredeti lokálizáció
+'Otherwise go to [the homepage].': 'Más esetben lépjen a [kezdőlapra].'
+Partial opening sensor: Közvetett nyitás érzékelője
+Password: Jelszó
+Password Reset: Jelszó visszaállítása
+Password has been changed: A jelszava megváltozott.
+Percentage of closing: A bezárás százalékos aránya
+Personal access tokens: Személyes hozzáférési tokenek
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'A személyes hozzáférési tokenek a normálhoz hasonlóan működnek, azzal a különbséggel, hogy határozatlan ideig érvénesek.'
+Personal token name is required.: Személyes token név megadása szükséges.
+Please click the link we have sent you after the registration to proceed.: 'Kattintson az üzenetben kapott linkre, amelyet a fiók létrehozása után küldtünk neked.'
+Please enter a valid email address: 'Kérjük, adjon meg egy érvényes e-mail címet'
+Please fill a valid email address: Adja meg helyes e-mail címét
+Please log in again to proceed.: Jelentkezzen be újra a folytatáshoz.
+Please provide a valid domain name for your private SUPLA Cloud: Írja be a helyes domain nevét a magán SUPLA felhőhöz
+Please wait a moment before the next login attempt.: Várjon egy pillanatot a következő bejelentkezési kísérlet előtt.
+Pressure sensor: Nyomásérzékelő
+Previous login: Előző bejelentkezés
+Price per: Ára
+Private Cloud domain name: Magán felhő domain név
+Proceed: Folytassa
+Processing: Folyamatban
+Public ID: Publikus ID
+RESET: RESET
+RGB led controller: RGB világításvezérlő
+RGB lighting: RGB világítás
+Rain sensor: Esőérzékelő
+Random: Véletlenszerű
+Read: Leolvasás
+Refresh: Frissítés
+Register: Regisztráció
+Register a new OAuth application: Regisztrálja az új OAuth alkalmazást
+Register private SUPLA Cloud: Regisztrálja a SUPLA magán felhőt
+Registered: Regisztrált
+Registration of new I/O devices: Eszköz regisztráció
+Registration of new clients: Ügyfél regisztráció
+Relay: Relé
+Relay switching time: A relé bekapcsolásának ideje
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Mielőtt eltávolítana egy helyet, előbb át kell helyeznie a benne lévő csatornacsoportokat. Azonosítók: {relatedIds}.'
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Mielőtt törölne egy lokálizációt, előbb át kell helyeznie a benne lévő csatornákat. Azonosítók: {relatedIds}.'
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'A hely törlése előtt törölje a párosított eszközöket. Azonosítók: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Előbb távolítsa el az összes eszközt, amely ezt a lokálizációt használja eredeti helyként. Azonosítók: {relatedIds}.'
+Repeat password: A jelszó ismétlése
+Retry on failure: 'Ismételje meg, ha nincs végrehajtva'
+Reveal: Elhúzás
+Reveal partially: Részbeni elhúzás
+Revoke: Érvénytelenítés
+Roller shutter opening sensor: Redőny nyitó érzékelő
+Roller shutter operation: Redőnyök nyitása és bezárása
+Roller shutters: Redőnyök
+SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
+SUPLA Server was unable to execute the action.: Hiba történt a művelet végrehajtása során a SUPLA szerveren.
+'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'A SUPLA bármikor és bárhonnan elérhető, ezért ne aggódjon, amikor legközelebb elfelejti kikapcsolni a fényt'
+Saturdays: Szombatok
+Save: Mentés
+Save and enable: Mentés és bekapcsolás
+Save changes: Változtatások mentése
+Save changes to see Access IDs: A változtatások mentése a hozzáférési azonosítók megjelenítéséhez
+Schedule: Ütemterv
+Schedule cannot be enabled: Az ütemezés engedélyezése sikertelen
+Schedule limit has been exceeded: Az ütemezés korlátozás túllépve
+Schedule mode: Ütemezés mód
+Schedules: Ütemtervek
+Scope: Az alkalmazási terület (scope)
+Scopes: Az alkalmazási területek
+Scopes define which sections of your account can be accessed when using the token.: 'Az alkalmazási tartományok határozzák meg, hogy melyik fiók forrásokhoz érhető el a hozzáférés a token segítségével.'
+Search: Keresés
+Secret: Titkos kulcs (secret)
+See direct link possibilities: Lássa meg a közvetlen link lehetőségeit
+Seems like a secret place: 'Valami azt súgja, hogy nem szabad itt lennie'
+Select icon: Ikon kiválasztása
+Select the item (subject) you want to control using this link: 'Válassza ki az elemet  (entitást), amelyet ellenőrizni szeretne ezzel a linkkel'
+Sensor (normal closed): Érzékelő (általában zárt)
+Sensor (normal open): Érzékelő (általában nyitva)
+Sensor disconnected: Érzékelőhiány
+Sensors: Érzékelők
+Server address: A szerver címe
+Server unreachable: A Szerver nem érhető el
+Service temporarily unavailable: A szolgáltatás ideiglenesen nem érhető el
+Show on the Client’s devices: Megjelenítés az ügyfél eszközökön
+Shut: Befüggőnyözés
+Sign In: Jelentkezzen be
+Sign Out: Lépjen ki
+Sign in temporarily unavailable. Please try again later.: 'A bejelentkezés átmenetileg nem érhető el. Kérjük, próbálja meg újra később.'
+Smartphones: Okostelefonok
+SoftVer: WerOpr
+Sources available from: Források a következő nyelven érhetők el
+Staircase timer: Lépcsőautomata
+Start Here: Kezdje itt
+Start date: Kezdő dátum
+State: Állapot
+Stop: Leállítás
+Subject: Entitás
+Subject type: Entitás típusa
+Success: Siker
+Successful: Sikeres
+Sundays: Vasárnapok
+Sunrise / Sunset: Kelet / Nyugat
+Supla for devices: Supla bizonyos eszközökre
+Temperature: Hőmérséklet
+Temperature & Humidity Sensor: Hőmérséklet- és páratartalom-érzékelő
+Temperature Sensor: Hőmérséklet-érzékelő
+Temperature adjustment: Hőmérséklet beállítása
+Temperature and humidity sensor: Hőmérséklet- és páratartalom-érzékelő
+'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Az integrációknak köszönhetően könnyedén hozzáadhat az fiókjához  új funkciókat a külső szállítók, programozók vagy saját maga által nyújtott megoldásokat felhasználásával.'
+The Terms and Conditions have changed: A  Szabályzat megváltozott
+The Terms and Conditions have changed – please read them and accept.: A szolgáltatás Szabályzata megváltozott - jóváhagyás szükséges.
+The activation link has been sent again. Check the inbox.: Újra elküldtük a fiókja aktiválására szolgáló linket tartalmazó üzenetet. Ellenőrizze a beérkező levelek mappáját.
+The client will be automatically logged out when deleted.: Az ügyfél eltávolításával azonnal kilép.
+The device is disabled: Az eszköz ki van kapcsolva
+The gate sensor must function properly in order to execute the scheduled action.: A művelet végrehajtásához a kapunyílás-érzékelőnek megfelelően kell működnie.
+The latest execution: Legutóbbi végrehajtás
+'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'A megvalósítás eredménye weboldalként jelenik meg, mert Ön (vagy a böngészője) HTML formátumban kért választ.'
+The measurement history has been deleted.: A mérési előzményeket törölték.
+The next available executions: Legközelebbi végrehajtások
+The password and its confirm are not the same.: A jelszó és a megerősítése nem egyezik.
+The password should be 8 or more characters.: A jelszónak legalább 8 karakterből kell állnia.
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'A szerver 400-as hibát adott vissza, ami azt jelenti, hogy az elküldött kérés nem érvényes.'
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'A szerver HTTP 403-as hibát adott vissza. Ez azt jelenti, hogy nincs elegendő jogosultsága az elem megtekintéséhez.'
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'A szerver HTTP 404-es hibát adott vissza. Ez azt jelenti, hogy a keresett elem nem létezik.'
+'The server has returned an HTTP {statusCode} error.': 'A szerver a {statusCode} hibát adott vissza.'
+'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'A kiválasztott ikonfájlok túl nagyok. A maximális feltöltési méret {limit}.'
+There are no more channels you can add to this group: 'Nincs további csatorna, amelyet hozzá lehetne adni ehhez a csoporthoz'
+Thermometer: Hőmérő
+Thermostat: Termosztát
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.'
+This is the list of applications you have granted access to your account.: 'Ez olyan alkalmazások listája, amelyeknek hozzáférést biztosított a fiókjához.'
+Thursdays: Csütörtökök
+Timezone: Időzóna
+Toggle: Átkapcsolás
+Token does not exist: A token nem létezik
+Too many channels in this group: Túl sok csatorna van ebben a csoportban
+Tuesdays: Keddek
+Turning this device off will result in disabling all the associated schedules.: Az eszköz kikapcsolásakor kikapcsolódnak a hozzá tartozó harmonográmok is.
+Type: Típus
+Unit: Egység
+Unknown: Ismeretlen
+Unsupported function: Nem támogatott funkció
+Unsupported type: Nem támogatott típus
+'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'A feltöltött fájlok nem ütköznek a közerkölcsbe, nem sértik a szerzői jogokat se a harmadik személyek jogait, és jogsult vagyok ezek használatára.'
+User is already confirmed. Try to log in.: Ezt a fiókot már megerősítettük. Belépés
+Visible: Látható
+Visit app webpage: Nyissa meg az alkalmazás webhelyét
+WELCOME_MESSAGE: |
+  Könnyen csatlakoztathatja otthonát vagy irodáját a SUPLA-hoz. Csak annyit kell tennie,
+  hogy a következő adatokat bevezeti a vezérlőberendezésekbe (I / O) és az okostelefonjaiba.
+Water meter: Vízmérő
+We could not connect to your SUPLA Cloud instance.: Nem sikerült csatlakozni a magán SUPLA cloudra.
+We have just sent you an activation link. Be patient.: Nemrég elküldtük a fiók aktiválására szolgáló linket tartalmazó üzenetet. Köszönjük türelmét.
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Küldtünk egy e-mailt a linkkel, amely megerősíti a fiókja törlését. Talán még meggondolja magát!'
+We should be ready shortly.: Powinniśmy niedługo skończyć.
+'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Az alkalmazás használatának megkönnyítése érdekében az Ön böngészőjében tárolunk információkat az Ön preferenciáiról (például egy cookie-mechanizmus használatával). [Olvassa el a Szabályzatot].'
+We were not able to find your account.: Nem találtuk a fiókját.
+We will miss you: Hiányozni fog
+'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Mindent megteszünk annak érdekében, hogy a megjelenített ikonokat a lehető legjobb módon láthatóak legyenek, de a legjobb eredményt akkor érheti el, ha átlátszó háttérrel és {width} szélességgel  és {height} magassággal  képpontos PNG fájlokat küld.'
+We will use it only in justified situations.: Csak indokolt esetekben fogjuk alkalmazni.
+Weather Station: Időjárás
+Wednesdays: Szerdák
+Weight sensor: Súly
+What this token is for?: Mire való ez a token?
+When: Mikor
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Közvetlen linkműveletet hajthat végre, ha megadja annak egyedi azonosítóját a HTTP PATCH kérés törzsében. Ez a biztonságosabb, mert megakadályozza, hogy a link teljes címe a szerver hozzáférési naplóiban kerüljön mentésre, amelyen keresztül a kérés átadódik. Az alábbiakban talál egy példát e műveletre a cURL eszköz használatával.'
+Where is the JSON?: Hol van a JSON?
+Where is your SUPLA Cloud?: Hol található a Suplája?
+White: Fehér
+Wind sensor: Szélérzékelő
+Window opening sensor: Ablaknyitás-érzékelő
+With SUPLA you can operate the lights in your home or office: A SUPLA segítségével vezérelheti otthoni vagy irodai világítását
+With function: Funkcióval
+Working period: A működési időszaka
+YOUR LINK CODE: A LINKJE KÓDJA
+You can use the application but you will not be able to modify any settings.: 'Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.'
+You cannot delete your last access identifier.: Az utolsó hozzáférési azonosítót nem törölheti.
+You cannot delete your last location.: Az utolsó lokálizációt nem törölheti.
+You just need to execute the following command inside your host terminal.: Elegendő futtatni a következő parancsot a gazdagépen.
+You must agree to the Terms and Conditions.: A szabályzat elfogadása kötelező.
+You need to provide icons for all states.: Minden állapothoz meg kell adnia egy ikont.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Frissítenie kell a SUPLA Cloud példányát legalább a 2.3.0 verzióra.
+You will not be able to generate a direct link with the same URL again.: Link létrehozása ugyanazon URL-címmel nem lehetséges.
+Your account has been deleted. We hope you will come back to us soon.: 'A fiókot töröltük. Reméljük, hogy hamarosan visszatér hozzánk.'
+Your account has been locked.: A fiókja letiltásra került.
+Your account has not been confirmed yet.: Még nem erősítette meg a fiókját.
+Your email: Az e-mail címe
+Your instance is not registered or you are trying to authorize an application that is not public.: 'Az entitása nincs regisztrálva, vagy nem nyilvános alkalmazást próbál engedélyeztetni.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'A SUPLA felhő magán példánya nem érhető el. Győződjön meg arról, hogy szervere online és a HTTPS kapcsolat megfelelően működik.'
+Your private SUPLA Cloud is almost registered.: A saját SUPLA felhője majdnem regisztrált.
+Your private SUPLA Cloud is not registered.: A saját SUPLA felhője nincs regisztrálva.
+Your session has been expired.: Twoja sesja wygasła.
+Your session is about to expire: A munkamenete hamarosan lejár
+'Your session will expire in [time].': 'A munkamenete [idő] múlva lejár.'
+after: utána
+before: előtte
+choose: válassza ki
+choose a currency: válasszon pénznemet
+choose the channel: csatorna kiválasztása
+choose the channel group: válasszon egy csatornacsoportot
+choose the timezone: válassza ki az időzónát
+copied: átmásolva
+copy: másolás
+daily: Napi ciklus
+directLinkExecutionFailureReason_disabled: A közvetlen link ki van kapcsolva
+directLinkExecutionFailureReason_executionLimitExceeded: A teljesítménykorlátot túllépve
+directLinkExecutionFailureReason_expired: A közvetlen link lejárt
+directLinkExecutionFailureReason_forbiddenAction: A link nem engedélyezi ezt a műveletet
+directLinkExecutionFailureReason_httpGetForbidden: Az illegális HTTP GET módszer felhasználásával megkisérelt művelet végrehajtása letiltva
+directLinkExecutionFailureReason_invalidActionParameters: Érvénytelen közvetlen link paraméterei
+directLinkExecutionFailureReason_invalidSlug: A megadott ellenőrző kód érvénytelen.
+directLinkExecutionFailureReason_noAllowedActions: Nincs kiválasztva semmilyen engedélyezett művelet
+directLinkExecutionFailureReason_noSlugOrAction: Érvénytelen kérés - a link kódja és a művelet szükséges
+directLinkExecutionFailureReason_notActiveYet: A közvetlen link még nem aktív
+directLinkExecutionFailureReason_otherFailure: Hiba a művelet végrehajtása során
+directLinkExecutionFailureReason_unsupportedAction: A kiválasztott művelet nem érvényes
+executed: végrehajtva
+extend: meghosszábbítása
+from IP: az IP-címről
+from the IP: a címről
+hourly: Óránkénti ciklus
+minutely: Perces ciklus
+minutes: perc
+once: Egyszer használatos
+register-slide1-text: 'A rendelkezésre álló elektronika alapján a SUPLA lehetővé teszi az egyszerű modulok elkészítését, amelyek lehetővé teszik az épület automatizálási részeinek vezérlését és irányítását. A SUPLA-nak köszönhetően többek között ellenőrizheti a világítást, be- és kikapcsolhatja a háztartási készülékeket, kinyithatja és bezárhatja a kapukat és az ajtókat, vagy szabályozhatja a helyiség hőmérsékletét. Mindezt egy mozdulattal megteheti.'
+register-slide1-title: Saját Intelligens Épület
+register-slide2-text: 'A projekt alapelvei az egyszerűség és hogy álandóan rendelkezésre áll. A SUPLA lehetővé teszi, hogy egy mozdulattal bekapcsolja a világjtást vagy megnyissa a bejárati kaput, amikor az ingatlanba kíván belépni. A SUPLA bárhol elérhető, ahol van internet-hozzáférés, és kéznél van okostelefon vagy táblagép. A SUPLA-t a nyílt szoftver és a nyílt forráskódú szoftver és hardver elve alapján fejlesztették ki, amelynek köszönhetően Ön is fejlesztheti ezt a projektet!'
+register-slide2-title: SUPLA mindenhol!
+register-slide3-text: 'A piacon elérhető épületi automatizálási rendszerek okosotthonhoz általában nagyon összetettek, zártak és költségesek. Sok esetben a telepítést már a létesítmény építésének szakaszában megkövetelik. A SUPLA egyszerű, nyitott és ingyenes. Lehetővé teszi a RaspberryPI, Arduino vagy ESP8266 platformokon alapuló végrehajtó elemek felépítését és LAN és WiFi általi összekapcsolásukat. Csatlakozzon a projekthez, és készítse el az épület automatizálási rendszerének saját verzióját!'
+register-slide3-title: Ingyenes és nyitott!
+sec.: mp.
+'smartphones, tablets, etc.': 'okostelefonok, táblagépek stb.'
+state-closed: Zárva
+state-default: Eredmény
+state-empty: Üres
+state-full: Teljes
+state-humidity: Nedvességtartalom
+state-off: Kikapcsolva
+state-on: Bekapcsolva
+state-opened: Nyitva
+state-partially_closed: Részben zárt
+state-revealed: Elhúzva
+state-rgb_off_dim_off: RGB és fényerőszabályzó kikapcsolva
+state-rgb_off_dim_on: 'RGB kikapcsolva, fényerőszabályzó bekapcsolva'
+state-rgb_on_dim_off: 'RGB bekapcsolva, fényerőszabályzó kikapcsolva'
+state-rgb_on_dim_on: RGB és fényerőszabályzó bekapcsolva
+state-shut: Elfüggönyözve
+state-temperature: Hőmérséklet
+sunrise-after: napkeltekor
+sunrise-before: napkelte előtt
+sunset-after: napnyugtakor
+sunset-before: napnyugta előtt
+will expire: lejár
+'{applicationName} will not be able to interact with your account until you grant the access again.': 'A (z) {applicationName} csak akkor léphet kapcsolatba fiókjával, ha újra hozzáférést biztosít.'
+'{clientName} wants to access your account.': 'A (z) {clientName} hozzáférni kíván fiókjához.'
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+Are you sure you want to disable this device?: Biztosan ki akarja kapcsolni ezt az eszközt?
+Assigned Locations: Hozzárendelt Lokálizációk
+Channel will be deleted from the channel group below: A csatorná eltávolítva a következő csatornacsoportokból
+'Confirm if you want to remove {deviceName} device': 'Erősítse meg, hogy el akarja távolítani a (z) {deviceName}'
+DISABLED: KIKAPCSOLVA
+Date: Dátum
+Direct links below will be deleted: Az alább felsorolt közvetlen linkek eltávolításra kerülnek
+Disable: Kikapcsolás
+ENABLED: BEKAPCSOLVA
+Email already exists: Az e-mail cím már létezik
+Enable: Bekapcsolás
+Existing schedules: Meglévő ütemtervek
+Hi: Szia!
+Hour: Óra
+I/O: Bejárat/Kijárat
+'If you want to stay here, do something!': 'Ha itt akar maradni, csináljon valamit!'
+Input: Bejárat
+Languages: Nyelvek
+Loading: Töltés
+Next: Tovább
+Number: Szám
+Output: Kilépés
+Please select the schedules that should also be enabled.: 'Jelölje be az ütemezéseket, amelyeket szintén be akarja kapcsolni.'
+Registration: Regisztráció
+Remove: Eltávolítás
+Schedules below will be deleted: Az alábbi ütemtervek törlésre kerülnek
+Status: Státusz
+Try again later: 'Kérjük, próbálja meg újra később.'
+You will be logged out shortly: Hamarosan ki lesz léptetve
+execute: végrehajtás
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+'%s trigger is not supported by the hardware.': ~
+A-Z: ~
+Action trigger: ~
+Action triggers: ~
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
+Add a delay: ~
+Add new item to use in the scene: ~
+Are you sure you want to delete this scene?: ~
+Bar: ~
+Bridge: ~
+Channel reference will be removed from the items below.: ~
+Channel value: ~
+Chart data source type: ~
+Chart type: ~
+Clear: ~
+'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Could not contact Autodiscover service. Try again in a while.: ~
+Create new scene: ~
+Device channel value: ~
+Differential: ~
+Direct links limit has been exceeded: ~
+Execute: ~
+Execute the scene: ~
+General purpose measurement: ~
+Heat meter: ~
+ID: ~
+Icon: ~
+Inactive: ~
+Interpolate measurements: ~
+Invalid action.: ~
+Invalid function for channel.: ~
+Linear: ~
+Need one of these?: ~
+New scene: ~
+No of operations: ~
+Open partially: ~
+Operations: ~
+Precision: ~
+Private instance of the SUPLA cloud with given URL is already registered.: ~
+Scene: ~
+Scene must consist of at least one operation.: ~
+Scenes: ~
+Scenes limit has been exceeded: ~
+Some features depend on this device: ~
+Some of the features you have configured rely on channels from this device.: ~
+Standard: ~
+Store measurements history: ~
+The following items use the channels of these device. These references will be also removed.: ~
+'The following items will be deleted with this device:': ~
+'The items below rely on this channel function, so they will be deleted.': ~
+Triggers: ~
+Turning this device off will cause its channels not working in the following features.: ~
+Turning this device off will result in disabling features listed below.: ~
+Value per unit: ~
+Valve: ~
+You need to specify at least brightness or color for this action.: ~
+actionTriggerDescription_: ~
+actionTriggerDescription_HOLD: ~
+actionTriggerDescription_PRESS: ~
+actionTriggerDescription_PRESS_2X: ~
+actionTriggerDescription_PRESS_3X: ~
+actionTriggerDescription_RELEASE: ~
+actionTrigger_: ~
+actionTrigger_HOLD: ~
+actionTrigger_PRESS: ~
+actionTrigger_PRESS_2X: ~
+actionTrigger_PRESS_3X: ~
+actionTrigger_RELEASE: ~
+actionableSubjectType_: ~
+actionableSubjectType_channel: ~
+actionableSubjectType_channelGroup: ~
+actionableSubjectType_scene: ~
+channel: ~
+channelGroup: ~
+choose the scene: ~
+min.: ~
+or add a delay: ~
+password: ~
+prefix: ~
+scene: ~
+suffix: ~
+username: ~
+
+#</editor-fold>

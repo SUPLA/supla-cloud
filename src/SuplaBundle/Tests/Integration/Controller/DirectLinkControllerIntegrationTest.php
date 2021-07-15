@@ -20,9 +20,12 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Supla\SuplaServerMock;
@@ -294,6 +297,41 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('"on":', $response->getContent());
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+    }
+
+    public function testCreatingDirectLinkForScene() {
+        $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
+        $this->channelGroup = $this->getEntityManager()->find(IODeviceChannelGroup::class, $this->channelGroup->getId());
+        $scene = new Scene($this->device->getLocation());
+        $scene->setOpeartions([new SceneOperation($this->channelGroup, ChannelFunctionAction::TURN_ON())]);
+        $this->getEntityManager()->persist($scene);
+        $this->getEntityManager()->flush();
+        $response = $this->createDirectLink([
+            'caption' => 'My link',
+            'subjectType' => 'scene',
+            'subjectId' => $scene->getId(),
+            'allowedActions' => ['execute'],
+        ]);
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My link', $content['caption']);
+        $this->assertEquals(ActionableSubjectType::SCENE, $content['subjectType']);
+        $this->assertEquals($scene->getId(), $content['subjectId']);
+        $this->assertArrayHasKey('slug', $content);
+        return $content;
+    }
+
+    /** @depends testCreatingDirectLinkForScene */
+    public function testGettingSceneDirectLinks($linkData) {
+        $sceneId = $linkData['subjectId'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/scenes/' . $sceneId . '/direct-links');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertEquals($linkData['id'], $content[0]['id']);
     }
 
     public function testExecutingDirectLinkWithGetWhenGetDisabled() {

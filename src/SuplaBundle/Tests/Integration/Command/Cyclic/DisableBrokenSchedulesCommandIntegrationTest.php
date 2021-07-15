@@ -46,7 +46,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
         $location = $this->createLocation($this->user);
         $device = $this->createDevice($location, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
         $this->schedule = $this->createSchedule($device->getChannels()[0], '*/5 * * * *', ['mode' => ScheduleMode::MINUTELY]);
-        $this->container->get(ScheduleManager::class)->generateScheduledExecutions($this->schedule, '+1day');
+        self::$container->get(ScheduleManager::class)->generateScheduledExecutions($this->schedule, '+1day');
     }
 
     /** @small */
@@ -102,7 +102,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
     }
 
     private function getLatestAuditEntry(): AuditEntry {
-        $entries = $this->container->get(Audit::class)->getRepository()->findAll();
+        $entries = self::$container->get(Audit::class)->getRepository()->findAll();
         $this->assertGreaterThanOrEqual(1, count($entries));
         /** @var AuditEntry $entry */
         $entry = end($entries);

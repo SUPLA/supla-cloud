@@ -19,14 +19,14 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 // @codingStandardsIgnoreFile
 
+use PHPUnit\Framework\TestCase;
 use DateTime;
 use DateTimeZone;
-use PHPUnit_Framework_TestCase;
 use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 date_default_timezone_set('UTC');
 
-class SunriseSunsetSchedulePlannerTest extends PHPUnit_Framework_TestCase {
+class SunriseSunsetSchedulePlannerTest extends TestCase {
     /**
      * @dataProvider calculatingNextRunDateProvider
      */

@@ -62,7 +62,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         @unlink(SuplaAutodiscover::BROKER_CLOUDS_SAVE_PATH);
         $path = realpath(self::AD_PROJECT_PATH);
         exec("$path/vendor/bin/phpunit -c $path/tests --filter testInvalidUrl", $output); // clears the database
-        $this->autodiscover = $this->container->get(SuplaAutodiscover::class);
+        $this->autodiscover = self::$container->get(SuplaAutodiscover::class);
         $this->executeAdCommand('public-clients:create');
         $publicClientConfigPath = $path . '/var/public-clients/0001.yml';
         $config = file_get_contents($publicClientConfigPath);

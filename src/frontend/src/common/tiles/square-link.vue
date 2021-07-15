@@ -41,14 +41,15 @@
                 margin-bottom: 15px;
             }
         }
-        h2 {
+        h2, h3 {
             margin-top: 3px;
+            word-break: break-word;
         }
-        h3, h4 {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        /*h3, h4 {*/
+        /*    white-space: nowrap;*/
+        /*    overflow: hidden;*/
+        /*    text-overflow: ellipsis;*/
+        /*}*/
         &.yellow {
             background: $supla-yellow;
             color: $supla-black;
@@ -90,6 +91,9 @@
             border-top: solid 1px rgba(255, 255, 255, 0.6);
             display: block;
             margin: 8px 0;
+        }
+        &.with-label {
+            padding-bottom: 30px;
         }
         .square-link-label {
             position: absolute;
@@ -151,7 +155,6 @@
         }
     }
 
-    @include square-link-height(160);
     @include square-link-height(240);
     @include square-link-height(250);
 </style>

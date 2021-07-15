@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -23,11 +23,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface {
     public function getConfigTreeBuilder() {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('supla');
+        $treeBuilder = new TreeBuilder('supla');
         // @codingStandardsIgnoreStart
         // @formatter:off because indentation makes config structure way clearer
-        $rootNode
+        $rootNode = $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('version')->defaultValue('?.?.?')->info('Version is set by the release script.')->end()
                 ->scalarNode('version_full')->defaultValue('?.?.?')->info('Version with git hash, set by the release script.')->end()
@@ -60,13 +59,12 @@ class Configuration implements ConfigurationInterface {
                 ->end()->end()
                 ->arrayNode('oauth')->children()
                     ->arrayNode('tokens_lifetime')
-                        ->info('Lifetime of the OAuth tokens per type, in format [access_token_lifetime, refresh_token_lifetime], in seconds')
-                        ->example('[3600, 86400]')->children()
-                        ->arrayNode('webapp')->prototype('integer')->end()->end()
-                        ->arrayNode('client_app')->prototype('integer')->end()->end()
-                        ->arrayNode('admin')->prototype('integer')->end()->end()
-                        ->arrayNode('user')->prototype('integer')->end()->end()
-                        ->arrayNode('broker')->prototype('integer')->end()->end()
+                        ->info('Lifetime of the OAuth tokens per type, in seconds')->children()
+                        ->arrayNode('webapp')->children()->integerNode('access')->isRequired()->end()->end()->end()
+                        ->arrayNode('client_app')->children()->integerNode('access')->isRequired()->end()->integerNode('refresh')->end()->end()->end()
+                        ->arrayNode('admin')->children()->integerNode('access')->isRequired()->end()->integerNode('refresh')->end()->end()->end()
+                        ->arrayNode('user')->children()->integerNode('access')->isRequired()->end()->integerNode('refresh')->end()->end()->end()
+                        ->arrayNode('broker')->children()->integerNode('access')->isRequired()->end()->integerNode('refresh')->end()->end()->end()
                     ->end()->end()
                 ->end()->end()
                 ->arrayNode('maintenance')->children()

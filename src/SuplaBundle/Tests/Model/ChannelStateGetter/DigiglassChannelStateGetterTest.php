@@ -15,16 +15,16 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Model;
+namespace SuplaBundle\Tests\Model\ChannelStateGetter;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelStateGetter\DigiglassChannelStateGetter;
 use SuplaBundle\Supla\SuplaServer;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
-class DigiglassChannelStateGetterTest extends PHPUnit_Framework_TestCase {
+class DigiglassChannelStateGetterTest extends TestCase {
     use UnitTestHelper;
 
     /** @dataProvider stateExamples */

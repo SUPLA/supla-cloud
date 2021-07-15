@@ -1,5 +1,5 @@
 <template>
-    <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? '' : 'grey ')"
+    <square-link :class="'clearfix pointer with-label lift-up ' + (model.enabled ? '' : 'grey ')"
         @click="$emit('click')">
         <router-link :to="linkSpec">
             <location-tile-content :location="model"></location-tile-content>

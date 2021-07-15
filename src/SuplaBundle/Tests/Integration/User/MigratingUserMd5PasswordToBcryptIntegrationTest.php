@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -34,7 +34,7 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
 
     protected function setUp() {
         $this->user = $this->createConfirmedUser();
-        $this->encoderFactory = $this->container->get('security.encoder_factory');
+        $this->encoderFactory = self::$container->get('security.encoder_factory');
         $encoderFactory = $this->encoderFactory;
         $legacyPasswordSetter = function ($password) use ($encoderFactory) {
             $this->password = null;

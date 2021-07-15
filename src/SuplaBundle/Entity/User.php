@@ -32,7 +32,7 @@ use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -43,7 +43,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     @ORM\Index(name="iodevice_reg_enabled_idx", columns={"iodevice_reg_enabled"})
  * })
  */
-class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelationsCount {
+class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     use HasRelationsCountTrait;
 
     /**
@@ -165,6 +165,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
     private $limitDirectLink;
 
     /**
+     * @ORM\Column(name="limit_scene", type="integer", options={"default"=50})
+     */
+    private $limitScene;
+
+    /**
      * @ORM\Column(name="limit_oauth_client", type="integer", options={"default"=20})
      */
     private $limitOAuthClient;
@@ -218,6 +223,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
      * @ORM\OneToMany(targetEntity="DirectLink", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $directLinks;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Scene", mappedBy="user", cascade={"persist"})
+     */
+    private $scenes;
 
     /**
      * @ORM\OneToMany(targetEntity="AuditEntry", mappedBy="user", cascade={"persist"})
@@ -297,6 +307,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
         $this->limitChannelPerGroup = 10;
         $this->limitDirectLink = 50;
         $this->limitOAuthClient = 20;
+        $this->limitScene = 50;
         $this->accessids = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
@@ -429,18 +440,6 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
         return $this;
     }
 
-    public function isAccountNonExpired() {
-        return true;
-    }
-
-    public function isAccountNonLocked() {
-        return true;
-    }
-
-    public function isCredentialsNonExpired() {
-        return true;
-    }
-
     public function getAccessIDS() {
         return $this->accessids;
     }
@@ -468,6 +467,11 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
     /** @return Collection|DirectLink[] */
     public function getDirectLinks() {
         return $this->directLinks;
+    }
+
+    /** @return Collection|Scene[] */
+    public function getScenes() {
+        return $this->scenes;
     }
 
     /** @return Collection|Location[] */
@@ -533,6 +537,10 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
 
     public function isLimitDirectLinkExceeded() {
         return $this->limitDirectLink > 0 && count($this->getDirectLinks()) >= $this->limitDirectLink;
+    }
+
+    public function isLimitSceneExceeded() {
+        return $this->limitScene > 0 && count($this->getScenes()) >= $this->limitScene;
     }
 
     public function isLimitOAuthClientExceeded() {
@@ -647,6 +655,7 @@ class User implements AdvancedUserInterface, EncoderAwareInterface, HasRelations
             'location' => $this->limitLoc,
             'oauthClient' => $this->limitOAuthClient,
             'schedule' => $this->limitSchedule,
+            'scene' => $this->limitScene,
         ];
     }
 

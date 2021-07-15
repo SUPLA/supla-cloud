@@ -18,27 +18,31 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
+use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Exception\ApiException;
 
 /**
  * @method static ActionableSubjectType CHANNEL()
  * @method static ActionableSubjectType CHANNEL_GROUP()
+ * @method static ActionableSubjectType SCENE()
  */
 final class ActionableSubjectType extends Enum {
-    const CHANNEL = 'channel';
-    const CHANNEL_GROUP = 'channelGroup';
+    const CHANNEL = 'channel'; // i18n:['actionableSubjectType_channel']
+    const CHANNEL_GROUP = 'channelGroup'; // i18n:['actionableSubjectType_channelGroup']
+    const SCENE = 'scene'; // i18n:['actionableSubjectType_scene']
 
-//    const SCENE = 'scene';
-
-    public static function forEntity($entity): self {
-        if ($entity instanceof IODeviceChannel) {
+    public static function forEntity(HasFunction $subject): self {
+        if ($subject instanceof IODeviceChannel) {
             return self::CHANNEL();
-        } elseif ($entity instanceof IODeviceChannelGroup) {
+        } elseif ($subject instanceof IODeviceChannelGroup) {
             return self::CHANNEL_GROUP();
+        } elseif ($subject instanceof Scene) {
+            return self::SCENE();
         } else {
-            throw new \InvalidArgumentException('Invalid entity given: ' . get_class($entity));
+            throw new \InvalidArgumentException('Invalid entity given: ' . get_class($subject));
         }
     }
 

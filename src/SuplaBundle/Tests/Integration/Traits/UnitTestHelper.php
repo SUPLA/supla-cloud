@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Tests\Integration\Traits;
 
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 trait UnitTestHelper {
-    public function createEntityMock(string $entityClass, int $id = 1): PHPUnit_Framework_MockObject_MockObject {
+    public function createEntityMock(string $entityClass, int $id = 1): MockObject {
         $mock = $this->createMock($entityClass);
         $mock->method('getId')->willReturn($id);
         return $mock;

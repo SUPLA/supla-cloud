@@ -1,5 +1,5 @@
 <template>
-    <square-link :class="'clearfix pointer ' + (model.enabled ? 'green' : 'grey')"
+    <square-link :class="'clearfix pointer with-label ' + (model.enabled ? 'green' : 'grey')"
         @click="$emit('click')">
         <h3>{{model.caption}}</h3>
         <dl>

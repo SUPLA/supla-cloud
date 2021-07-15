@@ -20,10 +20,12 @@ namespace SuplaBundle\Serialization;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\JsonArrayObject;
 
 class IODeviceChannelSerializer extends AbstractSerializer {
     use CurrentUserAware;
@@ -33,11 +35,18 @@ class IODeviceChannelSerializer extends AbstractSerializer {
     private $channelStateGetter;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
+    /** @var ChannelParamConfigTranslator */
+    private $paramsTranslator;
 
-    public function __construct(ChannelStateGetter $channelStateGetter, IODeviceChannelRepository $channelRepository) {
+    public function __construct(
+        ChannelStateGetter $channelStateGetter,
+        IODeviceChannelRepository $channelRepository,
+        ChannelParamConfigTranslator $paramsTranslator
+    ) {
         parent::__construct();
         $this->channelStateGetter = $channelStateGetter;
         $this->channelRepository = $channelRepository;
+        $this->paramsTranslator = $paramsTranslator;
     }
 
     /**
@@ -54,7 +63,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['connected'] = $this->suplaServer->isChannelConnected($channel);
         }
         if (in_array('state', $context[self::GROUPS])) {
-            $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getState($channel));
+            $normalized['state'] = new JsonArrayObject($this->channelStateGetter->getState($channel));
         }
         if (!isset($normalized['relationsCount']) && (
                 $this->isSerializationGroupRequested('channel.relationsCount', $context)
@@ -64,6 +73,15 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['subjectType'] = ActionableSubjectType::CHANNEL;
+            $normalized['config'] = new JsonArrayObject($this->paramsTranslator->getConfigFromParams($channel));
+        } else {
+            $normalized['param1'] = $channel->getParam1();
+            $normalized['param2'] = $channel->getParam2();
+            $normalized['param3'] = $channel->getParam3();
+            $normalized['param4'] = $channel->getParam4();
+            $normalized['textParam1'] = $channel->getTextParam1();
+            $normalized['textParam2'] = $channel->getTextParam2();
+            $normalized['textParam3'] = $channel->getTextParam3();
         }
     }
 

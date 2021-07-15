@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,11 +17,12 @@
 
 namespace SuplaBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\Tests\AnyFieldSetter;
 
-class UserTest extends \PHPUnit_Framework_TestCase {
+class UserTest extends TestCase {
     public function testSettingDefaultTimezoneByDefault() {
         $user = new User();
         $this->assertEquals(date_default_timezone_get(), $user->getTimezone());

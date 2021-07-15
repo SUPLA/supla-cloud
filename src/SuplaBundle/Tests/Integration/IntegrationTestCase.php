@@ -32,13 +32,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\DependencyInjection\ResettableContainerInterface;
 
 abstract class IntegrationTestCase extends WebTestCase {
     private static $dataForTests = [];
 
-    /** @var ResettableContainerInterface */
-    protected $container;
     /** @var Application */
     protected $application;
 
@@ -50,7 +47,6 @@ abstract class IntegrationTestCase extends WebTestCase {
             SuplaAutodiscoverMock::clear();
         }
         $client = self::createClient(['debug' => false]);
-        $this->container = $client->getContainer();
         $kernel = $client->getKernel();
         $this->application = new Application($kernel);
         $this->application->setAutoExit(false);
@@ -67,7 +63,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         if (!$initializedAtLeastOnce || $this->isLarge() || (!$this->hasDependencies() && !$this->isSmall())) {
             $this->executeCommand('doctrine:schema:drop --force');
             $this->executeCommand('doctrine:schema:create');
-            $this->executeCommand('supla:oauth:create-webapp-client');
+            $this->executeCommand('supla:initialize:create-webapp-client');
             $this->initializeDatabaseForTests();
             $reflection = new ReflectionClass($this);
             $vars = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);
@@ -98,16 +94,25 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     /** @param array|string $command */
-    protected function executeCommand($command): string {
+    protected function executeCommand($command, ?TestClient $client = null): string {
         if (is_array($command)) {
             $command['--env'] = 'test';
             $input = new ArrayInput($command);
         } else {
             $input = new StringInput("$command --env=test");
         }
+        $application = $this->application;
+        if ($client) {
+            $application = new Application($client->getKernel());
+            $application->setAutoExit(false);
+        }
+        if ($client) {
+            $application = new Application($client->getKernel());
+            $application->setAutoExit(false);
+        }
         $output = new BufferedOutput();
         $input->setInteractive(false);
-        $error = $this->application->run($input, $output);
+        $error = $application->run($input, $output);
         $result = $output->fetch();
         if ($error) {
             $this->fail("Command error: $command\nReturn code: $error\nOutput:\n$result");
@@ -116,7 +121,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     protected function getDoctrine(): RegistryInterface {
-        return $this->container->get('doctrine');
+        return self::$container->get('doctrine');
     }
 
     protected function getEntityManager(): EntityManagerInterface {
@@ -142,8 +147,10 @@ abstract class IntegrationTestCase extends WebTestCase {
      * @after
      */
     public function freeUpMemory() {
-        $this->container->reset();
-        $this->container = null;
+        if (self::$container) {
+            self::$container->reset();
+            self::$container = null;
+        }
         $this->application = null;
         $refl = new ReflectionObject($this);
         foreach ($refl->getProperties() as $prop) {

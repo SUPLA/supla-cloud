@@ -38,6 +38,9 @@ supla:
     enabled: true
     host: supla.org
     integrated_auth: true
+  oauth:
+    tokens_lifetime:
+      webapp: {access: 28800}
 
 #swiftmailer:
 #  delivery_addresses: ['%admin_email%']

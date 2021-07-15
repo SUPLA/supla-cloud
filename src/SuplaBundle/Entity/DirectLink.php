@@ -20,8 +20,6 @@ namespace SuplaBundle\Entity;
 use Assert\Assertion;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use InvalidArgumentException;
-use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Exception\InactiveDirectLinkException;
@@ -79,6 +77,12 @@ class DirectLink implements HasSubject {
      * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="directLinks")
+     * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $scene;
 
     /**
      * @ORM\Column(name="allowed_actions", type="string", nullable=false, length=255)
@@ -147,7 +151,7 @@ class DirectLink implements HasSubject {
      * @Groups({"directLink.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): HasFunction {
+    public function getSubject(): ?HasFunction {
         return $this->getTheSubject();
     }
 

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Tests\Enums;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 
-class ChannelFunctionBitsFlistTest extends PHPUnit_Framework_TestCase {
+class ChannelFunctionBitsFlistTest extends TestCase {
     /** @dataProvider supportedFunctionsTestCases */
     public function testGettingSupportedFunctions(int $functionList, array $expectedFuncions) {
         $this->assertEquals($expectedFuncions, ChannelFunctionBitsFlist::getSupportedFunctions($functionList));
@@ -34,6 +34,7 @@ class ChannelFunctionBitsFlistTest extends PHPUnit_Framework_TestCase {
             [2, [ChannelFunction::CONTROLLINGTHEGATE()]],
             [3, [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), ChannelFunction::CONTROLLINGTHEGATE()]],
             [16, [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER()]],
+            [16, [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER()]],
             [27, [
                 ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(),
                 ChannelFunction::CONTROLLINGTHEGATE(),
@@ -45,6 +46,16 @@ class ChannelFunctionBitsFlistTest extends PHPUnit_Framework_TestCase {
                 ChannelFunction::POWERSWITCH(),
                 ChannelFunction::LIGHTSWITCH(),
             ]],
+            [32512, [
+                ChannelFunction::THERMOMETER(),
+                ChannelFunction::HUMIDITYANDTEMPERATURE(),
+                ChannelFunction::HUMIDITY(),
+                ChannelFunction::WINDSENSOR(),
+                ChannelFunction::PRESSURESENSOR(),
+                ChannelFunction::RAINSENSOR(),
+                ChannelFunction::WEIGHTSENSOR(),
+            ]],
+            [0xFFFF0000, []],
             [0x00008000, [ChannelFunction::CONTROLLINGTHEROOFWINDOW()]],
         ];
     }

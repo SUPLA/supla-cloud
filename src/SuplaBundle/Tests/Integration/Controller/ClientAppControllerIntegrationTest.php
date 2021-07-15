@@ -85,7 +85,7 @@ class ClientAppControllerIntegrationTest extends IntegrationTestCase {
         $client->request('DELETE', '/api/client-apps/' . $this->clientApp->getId());
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $existingApps = $this->container->get('doctrine')->getRepository('SuplaBundle:ClientApp')->findAll();
+        $existingApps = self::$container->get('doctrine')->getRepository('SuplaBundle:ClientApp')->findAll();
         $this->assertCount(0, $existingApps);
     }
 }

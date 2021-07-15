@@ -17,13 +17,15 @@
 
 namespace SuplaBundle\Tests\Model\ParamConverter;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\ParamConverter\IODeviceChannelParamConverter;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
 
-class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
+class IODeviceChannelParamConverterTest extends TestCase {
     /** @var IODeviceChannelParamConverter */
     private $converter;
 
@@ -31,7 +33,8 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
     public function init() {
         $this->converter = new IODeviceChannelParamConverter(
             $this->createMock(LocationRepository::class),
-            $this->createMock(UserIconRepository::class)
+            $this->createMock(UserIconRepository::class),
+            $this->createMock(ChannelParamConfigTranslator::class)
         );
     }
 
@@ -71,7 +74,7 @@ class IODeviceChannelParamConverterTest extends \PHPUnit_Framework_TestCase {
             'textParam3' => 'text3',
             'caption' => 'caption',
             'hidden' => true,
-            ]);
+        ]);
 
         $this->assertEquals(1, $channel->getParam1());
         $this->assertEquals(2, $channel->getParam2());

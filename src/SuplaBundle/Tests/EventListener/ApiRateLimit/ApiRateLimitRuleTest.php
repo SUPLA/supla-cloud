@@ -17,9 +17,10 @@
 
 namespace SuplaBundle\Tests\EventListener\ApiRateLimit;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 
-class ApiRateLimitRuleTest extends \PHPUnit_Framework_TestCase {
+class ApiRateLimitRuleTest extends TestCase {
     public function testFromString() {
         $rule = new ApiRateLimitRule('100/3600');
         $this->assertTrue($rule->isValid());

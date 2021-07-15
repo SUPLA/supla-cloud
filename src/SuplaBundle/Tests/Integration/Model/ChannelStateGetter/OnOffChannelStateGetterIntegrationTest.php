@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -44,7 +44,7 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::DIMMERANDRGBLIGHTING],
             [ChannelType::RELAY, ChannelFunction::STAIRCASETIMER],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     public function testGettingOnFromPowerSwitch() {

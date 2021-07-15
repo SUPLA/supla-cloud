@@ -18,6 +18,7 @@
 namespace SuplaBundle\Entity;
 
 use Assert\Assert;
+use Assert\Assertion;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
@@ -62,7 +63,7 @@ class Schedule implements HasSubject {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
-     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      * @Groups({"channel", "iodevice", "location"})
      * @MaxDepth(1)
      */
@@ -70,9 +71,15 @@ class Schedule implements HasSubject {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="schedules")
-     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="schedules")
+     * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $scene;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
@@ -148,8 +155,8 @@ class Schedule implements HasSubject {
         }
         $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
         $this->setActionParam($data['actionParam'] ?? null);
-        $this->setDateStart(empty($data['dateStart']) ? new DateTime() : DateTime::createFromFormat(DateTime::ATOM, $data['dateStart']));
-        $this->setDateEnd(empty($data['dateEnd']) ? null : DateTime::createFromFormat(DateTime::ATOM, $data['dateEnd']));
+        $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
+        $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(new ScheduleMode($data['mode']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
@@ -182,7 +189,7 @@ class Schedule implements HasSubject {
      * @Groups({"schedule.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): HasFunction {
+    public function getSubject(): ?HasFunction {
         return $this->getTheSubject();
     }
 
@@ -200,6 +207,10 @@ class Schedule implements HasSubject {
     }
 
     public function setAction(ChannelFunctionAction $action) {
+        if ($this->getSubject()) {
+            $function = $this->getSubject()->getFunction();
+            Assertion::inArray($action->getValue(), EntityUtils::mapToIds($function->getPossibleActions()), 'Invalid action.'); // i18n
+        }
         $this->action = $action->getValue();
     }
 

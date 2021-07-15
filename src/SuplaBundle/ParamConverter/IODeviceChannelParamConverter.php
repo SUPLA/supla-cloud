@@ -3,6 +3,8 @@ namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
@@ -14,19 +16,26 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
     private $locationRepository;
     /** @var UserIconRepository */
     private $userIconRepository;
+    /** @var ChannelParamConfigTranslator */
+    private $paramsTranslator;
 
     public function getConvertedClass(): string {
         return IODeviceChannel::class;
     }
 
-    public function __construct(LocationRepository $locationRepository, UserIconRepository $userIconRepository) {
+    public function __construct(
+        LocationRepository $locationRepository,
+        UserIconRepository $userIconRepository,
+        ChannelParamConfigTranslator $paramsTranslator
+    ) {
         $this->locationRepository = $locationRepository;
         $this->userIconRepository = $userIconRepository;
+        $this->paramsTranslator = $paramsTranslator;
     }
 
     public function convert(array $requestData) {
         $channel = new IODeviceChannel();
-        $function = $requestData['functionId'] ?? 0;
+        $function = $requestData['functionId'] ?? ChannelFunction::UNSUPPORTED;
         $channel->setFunction($function);
         $channel->setParam1($requestData['param1'] ?? 0);
         $channel->setParam2($requestData['param2'] ?? 0);

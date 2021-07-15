@@ -18,13 +18,14 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsActionTrigger;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\AnyFieldSetter;
@@ -89,6 +90,7 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER, ['flags' => ChannelFunctionBitsActionTrigger::getAllFeaturesFlag()]],
             [ChannelType::BRIDGE, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
         ], self::DEVICE_FULL);
     }
@@ -150,6 +152,7 @@ class DevicesFixture extends SuplaFixture {
                 'type' => $channelData[0],
                 'function' => $channelData[1],
                 'channelNumber' => $channelNumber,
+                'flags' => ChannelFunctionBitsActionTrigger::PRESS | ChannelFunctionBitsActionTrigger::RELEASE,
             ]);
             if (isset($channelData[2])) {
                 AnyFieldSetter::set($channel, $channelData[2]);

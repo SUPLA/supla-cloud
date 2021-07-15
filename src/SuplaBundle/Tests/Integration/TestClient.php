@@ -2,9 +2,9 @@
 namespace SuplaBundle\Tests\Integration;
 
 use SuplaBundle\Model\ApiVersions;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-class TestClient extends Client {
+class TestClient extends KernelBrowser {
     public function apiRequest(
         string $method,
         string $uri,
@@ -19,6 +19,7 @@ class TestClient extends Client {
         }
         $server['HTTP_X-Requested-With'] = 'XMLHttpRequest';
         $server['ACCEPT'] = 'application/json';
+        $server['HTTP_Accept'] = 'application/json';
         $server['CONTENT_TYPE'] = 'application/json';
         if ($version !== null) {
             $server['HTTP_X_ACCEPT_VERSION'] = $version;

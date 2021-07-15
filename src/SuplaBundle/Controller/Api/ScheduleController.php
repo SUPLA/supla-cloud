@@ -24,16 +24,15 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Schedule\ScheduleManager;
-use SuplaBundle\Repository\ChannelGroupRepository;
-use SuplaBundle\Repository\IODeviceChannelRepository;
+use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ScheduleListQuery;
 use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,29 +44,25 @@ class ScheduleController extends RestController {
     private $scheduleRepository;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
-    /** @var ChannelGroupRepository */
-    private $channelGroupRepository;
-    /** @var IODeviceChannelRepository */
-    private $channelRepository;
     /** @var ScheduleManager */
     private $scheduleManager;
     /** @var ValidatorInterface */
     private $validator;
+    /** @var ActionableSubjectRepository */
+    private $subjectRepository;
 
     public function __construct(
         ScheduleRepository $scheduleRepository,
-        ChannelGroupRepository $channelGroupRepository,
-        IODeviceChannelRepository $channelRepository,
         ChannelActionExecutor $channelActionExecutor,
         ScheduleManager $scheduleManager,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        ActionableSubjectRepository $subjectRepository
     ) {
         $this->scheduleRepository = $scheduleRepository;
         $this->channelActionExecutor = $channelActionExecutor;
-        $this->channelGroupRepository = $channelGroupRepository;
-        $this->channelRepository = $channelRepository;
         $this->scheduleManager = $scheduleManager;
         $this->validator = $validator;
+        $this->subjectRepository = $subjectRepository;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -96,6 +91,14 @@ class ScheduleController extends RestController {
      */
     public function getChannelGroupSchedulesAction(IODeviceChannelGroup $channelGroup, Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByChannelGroup($channelGroup), $request);
+    }
+
+    /**
+     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
+     * @Rest\Get("/scenes/{scene}/schedules")
+     */
+    public function getSceneSchedulesAction(Scene $scene, Request $request) {
+        return $this->returnSchedules(ScheduleListQuery::create()->filterByScene($scene), $request);
     }
 
     private function returnSchedules(ScheduleListQuery $query, Request $request) {
@@ -132,7 +135,7 @@ class ScheduleController extends RestController {
         if ($schedule->isSubjectEnabled()) {
             $this->scheduleManager->enable($schedule);
         }
-        return $this->view($schedule, Response::HTTP_CREATED);
+        return $this->serializedView($schedule, $request, ['subject.relationsCount'], Response::HTTP_CREATED);
     }
 
     /**
@@ -169,13 +172,7 @@ class ScheduleController extends RestController {
             ->notEmptyKey('actionId')
             ->notEmptyKey('mode')
             ->notEmptyKey('timeExpression');
-        $subject = null;
-        if ($data['subjectType'] == ActionableSubjectType::CHANNEL) {
-            $subject = $this->channelRepository->findForUser($this->getUser(), $data['subjectId']);
-        } elseif ($data['subjectType'] == ActionableSubjectType::CHANNEL_GROUP) {
-            $subject = $this->channelGroupRepository->findForUser($this->getUser(), $data['subjectId']);
-        }
-        Assertion::notNull($subject, 'Invalid schedule subject.');
+        $subject = $this->subjectRepository->findForUser($this->getUser(), $data['subjectType'], $data['subjectId']);
         $data['subject'] = $subject;
         $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
             $subject,

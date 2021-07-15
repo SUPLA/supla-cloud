@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -20,7 +20,6 @@ namespace SuplaBundle\Entity;
 use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
@@ -77,8 +76,16 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     /**
      * @var Schedule[]
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
+     * @MaxDepth(1)
      */
     private $schedules;
+
+    /**
+     * @var SceneOperation[]
+     * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="channel", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $sceneOperations;
 
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="channels")
@@ -113,43 +120,36 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
 
     /**
      * @ORM\Column(name="param1", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $param1 = 0;
 
     /**
      * @ORM\Column(name="param2", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $param2 = 0;
 
     /**
      * @ORM\Column(name="param3", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $param3 = 0;
 
     /**
      * @ORM\Column(name="param4", type="integer", nullable=false, options={"default"=0})
-     * @Groups({"basic"})
      */
     private $param4 = 0;
 
     /**
      * @ORM\Column(name="text_param1", type="string", length=255, nullable=true)
-     * @Groups({"basic"})
      */
     private $textParam1;
 
     /**
      * @ORM\Column(name="text_param2", type="string", length=255, nullable=true)
-     * @Groups({"basic"})
      */
     private $textParam2;
 
     /**
      * @ORM\Column(name="text_param3", type="string", length=255, nullable=true)
-     * @Groups({"basic"})
      */
     private $textParam3;
 
@@ -187,10 +187,14 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
      */
     private $flags = 0;
 
+    /** @ORM\Column(name="config", type="text", nullable=true) */
+    private $config;
+
     public function __construct() {
         $this->directLinks = new ArrayCollection();
         $this->schedules = new ArrayCollection();
         $this->channelGroups = new ArrayCollection();
+        $this->sceneOperations = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -241,6 +245,11 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     /** @return Collection|Schedule[] */
     public function getSchedules(): Collection {
         return $this->schedules;
+    }
+
+    /** @return Collection|SceneOperation[] */
+    public function getSceneOperations(): Collection {
+        return $this->sceneOperations;
     }
 
     public function getFunction(): ChannelFunction {
@@ -383,7 +392,7 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     }
 
     public function getHidden() {
-        return $this->hidden;
+        return $this->function === ChannelFunction::ACTION_TRIGGER ? true : $this->hidden;
     }
 
     public function setHidden($hidden) {
@@ -400,12 +409,6 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
         return $this->directLinks;
     }
 
-    public function removeFromAllChannelGroups(EntityManagerInterface $entityManager) {
-        foreach ($this->getChannelGroups() as $channelGroup) {
-            $channelGroup->removeChannel($this, $entityManager);
-        }
-    }
-
     public function buildServerSetCommand(string $type, array $actionParams): string {
         $params = array_merge([$this->getUser()->getId(), $this->getIoDevice()->getId(), $this->getId()], $actionParams);
         $params = implode(',', $params);
@@ -414,5 +417,13 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
 
     public function getFlags(): int {
         return intval($this->flags);
+    }
+
+    public function setConfig(array $config): void {
+        $this->config = json_encode($config);
+    }
+
+    public function getConfig(): array {
+        return $this->config ? (json_decode($this->config, true) ?: []) : [];
     }
 }
