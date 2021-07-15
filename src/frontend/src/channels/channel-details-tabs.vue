@@ -80,11 +80,11 @@
                     header: 'Channel groups', // i18n
                     count: this.channel.relationsCount.channelGroups,
                 });
-                /*this.availableTabs.push({
+                this.availableTabs.push({
                     id: 'scenes',
                     header: 'Scenes', // i18n
                     count: this.channel.relationsCount.scenes,
-                });*/
+                });
             }
             if (this.channel.function.id > 0) {
                 this.availableTabs.push({
