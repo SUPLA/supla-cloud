@@ -123,6 +123,12 @@ final class ChannelFunction extends Enum {
 
     private $unsupportedFunctionId;
 
+    private static $deprecatedNames = [
+        'GASMETER' => 'IC_GASMETER',
+        'WATERMETER' => 'IC_WATERMETER',
+        'HEATMETER' => 'IC_HEATMETER',
+    ];
+
     /** @Groups({"basic"}) */
     public function getId(): int {
         return $this->value == self::UNSUPPORTED ? $this->unsupportedFunctionId : $this->value;
@@ -372,6 +378,9 @@ final class ChannelFunction extends Enum {
             }
         } else {
             $functionName = strtoupper($functionName);
+            if (isset(self::$deprecatedNames[$functionName])) {
+                $functionName = self::$deprecatedNames[$functionName];
+            }
             if (self::isValidKey($functionName)) {
                 return self::$functionName();
             }

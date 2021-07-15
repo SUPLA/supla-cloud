@@ -54,6 +54,15 @@ class ChannelFunctionTest extends TestCase {
         );
     }
 
+    public function testFromStringDeprecatedNames() {
+        $this->assertEquals(ChannelFunction::IC_GASMETER(), ChannelFunction::fromString('GASMETER'));
+        $this->assertEquals(ChannelFunction::IC_GASMETER(), ChannelFunction::fromString('IC_GASMETER'));
+        $this->assertEquals(ChannelFunction::IC_WATERMETER(), ChannelFunction::fromString('WATERMETER'));
+        $this->assertEquals(ChannelFunction::IC_WATERMETER(), ChannelFunction::fromString('IC_WATERMETER'));
+        $this->assertEquals(ChannelFunction::ELECTRICITYMETER(), ChannelFunction::fromString('ELECTRICITYMETER'));
+        $this->assertEquals(ChannelFunction::IC_ELECTRICITYMETER(), ChannelFunction::fromString('IC_ELECTRICITYMETER'));
+    }
+
     public function testInvalidFromString() {
         $this->expectException(ApiException::class);
         $this->expectExceptionMessage('UNICORN');
