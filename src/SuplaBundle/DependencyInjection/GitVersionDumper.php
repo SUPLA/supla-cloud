@@ -23,7 +23,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class GitVersionDumper {
     public static function dumpVersion() {
-        exec('git describe --tags 2>/dev/null', $output, $result);
+        exec('git describe --tags 2>' . (file_exists('nul') ? 'nul' : '/dev/null'), $output, $result);
         if ($output && $result === 0) {
             $versionFromDescribe = current($output);
             $version = getenv('RELEASE_VERSION') ?: $versionFromDescribe;
