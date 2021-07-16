@@ -49,7 +49,6 @@ Are you sure you want to delete this client?: Er du sikker på at du ønsker å 
 Are you sure you want to delete this direct link?: Er du sikker på at du ønsker å fjerne denne direkte lenken?
 Are you sure you want to delete this icon?: Er du sikker på at du ønsker å fjerne dette ikonet?
 Are you sure you want to delete this schedule?: Er du sikker på at du ønsker å fjerne denne planen?
-Are you sure you want to disable this device?: Er du sikker på at du ønsker å skru av denne enheten?
 Are you sure you want to revoke permissions granted to this OAuth application?: Er du sikker på at du ønsker å trekke tilbake tillatelsene gitt til denne applikasjonen?
 Are you sure you want to revoke this token?: Er du sikker på at du vil tilbakekalle token?
 Are you sure?: Er du sikker?
@@ -89,7 +88,6 @@ Channel group limit has been exceeded: Maksimum antall kanalgrupper har blitt ru
 Channel group must consist of at least one channel.: Kanalgruppe må inneholde minst en kanal
 Channel groups: Kanalgrupper
 Channel is assigned to the I/O device location: Kanal er tilpasset enhetens lokalisering
-Channel will be deleted from the channel group below: Kanalen blir fjernet fra kanalgruppene nedenfor
 Channels: Kanaler
 Channels in channel group: Kanaler i kanalgrupper
 Check the direct link you used and try again.: Sjekk valgt direkte lenke og prøv en gang til.
@@ -112,7 +110,6 @@ Configuration: Konfigurasjon
 Confirm Password: Passord bekreftelse
 Confirm if you want to remove Access Identifier: Bekreft at du vil fjerne tilgang identifikator
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Bekreft at du vil fjerne Lokalisering ID {locationId}. Videre kobling av enheter inngang/utgang med denne lokaliseringen blir ikke mulig.'
-'Confirm if you want to remove {deviceName} device': 'Bekreft at du vil fjerne enheten {deviceName}'
 Connected: Tilkoblet
 Connection with a private instance of the SUPLA cloud: Tilkobling til privat SUPLA Cloud
 Constraints: Begrensninger
@@ -132,7 +129,6 @@ Custom execution limit: Tilpasset grense på utførelser
 DHT11 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT11
 DHT21 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT21
 DHT22 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT22
-DISABLED: AV
 DS18B20 Thermometer: Termometer DS18B20
 Data saved: Gara ble lagret
 Days: Dager
@@ -155,7 +151,6 @@ Direct link has been created successfully!: Vellykket oppretting av direkte lenk
 Direct link has been executed: Direkte lenke ble opprettet
 'Direct link is not working right now. Reason:': 'Direkte lenke fungerer ikke akkurat nå. Grunn:'
 Direct links: Direkte lenker
-Direct links below will be deleted: Direkte lenker nevnt nedenfor blir fjernet
 Disable: Av
 Disabled: Av
 Disconnected: Frakoblet
@@ -168,7 +163,6 @@ Doors and gates: Dører og porter
 'Doors, Gates': 'Dører, Porter'
 Download the history of measurement: Last ned målingshistorien
 Drag your image(s) here or click to select from the disk: Dra bildet over her eller trykk for å velge fra disken
-ENABLED: PÅ
 Edit: Rediger
 Electric: Elektronikk
 Electricity meter: Elektrisitetsmåler
@@ -192,7 +186,6 @@ Executed without confirmation: Utført uten bekreftelse
 Execution history: Utførelse historie
 Execution limit: Grense på utførelser
 Executions: Utførelser
-Existing schedules: Eksisterende planer
 Expired: Utdatert
 Failed: Mislykket
 Failed (zombie): Mislykket (zombie)
@@ -350,7 +343,6 @@ Please enter a valid email address: Tast inn korrekt e-post adresse
 Please fill a valid email address: Tast inn korrekt e-post adresse
 Please log in again to proceed.: Logg inn på nytt for å fortsette.
 Please provide a valid domain name for your private SUPLA Cloud: Oppgi korrekt navn på din private SUPLA Cloud.
-Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
 Please wait a moment before the next login attempt.: Vent litt før det neste pålogging forsøket.
 Pressure sensor: Trykksensor
 Previous login: Sist innlogging
@@ -400,7 +392,6 @@ Schedule cannot be enabled: Aktivering av planen mislykket
 Schedule limit has been exceeded: Maksimalt antall planer er overskredet
 Schedule mode: Plan modus
 Schedules: Planer
-Schedules below will be deleted: Planene nedenfor blir fjernet
 Scope: Omfang (scope)
 Scopes: Omfang
 Scopes define which sections of your account can be accessed when using the token.: Omfang bestemmer hvilke konto innhold man kan få tilgang ved bruk av token.
@@ -615,9 +606,16 @@ valid until: utløper
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
 Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
+Are you sure you want to disable this device?: Er du sikker på at du ønsker å skru av denne enheten?
 Assigned Locations: Tildelte lokaliseringer
+Channel will be deleted from the channel group below: Kanalen blir fjernet fra kanalgruppene nedenfor
+'Confirm if you want to remove {deviceName} device': 'Bekreft at du vil fjerne enheten {deviceName}'
+DISABLED: AV
 Date: Dato
+Direct links below will be deleted: Direkte lenker nevnt nedenfor blir fjernet
+ENABLED: PÅ
 Email already exists: Denne e-post adressen eksisterer allerede
+Existing schedules: Eksisterende planer
 Hi: Hei
 Hour: Time
 I/O: Inngang/Utgang
@@ -630,8 +628,10 @@ Location password must be no longer than 32 characters.: Passord for lokaliserin
 Next: Videre
 Number: Nummer
 Output: Utgang
+Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
 Registration: Registrering
 Remove: Fjern
+Schedules below will be deleted: Planene nedenfor blir fjernet
 Status: Status
 Try again later: Prøv en gang til senere
 You will be logged out shortly: Snart blir du logget ut.
@@ -640,26 +640,54 @@ execute: utfør
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+'%s trigger is not supported by the hardware.': ~
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
+Action trigger: ~
+Action triggers: ~
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
+Add a delay: ~
+Add new item to use in the scene: ~
+'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
+Are you sure you want to delete this scene?: ~
 Associated measured channel: ~
 Associated measurement channel: ~
+Bar: ~
+Be right back!: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
 Channel name: ~
+Channel reference will be removed from the items below.: ~
+Channel value: ~
 Channels groups are not supported for this function.: ~
+Chart data source type: ~
+Chart type: ~
 Check your email inbox: ~
+Clear: ~
+'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Create new scene: ~
+Current Overload: ~
 Default: ~
+Device channel value: ~
+Differential: ~
 Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
+Direct links limit has been exceeded: ~
+Execute: ~
+Execute the scene: ~
+General purpose measurement: ~
 Generate new password: ~
 Guru Meditation: ~
 Host: ~
+Icon: ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
+Interpolate measurements: ~
 Invalid action parameters: ~
+Invalid action.: ~
+Linear: ~
 Location name: ~
 MQTT Broker: ~
 MQTT Broker Username: ~
@@ -668,17 +696,39 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Need one of these?: ~
+New scene: ~
+No of operations: ~
 Number of sections: ~
+Operations: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Port: ~
+Precision: ~
 Protocol: ~
 Regeneration starts at: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+Scene: ~
+Scene must consist of at least one operation.: ~
+Scenes: ~
+Scenes limit has been exceeded: ~
+Some features depend on this device: ~
+Some of the features you have configured rely on channels from this device.: ~
+Standard: ~
+Store measurements history: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The following items use the channels of these device. These references will be also removed.: ~
+'The following items will be deleted with this device:': ~
+'The items below rely on this channel function, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
+Triggers: ~
+Turning this device off will cause its channels not working in the following features.: ~
+Turning this device off will result in disabling features listed below.: ~
+Update in progress: ~
+Value per unit: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
 You cannot use SUPLA project name in the domain name.: ~
 You have to choose at least one scope.: ~
@@ -689,5 +739,26 @@ Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
+actionTriggerDescription_HOLD: ~
+actionTriggerDescription_PRESS: ~
+actionTriggerDescription_PRESS_2X: ~
+actionTriggerDescription_PRESS_3X: ~
+actionTriggerDescription_RELEASE: ~
+actionTrigger_HOLD: ~
+actionTrigger_PRESS: ~
+actionTrigger_PRESS_2X: ~
+actionTrigger_PRESS_3X: ~
+actionTrigger_RELEASE: ~
+actionableSubjectType_channel: ~
+actionableSubjectType_channelGroup: ~
+actionableSubjectType_scene: ~
+channel: ~
+channelGroup: ~
+choose the scene: ~
+min.: ~
+or add a delay: ~
+prefix: ~
+scene: ~
+suffix: ~
 
 #</editor-fold>
