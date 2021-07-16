@@ -28,6 +28,8 @@ use SuplaBundle\Model\LocalSuplaCloud;
  * SuplaServer implementation to be used during development.
  */
 class SuplaServerMock extends SuplaServer {
+    private const IS_ALIVE = true;
+
     public static $mockedResponses = [];
 
     public static $executedCommands = [];
@@ -44,7 +46,7 @@ class SuplaServerMock extends SuplaServer {
     }
 
     protected function connect() {
-        return true;
+        return self::IS_ALIVE;
     }
 
     protected function disconnect() {

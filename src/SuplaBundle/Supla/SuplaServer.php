@@ -60,7 +60,7 @@ abstract class SuplaServer {
         if ($this->connect() !== false) {
             $result = $this->command($command);
         } else {
-            throw new ServiceUnavailableHttpException(10, 'SUPLA Server is down.');
+            throw new SuplaServerIsDownException();
         }
         $this->logger->debug('SuplaServer command', ['command' => $command, 'result' => $result]);
         return $result;
@@ -68,8 +68,13 @@ abstract class SuplaServer {
 
     private function isConnected(string $what, int ...$args): bool {
         $args = implode(',', $args);
-        $result = $this->executeCommand("IS-$what-CONNECTED:$args");
-        return $result !== false && preg_match("/^CONNECTED:\d+\n/", $result) === 1 ? true : false;
+        try {
+            $result = $this->executeCommand("IS-$what-CONNECTED:$args");
+            return $result !== false && preg_match("/^CONNECTED:\d+\n/", $result) === 1 ? true : false;
+        } catch (SuplaServerIsDownException $e) {
+            $this->logger->error('SUPLA Server is down.');
+            return false;
+        }
     }
 
     public function isClientAppConnected(ClientApp $clientApp): bool {
@@ -149,7 +154,7 @@ abstract class SuplaServer {
     public function getValue(string $type, IODeviceChannel $channel) {
         $result = $this->getRawValue($type, $channel);
         if ($result !== false) {
-            list($val) = sscanf($result, "VALUE:%f\n");
+            [$val] = sscanf($result, "VALUE:%f\n");
 
             if (is_numeric($val)) {
                 return $val;
@@ -183,7 +188,7 @@ abstract class SuplaServer {
     public function getRgbwValue(IODeviceChannel $channel) {
         $value = $this->getRawValue('RGBW', $channel);
         if ($value !== false) {
-            list($color, $color_brightness, $brightness) = sscanf($value, "VALUE:%i,%i,%i\n");
+            [$color, $color_brightness, $brightness] = sscanf($value, "VALUE:%i,%i,%i\n");
             if (is_numeric($color) && is_numeric($color_brightness) && is_numeric($brightness)) {
                 return ['color' => $color, 'color_brightness' => $color_brightness, 'brightness' => $brightness];
             }
@@ -213,7 +218,7 @@ abstract class SuplaServer {
             $numberPlaceholders = str_repeat('(-?\d+),', 5);
             $matched = preg_match('#^VALUE:' . $numberPlaceholders . '([A-Z]*),(.*)$#', $value, $match);
             if ($matched) {
-                list(, $totalCost, $pricePerUnit, $impulsesPerUnit, $counter, $calculatedValue, $currency, $unit) = $match;
+                [, $totalCost, $pricePerUnit, $impulsesPerUnit, $counter, $calculatedValue, $currency, $unit] = $match;
                 return [
                     'totalCost' => NumberUtils::maximumDecimalPrecision($totalCost * 0.01, 2),
                     'pricePerUnit' => NumberUtils::maximumDecimalPrecision($pricePerUnit * 0.0001, 4),
