@@ -19,6 +19,8 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Faker\Generator;
+use InvalidArgumentException;
 use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -31,7 +33,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 class ScenesFixture extends SuplaFixture {
     const ORDER = ChannelGroupsFixture::ORDER + 1;
 
-    /** @var \Faker\Generator */
+    /** @var Generator */
     private $faker;
 
     public function load(ObjectManager $manager) {
@@ -87,11 +89,14 @@ class ScenesFixture extends SuplaFixture {
             $numberOfOperations = $this->faker->numberBetween(1, 10);
             $operations = [];
             for ($i = 0; $i < $numberOfOperations; $i++) {
+                $action = null;
                 do {
+                    /** @var HasFunction $subject */
                     $subject = $this->faker->randomElement($subjectFactories)($user);
-                } while (!$subject);
-                /** @var HasFunction $subject */
-                $action = $this->faker->randomElement($subject->getFunction()->getPossibleActions());
+                    if ($subject) {
+                        $action = $this->faker->randomElement($subject->getFunction()->getPossibleActions());
+                    }
+                } while (!$action);
                 $sceneOperation = new SceneOperation($subject, $action, [], $this->faker->randomElement([0, 0, 0, 1000, 30000]));
                 $operations[] = $sceneOperation;
             }
@@ -103,7 +108,7 @@ class ScenesFixture extends SuplaFixture {
                 $manager->persist($scene);
                 $manager->flush();
                 $manager->refresh($user);
-            } catch (\InvalidArgumentException $e) {
+            } catch (InvalidArgumentException $e) {
                 $sceneNo--;
             }
         }
