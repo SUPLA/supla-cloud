@@ -100,6 +100,8 @@ steps:
       status: [ success, failure ]
     trigger:
       status: [ success, failure ]
+      event:
+        exclude: [ pull_request ]
 
 
 #  - name: rebuild-cache
