@@ -18,13 +18,14 @@
 namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 
-class IODeviceChannelGroupTest extends \PHPUnit_Framework_TestCase {
+class IODeviceChannelGroupTest extends TestCase {
     /** @var User */
     private $user;
     /** @var Location */
@@ -56,6 +57,7 @@ class IODeviceChannelGroupTest extends \PHPUnit_Framework_TestCase {
 
     public function testCanInstantiateWithNoArgs() {
         new IODeviceChannelGroup();
+        $this->assertTrue(true);
     }
 
     public function testForbidsMixingChannelFunctions() {

@@ -4,31 +4,33 @@
             @change="$emit('change')"
             :times="[500, 1000, 2000]"
             related-channel-function="OPENINGSENSOR_GATE"></channel-params-controlling-any-lock>
-        <channel-params-related-channel
-            :channel="channel"
-            label-i18n="Partial opening sensor"
-            channel-filter="function=OPENINGSENSOR_GATE"
-            param-no="3"
-            @change="$emit('change')"></channel-params-related-channel>
+        <dl>
+            <dd>{{ $t('Partial opening sensor') }}</dd>
+            <dt>
+                <channels-id-dropdown params="function=OPENINGSENSOR_GATE"
+                    v-model="channel.config.openingSensorSecondaryChannelId"
+                    @input="$emit('change')"></channels-id-dropdown>
+            </dt>
+        </dl>
     </div>
 </template>
 
 <script>
     import ChannelParamsControllingAnyLock from "./channel-params-controlling-any-lock";
-    import ChannelParamsRelatedChannel from "@/channels/params/channel-params-related-channel";
+    import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
 
     export default {
-        components: {ChannelParamsRelatedChannel, ChannelParamsControllingAnyLock},
+        components: {ChannelsIdDropdown, ChannelParamsControllingAnyLock},
         props: ['channel'],
         watch: {
-            'channel.param2'() {
-                if (this.channel.param2 == this.channel.param3) {
-                    this.channel.param3 = 0;
+            'channel.config.openingSensorChannelId'() {
+                if (this.channel.config.openingSensorChannelId == this.channel.config.openingSensorSecondaryChannelId) {
+                    this.channel.config.openingSensorSecondaryChannelId = 0;
                 }
             },
-            'channel.param3'() {
-                if (this.channel.param2 == this.channel.param3) {
-                    this.channel.param2 = 0;
+            'channel.config.openingSensorSecondaryChannelId'() {
+                if (this.channel.config.openingSensorChannelId == this.channel.config.openingSensorSecondaryChannelId) {
+                    this.channel.config.openingSensorChannelId = 0;
                 }
             }
         }

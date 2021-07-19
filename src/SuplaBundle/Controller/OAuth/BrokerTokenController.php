@@ -19,11 +19,11 @@ namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\TokenController;
 use OAuth2\OAuth2;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SuplaBundle\Auth\ForwardRequestToTargetCloudException;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class BrokerTokenController extends TokenController {
     /** @var TargetSuplaCloudRequestForwarder */

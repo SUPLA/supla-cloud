@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -41,7 +41,7 @@ class ValveChannelStateGetterIntegrationTest extends IntegrationTestCase {
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
             [ChannelType::VALVEPERCENTAGE, ChannelFunction::VALVEPERCENTAGE],
         ]);
-        $this->channelStateGetter = $this->container->get(ChannelStateGetter::class);
+        $this->channelStateGetter = self::$container->get(ChannelStateGetter::class);
     }
 
     /** @dataProvider valveStates */

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -45,7 +45,7 @@ class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationT
         $this->device = $this->createDevice($location, [
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::RGBLIGHTING],
         ]);
-        $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
+        $this->channelActionExecutor = self::$container->get(ChannelActionExecutor::class);
         $this->simulateAuthentication($this->user);
     }
 

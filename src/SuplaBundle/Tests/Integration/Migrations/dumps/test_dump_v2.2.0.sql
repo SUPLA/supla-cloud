@@ -258,7 +258,7 @@ INSERT INTO `supla_dev_channel_group` (`id`, `user_id`, `caption`, `func`, `hidd
 /*!40000 ALTER TABLE `supla_dev_channel_group` ENABLE KEYS */;
 
 DELIMITER //
-CREATE DEFINER=`php`@`localhost` PROCEDURE `supla_get_device_firmware_url`(IN `device_id` INT, IN `platform` TINYINT, IN `fparam1` INT, IN `fparam2` INT, IN `fparam3` INT, IN `fparam4` INT, OUT `protocols` TINYINT, OUT `host` VARCHAR(100), OUT `port` INT, OUT `path` VARCHAR(100))
+CREATE PROCEDURE `supla_get_device_firmware_url`(IN `device_id` INT, IN `platform` TINYINT, IN `fparam1` INT, IN `fparam2` INT, IN `fparam3` INT, IN `fparam4` INT, OUT `protocols` TINYINT, OUT `host` VARCHAR(100), OUT `port` INT, OUT `path` VARCHAR(100))
     NO SQL
 BEGIN
                 SET @protocols = 0;
@@ -429,7 +429,7 @@ INSERT INTO `supla_oauth_user` (`id`, `parent_id`, `password`, `enabled`, `acces
 /*!40000 ALTER TABLE `supla_oauth_user` ENABLE KEYS */;
 
 DELIMITER //
-CREATE DEFINER=`php`@`localhost` PROCEDURE `supla_on_channeladded`(IN `_device_id` INT, IN `_channel_id` INT)
+CREATE PROCEDURE `supla_on_channeladded`(IN `_device_id` INT, IN `_channel_id` INT)
     NO SQL
 BEGIN
                 SET @type = NULL;
@@ -441,14 +441,14 @@ BEGIN
 DELIMITER ;
 
 DELIMITER //
-CREATE DEFINER=`php`@`localhost` PROCEDURE `supla_on_newclient`(IN `_client_id` INT)
+CREATE PROCEDURE `supla_on_newclient`(IN `_client_id` INT)
     NO SQL
 BEGIN	
 			END//
 DELIMITER ;
 
 DELIMITER //
-CREATE DEFINER=`php`@`localhost` PROCEDURE `supla_on_newdevice`(IN `_device_id` INT)
+CREATE PROCEDURE `supla_on_newdevice`(IN `_device_id` INT)
     MODIFIES SQL DATA
 BEGIN
             END//
@@ -663,35 +663,15 @@ CREATE TABLE `supla_v_device_location` (
 	`password` VARCHAR(32) NOT NULL COLLATE 'utf8_unicode_ci'
 ) ENGINE=MyISAM;
 
-CREATE TABLE `supla_v_rel_cg` (
-	`group_id` INT(11) NOT NULL,
-	`channel_id` INT(11) NOT NULL,
-	`iodevice_id` INT(11) NOT NULL,
-	`protocol_version` INT(11) NOT NULL,
-	`client_id` INT(11) NOT NULL,
-	`channel_hidden` TINYINT(1) NOT NULL
-) ENGINE=MyISAM;
-
-CREATE TABLE `supla_v_user_channel_group` (
-	`id` INT(11) NOT NULL,
-	`func` INT(11) NOT NULL,
-	`caption` VARCHAR(255) NULL COLLATE 'utf8_unicode_ci',
-	`user_id` INT(11) NOT NULL,
-	`location_id` INT(11) NOT NULL,
-	`alt_icon` BIGINT(11) NOT NULL,
-	`channel_id` INT(11) NOT NULL,
-	`iodevice_id` INT(11) NOT NULL
-) ENGINE=MyISAM;
-
 DROP TABLE IF EXISTS `supla_v_client`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_client` AS SELECT `c`.`id` AS `id`,`c`.`access_id` AS `access_id`,`c`.`guid` AS `guid`,`c`.`name` AS `name`,`c`.`reg_ipv4` AS `reg_ipv4`,
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client` AS SELECT `c`.`id` AS `id`,`c`.`access_id` AS `access_id`,`c`.`guid` AS `guid`,`c`.`name` AS `name`,`c`.`reg_ipv4` AS `reg_ipv4`,
                `c`.`reg_date` AS `reg_date`,`c`.`last_access_ipv4` AS `last_access_ipv4`,`c`.`last_access_date` AS `last_access_date`,
                `c`.`software_version` AS `software_version`,`c`.`protocol_version` AS `protocol_version`,`c`.`enabled` AS `enabled`,
                `a`.`user_id` AS `user_id` 
         FROM (`supla_client` `c` JOIN `supla_accessid` `a` ON((`a`.`id` = `c`.`access_id`))) ;
 
 DROP TABLE IF EXISTS `supla_v_client_channel`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_client_channel` AS SELECT `c`.`id` AS `id`,
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_channel` AS SELECT `c`.`id` AS `id`,
 						       `c`.`type` AS `type`,
 						       `c`.`func` AS `func`,
 						       `c`.`param1` AS `param1`,
@@ -725,7 +705,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `
 						       AND (`a`.`enabled` = 1) ;
 
 DROP TABLE IF EXISTS `supla_v_client_channel_group`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_client_channel_group` AS SELECT `g`.`id` AS `id`,
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_channel_group` AS SELECT `g`.`id` AS `id`,
 				 `g`.`func` AS `func`,
 				 `g`.`caption` AS `caption`,
 				 `g`.`user_id` AS `user_id`,
@@ -744,31 +724,30 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `
 				  AND (`a`.`enabled` = 1)) ;
 
 DROP TABLE IF EXISTS `supla_v_client_location`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_client_location` AS SELECT `l`.`id` AS `id`,`l`.`caption` AS `caption`,`c`.`id` AS `client_id` 
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_location` AS SELECT `l`.`id` AS `id`,`l`.`caption` AS `caption`,`c`.`id` AS `client_id` 
         FROM ((`supla_rel_aidloc` `al` JOIN `supla_location` `l` ON((`l`.`id` = `al`.`location_id`))) 
         JOIN `supla_client` `c` ON((`c`.`access_id` = `al`.`access_id`))) 
         WHERE (`l`.`enabled` = 1) ;
 
 DROP TABLE IF EXISTS `supla_v_device_accessid`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_device_accessid` AS SELECT `a`.`id` AS `id`,`a`.`user_id` AS `user_id`,cast(`a`.`enabled` as unsigned) AS `enabled`,`a`.`password` AS `password`,
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_device_accessid` AS SELECT `a`.`id` AS `id`,`a`.`user_id` AS `user_id`,cast(`a`.`enabled` as unsigned) AS `enabled`,`a`.`password` AS `password`,
                `u`.`limit_client` AS `limit_client` 
         FROM (`supla_accessid` `a` JOIN `supla_user` `u` ON((`u`.`id` = `a`.`user_id`))) ;
 
 DROP TABLE IF EXISTS `supla_v_device_location`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_device_location` AS SELECT `l`.`id` AS `id`,`l`.`user_id` AS `user_id`,cast(`l`.`enabled` as unsigned) AS `enabled`,`u`.`limit_iodev` AS `limit_iodev`,
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_device_location` AS SELECT `l`.`id` AS `id`,`l`.`user_id` AS `user_id`,cast(`l`.`enabled` as unsigned) AS `enabled`,`u`.`limit_iodev` AS `limit_iodev`,
                `l`.`password` AS `password`
         FROM (`supla_location` `l` JOIN `supla_user` `u` ON((`u`.`id` = `l`.`user_id`))) ;
 
 DROP TABLE IF EXISTS `supla_v_rel_cg`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_rel_cg` AS SELECT `r`.`group_id` AS `group_id`,`r`.`channel_id` AS `channel_id`,
+CREATE ALGORITHM=UNDEFINED VIEW `supla_v_rel_cg` AS SELECT `r`.`group_id` AS `group_id`,`r`.`channel_id` AS `channel_id`,
                  `c`.`iodevice_id` AS `iodevice_id`,`d`.`protocol_version` AS `protocol_version`,
                  `g`.`client_id` AS `client_id`,`c`.`hidden` AS `channel_hidden` from 
                  (((`supla`.`supla_v_client_channel_group` `g` join `supla`.`supla_rel_cg` `r` on((`r`.`group_id` = `g`.`id`))) 
                  join `supla`.`supla_dev_channel` `c` on((`c`.`id` = `r`.`channel_id`))) 
                  join `supla`.`supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) where `d`.`enabled` = 1 ;
 
-DROP TABLE IF EXISTS `supla_v_user_channel_group`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`php`@`localhost` SQL SECURITY DEFINER VIEW `supla_v_user_channel_group` AS select `g`.`id` AS `id`,`g`.`func` AS `func`,`g`.`caption` AS `caption`,`g`.`user_id` AS `user_id`,
+CREATE ALGORITHM=UNDEFINED VIEW `supla_v_user_channel_group` AS select `g`.`id` AS `id`,`g`.`func` AS `func`,`g`.`caption` AS `caption`,`g`.`user_id` AS `user_id`,
 				 `g`.`location_id` AS `location_id`,ifnull(`g`.`alt_icon`,0) AS `alt_icon`,
 				 `rel`.`channel_id` AS `channel_id`,`c`.`iodevice_id` AS `iodevice_id` 
 				 from ((((`supla_dev_channel_group` `g` join `supla_location` `l` on((`l`.`id` = `g`.`location_id`))) 

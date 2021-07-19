@@ -109,9 +109,19 @@ class IODeviceChannelGroup implements HasFunction, HasLocation, HasRelationsCoun
      */
     private $schedules;
 
+    /**
+     * @var SceneOperation[]
+     * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="channelGroup", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $sceneOperations;
+
     /** @param IODeviceChannel[] $channels */
     public function __construct(User $user = null, Location $location = null, array $channels = []) {
         $this->channels = new ArrayCollection();
+        $this->directLinks = new ArrayCollection();
+        $this->schedules = new ArrayCollection();
+        $this->sceneOperations = new ArrayCollection();
         if (count($channels)) {
             Assertion::notNull($user);
             Assertion::notNull($location);

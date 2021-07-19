@@ -43,7 +43,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function validateActionParams(HasFunction $subject, array $actionParams): array {
-        Assertion::between(count($actionParams), 1, 5, 'Invalid number of action parameters');
+        Assertion::between(count($actionParams), 1, 5, 'You need to specify at least brightness or color for this action.');
         Assertion::count(
             array_intersect_key(
                 $actionParams,
@@ -147,7 +147,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         } elseif (isset($actionParams['rgb'])) {
             $rgb = $actionParams['rgb'];
             $color = ColorUtils::rgbToDec([$rgb['red'], $rgb['green'], $rgb['blue']]);
-            list($h, $s, $v) = ColorUtils::decToHsv($color);
+            [$h, $s, $v] = ColorUtils::decToHsv($color);
             $actionParams['hsv'] = ['hue' => $h, 'saturation' => $s, 'value' => $v];
         }
         if (isset($actionParams['hsv'])) {

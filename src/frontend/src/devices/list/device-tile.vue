@@ -1,13 +1,17 @@
 <template>
-    <square-link :class="'clearfix pointer ' + (device.enabled ? 'green' : 'grey')">
+    <square-link :class="'clearfix pointer with-label ' + (device.enabled ? 'green' : 'grey')">
         <router-link :to="linkSpec">
-            <h3>{{ device.name }}</h3>
+            <h3>{{ caption }}</h3>
             <dl>
                 <dd>{{ device.gUIDString }}</dd>
                 <dt></dt>
             </dl>
             <div class="separator invisible"></div>
             <dl>
+                <dd>ID</dd>
+                <dt>{{ device.id }}</dt>
+                <dd v-if="device.comment">{{ $t('Name') }}</dd>
+                <dt v-if="device.comment">{{ device.name }}</dt>
                 <dd>{{ $t('SoftVer') }}</dd>
                 <dt>{{ device.softwareVersion }}</dt>
             </dl>
@@ -15,10 +19,6 @@
                 <dd>{{ $t('Location') }}</dd>
                 <dt>ID{{device.location.id}} {{ device.location.caption }}</dt>
             </dl>
-            <div v-if="device.comment">
-                <div class="separator"></div>
-                {{ device.comment }}
-            </div>
             <div class="square-link-label">
                 <connection-status-label :model="device"></connection-status-label>
             </div>
@@ -33,6 +33,9 @@
         props: ['device', 'noLink'],
         components: {ConnectionStatusLabel},
         computed: {
+            caption() {
+                return this.device.comment || this.$t(this.device.name);
+            },
             linkSpec() {
                 return this.noLink ? {} : {name: 'device', params: {id: this.device.id}};
             }

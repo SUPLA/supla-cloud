@@ -1,43 +1,25 @@
 <template>
     <div>
-
-        <dl v-if="channel.type.name == 'ELECTRICITYMETER'">
-            <channel-params-any-meter :channel="channel"
-                :unit="unit"
-                @change="$emit('change')"></channel-params-any-meter>
-        </dl>
-        <dl v-else>
-            <channel-params-meter-unit v-model="unit"
-                :channel="channel"
-                @change="$emit('change')"></channel-params-meter-unit>
-            <channel-params-any-meter :channel="channel"
-                :unit="unit"
-                @change="$emit('change')"></channel-params-any-meter>
-            <channel-params-meter-impulses :channel="channel"
-                :unit="unit"
-                @change="$emit('change')"></channel-params-meter-impulses>
-            <channel-params-meter-initial-value :channel="channel"
-                :unit="unit"
-                @change="$emit('change')"></channel-params-meter-initial-value>
+        <channel-params-meter-cost :channel="channel"
+            unit="kWh"
+            @change="$emit('change')"></channel-params-meter-cost>
+        <dl>
+            <dd>{{ $t('Associated measured channel') }}</dd>
+            <dt>
+                <channels-id-dropdown params="function=POWERSWITCH,LIGHTSWITCH"
+                    v-model="channel.config.relatedChannelId"
+                    @input="$emit('change')"></channels-id-dropdown>
+            </dt>
         </dl>
     </div>
 </template>
 
 <script>
-    import ChannelParamsAnyMeter from "./channel-params-any-meter";
-    import ChannelParamsMeterUnit from "./channel-params-meter-unit";
-    import ChannelParamsMeterImpulses from "./channel-params-meter-impulses";
-    import ChannelParamsMeterInitialValue from "./channel-params-meter-initial-value";
+    import ChannelParamsMeterCost from "./channel-params-meter-cost";
+    import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
 
     export default {
-        components: {
-            ChannelParamsAnyMeter, ChannelParamsMeterUnit, ChannelParamsMeterImpulses, ChannelParamsMeterInitialValue
-        },
+        components: {ChannelsIdDropdown, ChannelParamsMeterCost},
         props: ['channel'],
-        data() {
-            return {
-                unit: this.channel.type.name == 'ELECTRICITYMETER' ? 'kWh' : undefined
-            };
-        }
     };
 </script>

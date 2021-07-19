@@ -23,10 +23,9 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelParamsUpdater\ChannelParamsUpdater;
+use SuplaBundle\Model\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -39,19 +38,12 @@ class IODeviceController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    /** @var ChannelParamsUpdater */
-    private $channelParamsUpdater;
     /** @var ScheduleManager */
     private $scheduleManager;
     /** @var IODeviceChannelRepository */
     private $iodeviceRepository;
 
-    public function __construct(
-        ChannelParamsUpdater $channelParamsUpdater,
-        ScheduleManager $scheduleManager,
-        IODeviceRepository $iodeviceRepository
-    ) {
-        $this->channelParamsUpdater = $channelParamsUpdater;
+    public function __construct(ScheduleManager $scheduleManager, IODeviceRepository $iodeviceRepository) {
         $this->scheduleManager = $scheduleManager;
         $this->iodeviceRepository = $iodeviceRepository;
     }
@@ -199,15 +191,32 @@ class IODeviceController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
-    public function putIodeviceAction(Request $request, IODevice $ioDevice, IODevice $updatedDevice) {
-        $result = $this->transactional(function (EntityManagerInterface $em) use ($request, $ioDevice, $updatedDevice) {
+    public function putIodeviceAction(
+        Request $request,
+        IODevice $ioDevice,
+        IODevice $updatedDevice,
+        ChannelDependencies $channelDependencies
+    ) {
+        $result = $this->transactional(function (EntityManagerInterface $em) use (
+            $channelDependencies,
+            $request,
+            $ioDevice,
+            $updatedDevice
+        ) {
             $enabledChanged = $ioDevice->getEnabled() != $updatedDevice->getEnabled();
             if ($enabledChanged) {
-                $schedules = $this->scheduleManager->findSchedulesForDevice($ioDevice);
-                if (!$updatedDevice->getEnabled() && !($request->get('confirm', false))) {
-                    $enabledSchedules = $this->scheduleManager->onlyEnabled($schedules);
-                    if (count($enabledSchedules)) {
-                        return $this->serializedView($ioDevice, $request, ['iodevice.schedules'], Response::HTTP_CONFLICT);
+                $shouldAsk = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
+                    ? $request->get('safe', false)
+                    : !$request->get('confirm', false);
+                if (!$updatedDevice->getEnabled() && $shouldAsk) {
+                    $dependencies = [];
+                    foreach ($ioDevice->getChannels() as $channel) {
+                        $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
+                    }
+                    if (count(array_filter($dependencies))) {
+                        $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                        $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                        return $view;
                     }
                 }
                 $ioDevice->setEnabled($updatedDevice->getEnabled());
@@ -215,7 +224,9 @@ class IODeviceController extends RestController {
                     $this->scheduleManager->disableSchedulesForDevice($ioDevice);
                 }
             }
-            $ioDevice->setLocation($updatedDevice->getLocation());
+            if ($updatedDevice->getLocation()->getId()) {
+                $ioDevice->setLocation($updatedDevice->getLocation());
+            }
             $ioDevice->setComment($updatedDevice->getComment());
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
@@ -228,17 +239,25 @@ class IODeviceController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
-    public function deleteIodeviceAction(IODevice $ioDevice) {
+    public function deleteIodeviceAction(IODevice $ioDevice, Request $request, ChannelDependencies $channelDependencies) {
         $deviceId = $ioDevice->getId();
-        $this->transactional(function (EntityManagerInterface $em) use ($ioDevice) {
-            $cannotDeleteMsg = 'Cannot delete this I/O Device right now.'; // i18n
-            Assertion::true($this->suplaServer->userAction('BEFORE-DEVICE-DELETE', $ioDevice->getId()), $cannotDeleteMsg);
+        if ($request->get('safe', false)) {
+            $dependencies = [];
             foreach ($ioDevice->getChannels() as $channel) {
-                // clears all paired channels that are possibly made with the on`e that is being deleted
-                $this->channelParamsUpdater->updateChannelParams($channel, new IODeviceChannel());
-                $channel->removeFromAllChannelGroups($em);
+                $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
             }
-
+            if (count(array_filter($dependencies))) {
+                $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                return $view;
+            }
+        }
+        $cannotDeleteMsg = 'Cannot delete this I/O Device right now.'; // i18n
+        Assertion::true($this->suplaServer->userAction('BEFORE-DEVICE-DELETE', $ioDevice->getId()), $cannotDeleteMsg);
+        $this->transactional(function (EntityManagerInterface $em) use ($channelDependencies, $ioDevice) {
+            foreach ($ioDevice->getChannels() as $channel) {
+                $channelDependencies->clearDependencies($channel);
+            }
             foreach ($ioDevice->getChannels() as $channel) {
                 $em->remove($channel);
             }

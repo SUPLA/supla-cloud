@@ -32,6 +32,7 @@ class Version20200108201101MigrationTest extends DatabaseMigrationTestCase {
     public function testImpulseCounterInitialValueIsMigrated() {
         /** @var IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 67);
-        $this->assertEquals(10300, $channel->getParam1());
+        $this->assertNotEmpty($channel->getConfig());
+        $this->assertEquals(103, $channel->getConfig()['initialValue']);
     }
 }

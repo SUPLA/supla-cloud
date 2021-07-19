@@ -63,7 +63,7 @@ class Schedule implements HasSubject {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
-     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      * @Groups({"channel", "iodevice", "location"})
      * @MaxDepth(1)
      */
@@ -71,9 +71,15 @@ class Schedule implements HasSubject {
 
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="schedules")
-     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="schedules")
+     * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $scene;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
@@ -149,8 +155,8 @@ class Schedule implements HasSubject {
         }
         $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
         $this->setActionParam($data['actionParam'] ?? null);
-        $this->setDateStart(empty($data['dateStart']) ? new DateTime() : DateTime::createFromFormat(DateTime::ATOM, $data['dateStart']));
-        $this->setDateEnd(empty($data['dateEnd']) ? null : DateTime::createFromFormat(DateTime::ATOM, $data['dateEnd']));
+        $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
+        $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
         $this->setMode(new ScheduleMode($data['mode']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
@@ -160,8 +166,7 @@ class Schedule implements HasSubject {
         return $this->id;
     }
 
-    /** @return User */
-    public function getUser() {
+    public function getUser(): User {
         return $this->user;
     }
 
@@ -184,7 +189,7 @@ class Schedule implements HasSubject {
      * @Groups({"schedule.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): HasFunction {
+    public function getSubject(): ?HasFunction {
         return $this->getTheSubject();
     }
 
@@ -202,6 +207,10 @@ class Schedule implements HasSubject {
     }
 
     public function setAction(ChannelFunctionAction $action) {
+        if ($this->getSubject()) {
+            $function = $this->getSubject()->getFunction();
+            Assertion::inArray($action->getValue(), EntityUtils::mapToIds($function->getPossibleActions()), 'Invalid action.'); // i18n
+        }
         $this->action = $action->getValue();
     }
 
@@ -233,45 +242,27 @@ class Schedule implements HasSubject {
         $this->mode = $mode->getValue();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDateStart() {
+    public function getDateStart(): DateTime {
         return $this->dateStart;
     }
 
-    /**
-     * @param mixed $dateStart
-     */
     public function setDateStart(DateTime $dateStart) {
         $this->dateStart = $dateStart;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getDateEnd() {
+    public function getDateEnd(): ?DateTime {
         return $this->dateEnd;
     }
 
-    /**
-     * @param DateTime|null $dateEnd
-     */
-    public function setDateEnd($dateEnd) {
+    public function setDateEnd(?DateTime $dateEnd) {
         $this->dateEnd = $dateEnd;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEnabled() {
+    public function getEnabled(): bool {
         return $this->enabled;
     }
 
-    /**
-     * @param mixed $enabled
-     */
-    public function setEnabled($enabled) {
+    public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
     }
 
@@ -286,22 +277,15 @@ class Schedule implements HasSubject {
         $this->nextCalculationDate = $nextCalculationDate;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCaption() {
+    public function getCaption(): ?string {
         return $this->caption;
     }
 
-    /**
-     * @param mixed $caption
-     */
-    public function setCaption($caption) {
+    public function setCaption(?string $caption) {
         $this->caption = $caption;
     }
 
-    /** @return DateTimeZone */
-    public function getUserTimezone() {
+    public function getUserTimezone(): DateTimeZone {
         return new DateTimeZone($this->getUser()->getTimezone());
     }
 

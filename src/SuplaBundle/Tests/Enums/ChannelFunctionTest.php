@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,13 +17,14 @@
 
 namespace SuplaBundle\Tests\Enums;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Exception\ApiException;
 
-class ChannelFunctionTest extends \PHPUnit_Framework_TestCase {
+class ChannelFunctionTest extends TestCase {
     public function testEveryFunctionHasCaption() {
         $diff = array_map(function (ChannelFunction $type) {
             return $type->getKey();
@@ -51,6 +52,15 @@ class ChannelFunctionTest extends \PHPUnit_Framework_TestCase {
             [ChannelFunction::CONTROLLINGTHEGATE(), ChannelFunction::WINDSENSOR()],
             ChannelFunction::fromStrings(['CONTROLLINGTHEGATE', 'windSensor'])
         );
+    }
+
+    public function testFromStringDeprecatedNames() {
+        $this->assertEquals(ChannelFunction::IC_GASMETER(), ChannelFunction::fromString('GASMETER'));
+        $this->assertEquals(ChannelFunction::IC_GASMETER(), ChannelFunction::fromString('IC_GASMETER'));
+        $this->assertEquals(ChannelFunction::IC_WATERMETER(), ChannelFunction::fromString('WATERMETER'));
+        $this->assertEquals(ChannelFunction::IC_WATERMETER(), ChannelFunction::fromString('IC_WATERMETER'));
+        $this->assertEquals(ChannelFunction::ELECTRICITYMETER(), ChannelFunction::fromString('ELECTRICITYMETER'));
+        $this->assertEquals(ChannelFunction::IC_ELECTRICITYMETER(), ChannelFunction::fromString('IC_ELECTRICITYMETER'));
     }
 
     public function testInvalidFromString() {

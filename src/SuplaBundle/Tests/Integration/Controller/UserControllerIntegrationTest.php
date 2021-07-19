@@ -92,11 +92,12 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testDeletingWithBadToken */
     public function testDeletingWithGoodToken() {
         $client = $this->createHttpsClient();
-        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $userId = $this->user->getId();
+        $this->user = $this->getEntityManager()->find(User::class, $userId);
         $client->apiRequest('PATCH', 'api/confirm-deletion/' . $this->user->getToken());
         $this->assertStatusCode(204, $client->getResponse());
-        $this->getDoctrine()->resetManager();
-        $this->assertNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->getDoctrine()->resetEntityManager();
+        $this->assertNull($this->getEntityManager()->find(User::class, $userId));
     }
 
     /** @depends testDeletingWithGoodToken */
@@ -107,7 +108,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testDeletingWithGoodToken */
     public function testDeletingUserAccountEventIsSavedInAudit() {
         /** @var AuditEntry $lastEntry */
-        $entries = $this->container->get(AuditEntryRepository::class)->findAll();
+        $entries = self::$container->get(AuditEntryRepository::class)->findAll();
         $lastEntry = end($entries);
         $this->assertEquals(AuditedEvent::USER_ACCOUNT_DELETED, $lastEntry->getEvent()->getId());
         $this->assertEquals(1, $lastEntry->getIntParam());

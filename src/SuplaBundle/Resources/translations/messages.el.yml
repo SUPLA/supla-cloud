@@ -49,7 +49,6 @@ Are you sure you want to delete this client?: Είστε βέβαιοι ότι �
 Are you sure you want to delete this direct link?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε τον απευθείας σύνδεσμο;
 Are you sure you want to delete this icon?: Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το εικονίδιο;
 Are you sure you want to delete this schedule?: Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το χρονοδιάγραμμα;
-Are you sure you want to disable this device?: Είστε βέβαιοι ότι θέλετε να απενεργοποιήσετε αυτή τη συσκευή;
 Are you sure you want to revoke permissions granted to this OAuth application?: Είστε βέβαιοι ότι θέλετε να ανακαλέσετε τα δικαιώματα που έχουν χορηγηθεί σε αυτή την εφαρμογή OAuth;
 Are you sure you want to revoke this token?: Είστε βέβαιοι ότι θέλετε να ανακαλέσετε το διακριτικό;
 Are you sure?: Είστε σίγουροι;
@@ -89,7 +88,6 @@ Channel group limit has been exceeded: Υπέρβαση ορίου των ομά
 Channel group must consist of at least one channel.: Η ομάδα καναλιών πρέπει να περιέχει τουλάχιστον ένα κανάλι.
 Channel groups: Ομάδες καναλιών
 Channel is assigned to the I/O device location: Το κανάλι συνδέεται με την τοποθεσία της συσκευής
-Channel will be deleted from the channel group below: Το κανάλι θα αφαιρεθεί από τις ακόλουθες ομάδες καναλιών
 Channels: Κανάλια
 Channels in channel group: Κανάλια σε ομάδες καναλιών
 Check the direct link you used and try again.: Ελέγξτε τον επικαλούμενο απευθείας σύνδεσμο και προσπαθήστε ξανά.
@@ -112,7 +110,6 @@ Configuration: Ρύθμιση
 Confirm Password: Επιβεβαίωση κωδικού πρόσβασης
 Confirm if you want to remove Access Identifier: Επιβεβαιώστε ότι θέλετε να διαγράψετε το αναγνωριστικό πρόσβασης
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Επιβεβαιώστε ότι θέλετε να διαγράψετε την τοποθεσία ID{locationId}. Δεν μπορούν να συνδεθούν άλλες συσκευές εισόδου/εξόδου με αυτή την τοποθεσία.'
-'Confirm if you want to remove {deviceName} device': 'Επιβεβαιώστε ότι θέλετε να διαγράψετε τη συσκευή {deviceName}'
 Connected: Συνδεδεμένο
 Connection with a private instance of the SUPLA cloud: Σύνδεση με μια ιδιωτική εμφάνιση του SUPLA.
 Constraints: Περιορισμοί
@@ -132,7 +129,6 @@ Custom execution limit: Προσαρμοσμένο όριο εκτελέσεων
 DHT11 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασίας και υγρασίας DHT11
 DHT21 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασίας και υγρασίας DHT21
 DHT22 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασίας και υγρασίας DHT22
-DISABLED: ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ
 DS18B20 Thermometer: Θερμόμετρο DS18B20
 Data saved: Τα στοιχεία έχουν αποθηκευτεί
 Days: Ημέρες
@@ -155,7 +151,6 @@ Direct link has been created successfully!: Ένας απευθείας σύνδ
 Direct link has been executed: Μόλις δημιουργήθηκε ένας απευθείας σύνδεσμος
 'Direct link is not working right now. Reason:': 'Ο απευθείας σύνδεσμος δεν λειτουργεί αυτή τη στιγμή. Αιτία:'
 Direct links: Απευθείας σύνδεσμοι
-Direct links below will be deleted: Οι απευθείας σύνδεσμοι που αναφέρονται παρακάτω θα διαγραφούν
 Disable: Απενεργοποίηση
 Disabled: Απενεργοποιημένο
 Disconnected: Αποσυνδέθηκε
@@ -168,7 +163,6 @@ Doors and gates: Πόρτες και πύλες
 'Doors, Gates': 'Πόρτες, πύλες'
 Download the history of measurement: Λήψη ιστορικού μετρήσεων
 Drag your image(s) here or click to select from the disk: Σύρετε την εικόνα εδώ ή κάντε κλικ για να την επιλέξετε
-ENABLED: ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ
 Edit: Επεξεργασία
 Electric: Ηλεκτρισμός
 Electricity meter: Μετρητής ηλεκτρικής ενέργειας
@@ -192,7 +186,6 @@ Executed without confirmation: Εκτελέστηκε χωρίς την επιβ
 Execution history: Ιστορικό εκτελέσεων
 Execution limit: Όριο εκτελέσεων
 Executions: Εκτελέσεις
-Existing schedules: Υπάρχοντα χρονοδιαγράμματα
 Expired: Έληξε
 Failed: Αποτυχία
 Failed (zombie): Αποτυχία (ζόμπι)
@@ -350,7 +343,6 @@ Please enter a valid email address: Εισαγάγετε μια έγκυρη δ�
 Please fill a valid email address: Εισαγάγετε μια έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου
 Please log in again to proceed.: Συνδεθείτε ξανά για να συνεχίσετε.
 Please provide a valid domain name for your private SUPLA Cloud: Εισαγάγετε το ακριβής όνομα τομέα για το ιδιωτικό σας SUPLA
-Please select the schedules that should also be enabled.: Επιλέξτε προγράμματα που επίσης πρέπει να συμπεριληφθούν.
 Please wait a moment before the next login attempt.: Περιμένετε λίγο πριν από την επόμενη προσπάθεια σύνδεσης.
 Pressure sensor: Αισθητήρας πίεσης
 Previous login: Προηγούμενη σύνδεση
@@ -400,7 +392,6 @@ Schedule cannot be enabled: Αποτυχία ενεργοποίησης του �
 Schedule limit has been exceeded: Υπέρβαση ορίου των χρονοδιαγραμμάτων
 Schedule mode: Λειτουργία χρονοδιαγράμματος
 Schedules: Χρονοδιαγράμματα
-Schedules below will be deleted: Τα παρακάτω χρονοδιαγράμματα θα διαγραφούν
 Scope: Πεδίο εφαρμογής (Scope)
 Scopes: Πεδία εφαρμογής
 Scopes define which sections of your account can be accessed when using the token.: Τα πεδία εφαρμογής καθορίζουν σε ποιους πόρους του λογαριασμού μπορείτε να αποκτήσετε πρόσβαση με χρήση του διακριτικού ονόματος.
@@ -615,9 +606,16 @@ valid until: θα σβήσει
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης πρέπει να αποτελείται τουλάχιστον από 8 χαρακτήρες.
 Access identifier password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης δεν μπορεί να υπερβαίνει τους 32 χαρακτήρες.
+Are you sure you want to disable this device?: Είστε βέβαιοι ότι θέλετε να απενεργοποιήσετε αυτή τη συσκευή;
 Assigned Locations: Παραχωρημένες τοποθεσίες
+Channel will be deleted from the channel group below: Το κανάλι θα αφαιρεθεί από τις ακόλουθες ομάδες καναλιών
+'Confirm if you want to remove {deviceName} device': 'Επιβεβαιώστε ότι θέλετε να διαγράψετε τη συσκευή {deviceName}'
+DISABLED: ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ
 Date: Ημερομηνία
+Direct links below will be deleted: Οι απευθείας σύνδεσμοι που αναφέρονται παρακάτω θα διαγραφούν
+ENABLED: ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ
 Email already exists: Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου υπάρχει ήδη
+Existing schedules: Υπάρχοντα χρονοδιαγράμματα
 Hi: Γεια σας!
 Hour: Ώρα
 I/O: Είσοδος/Έξοδος
@@ -630,8 +628,10 @@ Location password must be no longer than 32 characters.: Ο κωδικός πρ�
 Next: Επόμενο
 Number: Αριθμός
 Output: Έξοδος
+Please select the schedules that should also be enabled.: Επιλέξτε προγράμματα που επίσης πρέπει να συμπεριληφθούν.
 Registration: Εγγραφή
 Remove: Διαγραφή
+Schedules below will be deleted: Τα παρακάτω χρονοδιαγράμματα θα διαγραφούν
 Status: Κατάσταση
 Try again later: Δοκιμάστε αργότερα ξανά
 You will be logged out shortly: Σε λίγο θα αποσυνδεθείτε
@@ -640,26 +640,54 @@ execute: Εκτέλεση
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+'%s trigger is not supported by the hardware.': ~
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
+Action trigger: ~
+Action triggers: ~
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
+Add a delay: ~
+Add new item to use in the scene: ~
+'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
+Are you sure you want to delete this scene?: ~
 Associated measured channel: ~
 Associated measurement channel: ~
+Bar: ~
+Be right back!: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
 Channel name: ~
+Channel reference will be removed from the items below.: ~
+Channel value: ~
 Channels groups are not supported for this function.: ~
+Chart data source type: ~
+Chart type: ~
 Check your email inbox: ~
+Clear: ~
+'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Create new scene: ~
+Current Overload: ~
 Default: ~
+Device channel value: ~
+Differential: ~
 Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
+Direct links limit has been exceeded: ~
+Execute: ~
+Execute the scene: ~
+General purpose measurement: ~
 Generate new password: ~
 Guru Meditation: ~
 Host: ~
+Icon: ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
+Interpolate measurements: ~
 Invalid action parameters: ~
+Invalid action.: ~
+Linear: ~
 Location name: ~
 MQTT Broker: ~
 MQTT Broker Username: ~
@@ -668,17 +696,39 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Need one of these?: ~
+New scene: ~
+No of operations: ~
 Number of sections: ~
+Operations: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Port: ~
+Precision: ~
 Protocol: ~
 Regeneration starts at: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+Scene: ~
+Scene must consist of at least one operation.: ~
+Scenes: ~
+Scenes limit has been exceeded: ~
+Some features depend on this device: ~
+Some of the features you have configured rely on channels from this device.: ~
+Standard: ~
+Store measurements history: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The following items use the channels of these device. These references will be also removed.: ~
+'The following items will be deleted with this device:': ~
+'The items below rely on this channel function, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
+Triggers: ~
+Turning this device off will cause its channels not working in the following features.: ~
+Turning this device off will result in disabling features listed below.: ~
+Update in progress: ~
+Value per unit: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
 You cannot use SUPLA project name in the domain name.: ~
 You have to choose at least one scope.: ~
@@ -689,5 +739,26 @@ Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
+actionTriggerDescription_HOLD: ~
+actionTriggerDescription_PRESS: ~
+actionTriggerDescription_PRESS_2X: ~
+actionTriggerDescription_PRESS_3X: ~
+actionTriggerDescription_RELEASE: ~
+actionTrigger_HOLD: ~
+actionTrigger_PRESS: ~
+actionTrigger_PRESS_2X: ~
+actionTrigger_PRESS_3X: ~
+actionTrigger_RELEASE: ~
+actionableSubjectType_channel: ~
+actionableSubjectType_channelGroup: ~
+actionableSubjectType_scene: ~
+channel: ~
+channelGroup: ~
+choose the scene: ~
+min.: ~
+or add a delay: ~
+prefix: ~
+scene: ~
+suffix: ~
 
 #</editor-fold>

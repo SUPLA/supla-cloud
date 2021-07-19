@@ -58,9 +58,10 @@ class IODeviceManager {
             ChannelFunction::HUMIDITY()->getId(),
             ChannelFunction::HUMIDITYANDTEMPERATURE()->getId(),
             ChannelFunction::ELECTRICITYMETER()->getId(),
-            ChannelFunction::GASMETER()->getId(),
-            ChannelFunction::WATERMETER()->getId(),
-            ChannelFunction::HEATMETER()->getId(),
+            ChannelFunction::IC_ELECTRICITYMETER()->getId(),
+            ChannelFunction::IC_GASMETER()->getId(),
+            ChannelFunction::IC_WATERMETER()->getId(),
+            ChannelFunction::IC_HEATMETER()->getId(),
             ChannelFunction::THERMOSTAT()->getId(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()->getId(),
         ]);
@@ -71,7 +72,7 @@ class IODeviceManager {
             $handle = fopen($temp_file, 'w+');
 
             if ($channel->getType()->getId() == ChannelType::THERMOSTAT
-                || $channel->getType()->getId() == ChannelType::THERMOSTATHEATPOLHOMEPLUS ) {
+                || $channel->getType()->getId() == ChannelType::THERMOSTATHEATPOLHOMEPLUS) {
 
                 fputcsv($handle, ['Timestamp', 'Date and time', 'On', 'MeasuredTemperature', 'PresetTemperature']);
 
@@ -92,7 +93,6 @@ class IODeviceManager {
                         $row['preset_temperature'],
                     ]);
                 }
-
             } elseif ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
 
                 fputcsv($handle, ['Timestamp', 'Date and time', 'Counter', 'CalculatedValue']);

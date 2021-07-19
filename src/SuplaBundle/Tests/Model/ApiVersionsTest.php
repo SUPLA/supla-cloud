@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Tests\Model;
 
-use SuplaBundle\Controller\ClientAppController;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApiVersionsTest extends \PHPUnit_Framework_TestCase {
+class ApiVersionsTest extends TestCase {
     public function testExtractingVersionFromRequest() {
         $this->assertEquals(ApiVersions::V2_2(), ApiVersions::fromRequest($this->requestMock('2.2')));
     }

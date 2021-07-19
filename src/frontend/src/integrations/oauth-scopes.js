@@ -14,6 +14,11 @@ export const availableScopes = [
         suffixes: ['r', 'rw', 'ea'],
         label: 'Channel groups' // i18n
     },
+   /* {
+        prefix: 'scenes',
+        suffixes: ['r', 'rw', 'ea'],
+        label: 'Scenes' // i18n
+    }, */
     {
         prefix: 'directlinks',
         suffixes: ['r', 'rw'],

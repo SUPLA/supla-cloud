@@ -142,6 +142,7 @@ final class OAuthScope {
             'channels_files',
             'state_webhook',
             'mqtt_broker',
+            'scenes_ea',
         ];
         foreach ([
                      'accessids',
@@ -152,6 +153,7 @@ final class OAuthScope {
                      'directlinks',
                      'iodevices',
                      'locations',
+                     'scenes',
                      'schedules',
                  ] as $rwScope) {
             $supportedScopes[] = $rwScope . '_r';

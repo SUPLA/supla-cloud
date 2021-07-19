@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -22,7 +22,6 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use InvalidArgumentException;
 use OAuth2\OAuth2;
 use ReCaptcha\ReCaptcha;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
@@ -37,6 +36,7 @@ use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 class AuthorizeOAuthController extends Controller {
@@ -218,10 +218,12 @@ class AuthorizeOAuthController extends Controller {
         );
 
         $info = $this->getTargetCloudInfo($targetCloud);
+        // phpcs:disable
         Assertion::isArray(
             $info,
             'Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.' // i18n
         );
+        // phpcs:enable
         Assertion::version(
             ApiVersions::V2_3,
             '<=',

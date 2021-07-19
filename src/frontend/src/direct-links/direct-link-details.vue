@@ -92,12 +92,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <h3 class="text-center">{{ $t(directLink.subjectType == 'channel' ? 'Channel' : 'Channel group') }}</h3>
+                                    <h3 class="text-center">{{ $t('actionableSubjectType_' + directLink.subjectType) }}</h3>
                                     <div class="text-left">
                                         <channel-tile :model="directLink.subject"
                                             v-if="directLink.subjectType == 'channel'"></channel-tile>
                                         <channel-group-tile :model="directLink.subject"
                                             v-if="directLink.subjectType == 'channelGroup'"></channel-group-tile>
+                                        <scene-tile :model="directLink.subject"
+                                            v-if="directLink.subjectType == 'scene'"></scene-tile>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -184,6 +186,7 @@
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
     import ChannelTile from "../channels/channel-tile";
+    import SceneTile from "../scenes/scene-tile";
     import ChannelGroupTile from "../channel-groups/channel-group-tile";
     import DirectLinkPreview from "./direct-link-preview";
     import DateRangePicker from "./date-range-picker";
@@ -201,6 +204,7 @@
             DateRangePicker,
             DirectLinkPreview,
             ChannelTile,
+            SceneTile,
             ChannelGroupTile,
             PageContainer,
             PendingChangesPage,

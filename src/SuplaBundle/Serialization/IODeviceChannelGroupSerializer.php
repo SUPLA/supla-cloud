@@ -22,6 +22,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Repository\ChannelGroupRepository;
+use SuplaBundle\Utils\JsonArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
@@ -48,7 +49,7 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         $normalized['functionId'] = $group->getFunction()->getId();
         $normalized['userIconId'] = $group->getUserIcon() ? $group->getUserIcon()->getId() : null;
         if ($this->isSerializationGroupRequested('state', $context)) {
-            $normalized['state'] = $this->emptyArrayAsObject($this->channelStateGetter->getStateForChannelGroup($group));
+            $normalized['state'] = new JsonArrayObject($this->channelStateGetter->getStateForChannelGroup($group));
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['subjectType'] = ActionableSubjectType::CHANNEL_GROUP;

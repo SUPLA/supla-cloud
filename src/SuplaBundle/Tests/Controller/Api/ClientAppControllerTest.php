@@ -20,18 +20,20 @@ namespace SuplaBundle\Tests\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\View;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Controller\Api\ClientAppController;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Supla\SuplaServer;
 use Symfony\Component\HttpFoundation\Request;
 
-class ClientAppControllerTest extends \PHPUnit_Framework_TestCase {
-    /** @var  EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+class ClientAppControllerTest extends TestCase {
+    /** @var  EntityManagerInterface|MockObject */
     private $entityManager;
-    /** @var ClientAppController|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ClientAppController|MockObject */
     private $controller;
-    /** @var SuplaServer|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var SuplaServer|MockObject */
     private $suplaServer;
 
     protected function setUp() {

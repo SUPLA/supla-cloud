@@ -59,7 +59,7 @@
         top: 50%;
         transform: translateY(-50%);
         .modal-body {
-            max-height: 65vh;
+            max-height: 60vh;
             overflow-x: hidden;
             overflow-y: auto;
         }

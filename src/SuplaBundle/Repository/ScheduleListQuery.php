@@ -4,6 +4,7 @@ namespace SuplaBundle\Repository;
 use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\User;
 
 class ScheduleListQuery {
@@ -11,6 +12,8 @@ class ScheduleListQuery {
     private $channel;
     private $channelGroup;
     private $orderBy = [];
+    /** @var Scene */
+    private $scene;
 
     private function __construct() {
     }
@@ -34,6 +37,11 @@ class ScheduleListQuery {
         return $this;
     }
 
+    public function filterByScene(Scene $scene): ScheduleListQuery {
+        $this->scene = $scene;
+        return $this;
+    }
+
     public function orderBy($column, $direction = 'ASC'): ScheduleListQuery {
         Assertion::inArray($column, ['id', 'caption', 'dateStart']);
         Assertion::inArray(strtolower($direction), ['asc', 'desc']);
@@ -41,19 +49,20 @@ class ScheduleListQuery {
         return $this;
     }
 
-    /** @return User|null */
-    public function getUser() {
+    public function getUser(): ?User {
         return $this->user;
     }
 
-    /** @return IODeviceChannel|null */
-    public function getChannel() {
+    public function getChannel(): ?IODeviceChannel {
         return $this->channel;
     }
 
-    /** @return IODeviceChannelGroup|null */
-    public function getChannelGroup() {
+    public function getChannelGroup(): ?IODeviceChannelGroup {
         return $this->channelGroup;
+    }
+
+    public function getScene(): ?Scene {
+        return $this->scene;
     }
 
     public function getOrderBy(): array {

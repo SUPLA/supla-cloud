@@ -4,25 +4,19 @@ namespace SuplaBundle\ParamConverter;
 use Assert\Assertion;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\HasFunction;
-use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\CurrentUserAware;
-use SuplaBundle\Repository\ChannelGroupRepository;
-use SuplaBundle\Repository\IODeviceChannelRepository;
+use SuplaBundle\Repository\ActionableSubjectRepository;
 
 class DirectLinkParamConverter extends AbstractBodyParamConverter {
     use CurrentUserAware;
 
-    /** @var IODeviceChannelRepository */
-    private $channelRepository;
-    /** @var ChannelGroupRepository */
-    private $channelGroupRepository;
+    /** @var ActionableSubjectRepository */
+    private $subjectRepository;
 
-    public function __construct(IODeviceChannelRepository $channelRepository, ChannelGroupRepository $channelGroupRepository) {
-        $this->channelRepository = $channelRepository;
-        $this->channelGroupRepository = $channelGroupRepository;
+    public function __construct(ActionableSubjectRepository $subjectRepository) {
+        $this->subjectRepository = $subjectRepository;
     }
 
     public function getConvertedClass(): string {
@@ -33,15 +27,11 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
         $user = $this->getCurrentUserOrThrow();
         Assertion::keyExists($data, 'subjectId', 'You must set subjectId for the direct link.');
         Assertion::keyExists($data, 'subjectType', 'You must set subjectType for the direct link.');
-        Assertion::inArray($data['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
         if (!isset($data['allowedActions'])) {
             $data['allowedActions'] = [];
         }
         Assertion::isArray($data['allowedActions'], 'AllowedActions must be an array.');
-        /** @var HasFunction $subject */
-        $subject = $data['subjectType'] === ActionableSubjectType::CHANNEL
-            ? $this->channelRepository->findForUser($user, $data['subjectId'])
-            : $this->channelGroupRepository->findForUser($user, $data['subjectId']);
+        $subject = $this->subjectRepository->findForUser($user, $data['subjectType'], $data['subjectId']);
         Assertion::notEq(ChannelFunction::NONE, $subject->getFunction()->getId(), 'Cannot create direct link for NONE channel function.');
         Assertion::notEq(
             ChannelFunction::UNSUPPORTED,

@@ -14,6 +14,7 @@ class Version20200124084227MigrationTest extends DatabaseMigrationTestCase {
     /** @before */
     public function prepare() {
         $this->loadDumpV23();
+        $this->migrate();
     }
 
     public function testReadingDirectLinkIpAddressWithMysqlFunction() {
@@ -32,7 +33,7 @@ class Version20200124084227MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals('127.0.0.1', $auditEntry->getIpv4());
     }
 
-    public function testReadingClientAPpIpAddressesWithMysqlFunction() {
+    public function testReadingClientAppIpAddressesWithMysqlFunction() {
         $clientApp = $this->getEntityManager()->find(ClientApp::class, 1);
         $this->assertEquals('254.250.244.237', $clientApp->getRegIpv4());
         $this->assertEquals('123.173.115.31', $clientApp->getLastAccessIpv4());

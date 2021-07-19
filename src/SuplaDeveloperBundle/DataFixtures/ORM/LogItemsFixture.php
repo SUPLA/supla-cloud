@@ -17,8 +17,9 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Faker\Generator;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\ImpulseCounterLogItem;
@@ -34,7 +35,7 @@ class LogItemsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
     /** @var ObjectManager */
     private $entityManager;
-    /** @var \Faker\Generator */
+    /** @var Generator */
     private $faker;
 
     const SINCE = '-40 day';
@@ -102,14 +103,13 @@ class LogItemsFixture extends SuplaFixture {
     private function createImpulseCounterLogItems() {
         $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
         $gasMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
-            return $channel->getFunction()->getId() === ChannelFunction::GASMETER;
+            return $channel->getFunction()->getId() === ChannelFunction::IC_GASMETER;
         })->first();
         $heatMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
-            return $channel->getFunction()->getId() === ChannelFunction::HEATMETER;
+            return $channel->getFunction()->getId() === ChannelFunction::IC_HEATMETER;
         })->first();
         $electricityMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
-            return $channel->getFunction()->getId() === ChannelFunction::ELECTRICITYMETER
-                && $channel->getType()->getId() === ChannelType::IMPULSECOUNTER;
+            return $channel->getFunction()->getId() === ChannelFunction::IC_ELECTRICITYMETER;
         })->first();
         foreach ([$gasMeterIc, $heatMeterIc, $electricityMeterIc] as $channel) {
             $channelId = $channel->getId();
@@ -133,8 +133,7 @@ class LogItemsFixture extends SuplaFixture {
     private function createElectricityMeterLogItems() {
         $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
         $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
-            return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER
-                && $channel->getFunction()->getId() === ChannelFunction::ELECTRICITYMETER;
+            return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
         })->first();
         $channelId = $ecChannel->getId();
         $from = strtotime(self::SINCE);

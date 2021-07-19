@@ -24,6 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @method static ChannelFunctionAction READ()
+ * @method static ChannelFunctionAction EXECUTE()
  * @method static ChannelFunctionAction SET()
  * @method static ChannelFunctionAction OPEN()
  * @method static ChannelFunctionAction CLOSE()
@@ -41,6 +42,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final class ChannelFunctionAction extends Enum {
     const READ = 1000;
     const SET = 2000;
+    const EXECUTE = 3000;
     const OPEN = 10;
     const CLOSE = 20;
     const SHUT = 30;
@@ -89,6 +91,7 @@ final class ChannelFunctionAction extends Enum {
             self::OPEN_CLOSE => 'Open / close', // i18n
             self::STOP => 'Stop', // i18n
             self::TOGGLE => 'Toggle', // i18n
+            self::EXECUTE => 'Execute', // i18n
             self::OPEN_PARTIALLY => 'Open partially', // i18n
         ];
     }

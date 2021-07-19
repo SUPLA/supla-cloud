@@ -111,6 +111,18 @@ export default [
         component: () => import("@/integrations/register-target-cloud-form"),
         meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
+    /*{
+        path: '/scenes', component: () => import("@/scenes/scenes-page"), name: 'scenes', children: [
+            {path: ':id', component: () => import("@/scenes/scene-details"), name: 'scene', props: true}
+        ]
+    },*/
+    {
+        path: '/schedules', component: () => import("@/schedules/schedule-list/schedules-page"), name: 'schedules', children: [
+            // {path: 'new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new', props: true},
+            {path: ':id', component: () => import("@/schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},
+            {path: ':id/edit', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.edit', props: true},
+        ]
+    },
     {
         path: '/schedules',
         component: () => import("@/schedules/schedule-list/schedule-list-page"),

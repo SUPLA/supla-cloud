@@ -18,8 +18,8 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\OAuth\AccessToken;

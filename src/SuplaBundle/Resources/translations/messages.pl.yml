@@ -52,7 +52,6 @@ Are you sure you want to delete this client?: Czy na pewno chcesz usunąć tę a
 Are you sure you want to delete this direct link?: Czy na pewno chcesz usunąć ten link bezpośredni?
 Are you sure you want to delete this icon?: Czy na pewno chcesz usunąć tą ikonę?
 Are you sure you want to delete this schedule?: Czy na pewno chcesz usunąć ten harmonogram?
-Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Are you sure you want to revoke permissions granted to this OAuth application?: Czy na pewno chcesz odwołać uprawnienia przyznane tej aplikacji OAuth?
 Are you sure you want to revoke this token?: Czy na pewno chcesz odwołać token?
 Are you sure?: Czy na pewno?
@@ -98,7 +97,6 @@ Channel group must consist of at least one channel.: Grupa kanałów musi zawier
 Channel groups: Grupy kanałów
 Channel is assigned to the I/O device location: Kanał jest przypisany do lokalizacji urządzenia
 Channel name: Nazwa kanału
-Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels: Kanały
 Channels groups are not supported for this function.: Ta funkcja nie wspiera grup kanałów.
 Channels in channel group: Kanały w grupach kanałów
@@ -123,7 +121,7 @@ Configuration: Konfiguracja
 Confirm Password: Potwierdzenie hasła
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.'
-'Confirm if you want to remove {deviceName} device': 'Potwierdź chęć usunięcia urządzenia {deviceName}'
+'Confirm if you want to remove {deviceName} device and all of its channels.': 'Potwierdź, że chcesz usunąć urządzenie {deviceName} i wszystkie jego kanały.'
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
@@ -144,7 +142,6 @@ Custom execution limit: Niestandardowy limit wykonań
 DHT11 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT11
 DHT21 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT21
 DHT22 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT22
-DISABLED: WYŁĄCZONE
 DS18B20 Thermometer: Termometr DS18B20
 Data saved: Dane zostały zapisane
 Days: Dni
@@ -171,7 +168,6 @@ Direct link has been created successfully!: Link bezpośredni został z powodzen
 Direct link has been executed: Link bezpośredni został wykonany
 'Direct link is not working right now. Reason:': 'Link bezpośredni w tym momencie nie działa. Powód:'
 Direct links: Linki bezpośrednie
-Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
 Disable: Wyłącz
 Disabled: Wyłączone
 Disconnected: Rozłączony
@@ -184,7 +180,6 @@ Doors and gates: Drzwi i bramy
 'Doors, Gates': 'Drzwi, Bramy'
 Download the history of measurement: Pobierz historię pomiarów
 Drag your image(s) here or click to select from the disk: Przeciągnij obraz tutaj lub kliknij aby wybrać z dysku
-ENABLED: WŁĄCZONE
 Edit: Edytuj
 Electric: Elektryka
 Electricity meter: Licznik energii elektrycznej
@@ -208,7 +203,6 @@ Executed without confirmation: Wykonano bez potwierdzenia
 Execution history: Historia wykonań
 Execution limit: Limit wykonań
 Executions: Wykonania
-Existing schedules: Istniejące harmonogramy
 Expired: Przeterminowany
 Failed: Nieudane
 Failed (zombie): Nieudane (zombie)
@@ -266,6 +260,7 @@ I/O Devices: Urządzenia we/wy
 I/O devices registration: Rejestracja urządzeń
 ID: ID
 INACTIVE: NIEAKTYWNA
+Icon: Ikona
 Idle: Bezczynne
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.'
@@ -328,6 +323,7 @@ Mondays: Poniedziałki
 My OAuth apps: Moje aplikacje OAuth
 My SUPLA: Moja SUPLA
 Name: Nazwa
+Need one of these?: Może Ci się przydać
 Never: Nigdy
 New OAuth application: Nowa aplikacja OAuth
 New channel group: Nowa grupa kanałów
@@ -384,7 +380,6 @@ Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
 Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
-Please select the schedules that should also be enabled.: 'Zaznacz harmonogramy, które także powinny zostać włączone.'
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Port: Port
 Pressure sensor: Czujnik ciśnienia
@@ -439,7 +434,6 @@ Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Schedule limit has been exceeded: Limit harmonogramów został przekroczony
 Schedule mode: Tryb harmonogramu
 Schedules: Harmonogramy
-Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
 Scope: Zakres (scope)
 Scopes: Zakresy
 Scopes define which sections of your account can be accessed when using the token.: 'Zakresy określają, do których zasobów konta można uzyskać dostęp za pomocą tokena.'
@@ -464,6 +458,8 @@ Sign Out: Wyloguj się
 Sign in temporarily unavailable. Please try again later.: Logowanie tymczasowo niedostępne. Spróbuj ponownie później.
 Smartphones: Smartfony
 SoftVer: WerOpr
+Some features depend on this device: Niektóre funkcjonalności zależą od tego urządzenia
+Some of the features you have configured rely on channels from this device.: Niektóre funkcjonalności używają kanałów z tego urządzenia.
 Sources available from: Źródła dostępne w
 Staircase timer: Automat schodowy
 Start Here: Rozpocznij tutaj
@@ -491,8 +487,11 @@ The Terms and Conditions have changed – please read them and accept.: Regulami
 The activation link has been sent again. Check the inbox.: Wiadomość z linkiem aktywującym Twoje konto została wysłana ponownie. Sprawdź skrzynkę odbiorczą.
 The client will be automatically logged out when deleted.: Usunięcie klienta spowoduje jego natychmiastowe wylogowanie.
 The device is disabled: Urządzenie jest wyłączone
+The following items use the channels of these device. These references will be also removed.: Poniższe elementy używają kanałów z tego urządzenia. One również zostaną usunięte.
+'The following items will be deleted with this device:': Poniższe elementy zostaną również usunięte razem z tym urządzeniem.
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
+'The items below rely on this channel function, so they will be deleted.': 'Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.'
 The latest execution: Ostatnie wykonanie
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.'
 The measurement history has been deleted.: Historia pomiarów została usunięta.
@@ -520,7 +519,9 @@ Toggle: Przełącz
 Token does not exist: Token nie istnieje
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
 Tuesdays: Wtorki
+Turning this device off will cause its channels not working in the following features.: 'Wyłączenie urządzenia spowoduje, że jego kanały przestaną działać w poniższych elementach.'
 Turning this device off will result in disabling all the associated schedules.: 'Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.'
+Turning this device off will result in disabling features listed below.: Wyłączenie urządzenia spowoduje także wyłączenie poniższych elementów.
 Type: Typ
 Unit: Jednostka
 Unknown: Nieznany
@@ -596,6 +597,8 @@ Your session is about to expire: Twoja sesja za chwilę wygaśnie
 'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
 after: po
 before: przed
+channel: Kanał
+channelGroup: Grupa kanałów
 choose: wybierz
 choose a currency: wybierz walutę
 choose the channel: wybierz kanał
@@ -626,6 +629,7 @@ minutely: Cykl minutowy
 minutes: minut
 once: Jednorazowy
 password: hasło
+prefix: prefiks
 register-slide1-text: 'W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.'
 register-slide1-title: Własny Inteligentny Budynek
 register-slide2-text: 'Jednymi z podstawowych założeń projektu są prostota i dostępność. SUPLA pozwala jednym przesunięciem palca włączyć światło czy też otworzyć bramę wjazdową w momencie, gdy chcemy wjechać na posesję. SUPLA dostępna jest wszędzie tam, gdzie posiadasz dostęp do sieci Internet i masz pod ręką smartfon lub tablet. SUPLA jest rozwijana na zasadach Otwartego Oprogramowania oraz Otwartego Sprzętu dzięki temu Ty również możesz rozwijać ten projekt!'
@@ -651,6 +655,7 @@ state-rgb_on_dim_off: 'RGB włączone, ściemniacz wyłączony'
 state-rgb_on_dim_on: RGB i ściemniacz włączone
 state-shut: Zasłonięte
 state-temperature: Temperatura
+suffix: sufiks
 sunrise-after: wschodzie
 sunrise-before: wschodem
 sunset-after: zachodzie
@@ -669,10 +674,17 @@ valid until: wygaśnie
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
 Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
+Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
 Change: Zmień
+Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
+'Confirm if you want to remove {deviceName} device': 'Potwierdź chęć usunięcia urządzenia {deviceName}'
+DISABLED: WYŁĄCZONE
 Date: Data
+Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
+ENABLED: WŁĄCZONE
 Email already exists: Adres e-mail już istnieje
+Existing schedules: Istniejące harmonogramy
 Hi: Cześć
 Hour: Godzina
 I/O: Wejście/Wyjście
@@ -686,10 +698,12 @@ Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer
 Output: Wyjście
+Please select the schedules that should also be enabled.: 'Zaznacz harmonogramy, które także powinny zostać włączone.'
 Registration: Rejestracja
 Remaining: Pozostało
 Remove: Usuń
 Requests limit: Limit żądań
+Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
 Status: Status
 Try again later: Spróbuj ponownie później
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
@@ -698,5 +712,57 @@ execute: wykonaj
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+'%s trigger is not supported by the hardware.': ~
+Action trigger: ~
+Action triggers: ~
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
+Add a delay: ~
+Add new item to use in the scene: ~
+Are you sure you want to delete this scene?: ~
+Bar: ~
+Channel reference will be removed from the items below.: ~
+Channel value: ~
+Chart data source type: ~
+Chart type: ~
+Clear: ~
+Create new scene: ~
+Device channel value: ~
+Differential: ~
+Direct links limit has been exceeded: ~
+Execute: ~
+Execute the scene: ~
+General purpose measurement: ~
+Interpolate measurements: ~
+Invalid action.: ~
+Linear: ~
+New scene: ~
+No of operations: ~
+Operations: ~
+Precision: ~
+Scene: ~
+Scene must consist of at least one operation.: ~
+Scenes: ~
+Scenes limit has been exceeded: ~
+Standard: ~
+Store measurements history: ~
+Triggers: ~
+Value per unit: ~
+actionTriggerDescription_HOLD: ~
+actionTriggerDescription_PRESS: ~
+actionTriggerDescription_PRESS_2X: ~
+actionTriggerDescription_PRESS_3X: ~
+actionTriggerDescription_RELEASE: ~
+actionTrigger_HOLD: ~
+actionTrigger_PRESS: ~
+actionTrigger_PRESS_2X: ~
+actionTrigger_PRESS_3X: ~
+actionTrigger_RELEASE: ~
+actionableSubjectType_channel: ~
+actionableSubjectType_channelGroup: ~
+actionableSubjectType_scene: ~
+choose the scene: ~
+min.: ~
+or add a delay: ~
+scene: ~
 
 #</editor-fold>

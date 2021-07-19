@@ -16,10 +16,10 @@
 
 namespace SuplaBundle\Tests\Utils;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Utils\PasswordStrengthValidator;
 
-class PasswordStrengthValidatorTest extends PHPUnit_Framework_TestCase {
+class PasswordStrengthValidatorTest extends TestCase {
     /** @dataProvider examples */
     public function testValidators(PasswordStrengthValidator $validator, array $validPasswords, array $invalidPasswords) {
         foreach ($validPasswords as $validPassword) {

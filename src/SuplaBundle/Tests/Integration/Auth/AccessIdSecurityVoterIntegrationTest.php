@@ -55,7 +55,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
         $this->accessId->setCaption('AID');
         $this->getEntityManager()->persist($this->accessId);
         $token = new AccessToken();
-        EntityUtils::setField($token, 'client', $this->container->get(ApiClientRepository::class)->getWebappClient());
+        EntityUtils::setField($token, 'client', self::$container->get(ApiClientRepository::class)->getWebappClient());
         EntityUtils::setField($token, 'user', $this->user);
         EntityUtils::setField($token, 'expiresAt', (new DateTime('2035-01-01T00:00:00'))->getTimestamp());
         EntityUtils::setField($token, 'token', 'abc');

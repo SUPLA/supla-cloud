@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -47,7 +47,7 @@ class CloseChannelActionExecutorIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGARAGEDOOR],
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
         ]);
-        $this->channelActionExecutor = $this->container->get(ChannelActionExecutor::class);
+        $this->channelActionExecutor = self::$container->get(ChannelActionExecutor::class);
         $this->channelGroup = new IODeviceChannelGroup($user, $location, [
             $this->device->getChannels()[0],
             $this->device->getChannels()[1],

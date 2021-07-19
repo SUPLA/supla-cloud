@@ -1,12 +1,14 @@
 <template>
-    <div :class="'dots-route ' + (shown ? 'shown' : '')">
+    <div :class="'dots-route ' + (shown ? 'shown' : '') + ' dots-route-' + dotsNum">
         <div :class="'dot dot-' + dot1Color"></div>
         <div :class="'dot dot-' + dot2Color"></div>
-        <div :class="'dot dot-' + dot3Color"></div>
+        <div :class="'dot dot-' + dot3Color"
+            v-if="dotsNum > 2"></div>
     </div>
 </template>
 
 <style lang="scss">
+    @use "sass:math";
     @import "../../styles/variables";
 
     $noOfDots: 3;
@@ -16,10 +18,10 @@
 
     .dots-route {
         clear: both;
-        $wholeWidth: 100%  * ($noOfDots - 1) / $noOfDots;
+        $wholeWidth: 100%  * math.div(($noOfDots - 1), $noOfDots);
         width: 0;
         height: $width - 1px;
-        margin: $dotRadius/2 (100%-$wholeWidth)/2;
+        margin: math.div($dotRadius, 2) math.div(100% - $wholeWidth, 2);
         background: $color;
         position: relative;
         transition: width .3s ease-in;
@@ -29,7 +31,7 @@
             height: $dotRadius;
             border-radius: $dotRadius;
             position: absolute;
-            top: -$dotRadius/2 + ($width - 1px)/2;
+            top: math.div(-$dotRadius, 2) + math.div($width - 1px, 2);
             background: $supla-bg;
             transition: background-color .3s;
             &:nth-child(1) {
@@ -37,7 +39,7 @@
             }
             &:nth-child(2) {
                 left: 50%;
-                margin-left: -$dotRadius/2;
+                margin-left: math.div(-$dotRadius, 2);
             }
             &:nth-child(3) {
                 left: 100%;
@@ -45,6 +47,13 @@
         }
         &.shown {
             width: $wholeWidth;
+        }
+        &.dots-route-2 {
+            width: 50%;
+            .dot:nth-child(2) {
+                left: 100%;
+                margin-left: 0;
+            }
         }
     }
 
@@ -63,7 +72,7 @@
 
 <script>
     export default {
-        props: ['dot1Color', 'dot2Color', 'dot3Color'],
+        props: ['dot1Color', 'dot2Color', 'dot3Color', 'num'],
         data() {
             return {
                 shown: false,
@@ -71,6 +80,11 @@
         },
         mounted() {
             setTimeout(() => this.shown = true);
+        },
+        computed: {
+            dotsNum() {
+                return this.num || 3;
+            }
         }
     };
 </script>

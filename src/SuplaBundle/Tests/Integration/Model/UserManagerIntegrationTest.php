@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -27,7 +27,7 @@ class UserManagerIntegrationTest extends IntegrationTestCase {
     private $userManager;
 
     protected function initializeDatabaseForTests() {
-        $this->userManager = $this->container->get(UserManager::class);
+        $this->userManager = self::$container->get(UserManager::class);
     }
 
     public function testCanGetUserManagerFromIoc() {

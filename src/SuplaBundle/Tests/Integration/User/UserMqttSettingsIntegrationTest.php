@@ -108,7 +108,9 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
         $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerEnabled', 'enabled' => true]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+        $this->getEntityManager()->clear();
         $user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->assertTrue($user->hasMqttBrokerAuthPassword());
         $newPassword = EntityUtils::getField($user, 'mqttBrokerAuthPassword');
         $this->assertEquals($oldPassword, $newPassword);
     }
@@ -122,6 +124,7 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
         $client->apiRequest('PATCH', '/api/users/current', ['action' => 'change:mqttBrokerPassword']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+        $this->getEntityManager()->clear();
         $user = $this->getEntityManager()->find(User::class, $this->user->getId());
         $this->assertTrue($user->hasMqttBrokerAuthPassword());
         $encodedPassword = EntityUtils::getField($user, 'mqttBrokerAuthPassword');

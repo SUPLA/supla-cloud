@@ -21,7 +21,13 @@
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">
-            <schedule-list-page :subject="channel"></schedule-list-page>
+            <schedules-list :subject="channel"></schedules-list>
+        </div>
+        <div v-if="currentTab == 'channelGroups'">
+            <channel-groups-list :channel="channel"></channel-groups-list>
+        </div>
+        <div v-if="currentTab == 'scenes'">
+            <scenes-list :subject="channel"></scenes-list>
         </div>
         <div v-if="currentTab == 'directLinks'">
             <direct-links-list :subject="channel"></direct-links-list>
@@ -33,14 +39,16 @@
 </template>
 
 <script>
-    import ScheduleListPage from "../schedules/schedule-list/schedule-list-page";
+    import SchedulesList from "../schedules/schedule-list/schedules-list";
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelActionExecutor from "./action/channel-action-executor";
+    import ChannelGroupsList from "../channel-groups/channel-groups-list";
+    import ScenesList from "../scenes/scenes-list";
     import ChannelMeasurementsHistory from "./channel-measurements-history";
 
     export default {
         props: ['channel'],
-        components: {ChannelMeasurementsHistory, ChannelActionExecutor, DirectLinksList, ScheduleListPage},
+        components: {ChannelMeasurementsHistory, ScenesList, ChannelGroupsList, ChannelActionExecutor, DirectLinksList, SchedulesList},
         data() {
             return {
                 currentTab: '',
@@ -67,6 +75,16 @@
                     header: 'Schedules', // i18n
                     count: this.channel.relationsCount.schedules,
                 });
+                this.availableTabs.push({
+                    id: 'channelGroups',
+                    header: 'Channel groups', // i18n
+                    count: this.channel.relationsCount.channelGroups,
+                });
+                /*this.availableTabs.push({
+                    id: 'scenes',
+                    header: 'Scenes', // i18n
+                    count: this.channel.relationsCount.scenes,
+                });*/
             }
             if (this.channel.function.id > 0) {
                 this.availableTabs.push({

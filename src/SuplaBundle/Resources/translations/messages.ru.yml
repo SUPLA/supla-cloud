@@ -49,7 +49,6 @@ Are you sure you want to delete this client?: 'Вы уверены, что хо�
 Are you sure you want to delete this direct link?: 'Вы уверены, что хотите удалить эту прямую ссылку?'
 Are you sure you want to delete this icon?: 'Вы уверены, что хотите удалить этот значок?'
 Are you sure you want to delete this schedule?: 'Ты уверен, что хочешь удалить этот график?'
-Are you sure you want to disable this device?: 'Ты уверен, что хочешь выключить это оборудование?'
 Are you sure you want to revoke permissions granted to this OAuth application?: 'Вы уверены, что хотите отменить разрешения для этого приложения OAuth?'
 Are you sure you want to revoke this token?: 'CВы уверены, что хотите отозвать токен?'
 Are you sure?: Вы уверены?
@@ -89,7 +88,6 @@ Channel group limit has been exceeded: Лимит групп каналов пр
 Channel group must consist of at least one channel.: 'Группа каналов должна содержать, по крайней мере, один канал.'
 Channel groups: Группы каналов
 Channel is assigned to the I/O device location: Канал назначен по местоположению устройства
-Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
 Channels: Каналы
 Channels in channel group: Каналы в группах каналов
 Check the direct link you used and try again.: Проверь ссылку и повтори попытку.
@@ -112,7 +110,6 @@ Configuration: Конфигурация
 Confirm Password: Подтвердить пароль
 Confirm if you want to remove Access Identifier: Подтвердите удаление Ключа Доступа
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Подтвердить удаление Местоположения ID{locationId}. Дальнейшее подключение устройств ввода-вывода к этому местоположению будет невозможно.'
-'Confirm if you want to remove {deviceName} device': 'Подтвердите удаление {deviceName}'
 Connected: Подключено
 Connection with a private instance of the SUPLA cloud: Подключение к персональной инстанции облака SUPLA.
 Constraints: Ограничения
@@ -132,7 +129,6 @@ Custom execution limit: Нестандартный лимит исполнени
 DHT11 Temperature & Humidity Sensor: Датчик температуры и влажности DHT11
 DHT21 Temperature & Humidity Sensor: Датчик температуры и влажности DHT21
 DHT22 Temperature & Humidity Sensor: Датчик температуры и влажности DHT22
-DISABLED: НЕ ИСПОЛЬЗУЕТСЯ
 DS18B20 Thermometer: Термометр DS18B20
 Data saved: Данные сохранены
 Days: Дней
@@ -155,7 +151,6 @@ Direct link has been created successfully!: Прямая ссылка успеш
 Direct link has been executed: Ссылка создана
 'Direct link is not working right now. Reason:': 'Прямая ссылка в данный момент не работает. Причина:'
 Direct links: Прямые ссылки
-Direct links below will be deleted: 'Прямые ссылки, перечисленные ниже, будут удалены'
 Disable: Выключить
 Disabled: Неиспользуется
 Disconnected: Отключено
@@ -168,7 +163,6 @@ Doors and gates: Двери и калитки
 'Doors, Gates': 'Двери, Калитки'
 Download the history of measurement: Скачать историю измерений
 Drag your image(s) here or click to select from the disk: 'Перетащите изображение сюда или нажмите, чтобы выбрать с диска'
-ENABLED: ИСПОЛЬЗУЕТСЯ
 Edit: Изменить
 Electric: Электрика
 Electricity meter: Счетчик электроэнергии
@@ -192,7 +186,6 @@ Executed without confirmation: Выполнено без подтвержден�
 Execution history: История исполнений
 Execution limit: Лимит исполнений
 Executions: Реализации
-Existing schedules: Существующие графики
 Expired: Просрочен
 Failed: Не получилось
 Failed (zombie): Не получилось (зомби)
@@ -350,7 +343,6 @@ Please enter a valid email address: Введите правильный адре
 Please fill a valid email address: Впишите корретный почтовый адрес
 Please log in again to proceed.: 'Войдите снова, чтобы продолжить.'
 Please provide a valid domain name for your private SUPLA Cloud: Введите правильное имя домена для вашего персонального облака SUPLA
-Please select the schedules that should also be enabled.: 'Отметь графики, которые тоже должны быть включены.'
 Please wait a moment before the next login attempt.: Подождите минуту перед следующей попыткой входа.
 Pressure sensor: Датчик давления
 Previous login: Предидущий вход
@@ -400,7 +392,6 @@ Schedule cannot be enabled: Не получилось запустить гра�
 Schedule limit has been exceeded: Лимит графиков превышен
 Schedule mode: Режим графика
 Schedules: Графики
-Schedules below will be deleted: Следующие графики будут удалены
 Scope: Диапазон (scope)
 Scopes: Диапазоны
 Scopes define which sections of your account can be accessed when using the token.: 'Диапазоны определяют, к каким ресурсам учетной записи можно получить доступ с помощью токена.'
@@ -615,9 +606,16 @@ valid until: Истечет
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
 Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
+Are you sure you want to disable this device?: 'Ты уверен, что хочешь выключить это оборудование?'
 Assigned Locations: Подключенные Области
+Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
+'Confirm if you want to remove {deviceName} device': 'Подтвердите удаление {deviceName}'
+DISABLED: НЕ ИСПОЛЬЗУЕТСЯ
 Date: Дата
+Direct links below will be deleted: 'Прямые ссылки, перечисленные ниже, будут удалены'
+ENABLED: ИСПОЛЬЗУЕТСЯ
 Email already exists: Адрес электронной почты уже существует
+Existing schedules: Существующие графики
 Hi: Привет
 Hour: Час
 I/O: Ввод/Вывод
@@ -630,8 +628,10 @@ Location password must be no longer than 32 characters.: Пароль для л�
 Next: Далее
 Number: Номер
 Output: Выход
+Please select the schedules that should also be enabled.: 'Отметь графики, которые тоже должны быть включены.'
 Registration: Регистрация
 Remove: Удалить
+Schedules below will be deleted: Следующие графики будут удалены
 Status: Статус
 Try again later: Попытайся повторно задать команду
 You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
@@ -640,26 +640,54 @@ execute: выполни
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+'%s trigger is not supported by the hardware.': ~
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
+Action trigger: ~
+Action triggers: ~
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
+Add a delay: ~
+Add new item to use in the scene: ~
+'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
+Are you sure you want to delete this scene?: ~
 Associated measured channel: ~
 Associated measurement channel: ~
+Bar: ~
+Be right back!: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
 Channel name: ~
+Channel reference will be removed from the items below.: ~
+Channel value: ~
 Channels groups are not supported for this function.: ~
+Chart data source type: ~
+Chart type: ~
 Check your email inbox: ~
+Clear: ~
+'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Create new scene: ~
+Current Overload: ~
 Default: ~
+Device channel value: ~
+Differential: ~
 Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
+Direct links limit has been exceeded: ~
+Execute: ~
+Execute the scene: ~
+General purpose measurement: ~
 Generate new password: ~
 Guru Meditation: ~
 Host: ~
+Icon: ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
+Interpolate measurements: ~
 Invalid action parameters: ~
+Invalid action.: ~
+Linear: ~
 Location name: ~
 MQTT Broker: ~
 MQTT Broker Username: ~
@@ -668,17 +696,39 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Need one of these?: ~
+New scene: ~
+No of operations: ~
 Number of sections: ~
+Operations: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Port: ~
+Precision: ~
 Protocol: ~
 Regeneration starts at: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+Scene: ~
+Scene must consist of at least one operation.: ~
+Scenes: ~
+Scenes limit has been exceeded: ~
+Some features depend on this device: ~
+Some of the features you have configured rely on channels from this device.: ~
+Standard: ~
+Store measurements history: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The following items use the channels of these device. These references will be also removed.: ~
+'The following items will be deleted with this device:': ~
+'The items below rely on this channel function, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
+Triggers: ~
+Turning this device off will cause its channels not working in the following features.: ~
+Turning this device off will result in disabling features listed below.: ~
+Update in progress: ~
+Value per unit: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
 You cannot use SUPLA project name in the domain name.: ~
 You have to choose at least one scope.: ~
@@ -689,5 +739,26 @@ Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
+actionTriggerDescription_HOLD: ~
+actionTriggerDescription_PRESS: ~
+actionTriggerDescription_PRESS_2X: ~
+actionTriggerDescription_PRESS_3X: ~
+actionTriggerDescription_RELEASE: ~
+actionTrigger_HOLD: ~
+actionTrigger_PRESS: ~
+actionTrigger_PRESS_2X: ~
+actionTrigger_PRESS_3X: ~
+actionTrigger_RELEASE: ~
+actionableSubjectType_channel: ~
+actionableSubjectType_channelGroup: ~
+actionableSubjectType_scene: ~
+channel: ~
+channelGroup: ~
+choose the scene: ~
+min.: ~
+or add a delay: ~
+prefix: ~
+scene: ~
+suffix: ~
 
 #</editor-fold>

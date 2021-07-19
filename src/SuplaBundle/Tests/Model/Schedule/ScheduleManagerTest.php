@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -15,24 +15,25 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
+namespace SuplaBundle\Tests\Model\Schedule;
 
 use DateTime;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityRepository;
-use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
+use SuplaBundle\Tests\Model\Schedule\SchedulePlanner\ScheduleWithTimezone;
 
-class ScheduleManagerTest extends PHPUnit_Framework_TestCase {
+class ScheduleManagerTest extends TestCase {
     private $doctrine;
     private $deviceManager;
-    /** @var CompositeSchedulePlanner|PHPUnit_Framework_MockObject_MockObject */
+    /** @var CompositeSchedulePlanner|MockObject */
     private $schedulePlanner;
     /** @var ScheduleManager */
     private $manager;

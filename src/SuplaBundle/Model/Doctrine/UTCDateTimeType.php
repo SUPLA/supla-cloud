@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -26,7 +26,7 @@ use Doctrine\DBAL\Types\DateTimeType;
  * http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html
  */
 class UTCDateTimeType extends DateTimeType {
-    static private $utc = null;
+    private static $utc = null;
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform) {
         if ($value === null || is_string($value)) {

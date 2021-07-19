@@ -57,7 +57,7 @@
                                     <dt class="text-center">
                                         <toggler v-model="channel.hidden"
                                             invert="true"
-                                            :disabled="shownInClientsAlwaysOn"
+                                            :disabled="frozenShownInClientsState !== undefined"
                                             @input="updateChannel()"></toggler>
                                     </dt>
                                 </dl>
@@ -103,7 +103,7 @@
         <channel-function-edit-confirmation :confirmation-object="changeFunctionConfirmationObject"
             v-if="changeFunctionConfirmationObject"
             @cancel="loading = changeFunctionConfirmationObject = undefined"
-            @confirm="saveChanges(true)"></channel-function-edit-confirmation>
+            @confirm="saveChanges(false)"></channel-function-edit-confirmation>
     </page-container>
 </template>
 
@@ -164,18 +164,18 @@
                     .catch(response => this.error = response.status);
             },
             updateChannel() {
-                if (this.shownInClientsAlwaysOn) {
-                    this.channel.hidden = false;
+                if (this.frozenShownInClientsState !== undefined) {
+                    this.channel.hidden = !this.frozenShownInClientsState;
                 }
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
                 this.fetchChannel();
             },
-            saveChanges: throttle(function (confirm = false) {
+            saveChanges: throttle(function (safe = true) {
                 this.loading = true;
                 this.changeFunctionConfirmationObject = undefined;
-                this.$http.put(`channels/${this.id}` + (confirm ? '?confirm=1' : ''), this.channel, {skipErrorHandler: [409]})
+                this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), this.channel, {skipErrorHandler: [409]})
                     .then(response => $.extend(this.channel, response.body))
                     .then(() => this.changedFunction = this.hasPendingChanges = false)
                     .catch(response => {
@@ -200,8 +200,7 @@
                 this.$set(this.channel, 'function', fnc);
                 this.channel.altIcon = 0;
                 this.channel.userIconId = null;
-                this.channel.textParam1 = null;
-                this.channel.textParam2 = null;
+                // this.channel.params = {};
                 this.updateChannel();
             }
         },
@@ -213,14 +212,15 @@
                 return deviceTitle(this.channel.iodevice, this);
             },
             supportedFunctions() {
-                return [].concat.apply([{id: 0, caption: 'None', name: 'NONE'}], this.channel.supportedFunctions);
+                return [].concat.apply([{id: 0, caption: 'None', name: 'NONE', possibleActions: []}], this.channel.supportedFunctions);
             },
-            shownInClientsAlwaysOn() {
-                if (this.channel.function.name.match(/^OPENINGSENSOR/)) {
-                    return +this.channel.param1 > 0 || +this.channel.param2 > 0;
-                } else {
+            frozenShownInClientsState() {
+                if (this.channel.config.controllingChannelId || this.channel.config.controllingSecondaryChannelId) {
+                    return true;
+                } else if (this.channel.function.name === 'ACTION_TRIGGER') {
                     return false;
                 }
+                return undefined;
             },
             channelFunctionIsChosen() {
                 return this.channel.function.id > 0 && this.channel.function.name != 'UNSUPPORTED';

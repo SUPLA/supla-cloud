@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dl v-if="timeSelectorEnabled">
+        <dl v-if="channel.config.timeSettingAvailable">
             <dd>{{ $t('Full opening time') }}</dd>
             <dt>
                 <span class="input-group">
@@ -9,7 +9,8 @@
                         min="0"
                         max="300"
                         class="form-control text-center"
-                        v-model="param1">
+                        v-model="channel.config.openingTimeS"
+                        @change="$emit('change')">
                     <span class="input-group-addon">
                         {{ $t('sec.') }}
                     </span>
@@ -23,7 +24,8 @@
                         min="0"
                         max="300"
                         class="form-control text-center"
-                        v-model="param3">
+                        v-model="channel.config.closingTimeS"
+                        @change="$emit('change')">
                     <span class="input-group-addon">
                         {{ $t('sec.') }}
                     </span>
@@ -31,65 +33,25 @@
             </dt>
         </dl>
         <dl>
-            <dl>
-                <dd>{{ $t('Opening sensor') }}</dd>
-                <dt class="text-center"
-                    style="font-weight: normal">
-                    <channels-dropdown :params="channelsDropdownFilter"
-                        v-model="relatedChannel"
-                        @input="relatedChannelChanged()"></channels-dropdown>
-                </dt>
-            </dl>
+            <dd>{{ $t('Opening sensor') }}</dd>
+            <dt>
+                <channels-id-dropdown :params="channelsDropdownFilter"
+                    v-model="channel.config.openingSensorChannelId"
+                    @input="$emit('change')"></channels-id-dropdown>
+            </dt>
         </dl>
     </div>
 </template>
 
 <script>
-    import ChannelsDropdown from "../../devices/channels-dropdown";
+    import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
 
     export default {
-        components: {ChannelsDropdown},
+        components: {ChannelsIdDropdown},
         props: ['channel', 'sensorFunction'],
-        data() {
-            return {
-                relatedChannel: undefined
-            };
-        },
-        mounted() {
-            if (this.channel.param2) {
-                this.$http.get(`channels/${this.channel.param2}`).then(response => this.relatedChannel = response.body);
-            }
-        },
-        methods: {
-            relatedChannelChanged() {
-                this.channel.param2 = this.relatedChannel ? this.relatedChannel.id : 0;
-                this.$emit('change');
-            }
-        },
         computed: {
             channelsDropdownFilter() {
                 return 'function=' + (this.sensorFunction || 'OPENINGSENSOR_ROLLERSHUTTER');
-            },
-            param1: {
-                set(value) {
-                    this.channel.param1 = Math.round(value * 10);
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.param1 / 10;
-                }
-            },
-            param3: {
-                set(value) {
-                    this.channel.param3 = Math.round(value * 10);
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.param3 / 10;
-                }
-            },
-            timeSelectorEnabled() {
-                return this.channel && !(this.channel.flags & 0x00100000);
             }
         }
     };

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -29,9 +29,9 @@ use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
@@ -82,7 +82,7 @@ class ApiRateLimitListener {
         $this->encoderFactory = $encoderFactory;
     }
 
-    public function onKernelRequest(GetResponseEvent $event) {
+    public function onKernelRequest(RequestEvent $event) {
         if (!$this->isRequestRateLimited($event)) {
             return;
         }
@@ -100,7 +100,7 @@ class ApiRateLimitListener {
         }
     }
 
-    private function preventRequestDueToLimitExceeded(ApiRateLimitStatus $status, GetResponseEvent $event, string $reason) {
+    private function preventRequestDueToLimitExceeded(ApiRateLimitStatus $status, RequestEvent $event, string $reason) {
         if (!$this->blocking) {
             return;
         }
@@ -119,7 +119,7 @@ class ApiRateLimitListener {
         }
     }
 
-    public function onKernelResponse(FilterResponseEvent $event) {
+    public function onKernelResponse(ResponseEvent $event) {
         if (!$this->isRequestRateLimited($event)) {
             return;
         }

@@ -15,13 +15,13 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Model;
+namespace SuplaBundle\Tests\Model\ChannelStateGetter;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Model\ChannelStateGetter\DigiglassState;
 
-class DigiglassStateTest extends PHPUnit_Framework_TestCase {
+class DigiglassStateTest extends TestCase {
     public function testCannotSetNonExistingSection() {
         $this->expectException(InvalidArgumentException::class);
         DigiglassState::sections(2)->setTransparent(2);

@@ -8,7 +8,8 @@
                     min="1"
                     max="7"
                     class="form-control text-center"
-                    v-model="sections">
+                    v-model="channel.config.sectionsCount"
+                    @input="$emit('change')">
             </dt>
             <dd>{{ $t('Regeneration starts at') }}</dd>
             <dt class="digiglass-rest-timepicker">
@@ -29,27 +30,18 @@
     export default {
         props: ['channel'],
         computed: {
-            sections: {
-                set(value) {
-                    this.channel.param1 = +value;
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.param1;
-                }
-            },
             regenerationTime: {
                 set(value) {
                     const parts = value.split(':');
                     const minuteInDay = +parts[0] * 60 + (+parts[1]);
-                    if (minuteInDay !== this.channel.param2) {
-                        this.channel.param2 = minuteInDay;
+                    if (minuteInDay !== this.channel.config.regenerationTimeStart) {
+                        this.channel.config.regenerationTimeStart = minuteInDay;
                         this.$emit('change');
                     }
                 },
                 get() {
-                    const hour = Math.floor(this.channel.param2 / 60);
-                    const minutes = this.channel.param2 % 60;
+                    const hour = Math.floor(this.channel.config.regenerationTimeStart / 60);
+                    const minutes = this.channel.config.regenerationTimeStart % 60;
                     return `${hour}:${minutes}`;
                 }
             },

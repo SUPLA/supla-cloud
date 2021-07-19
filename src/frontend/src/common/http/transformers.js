@@ -125,3 +125,32 @@ export function scheduleTransformer(request, next) {
     }
     next();
 }
+
+export function sceneTransformer(request, next) {
+    if (request.url.startsWith('scenes')) {
+        if (request.body) {
+            const toSend = Vue.util.extend({}, request.body);
+            if (toSend.location) {
+                toSend.locationId = toSend.location.id;
+                delete toSend.location;
+            }
+            if (toSend.operations) {
+                toSend.operations.forEach(operation => {
+                    if (operation.id) {
+                        delete operation.id;
+                    }
+                    if (operation.subject) {
+                        operation.subjectId = operation.subject.id;
+                        delete operation.subject;
+                    }
+                    if (operation.action) {
+                        operation.actionId = operation.action.id;
+                        delete operation.action;
+                    }
+                });
+            }
+            request.body = toSend;
+        }
+    }
+    next();
+}

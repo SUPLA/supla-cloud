@@ -26,6 +26,7 @@ use UnexpectedValueException;
 /**
  * @method static ChannelFunction UNSUPPORTED()
  * @method static ChannelFunction NONE()
+ * @method static ChannelFunction SCENE()
  * @method static ChannelFunction CONTROLLINGTHEGATEWAYLOCK()
  * @method static ChannelFunction CONTROLLINGTHEGATE()
  * @method static ChannelFunction CONTROLLINGTHEGARAGEDOOR()
@@ -58,19 +59,23 @@ use UnexpectedValueException;
  * @method static ChannelFunction WEATHER_STATION()
  * @method static ChannelFunction STAIRCASETIMER()
  * @method static ChannelFunction ELECTRICITYMETER()
- * @method static ChannelFunction GASMETER()
- * @method static ChannelFunction WATERMETER()
- * @method static ChannelFunction HEATMETER()
+ * @method static ChannelFunction IC_ELECTRICITYMETER()
+ * @method static ChannelFunction IC_GASMETER()
+ * @method static ChannelFunction IC_HEATMETER()
+ * @method static ChannelFunction IC_WATERMETER()
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelFunction VALVEOPENCLOSE()
  * @method static ChannelFunction VALVEPERCENTAGE()
+ * @method static ChannelFunction GENERAL_PURPOSE_MEASUREMENT()
+ * @method static ChannelFunction ACTION_TRIGGER()
  * @method static ChannelFunction DIGIGLASS_VERTICAL()
  * @method static ChannelFunction DIGIGLASS_HORIZONTAL()
  */
 final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
     const NONE = 0;
+    const SCENE = 2000;
     const CONTROLLINGTHEGATEWAYLOCK = 10;
     const CONTROLLINGTHEGATE = 20;
     const CONTROLLINGTHEGARAGEDOOR = 30;
@@ -103,17 +108,26 @@ final class ChannelFunction extends Enum {
     const WEATHER_STATION = 290;
     const STAIRCASETIMER = 300;
     const ELECTRICITYMETER = 310;
-    const GASMETER = 320;
-    const WATERMETER = 330;
-    const HEATMETER = 340;
+    const IC_ELECTRICITYMETER = 315;
+    const IC_GASMETER = 320;
+    const IC_WATERMETER = 330;
+    const IC_HEATMETER = 340;
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
     const VALVEOPENCLOSE = 500;
     const VALVEPERCENTAGE = 510;
+    const GENERAL_PURPOSE_MEASUREMENT = 520;
+    const ACTION_TRIGGER = 700;
     const DIGIGLASS_HORIZONTAL = 800;
     const DIGIGLASS_VERTICAL = 810;
 
     private $unsupportedFunctionId;
+
+    private static $deprecatedNames = [
+        'GASMETER' => 'IC_GASMETER',
+        'WATERMETER' => 'IC_WATERMETER',
+        'HEATMETER' => 'IC_HEATMETER',
+    ];
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -198,7 +212,6 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
-
             self::RGBLIGHTING => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
@@ -211,32 +224,27 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
-
             self::THERMOSTAT => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
-
             self::THERMOSTATHEATPOLHOMEPLUS => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
-
             self::VALVEOPENCLOSE => [
                 ChannelFunctionAction::OPEN(),
                 ChannelFunctionAction::CLOSE(),
             ],
-
             self::VALVEPERCENTAGE => [
 //                ChannelFunctionAction::OPEN_PARTIALLY(),
             ],
-
+            self::SCENE => [ChannelFunctionAction::EXECUTE()],
             self::DIGIGLASS_HORIZONTAL => [
                 ChannelFunctionAction::SET(),
             ],
-
             self::DIGIGLASS_VERTICAL => [
                 ChannelFunctionAction::SET(),
             ],
@@ -247,6 +255,7 @@ final class ChannelFunction extends Enum {
         return [
             self::UNSUPPORTED => 'Unsupported function', // i18n
             self::NONE => 'None', // i18n
+            self::SCENE => 'Scene', // i18n
             self::CONTROLLINGTHEGATEWAYLOCK => 'Gateway lock operation', // i18n
             self::CONTROLLINGTHEGATE => 'Gate operation', // i18n
             self::CONTROLLINGTHEGARAGEDOOR => 'Garage door operation', // i18n
@@ -279,13 +288,16 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => 'Weather Station', // i18n
             self::STAIRCASETIMER => 'Staircase timer', // i18n
             self::ELECTRICITYMETER => 'Electricity meter', // i18n
-            self::GASMETER => 'Gas meter', // i18n
-            self::WATERMETER => 'Water meter', // i18n
-            self::HEATMETER => 'Heat meter', // i18n
+            self::IC_ELECTRICITYMETER => 'Electricity meter', // i18n
+            self::IC_GASMETER => 'Gas meter', // i18n
+            self::IC_WATERMETER => 'Water meter', // i18n
+            self::IC_HEATMETER => 'Heat meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::VALVEOPENCLOSE => 'Valve', // i18n
             self::VALVEPERCENTAGE => 'Valve', // i18n
+            self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
+            self::ACTION_TRIGGER => 'Action trigger', // i18n
             self::DIGIGLASS_VERTICAL => 'Digi Glass Vertical', // i18n
             self::DIGIGLASS_HORIZONTAL => 'Digi Glass Horizontal', // i18n
         ];
@@ -310,6 +322,7 @@ final class ChannelFunction extends Enum {
         return [
             self::UNSUPPORTED => [],
             self::NONE => [],
+            self::SCENE => ['default'],
             self::CONTROLLINGTHEGATEWAYLOCK => ['opened', 'closed'],
             self::CONTROLLINGTHEGATE => ['opened', 'closed', 'partially_closed'],
             self::CONTROLLINGTHEGARAGEDOOR => ['opened', 'closed', 'partially_closed'],
@@ -342,13 +355,16 @@ final class ChannelFunction extends Enum {
             self::WEATHER_STATION => ['default'],
             self::STAIRCASETIMER => ['off', 'on'],
             self::ELECTRICITYMETER => ['default'],
-            self::GASMETER => ['default'],
-            self::WATERMETER => ['default'],
-            self::HEATMETER => ['default'],
+            self::IC_ELECTRICITYMETER => ['default'],
+            self::IC_GASMETER => ['default'],
+            self::IC_WATERMETER => ['default'],
+            self::IC_HEATMETER => ['default'],
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
             self::VALVEOPENCLOSE => ['opened', 'closed'],
             self::VALVEPERCENTAGE => ['opened', 'closed'],
+            self::GENERAL_PURPOSE_MEASUREMENT => ['default'],
+            self::ACTION_TRIGGER => ['default'],
             self::DIGIGLASS_VERTICAL => ['revealed', 'shut'],
             self::DIGIGLASS_HORIZONTAL => ['revealed', 'shut'],
         ];
@@ -362,6 +378,9 @@ final class ChannelFunction extends Enum {
             }
         } else {
             $functionName = strtoupper($functionName);
+            if (isset(self::$deprecatedNames[$functionName])) {
+                $functionName = self::$deprecatedNames[$functionName];
+            }
             if (self::isValidKey($functionName)) {
                 return self::$functionName();
             }

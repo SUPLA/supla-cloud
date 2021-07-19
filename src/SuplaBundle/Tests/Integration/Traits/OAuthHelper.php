@@ -32,7 +32,7 @@ use SuplaBundle\Repository\ApiClientAuthorizationRepository;
  */
 trait OAuthHelper {
     protected function createApiClient(string $publicId = null): ApiClient {
-        $clientManager = $this->container->get(ClientManagerInterface::class);
+        $clientManager = self::$container->get(ClientManagerInterface::class);
         /** @var ApiClient $client */
         $client = $clientManager->createClient();
         if ($publicId) {

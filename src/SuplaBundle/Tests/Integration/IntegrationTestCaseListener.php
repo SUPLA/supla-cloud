@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,13 +17,14 @@
 
 namespace SuplaBundle\Tests\Integration;
 
-use Exception;
-use PHPUnit_Framework_BaseTestListener;
-use PHPUnit_Framework_ExpectationFailedException;
-use PHPUnit_Framework_Test;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestListener;
+use PHPUnit\Framework\TestListenerDefaultImplementation;
 
-class IntegrationTestCaseListener extends PHPUnit_Framework_BaseTestListener {
-    public function startTest(PHPUnit_Framework_Test $test) {
+class IntegrationTestCaseListener implements TestListener {
+    use TestListenerDefaultImplementation;
+
+    public function startTest(Test $test): void {
         if ($test instanceof IntegrationTestCase) {
             try {
                 $test->prepareIntegrationTest();

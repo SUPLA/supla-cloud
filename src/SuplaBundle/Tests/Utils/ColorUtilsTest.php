@@ -17,14 +17,16 @@
 
 namespace SuplaBundle\Tests\Utils;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Utils\ColorUtils;
 
-class ColorUtilsTest extends PHPUnit_Framework_TestCase {
+class ColorUtilsTest extends TestCase {
     /** @dataProvider colorExamples */
     public function testHueToDec(array $hsv, int $dec) {
         if ($hsv[1] == 100 && $hsv[2] == 100) {
             $this->assertEquals($dec, ColorUtils::hueToDec($hsv[0]));
+        } else {
+            $this->assertTrue(true);
         }
     }
 

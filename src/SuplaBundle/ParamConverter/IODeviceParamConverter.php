@@ -2,6 +2,7 @@
 namespace SuplaBundle\ParamConverter;
 
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Location;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\LocationRepository;
 
@@ -27,6 +28,8 @@ class IODeviceParamConverter extends AbstractBodyParamConverter {
             $user = $this->getCurrentUserOrThrow();
             $location = $this->locationRepository->findForUser($user, $requestData['locationId']);
             $device->setLocation($location);
+        } else {
+            $device->setLocation(new Location());
         }
         return $device;
     }

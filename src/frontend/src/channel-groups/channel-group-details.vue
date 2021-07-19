@@ -4,7 +4,7 @@
             class="channel-group-details">
             <div v-if="channelGroup">
                 <div class="container">
-                    <pending-changes-page :header="channelGroup.id ? $t('Channel group') : $t('New channel group') + (channelGroup.id ? ' ID'+ channelGroup.id : '')"
+                    <pending-changes-page :header="(channelGroup.id ? $t('Channel group') : $t('New channel group')) + (channelGroup.id ? ' ID'+ channelGroup.id : '')"
                         @cancel="cancelChanges()"
                         @save="saveChannelGroup()"
                         :deletable="!isNewGroup"
@@ -105,6 +105,7 @@
     import PageContainer from "../common/pages/page-container";
     import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
     import ChannelGroupDetailsTabs from "./channel-group-details-tabs";
+    import AppState from "../router/app-state";
 
     export default {
         props: ['id'],
@@ -146,6 +147,11 @@
                     this.channelGroup = {};
                     if (!this.channelGroup.channels) {
                         this.$set(this.channelGroup, 'channels', []);
+                    }
+                    const channelForNewGroup = AppState.shiftTask('channelGroupCreate');
+                    if (channelForNewGroup) {
+                        this.channelGroup.channels.push(channelForNewGroup);
+                        this.channelGroupChanged();
                     }
                 }
             },

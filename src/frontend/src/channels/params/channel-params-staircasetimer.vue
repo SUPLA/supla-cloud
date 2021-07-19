@@ -1,6 +1,6 @@
 <template>
     <div>
-        <dl v-if="timeSelectorEnabled">
+        <dl v-if="channel.config.timeSettingAvailable">
             <dd>{{ $t('Relay switching time') }}</dd>
             <dt>
                 <span class="input-group">
@@ -9,7 +9,7 @@
                         min="0.5"
                         max="7200"
                         class="form-control text-center"
-                        v-model="param1">
+                        v-model="channel.config.relayTimeS">
                     <span class="input-group-addon">
                         {{ $t('sec.') }}
                     </span>
@@ -22,19 +22,5 @@
 <script>
     export default {
         props: ['channel'],
-        computed: {
-            param1: {
-                set(value) {
-                    this.channel.param1 = Math.round(value * 10);
-                    this.$emit('change');
-                },
-                get() {
-                    return this.channel.param1 / 10;
-                }
-            },
-            timeSelectorEnabled() {
-                return this.channel && !(this.channel.flags & 0x00100000);
-            },
-        }
     };
 </script>

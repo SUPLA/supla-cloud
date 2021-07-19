@@ -47,7 +47,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
         $this->client = $this->createApiClient('123');
         $this->user = $this->createConfirmedUser();
         $this->createAccessToken($this->client, $this->user, 'state_webhook');
-        $this->stateWebhookRepository = $this->container->get('doctrine')->getRepository(StateWebhook::class);
+        $this->stateWebhookRepository = self::$container->get('doctrine')->getRepository(StateWebhook::class);
     }
 
     public function testDoesNotHaveWebhookAtTheBeginning() {

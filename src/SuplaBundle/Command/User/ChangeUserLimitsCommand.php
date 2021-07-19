@@ -8,14 +8,14 @@ use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
 use SuplaBundle\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
-class ChangeUserLimitsCommand extends ContainerAwareCommand {
+class ChangeUserLimitsCommand extends Command {
     /** @var UserRepository */
     private $userRepository;
     /** @var EntityManagerInterface */
@@ -62,6 +62,7 @@ class ChangeUserLimitsCommand extends ContainerAwareCommand {
                      'limitDirectLink' => 'Direct Links',
                      'limitLoc' => 'Locations',
                      'limitOAuthClient' => 'OAuth Clients',
+                     'limitScene' => 'Scenes',
                      'limitSchedule' => 'Schedules',
                  ] as $field => $label) {
             $currentLimit = EntityUtils::getField($user, $field);

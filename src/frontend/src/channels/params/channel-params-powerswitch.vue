@@ -1,17 +1,21 @@
 <template>
-    <channel-params-related-channel
-        :channel="channel"
-        label-i18n="Associated measurement channel"
-        channel-filter="function=ELECTRICITYMETER,GASMETER,WATERMETER,HEATMETER"
-        param-no="1"
-        @change="$emit('change')"></channel-params-related-channel>
+    <div>
+        <dl>
+            <dd>{{ $t('Associated measurement channel') }}</dd>
+            <dt>
+                <channels-id-dropdown params="function=ELECTRICITYMETER,IC_ELECTRICITYMETER,IC_GASMETER,IC_WATERMETER,IC_HEATMETER"
+                    v-model="channel.config.relatedChannelId"
+                    @input="$emit('change')"></channels-id-dropdown>
+            </dt>
+        </dl>
+    </div>
 </template>
 
 <script>
-    import ChannelParamsRelatedChannel from "./channel-params-related-channel";
+    import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
 
     export default {
-        components: {ChannelParamsRelatedChannel},
+        components: {ChannelsIdDropdown},
         props: ['channel'],
     };
 </script>

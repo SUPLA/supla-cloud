@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -17,14 +17,14 @@
 
 namespace SuplaBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use DateTime;
-use PHPUnit_Framework_TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 
-class ScheduledExecutionTest extends PHPUnit_Framework_TestCase {
+class ScheduledExecutionTest extends TestCase {
     public function testUnknownResultByDefault() {
         $execution = new ScheduledExecution($this->createMock(Schedule::class), new DateTime(), ChannelFunctionAction::CLOSE());
         $this->assertEquals(ScheduleActionExecutionResult::UNKNOWN(), $execution->getResult());
