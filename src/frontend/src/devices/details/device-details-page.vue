@@ -32,8 +32,6 @@
                                         <dt>{{ this.device.regDate | moment("LT L")}}</dt>
                                         <dd>{{ $t('Last connection') }}</dd>
                                         <dt>{{ this.device.lastConnected | moment("LT L")}}</dt>
-                                        <dd>{{ $t('SoftVer') }}</dd>
-                                        <dt>{{ device.softwareVersion }}</dt>
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt>
                                             <toggler v-model="device.enabled"
