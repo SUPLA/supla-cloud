@@ -38,9 +38,6 @@ export default [
         name: 'publicApps',
         meta: {unrestricted: true},
         props: true,
-        // children: [
-        //     {path: ':id', component: () => import("@/oauth/catalog/public-app-details"), name: 'publicApp', props: true}
-        // ]
     },
     {path: '/devices', component: () => import("@/login/supla-devices-splash"), meta: {unrestricted: true, onlyUnauthenticated: true}},
     {
@@ -117,37 +114,26 @@ export default [
         ]
     },*/
     {
-        path: '/schedules', component: () => import("@/schedules/schedule-list/schedules-page"), name: 'schedules', children: [
-            // {path: 'new', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.new', props: true},
-            {path: ':id', component: () => import("@/schedules/schedule-details/schedule-details-page"), name: 'schedule', props: true},
-            {path: ':id/edit', component: () => import("@/schedules/schedule-form/schedule-form"), name: 'schedule.edit', props: true},
-        ]
-    },
-    {
         path: '/schedules',
-        component: () => import("@/schedules/schedule-list/schedule-list-page"),
+        component: () => import("@/schedules/schedule-list/schedules-page"),
         name: 'schedules',
         meta: {requireBackendAndFrontendVersionMatches: true},
-    },
-    {
-        path: '/schedules/new',
-        component: () => import("@/schedules/schedule-form/schedule-form"),
-        name: 'schedule.new',
-        meta: {requireBackendAndFrontendVersionMatches: true},
-    },
-    {
-        path: '/schedules/:id',
-        component: () => import("@/schedules/schedule-details/schedule-details-page"),
-        name: 'schedule',
-        props: true,
-        meta: {requireBackendAndFrontendVersionMatches: true},
-    },
-    {
-        path: '/schedules/edit/:id',
-        component: () => import("@/schedules/schedule-form/schedule-form"),
-        name: 'schedule.edit',
-        props: true,
-        meta: {requireBackendAndFrontendVersionMatches: true},
+        children: [
+            {
+                path: ':id',
+                component: () => import("@/schedules/schedule-details/schedule-details-page"),
+                name: 'schedule',
+                props: true,
+                meta: {requireBackendAndFrontendVersionMatches: true}
+            },
+            {
+                path: ':id/edit',
+                component: () => import("@/schedules/schedule-form/schedule-form"),
+                name: 'schedule.edit',
+                props: true,
+                meta: {requireBackendAndFrontendVersionMatches: true}
+            },
+        ]
     },
     {path: '/smartphones', component: () => import("@/client-apps/client-apps-page")},
     {
