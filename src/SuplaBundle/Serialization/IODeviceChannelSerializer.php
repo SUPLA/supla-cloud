@@ -74,15 +74,15 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['subjectType'] = ActionableSubjectType::CHANNEL;
             $normalized['config'] = new JsonArrayObject($this->paramsTranslator->getConfigFromParams($channel));
-        } else {
-            $normalized['param1'] = $channel->getParam1();
-            $normalized['param2'] = $channel->getParam2();
-            $normalized['param3'] = $channel->getParam3();
-            $normalized['param4'] = $channel->getParam4();
-            $normalized['textParam1'] = $channel->getTextParam1();
-            $normalized['textParam2'] = $channel->getTextParam2();
-            $normalized['textParam3'] = $channel->getTextParam3();
         }
+        // TODO move the following to the else block before v2.3.33
+        $normalized['param1'] = $channel->getParam1();
+        $normalized['param2'] = $channel->getParam2();
+        $normalized['param3'] = $channel->getParam3();
+        $normalized['param4'] = $channel->getParam4();
+        $normalized['textParam1'] = $channel->getTextParam1();
+        $normalized['textParam2'] = $channel->getTextParam2();
+        $normalized['textParam3'] = $channel->getTextParam3();
     }
 
     public function supportsNormalization($entity, $format = null) {
