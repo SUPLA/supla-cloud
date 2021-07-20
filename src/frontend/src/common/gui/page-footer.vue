@@ -31,6 +31,7 @@
 <script>
     import LanguageSelector from "./language-selector.vue";
     import SessionCountdown from "./session-countdown";
+    import EventBus from "@/common/event-bus";
 
     export default {
         props: ['username'],
@@ -41,19 +42,26 @@
             };
         },
         mounted() {
-            this.versionSignature =
-                this.$backendAndFrontendVersionMatches ?
-                    this.$frontendVersion
-                    : `${this.$frontendVersion} / ${this.$backendVersion}`;
+            this.updateVersionSignature();
+            EventBus.$on('backend-version-updated', this.updateVersionSignature);
+        },
+        beforeDestroy() {
+            EventBus.$off('backend-version-updated', this.updateVersionSignature);
         },
         methods: {
+            updateVersionSignature() {
+                this.versionSignature =
+                    this.$backendAndFrontendVersionMatches ?
+                        this.$frontendVersion
+                        : `${this.$frontendVersion} / ${this.$backendVersion}`;
+            },
             isPageActive(input) {
                 const paths = Array.isArray(input) ? input : [input];
                 return paths.some(path => {
                     return this.$route.path.indexOf(path) === 0;
                 });
             },
-        }
+        },
     };
 </script>
 

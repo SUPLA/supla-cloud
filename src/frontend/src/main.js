@@ -20,6 +20,7 @@ import "./polyfills";
 import {CurrentUser} from "./login/current-user";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
 import App from "./App";
+import EventBus from "./common/event-bus";
 
 Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
@@ -33,14 +34,18 @@ Vue.http.headers.common['X-Client-Version'] = Vue.prototype.$frontendVersion;
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
 Vue.prototype.$changingRoute = false;
 Vue.http.options.root = '/api';
+Vue.prototype.compareFrontendAndBackendVersion = (backendVersion) => {
+    Vue.prototype.$backendVersion = backendVersion;
+    Vue.prototype.$backendAndFrontendVersionMatches = Vue.prototype.$frontendVersion.indexOf(Vue.prototype.$backendVersion) === 0;
+    EventBus.$emit('backend-version-updated');
+};
 
 const renderStart = new Date();
 Vue.http.get('server-info')
     .then(({body: info}) => {
         Vue.config.external = info.config;
         Vue.prototype.$frontendConfig = Vue.config.external;
-        Vue.prototype.$backendVersion = info.cloudVersion;
-        Vue.prototype.$backendAndFrontendVersionMatches = Vue.prototype.$frontendVersion.indexOf(Vue.prototype.$backendVersion) === 0;
+        Vue.prototype.compareFrontendAndBackendVersion(info.cloudVersion);
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }

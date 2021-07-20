@@ -81,9 +81,12 @@ export class CurrentUser {
             })
             .then(() => {
                 return Vue.http.get('server-info')
-                    .then(response => {
-                        if (response.body.config) {
-                            $.extend(Vue.config.external, response.body.config);
+                    .then(({body: info}) => {
+                        if (info.config) {
+                            $.extend(Vue.config.external, info.config);
+                        }
+                        if (info.cloudVersion) {
+                            Vue.prototype.compareFrontendAndBackendVersion(info.cloudVersion);
                         }
                     });
             });
