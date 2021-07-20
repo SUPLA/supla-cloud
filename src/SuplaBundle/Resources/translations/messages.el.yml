@@ -531,8 +531,12 @@ Your private SUPLA Cloud is not registered.: Το ιδιωτικό σας SUPLA 
 Your session has been expired.: Η συνεδρία σας έχει λήξει.
 Your session is about to expire: Η συνεδρία σας θα λήξει σε λίγο
 'Your session will expire in [time].': 'Η συνεδρία σας θα λήξει σε [time].'
+actionableSubjectType_channel: Κανάλι
+actionableSubjectType_channelGroup: Ομάδα καναλιών
 after: μετά
 before: πριν
+channel: Κανάλι
+channelGroup: Ομάδα καναλιών
 choose: επιλογή
 choose a currency: επιλογή νομίσματος
 choose the channel: επιλογή καναλιού
@@ -749,11 +753,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~

@@ -490,8 +490,12 @@ Your private SUPLA Cloud is not registered.: A saját SUPLA felhője nincs regis
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: A munkamenete hamarosan lejár
 'Your session will expire in [time].': 'A munkamenete [idő] múlva lejár.'
+actionableSubjectType_channel: Csatorna
+actionableSubjectType_channelGroup: Csatorna csoport
 after: utána
 before: előtte
+channel: Csatorna
+channelGroup: Csatorna csoport
 choose: válassza ki
 choose a currency: válasszon pénznemet
 choose the channel: csatorna kiválasztása
@@ -745,11 +749,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 directLinkExecutionFailureReason_invalidChannelState: ~
 min.: ~

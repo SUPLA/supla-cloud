@@ -531,8 +531,12 @@ Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est p
 Your session has been expired.: Votre session a expiré.
 Your session is about to expire: Votre session est sur le point d'expirer
 'Your session will expire in [time].': 'Votre session va expirer dans [temps].'
+actionableSubjectType_channel: Chaîne
+actionableSubjectType_channelGroup: Groupe de chaînes
 after: après
 before: avant
+channel: Chaîne
+channelGroup: Groupe de chaînes
 choose: sélectionner
 choose a currency: choisissez la devise
 choose the channel: choisir la chaîne
@@ -749,11 +753,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~

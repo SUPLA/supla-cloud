@@ -531,8 +531,12 @@ Your private SUPLA Cloud is not registered.: Vaš zasebni oblak SUPLA ni registr
 Your session has been expired.: Vaša seja je potekla.
 Your session is about to expire: Vaša seja poteče čez trenutek
 'Your session will expire in [time].': 'Vaša seja bo potekla čez [time].'
+actionableSubjectType_channel: Kanal
+actionableSubjectType_channelGroup: Skupina kanalov
 after: po
 before: pred
+channel: Kanal
+channelGroup: Skupina kanalov
 choose: Izberite
 choose a currency: Izberite valuto
 choose the channel: Izberite kanal
@@ -749,11 +753,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~

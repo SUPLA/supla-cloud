@@ -531,8 +531,12 @@ Your private SUPLA Cloud is not registered.: Ваше личное облако 
 Your session has been expired.: Ваш сеанс завершен.
 Your session is about to expire: Ваша сессия истекает
 'Your session will expire in [time].': 'Ваш сеанс будет завершен через [время].'
+actionableSubjectType_channel: Канал
+actionableSubjectType_channelGroup: Группа каналов
 after: после
 before: до
+channel: Канал
+channelGroup: Группа каналов
 choose: выбрать
 choose a currency: выбрать валюту
 choose the channel: выбери канал
@@ -749,11 +753,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~

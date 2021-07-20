@@ -531,8 +531,12 @@ Your private SUPLA Cloud is not registered.: Din privat SUPLA cloud er ikke regi
 Your session has been expired.: Din sesjon er over.
 Your session is about to expire: Din sesjon er snart over.
 'Your session will expire in [time].': 'Din sesjon er over om [time].'
+actionableSubjectType_channel: Kanal
+actionableSubjectType_channelGroup: Kanalgruppe
 after: etter
 before: før
+channel: Kanal
+channelGroup: Kanalgruppe
 choose: velg
 choose a currency: velg valuta
 choose the channel: velg kanal
@@ -749,11 +753,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~

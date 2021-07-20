@@ -489,8 +489,12 @@ Your private SUPLA Cloud is not registered.: سحابة  SUPLA الخاصة غي
 Your session has been expired.: انتهت جلستك.
 Your session is about to expire: سوف تنتهي جلستك بعد لحظة
 'Your session will expire in [time].': 'ستنتهي جلستك بعد [time].'
+actionableSubjectType_channel: القناة
+actionableSubjectType_channelGroup: مجموعة القنوات
 after: بعد
 before: قبل
+channel: القناة
+channelGroup: مجموعة القنوات
 choose: اختر
 choose a currency: اختر العملة
 choose the channel: اختر القناة
@@ -744,11 +748,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 directLinkExecutionFailureReason_invalidChannelState: ~
 min.: ~

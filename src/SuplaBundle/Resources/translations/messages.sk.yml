@@ -531,8 +531,12 @@ Your private SUPLA Cloud is not registered.: Váš súkromný cloud SUPLA nie je
 Your session has been expired.: Vaša relácia vypršala.
 Your session is about to expire: Vaša relácia čoskoro vyprší
 'Your session will expire in [time].': 'Vaša relácia vyprší za [time].'
+actionableSubjectType_channel: Kanál
+actionableSubjectType_channelGroup: Skupina kanálov
 after: po
 before: pred
+channel: Kanál
+channelGroup: Skupina kanálov
 choose: vybrať
 choose a currency: vybrať menu
 choose the channel: vyberte kanál
@@ -749,11 +753,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~

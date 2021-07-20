@@ -531,8 +531,12 @@ Your private SUPLA Cloud is not registered.: Đám mây SUPLA riêng tư của b
 Your session has been expired.: Phiên của bạn đã hết hạn.
 Your session is about to expire: Phiên bản của bạn sắp hết hạn
 'Your session will expire in [time].': 'Phiên của bạn sẽ hết hạn trong [thời gian].'
+actionableSubjectType_channel: Kênh
+actionableSubjectType_channelGroup: Nhóm kênh
 after: Sau
 before: Trước
+channel: Kênh
+channelGroup: Nhóm kênh
 choose: chọn
 choose a currency: chọn tiền tệ
 choose the channel: chọn kênh
@@ -749,11 +753,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~

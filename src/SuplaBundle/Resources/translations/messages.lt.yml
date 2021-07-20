@@ -83,7 +83,6 @@ Channel: Kanalas
 Channel No: Kanalo numeris
 Channel for the partial opening sensor: Netiesioginio atidarymo jutiklio kanalas
 Channel for the sensor: Jutiklio kanalas
-Channel group: Kanalų grupė
 Channel group limit has been exceeded: Viršutinė kanalų grupių riba viršyta
 Channel group must consist of at least one channel.: Kanālu grupā jābūt iekļautam vismaz vienam kanālam.
 Channel groups: Kanalų grupės
@@ -531,8 +530,12 @@ Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav
 Your session has been expired.: Jūsų sesija baigėsi.
 Your session is about to expire: Jūsų sesija baigsis.
 'Your session will expire in [time].': 'Jūsų sesija baigsis po [time].'
+actionableSubjectType_channel: Kanalas
+actionableSubjectType_channelGroup: Kanalų grupė
 after: po
 before: prieš
+channel: Kanalas
+channelGroup: Kanalų grupė
 choose: pasirinkti
 choose a currency: pasirinkti valiutą
 choose the channel: pasirinkite kanalą
@@ -656,6 +659,7 @@ Bar: ~
 Be right back!: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
+Channel group: ~
 Channel name: ~
 Channel reference will be removed from the items below.: ~
 Channel value: ~
@@ -749,11 +753,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~

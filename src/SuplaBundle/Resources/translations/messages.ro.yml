@@ -490,8 +490,12 @@ Your private SUPLA Cloud is not registered.: Norul dvs. privat SUPLA nu este în
 Your session has been expired.: Sesiunea dvs. a expirat.
 Your session is about to expire: Sesiunea dvs. va expira îndată
 'Your session will expire in [time].': 'Sesiunea dvs. va expira peste [timp].'
+actionableSubjectType_channel: Canal
+actionableSubjectType_channelGroup: Grupă de canale
 after: după
 before: înainte de
+channel: Canal
+channelGroup: Grupă de canale
 choose: alegeți
 choose a currency: alegeți valuta
 choose the channel: selectați un canal
@@ -745,11 +749,7 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
 actionableSubjectType_scene: ~
-channel: ~
-channelGroup: ~
 choose the scene: ~
 directLinkExecutionFailureReason_invalidChannelState: ~
 min.: ~

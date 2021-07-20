@@ -32,6 +32,8 @@ actionTrigger_RELEASE: Release / turn off
 actionableSubjectType_channel: Channel
 actionableSubjectType_channelGroup: Channel group
 actionableSubjectType_scene: Scene
+channel: Channel
+channelGroup: Channel group
 directLinkExecutionFailureReason_disabled: Direct link is disabled.
 directLinkExecutionFailureReason_executionLimitExceeded: Execution limit has been exceeded.
 directLinkExecutionFailureReason_expired: Direct link has expired.
