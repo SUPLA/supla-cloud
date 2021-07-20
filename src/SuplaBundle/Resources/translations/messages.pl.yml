@@ -595,6 +595,9 @@ Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jes
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
 'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
+actionableSubjectType_channel: Kanał
+actionableSubjectType_channelGroup: Grupa kanałów
+actionableSubjectType_scene: Scena
 after: po
 before: przed
 channel: Kanał
@@ -757,9 +760,6 @@ actionTrigger_PRESS: ~
 actionTrigger_PRESS_2X: ~
 actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
-actionableSubjectType_scene: ~
 choose the scene: ~
 min.: ~
 or add a delay: ~
