@@ -26,7 +26,7 @@ Vue.config.availableLanguages = [
 
 Vue.use(VueI18N);
 
-const i18n = new VueI18N();
+const i18n = new VueI18N({fallbackLocale: 'en'});
 
 Vue.prototype.$setLocale = (lang) => {
     if (i18n.locale !== lang) {
@@ -64,6 +64,8 @@ const loadLanguage = (lang) => {
         })
         .catch(() => Vue.prototype.$setLocale('en'));
 };
+
+loadLanguage('en');
 
 const setGuiLocale = (userData) => {
     let locale;
