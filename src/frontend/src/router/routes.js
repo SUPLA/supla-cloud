@@ -74,7 +74,13 @@ export default [
             {path: ':id', component: () => import("@/channel-groups/channel-group-details"), name: 'channelGroup', props: true}
         ]
     },
-    {path: '/channels/:id', component: () => import("@/channels/channel-details-page"), name: 'channel', props: true},
+    {
+        path: '/channels/:id',
+        component: () => import("@/channels/channel-details-page"),
+        name: 'channel',
+        props: true,
+        meta: {requireBackendAndFrontendVersionMatches: true},
+    },
     {path: '/devices/:id', component: () => import("@/devices/details/device-details-page"), name: 'device', props: true},
     {
         path: '/locations', component: () => import("@/locations/locations-page"), name: 'locations', children: [
