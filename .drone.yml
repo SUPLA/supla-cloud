@@ -50,8 +50,8 @@ steps:
     depends_on: [ clone ]
     commands:
       - cp app/config/parameters.yml.drone app/config/parameters.yml
-      - wget https://raw.githubusercontent.com/composer/getcomposer.org/e3e43bde99447de1c13da5d1027545be81736b27/web/installer -O - -q | php -- --quiet --2
-      - php composer.phar install
+      - wget https://raw.githubusercontent.com/composer/getcomposer.org/bd32eb14d904154cd0d5b2850b817f48cbf1e2bd/web/installer -O - -q | php -- --quiet --2
+      - php composer.phar install --optimize-autoloader
 
   - name: lint-backend
     image: supla/supla-cloud
@@ -65,19 +65,19 @@ steps:
     commands:
       - ./vendor/bin/phpunit -c app --testsuite unit
 
-  - name: api-tests
-    image: supla/supla-cloud
-    depends_on: [ install-backend, build-frontend ]
-    commands:
-      - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
-
   - name: integration-tests
     image: supla/supla-cloud
-    depends_on: [ api-tests ]
+    depends_on: [ install-backend ]
     commands:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
+
+  - name: api-tests
+    image: supla/supla-cloud
+    depends_on: [ integration-tests, build-frontend ]
+    commands:
+      - rm -fr var/cache/test
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
 
   - name: slack
     image: plugins/slack
