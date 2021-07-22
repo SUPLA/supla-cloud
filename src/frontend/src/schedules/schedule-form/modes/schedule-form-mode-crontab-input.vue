@@ -71,7 +71,8 @@
         computed: {
             humanizedCrontab() {
                 try {
-                    return cronstrue.toString(this.crontab, {locale: this.$i18n.locale});
+                    const description = cronstrue.toString(this.crontab, {locale: this.$i18n.locale});
+                    return description.indexOf('undefined') === -1 ? description : '';
                 } catch (error) {
                     return '';
                 }
