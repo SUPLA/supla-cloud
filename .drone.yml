@@ -67,14 +67,14 @@ steps:
 
   - name: integration-tests
     image: supla/supla-cloud
-    depends_on: [ install-backend ]
+    depends_on: [ install-backend, build-frontend ]
     commands:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
 
   - name: api-tests
     image: supla/supla-cloud
-    depends_on: [ integration-tests, build-frontend ]
+    depends_on: [ integration-tests ]
     commands:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
