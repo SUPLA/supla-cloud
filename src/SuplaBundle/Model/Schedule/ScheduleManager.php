@@ -27,6 +27,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
@@ -34,7 +35,6 @@ use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
@@ -174,6 +174,13 @@ class ScheduleManager {
             Assertion::numeric($action['id'], 'Invalid schedule config (incorrect action ID).');
             Assertion::true(ChannelFunctionAction::isValid($action['id']), 'Invalid schedule config (incorrect action ID).');
             Assertion::isArray($action['param'] ?? [], 'Invalid schedule config (incorrect action param).');
+            $possibleActions = $schedule->getSubject()->getFunction()->getPossibleActions();
+            $action = ChannelFunctionAction::fromString($configEntry['action']['id']);
+            Assertion::inArray(
+                $action->getId(),
+                EntityUtils::mapToIds($possibleActions),
+                "Action {$action->getName()} cannot be executed on this channel."
+            );
             $this->channelActionExecutor->validateActionParams(
                 $schedule->getSubject(),
                 new ChannelFunctionAction($configEntry['action']['id']),

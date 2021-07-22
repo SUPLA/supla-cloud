@@ -97,10 +97,10 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
             'timeExpression' => '10 2 * * *',
         ]);
         $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
-        $scheduleFromResponse = json_decode($client->getResponse()->getContent());
-        $this->assertGreaterThan(0, $scheduleFromResponse->id);
-        $schedule = self::$container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
-        $this->assertEquals($scheduleFromResponse->timeExpression, $schedule->getTimeExpression());
+        $scheduleFromResponse = json_decode($client->getResponse()->getContent(), true);
+        $this->assertGreaterThan(0, $scheduleFromResponse['id']);
+        $schedule = self::$container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse['id']);
+        $this->assertEquals($scheduleFromResponse['config'], $schedule->getConfig());
         return $schedule;
     }
 
@@ -155,8 +155,19 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
         $scheduleFromResponse = json_decode($client->getResponse()->getContent(), true);
         $this->assertGreaterThan(0, $scheduleFromResponse['id']);
-        $schedule = $this->container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse['id']);
+        $schedule = self::$container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse['id']);
         $this->assertEquals($scheduleFromResponse['config'], $config);
         $this->assertEquals($schedule->getConfig(), $config);
+    }
+
+    public function testCreatingScheduleForOpeningGate() {
+        $client = $this->createAuthenticatedClient();
+        $config = [['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN]]];
+        $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
+            'channelId' => $this->device->getChannels()[2]->getId(),
+            'config' => $config,
+            'mode' => ScheduleMode::DAILY,
+        ]);
+        $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
     }
 }

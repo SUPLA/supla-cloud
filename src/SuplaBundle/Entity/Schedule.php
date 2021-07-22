@@ -139,12 +139,6 @@ class Schedule implements HasSubject {
         $this->setDateEnd(empty($data['dateEnd']) ? null : DateTime::createFromFormat(DateTime::ATOM, $data['dateEnd']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
-        // TODO remove the if-clause in v2.4
-        if (isset($data['timeExpression']) && isset($data['actionId']) && !isset($data['config'])) {
-            $data['config'] = [
-                ['crontab' => $data['timeExpression'], 'action' => ['id' => $data['actionId'], 'param' => $data['actionParam'] ?? null]],
-            ];
-        }
         $this->setConfig($data['config'] ?? null);
     }
 

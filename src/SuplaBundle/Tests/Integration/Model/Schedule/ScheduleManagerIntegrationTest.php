@@ -50,7 +50,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
         $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088');
         $this->assertGreaterThan(0, $schedule->getId());
         $this->assertNull($schedule->getNextCalculationDate());
-        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findAll();
+        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findBy(['schedule' => $schedule]);
         $this->assertEmpty($executions);
     }
 
@@ -58,7 +58,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
         $schedule = $this->createSchedule($this->channel, '0 0 1 1 * 2088');
         $this->scheduleManager->generateScheduledExecutions($schedule);
         $this->assertNotNull($schedule->getNextCalculationDate());
-        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findAll();
+        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findBy(['schedule' => $schedule]);
         $this->assertCount(1, $executions);
         /** @var ScheduledExecution $execution */
         $execution = current($executions);
@@ -72,7 +72,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
             'dateEnd' => (new DateTime('2018-01-01 00:00:00'))->format(DateTime::ATOM),
         ]);
         $this->scheduleManager->generateScheduledExecutions($schedule);
-        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findAll();
+        $executions = $this->getDoctrine()->getRepository(ScheduledExecution::class)->findBy(['schedule' => $schedule]);
         $this->assertEmpty($executions);
     }
 
@@ -123,6 +123,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
             $this->expectException(InvalidArgumentException::class);
         }
         $this->scheduleManager->validateSchedule($schedule);
+        $this->assertTrue(true);
     }
 
     public function invalidConfigs(): array {

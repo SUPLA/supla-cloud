@@ -35,18 +35,4 @@ class ScheduleTest extends TestCase {
         $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'caption' => 'My Caption']);
         $this->assertEquals('My Caption', $schedule->getCaption());
     }
-
-    public function testSettingConfigFromOldTimeExpressionFormat() {
-        $schedule = new Schedule();
-        $schedule->fill([
-            'mode' => ScheduleMode::MINUTELY,
-            'timeExpression' => '3',
-            'actionId' => ChannelFunctionAction::REVEAL_PARTIALLY,
-            'actionParam' => ['percentage' => 12],
-        ]);
-        $this->assertCount(1, $schedule->getConfig());
-        $this->assertEquals('3', $schedule->getConfig()[0]['crontab']);
-        $this->assertEquals(ChannelFunctionAction::REVEAL_PARTIALLY, $schedule->getConfig()[0]['action']['id']);
-        $this->assertEquals(['percentage' => 12], $schedule->getConfig()[0]['action']['param']);
-    }
 }

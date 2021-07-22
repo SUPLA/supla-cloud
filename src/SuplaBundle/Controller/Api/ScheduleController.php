@@ -114,11 +114,7 @@ class ScheduleController extends RestController {
     public function postScheduleAction(Request $request) {
         Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded'); // i18n
         $data = $request->request->all();
-        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
-            $data['subjectId'] = $data['channelId'] ?? null;
-            $data['subjectType'] = 'channel';
-        }
-        $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data);
+        $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data, $request);
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
         if ($schedule->isSubjectEnabled()) {
@@ -137,7 +133,7 @@ class ScheduleController extends RestController {
             $data['subjectId'] = $data['channelId'] ?? null;
             $data['subjectType'] = 'channel';
         }
-        $this->fillSchedule($schedule, $data);
+        $this->fillSchedule($schedule, $data, $request);
         return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule, $request, $data) {
             $this->scheduleManager->deleteScheduledExecutions($schedule);
             $em->persist($schedule);
@@ -154,11 +150,26 @@ class ScheduleController extends RestController {
     }
 
     /** @return Schedule */
-    private function fillSchedule(Schedule $schedule, array $data) {
+    private function fillSchedule(Schedule $schedule, array $data, Request $request) {
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $data['subjectId'] = $data['channelId'] ?? null;
+            $data['subjectType'] = 'channel';
+        }
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            if (isset($data['timeExpression']) && isset($data['actionId']) && !isset($data['config'])) {
+                $data['config'] = [
+                    [
+                        'crontab' => $data['timeExpression'],
+                        'action' => ['id' => $data['actionId'], 'param' => $data['actionParam'] ?? null],
+                    ],
+                ];
+            }
+        }
         Assert::that($data)
             ->notEmptyKey('subjectId')
             ->notEmptyKey('subjectType')
-            ->notEmptyKey('mode');
+            ->notEmptyKey('mode')
+            ->notEmptyKey('config');
         $subject = $this->subjectRepository->findForUser($this->getUser(), $data['subjectType'], $data['subjectId']);
         $data['subject'] = $subject;
         $schedule->fill($data);
@@ -212,10 +223,19 @@ class ScheduleController extends RestController {
     /**
      * @Rest\Post("/schedules/next-schedule-executions")
      * @Security("has_role('ROLE_SCHEDULES_R')")
-     * @deprecated
      */
     public function getNextScheduleExecutionsAction(Request $request) {
         $data = $request->request->all();
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            if (isset($data['timeExpression']) && isset($data['actionId']) && !isset($data['config'])) {
+                $data['config'] = [
+                    [
+                        'crontab' => $data['timeExpression'],
+                        'action' => ['id' => $data['actionId'] ?? null, 'param' => $data['actionParam'] ?? null],
+                    ],
+                ];
+            }
+        }
         $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
         if ($temporarySchedule->getConfig()) {
             $scheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+6months', 3);
