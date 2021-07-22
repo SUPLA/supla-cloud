@@ -27,6 +27,7 @@ doctrine:
 
 doctrine_migrations:
   namespace: Supla\Migrations
+  custom_template: "%kernel.project_dir%/app/DoctrineMigrations/migration.tpl"
 
 fos_oauth_server:
   access_token_class: SuplaBundle\Entity\OAuth\AccessToken

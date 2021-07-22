@@ -25,7 +25,7 @@
     "beberlei/assert": "^2.7",
     "cocur/slugify": "^2.3",
     "doctrine/doctrine-bundle": "^1.6",
-    "doctrine/doctrine-migrations-bundle": "^1.2",
+    "doctrine/doctrine-migrations-bundle": "^2.2",
     "doctrine/orm": "^2.5",
     "dragonmantank/cron-expression": "^3.1",
     "friendsofsymfony/oauth-server-bundle": "^1.6",
