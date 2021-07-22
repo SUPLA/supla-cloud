@@ -4,6 +4,7 @@ namespace Supla\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use PDO;
 
 /**
  * New schedule modes.
@@ -15,8 +16,9 @@ final class Version20210525104812 extends NoWayBackMigration {
 CONCAT('[{"crontab":"', time_expression, '","action":{"id":', `action`, ',"param":', COALESCE(action_param, 'null'), '}}]')
 UPDATE;
         $this->addSql("UPDATE supla_schedule SET config=$updateConcat WHERE mode IN('daily', 'minutely', 'once')");
-        $hourly = $this->getConnection()->iterateAssociativeIndexed('SELECT id, time_expression, action, action_param FROM supla_schedule WHERE mode = "hourly"');
-        foreach ($hourly as $id => $hourlySchedule) {
+        $hourlyQuery = $this->getConnection()->executeQuery('SELECT id, time_expression, action, action_param FROM supla_schedule WHERE mode = "hourly"');
+        while ($hourlySchedule = $hourlyQuery->fetch(PDO::FETCH_ASSOC)) {
+            $id = $hourlySchedule['id'];
             $timeExpression = $hourlySchedule['time_expression'];
             $parts = explode(' ', $timeExpression);
             $config = [];
