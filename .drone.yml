@@ -50,7 +50,7 @@ steps:
     depends_on: [ clone ]
     commands:
       - cp app/config/parameters.yml.drone app/config/parameters.yml
-      - wget https://raw.githubusercontent.com/composer/getcomposer.org/e3e43bde99447de1c13da5d1027545be81736b27/web/installer -O - -q | php -- --quiet --1
+      - wget https://raw.githubusercontent.com/composer/getcomposer.org/e3e43bde99447de1c13da5d1027545be81736b27/web/installer -O - -q | php -- --quiet --2
       - php composer.phar install
 
   - name: lint-backend
