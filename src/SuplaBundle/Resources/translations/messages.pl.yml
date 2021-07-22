@@ -609,7 +609,8 @@ choose the channel group: wybierz grupę kanałów
 choose the timezone: wybierz strefę czasową
 copied: skopiowano
 copy: kopiuj
-daily: Cykl dzienny
+daily: Tydzień
+crontab: Zaawansowany
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
 directLinkExecutionFailureReason_expired: Link bezpośredni wygasł
@@ -627,10 +628,10 @@ executed: wykonano
 extend: przedłuż
 from IP: z adresu IP
 from the IP: z adresu
-hourly: Cykl godzinny
-minutely: Cykl minutowy
+hourly: Każdy dzień
+minutely: Interwał
 minutes: minut
-once: Jednorazowy
+once: Jeden raz
 password: hasło
 prefix: prefiks
 register-slide1-text: 'W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.'
@@ -766,3 +767,4 @@ or add a delay: ~
 scene: ~
 
 #</editor-fold>
+'{minutes} minutes after sunset': '{minutes} minut po zachodzie słońca'

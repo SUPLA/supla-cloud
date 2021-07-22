@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,7 +51,7 @@ class ImpulseCounterLogItem {
         return $this->channel_id;
     }
 
-    /** @return \DateTime */
+    /** @return DateTime */
     public function getDate() {
         return $this->date;
     }

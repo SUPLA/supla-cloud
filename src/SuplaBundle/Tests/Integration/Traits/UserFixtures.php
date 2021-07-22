@@ -120,10 +120,9 @@ trait UserFixtures {
 
     private function createSchedule(HasFunction $subject, string $timeExpression, array $data = []): Schedule {
         $schedule = new Schedule($subject->getUser(), array_merge([
-            'action' => ChannelFunctionAction::TURN_ON,
             'subject' => $subject,
             'mode' => ScheduleMode::ONCE,
-            'timeExpression' => $timeExpression,
+            'config' => [['crontab' => $timeExpression, 'action' => ['id' => ChannelFunctionAction::TURN_ON]]],
         ], $data));
         $schedule->setEnabled(true);
         $em = $this->getDoctrine()->getManager();

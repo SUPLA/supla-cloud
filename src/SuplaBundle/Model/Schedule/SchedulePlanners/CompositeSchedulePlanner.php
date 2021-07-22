@@ -17,29 +17,47 @@
 
 namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
+use Assert\Assertion;
 use DateTime;
 use DateTimeZone;
+use InvalidArgumentException;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ChannelFunctionAction;
 
 class CompositeSchedulePlanner {
     /** @var SchedulePlanner[] */
     private $planners;
 
-    public function __construct(array $planners) {
+    public function __construct(iterable $planners) {
         $this->planners = $planners;
     }
 
     public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate): ScheduledExecution {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
-            foreach ($this->planners as $planner) {
-                if ($planner->canCalculateFor($schedule)) {
-                    return $planner->calculateNextScheduleExecution($schedule, $currentDate);
+            $closestExecution = null;
+            foreach ($schedule->getConfig() as $executionDef) {
+                $nextRunDate = $this->nextRunDate($executionDef['crontab'] ?? '', $currentDate);
+                if (!$closestExecution || $closestExecution->getPlannedTimestamp() > $nextRunDate) {
+                    $closestExecution = new ScheduledExecution(
+                        $schedule,
+                        $nextRunDate,
+                        $executionDef['action']['id'] ?? false ? new ChannelFunctionAction($executionDef['action']['id']) : null,
+                        $executionDef['action']['param'] ?? null
+                    );
                 }
             }
-            throw new \RuntimeException("Could not calculate the next run date for the Schedule#{$schedule->getId()}. "
-                . "Expression: {$schedule->getTimeExpression()}");
+            return $closestExecution;
         });
+    }
+
+    private function nextRunDate(string $crontab, DateTime $currentDate): DateTime {
+        foreach ($this->planners as $planner) {
+            if ($planner->canCalculateFor($crontab)) {
+                return $planner->calculateNextScheduleExecution($crontab, $currentDate);
+            }
+        }
+        throw new \RuntimeException("Could not calculate the next run date for the expression: {$crontab}");
     }
 
     /**
@@ -62,7 +80,7 @@ class CompositeSchedulePlanner {
                     $nextExecution = $this->calculateNextScheduleExecution($schedule, $nextExecution->getPlannedTimestamp());
                     $scheduleExecutions[] = $nextExecution;
                 } while ($nextExecution->getPlannedTimestamp()->getTimestamp() < $until && count($scheduleExecutions) < $maxCount);
-            } catch (\RuntimeException $e) {
+            } catch (\RuntimeException | InvalidArgumentException $e) {
                 // impossible cron expression
             }
             if ($nextExecution->getPlannedTimestamp()->getTimezone()->getName() != $schedule->getUser()->getTimezone()) {
@@ -80,6 +98,17 @@ class CompositeSchedulePlanner {
         });
     }
 
+    public function validateCrontab(string $crontab) {
+        $canCalculate = false;
+        foreach ($this->planners as $planner) {
+            if ($planner->canCalculateFor($crontab)) {
+                $canCalculate = true;
+                $planner->validate($crontab);
+            }
+        }
+        Assertion::true($canCalculate, 'Invalid schedule.');
+    }
+
     public static function wrapInScheduleTimezone(Schedule $schedule, $function) {
         $defaultTimezone = date_default_timezone_get();
         date_default_timezone_set($schedule->getUser()->getTimezone());
@@ -88,9 +117,9 @@ class CompositeSchedulePlanner {
         return $result;
     }
 
-    public static function roundToClosest5Minutes($dateOrTimestamp, DateTimeZone $timezone): DateTime {
+    public static function roundToClosestMinute($dateOrTimestamp, DateTimeZone $timezone): DateTime {
         $timestamp = is_int($dateOrTimestamp) ? $dateOrTimestamp : $dateOrTimestamp->getTimestamp();
-        $timestampRoundTo5Minutes = round($timestamp / 300) * 300;
-        return (new DateTime('now', $timezone))->setTimestamp($timestampRoundTo5Minutes);
+        $roundTimestamp = round($timestamp / 60) * 60;
+        return (new DateTime('now', $timezone))->setTimestamp($roundTimestamp);
     }
 }

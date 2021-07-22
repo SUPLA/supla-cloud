@@ -17,9 +17,8 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
-use PHPUnit\Framework\TestCase;
 use DateTime;
-use SuplaBundle\Entity\Schedule;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
 
 class IntervalSchedulePlannerTest extends TestCase {
@@ -28,27 +27,30 @@ class IntervalSchedulePlannerTest extends TestCase {
      */
     public function testCalculatingNextRunDate($startDate, $cronExpression, $expectedNextRunDate) {
         $schedulePlanner = new IntervalSchedulePlanner();
-        $schedule = new ScheduleWithTimezone($cronExpression, 'UTC');
         $format = 'Y-m-d H:i';
-        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
-        $startDate = DateTime::createFromFormat($format, $startDate, $schedule->getUserTimezone());
-        $this->assertTrue($schedulePlanner->canCalculateFor($schedule));
-        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($schedule, $startDate);
-        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
+        $startDate = DateTime::createFromFormat($format, $startDate);
+        $this->assertTrue($schedulePlanner->canCalculateFor($cronExpression));
+        $nextExecution = $schedulePlanner->calculateNextScheduleExecution($cronExpression, $startDate);
+        $this->assertEquals($expectedNextRunDate, $nextExecution->format($format));
     }
 
     public function calculatingNextRunDateProvider() {
         return [
             ['2017-01-01 00:00', '*/5 * * * *', '2017-01-01 00:05'],
             ['2017-01-01 00:05', '*/5 * * * *', '2017-01-01 00:10'],
-            ['2017-01-01 00:01', '*/5 * * * *', '2017-01-01 00:05'],
+            ['2017-01-01 00:01', '*/5 * * * *', '2017-01-01 00:06'],
+            ['2017-01-01 00:01', '*/2 * * * *', '2017-01-01 00:03'],
+            ['2017-01-01 00:01', '*/1 * * * *', '2017-01-01 00:02'],
             ['2017-01-01 00:00', '*/10 * * * *', '2017-01-01 00:10'],
             ['2017-01-01 00:05', '*/10 * * * *', '2017-01-01 00:15'],
-            ['2017-01-01 00:04', '*/10 * * * *', '2017-01-01 00:15'],
-            ['2017-01-01 00:04', '*/10', '2017-01-01 00:15'],
-            ['2017-01-01 14:56', '*/10 * * * *', '2017-01-01 15:05'],
-            ['2017-01-01 17:07', '*/45 * * * *', '2017-01-01 17:50'],
-            ['2017-01-01 17:08', '*/45 * * * *', '2017-01-01 17:55'],
+            ['2017-01-01 00:04', '*/10 * * * *', '2017-01-01 00:14'],
+            ['2017-01-01 00:04', '*/10', '2017-01-01 00:14'],
+            ['2017-01-01 14:56', '*/10 * * * *', '2017-01-01 15:06'],
+            ['2017-01-01 17:07', '*/45 * * * *', '2017-01-01 17:52'],
+            ['2017-01-01 17:08', '*/45 * * * *', '2017-01-01 17:53'],
+            ['2017-03-26 01:00', '*/1440 * * * *', '2017-03-27 01:00'],
+            ['2017-03-25 02:30', '*/1440 * * * *', '2017-03-26 02:30'],
+            ['2017-03-25 02:30', '*/9999999 * * * *', '2036-03-29 13:09'],
         ];
     }
 
@@ -57,9 +59,7 @@ class IntervalSchedulePlannerTest extends TestCase {
      */
     public function testDoesNotSupportInvalidIntervalExpressions($invalidCronExpression) {
         $schedulePlanner = new IntervalSchedulePlanner();
-        $schedule = new Schedule();
-        $schedule->setTimeExpression($invalidCronExpression);
-        $this->assertFalse($schedulePlanner->canCalculateFor($schedule));
+        $this->assertFalse($schedulePlanner->canCalculateFor($invalidCronExpression));
     }
 
     public function invalidCronExpressions() {
@@ -68,6 +68,8 @@ class IntervalSchedulePlannerTest extends TestCase {
             ['S * * * *'],
             ['*/5 2 * * *'],
             ['5 * * * *'],
+            ['*/0 * * * *'],
+            ['*/99999999 * * * *'],
         ];
     }
 }

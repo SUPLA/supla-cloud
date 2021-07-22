@@ -106,12 +106,10 @@ class ScheduledExecution {
     ) {
         $this->schedule = $schedule;
         $this->plannedTimestamp = $plannedTimestamp;
-        if (!$action) {
-            $action = $schedule->getAction();
-            $actionParam = $schedule->getActionParam();
+        if ($action) {
+            $this->action = $action->getId();
+            $this->actionParam = $actionParam ? json_encode($actionParam) : null;
         }
-        $this->action = $action->getId();
-        $this->actionParam = $actionParam ? json_encode($actionParam) : null;
     }
 
     public function getPlannedTimestamp(): DateTime {
@@ -137,12 +135,11 @@ class ScheduledExecution {
         return $this->schedule;
     }
 
-    public function getAction(): ChannelFunctionAction {
-        return new ChannelFunctionAction($this->action);
+    public function getAction(): ?ChannelFunctionAction {
+        return $this->action ? new ChannelFunctionAction($this->action) : null;
     }
 
-    /** @return array|null */
-    public function getActionParam() {
+    public function getActionParam(): ?array {
         return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
     }
 }

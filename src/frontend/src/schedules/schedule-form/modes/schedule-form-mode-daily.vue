@@ -1,80 +1,162 @@
 <template>
     <div>
-        <div class="form-group">
-            <div class="btn-group btn-group-sm btn-group-justified">
-                <a class="btn btn-default"
-                    @click="hourChooseMode = 'normal'"
-                    :class="{'active btn-green': hourChooseMode == 'normal'}">{{ $t('Chosen hour') }}</a>
-                <a class="btn btn-default"
-                    @click="hourChooseMode = 'sun'"
-                    :class="{'active btn-green': hourChooseMode == 'sun'}">{{ $t('Sunrise / Sunset') }}</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <schedule-form-mode-daily-hour :weekdays="weekdaysCronExpression"
-                    v-model="timeExpression"
-                    @input="$emit('input', timeExpression)"
-                    v-if="hourChooseMode == 'normal'"></schedule-form-mode-daily-hour>
-                <schedule-form-mode-daily-sun :weekdays="weekdaysCronExpression"
-                    v-model="timeExpression"
-                    @input="$emit('input', timeExpression)"
-                    v-if="hourChooseMode == 'sun'"></schedule-form-mode-daily-sun>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>{{ $t('Days') }}</label>
-                    <!-- i18n:['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays'] -->
-                    <div class="checkbox"
-                        :key="weekday"
-                        v-for="(weekday, index) in ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays']">
-                        <label>
-                            <input type="checkbox"
-                                :value="index + 1"
-                                v-model="weekdays">
-                            {{ $t(weekday) }}
-                        </label>
+        <schedule-form-mode-daily-day-selector
+            v-if="weekdayGroups"
+            :weekday-groups="weekdayGroups"
+            @groups="weekdayGroups = $event"
+            @groupIndex="weekdayGroupIndex = $event"
+            @groupIndexRemove="removeWeekdayGroup($event)"></schedule-form-mode-daily-day-selector>
+        <div v-if="config[weekdayGroupIndex] && config[weekdayGroupIndex].length > 0">
+            <div class="daily-action"
+                :key="action.tempId"
+                v-for="action in config[weekdayGroupIndex]">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <schedule-form-mode-daily-hour
+                            v-model="action.crontab"
+                            @input="updateConfig()"
+                            :weekdays="weekdayGroups[weekdayGroupIndex]"
+                            v-if="action.type === 'hour'"></schedule-form-mode-daily-hour>
+                        <schedule-form-mode-daily-sun
+                            v-model="action.crontab"
+                            @input="updateConfig()"
+                            :weekdays="weekdayGroups[weekdayGroupIndex]"
+                            v-if="action.type === 'sun'"></schedule-form-mode-daily-sun>
+                    </div>
+                    <div class="col-sm-7 vertical">
+                        <a @click="removeItem(action)"
+                            class="remove-item-button">
+                            <i class="pe-7s-close-circle"></i>
+                        </a>
+                        <channel-action-chooser :subject="subject"
+                            v-model="action.action"
+                            @input="updateConfig()"
+                            :possible-action-filter="possibleActionFilter"></channel-action-chooser>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <h4>Dodaj akcję</h4>
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-default"
+                    @click="addAction('hour')">
+                    <i class="pe-7s-clock"></i>
+                    Dla wskazanej godziny
+                </a>
+                <a class="btn btn-default"
+                    @click="addAction('sun')">
+                    <i class="pe-7s-sun"></i>
+                    W oparciu o wschód / zachód
+                </a>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import ScheduleFormModeDailyHour from "./schedule-form-mode-daily-hour.vue";
-    import ScheduleFormModeDailySun from "./schedule-form-mode-daily-sun.vue";
+    import ScheduleFormModeDailyHour from "@/schedules/schedule-form/modes/schedule-form-mode-daily-hour";
+    import ScheduleFormModeDailySun from "@/schedules/schedule-form/modes/schedule-form-mode-daily-sun";
+    import ChannelActionChooser from "@/channels/action/channel-action-chooser";
+    import {cloneDeep, flatten, toArray} from "lodash";
+    import {generatePassword} from "@/common/utils";
+    import ScheduleFormModeDailyDaySelector from "@/schedules/schedule-form/modes/schedule-form-mode-daily-day-selector";
 
     export default {
-        props: ['value'],
-        components: {ScheduleFormModeDailyHour, ScheduleFormModeDailySun},
+        components: {ScheduleFormModeDailyDaySelector, ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
+        props: ['value', 'subject'],
         data() {
             return {
-                hourChooseMode: 'normal',
-                weekdays: [],
-                timeExpression: '',
+                weekdayGroups: undefined,
+                weekdayGroupIndex: 0,
+                config: [],
             };
         },
-        beforeMount() {
-            if (this.value) {
-                this.timeExpression = this.value;
-                const parts = this.value.split(' ');
-                if (parts[4] != '*') {
-                    this.weekdays = parts[4].split(',');
+        methods: {
+            updateConfig() {
+                this.$emit('input', this.scheduleConfig);
+            },
+            addAction(type) {
+                if (!this.config[this.weekdayGroupIndex]) {
+                    this.$set(this.config, this.weekdayGroupIndex, []);
                 }
-                if (this.value[0] == 'S') {
-                    this.hourChooseMode = 'sun';
-                }
+                const action = {tempId: generatePassword(10, true), type, crontab: '', action: {}};
+                this.config[this.weekdayGroupIndex].push(action);
+                return action;
+            },
+            possibleActionFilter(possibleAction) {
+                return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
+            },
+            removeItem(item) {
+                const index = this.config[this.weekdayGroupIndex].indexOf(item);
+                this.config[this.weekdayGroupIndex].splice(index, 1);
+                this.updateConfig();
+            },
+            removeWeekdayGroup(index) {
+                this.config.splice(index, 1);
+            },
+        },
+        mounted() {
+            if (this.value && this.value.length) {
+                this.weekdayGroups = [];
+                this.value.forEach(({crontab, action}) => {
+                    const parts = crontab.split(' ');
+                    const type = parts[0].charAt(0) === 'S' ? 'sun' : 'hour'
+                    const weekdayPart = parts[parts.length - 1];
+                    this.weekdayGroupIndex = this.weekdayGroups.indexOf(weekdayPart);
+                    if (this.weekdayGroupIndex === -1) {
+                        this.weekdayGroupIndex = this.weekdayGroups.length;
+                        this.weekdayGroups.push(weekdayPart);
+                    }
+                    const addedAction = this.addAction(type);
+                    addedAction.crontab = crontab;
+                    addedAction.action = cloneDeep(action);
+                });
+                this.weekdayGroupIndex = 0;
+            } else {
+                this.weekdayGroups = ['*'];
             }
         },
         computed: {
-            weekdaysCronExpression() {
-                if (this.weekdays.length == 0 || this.weekdays.length == 7) {
-                    return '*';
-                } else {
-                    return [...this.weekdays].sort((a, b) => a - b).join(',');
-                }
+            scheduleConfig() {
+                const mapped = this.config.map((array) => {
+                    return array.map(({crontab, action}) => ({crontab, action}));
+                });
+                return flatten(toArray(mapped)).filter(({crontab, action}) => crontab && action && action.id);
             },
         }
     };
 </script>
+
+<style lang="scss">
+    @import '../../../styles/variables';
+
+    .daily-action {
+        border-bottom: 1px solid $supla-green;
+        padding-bottom: 1em;
+        margin-bottom: 1.3em;
+    }
+
+    .daily-checkboxes {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .schedule-mode-daily-header {
+        input {
+            background: transparent !important;
+            border: 0;
+            font-size: 1.3em;
+            color: $supla-black;
+        }
+    }
+
+    .remove-item-button {
+        font-weight: bold;
+        font-size: 1.3em;
+        position: absolute;
+        right: 1em;
+        top: -.5em;
+        color: $supla-red;
+    }
+</style>

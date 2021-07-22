@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="brightnessClass">
+        <div :class="[brightnessClass, 'rgbw-parameter']">
             <label>{{ $t('Brightness') }}</label>
             <span class="input-group">
                 <input type="number"
@@ -14,7 +14,7 @@
                 <span class="input-group-addon">%</span>
             </span>
         </div>
-        <div :class="hueClass">
+        <div :class="[hueClass, 'rgbw-parameter']">
             <label>{{ $t('Color') }}</label>
             <div class="radio">
                 <label>
@@ -48,7 +48,7 @@
                 </label>
             </div>
         </div>
-        <div :class="colorBrightnessClass">
+        <div :class="[colorBrightnessClass, 'rgbw-parameter']">
             <label>{{ $t('Color brightness') }}</label>
             <span class="input-group">
                 <input type="number"
@@ -143,3 +143,14 @@
         }
     };
 </script>
+
+<style lang="scss">
+    .vertical .rgbw-parameter {
+        clear: both;
+        width: 100%;
+        margin-bottom: 1em;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+</style>

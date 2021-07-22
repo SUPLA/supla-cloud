@@ -20,15 +20,13 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
 
-class IntervalSchedulePlanner implements SchedulePlanner {
+class IntervalSchedulePlanner extends SchedulePlanner {
 
-    const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,3})( \*)*$#';
+    const CRON_EXPRESSION_INTERVAL_REGEX = '#^\*/(\d{1,7})( \*)*$#';
 
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
-        preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $schedule->getTimeExpression(), $matches);
+    public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime {
+        preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $crontab, $matches);
         $intervalInMinutes = intval($matches[1]);
         $period = "PT{$intervalInMinutes}M";
         $nextRunDate = clone $currentDate;
@@ -37,11 +35,12 @@ class IntervalSchedulePlanner implements SchedulePlanner {
             $nextRunDate->setTimezone(new DateTimeZone('UTC'));
         }
         $nextRunDate->add(new DateInterval($period));
-        $nextRunDate = CompositeSchedulePlanner::roundToClosest5Minutes($nextRunDate, $nextRunDate->getTimezone());
-        return new ScheduledExecution($schedule, $nextRunDate);
+        $nextRunDate = CompositeSchedulePlanner::roundToClosestMinute($nextRunDate, $nextRunDate->getTimezone());
+        return $nextRunDate;
     }
 
-    public function canCalculateFor(Schedule $schedule) {
-        return !!preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $schedule->getTimeExpression());
+    public function canCalculateFor(string $crontab): bool {
+        $valid = preg_match(self::CRON_EXPRESSION_INTERVAL_REGEX, $crontab, $matches);
+        return $valid && intval($matches[1]) > 0;
     }
 }

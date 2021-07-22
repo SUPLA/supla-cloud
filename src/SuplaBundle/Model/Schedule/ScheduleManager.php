@@ -27,15 +27,19 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\TimeProvider;
+use SuplaBundle\Utils\ArrayUtils;
 
 class ScheduleManager {
     /** @var Registry */
@@ -50,12 +54,15 @@ class ScheduleManager {
     private $schedulePlanner;
     /** @var TimeProvider */
     private $timeProvider;
+    /** @var ChannelActionExecutor */
+    private $channelActionExecutor;
 
     public function __construct(
         ManagerRegistry $doctrine,
         IODeviceManager $ioDeviceManager,
         CompositeSchedulePlanner $schedulePlanner,
-        TimeProvider $timeProvider
+        TimeProvider $timeProvider,
+        ChannelActionExecutor $channelActionExecutor
     ) {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
@@ -63,6 +70,7 @@ class ScheduleManager {
         $this->ioDeviceManager = $ioDeviceManager;
         $this->schedulePlanner = $schedulePlanner;
         $this->timeProvider = $timeProvider;
+        $this->channelActionExecutor = $channelActionExecutor;
     }
 
     /** @return IODeviceChannel[] */
@@ -143,6 +151,45 @@ class ScheduleManager {
         } else {
             return $scheduleExecutions;
         }
+    }
+
+    public function validateSchedule(Schedule $schedule) {
+        $config = $schedule->getConfig();
+        Assertion::isArray($schedule->getConfig());
+        Assertion::greaterThan(count($config), 0, 'No schedule configuration.'); // i18n
+        $configLength = strlen(json_encode($schedule->getConfig()));
+        Assertion::lessThan($configLength, 2040, 'Config of the schedule is too complicated.'); // i18n
+        foreach ($config as $configEntry) {
+            Assertion::count($configEntry, 2, 'Invalid schedule config (incorrect config item).');
+            Assertion::string($configEntry['crontab'], 'Invalid schedule config (incorrect crontab).');
+            Assertion::isArray($configEntry['action'], 'Invalid schedule config (incorrect action).');
+            $action = $configEntry['action'];
+            Assertion::count(
+                $action,
+                count(ArrayUtils::leaveKeys($action, ['id', 'param'])),
+                'Invalid schedule config (incorrect action).' // i18n
+            );
+            Assertion::between(count($action), 1, 2, 'Invalid schedule config (incorrect action).');
+            Assertion::keyExists($action, 'id', 'Invalid schedule config (no action ID).');
+            Assertion::numeric($action['id'], 'Invalid schedule config (incorrect action ID).');
+            Assertion::true(ChannelFunctionAction::isValid($action['id']), 'Invalid schedule config (incorrect action ID).');
+            Assertion::isArray($action['param'] ?? [], 'Invalid schedule config (incorrect action param).');
+            $possibleActions = $schedule->getSubject()->getFunction()->getPossibleActions();
+            $action = ChannelFunctionAction::fromString($configEntry['action']['id']);
+            Assertion::inArray(
+                $action->getId(),
+                EntityUtils::mapToIds($possibleActions),
+                "Action {$action->getName()} cannot be executed on this channel."
+            );
+            $this->channelActionExecutor->validateActionParams(
+                $schedule->getSubject(),
+                new ChannelFunctionAction($configEntry['action']['id']),
+                $configEntry['action']['param'] ?? []
+            );
+            $this->schedulePlanner->validateCrontab($configEntry['crontab']);
+        }
+        $nextScheduleExecutions = $this->getNextScheduleExecutions($schedule, '+5days', 1, true);
+        Assertion::notEmpty($nextScheduleExecutions, 'Cannot calculate when to run the schedule - incorrect configuration?'); // i18n
     }
 
     /** @return ScheduledExecution|null */

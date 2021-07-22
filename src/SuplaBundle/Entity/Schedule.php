@@ -56,12 +56,6 @@ class Schedule implements HasSubject {
     private $user;
 
     /**
-     * @ORM\Column(name="time_expression", type="string", length=100, nullable=false)
-     * @Groups({"basic"})
-     */
-    private $timeExpression;
-
-    /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="schedules")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      * @Groups({"channel", "iodevice", "location"})
@@ -82,19 +76,7 @@ class Schedule implements HasSubject {
     private $scene;
 
     /**
-     * @ORM\Column(name="action", type="integer", nullable=false)
-     * @Groups({"basic"})
-     */
-    private $action;
-
-    /**
-     * @ORM\Column(name="action_param", type="string", nullable=true, length=255)
-     * @Groups({"basic"})
-     */
-    private $actionParam;
-
-    /**
-     * @ORM\Column(name="config", type="string", nullable=true, length=1023)
+     * @ORM\Column(name="config", type="string", nullable=true, length=2048)
      * @Groups({"basic"})
      */
     private $config;
@@ -148,18 +130,16 @@ class Schedule implements HasSubject {
     }
 
     public function fill(array $data) {
-        Assert::that($data)->notEmptyKey('timeExpression');
-        $this->setTimeExpression($data['timeExpression']);
+        Assertion::keyIsset($data, 'mode', 'No schedule mode given.');
+        $this->setMode(new ScheduleMode($data['mode']));
         if ($data['subject'] ?? null) {
             $this->initializeSubject($data['subject']);
         }
-        $this->setAction(new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON));
-        $this->setActionParam($data['actionParam'] ?? null);
-        $this->setDateStart(empty($data['dateStart']) ? new \DateTime() : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateStart']));
-        $this->setDateEnd(empty($data['dateEnd']) ? null : \DateTime::createFromFormat(\DateTime::ATOM, $data['dateEnd']));
-        $this->setMode(new ScheduleMode($data['mode']));
+        $this->setDateStart(empty($data['dateStart']) ? new DateTime() : DateTime::createFromFormat(DateTime::ATOM, $data['dateStart']));
+        $this->setDateEnd(empty($data['dateEnd']) ? null : DateTime::createFromFormat(DateTime::ATOM, $data['dateEnd']));
         $this->setCaption($data['caption'] ?? null);
         $this->setRetry($data['retry'] ?? true);
+        $this->setConfig($data['config'] ?? null);
     }
 
     public function getId() {
@@ -168,16 +148,6 @@ class Schedule implements HasSubject {
 
     public function getUser(): User {
         return $this->user;
-    }
-
-    public function getTimeExpression(): string {
-        return $this->timeExpression;
-    }
-
-    public function setTimeExpression(string $timeExpression) {
-        $parts = explode(' ', $timeExpression);
-        Assert::that($parts[0])->notEq('*')->notEq('*/2')->notEq('*/3')->notEq('*/4');
-        $this->timeExpression = $timeExpression;
     }
 
     /** @param IODeviceChannel|IODeviceChannelGroup|null $subject */
@@ -202,36 +172,13 @@ class Schedule implements HasSubject {
         return $this->getSubjectType() != ActionableSubjectType::CHANNEL() || $this->getSubject()->getIoDevice()->getEnabled();
     }
 
-    public function getAction(): ChannelFunctionAction {
-        return new ChannelFunctionAction($this->action);
-    }
-
-    public function setAction(ChannelFunctionAction $action) {
-        if ($this->getSubject()) {
-            $function = $this->getSubject()->getFunction();
-            Assertion::inArray($action->getValue(), EntityUtils::mapToIds($function->getPossibleActions()), 'Invalid action.'); // i18n
-        }
-        $this->action = $action->getValue();
-    }
-
-    /** @return array|null */
-    public function getActionParam() {
-        return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
-    }
-
-    /** @param array|null */
-    public function setActionParam($actionParam) {
-        if ($actionParam) {
-            $params = json_encode($actionParam);
-        } else {
-            $params = null;
-        }
-        $this->actionParam = $params;
-    }
-
     /** @return array|null */
     public function getConfig() {
         return $this->config ? json_decode($this->config, true) : null;
+    }
+
+    public function setConfig($config) {
+        $this->config = $config ? json_encode($config) : null;
     }
 
     public function getMode(): ScheduleMode {

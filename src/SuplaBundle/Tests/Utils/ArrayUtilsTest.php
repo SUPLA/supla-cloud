@@ -24,4 +24,11 @@ class ArrayUtilsTest extends TestCase {
         $this->assertEquals(['A', 'B', 'C'], ArrayUtils::flattenOnce([['A'], ['B', 'C']]));
         $this->assertEquals(['A', 'B', ['C']], ArrayUtils::flattenOnce([['A'], [], ['B', ['C']]]));
     }
+
+    public function testLeaveKeys() {
+        $this->assertEquals(['a' => 1], ArrayUtils::leaveKeys(['a' => 1], ['a']));
+        $this->assertEquals(['a' => 1], ArrayUtils::leaveKeys(['a' => 1, 'b' => 1], ['a']));
+        $this->assertEquals([], ArrayUtils::leaveKeys(['a' => 1, 'b' => 1], ['c']));
+        $this->assertEquals(['a' => 1, 'b' => 1], ArrayUtils::leaveKeys(['a' => 1, 'b' => 1], ['a', 'b']));
+    }
 }

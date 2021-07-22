@@ -3,7 +3,7 @@
         <button class="btn btn-white"
             v-for="mode in availableModes"
             :key="mode"
-            @click="$emit('input', mode)"
+            @click="changeMode(mode)"
             :class="{'active btn-green': mode === value}">
             {{ $t(mode) }}
         </button>
@@ -17,12 +17,18 @@
         data() {
             return {
                 availableModes: [
-                    'once', // i18n
-                    'minutely', // i18n
-                    'hourly', // i18n
                     'daily', // i18n
+                    'minutely', // i18n
+                    'once', // i18n
+                    'crontab', // i18n
                 ]
             };
         },
+        methods: {
+            changeMode(mode) {
+                this.$emit('beforeChange', mode);
+                this.$emit('input', mode);
+            }
+        }
     };
 </script>

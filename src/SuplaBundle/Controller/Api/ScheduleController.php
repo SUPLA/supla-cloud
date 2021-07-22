@@ -27,41 +27,30 @@ use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ScheduleListQuery;
 use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ScheduleController extends RestController {
     /** @var ScheduleRepository */
     private $scheduleRepository;
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
     /** @var ScheduleManager */
     private $scheduleManager;
-    /** @var ValidatorInterface */
-    private $validator;
     /** @var ActionableSubjectRepository */
     private $subjectRepository;
 
     public function __construct(
         ScheduleRepository $scheduleRepository,
-        ChannelActionExecutor $channelActionExecutor,
-        ScheduleManager $scheduleManager,
-        ValidatorInterface $validator,
-        ActionableSubjectRepository $subjectRepository
+        ActionableSubjectRepository $subjectRepository,
+        ScheduleManager $scheduleManager
     ) {
         $this->scheduleRepository = $scheduleRepository;
-        $this->channelActionExecutor = $channelActionExecutor;
         $this->scheduleManager = $scheduleManager;
-        $this->validator = $validator;
         $this->subjectRepository = $subjectRepository;
     }
 
@@ -125,11 +114,7 @@ class ScheduleController extends RestController {
     public function postScheduleAction(Request $request) {
         Assertion::false($this->getCurrentUser()->isLimitScheduleExceeded(), 'Schedule limit has been exceeded'); // i18n
         $data = $request->request->all();
-        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
-            $data['subjectId'] = $data['channelId'] ?? null;
-            $data['subjectType'] = 'channel';
-        }
-        $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data);
+        $schedule = $this->fillSchedule(new Schedule($this->getCurrentUser()), $data, $request);
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
         if ($schedule->isSubjectEnabled()) {
@@ -148,7 +133,7 @@ class ScheduleController extends RestController {
             $data['subjectId'] = $data['channelId'] ?? null;
             $data['subjectType'] = 'channel';
         }
-        $this->fillSchedule($schedule, $data);
+        $this->fillSchedule($schedule, $data, $request);
         return $this->getDoctrine()->getManager()->transactional(function ($em) use ($schedule, $request, $data) {
             $this->scheduleManager->deleteScheduledExecutions($schedule);
             $em->persist($schedule);
@@ -165,25 +150,30 @@ class ScheduleController extends RestController {
     }
 
     /** @return Schedule */
-    private function fillSchedule(Schedule $schedule, array $data) {
+    private function fillSchedule(Schedule $schedule, array $data, Request $request) {
+        if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $data['subjectId'] = $data['channelId'] ?? null;
+            $data['subjectType'] = 'channel';
+        }
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            if (isset($data['timeExpression']) && isset($data['actionId']) && !isset($data['config'])) {
+                $data['config'] = [
+                    [
+                        'crontab' => $data['timeExpression'],
+                        'action' => ['id' => $data['actionId'], 'param' => $data['actionParam'] ?? null],
+                    ],
+                ];
+            }
+        }
         Assert::that($data)
             ->notEmptyKey('subjectId')
             ->notEmptyKey('subjectType')
-            ->notEmptyKey('actionId')
             ->notEmptyKey('mode')
-            ->notEmptyKey('timeExpression');
+            ->notEmptyKey('config');
         $subject = $this->subjectRepository->findForUser($this->getUser(), $data['subjectType'], $data['subjectId']);
         $data['subject'] = $subject;
-        $data['actionParam'] = $this->channelActionExecutor->validateActionParams(
-            $subject,
-            new ChannelFunctionAction($data['actionId'] ?? ChannelFunctionAction::TURN_ON),
-            $data['actionParam'] ?? []
-        );
         $schedule->fill($data);
-        $errors = iterator_to_array($this->validator->validate($schedule));
-        Assertion::count($errors, 0, implode(', ', $errors));
-        $nextScheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($schedule, '+5days', 1, true);
-        Assertion::notEmpty($nextScheduleExecutions, 'Schedule cannot be enabled'); // i18n
+        $this->scheduleManager->validateSchedule($schedule);
         return $schedule;
     }
 
@@ -220,7 +210,8 @@ class ScheduleController extends RestController {
      * @deprecated
      */
     public function getNextRunDatesAction(Request $request) {
-//        Assertion::false(ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request), 'Endpoint not available in v2.4.');
+        // TODO uncomment in v2.4
+        // Assertion::false(ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request), 'Endpoint not available in v2.4.');
         $data = $request->request->all();
         $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
         $nextRunDates = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+7days', 3);
@@ -232,12 +223,25 @@ class ScheduleController extends RestController {
     /**
      * @Rest\Post("/schedules/next-schedule-executions")
      * @Security("has_role('ROLE_SCHEDULES_R')")
-     * @deprecated
      */
     public function getNextScheduleExecutionsAction(Request $request) {
         $data = $request->request->all();
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            if (isset($data['timeExpression']) && isset($data['actionId']) && !isset($data['config'])) {
+                $data['config'] = [
+                    [
+                        'crontab' => $data['timeExpression'],
+                        'action' => ['id' => $data['actionId'] ?? null, 'param' => $data['actionParam'] ?? null],
+                    ],
+                ];
+            }
+        }
         $temporarySchedule = new Schedule($this->getCurrentUser(), $data);
-        $scheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+7days', 3);
-        return $this->view($scheduleExecutions, Response::HTTP_OK);
+        if ($temporarySchedule->getConfig()) {
+            $scheduleExecutions = $this->scheduleManager->getNextScheduleExecutions($temporarySchedule, '+6months', 3);
+            return $this->view($scheduleExecutions, Response::HTTP_OK);
+        } else {
+            return $this->view([], Response::HTTP_OK);
+        }
     }
 }

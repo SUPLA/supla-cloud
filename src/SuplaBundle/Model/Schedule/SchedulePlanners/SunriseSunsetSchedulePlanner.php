@@ -20,77 +20,74 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 use Cron\CronExpression;
 use DateInterval;
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use DateTimeZone;
 
-class SunriseSunsetSchedulePlanner implements SchedulePlanner {
+class SunriseSunsetSchedulePlanner extends SchedulePlanner {
 
     // SR -> SunRise, SS -> SunSet
     const SPECIFICATION_REGEX = '#^S([SR])(-?\d+)#';
     const MINIMUM_SECONDS_TO_NEXT_SUN = 360;
 
     /** @inheritdoc */
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
-        return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $currentDate) {
-            $currentDate = $this->getNextDueDate($schedule, $currentDate);
-            $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $currentDate);
-            $retries = 5; // PHP sometimes returns past sunset even if we query for midnight of the next day...
-            $calculatingFromDate = clone max($nextRunDate, $currentDate);
-            while ((($nextRunDate->getTimestamp() <= $currentDate->getTimestamp() + self::MINIMUM_SECONDS_TO_NEXT_SUN)
-                    || (!$this->isDue($schedule, $nextRunDate))) && --$retries) {
-                $nextRunDate->setTime(0, 0);
-                while ($nextRunDate <= $calculatingFromDate) {
-                    $nextRunDate->add(new DateInterval('P1D'));
-                }
-                $calculatingFromDate = $this->getNextDueDate($schedule, $nextRunDate);
-                $nextRunDate = $this->calculateNextRunDateBasedOnSun($schedule, $calculatingFromDate);
-                while ($nextRunDate <= $calculatingFromDate) {
-                    $nextRunDate->add(new DateInterval('P1D'));
-                }
+    public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime {
+        $currentDate = $this->getNextDueDate($crontab, $currentDate);
+        $nextRunDate = $this->calculateNextRunDateBasedOnSun($crontab, $currentDate);
+        $retries = 5; // PHP sometimes returns past sunset even if we query for midnight of the next day...
+        $calculatingFromDate = clone max($nextRunDate, $currentDate);
+        while ((($nextRunDate->getTimestamp() <= $currentDate->getTimestamp() + self::MINIMUM_SECONDS_TO_NEXT_SUN)
+                || (!$this->isDue($crontab, $nextRunDate))) && --$retries) {
+            $nextRunDate->setTime(0, 0);
+            while ($nextRunDate <= $calculatingFromDate) {
+                $nextRunDate->add(new DateInterval('P1D'));
             }
-            return new ScheduledExecution($schedule, $nextRunDate);
-        });
+            $calculatingFromDate = $this->getNextDueDate($crontab, $nextRunDate);
+            $nextRunDate = $this->calculateNextRunDateBasedOnSun($crontab, $calculatingFromDate);
+            while ($nextRunDate <= $calculatingFromDate) {
+                $nextRunDate->add(new DateInterval('P1D'));
+            }
+        }
+        return $nextRunDate;
     }
 
-    private function calculateNextRunDateBasedOnSun(Schedule $schedule, DateTime $currentDate) {
-        preg_match(self::SPECIFICATION_REGEX, $schedule->getTimeExpression(), $matches);
-        $location = $schedule->getUserTimezone()->getLocation();
+    private function calculateNextRunDateBasedOnSun(string $crontab, DateTime $currentDate) {
+        preg_match(self::SPECIFICATION_REGEX, $crontab, $matches);
+        $timezone = new DateTimeZone(date_default_timezone_get());
+        $location = ($timezone)->getLocation();
         $function = 'date_' . ($matches[1] == 'S' ? 'sunset' : 'sunrise');
         $nextSun = $function($currentDate->getTimestamp(), SUNFUNCS_RET_TIMESTAMP, $location['latitude'], $location['longitude']);
         $nextSun += intval($matches[2]) * 60;
-        $nextSunRoundTo5Minutes = round($nextSun / 300) * 300;
-        $nextRunDate = (new DateTime('now', $schedule->getUserTimezone()))->setTimestamp($nextSunRoundTo5Minutes);
+        $nextRunDate = CompositeSchedulePlanner::roundToClosestMinute($nextSun, $timezone);
         if ($nextRunDate < $currentDate) {
             // PHP sometimes returns past sunset even if we query for midnight of the next day...
             $nextRunDate->add(new DateInterval('P1D'));
         } elseif ($nextRunDate == $currentDate) {
             // if it is sunset now, let's calculate for the next day
-            return $this->calculateNextRunDateBasedOnSun($schedule, $nextRunDate->add(new DateInterval('PT12H')));
+            return $this->calculateNextRunDateBasedOnSun($crontab, $nextRunDate->add(new DateInterval('PT12H')));
         }
         return $nextRunDate;
     }
 
     /** @return DateTime */
-    private function getNextDueDate(Schedule $schedule, DateTime $currentDate) {
-        if (!$this->isDue($schedule, $currentDate)) {
-            return $this->getEveryMinuteCronExpression($schedule)->getNextRunDate($currentDate);
+    private function getNextDueDate(string $crontab, DateTime $currentDate) {
+        if (!$this->isDue($crontab, $currentDate)) {
+            return $this->getEveryMinuteCronExpression($crontab)->getNextRunDate($currentDate);
         }
         return $currentDate;
     }
 
-    private function isDue(Schedule $schedule, DateTime $currentDate) {
-        return $this->getEveryMinuteCronExpression($schedule)->isDue($currentDate);
+    private function isDue(string $crontab, DateTime $currentDate) {
+        return $this->getEveryMinuteCronExpression($crontab)->isDue($currentDate);
     }
 
     /** @return CronExpression */
-    private function getEveryMinuteCronExpression(Schedule $schedule) {
-        $parts = explode(' ', $schedule->getTimeExpression());
+    private function getEveryMinuteCronExpression(string $crontab) {
+        $parts = explode(' ', $crontab);
         $parts[0] = '*';
         $parts[1] = '*';
-        return CronExpression::factory(implode(' ', $parts));
+        return new CronExpression(implode(' ', $parts));
     }
 
-    public function canCalculateFor(Schedule $schedule) {
-        return !!preg_match(self::SPECIFICATION_REGEX, $schedule->getTimeExpression());
+    public function canCalculateFor(string $crontab): bool {
+        return !!preg_match(self::SPECIFICATION_REGEX, $crontab);
     }
 }

@@ -21,15 +21,10 @@ use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ScheduleMode;
 
 class ScheduleTest extends TestCase {
-    public function testSettingTheCronExpression() {
-        $schedule = new Schedule();
-        $schedule->setTimeExpression('*/5 * * * * *');
-        $this->assertEquals('*/5 * * * * *', $schedule->getTimeExpression());
-    }
-
-    public function testFillRequiredTimeExpression() {
+    public function testErrorWhenNoMode() {
         $this->expectException(InvalidArgumentException::class);
         $schedule = new Schedule();
         $schedule->fill([]);
@@ -37,35 +32,7 @@ class ScheduleTest extends TestCase {
 
     public function testFillFillsCaption() {
         $schedule = new Schedule();
-        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '6', 'caption' => 'My Caption']);
+        $schedule->fill(['mode' => ScheduleMode::MINUTELY, 'caption' => 'My Caption']);
         $this->assertEquals('My Caption', $schedule->getCaption());
-    }
-
-    public function testRequiresActionParamsForRgbLighting() {
-        $this->expectException(InvalidArgumentException::class);
-        $schedule = new Schedule();
-        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'actionId' => ChannelFunctionAction::SET_RGBW_PARAMETERS]);
-    }
-
-    public function testSettingActionParamsAsArray() {
-        $schedule = new Schedule();
-        $schedule->fill([
-            'mode' => 'hourly',
-            'timeExpression' => '3',
-            'actionId' => ChannelFunctionAction::REVEAL_PARTIALLY,
-            'actionParam' => ['percentage' => 12],
-        ]);
-        $this->assertEquals(['percentage' => 12], $schedule->getActionParam());
-    }
-
-    public function testSettingInvalidActionParam() {
-        $this->expectException(InvalidArgumentException::class);
-        $schedule = new Schedule();
-        $schedule->fill(['mode' => 'hourly', 'timeExpression' => '*', 'actionParam' => '{"color": 123']);
-    }
-
-    public function testSettingTooShortTimeExpression() {
-        $this->expectException(\InvalidArgumentException::class);
-        (new Schedule())->setTimeExpression('* * * * *');
     }
 }

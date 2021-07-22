@@ -17,6 +17,9 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use DateTime;
+use DateTimeZone;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\ScheduledExecution;
@@ -56,8 +59,8 @@ class GenerateSchedulesExecutionsCommand extends AbstractCyclicCommand {
     }
 
     private function generateFutureExecutions(OutputInterface $output) {
-        $now = new \DateTime('now', new \DateTimeZone('UTC'));
-        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $criteria = new Criteria();
         $criteria
             ->where($criteria->expr()->eq('enabled', true))
             ->andWhere($criteria->expr()->lte('nextCalculationDate', $now))

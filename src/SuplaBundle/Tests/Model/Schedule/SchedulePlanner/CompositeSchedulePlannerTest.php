@@ -19,10 +19,14 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use PHPUnit\Framework\TestCase;
 use DateTime;
+use DateTimeZone;
 use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\IntervalSchedulePlanner;
+use SuplaBundle\Model\Schedule\SchedulePlanners\OnceSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\SunriseSunsetSchedulePlanner;
 
 class CompositeSchedulePlannerTest extends TestCase {
@@ -31,6 +35,7 @@ class CompositeSchedulePlannerTest extends TestCase {
 
     public function setUp() {
         $this->planner = new CompositeSchedulePlanner([
+            new OnceSchedulePlanner(),
             new IntervalSchedulePlanner(),
             new CronExpressionSchedulePlanner(),
             new SunriseSunsetSchedulePlanner(),
@@ -67,7 +72,6 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingCronExpressionWhenDstChangesForward() {
-        $this->markTestSkipped('until v2.3.31 merge');
         $schedule = new ScheduleWithTimezone('30 2 * * *', 'Europe/Warsaw');
         $runDates = array_map(
             self::formatPlannedTimestamp(),
@@ -82,7 +86,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingIntervalWhenDstChangesBackward() {
-        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Europe/Warsaw');
+        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Europe/Warsaw', ScheduleMode::MINUTELY());
         $runDates = array_map(
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2018-10-28 03:05', '2018-10-28 01:50')
@@ -103,7 +107,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingIntervalWhenDstChangesBackwardInAmericaWinnipeg() {
-        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'America/Winnipeg');
+        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'America/Winnipeg', ScheduleMode::MINUTELY());
         $runDates = array_map(
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2018-11-04 02:05', '2018-11-04 00:50')
@@ -137,9 +141,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingRunDatesUntilIfTheFirstOneIsLater() {
-        $this->markTestSkipped('until v2.3.31 merge');
-        $schedule = new ScheduleWithTimezone();
-        $schedule->setTimeExpression('23 11 5 12 * 2089');
+        $schedule = new ScheduleWithTimezone('23 11 5 12 * 2089');
         $runDates = array_map(
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2017-01-01 00:00')
@@ -149,9 +151,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingRunDatesUntilDoesNotThrowAnErrorIfNoMoreDates() {
-        $this->markTestSkipped('until v2.3.31 merge');
-        $schedule = new ScheduleWithTimezone();
-        $schedule->setTimeExpression('23 11 5 12 * 2089');
+        $schedule = new ScheduleWithTimezone('23 11 5 12 * 2089');
         $runDates = array_map(
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2099-01-01 00:00')
@@ -161,8 +161,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingManyDates() {
-        $schedule = new ScheduleWithTimezone();
-        $schedule->setTimeExpression('*/5 * * * *');
+        $schedule = new ScheduleWithTimezone('*/5 * * * *');
         $dates = $this->planner->calculateScheduleExecutionsUntil($schedule, '+5 days');
         $this->assertGreaterThan(1000, count($dates));
     }
@@ -173,17 +172,17 @@ class CompositeSchedulePlannerTest extends TestCase {
         $nextRunDates = $this->planner->calculateScheduleExecutionsUntil($schedule, '2017-04-24 15:00:00', '2017-04-22 15:00:00');
         $formattedNextRunDates = array_map(self::formatPlannedTimestamp('Y-m-d H:i'), $nextRunDates);
         $this->assertEquals([
-            '2017-04-22 19:45',
-            '2017-04-23 19:50',
+            '2017-04-22 19:46',
+            '2017-04-23 19:48',
             '2017-04-24 19:50',
         ], $formattedNextRunDates);
     }
 
     public function testMinutesBasedSchedulesAreRelativeToStartTime() {
-        $schedule = new ScheduleWithTimezone('*/10 * * * *', 'UTC');
+        $schedule = new ScheduleWithTimezone('*/10 * * * *', 'UTC', ScheduleMode::MINUTELY());
         $examples = [
             '2017-07-01 15:00:00' => '2017-07-01 15:10',
-            '2017-07-01 15:01:00' => '2017-07-01 15:10',
+            '2017-07-01 15:01:00' => '2017-07-01 15:11',
             '2017-07-01 15:05:00' => '2017-07-01 15:15',
         ];
         foreach ($examples as $startDate => $expectedNextDate) {
@@ -194,7 +193,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     }
 
     public function testCalculatingIntervalDatesWithSpecificStartTime() {
-        $schedule = new ScheduleWithTimezone('*/35 * * * *', 'Europe/Warsaw');
+        $schedule = new ScheduleWithTimezone('*/35 * * * *', 'Europe/Warsaw', ScheduleMode::MINUTELY());
         $runDates = array_map(
             self::formatPlannedTimestamp(),
             $this->planner->calculateScheduleExecutionsUntil($schedule, '2017-01-02 00:00', '2017-01-01 04:33')
@@ -202,9 +201,60 @@ class CompositeSchedulePlannerTest extends TestCase {
         $this->assertNotContains('2017-01-01T05:00:00+01:00', $runDates);
         $this->assertNotContains('2017-01-01T05:05:00+01:00', $runDates);
         $this->assertNotContains('2017-01-01T00:05:00+01:00', $runDates);
-        $this->assertContains('2017-01-01T05:10:00+01:00', $runDates);
-        $this->assertContains('2017-01-01T05:45:00+01:00', $runDates);
-        $this->assertContains('2017-01-01T23:50:00+01:00', $runDates);
+        $this->assertContains('2017-01-01T05:08:00+01:00', $runDates);
+        $this->assertContains('2017-01-01T05:43:00+01:00', $runDates);
+        $this->assertContains('2017-01-01T23:48:00+01:00', $runDates);
         $this->assertNotContains('2017-01-02T01:00:00+01:00', $runDates);
+    }
+
+    public function testPreservingTimezone() {
+        $schedule = new ScheduleWithTimezone('*/5 * * * *', 'Australia/Sydney');
+        $nextExecutions = $this->planner->calculateScheduleExecutionsUntil($schedule);
+        $this->assertEquals($schedule->getUserTimezone(), $nextExecutions[0]->getPlannedTimestamp()->getTimezone());
+    }
+
+    /**
+     * @dataProvider calculatingNextRunDateComplexConfigsProvider
+     */
+    public function testCalculatingNextRunDateForComplexConfigs($startDate, $config, $expectedNextRunDate, $timezone = 'Europe/Warsaw') {
+        $schedule = new ScheduleWithTimezone($config, $timezone);
+        $format = 'Y-m-d H:i';
+        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
+        $startDate = DateTime::createFromFormat($format, $startDate, new DateTimeZone($timezone));
+        $nextExecution = $this->planner->calculateNextScheduleExecution($schedule, $startDate);
+        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
+    }
+
+    public function calculatingNextRunDateComplexConfigsProvider() {
+        $def = function ($crontab) {
+            return ['crontab' => $crontab, 'action' => ['id' => ChannelFunctionAction::TURN_ON]];
+        };
+        return [
+            ['2017-01-01 00:00', [$def('SR0 * * * *')], '2017-01-01 07:45'],
+            ['2017-01-01 00:00', [$def('SR2 * * * *')], '2017-01-01 07:47'],
+            ['2017-01-01 00:00', [$def('SR0 * * * 3')], '2017-01-04 07:45'],
+            ['2021-05-23 00:00', [$def('10 10 * * 1'), $def('10 10 * * 2')], '2021-05-24 10:10'],
+            ['2021-05-23 00:00', [$def('10 10 * * 2'), $def('10 10 * * 1')], '2021-05-24 10:10'],
+            ['2021-05-23 00:00', [$def('SR0 * * * 1'), $def('10 10 * * 1')], '2021-05-24 04:28'],
+            ['2021-05-24 04:30', [$def('SR0 * * * 1'), $def('10 10 * * 1')], '2021-05-24 10:10'],
+        ];
+    }
+
+    public function testChoosingAppropriateAction() {
+        $startDate = '2021-05-23 00:00';
+        $expectedNextRunDate = '2021-05-24 04:28';
+        $timezone = 'Europe/Warsaw';
+        $config = [
+            ['crontab' => '10 10 * * 1', 'action' => ['id' => ChannelFunctionAction::OPEN_PARTIALLY, 'param' => ['percentage' => 50]]],
+            ['crontab' => 'SR0 * * * 1', 'action' => ['id' => ChannelFunctionAction::SET_RGBW_PARAMETERS, 'param' => ['hue' => 50]]],
+        ];
+        $schedule = new ScheduleWithTimezone($config, $timezone);
+        $format = 'Y-m-d H:i';
+        $formatter = CompositeSchedulePlannerTest::formatPlannedTimestamp($format);
+        $startDate = DateTime::createFromFormat($format, $startDate, new DateTimeZone($timezone));
+        $nextExecution = $this->planner->calculateNextScheduleExecution($schedule, $startDate);
+        $this->assertEquals($expectedNextRunDate, $formatter($nextExecution));
+        $this->assertEquals(ChannelFunctionAction::SET_RGBW_PARAMETERS, $nextExecution->getAction()->getId());
+        $this->assertEquals(['hue' => 50], $nextExecution->getActionParam());
     }
 }

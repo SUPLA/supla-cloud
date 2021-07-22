@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
+use DateTime;
 use SuplaBundle\Entity\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\Tests\AnyFieldSetter;
@@ -42,7 +43,7 @@ class UserTest extends TestCase {
 
     public function testEnablingClientAppRegistration() {
         $user = new User();
-        $now = new \DateTime();
+        $now = new DateTime();
         $user->enableClientsRegistration(600);
         $this->assertNotNull($user->getClientsRegistrationEnabled());
         $this->assertGreaterThanOrEqual($now->getTimestamp(), $user->getClientsRegistrationEnabled()->getTimestamp() - 600);
@@ -57,7 +58,7 @@ class UserTest extends TestCase {
 
     public function testReturnsClientsRegistrationNullIfTimeHasPassed() {
         $user = new User();
-        AnyFieldSetter::set($user, 'clientsRegistrationEnabled', new \DateTime('-1second'));
+        AnyFieldSetter::set($user, 'clientsRegistrationEnabled', new DateTime('-1second'));
         $this->assertNull($user->getClientsRegistrationEnabled());
     }
 

@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -28,7 +29,7 @@ class SuplaServerMockCommandsCollector extends DataCollector {
         $this->reset();
     }
 
-    public function collect(Request $request, Response $response, \Exception $exception = null) {
+    public function collect(Request $request, Response $response, Exception $exception = null) {
     }
 
     public function addCommand(string $command) {

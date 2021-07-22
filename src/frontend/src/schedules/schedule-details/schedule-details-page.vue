@@ -50,8 +50,6 @@
                                     </dt>
                                 </dl>
                                 <dl>
-                                    <dd>{{ $t('Action') }}</dd>
-                                    <dt>{{ $t(schedule.action.caption) }}</dt>
                                     <dd>{{ $t('Mode') }}</dd>
                                     <dt>{{ $t(schedule.mode) }}</dt>
                                     <dd>{{ $t('Start date') }}</dd>
@@ -176,7 +174,7 @@
                 if (this.schedule) {
                     if (['CONTROLLINGTHEGARAGEDOOR', 'CONTROLLINGTHEGATE'].includes(this.schedule.subject.function.name)) {
                         return this.$t('The gate sensor must function properly in order to execute the scheduled action.');
-                    } else if (['VALVEOPENCLOSE'].includes(this.schedule.subject.function.name) && this.schedule.action.name === 'OPEN') {
+                    } else if (['VALVEOPENCLOSE'].includes(this.schedule.subject.function.name)) {
                         return this.$t('The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.');
                     }
                 }

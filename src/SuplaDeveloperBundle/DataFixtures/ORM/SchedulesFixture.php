@@ -51,13 +51,23 @@ class SchedulesFixture extends SuplaFixture {
             function (IODeviceChannel $channel) {
                 $s = new Schedule($channel->getUser());
                 $s->setMode(ScheduleMode::MINUTELY());
-                $s->setTimeExpression('*/' . $this->faker->randomElement([5, 10, 15, 30, 60, 90]) . ' * * * *');
+                $s->setConfig([
+                    [
+                        'crontab' => '*/' . $this->faker->randomElement([5, 10, 15, 30, 60, 90]) . ' * * * *',
+                        'action' => ['id' => $this->faker->randomElement($channel->getFunction()->getPossibleActions())],
+                    ],
+                ]);
                 return $s;
             },
             function (IODeviceChannel $channel) {
                 $s = new Schedule($channel->getUser());
                 $s->setMode(ScheduleMode::DAILY());
-                $s->setTimeExpression('S' . $this->faker->randomElement(['S', 'R']) . $this->faker->randomElement([-10, 0, 10]) . ' * * * *');
+                $s->setConfig([
+                    [
+                        'crontab' => 'S' . $this->faker->randomElement(['S', 'R']) . $this->faker->randomElement([-10, 0, 10]) . ' * * * *',
+                        'action' => ['id' => $this->faker->randomElement($channel->getFunction()->getPossibleActions())],
+                    ],
+                ]);
                 return $s;
             },
         ];
@@ -75,7 +85,6 @@ class SchedulesFixture extends SuplaFixture {
             $channel = $this->faker->randomElement($randomDevices)->getChannels()[$this->faker->numberBetween(0, 3)];
             $schedule = $this->faker->randomElement($this->scheduleFactories)($channel);
             $schedule->setCaption($this->faker->sentence($this->faker->numberBetween(2, 4)));
-            $schedule->setAction($this->faker->randomElement($channel->getFunction()->getPossibleActions()));
             $schedule->setSubject($channel);
             $schedule->setDateStart($this->faker->dateTimeBetween('now', '+1 week'));
             $this->entityManager->persist($schedule);

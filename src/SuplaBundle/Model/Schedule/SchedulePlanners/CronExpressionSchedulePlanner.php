@@ -19,21 +19,14 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
 use Cron\CronExpression;
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
 
-class CronExpressionSchedulePlanner implements SchedulePlanner {
-    public function calculateNextScheduleExecution(Schedule $schedule, DateTime $currentDate) {
-        $nextRunDate = $this->calculateNextRunDateForExpression($schedule->getTimeExpression(), $currentDate);
-        return new ScheduledExecution($schedule, $nextRunDate);
-    }
-
-    public function calculateNextRunDateForExpression($cronExpression, DateTime $currentDate) {
-        $cron = CronExpression::factory($cronExpression);
+class CronExpressionSchedulePlanner extends SchedulePlanner {
+    public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime {
+        $cron = new CronExpression($crontab);
         return $cron->getNextRunDate($currentDate);
     }
 
-    public function canCalculateFor(Schedule $schedule) {
-        return CronExpression::isValidExpression($schedule->getTimeExpression());
+    public function canCalculateFor(string $crontab): bool {
+        return CronExpression::isValidExpression($crontab);
     }
 }

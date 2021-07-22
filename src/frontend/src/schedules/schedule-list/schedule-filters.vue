@@ -50,7 +50,7 @@
             },
             compare(a1, a2) {
                 if (this.sort == 'az') {
-                    return latinize(a1.caption || '').toLowerCase() < latinize(a2.caption || '').toLowerCase() ? -1 : 1;
+                    return latinize(a1.caption || 'zzz').toLowerCase() < latinize(a2.caption || 'zzzz').toLowerCase() ? -1 : 1;
                 } else {
                     const closestA1 = a1.closestExecutions.future[0];
                     const closestA2 = a2.closestExecutions.future[0];
