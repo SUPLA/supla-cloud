@@ -22,7 +22,7 @@ use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 
-class IODeviceTestTest extends TestCase {
+class BelongsToUserTest extends TestCase {
     /** @var User */
     private $user;
 
