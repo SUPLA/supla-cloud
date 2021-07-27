@@ -19,7 +19,7 @@
                 <div class="form-group text-center"
                     v-if="sparseLogs && sparseLogs.length > 1">
                     <div class="btn-group"
-                        v-if="channel.function.name === 'ELECTRICITYMETER' && channel.type.name === 'ELECTRICITYMETER'">
+                        v-if="channel.function.name === 'ELECTRICITYMETER'">
                         <a :class="'btn btn-' + (chartMode === 'fae' ? 'green' : 'default')"
                             @click="changeChartMode('fae')">
                             {{ $t('Forward active energy') }}
@@ -162,7 +162,7 @@
             },
             emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
         },
-        GASMETER: {
+        IC_GASMETER: {
             chartType: 'bar',
             chartOptions: () => ({}),
             series: function (allLogs) {
@@ -340,9 +340,9 @@
         },
     };
 
-    CHART_TYPES.HEATMETER = CHART_TYPES.GASMETER;
-    CHART_TYPES.WATERMETER = CHART_TYPES.GASMETER;
-    CHART_TYPES.ELECTRICITYMETER_IC = CHART_TYPES.GASMETER;
+    CHART_TYPES.IC_HEATMETER = CHART_TYPES.IC_GASMETER;
+    CHART_TYPES.IC_WATERMETER = CHART_TYPES.IC_GASMETER;
+    CHART_TYPES.IC_ELECTRICITYMETER = CHART_TYPES.IC_GASMETER;
 
     export default {
         props: ['channel'],
@@ -364,9 +364,6 @@
         mounted() {
             if (this.supportsChart) {
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
-                if (this.channel.function.name === 'ELECTRICITYMETER' && this.channel.type.name === 'IMPULSECOUNTER') {
-                    this.chartStrategy = CHART_TYPES.ELECTRICITYMETER_IC;
-                }
                 this.fetchSparseLogs().then((logs) => {
                     logs = this.fixLogs(logs);
                     this.hasLogs = logs.length > 0;
