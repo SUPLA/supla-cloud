@@ -9,6 +9,7 @@
                         min="0.5"
                         max="7200"
                         class="form-control text-center"
+                        @input="$emit('change')"
                         v-model="channel.config.relayTimeS">
                     <span class="input-group-addon">
                         {{ $t('sec.') }}
