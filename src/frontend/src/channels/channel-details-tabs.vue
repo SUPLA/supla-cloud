@@ -98,9 +98,10 @@
                 'HUMIDITY',
                 'HUMIDITYANDTEMPERATURE',
                 'ELECTRICITYMETER',
-                'GASMETER',
-                'WATERMETER',
-                'HEATMETER',
+                'IC_ELECTRICITYMETER',
+                'IC_GASMETER',
+                'IC_WATERMETER',
+                'IC_HEATMETER',
                 'THERMOSTAT',
                 'THERMOSTATHEATPOLHOMEPLUS'
             ];
