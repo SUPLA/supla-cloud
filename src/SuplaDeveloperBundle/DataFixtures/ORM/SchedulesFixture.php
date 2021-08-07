@@ -54,7 +54,7 @@ class SchedulesFixture extends SuplaFixture {
                 $s->setConfig([
                     [
                         'crontab' => '*/' . $this->faker->randomElement([5, 10, 15, 30, 60, 90]) . ' * * * *',
-                        'action' => ['id' => $this->faker->randomElement($channel->getFunction()->getPossibleActions())],
+                        'action' => ['id' => $this->faker->randomElement($channel->getFunction()->getPossibleActions())->getId()],
                     ],
                 ]);
                 return $s;
@@ -65,7 +65,7 @@ class SchedulesFixture extends SuplaFixture {
                 $s->setConfig([
                     [
                         'crontab' => 'S' . $this->faker->randomElement(['S', 'R']) . $this->faker->randomElement([-10, 0, 10]) . ' * * * *',
-                        'action' => ['id' => $this->faker->randomElement($channel->getFunction()->getPossibleActions())],
+                        'action' => ['id' => $this->faker->randomElement($channel->getFunction()->getPossibleActions())->getId()],
                     ],
                 ]);
                 return $s;
@@ -82,7 +82,9 @@ class SchedulesFixture extends SuplaFixture {
         }
         for ($i = 0; $i < 15; $i++) {
             /** @var IODeviceChannel $channel */
-            $channel = $this->faker->randomElement($randomDevices)->getChannels()[$this->faker->numberBetween(0, 3)];
+            do {
+                $channel = $this->faker->randomElement($randomDevices)->getChannels()[$this->faker->numberBetween(0, 3)];
+            } while (!$channel->getFunction()->getPossibleActions());
             $schedule = $this->faker->randomElement($this->scheduleFactories)($channel);
             $schedule->setCaption($this->faker->sentence($this->faker->numberBetween(2, 4)));
             $schedule->setSubject($channel);
@@ -90,14 +92,5 @@ class SchedulesFixture extends SuplaFixture {
             $this->entityManager->persist($schedule);
             $this->scheduleManager->enable($schedule);
         }
-    }
-
-    private function createSuplerLink() {
-        $channel = $this->getReference(DevicesFixture::DEVICE_SUPLER)->getChannels()[0];
-        $directLink = new DirectLink($channel);
-        $directLink->generateSlug(new PlaintextPasswordEncoder());
-        $directLink->setAllowedActions([ChannelFunctionAction::READ()]);
-        $directLink->setCaption('SUPLAER Direct Link');
-        $this->entityManager->persist($directLink);
     }
 }
