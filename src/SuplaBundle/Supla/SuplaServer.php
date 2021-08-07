@@ -106,7 +106,14 @@ abstract class SuplaServer {
             $command .= ',' . implode(',', $params);
         }
         $result = $this->executeCommand($command);
-        return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1 ? true : false;
+        return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1;
+    }
+
+    public function channelAction(IODeviceChannel $channel, string $commandName): bool {
+        $params = implode(',', [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()]);
+        $command = "$commandName:$params";
+        $result = $this->executeCommand($command);
+        return $result !== false && preg_match("/^OK:" . $channel->getId() . "\n/", $result) === 1;
     }
 
     public function reconnect(User $user = null): bool {

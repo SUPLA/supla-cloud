@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
 class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
@@ -16,6 +17,7 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
             'currency' => $channel->getTextParam1() ?: null,
             'unit' => $channel->getTextParam2() ?: null,
             'initialValue' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 100, 2),
+            'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($channel->getFlags()),
         ];
     }
 

@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
@@ -30,6 +31,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -586,5 +588,34 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->request('PATCH', '/api/v2.3.0/channels/6', [], [], [], json_encode(array_merge(['action' => 'open'])));
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
+    }
+
+    public function testResettingCounters() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
+        ]);
+        $measurementChannel = $anotherDevice->getChannels()[0];
+        EntityUtils::setField($measurementChannel, 'flags', ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE);
+        $this->getEntityManager()->persist($measurementChannel);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $measurementChannelId = $measurementChannel->getId();
+        $client->apiRequestV24('PATCH', "/api/channels/{$measurementChannelId}/settings", [
+            'action' => 'resetCounters',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertContains("RESET-COUNTERS:1,{$anotherDevice->getId()},{$measurementChannelId}", SuplaServerMock::$executedCommands);
+    }
+
+    public function testResettingCountersOfUnsupportedChannel() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+        ]);
+        $channel = $anotherDevice->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', "/api/channels/{$channel->getId()}/settings", [
+            'action' => 'resetCounters',
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
     }
 }

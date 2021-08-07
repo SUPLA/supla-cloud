@@ -6,6 +6,13 @@
                 <div class="button-container">
                     <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
                         class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
+                    <button @click="resetConfirm = true"
+                        v-if="channel.config.resetCountersAvailable"
+                        type="button"
+                        class="btn btn-yellow">
+                        <i class="pe-7s-disk"></i>
+                        {{ $t('Reset counter') }}
+                    </button>
                     <button @click="deleteConfirm = true"
                         type="button"
                         class="btn btn-red">
@@ -48,6 +55,14 @@
                 @confirm="deleteMeasurements()"
                 @cancel="deleteConfirm = false"
                 :header="$t('Are you sure you want to delete the entire measurement history saved for this channel?')">
+            </modal-confirm>
+
+            <modal-confirm v-if="resetConfirm"
+                class="modal-warning"
+                @confirm="resetCounters()"
+                @cancel="resetConfirm = false"
+                :header="$t('Are you sure you want to reset the counter state?')">
+                <p>{{ $t('After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.') }}</p>
             </modal-confirm>
 
             <empty-list-placeholder v-if="hasLogs === false"></empty-list-placeholder>
@@ -349,6 +364,7 @@
         data: function () {
             return {
                 deleteConfirm: false,
+                resetConfirm: false,
                 currentMinTimestamp: undefined,
                 currentMaxTimestamp: undefined,
                 hasLogs: undefined,
@@ -670,6 +686,11 @@
                 this.deleteConfirm = false;
                 this.$http.delete('channels/' + this.channel.id + '/measurement-logs')
                     .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')));
+            },
+            resetCounters() {
+                this.resetConfirm = false;
+                this.$http.patch('channels/' + this.channel.id + '/settings', {action: 'resetCounters'})
+                    .then(() => successNotification(this.$t('Success'), this.$t('The counter has been reset.')));
             },
         },
         computed: {

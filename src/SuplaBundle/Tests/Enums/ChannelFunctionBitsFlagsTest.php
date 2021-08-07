@@ -15,15 +15,18 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Enums;
+namespace SuplaBundle\Tests\Enums;
 
-/**
- * @method static ChannelFunctionBitsFlags TIME_SETTING_NOT_AVAILABLE()
- * @method static ChannelFunctionBitsFlags RESET_COUNTERS_ACTION_AVAILABLE()
- */
-final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
-    /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
-    const RESET_COUNTERS_ACTION_AVAILABLE = 0x2000;
-    /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L464 */
-    const TIME_SETTING_NOT_AVAILABLE = 0x00100000;
+use PHPUnit\Framework\TestCase;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
+
+class ChannelFunctionBitsFlagsTest extends TestCase {
+    public function testEveryBitIsExclusive() {
+        $bitsSum = 0;
+        foreach (ChannelFunctionBitsFlags::values() as $bit) {
+            $newBitsSum = $bitsSum | $bit->getValue();
+            $this->assertNotEquals($newBitsSum, $bitsSum, 'Non exclusive detected on ' . $bit->getKey());
+            $bitsSum = $newBitsSum;
+        }
+    }
 }

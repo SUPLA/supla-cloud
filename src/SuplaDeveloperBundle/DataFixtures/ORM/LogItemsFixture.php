@@ -111,8 +111,12 @@ class LogItemsFixture extends SuplaFixture {
         $electricityMeterIc = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::IC_ELECTRICITYMETER;
         })->first();
-        foreach ([$gasMeterIc, $heatMeterIc, $electricityMeterIc] as $channel) {
+        $waterMeterIc = $this->getReference(DevicesFixture::DEVICE_FULL)->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::IC_WATERMETER;
+        })->first();
+        foreach ([$gasMeterIc, $heatMeterIc, $electricityMeterIc, $waterMeterIc] as $channel) {
             $channelId = $channel->getId();
+            echo $channelId . PHP_EOL;
             $from = strtotime(self::SINCE);
             $to = time();
             $counter = 0;
@@ -125,6 +129,9 @@ class LogItemsFixture extends SuplaFixture {
                 EntityUtils::setField($logItem, 'calculated_value', ($counter / 100) * 1000);
                 if ($this->faker->boolean(95)) {
                     $this->entityManager->persist($logItem);
+                }
+                if ($this->faker->boolean(1)) {
+                    $counter = 0;
                 }
             }
         }

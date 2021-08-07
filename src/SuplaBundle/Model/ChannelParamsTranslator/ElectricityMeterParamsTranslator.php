@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
 class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
@@ -13,6 +14,7 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
         return [
             'pricePerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 10000, 4),
             'currency' => $channel->getTextParam1() ?: null,
+            'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($channel->getFlags()),
         ];
     }
 

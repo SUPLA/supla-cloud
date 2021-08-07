@@ -30,6 +30,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelDependencies;
@@ -228,6 +229,35 @@ class ChannelController extends RestController {
         $status = ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request) ? Response::HTTP_NO_CONTENT : Response::HTTP_OK;
         $status = ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request) ? Response::HTTP_ACCEPTED : $status;
         return $this->handleView($this->view(null, $status));
+    }
+
+    /**
+     * @Rest\Patch("/channels/{channel}/settings")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     */
+    public function patchChannelSettingsAction(
+        Request $request,
+        IODeviceChannel $channel,
+        ChannelParamConfigTranslator $paramConfigTranslator
+    ) {
+        $body = json_decode($request->getContent(), true);
+        Assertion::keyExists($body, 'action', 'Missing action.');
+        $channelConfig = $paramConfigTranslator->getConfigFromParams($channel);
+        $channel = $this->transactional(function (EntityManagerInterface $em) use ($body, $channel, $channelConfig) {
+            $action = $body['action'];
+            if ($action === 'resetCounters') {
+                Assertion::true($channelConfig['resetCountersAvailable'] ?? false, 'Cannot reset counters of this channel.');
+                $result = $this->suplaServer->channelAction($channel, 'RESET-COUNTERS');
+                Assertion::true($result, 'Could not reset the counters.');
+            } else {
+                throw new ApiException('Invalid action given.');
+            }
+            $em->persist($channel);
+            return $channel;
+        });
+        $this->suplaServer->onDeviceSettingsChanged($channel->getIoDevice());
+        $this->suplaServer->reconnect();
+        return $this->getChannelAction($request, $channel->clearRelationsCount());
     }
 
     /**
