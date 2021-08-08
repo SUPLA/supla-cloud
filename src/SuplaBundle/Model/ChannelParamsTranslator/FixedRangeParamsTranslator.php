@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 trait FixedRangeParamsTranslator {
-    protected function getValueInRange($value, int $min, int $max): float {
+    protected function getValueInRange($value, float $min, float $max): float {
         if (is_null($value)) {
             return 0;
         }

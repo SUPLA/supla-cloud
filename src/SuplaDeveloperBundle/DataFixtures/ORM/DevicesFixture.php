@@ -93,7 +93,7 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER, ['flags' => ChannelFunctionBitsActionTrigger::getAllFeaturesFlag()]],
-            [ChannelType::BRIDGE, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
+            [ChannelType::BRIDGE, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag(), 'flags' => ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE]],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER, ['flags' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE]],
         ], self::DEVICE_FULL);
     }
