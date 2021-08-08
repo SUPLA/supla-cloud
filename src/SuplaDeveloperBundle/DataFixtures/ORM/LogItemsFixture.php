@@ -116,7 +116,6 @@ class LogItemsFixture extends SuplaFixture {
         })->first();
         foreach ([$gasMeterIc, $heatMeterIc, $electricityMeterIc, $waterMeterIc] as $channel) {
             $channelId = $channel->getId();
-            echo $channelId . PHP_EOL;
             $from = strtotime(self::SINCE);
             $to = time();
             $counter = 0;

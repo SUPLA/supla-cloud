@@ -249,6 +249,10 @@ class ChannelController extends RestController {
                 Assertion::true($channelConfig['resetCountersAvailable'] ?? false, 'Cannot reset counters of this channel.');
                 $result = $this->suplaServer->channelAction($channel, 'RESET-COUNTERS');
                 Assertion::true($result, 'Could not reset the counters.');
+            } elseif ($action === 'recalibrate') {
+                Assertion::true($channelConfig['recalibrateAvailable'] ?? false, 'Cannot recalibrate this channel.');
+                $result = $this->suplaServer->channelAction($channel, 'RECALIBRATE');
+                Assertion::true($result, 'Could not recalibrate.');
             } else {
                 throw new ApiException('Invalid action given.');
             }

@@ -77,7 +77,7 @@ class SuplaServerMock extends SuplaServer {
             return 'OK:HURRA';
         } elseif (preg_match('#^ACTION-(OPEN|CLOSE):.+$#', $cmd, $match)) {
             return 'OK:HURRA';
-        } elseif (preg_match('#^(RESET-COUNTERS):(\d+),(\d+),(\d+)$#', $cmd, $match)) {
+        } elseif (preg_match('#^(RESET-COUNTERS|RECALIBRATE):(\d+),(\d+),(\d+)$#', $cmd, $match)) {
             return "OK:$match[4]\n";
         } elseif (preg_match('#^EXECUTE-SCENE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';

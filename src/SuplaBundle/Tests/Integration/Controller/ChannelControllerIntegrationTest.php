@@ -618,4 +618,21 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(400, $client->getResponse());
     }
+
+    public function testRecalibrating() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
+        ]);
+        $channel = $anotherDevice->getChannels()[0];
+        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE);
+        $this->getEntityManager()->persist($channel);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $measurementChannelId = $channel->getId();
+        $client->apiRequestV24('PATCH', "/api/channels/{$measurementChannelId}/settings", [
+            'action' => 'recalibrate',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertContains("RECALIBRATE:1,{$anotherDevice->getId()},{$measurementChannelId}", SuplaServerMock::$executedCommands);
+    }
 }

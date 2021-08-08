@@ -40,19 +40,23 @@
                     @input="$emit('change')"></channels-id-dropdown>
             </dt>
         </dl>
+        <div class="form-group"></div>
+        <channel-params-controllingtherollershutter-recalibrate :channel="channel"
+            v-if="channel.config.recalibrateAvailable"></channel-params-controllingtherollershutter-recalibrate>
     </div>
 </template>
 
 <script>
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
+    import ChannelParamsControllingtherollershutterRecalibrate from "./channel-params-controllingtherollershutter-recalibrate";
 
     export default {
-        components: {ChannelsIdDropdown},
+        components: {ChannelParamsControllingtherollershutterRecalibrate, ChannelsIdDropdown},
         props: ['channel', 'sensorFunction'],
         computed: {
             channelsDropdownFilter() {
                 return 'function=' + (this.sensorFunction || 'OPENINGSENSOR_ROLLERSHUTTER');
-            }
-        }
+            },
+        },
     };
 </script>

@@ -15,6 +15,7 @@ class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator
             'openingTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10, 1),
             'closingTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam3() / 10, 1),
             'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($channel->getFlags()),
+            'recalibrateAvailable' => ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE()->isSupported($channel->getFlags()),
         ];
     }
 
