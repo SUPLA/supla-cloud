@@ -26,7 +26,7 @@
             return {
                 active: undefined,
                 search: '',
-                sort: 'id'
+                sort: 'id',
             };
         },
         mounted() {
@@ -55,7 +55,7 @@
                 } else {
                     return b.id - a.id;
                 }
-            }
+            },
         }
     };
 </script>

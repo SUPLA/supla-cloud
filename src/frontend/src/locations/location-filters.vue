@@ -1,6 +1,9 @@
 <template>
     <div class="grid-filters"
         v-if="items.length">
+        <btn-filters v-model="sort"
+            @input="$emit('filter')"
+            :filters="[{label: $t('ID'), value: 'id'}, {label: $t('A-Z'), value: 'caption'}, {label: $t('No of devices'), value: 'noOfDevices'}]"></btn-filters>
         <btn-filters v-model="enabled"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
@@ -23,10 +26,12 @@
             return {
                 enabled: undefined,
                 search: '',
+                sort: 'id',
             };
         },
         mounted() {
             this.$emit('filter-function', (location) => this.matches(location));
+            this.$emit('compare-function', (a, b) => this.compare(a, b));
         },
         methods: {
             matches(location) {
@@ -38,7 +43,16 @@
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }
                 return true;
-            }
+            },
+            compare(a, b) {
+                if (this.sort === 'noOfDevices') {
+                    return b.relationsCount.ioDevices - a.relationsCount.ioDevices;
+                } else if (this.sort === 'caption') {
+                    return a.caption.toLowerCase() < b.caption.toLowerCase() ? -1 : 1;
+                } else {
+                    return b.id - a.id;
+                }
+            },
         }
     };
 </script>
