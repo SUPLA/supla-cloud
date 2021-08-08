@@ -45,9 +45,10 @@
                         </a>
                     </div>
                 </div>
-                <div ref="bigChart"></div>
-                <div :class="sparseLogs && sparseLogs.length > 10 ? '' : 'invisible'"
-                    ref="smallChart"></div>
+                <div :class="sparseLogs && sparseLogs.length > 10 ? '' : 'invisible'">
+                    <div ref="bigChart"></div>
+                    <div ref="smallChart"></div>
+                </div>
             </div>
 
             <modal-confirm v-if="deleteConfirm"
@@ -685,7 +686,15 @@
             deleteMeasurements() {
                 this.deleteConfirm = false;
                 this.$http.delete('channels/' + this.channel.id + '/measurement-logs')
-                    .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')));
+                    .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')))
+                    .then(() => {
+                        this.hasLogs = false;
+                        this.sparseLogs = undefined;
+                        this.bigChart?.destroy();
+                        this.smallChart?.destroy();
+                        this.bigChart = undefined;
+                        this.smallChart = undefined;
+                    });
             },
             resetCounters() {
                 this.resetConfirm = false;
