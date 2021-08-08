@@ -1,9 +1,9 @@
 <template>
     <div class="grid-filters">
         <btn-filters v-model="sort"
-            id="channelsFiltersSort"
+            id="directLinksSort"
             @input="$emit('filter')"
-            :filters="[{label: $t('ID'), value: 'id'}, {label: $t('A-Z'), value: 'caption'}, {label: $t('Last used'), value: 'lastUsed'}]"></btn-filters>
+            :filters="[{label: $t('A-Z'), value: 'caption'}, {label: $t('ID'), value: 'id'}, {label: $t('Last used'), value: 'lastUsed'}]"></btn-filters>
         <btn-filters v-model="active"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Active'), value: true}, {label: $t('Inactive'), value: false}]"></btn-filters>
@@ -26,7 +26,7 @@
             return {
                 active: undefined,
                 search: '',
-                sort: 'id',
+                sort: 'caption',
             };
         },
         mounted() {
@@ -51,10 +51,13 @@
                 if (this.sort === 'lastUsed') {
                     return moment(b.lastUsed || '2000-01-01T00:00:00').diff(moment(a.lastUsed || '2000-01-01T00:00:00'));
                 } else if (this.sort === 'caption') {
-                    return a.caption.toLowerCase() < b.caption.toLowerCase() ? -1 : 1;
+                    return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
                 } else {
-                    return b.id - a.id;
+                    return +a.id - +b.id;
                 }
+            },
+            captionForSort(model) {
+                return latinize(model.caption).toLowerCase();
             },
         }
     };

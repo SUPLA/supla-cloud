@@ -17,8 +17,8 @@
             <component v-if="filters && filteredItems"
                 :is="filters"
                 :items="items"
-                @filter-function="filterFunction = $event"
-                @compare-function="compareFunction = $event"
+                @filter-function="filterFunction = $event; filter()"
+                @compare-function="compareFunction = $event; filter()"
                 @filter="filter()"></component>
         </div>
         <loading-cover :loading="!items">
@@ -78,6 +78,6 @@
                     this.filteredItems = this.filteredItems.sort(this.compareFunction);
                 }
             },
-        }
+        },
     };
 </script>

@@ -57,13 +57,15 @@
                     return moment(b.lastConnected).diff(moment(a.lastConnected));
                 } else if (this.sort === 'regDate') {
                     return moment(b.regDate).diff(moment(a.regDate));
-                }
-                else if (this.sort === 'location') {
-                    return a.location.caption.toLowerCase() < b.location.caption.toLowerCase() ? -1 : 1;
+                } else if (this.sort === 'location') {
+                    return this.captionForSort(a.location) < this.captionForSort(b.location) ? -1 : 1;
                 } else {
-                    return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+                    return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
                 }
-            }
+            },
+            captionForSort(model) {
+                return latinize(model.comment || model.caption || model.name).toLowerCase();
+            },
         }
     };
 </script>

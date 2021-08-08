@@ -1,6 +1,10 @@
 <template>
     <div class="grid-filters"
         v-if="items.length">
+        <btn-filters v-model="sort"
+            id="channelGroupsSort"
+            @input="$emit('filter')"
+            :filters="[{label: $t('A-Z'), value: 'caption'},{label: $t('ID'), value: 'id'}, {label: $t('No of channels'), value: 'noOfChannels'}]"></btn-filters>
         <btn-filters v-model="hidden"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Invisible'), value: true}, {label: $t('Visible'), value: false}]"></btn-filters>
@@ -23,10 +27,12 @@
             return {
                 hidden: undefined,
                 search: '',
+                sort: 'caption',
             };
         },
         mounted() {
             this.$emit('filter-function', (channelGroup) => this.matches(channelGroup));
+            this.$emit('compare-function', (a, b) => this.compare(a, b));
         },
         methods: {
             matches(channelGroup) {
@@ -38,7 +44,19 @@
                     return searchString.indexOf(latinize(this.search).toLowerCase()) >= 0;
                 }
                 return true;
-            }
+            },
+            compare(a, b) {
+                if (this.sort === 'noOfChannels') {
+                    return b.relationsCount.channels - a.relationsCount.channels;
+                } else if (this.sort === 'caption') {
+                    return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
+                } else {
+                    return +a.id - +b.id;
+                }
+            },
+            captionForSort(model) {
+                return latinize(model.caption).toLowerCase();
+            },
         }
     };
 </script>

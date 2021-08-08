@@ -2,8 +2,9 @@
     <div class="grid-filters"
         v-if="items.length">
         <btn-filters v-model="sort"
+            id="locationsSort"
             @input="$emit('filter')"
-            :filters="[{label: $t('ID'), value: 'id'}, {label: $t('A-Z'), value: 'caption'}, {label: $t('No of devices'), value: 'noOfDevices'}]"></btn-filters>
+            :filters="[{label: $t('A-Z'), value: 'caption'},{label: $t('ID'), value: 'id'}, {label: $t('No of devices'), value: 'noOfDevices'}]"></btn-filters>
         <btn-filters v-model="enabled"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
@@ -26,7 +27,7 @@
             return {
                 enabled: undefined,
                 search: '',
-                sort: 'id',
+                sort: 'caption',
             };
         },
         mounted() {
@@ -48,10 +49,13 @@
                 if (this.sort === 'noOfDevices') {
                     return b.relationsCount.ioDevices - a.relationsCount.ioDevices;
                 } else if (this.sort === 'caption') {
-                    return a.caption.toLowerCase() < b.caption.toLowerCase() ? -1 : 1;
+                    return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
                 } else {
-                    return b.id - a.id;
+                    return +a.id - +b.id;
                 }
+            },
+            captionForSort(model) {
+                return latinize(model.caption).toLowerCase();
             },
         }
     };

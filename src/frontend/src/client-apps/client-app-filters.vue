@@ -1,6 +1,7 @@
 <template>
     <div class="grid-filters">
         <btn-filters v-model="sort"
+            id="clientAppsSort"
             @input="$emit('filter')"
             :filters="[{label: 'A-Z', value: 'az'}, {label: $t('Last access'), value: 'lastAccess'}]"></btn-filters>
         <btn-filters v-model="enabled"
@@ -61,11 +62,14 @@
             },
             compare(a1, a2) {
                 if (this.sort == 'az') {
-                    return latinize(a1.name).toLowerCase() < latinize(a2.name).toLowerCase() ? -1 : 1;
+                    return this.captionForSort(a1) < this.captionForSort(a2) ? -1 : 1;
                 } else {
                     return moment(a2.lastAccessDate).diff(moment(a1.lastAccessDate));
                 }
-            }
+            },
+            captionForSort(model) {
+                return latinize(model.caption || model.name).toLowerCase();
+            },
         }
     };
 </script>

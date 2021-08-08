@@ -3,7 +3,7 @@
         <btn-filters v-model="sort"
             id="channelsFiltersSort"
             @input="$emit('filter')"
-            :filters="[{label: $t('Registered'), value: 'regDate'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
+            :filters="[{label: $t('A-Z'), value: 'caption'}, {label: $t('Registered'), value: 'regDate'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
         <btn-filters v-model="functionality"
             class="always-dropdown"
             @input="$emit('filter')"
@@ -36,7 +36,7 @@
             return {
                 functionality: '*',
                 search: '',
-                sort: 'regDate'
+                sort: 'caption'
             };
         },
         mounted() {
@@ -65,12 +65,17 @@
             compare(a, b) {
                 if (this.sort === 'lastAccess') {
                     return moment(b.iodevice.lastConnected).diff(moment(a.iodevice.lastConnected));
+                } else if (this.sort === 'caption') {
+                    return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
                 } else if (this.sort === 'regDate') {
                     return moment(b.iodevice.regDate).diff(moment(a.iodevice.regDate));
                 } else {
-                    return a.location.caption.toLowerCase() < b.location.caption.toLowerCase() ? -1 : 1;
+                    return this.captionForSort(a.location) < this.captionForSort(b.location) ? -1 : 1;
                 }
-            }
+            },
+            captionForSort(channel) {
+                return latinize(channel.caption || (channel.function && this.$t(channel.function.caption)) || '').toLowerCase();
+            },
         }
     };
 </script>

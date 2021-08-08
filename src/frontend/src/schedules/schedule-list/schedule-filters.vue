@@ -1,6 +1,7 @@
 <template>
     <div class="grid-filters">
         <btn-filters v-model="sort"
+            id="schedulesSort"
             @input="$emit('filter')"
             :filters="[{label: 'A-Z', value: 'az'}, {label: $t('Next run date'), value: 'nextRunDate'}]"></btn-filters>
         <btn-filters v-model="enabled"
