@@ -79,6 +79,7 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
         $expected = [
             'openingTimeS' => 12.3,
             'closingTimeS' => 23.4,
+            'ajarPercent' => 0,
             'timeSettingAvailable' => true,
             'recalibrateAvailable' => true,
             'autoCalibrationAvailable' => true,

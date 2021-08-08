@@ -42,6 +42,19 @@
             </dl>
         </transition-expand>
         <dl>
+            <dd>{{ $t('Percentage of [ten moment jak domykają się dziurki]') }}</dd>
+            <dt>
+                <span class="input-group">
+                    <input type="number"
+                        step="0.1"
+                        min="0"
+                        max="100"
+                        class="form-control text-center"
+                        v-model="channel.config.ajarPercent"
+                        @change="$emit('change')">
+                    <span class="input-group-addon">%</span>
+                </span>
+            </dt>
             <dd>{{ $t('Opening sensor') }}</dd>
             <dt>
                 <channels-id-dropdown :params="channelsDropdownFilter"
