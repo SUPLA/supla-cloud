@@ -42,7 +42,11 @@
             </dl>
         </transition-expand>
         <dl>
-            <dd>{{ $t('Percentage of [ten moment jak domykają się dziurki]') }}</dd>
+            <dd>
+                {{ $t('Percentage of closure with untightened blinds') }}
+                <i class="pe-7s-help1 pointer"
+                    @click="ajarPercentHelp = !ajarPercentHelp"></i>
+            </dd>
             <dt>
                 <span class="input-group">
                     <input type="number"
@@ -55,6 +59,12 @@
                     <span class="input-group-addon">%</span>
                 </span>
             </dt>
+        </dl>
+        <div class="help-block small"
+            v-if="ajarPercentHelp">
+            {{ $t('Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.') }}
+        </div>
+        <dl>
             <dd>{{ $t('Opening sensor') }}</dd>
             <dt>
                 <channels-id-dropdown :params="channelsDropdownFilter"
@@ -76,6 +86,11 @@
     export default {
         components: {TransitionExpand, ChannelParamsControllingtherollershutterRecalibrate, ChannelsIdDropdown},
         props: ['channel', 'sensorFunction'],
+        data() {
+            return {
+                ajarPercentHelp: false,
+            };
+        },
         computed: {
             channelsDropdownFilter() {
                 return 'function=' + (this.sensorFunction || 'OPENINGSENSOR_ROLLERSHUTTER');
