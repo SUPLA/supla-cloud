@@ -45,7 +45,7 @@
             <dd>
                 {{ $t('Percentage of closure with untightened blinds') }}
                 <i class="pe-7s-help1 pointer"
-                    @click="ajarPercentHelp = !ajarPercentHelp"></i>
+                    @click="windowsillPpHelp = !windowsillPpHelp"></i>
             </dd>
             <dt>
                 <span class="input-group">
@@ -54,14 +54,14 @@
                         min="0"
                         max="100"
                         class="form-control text-center"
-                        v-model="channel.config.ajarPercent"
+                        v-model="channel.config.windowsillPp"
                         @change="$emit('change')">
                     <span class="input-group-addon">%</span>
                 </span>
             </dt>
         </dl>
         <div class="help-block small"
-            v-if="ajarPercentHelp">
+            v-if="windowsillPpHelp">
             {{ $t('Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.') }}
         </div>
         <dl>
@@ -88,7 +88,7 @@
         props: ['channel', 'sensorFunction'],
         data() {
             return {
-                ajarPercentHelp: false,
+                windowsillPpHelp: false,
             };
         },
         computed: {
