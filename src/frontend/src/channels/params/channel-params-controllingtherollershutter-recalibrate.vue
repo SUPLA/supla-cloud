@@ -1,6 +1,7 @@
 <template>
     <div v-if="channel.config.recalibrateAvailable">
         <button class="btn btn-default btn-block"
+            type="button"
             :disabled="!isConnected || isCalibrating"
             @click="calibrateConfirm = true">
             <span v-if="!isCalibrating">
