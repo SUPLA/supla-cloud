@@ -13,7 +13,7 @@
             :loading="calibrating"
             @cancel="calibrateConfirm = false"
             :header="$t('Are you sure?')">
-            {{ $t('Confirm if you want to perform the channel calibration.') }}
+            {{ $t('Confirm if you want to perform the roller shutter calibration.') }}
         </modal-confirm>
     </div>
 </template>
@@ -68,10 +68,10 @@
             notCalibrated(newState, oldState) {
                 if (!newState && oldState === true) {
                     if (this.calibrationError) {
-                        errorNotification(this.$t('Error'), this.$t('Could not calibrate the channel.'));
+                        errorNotification(this.$t('Error'), this.$t('Could not perform the calibration.'));
                         this.calibrationError = false;
                     } else {
-                        successNotification(this.$t('Successful'), this.$t('Channel has been calibrated.'));
+                        successNotification(this.$t('Successful'), this.$t('Calibration successful.'));
                     }
                 }
             }

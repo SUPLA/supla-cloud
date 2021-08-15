@@ -36,11 +36,9 @@ use SuplaBundle\Model\ChannelParamsTranslator\InvertedLogicParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningClosingTimeChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningSensorParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningSensorSecondaryParamTranslator;
-use SuplaBundle\Model\ChannelParamsTranslator\RelatedChannelsConnector;
 use SuplaBundle\Model\ChannelParamsTranslator\RelayTimeMsChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\RelayTimeSChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\TemperatureAdjustmentParamTranslator;
-use SuplaBundle\Repository\IODeviceChannelRepository;
 
 class ChannelParamConfigTranslatorTest extends TestCase {
     /** @var ChannelParamConfigTranslator */
@@ -156,7 +154,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::CONTROLLINGTHEGARAGEDOOR(), [700], ['relayTimeMs' => 700]],
             [ChannelFunction::CONTROLLINGTHEGATE(), [700], ['relayTimeMs' => 700]],
             [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700], ['relayTimeMs' => 700]],
-            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, null, 800], ['openingTimeS' => 70, 'closingTimeS' => 80]],
+            [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, null, 800, 10], ['openingTimeS' => 70, 'closingTimeS' => 80, 'bottomPosition' => 1]],
             [ChannelFunction::IC_ELECTRICITYMETER(), [103, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.03, 'unit' => 'm3']],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
             [ChannelFunction::IC_GASMETER(), [111, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],

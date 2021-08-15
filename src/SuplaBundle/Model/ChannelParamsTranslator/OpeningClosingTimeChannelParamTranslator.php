@@ -14,7 +14,7 @@ class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator
         return [
             'openingTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10, 1),
             'closingTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam3() / 10, 1),
-            'windowsillPp' => NumberUtils::maximumDecimalPrecision($channel->getParam4() / 10, 1),
+            'bottomPosition' => NumberUtils::maximumDecimalPrecision($channel->getParam4() / 10, 1),
             'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($channel->getFlags()),
             'recalibrateAvailable' => ChannelFunctionBitsFlags::RECALIBRATE_ACTION_AVAILABLE()->isSupported($channel->getFlags()),
             'autoCalibrationAvailable' => ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE()->isSupported($channel->getFlags()),
@@ -34,8 +34,8 @@ class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator
         if (array_key_exists('closingTimeS', $config)) {
             $channel->setParam3(intval($this->getValueInRange($config['closingTimeS'], $minTime, 300) * 10));
         }
-        if (array_key_exists('windowsillPp', $config)) {
-            $channel->setParam4(intval($this->getValueInRange($config['windowsillPp'], 0, 100) * 10));
+        if (array_key_exists('bottomPosition', $config)) {
+            $channel->setParam4(intval($this->getValueInRange($config['bottomPosition'], 0, 100) * 10));
         }
     }
 

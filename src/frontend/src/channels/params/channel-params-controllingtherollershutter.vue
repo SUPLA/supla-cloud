@@ -43,7 +43,7 @@
         </transition-expand>
         <dl>
             <dd v-tooltip="$t('Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.')">
-                {{ $t('Percentage of closure with untightened blinds') }}
+                {{ $t('Bottom position') }}
                 <i class="pe-7s-help1"></i>
             </dd>
             <dt>
@@ -53,7 +53,7 @@
                         min="0"
                         max="100"
                         class="form-control text-center"
-                        v-model="channel.config.windowsillPp"
+                        v-model="channel.config.bottomPosition"
                         @change="$emit('change')">
                     <span class="input-group-addon">%</span>
                 </span>
