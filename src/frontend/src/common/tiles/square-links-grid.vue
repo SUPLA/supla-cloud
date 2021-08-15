@@ -9,16 +9,17 @@
 </template>
 
 <style lang="scss">
+    @use "sass:math";
     @import "../../styles/mixins";
 
     $gridGap: 14px;
     $minimumWidthOfOneSquare: 265px;
     $maximumSupportedScreenWidth: 1675px;
-    $maximumSquaresInRow: floor($maximumSupportedScreenWidth / $minimumWidthOfOneSquare);
+    $maximumSquaresInRow: floor(math.div($maximumSupportedScreenWidth, $minimumWidthOfOneSquare));
 
     .square-links-grid-container {
         transition: all .3s;
-        padding: 0 $gridGap/2;
+        padding: 0 math.div($gridGap, 2);
         margin: 0 auto;
 
         // Here comes one of the most mournful lines in the whole SUPLA codebase.
@@ -35,13 +36,13 @@
         > div {
             display: inline-block;
             float: left;
-            padding: $gridGap / 2;
+            padding: math.div($gridGap, 2);
             transition: all .3s ease-out;
             width: 100%;
             @for $i from 2 through $maximumSquaresInRow {
                 $breakpoint: $i * $minimumWidthOfOneSquare;
                 @media only screen and (min-width: $breakpoint) {
-                    width: 100% / $i;
+                    width: math.div(100%, $i);
                 }
             }
         }
