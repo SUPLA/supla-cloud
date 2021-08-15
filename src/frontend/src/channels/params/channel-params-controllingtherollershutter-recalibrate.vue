@@ -2,19 +2,14 @@
     <div v-if="channel.config.recalibrateAvailable">
         <button class="btn btn-default btn-block"
             type="button"
-            :disabled="!isConnected || isCalibrating"
+            :disabled="!isConnected || channel.hasPendingChanges"
             @click="calibrateConfirm = true">
-            <span v-if="!isCalibrating">
-                {{ $t('Calibrate') }}
-            </span>
-            <span v-else>
-                <button-loading-dots></button-loading-dots>
-                {{ $t('calibration in progress') }}
-            </span>
+            {{ $t('Calibrate') }}
         </button>
         <modal-confirm v-if="calibrateConfirm"
             class="modal-warning"
             @confirm="calibrate()"
+            :loading="calibrating"
             @cancel="calibrateConfirm = false"
             :header="$t('Are you sure?')">
             {{ $t('Confirm if you want to perform the channel calibration.') }}
@@ -37,23 +32,26 @@
         },
         methods: {
             calibrate() {
-                this.calibrateConfirm = false;
                 this.calibrating = true;
                 this.$http.patch('channels/' + this.channel.id + '/settings', {action: 'recalibrate'})
-                    .then(() => setTimeout(() => this.calibrating = false, 5000))
+                    .then(() => setTimeout(() => this.assumeCalibrationFinished(), 5000))
                     .then(() => EventBus.$emit('channel-state-updated'))
                     .catch(() => {
                         this.calibrationError = true;
                         this.calibrating = false;
                     });
             },
+            assumeCalibrationFinished() {
+                this.calibrateConfirm = false;
+                this.calibrating = false;
+            },
         },
         computed: {
             isConnected() {
                 return !this.channel.state || this.channel.state.connected;
             },
-            isCalibrating() {
-                return this.calibrating || (this.channel.state && this.channel.state.is_calibrating);
+            notCalibrated() {
+                return this.calibrating || (this.channel.state && this.channel.state.not_calibrated);
             },
         },
         watch: {

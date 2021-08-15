@@ -167,6 +167,7 @@
                 if (this.frozenShownInClientsState !== undefined) {
                     this.channel.hidden = !this.frozenShownInClientsState;
                 }
+                this.$set(this.channel, 'hasPendingChanges', true);
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
@@ -177,7 +178,10 @@
                 this.changeFunctionConfirmationObject = undefined;
                 this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), this.channel, {skipErrorHandler: [409]})
                     .then(response => $.extend(this.channel, response.body))
-                    .then(() => this.changedFunction = this.hasPendingChanges = false)
+                    .then(() => {
+                        this.changedFunction = this.hasPendingChanges = false;
+                        this.$set(this.channel, 'hasPendingChanges', false);
+                    })
                     .catch(response => {
                         if (response.status === 409) {
                             this.changeFunctionConfirmationObject = response.body;
@@ -234,6 +238,7 @@
         margin: 0;
         display: inline-block;
     }
+
     .btn .caret {
         margin-left: .3em;
     }

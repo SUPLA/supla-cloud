@@ -89,6 +89,7 @@
         data() {
             return {
                 windowsillPpHelp: false,
+                manualOpeningTimes: {openingTimeS: 10, closingTimeS: 10},
             };
         },
         computed: {
@@ -101,11 +102,13 @@
                 },
                 set(value) {
                     if (value) {
+                        this.manualOpeningTimes.openingTimeS = this.channel.config.openingTimeS;
+                        this.manualOpeningTimes.closingTimeS = this.channel.config.closingTimeS;
                         this.channel.config.openingTimeS = 0;
                         this.channel.config.closingTimeS = 0;
                     } else {
-                        this.channel.config.openingTimeS = 10;
-                        this.channel.config.closingTimeS = 10;
+                        this.channel.config.openingTimeS = this.manualOpeningTimes.openingTimeS;
+                        this.channel.config.closingTimeS = this.manualOpeningTimes.closingTimeS;
                     }
                 }
             },
