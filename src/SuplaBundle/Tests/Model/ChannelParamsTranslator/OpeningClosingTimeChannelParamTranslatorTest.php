@@ -46,8 +46,8 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
 
     public function testMinimumTimeIfNoAutoCalibration() {
         $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
-        $this->assertEquals(1, $this->channel->getParam1());
-        $this->assertEquals(1, $this->channel->getParam3());
+        $this->assertEquals(0, $this->channel->getParam1());
+        $this->assertEquals(0, $this->channel->getParam3());
     }
 
     public function testAllow0IfAutoCalibration() {
@@ -57,13 +57,13 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
         $this->assertEquals(0, $this->channel->getParam3());
     }
 
-    public function testBoth0IfOne0() {
+    public function testBoth0IfFirst0() {
         EntityUtils::setField($this->channel, 'flags', ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE);
         $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 1]);
         $this->assertEquals(0, $this->channel->getParam1());
         $this->assertEquals(0, $this->channel->getParam3());
         $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 1, 'closingTimeS' => 0]);
-        $this->assertEquals(0, $this->channel->getParam1());
+        $this->assertEquals(10, $this->channel->getParam1());
         $this->assertEquals(0, $this->channel->getParam3());
     }
 

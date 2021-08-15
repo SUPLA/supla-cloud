@@ -23,16 +23,16 @@ class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         $channelConfig = $this->getConfigFromParams($channel);
-        $minTime = $channelConfig['autoCalibrationAvailable'] ? 0 : 0.1;
-        if (!($config['openingTimeS'] ?? true) || !($config['closingTimeS'] ?? true)) {
+        $autoCalibrationAvailable = $channelConfig['autoCalibrationAvailable'];
+        if ($autoCalibrationAvailable && !($config['openingTimeS'] ?? true)) {
             $config['openingTimeS'] = 0;
             $config['closingTimeS'] = 0;
         }
         if (array_key_exists('openingTimeS', $config)) {
-            $channel->setParam1(intval($this->getValueInRange($config['openingTimeS'], $minTime, 300) * 10));
+            $channel->setParam1(intval($this->getValueInRange($config['openingTimeS'], 0, 300) * 10));
         }
         if (array_key_exists('closingTimeS', $config)) {
-            $channel->setParam3(intval($this->getValueInRange($config['closingTimeS'], $minTime, 300) * 10));
+            $channel->setParam3(intval($this->getValueInRange($config['closingTimeS'], 0, 300) * 10));
         }
         if (array_key_exists('bottomPosition', $config)) {
             $channel->setParam4(intval($this->getValueInRange($config['bottomPosition'], 0, 100) * 10));

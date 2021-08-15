@@ -14,7 +14,7 @@
                     <span class="input-group">
                         <input type="number"
                             step="0.1"
-                            min="0.1"
+                            min="0"
                             max="300"
                             class="form-control text-center"
                             v-model="channel.config.openingTimeS"
@@ -29,7 +29,7 @@
                     <span class="input-group">
                         <input type="number"
                             step="0.1"
-                            min="0.1"
+                            min="0"
                             max="300"
                             class="form-control text-center"
                             v-model="channel.config.closingTimeS"
