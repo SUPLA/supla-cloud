@@ -64,7 +64,7 @@
                 }
             },
             captionForSort(model) {
-                return latinize(model.comment || model.caption || model.name).toLowerCase();
+                return latinize(model.comment || model.caption || model.name).toLowerCase().trim();
             },
         }
     };

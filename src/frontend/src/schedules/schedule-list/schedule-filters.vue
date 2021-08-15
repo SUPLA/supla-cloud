@@ -51,7 +51,7 @@
             },
             compare(a1, a2) {
                 if (this.sort === 'az') {
-                    return latinize(a1.caption || 'zzz').toLowerCase() < latinize(a2.caption || 'zzzz').toLowerCase() ? -1 : 1;
+                    return this.captionForSort(a1.caption || 'zzz') < this.captionForSort(a2.caption || 'zzzz') ? -1 : 1;
                 } else if (this.sort === 'nextRunDate') {
                     const closestA1 = a1.closestExecutions.future[0];
                     const closestA2 = a2.closestExecutions.future[0];
@@ -65,7 +65,10 @@
                 } else {
                     return +a1.id - +a2.id;
                 }
-            }
+            },
+            captionForSort(caption) {
+                return latinize(caption).toLowerCase().trim();
+            },
         }
     };
 </script>

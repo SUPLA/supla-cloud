@@ -74,7 +74,7 @@
                 }
             },
             captionForSort(channel) {
-                return latinize(channel.caption || (channel.function && this.$t(channel.function.caption)) || '').toLowerCase();
+                return latinize(channel.caption || (channel.function && this.$t(channel.function.caption)) || '').toLowerCase().trim();
             },
         }
     };

@@ -11,12 +11,15 @@
                         <i class="pe-7s-back"></i>
                         {{ $t('Cancel') }}
                     </router-link>
-                    <button class="btn btn-white"
-                        :disabled="!nextRunDates.length || nextRunDates.fetching"
-                        @click="submit()">
-                        <i class="pe-7s-diskette"></i>
-                        {{ $t('Save') }}
-                    </button>
+                    <span v-tooltip="!nextRunDates.length ? $t('Cannot calculate when to run the schedule - incorrect configuration?') : ''"
+                        style="display: inline-block">
+                        <button class="btn btn-white"
+                            :disabled="!nextRunDates.length || nextRunDates.fetching"
+                            @click="submit()">
+                            <i class="pe-7s-diskette"></i>
+                            {{ $t('Save') }}
+                        </button>
+                    </span>
                     <button class="btn btn-green"
                         v-if="schedule.id && schedule.enabled === false"
                         :disabled="!nextRunDates.length || nextRunDates.fetching"
