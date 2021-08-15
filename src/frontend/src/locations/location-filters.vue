@@ -4,7 +4,7 @@
         <btn-filters v-model="sort"
             id="locationsSort"
             @input="$emit('filter')"
-            :filters="[{label: $t('A-Z'), value: 'caption'},{label: $t('ID'), value: 'id'}, {label: $t('No of devices'), value: 'noOfDevices'}]"></btn-filters>
+            :filters="[{label: $t('A-Z'), value: 'caption'}, {label: $t('ID'), value: 'id'}, {label: $t('No of devices'), value: 'noOfDevices'}]"></btn-filters>
         <btn-filters v-model="enabled"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>

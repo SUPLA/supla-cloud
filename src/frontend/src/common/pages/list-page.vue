@@ -14,7 +14,7 @@
                     </a>
                 </div>
             </div>
-            <component v-if="filters && filteredItems"
+            <component v-if="filters && items"
                 :is="filters"
                 :items="items"
                 @filter-function="filterFunction = $event; filter()"
@@ -40,6 +40,7 @@
 <script>
     import changeCase from "change-case";
     import AppState from "../../router/app-state";
+    import {debounce} from "lodash";
 
     export default {
         props: ['subject', 'headerI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'limit'],
@@ -72,12 +73,12 @@
                 }
                 this.$router.push({name: this.detailsRoute, params: {id: 'new'}});
             },
-            filter() {
+            filter: debounce(function () {
                 this.filteredItems = this.items ? this.items.filter(this.filterFunction) : this.items;
                 if (this.filteredItems) {
                     this.filteredItems = this.filteredItems.sort(this.compareFunction);
                 }
-            },
+            }, 50),
         },
     };
 </script>

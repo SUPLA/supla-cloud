@@ -1,10 +1,10 @@
 <template>
     <div>
-        <component v-if="filters && filteredItems"
+        <component v-if="filters && items"
             :is="filters"
             :items="items"
-            @filter-function="filterFunction = $event"
-            @compare-function="compareFunction = $event"
+            @filter-function="filterFunction = $event; filter()"
+            @compare-function="compareFunction = $event; filter()"
             @filter="filter()"></component>
         <square-links-carousel v-if="filteredItems"
             :tile="tile"
@@ -18,6 +18,7 @@
 
 <script>
     import SquareLinksCarousel from "./square-links-carousel";
+    import {debounce} from "lodash";
 
     export default {
         components: {SquareLinksCarousel},
@@ -33,12 +34,12 @@
             this.filter();
         },
         methods: {
-            filter() {
+            filter: debounce(function () {
                 this.filteredItems = this.items ? this.items.filter(this.filterFunction) : this.items;
                 if (this.filteredItems) {
                     this.filteredItems = this.filteredItems.sort(this.compareFunction);
                 }
-            },
+            }, 50),
         },
         watch: {
             items() {

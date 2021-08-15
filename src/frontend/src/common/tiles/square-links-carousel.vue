@@ -63,7 +63,10 @@
             },
             showNewItemTile() {
                 return this.newItemTile && this.$mq.resize && this.$mq.above(this.$mv.xs) && !this.$frontendConfig.maintenanceMode;
-            }
+            },
+            selectedItemIndex() {
+                return !this.multiple && this.selected && this.items.findIndex(item => this.isSelected(item));
+            },
         },
         methods: {
             onItemClick(item) {
@@ -87,6 +90,18 @@
                     this.selectedIds = this.selected.map(item => item.id || item);
                 } else if (this.selected && !this.isSelected(this.selected)) {
                     this.selectedIds = [this.selected.id];
+                }
+            }
+        },
+        watch: {
+            selected() {
+                this.updateSelectedItem();
+            },
+            items() {
+                this.updateSelectedItem();
+            },
+            selectedItemIndex() {
+                if (this.selected && !this.multiple) {
                     Vue.nextTick(() => {
                         const index = this.items.findIndex(item => this.isSelected(item));
                         let desiredPage = index - this.$refs.carousel.perPage + 2;
@@ -97,15 +112,7 @@
                         this.$refs.carousel.goToPage(desiredPage);
                     });
                 }
-            }
-        },
-        watch: {
-            selected() {
-                this.updateSelectedItem();
             },
-            items() {
-                this.updateSelectedItem();
-            }
         }
     };
 </script>

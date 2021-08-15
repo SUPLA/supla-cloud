@@ -3,7 +3,7 @@
         <btn-filters v-model="sort"
             id="schedulesSort"
             @input="$emit('filter')"
-            :filters="[{label: 'A-Z', value: 'az'}, {label: $t('Next run date'), value: 'nextRunDate'}]"></btn-filters>
+            :filters="[{label: 'A-Z', value: 'az'}, {label: $t('ID'), value: 'id'}, {label: $t('Next run date'), value: 'nextRunDate'}]"></btn-filters>
         <btn-filters v-model="enabled"
             @input="$emit('filter')"
             :filters="[{label: $t('All'), value: undefined}, {label: $t('Enabled'), value: true}, {label: $t('Disabled'), value: false}]"></btn-filters>
@@ -50,9 +50,9 @@
                 return true;
             },
             compare(a1, a2) {
-                if (this.sort == 'az') {
+                if (this.sort === 'az') {
                     return latinize(a1.caption || 'zzz').toLowerCase() < latinize(a2.caption || 'zzzz').toLowerCase() ? -1 : 1;
-                } else {
+                } else if (this.sort === 'nextRunDate') {
                     const closestA1 = a1.closestExecutions.future[0];
                     const closestA2 = a2.closestExecutions.future[0];
                     if (!closestA2) {
@@ -62,6 +62,8 @@
                     } else {
                         return moment(closestA1.plannedTimestamp).diff(moment(closestA2.plannedTimestamp));
                     }
+                } else {
+                    return +a1.id - +a2.id;
                 }
             }
         }
