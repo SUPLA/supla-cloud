@@ -11,15 +11,18 @@
                     @input="$emit('change')"></channels-id-dropdown>
             </dt>
         </dl>
+        <div class="form-group"></div>
+        <channel-params-meter-reset :channel="channel"></channel-params-meter-reset>
     </div>
 </template>
 
 <script>
     import ChannelParamsMeterCost from "./channel-params-meter-cost";
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
+    import ChannelParamsMeterReset from "@/channels/params/channel-params-meter-reset";
 
     export default {
-        components: {ChannelsIdDropdown, ChannelParamsMeterCost},
+        components: {ChannelParamsMeterReset, ChannelsIdDropdown, ChannelParamsMeterCost},
         props: ['channel'],
     };
 </script>
