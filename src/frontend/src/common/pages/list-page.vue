@@ -8,7 +8,7 @@
                 </div>
                 <div :class="subject ? 'no-margin-top' : ''">
                     <a @click="createNewItem()"
-                        class="btn btn-green btn-lg">
+                        class="btn btn-green btn-lg btn-wrapped">
                         <i class="pe-7s-plus"></i>
                         {{ $t(createNewLabelI18n) }}
                     </a>
