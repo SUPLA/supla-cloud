@@ -116,9 +116,9 @@
             &:after {
                 content: '';
                 position: absolute;
-                width: 52px;
-                height: 52px;
-                background: url('/assets/img/checked.svg');
+                width: 50px;
+                height: 51px;
+                background: url('/assets/img/checked.svg') no-repeat;
                 top: -1px;
                 right: -1px;
                 border-top-right-radius: 3px;
