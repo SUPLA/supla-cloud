@@ -10,7 +10,6 @@
     import $ from "jquery";
 
     export default {
-        name: 'hue-colorpicker',
         props: ['value'],
         mounted() {
             if (this.value === undefined) {

@@ -3,7 +3,7 @@
         <ul class="schedule-times"
             v-if="executions">
             <li v-for="(execution, $index) in executions.past"
-                :key="$index"
+                :key="'past' + $index"
                 :class="'past past' + (executions.past.length - $index) + (execution.failed ? ' failed' : '')">
                 <div>
                     <span class="label label-default">{{ $t(execution.action.caption) }}</span>
@@ -15,9 +15,9 @@
                 </div>
             </li>
             <template v-if="schedule.enabled">
-                <li :class="'future future' + $index"
-                    :key="$index"
-                    v-for="(execution, $index) in executions.future">
+                <li v-for="(execution, $index) in executions.future"
+                    :key="'future' + $index"
+                    :class="'future future' + $index">
                     <div>
                         <span class="label label-default">{{ $t(execution.action.caption) }}</span>
                     </div>
