@@ -22,8 +22,9 @@
         },
         mounted() {
             if (this.value) {
+                const zeroPad = (num, places = 2) => String(num).padStart(places, '0')
                 const parts = this.value.split(' ');
-                this.time = `${parts[1]}:${parts[0]}`;
+                this.time = `${zeroPad(parts[1])}:${zeroPad(parts[0])}`;
             } else {
                 this.updateTimeExpression();
             }
@@ -32,7 +33,7 @@
             updateTimeExpression() {
                 if (this.time) {
                     const timeParts = this.time.split(':');
-                    const cronExpression = [timeParts[1], timeParts[0], '*', '*', this.weekdays].join(' ');
+                    const cronExpression = [+timeParts[1], +timeParts[0], '*', '*', this.weekdays].join(' ');
                     this.$emit('input', cronExpression);
                 } else {
                     this.$emit('input', undefined);
