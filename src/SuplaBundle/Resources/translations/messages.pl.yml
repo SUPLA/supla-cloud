@@ -1,10 +1,13 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'%s trigger is not supported by the hardware.': Wyzwalacz %s nie jest wspierany przez urządzenie.
 ...and start your adventure with building automation today!: ...i rozpocznij przygodę z inteligentnymi budynkami już dzisiaj!
 ...open and shut roller shutters: ...zasłonić i odsłonić rolety
 '...open gateways, gates or doors': '...otworzyć furtkę, bramę lub drzwi'
 ...or control home appliances: ...lub sterować sprzętem AGD/RTV
 ...you can monitor temperature: ...możesz monitorować temperaturę
+'10 minutes before sunset, on day 10 of the month, May through August': '10 minut przed zachodem słońca, tylko 10. dnia miesiąca, od maja do sierpnia'
+'15 minutes after sunrise, every 2 days': '15 minut po wschodzie słońca, co drugi dzień'
 A new personal access token has been generated.: Wygenerowano nowy osobisty token dostępowy
 A-Z: A-Z
 ACTIVE: AKTYWNA
@@ -22,17 +25,23 @@ Account access when you are unavailable: Dostęp do konta kiedy jesteś niedost�
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
 Action: Akcja
 Action execution: Wykonywanie akcji
+Action trigger: Wyzwalacz akcji
+Action triggers: Wyzwalacze akcji
 Actions: Akcje
 Active: Aktywne
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: Rzeczywiste zachowanie wyzwalacza zależy od używanego urządzenia i jego konfiguracji. Opisy pod spodem są tylko przykładami jak urządzenie może działać.
 Add: Dodaj
+Add a delay: Dodaj opóźnienie
 Add a new icon: Dodaj nową ikonę
 Add first channel to set channel group function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
 Add new channel group: Dodaj nową grupę kanałów
 Add new channel to this group: Dodaj nowy kanał do grupy
+Add new item to use in the scene: Dodaj nowy element do sceny
 Adjust parameters: Ustaw parametry
 'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Wszystkie kanały oraz grupy kanałów, które używają tej ikony, po jej usunięciu otrzymają ikony domyślne.'
 'After granting the access, you can always remove it by adjusting the settings in your account settings section.': Po przyznaniu dostępu zawsze możesz zmienić zdanie odbierając dostęp w ustawieniach swojego konta.
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Po aktualizacji aplikacja będzie szybsza, wygodniejsza... Po prostu lepsza!'
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Licznik rozpocznie liczenie od 0 po tej operacji, niezależnie od jego obecnego stanu. Tej operacji nie da się cofnąć.'
 'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Link zostanie wygenerowany tuż po wybraniu podmiotu. Wszystkie pozostałe opcje możesz wprowadzić zaraz po jego utworzeniu.
 All: Wszystko
 All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tabletu
@@ -51,7 +60,9 @@ Are you sure you want to delete this channel group?: Czy na pewno chcesz usuną�
 Are you sure you want to delete this client?: Czy na pewno chcesz usunąć tę aplikację kliencką?
 Are you sure you want to delete this direct link?: Czy na pewno chcesz usunąć ten link bezpośredni?
 Are you sure you want to delete this icon?: Czy na pewno chcesz usunąć tą ikonę?
+Are you sure you want to delete this scene?: Czy na pewno chcesz usunąć tę scenę?
 Are you sure you want to delete this schedule?: Czy na pewno chcesz usunąć ten harmonogram?
+Are you sure you want to reset the counter state?: Czy na pewno chcesz wyzerować licznik?
 Are you sure you want to revoke permissions granted to this OAuth application?: Czy na pewno chcesz odwołać uprawnienia przyznane tej aplikacji OAuth?
 Are you sure you want to revoke this token?: Czy na pewno chcesz odwołać token?
 Are you sure?: Czy na pewno?
@@ -60,23 +71,35 @@ Assign Client apps: Przypisz aplikacje klienckie
 Assign Locations: Przypisz Lokalizacje
 Associated measured channel: Powiązany kanał sterujący
 Associated measurement channel: Powiązany kanał pomiarowy
+'At 05:45 PM, on the last day of the month': 'o 5:45 ostatniego dnia miesiąca'
+'At 11:30 AM, on the third Wednesday of the month': 'o 11:30, w trzecią środę miesiąca'
+At every 5th minute on day-of-month 30 in May: 'co 5 minut, 30. dnia miesiąca, tylko w maju'
+At sunrise: o wschodzie słońca
+'At sunrise, Monday through Friday': 'o wschodzie słońca, od poniedziałku do piątku'
+At sunset: o zachodzie słońca
 Authorization callback URLs (one per line): Zwrotne URLe autoryzacyjne (jeden na linię)
 'Authorize the application, so that it can access your account.': 'Autoryzuj aplikację, aby mogła uzyskać dostęp do Twojego konta.'
 Authorized: Zautoryzowano
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
+Automatic calibration: Automatyczna kalibracja
 Automation: Automatyka
 Back to apps list: Powrót do listy aplikacji
+Bar: Słupkowy
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Be right back!: Wróć za kilka chwil!
+Bottom position: Dolna pozycja
 Bridge: Most
 Brightness: Jasność
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
 CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
 Calculated value: Stan licznika
+Calibrate: Kalibruj
 Calibration: Kalibracja
+Calibration successful.: Kalibracja udana
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
 Cancelled: Anulowane
+Cannot calculate when to run the schedule - incorrect configuration?: Nie udało się obliczyć żadnej daty uruchomienia harmonogramu - niepoprawna konfiguracja?
 Cannot change the channel function right now.: Nie można zmienić funkcji tego kanału w tej chwili.
 Cannot delete this I/O Device right now.: Nie można usunąć tego urządzenia w tej cwili.
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
@@ -96,10 +119,15 @@ Channel group limit has been exceeded: Limit grup kanałów został przekroczony
 Channel group must consist of at least one channel.: Grupa kanałów musi zawierać przynajmniej jeden kanał.
 Channel groups: Grupy kanałów
 Channel is assigned to the I/O device location: Kanał jest przypisany do lokalizacji urządzenia
+Channel is disconnected.: Kanał jest rozłączony.
 Channel name: Nazwa kanału
+Channel reference will be removed from the items below.: Kanał zostanie usunięty z poniższych elementów.
+Channel value: Wartość
 Channels: Kanały
 Channels groups are not supported for this function.: Ta funkcja nie wspiera grup kanałów.
 Channels in channel group: Kanały w grupach kanałów
+Chart data source type: Rodzaj źródła danych
+Chart type: Typ wykresu
 Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
 Check your email box: Sprawdź swoją skrzynkę email
 Check your email inbox: Sprawdź Twoją skrzynkę odbiorczą
@@ -108,7 +136,7 @@ Choose Access Identifier: Wybierz Identyfikator Dostępu
 Choose Access Identifiers to be assigned to this Location: 'Wybierz Identyfikatory Dostępu, które zostaną przypisane do tej Lokalizacji'
 Choose client apps: Wybierz aplikacje klienckie
 Choose location: Wybierz lokalizację
-Chosen hour: Wybrana godzina
+Clear: Wyczyść
 Client registration: Rejestracja klientów
 Client’s Apps: Aplikacje klienckie
 Client’s app has been deleted: Aplikacja kliencka została usunięta
@@ -117,8 +145,10 @@ Color: Kolor
 Color brightness: Jasność koloru
 Coming Soon: Dostępne wkrótce
 Comment: Komentarz
+Config of the schedule is too complicated.: Konfiguracja harmonogramu jest zbyt skomplikowana.
 Configuration: Konfiguracja
 Confirm Password: Potwierdzenie hasła
+Confirm if you want to perform the roller shutter calibration.: Potwierdź przeprowadzenie kalibracji modułu.
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.'
 'Confirm if you want to remove {deviceName} device and all of its channels.': 'Potwierdź, że chcesz usunąć urządzenie {deviceName} i wszystkie jego kanały.'
@@ -126,6 +156,7 @@ Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
 Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
+Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
 Could not reset the password.: Nie udało się zresetować hasła.
 Could not reset the password. Please try again later.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
 Create New Access Identifier: Utwórz nowy Identyfikator Dostępu
@@ -133,6 +164,7 @@ Create New Location: Utwórz nową Lokalizację
 Create New Schedule: Utwórz nowy harmonogram
 Create an account: Utwórz konto
 Create new direct link: Utwórz nowy link bezpośredni
+Create new scene: Stwórz nową scenę
 Currency: Waluta
 Current Overload: Przeciążenie
 Current Password: Aktualne hasło
@@ -144,7 +176,6 @@ DHT21 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT21
 DHT22 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT22
 DS18B20 Thermometer: Termometr DS18B20
 Data saved: Dane zostały zapisane
-Days: Dni
 Decline: Odmów
 Default: domyślnie
 Delete: Usuń
@@ -156,7 +187,9 @@ Depth sensor: Czujnik głębokości
 Description: Opis
 Details: Szczegóły
 Device: Urządzenie
+Device channel value: Wartość z urządzenia
 Device unavailable: Urządzenie niedostępne
+Differential: Różnicowy
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass poziomy
 Digi Glass Vertical: Digi Glass pionowy
@@ -168,6 +201,7 @@ Direct link has been created successfully!: Link bezpośredni został z powodzen
 Direct link has been executed: Link bezpośredni został wykonany
 'Direct link is not working right now. Reason:': 'Link bezpośredni w tym momencie nie działa. Powód:'
 Direct links: Linki bezpośrednie
+Direct links limit has been exceeded: Limit linków bezpośrednich został przekroczony
 Disable: Wyłącz
 Disabled: Wyłączone
 Disconnected: Rozłączony
@@ -198,6 +232,8 @@ Error: Błąd
 Error when communicating the server. Try again in a while.: Wystąpił problem w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę.
 Every: Co
 Example Auth URL: Przykładowy URL autoryzacyjny
+Execute: Wykonaj
+Execute the scene: Wykonaj scenę
 Executed action: Wykonana akcja
 Executed without confirmation: Wykonano bez potwierdzenia
 Execution history: Historia wykonań
@@ -213,7 +249,6 @@ For devices: Dla urządzeń
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
 Forward reactive energy: Energia bierna pobrana
-Fridays: Piątki
 From IP: Z adresu IP
 From anywhere: Z każdego miejsca
 Full closing time: Całkowity czas zamknięcia
@@ -230,6 +265,7 @@ Gate opening sensor: Czujnik otwarcia bramy wjazdowej
 Gate operation: Otwieranie/zamykanie bramy wjazdowej
 Gateway lock operation: Otwieranie furtki
 Gateway opening sensor: Czujnik otwarcia furtki
+General purpose measurement: Ogólny kanał pomiarowy
 Generate new password: Wygeneruj nowe hasło
 Generate new token: Generuj nowy token
 Generate token: Generuj token
@@ -245,7 +281,6 @@ History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
 Home+ Heater: Grzałka Home+
 Host: Host
-Hours: Godziny
 'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Niestety, aktualnie wykorzystanie naszych serwerów wzrosło do niebezpiecznego poziomu. Monitorujemy sytuację, wróć za kilka chwil.'
 Humidity: Wilgotność
 Humidity Sensor: Czujnik wilgotności
@@ -279,14 +314,17 @@ Initial value: Wartość początkowa
 Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
 Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
 Integrations: Integracje
+Interpolate measurements: Szacuj brakujące wartości
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
 Invalid action parameters: Niepoprawne parametry wykonania.
 Invalid function for channel.: Niepoprawna funkcja dla kanału.
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
 Invalid request: Niepoprawne żądanie
+Invalid schedule config (incorrect action).: Niepoprawna akcja harmonogramu
 Inverted logic: Odwrócona logika
 Invisible: Niewidoczne
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Miej na uwadze, że prezentowany przez aplikację opis podanego wyrażenia nie jest idealny, a jedynym jego zadaniem jest pomóc Ci wprowadzić odpowiednią wartość. Nie służy on do sprawdzenia, czy wprowadzona wartość jest poprawna, ani tym bardziej do chwalenia się, że "znalazło się błąd w SUPLI". Po wprowadzeniu zmian sprawdź sekcję "Najbliższe wykonania" w celu potwierdzenia, że podana konfiguracja harmonogramu spełnia Twoje oczekiwania.'
 Language is not available: Język jest niedostępny
 Last access: Ostatnie połączenie
 Last connection: Ostatnie połączenie
@@ -295,6 +333,7 @@ Let me choose later: Pozwól mi wybrać później
 Light switch: Włącznik światła
 Lighting: Oświetlenie
 Limit has been exceeded: Limit został przekroczony
+Linear: Liniowy
 'Liquid, Temp': 'Ciecz, Temperatura'
 Location: Lokalizacja
 Location Identifier: Identyfikator Lokalizacji
@@ -315,11 +354,9 @@ Make sure to save it in a secure place if you wish to access it in the future. T
 Manually closed: Zamknięty manualnie
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
 Meter value: Stan licznika
-Minute: Minuta
 Mobile Apps: Aplikacje mobilne
 Mode: Tryb
 Modification: Modyfikacja
-Mondays: Poniedziałki
 My OAuth apps: Moje aplikacje OAuth
 My SUPLA: Moja SUPLA
 Name: Nazwa
@@ -329,6 +366,7 @@ New OAuth application: Nowa aplikacja OAuth
 New channel group: Nowa grupa kanałów
 New direct link: Nowy link bezpośredni
 New password: Nowe hasło
+New scene: Nowa scena
 Newer: Nowsze
 'Next limit renewal: {date}': 'Limit zostanie odnowiony {date}'
 Next run date: Najbliższe wykonanie
@@ -338,7 +376,12 @@ No future executions - schedule disabled: Brak zaplanowanych wykonań - harmonog
 No limit: Bez limitu
 No liquid sensor: Czujnik braku cieczy
 'No location enabled. Go to [location list] or [add a new location].': 'Nie masz żadnych aktywnych lokalizacji. Przejdź do [listy lokalizacji] lub [dodaj nową lokalizację].'
+No of channels: Liczba kanałów
+No of client apps: Liczba aplikacji klienckich
+No of devices: Liczba urządzeń
+No of operations: Liczba operacji
 'No results match {0}': 'Żadne wyniki nie pasują do {0}'
+No schedule configuration.: Nie podano konfiguracji harmonogramu.
 No. of Client’s apps: Liczba aplikacji klienckich
 No. of access identifiers: Liczba identyfikatorów dostępu
 No. of channel groups: Liczba grup kanałów
@@ -360,6 +403,7 @@ Open: Otwórz
 Open / close: Otwórz / zamknij
 Open partially: Otwórz częściowo
 Opening sensor: Czujnik otwarcia
+Operations: Operacje
 Original location: Oryginalna lokalizacja
 'Otherwise go to [the homepage].': 'W innym przypadku przejdź do [strony domowej].'
 Partial opening sensor: Czujnik pośredniego otwarcia
@@ -375,6 +419,7 @@ Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
+Please choose the schedule subject first.: Najpierw wybierz czym harmonogram ma sterować
 Please click the link we have sent you after the registration to proceed.: 'Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.'
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
@@ -382,6 +427,7 @@ Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Port: Port
+Precision: Dokładność
 Pressure sensor: Czujnik ciśnienia
 Previous login: Poprzednie logowanie
 Price per: Cena za
@@ -410,6 +456,7 @@ Relay switching time: Czas załączenia przekaźnika
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}.'
 Repeat password: Powtórz hasło
+Reset counter: Resetuj licznik
 Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
@@ -424,13 +471,16 @@ Roof window shutter operation: Otwieranie okna dachowego
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Błąd przy wykonaniu akcji w SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło'
-Saturdays: Soboty
 Save: Zapisz
 Save and enable: Zapisz i włącz
 Save changes: Zapisz zmiany
 Save changes to see Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
+Save or discard configuration changes before calibration.: Zapisz lub odrzuć zmiany w konfiguracji przed wykonaniem kalibracji
+Scene: Scena
+Scene must consist of at least one operation.: Scena musi zawierać co najmniej jedną operację
+Scenes: Sceny
+Scenes limit has been exceeded: Nie możesz stworzyć więcej scen
 Schedule: Harmonogram
-Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Schedule limit has been exceeded: Limit harmonogramów został przekroczony
 Schedule mode: Tryb harmonogramu
 Schedules: Harmonogramy
@@ -453,6 +503,7 @@ Service temporarily unavailable: Usługa tymczasowo niedostępna
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Zamknij roletę do momentu, aż dotknie dolnej krawędzi i przepisz jej procent zamknięcia w to pole. Ta operacja nie jest wymagana, ale jej podanie poprawi wizualizację położenia rolety w aplikacji mobilnej.'
 Sign In: Zaloguj się
 Sign Out: Wyloguj się
 Sign in temporarily unavailable. Please try again later.: Logowanie tymczasowo niedostępne. Spróbuj ponownie później.
@@ -462,17 +513,16 @@ Some features depend on this device: Niektóre funkcjonalności zależą od tego
 Some of the features you have configured rely on channels from this device.: Niektóre funkcjonalności używają kanałów z tego urządzenia.
 Sources available from: Źródła dostępne w
 Staircase timer: Automat schodowy
+Standard: Standardowe
 Start Here: Rozpocznij tutaj
 Start date: Data rozpoczęcia
 State: Stan
 State webhook: Webhook stanu
 Stop: Zatrzymaj
-Subject: Podmiot
+Store measurements history: Przechowuj historię pomiarów
 Subject type: Typ podmiotu
 Success: Sukces
 Successful: Udane
-Sundays: Niedziele
-Sunrise / Sunset: Wschód / Zachód
 Supla for devices: Supla na urządzenia
 TLS: TLS
 Temperature: Temperatura
@@ -486,6 +536,7 @@ The Terms and Conditions have changed: Regulamin uległ zmianie
 The Terms and Conditions have changed – please read them and accept.: Regulamin serwisu uległ zmianie - wymagana jest jego akceptacja.
 The activation link has been sent again. Check the inbox.: Wiadomość z linkiem aktywującym Twoje konto została wysłana ponownie. Sprawdź skrzynkę odbiorczą.
 The client will be automatically logged out when deleted.: Usunięcie klienta spowoduje jego natychmiastowe wylogowanie.
+The counter has been reset.: Licznik został zresetowany.
 The device is disabled: Urządzenie jest wyłączone
 The following items use the channels of these device. These references will be also removed.: Poniższe elementy używają kanałów z tego urządzenia. One również zostaną usunięte.
 'The following items will be deleted with this device:': Poniższe elementy zostaną również usunięte razem z tym urządzeniem.
@@ -513,12 +564,12 @@ Thermometer: Termometr
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.'
 This is the list of applications you have granted access to your account.: 'To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.'
-Thursdays: Czwartki
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.'
 Timezone: Strefa czasowa
 Toggle: Przełącz
 Token does not exist: Token nie istnieje
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
-Tuesdays: Wtorki
+Triggers: Wyzwalacze
 Turning this device off will cause its channels not working in the following features.: 'Wyłączenie urządzenia spowoduje, że jego kanały przestaną działać w poniższych elementach.'
 Turning this device off will result in disabling all the associated schedules.: 'Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.'
 Turning this device off will result in disabling features listed below.: Wyłączenie urządzenia spowoduje także wyłączenie poniższych elementów.
@@ -530,6 +581,7 @@ Unsupported type: Niewspierany typ
 Update in progress: Trwa aktualizacja
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.'
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
+Value per unit: Wartość na jednostkę
 Valve: Zawór
 Valve closed manually: Zawór zamknięty manualnie
 Visible: Widoczne
@@ -550,10 +602,8 @@ We will miss you: Będziemy za Tobą tęsknić
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.'
 We will use it only in justified situations.: Użyjemy go wyłącznie w uzasadnionych przypadkach.
 Weather Station: Stacja pogodowa
-Wednesdays: Środy
 Weight sensor: Waga
 What this token is for?: Do czego służy ten token?
-When: Kiedy
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziesz przykładowe wykonanie za pomocą narzędzia cURL.'
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
@@ -572,6 +622,7 @@ You cannot use SUPLA project name in the domain name.: Nie możesz używać nazw
 You have exceeded your API Rate Limit: Wykorzystałeś/aś swój limit żądań do API
 You have to choose at least one scope.: Musisz wybrać przynajmniej jeden zakres.
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Jeśli nadal chcesz skorzystać z zaawansowanego trybu harmonogramu, rzuć okiem na poniższe przykłady.'
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
 You must enable MQTT Broker first.: Musisz najpierw włączyć integrację z brokerem MQTT.
 You must set sections with transparent or opaque parameters or both.: Musisz wybrać przezroczystość przynajmniej jednej sekcji.
@@ -595,6 +646,16 @@ Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jes
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
 'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
+actionTriggerDescription_HOLD: 'Domyślnie, ta akcja jest wykonywana po przytrzymaniu przycisku.'
+actionTriggerDescription_PRESS: 'Domyślnie, ta akcja jest wykonywana po wciśnięciu przycisku.'
+actionTriggerDescription_PRESS_2X: 'Domyślnie, ta akcja jest wykonywana po dwukrotnym wciśnięciu przycisku.'
+actionTriggerDescription_PRESS_3X: 'Domyślnie, ta akcja jest wykonywana po trzykrotnym wciśnięciu przycisku.'
+actionTriggerDescription_RELEASE: 'Domyślnie, ta akcja jest wykonywana po wciśnięciu i puszczeniu przycisku.'
+actionTrigger_HOLD: Przytrzymanie przycisku
+actionTrigger_PRESS: Wciśnięcie przycisku
+actionTrigger_PRESS_2X: Dwukrotne wciśnięcie
+actionTrigger_PRESS_3X: Trzykrotne wciśnięcie
+actionTrigger_RELEASE: Zwolnienie przycisku
 actionableSubjectType_channel: Kanał
 actionableSubjectType_channelGroup: Grupa kanałów
 actionableSubjectType_scene: Scena
@@ -606,11 +667,13 @@ choose: wybierz
 choose a currency: wybierz walutę
 choose the channel: wybierz kanał
 choose the channel group: wybierz grupę kanałów
+choose the scene: wybierz scenę
 choose the timezone: wybierz strefę czasową
 copied: skopiowano
 copy: kopiuj
-daily: Tydzień
 crontab: Zaawansowany
+daily: Tydzień
+days: dni
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
 directLinkExecutionFailureReason_expired: Link bezpośredni wygasł
@@ -624,14 +687,17 @@ directLinkExecutionFailureReason_noSlugOrAction: Niepoprawne żądanie - kod lin
 directLinkExecutionFailureReason_notActiveYet: Link bezpośredni nie jest jeszcze aktywny
 directLinkExecutionFailureReason_otherFailure: Błąd przy wykonaniu akcji
 directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
+empty: pusty
 executed: wykonano
 extend: przedłuż
 from IP: z adresu IP
 from the IP: z adresu
-hourly: Każdy dzień
+hours: godziny
+min.: min.
 minutely: Interwał
 minutes: minut
 once: Jeden raz
+or add a delay: lub dodaj opóźnienie
 password: hasło
 prefix: prefiks
 register-slide1-text: 'W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.'
@@ -641,6 +707,7 @@ register-slide2-title: SUPLA wszędzie!
 register-slide3-text: 'Dostępne na rynku systemy automatyki budynkowej są zazwyczaj bardzo złożone, zamknięte oraz kosztowne. W wielu przypadkach wymagają instalacji już na etapie budowy obiektu. SUPLA jest prosta, otwarta i bezpłatna. Umożliwia budowanie elementów wykonawczych w oparciu o platformy RaspberryPI, Arduino czy też ESP8266 i łączenie ich z wykorzystaniem sieci LAN oraz WiFi. Dołącz do projektu i zbuduj własną wersję systemu automatyki budynkowej!'
 register-slide3-title: Bezpłatna i otwarta!
 reset chart view: wróć do początkowego widoku
+scene: scena
 sec.: sek.
 'smartphones, tablets, etc.': 'smartfony, tablety itp.'
 state-closed: Zamknięte
@@ -668,6 +735,10 @@ username: nazwa użytkownika
 valid until: wygaśnie
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
+'{minutes} minutes after sunrise': '{minutes} minut po wschodzie słońca'
+'{minutes} minutes after sunset': '{minutes} minut po zachodzie słońca'
+'{minutes} minutes before sunrise': '{minutes} minut przed wschodem słońca'
+'{minutes} minutes before sunset': '{minutes} minut przed zachodem słońca'
 '{requests} out of {limit} / day': '{requests} z {limit} / dobę'
 '{requests} out of {limit} / h': '{requests} z {limit} / h'
 '{requests} out of {limit} / min': '{requests} z {limit} / min'
@@ -682,15 +753,19 @@ Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć t
 Assigned Locations: Przypisane Lokalizacje
 Change: Zmień
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
+Chosen hour: Wybrana godzina
 'Confirm if you want to remove {deviceName} device': 'Potwierdź chęć usunięcia urządzenia {deviceName}'
 DISABLED: WYŁĄCZONE
 Date: Data
+Days: Dni
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
 ENABLED: WŁĄCZONE
 Email already exists: Adres e-mail już istnieje
 Existing schedules: Istniejące harmonogramy
+Fridays: Piątki
 Hi: Cześć
 Hour: Godzina
+Hours: Godziny
 I/O: Wejście/Wyjście
 'If you want to stay here, do something!': 'Jeśli chcesz tu zostać, zrób coś!'
 Input: Wejście
@@ -698,6 +773,8 @@ Languages: Języki
 Loading: Ładowanie
 Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
 Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
+Minute: Minuta
+Mondays: Poniedziałki
 Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer
@@ -707,64 +784,24 @@ Registration: Rejestracja
 Remaining: Pozostało
 Remove: Usuń
 Requests limit: Limit żądań
+Saturdays: Soboty
+Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
 Status: Status
+Subject: Podmiot
+Sundays: Niedziele
+Sunrise / Sunset: Wschód / Zachód
+Thursdays: Czwartki
 Try again later: Spróbuj ponownie później
+Tuesdays: Wtorki
+Wednesdays: Środy
+When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
+hourly: Każdy dzień
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'%s trigger is not supported by the hardware.': ~
-Action trigger: ~
-Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
-Add a delay: ~
-Add new item to use in the scene: ~
-Are you sure you want to delete this scene?: ~
-Bar: ~
-Channel reference will be removed from the items below.: ~
-Channel value: ~
-Chart data source type: ~
-Chart type: ~
-Clear: ~
-Create new scene: ~
-Device channel value: ~
-Differential: ~
-Direct links limit has been exceeded: ~
-Execute: ~
-Execute the scene: ~
-General purpose measurement: ~
-Interpolate measurements: ~
-Invalid action.: ~
-Linear: ~
-New scene: ~
-No of operations: ~
-Operations: ~
-Precision: ~
-Scene: ~
-Scene must consist of at least one operation.: ~
-Scenes: ~
-Scenes limit has been exceeded: ~
-Standard: ~
-Store measurements history: ~
-Triggers: ~
-Value per unit: ~
-actionTriggerDescription_HOLD: ~
-actionTriggerDescription_PRESS: ~
-actionTriggerDescription_PRESS_2X: ~
-actionTriggerDescription_PRESS_3X: ~
-actionTriggerDescription_RELEASE: ~
-actionTrigger_HOLD: ~
-actionTrigger_PRESS: ~
-actionTrigger_PRESS_2X: ~
-actionTrigger_PRESS_3X: ~
-actionTrigger_RELEASE: ~
-choose the scene: ~
-min.: ~
-or add a delay: ~
-scene: ~
 
 #</editor-fold>
-'{minutes} minutes after sunset': '{minutes} minut po zachodzie słońca'

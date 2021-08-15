@@ -89,7 +89,6 @@ Choose Access Identifier: Wybierz Identyfikator Dostępu
 Choose Access Identifiers to be assigned to this Location: Selectați Identificatoarele de Acces care vor fi alocate acestei Locații
 Choose client apps: Selectați aplicațiile de client
 Choose location: Selectați o locație
-Chosen hour: Ora selectată
 Client’s Apps: Aplicații de client
 Client’s app has been deleted: Aplicația de client a fost eliminată
 Close: Închide
@@ -121,7 +120,6 @@ DHT21 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT21
 DHT22 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT22
 DS18B20 Thermometer: Termometru DS18B20
 Data saved: Datele au fost salvate
-Days: Zile
 Decline: Respinge
 Delete: Șterge
 Delete measurement history: Șterge istoricul măsurătorilor
@@ -184,7 +182,6 @@ For devices: Pentru dispozitive
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Din motive de securitate, URL-ul complet al acestui link direct va fi afișat o singură dată în timpul creării sale.'
 Forgot your password?: Ați uitat parola?
 Forward active energy: Energie activă consumată
-Fridays: Zilele de vineri
 From IP: De la adresa IP
 From anywhere: De oriunde
 Full closing time: Timp total de închidere
@@ -212,7 +209,6 @@ HFD4 Relay: Releu HFD4
 History of measurements: Istoricul măsurătorilor
 Home appliances: Aparate electrocasnice/electronice
 Home+ Heater: Încălzitor Home+
-Hours: Ore
 Humidity: Umiditate
 Humidity Sensor: Senzor de umiditate
 Humidity adjustment: Reglarea umidității
@@ -263,11 +259,9 @@ Maintenance mode active. You cannot modify any data now.: Działanie w trybie se
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Asigurați-vă că este salvat într-un loc sigur dacă doriți să îl mai utilizați în viitor. Linkul nu va mai fi afișat după părăsirea acestei pagini.
 'Maximum filesize limit is {limit}.': 'Mărimea maximă a fișierului este de {limit}.'
 Meter value: Starea contorului
-Minute: Minut
 Mobile Apps: Aplicații mobile
 Mode: Mod
 Modification: Modificare
-Mondays: Zilele de luni
 My OAuth apps: Aplicațiile mele OAuth
 My SUPLA: SUPLA mea
 Name: Numele
@@ -354,13 +348,11 @@ Roller shutters: Jaluzele
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Eroare la executarea acțiunii în SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA este disponibilă oricând și oriunde, așa că nu vă faceți griji data viitoare când uitați să stingeți lumina'
-Saturdays: Zilele de sâmbătă
 Save: Salvează
 Save and enable: Salvează și activează
 Save changes: Salvează modificările
 Save changes to see Access IDs: Salvați modificările pentru afișarea identificatoarelor de acces
 Schedule: Plan de execuție
-Schedule cannot be enabled: Planul de execuție nu a fost activat
 Schedule limit has been exceeded: Limita planurilor de execuție a fost depășită
 Schedule mode: Modul planului de execuție
 Schedules: Planuri de execuție
@@ -393,12 +385,9 @@ Start Here: Începeți aici
 Start date: Data începerii
 State: Stare
 Stop: Oprește
-Subject: Entitate
 Subject type: Tipul entității
 Success: Succes
 Successful: Reușite
-Sundays: Zilele de duminică
-Sunrise / Sunset: Est / Vest
 Supla for devices: Supla pentru dispozitive
 Temperature: Temperatură
 Temperature & Humidity Sensor: Senzor de temperatură și umiditate
@@ -428,12 +417,10 @@ Thermometer: Termometru
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Acest link direct necesită clarificarea parametrilor acțiunii efectuate. Consultați exemplele de mai jos pentru a afla ce parametri puteți seta.
 This is the list of applications you have granted access to your account.: Aceasta este lista de aplicații cărora le-ați acordat acces la contul dvs.
-Thursdays: Zilele de joi
 Timezone: Fus orar
 Toggle: Comutare
 Token does not exist: Token-ul nu există
 Too many channels in this group: Prea multe canale în această grupă
-Tuesdays: Zilele de marți
 Turning this device off will result in disabling all the associated schedules.: 'Dezactivarea acestui dispozitiv va dezactiva, de asemenea, planurile de executare asociate cu acesta.'
 Type: Tip
 Unit: Unitate
@@ -457,10 +444,8 @@ We will miss you: Ne va fi dor de tine
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Vom face tot posibilul pentru ca pictogramele trimise să fie afișate cât mai bine, dar veți obține cele mai bune rezultate trimițând fișiere PNG cu un fond transparent și o lățime de {width} și o înălțime de {height} pixeli.'
 We will use it only in justified situations.: Îl vom folosi numai în cazuri justificate.
 Weather Station: Stație meteorologică
-Wednesdays: Zilele de miercuri
 Weight sensor: Greutate
 What this token is for?: Pentru ce servește acest token?
-When: Când
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Puteți efectua acțiunea linkului direct, completând identificatorul său unic direct în corpul cererii HTTP PATCH. Acest lucru este mai sigur, deoarece împiedică salvarea adresei complete a linkului dvs. în jurnalele de acces ale serverelor prin care trece solicitarea. Mai jos veți găsi un exemplu de executare folosind instrumentul cURL.'
 Where is the JSON?: Unde este JSON?
 Where is your SUPLA Cloud?: Unde se află Supla ta?
@@ -520,7 +505,6 @@ executed: executat
 extend: extinde
 from IP: de la adresa IP
 from the IP: de la adresa
-hourly: Ciclu orar
 minutely: Ciclu în minute
 minutes: minute
 once: Unic
@@ -563,16 +547,20 @@ Access identifier password must be no longer than 32 characters.: Parola pentru 
 Are you sure you want to disable this device?: Sigur doriți să opriți acest dispozitiv?
 Assigned Locations: Locații atribuite
 Channel will be deleted from the channel group below: Canalul va fi eliminat din următoarele grupe de canale
+Chosen hour: Ora selectată
 'Confirm if you want to remove {deviceName} device': 'Confirmați că doriți să eliminați dispozitivul {deviceName}'
 DISABLED: DEZACTIVAT
 Date: Data
+Days: Zile
 Direct links below will be deleted: Linkurile directe enumerate mai jos vor fi eliminate
 ENABLED: ACTIVAT
 Email already exists: Adresa de e-mail există deja
 Existing schedules: Planificări existente
+Fridays: Zilele de vineri
 'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Mesajul cu linkul de activare a contul dvs. nu a sosit? Asigurați-vă că nu se află în folderul SPAM (junk mail). Puteți, de asemenea, să faceți clic [aici] pentru a-l retrimite.'
 Hi: Salut
 Hour: Ora
+Hours: Ore
 I/O: Intrare/Ieșire
 'If you want to stay here, do something!': 'Dacă vrei să rămâi aici, fă ceva!'
 Input: Intrare
@@ -580,6 +568,8 @@ Languages: Limbi
 Loading: Încărcare
 Location password must be at least 4 characters.: Parola pentru locație trebuie să aibă cel puțin 4 caractere.
 Location password must be no longer than 32 characters.: Parola pentru locație nu poate fi mai lungă de 32 de caractere.
+Minute: Minut
+Mondays: Zilele de luni
 Next: Mai departe
 Number: Număr
 Output: Ieșire
@@ -588,18 +578,30 @@ Registration: Înregistrare
 Registration of new I/O devices: Înregistrarea dispozitivelor
 Registration of new clients: Înregistrarea clienților
 Remove: Șterge
+Saturdays: Zilele de sâmbătă
+Schedule cannot be enabled: Planul de execuție nu a fost activat
 Schedules below will be deleted: Următoarele planuri de execuție vor fi șterse
 Status: Stare
+Subject: Entitate
+Sundays: Zilele de duminică
+Sunrise / Sunset: Est / Vest
+Thursdays: Zilele de joi
 Try again later: Încercați din nou mai târziu
+Tuesdays: Zilele de marți
 We have just sent you an activation link. Be patient.: Tocmai a fost trimis un mesaj cu un link pentru activarea contului dvs. Răbdare.
+Wednesdays: Zilele de miercuri
+When: Când
 You will be logged out shortly: Îndată veți fi deconectat
 execute: execută
+hourly: Ciclu orar
 will expire: expiră
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 '%s trigger is not supported by the hardware.': ~
+'10 minutes before sunset, on day 10 of the month, May through August': ~
+'15 minutes after sunrise, every 2 days': ~
 A new personal access token has been generated.: ~
 A-Z: ~
 API rate limits: ~
@@ -610,18 +612,32 @@ Actual behavior of the triggers depend on the device you use and its configurati
 Add a delay: ~
 Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'Alternatively, you can add a GET parameter to specify response format.': ~
 Are you sure you want to delete this scene?: ~
+Are you sure you want to reset the counter state?: ~
 Associated measured channel: ~
 Associated measurement channel: ~
+'At 05:45 PM, on the last day of the month': ~
+'At 11:30 AM, on the third Wednesday of the month': ~
+At every 5th minute on day-of-month 30 in May: ~
+At sunrise: ~
+'At sunrise, Monday through Friday': ~
+At sunset: ~
+Automatic calibration: ~
 Bar: ~
 Be notified when your channels change state: ~
 Be right back!: ~
+Bottom position: ~
 Bridge: ~
 Calculated value: ~
+Calibrate: ~
+Calibration successful.: ~
+Cannot calculate when to run the schedule - incorrect configuration?: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
 'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': ~
+Channel is disconnected.: ~
 Channel name: ~
 Channel reference will be removed from the items below.: ~
 Channel value: ~
@@ -632,8 +648,11 @@ Chart type: ~
 Check your email inbox: ~
 Clear: ~
 Client registration: ~
+Config of the schedule is too complicated.: ~
+Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Could not contact Autodiscover service. Try again in a while.: ~
+Could not perform the calibration.: ~
 Create new scene: ~
 Current Overload: ~
 Default: ~
@@ -662,8 +681,9 @@ Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
 Interpolate measurements: ~
 Invalid action parameters: ~
-Invalid action.: ~
 Invalid function for channel.: ~
+Invalid schedule config (incorrect action).: ~
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Location name: ~
 MQTT Broker: ~
@@ -677,7 +697,11 @@ Manually closed: ~
 Need one of these?: ~
 New scene: ~
 'Next limit renewal: {date}': ~
+No of channels: ~
+No of client apps: ~
+No of devices: ~
 No of operations: ~
+No schedule configuration.: ~
 Number of sections: ~
 OAuth apps: ~
 Open partially: ~
@@ -687,20 +711,24 @@ Operations: ~
 Phase 1: ~
 Phase 2: ~
 Phase 3: ~
+Please choose the schedule subject first.: ~
 Port: ~
 Precision: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~
 Protocol: ~
 Regeneration starts at: ~
+Reset counter: ~
 Reverse active energy: ~
 Reverse reactive energy: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+Save or discard configuration changes before calibration.: ~
 Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
 Show my limits: ~
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
 Some features depend on this device: ~
 Some of the features you have configured rely on channels from this device.: ~
 Standard: ~
@@ -708,6 +736,7 @@ State webhook: ~
 Store measurements history: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~
 The gate sensor must function properly in order to execute the Open and Close actions.: ~
@@ -717,6 +746,7 @@ The new password will replace the existing one. Some of the current integrations
 'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
 'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
 Triggers: ~
 Turning this device off will cause its channels not working in the following features.: ~
 Turning this device off will result in disabling features listed below.: ~
@@ -731,6 +761,7 @@ You are changing the settings too quickly. You have to wait a while before makin
 You cannot use SUPLA project name in the domain name.: ~
 You have exceeded your API Rate Limit: ~
 You have to choose at least one scope.: ~
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
 You must enable MQTT Broker first.: ~
 You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
@@ -751,7 +782,11 @@ actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
 actionableSubjectType_scene: ~
 choose the scene: ~
+crontab: ~
+days: ~
 directLinkExecutionFailureReason_invalidChannelState: ~
+empty: ~
+hours: ~
 min.: ~
 or add a delay: ~
 password: ~
@@ -761,6 +796,10 @@ scene: ~
 suffix: ~
 username: ~
 valid until: ~
+'{minutes} minutes after sunrise': ~
+'{minutes} minutes after sunset': ~
+'{minutes} minutes before sunrise': ~
+'{minutes} minutes before sunset': ~
 '{requests} out of {limit} / day': ~
 '{requests} out of {limit} / h': ~
 '{requests} out of {limit} / min': ~

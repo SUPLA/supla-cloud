@@ -97,7 +97,6 @@ Choose Access Identifier: Chọn định danh truy cập
 Choose Access Identifiers to be assigned to this Location: Chọn định danh truy cập cho vị trí
 Choose client apps: Chọn ứng dụng khách
 Choose location: Chọn vị trí
-Chosen hour: Giờ được chọn
 Client registration: Đăng ký Client
 Client’s Apps: Ứng dụng khách
 Client’s app has been deleted: Ứng dụng khách đã xóa
@@ -131,7 +130,6 @@ DHT21 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT21
 DHT22 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT22
 DS18B20 Thermometer: Nhiệt kế DS18B20
 Data saved: Lưu dữ liệu
-Days: Từ chối.
 Decline: Refuser
 Delete: Xóa
 Delete measurement history: Xóa lịch sử đo
@@ -196,7 +194,6 @@ For devices: Cho thiết bị
 Forgot your password?: Quên mật khẩu?
 Forward active energy: Forward active energy
 Forward reactive energy: Năng lượng phản ứng lấy
-Fridays: Thứ sáu
 From IP: Từ IP
 From anywhere: Từ bất cứ đâu
 Full closing time: Tổng thời gian đóng cửa
@@ -225,7 +222,6 @@ Heat meter: đồng hồ nhiệt
 History of measurements: Lịch sử đo lường
 Home appliances: Thiết bị gia dụng
 Home+ Heater: Home+ Heater
-Hours: Giờ
 'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Tuy nhiên, hiện tại có quá nhiều load trên máy chủ của chúng tôi. Chúng tôi đang theo dõi tình hình. Trở lại sau một lúc'
 Humidity: Độ ẩm
 Humidity Sensor: Cảm biến độ ẩm
@@ -282,11 +278,9 @@ Make sure to save it in a secure place if you wish to access it in the future. T
 Manually closed: Đóng thủ công
 'Maximum filesize limit is {limit}.': 'Giới hạn kích thước tệp tối đa là {limit}.'
 Meter value: giá trị bộ đếm
-Minute: Phút
 Mobile Apps: Ứng dụng di động
 Mode: Chế độ
 Modification: Sửa đổi
-Mondays: Thứ hai
 My OAuth apps: Ứng dụng OAuths
 My SUPLA: SUPLA
 Name: Tên
@@ -382,13 +376,11 @@ Roller shutters: Cửa chớp lăn
 SUPLA Cloud is under maintenance.: Đám mây SUPLA đang được bảo trì.
 SUPLA Server was unable to execute the action.: Máy chủ SUPLA không thể thực thi hành động.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA có thể truy cập ở mọi nơi mọi lúc, vì vậy đừng lo lắng, nếu bạn quên tắt đèn lần sau'
-Saturdays: Thứ bảy
 Save: Lưu
 Save and enable: Lưu và kích hoạt
 Save changes: Lưu thay đổi
 Save changes to see Access IDs: Lưu các thay đổi để xem ID truy cập
 Schedule: Lịch trình.
-Schedule cannot be enabled: Lịch trình không thể được kích hoạt
 Schedule limit has been exceeded: Giới hạn lịch trình đã bị vượt quá
 Schedule mode: Chế độ lịch trình
 Schedules: Lịch trình.
@@ -423,12 +415,9 @@ Start date: Ngày bắt đầu
 State: Trạng thái
 State webhook: Trạng thái Webhook
 Stop: Dừng
-Subject: Đối tượng
 Subject type: Loại đối tượng
 Success: Thành công
 Successful: Thành công
-Sundays: Chủ Nhật
-Sunrise / Sunset: Sáng / Chiều
 Supla for devices: Supla cho các thiết bị
 Temperature: Nhiệt độ
 Temperature & Humidity Sensor: Cảm biến nhiệt độ và độ ẩm
@@ -462,12 +451,10 @@ Thermometer: Nhiệt kế
 Thermostat: Bình giữ nhiệt
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Liên kết trực tiếp này yêu cầu các tham số tiếp theo để được thực hiện đúng. Xem các ví dụ dưới đây để có ý tưởng về những gì bạn có thể làm.
 This is the list of applications you have granted access to your account.: Đây là danh sách các ứng dụng bạn đã cấp quyền truy cập vào tài khoản của bạn..
-Thursdays: Thứ năm
 Timezone: Múi giờ
 Toggle: Chuyển đổi
 Token does not exist: Mã thông báo không tồn tại
 Too many channels in this group: Quá nhiều kênh trong nhóm này
-Tuesdays: Thứ ba
 Turning this device off will result in disabling all the associated schedules.: Tắt thiết bị này sẽ dẫn đến vô hiệu hóa tất cả các lịch trình liên quan.
 Type: Loại
 Unit: Đơn vị
@@ -496,10 +483,8 @@ We will miss you: Chúng tôi sẽ nhớ bạn
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Chúng tôi sẽ cố gắng hiển thị các biểu tượng nhận được theo cách tốt nhất có thể, tuy nhiên bạn sẽ thu được kết quả tốt nhất bằng cách gửi cho chúng tôi qua tệp PNG có nền trong suốt, chiều rộng {width} px và chiều cao {height}.'
 We will use it only in justified situations.: Chúng tôi sẽ chỉ sử dụng nó trong các tình huống hợp lý.
 Weather Station: Trạm thời tiết
-Wednesdays: Thứ tư
 Weight sensor: Cảm biến trọng lượng
 What this token is for?: Mã thông báo này để làm gì ?
-When: Khi
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Khi bạn thực hiện liên kết với phương thức HTTP PATCH, bạn có thể bỏ qua phần ngẫu nhiên của liên kết và gửi nó trong phần thân yêu cầu. Điều này an toàn hơn vì yêu cầu như vậy sẽ không được lưu trữ trong bất kỳ nhật ký máy chủ hoặc proxy nào, bất kể cấu hình của chúng. Vui lòng tìm một yêu cầu ví dụ cURL dưới đây.'
 Where is the JSON?: JSON ở đâu?
 Where is your SUPLA Cloud?: Đám mây SUPLA của bạn ở đâu??
@@ -562,7 +547,6 @@ executed: Thực thi
 extend: mở rộng
 from IP: từ địa chỉ IP
 from the IP: từ IP
-hourly: hàng giờ
 minutely: từng phút
 minutes: phút
 once: một lần
@@ -613,15 +597,19 @@ Access identifier password must be no longer than 32 characters.: Mật khẩu t
 Are you sure you want to disable this device?: Chắc chắn muốn xóa thiết bị này?
 Assigned Locations: Địa điểm được phân công
 Channel will be deleted from the channel group below: Kênh sẽ bị xóa khỏi nhóm kênh
+Chosen hour: Giờ được chọn
 'Confirm if you want to remove {deviceName} device': 'Xác nhận muốn xóa {deviceName} thiết bị'
 DISABLED: TẮT
 Date: Ngày
+Days: Từ chối.
 Direct links below will be deleted: Link liên kết dưới đây sẽ bị xóa
 ENABLED: BẬT
 Email already exists: Email đã tồn tại
 Existing schedules: Lịch trình hiện có
+Fridays: Thứ sáu
 Hi: Hi
 Hour: Giờ
+Hours: Giờ
 I/O: Đầu vào/Đầu ra
 'If you want to stay here, do something!': 'Nếu bạn muốn ở lại đây, hãy làm gì đó!'
 Input: Đầu vào
@@ -629,22 +617,36 @@ Languages: Idiomas
 Loading: Đang tải
 Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
 Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
+Minute: Phút
+Mondays: Thứ hai
 Next: Tiếp theo
 Number: Số
 Output: Đầu ra
 Please select the schedules that should also be enabled.: Vui lòng chọn lịch trình cũng sẽ được kích hoạt.
 Registration: Đăng ký
 Remove: Gỡ bỏ
+Saturdays: Thứ bảy
+Schedule cannot be enabled: Lịch trình không thể được kích hoạt
 Schedules below will be deleted: Lịch trình dưới đây sẽ bị xóa
 Status: Trạng thái
+Subject: Đối tượng
+Sundays: Chủ Nhật
+Sunrise / Sunset: Sáng / Chiều
+Thursdays: Thứ năm
 Try again later: Thử lại sau
+Tuesdays: Thứ ba
+Wednesdays: Thứ tư
+When: Khi
 You will be logged out shortly: Bạn sẽ được đăng xuất ngay
 execute: Thực thi
+hourly: hàng giờ
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 '%s trigger is not supported by the hardware.': ~
+'10 minutes before sunset, on day 10 of the month, May through August': ~
+'15 minutes after sunrise, every 2 days': ~
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
@@ -653,13 +655,27 @@ Actual behavior of the triggers depend on the device you use and its configurati
 Add a delay: ~
 Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 Are you sure you want to delete this scene?: ~
+Are you sure you want to reset the counter state?: ~
 Associated measured channel: ~
 Associated measurement channel: ~
+'At 05:45 PM, on the last day of the month': ~
+'At 11:30 AM, on the third Wednesday of the month': ~
+At every 5th minute on day-of-month 30 in May: ~
+At sunrise: ~
+'At sunrise, Monday through Friday': ~
+At sunset: ~
+Automatic calibration: ~
 Bar: ~
 Be right back!: ~
+Bottom position: ~
+Calibrate: ~
+Calibration successful.: ~
+Cannot calculate when to run the schedule - incorrect configuration?: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
+Channel is disconnected.: ~
 Channel name: ~
 Channel reference will be removed from the items below.: ~
 Channel value: ~
@@ -668,7 +684,10 @@ Chart data source type: ~
 Chart type: ~
 Check your email inbox: ~
 Clear: ~
+Config of the schedule is too complicated.: ~
+Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Could not perform the calibration.: ~
 Create new scene: ~
 Current Overload: ~
 Default: ~
@@ -690,7 +709,8 @@ Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
 Interpolate measurements: ~
 Invalid action parameters: ~
-Invalid action.: ~
+Invalid schedule config (incorrect action).: ~
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Location name: ~
 MQTT Broker: ~
@@ -702,32 +722,42 @@ MQTT Broker username and password is not configured in this SUPLA Cloud instance
 Make sure to copy it now because you won’t be able to see it again!: ~
 Need one of these?: ~
 New scene: ~
+No of channels: ~
+No of client apps: ~
+No of devices: ~
 No of operations: ~
+No schedule configuration.: ~
 Number of sections: ~
 Operations: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Please choose the schedule subject first.: ~
 Port: ~
 Precision: ~
 Protocol: ~
 Regeneration starts at: ~
+Reset counter: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+Save or discard configuration changes before calibration.: ~
 Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
 Some features depend on this device: ~
 Some of the features you have configured rely on channels from this device.: ~
 Standard: ~
 Store measurements history: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~
 'The items below rely on this channel function, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
 Triggers: ~
 Turning this device off will cause its channels not working in the following features.: ~
 Turning this device off will result in disabling features listed below.: ~
@@ -736,6 +766,7 @@ Value per unit: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
 You cannot use SUPLA project name in the domain name.: ~
 You have to choose at least one scope.: ~
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
 You must enable MQTT Broker first.: ~
 You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
@@ -755,10 +786,18 @@ actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
 actionableSubjectType_scene: ~
 choose the scene: ~
+crontab: ~
+days: ~
+empty: ~
+hours: ~
 min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
 suffix: ~
+'{minutes} minutes after sunrise': ~
+'{minutes} minutes after sunset': ~
+'{minutes} minutes before sunrise': ~
+'{minutes} minutes before sunset': ~
 
 #</editor-fold>

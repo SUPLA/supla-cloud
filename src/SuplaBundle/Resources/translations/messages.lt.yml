@@ -96,7 +96,6 @@ Choose Access Identifier: Pasirinkite Prieigos Identifikatorių
 Choose Access Identifiers to be assigned to this Location: 'Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai'
 Choose client apps: Izvēlieties klienta lietojumprogrammas
 Choose location: Pasirinkti vietą
-Chosen hour: Pasirinktas laikas
 Client registration: Klientų registracija
 Client’s Apps: Klientų programos
 Client’s app has been deleted: Kliento programa pašalinta
@@ -130,7 +129,6 @@ DHT21 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT21
 DHT22 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT22
 DS18B20 Thermometer: Termometras DS18B20
 Data saved: Duomenys išsaugoti
-Days: Dienos
 Decline: Atsisakyti
 Delete: Pašalinti
 Delete measurement history: Pašalinti matavimų istoriją
@@ -195,7 +193,6 @@ For devices: Įrenginiams
 Forgot your password?: Pamiršote slaptažodį?
 Forward active energy: Aktyvioji energija parsisiųsta
 Forward reactive energy: Reaktyvioji energija parsisiųsta
-Fridays: Penktadieniai
 From IP: Iš IP adreso
 From anywhere: Iš kiekvienos vietos
 Full closing time: Bendras uždarymo laikas
@@ -224,7 +221,6 @@ Heat meter: Šilumos skaitiklis
 History of measurements: Matmenų istorija
 Home appliances: Buitinė technika/RTV įranga
 Home+ Heater: Šildytuvas Home+
-Hours: Valandos
 'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Deja, šiuo metu mūsų serverių naudojimas pasiekė pavojingą lygį. Stebime situaciją, sugrįžkite po kelių minučių.'
 Humidity: Drėgmė
 Humidity Sensor: Drėgmės jutiklis
@@ -281,11 +277,9 @@ Make sure to save it in a secure place if you wish to access it in the future. T
 Manually closed: Uždarytas rankiniu būdu
 'Maximum filesize limit is {limit}.': 'Maksimalus failo dydis tai {limit}.'
 Meter value: Skaitiklio būsena
-Minute: Minutė
 Mobile Apps: Mobiliosios programos
 Mode: Režimas
 Modification: Modifikavimas
-Mondays: Pirmadieniai
 My OAuth apps: Mano programos OAuth
 My SUPLA: Mano SUPLA
 Name: Pavadinimas
@@ -381,13 +375,11 @@ Roller shutters: Žaliuzės
 SUPLA Cloud is under maintenance.: Vyksta SUPLA Cloud atnaujinimas.
 SUPLA Server was unable to execute the action.: Klaida atliekant veiksmą SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA prieinama visada ir vidur, todėl nesijaudinkite, kai sekantį kartą pamiršite išjungti šviesą'
-Saturdays: Šeštadieniai
 Save: Išsaugoti
 Save and enable: Išsaugoti ir įjungti
 Save changes: Išsaugoti pakeitimus
 Save changes to see Access IDs: 'Išsaugoti pakeitimus, kad peržiūrėti prieigos identifikatorius'
 Schedule: Tvarkaraštis
-Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
 Schedule limit has been exceeded: Viršutinė tvarkaraščių riba viršyta
 Schedule mode: Tvarkaraščio režimas
 Schedules: Tvarkaraščiai
@@ -422,12 +414,9 @@ Start date: Pradžios data
 State: Būsena
 State webhook: Būsenos webhook
 Stop: Apturēt
-Subject: Subjektas
 Subject type: Subjekto tipas
 Success: Sėkmė
 Successful: Sėkmingai
-Sundays: Sekmadieniai
-Sunrise / Sunset: Saulėtekis / Saulėlydis
 Supla for devices: Supla įrenginiams
 Temperature: Temperatūra
 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis
@@ -461,12 +450,10 @@ Thermometer: Termometras
 Thermostat: Termostatas
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.'
 This is the list of applications you have granted access to your account.: 'Tai programų sąrašas, kurioms suteikėte prieigą Jūsų paskyroje.'
-Thursdays: Ketvirtadieniai
 Timezone: Laiko juosta
 Toggle: Perjungti
 Token does not exist: Atpažinimo ženklas neegzistuoja
 Too many channels in this group: Šioje grupė per daug kanalų
-Tuesdays: Antradieniai
 Turning this device off will result in disabling all the associated schedules.: 'Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.'
 Type: Tipas
 Unit: Vienetas
@@ -495,10 +482,8 @@ We will miss you: Ilgėsimės Jūsų
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Mes padarysime viską, kas įmanoma,kad persiųstos piktogramos būtų rodomos kuo geriausiai, bet geriausius rezultatus pasieksite, siunčiant  PNG failus su skaidriu fonu, o taip pat {width} pločio ir {height} aukščio pikseliais.'
 We will use it only in justified situations.: Panaudosime jį tik pagrįstais atvejais.
 Weather Station: Meteorologijos stotis
-Wednesdays: Trečiadieniai
 Weight sensor: Svoris
 What this token is for?: Kam yra skirtas šis tokenas?
-When: Kada
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.'
 Where is the JSON?: Kur yra JSON?
 Where is your SUPLA Cloud?: Kur yra Jūsų SUPLA?
@@ -561,7 +546,6 @@ executed: atlikta
 extend: tęsti
 from IP: iš IP adreso
 from the IP: iš adreso
-hourly: Valandinis ciklas
 minutely: Minutinis ciklas
 minutes: minutes
 once: Vienkartinis
@@ -612,15 +596,19 @@ Access identifier password must be no longer than 32 characters.: Piekļuves ide
 Are you sure you want to disable this device?: Ar tikrai norite išjungti šį įrenginį?
 Assigned Locations: Priskirtos Vietos
 Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
+Chosen hour: Pasirinktas laikas
 'Confirm if you want to remove {deviceName} device': 'Patvirtinkite, kad norite pašalinti įrenginį {deviceName}'
 DISABLED: IŠJUNGTA
 Date: Data
+Days: Dienos
 Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
 ENABLED: ĮJUNGTA
 Email already exists: El. pašto adresas jau egzistuoja
 Existing schedules: Egzistuojantys tvarkaraščiai
+Fridays: Penktadieniai
 Hi: Sveiki
 Hour: Laikas
+Hours: Valandos
 I/O: Įvestis/Išvestis
 'If you want to stay here, do something!': 'Jei norite likti čia, padarykite ką nors!'
 Input: Įvestis
@@ -628,22 +616,36 @@ Languages: Kalbos
 Loading: Krovimas
 Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
 Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
+Minute: Minutė
+Mondays: Pirmadieniai
 Next: Toliau
 Number: Numeris
 Output: Išvestis
 Please select the schedules that should also be enabled.: 'Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.'
 Registration: Registracija
 Remove: Pašalinti
+Saturdays: Šeštadieniai
+Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
 Schedules below will be deleted: Šie tvarkaraščiai bus pašalinti
 Status: Statusas
+Subject: Subjektas
+Sundays: Sekmadieniai
+Sunrise / Sunset: Saulėtekis / Saulėlydis
+Thursdays: Ketvirtadieniai
 Try again later: Pabandykite dar kartą vėliau
+Tuesdays: Antradieniai
+Wednesdays: Trečiadieniai
+When: Kada
 You will be logged out shortly: Netrukus busite atjungti
 execute: atlik
+hourly: Valandinis ciklas
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 '%s trigger is not supported by the hardware.': ~
+'10 minutes before sunset, on day 10 of the month, May through August': ~
+'15 minutes after sunrise, every 2 days': ~
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
@@ -652,14 +654,28 @@ Actual behavior of the triggers depend on the device you use and its configurati
 Add a delay: ~
 Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 Are you sure you want to delete this scene?: ~
+Are you sure you want to reset the counter state?: ~
 Associated measured channel: ~
 Associated measurement channel: ~
+'At 05:45 PM, on the last day of the month': ~
+'At 11:30 AM, on the third Wednesday of the month': ~
+At every 5th minute on day-of-month 30 in May: ~
+At sunrise: ~
+'At sunrise, Monday through Friday': ~
+At sunset: ~
+Automatic calibration: ~
 Bar: ~
 Be right back!: ~
+Bottom position: ~
+Calibrate: ~
+Calibration successful.: ~
+Cannot calculate when to run the schedule - incorrect configuration?: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
 Channel group: ~
+Channel is disconnected.: ~
 Channel name: ~
 Channel reference will be removed from the items below.: ~
 Channel value: ~
@@ -668,7 +684,10 @@ Chart data source type: ~
 Chart type: ~
 Check your email inbox: ~
 Clear: ~
+Config of the schedule is too complicated.: ~
+Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Could not perform the calibration.: ~
 Create new scene: ~
 Current Overload: ~
 Default: ~
@@ -690,7 +709,8 @@ Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
 Interpolate measurements: ~
 Invalid action parameters: ~
-Invalid action.: ~
+Invalid schedule config (incorrect action).: ~
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Location name: ~
 MQTT Broker: ~
@@ -702,32 +722,42 @@ MQTT Broker username and password is not configured in this SUPLA Cloud instance
 Make sure to copy it now because you won’t be able to see it again!: ~
 Need one of these?: ~
 New scene: ~
+No of channels: ~
+No of client apps: ~
+No of devices: ~
 No of operations: ~
+No schedule configuration.: ~
 Number of sections: ~
 Operations: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Please choose the schedule subject first.: ~
 Port: ~
 Precision: ~
 Protocol: ~
 Regeneration starts at: ~
+Reset counter: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+Save or discard configuration changes before calibration.: ~
 Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
 Some features depend on this device: ~
 Some of the features you have configured rely on channels from this device.: ~
 Standard: ~
 Store measurements history: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~
 'The items below rely on this channel function, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
 Triggers: ~
 Turning this device off will cause its channels not working in the following features.: ~
 Turning this device off will result in disabling features listed below.: ~
@@ -736,6 +766,7 @@ Value per unit: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
 You cannot use SUPLA project name in the domain name.: ~
 You have to choose at least one scope.: ~
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
 You must enable MQTT Broker first.: ~
 You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
@@ -755,10 +786,18 @@ actionTrigger_PRESS_3X: ~
 actionTrigger_RELEASE: ~
 actionableSubjectType_scene: ~
 choose the scene: ~
+crontab: ~
+days: ~
+empty: ~
+hours: ~
 min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
 suffix: ~
+'{minutes} minutes after sunrise': ~
+'{minutes} minutes after sunset': ~
+'{minutes} minutes before sunrise': ~
+'{minutes} minutes before sunset': ~
 
 #</editor-fold>
