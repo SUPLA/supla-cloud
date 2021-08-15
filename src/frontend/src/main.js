@@ -9,6 +9,7 @@ import router from './router';
 import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
 import vMediaQuery from 'v-media-query';
+import VTooltip from 'v-tooltip';
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
 import * as requestTransformers from "./common/http/transformers";
 import "moment-timezone";
@@ -25,6 +26,7 @@ import EventBus from "./common/event-bus";
 Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
+Vue.use(VTooltip);
 
 Vue.prototype.$frontendVersion = FRONTEND_VERSION; // eslint-disable-line no-undef
 Vue.config.productionTip = false;

@@ -34,6 +34,7 @@
     "pnotify": "3.2.1",
     "spectrum-colorpicker": "1.8.0",
     "v-media-query": "^1.0.3",
+    "v-tooltip": "^2.1.3",
     "vivus": "0.4.4",
     "vue": "^2.6.12",
     "vue-carousel": "0.6.5",

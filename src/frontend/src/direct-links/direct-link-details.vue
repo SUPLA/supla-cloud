@@ -73,10 +73,9 @@
                                             </div>
                                         </transition-expand>
                                         <dl>
-                                            <dd>
+                                            <dd v-tooltip="$t('Allows to perform an action only using the HTTP PATCH request.')">
                                                 {{ $t('For devices') }}
-                                                <i class="pe-7s-help1"
-                                                    :title="$t('Allows to perform an action only using the HTTP PATCH request.')"></i>
+                                                <i class="pe-7s-help1"></i>
                                             </dd>
                                             <dt>
                                                 <toggler

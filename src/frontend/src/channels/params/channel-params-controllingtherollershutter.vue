@@ -42,10 +42,9 @@
             </dl>
         </transition-expand>
         <dl>
-            <dd>
+            <dd v-tooltip="$t('Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.')">
                 {{ $t('Percentage of closure with untightened blinds') }}
-                <i class="pe-7s-help1 pointer"
-                    @click="windowsillPpHelp = !windowsillPpHelp"></i>
+                <i class="pe-7s-help1"></i>
             </dd>
             <dt>
                 <span class="input-group">
@@ -60,10 +59,6 @@
                 </span>
             </dt>
         </dl>
-        <div class="help-block small"
-            v-if="windowsillPpHelp">
-            {{ $t('Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.') }}
-        </div>
         <dl>
             <dd>{{ $t('Opening sensor') }}</dd>
             <dt>
@@ -88,7 +83,6 @@
         props: ['channel', 'sensorFunction'],
         data() {
             return {
-                windowsillPpHelp: false,
                 manualOpeningTimes: {openingTimeS: 10, closingTimeS: 10},
             };
         },

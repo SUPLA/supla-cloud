@@ -1,5 +1,6 @@
 <template>
-    <div v-if="channel.config.recalibrateAvailable">
+    <div v-if="channel.config.recalibrateAvailable"
+        v-tooltip="calibrationDisabledReason">
         <button class="btn btn-default btn-block"
             type="button"
             :disabled="!isConnected || channel.hasPendingChanges"
@@ -53,9 +54,18 @@
             notCalibrated() {
                 return this.calibrating || (this.channel.state && this.channel.state.not_calibrated);
             },
+            calibrationDisabledReason() {
+                if (!this.isConnected) {
+                    return this.$t('Channel is disconnected.');
+                } else if (this.channel.hasPendingChanges) {
+                    return this.$t('Save or discard configuration changes before calibration.')
+                } else {
+                    return '';
+                }
+            }
         },
         watch: {
-            isCalibrating(newState, oldState) {
+            notCalibrated(newState, oldState) {
                 if (!newState && oldState === true) {
                     if (this.calibrationError) {
                         errorNotification(this.$t('Error'), this.$t('Could not calibrate the channel.'));
