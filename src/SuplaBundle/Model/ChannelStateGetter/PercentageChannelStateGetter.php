@@ -14,7 +14,7 @@ class PercentageChannelStateGetter implements SingleChannelStateGetter {
             return ['closed' => min(100, max(0, $value))];
         }
         return [
-            // TODO should be determined from channel flags returned by the server, when it supports it; it will be breaking for Alexa/GA/MQTT
+            // TODO should be determined from channel flags returned by server, when it supports it; it will be breaking for Alexa/GA/MQTT
             'is_calibrating' => $value == -1,
             'not_calibrated' => $value == -1,
             'shut' => min(100, max(0, $value)),
