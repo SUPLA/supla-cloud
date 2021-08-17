@@ -259,8 +259,6 @@ class ChannelController extends RestController {
             $em->persist($channel);
             return $channel;
         });
-        $this->suplaServer->onDeviceSettingsChanged($channel->getIoDevice());
-        $this->suplaServer->reconnect();
         return $this->getChannelAction($request, $channel->clearRelationsCount());
     }
 
