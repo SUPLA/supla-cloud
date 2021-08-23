@@ -56,6 +56,17 @@ abstract class SuplaServer {
 
     abstract protected function command($command);
 
+    public function getServerStatus(): string {
+        try {
+            $result = $this->command('GET-STATUS');
+            if ($result && trim($result)) {
+                return trim($result);
+            }
+        } catch (SuplaServerIsDownException $e) {
+        }
+        return 'DOWN';
+    }
+
     private function executeCommand(string $command) {
         if ($this->connect() !== false) {
             $result = $this->command($command);

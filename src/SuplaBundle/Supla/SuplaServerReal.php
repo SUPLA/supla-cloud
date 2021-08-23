@@ -86,8 +86,7 @@ class SuplaServerReal extends SuplaServer {
             return false;
         }
         if ($this->connect() !== false) {
-            $result = $this->command("UNKNOWN-COMMAND");
-            return $result !== false && preg_match("/^COMMAND_UNKNOWN\n/", $result) === 1 ? true : false;
+            return $this->getServerStatus() === 'OK';
         }
         return false;
     }

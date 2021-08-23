@@ -65,6 +65,7 @@ class ServerControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertFalse($content['authenticated']);
         $this->assertArrayNotHasKey('username', $content);
+        $this->assertArrayNotHasKey('serverStatus', $content);
     }
 
     public function testGettingServerInfo() {
@@ -98,5 +99,18 @@ class ServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(self::$container->getParameter('supla_server'), $content->address);
         $this->assertEquals('supler@supla.org', $content->username);
         $this->assertNotEmpty($content->time);
+    }
+
+    public function testGettingServerInfoForVersion24() {
+        $client = $this->createAuthenticatedClient();
+        $client->request('GET', '/api/v2.4.0/server-info', [], [], $this->versionHeader(ApiVersions::V2_2()));
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent());
+        $this->assertEquals(self::$container->getParameter('supla_server'), $content->address);
+        $this->assertEquals('supler@supla.org', $content->username);
+        $this->assertNotEmpty($content->time);
+        $this->assertEquals('OK', $content->serverStatus);
+        $this->assertTrue($content->serverAlive);
     }
 }

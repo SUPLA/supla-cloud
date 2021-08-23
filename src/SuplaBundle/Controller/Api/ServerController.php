@@ -83,6 +83,10 @@ class ServerController extends RestController {
         } else {
             $result = ['data' => $result];
         }
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            $result['serverAlive'] = $this->suplaServer->isAlive();
+            $result['serverStatus'] = $this->suplaServer->getServerStatus();
+        }
         return $this->view($result, Response::HTTP_OK);
     }
 
@@ -96,11 +100,8 @@ class ServerController extends RestController {
 
     /** @Get("/server-status") */
     public function getServerStatusAction() {
-        $alive = $this->suplaServer->isAlive();
-        if ($alive) {
-            return $this->view(['status' => 'OK'], Response::HTTP_OK);
-        } else {
-            return $this->view(['status' => 'DOWN'], Response::HTTP_SERVICE_UNAVAILABLE);
-        }
+        $serverStatus = $this->suplaServer->getServerStatus();
+        $responseStatus = $serverStatus === 'OK' ? Response::HTTP_OK : Response::HTTP_SERVICE_UNAVAILABLE;
+        return $this->view(['status' => $serverStatus], $responseStatus);
     }
 }
