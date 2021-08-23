@@ -15,7 +15,6 @@ class OnOffChannelStateGetter implements SingleChannelStateGetter {
 
     public function supportedFunctions(): array {
         return [
-            ChannelFunction::STAIRCASETIMER(),
             ChannelFunction::THERMOSTAT(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
         ];

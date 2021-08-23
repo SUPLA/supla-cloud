@@ -4,10 +4,9 @@ namespace SuplaBundle\Model\ChannelStateGetter;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\RelayStateBits;
-use SuplaBundle\Enums\ValveStateBits;
 use SuplaBundle\Supla\SuplaServerAware;
 
-class PowerSwitchChannelStateGetter implements SingleChannelStateGetter {
+class RelayChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
     public function getState(IODeviceChannel $channel): array {
@@ -26,6 +25,7 @@ class PowerSwitchChannelStateGetter implements SingleChannelStateGetter {
         return [
             ChannelFunction::POWERSWITCH(),
             ChannelFunction::LIGHTSWITCH(),
+            ChannelFunction::STAIRCASETIMER(),
         ];
     }
 }

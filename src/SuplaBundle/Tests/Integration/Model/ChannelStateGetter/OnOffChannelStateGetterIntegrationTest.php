@@ -55,7 +55,7 @@ class OnOffChannelStateGetterIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingOnFromStaircaseTimer() {
-        SuplaServerMock::mockResponse('GET-CHAR-VALUE', "VALUE:1\n");
+        SuplaServerMock::mockResponse('GET-RELAY-VALUE', "VALUE:1,1\n");
         $state = $this->channelStateGetter->getState($this->device->getChannels()[4]);
         $this->assertArrayHasKey('on', $state);
         $this->assertTrue($state['on']);
