@@ -12,11 +12,13 @@
             data-width="100%"
             :data-none-selected-text="$t('choose the channel')"
             :data-none-results-text="$t('No results match {0}')"
+            data-style="btn-default btn-wrapped"
             v-model="chosenChannel"
             @change="$emit('input', chosenChannel)">
             <option :value="undefined"
                 :title="$t('choose the channel')"
-                v-show="!hideNone && chosenChannel">{{ $t('None') }}
+                v-show="!hideNone && chosenChannel">
+                {{ $t('None') }}
             </option>
             <option v-for="channel in channelsForDropdown"
                 :key="channel.id"
@@ -62,12 +64,12 @@
             },
             channelHtml(channel) {
                 let content = `<div class='subject-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels full"><h4>${this.channelCaption(channel)}`;
+                    + `<div class="labels full"><h4><span class="line-clamp line-clamp-2">${this.channelCaption(channel)}</span>`;
                 if (channel.caption) {
                     content += ` <span class='small text-muted'>ID${channel.id} ${this.$t(channel.function.caption)}</span>`;
                 }
                 content += '</h4>';
-                content += `<p>${channel.location.caption} / ${channel.iodevice.name}</p></div>`;
+                content += `<p class="line-clamp line-clamp-2">${channel.location.caption} / ${channel.iodevice.name}</p></div>`;
                 content += `<div class="icon"><img src="${channelIconUrl(channel)}"></div></div>`;
                 return content;
             },

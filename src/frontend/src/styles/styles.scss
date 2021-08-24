@@ -576,6 +576,19 @@ body.warning {
   margin: 15px 0;
 }
 
+.line-clamp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  &-2 {
+    -webkit-line-clamp: 2;
+  }
+  &-4 {
+    -webkit-line-clamp: 4;
+  }
+}
+
 @import "./buttons";
 @import "./checkbox";
 @import "./notifications";

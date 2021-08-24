@@ -6,7 +6,7 @@
                 <function-icon :model="model"
                     class="pull-right"
                     width="90"></function-icon>
-                <h3 class="no-margin-top">{{ caption }}</h3>
+                <h3 class="no-margin-top line-clamp line-clamp-4">{{ caption }}</h3>
             </div>
             <dl class="ellipsis"
                 v-if="model.caption">
@@ -55,7 +55,3 @@
         }
     };
 </script>
-
-<style scoped>
-
-</style>
