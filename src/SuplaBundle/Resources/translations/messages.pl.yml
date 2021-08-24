@@ -108,6 +108,8 @@ Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomo�
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
 Change Password: Zmiana hasła
+Change channel function: Zmień funkcję kanału
+Change function: Zmień funkcję
 Change icon: Zmień ikonę
 Changing channel’s function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
 Channel: Kanał
@@ -134,6 +136,7 @@ Check your email inbox: Sprawdź Twoją skrzynkę odbiorczą
 Choose: Wybierz
 Choose Access Identifier: Wybierz Identyfikator Dostępu
 Choose Access Identifiers to be assigned to this Location: 'Wybierz Identyfikatory Dostępu, które zostaną przypisane do tej Lokalizacji'
+Choose channel function: Wybierz funkcję kanału
 Choose client apps: Wybierz aplikacje klienckie
 Choose location: Wybierz lokalizację
 Clear: Wyczyść
@@ -156,7 +159,6 @@ Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
 Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
-Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
 Could not reset the password.: Nie udało się zresetować hasła.
 Could not reset the password. Please try again later.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
 Create New Access Identifier: Utwórz nowy Identyfikator Dostępu
@@ -389,6 +391,7 @@ No. of channels: Liczba kanałów
 No. of devices: Liczba urządzeń
 No. of locations: Liczba lokalizacji
 None: Brak
+None (channel disabled): Brak (kanał wyłączony)
 Number of sections: Liczba sekcji
 OAuth application: Aplikacja OAuth
 OAuth apps: Aplikacje OAuth
@@ -475,7 +478,7 @@ Save: Zapisz
 Save and enable: Zapisz i włącz
 Save changes: Zapisz zmiany
 Save changes to see Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
-Save or discard configuration changes before calibration.: Zapisz lub odrzuć zmiany w konfiguracji przed wykonaniem kalibracji
+Save or discard configuration changes first.: Najpierw zapisz lub odrzuć zmiany w konfiguracji.
 Scene: Scena
 Scene must consist of at least one operation.: Scena musi zawierać co najmniej jedną operację
 Scenes: Sceny
@@ -755,6 +758,7 @@ Change: Zmień
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Chosen hour: Wybrana godzina
 'Confirm if you want to remove {deviceName} device': 'Potwierdź chęć usunięcia urządzenia {deviceName}'
+Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
 DISABLED: WYŁĄCZONE
 Date: Data
 Days: Dni

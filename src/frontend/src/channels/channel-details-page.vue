@@ -14,10 +14,19 @@
                         {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
                         <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
                         {{ $t('Channel No') }}: {{ channel.channelNumber }},
+                        {{ $t('Function') }}:
                         {{ $t(channel.function.caption) }}
                         <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
-                        <a class="small"
-                            @click="changingFunction = true">{{ $t('Change function') }}</a>
+                        <span class="small"
+                            v-tooltip="$t('Save or discard configuration changes first.')"
+                            v-if="hasPendingChanges">
+                            {{ $t('Change function') }}
+                        </span>
+                        <a v-else
+                            class="small"
+                            @click="changingFunction = true">
+                            {{ $t('Change function') }}
+                        </a>
                     </h4>
 
                     <div class="row hidden-xs">
@@ -30,7 +39,7 @@
                         <div class="col-sm-4">
                             <h3>{{ $t('Configuration') }}</h3>
                             <div class="hover-editable hovered text-left">
-                                <dl v-if="channel.function.id">
+                                <dl>
                                     <dd>{{ $t('Channel name') }}</dd>
                                     <dt>
                                         <input type="text"
@@ -39,6 +48,8 @@
                                             @keydown="updateChannel()"
                                             v-model="channel.caption">
                                     </dt>
+                                </dl>
+                                <dl v-if="channel.function.id">
                                     <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                     <dt class="text-center">
                                         <toggler v-model="channel.hidden"
@@ -47,22 +58,28 @@
                                             @input="updateChannel()"></toggler>
                                     </dt>
                                 </dl>
+                                <div v-else>
+                                    <div class="form-group"></div>
+                                    <button
+                                        class="btn btn-default btn-block"
+                                        type="button"
+                                        @click="changingFunction = true">
+                                        {{ $t('Choose channel function') }}
+                                    </button>
+                                </div>
                                 <channel-params-form :channel="channel"
                                     @change="updateChannel()"></channel-params-form>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <h3>{{ $t('Location') }}</h3>
-                            <div class="form-group">
+                            <div class="form-group"
+                                v-tooltip.bottom="channel.inheritedLocation && $t('Channel is assigned to the I/O device location')">
                                 <square-location-chooser v-model="channel.location"
                                     :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
                                     @input="onLocationChange($event)"></square-location-chooser>
                             </div>
-                            <p v-if="channel.inheritedLocation"
-                                class="text-muted">
-                                {{ $t('Channel is assigned to the I/O device location') }}
-                            </p>
-                            <a v-else
+                            <a v-if="!channel.inheritedLocation"
                                 @click="onLocationChange(null)">
                                 {{ $t('Inherit I/O Device location') }}
                             </a>

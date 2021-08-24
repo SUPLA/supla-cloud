@@ -674,6 +674,8 @@ Calibration successful.: ~
 Cannot calculate when to run the schedule - incorrect configuration?: ~
 Cannot change the channel function right now.: ~
 Cannot delete this I/O Device right now.: ~
+Change channel function: ~
+Change function: ~
 Channel group: ~
 Channel is disconnected.: ~
 Channel name: ~
@@ -683,11 +685,11 @@ Channels groups are not supported for this function.: ~
 Chart data source type: ~
 Chart type: ~
 Check your email inbox: ~
+Choose channel function: ~
 Clear: ~
 Config of the schedule is too complicated.: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Could not perform the calibration.: ~
 Create new scene: ~
 Current Overload: ~
 Default: ~
@@ -727,6 +729,7 @@ No of client apps: ~
 No of devices: ~
 No of operations: ~
 No schedule configuration.: ~
+None (channel disabled): ~
 Number of sections: ~
 Operations: ~
 'Password must be at least {minLength} characters.': ~
@@ -739,7 +742,7 @@ Regeneration starts at: ~
 Reset counter: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
-Save or discard configuration changes before calibration.: ~
+Save or discard configuration changes first.: ~
 Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~

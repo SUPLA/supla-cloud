@@ -37,7 +37,7 @@
             supportedFunctions() {
                 return [].concat.apply([{
                     id: 0,
-                    caption: 'None (channel disabled)',
+                    caption: 'None (channel disabled)', // i18n
                     name: 'NONE',
                     possibleActions: []
                 }], this.channel.supportedFunctions);

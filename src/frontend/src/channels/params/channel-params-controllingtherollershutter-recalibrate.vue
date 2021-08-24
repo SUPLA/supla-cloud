@@ -54,7 +54,7 @@
                 if (!this.isConnected) {
                     return this.$t('Channel is disconnected.');
                 } else if (this.channel.hasPendingChanges) {
-                    return this.$t('Save or discard configuration changes before calibration.')
+                    return this.$t('Save or discard configuration changes first.')
                 } else {
                     return '';
                 }
