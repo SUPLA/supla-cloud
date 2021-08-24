@@ -45,6 +45,7 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
         $channel->setTextParam2($requestData['textParam2'] ?? null);
         $channel->setTextParam3($requestData['textParam3'] ?? null);
         $channel->setCaption($requestData['caption'] ?? '');
+        Assertion::maxLength($channel->getCaption(), 100, 'Caption is too long.'); // i18n
         $channel->setAltIcon($requestData['altIcon'] ?? 0);
         $channel->setHidden($requestData['hidden'] ?? false);
         if (isset($requestData['locationId']) && $requestData['locationId']

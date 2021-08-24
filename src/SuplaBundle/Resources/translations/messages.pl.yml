@@ -107,6 +107,7 @@ Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomo�
 'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Wiadomość z linkiem aktywującym Twoje konto nie dotarła? Upewnij się, że nie trafiła do folderu SPAM (niechciana poczta). Możesz też kliknąć [tutaj], by wysłać ją ponownie.'
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
+Caption is too long.: Nazwa jest za długa.
 Change Password: Zmiana hasła
 Change channel function: Zmień funkcję kanału
 Change function: Zmień funkcję

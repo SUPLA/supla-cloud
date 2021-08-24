@@ -1,6 +1,7 @@
 <?php
 namespace SuplaBundle\ParamConverter;
 
+use Assert\Assertion;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Model\CurrentUserAware;
@@ -24,6 +25,7 @@ class IODeviceParamConverter extends AbstractBodyParamConverter {
         $device = new IODevice();
         $device->setEnabled($requestData['enabled'] ?? false);
         $device->setComment($requestData['comment'] ?? '');
+        Assertion::maxLength($device->getComment(), 200, 'Caption is too long.'); // i18n
         if (isset($requestData['locationId']) && $requestData['locationId']) {
             $user = $this->getCurrentUserOrThrow();
             $location = $this->locationRepository->findForUser($user, $requestData['locationId']);

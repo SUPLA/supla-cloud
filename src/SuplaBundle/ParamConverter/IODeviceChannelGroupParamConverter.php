@@ -53,6 +53,7 @@ class IODeviceChannelGroupParamConverter extends AbstractBodyParamConverter {
             $channelGroup->setUserIcon($icon);
         }
         $channelGroup->setCaption($data['caption'] ?? '');
+        Assertion::maxLength($channelGroup->getCaption(), 100, 'Caption is too long.'); // i18n
         $channelGroup->setAltIcon($data['altIcon'] ?? 0);
         if (isset($data['hidden'])) {
             $channelGroup->setHidden(boolval($data['hidden']));
