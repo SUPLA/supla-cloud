@@ -13,37 +13,23 @@
                     <h4>
                         {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
                         <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
-                        {{ $t('Channel No') }}: {{ channel.channelNumber }}
+                        {{ $t('Channel No') }}: {{ channel.channelNumber }},
+                        {{ $t(channel.function.caption) }}
+                        <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
+                        <a class="small"
+                            @click="changingFunction = true">{{ $t('Change function') }}</a>
                     </h4>
+
                     <div class="row hidden-xs">
                         <div class="col-xs-12">
                             <dots-route></dots-route>
                         </div>
                     </div>
+
                     <div class="row text-center">
                         <div class="col-sm-4">
-                            <h3>{{ $t('Function') }}</h3>
+                            <h3>{{ $t('Configuration') }}</h3>
                             <div class="hover-editable hovered text-left">
-                                <div class="form-group">
-                                    <div class="dropdown hovered">
-                                        <button class="btn btn-default dropdown-toggle btn-block btn-wrapped"
-                                            type="button"
-                                            data-toggle="dropdown">
-                                            <h4>
-                                                {{ $t(channel.function.caption) }}
-                                                <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
-                                            </h4>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li v-for="fnc in supportedFunctions"
-                                                :key="fnc.id">
-                                                <a @click="onFunctionChange(fnc)"
-                                                    v-show="channel.function.id != fnc.id">{{ $t(fnc.caption) }}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 <dl v-if="channel.function.id">
                                     <dd>{{ $t('Channel name') }}</dd>
                                     <dt>
@@ -89,21 +75,29 @@
                                 v-if="channelFunctionIsChosen"
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
                             <channel-state-table :channel="channel"
-                                v-if="!changedFunction && channelFunctionIsChosen"></channel-state-table>
+                                v-if="channelFunctionIsChosen"></channel-state-table>
                         </div>
                     </div>
                 </pending-changes-page>
             </div>
 
 
-            <channel-details-tabs v-if="channel && (!changedFunction || !loading)"
+            <channel-details-tabs v-if="channel && !loading"
                 :channel="channel"></channel-details-tabs>
 
         </loading-cover>
+
+        <channel-function-edit-modal v-if="changingFunction"
+            :channel="channel"
+            :loading="loading"
+            @cancel="changingFunction = false"
+            @confirm="changeFunction($event)"></channel-function-edit-modal>
+
         <channel-function-edit-confirmation :confirmation-object="changeFunctionConfirmationObject"
             v-if="changeFunctionConfirmationObject"
             @cancel="loading = changeFunctionConfirmationObject = undefined"
-            @confirm="saveChanges(false)"></channel-function-edit-confirmation>
+            @confirm="changeFunction(changeFunctionConfirmationObject.newFunction, false)"></channel-function-edit-confirmation>
+
     </page-container>
 </template>
 
@@ -122,10 +116,12 @@
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
     import $ from "jquery";
+    import ChannelFunctionEditModal from "@/channels/channel-function-edit-modal";
 
     export default {
         props: ['id'],
         components: {
+            ChannelFunctionEditModal,
             PageContainer,
             PendingChangesPage,
             ChannelFunctionEditConfirmation,
@@ -144,7 +140,7 @@
                 error: false,
                 loading: false,
                 hasPendingChanges: false,
-                changedFunction: false,
+                changingFunction: false,
                 changeFunctionConfirmationObject: undefined
             };
         },
@@ -159,7 +155,7 @@
                     .then(response => {
                         this.channel = response.body;
                         this.$set(this.channel, 'enabled', !!this.channel.function.id);
-                        this.changedFunction = this.hasPendingChanges = this.loading = false;
+                        this.hasPendingChanges = this.loading = false;
                     })
                     .catch(response => this.error = response.status);
             },
@@ -173,20 +169,30 @@
             cancelChanges() {
                 this.fetchChannel();
             },
-            saveChanges: throttle(function (safe = true) {
+            changeFunction(newFunction, safe = true) {
+                const channel = {...this.channel};
+                channel.function = newFunction;
+                channel.altIcon = 0;
+                channel.userIconId = null;
                 this.loading = true;
                 this.changeFunctionConfirmationObject = undefined;
-                this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), this.channel, {skipErrorHandler: [409]})
+                this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), channel, {skipErrorHandler: [409]})
                     .then(response => $.extend(this.channel, response.body))
-                    .then(() => {
-                        this.changedFunction = this.hasPendingChanges = false;
-                        this.$set(this.channel, 'hasPendingChanges', false);
-                    })
                     .catch(response => {
                         if (response.status === 409) {
                             this.changeFunctionConfirmationObject = response.body;
-                            this.hasPendingChanges = true;
+                            this.changeFunctionConfirmationObject.newFunction = newFunction;
                         }
+                    })
+                    .finally(() => this.changingFunction = this.loading = false);
+            },
+            saveChanges: throttle(function () {
+                this.loading = true;
+                return this.$http.put(`channels/${this.id}?safe=1`, this.channel)
+                    .then(response => $.extend(this.channel, response.body))
+                    .then(() => {
+                        this.hasPendingChanges = false;
+                        this.$set(this.channel, 'hasPendingChanges', false);
                     })
                     .finally(() => this.loading = false);
             }, 1000),
@@ -197,15 +203,6 @@
                 }
                 this.$set(this.channel, 'location', location);
                 this.updateChannel();
-            },
-            onFunctionChange(fnc) {
-                this.changedFunction = true;
-                this.$set(this.channel, 'state', {});
-                this.$set(this.channel, 'function', fnc);
-                this.channel.altIcon = 0;
-                this.channel.userIconId = null;
-                // this.channel.params = {};
-                this.updateChannel();
             }
         },
         computed: {
@@ -214,9 +211,6 @@
             },
             deviceTitle() {
                 return deviceTitle(this.channel.iodevice, this);
-            },
-            supportedFunctions() {
-                return [].concat.apply([{id: 0, caption: 'None', name: 'NONE', possibleActions: []}], this.channel.supportedFunctions);
             },
             frozenShownInClientsState() {
                 if (this.channel.config.controllingChannelId || this.channel.config.controllingSecondaryChannelId) {
@@ -232,14 +226,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    .dropdown h4 {
-        margin: 0;
-        display: inline-block;
-    }
-
-    .btn .caret {
-        margin-left: .3em;
-    }
-</style>
