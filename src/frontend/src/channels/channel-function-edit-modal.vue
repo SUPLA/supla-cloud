@@ -48,6 +48,7 @@
 
 <style lang="scss">
     @import "../styles/variables";
+    @import "../styles/mixins";
 
     .functions-list {
         list-style: none;
@@ -71,6 +72,9 @@
             &.active {
                 background: $supla-green;
                 color: $supla-white;
+            }
+            @include on-xs-and-down {
+                min-width: 45%;
             }
         }
     }

@@ -4,20 +4,21 @@
             v-if="id !== 'new'">
             <div class="container"
                 v-if="schedule">
-                <pending-changes-page :header="$t('Schedule') + ' ID' + schedule.id"
+                <pending-changes-page
+                    :header="scheduleCaption"
                     @cancel="cancelChanges()"
                     @save="saveChanges()"
                     :is-pending="hasPendingChanges">
                     <div class="btn-toolbar"
                         slot="buttons">
-                        <a class="btn btn-danger"
-                            @click="deleteConfirm = true">
-                            {{ $t('Delete') }}
-                        </a>
                         <router-link :to="{name: 'schedule.edit', params: {id: schedule.id}}"
                             class="btn btn-default">
                             {{ $t('Edit') }}
                         </router-link>
+                        <a class="btn btn-danger"
+                            @click="deleteConfirm = true">
+                            {{ $t('Delete') }}
+                        </a>
                     </div>
                     <div class="row hidden-xs">
                         <div class="col-xs-12">
@@ -182,7 +183,10 @@
             },
             retryOptionDisabled() {
                 return this.scheduleActionWarning || this.schedule.subjectType != 'channel';
-            }
+            },
+            scheduleCaption() {
+                return this.schedule.caption || `${this.$t('Schedule')} ${this.$t('ID')}${this.schedule.id}`;
+            },
         },
         watch: {
             id() {

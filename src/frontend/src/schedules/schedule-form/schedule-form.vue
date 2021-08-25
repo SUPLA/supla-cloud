@@ -4,22 +4,23 @@
         <loading-cover :loading="!schedule || submitting">
             <pending-changes-page :header="schedule.id ? $t('Schedule') + ' ID' + id : $t('Create New Schedule')"
                 v-if="schedule">
-                <div slot="buttons">
+                <div slot="buttons"
+                    class="btn-toolbar">
                     <router-link :to="{name: 'schedule', params: {id: schedule.id}}"
                         class="btn btn-grey"
                         v-if="schedule.id">
                         <i class="pe-7s-back"></i>
                         {{ $t('Cancel') }}
                     </router-link>
-                    <span v-tooltip="!nextRunDates.length ? $t('Cannot calculate when to run the schedule - incorrect configuration?') : ''"
-                        style="display: inline-block">
+                    <div class="btn-group"
+                        v-tooltip="!nextRunDates.length ? $t('Cannot calculate when to run the schedule - incorrect configuration?') : ''">
                         <button class="btn btn-white"
                             :disabled="!nextRunDates.length || nextRunDates.fetching"
                             @click="submit()">
                             <i class="pe-7s-diskette"></i>
                             {{ $t('Save') }}
                         </button>
-                    </span>
+                    </div>
                     <button class="btn btn-green"
                         v-if="schedule.id && schedule.enabled === false"
                         :disabled="!nextRunDates.length || nextRunDates.fetching"

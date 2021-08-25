@@ -8,16 +8,16 @@
                 <transition name="fade">
                     <div class="btn-toolbar"
                         v-if="isPending">
-                        <button class="btn btn-white"
-                            type="submit">
-                            <i class="pe-7s-diskette"></i>
-                            {{ $t('Save changes') }}
-                        </button>
                         <a class="btn btn-grey"
                             @click="$emit('cancel')">
                             <i class="pe-7s-back"></i>
                             {{ $t('Cancel changes') }}
                         </a>
+                        <button class="btn btn-white"
+                            type="submit">
+                            <i class="pe-7s-diskette"></i>
+                            {{ $t('Save changes') }}
+                        </button>
                     </div>
                 </transition>
                 <transition name="fade">
@@ -41,16 +41,16 @@
             <transition name="fade">
                 <div class="btn-toolbar"
                     v-if="isPending">
-                    <button class="btn btn-white"
-                        type="submit">
-                        <i class="pe-7s-diskette"></i>
-                        {{ $t('Save changes') }}
-                    </button>
                     <a class="btn btn-grey"
                         @click="$emit('cancel')">
                         <i class="pe-7s-back"></i>
                         {{ $t('Cancel changes') }}
                     </a>
+                    <button class="btn btn-white"
+                        type="submit">
+                        <i class="pe-7s-diskette"></i>
+                        {{ $t('Save changes') }}
+                    </button>
                 </div>
             </transition>
         </div>
@@ -62,33 +62,3 @@
         props: ['header', 'deletable', 'isPending'],
     };
 </script>
-
-
-<style lang="scss">
-    @import "../../styles/mixins";
-
-    .button-container {
-        position: relative;
-        .btn {
-            margin-left: .5em;
-        }
-        .btn-toolbar {
-            position: absolute;
-            right: 0;
-            min-width: 450px;
-            .btn {
-                float: right;
-            }
-        }
-        @include on-xs-and-down {
-            .btn-toolbar {
-                position: static;
-                min-width: initial;
-                width: 100%;
-            }
-            .btn {
-                float: none !important;
-            }
-        }
-    }
-</style>

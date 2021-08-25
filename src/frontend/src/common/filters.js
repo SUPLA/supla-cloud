@@ -12,7 +12,7 @@ export function withDownloadAccessToken(url) {
 }
 
 export function channelTitle(channel, vue, withDevice = false) {
-    return `ID${channel.id} ` + (channel.caption || vue.$t(channel.function ? channel.function.caption : 'None'))
+    return (channel.caption || `ID${channel.id} ` + vue.$t(channel.function ? channel.function.caption : 'None'))
         + (withDevice && channel.iodevice ? ' ('
             + deviceTitle({location: channel.location, comment: channel.iodevice.comment, name: channel.iodevice.name}) + ')' : '');
 }

@@ -216,19 +216,12 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 }
 
 .left-right-header {
+  display: flex;
   > :first-child {
-    float: left;
+    flex: 1;
   }
-
-  > :last-child {
-    float: right;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    @include on-xs-and-down {
-      float: none;
-      clear: both;
-      text-align: center;
-    }
+  @include on-xs-and-down {
+    flex-direction: column;
   }
 }
 
