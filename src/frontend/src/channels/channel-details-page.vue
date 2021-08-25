@@ -30,7 +30,7 @@
                                     <dd>{{ $t('Function') }}</dd>
                                     <dt class="text-center"
                                         v-tooltip="hasPendingChanges && $t('Save or discard configuration changes first.')">
-                                        <a class="btn btn-default btn-block"
+                                        <a class="btn btn-default btn-block btn-wrapped"
                                             :class="{disabled: hasPendingChanges}"
                                             @click="changingFunction = true">
                                             <p class="no-margin text-default">
