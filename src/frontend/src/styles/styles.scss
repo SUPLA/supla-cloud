@@ -265,6 +265,7 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
 
     dt {
       width: calc(100% - 105px);
+      font-weight: normal;
     }
 
     dd {
@@ -580,6 +581,10 @@ body.warning {
   &-4 {
     -webkit-line-clamp: 4;
   }
+}
+
+.text-default {
+  color: $supla-black;
 }
 
 @import "./buttons";

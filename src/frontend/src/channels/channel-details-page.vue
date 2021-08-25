@@ -3,30 +3,17 @@
         <loading-cover :loading="!channel || loading">
             <div class="container"
                 v-if="channel">
-                <router-link :to="{name: 'device', params: {id: channel.iodeviceId}}">
-                    &laquo; {{ deviceTitle }}
-                </router-link>
-                <pending-changes-page :header="channelTitle"
+                <pending-changes-page
+                    :header="channelTitle"
                     @cancel="cancelChanges()"
                     @save="saveChanges()"
                     :is-pending="hasPendingChanges">
                     <h4>
                         {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
                         <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
-                        {{ $t('Channel No') }}: {{ channel.channelNumber }},
-                        {{ $t('Function') }}:
-                        {{ $t(channel.function.caption) }}
-                        <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
-                        <span class="small"
-                            v-tooltip="$t('Save or discard configuration changes first.')"
-                            v-if="hasPendingChanges">
-                            {{ $t('Change function') }}
-                        </span>
-                        <a v-else
-                            class="small"
-                            @click="changingFunction = true">
-                            {{ $t('Change function') }}
-                        </a>
+                        {{ $t('ID') }}:
+                        {{ channel.id }},
+                        {{ $t('Channel No') }}: {{ channel.channelNumber }}
                     </h4>
 
                     <div class="row hidden-xs">
@@ -39,6 +26,28 @@
                         <div class="col-sm-4">
                             <h3>{{ $t('Configuration') }}</h3>
                             <div class="hover-editable hovered text-left">
+                                <dl>
+                                    <dd>{{ $t('Function') }}</dd>
+                                    <dt class="text-center"
+                                        v-tooltip="hasPendingChanges && $t('Save or discard configuration changes first.')">
+                                        <a class="btn btn-default btn-block"
+                                            :class="{disabled: hasPendingChanges}"
+                                            @click="changingFunction = true">
+                                            <p class="no-margin text-default">
+                                                {{ $t(channel.function.caption) }}
+                                                <span v-if="channel.function.name == 'UNSUPPORTED'">({{ channel.functionId }})</span>
+                                            </p>
+                                            <span class="small"
+                                                v-if="channel.function.id">
+                                                {{ $t('Change function') }}
+                                            </span>
+                                            <span class="small"
+                                                v-else>
+                                                {{ $t('Choose channel function') }}
+                                            </span>
+                                        </a>
+                                    </dt>
+                                </dl>
                                 <dl>
                                     <dd>{{ $t('Channel name') }}</dd>
                                     <dt>
@@ -58,20 +67,15 @@
                                             @input="updateChannel()"></toggler>
                                     </dt>
                                 </dl>
-                                <div v-else>
-                                    <div class="form-group"></div>
-                                    <button
-                                        class="btn btn-default btn-block"
-                                        type="button"
-                                        @click="changingFunction = true">
-                                        {{ $t('Choose channel function') }}
-                                    </button>
-                                </div>
                                 <channel-params-form :channel="channel"
                                     @change="updateChannel()"></channel-params-form>
                             </div>
                         </div>
                         <div class="col-sm-4">
+                            <h3>{{ $t('Device') }}</h3>
+                            <div class="form-group text-left">
+                                <device-tile :device="channel.iodevice"></device-tile>
+                            </div>
                             <h3>{{ $t('Location') }}</h3>
                             <div class="form-group"
                                 v-tooltip.bottom="channel.inheritedLocation && $t('Channel is assigned to the I/O device location')">
@@ -92,7 +96,7 @@
                                 v-if="channelFunctionIsChosen"
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
                             <channel-state-table :channel="channel"
-                                v-if="channelFunctionIsChosen"></channel-state-table>
+                                v-if="channelFunctionIsChosen && !loading"></channel-state-table>
                         </div>
                     </div>
                 </pending-changes-page>
@@ -134,10 +138,12 @@
     import PageContainer from "../common/pages/page-container";
     import $ from "jquery";
     import ChannelFunctionEditModal from "@/channels/channel-function-edit-modal";
+    import DeviceTile from "@/devices/list/device-tile";
 
     export default {
         props: ['id'],
         components: {
+            DeviceTile,
             ChannelFunctionEditModal,
             PageContainer,
             PendingChangesPage,
@@ -187,6 +193,7 @@
                 this.fetchChannel();
             },
             changeFunction(newFunction, safe = true) {
+                this.$set(this.channel, 'state', {});
                 const channel = {...this.channel};
                 channel.function = newFunction;
                 channel.altIcon = 0;
