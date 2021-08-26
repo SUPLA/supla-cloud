@@ -62,16 +62,16 @@ class SuplaServerReal extends SuplaServer {
         if ($socket) {
             fclose($socket);
         } else {
-            throw new SuplaServerIsDownException("CANT_CONNECT_2016: $errorMessage ($errorCode)");
+            throw new SuplaServerIsDownException("CANNOT_CONNECT_2016: $errorMessage ($errorCode)");
         }
         $socket = @stream_socket_client($server . ":2015", $errorCode, $errorMessage, 3);
         if ($socket) {
             fclose($socket);
         } else {
-            throw new SuplaServerIsDownException("CANT_CONNECT_2015: $errorMessage ($errorCode)");
+            throw new SuplaServerIsDownException("CANNOT_CONNECT_2015: $errorMessage ($errorCode)");
         }
         if ($this->connect() === false) {
-            throw new SuplaServerIsDownException("CANT_CONNECT");
+            throw new SuplaServerIsDownException("CANNOT_CONNECT");
         }
     }
 }
