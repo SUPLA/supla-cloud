@@ -21,7 +21,14 @@ use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Throwable;
 
 class SuplaServerIsDownException extends ServiceUnavailableHttpException {
-    public function __construct(Throwable $previous = null) {
-        parent::__construct(10, 'SUPLA Server is down.', $previous);
+    private $statusMessage;
+
+    public function __construct(?string $statusMessage = 'DOWN', ?Throwable $previous = null) {
+        parent::__construct(10, 'SUPLA Server is down. Status: ' . $statusMessage, $previous);
+        $this->statusMessage = $statusMessage;
+    }
+
+    public function getStatusMessage(): ?string {
+        return $this->statusMessage;
     }
 }

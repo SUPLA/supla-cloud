@@ -104,7 +104,7 @@ class ExecuteDirectLinkController extends Controller {
      */
     public function executeDirectLinkAction(Request $request) {
         return $this->returnDirectLinkErrorIfException($request, function () use ($request) {
-            list($slug, $action) = self::getSlugAndAction($request);
+            [$slug, $action] = self::getSlugAndAction($request);
             $directLink = $this->getDirectLink($request);
             $responseType = $this->determineResponseType($request);
             $this->ensureLinkCanBeExecuted($directLink, $request, $slug, $action);
@@ -148,7 +148,7 @@ class ExecuteDirectLinkController extends Controller {
                 $e
             );
         } catch (Exception $otherException) {
-            $errorData = ['success' => false, 'supla_server_alive' => $this->suplaServer->isAlive()];
+            $errorData = ['success' => false, 'supla_server_status' => $this->suplaServer->getServerStatus()];
             if ($directLink) {
                 if ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL()) {
                     $errorData['device_connected'] =

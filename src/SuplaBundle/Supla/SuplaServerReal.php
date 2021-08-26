@@ -28,18 +28,11 @@ class SuplaServerReal extends SuplaServer {
         if ($this->socket) {
             return $this->socket;
         }
-
-        $old_er = error_reporting();
-        error_reporting($old_er ^ E_WARNING);
-        $this->socket = stream_socket_client('unix://' . $this->socketPath, $errno, $errstr);
-        error_reporting($old_er);
-
+        $this->socket = @stream_socket_client('unix://' . $this->socketPath, $errno, $errstr);
         if (!$this->socket) {
             return false;
         }
-
         $hello = fread($this->socket, 4096);
-
         if (preg_match("/^SUPLA SERVER CTRL\n/", $hello) !== 1) {
             $this->disconnect();
         }
@@ -62,32 +55,23 @@ class SuplaServerReal extends SuplaServer {
         return false;
     }
 
-    public function isAlive(): bool {
-        $server = $this->localSuplaCloud->getHost(false);
-        if (!$server) {
-            $server = "localhost";
-        }
-        $context = stream_context_create([
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-            ],
-        ]);
-        $socket = @stream_socket_client("tls://" . $server . ":2016", $errno, $errstr, 3, STREAM_CLIENT_CONNECT, $context);
+    protected function ensureCanConnect(): void {
+        $server = $this->localSuplaCloud->getHost(false) ?: 'localhost';
+        $context = stream_context_create(['ssl' => ['verify_peer' => false, 'verify_peer_name' => false]]);
+        $socket = @stream_socket_client("tls://{$server}:2016", $errorCode, $errorMessage, 3, STREAM_CLIENT_CONNECT, $context);
         if ($socket) {
             fclose($socket);
         } else {
-            return false;
+            throw new SuplaServerIsDownException("CANT_CONNECT_2016: $errorMessage ($errorCode)");
         }
-        $socket = @stream_socket_client($server . ":2015", $errno, $errstr, 3);
+        $socket = @stream_socket_client($server . ":2015", $errorCode, $errorMessage, 3);
         if ($socket) {
             fclose($socket);
         } else {
-            return false;
+            throw new SuplaServerIsDownException("CANT_CONNECT_2015: $errorMessage ($errorCode)");
         }
-        if ($this->connect() !== false) {
-            return $this->getServerStatus() === 'OK';
+        if ($this->connect() === false) {
+            throw new SuplaServerIsDownException("CANT_CONNECT");
         }
-        return false;
     }
 }

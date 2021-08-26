@@ -84,7 +84,6 @@ class ServerController extends RestController {
             $result = ['data' => $result];
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
-            $result['serverAlive'] = $this->suplaServer->isAlive();
             $result['serverStatus'] = $this->suplaServer->getServerStatus();
         }
         return $this->view($result, Response::HTTP_OK);

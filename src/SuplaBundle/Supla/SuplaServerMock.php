@@ -168,8 +168,7 @@ class SuplaServerMock extends SuplaServer {
         return false;
     }
 
-    public function isAlive(): bool {
-        return true;
+    protected function ensureCanConnect(): void {
     }
 
     public static function mockResponse(string $command, $response) {

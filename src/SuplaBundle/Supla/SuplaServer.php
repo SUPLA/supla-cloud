@@ -48,7 +48,7 @@ abstract class SuplaServer {
         $this->disconnect();
     }
 
-    abstract public function isAlive(): bool;
+    abstract protected function ensureCanConnect(): void;
 
     abstract protected function connect();
 
@@ -58,11 +58,13 @@ abstract class SuplaServer {
 
     public function getServerStatus(): string {
         try {
+            $this->ensureCanConnect();
             $result = $this->executeCommand('GET-STATUS');
             if ($result && trim($result)) {
                 return trim($result);
             }
         } catch (SuplaServerIsDownException $e) {
+            return $e->getStatusMessage();
         }
         return 'DOWN';
     }

@@ -111,6 +111,5 @@ class ServerControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('supler@supla.org', $content->username);
         $this->assertNotEmpty($content->time);
         $this->assertEquals('OK', $content->serverStatus);
-        $this->assertTrue($content->serverAlive);
     }
 }
