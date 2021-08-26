@@ -23,6 +23,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class GitVersionDumper {
     public static function dumpVersion() {
+        $versionFromEnv = getenv('RELEASE_VERSION');
         exec('git describe --tags 2>' . (file_exists('nul') ? 'nul' : '/dev/null'), $output, $result);
         if ($output && $result === 0) {
             $versionFromDescribe = current($output);
@@ -30,17 +31,23 @@ class GitVersionDumper {
             preg_match('#(\d+\.\d+\.\d+)#', $version, $match);
             Assertion::keyExists($match, 1, 'Invalid version: ' . $version);
             $version = $match[1];
-            $config = [
-                'supla' => [
-                    'version' => $version,
-                    'version_full' => $versionFromDescribe,
-                ],
-            ];
-            $buildConfig = '# Config generated automatically by Composer - changes will be overwritten' . PHP_EOL . PHP_EOL;
-            $buildConfig .= Yaml::dump($config);
-            file_put_contents(AppKernel::ROOT_PATH . '/config/config_build.yml', $buildConfig);
+            self::dumpBuildConfig($versionFromEnv ?: $version, $versionFromDescribe);
+        } elseif ($versionFromEnv) {
+            self::dumpBuildConfig($versionFromEnv);
         } else {
             echo 'Could not detect application version - skipping.';
         }
+    }
+
+    private static function dumpBuildConfig(string $version, ?string $versionFull = null): void {
+        $config = [
+            'supla' => [
+                'version' => $version,
+                'version_full' => $versionFull ?: $version,
+            ],
+        ];
+        $buildConfig = '# Config generated automatically by Composer - changes will be overwritten' . PHP_EOL . PHP_EOL;
+        $buildConfig .= Yaml::dump($config);
+        file_put_contents(AppKernel::ROOT_PATH . '/config/config_build.yml', $buildConfig);
     }
 }
