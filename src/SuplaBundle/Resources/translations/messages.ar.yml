@@ -609,6 +609,7 @@ Action trigger: ~
 Action triggers: ~
 Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
+Add action: ~
 Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
@@ -620,11 +621,13 @@ Associated measurement channel: ~
 'At 05:45 PM, on the last day of the month': ~
 'At 11:30 AM, on the third Wednesday of the month': ~
 At every 5th minute on day-of-month 30 in May: ~
+At specified time: ~
 At sunrise: ~
 'At sunrise, Monday through Friday': ~
 At sunset: ~
 Automatic calibration: ~
 Bar: ~
+Based on sunrise or sunset: ~
 Be notified when your channels change state: ~
 Be right back!: ~
 Bottom position: ~

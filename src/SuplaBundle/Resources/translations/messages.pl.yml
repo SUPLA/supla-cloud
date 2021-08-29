@@ -33,6 +33,7 @@ Actual behavior of the triggers depend on the device you use and its configurati
 Add: Dodaj
 Add a delay: Dodaj opóźnienie
 Add a new icon: Dodaj nową ikonę
+Add action: Dodaj akcję
 Add first channel to set channel group function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
 Add new channel group: Dodaj nową grupę kanałów
 Add new channel to this group: Dodaj nowy kanał do grupy
@@ -74,6 +75,7 @@ Associated measurement channel: Powiązany kanał pomiarowy
 'At 05:45 PM, on the last day of the month': 'o 5:45 ostatniego dnia miesiąca'
 'At 11:30 AM, on the third Wednesday of the month': 'o 11:30, w trzecią środę miesiąca'
 At every 5th minute on day-of-month 30 in May: 'co 5 minut, 30. dnia miesiąca, tylko w maju'
+At specified time: Dla wskazanej godziny
 At sunrise: o wschodzie słońca
 'At sunrise, Monday through Friday': 'o wschodzie słońca, od poniedziałku do piątku'
 At sunset: o zachodzie słońca
@@ -85,6 +87,7 @@ Automatic calibration: Automatyczna kalibracja
 Automation: Automatyka
 Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
+Based on sunrise or sunset: W oparciu o wschód / zachód
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Be right back!: Wróć za kilka chwil!
 Bottom position: Dolna pozycja

@@ -37,17 +37,17 @@
             </div>
         </div>
         <div class="form-group">
-            <h4>Dodaj akcję</h4>
+            <h4>{{ $t('Add action') }}</h4>
             <div class="btn-group btn-group-justified">
                 <a class="btn btn-default"
                     @click="addAction('hour')">
                     <i class="pe-7s-clock"></i>
-                    Dla wskazanej godziny
+                    {{ $t('At specified time') }}
                 </a>
                 <a class="btn btn-default"
                     @click="addAction('sun')">
                     <i class="pe-7s-sun"></i>
-                    W oparciu o wschód / zachód
+                    {{ $t('Based on sunrise or sunset') }}
                 </a>
             </div>
         </div>
