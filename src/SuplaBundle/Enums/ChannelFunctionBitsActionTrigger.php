@@ -31,3 +31,21 @@ final class ChannelFunctionBitsActionTrigger extends ChannelFunctionBits {
     const PRESS_2X = 1 << 11; // i18n:['actionTrigger_PRESS_2X','actionTriggerDescription_PRESS_2X']
     const PRESS_3X = 1 << 12; // i18n:['actionTrigger_PRESS_3X','actionTriggerDescription_PRESS_3X']
 }
+
+/*
+TODO
+// Recommended for bistable buttons
+#define SUPLA_ACTION_CAP_TURN_ON (1<<0)
+#define SUPLA_ACTION_CAP_TURN_OFF (1<<1)
+#define SUPLA_ACTION_CAP_TOGGLE_x1 (1<<2)
+#define SUPLA_ACTION_CAP_TOGGLE_x2 (1<<3)
+#define SUPLA_ACTION_CAP_TOGGLE_x3 (1<<4)
+
+// Recommended for monostable buttons
+#define SUPLA_ACTION_CAP_HOLD (1<<10)
+#define SUPLA_ACTION_CAP_SHORT_PRESS_x1 (1<<11)
+#define SUPLA_ACTION_CAP_SHORT_PRESS_x2 (1<<12)
+#define SUPLA_ACTION_CAP_SHORT_PRESS_x3 (1<<13)
+#define SUPLA_ACTION_CAP_SHORT_PRESS_x4 (1<<14)
+
+ */
