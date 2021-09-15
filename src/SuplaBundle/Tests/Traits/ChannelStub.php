@@ -68,6 +68,11 @@ final class ChannelStub extends IODeviceChannel {
         return $this;
     }
 
+    public function config(array $config): self {
+        $this->setConfig($config);
+        return $this;
+    }
+
     private function funcList(int $funcList) {
         EntityUtils::setField($this, 'funcList', $funcList);
         return $this;

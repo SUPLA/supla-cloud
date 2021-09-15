@@ -26,7 +26,6 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsActionTrigger;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
@@ -77,10 +76,15 @@ class DevicesFixture extends SuplaFixture {
     }
 
     protected function createDeviceSonoff(Location $location): IODevice {
-        return $this->createDevice('SONOFF-DS', $location, [
+        $device = $this->createDevice('SONOFF-DS', $location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
         ], self::DEVICE_SONOFF);
+        $at = $device->getChannels()[2];
+        $at->setParam1($device->getChannels()[0]->getId());
+        $this->entityManager->persist($at);
+        return $device;
     }
 
     protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
@@ -92,7 +96,7 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATEWAY],
             [ChannelType::SENSORNC, ChannelFunction::OPENINGSENSOR_DOOR],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
-            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER, ['flags' => ChannelFunctionBitsActionTrigger::getAllFeaturesFlag()]],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
             [ChannelType::BRIDGE, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag(), 'flags' => ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE]],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER, ['flags' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE]],
         ], self::DEVICE_FULL);
@@ -155,7 +159,6 @@ class DevicesFixture extends SuplaFixture {
                 'type' => $channelData[0],
                 'function' => $channelData[1],
                 'channelNumber' => $channelNumber,
-                'flags' => ChannelFunctionBitsActionTrigger::PRESS | ChannelFunctionBitsActionTrigger::RELEASE,
             ]);
             if (isset($channelData[2])) {
                 AnyFieldSetter::set($channel, $channelData[2]);
@@ -163,6 +166,7 @@ class DevicesFixture extends SuplaFixture {
             if ($this->faker->boolean) {
                 $channel->setCaption($this->faker->sentence(3));
             }
+            $this->setInitialConfig($channel);
             $this->entityManager->persist($channel);
             $this->entityManager->flush();
         }
@@ -171,5 +175,17 @@ class DevicesFixture extends SuplaFixture {
             $this->setReference($registerAs, $device);
         }
         return $device;
+    }
+
+    private function setInitialConfig(IODeviceChannel $channel) {
+        switch ($channel->getType()->getId()) {
+            case ChannelType::ACTION_TRIGGER:
+                $possibleTriggers = ['TURN_ON', 'TURN_OFF', 'TOGGLE_x1', 'TOGGLE_x2', 'TOGGLE_x3', 'TOGGLE_x4', 'TOGGLE_x5',
+                    'HOLD', 'SHORT_PRESS_x1', 'SHORT_PRESS_x2', 'SHORT_PRESS_x3', 'SHORT_PRESS_x4', 'SHORT_PRESS_x5'];
+                $channel->setConfig([
+                    'actionTriggerCapabilities' => $this->faker->randomElements($possibleTriggers, $this->faker->numberBetween(1, 5)),
+                ]);
+                break;
+        }
     }
 }

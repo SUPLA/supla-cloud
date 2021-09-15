@@ -8,7 +8,6 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelFunctionBitsActionTrigger;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\ActionableSubjectRepository;
@@ -29,16 +28,18 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
-            'supportedTriggers' => $this->getSupportedTriggers($channel),
+            'actionTriggerCapabilities' => $channel->getConfig()['actionTriggerCapabilities'] ?? [],
+            'relatedChannelId' => $channel->getParam1() ?: null,
+            'hideInChannelsList' => !!$channel->getParam1(),
             'actions' => new JsonArrayObject($channel->getConfig()['actions'] ?? []),
         ];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (array_key_exists('actions', $config)) {
-            Assertion::isArray($config['actions']);
-            $actions = $config['actions'];
-            $supportedTriggers = $this->getSupportedTriggers($channel);
+            $actions = $config['actions'] ?: [];
+            Assertion::isArray($actions);
+            $supportedTriggers = $this->getConfigFromParams($channel)['actionTriggerCapabilities'];
             Assertion::allInArray(array_keys($actions), $supportedTriggers, '%s trigger is not supported by the hardware.'); // i18n
             $actions = array_map(function (array $action) {
                 return $this->adjustAction($action);
@@ -76,9 +77,5 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
                 'param' => $params,
             ],
         ];
-    }
-
-    private function getSupportedTriggers(IODeviceChannel $channel): array {
-        return ChannelFunctionBitsActionTrigger::getSupportedFeaturesNames($channel->getFlags());
     }
 }

@@ -9,7 +9,7 @@
             aria-multiselectable="true">
             <div :class="'panel panel-' + (channel.config.actions[trigger] ? 'success' : 'default')"
                 :key="index"
-                v-for="(trigger, index) in channel.config.supportedTriggers">
+                v-for="(trigger, index) in channel.config.actionTriggerCapabilities">
                 <div class="panel-heading"
                     role="tab"
                     :id="'heading' + trigger">
@@ -39,6 +39,19 @@
             </div>
         </div>
     </div>
+    <!-- i18n:['actionTrigger_TURN_ON','actionTriggerDescription_TURN_ON'] -->
+    <!-- i18n:['actionTrigger_TURN_OFF','actionTriggerDescription_TURN_OFF'] -->
+    <!-- i18n:['actionTrigger_TOGGLE_x1','actionTriggerDescription_TOGGLE_x1'] -->
+    <!-- i18n:['actionTrigger_TOGGLE_x2','actionTriggerDescription_TOGGLE_x2'] -->
+    <!-- i18n:['actionTrigger_TOGGLE_x3','actionTriggerDescription_TOGGLE_x3'] -->
+    <!-- i18n:['actionTrigger_TOGGLE_x4','actionTriggerDescription_TOGGLE_x4'] -->
+    <!-- i18n:['actionTrigger_TOGGLE_x5','actionTriggerDescription_TOGGLE_x5'] -->
+    <!-- i18n:['actionTrigger_HOLD','actionTriggerDescription_HOLD'] -->
+    <!-- i18n:['actionTrigger_SHORT_PRESS_x1','actionTriggerDescription_SHORT_PRESS_x1'] -->
+    <!-- i18n:['actionTrigger_SHORT_PRESS_x2','actionTriggerDescription_SHORT_PRESS_x2'] -->
+    <!-- i18n:['actionTrigger_SHORT_PRESS_x3','actionTriggerDescription_SHORT_PRESS_x3'] -->
+    <!-- i18n:['actionTrigger_SHORT_PRESS_x4','actionTriggerDescription_SHORT_PRESS_x4'] -->
+    <!-- i18n:['actionTrigger_SHORT_PRESS_x5','actionTriggerDescription_SHORT_PRESS_x5'] -->
 </template>
 
 <script>
