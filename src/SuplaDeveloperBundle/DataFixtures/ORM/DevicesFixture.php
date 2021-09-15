@@ -22,6 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
@@ -166,7 +167,7 @@ class DevicesFixture extends SuplaFixture {
             if ($this->faker->boolean) {
                 $channel->setCaption($this->faker->sentence(3));
             }
-            $this->setInitialConfig($channel);
+            $this->setServerConfig($channel);
             $this->entityManager->persist($channel);
             $this->entityManager->flush();
         }
@@ -177,15 +178,18 @@ class DevicesFixture extends SuplaFixture {
         return $device;
     }
 
-    private function setInitialConfig(IODeviceChannel $channel) {
+    private function setServerConfig(IODeviceChannel $channel) {
+        $config = null;
         switch ($channel->getType()->getId()) {
             case ChannelType::ACTION_TRIGGER:
                 $possibleTriggers = ['TURN_ON', 'TURN_OFF', 'TOGGLE_x1', 'TOGGLE_x2', 'TOGGLE_x3', 'TOGGLE_x4', 'TOGGLE_x5',
                     'HOLD', 'SHORT_PRESS_x1', 'SHORT_PRESS_x2', 'SHORT_PRESS_x3', 'SHORT_PRESS_x4', 'SHORT_PRESS_x5'];
-                $channel->setConfig([
-                    'actionTriggerCapabilities' => $this->faker->randomElements($possibleTriggers, $this->faker->numberBetween(1, 5)),
-                ]);
+                $possibleTriggersForChannel = $this->faker->randomElements($possibleTriggers, $this->faker->numberBetween(1, 5));
+                $config = ['actionTriggerCapabilities' => $possibleTriggersForChannel];
                 break;
+        }
+        if ($config) {
+            EntityUtils::setField($channel, 'serverConfig', json_encode($config));
         }
     }
 }
