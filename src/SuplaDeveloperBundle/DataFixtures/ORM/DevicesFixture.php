@@ -167,7 +167,7 @@ class DevicesFixture extends SuplaFixture {
             if ($this->faker->boolean) {
                 $channel->setCaption($this->faker->sentence(3));
             }
-            $this->setServerConfig($channel);
+            $this->setInternalConfig($channel);
             $this->entityManager->persist($channel);
             $this->entityManager->flush();
         }
@@ -178,7 +178,7 @@ class DevicesFixture extends SuplaFixture {
         return $device;
     }
 
-    private function setServerConfig(IODeviceChannel $channel) {
+    private function setInternalConfig(IODeviceChannel $channel) {
         $config = null;
         switch ($channel->getType()->getId()) {
             case ChannelType::ACTION_TRIGGER:
@@ -189,7 +189,7 @@ class DevicesFixture extends SuplaFixture {
                 break;
         }
         if ($config) {
-            EntityUtils::setField($channel, 'serverConfig', json_encode($config));
+            EntityUtils::setField($channel, 'internalConfig', json_encode($config));
         }
     }
 }

@@ -43,8 +43,8 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
         /** @var IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 150);
         $paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
-        $this->assertNotEmpty($channel->getConfig());
-        $this->assertEquals($paramsTranslator->getConfigFromParams($channel), $channel->getConfig());
+        $this->assertNotEmpty($channel->getUserConfig());
+        $this->assertEquals($paramsTranslator->getConfigFromParams($channel), $channel->getUserConfig());
     }
 
     public function testChannelParamsConfigDefault() {
@@ -57,7 +57,7 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
                 'relayTimeMs' => 500,
                 'timeSettingAvailable' => true,
             ],
-            $channel->getConfig()
+            $channel->getUserConfig()
         );
     }
 

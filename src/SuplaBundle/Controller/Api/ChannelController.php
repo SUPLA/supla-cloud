@@ -201,7 +201,7 @@ class ChannelController extends RestController {
                 }
                 $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
                 // TODO insane merge was here - check
-                $channel->setConfig($paramConfigTranslator->getConfigFromParams($channel));
+                $channel->setUserConfig($paramConfigTranslator->getConfigFromParams($channel));
                 $channel->setAltIcon($updatedChannel->getAltIcon());
                 $channel->setUserIcon($updatedChannel->getUserIcon());
                 $em->persist($channel);

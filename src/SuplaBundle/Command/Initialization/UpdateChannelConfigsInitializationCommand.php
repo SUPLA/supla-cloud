@@ -46,7 +46,7 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
                 $channel = $row[0];
                 /** @var IODeviceChannel $channel */
                 $config = $this->paramConfigTranslator->getConfigFromParams($channel);
-                $channel->setConfig($config);
+                $channel->setUserConfig($config);
                 $this->entityManager->persist($channel);
                 if ((++$i % self::BATCH_SIZE) === 0) {
                     $this->entityManager->flush();

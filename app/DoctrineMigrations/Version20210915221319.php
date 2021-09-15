@@ -22,6 +22,7 @@ namespace Supla\Migrations;
  */
 class Version20210915221319 extends NoWayBackMigration {
     public function migrate() {
-        $this->addSql('ALTER TABLE supla_dev_channel ADD server_config VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_dev_channel ADD internal_config VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_dev_channel CHANGE config user_config LONGTEXT DEFAULT NULL');
     }
 }

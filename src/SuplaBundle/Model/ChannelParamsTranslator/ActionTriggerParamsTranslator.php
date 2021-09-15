@@ -28,10 +28,10 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
-            'actionTriggerCapabilities' => $channel->getServerConfig()['actionTriggerCapabilities'] ?? [],
+            'actionTriggerCapabilities' => $channel->getInternalConfig()['actionTriggerCapabilities'] ?? [],
             'relatedChannelId' => $channel->getParam1() ?: null,
             'hideInChannelsList' => !!$channel->getParam1(),
-            'actions' => new JsonArrayObject($channel->getConfig()['actions'] ?? []),
+            'actions' => new JsonArrayObject($channel->getUserConfig()['actions'] ?? []),
         ];
     }
 
@@ -44,7 +44,7 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
             $actions = array_map(function (array $action) {
                 return $this->adjustAction($action);
             }, $actions);
-            $channel->setConfig(array_replace($channel->getConfig(), ['actions' => $actions]));
+            $channel->setUserConfig(array_replace($channel->getUserConfig(), ['actions' => $actions]));
         }
     }
 

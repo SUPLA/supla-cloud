@@ -56,7 +56,7 @@ class ChannelDependencies {
             $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
         }
         foreach ($this->findActionTriggersForChannel($channel) as $actionTrigger) {
-            $newActions = array_filter($actionTrigger->getConfig()['actions'], function (array $action) use ($channel) {
+            $newActions = array_filter($actionTrigger->getUserConfig()['actions'], function (array $action) use ($channel) {
                 return $action['subjectType'] !== ActionableSubjectType::CHANNEL || $action['subjectId'] !== $channel->getId();
             });
             $this->channelParamConfigTranslator->setParamsFromConfig($actionTrigger, ['actions' => $newActions]);
@@ -72,7 +72,7 @@ class ChannelDependencies {
                 return $ch->getFunction()->getId() === ChannelFunction::ACTION_TRIGGER;
             })
             ->filter(function (IODeviceChannel $ch) use ($channel) {
-                return !!array_filter($ch->getConfig()['actions'] ?? [], function ($action) use ($channel) {
+                return !!array_filter($ch->getUserConfig()['actions'] ?? [], function ($action) use ($channel) {
                     return $action['subjectType'] === ActionableSubjectType::CHANNEL && $action['subjectId'] === $channel->getId();
                 });
             });
