@@ -28,7 +28,7 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
-            'actionTriggerCapabilities' => $channel->getInternalConfig()['actionTriggerCapabilities'] ?? [],
+            'actionTriggerCapabilities' => $channel->getConfigFromDevice()['actionTriggerCapabilities'] ?? [],
             'relatedChannelId' => $channel->getParam1() ?: null,
             'hideInChannelsList' => !!$channel->getParam1(),
             'actions' => new JsonArrayObject($channel->getUserConfig()['actions'] ?? []),
