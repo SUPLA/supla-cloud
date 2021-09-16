@@ -32,12 +32,12 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
         $count = $this->entityManager
-            ->createQuery('SELECT COUNT(c) FROM ' . IODeviceChannel::class . ' c WHERE c.config IS NULL')
+            ->createQuery('SELECT COUNT(c) FROM ' . IODeviceChannel::class . ' c WHERE c.user_config IS NULL')
             ->getSingleScalarResult();
         $count = intval($count);
         if ($count) {
             $iterator = $this->entityManager
-                ->createQuery('SELECT c FROM ' . IODeviceChannel::class . ' c WHERE c.config IS NULL')
+                ->createQuery('SELECT c FROM ' . IODeviceChannel::class . ' c WHERE c.user_config IS NULL')
                 ->iterate();
             $progress = new ProgressBar($output, $count);
             $progress->display();
