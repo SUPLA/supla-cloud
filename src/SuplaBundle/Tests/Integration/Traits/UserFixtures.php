@@ -68,10 +68,16 @@ trait UserFixtures {
     }
 
     protected function createDeviceSonoff(Location $location): IODevice {
-        return $this->createDevice($location, [
+        $device = $this->createDevice($location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
         ]);
+        $at = $device->getChannels()[2];
+        $at->setParam1($device->getChannels()[0]->getId());
+        $this->getEntityManager()->persist($at);
+        $this->getEntityManager()->flush();
+        return $device;
     }
 
     protected function createDeviceFull(Location $location): IODevice {

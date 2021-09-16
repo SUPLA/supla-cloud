@@ -432,10 +432,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSettingConfigForActionTrigger() {
-        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
-            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
-        ]);
-        $trigger = $anotherDevice->getChannels()[0];
+        $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
+        $trigger = $anotherDevice->getChannels()[2];
         $channel = $this->device->getChannels()[0];
         $actions = ['PRESS' => [
             'subjectId' => $channel->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
