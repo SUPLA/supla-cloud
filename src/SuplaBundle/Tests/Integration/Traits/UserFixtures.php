@@ -75,6 +75,8 @@ trait UserFixtures {
         ]);
         $at = $device->getChannels()[2];
         $at->setParam1($device->getChannels()[0]->getId());
+        $config = ['actionTriggerCapabilities' => ['TURN_ON', 'TURN_OFF', 'TOGGLE_x1', 'TOGGLE_x2', 'TOGGLE_x3', 'TOGGLE_x4', 'TOGGLE_x5']];
+        EntityUtils::setField($at, 'properties', json_encode($config));
         $this->getEntityManager()->persist($at);
         $this->getEntityManager()->flush();
         return $device;

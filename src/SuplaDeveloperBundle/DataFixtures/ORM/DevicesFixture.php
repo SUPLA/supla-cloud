@@ -189,7 +189,7 @@ class DevicesFixture extends SuplaFixture {
                 break;
         }
         if ($config) {
-            EntityUtils::setField($channel, 'internalConfig', json_encode($config));
+            EntityUtils::setField($channel, 'properties', json_encode($config));
         }
     }
 }

@@ -435,7 +435,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
         $trigger = $anotherDevice->getChannels()[2];
         $channel = $this->device->getChannels()[0];
-        $actions = ['PRESS' => [
+        $actions = ['TURN_ON' => [
             'subjectId' => $channel->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
             'action' => ['id' => $channel->getFunction()->getPossibleActions()[0]->getId()]]];
         $client = $this->createAuthenticatedClient();
@@ -475,17 +475,15 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testChangingChannelFunctionClearsRelatedActionTriggersOnly() {
-        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
-            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
-        ]);
-        $trigger = $anotherDevice->getChannels()[0];
+        $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
+        $trigger = $anotherDevice->getChannels()[2];
         $channel1 = $this->device->getChannels()[0];
         $channel2 = $this->device->getChannels()[1];
         $actions = [
-            'PRESS' => [
+            'TURN_ON' => [
                 'subjectId' => $channel1->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
                 'action' => ['id' => $channel1->getFunction()->getPossibleActions()[0]->getId()]],
-            'RELEASE' => [
+            'TURN_OFF' => [
                 'subjectId' => $channel2->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
                 'action' => ['id' => $channel2->getFunction()->getPossibleActions()[0]->getId()]],
         ];
@@ -500,7 +498,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
         $this->assertCount(1, $trigger->getUserConfig()['actions']);
-        $this->assertArrayHasKey('PRESS', $trigger->getUserConfig()['actions']);
+        $this->assertArrayHasKey('TURN_ON', $trigger->getUserConfig()['actions']);
     }
 
     public function testChangingChannelFunctionCanSetSettingForTheNewFunction() {
@@ -632,5 +630,15 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertContains("RECALIBRATE:1,{$anotherDevice->getId()},{$measurementChannelId}", SuplaServerMock::$executedCommands);
+    }
+
+    public function testFetchingActionTriggers() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
+        $client->apiRequestV24('GET', '/api/channels/' . $anotherDevice->getChannels()[0]->getId() . '?include=actionTriggers');
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('actionTriggersIds', $content);
+        $this->assertEquals([$anotherDevice->getChannels()[2]->getId()], $content['actionTriggersIds']);
     }
 }
