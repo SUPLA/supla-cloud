@@ -190,8 +190,8 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     /** @ORM\Column(name="user_config", type="text", nullable=true) */
     private $userConfig;
 
-    /** @ORM\Column(name="config_from_device", type="string", length=255, nullable=true) */
-    private $configFromDevice;
+    /** @ORM\Column(name="properties", type="string", length=255, nullable=true) */
+    private $properties;
 
     public function __construct() {
         $this->directLinks = new ArrayCollection();
@@ -430,7 +430,7 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
         return $this->userConfig ? (json_decode($this->userConfig, true) ?: []) : [];
     }
 
-    public function getConfigFromDevice(): array {
-        return $this->configFromDevice ? (json_decode($this->configFromDevice, true) ?: []) : [];
+    public function getProperties(): array {
+        return $this->properties ? (json_decode($this->properties, true) ?: []) : [];
     }
 }
