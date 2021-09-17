@@ -182,8 +182,8 @@ class DevicesFixture extends SuplaFixture {
         $config = null;
         switch ($channel->getType()->getId()) {
             case ChannelType::ACTION_TRIGGER:
-                $possibleTriggers = ['TURN_ON', 'TURN_OFF', 'TOGGLE_x1', 'TOGGLE_x2', 'TOGGLE_x3', 'TOGGLE_x4', 'TOGGLE_x5',
-                    'HOLD', 'SHORT_PRESS_x1', 'SHORT_PRESS_x2', 'SHORT_PRESS_x3', 'SHORT_PRESS_x4', 'SHORT_PRESS_x5'];
+                $possibleTriggers = ['TURN_ON', 'TURN_OFF', 'TOGGLE_X1', 'TOGGLE_X2', 'TOGGLE_X3', 'TOGGLE_X4', 'TOGGLE_X5',
+                    'HOLD', 'SHORT_PRESS_X1', 'SHORT_PRESS_X2', 'SHORT_PRESS_X3', 'SHORT_PRESS_X4', 'SHORT_PRESS_X5'];
                 $possibleTriggersForChannel = $this->faker->randomElements($possibleTriggers, $this->faker->numberBetween(1, 5));
                 $config = ['actionTriggerCapabilities' => $possibleTriggersForChannel];
                 break;

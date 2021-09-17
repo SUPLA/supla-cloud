@@ -20,6 +20,11 @@
                 <channel-action-executor :subject="channel"></channel-action-executor>
             </div>
         </div>
+        <div v-if="currentTab == 'actionTriggers'">
+            <div class="container">
+                <channel-action-triggers :channel="channel"></channel-action-triggers>
+            </div>
+        </div>
         <div v-if="currentTab == 'schedules'">
             <schedules-list :subject="channel"></schedules-list>
         </div>
@@ -45,10 +50,14 @@
     import ChannelGroupsList from "../channel-groups/channel-groups-list";
     import ScenesList from "../scenes/scenes-list";
     import ChannelMeasurementsHistory from "./channel-measurements-history";
+    import ChannelActionTriggers from "@/channels/action-trigger/channel-action-triggers";
 
     export default {
         props: ['channel'],
-        components: {ChannelMeasurementsHistory, ScenesList, ChannelGroupsList, ChannelActionExecutor, DirectLinksList, SchedulesList},
+        components: {
+            ChannelActionTriggers,
+            ChannelMeasurementsHistory, ScenesList, ChannelGroupsList, ChannelActionExecutor, DirectLinksList, SchedulesList
+        },
         data() {
             return {
                 currentTab: '',
@@ -68,6 +77,13 @@
                     this.availableTabs.push({
                         id: 'actions',
                         header: 'Actions', // i18n
+                    });
+                }
+                if (this.channel.actionTriggersIds?.length) {
+                    this.availableTabs.push({
+                        id: 'actionTriggers',
+                        header: 'Action triggers', // i18n
+                        count: this.channel.actionTriggersIds.length,
                     });
                 }
                 this.availableTabs.push({
