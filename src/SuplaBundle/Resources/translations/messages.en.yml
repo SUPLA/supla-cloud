@@ -20,15 +20,31 @@ WELCOME_MESSAGE: |
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.'
 actionTriggerDescription_HOLD: 'By default, this action is triggered after holding the button for a while.'
-actionTriggerDescription_PRESS: 'By default, this action is triggered when the button is pressed, after a device is powered on or going to the high state.'
-actionTriggerDescription_PRESS_2X: 'By default, this action is triggered when the button is pressed twice in a row.'
-actionTriggerDescription_PRESS_3X: 'By default, this action is triggered when the button is pressed three times in a row.'
-actionTriggerDescription_RELEASE: 'By default, this action is triggered when the button is released, after the device is powered off or going to the low state.'
+actionTriggerDescription_SHORT_PRESS_X1: 'By default, this action is triggered when the button has been pressed.'
+actionTriggerDescription_SHORT_PRESS_X2: 'By default, this action is triggered when the button has been pressed twice.'
+actionTriggerDescription_SHORT_PRESS_X3: 'By default, this action is triggered when the button has been pressed three times.'
+actionTriggerDescription_SHORT_PRESS_X4: 'By default, this action is triggered when the button has been pressed four times.'
+actionTriggerDescription_SHORT_PRESS_X5: 'By default, this action is triggered when the button has been pressed five times.'
+actionTriggerDescription_TOGGLE_X1: 'By default, this action is triggered when the button has been toggled.'
+actionTriggerDescription_TOGGLE_X2: 'By default, this action is triggered when the button has been toggled twice.'
+actionTriggerDescription_TOGGLE_X3: 'By default, this action is triggered when the button has been toggled three times.'
+actionTriggerDescription_TOGGLE_X4: 'By default, this action is triggered when the button has been toggled four times.'
+actionTriggerDescription_TOGGLE_X5: 'By default, this action is triggered when the button has been toggled five times.'
+actionTriggerDescription_TURN_OFF: 'By default, this action is triggered when the device is turned off.'
+actionTriggerDescription_TURN_ON: 'By default, this action is triggered when the device is turned on.'
 actionTrigger_HOLD: Hold
-actionTrigger_PRESS: Press / turn on
-actionTrigger_PRESS_2X: Double press
-actionTrigger_PRESS_3X: Triple press
-actionTrigger_RELEASE: Release / turn off
+actionTrigger_SHORT_PRESS_X1: Short press once
+actionTrigger_SHORT_PRESS_X2: Short press twice
+actionTrigger_SHORT_PRESS_X3: Short press three times
+actionTrigger_SHORT_PRESS_X4: Short press four times
+actionTrigger_SHORT_PRESS_X5: Short press five times
+actionTrigger_TOGGLE_X1: Toggle once
+actionTrigger_TOGGLE_X2: Toggle twice
+actionTrigger_TOGGLE_X3: Toggle three times
+actionTrigger_TOGGLE_X4: Toggle four times
+actionTrigger_TOGGLE_X5: Toggle five times
+actionTrigger_TURN_OFF: Turn off
+actionTrigger_TURN_ON: Turn on
 actionableSubjectType_channel: Channel
 actionableSubjectType_channelGroup: Channel group
 actionableSubjectType_scene: Scene
@@ -88,6 +104,14 @@ sunset-before: the sunset
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 'Confirm if you want to remove {deviceName} device': 'Confirm if you want to remove {deviceName} device'
+actionTriggerDescription_PRESS: 'By default, this action is triggered when the button is pressed, after a device is powered on or going to the high state.'
+actionTriggerDescription_PRESS_2X: 'By default, this action is triggered when the button is pressed twice in a row.'
+actionTriggerDescription_PRESS_3X: 'By default, this action is triggered when the button is pressed three times in a row.'
+actionTriggerDescription_RELEASE: 'By default, this action is triggered when the button is released, after the device is powered off or going to the low state.'
+actionTrigger_PRESS: Press / turn on
+actionTrigger_PRESS_2X: Double press
+actionTrigger_PRESS_3X: Triple press
+actionTrigger_RELEASE: Release / turn off
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
