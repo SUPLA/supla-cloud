@@ -96,6 +96,11 @@
         },
         beforeDestroy() {
             clearTimeout(this.timer);
-        }
+        },
+        watch: {
+            'directLink.id'() {
+                this.fetch();
+            }
+        },
     };
 </script>
