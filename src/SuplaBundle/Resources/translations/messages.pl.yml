@@ -641,6 +641,7 @@ Your account has been deleted. We hope you will come back to us soon.: 'Konto zo
 Your account has been locked.: Twoje konto zostało zablokowane.
 Your account has not been confirmed yet.: Twoje konto nie zostało jeszcze potwierdzone.
 Your account limits: Twoje limity
+'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': Urządzenie umożliwia rozszerzenie jego funkcjonalności i pozwala na wykonanie dowolnej akcji na dowolnym posiadanym przez Ciebie urządzeniu. Dostępne opcje zależą od używanego oprogramowania sprzętowego i urządzenia.
 Your email: Twój email
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.'
 Your password must contain at least one special character.: Hasło musi zawierać co najmniej jeden znak specjalny.
@@ -654,15 +655,31 @@ Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
 'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
 actionTriggerDescription_HOLD: 'Domyślnie, ta akcja jest wykonywana po przytrzymaniu przycisku.'
-actionTriggerDescription_PRESS: 'Domyślnie, ta akcja jest wykonywana po wciśnięciu przycisku.'
-actionTriggerDescription_PRESS_2X: 'Domyślnie, ta akcja jest wykonywana po dwukrotnym wciśnięciu przycisku.'
-actionTriggerDescription_PRESS_3X: 'Domyślnie, ta akcja jest wykonywana po trzykrotnym wciśnięciu przycisku.'
-actionTriggerDescription_RELEASE: 'Domyślnie, ta akcja jest wykonywana po wciśnięciu i puszczeniu przycisku.'
+actionTriggerDescription_SHORT_PRESS_X1: 'Domyślnie, ta akcja jest wykonywana przy wciśnięciu przycisku.'
+actionTriggerDescription_SHORT_PRESS_X2: 'Domyślnie, ta akcja jest wykonywana przy dwukrotnym wciśnięciu przycisku.'
+actionTriggerDescription_SHORT_PRESS_X3: 'Domyślnie, ta akcja jest wykonywana przy trzykrotnym wciśnięciu przycisku.'
+actionTriggerDescription_SHORT_PRESS_X4: 'Domyślnie, ta akcja jest wykonywana przy czterokrotnym wciśnięciu przycisku.'
+actionTriggerDescription_SHORT_PRESS_X5: 'Domyślnie, ta akcja jest wykonywana przy pięciokrotnym wciśnięciu przycisku.'
+actionTriggerDescription_TOGGLE_X1: 'Domyślnie, ta akcja jest wykonywana przy przełączeniu przycisku.'
+actionTriggerDescription_TOGGLE_X2: 'Domyślnie, ta akcja jest wykonywana przy dwukrotnym przełączeniu przycisku.'
+actionTriggerDescription_TOGGLE_X3: 'Domyślnie, ta akcja jest wykonywana przy trzykrotnym przełączeniu przycisku.'
+actionTriggerDescription_TOGGLE_X4: 'Domyślnie, ta akcja jest wykonywana przy czterokrotnym przełączeniu przycisku.'
+actionTriggerDescription_TOGGLE_X5: 'Domyślnie, ta akcja jest wykonywana przy pięciokrotnym przełączeniu przycisku.'
+actionTriggerDescription_TURN_OFF: 'Domyślnie, ta akcja jest wykonywana gdy urządzenie zostanie wyłączone.'
+actionTriggerDescription_TURN_ON: 'Domyślnie, ta akcja jest wykonywana gdy urządzenie zostanie włączone.'
 actionTrigger_HOLD: Przytrzymanie przycisku
-actionTrigger_PRESS: Wciśnięcie przycisku
-actionTrigger_PRESS_2X: Dwukrotne wciśnięcie
-actionTrigger_PRESS_3X: Trzykrotne wciśnięcie
-actionTrigger_RELEASE: Zwolnienie przycisku
+actionTrigger_SHORT_PRESS_X1: Wciśnij
+actionTrigger_SHORT_PRESS_X2: Wciśnij dwukrotnie
+actionTrigger_SHORT_PRESS_X3: Wciśnij trzykrotnie
+actionTrigger_SHORT_PRESS_X4: Wciśnij czterokrotnie
+actionTrigger_SHORT_PRESS_X5: Wciśnij pięciokrotnie
+actionTrigger_TOGGLE_X1: Przełącz
+actionTrigger_TOGGLE_X2: Przełącz dwukrotnie
+actionTrigger_TOGGLE_X3: Przełącz trzykrotnie
+actionTrigger_TOGGLE_X4: Przełącz czterokrotnie
+actionTrigger_TOGGLE_X5: Przełącz pięciokrotnie
+actionTrigger_TURN_OFF: Wyłącz
+actionTrigger_TURN_ON: Włącz
 actionableSubjectType_channel: Kanał
 actionableSubjectType_channelGroup: Grupa kanałów
 actionableSubjectType_scene: Scena
@@ -805,6 +822,14 @@ Tuesdays: Wtorki
 Wednesdays: Środy
 When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
+actionTriggerDescription_PRESS: 'Domyślnie, ta akcja jest wykonywana po wciśnięciu przycisku.'
+actionTriggerDescription_PRESS_2X: 'Domyślnie, ta akcja jest wykonywana po dwukrotnym wciśnięciu przycisku.'
+actionTriggerDescription_PRESS_3X: 'Domyślnie, ta akcja jest wykonywana po trzykrotnym wciśnięciu przycisku.'
+actionTriggerDescription_RELEASE: 'Domyślnie, ta akcja jest wykonywana po wciśnięciu i puszczeniu przycisku.'
+actionTrigger_PRESS: Wciśnięcie przycisku
+actionTrigger_PRESS_2X: Dwukrotne wciśnięcie
+actionTrigger_PRESS_3X: Trzykrotne wciśnięcie
+actionTrigger_RELEASE: Zwolnienie przycisku
 execute: wykonaj
 hourly: Każdy dzień
 
