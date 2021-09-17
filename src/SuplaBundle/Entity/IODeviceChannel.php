@@ -187,10 +187,10 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
      */
     private $flags = 0;
 
-    /** @ORM\Column(name="user_config", type="text", nullable=true) */
+    /** @ORM\Column(name="user_config", type="string", length=2048, nullable=true) */
     private $userConfig;
 
-    /** @ORM\Column(name="properties", type="string", length=255, nullable=true) */
+    /** @ORM\Column(name="properties", type="string", length=2048, nullable=true) */
     private $properties;
 
     public function __construct() {

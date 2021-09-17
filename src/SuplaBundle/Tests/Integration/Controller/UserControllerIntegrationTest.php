@@ -153,7 +153,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1, $relationsCount['accessIds']);
         $this->assertEquals(1, $relationsCount['ioDevices']);
         $this->assertEquals(0, $relationsCount['schedules']);
-        $this->assertEquals(2, $relationsCount['channels']);
+        $this->assertEquals(3, $relationsCount['channels']);
     }
 
     /** @small */
