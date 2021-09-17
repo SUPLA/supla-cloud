@@ -102,7 +102,7 @@
                     count: this.channel.relationsCount.scenes,
                 });*/
             }
-            if (this.channel.function.id > 0) {
+            if (this.channel.function.id > 0 && !['ACTION_TRIGGER'].includes(this.channel.function.name)) {
                 this.availableTabs.push({
                     id: 'directLinks',
                     header: 'Direct links', // i18n

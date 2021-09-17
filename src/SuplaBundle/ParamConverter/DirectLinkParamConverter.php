@@ -32,11 +32,10 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
         }
         Assertion::isArray($data['allowedActions'], 'AllowedActions must be an array.');
         $subject = $this->subjectRepository->findForUser($user, $data['subjectType'], $data['subjectId']);
-        Assertion::notEq(ChannelFunction::NONE, $subject->getFunction()->getId(), 'Cannot create direct link for NONE channel function.');
-        Assertion::notEq(
-            ChannelFunction::UNSUPPORTED,
+        Assertion::notInArray(
             $subject->getFunction()->getId(),
-            'Cannot create direct link for UNSUPPORTED channel function.'
+            [ChannelFunction::NONE, ChannelFunction::UNSUPPORTED, ChannelFunction::ACTION_TRIGGER],
+            'Cannot create direct links for this function.'
         );
         $link = new DirectLink($subject);
         $link->setCaption($data['caption'] ?? '');

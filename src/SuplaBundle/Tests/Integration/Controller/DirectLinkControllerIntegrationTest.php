@@ -34,7 +34,7 @@ use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\HttpFoundation\Response;
 
-/** @small  */
+/** @small */
 class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
@@ -56,6 +56,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
             [ChannelType::DIGIGLASS, ChannelFunction::DIGIGLASS_HORIZONTAL],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
             $this->device->getChannels()[0],
@@ -125,6 +126,11 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCannotCreateDirectLinkWithActionNotSupportedInChannel() {
         $response = $this->createDirectLink(['allowedActions' => ['open']]);
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testCannotCreateDirectLinkForActionTrigger() {
+        $response = $this->createDirectLink(['subjectId' => $this->device->getChannels()[6]->getId()]);
         $this->assertStatusCode(400, $response);
     }
 

@@ -158,7 +158,8 @@
                     <div class="row">
                         <div class="col-lg-4 col-lg-offset-4">
                             <subject-dropdown @input="chooseSubjectForNewLink($event)"
-                                channels-dropdown-params="hasFunction=1"></subject-dropdown>
+                                channels-dropdown-params="hasFunction=1"
+                                :filter="filterOutNotDirectLinkingSubjects"></subject-dropdown>
                             <span class="help-block">
                                 {{ $t('After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.') }}
                             </span>
@@ -293,6 +294,9 @@
             },
             cancelChanges() {
                 this.fetch();
+            },
+            filterOutNotDirectLinkingSubjects(subject) {
+                return !['ACTION_TRIGGER'].includes(subject.function.name);
             },
         },
         computed: {
