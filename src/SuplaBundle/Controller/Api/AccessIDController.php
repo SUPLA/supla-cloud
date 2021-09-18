@@ -108,7 +108,11 @@ class AccessIDController extends RestController {
             $em->persist($aid);
             return $aid;
         });
-        return $this->getAccessidAction($request, $aid);
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            return $this->serializedView($aid, $request, ['location.relationsCount'], Response::HTTP_CREATED);
+        } else {
+            return $this->getAccessidAction($request, $aid);
+        }
     }
 
     /**

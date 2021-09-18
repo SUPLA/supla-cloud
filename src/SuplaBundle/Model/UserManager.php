@@ -188,11 +188,15 @@ class UserManager {
     }
 
     public function confirm($token) {
-        $user = $this->UserByConfirmationToken($token);
+        $user = $this->userByConfirmationToken($token);
 
         if ($user !== null) {
-            $this->aid_man->CreateID($user, true);
-            $this->loc_man->CreateLocation($user, true);
+            if ($user->getAccessIDS()->isEmpty()) {
+                $this->aid_man->createID($user);
+            }
+            if ($user->getLocations()->isEmpty()) {
+                $this->loc_man->createLocation($user);
+            }
 
             $user->setToken(null);
             $user->setEnabled(true);

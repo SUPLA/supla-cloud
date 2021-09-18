@@ -260,7 +260,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
      * @ORM\Column(name="locale", type="string", length=5, nullable=true)
      * @Groups({"basic"})
      */
-    private $locale = false;
+    private $locale = null;
 
     /**
      * @ORM\Column(name="oauth_compat_username", type="string", length=64, nullable=true,

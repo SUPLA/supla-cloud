@@ -19,41 +19,20 @@ namespace SuplaBundle\Model;
 
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Repository\LocationRepository;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LocationManager {
     protected $translator;
-    protected $doctrine;
-    protected $rep;
-    protected $sec;
 
-    public function __construct(TranslatorInterface $translator, LocationRepository $locationRepository) {
+    public function __construct(TranslatorInterface $translator) {
         $this->translator = $translator;
-        $this->rep = $locationRepository;
     }
 
-    private function anyLocationExists(User $user) {
-        return $this->rep->findOneBy(['user' => $user]) !== null;
-    }
-
-    private function totalCount(User $user) {
-        $qb = $this->rep->createQueryBuilder('l');
-
-        return intval($qb->select('count(l.id)')
-            ->where($qb->expr()->eq('l.user', ':user'))
-            ->setParameter('user', $user->getId())
-            ->getQuery()
-            ->getSingleScalarResult());
-    }
-
-    public function createLocation(User $user, $ifnotexists = false) {
-        if ($ifnotexists === false || $this->anyLocationExists($user) === false) {
-            $loc = new Location($user);
-            $loc->setPassword(bin2hex(random_bytes(2)));
-            $loc->setCaption($this->translator->trans('Location') . " #" . ($this->totalCount($user) + 1));
-            return $loc;
-        }
-        return null;
+    public function createLocation(User $user): Location {
+        $location = new Location($user);
+        $location->generatePassword();
+        $caption = $this->translator->trans('Location', [], null, $user->getLocale());
+        $location->setCaption($caption . " #" . ($user->getLocations()->count() + 1));
+        return $location;
     }
 }

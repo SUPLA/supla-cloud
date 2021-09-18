@@ -548,4 +548,22 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains('GET-DIGIGLASS-VALUE:1,1,6', $commands);
     }
+
+    public function testCreatingDirectLinkWithDefaultCaption() {
+        $response = $this->createDirectLink(['caption' => '']);
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('Direct link #', $content['caption']);
+    }
+
+    public function testCreatingDirectLinkWithDefaultCaptionInPolish() {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->user->setLocale('pl_PL');
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        $response = $this->createDirectLink(['caption' => '']);
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('Link bezpośredni #', $content['caption']);
+    }
 }

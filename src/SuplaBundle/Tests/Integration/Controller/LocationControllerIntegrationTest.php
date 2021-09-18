@@ -119,5 +119,20 @@ class LocationControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('POST', '/api/locations');
         $response = $client->getResponse();
         $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('Location #', $content['caption']);
+    }
+
+    public function testCreatingLocationWithPlLocale() {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $this->user->setLocale('pl_PL');
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', '/api/locations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('Lokalizacja #', $content['caption']);
     }
 }

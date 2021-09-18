@@ -19,42 +19,20 @@ namespace SuplaBundle\Model;
 
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Repository\AccessIdRepository;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AccessIdManager {
     protected $translator;
-    protected $doctrine;
-    protected $rep;
-    protected $sec;
 
-    public function __construct(TranslatorInterface $translator, AccessIdRepository $accessIdRepository) {
+    public function __construct(TranslatorInterface $translator) {
         $this->translator = $translator;
-        $this->rep = $accessIdRepository;
     }
 
-    private function anyIdExists(User $user) {
-        return $user !== null && ($user->getAccessIDS()->count() > 0 || $this->rep->findOneBy(['user' => $user]) !== null);
-    }
-
-    private function totalCount(User $user) {
-        $qb = $this->rep->createQueryBuilder('a');
-
-        return intval($qb->select('count(a.id)')
-            ->where($qb->expr()->eq('a.user', ':user'))
-            ->setParameter('user', $user->getId())
-            ->getQuery()
-            ->getSingleScalarResult());
-    }
-
-    public function createID(User $user, $ifnotexists = false) {
-        if ($ifnotexists === false || $this->anyIdExists($user) === false) {
-            $aid = new AccessID($user);
-            $aid->setPassword(bin2hex(random_bytes(4)));
-            $aid->setCaption($this->translator->trans('Access Identifier') . " #" . ($this->totalCount($user) + 1));
-            return $aid;
-        }
-
-        return null;
+    public function createID(User $user): AccessID {
+        $aid = new AccessID($user);
+        $aid->setPassword(bin2hex(random_bytes(4)));
+        $caption = $this->translator->trans('Access Identifier', [], null, $user->getLocale());
+        $aid->setCaption($caption . " #" . ($user->getAccessIDS()->count() + 1));
+        return $aid;
     }
 }

@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -141,6 +142,12 @@ class Location implements HasRelationsCount {
 
     public function setCaption($caption) {
         $this->caption = $caption;
+    }
+
+    public function generatePassword(): string {
+        Assertion::null($this->password);
+        $this->setPassword(bin2hex(random_bytes(2)));
+        return $this->getPassword();
     }
 
     public function getPassword() {
