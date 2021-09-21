@@ -101,7 +101,7 @@
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             },
             value() {
-                if (this.value && this.value.id !== this.action.id) {
+                if (this.value && this.action.id && this.value.id !== this.action.id) {
                     this.value.param = {};
                 }
                 this.updateAction();
