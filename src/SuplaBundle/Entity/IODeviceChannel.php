@@ -423,6 +423,7 @@ class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
     }
 
     public function setUserConfig(array $config): void {
+        $config = array_diff_key($config, $this->getProperties());
         $this->userConfig = json_encode($config);
     }
 

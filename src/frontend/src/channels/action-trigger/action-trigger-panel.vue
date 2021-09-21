@@ -60,6 +60,15 @@
                 expanded: {}
             };
         },
+        mounted() {
+            // clear unsupported configs
+            let currentActions = this.channel.config.actions || {};
+            for (const actionName in currentActions) {
+                if (!(this.channel.config.actionTriggerCapabilities || []).includes(actionName)) {
+                    delete currentActions[actionName];
+                }
+            }
+        },
         methods: {
             toggleExpand(trigger) {
                 this.$set(this.expanded, trigger, !this.expanded[trigger]);
