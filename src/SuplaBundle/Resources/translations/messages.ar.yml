@@ -777,19 +777,6 @@ Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
-actionTriggerDescription_HOLD: ~
-actionTriggerDescription_SHORT_PRESS_X1: ~
-actionTriggerDescription_SHORT_PRESS_X2: ~
-actionTriggerDescription_SHORT_PRESS_X3: ~
-actionTriggerDescription_SHORT_PRESS_X4: ~
-actionTriggerDescription_SHORT_PRESS_X5: ~
-actionTriggerDescription_TOGGLE_X1: ~
-actionTriggerDescription_TOGGLE_X2: ~
-actionTriggerDescription_TOGGLE_X3: ~
-actionTriggerDescription_TOGGLE_X4: ~
-actionTriggerDescription_TOGGLE_X5: ~
-actionTriggerDescription_TURN_OFF: ~
-actionTriggerDescription_TURN_ON: ~
 actionTrigger_HOLD: ~
 actionTrigger_SHORT_PRESS_X1: ~
 actionTrigger_SHORT_PRESS_X2: ~
