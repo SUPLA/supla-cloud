@@ -6,7 +6,6 @@
         <div v-if="subject">
             <channel-action-chooser :subject="subject"
                 @input="onActionChange()"
-                :possible-action-filter="possibleActionFilter"
                 v-model="action"></channel-action-chooser>
         </div>
         <button v-if="value"
@@ -64,12 +63,6 @@
                     subjectType: this.subject.subjectType,
                     action: this.action,
                 });
-            },
-            possibleActionFilter(possibleAction) {
-                if (['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].includes(this.subject.function.name)) {
-                    return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
-                }
-                return true;
             },
         }
     };
