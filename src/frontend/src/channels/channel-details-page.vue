@@ -58,7 +58,7 @@
                                             v-model="channel.caption">
                                     </dt>
                                 </dl>
-                                <dl v-if="channel.function.id">
+                                <dl v-if="channel.function.id && frozenShownInClientsState !== false">
                                     <dd>{{ $t('Show on the Client’s devices') }}</dd>
                                     <dt class="text-center">
                                         <toggler v-model="channel.hidden"
