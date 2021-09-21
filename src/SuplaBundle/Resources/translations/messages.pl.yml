@@ -655,18 +655,18 @@ Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
 'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
 actionTrigger_HOLD: Przytrzymanie przycisku
-actionTrigger_SHORT_PRESS_X1: Wciśnij
-actionTrigger_SHORT_PRESS_X2: Wciśnij dwukrotnie
-actionTrigger_SHORT_PRESS_X3: Wciśnij trzykrotnie
-actionTrigger_SHORT_PRESS_X4: Wciśnij czterokrotnie
-actionTrigger_SHORT_PRESS_X5: Wciśnij pięciokrotnie
-actionTrigger_TOGGLE_X1: Przełącz
-actionTrigger_TOGGLE_X2: Przełącz dwukrotnie
-actionTrigger_TOGGLE_X3: Przełącz trzykrotnie
-actionTrigger_TOGGLE_X4: Przełącz czterokrotnie
-actionTrigger_TOGGLE_X5: Przełącz pięciokrotnie
-actionTrigger_TURN_OFF: Wyłącz
-actionTrigger_TURN_ON: Włącz
+actionTrigger_SHORT_PRESS_X1: Wciśnięcie 1x
+actionTrigger_SHORT_PRESS_X2: Wciśnięcie 2x
+actionTrigger_SHORT_PRESS_X3: Wciśnięcie 3x
+actionTrigger_SHORT_PRESS_X4: Wciśnięcie 4x
+actionTrigger_SHORT_PRESS_X5: Wciśnięcie 5x
+actionTrigger_TOGGLE_X1: Przełączenie 1x
+actionTrigger_TOGGLE_X2: Przełączenie 2x
+actionTrigger_TOGGLE_X3: Przełączenie 3x
+actionTrigger_TOGGLE_X4: Przełączenie 4x
+actionTrigger_TOGGLE_X5: Przełączenie 5x
+actionTrigger_TURN_OFF: Wyłączenie
+actionTrigger_TURN_ON: Włączenie
 actionableSubjectType_channel: Kanał
 actionableSubjectType_channelGroup: Grupa kanałów
 actionableSubjectType_scene: Scena

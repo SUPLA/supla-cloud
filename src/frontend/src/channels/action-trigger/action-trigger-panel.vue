@@ -14,8 +14,7 @@
                         <a role="button"
                             :aria-expanded="!!expanded[trigger]"
                             :aria-controls="'collapse' + trigger">
-                            {{ $t('Action') }} {{ index + 1 }}
-                            <span class="small">{{ $t('actionTrigger_' + trigger) }}</span>
+                            {{ $t('actionTrigger_' + trigger) }}
                         </a>
                     </div>
                 </div>
