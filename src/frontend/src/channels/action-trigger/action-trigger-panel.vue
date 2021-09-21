@@ -51,6 +51,7 @@
 <script>
     import TransitionExpand from "../../common/gui/transition-expand";
     import ActionTriggerSingleActionSelector from "./action-trigger-single-action-selector";
+    import {forIn} from "lodash";
 
     export default {
         components: {TransitionExpand, ActionTriggerSingleActionSelector},
@@ -62,14 +63,18 @@
         },
         mounted() {
             // clear unsupported configs
-            const currentActions = this.channel.config.actions || {};
-            for (const actionName in currentActions) {
-                if (!(this.channel.config.actionTriggerCapabilities || []).includes(actionName)) {
-                    delete currentActions[actionName];
-                }
+            if (this.channel.config.actions) {
+                forIn(this.channel.config.actions, (value, triggerName) => this.initAtAction(triggerName));
             }
         },
         methods: {
+            initAtAction(triggerName) {
+                if ((this.channel.config.actionTriggerCapabilities || []).includes(triggerName)) {
+                    this.toggleExpand(triggerName);
+                } else {
+                    delete this.channel.config.actions[triggerName];
+                }
+            },
             toggleExpand(trigger) {
                 this.$set(this.expanded, trigger, !this.expanded[trigger]);
             }
