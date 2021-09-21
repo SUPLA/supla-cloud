@@ -777,20 +777,37 @@ You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
 You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
+'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': ~
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
 actionTriggerDescription_HOLD: ~
-actionTriggerDescription_PRESS: ~
-actionTriggerDescription_PRESS_2X: ~
-actionTriggerDescription_PRESS_3X: ~
-actionTriggerDescription_RELEASE: ~
+actionTriggerDescription_SHORT_PRESS_X1: ~
+actionTriggerDescription_SHORT_PRESS_X2: ~
+actionTriggerDescription_SHORT_PRESS_X3: ~
+actionTriggerDescription_SHORT_PRESS_X4: ~
+actionTriggerDescription_SHORT_PRESS_X5: ~
+actionTriggerDescription_TOGGLE_X1: ~
+actionTriggerDescription_TOGGLE_X2: ~
+actionTriggerDescription_TOGGLE_X3: ~
+actionTriggerDescription_TOGGLE_X4: ~
+actionTriggerDescription_TOGGLE_X5: ~
+actionTriggerDescription_TURN_OFF: ~
+actionTriggerDescription_TURN_ON: ~
 actionTrigger_HOLD: ~
-actionTrigger_PRESS: ~
-actionTrigger_PRESS_2X: ~
-actionTrigger_PRESS_3X: ~
-actionTrigger_RELEASE: ~
+actionTrigger_SHORT_PRESS_X1: ~
+actionTrigger_SHORT_PRESS_X2: ~
+actionTrigger_SHORT_PRESS_X3: ~
+actionTrigger_SHORT_PRESS_X4: ~
+actionTrigger_SHORT_PRESS_X5: ~
+actionTrigger_TOGGLE_X1: ~
+actionTrigger_TOGGLE_X2: ~
+actionTrigger_TOGGLE_X3: ~
+actionTrigger_TOGGLE_X4: ~
+actionTrigger_TOGGLE_X5: ~
+actionTrigger_TURN_OFF: ~
+actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
 choose the scene: ~
 crontab: ~
