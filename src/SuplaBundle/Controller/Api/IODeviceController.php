@@ -25,7 +25,7 @@ use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelDependencies;
+use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;

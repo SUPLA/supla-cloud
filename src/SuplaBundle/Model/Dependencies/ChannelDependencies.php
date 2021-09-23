@@ -1,6 +1,6 @@
 <?php
 
-namespace SuplaBundle\Model;
+namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
