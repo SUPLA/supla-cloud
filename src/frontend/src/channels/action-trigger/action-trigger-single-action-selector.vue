@@ -1,8 +1,9 @@
 <template>
     <div class="channel-params-action-trigger-selector">
-        <subject-dropdown v-model="subject"
-            @input="onSubjectChange()"
-            channels-dropdown-params="io=output&hasFunction=1"></subject-dropdown>
+        <div :class="{'form-group': !subject}">
+            <subject-dropdown v-model="subject"
+                channels-dropdown-params="io=output&hasFunction=1"></subject-dropdown>
+        </div>
         <div v-if="subject">
             <channel-action-chooser :subject="subject"
                 @input="onActionChange()"
@@ -22,6 +23,7 @@
     import SubjectDropdown from "../../devices/subject-dropdown";
     import ChannelActionChooser from "../action/channel-action-chooser";
     import changeCase from "change-case";
+    import EventBus from "@/common/event-bus";
 
     export default {
         components: {ChannelActionChooser, SubjectDropdown},
@@ -30,15 +32,16 @@
             return {
                 subject: undefined,
                 action: undefined,
+                channelSavedListener: undefined,
             };
         },
         mounted() {
+            this.channelSavedListener = () => this.onValueChanged();
+            EventBus.$on('channel-updated', this.channelSavedListener);
             this.onValueChanged();
         },
-        watch: {
-            value() {
-                this.onValueChanged();
-            }
+        beforeDestroy() {
+            EventBus.$off('channel-updated', this.channelSavedListener);
         },
         methods: {
             onValueChanged() {
@@ -54,15 +57,16 @@
                     this.action = undefined;
                 }
             },
-            onSubjectChange() {
-                this.action = undefined;
-            },
             onActionChange() {
-                this.$emit('input', {
-                    subjectId: this.subject.id,
-                    subjectType: this.subject.subjectType,
-                    action: this.action,
-                });
+                if (this.action?.id) {
+                    this.$emit('input', {
+                        subjectId: this.subject.id,
+                        subjectType: this.subject.subjectType,
+                        action: this.action,
+                    });
+                } else {
+                    this.$emit('input');
+                }
             },
         }
     };

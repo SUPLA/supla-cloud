@@ -139,6 +139,7 @@
     import $ from "jquery";
     import ChannelFunctionEditModal from "@/channels/channel-function-edit-modal";
     import DeviceTile from "@/devices/list/device-tile";
+    import EventBus from "@/common/event-bus";
 
     export default {
         props: ['id'],
@@ -217,6 +218,7 @@
                     .then(() => {
                         this.hasPendingChanges = false;
                         this.$set(this.channel, 'hasPendingChanges', false);
+                        EventBus.$emit('channel-updated');
                     })
                     .finally(() => this.loading = false);
             }, 1000),

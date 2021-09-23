@@ -1,11 +1,9 @@
 <template>
     <div>
         <loading-cover :loading="loading">
-
             <p>
                 {{ $t('Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).') }}
             </p>
-
             <pending-changes-page
                 @cancel="loadActionTriggers()"
                 @save="saveChanges()"
@@ -29,6 +27,7 @@
 <script>
     import ActionTriggerPanel from "@/channels/action-trigger/action-trigger-panel";
     import PendingChangesPage from "@/common/pages/pending-changes-page";
+    import EventBus from "@/common/event-bus";
 
     export default {
         components: {PendingChangesPage, ActionTriggerPanel},
@@ -51,6 +50,7 @@
                     this.actionTriggers = responses.map((response) => response.body);
                     this.loading = false;
                     this.hasPendingChanges = false;
+                    EventBus.$emit('channel-updated');
                 });
             },
             saveChanges() {

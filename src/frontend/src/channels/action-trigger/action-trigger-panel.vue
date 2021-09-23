@@ -52,13 +52,15 @@
     import TransitionExpand from "../../common/gui/transition-expand";
     import ActionTriggerSingleActionSelector from "./action-trigger-single-action-selector";
     import {forIn} from "lodash";
+    import EventBus from "@/common/event-bus";
 
     export default {
         components: {TransitionExpand, ActionTriggerSingleActionSelector},
         props: ['channel'],
         data() {
             return {
-                expanded: {}
+                expanded: {},
+                channelSavedListener: undefined,
             };
         },
         mounted() {
@@ -66,6 +68,11 @@
             if (this.channel.config.actions) {
                 forIn(this.channel.config.actions, (value, triggerName) => this.initAtAction(triggerName));
             }
+            this.channelSavedListener = () => this.collapseEmptyActions();
+            EventBus.$on('channel-updated', this.channelSavedListener);
+        },
+        beforeDestroy() {
+            EventBus.$off('channel-updated', this.channelSavedListener);
         },
         methods: {
             initAtAction(triggerName) {
@@ -77,7 +84,14 @@
             },
             toggleExpand(trigger) {
                 this.$set(this.expanded, trigger, !this.expanded[trigger]);
-            }
+            },
+            collapseEmptyActions() {
+                for (const triggerName of (this.channel.config.actionTriggerCapabilities || [])) {
+                    if (!this.channel.config.actions[triggerName]) {
+                        this.$set(this.expanded, triggerName, false);
+                    }
+                }
+            },
         }
     };
 </script>
