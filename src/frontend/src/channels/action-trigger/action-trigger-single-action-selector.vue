@@ -12,7 +12,7 @@
         <button v-if="value"
             type="button"
             class="btn btn-default btn-block"
-            @click="$emit('input')">
+            @click="clearAction()">
             <i class="pe-7s-close"></i>
             {{ $t('Clear') }}
         </button>
@@ -68,6 +68,11 @@
                     this.$emit('input');
                 }
             },
+            clearAction() {
+                this.$emit('input');
+                this.subject = undefined;
+                this.action = undefined;
+            }
         }
     };
 </script>
