@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: Достигнут лимит Клю�
 Account: Учетка
 Account access when you are unavailable: 'Доступ к учетной записи, когда вы недоступны'
 Account has been activated. You can Sign In now.: Аккаунт создан. Можете войти
-Action: Акция
 Action execution: Выполнение действий
 Actions: Действия
 Active: Активные
@@ -594,6 +593,7 @@ valid until: Истечет
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
 Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
+Action: Акция
 Are you sure you want to disable this device?: 'Ты уверен, что хочешь выключить это оборудование?'
 Assigned Locations: Подключенные Области
 Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
@@ -651,7 +651,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

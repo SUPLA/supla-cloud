@@ -16,7 +16,6 @@ Access identifier limit has been exceeded: تم تجاوز حد معرفات ا�
 Account: الحساب
 Account access when you are unavailable: الوصول إلى حسابك عندما تكون غير متاح
 Account has been activated. You can Sign In now.: تم تفعيل الحساب. يمكنك تسجيل الدخول
-Action: الاجراء
 Action execution: أداء الاجراء
 Actions: الاجراءات
 Active: نشطة
@@ -543,6 +542,7 @@ sunset-before: غرب
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: يجب أن تتكون كلمة المرور الخاصة بمعرف الوصول من 8 أحرف على الأقل.
 Access identifier password must be no longer than 32 characters.: لا يمكن أن تكون كلمة المرور الخاصة بمعرف الوصول أطول من 32 حرفًا.
+Action: الاجراء
 Are you sure you want to disable this device?: هل أنت متأكد من أنك تريد إيقاف تشغيل هذا الجهاز؟
 Assigned Locations: المواقع المخصصة
 Channel will be deleted from the channel group below: ستتم إزالة القناة من مجموعات القنوات التالية
@@ -607,7 +607,6 @@ API rate limits: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

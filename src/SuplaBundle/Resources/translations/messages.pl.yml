@@ -23,13 +23,11 @@ Access to all of your devices through MQTT Broker: Dostęp do wszystich Twoich u
 Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
-Action: Akcja
 Action execution: Wykonywanie akcji
 Action trigger: Wyzwalacz akcji
 Action triggers: Wyzwalacze akcji
 Actions: Akcje
 Active: Aktywne
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: Rzeczywiste zachowanie wyzwalacza zależy od używanego urządzenia i jego konfiguracji. Opisy pod spodem są tylko przykładami jak urządzenie może działać.
 Add: Dodaj
 Add a delay: Dodaj opóźnienie
 Add a new icon: Dodaj nową ikonę
@@ -760,6 +758,8 @@ valid until: wygaśnie
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
 Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
+Action: Akcja
+Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: Rzeczywiste zachowanie wyzwalacza zależy od używanego urządzenia i jego konfiguracji. Opisy pod spodem są tylko przykładami jak urządzenie może działać.
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
 Change: Zmień

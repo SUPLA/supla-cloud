@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: Se ha superado el límite de identifi
 Account: Cuenta
 Account access when you are unavailable: Acceso a la cuenta cuando estás desconectado/a
 Account has been activated. You can Sign In now.: Se ha activado la cuenta. Puedes entrar en sesión
-Action: Acción
 Action execution: Realizar acción
 Actions: Acciones
 Active: Activos
@@ -594,6 +593,7 @@ valid until: caducará
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
 Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
+Action: Acción
 Are you sure you want to disable this device?: ¿Seguro de que quieres apagar este dispositivo?
 Assigned Locations: Localizaciones asignadas
 Channel will be deleted from the channel group below: El canal será borrado de los grupos de canales siguientes
@@ -651,7 +651,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

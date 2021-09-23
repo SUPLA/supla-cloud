@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: De limiet van de toegangsbadges is ov
 Account: Account
 Account access when you are unavailable: Toegang tot uw account wanneer u niet beschikbaar bent
 Account has been activated. You can Sign In now.: Uw account is geactiveerd. U kunt inloggen
-Action: Actie
 Action execution: Acties uitvoeren
 Actions: Actie
 Active: Actief
@@ -594,6 +593,7 @@ valid until: vervallen
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Het wachtwoord voor de toegangs-ID moet minimaal 8 tekens bevatten.
 Access identifier password must be no longer than 32 characters.: Het wachtwoord voor de toegangs-ID mag niet langer zijn dan 32 tekens.
+Action: Actie
 Are you sure you want to disable this device?: Weet u zeker dat u dit apparaat wilt uitschakelen?
 Assigned Locations: Wijs locaties toe
 Channel will be deleted from the channel group below: Het kanaal wordt uit de volgende kanaalgroepen verwijderd
@@ -651,7 +651,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

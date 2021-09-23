@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: Maksimum antall tilgang identifikator
 Account: Konto
 Account access when you are unavailable: Tilgang til konto når du ikke er tilgjengelig
 Account has been activated. You can Sign In now.: Konto ble aktivert. Du kan logge inn
-Action: Handling
 Action execution: Utfør handlingen
 Actions: Handlinger
 Active: Aktive
@@ -594,6 +593,7 @@ valid until: utløper
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
 Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
+Action: Handling
 Are you sure you want to disable this device?: Er du sikker på at du ønsker å skru av denne enheten?
 Assigned Locations: Tildelte lokaliseringer
 Channel will be deleted from the channel group below: Kanalen blir fjernet fra kanalgruppene nedenfor
@@ -651,7 +651,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

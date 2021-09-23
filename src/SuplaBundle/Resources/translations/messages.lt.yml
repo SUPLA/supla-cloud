@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: Viršutinė prieigos identifikatorių
 Account: Paskyra
 Account access when you are unavailable: Prieiga prie paskyros kuomet esate neprieinami
 Account has been activated. You can Sign In now.: Paskyra aktyvuota. Galite prisijungti
-Action: Veiksmas
 Action execution: Akcijos vykdymas
 Actions: Veiksmai
 Active: Aktyvios
@@ -593,6 +592,7 @@ valid until: baigsis
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
 Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
+Action: Veiksmas
 Are you sure you want to disable this device?: Ar tikrai norite išjungti šį įrenginį?
 Assigned Locations: Priskirtos Vietos
 Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
@@ -650,7 +650,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

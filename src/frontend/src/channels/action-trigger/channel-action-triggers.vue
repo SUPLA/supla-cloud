@@ -5,9 +5,6 @@
             <p>
                 {{ $t('Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).') }}
             </p>
-            <p>
-                {{ $t('Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.') }}
-            </p>
 
             <pending-changes-page
                 @cancel="loadActionTriggers()"

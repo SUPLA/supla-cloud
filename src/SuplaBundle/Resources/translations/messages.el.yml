@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: Υπέρβαση ορίου των α
 Account: Λογαριασμός
 Account access when you are unavailable: Πρόσβαση στο λογαριασμό σας όταν δεν είστε διαθέσιμ-ος /-η
 Account has been activated. You can Sign In now.: Ο λογαριασμός έχει ενεργοποιηθεί. Μπορείτε να συνδεθείτε
-Action: Ενέργεια
 Action execution: Εκτέλεση ενέργειας
 Actions: Ενέργειες
 Active: Ενεργό
@@ -594,6 +593,7 @@ valid until: θα σβήσει
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης πρέπει να αποτελείται τουλάχιστον από 8 χαρακτήρες.
 Access identifier password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης δεν μπορεί να υπερβαίνει τους 32 χαρακτήρες.
+Action: Ενέργεια
 Are you sure you want to disable this device?: Είστε βέβαιοι ότι θέλετε να απενεργοποιήσετε αυτή τη συσκευή;
 Assigned Locations: Παραχωρημένες τοποθεσίες
 Channel will be deleted from the channel group below: Το κανάλι θα αφαιρεθεί από τις ακόλουθες ομάδες καναλιών
@@ -651,7 +651,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

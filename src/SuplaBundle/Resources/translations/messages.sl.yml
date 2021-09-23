@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: Omejitev identifikatorjev je bila pre
 Account: Račun
 Account access when you are unavailable: 'Dostop do vašega računa, ko niste na voljo'
 Account has been activated. You can Sign In now.: Račun je aktiviran. Lahko se prijavite
-Action: Dejanje
 Action execution: Izvajanje dejanj
 Actions: Dejanja
 Active: Aktivne
@@ -594,6 +593,7 @@ valid until: poteče
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
 Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
+Action: Dejanje
 Are you sure you want to disable this device?: 'Ali ste prepričani, da želite izklopiti to napravo?'
 Assigned Locations: Dodeljene lokacije
 Channel will be deleted from the channel group below: Kanal bo odstranjen z naslednjih skupin kanalov
@@ -651,7 +651,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

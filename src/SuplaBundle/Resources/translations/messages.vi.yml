@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: Vượt quá giới hạn truy cập
 Account: Tài khoản
 Account access when you are unavailable: Truy cập tài khoản
 Account has been activated. You can Sign In now.: Tài khoản đã kích hoạt. Hiện tại có thể đăng nhập
-Action: Hoạt động
 Action execution: Thực hiện
 Actions: Hoạt động
 Active: Kích hoạt
@@ -594,6 +593,7 @@ valid until: sẽ hết hạn
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Mật khẩu truy cập tối thiểu 8 kí tự..
 Access identifier password must be no longer than 32 characters.: Mật khẩu truy cập không quá 32 kí tự.
+Action: Hoạt động
 Are you sure you want to disable this device?: Chắc chắn muốn xóa thiết bị này?
 Assigned Locations: Địa điểm được phân công
 Channel will be deleted from the channel group below: Kênh sẽ bị xóa khỏi nhóm kênh
@@ -651,7 +651,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

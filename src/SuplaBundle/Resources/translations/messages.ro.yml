@@ -16,7 +16,6 @@ Access identifier limit has been exceeded: Limita identificatoarelor de acces a 
 Account: Cont
 Account access when you are unavailable: Accesul la cont atunci când nu sunteți indisponibil(ă)
 Account has been activated. You can Sign In now.: Contul a fost activat. Vă puteți autentifica
-Action: Acțiune
 Action execution: Efectuarea acțiunii
 Actions: Acțiuni
 Active: Active
@@ -544,6 +543,7 @@ sunset-before: apus
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Parola pentru identificatorul de acces trebuie să aibă cel puțin 8 caractere.
 Access identifier password must be no longer than 32 characters.: Parola pentru identificatorul de acces nu poate fi mai lungă de 32 de caractere.
+Action: Acțiune
 Are you sure you want to disable this device?: Sigur doriți să opriți acest dispozitiv?
 Assigned Locations: Locații atribuite
 Channel will be deleted from the channel group below: Canalul va fi eliminat din următoarele grupe de canale
@@ -608,7 +608,6 @@ API rate limits: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

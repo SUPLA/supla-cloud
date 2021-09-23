@@ -18,7 +18,6 @@ Access identifier limit has been exceeded: Bol prekročený limit identifikátor
 Account: Účet
 Account access when you are unavailable: Prístup k účtu keď nie ste dostupný/-á
 Account has been activated. You can Sign In now.: Účet bol aktivovaný. Môžete sa prihlásiť
-Action: Akcia
 Action execution: Vykonávanie akcie
 Actions: Akcie
 Active: Aktívne
@@ -594,6 +593,7 @@ valid until: uplynie
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: Heslo pre identifikátor prístupu musí mať dĺžku aspoň 8 znakov.
 Access identifier password must be no longer than 32 characters.: Heslo pre identifikátor prístupu nesmie byť dlhšie ako 32 znakov.
+Action: Akcia
 Are you sure you want to disable this device?: Naozaj chcete vypnúť toto zariadenie?
 Assigned Locations: Priradené Polohy
 Channel will be deleted from the channel group below: Kanál bude odstránený z nasledujúcich skupín kanálov
@@ -651,7 +651,6 @@ A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~

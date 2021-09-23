@@ -16,7 +16,6 @@ Access identifier limit has been exceeded: A hozzáférési azonosítás korlát
 Account: Felhasznalói fiók
 Account access when you are unavailable: 'Hozzáférés a fiókhoz, ha nem  elérhető'
 Account has been activated. You can Sign In now.: A fiók aktiválva lett. A bejelentkezés megengedett.
-Action: Műveletek
 Action execution: Műveletek végrehajtása
 Actions: Műveletek
 Active: Aktív
@@ -544,6 +543,7 @@ sunset-before: napnyugta előtt
 # Translations below have not been found in sources. You might want to delete them.
 Access identifier password must be at least 8 characters.: A hozzáférési azonosító jelszavának legalább 8 karakter hosszúnak kell lennie.
 Access identifier password must be no longer than 32 characters.: A hozzáférési azonosító jelszava nem lehet hosszabb 32 karakternél.
+Action: Műveletek
 Are you sure you want to disable this device?: Biztosan ki akarja kapcsolni ezt az eszközt?
 Assigned Locations: Hozzárendelt Lokálizációk
 Channel will be deleted from the channel group below: A csatorná eltávolítva a következő csatornacsoportokból
@@ -608,7 +608,6 @@ API rate limits: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
 Action triggers: ~
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~
