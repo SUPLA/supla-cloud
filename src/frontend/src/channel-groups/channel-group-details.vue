@@ -90,11 +90,15 @@
             :header="$t('Are you sure you want to delete this channel group?')"
             :loading="loading">
         </modal-confirm>
-        <delete-channel-group-with-dependencies-modal
+        <dependencies-warning-modal
+            header-i18n="Some features depend on this channel group"
+            description-i18n="Some of the features you have configured rely on this channel group."
+            deleting-header-i18n="The items below rely on this channel group, so they will be deleted."
+            removing-header-i18n="Channel group reference will be removed from the items below."
             v-if="dependenciesThatPreventsDeletion"
             :dependencies="dependenciesThatPreventsDeletion"
             @confirm="deleteGroup(false)"
-            @cancel="dependenciesThatPreventsDeletion = undefined"></delete-channel-group-with-dependencies-modal>
+            @cancel="dependenciesThatPreventsDeletion = undefined"></dependencies-warning-modal>
     </page-container>
 </template>
 
@@ -111,12 +115,12 @@
     import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
     import ChannelGroupDetailsTabs from "./channel-group-details-tabs";
     import AppState from "../router/app-state";
-    import DeleteChannelGroupWithDependenciesModal from "@/channel-groups/delete-channel-group-with-dependencies-modal";
+    import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
 
     export default {
         props: ['id'],
         components: {
-            DeleteChannelGroupWithDependenciesModal,
+            DependenciesWarningModal,
             ChannelGroupDetailsTabs,
             ChannelAlternativeIconChooser,
             PageContainer,

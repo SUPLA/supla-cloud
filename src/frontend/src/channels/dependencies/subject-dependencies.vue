@@ -31,7 +31,7 @@
                 </ul>
             </div>
         </div>
-        <p v-if="(dependencies.channelGroups || []).length > 0 || dependencies.sceneOperations.length > 0">
+        <p v-if="(dependencies.channelGroups || []).length > 0 || dependencies.sceneOperations.length > 0 || dependencies.actionTriggers.length > 0">
             <slot name="removingHeader">{{ $t('Channel reference will be removed from the items below.') }}</slot>
         </p>
         <div class="row">

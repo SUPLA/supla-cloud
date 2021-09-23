@@ -89,11 +89,6 @@
         </loading-cover>
         <channel-list-page :device-id="id"
             v-if="device"></channel-list-page>
-        <disable-io-with-dependencies-modal message-i18n="Turning this device off will result in disabling all the associated schedules."
-            v-if="dependenciesThatWillBeDisabled"
-            :dependencies="dependenciesThatWillBeDisabled"
-            @confirm="saveChanges(false)"
-            @cancel="dependenciesThatWillBeDisabled = undefined"></disable-io-with-dependencies-modal>
         <modal-confirm v-if="deleteConfirm"
             class="modal-warning"
             @confirm="deleteDevice()"
@@ -102,10 +97,23 @@
             :loading="loading">
             <p>{{ $t('Confirm if you want to remove {deviceName} device and all of its channels.', {deviceName: device.name}) }}</p>
         </modal-confirm>
-        <delete-io-with-dependencies-modal v-if="dependenciesThatPreventsDeletion"
+        <dependencies-warning-modal
+            header-i18n="Some features depend on this device"
+            deleting-header-i18n="Turning this device off will result in disabling features listed below."
+            removing-header-i18n="Turning this device off will cause its channels not working in the following features."
+            v-if="dependenciesThatWillBeDisabled"
+            :dependencies="dependenciesThatWillBeDisabled"
+            @confirm="saveChanges(false)"
+            @cancel="dependenciesThatWillBeDisabled = undefined"></dependencies-warning-modal>
+        <dependencies-warning-modal
+            header-i18n="Some features depend on this device"
+            description-i18n="Some of the features you have configured rely on channels from this device."
+            deleting-header-i18n="The following items will be deleted with this device:"
+            removing-header-i18n="The following items use the channels of these device. These references will be also removed."
+            v-if="dependenciesThatPreventsDeletion"
             :dependencies="dependenciesThatPreventsDeletion"
             @confirm="deleteDevice(false)"
-            @cancel="dependenciesThatPreventsDeletion = undefined"></delete-io-with-dependencies-modal>
+            @cancel="dependenciesThatPreventsDeletion = undefined"></dependencies-warning-modal>
     </page-container>
 </template>
 
@@ -119,15 +127,13 @@
     import ConnectionStatusLabel from "../list/connection-status-label";
     import SquareLocationChooser from "../../locations/square-location-chooser";
     import PageContainer from "../../common/pages/page-container";
-    import DeleteIoWithDependenciesModal from "./delete-io-with-dependencies-modal";
-    import DisableIoWithDependenciesModal from "./disable-io-with-dependencies-modal";
     import $ from "jquery";
+    import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
 
     export default {
         props: ['id'],
         components: {
-            DisableIoWithDependenciesModal,
-            DeleteIoWithDependenciesModal,
+            DependenciesWarningModal,
             PageContainer,
             ConnectionStatusLabel,
             ChannelListPage,

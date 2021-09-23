@@ -114,10 +114,15 @@
             @cancel="changingFunction = false"
             @confirm="changeFunction($event)"></channel-function-edit-modal>
 
-        <channel-function-edit-confirmation :confirmation-object="changeFunctionConfirmationObject"
+        <dependencies-warning-modal
+            header-i18n="Are you sure you want to change channel’s function?"
+            description-i18n="Changing channel’s function will also result in the following changes."
+            deleting-header-i18n="The items below rely on this channel function, so they will be deleted."
+            removing-header-i18n="Channel reference will be removed from the items below."
             v-if="changeFunctionConfirmationObject"
+            :dependencies="changeFunctionConfirmationObject"
             @cancel="loading = changeFunctionConfirmationObject = undefined"
-            @confirm="changeFunction(changeFunctionConfirmationObject.newFunction, false)"></channel-function-edit-confirmation>
+            @confirm="changeFunction(changeFunctionConfirmationObject.newFunction, false)"></dependencies-warning-modal>
 
     </page-container>
 </template>
@@ -131,7 +136,6 @@
     import ChannelAlternativeIconChooser from "./channel-alternative-icon-chooser";
     import ChannelStateTable from "./channel-state-table";
     import ChannelDetailsTabs from "./channel-details-tabs";
-    import ChannelFunctionEditConfirmation from "./channel-function-edit-confirmation";
     import throttle from "lodash/throttle";
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
@@ -140,15 +144,16 @@
     import ChannelFunctionEditModal from "@/channels/channel-function-edit-modal";
     import DeviceTile from "@/devices/list/device-tile";
     import EventBus from "@/common/event-bus";
+    import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
 
     export default {
         props: ['id'],
         components: {
+            DependenciesWarningModal,
             DeviceTile,
             ChannelFunctionEditModal,
             PageContainer,
             PendingChangesPage,
-            ChannelFunctionEditConfirmation,
             ChannelDetailsTabs,
             ChannelStateTable,
             ChannelAlternativeIconChooser,
