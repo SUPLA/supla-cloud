@@ -2,13 +2,13 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class OpenGateActionExecutor extends SingleChannelActionExecutor {
-    public function execute(HasFunction $subject, array $actionParams = []) {
+    public function execute(ActionableSubject $subject, array $actionParams = []) {
         $command = $subject->buildServerSetCommand('ACTION-OPEN', $this->assignCommonParams([], $actionParams));
         $command = str_replace('SET-ACTION-OPEN-VALUE:', 'ACTION-OPEN:', $command);
         $this->suplaServer->executeSetCommand($command);
@@ -25,7 +25,7 @@ class OpenGateActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::OPEN();
     }
 
-    public function validateActionParams(HasFunction $subject, array $actionParams): array {
+    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         Assertion::true(
             $subject instanceof IODeviceChannel,
             "Cannot execute the requested action OPEN on channel group."

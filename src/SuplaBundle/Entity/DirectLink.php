@@ -129,7 +129,7 @@ class DirectLink implements HasSubject {
      */
     private $disableHttpGet = false;
 
-    public function __construct(HasFunction $subject) {
+    public function __construct(ActionableSubject $subject) {
         $this->initializeSubject($subject);
         $this->user = $subject->getUser();
         $this->setAllowedActions([]);
@@ -151,7 +151,7 @@ class DirectLink implements HasSubject {
      * @Groups({"directLink.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): ?HasFunction {
+    public function getSubject(): ?ActionableSubject {
         return $this->getTheSubject();
     }
 

@@ -2,8 +2,8 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -70,7 +70,7 @@ class SceneParamConverter extends AbstractBodyParamConverter {
             Assertion::keyExists($operationData, 'subjectType', 'You must set subjectType for each scene operation.');
             Assertion::keyExists($operationData, 'actionId', 'You must set action for each scene operation.');
             Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
-            /** @var HasFunction $subject */
+            /** @var ActionableSubject $subject */
             $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
             $action = ChannelFunctionAction::fromString($operationData['actionId']);
             $actionParam = $operationData['actionParam'] ?? [] ?: [];

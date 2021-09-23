@@ -2,8 +2,8 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ChannelActionExecutor {
@@ -17,13 +17,13 @@ class ChannelActionExecutor {
         }
     }
 
-    public function executeAction(HasFunction $subject, ChannelFunctionAction $action, array $actionParams = []) {
+    public function executeAction(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParams = []) {
         $executor = $this->getExecutor($subject, $action);
         $actionParams = $executor->validateActionParams($subject, $actionParams);
         $executor->execute($subject, $actionParams);
     }
 
-    public function validateActionParams(HasFunction $subject, ChannelFunctionAction $action, array $actionParams): array {
+    public function validateActionParams(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParams): array {
         try {
             $executor = $this->getExecutor($subject, $action);
         } catch (\InvalidArgumentException $e) {
@@ -31,7 +31,7 @@ class ChannelActionExecutor {
         return isset($executor) ? $executor->validateActionParams($subject, $actionParams) : [];
     }
 
-    private function getExecutor(HasFunction $subject, ChannelFunctionAction $action): SingleChannelActionExecutor {
+    private function getExecutor(ActionableSubject $subject, ChannelFunctionAction $action): SingleChannelActionExecutor {
         Assertion::keyIsset($this->actionExecutors, $action->getName(), 'Cannot execute requested action through API.');
         $executors = $this->actionExecutors[$action->getName()];
         foreach ($executors as $executor) {

@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
@@ -14,7 +14,7 @@ class ExecuteActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::EXECUTE();
     }
 
-    public function execute(HasFunction $scene, array $actionParams = []) {
+    public function execute(ActionableSubject $scene, array $actionParams = []) {
         $command = $scene->buildServerSetCommand('', $this->assignCommonParams([], $actionParams));
         $this->suplaServer->executeSetCommand($command);
     }

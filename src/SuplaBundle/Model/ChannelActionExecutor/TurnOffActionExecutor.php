@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class TurnOffActionExecutor extends TurnOnActionExecutor {
@@ -9,7 +9,7 @@ class TurnOffActionExecutor extends TurnOnActionExecutor {
         return ChannelFunctionAction::TURN_OFF();
     }
 
-    protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
+    protected function getCharValue(ActionableSubject $subject, array $actionParams = []): int {
         return 0;
     }
 }

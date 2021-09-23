@@ -21,7 +21,7 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use InvalidArgumentException;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Scene;
@@ -91,7 +91,7 @@ class ScenesFixture extends SuplaFixture {
             for ($i = 0; $i < $numberOfOperations; $i++) {
                 $action = null;
                 do {
-                    /** @var HasFunction $subject */
+                    /** @var ActionableSubject $subject */
                     $subject = $this->faker->randomElement($subjectFactories)($user);
                     if ($subject) {
                         $action = $this->faker->randomElement($subject->getFunction()->getPossibleActions());

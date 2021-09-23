@@ -17,14 +17,12 @@
 
 namespace SuplaBundle\Entity;
 
-use Assert\Assert;
 use Assert\Assertion;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -159,7 +157,7 @@ class Schedule implements HasSubject {
      * @Groups({"schedule.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): ?HasFunction {
+    public function getSubject(): ?ActionableSubject {
         return $this->getTheSubject();
     }
 

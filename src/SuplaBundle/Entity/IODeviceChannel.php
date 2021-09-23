@@ -41,7 +41,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     }
  * )
  */
-class IODeviceChannel implements HasFunction, HasLocation, HasRelationsCount {
+class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCount {
     use BelongsToUser;
     use HasRelationsCountTrait;
 

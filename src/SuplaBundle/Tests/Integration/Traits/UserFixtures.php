@@ -19,8 +19,8 @@ namespace SuplaBundle\Tests\Integration\Traits;
 
 use DateTime;
 use SuplaBundle\Auth\OAuthScope;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
@@ -126,7 +126,7 @@ trait UserFixtures {
         return $device;
     }
 
-    private function createSchedule(HasFunction $subject, string $timeExpression, array $data = []): Schedule {
+    private function createSchedule(ActionableSubject $subject, string $timeExpression, array $data = []): Schedule {
         $schedule = new Schedule($subject->getUser(), array_merge([
             'subject' => $subject,
             'mode' => ScheduleMode::ONCE,

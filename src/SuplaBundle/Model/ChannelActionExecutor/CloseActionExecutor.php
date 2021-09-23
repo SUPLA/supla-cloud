@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -18,7 +18,7 @@ class CloseActionExecutor extends TurnOffActionExecutor {
         return ChannelFunctionAction::CLOSE();
     }
 
-    public function validateActionParams(HasFunction $subject, array $actionParams): array {
+    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         Assertion::true(
             $subject instanceof IODeviceChannel,
             "Cannot execute the requested action CLOSE on channel group."

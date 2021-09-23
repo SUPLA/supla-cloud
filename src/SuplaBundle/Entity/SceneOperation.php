@@ -81,7 +81,7 @@ class SceneOperation implements HasSubject {
      */
     private $delayMs = 0;
 
-    public function __construct(HasFunction $subject, ChannelFunctionAction $action, array $actionParam = [], $delayMs = 0) {
+    public function __construct(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParam = [], $delayMs = 0) {
         $this->initializeSubject($subject);
         $this->action = $action->getId();
         $this->setActionParam($actionParam);
@@ -104,7 +104,7 @@ class SceneOperation implements HasSubject {
      * @Groups({"sceneOperation.subject"})
      * @MaxDepth(1)
      */
-    public function getSubject(): ?HasFunction {
+    public function getSubject(): ?ActionableSubject {
         return $this->getTheSubject();
     }
 

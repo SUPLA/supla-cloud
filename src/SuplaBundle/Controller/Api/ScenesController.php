@@ -23,7 +23,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Scene;
@@ -72,7 +72,7 @@ class ScenesController extends RestController {
             });
     }
 
-    private function returnScenesFilteredBySubject(HasFunction $subject): Collection {
+    private function returnScenesFilteredBySubject(ActionableSubject $subject): Collection {
         $type = ActionableSubjectType::forEntity($subject);
         return $this->returnScenes()->filter(function (Scene $scene) use ($subject, $type) {
             return $scene->getOperations()->exists(function ($index, SceneOperation $sceneOperation) use ($subject, $type) {

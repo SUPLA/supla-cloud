@@ -23,8 +23,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\HasFunction;
 use SuplaBundle\Entity\HasSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
@@ -65,7 +65,7 @@ class DirectLinkController extends RestController {
         return $this->getUser()->getDirectLinks();
     }
 
-    private function returnDirectLinksFilteredBySubject(HasFunction $subject): Collection {
+    private function returnDirectLinksFilteredBySubject(ActionableSubject $subject): Collection {
         $type = ActionableSubjectType::forEntity($subject);
         return $this->returnDirectLinks()->filter(function (HasSubject $entity) use ($subject, $type) {
             return $entity->getSubjectType() == $type && $entity->getSubject()->getId() == $subject->getId();

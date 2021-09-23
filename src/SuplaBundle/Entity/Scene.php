@@ -33,7 +33,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
  * @ORM\Table(name="supla_scene")
  */
-class Scene implements HasLocation, HasFunction, HasRelationsCount {
+class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
     use BelongsToUser;
     use HasRelationsCountTrait;
 

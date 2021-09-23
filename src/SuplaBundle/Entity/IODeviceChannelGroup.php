@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
  * @ORM\Table(name="supla_dev_channel_group")
  */
-class IODeviceChannelGroup implements HasFunction, HasLocation, HasRelationsCount {
+class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelationsCount {
     use BelongsToUser;
     use HasRelationsCountTrait;
 

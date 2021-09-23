@@ -18,7 +18,7 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use SuplaBundle\Auth\Token\WebappToken;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelStateGetter\ValveChannelStateGetter;
@@ -47,7 +47,7 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
         return ChannelFunctionAction::OPEN();
     }
 
-    public function validateActionParams(HasFunction $subject, array $actionParams): array {
+    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         if ($subject->getFunction()->getId() == ChannelFunction::VALVEOPENCLOSE) {
             $state = $this->valveManuallyShutChannelStateGetter->getState($subject);
             $manuallyClosed = $state['manuallyClosed'] ?? true;

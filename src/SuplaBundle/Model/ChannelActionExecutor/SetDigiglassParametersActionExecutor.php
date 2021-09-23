@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -20,7 +20,7 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::SET();
     }
 
-    public function validateActionParams(HasFunction $subject, array $actionParams): array {
+    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         Assertion::isInstanceOf($subject, IODeviceChannel::class, 'SET DIGIGLASS action can be executed on channels only.');
         $validParameters = array_intersect_key($actionParams, array_flip(['transparent', 'opaque', 'mask', 'activeBits']));
         Assertion::count(
@@ -52,7 +52,7 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
         return $state->toArray();
     }
 
-    public function execute(HasFunction $subject, array $actionParams = []) {
+    public function execute(ActionableSubject $subject, array $actionParams = []) {
         $state = DigiglassState::fromArray($subject, $actionParams);
         if ($state->getActiveBits()) {
             $command = 'SET-DIGIGLASS-VALUE:' . implode(',', [
@@ -66,7 +66,7 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
         }
     }
 
-    private function getDigiglassStateFromParams(HasFunction $subject, array $actionParams): DigiglassState {
+    private function getDigiglassStateFromParams(ActionableSubject $subject, array $actionParams): DigiglassState {
         /** @var IODeviceChannel $subject */
         $state = DigiglassState::channel($subject);
         if (isset($actionParams['mask'])) {

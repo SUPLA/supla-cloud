@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -15,7 +15,7 @@ abstract class SingleChannelActionExecutor {
 
     abstract public function getSupportedAction(): ChannelFunctionAction;
 
-    abstract public function execute(HasFunction $subject, array $actionParams = []);
+    abstract public function execute(ActionableSubject $subject, array $actionParams = []);
 
     public function assignCommonParams(array $source, array $actionParams = []) {
 
@@ -29,7 +29,7 @@ abstract class SingleChannelActionExecutor {
         return $source;
     }
 
-    public function validateActionParams(HasFunction $subject, array $actionParams): array {
+    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         if (count(array_intersect_key($actionParams, array_flip(['alexaCorrelationToken', 'googleRequestId']))) > 0) {
             Assertion::eq(
                 count($actionParams),

@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelStateGetter;
 
 use InvalidArgumentException;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Supla\SuplaServerIsDownException;
@@ -15,7 +15,7 @@ class ChannelStateGetter {
         $this->stateGetters = $stateGetters;
     }
 
-    public function getState(HasFunction $channel): array {
+    public function getState(ActionableSubject $channel): array {
         if ($channel instanceof IODeviceChannel) {
             $state = [];
             try {

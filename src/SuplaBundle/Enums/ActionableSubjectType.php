@@ -18,7 +18,7 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Scene;
@@ -34,7 +34,7 @@ final class ActionableSubjectType extends Enum {
     const CHANNEL_GROUP = 'channelGroup'; // i18n:['actionableSubjectType_channelGroup']
     const SCENE = 'scene'; // i18n:['actionableSubjectType_scene']
 
-    public static function forEntity(HasFunction $subject): self {
+    public static function forEntity(ActionableSubject $subject): self {
         if ($subject instanceof IODeviceChannel) {
             return self::CHANNEL();
         } elseif ($subject instanceof IODeviceChannelGroup) {

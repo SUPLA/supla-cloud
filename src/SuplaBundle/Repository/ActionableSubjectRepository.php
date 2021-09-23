@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Repository;
 
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -29,10 +29,10 @@ class ActionableSubjectRepository {
      * @param User $user user that should own the channel
      * @param string|ActionableSubjectType $type type of the subject to return
      * @param int $id id of the subject to return
-     * @return HasFunction found subject
+     * @return ActionableSubject found subject
      * @throws NotFoundHttpException if the subject does not exist or does not belong to the given user
      */
-    public function findForUser(User $user, $type, int $id): HasFunction {
+    public function findForUser(User $user, $type, int $id): ActionableSubject {
         $subjectType = $type instanceof ActionableSubjectType ? $type : ActionableSubjectType::fromString($type);
         switch ($subjectType->getValue()) {
             case ActionableSubjectType::CHANNEL:

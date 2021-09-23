@@ -3,7 +3,7 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assert;
 use Assert\Assertion;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -42,7 +42,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::SET_RGBW_PARAMETERS();
     }
 
-    public function validateActionParams(HasFunction $subject, array $actionParams): array {
+    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         Assertion::between(count($actionParams), 1, 5, 'You need to specify at least brightness or color for this action.');
         Assertion::count(
             array_intersect_key(
@@ -129,7 +129,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         return $actionParams;
     }
 
-    public function execute(HasFunction $subject, array $actionParams = []) {
+    public function execute(ActionableSubject $subject, array $actionParams = []) {
         if (isset($actionParams['color'])) {
             $color = $actionParams['color'];
             if (stripos($color, '0x') === 0) {
@@ -174,7 +174,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         $this->suplaServer->executeSetCommand($command);
     }
 
-    private function chooseTurnOnOffBit(HasFunction $subject, $turnOnOff): int {
+    private function chooseTurnOnOffBit(ActionableSubject $subject, $turnOnOff): int {
         if (!$turnOnOff) {
             return 0;
         }

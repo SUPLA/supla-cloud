@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class RevealActionExecutor extends ShutActionExecutor {
@@ -9,7 +9,7 @@ class RevealActionExecutor extends ShutActionExecutor {
         return ChannelFunctionAction::REVEAL();
     }
 
-    protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
+    protected function getCharValue(ActionableSubject $subject, array $actionParams = []): int {
         $percent = $actionParams['percentage'] ?? 100;
         return 110 - $percent;
     }

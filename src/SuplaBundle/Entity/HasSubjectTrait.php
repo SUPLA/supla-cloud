@@ -10,7 +10,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
  * @property IODeviceChannelGroup|null $channelGroup
  */
 trait HasSubjectTrait {
-    protected function initializeSubject(HasFunction $subject) {
+    protected function initializeSubject(ActionableSubject $subject) {
         $this->channel = null;
         $this->channelGroup = null;
         $this->scene = null;
@@ -25,7 +25,7 @@ trait HasSubjectTrait {
         }
     }
 
-    protected function getTheSubject(): ?HasFunction {
+    protected function getTheSubject(): ?ActionableSubject {
         return $this->channel ?: $this->channelGroup ?: $this->scene;
     }
 

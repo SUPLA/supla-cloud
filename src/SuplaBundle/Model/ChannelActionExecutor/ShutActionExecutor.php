@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ShutActionExecutor extends StopActionExecutor {
@@ -10,7 +10,7 @@ class ShutActionExecutor extends StopActionExecutor {
         return ChannelFunctionAction::SHUT();
     }
 
-    public function validateActionParams(HasFunction $subject, array $actionParams): array {
+    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         if ($actionParams) {
             Assertion::between(count($actionParams), 1, 2, 'Invalid number of action parameters');
             Assertion::count(
@@ -31,7 +31,7 @@ class ShutActionExecutor extends StopActionExecutor {
         return $actionParams;
     }
 
-    protected function getCharValue(HasFunction $subject, array $actionParams = []): int {
+    protected function getCharValue(ActionableSubject $subject, array $actionParams = []): int {
         $percent = $actionParams['percentage'] ?? 100;
         return $percent + 10;
     }

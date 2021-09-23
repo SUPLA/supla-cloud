@@ -3,7 +3,7 @@ namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Model\ChannelActionExecutor\TurnOnActionExecutor;
 
 class TurnOnActionExecutorTest extends TestCase {
@@ -15,7 +15,7 @@ class TurnOnActionExecutorTest extends TestCase {
             $this->expectException(InvalidArgumentException::class);
         }
         $executor = new TurnOnActionExecutor();
-        $params = $executor->validateActionParams($this->createMock(HasFunction::class), $actionParams);
+        $params = $executor->validateActionParams($this->createMock(ActionableSubject::class), $actionParams);
         $this->assertNotNull($params);
     }
 

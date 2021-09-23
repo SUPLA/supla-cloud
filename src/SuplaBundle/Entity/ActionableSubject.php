@@ -3,7 +3,7 @@ namespace SuplaBundle\Entity;
 
 use SuplaBundle\Enums\ChannelFunction;
 
-interface HasFunction {
+interface ActionableSubject {
     public function getId(): int;
 
     public function getFunction(): ChannelFunction;

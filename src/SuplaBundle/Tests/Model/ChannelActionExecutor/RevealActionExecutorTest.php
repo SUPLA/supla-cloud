@@ -3,7 +3,7 @@ namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\HasFunction;
+use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Model\ChannelActionExecutor\RevealActionExecutor;
 use SuplaBundle\Supla\SuplaServer;
@@ -17,7 +17,7 @@ class RevealActionExecutorTest extends TestCase {
             $this->expectException(InvalidArgumentException::class);
         }
         $executor = new RevealActionExecutor();
-        $validParams = $executor->validateActionParams($this->createMock(HasFunction::class), $actionParams);
+        $validParams = $executor->validateActionParams($this->createMock(ActionableSubject::class), $actionParams);
         $this->assertNotNull($validParams);
     }
 
@@ -37,21 +37,21 @@ class RevealActionExecutorTest extends TestCase {
 
     public function testConvertingStringPercentageToInt() {
         $executor = new RevealActionExecutor();
-        $subject = $this->createMock(HasFunction::class);
+        $subject = $this->createMock(ActionableSubject::class);
         $validated = $executor->validateActionParams($subject, ['percentage' => '56']);
         $this->assertSame(56, $validated['percentage']);
     }
 
     public function testConvertingPercentToPercentage() {
         $executor = new RevealActionExecutor();
-        $subject = $this->createMock(HasFunction::class);
+        $subject = $this->createMock(ActionableSubject::class);
         $validated = $executor->validateActionParams($subject, ['percent' => 99]);
         $this->assertSame(99, $validated['percentage']);
     }
 
     public function testValidatingActionParamsWithCorrelationToken() {
         $executor = new RevealActionExecutor();
-        $subject = $this->createMock(HasFunction::class);
+        $subject = $this->createMock(ActionableSubject::class);
         $validated = $executor->validateActionParams($subject, ['percentage' => '55', 'alexaCorrelationToken' => 'abcd']);
         $this->assertSame(55, $validated['percentage']);
         $this->assertSame("abcd", $validated['alexaCorrelationToken']);
@@ -59,7 +59,7 @@ class RevealActionExecutorTest extends TestCase {
 
     public function testValidatingActionParamsWithGoogleRequestId() {
         $executor = new RevealActionExecutor();
-        $subject = $this->createMock(HasFunction::class);
+        $subject = $this->createMock(ActionableSubject::class);
         $validated = $executor->validateActionParams($subject, ['percentage' => '55', 'googleRequestId' => 'abcd']);
         $this->assertSame(55, $validated['percentage']);
         $this->assertSame("abcd", $validated['googleRequestId']);
