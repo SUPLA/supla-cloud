@@ -20,7 +20,6 @@ namespace SuplaBundle\Entity;
 use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
@@ -207,15 +206,6 @@ class IODeviceChannelGroup implements HasFunction, HasLocation, HasRelationsCoun
         }
     }
 
-    public function removeChannel(IODeviceChannel $channel, EntityManagerInterface $entityManager) {
-        $this->getChannels()->removeElement($channel);
-        if ($this->getChannels()->isEmpty()) {
-            $entityManager->remove($this);
-        } else {
-            $entityManager->persist($this);
-        }
-    }
-
     public function buildServerSetCommand(string $type, array $actionParams): string {
         $params = array_merge([$this->getUser()->getId(), $this->getId()], $actionParams);
         $params = implode(',', $params);
@@ -228,5 +218,10 @@ class IODeviceChannelGroup implements HasFunction, HasLocation, HasRelationsCoun
 
     public function getSchedules(): Collection {
         return $this->schedules;
+    }
+
+    /** @return Collection|SceneOperation[] */
+    public function getSceneOperations(): Collection {
+        return $this->sceneOperations;
     }
 }

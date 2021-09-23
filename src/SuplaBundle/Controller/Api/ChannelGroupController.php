@@ -31,6 +31,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
+use SuplaBundle\Model\Dependencies\ChannelGroupDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -162,12 +163,26 @@ class ChannelGroupController extends RestController {
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
      * @UnavailableInMaintenance
      */
-    public function deleteChannelGroupAction(IODeviceChannelGroup $channelGroup) {
-        $result = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
+    public function deleteChannelGroupAction(
+        Request $request,
+        IODeviceChannelGroup $channelGroup,
+        ChannelGroupDependencies $channelGroupDependencies
+    ) {
+        $result = $this->transactional(function (EntityManagerInterface $em) use ($channelGroupDependencies, $request, $channelGroup) {
+            if ($request->get('safe', false)) {
+                $dependencies = $channelGroupDependencies->getDependencies($channelGroup);
+                if (array_filter($dependencies)) {
+                    return $this->view($dependencies, Response::HTTP_CONFLICT);
+                }
+            } else {
+                $channelGroupDependencies->clearDependencies($channelGroup);
+            }
             $em->remove($channelGroup);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
-        $this->suplaServer->reconnect();
+        if ($result->getStatusCode() === Response::HTTP_NO_CONTENT) {
+            $this->suplaServer->reconnect();
+        }
         return $result;
     }
 

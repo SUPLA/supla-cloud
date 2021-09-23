@@ -19,8 +19,10 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -252,5 +254,68 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1, $content['relationsCount']['directLinks']);
         $this->assertEquals(2, $content['relationsCount']['channels']);
         $this->assertEquals(0, $content['relationsCount']['schedules']);
+    }
+
+    public function testSettingConfigForActionTrigger() {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $location = $this->user->getLocations()[0];
+        $anotherDevice = $this->createDeviceSonoff($location);
+        $group = new IODeviceChannelGroup($this->user, $location, [$anotherDevice->getChannels()[0]]);
+        $this->getEntityManager()->persist($group);
+        $this->getEntityManager()->flush();
+        $trigger = $anotherDevice->getChannels()[2];
+        $this->setActionTriggerForChannelGroup($group, $trigger);
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertArrayHasKey('actions', $trigger->getUserConfig());
+        $this->assertCount(1, $trigger->getUserConfig()['actions']);
+        return [$trigger, $group];
+    }
+
+    private function setActionTriggerForChannelGroup(IODeviceChannelGroup $group, IODeviceChannel $trigger): void {
+        $actions = ['TURN_ON' => [
+            'subjectId' => $group->getId(), 'subjectType' => ActionableSubjectType::CHANNEL_GROUP,
+            'action' => ['id' => $group->getFunction()->getPossibleActions()[0]->getId()]]];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
+        $this->assertStatusCode(200, $client->getResponse());
+    }
+
+    /** @depends testSettingConfigForActionTrigger */
+    public function testDeletingChannelGroupTriesToClearRelatedActionTriggers(array $params) {
+        [$trigger, $group] = $params;
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $group->getId() . '?safe=1');
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('actionTriggers', $content);
+        $this->assertCount(1, $content['actionTriggers']);
+        $this->assertEquals($trigger->getId(), $content['actionTriggers'][0]['id']);
+        return [$trigger, $group];
+    }
+
+    /** @depends testDeletingChannelGroupTriesToClearRelatedActionTriggers */
+    public function testDeletingChannelGroupClearsRelatedActionTriggers(array $params) {
+        [$trigger, $group] = $params;
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $group->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertEmpty($trigger->getUserConfig()['actions']);
+        $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $group->getId()));
+    }
+
+    public function testDeletingIoDeviceWithChannelDeletesAlsoTheChannelGroupThatContainedThisChannelOnlyAndClearsItsActionTriggers() {
+        [$triggerInTheSameDevice, $group] = $this->testSettingConfigForActionTrigger();
+        [$triggerInAnotherDevice,] = $this->testSettingConfigForActionTrigger();
+        $ioDevice = $group->getChannels()[0]->getIoDevice();
+        $this->setActionTriggerForChannelGroup($group, $triggerInAnotherDevice);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('DELETE', '/api/iodevices/' . $ioDevice->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $triggerInTheSameDevice = $this->getEntityManager()->find(IODeviceChannel::class, $triggerInTheSameDevice->getId());
+        $triggerInAnotherDevice = $this->getEntityManager()->find(IODeviceChannel::class, $triggerInAnotherDevice->getId());
+        $this->assertNull($triggerInTheSameDevice);
+        $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $group->getId()));
+        $this->assertEmpty($triggerInAnotherDevice->getUserConfig()['actions']);
     }
 }

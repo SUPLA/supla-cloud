@@ -20,15 +20,19 @@ class ChannelDependencies {
     private $scheduleManager;
     /** @var ChannelParamConfigTranslator */
     private $channelParamConfigTranslator;
+    /** @var ChannelGroupDependencies */
+    private $channelGroupDependencies;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ChannelParamConfigTranslator $channelParamConfigTranslator,
-        ScheduleManager $scheduleManager
+        ScheduleManager $scheduleManager,
+        ChannelGroupDependencies $channelGroupDependencies
     ) {
         $this->entityManager = $entityManager;
         $this->scheduleManager = $scheduleManager;
         $this->channelParamConfigTranslator = $channelParamConfigTranslator;
+        $this->channelGroupDependencies = $channelGroupDependencies;
     }
 
     public function getDependencies(IODeviceChannel $channel): array {
@@ -44,7 +48,13 @@ class ChannelDependencies {
     public function clearDependencies(IODeviceChannel $channel): void {
         $this->channelParamConfigTranslator->clearConfig($channel);
         foreach ($channel->getChannelGroups() as $channelGroup) {
-            $channelGroup->removeChannel($channel, $this->entityManager);
+            $channelGroup->getChannels()->removeElement($channel);
+            if ($channelGroup->getChannels()->isEmpty()) {
+                $this->channelGroupDependencies->clearDependencies($channelGroup);
+                $this->entityManager->remove($channelGroup);
+            } else {
+                $this->entityManager->persist($channelGroup);
+            }
         }
         foreach ($channel->getSchedules() as $schedule) {
             $this->scheduleManager->delete($schedule);
