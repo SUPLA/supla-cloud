@@ -18,8 +18,8 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
@@ -38,6 +38,7 @@ use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,15 +53,19 @@ class ChannelController extends RestController {
     private $channelActionExecutor;
     /** @var ScheduleManager */
     private $scheduleManager;
+    /** @var IODeviceChannelRepository */
+    private $channelRepository;
 
     public function __construct(
         ChannelStateGetter $channelStateGetter,
         ChannelActionExecutor $channelActionExecutor,
-        ScheduleManager $scheduleManager
+        ScheduleManager $scheduleManager,
+        IODeviceChannelRepository $channelRepository
     ) {
         $this->channelStateGetter = $channelStateGetter;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->scheduleManager = $scheduleManager;
+        $this->channelRepository = $channelRepository;
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
@@ -82,27 +87,26 @@ class ChannelController extends RestController {
      * @Security("has_role('ROLE_CHANNELS_R')")
      */
     public function getChannelsAction(Request $request) {
-        $criteria = Criteria::create();
-        if (($function = $request->get('function')) !== null) {
-            $functionIds = EntityUtils::mapToIds(ChannelFunction::fromStrings(explode(',', $function)));
-            $criteria->andWhere(Criteria::expr()->in('function', $functionIds));
-        }
-        if (($io = $request->get('io')) !== null) {
-            Assertion::inArray($io, ['input', 'output']);
-            $criteria->andWhere(
-                Criteria::expr()->in('type', $io == 'output'
-                    ? ChannelType::outputTypes()
-                    : ChannelType::inputTypes())
-            );
-        }
-        if (($hasFunction = $request->get('hasFunction')) !== null) {
-            if ($hasFunction) {
-                $criteria->andWhere(Criteria::expr()->neq('function', ChannelFunction::NONE));
-            } else {
-                $criteria->andWhere(Criteria::expr()->eq('function', ChannelFunction::NONE));
+        $filters = function (QueryBuilder $builder, string $alias) use ($request) {
+            if (($function = $request->get('function')) !== null) {
+                $functionIds = EntityUtils::mapToIds(ChannelFunction::fromStrings(explode(',', $function)));
+                $builder->andWhere("$alias.function IN(:functionIds)")->setParameter('functionIds', $functionIds);
             }
-        }
-        $channels = $this->getCurrentUser()->getChannels()->matching($criteria);
+            if (($io = $request->get('io')) !== null) {
+                Assertion::inArray($io, ['input', 'output']);
+                $typeIds = $io == 'output' ? ChannelType::outputTypes() : ChannelType::inputTypes();
+                $builder->andWhere("$alias.type IN(:typeIds)")->setParameter('typeIds', $typeIds);
+            }
+            if (($hasFunction = $request->get('hasFunction')) !== null) {
+                if ($hasFunction) {
+                    $builder->andWhere("$alias.function != :noneFunctionId");
+                } else {
+                    $builder->andWhere("$alias.function = :noneFunctionId");
+                }
+                $builder->setParameter('noneFunctionId', ChannelFunction::NONE);
+            }
+        };
+        $channels = $this->channelRepository->findAllForUser($this->getUser(), $filters);
         $channels = $channels->filter(function (IODeviceChannel $channel) {
             return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channel);
         });
@@ -267,6 +271,12 @@ class ChannelController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', ioDevice)")
      */
     public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
-        return $this->serializedView($ioDevice->getChannels(), $request);
+        $channels = $this->channelRepository->findAllForUser(
+            $this->getUser(),
+            function (QueryBuilder $query, string $alias) use ($ioDevice) {
+                $query->andWhere("$alias.iodevice = :io")->setParameter('io', $ioDevice);
+            }
+        );
+        return $this->serializedView($channels, $request);
     }
 }

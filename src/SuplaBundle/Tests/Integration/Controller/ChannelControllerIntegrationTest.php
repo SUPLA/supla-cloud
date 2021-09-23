@@ -65,6 +65,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::RELAY, ChannelFunction::NONE],
         ]);
         $oauth = self::$container->get(SuplaOAuth2::class);
         $this->peronsalToken = $oauth->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
@@ -138,7 +140,51 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('location', $content[0]);
         $this->assertArrayHasKey('iodevice', $content[0]);
+        $this->assertArrayHasKey('relationsCount', $content[0]);
         $this->assertArrayNotHasKey('location', $content[0]['iodevice']);
+    }
+
+    public function testFilteringByFunction() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?function=LIGHTSWITCH,DIMMERANDRGBLIGHTING');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+    }
+
+    public function testFilteringByInput() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?io=input');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+    }
+
+    public function testFilteringByInvalidInput() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?io=unicorn');
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testFilteringByHasFunction() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?hasFunction=1');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertLessThan(count($this->device->getChannels()), count($content));
+    }
+
+    public function testFilteringByHasFunctionNone() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?hasFunction=0');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
     }
 
     public function testGettingChannelsWithDeviceLocationsV24() {
@@ -450,6 +496,33 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('actions', $trigger->getUserConfig());
         $this->assertCount(1, $trigger->getUserConfig()['actions']);
         return $trigger;
+    }
+
+    /** @depends testSettingConfigForActionTrigger */
+    public function testGettingChannelActionTriggersCount(IODeviceChannel $trigger) {
+        $channelWithRelatedTrigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getParam1());
+        $this->assertNotNull($channelWithRelatedTrigger);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels/' . $channelWithRelatedTrigger->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('actionTriggers', $content['relationsCount']);
+        $this->assertEquals(1, $content['relationsCount']['actionTriggers']);
+    }
+
+    /** @depends testSettingConfigForActionTrigger */
+    public function testGettingIoDeviceChannels(IODeviceChannel $trigger) {
+        $device = $trigger->getIoDevice();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/iodevices/{$device->getId()}/channels");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(3, $content);
+        $this->assertArrayHasKey('relationsCount', $content[0]);
+        $this->assertEquals(1, $content[0]['relationsCount']['actionTriggers']);
     }
 
     /** @depends testSettingConfigForActionTrigger */
