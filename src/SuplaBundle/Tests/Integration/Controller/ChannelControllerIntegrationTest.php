@@ -109,8 +109,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
         $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('subjectType', $content);
         $this->assertArrayNotHasKey('param1', $content);
         $this->assertArrayHasKey('config', $content);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['subjectType']);
     }
 
     public function testGettingChannelInfoWithDeviceLocationV24() {

@@ -18,7 +18,6 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Repository\ChannelGroupRepository;
@@ -51,9 +50,7 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
         if ($this->isSerializationGroupRequested('state', $context)) {
             $normalized['state'] = new JsonArrayObject($this->channelStateGetter->getStateForChannelGroup($group));
         }
-        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
-            $normalized['subjectType'] = ActionableSubjectType::CHANNEL_GROUP;
-        } else {
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             $normalized['channelsIds'] = $this->toIds($group->getChannels());
         }
         if (!isset($normalized['relationsCount'])) {

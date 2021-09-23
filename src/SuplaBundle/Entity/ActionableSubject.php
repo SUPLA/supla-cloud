@@ -14,4 +14,7 @@ interface ActionableSubject {
      * @return int[]
      */
     public function buildServerSetCommand(string $type, array $actionParams): string;
+
+    /** Returns one of the ActionableSubjectType enum values. */
+    public function getSubjectType(): string;
 }

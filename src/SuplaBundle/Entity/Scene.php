@@ -113,6 +113,11 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
         return $this->id;
     }
 
+    /** @Groups({"basic"}) */
+    public function getSubjectType(): string {
+        return ActionableSubjectType::SCENE;
+    }
+
     public function getCaption(): string {
         return $this->caption ?? '';
     }
@@ -166,9 +171,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
         return $this->directLinks;
     }
 
-    /**
-     * @Groups({"basic"})
-     */
+    /** @Groups({"basic"}) */
     public function getFunction(): ChannelFunction {
         return ChannelFunction::SCENE();
     }

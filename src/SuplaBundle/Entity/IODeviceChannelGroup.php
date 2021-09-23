@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -133,6 +134,11 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
 
     public function getId(): int {
         return $this->id;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getSubjectType(): string {
+        return ActionableSubjectType::CHANNEL_GROUP;
     }
 
     public function getUser(): User {

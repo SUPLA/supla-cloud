@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
@@ -202,6 +203,11 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     public function getId(): int {
         return $this->id;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getSubjectType(): string {
+        return ActionableSubjectType::CHANNEL;
     }
 
     public function getChannelNumber() {

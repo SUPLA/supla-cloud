@@ -19,7 +19,6 @@ namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
@@ -73,7 +72,6 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
-            $normalized['subjectType'] = ActionableSubjectType::CHANNEL;
             $normalized['config'] = new JsonArrayObject($this->paramsTranslator->getConfigFromParams($channel));
             if ($this->isSerializationGroupRequested('channel.actionTriggers', $context)) {
                 $actionTriggers = $this->channelRepository->findBy(['user' => $this->getCurrentUser(), 'param1' => $channel->getId()]);

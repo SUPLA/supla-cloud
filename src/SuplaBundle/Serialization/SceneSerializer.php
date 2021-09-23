@@ -18,7 +18,6 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Scene;
-use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Repository\SceneRepository;
 
 class SceneSerializer extends AbstractSerializer {
@@ -35,7 +34,6 @@ class SceneSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $scene, array $context) {
-        $normalized['subjectType'] = ActionableSubjectType::SCENE;
         $normalized['userId'] = $scene->getUser()->getId();
         $normalized['locationId'] = $scene->getLocation()->getId();
         $normalized['functionId'] = $scene->getFunction()->getId();

@@ -140,8 +140,18 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('id', $content);
         $this->assertArrayNotHasKey('channelsIds', $content);
+        $this->assertArrayHasKey('subjectType', $content);
         $this->assertArrayHasKey('relationsCount', $content);
         $this->assertEquals(2, $content['relationsCount']['channels']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['subjectType']);
+    }
+
+    /** @depends testCreatingChannelGroupV24 */
+    public function testCantUpdateToNoChannels(array $cgData) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channel-groups/' . $cgData['id'], ['channelsIds' => []]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
     }
 
     public function testGettingChannelGroupsV24() {
