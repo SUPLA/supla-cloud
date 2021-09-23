@@ -650,7 +650,7 @@ hourly: Ogni ora
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: Attiva azione
-Action triggers: ~
+Action triggers: Attiva azioni
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~
@@ -671,7 +671,7 @@ Automatic calibration: ~
 Bar: ~
 Based on sunrise or sunset: ~
 Be right back!: ~
-Bottom position: ~
+Bottom position: Posizione soglia inferione
 Calibrate: ~
 Calibration successful.: ~
 Cannot calculate when to run the schedule - incorrect configuration?: ~
@@ -750,7 +750,7 @@ Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Chiudi il motore fino al fondo della corsa e inserisci il valore della percentuale di chiusura. Questa impostazione non è obbligatoria ma consentirà una migliore visualizzazione della posizione del motore nell’applicazione.'
 Some features depend on this device: ~
 Some of the features you have configured rely on channels from this device.: ~
 Standard: ~
@@ -776,7 +776,7 @@ You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
 You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': ~
+'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'Il dispositivo consente l’esecuzione delle azioni desiderate su qualsiasi dispositivo associato al proprio account. Le azioni disponibili dipendono dal dispositivo e dalla relativa versione firmware'
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
