@@ -17,4 +17,6 @@ interface ActionableSubject {
 
     /** Returns one of the ActionableSubjectType enum values. */
     public function getSubjectType(): string;
+
+    public function getUser(): User;
 }
