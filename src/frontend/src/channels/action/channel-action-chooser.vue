@@ -95,8 +95,10 @@
             },
         },
         watch: {
-            subject() {
-                this.action = {};
+            subject(newSubject, oldSubject) {
+                if (newSubject?.functionId !== oldSubject?.functionId) {
+                    this.action = {};
+                }
                 this.updateModel();
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             },
