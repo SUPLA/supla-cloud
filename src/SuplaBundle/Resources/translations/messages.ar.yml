@@ -147,7 +147,6 @@ Distance sensor: مستشعر البعد
 Door lock operation: فتح الباب
 Door opening sensor: مستشعر فتح الباب
 Doors and gates: الأبواب والبوابات
-'Doors, Gates': الأبواب ، البوابات
 Download the history of measurement: تحميل تاريخ القياسات
 Drag your image(s) here or click to select from the disk: اسحب الصورة هنا أو انقر للتحديد من القرص
 Edit: تحرير
@@ -551,6 +550,7 @@ DISABLED: غير مشغل
 Date: التاريخ
 Days: الأيام
 Direct links below will be deleted: ستتم إزالة الروابط المباشرة المدرجة أدناه
+'Doors, Gates': الأبواب ، البوابات
 ENABLED: مفعلة
 Email already exists: البريد الإلكتروني موجود بالفعل
 Existing schedules: الجداول الزمنية الحالية
@@ -667,6 +667,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 Flooding: ~
@@ -699,6 +700,7 @@ MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
 Manually closed: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 'Next limit renewal: {date}': ~
@@ -712,6 +714,7 @@ Number of sections: ~
 OAuth apps: ~
 Open partially: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Phase 1: ~

@@ -157,7 +157,6 @@ Distance sensor: Snímač vzdálenosti
 Door lock operation: Otevření dveří
 Door opening sensor: Snímač otevření dveří
 Doors and gates: Dveře a brány
-'Doors, Gates': 'Dveře, Brány'
 Download the history of measurement: Stáhnout historii měření
 Drag your image(s) here or click to select from the disk: Přetáhněte obrázek zde nebo klepnutím vyberte z disku
 Edit: Editovat
@@ -602,6 +601,7 @@ DISABLED: VYPNUTO
 Date: Datum
 Days: Dny
 Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
+'Doors, Gates': 'Dveře, Brány'
 ENABLED: ZAPNUTO
 Email already exists: E-mailová adresa již existuje
 Existing schedules: Stávající plány
@@ -703,6 +703,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 General purpose measurement: ~
@@ -726,6 +727,7 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 No of channels: ~
@@ -736,6 +738,7 @@ No schedule configuration.: ~
 None (channel disabled): ~
 Number of sections: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~

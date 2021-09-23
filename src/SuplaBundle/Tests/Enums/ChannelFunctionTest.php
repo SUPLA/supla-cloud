@@ -23,6 +23,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Utils\ArrayUtils;
 
 class ChannelFunctionTest extends TestCase {
     public function testEveryFunctionHasCaption() {
@@ -98,5 +99,42 @@ class ChannelFunctionTest extends TestCase {
         $supportedFunctions = EntityUtils::mapToIds(ChannelFunction::forChannel($channel));
         $expectedSupportedFunctions = [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER];
         $this->assertEquals($expectedSupportedFunctions, $supportedFunctions);
+    }
+
+    /**
+     * This is dummy test to ensure that frontend filters take every backend function into consideration.
+     * On every new function, add it in frontend and copy code from there to the test.
+     * @see channel-filters.vue in frontend code.
+     * @see https://github.com/SUPLA/supla-cloud/issues/480
+     */
+    public function testEveryFunctionIsMatchedByFrontendFilter() {
+        $t = '';
+        $frontendCode = <<<FRONTEND
+        {label: $t('All'), value: '*'},
+        {label: $t('With function'), value: 'withFunction'},
+        {label: $t('Electric'), value: '130,140,180,190,200,300,310,315'},
+        {label: $t('Doors, Gates, Windows'), value: '10,20,30,50,60,70,90,100,115,125,230,800,810'},
+        {label: $t('Roller shutters'), value: '110,120'},
+        {label: $t('Liquid, Temp'), value: '40,42,45,80'},
+        {label: $t('Sensors'), value: '50,60,70,80,100,120,210,220,230,240,250,260,270,280'},
+        {label: $t('Meters'), value: '310,315,320,330,340,520'},
+        {label: $t('Other'), value: '290,400,410,500,510,700'},
+        {label: $t('No function'), value: '0,-1'}
+FRONTEND;
+        preg_match_all("#value: '(.+?)'#", $frontendCode, $matches, PREG_SET_ORDER);
+        $functionIdsUsedInFrontend = array_column($matches, 1);
+        $functionIdsUsedInFrontend = array_map(function ($ids) {
+            return explode(',', $ids);
+        }, $functionIdsUsedInFrontend);
+        $functionIdsUsedInFrontend = ArrayUtils::flattenOnce($functionIdsUsedInFrontend);
+        $functionIdsUsedInFrontend = array_map('intval', $functionIdsUsedInFrontend);
+        $skip = [ChannelFunction::SCENE];
+        foreach (ChannelFunction::values() as $functionName => $channelFunction) {
+            $functionId = $channelFunction->getValue();
+            if (in_array($functionId, $skip)) {
+                continue;
+            }
+            $this->assertContains($functionId, $functionIdsUsedInFrontend, "$functionName ($functionId) is not used in frontend.");
+        }
     }
 }

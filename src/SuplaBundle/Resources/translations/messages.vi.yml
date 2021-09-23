@@ -157,7 +157,6 @@ Distance sensor: Cảm biến Distance
 Door lock operation: Khóa cửa
 Door opening sensor: Cảm biến mở cửa
 Doors and gates: Cửa và cổng
-'Doors, Gates': 'Cửa, Cổng'
 Download the history of measurement: Tải xuống lịch sử đo lường
 Drag your image(s) here or click to select from the disk: Kéo hình ảnh ở đây hoặc nhấp để chọn nó từ đĩa
 Edit: Chỉnh sửa
@@ -602,6 +601,7 @@ DISABLED: TẮT
 Date: Ngày
 Days: Từ chối.
 Direct links below will be deleted: Link liên kết dưới đây sẽ bị xóa
+'Doors, Gates': 'Cửa, Cổng'
 ENABLED: BẬT
 Email already exists: Email đã tồn tại
 Existing schedules: Lịch trình hiện có
@@ -703,6 +703,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 General purpose measurement: ~
@@ -726,6 +727,7 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 No of channels: ~
@@ -736,6 +738,7 @@ No schedule configuration.: ~
 None (channel disabled): ~
 Number of sections: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~

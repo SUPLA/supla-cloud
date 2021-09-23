@@ -216,7 +216,7 @@ Distance sensor: Czujnik odległości
 Door lock operation: Otwieranie drzwi
 Door opening sensor: Czujnik otwarcia drzwi
 Doors and gates: Drzwi i bramy
-'Doors, Gates': 'Drzwi, Bramy'
+'Doors, Gates, Windows': 'Drzwi, bramy, okna'
 Download the history of measurement: Pobierz historię pomiarów
 Drag your image(s) here or click to select from the disk: Przeciągnij obraz tutaj lub kliknij aby wybrać z dysku
 Edit: Edytuj
@@ -359,6 +359,7 @@ Make sure to save it in a secure place if you wish to access it in the future. T
 Manually closed: Zamknięty manualnie
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
 Meter value: Stan licznika
+Meters: Liczniki
 Mobile Apps: Aplikacje mobilne
 Mode: Tryb
 Modification: Modyfikacja
@@ -411,6 +412,7 @@ Open partially: Otwórz częściowo
 Opening sensor: Czujnik otwarcia
 Operations: Operacje
 Original location: Oryginalna lokalizacja
+Other: Inne
 'Otherwise go to [the homepage].': 'W innym przypadku przejdź do [strony domowej].'
 Partial opening sensor: Czujnik pośredniego otwarcia
 Password: Hasło
@@ -773,6 +775,7 @@ DISABLED: WYŁĄCZONE
 Date: Data
 Days: Dni
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
+'Doors, Gates': 'Drzwi, Bramy'
 ENABLED: WŁĄCZONE
 Email already exists: Adres e-mail już istnieje
 Existing schedules: Istniejące harmonogramy

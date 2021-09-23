@@ -157,7 +157,6 @@ Distance sensor: датчик расстояния
 Door lock operation: Открытие двери
 Door opening sensor: Датчик открытия двери
 Doors and gates: Двери и калитки
-'Doors, Gates': 'Двери, Калитки'
 Download the history of measurement: Скачать историю измерений
 Drag your image(s) here or click to select from the disk: 'Перетащите изображение сюда или нажмите, чтобы выбрать с диска'
 Edit: Изменить
@@ -602,6 +601,7 @@ DISABLED: НЕ ИСПОЛЬЗУЕТСЯ
 Date: Дата
 Days: Дней
 Direct links below will be deleted: 'Прямые ссылки, перечисленные ниже, будут удалены'
+'Doors, Gates': 'Двери, Калитки'
 ENABLED: ИСПОЛЬЗУЕТСЯ
 Email already exists: Адрес электронной почты уже существует
 Existing schedules: Существующие графики
@@ -703,6 +703,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 General purpose measurement: ~
@@ -726,6 +727,7 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 No of channels: ~
@@ -736,6 +738,7 @@ No schedule configuration.: ~
 None (channel disabled): ~
 Number of sections: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~

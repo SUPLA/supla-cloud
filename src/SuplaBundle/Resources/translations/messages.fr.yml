@@ -157,7 +157,6 @@ Distance sensor: Capteur de distance
 Door lock operation: Ouverture de porte
 Door opening sensor: Capteur d'ouverture de porte
 Doors and gates: 'Portes, Portails'
-'Doors, Gates': 'Portes, Portails'
 Download the history of measurement: Télécharger l'historique des mesures
 Drag your image(s) here or click to select from the disk: Faites glisser l'image ici ou cliquez pour la choisir depuis le disque
 Edit: Modifier
@@ -602,6 +601,7 @@ DISABLED: DÉSACTIVÉ
 Date: Date
 Days: Jours
 Direct links below will be deleted: Les liens directs énumérés ci-dessous seront supprimés
+'Doors, Gates': 'Portes, Portails'
 ENABLED: ACTIVÉ
 Email already exists: L'email existe déjà
 Existing schedules: Calendriers existants
@@ -703,6 +703,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 General purpose measurement: ~
@@ -726,6 +727,7 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 No of channels: ~
@@ -736,6 +738,7 @@ No schedule configuration.: ~
 None (channel disabled): ~
 Number of sections: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~

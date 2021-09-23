@@ -147,7 +147,6 @@ Distance sensor: Távolságérzékelő
 Door lock operation: Az ajtó kinyitása
 Door opening sensor: Ajtónyitás érzékelő
 Doors and gates: Ajtók és kapuk
-'Doors, Gates': 'Ajtók,  Kapuk'
 Download the history of measurement: Töltse le a mérési előzményeket
 Drag your image(s) here or click to select from the disk: 'Húzza ide a képet, vagy kattintson a lemezről való kiválasztáshoz'
 Edit: Szerkesztés
@@ -552,6 +551,7 @@ DISABLED: KIKAPCSOLVA
 Date: Dátum
 Days: Napok
 Direct links below will be deleted: Az alább felsorolt közvetlen linkek eltávolításra kerülnek
+'Doors, Gates': 'Ajtók,  Kapuk'
 ENABLED: BEKAPCSOLVA
 Email already exists: Az e-mail cím már létezik
 Existing schedules: Meglévő ütemtervek
@@ -668,6 +668,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 Flooding: ~
@@ -700,6 +701,7 @@ MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
 Manually closed: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 'Next limit renewal: {date}': ~
@@ -713,6 +715,7 @@ Number of sections: ~
 OAuth apps: ~
 Open partially: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Phase 1: ~

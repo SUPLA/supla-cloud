@@ -157,7 +157,6 @@ Distance sensor: Afstandssensor
 Door lock operation: Deuropener
 Door opening sensor: Sensor deuropening
 Doors and gates: Deuren en poorten
-'Doors, Gates': 'Deuren, poorten'
 Download the history of measurement: Download meetgeschiedenis
 Drag your image(s) here or click to select from the disk: Sleep het beeld hierheen of klik hier om op de schijf te selecteren
 Edit: Bewerken
@@ -602,6 +601,7 @@ DISABLED: UITGESCHAKELD
 Date: Datum
 Days: Dagen
 Direct links below will be deleted: De hieronder vermelde directe links worden verwijderd
+'Doors, Gates': 'Deuren, poorten'
 ENABLED: Ingeschakeld
 Email already exists: Email adres bestaat al
 Existing schedules: Bestaande schema's
@@ -703,6 +703,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 General purpose measurement: ~
@@ -726,6 +727,7 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 No of channels: ~
@@ -736,6 +738,7 @@ No schedule configuration.: ~
 None (channel disabled): ~
 Number of sections: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~

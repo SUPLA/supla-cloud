@@ -156,7 +156,6 @@ Distance sensor: Atstumo jutiklis
 Door lock operation: Durų atidarymas
 Door opening sensor: Durų atidarymo jutiklis
 Doors and gates: Durys ir vartai
-'Doors, Gates': 'Durys, Vartai'
 Download the history of measurement: Atsisiųsti matavimų istoriją
 Drag your image(s) here or click to select from the disk: 'Įkelkite vaizdą čia arba paspauskite, kad pasirinkti iš disko'
 Edit: Redaguoti
@@ -601,6 +600,7 @@ DISABLED: IŠJUNGTA
 Date: Data
 Days: Dienos
 Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
+'Doors, Gates': 'Durys, Vartai'
 ENABLED: ĮJUNGTA
 Email already exists: El. pašto adresas jau egzistuoja
 Existing schedules: Egzistuojantys tvarkaraščiai
@@ -703,6 +703,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 General purpose measurement: ~
@@ -726,6 +727,7 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 No of channels: ~
@@ -736,6 +738,7 @@ No schedule configuration.: ~
 None (channel disabled): ~
 Number of sections: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~

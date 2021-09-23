@@ -10,12 +10,14 @@
             :filters="[
                 {label: $t('All'), value: '*'},
                 {label: $t('With function'), value: 'withFunction'},
-                {label: $t('Electric'), value: '130,140,180,190,200'},
-                {label: $t('Doors, Gates'), value: '10,20,30,50,60,70,90,100'},
+                {label: $t('Electric'), value: '130,140,180,190,200,300,310,315'},
+                {label: $t('Doors, Gates, Windows'), value: '10,20,30,50,60,70,90,100,115,125,230,800,810'},
                 {label: $t('Roller shutters'), value: '110,120'},
                 {label: $t('Liquid, Temp'), value: '40,42,45,80'},
-                {label: $t('Sensors'), value: '50,60,70,80,100,120,210,220'},
-                {label: $t('No function'), value: '0'}
+                {label: $t('Sensors'), value: '50,60,70,80,100,120,210,220,230,240,250,260,270,280'},
+                {label: $t('Meters'), value: '310,315,320,330,340,520'},
+                {label: $t('Other'), value: '290,400,410,500,510,700'},
+                {label: $t('No function'), value: '0,-1'}
             ]"></btn-filters>
         <input type="text"
             @input="$emit('filter')"

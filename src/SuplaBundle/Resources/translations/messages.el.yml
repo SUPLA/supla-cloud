@@ -157,7 +157,6 @@ Distance sensor: Αισθητήρας απόστασης
 Door lock operation: Άνοιγμα της πόρτας
 Door opening sensor: Αισθητήρας ανοίγματος πόρτας
 Doors and gates: Πόρτες και πύλες
-'Doors, Gates': 'Πόρτες, πύλες'
 Download the history of measurement: Λήψη ιστορικού μετρήσεων
 Drag your image(s) here or click to select from the disk: Σύρετε την εικόνα εδώ ή κάντε κλικ για να την επιλέξετε
 Edit: Επεξεργασία
@@ -602,6 +601,7 @@ DISABLED: ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ
 Date: Ημερομηνία
 Days: Ημέρες
 Direct links below will be deleted: Οι απευθείας σύνδεσμοι που αναφέρονται παρακάτω θα διαγραφούν
+'Doors, Gates': 'Πόρτες, πύλες'
 ENABLED: ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ
 Email already exists: Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου υπάρχει ήδη
 Existing schedules: Υπάρχοντα χρονοδιαγράμματα
@@ -703,6 +703,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 General purpose measurement: ~
@@ -726,6 +727,7 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 No of channels: ~
@@ -736,6 +738,7 @@ No schedule configuration.: ~
 None (channel disabled): ~
 Number of sections: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~

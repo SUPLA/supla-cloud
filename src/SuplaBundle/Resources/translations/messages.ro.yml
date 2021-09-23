@@ -147,7 +147,6 @@ Distance sensor: Senzor de distanță
 Door lock operation: Deschiderea ușii
 Door opening sensor: Senzor de deschidere a ușilor
 Doors and gates: Uși și porți
-'Doors, Gates': 'Uși, Porți'
 Download the history of measurement: Descărcați istoricul măsurătorilor
 Drag your image(s) here or click to select from the disk: Trageți imaginea aici sau faceți clic pentru a selecta de pe disc
 Edit: Editează
@@ -552,6 +551,7 @@ DISABLED: DEZACTIVAT
 Date: Data
 Days: Zile
 Direct links below will be deleted: Linkurile directe enumerate mai jos vor fi eliminate
+'Doors, Gates': 'Uși, Porți'
 ENABLED: ACTIVAT
 Email already exists: Adresa de e-mail există deja
 Existing schedules: Planificări existente
@@ -668,6 +668,7 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
 Flooding: ~
@@ -700,6 +701,7 @@ MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
 Manually closed: ~
+Meters: ~
 Need one of these?: ~
 New scene: ~
 'Next limit renewal: {date}': ~
@@ -713,6 +715,7 @@ Number of sections: ~
 OAuth apps: ~
 Open partially: ~
 Operations: ~
+Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Phase 1: ~
