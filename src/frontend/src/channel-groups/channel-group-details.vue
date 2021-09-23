@@ -78,18 +78,23 @@
                                 @remove="removeChannel(channel)"></channel-group-channel-tile>
                         </div>
                     </square-links-grid>
-                    <modal-confirm v-if="deleteConfirm"
-                        class="modal-warning"
-                        @confirm="deleteGroup()"
-                        @cancel="deleteConfirm = false"
-                        :header="$t('Are you sure you want to delete this channel group?')"
-                        :loading="loading">
-                    </modal-confirm>
                 </div>
             </div>
             <channel-group-details-tabs :channel-group="channelGroup"
                 v-if="!isNewGroup"></channel-group-details-tabs>
         </loading-cover>
+        <modal-confirm v-if="deleteConfirm"
+            class="modal-warning"
+            @confirm="deleteGroup()"
+            @cancel="deleteConfirm = false"
+            :header="$t('Are you sure you want to delete this channel group?')"
+            :loading="loading">
+        </modal-confirm>
+        <delete-channel-group-with-dependencies-modal
+            v-if="dependenciesThatPreventsDeletion"
+            :dependencies="dependenciesThatPreventsDeletion"
+            @confirm="deleteGroup(false)"
+            @cancel="dependenciesThatPreventsDeletion = undefined"></delete-channel-group-with-dependencies-modal>
     </page-container>
 </template>
 
@@ -106,10 +111,12 @@
     import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
     import ChannelGroupDetailsTabs from "./channel-group-details-tabs";
     import AppState from "../router/app-state";
+    import DeleteChannelGroupWithDependenciesModal from "@/channel-groups/delete-channel-group-with-dependencies-modal";
 
     export default {
         props: ['id'],
         components: {
+            DeleteChannelGroupWithDependenciesModal,
             ChannelGroupDetailsTabs,
             ChannelAlternativeIconChooser,
             PageContainer,
@@ -127,7 +134,8 @@
                 channelGroup: undefined,
                 error: false,
                 deleteConfirm: false,
-                hasPendingChanges: false
+                hasPendingChanges: false,
+                dependenciesThatPreventsDeletion: undefined,
             };
         },
         mounted() {
@@ -184,10 +192,20 @@
                 this.channelGroup.channels.splice(this.channelGroup.channels.indexOf(channel), 1);
                 this.channelGroupChanged();
             },
-            deleteGroup() {
+            deleteGroup(safe = true) {
                 this.loading = true;
-                this.$http.delete('channel-groups/' + this.channelGroup.id).then(() => this.$emit('delete'));
-                this.channelGroup = undefined;
+                this.$http.delete(`channel-groups/${this.channelGroup.id}?safe=${safe ? '1' : '0'}`, {skipErrorHandler: [409]})
+                    .then(() => {
+                        this.$emit('delete');
+                        this.channelGroup = undefined;
+                    })
+                    .catch(({body, status}) => {
+                        if (status == 409) {
+                            this.dependenciesThatPreventsDeletion = body;
+                        }
+                    })
+                    .finally(() => this.loading = this.deleteConfirm = false);
+
             },
             onLocationChange(location) {
                 this.$set(this.channelGroup, 'location', location);

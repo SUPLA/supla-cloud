@@ -172,7 +172,9 @@ class ChannelGroupController extends RestController {
             if ($request->get('safe', false)) {
                 $dependencies = $channelGroupDependencies->getDependencies($channelGroup);
                 if (array_filter($dependencies)) {
-                    return $this->view($dependencies, Response::HTTP_CONFLICT);
+                    $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                    $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                    return $view;
                 }
             } else {
                 $channelGroupDependencies->clearDependencies($channelGroup);

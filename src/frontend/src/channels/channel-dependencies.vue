@@ -31,12 +31,12 @@
                 </ul>
             </div>
         </div>
-        <p v-if="dependencies.channelGroups.length > 0 || dependencies.sceneOperations.length > 0">
+        <p v-if="(dependencies.channelGroups || []).length > 0 || dependencies.sceneOperations.length > 0">
             <slot name="removingHeader">{{ $t('Channel reference will be removed from the items below.') }}</slot>
         </p>
         <div class="row">
             <div class="col-sm-6 col-12-if-alone"
-                v-if="dependencies.channelGroups.length > 0">
+                v-if="(dependencies.channelGroups || []).length > 0">
                 <h5>{{ $t('Channel groups') }}</h5>
                 <ul>
                     <li v-for="group in dependencies.channelGroups"

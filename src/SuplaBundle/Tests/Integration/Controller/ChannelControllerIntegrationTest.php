@@ -350,6 +350,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
         ]);
         $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertCount(1, $content['sceneOperations']);
+        $this->assertArrayHasKey('owningScene', $content['sceneOperations'][0]); // important for frontend - it displays scene name
         return $gateChannel;
     }
 
