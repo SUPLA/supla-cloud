@@ -12,6 +12,7 @@
             data-width="100%"
             :data-none-selected-text="$t('choose the channel group')"
             :data-none-results-text="$t('No results match {0}')"
+            data-style="btn-default btn-wrapped"
             v-model="chosenChannelGroup"
             @change="$emit('input', chosenChannelGroup)">
             <option v-for="channelGroup in channelGroupsForDropdown"

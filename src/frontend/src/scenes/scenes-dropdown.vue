@@ -12,6 +12,7 @@
             data-width="100%"
             :data-none-selected-text="$t('choose the scene')"
             :data-none-results-text="$t('No results match {0}')"
+            data-style="btn-default btn-wrapped"
             v-model="chosenScene"
             @change="$emit('input', chosenScene)">
             <option v-for="scene in scenesForDropdown"
