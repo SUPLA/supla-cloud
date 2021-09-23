@@ -92,7 +92,6 @@
         </modal-confirm>
         <dependencies-warning-modal
             header-i18n="Some features depend on this channel group"
-            description-i18n="Some of the features you have configured rely on this channel group."
             deleting-header-i18n="The items below rely on this channel group, so they will be deleted."
             removing-header-i18n="Channel group reference will be removed from the items below."
             v-if="dependenciesThatPreventsDeletion"

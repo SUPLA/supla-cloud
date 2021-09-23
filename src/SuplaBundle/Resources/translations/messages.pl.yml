@@ -121,6 +121,7 @@ Channel for the sensor: Czujnik dla kanału
 Channel group: Grupa kanałów
 Channel group limit has been exceeded: Limit grup kanałów został przekroczony
 Channel group must consist of at least one channel.: Grupa kanałów musi zawierać przynajmniej jeden kanał.
+Channel group reference will be removed from the items below.: Wskazanie na grupę kanałów zostanie usunięte z poniższych elementów.
 Channel groups: Grupy kanałów
 Channel is assigned to the I/O device location: Kanał jest przypisany do lokalizacji urządzenia
 Channel is disconnected.: Kanał jest rozłączony.
@@ -514,6 +515,7 @@ Sign Out: Wyloguj się
 Sign in temporarily unavailable. Please try again later.: Logowanie tymczasowo niedostępne. Spróbuj ponownie później.
 Smartphones: Smartfony
 SoftVer: WerOpr
+Some features depend on this channel group: Niektóre funkcjonalności zależą od tej grupy kanałów.
 Some features depend on this device: Niektóre funkcjonalności zależą od tego urządzenia
 Some of the features you have configured rely on channels from this device.: Niektóre funkcjonalności używają kanałów z tego urządzenia.
 Sources available from: Źródła dostępne w
@@ -548,6 +550,7 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
 'The items below rely on this channel function, so they will be deleted.': 'Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.'
+'The items below rely on this channel group, so they will be deleted.': 'Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.'
 The latest execution: Ostatnie wykonanie
 'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.'
 The measurement history has been deleted.: Historia pomiarów została usunięta.
@@ -576,7 +579,6 @@ Token does not exist: Token nie istnieje
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
 Triggers: Wyzwalacze
 Turning this device off will cause its channels not working in the following features.: 'Wyłączenie urządzenia spowoduje, że jego kanały przestaną działać w poniższych elementach.'
-Turning this device off will result in disabling all the associated schedules.: 'Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.'
 Turning this device off will result in disabling features listed below.: Wyłączenie urządzenia spowoduje także wyłączenie poniższych elementów.
 Type: Typ
 Unit: Jednostka
@@ -806,6 +808,7 @@ Sunrise / Sunset: Wschód / Zachód
 Thursdays: Czwartki
 Try again later: Spróbuj ponownie później
 Tuesdays: Wtorki
+Turning this device off will result in disabling all the associated schedules.: 'Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.'
 Wednesdays: Środy
 When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany

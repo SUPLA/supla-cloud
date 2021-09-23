@@ -420,7 +420,6 @@ Timezone: المنطقة الزمنية
 Toggle: تحويل
 Token does not exist: الرمز المميز غير موجود
 Too many channels in this group: العديد من القنوات في هذه المجموعة
-Turning this device off will result in disabling all the associated schedules.: سيؤدي إيقاف تشغيل هذا الجهاز أيضًا إلى إيقاف تشغيل الجداول الزمنية المرتبطة بها.
 Type: النوع
 Unit: الوحدة
 Unknown: غير معروف
@@ -587,6 +586,7 @@ Sunrise / Sunset: الشرق / الغرب
 Thursdays: الخميس
 Try again later: يرجى المحاولة مرة أخرى لاحقًا
 Tuesdays: الثلاثاء
+Turning this device off will result in disabling all the associated schedules.: سيؤدي إيقاف تشغيل هذا الجهاز أيضًا إلى إيقاف تشغيل الجداول الزمنية المرتبطة بها.
 We have just sent you an activation link. Be patient.: تم إرسال رسالة تحتوي على رابط لتفعيل حسابك. اصبر.
 Wednesdays: الأربعاء
 When: عندما
@@ -641,6 +641,7 @@ Cannot delete this I/O Device right now.: ~
 Caption is too long.: ~
 Change channel function: ~
 Change function: ~
+Channel group reference will be removed from the items below.: ~
 Channel is disconnected.: ~
 Channel name: ~
 Channel reference will be removed from the items below.: ~
@@ -734,6 +735,7 @@ Scenes: ~
 Scenes limit has been exceeded: ~
 Show my limits: ~
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
+Some features depend on this channel group: ~
 Some features depend on this device: ~
 Some of the features you have configured rely on channels from this device.: ~
 Standard: ~
@@ -746,6 +748,7 @@ The following items use the channels of these device. These references will be a
 'The following items will be deleted with this device:': ~
 The gate sensor must function properly in order to execute the Open and Close actions.: ~
 'The items below rely on this channel function, so they will be deleted.': ~
+'The items below rely on this channel group, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
 'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~

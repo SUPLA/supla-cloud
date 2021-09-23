@@ -19,6 +19,8 @@ Account: Account
 Account access when you are unavailable: Accesso all’account mentre non sei disponibile
 Account has been activated. You can Sign In now.: L’account è stato attivato. Puoi effettuare il log in.
 Action execution: Esecuzione dell’azione
+Action trigger: Attiva azione
+Action triggers: Attiva azioni
 Actions: Azioni
 Active: Attivi
 Add: Aggiungi
@@ -61,6 +63,7 @@ Authorized OAuth apps: Applicazioni OAuth autorizzate
 Automation: Automazione
 Back to apps list: Torna all’elenco delle applicazioni
 Be notified when your channels change state: Segnalazione di cambio dello stato dei canali
+Bottom position: Posizione soglia inferione
 Bridge: Ponte
 Brightness: Luminosità
 CLICK TO DISABLE: CLICCA PER DISABILITARE
@@ -87,6 +90,7 @@ Channel group limit has been exceeded: Limite gruppi di canali è stato superato
 Channel group must consist of at least one channel.: Il gruppo dei canali deve contenere almeno un canale.
 Channel groups: Gruppi di canali
 Channel is assigned to the I/O device location: Il canale è assegnato alla localizzazione del dispositivo I/O
+Channel name: Nome canale
 Channels: Canali
 Channels in channel group: Canali nei gruppi di canali
 Check the direct link you used and try again.: Controlla link diretto richiesto e riprova.
@@ -402,6 +406,7 @@ Service temporarily unavailable: Servizio temporaneamente non disponibile
 Show my limits: Mostra i miei limiti
 Show on the Client’s devices: Mostra nei dispositivi client
 Shut: Chiudi
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Chiudi il motore fino al fondo della corsa e inserisci il valore della percentuale di chiusura. Questa impostazione non è obbligatoria ma consentirà una migliore visualizzazione della posizione del motore nell’applicazione.
 Sign In: Log in
 Sign Out: Log out
 Sign in temporarily unavailable. Please try again later.: Login temporaneamente non disponibile. Riprova più tard.
@@ -454,7 +459,7 @@ Timezone: Fuso orario
 Toggle: Scambiare
 Token does not exist: Il token non esiste
 Too many channels in this group: Troppi canali in questo gruppo
-Turning this device off will result in disabling all the associated schedules.: Lo spegnimento di questo dispositivo causerà anche la disabilitazione degli scadenzari ad esso uniti.
+Triggers: Comandi
 Type: Tipo
 Unit: Unità
 Unknown: Sconosciuto
@@ -507,6 +512,7 @@ Your account has been deleted. We hope you will come back to us soon.: L’accou
 Your account has been locked.: Il Tuo account è stato bloccato.
 Your account has not been confirmed yet.: Il Tuo account non è stato ancora confermato.
 Your account limits: I tuoi limiti
+'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': Il dispositivo consente l’esecuzione delle azioni desiderate su qualsiasi dispositivo associato al proprio account. Le azioni disponibili dipendono dal dispositivo e dalla relativa versione firmware
 Your email: Tua email
 Your instance is not registered or you are trying to authorize an application that is not public.: La Tua istanza non è registrata oppure stai cercando di autorizzare un’applicazione che non è pubblica.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: La tua installazione privata di SUPLA cloud non è disponibile. Assicurati che il tuo server sia online e la connessione HTTPS funzioni correttamente.
@@ -515,6 +521,19 @@ Your private SUPLA Cloud is not registered.: Il tuo cloud privato SUPLA non è r
 Your session has been expired.: La Tua sessione è scaduta.
 Your session is about to expire: La tua sessione sta per scadere
 'Your session will expire in [time].': 'La Tua sessione scadrà fra [time].'
+actionTrigger_HOLD: Pressione prolungata
+actionTrigger_SHORT_PRESS_X1: Una pressione breve
+actionTrigger_SHORT_PRESS_X2: Due pressioni brevi
+actionTrigger_SHORT_PRESS_X3: Tre pressioni brevi
+actionTrigger_SHORT_PRESS_X4: Quattro pressioni brevi
+actionTrigger_SHORT_PRESS_X5: Cinque pressioni brevi
+actionTrigger_TOGGLE_X1: Commuta una volta
+actionTrigger_TOGGLE_X2: Commuta due volte
+actionTrigger_TOGGLE_X3: Commuta tre volte
+actionTrigger_TOGGLE_X4: Commuta quattro volte
+actionTrigger_TOGGLE_X5: Commuta cinque volte
+actionTrigger_TURN_OFF: Spegni
+actionTrigger_TURN_ON: Accendi
 actionableSubjectType_channel: Canale
 actionableSubjectType_channelGroup: Gruppo di canali
 after: dopo
@@ -635,6 +654,7 @@ Sunrise / Sunset: Alba/Tramonto
 Thursdays: Giovedì
 Try again later: Riprova più tardi
 Tuesdays: Martedì
+Turning this device off will result in disabling all the associated schedules.: Lo spegnimento di questo dispositivo causerà anche la disabilitazione degli scadenzari ad esso uniti.
 Wednesdays: Mercoledì
 When: Quando
 You will be logged out shortly: A breve verrà eseguito il log out
@@ -649,8 +669,6 @@ hourly: Ogni ora
 '15 minutes after sunrise, every 2 days': ~
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
-Action trigger: Attiva azione
-Action triggers: Attiva azioni
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~
@@ -671,7 +689,6 @@ Automatic calibration: ~
 Bar: ~
 Based on sunrise or sunset: ~
 Be right back!: ~
-Bottom position: Posizione soglia inferione
 Calibrate: ~
 Calibration successful.: ~
 Cannot calculate when to run the schedule - incorrect configuration?: ~
@@ -680,8 +697,8 @@ Cannot delete this I/O Device right now.: ~
 Caption is too long.: ~
 Change channel function: ~
 Change function: ~
+Channel group reference will be removed from the items below.: ~
 Channel is disconnected.: ~
-Channel name: Nome canale
 Channel reference will be removed from the items below.: ~
 Channel value: ~
 Channels groups are not supported for this function.: ~
@@ -750,7 +767,7 @@ Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Chiudi il motore fino al fondo della corsa e inserisci il valore della percentuale di chiusura. Questa impostazione non è obbligatoria ma consentirà una migliore visualizzazione della posizione del motore nell’applicazione.'
+Some features depend on this channel group: ~
 Some features depend on this device: ~
 Some of the features you have configured rely on channels from this device.: ~
 Standard: ~
@@ -761,10 +778,10 @@ The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~
 'The items below rely on this channel function, so they will be deleted.': ~
+'The items below rely on this channel group, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
-Triggers: Comandi
 Turning this device off will cause its channels not working in the following features.: ~
 Turning this device off will result in disabling features listed below.: ~
 Update in progress: ~
@@ -776,24 +793,10 @@ You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
 You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'Il dispositivo consente l’esecuzione delle azioni desiderate su qualsiasi dispositivo associato al proprio account. Le azioni disponibili dipendono dal dispositivo e dalla relativa versione firmware'
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
-actionTrigger_HOLD: Pressione prolungata
-actionTrigger_SHORT_PRESS_X1: Una pressione breve
-actionTrigger_SHORT_PRESS_X2: Due pressioni brevi
-actionTrigger_SHORT_PRESS_X3: Tre pressioni brevi
-actionTrigger_SHORT_PRESS_X4: Quattro pressioni brevi
-actionTrigger_SHORT_PRESS_X5: Cinque pressioni brevi
-actionTrigger_TOGGLE_X1: Commuta una volta
-actionTrigger_TOGGLE_X2: Commuta due volte
-actionTrigger_TOGGLE_X3: Commuta tre volte
-actionTrigger_TOGGLE_X4: Commuta quattro volte
-actionTrigger_TOGGLE_X5: Commuta cinque volte
-actionTrigger_TURN_OFF: Spegni
-actionTrigger_TURN_ON: Accendi
 actionableSubjectType_scene: ~
 choose the scene: ~
 crontab: ~
