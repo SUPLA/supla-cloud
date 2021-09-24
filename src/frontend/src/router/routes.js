@@ -79,7 +79,6 @@ export default [
         component: () => import("@/channels/channel-details-page"),
         name: 'channel',
         props: true,
-        meta: {requireBackendAndFrontendVersionMatches: true},
     },
     {path: '/devices/:id', component: () => import("@/devices/details/device-details-page"), name: 'device', props: true},
     {
@@ -123,21 +122,18 @@ export default [
         path: '/schedules',
         component: () => import("@/schedules/schedule-list/schedules-page"),
         name: 'schedules',
-        meta: {requireBackendAndFrontendVersionMatches: true},
         children: [
             {
                 path: ':id',
                 component: () => import("@/schedules/schedule-details/schedule-details-page"),
                 name: 'schedule',
                 props: true,
-                meta: {requireBackendAndFrontendVersionMatches: true}
             },
             {
                 path: ':id/edit',
                 component: () => import("@/schedules/schedule-form/schedule-form"),
                 name: 'schedule.edit',
                 props: true,
-                meta: {requireBackendAndFrontendVersionMatches: true}
             },
         ]
     },
