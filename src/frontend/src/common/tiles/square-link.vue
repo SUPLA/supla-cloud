@@ -95,15 +95,20 @@
         &.with-label {
             padding-bottom: 30px;
         }
-        .square-link-label {
+        .square-link-label, .square-link-label-left {
             position: absolute;
-            right: 10px;
             bottom: 10px;
             font-size: 12px;
             line-height: 12px;
             .label {
                 border: 0;
             }
+        }
+        .square-link-label {
+            right: 10px;
+        }
+        .square-link-label-left {
+            left: 10px;
         }
         &:active:not(.not-transform) {
             transform: scale(0.95);

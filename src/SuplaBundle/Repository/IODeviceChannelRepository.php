@@ -4,9 +4,9 @@ namespace SuplaBundle\Repository;
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Enums\ChannelFunction;
 
 class IODeviceChannelRepository extends EntityWithRelationsRepository {
     protected $alias = 'c';
@@ -18,6 +18,11 @@ class IODeviceChannelRepository extends EntityWithRelationsRepository {
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s dl WHERE dl.channel = c) directLinks', DirectLink::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s s WHERE s.channel = c) schedules', Schedule::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s so WHERE so.channel = c) sceneOperations', SceneOperation::class))
+            ->addSelect(sprintf(
+                '(SELECT COUNT(1) FROM %s at WHERE at.function = %d AND at.param1 = c.id) actionTriggers',
+                IODeviceChannel::class,
+                ChannelFunction::ACTION_TRIGGER
+            ))
 //            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s s WHERE so.channel = c) sceneOperations', Scene::class)) // TODO
             ->from(IODeviceChannel::class, 'c')
             ->leftJoin('c.channelGroups', 'cg')
