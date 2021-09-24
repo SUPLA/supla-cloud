@@ -547,7 +547,7 @@ You are changing the settings too quickly. You have to wait a while before makin
 You can use the application but you will not be able to modify any settings.: 'È possibile utilizzare l''applicazione, ma non è possibile apportare modifiche alla configurazione.'
 You cannot delete your last access identifier.: Non puoi eliminare il Tuo ultimo identificatore di accesso.
 You cannot delete your last location.: Non puoi eliminare la Tua ultima localizzazione.
-You cannot use SUPLA project name in the domain name.: Non è possibile usare il nome del progetto SUPLA nel nome del dominio.
+You cannot use SUPLA project name in the domain name.: Non è possibile usare il nome SUPLA nel nome del dominio.
 You have exceeded your API Rate Limit: Hai utilizzatoil Tuo limite delle richieste API
 You have to choose at least one scope.: Scegliere almeno uno scopo.
 You just need to execute the following command inside your host terminal.: Basta eseguire il seguente ordine all’interno di un terminale del Tuo host.
@@ -727,7 +727,7 @@ Add new item to use in the scene: ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
-Associated measured channel: ~
+Associated measured channel: Canale misurato
 'At 05:45 PM, on the last day of the month': ~
 'At 11:30 AM, on the third Wednesday of the month': ~
 At every 5th minute on day-of-month 30 in May: ~
@@ -765,13 +765,13 @@ Execute: ~
 Execute the scene: ~
 General purpose measurement: ~
 Guru Meditation: ~
-Host: ~
+Host: Host
 Interpolate measurements: ~
 Invalid schedule config (incorrect action).: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Meters: ~
-Need one of these?: ~
+Need one of these?: Seleziona l’unità di misura?
 New scene: ~
 No of channels: ~
 No of client apps: ~
@@ -783,7 +783,7 @@ Operations: ~
 Other: ~
 Please choose the schedule subject first.: ~
 Precision: ~
-Regeneration starts at: ~
+Regeneration starts at: La rigenerazione inizia alle
 Reset counter: ~
 Save or discard configuration changes first.: ~
 Scene: ~
@@ -799,7 +799,7 @@ The counter has been reset.: ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
 Value per unit: ~
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
-You must set sections with transparent or opaque parameters or both.: ~
+You must set sections with transparent or opaque parameters or both.: È necessario impostare i parametri di trasparenza o opacità o entrambi per le sezioni.
 actionableSubjectType_scene: ~
 choose the scene: ~
 crontab: ~
