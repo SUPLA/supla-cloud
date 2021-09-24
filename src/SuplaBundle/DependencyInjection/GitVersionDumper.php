@@ -24,14 +24,15 @@ use Symfony\Component\Yaml\Yaml;
 class GitVersionDumper {
     public static function dumpVersion() {
         $versionFromEnv = getenv('RELEASE_VERSION');
+        $versionFromPackageJson = json_decode(file_get_contents(AppKernel::ROOT_PATH . '/../src/frontend/package.json'), true)['version'];
         exec('git describe --tags 2>' . (file_exists('nul') ? 'nul' : '/dev/null'), $output, $result);
         if ($output && $result === 0) {
             $versionFromDescribe = current($output);
-            $version = getenv('RELEASE_VERSION') ?: $versionFromDescribe;
+            $version = $versionFromEnv ?: $versionFromPackageJson;
             preg_match('#(\d+\.\d+\.\d+)#', $version, $match);
             Assertion::keyExists($match, 1, 'Invalid version: ' . $version);
             $version = $match[1];
-            self::dumpBuildConfig($versionFromEnv ?: $version, $versionFromDescribe);
+            self::dumpBuildConfig($version, $versionFromDescribe);
         } elseif ($versionFromEnv) {
             self::dumpBuildConfig($versionFromEnv);
         } else {
