@@ -25,5 +25,8 @@ module.exports = {
                 FRONTEND_VERSION: JSON.stringify(process.env.RELEASE_VERSION || process.env.npm_package_version).replace(/^"v/, '"'),
             })
         ],
-    }
+    },
+    chainWebpack: (config) => {
+        config.plugins.delete('prefetch');
+    },
 };
