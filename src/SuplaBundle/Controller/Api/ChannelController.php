@@ -198,14 +198,13 @@ class ChannelController extends RestController {
             ) {
                 $channel->setCaption($updatedChannel->getCaption());
                 $channel->setHidden($updatedChannel->getHidden());
-                $paramConfigTranslator->setParamsFromConfig($channel, $newParams); // TODO or [] ?
-                $em->persist($channel);
                 if ($functionHasBeenChanged) {
+                    $paramConfigTranslator->clearConfig($channel);
                     $channel->setFunction($updatedChannel->getFunction());
                     $channelDependencies->clearDependencies($channel);
+                    $em->persist($channel);
                 }
                 $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
-                // TODO insane merge was here - check
                 $channel->setUserConfig($paramConfigTranslator->getConfigFromParams($channel));
                 $channel->setAltIcon($updatedChannel->getAltIcon());
                 $channel->setUserIcon($updatedChannel->getUserIcon());

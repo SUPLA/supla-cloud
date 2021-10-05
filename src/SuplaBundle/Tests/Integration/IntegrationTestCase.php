@@ -194,4 +194,8 @@ abstract class IntegrationTestCase extends WebTestCase {
         $client->insulate();
         return $client;
     }
+
+    protected function freshEntity($entity) {
+        return $this->getEntityManager()->find(get_class($entity), $entity->getId());
+    }
 }

@@ -611,6 +611,21 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1, $channel->getAltIcon());
     }
 
+    public function testChangingChannelFunctionCanSetConfigImmediately() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+        ]);
+        $channel = $anotherDevice->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
+            'config' => ['relayTimeMs' => 999],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $channel = $this->freshEntity($channel);
+        $this->assertEquals(999, $channel->getParam1());
+    }
+
     public function testOpeningValveIfFloodingFromWebClient() {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,1\n");
         $client = $this->createAuthenticatedClient($this->user);
@@ -718,5 +733,34 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('actionTriggersIds', $content);
         $this->assertEquals([$anotherDevice->getChannels()[2]->getId()], $content['actionTriggersIds']);
+    }
+
+    public function testChangingChannelFunctionClearsRelatedMeasurementChannel() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
+        ]);
+        $relay = $anotherDevice->getChannels()[0];
+        $measurement = $anotherDevice->getChannels()[1];
+        $client = $this->createAuthenticatedClient();
+        // set measurement channel
+        $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId() . '?safe=1', [
+            'config' => ['relatedChannelId' => $measurement->getId()],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $relay = $this->freshEntity($relay);
+        $measurement = $this->freshEntity($measurement);
+        $this->assertEquals($measurement->getId(), $relay->getParam1());
+        $this->assertEquals($relay->getId(), $measurement->getParam4());
+        // change relay function
+        $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
+            'config' => ['relatedChannelId' => $measurement->getId()], // old config should not influence the result
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $relay = $this->freshEntity($relay);
+        $measurement = $this->freshEntity($measurement);
+        $this->assertEquals(500, $relay->getParam1()); // default gate opening time
+        $this->assertEquals(0, $measurement->getParam4());
     }
 }

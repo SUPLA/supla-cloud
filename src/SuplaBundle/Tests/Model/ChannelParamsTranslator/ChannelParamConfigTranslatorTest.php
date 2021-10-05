@@ -22,11 +22,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
-use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
-use SuplaBundle\Model\ChannelParamsTranslator\ControllingAnyLockRelatedSensorUpdater;
-use SuplaBundle\Model\ChannelParamsTranslator\ControllingChannelParamTranslator;
-use SuplaBundle\Model\ChannelParamsTranslator\ControllingSecondaryParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ElectricityMeterParamsTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\GeneralPurposeMeasurementParamsTranslator;
@@ -34,8 +30,6 @@ use SuplaBundle\Model\ChannelParamsTranslator\HumidityAdjustmentParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ImpulseCounterParamsTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\InvertedLogicParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningClosingTimeChannelParamTranslator;
-use SuplaBundle\Model\ChannelParamsTranslator\OpeningSensorParamTranslator;
-use SuplaBundle\Model\ChannelParamsTranslator\OpeningSensorSecondaryParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\RelayTimeMsChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\RelayTimeSChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\TemperatureAdjustmentParamTranslator;
@@ -64,13 +58,9 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     public function testGettingConfigFromParams(
         ChannelFunction $channelFunction,
         array $params,
-        array $expectedConfig,
-        ?ChannelType $type = null
+        array $expectedConfig
     ) {
         $channel = new IODeviceChannel();
-        if ($type) {
-            EntityUtils::setField($channel, 'type', $type->getId());
-        }
         $channel->setFunction($channelFunction);
         $channel->setParam1($params[0] ?? 0);
         $channel->setParam2($params[1] ?? 0);
@@ -87,14 +77,10 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     public function testSettingParamsFromConfig(
         ChannelFunction $channelFunction,
         array $expectedParams,
-        array $config,
-        ?ChannelType $type = null
+        array $config
     ) {
         $channel = new IODeviceChannel();
         EntityUtils::setField($channel, 'id', 1);
-        if ($type) {
-            EntityUtils::setField($channel, 'type', $type->getId());
-        }
         $channel->setFunction($channelFunction);
         $channel->setParam1(111);
         $channel->setParam2(222);
@@ -118,13 +104,10 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         ChannelFunction $channelFunction,
         array $expectedParams,
         array $config,
-        ?ChannelType $type = null
+        ?array $expectedDefaults = []
     ) {
         $channel = new IODeviceChannel();
         EntityUtils::setField($channel, 'id', 1);
-        if ($type) {
-            EntityUtils::setField($channel, 'type', $type->getId());
-        }
         $channel->setFunction($channelFunction);
         $channel->setParam1(111);
         $channel->setParam2(222);
@@ -135,7 +118,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setTextParam3('ccc');
         $this->configTranslator->setParamsFromConfig($channel, $config);
         $this->configTranslator->clearConfig($channel);
-        $this->assertEquals(($expectedParams[0] ?? null) !== null ? 0 : 111, $channel->getParam1());
+        $this->assertEquals(($expectedParams[0] ?? null) !== null ? $expectedDefaults[0] ?? 0 : 111, $channel->getParam1());
         $this->assertEquals(($expectedParams[1] ?? null) !== null ? 0 : 222, $channel->getParam2());
         $this->assertEquals(($expectedParams[2] ?? null) !== null ? 0 : 333, $channel->getParam3());
         $this->assertEquals(($expectedParams[3] ?? null) !== null ? 0 : 444, $channel->getParam4());
@@ -150,10 +133,10 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         // @codingStandardsIgnoreStart
         return [
             [ChannelFunction::NONE(), [], []],
-            [ChannelFunction::CONTROLLINGTHEDOORLOCK(), [700], ['relayTimeMs' => 700]],
-            [ChannelFunction::CONTROLLINGTHEGARAGEDOOR(), [700], ['relayTimeMs' => 700]],
-            [ChannelFunction::CONTROLLINGTHEGATE(), [700], ['relayTimeMs' => 700]],
-            [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700], ['relayTimeMs' => 700]],
+            [ChannelFunction::CONTROLLINGTHEDOORLOCK(), [700], ['relayTimeMs' => 700], [500]],
+            [ChannelFunction::CONTROLLINGTHEGARAGEDOOR(), [700], ['relayTimeMs' => 700], [500]],
+            [ChannelFunction::CONTROLLINGTHEGATE(), [700], ['relayTimeMs' => 700], [500]],
+            [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700], ['relayTimeMs' => 700], [500]],
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, null, 800, 1], ['openingTimeS' => 70, 'closingTimeS' => 80, 'bottomPosition' => 1]],
             [ChannelFunction::IC_ELECTRICITYMETER(), [103, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.03, 'unit' => 'm3']],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
