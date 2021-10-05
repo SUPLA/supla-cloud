@@ -102,6 +102,13 @@
                 </div>
             </div>
         </loading-cover>
+        <div v-if="showChangingInfo"
+            class="alert alert-info my-3">
+            <p>
+                Use the <code>supla:user:change-limits</code> server command to change this account's limits. For example:
+            </p>
+            <pre><code>docker-compose exec -u www-data supla-cloud php bin/console supla:user:change-limits {{ user.email }}</code></pre>
+        </div>
         <div slot="footer">
             <a @click="fetchLimits()"
                 class="cancel small">
@@ -118,6 +125,7 @@
 <script>
     import AccountLimitProgressbar from "./account-limit-progressbar";
     import moment from "moment";
+    import Vue from "vue";
 
     export default {
         components: {AccountLimitProgressbar},
@@ -129,6 +137,7 @@
                 relationsCount: undefined,
                 apiRateStatus: undefined,
                 currentTab: 'features',
+                showChangingInfo: !Vue.config.external.actAsBrokerCloud,
             };
         },
         mounted() {
