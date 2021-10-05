@@ -44,7 +44,7 @@
             </dt>
             <dd>{{ $t('Associated measured channel') }}</dd>
             <dt>
-                <channels-id-dropdown params="function=POWERSWITCH,LIGHTSWITCH"
+                <channels-id-dropdown params="function=POWERSWITCH,LIGHTSWITCH,STAIRCASETIMER"
                     v-model="channel.config.relatedChannelId"
                     @input="$emit('change')"></channels-id-dropdown>
             </dt>

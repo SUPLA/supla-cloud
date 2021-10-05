@@ -123,6 +123,17 @@ class RelatedChannelsConnector implements ChannelParamTranslator {
                     ],
                     4,
                 ],
+                [
+                    [ChannelFunction::STAIRCASETIMER],
+                    2,
+                    [
+                        ChannelFunction::ELECTRICITYMETER,
+                        ChannelFunction::IC_GASMETER,
+                        ChannelFunction::IC_WATERMETER,
+                        ChannelFunction::IC_HEATMETER,
+                    ],
+                    4,
+                ],
             ],
         ];
         $relationsMapped = [];
