@@ -131,7 +131,6 @@ Channel value: Wartość
 Channel with action triggers: Kanał z wyzwalaczami akcji
 Channels: Kanały
 Channels groups are not supported for this function.: Ta funkcja nie wspiera grup kanałów.
-Channels in channel group: Kanały w grupach kanałów
 Chart data source type: Rodzaj źródła danych
 Chart type: Typ wykresu
 Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
@@ -248,6 +247,7 @@ Executions: Wykonania
 Expired: Przeterminowany
 Failed: Nieudane
 Failed (zombie): Nieudane (zombie)
+Feature limits: Limity funkcjonalności
 File is too large: Plik jest za duży
 Flooding: Zalanie
 For devices: Dla urządzeń
@@ -645,6 +645,7 @@ Your account has been deleted. We hope you will come back to us soon.: 'Konto zo
 Your account has been locked.: Twoje konto zostało zablokowane.
 Your account has not been confirmed yet.: Twoje konto nie zostało jeszcze potwierdzone.
 Your account limits: Twoje limity
+'Your channel groups are allowed to have a maximum of {max} channels.': 'Twoje grupy kanałów mogą mieć maksymalnie {max} kanałów.'
 'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': Urządzenie umożliwia rozszerzenie jego funkcjonalności i pozwala na wykonanie dowolnej akcji na dowolnym posiadanym przez Ciebie urządzeniu. Dostępne opcje zależą od używanego oprogramowania sprzętowego i urządzenia.
 Your email: Twój email
 Your instance is not registered or you are trying to authorize an application that is not public.: 'Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.'
@@ -655,6 +656,7 @@ Your password must include both upper and lower case letters.: Hasło musi zawie
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.
+'Your schedules are allowed to have a maximum of {max} actions.': 'Twoje harmonogramy mogą mieć maksymalnie {max} akcji.'
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
 'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
@@ -770,6 +772,7 @@ Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć t
 Assigned Locations: Przypisane Lokalizacje
 Change: Zmień
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
+Channels in channel group: Kanały w grupach kanałów
 Chosen hour: Wybrana godzina
 'Confirm if you want to remove {deviceName} device': 'Potwierdź chęć usunięcia urządzenia {deviceName}'
 Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.

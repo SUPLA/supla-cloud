@@ -294,6 +294,14 @@ dl {
   }
 }
 
+.modal-body {
+  .nav-tabs {
+    li.active a, li.active a:hover {
+      background: $supla-white;
+    }
+  }
+}
+
 table {
   &.table-valign-middle {
     td {

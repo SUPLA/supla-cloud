@@ -34,10 +34,12 @@
                         </dl>
                         <div class="row">
                             <div class="col-sm-8">
-                                <a class="btn btn-default"
-                                    @click="changingPassword = true">{{ $t('Change Password') }}</a>
-                                <a class="btn btn-default"
-                                    @click="showingLimits = true">{{ $t('Show my limits') }}</a>
+                                <div class="btn-toolbar">
+                                    <a class="btn btn-default"
+                                        @click="changingPassword = true">{{ $t('Change Password') }}</a>
+                                    <a class="btn btn-default"
+                                        @click="showingLimits = true">{{ $t('Show my limits') }}</a>
+                                </div>
                             </div>
                             <div class="col-sm-4 text-right">
                                 <a class="btn btn-red-outline btn-xs"

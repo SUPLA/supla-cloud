@@ -3,52 +3,71 @@
         :header="$t('Your account limits')">
         <loading-cover :loading="fetching">
             <div v-if="limits">
-                <dl>
-                    <dt>{{ $t('I/O Devices') }}</dt>
-                    <dd>
-                        <account-limit-progressbar :limit="limits.ioDevice"
-                            :value="relationsCount.ioDevices"></account-limit-progressbar>
-                    </dd>
-                    <dt>{{ $t('Access Identifiers') }}</dt>
-                    <dd>
-                        <account-limit-progressbar :limit="limits.accessId"
-                            :value="relationsCount.accessIds"></account-limit-progressbar>
-                    </dd>
-                    <dt>{{ $t('Client’s Apps') }}</dt>
-                    <dd>
-                        <account-limit-progressbar :limit="limits.clientApp"
-                            :value="relationsCount.clientApps"></account-limit-progressbar>
-                    </dd>
-                    <dt>{{ $t('Channel groups') }}</dt>
-                    <dd>
-                        <account-limit-progressbar :limit="limits.channelGroup"
-                            :value="relationsCount.channelGroups"></account-limit-progressbar>
-                    </dd>
-                    <!--<dt>{{ $t('Channels in channel group') }}</dt>-->
-                    <!--<dd>{{ limits.channelGroup }}</dd>-->
-                    <dt>{{ $t('Locations') }}</dt>
-                    <dd>
-                        <account-limit-progressbar :limit="limits.location"
-                            :value="relationsCount.locations"></account-limit-progressbar>
-                    </dd>
-                    <dt>{{ $t('Schedules') }}</dt>
-                    <dd>
-                        <account-limit-progressbar :limit="limits.schedule"
-                            :value="relationsCount.schedules"></account-limit-progressbar>
-                    </dd>
-                    <dt>{{ $t('Direct links') }}</dt>
-                    <dd>
-                        <account-limit-progressbar :limit="limits.directLink"
-                            :value="relationsCount.directLinks"></account-limit-progressbar>
-                    </dd>
-                    <dt>{{ $t('OAuth apps') }}</dt>
-                    <dd>
-                        <account-limit-progressbar :limit="limits.oauthClient"
-                            :value="relationsCount.apiClients"></account-limit-progressbar>
-                    </dd>
-                </dl>
-                <div v-if="apiRateStatus">
-                    <h4>{{ $t('API rate limits') }}</h4>
+                <div class="form-group">
+                    <ul class="nav nav-tabs">
+                        <li :class="{active: currentTab === 'features'}">
+                            <a @click="currentTab = 'features'">
+                                {{ $t('Feature limits') }}
+                            </a>
+                        </li>
+                        <li :class="{active: currentTab === 'api'}"
+                            v-if="apiRateStatus">
+                            <a @click="currentTab = 'api'">
+                                {{ $t('API rate limits') }}
+                            </a>
+                        </li>
+                        <li :class="{active: currentTab === 'other'}">
+                            <a @click="currentTab = 'other'">
+                                Inne
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="currentTab === 'features'">
+                    <dl>
+                        <dt>{{ $t('I/O Devices') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.ioDevice"
+                                :value="relationsCount.ioDevices"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('Access Identifiers') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.accessId"
+                                :value="relationsCount.accessIds"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('Client’s Apps') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.clientApp"
+                                :value="relationsCount.clientApps"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('Channel groups') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.channelGroup"
+                                :value="relationsCount.channelGroups"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('Locations') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.location"
+                                :value="relationsCount.locations"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('Schedules') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.schedule"
+                                :value="relationsCount.schedules"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('Direct links') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.directLink"
+                                :value="relationsCount.directLinks"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('OAuth apps') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.oauthClient"
+                                :value="relationsCount.apiClients"></account-limit-progressbar>
+                        </dd>
+                    </dl>
+                </div>
+                <div v-if="currentTab === 'api'">
                     <div class="row">
                         <div class="col-xs-12 api-rate-limit-progress">
                             <div class="well well-sm no-margin">
@@ -72,10 +91,14 @@
                             </div>
                             <p class="text-right text-muted small"
                                 v-if="apiRateStatus.requests > 0">
-                                {{ $t('Next limit renewal: {date}', { date: apiRateStatusReset }) }}
+                                {{ $t('Next limit renewal: {date}', {date: apiRateStatusReset}) }}
                             </p>
                         </div>
                     </div>
+                </div>
+                <div v-if="currentTab === 'other'">
+                    <p>{{ $t('Your channel groups are allowed to have a maximum of {max} channels.', {max: limits.channelPerGroup}) }}</p>
+                    <p>{{ $t('Your schedules are allowed to have a maximum of {max} actions.', {max: limits.actionsPerSchedule}) }}</p>
                 </div>
             </div>
         </loading-cover>
@@ -105,6 +128,7 @@
                 limits: undefined,
                 relationsCount: undefined,
                 apiRateStatus: undefined,
+                currentTab: 'features',
             };
         },
         mounted() {

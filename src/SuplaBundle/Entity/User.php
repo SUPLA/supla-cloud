@@ -676,18 +676,20 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     /** @Groups({"basic"}) */
     public function getLimits(): array {
-        return [
-            'accessId' => $this->limitAid,
-            'channelGroup' => $this->limitChannelGroup,
-            'channelPerGroup' => $this->limitChannelPerGroup,
-            'clientApp' => $this->limitClientApp,
-            'directLink' => $this->limitDirectLink,
-            'ioDevice' => $this->limitIoDev,
-            'location' => $this->limitLoc,
-            'oauthClient' => $this->limitOAuthClient,
-            'schedule' => $this->limitSchedule,
-            'scene' => $this->limitScene,
-        ];
+        $limits = [];
+        foreach (self::PREDEFINED_LIMITS['default'] as $field => $limit) {
+            $publicName = lcfirst(substr($field, strlen('limit')));
+            $limits[$publicName] = $this->$field;
+        }
+        $limits['accessId'] = $limits['aid'];
+        unset($limits['aid']);
+        $limits['ioDevice'] = $limits['ioDev'];
+        unset($limits['ioDev']);
+        $limits['location'] = $limits['loc'];
+        unset($limits['loc']);
+        $limits['oauthClient'] = $limits['oAuthClient'];
+        unset($limits['oAuthClient']);
+        return $limits;
     }
 
     /** @Groups({"basic"}) */
