@@ -19,15 +19,14 @@
                 @filter="filter()"></client-app-filters>
         </div>
         <square-links-grid v-if="clientApps && filteredClientApps.length"
-            :count="filteredClientApps.length"
-            class="square-links-height-250">
-            <div v-for="app in filteredClientApps"
+            :count="filteredClientApps.length">
+            <client-app-tile-editable
+                v-for="app in filteredClientApps"
                 :key="app.id"
-                :ref="'app-tile-' + app.id">
-                <client-app-tile-editable :app="app"
-                    @change="filter()"
-                    @delete="removeClientFromList(app)"></client-app-tile-editable>
-            </div>
+                :ref="'app-tile-' + app.id"
+                :app="app"
+                @change="filter()"
+                @delete="removeClientFromList(app)"></client-app-tile-editable>
         </square-links-grid>
         <empty-list-placeholder v-else-if="clientApps"></empty-list-placeholder>
         <loader-dots v-else></loader-dots>
