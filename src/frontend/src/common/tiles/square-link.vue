@@ -145,21 +145,4 @@
             }
         }
     }
-
-    @mixin square-link-height($height) {
-        .square-links-height-#{$height} {
-            min-height: $height + 10px;
-            .square-link {
-                height: $height + px;
-            }
-            .flip-container {
-                &, .front, .back {
-                    height: $height + px;
-                }
-            }
-        }
-    }
-
-    @include square-link-height(240);
-    @include square-link-height(250);
 </style>

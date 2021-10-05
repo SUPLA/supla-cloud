@@ -8,8 +8,7 @@
                     @filter="filter()"></device-filters>
             </div>
             <square-links-grid v-if="filteredDevices && filteredDevices.length || (showPossibleDevices && !devices.length)"
-                :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)"
-                class="square-links-height-240">
+                :count="filteredDevices.length + (showPossibleDevices ? possibleDevices.length : 0)">
                 <div v-for="device in filteredDevices"
                     :key="device.id"
                     :ref="'device-tile-' + device.id">

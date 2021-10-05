@@ -14,8 +14,7 @@
                     <div v-if="!id && !app">
                         <div v-if="filteredApps.length">
                             <square-links-grid
-                                :count="filteredApps.length"
-                                class="square-links-height-240">
+                                :count="filteredApps.length">
                                 <div v-for="app in filteredApps"
                                     :key="app.id">
                                     <public-app-tile :app="app"></public-app-tile>

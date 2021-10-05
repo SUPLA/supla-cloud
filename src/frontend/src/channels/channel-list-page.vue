@@ -9,8 +9,7 @@
             </div>
             <div v-if="channels && channels.length">
                 <square-links-grid v-if="filteredChannels.length"
-                    :count="filteredChannels.length"
-                    class="square-links-height-250">
+                    :count="filteredChannels.length">
                     <div v-for="channel in filteredChannels"
                         :key="channel.id">
                         <channel-tile :model="channel"></channel-tile>
