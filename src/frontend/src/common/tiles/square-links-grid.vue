@@ -35,7 +35,6 @@
         flex-wrap: wrap;
         > div {
             display: inline-block;
-            float: left;
             padding: math.div($gridGap, 2);
             transition: all .3s ease-out;
             width: 100%;

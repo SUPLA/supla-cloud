@@ -65,8 +65,7 @@
                 <h3 class="text-center visible-xs">{{ $t('Channels') }}</h3>
                 <div class="form-group">
                     <square-links-grid v-if="channelGroup.channels"
-                        :count="channelGroup.channels.length + 1"
-                        class="square-links-height-240">
+                        :count="channelGroup.channels.length + 1">
                         <div key="new">
                             <channel-group-new-channel-chooser :channel-group="channelGroup"
                                 @add="channelGroupChanged()"></channel-group-new-channel-chooser>
