@@ -3,12 +3,12 @@
         <div class="container">
             <div :class="'form-group text-' + (sparseLogs.length ? 'right' : 'center')"
                 v-if="hasLogs">
-                <div class="button-container">
+                <div>
                     <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
-                        class="btn btn-default">{{ $t('Download the history of measurement') }}</a>
+                        class="btn btn-default mx-1">{{ $t('Download the history of measurement') }}</a>
                     <button @click="deleteConfirm = true"
                         type="button"
-                        class="btn btn-red">
+                        class="btn btn-red ml-1">
                         <i class="pe-7s-trash"></i>
                         {{ $t('Delete measurement history') }}
                     </button>

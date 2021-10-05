@@ -104,7 +104,7 @@
         </loading-cover>
         <div v-if="showChangingInfo"
             class="alert alert-info my-3">
-            <p>
+            <p class="mb-2">
                 Use the <code>supla:user:change-limits</code> server command to change this account's limits. For example:
             </p>
             <pre><code>docker-compose exec -u www-data supla-cloud php bin/console supla:user:change-limits {{ user.email }}</code></pre>

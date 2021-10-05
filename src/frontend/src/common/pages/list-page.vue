@@ -6,7 +6,7 @@
                     <h1 v-if="!subject"
                         v-title>{{ $t(headerI18n) }}</h1>
                 </div>
-                <div :class="subject ? 'no-margin-top' : ''">
+                <div :class="subject ? 'mt-0' : ''">
                     <a @click="createNewItem()"
                         class="btn btn-green btn-lg btn-wrapped">
                         <i class="pe-7s-plus"></i>
@@ -17,6 +17,7 @@
             <component v-if="filters && items"
                 :is="filters"
                 :items="items"
+                class="mt-3"
                 @filter-function="filterFunction = $event; filter()"
                 @compare-function="compareFunction = $event; filter()"
                 @filter="filter()"></component>
