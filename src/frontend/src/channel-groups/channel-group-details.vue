@@ -4,7 +4,8 @@
             class="channel-group-details">
             <div v-if="channelGroup">
                 <div class="container">
-                    <pending-changes-page :header="(channelGroup.id ? $t('Channel group') : $t('New channel group')) + (channelGroup.id ? ' ID'+ channelGroup.id : '')"
+                    <pending-changes-page
+                        :header="caption"
                         @cancel="cancelChanges()"
                         @save="saveChannelGroup()"
                         :deletable="!isNewGroup"
@@ -220,7 +221,18 @@
         computed: {
             isNewGroup() {
                 return !this.channelGroup || !this.channelGroup.id;
-            }
+            },
+            caption() {
+                if (this.channelGroup) {
+                    if (!this.channelGroup.id) {
+                        return this.$t('New channel group');
+                    } else {
+                        return this.channelGroup.caption || this.$t('Channel group') + ' ID' + this.channelGroup.id;
+                    }
+                } else {
+                    return '';
+                }
+            },
         },
         watch: {
             id() {
