@@ -1,0 +1,42 @@
+// generate spacing classes from Bootstrap v4
+
+@use 'sass:list';
+
+$spacer: 1em;
+$levels: (0, .25, .5, 1, 1.5, 3);
+$pos: (top, bottom, left, right);
+
+@for $step from 0 to list.length($levels) {
+  $level: list.nth($levels, $step + 1);
+  $value: $level * $spacer;
+  .m-#{$step} {
+    margin: $value !important;
+  }
+  .p-#{$step} {
+    padding: $value !important;
+  }
+  .mx-#{$step} {
+    margin-left: $value !important;
+    margin-right: $value !important;
+  }
+  .my-#{$step} {
+    margin-top: $value !important;
+    margin-bottom: $value !important;
+  }
+  .px-#{$step} {
+    padding-left: $value !important;
+    padding-right: $value !important;
+  }
+  .py-#{$step} {
+    padding-top: $value !important;
+    padding-bottom: $value !important;
+  }
+  @each $p in $pos {
+    .m#{str-slice($p, 0, 1)}-#{$step} {
+      margin-#{$p}: $value !important;
+    }
+    .p#{str-slice($p, 0, 1)}-#{$step} {
+      margin-#{$p}: $value !important;
+    }
+  }
+}
