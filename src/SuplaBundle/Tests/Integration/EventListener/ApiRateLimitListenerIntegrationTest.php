@@ -356,7 +356,9 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
 
         $command = $this->application->find('supla:user:change-limits');
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs(['', '', '', '', '', '', '', '', '5/10']);
+        $limits = range(1, count(User::PREDEFINED_LIMITS['default']));
+        $limits[] = '5/10'; // API rate limit
+        $commandTester->setInputs($limits);
         $exitCode = $commandTester->execute(['username' => $this->user->getUsername()]);
         $this->assertEquals(0, $exitCode);
 

@@ -125,22 +125,22 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     private $timezone;
 
     /**
-     * @ORM\Column(name="limit_aid", type="integer")
+     * @ORM\Column(name="limit_aid", type="integer", options={"default"=10})
      */
     private $limitAid;
 
     /**
-     * @ORM\Column(name="limit_loc", type="integer")
+     * @ORM\Column(name="limit_loc", type="integer", options={"default"=10})
      */
     private $limitLoc;
 
     /**
-     * @ORM\Column(name="limit_iodev", type="integer")
+     * @ORM\Column(name="limit_iodev", type="integer", options={"default"=100})
      */
     private $limitIoDev;
 
     /**
-     * @ORM\Column(name="limit_client", type="integer")
+     * @ORM\Column(name="limit_client", type="integer", options={"default"=200})
      */
     private $limitClientApp;
 
@@ -148,6 +148,11 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
      * @ORM\Column(name="limit_schedule", type="integer", options={"default"=20})
      */
     private $limitSchedule;
+
+    /**
+     * @ORM\Column(name="limit_actions_per_schedule", type="integer", options={"default"=20})
+     */
+    private $limitActionsPerSchedule;
 
     /**
      * @ORM\Column(name="limit_channel_group", type="integer", options={"default"=20})
@@ -297,17 +302,36 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
      */
     private $mqttBrokerAuthPassword;
 
+    const PREDEFINED_LIMITS = [
+        'default' => [
+            'limitIoDev' => 100,
+            'limitClientApp' => 200,
+            'limitAid' => 10,
+            'limitChannelGroup' => 20,
+            'limitChannelPerGroup' => 10,
+            'limitDirectLink' => 50,
+            'limitLoc' => 10,
+            'limitOAuthClient' => 20,
+            'limitScene' => 50,
+            'limitSchedule' => 20,
+            'limitActionsPerSchedule' => 20,
+        ],
+        'big' => [
+            'limitIoDev' => 200,
+            'limitClientApp' => 300,
+            'limitAid' => 50,
+            'limitChannelGroup' => 150,
+            'limitChannelPerGroup' => 20,
+            'limitDirectLink' => 150,
+            'limitLoc' => 50,
+            'limitOAuthClient' => 50,
+            'limitScene' => 150,
+            'limitSchedule' => 150,
+            'limitActionsPerSchedule' => 40,
+        ],
+    ];
+
     public function __construct() {
-        $this->limitAid = 10;
-        $this->limitLoc = 10;
-        $this->limitIoDev = 100;
-        $this->limitClientApp = 200;
-        $this->limitSchedule = 20;
-        $this->limitChannelGroup = 20;
-        $this->limitChannelPerGroup = 10;
-        $this->limitDirectLink = 50;
-        $this->limitOAuthClient = 20;
-        $this->limitScene = 50;
         $this->accessids = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->iodevices = new ArrayCollection();
@@ -324,6 +348,9 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         $this->mqttBrokerAuthPassword = null;
         $this->setTimezone(null);
         $this->oauthOldApiCompatEnabled = false;
+        foreach (self::PREDEFINED_LIMITS['default'] as $field => $limit) {
+            $this->$field = $limit;
+        }
     }
 
     public function getId() {
@@ -436,7 +463,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     }
 
     public function setEnabled($boolean) {
-        $this->enabled = (Boolean)$boolean;
+        $this->enabled = (boolean)$boolean;
         return $this;
     }
 
@@ -518,8 +545,12 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         }
     }
 
-    public function getLimitSchedule() {
+    public function getLimitSchedule(): int {
         return $this->limitSchedule;
+    }
+
+    public function getLimitActionsPerSchedule(): int {
+        return $this->limitActionsPerSchedule;
     }
 
     /** Schedule[] */

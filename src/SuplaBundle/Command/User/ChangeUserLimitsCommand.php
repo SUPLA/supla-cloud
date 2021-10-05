@@ -4,6 +4,7 @@ namespace SuplaBundle\Command\User;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
@@ -44,7 +45,7 @@ class ChangeUserLimitsCommand extends Command {
             ->setAliases(['supla:change-user-limits'])
             ->setDescription('Allows to change user limits.')
             ->addArgument('username', InputArgument::OPTIONAL, 'Username to update.')
-            ->addArgument('limitForAll', InputArgument::OPTIONAL, 'Limit value to set for all limits.');
+            ->addArgument('limitForAll', InputArgument::OPTIONAL, 'Limit value to set for all limits. Optional constants: [default, big].');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
@@ -55,7 +56,10 @@ class ChangeUserLimitsCommand extends Command {
         $user = $this->userRepository->findOneByEmail($email);
         Assertion::notNull($user, 'Such user does not exist.');
         $limitForAll = $input->getArgument('limitForAll');
+        $limitForAll = $limitForAll ? $this->getLimits($user, $limitForAll) : null;
         foreach ([
+                     'limitIoDev' => 'IO Devices',
+                     'limitClientApp' => 'Client Apps (smartphones)',
                      'limitAid' => 'Access Identifiers',
                      'limitChannelGroup' => 'Channel Groups',
                      'limitChannelPerGroup' => 'Channels per Channel Group',
@@ -64,9 +68,12 @@ class ChangeUserLimitsCommand extends Command {
                      'limitOAuthClient' => 'OAuth Clients',
                      'limitScene' => 'Scenes',
                      'limitSchedule' => 'Schedules',
+                     'limitActionsPerSchedule' => 'Actions per Schedule',
                  ] as $field => $label) {
             $currentLimit = EntityUtils::getField($user, $field);
-            $newLimit = $limitForAll ?: $helper->ask($input, $output, new Question("Limit of $label [$currentLimit]: ", $currentLimit));
+            $newLimit = $limitForAll
+                ? $limitForAll[$field]
+                : $helper->ask($input, $output, new Question("Limit of $label [$currentLimit]: ", $currentLimit));
             EntityUtils::setField($user, $field, $newLimit);
         }
         if (!$limitForAll) {
@@ -94,5 +101,27 @@ class ChangeUserLimitsCommand extends Command {
             }
         });
         return $q;
+    }
+
+    private function getLimits(User $user, string $limitForAll): array {
+        if (isset(User::PREDEFINED_LIMITS[$limitForAll])) {
+            return User::PREDEFINED_LIMITS[$limitForAll];
+        }
+        if (preg_match('#^([\+\*x])(\d)$#', $limitForAll, $match)) {
+            $limits = [];
+            foreach (array_keys(User::PREDEFINED_LIMITS['default']) as $field) {
+                $currentLimit = EntityUtils::getField($user, $field);
+                $newLimit = $match[1] === '+' ? $currentLimit + $match[2] : $currentLimit * $match[2];
+                $limits[$field] = $newLimit;
+            }
+            return $limits;
+        }
+        if (is_numeric($limitForAll)) {
+            Assertion::greaterThan($limitForAll, 0);
+            return array_map(function ($value) use ($limitForAll) {
+                return $limitForAll;
+            }, User::PREDEFINED_LIMITS['default']);
+        }
+        throw new \InvalidArgumentException('Invalid limit specified.');
     }
 }

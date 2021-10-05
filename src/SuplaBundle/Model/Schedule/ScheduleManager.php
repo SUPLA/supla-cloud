@@ -159,6 +159,11 @@ class ScheduleManager {
         Assertion::greaterThan(count($config), 0, 'No schedule configuration.'); // i18n
         $configLength = strlen(json_encode($schedule->getConfig()));
         Assertion::lessThan($configLength, 2040, 'Config of the schedule is too complicated.'); // i18n
+        Assertion::lessOrEqualThan(
+            count($schedule->getConfig()),
+            $schedule->getUser()->getLimitActionsPerSchedule(),
+            'Too many actions in this schedule.' // i18n
+        );
         foreach ($config as $configEntry) {
             Assertion::count($configEntry, 2, 'Invalid schedule config (incorrect config item).');
             Assertion::string($configEntry['crontab'], 'Invalid schedule config (incorrect crontab).');

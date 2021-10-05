@@ -579,6 +579,7 @@ This is the list of applications you have granted access to your account.: 'To j
 Timezone: Strefa czasowa
 Toggle: Przełącz
 Token does not exist: Token nie istnieje
+Too many actions in this schedule.: Zbyt wiele akcji w jednym harmonogramie.
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
 Triggers: Wyzwalacze
 Turning this device off will cause its channels not working in the following features.: 'Wyłączenie urządzenia spowoduje, że jego kanały przestaną działać w poniższych elementach.'
