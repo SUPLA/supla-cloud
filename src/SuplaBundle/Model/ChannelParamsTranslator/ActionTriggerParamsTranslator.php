@@ -71,6 +71,7 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
             $actionDefinition['action'] = ['id' => ChannelFunctionAction::GENERIC, 'param' => $params];
         } else {
             $user = $this->getCurrentUser();
+            Assertion::keyExists($action, 'subjectId');
             $subject = $this->subjectRepository->findForUser($user, $action['subjectType'], $action['subjectId']);
             Assertion::inArray(
                 $channelFunctionAction->getId(),

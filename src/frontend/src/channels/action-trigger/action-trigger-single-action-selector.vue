@@ -4,8 +4,10 @@
             <subject-dropdown v-model="subject"
                 @input="onSubjectChange()"
                 channels-dropdown-params="io=output&hasFunction=1">
-                <template #others="props">
-                    <action-trigger-other-actions-dropdown v-model="props.subject"
+                <template #other="props">
+                    <action-trigger-other-actions-dropdown
+                        v-model="props.subject"
+                        :filter="filterOtherActions"
                         @input="props.onInput"></action-trigger-other-actions-dropdown>
                 </template>
             </subject-dropdown>
@@ -36,7 +38,7 @@
 
     export default {
         components: {ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
-        props: ['value'],
+        props: ['value', 'trigger', 'channel'],
         data() {
             return {
                 subject: undefined,
@@ -96,6 +98,12 @@
                 this.$emit('input');
                 this.subject = undefined;
                 this.action = undefined;
+            },
+            disablesLocalOperation(trigger) {
+                return this.channel.config.disablesLocalOperation?.includes(trigger);
+            },
+            filterOtherActions(action) {
+                return action.id !== 'disableLocalFunction' || this.disablesLocalOperation(this.trigger);
             }
         }
     };

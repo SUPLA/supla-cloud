@@ -209,7 +209,9 @@ Direct link has been executed: Link bezpośredni został wykonany
 Direct links: Linki bezpośrednie
 Direct links limit has been exceeded: Limit linków bezpośrednich został przekroczony
 Disable: Wyłącz
+Disable local function: Wyłącz funkcję urządzenia
 Disabled: Wyłączone
+Disables local device function and does nothing more.: 'Nie wykonuje żadnego działania, ale wyłącza funkcję urządzenia, która jest domyślna dla tej akcji.'
 Disconnected: Rozłączony
 Distance: Odległość
 Distance sensor: Czujnik odległości
@@ -447,6 +449,8 @@ Proceed: Kontynuuj
 Processing: W trakcie
 Protocol: Protokół
 Public ID: Publiczny ID
+Publish to integrations: Publikuj do integracji
+Publishes the event to integrated services like MQTT or webhooks.: Powiadamia integracje takie jak MQTT lub webhooki o wykonaniu tej akcji.
 RESET: RESETUJ
 RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Oświetlenie RGB
@@ -510,6 +514,7 @@ Sensors: Czujniki
 Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
+Setting any action on this trigger will disable its local function: Ustawienie tego wyzwaacza spowoduje wyłączenie funkcji urządzenia
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
@@ -577,7 +582,6 @@ Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.'
 This is the list of applications you have granted access to your account.: 'To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.'
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.'
-This trigger turns off local operation: Wyzwalacz wyłączający funkcję urządzenia
 Timezone: Strefa czasowa
 Toggle: Przełącz
 Token does not exist: Token nie istnieje
@@ -684,6 +688,7 @@ channel: Kanał
 channelGroup: Grupa kanałów
 choose: wybierz
 choose a currency: wybierz walutę
+choose the action: wybierz akcję
 choose the channel: wybierz kanał
 choose the channel group: wybierz grupę kanałów
 choose the scene: wybierz scenę

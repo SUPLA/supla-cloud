@@ -20,7 +20,7 @@
                             </a>
                             <div>
                                 <i v-if="disablesLocalOperation(trigger)"
-                                    v-tooltip="$t('This trigger turns off local operation')"
+                                    v-tooltip="$t('Setting any action on this trigger will disable its local function')"
                                     class="pe-7s-power text-warning text-inherit"></i>
                             </div>
                         </div>
@@ -34,6 +34,8 @@
                         <div class="panel-body"
                             v-if="expanded[trigger]">
                             <action-trigger-single-action-selector v-model="channel.config.actions[trigger]"
+                                :channel="channel"
+                                :trigger="trigger"
                                 @input="$emit('change')"></action-trigger-single-action-selector>
                         </div>
                     </transition-expand>

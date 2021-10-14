@@ -5,12 +5,12 @@
             data-live-search="true"
             :data-live-search-placeholder="$t('Search')"
             data-width="100%"
-            :data-none-selected-text="$t('choose other action')"
+            :data-none-selected-text="$t('choose the action')"
             :data-none-results-text="$t('No results match {0}')"
             data-style="btn-default btn-wrapped"
             v-model="chosenAction"
             @change="$emit('input', chosenAction)">
-            <option v-for="action in availableActions"
+            <option v-for="action in actionsForDropdown"
                 :key="action.id"
                 :value="action"
                 :data-content="actionHtml(action)">
@@ -28,7 +28,7 @@
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 
     export default {
-        props: ['value'],
+        props: ['value', 'filter'],
         components: {},
         data() {
             return {
@@ -76,6 +76,13 @@
                 } else {
                     this.chosenAction = undefined;
                 }
+            }
+        },
+        computed: {
+            actionsForDropdown() {
+                this.updateDropdownOptions();
+                const filter = this.filter || (() => true);
+                return this.availableActions.filter(filter);
             }
         },
         watch: {

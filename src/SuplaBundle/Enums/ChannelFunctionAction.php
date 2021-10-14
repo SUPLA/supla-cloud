@@ -94,6 +94,7 @@ final class ChannelFunctionAction extends Enum {
             self::TOGGLE => 'Toggle', // i18n
             self::EXECUTE => 'Execute', // i18n
             self::OPEN_PARTIALLY => 'Open partially', // i18n
+            self::GENERIC => 'Generic action', // i18n
         ];
     }
 

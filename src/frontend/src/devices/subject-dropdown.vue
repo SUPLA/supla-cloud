@@ -12,7 +12,7 @@
              </li> -->
             <li :class="subjectType == 'other' ? 'active' : ''"
                 v-if="hasOthersSlot">
-                <a @click="changeSubjectType('other')">{{ $t('Others') }}</a>
+                <a @click="changeSubjectType('other')">{{ $t('Other') }}</a>
             </li>
         </ul>
         <channels-dropdown v-model="subject"
@@ -29,7 +29,7 @@
             v-if="subjectType == 'scene'"
             :filter="filter"
             v-model="subject"></scenes-dropdown>
-        <slot name="others"
+        <slot name="other"
             :subject="subject"
             :on-input="subjectChanged"
             v-if="subjectType == 'other'"></slot>
@@ -80,7 +80,7 @@
         },
         computed: {
             hasOthersSlot() {
-                return !!this.$slots['others'] || !!this.$scopedSlots['others'];
+                return !!this.$slots['other'] || !!this.$scopedSlots['other'];
             },
         },
         watch: {

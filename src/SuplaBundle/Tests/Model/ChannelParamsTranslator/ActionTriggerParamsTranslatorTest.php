@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Model\ChannelParamsTranslator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -110,6 +111,16 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
         $actions['PRESS']['action']['param'] = [];
         $actions['PRESS_2X']['action']['param'] = [];
+        $this->assertEquals($actions, $channel->getUserConfig()['actions']);
+    }
+
+    public function testCanSetGenericAction() {
+        $actions = ['PRESS' => [
+            'subjectType' => ActionableSubjectType::OTHER,
+            'action' => ['id' => ChannelFunctionAction::GENERIC, 'param' => ['action' => 'disableLocalFunction']],
+        ]];
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
+        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
     }
 
