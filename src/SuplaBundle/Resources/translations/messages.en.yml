@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'Action trigger no. #{index}': 'Action trigger no. #{index}'
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Any application or device that uses the {tokenName} token will not work anymore.'
 'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.'
 'Confirm if you want to remove {deviceName} device and all of its channels.': 'Confirm if you want to remove {deviceName} device and all of its channels.'
@@ -19,6 +20,8 @@ WELCOME_MESSAGE: |
   Having your house or the office connected to SUPLA is very easy.
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.'
+'Your channel groups are allowed to have a maximum of {max} channels.': 'Your channel groups are allowed to have a maximum of {max} channels.'
+'Your schedules are allowed to have a maximum of {max} actions.': 'Your schedules are allowed to have a maximum of {max} actions.'
 actionTrigger_HOLD: Hold
 actionTrigger_SHORT_PRESS_X1: Short press once
 actionTrigger_SHORT_PRESS_X2: Short press twice

@@ -25,6 +25,7 @@ Account access when you are unavailable: Dostęp do konta kiedy jesteś niedost�
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
 Action execution: Wykonywanie akcji
 Action trigger: Wyzwalacz akcji
+'Action trigger no. #{index}': 'Wyzwalacz #{index}'
 Action triggers: Wyzwalacze akcji
 Actions: Akcje
 Active: Aktywne

@@ -14,7 +14,9 @@
                     <div :class="{'col-sm-6 col-sm-offset-3': actionTriggers.length === 1, 'col-sm-6': actionTriggers.length > 1}"
                         v-for="(actionTrigger, index) in actionTriggers"
                         :key="actionTrigger.id">
-                        <h4 v-if="actionTriggers.length > 1">Wyzwalacz #{{ index + 1 }}</h4>
+                        <h4 v-if="actionTriggers.length > 1">
+                            {{ $t('Action trigger no. #{index}', {index: index + 1}) }}
+                        </h4>
                         <action-trigger-panel :channel="actionTrigger"
                             @change="hasPendingChanges = true"></action-trigger-panel>
                     </div>
