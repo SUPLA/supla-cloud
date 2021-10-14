@@ -579,6 +579,20 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('TURN_ON', $trigger->getUserConfig()['actions']);
     }
 
+    public function testSettingConfigWithGenericActionForActionTrigger() {
+        $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
+        $trigger = $anotherDevice->getChannels()[2];
+        $actions = ['TURN_ON' => [
+            'subjectType' => ActionableSubjectType::OTHER,
+            'action' => ['id' => ChannelFunctionAction::GENERIC, 'param' => ['action' => 'publishToIntegrations']]]];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertArrayHasKey('actions', $trigger->getUserConfig());
+        $this->assertCount(1, $trigger->getUserConfig()['actions']);
+    }
+
     public function testChangingChannelFunctionCanSetSettingForTheNewFunction() {
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],

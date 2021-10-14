@@ -43,6 +43,7 @@ final class ChannelFunctionAction extends Enum {
     const READ = 1000;
     const SET = 2000;
     const EXECUTE = 3000;
+    const GENERIC = 10000;
     const OPEN = 10;
     const CLOSE = 20;
     const SHUT = 30;

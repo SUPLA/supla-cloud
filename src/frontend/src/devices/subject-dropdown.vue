@@ -2,18 +2,22 @@
     <div :class="'subject-dropdown ' + (subjectType == 'channel' ? 'first-selected' : '')">
         <ul class="nav nav-tabs">
             <li :class="subjectType == 'channel' ? 'active' : ''">
-                <a @click="changeSubjectType('channel')">{{$t('Channels')}}</a>
+                <a @click="changeSubjectType('channel')">{{ $t('Channels') }}</a>
             </li>
             <li :class="subjectType == 'channelGroup' ? 'active' : ''">
-                <a @click="changeSubjectType('channelGroup')">{{$t('Channel groups')}}</a>
+                <a @click="changeSubjectType('channelGroup')">{{ $t('Channel groups') }}</a>
             </li>
-           <!-- <li :class="subjectType == 'scene' ? 'active' : ''">
-                <a @click="changeSubjectType('scene')">{{$t('Scenes')}}</a>
-            </li> -->
+            <!-- <li :class="subjectType == 'scene' ? 'active' : ''">
+                 <a @click="changeSubjectType('scene')">{{$t('Scenes')}}</a>
+             </li> -->
+            <li :class="subjectType == 'other' ? 'active' : ''"
+                v-if="hasOthersSlot">
+                <a @click="changeSubjectType('other')">{{ $t('Others') }}</a>
+            </li>
         </ul>
         <channels-dropdown v-model="subject"
             v-if="subjectType == 'channel'"
-            @input="subjectChanged()"
+            @input="subjectChanged"
             :filter="filter"
             :params="channelsDropdownParams"></channels-dropdown>
         <channel-groups-dropdown @input="subjectChanged"
@@ -25,6 +29,10 @@
             v-if="subjectType == 'scene'"
             :filter="filter"
             v-model="subject"></scenes-dropdown>
+        <slot name="others"
+            :subject="subject"
+            :on-input="subjectChanged"
+            v-if="subjectType == 'other'"></slot>
     </div>
 </template>
 
@@ -52,7 +60,10 @@
                 this.subject = undefined;
                 this.subjectChanged();
             },
-            subjectChanged() {
+            subjectChanged(subject) {
+                if (this.subject != subject) {
+                    this.subject = subject;
+                }
                 this.$emit('input', this.subject);
                 if (this.clearOnSelect && this.subject) {
                     Vue.nextTick(() => this.subject = undefined);
@@ -65,6 +76,11 @@
                 } else if (this.subject) {
                     Vue.nextTick(() => this.subject = undefined);
                 }
+            },
+        },
+        computed: {
+            hasOthersSlot() {
+                return !!this.$slots['others'] || !!this.$scopedSlots['others'];
             },
         },
         watch: {

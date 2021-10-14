@@ -430,6 +430,9 @@ body.warning {
   .text {
     width: 100%;
   }
+  .dropdown-toggle {
+    color: $supla-black;
+  }
   .dropdown-menu > li {
     > a {
       white-space: normal;

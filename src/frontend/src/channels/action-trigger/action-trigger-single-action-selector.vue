@@ -2,16 +2,22 @@
     <div class="channel-params-action-trigger-selector">
         <div :class="{'form-group': !subject}">
             <subject-dropdown v-model="subject"
-                channels-dropdown-params="io=output&hasFunction=1"></subject-dropdown>
+                @input="onSubjectChange()"
+                channels-dropdown-params="io=output&hasFunction=1">
+                <template #others="props">
+                    <action-trigger-other-actions-dropdown v-model="props.subject"
+                        @input="props.onInput"></action-trigger-other-actions-dropdown>
+                </template>
+            </subject-dropdown>
         </div>
-        <div v-if="subject">
+        <div v-if="subject && subject.subjectType != 'other'">
             <channel-action-chooser :subject="subject"
                 @input="onActionChange()"
                 v-model="action"></channel-action-chooser>
         </div>
         <button v-if="value"
             type="button"
-            class="btn btn-default btn-block"
+            class="btn btn-default btn-block mt-3"
             @click="clearAction()">
             <i class="pe-7s-close"></i>
             {{ $t('Clear') }}
@@ -24,9 +30,12 @@
     import ChannelActionChooser from "../action/channel-action-chooser";
     import changeCase from "change-case";
     import EventBus from "@/common/event-bus";
+    import ActionTriggerOtherActionsDropdown from "@/channels/action-trigger/action-trigger-other-actions-dropdown";
+    import ChannelFunctionAction from "@/common/enums/channel-function-action";
+    import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 
     export default {
-        components: {ChannelActionChooser, SubjectDropdown},
+        components: {ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
         props: ['value'],
         data() {
             return {
@@ -45,8 +54,14 @@
         },
         methods: {
             onValueChanged() {
-                if (this.value && this.value.subjectType) {
-                    if (!this.subject || this.value.subjectId !== this.subject.id) {
+                if (this.value?.subjectType) {
+                    if (this.value.subjectType === ActionableSubjectType.OTHER) {
+                        if (this.value.action?.param?.action) {
+                            const otherAction = this.value.action.param.action;
+                            this.subject = {id: otherAction, subjectType: ActionableSubjectType.OTHER};
+                            this.action = this.value.action;
+                        }
+                    } else if (!this.subject || this.value.subjectId !== this.subject.id) {
                         const endpoint = `${changeCase.paramCase(this.value.subjectType)}s/${this.value.subjectId}`;
                         this.$http.get(endpoint)
                             .then(response => this.subject = response.body)
@@ -57,10 +72,19 @@
                     this.action = undefined;
                 }
             },
+            onSubjectChange() {
+                if (this.subject?.subjectType === ActionableSubjectType.OTHER) {
+                    this.action = {
+                        id: ChannelFunctionAction.GENERIC,
+                        param: {action: this.subject.id},
+                    };
+                    this.onActionChange();
+                }
+            },
             onActionChange() {
                 if (this.action?.id) {
                     this.$emit('input', {
-                        subjectId: this.subject.id,
+                        subjectId: this.subject.subjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
                         subjectType: this.subject.subjectType,
                         action: this.action,
                     });

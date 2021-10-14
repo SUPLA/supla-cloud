@@ -57,26 +57,30 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
 
     private function adjustAction(array $action): array {
         Assertion::keyExists($action, 'subjectType');
-        Assertion::keyExists($action, 'subjectId');
+        $subjectType = ActionableSubjectType::fromString($action['subjectType']);
         Assertion::keyExists($action, 'action');
-        $user = $this->getCurrentUser();
-        $subject = $this->subjectRepository->findForUser($user, $action['subjectType'], $action['subjectId']);
         $actionToExecute = $action['action'];
         Assertion::keyExists($actionToExecute, 'id');
         $channelFunctionAction = ChannelFunctionAction::fromString($actionToExecute['id']);
-        Assertion::inArray(
-            $channelFunctionAction->getId(),
-            EntityUtils::mapToIds($subject->getFunction()->getPossibleActions()),
-            'Cannot execute the requested action on given subject.'
-        );
-        $params = $this->channelActionExecutor->validateActionParams($subject, $channelFunctionAction, $actionToExecute['param'] ?? []);
-        return [
-            'subjectId' => $subject->getId(),
-            'subjectType' => ActionableSubjectType::forEntity($subject)->getValue(),
-            'action' => [
-                'id' => $channelFunctionAction->getId(),
-                'param' => $params,
-            ],
-        ];
+        $actionDefinition = ['subjectType' => $subjectType->getValue()];
+        if ($action['subjectType'] === ActionableSubjectType::OTHER) {
+            Assertion::eq($actionToExecute['id'], ChannelFunctionAction::GENERIC);
+            $params = array_intersect_key($actionToExecute['param'] ?? [], ['action' => '']);
+            Assertion::keyExists($params, 'action');
+            Assertion::inArray($params['action'], ['disableLocalFunction', 'publishToIntegrations']);
+            $actionDefinition['action'] = ['id' => ChannelFunctionAction::GENERIC, 'param' => $params];
+        } else {
+            $user = $this->getCurrentUser();
+            $subject = $this->subjectRepository->findForUser($user, $action['subjectType'], $action['subjectId']);
+            Assertion::inArray(
+                $channelFunctionAction->getId(),
+                EntityUtils::mapToIds($subject->getFunction()->getPossibleActions()),
+                'Cannot execute the requested action on given subject.'
+            );
+            $params = $this->channelActionExecutor->validateActionParams($subject, $channelFunctionAction, $actionToExecute['param'] ?? []);
+            $actionDefinition['subjectId'] = $subject->getId();
+            $actionDefinition['action'] = ['id' => $channelFunctionAction->getId(), 'param' => $params];
+        }
+        return $actionDefinition;
     }
 }
