@@ -29,6 +29,7 @@ use SuplaBundle\Model\ChannelParamsTranslator\GeneralPurposeMeasurementParamsTra
 use SuplaBundle\Model\ChannelParamsTranslator\HumidityAdjustmentParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\ImpulseCounterParamsTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\InvertedLogicParamTranslator;
+use SuplaBundle\Model\ChannelParamsTranslator\NumberOfAttemptsToOpenOrCloseParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningClosingTimeChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\RelayTimeMsChannelParamTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\RelayTimeSChannelParamTranslator;
@@ -51,6 +52,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new InvertedLogicParamTranslator(),
             new GeneralPurposeMeasurementParamsTranslator(),
             new DigiglassParamTranslator(),
+            new NumberOfAttemptsToOpenOrCloseParamTranslator(),
         ]);
     }
 
@@ -206,6 +208,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $config = $this->configTranslator->getConfigFromParams($channel);
         $this->assertEquals([
             'relayTimeMs' => 500,
+            'numberOfAttemptsToOpenOrClose' => 5,
             'timeSettingAvailable' => true,
         ], $config);
     }
