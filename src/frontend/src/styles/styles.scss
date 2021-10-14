@@ -598,6 +598,10 @@ body.warning {
   color: $supla-black;
 }
 
+.text-inherit {
+  color: inherit;
+}
+
 @import "./buttons";
 @import "./checkbox";
 @import "./notifications";

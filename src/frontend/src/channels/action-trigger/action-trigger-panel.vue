@@ -11,11 +11,19 @@
                     :id="'heading' + trigger">
                     <div class="panel-title"
                         @click="toggleExpand(trigger)">
-                        <a role="button"
-                            :aria-expanded="!!expanded[trigger]"
-                            :aria-controls="'collapse' + trigger">
-                            {{ $t('actionTrigger_' + trigger) }}
-                        </a>
+                        <div class="left-right-header">
+                            <a role="button"
+                                class="text-inherit"
+                                :aria-expanded="!!expanded[trigger]"
+                                :aria-controls="'collapse' + trigger">
+                                {{ $t('actionTrigger_' + trigger) }}
+                            </a>
+                            <div>
+                                <i v-if="disablesLocalOperation(trigger)"
+                                    v-tooltip="$t('This trigger turns off local operation')"
+                                    class="pe-7s-power text-warning text-inherit"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-collapse"
@@ -91,6 +99,9 @@
                         this.$set(this.expanded, triggerName, false);
                     }
                 }
+            },
+            disablesLocalOperation(trigger) {
+                return this.channel.config.disablesLocalOperation?.includes(trigger);
             },
         }
     };
