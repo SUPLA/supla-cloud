@@ -119,11 +119,11 @@ export default [
         component: () => import("@/integrations/register-target-cloud-form"),
         meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
-    /*{
+    {
         path: '/scenes', component: () => import("@/scenes/scenes-page"), name: 'scenes', children: [
             {path: ':id', component: () => import("@/scenes/scene-details"), name: 'scene', props: true}
         ]
-    },*/
+    },
     {
         path: '/schedules',
         component: () => import("@/schedules/schedule-list/schedules-page"),
