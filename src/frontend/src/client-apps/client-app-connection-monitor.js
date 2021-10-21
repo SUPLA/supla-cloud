@@ -47,7 +47,7 @@ export class ClientAppConnectionMonitor {
     }
 
     updateKnownStates(clientAppIds) {
-        return this.fetching = this.$http().get('client-apps?include=connected').then(({body: clientApps}) => {
+        return this.fetching = this.$http().get('client-apps?include=connected', {skipErrorHandler: true}).then(({body: clientApps}) => {
             for (let clientAppId of clientAppIds) {
                 const state = clientApps.find(clientApp => clientApp.id == clientAppId);
                 if (state) {

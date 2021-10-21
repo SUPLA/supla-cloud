@@ -3,7 +3,7 @@ import {ClientAppConnectionMonitor} from "../client-apps/client-app-connection-m
 class ChannelConnectionMonitor extends ClientAppConnectionMonitor {
     updateKnownStates(channelIds) {
         const endpoint = channelIds.length > 1 ? 'channels' : 'channels/' + channelIds[0];
-        return this.$http().get(endpoint + '?include=connected').then(response => {
+        return this.$http().get(endpoint + '?include=connected', {skipErrorHandler: true}).then(response => {
             let channelStates = response.body;
             if (!Array.isArray(channelStates)) {
                 channelStates = [channelStates];

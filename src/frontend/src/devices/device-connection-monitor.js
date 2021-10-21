@@ -4,7 +4,7 @@ import EventBus from "../common/event-bus";
 class DeviceConnectionMonitor extends ClientAppConnectionMonitor {
     updateKnownStates(deviceIds) {
         const endpoint = deviceIds.length > 1 ? 'iodevices' : 'iodevices/' + deviceIds[0];
-        return this.$http().get(endpoint + '?include=connected').then(response => {
+        return this.$http().get(endpoint + '?include=connected', {skipErrorHandler: true}).then(response => {
             let deviceStates = response.body;
             if (!Array.isArray(deviceStates)) {
                 deviceStates = [deviceStates];
