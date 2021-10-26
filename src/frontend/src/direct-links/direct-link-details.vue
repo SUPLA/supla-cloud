@@ -321,7 +321,7 @@
                         name: 'READ',
                         caption: 'Read',
                         nameSlug: 'read'
-                    }].concat(this.directLink.subject.function.possibleActions)
+                    }].concat(this.directLink.subject.possibleActions)
                         .filter(action => !disableOpenClose || (action.name != 'OPEN' && action.name != 'CLOSE'));
                 }
                 return [];

@@ -25,6 +25,7 @@ use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -139,6 +140,14 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
     /** @Groups({"basic"}) */
     public function getSubjectType(): string {
         return ActionableSubjectType::CHANNEL_GROUP;
+    }
+
+    /**
+     * @Groups({"basic"})
+     * @return ChannelFunctionAction[]
+     */
+    public function getPossibleActions(): array {
+        return $this->getFunction()->getDefaultPossibleActions();
     }
 
     public function getUser(): User {

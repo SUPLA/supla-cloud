@@ -17,17 +17,14 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 class SchedulesFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
@@ -54,7 +51,7 @@ class SchedulesFixture extends SuplaFixture {
                 $s->setConfig([
                     [
                         'crontab' => '*/' . $this->faker->randomElement([5, 10, 15, 30, 60, 90]) . ' * * * *',
-                        'action' => ['id' => $this->faker->randomElement($channel->getFunction()->getPossibleActions())->getId()],
+                        'action' => ['id' => $this->faker->randomElement($channel->getPossibleActions())->getId()],
                     ],
                 ]);
                 return $s;
@@ -65,7 +62,7 @@ class SchedulesFixture extends SuplaFixture {
                 $s->setConfig([
                     [
                         'crontab' => 'S' . $this->faker->randomElement(['S', 'R']) . $this->faker->randomElement([-10, 0, 10]) . ' * * * *',
-                        'action' => ['id' => $this->faker->randomElement($channel->getFunction()->getPossibleActions())->getId()],
+                        'action' => ['id' => $this->faker->randomElement($channel->getPossibleActions())->getId()],
                     ],
                 ]);
                 return $s;
@@ -84,7 +81,7 @@ class SchedulesFixture extends SuplaFixture {
             /** @var IODeviceChannel $channel */
             do {
                 $channel = $this->faker->randomElement($randomDevices)->getChannels()[$this->faker->numberBetween(0, 3)];
-            } while (!$channel->getFunction()->getPossibleActions());
+            } while (!$channel->getPossibleActions());
             $schedule = $this->faker->randomElement($this->scheduleFactories)($channel);
             $schedule->setCaption($this->faker->sentence($this->faker->numberBetween(2, 4)));
             $schedule->setSubject($channel);

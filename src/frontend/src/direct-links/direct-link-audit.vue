@@ -89,7 +89,7 @@
                         name: 'READ',
                         caption: 'Read',
                         nameSlug: 'read'
-                    }].concat(this.directLink.subject.function.possibleActions);
+                    }].concat(this.directLink.subject.possibleActions);
                 }
                 return [];
             },

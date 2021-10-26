@@ -489,7 +489,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channel = $this->device->getChannels()[0];
         $actions = ['TURN_ON' => [
             'subjectId' => $channel->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
-            'action' => ['id' => $channel->getFunction()->getPossibleActions()[0]->getId()]]];
+            'action' => ['id' => $channel->getPossibleActions()[0]->getId()]]];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
         $this->assertStatusCode(200, $client->getResponse());
@@ -561,10 +561,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $actions = [
             'TURN_ON' => [
                 'subjectId' => $channel1->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
-                'action' => ['id' => $channel1->getFunction()->getPossibleActions()[0]->getId()]],
+                'action' => ['id' => $channel1->getPossibleActions()[0]->getId()]],
             'TURN_OFF' => [
                 'subjectId' => $channel2->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
-                'action' => ['id' => $channel2->getFunction()->getPossibleActions()[0]->getId()]],
+                'action' => ['id' => $channel2->getPossibleActions()[0]->getId()]],
         ];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);

@@ -284,7 +284,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     private function setActionTriggerForChannelGroup(IODeviceChannelGroup $group, IODeviceChannel $trigger): void {
         $actions = ['TURN_ON' => [
             'subjectId' => $group->getId(), 'subjectType' => ActionableSubjectType::CHANNEL_GROUP,
-            'action' => ['id' => $group->getFunction()->getPossibleActions()[0]->getId()]]];
+            'action' => ['id' => $group->getPossibleActions()[0]->getId()]]];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
         $this->assertStatusCode(200, $client->getResponse());

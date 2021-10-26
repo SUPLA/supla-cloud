@@ -75,7 +75,7 @@ class SceneParamConverter extends AbstractBodyParamConverter {
             $action = ChannelFunctionAction::fromString($operationData['actionId']);
             $actionParam = $operationData['actionParam'] ?? [] ?: [];
             $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
-            Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getFunction()->getPossibleActions()));
+            Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getPossibleActions()));
             $delayMs = $operationData['delayMs'] ?? 0;
             return new SceneOperation($subject, $action, $actionParam, $delayMs);
         }, $operations);

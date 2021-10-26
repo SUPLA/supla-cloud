@@ -25,6 +25,7 @@ use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -295,6 +296,14 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         return ChannelFunction::forChannel($this);
     }
 
+    /**
+     * @Groups({"basic"})
+     * @return ChannelFunctionAction[]
+     */
+    public function getPossibleActions(): array {
+        return $this->getFunction()->getDefaultPossibleActions();
+    }
+
     public function getParam(int $paramNo): int {
         Assertion::inArray($paramNo, [1, 2, 3, 4], 'Invalid param number: ' . $paramNo);
         $getter = "getParam$paramNo";
@@ -339,45 +348,27 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->param4 = $param4;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getTextParam1() {
+    public function getTextParam1(): ?string {
         return $this->textParam1;
     }
 
-    /**
-     * @param string|null $textParam1
-     */
-    public function setTextParam1($textParam1) {
+    public function setTextParam1(?string $textParam1) {
         $this->textParam1 = $textParam1;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getTextParam2() {
+    public function getTextParam2(): ?string {
         return $this->textParam2;
     }
 
-    /**
-     * @param string|null $textParam2
-     */
-    public function setTextParam2($textParam2) {
+    public function setTextParam2(?string $textParam2) {
         $this->textParam2 = $textParam2;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getTextParam3() {
+    public function getTextParam3(): ?string {
         return $this->textParam3;
     }
 
-    /**
-     * @param string|null $textParam3
-     */
-    public function setTextParam3($textParam3) {
+    public function setTextParam3(?string $textParam3) {
         $this->textParam3 = $textParam3;
     }
 
@@ -400,11 +391,11 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->userIcon = $userIcon;
     }
 
-    public function getHidden() {
+    public function getHidden(): bool {
         return $this->function === ChannelFunction::ACTION_TRIGGER ? true : $this->hidden;
     }
 
-    public function setHidden($hidden) {
+    public function setHidden(bool $hidden) {
         $this->hidden = $hidden;
     }
 

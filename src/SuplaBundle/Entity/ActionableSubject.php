@@ -2,11 +2,15 @@
 namespace SuplaBundle\Entity;
 
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 
 interface ActionableSubject {
     public function getId(): int;
 
     public function getFunction(): ChannelFunction;
+
+    /** @return ChannelFunctionAction[] */
+    public function getPossibleActions(): array;
 
     /**
      * Returns a footprint of this functionable item for identification in SUPLA Server commands.

@@ -179,7 +179,7 @@ class ScheduleManager {
             Assertion::numeric($action['id'], 'Invalid schedule config (incorrect action ID).');
             Assertion::true(ChannelFunctionAction::isValid($action['id']), 'Invalid schedule config (incorrect action ID).');
             Assertion::isArray($action['param'] ?? [], 'Invalid schedule config (incorrect action param).');
-            $possibleActions = $schedule->getSubject()->getFunction()->getPossibleActions();
+            $possibleActions = $schedule->getSubject()->getPossibleActions();
             $action = ChannelFunctionAction::fromString($configEntry['action']['id']);
             Assertion::inArray(
                 $action->getId(),

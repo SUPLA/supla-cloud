@@ -39,7 +39,6 @@
                     id: 0,
                     caption: 'None (channel disabled)', // i18n
                     name: 'NONE',
-                    possibleActions: []
                 }], this.channel.supportedFunctions);
             },
         }

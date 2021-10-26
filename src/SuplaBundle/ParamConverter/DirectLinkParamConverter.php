@@ -42,7 +42,7 @@ class DirectLinkParamConverter extends AbstractBodyParamConverter {
         Assertion::maxLength($link->getCaption(), 100, 'Caption is too long.'); // i18n
         $link->setEnabled($data['enabled'] ?? false);
         $link->setDisableHttpGet($data['disableHttpGet'] ?? false);
-        $possibleActions = EntityUtils::mapToIds($subject->getFunction()->getPossibleActions());
+        $possibleActions = EntityUtils::mapToIds($subject->getPossibleActions());
         $possibleActions[] = ChannelFunctionAction::READ;
         $allowedActions = array_map(function ($allowedActionName) use ($possibleActions) {
             $allowedAction = ChannelFunctionAction::fromString($allowedActionName);

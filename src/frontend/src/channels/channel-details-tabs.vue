@@ -71,7 +71,7 @@
             }
         },
         mounted() {
-            if (this.channel.function.possibleActions && this.channel.function.possibleActions.length) {
+            if (this.channel.possibleActions?.length) {
                 const noApiActionFunctions = ['VALVEPERCENTAGE'];
                 if (!noApiActionFunctions.includes(this.channel.function.name)) {
                     this.availableTabs.push({

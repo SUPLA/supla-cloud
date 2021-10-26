@@ -145,11 +145,19 @@ final class ChannelFunction extends Enum {
     }
 
     /**
-     * @Groups({"basic"})
      * @return ChannelFunctionAction[]
      */
-    public function getPossibleActions(): array {
+    public function getDefaultPossibleActions(): array {
         return self::actions()[$this->getValue()] ?? [];
+    }
+
+    /**
+     * Method left only for serialization compatibility between v2.3.35 and v2.3.36 frontends
+     * @Groups({"basic"})
+     * @deprecated
+     */
+    public function getPossibleActions(): array {
+        return $this->getDefaultPossibleActions();
     }
 
     /**

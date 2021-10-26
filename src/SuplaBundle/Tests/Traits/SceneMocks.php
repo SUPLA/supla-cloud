@@ -5,6 +5,7 @@ namespace SuplaBundle\Tests\Traits;
 use PHPUnit\Framework\MockObject\MockObject;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 
 /**
  * @method MockObject createMock(string $className)
@@ -14,6 +15,7 @@ trait SceneMocks {
         $scene = $this->createMock(Scene::class);
         $scene->method('getId')->willReturn(1);
         $scene->method('getFunction')->willReturn(ChannelFunction::SCENE());
+        $scene->method('getPossibleActions')->willReturn([ChannelFunctionAction::EXECUTE()]);
         return $scene;
     }
 }

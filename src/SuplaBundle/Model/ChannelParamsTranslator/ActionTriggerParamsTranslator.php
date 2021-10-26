@@ -90,7 +90,7 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
             $subject = $this->subjectRepository->findForUser($user, $action['subjectType'], $action['subjectId']);
             Assertion::inArray(
                 $channelFunctionAction->getId(),
-                EntityUtils::mapToIds($subject->getFunction()->getPossibleActions()),
+                EntityUtils::mapToIds($subject->getPossibleActions()),
                 'Cannot execute the requested action on given subject.'
             );
             $params = $this->channelActionExecutor->validateActionParams($subject, $channelFunctionAction, $actionToExecute['param'] ?? []);

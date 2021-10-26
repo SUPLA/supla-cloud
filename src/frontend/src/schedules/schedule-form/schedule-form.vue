@@ -204,7 +204,7 @@
                     .finally(() => this.submitting = false);
             },
             filterOutNotSchedulableSubjects(subject) {
-                if (subject.function.possibleActions.length === 0) {
+                if (subject.possibleActions.length === 0) {
                     return false;
                 }
                 if (subject.subjectType === 'channelGroup'

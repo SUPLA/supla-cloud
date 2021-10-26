@@ -94,7 +94,7 @@ class ScenesFixture extends SuplaFixture {
                     /** @var ActionableSubject $subject */
                     $subject = $this->faker->randomElement($subjectFactories)($user);
                     if ($subject) {
-                        $action = $this->faker->randomElement($subject->getFunction()->getPossibleActions());
+                        $action = $this->faker->randomElement($subject->getPossibleActions());
                     }
                 } while (!$action);
                 $sceneOperation = new SceneOperation($subject, $action, [], $this->faker->randomElement([0, 0, 0, 1000, 30000]));

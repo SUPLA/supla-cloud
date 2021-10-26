@@ -26,6 +26,7 @@ use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -116,6 +117,14 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
     /** @Groups({"basic"}) */
     public function getSubjectType(): string {
         return ActionableSubjectType::SCENE;
+    }
+
+    /**
+     * @Groups({"basic"})
+     * @return ChannelFunctionAction[]
+     */
+    public function getPossibleActions(): array {
+        return $this->getFunction()->getDefaultPossibleActions();
     }
 
     public function getCaption(): string {

@@ -17,8 +17,8 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use SuplaBundle\Entity\DirectLink;
@@ -53,7 +53,7 @@ class DirectLinksFixture extends SuplaFixture {
             $channel = $this->faker->randomElement($channels);
             $directLink = new DirectLink($channel);
             $directLink->generateSlug(new PlaintextPasswordEncoder());
-            $action = $this->faker->randomElement(array_merge([ChannelFunctionAction::READ()], $channel->getFunction()->getPossibleActions()));
+            $action = $this->faker->randomElement(array_merge([ChannelFunctionAction::READ()], $channel->getPossibleActions()));
             $directLink->setAllowedActions([$action]);
             $directLink->setCaption($this->faker->colorName);
             $this->entityManager->persist($directLink);
