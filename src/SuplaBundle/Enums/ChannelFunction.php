@@ -196,11 +196,13 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::SHUT(),
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
+                ChannelFunctionAction::SHUT_PARTIALLY(),
             ],
             self::CONTROLLINGTHEROOFWINDOW => [
                 ChannelFunctionAction::SHUT(),
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
+                ChannelFunctionAction::SHUT_PARTIALLY(),
             ],
             self::POWERSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
             self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],

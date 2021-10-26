@@ -99,8 +99,8 @@
                         this.executing = false;
                     });
             },
-            requiresParams({id}) {
-                return id == 50 || id == 80 || id == 2000;
+            requiresParams({name}) {
+                return ['REVEAL_PARTIALLY', 'SHUT_PARTIALLY', 'OPEN_PARTIALLY', 'SET_RGBW_PARAMETERS'].includes(name);
             }
         },
         computed: {

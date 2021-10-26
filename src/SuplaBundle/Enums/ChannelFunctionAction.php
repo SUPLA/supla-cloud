@@ -31,6 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction SHUT()
  * @method static ChannelFunctionAction REVEAL()
  * @method static ChannelFunctionAction REVEAL_PARTIALLY()
+ * @method static ChannelFunctionAction SHUT_PARTIALLY()
  * @method static ChannelFunctionAction TURN_ON()
  * @method static ChannelFunctionAction TURN_OFF()
  * @method static ChannelFunctionAction SET_RGBW_PARAMETERS()
@@ -49,6 +50,7 @@ final class ChannelFunctionAction extends Enum {
     const SHUT = 30;
     const REVEAL = 40;
     const REVEAL_PARTIALLY = 50;
+    const SHUT_PARTIALLY = 51;
     const TURN_ON = 60;
     const TURN_OFF = 70;
     const SET_RGBW_PARAMETERS = 80;
@@ -86,6 +88,7 @@ final class ChannelFunctionAction extends Enum {
             self::SHUT => 'Shut', // i18n
             self::REVEAL => 'Reveal', // i18n
             self::REVEAL_PARTIALLY => 'Reveal partially', // i18n
+            self::SHUT_PARTIALLY => 'Shut partially', // i18n
             self::TURN_ON => 'On', // i18n
             self::TURN_OFF => 'Off', // i18n
             self::SET_RGBW_PARAMETERS => 'Adjust parameters', // i18n

@@ -525,6 +525,7 @@ Setting any action on this trigger will disable its local function: Ustawienie t
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
+Shut partially: Zamknij częściowo
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Zamknij roletę do momentu, aż dotknie dolnej krawędzi i przepisz jej procent zamknięcia w to pole. Ta operacja nie jest wymagana, ale jej podanie poprawi wizualizację położenia rolety w aplikacji mobilnej.'
 Sign In: Zaloguj się
 Sign Out: Wyloguj się
