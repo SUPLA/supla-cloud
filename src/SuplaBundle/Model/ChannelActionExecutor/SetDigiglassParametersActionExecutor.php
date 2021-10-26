@@ -55,13 +55,7 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
     public function execute(ActionableSubject $subject, array $actionParams = []) {
         $state = DigiglassState::fromArray($subject, $actionParams);
         if ($state->getActiveBits()) {
-            $command = 'SET-DIGIGLASS-VALUE:' . implode(',', [
-                    $subject->getUser()->getId(),
-                    $subject->getIoDevice()->getId(),
-                    $subject->getId(),
-                    $state->getActiveBits(),
-                    $state->getMask(),
-                ]);
+            $command = $subject->buildServerActionCommand('SET-DIGIGLASS-VALUE', [$state->getActiveBits(), $state->getMask()]);
             $this->suplaServer->executeCommand($command);
         }
     }
