@@ -43,12 +43,14 @@ Adjust parameters: Ustaw parametry
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Po aktualizacji aplikacja będzie szybsza, wygodniejsza... Po prostu lepsza!'
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Licznik rozpocznie liczenie od 0 po tej operacji, niezależnie od jego obecnego stanu. Tej operacji nie da się cofnąć.'
 'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Link zostanie wygenerowany tuż po wybraniu podmiotu. Wszystkie pozostałe opcje możesz wprowadzić zaraz po jego utworzeniu.
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. Here you can limit the number of these attempts.': 'Po tym jak zlecisz otwarcie lub zamknięcie bramy, system poczeka 60 sekund po każdym przełączeniu przekaźnika i sprawdzi, czy brama osiągnęła pożądany stan. Ta wartość określa maksymalną liczbę tych dodatkowych sprawdzeń.'
 All: Wszystko
 All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tabletu
 Allowed actions: Dozwolone akcje
 Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykonanie akcji tylko przy użyciu żądania HTTP PATCH.
 'Alternatively, you can add a GET parameter to specify response format.': Możesz również dodać parametr GET by określić format odpowiedzi.
 And more: I znacznie więcej
+And set the same state for: i ustaw taki sam stan dla
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Wszystkie aplikacje lub urządzenia, które korzystają z tokenu {tokenName} przestaną działać.'
 Application name cannot be blank.: Nazwa aplikacji nie może być pusta
 Application requirements: Wymagania aplikacji
@@ -162,6 +164,7 @@ Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Id
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
+Copy channel state: Powiel stan kanału
 Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
 Could not reset the password.: Nie udało się zresetować hasła.
 Could not reset the password. Please try again later.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
@@ -278,6 +281,7 @@ General purpose measurement: Ogólny kanał pomiarowy
 Generate new password: Wygeneruj nowe hasło
 Generate new token: Generuj nowy token
 Generate token: Generuj token
+Generic action: Inna akcja
 Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
 Go to I/O device details: Przejdź do szczegółów urządzenia
 Go to channel details: Przejdź do szczegółów kanału
@@ -400,6 +404,7 @@ No. of devices: Liczba urządzeń
 No. of locations: Liczba lokalizacji
 None: Brak
 None (channel disabled): Brak (kanał wyłączony)
+Number of attempts to open or close: Liczba prób otwarcia lub zamknięcia
 Number of sections: Liczba sekcji
 OAuth application: Aplikacja OAuth
 OAuth apps: Aplikacje OAuth
@@ -457,6 +462,8 @@ RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
 Random: Losowy
 Read: Odczyt
+Read the following channel's state: Odczytaj stan poniższego kanału
+Reads the state from source channel and sets the same in other channel or channel group.: Odczytuje stan wskazanego kanału i ustawia taki sam stan dla wybranego kanału lub grupy.
 Refresh: Odśwież
 Regeneration starts at: Początek regeneracji
 Register: Rejestruj
