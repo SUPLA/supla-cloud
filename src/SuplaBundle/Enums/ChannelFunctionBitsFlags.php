@@ -22,6 +22,7 @@ namespace SuplaBundle\Enums;
  * @method static ChannelFunctionBitsFlags RESET_COUNTERS_ACTION_AVAILABLE()
  * @method static ChannelFunctionBitsFlags AUTO_CALIBRATION_AVAILABLE()
  * @method static ChannelFunctionBitsFlags RECALIBRATE_ACTION_AVAILABLE()
+ * @method static ChannelFunctionBitsFlags ROLLER_SHUTTER_START_STOP_ACTIONS()
  */
 final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
@@ -31,4 +32,6 @@ final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L457 */
     const AUTO_CALIBRATION_AVAILABLE = 0x1000;
     const RECALIBRATE_ACTION_AVAILABLE = 0x4000;
+    /** @see https://github.com/SUPLA/supla-core/blob/9c4af87e14fc0164ac9d80e66e107cf9dc113f92/supla-common/proto.h#L457 */
+    const ROLLER_SHUTTER_START_STOP_ACTIONS = 0x0080;
 }
