@@ -10,7 +10,7 @@ abstract class SetCharValueActionExecutor extends SingleChannelActionExecutor {
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
         $params = [$this->getCharValue($subject, $actionParams)];
-        $command = $subject->buildServerSetCommand('CHAR', $this->assignCommonParams($params, $actionParams));
-        $this->suplaServer->executeSetCommand($command);
+        $command = $subject->buildServerActionCommand('SET-CHAR-VALUE', $this->assignCommonParams($params, $actionParams));
+        $this->suplaServer->executeCommand($command);
     }
 }

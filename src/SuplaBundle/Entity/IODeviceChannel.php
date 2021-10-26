@@ -418,10 +418,10 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         return $this->directLinks;
     }
 
-    public function buildServerSetCommand(string $type, array $actionParams): string {
+    public function buildServerActionCommand(string $command, array $actionParams): string {
         $params = array_merge([$this->getUser()->getId(), $this->getIoDevice()->getId(), $this->getId()], $actionParams);
         $params = implode(',', $params);
-        return "SET-$type-VALUE:$params";
+        return "$command:$params";
     }
 
     public function getFlags(): int {

@@ -9,9 +9,8 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 
 class OpenGateActionExecutor extends SingleChannelActionExecutor {
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $command = $subject->buildServerSetCommand('ACTION-OPEN', $this->assignCommonParams([], $actionParams));
-        $command = str_replace('SET-ACTION-OPEN-VALUE:', 'ACTION-OPEN:', $command);
-        $this->suplaServer->executeSetCommand($command);
+        $command = $subject->buildServerActionCommand('ACTION-OPEN', $this->assignCommonParams([], $actionParams));
+        $this->suplaServer->executeCommand($command);
     }
 
     public function getSupportedFunctions(): array {

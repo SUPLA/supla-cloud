@@ -176,15 +176,10 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
         return ChannelFunction::SCENE();
     }
 
-    /**
-     * Returns a footprint of this functionable item for identification in SUPLA Server commands.
-     * See SuplaServer#setValue for more details.
-     * @return int[]
-     */
-    public function buildServerSetCommand(string $type, array $actionParams): string {
+    public function buildServerActionCommand(string $command, array $actionParams): string {
         $params = array_merge([$this->getUser()->getId(), $this->getId()], $actionParams);
         $params = implode(',', $params);
-        return "EXECUTE-SCENE:$params";
+        return "$command:$params";
     }
 
     /** @param SceneOperation[] $operations */

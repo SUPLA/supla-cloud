@@ -15,7 +15,7 @@ class ExecuteActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function execute(ActionableSubject $scene, array $actionParams = []) {
-        $command = $scene->buildServerSetCommand('', $this->assignCommonParams([], $actionParams));
-        $this->suplaServer->executeSetCommand($command);
+        $command = $scene->buildServerActionCommand('EXECUTE-SCENE', $this->assignCommonParams([], $actionParams));
+        $this->suplaServer->executeCommand($command);
     }
 }

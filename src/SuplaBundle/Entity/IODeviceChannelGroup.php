@@ -218,6 +218,13 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
         return "SET-CG-$type-VALUE:$params";
     }
 
+    public function buildServerActionCommand(string $command, array $actionParams): string {
+        $params = array_merge([$this->getUser()->getId(), $this->getId()], $actionParams);
+        $params = implode(',', $params);
+        $command = preg_replace('#^(ACTION-|SET-)#', '$1CG-', $command);
+        return "$command:$params";
+    }
+
     public function getDirectLinks(): Collection {
         return $this->directLinks;
     }

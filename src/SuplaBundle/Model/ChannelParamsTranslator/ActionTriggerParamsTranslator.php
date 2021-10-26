@@ -69,12 +69,16 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
             Assertion::keyExists($params, 'action');
             Assertion::inArray($params['action'], ['disableLocalFunction', 'publishToIntegrations', 'copyChannelState']);
             if ($params['action'] === 'copyChannelState') {
-                $params = array_intersect_key($actionToExecute['param'], ['action' => '', 'sourceChannelId' => '', 'subjectType' => '', 'subjectId' => '']);
+                $params = array_intersect_key(
+                    $actionToExecute['param'],
+                    ['action' => '', 'sourceChannelId' => '', 'subjectType' => '', 'subjectId' => '']
+                );
                 Assertion::count($params, 4, 'Invalid copy state definition.');
                 if ($params['subjectType'] === ActionableSubjectType::CHANNEL) {
                     Assertion::notEq($params['sourceChannelId'], $params['subjectId'], 'Source and target channel must be different.');
                 }
-                $sourceChannel = $this->subjectRepository->findForUser($this->getCurrentUser(), ActionableSubjectType::CHANNEL, $params['sourceChannelId']);
+                $sourceChannel = $this->subjectRepository
+                    ->findForUser($this->getCurrentUser(), ActionableSubjectType::CHANNEL, $params['sourceChannelId']);
                 $target = $this->subjectRepository->findForUser($this->getCurrentUser(), $params['subjectType'], $params['subjectId']);
                 Assertion::notNull($sourceChannel, 'Invalid source channel.');
                 Assertion::notNull($target, 'Invalid target subject.');

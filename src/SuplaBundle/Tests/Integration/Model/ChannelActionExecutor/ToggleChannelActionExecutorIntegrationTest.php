@@ -77,7 +77,6 @@ class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
 
     public function testToggleOnChannelGroup() {
         $this->channelActionExecutor->executeAction($this->channelGroup, ChannelFunctionAction::TOGGLE());
-        $this->assertContains('ACTION-TOGGLE:1,1,1', SuplaServerMock::$executedCommands);
-        $this->assertContains('ACTION-TOGGLE:1,1,4', SuplaServerMock::$executedCommands);
+        $this->assertContains('ACTION-CG-TOGGLE:1,' . $this->channelGroup->getId(), SuplaServerMock::$executedCommands);
     }
 }

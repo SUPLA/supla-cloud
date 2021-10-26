@@ -62,7 +62,7 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
                     $state->getActiveBits(),
                     $state->getMask(),
                 ]);
-            $this->suplaServer->executeSetCommand($command);
+            $this->suplaServer->executeCommand($command);
         }
     }
 
