@@ -124,6 +124,46 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
     }
 
+    public function testCanSetCopyChannelState() {
+        $actions = ['PRESS' => [
+            'subjectType' => ActionableSubjectType::OTHER,
+            'action' => [
+                'id' => ChannelFunctionAction::GENERIC,
+                'param' => [
+                    'action' => 'copyChannelState',
+                    'sourceChannelId' => 2,
+                    'subjectType' => ActionableSubjectType::CHANNEL_GROUP,
+                    'subjectId' => 2,
+                ],
+            ],
+        ]];
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
+        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->assertEquals($actions, $channel->getUserConfig()['actions']);
+    }
+
+    /** @dataProvider invalidCopyChannelStateDefinitionExamples */
+    public function testInvalidCopyChannelStateDefinitions(array $params) {
+        $this->expectException(\InvalidArgumentException::class);
+        $params['action'] = 'copyChannelState';
+        $actions = ['PRESS' => [
+            'subjectType' => ActionableSubjectType::OTHER,
+            'action' => ['id' => ChannelFunctionAction::GENERIC, 'param' => $params],
+        ]];
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
+        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+    }
+
+    public function invalidCopyChannelStateDefinitionExamples() {
+        return [
+            'extraParamInsteadOfCorrectOne' => [['sourceChannelId' => 2, 'srubjectType' => 'channel', 'subjectId' => 3]],
+            'noSubjectType' => [['sourceChannelId' => 2, 'subjectId' => 3]],
+            'noSubjectId' => [['sourceChannelId' => 2, 'subjectType' => 'channel']],
+            'noSourceChannelId' => [['subjectType' => 'channel', 'subjectId' => 3]],
+            'theSameSourceAndTarget' => [['sourceChannelId' => 2, 'subjectType' => 'channel', 'subjectId' => 2]],
+        ];
+    }
+
     public function testCannotSetActionWithNoSubjectId() {
         $this->expectException(\InvalidArgumentException::class);
         $actions = ['PRESS' => ['subjectType' => 'channel', 'action' => ['id' => ChannelFunctionAction::OPEN]]];

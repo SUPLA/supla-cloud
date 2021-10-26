@@ -79,6 +79,9 @@
             setChannelFromModel() {
                 if (this.value && this.channels) {
                     this.chosenChannel = this.channels.filter(ch => ch.id == this.value.id)[0];
+                    if (!this.chosenChannel) {
+                        this.$emit('input');
+                    }
                 } else {
                     this.chosenChannel = undefined;
                 }

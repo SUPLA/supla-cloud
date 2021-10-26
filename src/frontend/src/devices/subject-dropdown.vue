@@ -23,6 +23,7 @@
         <channel-groups-dropdown @input="subjectChanged"
             v-if="subjectType == 'channelGroup'"
             :filter="filter"
+            :params="channelsDropdownParams"
             v-model="subject"></channel-groups-dropdown>
         <scenes-dropdown
             @input="subjectChanged"

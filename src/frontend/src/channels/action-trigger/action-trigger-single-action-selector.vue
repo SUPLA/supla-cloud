@@ -12,10 +12,16 @@
                 </template>
             </subject-dropdown>
         </div>
-        <div v-if="subject && subject.subjectType != 'other'">
+        <div v-if="subject && subject.subjectType !== 'other'">
             <channel-action-chooser :subject="subject"
                 @input="onActionChange()"
                 v-model="action"></channel-action-chooser>
+        </div>
+        <div v-if="subject && subject.subjectType === 'other' && subject.id === 'copyChannelState'">
+            <copy-channel-state-source-target-selector
+                :subject="subject"
+                @input="onActionChange($event)"
+                v-model="action.param"></copy-channel-state-source-target-selector>
         </div>
         <button v-if="value"
             type="button"
@@ -30,14 +36,15 @@
 <script>
     import SubjectDropdown from "../../devices/subject-dropdown";
     import ChannelActionChooser from "../action/channel-action-chooser";
-    import changeCase from "change-case";
     import EventBus from "@/common/event-bus";
     import ActionTriggerOtherActionsDropdown from "@/channels/action-trigger/action-trigger-other-actions-dropdown";
     import ChannelFunctionAction from "@/common/enums/channel-function-action";
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+    import CopyChannelStateSourceTargetSelector from "@/channels/action-trigger/copy-channel-state-source-target-selector";
+    import {subjectEndpointUrl} from "@/common/utils";
 
     export default {
-        components: {ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
+        components: {CopyChannelStateSourceTargetSelector, ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
         props: ['value', 'trigger', 'channel'],
         data() {
             return {
@@ -64,8 +71,7 @@
                             this.action = this.value.action;
                         }
                     } else if (!this.subject || this.value.subjectId !== this.subject.id) {
-                        const endpoint = `${changeCase.paramCase(this.value.subjectType)}s/${this.value.subjectId}`;
-                        this.$http.get(endpoint)
+                        this.$http.get(subjectEndpointUrl(this.value))
                             .then(response => this.subject = response.body)
                             .then(() => this.action = this.value.action);
                     }
@@ -83,8 +89,9 @@
                     this.onActionChange();
                 }
             },
-            onActionChange() {
-                if (this.action?.id) {
+            onActionChange(a) {
+                console.log('action', this.action, a);
+                if (this.isActionFullySpecified()) {
                     this.$emit('input', {
                         subjectId: this.subject.subjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
                         subjectType: this.subject.subjectType,
@@ -93,6 +100,23 @@
                 } else {
                     this.$emit('input');
                 }
+            },
+            isActionFullySpecified() {
+                if (this.action?.id) {
+                    if (this.action.id === 10000) {
+                        const genericActionName = this.action.param?.action;
+                        if (genericActionName) {
+                            if (genericActionName === 'copyChannelState') {
+                                return !!this.action.param.sourceChannelId;
+                            }
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                return false;
             },
             clearAction() {
                 this.$emit('input');

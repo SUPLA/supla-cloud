@@ -20,6 +20,7 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
@@ -67,8 +68,8 @@ class ChannelGroupController extends RestController {
     }
 
     /** @return Collection|IODeviceChannelGroup[] */
-    private function returnChannelGroups(): Collection {
-        return $this->channelGroupRepository->findAllForUser($this->getUser())
+    private function returnChannelGroups(callable $filters = null): Collection {
+        return $this->channelGroupRepository->findAllForUser($this->getUser(), $filters)
             ->filter(function (IODeviceChannelGroup $channelGroup) {
                 return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $channelGroup);
             });
@@ -79,7 +80,13 @@ class ChannelGroupController extends RestController {
      * @Security("has_role('ROLE_CHANNELGROUPS_R')")
      */
     public function getChannelGroupsAction(Request $request) {
-        return $this->serializedView($this->returnChannelGroups()->getValues(), $request);
+        $filters = function (QueryBuilder $builder, string $alias) use ($request) {
+            if (($function = $request->get('function')) !== null) {
+                $functionIds = EntityUtils::mapToIds(ChannelFunction::fromStrings(explode(',', $function)));
+                $builder->andWhere("$alias.function IN(:functionIds)")->setParameter('functionIds', $functionIds);
+            }
+        };
+        return $this->serializedView($this->returnChannelGroups($filters)->getValues(), $request);
     }
 
     /**

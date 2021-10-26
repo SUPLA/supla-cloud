@@ -74,6 +74,9 @@
             setChannelGroupFromModel() {
                 if (this.value && this.channelGroups) {
                     this.chosenChannelGroup = this.channelGroups.filter(ch => ch.id == this.value.id)[0];
+                    if (!this.chosenChannelGroup) {
+                        this.$emit('input');
+                    }
                 } else {
                     this.chosenChannelGroup = undefined;
                 }

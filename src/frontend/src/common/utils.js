@@ -1,3 +1,5 @@
+import changeCase from "change-case";
+
 export function safeJsonParse(possiblyJson) {
     try {
         return JSON.parse(possiblyJson);
@@ -14,4 +16,8 @@ export function generatePassword(length, strong = false) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
+}
+
+export function subjectEndpointUrl(subject) {
+    return `${changeCase.paramCase(subject.subjectType)}s/${subject.subjectId || subject.id}`;
 }
