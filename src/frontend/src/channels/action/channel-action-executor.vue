@@ -12,8 +12,7 @@
         </transition-expand>
         <channel-action-chooser :subject="subject"
             v-model="actionToExecute"
-            v-slot="{possibleAction}"
-            :possible-action-filter="possibleActionFilter">
+            v-slot="{possibleAction}">
             <button :class="'btn ' + (requiresParams(actionToExecute) && possibleAction.id == actionToExecute.id ? 'btn-green' : 'btn-default')"
                 :disabled="!isConnected || executing"
                 @click="executeAction(possibleAction)"
@@ -102,13 +101,6 @@
             },
             requiresParams({id}) {
                 return id == 50 || id == 80 || id == 2000;
-            },
-            possibleActionFilter(possibleAction) {
-                if (this.subject.subjectType === 'channelGroup'
-                    && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.subject.function.name) !== -1) {
-                    return !(['OPEN', 'CLOSE'].includes(possibleAction.name));
-                }
-                return true;
             }
         },
         computed: {

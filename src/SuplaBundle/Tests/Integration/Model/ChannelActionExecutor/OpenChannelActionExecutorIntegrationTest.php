@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelActionExecutor;
 
-use InvalidArgumentException;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunction;
@@ -72,6 +71,13 @@ class OpenChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('ACTION-OPEN:1,1,1', $setCommand);
     }
 
+    public function testOpeningGarageDoorChannelGroup() {
+        $this->channelActionExecutor->executeAction($this->channelGroupGarageDoor, ChannelFunctionAction::OPEN());
+        $this->assertCount(1, SuplaServerMock::$executedCommands);
+        $setCommand = end(SuplaServerMock::$executedCommands);
+        $this->assertEquals('ACTION-CG-OPEN:1,1', $setCommand);
+    }
+
     public function testOpeningDoor() {
         $this->channelActionExecutor->executeAction($this->device->getChannels()[1], ChannelFunctionAction::OPEN());
         $this->assertCount(1, SuplaServerMock::$executedCommands);
@@ -85,11 +91,6 @@ class OpenChannelActionExecutorIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, SuplaServerMock::$executedCommands);
         $setCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('SET-CHAR-VALUE:1,1,5,1', $setCommand);
-    }
-
-    public function testCannotOpenGarageDoorChannelGroup() {
-        $this->expectException(InvalidArgumentException::class);
-        $this->channelActionExecutor->executeAction($this->channelGroupGarageDoor, ChannelFunctionAction::OPEN());
     }
 
     public function testCanOpenDoorChannelGroup() {

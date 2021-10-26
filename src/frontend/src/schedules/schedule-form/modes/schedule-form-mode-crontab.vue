@@ -88,21 +88,6 @@
             if (this.value) {
                 this.config = cloneDeep(this.value);
             }
-            //     this.value.forEach(({crontab, action}) => {
-            //         const parts = crontab.split(' ');
-            //         const type = parts[0].charAt(0) === 'S' ? 'sun' : 'hour';
-            //         const weekdayPart = parts.pop();
-            //         const weekdays = weekdayPart === '*' ? [1, 2, 3, 4, 5, 6, 7] : weekdayPart.split(',');
-            //         weekdays.forEach((weekday) => {
-            //             weekday = weekday == 0 ? 7 : weekday;
-            //             this.currentDay = weekday;
-            //             const addedAction = this.addAction(type);
-            //             addedAction.crontab = [...parts, weekday].join(' ');
-            //             addedAction.action = cloneDeep(action);
-            //         });
-            //     });
-            //     this.currentDay = 1;
-            // }
         },
         computed: {
             scheduleConfig() {
