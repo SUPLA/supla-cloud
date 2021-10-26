@@ -14,9 +14,9 @@ class ShutActionExecutorTest extends TestCase {
         $executor = new ShutActionExecutor();
         $server = $this->createMock(SuplaServer::class);
         $executor->setSuplaServer($server);
-        $server->expects($this->once())->method('executeSetCommand')->with($expectCommand);
+        $server->expects($this->once())->method('executeCommand')->with($expectCommand);
         $channel = $this->createMock(IODeviceChannel::class);
-        $channel->method('buildServerSetCommand')->willReturnCallback(function ($type, $actionParams) {
+        $channel->method('buildServerActionCommand')->willReturnCallback(function ($type, $actionParams) {
             return 'SET-CHAR-VALUE:1,2,3,' . $actionParams[0];
         });
         $executor->execute($channel, $actionParams);

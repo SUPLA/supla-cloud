@@ -19,13 +19,17 @@ namespace SuplaBundle\Tests\Entity;
 
 use Assert\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
 class IODeviceChannelGroupTest extends TestCase {
+    use UnitTestHelper;
+
     /** @var User */
     private $user;
     /** @var Location */
@@ -34,7 +38,7 @@ class IODeviceChannelGroupTest extends TestCase {
     /** @before */
     public function createMocks() {
         $this->location = $this->createMock(Location::class);
-        $this->user = $this->createMock(User::class);
+        $this->user = $this->createEntityMock(User::class);
     }
 
     public function testDeterminingGroupFunction() {
@@ -77,5 +81,13 @@ class IODeviceChannelGroupTest extends TestCase {
     public function testForbidsSettingNotChannelsAsChannels() {
         $this->expectException(InvalidArgumentException::class);
         new IODeviceChannelGroup($this->user, $this->location, [$this->createMock(Location::class)]);
+    }
+
+    public function testBuildingServerActionCommand() {
+        $cg = new IODeviceChannelGroup($this->user);
+        EntityUtils::setField($cg, 'id', 22);
+        $this->assertEquals('ACTION-CG-UNICORNIFY:1,22', $cg->buildServerActionCommand('ACTION-UNICORNIFY', []));
+        $this->assertEquals('SET-CG-VALUE:1,22', $cg->buildServerActionCommand('SET-VALUE', []));
+        $this->assertEquals('UNICORN:1,22', $cg->buildServerActionCommand('UNICORN', []));
     }
 }

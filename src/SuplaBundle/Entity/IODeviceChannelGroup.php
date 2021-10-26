@@ -122,10 +122,10 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
         $this->directLinks = new ArrayCollection();
         $this->schedules = new ArrayCollection();
         $this->sceneOperations = new ArrayCollection();
+        $this->user = $user;
         if (count($channels)) {
             Assertion::notNull($user);
             Assertion::notNull($location);
-            $this->user = $user;
             $this->location = $location;
             $this->setChannels($channels);
             $this->altIcon = 0;

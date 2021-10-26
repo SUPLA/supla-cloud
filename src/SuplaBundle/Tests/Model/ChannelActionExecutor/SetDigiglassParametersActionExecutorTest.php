@@ -21,7 +21,7 @@ class SetDigiglassParametersActionExecutorTest extends TestCase {
         $executor = new SetDigiglassParametersActionExecutor();
         $server = $this->createMock(SuplaServer::class);
         $executor->setSuplaServer($server);
-        $server->expects($this->once())->method('executeSetCommand')->with($expectCommand);
+        $server->expects($this->once())->method('executeCommand')->with($expectCommand);
         $channel = $this->createEntityMock(IODeviceChannel::class, 111);
         $channel->method('getUser')->willReturn($this->createEntityMock(User::class, 222));
         $channel->method('getIoDevice')->willReturn($this->createEntityMock(IODevice::class, 333));
