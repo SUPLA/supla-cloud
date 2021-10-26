@@ -315,12 +315,7 @@
             possibleActions() {
                 if (this.directLink && this.directLink.subject) {
                     // OPEN and CLOSE actions are not supported for valves via API
-                    let disableOpenClose = ['VALVEPERCENTAGE']
-                        .includes(this.directLink.subject.function.name);
-                    if (this.directLink.subject.subjectType === 'channelGroup'
-                        && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(this.directLink.subject.function.name) !== -1) {
-                        disableOpenClose = true;
-                    }
+                    const disableOpenClose = ['VALVEPERCENTAGE'].includes(this.directLink.subject.function.name);
                     return [{
                         id: 1000,
                         name: 'READ',
