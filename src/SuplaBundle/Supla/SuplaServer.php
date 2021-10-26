@@ -59,7 +59,7 @@ abstract class SuplaServer {
     public function getServerStatus(): string {
         try {
             $this->ensureCanConnect();
-            $result = $this->_executeCommand('GET-STATUS');
+            $result = $this->doExecuteCommand('GET-STATUS');
             if ($result && trim($result)) {
                 return trim($result);
             }
@@ -69,7 +69,7 @@ abstract class SuplaServer {
         return 'DOWN';
     }
 
-    private function _executeCommand(string $command) {
+    private function doExecuteCommand(string $command) {
         if ($this->connect() !== false) {
             $result = $this->command($command);
         } else {
@@ -82,7 +82,7 @@ abstract class SuplaServer {
     private function isConnected(string $what, int ...$args): bool {
         $args = implode(',', $args);
         try {
-            $result = $this->_executeCommand("IS-$what-CONNECTED:$args");
+            $result = $this->doExecuteCommand("IS-$what-CONNECTED:$args");
             return $result !== false && preg_match("/^CONNECTED:\d+\n/", $result) === 1 ? true : false;
         } catch (SuplaServerIsDownException $e) {
             $this->logger->error('SUPLA Server is down.');
@@ -118,14 +118,14 @@ abstract class SuplaServer {
             $params = is_array($params) ? $params : [$params];
             $command .= ',' . implode(',', $params);
         }
-        $result = $this->_executeCommand($command);
+        $result = $this->doExecuteCommand($command);
         return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1;
     }
 
     public function channelAction(IODeviceChannel $channel, string $commandName): bool {
         $params = implode(',', [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()]);
         $command = "$commandName:$params";
-        $result = $this->_executeCommand($command);
+        $result = $this->doExecuteCommand($command);
         return $result !== false && preg_match("/^OK:" . $channel->getId() . "\n/", $result) === 1;
     }
 
@@ -158,13 +158,13 @@ abstract class SuplaServer {
     }
 
     public function clientReconnect(ClientApp $clientApp) {
-        $result = $this->_executeCommand("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
+        $result = $this->doExecuteCommand("CLIENT-RECONNECT:" . $clientApp->getUser()->getId() . "," . $clientApp->getId());
         return $result !== false && preg_match("/^OK:" . $clientApp->getId() . "\n/", $result) === 1 ? true : false;
     }
 
     private function getRawValue($type, IODeviceChannel $channel) {
         $args = [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()];
-        $result = $this->_executeCommand("GET-" . $type . "-VALUE:" . implode(',', $args));
+        $result = $this->doExecuteCommand("GET-" . $type . "-VALUE:" . implode(',', $args));
         if ($result !== false && preg_match("/^VALUE:/", $result) === 1) {
             return $result;
         }
@@ -267,7 +267,7 @@ abstract class SuplaServer {
     }
 
     public function executeCommand(string $command) {
-        $result = $this->_executeCommand($command);
+        $result = $this->doExecuteCommand($command);
         if (!$result || preg_match("/^OK:/", $result) !== 1) {
             throw new ServiceUnavailableHttpException(30, 'SUPLA Server was unable to execute the action.'); // i18n
         }
