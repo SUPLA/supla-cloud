@@ -26,6 +26,7 @@ use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -301,7 +302,16 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
      * @return ChannelFunctionAction[]
      */
     public function getPossibleActions(): array {
-        return $this->getFunction()->getDefaultPossibleActions();
+        $actions = $this->getFunction()->getDefaultPossibleActions();
+        if ($this->function === ChannelFunction::CONTROLLINGTHEROLLERSHUTTER
+            && ChannelFunctionBitsFlags::ROLLER_SHUTTER_START_STOP_ACTIONS()->isSupported($this->flags)) {
+            $actions = array_merge($actions, [
+                ChannelFunctionAction::STOP(),
+                ChannelFunctionAction::MOVE_UP(),
+                ChannelFunctionAction::MOVE_DOWN(),
+            ]);
+        }
+        return $actions;
     }
 
     public function getParam(int $paramNo): int {

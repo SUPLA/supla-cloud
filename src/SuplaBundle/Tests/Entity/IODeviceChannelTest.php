@@ -24,6 +24,8 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 
 class IODeviceChannelTest extends TestCase {
@@ -105,5 +107,40 @@ class IODeviceChannelTest extends TestCase {
         $this->expectException(InvalidArgumentException::class);
         $channel = new IODeviceChannel();
         $channel->setParam(5, 111);
+    }
+
+    public function testGettingPossibleActions() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::LIGHTSWITCH());
+        $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
+        $this->assertEquals([ChannelFunctionAction::TURN_ON, ChannelFunctionAction::TURN_OFF, ChannelFunctionAction::TOGGLE], $functionIds);
+    }
+
+    public function testGettingPossibleActionsForRollerShutter() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
+        $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
+        $this->assertEquals([
+            ChannelFunctionAction::SHUT,
+            ChannelFunctionAction::REVEAL,
+            ChannelFunctionAction::REVEAL_PARTIALLY,
+            ChannelFunctionAction::SHUT_PARTIALLY,
+        ], $functionIds);
+    }
+
+    public function testGettingPossibleActionsForRollerShutterWithStartStopActionsSupported() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::CONTROLLINGTHEROLLERSHUTTER());
+        EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::getAllFeaturesFlag());
+        $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
+        $this->assertEquals([
+            ChannelFunctionAction::SHUT,
+            ChannelFunctionAction::REVEAL,
+            ChannelFunctionAction::REVEAL_PARTIALLY,
+            ChannelFunctionAction::SHUT_PARTIALLY,
+            ChannelFunctionAction::STOP,
+            ChannelFunctionAction::MOVE_UP,
+            ChannelFunctionAction::MOVE_DOWN,
+        ], $functionIds);
     }
 }

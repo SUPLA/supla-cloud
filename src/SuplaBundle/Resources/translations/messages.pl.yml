@@ -150,6 +150,7 @@ Client registration: Rejestracja klientów
 Client’s Apps: Aplikacje klienckie
 Client’s app has been deleted: Aplikacja kliencka została usunięta
 Close: Zamknij
+Close partially: Zamknij częściowo
 Color: Kolor
 Color brightness: Jasność koloru
 Coming Soon: Dostępne wkrótce
@@ -371,6 +372,8 @@ Meters: Liczniki
 Mobile Apps: Aplikacje mobilne
 Mode: Tryb
 Modification: Modyfikacja
+Move down or stop: W dół lub zatrzymaj
+Move up or stop: W górę lub zatrzymaj
 My OAuth apps: Moje aplikacje OAuth
 My SUPLA: Moja SUPLA
 Name: Nazwa

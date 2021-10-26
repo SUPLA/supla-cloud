@@ -10,7 +10,7 @@
                     style="font-size: 160px"></i>
                 <p>{{ $t('This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.') }}</p>
                 <div style="font-size: 1.3em">
-                    <div v-if="action == 'REVEAL_PARTIALLY'">
+                    <div v-if="['REVEAL_PARTIALLY', 'SHUT_PARTIALLY'].includes(action)">
                         <div><code>{{ currentUrl }}?percentage=40</code></div>
                         <div><code>{{ currentUrl }}?percentage=60</code></div>
                     </div>
@@ -67,7 +67,7 @@
                                 <button :class="'btn btn-' + (allowedAction.executed ? 'success' : 'default')"
                                     :disabled="allowedAction.executing"
                                     type="button"
-                                    v-if="['READ', 'SET_RGBW_PARAMETERS', 'REVEAL_PARTIALLY', 'SET'].indexOf(allowedAction.name) === -1"
+                                    v-if="['READ', 'SET_RGBW_PARAMETERS', 'SHUT_PARTIALLY', 'REVEAL_PARTIALLY', 'SET'].indexOf(allowedAction.name) === -1"
                                     @click="executeAction(allowedAction)">
                                     <span>
                                         <i :class="'pe-7s-' + (allowedAction.executed ? 'check' : 'rocket')"></i>
