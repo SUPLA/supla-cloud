@@ -36,7 +36,7 @@
                     {
                         id: 'copyChannelState',
                         label: 'Copy channel state', // i18n
-                        description: 'Reads the state from source channels and sets the same in other channel or channel group.', // i18n
+                        description: 'Reads the state from source channel and sets the same in other channel or channel group.', // i18n
                         icon: 'copy-file',
                         subjectType: ActionableSubjectType.OTHER,
                     },
@@ -68,7 +68,7 @@
                 <div class='subject-dropdown-option flex-left-full-width'>
                     <div class="labels full">
                         <h4><span class="line-clamp line-clamp-2">${this.$t(action.label)}</span></h4>
-                        <p class="line-clamp line-clamp-2">${this.$t(action.description)}</p>
+                        <p>${this.$t(action.description)}</p>
                     </div>
                     <div class="icon"><span class="pe-7s-${action.icon}"></span></div>
                 </div>
