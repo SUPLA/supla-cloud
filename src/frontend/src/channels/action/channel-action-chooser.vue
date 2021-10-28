@@ -20,24 +20,27 @@
             </select>
         </div>
         <div class="form-group"
-            v-else-if="actionsToShow.length > 1">
+            v-else-if="actionsToShow.length >= 1">
             <div v-for="possibleAction in actionsToShow"
                 :key="possibleAction.id"
                 class="possible-action">
-                <div class="radio">
-                    <label>
-                        <input type="radio"
-                            :value="possibleAction"
-                            @change="actionChanged()"
-                            v-model="action">
-                        {{ $t(possibleAction.caption) }}
-                    </label>
-                </div>
+                <slot :possibleAction="possibleAction">
+                    <div class="radio"
+                        v-if="actionsToShow.length > 1">
+                        <label>
+                            <input type="radio"
+                                :value="possibleAction"
+                                @change="actionChanged()"
+                                v-model="action">
+                            {{ $t(possibleAction.caption) }}
+                        </label>
+                    </div>
+                    <p v-else
+                        class="text-center form-group">
+                        {{ $t(action.caption) }}
+                    </p>
+                </slot>
             </div>
-        </div>
-        <div v-else-if="actionsToShow.length === 1"
-            class="form-group text-center">
-            {{ $t(action.caption) }}
         </div>
 
         <div class="possible-action-params"

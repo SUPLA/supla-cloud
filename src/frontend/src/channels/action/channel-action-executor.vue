@@ -12,10 +12,24 @@
         </transition-expand>
         <channel-action-chooser :subject="subject"
             v-model="actionToExecute">
+            <template #default="props"
+                v-if="displaySeparateActionButtons">
+                <button class="btn btn-default"
+                    type="button"
+                    :disabled="!isConnected || executing"
+                    @click="executeActionFromButton(props.possibleAction)">
+                    <span v-if="!props.possibleAction.executing">
+                        <i v-if="props.possibleAction.executed"
+                            class="pe-7s-check"></i>
+                        {{ props.possibleAction.executed ? $t('executed') : $t(props.possibleAction.caption) }}
+                    </span>
+                    <button-loading-dots v-else></button-loading-dots>
+                </button>
+            </template>
         </channel-action-chooser>
         <transition-expand>
             <button class="btn btn-default"
-                v-if="actionToExecute.id || executed"
+                v-if="!displaySeparateActionButtons && (actionToExecute.id || executed)"
                 :disabled="!isConnected || executing"
                 @click="executeAction()">
                 <span v-if="!executing">
@@ -59,30 +73,41 @@
             };
         },
         methods: {
+            executeActionFromButton(action) {
+                this.actionToExecute = action;
+                this.executeAction();
+            },
             executeAction(confirmed = false) {
+                const action = this.actionToExecute;
+                if (action.executed) {
+                    return;
+                }
                 this.actionToConfirm = false;
-                if (this.actionToExecute.name == 'OPEN' && !confirmed && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
+                if (action.name == 'OPEN' && !confirmed && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
                     if (this.subject.state && (this.subject.state.manuallyClosed || this.subject.state.flooding)) {
-                        this.actionToConfirm = this.actionToExecute;
+                        this.actionToConfirm = action;
                         return;
                     }
                 }
                 if (this.actionToExecute.name == 'TURN_ON' && !confirmed && this.subject.state?.currentOverload) {
-                    this.actionToConfirm = this.actionToExecute;
+                    this.actionToConfirm = action;
                     return;
                 }
                 this.executing = true;
-                const toSend = {action: this.actionToExecute.name, ...this.actionToExecute.param};
+                this.$set(action, 'executing', true);
+                const toSend = {action: action.name, ...action.param};
                 this.$http.patch(`${this.endpoint}/${this.subject.id}`, toSend)
                     .then(() => {
                         this.executed = true;
+                        this.$set(action, 'executed', true);
                         setTimeout(() => this.executed = false, 3000);
                         setTimeout(() => this.executing = false, 3000);
+                        setTimeout(() => this.$set(action, 'executed', false), 3000);
                         setTimeout(() => EventBus.$emit('channel-state-updated'), 1000);
                     })
                     .finally(() => {
-                        this.actionToExecute = {};
                         this.executing = false;
+                        this.$set(action, 'executing', false);
                     });
             },
             requiresParams({name}) {
@@ -95,7 +120,11 @@
             },
             isConnected() {
                 return !this.subject.state || this.subject.state.connected;
-            }
+            },
+            displaySeparateActionButtons() {
+                const possibleActions = this.subject?.possibleActions || [];
+                return !!(possibleActions.length <= 3 && !possibleActions.find(this.requiresParams));
+            },
         }
     };
 </script>
