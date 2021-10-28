@@ -1,6 +1,6 @@
 <template>
     <div class="channel-params-action-trigger-selector">
-        <div :class="{'form-group': !subject}">
+        <div class="form-group">
             <subject-dropdown v-model="subject"
                 @input="onSubjectChange()"
                 channels-dropdown-params="io=output&hasFunction=1">
@@ -20,7 +20,7 @@
         <div v-if="subject && subject.subjectType === 'other' && subject.id === 'copyChannelState'">
             <copy-channel-state-source-target-selector
                 :subject="subject"
-                @input="onActionChange($event)"
+                @input="onActionChange()"
                 v-model="action.param"></copy-channel-state-source-target-selector>
         </div>
         <button v-if="value"
@@ -89,8 +89,7 @@
                     this.onActionChange();
                 }
             },
-            onActionChange(a) {
-                console.log('action', this.action, a);
+            onActionChange() {
                 if (this.isActionFullySpecified()) {
                     this.$emit('input', {
                         subjectId: this.subject.subjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,

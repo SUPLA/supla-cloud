@@ -97,6 +97,10 @@
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
                             <channel-state-table :channel="channel"
                                 v-if="channelFunctionIsChosen && !loading"></channel-state-table>
+                            <div v-if="hasActionsToExecute">
+                                <h4 class="mt-3">Wykonaj akcję</h4>
+                                <channel-action-executor :subject="channel"></channel-action-executor>
+                            </div>
                         </div>
                     </div>
                 </pending-changes-page>
@@ -145,10 +149,12 @@
     import DeviceTile from "@/devices/list/device-tile";
     import EventBus from "@/common/event-bus";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
+    import ChannelActionExecutor from "@/channels/action/channel-action-executor";
 
     export default {
         props: ['id'],
         components: {
+            ChannelActionExecutor,
             DependenciesWarningModal,
             DeviceTile,
             ChannelFunctionEditModal,
@@ -253,7 +259,11 @@
             },
             channelFunctionIsChosen() {
                 return this.channel.function.id > 0 && this.channel.function.name != 'UNSUPPORTED';
-            }
+            },
+            hasActionsToExecute() {
+                const noApiActionFunctions = ['VALVEPERCENTAGE'];
+                return this.channel.possibleActions?.length && !noApiActionFunctions.includes(this.channel.function.name);
+            },
         }
     };
 </script>

@@ -15,11 +15,6 @@
                 </ul>
             </div>
         </div>
-        <div v-if="currentTab == 'actions'">
-            <div class="container">
-                <channel-action-executor :subject="channel"></channel-action-executor>
-            </div>
-        </div>
         <div v-if="currentTab == 'actionTriggers'">
             <div class="container">
                 <channel-action-triggers :channel="channel"></channel-action-triggers>
@@ -72,13 +67,6 @@
         },
         mounted() {
             if (this.channel.possibleActions?.length) {
-                const noApiActionFunctions = ['VALVEPERCENTAGE'];
-                if (!noApiActionFunctions.includes(this.channel.function.name)) {
-                    this.availableTabs.push({
-                        id: 'actions',
-                        header: 'Actions', // i18n
-                    });
-                }
                 if (this.channel.actionTriggersIds?.length) {
                     this.availableTabs.push({
                         id: 'actionTriggers',

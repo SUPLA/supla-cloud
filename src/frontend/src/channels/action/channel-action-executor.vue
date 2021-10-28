@@ -11,31 +11,24 @@
             </div>
         </transition-expand>
         <channel-action-chooser :subject="subject"
-            v-model="actionToExecute"
-            v-slot="{possibleAction}">
-            <button :class="'btn ' + (requiresParams(actionToExecute) && possibleAction.id == actionToExecute.id ? 'btn-green' : 'btn-default')"
+            v-model="actionToExecute">
+        </channel-action-chooser>
+        <transition-expand>
+            <button class="btn btn-default"
+                v-if="actionToExecute.id || executed"
                 :disabled="!isConnected || executing"
-                @click="executeAction(possibleAction)"
-                v-show="!requiresParams(actionToExecute) || possibleAction.id == actionToExecute.id">
-                <span v-if="!possibleAction.executing">
-                    <i v-if="possibleAction.executed"
+                @click="executeAction()">
+                <span v-if="!executing">
+                    <i v-if="executed"
                         class="pe-7s-check"></i>
-                    <i v-else-if="requiresParams(possibleAction) && possibleAction.id != actionToExecute.id"
-                        class="pe-7s-angle-down-circle"></i>
-                    {{ possibleAction.executed ? $t('executed') : $t(possibleAction.caption) }}
+                    {{ executed ? $t('executed') : $t('Wykonaj') }}
                 </span>
                 <button-loading-dots v-else></button-loading-dots>
             </button>
-            <button v-if="requiresParams(actionToExecute) && possibleAction.id == actionToExecute.id"
-                class="btn btn-grey"
-                @click="actionToExecute = {}">
-                <i class="pe-7s-close"></i>
-                {{ $t('Cancel') }}
-            </button>
-        </channel-action-chooser>
+        </transition-expand>
         <modal-confirm v-if="actionToConfirm"
             class="modal-warning"
-            @confirm="executeAction(actionToConfirm, true)"
+            @confirm="executeAction(true)"
             @cancel="actionToConfirm = false"
             :header="$t('Are you sure?')">
             <span v-if="actionToConfirm.name === 'OPEN'">
@@ -52,7 +45,6 @@
     import ChannelActionChooser from "./channel-action-chooser";
     import EventBus from "../../common/event-bus";
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
-    import Vue from "vue";
     import TransitionExpand from "../../common/gui/transition-expand";
 
     export default {
@@ -61,47 +53,41 @@
         data() {
             return {
                 executing: false,
+                executed: false,
                 actionToExecute: {},
                 actionToConfirm: false,
             };
         },
         methods: {
-            executeAction(action, confirmed = false) {
-                if (this.requiresParams(action) && this.actionToExecute.id != action.id) {
-                    this.actionToExecute = action;
-                    return;
-                }
+            executeAction(confirmed = false) {
                 this.actionToConfirm = false;
-                if (action.name == 'OPEN' && !confirmed && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
+                if (this.actionToExecute.name == 'OPEN' && !confirmed && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
                     if (this.subject.state && (this.subject.state.manuallyClosed || this.subject.state.flooding)) {
-                        this.actionToConfirm = action;
+                        this.actionToConfirm = this.actionToExecute;
                         return;
                     }
                 }
-                if (action.name == 'TURN_ON' && !confirmed && this.subject.state?.currentOverload) {
-                    this.actionToConfirm = action;
+                if (this.actionToExecute.name == 'TURN_ON' && !confirmed && this.subject.state?.currentOverload) {
+                    this.actionToConfirm = this.actionToExecute;
                     return;
                 }
-                this.$set(action, 'executing', true);
                 this.executing = true;
-                const toSend = Vue.util.extend({}, this.actionToExecute.param);
-                toSend.action = action.name;
+                const toSend = {action: this.actionToExecute.name, ...this.actionToExecute.param};
                 this.$http.patch(`${this.endpoint}/${this.subject.id}`, toSend)
                     .then(() => {
-                        this.$set(action, 'executed', true);
-                        setTimeout(() => this.$set(action, 'executed', false), 3000);
+                        this.executed = true;
+                        setTimeout(() => this.executed = false, 3000);
                         setTimeout(() => this.executing = false, 3000);
                         setTimeout(() => EventBus.$emit('channel-state-updated'), 1000);
                     })
                     .finally(() => {
                         this.actionToExecute = {};
-                        this.$set(action, 'executing', false);
                         this.executing = false;
                     });
             },
             requiresParams({name}) {
                 return ['REVEAL_PARTIALLY', 'SHUT_PARTIALLY', 'OPEN_PARTIALLY', 'SET_RGBW_PARAMETERS'].includes(name);
-            }
+            },
         },
         computed: {
             endpoint() {

@@ -1,48 +1,70 @@
 <template>
     <div class="possible-actions">
-        <div v-for="possibleAction in actionsToShow"
-            :key="possibleAction.id"
-            class="possible-action">
-            <slot :possibleAction="possibleAction">
-                <div class="radio"
-                    v-if="actionsToShow.length > 1">
+        <div class="form-group"
+            v-if="actionsToShow.length > 3">
+            <select class="selectpicker possible-actions-picker"
+                ref="dropdown"
+                data-live-search="true"
+                :data-live-search-placeholder="$t('Search')"
+                data-width="100%"
+                :data-none-selected-text="$t('choose the action')"
+                :data-none-results-text="$t('No results match {0}')"
+                data-style="btn-default btn-wrapped"
+                v-model="action"
+                @change="actionChanged()">
+                <option v-for="possibleAction in actionsToShow"
+                    :key="possibleAction.id"
+                    :value="possibleAction">
+                    {{ $t(possibleAction.caption) }}
+                </option>
+            </select>
+        </div>
+        <div class="form-group"
+            v-else-if="actionsToShow.length > 1">
+            <div v-for="possibleAction in actionsToShow"
+                :key="possibleAction.id"
+                class="possible-action">
+                <div class="radio">
                     <label>
                         <input type="radio"
-                            :value="possibleAction.id"
+                            :value="possibleAction"
                             @change="actionChanged()"
-                            v-model="action.id">
+                            v-model="action">
                         {{ $t(possibleAction.caption) }}
                     </label>
                 </div>
-                <p v-else>
-                    {{ $t(possibleAction.caption) }}
-                </p>
-            </slot>
-            <div class="possible-action-params">
-                <transition-expand>
-                    <div class="well clearfix"
-                        v-if="['REVEAL_PARTIALLY', 'SHUT_PARTIALLY', 'OPEN_PARTIALLY'].includes(possibleAction.name) && action.id == possibleAction.id">
-                        <rolette-shutter-partial-percentage v-model="action.param"
-                            @input="updateModel()"></rolette-shutter-partial-percentage>
-                    </div>
-                </transition-expand>
-                <transition-expand>
-                    <div v-if="possibleAction.id == 80 && action.id == possibleAction.id">
-                        <rgbw-parameters-setter v-model="action.param"
-                            class="well clearfix"
-                            @input="updateModel()"
-                            :channel-function="subject.function"></rgbw-parameters-setter>
-                    </div>
-                </transition-expand>
-                <transition-expand>
-                    <div v-if="possibleAction.id == 2000 && action.id == possibleAction.id">
-                        <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"
-                            v-model="action.param"
-                            @input="updateModel()"
-                            :subject="subject"></digiglass-parameters-setter>
-                    </div>
-                </transition-expand>
             </div>
+        </div>
+        <div v-else-if="actionsToShow.length === 1"
+            class="form-group text-center">
+            {{ $t(action.caption) }}
+        </div>
+
+        <div class="possible-action-params"
+            v-if="action.id">
+            <transition-expand>
+                <div class="well clearfix"
+                    v-if="['REVEAL_PARTIALLY', 'SHUT_PARTIALLY', 'OPEN_PARTIALLY'].includes(action.name)">
+                    <rolette-shutter-partial-percentage v-model="param"
+                        @input="updateModel()"></rolette-shutter-partial-percentage>
+                </div>
+            </transition-expand>
+            <transition-expand>
+                <div v-if="action.name === 'SET_RGBW_PARAMETERS'">
+                    <rgbw-parameters-setter v-model="param"
+                        class="well clearfix"
+                        @input="updateModel()"
+                        :channel-function="subject.function"></rgbw-parameters-setter>
+                </div>
+            </transition-expand>
+            <transition-expand>
+                <div v-if="action.name === 'SET'">
+                    <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"
+                        v-model="param"
+                        @input="updateModel()"
+                        :subject="subject"></digiglass-parameters-setter>
+                </div>
+            </transition-expand>
         </div>
     </div>
 </template>
@@ -53,28 +75,44 @@
     import RgbwParametersSetter from "./rgbw-parameters-setter";
     import Vue from "vue";
     import DigiglassParametersSetter from "./digiglass-parameters-setter";
+    import $ from "jquery";
 
     export default {
         components: {DigiglassParametersSetter, RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
         props: ['subject', 'value', 'possibleActionFilter'],
         data() {
-            return {action: {}};
+            return {
+                action: {},
+                param: {},
+            };
         },
         mounted() {
             this.updateAction();
             this.selectFirstActionIfOnlyOne();
+            Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
         },
         methods: {
+            updateDropdownOptions() {
+                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker('refresh'));
+            },
             updateAction() {
-                if (this.value && this.value.id) {
-                    this.action = {id: this.value.id, param: this.value.param || {}};
+                if (this.value?.id) {
+                    if (this.value.id != this.action?.id) {
+                        this.action = this.actionsToShow.find((action) => action.id === this.value.id);
+                        if (this.action) {
+                            this.param = this.value.param || {};
+                        }
+                        this.updateDropdownOptions();
+                    }
                 } else {
                     this.action = {};
+                    this.param = {};
                 }
             },
             selectFirstActionIfOnlyOne() {
                 if (this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
-                    this.action = {id: this.actionsToShow[0].id, param: {}};
+                    this.action = this.actionsToShow[0];
+                    this.param = {};
                     this.updateModel();
                 }
             },
@@ -82,10 +120,10 @@
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
             },
             updateModel() {
-                this.$emit('input', this.action);
+                this.$emit('input', {...this.action, param: {...this.param}});
             },
             actionChanged() {
-                this.action.param = {};
+                this.param = {};
                 this.updateModel();
             },
         },
@@ -99,6 +137,7 @@
                 if (newSubject?.functionId !== oldSubject?.functionId) {
                     this.action = {};
                 }
+                this.updateDropdownOptions();
                 this.updateModel();
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             },
