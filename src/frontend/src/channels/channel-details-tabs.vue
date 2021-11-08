@@ -41,7 +41,6 @@
 <script>
     import SchedulesList from "../schedules/schedule-list/schedules-list";
     import DirectLinksList from "../direct-links/direct-links-list";
-    import ChannelActionExecutor from "./action/channel-action-executor";
     import ChannelGroupsList from "../channel-groups/channel-groups-list";
     import ScenesList from "../scenes/scenes-list";
     import ChannelMeasurementsHistory from "./channel-measurements-history";
@@ -51,7 +50,7 @@
         props: ['channel'],
         components: {
             ChannelActionTriggers,
-            ChannelMeasurementsHistory, ScenesList, ChannelGroupsList, ChannelActionExecutor, DirectLinksList, SchedulesList
+            ChannelMeasurementsHistory, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
         },
         data() {
             return {
