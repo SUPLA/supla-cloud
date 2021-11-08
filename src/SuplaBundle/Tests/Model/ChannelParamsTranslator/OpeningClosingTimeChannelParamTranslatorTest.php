@@ -44,6 +44,18 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
         $this->assertEquals(200, $this->channel->getParam3());
     }
 
+    public function testSettingLargeTimes() {
+        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 100, 'closingTimeS' => 500]);
+        $this->assertEquals(1000, $this->channel->getParam1());
+        $this->assertEquals(5000, $this->channel->getParam3());
+    }
+
+    public function testSettingTooLargeTimes() {
+        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 700, 'closingTimeS' => 700]);
+        $this->assertEquals(6000, $this->channel->getParam1());
+        $this->assertEquals(6000, $this->channel->getParam3());
+    }
+
     public function testMinimumTimeIfNoAutoCalibration() {
         $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
         $this->assertEquals(0, $this->channel->getParam1());

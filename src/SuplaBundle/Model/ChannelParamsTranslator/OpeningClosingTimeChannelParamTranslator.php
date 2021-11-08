@@ -29,10 +29,10 @@ class OpeningClosingTimeChannelParamTranslator implements ChannelParamTranslator
             $config['closingTimeS'] = 0;
         }
         if (array_key_exists('openingTimeS', $config)) {
-            $channel->setParam1(intval($this->getValueInRange($config['openingTimeS'], 0, 300) * 10));
+            $channel->setParam1(intval($this->getValueInRange($config['openingTimeS'], 0, 600) * 10));
         }
         if (array_key_exists('closingTimeS', $config)) {
-            $channel->setParam3(intval($this->getValueInRange($config['closingTimeS'], 0, 300) * 10));
+            $channel->setParam3(intval($this->getValueInRange($config['closingTimeS'], 0, 600) * 10));
         }
         if (array_key_exists('bottomPosition', $config)) {
             $channel->setParam4(intval($this->getValueInRange($config['bottomPosition'], 0, 100)));

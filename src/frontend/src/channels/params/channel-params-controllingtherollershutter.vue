@@ -15,7 +15,7 @@
                         <input type="number"
                             step="0.1"
                             min="0"
-                            max="300"
+                            max="600"
                             class="form-control text-center"
                             v-model="channel.config.openingTimeS"
                             @change="$emit('change')">
@@ -30,7 +30,7 @@
                         <input type="number"
                             step="0.1"
                             min="0"
-                            max="300"
+                            max="600"
                             class="form-control text-center"
                             v-model="channel.config.closingTimeS"
                             @change="$emit('change')">
