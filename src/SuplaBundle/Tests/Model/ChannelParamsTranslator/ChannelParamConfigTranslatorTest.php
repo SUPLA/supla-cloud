@@ -64,6 +64,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     ) {
         $channel = new IODeviceChannel();
         $channel->setFunction($channelFunction);
+        $this->configTranslator->setParamsFromConfig($channel, $expectedConfig);
+        $channel->setFunction($channelFunction);
         $channel->setParam1($params[0] ?? 0);
         $channel->setParam2($params[1] ?? 0);
         $channel->setParam3($params[2] ?? 0);
@@ -140,7 +142,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::CONTROLLINGTHEGATE(), [700], ['relayTimeMs' => 700], [500]],
             [ChannelFunction::CONTROLLINGTHEGATEWAYLOCK(), [700], ['relayTimeMs' => 700], [500]],
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, null, 800, 1], ['openingTimeS' => 70, 'closingTimeS' => 80, 'bottomPosition' => 1]],
-            [ChannelFunction::IC_ELECTRICITYMETER(), [103, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.03, 'unit' => 'm3']],
+            [ChannelFunction::IC_ELECTRICITYMETER(), [111, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.03, 'unit' => 'm3']],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
             [ChannelFunction::IC_GASMETER(), [111, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],

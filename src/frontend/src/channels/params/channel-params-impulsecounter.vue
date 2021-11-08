@@ -31,9 +31,9 @@
             <dt>
                 <span class="input-group">
                     <input type="number"
-                        step="0.01"
+                        step="0.001"
                         min="0"
-                        max="1000000"
+                        max="100000000"
                         class="form-control text-center"
                         v-model="channel.config.initialValue"
                         @change="$emit('change')">
