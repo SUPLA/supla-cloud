@@ -12,6 +12,8 @@
             </dt>
         </dl>
         <div class="form-group"></div>
+        <channel-params-electricity-meter-initial-values :channel="channel"
+            @save="$emit('save')"></channel-params-electricity-meter-initial-values>
         <channel-params-meter-reset :channel="channel"></channel-params-meter-reset>
     </div>
 </template>
@@ -20,9 +22,10 @@
     import ChannelParamsMeterCost from "./channel-params-meter-cost";
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import ChannelParamsMeterReset from "@/channels/params/channel-params-meter-reset";
+    import ChannelParamsElectricityMeterInitialValues from "@/channels/params/channel-params-electricity-meter-initial-values";
 
     export default {
-        components: {ChannelParamsMeterReset, ChannelsIdDropdown, ChannelParamsMeterCost},
+        components: {ChannelParamsElectricityMeterInitialValues, ChannelParamsMeterReset, ChannelsIdDropdown, ChannelParamsMeterCost},
         props: ['channel'],
     };
 </script>

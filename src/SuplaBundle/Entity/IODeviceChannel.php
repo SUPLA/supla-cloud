@@ -434,6 +434,12 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->userConfig = json_encode($config);
     }
 
+    public function setUserConfigValue(string $valueName, $value): void {
+        $config = $this->getUserConfig();
+        $config[$valueName] = $value;
+        $this->setUserConfig($config);
+    }
+
     public function getUserConfig(): array {
         return $this->userConfig ? (json_decode($this->userConfig, true) ?: []) : [];
     }

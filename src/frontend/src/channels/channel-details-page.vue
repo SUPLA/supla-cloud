@@ -68,6 +68,7 @@
                                     </dt>
                                 </dl>
                                 <channel-params-form :channel="channel"
+                                    @save="saveChanges()"
                                     @change="updateChannel()"></channel-params-form>
                             </div>
                         </div>

@@ -2,9 +2,11 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
+use Assert\Assertion;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
+use SuplaBundle\Utils\JsonArrayObject;
 use SuplaBundle\Utils\NumberUtils;
 
 class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
@@ -15,6 +17,8 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             'pricePerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 10000, 4),
             'currency' => $channel->getTextParam1() ?: null,
             'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($channel->getFlags()),
+            'countersAvailable' => ($channel->getProperties()['countersAvailable'] ?? []) ?: [],
+            'electricityMeterInitialValues' => new JsonArrayObject($channel->getUserConfig()['electricityMeterInitialValues'] ?? []),
         ];
     }
 
@@ -27,6 +31,18 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             if (!$currency || preg_match('/^[A-Z]{3}$/', $currency)) {
                 $channel->setTextParam1($currency);
             }
+        }
+        if (array_key_exists('electricityMeterInitialValues', $config)) {
+            Assertion::isArray($config['electricityMeterInitialValues']);
+            $countersAvailable = $channel->getProperties()['countersAvailable'] ?? [];
+            $initialValues = $channel->getUserConfig()['electricityMeterInitialValues'] ?? [];
+            foreach ($config['electricityMeterInitialValues'] as $counterName => $initialValue) {
+                Assertion::inArray($counterName, $countersAvailable);
+                $initialValue = $this->getValueInRange($initialValue, 0, 100000000); // 100 mln
+                $initialValue = NumberUtils::maximumDecimalPrecision($initialValue, 3);
+                $initialValues[$counterName] = $initialValue;
+            }
+            $channel->setUserConfigValue('electricityMeterInitialValues', $initialValues);
         }
     }
 

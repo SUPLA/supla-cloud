@@ -35,7 +35,7 @@
                 <span v-if="!executing">
                     <i v-if="executed"
                         class="pe-7s-check"></i>
-                    {{ executed ? $t('executed') : $t('Wykonaj') }}
+                    {{ executed ? $t('executed') : $t('Execute') }}
                 </span>
                 <button-loading-dots v-else></button-loading-dots>
             </button>

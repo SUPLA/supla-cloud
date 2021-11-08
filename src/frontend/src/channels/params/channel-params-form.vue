@@ -1,7 +1,8 @@
 <template>
     <component :is="additionalChannelParamsComponent"
         :channel="channel"
-        @change="$emit('change')"></component>
+        @change="$emit('change')"
+        @save="$emit('save')"></component>
 </template>
 
 <script>

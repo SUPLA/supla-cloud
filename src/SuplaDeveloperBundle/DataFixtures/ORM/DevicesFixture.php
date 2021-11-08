@@ -167,7 +167,7 @@ class DevicesFixture extends SuplaFixture {
             if ($this->faker->boolean) {
                 $channel->setCaption($this->faker->sentence(3));
             }
-            $this->setInternalConfig($channel);
+            $this->setChannelProperties($channel);
             $this->entityManager->persist($channel);
             $this->entityManager->flush();
         }
@@ -178,18 +178,25 @@ class DevicesFixture extends SuplaFixture {
         return $device;
     }
 
-    private function setInternalConfig(IODeviceChannel $channel) {
-        $config = null;
+    private function setChannelProperties(IODeviceChannel $channel) {
+        $channelProperties = [];
         switch ($channel->getType()->getId()) {
             case ChannelType::ACTION_TRIGGER:
                 $possibleTriggers = ['TURN_ON', 'TURN_OFF', 'TOGGLE_X1', 'TOGGLE_X2', 'TOGGLE_X3', 'TOGGLE_X4', 'TOGGLE_X5',
                     'HOLD', 'SHORT_PRESS_X1', 'SHORT_PRESS_X2', 'SHORT_PRESS_X3', 'SHORT_PRESS_X4', 'SHORT_PRESS_X5'];
                 $possibleTriggersForChannel = $this->faker->randomElements($possibleTriggers, $this->faker->numberBetween(1, 5));
-                $config = ['actionTriggerCapabilities' => $possibleTriggersForChannel];
+                $channelProperties = ['actionTriggerCapabilities' => $possibleTriggersForChannel];
+                break;
+            case ChannelType::ELECTRICITYMETER:
+                $possibleCounters = ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy',
+                    'forwardActiveEnergyBalanced', 'reverseActiveEnergyBalanced'];
+                $numberOfCounters = $this->faker->numberBetween(2, count($possibleCounters));
+                $countersAvailable = $this->faker->randomElements($possibleCounters, $numberOfCounters);
+                $channelProperties['countersAvailable'] = $countersAvailable;
                 break;
         }
-        if ($config) {
-            EntityUtils::setField($channel, 'properties', json_encode($config));
+        if ($channelProperties) {
+            EntityUtils::setField($channel, 'properties', json_encode($channelProperties));
         }
     }
 }
