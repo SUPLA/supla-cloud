@@ -19,22 +19,12 @@
                 <div class="form-group text-center"
                     v-if="sparseLogs && sparseLogs.length > 1">
                     <div class="btn-group"
-                        v-if="channel.function.name === 'ELECTRICITYMETER'">
-                        <a :class="'btn btn-' + (chartMode === 'fae' ? 'green' : 'default')"
-                            @click="changeChartMode('fae')">
-                            {{ $t('Forward active energy') }}
-                        </a>
-                        <a :class="'btn btn-' + (chartMode === 'rae' ? 'green' : 'default')"
-                            @click="changeChartMode('rae')">
-                            {{ $t('Reverse active energy') }}
-                        </a>
-                        <a :class="'btn btn-' + (chartMode === 'fre' ? 'green' : 'default')"
-                            @click="changeChartMode('fre')">
-                            {{ $t('Forward reactive energy') }}
-                        </a>
-                        <a :class="'btn btn-' + (chartMode === 'rre' ? 'green' : 'default')"
-                            @click="changeChartMode('rre')">
-                            {{ $t('Reverse reactive energy') }}
+                        v-if="supportedChartModes.length > 1">
+                        <a :class="'btn btn-' + (chartMode === mode ? 'green' : 'default')"
+                            :key="mode"
+                            @click="changeChartMode(mode)"
+                            v-for="mode in supportedChartModes">
+                            {{ $t(chartModeLabels[mode]) }}
                         </a>
                     </div>
                 </div>
@@ -360,6 +350,12 @@
                 fetchingDenseLogs: false,
                 chartStrategy: undefined,
                 chartMode: 'fae',
+                chartModeLabels: {
+                    fae: 'Forward active energy', // i18n
+                    rae: 'Reverse active energy', // i18n
+                    fre: 'Forward reactive energy', // i18n
+                    rre: 'Reverse reactive energy', // i18n
+                },
             };
         },
         mounted() {
@@ -378,6 +374,9 @@
                 });
             } else {
                 this.hasLogs = true;
+            }
+            if (this.supportedChartModes.length > 0) {
+                this.chartMode = this.supportedChartModes[0];
             }
         },
         methods: {
@@ -687,6 +686,20 @@
             },
             supportsChart() {
                 return this.channel && CHART_TYPES[this.channel.function.name];
+            },
+            supportedChartModes() {
+                if (this.channel.function.name === 'ELECTRICITYMETER') {
+                    const modesMap = {
+                        forwardActiveEnergy: 'fae',
+                        reverseActiveEnergy: 'rae',
+                        forwardReactiveEnergy: 'fre',
+                        reverseReactiveEnergy: 'rre'
+                    };
+                    const defaultModes = ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy'];
+                    const modes = this.channel.config.countersAvailable || defaultModes;
+                    return modes.filter(mode => modesMap[mode]).map(mode => modesMap[mode]);
+                }
+                return [];
             },
         },
         watch: {

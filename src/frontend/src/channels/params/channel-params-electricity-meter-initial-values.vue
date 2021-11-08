@@ -47,9 +47,9 @@
                 initialValues: {},
                 labels: {
                     forwardActiveEnergy: 'Forward active energy', // i18n
-                    reverseActiveEnergy: 'Forward active energy', // i18n
+                    reverseActiveEnergy: 'Reverse active energy', // i18n
                     forwardReactiveEnergy: 'Forward reactive energy', // i18n
-                    reverseReactiveEnergy: 'Forward reactive energy', // i18n
+                    reverseReactiveEnergy: 'Reverse reactive energy', // i18n
                     forwardActiveEnergyBalanced: 'Forward active energy balanced', // i18n
                     reverseActiveEnergyBalanced: 'Reverse active energy balanced', // i18n
                 },
