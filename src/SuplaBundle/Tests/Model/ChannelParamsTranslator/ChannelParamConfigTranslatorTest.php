@@ -142,6 +142,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(), [700, null, 800, 1], ['openingTimeS' => 70, 'closingTimeS' => 80, 'bottomPosition' => 1]],
             [ChannelFunction::IC_ELECTRICITYMETER(), [103, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.03, 'unit' => 'm3']],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
+            [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
             [ChannelFunction::IC_GASMETER(), [111, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
             [ChannelFunction::HUMIDITY(), [null, null, 124], ['humidityAdjustment' => 1.24]],
             [ChannelFunction::HUMIDITYANDTEMPERATURE(), [null, 123, 124], ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]],

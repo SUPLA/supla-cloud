@@ -3,13 +3,13 @@ namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelActionExecutor\SetDigiglassParametersActionExecutor;
 use SuplaBundle\Supla\SuplaServer;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
+use SuplaBundle\Tests\Traits\ChannelStub;
 
 class SetDigiglassParametersActionExecutorTest extends TestCase {
     use UnitTestHelper;
@@ -22,11 +22,8 @@ class SetDigiglassParametersActionExecutorTest extends TestCase {
         $server = $this->createMock(SuplaServer::class);
         $executor->setSuplaServer($server);
         $server->expects($this->once())->method('executeCommand')->with($expectCommand);
-        $channel = $this->createEntityMock(IODeviceChannel::class, 111);
-        $channel->method('getUser')->willReturn($this->createEntityMock(User::class, 222));
-        $channel->method('getIoDevice')->willReturn($this->createEntityMock(IODevice::class, 333));
-        $channel->method('getType')->willReturn(ChannelType::DIGIGLASS());
-        $channel->method('getParam1')->willReturn(7);
+        $channel = new ChannelStub(ChannelFunction::DIGIGLASS_VERTICAL(), $this);
+        $channel->id(111);
         $actionParams = $executor->validateActionParams($channel, $actionParams);
         $executor->execute($channel, $actionParams);
     }

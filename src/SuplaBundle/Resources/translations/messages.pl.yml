@@ -260,6 +260,7 @@ For devices: Dla urządzeń
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.'
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
+Forward active energy balanced: Energia czynna pobrana (Bilans wektorowy)
 Forward reactive energy: Energia bierna pobrana
 From IP: Z adresu IP
 From anywhere: Z każdego miejsca
@@ -485,6 +486,7 @@ Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
 Reverse active energy: Energia czynna zwrócona
+Reverse active energy balanced: Energia czynna zwrócona (Bilans wektorowy)
 Reverse reactive energy: Energia bierna zwrócona
 Revoke: Unieważnij
 Roller shutter opening sensor: Czujnik otwarcia rolet
@@ -846,7 +848,5 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Forward active energy balanced: ~
-Reverse active energy balanced: ~
 
 #</editor-fold>

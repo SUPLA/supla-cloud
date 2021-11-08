@@ -2,13 +2,16 @@
 
 namespace SuplaBundle\Tests\Traits;
 
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 
 final class ChannelStub extends IODeviceChannel {
-    public function __construct($typeOrFunction) {
+    public function __construct($typeOrFunction, ?TestCase $mockBuilder = null) {
         parent::__construct();
         if ($typeOrFunction instanceof ChannelType) {
             $this->type($typeOrFunction);
@@ -20,6 +23,10 @@ final class ChannelStub extends IODeviceChannel {
         $this->id(1)
             ->flags(0b1111111111111111111111111)
             ->funcList(0b1111111111111111111111111);
+        if ($mockBuilder) {
+            EntityUtils::setField($this, 'user', $mockBuilder->createEntityMock(User::class, 222));
+            EntityUtils::setField($this, 'iodevice', $mockBuilder->createEntityMock(IODevice::class, 333));
+        }
     }
 
     public static function create($typeOrFunction = null): self {

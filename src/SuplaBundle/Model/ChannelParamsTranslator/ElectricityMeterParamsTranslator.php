@@ -33,10 +33,10 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             }
         }
         if (array_key_exists('electricityMeterInitialValues', $config)) {
-            Assertion::isArray($config['electricityMeterInitialValues']);
+            $values = is_array($config['electricityMeterInitialValues']) ? $config['electricityMeterInitialValues'] : [];
             $countersAvailable = $channel->getProperties()['countersAvailable'] ?? [];
             $initialValues = $channel->getUserConfig()['electricityMeterInitialValues'] ?? [];
-            foreach ($config['electricityMeterInitialValues'] as $counterName => $initialValue) {
+            foreach ($values as $counterName => $initialValue) {
                 Assertion::inArray($counterName, $countersAvailable);
                 $initialValue = $this->getValueInRange($initialValue, 0, 100000000); // 100 mln
                 $initialValue = NumberUtils::maximumDecimalPrecision($initialValue, 3);
