@@ -169,11 +169,7 @@ class ScheduleManager {
             Assertion::string($configEntry['crontab'], 'Invalid schedule config (incorrect crontab).');
             Assertion::isArray($configEntry['action'], 'Invalid schedule config (incorrect action).');
             $action = $configEntry['action'];
-            Assertion::count(
-                $action,
-                count(ArrayUtils::leaveKeys($action, ['id', 'param'])),
-                'Invalid schedule config (incorrect action).' // i18n
-            );
+            $action = ArrayUtils::leaveKeys($action, ['id', 'param']);
             Assertion::between(count($action), 1, 2, 'Invalid schedule config (incorrect action).');
             Assertion::keyExists($action, 'id', 'Invalid schedule config (no action ID).');
             Assertion::numeric($action['id'], 'Invalid schedule config (incorrect action ID).');

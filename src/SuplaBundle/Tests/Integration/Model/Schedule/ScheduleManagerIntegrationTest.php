@@ -110,7 +110,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     }
 
     /**
-     * @dataProvider invalidConfigs
+     * @dataProvider exampleConfigs
      * @small
      */
     public function testValidatingConfig(array $config, bool $expectValid = false) {
@@ -126,7 +126,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue(true);
     }
 
-    public function invalidConfigs(): array {
+    public function exampleConfigs(): array {
         return [
             [[]],
             [[[]]],
@@ -135,7 +135,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
             [[['crontab' => ['10 10 * * *'], 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
             [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::OPEN]]]], // invalid action
             [[['crontab' => '10 10 * * 1,a', 'action' => ['id' => ChannelFunctionAction::OPEN]]]],
-            [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::TURN_ON, 'extra' => true]]]],
+            [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::TURN_ON, 'extra' => true]]], true],
             [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::TURN_ON], 'extra' => true]]],
             [[['crontab' => '10 10 * * 1-2', 'action' => ['id' => ChannelFunctionAction::TURN_ON]]], true],
         ];
