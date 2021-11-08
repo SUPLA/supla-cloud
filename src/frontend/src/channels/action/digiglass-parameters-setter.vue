@@ -10,7 +10,7 @@
                 <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl">
             </a>
         </div>
-        <div :class="'digiglass-parameters-setter digiglass-' + (subject.function.name.indexOf('HORIZONTAL') > 0 ? 'horizontal' : 'vertical')">
+        <div :class="'mb-3 digiglass-parameters-setter digiglass-' + (subject.function.name.indexOf('HORIZONTAL') > 0 ? 'horizontal' : 'vertical')">
             <function-icon class="digiglass-bg"
                 :model="subject"
                 width="200"></function-icon>
@@ -95,7 +95,7 @@
         },
         computed: {
             numberOfSections() {
-                return +this.subject.config.sectionsCount;
+                return +this.subject.config.sectionsCount || 7;
             },
             activeSections() {
                 return this.state.map(v => v !== undefined);
@@ -118,6 +118,7 @@
         $sizeSmaller: 200px;
         $sizeBigger: $sizeSmaller + 60px;
         position: relative;
+        margin: 0 auto;
         .digiglass-bg {
             left: 0;
             top: 0;

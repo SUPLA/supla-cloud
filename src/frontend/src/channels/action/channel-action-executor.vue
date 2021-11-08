@@ -111,7 +111,7 @@
                     });
             },
             requiresParams({name}) {
-                return ['REVEAL_PARTIALLY', 'SHUT_PARTIALLY', 'OPEN_PARTIALLY', 'SET_RGBW_PARAMETERS'].includes(name);
+                return ['REVEAL_PARTIALLY', 'SHUT_PARTIALLY', 'OPEN_PARTIALLY', 'SET_RGBW_PARAMETERS', 'SET'].includes(name);
             },
         },
         computed: {
