@@ -1,2 +1,23 @@
-app:
-  resource: "@SuplaBundle/Resources/config/routing.yml"
+oauthAuthorize:
+  resource: "@SuplaBundle/Controller/OAuth"
+  type: annotation
+
+supla_default:
+  resource: "@SuplaBundle/Controller/DefaultController.php"
+  type: annotation
+
+directLinksExecutore:
+  resource: "@SuplaBundle/Controller/ExecuteDirectLinkController.php"
+  type: annotation
+
+supla_api:
+  type: rest
+  prefix: /api/{version}
+  resource: "@SuplaBundle/Controller/Api"
+  name_prefix: api_
+
+supla_api_default:
+  type: rest
+  prefix: /api
+  resource: "@SuplaBundle/Controller/Api"
+  name_prefix: api_default_
