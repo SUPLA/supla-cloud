@@ -2,18 +2,26 @@
 
 namespace SuplaBundle\Message;
 
-use SuplaBundle\Mailer\SuplaMailer;
+use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Twig\Environment;
 
 class EmailFromTemplateHandler implements MessageHandlerInterface {
-    /** @var SuplaMailer */
-    private $mailer;
+    /** @var Environment */
+    private $twig;
+    /** @var UserRepository */
+    private $userRepository;
 
-    public function __construct(SuplaMailer $mailer) {
-        $this->mailer = $mailer;
+    public function __construct(Environment $twig, UserRepository $userRepository) {
+        $this->twig = $twig;
+        $this->userRepository = $userRepository;
     }
 
     public function __invoke(EmailFromTemplate $email) {
-        echo "JEEEEEEEEEEEEEEE";
+        $user = $this->userRepository->find($email->getUserId());
+        $templatePath = "SuplaBundle::Email/pl/{$email->getTemplate()}.txt.twig";
+        $text = $this->twig->render($templatePath, $email->getData());
+
+        echo $text;
     }
 }

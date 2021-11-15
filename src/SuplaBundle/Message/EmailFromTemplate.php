@@ -2,14 +2,16 @@
 
 namespace SuplaBundle\Message;
 
+use SuplaBundle\Entity\User;
+
 class EmailFromTemplate implements AsyncMessage {
     private $template;
     private $userId;
     private $data;
 
-    public function __construct(string $template, int $userId, ?array $data = []) {
+    public function __construct(string $template, $userId, ?array $data = []) {
         $this->template = $template;
-        $this->userId = $userId;
+        $this->userId = $userId instanceof User ? $userId->getId() : $userId;
         $this->data = $data;
     }
 
