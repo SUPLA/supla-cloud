@@ -26,7 +26,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
 /** @small */
-class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
+class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
     /** @var IODevice */
@@ -61,12 +61,12 @@ class ControllingRolerShutterTimerIntegrationTest extends IntegrationTestCase {
         $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 0]);
         $this->assertEquals(1000, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 300]);
+        $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 600]);
         $this->assertEquals(1000, $channel->getParam1());
-        $this->assertEquals(3000, $channel->getParam3());
+        $this->assertEquals(6000, $channel->getParam3());
         $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 1000, 'closingTimeS' => 3000]);
-        $this->assertEquals(3000, $channel->getParam1());
-        $this->assertEquals(3000, $channel->getParam3());
+        $this->assertEquals(6000, $channel->getParam1());
+        $this->assertEquals(6000, $channel->getParam3());
     }
 
     public function testSettingOpeningSensorForRollerShutter() {
