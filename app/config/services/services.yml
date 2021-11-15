@@ -74,6 +74,9 @@ services:
       $authorizeForm: '@fos_oauth_server.authorize.form'
       $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
 
+  SuplaBundle\Message\:
+    resource: '../../../src/SuplaBundle/Message'
+
   SuplaBundle\Model\:
     resource: '../../../src/SuplaBundle/Model'
 

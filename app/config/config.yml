@@ -20,7 +20,7 @@ doctrine:
       stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
       utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
     user: "%database_user%"
-    schema_filter: ~^(?!esp_)~
+    schema_filter: ~^(?!(esp_|messenger_))~
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
     auto_mapping: true
@@ -62,6 +62,11 @@ framework:
   form: ~
   fragments: ~
   http_method_override: true
+  messenger:
+    transports:
+      async: "doctrine://default"
+    routing:
+      SuplaBundle\Message\AsyncMessage: async
   router:
     resource: "%kernel.root_dir%/config/routing.yml"
     strict_requirements: ~
