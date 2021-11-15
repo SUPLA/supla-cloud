@@ -2,22 +2,39 @@
 
 namespace SuplaBundle\Message;
 
+use SuplaBundle\Model\LocalSuplaCloud;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class EmailTwigExtension extends AbstractExtension {
     /** @var TranslatorInterface */
     private $translator;
+    /** @var LocalSuplaCloud */
+    private $localSuplaCloud;
+    /** @var SuplaAutodiscover */
+    private $autodiscover;
 
-    public function __construct(TranslatorInterface $translator) {
+    public function __construct(TranslatorInterface $translator, LocalSuplaCloud $localSuplaCloud, SuplaAutodiscover $autodiscover) {
         $this->translator = $translator;
+        $this->localSuplaCloud = $localSuplaCloud;
+        $this->autodiscover = $autodiscover;
     }
 
     public function getFilters() {
         return [
-            new TwigFilter('paragraph', [$this, 'generateParagraph']),
-            new TwigFilter('greenButton', [$this, 'generateGreenButton']),
+            new TwigFilter('paragraph', [$this, 'generateParagraph'], ['is_safe' => ['html']]),
+            new TwigFilter('greenButton', [$this, 'generateGreenButton'], ['is_safe' => ['html']]),
+        ];
+    }
+
+    public function getFunctions() {
+        return [
+            new TwigFunction('svrUrl', [$this->localSuplaCloud, 'getAddress']),
+            new TwigFunction('cloudUrl', [$this, 'getCloudUrl']),
+            new TwigFunction('cloudHost', [$this, 'getCloudHost']),
         ];
     }
 
@@ -50,5 +67,13 @@ PARAGRAPH;
         </table>
         $copyText
 GREENBUTTON;
+    }
+
+    public function getCloudUrl(): string {
+        return $this->autodiscover->isBroker() ? 'https://cloud.supla.org' : $this->localSuplaCloud->getAddress();
+    }
+
+    public function getCloudHost(): string {
+        return $this->autodiscover->isBroker() ? 'cloud.supla.org' : $this->localSuplaCloud->getHost();
     }
 }

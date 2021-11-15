@@ -100,6 +100,12 @@ class SuplaMailer {
         return $sent > 0;
     }
 
+    public function send(Swift_Message $message): bool {
+        $message->setFrom($this->mailerFrom);
+        $sent = $this->mailer->send($message);
+        return $sent > 0;
+    }
+
     public function sendConfirmationEmailMessage(User $user): bool {
         $url = $this->linkWithLang($user, 'confirm/' . $user->getToken());
         return $this->sendEmailMessage('confirm', $user, ['confirmationUrl' => $url]);

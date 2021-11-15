@@ -20,8 +20,8 @@ namespace SuplaBundle\Tests\Integration\Messages;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
-use SuplaBundle\Message\EmailFromTemplate;
 use SuplaBundle\Message\EmailFromTemplateHandler;
+use SuplaBundle\Message\EmailFromTemplates;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
@@ -46,7 +46,7 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
 
     public function testSendingAMessage() {
         $handler = $this->handler;
-        $handler(new EmailFromTemplate('failed_auth_attempt', $this->user, ['ip' => '1.2.3.4']));
+        $handler(EmailFromTemplates::FAILED_AUTH_ATTEMPT()->create($this->user, ['ip' => '1.2.3.4']));
         $this->assertCount(1, TestMailer::getMessages());
     }
 }

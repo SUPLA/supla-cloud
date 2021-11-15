@@ -1,19 +1,21 @@
-{% extends '@Supla/Email/pl/template.txt.twig' %}
+{% extends '@Supla/Email/pl/template.html.twig' %}
 
 {% block subject %}
-    SUPLA – Powiadomienie o nieudanym logowaniu do cloud.supla.org
+    SUPLA – Nieudane logowanie do {{ cloudHost() }}
+{% endblock %}
+
+{% block preheader %}
+    Powiadomienie o nieudanym logowaniu do {{ cloudHost() }}.
 {% endblock %}
 
 {% block body %}
-    Witaj!,
-
-    Otrzymujesz  tą informację w związku z nieudaną próbą logowania do SUPLA-CLOUD przy użyciu Twojego adresu email.
+    {% apply paragraph %} Witaj! {% endapply %}
+    {% apply paragraph %} Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD ({{ cloudHost() }}) przy użyciu Twojego adresu email. {% endapply %}
     {% if ip %}
-
-        Próba logowania nastąpiła z adresu IP: {{ ip }}
+        {% apply paragraph %} Próba logowania nastąpiła z adresu IP: <b>{{ ip }}</b> {% endapply %}
     {% endif %}
-
-    Możesz zignorować tą informację jeżeli to Ty wprowadziłeś(aś) błędne hasło.
-    Jeśli masz wątpliwości lub pytania możesz się z nami skontaktować pisząc na adres security@supla.org
+    {% apply paragraph %}Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.{% endapply %}
+    {% apply paragraph %}Jeśli masz wątpliwości lub pytania, możesz się z nami skontaktować pisząc na adres
+        <a href="mailto:security@supla.org">security@supla.org</a>. {% endapply %}
 {% endblock %}
 

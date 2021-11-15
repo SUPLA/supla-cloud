@@ -200,8 +200,6 @@ swiftmailer:
   host: "%mailer_host%"
   password: "%mailer_password%"
   port: "%mailer_port%"
-  spool:
-    type: memory
   transport: "%mailer_transport%"
   username: "%mailer_user%"
 

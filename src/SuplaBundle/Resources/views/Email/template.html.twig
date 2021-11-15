@@ -7,6 +7,7 @@
             content="text/html; charset=UTF-8">
     <title>{% block subject %}{% endblock %}</title>
     <style>
+        /* @formatter:off */
         /* -------------------------------------
             INLINED WITH htmlemail.io/inline
         ------------------------------------- */
@@ -63,9 +64,6 @@
             }
         }
 
-        /* -------------------------------------
-            PRESERVE THESE STYLES IN THE HEAD
-        ------------------------------------- */
         @media all {
             .ExternalClass {
                 width: 100%;
@@ -109,121 +107,42 @@
         }
     </style>
 </head>
-<body class=""
-        style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
-<span class="preheader"
-        style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">This is preheader text. Some clients will show this text as a preview.</span>
-<table role="presentation"
-        border="0"
-        cellpadding="0"
-        cellspacing="0"
-        class="body"
-        style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #f6f6f6;">
+<body class="" style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+<span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">{% block preheader %}{% endblock %}</span>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #f6f6f6;">
     <tr>
         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">&nbsp;</td>
-        <td class="container"
-                style="font-family: sans-serif; font-size: 14px; vertical-align: top; display: block; Margin: 0 auto; max-width: 580px; padding: 10px; width: 580px;">
-            <div class="content"
-                    style="box-sizing: border-box; display: block; Margin: 0 auto; max-width: 580px; padding: 10px;">
-                <div style="width: 75px; height: 75px; border-radius: 50%; background-color: #FFFFFF; text-align: center; padding-top: 9px; box-sizing: border-box; margin-left: auto; margin-right: auto; margin-bottom: 10px">
-                    <img src="https://cloud.supla.org/assets/img/logo.svg"
-                            width="57"
-                            height="60"
-                            border="0"
-                            style="width: 57px; height: 60px"
-                            alt="SUPLA">
-                </div>
-                <!-- START CENTERED WHITE CONTAINER -->
-                <table role="presentation"
-                        class="main"
-                        style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #ffffff; border-radius: 3px;">
-
-                    <!-- START MAIN CONTENT AREA -->
+        <td class="container" style="font-family: sans-serif; font-size: 14px; vertical-align: top; display: block; Margin: 0 auto; max-width: 580px; padding: 10px; width: 580px;">
+            <div class="content" style="box-sizing: border-box; display: block; Margin: 0 auto; max-width: 580px; padding: 10px;">
+                <div style="width: 75px; height: 75px; border-radius: 50%; background-color: #FFFFFF; text-align: center; padding-top: 9px; box-sizing: border-box; margin-left: auto; margin-right: auto; margin-bottom: 10px"><img src="https://cloud.supla.org/assets/img/logo.svg" width="57" height="60" border="0" style="width: 57px; height: 60px" alt="SUPLA"></div>
+                <table role="presentation" class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #ffffff; border-radius: 3px;">
                     <tr>
-                        <td class="wrapper"
-                                style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;">
-                            <table role="presentation"
-                                    border="0"
-                                    cellpadding="0"
-                                    cellspacing="0"
-                                    style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+                        <td class="wrapper" style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;">
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
                                 <tr>
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Witaj!</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Dziękujemy za rejestrację konta w serwisie cloud.supla.org. Aby zakończyć aktywację, kliknij poniższy przycisk.</p>
-                                        <table role="presentation"
-                                                border="0"
-                                                cellpadding="0"
-                                                cellspacing="0"
-                                                class="btn btn-primary"
-                                                style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
-                                            <tbody>
-                                            <tr>
-                                                <td align="left"
-                                                        style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;">
-                                                    <table role="presentation"
-                                                            border="0"
-                                                            cellpadding="0"
-                                                            cellspacing="0"
-                                                            style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #00d151; border-radius: 5px; text-align: center;">
-                                                                <a href="http://htmlemail.io"
-                                                                        target="_blank"
-                                                                        style="display: inline-block; color: #ffffff; background-color: #00d151; border: solid 1px #00d151; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #00d151;">Potwierdzam rejestrację</a>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Jeśli link nie działa, skopiuj poniższy adres do paska przeglądarki lub wpisz go ręcznie.</p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            <code>https://cloud.supla.org/confirm/123/dslf48d784338</code></p>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            <strong>UWAGA!</strong>
-                                            Jeżeli nie podałeś(aś) tego adresu email w serwisie cloud.supla.org, nie klikaj odnośnika.</p>
+                                        {% block body %}{% endblock %}
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
-
-                    <!-- END MAIN CONTENT AREA -->
                 </table>
-
-                <!-- START FOOTER -->
-                <div class="footer"
-                        style="clear: both; Margin-top: 10px; text-align: center; width: 100%;">
-                    <table role="presentation"
-                            border="0"
-                            cellpadding="0"
-                            cellspacing="0"
-                            style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+                <div class="footer" style="clear: both; Margin-top: 10px; text-align: center; width: 100%;">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
                         <tr>
-                            <td class="content-block"
-                                    style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
-                                <span class="apple-link"
-                                        style="color: #999999; font-size: 12px; text-align: center;">www.supla.org</span>
-                                <br>Jeśli nie chcesz dostawać od nas takich powiadomień,<br>
-                                zajrzyj do ustawień swojego konta <a href="http://i.imgur.com/CScmqnj.gif"
-                                        style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">tutaj</a>.
+                            <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
+                                {% block footer %}{% endblock %}
                             </td>
                         </tr>
                         <tr>
-                            <td class="content-block powered-by"
-                                    style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
-                                <!--                                Powered by <a href="http://htmlemail.io" style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">HTMLemail</a>.-->
+                            <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
+                                <a target="_blank" class="apple-link" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;" href="https://www.supla.org">supla.org</a> |
+                                <a target="_blank" class="apple-link" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;" href="{{ cloudUrl() }}">{{ cloudHost() }}</a>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <!-- END FOOTER -->
-
-                <!-- END CENTERED WHITE CONTAINER -->
             </div>
         </td>
         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">&nbsp;</td>

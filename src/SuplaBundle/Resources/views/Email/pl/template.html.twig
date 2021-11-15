@@ -1,0 +1,9 @@
+{% extends '@Supla/Email/template.html.twig' %}
+
+{% block footer %}
+    Jeśli nie chcesz dostawać od nas takich powiadomień,<br>
+    zajrzyj do ustawień swojego konta
+    <a href="{{ cloudUrl() }}/user/notifications"
+            target="_blank"
+            style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">tutaj</a>.
+{% endblock %}

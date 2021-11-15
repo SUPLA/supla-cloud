@@ -5,23 +5,14 @@ SUPLA – Powiadomienie o nieudanym logowaniu do cloud.supla.org
 {% endblock %}
 
 {% block body %}
-Witaj!,
+Witaj!
 
-{% apply paragraph %}
-zioek
-{% endapply %}
-
-{% apply greenButton('http://googole.pl') %}
-Potwierdź Konto
-{% endapply %}
-
-Otrzymujesz  tą informację w związku z nieudaną próbą logowania do SUPLA-CLOUD przy użyciu Twojego adresu email.
-{%  if ip %}
-
-Próba logowania nastąpiła z adresu IP: {{ ip }}
+Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD przy użyciu Twojego adresu email.
+{% if ip %}
+    Próba logowania nastąpiła z adresu IP: {{ ip }}
 {% endif %}
 
-Możesz zignorować tą informację jeżeli to Ty wprowadziłeś(aś) błędne hasło. 
-Jeśli masz wątpliwości lub pytania możesz się z nami skontaktować pisząc na adres security@supla.org 
+Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.
+Jeśli masz wątpliwości lub pytania, możesz się z nami skontaktować pisząc na adres security@supla.org
 {% endblock %}
 
