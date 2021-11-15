@@ -73,7 +73,7 @@ class TargetSuplaCloudRequestForwarder {
     }
 
     public function getInfo(TargetSuplaCloud $target) {
-        list($response, $status) = $this->sendRequest($target, 'server-info');
+        [$response, $status] = $this->sendRequest($target, 'server-info');
         if ($status == 200) {
             return $response;
         } else {
@@ -108,7 +108,7 @@ class TargetSuplaCloudRequestForwarder {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_COOKIE, 'XDEBUG_SESSION=PHPUNIT'); // uncomment to enable XDEBUG debugging in dev
+        curl_setopt($ch, CURLOPT_COOKIE, 'XDEBUG_SESSION=PHPUNIT'); // uncomment to enable XDEBUG debugging in dev
         $response = curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if (curl_errno($ch) != 0) {

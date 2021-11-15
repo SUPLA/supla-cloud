@@ -21,7 +21,8 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Message\EmailFromTemplateHandler;
-use SuplaBundle\Message\EmailFromTemplates;
+use SuplaBundle\Message\Emails\FailedAuthAttemptEmailNotification;
+use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
@@ -44,9 +45,15 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $this->handler = self::$container->get(EmailFromTemplateHandler::class);
     }
 
-    public function testSendingAMessage() {
+    public function testSendingFailedAuthAttempt() {
         $handler = $this->handler;
-        $handler(EmailFromTemplates::FAILED_AUTH_ATTEMPT()->create($this->user, ['ip' => '1.2.3.4']));
+        $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
+        $this->assertCount(1, TestMailer::getMessages());
+    }
+
+    public function testSendingResetPasswordLink() {
+        $handler = $this->handler;
+        $handler(new ResetPasswordEmailNotification($this->user));
         $this->assertCount(1, TestMailer::getMessages());
     }
 }

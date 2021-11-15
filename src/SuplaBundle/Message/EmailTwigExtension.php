@@ -26,7 +26,7 @@ class EmailTwigExtension extends AbstractExtension {
     public function getFilters() {
         return [
             new TwigFilter('paragraph', [$this, 'generateParagraph'], ['is_safe' => ['html']]),
-            new TwigFilter('greenButton', [$this, 'generateGreenButton'], ['is_safe' => ['html']]),
+            new TwigFilter('greenButton', [$this, 'generateGreenButton'], ['needs_context' => true, 'is_safe' => ['html']]),
         ];
     }
 
@@ -45,12 +45,13 @@ class EmailTwigExtension extends AbstractExtension {
 PARAGRAPH;
     }
 
-    public function generateGreenButton(string $text, string $url): string {
+    public function generateGreenButton(array $context, string $text, string $url): string {
         $copyMessage = 'If the link is not working, please copy and paste it or enter manually in a new browser window.'; // i18n
-        $copyText = $this->generateParagraph($this->translator->trans($copyMessage));
+        $url = $this->localSuplaCloud->getAddress() . $url . '?lang=' . $context['userLocale'];
+        $copyText = $this->generateParagraph($this->translator->trans($copyMessage, [], null, $context['userLocale']));
         $copyText .= $this->generateParagraph("<code>$url</code>");
         return <<<GREENBUTTON
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="butn butn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
             <tbody>
             <tr>
                 <td align="left" style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;">

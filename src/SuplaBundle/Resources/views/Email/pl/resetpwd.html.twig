@@ -1,0 +1,23 @@
+{% extends '@Supla/Email/pl/template.html.twig' %}
+
+{% block subject %}
+    SUPLA - Resetowanie hasła
+{% endblock %}
+
+{% block preheader %}
+    Przesyłamy instrukcje dotyczące odzyskania dostępu do Twojego konta.
+{% endblock %}
+
+{% block body %}
+    {% apply paragraph %} Witaj! {% endapply %}
+    {% apply paragraph %} Kliknij poniższy link w celu zresetowania Twojego hasła do aplikacji {{ cloudHost() }}. {% endapply %}
+    {% apply greenButton(confirmationUrl) %} Resetuj Hasło {% endapply %}
+    {% apply paragraph %}Link będzie aktywny przez godzinę.{% endapply %}
+    {% apply paragraph %}
+        <b>UWAGA!</b>
+        Jeżeli nie zażądałeś(aś) zresetowania hasła zignoruj tą wiadomość.
+        Jest możliwe, że inny użytkownik wprowadził przez pomyłkę Twój adres email w celu zresetowania hasła do własnego konta.
+    {% endapply %}
+{% endblock %}
+
+{% block footer %}{% endblock %}

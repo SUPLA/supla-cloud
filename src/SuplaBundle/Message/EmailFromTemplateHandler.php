@@ -25,10 +25,16 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
 
     public function __invoke(EmailFromTemplate $email) {
         $user = $this->userRepository->find($email->getUserId());
-        $templatePath = "SuplaBundle::Email/pl/{$email->getTemplateName()}";
-        $textRendered = $this->twig->render($templatePath . '.txt.twig', $email->getData());
+        $userLocale = $user->getLocale() ?: 'pl';
+        $data = array_merge($email->getData(), [
+            'userId' => $user->getId(),
+            'userEmail' => $user->getEmail(),
+            'userLocale' => $userLocale,
+        ]);
+        $templatePath = "SuplaBundle::Email/$userLocale/{$email->getTemplateName()}";
+        $textRendered = $this->twig->render($templatePath . '.txt.twig', $data);
         [$subject, $text] = explode(self::SUBJECT_DELIMITER, $textRendered);
-        $html = $this->twig->render($templatePath . '.html.twig', $email->getData());
+        $html = $this->twig->render($templatePath . '.html.twig', $data);
         $this->messageBus->dispatch(new EmailMessage($user->getEmail(), $subject, $text, $html));
     }
 }

@@ -32,6 +32,7 @@ use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
+use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Model\Transactional;
@@ -429,7 +430,7 @@ class UserController extends RestController {
             } elseif ($request->getMethod() == Request::METHOD_POST) {
                 $user = $this->userManager->userByEmail($username);
                 if ($user && $this->userManager->paswordRequest($user) === true) {
-                    $this->mailer->sendResetPasswordEmailMessage($user);
+                    $this->dispatchMessage(new ResetPasswordEmailNotification($user));
                 }
             } else {
                 /** @var User $user */

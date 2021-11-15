@@ -1,7 +1,13 @@
-SUPLA - Resetowanie hasła
-Witaj!,
+{% extends '@Supla/Email/pl/template.txt.twig' %}
 
-Kliknij poniższy link w celu zresetowania Twojego hasła do serwisu cloud.supla.org.
+{% block subject %}
+SUPLA - Resetowanie hasła
+{% endblock %}
+
+{% block body %}
+Witaj!
+
+Kliknij poniższy link w celu zresetowania Twojego hasła do aplikacji {{ cloudHost() }}.
 
 {{ confirmationUrl }}
 
@@ -11,7 +17,4 @@ Link będzie aktywny przez godzinę.
 UWAGA
 Jeżeli nie zażądałeś(aś) zresetowania hasła zignoruj tą wiadomość.
 Jest możliwe, że inny użytkownik wprowadził przez pomyłkę Twój adres email w celu zresetowania hasła do własnego konta.
-
-
-Z poważaniem,
-Zespół SUPLA.ORG
+{% endblock %}

@@ -145,7 +145,7 @@ class UserManager {
             if ($user->getPasswordRequestedAt()) {
                 $diff = abs($this->timeProvider->getDateTime()->getTimestamp() - $user->getPasswordRequestedAt()->getTimestamp());
                 if ($diff < 300) {
-                    return false;
+//                    return false;
                 }
             }
             $this->genToken($user);

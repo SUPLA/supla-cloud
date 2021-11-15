@@ -111,11 +111,6 @@ class SuplaMailer {
         return $this->sendEmailMessage('confirm', $user, ['confirmationUrl' => $url]);
     }
 
-    public function sendResetPasswordEmailMessage(User $user): bool {
-        $url = $this->linkWithLang($user, 'reset-password/' . $user->getToken());
-        return $this->sendEmailMessage('resetpwd', $user, ['confirmationUrl' => $url]);
-    }
-
     public function sendUserConfirmationSuccessEmailMessage(User $user): bool {
         return $this->sendEmailMessage(
             'activation',
@@ -140,10 +135,6 @@ class SuplaMailer {
             ],
             'en'
         );
-    }
-
-    public function sendFailedAuthenticationAttemptWarning(User $user, $ip): bool {
-        return $this->sendEmailMessage('failed_auth_attempt', $user, ['ip' => $ip]);
     }
 
     private function linkWithLang(User $user, string $suffix): string {
