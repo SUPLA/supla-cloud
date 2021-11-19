@@ -658,12 +658,25 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testInvalidLimits(int $limit) {
         $channelId = $this->deviceWithManyLogs->getChannels()[0]->getId();
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('GET', '/api/channels/' . $channelId . '/measurement-logs?limit=' .  $limit);
+        $client->apiRequestV22('GET', '/api/channels/' . $channelId . '/measurement-logs?limit=' . $limit);
         $response = $client->getResponse();
         $this->assertStatusCode('4xx', $response);
     }
 
     public function invalidLimits() {
         return [[0], [-1], [5001]];
+    }
+
+    public function testGeneratingCsvFromChannelWithManyLogs() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs");
+        $memBefore = memory_get_usage();
+        ob_start();
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs-csv");
+        ob_end_clean();
+        $memAfter = memory_get_usage();
+        $memDiff = ($memAfter - $memBefore) / 1024;
+        $this->assertLessThan(2000, $memDiff); // less than ~5MB memory consumption
     }
 }
