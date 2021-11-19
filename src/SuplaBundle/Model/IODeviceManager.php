@@ -67,6 +67,7 @@ class IODeviceManager {
         ]);
 
         $temp_file = tempnam(sys_get_temp_dir(), 'supla_csv_');
+        $this->doctrine->getManager()->getConnection()->getWrappedConnection()->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 
         if ($temp_file !== false) {
             $handle = fopen($temp_file, 'w+');
