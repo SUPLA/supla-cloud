@@ -32,6 +32,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\IODeviceManager;
+use SuplaBundle\Model\MeasurementCsvExporter;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -54,9 +55,9 @@ class ChannelMeasurementLogsController extends RestController {
     private $channelRepository;
 
     public function __construct(
-        IODeviceManager $deviceManager,
+        IODeviceManager           $deviceManager,
         IODeviceChannelRepository $channelRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface    $entityManager
     ) {
         $this->deviceManager = $deviceManager;
         $this->entityManager = $entityManager;
@@ -221,13 +222,13 @@ class ChannelMeasurementLogsController extends RestController {
 
     private function getMeasurementLogItemsAction(
         IODeviceChannel $channel,
-        $offset,
-        $limit,
-        $afterTimestamp = 0,
-        $beforeTimestamp = 0,
-        $orderDesc = true,
-        $allowedFuncList = null,
-        $sparse = null
+                        $offset,
+                        $limit,
+                        $afterTimestamp = 0,
+                        $beforeTimestamp = 0,
+                        $orderDesc = true,
+                        $allowedFuncList = null,
+                        $sparse = null
     ) {
         $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
         $offset = intval($offset);
@@ -472,21 +473,18 @@ class ChannelMeasurementLogsController extends RestController {
      * @Rest\Get("/channels/{channel}/measurement-logs-csv")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES') and is_granted('accessIdContains', channel)")
      */
-    public function channelItemGetCSVAction(IODeviceChannel $channel) {
-        $file = $this->deviceManager->channelGetCSV($channel, "measurement_" . $channel->getId());
-        if ($file !== false) {
-            return new StreamedResponse(
-                function () use ($file) {
-                    readfile($file);
-                    unlink($file);
-                },
-                200,
-                [
-                    'Content-Type' => 'application/zip',
-                    'Content-Disposition' => 'attachment; filename="measurement_' . $channel->getId() . '.zip"',
-                ]
-            );
-        }
-        return new Response('Error creating file', Response::HTTP_INTERNAL_SERVER_ERROR);
+    public function channelItemGetCSVAction(IODeviceChannel $channel, MeasurementCsvExporter $measurementCsvExporter) {
+        $filePath = $measurementCsvExporter->generateCsv($channel);
+        return new StreamedResponse(
+            function () use ($filePath) {
+                readfile($filePath);
+                unlink($filePath);
+            },
+            200,
+            [
+                'Content-Type' => 'application/zip',
+                'Content-Disposition' => 'attachment; filename="measurement_' . $channel->getId() . '.zip"',
+            ]
+        );
     }
 }
