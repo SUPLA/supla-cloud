@@ -225,13 +225,13 @@ class ChannelMeasurementLogsController extends RestController {
 
     private function getMeasurementLogItemsAction(
         IODeviceChannel $channel,
-                        $offset,
-                        $limit,
-                        $afterTimestamp = 0,
-                        $beforeTimestamp = 0,
-                        $orderDesc = true,
-                        $allowedFuncList = null,
-                        $sparse = null
+        $offset,
+        $limit,
+        $afterTimestamp = 0,
+        $beforeTimestamp = 0,
+        $orderDesc = true,
+        $allowedFuncList = null,
+        $sparse = null
     ) {
         $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
         $offset = intval($offset);

@@ -44,11 +44,8 @@ class MeasurementCsvExporter {
         fputcsv($handle, $csvHeaders);
         $stmt = $this->entityManager->getConnection()->prepare($sqlQuery);
         $timezone = $this->getCurrentUserOrThrow()->getTimezone();
-        $stmt->bindValue(1, $timezone);
-        $stmt->bindValue(2, $timezone);
-        $stmt->bindValue(3, $channel->getId(), 'integer');
-        $stmt->execute();
-        while ($row = $stmt->fetchNumeric()) {
+        $result = $stmt->executeQuery([':timezone' => $timezone, ':channelId' => $channel->getId()]);
+        while ($row = $result->fetchNumeric()) {
             fputcsv($handle, $row);
         }
         fclose($handle);
@@ -57,18 +54,19 @@ class MeasurementCsvExporter {
     }
 
     private function getDataFetchDefinition(IODeviceChannel $channel): array {
-        $timestampSelect = "UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`)) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', ?), `date`) AS date";
+        // @codingStandardsIgnoreStart
+        $timestampSelect = "UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`)) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
         switch ($channel->getType()->getId()) {
             case ChannelType::THERMOSTAT:
             case ChannelType::THERMOSTATHEATPOLHOMEPLUS:
                 return [
                     ['Timestamp', 'Date and time', 'On', 'MeasuredTemperature', 'PresetTemperature'],
-                    "SELECT $timestampSelect, `on`, `measured_temperature`, `preset_temperature` FROM `supla_thermostat_log` WHERE channel_id = ?",
+                    "SELECT $timestampSelect, `on`, `measured_temperature`, `preset_temperature` FROM `supla_thermostat_log` WHERE channel_id = :channelId",
                 ];
             case ChannelType::IMPULSECOUNTER:
                 return [
                     ['Timestamp', 'Date and time', 'Counter', 'CalculatedValue'],
-                    "SELECT $timestampSelect, `counter`, `calculated_value` / 1000 calculated_value FROM `supla_ic_log` WHERE channel_id = ?",
+                    "SELECT $timestampSelect, `counter`, `calculated_value` / 1000 calculated_value FROM `supla_ic_log` WHERE channel_id = :channelId",
                 ];
             case ChannelType::ELECTRICITYMETER:
                 return [
@@ -90,23 +88,24 @@ class MeasurementCsvExporter {
                         'Forward active Energy kWh - Vector balance',
                         'Reverse active Energy kWh - Vector balance',
                     ],
-                    "SELECT $timestampSelect, IFNULL(`phase1_fae`, 0) / 100000.00 phase1_fae, IFNULL(`phase1_rae`, 0) / 100000.00 phase1_rae, IFNULL(`phase1_fre`, 0) / 100000.00 phase1_fre, IFNULL(`phase1_rre`, 0) / 100000.00 phase1_rre, IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, IFNULL(`phase2_fre`, 0) / 100000.00 phase2_fre, IFNULL(`phase2_rre`, 0) / 100000.00 phase2_rre, IFNULL(`phase3_fae`, 0) / 100000.00 phase3_fae, IFNULL(`phase3_rae`, 0) / 100000.00 phase3_rae, IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre, IFNULL(`fae_balanced`, 0) / 100000.00 fae_balanced, IFNULL(`rae_balanced`, 0) / 100000.00 rae_balanced FROM `supla_em_log` WHERE channel_id = ?",
+                    "SELECT $timestampSelect, IFNULL(`phase1_fae`, 0) / 100000.00 phase1_fae, IFNULL(`phase1_rae`, 0) / 100000.00 phase1_rae, IFNULL(`phase1_fre`, 0) / 100000.00 phase1_fre, IFNULL(`phase1_rre`, 0) / 100000.00 phase1_rre, IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, IFNULL(`phase2_fre`, 0) / 100000.00 phase2_fre, IFNULL(`phase2_rre`, 0) / 100000.00 phase2_rre, IFNULL(`phase3_fae`, 0) / 100000.00 phase3_fae, IFNULL(`phase3_rae`, 0) / 100000.00 phase3_rae, IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre, IFNULL(`fae_balanced`, 0) / 100000.00 fae_balanced, IFNULL(`rae_balanced`, 0) / 100000.00 rae_balanced FROM `supla_em_log` WHERE channel_id = :channelId",
                 ];
             case ChannelType::THERMOMETERDS18B20:
             case ChannelType::THERMOMETER:
                 return [
                     ['Timestamp', 'Date and time', 'Temperature'],
-                    "SELECT $timestampSelect, `temperature` FROM `supla_temperature_log` WHERE channel_id = ?",
+                    "SELECT $timestampSelect, `temperature` FROM `supla_temperature_log` WHERE channel_id = :channelId",
                 ];
             case ChannelType::HUMIDITYANDTEMPSENSOR:
             case ChannelType::HUMIDITYSENSOR:
                 return [
                     ['Timestamp', 'Date and time', 'Temperature', 'Humidity'],
-                    "SELECT $timestampSelect, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = ?",
+                    "SELECT $timestampSelect, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = :channelId",
                 ];
             default:
                 throw new ApiException('Cannot generate CSV from this channel - invalid type.');
         }
+        // @codingStandardsIgnoreEnd
     }
 
     private function compress(string $tempFile, string $zipFilename): string {
