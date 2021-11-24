@@ -48,13 +48,13 @@
             startDatePicker.datetimepicker({
                 minDate: 'now',
                 locale: Vue.config.lang,
-                stepping: 5
+                stepping: 1
             });
             endDatePicker.datetimepicker({
                 minDate: moment().add(5, 'minute'),
                 useCurrent: false,
                 locale: Vue.config.lang,
-                stepping: 5
+                stepping: 1
             });
             startDatePicker.on("dp.change", (e) => {
                 endDatePicker.data("DateTimePicker").minDate(e.date);
