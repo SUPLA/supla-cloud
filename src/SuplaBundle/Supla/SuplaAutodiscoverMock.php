@@ -209,6 +209,8 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             'latest_software_version' => '2.7.' . rand(0, 100),
             'fparam1' => 3,
             'fparam2' => 5,
+            'fparam3' => 7,
+            'fparam4' => 9,
             'protocols' => 1,
             'host' => 'www.acsoftware.pl',
             'port' => 80,

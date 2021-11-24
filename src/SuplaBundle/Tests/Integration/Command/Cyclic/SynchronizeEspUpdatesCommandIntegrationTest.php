@@ -38,6 +38,7 @@ class SynchronizeEspUpdatesCommandIntegrationTest extends IntegrationTestCase {
         $existingUpdates = $this->getEntityManager()->getConnection()->fetchAll('SELECT * FROM esp_update');
         $this->assertCount(2, $existingUpdates);
         $this->assertTrue(boolval($existingUpdates[0]['is_synced']));
+        $this->assertEquals($updates[0], array_diff_key($existingUpdates[0], ['id' => '', 'is_synced' => '']));
     }
 
     /** @depends testAddingNewEspUpdates */

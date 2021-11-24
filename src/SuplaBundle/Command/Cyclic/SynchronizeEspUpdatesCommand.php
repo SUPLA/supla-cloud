@@ -69,8 +69,8 @@ class SynchronizeEspUpdatesCommand extends AbstractCyclicCommand {
     private function insertUpdate(array $update) {
         $this->entityManager->getConnection()->executeQuery(
             'INSERT INTO `esp_update` (`device_id`, `device_name`, `platform`, `latest_software_version`, `fparam1`, `fparam2`, ' .
-            '`protocols`, `host`, `port`, `path`, `is_synced`) ' .
-            'VALUES (:device_id, :device_name, :platform, :latest_software_version, :fparam1, :fparam2, ' .
+            '`fparam3`, `fparam4`, `protocols`, `host`, `port`, `path`, `is_synced`) ' .
+            'VALUES (:device_id, :device_name, :platform, :latest_software_version, :fparam1, :fparam2, :fparam3, :fparam4,' .
             ':protocols, :host, :port, :path, 1);',
             $update
         );
