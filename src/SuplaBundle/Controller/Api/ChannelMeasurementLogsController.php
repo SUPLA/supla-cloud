@@ -36,6 +36,7 @@ use SuplaBundle\Model\MeasurementCsvExporter;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\DatabaseUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -161,6 +162,8 @@ class ChannelMeasurementLogsController extends RestController {
         } elseif (!$sparse) {
             $limitSql = 'LIMIT ? OFFSET ?';
         }
+
+        DatabaseUtils::turnOffQueryBuffering($this->entityManager);
 
         if ($sparse > 0) {
             $this->entityManager->getConnection()->exec('SET @nth_log_item_row := 0');
