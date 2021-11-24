@@ -674,9 +674,23 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $memBefore = memory_get_usage();
         ob_start();
         $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs-csv");
+        $data = ob_get_contents();
         ob_end_clean();
         $memAfter = memory_get_usage();
         $memDiff = ($memAfter - $memBefore) / 1024;
         $this->assertLessThan(2000, $memDiff); // less than ~5MB memory consumption
+        // https://stackoverflow.com/a/23113182/878514
+        $head = unpack("Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen", substr($data, 0, 30));
+        $filename = substr($data, 30, $head['namelen']);
+        $this->assertStringContainsString('measurement', $filename);
+        $csv = gzinflate(substr($data, 30 + $head['namelen'] + $head['exlen'], $head['csize']));
+        $this->assertStringContainsString("Temperature", $csv);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV22('GET', "/api/channels/{$channelId}/measurement-logs?offset=50&limit=10");
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent(), true);
+        $testItem = $content[3];
+        $expectedRow = "$testItem[date_timestamp],\"" . date('Y-m-d H:i:s', $testItem['date_timestamp']) . "\",$testItem[temperature]\n";
+        $this->assertStringContainsString($expectedRow, $csv);
     }
 }
