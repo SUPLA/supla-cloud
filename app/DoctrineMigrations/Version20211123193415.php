@@ -3,7 +3,6 @@
 namespace Supla\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
 
 /**
  * Adding two columns to the esp_update table.
@@ -12,7 +11,7 @@ use Doctrine\DBAL\Schema\Schema;
 class Version20211123193415 extends NoWayBackMigration
 {
     public function migrate() {
-        $this->addSql('ALTER TABLE `esp_update` ADD `fparam3` INT NOT NULL AFTER `fparam2`, ADD `fparam4` INT NOT NULL AFTER `fparam3`');
+        $this->addSql('ALTER TABLE `esp_update` ADD `fparam3` INT NOT NULL DEFAULT 0 AFTER `fparam2`, ADD `fparam4` INT NOT NULL DEFAULT 0 AFTER `fparam3`');
         $this->addSql('ALTER TABLE `esp_update` ADD INDEX(`fparam3`)');
         $this->addSql('ALTER TABLE `esp_update` ADD INDEX(`fparam4`)');
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_get_device_firmware_url`');
