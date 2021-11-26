@@ -23,11 +23,11 @@
                     :style="{'background-color': cssColor(currentState.color)}"></span>
             </dt>
             <dd>{{ $t('Color brightness') }}</dd>
-            <dt>{{currentState.color_brightness}}%</dt>
+            <dt>{{ currentState.color_brightness }}%</dt>
         </dl>
         <dl v-if="currentState.brightness">
             <dd>{{ $t('Brightness') }}</dd>
-            <dt>{{currentState.brightness}}%</dt>
+            <dt>{{ currentState.brightness }}%</dt>
         </dl>
         <dl v-if="currentState.is_calibrating">
             <dd>{{ $t('Calibration') }}</dd>
@@ -35,35 +35,42 @@
         </dl>
         <dl v-if="!currentState.is_calibrating && currentState.shut !== undefined">
             <dd>{{ $t('Percentage of closing') }}</dd>
-            <dt>{{currentState.shut}}%</dt>
+            <dt>{{ currentState.shut }}%</dt>
         </dl>
         <dl v-if="currentState.closed !== undefined && channel.function.name === 'VALVEPERCENTAGE'">
             <dd>{{ $t('Percentage of closing') }}</dd>
-            <dt>{{currentState.closed}}%</dt>
+            <dt>{{ currentState.closed }}%</dt>
         </dl>
         <dl v-if="currentState.calculatedValue !== undefined">
             <dd>{{ $t('Meter value') }}</dd>
-            <dt>{{currentState.calculatedValue|roundToDecimals}} {{currentState.unit || ''}}</dt>
+            <dt>{{ currentState.calculatedValue|roundToDecimals }} {{ currentState.unit || '' }}</dt>
         </dl>
         <dl v-if="currentState.phases && currentState.phases[0].totalForwardActiveEnergy !== undefined">
             <dd>{{ $t('Forward active energy') }}</dd>
-            <dt>{{(currentState.phases[0].totalForwardActiveEnergy + currentState.phases[1].totalForwardActiveEnergy + currentState.phases[2].totalForwardActiveEnergy) | roundToDecimals}} kWh</dt>
+            <dt>{{ (currentState.phases[0].totalForwardActiveEnergy + currentState.phases[1].totalForwardActiveEnergy + currentState.phases[2].totalForwardActiveEnergy) | roundToDecimals }} kWh</dt>
         </dl>
         <dl v-if="currentState.value !== undefined">
             <dd>{{ $t('State') }}</dd>
             <dt>
-                <span v-if="channel.function.name === 'WEIGHTSENSOR' && currentState.value >= 2000">
-                    {{ currentState.value / 1000 | roundToDecimals(4) }}
+                <span v-if="channel.function.name === 'WEIGHTSENSOR'">
+                    <span v-if="currentState.value >= 2000">
+                        {{ currentState.value / 1000 | roundToDecimals(4) }} kg
+                    </span>
+                    <span v-else>
+                        {{ currentState.value }} g
+                    </span>
+                </span>
+                <span v-else-if="channel.function.name === 'RAINSENSOR'">
+                    {{ currentState.value / 1000 | roundToDecimals(4) }} l/m
+                </span>
+                <span v-else-if="channel.function.name === 'PRESSURESENSOR'">
+                    {{ currentState.value }} hPa
+                </span>
+                <span v-else-if="channel.function.name === 'WINDSENSOR'">
+                    {{ currentState.value }} m/s
                 </span>
                 <span v-else>
                     {{ currentState.value }}
-                </span>
-                <span v-if="channel.function.name === 'WINDSENSOR'">m/s</span>
-                <span v-else-if="channel.function.name === 'PRESSURESENSOR'">hPa</span>
-                <span v-else-if="channel.function.name === 'RAINSENSOR'">l/m<sup>2</sup></span>
-                <span v-else-if="channel.function.name === 'WEIGHTSENSOR'">
-                    <span v-if="currentState.value >= 2000">kg</span>
-                    <span v-else>g</span>
                 </span>
             </dt>
         </dl>
