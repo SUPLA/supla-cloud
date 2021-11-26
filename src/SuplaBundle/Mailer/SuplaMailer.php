@@ -120,11 +120,6 @@ class SuplaMailer {
         );
     }
 
-    public function sendDeleteAccountConfirmationEmailMessage(User $user): bool {
-        $url = $this->linkWithLang($user, 'confirm-deletion/' . $user->getToken());
-        return $this->sendEmailMessage('confirm_deletion', $user, ['confirmationUrl' => $url]);
-    }
-
     public function sendServiceUnavailableMessage($detail): bool {
         return $this->sendEmailMessage(
             'service_unavailable',

@@ -1,5 +1,11 @@
+{% extends '@Supla/Email/pl/template.txt.twig' %}
+
+{% block subject %}
 SUPLA - Usunięcie konta
-Witaj!,
+{% endblock %}
+
+{% block body %}
+Witaj!
 
 Otrzymaliśmy dyspozycję usunięcia Twojego konta w SUPLA Cloud.
 
@@ -17,11 +23,7 @@ Jeśli link nie działa, skopiuj go w pasek przeglądarki lub wpisz ręcznie.
 
 UWAGA!
 Jeżeli nie chcesz usuwać konta w serwisie cloud.supla.org, nie klikaj odnośnika.
-
-
-Z poważaniem,
-Zespół SUPLA.ORG
-
+{% endblock %}
 
 
 

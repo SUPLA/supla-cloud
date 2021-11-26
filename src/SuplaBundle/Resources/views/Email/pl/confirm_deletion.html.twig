@@ -1,0 +1,28 @@
+{% extends '@Supla/Email/pl/template.html.twig' %}
+
+{% block subject %}
+    SUPLA - Usunięcie konta
+{% endblock %}
+
+{% block preheader %}
+    Jeśli naprawdę chcesz usunąć konto, tutaj znajdziesz dalsze instrukcje.
+{% endblock %}
+
+{% block body %}
+    {% apply paragraph %} Witaj! {% endapply %}
+    {% apply paragraph %} Otrzymaliśmy dyspozycję usunięcia Twojego konta w SUPLA Cloud. {% endapply %}
+    {% apply paragraph %}
+        Pamiętaj, że razem z Twoim kontem usuniemy wszystkie Twoje dane, w tym ustawienia, skonfigurowane urządzenia, lokalizacje,
+        harmonogramy i wszystkie inne funkcjonalności oferowane przez SUPLA.
+    {% endapply %}
+    {% apply paragraph %} Po ponownej rejestracji konta, niektóre urządzenia mogą wymagać ponownej konfiguracji nawet jeśli podasz ten sam adres e-mail. {% endapply %}
+    {% apply paragraph %} Aby potwierdzić chęć usunięcia Twojego konta SUPLA, kliknij poniższy link. {% endapply %}
+    {% apply paragraph %} <b>TEJ OPERACJI NIE DA SIĘ COFNĄĆ!</b> {% endapply %}
+    {% apply linkButton(confirmationUrl, 'danger') %} Usuń moje konto {% endapply %}
+    {% apply paragraph %} <b>UWAGA!</b> Jeżeli nie chcesz usuwać konta w serwisie {{ cloudHost() }}, nie klikaj odnośnika. {% endapply %}
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+
+

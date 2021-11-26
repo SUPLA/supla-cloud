@@ -353,6 +353,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($entry->getUser());
         $this->assertEquals($this->createdUser->getId(), $entry->getUser()->getId());
         $this->assertEquals(AuthenticationFailureReason::BAD_CREDENTIALS, $entry->getIntParam());
+        $this->flushMessagesQueue($client);
     }
 
     public function testSendsInvalidAuthenticationWarningByEmail() {

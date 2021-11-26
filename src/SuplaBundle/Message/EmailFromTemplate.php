@@ -4,7 +4,7 @@ namespace SuplaBundle\Message;
 
 use SuplaBundle\Entity\User;
 
-class EmailFromTemplate implements AsyncMessage {
+class EmailFromTemplate {
     private $templateName;
     private $userId;
     private $data;

@@ -74,10 +74,11 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
         $this->assertNotNull($this->user = $this->getEntityManager()->find(User::class, $this->user->getId()));
+        $this->flushMessagesQueue($client);
         $this->assertNotEmpty(TestMailer::getMessages());
         $confirmationMessage = TestMailer::getMessages()[0];
         $this->assertArrayHasKey($this->user->getEmail(), $confirmationMessage->getTo());
-        $this->assertContains('Removal', $confirmationMessage->getSubject());
+        $this->assertContains('Usunięcie', $confirmationMessage->getSubject());
         $this->assertContains($this->user->getToken(), $confirmationMessage->getBody());
     }
 

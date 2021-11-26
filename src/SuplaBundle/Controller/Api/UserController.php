@@ -32,6 +32,7 @@ use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
+use SuplaBundle\Message\Emails\DeleteUserConfirmationEmailNotification;
 use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
@@ -46,6 +47,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserController extends RestController {
@@ -143,10 +145,11 @@ class UserController extends RestController {
     }
 
     /**
+     * @Rest\Patch("/users/current")
      * @Security("has_role('ROLE_ACCOUNT_RW')")
      * @UnavailableInMaintenance
      */
-    public function patchUsersCurrentAction(Request $request) {
+    public function patchUsersCurrentAction(Request $request, MessageBusInterface $messageBus) {
         $data = $request->request->all();
         $user = $this->getUser();
         if ($data['action'] == 'delete') {
@@ -154,7 +157,7 @@ class UserController extends RestController {
             $password = $data['password'] ?? '';
             Assertion::true($this->userManager->isPasswordValid($user, $password), 'Incorrect password'); // i18n
             $this->userManager->accountDeleteRequest($user);
-            $this->mailer->sendDeleteAccountConfirmationEmailMessage($user);
+            $messageBus->dispatch(new DeleteUserConfirmationEmailNotification($user));
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
         $headers = [];

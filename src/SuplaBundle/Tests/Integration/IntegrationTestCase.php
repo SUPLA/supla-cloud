@@ -64,6 +64,7 @@ abstract class IntegrationTestCase extends WebTestCase {
             $this->executeCommand('doctrine:schema:drop --force');
             $this->executeCommand('doctrine:schema:create');
             $this->executeCommand('supla:initialize:create-webapp-client');
+            $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE messenger_messages;');
             $this->initializeDatabaseForTests();
             $reflection = new ReflectionClass($this);
             $vars = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);
@@ -102,10 +103,6 @@ abstract class IntegrationTestCase extends WebTestCase {
             $input = new StringInput("$command --env=test");
         }
         $application = $this->application;
-        if ($client) {
-            $application = new Application($client->getKernel());
-            $application->setAutoExit(false);
-        }
         if ($client) {
             $application = new Application($client->getKernel());
             $application->setAutoExit(false);
@@ -197,5 +194,10 @@ abstract class IntegrationTestCase extends WebTestCase {
 
     protected function freshEntity($entity) {
         return $this->getEntityManager()->find(get_class($entity), $entity->getId());
+    }
+
+    protected function flushMessagesQueue(?TestClient $client = null) {
+        $count = $this->getEntityManager()->getConnection()->fetchOne('SELECT COUNT(*) FROM messenger_messages');
+        $this->executeCommand("messenger:consume --limit $count --no-interaction", $client);
     }
 }

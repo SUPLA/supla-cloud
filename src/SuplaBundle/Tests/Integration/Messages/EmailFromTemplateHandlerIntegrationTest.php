@@ -42,6 +42,10 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
+    }
+
+    /** @before */
+    public function initServices() {
         $this->handler = self::$container->get(EmailFromTemplateHandler::class);
     }
 

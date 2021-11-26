@@ -26,7 +26,7 @@ class EmailTwigExtension extends AbstractExtension {
     public function getFilters() {
         return [
             new TwigFilter('paragraph', [$this, 'generateParagraph'], ['is_safe' => ['html']]),
-            new TwigFilter('greenButton', [$this, 'generateGreenButton'], ['needs_context' => true, 'is_safe' => ['html']]),
+            new TwigFilter('linkButton', [$this, 'generateLinkButton'], ['needs_context' => true, 'is_safe' => ['html']]),
         ];
     }
 
@@ -45,20 +45,21 @@ class EmailTwigExtension extends AbstractExtension {
 PARAGRAPH;
     }
 
-    public function generateGreenButton(array $context, string $text, string $url): string {
+    public function generateLinkButton(array $context, string $text, string $url, string $type = 'primary'): string {
         $copyMessage = 'If the link is not working, please copy and paste it or enter manually in a new browser window.'; // i18n
         $url = $this->localSuplaCloud->getAddress() . $url . '?lang=' . $context['userLocale'];
         $copyText = $this->generateParagraph($this->translator->trans($copyMessage, [], null, $context['userLocale']));
         $copyText .= $this->generateParagraph("<code>$url</code>");
+        $color = ['danger' => '#d9534f'][$type] ?? '#00d151';
         return <<<GREENBUTTON
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="butn butn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="butn butn-$type" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
             <tbody>
             <tr>
                 <td align="left" style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;">
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                         <tbody>
                         <tr>
-                            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #00d151; border-radius: 5px; text-align: center;"> <a href="$url" target="_blank" style="display: inline-block; color: #ffffff; background-color: #00d151; border: solid 1px #00d151; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #00d151;">$text</a> </td>
+                            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: $color; border-radius: 5px; text-align: center;"> <a href="$url" target="_blank" style="display: inline-block; color: #ffffff; background-color: $color; border: solid 1px $color; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: $color;">$text</a> </td>
                         </tr>
                         </tbody>
                     </table>

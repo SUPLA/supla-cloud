@@ -11,7 +11,7 @@
 {% block body %}
     {% apply paragraph %} Witaj! {% endapply %}
     {% apply paragraph %} Kliknij poniższy link w celu zresetowania Twojego hasła do aplikacji {{ cloudHost() }}. {% endapply %}
-    {% apply greenButton(confirmationUrl) %} Resetuj Hasło {% endapply %}
+    {% apply linkButton(confirmationUrl) %} Resetuj Hasło {% endapply %}
     {% apply paragraph %}Link będzie aktywny przez godzinę.{% endapply %}
     {% apply paragraph %}
         <b>UWAGA!</b>
