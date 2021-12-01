@@ -8,10 +8,15 @@ class EmailFromTemplate {
     private $templateName;
     private $userId;
     private $data;
+    private $recipient;
 
-    public function __construct(string $templateName, $userId, ?array $data = []) {
+    public function __construct(string $templateName, $userIdOrRecipient, ?array $data = []) {
         $this->templateName = $templateName;
-        $this->userId = $userId instanceof User ? $userId->getId() : $userId;
+        if (is_string($userIdOrRecipient)) {
+            $this->recipient = $userIdOrRecipient;
+        } else {
+            $this->userId = $userIdOrRecipient instanceof User ? $userIdOrRecipient->getId() : $userIdOrRecipient;
+        }
         $this->data = $data;
     }
 
@@ -19,11 +24,15 @@ class EmailFromTemplate {
         return $this->templateName;
     }
 
-    public function getUserId(): int {
+    public function getUserId(): ?int {
         return $this->userId;
     }
 
     public function getData(): ?array {
         return $this->data;
+    }
+
+    public function getRecipient(): ?string {
+        return $this->recipient;
     }
 }

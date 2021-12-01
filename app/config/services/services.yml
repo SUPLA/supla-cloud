@@ -77,6 +77,11 @@ services:
   SuplaBundle\Message\:
     resource: '../../../src/SuplaBundle/Message'
 
+  SuplaBundle\Message\EmailFromTemplateHandler:
+    $defaultLocale: "%locale%"
+  SuplaBundle\Message\EmailToAdminHandler:
+    $adminEmail: "%admin_email%"
+
   SuplaBundle\Model\:
     resource: '../../../src/SuplaBundle/Model'
 
