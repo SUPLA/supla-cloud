@@ -80,6 +80,10 @@ const setGuiLocale = (userData) => {
         let language = window.navigator.userLanguage || window.navigator.language || 'en';
         locale = language.substring(0, 2);
     }
+    const availableLocales = Vue.config.availableLanguages.map(l => l.name);
+    if (!availableLocales.includes(locale)) {
+        locale = 'en';
+    }
     return Vue.prototype.$setLocale(locale);
 };
 
