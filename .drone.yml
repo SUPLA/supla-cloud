@@ -65,23 +65,14 @@ steps:
       - rm -fr var/cache/test
       - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
 
-  - name: slack
-    image: plugins/slack
+  - name: notify
+    image: mike1pol/drone-rocket
     depends_on: [ integration-tests ]
     settings:
-      webhook:
-        from_secret: slack_webhook
+      url: { from_secret: rocket_url }
+      user_id: { from_secret: rocket_user }
+      token: { from_secret: rocket_token }
       channel: github
-      username: drone
-      icon_url: https://unsplash.it/256/256/?random
-      template: >
-        {{#if build.pull }}
-          *{{#success build.status}}✔{{ else }}✘{{/success}} {{ uppercasefirst build.status }}*: <https://github.com/{{ repo.owner }}/{{ repo.name }}/pull/{{ build.pull }}|Pull Request #{{ build.pull }}> in {{since build.created}}
-        {{else}}
-          *{{#success build.status}}✔{{ else }}✘{{/success}} {{ uppercasefirst build.status }}: Build #{{ build.number }}* (type: `{{ build.event }}`) in {{since build.created}}
-        {{/if}}
-        Commit: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{ build.commit }}|{{ truncate build.commit 8 }}> at: <https://github.com/{{ repo.owner }}/{{ repo.name }}/commits/{{ build.branch }}|{{repo.owner}}/{{repo.name}}/{{ build.branch }}> by: {{ build.author }}
-        <{{ build.link }}|Visit build page ↗>
     when:
       status: [ success, failure ]
     trigger:
