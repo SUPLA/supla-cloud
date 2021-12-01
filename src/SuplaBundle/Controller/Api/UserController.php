@@ -218,7 +218,7 @@ class UserController extends RestController {
                 $this->assertNotApiUser();
                 Assertion::true($this->mqttBrokerEnabled, 'MQTT Broker is disabled.'); // i18n
                 Assertion::true($user->isMqttBrokerEnabled(), 'You must enable MQTT Broker first.'); // i18n
-                list($rawPassword, $encodedPassword) = MqttSettingsController::generateMqttBrokerPassword();
+                [$rawPassword, $encodedPassword] = MqttSettingsController::generateMqttBrokerPassword();
                 $user->setMqttBrokerAuthPassword($encodedPassword);
                 $headers['SUPLA-MQTT-Password'] = $rawPassword;
             }
@@ -330,7 +330,7 @@ class UserController extends RestController {
             ->validate($newPassword);
         $user->setPlainPassword($newPassword);
 
-        $locale = $data['locale'] ?? 'en';
+        $locale = ($data['locale'] ?? '') ?: 'en';
         Assertion::inArray($locale, $this->availableLanguages, 'Language is not available'); // i18n
         $user->setLocale($locale);
 
