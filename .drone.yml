@@ -2,21 +2,8 @@ kind: pipeline
 name: default
 
 steps:
-  #  - name: restore-cache
-  #    image: drillster/drone-volume-cache
-  #    depends_on: [clone]
-  #    volumes:
-  #      - name: cache
-  #        path: /cache
-  #    settings:
-  #      restore: true
-  #      mount:
-  #        - ./vendor
-  #        - ./src/Frontend/node_modules
-
   - name: install-frontend
     image: node:14.16.1-slim
-    #    depends_on: [restore-cache]
     depends_on: [ clone ]
     commands:
       - npm install --global npm@7
@@ -46,7 +33,6 @@ steps:
 
   - name: install-backend
     image: supla/supla-cloud
-    #    depends_on: [restore-cache]
     depends_on: [ clone ]
     commands:
       - cp app/config/parameters.yml.drone app/config/parameters.yml
@@ -103,19 +89,6 @@ steps:
       event:
         exclude: [ pull_request ]
 
-
-#  - name: rebuild-cache
-#    image: drillster/drone-volume-cache
-#    depends_on: [install-backend, install-frontend]
-#    volumes:
-#      - name: cache
-#        path: /cache
-#    settings:
-#      rebuild: true
-#      mount:
-#        - ./vendor
-#        - ./src/Frontend/node_modules
-
 services:
   - name: database
     image: mysql:5.7.20
@@ -124,10 +97,3 @@ services:
       MYSQL_DATABASE: supla_test
       MYSQL_USER: drone
       MYSQL_PASSWORD: ~
-
-
-#volumes:
-#  - name: cache
-#    host:
-#      path: /tmp/cache
-
