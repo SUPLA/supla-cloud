@@ -12,14 +12,16 @@ class EmailToAdminHandler implements MessageHandlerInterface {
     /** @var string */
     private $adminEmail;
 
-    public function __construct(MessageBusInterface $messageBus, string $adminEmail) {
+    public function __construct(MessageBusInterface $messageBus, ?string $adminEmail) {
         $this->messageBus = $messageBus;
         $this->adminEmail = $adminEmail;
     }
 
     public function __invoke(EmailToAdmin $emailToAdmin) {
-        $email = $emailToAdmin->getEmail();
-        EntityUtils::setField($email, 'recipient', $this->adminEmail);
-        $this->messageBus->dispatch($email);
+        if ($this->adminEmail) {
+            $email = $emailToAdmin->getEmail();
+            EntityUtils::setField($email, 'recipient', $this->adminEmail);
+            $this->messageBus->dispatch($email);
+        }
     }
 }

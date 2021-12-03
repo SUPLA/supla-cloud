@@ -78,7 +78,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotEmpty(TestMailer::getMessages());
         $confirmationMessage = TestMailer::getMessages()[0];
         $this->assertArrayHasKey($this->user->getEmail(), $confirmationMessage->getTo());
-        $this->assertContains('Usunięcie', $confirmationMessage->getSubject());
+        $this->assertContains('Removal', $confirmationMessage->getSubject());
         $this->assertContains($this->user->getToken(), $confirmationMessage->getBody());
     }
 

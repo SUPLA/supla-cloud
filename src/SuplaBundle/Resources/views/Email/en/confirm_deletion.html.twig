@@ -1,0 +1,26 @@
+{% extends '@Supla/Email/en/template.html.twig' %}
+
+{% block subject %}
+    SUPLA - Account Removal
+{% endblock %}
+
+{% block preheader %}
+    If you really want to delete the account, here are the instructions.
+{% endblock %}
+
+{% block body %}
+    {% apply paragraph %} Welcome! {% endapply %}
+    {% apply paragraph %} We have been asked to delete your SUPLA Cloud account ({{ cloudHost() }}). {% endapply %}
+    {% apply paragraph %}
+        Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features
+        that you used in SUPLA along with your account.
+    {% endapply %}
+    {% apply paragraph %} If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address. {% endapply %}
+    {% apply paragraph %} Click the following link to confirm removal of your account on {{ cloudHost() }}. {% endapply %}
+    {% apply paragraph %} <b>THIS CANNOT BE UNDONE!</b> {% endapply %}
+    {% apply linkButton(confirmationUrl, 'danger') %} Delete my account {% endapply %}
+    {% apply paragraph %}
+        <b>NOTICE!</b> If you do not want to delete your account on {{ cloudHost() }}, please do not click the link. {% endapply %}
+{% endblock %}
+
+{% block footer %}{% endblock %}

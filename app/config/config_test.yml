@@ -37,7 +37,7 @@ services:
     $templating: '@templating.engine.twig'
     $mailer: '@SuplaBundle\Tests\Integration\TestMailer'
     $mailerFrom: "%mailer_from%"
-    $adminEmail: "%admin_email%"
+    $adminEmail: "admin@supla.org"
     $defaultLocale: "%locale%"
     $localSuplaCloud: '@SuplaBundle\Model\LocalSuplaCloud'
   SuplaBundle\Model\TimeProvider:

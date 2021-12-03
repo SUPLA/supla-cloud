@@ -310,6 +310,18 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testConfirmingWithGoodToken */
+    public function testNotifyingAdminAboutNewAccount() {
+        $this->flushMessagesQueue();
+        $messages = TestMailer::getMessages();
+        $this->assertGreaterThanOrEqual(1, count($messages));
+        $notifyMessage = end($messages);
+        $this->assertArrayHasKey('admin@supla.org', $notifyMessage->getTo());
+        $this->assertContains('New account activated', $notifyMessage->getSubject());
+        $this->assertContains(self::EMAIL, $notifyMessage->getBody());
+        $this->assertContains('supla.local', $notifyMessage->getBody());
+    }
+
+    /** @depends testConfirmingWithGoodToken */
     public function testCannotResendActivationEmailForConfirmedUser() {
         TestTimeProvider::setTime('+6 minutes');
         $client = $this->createHttpsClient();
@@ -391,7 +403,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDoesNotSendResetPasswordEmailTwiceInARow() {
-        $this->testConfirmingWithGoodToken($this->createdUser);
+        $this->testConfirmingWithGoodToken();
         TestMailer::reset();
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);
@@ -407,7 +419,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSendsAnotherResetMessageIfTimePasses() {
-        $this->testConfirmingWithGoodToken($this->createdUser);
+        $this->testConfirmingWithGoodToken();
         TestMailer::reset();
         $client = $this->createHttpsClient();
         $client->apiRequest('POST', '/api/forgotten-password', ['email' => self::EMAIL]);

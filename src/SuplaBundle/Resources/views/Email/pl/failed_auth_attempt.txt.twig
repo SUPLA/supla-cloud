@@ -1,15 +1,16 @@
 {% extends '@Supla/Email/pl/template.txt.twig' %}
 
 {% block subject %}
-SUPLA – Powiadomienie o nieudanym logowaniu do cloud.supla.org
+SUPLA – Powiadomienie o nieudanym logowaniu do {{ cloudHost() }}
 {% endblock %}
 
 {% block body %}
 Witaj!
 
-Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD przy użyciu Twojego adresu email.
+Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD ({{ cloudHost() }}) przy użyciu Twojego adresu email.
 {% if ip %}
-    Próba logowania nastąpiła z adresu IP: {{ ip }}
+
+Próba logowania nastąpiła z adresu IP: {{ ip }}
 {% endif %}
 
 Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.

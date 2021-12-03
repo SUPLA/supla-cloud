@@ -1,0 +1,23 @@
+{% extends '@Supla/Email/en/template.html.twig' %}
+
+{% block subject %}
+    SUPLA - Password reset
+{% endblock %}
+
+{% block preheader %}
+    Password reset instructions.
+{% endblock %}
+
+{% block body %}
+    {% apply paragraph %} Hello! {% endapply %}
+    {% apply paragraph %} Please click the following link to reset your {{ cloudHost() }} password. {% endapply %}
+    {% apply linkButton(confirmationUrl) %} Reset Your Password {% endapply %}
+    {% apply paragraph %}This link is only valid for an hour.{% endapply %}
+    {% apply paragraph %}
+        <b>NOTICE!</b>
+        If you did not request this password reset, please ignore this information.
+        It is possible that another user have entered your email address by mistake while resetting password to their own account.
+    {% endapply %}
+{% endblock %}
+
+{% block footer %}{% endblock %}
