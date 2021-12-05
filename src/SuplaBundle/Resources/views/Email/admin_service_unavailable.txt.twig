@@ -1,4 +1,4 @@
-{% extends '@Supla/Email/en/template.txt.twig' %}
+{% extends '@Supla/Email/template.txt.twig' %}
 
 {% block subject %}
 SUPLA - Service Unavailable
@@ -6,7 +6,8 @@ SUPLA - Service Unavailable
 
 {% block body %}
 Server: {{ svrUrl() }}
-Detail: {{ detail }}
+URL: {{ url }}
+Message: {{ message }}
 {% endblock %}
 
 {% block footer %}{% endblock %}

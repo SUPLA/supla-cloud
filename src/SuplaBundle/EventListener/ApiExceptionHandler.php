@@ -52,8 +52,8 @@ class ApiExceptionHandler implements EventSubscriberInterface {
             $context = ['exceptionMessage' => $exception->getMessage(), 'trace' => $exception->getTraceAsString()];
             if ($errorResponse->getStatusCode() >= 500) {
                 $this->logger->error('API Error', $context);
-                $detail = $request->getRequestUri() . ' -- ' . $exception->getMessage();
-                $this->messageBus->dispatch(new EmailToAdmin(new ServiceUnavailableAdminEmailNotification($detail)));
+                $email = new ServiceUnavailableAdminEmailNotification($request->getRequestUri(), $exception->getMessage());
+                $this->messageBus->dispatch(new EmailToAdmin($email));
             } elseif ($errorResponse->getStatusCode() != 400) {
                 $this->logger->notice('API Exception', $context);
             }
