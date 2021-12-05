@@ -19,7 +19,6 @@ Account: Mon compte
 Account access when you are unavailable: Accès à votre compte en cas d'indisponibilité
 Account has been activated. You can Sign In now.: Votre compte a été activé. Vous pouvez dorénavant vous connecter
 Action execution: Exécution d'une action
-Actions: Actions
 Active: Actifs
 Add: Ajouter
 Add a new icon: Ajouter une nouvelle icône
@@ -71,7 +70,6 @@ Cancel: Annuler
 Cancel changes: Annuler les modifications
 Cancelled: Annulé
 Cannot execute an action when the device is disconnected.: Ne pas effectuer d’actions lorsque l’appareil est débranché.
-Cannot send an activation e-mail. Try again later.: Impossible d’envoyer le message avec le lien d’activation. Réessayez plus tard.
 'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Vous n’avez pas reçu le message avec le lien d’activation?  Assurez-vous qu’il ne soit pas considéré comme du SPAM (courrier indésirable). Vous pouvez aussi cliquer [ici], pour l’envoyer encore une fois.'
 Captcha token is not valid.: Captcha incorrect.
 Caption: Signature
@@ -88,7 +86,6 @@ Channel group must consist of at least one channel.: Groupe de chaînes doit con
 Channel groups: Groupes de chaînes
 Channel is assigned to the I/O device location: La chaîne est attribuée au lieu du dispositif
 Channels: Chaînes
-Channels in channel group: Canaux dans les groupes de canaux
 Check the direct link you used and try again.: Vérifiez le lien direct et réessayez
 Check your email box: Vérifiez votre messagerie électronique
 Choose: Choisir
@@ -592,9 +589,12 @@ valid until: expirera
 Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
 Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
 Action: Action
+Actions: Actions
 Are you sure you want to disable this device?: Voulez-vous vraiement désactiver ce dispositif?
 Assigned Locations: Lieux attribués
+Cannot send an activation e-mail. Try again later.: Impossible d’envoyer le message avec le lien d’activation. Réessayez plus tard.
 Channel will be deleted from the channel group below: La chaîne sera supprimée des groupes de chaînes suivants
+Channels in channel group: Canaux dans les groupes de canaux
 Chosen hour: Heure choisie
 'Confirm if you want to remove {deviceName} device': 'Confirmez la suppression de dispositif {deviceName}'
 DISABLED: DÉSACTIVÉ
@@ -650,12 +650,15 @@ hourly: Cycle par heures
 A new personal access token has been generated.: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
+'Action trigger no. #{index}': ~
 Action triggers: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. Here you can limit the number of these attempts.': ~
+And set the same state for: ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
 Associated measured channel: ~
@@ -692,9 +695,11 @@ Chart type: ~
 Check your email inbox: ~
 Choose channel function: ~
 Clear: ~
+Close partially: ~
 Config of the schedule is too complicated.: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Copy channel state: ~
 Create new scene: ~
 Current Overload: ~
 Default: ~
@@ -704,20 +709,26 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+Disable local function: ~
+Disables local device function and does nothing more.: ~
 'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
+Feature limits: ~
+Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
+Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
+Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
 Interpolate measurements: ~
 Invalid action parameters: ~
-Invalid schedule config (incorrect action).: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Location name: ~
@@ -729,6 +740,8 @@ MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
 Meters: ~
+Move down or stop: ~
+Move up or stop: ~
 Need one of these?: ~
 New scene: ~
 No of channels: ~
@@ -737,6 +750,7 @@ No of devices: ~
 No of operations: ~
 No schedule configuration.: ~
 None (channel disabled): ~
+Number of attempts to open or close: ~
 Number of sections: ~
 Operations: ~
 Other: ~
@@ -746,8 +760,13 @@ Please choose the schedule subject first.: ~
 Port: ~
 Precision: ~
 Protocol: ~
+Publish to integrations: ~
+Publishes the event to integrated services like MQTT or webhooks.: ~
+Read the following channel's state: ~
+Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
 Reset counter: ~
+Reverse active energy balanced: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
 Save or discard configuration changes first.: ~
@@ -755,6 +774,9 @@ Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
+Set initial values: ~
+Setting any action on this trigger will disable its local function: ~
+Shut partially: ~
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
 Some features depend on this channel group: ~
 Some features depend on this device: ~
@@ -771,6 +793,7 @@ The following items use the channels of these device. These references will be a
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
+Too many actions in this schedule.: ~
 Triggers: ~
 Turning this device off will cause its channels not working in the following features.: ~
 Turning this device off will result in disabling features listed below.: ~
@@ -783,11 +806,13 @@ You have to choose at least one scope.: ~
 You must enable MQTT Broker first.: ~
 You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
+'Your channel groups are allowed to have a maximum of {max} channels.': ~
 'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': ~
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
+'Your schedules are allowed to have a maximum of {max} actions.': ~
 actionTrigger_HOLD: ~
 actionTrigger_SHORT_PRESS_X1: ~
 actionTrigger_SHORT_PRESS_X2: ~
@@ -802,6 +827,7 @@ actionTrigger_TOGGLE_X5: ~
 actionTrigger_TURN_OFF: ~
 actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
+choose the action: ~
 choose the scene: ~
 crontab: ~
 days: ~

@@ -81,7 +81,6 @@ Cancelled: Cancellati
 Cannot change the channel function right now.: Non è possibile modificare la funzione del canale in questo momento.
 Cannot delete this I/O Device right now.: Non è possibile eliminare il dispositivo I/O in questo momento.
 Cannot execute an action when the device is disconnected.: Non è possibile eseguire le azioni se l’apparecchio è disconnesso.
-Cannot send an activation e-mail. Try again later.: Impossibile inviare il messaggio con il link di attivazione. Riprova più tardi.
 'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Non hai ricevuto il messaggio con il link di attivazione del Tuo account? Assicurati che esso non sia finito nella casella SPAM (posta indesiderata). Puoi anche cliccare [qui], per inviarlo di nuovo.'
 Captcha token is not valid.: Captcha non valido.
 Caption: Titolo
@@ -676,6 +675,7 @@ Action: Azione
 Actions: Azioni
 Are you sure you want to disable this device?: Sei sicuro di voler spegnere questo dispositivo?
 Assigned Locations: Localizzazioni assegnate
+Cannot send an activation e-mail. Try again later.: Impossibile inviare il messaggio con il link di attivazione. Riprova più tardi.
 Channel will be deleted from the channel group below: Il canale verrà eliminato dal seguente gruppo di canali
 Channels in channel group: Canali nei gruppi di canali
 Chosen hour: Orario selezionato
@@ -782,6 +782,7 @@ Forward active energy balanced: ~
 General purpose measurement: ~
 Generic action: ~
 Guru Meditation: ~
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
 Initial values: ~
 Interpolate measurements: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~

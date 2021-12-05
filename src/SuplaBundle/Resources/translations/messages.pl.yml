@@ -106,7 +106,6 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nie udało
 Cannot change the channel function right now.: Nie można zmienić funkcji tego kanału w tej chwili.
 Cannot delete this I/O Device right now.: Nie można usunąć tego urządzenia w tej cwili.
 Cannot execute an action when the device is disconnected.: Nie można wykonywać akcji gdy urządzenie jest rozłączone.
-Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Wiadomość z linkiem aktywującym Twoje konto nie dotarła? Upewnij się, że nie trafiła do folderu SPAM (niechciana poczta). Możesz też kliknąć [tutaj], by wysłać ją ponownie.'
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
@@ -792,6 +791,7 @@ Actions: Akcje
 Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: Rzeczywiste zachowanie wyzwalacza zależy od używanego urządzenia i jego konfiguracji. Opisy pod spodem są tylko przykładami jak urządzenie może działać.
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
+Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Change: Zmień
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels in channel group: Kanały w grupach kanałów

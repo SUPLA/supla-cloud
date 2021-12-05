@@ -17,7 +17,6 @@ Account: الحساب
 Account access when you are unavailable: الوصول إلى حسابك عندما تكون غير متاح
 Account has been activated. You can Sign In now.: تم تفعيل الحساب. يمكنك تسجيل الدخول
 Action execution: أداء الاجراء
-Actions: الاجراءات
 Active: نشطة
 Add: إضافة
 Add a new icon: أضف أيقونة جديدة
@@ -65,7 +64,6 @@ Cancel: إلغاء
 Cancel changes: إلغاء التغييرات
 Cancelled: الملغاة
 Cannot execute an action when the device is disconnected.: لا يمكنك القيام بإجراءات عند فصل الجهاز.
-Cannot send an activation e-mail. Try again later.: غير قادر على إرسال رسالة مع رابط التفعيل. يرجى المحاولة مرة أخرى لاحقًا.
 Captcha token is not valid.: كلمة التحقق غير صالحة.
 Caption: التوقيع
 Change Password: تغيير كلمة المرور
@@ -541,8 +539,10 @@ sunset-before: غرب
 Access identifier password must be at least 8 characters.: يجب أن تتكون كلمة المرور الخاصة بمعرف الوصول من 8 أحرف على الأقل.
 Access identifier password must be no longer than 32 characters.: لا يمكن أن تكون كلمة المرور الخاصة بمعرف الوصول أطول من 32 حرفًا.
 Action: الاجراء
+Actions: الاجراءات
 Are you sure you want to disable this device?: هل أنت متأكد من أنك تريد إيقاف تشغيل هذا الجهاز؟
 Assigned Locations: المواقع المخصصة
+Cannot send an activation e-mail. Try again later.: غير قادر على إرسال رسالة مع رابط التفعيل. يرجى المحاولة مرة أخرى لاحقًا.
 Channel will be deleted from the channel group below: ستتم إزالة القناة من مجموعات القنوات التالية
 Chosen hour: الوقت المحدد
 'Confirm if you want to remove {deviceName} device': 'أكد أنك تريد إزالة {deviceName}'
@@ -606,13 +606,16 @@ A-Z: ~
 API rate limits: ~
 Access to all of your devices through MQTT Broker: ~
 Action trigger: ~
+'Action trigger no. #{index}': ~
 Action triggers: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. Here you can limit the number of these attempts.': ~
 'Alternatively, you can add a GET parameter to specify response format.': ~
+And set the same state for: ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
 Associated measured channel: ~
@@ -648,16 +651,17 @@ Channel reference will be removed from the items below.: ~
 Channel value: ~
 Channel with action triggers: ~
 Channels groups are not supported for this function.: ~
-Channels in channel group: ~
 Chart data source type: ~
 Chart type: ~
 Check your email inbox: ~
 Choose channel function: ~
 Clear: ~
 Client registration: ~
+Close partially: ~
 Config of the schedule is too complicated.: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
+Copy channel state: ~
 Could not contact Autodiscover service. Try again in a while.: ~
 Create new scene: ~
 Current Overload: ~
@@ -668,13 +672,18 @@ Digi Glass: ~
 Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
+Disable local function: ~
+Disables local device function and does nothing more.: ~
 'Doors, Gates, Windows': ~
 Execute: ~
 Execute the scene: ~
+Feature limits: ~
 Flooding: ~
+Forward active energy balanced: ~
 Forward reactive energy: ~
 General purpose measurement: ~
 Generate new password: ~
+Generic action: ~
 Guru Meditation: ~
 Heat meter: ~
 Host: ~
@@ -682,14 +691,15 @@ Host: ~
 I/O devices registration: ~
 ID: ~
 Icon: ~
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Inactive: ~
+Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
 Interpolate measurements: ~
 Invalid action parameters: ~
 Invalid function for channel.: ~
-Invalid schedule config (incorrect action).: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Location name: ~
@@ -702,6 +712,8 @@ MQTT Broker username and password is not configured in this SUPLA Cloud instance
 Make sure to copy it now because you won’t be able to see it again!: ~
 Manually closed: ~
 Meters: ~
+Move down or stop: ~
+Move up or stop: ~
 Need one of these?: ~
 New scene: ~
 'Next limit renewal: {date}': ~
@@ -711,6 +723,7 @@ No of devices: ~
 No of operations: ~
 No schedule configuration.: ~
 None (channel disabled): ~
+Number of attempts to open or close: ~
 Number of sections: ~
 OAuth apps: ~
 Open partially: ~
@@ -726,9 +739,14 @@ Port: ~
 Precision: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~
 Protocol: ~
+Publish to integrations: ~
+Publishes the event to integrated services like MQTT or webhooks.: ~
+Read the following channel's state: ~
+Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
 Reset counter: ~
 Reverse active energy: ~
+Reverse active energy balanced: ~
 Reverse reactive energy: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
@@ -737,7 +755,10 @@ Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
+Set initial values: ~
+Setting any action on this trigger will disable its local function: ~
 Show my limits: ~
+Shut partially: ~
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
 Some features depend on this channel group: ~
 Some features depend on this device: ~
@@ -759,6 +780,7 @@ The new password will replace the existing one. Some of the current integrations
 'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
 'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
+Too many actions in this schedule.: ~
 Triggers: ~
 Turning this device off will cause its channels not working in the following features.: ~
 Turning this device off will result in disabling features listed below.: ~
@@ -778,11 +800,13 @@ You must enable MQTT Broker first.: ~
 You must set sections with transparent or opaque parameters or both.: ~
 Your account and MQTT Broker connection.: ~
 Your account limits: ~
+'Your channel groups are allowed to have a maximum of {max} channels.': ~
 'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': ~
 Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
+'Your schedules are allowed to have a maximum of {max} actions.': ~
 actionTrigger_HOLD: ~
 actionTrigger_SHORT_PRESS_X1: ~
 actionTrigger_SHORT_PRESS_X2: ~
@@ -797,6 +821,7 @@ actionTrigger_TOGGLE_X5: ~
 actionTrigger_TURN_OFF: ~
 actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
+choose the action: ~
 choose the scene: ~
 crontab: ~
 days: ~
