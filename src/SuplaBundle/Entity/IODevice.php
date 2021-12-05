@@ -191,8 +191,7 @@ class IODevice implements HasLocation, HasRelationsCount {
         return $this->channels;
     }
 
-    /** @return User */
-    public function getUser() {
+    public function getUser(): User {
         return $this->user;
     }
 

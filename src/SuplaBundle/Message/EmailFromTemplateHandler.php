@@ -30,6 +30,9 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
     public function __invoke(EmailFromTemplate $email) {
         if ($email->getUserId()) {
             $user = $this->userRepository->find($email->getUserId());
+            if (!$user || in_array($email->getTemplateName(), $user->getPreference('optOutNotifications', []))) {
+                return;
+            }
             $userLocale = $user->getLocale() ?: $this->defaultLocale;
             $data = [
                 'userId' => $user->getId(),
@@ -45,23 +48,10 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
             throw new \InvalidArgumentException('No userId and no recipient given.');
         }
         $data = array_merge($email->getData(), $data);
-//        $locale = $this->localeForTemplate($data['userLocale'], $email->getTemplateName(), $data);
         $textRendered = $this->render($email->getTemplateName() . '.txt', $data);
         [$subject, $text] = explode(self::SUBJECT_DELIMITER, $textRendered);
         $html = $this->render($email->getTemplateName() . '.html', $data);
-        $this->messageBus->dispatch(new EmailMessage($data['userEmail'], trim($subject), $text, $html));
-    }
-
-    private function localeForTemplate(string $userLocale, string $templateName, array $data) {
-        foreach ([$userLocale, $this->defaultLocale, 'en'] as $possibleLocale) {
-            $path = "SuplaBundle::Email/$possibleLocale/$templateName.txt.twig";
-            try {
-                $this->twig->render($path, $data);
-                return $possibleLocale;
-            } catch (LoaderError $e) {
-            }
-        }
-        throw new \InvalidArgumentException('Invalid email template: ' . $templateName);
+        $this->messageBus->dispatch(new EmailMessage($data['userEmail'], trim($subject), trim($text), $html));
     }
 
     private function render(string $templateName, array $data): ?string {

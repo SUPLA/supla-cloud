@@ -23,6 +23,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Message\EmailFromTemplateHandler;
 use SuplaBundle\Message\Emails\FailedAuthAttemptEmailNotification;
 use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
+use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
@@ -56,6 +57,16 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $message = TestMailer::getMessages()[0];
         $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getBody());
         $this->assertStringContainsString('<a href="mailto:security', $message->getBody());
+    }
+
+    public function testNotSendingFailedAuthAttemptIfUserOptOut() {
+        $this->user = $this->freshEntity($this->user);
+        $this->user->setPreference('optOutNotifications', [UserOptOutNotifications::FAILED_AUTH_ATTEMPT]);
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        $handler = $this->handler;
+        $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
+        $this->assertCount(0, TestMailer::getMessages());
     }
 
     public function testSendingResetPasswordLink() {

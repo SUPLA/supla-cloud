@@ -34,6 +34,7 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Message\Emails\UserActivatedAdminEmailNotification;
 use SuplaBundle\Message\EmailToAdmin;
+use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Model\Transactional;
@@ -215,6 +216,13 @@ class UserController extends RestController {
                 if ($enabled && $this->mqttAuthEnabled && !$user->hasMqttBrokerAuthPassword()) {
                     $data['action'] = 'change:mqttBrokerPassword';
                 }
+            } elseif ($data['action'] == 'change:optOutNotifications') {
+                $this->assertNotApiUser();
+                Assertion::keyExists($data, 'optOutNotifications');
+                $enabledNotifications = $data['optOutNotifications'];
+                Assertion::isArray($enabledNotifications);
+                Assertion::allInArray($enabledNotifications, UserOptOutNotifications::toArray());
+                $user->setPreference('optOutNotifications', $enabledNotifications);
             }
             if ($data['action'] == 'change:mqttBrokerPassword') {
                 $this->assertNotApiUser();

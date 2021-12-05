@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use SuplaBundle\Entity\AuditEntry;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
+use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Repository\AuditEntryRepository;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
@@ -168,5 +169,34 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         );
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+    }
+
+    /** @small */
+    public function testChangingOptOutNotifications() {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest(
+            'PATCH',
+            '/api/users/current',
+            ['action' => 'change:optOutNotifications', 'optOutNotifications' => [UserOptOutNotifications::FAILED_AUTH_ATTEMPT]]
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $user = $this->freshEntity($this->user);
+        $optOutNotifications = $user->getPreference('optOutNotifications');
+        $this->assertEquals([UserOptOutNotifications::FAILED_AUTH_ATTEMPT], $optOutNotifications);
+    }
+
+    /** @small */
+    public function testChangingOptOutNotificationsToInvalid() {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest(
+            'PATCH',
+            '/api/users/current',
+            ['action' => 'change:optOutNotifications', 'optOutNotifications' => [UserOptOutNotifications::FAILED_AUTH_ATTEMPT, 'unicorn']]
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
     }
 }

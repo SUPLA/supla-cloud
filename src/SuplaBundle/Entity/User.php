@@ -302,6 +302,9 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
      */
     private $mqttBrokerAuthPassword;
 
+    /** @ORM\Column(name="preferences", type="string", length=4096, nullable=false, options={"default"="{}"}) */
+    private $preferences;
+
     const PREDEFINED_LIMITS = [
         'default' => [
             'limitIoDev' => 100,
@@ -346,6 +349,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         $this->enabled = false;
         $this->mqttBrokerEnabled = false;
         $this->mqttBrokerAuthPassword = null;
+        $this->preferences = '{}';
         $this->setTimezone(null);
         $this->oauthOldApiCompatEnabled = false;
         foreach (self::PREDEFINED_LIMITS['default'] as $field => $limit) {
@@ -737,5 +741,19 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     public function setMqttBrokerAuthPassword(string $mqttBrokerAuthPassword) {
         $this->mqttBrokerAuthPassword = $mqttBrokerAuthPassword;
+    }
+
+    public function getPreferences(): array {
+        return $this->preferences ? (json_decode($this->preferences, true) ?: []) : [];
+    }
+
+    public function setPreference(string $name, $value): void {
+        $preferences = $this->getPreferences();
+        $preferences[$name] = $value;
+        $this->preferences = json_encode($preferences);
+    }
+
+    public function getPreference(string $name, $defaultValue = null) {
+        return $this->getPreferences()[$name] ?? $defaultValue;
     }
 }
