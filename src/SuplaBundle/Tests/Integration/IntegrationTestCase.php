@@ -53,6 +53,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         if (!defined('INTEGRATION_TESTS_BOOTSTRAPPED')) {
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
             $this->executeCommand('doctrine:database:create --if-not-exists');
+            $this->executeCommand('supla:initialize');
         }
         $this->clearDatabase();
     }
