@@ -232,8 +232,10 @@ I/O devices registration: Registo de dispositivos
 ID: ID
 INACTIVE: INATIVA
 Idle: Inativos
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Se a ligação não funcionar, copie-a e cole no motor da busca ou escreva-a manualmente.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Se você é um desenvolvedor que quer fornecer funcionalidades adicional para SUPLI, cria uma aplicação OAuth, com a qual os usuários serão capazes de utorizá-las e usá-las.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Se você tem certeza de que você tem uma conta no cloud.supla.org, verifique se o aplicativo que você está tentando autorizar é público.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Se não comunicou este endereço email no site %cloudHost%, não clique.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Se você deseja integrar aplicativos em nuvem SUPL privada com aplicações OAuth públicas, você tem que [registar o seu exemplo].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Se você quiser usar o link direto em outro software, adicione o cabeçalho de solicitação apropriado para ter a resposta mais rápida ao processo.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Se você quiser ver as integrações disponíveis, vá para [cloud.supla.org/apps].'
@@ -278,6 +280,7 @@ Mode: Modo
 Modification: Modificação
 My OAuth apps: Meus aplicativos OAuth
 My SUPLA: Meu SUPLA
+NOTICE!: NOTA!
 Name: Nome
 Never: Nunca
 New OAuth application: Novo aplicativo OAuth
@@ -368,9 +371,11 @@ Revoke: Revogar
 Roller shutter opening sensor: Sensor da abertura dos estores
 Roller shutter operation: Abrir e fechar estores
 Roller shutters: Estores
+SUPLA - Account Activation: SUPLA – Ativar a conta
 SUPLA Cloud is under maintenance.: O SUPLA Cloud está sendo atualizado.
 SUPLA Server was unable to execute the action.: Erro ao executar uma ação no servidor SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA é disponível sempre e por toda a parte. Não se preocupe mais quando esquecer desligar a luz.
+SUPLA.ORG Team: Equipe da SUPLA.ORG
 Save: Gravar
 Save and enable: Gravar e ligar
 Save changes: Salvar modificações
@@ -419,6 +424,7 @@ Temperature & Humidity Sensor: Sensor de temperatura e de humidade
 Temperature Sensor: Sensor de temperatura
 Temperature adjustment: Ajuste de temperatura
 Temperature and humidity sensor: Sensor da temperatura e humidade
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Agradecemos o registo da sua conta no site %cloudHost%. Para terminar a sua ativação, clique na ligação abaixo.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Graças a integração, você pode facilmente adicionar novos recursos à sua conta, usando soluções fornecidas por fornecedores externos, desenvolvedores ou por si mesmo.'
 The Terms and Conditions have changed: Os termos e condições mudaram
 The Terms and Conditions have changed – please read them and accept.: Os termos e condições do serviço mudaram - é necessário ler e aceitá-los.
@@ -478,6 +484,7 @@ We will miss you: Sentiremos sua falta
 We will use it only in justified situations.: Vamos usá-lo apenas em casos justificados.
 Weather Station: Estação meteorológica
 Weight sensor: Peso
+Welcome!: Seja bem-vindo!
 What this token is for?: Para que serve esse token?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Você pode executar uma ação de link direto fornecendo seu identificador exclusivo no corpo da solicitação HTTP PATCH. É mais seguro, porque impede que você escreva o endereço completo do seu link nos registros de acesso dos servidores pelos quais passa a sua solicitação. Abaixo você pode encontrar um exemplo de como implementar tal serviço com a ferramenta cURL.'
 Where is the JSON?: Onde está o JSON?
@@ -510,6 +517,7 @@ Your private SUPLA Cloud is not registered.: Sua nuvem SUPLA privada não está 
 Your session has been expired.: A sua sessão expirou.
 Your session is about to expire: Sua sessão está prestes a expirar
 'Your session will expire in [time].': 'A sua sessão vai expirar daqui a [time].'
+'Yours faithfully,': 'Com os melhores cumprimentos,'
 actionableSubjectType_channel: Canal
 actionableSubjectType_channelGroup: Grupo de canais
 after: após
@@ -697,6 +705,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -722,7 +731,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
@@ -757,6 +766,7 @@ Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Protocol: ~

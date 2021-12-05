@@ -232,8 +232,10 @@ I/O devices registration: Registracija naprav
 ID: ID
 INACTIVE: NEAKTIVNA
 Idle: Nedejavno
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Če povezava ne deluje, jo kopirajte v brskalno vrstico ali jo vpišite ročno.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Če ste programer, ki želi zagotoviti dodatne funkcije za SUPLO, ustvarite aplikacijo OAuth, ki jo lahko uporabniki overijo in uporabljajo.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Če ste prepričani, da imate račun na cloud.supla.org, preverite, ali je aplikacija, ki jo poskušate overiti, javna.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Če tega e-naslova niste navedli na %cloudHost%, ne klikajte na povezavo.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Če želite zasebni oblak SUPLA integrirati z javno aplikacijo OAuth, morate [registrirati svoj primerek].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Če želite neposredno povezavo uporabiti v drugi programski opremi, dodajte ustrezno glavo zahteve, da dobite odgovor, ki ga je lažje obdelati.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Če želite videti dostopne integracije, pojdite na [cloud.supla.org/apps].'
@@ -278,6 +280,7 @@ Mode: Način
 Modification: Modifikacija
 My OAuth apps: Moje OAuth aplikacije
 My SUPLA: Moja SUPLA
+NOTICE!: OPOZORILO!
 Name: Ime
 Never: Nikoli
 New OAuth application: Nova aplikacija OAuth
@@ -368,9 +371,11 @@ Revoke: Prekličite
 Roller shutter opening sensor: Senzor odprtja rolet
 Roller shutter operation: Odpiranje in zapiranje rolet
 Roller shutters: Rolete
+SUPLA - Account Activation: SUPLA - Aktivacija računa
 SUPLA Cloud is under maintenance.: Poteka posodabljanje SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Napaka med izvedbo dejanja na strežniku SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA je na voljo kadarkoli in kjerkoli, zato ne skrbite, ko naslednjič pozabite ugasniti luč'
+SUPLA.ORG Team: Skupina SUPLA.ORG
 Save: Shranite
 Save and enable: Shranite in vklopite
 Save changes: Shranite spremembe
@@ -419,6 +424,7 @@ Temperature & Humidity Sensor: Senzor temperature in vlažnosti
 Temperature Sensor: Temperaturni senzor
 Temperature adjustment: Prilagoditev temperature
 Temperature and humidity sensor: Senzor temperature in vlažnosti
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Hvala za registracijo računa na %cloudHost%. Za dokončanje aktivacije kliknite spodnjo povezavo.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Zahvaljujoč integracijam lahko v svoj račun enostavno dodate nove funkcije z uporabo rešitev, ki jih nudijo zunanji dobavitelji, programerji ali vi sami.'
 The Terms and Conditions have changed: Predpisi so se spremenili
 The Terms and Conditions have changed – please read them and accept.: Predpisi o spletnem mestu so se spremenili - potrebna je njegova odobritev.
@@ -478,6 +484,7 @@ We will miss you: Pogrešali te bomo
 We will use it only in justified situations.: Uporabili ga bomo le v upravičenih primerih.
 Weather Station: Vremenska postaja
 Weight sensor: Teža
+Welcome!: Pozdravljeni!
 What this token is for?: Kaj naredi ta token?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Dejanje neposredne povezave lahko izvedete tako, da v vsebino zahteve HTTP PATCH vnesete svoj edinstven identifikator. To je varnejše, ker preprečuje, da bi se celotni naslov vaše povezave shranil v dnevnikih za dostop do strežnika, skozi katere gre vaša zahteva. Spodaj boste našli primer izvršitve s pomočjo orodja cURL.'
 Where is the JSON?: Kje je JSON?
@@ -510,6 +517,7 @@ Your private SUPLA Cloud is not registered.: Vaš zasebni oblak SUPLA ni registr
 Your session has been expired.: Vaša seja je potekla.
 Your session is about to expire: Vaša seja poteče čez trenutek
 'Your session will expire in [time].': 'Vaša seja bo potekla čez [time].'
+'Yours faithfully,': 'S spoštovanjem,'
 actionableSubjectType_channel: Kanal
 actionableSubjectType_channelGroup: Skupina kanalov
 after: po
@@ -697,6 +705,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -722,7 +731,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
@@ -757,6 +766,7 @@ Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Protocol: ~

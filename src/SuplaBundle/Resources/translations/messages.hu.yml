@@ -217,8 +217,10 @@ I confirm! Delete my account.: Megerősítés! A fiók törlése.
 I/O Devices: I / O eszközök
 INACTIVE: INAKTIV
 Idle: Üres járat
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Ha a link nem működik, másolja át a böngésző eszköztárába, vagy írja be.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ha programozó, aki további szolgáltatásokat szeretne biztosítani a SUPLI számára, hozzon létre egy OAuth alkalmazást, amelyet a felhasználók engedélyezhetnek és használhatnak.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ha biztos benne, hogy van fiókja a cloud.supla.org webhelyen, ellenőrizze, hogy az alkalmazás, amelyet engedélyezni próbál, nyilvános.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Ha nem adta meg ezt az e-mail címet a %cloudHost% webhelyen, ne kattintson a linkre.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor [regisztrálnia kell a példányt].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Ha a közvetlen linket más szoftverekben szeretné használni, akkor adja hozzá a megfelelő kérelem fejlécét, hogy könnyebben feldolgozható választ kapjon.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Ha szeretné megtekinteni az elérhető integrációkat, lépjen a [cloud.supla.org/apps] oldalra.'
@@ -260,6 +262,7 @@ Mode: Mód
 Modification: Módosítás
 My OAuth apps: Saját OAuth alkalmazások
 My SUPLA: Saját SUPLA-m
+NOTICE!: FIGYELEM!
 Name: Megnevezés
 Never: Soha
 New OAuth application: Az új OAuth alkalmazás
@@ -341,9 +344,11 @@ Revoke: Érvénytelenítés
 Roller shutter opening sensor: Redőny nyitó érzékelő
 Roller shutter operation: Redőnyök nyitása és bezárása
 Roller shutters: Redőnyök
+SUPLA - Account Activation: SUPLA - Fiók aktiválása
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Hiba történt a művelet végrehajtása során a SUPLA szerveren.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'A SUPLA bármikor és bárhonnan elérhető, ezért ne aggódjon, amikor legközelebb elfelejti kikapcsolni a fényt'
+SUPLA.ORG Team: A SUPLA.ORG Csapata
 Save: Mentés
 Save and enable: Mentés és bekapcsolás
 Save changes: Változtatások mentése
@@ -390,6 +395,7 @@ Temperature & Humidity Sensor: Hőmérséklet- és páratartalom-érzékelő
 Temperature Sensor: Hőmérséklet-érzékelő
 Temperature adjustment: Hőmérséklet beállítása
 Temperature and humidity sensor: Hőmérséklet- és páratartalom-érzékelő
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Köszönjük, hogy regisztrálta a fiókját a %cloudHost% webhelyen. Az aktiválás befejezéséhez kattintson az alábbi linkre.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Az integrációknak köszönhetően könnyedén hozzáadhat az fiókjához  új funkciókat a külső szállítók, programozók vagy saját maga által nyújtott megoldásokat felhasználásával.'
 The Terms and Conditions have changed: A  Szabályzat megváltozott
 The Terms and Conditions have changed – please read them and accept.: A szolgáltatás Szabályzata megváltozott - jóváhagyás szükséges.
@@ -440,6 +446,7 @@ We will miss you: Hiányozni fog
 We will use it only in justified situations.: Csak indokolt esetekben fogjuk alkalmazni.
 Weather Station: Időjárás
 Weight sensor: Súly
+Welcome!: Helló!
 What this token is for?: Mire való ez a token?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Közvetlen linkműveletet hajthat végre, ha megadja annak egyedi azonosítóját a HTTP PATCH kérés törzsében. Ez a biztonságosabb, mert megakadályozza, hogy a link teljes címe a szerver hozzáférési naplóiban kerüljön mentésre, amelyen keresztül a kérés átadódik. Az alábbiakban talál egy példát e műveletre a cURL eszköz használatával.'
 Where is the JSON?: Hol van a JSON?
@@ -470,6 +477,7 @@ Your private SUPLA Cloud is not registered.: A saját SUPLA felhője nincs regis
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: A munkamenete hamarosan lejár
 'Your session will expire in [time].': 'A munkamenete [idő] múlva lejár.'
+'Yours faithfully,': 'Tisztelettel,'
 actionableSubjectType_channel: Csatorna
 actionableSubjectType_channelGroup: Csatorna csoport
 after: utána
@@ -660,6 +668,7 @@ Clear: ~
 Client registration: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -692,7 +701,7 @@ Host: ~
 I/O devices registration: ~
 ID: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Inactive: ~
 Initial values: ~
@@ -736,6 +745,7 @@ Phase 1: ~
 Phase 2: ~
 Phase 3: ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~

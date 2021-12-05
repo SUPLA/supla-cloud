@@ -232,8 +232,10 @@ I/O devices registration: Registrering av enheter
 ID: ID
 INACTIVE: INAKTIV
 Idle: Hvile modus
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': Hvis lenken ikke fungerer kopier og lim den inn i søketjenesten eller tast den inn.
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Hvis du er en programutvikler som ønsker å levere ekstra funksjoner til SUPLA, opprett applikasjonen OAuth som andre brukere kan autorisere og bruke.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': Dersom du har en konto på cloud.supla.org sjekk om applikasjonen du forsøker å autorisere er offentlig.
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Hvis du ikke har oppgitt denne e-post adressen i %cloudHost% tjenesten, ikke trykk på lenken.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'JDersom du ønsker å integrere din privat SUPLA Cloud med offentlig applikasjon OAuth, må du [må du registrere din Cloud].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'JDersom du ønsker å bruke dirkete lenke i et annet program, legg til tilsvarende forespørsel overskrift for å motta et svar som er enklere å prosessere.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'JDersom du vil sjekke ut tilgjengelige integrasjoner gå til [cloud.supla.org/apps].'
@@ -278,6 +280,7 @@ Mode: Modus
 Modification: Modifisering
 My OAuth apps: Mine apper OAuth
 My SUPLA: Min SUPLA
+NOTICE!: OBS!
 Name: Navn
 Never: Aldri
 New OAuth application: Ny OAuth applikasjon
@@ -368,9 +371,11 @@ Revoke: Opphev
 Roller shutter opening sensor: Rullegardineråpner sensor
 Roller shutter operation: Åpning og stenging av rullegardiner
 Roller shutters: Rullegardiner
+SUPLA - Account Activation: SUPLA – Aktivering av konto
 SUPLA Cloud is under maintenance.: Oppdatering av SUPLA Cloud pågår
 SUPLA Server was unable to execute the action.: Feil ved gjennomføring av handlingen i SUPLA server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA er tilgjengelig alltid og overalt, du trenger ikke å være bekymret neste gang du glemmer å skru av lyset.'
+SUPLA.ORG Team: SUPLA.ORG Team
 Save: Lagre
 Save and enable: Lagre og skru på
 Save changes: Lagre endringer
@@ -419,6 +424,7 @@ Temperature & Humidity Sensor: Temperatur- og fuktighetssensor
 Temperature Sensor: Temperatursensor
 Temperature adjustment: Tilpass temperaturen
 Temperature and humidity sensor: Temperatur- og fuktighetssensor
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Takk for at du registrerer din konto i %cloudHost%. For å avslutte aktiviseringen trykk på lenken nedenfor.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Integrasjoner gir deg mulighet til å legge til nye funksjoner til din konto på et enkelt vis ved hjelp av løsninger levert av eksterne leverandører, programmerere eller deg selv.'
 The Terms and Conditions have changed: Regelverket ble endret.
 The Terms and Conditions have changed – please read them and accept.: Tjenesteregelverk ble endret – godkjenning av det nye regelverket er påkrevd.
@@ -478,6 +484,7 @@ We will miss you: Vi kommer til å savne deg
 We will use it only in justified situations.: Vi vil kun bruke den i berettiget situasjoner.
 Weather Station: Værstasjon
 Weight sensor: Vekt
+Welcome!: Hei!
 What this token is for?: Hva brukes denne token til?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': Du kan utføre handlingen til direkte lenke ved å oppgi dens unik identifikator i HTTP PATCH forespørselen. Det er sikrere da det hindrer lagring av full adresse til din lenke i loggbøkene til tilgjengelige servere din forespørsel går gjennom. Nedenfor ser du eksempel på handlingen utført ved hjelp av verktøyet cURL.
 Where is the JSON?: Hvor er JSON?
@@ -510,6 +517,7 @@ Your private SUPLA Cloud is not registered.: Din privat SUPLA cloud er ikke regi
 Your session has been expired.: Din sesjon er over.
 Your session is about to expire: Din sesjon er snart over.
 'Your session will expire in [time].': 'Din sesjon er over om [time].'
+'Yours faithfully,': 'Med vennlig hilsen,'
 actionableSubjectType_channel: Kanal
 actionableSubjectType_channelGroup: Kanalgruppe
 after: etter
@@ -697,6 +705,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -722,7 +731,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
@@ -757,6 +766,7 @@ Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Protocol: ~

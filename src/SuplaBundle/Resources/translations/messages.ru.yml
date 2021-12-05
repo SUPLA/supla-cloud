@@ -232,8 +232,10 @@ I/O devices registration: Регистрация устройств
 ID: ID
 INACTIVE: НЕАКТИВНА
 Idle: Бездействующие
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Если автоматический переход не работает, скопируйте текст ссылки в окно браузера вручную.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Если вы программист и хотите предоставить дополнительные возможности для SUPLI, создайте приложение OAuth, которое пользователи смогут авторизовать и использовать.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Если вы уверены, что у вас есть учетная запись на cloud.supla.org, убедитесь, что приложение, которое вы пытаетесь авторизовать, является публичным.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Если Вы не вводили этот адрес почты на %cloudHost%, просто проигнорируйте это письмо.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Если вы хотите интегрировать персональное облако SUPLA с публичным приложением OAuth, вам необходимо [зарегистрировать свою инстанцию].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Для использования ссылки в другом программном обеспечении, добавь соответствующий заголовок запроса, чтобы получить ответ, который будет легче обрабатывать.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Если вы хотите увидеть доступные интеграции, перейдите на [cloud.supla.org/apps].'
@@ -278,6 +280,7 @@ Mode: Режим
 Modification: Модификация
 My OAuth apps: Мои приложения OAuth
 My SUPLA: Моя SUPLA
+NOTICE!: ВНИМАНИЕ!
 Name: Название
 Never: Никогда
 New OAuth application: Новое приложение OAuth
@@ -368,9 +371,11 @@ Revoke: Аннулировать
 Roller shutter opening sensor: Датчик роллет
 Roller shutter operation: Управление роллетами
 Roller shutters: Роллеты
+SUPLA - Account Activation: Активация аккаунта SUPLA
 SUPLA Cloud is under maintenance.: Идет обновление SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Ошибка при выполнении действия на SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA доступна везде и всегда, так что не бойтесь забыть выключить свет или утюг'
+SUPLA.ORG Team: Команда SUPLA.ORG
 Save: Сохранить
 Save and enable: Сохранить и включить
 Save changes: Сохранить изменения
@@ -419,6 +424,7 @@ Temperature & Humidity Sensor: Датчик температуры и влажн
 Temperature Sensor: Датчик температуры
 Temperature adjustment: Регулировка температуры
 Temperature and humidity sensor: Датчик температуры и влажности
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Благодарим Вас за регистрацию аккаунта на %cloudHost%. Для активвации учетнойтзаписи нажмите на следующую ссылку.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Благодаря интеграциям вы можете легко добавлять новые функции в свою учетную запись, используя решения, предоставляемые сторонними поставщиками, разработчиками, или свои собственные.'
 The Terms and Conditions have changed: Правила изменились
 The Terms and Conditions have changed – please read them and accept.: Правила сайта изменились - требуется согласие.
@@ -478,6 +484,7 @@ We will miss you: Мы будем скучать без вас
 We will use it only in justified situations.: Он используется только в обоснованных случаях.
 Weather Station: Метеостанция
 Weight sensor: Весы
+Welcome!: Добро пожаловать!
 What this token is for?: Для чего служит этот токен?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Ссылка может быть открыта при подаче ее уникального идентификатора в тексте запроса HTTP PATCH. Это безопаснее, так как предотвращает сохранение полного адреса Вашей ссылки в журналах доступа серверов, через которые проходит Ваш запрос. Пример выполнения при помощи инструмента cURL приведен ниже.'
 Where is the JSON?: Где находится ДЖЕЙСОН?
@@ -510,6 +517,7 @@ Your private SUPLA Cloud is not registered.: Ваше личное облако 
 Your session has been expired.: Ваш сеанс завершен.
 Your session is about to expire: Ваша сессия истекает
 'Your session will expire in [time].': 'Ваш сеанс будет завершен через [время].'
+'Yours faithfully,': 'Искренне Ваши,'
 actionableSubjectType_channel: Канал
 actionableSubjectType_channelGroup: Группа каналов
 after: после
@@ -697,6 +705,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -722,7 +731,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
@@ -757,6 +766,7 @@ Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Protocol: ~

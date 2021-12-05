@@ -27,6 +27,7 @@ class EmailTwigExtension extends AbstractExtension {
     public function getFilters() {
         return [
             new TwigFilter('paragraph', [$this, 'generateParagraph'], ['is_safe' => ['html']]),
+            new TwigFilter('footerLink', [$this, 'generateFooterLink'], ['is_safe' => ['html']]),
             new TwigFilter('linkButton', [$this, 'generateLinkButton'], ['needs_context' => true, 'is_safe' => ['html']]),
         ];
     }
@@ -44,6 +45,12 @@ class EmailTwigExtension extends AbstractExtension {
         return <<<PARAGRAPH
         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">$text</p>
 PARAGRAPH;
+    }
+
+    public function generateFooterLink(string $text, string $url): string {
+        $linkTag = '<a href="' . $url . '" target="_blank" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">$1</a>';
+        $text = preg_replace('#\[(.+?)\]#', $linkTag, $text);
+        return $text;
     }
 
     public function generateLinkButton(array $context, string $text, string $url, string $type = 'primary'): string {

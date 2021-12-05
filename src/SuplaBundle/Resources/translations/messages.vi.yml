@@ -232,8 +232,10 @@ I/O devices registration: Đăng ký thiết bị I/O mới
 ID: ID
 INACTIVE: KHÔNG HOẠT ĐỘNG
 Idle: Không hoạt động
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Nếu liên kết không hoạt động, vui lòng sao chép và dán hoặc nhập thủ công trong cửa sổ trình duyệt mới.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Nếu bạn là nhà phát triển muốn cung cấp các tính năng bổ sung cho SUPLA, hãy tạo một ứng dụng OAuth mà người dùng có thể ủy quyền và sử dụng'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Nếu bạn chắc chắn rằng bạn có tài khoản trên cloud.supla.org, hãy kiểm tra xem ứng dụng bạn đang cố gắng ủy quyền có công khai không'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Nếu bạn chưa sử dụng địa chỉ email này với cloud.supla.org, vui lòng không nhấp vào liên kết.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Nếu bạn muốn tích hợp Cloud của mình với các ứng dụng OAuth công khai, bạn phải [đăng ký phiên bản của mình].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Nếu bạn muốn sử dụng liên kết theo chương trình, hãy thêm tiêu đề yêu cầu phù hợp để có được đầu ra mà bạn có thể dễ dàng phân tích.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Nếu bạn muốn xem các tích hợp có sẵn, hãy truy cập [cloud.supla.org/apps].'
@@ -278,6 +280,7 @@ Mode: Chế độ
 Modification: Sửa đổi
 My OAuth apps: Ứng dụng OAuths
 My SUPLA: SUPLA
+NOTICE!: ĐỂ Ý!
 Name: Tên
 Never: Không bao giờ
 New OAuth application: Ứng dụng OAuth mới
@@ -368,9 +371,11 @@ Revoke: Thu hồi
 Roller shutter opening sensor: Cảm biến mở cửa trập
 Roller shutter operation: Vận hành cửa trập
 Roller shutters: Cửa chớp lăn
+SUPLA - Account Activation: SUPLA - Kích hoạt tài khoản
 SUPLA Cloud is under maintenance.: Đám mây SUPLA đang được bảo trì.
 SUPLA Server was unable to execute the action.: Máy chủ SUPLA không thể thực thi hành động.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA có thể truy cập ở mọi nơi mọi lúc, vì vậy đừng lo lắng, nếu bạn quên tắt đèn lần sau'
+SUPLA.ORG Team: Đội SUPLA.ORG
 Save: Lưu
 Save and enable: Lưu và kích hoạt
 Save changes: Lưu thay đổi
@@ -419,6 +424,7 @@ Temperature & Humidity Sensor: Cảm biến nhiệt độ và độ ẩm
 Temperature Sensor: Cảm biến nhiệt độ
 Temperature adjustment: Điều chỉnh nhiệt độ
 Temperature and humidity sensor: Cảm biến nhiệt độ và độ ẩm
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Cảm ơn bạn đã đăng ký tài khoản với %cloudHost%. Vui lòng nhấp vào liên kết sau để hoàn thành kích hoạt tài khoản của bạn.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Nhờ tích hợp, bạn có thể dễ dàng thêm các tính năng mới vào tài khoản của mình bằng các giải pháp được cung cấp bởi các nhà cung cấp bên ngoài, nhà phát triển hoặc của chính bạn.'
 The Terms and Conditions have changed: Các điều khoản và điều kiện đã thay đổi
 The Terms and Conditions have changed – please read them and accept.: Các Điều khoản và Điều kiện đã thay đổi - vui lòng đọc chúng và chấp nhận.
@@ -478,6 +484,7 @@ We will miss you: Chúng tôi sẽ nhớ bạn
 We will use it only in justified situations.: Chúng tôi sẽ chỉ sử dụng nó trong các tình huống hợp lý.
 Weather Station: Trạm thời tiết
 Weight sensor: Cảm biến trọng lượng
+Welcome!: Chào mừng bạn
 What this token is for?: Mã thông báo này để làm gì ?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Khi bạn thực hiện liên kết với phương thức HTTP PATCH, bạn có thể bỏ qua phần ngẫu nhiên của liên kết và gửi nó trong phần thân yêu cầu. Điều này an toàn hơn vì yêu cầu như vậy sẽ không được lưu trữ trong bất kỳ nhật ký máy chủ hoặc proxy nào, bất kể cấu hình của chúng. Vui lòng tìm một yêu cầu ví dụ cURL dưới đây.'
 Where is the JSON?: JSON ở đâu?
@@ -510,6 +517,7 @@ Your private SUPLA Cloud is not registered.: Đám mây SUPLA riêng tư của b
 Your session has been expired.: Phiên của bạn đã hết hạn.
 Your session is about to expire: Phiên bản của bạn sắp hết hạn
 'Your session will expire in [time].': 'Phiên của bạn sẽ hết hạn trong [thời gian].'
+'Yours faithfully,': Trân trọng
 actionableSubjectType_channel: Kênh
 actionableSubjectType_channelGroup: Nhóm kênh
 after: Sau
@@ -697,6 +705,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -722,7 +731,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
@@ -757,6 +766,7 @@ Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Protocol: ~

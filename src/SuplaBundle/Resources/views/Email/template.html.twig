@@ -146,11 +146,9 @@
                         <tr>
                             <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
                                 {% block footer %}
-                                    If you wish not to receive such messages,<br>
-                                    checkout out your account settings
-                                    <a href="{{ cloudUrl() }}/user/notifications"
-                                            target="_blank"
-                                            style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">here</a>.
+                                    {% apply footerLink(cloudUrl() ~ '/user/notifications') %}
+                                        {% trans into userLocale %}If you wish not to receive such messages,<br> checkout out your account settings [here].{% endtrans %}
+                                    {% endapply %}
                                 {% endblock %}
                             </td>
                         </tr>

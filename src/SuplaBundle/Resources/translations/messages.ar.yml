@@ -217,8 +217,10 @@ I confirm! Delete my account.: أؤكد! قم بحذف حسابي.
 I/O Devices: أجهزة الإدخال / الإخراج
 INACTIVE: غير مفعلة
 Idle: خامل
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': إذا لم يعمل الرابط، فقم بنسخه في شريط أدوات المتصفح أو قم بإدخاله يدويًا.
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': إذا كنت مبرمجًا يريد تقديم ميزات إضافية لـ SUPLI، فقم بإنشاء تطبيق OAuth يمكن للمستخدمين السماح به واستخدامه.
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': إذا كنت متأكدًا من أن لديك حسابًا على cloud.supla.org ، فتحقق من أن التطبيق الذي تحاول تخويله عام.
+'If you have not used this email address with %cloudHost%, please do not click the link.': إذا لم تكن قد قدمت عنوان البريد الإلكتروني هذا على %cloudHost% ، فلا تنقر فوق الرابط.
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'إذا كنت تريد دمج سحابة SUPLA الخاصة مع تطبيق OAuth  العام، يجب عليك [تسجيل حالتك].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': إذا كنت ترغب في استخدام الرابط المباشر في البرامج الأخرى، فأضف رأس الطلب المناسب للحصول على استجابة أسهل في معالجتها.
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'إذا كنت تريد رؤية عمليات الدمج المتاحة، فانتقل إلى [cloud.supla.org/apps].'
@@ -260,6 +262,7 @@ Mode: النمط
 Modification: التعديل
 My OAuth apps: تطبيقات OAuth الخاصة بي
 My SUPLA: SUPLA الخاصة بي
+NOTICE!: ملاحظة!
 Name: الاسم
 Never: أبدا
 New OAuth application: تطبيق OAuth الجديد
@@ -341,9 +344,11 @@ Revoke: إبطال
 Roller shutter opening sensor: مستشعر فتح الأبجور
 Roller shutter operation: فتح وإغلاق الأبجور
 Roller shutters: الأبجور
+SUPLA - Account Activation: 'SUPLA:  تفعيل الحساب'
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: خطأ أثناء تنفيذ الإجراء في خادم  SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA  متاح في أي وقت وفي أي مكان، لذلك لا تقلق في المرة القادمة التي تنسى فيها إطفاء الضوء
+SUPLA.ORG Team: فريق SUPLA.ORG
 Save: حفظ
 Save and enable: حفظ وإيقاف التشغيل
 Save changes: حفظ التغييرات
@@ -390,6 +395,7 @@ Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطو
 Temperature Sensor: مستشعر درجة الحرارة
 Temperature adjustment: تعديل درجة الحرارة
 Temperature and humidity sensor: مستشعر درجة الحرارة والرطوبة
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: شكرًا لك على تسجيل حساب على %cloudHost%. لإكمال التنشيط، أنقر فوق الرابط أدناه.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': بفضل عمليات الدمج، يمكنك بسهولة إضافة وظائف جديدة إلى حسابك، وذلك باستخدام الحلول المقدمة من الموردين الخارجيين أو المبرمجين أو من قبل نفسك.
 The Terms and Conditions have changed: لقد تغيرت اللوائح
 The Terms and Conditions have changed – please read them and accept.: تغيرت لوائح موقع الويب – الموافقة مطلوبة.
@@ -439,6 +445,7 @@ We will miss you: سنفتقدك
 We will use it only in justified situations.: سوف نستخدمها فقط في الحالات المبررة.
 Weather Station: محطة الطقس
 Weight sensor: الوزن
+Welcome!: مرحبا!
 What this token is for?: ماذا يفعل هذا الرمز المميز؟
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': يمكنك تنفيذ إجراء ارتباط مباشر من خلال توفير معرفه الفريد في نص طلب HTTP PATCH. هذا أكثر أمانًا لأنه يمنع حفظ العنوان الكامل للرابط في سجلات الوصول إلى الخادم التي يمر بها طلبك. ستجد أدناه مثالًا باستخدام أداة cURL.
 Where is the JSON?: أين JSON؟
@@ -469,6 +476,7 @@ Your private SUPLA Cloud is not registered.: سحابة  SUPLA الخاصة غي
 Your session has been expired.: انتهت جلستك.
 Your session is about to expire: سوف تنتهي جلستك بعد لحظة
 'Your session will expire in [time].': 'ستنتهي جلستك بعد [time].'
+'Yours faithfully,': مع خالص التحيات
 actionableSubjectType_channel: القناة
 actionableSubjectType_channelGroup: مجموعة القنوات
 after: بعد
@@ -659,6 +667,7 @@ Clear: ~
 Client registration: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -691,7 +700,7 @@ Host: ~
 I/O devices registration: ~
 ID: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Inactive: ~
 Initial values: ~
@@ -735,6 +744,7 @@ Phase 1: ~
 Phase 2: ~
 Phase 3: ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~

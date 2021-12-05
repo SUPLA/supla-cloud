@@ -232,8 +232,10 @@ I/O devices registration: Registro de dispositivos
 ID: ID
 INACTIVE: INACTIVA
 Idle: Inactivos
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Si el enlace no funciona, copiálo y pégalo en la barra del buscador o introdúcelo manualmente.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Si eres un programador que desea proporcionar funciones adicionales para SUPLA, crea una aplicación OAuth que los usuarios puedan autorizar y usar.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Si estás seguro/a de tener una cuenta en cloud.supla.org, comprueba si la aplicación que estás intentando autorizar es pública.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': No hagas clic en el enlace si no has indicado la dirección de este correo electrónico en la página web %cloudHost%
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Si deseas integrar una nube privada SUPLA con una aplicación pública OAuth, debes [registrar tu instancia].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Si quiere utilizar el enlace directo en otro software, añade el título adecuado de la orden, para recibir una respuesta más fácil para procesar.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Si deseas ver las integraciones disponibles, ve a [cloud.supla.org/apps].'
@@ -278,6 +280,7 @@ Mode: Modo
 Modification: Modificación
 My OAuth apps: Mis aplicaciones OAuth
 My SUPLA: Mi SUPLA
+NOTICE!: ¡OJO!
 Name: Nombre
 Never: Nunca
 New OAuth application: Nueva aplicación OAuth
@@ -368,9 +371,11 @@ Revoke: Anular
 Roller shutter opening sensor: Sensor de apertura de las persianas
 Roller shutter operation: Apertura y cierre de las persianas
 Roller shutters: Persianas
+SUPLA - Account Activation: SUPLA – Activación de la cuenta
 SUPLA Cloud is under maintenance.: Actualización de SUPLA Cloud en proceso.
 SUPLA Server was unable to execute the action.: Error en la acción en SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA está disponible siempre y en todas partes, así que no te preocupes si la próxima ves olvidas apagar la luz'
+SUPLA.ORG Team: Grupo SUPLA.ORG
 Save: Guardar
 Save and enable: Guardar y activar
 Save changes: Guarda los cambios
@@ -419,6 +424,7 @@ Temperature & Humidity Sensor: Sensor de temperatura y humedad
 Temperature Sensor: Sensor de temperatura
 Temperature adjustment: Ajuste de temperatura
 Temperature and humidity sensor: Sensor de temperatura y humedad
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Gracias por registrar tu cuenta en la página web %cloudHost%. Para finalizar la activación, haz clic en el siguiente enlace:'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Gracias a las integraciones puedes agregar fácilmente nuevas funciones a tu cuenta utilizando soluciones proporcionadas por proveedores externos, programadores o por tí mismo/a.'
 The Terms and Conditions have changed: El reglamento ha sido cambiado
 The Terms and Conditions have changed – please read them and accept.: El reglamento de servicio ha sido cambiado – es nesesario que lo aceptes.
@@ -478,6 +484,7 @@ We will miss you: Te echaremos de menos
 We will use it only in justified situations.: La utilizaremos solo en casos justificados.
 Weather Station: Estación meteorológica
 Weight sensor: Peso
+Welcome!: ¡Hola!
 What this token is for?: ¿Para qué sirve este token?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Puedes realizar la acción del enlace directo, dando su identificador único en el testo de la orden HTTP PATCH.  Esto es más seguro, ya que hace imposible grabar tu dirección completa de Tu enlace entre los logos de acceso a servidores, por los que pasa Tu orden. A continuación encontraras una acción ejemplo, realizada a través de la herramienta cURL.'
 Where is the JSON?: ¿Dónde está JSON?
@@ -510,6 +517,7 @@ Your private SUPLA Cloud is not registered.: Tu nube privada SUPLA no está regi
 Your session has been expired.: Tu sesión ha expirado.
 Your session is about to expire: Tu sesión está a punto de caducar
 'Your session will expire in [time].': 'Tu sesión va a expirar en [time].'
+'Yours faithfully,': Atentamente
 actionableSubjectType_channel: Canal
 actionableSubjectType_channelGroup: Conjunto de canales
 after: Después de
@@ -697,6 +705,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -722,7 +731,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
@@ -757,6 +766,7 @@ Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Protocol: ~

@@ -217,8 +217,10 @@ I confirm! Delete my account.: Confirm! Șterge contul meu.
 I/O Devices: Dispozitive I/O
 INACTIVE: INACTIVĂ
 Idle: Inactive
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Dacă linkul nu funcționează, copiați-l în bara browser-ului sau introduceți-l manual.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Dacă sunteți un programator care dorește să ofere funcții suplimentare pentru SUPLI, creați o aplicație OAuth pe care utilizatorii o vor putea autoriza și utiliza.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Dacă sunteți sigur că aveți un cont pe cloud.supla.org, verificați dacă aplicația pe care încercați să o autorizați este publică.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Dacă nu ați furnizat această adresă de e-mail pe %cloudHost%, nu faceți clic pe link.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Dacă doriți să integrați cloud-ul privat SUPLA cu aplicația publică OAuth, trebuie [să înregistrați instanța dvs.].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Dacă doriți să utilizați linkul direct în alt software, adăugați antetul de solicitare corespunzător pentru a obține un răspuns mai ușor de procesat.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Dacă doriți să vedeți integrările disponibile, treceți la [cloud.supla.org/apps].'
@@ -260,6 +262,7 @@ Mode: Mod
 Modification: Modificare
 My OAuth apps: Aplicațiile mele OAuth
 My SUPLA: SUPLA mea
+NOTICE!: ATENŢIE!
 Name: Numele
 Never: Niciodată
 New OAuth application: Aplicație OAuth nouă
@@ -341,9 +344,11 @@ Revoke: Revocare
 Roller shutter opening sensor: Senzor de deschidere a jaluzelelor
 Roller shutter operation: Deschiderea și închiderea jaluzelelor
 Roller shutters: Jaluzele
+SUPLA - Account Activation: SUPLA - Activarea contului
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Eroare la executarea acțiunii în SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA este disponibilă oricând și oriunde, așa că nu vă faceți griji data viitoare când uitați să stingeți lumina'
+SUPLA.ORG Team: Echipa SUPLA.ORG
 Save: Salvează
 Save and enable: Salvează și activează
 Save changes: Salvează modificările
@@ -390,6 +395,7 @@ Temperature & Humidity Sensor: Senzor de temperatură și umiditate
 Temperature Sensor: Senzor de temperatură
 Temperature adjustment: Reglarea temperaturii
 Temperature and humidity sensor: Senzor de temperatură și umiditate
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Vă mulțumim pentru înregistrarea unui cont în serviciul %cloudHost%. Pentru a finaliza activarea, faceți clic pe linkul de mai jos.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Datorită integrărilor, puteți adăuga cu ușurință noi funcții la contul dvs., folosind soluții furnizate de furnizori externi, programatori sau de către dvs.'
 The Terms and Conditions have changed: Regulamentul a fost modificat
 The Terms and Conditions have changed – please read them and accept.: Regulamentul site-ului a fost modificat - este necesară acceptarea acestuia.
@@ -440,6 +446,7 @@ We will miss you: Ne va fi dor de tine
 We will use it only in justified situations.: Îl vom folosi numai în cazuri justificate.
 Weather Station: Stație meteorologică
 Weight sensor: Greutate
+Welcome!: Salut!
 What this token is for?: Pentru ce servește acest token?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Puteți efectua acțiunea linkului direct, completând identificatorul său unic direct în corpul cererii HTTP PATCH. Acest lucru este mai sigur, deoarece împiedică salvarea adresei complete a linkului dvs. în jurnalele de acces ale serverelor prin care trece solicitarea. Mai jos veți găsi un exemplu de executare folosind instrumentul cURL.'
 Where is the JSON?: Unde este JSON?
@@ -470,6 +477,7 @@ Your private SUPLA Cloud is not registered.: Norul dvs. privat SUPLA nu este în
 Your session has been expired.: Sesiunea dvs. a expirat.
 Your session is about to expire: Sesiunea dvs. va expira îndată
 'Your session will expire in [time].': 'Sesiunea dvs. va expira peste [timp].'
+'Yours faithfully,': 'Cu stimă,'
 actionableSubjectType_channel: Canal
 actionableSubjectType_channelGroup: Grupă de canale
 after: după
@@ -660,6 +668,7 @@ Clear: ~
 Client registration: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -692,7 +701,7 @@ Host: ~
 I/O devices registration: ~
 ID: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Inactive: ~
 Initial values: ~
@@ -736,6 +745,7 @@ Phase 1: ~
 Phase 2: ~
 Phase 3: ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Private instance of the SUPLA cloud with given URL is already registered.: ~

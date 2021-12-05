@@ -255,8 +255,10 @@ ID: ID
 INACTIVE: INATTIVA
 Icon: Icona
 Idle: Inattivi
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Se il link non funziona, copialo oppure scrivilo manualmente nella barra degli indirizzi.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Se sei uno sviluppatore che vuole fornire funzionalità aggiuntive per SUPLA, puoi creare un’applicazione OAuth che gli utenti possono autorizzare e usare.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Se sei sicuro di essere in possesso di un account su cloud.supla.org, verifica che l’applicazione che stai cercando di autorizzare, sia pubblica.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Se non hai indicato quest’indirizzo email nel sito %cloudHost%, non cliccare sul link.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Se vuoi integrare la nuvola privata SUPLA con l’applicazione pubblica OAuth, [devi registrare la Tua istanza].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Se vuoi usare link diretto in un altro software, aggiungi un adeguato titolo della richiesta per ricevere la risposta più facile da elaborare.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Se vuoi vedere le integrazioni disponibili, passa a [cloud.supla.org/apps].'
@@ -313,6 +315,7 @@ Mode: Modalità
 Modification: Modifica
 My OAuth apps: Mie applicazioni OAuth
 My SUPLA: Mio SUPLA
+NOTICE!: Attenzione!
 Name: Nome
 Need one of these?: Seleziona l’unità di misura?
 Never: Mai
@@ -414,9 +417,11 @@ Roller shutter operation: Apertura e chiusura di avvolgibili
 Roller shutters: Avvolgibili
 Roof window opening sensor: Sensore apertura lucernario
 Roof window shutter operation: Funzionamento lucernario
+SUPLA - Account Activation: SUPLA – Attivazione dell’account
 SUPLA Cloud is under maintenance.: SUPLA Cloud è in fase di aggiornamento.
 SUPLA Server was unable to execute the action.: Errore durante l'esecuzione dell'azione nel SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA è disponibile sempre e ovunque, quindi non Ti preoccupare se prosssima volta ti dimenticherai di spegnere la luce'
+SUPLA.ORG Team: Squadra di SUPLA.ORG
 Save: Salva
 Save and enable: Salva e abilita
 Save changes: Salva le modifiche
@@ -468,6 +473,7 @@ Temperature & Humidity Sensor: Sensore di temperatura e di umidità
 Temperature Sensor: Sensore di temperatura
 Temperature adjustment: Regolazione della temperatura
 Temperature and humidity sensor: Sensore di temperatura e umidità
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Grazie per l’iscrizione al sito %cloudHost%. Per portare a buon fine l’attivazione, clicca sul seguente link.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Grazie alle integrazioni, puoi aggiungere facilmente le nuove funzioni al Tuo account, sfruttando le soluzioni fornite dai provider esterni, dai programmatori o da Te stesso.'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: "La password del Broker MQTT è visibile solamente ora. Assicurati di salvarla in uno spazio sicuro. \_Non riuscirai più\_ rivederla."
 The Terms and Conditions have changed: Il regolamento ha subito una modifica
@@ -537,6 +543,7 @@ We will miss you: Ci mancherai
 We will use it only in justified situations.: Lo useremo solo nei casi giustificati.
 Weather Station: Stazione meteo
 Weight sensor: Peso
+Welcome!: Benvenuto/a!
 What this token is for?: A che cosa serve questo token?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Puoi eseguire l`azione di link ditretto inserendo il suo identificatore unico nel contenuto della richiesta HTTP PATCH. Risulta più sicuro, perché impedisce di memorizzare l`indirizzo completo di tuo link nei log di accesso dei server, attraverso i quali passa la tua richiesta. Di seguito trovi un esempio di esecuzione tramite lo strumento cURL.'
 Where is the JSON?: Dove è JSON?
@@ -580,6 +587,7 @@ Your private SUPLA Cloud is not registered.: Il tuo cloud privato SUPLA non è r
 Your session has been expired.: La Tua sessione è scaduta.
 Your session is about to expire: La tua sessione sta per scadere
 'Your session will expire in [time].': 'La Tua sessione scadrà fra [time].'
+'Yours faithfully,': 'Distinti saluti,'
 actionTrigger_HOLD: Pressione prolungata
 actionTrigger_SHORT_PRESS_X1: Una pressione breve
 actionTrigger_SHORT_PRESS_X2: Due pressioni brevi
@@ -764,6 +772,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 Copy channel state: ~
 Create new scene: ~
@@ -782,7 +791,7 @@ Forward active energy balanced: ~
 General purpose measurement: ~
 Generic action: ~
 Guru Meditation: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 Initial values: ~
 Interpolate measurements: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
@@ -800,6 +809,7 @@ None (channel disabled): ~
 Number of attempts to open or close: ~
 Operations: ~
 Other: ~
+Please confirm your SUPLA account.: ~
 Precision: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~

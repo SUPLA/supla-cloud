@@ -231,8 +231,10 @@ I/O devices registration: Įrenginių registracija
 ID: ID
 INACTIVE: NEAKTYVI
 Idle: Nenaudojamos
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Jei nuoroda neveikia, nukopijuokite ją į paieškos juostą arba įveskite rankiniu būdu.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeigu esate programuotojas, kuris nori pateikti papildomas funkcijas SUPLA''I, sukurkite OAuth programą, kurią vartotojai galės autorizuoti ir naudoti.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeigu esate tikri, kad turite paskyrą cloud.cupla org patikrinkite, ar programa, su kuria bandote autorizuoti yra vieša.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Jei nenurodėte šio el. pašto adreso %cloudHost% svetainėje, nespauskite ant nuorodos.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite [registruoti savo instanciją].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeigu norite pamatyti prieinamas integracijas, pereikite į [cloud.supla.org/apps].'
@@ -277,6 +279,7 @@ Mode: Režimas
 Modification: Modifikavimas
 My OAuth apps: Mano programos OAuth
 My SUPLA: Mano SUPLA
+NOTICE!: PASTABA!
 Name: Pavadinimas
 Never: Niekada
 New OAuth application: Nauja OAuth programa
@@ -367,9 +370,11 @@ Revoke: Atšaukti
 Roller shutter opening sensor: Žaliuzių atidengimo jutiklis
 Roller shutter operation: Žaliuzių atidengimas ir uždengimas
 Roller shutters: Žaliuzės
+SUPLA - Account Activation: SUPLA – Paskyros aktyvavimas
 SUPLA Cloud is under maintenance.: Vyksta SUPLA Cloud atnaujinimas.
 SUPLA Server was unable to execute the action.: Klaida atliekant veiksmą SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA prieinama visada ir vidur, todėl nesijaudinkite, kai sekantį kartą pamiršite išjungti šviesą'
+SUPLA.ORG Team: SUPLA.ORG komanda
 Save: Išsaugoti
 Save and enable: Išsaugoti ir įjungti
 Save changes: Išsaugoti pakeitimus
@@ -418,6 +423,7 @@ Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis
 Temperature Sensor: Temperatūros jutiklis
 Temperature adjustment: Temperatūros priderinimas
 Temperature and humidity sensor: Temperatūros ir drėgmės jutiklis
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Ačiū, kad užregistravote paskyrą %cloudHost% svetainėje. Norėdami baigti aktyvavimą, spustelėkite žemiau esančią nuorodą.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dėl integracijų galite lengvu būdu pridėti naujas funkcijas prie savo paskyros, panaudojant sprendimus, kuriuos teikia išoriniai tiekėjai, programuotojai arba asmeniškai.'
 The Terms and Conditions have changed: Taisyklės pasikeitė
 The Terms and Conditions have changed – please read them and accept.: Svetainės Taisyklės pasikeitė – būtinas sutikimas su jomis.
@@ -477,6 +483,7 @@ We will miss you: Ilgėsimės Jūsų
 We will use it only in justified situations.: Panaudosime jį tik pagrįstais atvejais.
 Weather Station: Meteorologijos stotis
 Weight sensor: Svoris
+Welcome!: Sveiki!
 What this token is for?: Kam yra skirtas šis tokenas?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.'
 Where is the JSON?: Kur yra JSON?
@@ -509,6 +516,7 @@ Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav
 Your session has been expired.: Jūsų sesija baigėsi.
 Your session is about to expire: Jūsų sesija baigsis.
 'Your session will expire in [time].': 'Jūsų sesija baigsis po [time].'
+'Yours faithfully,': 'Pagarbiai,'
 actionableSubjectType_channel: Kanalas
 actionableSubjectType_channelGroup: Kanalų grupė
 after: po
@@ -697,6 +705,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -722,7 +731,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
@@ -757,6 +766,7 @@ Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Protocol: ~

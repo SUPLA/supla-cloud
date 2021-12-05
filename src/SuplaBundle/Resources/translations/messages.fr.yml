@@ -232,8 +232,10 @@ I/O devices registration: Enregistrement appareil
 ID: ID
 INACTIVE: INACTIVE
 Idle: Inactif
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Si le lien ne fonctionne pas, copiez-le et collez dans la barre de recherche ou saisissez-le manuellement.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Si vous êtes un programmeur qui souhaite fournir des fonctionnalités supplémentaires pour SUPLA, créez une application OAuth que les utilisateurs peuvent autoriser et utiliser.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Si vous êtes sûr d''avoir un compte sur cloud.supla.org, vérifiez si l''application que vous essayez d''autoriser est publique.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Si l''adresse e-mail que vous avez donnée lors de l''inscription n''est pas la vôtre, ne cliquez pas sur le lien.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Si vous souhaitez intégrer un nuage SUPLA privé à l''application publique OAuth, vous devez [enregistrer votre instance].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Si vous souhaitez utiliser le lien direct dans un autre logiciel, ajoutez l`en-tête de requête approprié pour obtenir  la réponse  plus facile au traitement.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Si vous voulez voir les intégrations disponibles, allez à [cloud.supla.org/apps].'
@@ -278,6 +280,7 @@ Mode: Mode
 Modification: Modification
 My OAuth apps: Mes applications OAuth
 My SUPLA: Ma SUPLA
+NOTICE!: ATTENTION!
 Name: Nom
 Never: Jamais
 New OAuth application: Nouvelle application OAuth
@@ -368,9 +371,11 @@ Revoke: Révoquer
 Roller shutter opening sensor: Capteur d'ouverture de volets
 Roller shutter operation: Ouverture et fermeture de volets roulants
 Roller shutters: Volets roulants
+SUPLA - Account Activation: SUPLA - Activation de votre compte
 SUPLA Cloud is under maintenance.: Le SUPLA Cloud est en cours de mise à jour.
 SUPLA Server was unable to execute the action.: Le serveur SUPLA n'a pas pu exécuter l'action.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA est disponible toujours et partout donc ne vous inquiétez pas si vous oubliez d'éteindre la lumière
+SUPLA.ORG Team: Équipe SUPLA.ORG
 Save: Sauvegarder
 Save and enable: Sauvegarder et activer
 Save changes: Enregistrer les modifications
@@ -419,6 +424,7 @@ Temperature & Humidity Sensor: Capteur de température et humidité
 Temperature Sensor: Capteur de température
 Temperature adjustment: Réglage de la température
 Temperature and humidity sensor: Capteur de température et d'humidité
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Nous vous remercions de votre inscription auprès du service %cloudHost%. Pour terminer l''activation, cliquez sur le lien ci-dessous.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Grâce à l''intégration, vous pouvez facilement ajouter de nouvelles fonctionnalités à votre compte, en utilisant des solutions fournies par des fournisseurs externes, par des programmeurs ou par vous-même.'
 The Terms and Conditions have changed: Le Règlement a été modifié
 The Terms and Conditions have changed – please read them and accept.: Le Règlement du service a été modifié - son acceptation est requise.
@@ -478,6 +484,7 @@ We will miss you: Vous nous manquerez
 We will use it only in justified situations.: Nous ne l'utiliserons que dans des cas justifiés.
 Weather Station: Station météo
 Weight sensor: Poids
+Welcome!: Bienvenue!
 What this token is for?: A quoi sert ce jeton ?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': Vous pouvez réaliser une action du lien direct en fournissant son identifiant unique dans le contenu de la demande HTTP PATCH. C`est plus sûr et empêche de sauvegarder l`adresse complète de votre lien dans les fichiers journaux d`accès des serveurs par lesquels votre requête est transmise. Vous trouverez ci-dessous un exemple de réalisation à l’aide de l`outil cURL.
 Where is the JSON?: Où est JSON?
@@ -510,6 +517,7 @@ Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est p
 Your session has been expired.: Votre session a expiré.
 Your session is about to expire: Votre session est sur le point d'expirer
 'Your session will expire in [time].': 'Votre session va expirer dans [temps].'
+'Yours faithfully,': 'Cordialement,'
 actionableSubjectType_channel: Chaîne
 actionableSubjectType_channelGroup: Groupe de chaînes
 after: après
@@ -697,6 +705,7 @@ Choose channel function: ~
 Clear: ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
+Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
@@ -722,7 +731,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
+'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~
 Integration with MQTT Broker has been disabled.: ~
@@ -757,6 +766,7 @@ Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
 Please choose the schedule subject first.: ~
+Please confirm your SUPLA account.: ~
 Port: ~
 Precision: ~
 Protocol: ~
