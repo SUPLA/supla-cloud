@@ -221,7 +221,7 @@ G5LA1A Relay x2: Relè 2xG5LA1A
 GENERATE: GENERA
 Garage door opening sensor: Sensore di apertura del cancello per garage
 Garage door operation: Apertura/chiusura del cancello per garage
-Gas meter: Licznik gazu
+Gas meter: Misuratore del gas
 Gate opening sensor: Sensore di apertura del cancello d’ingresso
 Gate operation: Apertura/chiusura del cancello d’ingresso
 Gateway lock operation: Apertura del cancello
@@ -525,7 +525,7 @@ WELCOME_MESSAGE: |
   Connettere la Tua casa o l’ufficio con SUPLA è molto semplice.
   Tutto quello che devi fare è riscrivere nei Tuoi dispositivi di controllo (entrate/uscite) e nei smartphone i seguenti dati.
 Wait a while before the next request. You can check your limits in the account settings.: Aspetta un attimo prima di effettuare la prossima richiesta. Puoi controllare l'attuale uso dei Tuoi limiti nelle impostazioni del Tuo account.
-Water meter: Licznik wody
+Water meter: Misuratore dell'acqua
 We could not connect to your SUPLA Cloud instance.: Non riuscivamo a connetterci con la Tua istanza privata SUPLA Cloud.
 We have just sent you an activation link. You should be receiving it shortly.: Il messaggio con il link di attivazione del Tuo account è stato appena inviato. Attendi con pazienza.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Ti abbiamo inviato un messaggio e-mail contenente il link di conferma della cancellazione dell’account. Forse cambierai la Tua decisione!
