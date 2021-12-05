@@ -1,0 +1,12 @@
+{% extends '@Supla/Email/en/template.txt.twig' %}
+
+{% block subject %}
+SUPLA - New account activated
+{% endblock %}
+
+{% block body %}
+Email: {{ email }}
+Server: {{ svrUrl() }}
+{% endblock %}
+
+{% block footer %}{% endblock %}

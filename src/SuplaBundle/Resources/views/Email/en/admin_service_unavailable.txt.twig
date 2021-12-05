@@ -1,10 +1,12 @@
 {% extends '@Supla/Email/en/template.txt.twig' %}
 
 {% block subject %}
-SUPLA - New account activated
+SUPLA - Service Unavailable
 {% endblock %}
 
 {% block body %}
-Email: {{ user.email }}
 Server: {{ svrUrl() }}
+Detail: {{ detail }}
 {% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,16 @@
+{% extends '@Supla/Email/en/template.html.twig' %}
+
+{% block subject %}
+    SUPLA - New account activated
+{% endblock %}
+
+{% block preheader %}
+    New account at {{ svrUrl() }}.
+{% endblock %}
+
+{% block body %}
+    {% apply paragraph %} <b>Email:</b> {{ email }} {% endapply %}
+    {% apply paragraph %} <b>Server:</b> {{ svrUrl() }} {% endapply %}
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -21,34 +21,42 @@ use Assert\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
+use SuplaBundle\Message\Emails\ServiceUnavailableAdminEmailNotification;
+use SuplaBundle\Message\EmailToAdmin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class ApiExceptionHandler implements EventSubscriberInterface {
     private $isDebug;
     /** @var LoggerInterface */
     private $logger;
+    /** @var MessageBusInterface */
+    private $messageBus;
 
-    public function __construct($isDebug, LoggerInterface $logger) {
+    public function __construct($isDebug, LoggerInterface $logger, MessageBusInterface $messageBus) {
         $this->isDebug = $isDebug;
         $this->logger = $logger;
+        $this->messageBus = $messageBus;
     }
 
     public function onException(GetResponseForExceptionEvent $event) {
         $request = $event->getRequest();
         $isApiRequest = preg_match('#/api/#', $request->getRequestUri());
         if ($isApiRequest || in_array('application/json', $request->getAcceptableContentTypes())) {
-            $errorResponse = $this->chooseErrorResponse($event->getException());
+            $errorResponse = $this->chooseErrorResponse($event->getThrowable());
             $event->setResponse($errorResponse);
-            $exception = $event->getException();
+            $exception = $event->getThrowable();
             $context = ['exceptionMessage' => $exception->getMessage(), 'trace' => $exception->getTraceAsString()];
             if ($exception instanceof ApiException) {
                 $this->logger->notice('API Exception', $context);
             } else {
                 $this->logger->error('API Error', $context);
+                $detail = $request->getRequestUri() . ' -- ' . $exception->getMessage();
+                $this->messageBus->dispatch(new EmailToAdmin(new ServiceUnavailableAdminEmailNotification($detail)));
             }
         }
     }

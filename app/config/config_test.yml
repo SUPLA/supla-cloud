@@ -30,6 +30,9 @@ monolog:
       type: test
       level: debug
 
+parameters:
+  admin_email: admin@supla.org
+
 services:
   SuplaBundle\Tests\Integration\TestMailer: ~
   SuplaBundle\Mailer\SuplaMailer:
@@ -37,7 +40,7 @@ services:
     $templating: '@templating.engine.twig'
     $mailer: '@SuplaBundle\Tests\Integration\TestMailer'
     $mailerFrom: "%mailer_from%"
-    $adminEmail: "admin@supla.org"
+    $adminEmail: "%admin_email%"
     $defaultLocale: "%locale%"
     $localSuplaCloud: '@SuplaBundle\Model\LocalSuplaCloud'
   SuplaBundle\Model\TimeProvider:

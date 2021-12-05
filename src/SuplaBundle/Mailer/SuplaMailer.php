@@ -111,27 +111,6 @@ class SuplaMailer {
         return $this->sendEmailMessage('confirm', $user, ['confirmationUrl' => $url]);
     }
 
-    public function sendUserConfirmationSuccessEmailMessage(User $user): bool {
-        return $this->sendEmailMessage(
-            'activation',
-            $this->adminEmail,
-            ['user' => $user, 'supla_server' => $this->localSuplaCloud->getHost()],
-            'en'
-        );
-    }
-
-    public function sendServiceUnavailableMessage($detail): bool {
-        return $this->sendEmailMessage(
-            'service_unavailable',
-            $this->adminEmail,
-            [
-                'detail' => $detail,
-                'supla_server' => $this->localSuplaCloud->getHost(),
-            ],
-            'en'
-        );
-    }
-
     private function linkWithLang(User $user, string $suffix): string {
         $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . $suffix;
         $url .= '?lang=' . ($user->getLocale() ?? $this->defaultLocale);

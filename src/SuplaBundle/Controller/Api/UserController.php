@@ -34,6 +34,8 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
 use SuplaBundle\Message\Emails\DeleteUserConfirmationEmailNotification;
 use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
+use SuplaBundle\Message\Emails\UserActivatedAdminEmailNotification;
+use SuplaBundle\Message\EmailToAdmin;
 use SuplaBundle\Model\Audit\AuditAware;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Model\Transactional;
@@ -87,21 +89,21 @@ class UserController extends RestController {
     private $encoderFactory;
 
     public function __construct(
-        UserManager $userManager,
-        AuditEntryRepository $auditEntryRepository,
-        SuplaAutodiscover $autodiscover,
-        SuplaMailer $mailer,
+        UserManager                      $userManager,
+        AuditEntryRepository             $auditEntryRepository,
+        SuplaAutodiscover                $autodiscover,
+        SuplaMailer                      $mailer,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
-        EncoderFactoryInterface $encoderFactory,
-        int $clientsRegistrationEnableTime,
-        int $ioDevicesRegistrationEnableTime,
-        bool $requireRegulationsAcceptance,
-        bool $recaptchaEnabled,
-        ?string $recaptchaSecret,
-        array $availableLanguages,
-        bool $accountsRegistrationEnabled,
-        bool $mqttBrokerEnabled,
-        bool $mqttAuthEnabled
+        EncoderFactoryInterface          $encoderFactory,
+        int                              $clientsRegistrationEnableTime,
+        int                              $ioDevicesRegistrationEnableTime,
+        bool                             $requireRegulationsAcceptance,
+        bool                             $recaptchaEnabled,
+        ?string                          $recaptchaSecret,
+        array                            $availableLanguages,
+        bool                             $accountsRegistrationEnabled,
+        bool                             $mqttBrokerEnabled,
+        bool                             $mqttAuthEnabled
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -275,7 +277,7 @@ class UserController extends RestController {
      * @Rest\Post("/register")
      * @UnavailableInMaintenance
      */
-    public function accountCreateAction(Request $request) {
+    public function accountCreateAction(Request $request, MessageBusInterface $messageBus) {
         if (!$this->accountsRegistrationEnabled) {
             return $this->view(
                 ['status' => Response::HTTP_LOCKED, 'message' => 'Account registration is diabled'],
@@ -293,7 +295,6 @@ class UserController extends RestController {
         $username = $request->get('email');
         Assertion::email($username, 'Please fill a valid email address'); // i18n
 
-        $remoteServer = '';
         $exists = $this->autodiscover->userExists($username);
         if ($exists) {
             $targetCloud = $this->autodiscover->getAuthServerForUser($username);
@@ -307,14 +308,6 @@ class UserController extends RestController {
                 ['status' => Response::HTTP_CONFLICT, 'message' => 'Email already exists', 'accountEnabled' => $enabled],
                 Response::HTTP_CONFLICT
             );
-        }
-
-        if ($exists === null) {
-            $this->mailer->sendServiceUnavailableMessage('createAction - remote server: ' . $remoteServer);
-            return $this->view([
-                'status' => Response::HTTP_SERVICE_UNAVAILABLE,
-                'message' => 'Service temporarily unavailable',
-            ], Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
         $user = new User();
@@ -399,10 +392,10 @@ class UserController extends RestController {
      * @Rest\Patch("/confirm/{token}")
      * @UnavailableInMaintenance
      */
-    public function confirmEmailAction(string $token) {
+    public function confirmEmailAction(string $token, MessageBusInterface $messageBus) {
         $user = $this->userManager->confirm($token);
         Assertion::notNull($user, 'Token does not exist');
-        $this->mailer->sendUserConfirmationSuccessEmailMessage($user);
+        $messageBus->dispatch(new EmailToAdmin(new UserActivatedAdminEmailNotification($user)));
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 

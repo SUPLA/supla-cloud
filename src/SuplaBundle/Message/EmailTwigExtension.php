@@ -51,6 +51,7 @@ PARAGRAPH;
         $copyText = $this->generateParagraph($this->translator->trans($copyMessage, [], null, $context['userLocale']));
         $copyText .= $this->generateParagraph("<code>$url</code>");
         $color = ['danger' => '#d9534f'][$type] ?? '#00d151';
+        // @codingStandardsIgnoreStart
         return <<<GREENBUTTON
         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="butn butn-$type" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
             <tbody>
@@ -69,6 +70,7 @@ PARAGRAPH;
         </table>
         $copyText
 GREENBUTTON;
+        // @codingStandardsIgnoreEnd
     }
 
     public function getCloudUrl(): string {

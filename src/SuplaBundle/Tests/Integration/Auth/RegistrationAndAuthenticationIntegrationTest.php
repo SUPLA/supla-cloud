@@ -157,6 +157,33 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     /** @small */
+    public function testSendingAdminNotificationIfCannotRegister() {
+        SuplaAutodiscoverMock::clear();
+        $email = array_keys(SuplaAutodiscoverMock::$userMapping)[0];
+        $userData = [
+            'email' => $email,
+            'regulationsAgreed' => true,
+            'password' => self::PASSWORD,
+            'timezone' => 'Europe/Warsaw',
+        ];
+        $client = $this->createHttpsClient();
+        TargetSuplaCloudRequestForwarder::$requestExecutor = function () {
+            throw new \Exception('Something went wrong and it should not be public.');
+        };
+        $client->apiRequest('POST', '/api/register', $userData);
+        $this->assertStatusCode(500, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals('Internal server error', $content['message']);
+        $this->flushMessagesQueue($client);
+        $messages = TestMailer::getMessages();
+        $confirmationMessage = end($messages);
+        $this->assertArrayHasKey('admin@supla.org', $confirmationMessage->getTo());
+        $this->assertContains('SUPLA - Service Unavailable', $confirmationMessage->getSubject());
+        $this->assertContains('it should not be public', $confirmationMessage->getBody());
+        $this->assertContains('supla.local', $confirmationMessage->getBody());
+    }
+
+    /** @small */
     public function testCannotCreateUserIfAdFails() {
         SuplaAutodiscoverMock::mockResponse('users', [], 503, 'POST');
         $userData = [
