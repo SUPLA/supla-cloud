@@ -19,7 +19,6 @@ namespace SuplaBundle\EventListener;
 
 use Assert\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Message\Emails\ServiceUnavailableAdminEmailNotification;
 use SuplaBundle\Message\EmailToAdmin;
@@ -51,12 +50,12 @@ class ApiExceptionHandler implements EventSubscriberInterface {
             $event->setResponse($errorResponse);
             $exception = $event->getThrowable();
             $context = ['exceptionMessage' => $exception->getMessage(), 'trace' => $exception->getTraceAsString()];
-            if ($exception instanceof ApiException) {
-                $this->logger->notice('API Exception', $context);
-            } else {
+            if ($errorResponse->getStatusCode() >= 500) {
                 $this->logger->error('API Error', $context);
                 $detail = $request->getRequestUri() . ' -- ' . $exception->getMessage();
                 $this->messageBus->dispatch(new EmailToAdmin(new ServiceUnavailableAdminEmailNotification($detail)));
+            } elseif ($errorResponse->getStatusCode() != 400) {
+                $this->logger->notice('API Exception', $context);
             }
         }
     }

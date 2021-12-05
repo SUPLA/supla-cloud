@@ -10,3 +10,4 @@ class ServiceUnavailableAdminEmailNotification extends EmailFromTemplate impleme
         parent::__construct('admin_service_unavailable', null, ['detail' => $details]);
     }
 }
+

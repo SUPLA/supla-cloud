@@ -2,11 +2,11 @@
 
 namespace SuplaBundle\Message;
 
-use Assert\Assertion;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
 
 class EmailFromTemplateHandler implements MessageHandlerInterface {
     private const SUBJECT_DELIMITER = '#### SUBJECT-DELIMITER ####';
@@ -45,10 +45,31 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
             throw new \InvalidArgumentException('No userId and no recipient given.');
         }
         $data = array_merge($email->getData(), $data);
-        $templatePath = "SuplaBundle::Email/$data[userLocale]/{$email->getTemplateName()}";
-        $textRendered = $this->twig->render($templatePath . '.txt.twig', $data);
+        $locale = $this->localeForTemplate($data['userLocale'], $email->getTemplateName(), $data);
+        $textRendered = $this->render($locale, $email->getTemplateName() . '.txt', $data);
         [$subject, $text] = explode(self::SUBJECT_DELIMITER, $textRendered);
-        $html = $this->twig->render($templatePath . '.html.twig', $data);
+        $html = $this->render($locale, $email->getTemplateName() . '.html', $data);
         $this->messageBus->dispatch(new EmailMessage($data['userEmail'], $subject, $text, $html));
+    }
+
+    private function localeForTemplate(string $userLocale, string $templateName, array $data) {
+        foreach ([$userLocale, $this->defaultLocale, 'en'] as $possibleLocale) {
+            $path = "SuplaBundle::Email/$possibleLocale/$templateName.txt.twig";
+            try {
+                $this->twig->render($path, $data);
+                return $possibleLocale;
+            } catch (LoaderError $e) {
+            }
+        }
+        throw new \InvalidArgumentException('Invalid email template: ' . $templateName);
+    }
+
+    private function render(string $locale, string $templateName, array $data): ?string {
+        $path = "SuplaBundle::Email/$locale/$templateName.twig";
+        try {
+            return $this->twig->render($path, $data);
+        } catch (LoaderError $e) {
+            return null;
+        }
     }
 }

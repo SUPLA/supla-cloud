@@ -39,4 +39,10 @@ class StringUtilsTest extends TestCase {
             ['FORWARD_REACTIVE_ENERGY', 'forwardReactiveEnergy'],
         ];
     }
+
+    public function testJoinPaths() {
+        $this->assertEquals('a/b/c', StringUtils::joinPaths('a', 'b', 'c'));
+        $this->assertEquals('a/b/c', StringUtils::joinPaths('a', '/b', 'c'));
+        $this->assertEquals('a/b/c', StringUtils::joinPaths('a', '/b/', '/c'));
+    }
 }

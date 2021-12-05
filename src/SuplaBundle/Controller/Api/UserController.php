@@ -32,8 +32,6 @@ use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Mailer\SuplaMailer;
-use SuplaBundle\Message\Emails\DeleteUserConfirmationEmailNotification;
-use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
 use SuplaBundle\Message\Emails\UserActivatedAdminEmailNotification;
 use SuplaBundle\Message\EmailToAdmin;
 use SuplaBundle\Model\Audit\AuditAware;
@@ -49,7 +47,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserController extends RestController {
@@ -151,7 +148,7 @@ class UserController extends RestController {
      * @Security("has_role('ROLE_ACCOUNT_RW')")
      * @UnavailableInMaintenance
      */
-    public function patchUsersCurrentAction(Request $request, MessageBusInterface $messageBus) {
+    public function patchUsersCurrentAction(Request $request) {
         $data = $request->request->all();
         $user = $this->getUser();
         if ($data['action'] == 'delete') {
@@ -159,7 +156,6 @@ class UserController extends RestController {
             $password = $data['password'] ?? '';
             Assertion::true($this->userManager->isPasswordValid($user, $password), 'Incorrect password'); // i18n
             $this->userManager->accountDeleteRequest($user);
-            $messageBus->dispatch(new DeleteUserConfirmationEmailNotification($user));
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
         $headers = [];
@@ -277,7 +273,7 @@ class UserController extends RestController {
      * @Rest\Post("/register")
      * @UnavailableInMaintenance
      */
-    public function accountCreateAction(Request $request, MessageBusInterface $messageBus) {
+    public function accountCreateAction(Request $request) {
         if (!$this->accountsRegistrationEnabled) {
             return $this->view(
                 ['status' => Response::HTTP_LOCKED, 'message' => 'Account registration is diabled'],
@@ -349,10 +345,10 @@ class UserController extends RestController {
         }
         $this->userManager->create($user);
 
-        $sent = $this->userManager->sendConfirmationEmailMessage($user);
+        $this->userManager->sendConfirmationEmailMessage($user);
 
         $view = $this->view($user, Response::HTTP_CREATED);
-        $view->setHeader('SUPLA-Email-Sent', $sent ? 'true' : 'false');
+        $view->setHeader('SUPLA-Email-Sent', 'true');
         return $view;
     }
 
@@ -376,10 +372,7 @@ class UserController extends RestController {
             if ($user) {
                 Assertion::false($user->isEnabled(), 'User is already confirmed. Try to log in.'); // i18n
                 try {
-                    $sent = $this->userManager->sendConfirmationEmailMessage($user);
-                    if (!$sent) {
-                        throw new ServiceUnavailableHttpException(10, 'Cannot send an activation e-mail. Try again later.'); // i18n
-                    }
+                    $this->userManager->sendConfirmationEmailMessage($user);
                 } catch (InvalidArgumentException $e) {
                     throw new ConflictHttpException($e->getMessage(), $e);
                 }
@@ -392,10 +385,10 @@ class UserController extends RestController {
      * @Rest\Patch("/confirm/{token}")
      * @UnavailableInMaintenance
      */
-    public function confirmEmailAction(string $token, MessageBusInterface $messageBus) {
+    public function confirmEmailAction(string $token) {
         $user = $this->userManager->confirm($token);
         Assertion::notNull($user, 'Token does not exist');
-        $messageBus->dispatch(new EmailToAdmin(new UserActivatedAdminEmailNotification($user)));
+        $this->dispatchMessage(new EmailToAdmin(new UserActivatedAdminEmailNotification($user)));
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
@@ -425,8 +418,8 @@ class UserController extends RestController {
                 Assertion::eq($status, Response::HTTP_OK, 'Could not reset the password.'); // i18n
             } elseif ($request->getMethod() == Request::METHOD_POST) {
                 $user = $this->userManager->userByEmail($username);
-                if ($user && $this->userManager->paswordRequest($user) === true) {
-                    $this->dispatchMessage(new ResetPasswordEmailNotification($user));
+                if ($user) {
+                    $this->userManager->passwordResetRequest($user);
                 }
             } else {
                 /** @var User $user */

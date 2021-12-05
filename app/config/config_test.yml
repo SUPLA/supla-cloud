@@ -36,20 +36,15 @@ parameters:
 services:
   SuplaBundle\Tests\Integration\TestMailer: ~
   SuplaBundle\Mailer\SuplaMailer:
-    $router: '@router'
-    $templating: '@templating.engine.twig'
     $mailer: '@SuplaBundle\Tests\Integration\TestMailer'
     $mailerFrom: "%mailer_from%"
-    $adminEmail: "%admin_email%"
-    $defaultLocale: "%locale%"
-    $localSuplaCloud: '@SuplaBundle\Model\LocalSuplaCloud'
   SuplaBundle\Model\TimeProvider:
     class: SuplaBundle\Tests\Integration\Traits\TestTimeProvider
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
   SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'
   SuplaBundle\Supla\SuplaServerMockCommandsCollector:
     public: false
-    tags: [{name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector'}]
+    tags: [ { name: data_collector, template: '@Supla/Supla/supla-server-mock-data-collector.html.twig', id: 'supla.supla_server_mock_data_collector' } ]
   test.client:
     class: SuplaBundle\Tests\Integration\TestClient
     shared: false

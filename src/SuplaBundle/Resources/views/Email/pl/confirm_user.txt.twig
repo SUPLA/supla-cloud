@@ -1,0 +1,18 @@
+{% extends '@Supla/Email/pl/template.txt.twig' %}
+
+{% block subject %}
+SUPLA - Aktywacja konta
+{% endblock %}
+
+{% block body %}
+Witaj!
+
+Dziękujemy za rejestrację konta w serwisie {{ cloudHost() }}. Aby zakończyć aktywację, kliknij poniższy link.
+
+{{ svrUrl(confirmationUrl) }}
+
+Jeśli link nie działa, skopiuj go w pasek przeglądarki lub wpisz ręcznie.
+
+UWAGA!
+Jeżeli nie podałeś(aś) tego adresu email w serwisie {{ cloudHost() }}, nie klikaj odnośnika.
+{% endblock %}

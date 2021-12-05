@@ -4,6 +4,7 @@ namespace SuplaBundle\Message;
 
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use SuplaBundle\Utils\StringUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -32,7 +33,7 @@ class EmailTwigExtension extends AbstractExtension {
 
     public function getFunctions() {
         return [
-            new TwigFunction('svrUrl', [$this->localSuplaCloud, 'getAddress']),
+            new TwigFunction('svrUrl', [$this, 'getSvrUrl'], ['needs_context' => true]),
             new TwigFunction('cloudUrl', [$this, 'getCloudUrl']),
             new TwigFunction('cloudHost', [$this, 'getCloudHost']),
         ];
@@ -47,7 +48,7 @@ PARAGRAPH;
 
     public function generateLinkButton(array $context, string $text, string $url, string $type = 'primary'): string {
         $copyMessage = 'If the link is not working, please copy and paste it or enter manually in a new browser window.'; // i18n
-        $url = $this->localSuplaCloud->getAddress() . $url . '?lang=' . $context['userLocale'];
+        $url = $this->getSvrUrl($context, $url);
         $copyText = $this->generateParagraph($this->translator->trans($copyMessage, [], null, $context['userLocale']));
         $copyText .= $this->generateParagraph("<code>$url</code>");
         $color = ['danger' => '#d9534f'][$type] ?? '#00d151';
@@ -79,5 +80,16 @@ GREENBUTTON;
 
     public function getCloudHost(): string {
         return $this->autodiscover->isBroker() ? 'cloud.supla.org' : $this->localSuplaCloud->getHost();
+    }
+
+    public function getSvrUrl(array $context, string $url = ''): string {
+        $fullUrl = $this->localSuplaCloud->getAddress();
+        if ($url) {
+            $fullUrl .= StringUtils::joinPaths($fullUrl, $url);
+            if ($locale = $context['userLocale'] ?? null) {
+                $fullUrl .= '?lang=' . $locale;
+            }
+        }
+        return $fullUrl;
     }
 }

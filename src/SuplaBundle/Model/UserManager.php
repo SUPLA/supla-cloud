@@ -27,12 +27,16 @@ use SuplaBundle\Entity\Schedule;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Mailer\SuplaMailer;
+use SuplaBundle\Message\Emails\ConfirmUserEmailNotification;
+use SuplaBundle\Message\Emails\DeleteUserConfirmationEmailNotification;
+use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserManager {
@@ -67,19 +71,22 @@ class UserManager {
      * @var LocalSuplaCloud
      */
     private $localSuplaCloud;
+    /** @var MessageBusInterface */
+    private $messageBus;
 
     public function __construct(
-        UserRepository $userRepository,
+        UserRepository          $userRepository,
         EncoderFactoryInterface $encoder_factory,
-        AccessIdManager $accessid_manager,
-        LocationManager $location_manager,
-        ScheduleManager $scheduleManager,
-        TimeProvider $timeProvider,
-        LoggerInterface $logger,
-        SuplaMailer $mailer,
-        LocalSuplaCloud $localSuplaCloud,
-        int $defaultClientsRegistrationTime,
-        int $defaultIoDevicesRegistrationTime
+        AccessIdManager         $accessid_manager,
+        LocationManager         $location_manager,
+        ScheduleManager         $scheduleManager,
+        TimeProvider            $timeProvider,
+        LoggerInterface         $logger,
+        SuplaMailer             $mailer,
+        LocalSuplaCloud         $localSuplaCloud,
+        MessageBusInterface     $messageBus,
+        int                     $defaultClientsRegistrationTime,
+        int                     $defaultIoDevicesRegistrationTime
     ) {
         $this->encoder_factory = $encoder_factory;
         $this->rep = $userRepository;
@@ -92,6 +99,7 @@ class UserManager {
         $this->localSuplaCloud = $localSuplaCloud;
         $this->logger = $logger;
         $this->mailer = $mailer;
+        $this->messageBus = $messageBus;
     }
 
     /** @required */
@@ -112,14 +120,14 @@ class UserManager {
         });
     }
 
-    public function sendConfirmationEmailMessage(User $user): bool {
+    public function sendConfirmationEmailMessage(User $user): void {
         $recentEmail = $this->audit->recentEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT(), 'PT5M', $user);
         Assertion::null($recentEmail, 'We have just sent you an activation link. You should be receiving it shortly.'); // i18n
         $this->audit->newEntry(AuditedEvent::USER_ACTIVATION_EMAIL_SENT())
             ->setUser($user)
             ->setTextParam($user->getUsername())
             ->buildAndFlush();
-        return $this->mailer->sendConfirmationEmailMessage($user);
+        $this->messageBus->dispatch(new ConfirmUserEmailNotification($user));
     }
 
     public function setPassword($password, User $user, $flush = false) {
@@ -140,12 +148,12 @@ class UserManager {
         return $encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt());
     }
 
-    public function paswordRequest(User $user) {
+    public function passwordResetRequest(User $user): void {
         if ($user->isEnabled() === true) {
             if ($user->getPasswordRequestedAt()) {
                 $diff = abs($this->timeProvider->getDateTime()->getTimestamp() - $user->getPasswordRequestedAt()->getTimestamp());
                 if ($diff < 300) {
-                    return false;
+                    return;
                 }
             }
             $this->genToken($user);
@@ -155,21 +163,18 @@ class UserManager {
                 $em->persist($user);
             });
 
-            return true;
+            $this->messageBus->dispatch(new ResetPasswordEmailNotification($user));
         }
-
-        return false;
     }
 
-    public function accountDeleteRequest(User $user) {
-        if ($user->isEnabled() === true) {
+    public function accountDeleteRequest(User $user): void {
+        if ($user->isEnabled()) {
             $user->setTokenForAccountRemoval($this->genToken($user));
             $this->transactional(function (EntityManagerInterface $em) use ($user) {
                 $em->persist($user);
             });
-            return true;
+            $this->messageBus->dispatch(new DeleteUserConfirmationEmailNotification($user));
         }
-        return false;
     }
 
     private function genToken(User $user) {

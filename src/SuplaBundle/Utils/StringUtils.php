@@ -33,7 +33,7 @@ final class StringUtils {
 
     /** https://stackoverflow.com/a/31284266/878514 */
     public static function randomString(
-        int $length,
+        int    $length,
         string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-*@!()='
     ) {
         $str = '';
@@ -43,5 +43,25 @@ final class StringUtils {
             $str .= $keyspace[random_int(0, $max)];
         }
         return $str;
+    }
+
+    /**
+     * @see https://stackoverflow.com/a/15575293/878514
+     */
+    public static function joinPaths(string...$paths): string {
+        $nonEmptyPaths = array_filter(
+            $paths,
+            function ($s) {
+                return $s !== '';
+            }
+        );
+        return self::unixSlashes(preg_replace('#/+#', '/', join('/', $nonEmptyPaths)));
+    }
+
+    public static function unixSlashes(?string $path): ?string {
+        if (!$path) {
+            return $path;
+        }
+        return str_replace('\\', '/', $path);
     }
 }

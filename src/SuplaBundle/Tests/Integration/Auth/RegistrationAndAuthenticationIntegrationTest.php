@@ -226,6 +226,8 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
         $this->assertContains('Activation', $confirmationMessage->getSubject());
         $this->assertContains($this->createdUser->getToken(), $confirmationMessage->getBody());
+        $this->assertContains('supla.local/', $confirmationMessage->getBody());
+        $this->assertContains('?lang=en', $confirmationMessage->getBody());
         return $this->createdUser;
     }
 
@@ -246,6 +248,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
         $this->assertContains('Aktywacja konta', $confirmationMessage->getSubject());
         $this->assertContains('kliknij', $confirmationMessage->getBody());
+        $this->assertContains('supla.local/', $confirmationMessage->getBody());
         $this->assertContains('?lang=pl', $confirmationMessage->getBody());
     }
 

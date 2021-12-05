@@ -17,103 +17,21 @@
 
 namespace SuplaBundle\Mailer;
 
-use Assert\Assertion;
-use SuplaBundle\Entity\User;
-use SuplaBundle\Model\LocalSuplaCloud;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
 
 class SuplaMailer {
-    protected $router;
-    protected $templating;
     protected $mailerFrom;
     protected $mailer;
-    protected $adminEmail;
-    protected $defaultLocale;
-    /** @var LocalSuplaCloud */
-    private $localSuplaCloud;
 
-    public function __construct(
-        RouterInterface $router,
-        EngineInterface $templating,
-        Swift_Mailer $mailer,
-        $mailerFrom,
-        $adminEmail,
-        LocalSuplaCloud $localSuplaCloud,
-        $defaultLocale
-    ) {
-        $this->router = $router;
-        $this->templating = $templating;
+    public function __construct(Swift_Mailer $mailer, $mailerFrom) {
         $this->mailerFrom = $mailerFrom;
         $this->mailer = $mailer;
-        $this->adminEmail = $adminEmail;
-        $this->localSuplaCloud = $localSuplaCloud;
-        $this->defaultLocale = $defaultLocale;
-    }
-
-    private function extractSubjectAndBody(string $templateName, array $params, string $locale, &$subject = null) {
-        $templatePath = "SuplaBundle::Email/$locale/$templateName.twig";
-        if (!$this->templating->exists($templatePath)) {
-            if ($locale !== 'en') {
-                return $this->extractSubjectAndBody($templateName, $params, 'en', $subject);
-            } else {
-                return '';
-            }
-        }
-        $body = $this->templating->render($templatePath, $params);
-        if ($subject !== null) {
-            $lines = explode("\n", trim($body));
-            $subject = $lines[0];
-            $body = implode("\n", array_slice($lines, 1));
-        }
-        return $body;
-    }
-
-    private function sendEmailMessage(string $templateName, $recipient, array $params, string $locale = null): bool {
-        if ($recipient instanceof User) {
-            $locale = $recipient->getLocale() ?? $this->defaultLocale;
-            if (!isset($params['user'])) {
-                $params['user'] = $recipient;
-            }
-            $recipient = $recipient->getEmail();
-        }
-        if (!$locale) {
-            $locale = $this->defaultLocale;
-        }
-        $bodyHtml = $this->extractSubjectAndBody($templateName . '.html', $params, $locale);
-        $subject = '';
-        $bodyTxt = $this->extractSubjectAndBody($templateName . '.txt', $params, $locale, $subject);
-        Assertion::notBlank($bodyTxt, 'Email "' . $templateName . '" has no TXT template.');
-        $message = (new Swift_Message($subject))
-            ->setFrom($this->mailerFrom)
-            ->setTo($recipient);
-        if ($bodyHtml == '') {
-            $message->setBody($bodyTxt, 'text/plain');
-        } else {
-            $message->setBody($bodyHtml, 'text/html');
-            $message->addPart($bodyTxt, 'text/plain');
-        }
-        $sent = $this->mailer->send($message);
-        return $sent > 0;
     }
 
     public function send(Swift_Message $message): bool {
         $message->setFrom($this->mailerFrom);
         $sent = $this->mailer->send($message);
         return $sent > 0;
-    }
-
-    public function sendConfirmationEmailMessage(User $user): bool {
-        $url = $this->linkWithLang($user, 'confirm/' . $user->getToken());
-        return $this->sendEmailMessage('confirm', $user, ['confirmationUrl' => $url]);
-    }
-
-    private function linkWithLang(User $user, string $suffix): string {
-        $url = $this->router->generate('_homepage', [], UrlGeneratorInterface::ABSOLUTE_URL) . $suffix;
-        $url .= '?lang=' . ($user->getLocale() ?? $this->defaultLocale);
-        return $url;
     }
 }

@@ -1,19 +1,18 @@
+{% extends '@Supla/Email/pl/template.txt.twig' %}
+
+{% block subject %}
 SUPLA - Account Activation
-Welcome!,
+{% endblock %}
+
+{% block body %}
+Welcome!
 
 Thank you for registering an account with cloud.supla.org. Please click the following link to complete activation of your account.
 
-{{ confirmationUrl }}
+{{ svrUrl(confirmationUrl) }}
 
 If the link is not working, please copy and paste it or enter manually in a new browser window.
 
 NOTICE!
 If you have not used this email address with cloud.supla.org, please do not click the link.
-
-
-Yours faithfully,
-SUPLA.ORG Team
-
-
-
-
+{% endblock %}

@@ -454,17 +454,16 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         return $token;
     }
 
-    public function getRoles() {
+    public function getRoles(): array {
         return ['ROLE_USER'];
     }
 
-    public function isEnabled() {
+    public function isEnabled(): bool {
         return $this->enabled;
     }
 
-    public function setEnabled($boolean) {
-        $this->enabled = (boolean)$boolean;
-        return $this;
+    public function setEnabled(bool $boolean): void {
+        $this->enabled = $boolean;
     }
 
     public function getAccessIDS() {
