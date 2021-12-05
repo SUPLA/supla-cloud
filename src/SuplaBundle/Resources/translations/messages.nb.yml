@@ -237,6 +237,7 @@ Idle: Hvile modus
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Hvis du er en programutvikler som ønsker å levere ekstra funksjoner til SUPLA, opprett applikasjonen OAuth som andre brukere kan autorisere og bruke.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': Dersom du har en konto på cloud.supla.org sjekk om applikasjonen du forsøker å autorisere er offentlig.
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Hvis du ikke ønsker å fjerne din konto i cloud.supla.org, ikke trykk på lenken.'
+'If you have doubts or more questions, you can contact us directly at %securityEmail%.': Hvis det er noe du lurer på eller hvis du har spørsmål kan du ta kontakt med oss på %securityEmail%.
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Hvis du ikke har oppgitt denne e-post adressen i %cloudHost% tjenesten, ikke trykk på lenken.'
 'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': Ved neste registrering av konto kan noen av enhetene kreve konfigurering på nytt selv om du oppgir den samme e-post adressen.
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'JDersom du ønsker å integrere din privat SUPLA Cloud med offentlig applikasjon OAuth, må du [må du registrere din Cloud].'
@@ -380,6 +381,7 @@ SUPLA - Account Removal: SUPLA – Fjerning av konto
 SUPLA Cloud is under maintenance.: Oppdatering av SUPLA Cloud pågår
 SUPLA Server was unable to execute the action.: Feil ved gjennomføring av handlingen i SUPLA server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA er tilgjengelig alltid og overalt, du trenger ikke å være bekymret neste gang du glemmer å skru av lyset.'
+SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – beskjed om mislykket innlogging til %cloudHost%
 SUPLA.ORG Team: SUPLA.ORG Team
 Save: Lagre
 Save and enable: Lagre og skru på
@@ -432,6 +434,7 @@ Temperature adjustment: Tilpass temperaturen
 Temperature and humidity sensor: Temperatur- og fuktighetssensor
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Takk for at du registrerer din konto i %cloudHost%. For å avslutte aktiviseringen trykk på lenken nedenfor.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Integrasjoner gir deg mulighet til å legge til nye funksjoner til din konto på et enkelt vis ved hjelp av løsninger levert av eksterne leverandører, programmerere eller deg selv.'
+'The IP used for login is: %ip%': 'Forsøket på å logge inn ble gjort fra IP adressen: %ip%'
 The Terms and Conditions have changed: Regelverket ble endret.
 The Terms and Conditions have changed – please read them and accept.: Tjenesteregelverk ble endret – godkjenning av det nye regelverket er påkrevd.
 The activation link has been sent again. Check the inbox.: Melding med aktiveringslenke til din konto ble sendt på nytt. Sjekk din innboks.
@@ -457,6 +460,7 @@ There are no more channels you can add to this group: Det er ingen andre kanaler
 Thermometer: Termometer
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Denne lenken krever en presisering av parameter av den utførte handlingen. Se parameterne nedenfor for å finne ut hvilke parameter du kan sette.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Du mottar denne meldingen fordi det har vært et mislykket forsøk på å logge inn til SUPLA-CLOUD med din adresse.
 This is the list of applications you have granted access to your account.: Dette er en liste med applikasjoner du har gitt tilgang til din konto.
 Timezone: Tidssone
 Toggle: Bytt
@@ -503,6 +507,7 @@ With SUPLA you can operate the lights in your home or office: Med SUPLA kan du s
 With function: Med funksjon
 Working period: Driftsperiode
 YOUR LINK CODE: DIN LENKE KODE
+'You can ignore this message, if you have accidentally entered an incorrect password.': Dersom det er du som har innført feil passord er det bare å se bort ifra denne meldingen.
 You can use the application but you will not be able to modify any settings.: Du kan bruke appen men det er ikke mulig å gjøre endringer
 You cannot delete your last access identifier.: Du kan ikke fjerne din siste tilgang identifikator.
 You cannot delete your last location.: Du kan ikke fjerne din siste lokalisering.

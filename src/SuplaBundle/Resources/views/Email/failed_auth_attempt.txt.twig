@@ -1,18 +1,22 @@
-{% extends '@Supla/Email/pl/template.txt.twig' %}
+{% extends '@Supla/Email/template.txt.twig' %}
 
 {% block subject %}
-SUPLA – {{ cloudHost() }} unsuccessful login attempt notification
+ {% trans with {'%cloudHost%': cloudHost()} into userLocale %} SUPLA – %cloudHost% unsuccessful login attempt notification {% endtrans %}
 {% endblock %}
 
 {% block body %}
-Hello!
+{% trans into userLocale %} Welcome! {% endtrans %}
 
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD ({{ cloudHost() }}) with the use of your email address.
+
+{% trans with {'%cloudHost%': cloudHost()} into userLocale %} This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address. {% endtrans %}
 {%  if ip %}
 
-The IP used for login is: {{ ip }}
+
+{% trans with {'%ip%': ip} into userLocale %} The IP used for login is: %ip% {% endtrans %}
 {% endif %}
 
-You can ignore this message, if you have accidentally entered an incorrect password.
-If you have doubts or more questions, you can contact us directly at security@supla.org
+
+{% trans into userLocale %} You can ignore this message, if you have accidentally entered an incorrect password. {% endtrans %}
+
+{% trans with {'%securityEmail%': 'security@supla.org'} into userLocale %} If you have doubts or more questions, you can contact us directly at %securityEmail%. {% endtrans %}
 {% endblock %}

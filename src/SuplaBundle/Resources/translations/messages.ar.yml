@@ -222,6 +222,7 @@ Idle: خامل
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': إذا كنت مبرمجًا يريد تقديم ميزات إضافية لـ SUPLI، فقم بإنشاء تطبيق OAuth يمكن للمستخدمين السماح به واستخدامه.
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': إذا كنت متأكدًا من أن لديك حسابًا على cloud.supla.org ، فتحقق من أن التطبيق الذي تحاول تخويله عام.
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': إذا كنت لا تريد حذف حسابك على %cloudHost% ، فلا تنقر فوق الرابط.
+'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'إذا كانت لديك أي شكوك أو أسئلة، يمكنك الاتصال بنا عن طريق الكتابة على العنوان: %securityEmail%'
 'If you have not used this email address with %cloudHost%, please do not click the link.': إذا لم تكن قد قدمت عنوان البريد الإلكتروني هذا على %cloudHost% ، فلا تنقر فوق الرابط.
 'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': بعد إعادة تسجيل حسابك، قد تتطلب بعض الأجهزة إعادة التكوين حتى لو قدمت عنوان البريد الإلكتروني نفسه.
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'إذا كنت تريد دمج سحابة SUPLA الخاصة مع تطبيق OAuth  العام، يجب عليك [تسجيل حالتك].'
@@ -353,6 +354,7 @@ SUPLA - Account Removal: SUPLA - حذف الحساب
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: خطأ أثناء تنفيذ الإجراء في خادم  SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA  متاح في أي وقت وفي أي مكان، لذلك لا تقلق في المرة القادمة التي تنسى فيها إطفاء الضوء
+SUPLA – %cloudHost% unsuccessful login attempt notification: 'SUPLA:  إخطار حول فشل تسجيل الدخول إلى %cloudHost%'
 SUPLA.ORG Team: فريق SUPLA.ORG
 Save: حفظ
 Save and enable: حفظ وإيقاف التشغيل
@@ -403,6 +405,7 @@ Temperature adjustment: تعديل درجة الحرارة
 Temperature and humidity sensor: مستشعر درجة الحرارة والرطوبة
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: شكرًا لك على تسجيل حساب على %cloudHost%. لإكمال التنشيط، أنقر فوق الرابط أدناه.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': بفضل عمليات الدمج، يمكنك بسهولة إضافة وظائف جديدة إلى حسابك، وذلك باستخدام الحلول المقدمة من الموردين الخارجيين أو المبرمجين أو من قبل نفسك.
+'The IP used for login is: %ip%': 'تم إجراء محاولة تسجيل الدخول من عنوان IP: %ip%'
 The Terms and Conditions have changed: لقد تغيرت اللوائح
 The Terms and Conditions have changed – please read them and accept.: تغيرت لوائح موقع الويب – الموافقة مطلوبة.
 The activation link has been sent again. Check the inbox.: تم إرسال رسالة تحتوي على رابط لتفعيل حسابك مرة أخرى. تحقق من صندوق الوارد الخاص بك
@@ -424,6 +427,7 @@ There are no more channels you can add to this group: لا توجد قنوات �
 Thermometer: ميزان الحرارة
 Thermostat: منظم الحرارة
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: يتطلب هذا الرابط المباشر توضيح معلمات الإجراء الذي يتم تنفيذه. انظر الأمثلة أدناه لمعرفة المعلمات التي يمكنك تعيينها.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: استلمت هذه المعلومات بسبب محاولة فاشلة لتسجيل الدخول إلى SUPLA-CLOUD باستخدام عنوان بريدك الإلكتروني.
 This is the list of applications you have granted access to your account.: هذه هي قائمة التطبيقات التي منحت حق الوصول إلى حسابك.
 Timezone: المنطقة الزمنية
 Toggle: تحويل
@@ -464,6 +468,7 @@ With SUPLA you can operate the lights in your home or office: مع SUPLA يمك�
 With function: مع وظيفة
 Working period: فترة التشغيل
 YOUR LINK CODE: رمز الارتباط الخاص بك
+'You can ignore this message, if you have accidentally entered an incorrect password.': يمكنك تجاهل هذه المعلومات إذا أدخلت كلمة مرور خاطئة.
 You can use the application but you will not be able to modify any settings.: 'Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.'
 You cannot delete your last access identifier.: لا يمكنك حذف معرف الوصول الأخير.
 You cannot delete your last location.: لا يمكنك حذف موقعك الأخير.

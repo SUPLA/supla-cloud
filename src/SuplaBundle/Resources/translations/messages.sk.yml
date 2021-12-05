@@ -237,6 +237,7 @@ Idle: Nečinné
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ak ste programátor, ktorý chce vytvoriť dodatočné funkcie pre SUPLA, vytvorte aplikáciu OAuth, ktorú budú môcť používatelia autorizovať a používať.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ak ste presvedčený, že máte účet na cloud.supla.org, skontrolujte, či aplikácia, ktorú chcete autorizovať, je verejná.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Ak nechcete zrušiť účet na portáli cloud.supla.org, neklikajte na odkaz.'
+'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Ak máte nejaké pochybnosti alebo otázky, napíšte nám na adresu %securityEmail%.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Ak ste danú emailovú adresu nezadali v službe %cloudHost%, odkaz v žiadnom prípade neotvárajte.'
 'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Je možné, že po opätovnej registrácii účtu bude potrebné znova konfigurovať niektoré zariadenia, aj keď zadáte tú istú emailovú adresu.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Ak chcete integrovať súkromný mrak SUPLA s verejnou aplikáciou OAuth, musíte [zaregistrovať svoju inštaláciu].'
@@ -380,6 +381,7 @@ SUPLA - Account Removal: SUPLA – Zrušenie účtu
 SUPLA Cloud is under maintenance.: Cloud SUPLA sa aktualizuje.
 SUPLA Server was unable to execute the action.: Chyba pri vykonávaní akcie na serveri SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA je dostupná vždy a všade, preto sa už nemusíte trápiť, že ste zabudli vypnúť svetlo'
+SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Oznámenie o neúspešnom prihlásení do %cloudHost%
 SUPLA.ORG Team: Tím SUPLA.ORG
 Save: Uložiť
 Save and enable: Uložiť a zapnúť
@@ -432,6 +434,7 @@ Temperature adjustment: Prispôsobenie teploty
 Temperature and humidity sensor: Snímač teploty a vlhkosti
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Ďakujeme za registráciu účtu v službe %cloudHost%. Na ukončenie aktivácie otvorte nasledujúci odkaz.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Vďaka integráciám môžete k vášmu účtu jednoduchým spôsobom pridávať nové funkcie, používať riešenia dodávané externými dodávateľmi, programátormi alebo vlastné riešenia.'
+'The IP used for login is: %ip%': 'Pokus o prihlásenie bol vykonaný z IP adresy: %ip%'
 The Terms and Conditions have changed: Podmienky sa zmenili
 The Terms and Conditions have changed – please read them and accept.: Podmienky služby sa zmenili – je potrebný opätovný súhlas.
 The activation link has been sent again. Check the inbox.: Správa s odkazom na aktiváciu Vášho účtu bola znova odoslaná. Skontrolujte svoju doručenú poštu.
@@ -457,6 +460,7 @@ There are no more channels you can add to this group: 'Nie sú iné kanály, kto
 Thermometer: Teplomer
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Tento priamy odkaz vyžaduje ďalšie upresnenie parametrov vykonávané akcie. Na nižšie uvedenom príklade zistíte, ktoré parametre môžete nastaviť.'
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: 'Dostávate túto informáciu, pretože s použitím vašej emailovej adresy bol vykonaný neúspešný pokus o prihlásenie do SUPLA-CLOUD.'
 This is the list of applications you have granted access to your account.: 'Toto je zoznam aplikácií, ktorým ste poskytli prístup k vášmu účtu.'
 Timezone: Časové pásmo
 Toggle: Prepnite
@@ -503,6 +507,7 @@ With SUPLA you can operate the lights in your home or office: So SUPLA môžete 
 With function: S funkciou
 Working period: Obdobie fungovania
 YOUR LINK CODE: KÓD VÁŠHO ODKAZU
+'You can ignore this message, if you have accidentally entered an incorrect password.': 'Ak ste to boli vy, kto zadal nesprávne heslo, môžete túto informáciu ignorovať.'
 You can use the application but you will not be able to modify any settings.: 'Aplikáciu môžete používať, ale nie je možné vykonávať zmeny konfigurácie.'
 You cannot delete your last access identifier.: Nemôžete odstrániť váš posledný identifikátor prístupu.
 You cannot delete your last location.: Nemôžete odstrániť vašu poslednú polohu.

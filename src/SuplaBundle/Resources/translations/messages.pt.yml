@@ -237,6 +237,7 @@ Idle: Inativos
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Se você é um desenvolvedor que quer fornecer funcionalidades adicional para SUPLI, cria uma aplicação OAuth, com a qual os usuários serão capazes de utorizá-las e usá-las.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Se você tem certeza de que você tem uma conta no cloud.supla.org, verifique se o aplicativo que você está tentando autorizar é público.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Caso você não queira apagar a conta no serviço cloud.supla.org, não clique acima.'
+'If you have doubts or more questions, you can contact us directly at %securityEmail%.': Caso tiver dúvidas ou perguntas entre em contacto connosco %securityEmail%.
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Se não comunicou este endereço email no site %cloudHost%, não clique.'
 'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Caso seja criada uma nova conta, certas configurações podem ser resgatadas, se o mesmo email for usado.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Se você deseja integrar aplicativos em nuvem SUPL privada com aplicações OAuth públicas, você tem que [registar o seu exemplo].'
@@ -380,6 +381,7 @@ SUPLA - Account Removal: Supla - deleção da conta
 SUPLA Cloud is under maintenance.: O SUPLA Cloud está sendo atualizado.
 SUPLA Server was unable to execute the action.: Erro ao executar uma ação no servidor SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA é disponível sempre e por toda a parte. Não se preocupe mais quando esquecer desligar a luz.
+SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Aviso de erro de login para %cloudHost%
 SUPLA.ORG Team: Equipe da SUPLA.ORG
 Save: Gravar
 Save and enable: Gravar e ligar
@@ -432,6 +434,7 @@ Temperature adjustment: Ajuste de temperatura
 Temperature and humidity sensor: Sensor da temperatura e humidade
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Agradecemos o registo da sua conta no site %cloudHost%. Para terminar a sua ativação, clique na ligação abaixo.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Graças a integração, você pode facilmente adicionar novos recursos à sua conta, usando soluções fornecidas por fornecedores externos, desenvolvedores ou por si mesmo.'
+'The IP used for login is: %ip%': 'A tentativa de início de sessão ocorreu a partir do endereço IP: %ip%'
 The Terms and Conditions have changed: Os termos e condições mudaram
 The Terms and Conditions have changed – please read them and accept.: Os termos e condições do serviço mudaram - é necessário ler e aceitá-los.
 The activation link has been sent again. Check the inbox.: A mensagem com um link para ativar a sua conta foi enviada novamente.  Verifique a sua caixa de mensagens.
@@ -457,6 +460,7 @@ There are no more channels you can add to this group: Não há mais canais para 
 Thermometer: Termómetro
 Thermostat: Termostato
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Esse link direto requer que os parâmetros da ação que está sendo executada sejam melhor esclarecidos. Veja os exemplos abaixo para descobrir quais parâmetros você pode definir.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Recebeu esta mensagem em relação a uma tentativa de login falhada para SUPLA-CLOUD com o seu endereço e-mail.
 This is the list of applications you have granted access to your account.: Esta é a lista de aplicativos aos quais você concedeu acesso à sua conta.
 Timezone: Fuso horário
 Toggle: Trocar
@@ -503,6 +507,7 @@ With SUPLA you can operate the lights in your home or office: Com SUPLA pode pil
 With function: Com a função
 Working period: Príodo de operação
 YOUR LINK CODE: O CÓDIGO DE SEU LINK
+'You can ignore this message, if you have accidentally entered an incorrect password.': Pode ignorar esta informação se entrou uma senha errada.
 You can use the application but you will not be able to modify any settings.: 'É possível usar a aplicação, mas não é possível fazer alterações na configuração.'
 You cannot delete your last access identifier.: Você não pode deletar seu último identificador de acesso.
 You cannot delete your last location.: Você não pode deletar sua última localização.

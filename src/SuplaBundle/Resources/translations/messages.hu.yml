@@ -222,6 +222,7 @@ Idle: Üres járat
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ha programozó, aki további szolgáltatásokat szeretne biztosítani a SUPLI számára, hozzon létre egy OAuth alkalmazást, amelyet a felhasználók engedélyezhetnek és használhatnak.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ha biztos benne, hogy van fiókja a cloud.supla.org webhelyen, ellenőrizze, hogy az alkalmazás, amelyet engedélyezni próbál, nyilvános.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Ha nem akarja törölni fiókját a cloud.supla.org webhelyen, akkor ne kattintson a linkre.'
+'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Ha bármilyen kétsége vagy kérdése van, vegye fel velünk a kapcsolatot a %securityEmail% e-mail címen.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Ha nem adta meg ezt az e-mail címet a %cloudHost% webhelyen, ne kattintson a linkre.'
 'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Fiókja újbóli regisztrációja után egyes eszközök újrakonfigurálást igényelhetnek, még akkor is, ha ugyanazt az e-mail címet adja meg.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor [regisztrálnia kell a példányt].'
@@ -353,6 +354,7 @@ SUPLA - Account Removal: SUPLA - Fiók törlése
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Hiba történt a művelet végrehajtása során a SUPLA szerveren.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'A SUPLA bármikor és bárhonnan elérhető, ezért ne aggódjon, amikor legközelebb elfelejti kikapcsolni a fényt'
+SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Értesítés a %cloudHost% oldalra történő sikertelen bejelentkezésről
 SUPLA.ORG Team: A SUPLA.ORG Csapata
 Save: Mentés
 Save and enable: Mentés és bekapcsolás
@@ -403,6 +405,7 @@ Temperature adjustment: Hőmérséklet beállítása
 Temperature and humidity sensor: Hőmérséklet- és páratartalom-érzékelő
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Köszönjük, hogy regisztrálta a fiókját a %cloudHost% webhelyen. Az aktiválás befejezéséhez kattintson az alábbi linkre.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Az integrációknak köszönhetően könnyedén hozzáadhat az fiókjához  új funkciókat a külső szállítók, programozók vagy saját maga által nyújtott megoldásokat felhasználásával.'
+'The IP used for login is: %ip%': 'A bejelentkezési kísérlet a következő: %ip% IP-címről történt.'
 The Terms and Conditions have changed: A  Szabályzat megváltozott
 The Terms and Conditions have changed – please read them and accept.: A szolgáltatás Szabályzata megváltozott - jóváhagyás szükséges.
 The activation link has been sent again. Check the inbox.: Újra elküldtük a fiókja aktiválására szolgáló linket tartalmazó üzenetet. Ellenőrizze a beérkező levelek mappáját.
@@ -424,6 +427,7 @@ There are no more channels you can add to this group: 'Nincs további csatorna, 
 Thermometer: Hőmérő
 Thermostat: Termosztát
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.'
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: 'Ezt az információt azért kapja meg, mert az e-mail címével sikertelenül megkisérelt bejelentkezni a SUPLA-CLOUD-ba.'
 This is the list of applications you have granted access to your account.: 'Ez olyan alkalmazások listája, amelyeknek hozzáférést biztosított a fiókjához.'
 Timezone: Időzóna
 Toggle: Átkapcsolás
@@ -465,6 +469,7 @@ With SUPLA you can operate the lights in your home or office: A SUPLA segítség
 With function: Funkcióval
 Working period: A működési időszaka
 YOUR LINK CODE: A LINKJE KÓDJA
+'You can ignore this message, if you have accidentally entered an incorrect password.': 'Ha hibás jelszót adott meg, akkor ezt az információt figyelmen kívül hagyhatja.'
 You can use the application but you will not be able to modify any settings.: 'Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.'
 You cannot delete your last access identifier.: Az utolsó hozzáférési azonosítót nem törölheti.
 You cannot delete your last location.: Az utolsó lokálizációt nem törölheti.

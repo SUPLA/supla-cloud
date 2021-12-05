@@ -53,6 +53,9 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $handler = $this->handler;
         $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
         $this->assertCount(1, TestMailer::getMessages());
+        $message = TestMailer::getMessages()[0];
+        $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getBody());
+        $this->assertStringContainsString('<a href="mailto:security', $message->getBody());
     }
 
     public function testSendingResetPasswordLink() {

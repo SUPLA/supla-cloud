@@ -237,6 +237,7 @@ Idle: Бездействующие
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Если вы программист и хотите предоставить дополнительные возможности для SUPLI, создайте приложение OAuth, которое пользователи смогут авторизовать и использовать.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Если вы уверены, что у вас есть учетная запись на cloud.supla.org, убедитесь, что приложение, которое вы пытаетесь авторизовать, является публичным.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Если вы не хотите удалять учетную запись на сайте %cloudHost%, не нажимайте на ссылку.'
+'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Если у вас есть сомнения или вопросы, вы можете связаться с нами по адресу %securityEmail%.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Если Вы не вводили этот адрес почты на %cloudHost%, просто проигнорируйте это письмо.'
 'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'После повторной регистрации учетной записи некоторые устройства могут потребовать повторной настройки, даже если указать тот же адрес электронной почты.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Если вы хотите интегрировать персональное облако SUPLA с публичным приложением OAuth, вам необходимо [зарегистрировать свою инстанцию].'
@@ -380,6 +381,7 @@ SUPLA - Account Removal: SUPLA - Удаление учетной записи
 SUPLA Cloud is under maintenance.: Идет обновление SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Ошибка при выполнении действия на SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA доступна везде и всегда, так что не бойтесь забыть выключить свет или утюг'
+SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Уведомление о неудачной попытке входа в %cloudHost%
 SUPLA.ORG Team: Команда SUPLA.ORG
 Save: Сохранить
 Save and enable: Сохранить и включить
@@ -432,6 +434,7 @@ Temperature adjustment: Регулировка температуры
 Temperature and humidity sensor: Датчик температуры и влажности
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Благодарим Вас за регистрацию аккаунта на %cloudHost%. Для активвации учетнойтзаписи нажмите на следующую ссылку.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Благодаря интеграциям вы можете легко добавлять новые функции в свою учетную запись, используя решения, предоставляемые сторонними поставщиками, разработчиками, или свои собственные.'
+'The IP used for login is: %ip%': 'Попытка входа в систему была осуществлена с IP-адреса: %ip%'
 The Terms and Conditions have changed: Правила изменились
 The Terms and Conditions have changed – please read them and accept.: Правила сайта изменились - требуется согласие.
 The activation link has been sent again. Check the inbox.: Сообщение со ссылкой для активации Вашей учетной записи было отправлено снова. Проверьте входящие сообщения.
@@ -457,6 +460,7 @@ There are no more channels you can add to this group: 'Нет других ка�
 Thermometer: Термометр
 Thermostat: Термостат
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Эта прямая ссылка требует уточнения параметров выполняемого действия. Смотрите приведенные ниже примеры, чтобы узнать, какие параметры вы можете задать.'
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Вы получили эту информацию в связи с неудачной попыткой входа в SUPLA-CLOUD с использованием вашего адреса электронной почты.
 This is the list of applications you have granted access to your account.: 'Это список приложений, которым вы предоставили доступ к вашей учетной записи.'
 Timezone: Часовой пояс
 Toggle: переключать
@@ -503,6 +507,7 @@ With SUPLA you can operate the lights in your home or office: С SUPLĄ можн
 With function: С функцией
 Working period: Срок действия
 YOUR LINK CODE: КОД ТВОЕЙ ССЫЛКИ
+'You can ignore this message, if you have accidentally entered an incorrect password.': 'Вы можете проигнорировать данную информацию, если это вы указали неверный пароль.'
 You can use the application but you will not be able to modify any settings.: 'Вы можете использовать приложение, но невозможно внести изменения в конфигурацию.'
 You cannot delete your last access identifier.: Невозможно удалить свой последний идентификатор доступа.
 You cannot delete your last location.: Невозможно удалить свое последнее местоположение.
