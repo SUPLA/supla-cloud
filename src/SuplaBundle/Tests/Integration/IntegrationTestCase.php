@@ -52,7 +52,9 @@ abstract class IntegrationTestCase extends WebTestCase {
         $this->application->setAutoExit(false);
         if (!defined('INTEGRATION_TESTS_BOOTSTRAPPED')) {
             define('INTEGRATION_TESTS_BOOTSTRAPPED', true);
+            $this->executeCommand('doctrine:database:drop --if-exists --force');
             $this->executeCommand('doctrine:database:create --if-not-exists');
+            $this->executeCommand('messenger:setup-transports');
         }
         $this->clearDatabase();
     }
