@@ -1,0 +1,22 @@
+{% extends '@Supla/Email/template.txt.twig' %}
+
+{% block subject %}
+ {% trans into userLocale %} SUPLA - Account Activation {% endtrans %}
+{% endblock %}
+
+{% block body %}
+{% trans into userLocale %}Welcome!{% endtrans %}
+
+
+{% trans with {'%cloudHost%': cloudHost()} into userLocale %}Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.{% endtrans %}
+
+
+{{ svrUrl(confirmationUrl) }}
+
+
+{% trans into userLocale %} If the link is not working, please copy and paste it or enter manually in a new browser window. {% endtrans %}
+
+
+{% trans into userLocale %}NOTICE!{% endtrans %}
+{% trans with {'%cloudHost%': cloudHost()} into userLocale %}If you have not used this email address with %cloudHost%, please do not click the link.{% endtrans %}
+{% endblock %}

@@ -9,6 +9,7 @@ const regexes = [
     "[\"'](.+?)[\"'].*//\\s*i18n", // '...' // i18n
     "\\s[^:\\s][a-z0-9-]+-i18n=\"(.+?)\"", // any-i18n="...", but not :any-i18n="..."
     "i18n:(\\[.+?\\])", // // i18n:['...']
+    "\\{% trans.+?%\\}(.+?)\\{% endtrans", // {% trans %} ... {% endtrans %}
 ];
 
 const locations = [
@@ -30,9 +31,9 @@ async function readFiles() {
                             const text = match.match(regex);
                             if (regex == regexes[3]) {
                                 const translations = eval(text[1]);
-                                translations.forEach(t => texts.push(t));
+                                translations.forEach(t => texts.push(t.trim()));
                             } else {
-                                texts.push(text[1]);
+                                texts.push(text[1].trim());
                             }
                         });
                     }

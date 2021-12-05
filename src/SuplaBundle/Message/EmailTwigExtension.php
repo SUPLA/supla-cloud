@@ -85,7 +85,7 @@ GREENBUTTON;
     public function getSvrUrl(array $context, string $url = ''): string {
         $fullUrl = $this->localSuplaCloud->getAddress();
         if ($url) {
-            $fullUrl .= StringUtils::joinPaths($fullUrl, $url);
+            $fullUrl = StringUtils::joinPaths($fullUrl, $url);
             if ($locale = $context['userLocale'] ?? null) {
                 $fullUrl .= '?lang=' . $locale;
             }

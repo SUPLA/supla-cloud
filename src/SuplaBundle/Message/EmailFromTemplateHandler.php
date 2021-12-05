@@ -45,11 +45,11 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
             throw new \InvalidArgumentException('No userId and no recipient given.');
         }
         $data = array_merge($email->getData(), $data);
-        $locale = $this->localeForTemplate($data['userLocale'], $email->getTemplateName(), $data);
-        $textRendered = $this->render($locale, $email->getTemplateName() . '.txt', $data);
+//        $locale = $this->localeForTemplate($data['userLocale'], $email->getTemplateName(), $data);
+        $textRendered = $this->render($email->getTemplateName() . '.txt', $data);
         [$subject, $text] = explode(self::SUBJECT_DELIMITER, $textRendered);
-        $html = $this->render($locale, $email->getTemplateName() . '.html', $data);
-        $this->messageBus->dispatch(new EmailMessage($data['userEmail'], $subject, $text, $html));
+        $html = $this->render($email->getTemplateName() . '.html', $data);
+        $this->messageBus->dispatch(new EmailMessage($data['userEmail'], trim($subject), $text, $html));
     }
 
     private function localeForTemplate(string $userLocale, string $templateName, array $data) {
@@ -64,8 +64,8 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
         throw new \InvalidArgumentException('Invalid email template: ' . $templateName);
     }
 
-    private function render(string $locale, string $templateName, array $data): ?string {
-        $path = "SuplaBundle::Email/$locale/$templateName.twig";
+    private function render(string $templateName, array $data): ?string {
+        $path = "SuplaBundle::Email/$templateName.twig";
         try {
             return $this->twig->render($path, $data);
         } catch (LoaderError $e) {

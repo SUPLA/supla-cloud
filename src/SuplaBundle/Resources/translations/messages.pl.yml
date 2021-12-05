@@ -155,6 +155,7 @@ Coming Soon: Dostępne wkrótce
 Comment: Komentarz
 Config of the schedule is too complicated.: Konfiguracja harmonogramu jest zbyt skomplikowana.
 Configuration: Konfiguracja
+Confirm My Account: Potwierdzam Moje Konto
 Confirm Password: Potwierdzenie hasła
 Confirm if you want to perform the roller shutter calibration.: Potwierdź przeprowadzenie kalibracji modułu.
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
@@ -313,6 +314,7 @@ Idle: Bezczynne
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Jeśli link nie działa, skopiuj go do paska adresu przeglądarki internetowej lub wpisz ręcznie.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Jeżeli nie podałeś(aś) tego adresu email w serwisie %cloudHost%, nie klikaj odnośnika.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeśli chcesz zintegrować prywatną chmurę SUPLA z publiczna aplikacją OAuth, musisz [zarejestrować swoją instancję].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jeśli chcesz użyć linku bezpośredniego w innym oprogramowaniu, dodaj odpowiedni nagłówek żądania by otrzymać odpowiedź łatwiejszą w przetworzeniu.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeśli chcesz zobaczyć dostępne integracje, przejdź do [cloud.supla.org/apps].'
@@ -376,6 +378,7 @@ Move down or stop: W dół lub zatrzymaj
 Move up or stop: W górę lub zatrzymaj
 My OAuth apps: Moje aplikacje OAuth
 My SUPLA: Moja SUPLA
+NOTICE!: UWAGA!
 Name: Nazwa
 Need one of these?: Może Ci się przydać
 Never: Nigdy
@@ -441,6 +444,7 @@ Phase 2: Faza 2
 Phase 3: Faza 3
 Please choose the schedule subject first.: Najpierw wybierz czym harmonogram ma sterować
 Please click the link we have sent you after the registration to proceed.: 'Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.'
+Please confirm your SUPLA account.: Aktywuj swoje konto w SUPLA.
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
 Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
@@ -493,9 +497,11 @@ Roller shutter operation: Otwieranie i zamykanie rolet
 Roller shutters: Rolety
 Roof window opening sensor: Czujnik otwarcia okna dachowego
 Roof window shutter operation: Otwieranie okna dachowego
+SUPLA - Account Activation: SUPLA - Aktywacja konta
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Błąd przy wykonaniu akcji w SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło'
+SUPLA.ORG Team: Zespół SUPLA.ORG
 Save: Zapisz
 Save and enable: Zapisz i włącz
 Save changes: Zapisz zmiany
@@ -559,6 +565,7 @@ Temperature & Humidity Sensor: Czujnik temperatury i wilgotności
 Temperature Sensor: Czujnik temperatury
 Temperature adjustment: Dostosowanie temperatury
 Temperature and humidity sensor: Czujnik temperatury i wilgotności
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Dziękujemy za rejestrację konta w serwisie %cloudHost%. Aby zakończyć aktywację, kliknij poniższy link.'
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: 'Hasło do brokera MQTT jest widoczne tylko w tej chwili. Upewnij się, że zapisałeś/aś je w bezpiecznym miejscu. Nie będzie możliwe jego ponowne wyświetlenie.'
 The Terms and Conditions have changed: Regulamin uległ zmianie
@@ -633,6 +640,7 @@ We will miss you: Będziemy za Tobą tęsknić
 We will use it only in justified situations.: Użyjemy go wyłącznie w uzasadnionych przypadkach.
 Weather Station: Stacja pogodowa
 Weight sensor: Waga
+Welcome!: Witaj!
 What this token is for?: Do czego służy ten token?
 'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziesz przykładowe wykonanie za pomocą narzędzia cURL.'
 Where is the JSON?: Gdzie jest JSON?
@@ -679,6 +687,7 @@ Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jes
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
 'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
+'Yours faithfully,': Z poważaniem
 actionTrigger_HOLD: Przytrzymanie przycisku
 actionTrigger_SHORT_PRESS_X1: Wciśnięcie 1x
 actionTrigger_SHORT_PRESS_X2: Wciśnięcie 2x
