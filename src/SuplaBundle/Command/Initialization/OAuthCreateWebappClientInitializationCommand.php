@@ -42,5 +42,6 @@ class OAuthCreateWebappClientInitializationCommand extends Command implements In
             $this->clientManager->updateClient($client);
             $output->writeln('Client for webapp has been created.');
         }
+        return 0;
     }
 }

@@ -6,14 +6,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Supla\SuplaAutodiscover;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class SynchronizeUsersWithAutodiscoverCommand extends ContainerAwareCommand {
+class SynchronizeUsersWithAutodiscoverCommand extends Command {
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var SuplaAutodiscover */

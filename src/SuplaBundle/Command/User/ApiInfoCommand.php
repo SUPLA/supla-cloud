@@ -9,13 +9,13 @@ use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
 use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ApiInfoCommand extends ContainerAwareCommand {
+class ApiInfoCommand extends Command {
     /** @var UserRepository */
     private $userRepository;
     /** @var DefaultUserApiRateLimit */
