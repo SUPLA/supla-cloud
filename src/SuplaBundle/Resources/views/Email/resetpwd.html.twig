@@ -1,22 +1,22 @@
-{% extends '@Supla/Email/en/template.html.twig' %}
+{% extends '@Supla/Email/template.html.twig' %}
 
 {% block subject %}
-    SUPLA - Password reset
+    {% trans into userLocale %} SUPLA - Password reset {% endtrans %}
 {% endblock %}
 
 {% block preheader %}
-    Password reset instructions.
+    {% trans into userLocale %} Password reset instructions. {% endtrans %}
 {% endblock %}
 
 {% block body %}
-    {% apply paragraph %} Hello! {% endapply %}
-    {% apply paragraph %} Please click the following link to reset your {{ cloudHost() }} password. {% endapply %}
-    {% apply linkButton(confirmationUrl) %} Reset Your Password {% endapply %}
-    {% apply paragraph %}This link is only valid for an hour.{% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} Welcome! {% endtrans %} {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} Please click the following link to reset your %cloudHost% password. {% endtrans %} {% endapply %}
+    {% apply linkButton(confirmationUrl) %} {% trans into userLocale %} Reset Your Password {% endtrans %} {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} This link is only valid for an hour. {% endtrans %} {% endapply %}
     {% apply paragraph %}
-        <b>NOTICE!</b>
-        If you did not request this password reset, please ignore this information.
-        It is possible that another user have entered your email address by mistake while resetting password to their own account.
+        <b>{% trans into userLocale %} NOTICE! {% endtrans %}</b>
+        {% trans into userLocale %} If you did not request this password reset, please ignore this information. {% endtrans %}
+        {% trans into userLocale %} It is possible that another user have entered your email address by mistake while resetting password to their own account. {% endtrans %}
     {% endapply %}
 {% endblock %}
 

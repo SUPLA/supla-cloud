@@ -236,6 +236,7 @@ Idle: Inactivos
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Si el enlace no funciona, copiálo y pégalo en la barra del buscador o introdúcelo manualmente.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Si eres un programador que desea proporcionar funciones adicionales para SUPLA, crea una aplicación OAuth que los usuarios puedan autorizar y usar.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Si estás seguro/a de tener una cuenta en cloud.supla.org, comprueba si la aplicación que estás intentando autorizar es pública.'
+'If you did not request this password reset, please ignore this information.': Ignora este mensaje si no has solicitado el restablecimiento de tu contraseña.
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Si no deseas eliminar tu cuenta en la web %cloudHost%, no hagas clic en el enlace.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Para cualquier aclaración o consulta complementaria, no dude en ponerse en contacto con nosotros a través de esta dirección: %securityEmail%.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': No hagas clic en el enlace si no has indicado la dirección de este correo electrónico en la página web %cloudHost%
@@ -259,6 +260,7 @@ Invalid function for channel.: Función incorrecta para el canal
 Invalid request: La solicitud incorrecta
 Inverted logic: Lógica inversa
 Invisible: Invisible
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: Es posible que otro usuario haya introducido por equivocación la dirección de tu correo electrónico para restablecer su propia contraseña.
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Recuerda que, al eliminar tu cuenta, eliminaremos también todos tus datos, incluidas las configuraciones, los dispositivos configurados, las ubicaciones, los horarios y todas las demás funciones que ofrece SUPLA.'
 Language is not available: El idioma no está disponible.
 Last access: Última conexión
@@ -335,6 +337,7 @@ Personal token name is required.: Es necesario proporcionar un nombre de token p
 Phase 1: Fase 1
 Phase 2: Fase 2
 Phase 3: Fase 3
+Please click the following link to reset your %cloudHost% password.: 'Para restablecer tu contraseña al portal %cloudHost%, haz clic en el siguiente enlace:'
 Please click the link we have sent you after the registration to proceed.: Haz clic en el enlace del mensaje que te hemos enviado al crear la cuenta.
 Please enter a valid email address: Introduce la dirección de correo electrónico correcta
 Please fill a valid email address: Introduce un correo electrónico correcto
@@ -378,6 +381,7 @@ Roller shutter operation: Apertura y cierre de las persianas
 Roller shutters: Persianas
 SUPLA - Account Activation: SUPLA – Activación de la cuenta
 SUPLA - Account Removal: SUPLA - Eliminación de la cuenta
+SUPLA - Password reset: SUPLA – Restablecimiento de la contraseña
 SUPLA Cloud is under maintenance.: Actualización de SUPLA Cloud en proceso.
 SUPLA Server was unable to execute the action.: Error en la acción en SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA está disponible siempre y en todas partes, así que no te preocupes si la próxima ves olvidas apagar la luz'
@@ -462,6 +466,7 @@ Thermostat: Termostato
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Este enlace directo requiere una mayor aclaración de los parámetros de la acción que se está realizando. Vea los ejemplos a continuación para averiguar qué parámetros puede configurar.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ha recibido esta notificación debido al error de acceso a la cuenta de SUPLA-CLOUD que se ha producido al intentar iniciar la sesión a través de la dirección de su correo electrónico.
 This is the list of applications you have granted access to your account.: Esta es la lista de aplicaciones a las que has otorgado acceso a tu cuenta.
+This link is only valid for an hour.: El enlace estará activo durante una hora.
 Timezone: Zona horaria
 Toggle: Cambiar
 Token does not exist: Token no existe
@@ -778,6 +783,7 @@ Operations: ~
 Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Password reset instructions.: ~
 Please choose the schedule subject first.: ~
 Please confirm your SUPLA account.: ~
 Port: ~
@@ -788,6 +794,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+Reset Your Password: ~
 Reset counter: ~
 Reverse active energy balanced: ~
 Roof window opening sensor: ~

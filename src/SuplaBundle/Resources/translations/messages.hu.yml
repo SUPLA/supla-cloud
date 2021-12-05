@@ -221,6 +221,7 @@ Idle: Üres járat
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Ha a link nem működik, másolja át a böngésző eszköztárába, vagy írja be.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ha programozó, aki további szolgáltatásokat szeretne biztosítani a SUPLI számára, hozzon létre egy OAuth alkalmazást, amelyet a felhasználók engedélyezhetnek és használhatnak.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ha biztos benne, hogy van fiókja a cloud.supla.org webhelyen, ellenőrizze, hogy az alkalmazás, amelyet engedélyezni próbál, nyilvános.'
+'If you did not request this password reset, please ignore this information.': 'Ha nem kérte a jelszó visszaállítását, kérjük, hagyja figyelmen kívül ezt az üzenetet.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Ha nem akarja törölni fiókját a cloud.supla.org webhelyen, akkor ne kattintson a linkre.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Ha bármilyen kétsége vagy kérdése van, vegye fel velünk a kapcsolatot a %securityEmail% e-mail címen.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Ha nem adta meg ezt az e-mail címet a %cloudHost% webhelyen, ne kattintson a linkre.'
@@ -242,6 +243,7 @@ Invalid SUPLA Cloud URL.: Érvénytelen SUPLA Cloud URL.
 Invalid request: Érvénytelen kérés
 Inverted logic: Fordított logika
 Invisible: Láthatatlan
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Lehetséges, hogy egy másik felhasználó véletlenül megadta az e-mail címét, hogy visszaállítsa a fiókja jelszavát.'
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Ne feledje, hogy fiókjával együtt töröljük az összes adatait, beleértve a beállításokat, a konfigurált eszközöket, a lokálizációkat, ütemezéseket és az összes többi funkciót, amelyet a SUPLA kínál.'
 Language is not available: A nyelv nem érhető el
 Last access: Legutóbbi kapcsolat
@@ -311,6 +313,7 @@ Percentage of closing: A bezárás százalékos aránya
 Personal access tokens: Személyes hozzáférési tokenek
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'A személyes hozzáférési tokenek a normálhoz hasonlóan működnek, azzal a különbséggel, hogy határozatlan ideig érvénesek.'
 Personal token name is required.: Személyes token név megadása szükséges.
+Please click the following link to reset your %cloudHost% password.: Kattintson az alábbi linkre a %cloudHost% jelszavának visszaállításához.
 Please click the link we have sent you after the registration to proceed.: 'Kattintson az üzenetben kapott linkre, amelyet a fiók létrehozása után küldtünk neked.'
 Please enter a valid email address: 'Kérjük, adjon meg egy érvényes e-mail címet'
 Please fill a valid email address: Adja meg helyes e-mail címét
@@ -351,6 +354,7 @@ Roller shutter operation: Redőnyök nyitása és bezárása
 Roller shutters: Redőnyök
 SUPLA - Account Activation: SUPLA - Fiók aktiválása
 SUPLA - Account Removal: SUPLA - Fiók törlése
+SUPLA - Password reset: SUPLA - Jelszó visszaállítása
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Hiba történt a művelet végrehajtása során a SUPLA szerveren.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'A SUPLA bármikor és bárhonnan elérhető, ezért ne aggódjon, amikor legközelebb elfelejti kikapcsolni a fényt'
@@ -429,6 +433,7 @@ Thermostat: Termosztát
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.'
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: 'Ezt az információt azért kapja meg, mert az e-mail címével sikertelenül megkisérelt bejelentkezni a SUPLA-CLOUD-ba.'
 This is the list of applications you have granted access to your account.: 'Ez olyan alkalmazások listája, amelyeknek hozzáférést biztosított a fiókjához.'
+This link is only valid for an hour.: A link egy órán keresztül aktív lesz.
 Timezone: Időzóna
 Toggle: Átkapcsolás
 Token does not exist: A token nem létezik
@@ -754,6 +759,7 @@ Operations: ~
 Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Password reset instructions.: ~
 Phase 1: ~
 Phase 2: ~
 Phase 3: ~
@@ -768,6 +774,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+Reset Your Password: ~
 Reset counter: ~
 Reverse active energy: ~
 Reverse active energy balanced: ~

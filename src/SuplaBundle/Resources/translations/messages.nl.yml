@@ -236,6 +236,7 @@ Idle: Zonder activiteiten
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Als de link niet werkt, kopieert u deze naar de browserwerkbalk of voert u deze handmatig in.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Als u een programmeur bent die extra functies voor SUPLI wil bieden, maakt u een OAuth-toepassing die gebruikers kunnen autoriseren en gebruiken.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Als je zeker weet dat je een account hebt bij cloud.supla.org, controleer dan of de applicatie die je probeert te autoriseren, publiekelijk beschikbaar is.'
+'If you did not request this password reset, please ignore this information.': Negeer dit bericht als u niet om een wachtwoordreset hebt gevraagd.
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Als u uw account op %cloudHost% niet wilt verwijderen, klikt u niet op de link.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Als u twijfels of vragen hebt, kunt u contact met ons opnemen door te schrijven naar het adres %securityEmail%.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Als u dit e-mailadres niet op %cloudHost% hebt opgegeven, klikt u niet op de link.'
@@ -259,6 +260,7 @@ Invalid function for channel.: Ongeldige functie voor kanaal.
 Invalid request: Ongeldig verzoek
 Inverted logic: Omgekeerde logica
 Invisible: Onzichtbaar
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: Het is mogelijk dat een andere gebruiker per ongeluk uw e-mailadres heeft ingevoerd om uw accountwachtwoord opnieuw in te stellen.
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Vergeet niet dat we samen met uw account al uw gegevens, inclusief instellingen, geconfigureerde apparaten, locaties, schema''s en alle andere functionaliteiten aangeboden door SUPLA.'
 Language is not available: Taal niet beschikbaar
 Last access: Recente verbinding
@@ -335,6 +337,7 @@ Personal token name is required.: Persoonlijke tokennaam is vereist.
 Phase 1: Fase 1
 Phase 2: Fase 2
 Phase 3: Fase 3
+Please click the following link to reset your %cloudHost% password.: Klik op de onderstaande link om uw wachtwoord voor %cloudHost% opnieuw in te stellen.
 Please click the link we have sent you after the registration to proceed.: Klik op de link met het bericht dat we u hebben gestuurd nadat het account is gemaakt.
 Please enter a valid email address: Voer alstublieft een geldig e-mailadres in
 Please fill a valid email address: Voer alstublieft een geldig e-mailadres in
@@ -378,6 +381,7 @@ Roller shutter operation: Rolluik openen en sluiten
 Roller shutters: Rolluiken
 SUPLA - Account Activation: SUPLA - Accountactivering
 SUPLA - Account Removal: SUPLA - Account verwijderen
+SUPLA - Password reset: SUPLA - Wachtwoord opnieuw instellen
 SUPLA Cloud is under maintenance.: SUPLA Cloud is in onderhoud.
 SUPLA Server was unable to execute the action.: Fout tijdens het uitvoeren van actie in SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA is altijd en overal beschikbaar, dus maak je geen zorgen de volgende keer dat je vergeet het licht uit te doen'
@@ -462,6 +466,7 @@ Thermostat: Thermostaat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Deze directe link vereist verduidelijking van de parameters van de actie die wordt uitgevoerd. Zie de onderstaande voorbeelden om erachter te komen welke parameters u kunt instellen.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: U ontvangt deze informatie vanwege een mislukte poging om met uw e-mailadres in te loggen op SUPLA-CLOUD.
 This is the list of applications you have granted access to your account.: Dit is de lijst met applicaties die u toegang tot uw account hebt verleend.
+This link is only valid for an hour.: De link blijft één uur actief.
 Timezone: Tijdzone
 Toggle: Schakel
 Token does not exist: Het token bestaat niet
@@ -778,6 +783,7 @@ Operations: ~
 Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Password reset instructions.: ~
 Please choose the schedule subject first.: ~
 Please confirm your SUPLA account.: ~
 Port: ~
@@ -788,6 +794,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+Reset Your Password: ~
 Reset counter: ~
 Reverse active energy balanced: ~
 Roof window opening sensor: ~

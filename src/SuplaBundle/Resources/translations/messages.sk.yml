@@ -236,6 +236,7 @@ Idle: Nečinné
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Ak sa nedá otvoriť priamym stlačením, skopírujte adresu a otvorte ju vo vašom webovom prehliadači.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ak ste programátor, ktorý chce vytvoriť dodatočné funkcie pre SUPLA, vytvorte aplikáciu OAuth, ktorú budú môcť používatelia autorizovať a používať.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ak ste presvedčený, že máte účet na cloud.supla.org, skontrolujte, či aplikácia, ktorú chcete autorizovať, je verejná.'
+'If you did not request this password reset, please ignore this information.': 'Jei nepateikėte prašymo atstatyti slaptažodį, ignoruokite šį pranešimą.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Ak nechcete zrušiť účet na portáli cloud.supla.org, neklikajte na odkaz.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Ak máte nejaké pochybnosti alebo otázky, napíšte nám na adresu %securityEmail%.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Ak ste danú emailovú adresu nezadali v službe %cloudHost%, odkaz v žiadnom prípade neotvárajte.'
@@ -259,6 +260,7 @@ Invalid function for channel.: Neplatná funkcia kanála
 Invalid request: Nesprávna žiadosť
 Inverted logic: Obrátená logika
 Invisible: Neviditeľné
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Gali būti, kad kitas vartotojas, norėdamas atstatyti savo paskyros slaptažodį per klaidą įvedė Jūsų el. pašto adresą.'
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Dajte si pozor, že spolu s Vaším účtom vymažeme aj všetky Vaše údaje vrátane nastavení, nakonfigurovaných zariadení, lokalizácií, harmonogramov a všetkých iných funkcionalít, ktoré ponúka spoločnosť SUPLA.'
 Language is not available: Jazyk nie je dostupný
 Last access: Posledné pripojenie
@@ -335,6 +337,7 @@ Personal token name is required.: Je potrebné poskytnúť názov osobného toke
 Phase 1: Fáza 1
 Phase 2: Fáza 2
 Phase 3: Fáza 3
+Please click the following link to reset your %cloudHost% password.: 'Norėdami atstatyti savo slaptažodį %cloudHost% svetainėje, spustelėkite žemiau pateiktą nuorodą'
 Please click the link we have sent you after the registration to proceed.: 'Kliknite na odkaz zo správy, ktorú sme Vám zaslali po vytvorení účtu.'
 Please enter a valid email address: Zadajte správnu emailovú adresu
 Please fill a valid email address: Prosíme Vás o uvedenie správnej e-mailovej adresy.
@@ -378,6 +381,7 @@ Roller shutter operation: Otváranie a zatváranie roliet
 Roller shutters: Rolety
 SUPLA - Account Activation: SUPLA - Aktivácia účtu
 SUPLA - Account Removal: SUPLA – Zrušenie účtu
+SUPLA - Password reset: SUPLA – Slaptažodžio atstatymas
 SUPLA Cloud is under maintenance.: Cloud SUPLA sa aktualizuje.
 SUPLA Server was unable to execute the action.: Chyba pri vykonávaní akcie na serveri SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA je dostupná vždy a všade, preto sa už nemusíte trápiť, že ste zabudli vypnúť svetlo'
@@ -462,6 +466,7 @@ Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Tento priamy odkaz vyžaduje ďalšie upresnenie parametrov vykonávané akcie. Na nižšie uvedenom príklade zistíte, ktoré parametre môžete nastaviť.'
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: 'Dostávate túto informáciu, pretože s použitím vašej emailovej adresy bol vykonaný neúspešný pokus o prihlásenie do SUPLA-CLOUD.'
 This is the list of applications you have granted access to your account.: 'Toto je zoznam aplikácií, ktorým ste poskytli prístup k vášmu účtu.'
+This link is only valid for an hour.: Nuoroda bus aktyvi vieną valandą.
 Timezone: Časové pásmo
 Toggle: Prepnite
 Token does not exist: Token neexistuje
@@ -778,6 +783,7 @@ Operations: ~
 Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Password reset instructions.: ~
 Please choose the schedule subject first.: ~
 Please confirm your SUPLA account.: ~
 Port: ~
@@ -788,6 +794,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+Reset Your Password: ~
 Reset counter: ~
 Reverse active energy balanced: ~
 Roof window opening sensor: ~

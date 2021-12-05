@@ -236,6 +236,7 @@ Idle: Nedejavno
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Če povezava ne deluje, jo kopirajte v brskalno vrstico ali jo vpišite ročno.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Če ste programer, ki želi zagotoviti dodatne funkcije za SUPLO, ustvarite aplikacijo OAuth, ki jo lahko uporabniki overijo in uporabljajo.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Če ste prepričani, da imate račun na cloud.supla.org, preverite, ali je aplikacija, ki jo poskušate overiti, javna.'
+'If you did not request this password reset, please ignore this information.': 'Če niste zahtevali ponastavitve gesla, prezrite to sporočilo.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Če ne želite izbrisati svojega računa na %cloudHost%, ne klikajte na povezavo.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Če imate kakršne koli dvome ali vprašanja, nas lahko kontaktirate tako, da nam pišete na naslov %securityEmail%.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Če tega e-naslova niste navedli na %cloudHost%, ne klikajte na povezavo.'
@@ -259,6 +260,7 @@ Invalid function for channel.: Nepravilna funkcija za kanal
 Invalid request: Nepravilna zahteva
 Inverted logic: Obrnjena logika
 Invisible: Nevidno
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Mogoče je, da je drug uporabnik pomotoma vnesel vaš e-naslov, da bi ponastavil geslo za svoj račun.'
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Ne pozabite, da bomo skupaj z vašim računom izbrisali vse vaše podatke, vključno z nastavitvami, konfiguriranimi napravami, lokacijami, urnikami in vsemi drugimi funkcionalnostmi, ki jih nudi SUPLA.'
 Language is not available: Jezik ni na voljo
 Last access: Zadnja povezava
@@ -335,6 +337,7 @@ Personal token name is required.: Ime osebnega tokena je obvezno.
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
+Please click the following link to reset your %cloudHost% password.: 'Kliknite spodnjo povezavo, da ponastavite geslo za %cloudHost%.'
 Please click the link we have sent you after the registration to proceed.: 'Kliknite povezavo s sporočila, ki smo ga vam poslali po ustvaritvi računa.'
 Please enter a valid email address: Vnesite pravi enaslov
 Please fill a valid email address: Vnesite pravi e-naslov
@@ -378,6 +381,7 @@ Roller shutter operation: Odpiranje in zapiranje rolet
 Roller shutters: Rolete
 SUPLA - Account Activation: SUPLA - Aktivacija računa
 SUPLA - Account Removal: SUPLA - Brisanje računa
+SUPLA - Password reset: SUPLA - Ponastavitev gesla
 SUPLA Cloud is under maintenance.: Poteka posodabljanje SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Napaka med izvedbo dejanja na strežniku SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA je na voljo kadarkoli in kjerkoli, zato ne skrbite, ko naslednjič pozabite ugasniti luč'
@@ -462,6 +466,7 @@ Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ta neposredna povezava zahteva določitev parametrov izvajanega dejanja. Oglejte si spodnje primere, če želite izvedeti, katere parametre lahko nastavite.'
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: To informacijo prejemate zaradi neuspešnega poskusa prijave v SUPLA-CLOUD s svojim e-naslovom.
 This is the list of applications you have granted access to your account.: 'To je seznam aplikacij, katerim ste odobrili dostop do svojega računa.'
+This link is only valid for an hour.: Povezava bo aktivna eno uro.
 Timezone: Časovni pas
 Toggle: Preklopite
 Token does not exist: Token ne obstaja
@@ -778,6 +783,7 @@ Operations: ~
 Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Password reset instructions.: ~
 Please choose the schedule subject first.: ~
 Please confirm your SUPLA account.: ~
 Port: ~
@@ -788,6 +794,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+Reset Your Password: ~
 Reset counter: ~
 Reverse active energy balanced: ~
 Roof window opening sensor: ~

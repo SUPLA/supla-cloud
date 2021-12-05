@@ -48,7 +48,9 @@ PARAGRAPH;
     }
 
     public function generateFooterLink(string $text, string $url): string {
+        // @codingStandardsIgnoreStart
         $linkTag = '<a href="' . $url . '" target="_blank" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">$1</a>';
+        // @codingStandardsIgnoreEnd
         $text = preg_replace('#\[(.+?)\]#', $linkTag, $text);
         return $text;
     }

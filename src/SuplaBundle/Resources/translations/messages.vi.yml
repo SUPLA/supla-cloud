@@ -236,6 +236,7 @@ Idle: Không hoạt động
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Nếu liên kết không hoạt động, vui lòng sao chép và dán hoặc nhập thủ công trong cửa sổ trình duyệt mới.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Nếu bạn là nhà phát triển muốn cung cấp các tính năng bổ sung cho SUPLA, hãy tạo một ứng dụng OAuth mà người dùng có thể ủy quyền và sử dụng'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Nếu bạn chắc chắn rằng bạn có tài khoản trên cloud.supla.org, hãy kiểm tra xem ứng dụng bạn đang cố gắng ủy quyền có công khai không'
+'If you did not request this password reset, please ignore this information.': 'Nếu bạn không yêu cầu đặt lại mật khẩu, xin vui lòng bỏ qua thông tin này.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Nếu bạn không muốn xóa tài khoản của mình trên %cloudHost%, vui lòng không nhấp vào liên kết.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Nếu bạn có nghi ngờ hoặc có nhiều câu hỏi, bạn có thể liên hệ trực tiếp với chúng tôi tại %securityEmail%.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Nếu bạn chưa sử dụng địa chỉ email này với cloud.supla.org, vui lòng không nhấp vào liên kết.'
@@ -259,6 +260,7 @@ Invalid function for channel.: Chức năng không hợp lệ cho kênh.
 Invalid request: Yêu cầu không hợp lệ.
 Inverted logic: Inverted logic
 Invisible: Không hiển thị
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: Có thể một Người dùng khác đã nhập nhầm địa chỉ email của bạn trong khi đặt lại mật khẩu vào tài khoản của họ.
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Hãy nhớ rằng chúng tôi sẽ xóa tất cả các cài đặt, thiết bị được định cấu hình, vị trí, lịch trình và tất cả các tính năng khác mà bạn đã sử dụng trong SUPLA cùng với tài khoản của bạn.'
 Language is not available: Ngôn ngữ không có sẵn
 Last access: Truy cập lần cuối
@@ -335,6 +337,7 @@ Personal token name is required.: Tên mã thông báo cá nhân là bắt buộ
 Phase 1: Giai đoạn 1
 Phase 2: Giai đoạn 2
 Phase 3: Giai đoạn 3
+Please click the following link to reset your %cloudHost% password.: Vui lòng nhấp vào liên kết sau để đặt lại mật khẩu cloud.supla.org của bạn.
 Please click the link we have sent you after the registration to proceed.: Vui lòng nhấp vào liên kết chúng tôi đã gửi cho bạn sau khi đăng ký để tiến hành.
 Please enter a valid email address: Vui lòng nhập một địa chỉ email hợp lệ
 Please fill a valid email address: Vui lòng điền địa chỉ email hợp lệ
@@ -378,6 +381,7 @@ Roller shutter operation: Vận hành cửa trập
 Roller shutters: Cửa chớp lăn
 SUPLA - Account Activation: SUPLA - Kích hoạt tài khoản
 SUPLA - Account Removal: SUPLA - Xóa tài khoản
+SUPLA - Password reset: SUPLA - Đặt lại mật khẩu
 SUPLA Cloud is under maintenance.: Đám mây SUPLA đang được bảo trì.
 SUPLA Server was unable to execute the action.: Máy chủ SUPLA không thể thực thi hành động.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA có thể truy cập ở mọi nơi mọi lúc, vì vậy đừng lo lắng, nếu bạn quên tắt đèn lần sau'
@@ -462,6 +466,7 @@ Thermostat: Bình giữ nhiệt
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Liên kết trực tiếp này yêu cầu các tham số tiếp theo để được thực hiện đúng. Xem các ví dụ dưới đây để có ý tưởng về những gì bạn có thể làm.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: thông tin này đã được tạo tự động do nỗ lực đăng nhập không thành công vào SUPLA-CLOUD với việc sử dụng địa chỉ email của bạn.
 This is the list of applications you have granted access to your account.: Đây là danh sách các ứng dụng bạn đã cấp quyền truy cập vào tài khoản của bạn..
+This link is only valid for an hour.: Liên kết này chỉ có hiệu lực trong một giờ.
 Timezone: Múi giờ
 Toggle: Chuyển đổi
 Token does not exist: Mã thông báo không tồn tại
@@ -778,6 +783,7 @@ Operations: ~
 Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Password reset instructions.: ~
 Please choose the schedule subject first.: ~
 Please confirm your SUPLA account.: ~
 Port: ~
@@ -788,6 +794,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+Reset Your Password: ~
 Reset counter: ~
 Reverse active energy balanced: ~
 Roof window opening sensor: ~

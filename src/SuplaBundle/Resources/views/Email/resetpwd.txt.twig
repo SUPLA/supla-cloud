@@ -1,19 +1,28 @@
-{% extends '@Supla/Email/pl/template.txt.twig' %}
+{% extends '@Supla/Email/template.txt.twig' %}
 
 {% block subject %}
-SUPLA - Password reset
+  {% trans into userLocale %} SUPLA - Password reset {% endtrans %}
 {% endblock %}
 
 {% block body %}
-Hello!
+{% trans into userLocale %} Welcome! {% endtrans %}
 
-Please click the following link to reset your {{ cloudHost() }} password.
+
+{% trans with {'%cloudHost%': cloudHost()} into userLocale %}  Please click the following link to reset your %cloudHost% password. {% endtrans %}
+
 
 {{ svrUrl(confirmationUrl) }}
 
-If the link is not working, please copy and paste it or enter manually in a new browser window.
-This link is only valid for an hour.
 
-NOTICE!
+{% trans into userLocale %} If the link is not working, please copy and paste it or enter manually in a new browser window. {% endtrans %}
 
+
+{% trans into userLocale %} This link is only valid for an hour. {% endtrans %}
+
+
+{% trans into userLocale %} NOTICE! {% endtrans %}
+
+{% trans into userLocale %} If you did not request this password reset, please ignore this information. {% endtrans %}
+
+{% trans into userLocale %} It is possible that another user have entered your email address by mistake while resetting password to their own account. {% endtrans %}
 {% endblock %}

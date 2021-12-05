@@ -235,6 +235,7 @@ Idle: Nenaudojamos
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Jei nuoroda neveikia, nukopijuokite ją į paieškos juostą arba įveskite rankiniu būdu.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeigu esate programuotojas, kuris nori pateikti papildomas funkcijas SUPLA''I, sukurkite OAuth programą, kurią vartotojai galės autorizuoti ir naudoti.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeigu esate tikri, kad turite paskyrą cloud.cupla org patikrinkite, ar programa, su kuria bandote autorizuoti yra vieša.'
+'If you did not request this password reset, please ignore this information.': 'Jei nepateikėte prašymo atstatyti slaptažodį, ignoruokite šį pranešimą.'
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Jei nenori šalinti savo paskyros svetainėje %cloudHost%, nespausk ant šios nuorodos.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Jei turite abejonių ar klausimų, galite susisiekti su mumis el. paštu %securityEmail%.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Jei nenurodėte šio el. pašto adreso %cloudHost% svetainėje, nespauskite ant nuorodos.'
@@ -258,6 +259,7 @@ Invalid function for channel.: Neteisinga kanalo funkcija
 Invalid request: Neteisinga užklausa
 Inverted logic: Atvirkštinė logika
 Invisible: Nematomi
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Gali būti, kad kitas vartotojas, norėdamas atstatyti savo paskyros slaptažodį per klaidą įvedė Jūsų el. pašto adresą.'
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Atmink, kad kartu su Tavo paskyra taip pat pašalinsime visus Tavo duomenis, įskaitant nustatymus, sukonfigūruotus įrenginius, vietas, grafikus ir visas Kitas funkcijas, kurias siūlo SUPLA.'
 Language is not available: Valoda nav pieejama
 Last access: Paskutinis prisijungimas
@@ -334,6 +336,7 @@ Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identif
 Phase 1: 1 fazė
 Phase 2: 2 fazė
 Phase 3: 3 fazė
+Please click the following link to reset your %cloudHost% password.: 'Norėdami atstatyti savo slaptažodį %cloudHost% svetainėje, spustelėkite žemiau pateiktą nuorodą'
 Please click the link we have sent you after the registration to proceed.: 'Paspauskite nuorodą pranešime, kurį Jums išsiuntėme, kai paskyra buvo sukurta.'
 Please enter a valid email address: Įveskite teisingą el. pašto adresą
 Please fill a valid email address: Įveskite teisingą el. pašto adresą
@@ -377,6 +380,7 @@ Roller shutter operation: Žaliuzių atidengimas ir uždengimas
 Roller shutters: Žaliuzės
 SUPLA - Account Activation: SUPLA – Paskyros aktyvavimas
 SUPLA - Account Removal: SUPLA – Paskyros šalinimas
+SUPLA - Password reset: SUPLA – Slaptažodžio atstatymas
 SUPLA Cloud is under maintenance.: Vyksta SUPLA Cloud atnaujinimas.
 SUPLA Server was unable to execute the action.: Klaida atliekant veiksmą SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA prieinama visada ir vidur, todėl nesijaudinkite, kai sekantį kartą pamiršite išjungti šviesą'
@@ -461,6 +465,7 @@ Thermostat: Termostatas
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ši tiesioginė nuoroda reikalauja išsamesnių atliekamo veiksmo parametrų. Pažiūrėk žemiau pateiktus pavyzdžius, kad sužinotum, kokius parametrus gali nustatyti.'
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Gavote šią informaciją dėl nesėkmingo bandymo prisijungti prie SUPLA-CLOUD naudojant Jūsų el. pašto adresą.
 This is the list of applications you have granted access to your account.: 'Tai programų sąrašas, kurioms suteikėte prieigą Jūsų paskyroje.'
+This link is only valid for an hour.: Nuoroda bus aktyvi vieną valandą.
 Timezone: Laiko juosta
 Toggle: Perjungti
 Token does not exist: Atpažinimo ženklas neegzistuoja
@@ -778,6 +783,7 @@ Operations: ~
 Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Password reset instructions.: ~
 Please choose the schedule subject first.: ~
 Please confirm your SUPLA account.: ~
 Port: ~
@@ -788,6 +794,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+Reset Your Password: ~
 Reset counter: ~
 Reverse active energy balanced: ~
 Roof window opening sensor: ~

@@ -221,6 +221,7 @@ Idle: خامل
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': إذا لم يعمل الرابط، فقم بنسخه في شريط أدوات المتصفح أو قم بإدخاله يدويًا.
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': إذا كنت مبرمجًا يريد تقديم ميزات إضافية لـ SUPLI، فقم بإنشاء تطبيق OAuth يمكن للمستخدمين السماح به واستخدامه.
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': إذا كنت متأكدًا من أن لديك حسابًا على cloud.supla.org ، فتحقق من أن التطبيق الذي تحاول تخويله عام.
+'If you did not request this password reset, please ignore this information.': إذا لم تطلب إعادة تعيين كلمة المرور، فيرجى تجاهل هذه الرسالة.
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': إذا كنت لا تريد حذف حسابك على %cloudHost% ، فلا تنقر فوق الرابط.
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'إذا كانت لديك أي شكوك أو أسئلة، يمكنك الاتصال بنا عن طريق الكتابة على العنوان: %securityEmail%'
 'If you have not used this email address with %cloudHost%, please do not click the link.': إذا لم تكن قد قدمت عنوان البريد الإلكتروني هذا على %cloudHost% ، فلا تنقر فوق الرابط.
@@ -242,6 +243,7 @@ Invalid SUPLA Cloud URL.: عنوان URL لمثيل SUPLA Cloud غير صالح.
 Invalid request: الطلب غير صالح
 Inverted logic: منطق معكوس
 Invisible: مخفية
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: من الممكن أن يقوم مستخدم آخر بإدخال عنوان بريدك الإلكتروني عن طريق الخطأ لإعادة تعيين كلمة مرور حسابك.
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': تذكر أنه مع حسابك، سنقوم بحذف جميع بياناتك، بما في ذلك الإعدادات، والأجهزة المكونة، والمواقع، والجداول الزمنية وجميع الوظائف الأخرى التي تقدمها SUPLA.
 Language is not available: اللغة غير متوفرة
 Last access: آخر مكالمة
@@ -311,6 +313,7 @@ Percentage of closing: النسبة المئوية للإغلاق
 Personal access tokens: رموز الوصول الشخصية
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: تعمل رموز الوصول الشخصية كالمعتاد، إلا أنها تعمل إلى أجل غير مسمى.
 Personal token name is required.: مطلوب اسم رمزي شخصي.
+Please click the following link to reset your %cloudHost% password.: انقر على الرابط أدناه لإعادة تعيين كلمة المرور لـ %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: انقر على الرابط بالرسالة التي أرسلناها إليك بعد إنشاء الحساب.
 Please enter a valid email address: يرجى إدخال عنوان بريد إلكتروني صالح
 Please fill a valid email address: يرجى إدخال عنوان بريد إلكتروني صالح
@@ -351,6 +354,7 @@ Roller shutter operation: فتح وإغلاق الأبجور
 Roller shutters: الأبجور
 SUPLA - Account Activation: 'SUPLA:  تفعيل الحساب'
 SUPLA - Account Removal: SUPLA - حذف الحساب
+SUPLA - Password reset: SUPLA - إعادة تعيين كلمة المرور
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: خطأ أثناء تنفيذ الإجراء في خادم  SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA  متاح في أي وقت وفي أي مكان، لذلك لا تقلق في المرة القادمة التي تنسى فيها إطفاء الضوء
@@ -429,6 +433,7 @@ Thermostat: منظم الحرارة
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: يتطلب هذا الرابط المباشر توضيح معلمات الإجراء الذي يتم تنفيذه. انظر الأمثلة أدناه لمعرفة المعلمات التي يمكنك تعيينها.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: استلمت هذه المعلومات بسبب محاولة فاشلة لتسجيل الدخول إلى SUPLA-CLOUD باستخدام عنوان بريدك الإلكتروني.
 This is the list of applications you have granted access to your account.: هذه هي قائمة التطبيقات التي منحت حق الوصول إلى حسابك.
+This link is only valid for an hour.: سوف يكون الرابط نشطًا لمدة ساعة واحدة.
 Timezone: المنطقة الزمنية
 Toggle: تحويل
 Token does not exist: الرمز المميز غير موجود
@@ -753,6 +758,7 @@ Operations: ~
 Other: ~
 'Password must be at least {minLength} characters.': ~
 'Password must be no longer than {maxLength} characters.': ~
+Password reset instructions.: ~
 Phase 1: ~
 Phase 2: ~
 Phase 3: ~
@@ -767,6 +773,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+Reset Your Password: ~
 Reset counter: ~
 Reverse active energy: ~
 Reverse active energy balanced: ~
