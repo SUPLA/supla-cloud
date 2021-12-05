@@ -252,6 +252,27 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('?lang=pl', $confirmationMessage->getBody());
     }
 
+    public function testSendsEmailWithConfirmationTokenInItalian() {
+        $userData = [
+            'email' => self::EMAIL,
+            'regulationsAgreed' => true,
+            'password' => self::PASSWORD,
+            'timezone' => 'Europe/Warsaw',
+            'locale' => 'it',
+        ];
+        $client = $this->createHttpsClient();
+        $client->apiRequest('POST', '/api/register', $userData);
+        $this->assertStatusCode(201, $client->getResponse());
+        $messages = TestMailer::getMessages();
+        $this->assertCount(1, $messages);
+        $confirmationMessage = end($messages);
+        $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
+        $this->assertContains('Attivazione', $confirmationMessage->getSubject());
+        $this->assertContains('copialo oppure', $confirmationMessage->getBody());
+        $this->assertContains('supla.local/', $confirmationMessage->getBody());
+        $this->assertContains('?lang=it', $confirmationMessage->getBody());
+    }
+
     /** @depends testSendsEmailWithConfirmationToken */
     public function testAddsAuditEntryAboutSendingConfirmationLink(User $createdUser) {
         $entry = $this->getLatestAuditEntry();

@@ -1,4 +1,10 @@
+{% extends '@Supla/Email/it/template.txt.twig' %}
+
+{% block subject %}
 SUPLA – Cancellazione dell’account
+{% endblock %}
+
+{% block body %}
 Benvenuto!
 
 Abbiamo ricevuto un ordine di cancellare il Tuo account in SUPLA Cloud.
@@ -10,17 +16,10 @@ Per confermare l’intenzione di cancellare il Tuo account SUPLA, clicca il segu
 
 QUESTA OPERAZIONE NON PUÒ ESSERE ANNULLATA!
 
-{{ confirmationUrl }}
+{{ svrUrl(confirmationUrl) }}
 
 Se il link non funziona, copialo e incolla nella barra degli indirizzi del browser o digita manualmente.
 
 ATTENZIONE!
 Se non vuoi cancellare il Tuo account nel servizio cloud.supla.org, non cliccare il link.
-
-
-Con osservanza,
-Gruppo SUPLA.ORG
-
-
-
-
+{% endblock %}
