@@ -86,6 +86,7 @@ Choose Access Identifier: Wybierz Identyfikator Dostępu
 Choose Access Identifiers to be assigned to this Location: Válassza ki az ehhez a helyhez hozzárendelhető Hozzáférési Azonosítókat
 Choose client apps: Válassza ki az Ügyfélalkalmazásokat
 Choose location: Új lokálizáció kiválasztása
+Click the following link to confirm removal of your account on %cloudHost%.: 'Ha megerősíti a SUPLA-fiókja törlését, kattintson az alábbi linkre.'
 Client’s Apps: Ügyfél alkalmazások
 Client’s app has been deleted: Az ügyfélalkalmazást eltávolították
 Close: Bezárás
@@ -220,7 +221,9 @@ Idle: Üres járat
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Ha a link nem működik, másolja át a böngésző eszköztárába, vagy írja be.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ha programozó, aki további szolgáltatásokat szeretne biztosítani a SUPLI számára, hozzon létre egy OAuth alkalmazást, amelyet a felhasználók engedélyezhetnek és használhatnak.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ha biztos benne, hogy van fiókja a cloud.supla.org webhelyen, ellenőrizze, hogy az alkalmazás, amelyet engedélyezni próbál, nyilvános.'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Ha nem akarja törölni fiókját a cloud.supla.org webhelyen, akkor ne kattintson a linkre.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Ha nem adta meg ezt az e-mail címet a %cloudHost% webhelyen, ne kattintson a linkre.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Fiókja újbóli regisztrációja után egyes eszközök újrakonfigurálást igényelhetnek, még akkor is, ha ugyanazt az e-mail címet adja meg.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor [regisztrálnia kell a példányt].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Ha a közvetlen linket más szoftverekben szeretné használni, akkor adja hozzá a megfelelő kérelem fejlécét, hogy könnyebben feldolgozható választ kapjon.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Ha szeretné megtekinteni az elérhető integrációkat, lépjen a [cloud.supla.org/apps] oldalra.'
@@ -238,6 +241,7 @@ Invalid SUPLA Cloud URL.: Érvénytelen SUPLA Cloud URL.
 Invalid request: Érvénytelen kérés
 Inverted logic: Fordított logika
 Invisible: Láthatatlan
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Ne feledje, hogy fiókjával együtt töröljük az összes adatait, beleértve a beállításokat, a konfigurált eszközöket, a lokálizációkat, ütemezéseket és az összes többi funkciót, amelyet a SUPLA kínál.'
 Language is not available: A nyelv nem érhető el
 Last access: Legutóbbi kapcsolat
 Last connection: Legutóbbi kapcsolat
@@ -345,6 +349,7 @@ Roller shutter opening sensor: Redőny nyitó érzékelő
 Roller shutter operation: Redőnyök nyitása és bezárása
 Roller shutters: Redőnyök
 SUPLA - Account Activation: SUPLA - Fiók aktiválása
+SUPLA - Account Removal: SUPLA - Fiók törlése
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Hiba történt a művelet végrehajtása során a SUPLA szerveren.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'A SUPLA bármikor és bárhonnan elérhető, ezért ne aggódjon, amikor legközelebb elfelejti kikapcsolni a fényt'
@@ -390,6 +395,7 @@ Subject type: Entitás típusa
 Success: Siker
 Successful: Sikeres
 Supla for devices: Supla bizonyos eszközökre
+THIS CANNOT BE UNDONE!: EZT A MŰVELETET NEM LEHET VISSZAVONNI!
 Temperature: Hőmérséklet
 Temperature & Humidity Sensor: Hőmérséklet- és páratartalom-érzékelő
 Temperature Sensor: Hőmérséklet-érzékelő
@@ -437,6 +443,7 @@ WELCOME_MESSAGE: |
   hogy a következő adatokat bevezeti a vezérlőberendezésekbe (I / O) és az okostelefonjaiba.
 Water meter: Vízmérő
 We could not connect to your SUPLA Cloud instance.: Nem sikerült csatlakozni a magán SUPLA cloudra.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Utasítást kaptunk fiókja törlésére a SUPLA Cloud (%cloudHost%) szolgáltatásban.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Küldtünk egy e-mailt a linkkel, amely megerősíti a fiókja törlését. Talán még meggondolja magát!'
 We should be ready shortly.: Powinniśmy niedługo skończyć.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Az alkalmazás használatának megkönnyítése érdekében az Ön böngészőjében tárolunk információkat az Ön preferenciáiról (például egy cookie-mechanizmus használatával). [Olvassa el a Szabályzatot].'
@@ -701,6 +708,7 @@ Host: ~
 I/O devices registration: ~
 ID: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Inactive: ~

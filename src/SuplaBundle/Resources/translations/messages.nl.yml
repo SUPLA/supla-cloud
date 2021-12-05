@@ -93,6 +93,7 @@ Choose Access Identifier: Selecteer Toegangsidentificatie
 Choose Access Identifiers to be assigned to this Location: Selecteer Toegangsidentificaties die aan deze Locatie zullen worden toegewezen
 Choose client apps: Selecteer klant-applicaties
 Choose location: Nieuwe locatie selecteren
+Click the following link to confirm removal of your account on %cloudHost%.: Klik op de onderstaande link om te bevestigen dat u uw SUPLA-account wilt verwijderen.
 Client registration: Klantenregistratie
 Client’s Apps: Klant-applicaties
 Client’s app has been deleted: Klant-applicatie is verwijderd
@@ -235,7 +236,9 @@ Idle: Zonder activiteiten
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Als de link niet werkt, kopieert u deze naar de browserwerkbalk of voert u deze handmatig in.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Als u een programmeur bent die extra functies voor SUPLI wil bieden, maakt u een OAuth-toepassing die gebruikers kunnen autoriseren en gebruiken.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Als je zeker weet dat je een account hebt bij cloud.supla.org, controleer dan of de applicatie die je probeert te autoriseren, publiekelijk beschikbaar is.'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Als u uw account op %cloudHost% niet wilt verwijderen, klikt u niet op de link.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Als u dit e-mailadres niet op %cloudHost% hebt opgegeven, klikt u niet op de link.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Nadat u uw account opnieuw heeft geregistreerd, moeten sommige apparaten mogelijk opnieuw worden geconfigureerd, zelfs als u hetzelfde e-mailadres opgeeft.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Als u de private SUPLA-cloud met de openbare OAuth-toepassing wilt integreren, moet u [uw exemplaar registreren].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Als u de directe link in andere software wilt gebruiken, voegt de juiste koptekst toe om een antwoord te krijgen dat gemakkelijker te verwerken is.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Als u beschikbare integraties wilt zien, ga naar [cloud.supla.org/apps].'
@@ -255,6 +258,7 @@ Invalid function for channel.: Ongeldige functie voor kanaal.
 Invalid request: Ongeldig verzoek
 Inverted logic: Omgekeerde logica
 Invisible: Onzichtbaar
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Vergeet niet dat we samen met uw account al uw gegevens, inclusief instellingen, geconfigureerde apparaten, locaties, schema''s en alle andere functionaliteiten aangeboden door SUPLA.'
 Language is not available: Taal niet beschikbaar
 Last access: Recente verbinding
 Last connection: Recente verbinding
@@ -372,6 +376,7 @@ Roller shutter opening sensor: Rolluik openen sensor
 Roller shutter operation: Rolluik openen en sluiten
 Roller shutters: Rolluiken
 SUPLA - Account Activation: SUPLA - Accountactivering
+SUPLA - Account Removal: SUPLA - Account verwijderen
 SUPLA Cloud is under maintenance.: SUPLA Cloud is in onderhoud.
 SUPLA Server was unable to execute the action.: Fout tijdens het uitvoeren van actie in SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA is altijd en overal beschikbaar, dus maak je geen zorgen de volgende keer dat je vergeet het licht uit te doen'
@@ -419,6 +424,7 @@ Subject type: Typ podmiotu
 Success: Succes
 Successful: Geslaagd
 Supla for devices: Supla voor apparaten
+THIS CANNOT BE UNDONE!: DEZE OPERATIE KAN NIET WORDEN ONGEDAAN!
 Temperature: Temperatuur
 Temperature & Humidity Sensor: Temperatuur- en vochtigheidssensor
 Temperature Sensor: emperatuursensor
@@ -473,6 +479,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Wacht even voordat u nog een verzoek doet. U kunt het huidige gebruik van uw limieten in uw accountinstellingen controleren.
 Water meter: Watermeter
 We could not connect to your SUPLA Cloud instance.: We kunnen geen verbinding maken met uw privé-SUPLA Cloud-exemplaar.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: We hebben een instructie ontvangen om uw account in SUPLA Cloud te verwijderen.
 We have just sent you an activation link. You should be receiving it shortly.: Er is zojuist een bericht verzonden met een link om uw account te activeren. Geduld.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: We hebben u een e-mail gestuurd met een link om uw account te verwijderen. Misschien zul je van gedachten veranderen!
 We should be ready shortly.: We zouden binnenkort klaar moeten zijn.
@@ -731,6 +738,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~

@@ -1,26 +1,33 @@
-{% extends '@Supla/Email/pl/template.txt.twig' %}
+{% extends '@Supla/Email/template.txt.twig' %}
 
 {% block subject %}
-SUPLA - Account Removal
+  {% trans into userLocale %} SUPLA - Account Removal {% endtrans %}
 {% endblock %}
 
 {% block body %}
-Welcome!
+{% trans into userLocale %} Welcome!{% endtrans %}
 
-We have been asked to delete your SUPLA Cloud account ({{ cloudHost() }}).
 
-Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features
-that you used in SUPLA along with your account. If you register yourself again in the future, some devices might need
-reconfiguration even if you use the same e-mail address.
+{% trans with {'%cloudHost%': cloudHost()} into userLocale %} We have been asked to delete your SUPLA Cloud account (%cloudHost%).{% endtrans %}
 
-Click the following link to confirm removal of your account on {{ cloudHost() }}.
 
-THIS CANNOT BE UNDONE!
+{% trans into userLocale %}Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.{% endtrans %}
+{% trans into userLocale %}If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.{% endtrans %}
+
+
+{% trans with {'%cloudHost%': cloudHost()} into userLocale %} Click the following link to confirm removal of your account on %cloudHost%.{% endtrans %}
+
+
+{% trans into userLocale %}THIS CANNOT BE UNDONE!{% endtrans %}
+
 
 {{ svrUrl(confirmationUrl) }}
 
-If the link is not working, please copy and paste it or enter manually in a new browser window.
 
-NOTICE!
-If you do not want to delete your account on cloud.supla.org, please do not click the link.
+{% trans into userLocale %}If the link is not working, please copy and paste it or enter manually in a new browser window.{% endtrans %}
+
+
+{% trans into userLocale %}NOTICE!{% endtrans %}
+
+{% trans with {'%cloudHost%': cloudHost()} into userLocale %}If you do not want to delete your account on %cloudHost%, please do not click the link.{% endtrans %}
 {% endblock %}

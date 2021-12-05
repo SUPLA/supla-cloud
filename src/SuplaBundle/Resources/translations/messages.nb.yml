@@ -93,6 +93,7 @@ Choose Access Identifier: Velg adgangs ID
 Choose Access Identifiers to be assigned to this Location: Velg Tilgang ID som blir tilpasset denne lokaliseringen.
 Choose client apps: Velg kundeapplikasjoner
 Choose location: Velg lokalisering
+Click the following link to confirm removal of your account on %cloudHost%.: For å bekrefte fjerning av din SUPLA konto trykk på lenken nedenfor.
 Client registration: Registrering av kunder
 Client’s Apps: Kundeapplikasjoner
 Client’s app has been deleted: Kundeapplikasjon ble fjernet
@@ -235,7 +236,9 @@ Idle: Hvile modus
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': Hvis lenken ikke fungerer kopier og lim den inn i søketjenesten eller tast den inn.
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Hvis du er en programutvikler som ønsker å levere ekstra funksjoner til SUPLA, opprett applikasjonen OAuth som andre brukere kan autorisere og bruke.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': Dersom du har en konto på cloud.supla.org sjekk om applikasjonen du forsøker å autorisere er offentlig.
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Hvis du ikke ønsker å fjerne din konto i cloud.supla.org, ikke trykk på lenken.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Hvis du ikke har oppgitt denne e-post adressen i %cloudHost% tjenesten, ikke trykk på lenken.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': Ved neste registrering av konto kan noen av enhetene kreve konfigurering på nytt selv om du oppgir den samme e-post adressen.
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'JDersom du ønsker å integrere din privat SUPLA Cloud med offentlig applikasjon OAuth, må du [må du registrere din Cloud].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'JDersom du ønsker å bruke dirkete lenke i et annet program, legg til tilsvarende forespørsel overskrift for å motta et svar som er enklere å prosessere.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'JDersom du vil sjekke ut tilgjengelige integrasjoner gå til [cloud.supla.org/apps].'
@@ -255,6 +258,7 @@ Invalid function for channel.: Ugyldig funksjon for kanale
 Invalid request: Ugyldig forespørsel
 Inverted logic: Omvendt logikk
 Invisible: Usynlig
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Husk at sammen med din konto fjerner vi alle dine opplysninger inkludert innstillinger, konfigurerte enheter, lokaliseringer, planer og alle andre funksjoner tilbudt av SUPLA.'
 Language is not available: Språk ikke tilgjengelig
 Last access: Sist kobling
 Last connection: Sist kobling
@@ -372,6 +376,7 @@ Roller shutter opening sensor: Rullegardineråpner sensor
 Roller shutter operation: Åpning og stenging av rullegardiner
 Roller shutters: Rullegardiner
 SUPLA - Account Activation: SUPLA – Aktivering av konto
+SUPLA - Account Removal: SUPLA – Fjerning av konto
 SUPLA Cloud is under maintenance.: Oppdatering av SUPLA Cloud pågår
 SUPLA Server was unable to execute the action.: Feil ved gjennomføring av handlingen i SUPLA server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA er tilgjengelig alltid og overalt, du trenger ikke å være bekymret neste gang du glemmer å skru av lyset.'
@@ -419,6 +424,7 @@ Subject type: Enhetstype
 Success: Suksess
 Successful: Vellykket
 Supla for devices: SUPLA for enheter
+THIS CANNOT BE UNDONE!: DU KAN IKKE ANGRE PÅ DENNE HANDLINGEN!
 Temperature: Temperatur
 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor
 Temperature Sensor: Temperatursensor
@@ -473,6 +479,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Vent litt før du sender en ny forespørsel. Du kan sjekke den nåværende statusen av begrensningene dine i kontoinnstillingene.
 Water meter: Vannmåler
 We could not connect to your SUPLA Cloud instance.: Vi kunne ikke koble til din privat SUPLA Cloud.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Vi har fått beskjed at du ønsker å fjerne din SUPLA Cloud konto (%cloudHost%).
 We have just sent you an activation link. You should be receiving it shortly.: Melding med aktiviseringslenke ble nettopp sendt. Vis litt tålmodighet.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vi sendte en e-post med lenke hvor du kan bekrefte fjerning av kontoen. Kanskje du ombestemmer deg!
 We should be ready shortly.: Vi bør bli ferdige snart
@@ -731,6 +738,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~

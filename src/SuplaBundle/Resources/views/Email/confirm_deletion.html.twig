@@ -1,26 +1,26 @@
-{% extends '@Supla/Email/en/template.html.twig' %}
+{% extends '@Supla/Email/template.html.twig' %}
 
 {% block subject %}
-    SUPLA - Account Removal
+    {% trans into userLocale %} SUPLA - Account Removal {% endtrans %}
 {% endblock %}
 
 {% block preheader %}
-    If you really want to delete the account, here are the instructions.
+    {% trans into userLocale %} If you really want to delete the account, here are the instructions. {% endtrans %}
 {% endblock %}
 
 {% block body %}
-    {% apply paragraph %} Welcome! {% endapply %}
-    {% apply paragraph %} We have been asked to delete your SUPLA Cloud account ({{ cloudHost() }}). {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} Welcome! {% endtrans %} {% endapply %}
+    {% apply paragraph %} {% trans with {'%cloudHost%': cloudHost()} into userLocale %} We have been asked to delete your SUPLA Cloud account (%cloudHost%). {% endtrans %} {% endapply %}
     {% apply paragraph %}
-        Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features
-        that you used in SUPLA along with your account.
+        {% trans into userLocale %} Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account. {% endtrans %}
     {% endapply %}
-    {% apply paragraph %} If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address. {% endapply %}
-    {% apply paragraph %} Click the following link to confirm removal of your account on {{ cloudHost() }}. {% endapply %}
-    {% apply paragraph %} <b>THIS CANNOT BE UNDONE!</b> {% endapply %}
-    {% apply linkButton(confirmationUrl, 'danger') %} Delete my account {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address. {% endtrans %} {% endapply %}
+    {% apply paragraph %} {% trans with {'%cloudHost%': cloudHost()} into userLocale %} Click the following link to confirm removal of your account on %cloudHost%. {% endtrans %} {% endapply %}
+    {% apply paragraph %} <b>{% trans into userLocale %}THIS CANNOT BE UNDONE!{% endtrans %}</b> {% endapply %}
+    {% apply linkButton(confirmationUrl, 'danger') %} {% trans into userLocale %} Delete my account {% endtrans %} {% endapply %}
     {% apply paragraph %}
-        <b>NOTICE!</b> If you do not want to delete your account on {{ cloudHost() }}, please do not click the link. {% endapply %}
+        <b>{% trans into userLocale %}NOTICE!{% endtrans %}</b>
+        {% trans with {'%cloudHost%': cloudHost()} into userLocale %} If you do not want to delete your account on %cloudHost%, please do not click the link. {% endtrans %} {% endapply %}
 {% endblock %}
 
 {% block footer %}{% endblock %}

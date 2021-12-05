@@ -93,6 +93,7 @@ Choose Access Identifier: Izberi identifikator dostopa
 Choose Access Identifiers to be assigned to this Location: 'Izberite Identifikatorje dostopa, ki bodo dodeljeni tej lokaciji'
 Choose client apps: Izberite odjemalske aplikacije
 Choose location: Izberite novo lokacijo
+Click the following link to confirm removal of your account on %cloudHost%.: 'Če želite potrditi, da bi radi izbrisati svoj račun SUPLA, kliknite spodnjo povezavo.'
 Client registration: Registracija strank
 Client’s Apps: Odjemalske aplikacije
 Client’s app has been deleted: Odjemalska aplikacija je bila odstranjena
@@ -235,7 +236,9 @@ Idle: Nedejavno
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Če povezava ne deluje, jo kopirajte v brskalno vrstico ali jo vpišite ročno.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Če ste programer, ki želi zagotoviti dodatne funkcije za SUPLO, ustvarite aplikacijo OAuth, ki jo lahko uporabniki overijo in uporabljajo.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Če ste prepričani, da imate račun na cloud.supla.org, preverite, ali je aplikacija, ki jo poskušate overiti, javna.'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Če ne želite izbrisati svojega računa na %cloudHost%, ne klikajte na povezavo.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Če tega e-naslova niste navedli na %cloudHost%, ne klikajte na povezavo.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Po ponovni registraciji vašega računa lahko nekatere naprave zahtevajo ponovno konfiguracijo, tudi če vnesete isti e-naslov.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Če želite zasebni oblak SUPLA integrirati z javno aplikacijo OAuth, morate [registrirati svoj primerek].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Če želite neposredno povezavo uporabiti v drugi programski opremi, dodajte ustrezno glavo zahteve, da dobite odgovor, ki ga je lažje obdelati.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Če želite videti dostopne integracije, pojdite na [cloud.supla.org/apps].'
@@ -255,6 +258,7 @@ Invalid function for channel.: Nepravilna funkcija za kanal
 Invalid request: Nepravilna zahteva
 Inverted logic: Obrnjena logika
 Invisible: Nevidno
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Ne pozabite, da bomo skupaj z vašim računom izbrisali vse vaše podatke, vključno z nastavitvami, konfiguriranimi napravami, lokacijami, urnikami in vsemi drugimi funkcionalnostmi, ki jih nudi SUPLA.'
 Language is not available: Jezik ni na voljo
 Last access: Zadnja povezava
 Last connection: Zadnja povezava
@@ -372,6 +376,7 @@ Roller shutter opening sensor: Senzor odprtja rolet
 Roller shutter operation: Odpiranje in zapiranje rolet
 Roller shutters: Rolete
 SUPLA - Account Activation: SUPLA - Aktivacija računa
+SUPLA - Account Removal: SUPLA - Brisanje računa
 SUPLA Cloud is under maintenance.: Poteka posodabljanje SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Napaka med izvedbo dejanja na strežniku SUPLA.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA je na voljo kadarkoli in kjerkoli, zato ne skrbite, ko naslednjič pozabite ugasniti luč'
@@ -419,6 +424,7 @@ Subject type: Vrsta subjekta
 Success: Uspeh
 Successful: Uspešno
 Supla for devices: Supla za naprave
+THIS CANNOT BE UNDONE!: TE OPERACIJE NI MOGOčE UMAKNITI!
 Temperature: Temperatura
 Temperature & Humidity Sensor: Senzor temperature in vlažnosti
 Temperature Sensor: Temperaturni senzor
@@ -473,6 +479,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: 'Počakajte trenutek, preden oddate novo zahtevo. Trenutno uporabo vaših omejitev lahko preverite v nastavitvah računa.'
 Water meter: Merilnik vode
 We could not connect to your SUPLA Cloud instance.: Nismo se mogli povezati z vašim zasebnim primerom v oblaku SUPLA.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Prejeli smo dipozicijo za izbris vašega računa v oblaku SUPLA (%cloudHost%).
 We have just sent you an activation link. You should be receiving it shortly.: Pravkar je bilo poslano sporočilo s povezavo za aktiviranje vašega računa. Bodite potrpežljivi.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Poslali smo vam e-sporočilo s povezavo, s katerim potrdite izbris vašega računa. Morda si boste premislili!'
 We should be ready shortly.: Kmalu bomo zaključili.
@@ -731,6 +738,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~

@@ -92,6 +92,7 @@ Choose Access Identifier: Pasirinkite Prieigos Identifikatorių
 Choose Access Identifiers to be assigned to this Location: 'Pasirinkite Prieigos Identifikatorius, kurie bus priskirti šiai Vietai'
 Choose client apps: Izvēlieties klienta lietojumprogrammas
 Choose location: Pasirinkti vietą
+Click the following link to confirm removal of your account on %cloudHost%.: 'Jei nori patvirtinti norą pašalinti savo paskyrą SUPLA, spustelėk žemiau pateiktą nuorodą.'
 Client registration: Klientų registracija
 Client’s Apps: Klientų programos
 Client’s app has been deleted: Kliento programa pašalinta
@@ -234,7 +235,9 @@ Idle: Nenaudojamos
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Jei nuoroda neveikia, nukopijuokite ją į paieškos juostą arba įveskite rankiniu būdu.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Jeigu esate programuotojas, kuris nori pateikti papildomas funkcijas SUPLA''I, sukurkite OAuth programą, kurią vartotojai galės autorizuoti ir naudoti.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeigu esate tikri, kad turite paskyrą cloud.cupla org patikrinkite, ar programa, su kuria bandote autorizuoti yra vieša.'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Jei nenori šalinti savo paskyros svetainėje %cloudHost%, nespausk ant šios nuorodos.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Jei nenurodėte šio el. pašto adreso %cloudHost% svetainėje, nespauskite ant nuorodos.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Po pakartotino paskyros sukūrimo, kai kuriuos įrenginius gali prireikti iš naujo konfigūruoti, net jei nurodysi tą patį el. pašto adresą.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite [registruoti savo instanciją].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeigu norite pamatyti prieinamas integracijas, pereikite į [cloud.supla.org/apps].'
@@ -254,6 +257,7 @@ Invalid function for channel.: Neteisinga kanalo funkcija
 Invalid request: Neteisinga užklausa
 Inverted logic: Atvirkštinė logika
 Invisible: Nematomi
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Atmink, kad kartu su Tavo paskyra taip pat pašalinsime visus Tavo duomenis, įskaitant nustatymus, sukonfigūruotus įrenginius, vietas, grafikus ir visas Kitas funkcijas, kurias siūlo SUPLA.'
 Language is not available: Valoda nav pieejama
 Last access: Paskutinis prisijungimas
 Last connection: Paskutinis sujungimas
@@ -371,6 +375,7 @@ Roller shutter opening sensor: Žaliuzių atidengimo jutiklis
 Roller shutter operation: Žaliuzių atidengimas ir uždengimas
 Roller shutters: Žaliuzės
 SUPLA - Account Activation: SUPLA – Paskyros aktyvavimas
+SUPLA - Account Removal: SUPLA – Paskyros šalinimas
 SUPLA Cloud is under maintenance.: Vyksta SUPLA Cloud atnaujinimas.
 SUPLA Server was unable to execute the action.: Klaida atliekant veiksmą SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA prieinama visada ir vidur, todėl nesijaudinkite, kai sekantį kartą pamiršite išjungti šviesą'
@@ -418,6 +423,7 @@ Subject type: Subjekto tipas
 Success: Sėkmė
 Successful: Sėkmingai
 Supla for devices: Supla įrenginiams
+THIS CANNOT BE UNDONE!: ŠIS VEIKSMAS NEGRĮŽTAMAS!
 Temperature: Temperatūra
 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis
 Temperature Sensor: Temperatūros jutiklis
@@ -472,6 +478,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Prieš atlikdami sekančią užklausą palaukite kelias sekundes. Dabartinį savo apribojimų naudojimą galite patikrinti paskyros nustatymuose.
 Water meter: Vandens skaitiklis
 We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Gavome prašymą pašalinti Tavo paskyrą SUPLA Cloud (%cloudHost%).
 We have just sent you an activation link. You should be receiving it shortly.: Pranešimas su Jūsų paskyros aktyvavimo nuoroda ką tik buvo išsiųstas. Kantrybės.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Išsiuntėme Tau el. laišką su nuorodą, patvirtinančią norą pašalinti paskyrą. Gal dar apsigalvosi!'
 We should be ready shortly.: Netrukus turėtume baigti.
@@ -731,6 +738,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~

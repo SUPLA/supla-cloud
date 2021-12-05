@@ -93,6 +93,7 @@ Choose Access Identifier: Choisissez un Identifiant d'accès
 Choose Access Identifiers to be assigned to this Location: Choisir les Identifiants d'Accès qui vont être attribués à ce lieu
 Choose client apps: Choisissez les applications  pour les clients
 Choose location: Sélectionner le lieu
+Click the following link to confirm removal of your account on %cloudHost%.: 'Pour confirmer votre désir de supprimer votre compte SUPLA, cliquez sur le lien ci-dessous.'
 Client registration: Enregistrement client
 Client’s Apps: Applications client
 Client’s app has been deleted: L’application client a été supprimée
@@ -235,7 +236,9 @@ Idle: Inactif
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Si le lien ne fonctionne pas, copiez-le et collez dans la barre de recherche ou saisissez-le manuellement.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Si vous êtes un programmeur qui souhaite fournir des fonctionnalités supplémentaires pour SUPLA, créez une application OAuth que les utilisateurs peuvent autoriser et utiliser.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Si vous êtes sûr d''avoir un compte sur cloud.supla.org, vérifiez si l''application que vous essayez d''autoriser est publique.'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Si vous ne souhaitez pas supprimer votre compte sur le site Web cloud.supla.org, ne cliquez pas sur le lien.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Si l''adresse e-mail que vous avez donnée lors de l''inscription n''est pas la vôtre, ne cliquez pas sur le lien.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Après avoir ré-enregistré votre compte, il faudra probablement reconfigurer certains appareils. même si vous fournissez la même adresse e-mail.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Si vous souhaitez intégrer un nuage SUPLA privé à l''application publique OAuth, vous devez [enregistrer votre instance].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Si vous souhaitez utiliser le lien direct dans un autre logiciel, ajoutez l`en-tête de requête approprié pour obtenir  la réponse  plus facile au traitement.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Si vous voulez voir les intégrations disponibles, allez à [cloud.supla.org/apps].'
@@ -255,6 +258,7 @@ Invalid function for channel.: Fonction invalide pour le canal
 Invalid request: Requête incorrecte.
 Inverted logic: Logique inversée
 Invisible: Non affichés
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'N''oubliez pas qu''avec votre compte, nous supprimerons toutes vos données, y compris les paramètres, les appareils configurés, les localisations, les plannings et toutes les autres fonctionnalités offertes par SUPLA.'
 Language is not available: Langue n'est pas disponible
 Last access: Dernière connexion
 Last connection: Dernière connexion
@@ -372,6 +376,7 @@ Roller shutter opening sensor: Capteur d'ouverture de volets
 Roller shutter operation: Ouverture et fermeture de volets roulants
 Roller shutters: Volets roulants
 SUPLA - Account Activation: SUPLA - Activation de votre compte
+SUPLA - Account Removal: SUPLA - Suppression de compte
 SUPLA Cloud is under maintenance.: Le SUPLA Cloud est en cours de mise à jour.
 SUPLA Server was unable to execute the action.: Le serveur SUPLA n'a pas pu exécuter l'action.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': SUPLA est disponible toujours et partout donc ne vous inquiétez pas si vous oubliez d'éteindre la lumière
@@ -419,6 +424,7 @@ Subject type: Type d'entité
 Success: Succès
 Successful: Succès
 Supla for devices: SUPLA pour vos dispositifs
+THIS CANNOT BE UNDONE!: CETTE OPÉRATION NE PEUT PAS ÊTRE ANNULÉE!
 Temperature: Température
 Temperature & Humidity Sensor: Capteur de température et humidité
 Temperature Sensor: Capteur de température
@@ -473,6 +479,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Attendez un peu avant d’executer une autre demande. Vous pouvez vérifier l'utilisation actuelle de vos limites dans les paramètres de votre compte.
 Water meter: Compteur d'eau
 We could not connect to your SUPLA Cloud instance.: Nous n'avons pas pu nous connecter à votre instance privée de SUPLA Cloud.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Nous avons reçu l’instruction de supprimer votre compte sur SUPLA Cloud (%cloudHost%).
 We have just sent you an activation link. You should be receiving it shortly.: Le message avec le lien d’activation de votre compte vient d’être envoyé. Soyez patient.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Nous vous avons envoyé un e-mail avec un lien confirmant la suppression de votre compte. Peut-être que vous allez changer d'avis !
 We should be ready shortly.: On devrait finir bientôt.
@@ -731,6 +738,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~

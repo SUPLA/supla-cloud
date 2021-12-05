@@ -93,6 +93,7 @@ Choose Access Identifier: Επιλέξτε Αναγνωριστικό πρόσβ
 Choose Access Identifiers to be assigned to this Location: Επιλογή αναγνωριστικών πρόσβασης που θα συνδεθούν με αυτή την τοποθεσία
 Choose client apps: Επιλογή εφαρμογών πελάτη
 Choose location: Επιλογή τοποθεσίας
+Click the following link to confirm removal of your account on %cloudHost%.: 'Για να επιβεβαιώσετε ότι θέλετε να αφαιρέσετε τον λογαριασμό σας από το σύστημα SUPLA, κάντε κλικ στον παρακάτω σύνδεσμο.'
 Client registration: Εγγραφή πελατών
 Client’s Apps: Εφαρμογές πελάτη
 Client’s app has been deleted: Η εφαρμογή πελάτη έχει καταργηθεί
@@ -235,7 +236,9 @@ Idle: Σε αδράνεια
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Εάν ο σύνδεσμος δεν λειτουργεί αυτόματα, αντιγράψτε τον στη γραμμή διευθύνσεων του προγράμματος περιήγησης ή να τον εισαγάγετε χειροκίνητα.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Εάν είστε προγραμματιστής που θέλει να προσθέσει πρόσθετες λειτουργίες στο SUPLA, δημιουργήστε μια εφαρμογή OAuth την οποία θα μπορέσουν να εγκρίνουν και να χρησιμοποιούν οι χρήστες.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Εάν είστε βέβαιοι ότι έχετε έναν λογαριασμό στο cloud.supla.org, ελέγξτε εάν η εφαρμογή που προσπαθείτε να εγκρίνετε είναι δημόσια.'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Εάν δε θέλετε να αφαιρέσετε το λογαριασμό σας από το %cloudHost%, μην κάνετε κλικ στο σύνδεσμο'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Εάν δεν έχετε καταχωρίσει αυτή τη διεύθυνση ηλεκτρονικού ταχυδρομείου στο %cloudHost%, μην κάνετε κλικ στο σύνδεσμο.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Όταν καταχωρίσετε εκ νέου την εγγραφή του λογαριασμού σας, ορισμένες συσκευές ίσως θα χρειαστούν επαναπρογραμματισμό ακόμα κι αν παρέχετε την ίδια διεύθυνση ηλεκτρονικού ταχυδρομείου.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Αν θέλετε να ενώσετε το ιδιωτικό SUPLA με τη δημόσια εφαρμογή OAuth, θα πρέπει πρώτα να καταχωρήσετε την ιδιότητά σας.'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Αν θέλετε να χρησιμοποιήσετε τον απευθείας σύνδεσμο σε άλλο λογισμικό, προσθέστε την κατάλληλη κεφαλίδα στο αίτημά σας για να λάβετε πιο εύκολη απάντηση προς επεξεργασία.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Εάν θέλετε να δείτε κάποιους διαθέσιμους συνδέσμους, μεταβείτε στο [cloud.supla.org/apps].'
@@ -255,6 +258,7 @@ Invalid function for channel.: Μη έγκυρη λειτουργία καναλ
 Invalid request: Μη έγκυρο αίτημα
 Inverted logic: Αντίστροφη λογική
 Invisible: Αόρατο
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Να θυμάστε ότι μαζί με το λογαριασμό σας, θα διαγράψουμε όλα τα στοιχεία σας μαζί με τις σχετικές ρυθμίσεις συσκευών, τοποθεσιών, χρονοδιαγραμμάτων και όλων των υπόλοιπων λειτουργιών που προσφέρει το SUPLA cloud.'
 Language is not available: Η γλώσσα δεν είναι διαθέσιμη
 Last access: Τελευταία σύνδεση
 Last connection: Τελευταία σύνδεση
@@ -372,6 +376,7 @@ Roller shutter opening sensor: Αισθητήρας ανοίγματος περ�
 Roller shutter operation: Άνοιγμα και κλείσιμο περσίδων
 Roller shutters: Περσίδες
 SUPLA - Account Activation: SUPLA - Ενεργοποίηση λογαριασμού
+SUPLA - Account Removal: SUPLA - Διαγραφή λογαριασμού
 SUPLA Cloud is under maintenance.: Το SUPLA Cloud ενημερώνεται.
 SUPLA Server was unable to execute the action.: Σφάλμα κατά την εκτέλεση ενέργειας στο SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA cloud είναι διαθέσιμο οποτεδήποτε και οπουδήποτε, οπότε μην ανησυχείτε καθόλου όταν την επόμενη φορά θα ξεχάσετε να κλείσετε το φως'
@@ -419,6 +424,7 @@ Subject type: Είδος υποκειμένου
 Success: Επιτυχία
 Successful: Επιτυχές
 Supla for devices: Supla για συσκευές
+THIS CANNOT BE UNDONE!: Η ΠΑΡΟΥΣΑ ΕΝΕΡΓΕΙΑ ΔΕΝ ΜΠΟΡΕΙ ΝΑ ΑΝΑΚΛΗΘΕΙ
 Temperature: Θερμοκρασία
 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασίας και υγρασίας
 Temperature Sensor: Αισθητήρας θερμοκρασίας
@@ -473,6 +479,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Περιμένετε λίγο προτου δώσετε μια άλλη εντολή. Μπορείτε να ελέγξετε την τρέχουσα χρήση σας στις ρυθμίσεις του λογαριασμού σας.
 Water meter: Μετρητής νερού
 We could not connect to your SUPLA Cloud instance.: Δεν μπορέσαμε να συνδεθούμε με το ιδιωτικό σας SUPLA Cloud.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Λάβαμε ένα αίτημα για την αφαίρεση του λογαριασμού σας από το SUPLA Cloud (%cloudHost%).
 We have just sent you an activation link. You should be receiving it shortly.: Ένα μήνυμα με το σύνδεσμο για την ενεργοποίηση του λογαριασμού σας έχει μόλις αποσταλεί. Υπομονή.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Σας έχουμε στείλει ένα μήνυμα ηλεκτρονικού ταχυδρομείου με το σύνδεσμο που επιβεβαιώνει τη διαγραφή του λογαριασμού σας. Μπορείτε ακόμα να αλλάξετε γνώμη!
 We should be ready shortly.: Θα πρέπει να τελειώσουμε σύντομα.
@@ -731,6 +738,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~

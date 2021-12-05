@@ -93,6 +93,7 @@ Choose Access Identifier: Chọn định danh truy cập
 Choose Access Identifiers to be assigned to this Location: Chọn định danh truy cập cho vị trí
 Choose client apps: Chọn ứng dụng khách
 Choose location: Chọn vị trí
+Click the following link to confirm removal of your account on %cloudHost%.: Nhấp vào liên kết sau để xác nhận xóa tài khoản của bạn trên %cloudHost%.
 Client registration: Đăng ký Client
 Client’s Apps: Ứng dụng khách
 Client’s app has been deleted: Ứng dụng khách đã xóa
@@ -235,7 +236,9 @@ Idle: Không hoạt động
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Nếu liên kết không hoạt động, vui lòng sao chép và dán hoặc nhập thủ công trong cửa sổ trình duyệt mới.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Nếu bạn là nhà phát triển muốn cung cấp các tính năng bổ sung cho SUPLA, hãy tạo một ứng dụng OAuth mà người dùng có thể ủy quyền và sử dụng'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Nếu bạn chắc chắn rằng bạn có tài khoản trên cloud.supla.org, hãy kiểm tra xem ứng dụng bạn đang cố gắng ủy quyền có công khai không'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Nếu bạn không muốn xóa tài khoản của mình trên %cloudHost%, vui lòng không nhấp vào liên kết.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Nếu bạn chưa sử dụng địa chỉ email này với cloud.supla.org, vui lòng không nhấp vào liên kết.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Nếu bạn đăng ký lại trong tương lai, một số thiết bị có thể cần cấu hình lại ngay cả khi bạn sử dụng cùng một địa chỉ email.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Nếu bạn muốn tích hợp Cloud của mình với các ứng dụng OAuth công khai, bạn phải [đăng ký phiên bản của mình].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Nếu bạn muốn sử dụng liên kết theo chương trình, hãy thêm tiêu đề yêu cầu phù hợp để có được đầu ra mà bạn có thể dễ dàng phân tích.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Nếu bạn muốn xem các tích hợp có sẵn, hãy truy cập [cloud.supla.org/apps].'
@@ -255,6 +258,7 @@ Invalid function for channel.: Chức năng không hợp lệ cho kênh.
 Invalid request: Yêu cầu không hợp lệ.
 Inverted logic: Inverted logic
 Invisible: Không hiển thị
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Hãy nhớ rằng chúng tôi sẽ xóa tất cả các cài đặt, thiết bị được định cấu hình, vị trí, lịch trình và tất cả các tính năng khác mà bạn đã sử dụng trong SUPLA cùng với tài khoản của bạn.'
 Language is not available: Ngôn ngữ không có sẵn
 Last access: Truy cập lần cuối
 Last connection: Kết nối lần cuối
@@ -372,6 +376,7 @@ Roller shutter opening sensor: Cảm biến mở cửa trập
 Roller shutter operation: Vận hành cửa trập
 Roller shutters: Cửa chớp lăn
 SUPLA - Account Activation: SUPLA - Kích hoạt tài khoản
+SUPLA - Account Removal: SUPLA - Xóa tài khoản
 SUPLA Cloud is under maintenance.: Đám mây SUPLA đang được bảo trì.
 SUPLA Server was unable to execute the action.: Máy chủ SUPLA không thể thực thi hành động.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA có thể truy cập ở mọi nơi mọi lúc, vì vậy đừng lo lắng, nếu bạn quên tắt đèn lần sau'
@@ -419,6 +424,7 @@ Subject type: Loại đối tượng
 Success: Thành công
 Successful: Thành công
 Supla for devices: Supla cho các thiết bị
+THIS CANNOT BE UNDONE!: TĐIỀU NÀY KHÔNG THỂ ĐƯỢC HOÀN TÁC!
 Temperature: Nhiệt độ
 Temperature & Humidity Sensor: Cảm biến nhiệt độ và độ ẩm
 Temperature Sensor: Cảm biến nhiệt độ
@@ -473,6 +479,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Chờ một chút trước khi đưa ra yêu cầu khác. Bạn có thể kiểm tra việc sử dụng các giới hạn hiện tại trong cài đặt tài khoản của mình.
 Water meter: Thước đo nước
 We could not connect to your SUPLA Cloud instance.: Chúng tôi không thể kết nối với ví dụ SUPLA Cloud của bạn.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Chúng tôi đã được yêu cầu xóa tài khoản SUPLA Cloud của bạn.
 We have just sent you an activation link. You should be receiving it shortly.: Chúng tôi vừa gửi cho bạn một liên kết kích hoạt. Kiên nhẫn.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Chúng tôi đã gửi cho bạn một tin nhắn e-mail với một liên kết xác nhận xóa. Chỉ để được chắc chắn!
 We should be ready shortly.: Chúng ta nên sẵn sàng trong thời gian ngắn.
@@ -731,6 +738,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Initial values: ~

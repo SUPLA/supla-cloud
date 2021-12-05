@@ -86,6 +86,7 @@ Choose Access Identifier: Wybierz Identyfikator Dostępu
 Choose Access Identifiers to be assigned to this Location: Selectați Identificatoarele de Acces care vor fi alocate acestei Locații
 Choose client apps: Selectați aplicațiile de client
 Choose location: Selectați o locație
+Click the following link to confirm removal of your account on %cloudHost%.: 'Pentru a confirma că doriți să ștergeți contul dvs. SUPLA, faceți clic pe linkul de mai jos.'
 Client’s Apps: Aplicații de client
 Client’s app has been deleted: Aplicația de client a fost eliminată
 Close: Închide
@@ -220,7 +221,9 @@ Idle: Inactive
 'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Dacă linkul nu funcționează, copiați-l în bara browser-ului sau introduceți-l manual.'
 'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Dacă sunteți un programator care dorește să ofere funcții suplimentare pentru SUPLI, creați o aplicație OAuth pe care utilizatorii o vor putea autoriza și utiliza.'
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Dacă sunteți sigur că aveți un cont pe cloud.supla.org, verificați dacă aplicația pe care încercați să o autorizați este publică.'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Dacă nu doriți să ștergeți contul dvs. de pe %cloudHost%, nu faceți clic pe link.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Dacă nu ați furnizat această adresă de e-mail pe %cloudHost%, nu faceți clic pe link.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'După reînregistrarea contului dvs., unele dispozitive pot necesita reconfigurare, chiar dacă veți furniza aceeași adresă de e-mail.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Dacă doriți să integrați cloud-ul privat SUPLA cu aplicația publică OAuth, trebuie [să înregistrați instanța dvs.].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Dacă doriți să utilizați linkul direct în alt software, adăugați antetul de solicitare corespunzător pentru a obține un răspuns mai ușor de procesat.'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Dacă doriți să vedeți integrările disponibile, treceți la [cloud.supla.org/apps].'
@@ -238,6 +241,7 @@ Invalid SUPLA Cloud URL.: Adresa URL a instanței SUPLA Cloud este incorectă.
 Invalid request: Cerere nevalidă
 Inverted logic: Logică inversă
 Invisible: Invizibil
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Nu uitați că, împreună cu contul dvs., vom șterge toate datele, inclusiv setările, dispozitivele configurate, locațiile, planurile de executare și toate celelalte funcționalități oferite de SUPLA.'
 Language is not available: Limba nu este disponibilă
 Last access: Ultima conexiune
 Last connection: Ultima conexiune
@@ -345,6 +349,7 @@ Roller shutter opening sensor: Senzor de deschidere a jaluzelelor
 Roller shutter operation: Deschiderea și închiderea jaluzelelor
 Roller shutters: Jaluzele
 SUPLA - Account Activation: SUPLA - Activarea contului
+SUPLA - Account Removal: SUPLA - Ștergerea contului
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Eroare la executarea acțiunii în SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA este disponibilă oricând și oriunde, așa că nu vă faceți griji data viitoare când uitați să stingeți lumina'
@@ -390,6 +395,7 @@ Subject type: Tipul entității
 Success: Succes
 Successful: Reușite
 Supla for devices: Supla pentru dispozitive
+THIS CANNOT BE UNDONE!: ACEASTĂ OPERAȚIUNE NU POATE FI REVOCATĂ!
 Temperature: Temperatură
 Temperature & Humidity Sensor: Senzor de temperatură și umiditate
 Temperature Sensor: Senzor de temperatură
@@ -437,6 +443,7 @@ WELCOME_MESSAGE: |
   este să copiați următoarele date pe dispozitivele dvs. de control (I/O) și pe smartphone-uri.
 Water meter: Contor de apă
 We could not connect to your SUPLA Cloud instance.: Nu ne-am putut conecta la instanța dvs. privată SUPLA Cloud.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Am primit o instrucțiune de ștergere a contul dvs. în SUPLA Cloud (%cloudHost%).
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: V-am trimis un mesaj e-mail cu un link de confirmare a ștergerii contului. Poate te vei răzgândi!
 We should be ready shortly.: Powinniśmy niedługo skończyć.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Stocăm în browser-ul dvs. informații despre preferințele dvs. pentru a facilita utilizarea aplicației (de exemplu, folosind mecanismul cookie). [Citiți regulamentul].'
@@ -701,6 +708,7 @@ Host: ~
 I/O devices registration: ~
 ID: ~
 Icon: ~
+'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Inactive: ~
