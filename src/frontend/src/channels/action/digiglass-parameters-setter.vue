@@ -29,14 +29,11 @@
                         <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl"
                             class="opaque-image">
                     </div>
-                    <div class="checkbox checkbox-green small">
-                        <label>
-                            <input type="checkbox"
-                                v-model="activeSections[sectionNumber]"
-                                @click.stop="enableDisableSection(sectionNumber)">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
+                    <label class="checkbox2 small">
+                        <input type="checkbox"
+                            v-model="activeSections[sectionNumber]"
+                            @click.stop="enableDisableSection(sectionNumber)">
+                    </label>
                 </div>
             </div>
         </div>

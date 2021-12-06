@@ -1,57 +1,69 @@
-.checkbox-green, .checkbox-yellow {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  user-select: none;
-  input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border: 1px solid #666;
-    &:after {
-      content: "";
-      position: absolute;
-      display: none;
-      left: 9px;
-      top: 5px;
-      width: 7px;
-      height: 12px;
-      border: solid white;
-      border-width: 0 3px 3px 0;
-      transform: rotate(45deg);
-    }
-  }
-  &:hover input ~ .checkmark {
-    background-color: $supla-grey-light;
-  }
-  input:checked ~ .checkmark {
-    background-color: $supla-green;
-    &:after {
-      display: block;
-    }
-  }
-  &.checkbox-yellow {
-    .checkmark {
-      &:after {
-        border-color: $supla-grey-dark;
-      }
-    }
-    input:checked ~ .checkmark {
-      background-color: $supla-yellow;
+@import "variables";
 
-    }
+// https://moderncss.dev/pure-css-custom-checkbox-style/
+
+.checkbox2 {
+  font-weight: normal;
+  font-size: 1.15em;
+  line-height: 1.1;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  margin: .5em 0;
+  text-align: left;
+
+  input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $supla-white;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+  }
+
+  &--disabled {
+    color: $supla-grey-dark;
+    cursor: not-allowed;
+  }
+
+  input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em $supla-green;
+  }
+
+  input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+
+  input[type="checkbox"]:focus {
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+  }
+
+  input[type="checkbox"]:disabled {
+    --form-control-color: $supla-grey-dark;
+
+    color: $supla-grey-dark;
+    cursor: not-allowed;
+  }
+  &-yellow input[type="checkbox"]::before {
+    box-shadow: inset 1em 1em $supla-yellow;
+  }
+  &-grey {
+    color: $supla-grey-dark;
   }
   &.small {
     margin: 0;
@@ -62,15 +74,6 @@
     label {
       padding-left: 15px;
     }
-    .checkmark {
-      height: 15px;
-      width: 15px;
-      &:after {
-        left: 3px;
-        top: 0;
-        border-width: 0 2px 2px 0;
-        width: 7px;
-      }
-    }
   }
 }
+

@@ -27,31 +27,33 @@
                 </div>
             </div>
         </div>
-        <div class="checkbox checkbox-green">
-            <label>
-                <input type="checkbox"
-                    v-model="fileCopyrightConfirmed">
-                <span class="checkmark"></span>
-                {{ $t('Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.') }}
-            </label>
-        </div>
-        <p class="text-muted">{{ $t('We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.', {width: 210, height: 156}) }}</p>
+        <label class="checkbox2 text-left">
+            <input type="checkbox"
+                v-model="fileCopyrightConfirmed">
+            {{ $t('Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.') }}
+        </label>
+        <p class="text-muted">{{
+                $t('We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.', {
+                    width: 210,
+                    height: 156
+                })
+            }}</p>
         <p class="text-danger"
             v-if="filesTooBig">{{ $t('The set of icons you have chosen is too large. Maximum upload limit is {limit}.', {limit: maxUploadSizeTotalPretty}) }}</p>
         <div class="row">
             <div class="col-xs-12">
-                <button class="btn btn-green"
+                <button class="btn btn-green mx-2"
                     type="button"
                     :disabled="!fileCopyrightConfirmed || filesTooBig"
                     @click="uploadIcons()">
                     {{ $t(icon ? 'Save' : 'Add') }}
                 </button>
-                <a class="btn btn-red"
+                <a class="btn btn-red mx-2"
                     v-if="icon"
                     @click="deleteConfirm = true">
                     {{ $t('Delete') }}
                 </a>
-                <a class="btn btn-white"
+                <a class="btn btn-white mx-2"
                     @click="$emit('cancel')">
                     {{ $t('Cancel') }}
                 </a>

@@ -16,18 +16,15 @@
                     {{ $t('{clientName} wants to access your account.', {clientName: clientName}) }}
                 </h4>
             </template>
-            <div v-if="askForTargetCloud">
+            <div v-if="true || askForTargetCloud">
                 <div class="form-group text-center">
                     <label>
-                        <div class="checkbox checkbox-green">
-                            <label>
-                                <input type="checkbox"
-                                    v-model="ownCloud"
-                                    @change="error = undefined">
-                                <span class="checkmark"></span>
-                                {{ $t('Connection with a private instance of the SUPLA cloud') }}
-                            </label>
-                        </div>
+                        <label class="checkbox2 checkbox2-grey">
+                            <input type="checkbox"
+                                v-model="ownCloud"
+                                @change="error = undefined">
+                            {{ $t('Connection with a private instance of the SUPLA cloud') }}
+                        </label>
                     </label>
                 </div>
                 <transition-expand>

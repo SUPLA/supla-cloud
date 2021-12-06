@@ -5,17 +5,14 @@
             <component :is="checkboxLabel"
                 @click="rulesShown = true"></component>
         </div>
-        <div class="checkbox checkbox-yellow"
+        <label class="checkbox2"
             v-else>
-            <label>
-                <input type="checkbox"
-                    v-model="agreed"
-                    @change="$emit('input', agreed)">
-                <span class="checkmark"></span>
-                <component :is="checkboxLabel"
-                    @click="rulesShown = true"></component>
-            </label>
-        </div>
+            <input type="checkbox"
+                v-model="agreed"
+                @change="$emit('input', agreed)">
+            <component :is="checkboxLabel"
+                @click="rulesShown = true"></component>
+        </label>
         <regulations-modal v-if="rulesShown"
             @confirm="rulesShown = false"></regulations-modal>
     </div>

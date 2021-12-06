@@ -10,10 +10,8 @@
                 <ul>
                     <li v-for="schedule in dependencies.schedules"
                         :key="schedule.id">
-                        <div class="checkbox">
-                            ID{{ schedule.id }}
-                            <span class="small">{{ schedule.caption }}</span>
-                        </div>
+                        ID{{ schedule.id }}
+                        <span class="small">{{ schedule.caption }}</span>
                     </li>
                 </ul>
             </div>
@@ -23,10 +21,8 @@
                 <ul>
                     <li v-for="link in dependencies.directLinks"
                         :key="link.id">
-                        <div class="checkbox">
-                            ID{{ link.id }}
-                            <span class="small">{{ link.caption }}</span>
-                        </div>
+                        ID{{ link.id }}
+                        <span class="small">{{ link.caption }}</span>
                     </li>
                 </ul>
             </div>
@@ -41,10 +37,8 @@
                 <ul>
                     <li v-for="group in dependencies.channelGroups"
                         :key="group.id">
-                        <div class="checkbox">
-                            ID{{ group.id }}
-                            <span class="small">{{ group.caption }}</span>
-                        </div>
+                        ID{{ group.id }}
+                        <span class="small">{{ group.caption }}</span>
                     </li>
                 </ul>
             </div>
@@ -54,10 +48,8 @@
                 <ul>
                     <li v-for="sceneOperation in dependencies.sceneOperations"
                         :key="sceneOperation.id">
-                        <div class="checkbox">
-                            ID{{ sceneOperation.owningSceneId }}
-                            <span class="small">{{ sceneOperation.owningScene.caption }}</span>
-                        </div>
+                        ID{{ sceneOperation.owningSceneId }}
+                        <span class="small">{{ sceneOperation.owningScene.caption }}</span>
                     </li>
                 </ul>
             </div>
@@ -69,10 +61,8 @@
                 <ul>
                     <li v-for="channel in dependencies.actionTriggers"
                         :key="channel.id">
-                        <div class="checkbox">
-                            ID{{ channel.id }}
-                            <span class="small">{{ channel.caption }}</span>
-                        </div>
+                        ID{{ channel.id }}
+                        <span class="small">{{ channel.caption }}</span>
                     </li>
                 </ul>
             </div>
