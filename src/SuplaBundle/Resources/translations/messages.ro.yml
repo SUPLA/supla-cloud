@@ -627,6 +627,8 @@ will expire: expiră
 '%s trigger is not supported by the hardware.': ~
 '10 minutes before sunset, on day 10 of the month, May through August': ~
 '15 minutes after sunrise, every 2 days': ~
+A confirmation upon successful device registration.: ~
+A new device has been added to your SUPLA-Cloud account.: ~
 A new personal access token has been generated.: ~
 A-Z: ~
 API rate limits: ~
@@ -693,7 +695,10 @@ Could not contact Autodiscover service. Try again in a while.: ~
 Create new scene: ~
 Current Overload: ~
 Default: ~
+'Device ID: %deviceId%': ~
 Device channel value: ~
+'Device name: %deviceName%': ~
+'Device software version: %deviceSoftwareVersion%': ~
 Differential: ~
 Digi Glass: ~
 Digi Glass Horizontal: ~
@@ -702,7 +707,9 @@ Direct links limit has been exceeded: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
 'Doors, Gates, Windows': ~
+E-mail notifications: ~
 Execute: ~
+Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
 Flooding: ~
@@ -719,7 +726,7 @@ I/O devices registration: ~
 ID: ~
 Icon: ~
 'If you really want to delete the account, here are the instructions.': ~
-'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
+'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
 Inactive: ~
 Initial values: ~
@@ -738,11 +745,13 @@ MQTT Broker password: ~
 MQTT Broker password has been changed.: ~
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
 Make sure to copy it now because you won’t be able to see it again!: ~
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
 Manually closed: ~
 Meters: ~
 Move down or stop: ~
 Move up or stop: ~
 Need one of these?: ~
+New IO device added to your account: ~
 New scene: ~
 'Next limit renewal: {date}': ~
 No of channels: ~
@@ -774,6 +783,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
+'Registered from IP address: %deviceRegIp%': ~
 Reset Your Password: ~
 Reset counter: ~
 Reverse active energy: ~
@@ -781,11 +791,13 @@ Reverse active energy balanced: ~
 Reverse reactive energy: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
+SUPLA – new device has been added to your account: ~
 Save or discard configuration changes first.: ~
 Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
+See in SUPLA-Cloud: ~
 Set initial values: ~
 Setting any action on this trigger will disable its local function: ~
 Show my limits: ~
@@ -806,6 +818,7 @@ The gate sensor must function properly in order to execute the Open and Close ac
 'The items below rely on this channel function, so they will be deleted.': ~
 'The items below rely on this channel group, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
 'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
 'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
@@ -815,11 +828,13 @@ Too many actions in this schedule.: ~
 Triggers: ~
 Turning this device off will cause its channels not working in the following features.: ~
 Turning this device off will result in disabling features listed below.: ~
+Unsuccessful login attempt: ~
 Update in progress: ~
 Value per unit: ~
 Valve: ~
 Valve closed manually: ~
 Wait a while before the next request. You can check your limits in the account settings.: ~
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
 We have just sent you an activation link. You should be receiving it shortly.: ~
 We try to be faster: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
@@ -837,6 +852,7 @@ Your password must contain at least one special character.: ~
 Your password must include at least one letter.: ~
 Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
+Your preferences has been updated.: ~
 'Your schedules are allowed to have a maximum of {max} actions.': ~
 actionTrigger_HOLD: ~
 actionTrigger_SHORT_PRESS_X1: ~

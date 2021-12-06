@@ -755,6 +755,8 @@ hourly: Ogni ora
 '%s trigger is not supported by the hardware.': ~
 '10 minutes before sunset, on day 10 of the month, May through August': ~
 '15 minutes after sunrise, every 2 days': ~
+A confirmation upon successful device registration.: ~
+A new device has been added to your SUPLA-Cloud account.: ~
 'Action trigger no. #{index}': ~
 Add a delay: ~
 Add action: ~
@@ -793,7 +795,10 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 Copy channel state: ~
 Create new scene: ~
+'Device ID: %deviceId%': ~
 Device channel value: ~
+'Device name: %deviceName%': ~
+'Device software version: %deviceSoftwareVersion%': ~
 Differential: ~
 Digi Glass: ~
 Digi Glass Horizontal: ~
@@ -801,7 +806,9 @@ Digi Glass Vertical: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
 'Doors, Gates, Windows': ~
+E-mail notifications: ~
 Execute: ~
+Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
 Forward active energy balanced: ~
@@ -809,14 +816,16 @@ General purpose measurement: ~
 Generic action: ~
 Guru Meditation: ~
 'If you really want to delete the account, here are the instructions.': ~
-'If you wish not to receive such messages,<br> checkout out your account settings [here].': ~
+'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
 Initial values: ~
 Interpolate measurements: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
 Meters: ~
 Move down or stop: ~
 Move up or stop: ~
+New IO device added to your account: ~
 New scene: ~
 No of channels: ~
 No of client apps: ~
@@ -834,13 +843,16 @@ Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
+'Registered from IP address: %deviceRegIp%': ~
 Reset Your Password: ~
 Reverse active energy balanced: ~
+SUPLA – new device has been added to your account: ~
 Save or discard configuration changes first.: ~
 Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
+See in SUPLA-Cloud: ~
 Set initial values: ~
 Setting any action on this trigger will disable its local function: ~
 Shut partially: ~
@@ -850,11 +862,15 @@ Store measurements history: ~
 TLS: ~
 The counter has been reset.: ~
 'The items below rely on this channel group, so they will be deleted.': ~
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
 Too many actions in this schedule.: ~
+Unsuccessful login attempt: ~
 Value per unit: ~
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
 'Your channel groups are allowed to have a maximum of {max} channels.': ~
+Your preferences has been updated.: ~
 'Your schedules are allowed to have a maximum of {max} actions.': ~
 actionableSubjectType_scene: ~
 choose the action: ~
