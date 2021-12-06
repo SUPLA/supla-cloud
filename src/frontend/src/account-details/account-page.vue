@@ -32,32 +32,35 @@
                                 <timezone-picker :timezone="user.timezone"></timezone-picker>
                             </dd>
                         </dl>
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <div class="btn-toolbar">
-                                    <a class="btn btn-default"
-                                        @click="changingPassword = true">{{ $t('Change Password') }}</a>
-                                    <a class="btn btn-default"
-                                        @click="showingLimits = true">{{ $t('Show my limits') }}</a>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 text-right">
-                                <a class="btn btn-red-outline btn-xs"
-                                    @click="deletingAccount = true">{{ $t('Delete my account') }}</a>
-                            </div>
+                        <div class="form-group text-center">
+                            <a class="btn btn-default"
+                                @click="changingPassword = true">{{ $t('Change Password') }}</a>
+                            <a class="btn btn-default"
+                                @click="changingNotifications = true">{{ $t('E-mail notifications') }}</a>
+                            <a class="btn btn-default"
+                                @click="showingLimits = true">{{ $t('Show my limits') }}</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="btn btn-red-outline btn-xs"
+                                @click="deletingAccount = true">{{ $t('Delete my account') }}</a>
                         </div>
                     </div>
                 </transition>
-                <account-password-change-modal v-if="changingPassword"
-                    @cancel="changingPassword = false"
-                    :user="user"></account-password-change-modal>
-                <account-limits-modal v-if="showingLimits"
-                    @confirm="showingLimits = false"
-                    :user="user"></account-limits-modal>
-                <account-delete-modal v-if="deletingAccount"
-                    @cancel="deletingAccount = false"
-                    :user="user"></account-delete-modal>
             </loading-cover>
+        </div>
+        <div v-if="user">
+            <account-password-change-modal v-if="changingPassword"
+                @cancel="changingPassword = false"
+                :user="user"></account-password-change-modal>
+            <account-opt-out-notifications-modal v-if="changingNotifications"
+                @cancel="closeOptOutNotificationsModal()"
+                :user="user"></account-opt-out-notifications-modal>
+            <account-limits-modal v-if="showingLimits"
+                @confirm="showingLimits = false"
+                :user="user"></account-limits-modal>
+            <account-delete-modal v-if="deletingAccount"
+                @cancel="deletingAccount = false"
+                :user="user"></account-delete-modal>
         </div>
     </div>
 </template>
@@ -66,6 +69,7 @@
     import AnimatedSvg from "./animated-svg";
     import TimezonePicker from "./timezone-picker";
     import AccountPasswordChangeModal from "./account-password-change-modal";
+    import AccountOptOutNotificationsModal from "./account-opt-out-notifications-modal";
     import AccountDeleteModal from "./account-delete-modal";
     import AccountLimitsModal from "./account-limits-modal";
 
@@ -75,7 +79,8 @@
             AccountPasswordChangeModal,
             AccountDeleteModal,
             TimezonePicker,
-            AnimatedSvg
+            AnimatedSvg,
+            AccountOptOutNotificationsModal,
         },
         data() {
             return {
@@ -85,6 +90,7 @@
                 changingPassword: false,
                 deletingAccount: false,
                 showingLimits: false,
+                changingNotifications: false,
             };
         },
         mounted() {
@@ -95,6 +101,17 @@
             this.$http.get('users/current/audit', {params: {events: ['AUTHENTICATION_SUCCESS']}}).then(response => {
                 this.authAttempts = response.body;
             });
+            if (this.$route.query.optOutNotification) {
+                this.changingNotifications = true;
+            }
+        },
+        methods: {
+            closeOptOutNotificationsModal() {
+                this.changingNotifications = false;
+                if (this.$route.query.optOutNotification) {
+                    this.$router.push({optOutNotification: undefined});
+                }
+            }
         },
         computed: {
             previousAuthAttempt() {
@@ -121,16 +138,16 @@
 
     #user-account-bg {
         display: block;
-        width: 600px;
-        height: 589px;
+        width: 610px;
+        height: 650px;
         position: absolute;
         left: 50%;
-        margin-left: -300px;
+        margin-left: -305px;
     }
 
     .user-account-container {
-        width: 550px;
-        padding-top: 217px;
+        width: 558px;
+        padding-top: 222px;
         margin: 0 auto;
         position: relative;
         color: $supla-black;
@@ -148,7 +165,7 @@
             margin-top: 14px;
             border-radius: 3px;
             padding: 15px;
-            height: 306px;
+            height: 366px;
             background: $supla-white;
             h1 {
                 margin-top: 0;
