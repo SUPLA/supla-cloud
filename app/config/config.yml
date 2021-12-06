@@ -20,7 +20,7 @@ doctrine:
       stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
       utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
     user: "%database_user%"
-    schema_filter: ~^(?!(esp_|messenger_))~
+    schema_filter: ~^(?!(esp_|supla_email_notifications))~
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
     auto_mapping: true
@@ -64,7 +64,10 @@ framework:
   http_method_override: true
   messenger:
     transports:
-      async: "doctrine://default"
+      async:
+        dsn: "doctrine://default"
+        options:
+          table_name: supla_email_notifications
     routing:
       SuplaBundle\Message\AsyncMessage: async
   router:

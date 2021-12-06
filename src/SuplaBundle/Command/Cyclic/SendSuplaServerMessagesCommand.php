@@ -46,7 +46,7 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $messagesQuery = $this->entityManager->getConnection()
-            ->executeQuery('SELECT id, body FROM messenger_messages WHERE queue_name = "supla-server" LIMIT 100');
+            ->executeQuery('SELECT id, body FROM supla_email_notifications WHERE queue_name = "supla-server" LIMIT 100');
         while ($suplaServerMessage = $messagesQuery->fetchAssociative()) {
             $decodedBody = json_decode($suplaServerMessage['body'], true);
             $type = $decodedBody['type'] ?? 'email';
@@ -79,7 +79,7 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
                 $output->writeln($suplaServerMessage['body']);
             }
             $this->entityManager->getConnection()
-                ->executeQuery('DELETE FROM messenger_messages WHERE id = :id', ['id' => $suplaServerMessage['id']]);
+                ->executeQuery('DELETE FROM supla_email_notifications WHERE id = :id', ['id' => $suplaServerMessage['id']]);
             if ($output->isVerbose() || $output->isVeryVerbose()) {
                 $output->writeln("<info>Dispatched supla server message ($template to user ID $userId)</info>");
             }

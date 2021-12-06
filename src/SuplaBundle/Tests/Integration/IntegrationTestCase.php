@@ -66,7 +66,7 @@ abstract class IntegrationTestCase extends WebTestCase {
             $this->executeCommand('doctrine:schema:drop --force');
             $this->executeCommand('doctrine:schema:create');
             $this->executeCommand('supla:initialize:create-webapp-client');
-            $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE messenger_messages;');
+            $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE supla_email_notifications;');
             $this->initializeDatabaseForTests();
             $reflection = new ReflectionClass($this);
             $vars = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);
@@ -200,7 +200,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 
     protected function flushMessagesQueue(?TestClient $client = null) {
         $maxIterations = 5;
-        $messagesQuery = 'SELECT COUNT(*) FROM messenger_messages WHERE queue_name != "supla-server"';
+        $messagesQuery = 'SELECT COUNT(*) FROM supla_email_notifications WHERE queue_name != "supla-server"';
         while (($count = $this->getEntityManager()->getConnection()->fetchOne($messagesQuery)) > 0) {
             if (!$maxIterations--) {
                 $this->fail('Could not flush the messages queue. Error in handler?');

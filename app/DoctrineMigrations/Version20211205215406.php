@@ -40,7 +40,7 @@ VALUES (_location_id, _user_id, _guid, _name, 1, UTC_TIMESTAMP(), _reg_ipv4, UTC
     _protocol_version, @mfr_id, _product_id, _original_location_id, _auth_key, _flags);
 SELECT LAST_INSERT_ID() INTO _id;
 SELECT CONCAT('{"template": "new_io_device", "userId": ', _user_id, ', "data": {"ioDeviceId": ', _id, '}}') INTO @notification_data;
-INSERT INTO `messenger_messages` (`body`, `headers`, `queue_name`, `created_at`, `available_at`)
+INSERT INTO `supla_email_notifications` (`body`, `headers`, `queue_name`, `created_at`, `available_at`)
 VALUES(@notification_data, '[]', 'supla-server', NOW(), NOW());
 END
 PROCEDURE

@@ -45,7 +45,7 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
             'data' => ['ip' => '12.23.34.45'],
         ]);
         $this->getEntityManager()->getConnection()->executeQuery(
-            'INSERT INTO messenger_messages (body, headers, queue_name, created_at, available_at) ' .
+            'INSERT INTO supla_email_notifications (body, headers, queue_name, created_at, available_at) ' .
             "VALUES('$body', '[]', 'supla-server', NOW(), NOW())"
         );
         $this->flushMessagesQueue();
