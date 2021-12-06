@@ -18,7 +18,9 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Message\EmailFromTemplate;
+use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Message\EmailFromTemplateAsync;
+use SuplaBundle\Message\UserOptOutNotifications;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -54,9 +56,24 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
             if (!$template || !$userId) {
                 $output->writeln('<error>No template or user id in the message! Do not sending this supla-server message.</error>');
                 $output->writeln($suplaServerMessage['body']);
-            }
-            if ($type === 'email') {
-                $this->messageBus->dispatch(new EmailFromTemplate($template, $userId, $data));
+            } elseif ($type === 'email') {
+                if ($template == UserOptOutNotifications::NEW_IO_DEVICE) {
+                    $ioDevice = $this->entityManager->find(IODevice::class, $data['ioDeviceId'] ?? 0);
+                    if (!$ioDevice || $ioDevice->getUser()->getId() !== $userId) {
+                        $userId = null;
+                    }
+                    $data = [
+                        'device' => [
+                            'id' => $ioDevice->getId(),
+                            'name' => $ioDevice->getName(),
+                            'softwareVersion' => $ioDevice->getSoftwareVersion(),
+                            'regIp' => $ioDevice->getRegIpv4(),
+                        ],
+                    ];
+                }
+                if ($userId) {
+                    $this->messageBus->dispatch(new EmailFromTemplateAsync($template, $userId, $data));
+                }
             } else {
                 $output->writeln('<error>Invalid message type.</error>');
                 $output->writeln($suplaServerMessage['body']);

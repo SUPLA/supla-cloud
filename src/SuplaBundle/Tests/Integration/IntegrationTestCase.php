@@ -200,11 +200,12 @@ abstract class IntegrationTestCase extends WebTestCase {
 
     protected function flushMessagesQueue(?TestClient $client = null) {
         $maxIterations = 5;
-        while (($count = $this->getEntityManager()->getConnection()->fetchOne('SELECT COUNT(*) FROM messenger_messages')) > 0) {
+        $messagesQuery = 'SELECT COUNT(*) FROM messenger_messages WHERE queue_name != "supla-server"';
+        while (($count = $this->getEntityManager()->getConnection()->fetchOne($messagesQuery)) > 0) {
             if (!$maxIterations--) {
                 $this->fail('Could not flush the messages queue. Error in handler?');
             }
-            $this->executeCommand("messenger:consume --limit $count --no-interaction -vv", $client);
+            $this->executeCommand("messenger:consume --time-limit 1 --limit $count --no-interaction -vv", $client);
         }
     }
 }

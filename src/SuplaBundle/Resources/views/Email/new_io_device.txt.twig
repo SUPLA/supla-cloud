@@ -1,0 +1,26 @@
+{% extends '@Supla/Email/template.txt.twig' %}
+
+{% block subject %}
+ {% trans into userLocale %} SUPLA – new device has been added to your account {% endtrans %}
+{% endblock %}
+
+{% block body %}
+{% trans into userLocale %} Welcome! {% endtrans %}
+
+
+{% trans with {'%cloudHost%': cloudHost()} into userLocale %} A new device has been added to you home in the SUPLA-Cloud account (%cloudHost%). {% endtrans %}
+
+
+{% trans with {'%deviceId%': device.id} into userLocale %} Device ID: %deviceId% {% endtrans %}
+
+{% trans with {'%deviceName%': device.name} into userLocale %} Device name: %deviceName% {% endtrans %}
+
+{% trans with {'%deviceSoftwareVersion%': device.softwareVersion} into userLocale %} Device software version: %deviceSoftwareVersion% {% endtrans %}
+
+{% trans with {'%deviceRegIp%': device.regIp} into userLocale %} Registered from IP address: %deviceRegIp% {% endtrans %}
+
+{{ cloudUrl('devices/' ~ device.id) }}
+
+{% trans into userLocale %} Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app. {% endtrans %}
+
+{% endblock %}

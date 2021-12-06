@@ -28,7 +28,11 @@
                     {
                         id: 'failed_auth_attempt',
                         label: 'Unsuccessful login attempt', // i18n
-                    }
+                    },
+                    {
+                        id: 'new_io_device',
+                        label: 'New IO device added to your account', // i18n
+                    },
                 ],
                 selectedNotifications: {},
             };

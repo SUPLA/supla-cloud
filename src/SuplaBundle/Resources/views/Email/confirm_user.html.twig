@@ -11,7 +11,7 @@
 {% block body %}
     {% apply paragraph %} {% trans into userLocale %} Welcome! {% endtrans %} {% endapply %}
     {% apply paragraph %} {% trans with {'%cloudHost%': cloudHost()} into userLocale %} Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account. {% endtrans %} {% endapply %}
-    {% apply linkButton(confirmationUrl) %} {% trans into userLocale %} Confirm My Account {% endtrans %} {% endapply %}
+    {% apply linkButton(svrUrl(confirmationUrl)) %} {% trans into userLocale %} Confirm My Account {% endtrans %} {% endapply %}
     {% apply paragraph %}
         <b>{% trans into userLocale %}NOTICE!{% endtrans %}</b>
         {% trans with {'%cloudHost%': cloudHost()} into userLocale %} If you have not used this email address with %cloudHost%, please do not click the link. {% endtrans %}
