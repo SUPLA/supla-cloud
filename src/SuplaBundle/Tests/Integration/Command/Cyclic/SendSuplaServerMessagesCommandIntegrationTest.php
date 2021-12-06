@@ -86,4 +86,32 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->assertStringContainsString('ZAMEL-PNW-CHOINKA', $message->getBody());
         $this->assertStringContainsString('3.33', $message->getBody());
     }
+
+    public function testNoNewIoDeviceNotificationWhenOptOut() {
+        $this->user = $this->freshEntity($this->user);
+        $this->user->setPreference('optOutNotifications', [UserOptOutNotifications::NEW_IO_DEVICE]);
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        $parameters = [
+            $this->user->getLocations()[0]->getId(),
+            $this->user->getId(),
+            "'abcdef'",
+            "'ZAMEL-PNW-CHOINKA'",
+            "INET_ATON('1.1.2.2')",
+            "'3.33'",
+            10,
+            'NULL',
+            'NULL',
+            'NULL',
+            'NULL',
+            'NULL',
+            '@outId',
+        ];
+        $query = 'CALL supla_add_iodevice(' . implode(', ', $parameters) . ')';
+        $this->getEntityManager()->getConnection()->executeQuery($query);
+        $this->assertEquals('ZAMEL-PNW-CHOINKA', $this->getEntityManager()->find(IODevice::class, 1)->getName());
+        $this->executeCommand('supla:cyclic:send-server-messages');
+        $this->flushMessagesQueue();
+        $this->assertCount(0, TestMailer::getMessages());
+    }
 }

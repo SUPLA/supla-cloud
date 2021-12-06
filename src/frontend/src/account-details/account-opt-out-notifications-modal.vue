@@ -3,6 +3,12 @@
         @cancel="$emit('cancel')"
         :loading="loading"
         :header="$t('E-mail notifications')">
+        <p>
+            {{ $t("We can notify you about certain events with your account. Opt out if you don't want us to bother you.") }}
+        </p>
+        <p v-if="currentOptOutNotification">
+            {{ $t("The notification marked with a border is the one you saw when you clicked the unsubscribe link.") }}
+        </p>
         <form @submit.prevent="updateOptOutNotifications()"
             class="opt-out-notifications">
             <label :class="['checkbox2', {'current-opt-out-notification': currentOptOutNotification == notification.id}]"
@@ -21,6 +27,7 @@
     import {successNotification} from "../common/notifier";
 
     export default {
+        props: ['user'],
         data() {
             return {
                 loading: false,
@@ -38,18 +45,21 @@
             };
         },
         mounted() {
-            console.log(this.$route.query);
+            this.possibleNotifications.forEach(({id}) => {
+                const isset = this.user.preferences?.optOutNotifications?.includes(id);
+                this.$set(this.selectedNotifications, id, !isset);
+            });
         },
         methods: {
             updateOptOutNotifications() {
                 this.loading = true;
+                const optOutNotifications = this.possibleNotifications.map(({id}) => id).filter((id) => !this.selectedNotifications[id]);
                 this.$http.patch(`users/current`, {
                     action: 'change:optOutNotifications',
-                    newPassword: this.newPassword,
-                    oldPassword: this.oldPassword
+                    optOutNotifications,
                 })
                     .then(() => {
-                        successNotification(this.$t('Successful'), this.$t('Password has been changed'));
+                        successNotification(this.$t('Successful'), this.$t('Your preferences has been updated.'));
                         this.$emit('cancel');
                     })
                     .finally(() => this.loading = false);
@@ -68,7 +78,7 @@
 
     .opt-out-notifications {
         .checkbox2 {
-            padding: 1em;
+            padding: .5em;
         }
         .current-opt-out-notification {
             border: 2px dotted $supla-grey-dark;

@@ -302,7 +302,10 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
      */
     private $mqttBrokerAuthPassword;
 
-    /** @ORM\Column(name="preferences", type="string", length=4096, nullable=false, options={"default"="{}"}) */
+    /**
+     * @ORM\Column(name="preferences", type="string", length=4096, nullable=false, options={"default"="{}"})
+     * @Groups({"basic"})
+     */
     private $preferences;
 
     const PREDEFINED_LIMITS = [
