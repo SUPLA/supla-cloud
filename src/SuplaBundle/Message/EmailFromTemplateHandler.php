@@ -48,6 +48,7 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
             throw new \InvalidArgumentException('No userId and no recipient given.');
         }
         $data = array_merge($email->getData(), $data);
+        $data['templateName'] = $email->getTemplateName();
         $textRendered = $this->render($email->getTemplateName() . '.txt', $data);
         [$subject, $text] = explode(self::SUBJECT_DELIMITER, $textRendered);
         $html = $this->render($email->getTemplateName() . '.html', $data);

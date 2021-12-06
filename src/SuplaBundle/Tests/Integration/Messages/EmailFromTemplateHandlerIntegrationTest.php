@@ -57,6 +57,7 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $message = TestMailer::getMessages()[0];
         $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getBody());
         $this->assertStringContainsString('<a href="mailto:security', $message->getBody());
+        $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getBody());
     }
 
     public function testNotSendingFailedAuthAttemptIfUserOptOut() {

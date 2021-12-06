@@ -27,7 +27,7 @@ class EmailTwigExtension extends AbstractExtension {
     public function getFilters() {
         return [
             new TwigFilter('paragraph', [$this, 'generateParagraph'], ['is_safe' => ['html']]),
-            new TwigFilter('footerLink', [$this, 'generateFooterLink'], ['is_safe' => ['html']]),
+            new TwigFilter('unsubscribeLink', [$this, 'generateUnsubscribeLink'], ['needs_context' => true, 'is_safe' => ['html']]),
             new TwigFilter('linkButton', [$this, 'generateLinkButton'], ['needs_context' => true, 'is_safe' => ['html']]),
         ];
     }
@@ -47,7 +47,8 @@ class EmailTwigExtension extends AbstractExtension {
 PARAGRAPH;
     }
 
-    public function generateFooterLink(string $text, string $url): string {
+    public function generateUnsubscribeLink(array $context, string $text): string {
+        $url = $this->getCloudUrl([], 'account?optOutNotification=' . $context['templateName']);
         // @codingStandardsIgnoreStart
         $linkTag = '<a href="' . $url . '" target="_blank" style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">$1</a>';
         // @codingStandardsIgnoreEnd
