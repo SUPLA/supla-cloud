@@ -99,7 +99,7 @@
                             <channel-state-table :channel="channel"
                                 v-if="channelFunctionIsChosen && !loading"></channel-state-table>
                             <div v-if="hasActionsToExecute">
-                                <h4 class="mt-3">Wykonaj akcję</h4>
+                                <h4 class="mt-3">{{ $t('Execute an action') }}</h4>
                                 <channel-action-executor :subject="channel"></channel-action-executor>
                             </div>
                         </div>
