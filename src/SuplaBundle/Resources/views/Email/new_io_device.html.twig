@@ -9,11 +9,12 @@
 {% endblock %}
 
 {% block body %}
-    {% apply paragraph %} {% trans into userLocale %} Welcome! {% endtrans %} {% endapply %}
-    {% apply paragraph %} {% trans with {'%cloudHost%': cloudHost()} into userLocale %} A new device has been added to your home in the SUPLA-Cloud account (%cloudHost%). {% endtrans %} {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} A new device has been added to your SUPLA-Cloud account. {% endtrans %} {% endapply %}
     {% apply paragraph %}
-        {% trans with {'%deviceId%': '<b>' ~ device.id ~ '</b>'} into userLocale %} Device ID: %deviceId% {% endtrans %} <br>
-        {% trans with {'%deviceName%': '<b>' ~ device.name ~ '</b>'} into userLocale %} Device name: %deviceName% {% endtrans %} <br>
+        {% trans with {'%deviceId%': '<b>' ~ device.id ~ '</b>'} into userLocale %} Device ID: %deviceId% {% endtrans %}
+        <br>
+        {% trans with {'%deviceName%': '<b>' ~ device.name ~ '</b>'} into userLocale %} Device name: %deviceName% {% endtrans %}
+        <br>
         {% trans with {'%deviceSoftwareVersion%': '<b>' ~ device.softwareVersion ~ '</b>'} into userLocale %} Device software version: %deviceSoftwareVersion% {% endtrans %}
         <br>
         {% trans with {'%deviceRegIp%': '<b>' ~ device.regIp ~ '</b>'} into userLocale %} Registered from IP address: %deviceRegIp% {% endtrans %}

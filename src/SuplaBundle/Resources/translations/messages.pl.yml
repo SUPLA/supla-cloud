@@ -8,6 +8,8 @@
 ...you can monitor temperature: ...możesz monitorować temperaturę
 '10 minutes before sunset, on day 10 of the month, May through August': '10 minut przed zachodem słońca, tylko 10. dnia miesiąca, od maja do sierpnia'
 '15 minutes after sunrise, every 2 days': '15 minut po wschodzie słońca, co drugi dzień'
+A confirmation upon successful device registration.: Potwierdzenie pomyślnej rejestracji urządzenia.
+A new device has been added to your SUPLA-Cloud account.: Nowe urządzenie zostało dodane do Twojego konta SUPLA-Cloud.
 A new personal access token has been generated.: Wygenerowano nowy osobisty token dostępowy
 A-Z: A-Z
 ACTIVE: AKTYWNA
@@ -197,7 +199,10 @@ Depth sensor: Czujnik głębokości
 Description: Opis
 Details: Szczegóły
 Device: Urządzenie
+'Device ID: %deviceId%': 'Identyfikator urządzenia: %deviceId%'
 Device channel value: Wartość z urządzenia
+'Device name: %deviceName%': 'Nazwa urządzenia: %deviceName%'
+'Device software version: %deviceSoftwareVersion%': 'Wersja oprogramowania: %deviceSoftwareVersion%'
 Device unavailable: Urządzenie niedostępne
 Differential: Różnicowy
 Digi Glass: Digi Glass
@@ -226,6 +231,7 @@ Doors and gates: Drzwi i bramy
 'Doors, Gates, Windows': 'Drzwi, bramy, okna'
 Download the history of measurement: Pobierz historię pomiarów
 Drag your image(s) here or click to select from the disk: Przeciągnij obraz tutaj lub kliknij aby wybrać z dysku
+E-mail notifications: Powiadomienia e-mail
 Edit: Edytuj
 Electric: Elektryka
 Electricity meter: Licznik energii elektrycznej
@@ -245,6 +251,7 @@ Error when communicating the server. Try again in a while.: Wystąpił problem w
 Every: Co
 Example Auth URL: Przykładowy URL autoryzacyjny
 Execute: Wykonaj
+Execute an action: Wykonaj akcję
 Execute the scene: Wykonaj scenę
 Executed action: Wykonana akcja
 Executed without confirmation: Wykonano bez potwierdzenia
@@ -376,6 +383,7 @@ Mail sensor: Czujnik poczty
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to copy it now because you won’t be able to see it again!: 'Upewnij się, że zachowasz je w bezpiecznym miejscu.'
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.'
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Zarządzaj swoim urządzeniem w SUPLA-Cloud lub za pomocą aplikacji SUPLA w Twoim smartfonie.
 Manually closed: Zamknięty manualnie
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
 Meter value: Stan licznika
@@ -391,6 +399,7 @@ NOTICE!: UWAGA!
 Name: Nazwa
 Need one of these?: Może Ci się przydać
 Never: Nigdy
+New IO device added to your account: Dodanie nowego urządzenia
 New OAuth application: Nowa aplikacja OAuth
 New channel group: Nowa grupa kanałów
 New direct link: Nowy link bezpośredni
@@ -488,6 +497,7 @@ Register: Rejestruj
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
 Register private SUPLA Cloud: Zarejestruj prywatną chmurę SUPLA
 Registered: Zarejestrowany
+'Registered from IP address: %deviceRegIp%': 'Adres IP: %deviceRegIp%'
 Relay: Przekaźnik
 Relay switching time: Czas załączenia przekaźnika
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}.'
@@ -516,6 +526,7 @@ SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Błąd przy wykonaniu akcji w SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło'
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Powiadomienie o nieudanym logowaniu do %cloudHost%
+SUPLA – new device has been added to your account: SUPLA - nowe urządzenie zostało dodane do Twojego konta
 SUPLA.ORG Team: Zespół SUPLA.ORG
 Save: Zapisz
 Save and enable: Zapisz i włącz
@@ -536,6 +547,7 @@ Scopes define which sections of your account can be accessed when using the toke
 Search: Szukaj
 Secret: Sekretny klucz (secret)
 See direct link possibilities: Zobacz możliwości linku bezpośredniego
+See in SUPLA-Cloud: Zobacz w SUPLA-Cloud
 Seems like a secret place: 'Coś nam mówi, że nie powinno Cię tu być'
 Select icon: Wybierz ikonę
 Select the item (subject) you want to control using this link: 'Wybierz element (podmiot), który chcesz kontrolować za pomocą tego linka'
@@ -602,6 +614,7 @@ The latest execution: Ostatnie wykonanie
 The measurement history has been deleted.: Historia pomiarów została usunięta.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: 'Nowe hasło zastąpi to, którego używasz obecnie. Niektóre integracje mogą przestać działać po jego zmianie. Kontynuować?'
 The next available executions: Najbliższe wykonania
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: 'Za pomocą ramki zaznaczyliśmy powiadomienie, z którego kliknąłeś/kliknęłaś link do wypisania się.'
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Urządzenie zostało wyłączone zabezpieczeniem nadprądowym. Zanim je włączysz, upewnij się że rozwiązano problem, który do tego doprowadził. Czy na pewno chcesz włączyć to urządzenie zdalnie?'
@@ -632,6 +645,7 @@ Turning this device off will result in disabling features listed below.: Wyłąc
 Type: Typ
 Unit: Jednostka
 Unknown: Nieznany
+Unsuccessful login attempt: Nieudane logowanie
 Unsupported function: Niewspierana funkcja
 Unsupported type: Niewspierany typ
 Update in progress: Trwa aktualizacja
@@ -647,6 +661,7 @@ WELCOME_MESSAGE: |
   przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
 Wait a while before the next request. You can check your limits in the account settings.: Odczekaj chwilę przed wykonaniem kolejnego żądania. Możesz sprawdzić aktualne wykorzystanie Twoich limitów w ustawieniach konta.
 Water meter: Licznik wody
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: 'Będziemy wysyłać Ci powiadomienia o niektórych zdarzeniach związanych z Twoim kontem. Możesz wypisać się z tych, których nie potrzebujesz.'
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Otrzymaliśmy dyspozycję usunięcia Twojego konta w SUPLA Cloud (%cloudHost%).
 We have just sent you an activation link. You should be receiving it shortly.: Wiadomość z linkiem aktywującym Twoje konto została dopiero co wysłana. Cierpliwości.
@@ -701,6 +716,7 @@ Your password must contain at least one special character.: Hasło musi zawiera�
 Your password must include at least one letter.: Hasło musi zawierać co najmniej jedną literę.
 Your password must include at least one number.: Hasło musi zawierać co najmniej jedną cyfrę.
 Your password must include both upper and lower case letters.: Hasło musi zawierać małe i wielkie litery.
+Your preferences has been updated.: Twoje ustawienia zostały zapisane.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.

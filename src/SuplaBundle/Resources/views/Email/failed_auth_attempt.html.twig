@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block body %}
-    {% apply paragraph %} {% trans into userLocale %} Welcome! {% endtrans %} {% endapply %}
     {% apply paragraph %} {% trans with {'%cloudHost%': cloudHost()} into userLocale %}  This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address. {% endtrans %} {% endapply %}
     {% if ip %}
         {% apply paragraph %} {% trans with {'%ip%': '<b>' ~ ip ~ '</b>'} into userLocale %} The IP used for login is: %ip% {% endtrans %} {% endapply %}

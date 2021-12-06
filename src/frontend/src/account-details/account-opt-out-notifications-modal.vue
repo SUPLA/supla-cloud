@@ -58,7 +58,8 @@
                     action: 'change:optOutNotifications',
                     optOutNotifications,
                 })
-                    .then(() => {
+                    .then(({body}) => {
+                        this.user.preferences = body.preferences;
                         successNotification(this.$t('Successful'), this.$t('Your preferences has been updated.'));
                         this.$emit('cancel');
                     })

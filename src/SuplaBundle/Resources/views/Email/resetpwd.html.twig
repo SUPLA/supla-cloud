@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block body %}
-    {% apply paragraph %} {% trans into userLocale %} Welcome! {% endtrans %} {% endapply %}
     {% apply paragraph %} {% trans into userLocale %} Please click the following link to reset your %cloudHost% password. {% endtrans %} {% endapply %}
     {% apply linkButton(svrUrl(confirmationUrl)) %} {% trans into userLocale %} Reset Your Password {% endtrans %} {% endapply %}
     {% apply paragraph %} {% trans into userLocale %} This link is only valid for an hour. {% endtrans %} {% endapply %}

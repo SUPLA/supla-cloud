@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block body %}
-    {% apply paragraph %} {% trans into userLocale %} Welcome! {% endtrans %} {% endapply %}
     {% apply paragraph %} {% trans with {'%cloudHost%': cloudHost()} into userLocale %} We have been asked to delete your SUPLA Cloud account (%cloudHost%). {% endtrans %} {% endapply %}
     {% apply paragraph %}
         {% trans into userLocale %} Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account. {% endtrans %}
