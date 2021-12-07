@@ -21,6 +21,10 @@ class EmailMessageHandler implements MessageHandlerInterface {
         if ($email->hasHtmlContent()) {
             $message->setBody($email->getHtmlContent(), 'text/html');
             $message->addPart($email->getTextContent(), 'text/plain');
+            $logo = \Swift_Attachment::fromPath(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Resources/views/Email/supla-logo.png');
+            $logo->setDisposition('inline');
+            $logo->setId('logo@supla.org');
+            $message->attach($logo);
         } else {
             $message->setBody($email->getTextContent(), 'text/plain');
         }
