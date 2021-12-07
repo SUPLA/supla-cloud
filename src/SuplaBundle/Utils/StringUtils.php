@@ -55,7 +55,7 @@ final class StringUtils {
                 return $s !== '';
             }
         );
-        return self::unixSlashes(preg_replace('#/+#', '/', join('/', $nonEmptyPaths)));
+        return self::unixSlashes(preg_replace('#([^:])/+#', '$1/', join('/', $nonEmptyPaths)));
     }
 
     public static function unixSlashes(?string $path): ?string {

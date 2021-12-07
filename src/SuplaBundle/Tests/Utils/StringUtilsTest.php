@@ -44,5 +44,9 @@ class StringUtilsTest extends TestCase {
         $this->assertEquals('a/b/c', StringUtils::joinPaths('a', 'b', 'c'));
         $this->assertEquals('a/b/c', StringUtils::joinPaths('a', '/b', 'c'));
         $this->assertEquals('a/b/c', StringUtils::joinPaths('a', '/b/', '/c'));
+        $this->assertEquals('a/b/c', StringUtils::joinPaths('a', '/b//', '/c'));
+        $this->assertEquals('https://supla.local/a/b', StringUtils::joinPaths('https://supla.local', 'a', 'b'));
+        $this->assertEquals('http://supla.local/a/b', StringUtils::joinPaths('http://supla.local', 'a', 'b'));
+        $this->assertEquals('/a/b/c', StringUtils::joinPaths('/a', 'b', 'c'));
     }
 }

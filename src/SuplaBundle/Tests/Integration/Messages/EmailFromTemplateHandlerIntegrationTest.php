@@ -74,5 +74,7 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $handler = $this->handler;
         $handler(new ResetPasswordEmailNotification($this->user));
         $this->assertCount(1, TestMailer::getMessages());
+        $message = TestMailer::getMessages()[0];
+        $this->assertStringContainsString('https://supla.local', $message->getBody());
     }
 }
