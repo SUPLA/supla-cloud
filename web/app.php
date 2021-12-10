@@ -12,7 +12,10 @@ if (APPLICATION_ENV === 'dev') {
     umask(0000);
 }
 
-Request::setTrustedProxies(['172.18.0.1/27'], Request::HEADER_FORWARDED | Request::HEADER_X_FORWARDED_FOR); // Docker proxy
+$trustedProxies = array_filter(array_map('trim', explode(',', getenv('TRUSTED_PROXIES', true) ?: '172.18.0.0/27, 192.168.0.0/16')));
+if ($trustedProxies) {
+    Request::setTrustedProxies(array_values($trustedProxies), Request::HEADER_FORWARDED | Request::HEADER_X_FORWARDED_FOR);
+}
 
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
