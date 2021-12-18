@@ -70,7 +70,11 @@ class SuplaServerMock extends SuplaServer {
             }
         }
         if (preg_match('#^IS-(IODEV|CLIENT|CHANNEL)-CONNECTED:(\d+),(\d+),?(\d+)?$#', $cmd, $match)) {
-            return "CONNECTED:$match[3]\n";
+            if ($match[1] !== 'CLIENT' || $this->faker->boolean) {
+                return "CONNECTED:$match[3]\n";
+            } else {
+                return "DISCONNECTED:$match[3]\n";
+            }
         } elseif (preg_match('#^GET-STATUS$#', $cmd, $match)) {
             return "OK\n";
         } elseif (preg_match('#^USER.+:(\d+).+$#', $cmd, $match)) {

@@ -114,7 +114,12 @@ class ChannelController extends RestController {
         if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
             $extraGroups = ['iodevice.location'];
         }
-        return $this->serializedView($channels->getValues(), $request, $extraGroups);
+        $result = $channels->getValues();
+        $view = $this->serializedView($result, $request, $extraGroups);
+        if (ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $view->setHeader('X-Total-Count', count($result));
+        }
+        return $view;
     }
 
     /**

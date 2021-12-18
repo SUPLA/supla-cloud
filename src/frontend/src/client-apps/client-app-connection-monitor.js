@@ -40,31 +40,45 @@ export class ClientAppConnectionMonitor {
         }
         const clientAppIds = Object.keys(this.callbacks);
         if (clientAppIds.length) {
-            return this.fetching = this.updateKnownStates(clientAppIds)
+            return this.fetching = this._updateKnownStates(clientAppIds.map((id) => +id))
                 .then(() => this.knownStates)
                 .finally(() => this.fetching = undefined);
         }
     }
 
-    updateKnownStates(clientAppIds) {
-        return this.fetching = this.$http().get('client-apps?include=connected', {skipErrorHandler: true}).then(({body: clientApps}) => {
-            for (let clientAppId of clientAppIds) {
-                const state = clientApps.find(clientApp => clientApp.id == clientAppId);
+    _updateKnownStates(itemIds) {
+        console.log(this.knownStates);
+        return this.fetching = this.$http().get(this.getStateUrl(itemIds), {skipErrorHandler: true}).then((response) => {
+            const states = Array.isArray(response.body) ? response.body : [response.body];
+            for (let itemId of itemIds) {
+                const state = states.find(item => item.id == itemId);
                 if (state) {
                     const connected = state.connected;
-                    if (this.knownStates[clientAppId] !== connected) {
-                        this.knownStates[clientAppId] = connected;
-                        for (let callback of (this.callbacks[+clientAppId] || [])) {
+                    if (this.knownStates[itemId] !== connected) {
+                        this.knownStates[itemId] = connected;
+                        for (let callback of (this.callbacks[+itemId] || [])) {
                             callback(connected);
                         }
                     }
                 }
             }
-            if (this.totalClientApps !== undefined && this.totalClientApps !== clientApps.length) {
-                EventBus.$emit('client-apps-count-changed');
-            }
-            this.totalClientApps = clientApps.length;
+            this.updateTotalCount(response);
         });
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    getStateUrl(itemsIds) {
+        return 'client-apps?include=connected';
+    }
+
+    updateTotalCount(response) {
+        let totalCount = response.headers.get('X-Total-Count');
+        if (totalCount !== undefined) {
+            if (this.totalCount !== undefined && this.totalCount !== totalCount) {
+                EventBus.$emit('total-count-changed');
+            }
+            this.totalCount = totalCount;
+        }
     }
 
     $http() {
@@ -74,6 +88,7 @@ export class ClientAppConnectionMonitor {
         }
         return this.vue.$http;
     }
+
 }
 
 const clientAppConnectionMonitor = new ClientAppConnectionMonitor();

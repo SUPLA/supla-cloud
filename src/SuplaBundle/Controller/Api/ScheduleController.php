@@ -96,7 +96,7 @@ class ScheduleController extends RestController {
         }
         $schedules = $this->scheduleRepository->findByQuery($query);
         $view = $this->serializedView($schedules, $request);
-        $view->setHeader('SUPLA-Total-Schedules', $this->getUser()->getSchedules()->count());
+        $view->setHeader('X-Total-Count', $this->getUser()->getSchedules()->count());
         return $view;
     }
 

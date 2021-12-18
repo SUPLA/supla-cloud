@@ -22,6 +22,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +45,11 @@ class ClientAppController extends RestController {
      */
     public function getClientAppsAction(Request $request) {
         $clientApps = $this->getUser()->getClientApps();
-        return $this->serializedView($clientApps, $request);
+        $view = $this->serializedView($clientApps, $request);
+        if (ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
+            $view->setHeader('X-Total-Count', count($clientApps));
+        }
+        return $view;
     }
 
     /**

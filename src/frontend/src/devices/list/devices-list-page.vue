@@ -109,7 +109,7 @@
         },
         mounted() {
             this.loadNewDevicesListener = () => this.loadDevices();
-            EventBus.$on('device-count-changed', this.loadNewDevicesListener);
+            EventBus.$on('total-count-changed', this.loadNewDevicesListener);
             this.loadDevices();
         },
         computed: {
@@ -131,7 +131,7 @@
             }
         },
         beforeDestroy() {
-            EventBus.$off('device-count-changed', this.loadNewDevicesListener);
+            EventBus.$off('total-count-changed', this.loadNewDevicesListener);
         }
     };
 </script>

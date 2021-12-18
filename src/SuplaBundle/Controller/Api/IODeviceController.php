@@ -119,7 +119,7 @@ class IODeviceController extends RestController {
         }
         $view = $this->serializedView($result, $request);
         if (ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
-            $view->setHeader('SUPLA-Total-Devices', count($result));
+            $view->setHeader('X-Total-Count', count($result));
         }
         return $view;
     }

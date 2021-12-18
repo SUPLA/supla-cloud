@@ -41,7 +41,7 @@
         },
         mounted() {
             this.loadNewChannelsListener = () => this.loadChannels();
-            EventBus.$on('device-count-changed', this.loadNewChannelsListener);
+            EventBus.$on('total-count-changed', this.loadNewChannelsListener);
             this.loadChannels();
         },
         methods: {
@@ -69,7 +69,7 @@
             }
         },
         beforeDestroy() {
-            EventBus.$off('device-count-changed', this.loadNewChannelsListener);
+            EventBus.$off('total-count-changed', this.loadNewChannelsListener);
         }
     };
 </script>

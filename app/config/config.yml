@@ -147,8 +147,6 @@ nelmio_cors:
         - 'X-Count'
         - 'X-Min-Timestamp'
         - 'X-Max-Timestamp'
-        - 'SUPLA-Total-Schedules'
-        - 'SUPLA-Total-Devices'
         - 'SUPLA-MQTT-Password'
       max_age: 3600
 

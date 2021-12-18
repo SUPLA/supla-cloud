@@ -69,7 +69,7 @@
         },
         mounted() {
             this.loadNewClientAppsListener = () => this.loadClientApps();
-            EventBus.$on('client-apps-count-changed', this.loadNewClientAppsListener);
+            EventBus.$on('total-count-changed', this.loadNewClientAppsListener);
             this.loadClientApps();
         },
         methods: {
@@ -92,7 +92,7 @@
             }
         },
         beforeDestroy() {
-            EventBus.$off('client-apps-count-changed', this.loadNewClientAppsListener);
+            EventBus.$off('total-count-changed', this.loadNewClientAppsListener);
         }
     };
 </script>
