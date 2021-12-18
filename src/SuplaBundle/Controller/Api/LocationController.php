@@ -36,15 +36,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @OA\Schema(
- *   schema="location", type="object", description="Location object.",
- *   @OA\Property(property="id", type="integer", description="Location identifier"),
- *   @OA\Property(property="caption", type="string", description="Location caption"),
- *   @OA\Property(property="enabled", type="boolean", description="`true` if the location is enabled, `false` otherwise"),
- *   @OA\Property(property="iodevicesIds", type="array", description="array containing the IO Devices identifiers assigned to this location", @OA\Items(type="integer")),
+ *   schema="Location", type="object", description="Location object.",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="caption", type="string", description="Caption"),
+ *   @OA\Property(property="enabled", type="boolean", description="`true` if enabled"),
+ *   @OA\Property(property="relationsCount", type="array", description="array containing the IO Devices identifiers assigned to this location", @OA\Items(type="integer")),
  *   @OA\Property(property="channelGroupsIds", type="array", description="array containing the Channel groups identifiers assigned to this location", @OA\Items(type="integer")),
  *   @OA\Property(property="channelsIds", type="array", description="array containing the Channels identifiers assigned to this location", @OA\Items(type="integer")),
  *   @OA\Property(property="accessIdsIds", type="array", description="array containing the Access Identifiers identifiers assigned to this location", @OA\Items(type="integer")),
  *   @OA\Property(property="password", type="string", description="Location password (plain text). Returned only if requested by the `include` parameter."),
+ *   @OA\Property(property="accessIds", type="array", description="Array of AIDs, if requested by the `include` param", @OA\Items(ref="#/components/schemas/AccessIdentifier")),
  * )
  */
 class LocationController extends RestController {
@@ -111,7 +112,7 @@ class LocationController extends RestController {
      *         style="form",
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "iodevices", "accessids", "channelGroups", "password"})),
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/location"))),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Location"))),
      * )
      * @Security("has_role('ROLE_LOCATIONS_R')")
      */
@@ -127,7 +128,7 @@ class LocationController extends RestController {
     /**
      * @OA\Post(
      *     path="/locations", operationId="createLocation", summary="Create a new location", tags={"Locations"},
-     *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/location")),
+     *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
      * @Security("has_role('ROLE_LOCATIONS_RW')")
      * @UnavailableInMaintenance
@@ -160,7 +161,7 @@ class LocationController extends RestController {
      *         style="form",
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "iodevices", "accessids", "channelGroups", "password"})),
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/location")),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
      * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_R') and is_granted('accessIdContains', location)")
      */
@@ -220,7 +221,7 @@ class LocationController extends RestController {
      *          @OA\Property(property="accessIdsIds", type="array", description="Access Identifiers identifiers to assign to this location.", @OA\Items(type="integer")),
      *       )
      *     ),
-     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/location")),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
      * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      * @UnavailableInMaintenance

@@ -61,7 +61,7 @@ class DefaultController extends Controller {
      * @OA\OpenApi(
      *   security={{"BearerAuth": {}}, {"OAuth2": {}}},
      *   @OA\Info(title="SUPLA Cloud API", version="2.3.35"),
-     *   @OA\Server(url="https://cloud.supla.org/api/v2.3.0"),
+     *   @OA\Server(url="https://cloud.supla.org/api/v2.4.0"),
      * )
      * @OA\SecurityScheme(securityScheme="BearerAuth", type="http", scheme="bearer")
      * @OA\SecurityScheme(securityScheme="OAuth2", type="oauth2", @OA\Flow(
@@ -72,7 +72,6 @@ class DefaultController extends Controller {
      */
     public function getApiDocsSchemaAction() {
         $openapi = Generator::scan([__DIR__]);
-        header('Content-Type: application/x-yaml');
         $yaml = $openapi->toYaml();
         $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);

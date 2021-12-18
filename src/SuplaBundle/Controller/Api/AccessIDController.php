@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -31,6 +32,18 @@ use SuplaBundle\Utils\PasswordStrengthValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Schema(
+ *   schema="AccessIdentifier", type="object", description="Access Identifier object (AID).",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="caption", type="string", description="Caption"),
+ *   @OA\Property(property="enabled", type="boolean", description="`true` if enabled"),
+ *   @OA\Property(property="locationsIds", type="array", description="array containing the Locations identifiers assigned to this AID", @OA\Items(type="integer")),
+ *   @OA\Property(property="password", type="string", description="Location password (plain text). Returned only if requested by the `include` parameter."),
+ *   @OA\Property(property="clientAppsIds", type="array", description="array containing the Client apps identifiers assigned to this AID", @OA\Items(type="integer")),
+ *   @OA\Property(property="locations", type="array", description="Array of locations, if requested by the `include` param", @OA\Items(ref="#/components/schemas/Location")),
+ * )
+ */
 class AccessIDController extends RestController {
     use Transactional;
     use SuplaServerAware;
@@ -79,7 +92,21 @@ class AccessIDController extends RestController {
         return ['accessids' => $result];
     }
 
-    /** @Security("has_role('ROLE_ACCESSIDS_R')") */
+    /**
+     * @OA\Get(
+     *     path="/accessids", operationId="getAccessIdentifiers", summary="Get Access Identifiers", tags={"Access Identifiers"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query",
+     *         name="include",
+     *         required=false,
+     *         style="form",
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"locations", "clientApps", "password"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/AccessIdentifier"))),
+     * )
+     * @Security("has_role('ROLE_ACCESSIDS_R')")
+     */
     public function getAccessidsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             return $this->serializedView($this->accessIdRepository->findAllForUser($this->getUser()), $request);
@@ -89,6 +116,19 @@ class AccessIDController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/accessids/{id}", operationId="getAccessIdentifier", summary="Get AID by ID", tags={"Access Identifiers"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query",
+     *         name="include",
+     *         required=false,
+     *         style="form",
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"locations", "clientApps", "password"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
+     * )
      * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_R')")
      */
     public function getAccessidAction(Request $request, AccessID $accessId) {
@@ -96,6 +136,10 @@ class AccessIDController extends RestController {
     }
 
     /**
+     * @OA\Post(
+     *     path="/accessids", operationId="createAccessIdentifier", summary="Create a new Access Identifier", tags={"Access Identifiers"},
+     *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
+     * )
      * @Security("has_role('ROLE_ACCESSIDS_RW')")
      * @UnavailableInMaintenance
      */
