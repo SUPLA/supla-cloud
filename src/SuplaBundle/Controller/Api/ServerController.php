@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use DateTime;
 use FOS\RestBundle\Controller\Annotations\Get;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Model\APIManager;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -43,10 +44,10 @@ class ServerController extends RestController {
 
     public function __construct(
         FrontendConfig $frontendConfig,
-        string $suplaServerHost,
-        string $suplaVersion,
-        string $suplaVersionFull,
-        bool $actAsBrokerCloud
+        string         $suplaServerHost,
+        string         $suplaVersion,
+        string         $suplaVersionFull,
+        bool           $actAsBrokerCloud
     ) {
         $this->frontendConfig = $frontendConfig;
         $this->suplaServerHost = $suplaServerHost;
@@ -55,7 +56,16 @@ class ServerController extends RestController {
         $this->suplaVersionFull = $suplaVersionFull;
     }
 
-    /** @Get("/server-info") */
+    /**
+     * @OA\Get(
+     *     path="/server-info",
+     *     operationId="getServerInfo",
+     *     security={},
+     *     tags={"Server"},
+     *     @OA\Response(response="200", description="Success")
+     * )
+     * @Get("/server-info")
+     */
     public function getServerInfoAction(Request $request) {
         $dt = new DateTime();
         $result = [

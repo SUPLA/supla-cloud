@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Location;
@@ -33,6 +34,21 @@ use SuplaBundle\Utils\PasswordStrengthValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Schema(
+ *   schema="location",
+ *   type="object",
+ *   description="Location object.",
+ *   @OA\Property(property="id", type="integer", description="Location identifier"),
+ *   @OA\Property(property="caption", type="string", description="Location caption"),
+ *   @OA\Property(property="enabled", type="boolean", description="`true` if the location is enabled, `false` otherwise"),
+ *   @OA\Property(property="iodevicesIds", type="array", description="array containing the IO Devices identifiers assigned to this location", @OA\Items(type="integer")),
+ *   @OA\Property(property="channelGroupsIds", type="array", description="array containing the Channel groups identifiers assigned to this location", @OA\Items(type="integer")),
+ *   @OA\Property(property="channelsIds", type="array", description="array containing the Channels identifiers assigned to this location", @OA\Items(type="integer")),
+ *   @OA\Property(property="accessIdsIds", type="array", description="array containing the Access Identifiers identifiers assigned to this location", @OA\Items(type="integer")),
+ *   @OA\Property(property="password", type="string", description="Location password (plain text). Returned only if requested by the `include` parameter."),
+ * )
+ */
 class LocationController extends RestController {
     use Transactional;
     use SuplaServerAware;
@@ -116,6 +132,28 @@ class LocationController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/locations/{id}",
+     *     operationId="getLocation",
+     *     summary="Get location by ID",
+     *     tags={"Locations"},
+     *     @OA\Parameter(
+     *         description="Location ID",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="integer"),
+     *     ),
+     *     @OA\Parameter(
+     *         description="Comma separated list of extra fields to include in the response.",
+     *         in="query",
+     *         name="include",
+     *         required=false,
+     *         style="form",
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "iodevices", "accessids", "channelGroups", "password"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/location")),
+     * )
      * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_R') and is_granted('accessIdContains', location)")
      */
     public function getLocationAction(Request $request, Location $location) {

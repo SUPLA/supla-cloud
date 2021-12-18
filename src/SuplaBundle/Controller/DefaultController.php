@@ -17,7 +17,8 @@
 
 namespace SuplaBundle\Controller;
 
-use AppKernel;
+use OpenApi\Annotations as OA;
+use OpenApi\Generator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -57,10 +58,22 @@ class DefaultController extends Controller {
     }
 
     /**
+     * @OA\OpenApi(
+     *   security={{"BearerAuth": {}}, {"OAuth2": {}}},
+     *   @OA\Info(title="SUPLA Cloud API", version="2.3.35"),
+     *   @OA\Server(url="https://cloud.supla.org/api/v2.3.0"),
+     * )
+     * @OA\SecurityScheme(securityScheme="BearerAuth", type="http", scheme="bearer")
+     * @OA\SecurityScheme(securityScheme="OAuth2", type="oauth2", @OA\Flow(
+     *   flow="authorizationCode", authorizationUrl="https://cloud.supla.org/oauth/v2/auth", tokenUrl="https://cloud.supla.org/oauth/v2/token",
+     *   scopes={"accessids_r": "Access Identifiers (Read)", "locations_r": "Locations (Read)"}
+     * ))
      * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
      */
     public function getApiDocsSchemaAction() {
-        $yaml = file_get_contents(AppKernel::ROOT_PATH . '/config/supla-api-docs.yaml');
+        $openapi = Generator::scan([__DIR__]);
+        header('Content-Type: application/x-yaml');
+        $yaml = $openapi->toYaml();
         $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }
