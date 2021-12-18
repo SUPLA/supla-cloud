@@ -62,7 +62,7 @@ class ClientAppControllerTest extends TestCase {
         $clientApps = [new ClientApp(), new ClientApp(), new ClientApp()];
         $user->method('getClientApps')->willReturn(new ArrayCollection($clientApps));
         $request = $this->createMock(Request::class);
-        $request->method('get')->with('include')->willReturn('connected');
+        $request->method('get')->willReturnOnConsecutiveCalls('connected', 'v2.3.0');
         $this->suplaServer->method('isClientAppConnected')->with($clientApps[0])->willReturn(true);
         $this->suplaServer->method('isClientAppConnected')->with($clientApps[1])->willReturn(false);
         $this->suplaServer->method('isClientAppConnected')->with($clientApps[2])->willReturn(true);

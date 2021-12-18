@@ -59,7 +59,7 @@ class ClientAppControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertCount(1, $content);
         $this->assertEquals('iPhone 6', $content[0]['name']);
-        $this->assertTrue($content[0]['connected']);
+        $this->assertIsBool($content[0]['connected']);
     }
 
     public function testUpdatingClientApp() {
