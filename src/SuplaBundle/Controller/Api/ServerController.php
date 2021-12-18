@@ -60,9 +60,20 @@ class ServerController extends RestController {
      * @OA\Get(
      *     path="/server-info",
      *     operationId="getServerInfo",
+     *     summary="Get the server info",
      *     security={},
      *     tags={"Server"},
-     *     @OA\Response(response="200", description="Success")
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(
+     *       @OA\Property(property="address", type="string", description="SUPLA Server address (to be used in smartphones)"),
+     *       @OA\Property(property="time", type="string", format="datetime", description="Current server time"),
+     *       @OA\Property(property="timezone", @OA\Property(property="name", type="string", example="UTC"), @OA\Property(property="offset", type="integer")),
+     *       @OA\Property(property="authenticated", type="boolean"),
+     *       @OA\Property(property="cloudVersion", type="string"),
+     *       @OA\Property(property="cloudVersionFull", type="string"),
+     *       @OA\Property(property="apiVersion", type="string"),
+     *       @OA\Property(property="supportedApiVersions", type="array", @OA\Items(type="string"), example={"2.1.0", "2.2.0", "2.3.0"}),
+     *       @OA\Property(property="config", type="object", description="Configuration options for frontend webapp"),
+     *     ))
      * )
      * @Get("/server-info")
      */
@@ -107,7 +118,18 @@ class ServerController extends RestController {
         return $this->view(null, Response::HTTP_OK);
     }
 
-    /** @Get("/server-status") */
+    /**
+     * @OA\Get(
+     *     path="/server-status",
+     *     operationId="getSuplaServerStatus",
+     *     summary="Get the SUPLA Server status",
+     *     security={},
+     *     tags={"Server"},
+     *     @OA\Response(response="200", description="Supla Server is alive", @OA\JsonContent(@OA\Property(property="status", type="string", example="OK"))),
+     *     @OA\Response(response="503", description="Supla Server is down", @OA\JsonContent(@OA\Property(property="status", type="string"))),
+     * )
+     * @Get("/server-status")
+     */
     public function getServerStatusAction() {
         $serverStatus = $this->suplaServer->getServerStatus();
         $responseStatus = $serverStatus === 'OK' ? Response::HTTP_OK : Response::HTTP_SERVICE_UNAVAILABLE;

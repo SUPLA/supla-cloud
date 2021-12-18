@@ -21,6 +21,7 @@ use Assert\Assertion;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
@@ -86,7 +87,7 @@ class TokenController extends RestController {
         if ($server->isLocal()) {
             return $this->issueTokenForWebappAction($request);
         } else {
-            list($response, $status) = $this->suplaCloudRequestForwarder->issueWebappToken($server, $username, $password);
+            [$response, $status] = $this->suplaCloudRequestForwarder->issueWebappToken($server, $username, $password);
             return $this->view($response, $status);
         }
     }
@@ -135,7 +136,20 @@ class TokenController extends RestController {
         }
     }
 
-    /** @Rest\Get("/token-info") */
+    /**
+     * @OA\Get(
+     *     path="/token-info",
+     *     operationId="getTokenInfo",
+     *     summary="Returns information about used access token",
+     *     tags={"Server"},
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(
+     *       @OA\Property(property="userShortUniqueId", type="string"),
+     *       @OA\Property(property="scope", type="string"),
+     *       @OA\Property(property="expiresAt", type="integer"),
+     *     ))
+     * )
+     * @Rest\Get("/token-info")
+     */
     public function tokenInfoAction() {
         $token = $this->tokenStorage->getToken()->getCredentials();
         $accessToken = $this->server->getStorage()->getAccessToken($token);
