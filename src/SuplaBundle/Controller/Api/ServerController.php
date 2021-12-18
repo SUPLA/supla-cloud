@@ -71,6 +71,7 @@ class ServerController extends RestController {
      *       @OA\Property(property="cloudVersion", type="string"),
      *       @OA\Property(property="cloudVersionFull", type="string"),
      *       @OA\Property(property="apiVersion", type="string"),
+     *       @OA\Property(property="serverStatus", type="string", description="SUPLA Server status"),
      *       @OA\Property(property="supportedApiVersions", type="array", @OA\Items(type="string"), example={"2.1.0", "2.2.0", "2.3.0"}),
      *       @OA\Property(property="config", type="object", description="Configuration options for frontend webapp"),
      *     ))
