@@ -47,7 +47,6 @@ export class ClientAppConnectionMonitor {
     }
 
     _updateKnownStates(itemIds) {
-        console.log(this.knownStates);
         return this.fetching = this.$http().get(this.getStateUrl(itemIds), {skipErrorHandler: true}).then((response) => {
             const states = Array.isArray(response.body) ? response.body : [response.body];
             for (let itemId of itemIds) {

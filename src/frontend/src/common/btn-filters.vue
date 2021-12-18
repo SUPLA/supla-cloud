@@ -1,7 +1,7 @@
 <template>
     <div class="btn-filters">
         <div class="btn-group btn-group-filters btn-group-filters-inline">
-            <button v-for="filter in filters"
+            <button v-for="filter in visibleFilters"
                 :key="filter.label"
                 :class="'btn ' + (chosenFilter === filter.value ? 'active' : '')"
                 @click="setFilter(filter.value)"
@@ -30,7 +30,7 @@
 
 <script>
     export default {
-        props: ['id', 'value', 'filters'],
+        props: ['id', 'value', 'filters', 'defaultSort'],
         data() {
             return {
                 chosenFilter: undefined,
@@ -38,7 +38,7 @@
         },
         mounted() {
             if (this.id) {
-                const filter = this.$localStorage.get(this.localStorageId);
+                const filter = this.defaultSort || this.$localStorage.get(this.localStorageId);
                 if (filter) {
                     const index = this.filters.findIndex(f => f.value === filter);
                     if (index >= 0) {
@@ -56,7 +56,7 @@
                 if (this.value != filter) {
                     this.$emit('input', this.chosenFilter);
                 }
-                if (this.id) {
+                if (this.id && !this.defaultSort) {
                     this.$localStorage.set(this.localStorageId, filter);
                 }
             }
@@ -68,7 +68,10 @@
             chosenFilterLabel() {
                 const filter = this.filters.find(f => f.value === this.chosenFilter);
                 return filter ? filter.label : '';
-            }
+            },
+            visibleFilters() {
+                return this.filters.filter(f => f.visible !== false);
+            },
         },
         watch: {
             value(value) {

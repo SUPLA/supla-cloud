@@ -3,7 +3,8 @@
         <loading-cover :loading="!channels">
             <div class="container"
                 v-show="channels && channels.length">
-                <channel-filters @filter-function="filterFunction = $event"
+                <channel-filters :has-device="!!this.deviceId"
+                    @filter-function="filterFunction = $event"
                     @compare-function="compareFunction = $event"
                     @filter="filter()"></channel-filters>
             </div>

@@ -769,6 +769,7 @@ And set the same state for: ~
 'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
+As in device: ~
 'At 05:45 PM, on the last day of the month': ~
 'At 11:30 AM, on the third Wednesday of the month': ~
 At every 5th minute on day-of-month 30 in May: ~
