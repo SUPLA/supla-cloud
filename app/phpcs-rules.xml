@@ -12,6 +12,7 @@
         <properties>
             <property name="lineLimit" value="140"/>
             <property name="absoluteLineLimit" value="180"/>
+            <property name="ignoreComments" value="true"/>
         </properties>
     </rule>
 </ruleset>
