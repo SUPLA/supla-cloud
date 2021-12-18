@@ -38,9 +38,8 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="id", type="integer", description="Identifier"),
  *   @OA\Property(property="caption", type="string", description="Caption"),
  *   @OA\Property(property="enabled", type="boolean", description="`true` if enabled"),
- *   @OA\Property(property="locationsIds", type="array", description="array containing the Locations identifiers assigned to this AID", @OA\Items(type="integer")),
+ *   @OA\Property(property="relationsCount", description="Counts of related entities.", @OA\Property(property="locations", type="integer"), @OA\Property(property="clientApps", type="integer")),
  *   @OA\Property(property="password", type="string", description="Location password (plain text). Returned only if requested by the `include` parameter."),
- *   @OA\Property(property="clientAppsIds", type="array", description="array containing the Client apps identifiers assigned to this AID", @OA\Items(type="integer")),
  *   @OA\Property(property="locations", type="array", description="Array of locations, if requested by the `include` param", @OA\Items(ref="#/components/schemas/Location")),
  * )
  */
@@ -97,10 +96,7 @@ class AccessIDController extends RestController {
      *     path="/accessids", operationId="getAccessIdentifiers", summary="Get Access Identifiers", tags={"Access Identifiers"},
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
-     *         in="query",
-     *         name="include",
-     *         required=false,
-     *         style="form",
+     *         in="query", name="include", required=false, explode=false,
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"locations", "clientApps", "password"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/AccessIdentifier"))),
@@ -121,10 +117,7 @@ class AccessIDController extends RestController {
      *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
-     *         in="query",
-     *         name="include",
-     *         required=false,
-     *         style="form",
+     *         in="query", name="include", required=false, explode=false,
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"locations", "clientApps", "password"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
@@ -160,6 +153,11 @@ class AccessIDController extends RestController {
     }
 
     /**
+     * @OA\Delete(
+     *     path="/accessids/{id}", operationId="deleteAccessIdentifier", summary="Delete the access identifier", tags={"Access Identifiers"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response="204", description="Success"),
+     * )
      * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_RW')")
      * @UnavailableInMaintenance
      */
@@ -174,6 +172,21 @@ class AccessIDController extends RestController {
     }
 
     /**
+     * @OA\Put(
+     *     path="/accessids/{id}", operationId="updateAccessIdentifier", summary="Update the access identifier", tags={"Access Identifiers"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="enabled", type="boolean"),
+     *          @OA\Property(property="caption", type="string"),
+     *          @OA\Property(property="password", type="string", description="Provide new password if you want to change it."),
+     *          @OA\Property(property="locationsIds", type="array", description="Location identifiers to assign to this AID.", @OA\Items(type="integer")),
+     *          @OA\Property(property="clientAppsIds", type="array", description="Client Apps identifiers to assign to this Access Identifier. If client app is connected to any other AID, it will be disconnected from the old one before assigning.", @OA\Items(type="integer")),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
+     * )
      * @Security("accessId.belongsToUser(user)")
      * @UnavailableInMaintenance
      */

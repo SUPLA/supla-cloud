@@ -40,12 +40,9 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="id", type="integer", description="Identifier"),
  *   @OA\Property(property="caption", type="string", description="Caption"),
  *   @OA\Property(property="enabled", type="boolean", description="`true` if enabled"),
- *   @OA\Property(property="relationsCount", type="array", description="array containing the IO Devices identifiers assigned to this location", @OA\Items(type="integer")),
- *   @OA\Property(property="channelGroupsIds", type="array", description="array containing the Channel groups identifiers assigned to this location", @OA\Items(type="integer")),
- *   @OA\Property(property="channelsIds", type="array", description="array containing the Channels identifiers assigned to this location", @OA\Items(type="integer")),
- *   @OA\Property(property="accessIdsIds", type="array", description="array containing the Access Identifiers identifiers assigned to this location", @OA\Items(type="integer")),
- *   @OA\Property(property="password", type="string", description="Location password (plain text). Returned only if requested by the `include` parameter."),
- *   @OA\Property(property="accessIds", type="array", description="Array of AIDs, if requested by the `include` param", @OA\Items(ref="#/components/schemas/AccessIdentifier")),
+ *   @OA\Property(property="relationsCount", description="Counts of related entities.", @OA\Property(property="channels", type="integer"), @OA\Property(property="accessIds", type="integer"), @OA\Property(property="channelGroups", type="integer"), @OA\Property(property="ioDevices", type="integer")),
+ *   @OA\Property(property="password", type="string", nullable=true, description="Location password (plain text). Returned only if requested by the `include` param"),
+ *   @OA\Property(property="accessIds", type="array", nullable=true, description="Array of AIDs, if requested by the `include` param", @OA\Items(ref="#/components/schemas/AccessIdentifier")),
  * )
  */
 class LocationController extends RestController {
@@ -106,10 +103,7 @@ class LocationController extends RestController {
      *     path="/locations", operationId="getLocations", summary="Get locations", tags={"Locations"},
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
-     *         in="query",
-     *         name="include",
-     *         required=false,
-     *         style="form",
+     *         in="query", name="include", required=false, explode=false,
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "iodevices", "accessids", "channelGroups", "password"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Location"))),
@@ -155,10 +149,7 @@ class LocationController extends RestController {
      *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
-     *         in="query",
-     *         name="include",
-     *         required=false,
-     *         style="form",
+     *         in="query", name="include", required=false, explode=false,
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "iodevices", "accessids", "channelGroups", "password"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
