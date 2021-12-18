@@ -36,9 +36,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @OA\Schema(
- *   schema="location",
- *   type="object",
- *   description="Location object.",
+ *   schema="location", type="object", description="Location object.",
  *   @OA\Property(property="id", type="integer", description="Location identifier"),
  *   @OA\Property(property="caption", type="string", description="Location caption"),
  *   @OA\Property(property="enabled", type="boolean", description="`true` if the location is enabled, `false` otherwise"),
@@ -73,6 +71,7 @@ class LocationController extends RestController {
         ];
     }
 
+
     private function getLocations() {
         $result = [];
         $parent = $this->getUser();
@@ -101,7 +100,21 @@ class LocationController extends RestController {
         return ['locations' => $result];
     }
 
-    /** @Security("has_role('ROLE_LOCATIONS_R')") */
+    /**
+     * @OA\Get(
+     *     path="/locations", operationId="getLocations", summary="Get locations", tags={"Locations"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query",
+     *         name="include",
+     *         required=false,
+     *         style="form",
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "iodevices", "accessids", "channelGroups", "password"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/location"))),
+     * )
+     * @Security("has_role('ROLE_LOCATIONS_R')")
+     */
     public function getLocationsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $locations = $this->locationRepository->findAllForUser($this->getUser());
@@ -112,6 +125,10 @@ class LocationController extends RestController {
     }
 
     /**
+     * @OA\Post(
+     *     path="/locations", operationId="createLocation", summary="Create a new location", tags={"Locations"},
+     *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/location")),
+     * )
      * @Security("has_role('ROLE_LOCATIONS_RW')")
      * @UnavailableInMaintenance
      */
@@ -133,19 +150,10 @@ class LocationController extends RestController {
 
     /**
      * @OA\Get(
-     *     path="/locations/{id}",
-     *     operationId="getLocation",
-     *     summary="Get location by ID",
-     *     tags={"Locations"},
+     *     path="/locations/{id}", operationId="getLocation", summary="Get location by ID", tags={"Locations"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(
-     *         description="Location ID",
-     *         in="path",
-     *         name="id",
-     *         required=true,
-     *         @OA\Schema(type="integer"),
-     *     ),
-     *     @OA\Parameter(
-     *         description="Comma separated list of extra fields to include in the response.",
+     *         description="List of extra fields to include in the response.",
      *         in="query",
      *         name="include",
      *         required=false,
@@ -161,6 +169,11 @@ class LocationController extends RestController {
     }
 
     /**
+     * @OA\Delete(
+     *     path="/locations/{id}", operationId="deleteLocation", summary="Delete the location", tags={"Locations"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response="204", description="Success"),
+     * )
      * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      * @UnavailableInMaintenance
      */
@@ -195,6 +208,20 @@ class LocationController extends RestController {
     }
 
     /**
+     * @OA\Put(
+     *     path="/locations/{id}", operationId="updateLocation", summary="Update the location", tags={"Locations"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="enabled", type="boolean"),
+     *          @OA\Property(property="caption", type="string"),
+     *          @OA\Property(property="password", type="string", description="Provide new password if you want to change it."),
+     *          @OA\Property(property="accessIdsIds", type="array", description="Access Identifiers identifiers to assign to this location.", @OA\Items(type="integer")),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/location")),
+     * )
      * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      * @UnavailableInMaintenance
      */
