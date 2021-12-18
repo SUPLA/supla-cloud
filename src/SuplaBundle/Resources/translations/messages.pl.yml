@@ -8,7 +8,9 @@
 ...you can monitor temperature: ...możesz monitorować temperaturę
 '10 minutes before sunset, on day 10 of the month, May through August': '10 minut przed zachodem słońca, tylko 10. dnia miesiąca, od maja do sierpnia'
 '15 minutes after sunrise, every 2 days': '15 minut po wschodzie słońca, co drugi dzień'
+A confirmation upon successful client app registration.: Potwierdzenie rejestracji nowej aplikacji klienckiej.
 A confirmation upon successful device registration.: Potwierdzenie pomyślnej rejestracji urządzenia.
+A new client app (smartphone) been added to your SUPLA-Cloud account.: Nowa aplikacja kliencka (smartfon) została dodana do Twojego konta SUPLA-Cloud.
 A new device has been added to your SUPLA-Cloud account.: Nowe urządzenie zostało dodane do Twojego konta SUPLA-Cloud.
 A new personal access token has been generated.: Wygenerowano nowy osobisty token dostępowy
 A-Z: A-Z
@@ -53,6 +55,7 @@ Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykon
 And more: I znacznie więcej
 And set the same state for: i ustaw taki sam stan dla
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Wszystkie aplikacje lub urządzenia, które korzystają z tokenu {tokenName} przestaną działać.'
+'App version: %clientAppSoftwareVersion%': 'Wersja aplikacji: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Nazwa aplikacji nie może być pusta
 Application requirements: Wymagania aplikacji
 Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
@@ -147,6 +150,7 @@ Choose client apps: Wybierz aplikacje klienckie
 Choose location: Wybierz lokalizację
 Clear: Wyczyść
 Click the following link to confirm removal of your account on %cloudHost%.: 'Aby potwierdzić chęć usunięcia Twojego konta na %cloudHost%, kliknij poniższy link.'
+'Client app ID: %clientAppId%': 'Identyfikator: %clientAppId%'
 Client registration: Rejestracja klientów
 Client’s Apps: Aplikacje klienckie
 Client’s app has been deleted: Aplikacja kliencka została usunięta
@@ -383,6 +387,7 @@ Mail sensor: Czujnik poczty
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to copy it now because you won’t be able to see it again!: 'Upewnij się, że zachowasz je w bezpiecznym miejscu.'
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.'
+Manage your new client app in the SUPLA-Cloud.: Zarządzaj ustawieniami aplikacji w SUPLA-Cloud.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Zarządzaj swoim urządzeniem w SUPLA-Cloud lub za pomocą aplikacji SUPLA w Twoim smartfonie.
 Manually closed: Zamknięty manualnie
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
@@ -397,11 +402,13 @@ My OAuth apps: Moje aplikacje OAuth
 My SUPLA: Moja SUPLA
 NOTICE!: UWAGA!
 Name: Nazwa
+'Name: %clientAppName%': 'Nazwa: %clientAppName%'
 Need one of these?: Może Ci się przydać
 Never: Nigdy
 New IO device added to your account: Dodanie nowego urządzenia
 New OAuth application: Nowa aplikacja OAuth
 New channel group: Nowa grupa kanałów
+New client app (smartphone) added to your account: Rejestracja nowej aplikacji klienckiej (smartfona)
 New direct link: Nowy link bezpośredni
 New password: Nowe hasło
 New scene: Nowa scena
@@ -497,6 +504,7 @@ Register: Rejestruj
 Register a new OAuth application: Zarejestruj nową aplikację OAuth
 Register private SUPLA Cloud: Zarejestruj prywatną chmurę SUPLA
 Registered: Zarejestrowany
+'Registered from IP address: %clientAppRegIp%': 'Zarejestrowano z adresu IP: %clientAppRegIp%'
 'Registered from IP address: %deviceRegIp%': 'Adres IP: %deviceRegIp%'
 Relay: Przekaźnik
 Relay switching time: Czas załączenia przekaźnika
@@ -526,6 +534,7 @@ SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Błąd przy wykonaniu akcji w SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło'
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Powiadomienie o nieudanym logowaniu do %cloudHost%
+SUPLA – new client app has been added to your account: SUPLA – zarejestrowano nową apliklację kliencką
 SUPLA – new device has been added to your account: SUPLA - nowe urządzenie zostało dodane do Twojego konta
 SUPLA.ORG Team: Zespół SUPLA.ORG
 Save: Zapisz

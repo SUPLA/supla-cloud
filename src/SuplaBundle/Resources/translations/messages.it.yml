@@ -755,7 +755,9 @@ hourly: Ogni ora
 '%s trigger is not supported by the hardware.': ~
 '10 minutes before sunset, on day 10 of the month, May through August': ~
 '15 minutes after sunrise, every 2 days': ~
+A confirmation upon successful client app registration.: ~
 A confirmation upon successful device registration.: ~
+A new client app (smartphone) been added to your SUPLA-Cloud account.: ~
 A new device has been added to your SUPLA-Cloud account.: ~
 'Action trigger no. #{index}': ~
 Add a delay: ~
@@ -764,6 +766,7 @@ Add new item to use in the scene: ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. Here you can limit the number of these attempts.': ~
 And set the same state for: ~
+'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
 'At 05:45 PM, on the last day of the month': ~
@@ -789,6 +792,7 @@ Chart data source type: ~
 Chart type: ~
 Choose channel function: ~
 Clear: ~
+'Client app ID: %clientAppId%': ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
 Confirm My Account: ~
@@ -821,11 +825,14 @@ Initial values: ~
 Interpolate measurements: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
+Manage your new client app in the SUPLA-Cloud.: ~
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
 Meters: ~
 Move down or stop: ~
 Move up or stop: ~
+'Name: %clientAppName%': ~
 New IO device added to your account: ~
+New client app (smartphone) added to your account: ~
 New scene: ~
 No of channels: ~
 No of client apps: ~
@@ -843,9 +850,11 @@ Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
 Read the following channel's state: ~
 Reads the state from source channel and sets the same in other channel or channel group.: ~
+'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
 Reset Your Password: ~
 Reverse active energy balanced: ~
+SUPLA – new client app has been added to your account: ~
 SUPLA – new device has been added to your account: ~
 Save or discard configuration changes first.: ~
 Scene: ~

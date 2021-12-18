@@ -1,0 +1,26 @@
+{% extends '@Supla/Email/template.txt.twig' %}
+
+{% block subject %}
+ {% trans into userLocale %} SUPLA – new client app has been added to your account {% endtrans %}
+{% endblock %}
+
+{% block body %}
+{% trans into userLocale %} Welcome! {% endtrans %}
+
+
+{% trans into userLocale %} A new client app (smartphone) been added to your SUPLA-Cloud account. {% endtrans %}
+
+
+{% trans with {'%clientAppId%': clientApp.id} into userLocale %} Client app ID: %clientAppId% {% endtrans %}
+
+{% trans with {'%clientAppName%': clientApp.name} into userLocale %} Name: %clientAppName% {% endtrans %}
+
+{% trans with {'%clientAppSoftwareVersion%': clientApp.softwareVersion} into userLocale %} App version: %clientAppSoftwareVersion% {% endtrans %}
+
+{% trans with {'%clientAppRegIp%': clientApp.regIp} into userLocale %} Registered from IP address: %clientAppRegIp% {% endtrans %}
+
+{{ cloudUrl('smartphones') }}
+
+{% trans into userLocale %} Manage your new client app in the SUPLA-Cloud. {% endtrans %}
+
+{% endblock %}

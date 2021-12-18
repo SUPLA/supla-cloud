@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
+use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Message\UserOptOutNotifications;
@@ -113,5 +114,29 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->executeCommand('supla:cyclic:send-server-messages');
         $this->flushMessagesQueue();
         $this->assertCount(0, TestMailer::getMessages());
+    }
+
+    public function testNewClientAppNotification() {
+        $parameters = [
+            'NULL',
+            "'abc'",
+            "'My New Ajfon'",
+            "INET_ATON('1.1.2.2')",
+            "'2.22'",
+            10,
+            $this->user->getId(),
+            'NULL',
+            '@outId',
+        ];
+        $query = 'CALL supla_add_client(' . implode(', ', $parameters) . ')';
+        $this->getEntityManager()->getConnection()->executeQuery($query);
+        $this->assertEquals('My New Ajfon', $this->getEntityManager()->find(ClientApp::class, 1)->getName());
+        $this->executeCommand('supla:cyclic:send-server-messages');
+        $this->flushMessagesQueue();
+        $this->assertCount(1, TestMailer::getMessages());
+        $message = TestMailer::getMessages()[0];
+        $this->assertStringContainsString('new client app has been added', $message->getSubject());
+        $this->assertStringContainsString('My New Ajfon', $message->getBody());
+        $this->assertStringContainsString('2.22', $message->getBody());
     }
 }

@@ -40,6 +40,10 @@
                         id: 'new_io_device',
                         label: 'New IO device added to your account', // i18n
                     },
+                    {
+                        id: 'new_client_app',
+                        label: 'New client app (smartphone) added to your account', // i18n
+                    },
                 ],
                 selectedNotifications: {},
             };

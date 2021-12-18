@@ -17,7 +17,9 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Message\EmailFromTemplateAsync;
 use SuplaBundle\Message\UserOptOutNotifications;
@@ -57,22 +59,12 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
                 $output->writeln('<error>No template or user id in the message! Do not sending this supla-server message.</error>');
                 $output->writeln($suplaServerMessage['body']);
             } elseif ($type === 'email') {
-                if ($template == UserOptOutNotifications::NEW_IO_DEVICE) {
-                    $ioDevice = $this->entityManager->find(IODevice::class, $data['ioDeviceId'] ?? 0);
-                    if (!$ioDevice || $ioDevice->getUser()->getId() !== $userId) {
-                        $userId = null;
-                    }
-                    $data = [
-                        'device' => [
-                            'id' => $ioDevice->getId(),
-                            'name' => $ioDevice->getName(),
-                            'softwareVersion' => $ioDevice->getSoftwareVersion(),
-                            'regIp' => $ioDevice->getRegIpv4(),
-                        ],
-                    ];
-                }
-                if ($userId) {
+                try {
+                    $data = $this->getTemplateData($template, $data, $userId);
                     $this->messageBus->dispatch(new EmailFromTemplateAsync($template, $userId, $data));
+                } catch (\InvalidArgumentException $e) {
+                    $output->writeln('<error>Invalid message data.</error>');
+                    $output->writeln($suplaServerMessage['body']);
                 }
             } else {
                 $output->writeln('<error>Invalid message type.</error>');
@@ -83,6 +75,37 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
             if ($output->isVerbose() || $output->isVeryVerbose()) {
                 $output->writeln("<info>Dispatched supla server message ($template to user ID $userId)</info>");
             }
+        }
+    }
+
+    private function getTemplateData(string $template, array $data, int $userId): array {
+        switch ($template) {
+            case UserOptOutNotifications::NEW_IO_DEVICE:
+                $ioDevice = $this->entityManager->find(IODevice::class, $data['ioDeviceId'] ?? 0);
+                Assertion::notNull($ioDevice);
+                Assertion::eq($ioDevice->getUser()->getId(), $userId);
+                return [
+                    'device' => [
+                        'id' => $ioDevice->getId(),
+                        'name' => $ioDevice->getName(),
+                        'softwareVersion' => $ioDevice->getSoftwareVersion(),
+                        'regIp' => $ioDevice->getRegIpv4(),
+                    ],
+                ];
+            case UserOptOutNotifications::NEW_CLIENT_APP:
+                $clientApp = $this->entityManager->find(ClientApp::class, $data['clientAppId'] ?? 0);
+                Assertion::notNull($clientApp);
+                Assertion::eq($clientApp->getUser()->getId(), $userId);
+                return [
+                    'clientApp' => [
+                        'id' => $clientApp->getId(),
+                        'name' => $clientApp->getName(),
+                        'softwareVersion' => $clientApp->getSoftwareVersion(),
+                        'regIp' => $clientApp->getRegIpv4(),
+                    ],
+                ];
+            default:
+                return $data;
         }
     }
 
