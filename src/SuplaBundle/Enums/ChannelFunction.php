@@ -18,12 +18,24 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Exception\ApiException;
 use Symfony\Component\Serializer\Annotation\Groups;
 use UnexpectedValueException;
 
 /**
+ * @OA\Schema(schema="ChannelFunctionEnumNames", type="string", example="OPENINGSENSOR_GATE", enum={"UNSUPPORTED","NONE","SCENE","CONTROLLINGTHEGATEWAYLOCK","CONTROLLINGTHEGATE","CONTROLLINGTHEGARAGEDOOR","THERMOMETER","HUMIDITY","HUMIDITYANDTEMPERATURE","OPENINGSENSOR_GATEWAY","OPENINGSENSOR_GATE","OPENINGSENSOR_GARAGEDOOR","NOLIQUIDSENSOR","CONTROLLINGTHEDOORLOCK","OPENINGSENSOR_DOOR","CONTROLLINGTHEROLLERSHUTTER","CONTROLLINGTHEROOFWINDOW","OPENINGSENSOR_ROLLERSHUTTER","OPENINGSENSOR_ROOFWINDOW","POWERSWITCH","LIGHTSWITCH","DIMMER","RGBLIGHTING","DIMMERANDRGBLIGHTING","DEPTHSENSOR","DISTANCESENSOR","OPENINGSENSOR_WINDOW","MAILSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","STAIRCASETIMER","ELECTRICITYMETER","IC_ELECTRICITYMETER","IC_GASMETER","IC_WATERMETER","IC_HEATMETER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","VALVEOPENCLOSE","VALVEPERCENTAGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS_HORIZONTAL","DIGIGLASS_VERTICAL"})
+ * @OA\Schema(
+ *   schema="ChannelFunction", type="object",
+ *   @OA\Property(property="id", type="integer", example=60, enum={-1,0,2000,10,20,30,40,42,45,50,60,70,80,90,100,110,115,120,125,130,140,180,190,200,210,220,230,240,250,260,270,280,290,300,310,315,320,330,340,400,410,500,510,520,700,800,810}),
+ *   @OA\Property(property="name", ref="#/components/schemas/ChannelFunctionEnumNames"),
+ *   @OA\Property(property="caption", type="string", example="Gate opening sensor"),
+ *   @OA\Property(property="maxAlternativeIconIndex", type="integer"),
+ *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this function?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
+ *   @OA\Property(property="possibleVisualStates", type="array", description="Possible visual states of channel with this function. Ordered.", @OA\Items(type="string", enum={"default","opened","closed","partially_closed","empty","full","revealed","shut","off","on","humidity","temperature","rgb_off_dim_off","rgb_off_dim_on","rgb_on_dim_off","rgb_on_dim_on"})),
+ * )
+ *
  * @method static ChannelFunction UNSUPPORTED()
  * @method static ChannelFunction NONE()
  * @method static ChannelFunction SCENE()

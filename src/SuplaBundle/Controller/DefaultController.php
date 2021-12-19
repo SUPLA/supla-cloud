@@ -71,7 +71,7 @@ class DefaultController extends Controller {
      * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
      */
     public function getApiDocsSchemaAction() {
-        $openapi = Generator::scan([__DIR__]);
+        $openapi = Generator::scan([__DIR__, __DIR__ . '/../Enums']);
         $yaml = $openapi->toYaml();
         $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);

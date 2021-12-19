@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
@@ -43,6 +44,28 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Schema(
+ *   schema="Channel", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="channelNumber", type="integer", description="Channel ordinal number in its IO Device"),
+ *   @OA\Property(property="caption", type="string", description="Caption"),
+ *   @OA\Property(property="altIcon", type="integer", description="Chosen alternative icon idenifier. Should not be greater than the `funciton.maxAlternativeIconIndex`."),
+ *   @OA\Property(property="hidden", type="boolean", description="Whether this channel is shown on client apps or not"),
+ *   @OA\Property(property="inheritedLocation", type="boolean", description="Whether this channel inherits its IO Device's location (`true`) or not (`false`)"),
+ *   @OA\Property(property="iodeviceId", type="integer"),
+ *   @OA\Property(property="locationId", type="integer"),
+ *   @OA\Property(property="functionId", type="integer", example=60),
+ *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
+ *   @OA\Property(property="typeId", type="integer", example=1000),
+ *   @OA\Property(property="type", ref="#/components/schemas/ChannelType"),
+ *   @OA\Property(property="userIconId", type="integer"),
+ *   @OA\Property(property="connected", type="boolean"),
+ *   @OA\Property(property="relationsCount", description="Counts of related entities.", @OA\Property(property="channelGroups", type="integer"), @OA\Property(property="directLinks", type="integer"),  @OA\Property(property="schedules", type="integer"),  @OA\Property(property="sceneOperations", type="integer"),  @OA\Property(property="actionTriggers", type="integer")),
+ *   @OA\Property(property="location", nullable=true, description="Channel location, if requested by the `include` param", ref="#/components/schemas/Location"),
+ *   @OA\Property(property="supportedFunctions", nullable=true, type="array", @OA\Items(ref="#/components/schemas/ChannelFunction")),
+ * )
+ */
 class ChannelController extends RestController {
     use SuplaServerAware;
     use Transactional;
@@ -83,6 +106,15 @@ class ChannelController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/channels", operationId="getChannels", summary="Get Channels", tags={"Channels"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "connected", "state", "supportedFunctions", "relationsCount", "actionTriggers"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Channel"))),
+     * )
      * @Rest\Get(name="channels_list")
      * @Security("has_role('ROLE_CHANNELS_R')")
      */

@@ -38,4 +38,18 @@ class ChannelTypeTest extends TestCase {
         $this->assertEmpty($diff, 'Have you forgotten to add a caption for the new ChannelType value? Missing: '
             . implode(', ', $diff));
     }
+
+    public function testEveryChannelTypeIdIsDocumented() {
+        $ids = implode(',', ChannelType::toArray());
+        $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelType.php');
+        $message = 'Invalid documentation for channel type ids. Enum should be: ' . PHP_EOL . PHP_EOL . $ids . PHP_EOL;
+        $this->assertStringContainsString($ids, $source, $message);
+    }
+
+    public function testEveryChannelTypeNameIsDocumented() {
+        $names = '"' . implode('","', ChannelType::keys()) . '"';
+        $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelType.php');
+        $message = 'Invalid documentation for channel type names. Enum should be: ' . PHP_EOL . PHP_EOL . $names . PHP_EOL;
+        $this->assertStringContainsString($names, $source, $message);
+    }
 }
