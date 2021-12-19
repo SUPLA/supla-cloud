@@ -1,10 +1,18 @@
 <?php
 namespace SuplaBundle\Model\ChannelStateGetter;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Supla\SuplaServerAware;
 
+/**
+ * @OA\Schema(schema="ChannelStateDouble",
+ *     description="State of `WINDSENSOR`, `PRESSURESENSOR`, `RAINSENSOR`, `WEIGHTSENSOR`",
+ *     @OA\Property(property="connected", type="boolean"),
+ *     @OA\Property(property="value", type="number"),
+ * )
+ */
 class DoubleChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 

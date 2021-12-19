@@ -1,11 +1,20 @@
 <?php
 namespace SuplaBundle\Model\ChannelStateGetter;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\RelayStateBits;
 use SuplaBundle\Supla\SuplaServerAware;
 
+/**
+ * @OA\Schema(schema="ChannelStateRelay",
+ *     description="State of `POWERSWITCH`, `LIGHTSWITCH`, `STAIRCASETIMER`.",
+ *     @OA\Property(property="connected", type="boolean"),
+ *     @OA\Property(property="on", type="boolean"),
+ *     @OA\Property(property="currentOverload", type="boolean"),
+ * )
+ */
 class RelayChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 

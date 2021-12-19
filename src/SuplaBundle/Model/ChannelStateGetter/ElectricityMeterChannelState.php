@@ -3,10 +3,37 @@
 namespace SuplaBundle\Model\ChannelStateGetter;
 
 use Assert\Assertion;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
 use SuplaBundle\Utils\NumberUtils;
 use SuplaBundle\Utils\StringUtils;
 
+/**
+ * @OA\Schema(schema="ChannelStateElectricityMeterPhase",
+ *      @OA\Property(property="number", type="integer"),
+ *      @OA\Property(property="frequency", type="number"),
+ *      @OA\Property(property="voltage", type="number"),
+ *      @OA\Property(property="current", type="number"),
+ *      @OA\Property(property="powerActive", type="number"),
+ *      @OA\Property(property="powerReactive", type="number"),
+ *      @OA\Property(property="powerApparent", type="number"),
+ *      @OA\Property(property="powerFactor", type="number"),
+ *      @OA\Property(property="phaseAngle", type="number"),
+ *      @OA\Property(property="totalForwardActiveEnergy", type="number"),
+ *      @OA\Property(property="totalReverseActiveEnergy", type="number"),
+ *      @OA\Property(property="totalForwardReactiveEnergy", type="number"),
+ *      @OA\Property(property="totalReverseReactiveEnergy", type="number"),
+ * )
+ * @OA\Schema(schema="ChannelStateElectricityMeter",
+ *     description="State of `ELECTRICITYMETER`",
+ *     @OA\Property(property="connected", type="boolean"),
+ *     @OA\Property(property="support", type="integer", description="A bitmask indicating which measurements are supported by the electricity meter. See https://github.com/SUPLA/supla-cloud/blob/master/src/SuplaBundle/Enums/ElectricityMeterSupportBits.php for more info. All not supported measurements will not be present in the response."),
+ *     @OA\Property(property="totalCost", type="number"),
+ *     @OA\Property(property="pricePerUnit", type="number"),
+ *     @OA\Property(property="currency", type="string"),
+ *     @OA\Property(property="phases", type="array", @OA\Items(ref="#/components/schemas/ChannelStateElectricityMeterPhase")),
+ * )
+ */
 class ElectricityMeterChannelState {
     private $state = [];
 

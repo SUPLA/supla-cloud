@@ -1,11 +1,20 @@
 <?php
 namespace SuplaBundle\Model\ChannelStateGetter;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 
+/**
+ * @OA\Schema(schema="ChannelStateSensorPartial",
+ *     description="State of channels with paired partial sensors, e.g. `CONTROLLINGTHEGATE`, `CONTROLLINGTHEGARAGEDOOR`.",
+ *     @OA\Property(property="connected", type="boolean"),
+ *     @OA\Property(property="hi", type="boolean"),
+ *     @OA\Property(property="partial_hi", type="boolean"),
+ * )
+ */
 class PartialHiLowRelatedChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 

@@ -1,10 +1,18 @@
 <?php
 namespace SuplaBundle\Model\ChannelStateGetter;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Supla\SuplaServerAware;
 
+/**
+ * @OA\Schema(schema="ChannelStateSensor",
+ *     description="State of sensors, e.g. `OPENINGSENSOR_DOOR`, `MAILSENSOR`, `NOLIQUIDSENSOR`.",
+ *     @OA\Property(property="connected", type="boolean"),
+ *     @OA\Property(property="hi", type="boolean"),
+ * )
+ */
 class HiLowChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
