@@ -2,9 +2,15 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 
+/**
+ * @OA\Schema(schema="ChannelConfigInvertedLogic", description="Config for sensors.",
+ *   @OA\Property(property="invertedLogic", type="boolean"),
+ * )
+ */
 class InvertedLogicParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 

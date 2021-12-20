@@ -2,11 +2,23 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
+/**
+ * @OA\Schema(schema="ChannelConfigImpulseCounter", description="Config for `IC_*` functions.",
+ *   @OA\Property(property="resetCountersAvailable", type="boolean"),
+ *   @OA\Property(property="pricePerUnit", type="number"),
+ *   @OA\Property(property="impulsesPerUnit", type="integer"),
+ *   @OA\Property(property="currency", type="string"),
+ *   @OA\Property(property="unit", type="string"),
+ *   @OA\Property(property="initialValue", type="integer"),
+ *   @OA\Property(property="relatedChannelId", type="integer"),
+ * )
+ */
 class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 

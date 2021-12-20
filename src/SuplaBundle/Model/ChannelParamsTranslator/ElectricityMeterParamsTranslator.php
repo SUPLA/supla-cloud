@@ -3,12 +3,24 @@
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use Assert\Assertion;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\JsonArrayObject;
 use SuplaBundle\Utils\NumberUtils;
 
+/**
+ * @OA\Schema(schema="ChannelConfigElectricityMeter",
+ *     description="Config for `ELECTRICITYMETER`",
+ *     @OA\Property(property="countersAvailable", type="array", readOnly=true, description="List of available counters supported by this channel.", @OA\Items(type="string")),
+ *     @OA\Property(property="resetCountersAvailable", type="boolean", readOnly=true),
+ *     @OA\Property(property="pricePerUnit", type="number"),
+ *     @OA\Property(property="currency", type="string"),
+ *     @OA\Property(property="electricityMeterInitialValues", type="object"),
+ *     @OA\Property(property="relatedChannelId", type="integer"),
+ * )
+ */
 class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 

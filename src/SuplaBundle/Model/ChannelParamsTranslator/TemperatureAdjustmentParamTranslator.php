@@ -2,10 +2,20 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Utils\NumberUtils;
 
+/**
+ * @OA\Schema(schema="ChannelConfigThermometer", description="Config for `THERMOMETER`",
+ *   @OA\Property(property="temperatureAdjustment", type="number", minimum=-10, maximum=10),
+ * )
+ * @OA\Schema(schema="ChannelConfigHumidityAndThermometer", description="Config for `HUMIDITYANDTEMPERATURE`",
+ *   @OA\Property(property="temperatureAdjustment", type="number", minimum=-10, maximum=10),
+ *   @OA\Property(property="humidityAdjustment", type="number", minimum=-10, maximum=10),
+ * )
+ */
 class TemperatureAdjustmentParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 

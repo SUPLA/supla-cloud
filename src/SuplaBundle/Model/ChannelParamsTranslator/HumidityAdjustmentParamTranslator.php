@@ -2,10 +2,16 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Utils\NumberUtils;
 
+/**
+ * @OA\Schema(schema="ChannelConfigHumidity", description="Config for `HUMIDITY`",
+ *   @OA\Property(property="humidityAdjustment", type="number", minimum=-10, maximum=10),
+ * )
+ */
 class HumidityAdjustmentParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 

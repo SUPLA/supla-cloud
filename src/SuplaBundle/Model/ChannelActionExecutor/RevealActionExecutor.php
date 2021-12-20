@@ -7,7 +7,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 
 /**
  * @OA\Schema(schema="ChannelActionParamsPercentage",
- *     description="Action params for `REVEAL`, `REVEAL_PARTIALLY` or `SHUT` actions.",
+ *     description="Action params for `REVEAL`, `REVEAL_PARTIALLY`, `SHUT` or `SHUT_PARTIALLY` actions.",
  *     @OA\Property(property="percentage", type="integer", minimum=0, maximum=100),
  * )
  */

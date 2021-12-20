@@ -2,10 +2,20 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 
+/**
+ * @OA\Schema(schema="ChannelConfigControllingTheGate", description="Config for `CONTROLLINGTHEGARAGEDOOR` and `CONTROLLINGTHEGATE`.",
+ *   @OA\Property(property="timeSettingAvailable", type="boolean", readOnly=true),
+ *   @OA\Property(property="relayTimeMs", type="integer"),
+ *   @OA\Property(property="openingSensorChannelId", type="integer"),
+ *   @OA\Property(property="openingSensorSecondaryChannelId", type="integer"),
+ *   @OA\Property(property="numberOfAttemptsToOpenOrClose", type="integer", minimum=1, maximum=5),
+ * )
+ */
 class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 

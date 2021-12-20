@@ -3,6 +3,7 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assert;
 use Assert\Assertion;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
@@ -10,6 +11,28 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelStateGetter\ColorAndBrightnessChannelStateGetter;
 use SuplaBundle\Utils\ColorUtils;
 
+/**
+ * @OA\Schema(schema="ChannelActionParamsDimmer",
+ *   description="Action params for `SET_RGBW_PARAMETERS` action on `DIMMER`.",
+ *   @OA\Property(property="brightness", type="integer", minimum=0, maximum=100),
+ * )
+ * @OA\Schema(schema="ChannelActionParamsRgbw",
+ *   description="Action params for `SET_RGBW_PARAMETERS` action.",
+ *   oneOf={
+ *     @OA\Schema(
+ *       @OA\Property(property="color", oneOf={
+ *         @OA\Schema(type="integer"),
+ *         @OA\Schema(type="string", pattern="^0x[0-9A-F]{6}$", description="Hex color value"),
+ *         @OA\Schema(type="string", enum={"white", "random"}),
+ *       }),
+ *       @OA\Property(property="color_brightness", type="integer", minimum=0, maximum=100, deprecated=true),
+ *     ),
+ *     @OA\Schema(@OA\Property(property="hue", type="integer", minimum=0, maximum=359), @OA\Property(property="color_brightness", type="integer", minimum=0, maximum=100, deprecated=true)),
+ *     @OA\Schema(@OA\Property(property="hsv", @OA\Property(property="hue", type="integer", minimum=0, maximum=359), @OA\Property(property="saturation", type="integer", minimum=0, maximum=100), @OA\Property(property="value", type="integer", minimum=0, maximum=100))),
+ *     @OA\Schema(@OA\Property(property="rgb", @OA\Property(property="red", type="integer", minimum=0, maximum=255), @OA\Property(property="green", type="integer", minimum=0, maximum=255), @OA\Property(property="blue", type="integer", minimum=0, maximum=255))),
+ *   }
+ * )
+ */
 class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
     const POSSIBLE_ACTION_KEYS = [
         'hue',
@@ -53,6 +76,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             'Invalid action parameters'
         );
         $possibleKeyCombinations = [
+            ['color'],
             ['color', 'color_brightness'],
             ['hue', 'color_brightness'],
             ['hsv'],

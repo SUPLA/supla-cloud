@@ -10,6 +10,14 @@ use SuplaBundle\Entity\IODeviceChannel;
  *   oneOf={
  *     @OA\Schema(type="object"),
  *     @OA\Schema(ref="#/components/schemas/ChannelConfigActionTrigger"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigElectricityMeter"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigHumidityAndThermometer"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigHumidity"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigThermometer"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigImpulseCounter"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigInvertedLogic"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigStaircaseTimer"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigControllingTheGate"),
  *   }
  * )
  */
