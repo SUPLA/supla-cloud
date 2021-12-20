@@ -2,8 +2,17 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
 
+/**
+ * @OA\Schema(schema="ChannelConfig", description="Configuration of the channel.",
+ *   oneOf={
+ *     @OA\Schema(type="object"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigActionTrigger"),
+ *   }
+ * )
+ */
 class ChannelParamConfigTranslator {
     /** @var ChannelParamTranslator[] */
     private $translators = [];

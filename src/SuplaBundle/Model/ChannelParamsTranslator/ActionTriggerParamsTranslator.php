@@ -3,6 +3,7 @@
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use Assert\Assertion;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -13,6 +14,23 @@ use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Utils\JsonArrayObject;
 
+/**
+ * @OA\Schema(schema="ChannelConfigActionTrigger",
+ *     description="Config for `ACTION_TRIGGER`",
+ *     @OA\Property(property="actionTriggerCapabilities", type="array", readOnly=true, description="List of supported triggers. Set only by the device.", @OA\Items(type="string")),
+ *     @OA\Property(property="disablesLocalOperation", type="boolean", readOnly=true, description="Tells if enabling the AT disables local function."),
+ *     @OA\Property(property="relatedChannelId", type="integer", readOnly=true, description="Paired channel set by the device."),
+ *     @OA\Property(property="hideInChannelsList", type="integer", readOnly=true, description="Whether to display the channel in the main channels list (it's false for ATs with paired channel)."),
+ *     @OA\Property(property="actions", type="array", description="List of configured AT actions.", @OA\Items(
+ *       @OA\Property(property="action",
+ *          @OA\Property(property="id", ref="#/components/schemas/ChannelFunctionActionEnumNames"),
+ *          @OA\Property(property="param", ref="#/components/schemas/ChannelActionParams"),
+ *       ),
+ *       @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+ *       @OA\Property(property="subjectId", type="integer"),
+ *     )),
+ * )
+ */
 class ActionTriggerParamsTranslator implements ChannelParamTranslator {
     use CurrentUserAware;
 

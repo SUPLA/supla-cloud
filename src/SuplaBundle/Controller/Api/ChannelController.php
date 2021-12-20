@@ -60,6 +60,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="typeId", type="integer", example=1000),
  *   @OA\Property(property="type", ref="#/components/schemas/ChannelType"),
  *   @OA\Property(property="state", ref="#/components/schemas/ChannelState"),
+ *   @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
  *   @OA\Property(property="userIconId", type="integer"),
  *   @OA\Property(property="connected", type="boolean"),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.", @OA\Property(property="channelGroups", type="integer"), @OA\Property(property="directLinks", type="integer"),  @OA\Property(property="schedules", type="integer"),  @OA\Property(property="sceneOperations", type="integer"),  @OA\Property(property="actionTriggers", type="integer")),

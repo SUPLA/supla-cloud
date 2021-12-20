@@ -5,6 +5,11 @@ use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Supla\SuplaServerAware;
 
+/**
+ * @OA\Schema(schema="ChannelStateConnected",
+ *     @OA\Property(property="connected", type="boolean"),
+ * )
+ */
 class ConnectedChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 

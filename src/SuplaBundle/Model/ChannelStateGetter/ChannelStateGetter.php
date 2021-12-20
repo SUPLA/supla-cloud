@@ -12,6 +12,7 @@ use SuplaBundle\Supla\SuplaServerIsDownException;
  * @OA\Schema(schema="ChannelState", description="The channel's state. The value and the format depends on the channel's function. Read more on [Github Wiki](https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states).",
  *     externalDocs={"description": "Github Wiki", "url":"https://github.com/SUPLA/supla-cloud/wiki/Channel-Functions-states"},
  *   oneOf={
+ *     @OA\Schema(ref="#/components/schemas/ChannelStateConnected"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateBrightness"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateColor"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateColorAndBrightness"),

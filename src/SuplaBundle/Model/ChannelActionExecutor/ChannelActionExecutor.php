@@ -2,10 +2,19 @@
 namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
+/**
+ * @OA\Schema(schema="ChannelActionParams", description="Parameters required to execute an action.",
+ *   oneOf={
+ *     @OA\Schema(type="object"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsPercentage"),
+ *   }
+ * )
+ */
 class ChannelActionExecutor {
     /** @var SingleChannelActionExecutor[][] */
     private $actionExecutors = [];

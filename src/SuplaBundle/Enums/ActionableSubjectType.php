@@ -18,6 +18,7 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
@@ -25,6 +26,8 @@ use SuplaBundle\Entity\Scene;
 use SuplaBundle\Exception\ApiException;
 
 /**
+ * @OA\Schema(schema="ActionableSubjectTypeNames", type="string", enum={"CHANNEL","CHANNEL_GROUP","SCENE","OTHER"})
+ *
  * @method static ActionableSubjectType CHANNEL()
  * @method static ActionableSubjectType CHANNEL_GROUP()
  * @method static ActionableSubjectType SCENE()

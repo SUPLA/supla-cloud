@@ -74,6 +74,8 @@ class DefaultController extends Controller {
         $openapi = Generator::scan([
             __DIR__,
             __DIR__ . '/../Enums',
+            __DIR__ . '/../Model/ChannelActionExecutor',
+            __DIR__ . '/../Model/ChannelParamsTranslator',
             __DIR__ . '/../Model/ChannelStateGetter',
         ]);
         $yaml = $openapi->toYaml();
