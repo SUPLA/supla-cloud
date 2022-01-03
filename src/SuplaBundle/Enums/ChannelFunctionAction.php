@@ -40,8 +40,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction TOGGLE()
  * @method static ChannelFunctionAction OPEN_PARTIALLY()
  * @method static ChannelFunctionAction CLOSE_PARTIALLY()
- * @method static ChannelFunctionAction MOVE_UP()
- * @method static ChannelFunctionAction MOVE_DOWN()
+ * @method static ChannelFunctionAction UP_OR_STOP()
+ * @method static ChannelFunctionAction DOWN_OR_STOP()
+ * @method static ChannelFunctionAction STEP_BY_STEP()
  */
 final class ChannelFunctionAction extends Enum {
     const READ = 1000;
@@ -62,8 +63,9 @@ final class ChannelFunctionAction extends Enum {
     const TOGGLE = 110;
     const OPEN_PARTIALLY = 120;
     const CLOSE_PARTIALLY = 130;
-    const MOVE_UP = 140;
-    const MOVE_DOWN = 150;
+    const UP_OR_STOP = 140;
+    const DOWN_OR_STOP = 150;
+    const STEP_BY_STEP = 160;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -104,8 +106,9 @@ final class ChannelFunctionAction extends Enum {
             self::EXECUTE => 'Execute', // i18n
             self::OPEN_PARTIALLY => 'Open partially', // i18n
             self::CLOSE_PARTIALLY => 'Close partially', // i18n
-            self::MOVE_UP => 'Move up or stop', // i18n
-            self::MOVE_DOWN => 'Move down or stop', // i18n
+            self::UP_OR_STOP => 'Move up or stop', // i18n
+            self::DOWN_OR_STOP => 'Move down or stop', // i18n
+            self::STEP_BY_STEP => 'Step by step', // i18n
             self::GENERIC => 'Generic action', // i18n
         ];
     }

@@ -307,8 +307,9 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
             && ChannelFunctionBitsFlags::ROLLER_SHUTTER_START_STOP_ACTIONS()->isSupported($this->flags)) {
             $actions = array_merge($actions, [
                 ChannelFunctionAction::STOP(),
-                ChannelFunctionAction::MOVE_UP(),
-                ChannelFunctionAction::MOVE_DOWN(),
+                ChannelFunctionAction::UP_OR_STOP(),
+                ChannelFunctionAction::DOWN_OR_STOP(),
+                ChannelFunctionAction::STEP_BY_STEP(),
             ]);
         }
         return $actions;

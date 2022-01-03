@@ -8,10 +8,9 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 
-class MoveUpActionExecutor extends SingleChannelActionExecutor {
+class UpOrStopActionExecutor extends SingleChannelActionExecutor {
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-
-        $command = $subject->buildServerActionCommand('ACTION-MOVE-UP', $this->assignCommonParams([], $actionParams));
+        $command = $subject->buildServerActionCommand('ACTION-UP-OR-STOP', $this->assignCommonParams([], $actionParams));
         $this->suplaServer->executeCommand($command);
     }
 
@@ -22,13 +21,13 @@ class MoveUpActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function getSupportedAction(): ChannelFunctionAction {
-        return ChannelFunctionAction::MOVE_UP();
+        return ChannelFunctionAction::UP_OR_STOP();
     }
 
     public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         Assertion::true(
             $subject instanceof IODeviceChannel,
-            "Cannot execute the requested action MOVE_UP on channel group."
+            "Cannot execute the requested action on channel group."
         );
         /** @var IODeviceChannel $subject */
         Assertion::true(

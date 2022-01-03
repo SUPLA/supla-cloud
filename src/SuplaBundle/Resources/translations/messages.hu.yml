@@ -818,6 +818,7 @@ Some features depend on this device: ~
 Some of the features you have configured rely on channels from this device.: ~
 Standard: ~
 State webhook: ~
+Step by step: ~
 Store measurements history: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~

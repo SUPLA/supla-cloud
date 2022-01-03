@@ -139,8 +139,9 @@ class IODeviceChannelTest extends TestCase {
             ChannelFunctionAction::REVEAL_PARTIALLY,
             ChannelFunctionAction::SHUT_PARTIALLY,
             ChannelFunctionAction::STOP,
-            ChannelFunctionAction::MOVE_UP,
-            ChannelFunctionAction::MOVE_DOWN,
+            ChannelFunctionAction::UP_OR_STOP,
+            ChannelFunctionAction::DOWN_OR_STOP,
+            ChannelFunctionAction::STEP_BY_STEP,
         ], $functionIds);
     }
 }
