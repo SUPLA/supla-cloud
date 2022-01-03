@@ -1,7 +1,7 @@
 <template>
     <div>
         <dl>
-            <dd v-tooltip="$t('After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. Here you can limit the number of these attempts.')">
+            <dd v-tooltip="$t('After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.')">
                 {{ $t('Number of attempts to open or close') }}
                 <i class="pe-7s-help1"></i>
             </dd>
