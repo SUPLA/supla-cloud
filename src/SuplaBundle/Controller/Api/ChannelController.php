@@ -193,6 +193,34 @@ class ChannelController extends RestController {
     }
 
     /**
+     * @OA\Put(
+     *     path="/channels/{id}", operationId="updateChannel", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(description="Whether to perform actions that require data loss (e.g. delete schedules when changing channel function)", in="query", name="safe", required=false, @OA\Schema(type="boolean")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="functionId", ref="#/components/schemas/ChannelFunctionEnumNames"),
+     *          @OA\Property(property="caption", type="string"),
+     *          @OA\Property(property="altIcon", type="integer"),
+     *          @OA\Property(property="hidden", type="boolean"),
+     *          @OA\Property(property="locationId", type="integer"),
+     *          @OA\Property(property="inheritedLocation", type="boolean"),
+     *          @OA\Property(property="userIconId", type="integer"),
+     *          @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
+     *       ),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
+     *     @OA\Response(response="409", description="Channel update would result in data loss, and the safe parameter has been set to true.",
+     *       @OA\JsonContent(
+     *         @OA\Property(property="channelGroups", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="directLinks", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="schedules", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="sceneOperations", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="actionTriggers", type="array", @OA\Items(type="object")),
+     *       )
+     *    ),
+     * )
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
      */
@@ -218,7 +246,7 @@ class ChannelController extends RestController {
                     'Invalid function for channel.' // i18n
                 );
                 $shouldConfirm = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
-                    ? $request->get('safe', false)
+                    ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
                     : !$request->get('confirm');
                 if ($shouldConfirm) {
                     $dependencies = $channelDependencies->getDependencies($channel);
@@ -274,6 +302,26 @@ class ChannelController extends RestController {
     }
 
     /**
+     * @OA\Patch(
+     *     path="/channels/{id}", operationId="executeAction", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          description="Defines an action to execute on channel. The `action` key is always required. The rest of the keys are params depending on the chosen action.",
+     *          externalDocs={"description": "Github Wiki", "url":"https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions"},
+     *          allOf={
+     *            @OA\Schema(@OA\Property(property="action", ref="#/components/schemas/ChannelFunctionActionEnumNames")),
+     *            @OA\Schema(ref="#/components/schemas/ChannelActionParams"),
+     *         }
+     *       ),
+     *     ),
+     *     @OA\Response(response="202", description="Action has been committed."),
+     *     @OA\Response(response="400", description="Invalid request", @OA\JsonContent(
+     *          @OA\Property(property="status", type="integer", example="400"),
+     *          @OA\Property(property="message", type="string", example="Cannot execute requested action on this channel."),
+     *     )),
+     * )
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_EA') and is_granted('accessIdContains', channel)")
      */
     public function patchChannelAction(Request $request, IODeviceChannel $channel) {
@@ -288,6 +336,17 @@ class ChannelController extends RestController {
     }
 
     /**
+     * @OA\Patch(
+     *     path="/channels/{id}/settings", operationId="configureChannel", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="action", type="string", enum={"resetCounters", "recalibrate"})
+     *       ),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
+     * )
      * @Rest\Patch("/channels/{channel}/settings")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      */

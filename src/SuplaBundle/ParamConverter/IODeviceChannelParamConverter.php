@@ -36,7 +36,7 @@ class IODeviceChannelParamConverter extends AbstractBodyParamConverter {
     public function convert(array $requestData) {
         $channel = new IODeviceChannel();
         $function = $requestData['functionId'] ?? ChannelFunction::UNSUPPORTED;
-        $channel->setFunction($function);
+        $channel->setFunction(ChannelFunction::fromString($function));
         $channel->setParam1($requestData['param1'] ?? 0);
         $channel->setParam2($requestData['param2'] ?? 0);
         $channel->setParam3($requestData['param3'] ?? 0);
