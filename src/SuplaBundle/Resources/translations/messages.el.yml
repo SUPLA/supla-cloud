@@ -834,6 +834,7 @@ Scenes limit has been exceeded: ~
 See in SUPLA-Cloud: ~
 Set initial values: ~
 Setting any action on this trigger will disable its local function: ~
+Setting the number of attempts to 1 disables the retrying behavior completely.: ~
 Shut partially: ~
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
 Some features depend on this channel group: ~

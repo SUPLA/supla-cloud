@@ -871,6 +871,7 @@ Scenes limit has been exceeded: ~
 See in SUPLA-Cloud: ~
 Set initial values: ~
 Setting any action on this trigger will disable its local function: ~
+Setting the number of attempts to 1 disables the retrying behavior completely.: ~
 Shut partially: ~
 Some features depend on this channel group: ~
 Standard: ~

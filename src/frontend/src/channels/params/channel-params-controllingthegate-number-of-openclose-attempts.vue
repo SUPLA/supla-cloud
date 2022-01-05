@@ -7,7 +7,7 @@
             </dd>
             <dt>
                 <div class="btn-group btn-group-flex">
-                    <a :class="'btn ' + (numberOfAttempts == number ? 'btn-green' : 'btn-default')"
+                    <a :class="['btn', (numberOfAttempts == number ? 'btn-green' : 'btn-default'), {'btn-attempt-1': number === 1}]"
                         v-for="number in possibleNumbers"
                         :key="number"
                         @click="numberOfAttempts = number">
@@ -16,12 +16,20 @@
                 </div>
             </dt>
         </dl>
+        <transition-expand>
+            <div class="alert alert-warning mt-3 small"
+                v-if="numberOfAttempts === 1">
+                {{ $t('Setting the number of attempts to 1 disables the retrying behavior completely.') }}
+            </div>
+        </transition-expand>
     </div>
 </template>
 
 <script>
+    import TransitionExpand from "../../common/gui/transition-expand";
 
     export default {
+        components: {TransitionExpand},
         props: ['channel'],
         data() {
             return {
@@ -41,3 +49,18 @@
         },
     };
 </script>
+
+<style lang="scss">
+    @import "../../styles/variables";
+
+    .btn-attempt-1.btn-green {
+        background: $supla-orange;
+        border: 1px solid $supla-orange;
+        outline-color: $supla-orange !important;
+        color: $supla-white;
+        &:hover {
+            background: $supla-orange;
+            color: $supla-white;
+        }
+    }
+</style>

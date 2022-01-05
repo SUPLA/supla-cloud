@@ -912,5 +912,6 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Setting the number of attempts to 1 disables the retrying behavior completely.: Ustawienie liczby prób poniżej 2 może skutkować tym, że zamknięcie lub otwarcie nie dojdzie do skutku.
 
 #</editor-fold>
