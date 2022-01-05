@@ -48,8 +48,8 @@
         methods: {
             filter() {
                 this.filteredChannels = this.channels ? this.channels.filter(this.filterFunction) : this.channels;
-                this.filteredChannels = this.filteredChannels.filter((channel) => !channel.config.hideInChannelsList);
                 if (this.filteredChannels) {
+                    this.filteredChannels = this.filteredChannels.filter((channel) => !channel.config.hideInChannelsList);
                     this.filteredChannels = this.filteredChannels.sort(this.compareFunction);
                 }
             },
