@@ -19,6 +19,7 @@ namespace SuplaBundle\EventListener;
 
 use Assert\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Message\Emails\ServiceUnavailableAdminEmailNotification;
 use SuplaBundle\Message\EmailToAdmin;
@@ -45,22 +46,25 @@ class ApiExceptionHandler implements EventSubscriberInterface {
     public function onException(GetResponseForExceptionEvent $event) {
         $request = $event->getRequest();
         $isApiRequest = preg_match('#/api/#', $request->getRequestUri());
+        $exception = $event->getThrowable();
+        $errorResponse = $this->chooseErrorResponse($exception);
         if ($isApiRequest || in_array('application/json', $request->getAcceptableContentTypes())) {
-            $errorResponse = $this->chooseErrorResponse($event->getThrowable());
             $event->setResponse($errorResponse);
-            $exception = $event->getThrowable();
-            $context = ['exceptionMessage' => $exception->getMessage(), 'trace' => $exception->getTraceAsString()];
-            if ($errorResponse->getStatusCode() >= 500) {
-                $this->logger->error('API Error', $context);
-                $email = new ServiceUnavailableAdminEmailNotification($request->getRequestUri(), $exception->getMessage());
-                $this->messageBus->dispatch(new EmailToAdmin($email));
-            } elseif ($errorResponse->getStatusCode() != 400) {
-                $this->logger->notice('API Exception', $context);
-            }
+        } else {
+            $responseContent = json_decode($errorResponse->getContent(), true);
+            $event->setThrowable(new ApiException($responseContent['message'], $responseContent['status']));
+        }
+        $loggerContext = ['exceptionMessage' => $exception->getMessage(), 'trace' => $exception->getTraceAsString()];
+        if ($errorResponse->getStatusCode() >= 500) {
+            $this->logger->error('API Error', $loggerContext);
+            $email = new ServiceUnavailableAdminEmailNotification($request->getRequestUri(), $exception->getMessage());
+            $this->messageBus->dispatch(new EmailToAdmin($email));
+        } elseif ($errorResponse->getStatusCode() != 400) {
+            $this->logger->notice('API Exception', $loggerContext);
         }
     }
 
-    private function chooseErrorResponse(\Exception $e): JsonResponse {
+    private function chooseErrorResponse(\Throwable $e): JsonResponse {
         if ($e instanceof HttpException) {
             return $this->createErrorResponse($e, $e->getStatusCode());
         } elseif ($e instanceof InvalidArgumentException) {

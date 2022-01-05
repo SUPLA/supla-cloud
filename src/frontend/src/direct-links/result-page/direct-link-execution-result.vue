@@ -94,7 +94,7 @@
             v-if="!jsonHintVisible">
             <i class="pe-7s-help1"></i>
         </button>
-        <div class="well"
+        <div class="well mt-4"
             style="max-width: 600px; margin: 0 auto"
             v-if="jsonHintVisible">
             <h3 class="no-margin-top">{{ $t('Where is the JSON?') }}</h3>

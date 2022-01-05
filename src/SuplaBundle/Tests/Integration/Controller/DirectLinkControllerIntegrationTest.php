@@ -243,6 +243,15 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingDirectLink */
+    public function testReadingDirectLinkWithInvalidFormat(array $directLink) {
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read?format=unicorn");
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    /** @depends testCreatingDirectLink */
     public function testPreferJson(array $directLink) {
         $client = $this->createClient();
         $client->enableProfiler();
