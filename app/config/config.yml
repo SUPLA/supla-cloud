@@ -57,6 +57,8 @@ framework:
     pools:
       api_rate_limit:
         adapter: cache.app
+      openapi_docs_cache:
+        adapter: cache.app
   csrf_protection: ~
   default_locale: "%locale%"
   form: ~

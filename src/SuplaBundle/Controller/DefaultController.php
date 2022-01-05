@@ -19,21 +19,25 @@ namespace SuplaBundle\Controller;
 
 use OpenApi\Annotations as OA;
 use OpenApi\Generator;
+use Psr\Cache\CacheItemPoolInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends Controller {
+class DefaultController extends AbstractController {
     /** @var string */
     private $suplaUrl;
+    /** @var CacheItemPoolInterface */
+    private $openApiCache;
 
-    public function __construct(string $suplaUrl) {
+    public function __construct(string $suplaUrl, CacheItemPoolInterface $openApiCache) {
         $this->suplaUrl = $suplaUrl;
+        $this->openApiCache = $openApiCache;
     }
 
     /**
@@ -60,7 +64,7 @@ class DefaultController extends Controller {
     /**
      * @OA\OpenApi(
      *   security={{"BearerAuth": {}}, {"OAuth2": {}}},
-     *   @OA\Info(title="SUPLA Cloud API", version="2.3.35"),
+     *   @OA\Info(title="SUPLA Cloud API", version="X.X.X"),
      *   @OA\Server(url="https://cloud.supla.org/api/v2.4.0"),
      * )
      * @OA\SecurityScheme(securityScheme="BearerAuth", type="http", scheme="bearer")
@@ -71,15 +75,24 @@ class DefaultController extends Controller {
      * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
      */
     public function getApiDocsSchemaAction() {
-        $openapi = Generator::scan([
-            __DIR__,
-            __DIR__ . '/../Enums',
-            __DIR__ . '/../Model/ChannelActionExecutor',
-            __DIR__ . '/../Model/ChannelParamsTranslator',
-            __DIR__ . '/../Model/ChannelStateGetter',
-        ]);
-        $yaml = $openapi->toYaml();
-        $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
+        $version = $this->getParameter('supla.version');
+        $cacheItem = $this->openApiCache->getItem('openApi' . $version);
+        if ($cacheItem->isHit()) {
+            $yaml = $cacheItem->get();
+        } else {
+            $openapi = Generator::scan([
+                __DIR__,
+                __DIR__ . '/../Enums',
+                __DIR__ . '/../Model/ChannelActionExecutor',
+                __DIR__ . '/../Model/ChannelParamsTranslator',
+                __DIR__ . '/../Model/ChannelStateGetter',
+            ]);
+            $openapi->info = new OA\Info(['title' => 'SUPLA Cloud API', 'version' => $version]);
+            $yaml = $openapi->toYaml();
+            $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
+            $cacheItem->set($yaml);
+            $this->openApiCache->save($cacheItem);
+        }
         return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }
 
