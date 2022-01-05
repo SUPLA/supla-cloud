@@ -683,6 +683,7 @@ Action triggers: ~
 Add a delay: ~
 Add action: ~
 Add new item to use in the scene: ~
+'After the device enters the configuration mode, it will not be accessible on your account.': ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
@@ -738,7 +739,9 @@ Current Overload: ~
 Default: ~
 'Device ID: %deviceId%': ~
 Device channel value: ~
+Device is disconnected.: ~
 'Device name: %deviceName%': ~
+Device should be now in configuration mode.: ~
 'Device software version: %deviceSoftwareVersion%': ~
 Differential: ~
 Digi Glass: ~
@@ -749,6 +752,7 @@ Disable local function: ~
 Disables local device function and does nothing more.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
+Enter configuration mode: ~
 Execute: ~
 Execute an action: ~
 Execute the scene: ~
@@ -760,6 +764,7 @@ Generic action: ~
 Guru Meditation: ~
 Host: ~
 Icon: ~
+'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
 'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
@@ -768,6 +773,7 @@ Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
 Interpolate measurements: ~
 Invalid action parameters: ~
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Location name: ~

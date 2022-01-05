@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
@@ -27,6 +28,7 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
+use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -167,6 +169,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($this->device->getId(), $content['id']);
         $this->assertArrayHasKey('relationsCount', $content['location']);
+        $this->assertTrue($content['enterConfigurationModeAvailable']);
     }
 
     public function testGettingDevicesDetailsByGuid() {
@@ -225,23 +228,54 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(403, $response);
     }
 
-    public function testDeletingDevice() {
+    public function testEnteringConfigurationMode() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
-        $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+    }
+
+    public function testEnteringConfigurationModeWhenDeviceDoesNotSupportIt() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        AnyFieldSetter::set($device, 'flags', 0);
+        $this->getEntityManager()->persist($device);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testEnteringConfigurationModeWhenSuplaServerRefuses() {
+        SuplaServerMock::mockResponse('ACTION-ENTER-CONFIGURATION-MODE', 'NO!');
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testDeletingDevice() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $deviceId = $device->getId();
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
-        $this->assertEmpty($this->user->getIODevices());
+        $deviceIds = EntityUtils::mapToIds($this->user->getIODevices());
+        $this->assertNotContains($deviceId, $deviceIds);
+        return $deviceId;
     }
 
     /** @depends testDeletingDevice */
-    public function testNotifiesSuplaServerAboutIoDeviceDeletion() {
-        $this->assertContains('USER-BEFORE-DEVICE-DELETE:1,1', SuplaServerMock::$executedCommands);
-        $this->assertContains('USER-ON-DEVICE-DELETED:1,1', SuplaServerMock::$executedCommands);
+    public function testNotifiesSuplaServerAboutIoDeviceDeletion(int $deviceId) {
+        $this->assertContains('USER-BEFORE-DEVICE-DELETE:1,' . $deviceId, SuplaServerMock::$executedCommands);
+        $this->assertContains('USER-ON-DEVICE-DELETED:1,' . $deviceId, SuplaServerMock::$executedCommands);
     }
 
-    /** @large */
     public function testSuplaServerCanPreventDeviceDeletion() {
-        $device = $this->createDeviceFull($this->location);
+        $device = $this->createDeviceFull($this->freshEntity($this->location));
         SuplaServerMock::mockResponse('USER-BEFORE-DEVICE-DELETE:1,' . $device->getId(), 'NO!');
         $client = $this->createAuthenticatedClient();
         $client->request('DELETE', '/api/iodevices/' . $device->getId());
@@ -249,33 +283,32 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
     }
 
-    /** @large */
     public function testDeletingDeviceClearsRelatedGateOtherDevices() {
+        $device = $this->createDeviceFull($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
         $paramConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->simulateAuthentication($this->user);
-        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+        $anotherDevice = $this->createDevice($this->freshEntity($this->location), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
-        $gateChannel = $this->device->getChannels()->filter(function (IODeviceChannel $channel) {
+        $gateChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
         })->first();
         $paramConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals($gateChannel->getId(), $sensorChannel->getParam1());
-        $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
         $this->assertStatusCode(204, $client->getResponse());
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals(0, $sensorChannel->getParam1(), 'The paired sensor has not been cleared.');
     }
 
-    /** @large */
     public function testDeletingDeviceClearsRelatedSensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
         $paramConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->simulateAuthentication($this->user);
-        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+        $anotherDevice = $this->createDevice($this->freshEntity($this->location), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
@@ -293,33 +326,32 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0, $gateChannel->getParam2(), 'The paired sensor has not been cleared.');
     }
 
-    /** @large */
     public function testDeletingDeviceClearsRelatedSecondaryGateOtherDevices() {
+        $device = $this->createDeviceFull($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
         $paramConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->simulateAuthentication($this->user);
-        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+        $anotherDevice = $this->createDevice($this->freshEntity($this->location), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
-        $gateChannel = $this->device->getChannels()->filter(function (IODeviceChannel $channel) {
+        $gateChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
         })->first();
         $paramConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorSecondaryChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals($gateChannel->getId(), $sensorChannel->getParam2());
-        $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
         $this->assertStatusCode(204, $client->getResponse());
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals(0, $sensorChannel->getParam2(), 'The paired sensor has not been cleared.');
     }
 
-    /** @large */
     public function testDeletingDeviceClearsRelatedSecondarySensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
         $paramConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->simulateAuthentication($this->user);
-        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+        $anotherDevice = $this->createDevice($this->freshEntity($this->location), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
@@ -337,7 +369,6 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0, $gateChannel->getParam3(), 'The paired sensor has not been cleared.');
     }
 
-    /** @large */
     public function testDeletingWithAskingAboutDependencies() {
         $cg = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
         $this->getEntityManager()->persist($cg);
@@ -356,9 +387,6 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         return $cg;
     }
 
-    /**
-     * @large
-     */
     public function testTurningOffWithAskingAboutDependencies() {
         $cg = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
         $this->getEntityManager()->persist($cg);
@@ -370,9 +398,6 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
     }
 
-    /**
-     * @large
-     */
     public function testTurningOffWithoutAskingAboutDependencies() {
         $cg = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
         $this->getEntityManager()->persist($cg);
@@ -384,20 +409,17 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
     }
 
-    /**
-     * @large
-     */
     public function testDeletingWithDependencies() {
-        $cg = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
+        $device = $this->createDeviceFull($this->location);
+        $cg = new IODeviceChannelGroup($this->user, $this->location, [$device->getChannels()[0]]);
         $this->getEntityManager()->persist($cg);
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
-        $client->request('DELETE', '/api/iodevices/' . $this->device->getId());
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
         $this->assertStatusCode(204, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
     }
 
-    /** @large */
     public function testGettingDevicesWithAllPossibleIncludesDoesNotCauseRecursion() {
         $newLocation = $this->createLocation($this->user);
         $channel = $this->device->getChannels()[0];
@@ -409,7 +431,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
-        $this->assertCount(1, $content);
+        $this->assertNotEmpty($content);
         $this->assertEquals($this->device->getId(), $content[0]->id);
         $this->assertTrue(property_exists($content[0], 'location'));
         $this->assertTrue(property_exists($content[0], 'channels'));

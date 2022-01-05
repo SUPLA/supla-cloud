@@ -122,6 +122,13 @@ abstract class SuplaServer {
         return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1;
     }
 
+    public function deviceAction(IODevice $device, string $commandName): bool {
+        $params = implode(',', [$device->getUser()->getId(), $device->getId()]);
+        $command = "$commandName:$params";
+        $result = $this->doExecuteCommand($command);
+        return $result !== false && preg_match("/^OK:/", $result) === 1;
+    }
+
     public function channelAction(IODeviceChannel $channel, string $commandName): bool {
         $params = implode(',', [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()]);
         $command = "$commandName:$params";
@@ -138,7 +145,7 @@ abstract class SuplaServer {
     }
 
     public function onDeviceSettingsChanged(IODevice $device): bool {
-        return $this->userAction('ON-DEVICE-SETTINGS-CHANGED', [$device->getId()]);
+        return $this->deviceAction($device, 'USER-ON-DEVICE-SETTINGS-CHANGED');
     }
 
     public function stateWebhookChanged(): bool {

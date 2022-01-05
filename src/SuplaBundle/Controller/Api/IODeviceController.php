@@ -24,6 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -192,9 +193,9 @@ class IODeviceController extends RestController {
      * @UnavailableInMaintenance
      */
     public function putIodeviceAction(
-        Request $request,
-        IODevice $ioDevice,
-        IODevice $updatedDevice,
+        Request             $request,
+        IODevice            $ioDevice,
+        IODevice            $updatedDevice,
         ChannelDependencies $channelDependencies
     ) {
         $result = $this->transactional(function (EntityManagerInterface $em) use (
@@ -233,6 +234,31 @@ class IODeviceController extends RestController {
         $this->suplaServer->onDeviceSettingsChanged($ioDevice);
         $this->suplaServer->reconnect();
         return $result;
+    }
+
+    /**
+     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
+     * @UnavailableInMaintenance
+     */
+    public function patchIodeviceAction(Request $request, IODevice $ioDevice) {
+        $body = json_decode($request->getContent(), true);
+        Assertion::keyExists($body, 'action', 'Missing action.');
+        $device = $this->transactional(function (EntityManagerInterface $em) use ($body, $ioDevice) {
+            $action = $body['action'];
+            if ($action === 'enterConfigurationMode') {
+                Assertion::true(
+                    $ioDevice->isEnterConfigurationModeAvailable(),
+                    'Entering configuration mode is unsupported in the firmware.'
+                );
+                $result = $this->suplaServer->deviceAction($ioDevice, 'ACTION-ENTER-CONFIGURATION-MODE');
+                Assertion::true($result, 'Could not enter the configuration mode.');
+            } else {
+                throw new ApiException('Invalid action given.');
+            }
+            $em->persist($ioDevice);
+            return $ioDevice;
+        });
+        return $this->getIodeviceAction($request, $device->clearRelationsCount());
     }
 
     /**

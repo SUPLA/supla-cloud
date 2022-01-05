@@ -30,6 +30,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Tests\AnyFieldSetter;
 
 class DevicesFixture extends SuplaFixture {
@@ -150,6 +151,7 @@ class DevicesFixture extends SuplaFixture {
             'protocolVersion' => '2.' . rand(0, 50),
             'location' => $location,
             'user' => $location->getUser(),
+            'flags' => IoDeviceFlags::getAllFeaturesFlag(),
         ]);
         $this->entityManager->persist($device);
         foreach ($channelTypes as $channelNumber => $channelData) {

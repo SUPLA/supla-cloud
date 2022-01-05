@@ -31,6 +31,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlist;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\LocationManager;
 use SuplaBundle\Model\UserManager;
@@ -106,6 +107,7 @@ trait UserFixtures {
         $fieldSetter->call($device, 'protocolVersion', '2.' . rand(0, 50));
         $fieldSetter->call($device, 'location', $location);
         $fieldSetter->call($device, 'user', $location->getUser());
+        $fieldSetter->call($device, 'flags', IoDeviceFlags::getAllFeaturesFlag());
         $this->getEntityManager()->persist($device);
 
         foreach ($channelTypes as $channelNumber => $channelData) {

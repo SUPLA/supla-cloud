@@ -24,28 +24,29 @@
                                 </div>
                                 <div class="hover-editable text-left">
                                     <dl>
-                                        <dd>GUID</dd>
-                                        <dt>{{ this.device.gUIDString }}</dt>
-                                        <dd>{{ $t('SoftVer') }}</dd>
-                                        <dt>{{ device.softwareVersion }}</dt>
-                                        <dd>{{ $t('Registered') }}</dd>
-                                        <dt>{{ this.device.regDate | moment("LT L")}}</dt>
-                                        <dd>{{ $t('Last connection') }}</dd>
-                                        <dt>{{ this.device.lastConnected | moment("LT L")}}</dt>
-                                        <dd>{{ $t('Enabled') }}</dd>
-                                        <dt>
-                                            <toggler v-model="device.enabled"
-                                                true-color="white"
-                                                @input="updateDevice()"></toggler>
-                                        </dt>
-                                        <dd>{{ $t('Comment') }}</dd>
+                                        <dd>{{ $t('Name') }}</dd>
                                         <dt>
                                             <input type="text"
                                                 class="form-control"
                                                 @keydown="updateDevice()"
                                                 v-model="device.comment">
                                         </dt>
+                                        <dd>GUID</dd>
+                                        <dt>{{ device.gUIDString }}</dt>
+                                        <dd>{{ $t('SoftVer') }}</dd>
+                                        <dt>{{ device.softwareVersion }}</dt>
+                                        <dd>{{ $t('Registered') }}</dd>
+                                        <dt>{{ device.regDate | moment("LT L") }}</dt>
+                                        <dd>{{ $t('Last connection') }}</dd>
+                                        <dt>{{ device.lastConnected | moment("LT L") }}</dt>
+                                        <dd>{{ $t('Enabled') }}</dd>
+                                        <dt>
+                                            <toggler v-model="device.enabled"
+                                                true-color="white"
+                                                @input="updateDevice()"></toggler>
+                                        </dt>
                                     </dl>
+                                    <device-enter-configuration-mode-button :device="device"></device-enter-configuration-mode-button>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -129,10 +130,12 @@
     import PageContainer from "../../common/pages/page-container";
     import $ from "jquery";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
+    import DeviceEnterConfigurationModeButton from "./device-enter-configuration-mode-button";
 
     export default {
         props: ['id'],
         components: {
+            DeviceEnterConfigurationModeButton,
             DependenciesWarningModal,
             PageContainer,
             ConnectionStatusLabel,
@@ -165,11 +168,13 @@
                         this.device = response.body;
                         this.loading = false;
                         this.hasPendingChanges = false;
+                        this.$set(this.device, 'hasPendingChanges', false);
                     })
                     .catch(response => this.error = response.status);
             },
             updateDevice() {
                 this.hasPendingChanges = true;
+                this.$set(this.device, 'hasPendingChanges', true);
             },
             cancelChanges() {
                 this.fetchDevice();
@@ -180,6 +185,7 @@
                 this.$http.put(`iodevices/${this.id}` + (safe ? '?safe=1' : ''), this.device, {skipErrorHandler: true})
                     .then(response => $.extend(this.device, response.body))
                     .then(() => this.hasPendingChanges = false)
+                    .then(() => this.$set(this.device, 'hasPendingChanges', false))
                     .then(() => {
                         if (!this.device.location.accessIds) {
                             return this.fetchDevice();

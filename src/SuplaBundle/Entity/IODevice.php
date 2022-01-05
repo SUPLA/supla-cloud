@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\Common\HasRelationsCountTrait;
+use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Enums\Manufacturer;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -137,7 +138,6 @@ class IODevice implements HasLocation, HasRelationsCount {
 
     /**
      * @ORM\Column(name="flags", type="integer", nullable=true)
-     * @Groups({"basic"})
      */
     private $flags = 0;
 
@@ -243,21 +243,16 @@ class IODevice implements HasLocation, HasRelationsCount {
         return $this->protocolVersion;
     }
 
-    public function getFlags(): int {
-        return intval($this->flags);
-    }
-
-    /**
-     * @return integer
-     */
     public function getManufacturer(): Manufacturer {
         return new Manufacturer($this->manufacturer);
     }
 
-    /**
-     * @return integer
-     */
-    public function getProductId() {
+    public function getProductId(): ?int {
         return $this->productId;
+    }
+
+    /** @Groups({"basic"}) */
+    public function isEnterConfigurationModeAvailable(): bool {
+        return IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE()->isSupported($this->flags);
     }
 }
