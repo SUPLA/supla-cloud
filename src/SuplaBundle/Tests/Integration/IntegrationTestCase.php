@@ -79,7 +79,7 @@ abstract class IntegrationTestCase extends WebTestCase {
         }
         if (isset(self::$dataForTests[static::class])) {
             foreach (self::$dataForTests[static::class] as $fieldName => $value) {
-                if (strpos(get_class($value), 'SuplaBundle\Entity') === 0) {
+                if (is_object($value) && strpos(get_class($value), 'SuplaBundle\Entity') === 0) {
                     $value = $this->freshEntity($value);
                 }
                 EntityUtils::setField($this, $fieldName, $value);
