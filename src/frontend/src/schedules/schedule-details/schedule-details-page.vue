@@ -113,6 +113,7 @@
     import ScheduleExecutionsDisplay from "./schedule-executions-display";
     import PageContainer from "../../common/pages/page-container";
     import ScheduleForm from "../schedule-form/schedule-form";
+    import ActionableSubjectType from "../../common/enums/actionable-subject-type";
 
     export default {
         components: {
@@ -182,7 +183,7 @@
                 return undefined;
             },
             retryOptionDisabled() {
-                return this.scheduleActionWarning || this.schedule.subjectType != 'channel';
+                return this.scheduleActionWarning || this.schedule.subjectType !== ActionableSubjectType.CHANNEL;
             },
             scheduleCaption() {
                 return this.schedule.caption || `${this.$t('Schedule')} ${this.$t('ID')}${this.schedule.id}`;

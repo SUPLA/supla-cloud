@@ -119,6 +119,7 @@
     import Vue from "vue";
     import moment from "moment";
     import {cloneDeep} from "lodash";
+    import ActionableSubjectType from "../../common/enums/actionable-subject-type";
 
     export default {
         props: ['id'],
@@ -162,7 +163,7 @@
             },
             canSetRetry() {
                 return this.schedule.subject
-                    && this.schedule.subject.subjectType == 'channel'
+                    && this.schedule.subject.subjectType === ActionableSubjectType.CHANNEL
                     && [20, 30].indexOf(this.schedule.subject.functionId) === -1;
             },
         },
