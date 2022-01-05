@@ -77,7 +77,7 @@ class DefaultController extends AbstractController {
     public function getApiDocsSchemaAction() {
         $version = $this->getParameter('supla.version');
         $cacheItem = $this->openApiCache->getItem('openApi' . $version);
-        if ($cacheItem->isHit()) {
+        if ($cacheItem->isHit() && APPLICATION_ENV === 'prod') {
             $yaml = $cacheItem->get();
         } else {
             $openapi = Generator::scan([

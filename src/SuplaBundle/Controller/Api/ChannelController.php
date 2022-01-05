@@ -82,9 +82,9 @@ class ChannelController extends RestController {
     private $channelRepository;
 
     public function __construct(
-        ChannelStateGetter $channelStateGetter,
-        ChannelActionExecutor $channelActionExecutor,
-        ScheduleManager $scheduleManager,
+        ChannelStateGetter        $channelStateGetter,
+        ChannelActionExecutor     $channelActionExecutor,
+        ScheduleManager           $scheduleManager,
         IODeviceChannelRepository $channelRepository
     ) {
         $this->channelStateGetter = $channelStateGetter;
@@ -110,6 +110,9 @@ class ChannelController extends RestController {
     /**
      * @OA\Get(
      *     path="/channels", operationId="getChannels", summary="Get Channels", tags={"Channels"},
+     *     @OA\Parameter(name="function", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(ref="#/components/schemas/ChannelFunctionEnumNames"))),
+     *     @OA\Parameter(name="io", in="query", description="Return only `input` or `output` channels.", required=false, @OA\Schema(type="string", enum={"input", "output"})),
+     *     @OA\Parameter(name="hasFunction", in="query", description="Return only channels with (`true`) or without (`false`) chosen functions.", required=false, @OA\Schema(type="boolean")),
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
@@ -132,7 +135,7 @@ class ChannelController extends RestController {
                 $builder->andWhere("$alias.type IN(:typeIds)")->setParameter('typeIds', $typeIds);
             }
             if (($hasFunction = $request->get('hasFunction')) !== null) {
-                if ($hasFunction) {
+                if (filter_var($hasFunction, FILTER_VALIDATE_BOOLEAN)) {
                     $builder->andWhere("$alias.function != :noneFunctionId");
                 } else {
                     $builder->andWhere("$alias.function = :noneFunctionId");
@@ -157,6 +160,16 @@ class ChannelController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/channels/{id}", operationId="getChannel", summary="Get Channel", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "connected", "state", "supportedFunctions", "relationsCount", "actionTriggers"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
+     * )
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
@@ -184,10 +197,10 @@ class ChannelController extends RestController {
      * @UnavailableInMaintenance
      */
     public function putChannelAction(
-        Request $request,
-        IODeviceChannel $channel,
-        IODeviceChannel $updatedChannel,
-        ChannelDependencies $channelDependencies,
+        Request                      $request,
+        IODeviceChannel              $channel,
+        IODeviceChannel              $updatedChannel,
+        ChannelDependencies          $channelDependencies,
         ChannelParamConfigTranslator $paramConfigTranslator
     ) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -279,8 +292,8 @@ class ChannelController extends RestController {
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      */
     public function patchChannelSettingsAction(
-        Request $request,
-        IODeviceChannel $channel,
+        Request                      $request,
+        IODeviceChannel              $channel,
         ChannelParamConfigTranslator $paramConfigTranslator
     ) {
         $body = json_decode($request->getContent(), true);

@@ -156,7 +156,8 @@ FRONTEND;
         $visualStates = array_unique(ArrayUtils::flattenOnce(ChannelFunction::possibleVisualStates()));
         $names = '"' . implode('","', $visualStates) . '"';
         $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelFunction.php');
-        $message = 'Invalid documentation for channel function possible visual states. Enum should be: ' . PHP_EOL . PHP_EOL . $names . PHP_EOL;
+        $message = 'Invalid documentation for channel function possible visual states. Enum should be: '
+            . PHP_EOL . PHP_EOL . $names . PHP_EOL;
         $this->assertStringContainsString($names, $source, $message);
     }
 }

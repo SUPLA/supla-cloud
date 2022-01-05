@@ -187,6 +187,24 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $content);
     }
 
+    public function testFilteringByHasFunctionFalse() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?hasFunction=false');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+    }
+
+    public function testFilteringByHasFunctionAnything() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?hasFunction=unicorn');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertLessThan(count($this->device->getChannels()), count($content));
+    }
+
     public function testGettingChannelsWithDeviceLocationsV24() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channels?include=location,iodevice,iodevice.location');

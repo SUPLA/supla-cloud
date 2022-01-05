@@ -143,7 +143,7 @@ final class ChannelFunction extends Enum {
 
     /** @Groups({"basic"}) */
     public function getId(): int {
-        return $this->value == self::UNSUPPORTED ? $this->unsupportedFunctionId : $this->value;
+        return $this->value == self::UNSUPPORTED ? ($this->unsupportedFunctionId ?: -1) : $this->value;
     }
 
     /** @Groups({"basic"}) */
