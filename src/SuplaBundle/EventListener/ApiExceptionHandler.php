@@ -50,7 +50,7 @@ class ApiExceptionHandler implements EventSubscriberInterface {
         $errorResponse = $this->chooseErrorResponse($exception);
         if ($isApiRequest || in_array('application/json', $request->getAcceptableContentTypes())) {
             $event->setResponse($errorResponse);
-        } else if (!($exception instanceof HttpException)) {
+        } elseif (!($exception instanceof HttpException)) {
             $responseContent = json_decode($errorResponse->getContent(), true);
             $event->setThrowable(new ApiException($responseContent['message'], $responseContent['status']));
         }
