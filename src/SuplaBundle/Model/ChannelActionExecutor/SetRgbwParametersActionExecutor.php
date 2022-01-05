@@ -76,9 +76,9 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
             'Invalid action parameters'
         );
         $possibleKeyCombinations = [
-            ['color'],
             ['color', 'color_brightness'],
             ['hue', 'color_brightness'],
+            ['color'],
             ['hsv'],
             ['rgb'],
         ];
@@ -96,6 +96,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                                 $possibleKeyCombination[0]
                             )
                         );
+                        break;
                     }
                 }
             }
@@ -116,6 +117,10 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                 if (is_numeric($color)) {
                     Assertion::between($color, 1, 0xFFFFFF);
                     $actionParams['color'] = intval($color);
+                    if (!isset($actionParams['color_brightness'])) {
+                        [, , $v] = ColorUtils::decToHsv($color);
+                        $actionParams['color_brightness'] = $v;
+                    }
                 }
             }
             $colorBrightness = $actionParams['color_brightness'] ?? 100;
