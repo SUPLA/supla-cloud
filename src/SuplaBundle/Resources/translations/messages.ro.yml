@@ -698,6 +698,7 @@ Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
 Could not contact Autodiscover service. Try again in a while.: ~
+Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~
 Default: ~
@@ -716,7 +717,7 @@ Disable local function: ~
 Disables local device function and does nothing more.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
-Enter configuration mode: ~
+Entering configuration mode is unsupported in the firmware.: ~
 Execute: ~
 Execute an action: ~
 Execute the scene: ~
@@ -827,6 +828,7 @@ Standard: ~
 State webhook: ~
 Step by step: ~
 Store measurements history: ~
+Switch the device to configuration mode: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
 The counter has been reset.: ~

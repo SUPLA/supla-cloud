@@ -1,11 +1,11 @@
 <template>
     <div v-if="device.enterConfigurationModeAvailable"
         v-tooltip="disabledReason">
-        <button class="btn btn-default btn-block"
+        <button class="btn btn-default btn-block btn-wrapped"
             type="button"
             :disabled="!!disabledReason"
             @click="enterConfirm = true">
-            {{ $t('Enter configuration mode') }}
+            {{ $t('Switch the device to configuration mode') }}
         </button>
         <modal-confirm v-if="enterConfirm"
             class="modal-warning"

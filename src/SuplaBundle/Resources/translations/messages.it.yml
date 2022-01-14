@@ -800,6 +800,7 @@ Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 Copy channel state: ~
+Could not enter the configuration mode.: ~
 Create new scene: ~
 'Device ID: %deviceId%': ~
 Device channel value: ~
@@ -815,7 +816,7 @@ Disable local function: ~
 Disables local device function and does nothing more.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
-Enter configuration mode: ~
+Entering configuration mode is unsupported in the firmware.: ~
 Execute: ~
 Execute an action: ~
 Execute the scene: ~
@@ -877,6 +878,7 @@ Some features depend on this channel group: ~
 Standard: ~
 Step by step: ~
 Store measurements history: ~
+Switch the device to configuration mode: ~
 TLS: ~
 The counter has been reset.: ~
 'The items below rely on this channel group, so they will be deleted.': ~

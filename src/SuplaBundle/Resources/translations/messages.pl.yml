@@ -175,6 +175,7 @@ Connection with a private instance of the SUPLA cloud: Połączenie z prywatną 
 Constraints: Ograniczenia
 Copy channel state: Powiel stan kanału
 Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
+Could not enter the configuration mode.: Nie udało się przełączyć urządzenia w tryb konfiguracji.
 Could not reset the password.: Nie udało się zresetować hasła.
 Could not reset the password. Please try again later.: Nie można zresetować hasła. Spróbuj ponownie za chwilę.
 Create New Access Identifier: Utwórz nowy Identyfikator Dostępu
@@ -247,7 +248,6 @@ Empty!: Pusto!
 Enable: Włącz
 Enabled: Włączone
 End date: Data zakończenia
-Enter configuration mode: Wejdź do trybu konfiguracji
 Enter new password: Wprowadź nowe hasło
 Enter strong password: Wprowadź silne hasło
 Enter the data below in the settings of your control device (I/O Device).: Poniższe dane wprowadź w ustawieniach Twojego urządzenia sterującego (urządzenie we/wy).
@@ -255,6 +255,7 @@ Enter the data below in your mobile SUPLA application on your smartphone.: Poni�
 Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Podaj tylko domenę razem z portem jeśli nie jest standardowy (443). Wymagamy połączenia HTTPS.
 Enter your email address: Wprowadź Twój adres email
 Enter your password to prevent automatic logout.: Podaj swoje hasło by zapobiec automatycznemu wylogowaniu.
+Entering configuration mode is unsupported in the firmware.: Zdalne przełączanie w tryb konfiguracji jest niewspierane przez oprogramowanie sprzętowe urządzenia.
 Error: Błąd
 Error when communicating the server. Try again in a while.: Wystąpił problem w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę.
 Every: Co
@@ -365,7 +366,7 @@ Invalid request: Niepoprawne żądanie
 Inverted logic: Odwrócona logika
 Invisible: Niewidoczne
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Jest możliwe, że inny użytkownik wprowadził przez pomyłkę Twój adres email w celu zresetowania hasła do własnego konta.'
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'W tym trybie urządzenie zacznie rozgłaszać swój własny punkt dostępowy Wi-Fi, którego celem jest umożliwienie konfiguracji urządzenia lub aktualizacja oprogramowania sprzętowego za pomocą smartfona, który połączy się z tą siecią.'
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'W tym trybie urządzenie zacznie rozgłaszać swoją sieć Wi-Fi, którego celem jest umożliwienie konfiguracji urządzenia lub aktualizacja oprogramowania sprzętowego za pomocą smartfona, który połączy się z tą siecią.'
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Pamiętaj, że razem z Twoim kontem usuniemy wszystkie Twoje dane w tym ustawienia, skonfigurowane urządzenia, lokalizacje, harmonogramy i wszystkie inne funkcjonalności oferowane przez SUPLA.'
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Miej na uwadze, że prezentowany przez aplikację opis podanego wyrażenia nie jest idealny, a jedynym jego zadaniem jest pomóc Ci wprowadzić odpowiednią wartość. Nie służy on do sprawdzenia, czy wprowadzona wartość jest poprawna, ani tym bardziej do chwalenia się, że "znalazło się błąd w SUPLI". Po wprowadzeniu zmian sprawdź sekcję "Najbliższe wykonania" w celu potwierdzenia, że podana konfiguracja harmonogramu spełnia Twoje oczekiwania.'
 Language is not available: Język jest niedostępny
@@ -576,6 +577,7 @@ Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
 Set initial values: Ustaw wartości początkowe
 Setting any action on this trigger will disable its local function: Ustawienie tego wyzwaacza spowoduje wyłączenie funkcji urządzenia
+Setting the number of attempts to 1 disables the retrying behavior completely.: 'Ustawienie liczby prób poniżej 2 może skutkować tym, że zamknięcie lub otwarcie nie dojdzie do skutku.'
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
@@ -603,6 +605,7 @@ Subject type: Typ podmiotu
 Success: Sukces
 Successful: Udane
 Supla for devices: Supla na urządzenia
+Switch the device to configuration mode: Przełącz urządzenie w tryb konfiguracyjny
 THIS CANNOT BE UNDONE!: TEJ OPERACJI NIE DA SIĘ COFNĄĆ!
 TLS: TLS
 Temperature: Temperatura
@@ -912,6 +915,5 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Setting the number of attempts to 1 disables the retrying behavior completely.: Ustawienie liczby prób poniżej 2 może skutkować tym, że zamknięcie lub otwarcie nie dojdzie do skutku.
 
 #</editor-fold>

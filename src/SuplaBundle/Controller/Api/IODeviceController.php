@@ -248,10 +248,10 @@ class IODeviceController extends RestController {
             if ($action === 'enterConfigurationMode') {
                 Assertion::true(
                     $ioDevice->isEnterConfigurationModeAvailable(),
-                    'Entering configuration mode is unsupported in the firmware.'
+                    'Entering configuration mode is unsupported in the firmware.' // i18n
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ACTION-ENTER-CONFIGURATION-MODE');
-                Assertion::true($result, 'Could not enter the configuration mode.');
+                Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
             } else {
                 throw new ApiException('Invalid action given.');
             }
