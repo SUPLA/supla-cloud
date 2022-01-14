@@ -886,6 +886,7 @@ The notification marked with a border is the one you saw when you clicked the un
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
 Too many actions in this schedule.: ~
 Unsuccessful login attempt: ~
+'Use the [command] server command to change this account''s limits. For example:': ~
 Value per unit: ~
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~

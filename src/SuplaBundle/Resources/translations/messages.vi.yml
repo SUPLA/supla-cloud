@@ -862,6 +862,7 @@ Turning this device off will cause its channels not working in the following fea
 Turning this device off will result in disabling features listed below.: ~
 Unsuccessful login attempt: ~
 Update in progress: ~
+'Use the [command] server command to change this account''s limits. For example:': ~
 Value per unit: ~
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
