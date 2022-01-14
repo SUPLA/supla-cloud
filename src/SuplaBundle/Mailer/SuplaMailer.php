@@ -21,6 +21,8 @@ use Swift_Mailer;
 use Swift_Message;
 
 class SuplaMailer {
+    private const DEFAULT_FROM_NAME = 'SUPLA';
+
     protected $mailerFrom;
     protected $mailer;
 
@@ -30,8 +32,17 @@ class SuplaMailer {
     }
 
     public function send(Swift_Message $message): bool {
-        $message->setFrom($this->mailerFrom);
+        [$fromAddress, $fromName] = $this->parseFrom();
+        $message->setFrom($fromAddress, $fromName);
         $sent = $this->mailer->send($message);
         return $sent > 0;
+    }
+
+    private function parseFrom(): array {
+        if (preg_match('#(.+)<(.+)>#', $this->mailerFrom, $match)) {
+            return [trim($match[2]), trim($match[1]) ?: self::DEFAULT_FROM_NAME];
+        } else {
+            return [$this->mailerFrom, self::DEFAULT_FROM_NAME];
+        }
     }
 }
