@@ -24,6 +24,7 @@ use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 
 /**
  * @small
@@ -119,7 +120,7 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
     public function testNewClientAppNotification() {
         $parameters = [
             'NULL',
-            "'abc'",
+            "'abcdef'",
             "'My New Ajfon'",
             "INET_ATON('1.1.2.2')",
             "'2.22'",
@@ -138,5 +139,46 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->assertStringContainsString('new client app has been added', $message->getSubject());
         $this->assertStringContainsString('My New Ajfon', $message->getBody());
         $this->assertStringContainsString('2.22', $message->getBody());
+    }
+
+    public function testNewClientAppNotificationBurningInQueue() {
+        $parameters = [
+            'NULL',
+            "'abc'",
+            "'My New Ajfon'",
+            "INET_ATON('1.1.2.2')",
+            "'2.22'",
+            10,
+            $this->user->getId(),
+            'NULL',
+            '@outId',
+        ];
+        $query = 'CALL supla_add_client(' . implode(', ', $parameters) . ')';
+        $this->getEntityManager()->getConnection()->executeQuery($query);
+        $this->assertEquals('My New Ajfon', $this->getEntityManager()->find(ClientApp::class, 1)->getName());
+        $this->executeCommand('supla:cyclic:send-server-messages');
+        TestTimeProvider::setTime('+1 hour'); // waiting long to process the queue for some reason
+        $this->flushMessagesQueue();
+        $this->assertEmpty(TestMailer::getMessages());
+    }
+
+    public function testNewIoDeviceNotificationBurningInSuplaServerProcessing() {
+        $ioDevice = $this->createDeviceSonoff($this->user->getLocations()[0]);
+        $body = json_encode([
+            'template' => UserOptOutNotifications::NEW_IO_DEVICE,
+            'userId' => $this->user->getId(),
+            'data' => ['ioDeviceId' => $ioDevice->getId()],
+        ]);
+        $oneHourAgo = date('Y-m-d H:i:s', strtotime('-1 hour')); // waiting long to process the supla server messages for some reason
+        $this->getEntityManager()->getConnection()->executeQuery(
+            'INSERT INTO supla_email_notifications (body, headers, queue_name, created_at, available_at) ' .
+            "VALUES('$body', '[]', 'supla-server', '$oneHourAgo', '$oneHourAgo')"
+        );
+        $this->flushMessagesQueue();
+        $this->assertCount(0, TestMailer::getMessages());
+        $this->executeCommand('supla:cyclic:send-server-messages');
+        $this->assertCount(0, TestMailer::getMessages());
+        $this->flushMessagesQueue();
+        $this->assertCount(0, TestMailer::getMessages());
     }
 }

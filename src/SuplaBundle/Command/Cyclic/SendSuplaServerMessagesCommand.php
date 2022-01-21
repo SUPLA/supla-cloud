@@ -20,8 +20,12 @@ namespace SuplaBundle\Command\Cyclic;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Message\EmailFromTemplate;
 use SuplaBundle\Message\EmailFromTemplateAsync;
+use SuplaBundle\Message\Emails\NewClientAppEmailNotification;
+use SuplaBundle\Message\Emails\NewIoDeviceEmailNotification;
 use SuplaBundle\Message\UserOptOutNotifications;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -48,7 +52,7 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $messagesQuery = $this->entityManager->getConnection()
-            ->executeQuery('SELECT id, body FROM supla_email_notifications WHERE queue_name = "supla-server" LIMIT 100');
+            ->executeQuery('SELECT id, body, available_at FROM supla_email_notifications WHERE queue_name = "supla-server" LIMIT 100');
         while ($suplaServerMessage = $messagesQuery->fetchAssociative()) {
             $decodedBody = json_decode($suplaServerMessage['body'], true);
             $type = $decodedBody['type'] ?? 'email';
@@ -60,8 +64,10 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
                 $output->writeln($suplaServerMessage['body']);
             } elseif ($type === 'email') {
                 try {
-                    $data = $this->getTemplateData($template, $data, $userId);
-                    $this->messageBus->dispatch(new EmailFromTemplateAsync($template, $userId, $data));
+                    $message = $this->getMessage($template, $data, $userId);
+                    $eventTime = new \DateTime($suplaServerMessage['available_at'], new \DateTimeZone('UTC'));
+                    EntityUtils::setField($message, 'eventTimestamp', $eventTime->getTimestamp());
+                    $this->messageBus->dispatch($message);
                 } catch (\InvalidArgumentException $e) {
                     $output->writeln('<error>Invalid message data.</error>');
                     $output->writeln($suplaServerMessage['body']);
@@ -78,34 +84,20 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
         }
     }
 
-    private function getTemplateData(string $template, array $data, int $userId): array {
+    private function getMessage(string $template, array $data, int $userId): EmailFromTemplate {
         switch ($template) {
             case UserOptOutNotifications::NEW_IO_DEVICE:
                 $ioDevice = $this->entityManager->find(IODevice::class, $data['ioDeviceId'] ?? 0);
                 Assertion::notNull($ioDevice);
                 Assertion::eq($ioDevice->getUser()->getId(), $userId);
-                return [
-                    'device' => [
-                        'id' => $ioDevice->getId(),
-                        'name' => $ioDevice->getName(),
-                        'softwareVersion' => $ioDevice->getSoftwareVersion(),
-                        'regIp' => $ioDevice->getRegIpv4(),
-                    ],
-                ];
+                return new NewIoDeviceEmailNotification($ioDevice);
             case UserOptOutNotifications::NEW_CLIENT_APP:
                 $clientApp = $this->entityManager->find(ClientApp::class, $data['clientAppId'] ?? 0);
                 Assertion::notNull($clientApp);
                 Assertion::eq($clientApp->getUser()->getId(), $userId);
-                return [
-                    'clientApp' => [
-                        'id' => $clientApp->getId(),
-                        'name' => $clientApp->getName(),
-                        'softwareVersion' => $clientApp->getSoftwareVersion(),
-                        'regIp' => $clientApp->getRegIpv4(),
-                    ],
-                ];
+                return new NewClientAppEmailNotification($clientApp);
             default:
-                return $data;
+                return new EmailFromTemplateAsync($template, $userId, $data);
         }
     }
 

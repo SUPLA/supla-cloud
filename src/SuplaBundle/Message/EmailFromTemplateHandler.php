@@ -2,6 +2,7 @@
 
 namespace SuplaBundle\Message;
 
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -17,17 +18,29 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
     private $userRepository;
     /** @var MessageBusInterface */
     private $messageBus;
+    /** @var TimeProvider */
+    private $timeProvider;
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(MessageBusInterface $messageBus, Environment $twig, UserRepository $userRepository, string $defaultLocale) {
+    public function __construct(
+        MessageBusInterface $messageBus,
+        Environment         $twig,
+        UserRepository      $userRepository,
+        TimeProvider        $timeProvider,
+        string              $defaultLocale
+    ) {
         $this->messageBus = $messageBus;
         $this->twig = $twig;
         $this->userRepository = $userRepository;
+        $this->timeProvider = $timeProvider;
         $this->defaultLocale = $defaultLocale;
     }
 
     public function __invoke(EmailFromTemplate $email) {
+        if ($email->isBurnt($this->timeProvider)) {
+            return;
+        }
         if ($email->getUserId()) {
             $user = $this->userRepository->find($email->getUserId());
             if (!$user || in_array($email->getTemplateName(), $user->getPreference('optOutNotifications', []))) {
