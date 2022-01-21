@@ -29,6 +29,7 @@
         </channel-action-chooser>
         <transition-expand>
             <button class="btn btn-default"
+                type="button"
                 v-if="!displaySeparateActionButtons && (actionToExecute.id || executed)"
                 :disabled="!isConnected || executing"
                 @click="executeAction()">
