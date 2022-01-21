@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Model\ParamConverter;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\ParamConverter\IODeviceChannelParamConverter;
 use SuplaBundle\Repository\LocationRepository;
@@ -49,7 +50,7 @@ class IODeviceChannelParamConverterTest extends TestCase {
     }
 
     public function testInvalidFunction() {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(ApiException::class);
         $this->converter->convert(['functionId' => 123]);
     }
 

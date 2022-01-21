@@ -36,4 +36,15 @@ class DefaultControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStringContainsString('supla.local', $content);
         $this->assertStringContainsString('components/schemas/AccessIdentifier', $content);
     }
+
+    public function testGettingApiDocsV24() {
+        $client = $this->createClient();
+        $client->request('GET', '/api-docs/supla-api-docs-2.4.0.yaml');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = $response->getContent();
+        $this->assertStringContainsString('SUPLA Cloud API', $content);
+        $this->assertStringContainsString('supla.local', $content);
+        $this->assertStringContainsString('components/schemas/AccessIdentifier', $content);
+    }
 }
