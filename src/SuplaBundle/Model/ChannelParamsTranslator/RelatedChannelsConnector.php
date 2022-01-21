@@ -117,6 +117,7 @@ class RelatedChannelsConnector implements ChannelParamTranslator {
                     1,
                     [
                         ChannelFunction::ELECTRICITYMETER,
+                        ChannelFunction::IC_ELECTRICITYMETER,
                         ChannelFunction::IC_GASMETER,
                         ChannelFunction::IC_WATERMETER,
                         ChannelFunction::IC_HEATMETER,
@@ -128,6 +129,7 @@ class RelatedChannelsConnector implements ChannelParamTranslator {
                     2,
                     [
                         ChannelFunction::ELECTRICITYMETER,
+                        ChannelFunction::IC_ELECTRICITYMETER,
                         ChannelFunction::IC_GASMETER,
                         ChannelFunction::IC_WATERMETER,
                         ChannelFunction::IC_HEATMETER,
