@@ -11,7 +11,7 @@ class ServiceUnavailableAdminEmailNotification extends EmailFromTemplate impleme
         parent::__construct('admin_service_unavailable', null, ['url' => $url, 'message' => $message]);
     }
 
-    function burnAfterSeconds(): int {
+    public function burnAfterSeconds(): int {
         return 3600;
     }
 }

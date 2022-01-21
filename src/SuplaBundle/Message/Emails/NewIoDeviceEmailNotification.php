@@ -24,7 +24,7 @@ class NewIoDeviceEmailNotification extends EmailFromTemplate implements AsyncMes
         );
     }
 
-    function burnAfterSeconds(): int {
+    public function burnAfterSeconds(): int {
         return 1800;
     }
 }

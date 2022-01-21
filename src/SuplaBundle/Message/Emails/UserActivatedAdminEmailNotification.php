@@ -12,7 +12,7 @@ class UserActivatedAdminEmailNotification extends EmailFromTemplate implements A
         parent::__construct('admin_user_activated', null, ['email' => $user->getEmail()]);
     }
 
-    function burnAfterSeconds(): int {
+    public function burnAfterSeconds(): int {
         return 3600;
     }
 }
