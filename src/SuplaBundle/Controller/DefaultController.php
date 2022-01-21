@@ -57,8 +57,17 @@ class DefaultController extends AbstractController {
      * @Route("/api-docs/docs.html", methods={"GET"})
      * @Template()
      */
-    public function apiDocsAction() {
-        return ['supla_url' => $this->suplaUrl];
+    public function apiDocsAction(Request $request) {
+        return ['supla_url' => $this->suplaUrl, 'yaml_suffix' => ($request->get('v') === '2.4.0' ? '-2.4.0' : '')];
+    }
+
+    /**
+     * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
+     */
+    public function getApiDocsSchemaAction() {
+        $yaml = file_get_contents(\AppKernel::ROOT_PATH . '/config/supla-api-docs.yaml');
+        $yaml = str_replace('https://cloud.supla.org', $this->suplaUrl, $yaml);
+        return new Response($yaml, Response::HTTP_OK, ['Content-Type' => 'application/yaml']);
     }
 
     /**
@@ -72,9 +81,9 @@ class DefaultController extends AbstractController {
      *   flow="authorizationCode", authorizationUrl="https://cloud.supla.org/oauth/v2/auth", tokenUrl="https://cloud.supla.org/oauth/v2/token",
      *   scopes={"accessids_r": "Access Identifiers (Read)", "locations_r": "Locations (Read)"}
      * ))
-     * @Route("/api-docs/supla-api-docs.yaml", methods={"GET"})
+     * @Route("/api-docs/supla-api-docs-2.4.0.yaml", methods={"GET"})
      */
-    public function getApiDocsSchemaAction() {
+    public function getApiDocsSchemaActionV24() {
         $version = $this->getParameter('supla.version');
         $cacheItem = $this->openApiCache->getItem('openApi' . $version);
         if ($cacheItem->isHit() && APPLICATION_ENV === 'prod') {

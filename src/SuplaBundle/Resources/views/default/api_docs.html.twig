@@ -58,7 +58,7 @@
 <script>
     var ui = SwaggerUIBundle({
         dom_id: '#api',
-        url: '{{ supla_url }}/api-docs/supla-api-docs.yaml',
+        url: '{{ supla_url }}/api-docs/supla-api-docs{{ yaml_suffix }}.yaml',
         displayRequestDuration: true,
         tagsSorter: 'alpha',
         oauth2RedirectUrl: '{{ supla_url }}/api-docs/oauth2-redirect.html',
