@@ -1,6 +1,7 @@
 <template>
     <div>
         <button :class="'devices-registration-button btn btn-outline btn-' + (enabledUntil ? 'orange' : 'grey')"
+            type="button"
             @click="toggle()"
             :disabled="saving">
             <table class="table">

@@ -1,6 +1,7 @@
 <template>
     <div class="btn-group btn-group-lg">
         <button class="btn btn-white"
+            type="button"
             v-for="mode in availableModes"
             :key="mode"
             @click="changeMode(mode)"

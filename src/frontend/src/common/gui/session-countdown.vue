@@ -34,7 +34,8 @@
                         id="extend-password">
                     <label for="extend-password">{{ $t('Password') }}</label>
                 </div>
-                <button class="hidden"></button>
+                <button class="hidden"
+                    type="submit"></button>
             </form>
             <div class="alert alert-danger"
                 v-if="error">{{ $t('Incorrect password') }}

@@ -15,6 +15,7 @@
                     <div class="btn-group"
                         v-tooltip="!nextRunDates.length ? $t('Cannot calculate when to run the schedule - incorrect configuration?') : ''">
                         <button class="btn btn-white"
+                            type="submit"
                             :disabled="!nextRunDates.length || nextRunDates.fetching"
                             @click="submit()">
                             <i class="pe-7s-diskette"></i>
@@ -22,6 +23,7 @@
                         </button>
                     </div>
                     <button class="btn btn-green"
+                        type="submit"
                         v-if="schedule.id && schedule.enabled === false"
                         :disabled="!nextRunDates.length || nextRunDates.fetching"
                         @click="submit(true)">

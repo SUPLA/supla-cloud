@@ -25,7 +25,8 @@
                     id="confirm-password">
                 <label for="confirm-password">{{ $t('Confirm Password') }}</label>
             </div>
-            <button class="hidden"></button>
+            <button class="hidden"
+                type="submit"></button>
         </form>
     </modal-confirm>
 </template>

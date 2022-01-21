@@ -18,7 +18,8 @@
                     v-model="selectedNotifications[notification.id]">
                 <span>{{ $t(notification.label) }}</span>
             </label>
-            <button class="hidden"></button>
+            <button class="hidden"
+                type="submit"></button>
         </form>
     </modal-confirm>
 </template>

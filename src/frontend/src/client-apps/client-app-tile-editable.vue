@@ -20,7 +20,7 @@
                         <div>
                             <a @click="assignAccessIds = true">
                                 <span v-if="editingModel.accessId">
-                                    ID{{editingModel.accessId.id}} {{ editingModel.accessId.caption }}
+                                    ID{{ editingModel.accessId.id }} {{ editingModel.accessId.caption }}
                                 </span>
                                 <span v-else>{{ $t('None') }}</span>
                             </a>
@@ -46,6 +46,7 @@
                             {{ $t('Cancel') }}
                         </button>
                         <button class="btn btn-green btn-sm"
+                            type="submit"
                             :disabled="saving">
                             <button-loading-dots v-if="saving"></button-loading-dots>
                             <span v-else>OK</span>

@@ -27,7 +27,8 @@
             </div>
         </div>
         <div class="text-right">
-            <button class="btn btn-green">
+            <button class="btn btn-green"
+                type="submit">
                 {{ $t('Generate token') }}
             </button>
             <button class="btn btn-white"

@@ -13,6 +13,7 @@
                 {{ $t('I do not agree, get me out of here') }}
             </a>
             <button class="btn btn-green"
+                type="submit"
                 @click="agree()">
                 <i class="pe-7s-check"></i>
                 {{ $t('I aree, taske me to the app') }}
