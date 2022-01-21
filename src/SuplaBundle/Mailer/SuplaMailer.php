@@ -33,9 +33,13 @@ class SuplaMailer {
 
     public function send(Swift_Message $message): bool {
         [$fromAddress, $fromName] = $this->parseFrom();
-        $message->setFrom($fromAddress, $fromName);
-        $sent = $this->mailer->send($message);
-        return $sent > 0;
+        if ($fromAddress) {
+            $message->setFrom($fromAddress, $fromName);
+            $sent = $this->mailer->send($message);
+            return $sent > 0;
+        } else {
+            return false;
+        }
     }
 
     private function parseFrom(): array {
