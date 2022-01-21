@@ -3,5 +3,5 @@
 namespace SuplaBundle\Message;
 
 interface BurningMessage {
-    function burnAfterSeconds(): int;
+    public function burnAfterSeconds(): int;
 }

@@ -57,6 +57,21 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
         $message = TestMailer::getMessages()[0];
         $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getBody());
         $this->assertStringContainsString('<a href="mailto:security', $message->getBody());
+        $this->assertStringContainsString('The incident was detected at ' . date('n/j/y'), $message->getBody());
+        $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getBody());
+    }
+
+    public function testSendingFailedAuthAttemptInPolish() {
+        $this->user->setLocale('pl_PL');
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        $handler = $this->handler;
+        $handler(new FailedAuthAttemptEmailNotification($this->user, '1.2.3.4'));
+        $this->assertCount(1, TestMailer::getMessages());
+        $message = TestMailer::getMessages()[0];
+        $this->assertStringContainsString('<b>1.2.3.4</b>', $message->getBody());
+        $this->assertStringContainsString('<a href="mailto:security', $message->getBody());
+        $this->assertStringContainsString('Zdarzenie miało miejsce ' . date('d.m.Y'), $message->getBody());
         $this->assertStringContainsString('account?optOutNotification=failed_auth_attempt', $message->getBody());
     }
 

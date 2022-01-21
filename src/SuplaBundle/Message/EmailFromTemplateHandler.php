@@ -8,6 +8,7 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
+use Twig\Extra\Intl\IntlExtension;
 
 class EmailFromTemplateHandler implements MessageHandlerInterface {
     private const SUBJECT_DELIMITER = '#### SUBJECT-DELIMITER ####';
@@ -32,6 +33,7 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
     ) {
         $this->messageBus = $messageBus;
         $this->twig = $twig;
+        $twig->addExtension(new IntlExtension());
         $this->userRepository = $userRepository;
         $this->timeProvider = $timeProvider;
         $this->defaultLocale = $defaultLocale;
@@ -62,6 +64,9 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
         }
         $data = array_merge($email->getData(), $data);
         $data['templateName'] = $email->getTemplateName();
+        $data['eventTimestamp'] = $email->getEventTimestamp();
+        $timezone = new \DateTimeZone(isset($user) ? $user->getTimezone() : 'UTC');
+        $data['eventTime'] = new \DateTimeImmutable('@' . $email->getEventTimestamp(), $timezone);
         $textRendered = $this->render($email->getTemplateName() . '.txt', $data);
         [$subject, $text] = explode(self::SUBJECT_DELIMITER, $textRendered);
         $html = $this->render($email->getTemplateName() . '.html', $data);

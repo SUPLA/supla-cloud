@@ -10,6 +10,7 @@
 
 {% block body %}
     {% apply paragraph %} {% trans with {'%cloudHost%': cloudHost()} into userLocale %}  This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address. {% endtrans %} {% endapply %}
+    {% apply paragraph %} {% trans with {'%datetime%': eventTime|format_datetime('short', 'short', locale=userLocale)} into userLocale %} The incident was detected at %datetime%. {% endtrans %} {% endapply %}
     {% if ip %}
         {% apply paragraph %} {% trans with {'%ip%': '<b>' ~ ip ~ '</b>'} into userLocale %} The IP used for login is: %ip% {% endtrans %} {% endapply %}
     {% endif %}
@@ -18,4 +19,3 @@
         {% trans with {'%securityEmail%': '<a href="mailto:security@supla.org">security@supla.org</a>'} into userLocale %} If you have doubts or more questions, you can contact us directly at %securityEmail%. {% endtrans %}
     {% endapply %}
 {% endblock %}
-

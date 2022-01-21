@@ -881,6 +881,7 @@ Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
 The counter has been reset.: ~
+The incident was detected at %datetime%.: ~
 'The items below rely on this channel group, so they will be deleted.': ~
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~

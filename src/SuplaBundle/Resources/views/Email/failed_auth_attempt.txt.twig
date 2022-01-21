@@ -12,6 +12,9 @@
 {%  if ip %}
 
 
+{% trans with {'%datetime%': eventTime|format_datetime('short', 'short', locale=userLocale)} into userLocale %} The incident was detected at %datetime%. {% endtrans %}
+
+
 {% trans with {'%ip%': ip} into userLocale %} The IP used for login is: %ip% {% endtrans %}
 {% endif %}
 

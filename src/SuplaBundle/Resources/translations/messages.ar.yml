@@ -834,6 +834,7 @@ The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~
 The gate sensor must function properly in order to execute the Open and Close actions.: ~
+The incident was detected at %datetime%.: ~
 'The items below rely on this channel function, so they will be deleted.': ~
 'The items below rely on this channel group, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
