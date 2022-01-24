@@ -24,10 +24,10 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @OA\Schema(schema="ChannelFunctionActionEnumNames", type="string", example="OPEN", enum={"READ","SET","EXECUTE","GENERIC","OPEN","CLOSE","SHUT","REVEAL","REVEAL_PARTIALLY","SHUT_PARTIALLY","TURN_ON","TURN_OFF","SET_RGBW_PARAMETERS","OPEN_CLOSE","STOP","TOGGLE","OPEN_PARTIALLY","CLOSE_PARTIALLY","UP_OR_STOP","DOWN_OR_STOP","STEP_BY_STEP"})
+ * @OA\Schema(schema="ChannelFunctionActionEnumNames", type="string", example="OPEN", enum={"READ","SET","EXECUTE","GENERIC","OPEN","CLOSE","SHUT","REVEAL","REVEAL_PARTIALLY","SHUT_PARTIALLY","TURN_ON","TURN_OFF","SET_RGBW_PARAMETERS","OPEN_CLOSE","STOP","TOGGLE","OPEN_PARTIALLY","CLOSE_PARTIALLY","UP_OR_STOP","DOWN_OR_STOP","STEP_BY_STEP","COPY","AT_FORWARD_OUTSIDE","AT_DISABLE_LOCAL_FUNCTION"})
  * @OA\Schema(
  *   schema="ChannelFunctionAction", type="object",
- *   @OA\Property(property="id", type="integer", example=10, enum={1000,2000,3000,10000,10,20,30,40,50,51,60,70,80,90,100,110,120,130,140,150,160}),
+ *   @OA\Property(property="id", type="integer", example=10, enum={1000,2000,3000,10000,10,20,30,40,50,51,60,70,80,90,100,110,120,130,140,150,160,10100,10000,10200}),
  *   @OA\Property(property="name", ref="#/components/schemas/ChannelFunctionActionEnumNames"),
  *   @OA\Property(property="caption", type="string", example="Open"),
  * )
@@ -52,12 +52,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction UP_OR_STOP()
  * @method static ChannelFunctionAction DOWN_OR_STOP()
  * @method static ChannelFunctionAction STEP_BY_STEP()
+ * @method static ChannelFunctionAction COPY()
  */
 final class ChannelFunctionAction extends Enum {
     const READ = 1000;
     const SET = 2000;
     const EXECUTE = 3000;
     const GENERIC = 10000;
+
     const OPEN = 10;
     const CLOSE = 20;
     const SHUT = 30;
@@ -75,6 +77,10 @@ final class ChannelFunctionAction extends Enum {
     const UP_OR_STOP = 140;
     const DOWN_OR_STOP = 150;
     const STEP_BY_STEP = 160;
+    const COPY = 10100;
+
+    const AT_FORWARD_OUTSIDE = 10000;
+    const AT_DISABLE_LOCAL_FUNCTION = 10200;
 
     /** @Groups({"basic"}) */
     public function getId(): int {
@@ -118,7 +124,9 @@ final class ChannelFunctionAction extends Enum {
             self::UP_OR_STOP => 'Move up or stop', // i18n
             self::DOWN_OR_STOP => 'Move down or stop', // i18n
             self::STEP_BY_STEP => 'Step by step', // i18n
-            self::GENERIC => 'Generic action', // i18n
+            self::COPY => 'Copy state from other channel', // i18n
+            self::AT_DISABLE_LOCAL_FUNCTION => 'Disable local function', // i18n
+            self::AT_FORWARD_OUTSIDE => 'Publish to integrations', // i18n
         ];
     }
 

@@ -447,7 +447,7 @@ The device is disabled: Het apparaat is uitgeschakeld
 The gate sensor must function properly in order to execute the Open and Close actions.: De poortopeningsensor moet correct werken om de actie Openen of Sluiten uit te voeren.
 The gate sensor must function properly in order to execute the scheduled action.: 'Om de actie uit te voeren, moet de poortopeningssensor correct werken.'
 The latest execution: Laatste uitvoering
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.
 The measurement history has been deleted.: Meetgeschiedenis is verwijderd.
 The next available executions: Komende uitvoering
 The password and its confirm are not the same.: Het wachtwoord en de bevestiging zijn niet hetzelfde.
@@ -734,6 +734,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~

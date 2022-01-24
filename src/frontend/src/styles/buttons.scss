@@ -178,3 +178,11 @@
     }
   }
 }
+
+.btn-group {
+  // with default position: auto bootstrap dropdown appears below the buttons (eg. in schedules in COPY action)
+  position: static;
+  .btn {
+    position: static;
+  }
+}

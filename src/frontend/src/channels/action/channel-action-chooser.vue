@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="possible-action-params"
+        <div class="possible-action-params mb-3"
             v-if="action.id">
             <transition-expand>
                 <div class="well clearfix"
@@ -68,6 +68,13 @@
                         :subject="subject"></digiglass-parameters-setter>
                 </div>
             </transition-expand>
+            <transition-expand>
+                <div v-if="action.name === 'COPY'">
+                    <channels-id-dropdown v-model="param.sourceChannelId"
+                        @input="updateModel()"
+                        :params="`function=${subject.function.id}&skipIds=${(subject.subjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
+                </div>
+            </transition-expand>
         </div>
     </div>
 </template>
@@ -79,9 +86,16 @@
     import Vue from "vue";
     import DigiglassParametersSetter from "./digiglass-parameters-setter";
     import $ from "jquery";
+    import ChannelsIdDropdown from "../../devices/channels-id-dropdown";
 
     export default {
-        components: {DigiglassParametersSetter, RgbwParametersSetter, RoletteShutterPartialPercentage, TransitionExpand},
+        components: {
+            ChannelsIdDropdown,
+            DigiglassParametersSetter,
+            RgbwParametersSetter,
+            RoletteShutterPartialPercentage,
+            TransitionExpand
+        },
         props: ['subject', 'value', 'possibleActionFilter'],
         data() {
             return {

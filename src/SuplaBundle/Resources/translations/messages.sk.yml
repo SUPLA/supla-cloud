@@ -447,7 +447,7 @@ The device is disabled: Zariadenie je vypnuté
 The gate sensor must function properly in order to execute the Open and Close actions.: 'Snímač otvorenia brány musí fungovať správne, ak má vykonať akciu Otvor alebo Zatvor.'
 The gate sensor must function properly in order to execute the scheduled action.: Na vykonanie akcie musí snímač otvorenia brány fungovať správne.
 The latest execution: Posledné vykonanie
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Výsledok vykonania je predstavený formou webovej stránky, pretože ste vy (alebo váš prehliadač) požiadali o odpoveď vo formáte HTML.'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Výsledok vykonania je predstavený formou webovej stránky, pretože ste vy (alebo váš prehliadač) požiadali o odpoveď vo formáte HTML.'
 The measurement history has been deleted.: História meraní bola odstránená.
 The next available executions: Najbližšie vykonania
 The password and its confirm are not the same.: Zadané heslá sa nezhodujú.
@@ -734,6 +734,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~

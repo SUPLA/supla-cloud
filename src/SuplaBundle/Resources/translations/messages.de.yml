@@ -447,7 +447,7 @@ The device is disabled: Das Gerät ist ausgeschaltet
 The gate sensor must function properly in order to execute the Open and Close actions.: Zwecks der Ausführung der Aktion Öffnen oder Schließen muss der Tor-Öffnungssensor einwandfrei funktionieren.
 The gate sensor must function properly in order to execute the scheduled action.: Zwecks der Ausführung einer Aktion muss der Tor-Öffnungssensor einwandfrei funktionieren.
 The latest execution: Letzte Ausführung
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Das Ergebnis wird als Website dargestellt, weil Sie (oder Ihr Browser) um eine Antwort im HTML-Format gebeten haben.'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Das Ergebnis wird als Website dargestellt, weil Sie (oder Ihr Browser) um eine Antwort im HTML-Format gebeten haben.'
 The measurement history has been deleted.: Messverlauf wurde gelöscht.
 The next available executions: die nächsten Ausführungen
 The password and its confirm are not the same.: Das Passwort und seine Bestätigung sind nicht identisch.
@@ -734,6 +734,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~

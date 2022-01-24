@@ -447,7 +447,7 @@ The device is disabled: Thiết bị bị vô hiệu hóa
 The gate sensor must function properly in order to execute the Open and Close actions.: Cảm biến mở cổng phải hoạt động tốt để thực hiện hành động Mở hoặc Đóng.
 The gate sensor must function properly in order to execute the scheduled action.: Cảm biến cổng phải hoạt động đúng để thực hiện hành động theo lịch trình
 The latest execution: Thực thi mới nhất
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Kết quả liên kết được trình bày dưới dạng trang web thay thế, bởi vì bạn (hoặc trình duyệt của bạn) đã yêu cầu đầu ra HTML..'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Kết quả liên kết được trình bày dưới dạng trang web thay thế, bởi vì bạn (hoặc trình duyệt của bạn) đã yêu cầu đầu ra HTML..'
 The measurement history has been deleted.: Lịch sử đo lường đã được xóa.
 The next available executions: Các thực thi có sẵn tiếp theo
 The password and its confirm are not the same.: Mật khẩu và xác nhận không giống nhau.
@@ -734,6 +734,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~

@@ -71,7 +71,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             'caption' => 'My link',
             'subjectType' => 'channel',
             'subjectId' => $this->device->getChannels()[0]->getId(),
-            'allowedActions' => ['turn-on', 'read'],
+            'allowedActions' => ['turn-on', 'read', ChannelFunctionAction::COPY],
         ], $data);
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('POST', '/api/direct-links', $data);
@@ -203,6 +203,17 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('Given verification code is not valid.', $content['messageText']);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+    }
+
+    /** @depends testCreatingDirectLink */
+    public function testExecutingDirectLinkCopyAction(array $directLink) {
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/copy?sourceChannelId=2");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('ACTION-COPY:1,1,1,1,2', $commands);
     }
 
     /** @depends testCreatingDirectLink */

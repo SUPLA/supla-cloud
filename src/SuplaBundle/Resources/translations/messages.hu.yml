@@ -417,7 +417,7 @@ The client will be automatically logged out when deleted.: Az ügyfél eltávol�
 The device is disabled: Az eszköz ki van kapcsolva
 The gate sensor must function properly in order to execute the scheduled action.: A művelet végrehajtásához a kapunyílás-érzékelőnek megfelelően kell működnie.
 The latest execution: Legutóbbi végrehajtás
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'A megvalósítás eredménye weboldalként jelenik meg, mert Ön (vagy a böngészője) HTML formátumban kért választ.'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'A megvalósítás eredménye weboldalként jelenik meg, mert Ön (vagy a böngészője) HTML formátumban kért választ.'
 The measurement history has been deleted.: A mérési előzményeket törölték.
 The next available executions: Legközelebbi végrehajtások
 The password and its confirm are not the same.: A jelszó és a megerősítése nem egyezik.
@@ -697,6 +697,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not contact Autodiscover service. Try again in a while.: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~

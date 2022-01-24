@@ -113,7 +113,12 @@ class IODeviceChannelTest extends TestCase {
         $channel = new IODeviceChannel();
         $channel->setFunction(ChannelFunction::LIGHTSWITCH());
         $functionIds = EntityUtils::mapToIds($channel->getPossibleActions());
-        $this->assertEquals([ChannelFunctionAction::TURN_ON, ChannelFunctionAction::TURN_OFF, ChannelFunctionAction::TOGGLE], $functionIds);
+        $this->assertEquals([
+            ChannelFunctionAction::TURN_ON,
+            ChannelFunctionAction::TURN_OFF,
+            ChannelFunctionAction::TOGGLE,
+            ChannelFunctionAction::COPY,
+        ], $functionIds);
     }
 
     public function testGettingPossibleActionsForRollerShutter() {

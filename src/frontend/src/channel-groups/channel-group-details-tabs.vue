@@ -17,7 +17,11 @@
         </div>
         <div v-if="currentTab == 'actions'">
             <div class="container">
-                <channel-action-executor :subject="channelGroup"></channel-action-executor>
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                        <channel-action-executor :subject="channelGroup"></channel-action-executor>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-if="currentTab == 'schedules'">

@@ -417,7 +417,7 @@ The client will be automatically logged out when deleted.: ستؤدي إزالة
 The device is disabled: الجهاز مغلق
 The gate sensor must function properly in order to execute the scheduled action.: لتنفيذ الإجراء، يجب أن يعمل مستشعر فتح البوابة بشكل صحيح.
 The latest execution: آخر إجراء
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': يتم تقديم نتيجة التنفيذ كموقع ويب لأنك (أو متصفحك) طلبت إجابة بتنسيق HTML.
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': يتم تقديم نتيجة التنفيذ كموقع ويب لأنك (أو متصفحك) طلبت إجابة بتنسيق HTML.
 The measurement history has been deleted.: تم حذف سجل القياسات.
 The next available executions: الاجراءات القادمة
 The password and its confirm are not the same.: كلمة المرور والتأكيد ليست هي نفسها.
@@ -696,6 +696,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not contact Autodiscover service. Try again in a while.: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~

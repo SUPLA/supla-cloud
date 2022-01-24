@@ -417,7 +417,7 @@ The client will be automatically logged out when deleted.: Ștergerea clientului
 The device is disabled: Dispozitivul este oprit
 The gate sensor must function properly in order to execute the scheduled action.: 'Pentru a efectua acțiunea, senzorul de deschidere al porții trebuie să funcționeze corect.'
 The latest execution: Ultima executare
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultatul efectuării este prezentat sub forma unui site web, deoarece dvs. (sau browser-ul dvs.) ați solicitat un răspuns în format HTML.'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Rezultatul efectuării este prezentat sub forma unui site web, deoarece dvs. (sau browser-ul dvs.) ați solicitat un răspuns în format HTML.'
 The measurement history has been deleted.: Istoricul măsurătorilor a fost șters.
 The next available executions: Execuțiile următoare
 The password and its confirm are not the same.: Parola și confirmarea acesteia nu corespund.
@@ -697,6 +697,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not contact Autodiscover service. Try again in a while.: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~

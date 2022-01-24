@@ -174,6 +174,7 @@ Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
 Copy channel state: Powiel stan kanału
+Copy state from other channel: Skopiuj stan z innego kanału
 Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
 Could not enter the configuration mode.: Nie udało się przełączyć urządzenia w tryb konfiguracji.
 Could not reset the password.: Nie udało się zresetować hasła.
@@ -627,10 +628,11 @@ The following items use the channels of these device. These references will be a
 'The following items will be deleted with this device:': Poniższe elementy zostaną również usunięte razem z tym urządzeniem.
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
 The gate sensor must function properly in order to execute the scheduled action.: W celu wykonania akcji czujnik otwarcia bramy musi działać poprawnie.
+The incident was detected at %datetime%.: Zdarzenie miało miejsce %datetime%.
 'The items below rely on this channel function, so they will be deleted.': 'Poniższe elementy bazują na aktualnej funkcji kanału, więc zostaną usunięte po jej zmianie.'
 'The items below rely on this channel group, so they will be deleted.': 'Poniższe elementy korzystają z tej grupy kanałów, więc po jej usunięciu zostaną również usunięte.'
 The latest execution: Ostatnie wykonanie
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Rezultat wykonania jest zaprezentowany jako strona internetowa, ponieważ Ty (lub Twoja przeglądarka) poprosiła o odpowiedź w formacie HTML.'
 The measurement history has been deleted.: Historia pomiarów została usunięta.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: 'Nowe hasło zastąpi to, którego używasz obecnie. Niektóre integracje mogą przestać działać po jego zmianie. Kontynuować?'
 The next available executions: Najbliższe wykonania
@@ -916,6 +918,5 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-The incident was detected at %datetime%.: Zdarzenie miało miejsce %datetime%.
 
 #</editor-fold>

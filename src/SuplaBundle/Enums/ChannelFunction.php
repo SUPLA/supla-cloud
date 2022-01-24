@@ -224,27 +224,44 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
                 ChannelFunctionAction::SHUT_PARTIALLY(),
             ],
-            self::POWERSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
-            self::LIGHTSWITCH => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
-            self::STAIRCASETIMER => [ChannelFunctionAction::TURN_ON(), ChannelFunctionAction::TURN_OFF(), ChannelFunctionAction::TOGGLE()],
-
+            self::POWERSWITCH => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+                ChannelFunctionAction::COPY(),
+            ],
+            self::LIGHTSWITCH => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+                ChannelFunctionAction::COPY(),
+            ],
+            self::STAIRCASETIMER => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+                ChannelFunctionAction::COPY(),
+            ],
             self::DIMMER => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
+                ChannelFunctionAction::COPY(),
             ],
             self::RGBLIGHTING => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
+                ChannelFunctionAction::COPY(),
             ],
             self::DIMMERANDRGBLIGHTING => [
                 ChannelFunctionAction::SET_RGBW_PARAMETERS(),
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
+                ChannelFunctionAction::COPY(),
             ],
             self::THERMOSTAT => [
                 ChannelFunctionAction::TURN_ON(),

@@ -14,7 +14,7 @@
                         <div><code>{{ currentUrl }}?percentage=40</code></div>
                         <div><code>{{ currentUrl }}?percentage=60</code></div>
                     </div>
-                    <div v-if="action == 'SET_RGBW_PARAMETERS'">
+                    <div v-if="action === 'SET_RGBW_PARAMETERS'">
                         <div v-if="['DIMMER', 'DIMMERANDRGBLIGHTING'].indexOf(directLink.subject.function.name) !== -1">
                             <div><code>{{ currentUrl }}?brightness=40</code></div>
                             <div><code>{{ currentUrl }}?brightness=100</code></div>
@@ -26,12 +26,15 @@
                             <div><code>{{ currentUrl }}?color=random</code></div>
                         </div>
                     </div>
-                    <div v-if="action == 'SET'">
+                    <div v-if="action === 'SET'">
                         <div v-if="directLink.subject.function.name.match(/^DIGIGLASS.+/)">
                             <div><code>{{ currentUrl }}?transparent=1,2</code></div>
                             <div><code>{{ currentUrl }}?opaque=2</code></div>
                             <div><code>{{ currentUrl }}?transparent=1,2&opaque=0,3</code></div>
                         </div>
+                    </div>
+                    <div v-if="action === 'COPY'">
+                        <div><code>{{ currentUrl }}?sourceChannelId=123</code></div>
                     </div>
                 </div>
             </div>
@@ -67,7 +70,7 @@
                                 <button :class="'btn btn-' + (allowedAction.executed ? 'success' : 'default')"
                                     :disabled="allowedAction.executing"
                                     type="button"
-                                    v-if="['READ', 'SET_RGBW_PARAMETERS', 'SHUT_PARTIALLY', 'REVEAL_PARTIALLY', 'SET'].indexOf(allowedAction.name) === -1"
+                                    v-if="['READ', 'SET_RGBW_PARAMETERS', 'SHUT_PARTIALLY', 'REVEAL_PARTIALLY', 'SET', 'COPY'].indexOf(allowedAction.name) === -1"
                                     @click="executeAction(allowedAction)">
                                     <span>
                                         <i :class="'pe-7s-' + (allowedAction.executed ? 'check' : 'rocket')"></i>
@@ -98,7 +101,7 @@
             style="max-width: 600px; margin: 0 auto"
             v-if="jsonHintVisible">
             <h3 class="no-margin-top">{{ $t('Where is the JSON?') }}</h3>
-            <p>{{ $t('The link result is presented as a website respone, because you (or your browser) asked for HTML output.') }}</p>
+            <p>{{ $t('The link result is presented as a website response, because you (or your browser) asked for HTML output.') }}</p>
             <p>{{ $t('If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.') }}</p>
             <pre><code>Accept: application/json</code></pre>
             <p>{{ $t('Alternatively, you can add a GET parameter to specify response format.') }}</p>
@@ -149,6 +152,8 @@
                     if (this.directLink.subject.function.name.match(/^DIGIGLASS.+/)) {
                         url += '?transparent=0,2&opaque=1';
                     }
+                } else if (action.nameSlug === 'copy') {
+                    url += '?sourceChannelId=123';
                 }
                 return url;
             }

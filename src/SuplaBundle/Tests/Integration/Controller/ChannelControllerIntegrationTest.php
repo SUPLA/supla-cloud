@@ -67,6 +67,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::RELAY, ChannelFunction::NONE],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
         ]);
         $oauth = self::$container->get(SuplaOAuth2::class);
         $this->peronsalToken = $oauth->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
@@ -254,6 +255,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
                 ['color' => 'random', 'color_brightness' => 58, 'brightness' => 42]],
             [6, 'open', 'SET-CHAR-VALUE:1,1,6,1'],
             [6, 'close', 'SET-CHAR-VALUE:1,1,6,0'],
+            [1, 'copy', 'ACTION-COPY:1,1,1,1,9', ['sourceChannelId' => 9]],
         ];
     }
 

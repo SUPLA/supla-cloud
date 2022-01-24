@@ -34,13 +34,6 @@
             return {
                 availableActions: [
                     {
-                        id: 'copyChannelState',
-                        label: 'Copy channel state', // i18n
-                        description: 'Reads the state from source channel and sets the same in other channel or channel group.', // i18n
-                        icon: 'copy-file',
-                        subjectType: ActionableSubjectType.OTHER,
-                    },
-                    {
                         id: 'disableLocalFunction',
                         label: 'Disable local function', // i18n
                         description: 'Disables local device function and does nothing more.', // i18n

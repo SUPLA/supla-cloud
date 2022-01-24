@@ -500,7 +500,7 @@ The gate sensor must function properly in order to execute the Open and Close ac
 The gate sensor must function properly in order to execute the scheduled action.: 'Per effettuare un’azione programmata, il sensore di apertura del cancello deve funzionare correttamente.'
 'The items below rely on this channel function, so they will be deleted.': Gli elementi di seguito si basano sulle funzioni di questo canale e verranno eliminate.
 The latest execution: Ultima esecuzione
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Il risultato dell`esecuzione è presentato come un sito web, perché la risposta in formato HTML è stata richiesta da te (o dal tuo browser).'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Il risultato dell`esecuzione è presentato come un sito web, perché la risposta in formato HTML è stata richiesta da te (o dal tuo browser).'
 The measurement history has been deleted.: Lo storico delle misurazioni è stato cancellato.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: "La nuova password sostituirà quella precedente. Alcune delle attuali integrazioni\_potrebbero non funzionare. Procedere?"
 The next available executions: Prossime esecuzioni disponibili
@@ -800,6 +800,7 @@ Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 'Device ID: %deviceId%': ~

@@ -17,12 +17,6 @@
                 @input="onActionChange()"
                 v-model="action"></channel-action-chooser>
         </div>
-        <div v-if="subject && subject.subjectType === 'other' && subject.id === 'copyChannelState'">
-            <copy-channel-state-source-target-selector
-                :subject="subject"
-                @input="onActionChange()"
-                v-model="action.param"></copy-channel-state-source-target-selector>
-        </div>
         <button v-if="value"
             type="button"
             class="btn btn-default btn-block mt-3"
@@ -40,11 +34,10 @@
     import ActionTriggerOtherActionsDropdown from "@/channels/action-trigger/action-trigger-other-actions-dropdown";
     import ChannelFunctionAction from "@/common/enums/channel-function-action";
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
-    import CopyChannelStateSourceTargetSelector from "@/channels/action-trigger/copy-channel-state-source-target-selector";
     import {subjectEndpointUrl} from "@/common/utils";
 
     export default {
-        components: {CopyChannelStateSourceTargetSelector, ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
+        components: {ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
         props: ['value', 'trigger', 'channel'],
         data() {
             return {
@@ -105,9 +98,6 @@
                     if (this.action.id === 10000) {
                         const genericActionName = this.action.param?.action;
                         if (genericActionName) {
-                            if (genericActionName === 'copyChannelState') {
-                                return !!this.action.param.sourceChannelId;
-                            }
                             return true;
                         } else {
                             return false;

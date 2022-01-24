@@ -446,7 +446,7 @@ The device is disabled: Įrenginys išjungtas
 The gate sensor must function properly in order to execute the Open and Close actions.: 'Norint įvykdyti veiksmą Atidaryti arba Uždaryti, vartelių atidarymo jutiklis turi veikti tinkamai.'
 The gate sensor must function properly in order to execute the scheduled action.: Kad veiksmas būtų atliktas vartų atidarymo jutiklis turi veikti teisingai.
 The latest execution: Paskutinis atlikimas
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Įvykdymo rezultatas pateikiamas kaip interneto svetainė, nes Tu (arba Tavo naršyklė) paprašei pateikti atsakymą HTML formatu.'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Įvykdymo rezultatas pateikiamas kaip interneto svetainė, nes Tu (arba Tavo naršyklė) paprašei pateikti atsakymą HTML formatu.'
 The measurement history has been deleted.: Matmenų istorija pašalinta.
 The next available executions: Artimiausiais atlikimas
 The password and its confirm are not the same.: Slaptažodis ir jo patvirtinimas nėra identiški.
@@ -734,6 +734,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~

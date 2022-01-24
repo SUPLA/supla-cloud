@@ -447,7 +447,7 @@ The device is disabled: Оборудование выключено
 The gate sensor must function properly in order to execute the Open and Close actions.: 'Датчик открытия ворот должен работать правильно, чтобы выполнить действие Открыть или Закрыть.'
 The gate sensor must function properly in order to execute the scheduled action.: 'Чтобы выполнить задачу, датчик открытия ворот должен работать правильно.'
 The latest execution: Последнее исполнение
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': 'Результат отображается в виде веб-сайта, потому что Вы (или Ваш браузер) запросили ответ в формате HTML.'
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Результат отображается в виде веб-сайта, потому что Вы (или Ваш браузер) запросили ответ в формате HTML.'
 The measurement history has been deleted.: История измерений удалена.
 The next available executions: Ближайшие исполнения
 The password and its confirm are not the same.: Пароль и его подтверждение не совпадают.
@@ -734,6 +734,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~

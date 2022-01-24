@@ -447,7 +447,7 @@ The device is disabled: O dispositivo está desligado
 The gate sensor must function properly in order to execute the Open and Close actions.: O sensor de abertura do portão deve funcionar corretamente para executar a ação Abrir ou Fechar.
 The gate sensor must function properly in order to execute the scheduled action.: Para executar uma ação o sensor da abertura do portão tem de funcionar corretamente.
 The latest execution: Última execução
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': O resultado da implementação é apresentado como um página da internet porque você (ou seu navegador) solicitou uma resposta no formato HTML.
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': O resultado da implementação é apresentado como um página da internet porque você (ou seu navegador) solicitou uma resposta no formato HTML.
 The measurement history has been deleted.: O histórico de medições foi removido.
 The next available executions: Próximas execuções
 The password and its confirm are not the same.: A senha e sua confirmação não são o mesmo.
@@ -734,6 +734,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~

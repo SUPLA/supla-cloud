@@ -447,7 +447,7 @@ The device is disabled: Enheten er av
 The gate sensor must function properly in order to execute the Open and Close actions.: Portåpner sensor må fungere riktig for å utføre handlingen Åpne eller Steng.
 The gate sensor must function properly in order to execute the scheduled action.: For å utføre handlingen må portåpner sensor fungere riktig.
 The latest execution: Utført sist
-'The link result is presented as a website respone, because you (or your browser) asked for HTML output.': Resultat for utførelser er presentert som en nettside siden enten du (eller din søker) ba om svar i HTML format.
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': Resultat for utførelser er presentert som en nettside siden enten du (eller din søker) ba om svar i HTML format.
 The measurement history has been deleted.: Målingshistorie ble fjernet.
 The next available executions: Neste utførelser.
 The password and its confirm are not the same.: Passord og bekreftelse er ikke like.
@@ -734,6 +734,7 @@ Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
 Copy channel state: ~
+Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
 Current Overload: ~
