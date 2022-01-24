@@ -115,9 +115,14 @@
             updateAction() {
                 if (this.value?.id) {
                     if (this.value.id != this.action?.id) {
-                        this.action = this.actionsToShow.find((action) => action.id === this.value.id);
-                        if (this.action) {
+                        const action = this.actionsToShow.find((action) => action.id === this.value.id);
+                        if (action) {
+                            this.action = action;
                             this.param = this.value.param || {};
+                        } else {
+                            this.action = {};
+                            this.param = {};
+                            this.updateModel();
                         }
                         this.updateDropdownOptions();
                     }
@@ -159,7 +164,7 @@
                 Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
             },
             value() {
-                if (this.value && this.action.id && this.value.id !== this.action.id) {
+                if (this.value && this.action?.id && this.value.id !== this.action.id) {
                     this.value.param = {};
                 }
                 this.updateAction();

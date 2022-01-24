@@ -82,11 +82,11 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
         $channelFunctionAction = ChannelFunctionAction::fromString($actionToExecute['id']);
         $actionDefinition = ['subjectType' => $subjectType->getValue()];
         if ($action['subjectType'] === ActionableSubjectType::OTHER) {
-            Assertion::eq($actionToExecute['id'], ChannelFunctionAction::GENERIC);
-            $params = array_intersect_key($actionToExecute['param'] ?? [], ['action' => '']);
-            Assertion::keyExists($params, 'action');
-            Assertion::inArray($params['action'], ['disableLocalFunction', 'publishToIntegrations']);
-            $actionDefinition['action'] = ['id' => ChannelFunctionAction::GENERIC, 'param' => $params];
+            Assertion::inArray(
+                $actionToExecute['id'],
+                [ChannelFunctionAction::AT_DISABLE_LOCAL_FUNCTION, ChannelFunctionAction::AT_FORWARD_OUTSIDE]
+            );
+            $actionDefinition['action'] = ['id' => $actionToExecute['id']];
         } else {
             $user = $this->getCurrentUser();
             Assertion::keyExists($action, 'subjectId');

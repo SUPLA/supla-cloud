@@ -26,6 +26,7 @@
     import "bootstrap-select";
     import "bootstrap-select/dist/css/bootstrap-select.css";
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+    import ChannelFunctionAction from "../../common/enums/channel-function-action";
 
     export default {
         props: ['value', 'filter'],
@@ -34,14 +35,14 @@
             return {
                 availableActions: [
                     {
-                        id: 'disableLocalFunction',
+                        id: ChannelFunctionAction.AT_DISABLE_LOCAL_FUNCTION,
                         label: 'Disable local function', // i18n
                         description: 'Disables local device function and does nothing more.', // i18n
                         icon: 'power',
                         subjectType: ActionableSubjectType.OTHER,
                     },
                     {
-                        id: 'publishToIntegrations',
+                        id: ChannelFunctionAction.AT_FORWARD_OUTSIDE,
                         label: 'Publish to integrations', // i18n
                         description: 'Publishes the event to integrated services like MQTT or webhooks.', // i18n
                         icon: 'speaker',

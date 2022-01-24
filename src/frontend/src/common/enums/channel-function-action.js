@@ -2,7 +2,6 @@ const ChannelFunctionAction = Object.freeze({
     READ: 1000,
     SET: 2000,
     EXECUTE: 3000,
-    GENERIC: 10000,
     OPEN: 10,
     CLOSE: 20,
     SHUT: 30,
@@ -15,6 +14,9 @@ const ChannelFunctionAction = Object.freeze({
     STOP: 100,
     TOGGLE: 110,
     OPEN_PARTIALLY: 120,
+    COPY: 10100,
+    AT_FORWARD_OUTSIDE: 10000,
+    AT_DISABLE_LOCAL_FUNCTION: 10200,
 });
 
 export default ChannelFunctionAction;

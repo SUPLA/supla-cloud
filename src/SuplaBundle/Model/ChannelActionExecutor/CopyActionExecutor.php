@@ -41,7 +41,11 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
         $sourceChannel = $this->subjectRepository
             ->findForUser($subject->getUser(), ActionableSubjectType::CHANNEL, $params['sourceChannelId']);
         Assertion::notNull($sourceChannel, 'Invalid source channel.');
-        Assertion::eq($subject->getFunction()->getId(), $sourceChannel->getFunction()->getId(), 'Source channel must have the same function.');
+        Assertion::eq(
+            $subject->getFunction()->getId(),
+            $sourceChannel->getFunction()->getId(),
+            'Source channel must have the same function.'
+        );
         return $params;
     }
 

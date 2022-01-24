@@ -114,10 +114,20 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
     }
 
-    public function testCanSetGenericAction() {
+    public function testCanSetAtForwardAction() {
         $actions = ['PRESS' => [
             'subjectType' => ActionableSubjectType::OTHER,
-            'action' => ['id' => ChannelFunctionAction::GENERIC, 'param' => ['action' => 'disableLocalFunction']],
+            'action' => ['id' => ChannelFunctionAction::AT_FORWARD_OUTSIDE],
+        ]];
+        $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
+        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->assertEquals($actions, $channel->getUserConfig()['actions']);
+    }
+
+    public function testCanSetAtDisableAction() {
+        $actions = ['PRESS' => [
+            'subjectType' => ActionableSubjectType::OTHER,
+            'action' => ['id' => ChannelFunctionAction::AT_DISABLE_LOCAL_FUNCTION],
         ]];
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
         $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);

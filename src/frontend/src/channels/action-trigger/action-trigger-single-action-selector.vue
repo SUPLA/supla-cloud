@@ -58,8 +58,8 @@
             onValueChanged() {
                 if (this.value?.subjectType) {
                     if (this.value.subjectType === ActionableSubjectType.OTHER) {
-                        if (this.value.action?.param?.action) {
-                            const otherAction = this.value.action.param.action;
+                        if (this.value.action?.id) {
+                            const otherAction = this.value.action.id;
                             this.subject = {id: otherAction, subjectType: ActionableSubjectType.OTHER};
                             this.action = this.value.action;
                         }
@@ -75,10 +75,7 @@
             },
             onSubjectChange() {
                 if (this.subject?.subjectType === ActionableSubjectType.OTHER) {
-                    this.action = {
-                        id: ChannelFunctionAction.GENERIC,
-                        param: {action: this.subject.id},
-                    };
+                    this.action = {id: this.subject.id};
                     this.onActionChange();
                 }
             },
@@ -94,18 +91,7 @@
                 }
             },
             isActionFullySpecified() {
-                if (this.action?.id) {
-                    if (this.action.id === 10000) {
-                        const genericActionName = this.action.param?.action;
-                        if (genericActionName) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-                return false;
+                return this.action?.id;
             },
             clearAction() {
                 this.$emit('input');
@@ -116,7 +102,7 @@
                 return this.channel.config.disablesLocalOperation?.includes(trigger);
             },
             filterOtherActions(action) {
-                return action.id !== 'disableLocalFunction' || this.disablesLocalOperation(this.trigger);
+                return action.id !== ChannelFunctionAction.AT_DISABLE_LOCAL_FUNCTION || this.disablesLocalOperation(this.trigger);
             }
         }
     };
