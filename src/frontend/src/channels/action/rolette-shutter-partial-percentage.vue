@@ -46,6 +46,15 @@
                     return +value;
                 }
             }
-        }
+        },
+        watch: {
+            value() {
+                if (this.value && this.value.percentage === undefined) {
+                    Vue.nextTick(() => this.onChange());
+                } else {
+                    this.percentage = this.value?.percentage || 0;
+                }
+            },
+        },
     };
 </script>
