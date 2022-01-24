@@ -99,8 +99,11 @@
                             <channel-state-table :channel="channel"
                                 v-if="channelFunctionIsChosen && !loading"></channel-state-table>
                             <div v-if="hasActionsToExecute">
-                                <h4 class="mt-3">{{ $t('Execute an action') }}</h4>
-                                <channel-action-executor :subject="channel"></channel-action-executor>
+                                <a class="btn btn-default btn-block btn-wrapped"
+                                    :class="{disabled: hasPendingChanges}"
+                                    @click="executingAction = true">
+                                    {{ $t('Execute an action') }}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -112,6 +115,9 @@
                 :channel="channel"></channel-details-tabs>
 
         </loading-cover>
+
+        <channel-action-executor-modal v-if="executingAction"
+            :subject="channel"></channel-action-executor-modal>
 
         <channel-function-edit-modal v-if="changingFunction"
             :channel="channel"
@@ -151,10 +157,12 @@
     import EventBus from "@/common/event-bus";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
     import ChannelActionExecutor from "@/channels/action/channel-action-executor";
+    import ChannelActionExecutorModal from "./action/channel-action-executor-modal";
 
     export default {
         props: ['id'],
         components: {
+            ChannelActionExecutorModal,
             ChannelActionExecutor,
             DependenciesWarningModal,
             DeviceTile,
@@ -177,6 +185,7 @@
                 loading: false,
                 hasPendingChanges: false,
                 changingFunction: false,
+                executingAction: false,
                 changeFunctionConfirmationObject: undefined
             };
         },

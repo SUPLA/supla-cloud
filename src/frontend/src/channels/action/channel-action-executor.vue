@@ -1,5 +1,11 @@
 <template>
     <div>
+        <div class="flex-left-full-width mb-3">
+            <div>
+                <function-icon :model="subject" width="80"></function-icon>
+            </div>
+            <div class="full pl-2"><h3 class="m-0">{{ subject.caption }}</h3></div>
+        </div>
         <transition-expand>
             <div class="row"
                 v-if="!isConnected">
@@ -61,9 +67,10 @@
     import EventBus from "../../common/event-bus";
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
     import TransitionExpand from "../../common/gui/transition-expand";
+    import FunctionIcon from "../function-icon";
 
     export default {
-        components: {TransitionExpand, ButtonLoadingDots, ChannelActionChooser},
+        components: {FunctionIcon, TransitionExpand, ButtonLoadingDots, ChannelActionChooser},
         props: ['subject'],
         data() {
             return {
@@ -123,6 +130,7 @@
                 return !this.subject.state || this.subject.state.connected;
             },
             displaySeparateActionButtons() {
+                return false;
                 const possibleActions = this.subject?.possibleActions || [];
                 return !!(possibleActions.length <= 3 && !possibleActions.find(this.requiresParams));
             },
@@ -134,15 +142,15 @@
     .possible-actions {
         text-align: center;
         .possible-action {
-            margin: 5px 15px;
-            display: inline-block;
-            .possible-action-params {
-                margin: 5px auto;
-                max-width: 600px;
-            }
-            .btn-grey {
-                margin-left: .5em;
-            }
+            //margin: 5px 15px;
+            //display: inline-block;
+            //.possible-action-params {
+            //    margin: 5px auto;
+            //    max-width: 600px;
+            //}
+            //.btn-grey {
+            //    margin-left: .5em;
+            //}
         }
     }
 </style>

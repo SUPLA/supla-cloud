@@ -1,26 +1,7 @@
 <template>
     <div class="possible-actions">
         <div class="form-group"
-            v-if="actionsToShow.length > 3">
-            <select class="selectpicker possible-actions-picker"
-                ref="dropdown"
-                data-live-search="true"
-                :data-live-search-placeholder="$t('Search')"
-                data-width="100%"
-                :data-none-selected-text="$t('choose the action')"
-                :data-none-results-text="$t('No results match {0}')"
-                data-style="btn-default btn-wrapped"
-                v-model="action"
-                @change="actionChanged()">
-                <option v-for="possibleAction in actionsToShow"
-                    :key="possibleAction.id"
-                    :value="possibleAction">
-                    {{ $t(possibleAction.caption) }}
-                </option>
-            </select>
-        </div>
-        <div class="form-group"
-            v-else-if="actionsToShow.length >= 1">
+            v-if="false">
             <div v-for="possibleAction in actionsToShow"
                 :key="possibleAction.id"
                 class="possible-action">
@@ -43,6 +24,32 @@
             </div>
         </div>
 
+        <div class="btn-group-vertical w-100 mb-3">
+            <button
+                v-for="possibleAction in actionsToShow"
+                :key="possibleAction.id"
+                class="possible-action btn btn-default btn-wrapped"
+                type="button"
+                @click="action = possibleAction"
+            >
+                <slot :possibleAction="possibleAction">
+                    <!--                    <div class="radio"-->
+                    <!--                        v-if="actionsToShow.length > 1">-->
+                    <!--                        <label>-->
+                    <!--                            <input type="radio"-->
+                    <!--                                :value="possibleAction"-->
+                    <!--                                @change="actionChanged()"-->
+                    <!--                                v-model="action">-->
+                    {{ $t(possibleAction.caption) }}
+                    <!--                        </label>-->
+                    <!--                    </div>-->
+                    <!--                    <p v-else-->
+                    <!--                        class="text-center form-group">-->
+                    <!--                        {{ $t(action.caption) }}-->
+                    <!--                    </p>-->
+                </slot>
+            </button>
+        </div>
         <div class="possible-action-params mb-3"
             v-if="action.id">
             <transition-expand>
@@ -76,6 +83,7 @@
                 </div>
             </transition-expand>
         </div>
+
     </div>
 </template>
 
