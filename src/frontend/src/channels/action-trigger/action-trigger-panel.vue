@@ -19,9 +19,9 @@
                                 {{ $t('actionTrigger_' + trigger) }}
                             </a>
                             <div>
-                                <i v-if="disablesLocalOperation(trigger)"
+                                <span v-if="disablesLocalOperation(trigger)"
                                     v-tooltip="$t('Setting any action on this trigger will disable its local function')"
-                                    class="pe-7s-power text-warning text-inherit"></i>
+                                    class="glyphicon glyphicon-off text-inherit"></span>
                             </div>
                         </div>
                     </div>
