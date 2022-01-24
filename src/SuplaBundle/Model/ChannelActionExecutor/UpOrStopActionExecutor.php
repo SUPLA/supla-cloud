@@ -31,7 +31,7 @@ class UpOrStopActionExecutor extends SingleChannelActionExecutor {
         );
         /** @var IODeviceChannel $subject */
         Assertion::true(
-            ChannelFunctionBitsFlags::ROLLER_SHUTTER_START_STOP_ACTIONS()->isSupported(($subject->getFlags())),
+            ChannelFunctionBitsFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()->isSupported(($subject->getFlags())),
             'This action is not supported by the hardware.'
         );
         return parent::validateActionParams($subject, $actionParams);

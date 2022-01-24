@@ -303,10 +303,9 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
      */
     public function getPossibleActions(): array {
         $actions = $this->getFunction()->getDefaultPossibleActions();
-        if ($this->function === ChannelFunction::CONTROLLINGTHEROLLERSHUTTER
-            && ChannelFunctionBitsFlags::ROLLER_SHUTTER_START_STOP_ACTIONS()->isSupported($this->flags)) {
+        if (in_array($this->function, [ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ChannelFunction::CONTROLLINGTHEROOFWINDOW])
+            && ChannelFunctionBitsFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()->isSupported($this->flags)) {
             $actions = array_merge($actions, [
-                ChannelFunctionAction::STOP(),
                 ChannelFunctionAction::UP_OR_STOP(),
                 ChannelFunctionAction::DOWN_OR_STOP(),
                 ChannelFunctionAction::STEP_BY_STEP(),

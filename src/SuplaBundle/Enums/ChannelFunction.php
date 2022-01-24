@@ -219,6 +219,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
                 ChannelFunctionAction::SHUT_PARTIALLY(),
+                ChannelFunctionAction::STOP(),
                 ChannelFunctionAction::COPY(),
             ],
             self::CONTROLLINGTHEROOFWINDOW => [
@@ -226,6 +227,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
                 ChannelFunctionAction::SHUT_PARTIALLY(),
+                ChannelFunctionAction::STOP(),
                 ChannelFunctionAction::COPY(),
             ],
             self::POWERSWITCH => [
