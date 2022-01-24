@@ -152,4 +152,19 @@ class IODeviceChannelTest extends TestCase {
             ChannelFunctionAction::STEP_BY_STEP,
         ], $functionIds);
     }
+
+    public function testAtIsAlwaysHidden() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::ACTION_TRIGGER());
+        $this->assertTrue($channel->getHidden());
+    }
+
+    public function testCantChangeAtHidden() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::ACTION_TRIGGER());
+        $channel->setHidden(true);
+        $this->assertTrue($channel->getHidden());
+        $channel->setFunction(ChannelFunction::THERMOMETER());
+        $this->assertFalse($channel->getHidden());
+    }
 }
