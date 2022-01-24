@@ -206,23 +206,27 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::OPEN(),
                 ChannelFunctionAction::CLOSE(),
                 ChannelFunctionAction::OPEN_CLOSE(),
+                ChannelFunctionAction::COPY(),
             ],
             self::CONTROLLINGTHEGARAGEDOOR => [
                 ChannelFunctionAction::OPEN(),
                 ChannelFunctionAction::CLOSE(),
                 ChannelFunctionAction::OPEN_CLOSE(),
+                ChannelFunctionAction::COPY(),
             ],
             self::CONTROLLINGTHEROLLERSHUTTER => [
                 ChannelFunctionAction::SHUT(),
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
                 ChannelFunctionAction::SHUT_PARTIALLY(),
+                ChannelFunctionAction::COPY(),
             ],
             self::CONTROLLINGTHEROOFWINDOW => [
                 ChannelFunctionAction::SHUT(),
                 ChannelFunctionAction::REVEAL(),
                 ChannelFunctionAction::REVEAL_PARTIALLY(),
                 ChannelFunctionAction::SHUT_PARTIALLY(),
+                ChannelFunctionAction::COPY(),
             ],
             self::POWERSWITCH => [
                 ChannelFunctionAction::TURN_ON(),

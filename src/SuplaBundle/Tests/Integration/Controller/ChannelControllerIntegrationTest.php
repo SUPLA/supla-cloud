@@ -151,7 +151,16 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(2, $content);
+        $this->assertCount(3, $content);
+    }
+
+    public function testFilteringBySkipIds() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?skipIds=1,2,3,4');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(5, $content);
     }
 
     public function testFilteringByInput() {
@@ -603,12 +612,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('TURN_ON', $trigger->getUserConfig()['actions']);
     }
 
-    public function testSettingConfigWithGenericActionForActionTrigger() {
+    public function testSettingConfigWithAtActionForActionTrigger() {
         $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
         $trigger = $anotherDevice->getChannels()[2];
         $actions = ['TURN_ON' => [
             'subjectType' => ActionableSubjectType::OTHER,
-            'action' => ['id' => ChannelFunctionAction::GENERIC, 'param' => ['action' => 'publishToIntegrations']]]];
+            'action' => ['id' => ChannelFunctionAction::AT_FORWARD_OUTSIDE]]];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
         $this->assertStatusCode(200, $client->getResponse());

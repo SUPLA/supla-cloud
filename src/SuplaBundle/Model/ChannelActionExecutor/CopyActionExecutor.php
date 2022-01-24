@@ -19,6 +19,10 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
 
     public function getSupportedFunctions(): array {
         return [
+            ChannelFunction::CONTROLLINGTHEGARAGEDOOR(),
+            ChannelFunction::CONTROLLINGTHEGATE(),
+            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER(),
+            ChannelFunction::CONTROLLINGTHEROOFWINDOW(),
             ChannelFunction::POWERSWITCH(),
             ChannelFunction::LIGHTSWITCH(),
             ChannelFunction::STAIRCASETIMER(),

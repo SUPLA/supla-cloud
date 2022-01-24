@@ -130,6 +130,7 @@ class IODeviceChannelTest extends TestCase {
             ChannelFunctionAction::REVEAL,
             ChannelFunctionAction::REVEAL_PARTIALLY,
             ChannelFunctionAction::SHUT_PARTIALLY,
+            ChannelFunctionAction::COPY,
         ], $functionIds);
     }
 
@@ -143,6 +144,7 @@ class IODeviceChannelTest extends TestCase {
             ChannelFunctionAction::REVEAL,
             ChannelFunctionAction::REVEAL_PARTIALLY,
             ChannelFunctionAction::SHUT_PARTIALLY,
+            ChannelFunctionAction::COPY,
             ChannelFunctionAction::STOP,
             ChannelFunctionAction::UP_OR_STOP,
             ChannelFunctionAction::DOWN_OR_STOP,
