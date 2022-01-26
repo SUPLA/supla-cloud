@@ -213,6 +213,7 @@ Go to I/O device details: Aller aux détails du dispositif
 Go to channel details: Aller aux détails de la chaîne
 Go to your account: Accéder à mon compte
 Grant access: Accorder l'accès
+Guru Meditation: Guru Meditation
 HFD4 Relay: Relais HFD4
 Heat meter: Compteur de chaleur
 History of measurements: Historique de mesures
@@ -548,7 +549,6 @@ choose the channel group: choisissez le groupe de chaînes
 choose the timezone: choisissez le fuseau horaire
 copied: copié
 copy: copier
-daily: Cycle par jours
 directLinkExecutionFailureReason_disabled: Le lien direct est désactivé
 directLinkExecutionFailureReason_executionLimitExceeded: La limite d'applications a été dépassée
 directLinkExecutionFailureReason_expired: Le lien direct n'est plus actif
@@ -566,9 +566,7 @@ executed: exécuté
 extend: prolongez
 from IP: avec l'adresse IP
 from the IP: de l’adresse
-minutely: Cycle par minutes
 minutes: minutes
-once: unique
 password: mot de passe
 register-slide1-text: 'Basée sur l''équipement électronique disponible, SUPLA vous permet de construire des simples modules avec qui vous pouvez gérer et contrôler les composant d''automatisation dans votre bâtiment. Grâce à SUPLA vous pouvez entre autres gérer l''éclairage, allumer et éteindre vos équipements ménager, ouvrir/fermer porte et portails ou bien contrôler la température ambiante. Tout cela vous pouvez faire en un seul click sur l''écran.'
 register-slide1-title: Développez votre Propre Bâtiment Intelligent
@@ -577,6 +575,9 @@ register-slide2-title: SUPLA est partout!
 register-slide3-text: 'Les systèmes d''automatisation bâtiment disponibles sur le marché, sont d''habitude très complexes, fermé et chers. Dans des nombreux cas ils exigent d''être installés déjà à l''étape de construction. SUPLA est simple, ouverte et gratuite. Elle permet de construire des composants pour systèmes d''actionnement à partir de plateforme RaspberryPl, Arduino ou bien ESP8266 et de les connecter au réseau LAN et Wifi. Rejoignez le projet et construisez votre propre version do système d''automatisation bâtiment!'
 register-slide3-title: BGratuite et ouverte!
 reset chart view: réinitialisez la vue du graphique
+scheduleMode_daily: Cycle par jours
+scheduleMode_minutely: Cycle par minutes
+scheduleMode_once: unique
 sec.: secondes
 'smartphones, tablets, etc.': 'smartphones, tablettes, etc.'
 state-closed: Fermé
@@ -688,7 +689,6 @@ Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-And set the same state for: ~
 'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
@@ -733,7 +733,6 @@ Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy channel state: ~
 Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
@@ -762,8 +761,6 @@ Feature limits: ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
-Generic action: ~
-Guru Meditation: ~
 Host: ~
 Icon: ~
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
@@ -816,8 +813,6 @@ Precision: ~
 Protocol: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
-Read the following channel's state: ~
-Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
@@ -898,7 +893,6 @@ actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
 choose the action: ~
 choose the scene: ~
-crontab: ~
 days: ~
 empty: ~
 hours: ~
@@ -906,6 +900,7 @@ min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
+scheduleMode_crontab: ~
 suffix: ~
 '{minutes} minutes after sunrise': ~
 '{minutes} minutes after sunset': ~

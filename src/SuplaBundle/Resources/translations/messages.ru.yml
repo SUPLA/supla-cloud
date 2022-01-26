@@ -213,6 +213,7 @@ Go to I/O device details: Перейти к подробной информац�
 Go to channel details: Перейти к подробной информации канала
 Go to your account: Перейди в свой аккаунт
 Grant access: Предоставить доступ
+Guru Meditation: Guru Meditation
 HFD4 Relay: Реле HFD4
 Heat meter: Теплосчетчик
 History of measurements: История измерений
@@ -548,7 +549,6 @@ choose the channel group: выбрать группу каналов
 choose the timezone: выбрать часовой пояс
 copied: скопировано
 copy: копировать
-daily: Дневной цикл
 directLinkExecutionFailureReason_disabled: Прямая ссылка отключена
 directLinkExecutionFailureReason_executionLimitExceeded: Лимит исполнений превышен
 directLinkExecutionFailureReason_expired: Прямая ссылка просрочена
@@ -566,9 +566,7 @@ executed: выполнено
 extend: Продолжить
 from IP: c IP
 from the IP: с адреса
-minutely: Ежеминутный цикл
 minutes: Минут
-once: Одноразовый
 password: пароль
 register-slide1-text: 'С помощью простой и доступной электроники с помощью SUPLA можно создать устройства управляющие домашней автоматикой. Двери, роллеты, гаражные ворота и калитки, розетки и лампочкм, бытовая тезника и контроль температуры станут подвластны простому прикосновению пальца.'
 register-slide1-title: Разработай собственную домашнюю автоматику
@@ -577,6 +575,9 @@ register-slide2-title: SUPLA везде!
 register-slide3-text: 'Системы Умного Дома зачастую слишком сложны и требуют монтажа во время строительства. SUPLA проста и бесплатна. Возможно построение элементов на платформах RaspberryPI, Arduino а также ESP8266 объединяя их с помощью LAN или WiFi. Присоединяйтесь к нам и постройте собственную систему автоматики своего здания!'
 register-slide3-title: Бесплатно и с открыто дляя всех!
 reset chart view: вернуться к первоначальному виду
+scheduleMode_daily: Дневной цикл
+scheduleMode_minutely: Ежеминутный цикл
+scheduleMode_once: Одноразовый
 sec.: сек.
 'smartphones, tablets, etc.': 'смартфоны, планшеты и т.д.'
 state-closed: Закрыто
@@ -688,7 +689,6 @@ Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-And set the same state for: ~
 'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
@@ -733,7 +733,6 @@ Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy channel state: ~
 Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
@@ -762,8 +761,6 @@ Feature limits: ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
-Generic action: ~
-Guru Meditation: ~
 Host: ~
 Icon: ~
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
@@ -816,8 +813,6 @@ Precision: ~
 Protocol: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
-Read the following channel's state: ~
-Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
@@ -898,7 +893,6 @@ actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
 choose the action: ~
 choose the scene: ~
-crontab: ~
 days: ~
 empty: ~
 hours: ~
@@ -906,6 +900,7 @@ min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
+scheduleMode_crontab: ~
 suffix: ~
 '{minutes} minutes after sunrise': ~
 '{minutes} minutes after sunset': ~

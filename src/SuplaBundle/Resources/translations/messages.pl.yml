@@ -54,7 +54,6 @@ Allowed actions: Dozwolone akcje
 Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykonanie akcji tylko przy użyciu żądania HTTP PATCH.
 'Alternatively, you can add a GET parameter to specify response format.': Możesz również dodać parametr GET by określić format odpowiedzi.
 And more: I znacznie więcej
-And set the same state for: i ustaw taki sam stan dla
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Wszystkie aplikacje lub urządzenia, które korzystają z tokenu {tokenName} przestaną działać.'
 'App version: %clientAppSoftwareVersion%': 'Wersja aplikacji: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Nazwa aplikacji nie może być pusta
@@ -173,7 +172,6 @@ Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Id
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
-Copy channel state: Powiel stan kanału
 Copy state from other channel: Skopiuj stan z innego kanału
 Could not contact Autodiscover service. Try again in a while.: Nie można skontaktować się z usługą rejestracji. Spróbuj ponownie za chwilę.
 Could not enter the configuration mode.: Nie udało się przełączyć urządzenia w tryb konfiguracji.
@@ -301,7 +299,6 @@ General purpose measurement: Ogólny kanał pomiarowy
 Generate new password: Wygeneruj nowe hasło
 Generate new token: Generuj nowy token
 Generate token: Generuj token
-Generic action: Inna akcja
 Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
 Go to I/O device details: Przejdź do szczegółów urządzenia
 Go to channel details: Przejdź do szczegółów kanału
@@ -505,8 +502,6 @@ RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
 Random: Losowy
 Read: Odczyt
-Read the following channel's state: Odczytaj stan poniższego kanału
-Reads the state from source channel and sets the same in other channel or channel group.: Odczytuje stan wskazanego kanału i ustawia taki sam stan dla wybranego kanału lub grupy.
 Refresh: Odśwież
 Regeneration starts at: Początek regeneracji
 Register: Rejestruj
@@ -777,8 +772,6 @@ choose the scene: wybierz scenę
 choose the timezone: wybierz strefę czasową
 copied: skopiowano
 copy: kopiuj
-crontab: Zaawansowany
-daily: Tydzień
 days: dni
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
@@ -800,9 +793,7 @@ from IP: z adresu IP
 from the IP: z adresu
 hours: godziny
 min.: min.
-minutely: Interwał
 minutes: minut
-once: Jeden raz
 or add a delay: lub dodaj opóźnienie
 password: hasło
 prefix: prefiks
@@ -814,6 +805,10 @@ register-slide3-text: 'Dostępne na rynku systemy automatyki budynkowej są zazw
 register-slide3-title: Bezpłatna i otwarta!
 reset chart view: wróć do początkowego widoku
 scene: scena
+scheduleMode_crontab: Zaawansowany
+scheduleMode_daily: Tydzień
+scheduleMode_minutely: Interwał
+scheduleMode_once: Jeden raz
 sec.: sek.
 'smartphones, tablets, etc.': 'smartfony, tablety itp.'
 state-closed: Zamknięte
@@ -858,6 +853,7 @@ Access identifier password must be no longer than 32 characters.: Hasło dla ide
 Action: Akcja
 Actions: Akcje
 Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: Rzeczywiste zachowanie wyzwalacza zależy od używanego urządzenia i jego konfiguracji. Opisy pod spodem są tylko przykładami jak urządzenie może działać.
+And set the same state for: i ustaw taki sam stan dla
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
@@ -866,6 +862,7 @@ Channel will be deleted from the channel group below: Kanał zostanie usunięty 
 Channels in channel group: Kanały w grupach kanałów
 Chosen hour: Wybrana godzina
 'Confirm if you want to remove {deviceName} device': 'Potwierdź chęć usunięcia urządzenia {deviceName}'
+Copy channel state: Powiel stan kanału
 Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
 DISABLED: WYŁĄCZONE
 Date: Data
@@ -876,6 +873,7 @@ ENABLED: WŁĄCZONE
 Email already exists: Adres e-mail już istnieje
 Existing schedules: Istniejące harmonogramy
 Fridays: Piątki
+Generic action: Inna akcja
 Hi: Cześć
 Hour: Godzina
 Hours: Godziny
@@ -894,6 +892,8 @@ No current API usages: Brak bieżących żądań API
 Number: Numer
 Output: Wyjście
 Please select the schedules that should also be enabled.: 'Zaznacz harmonogramy, które także powinny zostać włączone.'
+Read the following channel's state: Odczytaj stan poniższego kanału
+Reads the state from source channel and sets the same in other channel or channel group.: Odczytuje stan wskazanego kanału i ustawia taki sam stan dla wybranego kanału lub grupy.
 Registration: Rejestracja
 Remaining: Pozostało
 Remove: Usuń

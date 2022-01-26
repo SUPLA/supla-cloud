@@ -213,6 +213,7 @@ Go to I/O device details: Ir para as especificações do dispositivo
 Go to channel details: Ir para as especificações do canal
 Go to your account: Passe para a sua conta
 Grant access: Conceder acesso
+Guru Meditation: Guru Meditation
 HFD4 Relay: Relé HFD4
 Heat meter: Medidor de calor
 History of measurements: Histórico de medições
@@ -548,7 +549,6 @@ choose the channel group: selecione o grupo de canais
 choose the timezone: escolha um fuso horário
 copied: copiado
 copy: copiar
-daily: Ciclo diário
 directLinkExecutionFailureReason_disabled: O link direto está desativado
 directLinkExecutionFailureReason_executionLimitExceeded: O limite de execuções foi excedido
 directLinkExecutionFailureReason_expired: O link direto está desatualizado
@@ -566,9 +566,7 @@ executed: realizado
 extend: prolongue o tempo de sessão
 from IP: desde o endereço IP
 from the IP: a partir do endereço
-minutely: Ciclo de minutos
 minutes: minutos
-once: Pontual
 password: senha
 register-slide1-text: 'Baseando-se na eletrónica disponível, SUPLA permite-lhe construir módulos simples que servem para comandar e controlar os elementos da automática construtiva. Graças a SUPLA pode comandar a iluminação, ligar/desligar os eletrodomésticos, de rádio e televisão, abrir/fechar portas e portões ou controlar a temperatura dos quartos. Tudo isso pode fazer com um só toque do dedo.'
 register-slide1-title: O seu próprio edifício inteligente
@@ -577,6 +575,9 @@ register-slide2-title: SUPLA por toda a parte!
 register-slide3-text: 'Normalmente os sistemas de automática construtiva disponíveis no mercado são muito complexos, fechados e caros. Em muitos casos requerem uma instalação já em curso da construção de um edifício. SUPLA é simples, aberta e grátis. Permite construir os elementos de execução baseando-se nas plataformas RaspberryPI, Arduino ou ESP8266 e combiná-los usando a rede LAN e WiFi. Junte-se ao projeto e construa a sua própria versão do sistema da automática construtiva!'
 register-slide3-title: Aberta e grátis!
 reset chart view: retornar à página inicial
+scheduleMode_daily: Ciclo diário
+scheduleMode_minutely: Ciclo de minutos
+scheduleMode_once: Pontual
 sec.: s.
 'smartphones, tablets, etc.': 'smartphones, tablets, etc.'
 state-closed: Fechado
@@ -688,7 +689,6 @@ Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-And set the same state for: ~
 'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
@@ -733,7 +733,6 @@ Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy channel state: ~
 Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
@@ -762,8 +761,6 @@ Feature limits: ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
-Generic action: ~
-Guru Meditation: ~
 Host: ~
 Icon: ~
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
@@ -816,8 +813,6 @@ Precision: ~
 Protocol: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
-Read the following channel's state: ~
-Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
@@ -898,7 +893,6 @@ actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
 choose the action: ~
 choose the scene: ~
-crontab: ~
 days: ~
 empty: ~
 hours: ~
@@ -906,6 +900,7 @@ min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
+scheduleMode_crontab: ~
 suffix: ~
 '{minutes} minutes after sunrise': ~
 '{minutes} minutes after sunset': ~

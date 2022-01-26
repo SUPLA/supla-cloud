@@ -10,7 +10,7 @@
                 <h3>{{ caption }}</h3>
             </div>
             <dl>
-                <dd>{{ $t(model.mode) }}</dd>
+                <dd>{{ $t(`scheduleMode_${model.mode}`) }}</dd>
                 <dt></dt>
                 <dd>{{ scheduleLabel }}</dd>
                 <dt></dt>

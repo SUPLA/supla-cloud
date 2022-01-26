@@ -52,7 +52,7 @@
                                 </dl>
                                 <dl>
                                     <dd>{{ $t('Mode') }}</dd>
-                                    <dt>{{ $t(schedule.mode) }}</dt>
+                                    <dt>{{ $t(`scheduleMode_${schedule.mode}`) }}</dt>
                                     <dd>{{ $t('Start date') }}</dd>
                                     <dt>{{ schedule.dateStart | moment('LLL') }}</dt>
                                 </dl>

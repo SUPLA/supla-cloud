@@ -213,6 +213,7 @@ Go to I/O device details: Pojdite na podrobnosti o napravi
 Go to channel details: Pojdite na podrobnosti kanala
 Go to your account: Pojdite na svoj račun
 Grant access: Odobrite dostop
+Guru Meditation: Guru Meditation
 HFD4 Relay: HFD4 rele
 Heat meter: Merilnik toplote
 History of measurements: Zgodovina meritev
@@ -548,7 +549,6 @@ choose the channel group: Izberite skupino kanalov
 choose the timezone: Izberite časovni pas
 copied: Kopirano
 copy: Kopirajte
-daily: Dnevni cikel
 directLinkExecutionFailureReason_disabled: Neposredna povezava je izklopljena
 directLinkExecutionFailureReason_executionLimitExceeded: Omejitev izvedb je bila presežena
 directLinkExecutionFailureReason_expired: Neposredna povezava je potekla
@@ -566,9 +566,7 @@ executed: opravljeno
 extend: podaljšajte
 from IP: z naslova IP
 from the IP: z naslova
-minutely: Minutni cikel
 minutes: minut
-once: Enkraten
 password: geslo
 register-slide1-text: 'Na podlagi razpoložljive elektronike vam bo SUPLA omogočila izdelavo preprostih modulov, ki zagotavljajo nadzor in kontrolo komponent za avtomatizacijo zgradb. Zahvaljujoč SUPLI lahko med drugim nadzorujete osvetlitev, vklopite in izklopite gospodinjske aparate in elektroniko, odprete in zaprete dvoriščna vrata in vrata ali nadzorujete temperaturo v prostorih. Vse to lahko storite z enim premikom prsta.'
 register-slide1-title: Lastna inteligentna zgradba
@@ -577,6 +575,9 @@ register-slide2-title: SUPLA povsod!
 register-slide3-text: 'Sistemi za avtomatizacijo zgradb, ki so na voljo na tržišču, so ponavadi zelo zapleteni, zaprti in dragi. V mnogih primerih zahtevajo namestitev že v fazi gradnje objekta. SUPLA je preprosta, odprta in brezplačna. Omogoča gradnjo izvršilnih elementov, ki temeljijo na platformah RaspberryPI, Arduino ali ESP8266, in njihovo povezovanje z uporabo mreže LAN in WiFi. Pridružite se projektu in ustvarite svojo različico sistema avtomatizacije stavb!'
 register-slide3-title: Brezplačna in odprta!
 reset chart view: vrni se na začeten pogled
+scheduleMode_daily: Dnevni cikel
+scheduleMode_minutely: Minutni cikel
+scheduleMode_once: Enkraten
 sec.: sek.
 'smartphones, tablets, etc.': 'pametni telefoni, tablice itp.'
 state-closed: Zaprto
@@ -688,7 +689,6 @@ Add new item to use in the scene: ~
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-And set the same state for: ~
 'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
@@ -733,7 +733,6 @@ Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy channel state: ~
 Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
@@ -762,8 +761,6 @@ Feature limits: ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
-Generic action: ~
-Guru Meditation: ~
 Host: ~
 Icon: ~
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
@@ -816,8 +813,6 @@ Precision: ~
 Protocol: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
-Read the following channel's state: ~
-Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
@@ -898,7 +893,6 @@ actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
 choose the action: ~
 choose the scene: ~
-crontab: ~
 days: ~
 empty: ~
 hours: ~
@@ -906,6 +900,7 @@ min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
+scheduleMode_crontab: ~
 suffix: ~
 '{minutes} minutes after sunrise': ~
 '{minutes} minutes after sunset': ~

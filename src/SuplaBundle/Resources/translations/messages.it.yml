@@ -234,6 +234,7 @@ Go to I/O device details: Vai ai dettagli del dispositivo I/O
 Go to channel details: Vai ai dettagli del canale
 Go to your account: Vai al Tuo account
 Grant access: Concedi l’accesso
+Guru Meditation: Guru Meditation
 HFD4 Relay: Relè HFD4
 Heat meter: Contatore di calore
 History of measurements: Storia delle misurazioni
@@ -631,7 +632,6 @@ choose the channel group: seleziona il gruppo dei canali
 choose the timezone: seleziona il fusorario
 copied: copiato
 copy: copia
-daily: Ogni giorno
 directLinkExecutionFailureReason_disabled: Il link diretto è disabilitato
 directLinkExecutionFailureReason_executionLimitExceeded: l limite delle esecuzioni è stato superato.
 directLinkExecutionFailureReason_expired: Il link diretto è scaduto.
@@ -649,9 +649,7 @@ executed: eseguito
 extend: prolunga la durata
 from IP: dall’indirizzo IP
 from the IP: dall’indirizzo
-minutely: Ogni minuto
 minutes: minuti
-once: Una sola volta
 password: password
 register-slide1-text: 'Basandosi sull’elettronica disponibile, SUPLA Ti renderà possibile la costruzione di moduli semplici che permettono di gestire e controllare gli elementi dell’automazione degli edifici. Grazie a SUPLA puoi ad esempio controllare l’illuminazione, accendere e spegnere gli elettrodomestici, aprire e chiudere i cancelli e le porte oppure monitorare la temperatura nei locali.  Basta solo un tocco del dito.'
 register-slide1-title: Tuo edificio intelligente
@@ -660,6 +658,9 @@ register-slide2-title: SUPLA dappertutto!
 register-slide3-text: 'I sistemi di automazione disponibili sul mercato sono di solito molto complessi, chiusi e costosi. In molti casi richiedono l’installazione già in fase della creazione dell’oggetto. SUPLA è semplice, aperta e gratuita. Permette di creare gli elementi esecutivi in base alle piattaforme RaspberryPI, Arduino oppure ESP8266 e di unirli avvalendosi della rete LAN e WIFI. UnisciTi al progetto e crea la Tua versione del sistema per l’automazione degli edifici!'
 register-slide3-title: Gratuita e aperta!
 reset chart view: torni alla vista iniziale
+scheduleMode_daily: Ogni giorno
+scheduleMode_minutely: Ogni minuto
+scheduleMode_once: Una sola volta
 sec.: Sec.
 'smartphones, tablets, etc.': 'smartphone, tablet ecc.'
 state-closed: Chiuso
@@ -766,7 +767,6 @@ Add new item to use in the scene: ~
 'After the device enters the configuration mode, it will not be accessible on your account.': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-And set the same state for: ~
 'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
@@ -799,7 +799,6 @@ Close partially: ~
 Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
-Copy channel state: ~
 Copy state from other channel: ~
 Could not enter the configuration mode.: ~
 Create new scene: ~
@@ -824,8 +823,6 @@ Execute the scene: ~
 Feature limits: ~
 Forward active energy balanced: ~
 General purpose measurement: ~
-Generic action: ~
-Guru Meditation: ~
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
 'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
@@ -857,8 +854,6 @@ Please confirm your SUPLA account.: ~
 Precision: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
-Read the following channel's state: ~
-Reads the state from source channel and sets the same in other channel or channel group.: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
 Reset Your Password: ~
@@ -898,7 +893,6 @@ Your preferences has been updated.: ~
 actionableSubjectType_scene: ~
 choose the action: ~
 choose the scene: ~
-crontab: ~
 days: ~
 empty: ~
 hours: ~
@@ -906,6 +900,7 @@ min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
+scheduleMode_crontab: ~
 suffix: ~
 '{minutes} minutes after sunrise': ~
 '{minutes} minutes after sunset': ~

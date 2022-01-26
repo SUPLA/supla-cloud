@@ -6,7 +6,7 @@
             :key="mode"
             @click="changeMode(mode)"
             :class="{'active btn-green': mode === value}">
-            {{ $t(mode) }}
+            {{ $t(`scheduleMode_${mode}`) }}
         </button>
     </div>
 </template>
@@ -17,12 +17,8 @@
         props: ['value'],
         data() {
             return {
-                availableModes: [
-                    'daily', // i18n
-                    'minutely', // i18n
-                    'once', // i18n
-                    'crontab', // i18n
-                ]
+                // i18n:['scheduleMode_daily', 'scheduleMode_minutely', 'scheduleMode_once', 'scheduleMode_crontab']
+                availableModes: ['daily', 'minutely', 'once', 'crontab'],
             };
         },
         methods: {

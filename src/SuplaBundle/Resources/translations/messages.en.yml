@@ -59,6 +59,10 @@ register-slide2-text: 'One of the main assumptions of this project is simplicity
 register-slide2-title: SUPLA everywhere!
 register-slide3-text: 'Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!'
 register-slide3-title: Free of charge and open!
+scheduleMode_crontab: Advanced (crontab)
+scheduleMode_daily: Week
+scheduleMode_minutely: Interval
+scheduleMode_once: Once
 state-closed: Closed
 state-default: Default
 state-empty: Empty

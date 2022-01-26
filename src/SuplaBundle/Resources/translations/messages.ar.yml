@@ -202,6 +202,7 @@ Go to I/O device details: انتقل إلى تفاصيل الجهاز
 Go to channel details: انتقل إلى تفاصيل القناة
 Go to your account: انتقل إلى حسابك
 Grant access: منح الوصول
+Guru Meditation: Guru Meditation
 HFD4 Relay: مرحلHFD4
 History of measurements: تاريخ القياسات
 Home appliances: الأجهزة المنزلية / الالكترونيات
@@ -507,7 +508,6 @@ choose the channel group: اختر مجموعة القنوات
 choose the timezone: حدد المنطقة الزمنية
 copied: تم النسخ
 copy: نسخ
-daily: الدورة اليومية
 directLinkExecutionFailureReason_disabled: تم تعطيل الرابط المباشر
 directLinkExecutionFailureReason_executionLimitExceeded: تم تجاوز حد الاجراءات
 directLinkExecutionFailureReason_expired: انتهت صلاحية الرابط المباشر
@@ -524,15 +524,16 @@ executed: تم
 extend: تمديد
 from IP: من عنوان IP
 from the IP: من العنوان
-minutely: دورة بالدقيقة
 minutes: دقائق
-once: لمرة واحدة
 register-slide1-text: استنادًا إلى الأجهزة الإلكترونية المتاحة، سوف تسمح لك SUPLA ببناء وحدات بسيطة تسمح لك بالتحكم في مكونات التشغيل الآلي للبناء والتحكم فيها. بفضل SUPLI ، يمكنك من بين أمور أخرى، التحكم في الإضاءة، وتشغيل وإيقاف الأجهزة المنزلية والإلكترونيات، فتح وإغلاق البوابات والأبواب، أو التحكم في درجة الحرارة في الغرف. يمكنك القيام بكل هذا بضغطة واحدة من إصبعك.
 register-slide1-title: بناء ذكي الخاصة
 register-slide2-text: واحدة من الافتراضات الأساسية للمشروع هي البساطة والتوافر. يتيح لك SUPLA تشغيل الضوء بضغطة واحدة من إصبعك أو فتح بوابة المدخل عندما تريد الدخول إلى العقار. SUPLA متاح أينما كان لديك وصول إلى الإنترنت ولديك هاتف ذكي أو جهاز لوحي في متناول اليد. تم تطوير SUPLA وفقًا لمبادئ البرامج المفتوحة والأجهزة المفتوحة، وبفضل ذلك يمكنك أيضًا تطوير هذا المشروع!
 register-slide2-title: SUPLA  في كل مكان!
 register-slide3-text: نظم أتمتة البناء المتاحة في السوق عادة ما تكون معقدة للغاية، ومغلقة ومكلفة. في كثير من الحالات، فإنها تتطلب التثبيت بالفعل في مرحلة بناء المرفق. SUPLA بسيط ومفتوح ومجاني. إنه يمكّن من بناء عناصر تنفيذية تعتمد على منصات RaspberryPI أو Arduino أو ESP8266 وتوصيلها باستخدام LAN و WiFi. انضم إلى المشروع وابني نسختك الخاصة من نظام أتمتة البناء!
 register-slide3-title: مجانية ومفتوحة!
+scheduleMode_daily: الدورة اليومية
+scheduleMode_minutely: دورة بالدقيقة
+scheduleMode_once: لمرة واحدة
 sec.: ثانية.
 'smartphones, tablets, etc.': الهواتف الذكية والأجهزة اللوحية وما إلى ذلك
 state-closed: مغلقة
@@ -645,7 +646,6 @@ Add new item to use in the scene: ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
 'Alternatively, you can add a GET parameter to specify response format.': ~
-And set the same state for: ~
 'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
@@ -695,7 +695,6 @@ Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy channel state: ~
 Copy state from other channel: ~
 Could not contact Autodiscover service. Try again in a while.: ~
 Could not enter the configuration mode.: ~
@@ -727,8 +726,6 @@ Forward active energy balanced: ~
 Forward reactive energy: ~
 General purpose measurement: ~
 Generate new password: ~
-Generic action: ~
-Guru Meditation: ~
 Heat meter: ~
 Host: ~
 'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
@@ -795,8 +792,6 @@ Private instance of the SUPLA cloud with given URL is already registered.: ~
 Protocol: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
-Read the following channel's state: ~
-Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
@@ -892,7 +887,6 @@ actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
 choose the action: ~
 choose the scene: ~
-crontab: ~
 days: ~
 directLinkExecutionFailureReason_invalidChannelState: ~
 empty: ~
@@ -903,6 +897,7 @@ password: ~
 prefix: ~
 reset chart view: ~
 scene: ~
+scheduleMode_crontab: ~
 suffix: ~
 username: ~
 valid until: ~

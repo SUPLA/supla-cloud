@@ -202,6 +202,7 @@ Go to I/O device details: Treceți la detaliile dispozitivului
 Go to channel details: Treceți la detaliile canalului
 Go to your account: Accesați contul dvs.
 Grant access: Acordați acces
+Guru Meditation: Guru Meditation
 HFD4 Relay: Releu HFD4
 History of measurements: Istoricul măsurătorilor
 Home appliances: Aparate electrocasnice/electronice
@@ -508,7 +509,6 @@ choose the channel group: selectați o grupă de canale
 choose the timezone: selectați un fus orar
 copied: copiat
 copy: copiază
-daily: Ciclu zilnic
 directLinkExecutionFailureReason_disabled: Linkul direct este dezactivat
 directLinkExecutionFailureReason_executionLimitExceeded: Limita de executări a fost depășită
 directLinkExecutionFailureReason_expired: Linkul direct a expirat
@@ -525,15 +525,16 @@ executed: executat
 extend: extinde
 from IP: de la adresa IP
 from the IP: de la adresa
-minutely: Ciclu în minute
 minutes: minute
-once: Unic
 register-slide1-text: 'Pe baza dispozitivelor electronice disponibile, SUPLA vă va permite să construiți module simple pentru comanda și monitorizarea componentelor de automatizare a clădirilor. Datorită SUPLA puteți, printre altele, să controlați iluminatul, să porniți și să opriți dispozitivele electrocasnice și electronice, să deschideți și să închideți porțile și ușile sau să controlați temperatura în camere. Toate acestea le puteți face cu o singură mișcare a degetului.'
 register-slide1-title: Propria Clădire Inteligentă
 register-slide2-text: 'Unele dintre obiectivele de bază ale proiectului sunt simplitatea și disponibilitatea. SUPLA vă permite să porniți lumina sau să deschideți poarta de intrare atunci când doriți să accesați proprietatea, cu o singură mișcare de deget. SUPLA este disponibilă oriunde aveți acces la Internet și dispuneți de un smartphone sau o tabletă. SUPLA este dezvoltată pe principiul Open Source și Open Hardware, de aceea poți dezvolta și tu acest proiect!'
 register-slide2-title: SUPLA oriunde!
 register-slide3-text: 'Sistemele de automatizare a clădirilor disponibile pe piață sunt de obicei foarte complexe, închise și costisitoare. În multe cazuri, acestea necesită instalare deja în faza de construcție a obiectului. SUPLA este simplă, deschisă și gratuită. Permite construirea de dispozitive de acționare pe baza platformelor RaspberryPI, Arduino sau ESP8266 și conectarea acestora utilizând rețelele LAN și WiFi. Alăturați-vă proiectului și construiți propria versiune a sistemului de automatizare a clădirilor!'
 register-slide3-title: Gratuită și deschisă!
+scheduleMode_daily: Ciclu zilnic
+scheduleMode_minutely: Ciclu în minute
+scheduleMode_once: Unic
 sec.: sec.
 'smartphones, tablets, etc.': 'smartphone-uri, tablete etc.'
 state-closed: Închise
@@ -646,7 +647,6 @@ Add new item to use in the scene: ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
 'Alternatively, you can add a GET parameter to specify response format.': ~
-And set the same state for: ~
 'App version: %clientAppSoftwareVersion%': ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
@@ -696,7 +696,6 @@ Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
 'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy channel state: ~
 Copy state from other channel: ~
 Could not contact Autodiscover service. Try again in a while.: ~
 Could not enter the configuration mode.: ~
@@ -728,8 +727,6 @@ Forward active energy balanced: ~
 Forward reactive energy: ~
 General purpose measurement: ~
 Generate new password: ~
-Generic action: ~
-Guru Meditation: ~
 Heat meter: ~
 Host: ~
 'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
@@ -796,8 +793,6 @@ Private instance of the SUPLA cloud with given URL is already registered.: ~
 Protocol: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
-Read the following channel's state: ~
-Reads the state from source channel and sets the same in other channel or channel group.: ~
 Regeneration starts at: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
@@ -893,7 +888,6 @@ actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
 choose the action: ~
 choose the scene: ~
-crontab: ~
 days: ~
 directLinkExecutionFailureReason_invalidChannelState: ~
 empty: ~
@@ -904,6 +898,7 @@ password: ~
 prefix: ~
 reset chart view: ~
 scene: ~
+scheduleMode_crontab: ~
 suffix: ~
 username: ~
 valid until: ~
