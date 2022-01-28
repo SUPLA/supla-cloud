@@ -75,9 +75,6 @@
             display: inline-block;
             margin-left: 5px;
         }
-        .text-monospace {
-            font-family: monospace;
-        }
         a.password-link {
             font-size: 1.3em;
             padding: 0 5px;

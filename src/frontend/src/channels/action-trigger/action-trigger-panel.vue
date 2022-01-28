@@ -20,8 +20,8 @@
                             </a>
                             <div>
                                 <span v-if="disablesLocalOperation(trigger)"
-                                    v-tooltip="$t('Setting any action on this trigger will disable its local function')"
-                                    class="glyphicon glyphicon-off text-inherit"></span>
+                                    class="text-monospace disable-local-operation-warning"
+                                    v-tooltip="$t('Setting any action on this trigger will disable its local function')">!</span>
                             </div>
                         </div>
                     </div>
@@ -109,8 +109,21 @@
     };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import '../../styles/variables';
+
     .panel-group .panel-heading {
         cursor: pointer;
+    }
+
+    .disable-local-operation-warning {
+        background: $supla-yellow;
+        border-radius: 50%;
+        color: $supla-grey-dark;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        font-weight: bold;
     }
 </style>

@@ -609,6 +609,10 @@ body.warning {
   color: inherit;
 }
 
+.text-monospace {
+  font-family: monospace;
+}
+
 @import "./buttons";
 @import "./checkbox";
 @import "./notifications";
