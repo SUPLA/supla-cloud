@@ -21,26 +21,20 @@ use Assert\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
-use SuplaBundle\Message\Emails\ServiceUnavailableAdminEmailNotification;
-use SuplaBundle\Message\EmailToAdmin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 class ApiExceptionHandler implements EventSubscriberInterface {
     private $isDebug;
     /** @var LoggerInterface */
     private $logger;
-    /** @var MessageBusInterface */
-    private $messageBus;
 
-    public function __construct($isDebug, LoggerInterface $logger, MessageBusInterface $messageBus) {
+    public function __construct($isDebug, LoggerInterface $logger) {
         $this->isDebug = $isDebug;
         $this->logger = $logger;
-        $this->messageBus = $messageBus;
     }
 
     public function onException(GetResponseForExceptionEvent $event) {
@@ -57,8 +51,6 @@ class ApiExceptionHandler implements EventSubscriberInterface {
         $loggerContext = ['exceptionMessage' => $exception->getMessage(), 'trace' => $exception->getTraceAsString()];
         if ($errorResponse->getStatusCode() >= 500) {
             $this->logger->error('API Error', $loggerContext);
-            $email = new ServiceUnavailableAdminEmailNotification($request->getRequestUri(), $exception->getMessage());
-            $this->messageBus->dispatch(new EmailToAdmin($email));
         } elseif ($errorResponse->getStatusCode() != 400) {
             $this->logger->notice('API Exception', $loggerContext);
         }
