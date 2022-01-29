@@ -21,3 +21,10 @@ export function generatePassword(length, strong = false) {
 export function subjectEndpointUrl(subject) {
     return `${changeCase.paramCase(subject.subjectType)}s/${subject.subjectId || subject.id}`;
 }
+
+export function removeByValue(array, value) {
+    const index = array.indexOf(value);
+    if (index !== -1) {
+        array.splice(array.indexOf(value), 1);
+    }
+}

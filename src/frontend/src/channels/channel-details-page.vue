@@ -98,12 +98,15 @@
                                 @change="updateChannel()"></channel-alternative-icon-chooser>
                             <channel-state-table :channel="channel"
                                 v-if="channelFunctionIsChosen && !loading"></channel-state-table>
-                            <div v-if="hasActionsToExecute">
-                                <a class="btn btn-default btn-block btn-wrapped"
-                                    :class="{disabled: hasPendingChanges}"
-                                    @click="executingAction = true">
-                                    {{ $t('Execute an action') }}
-                                </a>
+                            <div v-if="hasActionsToExecute"
+                                class="pt-3">
+                                <!--                                <a class="btn btn-default btn-block btn-wrapped"-->
+                                <!--                                    :class="{disabled: hasPendingChanges}"-->
+                                <!--                                    @click="executingAction = true">-->
+                                <!--                                    {{ $t('Execute an action') }}-->
+                                <!--                                </a>-->
+                                <channel-action-executor class="text-left"
+                                    :subject="channel"></channel-action-executor>
                             </div>
                         </div>
                     </div>
@@ -117,6 +120,7 @@
         </loading-cover>
 
         <channel-action-executor-modal v-if="executingAction"
+            @close="executingAction = false"
             :subject="channel"></channel-action-executor-modal>
 
         <channel-function-edit-modal v-if="changingFunction"

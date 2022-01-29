@@ -2,7 +2,9 @@
     <div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3"
+                    v-for="subject in subjects"
+                    :key="subject.id">
                     <channel-action-executor v-if="subject"
                         :subject="subject"></channel-action-executor>
                 </div>
@@ -19,11 +21,14 @@
         components: {ChannelActionExecutor},
         data() {
             return {
-                subject: undefined,
+                subjects: [],
             };
         },
         mounted() {
-            this.$http.get('channels/7').then(({body}) => this.subject = body);
+            this.$http.get('channels/7').then(({body}) => this.subjects.push(body));
+            this.$http.get('channels/115').then(({body}) => this.subjects.push(body));
+            this.$http.get('channels/141').then(({body}) => this.subjects.push(body));
+            this.$http.get('channels/162').then(({body}) => this.subjects.push(body));
         }
     };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="panel-group hovered"
+        <div class="panel-group panel-accordion hovered"
             role="tablist"
             aria-multiselectable="true">
             <div :class="'panel panel-' + (channel.config.actions[trigger] ? 'success' : 'default')"
@@ -111,10 +111,6 @@
 
 <style scoped lang="scss">
     @import '../../styles/variables';
-
-    .panel-group .panel-heading {
-        cursor: pointer;
-    }
 
     .disable-local-operation-warning {
         background: $supla-yellow;

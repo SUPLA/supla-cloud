@@ -7,6 +7,7 @@ const ChannelFunctionAction = Object.freeze({
     SHUT: 30,
     REVEAL: 40,
     REVEAL_PARTIALLY: 50,
+    SHUT_PARTIALLY: 51,
     TURN_ON: 60,
     TURN_OFF: 70,
     SET_RGBW_PARAMETERS: 80,
@@ -14,9 +15,25 @@ const ChannelFunctionAction = Object.freeze({
     STOP: 100,
     TOGGLE: 110,
     OPEN_PARTIALLY: 120,
+    CLOSE_PARTIALLY: 130,
+    UP_OR_STOP: 140,
+    DOWN_OR_STOP: 150,
+    STEP_BY_STEP: 160,
     COPY: 10100,
     AT_FORWARD_OUTSIDE: 10000,
     AT_DISABLE_LOCAL_FUNCTION: 10200,
+
+    requiresParams(actionId) {
+        return [
+            ChannelFunctionAction.SET,
+            ChannelFunctionAction.REVEAL_PARTIALLY,
+            ChannelFunctionAction.SHUT_PARTIALLY,
+            ChannelFunctionAction.SET_RGBW_PARAMETERS,
+            ChannelFunctionAction.OPEN_PARTIALLY,
+            ChannelFunctionAction.CLOSE_PARTIALLY,
+            ChannelFunctionAction.COPY,
+        ].includes(actionId);
+    },
 });
 
 export default ChannelFunctionAction;

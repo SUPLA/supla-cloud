@@ -556,6 +556,15 @@ body.warning {
 
   &-success {
     @include supla-panel($supla-green);
+    .panel-heading a:hover {
+      color: white;
+    }
+  }
+
+  &-accordion {
+    .panel-heading {
+      cursor: pointer;
+    }
   }
 }
 
@@ -612,6 +621,8 @@ body.warning {
 .text-monospace {
   font-family: monospace;
 }
+
+
 
 @import "./buttons";
 @import "./checkbox";

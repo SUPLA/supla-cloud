@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="flex-left-full-width mb-3">
-            <div>
-                <function-icon :model="subject" width="80"></function-icon>
-            </div>
-            <div class="full pl-2"><h3 class="m-0">{{ subject.caption }}</h3></div>
-        </div>
+<!--        <div class="flex-left-full-width mb-3">-->
+<!--            <div>-->
+<!--                <function-icon :model="subject" width="80"></function-icon>-->
+<!--            </div>-->
+<!--            <div class="full pl-2"><h3 class="m-0">{{ subject.caption }}</h3></div>-->
+<!--        </div>-->
         <transition-expand>
             <div class="row"
                 v-if="!isConnected">
@@ -17,39 +17,14 @@
             </div>
         </transition-expand>
         <channel-action-chooser :subject="subject"
-            v-model="actionToExecute">
-            <template #default="props"
-                v-if="displaySeparateActionButtons">
-                <button class="btn btn-default"
-                    type="button"
-                    :disabled="!isConnected || executing"
-                    @click="executeActionFromButton(props.possibleAction)">
-                    <span v-if="!props.possibleAction.executing">
-                        <i v-if="props.possibleAction.executed"
-                            class="pe-7s-check"></i>
-                        {{ props.possibleAction.executed ? $t('executed') : $t(props.possibleAction.caption) }}
-                    </span>
-                    <button-loading-dots v-else></button-loading-dots>
-                </button>
-            </template>
+            :confirmActionsWithParameters="true"
+            :executing="executing"
+            :executed="executed"
+            @input="executeAction($event)">
         </channel-action-chooser>
-        <transition-expand>
-            <button class="btn btn-default"
-                type="button"
-                v-if="!displaySeparateActionButtons && (actionToExecute.id || executed)"
-                :disabled="!isConnected || executing"
-                @click="executeAction()">
-                <span v-if="!executing">
-                    <i v-if="executed"
-                        class="pe-7s-check"></i>
-                    {{ executed ? $t('executed') : $t('Execute') }}
-                </span>
-                <button-loading-dots v-else></button-loading-dots>
-            </button>
-        </transition-expand>
         <modal-confirm v-if="actionToConfirm"
             class="modal-warning"
-            @confirm="executeAction(true)"
+            @confirm="executeAction(actionToConfirm, true)"
             @cancel="actionToConfirm = false"
             :header="$t('Are you sure?')">
             <span v-if="actionToConfirm.name === 'OPEN'">
@@ -68,58 +43,60 @@
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
     import TransitionExpand from "../../common/gui/transition-expand";
     import FunctionIcon from "../function-icon";
+    import ChannelFunctionAction from "../../common/enums/channel-function-action";
+    import {removeByValue} from "../../common/utils";
 
     export default {
         components: {FunctionIcon, TransitionExpand, ButtonLoadingDots, ChannelActionChooser},
         props: ['subject'],
         data() {
             return {
-                executing: false,
-                executed: false,
-                actionToExecute: {},
+                executing: [],
+                executed: [],
                 actionToConfirm: false,
             };
         },
         methods: {
-            executeActionFromButton(action) {
-                this.actionToExecute = action;
-                this.executeAction();
+            isBusy(action) {
+                return this.isExecuting(action) || this.isExecuted(action);
             },
-            executeAction(confirmed = false) {
-                const action = this.actionToExecute;
-                if (action.executed) {
+            isExecuting(action) {
+                return this.executing.includes(action.id);
+            },
+            isExecuted(action) {
+                return this.executed.includes(action.id);
+            },
+            executeAction(action, confirmed = false) {
+                if (this.isBusy(action)) {
                     return;
                 }
+                if (confirmed || this.confirmExecution(action)) {
+                    this.executing.push(action.id);
+                    const toSend = {action: action.name, ...action.param};
+                    this.$http.patch(`${this.endpoint}/${this.subject.id}`, toSend)
+                        .then(() => {
+                            this.executed.push(action.id);
+                            setTimeout(() => removeByValue(this.executed, action.id), 3000);
+                            setTimeout(() => EventBus.$emit('channel-state-updated'), 1000);
+                        })
+                        .finally(() => {
+                            removeByValue(this.executing, action.id);
+                        });
+                }
+            },
+            confirmExecution(action) {
                 this.actionToConfirm = false;
-                if (action.name == 'OPEN' && !confirmed && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
+                if (action.id === ChannelFunctionAction.OPEN && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
                     if (this.subject.state && (this.subject.state.manuallyClosed || this.subject.state.flooding)) {
                         this.actionToConfirm = action;
-                        return;
+                        return false;
                     }
                 }
-                if (this.actionToExecute.name == 'TURN_ON' && !confirmed && this.subject.state?.currentOverload) {
+                if (action.id === ChannelFunctionAction.TURN_ON && this.subject.state?.currentOverload) {
                     this.actionToConfirm = action;
-                    return;
+                    return false;
                 }
-                this.executing = true;
-                this.$set(action, 'executing', true);
-                const toSend = {action: action.name, ...action.param};
-                this.$http.patch(`${this.endpoint}/${this.subject.id}`, toSend)
-                    .then(() => {
-                        this.executed = true;
-                        this.$set(action, 'executed', true);
-                        setTimeout(() => this.executed = false, 3000);
-                        setTimeout(() => this.executing = false, 3000);
-                        setTimeout(() => this.$set(action, 'executed', false), 3000);
-                        setTimeout(() => EventBus.$emit('channel-state-updated'), 1000);
-                    })
-                    .finally(() => {
-                        this.executing = false;
-                        this.$set(action, 'executing', false);
-                    });
-            },
-            requiresParams({name}) {
-                return ['REVEAL_PARTIALLY', 'SHUT_PARTIALLY', 'OPEN_PARTIALLY', 'SET_RGBW_PARAMETERS', 'SET'].includes(name);
+                return true;
             },
         },
         computed: {
@@ -129,18 +106,13 @@
             isConnected() {
                 return !this.subject.state || this.subject.state.connected;
             },
-            displaySeparateActionButtons() {
-                return false;
-                const possibleActions = this.subject?.possibleActions || [];
-                return !!(possibleActions.length <= 3 && !possibleActions.find(this.requiresParams));
-            },
         }
     };
 </script>
 
 <style lang="scss">
     .possible-actions {
-        text-align: center;
+        //text-align: center;
         .possible-action {
             //margin: 5px 15px;
             //display: inline-block;

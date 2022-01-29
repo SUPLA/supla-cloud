@@ -7,7 +7,15 @@
                 <div class="modal-container">
 
                     <div class="modal-header">
-                        <h4>{{ header }}</h4>
+                        <h4>
+                            <div class="pull-right">
+                                <a v-if="displayCloseButton"
+                                    @click="$emit('cancel')">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </div>
+                            {{ header }}
+                        </h4>
                     </div>
 
                     <div class="modal-body">
@@ -35,7 +43,11 @@
 
 <script>
     export default {
-        props: ['header', 'cancellable']
+        props: {
+            header: {type: String},
+            cancellable: {type: Boolean, default: false},
+            displayCloseButton: {type: Boolean, default: false},
+        },
     };
 </script>
 
