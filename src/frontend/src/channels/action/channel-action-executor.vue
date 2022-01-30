@@ -17,6 +17,7 @@
             </div>
         </transition-expand>
         <channel-action-chooser :subject="subject"
+            :disabled="!isConnected"
             :executor-mode="true"
             :executing="executing"
             :executed="executed"

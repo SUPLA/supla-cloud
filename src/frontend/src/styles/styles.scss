@@ -565,6 +565,14 @@ body.warning {
     .panel-heading {
       cursor: pointer;
     }
+    &-disabled {
+      opacity: .5;
+      .panel-heading {
+        &, * {
+          cursor: not-allowed !important;
+        }
+      }
+    }
   }
 }
 
@@ -621,7 +629,6 @@ body.warning {
 .text-monospace {
   font-family: monospace;
 }
-
 
 
 @import "./buttons";

@@ -1,7 +1,7 @@
 <template>
     <div class="channel-action-chooser">
         <div class="w-100 mb-3">
-            <div class="panel-group panel-accordion">
+            <div :class="['panel-group panel-accordion', {'panel-accordion-disabled': disabled}]">
                 <div :class="['panel panel-default', {'panel-success': isSelected(possibleAction.id), 'action-without-params': !ChannelFunctionAction.requiresParams(possibleAction.id)}]"
                     v-for="possibleAction in actionsToShow"
                     :key="possibleAction.id">
@@ -94,6 +94,7 @@
         props: {
             subject: {type: Object},
             value: {type: Object},
+            disabled: {type: Boolean, default: false},
             possibleActionFilter: {type: Function, required: false, default: () => true},
             executorMode: {type: Boolean, default: false},
             executing: {type: Array, default: () => []},
@@ -157,7 +158,7 @@
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
             },
             updateModel() {
-                if (this.executorMode && !this.action.id) {
+                if (this.disabled || (this.executorMode && !this.action.id)) {
                     return;
                 }
                 this.$emit('input', this.action.id ? {...this.action, param: {...this.param}} : undefined);
@@ -169,10 +170,6 @@
                     return this.action.id === actionId;
                 }
             },
-            // actionChanged() {
-            //     this.param = {};
-            //     this.updateModel();
-            // },
         },
         computed: {
             actionsToShow() {
