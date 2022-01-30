@@ -1,14 +1,16 @@
 <template>
     <div>
-        <div class="digiglass-parameters-setter-global-btns btn-group">
-            <a class="btn btn-link"
-                @click="setAll(true)">
-                <img :src="'/assets/img/digiglass/transparent.png' | withBaseUrl">
-            </a>
-            <a class="btn btn-link"
-                @click="setAll(false)">
-                <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl">
-            </a>
+        <div class="text-center">
+            <div class="digiglass-parameters-setter-global-btns btn-group">
+                <a class="btn btn-link"
+                    @click="setAll(true)">
+                    <img :src="'/assets/img/digiglass/transparent.png' | withBaseUrl">
+                </a>
+                <a class="btn btn-link"
+                    @click="setAll(false)">
+                    <img :src="'/assets/img/digiglass/opaque.png' | withBaseUrl">
+                </a>
+            </div>
         </div>
         <div :class="'mb-3 digiglass-parameters-setter digiglass-' + (subject.function.name.indexOf('HORIZONTAL') > 0 ? 'horizontal' : 'vertical')">
             <function-icon class="digiglass-bg"

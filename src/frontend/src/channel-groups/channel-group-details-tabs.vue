@@ -15,15 +15,6 @@
                 </ul>
             </div>
         </div>
-        <div v-if="currentTab == 'actions'">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                        <channel-action-executor :subject="channelGroup"></channel-action-executor>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div v-if="currentTab == 'schedules'">
             <schedules-list :subject="channelGroup"></schedules-list>
         </div>
@@ -39,12 +30,11 @@
 <script>
     import SchedulesList from "../schedules/schedule-list/schedules-list";
     import DirectLinksList from "../direct-links/direct-links-list";
-    import ChannelActionExecutor from "../channels/action/channel-action-executor";
     import ScenesList from "../scenes/scenes-list";
 
     export default {
         props: ['channelGroup'],
-        components: {ScenesList, ChannelActionExecutor, DirectLinksList, SchedulesList},
+        components: {ScenesList, DirectLinksList, SchedulesList},
         data() {
             return {
                 currentTab: '',
@@ -58,10 +48,6 @@
             }
         },
         mounted() {
-            const noApiActionFunctions = ['VALVEOPENCLOSE', 'VALVEPERCENTAGE'];
-            if (!noApiActionFunctions.includes(this.channelGroup.function.name)) {
-                this.availableTabs.push({id: 'actions', header: 'Actions'});
-            }
             // this.availableTabs.push({id: 'scenes', header: 'Scenes', count: this.channelGroup.relationsCount.scenes});
             const noScheduleActions = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'];
             if (!noScheduleActions.includes(this.channelGroup.function.name)) {

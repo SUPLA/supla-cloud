@@ -546,7 +546,7 @@ body.warning {
 
 .panel {
   @mixin supla-panel($color) {
-    .panel-heading {
+    > .panel-heading {
       background: $color;
       border-color: darken($color, 10%);
       color: $supla-white;
@@ -556,7 +556,7 @@ body.warning {
 
   &-success {
     @include supla-panel($supla-green);
-    .panel-heading a:hover {
+    > .panel-heading a:hover {
       color: white;
     }
   }

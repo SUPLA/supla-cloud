@@ -53,6 +53,8 @@
                                         <h4>{{ $t(channelGroup.function.caption) }}</h4>
                                         <channel-alternative-icon-chooser :channel="channelGroup"
                                             @change="channelGroupChanged()"></channel-alternative-icon-chooser>
+                                        <channel-action-executor class="text-left"
+                                            :subject="channelGroup"></channel-action-executor>
                                     </div>
                                     <div v-else-if="isNewGroup">
                                         <i class="pe-7s-help1"
@@ -115,10 +117,12 @@
     import ChannelGroupDetailsTabs from "./channel-group-details-tabs";
     import AppState from "../router/app-state";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
+    import ChannelActionExecutor from "../channels/action/channel-action-executor";
 
     export default {
         props: ['id'],
         components: {
+            ChannelActionExecutor,
             DependenciesWarningModal,
             ChannelGroupDetailsTabs,
             ChannelAlternativeIconChooser,

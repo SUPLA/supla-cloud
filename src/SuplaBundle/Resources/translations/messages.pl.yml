@@ -149,6 +149,7 @@ Choose Access Identifiers to be assigned to this Location: 'Wybierz Identyfikato
 Choose channel function: Wybierz funkcję kanału
 Choose client apps: Wybierz aplikacje klienckie
 Choose location: Wybierz lokalizację
+Choose the source channel.: Wybierz kanał źródłowy.
 Clear: Wyczyść
 Click the following link to confirm removal of your account on %cloudHost%.: 'Aby potwierdzić chęć usunięcia Twojego konta na %cloudHost%, kliknij poniższy link.'
 'Client app ID: %clientAppId%': 'Identyfikator: %clientAppId%'

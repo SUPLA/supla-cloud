@@ -7,7 +7,7 @@
                     <div class="form-group">
                         <btn-filters id="mySuplaListType"
                             v-model="listType"
-                            :filters="[{label: $t('I/O Devices'), value: 'devices'}, {label: $t('Channels'), value: 'channels'}, {label: $t('Dashboard'), value: 'dashboard'}]"
+                            :filters="[{label: $t('I/O Devices'), value: 'devices'}, {label: $t('Channels'), value: 'channels'}]"
                         />
                     </div>
                 </div>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <devices-list-page v-if="listType === 'devices'"/>
-        <dashboard v-else-if="listType === 'dashboard'"/>
+        <!--        <dashboard v-else-if="listType === 'dashboard'"/>-->
         <channel-list-page v-else/>
     </div>
 </template>
@@ -27,11 +27,9 @@
     import DevicesListPage from "../devices/list/devices-list-page";
     import BtnFilters from "../common/btn-filters";
     import ChannelListPage from "../channels/channel-list-page";
-    import Dashboard from "./dashboard";
 
     export default {
         components: {
-            Dashboard,
             ChannelListPage,
             BtnFilters,
             DevicesListPage,

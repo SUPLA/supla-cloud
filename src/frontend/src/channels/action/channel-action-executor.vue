@@ -1,11 +1,11 @@
 <template>
-    <div>
-<!--        <div class="flex-left-full-width mb-3">-->
-<!--            <div>-->
-<!--                <function-icon :model="subject" width="80"></function-icon>-->
-<!--            </div>-->
-<!--            <div class="full pl-2"><h3 class="m-0">{{ subject.caption }}</h3></div>-->
-<!--        </div>-->
+    <div class="channel-action-executor">
+        <!--        <div class="flex-left-full-width mb-3">-->
+        <!--            <div>-->
+        <!--                <function-icon :model="subject" width="80"></function-icon>-->
+        <!--            </div>-->
+        <!--            <div class="full pl-2"><h3 class="m-0">{{ subject.caption }}</h3></div>-->
+        <!--        </div>-->
         <transition-expand>
             <div class="row"
                 v-if="!isConnected">
@@ -17,7 +17,7 @@
             </div>
         </transition-expand>
         <channel-action-chooser :subject="subject"
-            :confirmActionsWithParameters="true"
+            :executor-mode="true"
             :executing="executing"
             :executed="executed"
             @input="executeAction($event)">
@@ -40,14 +40,12 @@
 <script>
     import ChannelActionChooser from "./channel-action-chooser";
     import EventBus from "../../common/event-bus";
-    import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
     import TransitionExpand from "../../common/gui/transition-expand";
-    import FunctionIcon from "../function-icon";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
     import {removeByValue} from "../../common/utils";
 
     export default {
-        components: {FunctionIcon, TransitionExpand, ButtonLoadingDots, ChannelActionChooser},
+        components: {TransitionExpand, ChannelActionChooser},
         props: ['subject'],
         data() {
             return {
@@ -111,18 +109,11 @@
 </script>
 
 <style lang="scss">
-    .possible-actions {
-        //text-align: center;
-        .possible-action {
-            //margin: 5px 15px;
-            //display: inline-block;
-            //.possible-action-params {
-            //    margin: 5px auto;
-            //    max-width: 600px;
-            //}
-            //.btn-grey {
-            //    margin-left: .5em;
-            //}
+    .channel-action-executor {
+        .channel-action-chooser {
+            .channel-action-immediate-indicator {
+                visibility: visible;
+            }
         }
     }
 </style>

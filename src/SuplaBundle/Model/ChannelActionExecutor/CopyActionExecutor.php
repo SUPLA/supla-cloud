@@ -38,12 +38,14 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
 
     public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         $params = array_intersect_key($actionParams, ['sourceChannelId' => '']);
-        Assertion::count($params, 1, 'Invalid copy state definition.');
+        Assertion::count($params, 1, 'Choose the source channel.'); // i18n
+        $sourceChannelId = $params['sourceChannelId'];
+        Assertion::greaterThan($sourceChannelId, 0, 'Choose the source channel.'); // i18n
         if ($subject->getSubjectType() === ActionableSubjectType::CHANNEL) {
-            Assertion::notEq($params['sourceChannelId'], $subject->getId(), 'Source and target channel must be different.');
+            Assertion::notEq($sourceChannelId, $subject->getId(), 'Source and target channel must be different.');
         }
         $sourceChannel = $this->subjectRepository
-            ->findForUser($subject->getUser(), ActionableSubjectType::CHANNEL, $params['sourceChannelId']);
+            ->findForUser($subject->getUser(), ActionableSubjectType::CHANNEL, $sourceChannelId);
         Assertion::notNull($sourceChannel, 'Invalid source channel.');
         Assertion::eq(
             $subject->getFunction()->getId(),
