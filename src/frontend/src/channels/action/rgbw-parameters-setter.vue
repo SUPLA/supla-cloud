@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div :class="[brightnessClass, 'rgbw-parameter']">
+        <div class="rgbw-parameter"
+            v-if="hasBrightness">
             <label>{{ $t('Brightness') }}</label>
             <span class="input-group">
                 <input type="number"
@@ -14,7 +15,8 @@
                 <span class="input-group-addon">%</span>
             </span>
         </div>
-        <div :class="[hueClass, 'rgbw-parameter']">
+        <div class="rgbw-parameter"
+            v-if="hasColor">
             <label>{{ $t('Color') }}</label>
             <div class="radio">
                 <label>
@@ -48,7 +50,8 @@
                 </label>
             </div>
         </div>
-        <div :class="[colorBrightnessClass, 'rgbw-parameter']">
+        <div class="rgbw-parameter"
+            v-if="hasColor">
             <label>{{ $t('Color brightness') }}</label>
             <span class="input-group">
                 <input type="number"
@@ -67,6 +70,7 @@
 
 <script>
     import HueColorpicker from "./hue-colorpicker.vue";
+    import ChannelFunction from "../../common/enums/channel-function";
 
     export default {
         components: {HueColorpicker},
@@ -76,14 +80,14 @@
                 hue: 0,
                 hueMode: 'choose',
                 colorBrightness: 0,
-                brightness: 0
+                brightness: 0,
             };
         },
         mounted() {
             if (this.value) {
-                if (this.value.hue == 'random') {
+                if (this.value.hue === 'random') {
                     this.hueMode = 'random';
-                } else if (this.value.hue == 'white') {
+                } else if (this.value.hue === 'white') {
                     this.hueMode = 'white';
                 } else {
                     this.hue = this.value.hue || 0;
@@ -91,25 +95,23 @@
                 this.colorBrightness = this.value.color_brightness || 0;
                 this.brightness = this.value.brightness || 0;
             }
-            if (!this.value || Object.keys(this.value).length == 0) {
+            if (!this.value || Object.keys(this.value).length === 0) {
                 this.onChange();
             }
         },
         methods: {
             onChange() {
                 let value = {};
-                if (this.brightnessClass !== 'hidden') {
+                if (this.hasBrightness) {
                     this.brightness = this.ensureBetween(this.brightness, 0, 100);
                     value.brightness = this.brightness;
                 }
-                if (this.hueClass !== 'hidden') {
+                if (this.hasColor) {
                     if (this.hueMode === 'choose') {
                         value.hue = this.ensureBetween(this.hue, 0, 360);
                     } else {
                         value.hue = this.hueMode === 'random' ? 'random' : 'white';
                     }
-                }
-                if (this.colorBrightnessClass !== 'hidden') {
                     this.colorBrightness = this.ensureBetween(this.colorBrightness, 0, 100);
                     value.color_brightness = this.colorBrightness;
                 }
@@ -126,14 +128,11 @@
             }
         },
         computed: {
-            brightnessClass() {
-                return {'DIMMER': 'col-sm-12', 'RGBLIGHTING': 'hidden'}[this.channelFunction.name] || 'col-sm-4';
+            hasBrightness() {
+                return [ChannelFunction.DIMMER, ChannelFunction.DIMMERANDRGBLIGHTING].includes(this.channelFunction.id);
             },
-            hueClass() {
-                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-sm-6'}[this.channelFunction.name] || 'col-sm-4';
-            },
-            colorBrightnessClass() {
-                return {'DIMMER': 'hidden', 'RGBLIGHTING': 'col-sm-6'}[this.channelFunction.name] || 'col-sm-4';
+            hasColor() {
+                return [ChannelFunction.RGBLIGHTING, ChannelFunction.DIMMERANDRGBLIGHTING].includes(this.channelFunction.id);
             },
         },
         watch: {
@@ -145,7 +144,7 @@
 </script>
 
 <style lang="scss">
-    .vertical .rgbw-parameter {
+    .rgbw-parameter {
         clear: both;
         width: 100%;
         margin-bottom: 1em;

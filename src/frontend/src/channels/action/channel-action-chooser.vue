@@ -25,32 +25,32 @@
                     <transition-expand>
                         <div class="panel-body"
                             v-if="ChannelFunctionAction.requiresParams(possibleAction.id) && action && action.id === possibleAction.id">
-                            <div class="well clearfix m-0"
-                                v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
+                            <div v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
                                 <rolette-shutter-partial-percentage v-model="param"
                                     @input="paramsChanged()"></rolette-shutter-partial-percentage>
                             </div>
-                            <div v-if="action.name === 'SET_RGBW_PARAMETERS'">
+                            <div v-if="action.id === ChannelFunctionAction.SET_RGBW_PARAMETERS">
                                 <rgbw-parameters-setter v-model="param"
-                                    class="well clearfix m-0"
                                     @input="paramsChanged()"
                                     :channel-function="subject.function"></rgbw-parameters-setter>
                             </div>
-                            <div v-if="action.name === 'SET'">
+                            <div v-if="action.id === ChannelFunctionAction.SET">
                                 <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"
                                     v-model="param"
                                     @input="paramsChanged()"
                                     :subject="subject"></digiglass-parameters-setter>
                             </div>
-                            <div v-if="action.name === 'COPY'">
+                            <div v-if="action.id === ChannelFunctionAction.COPY">
                                 <channels-id-dropdown v-model="param.sourceChannelId"
+                                    :hide-none="true"
                                     @input="paramsChanged()"
                                     :params="`function=${subject.function.id}&skipIds=${(subject.subjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
-                            <div v-if="executorMode" class="mt-3">
+                            <div v-if="executorMode"
+                                class="mt-3">
                                 <button :class="['btn btn-block btn-execute', {'btn-grey': !isSelected(possibleAction.id), 'btn-green': isSelected(possibleAction.id)}]"
                                     type="button"
-                                    :disabled="executing.includes(action.id)"
+                                    :disabled="!paramsSet || executing.includes(action.id)"
                                     @click="updateModel()">
                                     <span
                                         class="text-inherit">
@@ -105,6 +105,7 @@
                 action: {},
                 param: {},
                 paramHistory: {},
+                paramsSet: false,
                 ChannelFunctionAction,
             };
         },
@@ -114,16 +115,29 @@
         },
         methods: {
             changeAction(action) {
-                if (this.action) {
+                if (action.id === this.action?.id && this.executorMode && ChannelFunctionAction.requiresParams(action.id)) {
+                    return this.changeAction({}); // collapse params panel
+                }
+                if (this.action && this.paramsSet) {
                     this.paramHistory[this.action.id] = {...this.param};
                 }
                 this.action = action;
-                this.param = this.paramHistory[this.action.id] ? {...this.paramHistory[this.action.id]} : {};
+                this.resetParams();
                 if (!this.executorMode || !ChannelFunctionAction.requiresParams(this.action.id)) {
                     this.updateModel();
                 }
             },
+            resetParams() {
+                if (this.paramHistory[this.action.id]) {
+                    this.param = {...this.paramHistory[this.action.id]};
+                    this.paramsSet = true;
+                } else {
+                    this.param = {};
+                    this.paramsSet = false;
+                }
+            },
             paramsChanged() {
+                this.paramsSet = true;
                 if (!this.executorMode) {
                     this.updateModel();
                 }
@@ -158,7 +172,7 @@
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
             },
             updateModel() {
-                if (this.disabled || (this.executorMode && !this.action.id)) {
+                if (this.disabled || (this.executorMode && !this.action.id) || (ChannelFunctionAction.requiresParams(this.action.id) && !this.paramsSet)) {
                     return;
                 }
                 this.$emit('input', this.action.id ? {...this.action, param: {...this.param}} : undefined);
@@ -167,7 +181,7 @@
                 if (this.executorMode) {
                     return this.executed.includes(actionId);
                 } else {
-                    return this.action.id === actionId;
+                    return this.action.id === actionId && (this.paramsSet || !ChannelFunctionAction.requiresParams(actionId));
                 }
             },
         },

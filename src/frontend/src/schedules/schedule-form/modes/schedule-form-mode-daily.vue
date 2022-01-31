@@ -7,11 +7,11 @@
             @groupIndex="weekdayGroupIndex = $event"
             @groupIndexRemove="removeWeekdayGroup($event)"></schedule-form-mode-daily-day-selector>
         <div v-if="config[weekdayGroupIndex] && config[weekdayGroupIndex].length > 0">
-            <div class="daily-action"
+            <div class="schedule-action"
                 :key="action.tempId"
                 v-for="action in config[weekdayGroupIndex]">
-                <div class="row">
-                    <div class="col-sm-5">
+                <div class="schedule-action-row">
+                    <div class="schedule-action-time-chooser">
                         <schedule-form-mode-daily-hour
                             v-model="action.crontab"
                             @input="updateConfig()"
@@ -23,15 +23,17 @@
                             :weekdays="weekdayGroups[weekdayGroupIndex]"
                             v-if="action.type === 'sun'"></schedule-form-mode-daily-sun>
                     </div>
-                    <div class="col-sm-7 vertical">
-                        <a @click="removeItem(action)"
-                            class="remove-item-button">
-                            <i class="pe-7s-close-circle"></i>
-                        </a>
+                    <div class="schedule-action-actions">
                         <channel-action-chooser :subject="subject"
                             v-model="action.action"
                             @input="updateConfig()"
                             :possible-action-filter="possibleActionFilter"></channel-action-chooser>
+                    </div>
+                    <div class="schedule-action-buttons">
+                        <a @click="removeItem(action)"
+                            class="remove-item-button">
+                            <i class="pe-7s-close-circle"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -39,12 +41,12 @@
         <div class="form-group">
             <h4>{{ $t('Add action') }}</h4>
             <div class="btn-group btn-group-justified">
-                <a class="btn btn-default"
+                <a class="btn btn-default btn-wrapped"
                     @click="addAction('hour')">
                     <i class="pe-7s-clock"></i>
                     {{ $t('At specified time') }}
                 </a>
-                <a class="btn btn-default"
+                <a class="btn btn-default btn-wrapped"
                     @click="addAction('sun')">
                     <i class="pe-7s-sun"></i>
                     {{ $t('Based on sunrise or sunset') }}
@@ -131,12 +133,6 @@
 <style lang="scss">
     @import '../../../styles/variables';
 
-    .daily-action {
-        border-bottom: 1px solid $supla-green;
-        padding-bottom: 1em;
-        margin-bottom: 1.3em;
-    }
-
     .daily-checkboxes {
         display: flex;
         justify-content: space-between;
@@ -149,14 +145,5 @@
             font-size: 1.3em;
             color: $supla-black;
         }
-    }
-
-    .remove-item-button {
-        font-weight: bold;
-        font-size: 1.3em;
-        position: absolute;
-        right: 1em;
-        top: -.5em;
-        color: $supla-red;
     }
 </style>

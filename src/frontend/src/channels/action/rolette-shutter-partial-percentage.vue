@@ -6,6 +6,7 @@
                 max="100"
                 step="1"
                 class="form-control"
+                ref="percentageField"
                 maxlength="3"
                 v-model="percentage"
                 @change="onChange()">
@@ -31,6 +32,7 @@
             if (this.value.percentage === undefined) {
                 Vue.nextTick(() => this.onChange());
             }
+            Vue.nextTick(() => this.$refs.percentageField.focus());
         },
         methods: {
             onChange() {

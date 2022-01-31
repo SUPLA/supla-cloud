@@ -25,20 +25,27 @@
                 </div>
             </transition-expand>
         </div>
-        <div class="crontab-action"
+        <div class="schedule-action"
             :key="action.tempId"
             v-for="action in config">
-            <a @click="removeItem(action)"
-                class="remove-item-button">
-                <i class="pe-7s-close-circle"></i>
-            </a>
-            <br>
-            <schedule-form-mode-crontab-input v-model="action.crontab"
-                @input="updateConfig()"></schedule-form-mode-crontab-input>
-            <channel-action-chooser :subject="subject"
-                v-model="action.action"
-                @input="updateConfig()"
-                :possible-action-filter="possibleActionFilter"></channel-action-chooser>
+            <div class="schedule-action-row">
+                <div class="schedule-action-time-chooser">
+                    <schedule-form-mode-crontab-input v-model="action.crontab"
+                        @input="updateConfig()"></schedule-form-mode-crontab-input>
+                </div>
+                <div class="schedule-action-actions">
+                    <channel-action-chooser :subject="subject"
+                        v-model="action.action"
+                        @input="updateConfig()"
+                        :possible-action-filter="possibleActionFilter"></channel-action-chooser>
+                </div>
+                <div>
+                    <a @click="removeItem(action)"
+                        class="remove-item-button">
+                        <i class="pe-7s-close-circle"></i>
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <a class="btn btn-default btn-block"
@@ -97,14 +104,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    @import '../../../styles/variables';
-
-    .crontab-action {
-        border-bottom: 1px solid $supla-green;
-        padding-bottom: 1em;
-        margin-bottom: 1.3em;
-        position: relative;
-    }
-</style>

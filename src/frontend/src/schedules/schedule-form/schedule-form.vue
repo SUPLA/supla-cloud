@@ -231,3 +231,28 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import '../../styles/variables';
+
+    .schedule-action {
+        border-bottom: 1px solid $supla-green;
+        padding-bottom: 1em;
+        margin-bottom: 1.3em;
+        .schedule-action-row {
+            display: flex;
+            gap: 1em;
+            .schedule-action-time-chooser {
+                width: 33%;
+            }
+            .schedule-action-actions {
+                flex: 1;
+            }
+            .remove-item-button {
+                font-weight: bold;
+                font-size: 1.3em;
+                color: $supla-red;
+            }
+        }
+    }
+</style>

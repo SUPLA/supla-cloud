@@ -45,6 +45,11 @@
     &:hover {
       background: darken($supla-grey-light, 5%);
     }
+    &[disabled], &[disabled]:hover {
+      border-color: $supla-grey-dark;
+      background-color: $supla-white;
+      color: $supla-grey-dark;
+    }
   }
   &-yellow {
     background: $supla-yellow;

@@ -70,6 +70,7 @@
                     return;
                 }
                 if (confirmed || this.confirmExecution(action)) {
+                    this.actionToConfirm = false;
                     this.executing.push(action.id);
                     const toSend = {action: action.name, ...action.param};
                     this.$http.patch(`${this.endpoint}/${this.subject.id}`, toSend)
@@ -84,7 +85,6 @@
                 }
             },
             confirmExecution(action) {
-                this.actionToConfirm = false;
                 if (action.id === ChannelFunctionAction.OPEN && ['VALVEOPENCLOSE'].includes(this.subject.function.name)) {
                     if (this.subject.state && (this.subject.state.manuallyClosed || this.subject.state.flooding)) {
                         this.actionToConfirm = action;
