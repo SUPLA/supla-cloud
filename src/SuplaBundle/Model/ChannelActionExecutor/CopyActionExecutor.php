@@ -52,7 +52,7 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
             $sourceChannel->getFunction()->getId(),
             'Source channel must have the same function.'
         );
-        return $params;
+        return ['sourceDeviceId' => $sourceChannel->getIoDevice()->getId(), 'sourceChannelId' => $sourceChannel->getId()];
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {

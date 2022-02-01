@@ -128,7 +128,7 @@ trait UserFixtures {
         return $device;
     }
 
-    private function createSchedule(ActionableSubject $subject, string $timeExpression, array $data = []): Schedule {
+    protected function createSchedule(ActionableSubject $subject, string $timeExpression, array $data = []): Schedule {
         $schedule = new Schedule($subject->getUser(), array_merge([
             'subject' => $subject,
             'mode' => ScheduleMode::ONCE,
