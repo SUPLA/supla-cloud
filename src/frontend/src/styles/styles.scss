@@ -556,8 +556,10 @@ body.warning {
 
   &-success {
     @include supla-panel($supla-green);
-    > .panel-heading a:hover {
-      color: white;
+    > .panel-heading a {
+      &:hover, &:focus {
+        color: white;
+      }
     }
   }
 

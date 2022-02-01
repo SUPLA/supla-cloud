@@ -15,6 +15,7 @@
                 <span class="input-group-addon">%</span>
             </span>
         </div>
+        <hr v-if="hasBrightness && hasColor">
         <div class="rgbw-parameter"
             v-if="hasColor">
             <label>{{ $t('Color') }}</label>
@@ -74,7 +75,7 @@
 
     export default {
         components: {HueColorpicker},
-        props: ['channelFunction', 'value'],
+        props: ['subject', 'value'],
         data() {
             return {
                 hue: 0,
@@ -96,6 +97,10 @@
                 this.brightness = this.value.brightness || 0;
             }
             if (!this.value || Object.keys(this.value).length === 0) {
+                if (this.subject.state) {
+                    this.colorBrightness = this.subject.state.color_brightness || 0;
+                    this.brightness = this.subject.state.brightness || 0;
+                }
                 this.onChange();
             }
         },
@@ -129,10 +134,13 @@
         },
         computed: {
             hasBrightness() {
-                return [ChannelFunction.DIMMER, ChannelFunction.DIMMERANDRGBLIGHTING].includes(this.channelFunction.id);
+                return [ChannelFunction.DIMMER, ChannelFunction.DIMMERANDRGBLIGHTING].includes(this.channelFunctionId);
             },
             hasColor() {
-                return [ChannelFunction.RGBLIGHTING, ChannelFunction.DIMMERANDRGBLIGHTING].includes(this.channelFunction.id);
+                return [ChannelFunction.RGBLIGHTING, ChannelFunction.DIMMERANDRGBLIGHTING].includes(this.channelFunctionId);
+            },
+            channelFunctionId() {
+                return this.subject.function.id;
             },
         },
         watch: {
@@ -150,6 +158,9 @@
         margin-bottom: 1em;
         &:last-child {
             margin-bottom: 0;
+        }
+        .input-group-addon {
+            border: 0 !important;
         }
     }
 </style>

@@ -8,6 +8,8 @@
                     <div class="panel-heading"
                         @click="changeAction(possibleAction)">
                         <a role="button"
+                            tabindex="0"
+                            @keydown.enter.stop="changeAction(possibleAction)"
                             class="text-inherit">
                             {{ $t(possibleAction.caption) }}
                         </a>
@@ -32,7 +34,7 @@
                             <div v-if="action.id === ChannelFunctionAction.SET_RGBW_PARAMETERS">
                                 <rgbw-parameters-setter v-model="param"
                                     @input="paramsChanged()"
-                                    :channel-function="subject.function"></rgbw-parameters-setter>
+                                    :subject="subject"></rgbw-parameters-setter>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SET">
                                 <digiglass-parameters-setter v-if="subject.function.name.match(/^DIGIGLASS.+/)"
@@ -213,6 +215,9 @@
             display: flex;
             a {
                 flex: 1;
+                &:focus {
+                    font-weight: bold;
+                }
             }
         }
         .btn-execute {

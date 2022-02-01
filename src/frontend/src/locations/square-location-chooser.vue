@@ -2,14 +2,14 @@
     <div>
         <square-link :class="'text-left with-label ' + squareLinkClass + ' ' + (value.enabled ? '' : 'grey')"
             v-if="value">
-            <a @click="chooseLocation = true">
+            <a @click="chooseLocation = !disabled">
                 <location-tile-content :location="value"></location-tile-content>
             </a>
         </square-link>
         <button class="btn btn-default"
             type="button"
             v-else
-            @click="chooseLocation = true">
+            @click="chooseLocation = !disabled">
             {{ $t('choose') }}
         </button>
         <location-chooser v-if="chooseLocation"
@@ -26,7 +26,7 @@
 
     export default {
         components: {LocationChooser, LocationTileContent},
-        props: ['value', 'squareLinkClass'],
+        props: ['value', 'squareLinkClass', 'disabled'],
         data() {
             return {
                 chooseLocation: false

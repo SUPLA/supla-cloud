@@ -3,29 +3,20 @@
         <loading-cover :loading="!channel || loading">
             <div class="container"
                 v-if="channel">
-                <pending-changes-page
-                    :header="channelTitle"
-                    @cancel="cancelChanges()"
-                    @save="saveChanges()"
-                    :is-pending="hasPendingChanges">
-                    <h4>
-                        {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
-                        <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
-                        {{ $t('ID') }}:
-                        {{ channel.id }},
-                        {{ $t('Channel No') }}: {{ channel.channelNumber }}
-                    </h4>
+                <h1 v-title>{{ channelTitle }}</h1>
+                <h4>
+                    {{ $t(channel.type.caption) + (channel.type.name == 'UNSUPPORTED' ? ':' : ',') }}
+                    <span v-if="channel.type.name == 'UNSUPPORTED'">{{ channel.type.id }},</span>
+                    {{ $t('ID') }}:
+                    {{ channel.id }},
+                    {{ $t('Channel No') }}: {{ channel.channelNumber }}
+                </h4>
 
-                    <div class="row hidden-xs">
-                        <div class="col-xs-12">
-                            <dots-route></dots-route>
-                        </div>
-                    </div>
-
-                    <div class="row text-center">
-                        <div class="col-sm-4">
-                            <h3>{{ $t('Configuration') }}</h3>
-                            <div class="hover-editable hovered text-left">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="channel-details-block">
+                            <h3 class="text-center">{{ $t('Configuration') }}</h3>
+                            <div class="hover-editable hovered">
                                 <dl>
                                     <dd>{{ $t('Function') }}</dd>
                                     <dt class="text-center"
@@ -48,69 +39,101 @@
                                         </a>
                                     </dt>
                                 </dl>
-                                <dl>
-                                    <dd>{{ $t('Channel name') }}</dd>
-                                    <dt>
-                                        <input type="text"
-                                            class="form-control text-center"
-                                            :placeholder="$t('Default')"
-                                            @keydown="updateChannel()"
-                                            v-model="channel.caption">
-                                    </dt>
-                                </dl>
-                                <dl v-if="channel.function.id && frozenShownInClientsState !== false">
-                                    <dd>{{ $t('Show on the Client’s devices') }}</dd>
-                                    <dt class="text-center">
-                                        <toggler v-model="channel.hidden"
-                                            invert="true"
-                                            :disabled="frozenShownInClientsState !== undefined"
-                                            @input="updateChannel()"></toggler>
-                                    </dt>
-                                </dl>
-                                <channel-params-form :channel="channel"
-                                    @save="saveChanges()"
-                                    @change="updateChannel()"></channel-params-form>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <h3>{{ $t('Device') }}</h3>
-                            <div class="form-group text-left">
-                                <device-tile :device="channel.iodevice"></device-tile>
-                            </div>
-                            <h3>{{ $t('Location') }}</h3>
-                            <div class="form-group"
-                                v-tooltip.bottom="channel.inheritedLocation && $t('Channel is assigned to the I/O device location')">
-                                <square-location-chooser v-model="channel.location"
-                                    :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
-                                    @input="onLocationChange($event)"></square-location-chooser>
-                            </div>
-                            <a v-if="!channel.inheritedLocation"
-                                @click="onLocationChange(null)">
-                                {{ $t('Inherit I/O Device location') }}
-                            </a>
-                        </div>
-                        <div class="col-sm-4">
-                            <h3>{{ $t('State') }}</h3>
-                            <function-icon :model="channel"
-                                width="100"></function-icon>
-                            <channel-alternative-icon-chooser :channel="channel"
-                                v-if="channelFunctionIsChosen"
-                                @change="updateChannel()"></channel-alternative-icon-chooser>
-                            <channel-state-table :channel="channel"
-                                v-if="channelFunctionIsChosen && !loading"></channel-state-table>
-                            <div v-if="hasActionsToExecute"
-                                class="pt-3">
-                                <!--                                <a class="btn btn-default btn-block btn-wrapped"-->
-                                <!--                                    :class="{disabled: hasPendingChanges}"-->
-                                <!--                                    @click="executingAction = true">-->
-                                <!--                                    {{ $t('Execute an action') }}-->
-                                <!--                                </a>-->
-                                <channel-action-executor class="text-left"
-                                    :subject="channel"></channel-action-executor>
+                                <form @submit.prevent="saveChanges()">
+                                    <dl>
+                                        <dd>{{ $t('Channel name') }}</dd>
+                                        <dt>
+                                            <input type="text"
+                                                class="form-control text-center"
+                                                :placeholder="$t('Default')"
+                                                @keydown="updateChannel()"
+                                                v-model="channel.caption">
+                                        </dt>
+                                    </dl>
+                                    <dl v-if="channel.function.id && frozenShownInClientsState !== false">
+                                        <dd>{{ $t('Show on the Client’s devices') }}</dd>
+                                        <dt class="text-center">
+                                            <toggler v-model="channel.hidden"
+                                                invert="true"
+                                                :disabled="frozenShownInClientsState !== undefined"
+                                                @input="updateChannel()"></toggler>
+                                        </dt>
+                                    </dl>
+                                    <channel-params-form :channel="channel"
+                                        @save="saveChanges()"
+                                        @change="updateChannel()"></channel-params-form>
+                                    <transition-expand>
+                                        <div class="text-center mt-3"
+                                            v-if="hasPendingChanges">
+                                            <a class="btn btn-grey mx-1"
+                                                @click="cancelChanges()">
+                                                <i class="pe-7s-back"></i>
+                                                {{ $t('Cancel changes') }}
+                                            </a>
+                                            <button class="btn btn-white mx-1"
+                                                type="submit">
+                                                <i class="pe-7s-diskette"></i>
+                                                {{ $t('Save changes') }}
+                                            </button>
+                                        </div>
+                                    </transition-expand>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </pending-changes-page>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="channel-details-block">
+                            <h3 class="text-center">{{ $t('Device') }}</h3>
+                            <div class="form-group">
+                                <device-tile :device="channel.iodevice"></device-tile>
+                            </div>
+                        </div>
+                        <div class="channel-details-block">
+                            <h3 class="text-center">{{ $t('Location') }}</h3>
+                            <div class="form-group"
+                                v-tooltip.bottom="(hasPendingChanges && $t('Save or discard configuration changes first.')) || (channel.inheritedLocation && $t('Channel is assigned to the I/O device location'))">
+                                <square-location-chooser v-model="channel.location"
+                                    :disabled="hasPendingChanges"
+                                    :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
+                                    @input="onLocationChange($event)"></square-location-chooser>
+                            </div>
+                            <div class="text-center">
+                                <a v-if="!channel.inheritedLocation && !hasPendingChanges"
+                                    @click="onLocationChange(null)">
+                                    {{ $t('Inherit I/O Device location') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="channel-details-block">
+                            <h3 class="text-center">{{ $t('State') }}</h3>
+                            <div class="text-center">
+                                <function-icon :model="channel"
+                                    width="100"></function-icon>
+                                <div v-if="channelFunctionIsChosen">
+                                    <span v-if="hasPendingChanges"
+                                        v-tooltip.bottom="$t('Save or discard configuration changes first.')">
+                                        {{ $t('Change icon') }}
+                                    </span>
+                                    <channel-alternative-icon-chooser :channel="channel"
+                                        v-else
+                                        @change="saveChanges()"></channel-alternative-icon-chooser>
+                                </div>
+                                <channel-state-table class="py-3"
+                                    :channel="channel"
+                                    v-if="channelFunctionIsChosen && !loading"></channel-state-table>
+                            </div>
+                        </div>
+                        <div class="channel-details-block">
+                            <h3 class="text-center">{{ $t('Actions') }}</h3>
+                            <div v-if="hasActionsToExecute"
+                                class="pt-3">
+                                <channel-action-executor :subject="channel"></channel-action-executor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -144,7 +167,6 @@
 
 <script>
     import {channelTitle, deviceTitle} from "../common/filters";
-    import DotsRoute from "../common/gui/dots-route.vue";
     import FunctionIcon from "./function-icon";
     import ChannelParamsForm from "./params/channel-params-form";
     import SquareLocationChooser from "../locations/square-location-chooser";
@@ -153,7 +175,6 @@
     import ChannelDetailsTabs from "./channel-details-tabs";
     import throttle from "lodash/throttle";
     import Toggler from "../common/gui/toggler";
-    import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
     import $ from "jquery";
     import ChannelFunctionEditModal from "@/channels/channel-function-edit-modal";
@@ -162,23 +183,23 @@
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
     import ChannelActionExecutor from "@/channels/action/channel-action-executor";
     import ChannelActionExecutorModal from "./action/channel-action-executor-modal";
+    import TransitionExpand from "../common/gui/transition-expand";
 
     export default {
         props: ['id'],
         components: {
+            TransitionExpand,
             ChannelActionExecutorModal,
             ChannelActionExecutor,
             DependenciesWarningModal,
             DeviceTile,
             ChannelFunctionEditModal,
             PageContainer,
-            PendingChangesPage,
             ChannelDetailsTabs,
             ChannelStateTable,
             ChannelAlternativeIconChooser,
             SquareLocationChooser,
             ChannelParamsForm,
-            DotsRoute,
             FunctionIcon,
             Toggler,
         },
@@ -253,7 +274,7 @@
                     location = this.channel.iodevice.location;
                 }
                 this.$set(this.channel, 'location', location);
-                this.updateChannel();
+                this.saveChanges();
             }
         },
         computed: {
@@ -281,3 +302,23 @@
         }
     };
 </script>
+
+<style lang="scss">
+    @import '../styles/mixins';
+
+    .channel-details-block {
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        padding: 15px;
+        //background-color: #f5f5f5;
+        border-radius: 4px;
+        h3 {
+            margin-top: 0;
+        }
+        @include on-xs-and-down {
+            border: 0;
+            background: white;
+            padding: 5px 0;
+        }
+    }
+</style>
