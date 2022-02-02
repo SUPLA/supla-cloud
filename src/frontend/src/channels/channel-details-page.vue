@@ -14,7 +14,7 @@
 
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
-                        <div class="channel-details-block">
+                        <div class="details-page-block">
                             <h3 class="text-center">{{ $t('Configuration') }}</h3>
                             <div class="hover-editable hovered">
                                 <dl>
@@ -82,13 +82,13 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="channel-details-block">
+                        <div class="details-page-block">
                             <h3 class="text-center">{{ $t('Device') }}</h3>
                             <div class="form-group">
                                 <device-tile :device="channel.iodevice"></device-tile>
                             </div>
                         </div>
-                        <div class="channel-details-block">
+                        <div class="details-page-block">
                             <h3 class="text-center">{{ $t('Location') }}</h3>
                             <div class="form-group"
                                 v-tooltip.bottom="(hasPendingChanges && $t('Save or discard configuration changes first.')) || (channel.inheritedLocation && $t('Channel is assigned to the I/O device location'))">
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="channel-details-block">
+                        <div class="details-page-block">
                             <h3 class="text-center">{{ $t('State') }}</h3>
                             <div class="text-center">
                                 <function-icon :model="channel"
@@ -125,7 +125,7 @@
                                     v-if="channelFunctionIsChosen && !loading"></channel-state-table>
                             </div>
                         </div>
-                        <div class="channel-details-block"
+                        <div class="details-page-block"
                             v-if="hasActionsToExecute">
                             <h3 class="text-center">{{ $t('Actions') }}</h3>
                             <div class="pt-3">
@@ -302,23 +302,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    @import '../styles/mixins';
-
-    .channel-details-block {
-        border: 1px solid #ccc;
-        margin-bottom: 20px;
-        padding: 15px;
-        //background-color: #f5f5f5;
-        border-radius: 4px;
-        h3 {
-            margin-top: 0;
-        }
-        @include on-xs-and-down {
-            border: 0;
-            background: white;
-            padding: 5px 0;
-        }
-    }
-</style>

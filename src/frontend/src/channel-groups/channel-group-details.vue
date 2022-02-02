@@ -11,54 +11,57 @@
                         :deletable="!isNewGroup"
                         @delete="deleteConfirm = true"
                         :is-pending="hasPendingChanges && !isNewGroup">
-                        <div class="row hidden-xs"
-                            v-if="!isNewGroup">
-                            <div class="col-xs-12">
-                                <dots-route></dots-route>
-                            </div>
-                        </div>
                         <div class="form-group"
                             v-if="!isNewGroup">
                             <div class="row text-center">
-                                <div class="col-sm-4">
-                                    <h3>{{ $t('Details') }}</h3>
-                                    <div class="hover-editable text-left">
-                                        <dl>
-                                            <dd>{{ $t('Caption') }}</dd>
-                                            <dt>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    @keydown="channelGroupChanged()"
-                                                    v-model="channelGroup.caption">
-                                            </dt>
-                                            <dd>{{ $t('Show on the Client’s devices') }}</dd>
-                                            <dt class="text-center">
-                                                <toggler v-model="channelGroup.hidden"
-                                                    invert="true"
-                                                    @input="channelGroupChanged()"></toggler>
-                                            </dt>
-                                        </dl>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="details-page-block">
+                                        <h3>{{ $t('Details') }}</h3>
+                                        <div class="hover-editable text-left">
+                                            <dl>
+                                                <dd>{{ $t('Caption') }}</dd>
+                                                <dt>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        @keydown="channelGroupChanged()"
+                                                        v-model="channelGroup.caption">
+                                                </dt>
+                                                <dd>{{ $t('Show on the Client’s devices') }}</dd>
+                                                <dt class="text-center">
+                                                    <toggler v-model="channelGroup.hidden"
+                                                        invert="true"
+                                                        @input="channelGroupChanged()"></toggler>
+                                                </dt>
+                                            </dl>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <h3>{{ $t('Location') }}</h3>
-                                    <square-location-chooser v-model="channelGroup.location"
-                                        @input="onLocationChange($event)"></square-location-chooser>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="details-page-block">
+                                        <h3>{{ $t('Location') }}</h3>
+                                        <square-location-chooser v-model="channelGroup.location"
+                                            @input="onLocationChange($event)"></square-location-chooser>
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <h3>{{ $t('Function') }}</h3>
-                                    <div v-if="channelGroup.function">
-                                        <function-icon :model="channelGroup"
-                                            width="100"></function-icon>
-                                        <h4>{{ $t(channelGroup.function.caption) }}</h4>
-                                        <channel-alternative-icon-chooser :channel="channelGroup"
-                                            @change="channelGroupChanged()"></channel-alternative-icon-chooser>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="details-page-block">
+                                        <h3>{{ $t('Function') }}</h3>
+                                        <div v-if="channelGroup.function">
+                                            <function-icon :model="channelGroup"
+                                                width="100"></function-icon>
+                                            <h4>{{ $t(channelGroup.function.caption) }}</h4>
+                                            <channel-alternative-icon-chooser :channel="channelGroup"
+                                                @change="channelGroupChanged()"></channel-alternative-icon-chooser>
+                                        </div>
+                                        <div v-else-if="isNewGroup">
+                                            <i class="pe-7s-help1"
+                                                style="font-size: 3em"></i>
+                                        </div>
+                                    </div>
+                                    <div class="details-page-block">
+                                        <h3>{{ $t('Actions') }}</h3>
                                         <channel-action-executor class="text-left"
                                             :subject="channelGroup"></channel-action-executor>
-                                    </div>
-                                    <div v-else-if="isNewGroup">
-                                        <i class="pe-7s-help1"
-                                            style="font-size: 3em"></i>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +110,6 @@
 <script>
     import Vue from "vue";
     import FunctionIcon from "../channels/function-icon.vue";
-    import DotsRoute from "../common/gui/dots-route.vue";
     import ChannelGroupNewChannelChooser from "./channel-group-new-channel-chooser.vue";
     import ChannelGroupChannelTile from "./channel-group-channel-tile";
     import SquareLocationChooser from "../locations/square-location-chooser";
@@ -132,7 +134,6 @@
             Toggler,
             ChannelGroupChannelTile,
             ChannelGroupNewChannelChooser,
-            DotsRoute,
             FunctionIcon,
             SquareLocationChooser,
         },

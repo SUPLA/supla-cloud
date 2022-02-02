@@ -14,12 +14,6 @@
                             :url="fullUrl"
                             :possible-actions="possibleActions"
                             :allowed-actions="allowedActions"></direct-link-preview>
-                        <div class="row hidden-xs"
-                            v-if="!isNew">
-                            <div class="col-xs-12">
-                                <dots-route></dots-route>
-                            </div>
-                        </div>
                         <div class="row"
                             v-if="!directLink.active && directLink.inactiveReason">
                             <div class="form-group"></div>
@@ -34,118 +28,121 @@
                             v-if="!isNew">
                             <div class="row text-center">
                                 <div class="col-sm-4">
-                                    <h3>{{ $t('Details') }}</h3>
-                                    <div class="hover-editable text-left">
-                                        <dl>
-                                            <dd>{{ $t('Caption') }}</dd>
-                                            <dt>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    @keydown="directLinkChanged()"
-                                                    v-model="directLink.caption">
-                                            </dt>
-                                            <dd>{{ $t('Enabled') }}</dd>
-                                            <dt>
-                                                <toggler
-                                                    @input="directLinkChanged()"
-                                                    v-model="directLink.enabled"></toggler>
-                                            </dt>
-                                            <dd>{{ $t('Allowed actions') }}</dd>
-                                            <dt>
-                                                <div class="row">
-                                                    <div v-for="action in possibleActions"
-                                                        :key="action.id"
-                                                        class="col-sm-3 text-center">
-                                                        <toggler
-                                                            :label="action.caption"
-                                                            @input="directLinkChanged()"
-                                                            v-model="allowedActions[action.name]"></toggler>
+                                    <div class="details-page-block">
+                                        <h3>{{ $t('Details') }}</h3>
+                                        <div class="hover-editable text-left">
+                                            <dl>
+                                                <dd>{{ $t('Caption') }}</dd>
+                                                <dt>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        @keydown="directLinkChanged()"
+                                                        v-model="directLink.caption">
+                                                </dt>
+                                                <dd>{{ $t('Enabled') }}</dd>
+                                                <dt>
+                                                    <toggler
+                                                        @input="directLinkChanged()"
+                                                        v-model="directLink.enabled"></toggler>
+                                                </dt>
+                                                <dd>{{ $t('Allowed actions') }}</dd>
+                                                <dt>
+                                                    <div class="row">
+                                                        <div v-for="action in possibleActions"
+                                                            :key="action.id"
+                                                            class="col-sm-3 text-center">
+                                                            <toggler
+                                                                :label="action.caption"
+                                                                @input="directLinkChanged()"
+                                                                v-model="allowedActions[action.name]"></toggler>
+                                                        </div>
+                                                    </div>
+                                                </dt>
+                                            </dl>
+                                            <transition-expand>
+                                                <div class="form-group"
+                                                    v-if="displayOpeningSensorWarning">
+                                                    <div class="alert alert-warning text-center">
+                                                        {{ $t('The gate sensor must function properly in order to execute the Open and Close actions.') }}
                                                     </div>
                                                 </div>
-                                            </dt>
-                                        </dl>
-                                        <transition-expand>
-                                            <div class="form-group"
-                                                v-if="displayOpeningSensorWarning">
-                                                <div class="alert alert-warning text-center">
-                                                    {{ $t('The gate sensor must function properly in order to execute the Open and Close actions.') }}
-                                                </div>
+                                            </transition-expand>
+                                            <dl>
+                                                <dd v-tooltip="$t('Allows to perform an action only using the HTTP PATCH request.')">
+                                                    {{ $t('For devices') }}
+                                                    <i class="pe-7s-help1"></i>
+                                                </dd>
+                                                <dt>
+                                                    <toggler
+                                                        @input="directLinkChanged()"
+                                                        v-model="directLink.disableHttpGet"></toggler>
+                                                </dt>
+                                            </dl>
+                                            <div class="help-block small"
+                                                v-if="directLink.disableHttpGet">
+                                                {{ $t('When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.') }}
+                                                <pre style="margin-top: 5px"><code>{{ examplePatchBody }}</code></pre>
                                             </div>
-                                        </transition-expand>
-                                        <dl>
-                                            <dd v-tooltip="$t('Allows to perform an action only using the HTTP PATCH request.')">
-                                                {{ $t('For devices') }}
-                                                <i class="pe-7s-help1"></i>
-                                            </dd>
-                                            <dt>
-                                                <toggler
-                                                    @input="directLinkChanged()"
-                                                    v-model="directLink.disableHttpGet"></toggler>
-                                            </dt>
-                                        </dl>
-                                        <div class="help-block small"
-                                            v-if="directLink.disableHttpGet">
-                                            {{ $t('When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.') }}
-                                            <pre style="margin-top: 5px"><code>{{ examplePatchBody }}</code></pre>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <h3 class="text-center">{{ $t('actionableSubjectType_' + directLink.subjectType) }}</h3>
-                                    <div class="text-left">
-                                        <channel-tile :model="directLink.subject"
-                                            v-if="directLink.subjectType == 'channel'"></channel-tile>
-                                        <channel-group-tile :model="directLink.subject"
-                                            v-if="directLink.subjectType == 'channelGroup'"></channel-group-tile>
-                                        <scene-tile :model="directLink.subject"
-                                            v-if="directLink.subjectType == 'scene'"></scene-tile>
+                                    <div class="details-page-block">
+                                        <h3 class="text-center">{{ $t('actionableSubjectType_' + directLink.subjectType) }}</h3>
+                                        <div class="text-left">
+                                            <channel-tile :model="directLink.subject"
+                                                v-if="directLink.subjectType == 'channel'"></channel-tile>
+                                            <channel-group-tile :model="directLink.subject"
+                                                v-if="directLink.subjectType == 'channelGroup'"></channel-group-tile>
+                                            <scene-tile :model="directLink.subject"
+                                                v-if="directLink.subjectType == 'scene'"></scene-tile>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <h3>{{ $t('Execution history') }}</h3>
-                                    <direct-link-audit :direct-link="directLink"></direct-link-audit>
+                                    <div class="details-page-block">
+                                        <h3>{{ $t('Execution history') }}</h3>
+                                        <direct-link-audit :direct-link="directLink"></direct-link-audit>
+                                    </div>
                                 </div>
                             </div>
-                            <h3>{{ $t('Constraints') }}</h3>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="well">
-                                            <h4 class="text-center">{{ $t('Working period') }}</h4>
-                                            <date-range-picker v-model="directLink.activeDateRange"
-                                                @input="directLinkChanged()"></date-range-picker>
-                                        </div>
+                            <h2>{{ $t('Constraints') }}</h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="details-page-block">
+                                        <h3 class="text-center">{{ $t('Working period') }}</h3>
+                                        <date-range-picker v-model="directLink.activeDateRange"
+                                            @input="directLinkChanged()"></date-range-picker>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="well">
-                                            <h4 class="text-center">{{ $t('Execution limit') }}</h4>
-
-                                            <div class="executions-limit">
-                                                {{ directLink.executionsLimit }}
-                                            </div>
-                                            <div class="text-center">
-                                                <a class="btn btn-default"
-                                                    @click="setExecutionsLimit(undefined)">{{ $t('No limit') }}</a>
-                                                <a class="btn btn-default"
-                                                    @click="setExecutionsLimit(1)">1</a>
-                                                <a class="btn btn-default"
-                                                    @click="setExecutionsLimit(2)">2</a>
-                                                <a class="btn btn-default"
-                                                    @click="setExecutionsLimit(10)">10</a>
-                                                <a class="btn btn-default"
-                                                    @click="setExecutionsLimit(100)">100</a>
-                                                <a :class="'btn btn-default ' + (choosingCustomLimit ? 'active' : '')"
-                                                    @click="choosingCustomLimit = !choosingCustomLimit">{{ $t('Custom') }}</a>
-                                            </div>
-                                            <div v-if="choosingCustomLimit">
-                                                <div class="form-group"></div>
-                                                <label>{{ $t('Custom execution limit') }}</label>
-                                                <input v-model="directLink.executionsLimit"
-                                                    class="form-control"
-                                                    type="number"
-                                                    min="0"
-                                                    @input="directLinkChanged()">
-                                            </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="details-page-block">
+                                        <h3 class="text-center">{{ $t('Execution limit') }}</h3>
+                                        <div class="executions-limit">
+                                            {{ directLink.executionsLimit }}
+                                        </div>
+                                        <div class="text-center">
+                                            <a class="btn btn-default mx-1"
+                                                @click="setExecutionsLimit(undefined)">{{ $t('No limit') }}</a>
+                                            <a class="btn btn-default mx-1"
+                                                @click="setExecutionsLimit(1)">1</a>
+                                            <a class="btn btn-default mx-1"
+                                                @click="setExecutionsLimit(2)">2</a>
+                                            <a class="btn btn-default mx-1"
+                                                @click="setExecutionsLimit(10)">10</a>
+                                            <a class="btn btn-default mx-1"
+                                                @click="setExecutionsLimit(100)">100</a>
+                                            <a :class="'btn btn-default mx-1 ' + (choosingCustomLimit ? 'active' : '')"
+                                                @click="choosingCustomLimit = !choosingCustomLimit">{{ $t('Custom') }}</a>
+                                        </div>
+                                        <div v-if="choosingCustomLimit">
+                                            <div class="form-group"></div>
+                                            <label>{{ $t('Custom execution limit') }}</label>
+                                            <input v-model="directLink.executionsLimit"
+                                                class="form-control"
+                                                type="number"
+                                                min="0"
+                                                @input="directLinkChanged()">
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +178,6 @@
 
 <script>
     import Vue from "vue";
-    import DotsRoute from "../common/gui/dots-route.vue";
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
@@ -209,7 +205,6 @@
             PageContainer,
             PendingChangesPage,
             Toggler,
-            DotsRoute,
         },
         data() {
             return {

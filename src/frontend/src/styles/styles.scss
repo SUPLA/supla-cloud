@@ -632,6 +632,20 @@ body.warning {
   font-family: monospace;
 }
 
+.details-page-block {
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 4px;
+  h3 {
+    margin-top: 0;
+  }
+  @include on-xs-and-down {
+    border: 0;
+    background: white;
+    padding: 5px 0;
+  }
+}
 
 @import "./buttons";
 @import "./checkbox";

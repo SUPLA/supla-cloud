@@ -20,71 +20,70 @@
                             {{ $t('Delete') }}
                         </a>
                     </div>
-                    <div class="row hidden-xs">
-                        <div class="col-xs-12">
-                            <dots-route></dots-route>
-                        </div>
-                    </div>
                     <div class="row">
-                        <div class="col-sm-4">
-                            <h3 class="text-center">{{ $t('Details') }}</h3>
-                            <div class="hover-editable text-left">
-                                <dl>
-                                    <dd>{{ $t('Caption') }}</dd>
-                                    <dt>
-                                        <input type="text"
-                                            class="form-control text-center"
-                                            @keydown="updateSchedule()"
-                                            v-model="schedule.caption">
-                                    </dt>
-                                    <dd>{{ $t('Enabled') }}</dd>
-                                    <dt>
-                                        <toggler v-model="schedule.enabled"
-                                            @input="updateSchedule()"></toggler>
-                                    </dt>
-                                </dl>
-                                <dl v-if="!retryOptionDisabled">
-                                    <dd>{{ $t('Retry on failure') }}</dd>
-                                    <dt>
-                                        <toggler v-model="schedule.retry"
-                                            @input="updateSchedule()"></toggler>
-                                    </dt>
-                                </dl>
-                                <dl>
-                                    <dd>{{ $t('Mode') }}</dd>
-                                    <dt>{{ $t(`scheduleMode_${schedule.mode}`) }}</dt>
-                                    <dd>{{ $t('Start date') }}</dd>
-                                    <dt>{{ schedule.dateStart | moment('LLL') }}</dt>
-                                </dl>
-                                <dl v-if="schedule.dateEnd">
-                                    <dd>{{ $t('End date') }}</dd>
-                                    <dt>{{ schedule.dateEnd | moment('LLL') }}</dt>
-                                </dl>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="details-page-block">
+                                <h3 class="text-center">{{ $t('Details') }}</h3>
+                                <div class="hover-editable text-left">
+                                    <dl>
+                                        <dd>{{ $t('Caption') }}</dd>
+                                        <dt>
+                                            <input type="text"
+                                                class="form-control text-center"
+                                                @keydown="updateSchedule()"
+                                                v-model="schedule.caption">
+                                        </dt>
+                                        <dd>{{ $t('Enabled') }}</dd>
+                                        <dt>
+                                            <toggler v-model="schedule.enabled"
+                                                @input="updateSchedule()"></toggler>
+                                        </dt>
+                                    </dl>
+                                    <dl v-if="!retryOptionDisabled">
+                                        <dd>{{ $t('Retry on failure') }}</dd>
+                                        <dt>
+                                            <toggler v-model="schedule.retry"
+                                                @input="updateSchedule()"></toggler>
+                                        </dt>
+                                    </dl>
+                                    <dl>
+                                        <dd>{{ $t('Mode') }}</dd>
+                                        <dt>{{ $t(`scheduleMode_${schedule.mode}`) }}</dt>
+                                        <dd>{{ $t('Start date') }}</dd>
+                                        <dt>{{ schedule.dateStart | moment('LLL') }}</dt>
+                                    </dl>
+                                    <dl v-if="schedule.dateEnd">
+                                        <dd>{{ $t('End date') }}</dd>
+                                        <dt>{{ schedule.dateEnd | moment('LLL') }}</dt>
+                                    </dl>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <h3 class="text-center">{{ $t('actionableSubjectType_' + schedule.subjectType) }}</h3>
-                            <div class="form-group">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="details-page-block">
+                                <h3 class="text-center">{{ $t('actionableSubjectType_' + schedule.subjectType) }}</h3>
                                 <channel-tile :model="schedule.subject"
                                     v-if="schedule.subjectType == 'channel'"></channel-tile>
                                 <channel-group-tile :model="schedule.subject"
                                     v-if="schedule.subjectType == 'channelGroup'"></channel-group-tile>
                                 <scene-tile :model="schedule.subject"
                                     v-if="schedule.subjectType == 'scene'"></scene-tile>
-                            </div>
-                            <div class="form-group"
-                                v-if="scheduleActionWarning">
-                                <div class="alert alert-warning text-center">
-                                    {{ scheduleActionWarning }}
+                                <div class="mt-3"
+                                    v-if="scheduleActionWarning">
+                                    <div class="alert alert-warning text-center">
+                                        {{ scheduleActionWarning }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <h3 class="text-center">{{ $t('Executions') }}</h3>
-                            <schedule-executions-display :schedule="schedule"
-                                v-if="!loading"></schedule-executions-display>
-                            <h4 class="text-center"
-                                v-if="!schedule.enabled">{{ $t('No future executions - schedule disabled') }}</h4>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="details-page-block">
+                                <h3 class="text-center">{{ $t('Executions') }}</h3>
+                                <schedule-executions-display :schedule="schedule"
+                                    v-if="!loading"></schedule-executions-display>
+                                <h4 class="text-center"
+                                    v-if="!schedule.enabled">{{ $t('No future executions - schedule disabled') }}</h4>
+                            </div>
                         </div>
                     </div>
                 </pending-changes-page>
@@ -104,7 +103,6 @@
 
 <script>
     import $ from "jquery";
-    import DotsRoute from "../../common/gui/dots-route";
     import ChannelTile from "../../channels/channel-tile";
     import ChannelGroupTile from "../../channel-groups/channel-group-tile";
     import SceneTile from "../../scenes/scene-tile";
@@ -124,7 +122,6 @@
             Toggler,
             ChannelTile,
             SceneTile,
-            DotsRoute,
             ChannelGroupTile,
         },
         props: ['id'],

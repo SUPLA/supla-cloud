@@ -10,11 +10,6 @@
                         :deletable="!isNew"
                         @delete="deleteConfirm = true"
                         :is-pending="hasPendingChanges && (!isNew || scene.operations.length)">
-                        <div class="row hidden-xs">
-                            <div class="col-xs-12">
-                                <dots-route num="2"></dots-route>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -76,7 +71,6 @@
 
 <script>
     import Vue from "vue";
-    import DotsRoute from "../common/gui/dots-route.vue";
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
@@ -98,7 +92,6 @@
             PageContainer,
             PendingChangesPage,
             Toggler,
-            DotsRoute,
         },
         data() {
             return {

@@ -10,12 +10,6 @@
                         @delete="deleteConfirm = true"
                         deletable="true"
                         :is-pending="hasPendingChanges">
-                        <div class="row hidden-xs">
-                            <div class="col-xs-12">
-                                <dots-route :dot1-color="device.connected === false ? 'red' : 'green'"
-                                    :dot3-color="device.location.relationsCount.accessIds > 0 ? 'green' : 'red'"></dots-route>
-                            </div>
-                        </div>
                         <div class="row text-center">
                             <div class="col-sm-4">
                                 <h3>{{ $t('Device') }}</h3>
@@ -120,7 +114,6 @@
 
 <script>
     import {deviceTitle} from "../../common/filters";
-    import DotsRoute from "../../common/gui/dots-route.vue";
     import throttle from "lodash/throttle";
     import Toggler from "../../common/gui/toggler";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
@@ -141,7 +134,6 @@
             ConnectionStatusLabel,
             ChannelListPage,
             PendingChangesPage,
-            DotsRoute,
             Toggler,
             SquareLocationChooser,
         },
