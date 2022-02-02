@@ -65,6 +65,7 @@
                         </div>
                     </pending-changes-page>
                 </div>
+                <span ref="channelGroupChannels"></span>
                 <h3 class="text-center visible-xs">{{ $t('Channels') }}</h3>
                 <div class="form-group">
                     <square-links-grid v-if="channelGroup.channels"
@@ -156,6 +157,11 @@
                     this.error = false;
                     this.$http.get(`channel-groups/${this.id}?include=channels,iodevice,location`, {skipErrorHandler: [403, 404]})
                         .then(response => this.channelGroup = response.body)
+                        .then(() => {
+                            if (AppState.shiftTask('channelGroupNew')) {
+                                Vue.nextTick(() => this.$refs.channelGroupChannels.scrollIntoView());
+                            }
+                        })
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 } else {
@@ -186,6 +192,7 @@
                         const newGroup = response.body;
                         newGroup.channels = this.channelGroup.channels;
                         this.$emit('add', newGroup);
+                        AppState.addTask('channelGroupNew', true);
                     }).catch(() => this.$emit('delete'));
                 } else {
                     this.$http
