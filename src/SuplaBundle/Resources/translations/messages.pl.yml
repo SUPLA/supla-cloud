@@ -576,7 +576,7 @@ Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
 Set initial values: Ustaw wartości początkowe
-Setting any action on this trigger will disable its local function: Ustawienie tego wyzwaacza spowoduje wyłączenie funkcji urządzenia
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ten wyzwalacz jest używany lokalnie przez urządzenie (np. włącza światło, steruje roletą itd.) Jeśli przypiszesz mu inną akcję, to lokalna funkcja zostanie wyłączona.
 Setting the number of attempts to 1 disables the retrying behavior completely.: 'Ustawienie liczby prób poniżej 2 może skutkować tym, że zamknięcie lub otwarcie nie dojdzie do skutku.'
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich

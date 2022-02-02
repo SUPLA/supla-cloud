@@ -20,8 +20,7 @@
                             </a>
                             <div>
                                 <span v-if="disablesLocalOperation(trigger)"
-                                    class="text-monospace disable-local-operation-warning"
-                                    v-tooltip="$t('Setting any action on this trigger will disable its local function')">!</span>
+                                    class="text-monospace disable-local-operation-warning">!</span>
                             </div>
                         </div>
                     </div>
@@ -33,6 +32,10 @@
                     <transition-expand>
                         <div class="panel-body"
                             v-if="expanded[trigger]">
+                            <p class="small text-muted"
+                                v-if="disablesLocalOperation(trigger)">
+                                {{ $t('This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.') }}
+                            </p>
                             <action-trigger-single-action-selector v-model="channel.config.actions[trigger]"
                                 :channel="channel"
                                 :trigger="trigger"
@@ -109,7 +112,8 @@
     };
 </script>
 
-<style scoped lang="scss">
+<style scoped
+    lang="scss">
     @import '../../styles/variables';
 
     .disable-local-operation-warning {
