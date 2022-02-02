@@ -125,10 +125,10 @@
                                     v-if="channelFunctionIsChosen && !loading"></channel-state-table>
                             </div>
                         </div>
-                        <div class="channel-details-block">
+                        <div class="channel-details-block"
+                            v-if="hasActionsToExecute">
                             <h3 class="text-center">{{ $t('Actions') }}</h3>
-                            <div v-if="hasActionsToExecute"
-                                class="pt-3">
+                            <div class="pt-3">
                                 <channel-action-executor :subject="channel"></channel-action-executor>
                             </div>
                         </div>
