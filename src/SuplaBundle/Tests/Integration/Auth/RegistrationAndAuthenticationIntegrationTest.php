@@ -157,7 +157,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     /** @small */
-    public function testSendingAdminNotificationIfCannotRegister() {
+    public function testNotExposingRegistrationErrors() {
         SuplaAutodiscoverMock::clear();
         $email = array_keys(SuplaAutodiscoverMock::$userMapping)[0];
         $userData = [
@@ -174,13 +174,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(500, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals('Internal server error', $content['message']);
-        $this->flushMessagesQueue($client);
-        $messages = TestMailer::getMessages();
-        $confirmationMessage = end($messages);
-        $this->assertArrayHasKey('admin@supla.org', $confirmationMessage->getTo());
-        $this->assertContains('SUPLA - Service Unavailable', $confirmationMessage->getSubject());
-        $this->assertContains('it should not be public', $confirmationMessage->getBody());
-        $this->assertContains('supla.local', $confirmationMessage->getBody());
+        $this->assertStringNotContainsString('should not be public', $client->getResponse()->getContent());
     }
 
     /** @small */
