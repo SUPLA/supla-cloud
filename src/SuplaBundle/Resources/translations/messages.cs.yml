@@ -19,6 +19,7 @@ Account: Ůčet
 Account access when you are unavailable: 'Přístup k účtu, pokud nejste dostupní'
 Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
 Action execution: Provedení akce
+Actions: Akce
 Active: Aktivní
 Add: Přidat
 Add a new icon: Přidat novou ikonu
@@ -615,7 +616,6 @@ valid until: vyprší
 Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
 Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
 Action: Akce
-Actions: Akce
 Are you sure you want to disable this device?: Opravdu chcete toto zařízení deaktivovat?
 Assigned Locations: Přiřazené umístění
 Cannot send an activation e-mail. Try again later.: Nelze odeslat zprávu s aktivačním odkazem. Zkuste to prosím znovu později.
@@ -752,6 +752,7 @@ Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
+Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
@@ -759,6 +760,7 @@ Execute: ~
 Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
@@ -844,6 +846,7 @@ Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~

@@ -19,6 +19,7 @@ Account: Mon compte
 Account access when you are unavailable: Accès à votre compte en cas d'indisponibilité
 Account has been activated. You can Sign In now.: Votre compte a été activé. Vous pouvez dorénavant vous connecter
 Action execution: Exécution d'une action
+Actions: Actions
 Active: Actifs
 Add: Ajouter
 Add a new icon: Ajouter une nouvelle icône
@@ -615,7 +616,6 @@ valid until: expirera
 Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
 Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
 Action: Action
-Actions: Actions
 Are you sure you want to disable this device?: Voulez-vous vraiement désactiver ce dispositif?
 Assigned Locations: Lieux attribués
 Cannot send an activation e-mail. Try again later.: Impossible d’envoyer le message avec le lien d’activation. Réessayez plus tard.
@@ -752,6 +752,7 @@ Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
+Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
@@ -759,6 +760,7 @@ Execute: ~
 Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
@@ -844,6 +846,7 @@ Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~

@@ -19,6 +19,7 @@ Account: Λογαριασμός
 Account access when you are unavailable: Πρόσβαση στο λογαριασμό σας όταν δεν είστε διαθέσιμ-ος /-η
 Account has been activated. You can Sign In now.: Ο λογαριασμός έχει ενεργοποιηθεί. Μπορείτε να συνδεθείτε
 Action execution: Εκτέλεση ενέργειας
+Actions: Ενέργειες
 Active: Ενεργό
 Add: Προσθήκη
 Add a new icon: Προσθέστε νέο εικονίδιο
@@ -615,7 +616,6 @@ valid until: θα σβήσει
 Access identifier password must be at least 8 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης πρέπει να αποτελείται τουλάχιστον από 8 χαρακτήρες.
 Access identifier password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης δεν μπορεί να υπερβαίνει τους 32 χαρακτήρες.
 Action: Ενέργεια
-Actions: Ενέργειες
 Are you sure you want to disable this device?: Είστε βέβαιοι ότι θέλετε να απενεργοποιήσετε αυτή τη συσκευή;
 Assigned Locations: Παραχωρημένες τοποθεσίες
 Cannot send an activation e-mail. Try again later.: Δεν είναι δυνατή η αποστολή μηνύματος με το σύνδεσμο ενεργοποίησης. Δοκιμάστε ξανά αργότερα.
@@ -752,6 +752,7 @@ Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
+Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
@@ -759,6 +760,7 @@ Execute: ~
 Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
@@ -844,6 +846,7 @@ Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~

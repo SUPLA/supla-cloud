@@ -14,6 +14,7 @@
                 </transition>
             </loading-cover>
             <cookie-warning v-if="$frontendConfig.requireCookiePolicyAcceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
+            <cloud-version-mismatch-warning-modal></cloud-version-mismatch-warning-modal>
         </div>
         <page-footer :username="$user.username"></page-footer>
     </div>
@@ -24,9 +25,10 @@
     import Navbar from "./home/navbar";
     import MaintenanceWarning from "./common/errors/maintenance-warning";
     import CookieWarning from "./common/errors/cookie-warning";
+    import CloudVersionMismatchWarningModal from "./common/errors/cloud-version-mismatch-warning-modal";
 
     export default {
-        components: {CookieWarning, MaintenanceWarning, Navbar, PageFooter}
+        components: {CookieWarning, MaintenanceWarning, Navbar, PageFooter, CloudVersionMismatchWarningModal}
     };
 </script>
 

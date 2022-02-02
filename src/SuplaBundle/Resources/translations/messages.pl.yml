@@ -31,6 +31,7 @@ Action execution: Wykonywanie akcji
 Action trigger: Wyzwalacz akcji
 'Action trigger no. #{index}': 'Wyzwalacz #{index}'
 Action triggers: Wyzwalacze akcji
+Actions: Akcje
 Active: Aktywne
 Add: Dodaj
 Add a delay: Dodaj opóźnienie
@@ -233,6 +234,7 @@ Disables local device function and does nothing more.: 'Nie wykonuje żadnego dz
 Disconnected: Rozłączony
 Distance: Odległość
 Distance sensor: Czujnik odległości
+Do you want to be redirected there? You may be asked to authenticate again.: 'Czy chcesz, byśmy Cię tam przekierowali? Może być konieczne ponowne zalogowanie się.'
 'Don’t worry, you can always reset your password via email. Click here to do so.': Nie martw się. Zawsze możesz zresetować hasło za pośrednictwem Twojej poczty email. Kliknij tutaj aby to zrobić.
 Door lock operation: Otwieranie drzwi
 Door opening sensor: Czujnik otwarcia drzwi
@@ -274,6 +276,7 @@ Failed (zombie): Nieudane (zombie)
 Feature limits: Limity funkcjonalności
 File is too large: Plik jest za duży
 Flooding: Zalanie
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'W trakcie aktualizacji zalecane jest korzystanie z adresu {suplaUrl}.'
 For devices: Dla urządzeń
 'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.'
 Forgot your password?: Nie pamiętasz hasła?
@@ -614,6 +617,7 @@ Thank you for registering an account with %cloudHost%. Please click the followin
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dzięki integracjom możesz w łatwy sposób dodać nowe funkcje do swojego konta, wykorzystując rozwiązania dostarczone przez zewnętrznych dostawców, programistów lub przez samego siebie.'
 'The IP used for login is: %ip%': 'Próba logowania nastąpiła z adresu IP: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: 'Hasło do brokera MQTT jest widoczne tylko w tej chwili. Upewnij się, że zapisałeś/aś je w bezpiecznym miejscu. Nie będzie możliwe jego ponowne wyświetlenie.'
+The SUPLA infrastructure is being updated.: Trwa aktualizacja serwerów SUPLA.
 The Terms and Conditions have changed: Regulamin uległ zmianie
 The Terms and Conditions have changed – please read them and accept.: Regulamin serwisu uległ zmianie - wymagana jest jego akceptacja.
 The activation link has been sent again. Check the inbox.: Wiadomość z linkiem aktywującym Twoje konto została wysłana ponownie. Sprawdź skrzynkę odbiorczą.
@@ -852,7 +856,6 @@ valid until: wygaśnie
 Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
 Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Action: Akcja
-Actions: Akcje
 Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: Rzeczywiste zachowanie wyzwalacza zależy od używanego urządzenia i jego konfiguracji. Opisy pod spodem są tylko przykładami jak urządzenie może działać.
 And set the same state for: i ustaw taki sam stan dla
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?

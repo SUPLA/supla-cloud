@@ -147,7 +147,11 @@
 
     .modal-footer {
         a.cancel {
-            color: $supla-grey-dark;
+            color: $supla-grey-dark !important;
         }
+    }
+
+    .green-confirm-button .modal-footer .confirm {
+        color: $supla-green !important;
     }
 </style>

@@ -19,6 +19,7 @@ Account: Cuenta
 Account access when you are unavailable: Acceso a la cuenta cuando estás desconectado/a
 Account has been activated. You can Sign In now.: Se ha activado la cuenta. Puedes entrar en sesión
 Action execution: Realizar acción
+Actions: Acciones
 Active: Activos
 Add: Añadir
 Add a new icon: Añadir icono nuevo
@@ -615,7 +616,6 @@ valid until: caducará
 Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
 Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
 Action: Acción
-Actions: Acciones
 Are you sure you want to disable this device?: ¿Seguro de que quieres apagar este dispositivo?
 Assigned Locations: Localizaciones asignadas
 Cannot send an activation e-mail. Try again later.: No se puede enviar el mensaje con el enlace de activación. Por favor inténtalo de nuevo más tarde.
@@ -752,6 +752,7 @@ Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
+Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
@@ -759,6 +760,7 @@ Execute: ~
 Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
@@ -844,6 +846,7 @@ Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~

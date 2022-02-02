@@ -19,6 +19,7 @@ Account: Tài khoản
 Account access when you are unavailable: Truy cập tài khoản
 Account has been activated. You can Sign In now.: Tài khoản đã kích hoạt. Hiện tại có thể đăng nhập
 Action execution: Thực hiện
+Actions: Hoạt động
 Active: Kích hoạt
 Add: Thêm
 Add a new icon: Thêm mới
@@ -615,7 +616,6 @@ valid until: sẽ hết hạn
 Access identifier password must be at least 8 characters.: Mật khẩu truy cập tối thiểu 8 kí tự..
 Access identifier password must be no longer than 32 characters.: Mật khẩu truy cập không quá 32 kí tự.
 Action: Hoạt động
-Actions: Hoạt động
 Are you sure you want to disable this device?: Chắc chắn muốn xóa thiết bị này?
 Assigned Locations: Địa điểm được phân công
 Cannot send an activation e-mail. Try again later.: Không gửi mail được. Thử lại sau.
@@ -752,6 +752,7 @@ Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
+Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
@@ -759,6 +760,7 @@ Execute: ~
 Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
@@ -844,6 +846,7 @@ Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~

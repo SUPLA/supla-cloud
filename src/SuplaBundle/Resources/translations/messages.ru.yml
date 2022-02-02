@@ -19,6 +19,7 @@ Account: Учетка
 Account access when you are unavailable: 'Доступ к учетной записи, когда вы недоступны'
 Account has been activated. You can Sign In now.: Аккаунт создан. Можете войти
 Action execution: Выполнение действий
+Actions: Действия
 Active: Активные
 Add: Добавь
 Add a new icon: Добавить новый значок
@@ -615,7 +616,6 @@ valid until: Истечет
 Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
 Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
 Action: Акция
-Actions: Действия
 Are you sure you want to disable this device?: 'Ты уверен, что хочешь выключить это оборудование?'
 Assigned Locations: Подключенные Области
 Cannot send an activation e-mail. Try again later.: 'Невозможно отправить сообщение со ссылкой для активации. Пожалуйста, попробуйте позже.'
@@ -752,6 +752,7 @@ Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
+Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
@@ -759,6 +760,7 @@ Execute: ~
 Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 Generate new password: ~
@@ -844,6 +846,7 @@ Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~

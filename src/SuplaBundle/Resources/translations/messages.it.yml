@@ -23,6 +23,7 @@ Account has been activated. You can Sign In now.: L’account è stato attivato.
 Action execution: Esecuzione dell’azione
 Action trigger: Attiva azione
 Action triggers: Attiva azioni
+Actions: Azioni
 Active: Attivi
 Add: Aggiungi
 Add a new icon: Dodaj nową ikonę
@@ -698,7 +699,6 @@ valid until: scade
 Access identifier password must be at least 8 characters.: La password per l’identificatore d’accesso deve contenere almeno 8 caratteri.
 Access identifier password must be no longer than 32 characters.: La password per l’identificatore d’accesso non può contenere più di 32 caratteri.
 Action: Azione
-Actions: Azioni
 Are you sure you want to disable this device?: Sei sicuro di voler spegnere questo dispositivo?
 Assigned Locations: Localizzazioni assegnate
 Cannot send an activation e-mail. Try again later.: Impossibile inviare il messaggio con il link di attivazione. Riprova più tardi.
@@ -815,6 +815,7 @@ Digi Glass Horizontal: ~
 Digi Glass Vertical: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
+Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
@@ -822,6 +823,7 @@ Execute: ~
 Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 General purpose measurement: ~
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
@@ -877,6 +879,7 @@ Step by step: ~
 Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
+The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The incident was detected at %datetime%.: ~
 'The items below rely on this channel group, so they will be deleted.': ~

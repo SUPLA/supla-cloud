@@ -17,6 +17,7 @@ Account: Felhasznalói fiók
 Account access when you are unavailable: 'Hozzáférés a fiókhoz, ha nem  elérhető'
 Account has been activated. You can Sign In now.: A fiók aktiválva lett. A bejelentkezés megengedett.
 Action execution: Műveletek végrehajtása
+Actions: Műveletek
 Active: Aktív
 Add: Hozzáadás
 Add a new icon: Új ikon hozzáadása
@@ -566,7 +567,6 @@ sunset-before: napnyugta előtt
 Access identifier password must be at least 8 characters.: A hozzáférési azonosító jelszavának legalább 8 karakter hosszúnak kell lennie.
 Access identifier password must be no longer than 32 characters.: A hozzáférési azonosító jelszava nem lehet hosszabb 32 karakternél.
 Action: Műveletek
-Actions: Műveletek
 Are you sure you want to disable this device?: Biztosan ki akarja kapcsolni ezt az eszközt?
 Assigned Locations: Hozzárendelt Lokálizációk
 Cannot send an activation e-mail. Try again later.: 'Nem lehet üzenetet küldeni az aktiválási linkkel. Kérjük, próbálja meg újra később.'
@@ -716,6 +716,7 @@ Digi Glass Vertical: ~
 Direct links limit has been exceeded: ~
 Disable local function: ~
 Disables local device function and does nothing more.: ~
+Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
 E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
@@ -724,6 +725,7 @@ Execute an action: ~
 Execute the scene: ~
 Feature limits: ~
 Flooding: ~
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 Forward reactive energy: ~
 General purpose measurement: ~
@@ -828,6 +830,7 @@ Store measurements history: ~
 Switch the device to configuration mode: ~
 TLS: ~
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
+The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The following items use the channels of these device. These references will be also removed.: ~
 'The following items will be deleted with this device:': ~
