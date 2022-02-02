@@ -24,8 +24,8 @@ abstract class ChannelFunctionBits extends Enum {
         return $this->isSupported($flags);
     }
 
-    public function isSupported(int $flags): bool {
-        return $flags & $this->getValue();
+    public function isSupported(?int $flags): bool {
+        return ($flags ?: 0) & $this->getValue();
     }
 
     public static function getSupportedFeatures(int $flags): array {

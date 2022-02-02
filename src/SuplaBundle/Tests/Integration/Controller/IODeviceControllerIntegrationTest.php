@@ -172,6 +172,16 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($content['enterConfigurationModeAvailable']);
     }
 
+    public function testGettingDeviceDetailsWhenFlagsIsNull() {
+        EntityUtils::setField($this->device, 'flags', null);
+        $this->getEntityManager()->persist($this->device);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/iodevices/' . $this->device->getId() . '?include=location');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+    }
+
     public function testGettingDevicesDetailsByGuid() {
         $client = $this->createAuthenticatedClient();
         $client->request('GET', '/api/iodevices/' . $this->device->getGUIDString());
