@@ -784,10 +784,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDoesNotFetchOtherParam1AsActionTriggers() {
         $device = $this->createDevice($this->location, [
-                [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
-                [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
-            ]
-        );
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+        ]);
         $firstChannel = $device->getChannels()[0];
         $secondChannel = $device->getChannels()[1];
         $firstChannel->setParam1($secondChannel->getId()); // pretending param1 as AT
