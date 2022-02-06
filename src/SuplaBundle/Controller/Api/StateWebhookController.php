@@ -25,6 +25,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\StateWebhookRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -33,7 +34,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *   schema="StateWebhook", type="object", description="State webhook definition.",
+ *   @OA\Property(property="url", type="string", description="URL address the webhooks are sent to."),
+ *   @OA\Property(property="expiresAt", type="datetime"),
+ *   @OA\Property(property="enabled", type="boolean"),
+ *   @OA\Property(property="functions", type="array", @OA\Items(ref="#/components/schemas/ChannelFunctionEnumNames"))
+ * )
+ */
 class StateWebhookController extends RestController {
     use SuplaServerAware;
 
@@ -61,8 +72,24 @@ class StateWebhookController extends RestController {
     }
 
     /**
+     * @OA\Put(
+     *     path="/integrations/state-webhook", operationId="updateStateWebhook", summary="Create or update an existing state webhook.", tags={"State webhooks"},
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="functions", type="array", @OA\Items(ref="#/components/schemas/ChannelFunctionEnumNames")),
+     *          @OA\Property(property="url", type="string", description="Callback URL."),
+     *          @OA\Property(property="accessToken", type="string", description="Access token for your API."),
+     *          @OA\Property(property="refreshToken", type="string", description="Refresh token for your API."),
+     *          @OA\Property(property="expiresAt", type="integer", description="Timestamp when the access token expires.")
+     *       ),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/StateWebhook")),
+     * )
+     * @Security("has_role('ROLE_LOCATIONS_RW')")
+     * Security("has_role('ROLE_STATE_WEBHOOK')")
      * @Put("/integrations/state-webhook")
-     * @Security("has_role('ROLE_STATE_WEBHOOK')")
+     * @UnavailableInMaintenance
      */
     public function updateStateWebhookAction(Request $request) {
         $data = $request->request->all();
