@@ -66,7 +66,7 @@ class ApiExceptionHandler implements EventSubscriberInterface {
         }
     }
 
-    private function createErrorResponse(\Exception $e, int $status, string $message = null): JsonResponse {
+    private function createErrorResponse(\Throwable $e, int $status, string $message = null): JsonResponse {
         $data = [
             'status' => $status,
             'message' => $message ?: $e->getMessage(),
