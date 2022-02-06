@@ -782,6 +782,27 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals([$anotherDevice->getChannels()[2]->getId()], $content['actionTriggersIds']);
     }
 
+    public function testDoesNotFetchOtherParam1AsActionTriggers() {
+        $device = $this->createDevice($this->location, [
+                [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+                [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            ]
+        );
+        $firstChannel = $device->getChannels()[0];
+        $secondChannel = $device->getChannels()[1];
+        $firstChannel->setParam1($secondChannel->getId()); // pretending param1 as AT
+        $this->getEntityManager()->persist($firstChannel);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/channels/' . $secondChannel->getId() . '?include=actionTriggers');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertEquals(0, $content['relationsCount']['actionTriggers']);
+        $this->assertEmpty($content['actionTriggersIds']);
+    }
+
     public function testChangingChannelFunctionClearsRelatedMeasurementChannel() {
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
