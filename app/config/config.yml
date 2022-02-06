@@ -102,7 +102,7 @@ monolog:
       handler: main_logger
       type: fingers_crossed
     main_logger:
-      level: info
+      level: warning
       path: "%kernel.logs_dir%/%kernel.environment%.log"
       type: rotating_file
       max_files: 14
