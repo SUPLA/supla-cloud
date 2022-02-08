@@ -56,7 +56,8 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
                 'openingSensorSecondaryChannelId' => null,
                 'relayTimeMs' => 500,
                 'timeSettingAvailable' => true,
-                'numberOfAttemptsToOpenOrClose' => 5,
+                'numberOfAttemptsToOpen' => 5,
+                'numberOfAttemptsToClose' => 5,
             ],
             $channel->getUserConfig()
         );
