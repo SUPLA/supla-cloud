@@ -38,7 +38,7 @@ abstract class NoWayBackMigration extends AbstractMigration implements Container
     }
 
     protected function fetchAll(string $sqlQuery): array {
-        return $this->getConnection()->fetchAll($sqlQuery);
+        return $this->getConnection()->fetchAllAssociative($sqlQuery);
     }
 
     protected function getConnection(): Connection {

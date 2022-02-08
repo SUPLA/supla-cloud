@@ -770,7 +770,7 @@ Icon: ~
 'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
-Initial values: ~
+Include energy corrections in new measurements history (not recommended): ~
 Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
 Interpolate measurements: ~
@@ -832,8 +832,7 @@ Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
 See in SUPLA-Cloud: ~
-Set initial values: ~
-Setting any action on this trigger will disable its local function: ~
+Set value added: ~
 Setting the number of attempts to 1 disables the retrying behavior completely.: ~
 Shut partially: ~
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
@@ -857,6 +856,7 @@ The new password will replace the existing one. Some of the current integrations
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: ~
 Too many actions in this schedule.: ~
 Triggers: ~
 Turning this device off will cause its channels not working in the following features.: ~
@@ -864,6 +864,7 @@ Turning this device off will result in disabling features listed below.: ~
 Unsuccessful login attempt: ~
 Update in progress: ~
 'Use the [command] server command to change this account''s limits. For example:': ~
+Value added: ~
 Value per unit: ~
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
 You are changing the settings too quickly. You have to wait a while before making this change.: ~
@@ -895,6 +896,8 @@ actionTrigger_TOGGLE_X5: ~
 actionTrigger_TURN_OFF: ~
 actionTrigger_TURN_ON: ~
 actionableSubjectType_scene: ~
+addToHistoryMeasurementWarningSelected: ~
+addToHistoryMeasurementWarningUnselected: ~
 choose the action: ~
 choose the scene: ~
 days: ~

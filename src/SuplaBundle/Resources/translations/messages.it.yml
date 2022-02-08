@@ -829,7 +829,7 @@ General purpose measurement: ~
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
 'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
-Initial values: ~
+Include energy corrections in new measurements history (not recommended): ~
 Interpolate measurements: ~
 It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
@@ -869,8 +869,7 @@ Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
 See in SUPLA-Cloud: ~
-Set initial values: ~
-Setting any action on this trigger will disable its local function: ~
+Set value added: ~
 Setting the number of attempts to 1 disables the retrying behavior completely.: ~
 Shut partially: ~
 Some features depend on this channel group: ~
@@ -885,9 +884,11 @@ The incident was detected at %datetime%.: ~
 'The items below rely on this channel group, so they will be deleted.': ~
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: ~
 Too many actions in this schedule.: ~
 Unsuccessful login attempt: ~
 'Use the [command] server command to change this account''s limits. For example:': ~
+Value added: ~
 Value per unit: ~
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
@@ -895,6 +896,8 @@ We can notify you about certain events with your account. Opt out if you don't w
 Your preferences has been updated.: ~
 'Your schedules are allowed to have a maximum of {max} actions.': ~
 actionableSubjectType_scene: ~
+addToHistoryMeasurementWarningSelected: ~
+addToHistoryMeasurementWarningUnselected: ~
 choose the action: ~
 choose the scene: ~
 days: ~

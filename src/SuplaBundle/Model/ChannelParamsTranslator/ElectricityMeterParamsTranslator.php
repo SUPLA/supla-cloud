@@ -31,6 +31,7 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($channel->getFlags()),
             'countersAvailable' => ($channel->getProperties()['countersAvailable'] ?? []) ?: [],
             'electricityMeterInitialValues' => new JsonArrayObject($channel->getUserConfig()['electricityMeterInitialValues'] ?? []),
+            'addToHistory' => $channel->getUserConfigValue('addToHistory', false),
         ];
     }
 
@@ -55,6 +56,9 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
                 $initialValues[$counterName] = $initialValue;
             }
             $channel->setUserConfigValue('electricityMeterInitialValues', $initialValues);
+        }
+        if (array_key_exists('addToHistory', $config)) {
+            $channel->setUserConfigValue('addToHistory', boolval($config['addToHistory']));
         }
     }
 

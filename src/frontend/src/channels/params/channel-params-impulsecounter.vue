@@ -27,7 +27,7 @@
                     </span>
                 </span>
             </dt>
-            <dd>{{ $t('Initial value') }}</dd>
+            <dd class="valign-top">{{ $t('Value added') }}</dd>
             <dt>
                 <span class="input-group">
                     <input type="number"
@@ -41,6 +41,9 @@
                         {{ unit }}
                     </span>
                 </span>
+                <channel-params-meter-initial-values-mode v-model="channel.config.addToHistory"
+                    class="small"
+                    @input="$emit('change')"></channel-params-meter-initial-values-mode>
             </dt>
             <dd>{{ $t('Associated measured channel') }}</dd>
             <dt>
@@ -58,9 +61,10 @@
     import ChannelParamsMeterCost from "./channel-params-meter-cost";
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import ChannelParamsMeterReset from "@/channels/params/channel-params-meter-reset";
+    import ChannelParamsMeterInitialValuesMode from "./channel-params-meter-initial-values-mode";
 
     export default {
-        components: {ChannelParamsMeterReset, ChannelsIdDropdown, ChannelParamsMeterCost},
+        components: {ChannelParamsMeterInitialValuesMode, ChannelParamsMeterReset, ChannelsIdDropdown, ChannelParamsMeterCost},
         props: ['channel'],
         computed: {
             unit() {

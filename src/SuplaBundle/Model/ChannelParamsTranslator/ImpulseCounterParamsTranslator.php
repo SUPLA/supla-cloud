@@ -29,6 +29,7 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
             'currency' => $channel->getTextParam1() ?: null,
             'unit' => $channel->getTextParam2() ?: null,
             'initialValue' => $channel->getUserConfigValue('initialValue', 0),
+            'addToHistory' => $channel->getUserConfigValue('addToHistory', false),
             'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($channel->getFlags()),
         ];
     }
@@ -37,6 +38,9 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
         if (array_key_exists('initialValue', $config)) {
             $initialValue = NumberUtils::maximumDecimalPrecision($this->getValueInRange($config['initialValue'], 0, 100000000), 3);
             $channel->setUserConfigValue('initialValue', $initialValue);
+        }
+        if (array_key_exists('addToHistory', $config)) {
+            $channel->setUserConfigValue('addToHistory', boolval($config['addToHistory']));
         }
         if (array_key_exists('pricePerUnit', $config)) {
             $channel->setParam2($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000);

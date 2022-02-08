@@ -39,6 +39,8 @@ actionTrigger_TURN_ON: Turn on
 actionableSubjectType_channel: Channel
 actionableSubjectType_channelGroup: Channel group
 actionableSubjectType_scene: Scene
+addToHistoryMeasurementWarningSelected: 'Selecting this option will result in adding the added value to the future measurements. It might produce an undesired increase in the measurement history chart. We recommend to set this value only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.'
+addToHistoryMeasurementWarningUnselected: 'Unselecting this option will result in ignoring the added value in the future measurements. It might produce an undesired decrease in the measurement history chart. We recommend to set this value only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.'
 channel: Channel
 channelGroup: Channel group
 directLinkExecutionFailureReason_disabled: Direct link is disabled.

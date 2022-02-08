@@ -350,11 +350,11 @@ Impulses: Impulsy
 'In order to confirm account deletion, enter your password.': W celu potwierdzenia chęci usunięcia Twojego konta podaj swoje hasło.
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Aby uzyskać dane do logowania do brokera MQTT, skontaktuj się z administratorem tej instancji SUPLA Cloud.'
 Inactive: Nieaktywny
+Include energy corrections in new measurements history (not recommended): Uwzględnij wartość dodaną w historii (niezalecane)
 Incorrect password: Nieprawidłowe hasło
 Information: Informacja
 Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
 Initial value: Wartość początkowa
-Initial values: Wartości początkowe
 Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
 Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
 Integrations: Integracje
@@ -575,8 +575,7 @@ Sensors: Czujniki
 Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
-Set initial values: Ustaw wartości początkowe
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ten wyzwalacz jest używany lokalnie przez urządzenie (np. włącza światło, steruje roletą itd.) Jeśli przypiszesz mu inną akcję, to lokalna funkcja zostanie wyłączona.
+Set value added: Ustal wartość dodaną
 Setting the number of attempts to 1 disables the retrying behavior completely.: 'Ustawienie liczby prób poniżej 2 może skutkować tym, że zamknięcie lub otwarcie nie dojdzie do skutku.'
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
@@ -656,6 +655,7 @@ This information has been generated automatically due to an unsuccessful login a
 This is the list of applications you have granted access to your account.: 'To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.'
 This link is only valid for an hour.: Link będzie aktywny przez godzinę.
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.'
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Ten wyzwalacz jest używany lokalnie przez urządzenie (np. włącza światło, steruje roletą itd.) Jeśli przypiszesz mu inną akcję, to lokalna funkcja zostanie wyłączona.'
 Timezone: Strefa czasowa
 Toggle: Przełącz
 Token does not exist: Token nie istnieje
@@ -674,6 +674,7 @@ Update in progress: Trwa aktualizacja
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.'
 'Use the [command] server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy [command] na Twoim serwerze. Na przykład:'
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
+Value added: Wartość dodana
 Value per unit: Wartość na jednostkę
 Valve: Zawór
 Valve closed manually: Zawór zamknięty manualnie
@@ -764,6 +765,8 @@ actionTrigger_TURN_ON: Włączenie
 actionableSubjectType_channel: Kanał
 actionableSubjectType_channelGroup: Grupa kanałów
 actionableSubjectType_scene: Scena
+addToHistoryMeasurementWarningSelected: 'Zaznaczenie tej opcji spowoduje dodanie ustawionych wartości do przyszłych pomiarów zapisywanych w historii. Może to być widoczne na wykresach jako nagły przyrost o wprowadzoną wartość. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.'
+addToHistoryMeasurementWarningUnselected: 'Odznaczenie tej opcji spowoduje pominięcie ustawionych wartości w przyszłych pomiarach zapisywanych w historii. Może to być widoczne na wykresach jako nagły spadek. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.'
 after: po
 before: przed
 channel: Kanał
@@ -883,6 +886,7 @@ Hour: Godzina
 Hours: Godziny
 I/O: Wejście/Wyjście
 'If you want to stay here, do something!': 'Jeśli chcesz tu zostać, zrób coś!'
+Initial values: Wartości początkowe
 Input: Wejście
 Invalid schedule config (incorrect action).: Niepoprawna akcja harmonogramu
 Languages: Języki
@@ -905,6 +909,7 @@ Requests limit: Limit żądań
 Saturdays: Soboty
 Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
+Set initial values: Ustaw wartości początkowe
 Status: Status
 Subject: Podmiot
 Sundays: Niedziele

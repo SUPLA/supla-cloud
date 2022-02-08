@@ -647,6 +647,10 @@ body.warning {
   }
 }
 
+.valign-top {
+  vertical-align: top !important;
+}
+
 @import "./buttons";
 @import "./checkbox";
 @import "./notifications";
