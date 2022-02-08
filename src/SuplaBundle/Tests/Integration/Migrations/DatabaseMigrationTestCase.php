@@ -14,6 +14,7 @@ abstract class DatabaseMigrationTestCase extends IntegrationTestCase {
         $dump = file_get_contents($dumpFilePath);
         // remove procedures as they can't be imported via doctrine, see https://stackoverflow.com/a/20910558/878514
         $dump = preg_replace('#DELIMITER //.+?DELIMITER ;#s', '', $dump);
+        $dump = preg_replace('#DELIMITER ;;.+?DELIMITER ;#s', '', $dump);
         $this->getEntityManager()->getConnection()->exec($dump);
     }
 
@@ -23,6 +24,10 @@ abstract class DatabaseMigrationTestCase extends IntegrationTestCase {
 
     protected function loadDumpV23() {
         $this->loadDump('2.3.0');
+    }
+
+    protected function loadDumpV2336() {
+        $this->loadDump('2.3.36');
     }
 
     protected function migrate(string $toVersion = '') {
