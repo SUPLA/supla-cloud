@@ -30,7 +30,7 @@ final class ColorUtils {
 
     /** @see https://gist.github.com/vkbo/2323023 */
     public static function hsvToDec(array $hsv): int {
-        list($iH, $iS, $iV) = $hsv;
+        [$iH, $iS, $iV] = $hsv;
         $iS /= 100;
         $iV /= 100;
         $dS = $iS;
@@ -88,7 +88,7 @@ final class ColorUtils {
     }
 
     public static function decToHue(int $dec): int {
-        list($hue, ,) = self::hexToHsv(self::decToHex($dec));
+        [$hue, ,] = self::hexToHsv(self::decToHex($dec));
         return $hue;
     }
 
@@ -101,8 +101,8 @@ final class ColorUtils {
         if ($hex{1} == 'x') {
             $hex = substr($hex, 2);
         }
-        $hex = [$hex{0} . $hex{1}, $hex{2} . $hex{3}, $hex{4} . $hex{5}];
-        list($R, $G, $B) = array_map(function ($part) {
+        $hex = [$hex[0] . $hex[1], $hex[2] . $hex[3], $hex[4] . $hex[5]];
+        [$R, $G, $B] = array_map(function ($part) {
             return hexdec($part) / 255;
         }, $hex);
         $maxRGB = max($R, $G, $B);
