@@ -35,6 +35,7 @@ use SuplaBundle\Repository\UserIconRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserIconController extends RestController {
     use SuplaServerAware;
@@ -132,8 +133,12 @@ class UserIconController extends RestController {
      * @Cache(maxage="86400", smaxage=86400)
      */
     public function getUserIconImageAction(UserIcon $userIcon, int $imageIndex) {
-        $image = $userIcon->getImages()[$imageIndex];
-        return new Response($image);
+        $images = $userIcon->getImages();
+        if (isset($images[$imageIndex])) {
+            return new Response($images[$imageIndex]);
+        } else {
+            throw new NotFoundHttpException();
+        }
     }
 
     /**
