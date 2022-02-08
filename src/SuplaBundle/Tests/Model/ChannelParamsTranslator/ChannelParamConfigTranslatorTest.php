@@ -211,7 +211,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $config = $this->configTranslator->getConfigFromParams($channel);
         $this->assertEquals([
             'relayTimeMs' => 500,
-            'numberOfAttemptsToOpenOrClose' => 5,
+            'numberOfAttemptsToOpen' => 5,
+            'numberOfAttemptsToClose' => 5,
             'timeSettingAvailable' => true,
         ], $config);
     }

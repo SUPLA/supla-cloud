@@ -445,7 +445,8 @@ No. of devices: Liczba urządzeń
 No. of locations: Liczba lokalizacji
 None: Brak
 None (channel disabled): Brak (kanał wyłączony)
-Number of attempts to open or close: Liczba prób otwarcia lub zamknięcia
+Number of attempts to close: Liczba prób zamknięcia
+Number of attempts to open: Liczba prób otwarcia
 Number of sections: Liczba sekcji
 OAuth application: Aplikacja OAuth
 OAuth apps: Aplikacje OAuth

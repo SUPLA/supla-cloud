@@ -57,4 +57,14 @@ class Version20220208164512MigrationTest extends DatabaseMigrationTestCase {
         $this->assertFalse($channel->getUserConfigValue('addToHistory'));
         $this->assertEquals(0, $channel->getUserConfigValue('initialValue'));
     }
+
+    public function testMigratedNumberOfAttemptsToOpenOrClose() {
+        /** @var IODeviceChannel $channel */
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, 156);
+        $this->assertArrayNotHasKey('numberOfAttemptsToOpenOrClose', $channel->getUserConfig());
+        $this->assertArrayHasKey('numberOfAttemptsToOpen', $channel->getUserConfig());
+        $this->assertArrayHasKey('numberOfAttemptsToClose', $channel->getUserConfig());
+        $this->assertEquals(3, $channel->getUserConfigValue('numberOfAttemptsToOpen'));
+        $this->assertEquals(3, $channel->getUserConfigValue('numberOfAttemptsToClose'));
+    }
 }

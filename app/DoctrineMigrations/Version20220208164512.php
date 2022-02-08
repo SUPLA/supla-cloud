@@ -22,11 +22,13 @@ use SuplaBundle\Enums\ChannelType;
 
 /**
  * New channel.config.addToHistory for EM and IC.
+ * Split channel.config.numberOfAttemptsToOpenOrClose to numberOfAttemptsToOpen and numberOfAttemptsToClose.
  */
 class Version20220208164512 extends NoWayBackMigration {
     public function migrate() {
         $this->updateImpulseCountersAddToHistory();
         $this->updateElectricityMetersAddToHistory();
+        $this->migrateNumberOfAttemptsToOpenOrClose();
     }
 
     private function updateImpulseCountersAddToHistory() {
@@ -57,6 +59,25 @@ class Version20220208164512 extends NoWayBackMigration {
                 'UPDATE supla_dev_channel SET user_config=:config WHERE id=:id',
                 ['id' => $id, 'config' => json_encode($userConfig)]
             );
+        }
+    }
+
+    private function migrateNumberOfAttemptsToOpenOrClose() {
+        $gateFunctions = implode(',', [ChannelFunction::CONTROLLINGTHEGARAGEDOOR, ChannelFunction::CONTROLLINGTHEGATE]);
+        $gatesQuery = $this->getConnection()->executeQuery("SELECT id, user_config FROM supla_dev_channel WHERE func IN($gateFunctions)");
+        while ($gateChannel = $gatesQuery->fetchAssociative()) {
+            $id = $gateChannel['id'];
+            $userConfig = json_decode($gateChannel['user_config'], true);
+            if (isset($userConfig['numberOfAttemptsToOpenOrClose'])) {
+                $numberOfAttempts = intval($userConfig['numberOfAttemptsToOpenOrClose']) ?: 1;
+                unset($userConfig['numberOfAttemptsToOpenOrClose']);
+                $userConfig['numberOfAttemptsToOpen'] = $numberOfAttempts;
+                $userConfig['numberOfAttemptsToClose'] = $numberOfAttempts;
+                $this->addSql(
+                    'UPDATE supla_dev_channel SET user_config=:config WHERE id=:id',
+                    ['id' => $id, 'config' => json_encode($userConfig)]
+                );
+            }
         }
     }
 }

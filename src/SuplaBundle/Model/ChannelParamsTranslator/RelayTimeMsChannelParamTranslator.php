@@ -13,7 +13,8 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
  *   @OA\Property(property="relayTimeMs", type="integer"),
  *   @OA\Property(property="openingSensorChannelId", type="integer"),
  *   @OA\Property(property="openingSensorSecondaryChannelId", type="integer"),
- *   @OA\Property(property="numberOfAttemptsToOpenOrClose", type="integer", minimum=1, maximum=5),
+ *   @OA\Property(property="numberOfAttemptsToOpen", type="integer", minimum=1, maximum=5),
+ *   @OA\Property(property="numberOfAttemptsToClose", type="integer", minimum=1, maximum=5),
  * )
  */
 class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {

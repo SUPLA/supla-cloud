@@ -14,15 +14,20 @@ class NumberOfAttemptsToOpenOrCloseParamTranslator implements ChannelParamTransl
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
         return [
-            'numberOfAttemptsToOpenOrClose' => $channel->getUserConfig()['numberOfAttemptsToOpenOrClose'] ?? self::DEFAULT_ATTEMPTS,
+            'numberOfAttemptsToOpen' => $channel->getUserConfigValue('numberOfAttemptsToOpen', self::DEFAULT_ATTEMPTS),
+            'numberOfAttemptsToClose' => $channel->getUserConfigValue('numberOfAttemptsToClose', self::DEFAULT_ATTEMPTS),
         ];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         $userConfig = $channel->getUserConfig();
-        if (array_key_exists('numberOfAttemptsToOpenOrClose', $config) || !isset($userConfig['numberOfAttemptsToOpenOrClose'])) {
-            $value = $config['numberOfAttemptsToOpenOrClose'] ?? self::DEFAULT_ATTEMPTS;
-            $userConfig['numberOfAttemptsToOpenOrClose'] = intval($this->getValueInRange($value, self::MIN_ATTEMPTS, self::MAX_ATTEMPTS));
+        if (array_key_exists('numberOfAttemptsToOpen', $config) || !isset($userConfig['numberOfAttemptsToOpen'])) {
+            $value = $config['numberOfAttemptsToOpen'] ?? self::DEFAULT_ATTEMPTS;
+            $userConfig['numberOfAttemptsToOpen'] = intval($this->getValueInRange($value, self::MIN_ATTEMPTS, self::MAX_ATTEMPTS));
+        }
+        if (array_key_exists('numberOfAttemptsToClose', $config) || !isset($userConfig['numberOfAttemptsToClose'])) {
+            $value = $config['numberOfAttemptsToClose'] ?? self::DEFAULT_ATTEMPTS;
+            $userConfig['numberOfAttemptsToClose'] = intval($this->getValueInRange($value, self::MIN_ATTEMPTS, self::MAX_ATTEMPTS));
         }
         $channel->setUserConfig($userConfig);
     }
