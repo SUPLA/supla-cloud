@@ -485,7 +485,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'openingSensorChannelId' => null,
             'openingSensorSecondaryChannelId' => null,
             'timeSettingAvailable' => true,
-            'numberOfAttemptsToOpenOrClose' => 5,
+            'numberOfAttemptsToOpen' => 5,
+            'numberOfAttemptsToClose' => 5,
         ];
         $this->assertEquals($expectedConfig, $gateChannel->getUserConfig());
     }
