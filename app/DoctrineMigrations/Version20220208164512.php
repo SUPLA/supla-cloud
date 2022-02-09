@@ -24,6 +24,7 @@ use SuplaBundle\Enums\ChannelType;
  * New channel.config.addToHistory for EM and IC.
  * Split channel.config.numberOfAttemptsToOpenOrClose to numberOfAttemptsToOpen and numberOfAttemptsToClose.
  * Allow adding new flags for a device and channels.
+ * Missing version_to_int function added.
  */
 class Version20220208164512 extends NoWayBackMigration {
     public function migrate() {
@@ -116,5 +117,61 @@ END IF;
 END
 PROCEDURE
         );
+    }
+
+    private function addMissingFunction() {
+        $this->addSql('DROP FUNCTION IF EXISTS `version_to_int`');
+
+        $this->addSql(<<<FUNC
+CREATE  FUNCTION `version_to_int`(`version` VARCHAR(20)) RETURNS int(11)
+    NO SQL
+BEGIN
+DECLARE result INT DEFAULT 0;
+DECLARE n INT DEFAULT 0;
+DECLARE m INT DEFAULT 0;
+DECLARE dot_count INT DEFAULT 0;
+DECLARE last_dot_pos INT DEFAULT 0;
+DECLARE c VARCHAR(1);
+
+WHILE n < LENGTH(version) DO
+    SET n = n+1;
+    SET c = SUBSTRING(version, n, 1);
+    
+    IF c <> '.' AND ( ASCII(c) < 48 OR ASCII(c) > 57 )
+      THEN 
+         SET result = 0;
+         RETURN 0;
+      END IF; 
+      
+    
+   IF c = '.' THEN
+     SET dot_count = dot_count+1;
+     IF dot_count > 2 THEN 
+        SET result = 0;
+        RETURN 0;
+     END IF;
+   END IF;
+
+   IF c = '.' OR n = LENGTH(version) THEN
+
+      SET m = n-last_dot_pos-1;
+      
+      IF c <> '.' THEN
+        SET m = n-last_dot_pos;
+        SET dot_count = dot_count+1;
+      END IF;
+      
+          SET result = result + POWER(10, 9-dot_count*3) * SUBSTRING(version, last_dot_pos+1, m);
+      
+      SET last_dot_pos = n;
+   END IF;
+      
+END WHILE;
+RETURN result;
+END
+FUNC
+        );
+
+
     }
 }
