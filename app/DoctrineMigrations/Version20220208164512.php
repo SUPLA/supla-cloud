@@ -32,6 +32,7 @@ class Version20220208164512 extends NoWayBackMigration {
         $this->updateElectricityMetersAddToHistory();
         $this->migrateNumberOfAttemptsToOpenOrClose();
         $this->migrateProcedures();
+        $this->addMissingFunction();
     }
 
     private function updateImpulseCountersAddToHistory() {
