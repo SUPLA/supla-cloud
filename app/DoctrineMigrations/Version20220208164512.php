@@ -86,11 +86,11 @@ class Version20220208164512 extends NoWayBackMigration {
     }
 
     private function migrateProcedures() {
-        $this->addSql('DROP PROCEDURE IF EXISTS `supla_set_channel_flags`');
+        $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_channel_flags`');
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_iodevice`');
 
         $this->addSql(<<<PROCEDURE
-CREATE PROCEDURE `supla_set_channel_flags`(IN `_channel_id` INT, IN `_user_id` INT, IN `_flags` INT)
+CREATE PROCEDURE `supla_update_channel_flags`(IN `_channel_id` INT, IN `_user_id` INT, IN `_flags` INT)
     NO SQL
 UPDATE supla_dev_channel SET flags = flags | _flags WHERE id = _channel_id AND user_id = _user_id
 PROCEDURE
