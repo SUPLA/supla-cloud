@@ -924,6 +924,7 @@ When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
 hourly: Każdy dzień
+Manual: Instrukcja
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">

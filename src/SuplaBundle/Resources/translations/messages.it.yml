@@ -762,7 +762,7 @@ A new client app (smartphone) been added to your SUPLA-Cloud account.: ~
 A new device has been added to your SUPLA-Cloud account.: ~
 'Action trigger no. #{index}': ~
 Add a delay: ~
-Add action: ~
+Add action: Aggiungi azione
 Add new item to use in the scene: ~
 'After the device enters the configuration mode, it will not be accessible on your account.': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
@@ -774,13 +774,13 @@ As in device: ~
 'At 05:45 PM, on the last day of the month': ~
 'At 11:30 AM, on the third Wednesday of the month': ~
 At every 5th minute on day-of-month 30 in May: ~
-At specified time: ~
+At specified time: Ad un orario specifico
 At sunrise: ~
 'At sunrise, Monday through Friday': ~
 At sunset: ~
 Automatic calibration: ~
 Bar: ~
-Based on sunrise or sunset: ~
+Based on sunrise or sunset: Basata su alba o tramonto
 Calibrate: ~
 Calibration successful.: ~
 Cannot calculate when to run the schedule - incorrect configuration?: ~
@@ -800,7 +800,7 @@ Close partially: ~
 Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
-Copy state from other channel: ~
+Copy state from other channel: Copia stato da un altro canale
 Could not enter the configuration mode.: ~
 Create new scene: ~
 'Device ID: %deviceId%': ~
@@ -829,7 +829,7 @@ General purpose measurement: ~
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
 'If you really want to delete the account, here are the instructions.': ~
 'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
-Include energy corrections in new measurements history (not recommended): ~
+Include energy corrections in new measurements history (not recommended): Includi le correzioni energetiche nel nuovo storico delle misurazioni (non consigliato)
 Interpolate measurements: ~
 It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
@@ -844,13 +844,13 @@ New IO device added to your account: ~
 New client app (smartphone) added to your account: ~
 New scene: ~
 No of channels: ~
-No of client apps: ~
-No of devices: ~
+No of client apps: N° di applicazioni client
+No of devices: N° di dispositivi
 No of operations: ~
 No schedule configuration.: ~
 None (channel disabled): ~
-Number of attempts to close: ~
-Number of attempts to open: ~
+Number of attempts to close: Numero di tentativi di chiusura
+Number of attempts to open: Numero di tentativi di apertura
 Operations: ~
 Other: ~
 Password reset instructions.: ~
@@ -870,9 +870,9 @@ Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
 See in SUPLA-Cloud: ~
-Set value added: ~
+Set value added: Imposta valore aggiunto
 Setting the number of attempts to 1 disables the retrying behavior completely.: ~
-Shut partially: ~
+Shut partially: Chiudi parzialmente
 Some features depend on this channel group: ~
 Standard: ~
 Step by step: ~
@@ -885,11 +885,11 @@ The incident was detected at %datetime%.: ~
 'The items below rely on this channel group, so they will be deleted.': ~
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: ~
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: "Questa azione è utilizzata dal dispositivo stesso (es. accende la luce o avvia la tapparella). L'impostazione di qualsiasi evento su questa azione disabiliterà la funzione del comando locale."
 Too many actions in this schedule.: ~
 Unsuccessful login attempt: ~
 'Use the [command] server command to change this account''s limits. For example:': ~
-Value added: ~
+Value added: Valore aggiunto
 Value per unit: ~
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
@@ -897,8 +897,8 @@ We can notify you about certain events with your account. Opt out if you don't w
 Your preferences has been updated.: ~
 'Your schedules are allowed to have a maximum of {max} actions.': ~
 actionableSubjectType_scene: ~
-addToHistoryMeasurementWarningSelected: ~
-addToHistoryMeasurementWarningUnselected: ~
+addToHistoryMeasurementWarningSelected: 'Selezionando questa opzione il ”valore aggiunto” verrà sommato alle misurazioni future. Questo potrebbe produrre un aumento indesiderato nel grafico della cronologia delle misurazioni. Si consiglia di impostare questa opzione solo durante la prima configurazione del contatore. Se lo modifichi per un contatore con storico delle misurazioni con valori già presenti, considera la possibilità di cancellare lo storico immediatamente dopo aver salvato le modifiche.'
+addToHistoryMeasurementWarningUnselected: 'Deselezionando questa opzione il ”valore aggiunto” verrà ignorato nelle misurazioni future. Questo potrebbe produrre un decremento indesiderato nel grafico della cronologia delle misurazioni. Si consiglia di impostare questa opzione solo durante la prima configurazione del contatore. Se lo modifichi per un contatore con storico delle misurazioni con valori già presenti, considera la possibilità di cancellare lo storico immediatamente dopo aver salvato le modifiche.'
 choose the action: ~
 choose the scene: ~
 days: ~
@@ -908,11 +908,12 @@ min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
-scheduleMode_crontab: ~
+scheduleMode_crontab: Avanzate (crontab)
 suffix: ~
 '{minutes} minutes after sunrise': ~
 '{minutes} minutes after sunset': ~
 '{minutes} minutes before sunrise': ~
 '{minutes} minutes before sunset': ~
+Manual: Istruzioni
 
 #</editor-fold>

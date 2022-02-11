@@ -3,7 +3,7 @@
         <div class="form-group">
             <a class="btn btn-block btn-link"
                 @click="showHelp = !showHelp">
-                Instrukcja
+                {{ $t('Manual') }}
             </a>
             <transition-expand>
                 <div class="well"
@@ -51,7 +51,7 @@
             <a class="btn btn-default btn-block"
                 @click="addAction()">
                 <i class="pe-7s-clock"></i>
-                Dodaj
+                {{ $t('Add') }}
             </a>
         </div>
     </div>
