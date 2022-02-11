@@ -428,7 +428,8 @@ class ChannelMeasurementLogsController extends RestController {
 
     private function findTargetChannel(IODeviceChannel $channel): IODeviceChannel {
         $targetChannel = $channel;
-        if (in_array($channel->getFunction()->getId(), [ChannelFunction::POWERSWITCH, ChannelFunction::LIGHTSWITCH])) {
+        if (in_array($channel->getFunction()->getId(), [ChannelFunction::POWERSWITCH, ChannelFunction::LIGHTSWITCH,
+            ChannelFunction::STAIRCASETIMER])) {
             $relatedMeasurementChannelId = $channel->getParam1();
             if ($relatedMeasurementChannelId) {
                 $targetChannel = $this->channelRepository->findForUser($channel->getUser(), $relatedMeasurementChannelId);
