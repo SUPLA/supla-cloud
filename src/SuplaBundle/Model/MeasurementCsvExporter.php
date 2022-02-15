@@ -20,7 +20,7 @@ namespace SuplaBundle\Model;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Utils\DatabaseUtils;
 use ZipArchive;
@@ -56,19 +56,22 @@ class MeasurementCsvExporter {
     private function getDataFetchDefinition(IODeviceChannel $channel): array {
         // @codingStandardsIgnoreStart
         $timestampSelect = "UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`)) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
-        switch ($channel->getType()->getId()) {
-            case ChannelType::THERMOSTAT:
-            case ChannelType::THERMOSTATHEATPOLHOMEPLUS:
+        switch ($channel->getFunction()->getId()) {
+            case ChannelFunction::THERMOSTAT:
+            case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return [
                     ['Timestamp', 'Date and time', 'On', 'MeasuredTemperature', 'PresetTemperature'],
                     "SELECT $timestampSelect, `on`, `measured_temperature`, `preset_temperature` FROM `supla_thermostat_log` WHERE channel_id = :channelId",
                 ];
-            case ChannelType::IMPULSECOUNTER:
+            case ChannelFunction::IC_ELECTRICITYMETER:
+            case ChannelFunction::IC_GASMETER:
+            case ChannelFunction::IC_WATERMETER:
+            case ChannelFunction::IC_HEATMETER:
                 return [
                     ['Timestamp', 'Date and time', 'Counter', 'CalculatedValue'],
                     "SELECT $timestampSelect, `counter`, `calculated_value` / 1000 calculated_value FROM `supla_ic_log` WHERE channel_id = :channelId",
                 ];
-            case ChannelType::ELECTRICITYMETER:
+            case ChannelFunction::ELECTRICITYMETER:
                 return [
                     [
                         'Timestamp',
@@ -90,14 +93,13 @@ class MeasurementCsvExporter {
                     ],
                     "SELECT $timestampSelect, IFNULL(`phase1_fae`, 0) / 100000.00 phase1_fae, IFNULL(`phase1_rae`, 0) / 100000.00 phase1_rae, IFNULL(`phase1_fre`, 0) / 100000.00 phase1_fre, IFNULL(`phase1_rre`, 0) / 100000.00 phase1_rre, IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, IFNULL(`phase2_fre`, 0) / 100000.00 phase2_fre, IFNULL(`phase2_rre`, 0) / 100000.00 phase2_rre, IFNULL(`phase3_fae`, 0) / 100000.00 phase3_fae, IFNULL(`phase3_rae`, 0) / 100000.00 phase3_rae, IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre, IFNULL(`fae_balanced`, 0) / 100000.00 fae_balanced, IFNULL(`rae_balanced`, 0) / 100000.00 rae_balanced FROM `supla_em_log` WHERE channel_id = :channelId",
                 ];
-            case ChannelType::THERMOMETERDS18B20:
-            case ChannelType::THERMOMETER:
+            case ChannelFunction::THERMOMETER:
                 return [
                     ['Timestamp', 'Date and time', 'Temperature'],
                     "SELECT $timestampSelect, `temperature` FROM `supla_temperature_log` WHERE channel_id = :channelId",
                 ];
-            case ChannelType::HUMIDITYANDTEMPSENSOR:
-            case ChannelType::HUMIDITYSENSOR:
+            case ChannelFunction::HUMIDITY:
+            case ChannelFunction::HUMIDITYANDTEMPERATURE:
                 return [
                     ['Timestamp', 'Date and time', 'Temperature', 'Humidity'],
                     "SELECT $timestampSelect, `temperature`, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = :channelId",
