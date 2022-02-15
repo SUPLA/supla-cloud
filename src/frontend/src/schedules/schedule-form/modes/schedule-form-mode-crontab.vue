@@ -63,6 +63,7 @@
     import ScheduleFormModeCrontabInput from "@/schedules/schedule-form/modes/schedule-form-mode-crontab-input";
     import {cloneDeep} from "lodash";
     import TransitionExpand from "@/common/gui/transition-expand";
+    import ChannelFunctionAction from "../../../common/enums/channel-function-action";
 
     export default {
         components: {TransitionExpand, ScheduleFormModeCrontabInput, ChannelActionChooser},
@@ -88,7 +89,7 @@
                 this.updateConfig();
             },
             possibleActionFilter(possibleAction) {
-                return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
+                return ChannelFunctionAction.availableInSchedules(possibleAction.id);
             },
         },
         mounted() {

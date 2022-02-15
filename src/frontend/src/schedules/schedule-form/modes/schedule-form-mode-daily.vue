@@ -63,6 +63,7 @@
     import {cloneDeep, flatten, toArray} from "lodash";
     import {generatePassword} from "@/common/utils";
     import ScheduleFormModeDailyDaySelector from "@/schedules/schedule-form/modes/schedule-form-mode-daily-day-selector";
+    import ChannelFunctionAction from "../../../common/enums/channel-function-action";
 
     export default {
         components: {ScheduleFormModeDailyDaySelector, ChannelActionChooser, ScheduleFormModeDailySun, ScheduleFormModeDailyHour},
@@ -87,7 +88,7 @@
                 return action;
             },
             possibleActionFilter(possibleAction) {
-                return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
+                return ChannelFunctionAction.availableInSchedules(possibleAction.id);
             },
             removeItem(item) {
                 const index = this.config[this.weekdayGroupIndex].indexOf(item);

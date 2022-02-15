@@ -34,6 +34,17 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.COPY,
         ].includes(actionId);
     },
+
+    availableInSchedules(actionId) {
+        return ![
+            ChannelFunctionAction.OPEN_CLOSE,
+            ChannelFunctionAction.TOGGLE,
+            ChannelFunctionAction.STOP,
+            ChannelFunctionAction.UP_OR_STOP,
+            ChannelFunctionAction.DOWN_OR_STOP,
+            ChannelFunctionAction.STEP_BY_STEP,
+        ].includes(actionId);
+    }
 });
 
 export default ChannelFunctionAction;

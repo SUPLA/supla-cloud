@@ -122,6 +122,7 @@
     import moment from "moment";
     import {cloneDeep} from "lodash";
     import ActionableSubjectType from "../../common/enums/actionable-subject-type";
+    import ChannelFunctionAction from "../../common/enums/channel-function-action";
 
     export default {
         props: ['id'],
@@ -217,7 +218,7 @@
                 return true;
             },
             possibleActionFilter(possibleAction) {
-                return possibleAction.name != 'OPEN_CLOSE' && possibleAction.name != 'TOGGLE';
+                return ChannelFunctionAction.availableInSchedules(possibleAction.id);
             },
             beforeModeChange(targetMode) {
                 this.configs[this.schedule.mode] = this.schedule.config;
