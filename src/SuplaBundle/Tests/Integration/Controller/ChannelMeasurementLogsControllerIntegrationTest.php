@@ -134,6 +134,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_HEATMETER],
             [ChannelType::THERMOSTAT, ChannelFunction::THERMOSTAT],
             [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
+            [ChannelType::RELAY, ChannelFunction::STAIRCASETIMER],
         ];
 
         $this->device1 = $this->createDevice($location, $channels);
@@ -471,6 +472,18 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->getEntityManager()->persist($relayChannel);
         $this->getEntityManager()->flush();
         $content = $this->getMeasurementLogsAscending($relayChannel->getId());
+        $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
+    }
+
+    public function testGettingElectricityMeasurementsLogsCountFromRelatedStaircaseTimer() {
+        $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
+        /** @var ChannelParamConfigTranslator $paramsTranslator */
+        $paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $staircaseTimerChannel = $this->device1->getChannels()[10];
+        $paramsTranslator->setParamsFromConfig($staircaseTimerChannel, ['relatedChannelId' => 4]);
+        $this->getEntityManager()->persist($staircaseTimerChannel);
+        $this->getEntityManager()->flush();
+        $content = $this->getMeasurementLogsAscending($staircaseTimerChannel->getId());
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
     }
 

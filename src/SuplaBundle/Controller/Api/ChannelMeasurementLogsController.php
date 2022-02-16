@@ -31,6 +31,7 @@ use SuplaBundle\Entity\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\MeasurementCsvExporter;
 use SuplaBundle\Model\Transactional;
@@ -54,15 +55,19 @@ class ChannelMeasurementLogsController extends RestController {
     private $entityManager;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
+    /** @var ChannelParamConfigTranslator */
+    private $channelParamConfigTranslator;
 
     public function __construct(
-        IODeviceManager           $deviceManager,
-        IODeviceChannelRepository $channelRepository,
-        EntityManagerInterface    $entityManager
+        IODeviceManager              $deviceManager,
+        IODeviceChannelRepository    $channelRepository,
+        EntityManagerInterface       $entityManager,
+        ChannelParamConfigTranslator $channelParamConfigTranslator
     ) {
         $this->deviceManager = $deviceManager;
         $this->entityManager = $entityManager;
         $this->channelRepository = $channelRepository;
+        $this->channelParamConfigTranslator = $channelParamConfigTranslator;
     }
 
     private function getMeasureLogsCount(IODeviceChannel $channel, $afterTimestamp = 0, $beforeTimestamp = 0) {
@@ -225,13 +230,13 @@ class ChannelMeasurementLogsController extends RestController {
 
     private function getMeasurementLogItemsAction(
         IODeviceChannel $channel,
-        $offset,
-        $limit,
-        $afterTimestamp = 0,
-        $beforeTimestamp = 0,
-        $orderDesc = true,
-        $allowedFuncList = null,
-        $sparse = null
+                        $offset,
+                        $limit,
+                        $afterTimestamp = 0,
+                        $beforeTimestamp = 0,
+                        $orderDesc = true,
+                        $allowedFuncList = null,
+                        $sparse = null
     ) {
         $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
         $offset = intval($offset);
@@ -428,9 +433,13 @@ class ChannelMeasurementLogsController extends RestController {
 
     private function findTargetChannel(IODeviceChannel $channel): IODeviceChannel {
         $targetChannel = $channel;
-        if (in_array($channel->getFunction()->getId(), [ChannelFunction::POWERSWITCH, ChannelFunction::LIGHTSWITCH,
-            ChannelFunction::STAIRCASETIMER])) {
-            $relatedMeasurementChannelId = $channel->getParam1();
+        if (in_array($channel->getFunction()->getId(), [
+            ChannelFunction::POWERSWITCH,
+            ChannelFunction::LIGHTSWITCH,
+            ChannelFunction::STAIRCASETIMER,
+        ])) {
+            $channelConfig = $this->channelParamConfigTranslator->getConfigFromParams($channel);
+            $relatedMeasurementChannelId = $channelConfig['relatedChannelId'] ?? null;
             if ($relatedMeasurementChannelId) {
                 $targetChannel = $this->channelRepository->findForUser($channel->getUser(), $relatedMeasurementChannelId);
             }
