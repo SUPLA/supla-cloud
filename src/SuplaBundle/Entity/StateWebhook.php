@@ -83,12 +83,12 @@ class StateWebhook {
      */
     private $enabled = false;
 
-    public function __construct(ApiClient $client, User $user) {
+    public function __construct(?ApiClient $client, User $user) {
         $this->client = $client;
         $this->user = $user;
     }
 
-    public function getId() {
+    public function getId(): ?int {
         return $this->id;
     }
 
