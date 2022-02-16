@@ -59,9 +59,9 @@ class ChannelMeasurementLogsController extends RestController {
     private $channelParamConfigTranslator;
 
     public function __construct(
-        IODeviceManager              $deviceManager,
-        IODeviceChannelRepository    $channelRepository,
-        EntityManagerInterface       $entityManager,
+        IODeviceManager $deviceManager,
+        IODeviceChannelRepository $channelRepository,
+        EntityManagerInterface $entityManager,
         ChannelParamConfigTranslator $channelParamConfigTranslator
     ) {
         $this->deviceManager = $deviceManager;
@@ -230,13 +230,13 @@ class ChannelMeasurementLogsController extends RestController {
 
     private function getMeasurementLogItemsAction(
         IODeviceChannel $channel,
-                        $offset,
-                        $limit,
-                        $afterTimestamp = 0,
-                        $beforeTimestamp = 0,
-                        $orderDesc = true,
-                        $allowedFuncList = null,
-                        $sparse = null
+        $offset,
+        $limit,
+        $afterTimestamp = 0,
+        $beforeTimestamp = 0,
+        $orderDesc = true,
+        $allowedFuncList = null,
+        $sparse = null
     ) {
         $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
         $offset = intval($offset);
