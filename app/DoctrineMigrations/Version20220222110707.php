@@ -23,7 +23,7 @@ use SuplaBundle\Enums\ChannelType;
 /**
  * The IFNULL function was added when setting flags
  */
-class Version20220208164512 extends NoWayBackMigration {
+class Version20220222110707 extends NoWayBackMigration {
     public function migrate() {
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_channel_flags`');
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_iodevice`');
