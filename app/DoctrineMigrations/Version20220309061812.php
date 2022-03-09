@@ -37,7 +37,7 @@ class Version20220309061812 extends NoWayBackMigration {
             DECLARE current_weekday INT;
             DECLARE current_hour INT;
             DECLARE current_time_in_user_timezone DATETIME;
-            SELECT CONVERT_TZ(CURRENT_TIMESTAMP, 'UTC', `user_timezone`) INTO current_time_in_user_timezone; 
+            SELECT COALESCE(CONVERT_TZ(CURRENT_TIMESTAMP, 'UTC', `user_timezone`), UTC_TIMESTAMP) INTO current_time_in_user_timezone; 
             SELECT (WEEKDAY(current_time_in_user_timezone) + 1) INTO current_weekday;
             SELECT HOUR(current_time_in_user_timezone) INTO current_hour;
             RETURN CONCAT(current_weekday, current_hour);

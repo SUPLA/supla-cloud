@@ -27,5 +27,4 @@ class AccessIdRepository extends EntityWithRelationsRepository {
         $entity->setActiveNow(!!$result['isNowActive']);
         return $entity;
     }
-
 }

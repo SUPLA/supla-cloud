@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Model;
 
 use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
@@ -54,6 +55,15 @@ class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
     public function activeNowAccessIds() {
         return [
             'no constraints' => [function (AccessID $aid) {
+                return $aid;
+            }],
+            'full activeHours spec' => [function (AccessID $aid) {
+                $fullSpec = range(1, 7);
+                $fullSpec = array_flip($fullSpec);
+                $fullSpec = array_map(function ($v) {
+                    return range(0, 23);
+                }, $fullSpec);
+                $aid->setActiveHours($fullSpec);
                 return $aid;
             }],
             'active in Europe/Warsaw' => [function (AccessID $aid) {
@@ -141,6 +151,16 @@ class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
                 $aid->setActiveFrom(new \DateTime('+10 minutes', $timezone));
                 return $aid;
             }, false],
+            'invalid user timezone' => [function (AccessID $aid) {
+                EntityUtils::setField($aid->getUser(), 'timezone', 'Unicorn');
+                $fullSpec = range(1, 7);
+                $fullSpec = array_flip($fullSpec);
+                $fullSpec = array_map(function ($v) {
+                    return range(0, 23);
+                }, $fullSpec);
+                $aid->setActiveHours($fullSpec);
+                return $aid;
+            }],
         ];
     }
 }
