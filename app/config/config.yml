@@ -24,6 +24,9 @@ doctrine:
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
     auto_mapping: true
+    dql:
+      numeric_functions:
+        supla_is_access_id_now_active: SuplaBundle\Model\Doctrine\IsAccessIdNowActive
 
 doctrine_migrations:
   namespace: Supla\Migrations

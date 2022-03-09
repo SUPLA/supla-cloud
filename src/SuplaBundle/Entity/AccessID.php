@@ -98,6 +98,8 @@ class AccessID implements HasRelationsCount {
      */
     private $activeHours;
 
+    private $activeNow;
+
     /** @param User $user */
     public function __construct($user = null) {
         $this->enabled = true;
@@ -126,7 +128,7 @@ class AccessID implements HasRelationsCount {
         return $this->caption;
     }
 
-    public function getUser() {
+    public function getUser(): User {
         return $this->user;
     }
 
@@ -209,6 +211,17 @@ class AccessID implements HasRelationsCount {
                 $this->activeHours = ',' . implode(',', $databaseRepresentation) . ',';
             }
         }
+    }
+
+    /**
+     * @Groups({"accessId.activeNow"})
+     */
+    public function isActiveNow(): ?bool {
+        return $this->activeNow;
+    }
+
+    public function setActiveNow(bool $activeNow): void {
+        $this->activeNow = $activeNow;
     }
 
     /** @return ClientApp[]|Collection */

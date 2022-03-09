@@ -37,6 +37,7 @@ class AccessIDControllerIntegrationTest extends IntegrationTestCase {
     private $location;
 
     protected function initializeDatabaseForTests() {
+        $this->executeCommand('doctrine:migrations:execute 20220309061812');
         $this->user = $this->createConfirmedUser();
     }
 
@@ -47,6 +48,19 @@ class AccessIDControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(201, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertStringContainsString('Access Identifier #', $content['caption']);
+    }
+
+    /** @depends testCreatingAid */
+    public function testGettingAids() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/accessids?include=activeNow');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+        $first = $content[0];
+        $this->assertArrayHasKey('activeNow', $first);
+        $this->assertTrue($first['activeNow']);
     }
 
     public function testCreatingLocationWithPlLocale() {

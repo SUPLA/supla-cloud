@@ -60,9 +60,10 @@ class AccessIDController extends RestController {
     /** @inheritDoc */
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         return [
-            'locations', 'clientApps', 'password',
+            'locations', 'clientApps', 'password', 'activeNow',
             'locations' => 'accessId.locations',
             'clientApps' => 'accessId.clientApps',
+            'activeNow' => 'accessId.activeNow',
         ];
     }
 
@@ -105,7 +106,8 @@ class AccessIDController extends RestController {
      */
     public function getAccessidsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            return $this->serializedView($this->accessIdRepository->findAllForUser($this->getUser()), $request);
+            $accessIds = $this->accessIdRepository->findAllForUser($this->getUser());
+            return $this->serializedView($accessIds, $request);
         } else {
             return $this->view($this->getAccessIDS(), Response::HTTP_OK);
         }

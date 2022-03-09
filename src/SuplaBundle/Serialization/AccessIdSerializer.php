@@ -39,6 +39,9 @@ class AccessIdSerializer extends AbstractSerializer {
             if ($this->isSerializationGroupRequested('accessId.relationsCount', $context) && !isset($normalized['relationsCount'])) {
                 $normalized['relationsCount'] = $this->accessIdRepository->find($accessId->getId())->getRelationsCount();
             }
+            if ($this->isSerializationGroupRequested('accessId.activeNow', $context) && !isset($normalized['activeNow'])) {
+                $normalized['activeNow'] = $this->accessIdRepository->find($accessId->getId())->isActiveNow();
+            }
         } else {
             $normalized['locationsIds'] = $this->toIds($accessId->getLocations());
             $normalized['clientAppsIds'] = $this->toIds($accessId->getClientApps());
