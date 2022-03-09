@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -79,6 +80,24 @@ class AccessID implements HasRelationsCount {
      **/
     private $clientApps;
 
+    /**
+     * @ORM\Column(name="active_from", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activeFrom;
+
+    /**
+     * @ORM\Column(name="active_to", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activeTo;
+
+    /**
+     * @ORM\Column(name="active_hours", type="string", length=768, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activeHours;
+
     /** @param User $user */
     public function __construct($user = null) {
         $this->enabled = true;
@@ -138,6 +157,58 @@ class AccessID implements HasRelationsCount {
 
     public function setEnabled($enabled) {
         $this->enabled = $enabled;
+    }
+
+    public function getActiveFrom(): ?\DateTime {
+        return $this->activeFrom;
+    }
+
+    public function setActiveFrom(?\DateTime $activeFrom): void {
+        $this->activeFrom = $activeFrom;
+    }
+
+    public function getActiveTo(): ?\DateTime {
+        return $this->activeTo;
+    }
+
+    public function setActiveTo(?\DateTime $activeTo): void {
+        $this->activeTo = $activeTo;
+    }
+
+    public function getActiveHours(): ?array {
+        if ($this->activeHours) {
+            $defs = explode(',', $this->activeHours);
+            $activeHours = [];
+            foreach ($defs as $def) {
+                if ($def) {
+                    $weekday = intval(((string)$def)[0]);
+                    $hour = intval(substr((string)$def, 1));
+                    $activeHours[$weekday][] = $hour;
+                }
+            }
+            return $activeHours;
+        } else {
+            return null;
+        }
+    }
+
+    public function setActiveHours(?array $activeHours): void {
+        $this->activeHours = null;
+        if ($activeHours) {
+            $databaseRepresentation = [];
+            foreach ($activeHours as $weekday => $hours) {
+                Assertion::between($weekday, 1, 7, 'Weekday must be between 1 and 7.');
+                Assertion::isArray($hours);
+                Assertion::allBetween($hours, 0, 23, 'All hours should be between 0 and 23.');
+                $hours = array_map(function ($hour) use ($weekday) {
+                    return $weekday . $hour;
+                }, array_unique($hours));
+                $databaseRepresentation = array_merge($databaseRepresentation, $hours);
+            }
+            if ($databaseRepresentation) {
+                $this->activeHours = ',' . implode(',', $databaseRepresentation) . ',';
+            }
+        }
     }
 
     /** @return ClientApp[]|Collection */
