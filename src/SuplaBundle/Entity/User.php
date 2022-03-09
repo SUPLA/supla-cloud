@@ -542,7 +542,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         return $this->timezone;
     }
 
-    public function setTimezone($timezone) {
+    public function setTimezone(?string $timezone) {
         try {
             new DateTimeZone($timezone);
             $this->timezone = $timezone;
