@@ -51,6 +51,7 @@
                         <div class="col-xs-12">
                             <div class="details-page-block">
                                 <h3>{{ $t('Working schedule') }}</h3>
+                                <week-schedule-selector></week-schedule-selector>
                             </div>
                         </div>
                     </div>
@@ -147,9 +148,11 @@
     import ClientAppChooser from "../client-apps/client-app-chooser";
     import PageContainer from "../common/pages/page-container";
     import DateRangePicker from "../direct-links/date-range-picker";
+    import WeekScheduleSelector from "./week-schedule-selector";
 
     export default {
         components: {
+            WeekScheduleSelector,
             DateRangePicker,
             PageContainer,
             ClientAppChooser,
