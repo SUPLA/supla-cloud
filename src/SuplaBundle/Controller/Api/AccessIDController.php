@@ -27,6 +27,8 @@ use SuplaBundle\Model\AccessIdManager;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessIdRepository;
+use SuplaBundle\Repository\ClientAppRepository;
+use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\PasswordStrengthValidator;
 use Symfony\Component\HttpFoundation\Request;
@@ -209,28 +211,84 @@ class AccessIDController extends RestController {
      * @Security("accessId.belongsToUser(user)")
      * @UnavailableInMaintenance
      */
-    public function putAccessidAction(Request $request, AccessID $accessId, AccessID $updatedAccessId) {
-        $accessId->setCaption($updatedAccessId->getCaption());
-        $accessId->setEnabled($updatedAccessId->getEnabled());
-        if ($updatedAccessId->getPassword()) {
-            $newPassword = $updatedAccessId->getPassword();
+    public function putAccessidAction(
+        Request $request,
+        AccessID $accessId,
+        LocationRepository $locationRepository,
+        ClientAppRepository $clientAppRepository
+    ) {
+        $requestData = $request->request;
+        if (($caption = $request->get('caption')) !== null) {
+            Assertion::string($caption);
+            $accessId->setCaption($caption);
+        }
+        if (($enabled = $request->get('enabled')) !== null) {
+            Assertion::boolean($enabled);
+            $accessId->setEnabled($enabled);
+        }
+        if ($requestData->has('activeFrom')) {
+            $activeFrom = $requestData->get('activeFrom');
+            if ($activeFrom) {
+                Assertion::string($activeFrom);
+                Assertion::integer(strtotime($activeFrom));
+                $accessId->setActiveFrom(new \DateTime($activeFrom));
+            } else {
+                $accessId->setActiveFrom(null);
+            }
+        }
+        if ($requestData->has('activeTo')) {
+            $activeTo = $requestData->get('activeTo');
+            if ($activeTo) {
+                Assertion::string($activeTo);
+                Assertion::integer(strtotime($activeTo));
+                $accessId->setActiveTo(new \DateTime($activeTo));
+            } else {
+                $accessId->setActiveTo(null);
+            }
+        }
+        if ($requestData->has('activeHours')) {
+            $activeHours = $requestData->get('activeHours');
+            if ($activeHours) {
+                Assertion::isArray($activeHours);
+                $accessId->setActiveHours($activeHours);
+            } else {
+                $accessId->setActiveHours(null);
+            }
+        }
+        if (($newPassword = $request->get('password')) !== null) {
+            Assertion::string($newPassword);
             PasswordStrengthValidator::create()
                 ->minLength(8)
                 ->maxLength(32)
                 ->validate($newPassword);
             $accessId->setPassword($newPassword);
         }
-        $this->transactional(function (EntityManagerInterface $em) use ($updatedAccessId, $request, $accessId) {
-            $accessId->updateLocations($updatedAccessId->getLocations());
+        $this->transactional(function (EntityManagerInterface $em) use ($clientAppRepository, $locationRepository, $request, $accessId) {
+            if (($locationsIds = $request->get('locationsIds')) !== null) {
+                Assertion::isArray($locationsIds);
+                Assertion::allInteger($locationsIds);
+                $locations = array_map(function (int $locationId) use ($locationRepository) {
+                    return $locationRepository->findForUser($this->getCurrentUser(), $locationId);
+                }, $locationsIds);
+                $accessId->updateLocations($locations);
+                $em->persist($accessId);
+            }
+            if (($clientAppsIds = $request->get('clientAppsIds')) !== null) {
+                Assertion::isArray($clientAppsIds);
+                Assertion::allInteger($locationsIds);
+                $clientApps = array_map(function (int $clientAppId) use ($clientAppRepository) {
+                    return $clientAppRepository->findForUser($this->getCurrentUser(), $clientAppId);
+                }, $locationsIds);
+                foreach ($accessId->getClientApps() as $clientApp) {
+                    $clientApp->setAccessId(null);
+                    $em->persist($clientApp);
+                }
+                foreach ($clientApps as $clientApp) {
+                    $clientApp->setAccessId($accessId);
+                    $em->persist($clientApp);
+                }
+            }
             $em->persist($accessId);
-            foreach ($accessId->getClientApps() as $clientApp) {
-                $clientApp->setAccessId(null);
-                $em->persist($clientApp);
-            }
-            foreach ($updatedAccessId->getClientApps() as $clientApp) {
-                $clientApp->setAccessId($accessId);
-                $em->persist($clientApp);
-            }
         });
         $this->suplaServer->reconnect();
         return $this->getAccessidAction($request, $accessId->clearRelationsCount());

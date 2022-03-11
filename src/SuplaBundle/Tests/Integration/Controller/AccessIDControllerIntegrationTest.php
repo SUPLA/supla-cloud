@@ -63,6 +63,81 @@ class AccessIDControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($first['activeNow']);
     }
 
+    public function testUpdatingAccessId() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'caption' => 'Unicorn',
+            'enabled' => true,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('Unicorn', $content['caption']);
+        $this->assertTrue($content['enabled']);
+        $this->assertArrayNotHasKey('password', $content);
+    }
+
+    /** @depends testUpdatingAccessId */
+    public function testUpdatingOnlyCaptionDoesNotChangeEnabled() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'caption' => 'Unicorn 2',
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('Unicorn 2', $content['caption']);
+        $this->assertTrue($content['enabled']);
+    }
+
+    public function testUpdatingActiveFromAndTo() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'activeFrom' => '+5 minutes',
+            'activeTo' => (new \DateTime('2020-01-01'))->format(\DateTime::ISO8601),
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertNotNull($content['activeFrom']);
+        $this->assertNotNull($content['activeTo']);
+        $this->assertEquals('2020-01-01T00:00:00+00:00', $content['activeTo']);
+    }
+
+    /** @depends testUpdatingActiveFromAndTo */
+    public function testClearingActiveTo() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'activeTo' => null,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertNotNull($content['activeFrom']);
+        $this->assertNull($content['activeTo']);
+    }
+
+    public function testInvalidActiveFrom() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'activeFrom' => 'Unicorn',
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testUpdatingActiveHours() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'activeHours' => [1 => [2, 4], 4 => [2]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertNotNull($content['activeHours']);
+        $this->assertEquals([1 => [2, 4], 4 => [2]], $content['activeHours']);
+    }
+
     public function testCreatingLocationWithPlLocale() {
         $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
         $this->user->setLocale('pl_PL');
