@@ -16,7 +16,8 @@
             <tr v-for="hour in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]"
                 :key="hour">
                 <th scope="row"
-                    class="hour-header">{{ hour }}:00 - {{ hour }}:59
+                    class="hour-header ellipsis">
+                    {{ hourLabel(hour) }}
                 </th>
                 <td v-for="weekday in [1,2,3,4,5,6,7]"
                     :key="'0' + hour + weekday">
@@ -29,6 +30,8 @@
 </template>
 
 <script>
+    import moment from "moment";
+
     export default {
         components: {},
         props: ['value'],
@@ -37,7 +40,13 @@
         },
         mounted() {
         },
-        methods: {},
+        methods: {
+            hourLabel(hour) {
+                const start = moment(('0' + hour).substr(-2), 'HH');
+                const end = moment(('0' + hour).substr(-2), 'HH').endOf('hour');
+                return start.format('LT') + ' - ' + end.format('LT');
+            },
+        },
         computed: {},
         watch: {}
     };
@@ -56,6 +65,7 @@
         .hour-header {
             text-align: right;
             padding-right: 5px;
+            white-space: nowrap;
         }
         th {
             font-weight: normal;
