@@ -53,11 +53,12 @@
         mounted() {
             this.model = {};
             [...Array(7).keys()].forEach((weekday) => {
+                weekday += 1;
                 const hours = {};
                 [...Array(24).keys()].forEach((hour) => {
-                    hours[hour] = 0;
+                    hours[hour] = (this.value && this.value[weekday] && this.value[weekday][hour]) || 0;
                 });
-                this.$set(this.model, weekday + 1, hours);
+                this.$set(this.model, weekday, hours);
             });
             this.temporaryModel = cloneDeep(this.model);
         },
@@ -92,7 +93,7 @@
             },
             updateModel() {
                 this.model = this.temporaryModel;
-                this.$emit('input', this.model);
+                this.$emit('input', cloneDeep(this.model));
             },
         },
         computed: {},

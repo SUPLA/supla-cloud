@@ -51,7 +51,8 @@
                         <div class="col-xs-12">
                             <div class="details-page-block">
                                 <h3>{{ $t('Working schedule') }}</h3>
-                                <week-schedule-selector></week-schedule-selector>
+                                <week-schedule-selector v-model="activeHours"
+                                    @input="accessIdChanged()"></week-schedule-selector>
                             </div>
                         </div>
                     </div>
@@ -149,6 +150,7 @@
     import PageContainer from "../common/pages/page-container";
     import DateRangePicker from "../direct-links/date-range-picker";
     import WeekScheduleSelector from "./week-schedule-selector";
+    import {mapValues, pickBy} from "lodash";
 
     export default {
         components: {
@@ -235,6 +237,24 @@
                     this.$set(this.accessId, 'activeTo', dates.dateEnd);
                 }
             },
+            activeHours: {
+                get() {
+                    if (this.accessId.activeHours) {
+                        return mapValues(this.accessId.activeHours, (hours) => {
+                            const hoursDef = {};
+                            [...Array(24).keys()].forEach((hour) => hoursDef[hour] = hours.includes(hour) ? 1 : 0);
+                            return hoursDef;
+                        });
+                    } else {
+                        return {};
+                    }
+                },
+                set(weekSchedule) {
+                    this.accessId.activeHours = mapValues(weekSchedule, (hours) => {
+                        return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
+                    });
+                }
+            }
         },
         watch: {
             id() {
