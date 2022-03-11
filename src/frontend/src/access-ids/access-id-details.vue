@@ -51,8 +51,21 @@
                         <div class="col-xs-12">
                             <div class="details-page-block">
                                 <h3>{{ $t('Working schedule') }}</h3>
-                                <week-schedule-selector v-model="activeHours"
-                                    @input="accessIdChanged()"></week-schedule-selector>
+                                <div class="form-group text-center">
+                                    <label>
+                                        <label class="checkbox2 checkbox2-grey">
+                                            <input type="checkbox"
+                                                v-model="useWorkingSchedule"
+                                                @change="accessIdChanged()">
+                                            {{ $t('Use working schedule for this access identifier') }}
+                                        </label>
+                                    </label>
+                                </div>
+                                <transition-expand>
+                                    <week-schedule-selector v-if="useWorkingSchedule"
+                                        v-model="activeHours"
+                                        @input="accessIdChanged()"></week-schedule-selector>
+                                </transition-expand>
                             </div>
                         </div>
                     </div>
@@ -151,9 +164,11 @@
     import DateRangePicker from "../direct-links/date-range-picker";
     import WeekScheduleSelector from "./week-schedule-selector";
     import {mapValues, pickBy} from "lodash";
+    import TransitionExpand from "../common/gui/transition-expand";
 
     export default {
         components: {
+            TransitionExpand,
             WeekScheduleSelector,
             DateRangePicker,
             PageContainer,
@@ -173,6 +188,7 @@
                 hasPendingChanges: false,
                 assignLocations: false,
                 assignClientApps: false,
+                useWorkingSchedule: false,
             };
         },
         mounted() {
@@ -186,6 +202,7 @@
                     this.error = false;
                     this.$http.get(`accessids/${this.id}?include=locations,clientApps,password`, {skipErrorHandler: [403, 404]})
                         .then(response => this.accessId = response.body)
+                        .then(() => this.useWorkingSchedule = !!this.accessId.activeHours)
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 } else {
@@ -193,10 +210,16 @@
                 }
             },
             saveAccessId() {
+                if (!this.useWorkingSchedule) {
+                    this.accessId.activeHours = {};
+                }
                 const toSend = Vue.util.extend({}, this.accessId);
                 this.loading = true;
                 this.$http.put('accessids/' + this.accessId.id, toSend)
-                    .then(response => this.$emit('update', response.body))
+                    .then((response) => {
+                        this.$emit('update', response.body);
+                        this.useWorkingSchedule = !!response.body.activeHours
+                    })
                     .finally(() => this.loading = this.hasPendingChanges = false);
             },
             deleteAccessId() {
