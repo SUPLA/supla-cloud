@@ -1,6 +1,7 @@
 <template>
     <div>
-        <table class="week-schedule-selector">
+        <table class="week-schedule-selector"
+            v-if="temporaryModel">
             <thead>
             <tr>
                 <th></th>
@@ -21,7 +22,12 @@
                 </th>
                 <td v-for="weekday in [1,2,3,4,5,6,7]"
                     :key="'0' + hour + weekday">
-                    <a class="time-slot">&nbsp;</a>
+                    <a :class="['time-slot', {'green': temporaryModel[weekday][hour]}]"
+                        @mousedown="startSelection(weekday, hour)"
+                        @mouseenter="expandSelection(weekday, hour)"
+                        @mouseup="finishSelection()">
+                        &nbsp;
+                    </a>
                 </td>
             </tr>
             </tbody>
@@ -31,14 +37,29 @@
 
 <script>
     import moment from "moment";
+    import {cloneDeep} from "lodash";
 
     export default {
         components: {},
         props: ['value'],
         data() {
-            return {};
+            return {
+                model: undefined,
+                temporaryModel: undefined,
+                selectionMode: undefined,
+                selectionStartCoords: undefined,
+            };
         },
         mounted() {
+            this.model = {};
+            [...Array(7).keys()].forEach((weekday) => {
+                const hours = {};
+                [...Array(24).keys()].forEach((hour) => {
+                    hours[hour] = 0;
+                });
+                this.$set(this.model, weekday + 1, hours);
+            });
+            this.temporaryModel = cloneDeep(this.model);
         },
         methods: {
             hourLabel(hour) {
@@ -46,6 +67,21 @@
                 const end = moment(('0' + hour).substr(-2), 'HH').endOf('hour');
                 return start.format('LT') + ' - ' + end.format('LT');
             },
+            startSelection(weekday, hour) {
+                this.temporaryModel = cloneDeep(this.model);
+                this.selectionStartCoords = {weekday, hour};
+                this.selectionMode = this.temporaryModel[weekday][hour] ? 0 : 1;
+                this.expandSelection(weekday, hour);
+            },
+            expandSelection(weekday, hour) {
+                if (this.selectionStartCoords) {
+                    this.temporaryModel[weekday][hour] = this.selectionMode;
+                }
+            },
+            finishSelection() {
+                this.model = this.temporaryModel;
+                this.selectionStartCoords = undefined;
+            }
         },
         computed: {},
         watch: {}
@@ -82,7 +118,13 @@
             height: 100%;
             background: $supla-grey-light;
             &:hover {
-                background: pink;
+                background: lighten($supla-green, 40%);
+            }
+            &.green {
+                background: $supla-green;
+                &:hover {
+                    background: lighten($supla-green, 20%);
+                }
             }
         }
     }
