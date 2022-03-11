@@ -68,20 +68,32 @@
                 return start.format('LT') + ' - ' + end.format('LT');
             },
             startSelection(weekday, hour) {
-                this.temporaryModel = cloneDeep(this.model);
                 this.selectionStartCoords = {weekday, hour};
                 this.selectionMode = this.temporaryModel[weekday][hour] ? 0 : 1;
                 this.expandSelection(weekday, hour);
             },
             expandSelection(weekday, hour) {
                 if (this.selectionStartCoords) {
-                    this.temporaryModel[weekday][hour] = this.selectionMode;
+                    this.temporaryModel = cloneDeep(this.model);
+                    const fromWeekday = Math.min(this.selectionStartCoords.weekday, weekday);
+                    const toWeekday = Math.max(this.selectionStartCoords.weekday, weekday);
+                    const fromHour = Math.min(this.selectionStartCoords.hour, hour);
+                    const toHour = Math.max(this.selectionStartCoords.hour, hour);
+                    for (let i = fromWeekday; i <= toWeekday; i++) {
+                        for (let j = fromHour; j <= toHour; j++) {
+                            this.temporaryModel[i][j] = this.selectionMode;
+                        }
+                    }
                 }
             },
             finishSelection() {
-                this.model = this.temporaryModel;
+                this.updateModel();
                 this.selectionStartCoords = undefined;
-            }
+            },
+            updateModel() {
+                this.model = this.temporaryModel;
+                this.$emit('input', this.model);
+            },
         },
         computed: {},
         watch: {}
