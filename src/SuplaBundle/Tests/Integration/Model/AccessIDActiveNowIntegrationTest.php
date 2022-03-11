@@ -31,7 +31,7 @@ class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
     private $user;
 
     protected function initializeDatabaseForTests() {
-        $this->executeCommand('doctrine:migrations:execute 20220309061812');
+        $this->createDatabaseRoutines();
         $this->user = $this->createConfirmedUser();
     }
 
