@@ -34,10 +34,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @OA\Schema(
+ *   schema="AccessIdentifierActiveHoursDef", type="object",
+ *   @OA\Property(property="1", type="array", @OA\Items(type="integer")),
+ *   @OA\Property(property="2", type="array", @OA\Items(type="integer")),
+ *   @OA\Property(property="3", type="array", @OA\Items(type="integer")),
+ *   @OA\Property(property="4", type="array", @OA\Items(type="integer")),
+ *   @OA\Property(property="5", type="array", @OA\Items(type="integer")),
+ *   @OA\Property(property="6", type="array", @OA\Items(type="integer")),
+ *   @OA\Property(property="7", type="array", @OA\Items(type="integer")),
+ * )
+ * @OA\Schema(
  *   schema="AccessIdentifier", type="object", description="Access Identifier object (AID).",
  *   @OA\Property(property="id", type="integer", description="Identifier"),
  *   @OA\Property(property="caption", type="string", description="Caption"),
  *   @OA\Property(property="enabled", type="boolean", description="`true` if enabled"),
+ *   @OA\Property(property="activeFrom", type="string", format="datetime"),
+ *   @OA\Property(property="activeTo", type="string", format="datetime"),
+ *   @OA\Property(property="activeHours", ref="#/components/schemas/AccessIdentifierActiveHoursDef"),
+ *   @OA\Property(property="activeNow", type="boolean", description="`true` if active now. Returned only if requested by the `include` parameter."),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.", @OA\Property(property="locations", type="integer"), @OA\Property(property="clientApps", type="integer")),
  *   @OA\Property(property="password", type="string", description="Location password (plain text). Returned only if requested by the `include` parameter."),
  *   @OA\Property(property="locations", type="array", description="Array of locations, if requested by the `include` param", @OA\Items(ref="#/components/schemas/Location")),
@@ -98,7 +112,7 @@ class AccessIDController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"locations", "clientApps", "password"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"locations", "clientApps", "password", "activeNow"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/AccessIdentifier"))),
      * )
@@ -120,7 +134,7 @@ class AccessIDController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"locations", "clientApps", "password"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"locations", "clientApps", "password", "activeNow"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
      * )
@@ -183,6 +197,9 @@ class AccessIDController extends RestController {
      *          @OA\Property(property="enabled", type="boolean"),
      *          @OA\Property(property="caption", type="string"),
      *          @OA\Property(property="password", type="string", description="Provide new password if you want to change it."),
+     *          @OA\Property(property="activeFrom", type="string", format="datetime"),
+     *          @OA\Property(property="activeTo", type="string", format="datetime"),
+     *          @OA\Property(property="activeHours", ref="#/components/schemas/AccessIdentifierActiveHoursDef"),
      *          @OA\Property(property="locationsIds", type="array", description="Location identifiers to assign to this AID.", @OA\Items(type="integer")),
      *          @OA\Property(property="clientAppsIds", type="array", description="Client Apps identifiers to assign to this Access Identifier. If client app is connected to any other AID, it will be disconnected from the old one before assigning.", @OA\Items(type="integer")),
      *       )
