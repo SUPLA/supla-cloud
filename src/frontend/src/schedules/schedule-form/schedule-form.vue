@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                             <div v-if="schedule.mode !== 'once'">
-                                <schedule-form-start-end-date v-model="startEndDate"></schedule-form-start-end-date>
+                                <date-range-picker v-model="startEndDate"></date-range-picker>
                             </div>
                             <next-run-dates-preview v-if="schedule.subject"
                                 v-model="nextRunDates"
@@ -109,7 +109,6 @@
     import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
     import ScheduleFormModeCrontab from "./modes/schedule-form-mode-crontab.vue";
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
-    import ScheduleFormStartEndDate from "./schedule-form-start-end-date.vue";
     import 'eonasdan-bootstrap-datetimepicker';
     import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import Toggler from "../../common/gui/toggler";
@@ -123,10 +122,12 @@
     import {cloneDeep} from "lodash";
     import ActionableSubjectType from "../../common/enums/actionable-subject-type";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
+    import DateRangePicker from "../../direct-links/date-range-picker";
 
     export default {
         props: ['id'],
         components: {
+            DateRangePicker,
             ChannelActionChooser,
             SubjectDropdown,
             PendingChangesPage,
@@ -137,7 +138,6 @@
             ScheduleFormModeDaily,
             ScheduleFormModeCrontab,
             NextRunDatesPreview,
-            ScheduleFormStartEndDate,
             Toggler,
         },
         data() {

@@ -40,7 +40,7 @@
         props: ['value'],
         data() {
             return {
-                dateStart: undefined,
+                dateStart: moment(),
                 dateEnd: undefined,
             };
         },
@@ -51,14 +51,20 @@
                 minDate: 'now',
                 useCurrent: false,
                 locale: Vue.config.lang,
-                stepping: 5
+                stepping: 1
             });
             endDatePicker.datetimepicker({
                 minDate: moment().add(5, 'minute'),
                 useCurrent: false,
                 locale: Vue.config.lang,
-                stepping: 5
+                stepping: 1
             });
+            if (this.value && this.value.dateStart) {
+                startDatePicker.data('DateTimePicker').date(moment(this.value.dateStart).toDate());
+            }
+            if (this.value && this.value.dateEnd) {
+                endDatePicker.data('DateTimePicker').date(moment(this.value.dateEnd).toDate());
+            }
             startDatePicker.on("dp.change", (e) => {
                 endDatePicker.data("DateTimePicker").minDate(e.date);
                 if (e.date) {
@@ -77,17 +83,14 @@
                 }
                 this.onChange();
             });
-            if (this.value && this.value.dateStart) {
-                startDatePicker.data('DateTimePicker').date(moment(this.value.dateStart).toDate());
-            }
-            if (this.value && this.value.dateEnd) {
-                endDatePicker.data('DateTimePicker').date(moment(this.value.dateEnd).toDate());
-            }
         },
         methods: {
             onChange() {
-                this.$emit('input', {dateStart: this.dateStart, dateEnd: this.dateEnd});
-            }
+                this.$emit('input', {
+                    dateStart: this.dateStart ? this.dateStart.format() : undefined,
+                    dateEnd: this.dateEnd ? this.dateEnd.format() : undefined,
+                });
+            },
         }
     };
 </script>
