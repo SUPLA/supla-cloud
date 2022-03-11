@@ -7,7 +7,7 @@
                 v-show="!$frontendConfig.maintenanceMode">
                 <transition name="fade">
                     <div class="btn-toolbar"
-                        v-if="isPending">
+                        v-if="showPendingButtons">
                         <a class="btn btn-grey"
                             @click="$emit('cancel')">
                             <i class="pe-7s-back"></i>
@@ -21,7 +21,7 @@
                     </div>
                 </transition>
                 <transition name="fade">
-                    <div v-if="!isPending">
+                    <div v-if="showNotPendingButtons">
                         <slot name="buttons"></slot>
                         <div class="btn-toolbar"
                             v-if="deletable">
@@ -60,5 +60,25 @@
 <script>
     export default {
         props: ['header', 'deletable', 'isPending'],
+        data() {
+            return {
+                lastPendingState: false,
+                currentTimeout: undefined,
+            };
+        },
+        computed: {
+            showPendingButtons() {
+                return this.isPending && !this.currentTimeout;
+            },
+            showNotPendingButtons() {
+                return !this.isPending && !this.currentTimeout;
+            },
+        },
+        watch: {
+            isPending() {
+                clearTimeout(this.currentTimeout);
+                this.currentTimeout = setTimeout(() => this.currentTimeout = undefined, 515);
+            }
+        }
     };
 </script>
