@@ -10,6 +10,15 @@
                     @delete="deleteConfirm = true"
                     :is-pending="hasPendingChanges">
 
+                    <div class="row"
+                        v-if="!accessId.activeNow">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="alert alert-warning mt-3">
+                                {{ $t('Access ID is not active right now.') }}
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="details-page-block">
@@ -140,6 +149,7 @@
                     </div>
                 </pending-changes-page>
             </div>
+            {{ accessId }}
 
             <modal-confirm v-if="deleteConfirm"
                 class="modal-warning"
@@ -200,7 +210,7 @@
                 this.loading = true;
                 if (this.id && this.id != 'new') {
                     this.error = false;
-                    this.$http.get(`accessids/${this.id}?include=locations,clientApps,password`, {skipErrorHandler: [403, 404]})
+                    this.$http.get(`accessids/${this.id}?include=locations,clientApps,password,activeNow`, {skipErrorHandler: [403, 404]})
                         .then(response => this.accessId = response.body)
                         .then(() => this.useWorkingSchedule = !!this.accessId.activeHours)
                         .catch(response => this.error = response.status)
@@ -218,7 +228,7 @@
                 this.$http.put('accessids/' + this.accessId.id, toSend)
                     .then((response) => {
                         this.$emit('update', response.body);
-                        this.useWorkingSchedule = !!response.body.activeHours
+                        this.initForModel();
                     })
                     .finally(() => this.loading = this.hasPendingChanges = false);
             },
@@ -256,8 +266,9 @@
                     return {dateStart: this.accessId.activeFrom, dateEnd: this.accessId.activeTo};
                 },
                 set(dates) {
-                    this.$set(this.accessId, 'activeFrom', dates.dateStart);
-                    this.$set(this.accessId, 'activeTo', dates.dateEnd);
+                    console.log(dates);
+                    this.$set(this.accessId, 'activeFrom', dates.dateStart || null);
+                    this.$set(this.accessId, 'activeTo', dates.dateEnd || null);
                 }
             },
             activeHours: {
