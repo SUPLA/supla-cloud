@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\User;
@@ -136,6 +137,54 @@ class AccessIDControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertNotNull($content['activeHours']);
         $this->assertEquals([1 => [2, 4], 4 => [2]], $content['activeHours']);
+    }
+
+    public function testUpdatingLocations() {
+        $location1 = $this->createLocation($this->user);
+        $location2 = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'locationsIds' => [$location1->getId(), $location2->getId()],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $location1 = $this->freshEntity($location1);
+        $location2 = $this->freshEntity($location2);
+        $this->assertEquals([1], EntityUtils::mapToIds($location1->getAccessIds()));
+        $this->assertEquals([1], EntityUtils::mapToIds($location2->getAccessIds()));
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'locationsIds' => [$location2->getId()],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $location1 = $this->freshEntity($location1);
+        $location2 = $this->freshEntity($location2);
+        $this->assertEmpty($location1->getAccessIds());
+        $this->assertEquals([1], EntityUtils::mapToIds($location2->getAccessIds()));
+    }
+
+    public function testUpdatingClientApps() {
+        $clientApp1 = $this->createClientApp($this->user);
+        $clientApp2 = $this->createClientApp($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'clientAppsIds' => [$clientApp1->getId(), $clientApp2->getId()],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $clientApp1 = $this->freshEntity($clientApp1);
+        $clientApp2 = $this->freshEntity($clientApp2);
+        $this->assertEquals(1, $clientApp1->getAccessId()->getId());
+        $this->assertEquals(1, $clientApp2->getAccessId()->getId());
+        $client->apiRequestV24('PUT', '/api/accessids/1', [
+            'clientAppsIds' => [$clientApp2->getId()],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $clientApp1 = $this->freshEntity($clientApp1);
+        $clientApp2 = $this->freshEntity($clientApp2);
+        $this->assertEmpty($clientApp1->getAccessId());
+        $this->assertEquals(1, $clientApp2->getAccessId()->getId());
     }
 
     public function testCreatingLocationWithPlLocale() {

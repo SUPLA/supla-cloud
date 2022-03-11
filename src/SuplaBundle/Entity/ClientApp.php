@@ -124,13 +124,11 @@ class ClientApp {
         return $this->id;
     }
 
-    /** @return AccessID|null */
-    public function getAccessId() {
+    public function getAccessId(): ?AccessID {
         return $this->accessId;
     }
 
-    /** @param AccessID|null $accessId */
-    public function setAccessId($accessId) {
+    public function setAccessId(?AccessID $accessId) {
         $this->accessId = $accessId;
     }
 

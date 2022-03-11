@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Traits;
 use DateTime;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
@@ -36,6 +37,8 @@ use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\LocationManager;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Repository\ApiClientRepository;
+use SuplaBundle\Tests\AnyFieldSetter;
+use SuplaBundle\Utils\StringUtils;
 
 trait UserFixtures {
     protected function createConfirmedUser(string $username = 'supler@supla.org', string $password = 'supla123'): User {
@@ -66,6 +69,23 @@ trait UserFixtures {
         $this->getEntityManager()->persist($location);
         $this->getEntityManager()->flush();
         return $location;
+    }
+
+    protected function createClientApp(User $user): ClientApp {
+        $clientApp = new ClientApp();
+        $clientApp->setEnabled(true);
+        AnyFieldSetter::set($clientApp, [
+            'guid' => StringUtils::randomString(10),
+            'regDate' => new \DateTime(),
+            'lastAccessDate' => new \DateTime(),
+            'softwareVersion' => '1.' . rand(0, 100),
+            'protocolVersion' => rand(0, 100),
+            'user' => $user,
+            'name' => 'iPhone ' . rand(0, 100),
+        ]);
+        $this->getEntityManager()->persist($clientApp);
+        $this->getEntityManager()->flush();
+        return $clientApp;
     }
 
     protected function createDeviceSonoff(Location $location): IODevice {

@@ -275,10 +275,10 @@ class AccessIDController extends RestController {
             }
             if (($clientAppsIds = $request->get('clientAppsIds')) !== null) {
                 Assertion::isArray($clientAppsIds);
-                Assertion::allInteger($locationsIds);
+                Assertion::allInteger($clientAppsIds);
                 $clientApps = array_map(function (int $clientAppId) use ($clientAppRepository) {
                     return $clientAppRepository->findForUser($this->getCurrentUser(), $clientAppId);
-                }, $locationsIds);
+                }, $clientAppsIds);
                 foreach ($accessId->getClientApps() as $clientApp) {
                     $clientApp->setAccessId(null);
                     $em->persist($clientApp);
