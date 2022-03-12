@@ -149,7 +149,6 @@
                     </div>
                 </pending-changes-page>
             </div>
-            {{ accessId }}
 
             <modal-confirm v-if="deleteConfirm"
                 class="modal-warning"
