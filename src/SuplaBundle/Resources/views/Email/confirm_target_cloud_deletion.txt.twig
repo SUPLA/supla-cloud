@@ -1,0 +1,30 @@
+{% extends '@Supla/Email/template.txt.twig' %}
+
+{% block subject %}
+  {% trans into userLocale %} SUPLA - Private instance unregistration {% endtrans %}
+{% endblock %}
+
+{% block body %}
+{% trans into userLocale %} Welcome!{% endtrans %}
+
+
+{% trans with {'%targetCloudUrl%': targetCloudUrl} into userLocale %} We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).{% endtrans %}
+
+
+{% trans into userLocale %}OAuth integrations might stop working after the instance is unregistered.{% endtrans %}
+{% trans into userLocale %}If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.{% endtrans %}
+
+
+{% trans with {'%targetCloudUrl%': targetCloudUrl} into userLocale %} Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).{% endtrans %}
+
+
+{{ svrUrl(confirmationUrl) }}
+
+
+{% trans into userLocale %}If the link is not working, please copy and paste it or enter manually in a new browser window.{% endtrans %}
+
+
+{% trans into userLocale %}NOTICE!{% endtrans %}
+
+{% trans into userLocale %}If you do not want to unregister your instance, please do not click the link.{% endtrans %}
+{% endblock %}

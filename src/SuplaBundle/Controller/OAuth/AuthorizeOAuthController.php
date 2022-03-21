@@ -27,6 +27,7 @@ use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Message\Emails\DeleteTargetCloudConfirmationEmailNotification;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Model\LocalSuplaCloud;
@@ -36,6 +37,7 @@ use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
@@ -232,6 +234,35 @@ class AuthorizeOAuthController extends Controller {
         );
         $token = $this->autodiscover->issueRegistrationTokenForTargetCloud($targetCloud, $email);
         return $this->json(['token' => $token]);
+    }
+
+    /**
+     * @Route("/api/remove-target-cloud", methods={"POST"})
+     * @UnavailableInMaintenance
+     */
+    public function issueRemovalTokenForTargetCloudAction(Request $request, MessageBusInterface $messageBus): Response {
+        if ($this->recaptchaEnabled) {
+            $gRecaptchaResponse = $request->get('captcha');
+            $recaptcha = new ReCaptcha($this->recaptchaSecret);
+            $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
+            Assertion::true($resp->isSuccess(), 'Captcha token is not valid.'); // i18n
+        }
+        $email = $request->get('email');
+        Assertion::email($email, 'Please fill a valid email address'); // i18n
+        $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $request->get('targetCloudUrl'));
+        $tokenData = $this->autodiscover->issueRemovalTokenForTargetCloud($targetCloud, $email);
+        $email = new DeleteTargetCloudConfirmationEmailNotification($email, $targetCloud->getAddress(), $tokenData['targetCloudId'], $tokenData['token']);
+        $messageBus->dispatch($email);
+        return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @Route("/api/remove-target-cloud/{targetCloudId}/{token}", methods={"GET"})
+     * @UnavailableInMaintenance
+     */
+    public function removeTargetCloudAction(int $targetCloudId, string $token): Response {
+        $this->autodiscover->removeTargetCloud($targetCloudId, $token);
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     private function getTargetCloudInfo(TargetSuplaCloud $targetCloud) {

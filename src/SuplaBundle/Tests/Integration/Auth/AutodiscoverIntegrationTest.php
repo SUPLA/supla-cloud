@@ -79,6 +79,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $result = $this->executeAdCommand('target-clouds:registration-tokens:issue http://supla.local local@supla.org');
         $this->assertCount(3, $result);
         $command = $result[2];
+        $this->assertStringStartsWith('php bin/console supla:register-target-cloud ', $command);
         $result = $this->executeCommand(substr($command, strlen('php bin/console ')));
         $this->assertContains('correctly', $result);
     }
@@ -121,8 +122,8 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     }
 
     public function testDeletingUserDeletesItInAd() {
-        $this->registerUser();
-        $result = $this->executeCommand('supla:delete-user adtest@supla.org');
+        $client = $this->registerUser();
+        $result = $this->executeCommand('supla:delete-user adtest@supla.org', $client);
         $this->assertContains('has been deleted', $result);
         $server = $this->autodiscover->getAuthServerForUser('adtest@supla.org');
         $this->assertTrue($server->isLocal());
@@ -189,6 +190,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $client = $this->createClient();
         $client->apiRequest('POST', '/api/register', $userData);
         $this->assertStatusCode(201, $client->getResponse());
+        return $client;
     }
 
     private function treatAsBroker(string $targetCloudUrl = 'http://supla.local') {

@@ -231,6 +231,45 @@ abstract class SuplaAutodiscover {
         return $token;
     }
 
+    public function issueRemovalTokenForTargetCloud(TargetSuplaCloud $targetCloud, $email): array {
+        $response = $this->remoteRequest('/target-cloud-removal-token', [
+            'targetCloudUrl' => $targetCloud->getAddress(),
+            'email' => $email,
+        ], $responseStatus);
+        $this->logger->debug(__FUNCTION__, ['targetCloud' => $targetCloud->getAddress()]);
+        if ($responseStatus !== 201) {
+            $errors = [
+                404 => 'Target Cloud is not registered, or is registered with another e-mail address.', // i18n
+                503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
+            ];
+            throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
+        }
+        Assertion::keyExists($response, 'token');
+        Assertion::keyExists($response, 'targetCloudId');
+        return $response;
+    }
+
+    public function removeTargetCloud(int $targetCloudId, string $removalToken): void {
+        $this->remoteRequest('/remove-target-cloud', [
+            'targetCloudId' => $targetCloudId,
+            'token' => $removalToken,
+        ], $responseStatus);
+        $this->logger->debug(
+            __FUNCTION__,
+            [
+                'targetCloudId' => $targetCloudId,
+                'responseStatus' => $responseStatus,
+            ]
+        );
+        if ($responseStatus !== 204) {
+            $errors = [
+                404 => 'Invalid token.', // i18n
+                503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
+            ];
+            throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
+        }
+    }
+
     public function getPublicClients() {
         $publicClients = null;
         if (file_exists(self::PUBLIC_CLIENTS_SAVE_PATH)) {

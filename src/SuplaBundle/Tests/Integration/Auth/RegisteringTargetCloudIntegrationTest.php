@@ -53,7 +53,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('token', $body);
     }
 
-    public function testRegistertingTargetIfInvalidDomain() {
+    public function testRegisteringTargetIfInvalidDomain() {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
             function (string $address, string $endpoint) use (&$targetCalled) {
