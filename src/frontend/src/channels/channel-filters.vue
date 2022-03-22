@@ -4,7 +4,7 @@
             id="channelsFiltersSort"
             :default-sort="hasDevice && 'channelNumber'"
             @input="$emit('filter')"
-            :filters="[{label: $t('As in device'), value: 'channelNumber', visible: hasDevice}, {label: $t('A-Z'), value: 'caption'}, {label: $t('Registered'), value: 'regDate'}, {label: $t('Last access'), value: 'lastAccess'}, {label: $t('Location'), value: 'location'}]"></btn-filters>
+            :filters="filters"></btn-filters>
         <btn-filters v-model="functionality"
             class="always-dropdown"
             @input="$emit('filter')"
@@ -45,7 +45,7 @@
             return {
                 functionality: '*',
                 search: '',
-                sort: 'caption'
+                sort: 'caption',
             };
         },
         mounted() {
@@ -87,6 +87,17 @@
             captionForSort(channel) {
                 return latinize(channel.caption || (channel.function && this.$t(channel.function.caption)) || '').toLowerCase().trim();
             },
-        }
+        },
+        computed: {
+            filters() {
+                return [
+                    {label: this.$t('As in device'), value: 'channelNumber', visible: this.hasDevice},
+                    {label: this.$t('A-Z'), value: 'caption'},
+                    {label: this.$t('Registered'), value: 'regDate', visible: !this.hasDevice},
+                    {label: this.$t('Last access'), value: 'lastAccess', visible: !this.hasDevice},
+                    {label: this.$t('Location'), value: 'location'}
+                ];
+            }
+        },
     };
 </script>
