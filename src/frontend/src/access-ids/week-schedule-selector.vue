@@ -34,6 +34,25 @@
                 </td>
             </tr>
             </tbody>
+            <tfoot>
+            <tr>
+                <th></th>
+                <th v-for="weekday in [1,2,3,4,5,6,7]"
+                    class="copy-buttons text-center"
+                    :key="'copypaste' + weekday">
+                    <a class="mx-1"
+                        v-if="!copyFrom || copyFrom === weekday"
+                        @click="copyFrom = (copyFrom === weekday ? undefined : weekday)">
+                        <span class="pe-7s-copy-file"></span>
+                    </a>
+                    <a class="mx-1"
+                        @click="copyDay(copyFrom, weekday)"
+                        v-if="copyFrom && copyFrom !== weekday">
+                        <span class="pe-7s-paint"></span>
+                    </a>
+                </th>
+            </tr>
+            </tfoot>
         </table>
     </div>
 </template>
@@ -51,6 +70,7 @@
                 temporaryModel: undefined,
                 selectionMode: undefined,
                 selectionStartCoords: undefined,
+                copyFrom: undefined,
             };
         },
         mounted() {
@@ -75,6 +95,7 @@
                 return end.format('LT');
             },
             startSelection(weekday, hour) {
+                this.copyFrom = undefined;
                 this.selectionStartCoords = {weekday, hour};
                 this.selectionMode = this.temporaryModel[weekday][hour] ? 0 : 1;
                 this.expandSelection(weekday, hour);
@@ -101,6 +122,10 @@
                 this.model = this.temporaryModel;
                 this.$emit('input', cloneDeep(this.model));
             },
+            copyDay(copyFrom, copyTo) {
+                this.temporaryModel[copyTo] = cloneDeep(this.temporaryModel[copyFrom]);
+                this.updateModel();
+            }
         },
         computed: {},
         watch: {}
@@ -150,6 +175,13 @@
                 &.green {
                     background: $supla-green !important;
                 }
+            }
+        }
+        .copy-buttons {
+            font-size: 1.3em;
+            padding-top: .3em;
+            a {
+                color: $supla-grey-dark;
             }
         }
     }
