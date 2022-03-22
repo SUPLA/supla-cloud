@@ -226,6 +226,13 @@ abstract class SuplaAutodiscover {
                 'response' => array_diff_key(is_array($response) ? $response : [], ['token' => '']),
             ]
         );
+        if ($responseStatus !== 201) {
+            $errors = [
+                404 => 'Invalid token.', // i18n
+                503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
+            ];
+            throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
+        }
         $token = is_array($response) && isset($response['token']) ? $response['token'] : '';
         Assertion::notEmpty($token, "Could not contact Autodiscover service. Try again in a while. (Error: $responseStatus)");
         return $token;
@@ -239,6 +246,7 @@ abstract class SuplaAutodiscover {
         $this->logger->debug(__FUNCTION__, ['targetCloud' => $targetCloud->getAddress()]);
         if ($responseStatus !== 201) {
             $errors = [
+                400 => 'Invalid request.', // i18n
                 404 => 'Target Cloud is not registered, or is registered with another e-mail address.', // i18n
                 503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
             ];
@@ -263,6 +271,7 @@ abstract class SuplaAutodiscover {
         );
         if ($responseStatus !== 204) {
             $errors = [
+                400 => 'Invalid request.', // i18n
                 404 => 'Invalid token.', // i18n
                 503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
             ];

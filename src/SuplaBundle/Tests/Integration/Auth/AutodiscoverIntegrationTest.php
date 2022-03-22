@@ -19,15 +19,21 @@ namespace SuplaBundle\Tests\Integration\Auth;
 
 use AppKernel;
 use SuplaBundle\Auth\AutodiscoverPublicClientStub;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Model\TargetSuplaCloud;
+use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\TestClient;
+use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * For these tests to run, you need to launch your local instance of SUPLA Autodiscover from https://github.com/SUPLA/supla-autodiscover
+ * The directories supla-cloud and supla-autodiscover should be next to each other (in the same parent dir).
  * Then, update app/config/config_local.yml so the "Real" Autodiscover is being used in the tests instead of the Mocked one:
  */
 /*
@@ -76,12 +82,14 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRegisteringTargetCloud() {
-        $result = $this->executeAdCommand('target-clouds:registration-tokens:issue http://supla.local local@supla.org');
+        $result = $this->executeAdCommand("target-clouds:registration-tokens:issue http://supla.local local@supla.org");
         $this->assertCount(3, $result);
         $command = $result[2];
         $this->assertStringStartsWith('php bin/console supla:register-target-cloud ', $command);
         $result = $this->executeCommand(substr($command, strlen('php bin/console ')));
         $this->assertContains('correctly', $result);
+        @chmod(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH, 0777); // so user running test and apache can read these
+        @chmod(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH, 0777);
     }
 
     public function testSettingBrokerIps() {
@@ -106,8 +114,6 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
 
     public function testQueryingUserInfoAsBroker() {
         $this->testRegisteringUserInAd();
-        @chmod(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH, 0777); // so user running test and apache can read these
-        @chmod(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH, 0777);
         $userData = [
             'email' => 'adtest@supla.org',
             'regulationsAgreed' => true,
@@ -178,7 +184,77 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('New Public Client', $clientData['name']);
     }
 
-    private function registerUser() {
+    public function testRegisteringAnotherTargetCloudThroughBroker() {
+        $this->testRegisteringTargetCloud();
+        $this->treatAsBroker();
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function (string $address, string $endpoint) use (&$targetCalled) {
+                $this->assertEquals('http://supla.private.pl', $address);
+                $this->assertEquals('server-info', $endpoint);
+                $targetCalled = true;
+                return [['cloudVersion' => '2.3.0'], Response::HTTP_OK];
+            };
+        $userData = [
+            'email' => 'chief@supla.org',
+            'targetCloud' => 'supla.private.pl',
+        ];
+        $client = $this->createClient();
+        $client->apiRequest('POST', '/api/register-target-cloud', $userData);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $responseBody = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('token', $responseBody);
+        $token = $responseBody['token'];
+        $tempLocalSuplaCloud = new TargetSuplaCloud('http://supla.private.pl', true);
+        $originalSuplaCloud = EntityUtils::getField($this->autodiscover, 'localSuplaCloud');
+        EntityUtils::setField($this->autodiscover, 'localSuplaCloud', $tempLocalSuplaCloud);
+        $instanceToken = $this->autodiscover->registerTargetCloud($token);
+        EntityUtils::setField($this->autodiscover, 'localSuplaCloud', $originalSuplaCloud);
+        $this->assertIsString($instanceToken);
+    }
+
+    public function testRegisteringAnotherTargetCloudThroughBrokerTwice() {
+        $this->testRegisteringAnotherTargetCloudThroughBroker();
+        $userData = [
+            'email' => 'chief@supla.org',
+            'targetCloud' => 'supla.private.pl',
+        ];
+        $client = $this->createClient();
+        $client->apiRequest('POST', '/api/register-target-cloud', $userData);
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+    }
+
+    public function testUnregisteringTargetCloud() {
+        $this->testRegisteringAnotherTargetCloudThroughBroker();
+        $client = $this->createClient();
+        $client->apiRequest('POST', '/api/remove-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+        $this->flushMessagesQueue($client);
+        $this->assertCount(1, TestMailer::getMessages());
+        $message = TestMailer::getMessages()[0];
+        preg_match('#confirm-target-cloud-deletion/([0-9]+)/([^\?]+)#', $message->getBody(), $match);
+        $this->assertCount(3, $match);
+        [, $targetCloudId, $token] = $match;
+        $client->apiRequest('GET', "/api/remove-target-cloud/$targetCloudId/$token");
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+    }
+
+    public function testCanReregisterTargetCloudAfterUnregistration() {
+        $this->testUnregisteringTargetCloud();
+        $userData = [
+            'email' => 'chief@supla.org',
+            'targetCloud' => 'supla.private.pl',
+        ];
+        $client = $this->createClient();
+        $client->apiRequest('POST', '/api/register-target-cloud', $userData);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+    }
+
+    private function registerUser(): TestClient {
         $this->testRegisteringTargetCloud();
         $this->treatAsBroker();
         $userData = [

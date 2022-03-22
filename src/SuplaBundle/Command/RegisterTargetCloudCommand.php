@@ -41,7 +41,7 @@ class RegisterTargetCloudCommand extends Command {
     private function registerTargetCloud(InputInterface $input, OutputInterface $output) {
         Assertion::false(
             $this->autodiscover->isTarget(),
-            'Your isntance seems to be registered already. If you have any problems integrating some of the apps, feel free to contact us.'
+            'Your instance seems to be registered already. If you have any problems integrating some of the apps, feel free to contact us.'
         );
         $output->writeln('Registering your private SUPLA Cloud...');
         $registrationToken = $input->getArgument('registrationToken');

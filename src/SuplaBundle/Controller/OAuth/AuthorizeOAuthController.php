@@ -249,9 +249,14 @@ class AuthorizeOAuthController extends Controller {
         }
         $email = $request->get('email');
         Assertion::email($email, 'Please fill a valid email address'); // i18n
-        $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $request->get('targetCloudUrl'));
+        $targetCloud = TargetSuplaCloud::forHost($this->localSuplaCloud->getProtocol(), $request->get('targetCloud'));
         $tokenData = $this->autodiscover->issueRemovalTokenForTargetCloud($targetCloud, $email);
-        $email = new DeleteTargetCloudConfirmationEmailNotification($email, $targetCloud->getAddress(), $tokenData['targetCloudId'], $tokenData['token']);
+        $email = new DeleteTargetCloudConfirmationEmailNotification(
+            $email,
+            $targetCloud->getAddress(),
+            $tokenData['targetCloudId'],
+            $tokenData['token']
+        );
         $messageBus->dispatch($email);
         return new Response('', Response::HTTP_NO_CONTENT);
     }

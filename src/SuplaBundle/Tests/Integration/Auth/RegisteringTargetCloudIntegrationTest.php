@@ -21,6 +21,7 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use Symfony\Component\HttpFoundation\Response;
@@ -159,5 +160,54 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('message', $body);
         $this->assertContains('already registered', $body['message']);
+    }
+
+    public function testTargetCloudRemovalRequest() {
+        SuplaAutodiscoverMock::mockResponse(
+            'target-cloud-removal-token',
+            ['token' => 'ala123', 'targetCloudId' => 123],
+            201,
+            'POST'
+        );
+        $client = $this->createHttpsClient();
+        $client->apiRequestV23('POST', '/api/remove-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+        $this->flushMessagesQueue($client);
+        $this->assertCount(1, TestMailer::getMessages());
+        $message = TestMailer::getMessages()[0];
+        $this->assertStringContainsString('Private instance unregistration', $message->getSubject());
+        $this->assertStringContainsString('confirm-target-cloud-deletion/123/ala123', $message->getBody());
+    }
+
+    public function testTargetCloudRemovalRequestError() {
+        SuplaAutodiscoverMock::mockResponse(
+            'target-cloud-removal-token',
+            ['error' => 'Target cloud with given URL is not registered.'],
+            404,
+            'POST'
+        );
+        $client = $this->createHttpsClient();
+        $client->apiRequestV23('POST', '/api/remove-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'supla.private.pl']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+        $this->flushMessagesQueue($client);
+        $this->assertEmpty(TestMailer::getMessages());
+    }
+
+    public function testTargetCloudRemoval() {
+        SuplaAutodiscoverMock::mockResponse('remove-target-cloud', null, 204, 'POST');
+        $client = $this->createHttpsClient();
+        $client->apiRequestV23('GET', '/api/remove-target-cloud/123/ala123');
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+    }
+
+    public function testTargetCloudRemovalError() {
+        SuplaAutodiscoverMock::mockResponse('remove-target-cloud', ['error' => 'Not found.'], 404, 'POST');
+        $client = $this->createHttpsClient();
+        $client->apiRequestV23('GET', '/api/remove-target-cloud/123/ala123');
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
     }
 }
