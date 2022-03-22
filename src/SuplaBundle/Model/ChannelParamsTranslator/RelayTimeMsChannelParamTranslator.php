@@ -21,10 +21,10 @@ class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 
     private const TIMES = [
-        ChannelFunction::CONTROLLINGTHEDOORLOCK => [500, 10000],
+        ChannelFunction::CONTROLLINGTHEDOORLOCK => [500, 120000],
         ChannelFunction::CONTROLLINGTHEGARAGEDOOR => [500, 2000],
         ChannelFunction::CONTROLLINGTHEGATE => [500, 2000],
-        ChannelFunction::CONTROLLINGTHEGATEWAYLOCK => [500, 10000],
+        ChannelFunction::CONTROLLINGTHEGATEWAYLOCK => [500, 120000],
     ];
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
