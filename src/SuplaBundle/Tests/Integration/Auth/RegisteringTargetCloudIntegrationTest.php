@@ -198,15 +198,22 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
     public function testTargetCloudRemoval() {
         SuplaAutodiscoverMock::mockResponse('remove-target-cloud', null, 204, 'POST');
         $client = $this->createHttpsClient();
-        $client->apiRequestV23('GET', '/api/remove-target-cloud/123/ala123');
+        $client->apiRequestV23('DELETE', '/api/remove-target-cloud/123/ala123');
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
+    }
+
+    public function testTargetCloudRemovalWithGet() {
+        $client = $this->createHttpsClient();
+        $client->apiRequestV23('GET', '/api/remove-target-cloud/123/ala123');
+        $response = $client->getResponse();
+        $this->assertStatusCode(405, $response);
     }
 
     public function testTargetCloudRemovalError() {
         SuplaAutodiscoverMock::mockResponse('remove-target-cloud', ['error' => 'Not found.'], 404, 'POST');
         $client = $this->createHttpsClient();
-        $client->apiRequestV23('GET', '/api/remove-target-cloud/123/ala123');
+        $client->apiRequestV23('DELETE', '/api/remove-target-cloud/123/ala123');
         $response = $client->getResponse();
         $this->assertStatusCode(404, $response);
     }

@@ -14,7 +14,15 @@
             </whole-screen-message>
         </transition>
         <transition name="fade-router">
-            <div v-if="!token">
+            <whole-screen-message v-if="unregistered"
+                class="container"
+                icon="pe-7s-mail"
+                header-i18n="You have requested to unregister your SUPLA Cloud instance"
+                :message="$t('We have sent you an email with further instructions.')">
+            </whole-screen-message>
+        </transition>
+        <transition name="fade-router">
+            <div v-if="!token && !unregistered">
                 <!-- i18n:['register-slide1-text','register-slide1-title','register-slide2-text','register-slide2-title','register-slide3-text','register-slide3-title'] -->
                 <div class="register-page">
                     <div class="register-slider-container">
@@ -31,7 +39,7 @@
                                 {{ errorMessage }}
                             </div>
 
-                            <form @submit.prevent="registerTargetCloud()"
+                            <form @submit.prevent="submit()"
                                 class="register-form">
                                 <input type="email"
                                     class="form-input"
@@ -56,7 +64,7 @@
 
                                 <invisible-recaptcha
                                     :sitekey="captchaSiteKey"
-                                    :callback="registerTargetCloud"
+                                    :callback="submit"
                                     id="registerRecaptcha"
                                     type="submit"
                                     :disabled="isBusy"
@@ -64,11 +72,22 @@
                                     btn-class="btn-black">
                                     <template>
                                         <span v-if="!isBusy">
-                                            {{ $t('Register') }}
+                                            <span v-if="unregister">{{ $t('Undo registration') }}</span>
+                                            <span v-else>{{ $t('Register') }}</span>
                                         </span>
                                         <button-loading-dots v-else></button-loading-dots>
                                     </template>
                                 </invisible-recaptcha>
+
+                                <div class="text-right mt-3 small"
+                                    v-if="!isBusy">
+                                    <component v-if="unregister"
+                                        :is="registerText"
+                                        @click="unregister = false"></component>
+                                    <component v-else
+                                        :is="unregisterText"
+                                        @click="unregister = true"></component>
+                                </div>
 
                             </form>
                         </div>
@@ -104,6 +123,8 @@
                 regulationsAgreed: false,
                 errorMessage: '',
                 token: undefined,
+                unregister: false,
+                unregistered: false,
             };
         },
         mounted() {
@@ -125,10 +146,20 @@
             },
             tokenCommand() {
                 return `docker exec -it -u www-data supla-cloud php bin/console supla:register-target-cloud ${this.token}`;
-            }
+            },
+            unregisterText() {
+                const template = this.$t('If you wish to unregister your instance, [click here].')
+                    .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
+                return {template: `<span>${template}</span>`};
+            },
+            registerText() {
+                const template = this.$t('If you wish to register your instance, [click here].')
+                    .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
+                return {template: `<span>${template}</span>`};
+            },
         },
         methods: {
-            registerTargetCloud(captcha) {
+            submit(captcha) {
                 this.errorMessage = this.computedErrorMessage;
                 if (this.errorMessage) {
                     return;
@@ -139,6 +170,14 @@
                     captcha
                 };
                 this.isBusy = true;
+                if (this.unregister) {
+                    this.unregisterTargetCloud(data);
+                } else {
+                    this.registerTargetCloud(data);
+                }
+            },
+            registerTargetCloud(data) {
+                console.log(data);
                 this.$http.post('register-target-cloud', data, {skipErrorHandler: true})
                     .then(({body}) => this.token = body.token)
                     .catch(({body, status}) => {
@@ -146,7 +185,16 @@
                         this.errorMessage = `${message} (${this.$t('Error')}: ${status})`;
                     })
                     .finally(() => this.isBusy = false);
-            }
+            },
+            unregisterTargetCloud(data) {
+                this.$http.post('remove-target-cloud', data, {skipErrorHandler: true})
+                    .then(() => this.unregistered = true)
+                    .catch(({body, status}) => {
+                        const message = this.$t(body.message || 'Could not contact Autodiscover service. Try again in a while.');
+                        this.errorMessage = `${message} (${this.$t('Error')}: ${status})`;
+                    })
+                    .finally(() => this.isBusy = false);
+            },
         }
     };
 </script>

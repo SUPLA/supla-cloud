@@ -51,12 +51,6 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
             throw new ApiException('Service temporarily unavailable', Response::HTTP_SERVICE_UNAVAILABLE); // i18n
         }
         curl_close($ch);
-        if ($responseStatus >= 200 && $responseStatus <= 304) {
-            return json_decode($result, true);
-        } elseif ($responseStatus == 404) {
-            return false;
-        } else {
-            throw new ApiException('Service temporarily unavailable', $responseStatus ?: Response::HTTP_SERVICE_UNAVAILABLE); // i18n
-        }
+        return json_decode($result, true);
     }
 }

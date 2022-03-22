@@ -237,7 +237,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         preg_match('#confirm-target-cloud-deletion/([0-9]+)/([^\?]+)#', $message->getBody(), $match);
         $this->assertCount(3, $match);
         [, $targetCloudId, $token] = $match;
-        $client->apiRequest('GET', "/api/remove-target-cloud/$targetCloudId/$token");
+        $client->apiRequest('DELETE', "/api/remove-target-cloud/$targetCloudId/$token");
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
     }

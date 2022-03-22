@@ -64,6 +64,12 @@ export default [
         props: true
     },
     {
+        path: '/confirm-target-cloud-deletion/:targetCloudId/:token',
+        component: () => import("@/integrations/confirm-target-cloud-deletion"),
+        meta: {unrestricted: true},
+        props: true
+    },
+    {
         path: '/access-identifiers', component: () => import("@/access-ids/access-ids-page"), name: "accessIds", children: [
             {path: ':id', component: () => import("@/access-ids/access-id-details"), name: 'accessId', props: true}
         ]

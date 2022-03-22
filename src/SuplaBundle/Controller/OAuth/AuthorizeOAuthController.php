@@ -262,7 +262,7 @@ class AuthorizeOAuthController extends Controller {
     }
 
     /**
-     * @Route("/api/remove-target-cloud/{targetCloudId}/{token}", methods={"GET"})
+     * @Route("/api/remove-target-cloud/{targetCloudId}/{token}", methods={"DELETE"})
      * @UnavailableInMaintenance
      */
     public function removeTargetCloudAction(int $targetCloudId, string $token): Response {
