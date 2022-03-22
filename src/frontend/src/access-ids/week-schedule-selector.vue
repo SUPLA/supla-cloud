@@ -18,7 +18,10 @@
                 :key="hour">
                 <th scope="row"
                     class="hour-header ellipsis">
-                    {{ hourLabel(hour) }}
+                    {{ hourLabelStart(hour) }}
+                    <span class="hidden-xs">
+                        {{ ' ' }} - {{ hourLabelEnd(hour) }}
+                    </span>
                 </th>
                 <td v-for="weekday in [1,2,3,4,5,6,7]"
                     :key="'0' + hour + weekday">
@@ -63,10 +66,13 @@
             this.temporaryModel = cloneDeep(this.model);
         },
         methods: {
-            hourLabel(hour) {
+            hourLabelStart(hour) {
                 const start = moment(('0' + hour).substr(-2), 'HH');
+                return start.format('LT');
+            },
+            hourLabelEnd(hour) {
                 const end = moment(('0' + hour).substr(-2), 'HH').endOf('hour');
-                return start.format('LT') + ' - ' + end.format('LT');
+                return end.format('LT');
             },
             startSelection(weekday, hour) {
                 this.selectionStartCoords = {weekday, hour};
@@ -137,6 +143,12 @@
                 background: $supla-green;
                 &:hover {
                     background: lighten($supla-green, 20%);
+                }
+            }
+            @media (hover: none) {
+                background: $supla-grey-light !important;
+                &.green {
+                    background: $supla-green !important;
                 }
             }
         }
