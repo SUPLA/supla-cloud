@@ -44,6 +44,7 @@
     import TransitionExpand from "../../common/gui/transition-expand";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
     import {removeByValue} from "../../common/utils";
+    import ActionableSubjectType from "../../common/enums/actionable-subject-type";
 
     export default {
         components: {TransitionExpand, ChannelActionChooser},
@@ -100,7 +101,14 @@
         },
         computed: {
             endpoint() {
-                return this.subject.subjectType === 'channel' ? 'channels' : 'channel-groups';
+                switch (this.subject.subjectType) {
+                    case ActionableSubjectType.SCENE:
+                        return 'scenes';
+                    case ActionableSubjectType.CHANNEL_GROUP:
+                        return 'channel-groups';
+                    default:
+                        return 'channels';
+                }
             },
             isConnected() {
                 return !this.subject.state || this.subject.state.connected;

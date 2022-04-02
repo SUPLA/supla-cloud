@@ -120,6 +120,7 @@ final class ChannelFunctionAction extends Enum {
             self::STOP => 'Stop', // i18n
             self::TOGGLE => 'Toggle', // i18n
             self::EXECUTE => 'Execute', // i18n
+            self::INTERRUPT => 'Interrupt', // i18n
             self::OPEN_PARTIALLY => 'Open partially', // i18n
             self::CLOSE_PARTIALLY => 'Close partially', // i18n
             self::UP_OR_STOP => 'Move up or stop', // i18n
