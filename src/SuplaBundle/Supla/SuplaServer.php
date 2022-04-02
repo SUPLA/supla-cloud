@@ -276,7 +276,7 @@ abstract class SuplaServer {
     public function executeCommand(string $command) {
         $result = $this->doExecuteCommand($command);
         if (!$result || preg_match("/^OK:/", $result) !== 1) {
-            throw new BadRequestHttpException(30, 'SUPLA Server was unable to execute the action.'); // i18n
+            throw new BadRequestHttpException('SUPLA Server was unable to execute the action.'); // i18n
         }
     }
 }

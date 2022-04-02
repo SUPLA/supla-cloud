@@ -180,8 +180,11 @@ class ScenesController extends RestController {
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_EA') and is_granted('accessIdContains', scene)")
      */
     public function patchSceneAction(Request $request, Scene $scene, ChannelActionExecutor $channelActionExecutor) {
-        $params = json_decode($request->getContent(), true) ?: [];
-        $channelActionExecutor->executeAction($scene, ChannelFunctionAction::EXECUTE(), $params);
+        $params = json_decode($request->getContent(), true);
+        Assertion::keyExists($params, 'action', 'Missing action.');
+        $action = ChannelFunctionAction::fromString($params['action']);
+        unset($params['action']);
+        $channelActionExecutor->executeAction($scene, $action, $params);
         return $this->handleView($this->view(null, Response::HTTP_ACCEPTED));
     }
 }
