@@ -40,6 +40,8 @@ use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
+use SuplaBundle\Repository\LocationRepository;
+use SuplaBundle\Repository\UserIconRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,9 +84,9 @@ class ChannelController extends RestController {
     private $channelRepository;
 
     public function __construct(
-        ChannelStateGetter        $channelStateGetter,
-        ChannelActionExecutor     $channelActionExecutor,
-        ScheduleManager           $scheduleManager,
+        ChannelStateGetter $channelStateGetter,
+        ChannelActionExecutor $channelActionExecutor,
+        ScheduleManager $scheduleManager,
         IODeviceChannelRepository $channelRepository
     ) {
         $this->channelStateGetter = $channelStateGetter;
@@ -232,69 +234,108 @@ class ChannelController extends RestController {
      * @UnavailableInMaintenance
      */
     public function putChannelAction(
-        Request                      $request,
-        IODeviceChannel              $channel,
-        IODeviceChannel              $updatedChannel,
-        ChannelDependencies          $channelDependencies,
-        ChannelParamConfigTranslator $paramConfigTranslator
+        Request $request,
+        IODeviceChannel $channel,
+        ChannelDependencies $channelDependencies,
+        ChannelParamConfigTranslator $paramConfigTranslator,
+        LocationRepository $locationRepository,
+        UserIconRepository $userIconRepository
     ) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
-            $functionHasBeenChanged = $updatedChannel->getFunction() != ChannelFunction::UNSUPPORTED()
-                && $channel->getFunction() != $updatedChannel->getFunction();
-            $newParams = $request->request->all()['config'] ?? [];
-            if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
-                EntityUtils::setField($updatedChannel, 'type', $channel->getType()->getId());
-                $newParams = $paramConfigTranslator->getConfigFromParams($updatedChannel);
-            }
-            if ($functionHasBeenChanged) {
-                Assertion::inArray(
-                    $updatedChannel->getFunction()->getId(),
-                    array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
-                    'Invalid function for channel.' // i18n
-                );
-                $shouldConfirm = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
-                    ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
-                    : !$request->get('confirm');
-                if ($shouldConfirm) {
-                    $dependencies = $channelDependencies->getDependencies($channel);
-                    if (array_filter($dependencies)) {
-                        $view = $this->view($dependencies, Response::HTTP_CONFLICT);
-                        $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
-                        return $view;
+            $requestData = $request->request->all();
+            $newFunction = false;
+            if (isset($requestData['functionId'])) {
+                $function = ChannelFunction::fromString($requestData['functionId']);
+                $functionHasBeenChanged = $function->getId() !== $channel->getFunction()->getId();
+                if ($functionHasBeenChanged) {
+                    $newFunction = $function;
+                    Assertion::inArray(
+                        $newFunction->getId(),
+                        array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
+                        'Invalid function for channel.' // i18n
+                    );
+                    $shouldConfirm = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
+                        ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
+                        : !$request->get('confirm');
+                    if ($shouldConfirm) {
+                        $dependencies = $channelDependencies->getDependencies($channel);
+                        if (array_filter($dependencies)) {
+                            $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                            $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                            return $view;
+                        }
                     }
+                    $cannotChangeMsg = 'Cannot change the channel function right now.'; // i18n
+                    Assertion::true($this->suplaServer->userAction('BEFORE-CHANNEL-FUNCTION-CHANGE', $channel->getId()), $cannotChangeMsg);
                 }
-                $cannotChangeMsg = 'Cannot change the channel function right now.'; // i18n
-                Assertion::true($this->suplaServer->userAction('BEFORE-CHANNEL-FUNCTION-CHANGE', $channel->getId()), $cannotChangeMsg);
-                $channel->setUserIcon(null);
-                $channel->setAltIcon(0);
             }
-            if ($updatedChannel->hasInheritedLocation()) {
+            $channelConfig = $requestData['config'] ?? $paramConfigTranslator->getConfigFromParams($channel);
+            if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+                $channelToReadConfig = new IODeviceChannel();
+                EntityUtils::setField($channelToReadConfig, 'type', $channel->getType()->getId());
+                $functionId = $newFunction ? $newFunction->getId() : $channel->getFunction()->getId();
+                EntityUtils::setField($channelToReadConfig, 'function', $functionId);
+                $channelToReadConfig->setParam1($requestData['param1'] ?? 0);
+                $channelToReadConfig->setParam2($requestData['param2'] ?? 0);
+                $channelToReadConfig->setParam3($requestData['param3'] ?? 0);
+                $channelToReadConfig->setParam4($requestData['param4'] ?? 0);
+                $channelToReadConfig->setTextParam1($requestData['textParam1'] ?? null);
+                $channelToReadConfig->setTextParam2($requestData['textParam2'] ?? null);
+                $channelToReadConfig->setTextParam3($requestData['textParam3'] ?? null);
+                $channelConfig = $paramConfigTranslator->getConfigFromParams($channelToReadConfig);
+            }
+
+            if (isset($requestData['inheritedLocation']) && $requestData['inheritedLocation']) {
                 $channel->setLocation(null);
-            } else {
-                $channel->setLocation($updatedChannel->getLocation());
+            } else if (isset($requestData['locationId'])) {
+                Assertion::integer($requestData['locationId']);
+                $location = $locationRepository->findForUser($channel->getUser(), $requestData['locationId']);
+                $channel->setLocation($location);
+            }
+            if (isset($requestData['caption'])) {
+                Assertion::string($requestData['caption']);
+                Assertion::maxLength($requestData['caption'], 100, 'Caption is too long.'); // i18n
+                $channel->setCaption($requestData['caption']);
+            }
+            if (isset($requestData['hidden'])) {
+                Assertion::boolean($requestData['hidden']);
+                $channel->setHidden($requestData['hidden']);
             }
             /** @var IODeviceChannel $channel */
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
-                $newParams,
+                $userIconRepository,
+                $requestData,
+                $newFunction,
+                $channelConfig,
                 $paramConfigTranslator,
                 $channelDependencies,
-                $updatedChannel,
-                $functionHasBeenChanged,
                 $request,
                 $channel
             ) {
-                $channel->setCaption($updatedChannel->getCaption());
-                $channel->setHidden($updatedChannel->getHidden());
-                if ($functionHasBeenChanged) {
+                if ($newFunction) {
                     $paramConfigTranslator->clearConfig($channel);
-                    $channel->setFunction($updatedChannel->getFunction());
+                    $channel->setFunction($newFunction);
                     $channelDependencies->clearDependencies($channel);
+                    $channel->setUserIcon(null);
+                    $channel->setAltIcon(0);
                     $em->persist($channel);
                 }
-                $paramConfigTranslator->setParamsFromConfig($channel, $newParams);
+                $paramConfigTranslator->setParamsFromConfig($channel, $channelConfig);
                 $channel->setUserConfig($paramConfigTranslator->getConfigFromParams($channel));
-                $channel->setAltIcon($updatedChannel->getAltIcon());
-                $channel->setUserIcon($updatedChannel->getUserIcon());
+                if (isset($requestData['altIcon'])) {
+                    Assertion::integer($requestData['altIcon']);
+                    $channel->setAltIcon($requestData['altIcon']);
+                }
+                if (isset($requestData['userIconId'])) {
+                    Assertion::integer($requestData['userIconId']);
+                    $icon = $userIconRepository->findForUser($channel->getUser(), $requestData['userIconId']);
+                    Assertion::eq(
+                        $icon->getFunction()->getId(),
+                        $channel->getFunction()->getId(),
+                        'Chosen user icon is for other function.'
+                    );
+                    $channel->setUserIcon($icon);
+                }
                 $em->persist($channel);
                 return $channel;
             });
@@ -358,8 +399,8 @@ class ChannelController extends RestController {
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      */
     public function patchChannelSettingsAction(
-        Request                      $request,
-        IODeviceChannel              $channel,
+        Request $request,
+        IODeviceChannel $channel,
         ChannelParamConfigTranslator $paramConfigTranslator
     ) {
         $body = json_decode($request->getContent(), true);

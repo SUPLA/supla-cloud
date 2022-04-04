@@ -547,6 +547,21 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testSettingConfigForActionTrigger */
+    public function testUpdatingCaptionForPairedActionTrigger(IODeviceChannel $trigger) {
+        $channelWithRelatedTrigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getParam1());
+        $this->assertNotNull($channelWithRelatedTrigger);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $channelWithRelatedTrigger->getId(), [
+            'caption' => 'Unicorn channel',
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        /** @var IODeviceChannel $trigger */
+        $trigger = $this->freshEntity($trigger);
+        $this->assertEquals('Unicorn channel AT#1', $trigger->getCaption());
+    }
+
+    /** @depends testSettingConfigForActionTrigger */
     public function testGettingIoDeviceChannels(IODeviceChannel $trigger) {
         $device = $trigger->getIoDevice();
         $client = $this->createAuthenticatedClient($this->user);
