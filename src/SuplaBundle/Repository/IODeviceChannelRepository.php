@@ -28,4 +28,12 @@ class IODeviceChannelRepository extends EntityWithRelationsRepository {
             ->leftJoin('c.channelGroups', 'cg')
             ->groupBy('c.id');
     }
+
+    /** @return IODeviceChannel[] */
+    public function findActionTriggers(IODeviceChannel $channel): array {
+        return $this->findBy(
+            ['user' => $channel->getUser(), 'function' => ChannelFunction::ACTION_TRIGGER, 'param1' => $channel->getId()],
+            ['channelNumber' => 'ASC', 'id' => 'ASC']
+        );
+    }
 }

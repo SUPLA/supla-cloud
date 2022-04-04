@@ -337,6 +337,12 @@ class ChannelController extends RestController {
                     $channel->setUserIcon($icon);
                 }
                 $em->persist($channel);
+                $atIndex = 1;
+                foreach ($this->channelRepository->findActionTriggers($channel) as $actionTrigger) {
+                    $caption = trim(sprintf('%s AT#%d', $channel->getCaption(), $atIndex++));
+                    $actionTrigger->setCaption($caption);
+                    $em->persist($actionTrigger);
+                }
                 return $channel;
             });
             $this->suplaServer->onDeviceSettingsChanged($channel->getIoDevice());
