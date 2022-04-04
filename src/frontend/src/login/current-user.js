@@ -75,7 +75,7 @@ export class CurrentUser {
                 this.userData = response.body;
             })
             .catch(response => {
-                if (response.status === 401) {
+                if (response.status === 401 || response.status === 0 || response.status >= 500) {
                     this.forget();
                 }
             })
