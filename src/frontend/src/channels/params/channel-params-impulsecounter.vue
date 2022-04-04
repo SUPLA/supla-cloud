@@ -32,7 +32,7 @@
                 <span class="input-group">
                     <input type="number"
                         step="0.001"
-                        min="0"
+                        min="-100000000"
                         max="100000000"
                         class="form-control text-center"
                         v-model="channel.config.initialValue"

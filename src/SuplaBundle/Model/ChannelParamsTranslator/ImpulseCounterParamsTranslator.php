@@ -36,7 +36,7 @@ class ImpulseCounterParamsTranslator implements ChannelParamTranslator {
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
         if (array_key_exists('initialValue', $config)) {
-            $initialValue = NumberUtils::maximumDecimalPrecision($this->getValueInRange($config['initialValue'], 0, 100000000), 3);
+            $initialValue = NumberUtils::maximumDecimalPrecision($this->getValueInRange($config['initialValue'], -100000000, 100000000), 3);
             $channel->setUserConfigValue('initialValue', $initialValue);
         }
         if (array_key_exists('addToHistory', $config)) {

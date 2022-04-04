@@ -25,7 +25,7 @@
                     <span class="input-group">
                         <input type="number"
                             step="0.001"
-                            min="0"
+                            min="-10000000"
                             :id="'initial-value-' + counterName"
                             max="10000000"
                             class="form-control"

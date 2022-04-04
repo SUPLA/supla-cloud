@@ -51,7 +51,7 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             $initialValues = $channel->getUserConfig()['electricityMeterInitialValues'] ?? [];
             foreach ($values as $counterName => $initialValue) {
                 Assertion::inArray($counterName, $countersAvailable);
-                $initialValue = $this->getValueInRange($initialValue, 0, 100000000); // 100 mln
+                $initialValue = $this->getValueInRange($initialValue, -100000000, 100000000); // 100 mln
                 $initialValue = NumberUtils::maximumDecimalPrecision($initialValue, 3);
                 $initialValues[$counterName] = $initialValue;
             }
