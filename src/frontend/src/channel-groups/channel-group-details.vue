@@ -17,7 +17,7 @@
                                 <div class="col-md-4 col-sm-12">
                                     <div class="details-page-block">
                                         <h3>{{ $t('Details') }}</h3>
-                                        <div class="hover-editable text-left">
+                                        <div class="hover-editable hovered text-left">
                                             <dl>
                                                 <dd>{{ $t('Caption') }}</dd>
                                                 <dt>
