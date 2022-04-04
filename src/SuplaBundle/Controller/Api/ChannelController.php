@@ -287,7 +287,7 @@ class ChannelController extends RestController {
 
             if (isset($requestData['inheritedLocation']) && $requestData['inheritedLocation']) {
                 $channel->setLocation(null);
-            } else if (isset($requestData['locationId'])) {
+            } elseif (isset($requestData['locationId'])) {
                 Assertion::integer($requestData['locationId']);
                 $location = $locationRepository->findForUser($channel->getUser(), $requestData['locationId']);
                 $channel->setLocation($location);
