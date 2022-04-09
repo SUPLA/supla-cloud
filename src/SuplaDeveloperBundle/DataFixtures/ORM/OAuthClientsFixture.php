@@ -17,7 +17,7 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use OAuth2\OAuth2;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\Entity\User;
@@ -27,8 +27,10 @@ class OAuthClientsFixture extends SuplaFixture {
     const ORDER = UsersFixture::ORDER + 1;
 
     public function load(ObjectManager $manager) {
+        /** @var User $user */
         $user = $this->getReference(UsersFixture::USER);
         $this->createLocalSuplaScriptsClient($manager, $user);
+        $this->createLocalSuplaCallerClient($manager, $user);
         $manager->flush();
     }
 
@@ -38,6 +40,18 @@ class OAuthClientsFixture extends SuplaFixture {
         $newClient->setSecret('658cikjp0n40wows4c8sgwcwcow0wk44wcsw84ooks44cc8koo');
         $newClient->setName('SUPLA Scripts Tester');
         $newClient->setRedirectUris(['http://suplascripts.local/authorize']);
+        $newClient->setType(ApiClientType::USER());
+        $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $newClient->setUser($user);
+        $manager->persist($newClient);
+    }
+
+    private function createLocalSuplaCallerClient(ObjectManager $manager, User $user) {
+        $newClient = new ApiClient();
+        $newClient->setRandomId('CALLERzqczpc4wgk0oo4wsoss040k88sks4goc0osow4sk8cgc');
+        $newClient->setSecret('CALLERgd2oowo408gws84kwwo88k8ck8kwk4w0kccog444wocc');
+        $newClient->setName('SUPLA Caller Tester');
+        $newClient->setRedirectUris(['http://localhost:8080/authorize']);
         $newClient->setType(ApiClientType::USER());
         $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
         $newClient->setUser($user);

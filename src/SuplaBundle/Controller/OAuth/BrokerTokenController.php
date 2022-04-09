@@ -56,11 +56,16 @@ class BrokerTokenController extends TokenController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(
      *       @OA\Property(property="access_token", type="string"),
-     *       @OA\Property(property="refresh_token", type="string"),
+     *       @OA\Property(property="expires_in", type="int"),
+     *       @OA\Property(property="token_type", type="string", enum={"bearer"}),
      *       @OA\Property(property="scope", type="string"),
+     *       @OA\Property(property="refresh_token", type="string"),
+     *       @OA\Property(property="target_url", type="string"),
      *     ))
      * )
      * @Route("/oauth/v2/token", name="fos_oauth_server_token", methods={"GET", "POST"})
+     * @Route("/api/{version}/oauth/v2/token", methods={"GET", "POST"})
+     * @Route("/api/oauth/v2/token", methods={"GET", "POST"})
      */
     public function tokenAction(Request $request) {
         try {
