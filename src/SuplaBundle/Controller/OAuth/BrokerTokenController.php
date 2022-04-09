@@ -56,7 +56,7 @@ class BrokerTokenController extends TokenController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(
      *       @OA\Property(property="access_token", type="string"),
-     *       @OA\Property(property="expires_in", type="int"),
+     *       @OA\Property(property="expires_in", type="integer"),
      *       @OA\Property(property="token_type", type="string", enum={"bearer"}),
      *       @OA\Property(property="scope", type="string"),
      *       @OA\Property(property="refresh_token", type="string"),

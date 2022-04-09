@@ -25,6 +25,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use InvalidArgumentException;
+use OpenApi\Annotations as OA;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\User;
@@ -50,6 +51,37 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
+/**
+ * @OA\Schema(
+ *   schema="User", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="shortUniqueId", type="string"),
+ *   @OA\Property(property="email", type="string"),
+ *   @OA\Property(property="enabled", type="boolean"),
+ *   @OA\Property(property="timezone", type="string"),
+ *   @OA\Property(property="clientsRegistrationEnabled", type="string", format="datetime", nullable=true),
+ *   @OA\Property(property="ioDevicesRegistrationEnabled", type="string", format="datetime", nullable=true),
+ *   @OA\Property(property="limits",
+ *     @OA\Property(property="clientApp", type="integer"),
+ *     @OA\Property(property="channelGroup", type="integer"),
+ *     @OA\Property(property="channelPerGroup", type="integer"),
+ *     @OA\Property(property="directLink", type="integer"),
+ *     @OA\Property(property="scene", type="integer"),
+ *     @OA\Property(property="schedule", type="integer"),
+ *     @OA\Property(property="actionsPerSchedule", type="integer"),
+ *     @OA\Property(property="accessId", type="integer"),
+ *     @OA\Property(property="ioDevice", type="integer"),
+ *     @OA\Property(property="location", type="integer"),
+ *     @OA\Property(property="oauthClient", type="integer"),
+ *   ),
+ *   @OA\Property(property="agreements",
+ *     @OA\Property(property="rules", type="boolean"),
+ *     @OA\Property(property="cookies", type="boolean"),
+ *   ),
+ *   @OA\Property(property="locale", type="string"),
+ *   @OA\Property(property="preferences", type="object"),
+ * )
+ */
 class UserController extends RestController {
     use Transactional;
     use AuditAware;
@@ -87,21 +119,21 @@ class UserController extends RestController {
     private $encoderFactory;
 
     public function __construct(
-        UserManager                      $userManager,
-        AuditEntryRepository             $auditEntryRepository,
-        SuplaAutodiscover                $autodiscover,
-        SuplaMailer                      $mailer,
+        UserManager $userManager,
+        AuditEntryRepository $auditEntryRepository,
+        SuplaAutodiscover $autodiscover,
+        SuplaMailer $mailer,
         TargetSuplaCloudRequestForwarder $suplaCloudRequestForwarder,
-        EncoderFactoryInterface          $encoderFactory,
-        int                              $clientsRegistrationEnableTime,
-        int                              $ioDevicesRegistrationEnableTime,
-        bool                             $requireRegulationsAcceptance,
-        bool                             $recaptchaEnabled,
-        ?string                          $recaptchaSecret,
-        array                            $availableLanguages,
-        bool                             $accountsRegistrationEnabled,
-        bool                             $mqttBrokerEnabled,
-        bool                             $mqttAuthEnabled
+        EncoderFactoryInterface $encoderFactory,
+        int $clientsRegistrationEnableTime,
+        int $ioDevicesRegistrationEnableTime,
+        bool $requireRegulationsAcceptance,
+        bool $recaptchaEnabled,
+        ?string $recaptchaSecret,
+        array $availableLanguages,
+        bool $accountsRegistrationEnabled,
+        bool $mqttBrokerEnabled,
+        bool $mqttAuthEnabled
     ) {
         $this->userManager = $userManager;
         $this->auditEntryRepository = $auditEntryRepository;
@@ -139,7 +171,13 @@ class UserController extends RestController {
         return $this->serializedView($user, $request);
     }
 
-    /** @Security("has_role('ROLE_ACCOUNT_R')") */
+    /**
+     * @OA\Get(
+     *   path="/users/current", operationId="getCurrentUser", summary="Get info about user for the token.", tags={"Users"},
+     *   @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/User")),
+     * )
+     * @Security("has_role('ROLE_ACCOUNT_R')")
+     */
     public function currentUserAction(Request $request) {
         return $this->serializedView($this->getUser(), $request);
     }
