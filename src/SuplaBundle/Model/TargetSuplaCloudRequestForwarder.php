@@ -50,8 +50,10 @@ class TargetSuplaCloudRequestForwarder {
         } else {
             $inputData = $request->query->all();
         }
-        $inputData = array_merge($inputData, ['client_id' => $mappedClientData['mappedClientId'],
-            'client_secret' => $mappedClientData['secret']]);
+        $inputData = array_merge($inputData, [
+            'client_id' => $mappedClientData['mappedClientId'],
+            'client_secret' => $mappedClientData['secret'],
+        ]);
 
         return $this->sendRequest($target, '/oauth/v2/token', $inputData);
     }

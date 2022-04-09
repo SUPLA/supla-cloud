@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\TokenController;
 use OAuth2\OAuth2;
+use OpenApi\Annotations as OA;
 use SuplaBundle\Auth\ForwardRequestToTargetCloudException;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,6 +36,30 @@ class BrokerTokenController extends TokenController {
     }
 
     /**
+     * @OA\Schema(schema="AccessTokenRequestBody", required={"grant_type", "client_id", "client_secret"},
+     *     @OA\Property(property="grant_type", type="string", enum={"authorization_code", "refresh_token"}),
+     *     @OA\Property(property="client_id", type="string"),
+     *     @OA\Property(property="client_secret", type="string"),
+     *     @OA\Property(property="redirect_uri", type="string"),
+     *     @OA\Property(property="code", type="string"),
+     *     @OA\Property(property="refresh_token", type="string"),
+     * )
+     * @OA\Post(
+     *     path="/oauth/v2/token",
+     *     operationId="issueAccessToken",
+     *     summary="Issues an access token based on authorization_code or refresh_token.",
+     *     security={},
+     *     tags={"OAuth"},
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(ref="#/components/schemas/AccessTokenRequestBody"),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(
+     *       @OA\Property(property="access_token", type="string"),
+     *       @OA\Property(property="refresh_token", type="string"),
+     *       @OA\Property(property="scope", type="string"),
+     *     ))
+     * )
      * @Route("/oauth/v2/token", name="fos_oauth_server_token", methods={"GET", "POST"})
      */
     public function tokenAction(Request $request) {
@@ -42,7 +67,7 @@ class BrokerTokenController extends TokenController {
             return parent::tokenAction($request);
         } catch (ForwardRequestToTargetCloudException $e) {
             $targetCloud = $e->getTargetCloud();
-            list($resp, $status) = $this->suplaCloudRequestForwarder->issueOAuthToken($targetCloud, $request, $e->getMappedClientData());
+            [$resp, $status] = $this->suplaCloudRequestForwarder->issueOAuthToken($targetCloud, $request, $e->getMappedClientData());
             return new Response(is_array($resp) ? json_encode($resp) : $resp, $status);
         }
     }
