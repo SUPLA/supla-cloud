@@ -21,14 +21,7 @@ use SuplaBundle\Utils\JsonArrayObject;
  *     @OA\Property(property="disablesLocalOperation", type="boolean", readOnly=true, description="Tells if enabling the AT disables local function."),
  *     @OA\Property(property="relatedChannelId", type="integer", readOnly=true, description="Paired channel set by the device."),
  *     @OA\Property(property="hideInChannelsList", type="integer", readOnly=true, description="Whether to display the channel in the main channels list (it's false for ATs with paired channel)."),
- *     @OA\Property(property="actions", type="array", description="List of configured AT actions.", @OA\Items(
- *       @OA\Property(property="action",
- *          @OA\Property(property="id", ref="#/components/schemas/ChannelFunctionActionEnumNames"),
- *          @OA\Property(property="param", ref="#/components/schemas/ChannelActionParams"),
- *       ),
- *       @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
- *       @OA\Property(property="subjectId", type="integer"),
- *     )),
+ *     @OA\Property(property="actions", type="object", description="List of configured AT actions."),
  * )
  */
 class ActionTriggerParamsTranslator implements ChannelParamTranslator {
