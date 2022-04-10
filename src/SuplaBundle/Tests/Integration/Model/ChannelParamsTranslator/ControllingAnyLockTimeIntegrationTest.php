@@ -57,7 +57,7 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
         $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => -5]);
         $this->assertEquals(500, $channel->getParam1());
         $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 1000000]);
-        $this->assertEquals(10000, $channel->getParam1());
+        $this->assertEquals(120000, $channel->getParam1());
     }
 
     public function testUpdatingControllingTheGateTime() {
