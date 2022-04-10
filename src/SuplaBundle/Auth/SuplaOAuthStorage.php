@@ -150,6 +150,15 @@ class SuplaOAuthStorage extends OAuthStorage {
         return $token;
     }
 
+    public function unsetRefreshToken($tokenString) {
+        /** @var RefreshToken $token */
+        $token = $this->refreshTokenManager->findTokenByToken($tokenString);
+        if (null !== $token) {
+            $token->expire();
+            $this->refreshTokenManager->updateToken($token);
+        }
+    }
+
     /**
      * @param AccessToken|RefreshToken $token
      * @param ApiClient $client
@@ -171,5 +180,21 @@ class SuplaOAuthStorage extends OAuthStorage {
             }
             $token->setApiClientAuthorization($authorization);
         }
+    }
+
+    /**
+     * Method is called when the Refresh Token Reuse Detection is triggered. It deletes all refresh tokens for the user & app.
+     * @see https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/#Refresh-Token-Automatic-Reuse-Detection
+     * @param $token
+     */
+    public function refreshTokenReuseDetected(RefreshToken $token): void {
+        $this->entityManager->getRepository(RefreshToken::class)->createQueryBuilder('t')
+            ->delete()->where('t.user = :user')->andWhere('t.client = :client')
+            ->setParameters(['user' => $token->getUser(), 'client' => $token->getClient()])
+            ->getQuery()->execute();
+        $this->entityManager->getRepository(AccessToken::class)->createQueryBuilder('t')
+            ->delete()->where('t.user = :user')->andWhere('t.client = :client')
+            ->setParameters(['user' => $token->getUser(), 'client' => $token->getClient()])
+            ->getQuery()->execute();
     }
 }

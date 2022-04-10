@@ -22,6 +22,7 @@ use OAuth2\OAuth2;
 use OAuth2\OAuth2ServerException;
 use SuplaBundle\Entity\OAuth\AccessToken;
 use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\OAuth\RefreshToken;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Model\LocalSuplaCloud;
@@ -41,7 +42,7 @@ class SuplaOAuth2 extends OAuth2 {
     private $apiClientAuthorizationRepository;
 
     public function __construct(
-        IOAuth2Storage $storage,
+        SuplaOAuthStorage $storage,
         array $config,
         array $tokensLifetime,
         LocalSuplaCloud $localSuplaCloud,
@@ -116,7 +117,18 @@ class SuplaOAuth2 extends OAuth2 {
 
     protected function grantAccessTokenRefreshToken(IOAuth2Client $client, array $input) {
         $this->forwardIssueTokenRequestIfBroker($client, $input['refresh_token'] ?? '');
-        return parent::grantAccessTokenRefreshToken($client, $input);
+        try {
+            return parent::grantAccessTokenRefreshToken($client, $input);
+        } catch (OAuth2ServerException $e) {
+            /** @var RefreshToken $token */
+            $token = $this->storage->getRefreshToken($input["refresh_token"]);
+            if ($token && $token->hasExpired()) {
+                /** @var SuplaOAuthStorage $storage */
+                $storage = $this->storage;
+                $storage->refreshTokenReuseDetected($token);
+            }
+            throw $e;
+        }
     }
 
     private function forwardIssueTokenRequestIfBroker(IOAuth2Client $client, string $authCodeOrRefreshToken) {

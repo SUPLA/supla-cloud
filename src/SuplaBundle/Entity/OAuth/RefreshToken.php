@@ -59,4 +59,8 @@ class RefreshToken extends BaseRefreshToken {
     public function setApiClientAuthorization(ApiClientAuthorization $apiClientAuthorization) {
         $this->apiClientAuthorization = $apiClientAuthorization;
     }
+
+    public function expire(): void {
+        $this->expiresAt = time() - 3600;
+    }
 }

@@ -232,7 +232,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     public function testRefreshingToken() {
-        $this->makeOAuthAuthorizeRequest(['scope' => 'offline_access']);
+        $this->makeOAuthAuthorizeRequest(['scope' => 'account_r offline_access']);
         $response = $this->issueTokenBasedOnAuthCode();
         $params = [
             'grant_type' => 'refresh_token',
@@ -246,6 +246,75 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $refreshResponse = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('access_token', $refreshResponse);
+        $this->assertArrayHasKey('refresh_token', $refreshResponse);
+        return [$response['refresh_token'], $refreshResponse['refresh_token'], $refreshResponse['access_token']];
+    }
+
+    public function testCanRefreshTokenWithNewRefreshToken() {
+        [, $newRefreshToken,] = $this->testRefreshingToken();
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret(),
+            'refresh_token' => $newRefreshToken,
+        ];
+        $client = $this->createInsulatedClient();
+        $client->followRedirects();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(200, $client->getResponse());
+    }
+
+    /**
+     * This tests if the Refresh Token Rotation works.
+     * @see https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/#Refresh-Token-Rotation
+     */
+    public function testCantRefreshTokenWithUsedRefreshToken() {
+        [$usedRefreshToken, ,] = $this->testRefreshingToken();
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret(),
+            'refresh_token' => $usedRefreshToken,
+        ];
+        $client = $this->createInsulatedClient();
+        $client->followRedirects();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    /**
+     * This detects if the Refresh Token Reuse Detection works.
+     * @see https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/#Refresh-Token-Automatic-Reuse-Detection
+     */
+    public function testCantRefreshTokenWithNewRefreshTokenIfOldRefreshTokenWasUsedIncorrectly() {
+        [$oldRefreshToken, $newRefreshToken, $newAccessToken] = $this->testRefreshingToken();
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret(),
+            'refresh_token' => $oldRefreshToken,
+        ];
+        $client = $this->createInsulatedClient();
+        $this->executeCommand('supla:clean:obsolete-oauth-tokens', $client); // ensure the expired refresh token is not removed immediately
+        $client->followRedirects();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(400, $client->getResponse());
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret(),
+            'refresh_token' => $newRefreshToken,
+        ];
+        $client = $this->createInsulatedClient();
+        $client->followRedirects();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(400, $client->getResponse());
+        $client = $this->createInsulatedClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $newAccessToken, 'HTTPS' => true]
+        );
+        $client->request('GET', '/api/users/current');
+        $this->assertStatusCode(401, $client->getResponse());
     }
 
     public function testCannotRefreshTokenWhenAppIsUnauthorizedByUser() {

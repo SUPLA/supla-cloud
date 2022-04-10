@@ -17,29 +17,30 @@
 
 namespace SuplaBundle\Command\Cyclic;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
-use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
+use SuplaBundle\Entity\OAuth\RefreshToken;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class DeleteObsoleteOauthTokensCommand extends AbstractCyclicCommand {
     /** @var AccessTokenManagerInterface */
     private $accessTokenManager;
-    /** @var RefreshTokenManagerInterface */
-    private $refreshTokenManager;
     /** @var AuthCodeManagerInterface */
     private $authCodeManager;
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
     public function __construct(
         AccessTokenManagerInterface $accessTokenManager,
-        RefreshTokenManagerInterface $refreshTokenManager,
-        AuthCodeManagerInterface $authCodeManager
+        AuthCodeManagerInterface $authCodeManager,
+        EntityManagerInterface $entityManager
     ) {
         parent::__construct();
         $this->accessTokenManager = $accessTokenManager;
-        $this->refreshTokenManager = $refreshTokenManager;
         $this->authCodeManager = $authCodeManager;
+        $this->entityManager = $entityManager;
     }
 
     protected function configure() {
@@ -49,10 +50,14 @@ class DeleteObsoleteOauthTokensCommand extends AbstractCyclicCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        foreach ([$this->accessTokenManager, $this->refreshTokenManager, $this->authCodeManager] as $manager) {
+        foreach ([$this->accessTokenManager, $this->authCodeManager] as $manager) {
             $result = $manager->deleteExpired();
             $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $result, get_class($manager)));
         }
+        $result = $this->entityManager->getRepository(RefreshToken::class)->createQueryBuilder('t')
+            ->delete()->where('t.expiresAt < ?1')->setParameters([1 => strtotime('-3 months')])
+            ->getQuery()->execute();
+        $output->writeln(sprintf('Removed <info>%d</info> items from <comment>RefreshToken</comment> storage.', $result));
     }
 
     protected function getIntervalInMinutes(): int {
