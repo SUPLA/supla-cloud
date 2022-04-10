@@ -55,7 +55,7 @@ class DeleteObsoleteOauthTokensCommand extends AbstractCyclicCommand {
             $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $result, get_class($manager)));
         }
         $result = $this->entityManager->getRepository(RefreshToken::class)->createQueryBuilder('t')
-            ->delete()->where('t.expiresAt < ?1')->setParameters([1 => strtotime('-3 months')])
+            ->delete()->where('t.expiresAt < ?1')->setParameters([1 => strtotime('-7 days')])
             ->getQuery()->execute();
         $output->writeln(sprintf('Removed <info>%d</info> items from <comment>RefreshToken</comment> storage.', $result));
     }
