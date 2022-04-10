@@ -103,7 +103,9 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
         $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0]);
         $this->assertEquals(0, $channel->getUserConfigValue('initialValue'));
         $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => -1]);
-        $this->assertEquals(0, $channel->getUserConfigValue('initialValue'));
+        $this->assertEquals(-1, $channel->getUserConfigValue('initialValue'));
+        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => -100000001]);
+        $this->assertEquals(-100000000, $channel->getUserConfigValue('initialValue'));
     }
 
     /** @dataProvider meterChannelsProvider */
