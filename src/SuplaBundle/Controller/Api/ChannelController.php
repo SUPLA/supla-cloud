@@ -61,6 +61,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="typeId", type="integer", example=1000),
  *   @OA\Property(property="type", ref="#/components/schemas/ChannelType"),
+ *   @OA\Property(property="subjectType", type="string", enum={"channel"}),
  *   @OA\Property(property="state", ref="#/components/schemas/ChannelState"),
  *   @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
  *   @OA\Property(property="userIconId", type="integer"),
