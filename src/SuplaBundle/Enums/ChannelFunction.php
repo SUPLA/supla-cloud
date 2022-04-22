@@ -32,7 +32,6 @@ use UnexpectedValueException;
  *   @OA\Property(property="name", ref="#/components/schemas/ChannelFunctionEnumNames"),
  *   @OA\Property(property="caption", type="string", example="Gate opening sensor"),
  *   @OA\Property(property="maxAlternativeIconIndex", type="integer"),
- *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this function?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
  *   @OA\Property(property="possibleVisualStates", type="array", description="Possible visual states of channel with this function. Ordered.", @OA\Items(type="string", enum={"default","opened","closed","partially_closed","empty","full","revealed","shut","off","on","humidity","temperature","rgb_off_dim_off","rgb_off_dim_on","rgb_on_dim_off","rgb_on_dim_on"})),
  * )
  *
