@@ -846,4 +846,16 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(500, $relay->getParam1()); // default gate opening time
         $this->assertEquals(0, $measurement->getParam4());
     }
+
+    public function testExecutingActionOnOfflineChannel() {
+        SuplaServerMock::mockResponse('SET-CHAR-VALUE:1,1,1,1', "FAIL:1\n");
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->request('PATCH', '/api/channels/1', [], [], [], json_encode(['action' => ChannelFunctionAction::TURN_ON]));
+        $response = $client->getResponse();
+        $this->assertStatusCode('400', $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('details', $body);
+        $details = $body['details'];
+        $this->assertEquals('suplaServerError', $details['error']);
+    }
 }

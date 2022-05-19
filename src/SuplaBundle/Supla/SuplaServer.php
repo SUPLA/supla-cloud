@@ -22,11 +22,11 @@ use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\User;
+use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Utils\NumberUtils;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 abstract class SuplaServer {
     use CurrentUserAware;
@@ -276,7 +276,10 @@ abstract class SuplaServer {
     public function executeCommand(string $command) {
         $result = $this->doExecuteCommand($command);
         if (!$result || preg_match("/^OK:/", $result) !== 1) {
-            throw new BadRequestHttpException(30, 'SUPLA Server was unable to execute the action.'); // i18n
+            throw new ApiExceptionWithDetails(
+                'SUPLA Server was unable to execute the action.', // i18n
+                ['error' => 'suplaServerError'],
+            );
         }
     }
 }
