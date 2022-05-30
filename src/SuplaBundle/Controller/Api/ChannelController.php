@@ -52,7 +52,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="id", type="integer", description="Identifier"),
  *   @OA\Property(property="channelNumber", type="integer", description="Channel ordinal number in its IO Device"),
  *   @OA\Property(property="caption", type="string", description="Caption"),
- *   @OA\Property(property="altIcon", type="integer", description="Chosen alternative icon idenifier. Should not be greater than the `funciton.maxAlternativeIconIndex`."),
+ *   @OA\Property(property="altIcon", type="integer", description="Chosen alternative icon idenifier. Should not be greater than the `function.maxAlternativeIconIndex`."),
  *   @OA\Property(property="hidden", type="boolean", description="Whether this channel is shown on client apps or not"),
  *   @OA\Property(property="inheritedLocation", type="boolean", description="Whether this channel inherits its IO Device's location (`true`) or not (`false`)"),
  *   @OA\Property(property="iodeviceId", type="integer"),
