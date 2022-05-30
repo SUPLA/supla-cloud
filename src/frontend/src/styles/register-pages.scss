@@ -34,13 +34,13 @@
   transition: background .4s linear;
   &.register-slide- {
     &0 {
-      background-image: url('/assets/img/1.svg');
+      background-image: url('../assets/register-bg-1.svg');
     }
     &1 {
-      background-image: url('/assets/img/2.svg');
+      background-image: url('../assets/register-bg-2.svg');
     }
     &2 {
-      background-image: url('/assets/img/3.svg');
+      background-image: url('../assets/register-bg-3.svg');
     }
   }
 }

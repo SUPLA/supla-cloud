@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-6 step">
                 <div class="roof">
-                    <img :src="'/assets/img/step-1.svg' | withBaseUrl"
+                    <img src="./assets/step-1.svg"
                         alt="">
                 </div>
                 <div class="basement">
@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-6 step">
                 <div class="roof">
-                    <img src="/assets/img/step-2.svg"
+                    <img src="./assets/step-2.svg"
                         alt="">
                 </div>
                 <div class="basement">
@@ -119,7 +119,9 @@
     @import '../styles/variables';
 
     .home-page {
-        @include on-and-up(992px) { margin-top: 50px; }
+        @include on-and-up(992px) {
+            margin-top: 50px;
+        }
         h1 {
             font-size: 72px;
             line-height: 72px;
@@ -143,12 +145,24 @@
                 border-bottom-right-radius: $bottom-radius;
                 h2 {
                     margin-top: -35px;
-                    @include on-and-up(500px) { margin-top: -30px; }
-                    @include on-and-up(560px) { margin-top: -25px; }
-                    @include on-and-up(600px) { margin-top: -20px; }
-                    @include on-and-up(670px) { margin-top: 0; }
-                    @include on-and-up(992px) { margin-top: -30px; }
-                    @include on-and-up(1200px) { margin-top: -20px; }
+                    @include on-and-up(500px) {
+                        margin-top: -30px;
+                    }
+                    @include on-and-up(560px) {
+                        margin-top: -25px;
+                    }
+                    @include on-and-up(600px) {
+                        margin-top: -20px;
+                    }
+                    @include on-and-up(670px) {
+                        margin-top: 0;
+                    }
+                    @include on-and-up(992px) {
+                        margin-top: -30px;
+                    }
+                    @include on-and-up(1200px) {
+                        margin-top: -20px;
+                    }
                     text-align: center;
                 }
                 input[type="text"] {
