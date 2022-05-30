@@ -86,7 +86,7 @@
     },
     "rules": {
       "vue/html-button-has-type": ["error", {"button": true, "submit": true, "reset": true}],
-      "vue/multi-word-component-names": ["error", {"ignores":  ["flipper", "modal", "navbar", "privacy", "terms", "toggler"]}],
+      "vue/multi-word-component-names": ["error", {"ignores":  ["dashboard", "flipper", "modal", "navbar", "privacy", "terms", "toggler"]}],
       "vue/no-mutating-props": ["off"],
       "vue/require-prop-types": ["off"]
     },
