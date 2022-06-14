@@ -19,6 +19,8 @@ namespace SuplaBundle\Controller\OAuth;
 
 use FOS\OAuthServerBundle\Controller\AuthorizeController;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use OAuth2\OAuth2;
+use OAuth2\OAuth2RedirectException;
 use OAuth2\OAuth2ServerException;
 use SuplaBundle\Entity\OAuth\ApiClient;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -35,15 +37,14 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class BrokerAuthorizeController extends AuthorizeController {
     /** @var SuplaAutodiscover */
     private $autodiscover;
-
     /** @var RequestStack */
     private $requestStack;
-
     /** @var TokenStorageInterface */
     private $tokenStorage;
-
     /** @var ClientManagerInterface */
     private $clientManager;
+    /** @var OAuth2 */
+    private $oauth2Server;
 
     /**
      * @Route("/oauth/v2/auth", name="fos_oauth_server_authorize", methods={"GET", "POST"})
@@ -51,11 +52,21 @@ class BrokerAuthorizeController extends AuthorizeController {
      */
     public function authorizeAction(Request $request) {
         try {
-            return parent::authorizeAction($request);
-        } catch (OAuthReauthenticateException $exception) {
-            return new RedirectResponse($request->getUri());
-        } catch (OAuth2ServerException $e) {
-            throw new ApiException($e->getDescription(), Response::HTTP_BAD_REQUEST, $e);
+            try {
+                try {
+                    return parent::authorizeAction($request);
+                } catch (OAuthReauthenticateException $exception) {
+                    return new RedirectResponse($request->getUri());
+                } catch (OAuth2RedirectException $redirectException) {
+                    throw $redirectException;
+                } catch (OAuth2ServerException $e) {
+                    throw new ApiException($e->getDescription() ?: 'error', Response::HTTP_BAD_REQUEST, $e);
+                }
+            } catch (ApiException $e) {
+                $this->oauth2Server->finishClientAuthorization(false);
+            }
+        } catch (OAuth2RedirectException $redirectException) {
+            return new Response('', Response::HTTP_FOUND, $redirectException->getResponseHeaders());
         }
     }
 
@@ -77,6 +88,11 @@ class BrokerAuthorizeController extends AuthorizeController {
     /** @required */
     public function setClientManager(ClientManagerInterface $clientManager) {
         $this->clientManager = $clientManager;
+    }
+
+    /** @required */
+    public function setOAuth2Server(OAuth2 $oauth2Server) {
+        $this->oauth2Server = $oauth2Server;
     }
 
     protected function getClient() {

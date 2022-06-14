@@ -95,6 +95,16 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('code=', $targetUrl);
     }
 
+    public function testRequestForInvalidScopeResultsInRedirectionWithError() {
+        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'scope' => 'account_r unicorn']);
+        $response = $client->getResponse();
+        $this->assertTrue($response->isRedirection());
+        $targetUrl = $response->headers->get('Location');
+        $this->assertContains('https://unicorns.pl?', $targetUrl);
+        $this->assertContains('error=invalid_scope', $targetUrl);
+        $this->assertContains('state=horse', $targetUrl);
+    }
+
     public function testLogsOutAfterGrantingAccess() {
         $this->makeOAuthAuthorizeRequest();
         $client = $this->makeOAuthAuthorizeRequest(['client_id' => '1_local'], ['login' => false]);
