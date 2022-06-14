@@ -25,9 +25,8 @@ class UserIconSerializer extends AbstractSerializer {
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $icon, array $context) {
-        if ($this->isSerializationGroupRequested('images', $context)) {
-            $normalized['images'] = array_map('base64_encode', $icon->getImages());
-        }
+        $normalized['functionId'] = $icon->getFunction()->getId();
+        $normalized['images'] = array_map('base64_encode', $icon->getImages());
     }
 
     public function supportsNormalization($entity, $format = null) {

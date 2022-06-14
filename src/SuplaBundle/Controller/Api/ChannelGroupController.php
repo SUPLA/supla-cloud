@@ -75,10 +75,11 @@ class ChannelGroupController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'iodevice', 'location', 'state', 'relationsCount',
+            'iodevice', 'location', 'state', 'relationsCount', 'userIcon',
             'location' => 'channelGroup.location',
             'iodevice' => 'channel.iodevice',
             'relationsCount' => 'channelGroup.relationsCount',
+            'userIcon' => 'channelGroup.userIcon',
         ];
         if (!strpos($request->get('_route'), 'channelGroups_list')) {
             $groups[] = 'channels';
@@ -102,7 +103,7 @@ class ChannelGroupController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "state", "relationsCount"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "state", "relationsCount", "userIcon"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/ChannelGroup"))),
      * )
@@ -126,7 +127,7 @@ class ChannelGroupController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "state", "relationsCount"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "state", "relationsCount", "userIcon"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/ChannelGroup"))),
      * )
@@ -148,7 +149,7 @@ class ChannelGroupController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "state", "relationsCount", "channels"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "state", "relationsCount", "channels", "userIcon"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/ChannelGroup")),
      * )

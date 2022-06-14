@@ -117,16 +117,17 @@ class UserIcon {
         return $this->scenes;
     }
 
-    public function getImages($streamContentsGetter = null): array {
-        if (!$streamContentsGetter) {
-            $streamContentsGetter = 'stream_get_contents';
-        }
+    public function getImages(): array {
         if (!$this->fetchedImages) {
             $this->fetchedImages = [];
             for ($i = 1; $i <= 4; $i++) {
                 $imageField = 'image' . $i;
                 if ($this->{$imageField}) {
-                    $this->fetchedImages[] = $streamContentsGetter($this->{$imageField});
+                    if (is_resource($this->{$imageField})) {
+                        $this->fetchedImages[] = stream_get_contents($this->{$imageField});
+                    } else {
+                        $this->fetchedImages[] = $this->{$imageField};
+                    }
                 }
             }
         }

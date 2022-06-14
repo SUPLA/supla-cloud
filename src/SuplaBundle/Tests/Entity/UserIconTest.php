@@ -38,18 +38,14 @@ class UserIconTest extends TestCase {
         EntityUtils::setField($this->userIcon, 'image2', 'B');
         EntityUtils::setField($this->userIcon, 'image3', 'C');
         EntityUtils::setField($this->userIcon, 'image4', 'D');
-        $icons = $this->userIcon->getImages(function ($a) {
-            return $a;
-        });
+        $icons = $this->userIcon->getImages();
         $this->assertEquals(['A', 'B', 'C', 'D'], $icons);
     }
 
     public function testReturningOnlyIconsThatAreSet() {
         EntityUtils::setField($this->userIcon, 'image1', 'A');
         EntityUtils::setField($this->userIcon, 'image2', 'B');
-        $icons = $this->userIcon->getImages(function ($a) {
-            return $a;
-        });
+        $icons = $this->userIcon->getImages();
         $this->assertEquals(['A', 'B'], $icons);
     }
 }

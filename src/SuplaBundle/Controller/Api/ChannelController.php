@@ -66,6 +66,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="state", ref="#/components/schemas/ChannelState"),
  *   @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
  *   @OA\Property(property="userIconId", type="integer"),
+ *   @OA\Property(property="userIcon", ref="#/components/schemas/UserIcon", description="User Icon, if requested by the `include` param"),
  *   @OA\Property(property="connected", type="boolean"),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.", @OA\Property(property="channelGroups", type="integer"), @OA\Property(property="directLinks", type="integer"),  @OA\Property(property="schedules", type="integer"),  @OA\Property(property="sceneOperations", type="integer"),  @OA\Property(property="actionTriggers", type="integer")),
  *   @OA\Property(property="location", nullable=true, description="Channel location, if requested by the `include` param", ref="#/components/schemas/Location"),
@@ -99,11 +100,12 @@ class ChannelController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'relationsCount', 'actionTriggers',
+            'iodevice', 'location', 'connected', 'state', 'supportedFunctions', 'relationsCount', 'actionTriggers', 'userIcon',
             'location' => 'channel.location',
             'iodevice' => 'channel.iodevice',
             'relationsCount' => 'channel.relationsCount',
             'actionTriggers' => 'channel.actionTriggers',
+            'userIcon' => 'channel.userIcon',
         ];
         if (!strpos($request->get('_route'), 'channels_list')) {
             $groups[] = 'iodevice.location';
@@ -121,7 +123,7 @@ class ChannelController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "connected", "state", "supportedFunctions", "relationsCount", "actionTriggers"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "connected", "state", "supportedFunctions", "relationsCount", "actionTriggers", "userIcon"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Channel"))),
      * )
@@ -177,7 +179,7 @@ class ChannelController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "connected", "state", "supportedFunctions", "relationsCount", "actionTriggers"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "connected", "state", "supportedFunctions", "relationsCount", "actionTriggers", "userIcon"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
      * )

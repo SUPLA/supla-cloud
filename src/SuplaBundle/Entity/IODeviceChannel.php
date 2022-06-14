@@ -165,6 +165,8 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     /**
      * @ORM\ManyToOne(targetEntity="UserIcon", inversedBy="channels")
      * @ORM\JoinColumn(name="user_icon_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @MaxDepth(1)
+     * @Groups({"channel.userIcon"})
      */
     private $userIcon;
 

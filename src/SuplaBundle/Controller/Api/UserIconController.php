@@ -23,6 +23,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Gumlet\ImageResize;
 use Gumlet\ImageResizeException;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\EntityUtils;
@@ -37,6 +38,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * @OA\Schema(
+ *   schema="UserIcon", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="functionId", type="integer", example=60),
+ *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
+ * )
+ */
 class UserIconController extends RestController {
     use SuplaServerAware;
     use Transactional;
@@ -53,6 +62,25 @@ class UserIconController extends RestController {
     }
 
     /**
+     * @OA\Post(
+     *   path="/user-icons", operationId="createUserIcon", summary="Create a new User Icon", tags={"User Icons"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         description="Multipart request with files to save as a new icon. The number of images required to be sent with the request is determined by the chosen function identifier (it must match the `function.possibleVisualStates` count). Each image represents the respective visual state from `function.possibleVisualStates` array.",
+     *         @OA\Property(property="function", ref="#/components/schemas/ChannelFunctionEnumNames"),
+     *         @OA\Property(property="sourceIcon", type="integer", description="ID of an existing user icon to replace with these new files. Optional."),
+     *         @OA\Property(property="image1", type="string", format="binary"),
+     *         @OA\Property(property="image2", type="string", format="binary"),
+     *         @OA\Property(property="image3", type="string", format="binary"),
+     *         @OA\Property(property="image4", type="string", format="binary"),
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/UserIcon")),
+     * )
      * @Security("has_role('ROLE_CHANNELS_RW')")
      * @Rest\Post("/user-icons")
      * @UnavailableInMaintenance
@@ -107,10 +135,16 @@ class UserIconController extends RestController {
                 $em->remove($sourceIcon);
             }
         });
-        return $this->view($icon);
+        return $this->view($icon, Response::HTTP_CREATED);
     }
 
     /**
+     * @OA\Get(
+     *   path="/user-icons", operationId="getUserIcons", summary="List User Icons", tags={"User Icons"},
+     *   @OA\Parameter(name="function", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(ref="#/components/schemas/ChannelFunctionEnumNames"))),
+     *   @OA\Parameter(name="ids", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
+     *   @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/UserIcon")))
+     * )
      * @Rest\Get("/user-icons")
      * @Security("has_role('ROLE_CHANNELS_R')")
      */
@@ -128,6 +162,25 @@ class UserIconController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *   path="/user-icons/{id}", operationId="getUserIcon", summary="Get User Icon", tags={"User Icons"},
+     *   @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\Response(response="200", description="User Icon image", @OA\JsonContent(ref="#/components/schemas/UserIcon")),
+     * )
+     * @Rest\Get("/user-icons/{userIcon}")
+     * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     */
+    public function getUserIconAction(Request $request, UserIcon $userIcon) {
+        return $this->serializedView($userIcon, $request);
+    }
+
+    /**
+     * @OA\Get(
+     *   path="/user-icons/{id}/{imageIndex}", operationId="getUserIconImage", summary="Get User Icon image at specified index", tags={"User Icons"},
+     *   @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\Parameter(name="imageIndex", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\Response(response="200", description="User Icon image", @OA\MediaType(mediaType="image/*", @OA\Schema(type="string", format="binary"))),
+     * )
      * @Rest\Get("/user-icons/{userIcon}/{imageIndex}")
      * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES')")
      * @Cache(maxage="86400", smaxage=86400)
@@ -135,13 +188,18 @@ class UserIconController extends RestController {
     public function getUserIconImageAction(UserIcon $userIcon, int $imageIndex) {
         $images = $userIcon->getImages();
         if (isset($images[$imageIndex])) {
-            return new Response($images[$imageIndex]);
+            return new Response($images[$imageIndex], Response::HTTP_OK, ['Content-Type' => 'image/png']);
         } else {
             throw new NotFoundHttpException();
         }
     }
 
     /**
+     * @OA\Delete(
+     *     path="/user-icons/{id}", operationId="deleteUserIcon", summary="Delete the User Icon", tags={"User Icons"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response="204", description="Success"),
+     * )
      * @Rest\Delete("/user-icons/{userIcon}")
      * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
      * @UnavailableInMaintenance
