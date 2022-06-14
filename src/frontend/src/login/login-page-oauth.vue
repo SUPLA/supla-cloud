@@ -16,7 +16,7 @@
                     {{ $t('{clientName} wants to access your account.', {clientName: clientName}) }}
                 </h4>
             </template>
-            <div v-if="true || askForTargetCloud">
+            <div v-if="askForTargetCloud">
                 <div class="form-group text-center">
                     <label>
                         <label class="checkbox2 checkbox2-grey">
