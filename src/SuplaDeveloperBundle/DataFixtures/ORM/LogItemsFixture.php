@@ -46,6 +46,8 @@ class LogItemsFixture extends SuplaFixture {
         $this->faker = Factory::create('pl_PL');
         $this->createTemperatureLogItems();
         $this->entityManager->flush();
+        $this->createHumidityLogItems();
+        $this->entityManager->flush();
         $this->createTemperatureAndHumidityLogItems();
         $this->entityManager->flush();
         $this->createImpulseCounterLogItems();
@@ -68,6 +70,30 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
             EntityUtils::setField($logItem, 'temperature', $temperature);
+            if ($this->faker->boolean(95)) {
+                $this->entityManager->persist($logItem);
+            }
+        }
+    }
+
+    private function createHumidityLogItems() {
+        /** @var IODevice $device */
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $humidity = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getFunction()->getId() === ChannelFunction::HUMIDITY;
+        })->first();
+        $channelId = $humidity->getId();
+        $from = strtotime(self::SINCE);
+        $to = time();
+        $humidity = 10;
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+            $logItem = new TempHumidityLogItem();
+            EntityUtils::setField($logItem, 'channel_id', $channelId);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+            $humidity += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
+            $humidity = max(0, min(100, $humidity));
+            EntityUtils::setField($logItem, 'temperature', 0);
+            EntityUtils::setField($logItem, 'humidity', $humidity);
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
             }

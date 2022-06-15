@@ -153,6 +153,38 @@
             },
             emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
         },
+        HUMIDITY: {
+            chartType: 'line',
+            chartOptions: () => ({}),
+            series: function (allLogs) {
+                const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.humidity]);
+                return [
+                    {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries},
+                ];
+            },
+            fixLog: (log) => {
+                if (log.humidity !== undefined && log.humidity !== null) {
+                    log.humidity = log.humidity >= 0 ? +log.humidity : null;
+                }
+                return log;
+            },
+            adjustLogs: (logs) => logs,
+            interpolateGaps: (logs) => logs,
+            yaxes: function (logs) {
+                const humidities = logs.map(log => log.humidity).filter(h => h !== null);
+                return [
+                    {
+                        seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
+                        opposite: true,
+                        title: {text: this.$t('Humidity')},
+                        labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
+                        min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
+                        max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
+                    }
+                ];
+            },
+            emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
+        },
         IC_GASMETER: {
             chartType: 'bar',
             chartOptions: () => ({}),

@@ -99,6 +99,10 @@ class MeasurementCsvExporter {
                     "SELECT $timestampSelect, `temperature` FROM `supla_temperature_log` WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::HUMIDITY:
+                return [
+                    ['Timestamp', 'Date and time', 'Humidity'],
+                    "SELECT $timestampSelect, `humidity` FROM `supla_temphumidity_log` WHERE channel_id = :channelId",
+                ];
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
                 return [
                     ['Timestamp', 'Date and time', 'Temperature', 'Humidity'],

@@ -76,7 +76,7 @@ class ChannelMeasurementLogsController extends RestController {
         Assertion::inArray(
             $functionId,
             [
-                ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER,
+                ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITY,
                 ChannelFunction::ELECTRICITYMETER, ChannelFunction::IC_GASMETER, ChannelFunction::IC_WATERMETER,
                 ChannelFunction::IC_HEATMETER, ChannelFunction::IC_ELECTRICITYMETER, ChannelFunction::THERMOSTAT,
                 ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
@@ -86,6 +86,7 @@ class ChannelMeasurementLogsController extends RestController {
 
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
+            case ChannelFunction::HUMIDITY:
                 $table = 'supla_temphumidity_log';
                 break;
             case ChannelFunction::THERMOMETER:
@@ -212,6 +213,7 @@ class ChannelMeasurementLogsController extends RestController {
             $allowedFuncList = [
                 ChannelFunction::HUMIDITYANDTEMPERATURE,
                 ChannelFunction::THERMOMETER,
+                ChannelFunction::HUMIDITY,
                 ChannelFunction::ELECTRICITYMETER,
                 ChannelFunction::IC_ELECTRICITYMETER,
                 ChannelFunction::IC_GASMETER,
@@ -224,7 +226,7 @@ class ChannelMeasurementLogsController extends RestController {
         Assertion::inArray(
             $channel->getFunction()->getId(),
             $allowedFuncList,
-            'Cannot fetch these measurement logs for channel with function ' . $channel->getFunction()->getName()
+            'Cannot fetch measurement logs for channel with function ' . $channel->getFunction()->getName()
         );
     }
 
@@ -246,6 +248,7 @@ class ChannelMeasurementLogsController extends RestController {
         }
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
+            case ChannelFunction::HUMIDITY:
                 $result = $this->logItems(
                     "`supla_temphumidity_log`",
                     "`temperature`, `humidity`",

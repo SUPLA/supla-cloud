@@ -117,6 +117,16 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             }
             $date->add($oneday);
         }
+
+        foreach ([21, 22, 23] as $humidity) {
+            $logItem = new TempHumidityLogItem();
+            EntityUtils::setField($logItem, 'channel_id', 12 + $offset);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
+            EntityUtils::setField($logItem, 'temperature', 0);
+            EntityUtils::setField($logItem, 'humidity', $humidity);
+            $this->getEntityManager()->persist($logItem);
+            $date->add($oneday);
+        }
     }
 
     protected function initializeDatabaseForTests() {
@@ -135,6 +145,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::THERMOSTAT, ChannelFunction::THERMOSTAT],
             [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
             [ChannelType::RELAY, ChannelFunction::STAIRCASETIMER],
+            [ChannelType::HUMIDITYSENSOR, ChannelFunction::HUMIDITY],
         ];
 
         $this->device1 = $this->createDevice($location, $channels);
