@@ -72,11 +72,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testDisplaysNormalLoginFormIfLocalClientDoesNotExistButCloudIsNotBroker() {
         SuplaAutodiscoverMock::$isBroker = false;
-        $client = $this->createHttpsClient();
+        $client = self::createClient(['debug' => false], ['HTTPS' => true, 'HTTP_Accept' => 'text/html']);
+        $client->followRedirects();
         $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
-        $routerView = $crawler->filter('router-view')->getNode(0);
-        $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
-        $this->assertEquals('false', $askForTargetCloud);
+        $errorPage = $crawler->filter('error-page')->getNode(0);
+        $this->assertNotNull($errorPage);
     }
 
     public function testRedirectsToGivenTargetCloudIfAutodiscoverKnowsIt() {

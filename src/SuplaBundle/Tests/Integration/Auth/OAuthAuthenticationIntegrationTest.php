@@ -105,6 +105,23 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertContains('state=horse', $targetUrl);
     }
 
+    public function testRequestForInvalidResponseTypeResultsInRedirectionWithError() {
+        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'response_type' => 'unicorn']);
+        $response = $client->getResponse();
+        $this->assertTrue($response->isRedirection());
+        $targetUrl = $response->headers->get('Location');
+        $this->assertContains('https://unicorns.pl?', $targetUrl);
+        $this->assertContains('error=unsupported_response_type', $targetUrl);
+        $this->assertContains('state=horse', $targetUrl);
+    }
+
+    public function testRequestForInvalidRedirectUriResultsInError() {
+        $client = $this->makeOAuthAuthorizeRequest(['state' => 'horse', 'redirect_uri' => 'https://horses.pl']);
+        $response = $client->getResponse();
+        $this->assertFalse($response->isRedirection());
+        $this->assertStatusCode(400, $response);
+    }
+
     public function testLogsOutAfterGrantingAccess() {
         $this->makeOAuthAuthorizeRequest();
         $client = $this->makeOAuthAuthorizeRequest(['client_id' => '1_local'], ['login' => false]);

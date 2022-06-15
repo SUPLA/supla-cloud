@@ -173,6 +173,7 @@ class AuthorizeOAuthController extends Controller {
                 if ($privateCloud && !$this->getTargetCloudInfo($targetCloud)) {
                     $error = 'private_cloud_fail';
                 } else {
+                    @$request->getSession()->invalidate();
                     return $this->redirect($redirectUrl);
                 }
             }

@@ -4,7 +4,7 @@
             <h1 class="nocapitalize">{{ $t(headerI18n) }}</h1>
             <i :class="[icon, 'error-page-icon']"
                 style="font-size: 160px"></i>
-            <div class="form-group">
+            <div class="my-3">
                 <h5>{{ $t(messageI18n) }}</h5>
             </div>
             <div v-if="guruMeditation">
@@ -20,6 +20,9 @@
                     <h3 class="no-margin-top">{{ $t('Guru Meditation') }}</h3>
                     <pre><code>{{ guruMeditation }}</code></pre>
                 </div>
+            </div>
+            <div class="my-3">
+                <router-link to="/">{{ $t('Start from the homepage.') }}</router-link>
             </div>
             <slot></slot>
         </div>
