@@ -8,10 +8,7 @@
             :disabled="!channelGroups"
             ref="dropdown"
             data-live-search="true"
-            :data-live-search-placeholder="$t('Search')"
             data-width="100%"
-            :data-none-selected-text="$t('choose the channel group')"
-            :data-none-results-text="$t('No results match {0}')"
             data-style="btn-default btn-wrapped"
             v-model="chosenChannelGroup"
             @change="$emit('input', chosenChannelGroup)">
@@ -27,8 +24,7 @@
 
 <script>
     import Vue from "vue";
-    import "bootstrap-select";
-    import "bootstrap-select/dist/css/bootstrap-select.css";
+    import "@/common/bootstrap-select";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import {channelIconUrl} from "../common/filters";
     import $ from "jquery";
@@ -51,7 +47,7 @@
                 this.$http.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
                     this.channelGroups = channelGroups;
                     this.setChannelGroupFromModel();
-                    Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
+                    this.initSelectPicker();
                 });
             },
             channelGroupCaption(channelGroup) {
@@ -80,7 +76,10 @@
                 } else {
                     this.chosenChannelGroup = undefined;
                 }
-            }
+            },
+            initSelectPicker() {
+                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+            },
         },
         computed: {
             channelGroupsForDropdown() {
@@ -91,7 +90,14 @@
                 const channelGroups = this.channelGroups.filter(this.filter || (() => true));
                 this.$emit('update', channelGroups);
                 return channelGroups;
-            }
+            },
+            selectOptions() {
+                return {
+                    noneSelectedText: this.$t('choose the channel group'),
+                    liveSearchPlaceholder: this.$t('Search'),
+                    noneResultsText: this.$t('No results match {0}'),
+                };
+            },
         },
         watch: {
             value() {
@@ -100,7 +106,11 @@
             },
             params() {
                 this.fetchChannelGroups();
-            }
+            },
+            '$i18n.locale'() {
+                $(this.$refs.dropdown).selectpicker('destroy');
+                this.initSelectPicker();
+            },
         }
     };
 </script>

@@ -8,10 +8,7 @@
             :disabled="!scenes"
             ref="dropdown"
             data-live-search="true"
-            :data-live-search-placeholder="$t('Search')"
             data-width="100%"
-            :data-none-selected-text="$t('choose the scene')"
-            :data-none-results-text="$t('No results match {0}')"
             data-style="btn-default btn-wrapped"
             v-model="chosenScene"
             @change="$emit('input', chosenScene)">
@@ -27,8 +24,7 @@
 
 <script>
     import Vue from "vue";
-    import "bootstrap-select";
-    import "bootstrap-select/dist/css/bootstrap-select.css";
+    import "@/common/bootstrap-select";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import {channelIconUrl} from "../common/filters";
     import $ from "jquery";
@@ -51,7 +47,7 @@
                 this.$http.get('scenes' + (this.params || '')).then(({body: scenes}) => {
                     this.scenes = scenes.filter(this.filter || (() => true));
                     this.setSceneFromModel();
-                    Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
+                    this.initSelectPicker();
                 });
             },
             sceneCaption(scene) {
@@ -78,7 +74,10 @@
                 } else {
                     this.chosenScene = undefined;
                 }
-            }
+            },
+            initSelectPicker() {
+                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+            },
         },
         computed: {
             scenesForDropdown() {
@@ -88,7 +87,14 @@
                 }
                 this.$emit('update', this.scenes);
                 return this.scenes;
-            }
+            },
+            selectOptions() {
+                return {
+                    noneSelectedText: this.$t('choose the scene'),
+                    liveSearchPlaceholder: this.$t('Search'),
+                    noneResultsText: this.$t('No results match {0}'),
+                };
+            },
         },
         watch: {
             value() {
@@ -97,7 +103,11 @@
             },
             params() {
                 this.fetchScenes();
-            }
+            },
+            '$i18n.locale'() {
+                $(this.$refs.dropdown).selectpicker('destroy');
+                this.initSelectPicker();
+            },
         }
     };
 </script>

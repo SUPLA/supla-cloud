@@ -1,9 +1,6 @@
 <template>
     <span class="currency-picker">
         <select data-live-search="true"
-            :data-live-search-placeholder="$t('Search')"
-            :data-none-selected-text="$t('choose a currency')"
-            :data-none-results-text="$t('No results match {0}')"
             data-width="100%"
             v-model="chosenCurrency"
             @change="$emit('input', chosenCurrency)"
@@ -19,8 +16,7 @@
 
 <script>
     import Vue from "vue";
-    import "bootstrap-select";
-    import "bootstrap-select/dist/css/bootstrap-select.css";
+    import "@/common/bootstrap-select";
     import $ from "jquery";
 
     export default {
@@ -32,7 +28,12 @@
         },
         mounted() {
             this.chosenCurrency = this.value;
-            Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
+            this.initSelectPicker();
+        },
+        methods: {
+            initSelectPicker() {
+                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+            },
         },
         computed: {
             currencyCodeList() {
@@ -49,7 +50,20 @@
                     'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'USN', 'UYI', 'UYU', 'UZS',
                     'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XCD', 'XDR', 'XOF', 'XPF', 'XSU', 'XUA', 'YER', 'ZAR', 'ZMW',
                     'ZWL',];
-            }
-        }
+            },
+            selectOptions() {
+                return {
+                    noneSelectedText: this.$t('choose a currency'),
+                    liveSearchPlaceholder: this.$t('Search'),
+                    noneResultsText: this.$t('No results match {0}'),
+                };
+            },
+        },
+        watch: {
+            '$i18n.locale'() {
+                $(this.$refs.dropdown).selectpicker('destroy');
+                this.initSelectPicker();
+            },
+        },
     };
 </script>

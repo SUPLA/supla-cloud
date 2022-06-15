@@ -1,9 +1,6 @@
 <template>
     <span class="timezone-picker">
         <select data-live-search="true"
-            :data-live-search-placeholder="$t('Search')"
-            :data-none-selected-text="$t('choose the timezone')"
-            :data-none-results-text="$t('No results match {0}')"
             data-width="100%"
             v-model="chosenTimezone"
             @change="updateTimezone()"
@@ -21,8 +18,7 @@
 
 <script>
     import Vue from "vue";
-    import "bootstrap-select";
-    import "bootstrap-select/dist/css/bootstrap-select.css";
+    import "@/common/bootstrap-select";
     import moment from "moment";
     import $ from "jquery";
 
@@ -33,13 +29,16 @@
         },
         mounted() {
             this.chosenTimezone = this.timezone;
-            Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
+            this.initSelectPicker();
         },
         methods: {
             updateTimezone() {
                 moment.tz.setDefault(this.chosenTimezone);
                 this.$http.patch('users/current', {timezone: this.chosenTimezone, action: 'change:userTimezone'});
-            }
+            },
+            initSelectPicker() {
+                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+            },
         },
         computed: {
             availableTimezones() {
@@ -58,7 +57,20 @@
                         return timezone1.offset - timezone2.offset;
                     }
                 });
-            }
-        }
+            },
+            selectOptions() {
+                return {
+                    noneSelectedText: this.$t('choose the timezone'),
+                    liveSearchPlaceholder: this.$t('Search'),
+                    noneResultsText: this.$t('No results match {0}'),
+                };
+            },
+        },
+        watch: {
+            '$i18n.locale'() {
+                $(this.$refs.dropdown).selectpicker('destroy');
+                this.initSelectPicker();
+            },
+        },
     };
 </script>

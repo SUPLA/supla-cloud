@@ -3,10 +3,7 @@
         <select class="selectpicker other-actions-picker"
             ref="dropdown"
             data-live-search="true"
-            :data-live-search-placeholder="$t('Search')"
             data-width="100%"
-            :data-none-selected-text="$t('choose the action')"
-            :data-none-results-text="$t('No results match {0}')"
             data-style="btn-default btn-wrapped"
             v-model="chosenAction"
             @change="$emit('input', chosenAction)">
@@ -23,8 +20,7 @@
 <script>
     import Vue from "vue";
     import $ from "jquery";
-    import "bootstrap-select";
-    import "bootstrap-select/dist/css/bootstrap-select.css";
+    import "@/common/bootstrap-select";
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
 
@@ -53,8 +49,8 @@
             };
         },
         mounted() {
-            Vue.nextTick(() => $(this.$refs.dropdown).selectpicker());
             this.setActionFromModel();
+            this.initSelectPicker();
         },
         methods: {
             actionHtml(action) {
@@ -77,19 +73,33 @@
                 } else {
                     this.chosenAction = undefined;
                 }
-            }
+            },
+            initSelectPicker() {
+                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+            },
         },
         computed: {
             actionsForDropdown() {
                 this.updateDropdownOptions();
                 const filter = this.filter || (() => true);
                 return this.availableActions.filter(filter);
-            }
+            },
+            selectOptions() {
+                return {
+                    noneSelectedText: this.$t('choose the action'),
+                    liveSearchPlaceholder: this.$t('Search'),
+                    noneResultsText: this.$t('No results match {0}'),
+                };
+            },
         },
         watch: {
             value() {
                 this.setActionFromModel();
                 this.updateDropdownOptions();
+            },
+            '$i18n.locale'() {
+                $(this.$refs.dropdown).selectpicker('destroy');
+                this.initSelectPicker();
             },
         }
     };
