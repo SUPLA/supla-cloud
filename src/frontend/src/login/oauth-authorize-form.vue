@@ -16,9 +16,14 @@
                         <h4>{{ $t(scope.label) }}</h4>
                         <div class="permissions">
                             <div v-for="suffix in scope.suffixes"
-                                :key="suffix">
+                                class="text-center mx-1"
+                                :key="`${scope.prefix}_${suffix}`">
                                 <i :class="'pe-7s-' + icons[suffix]"></i>
                                 {{ $t(scopeSuffixLabels[suffix]) }}
+                                <div class="small"
+                                    v-if="additionalInfo[`${scope.prefix}_${suffix}`]">
+                                    {{ $t(additionalInfo[`${scope.prefix}_${suffix}`]) }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -47,6 +52,9 @@
             return {
                 desiredAvailableScopes: [],
                 scopeSuffixLabels,
+                additionalInfo: {
+                    account_r: 'access to your e-mail address', // i18n
+                },
                 icons: {
                     r: 'look',
                     rw: 'edit',
