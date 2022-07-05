@@ -43,8 +43,8 @@ class GitVersionDumper {
     private static function dumpBuildConfig(string $version, ?string $versionFull = null): void {
         $config = [
             'supla' => [
-                'version' => $version,
-                'version_full' => $versionFull ?: $version,
+                'version' => ltrim($version, 'v'),
+                'version_full' => ltrim($versionFull ?: $version, 'v'),
             ],
         ];
         $buildConfig = '# Config generated automatically by Composer - changes will be overwritten' . PHP_EOL . PHP_EOL;

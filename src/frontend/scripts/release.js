@@ -1,16 +1,19 @@
-var project = require("./logo");
-var chalk = require('chalk');
+const project = require("./logo");
+const chalk = require('chalk');
 const ora = require('ora');
-var fs = require('fs-extra');
-var async = require('async');
-var del = require('del');
-var exec = require('child_process').exec;
+const fs = require('fs-extra');
+const async = require('async');
+const del = require('del');
+const exec = require('child_process').exec;
 
 process.chdir('../../');
 console.log(process.cwd());
 
-var version = process.env.RELEASE_VERSION || require('../package.json').version;
-var releasePackageName = process.env.RELEASE_FILENAME || 'supla-cloud-v' + version + (process.env.NODE_ENV === 'development' ? '-dev' : '') + '.tar.gz';
+let version = process.env.RELEASE_VERSION || require('../package.json').version;
+if (version.charAt(0) === 'v') {
+    version = version.substr(1);
+}
+const releasePackageName = process.env.RELEASE_FILENAME || 'supla-cloud-v' + version + (process.env.NODE_ENV === 'development' ? '-dev' : '') + '.tar.gz';
 
 project.printAsciiLogoAndVersion(version);
 
@@ -23,7 +26,7 @@ function start() {
 }
 
 function clearVendorDirectory() {
-    var spinner = ora({text: 'Cleaning vendor directory.', color: 'yellow'}).start();
+    const spinner = ora({text: 'Cleaning vendor directory.', color: 'yellow'}).start();
     del('vendor/**/.git')
         .then(() => {
             spinner.succeed('Vendor directory cleaned.');
@@ -36,7 +39,7 @@ function clearVendorDirectory() {
 }
 
 function clearReleaseDirectory() {
-    var spinner = ora({text: 'Deleting release directory.', color: 'yellow'}).start();
+    const spinner = ora({text: 'Deleting release directory.', color: 'yellow'}).start();
     fs.remove('release/', function (err) {
         if (err) {
             spinner.fail();
@@ -49,8 +52,8 @@ function clearReleaseDirectory() {
 }
 
 function copyToReleaseDirectory() {
-    var spinner = ora({text: 'Copying application files.', color: 'yellow'}).start();
-    var calls = [];
+    const spinner = ora({text: 'Copying application files.', color: 'yellow'}).start();
+    const calls = [];
     let directories = [
         'app/',
         'bin/',
@@ -124,7 +127,7 @@ function clearLocalConfigFiles() {
 }
 
 function createZipArchive() {
-    var spinner = ora({text: 'Creating release archive.', color: 'yellow'}).start();
+    const spinner = ora({text: 'Creating release archive.', color: 'yellow'}).start();
     exec('tar -czf ' + releasePackageName + ' -C release .', function (err) {
         if (err) {
             spinner.fail();
@@ -133,7 +136,7 @@ function createZipArchive() {
             spinner.succeed('Release archive created.');
             console.log('');
             console.log("Package: " + chalk.green(releasePackageName));
-            var fileSizeInBytes = fs.statSync(releasePackageName).size;
+            const fileSizeInBytes = fs.statSync(releasePackageName).size;
             console.log('Size: ' + Math.round(fileSizeInBytes / 1024) + 'kB (' + Math.round(fileSizeInBytes * 10 / 1024 / 1024) / 10 + 'MB)');
         }
     });
