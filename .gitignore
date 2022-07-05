@@ -6,7 +6,6 @@
 /vendor/
 /var/
 /web/dist/
-/*.sh
 .idea/
 *.log
 release/

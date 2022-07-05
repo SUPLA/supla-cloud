@@ -125,7 +125,7 @@ function clearLocalConfigFiles() {
 
 function createZipArchive() {
     var spinner = ora({text: 'Creating release archive.', color: 'yellow'}).start();
-    exec('tar -czf ' + releasePackageName + ' release --transform=\'s/release\\/\\{0,1\\}//g\'', function (err) {
+    exec('tar -czf ' + releasePackageName + ' -C release .', function (err) {
         if (err) {
             spinner.fail();
             console.log(err);
