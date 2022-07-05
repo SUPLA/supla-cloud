@@ -4,11 +4,15 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions gd intl
 COPY . /var/app
 WORKDIR /var/app
-RUN composer install --optimize-autoloader --no-dev
+ARG RELEASE_VERSION
+ENV RELEASE_VERSION=$RELEASE_VERSION
+RUN composer install --optimize-autoloader --no-dev && composer dump-version
 
 FROM node:14.18.3-alpine AS release
 ARG RELEASE_FILENAME
+ARG RELEASE_VERSION
 ENV RELEASE_FILENAME=$RELEASE_FILENAME
+ENV RELEASE_VERSION=$RELEASE_VERSION
 COPY --from=backend /var/app /var/app
 WORKDIR /var/app/src/frontend
 RUN npm install -g npm@7 && npm install && npm run release

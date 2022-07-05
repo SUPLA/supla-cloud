@@ -78,14 +78,17 @@
       "cd src/frontend && npm install",
       "cd src/frontend && npm run build"
     ],
+    "dump-version": [
+      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
+    ],
     "release": [
-      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
-      "APPLICATION_ENV=prod composer install --no-dev --optimize-autoloader",
+      "@dump-version",
+      "composer install --no-dev --optimize-autoloader",
       "composer run-script webpack",
       "cd src/frontend && npm run release"
     ],
     "release-dev": [
-      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
+      "@dump-version",
       "composer install --optimize-autoloader",
       "composer run-script webpack",
       "cd src/frontend && npm run release-dev"
