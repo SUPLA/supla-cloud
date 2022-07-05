@@ -16,6 +16,9 @@ ENV RELEASE_VERSION=$RELEASE_VERSION
 COPY --from=backend /var/app /var/app
 WORKDIR /var/app/src/frontend
 RUN npm install -g npm@7 && npm install && npm run release
+WORKDIR /var/app/
+RUN find *.tar.gz -type f -exec sh -c "eval sha1sum {} > {}.sha1" \;
 
 FROM scratch
 COPY --from=release /var/app/*.tar.gz .
+COPY --from=release /var/app/*.sha1 .
