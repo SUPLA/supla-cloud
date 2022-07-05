@@ -22,4 +22,5 @@ var/cache/*
 var/local/*
 var/logs/*
 var/sessions/*
-assets/dist/
+
+web/dist/
