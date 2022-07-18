@@ -26,13 +26,15 @@ Action triggers: Attiva azioni
 Actions: Azioni
 Active: Attivi
 Add: Aggiungi
-Add a new icon: Dodaj nową ikonę
+Add a new icon: Aggiungi nuova icona
+Add action: Aggiungi azione
 Add first channel to set channel group function and save it: Scegli il primo canale per definire la funzione del gruppo e salvarla
 Add new channel group: Aggiungi un nuovo gruppo di canali
 Add new channel to this group: Aggiungi un nuovo canale al gruppo
 Adjust parameters: Imposta i parametri
 'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Una volta cancellata questa icona, tutti i canali ed i gruppi di canali che usano questa icona, riceveranno le icone di default.'
 'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Una volta ottenuto l’accesso, puoi cambiare la decisione adattando le impostazioni nella sezione delle impostazioni del Tuo account.'
+'After the device enters the configuration mode, it will not be accessible on your account.': 'Quando il dispositivo è in modalità di configurazione, non è possibile gestirlo dal proprio account.'
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Dopo l’aggiornamento, l’applicazione sarà più rapida, comoda, potente...Semplicemente migliore!'
 'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Il link verrà generato non appena scelto il soggetto. Tutte le altre opzioni potranno essere impostate da Te immediatamente dopo la sua creazione.
 All: Tutto
@@ -61,12 +63,14 @@ Assign Client apps: Assegna le applicazioni client
 Assign Locations: Assegna le Localizzazioni
 Associated measured channel: Canale misurato
 Associated measurement channel: Canale di misura associato
+At specified time: Ad un orario specifico
 Authorization callback URLs (one per line): URL di callback per l’autorizzazione
 'Authorize the application, so that it can access your account.': Autoriza l’applicazione affinché essa possa ottenere l’accesso al Tuo account.
 Authorized: Autorizzato
 Authorized OAuth apps: Applicazioni OAuth autorizzate
 Automation: Automazione
 Back to apps list: Torna all’elenco delle applicazioni
+Based on sunrise or sunset: Basata su alba o tramonto
 Be notified when your channels change state: Segnalazione di cambio dello stato dei canali
 Be right back!: Torno subito!
 Bottom position: Posizione soglia inferione
@@ -86,6 +90,7 @@ Cannot execute an action when the device is disconnected.: Non è possibile eseg
 Captcha token is not valid.: Captcha non valido.
 Caption: Titolo
 Change Password: Cambio della password
+Change channel function: Cambia la funzione del canale
 Change function: Cambia funzione
 Change icon: Cambia l’icona
 Changing channel’s function will also result in the following changes.: Il cambio della funzione del canale comporterà anche le seguenti modifiche.
@@ -127,6 +132,7 @@ Confirm if you want to remove Access Identifier: Conferma se vuoi rimuovere l’
 Connected: Connesso
 Connection with a private instance of the SUPLA cloud: Connessione con l’istanza privata della nuvola SUPLA
 Constraints: Restrizioni
+Copy state from other channel: Copia stato da un altro canale
 Could not contact Autodiscover service. Try again in a while.: Impossibile contattare il servizio di registrazione. Riprova tra un attimo.
 Could not reset the password.: Il reset della password è fallito.
 Could not reset the password. Please try again later.: Non è possibile resettare la password. Riprova tra poco.
@@ -139,7 +145,7 @@ Currency: Valuta
 Current Overload: Sovraccarico di corrente
 Current Password: Password attuale
 Current password is incorrect: La password attuale non è valida
-Custom: Niestandardowy
+Custom: Personalizzato
 Custom execution limit: Limite delle esecuzioni non standard
 DHT11 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT11
 DHT21 Temperature & Humidity Sensor: Termometro di temperatura e umidità DHT21
@@ -164,7 +170,7 @@ Dimmer and RGB lighting: Varialuce e illuminazione RGB
 Direct link: Link diretto
 Direct link has been created successfully!: Il link diretto è stato creato con successo!
 Direct link has been executed: Link diretto è stato eseguito
-'Direct link is not working right now. Reason:': 'In questo momento il link diretto non funziona. Causa. Powód:'
+'Direct link is not working right now. Reason:': 'In questo momento il link diretto non funziona. Causa:'
 Direct links: Link diretti
 Direct links limit has been exceeded: È stato superato il limite di Collegamenti diretti
 Disable: Disabilita
@@ -178,6 +184,7 @@ Door opening sensor: Sensore di apertura della porta
 Doors and gates: Porte e cancelli
 Download the history of measurement: Scarica lo storico delle misurazioni
 Drag your image(s) here or click to select from the disk: Trascina l’immagine qui o clicca per selezionare dal disco
+E-mail notifications: Notifiche E-mail
 Edit: Modifica
 Electric: Elettricità
 Electricity meter: Misuratore elettrico
@@ -204,6 +211,7 @@ Executions: Esecuzioni
 Expired: Scaduto
 Failed: Falliti
 Failed (zombie): Falliti (zombie)
+Feature limits: Limiti delle funzioni
 File is too large: Il file è troppo grande
 Flooding: Allagamento
 For devices: Per dispositivi
@@ -263,6 +271,7 @@ Idle: Inattivi
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Se sei sicuro di essere in possesso di un account su cloud.supla.org, verifica che l’applicazione che stai cercando di autorizzare, sia pubblica.'
 'If you did not request this password reset, please ignore this information.': Ignora il messaggio se non sei stato tu a chiedere la reimpostazione della password.
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Se non vuoi cancellare il Tuo account nel servizio %cloudHost%, non cliccare il link.'
+'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Se non viene effettuata alcuna connessione al dispositivo per diversi minuti, verrà riavviato automaticamente mantenendo le impostazioni precedenti.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': In caso di dubbi oppure domande puoi contattarci all’indirizzo %securityEmail%
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Se non hai indicato quest’indirizzo email nel sito %cloudHost%, non cliccare sul link.'
 'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Dopo una nuova registrazione dell’account, per alcuni dispositivi può essere necessario eseguire una nuova configurazione anche se fornirai lo stesso indirizzo e-mail.'
@@ -274,6 +283,7 @@ Impulses: Impulsi
 'In order to confirm account deletion, enter your password.': 'Per confermare la cancellazione del Tuo account, inserisci la password.'
 'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': Contatta l’amministratore di questa istanza SUPLA Cloud per ottenere le credenziali del broker MQTT.
 Inactive: Inattivo
+Include energy corrections in new measurements history (not recommended): Includi le correzioni energetiche nel nuovo storico delle misurazioni (non consigliato)
 Incorrect password: Password non corretta
 Information: Informazione
 Inherit I/O Device location: Utilizza la localizzazione del dispositivo I/O
@@ -290,6 +300,7 @@ Invalid request: Richiesta non corretta
 Inverted logic: Logica invertita
 Invisible: Non visibile
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: È possibile che un altro utente abbia messo per sbaglio il tuo indirizzo email nell’intento di reimpostare la password per il proprio account.
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Esporrà la propria rete e sarà quindi possibile raggiungerlo tramite il proprio smartphone per modificare le impostazioni o aggiornare il firmware.
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Ricordati che la cancellazione del Tuo account comporta la cancellazione di tutti i Tuoi dati, comprese le impostazioni, i dispositivi configurati, le localizzazioni, gli scadenzari e tutte le altre funzionalità offerte da SUPLA.'
 Language is not available: La lingua non è disponibile
 Last access: Ultimo collegamento
@@ -316,6 +327,7 @@ Mail sensor: Rilevatore di posta
 Maintenance mode active. You cannot modify any data now.: Funzionamento in modalità di servizio. Non puoi modificare alcun dato.
 Make sure to copy it now because you won’t be able to see it again!: Assicurati di copiarlo ora perché non potrai vederlo di nuovo!
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Assicurati di averlo salvato in un posto sicuro se vuoi usarlo ancora in futuro. Una volta uscito dalla pagina, il link non verrà più visualizzato.'
+Manual: Istruzioni
 Manually closed: Chiuso manualmente
 'Maximum filesize limit is {limit}.': 'La dimensione massima del file è {limit}.'
 Meter value: Lettura del contatore
@@ -328,8 +340,10 @@ NOTICE!: Attenzione!
 Name: Nome
 Need one of these?: Seleziona l’unità di misura?
 Never: Mai
+New IO device added to your account: Nuovo dispositivo aggiunto al tuo account
 New OAuth application: Nuova applicazione OAuth
 New channel group: Nuovo gruppo di canali
+New client app (smartphone) added to your account: Nuova applicazione client (smartphone) aggiunta al tuo account
 New direct link: Nuovo link diretto
 New password: Nuova password
 Newer: Più recenti
@@ -338,9 +352,11 @@ Next run date: Prossima esecuzione
 'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nessun identificatore di accesso abilitato. Vai alla [Lista di identificatori di accesso] o [aggiungi un nuovo identificatore di accesso].'
 No function: Nessuna funzione
 No future executions - schedule disabled: Nessuna esecuzione programmata - scadenzario disabilitato
-No limit: Bez limitu
+No limit: Senza limiti
 No liquid sensor: Sensore di mancanza liquido
 'No location enabled. Go to [location list] or [add a new location].': 'Nessuna localizzazione abilitata. Vai alla [lista di localizzazioni] o [aggiungi una nuova localizzazione].'
+No of client apps: N° di applicazioni client
+No of devices: N° di dispositivi
 'No results match {0}': 'Nessun risultato corrispondente a {0}'
 No. of Client’s apps: Numero delle applicazioni client
 No. of access identifiers: Numero degli identificatori d’accesso
@@ -349,6 +365,9 @@ No. of channels: Numero di canali
 No. of devices: Numero dei dispositivi
 No. of locations: Numero delle localizzazioni
 None: Nessuno
+None (channel disabled): Nessuna (canale disabilitato)
+Number of attempts to close: Numero di tentativi di chiusura
+Number of attempts to open: Numero di tentativi di apertura
 Number of sections: Numero di sezioni
 OAuth application: Applicazione OAuth
 OAuth apps: Applicazioni OAuth
@@ -364,6 +383,7 @@ Open / close: Apri/chiudi
 Open partially: Apri parzialmente
 Opening sensor: Sensore di apertura
 Original location: Localizzazione originale
+Other: Altro
 'Otherwise go to [the homepage].': 'Altrimenti passa a [home page].'
 Partial opening sensor: Sensore di apertura parziale
 Password: Password
@@ -459,9 +479,11 @@ Sensors: Sensori
 Server address: Indirizzo del server
 Server unreachable: Server irragiungibile
 Service temporarily unavailable: Servizio temporaneamente non disponibile
+Set value added: Imposta valore aggiunto
 Show my limits: Mostra i miei limiti
 Show on the Client’s devices: Mostra nei dispositivi client
 Shut: Chiudi
+Shut partially: Chiudi parzialmente
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Chiudi il motore fino al fondo della corsa e inserisci il valore della percentuale di chiusura. Questa impostazione non è obbligatoria ma consentirà una migliore visualizzazione della posizione del motore nell’applicazione.
 Sign In: Log in
 Sign Out: Log out
@@ -481,6 +503,7 @@ Subject type: Tipo del soggetto
 Success: Successo
 Successful: Riusciti
 Supla for devices: Supla per dispositivi
+Switch the device to configuration mode: Attiva la modalità di configurazione sul dispositivo
 THIS CANNOT BE UNDONE!: QUESTA OPERAZIONE NON PUÒ ESSERE ANNULLATA!
 Temperature: Temperatura
 Temperature & Humidity Sensor: Sensore di temperatura e di umidità
@@ -524,6 +547,7 @@ This direct link requires further parameters in order to be executed properly. S
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ricevi questa informazione in materia di tentativo di accesso non riuscito al SUPLA-CLOUD con la Tua email.
 This is the list of applications you have granted access to your account.: Questo è un elenco delle applicazioni a cui hai dato un accesso al Tuo account.
 This link is only valid for an hour.: Il link sarà attivo per un’ora.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Questa azione è utilizzata dal dispositivo stesso (es. accende la luce o avvia la tapparella). L'impostazione di qualsiasi evento su questa azione disabiliterà la funzione del comando locale.
 Timezone: Fuso orario
 Toggle: Scambiare
 Token does not exist: Il token non esiste
@@ -534,11 +558,13 @@ Turning this device off will result in disabling features listed below.: 'Disatt
 Type: Tipo
 Unit: Unità
 Unknown: Sconosciuto
+Unsuccessful login attempt: Tentativo di accesso non riuscito
 Unsupported function: Funzione non supportata
 Unsupported type: Tipo non supportato
 Update in progress: Aggiornamento in corso
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'I file inviati non contengono contenuti inappropriati, non violano i diritti d’autore od i diritti di terzi, ed io ho il diritto di utilizzarli.'
 User is already confirmed. Try to log in.: Questo account è già confermato. Accedi.
+Value added: Valore aggiunto
 Valve: Valvola
 Valve closed manually: Valvola chiusa manualmente
 Visible: Visibile
@@ -548,6 +574,7 @@ WELCOME_MESSAGE: |
   Tutto quello che devi fare è riscrivere nei Tuoi dispositivi di controllo (entrate/uscite) e nei smartphone i seguenti dati.
 Wait a while before the next request. You can check your limits in the account settings.: Aspetta un attimo prima di effettuare la prossima richiesta. Puoi controllare l'attuale uso dei Tuoi limiti nelle impostazioni del Tuo account.
 Water meter: Misuratore dell'acqua
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: È possibile ricevere notifiche sul tuo account al verificarsi di alcuni eventi. Disabilita le opzioni per quali non vuoi ricevere notifiche.
 We could not connect to your SUPLA Cloud instance.: Non riuscivamo a connetterci con la Tua istanza privata SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Abbiamo ricevuto un ordine di cancellare il Tuo account in SUPLA Cloud (%cloudHost%).
 We have just sent you an activation link. You should be receiving it shortly.: Il messaggio con il link di attivazione del Tuo account è stato appena inviato. Attendi con pazienza.
@@ -593,6 +620,7 @@ Your account has been deleted. We hope you will come back to us soon.: L’accou
 Your account has been locked.: Il Tuo account è stato bloccato.
 Your account has not been confirmed yet.: Il Tuo account non è stato ancora confermato.
 Your account limits: I tuoi limiti
+'Your channel groups are allowed to have a maximum of {max} channels.': 'I tuoi gruppi di canali possono contenere massimo {max} canali.'
 'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': Il dispositivo consente l’esecuzione delle azioni desiderate su qualsiasi dispositivo associato al proprio account. Le azioni disponibili dipendono dal dispositivo e dalla relativa versione firmware
 Your email: Tua email
 Your instance is not registered or you are trying to authorize an application that is not public.: La Tua istanza non è registrata oppure stai cercando di autorizzare un’applicazione che non è pubblica.
@@ -603,6 +631,7 @@ Your password must include both upper and lower case letters.: La password deve 
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: La tua installazione privata di SUPLA cloud non è disponibile. Assicurati che il tuo server sia online e la connessione HTTPS funzioni correttamente.
 Your private SUPLA Cloud is almost registered.: La Tua nuvola privata SUPLA è quasi registrata.
 Your private SUPLA Cloud is not registered.: Il tuo cloud privato SUPLA non è registrato.
+'Your schedules are allowed to have a maximum of {max} actions.': 'I tuoi scadenzari possono eseguire massimo {max} azioni.'
 Your session has been expired.: La Tua sessione è scaduta.
 Your session is about to expire: La tua sessione sta per scadere
 'Your session will expire in [time].': 'La Tua sessione scadrà fra [time].'
@@ -622,6 +651,8 @@ actionTrigger_TURN_OFF: Spegni
 actionTrigger_TURN_ON: Accendi
 actionableSubjectType_channel: Canale
 actionableSubjectType_channelGroup: Gruppo di canali
+addToHistoryMeasurementWarningSelected: 'Selezionando questa opzione il ”valore aggiunto” verrà sommato alle misurazioni future. Questo potrebbe produrre un aumento indesiderato nel grafico della cronologia delle misurazioni. Si consiglia di impostare questa opzione solo durante la prima configurazione del contatore. Se lo modifichi per un contatore con storico delle misurazioni con valori già presenti, considera la possibilità di cancellare lo storico immediatamente dopo aver salvato le modifiche.'
+addToHistoryMeasurementWarningUnselected: 'Deselezionando questa opzione il ”valore aggiunto” verrà ignorato nelle misurazioni future. Questo potrebbe produrre un decremento indesiderato nel grafico della cronologia delle misurazioni. Si consiglia di impostare questa opzione solo durante la prima configurazione del contatore. Se lo modifichi per un contatore con storico delle misurazioni con valori già presenti, considera la possibilità di cancellare lo storico immediatamente dopo aver salvato le modifiche.'
 after: dopo
 before: prima
 channel: Canale
@@ -659,6 +690,7 @@ register-slide2-title: SUPLA dappertutto!
 register-slide3-text: 'I sistemi di automazione disponibili sul mercato sono di solito molto complessi, chiusi e costosi. In molti casi richiedono l’installazione già in fase della creazione dell’oggetto. SUPLA è semplice, aperta e gratuita. Permette di creare gli elementi esecutivi in base alle piattaforme RaspberryPI, Arduino oppure ESP8266 e di unirli avvalendosi della rete LAN e WIFI. UnisciTi al progetto e crea la Tua versione del sistema per l’automazione degli edifici!'
 register-slide3-title: Gratuita e aperta!
 reset chart view: torni alla vista iniziale
+scheduleMode_crontab: Avanzate (crontab)
 scheduleMode_daily: Ogni giorno
 scheduleMode_minutely: Ogni minuto
 scheduleMode_once: Una sola volta
@@ -760,32 +792,30 @@ A confirmation upon successful client app registration.: ~
 A confirmation upon successful device registration.: ~
 A new client app (smartphone) been added to your SUPLA-Cloud account.: ~
 A new device has been added to your SUPLA-Cloud account.: ~
+Access ID is not active right now.: ~
 'Action trigger no. #{index}': ~
+Active period: ~
 Add a delay: ~
-Add action: Aggiungi azione
 Add new item to use in the scene: ~
-'After the device enters the configuration mode, it will not be accessible on your account.': ~
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
 'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
 'App version: %clientAppSoftwareVersion%': ~
+Applications: ~
 Are you sure you want to delete this scene?: ~
 Are you sure you want to reset the counter state?: ~
 As in device: ~
 'At 05:45 PM, on the last day of the month': ~
 'At 11:30 AM, on the third Wednesday of the month': ~
 At every 5th minute on day-of-month 30 in May: ~
-At specified time: Ad un orario specifico
 At sunrise: ~
 'At sunrise, Monday through Friday': ~
 At sunset: ~
 Automatic calibration: ~
 Bar: ~
-Based on sunrise or sunset: Basata su alba o tramonto
 Calibrate: ~
 Calibration successful.: ~
 Cannot calculate when to run the schedule - incorrect configuration?: ~
 Caption is too long.: ~
-Change channel function: ~
 Channel group reference will be removed from the items below.: ~
 Channel is disconnected.: ~
 Channel reference will be removed from the items below.: ~
@@ -795,12 +825,12 @@ Chart type: ~
 Choose channel function: ~
 Choose the source channel.: ~
 Clear: ~
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: ~
 'Client app ID: %clientAppId%': ~
 Close partially: ~
 Config of the schedule is too complicated.: ~
 Confirm My Account: ~
 Confirm if you want to perform the roller shutter calibration.: ~
-Copy state from other channel: Copia stato da un altro canale
 Could not enter the configuration mode.: ~
 Create new scene: ~
 'Device ID: %deviceId%': ~
@@ -817,21 +847,23 @@ Disable local function: ~
 Disables local device function and does nothing more.: ~
 Do you want to be redirected there? You may be asked to authenticate again.: ~
 'Doors, Gates, Windows': ~
-E-mail notifications: ~
 Entering configuration mode is unsupported in the firmware.: ~
 Execute: ~
 Execute an action: ~
-Execute the scene: ~
-Feature limits: ~
 'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
 Forward active energy balanced: ~
 General purpose measurement: ~
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
+'If you do not want to unregister your instance, please do not click the link.': ~
+'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': ~
 'If you really want to delete the account, here are the instructions.': ~
+'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': ~
 'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
-Include energy corrections in new measurements history (not recommended): Includi le correzioni energetiche nel nuovo storico delle misurazioni (non consigliato)
+'If you wish to register your instance, [click here].': ~
+'If you wish to unregister your instance, [click here].': ~
 Interpolate measurements: ~
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: ~
+Interrupt: ~
+Invalid request.: ~
+Invalid token.: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Manage your new client app in the SUPLA-Cloud.: ~
@@ -840,19 +872,12 @@ Meters: ~
 Move down or stop: ~
 Move up or stop: ~
 'Name: %clientAppName%': ~
-New IO device added to your account: ~
-New client app (smartphone) added to your account: ~
 New scene: ~
 No of channels: ~
-No of client apps: N° di applicazioni client
-No of devices: N° di dispositivi
 No of operations: ~
 No schedule configuration.: ~
-None (channel disabled): ~
-Number of attempts to close: Numero di tentativi di chiusura
-Number of attempts to open: Numero di tentativi di apertura
+OAuth integrations might stop working after the instance is unregistered.: ~
 Operations: ~
-Other: ~
 Password reset instructions.: ~
 Please confirm your SUPLA account.: ~
 Precision: ~
@@ -862,6 +887,7 @@ Publishes the event to integrated services like MQTT or webhooks.: ~
 'Registered from IP address: %deviceRegIp%': ~
 Reset Your Password: ~
 Reverse active energy balanced: ~
+SUPLA - Private instance unregistration: ~
 SUPLA – new client app has been added to your account: ~
 SUPLA – new device has been added to your account: ~
 Save or discard configuration changes first.: ~
@@ -869,36 +895,39 @@ Scene: ~
 Scene must consist of at least one operation.: ~
 Scenes: ~
 Scenes limit has been exceeded: ~
+See available integrations: ~
 See in SUPLA-Cloud: ~
-Set value added: Imposta valore aggiunto
 Setting the number of attempts to 1 disables the retrying behavior completely.: ~
-Shut partially: Chiudi parzialmente
 Some features depend on this channel group: ~
 Standard: ~
+Start from the homepage.: ~
 Step by step: ~
 Store measurements history: ~
-Switch the device to configuration mode: ~
 TLS: ~
+'Target Cloud is not registered, or is registered with another e-mail address.': ~
 The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The incident was detected at %datetime%.: ~
 'The items below rely on this channel group, so they will be deleted.': ~
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: "Questa azione è utilizzata dal dispositivo stesso (es. accende la luce o avvia la tapparella). L'impostazione di qualsiasi evento su questa azione disabiliterà la funzione del comando locale."
 Too many actions in this schedule.: ~
-Unsuccessful login attempt: ~
+Too many operations in this scene: ~
+Undo registration: ~
+Unregister my private SUPLA Cloud instance: ~
 'Use the [command] server command to change this account''s limits. For example:': ~
-Value added: Valore aggiunto
+Use working schedule for this access identifier: ~
 Value per unit: ~
-We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: ~
+We have sent you an email with further instructions.: ~
+Working schedule: ~
+You have requested to unregister your SUPLA Cloud instance: ~
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
-'Your channel groups are allowed to have a maximum of {max} channels.': ~
 Your preferences has been updated.: ~
-'Your schedules are allowed to have a maximum of {max} actions.': ~
+Your private SUPLA Cloud instance has been unregistered.: ~
+access to your e-mail address: ~
 actionableSubjectType_scene: ~
-addToHistoryMeasurementWarningSelected: 'Selezionando questa opzione il ”valore aggiunto” verrà sommato alle misurazioni future. Questo potrebbe produrre un aumento indesiderato nel grafico della cronologia delle misurazioni. Si consiglia di impostare questa opzione solo durante la prima configurazione del contatore. Se lo modifichi per un contatore con storico delle misurazioni con valori già presenti, considera la possibilità di cancellare lo storico immediatamente dopo aver salvato le modifiche.'
-addToHistoryMeasurementWarningUnselected: 'Deselezionando questa opzione il ”valore aggiunto” verrà ignorato nelle misurazioni future. Questo potrebbe produrre un decremento indesiderato nel grafico della cronologia delle misurazioni. Si consiglia di impostare questa opzione solo durante la prima configurazione del contatore. Se lo modifichi per un contatore con storico delle misurazioni con valori già presenti, considera la possibilità di cancellare lo storico immediatamente dopo aver salvato le modifiche.'
+caption: ~
 choose the action: ~
 choose the scene: ~
 days: ~
@@ -908,12 +937,10 @@ min.: ~
 or add a delay: ~
 prefix: ~
 scene: ~
-scheduleMode_crontab: Avanzate (crontab)
 suffix: ~
 '{minutes} minutes after sunrise': ~
 '{minutes} minutes after sunset': ~
 '{minutes} minutes before sunrise': ~
 '{minutes} minutes before sunset': ~
-Manual: Istruzioni
 
 #</editor-fold>

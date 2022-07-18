@@ -41,6 +41,7 @@ supla:
   oauth:
     tokens_lifetime:
       webapp: {access: 28800}
+#      webapp: {access: 60}
 
 #swiftmailer:
 #  delivery_addresses: ['%admin_email%']

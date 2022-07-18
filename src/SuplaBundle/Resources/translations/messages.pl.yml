@@ -264,7 +264,6 @@ Every: Co
 Example Auth URL: Przykładowy URL autoryzacyjny
 Execute: Wykonaj
 Execute an action: Wykonaj akcję
-Execute the scene: Wykonaj scenę
 Executed action: Wykonana akcja
 Executed without confirmation: Wykonano bez potwierdzenia
 Execution history: Historia wykonań
@@ -399,6 +398,7 @@ Make sure to copy it now because you won’t be able to see it again!: 'Upewnij 
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.'
 Manage your new client app in the SUPLA-Cloud.: Zarządzaj ustawieniami aplikacji w SUPLA-Cloud.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Zarządzaj swoim urządzeniem w SUPLA-Cloud lub za pomocą aplikacji SUPLA w Twoim smartfonie.
+Manual: Instrukcja
 Manually closed: Zamknięty manualnie
 'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
 Meter value: Stan licznika
@@ -750,6 +750,7 @@ Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
 'Your session will expire in [time].': 'Twoja sesja wygaśnie za [time].'
 'Yours faithfully,': Z poważaniem
+access to your e-mail address: dostęp do Twojego adresu e-mail
 actionTrigger_HOLD: Przytrzymanie przycisku
 actionTrigger_SHORT_PRESS_X1: Wciśnięcie 1x
 actionTrigger_SHORT_PRESS_X2: Wciśnięcie 2x
@@ -879,6 +880,7 @@ Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zost
 'Doors, Gates': 'Drzwi, Bramy'
 ENABLED: WŁĄCZONE
 Email already exists: Adres e-mail już istnieje
+Execute the scene: Wykonaj scenę
 Existing schedules: Istniejące harmonogramy
 Fridays: Piątki
 Generic action: Inna akcja
@@ -924,11 +926,36 @@ When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
 hourly: Każdy dzień
-Manual: Instrukcja
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Access ID is not active right now.: ~
+Active period: ~
+Applications: ~
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: ~
+'If you do not want to unregister your instance, please do not click the link.': ~
+'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': ~
+'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': ~
+'If you wish to register your instance, [click here].': ~
+'If you wish to unregister your instance, [click here].': ~
+Interrupt: ~
+Invalid request.: ~
+Invalid token.: ~
+OAuth integrations might stop working after the instance is unregistered.: ~
+SUPLA - Private instance unregistration: ~
+See available integrations: ~
+Start from the homepage.: ~
+'Target Cloud is not registered, or is registered with another e-mail address.': ~
+Too many operations in this scene: ~
+Undo registration: ~
+Unregister my private SUPLA Cloud instance: ~
+Use working schedule for this access identifier: ~
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: ~
+We have sent you an email with further instructions.: ~
+Working schedule: ~
+You have requested to unregister your SUPLA Cloud instance: ~
+Your private SUPLA Cloud instance has been unregistered.: ~
+caption: ~
 
 #</editor-fold>
-access to your e-mail address: dostęp do Twojego adresu e-mail

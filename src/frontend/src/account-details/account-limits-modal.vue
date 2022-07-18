@@ -18,7 +18,7 @@
                         </li>
                         <li :class="{active: currentTab === 'other'}">
                             <a @click="currentTab = 'other'">
-                                Inne
+                                {{ $t('Other') }}
                             </a>
                         </li>
                     </ul>
