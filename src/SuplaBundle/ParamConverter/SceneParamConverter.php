@@ -72,6 +72,7 @@ class SceneParamConverter extends AbstractBodyParamConverter {
             Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
             /** @var ActionableSubject $subject */
             $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
+            Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');
             $action = ChannelFunctionAction::fromString($operationData['actionId']);
             $actionParam = $operationData['actionParam'] ?? [] ?: [];
             $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
