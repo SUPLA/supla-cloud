@@ -258,7 +258,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testEnteringConfigurationModeWhenSuplaServerRefuses() {
-        SuplaServerMock::mockResponse('ACTION-ENTER-CONFIGURATION-MODE', 'NO!');
+        SuplaServerMock::mockResponse('ENTER-CONFIGURATION-MODE', 'NO!');
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
