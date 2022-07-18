@@ -46,7 +46,8 @@ class ChangeUserLimitsCommandIntegrationTest extends IntegrationTestCase {
         $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
         $this->assertEquals(3, $this->user->getLimitAid());
         $this->assertEquals(4, $this->user->getLimitChannelGroup());
-        $this->assertEquals(10, $this->user->getLimitSchedule());
+        $this->assertEquals(10, $this->user->getLimitOperationsPerScene());
+        $this->assertEquals(11, $this->user->getLimitSchedule());
         $this->assertEquals('5/10', $this->user->getApiRateLimit());
     }
 
