@@ -20,6 +20,7 @@ AM2302 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2302
 API documentation: Dokumentacja API
 API rate limits: Limit żądań do API
 Access ID: ID dostępu
+Access ID is not active right now.: Identyfikator dostępu nie jest teraz aktywny.
 Access Identifier: Identyfikator Dostępu
 Access Identifiers: Identyfikatory dostępu
 Access identifier limit has been exceeded: Limit identyfikatorów dostępu został przekroczony
@@ -33,6 +34,7 @@ Action trigger: Wyzwalacz akcji
 Action triggers: Wyzwalacze akcji
 Actions: Akcje
 Active: Aktywne
+Active period: Okres aktywności
 Add: Dodaj
 Add a delay: Dodaj opóźnienie
 Add a new icon: Dodaj nową ikonę
@@ -59,6 +61,7 @@ And more: I znacznie więcej
 'App version: %clientAppSoftwareVersion%': 'Wersja aplikacji: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Nazwa aplikacji nie może być pusta
 Application requirements: Wymagania aplikacji
+Applications: Aplikacje
 Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
 Are you sure you want to change channel’s function?: Czy na pewno chcesz zmienić funkcję kanału?
 Are you sure you want to delete the entire measurement history saved for this channel?: Czy na pewno chcesz usunąć całą historię pomiarów zgromadzoną dla tego kanału?
@@ -153,6 +156,7 @@ Choose location: Wybierz lokalizację
 Choose the source channel.: Wybierz kanał źródłowy.
 Clear: Wyczyść
 Click the following link to confirm removal of your account on %cloudHost%.: 'Aby potwierdzić chęć usunięcia Twojego konta na %cloudHost%, kliknij poniższy link.'
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Kliknij poniższy link aby potwierdzić wyrejestrowanie twojej prywatnej instancji SUPLA Cloud (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'Identyfikator: %clientAppId%'
 Client registration: Rejestracja klientów
 Client’s Apps: Aplikacje klienckie
@@ -335,15 +339,20 @@ Idle: Bezczynne
 'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.'
 'If you did not request this password reset, please ignore this information.': Jeżeli nie zażądałeś(aś) zresetowania hasła zignoruj tę wiadomość.
 'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Jeżeli nie chcesz usuwać konta w serwisie %cloudHost%, nie klikaj odnośnika.'
+'If you do not want to unregister your instance, please do not click the link.': 'Jeśli nie chcesz wyrejestrować twojej instancji, nie klikaj linku.'
 'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Jeśli nie uda Ci się połączyć z tym punktem dostępowym przez kilka minut, urządzenie zrestartuje się i połączy używając ostatnich ustawień.'
 'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Jeśli masz wątpliwości lub pytania, możesz się z nami skontaktować pisząc na adres %securityEmail%.'
+'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Jeśli chcesz ponownie zarejestrować twoją instancję SUPLA Cloud, ponieważ token wygenerowany przy poprzedniej rejestracji zaginął - jesteś w dobrym miejscu.'
 'If you have not used this email address with %cloudHost%, please do not click the link.': 'Jeżeli nie podałeś(aś) tego adresu email w serwisie %cloudHost%, nie klikaj odnośnika.'
 'If you really want to delete the account, here are the instructions.': 'Jeśli nadal chcesz usunąć konto SUPLA, tutaj znajdziesz instrukcje.'
+'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': Jeśli naprawdę chcesz wyrejestrować twoją prywatną insancję SUPLA Cloud - poniżej znajdziesz wszystkie instrukcje.
 'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Po ponownej rejestracji konta, niektóre urządzenia mogą wymagać ponownej konfiguracji nawet jeśli podasz ten sam adres e-mail.'
 'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Jeśli chcesz zintegrować prywatną chmurę SUPLA z publiczna aplikacją OAuth, musisz [zarejestrować swoją instancję].'
 'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Jeśli chcesz użyć linku bezpośredniego w innym oprogramowaniu, dodaj odpowiedni nagłówek żądania by otrzymać odpowiedź łatwiejszą w przetworzeniu.'
 'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Jeśli nie chcesz dostawać od nas takich powiadomień,<br> zajrzyj do ustawień swojego konta [tutaj].'
+'If you wish to register your instance, [click here].': 'Jeśli chcesz zarejestrować twoją instację, [kliknij tutaj].'
 'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Jeśli chcesz zobaczyć dostępne integracje, przejdź do [cloud.supla.org/apps].'
+'If you wish to unregister your instance, [click here].': 'Jeśli chcesz wyrejestrować twoją instancję, [kliknij tutaj].'
 Impulse counter: Licznik impulsów
 Impulses: Impulsy
 'In order to confirm account deletion, enter your password.': W celu potwierdzenia chęci usunięcia Twojego konta podaj swoje hasło.
@@ -358,12 +367,15 @@ Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT zost
 Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
 Integrations: Integracje
 Interpolate measurements: Szacuj brakujące wartości
+Interrupt: Przerwij
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
 Invalid action parameters: Niepoprawne parametry wykonania.
 Invalid function for channel.: Niepoprawna funkcja dla kanału.
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
 Invalid request: Niepoprawne żądanie
+Invalid request.: Niepoprawne żądanie.
+Invalid token.: Niepoprawny token.
 Inverted logic: Odwrócona logika
 Invisible: Niewidoczne
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Jest możliwe, że inny użytkownik wprowadził przez pomyłkę Twój adres email w celu zresetowania hasła do własnego konta.'
@@ -451,6 +463,7 @@ Number of sections: Liczba sekcji
 OAuth application: Aplikacja OAuth
 OAuth apps: Aplikacje OAuth
 OAuth authorization: Autoryzacja OAuth
+OAuth integrations might stop working after the instance is unregistered.: Integracje z aplikacjami OAuth mogą przestać działać po wyrejestrowaniu twojej instancji.
 'Off': Wyłącz
 Offline access: Dostęp offline
 Older: Starsze
@@ -539,6 +552,7 @@ Roof window shutter operation: Otwieranie okna dachowego
 SUPLA - Account Activation: SUPLA - Aktywacja konta
 SUPLA - Account Removal: SUPLA - Usunięcie konta
 SUPLA - Password reset: SUPLA - Resetowanie hasła
+SUPLA - Private instance unregistration: SUPLA - wyrejstrowanie prywatnej instancji
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Błąd przy wykonaniu akcji w SUPLA Server.
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA jest dostępna zawsze i wszędzie, więc nie martw się kiedy następnym razem zapomnisz wyłączyć światło'
@@ -564,6 +578,7 @@ Scopes: Zakresy
 Scopes define which sections of your account can be accessed when using the token.: 'Zakresy określają, do których zasobów konta można uzyskać dostęp za pomocą tokena.'
 Search: Szukaj
 Secret: Sekretny klucz (secret)
+See available integrations: Zobacz dostępne integracje
 See direct link possibilities: Zobacz możliwości linku bezpośredniego
 See in SUPLA-Cloud: Zobacz w SUPLA-Cloud
 Seems like a secret place: 'Coś nam mówi, że nie powinno Cię tu być'
@@ -596,6 +611,7 @@ Staircase timer: Automat schodowy
 Standard: Standardowe
 Start Here: Rozpocznij tutaj
 Start date: Data rozpoczęcia
+Start from the homepage.: Zacznij od strony głównej.
 State: Stan
 State webhook: Webhook stanu
 Step by step: Krok po kroku
@@ -608,6 +624,7 @@ Supla for devices: Supla na urządzenia
 Switch the device to configuration mode: Przełącz urządzenie w tryb konfiguracyjny
 THIS CANNOT BE UNDONE!: TEJ OPERACJI NIE DA SIĘ COFNĄĆ!
 TLS: TLS
+'Target Cloud is not registered, or is registered with another e-mail address.': 'Ta instancja SUPLA Cloud nie jest zarejestrowana, lub jest zarejestrowana przy użyciu innego adresu e-mail.'
 Temperature: Temperatura
 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności
 Temperature Sensor: Czujnik temperatury
@@ -662,18 +679,22 @@ Toggle: Przełącz
 Token does not exist: Token nie istnieje
 Too many actions in this schedule.: Zbyt wiele akcji w jednym harmonogramie.
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
+Too many operations in this scene: Zbyt wiele operacji w scenie.
 Triggers: Wyzwalacze
 Turning this device off will cause its channels not working in the following features.: 'Wyłączenie urządzenia spowoduje, że jego kanały przestaną działać w poniższych elementach.'
 Turning this device off will result in disabling features listed below.: Wyłączenie urządzenia spowoduje także wyłączenie poniższych elementów.
 Type: Typ
+Undo registration: Wycofaj rejestrację
 Unit: Jednostka
 Unknown: Nieznany
+Unregister my private SUPLA Cloud instance: Wyrejestruj moją prywatną instancję SUPLA Cloud
 Unsuccessful login attempt: Nieudane logowanie
 Unsupported function: Niewspierana funkcja
 Unsupported type: Niewspierany typ
 Update in progress: Trwa aktualizacja
 'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.'
 'Use the [command] server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy [command] na Twoim serwerze. Na przykład:'
+Use working schedule for this access identifier: Używaj harmonogramu dostępności dla tego identyfikatora dostępu
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
 Value added: Wartość dodana
 Value per unit: Wartość na jednostkę
@@ -689,8 +710,10 @@ Water meter: Licznik wody
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: 'Będziemy wysyłać Ci powiadomienia o niektórych zdarzeniach związanych z Twoim kontem. Możesz wypisać się z tych, których nie potrzebujesz.'
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Otrzymaliśmy dyspozycję usunięcia Twojego konta w SUPLA Cloud (%cloudHost%).
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Zlecono prośbę o wyrejestrowanie twojej prywatnej instancji SUPLA Cloud (%targetCloudUrl%).
 We have just sent you an activation link. You should be receiving it shortly.: Wiadomość z linkiem aktywującym Twoje konto została dopiero co wysłana. Cierpliwości.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Wysłaliśmy do Ciebie wiadomość e-mail z linkiem potwierdzającym usunięcie konta. Może się jeszcze rozmyślisz!
+We have sent you an email with further instructions.: Wysłaliśmy do Ciebie wiadomość z dalszymi instrukcjami.
 We should be ready shortly.: Powinniśmy niedługo skończyć.
 'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Przechowujemy w Twojej przeglądarce informacje o Twoich preferencjach w celu ułatwienia korzystania z aplikacji (np. za pomocą mechanizmu ciasteczek). [Przeczytaj regulamin].'
 We try to be faster: Jesteśmy coraz szybsi
@@ -711,6 +734,7 @@ Window opening sensor: Czujnik otwarcia okna
 With SUPLA you can operate the lights in your home or office: Z SUPLĄ możesz sterować oświetleniem w Twoim domu lub biurze
 With function: Z funkcją
 Working period: Okres działania
+Working schedule: Harmonogram aktywności
 YOUR LINK CODE: KOD TWOJEGO LINKU
 You are changing the settings too quickly. You have to wait a while before making this change.: Zmieniasz ustawienia zbyt szybko. Musisz chwilę odczekać przed zmianą tych ustawień.
 'You can ignore this message, if you have accidentally entered an incorrect password.': Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.
@@ -719,6 +743,7 @@ You cannot delete your last access identifier.: Nie możesz usunąć swojego ost
 You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
 You cannot use SUPLA project name in the domain name.: Nie możesz używać nazwy projektu SUPLA w nazwie głównej domeny.
 You have exceeded your API Rate Limit: Wykorzystałeś/aś swój limit żądań do API
+You have requested to unregister your SUPLA Cloud instance: Poprosiłeś/aś o wyrejestrowanie twojej instancji SUPLA Cloud
 You have to choose at least one scope.: Musisz wybrać przynajmniej jeden zakres.
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Jeśli nadal chcesz skorzystać z zaawansowanego trybu harmonogramu, rzuć okiem na poniższe przykłady.'
@@ -742,9 +767,11 @@ Your password must include at least one letter.: Hasło musi zawierać co najmni
 Your password must include at least one number.: Hasło musi zawierać co najmniej jedną cyfrę.
 Your password must include both upper and lower case letters.: Hasło musi zawierać małe i wielkie litery.
 Your preferences has been updated.: Twoje ustawienia zostały zapisane.
+Your private SUPLA Cloud instance has been unregistered.: Twoja prywatna instancja SUPLA Cloud została wyrejestrowana.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
 Your private SUPLA Cloud is almost registered.: Twoja prywatna chmura SUPLA jest prawie zarejestrowana.
 Your private SUPLA Cloud is not registered.: Twoja prywatna chmura SUPLA nie jest zarejestrowana.
+'Your scenes are allowed to have a maximum of {max} operations.': 'Twoje sceny mogą mieć maksymalnie {max} operacji.'
 'Your schedules are allowed to have a maximum of {max} actions.': 'Twoje harmonogramy mogą mieć maksymalnie {max} akcji.'
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
@@ -771,6 +798,7 @@ addToHistoryMeasurementWarningSelected: 'Zaznaczenie tej opcji spowoduje dodanie
 addToHistoryMeasurementWarningUnselected: 'Odznaczenie tej opcji spowoduje pominięcie ustawionych wartości w przyszłych pomiarach zapisywanych w historii. Może to być widoczne na wykresach jako nagły spadek. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.'
 after: po
 before: przed
+caption: nazwa
 channel: Kanał
 channelGroup: Grupa kanałów
 choose: wybierz
@@ -930,33 +958,5 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Access ID is not active right now.: ~
-Active period: ~
-Applications: ~
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-'If you do not want to unregister your instance, please do not click the link.': ~
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': ~
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': ~
-'If you wish to register your instance, [click here].': ~
-'If you wish to unregister your instance, [click here].': ~
-Interrupt: ~
-Invalid request.: ~
-Invalid token.: ~
-OAuth integrations might stop working after the instance is unregistered.: ~
-SUPLA - Private instance unregistration: ~
-See available integrations: ~
-Start from the homepage.: ~
-'Target Cloud is not registered, or is registered with another e-mail address.': ~
-Too many operations in this scene: ~
-Undo registration: ~
-Unregister my private SUPLA Cloud instance: ~
-Use working schedule for this access identifier: ~
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-We have sent you an email with further instructions.: ~
-Working schedule: ~
-You have requested to unregister your SUPLA Cloud instance: ~
-Your private SUPLA Cloud instance has been unregistered.: ~
-'Your scenes are allowed to have a maximum of {max} operations.': ~
-caption: ~
 
 #</editor-fold>
