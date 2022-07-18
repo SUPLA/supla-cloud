@@ -33,6 +33,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\SceneRepository;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -42,6 +43,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ScenesController extends RestController {
     use Transactional;
+    use SuplaServerAware;
 
     /** @var SceneRepository */
     private $sceneRepository;
@@ -145,6 +147,7 @@ class ScenesController extends RestController {
             $em->persist($scene);
             return $scene;
         });
+        $this->suplaServer->userAction('ON-SCENE-ADDED', $scene->getId());
         return $this->serializedView($scene, $request, ['scene.relationsCount'], Response::HTTP_CREATED);
     }
 
@@ -158,7 +161,7 @@ class ScenesController extends RestController {
             $scene->getUser()->getLimitOperationsPerScene(),
             'Too many operations in this scene' // i18n
         );
-        return $this->transactional(function (EntityManagerInterface $em) use ($request, $scene, $updated) {
+        $sceneResponse = $this->transactional(function (EntityManagerInterface $em) use ($request, $scene, $updated) {
             $scene->setCaption($updated->getCaption());
             $scene->setEnabled($updated->isEnabled());
             $scene->setLocation($updated->getLocation());
@@ -172,6 +175,8 @@ class ScenesController extends RestController {
             $em->persist($scene);
             return $this->getSceneAction($request, $scene);
         });
+        $this->suplaServer->userAction('ON-SCENE-CHANGED', $scene->getId());
+        return $sceneResponse;
     }
 
     /**
@@ -179,10 +184,12 @@ class ScenesController extends RestController {
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
     public function deleteSceneAction(Scene $scene) {
-        return $this->transactional(function (EntityManagerInterface $em) use ($scene) {
+        $sceneId = $scene->getId();
+        $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $em->remove($scene);
-            return new Response('', Response::HTTP_NO_CONTENT);
         });
+        $this->suplaServer->userAction('ON-SCENE-REMOVED', $sceneId);
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     /**

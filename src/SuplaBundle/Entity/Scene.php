@@ -27,6 +27,7 @@ use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Supla\SuplaServer;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -206,13 +207,15 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
         }
     }
 
-    public function removeOperation(SceneOperation $sceneOperation, EntityManagerInterface $entityManager) {
+    public function removeOperation(SceneOperation $sceneOperation, EntityManagerInterface $entityManager, SuplaServer $suplaServer) {
         $this->getOperations()->removeElement($sceneOperation);
         $entityManager->remove($sceneOperation);
         if ($this->getOperations()->isEmpty()) {
             $entityManager->remove($this);
+            $suplaServer->userAction('ON-SCENE-REMOVED', $this->getId(), $this->getUser());
         } else {
             $entityManager->persist($this);
+            $suplaServer->userAction('ON-SCENE-CHANGED', $this->getId(), $this->getUser());
         }
     }
 }

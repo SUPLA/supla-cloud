@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
@@ -96,6 +97,11 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('My scene', $content['caption']);
         $this->assertEquals(1, $content['relationsCount']['operations']);
         return $content;
+    }
+
+    /** @depends testCreatingScene */
+    public function testNotifiesSuplaServerAboutSceneCreated(array $response) {
+        $this->assertContains('USER-ON-SCENE-ADDED:1,' . $response['id'], SuplaServerMock::$executedCommands);
     }
 
     public function testCreatingSceneWithOpenGateAction() {
@@ -185,6 +191,12 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('My scene 2', $content['caption']);
         $this->assertFalse($content['enabled']);
         $this->assertEquals(1, $content['relationsCount']['operations']);
+        return $content;
+    }
+
+    /** @depends testUpdatingSceneDetails */
+    public function testNotifiesSuplaServerAboutSceneUpdated(array $response) {
+        $this->assertContains('USER-ON-SCENE-CHANGED:1,' . $response['id'], SuplaServerMock::$executedCommands);
     }
 
     /** @depends testCreatingScene */
@@ -273,6 +285,16 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertCount(2, $content['operations']);
+    }
+
+    public function testDeletingScene() {
+        $sceneDetails = $this->testCreatingScene();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneDetails['id']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
+        $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
     }
 
     /** @depends testCreatingScene */

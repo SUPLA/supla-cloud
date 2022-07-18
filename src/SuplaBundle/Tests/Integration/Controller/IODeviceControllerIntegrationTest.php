@@ -22,8 +22,11 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -428,6 +431,42 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client->request('DELETE', '/api/iodevices/' . $device->getId());
         $this->assertStatusCode(204, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
+    }
+
+    public function testDeletingWithDependentScene() {
+        $device = $this->createDeviceSonoff($this->location);
+        $device2 = $this->createDeviceSonoff($this->location);
+        $scene = new Scene($device->getLocation());
+        $scene->setOpeartions([
+            new SceneOperation($device->getChannels()[0], ChannelFunctionAction::TURN_ON()),
+            new SceneOperation($device2->getChannels()[0], ChannelFunctionAction::TURN_ON()),
+        ]);
+        $this->getEntityManager()->persist($scene);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(SceneOperation::class, $scene->getOperations()[0]->getId()));
+        $this->assertContains('USER-ON-SCENE-CHANGED:1,' . $scene->getId(), SuplaServerMock::$executedCommands);
+        $this->assertNotNull($this->getEntityManager()->find(Scene::class, $scene->getId()));
+        $this->assertNotContains('USER-ON-SCENE-REMOVED:1,' . $scene->getId(), SuplaServerMock::$executedCommands);
+        $scene = $this->freshEntity($scene);
+        $this->assertCount(1, $scene->getOperations());
+    }
+
+    public function testDeletingDependentSceneIfSceneLeftEmpty() {
+        $device = $this->createDeviceSonoff($this->location);
+        $scene = new Scene($device->getLocation());
+        $scene->setOpeartions([new SceneOperation($device->getChannels()[0], ChannelFunctionAction::TURN_ON())]);
+        $this->getEntityManager()->persist($scene);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(SceneOperation::class, $scene->getOperations()[0]->getId()));
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $scene->getId()));
+        $this->assertNotContains('USER-ON-SCENE-CHANGED:1,' . $scene->getId(), SuplaServerMock::$executedCommands);
+        $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $scene->getId(), SuplaServerMock::$executedCommands);
     }
 
     public function testGettingDevicesWithAllPossibleIncludesDoesNotCauseRecursion() {

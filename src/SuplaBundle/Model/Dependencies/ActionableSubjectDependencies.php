@@ -8,8 +8,11 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Supla\SuplaServerAware;
 
 abstract class ActionableSubjectDependencies {
+    use SuplaServerAware;
+
     /** @var EntityManagerInterface */
     protected $entityManager;
     /** @var ChannelParamConfigTranslator */
