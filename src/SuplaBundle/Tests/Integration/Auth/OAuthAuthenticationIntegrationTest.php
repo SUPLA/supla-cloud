@@ -395,6 +395,6 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('mqtt_broker', $response['scope']);
         $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
         $this->assertTrue($this->user->isMqttBrokerEnabled());
-        $this->assertContains('USER-MQTT-SETTINGS-CHANGED:' . $this->user->getId(), SuplaServerMock::$executedCommands);
+        $this->assertContains('ON-USER-MQTT-SETTINGS-CHANGED:' . $this->user->getId(), SuplaServerMock::$executedCommands);
     }
 }

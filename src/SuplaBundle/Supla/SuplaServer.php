@@ -153,7 +153,7 @@ abstract class SuplaServer {
     }
 
     public function mqttSettingsChanged(): bool {
-        return $this->userAction('MQTT-SETTINGS-CHANGED');
+        return $this->userAction('ON-MQTT-SETTINGS-CHANGED');
     }
 
     public function googleHomeCredentialsChanged(): bool {

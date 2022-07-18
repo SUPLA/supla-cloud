@@ -56,7 +56,7 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
     /** @depends testEnablingMqttSupport */
     public function testNotifyingSuplaServerAboutMqttSettingsChanged() {
         $this->assertCount(1, SuplaServerMock::$executedCommands);
-        $this->assertEquals('USER-MQTT-SETTINGS-CHANGED:1', SuplaServerMock::$executedCommands[0]);
+        $this->assertEquals('USER-ON-MQTT-SETTINGS-CHANGED:1', SuplaServerMock::$executedCommands[0]);
     }
 
     /** @depends testEnablingMqttSupport */
