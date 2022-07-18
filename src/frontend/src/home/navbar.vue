@@ -91,6 +91,15 @@
                                     {{ $t('Scenes') }}
                                 </a>
                             </router-link>
+                            <li role="separator"
+                                class="divider"></li>
+                            <li>
+                                <a href="https://cloud.supla.org/apps"
+                                    target="_blank">
+                                    <i class="hidden-sm hidden-xs pe-7s-science"></i>
+                                    {{ $t('Applications') }}
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown account-dropdown">
