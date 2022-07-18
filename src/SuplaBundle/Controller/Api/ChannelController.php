@@ -29,7 +29,6 @@ use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
@@ -138,8 +137,8 @@ class ChannelController extends RestController {
             }
             if (($io = $request->get('io')) !== null) {
                 Assertion::inArray($io, ['input', 'output']);
-                $typeIds = $io == 'output' ? ChannelType::outputTypes() : ChannelType::inputTypes();
-                $builder->andWhere("$alias.type IN(:typeIds)")->setParameter('typeIds', $typeIds);
+                $functionIds = $io == 'output' ? ChannelFunction::outputFunctions() : ChannelFunction::inputFunctions();
+                $builder->andWhere("$alias.function IN(:ioFunctionIds)")->setParameter('ioFunctionIds', $functionIds);
             }
             if (($hasFunction = $request->get('hasFunction')) !== null) {
                 if (filter_var($hasFunction, FILTER_VALIDATE_BOOLEAN)) {

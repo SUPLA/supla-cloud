@@ -28,7 +28,6 @@ use UnexpectedValueException;
  *   @OA\Property(property="id", type="integer", example=1000, enum={-1,1000,1010,1020,1500,2000,2010,2020,2900,3000,3010,3022,3020,3032,3030,3034,3036,3038,3042,3044,3048,3050,3100,4000,4010,4020,5000,5010,6000,6010,7000,7010,8000,9000,11000,12000}),
  *   @OA\Property(property="name", type="string", example="SENSORNO", enum={"UNSUPPORTED","SENSORNO","SENSORNC","DISTANCESENSOR","CALLBUTTON","RELAYHFD4","RELAYG5LA1A","RELAY2XG5LA1A","RELAY","THERMOMETERDS18B20","DHT11","DHT21","DHT22","AM2301","AM2302","THERMOMETER","HUMIDITYSENSOR","HUMIDITYANDTEMPSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","DIMMER","RGBLEDCONTROLLER","DIMMERANDRGBLED","ELECTRICITYMETER","IMPULSECOUNTER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","VALVEOPENCLOSE","VALVEPERCENTAGE","BRIDGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS"}),
  *   @OA\Property(property="caption", type="string", example="Sensor (normal open)"),
- *   @OA\Property(property="output", type="boolean", description="Whether the channel is output type (i.e. can take action) or input (i.e. provide data)", example=false),
  * )
  *
  * @method static ChannelType UNSUPPORTED()
@@ -121,35 +120,6 @@ final class ChannelType extends Enum {
     /** @Groups({"basic"}) */
     public function getCaption(): string {
         return self::captions()[$this->value] ?? 'None';
-    }
-
-    /** @Groups({"basic"}) */
-    public function isOutput(): bool {
-        return in_array($this->value, self::outputTypes());
-    }
-
-    /** @return int[] */
-    public static function outputTypes(): array {
-        return [
-            self::BRIDGE,
-            self::DIMMER,
-            self::RGBLEDCONTROLLER,
-            self::DIMMERANDRGBLED,
-            self::RELAY,
-            self::RELAYG5LA1A,
-            self::RELAY2XG5LA1A,
-            self::RELAYHFD4,
-            self::THERMOSTAT,
-            self::THERMOSTATHEATPOLHOMEPLUS,
-            self::VALVEOPENCLOSE,
-            self::VALVEPERCENTAGE,
-            self::DIGIGLASS,
-        ];
-    }
-
-    /** @return int[] */
-    public static function inputTypes(): array {
-        return array_merge(array_diff(self::toArray(), self::outputTypes()), [self::THERMOSTAT, self::THERMOSTATHEATPOLHOMEPLUS]);
     }
 
     public static function captions(): array {

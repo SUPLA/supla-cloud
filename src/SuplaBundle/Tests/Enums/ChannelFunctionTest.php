@@ -160,4 +160,11 @@ FRONTEND;
             . PHP_EOL . PHP_EOL . $names . PHP_EOL;
         $this->assertStringContainsString($names, $source, $message);
     }
+
+    public function testNoneAndUnsupportedFunctionsAreNeitherInputNorOutput() {
+        $this->assertNotContains(ChannelFunction::NONE, ChannelFunction::inputFunctions());
+        $this->assertNotContains(ChannelFunction::NONE, ChannelFunction::outputFunctions());
+        $this->assertNotContains(ChannelFunction::UNSUPPORTED, ChannelFunction::inputFunctions());
+        $this->assertNotContains(ChannelFunction::UNSUPPORTED, ChannelFunction::outputFunctions());
+    }
 }

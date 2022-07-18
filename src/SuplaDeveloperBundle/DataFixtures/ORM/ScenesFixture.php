@@ -74,7 +74,7 @@ class ScenesFixture extends SuplaFixture {
                 do {
                     /** @var IODeviceChannel $channel */
                     $channel = $this->faker->randomElement($user->getChannels());
-                } while (!$channel->getType()->isOutput());
+                } while (!$channel->getFunction()->isOutput());
                 return $channel;
             },
             function (User $user) {

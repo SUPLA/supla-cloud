@@ -33,6 +33,7 @@ use UnexpectedValueException;
  *   @OA\Property(property="caption", type="string", example="Gate opening sensor"),
  *   @OA\Property(property="maxAlternativeIconIndex", type="integer"),
  *   @OA\Property(property="possibleVisualStates", type="array", description="Possible visual states of channel with this function. Ordered.", @OA\Items(type="string", enum={"default","opened","closed","partially_closed","empty","full","revealed","shut","off","on","humidity","temperature","rgb_off_dim_off","rgb_off_dim_on","rgb_on_dim_off","rgb_on_dim_on"})),
+ *   @OA\Property(property="output", type="boolean", description="Whether the function is output type (i.e. can execute action) or input (i.e. provides data)", example=false),
  * )
  *
  * @method static ChannelFunction UNSUPPORTED()
@@ -415,6 +416,27 @@ final class ChannelFunction extends Enum {
             self::DIGIGLASS_VERTICAL => ['revealed', 'shut'],
             self::DIGIGLASS_HORIZONTAL => ['revealed', 'shut'],
         ];
+    }
+
+    /** @Groups({"basic"}) */
+    public function isOutput(): bool {
+        return in_array($this->value, self::outputFunctions());
+    }
+
+    /** @return int[] */
+    public static function outputFunctions(): array {
+        return array_values(array_unique(array_merge(array_keys(self::actions()), [
+            // extra output functions here, if any
+        ])));
+    }
+
+    /** @return int[] */
+    public static function inputFunctions(): array {
+        return array_values(array_filter(array_merge(array_diff(self::toArray(), self::outputFunctions()), [
+            self::THERMOSTAT, self::THERMOSTATHEATPOLHOMEPLUS,
+        ]), function ($functionId) {
+            return $functionId > 0;
+        }));
     }
 
     public static function fromString(string $functionName): ChannelFunction {
