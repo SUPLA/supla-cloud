@@ -84,13 +84,13 @@
                                     {{ $t('Direct links') }}
                                 </a>
                             </router-link>
-                           <!-- <router-link tag="li"
+                            <router-link tag="li"
                                 :to="{name: 'scenes'}">
                                 <a>
                                     <i class="hidden-sm hidden-xs pe-7s-coffee"></i>
                                     {{ $t('Scenes') }}
                                 </a>
-                            </router-link> -->
+                            </router-link>
                         </ul>
                     </li>
                     <li class="dropdown account-dropdown">

@@ -13,30 +13,33 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <h3 class="text-center">{{ $t('Details') }}</h3>
-                                    <div class="hover-editable text-left">
-                                        <dl>
-                                            <dd>{{ $t('Caption') }}</dd>
-                                            <dt>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    @keydown="sceneChanged()"
-                                                    v-model="scene.caption">
-                                            </dt>
-                                            <dd>{{ $t('Enabled') }}</dd>
-                                            <dt>
-                                                <toggler
-                                                    @input="sceneChanged()"
-                                                    v-model="scene.enabled"></toggler>
-                                            </dt>
-                                        </dl>
+                                    <div class="details-page-block">
+                                        <h3 class="text-center">{{ $t('Details') }}</h3>
+                                        <div class="hover-editable text-left">
+                                            <dl>
+                                                <dd>{{ $t('Caption') }}</dd>
+                                                <dt>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        @keydown="sceneChanged()"
+                                                        v-model="scene.caption">
+                                                </dt>
+                                                <dd>{{ $t('Enabled') }}</dd>
+                                                <dt>
+                                                    <toggler
+                                                        @input="sceneChanged()"
+                                                        v-model="scene.enabled"></toggler>
+                                                </dt>
+                                            </dl>
+                                        </div>
                                     </div>
-                                    <h3 class="text-center">{{ $t('Location') }}</h3>
-                                    <div class="form-group text-center">
+                                    <div class="details-page-block">
+                                        <h3 class="text-center">{{ $t('Location') }}</h3>
                                         <square-location-chooser v-model="scene.location"
                                             @input="sceneChanged()"></square-location-chooser>
                                     </div>
-                                    <div v-if="scene.id">
+                                    <div v-if="scene.id"
+                                        class="details-page-block">
                                         <h3 class="text-center">{{ $t('Icon') }}</h3>
                                         <div class="form-group text-center">
                                             <function-icon :model="scene"
@@ -45,11 +48,20 @@
                                                 @change="sceneChanged()"></channel-alternative-icon-chooser>
                                         </div>
                                     </div>
+                                    <div v-if="scene.id"
+                                        class="details-page-block">
+                                        <h3 class="text-center">{{ $t('Actions') }}</h3>
+                                        <div class="pt-3">
+                                            <channel-action-executor :subject="scene"/>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h3 class="text-center">{{ $t('Operations') }}</h3>
-                                    <scene-operations-editor v-model="scene.operations"
-                                        @input="sceneChanged()"></scene-operations-editor>
+                                    <div class="details-page-block">
+                                        <h3 class="text-center">{{ $t('Operations') }}</h3>
+                                        <scene-operations-editor v-model="scene.operations"
+                                            @input="sceneChanged()"></scene-operations-editor>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,10 +92,12 @@
     import ChannelAlternativeIconChooser from "../channels/channel-alternative-icon-chooser";
     import SceneDetailsTabs from "./scene-details-tabs";
     import AppState from "../router/app-state";
+    import ChannelActionExecutor from "../channels/action/channel-action-executor";
 
     export default {
         props: ['id', 'item'],
         components: {
+            ChannelActionExecutor,
             SceneDetailsTabs,
             ChannelAlternativeIconChooser,
             FunctionIcon,

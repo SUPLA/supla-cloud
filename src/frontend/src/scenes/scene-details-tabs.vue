@@ -15,11 +15,6 @@
                 </ul>
             </div>
         </div>
-        <div v-if="currentTab == 'actions'">
-            <div class="container text-center">
-                <scene-execute-button :scene="scene"></scene-execute-button>
-            </div>
-        </div>
         <div v-if="currentTab == 'schedules'">
             <schedules-list :subject="scene"></schedules-list>
         </div>
@@ -36,11 +31,10 @@
     import SchedulesList from "../schedules/schedule-list/schedules-list";
     import DirectLinksList from "../direct-links/direct-links-list";
     import ScenesList from "../scenes/scenes-list";
-    import SceneExecuteButton from "./scene-execute-button";
 
     export default {
         props: ['scene'],
-        components: {SceneExecuteButton, ScenesList, DirectLinksList, SchedulesList},
+        components: {ScenesList, DirectLinksList, SchedulesList},
         data() {
             return {
                 currentTab: '',
@@ -54,7 +48,6 @@
             }
         },
         mounted() {
-            this.availableTabs.push({id: 'actions', header: 'Actions'});
             this.availableTabs.push({id: 'schedules', header: 'Schedules', count: this.scene.relationsCount.schedules});
             this.availableTabs.push({id: 'scenes', header: 'Scenes', count: this.scene.relationsCount.scenes});
             this.availableTabs.push({id: 'directLinks', header: 'Direct links', count: this.scene.relationsCount.directLinks});

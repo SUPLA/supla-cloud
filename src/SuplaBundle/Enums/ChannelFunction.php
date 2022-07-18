@@ -285,7 +285,10 @@ final class ChannelFunction extends Enum {
             self::VALVEPERCENTAGE => [
 //                ChannelFunctionAction::OPEN_PARTIALLY(),
             ],
-            self::SCENE => [ChannelFunctionAction::EXECUTE()],
+            self::SCENE => [
+                ChannelFunctionAction::EXECUTE(),
+                ChannelFunctionAction::INTERRUPT(),
+            ],
             self::DIGIGLASS_HORIZONTAL => [
                 ChannelFunctionAction::SET(),
             ],

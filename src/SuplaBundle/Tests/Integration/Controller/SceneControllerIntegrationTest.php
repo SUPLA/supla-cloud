@@ -244,11 +244,21 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingScene */
     public function testExecutingScene(array $sceneDetails) {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id']);
+        $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id'], ['action' => 'execute']);
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $lastCommand = end(SuplaServerMock::$executedCommands);
         $this->assertEquals('EXECUTE-SCENE:1,1', $lastCommand);
+    }
+
+    /** @depends testCreatingScene */
+    public function testInterruptingScene(array $sceneDetails) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id'], ['action' => 'interrupt']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $lastCommand = end(SuplaServerMock::$executedCommands);
+        $this->assertEquals('INTERRUPT-SCENE:1,1', $lastCommand);
     }
 
     /** @depends testCreatingScene */

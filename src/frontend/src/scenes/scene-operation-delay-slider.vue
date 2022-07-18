@@ -27,8 +27,8 @@
         data() {
             return {
                 sliderValue: 0,
-                possibleValues: [250, 500, // ms
-                    ...[...Array(30).keys()].map(k => k * 1000 + 1000), // s 1 - 30
+                possibleValues: [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, // ms
+                    ...[...Array(25).keys()].map(k => k * 1000 + 5000), // s 5 - 30
                     ...[...Array(5).keys()].map(k => k * 5000 + 1000 * 35), // s 1 - 30
                     ...[...Array(30).keys()].map(k => k * 60000 + 60000), // min 1 - 30
                     ...[...Array(6).keys()].map(k => k * 5 * 60000 + 60000 * 35), // min 35-60
@@ -48,7 +48,7 @@
                 if (ms < 1000) {
                     return ms + ' ms';
                 } else if (ms < 60000) {
-                    return Math.round(ms / 1000) + ' ' + this.$t('sec.');
+                    return (Math.round(ms / 100) / 10) + ' ' + this.$t('sec.');
                 } else {
                     return Math.round(ms / 60000) + ' ' + this.$t('min.');
                 }
