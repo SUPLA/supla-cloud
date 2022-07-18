@@ -149,7 +149,7 @@ abstract class SuplaServer {
     }
 
     public function stateWebhookChanged(): bool {
-        return $this->userAction('STATE-WEBHOOK-CHANGED');
+        return $this->userAction('ON-STATE-WEBHOOK-CHANGED');
     }
 
     public function mqttSettingsChanged(): bool {
