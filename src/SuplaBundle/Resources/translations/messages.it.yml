@@ -925,6 +925,7 @@ You have requested to unregister your SUPLA Cloud instance: ~
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
 Your preferences has been updated.: ~
 Your private SUPLA Cloud instance has been unregistered.: ~
+'Your scenes are allowed to have a maximum of {max} operations.': ~
 access to your e-mail address: ~
 actionableSubjectType_scene: ~
 caption: ~

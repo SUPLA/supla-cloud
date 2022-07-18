@@ -55,6 +55,11 @@
                             <account-limit-progressbar :limit="limits.schedule"
                                 :value="relationsCount.schedules"></account-limit-progressbar>
                         </dd>
+                        <dt>{{ $t('Scenes') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.scene"
+                                :value="relationsCount.scenes"></account-limit-progressbar>
+                        </dd>
                         <dt>{{ $t('Direct links') }}</dt>
                         <dd>
                             <account-limit-progressbar :limit="limits.directLink"
@@ -99,6 +104,7 @@
                 <div v-if="currentTab === 'other'">
                     <p>{{ $t('Your channel groups are allowed to have a maximum of {max} channels.', {max: limits.channelPerGroup}) }}</p>
                     <p>{{ $t('Your schedules are allowed to have a maximum of {max} actions.', {max: limits.actionsPerSchedule}) }}</p>
+                    <p>{{ $t('Your scenes are allowed to have a maximum of {max} operations.', {max: limits.operationsPerScene}) }}</p>
                 </div>
             </div>
         </loading-cover>

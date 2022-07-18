@@ -956,6 +956,7 @@ We have sent you an email with further instructions.: ~
 Working schedule: ~
 You have requested to unregister your SUPLA Cloud instance: ~
 Your private SUPLA Cloud instance has been unregistered.: ~
+'Your scenes are allowed to have a maximum of {max} operations.': ~
 caption: ~
 
 #</editor-fold>

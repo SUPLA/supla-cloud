@@ -908,6 +908,7 @@ Your password must include at least one number.: ~
 Your password must include both upper and lower case letters.: ~
 Your preferences has been updated.: ~
 Your private SUPLA Cloud instance has been unregistered.: ~
+'Your scenes are allowed to have a maximum of {max} operations.': ~
 'Your schedules are allowed to have a maximum of {max} actions.': ~
 access to your e-mail address: ~
 actionTrigger_HOLD: ~

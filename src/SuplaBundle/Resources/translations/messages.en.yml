@@ -22,6 +22,7 @@ WELCOME_MESSAGE: |
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.'
 'Your channel groups are allowed to have a maximum of {max} channels.': 'Your channel groups are allowed to have a maximum of {max} channels.'
+'Your scenes are allowed to have a maximum of {max} operations.': 'Your scenes are allowed to have a maximum of {max} operations.'
 'Your schedules are allowed to have a maximum of {max} actions.': 'Your schedules are allowed to have a maximum of {max} actions.'
 actionTrigger_HOLD: Hold
 actionTrigger_SHORT_PRESS_X1: Short press once
