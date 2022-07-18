@@ -135,6 +135,11 @@ class ScenesController extends RestController {
             $scene->setCaption($caption . ' #' . ($user->getScenes()->count() + 1));
         }
         Assertion::false($user->isLimitSceneExceeded(), 'Scenes limit has been exceeded'); // i18n
+        Assertion::lessOrEqualThan(
+            $scene->getOperations()->count(),
+            $user->getLimitOperationsPerScene(),
+            'Too many operations in this scene' // i18n
+        );
         $scene->ensureOperationsAreNotCyclic();
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $em->persist($scene);
@@ -148,6 +153,11 @@ class ScenesController extends RestController {
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
     public function putSceneAction(Scene $scene, Scene $updated, Request $request) {
+        Assertion::lessOrEqualThan(
+            $updated->getOperations()->count(),
+            $scene->getUser()->getLimitOperationsPerScene(),
+            'Too many operations in this scene' // i18n
+        );
         return $this->transactional(function (EntityManagerInterface $em) use ($request, $scene, $updated) {
             $scene->setCaption($updated->getCaption());
             $scene->setEnabled($updated->isEnabled());

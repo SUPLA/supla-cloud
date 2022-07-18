@@ -67,6 +67,7 @@ class ChangeUserLimitsCommand extends Command {
                      'limitLoc' => 'Locations',
                      'limitOAuthClient' => 'OAuth Clients',
                      'limitScene' => 'Scenes',
+                     'limitOperationsPerScene' => 'Operations per Scene',
                      'limitSchedule' => 'Schedules',
                      'limitActionsPerSchedule' => 'Actions per Schedule',
                  ] as $field => $label) {

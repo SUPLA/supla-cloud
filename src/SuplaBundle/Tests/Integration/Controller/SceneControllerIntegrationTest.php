@@ -561,4 +561,25 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
     }
+
+    public function testCreatingSceneWithTooManyOperationsFails() {
+        $operations = array_map(function (int $i) {
+            return [
+                'subjectId' => $this->device->getChannels()[0]->getId(),
+                'subjectType' => ActionableSubjectType::CHANNEL,
+                'actionId' => ChannelFunctionAction::TURN_ON,
+                'delayMs' => 1000 * $i,
+            ];
+        }, range(1, 21));
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => $operations,
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('Too many operations in this scene', $content['message']);
+    }
 }

@@ -175,6 +175,11 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     private $limitScene;
 
     /**
+     * @ORM\Column(name="limit_operations_per_scene", type="integer", options={"default"=20})
+     */
+    private $limitOperationsPerScene;
+
+    /**
      * @ORM\Column(name="limit_oauth_client", type="integer", options={"default"=20})
      */
     private $limitOAuthClient;
@@ -319,6 +324,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitLoc' => 10,
             'limitOAuthClient' => 20,
             'limitScene' => 50,
+            'limitOperationsPerScene' => 20,
             'limitSchedule' => 20,
             'limitActionsPerSchedule' => 20,
         ],
@@ -332,6 +338,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitLoc' => 50,
             'limitOAuthClient' => 50,
             'limitScene' => 150,
+            'limitOperationsPerScene' => 50,
             'limitSchedule' => 150,
             'limitActionsPerSchedule' => 40,
         ],
@@ -578,6 +585,10 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     public function isLimitSceneExceeded() {
         return $this->limitScene > 0 && count($this->getScenes()) >= $this->limitScene;
+    }
+
+    public function getLimitOperationsPerScene(): int {
+        return $this->limitOperationsPerScene;
     }
 
     public function isLimitOAuthClientExceeded() {
