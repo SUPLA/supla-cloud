@@ -280,7 +280,7 @@ abstract class SuplaServer {
         $result = $this->doExecuteCommand($command) ?: '';
         if (strpos($result, 'IS-DURING-EXECUTION:') === 0) {
             throw new SceneDuringExecutionException($scene);
-        } else if (strpos($result, 'OK:') !== 0) {
+        } elseif (strpos($result, 'OK:') !== 0) {
             throw new ApiExceptionWithDetails(
                 'SUPLA Server was unable to execute the scene.', // i18n
                 ['error' => 'suplaServerError', 'response' => $result],
