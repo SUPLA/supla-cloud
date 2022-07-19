@@ -182,6 +182,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('PUT', '/api/scenes/' . $id, [
             'caption' => 'My scene 2',
             'enabled' => false,
+            'altIcon' => 1,
             'operations' => $sceneDetails['operations'],
         ]);
         $response = $client->getResponse();
@@ -189,6 +190,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals($id, $content['id']);
         $this->assertEquals('My scene 2', $content['caption']);
+        $this->assertEquals(1, $content['altIcon']);
         $this->assertFalse($content['enabled']);
         $this->assertEquals(1, $content['relationsCount']['operations']);
         return $content;

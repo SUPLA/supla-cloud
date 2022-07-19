@@ -18,6 +18,7 @@ doctrine:
     types:
       ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
       stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
+      tinyint: SuplaBundle\Model\Doctrine\TinyintType
       utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
     user: "%database_user%"
     schema_filter: ~^(?!(esp_|supla_email_notifications))~

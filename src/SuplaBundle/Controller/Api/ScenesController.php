@@ -166,6 +166,7 @@ class ScenesController extends RestController {
             $scene->setEnabled($updated->isEnabled());
             $scene->setLocation($updated->getLocation());
             $scene->setUserIcon($updated->getUserIcon());
+            $scene->setAltIcon($updated->getAltIcon());
             $scene->getOperations()->forAll(function (int $index, SceneOperation $sceneOperation) use ($em) {
                 $em->remove($sceneOperation);
                 return true;

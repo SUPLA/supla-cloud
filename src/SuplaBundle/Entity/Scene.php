@@ -74,6 +74,12 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
     private $enabled = true;
 
     /**
+     * @ORM\Column(name="alt_icon", type="tinyint", nullable=false, options={"unsigned"=true, "default": 0})
+     * @Groups({"basic"})
+     */
+    private $altIcon = 0;
+
+    /**
      * @ORM\ManyToOne(targetEntity="UserIcon", inversedBy="scenes")
      * @ORM\JoinColumn(name="user_icon_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
@@ -167,6 +173,15 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
             EntityUtils::setField($operation, 'owningScene', $this);
             $this->operations->add($operation);
         }
+    }
+
+    public function getAltIcon(): int {
+        return intval($this->altIcon);
+    }
+
+    public function setAltIcon($altIcon) {
+        Assertion::between($altIcon, 0, $this->getFunction()->getMaxAlternativeIconIndex(), 'Invalid alternative icon has been chosen.');
+        $this->altIcon = intval($altIcon);
     }
 
     public function getUserIcon(): ?UserIcon {

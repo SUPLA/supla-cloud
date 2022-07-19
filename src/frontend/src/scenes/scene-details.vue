@@ -15,7 +15,7 @@
                                 <div class="col-sm-4">
                                     <div class="details-page-block">
                                         <h3 class="text-center">{{ $t('Details') }}</h3>
-                                        <div class="hover-editable text-left">
+                                        <div class="hover-editable hovered text-left">
                                             <dl>
                                                 <dd>{{ $t('Caption') }}</dd>
                                                 <dt>
@@ -33,7 +33,7 @@
                                             </dl>
                                         </div>
                                     </div>
-                                    <div class="details-page-block">
+                                    <div class="details-page-block text-center">
                                         <h3 class="text-center">{{ $t('Location') }}</h3>
                                         <square-location-chooser v-model="scene.location"
                                             @input="sceneChanged()"></square-location-chooser>
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="details-page-block">
+                                    <div class="">
                                         <h3 class="text-center">{{ $t('Operations') }}</h3>
                                         <scene-operations-editor v-model="scene.operations"
                                             @input="sceneChanged()"></scene-operations-editor>

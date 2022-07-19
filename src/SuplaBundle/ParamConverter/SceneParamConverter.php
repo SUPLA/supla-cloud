@@ -81,6 +81,7 @@ class SceneParamConverter extends AbstractBodyParamConverter {
             return new SceneOperation($subject, $action, $actionParam, $delayMs);
         }, $operations);
         $scene->setOpeartions($operations);
+        $scene->setAltIcon($data['altIcon'] ?? 0);
         if (isset($data['userIconId']) && $data['userIconId']) {
             $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
             Assertion::eq($icon->getFunction()->getId(), $scene->getFunction()->getId(), 'Chosen user icon is for other function.');
