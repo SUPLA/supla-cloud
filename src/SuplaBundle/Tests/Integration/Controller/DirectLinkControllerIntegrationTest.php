@@ -360,6 +360,28 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($linkData['id'], $content[0]['id']);
     }
 
+    /** @depends testCreatingDirectLinkForScene */
+    public function testExecutingDirectLinkForScene($linkData) {
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$linkData[id]/$linkData[slug]/execute");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('EXECUTE-SCENE:1,1', $commands);
+    }
+
+    /** @depends testCreatingDirectLinkForScene */
+    public function testExecutingDirectLinkForSceneWhenDuringExecution($linkData) {
+        SuplaServerMock::mockResponse('EXECUTE-SCENE:1,1', 'IS-DURING-EXECUTION:1');
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$linkData[id]/$linkData[slug]/execute");
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+        $this->assertStringContainsString(DirectLinkExecutionFailureReason::SCENE_DURING_EXECUTION, $response->getContent());
+    }
+
     public function testExecutingDirectLinkWithGetWhenGetDisabled() {
         $directLinkDetails = $this->testCreatingDirectLink();
         $directLink = $this->getEntityManager()->find(DirectLink::class, $directLinkDetails['id']);

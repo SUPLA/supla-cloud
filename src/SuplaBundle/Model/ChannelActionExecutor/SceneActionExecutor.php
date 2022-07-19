@@ -5,7 +5,7 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class ExecuteActionExecutor extends SingleChannelActionExecutor {
+class SceneActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
         return [ChannelFunction::SCENE()];
     }
@@ -15,7 +15,6 @@ class ExecuteActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function execute(ActionableSubject $scene, array $actionParams = []) {
-        $command = $scene->buildServerActionCommand('EXECUTE-SCENE', $this->assignCommonParams([], $actionParams));
-        $this->suplaServer->executeCommand($command);
+        $this->suplaServer->executeScene($scene);
     }
 }

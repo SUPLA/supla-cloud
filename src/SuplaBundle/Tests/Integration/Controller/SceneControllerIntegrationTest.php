@@ -267,6 +267,15 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingScene */
+    public function testExecutingSceneDuringExecution(array $sceneDetails) {
+        SuplaServerMock::mockResponse('EXECUTE-SCENE:1,1', 'IS-DURING-EXECUTION:1');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id'], ['action' => 'execute']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+    }
+
+    /** @depends testCreatingScene */
     public function testInterruptingScene(array $sceneDetails) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id'], ['action' => 'interrupt']);

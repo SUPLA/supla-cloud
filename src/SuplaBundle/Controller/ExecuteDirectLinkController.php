@@ -29,6 +29,7 @@ use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
 use SuplaBundle\Exception\DirectLinkExecutionFailureException;
+use SuplaBundle\Exception\SceneDuringExecutionException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Audit\Audit;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
@@ -140,6 +141,13 @@ class ExecuteDirectLinkController extends Controller {
             $this->entityManager->flush();
             return $result;
         } catch (DirectLinkExecutionFailureException $executionException) {
+        } catch (SceneDuringExecutionException $e) {
+            $executionException = new DirectLinkExecutionFailureException(
+                DirectLinkExecutionFailureReason::SCENE_DURING_EXECUTION(),
+                [],
+                Response::HTTP_CONFLICT,
+                $e
+            );
         } catch (ConflictHttpException $e) {
             $executionException = new DirectLinkExecutionFailureException(
                 DirectLinkExecutionFailureReason::INVALID_CHANNEL_STATE(),
@@ -301,12 +309,18 @@ class ExecuteDirectLinkController extends Controller {
             } else {
                 $normalizationContext = ['groups' => ['basic', 'images'], 'version' => ApiVersions::V2_4];
                 $subject = $directLink->getSubject();
+                if (!$data) {
+                    try {
+                        $data = $this->channelStateGetter->getState($subject);
+                    } catch (\Exception $e) {
+                    }
+                }
                 $normalized = [
                     'id' => $directLink->getId(),
                     'caption' => $directLink->getCaption(),
                     'allowedActions' => $this->normalizer->normalize($directLink->getAllowedActions(), null, $normalizationContext),
                     'subject' => $this->normalizer->normalize($subject, null, $normalizationContext),
-                    'state' => $data ?: $this->channelStateGetter->getState($subject),
+                    'state' => $data,
                 ];
                 $normalized['subject']['userIcon'] = $this->normalizer->normalize($subject->getUserIcon(), null, $normalizationContext);
                 if ($subject instanceof IODeviceChannelGroup) {

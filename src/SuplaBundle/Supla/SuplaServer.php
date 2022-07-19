@@ -21,8 +21,10 @@ use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
+use SuplaBundle\Exception\SceneDuringExecutionException;
 use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\LocalSuplaCloud;
@@ -273,12 +275,25 @@ abstract class SuplaServer {
         return [];
     }
 
+    public function executeScene(Scene $scene) {
+        $command = $scene->buildServerActionCommand('EXECUTE-SCENE', []);
+        $result = $this->doExecuteCommand($command) ?: '';
+        if (strpos($result, 'IS-DURING-EXECUTION:') === 0) {
+            throw new SceneDuringExecutionException($scene);
+        } else if (strpos($result, 'OK:') !== 0) {
+            throw new ApiExceptionWithDetails(
+                'SUPLA Server was unable to execute the scene.', // i18n
+                ['error' => 'suplaServerError', 'response' => $result],
+            );
+        }
+    }
+
     public function executeCommand(string $command) {
         $result = $this->doExecuteCommand($command);
         if (!$result || preg_match("/^OK:/", $result) !== 1) {
             throw new ApiExceptionWithDetails(
                 'SUPLA Server was unable to execute the action.', // i18n
-                ['error' => 'suplaServerError'],
+                ['error' => 'suplaServerError', 'response' => $result],
             );
         }
     }
