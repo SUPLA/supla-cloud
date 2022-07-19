@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="1022.012" xml:space="preserve">
-  <circle fill="none" stroke="#000" stroke-width="30" stroke-miterlimit="10" cx="504.503" cy="518.133" r="367.002"/>
-	<path fill="none" stroke="#000" stroke-width="40" stroke-miterlimit="10" d="M687.45 337.285 319.233 705.503M688.161 703.844 319.944 335.627"/>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style>
+            .a{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px}
+        </style>
+    </defs>
+    <circle class="a" cx="12" cy="6" r="3"/>
+    <rect class="a" height="5" rx="2" width="8" x="2" y="16"/>
+    <rect class="a" height="5" rx="2" width="8" x="14" y="16"/>
+    <path class="a" d="M6 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2M12 9v3"/>
 </svg>
