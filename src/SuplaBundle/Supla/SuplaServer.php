@@ -275,8 +275,8 @@ abstract class SuplaServer {
         return [];
     }
 
-    public function executeScene(Scene $scene) {
-        $command = $scene->buildServerActionCommand('EXECUTE-SCENE', []);
+    public function executeScene(Scene $scene, array $params = []) {
+        $command = $scene->buildServerActionCommand('EXECUTE-SCENE', $params);
         $result = $this->doExecuteCommand($command) ?: '';
         if (strpos($result, 'IS-DURING-EXECUTION:') === 0) {
             throw new SceneDuringExecutionException($scene);
