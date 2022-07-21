@@ -22,6 +22,7 @@ use Faker\Factory;
 use Faker\Generator;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
+use SuplaBundle\Enums\SceneInitiatiorType;
 use SuplaBundle\Model\LocalSuplaCloud;
 
 /**
@@ -112,6 +113,21 @@ class SuplaServerMock extends SuplaServer {
             return 'VALUE:' . (rand(0, 1000) / 10);
         } elseif (preg_match('#^GET-DOUBLE-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(0, 1000000) / 100);
+        } elseif (preg_match('#^GET-SCENE-SUMMARY:\d+,(\d+)#', $cmd, $match)) {
+            $sceneId = $match[1];
+            $values = [$sceneId, 0, 0, 0, 0, 0];
+            if ($this->faker->boolean(20)) {
+                // SUMMARY:%SceneId,%InitiatorType,%InitiatorId,%InitiatorName_Base64,%MillisecondsFromStart,%MillisecondsToEnd
+                $values = [
+                    $sceneId,
+                    rand(0, SceneInitiatiorType::SCENE),
+                    rand(0, 10),
+                    base64_encode('Unicorn initiator'),
+                    rand(0, 1000),
+                    rand(0, 10000),
+                ];
+            }
+            return vsprintf('SUMMARY:%d,%d,%d,%d,%d,%d', $values);
         } elseif (preg_match('#^GET-IC-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // IMPULSE_COUNTER
             $counter = $this->faker->randomNumber(4);
             $impulsesPerUnit = $this->faker->randomNumber(3) + 1;

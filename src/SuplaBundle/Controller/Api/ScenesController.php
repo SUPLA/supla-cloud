@@ -54,8 +54,9 @@ class ScenesController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'location',
+            'location', 'state',
             'location' => 'scene.location',
+            'state' => 'scene.state',
         ];
         if (!strpos($request->get('_route'), 'scenes_list')) {
             $groups = array_merge($groups, [

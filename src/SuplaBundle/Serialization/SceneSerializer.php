@@ -18,15 +18,20 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Scene;
+use SuplaBundle\Model\ChannelStateGetter\SceneStateGetter;
 use SuplaBundle\Repository\SceneRepository;
+use SuplaBundle\Utils\JsonArrayObject;
 
 class SceneSerializer extends AbstractSerializer {
     /** @var SceneRepository */
     private $sceneRepository;
+    /** @var SceneStateGetter */
+    private $sceneStateGetter;
 
-    public function __construct(SceneRepository $sceneRepository) {
+    public function __construct(SceneRepository $sceneRepository, SceneStateGetter $sceneStateGetter) {
         parent::__construct();
         $this->sceneRepository = $sceneRepository;
+        $this->sceneStateGetter = $sceneStateGetter;
     }
 
     /**
@@ -40,6 +45,9 @@ class SceneSerializer extends AbstractSerializer {
         $normalized['userIconId'] = $scene->getUserIcon() ? $scene->getUserIcon()->getId() : null;
         if (!isset($normalized['relationsCount']) && $this->isSerializationGroupRequested('scene.relationsCount', $context)) {
             $normalized['relationsCount'] = $this->sceneRepository->find($scene->getId())->getRelationsCount();
+        }
+        if ($this->isSerializationGroupRequested('scene.state', $context)) {
+            $normalized['state'] = new JsonArrayObject($this->sceneStateGetter->getState($scene));
         }
     }
 

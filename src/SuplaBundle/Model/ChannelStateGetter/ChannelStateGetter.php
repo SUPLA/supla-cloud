@@ -6,6 +6,7 @@ use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Supla\SuplaServerIsDownException;
 
 /**
@@ -36,9 +37,12 @@ use SuplaBundle\Supla\SuplaServerIsDownException;
 class ChannelStateGetter {
     /** @var SingleChannelStateGetter[] */
     private $stateGetters = [];
+    /** @var SceneStateGetter */
+    private $sceneStateGetter;
 
-    public function __construct($stateGetters) {
+    public function __construct($stateGetters, SceneStateGetter $sceneStateGetter) {
         $this->stateGetters = $stateGetters;
+        $this->sceneStateGetter = $sceneStateGetter;
     }
 
     public function getState(ActionableSubject $channel): array {
@@ -56,6 +60,8 @@ class ChannelStateGetter {
             return $state;
         } elseif ($channel instanceof IODeviceChannelGroup) {
             return $this->getStateForChannelGroup($channel);
+        } elseif ($channel instanceof Scene) {
+            return $this->sceneStateGetter->getState($channel);
         } else {
             throw new InvalidArgumentException('Could not get state for entity ' . get_class($channel));
         }

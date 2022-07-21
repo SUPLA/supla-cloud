@@ -256,6 +256,29 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, $content['operations']);
     }
 
+    /** @depends testAddingOperationsToScene */
+    public function testGettingSceneDetailsWithState($sceneDetails) {
+        $id = $sceneDetails['id'];
+        SuplaServerMock::mockResponse("GET-SCENE-SUMMARY:1,$id", "SUMMARY:$id,2,3," . base64_encode('unicorn') . ',5,6');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/scenes/' . $id . '?include=state');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('state', $content);
+        $this->assertArrayHasKey('executing', $content['state']);
+        $this->assertTrue($content['state']['executing']);
+        $this->assertEquals([
+            'executing' => true,
+            'initiatorTypeId' => 2,
+            'initiatorType' => 'CLIENT',
+            'initiatorId' => 3,
+            'initiatorName' => 'unicorn',
+            'millisecondsFromStart' => 5,
+            'millisecondsToEnd' => 6,
+        ], $content['state']);
+    }
+
     /** @depends testCreatingScene */
     public function testExecutingScene(array $sceneDetails) {
         $client = $this->createAuthenticatedClient($this->user);
