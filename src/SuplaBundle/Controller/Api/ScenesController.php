@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\ActionableSubject;
@@ -41,6 +42,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
+ * @OA\Schema(
+ *   schema="Scene", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ * )
  * @Rest\Version("2.4.0")
  */
 class ScenesController extends RestController {
@@ -56,7 +61,7 @@ class ScenesController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'location', 'state', 'iodevice',
+            'location', 'state',
             'location' => 'scene.location',
             'state' => 'scene.state',
         ];
@@ -87,6 +92,15 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/scenes", operationId="getScenes", summary="Get Scenes", tags={"Scenes"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"location", "state"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
+     * )
      * @Rest\Get("/scenes", name="scenes_list")
      * @Security("has_role('ROLE_SCENES_R')")
      */
