@@ -5,14 +5,11 @@ const fs = require('fs-extra');
 const async = require('async');
 const del = require('del');
 const exec = require('child_process').exec;
+const version = require('./version').version;
 
 process.chdir('../../');
 console.log(process.cwd());
 
-let version = process.env.RELEASE_VERSION || require('../package.json').version;
-if (version.charAt(0) === 'v') {
-    version = version.substr(1);
-}
 const releasePackageName = process.env.RELEASE_FILENAME || 'supla-cloud-v' + version + (process.env.NODE_ENV === 'development' ? '-dev' : '') + '.tar.gz';
 
 project.printAsciiLogoAndVersion(version);
