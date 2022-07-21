@@ -595,6 +595,8 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('forbidden to have recursive', $content['message']);
     }
 
     /** @depends testCreatingSceneWithOtherScene */
@@ -623,9 +625,6 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $body = json_decode($response->getContent(), 'true');
         $this->assertArrayHasKey('operations', $body);
         $this->assertArrayHasKey('relationsCount', $body);
-// TODO why? works in 300ef164bf5ba484f825b7a2f1ad7bc49284a9bc
-//        $this->assertArrayNotHasKey('operations', $body['operations'][0]['subject']);
-//        $this->assertArrayNotHasKey('relationsCount', $body['operations'][0]['subject']);
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
@@ -681,5 +680,28 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals('Cannot execute an action on this subject.', $content['message']);
+    }
+
+    public function testCreatingSceneThatExecutesAnotherSceneTwice() {
+        $scene1 = $this->testCreatingScene();
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $scene1['id'],
+                    'subjectType' => ActionableSubjectType::SCENE,
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                ],
+                [
+                    'subjectId' => $scene1['id'],
+                    'subjectType' => ActionableSubjectType::SCENE,
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                    'delayMs' => 1000,
+                ],
+            ],
+        ]);
+        $this->assertStatusCode(201, $client->getResponse());
     }
 }

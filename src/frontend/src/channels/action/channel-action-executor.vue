@@ -17,7 +17,7 @@
             </div>
         </transition-expand>
         <channel-action-chooser :subject="subject"
-            :disabled="!isConnected"
+            :disabled="disabled || !isConnected"
             :executor-mode="true"
             :executing="executing"
             :executed="executed"
@@ -48,7 +48,13 @@
 
     export default {
         components: {TransitionExpand, ChannelActionChooser},
-        props: ['subject'],
+        props: {
+            subject: Object,
+            disabled: {
+                type: Boolean,
+                default: false,
+            }
+        },
         data() {
             return {
                 executing: [],

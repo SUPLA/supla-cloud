@@ -1,10 +1,9 @@
 <template>
     <div>
         <square-link :class="'text-left with-label ' + squareLinkClass + ' ' + (value.enabled ? '' : 'grey')"
-            v-if="value">
-            <a @click="chooseLocation = !disabled">
-                <location-tile-content :location="value"></location-tile-content>
-            </a>
+            v-if="value"
+            @click="chooseLocation = !disabled">
+            <location-tile-content :location="value"></location-tile-content>
         </square-link>
         <button class="btn btn-default"
             type="button"

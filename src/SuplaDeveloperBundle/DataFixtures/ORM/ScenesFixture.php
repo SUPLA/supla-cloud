@@ -29,6 +29,7 @@ use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Utils\SceneUtils;
 
 class ScenesFixture extends SuplaFixture {
     const ORDER = ChannelGroupsFixture::ORDER + 1;
@@ -104,7 +105,7 @@ class ScenesFixture extends SuplaFixture {
             $scene->setCaption($this->faker->colorName);
             $scene->setOpeartions($operations);
             try {
-                $scene->ensureOperationsAreNotCyclic();
+                SceneUtils::ensureOperationsAreNotCyclic($scene);
                 $manager->persist($scene);
                 $manager->flush();
                 $manager->refresh($user);

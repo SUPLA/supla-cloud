@@ -35,6 +35,7 @@ use SuplaBundle\Model\Dependencies\SceneDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\SceneRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\SceneUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -55,7 +56,7 @@ class ScenesController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'location', 'state',
+            'location', 'state', 'iodevice',
             'location' => 'scene.location',
             'state' => 'scene.state',
         ];
@@ -144,7 +145,7 @@ class ScenesController extends RestController {
             $user->getLimitOperationsPerScene(),
             'Too many operations in this scene' // i18n
         );
-        $scene->ensureOperationsAreNotCyclic();
+        SceneUtils::ensureOperationsAreNotCyclic($scene);
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $em->persist($scene);
             return $scene;
@@ -174,7 +175,7 @@ class ScenesController extends RestController {
                 return true;
             });
             $scene->setOpeartions($updated->getOperations());
-            $scene->ensureOperationsAreNotCyclic();
+            SceneUtils::ensureOperationsAreNotCyclic($scene);
             $em->persist($scene);
             return $this->getSceneAction($request, $scene);
         });

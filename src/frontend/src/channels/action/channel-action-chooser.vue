@@ -179,7 +179,7 @@
                     return;
                 }
                 const param = ChannelFunctionAction.requiresParams(this.action.id) ? {...this.param} : null;
-                this.$emit('input', this.isFullySpecified ? {id: this.action.id, param} : undefined);
+                this.$emit('input', this.isFullySpecified ? {...this.action, param} : undefined);
             },
             isSelected(actionId) {
                 if (this.executorMode) {
@@ -228,9 +228,6 @@
             display: flex;
             a {
                 flex: 1;
-                &:focus {
-                    font-weight: bold;
-                }
             }
         }
         .btn-execute {

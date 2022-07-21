@@ -126,7 +126,7 @@
                 }
             },
             channelTitle(subject) {
-                return channelTitle(subject, this, true);
+                return channelTitle(subject, this, false);
             },
             possibleActionFilter() {
                 return () => true;

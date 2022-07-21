@@ -9,7 +9,7 @@
                         @save="saveScene()"
                         :deletable="!isNew"
                         @delete="deleteConfirm = true"
-                        :is-pending="hasPendingChanges && (!isNew || scene.operations.length)">
+                        :is-pending="hasPendingChanges">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -24,6 +24,8 @@
                                                         @keydown="sceneChanged()"
                                                         v-model="scene.caption">
                                                 </dt>
+                                            </dl>
+                                            <dl class="mt-2">
                                                 <dd>{{ $t('Enabled') }}</dd>
                                                 <dt>
                                                     <toggler
@@ -36,6 +38,7 @@
                                     <div class="details-page-block text-center">
                                         <h3 class="text-center">{{ $t('Location') }}</h3>
                                         <square-location-chooser v-model="scene.location"
+                                            :disabled="hasPendingChanges"
                                             @input="sceneChanged()"></square-location-chooser>
                                     </div>
                                     <div v-if="scene.id"
@@ -44,15 +47,21 @@
                                         <div class="form-group text-center">
                                             <function-icon :model="scene"
                                                 width="100"></function-icon>
-                                            <channel-alternative-icon-chooser :channel="scene"
-                                                @change="sceneChanged()"></channel-alternative-icon-chooser>
+                                            <channel-alternative-icon-chooser
+                                                :channel="scene"
+                                                @change="sceneChanged()"/>
                                         </div>
                                     </div>
                                     <div v-if="scene.id"
                                         class="details-page-block">
                                         <h3 class="text-center">{{ $t('Actions') }}</h3>
                                         <div class="pt-3">
-                                            <channel-action-executor :subject="scene"/>
+                                            <channel-action-executor :subject="scene"
+                                                :disabled="hasPendingChanges"/>
+                                            <div class="alert alert-warning text-center m-0"
+                                                v-if="hasPendingChanges">
+                                                {{ $t('Save or discard configuration changes first.') }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +145,7 @@
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
-                    this.$http.get(`scenes/${this.id}?include=operations,subject,location`, {skipErrorHandler: [403, 404]})
+                    this.$http.get(`scenes/${this.id}?include=operations,subject,location,iodevice`, {skipErrorHandler: [403, 404]})
                         .then(response => this.scene = response.body)
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
@@ -156,7 +165,8 @@
                 this.loading = true;
                 if (this.isNew) {
                     this.$http.post('scenes', toSend)
-                        .then(response => this.$emit('add', response.body));
+                        .then(response => this.$emit('add', response.body))
+                        .finally(() => this.loading = false);
                 } else {
                     this.$http
                         .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
