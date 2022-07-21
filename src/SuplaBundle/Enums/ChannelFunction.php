@@ -289,6 +289,7 @@ final class ChannelFunction extends Enum {
             self::SCENE => [
                 ChannelFunctionAction::EXECUTE(),
                 ChannelFunctionAction::INTERRUPT(),
+                ChannelFunctionAction::INTERRUPT_AND_EXECUTE(),
             ],
             self::DIGIGLASS_HORIZONTAL => [
                 ChannelFunctionAction::SET(),

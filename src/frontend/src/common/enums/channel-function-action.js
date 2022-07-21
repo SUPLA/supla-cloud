@@ -2,6 +2,8 @@ const ChannelFunctionAction = Object.freeze({
     READ: 1000,
     SET: 2000,
     EXECUTE: 3000,
+    INTERRUPT: 3001,
+    INTERRUPT_AND_EXECUTE: 3002,
     OPEN: 10,
     CLOSE: 20,
     SHUT: 30,

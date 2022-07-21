@@ -862,12 +862,14 @@ General purpose measurement: ~
 'If you wish to unregister your instance, [click here].': ~
 Interpolate measurements: ~
 Interrupt: ~
+Interrupt and execute: ~
 Invalid request.: ~
 Invalid token.: ~
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
 Linear: ~
 Manage your new client app in the SUPLA-Cloud.: ~
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
+Maximum delay is 60 minutes.: ~
 Meters: ~
 Move down or stop: ~
 Move up or stop: ~
@@ -883,11 +885,14 @@ Please confirm your SUPLA account.: ~
 Precision: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
+Reference to the scene will be removed from the items below.: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
 Reset Your Password: ~
 Reverse active energy balanced: ~
 SUPLA - Private instance unregistration: ~
+SUPLA Server was unable to execute the scene.: ~
+SUPLA Server was unable to query for the scene state.: ~
 SUPLA – new client app has been added to your account: ~
 SUPLA – new device has been added to your account: ~
 Save or discard configuration changes first.: ~
@@ -899,6 +904,7 @@ See available integrations: ~
 See in SUPLA-Cloud: ~
 Setting the number of attempts to 1 disables the retrying behavior completely.: ~
 Some features depend on this channel group: ~
+Some features depend on this scene: ~
 Standard: ~
 Start from the homepage.: ~
 Step by step: ~
@@ -909,6 +915,7 @@ The SUPLA infrastructure is being updated.: ~
 The counter has been reset.: ~
 The incident was detected at %datetime%.: ~
 'The items below rely on this channel group, so they will be deleted.': ~
+'The items below rely on this scene, so they will be deleted.': ~
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
 Too many actions in this schedule.: ~
@@ -932,6 +939,7 @@ caption: ~
 choose the action: ~
 choose the scene: ~
 days: ~
+directLinkExecutionFailureReason_sceneDuringExecution: ~
 empty: ~
 hours: ~
 min.: ~

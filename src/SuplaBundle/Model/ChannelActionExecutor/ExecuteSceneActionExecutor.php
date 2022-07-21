@@ -5,7 +5,7 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class SceneActionExecutor extends SingleChannelActionExecutor {
+class ExecuteSceneActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
         return [ChannelFunction::SCENE()];
     }

@@ -56,6 +56,7 @@ directLinkExecutionFailureReason_noAllowedActions: No allowed actions have been 
 directLinkExecutionFailureReason_noSlugOrAction: Invalid request data - code and action required.
 directLinkExecutionFailureReason_notActiveYet: Direct link is not active yet.
 directLinkExecutionFailureReason_otherFailure: Direct link execution failure.
+directLinkExecutionFailureReason_sceneDuringExecution: Scene is being executed now.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
 register-slide1-text: 'Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.'
 register-slide1-title: Develop your own building automation
