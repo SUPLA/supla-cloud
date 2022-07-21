@@ -11,7 +11,8 @@
                 v-for="operation of operations"
                 :key="operation.id">
                 <template v-if="operation.subject">
-                    <div class="timeline-badge action">
+                    <div :class="['timeline-badge action', {'warning': !(operation.action && operation.action.id)}]"
+                        v-tooltip="!(operation.action && operation.action.id) ? $t('choose the action') : ''">
                         <function-icon :model="operation.subject"
                             width="38"></function-icon>
                     </div>

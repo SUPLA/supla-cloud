@@ -151,13 +151,14 @@
                         if (action) {
                             this.action = action;
                             this.param = this.value.param || {};
+                            this.paramsSet = true;
                         } else {
                             this.action = {};
                             this.param = {};
                             this.updateModel();
                         }
                     }
-                } else {
+                } else if (this.isFullySpecified) {
                     this.action = {};
                     this.param = {};
                     this.selectFirstActionIfOnlyOne();
@@ -174,10 +175,11 @@
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
             },
             updateModel() {
-                if (this.disabled || (this.executorMode && !this.action.id) || (ChannelFunctionAction.requiresParams(this.action.id) && !this.paramsSet)) {
+                if (this.disabled || (this.executorMode && !this.action.id)) {
                     return;
                 }
-                this.$emit('input', this.action.id ? {...this.action, param: {...this.param}} : undefined);
+                const param = ChannelFunctionAction.requiresParams(this.action.id) ? {...this.param} : null;
+                this.$emit('input', this.isFullySpecified ? {id: this.action.id, param} : undefined);
             },
             isSelected(actionId) {
                 if (this.executorMode) {
@@ -190,6 +192,16 @@
         computed: {
             actionsToShow() {
                 return ((this.subject || {}).possibleActions || []).filter((action) => this.shouldShowAction(action));
+            },
+            isFullySpecified() {
+                if (!this.action?.id) {
+                    return false;
+                }
+                if (ChannelFunctionAction.requiresParams(this.action.id)) {
+                    return this.paramsSet;
+                } else {
+                    return true;
+                }
             },
         },
         watch: {
@@ -204,7 +216,8 @@
                     this.value.param = {};
                 }
                 this.updateAction();
-            }
+            },
+
         },
     };
 </script>
