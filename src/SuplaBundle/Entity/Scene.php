@@ -196,6 +196,14 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
         return $this->directLinks;
     }
 
+    public function getSchedules(): Collection {
+        return $this->schedules;
+    }
+
+    public function getOperationsThatReferToThisScene(): Collection {
+        return $this->sceneOperations;
+    }
+
     /** @Groups({"basic"}) */
     public function getFunction(): ChannelFunction {
         return ChannelFunction::SCENE();

@@ -31,6 +31,7 @@ use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
+use SuplaBundle\Model\Dependencies\SceneDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\SceneRepository;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -185,9 +186,19 @@ class ScenesController extends RestController {
      * @Rest\Delete("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
-    public function deleteSceneAction(Scene $scene) {
+    public function deleteSceneAction(Scene $scene, Request $request, SceneDependencies $sceneDependencies) {
         $sceneId = $scene->getId();
-        $this->transactional(function (EntityManagerInterface $em) use ($scene) {
+        $shouldConfirm = filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN);
+        if ($shouldConfirm) {
+            $dependencies = $sceneDependencies->getDependencies($scene);
+            if (array_filter($dependencies)) {
+                $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                return $view;
+            }
+        }
+        $this->transactional(function (EntityManagerInterface $em) use ($sceneDependencies, $scene) {
+            $sceneDependencies->clearDependencies($scene);
             $em->remove($scene);
         });
         $this->suplaServer->userAction('ON-SCENE-REMOVED', $sceneId);

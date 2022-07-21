@@ -78,6 +78,14 @@
             :header="$t('Are you sure you want to delete this scene?')"
             :loading="loading">
         </modal-confirm>
+        <dependencies-warning-modal
+            header-i18n="Some features depend on this scene"
+            deleting-header-i18n="The items below rely on this scene, so they will be deleted."
+            removing-header-i18n="Reference to the scene will be removed from the items below."
+            v-if="dependenciesThatPreventsDeletion"
+            :dependencies="dependenciesThatPreventsDeletion"
+            @confirm="deleteScene(false)"
+            @cancel="dependenciesThatPreventsDeletion = undefined"/>
     </page-container>
 </template>
 
@@ -93,10 +101,12 @@
     import SceneDetailsTabs from "./scene-details-tabs";
     import AppState from "../router/app-state";
     import ChannelActionExecutor from "../channels/action/channel-action-executor";
+    import DependenciesWarningModal from "../channels/dependencies/dependencies-warning-modal";
 
     export default {
         props: ['id', 'item'],
         components: {
+            DependenciesWarningModal,
             ChannelActionExecutor,
             SceneDetailsTabs,
             ChannelAlternativeIconChooser,
@@ -114,6 +124,7 @@
                 error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
+                dependenciesThatPreventsDeletion: undefined,
             };
         },
         mounted() {
@@ -157,10 +168,19 @@
                         .finally(() => this.loading = false);
                 }
             },
-            deleteScene() {
+            deleteScene(safe = true) {
                 this.loading = true;
-                this.$http.delete('scenes/' + this.scene.id).then(() => this.$emit('delete'));
-                this.scene = undefined;
+                this.$http.delete(`scenes/${this.scene.id}?safe=${safe ? 1 : 0}`, {skipErrorHandler: [409]})
+                    .then(() => {
+                        this.scene = undefined;
+                        this.$emit('delete');
+                    })
+                    .catch(({body, status}) => {
+                        if (status === 409) {
+                            this.dependenciesThatPreventsDeletion = body;
+                        }
+                    })
+                    .finally(() => this.loading = this.deleteConfirm = false);
             },
             cancelChanges() {
                 this.fetch();

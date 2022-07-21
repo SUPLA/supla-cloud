@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Scene;
@@ -29,6 +30,7 @@ use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 /** @small */
 class SceneControllerIntegrationTest extends IntegrationTestCase {
@@ -328,6 +330,28 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
         $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
+        $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
+    }
+
+    public function testDeletingSceneWithConfirmation() {
+        $sceneDetails = $this->testCreatingScene();
+        $scene = $this->getEntityManager()->find(Scene::class, $sceneDetails['id']);
+        $link = new DirectLink($scene);
+        $link->generateSlug(new PlaintextPasswordEncoder());
+        $this->persist($link);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneDetails['id'] . '?safe=true');
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+        $this->assertNotNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
+        $this->assertNotContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content['directLinks']);
+        $this->assertCount(0, $content['sceneOperations']);
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneDetails['id']);
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
+        $this->assertNull($this->getEntityManager()->find(DirectLink::class, $link->getId()));
         $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
     }
 
