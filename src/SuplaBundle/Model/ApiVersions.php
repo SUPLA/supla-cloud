@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
- * @method static ApiVersions V2_0()
  * @method static ApiVersions V2_1()
  * @method static ApiVersions V2_2()
  * @method static ApiVersions V2_3()
@@ -16,12 +15,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @method static ApiVersions LATEST()
  */
 class ApiVersions extends Enum {
-    const V2_0 = '2.0.0';
     const V2_1 = '2.1.0';
     const V2_2 = '2.2.0';
     const V2_3 = '2.3.0';
     const V2_4 = '2.4.0';
-    const DEFAULT = self::V2_0;
+    const DEFAULT = self::V2_1;
     const LATEST = self::V2_4;
 
     /** @param Request|array $request */
