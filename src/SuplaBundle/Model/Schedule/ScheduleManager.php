@@ -130,7 +130,7 @@ class ScheduleManager {
             $schedule->getDateEnd()->setTimezone($userTimezone);
             $until = min($schedule->getDateEnd()->getTimestamp(), strtotime($until));
         }
-        $closestTime = $this->timeProvider->getTimestamp() + 300;
+        $closestTime = $this->timeProvider->getTimestamp();
         if ($schedule->getDateStart()->getTimestamp() < $closestTime) {
             $schedule->getDateStart()->setTimestamp($closestTime);
         }
