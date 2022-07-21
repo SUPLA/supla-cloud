@@ -43,13 +43,13 @@
                 </ul>
             </div>
             <div class="col-sm-6 col-12-if-alone"
-                v-if="dependencies.sceneOperations.length > 0">
+                v-if="dependentScenes.length > 0">
                 <h5>{{ $t('Scenes') }}</h5>
                 <ul>
-                    <li v-for="sceneOperation in dependencies.sceneOperations"
-                        :key="sceneOperation.id">
-                        ID{{ sceneOperation.owningSceneId }}
-                        <span class="small">{{ sceneOperation.owningScene.caption }}</span>
+                    <li v-for="scene in dependentScenes"
+                        :key="scene.id">
+                        ID{{ scene.id }}
+                        <span class="small">{{ scene.caption }}</span>
                     </li>
                 </ul>
             </div>
@@ -72,6 +72,11 @@
 
 <script>
     export default {
-        props: ['dependencies']
+        props: ['dependencies'],
+        computed: {
+            dependentScenes() {
+              return [...new Map(this.dependencies.sceneOperations.map(item => [item.owningSceneId, item.owningScene])).values()];
+            },
+        }
     };
 </script>
