@@ -3,12 +3,14 @@ updates:
   - package-ecosystem: composer
     directory: /
     target-branch: develop
+    open-pull-requests-limit: 0
     schedule:
       interval: daily
 
   - package-ecosystem: npm
     directory: src/frontend/
     target-branch: develop
+    open-pull-requests-limit: 0
     schedule:
       interval: daily
 
