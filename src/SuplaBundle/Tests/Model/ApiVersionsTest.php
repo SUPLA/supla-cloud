@@ -38,9 +38,9 @@ class ApiVersionsTest extends TestCase {
     }
 
     public function testIsRequestedEqualOrGreaterThan() {
-        $this->assertTrue(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.2')));
-        $this->assertTrue(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.1')));
-        $this->assertFalse(ApiVersions::V2_1()->isRequestedEqualOrGreaterThan($this->requestMock('2.0')));
+        $this->assertTrue(ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($this->requestMock('2.3')));
+        $this->assertTrue(ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($this->requestMock('2.2')));
+        $this->assertFalse(ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($this->requestMock('2.1')));
     }
 
     public function testObtainingVersionFromString() {
