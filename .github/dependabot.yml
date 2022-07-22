@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: composer
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: src/frontend/
+    target-branch: develop
+    schedule:
+      interval: daily
+
