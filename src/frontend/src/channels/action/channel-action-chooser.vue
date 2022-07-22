@@ -99,6 +99,7 @@
             disabled: {type: Boolean, default: false},
             possibleActionFilter: {type: Function, required: false, default: () => true},
             executorMode: {type: Boolean, default: false},
+            alwaysSelectFirstAction: {type: Boolean, default: false},
             executing: {type: Array, default: () => []},
             executed: {type: Array, default: () => []},
         },
@@ -165,7 +166,7 @@
                 }
             },
             selectFirstActionIfOnlyOne() {
-                if (!this.executorMode && this.actionsToShow.length === 1 && (!this.value || !this.value.id)) {
+                if (!this.executorMode && (this.actionsToShow.length === 1 || this.alwaysSelectFirstAction) && (!this.value || !this.value.id)) {
                     this.action = this.actionsToShow[0];
                     this.param = {};
                     this.updateModel();

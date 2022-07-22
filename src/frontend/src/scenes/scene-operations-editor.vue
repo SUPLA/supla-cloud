@@ -28,6 +28,7 @@
                         <div class="timeline-body">
                             <channel-action-chooser :subject="operation.subject"
                                 v-model="operation.action"
+                                :always-select-first-action="true"
                                 @input="updateModel()"
                                 :possible-action-filter="possibleActionFilter(operation.subject)">
                             </channel-action-chooser>
