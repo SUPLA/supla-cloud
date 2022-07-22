@@ -956,7 +956,7 @@ Sunrise / Sunset: Wschód / Zachód
 Thursdays: Czwartki
 Try again later: Spróbuj ponownie później
 Tuesdays: Wtorki
-Turning this device off will result in disabling all the associated schedules.: 'Wyłączenie tego urządzenia spowoduje także wyłączenie harmongoramów, które są z nim powiązane.'
+Turning this device off will result in disabling all the associated schedules.: 'Wyłączenie tego urządzenia spowoduje także wyłączenie harmonogramów, które są z nim powiązane.'
 Wednesdays: Środy
 When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
@@ -966,5 +966,5 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-You must set action for each scene operation.: Wybierz akcję dla każdej operacji w scenie.
+You must set an action for each scene operation.: Wybierz akcję dla każdej operacji w scenie.
 #</editor-fold>

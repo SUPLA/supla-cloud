@@ -71,7 +71,7 @@ class SceneParamConverter extends AbstractBodyParamConverter {
             Assertion::keyExists(
                 $operationData,
                 'actionId',
-                'You must set action for each scene operation.' // i18n
+                'You must set an action for each scene operation.' // i18n
             );
             Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
             /** @var ActionableSubject $subject */
