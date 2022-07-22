@@ -1,0 +1,11 @@
+.supla-icon {
+  display: inline-block;
+  line-height: 1;
+  height: 1em;
+  width: 1em;
+  background-color: #999;
+
+  &-scene {
+    mask-image: url(../assets/icons/scene.svg);
+  }
+}
