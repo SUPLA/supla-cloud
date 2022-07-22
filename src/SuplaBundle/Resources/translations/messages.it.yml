@@ -785,171 +785,171 @@ hourly: Ogni ora
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'%s trigger is not supported by the hardware.': ~
-'10 minutes before sunset, on day 10 of the month, May through August': ~
-'15 minutes after sunrise, every 2 days': ~
-A confirmation upon successful client app registration.: ~
-A confirmation upon successful device registration.: ~
-A new client app (smartphone) been added to your SUPLA-Cloud account.: ~
-A new device has been added to your SUPLA-Cloud account.: ~
-Access ID is not active right now.: ~
-'Action trigger no. #{index}': ~
-Active period: ~
-Add a delay: ~
-Add new item to use in the scene: ~
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
-'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-'App version: %clientAppSoftwareVersion%': ~
-Applications: ~
-Are you sure you want to delete this scene?: ~
-Are you sure you want to reset the counter state?: ~
-As in device: ~
-'At 05:45 PM, on the last day of the month': ~
-'At 11:30 AM, on the third Wednesday of the month': ~
-At every 5th minute on day-of-month 30 in May: ~
-At sunrise: ~
-'At sunrise, Monday through Friday': ~
-At sunset: ~
-Automatic calibration: ~
-Bar: ~
-Calibrate: ~
-Calibration successful.: ~
-Cannot calculate when to run the schedule - incorrect configuration?: ~
-Caption is too long.: ~
-Channel group reference will be removed from the items below.: ~
-Channel is disconnected.: ~
-Channel reference will be removed from the items below.: ~
-Channel value: ~
-Chart data source type: ~
-Chart type: ~
-Choose channel function: ~
-Choose the source channel.: ~
-Clear: ~
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-'Client app ID: %clientAppId%': ~
-Close partially: ~
-Config of the schedule is too complicated.: ~
-Confirm My Account: ~
-Confirm if you want to perform the roller shutter calibration.: ~
-Could not enter the configuration mode.: ~
-Create new scene: ~
-'Device ID: %deviceId%': ~
-Device channel value: ~
-Device is disconnected.: ~
-'Device name: %deviceName%': ~
-Device should be now in configuration mode.: ~
-'Device software version: %deviceSoftwareVersion%': ~
-Differential: ~
-Digi Glass: ~
-Digi Glass Horizontal: ~
-Digi Glass Vertical: ~
-Disable local function: ~
-Disables local device function and does nothing more.: ~
-Do you want to be redirected there? You may be asked to authenticate again.: ~
-'Doors, Gates, Windows': ~
-Entering configuration mode is unsupported in the firmware.: ~
-Execute: ~
-Execute an action: ~
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
-Forward active energy balanced: ~
-General purpose measurement: ~
-'If you do not want to unregister your instance, please do not click the link.': ~
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': ~
-'If you really want to delete the account, here are the instructions.': ~
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': ~
-'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
-'If you wish to register your instance, [click here].': ~
-'If you wish to unregister your instance, [click here].': ~
-Interpolate measurements: ~
-Interrupt: ~
+'%s trigger is not supported by the hardware.': 'l’azione non è supportata dall’hardware'
+'10 minutes before sunset, on day 10 of the month, May through August': '10’ prima del tramonto, il giorno 10 del mese, da Maggio ad Agosto'
+'15 minutes after sunrise, every 2 days': '15’ dopo l’alba, ogni 2 giorni'
+A confirmation upon successful client app registration.: Conferma dopo registrazione app avvenuta con successo 
+A confirmation upon successful device registration.: conferma dopo registrazione dispositivo avvenuta con successo
+A new client app (smartphone) been added to your SUPLA-Cloud account.: Una nuova app (smartphone) è stata aggiunta al tuo account SUPLA-Cloud
+A new device has been added to your SUPLA-Cloud account.: Un nuovo dispositivo è stato aggiunto al tuo account SUPLA-Cloud
+Access ID is not active right now.: ID di accesso non attivo in questo momento
+'Action trigger no. #{index}': 'Attiva azioni n° #{index}'
+Active period: Periodo attivo 
+Add a delay: Aggiungi ritardo
+Add new item to use in the scene: Aggiungi nuovo elemento nello scenario
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Dopo questa operazione, il contatore inizierà a contare da 0 indipendentemente dal suo stato attuale. Questa azione non può essere annullata.'
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': 'dopo la richiesta di apertura o chiusura del cancello, ci sarà un’attesa di 60" ad ogni commutazione del relè per verificare se il cancello ha raggiunto lo stato desiderato. In caso il valore desiderato non sia raggiunto, verrà eseguito un nuovo tentativo. Con questo parametro è possibile impostare il numero di tentativi. Il valore consigliato è 5. La modifica di questo parametro non influisce sui scadenzari.'
+'App version: %clientAppSoftwareVersion%': 'Versione app'
+Applications: Applicazioni
+Are you sure you want to delete this scene?: Confermi la cancellazione dello scenario?
+Are you sure you want to reset the counter state?: Confermi il reset dello stato del contatore?
+As in device: Come nel dispositivo
+'At 05:45 PM, on the last day of the month': 'Alle 05:45pm, l’ultimo giorno del mese'
+'At 11:30 AM, on the third Wednesday of the month': 'Alle 11:30am, il terzo Mercoledì del mese'
+At every 5th minute on day-of-month 30 in May: Ogni 5' lil 30 Maggio
+At sunrise: All’alba
+'At sunrise, Monday through Friday': 'All’alba, da Lunedì a Venerdì'
+At sunset: Al tramonto
+Automatic calibration: Calibrazione automatica
+Bar: Bar
+Calibrate: Calibrare
+Calibration successful.: Calibrazione avvenuta con successo
+Cannot calculate when to run the schedule - incorrect configuration?: Non è possibile stabilire quando eseguire lo scadenziario - verificare la configurazione
+Caption is too long.: Descrizione troppo lunga
+Channel group reference will be removed from the items below.: Il riferimento al Gruppo di canali verrà rimosso dagli elementi sottostanti
+Channel is disconnected.: Canale disconnesso
+Channel reference will be removed from the items below.: Il riferimento al Canale verrà rimosso dagli elementi sottostanti
+Channel value: Valore del canale
+Chart data source type: Tipo origine dati del grafico
+Chart type: Tipo di grafico
+Choose channel function: Scegliere la funzione del canale
+Choose the source channel.: Scegliere la sorgente del canale
+Clear: Cancella
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Clicca sul seguente link per confermare l’annullamento della registrazione della tua istanza SUPLA Cloud privata
+'Client app ID: %clientAppId%': 'ID app'
+Close partially: Chiudere parzialmente
+Config of the schedule is too complicated.: Configurazione dello scadenziario troppo complessa
+Confirm My Account: Conferma il mio account
+Confirm if you want to perform the roller shutter calibration.: Confermare l’esecuzione della calibrazione della tapparella
+Could not enter the configuration mode.: Non è possibile attivare la modalità di configurazione
+Create new scene: Creare nuovo scenario
+'Device ID: %deviceId%': 'ID dispositivo'
+Device channel value: Valore canale del dispositivo
+Device is disconnected.: Dispositivo disconnesso
+'Device name: %deviceName%': 'Nome dispositivo'
+Device should be now in configuration mode.: Il dispositivo dovrebbe ora essere in modalità di configurazione
+'Device software version: %deviceSoftwareVersion%': 'Versione SW del dispositivo'
+Differential: Differenziale
+Digi Glass: Digi Glass
+Digi Glass Horizontal: Digi Glass orizzontali
+Digi Glass Vertical: Digi Glass verticali
+Disable local function: Disabilita funzione locale
+Disables local device function and does nothing more.: Disabilita funzione locale del dispositivo e nient’altro
+Do you want to be redirected there? You may be asked to authenticate again.: Vuoi essere reindirizzato? Potrebbe essere richiesta una nuova autenticazione
+'Doors, Gates, Windows': 'Porte, Cancelli, Finestre'
+Entering configuration mode is unsupported in the firmware.: Il FW non supporta l’attivazione della modalità di configurazione
+Execute: Eseguire
+Execute an action: Eseguire un’azione
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Per un breve periodo, è raccomandato l'uso dell'indirizzo {suplaUrl}'
+Forward active energy balanced: Energia attiva bilanciata prelevata
+General purpose measurement: Misuratore generica
+'If you do not want to unregister your instance, please do not click the link.': 'Se non desideri annullare la registrazione della tua istanza, si prega di non cliccare il link'
+'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Se hai perso il token della tua istanza e stai procedendo a registrarla nuovamente, questa è "la cosa giusta da fare"'
+'If you really want to delete the account, here are the instructions.': 'Se vuoi realmente eliminare il tuo account, qui trovi le istruzioni'
+'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': 'Se vuoi realmente annullare la registrazione della tua istanza privata SUPLA Cloud, qui trovi le istruzioni'
+'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Se non desideri ricevere questi messaggi,<br> modifica le impostazioni del tuo account [quì].'
+'If you wish to register your instance, [click here].': 'Se desideri registrare della tua istanza, [clicca quì].'
+'If you wish to unregister your instance, [click here].': 'Se desideri annullare la registrazione della tua istanza, [clicca quì].'
+Interpolate measurements: Misurazioni interpolate
+Interrupt: Interrompere
 Interrupt and execute: ~
-Invalid request.: ~
-Invalid token.: ~
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
-Linear: ~
-Manage your new client app in the SUPLA-Cloud.: ~
-Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
+Invalid request.: Richiesta non valida
+Invalid token.: Token non valido
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Ricorda che la descrizione del crontab inserito non è perfetta; ha lo scopo di aiutarti a trovare il valore appropriato, non di convalidare i dati da te inseriti. Verifica la sezione "Esecuzioni più vicine" per la conferma finale che la pianificazione che hai configurato si comporta come previsto.'
+Linear: Lineare
+Manage your new client app in the SUPLA-Cloud.: Gestire la nuova app in SUPLA-Cloud
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Gestire il nuovo dispositivo in SUPLA-Cloud o con l’applicazione SUPLA
 Maximum delay is 60 minutes.: ~
-Meters: ~
-Move down or stop: ~
-Move up or stop: ~
-'Name: %clientAppName%': ~
-New scene: ~
-No of channels: ~
-No of operations: ~
-No schedule configuration.: ~
-OAuth integrations might stop working after the instance is unregistered.: ~
-Operations: ~
-Password reset instructions.: ~
-Please confirm your SUPLA account.: ~
-Precision: ~
-Publish to integrations: ~
-Publishes the event to integrated services like MQTT or webhooks.: ~
+Meters: Misuratori
+Move down or stop: Scendere o fermare
+Move up or stop: Salire o fermare
+'Name: %clientAppName%': 'Nome: %clientAppName%'
+New scene: Nuovo scenario
+No of channels: N° di canali
+No of operations: N° di operazioni
+No schedule configuration.: N° configurazioni scadenziario
+OAuth integrations might stop working after the instance is unregistered.: Le integrazioni Oauth potrebbero smettere di funzionare dopo l’annullamento della registrazione dell’istanza
+Operations: Attività
+Password reset instructions.: Istruzioni per il reset della password
+Please confirm your SUPLA account.: Conferma l’account SUPLA
+Precision: Precisione
+Publish to integrations: Pubblicare su integrazioni
+Publishes the event to integrated services like MQTT or webhooks.: Pubblicare l’evento su servizi di integrazioni come MQTT o webhooks
 Reference to the scene will be removed from the items below.: ~
-'Registered from IP address: %clientAppRegIp%': ~
-'Registered from IP address: %deviceRegIp%': ~
-Reset Your Password: ~
-Reverse active energy balanced: ~
-SUPLA - Private instance unregistration: ~
+'Registered from IP address: %clientAppRegIp%': 'Registrato dall’indirizzo IP: %clientAppRegIp%'
+'Registered from IP address: %deviceRegIp%': 'Registrato dall’indirizzo IP: %deviceRegIp%'
+Reset Your Password: Reset password
+Reverse active energy balanced: Energia attiva bilanciata restituita
+SUPLA - Private instance unregistration: SUPLA - annullamento della registrazione dell’istanza privata
 SUPLA Server was unable to execute the scene.: ~
 SUPLA Server was unable to query for the scene state.: ~
-SUPLA – new client app has been added to your account: ~
-SUPLA – new device has been added to your account: ~
-Save or discard configuration changes first.: ~
-Scene: ~
-Scene must consist of at least one operation.: ~
-Scenes: ~
-Scenes limit has been exceeded: ~
-See available integrations: ~
-See in SUPLA-Cloud: ~
-Setting the number of attempts to 1 disables the retrying behavior completely.: ~
-Some features depend on this channel group: ~
+SUPLA – new client app has been added to your account: SUPLA - nuova app aggiunta al tuo account
+SUPLA – new device has been added to your account: SUPLA - nuovo dispositivo aggiunto al tuo account
+Save or discard configuration changes first.: Salvare o annuallare prima le modifiche alla configurazione
+Scene: Scenario
+Scene must consist of at least one operation.: Lo scenario deve contenere almeno un’operazione
+Scenes: Scenari
+Scenes limit has been exceeded: Limite degli scenari superato
+See available integrations: Vedi integrazioni disponibili
+See in SUPLA-Cloud: Vedi in SUPLA-Cloud
+Setting the number of attempts to 1 disables the retrying behavior completely.: Impostando il numero di tentativi a 1, verrà disabilitata la ripetizione
+Some features depend on this channel group: Alcune funzionalità dipendo da questo gruppo di canali
 Some features depend on this scene: ~
-Standard: ~
-Start from the homepage.: ~
-Step by step: ~
-Store measurements history: ~
-TLS: ~
-'Target Cloud is not registered, or is registered with another e-mail address.': ~
-The SUPLA infrastructure is being updated.: ~
-The counter has been reset.: ~
-The incident was detected at %datetime%.: ~
-'The items below rely on this channel group, so they will be deleted.': ~
+Standard: Standard
+Start from the homepage.: Inizia dalla homepage
+Step by step: Passp-passo
+Store measurements history: Archivia storico delle misurazioni
+TLS: TLS
+'Target Cloud is not registered, or is registered with another e-mail address.': 'Cloud target non è registrato oppure è registrato con un diverso indirizzo mail'
+The SUPLA infrastructure is being updated.: L’infrastruttura SUPLA è stata aggiornata
+The counter has been reset.: Il contatore è stato resettato
+The incident was detected at %datetime%.: L'evento è stato rilevato il %datetime%
+'The items below rely on this channel group, so they will be deleted.': 'I seguenti elementi si basano su questo gruppo di canali, quindi verranno eliminati'
 'The items below rely on this scene, so they will be deleted.': ~
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
-Too many actions in this schedule.: ~
-Too many operations in this scene: ~
-Undo registration: ~
-Unregister my private SUPLA Cloud instance: ~
-'Use the [command] server command to change this account''s limits. For example:': ~
-Use working schedule for this access identifier: ~
-Value per unit: ~
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-We have sent you an email with further instructions.: ~
-Working schedule: ~
-You have requested to unregister your SUPLA Cloud instance: ~
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
-Your preferences has been updated.: ~
-Your private SUPLA Cloud instance has been unregistered.: ~
-'Your scenes are allowed to have a maximum of {max} operations.': ~
-access to your e-mail address: ~
-actionableSubjectType_scene: ~
-caption: ~
-choose the action: ~
-choose the scene: ~
-days: ~
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: La notifica contrassegnata da un bordo è quella vista quando è stato cliccato il link di annullamento dell’iscrizione
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Questa modalità di pianificazione è pensata per utenti esperti. È necessario specificare il comportamento desiderato in una nota Crontab (prorogata da alcune versioni SUPLA). Puoi trovare maggiori informazioni su Crontab sul sito web crontab.guru'
+Too many actions in this schedule.: Troppe azioni nello scadenziario
+Too many operations in this scene: Troppe azioni nello scenario
+Undo registration: Annullare registrazione
+Unregister my private SUPLA Cloud instance: Annullare la registrazione della mia istanza privata SUPLA Cloud 
+'Use the [command] server command to change this account''s limits. For example:': 'Usa il [command] comando server per cambiare i limiti dell’account. Per esempio:'
+Use working schedule for this access identifier: Usa la pianificazione oraria per questo identificatore dell’accesso
+Value per unit: Valore unitario
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: E’ stata ricevuta una richiesta di annullare la registrazione della tua istanza privata SUPLA Cloud (%targetCloudUrl%)
+We have sent you an email with further instructions.: Ti è stata inviata una mail con ulteriori informazioni
+Working schedule: Pianificazione oraria
+You have requested to unregister your SUPLA Cloud instance: Hai richiesto l’annullamento della registrazione dell’istanza SUPLA Cloud
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Se intendi utilizzare la modalità di pianificazione avanzata, potresti trovare utili i seguenti esempi'
+Your preferences has been updated.: Le tue impostazioni sono state aggiornate
+Your private SUPLA Cloud instance has been unregistered.: La tua istanza privata SUPLA Cloud è stata annullata
+'Your scenes are allowed to have a maximum of {max} operations.': 'E’ possibile inserire negli scenari un massimo di {max} azioni'
+access to your e-mail address: Accedere al tuo indirizzo mail
+actionableSubjectType_scene: Scenario
+caption: Descrizione
+choose the action: Scegliere azione
+choose the scene: Scegliere scenario
+days: Giorni
 directLinkExecutionFailureReason_sceneDuringExecution: ~
-empty: ~
-hours: ~
-min.: ~
-or add a delay: ~
-prefix: ~
-scene: ~
-suffix: ~
-'{minutes} minutes after sunrise': ~
-'{minutes} minutes after sunset': ~
-'{minutes} minutes before sunrise': ~
-'{minutes} minutes before sunset': ~
+empty: vuoto
+hours: Ore
+min.: Min.
+or add a delay: oppure aggiungi ritardo
+prefix: prefisso
+scene: scenario
+suffix: suffisso
+'{minutes} minutes after sunrise': '{minutes} minuti dopo l’alba'
+'{minutes} minutes after sunset': '{minutes} minuti dopo il tramonto'
+'{minutes} minutes before sunrise': '{minutes} minuti prima dell’alba'
+'{minutes} minutes before sunset': '{minutes} minuti prima del tramonto'
 
 #</editor-fold>
