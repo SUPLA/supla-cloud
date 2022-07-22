@@ -862,12 +862,14 @@ General purpose measurement: Misuratore generica
 'If you wish to unregister your instance, [click here].': 'Se desideri annullare la registrazione della tua istanza, [clicca quì].'
 Interpolate measurements: Misurazioni interpolate
 Interrupt: Interrompere
+Interrupt and execute: ~
 Invalid request.: Richiesta non valida
 Invalid token.: Token non valido
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Ricorda che la descrizione del crontab inserito non è perfetta; ha lo scopo di aiutarti a trovare il valore appropriato, non di convalidare i dati da te inseriti. Verifica la sezione "Esecuzioni più vicine" per la conferma finale che la pianificazione che hai configurato si comporta come previsto.'
 Linear: Lineare
 Manage your new client app in the SUPLA-Cloud.: Gestire la nuova app in SUPLA-Cloud
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Gestire il nuovo dispositivo in SUPLA-Cloud o con l’applicazione SUPLA
+Maximum delay is 60 minutes.: ~
 Meters: Misuratori
 Move down or stop: Scendere o fermare
 Move up or stop: Salire o fermare
@@ -883,11 +885,14 @@ Please confirm your SUPLA account.: Conferma l’account SUPLA
 Precision: Precisione
 Publish to integrations: Pubblicare su integrazioni
 Publishes the event to integrated services like MQTT or webhooks.: Pubblicare l’evento su servizi di integrazioni come MQTT o webhooks
+Reference to the scene will be removed from the items below.: ~
 'Registered from IP address: %clientAppRegIp%': 'Registrato dall’indirizzo IP: %clientAppRegIp%'
 'Registered from IP address: %deviceRegIp%': 'Registrato dall’indirizzo IP: %deviceRegIp%'
 Reset Your Password: Reset password
 Reverse active energy balanced: Energia attiva bilanciata restituita
 SUPLA - Private instance unregistration: SUPLA - annullamento della registrazione dell’istanza privata
+SUPLA Server was unable to execute the scene.: ~
+SUPLA Server was unable to query for the scene state.: ~
 SUPLA – new client app has been added to your account: SUPLA - nuova app aggiunta al tuo account
 SUPLA – new device has been added to your account: SUPLA - nuovo dispositivo aggiunto al tuo account
 Save or discard configuration changes first.: Salvare o annuallare prima le modifiche alla configurazione
@@ -899,6 +904,7 @@ See available integrations: Vedi integrazioni disponibili
 See in SUPLA-Cloud: Vedi in SUPLA-Cloud
 Setting the number of attempts to 1 disables the retrying behavior completely.: Impostando il numero di tentativi a 1, verrà disabilitata la ripetizione
 Some features depend on this channel group: Alcune funzionalità dipendo da questo gruppo di canali
+Some features depend on this scene: ~
 Standard: Standard
 Start from the homepage.: Inizia dalla homepage
 Step by step: Passp-passo
@@ -909,6 +915,7 @@ The SUPLA infrastructure is being updated.: L’infrastruttura SUPLA è stata ag
 The counter has been reset.: Il contatore è stato resettato
 The incident was detected at %datetime%.: L'evento è stato rilevato il %datetime%
 'The items below rely on this channel group, so they will be deleted.': 'I seguenti elementi si basano su questo gruppo di canali, quindi verranno eliminati'
+'The items below rely on this scene, so they will be deleted.': ~
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: La notifica contrassegnata da un bordo è quella vista quando è stato cliccato il link di annullamento dell’iscrizione
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Questa modalità di pianificazione è pensata per utenti esperti. È necessario specificare il comportamento desiderato in una nota Crontab (prorogata da alcune versioni SUPLA). Puoi trovare maggiori informazioni su Crontab sul sito web crontab.guru'
 Too many actions in this schedule.: Troppe azioni nello scadenziario
@@ -932,6 +939,7 @@ caption: Descrizione
 choose the action: Scegliere azione
 choose the scene: Scegliere scenario
 days: Giorni
+directLinkExecutionFailureReason_sceneDuringExecution: ~
 empty: vuoto
 hours: Ore
 min.: Min.
