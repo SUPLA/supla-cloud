@@ -140,8 +140,8 @@
                     const operation = Vue.util.extend({}, op);
                     if (operation.subject) {
                         operation.delayMs = delay;
-                        operation.actionId = operation.action.id;
-                        operation.actionParam = operation.action.param;
+                        operation.actionId = operation.action?.id;
+                        operation.actionParam = operation.action?.param;
                         operations.push(operation);
                         delay = 0;
                     } else if (operation.delayMs) {

@@ -68,7 +68,11 @@ class SceneParamConverter extends AbstractBodyParamConverter {
         $operations = array_map(function (array $operationData) use ($scene, $user) {
             Assertion::keyExists($operationData, 'subjectId', 'You must set subjectId for each scene operation.');
             Assertion::keyExists($operationData, 'subjectType', 'You must set subjectType for each scene operation.');
-            Assertion::keyExists($operationData, 'actionId', 'You must set action for each scene operation.');
+            Assertion::keyExists(
+                $operationData,
+                'actionId',
+                'You must set action for each scene operation.' // i18n
+            );
             Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
             /** @var ActionableSubject $subject */
             $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
