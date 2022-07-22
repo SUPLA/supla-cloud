@@ -9,7 +9,7 @@
                         @save="saveScene()"
                         :deletable="!isNew"
                         @delete="deleteConfirm = true"
-                        :is-pending="hasPendingChanges && (!isNew || scene.operations.length)">
+                        :is-pending="hasPendingChanges">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -24,6 +24,8 @@
                                                         @keydown="sceneChanged()"
                                                         v-model="scene.caption">
                                                 </dt>
+                                            </dl>
+                                            <dl class="mt-2">
                                                 <dd>{{ $t('Enabled') }}</dd>
                                                 <dt>
                                                     <toggler
@@ -36,6 +38,7 @@
                                     <div class="details-page-block text-center">
                                         <h3 class="text-center">{{ $t('Location') }}</h3>
                                         <square-location-chooser v-model="scene.location"
+                                            :disabled="hasPendingChanges"
                                             @input="sceneChanged()"></square-location-chooser>
                                     </div>
                                     <div v-if="scene.id"
@@ -44,15 +47,21 @@
                                         <div class="form-group text-center">
                                             <function-icon :model="scene"
                                                 width="100"></function-icon>
-                                            <channel-alternative-icon-chooser :channel="scene"
-                                                @change="sceneChanged()"></channel-alternative-icon-chooser>
+                                            <channel-alternative-icon-chooser
+                                                :channel="scene"
+                                                @change="sceneChanged()"/>
                                         </div>
                                     </div>
                                     <div v-if="scene.id"
                                         class="details-page-block">
                                         <h3 class="text-center">{{ $t('Actions') }}</h3>
                                         <div class="pt-3">
-                                            <channel-action-executor :subject="scene"/>
+                                            <channel-action-executor :subject="scene"
+                                                :disabled="hasPendingChanges"/>
+                                            <div class="alert alert-warning text-center m-0"
+                                                v-if="hasPendingChanges">
+                                                {{ $t('Save or discard configuration changes first.') }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -78,6 +87,14 @@
             :header="$t('Are you sure you want to delete this scene?')"
             :loading="loading">
         </modal-confirm>
+        <dependencies-warning-modal
+            header-i18n="Some features depend on this scene"
+            deleting-header-i18n="The items below rely on this scene, so they will be deleted."
+            removing-header-i18n="Reference to the scene will be removed from the items below."
+            v-if="dependenciesThatPreventsDeletion"
+            :dependencies="dependenciesThatPreventsDeletion"
+            @confirm="deleteScene(false)"
+            @cancel="dependenciesThatPreventsDeletion = undefined"/>
     </page-container>
 </template>
 
@@ -93,10 +110,12 @@
     import SceneDetailsTabs from "./scene-details-tabs";
     import AppState from "../router/app-state";
     import ChannelActionExecutor from "../channels/action/channel-action-executor";
+    import DependenciesWarningModal from "../channels/dependencies/dependencies-warning-modal";
 
     export default {
         props: ['id', 'item'],
         components: {
+            DependenciesWarningModal,
             ChannelActionExecutor,
             SceneDetailsTabs,
             ChannelAlternativeIconChooser,
@@ -114,6 +133,7 @@
                 error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
+                dependenciesThatPreventsDeletion: undefined,
             };
         },
         mounted() {
@@ -145,7 +165,8 @@
                 this.loading = true;
                 if (this.isNew) {
                     this.$http.post('scenes', toSend)
-                        .then(response => this.$emit('add', response.body));
+                        .then(response => this.$emit('add', response.body))
+                        .finally(() => this.loading = false);
                 } else {
                     this.$http
                         .put('scenes/' + this.scene.id + '?include=operations,subject', toSend)
@@ -157,10 +178,19 @@
                         .finally(() => this.loading = false);
                 }
             },
-            deleteScene() {
+            deleteScene(safe = true) {
                 this.loading = true;
-                this.$http.delete('scenes/' + this.scene.id).then(() => this.$emit('delete'));
-                this.scene = undefined;
+                this.$http.delete(`scenes/${this.scene.id}?safe=${safe ? 1 : 0}`, {skipErrorHandler: [409]})
+                    .then(() => {
+                        this.scene = undefined;
+                        this.$emit('delete');
+                    })
+                    .catch(({body, status}) => {
+                        if (status === 409) {
+                            this.dependenciesThatPreventsDeletion = body;
+                        }
+                    })
+                    .finally(() => this.loading = this.deleteConfirm = false);
             },
             cancelChanges() {
                 this.fetch();

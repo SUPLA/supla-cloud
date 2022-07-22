@@ -275,14 +275,32 @@ abstract class SuplaServer {
         return [];
     }
 
-    public function executeScene(Scene $scene) {
-        $command = $scene->buildServerActionCommand('EXECUTE-SCENE', []);
+    public function executeScene(Scene $scene, array $params = []) {
+        $command = $scene->buildServerActionCommand('EXECUTE-SCENE', $params);
         $result = $this->doExecuteCommand($command) ?: '';
         if (strpos($result, 'IS-DURING-EXECUTION:') === 0) {
             throw new SceneDuringExecutionException($scene);
         } elseif (strpos($result, 'OK:') !== 0) {
             throw new ApiExceptionWithDetails(
                 'SUPLA Server was unable to execute the scene.', // i18n
+                ['error' => 'suplaServerError', 'response' => $result],
+            );
+        }
+    }
+
+    /**
+     * @param Scene $scene
+     * @return array [$initiatorType, $initiatorId, $initiatorNameBase64, $msFromStart, $msToEnd]
+     */
+    public function getSceneSummary(Scene $scene): array {
+        $command = sprintf('GET-SCENE-SUMMARY:%d,%d', $scene->getUser()->getId(), $scene->getId());
+        $result = $this->doExecuteCommand($command);
+        $prefix = sprintf('SUMMARY:%d,', $scene->getId());
+        if (strpos($result, $prefix) === 0) {
+            return explode(',', substr($result, strlen($prefix)));
+        } else {
+            throw new ApiExceptionWithDetails(
+                'SUPLA Server was unable to query for the scene state.', // i18n
                 ['error' => 'suplaServerError', 'response' => $result],
             );
         }

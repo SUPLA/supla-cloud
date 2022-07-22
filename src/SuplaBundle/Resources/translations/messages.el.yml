@@ -783,6 +783,7 @@ Integration with MQTT Broker has been disabled.: ~
 Integration with MQTT Broker has been enabled.: ~
 Interpolate measurements: ~
 Interrupt: ~
+Interrupt and execute: ~
 Invalid action parameters: ~
 Invalid request.: ~
 Invalid token.: ~
@@ -800,6 +801,7 @@ Make sure to copy it now because you won’t be able to see it again!: ~
 Manage your new client app in the SUPLA-Cloud.: ~
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
 Manual: ~
+Maximum delay is 60 minutes.: ~
 Meters: ~
 Move down or stop: ~
 Move up or stop: ~
@@ -830,6 +832,7 @@ Precision: ~
 Protocol: ~
 Publish to integrations: ~
 Publishes the event to integrated services like MQTT or webhooks.: ~
+Reference to the scene will be removed from the items below.: ~
 Regeneration starts at: ~
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
@@ -839,6 +842,8 @@ Reverse active energy balanced: ~
 Roof window opening sensor: ~
 Roof window shutter operation: ~
 SUPLA - Private instance unregistration: ~
+SUPLA Server was unable to execute the scene.: ~
+SUPLA Server was unable to query for the scene state.: ~
 SUPLA – new client app has been added to your account: ~
 SUPLA – new device has been added to your account: ~
 Save or discard configuration changes first.: ~
@@ -854,6 +859,7 @@ Shut partially: ~
 Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
 Some features depend on this channel group: ~
 Some features depend on this device: ~
+Some features depend on this scene: ~
 Some of the features you have configured rely on channels from this device.: ~
 Standard: ~
 Start from the homepage.: ~
@@ -870,6 +876,7 @@ The following items use the channels of these device. These references will be a
 The incident was detected at %datetime%.: ~
 'The items below rely on this channel function, so they will be deleted.': ~
 'The items below rely on this channel group, so they will be deleted.': ~
+'The items below rely on this scene, so they will be deleted.': ~
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
@@ -931,6 +938,7 @@ caption: ~
 choose the action: ~
 choose the scene: ~
 days: ~
+directLinkExecutionFailureReason_sceneDuringExecution: ~
 empty: ~
 hours: ~
 min.: ~

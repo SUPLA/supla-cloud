@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity;
 
+use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -85,6 +86,7 @@ class SceneOperation implements HasSubject {
         $this->initializeSubject($subject);
         $this->action = $action->getId();
         $this->setActionParam($actionParam);
+        Assertion::between($delayMs, 0, 3600000, 'Maximum delay is 60 minutes.'); // i18n
         $this->delayMs = $delayMs;
     }
 

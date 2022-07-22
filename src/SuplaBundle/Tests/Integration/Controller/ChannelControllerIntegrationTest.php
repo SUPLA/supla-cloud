@@ -282,11 +282,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('4xx', $response);
     }
 
-    public function testChangingChannelRgbwState20() {
+    public function testChangingChannelRgbwState21() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $request = ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42];
-        $client->request('PUT', '/api/channels/5', [], [], $this->versionHeader(ApiVersions::V2_0()), json_encode($request));
+        $client->request('PUT', '/api/channels/5', [], [], $this->versionHeader(ApiVersions::V2_1()), json_encode($request));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);

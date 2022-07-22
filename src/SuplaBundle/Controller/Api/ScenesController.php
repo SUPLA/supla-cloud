@@ -21,6 +21,7 @@ use Assert\Assertion;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\ActionableSubject;
@@ -31,14 +32,20 @@ use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
+use SuplaBundle\Model\Dependencies\SceneDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\SceneRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\SceneUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
+ * @OA\Schema(
+ *   schema="Scene", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ * )
  * @Rest\Version("2.4.0")
  */
 class ScenesController extends RestController {
@@ -54,8 +61,9 @@ class ScenesController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'location',
+            'location', 'state',
             'location' => 'scene.location',
+            'state' => 'scene.state',
         ];
         if (!strpos($request->get('_route'), 'scenes_list')) {
             $groups = array_merge($groups, [
@@ -84,6 +92,15 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/scenes", operationId="getScenes", summary="Get Scenes", tags={"Scenes"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"location", "state"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
+     * )
      * @Rest\Get("/scenes", name="scenes_list")
      * @Security("has_role('ROLE_SCENES_R')")
      */
@@ -142,7 +159,7 @@ class ScenesController extends RestController {
             $user->getLimitOperationsPerScene(),
             'Too many operations in this scene' // i18n
         );
-        $scene->ensureOperationsAreNotCyclic();
+        SceneUtils::ensureOperationsAreNotCyclic($scene);
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $em->persist($scene);
             return $scene;
@@ -172,7 +189,7 @@ class ScenesController extends RestController {
                 return true;
             });
             $scene->setOpeartions($updated->getOperations());
-            $scene->ensureOperationsAreNotCyclic();
+            SceneUtils::ensureOperationsAreNotCyclic($scene);
             $em->persist($scene);
             return $this->getSceneAction($request, $scene);
         });
@@ -184,9 +201,19 @@ class ScenesController extends RestController {
      * @Rest\Delete("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
-    public function deleteSceneAction(Scene $scene) {
+    public function deleteSceneAction(Scene $scene, Request $request, SceneDependencies $sceneDependencies) {
         $sceneId = $scene->getId();
-        $this->transactional(function (EntityManagerInterface $em) use ($scene) {
+        $shouldConfirm = filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN);
+        if ($shouldConfirm) {
+            $dependencies = $sceneDependencies->getDependencies($scene);
+            if (array_filter($dependencies)) {
+                $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                return $view;
+            }
+        }
+        $this->transactional(function (EntityManagerInterface $em) use ($sceneDependencies, $scene) {
+            $sceneDependencies->clearDependencies($scene);
             $em->remove($scene);
         });
         $this->suplaServer->userAction('ON-SCENE-REMOVED', $sceneId);

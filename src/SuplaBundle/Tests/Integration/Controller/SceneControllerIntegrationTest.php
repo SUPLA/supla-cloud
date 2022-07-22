@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Scene;
@@ -29,6 +30,7 @@ use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 /** @small */
 class SceneControllerIntegrationTest extends IntegrationTestCase {
@@ -256,6 +258,29 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, $content['operations']);
     }
 
+    /** @depends testAddingOperationsToScene */
+    public function testGettingSceneDetailsWithState($sceneDetails) {
+        $id = $sceneDetails['id'];
+        SuplaServerMock::mockResponse("GET-SCENE-SUMMARY:1,$id", "SUMMARY:$id,2,3," . base64_encode('unicorn') . ',5,6');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/scenes/' . $id . '?include=state');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('state', $content);
+        $this->assertArrayHasKey('executing', $content['state']);
+        $this->assertTrue($content['state']['executing']);
+        $this->assertEquals([
+            'executing' => true,
+            'initiatorTypeId' => 2,
+            'initiatorType' => 'CLIENT',
+            'initiatorId' => 3,
+            'initiatorName' => 'unicorn',
+            'millisecondsFromStart' => 5,
+            'millisecondsToEnd' => 6,
+        ], $content['state']);
+    }
+
     /** @depends testCreatingScene */
     public function testExecutingScene(array $sceneDetails) {
         $client = $this->createAuthenticatedClient($this->user);
@@ -286,6 +311,16 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingScene */
+    public function testInterruptAndExecuteScene(array $sceneDetails) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/' . $sceneDetails['id'], ['action' => 'interrupt-and-execute']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $lastCommand = end(SuplaServerMock::$executedCommands);
+        $this->assertEquals('INTERRUPT-AND-EXECUTE-SCENE:1,1', $lastCommand);
+    }
+
+    /** @depends testCreatingScene */
     public function testUpdatingSceneMultipleTimes(array $sceneDetails) {
         $this->testAddingOperationsToScene($sceneDetails);
         $this->testAddingOperationsToScene($sceneDetails);
@@ -305,6 +340,28 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
         $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
+        $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
+    }
+
+    public function testDeletingSceneWithConfirmation() {
+        $sceneDetails = $this->testCreatingScene();
+        $scene = $this->getEntityManager()->find(Scene::class, $sceneDetails['id']);
+        $link = new DirectLink($scene);
+        $link->generateSlug(new PlaintextPasswordEncoder());
+        $this->persist($link);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneDetails['id'] . '?safe=true');
+        $response = $client->getResponse();
+        $this->assertStatusCode(409, $response);
+        $this->assertNotNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
+        $this->assertNotContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content['directLinks']);
+        $this->assertCount(0, $content['sceneOperations']);
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneDetails['id']);
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
+        $this->assertNull($this->getEntityManager()->find(DirectLink::class, $link->getId()));
         $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
     }
 
@@ -548,6 +605,8 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('forbidden to have recursive', $content['message']);
     }
 
     /** @depends testCreatingSceneWithOtherScene */
@@ -576,9 +635,6 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $body = json_decode($response->getContent(), 'true');
         $this->assertArrayHasKey('operations', $body);
         $this->assertArrayHasKey('relationsCount', $body);
-// TODO why? works in 300ef164bf5ba484f825b7a2f1ad7bc49284a9bc
-//        $this->assertArrayNotHasKey('operations', $body['operations'][0]['subject']);
-//        $this->assertArrayNotHasKey('relationsCount', $body['operations'][0]['subject']);
         $profile = $client->getProfile();
         $this->assertNotNull($profile);
         $this->assertGreaterThan(1, $profile->getCollector('db')->getQueryCount());
@@ -634,5 +690,28 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals('Cannot execute an action on this subject.', $content['message']);
+    }
+
+    public function testCreatingSceneThatExecutesAnotherSceneTwice() {
+        $scene1 = $this->testCreatingScene();
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $scene1['id'],
+                    'subjectType' => ActionableSubjectType::SCENE,
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                ],
+                [
+                    'subjectId' => $scene1['id'],
+                    'subjectType' => ActionableSubjectType::SCENE,
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                    'delayMs' => 1000,
+                ],
+            ],
+        ]);
+        $this->assertStatusCode(201, $client->getResponse());
     }
 }

@@ -138,6 +138,11 @@ abstract class IntegrationTestCase extends WebTestCase {
         return $this->getDoctrine()->getEntityManager();
     }
 
+    protected function persist($entity) {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+    }
+
     /** @after */
     public function ensureSuplaServerValidState() {
         if (SuplaServerMock::$mockedResponses) {

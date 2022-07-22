@@ -1,6 +1,5 @@
 {
-  "name": "supla-cloud",
-  "version": "2.3.37",
+  "name": "supla-cloud-webapp",
   "private": true,
   "description": "",
   "scripts": {

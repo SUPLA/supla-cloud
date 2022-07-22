@@ -37,9 +37,9 @@
         },
         mounted() {
             this.sliderValue = this.value;
-            if (this.possibleValues.indexOf(this.sliderValue) === -1) {
-                this.sliderValue = 1000;
-                this.updateModel();
+            if (this.sliderValue > 0 && this.possibleValues.indexOf(this.sliderValue) === -1) {
+                this.possibleValues.push(parseInt(this.sliderValue));
+                this.possibleValues.sort((a, b) => a - b);
             }
         },
         methods: {

@@ -23,8 +23,11 @@ use SuplaBundle\Entity\Location;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
 class SceneTest extends TestCase {
+    use UnitTestHelper;
+
     public function testSettingOwningScene() {
         $scene = new Scene($this->createMock(Location::class));
         $operation = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
