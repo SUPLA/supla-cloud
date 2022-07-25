@@ -28,6 +28,7 @@
                     @add="onItemAdded($event)"
                     @delete="onItemDeleted()"
                     @update="onItemUpdated($event)"
+                    :key="`carousel_page_details_${item.id || 'noid'}`"
                     :item="item"></router-view>
             </div>
         </div>

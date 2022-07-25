@@ -69,7 +69,6 @@
                                     <div class="">
                                         <h3 class="text-center">{{ $t('Operations') }}</h3>
                                         <scene-operations-editor
-                                            :key="'scene-' + scene.id"
                                             v-model="scene.operations"
                                             @input="sceneChanged()"></scene-operations-editor>
                                     </div>
