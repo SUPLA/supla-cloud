@@ -54,7 +54,7 @@
         <div v-else
             class="form-group">
             <div v-if="!action">
-                <h1>{{ directLink.caption }}</h1>
+                <h1 v-title>{{ directLink.caption }}</h1>
                 <direct-link-channel-status v-if="directLink.allowedActions.filter(f => f.name === 'READ').length"
                     :direct-link="directLink"></direct-link-channel-status>
                 <div style="max-width: 850px; margin: 0 auto"
