@@ -624,335 +624,335 @@ will expire: يبطل مفعولها
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'%s trigger is not supported by the hardware.': ~
-'10 minutes before sunset, on day 10 of the month, May through August': ~
-'15 minutes after sunrise, every 2 days': ~
-A confirmation upon successful client app registration.: ~
-A confirmation upon successful device registration.: ~
-A new client app (smartphone) been added to your SUPLA-Cloud account.: ~
-A new device has been added to your SUPLA-Cloud account.: ~
-A new personal access token has been generated.: ~
-A-Z: ~
-API rate limits: ~
-Access ID is not active right now.: ~
-Access to all of your devices through MQTT Broker: ~
-Action trigger: ~
-'Action trigger no. #{index}': ~
-Action triggers: ~
-Active period: ~
-Add a delay: ~
-Add action: ~
-Add new item to use in the scene: ~
-'After the device enters the configuration mode, it will not be accessible on your account.': ~
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
-'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-'Alternatively, you can add a GET parameter to specify response format.': ~
-'App version: %clientAppSoftwareVersion%': ~
-Applications: ~
-Are you sure you want to delete this scene?: ~
-Are you sure you want to reset the counter state?: ~
-As in device: ~
-Associated measured channel: ~
-Associated measurement channel: ~
-'At 05:45 PM, on the last day of the month': ~
-'At 11:30 AM, on the third Wednesday of the month': ~
-At every 5th minute on day-of-month 30 in May: ~
-At specified time: ~
-At sunrise: ~
-'At sunrise, Monday through Friday': ~
-At sunset: ~
-Automatic calibration: ~
-Bar: ~
-Based on sunrise or sunset: ~
-Be notified when your channels change state: ~
-Be right back!: ~
-Bottom position: ~
-Bridge: ~
-Calculated value: ~
-Calibrate: ~
-Calibration successful.: ~
-Cannot calculate when to run the schedule - incorrect configuration?: ~
-Cannot change the channel function right now.: ~
-Cannot delete this I/O Device right now.: ~
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': ~
-Caption is too long.: ~
-Change channel function: ~
-Change function: ~
-Channel group reference will be removed from the items below.: ~
-Channel is disconnected.: ~
-Channel name: ~
-Channel reference will be removed from the items below.: ~
-Channel value: ~
-Channel with action triggers: ~
-Channels groups are not supported for this function.: ~
-Chart data source type: ~
-Chart type: ~
-Check your email inbox: ~
-Choose channel function: ~
-Choose the source channel.: ~
-Clear: ~
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-'Client app ID: %clientAppId%': ~
-Client registration: ~
-Close partially: ~
-Config of the schedule is too complicated.: ~
-Confirm My Account: ~
-Confirm if you want to perform the roller shutter calibration.: ~
-'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy state from other channel: ~
-Could not contact Autodiscover service. Try again in a while.: ~
-Could not enter the configuration mode.: ~
-Create new scene: ~
-Current Overload: ~
-Default: ~
-'Device ID: %deviceId%': ~
-Device channel value: ~
-Device is disconnected.: ~
-'Device name: %deviceName%': ~
-Device should be now in configuration mode.: ~
-'Device software version: %deviceSoftwareVersion%': ~
-Differential: ~
-Digi Glass: ~
-Digi Glass Horizontal: ~
-Digi Glass Vertical: ~
-Direct links limit has been exceeded: ~
-Disable local function: ~
-Disables local device function and does nothing more.: ~
-Do you want to be redirected there? You may be asked to authenticate again.: ~
-'Doors, Gates, Windows': ~
-E-mail notifications: ~
-Entering configuration mode is unsupported in the firmware.: ~
-Execute: ~
-Execute an action: ~
-Feature limits: ~
-Flooding: ~
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
-Forward active energy balanced: ~
-Forward reactive energy: ~
-General purpose measurement: ~
-Generate new password: ~
-Heat meter: ~
-Host: ~
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
-I/O devices registration: ~
-ID: ~
-Icon: ~
-'If you do not want to unregister your instance, please do not click the link.': ~
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': ~
-'If you really want to delete the account, here are the instructions.': ~
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': ~
-'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
-'If you wish to register your instance, [click here].': ~
-'If you wish to unregister your instance, [click here].': ~
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
-Inactive: ~
-Include energy corrections in new measurements history (not recommended): ~
-Integration with MQTT Broker has been disabled.: ~
-Integration with MQTT Broker has been enabled.: ~
-Interpolate measurements: ~
-Interrupt: ~
-Interrupt and execute: ~
-Invalid action parameters: ~
-Invalid function for channel.: ~
-Invalid request.: ~
-Invalid token.: ~
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: ~
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
-Linear: ~
-Location name: ~
-MQTT Broker: ~
-MQTT Broker Username: ~
-MQTT Broker is disabled.: ~
-MQTT Broker password: ~
-MQTT Broker password has been changed.: ~
-MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
-Make sure to copy it now because you won’t be able to see it again!: ~
-Manage your new client app in the SUPLA-Cloud.: ~
-Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
-Manual: ~
-Manually closed: ~
-Maximum delay is 60 minutes.: ~
-Meters: ~
-Move down or stop: ~
-Move up or stop: ~
-'Name: %clientAppName%': ~
-Need one of these?: ~
-New IO device added to your account: ~
-New client app (smartphone) added to your account: ~
-New scene: ~
-'Next limit renewal: {date}': ~
-No of channels: ~
-No of client apps: ~
-No of devices: ~
-No of operations: ~
-No schedule configuration.: ~
-None (channel disabled): ~
-Number of attempts to close: ~
-Number of attempts to open: ~
-Number of sections: ~
-OAuth apps: ~
-OAuth integrations might stop working after the instance is unregistered.: ~
-Open partially: ~
-Operations: ~
-Other: ~
-'Password must be at least {minLength} characters.': ~
-'Password must be no longer than {maxLength} characters.': ~
-Password reset instructions.: ~
-Phase 1: ~
-Phase 2: ~
-Phase 3: ~
-Please choose the schedule subject first.: ~
-Please confirm your SUPLA account.: ~
-Port: ~
-Precision: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-Protocol: ~
-Publish to integrations: ~
-Publishes the event to integrated services like MQTT or webhooks.: ~
-Reference to the scene will be removed from the items below.: ~
-Regeneration starts at: ~
-'Registered from IP address: %clientAppRegIp%': ~
-'Registered from IP address: %deviceRegIp%': ~
-Reset Your Password: ~
-Reset counter: ~
-Reverse active energy: ~
-Reverse active energy balanced: ~
-Reverse reactive energy: ~
-Roof window opening sensor: ~
-Roof window shutter operation: ~
-SUPLA - Private instance unregistration: ~
-SUPLA Server was unable to execute the scene.: ~
-SUPLA Server was unable to query for the scene state.: ~
-SUPLA – new client app has been added to your account: ~
-SUPLA – new device has been added to your account: ~
-Save or discard configuration changes first.: ~
-Scene: ~
-Scene must consist of at least one operation.: ~
-Scenes: ~
-Scenes limit has been exceeded: ~
-See available integrations: ~
-See in SUPLA-Cloud: ~
-Set value added: ~
-Setting the number of attempts to 1 disables the retrying behavior completely.: ~
-Show my limits: ~
-Shut partially: ~
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
-Some features depend on this channel group: ~
-Some features depend on this device: ~
-Some features depend on this scene: ~
-Some of the features you have configured rely on channels from this device.: ~
-Standard: ~
-Start from the homepage.: ~
-State webhook: ~
-Step by step: ~
-Store measurements history: ~
-Switch the device to configuration mode: ~
-TLS: ~
-'Target Cloud is not registered, or is registered with another e-mail address.': ~
-The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
-The SUPLA infrastructure is being updated.: ~
-The counter has been reset.: ~
-The following items use the channels of these device. These references will be also removed.: ~
-'The following items will be deleted with this device:': ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-The incident was detected at %datetime%.: ~
-'The items below rely on this channel function, so they will be deleted.': ~
-'The items below rely on this channel group, so they will be deleted.': ~
-'The items below rely on this scene, so they will be deleted.': ~
-The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: ~
-Too many actions in this schedule.: ~
-Too many operations in this scene: ~
-Triggers: ~
-Turning this device off will cause its channels not working in the following features.: ~
-Turning this device off will result in disabling features listed below.: ~
-Undo registration: ~
-Unregister my private SUPLA Cloud instance: ~
-Unsuccessful login attempt: ~
-Update in progress: ~
-'Use the [command] server command to change this account''s limits. For example:': ~
-Use working schedule for this access identifier: ~
-Value added: ~
-Value per unit: ~
-Valve: ~
-Valve closed manually: ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-We have just sent you an activation link. You should be receiving it shortly.: ~
-We have sent you an email with further instructions.: ~
-We try to be faster: ~
-Working schedule: ~
-You are changing the settings too quickly. You have to wait a while before making this change.: ~
-You cannot use SUPLA project name in the domain name.: ~
-You have exceeded your API Rate Limit: ~
-You have requested to unregister your SUPLA Cloud instance: ~
-You have to choose at least one scope.: ~
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
-You must enable MQTT Broker first.: ~
-You must set sections with transparent or opaque parameters or both.: ~
-Your account and MQTT Broker connection.: ~
-Your account limits: ~
-'Your channel groups are allowed to have a maximum of {max} channels.': ~
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': ~
-Your password must contain at least one special character.: ~
-Your password must include at least one letter.: ~
-Your password must include at least one number.: ~
-Your password must include both upper and lower case letters.: ~
-Your preferences has been updated.: ~
-Your private SUPLA Cloud instance has been unregistered.: ~
-'Your scenes are allowed to have a maximum of {max} operations.': ~
-'Your schedules are allowed to have a maximum of {max} actions.': ~
-access to your e-mail address: ~
-actionTrigger_HOLD: ~
-actionTrigger_SHORT_PRESS_X1: ~
-actionTrigger_SHORT_PRESS_X2: ~
-actionTrigger_SHORT_PRESS_X3: ~
-actionTrigger_SHORT_PRESS_X4: ~
-actionTrigger_SHORT_PRESS_X5: ~
-actionTrigger_TOGGLE_X1: ~
-actionTrigger_TOGGLE_X2: ~
-actionTrigger_TOGGLE_X3: ~
-actionTrigger_TOGGLE_X4: ~
-actionTrigger_TOGGLE_X5: ~
-actionTrigger_TURN_OFF: ~
-actionTrigger_TURN_ON: ~
-actionableSubjectType_scene: ~
-addToHistoryMeasurementWarningSelected: ~
-addToHistoryMeasurementWarningUnselected: ~
-caption: ~
-choose the action: ~
-choose the scene: ~
-days: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
-directLinkExecutionFailureReason_sceneDuringExecution: ~
-empty: ~
-hours: ~
-min.: ~
-or add a delay: ~
-password: ~
-prefix: ~
-reset chart view: ~
-scene: ~
-scheduleMode_crontab: ~
-suffix: ~
-username: ~
-valid until: ~
-'{minutes} minutes after sunrise': ~
-'{minutes} minutes after sunset': ~
-'{minutes} minutes before sunrise': ~
-'{minutes} minutes before sunset': ~
-'{requests} out of {limit} / day': ~
-'{requests} out of {limit} / h': ~
-'{requests} out of {limit} / min': ~
-'{requests} out of {limit} / {seconds} sec.': ~
+'%s trigger is not supported by the hardware.': 'مشغل %s غير مدعوم من قبل الجهاز.'
+'10 minutes before sunset, on day 10 of the month, May through August': '10 دقائق قبل غروب الشمس، فقط في اليوم العاشر من الشهر، من مايو إلى أغسطس'
+'15 minutes after sunrise, every 2 days': 'بعد 15 دقيقة من شروق الشمس، كل يومين'
+A confirmation upon successful client app registration.: تأكيد تسجيل تطبيق عملاء جديد.
+A confirmation upon successful device registration.: تأكيد تسجيل الجهاز بنجاح.
+A new client app (smartphone) been added to your SUPLA-Cloud account.: تمت إضافة تطبيق عملاء جديد (هاتف ذكي) إلى حساب SUPLA-Cloud الخاص بك.
+A new device has been added to your SUPLA-Cloud account.: تمت إضافة الجهاز الجديد إلى حساب SUPLA-Cloud الخاص بك.
+A new personal access token has been generated.: تم إنشاء رمز وصول شخصي جديد
+A-Z: A-Z
+API rate limits: حد طلبات إلى واجهة برمجة التطبيقات
+Access ID is not active right now.: معرف الوصول غير نشط في الوقت الحالي.
+Access to all of your devices through MQTT Broker: الوصول إلى جميع أجهزتك عبر MQTT Broker
+Action trigger: مشغل الإجراء
+'Action trigger no. #{index}': 'مشغل #{index}'
+Action triggers: مشغلات الإجراء
+Active period: فترة النشاط
+Add a delay: إضافة تأخير
+Add action: إضافة إجراء
+Add new item to use in the scene: إضافة عنصر جديد إلى المشهد
+'After the device enters the configuration mode, it will not be accessible on your account.': 'لن يمكن الوصول إلى الجهاز من مستوى حسابك بعد الدخول في وضع الترتيب.'
+'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'بعد التحديث، سيكون التطبيق أسرع وأكثر ملاءمة ... ببساطة أفضل!'
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'سيبدأ العداد العد من 0 بعد هذه العملية، بغض النظر عن حالته الحالية. لا يمكن التراجع عن هذه العملية.'
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': 'بعد فتحك للبوابة أو إغلاقها، سيحاول النظام إغلاق / فتح البوابة والانتظار لمدة 60 ثانية للتحقق مما إذا كانت البوابة قد وصلت إلى الحالة المطلوبة. إذا لم يكن الأمر كذلك، فسيحاول النظام الإغلاق / الفتح مرة أخرى. تحدد هذه المعلمة الحد الأقصى لعدد المحاولات التي يقوم بها النظام لتحقيق الهدف. القيمة الموصى بها هي 5. لا يؤثر تغيير هذه المعلمة على تشغيل الجداول الزمنية.'
+'Alternatively, you can add a GET parameter to specify response format.': 'يمكنك أيضا إضافة معلمة GET لتحديد تنسيق الإجابة.'
+'App version: %clientAppSoftwareVersion%': 'إصدار التطبيق: %clientAppSoftwareVersion%'
+Applications: تطبيقات
+Are you sure you want to delete this scene?: هل أنت متأكد من أنك تريد حذف هذا المشهد؟
+Are you sure you want to reset the counter state?: هل أنت متأكد من أنك تريد تصفير العداد؟
+As in device: كما هو الحال في الجهاز
+Associated measured channel: قناة التحكم ذات الصلة
+Associated measurement channel: قناة القياس ذات الصلة
+'At 05:45 PM, on the last day of the month': 'الساعة 5:45 صباحا في اليوم الأخير من الشهر'
+'At 11:30 AM, on the third Wednesday of the month': 'الساعة 11:30، يوم الأربعاء الثالث من الشهر'
+At every 5th minute on day-of-month 30 in May: كل 5 دقائق، في اليوم 30 من الشهر، فقط في مايو
+At specified time: للساعة المحددة
+At sunrise: عند شروق الشمس
+'At sunrise, Monday through Friday': 'عند شروق الشمس، من الاثنين إلى الجمعة'
+At sunset: عند غروب الشمس
+Automatic calibration: المعايرة التلقائية
+Bar: باري
+Based on sunrise or sunset: على أساس الشرق / الغرب
+Be notified when your channels change state: الإشعار بتغيير حالة القنوات
+Be right back!: عد بعد لحظات قليلة!
+Bottom position: الموضع السفلي
+Bridge: جسر
+Calculated value: حالة العداد
+Calibrate: معايرة
+Calibration successful.: تمت معايرة ناجحة
+Cannot calculate when to run the schedule - incorrect configuration?: فشل في حساب أي تاريخ بدء الجدول الزمني - تتريب غير صحيح؟
+Cannot change the channel function right now.: لا يمكن تغيير وظيفة هذه القناة في الوقت الحالي.
+Cannot delete this I/O Device right now.: لا يمكن إزالة هذا الجهاز في الوقت الحالي.
+'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'لم تتلق رسالة تحتوي على رابط لتنشيط حسابك؟ تأكد من عدم وجودها في مجلد الرسائل غير المرغوب فيها (البريد المحظور). يمكنك أيضا النقر فوق [هنا] لإعادة إرسالها.'
+Caption is too long.: الاسم أطول من المسموح به.
+Change channel function: تغيير وظيفة القناة
+Change function: تغيير الوظيفة
+Channel group reference will be removed from the items below.: تتم إزالة الإشارة إلى مجموعة القنوات المدرجة أدناه.
+Channel is disconnected.: تم قطع اتصال القناة.
+Channel name: اسم القناة
+Channel reference will be removed from the items below.: تتم إزالة القناة من العناصر التالية.
+Channel value: القيمة
+Channel with action triggers: قناة مع مشغلات الإجراء
+Channels groups are not supported for this function.: لا تدعم هذه الوظيفة مجموعات القنوات.
+Chart data source type: نوع مصدر البيانات
+Chart type: نوع الرسم البياني
+Check your email inbox: التحقق من بريدك الوارد
+Choose channel function: تحديد وظيفة القناة
+Choose the source channel.: حدد القناة المصدر.
+Clear: مسح
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: انقر على الرابط أدناه لتأكيد إلغاء تسجيل مثيل SUPLA Cloud الخاص بك (%targetCloudUrl%).
+'Client app ID: %clientAppId%': 'المعرف: %clientAppId%'
+Client registration:تسجيل العملاء
+Close partially: إغلاق جزئي
+Config of the schedule is too complicated.: إن ترتيب الجدول الزمني أكثر تعقيدا من اللازم.
+Confirm My Account: إني أؤكد حسابي
+Confirm if you want to perform the roller shutter calibration.: تأكيد إتمام معايرة الوحدة.
+'Confirm if you want to remove {deviceName} device and all of its channels.': 'قم بالتأكيد بأنك تريد حذف {deviceName} وجميع قنواته.'
+Copy state from other channel: نسخ الحالة من قناة أخرى
+Could not contact Autodiscover service. Try again in a while.: تعذر الاتصال بخدمة التسجيل. يرجى المحاولة مرة أخرى في لحظة.
+Could not enter the configuration mode.: فشل في تحويل الجهاز إلى وضع الترتيب.
+Create new scene: إنشاء مشهد جديد
+Current Overload: حمل زائد
+Default: افتراضيا
+'Device ID: %deviceId%': 'معرف الجهاز: %deviceId%'
+Device channel value: القيمة من الجهاز
+Device is disconnected.: الجهاز غير متصل.
+'Device name: %deviceName%': 'اسم الجهاز: %deviceName%'
+Device should be now in configuration mode.: يجب أن يكون الجهاز الآن في وضع الترتيب.
+'Device software version: %deviceSoftwareVersion%': 'إصدار البرنامج: %deviceSoftwareVersion%'
+Differential: تفاضلي
+Digi Glass: زجاج ديجي
+Digi Glass Horizontal: زجاج ديجي أفقي
+Digi Glass Vertical: زجاج ديجي عمودي
+Direct links limit has been exceeded: تم تجاوز حد الروابط المباشرة
+Disable local function: إيقاف تشغيل وظيفة الجهاز
+Disables local device function and does nothing more.: لا ينفذ أي إجراء، ولكنه يعطل وظيفة الجهاز الافتراضية لهذا الإجراء.
+Do you want to be redirected there? You may be asked to authenticate again.: هل تريد منا إعادة توجيهك إلى هناك؟ قد تحتاج إلى تسجيل الدخول مرة أخرى.
+'Doors, Gates, Windows': 'أبواب، بوابات، نوافذ'
+E-mail notifications: إشعارات البريد الإلكتروني
+Entering configuration mode is unsupported in the firmware.: التبديل عن بعد إلى وضع الترتيب غير مدعوم من قبل البرامج الثابتة للجهاز.
+Execute: تنفيذ
+Execute an action: تنفيذ الإجراء
+Feature limits: حدود الوظائف
+Flooding: إغراق
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'أثناء التحديث، يوصى باستخدام العنوان {suplaUrl}.'
+Forward active energy balanced: الطاقة النشطة المأخوذة (التوازن المتجه)
+Forward reactive energy: الطاقة التفاعلية المأخوذة
+General purpose measurement: قناة قياس عامة
+Generate new password: إنشاء كلمة مرور جديدة
+Heat meter: عداد الحرارة
+Host: المضيف
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'للأسف، زاد الاستخدام الحالي لخوادمنا إلى مستوى خطير. نحن نراقب الوضع، يرجى العودة في لحظات قليلة.'
+I/O devices registration: تسجيل الأجهزة
+ID: المعرف
+Icon: الأيقونة
+'If you do not want to unregister your instance, please do not click the link.': 'إذا كنت لا تريد إلغاء تسجيل المثيل الخاص بك، فلا تنقر فوق الرابط.'
+'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'إذا فشلت في الاتصال بنقطة الوصول هذه لبضع دقائق تتم إعادة تشغيل الجهاز والاتصال باستخدام الإعدادات الأخيرة.'
+'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'إذا كنت ترغب في إعادة تسجيل مثيل SUPLA Cloud الخاص بك بسبب فقدان الرمز المميز الذي تم إنشاؤه في التسجيل السابق - فأنت في المكان الصحيح.'
+'If you really want to delete the account, here are the instructions.': 'إذا كنت لا تزال ترغب في حذف حساب SUPLA الخاص بك، فإليك التعليمات هنا.'
+'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': 'إذا كنت ترغب حقا في إلغاء تسجيل مثيل SUPLA Cloud الخاص بك  - فستجد أدناه جميع التعليمات.'
+'If you wish not to receive such messages,<br> change it in your account settings [here].': 'إذا كنت لا ترغب في تلقي مثل هذه الإشعارات منا، <br> يرجى الرجوع إلى إعدادات حسابك [هنا].'
+'If you wish to register your instance, [click here].': 'إذا كنت ترغب في تسجيل المثيل الخاص بك، [انقر هنا].'
+'If you wish to unregister your instance, [click here].': 'إذا كنت ترغب في إلغاء تسجيل المثيل الخاص بك، [انقر هنا].'
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'للحصول على معلومات تسجيل الدخول إلى وسيط MQTT، اتصل بمسؤول مثيل SUPLA Cloud هذا.'
+Inactive: غير نشط
+Include energy corrections in new measurements history (not recommended): تضمين قيمة مضافة في السجل (غير مستحسن)
+Integration with MQTT Broker has been disabled.: تم تعطيل التكامل مع وسيط MQTT.
+Integration with MQTT Broker has been enabled.: تم تمكين التكامل مع وسيط MQTT.
+Interpolate measurements: تقدير القيم الناقصة
+Interrupt: إيقاف تشغيل
+Interrupt and execute: قم بالمقاطعة والتنفيذ
+Invalid action parameters: معلمات التنفيذ غير صحيحة.
+Invalid function for channel.: وظيفة غير صحيحة للقناة.
+Invalid request.: طلب غير صالح.
+Invalid token.: رمز مميز غير صالح.
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: في هذا الوضع، سيبدأ الجهاز في بث شبكة Wi-Fi الخاصة به، والغرض منه هو السماح بتكوين الجهاز أو تحديث البرامج الثابتة باستخدام هاتف ذكي يتصل بهذه الشبكة.
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'ضع في اعتبارك أن وصف التعبير المعطى الذي يقدمه التطبيق ليس مثاليا، ومهمته الوحيدة هي مساعدتك في إدخال القيمة المناسبة. لا يتم استخدامه للتحقق مما إذا كانت القيمة المدخلة صحيحة، ناهيك عن التباهي بأن "هناك خطأ في ASUPL". بعد إجراء التغييرات، راجع قسم "عمليات التنفيذ القادمة" للتأكد من أن تكوين جدولك الزمني يلبي توقعاتك.'
+Linear: خطي
+Location name: اسم الموقع
+MQTT Broker: وسيط MQTT
+MQTT Broker Username: اسم المستخدم
+MQTT Broker is disabled.: تم تعطيل وسيط MQTT.
+MQTT Broker password: كلمة مرور وسيط MQTT
+MQTT Broker password has been changed.: تم تغيير كلمة مرور وسيط MQTT.
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: لم يتم تكوين اسم المستخدم أو كلمة المرور في هذا المثيل.
+Make sure to copy it now because you won’t be able to see it again!: تأكد من الاحتفاظ بها في مكان آمن.
+Manage your new client app in the SUPLA-Cloud.: إدارة إعدادات التطبيق في SUPLA-Cloud.
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: قم بإدارة جهازك في SUPLA-Cloud أو باستخدام تطبيق SUPLA على هاتفك الذكي.
+Manual: تعليمات
+Manually closed: مغلق يدويا
+Maximum delay is 60 minutes.: الحد الأقصى للتأخير هو 60 دقيقة.
+Meters: العدادات
+Move down or stop: لأسفل أو توقف
+Move up or stop: لأعلى أو توقف
+'Name: %clientAppName%': 'الاسم: %clientAppName%'
+Need one of these?: قد يكون من المفيد لك
+New IO device added to your account: إضافة جهاز جديد
+New client app (smartphone) added to your account: تسجيل تطبيق عملاء جديد (هاتف ذكي)
+New scene: مشهد جديد
+'Next limit renewal: {date}': 'سيتم تجديد الحد {date}'
+No of channels: عدد القنوات
+No of client apps: عدد تطبيقات العميل
+No of devices: عدد الأجهزة
+No of operations: عدد العمليات
+No schedule configuration.: لم يتم تحديد تكوين الجدول الزمني.
+None (channel disabled): لا يوجد (إيقاف تشغيل القناة)
+Number of attempts to close: عدد محاولات الإغلاق
+Number of attempts to open: عدد محاولات الفتح
+Number of sections: عدد الأقسام
+OAuth apps: تطبيقات OAuth
+OAuth integrations might stop working after the instance is unregistered.: قد تتوقف عمليات التكامل مع تطبيقات OAuth عن العمل بعد إلغاء تسجيل المثيل الخاص بك.
+Open partially: فتح جزئيا
+Operations: العمليات
+Other: غيرها
+'Password must be at least {minLength} characters.': 'يجب أن تتكون كلمة المرور من أحرف {minLength} على الأقل.'
+'Password must be no longer than {maxLength} characters.': 'لا يمكن أن تكون كلمة المرور أطول من {maxLength} أحرف.'
+Password reset instructions.: تعليمات لاستعادة الوصول إلى حسابك.
+Phase 1: المرحلة 1
+Phase 2: المرحلة 2
+Phase 3: المرحلة 3
+Please choose the schedule subject first.: أولا، اختر ما تريد أن يتحكم فيه الجدول الزمني
+Please confirm your SUPLA account.: قم بتفعيل حساب SUPLA الخاص بك.
+Port: منفذ
+Precision: دقة
+Private instance of the SUPLA cloud with given URL is already registered.: سحابة SUPLA خاصة مسجلة بالفعل في هذا العنوان.
+Protocol: بروتوكول
+Publish to integrations: النشر إلى التكامل
+Publishes the event to integrated services like MQTT or webhooks.: يخطر عمليات الدمج مثل MQTT أو الويبهوكات عند تنفيذ هذا الإجراء.
+Reference to the scene will be removed from the items below.: ستتم إزالة الإشارة إلى المشهد من العناصر التالية.
+Regeneration starts at: بداية التجديد
+'Registered from IP address: %clientAppRegIp%': 'مسجل بعنوان IP: %clientAppRegIp%'
+'Registered from IP address: %deviceRegIp%': 'عنوان IP: %deviceRegIp%'
+Reset Your Password: تعيين كلمة مرور جديدة
+Reset counter: تصفير العداد
+Reverse active energy: الطاقة النشطة المرتجعة
+Reverse active energy balanced: الطاقة النشطة المرتجعة (التوازن المتجه)
+Reverse reactive energy: الطاقة التفاعلية التفاعلية
+Roof window opening sensor: مستشعر فتح نافذة السقف
+Roof window shutter operation: فتح نافذة السقف
+SUPLA - Private instance unregistration: SUPLA - إلغاء تسجيل مثيل خاص
+SUPLA Server was unable to execute the scene.: تعذر على SUPLA Server تنفيذ المشهد.
+SUPLA Server was unable to query for the scene state.: تعذر على SUPLA Server قراءة حالة المشهد.
+SUPLA – new client app has been added to your account: SUPLA – تم تسجيل تطبيق عملاء جديد
+SUPLA – new device has been added to your account: SUPLA - تمت إضافة جهاز جديد إلى حسابك
+Save or discard configuration changes first.: أولا، احفظ تغييرات التكوين أو تجاهلها.
+Scene: المشهد
+Scene must consist of at least one operation.: يجب أن يحتوي المشهد على عملية واحدة على الأقل
+Scenes: المشاهد
+Scenes limit has been exceeded: لا يمكنك إنشاء المزيد من المشاهد
+See available integrations: اطلاع على عمليات الدمج المتاحة
+See in SUPLA-Cloud: عرض في SUPLA-Cloud
+Set value added: تحديد القيمة المضافة
+Setting the number of attempts to 1 disables the retrying behavior completely.: قد يؤدي تحديد عدد المحاولات إلى أقل من 2 إلى عدم حدوث الإغلاق أو الفتح.
+Show my limits: إظهار الحدود الخاصة بي
+Shut partially: ستار جزئي
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: أغلق الستارة حتى تلامس الحافة السفلية وانقل كتابة نسبة إغلاقها إلى هذا الحقل. هذه العملية ليست مطلوبة، ولكن توفيرها سيحسن تصور وضع الستارة في تطبيق الهاتف المحمول.
+Some features depend on this channel group: تعتمد بعض الوظائف على هذه المجموعة من القنوات.
+Some features depend on this device: تعتمد بعض الوظائف على هذا الجهاز
+Some features depend on this scene: تعتمد بعض الوظائف على هذا المشهد.
+Some of the features you have configured rely on channels from this device.: تستخدم بعض الوظائف قنوات من هذا الجهاز.
+Standard: معياري
+Start from the homepage.: ابدأ من الصفحة الرئيسية.
+State webhook: حالة الويبهوك
+Step by step: خطوة بخطوة
+Store measurements history: احتفاظ بتاريخ من القياسات
+Switch the device to configuration mode: وضع الجهاز في وضع التكوين
+TLS: TLS
+'Target Cloud is not registered, or is registered with another e-mail address.': 'لم يتم تسجيل مثيل SUPLA Cloud هذا، أو تم تسجيله بعنوان بريد إلكتروني آخر.'
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: كلمة المرور الخاصة بوسيط MQTT مرئية فقط في الوقت الحالي. تأكد من حفظها في مكان آمن. لن تتمكن من رؤيتها مرة أخرى.
+The SUPLA infrastructure is being updated.: جاري تحديث خوادم SUPLA.
+The counter has been reset.: تم تصفير العداد.
+The following items use the channels of these device. These references will be also removed.: تستخدم العناصر التالية قنوات من هذا الجهاز. سيتم حذفها كذلك.
+'The following items will be deleted with this device:': 'سيتم أيضا حذف العناصر التالية مع هذا الجهاز.'
+The gate sensor must function properly in order to execute the Open and Close actions.: يجب أن يعمل مستشعر فتح البوابة بشكل صحيح لتنفيذ إجراء "فتح" أو "إغلاق".
+The incident was detected at %datetime%.: حدث الحدث %datetime%.
+'The items below rely on this channel function, so they will be deleted.': 'تستند العناصر التالية إلى وظيفة القناة الحالية، لذلك ستتم حذفها عند تغييرها.'
+'The items below rely on this channel group, so they will be deleted.': 'تستخدم العناصر التالية مجموعة القنوات هذه، لذلك عند حذفها، سيتم حذفها أيضا.'
+'The items below rely on this scene, so they will be deleted.': 'تستند العناصر التالية إلى هذا المشهد، لذلك سيتم حذفها.'
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ستحل كلمة المرور الجديدة محل كلمة المرور التي تستخدمها حاليا. قد تتوقف بعض عمليات الدمج عن العمل بعد تغييرها. هل نستمر؟
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: بمساعدة الإطار، قمنا بوضع علامة على الإشعار الذي نقرت منه على الرابط لإلغاء التسجيل.
+'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'تم إيقاف تشغيل الجهاز مع حماية التيار الزائد. قبل تشغيله، تأكد من حل المشكلة التي أدت إلى ذلك. هل أنت متأكد من أنك تريد تشغيل هذا الجهاز عن بعد؟'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'لا يمكن فتح الصمام عبر رابط مباشر أو عبر واجهة برمجة التطبيقات بعد إغلاقه يدويا. لاستئناف التحكم، افتح الصمام يدويا.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'تم إغلاق الصمام في الوضع اليدوي أو اللاسلكي. قبل فتحه، تأكد من أنه لم يتم إغلاقه بسبب الإغراق. لتعطيل التحذير، افتح الصمام يدويا. هل أنت متأكد من أنك تريد فتح الصمام عن بعد؟!'
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'لن يتم فتح الصمام إذا تم إغلاقه يدويا أو عن طريق اللاسلكي، والذي قد يكون مرتبطا بالإغراق.'
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'تم تصميم وضع الجدول الزمني هذا للمستخدمين التقنيين أو الصبورين للغاية. يتطلب تحديد لحظات تشغيل الجدول الزمني في تدوين crontab المخصب بالعديد من الوظائف الموجودة فقط في ASUPL. إذا لم تكن قد واجهت crontabs من قبل  وما زلت ترغب في استخدام هذا الوضع،  فقد يكون موقع crontab.guru مفيدا لك.'
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: يتم استخدام هذا المشغل محليا بواسطة الجهاز (على سبيل المثال، يقوم بتشغيل الضوء، والتحكم في الستارة، وما إلى ذلك) إذا قمت بتعيين إجراء مختلف له، فسيتم تعطيل الوظيفة المحلية.
+Too many actions in this schedule.: عدد الإجراءات في جدول زمني واحد أكبر من اللازم.
+Too many operations in this scene: عدد العمليات في المشهد أكبر من اللازم.
+Triggers: مشغلات
+Turning this device off will cause its channels not working in the following features.: سيؤدي إيقاف تشغيل الجهاز إلى توقف قنواته عن العمل في العناصر التالية.
+Turning this device off will result in disabling features listed below.: سيؤدي إيقاف تشغيل الجهاز أيضا إلى إيقاف تشغيل العناصر التالية.
+Undo registration: سحب التسجيل
+Unregister my private SUPLA Cloud instance: إلغاء تسجيل مثيل SUPLA Cloud الخاص بي
+Unsuccessful login attempt: فشل تسجيل الدخول
+Update in progress: جاري التحديث
+'Use the [command] server command to change this account''s limits. For example:': 'لتغيير حدود هذا الحساب، استخدم الأمر [command] على الخادم الخاص بك. على سبيل المثال:'
+Use working schedule for this access identifier: استخدام جدول توفر لمعرف الوصول هذا
+Value added: القيمة المضافة
+Value per unit: القيمة لكل وحدة
+Valve: صمام
+Valve closed manually: صمام مغلق يدويا
+Wait a while before the next request. You can check your limits in the account settings.: انتظر بعض الوقت قبل تقديم طلب آخر. يمكنك التحقق من الاستخدام الحالي لحدودك في إعدادات حسابك.
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: سنرسل إليك إشعارات حول أحداث معينة تتعلق بحسابك. يمكنك إلغاء الاشتراك من تلك التي لا تحتاجها.
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: تم طلب إلغاء تسجيل مثيل SUPLA Cloud الخاص بك %targetCloudUrl%.
+We have just sent you an activation link. You should be receiving it shortly.: تم إرسال رسالة تحتوي على رابط لتنشيط حسابك. الصبر.
+We have sent you an email with further instructions.: لقد أرسلنا لك رسالة تحتوي على مزيد من التعليمات.
+We try to be faster: نحن نصبح أسرع
+Working schedule: جدول زمني للأنشطة
+You are changing the settings too quickly. You have to wait a while before making this change.: إنك تغير الإعدادات بسرعة زائدة. عليك الانتظار بعض الوقت قبل تغيير هذه الإعدادات.
+You cannot use SUPLA project name in the domain name.: لا يمكنك استخدام اسم مشروع SUPLA في اسم النطاق الأساسي.
+You have exceeded your API Rate Limit: لقد استنفدت حد الطلبات إلى واجهة برمجة التطبيقات
+You have requested to unregister your SUPLA Cloud instance: لقد طلبت إلغاء تسجيل مثيل SUPLA Cloud الخاص بك
+You have to choose at least one scope.: يجب عليك تحديد نطاق واحد على الأقل.
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'إذا كنت لا تزال ترغب في الاستفادة من وضع الجدول الزمني المتقدم، فألق نظرة على الأمثلة أدناه.'
+You must enable MQTT Broker first.: يجب عليك أولا تمكين التكامل مع وسيط MQTT.
+You must set sections with transparent or opaque parameters or both.: يجب عليك تحديد شفافية قسم واحد على الأقل.
+Your account and MQTT Broker connection.: قم بتوصيل حسابك بوسيط MQTT.
+Your account limits: حدودك
+'Your channel groups are allowed to have a maximum of {max} channels.': 'يُسمح أن تحتوي مجموعات قنواتك على ما يصل إلى{max}  قنوات.'
+'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'يتيح الجهاز توسيع وظائفه ويمكن من تنفيذ أي إجراء على أي جهاز تملكه. تعتمد الخيارات المتاحة لك على البرامج الثابتة والجهاز الذي تستخدمه.'
+Your password must contain at least one special character.: يجب أن تحتوي كلمة المرور على حرف خاص واحد على الأقل.
+Your password must include at least one letter.: يجب أن تحتوي كلمة المرور على حرف واحد على الأقل.
+Your password must include at least one number.: يجب أن تحتوي كلمة المرور على رقم واحد على الأقل.
+Your password must include both upper and lower case letters.: يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة.
+Your preferences has been updated.: تم حفظ إعداداتك.
+Your private SUPLA Cloud instance has been unregistered.:  تم إلغاء تسجيل مثيل SUPLA Cloud الخاص بك.
+'Your scenes are allowed to have a maximum of {max} operations.': 'يُسمح أن تحتوي مشاهدك على ما يصل إلى {max} عمليات.'
+'Your schedules are allowed to have a maximum of {max} actions.': 'يُسمح أن تحتوي جداولك على ما يصل إلى {max} إجراءات.'
+access to your e-mail address: الوصول إلى عنوان البريد الإلكتروني الخاص بك
+actionTrigger_HOLD: اضغط باستمرار على الزر
+actionTrigger_SHORT_PRESS_X1: الضغط 1x
+actionTrigger_SHORT_PRESS_X2: الضغط 2x
+actionTrigger_SHORT_PRESS_X3: الضغط 3x
+actionTrigger_SHORT_PRESS_X4: الضغط 4x
+actionTrigger_SHORT_PRESS_X5: الضغط 5x
+actionTrigger_TOGGLE_X1: التبديل 1x
+actionTrigger_TOGGLE_X2: التبديل 2x
+actionTrigger_TOGGLE_X3: التبديل 3x
+actionTrigger_TOGGLE_X4: التبديل 4x
+actionTrigger_TOGGLE_X5: التبديل 5x
+actionTrigger_TURN_OFF: إيقاف التشغيل
+actionTrigger_TURN_ON: بدء التشغيل
+actionableSubjectType_scene: المشهد
+addToHistoryMeasurementWarningSelected: يؤدي تعيين هذا الخيار إلى إضافة القيم المحددة إلى القياسات المستقبلية المحفوظة في السجل. قد يظهر هذا على الرسوم البيانية كزيادة مفاجئة بالقيمة التي أدخلتها. نوصي بتعيين هذه المعلمات فقط أثناء التثبيت الأول للعداد. بالنسبة إلى العدادات الموجودة، نوصي بحذف سجل القياسات بمجرد تغيير هذه الإعدادات.
+addToHistoryMeasurementWarningUnselected: سيؤدي إلغاء تعيين هذا الخيار إلى حذف القيم المحددة من القياسات المستقبلية التي يتم حفظها في السجل. قد يظهر ذلك على الرسوم البيانية على أنه انخفاض مفاجئ. نوصي بتعيين هذه المعلمات فقط أثناء التثبيت الأول للعداد. بالنسبة إلى العدادات الموجودة، نوصي بحذف سجل القياسات بمجرد تغيير هذه الإعدادات.
+caption: اسم
+choose the action: تحديد إجراء
+choose the scene: تحديد مشهد
+days: أيام
+directLinkExecutionFailureReason_invalidChannelState: تعذر تنفيذ الإجراء بسبب حالة القناة.
+directLinkExecutionFailureReason_sceneDuringExecution: المشهد قيد التنفيذ.
+empty: فارغة
+hours: ساعات
+min.: دقيقة
+or add a delay: أو إضافة تأخير
+password: كلمة المرور
+prefix: المزيد المقدم
+reset chart view: عودة إلى طريقة العرض الأولية
+scene: مشهد
+scheduleMode_crontab: متقدم
+suffix: المزيد المؤخر
+username: اسم المستخدم
+valid until: ينتهي
+'{minutes} minutes after sunrise': '{minutes} دقيقة بعد شروق الشمس'
+'{minutes} minutes after sunset': '{minutes} دقيقة بعد غروب الشمس'
+'{minutes} minutes before sunrise': '{minutes} دقيقة قبل شروق الشمس'
+'{minutes} minutes before sunset': '{minutes} دقيقة قبل غروب الشمس'
+'{requests} out of {limit} / day': '{requests} مع {limit} / يوم'
+'{requests} out of {limit} / h': '{requests} مع {limit} / ساعة'
+'{requests} out of {limit} / min': '{requests} مع {limit} / دقيقة'
+'{requests} out of {limit} / {seconds} sec.': '{requests} من {limit} / {seconds} ثانية.'
 
 #</editor-fold>
