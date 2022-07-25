@@ -6,7 +6,6 @@
                     <div class="col-xs-12">
                         <h1 class="carousel-title"
                             v-title>
-                            <i class="hidden-sm hidden-xs supla-icon supla-icon-scene"></i>
                             <router-link :to="{name: listRouteName}">{{ $t(headerI18n) }}</router-link>
                         </h1>
                         <loading-cover :loading="!items">
