@@ -146,6 +146,16 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/channels/{channel}/scenes", operationId="getChannelScenes", summary="Get channel scenes", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"location", "state"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
+     * )
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      * @Rest\Get("/channels/{channel}/scenes")
      */
@@ -156,6 +166,16 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/channel-groups/{channelGroup}/scenes", operationId="getChannelGroupScenes", summary="Get channel group scenes", tags={"Channel Groups"},
+     *     @OA\Parameter(description="ID", in="path", name="channelGroup", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"location", "state"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
+     * )
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
      * @Rest\Get("/channel-groups/{channelGroup}/scenes")
      */
@@ -166,6 +186,16 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/scenes/{scene}/scenes", operationId="getSceneScenes", summary="Get scene scenes", tags={"Scenes"},
+     *     @OA\Parameter(description="ID", in="path", name="scene", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"location", "state"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
+     * )
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
      * @Rest\Get("/scenes/{scene}/scenes")
      */
@@ -221,6 +251,18 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Put(
+     *     path="/scenes/{scene}", operationId="updateScene", summary="Update the scene", tags={"Scenes"},
+     *     @OA\Parameter(description="ID", in="path", name="scene", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="enabled", type="boolean"),
+     *          @OA\Property(property="caption", type="string"),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Scene")),
+     * )
      * @Rest\Put("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
