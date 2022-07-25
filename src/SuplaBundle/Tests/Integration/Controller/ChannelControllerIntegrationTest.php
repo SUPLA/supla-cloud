@@ -858,4 +858,24 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $details = $body['details'];
         $this->assertEquals('suplaServerError', $details['error']);
     }
+
+    public function testGettingChannelScenesCount() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATEWAYLOCK],
+        ]);
+        $gateChannel = $anotherDevice->getChannels()[0];
+        $scene = new Scene($anotherDevice->getLocation());
+        $scene->setOpeartions([new SceneOperation($gateChannel, ChannelFunctionAction::OPEN_CLOSE()), new SceneOperation($gateChannel, ChannelFunctionAction::OPEN_CLOSE(), [], 100)]);
+        $this->persist($scene);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels/' . $gateChannel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('scenes', $content['relationsCount']);
+        $this->assertArrayHasKey('sceneOperations', $content['relationsCount']);
+        $this->assertEquals(1, $content['relationsCount']['scenes']);
+        $this->assertEquals(2, $content['relationsCount']['sceneOperations']);
+    }
 }

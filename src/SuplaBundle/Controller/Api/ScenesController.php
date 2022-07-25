@@ -70,12 +70,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *   @OA\Property(property="userIconId", type="integer"),
  *   @OA\Property(property="state", ref="#/components/schemas/SceneState"),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.",
- *     @OA\Property(property="channelGroups", type="integer"),
+ *     @OA\Property(property="sceneOperations", description="Number of scene operations, that this scene is used for an action.", type="integer"),
  *     @OA\Property(property="directLinks", type="integer"),
  *     @OA\Property(property="schedules", type="integer"),
- *     @OA\Property(property="scenes", type="integer"),
- *     @OA\Property(property="operations", type="integer"),
- *     @OA\Property(property="actionTriggers", type="integer")
+ *     @OA\Property(property="scenes", description="Number of scenes that this scene is used for an action.", type="integer"),
+ *     @OA\Property(property="operations", description="Number of scene operations that this scene has.", type="integer"),
  *   ),
  * )
  */
