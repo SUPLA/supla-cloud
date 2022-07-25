@@ -865,7 +865,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $gateChannel = $anotherDevice->getChannels()[0];
         $scene = new Scene($anotherDevice->getLocation());
-        $scene->setOpeartions([new SceneOperation($gateChannel, ChannelFunctionAction::OPEN_CLOSE()), new SceneOperation($gateChannel, ChannelFunctionAction::OPEN_CLOSE(), [], 100)]);
+        $scene->setOpeartions([
+            new SceneOperation($gateChannel, ChannelFunctionAction::OPEN_CLOSE()),
+            new SceneOperation($gateChannel, ChannelFunctionAction::OPEN_CLOSE(), [], 100),
+        ]);
         $this->persist($scene);
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channels/' . $gateChannel->getId());

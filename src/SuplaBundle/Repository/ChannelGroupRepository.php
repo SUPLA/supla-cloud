@@ -15,7 +15,10 @@ class ChannelGroupRepository extends EntityWithRelationsRepository {
             ->addSelect('cg entity')
             ->addSelect('COUNT(DISTINCT c) channels')
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s so WHERE so.channelGroup = cg) sceneOperations', SceneOperation::class))
-            ->addSelect(sprintf('(SELECT COUNT(DISTINCT sos.owningScene) FROM %s sos WHERE sos.channelGroup = cg) scenes', SceneOperation::class))
+            ->addSelect(sprintf(
+                '(SELECT COUNT(DISTINCT sos.owningScene) FROM %s sos WHERE sos.channelGroup = cg) scenes',
+                SceneOperation::class
+            ))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s dl WHERE dl.channelGroup = cg) directLinks', DirectLink::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s s WHERE s.channelGroup = cg) schedules', Schedule::class))
             ->from(IODeviceChannelGroup::class, 'cg')
