@@ -58,7 +58,7 @@ class DefaultController extends AbstractController {
      * @Template()
      */
     public function apiDocsAction(Request $request) {
-        return ['supla_url' => $this->suplaUrl, 'yaml_suffix' => ($request->get('v') === '2.4.0' ? '-2.4.0' : '')];
+        return ['supla_url' => $this->suplaUrl, 'yaml_suffix' => ($request->get('v') === '2.3.0' ? '' : '-2.4.0')];
     }
 
     /**
