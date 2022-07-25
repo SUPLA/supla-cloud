@@ -45,6 +45,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @OA\Schema(
+ *   schema="SceneOperation", type="object",
+ *   @OA\Property(property="actionId", ref="#/components/schemas/ChannelFunctionActionIds"),
+ *   @OA\Property(property="actionParam", nullable=true, ref="#/components/schemas/ChannelActionParams"),
+ *   @OA\Property(property="delayMs", type="integer", description="Delay before this operation in scene, in milliseconds."),
+ *   @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+ *   @OA\Property(property="subjectId", type="integer"),
+ *   @OA\Property(property="owningSceneId", description="ID of the scene that this operation belongs to.", type="integer"),
+ *   @OA\Property(property="subject", description="Only if requested by the `include` param.", ref="#/components/schemas/ActionableSubject"),
+ * )
+ * @OA\Schema(
  *   schema="Scene", type="object",
  *   @OA\Property(property="id", type="integer", description="Identifier"),
  *   @OA\Property(property="caption", type="string", description="Caption"),
@@ -167,6 +177,16 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/scenes/{scene}", operationId="getScene", summary="Get Scene", tags={"Scenes"},
+     *     @OA\Parameter(description="ID", in="path", name="scene", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"location", "state", "subject", "operations"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Scene")),
+     * )
      * @Rest\Get("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
      */

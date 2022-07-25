@@ -66,7 +66,6 @@ class SceneOperation implements HasSubject {
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
-     * @Groups({"basic"})
      */
     private $action;
 

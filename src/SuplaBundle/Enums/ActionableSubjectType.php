@@ -27,6 +27,11 @@ use SuplaBundle\Exception\ApiException;
 
 /**
  * @OA\Schema(schema="ActionableSubjectTypeNames", type="string", enum={"channel","channelGroup","scene","other"})
+ * @OA\Schema(schema="ActionableSubject", oneOf={
+ *    @OA\Schema(ref="#/components/schemas/Channel"),
+ *    @OA\Schema(ref="#/components/schemas/ChannelGroup"),
+ *    @OA\Schema(ref="#/components/schemas/Scene"),
+ * })
  *
  * @method static ActionableSubjectType CHANNEL()
  * @method static ActionableSubjectType CHANNEL_GROUP()

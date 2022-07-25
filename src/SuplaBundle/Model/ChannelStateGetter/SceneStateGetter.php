@@ -8,8 +8,15 @@ use SuplaBundle\Supla\SuplaServerAware;
 
 /**
  * @OA\Schema(schema="SceneState",
- *     description="State of scenes.",
+ *     description="State of a scene.",
+ *     required={"executing"},
  *     @OA\Property(property="executing", type="boolean"),
+ *     @OA\Property(property="initiatorTypeId", type="integer", enum={0,1,2,3,4,5,6,7,8}),
+ *     @OA\Property(property="initiatorType", type="string", enum={"UNKNOWN", "DEVICE", "CLIENT", "IPC", "MQTT", "AMAZON_ALEXA", "GOOGLE_HOME", "ACTION_TRIGGER", "SCENE"}),
+ *     @OA\Property(property="initiatorId", type="integer", nullable=true),
+ *     @OA\Property(property="initiatorName", type="string", nullable=true),
+ *     @OA\Property(property="millisecondsFromStart", type="integer"),
+ *     @OA\Property(property="millisecondsToEnd", type="integer"),
  * )
  */
 class SceneStateGetter {
