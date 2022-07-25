@@ -31,6 +31,7 @@ use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Dependencies\SceneDependencies;
 use SuplaBundle\Model\Transactional;
@@ -39,14 +40,34 @@ use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\SceneUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @OA\Schema(
  *   schema="Scene", type="object",
  *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="caption", type="string", description="Caption"),
+ *   @OA\Property(property="altIcon", type="integer", description="Chosen alternative icon idenifier. Should not be greater than the `function.maxAlternativeIconIndex`."),
+ *   @OA\Property(property="enabled", type="boolean", description="Whether this scenen is enabled or not"),
+ *   @OA\Property(property="subjectType", type="string", enum={"scene"}),
+ *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
+ *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
+ *   @OA\Property(property="operations", description="Scene operations, only if requested in the `include` param", type="array", @OA\Items(ref="#/components/schemas/SceneOperation")),
+ *   @OA\Property(property="location", description="Channel location, if requested by the `include` param", ref="#/components/schemas/Location"),
+ *   @OA\Property(property="locationId", type="integer"),
+ *   @OA\Property(property="functionId", type="integer", enum={2000}),
+ *   @OA\Property(property="userIconId", type="integer"),
+ *   @OA\Property(property="state", ref="#/components/schemas/SceneState"),
+ *   @OA\Property(property="relationsCount", description="Counts of related entities.",
+ *     @OA\Property(property="channelGroups", type="integer"),
+ *     @OA\Property(property="directLinks", type="integer"),
+ *     @OA\Property(property="schedules", type="integer"),
+ *     @OA\Property(property="scenes", type="integer"),
+ *     @OA\Property(property="operations", type="integer"),
+ *     @OA\Property(property="actionTriggers", type="integer")
+ *   ),
  * )
- * @Rest\Version("2.4.0")
  */
 class ScenesController extends RestController {
     use Transactional;
@@ -91,6 +112,12 @@ class ScenesController extends RestController {
         });
     }
 
+    private function ensureApiVersion24(Request $request) {
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
+    }
+
     /**
      * @OA\Get(
      *     path="/scenes", operationId="getScenes", summary="Get Scenes", tags={"Scenes"},
@@ -105,6 +132,7 @@ class ScenesController extends RestController {
      * @Security("has_role('ROLE_SCENES_R')")
      */
     public function getScenesAction(Request $request) {
+        $this->ensureApiVersion24($request);
         return $this->serializedView($this->returnScenes()->getValues(), $request);
     }
 
@@ -113,6 +141,7 @@ class ScenesController extends RestController {
      * @Rest\Get("/channels/{channel}/scenes")
      */
     public function getChannelScenesAction(IODeviceChannel $channel, Request $request) {
+        $this->ensureApiVersion24($request);
         $scenes = $this->returnScenesFilteredBySubject($channel);
         return $this->serializedView($scenes->getValues(), $request);
     }
@@ -122,6 +151,7 @@ class ScenesController extends RestController {
      * @Rest\Get("/channel-groups/{channelGroup}/scenes")
      */
     public function getChannelGroupScenesAction(IODeviceChannelGroup $channelGroup, Request $request) {
+        $this->ensureApiVersion24($request);
         $directLinks = $this->returnScenesFilteredBySubject($channelGroup);
         return $this->serializedView($directLinks->getValues(), $request);
     }
@@ -131,6 +161,7 @@ class ScenesController extends RestController {
      * @Rest\Get("/scenes/{scene}/scenes")
      */
     public function getSceneScenesAction(Scene $scene, Request $request) {
+        $this->ensureApiVersion24($request);
         $directLinks = $this->returnScenesFilteredBySubject($scene);
         return $this->serializedView($directLinks->getValues(), $request);
     }
@@ -140,6 +171,7 @@ class ScenesController extends RestController {
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
      */
     public function getSceneAction(Request $request, Scene $scene) {
+        $this->ensureApiVersion24($request);
         return $this->serializedView($scene, $request, ['scene.relationsCount']);
     }
 
@@ -148,6 +180,7 @@ class ScenesController extends RestController {
      * @Security("has_role('ROLE_SCENES_RW')")
      */
     public function postSceneAction(Request $request, Scene $scene, TranslatorInterface $translator) {
+        $this->ensureApiVersion24($request);
         $user = $this->getUser();
         if (!$scene->getCaption()) {
             $caption = $translator->trans('Scene', [], null, $user->getLocale()); // i18n
@@ -173,6 +206,7 @@ class ScenesController extends RestController {
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
     public function putSceneAction(Scene $scene, Scene $updated, Request $request) {
+        $this->ensureApiVersion24($request);
         Assertion::lessOrEqualThan(
             $updated->getOperations()->count(),
             $scene->getUser()->getLimitOperationsPerScene(),
@@ -202,6 +236,7 @@ class ScenesController extends RestController {
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
     public function deleteSceneAction(Scene $scene, Request $request, SceneDependencies $sceneDependencies) {
+        $this->ensureApiVersion24($request);
         $sceneId = $scene->getId();
         $shouldConfirm = filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN);
         if ($shouldConfirm) {
@@ -225,6 +260,7 @@ class ScenesController extends RestController {
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_EA') and is_granted('accessIdContains', scene)")
      */
     public function patchSceneAction(Request $request, Scene $scene, ChannelActionExecutor $channelActionExecutor) {
+        $this->ensureApiVersion24($request);
         $params = json_decode($request->getContent(), true);
         Assertion::keyExists($params, 'action', 'Missing action.');
         $action = ChannelFunctionAction::fromString($params['action']);
