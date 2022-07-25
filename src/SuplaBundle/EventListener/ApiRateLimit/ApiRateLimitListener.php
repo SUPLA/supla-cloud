@@ -190,7 +190,7 @@ class ApiRateLimitListener {
             preg_match('#^/direct/(\d+)#', $event->getRequest()->getRequestUri(), $match);
             if ($match) {
                 $directLinkId = intval($match[1]);
-                list($slug,) = ExecuteDirectLinkController::getSlugAndAction($event->getRequest());
+                [$slug,] = ExecuteDirectLinkController::getSlugAndAction($event->getRequest());
                 $directLinkCache = $this->storage->getItem($this->storage->getDirectLinkCacheKey($directLinkId));
                 if ($directLinkCache->isHit()) {
                     $directLinkData = json_decode($directLinkCache->get(), true);

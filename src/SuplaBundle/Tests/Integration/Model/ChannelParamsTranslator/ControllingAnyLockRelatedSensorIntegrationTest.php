@@ -63,7 +63,7 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
             [ChannelType::ELECTRICITYMETER, ChannelFunction::ELECTRICITYMETER],
         ]);
     }
-    
+
     /** @before */
     public function init() {
         $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);

@@ -40,7 +40,7 @@ class UnavailableInMaintenanceRequestListener {
         if (!is_array($controllers = $event->getController())) {
             return;
         }
-        list($controller, $methodName) = $controllers;
+        [$controller, $methodName] = $controllers;
         $reflectionClass = new \ReflectionClass($controller);
         $classAnnotation = $this->reader->getClassAnnotation($reflectionClass, UnavailableInMaintenance::class);
         $reflectionObject = new \ReflectionObject($controller);

@@ -69,7 +69,6 @@ class LocationController extends RestController {
         ];
     }
 
-
     private function getLocations() {
         $result = [];
         $parent = $this->getUser();

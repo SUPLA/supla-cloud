@@ -26,10 +26,10 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
 
     public function __construct(
         MessageBusInterface $messageBus,
-        Environment         $twig,
-        UserRepository      $userRepository,
-        TimeProvider        $timeProvider,
-        string              $defaultLocale
+        Environment $twig,
+        UserRepository $userRepository,
+        TimeProvider $timeProvider,
+        string $defaultLocale
     ) {
         $this->messageBus = $messageBus;
         $this->twig = $twig;

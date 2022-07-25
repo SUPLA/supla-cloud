@@ -193,9 +193,9 @@ class IODeviceController extends RestController {
      * @UnavailableInMaintenance
      */
     public function putIodeviceAction(
-        Request             $request,
-        IODevice            $ioDevice,
-        IODevice            $updatedDevice,
+        Request $request,
+        IODevice $ioDevice,
+        IODevice $updatedDevice,
         ChannelDependencies $channelDependencies
     ) {
         $result = $this->transactional(function (EntityManagerInterface $em) use (

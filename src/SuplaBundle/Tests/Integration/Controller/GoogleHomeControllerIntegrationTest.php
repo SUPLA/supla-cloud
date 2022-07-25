@@ -22,7 +22,6 @@ use SuplaBundle\Entity\User;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /** @small */
 class GoogleHomeControllerIntegrationTest extends IntegrationTestCase {
@@ -40,14 +39,13 @@ class GoogleHomeControllerIntegrationTest extends IntegrationTestCase {
         $this->client = $this->createAuthenticatedClient($this->user);
     }
 
-    private function getGoogleHome() : GoogleHome {
+    private function getGoogleHome(): GoogleHome {
         return $this->getDoctrine()
             ->getRepository(GoogleHome::class)->findForUser($this->user);
     }
 
-
     private function assertUpdatingCredentials(string $accessToken) {
-        $this->client->apiRequestV23('PUT', '/api/integrations/google-home', ['gh_access_token'=>$accessToken]);
+        $this->client->apiRequestV23('PUT', '/api/integrations/google-home', ['gh_access_token' => $accessToken]);
         $response = $this->client->getResponse();
         $this->assertStatusCode('2xx', $response);
 

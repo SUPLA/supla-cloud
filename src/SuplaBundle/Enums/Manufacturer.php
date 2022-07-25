@@ -18,7 +18,6 @@
 namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Exception\ApiException;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -39,7 +38,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static Manufacturer DGF()
  * @method static Manufacturer COMELIT()
  */
-
 final class Manufacturer extends Enum {
     const UNKNOWN = 0;
     const ACSOFTWARE = 1;

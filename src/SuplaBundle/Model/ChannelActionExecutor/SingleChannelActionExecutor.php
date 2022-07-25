@@ -20,10 +20,10 @@ abstract class SingleChannelActionExecutor {
     public function assignCommonParams(array $source, array $actionParams = []) {
 
         if (array_key_exists('alexaCorrelationToken', $actionParams)) {
-            $source['ACT'] = 'ALEXA-CORRELATION-TOKEN='.base64_encode($actionParams['alexaCorrelationToken']);
+            $source['ACT'] = 'ALEXA-CORRELATION-TOKEN=' . base64_encode($actionParams['alexaCorrelationToken']);
         }
         if (array_key_exists('googleRequestId', $actionParams)) {
-            $source['GRI'] = 'GOOGLE-REQUEST-ID='.base64_encode($actionParams['googleRequestId']);
+            $source['GRI'] = 'GOOGLE-REQUEST-ID=' . base64_encode($actionParams['googleRequestId']);
         }
 
         return $source;

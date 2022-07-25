@@ -40,7 +40,7 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
         $this->client = $this->createAuthenticatedClient($this->user);
     }
 
-    private function getAmazonAlexa() : AmazonAlexa {
+    private function getAmazonAlexa(): AmazonAlexa {
         return $this->getDoctrine()
             ->getRepository(AmazonAlexa::class)->findForUser($this->user);
     }
@@ -70,8 +70,8 @@ class AmazonAlexaControllerIntegrationTest extends IntegrationTestCase {
 
         $diff = $amazonAlexa->getExpiresAt()->getTimestamp() - $now->getTimestamp();
 
-        $this->assertGreaterThanOrEqual($expiresIn-2, $diff);
-        $this->assertLessThanOrEqual($expiresIn+2, $diff);
+        $this->assertGreaterThanOrEqual($expiresIn - 2, $diff);
+        $this->assertLessThanOrEqual($expiresIn + 2, $diff);
 
         $this->getEntityManager()->detach($amazonAlexa);
     }

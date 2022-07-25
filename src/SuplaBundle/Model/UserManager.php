@@ -75,18 +75,18 @@ class UserManager {
     private $messageBus;
 
     public function __construct(
-        UserRepository          $userRepository,
+        UserRepository $userRepository,
         EncoderFactoryInterface $encoder_factory,
-        AccessIdManager         $accessid_manager,
-        LocationManager         $location_manager,
-        ScheduleManager         $scheduleManager,
-        TimeProvider            $timeProvider,
-        LoggerInterface         $logger,
-        SuplaMailer             $mailer,
-        LocalSuplaCloud         $localSuplaCloud,
-        MessageBusInterface     $messageBus,
-        int                     $defaultClientsRegistrationTime,
-        int                     $defaultIoDevicesRegistrationTime
+        AccessIdManager $accessid_manager,
+        LocationManager $location_manager,
+        ScheduleManager $scheduleManager,
+        TimeProvider $timeProvider,
+        LoggerInterface $logger,
+        SuplaMailer $mailer,
+        LocalSuplaCloud $localSuplaCloud,
+        MessageBusInterface $messageBus,
+        int $defaultClientsRegistrationTime,
+        int $defaultIoDevicesRegistrationTime
     ) {
         $this->encoder_factory = $encoder_factory;
         $this->rep = $userRepository;

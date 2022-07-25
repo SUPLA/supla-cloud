@@ -33,7 +33,7 @@ final class StringUtils {
 
     /** https://stackoverflow.com/a/31284266/878514 */
     public static function randomString(
-        int    $length,
+        int $length,
         string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-*@!()='
     ) {
         $str = '';

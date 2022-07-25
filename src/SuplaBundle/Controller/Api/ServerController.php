@@ -44,10 +44,10 @@ class ServerController extends RestController {
 
     public function __construct(
         FrontendConfig $frontendConfig,
-        string         $suplaServerHost,
-        string         $suplaVersion,
-        string         $suplaVersionFull,
-        bool           $actAsBrokerCloud
+        string $suplaServerHost,
+        string $suplaVersion,
+        string $suplaVersionFull,
+        bool $actAsBrokerCloud
     ) {
         $this->frontendConfig = $frontendConfig;
         $this->suplaServerHost = $suplaServerHost;

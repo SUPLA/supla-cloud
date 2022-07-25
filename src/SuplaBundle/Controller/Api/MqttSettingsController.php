@@ -73,7 +73,7 @@ class MqttSettingsController extends RestController {
         ];
         $userSettings = [];
         if ($this->containerWithParameters->getParameter('supla.mqtt_broker.integrated_auth')) {
-            list($rawPassword, $encodedPassword) = self::generateMqttBrokerPassword(64);
+            [$rawPassword, $encodedPassword] = self::generateMqttBrokerPassword(64);
             $authorization->setMqttBrokerAuthPassword($encodedPassword);
             $this->entityManager->persist($authorization);
             $this->entityManager->flush();

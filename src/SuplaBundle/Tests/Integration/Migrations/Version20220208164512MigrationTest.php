@@ -35,6 +35,7 @@ class Version20220208164512MigrationTest extends DatabaseMigrationTestCase {
         $this->assertArrayHasKey('addToHistory', $channel->getUserConfig());
         $this->assertTrue($channel->getUserConfigValue('addToHistory'));
     }
+
     public function testMigratedElectricityMeterWithoutInitialValues() {
         /** @var IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 73);
