@@ -23,7 +23,7 @@
                     v-if="app.websiteUrl"
                     class="btn btn-lg btn-white">
                     <i class="pe-7s-global"></i>
-                    {{ $t('Visit app webpage' )}}
+                    {{ $t('Visit app webpage') }}
                 </a>
             </div>
         </div>
@@ -59,9 +59,9 @@
 </script>
 
 <style lang="scss">
-.app-details-page {
-    img {
-        max-width: 100%;
+    .app-details-page {
+        img {
+            max-width: 100%;
+        }
     }
-}
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="message">
         <i :class="icon"></i>
-        <h1>{{ $t(headerI18n)}}</h1>
+        <h1>{{ $t(headerI18n) }}</h1>
         <p v-if="message">{{ message }}</p>
         <slot></slot>
     </div>

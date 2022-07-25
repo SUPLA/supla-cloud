@@ -1,6 +1,7 @@
 <template>
     <div>
-        <a v-if="channel.function.id" @click="openIconDialog()"
+        <a v-if="channel.function.id"
+            @click="openIconDialog()"
             class="btn btn-link">
             {{ $t('Change icon') }}
         </a>

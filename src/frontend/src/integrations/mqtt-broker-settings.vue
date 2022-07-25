@@ -76,7 +76,7 @@
                                         <pre><code>{{ generatedPassword }}</code></pre>
                                         <copy-button :text="generatedPassword"></copy-button>
                                     </div>
-                                    <p>{{ $t('The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.')}}</p>
+                                    <p>{{ $t('The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.') }}</p>
                                 </div>
                                 <a @click="generatingPassword = true"
                                     class="btn btn-white">{{ $t('Generate new password') }}</a>

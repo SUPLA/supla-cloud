@@ -18,7 +18,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li v-for="valueDef in values" :key="valueDef.id">
+                <li v-for="valueDef in values"
+                    :key="valueDef.id">
                     <a @click="$emit('input', valueDef.id)"
                         v-show="valueDef.id != value">{{ valueDef.label }}</a>
                 </li>

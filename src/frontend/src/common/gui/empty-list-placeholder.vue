@@ -16,7 +16,9 @@
             font-size: 2em;
         }
         &.inline {
-            i {display: none;}
+            i {
+                display: none;
+            }
             .empty {
                 font-size: 1em;
                 font-style: italic;

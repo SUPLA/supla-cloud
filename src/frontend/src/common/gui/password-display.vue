@@ -27,7 +27,7 @@
                     v-model="newPassword">
                 <span class="input-group-btn">
                     <a class="btn btn-white"
-                        @click="generatePassword(password.length || 5)">{{$t('GENERATE')}}</a>
+                        @click="generatePassword(password.length || 5)">{{ $t('GENERATE') }}</a>
                 </span>
             </span>
         </modal>

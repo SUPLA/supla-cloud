@@ -6,12 +6,12 @@
                 <div class="btn-group">
                     <a href="https://github.com/SUPLA/supla-cloud/wiki/Integrations#oauth-apps"
                         class="btn btn-white">
-                        {{ $t('Full documentation')}} @ GitHub
+                        {{ $t('Full documentation') }} @ GitHub
                     </a>
                     <a :href="'/api-docs/docs.html' | withBaseUrl"
                         target="_blank"
                         class="btn btn-white">
-                        {{ $t('API documentation')}}
+                        {{ $t('API documentation') }}
                         <i class="pe-7s-exapnd2"></i>
                     </a>
                 </div>

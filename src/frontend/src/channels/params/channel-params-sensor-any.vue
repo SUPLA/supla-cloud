@@ -1,7 +1,7 @@
 <template>
     <div>
         <dl>
-            <dd>{{$t('Inverted logic')}}</dd>
+            <dd>{{ $t('Inverted logic') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.invertedLogic"
                     @input="$emit('change')"></toggler>

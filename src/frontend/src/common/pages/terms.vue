@@ -1,7 +1,8 @@
 <template>
     <div class="terms-page">
         <div class="wrapper">
-             <regulations-modal v-if="!rulesShown" @confirm="goToLoginPage()"></regulations-modal>
+            <regulations-modal v-if="!rulesShown"
+                @confirm="goToLoginPage()"></regulations-modal>
         </div>
     </div>
 </template>

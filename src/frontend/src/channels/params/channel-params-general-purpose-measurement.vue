@@ -69,18 +69,18 @@
                     <unit-symbol-helper @typed="channel.config[lastUnitField] += $event"></unit-symbol-helper>
                 </span>
             </dt>
-            <dd>{{$t('Store measurements history')}}</dd>
+            <dd>{{ $t('Store measurements history') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.storeMeasurementHistory"
                     @input="$emit('change')"></toggler>
             </dt>
-            <dd>{{$t('Chart type')}}</dd>
+            <dd>{{ $t('Chart type') }}</dd>
             <dt>
                 <channel-params-button-selector v-model="channel.config.chartType"
                     @input="$emit('change')"
                     :values="[{id: 0, label: $t('Linear')}, {id: 1, label: $t('Bar')}]"></channel-params-button-selector>
             </dt>
-            <dd>{{$t('Chart data source type')}}</dd>
+            <dd>{{ $t('Chart data source type') }}</dd>
             <dt>
                 <channel-params-button-selector v-model="channel.config.chartDataSourceType"
                     @input="$emit('change')"
@@ -89,7 +89,7 @@
         </dl>
         <transition-expand>
             <dl v-if="channel.config.chartDataSourceType === 0">
-                <dd>{{$t('Interpolate measurements')}}</dd>
+                <dd>{{ $t('Interpolate measurements') }}</dd>
                 <dt class="text-center">
                     <toggler v-model="channel.config.interpolateMeasurements"
                         @input="$emit('change')"></toggler>

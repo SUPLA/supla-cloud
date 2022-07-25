@@ -17,7 +17,7 @@
             </dl>
             <dl class="ellipsis">
                 <dd>{{ $t('Location') }}</dd>
-                <dt>ID{{device.location.id}} {{ device.location.caption }}</dt>
+                <dt>ID{{ device.location.id }} {{ device.location.caption }}</dt>
             </dl>
             <div class="square-link-label">
                 <connection-status-label :model="device"></connection-status-label>

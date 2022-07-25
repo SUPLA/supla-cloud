@@ -80,8 +80,7 @@
                 setTimeout(() => {
                     if (typeof window.grecaptcha !== 'undefined') {
                         window.grecaptcha.ready(() => this.render());
-                    }
-                    else {
+                    } else {
                         this.waitForRecaptcha();
                     }
                 }, 200);

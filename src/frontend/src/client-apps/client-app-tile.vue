@@ -1,7 +1,7 @@
 <template>
     <square-link :class="'clearfix pointer with-label ' + (model.enabled ? 'green' : 'grey')"
         @click="$emit('click')">
-        <h3>{{model.caption}}</h3>
+        <h3>{{ model.caption }}</h3>
         <dl>
             <dd v-if="model.caption != model.name">{{ model.name }} /</dd>
             <dd>{{ model.softwareVersion }} / {{ model.protocolVersion }}</dd>

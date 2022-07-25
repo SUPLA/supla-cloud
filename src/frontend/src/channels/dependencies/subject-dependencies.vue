@@ -75,7 +75,7 @@
         props: ['dependencies'],
         computed: {
             dependentScenes() {
-              return [...new Map(this.dependencies.sceneOperations.map(item => [item.owningSceneId, item.owningScene])).values()];
+                return [...new Map(this.dependencies.sceneOperations.map(item => [item.owningSceneId, item.owningScene])).values()];
             },
         }
     };
