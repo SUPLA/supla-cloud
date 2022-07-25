@@ -31,7 +31,7 @@
     "friendsofsymfony/oauth-server-bundle": "^1.6",
     "friendsofsymfony/rest-bundle": "^2.7",
     "google/recaptcha": "^1.1",
-    "gumlet/php-image-resize": "^1.9",
+    "gumlet/php-image-resize": "^2.0",
     "myclabs/php-enum": "1.5.*",
     "nelmio/cors-bundle": "^1.5",
     "sensio/framework-extra-bundle": "^5.0",

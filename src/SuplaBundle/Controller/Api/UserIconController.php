@@ -44,6 +44,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   @OA\Property(property="id", type="integer", description="Identifier"),
  *   @OA\Property(property="functionId", type="integer", example=60),
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
+ *   @OA\Property(property="images", description="Base64-encoded images of this icon. Returned only if required by the `include` parameter in the single-entity endpoint.", type="array", @OA\Items(type="string")),
  * )
  */
 class UserIconController extends RestController {
@@ -58,7 +59,7 @@ class UserIconController extends RestController {
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
-        return ['images'];
+        return [];
     }
 
     /**
@@ -66,10 +67,10 @@ class UserIconController extends RestController {
      *   path="/user-icons", operationId="createUserIcon", summary="Create a new User Icon", tags={"User Icons"},
      *   @OA\RequestBody(
      *     required=true,
+     *     description="Multipart request with files to save as a new icon. The number of images required to be sent with the request is determined by the chosen function identifier (it must match the `function.possibleVisualStates` count). Each image represents the respective visual state from `function.possibleVisualStates` array.",
      *     @OA\MediaType(
      *       mediaType="multipart/form-data",
      *       @OA\Schema(
-     *         description="Multipart request with files to save as a new icon. The number of images required to be sent with the request is determined by the chosen function identifier (it must match the `function.possibleVisualStates` count). Each image represents the respective visual state from `function.possibleVisualStates` array.",
      *         @OA\Property(property="function", ref="#/components/schemas/ChannelFunctionEnumNames"),
      *         @OA\Property(property="sourceIcon", type="integer", description="ID of an existing user icon to replace with these new files. Optional."),
      *         @OA\Property(property="image1", type="string", format="binary"),
@@ -88,6 +89,49 @@ class UserIconController extends RestController {
     public function postIconAction(Request $request) {
         $files = $request->files;
         Assertion::greaterThan(count($files), 0, 'You have not uploaded any files, or the uploaded files are too big.');
+        return $this->storeIcon($request, function (string $imageName) use ($files) {
+            if ($files->has($imageName)) {
+                return new ImageResize($files->get($imageName)->getPathName());
+            }
+            return null;
+        });
+    }
+
+    /**
+     * @OA\Post(
+     *   path="/user-icons.base64", operationId="createUserIconBase64", summary="Create a new User Icon sent in Base64 format.", tags={"User Icons"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     description="Request with Base64-encoded images to save as a new icon. The number of images required to be sent with the request is determined by the chosen function identifier (it must match the `function.possibleVisualStates` count). Each image represents the respective visual state from `function.possibleVisualStates` array.",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="function", ref="#/components/schemas/ChannelFunctionEnumNames"),
+     *       @OA\Property(property="sourceIcon", type="integer", description="ID of an existing user icon to replace with these new files. Optional."),
+     *       @OA\Property(property="image1", type="string", format="byte"),
+     *       @OA\Property(property="image2", type="string", format="byte"),
+     *       @OA\Property(property="image3", type="string", format="byte"),
+     *       @OA\Property(property="image4", type="string", format="byte"),
+     *     ),
+     *   ),
+     *   @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/UserIcon")),
+     * )
+     * @Security("has_role('ROLE_CHANNELS_RW')")
+     * @Rest\Post("/user-icons.base64")
+     * @UnavailableInMaintenance
+     */
+    public function postIconBase64Action(Request $request) {
+        return $this->storeIcon($request, function (string $imageName) use ($request) {
+            $image = $request->get($imageName);
+            if ($image) {
+                $decoded = base64_decode($image);
+                if ($decoded) {
+                    return ImageResize::createFromString($decoded);
+                }
+            }
+            return null;
+        });
+    }
+
+    private function storeIcon(Request $request, callable $getImageFromRequest) {
         /** @var ChannelFunction $function */
         $function = ChannelFunction::fromString($request->get('function', ''));
         $sourceIcon = $request->get('sourceIcon');
@@ -99,20 +143,21 @@ class UserIconController extends RestController {
         $imagesCount = count($function->getPossibleVisualStates());
         for ($iconIndex = 1; $iconIndex <= $imagesCount; $iconIndex++) {
             $imageFileNameInRequest = 'image' . $iconIndex;
-            if (!$sourceIcon) {
-                Assertion::true($files->has($imageFileNameInRequest), "Icon for this function must consist of $imagesCount images.");
-            }
-            if ($files->has($imageFileNameInRequest)) {
-                try {
-                    $image = new ImageResize($files->get($imageFileNameInRequest)->getPathName());
-                    $image = $image->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
+            try {
+                /** @var ?ImageResize $imageFromRequest */
+                $imageFromRequest = $getImageFromRequest($imageFileNameInRequest);
+                if (!$sourceIcon) {
+                    Assertion::notNull($imageFromRequest, "Icon for this function must consist of $imagesCount images.");
+                }
+                if ($imageFromRequest) {
+                    $image = $imageFromRequest->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
                     $image = ImageResize::createFromString($image);
                     $imageString = $image->crop(210, 156)->getImageAsString(IMAGETYPE_PNG);
-                } catch (ImageResizeException $exception) {
-                    throw new ApiException($exception->getMessage(), 400, $exception);
+                } else {
+                    $imageString = $sourceIcon->getImages()[$iconIndex - 1];
                 }
-            } else {
-                $imageString = $sourceIcon->getImages()[$iconIndex - 1];
+            } catch (ImageResizeException $exception) {
+                throw new ApiException($exception->getMessage(), 400, $exception);
             }
             $method = 'setImage' . $iconIndex;
             $icon->$method($imageString);
@@ -145,7 +190,7 @@ class UserIconController extends RestController {
      *   @OA\Parameter(name="ids", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
      *   @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/UserIcon")))
      * )
-     * @Rest\Get("/user-icons")
+     * @Rest\Get("/user-icons", name="user_icons_list")
      * @Security("has_role('ROLE_CHANNELS_R')")
      */
     public function getUserIconsAction(Request $request) {
@@ -165,13 +210,20 @@ class UserIconController extends RestController {
      * @OA\Get(
      *   path="/user-icons/{id}", operationId="getUserIcon", summary="Get User Icon", tags={"User Icons"},
      *   @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *   @OA\Parameter(
+     *     description="List of extra fields to include in the response.",
+     *     in="query", name="include", required=false, explode=false,
+     *     @OA\Schema(type="array", @OA\Items(type="string", enum={"images"})),
+     *   ),
      *   @OA\Response(response="200", description="User Icon image", @OA\JsonContent(ref="#/components/schemas/UserIcon")),
      * )
      * @Rest\Get("/user-icons/{userIcon}")
      * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getUserIconAction(Request $request, UserIcon $userIcon) {
-        return $this->serializedView($userIcon, $request);
+        $view = $this->view($userIcon, Response::HTTP_OK);
+        $this->setSerializationGroups($view, $request, ['images']);
+        return $view;
     }
 
     /**

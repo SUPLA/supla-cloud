@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c23f5a357e2b3d5eedc45217e243689d",
+    "content-hash": "0406275d5a6a8eb0da725160fc9608e1",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2211,29 +2211,29 @@
         },
         {
             "name": "gumlet/php-image-resize",
-            "version": "1.9.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gumlet/php-image-resize.git",
-                "reference": "06339a9c1b167acd58173db226f57957a6617547"
+                "reference": "aee4e2573e83476ffd0ac64b7269f838c8cd9d68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gumlet/php-image-resize/zipball/06339a9c1b167acd58173db226f57957a6617547",
-                "reference": "06339a9c1b167acd58173db226f57957a6617547",
+                "url": "https://api.github.com/repos/gumlet/php-image-resize/zipball/aee4e2573e83476ffd0ac64b7269f838c8cd9d68",
+                "reference": "aee4e2573e83476ffd0ac64b7269f838c8cd9d68",
                 "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
                 "ext-gd": "*",
-                "php": ">=5.5.0"
+                "php": ">=5.6.0"
             },
             "require-dev": {
                 "apigen/apigen": "^4.1",
                 "ext-exif": "*",
                 "ext-gd": "*",
                 "php-coveralls/php-coveralls": "^2.1",
-                "phpunit/phpunit": "^4.8"
+                "phpunit/phpunit": "^8.5"
             },
             "suggest": {
                 "ext-exif": "Auto-rotate jpeg files"
@@ -2264,9 +2264,9 @@
             ],
             "support": {
                 "issues": "https://github.com/gumlet/php-image-resize/issues",
-                "source": "https://github.com/gumlet/php-image-resize/tree/master"
+                "source": "https://github.com/gumlet/php-image-resize/tree/2.0.3"
             },
-            "time": "2019-01-01T13:53:00+00:00"
+            "time": "2022-06-21T16:20:34+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -6367,5 +6367,5 @@
     "platform-overrides": {
         "php": "7.3.8"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.1.0"
 }
