@@ -135,7 +135,7 @@ final class OAuthScope {
 
     public static function getAllKnownScopes(): array {
         $supportedScopes = [
-            'restapi',
+            'restapi', // deprecated, remove in v3
             'offline_access',
             'channels_ea',
             'channelgroups_ea',

@@ -56,7 +56,13 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="userIconId", type="integer"),
  *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
  *   @OA\Property(property="state", type="object", @OA\AdditionalProperties(ref="#/components/schemas/ChannelState"), example="{2: {connected: true}, 45: {connected: true, on: false}}"),
- *   @OA\Property(property="relationsCount", description="Counts of related entities.", @OA\Property(property="channels", type="integer"), @OA\Property(property="directLinks", type="integer"), @OA\Property(property="schedules", type="integer"),  @OA\Property(property="sceneOperations", type="integer")),
+ *   @OA\Property(property="relationsCount", description="Counts of related entities.",
+ *     @OA\Property(property="channels", type="integer"),
+ *     @OA\Property(property="directLinks", type="integer"),
+ *     @OA\Property(property="schedules", type="integer"),
+ *     @OA\Property(property="scenes", type="integer"),
+ *     @OA\Property(property="sceneOperations", type="integer"),
+ *   ),
  * )
  */
 class ChannelGroupController extends RestController {

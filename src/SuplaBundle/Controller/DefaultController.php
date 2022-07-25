@@ -79,7 +79,35 @@ class DefaultController extends AbstractController {
      * @OA\SecurityScheme(securityScheme="BearerAuth", type="http", scheme="bearer")
      * @OA\SecurityScheme(securityScheme="OAuth2", type="oauth2", @OA\Flow(
      *   flow="authorizationCode", authorizationUrl="https://cloud.supla.org/oauth/v2/auth", tokenUrl="https://cloud.supla.org/oauth/v2/token",
-     *   scopes={"accessids_r": "Access Identifiers (Read)", "locations_r": "Locations (Read)"}
+     *   scopes={
+     *     "accessids_r": "Access Identifiers (read)",
+     *     "accessids_rw": "Access Identifiers (read and modify)",
+     *     "account_r": "User account and e-mail address (read)",
+     *     "account_rw": "User account (read and modify)",
+     *     "channels_r": "Channels (read)",
+     *     "channels_rw": "Channels (read and modify)",
+     *     "channels_ea": "Channels (execute actions)",
+     *     "channels_files": "Download files from API (measurements history, user icons)",
+     *     "channelgroups_r": "Channel groups (read)",
+     *     "channelgroups_rw": "Channel groups (read and modify)",
+     *     "channelgroups_ea": "Channel groups (execute actions)",
+     *     "clientapps_r": "Client apps (read)",
+     *     "clientapps_rw": "Client apps (read and modify)",
+     *     "directlinks_r": "Direct links (read)",
+     *     "directlinks_rw": "Direct links (read and modify)",
+     *     "iodevices_r": "IO Devices (read)",
+     *     "iodevices_rw": "IO Devices (read and modify)",
+     *     "locations_r": "Locations (read)",
+     *     "locations_rw": "Locations (read and modify)",
+     *     "scenes_r": "Scenes (read)",
+     *     "scenes_rw": "Scenes (read and modify)",
+     *     "scenes_ea": "Scenes (execute actions)",
+     *     "schedules_r": "Schedules (read)",
+     *     "schedules_rw": "Schedules (read and modify)",
+     *     "state_webhook": "Access to state webhooks",
+     *     "mqtt_broker": "MQTT Broker settings",
+     *     "offline_access": "Issue refresh token",
+     *   }
      * ))
      * @Route("/api-docs/supla-api-docs-2.4.0.yaml", methods={"GET"})
      */
