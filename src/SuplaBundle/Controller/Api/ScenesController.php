@@ -225,6 +225,27 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Post(
+     *     path="/scenes", operationId="createScene", summary="Create a scene", tags={"Scenes"},
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *         @OA\Property(property="enabled", type="boolean"),
+     *         @OA\Property(property="caption", type="string"),
+     *         @OA\Property(property="locationId", type="integer"),
+     *         @OA\Property(property="altIcon", type="integer"),
+     *         @OA\Property(property="userIconId", type="integer"),
+     *         @OA\Property(property="operations", type="array", @OA\Items(
+     *           @OA\Property(property="subjectId", type="integer"),
+     *           @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+     *           @OA\Property(property="delayMs", type="integer"),
+     *           @OA\Property(property="actionId", ref="#/components/schemas/ChannelFunctionActionIds"),
+     *           @OA\Property(property="actionParam", nullable=true, ref="#/components/schemas/ChannelActionParams"),
+     *         )),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Scene")),
+     * )
      * @Rest\Post("/scenes")
      * @Security("has_role('ROLE_SCENES_RW')")
      */
@@ -257,8 +278,18 @@ class ScenesController extends RestController {
      *     @OA\RequestBody(
      *       required=true,
      *       @OA\JsonContent(
-     *          @OA\Property(property="enabled", type="boolean"),
-     *          @OA\Property(property="caption", type="string"),
+     *         @OA\Property(property="enabled", type="boolean"),
+     *         @OA\Property(property="caption", type="string"),
+     *         @OA\Property(property="locationId", type="integer"),
+     *         @OA\Property(property="altIcon", type="integer"),
+     *         @OA\Property(property="userIconId", type="integer"),
+     *         @OA\Property(property="operations", type="array", @OA\Items(
+     *           @OA\Property(property="subjectId", type="integer"),
+     *           @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+     *           @OA\Property(property="delayMs", type="integer"),
+     *           @OA\Property(property="actionId", ref="#/components/schemas/ChannelFunctionActionIds"),
+     *           @OA\Property(property="actionParam", nullable=true, ref="#/components/schemas/ChannelActionParams"),
+     *         )),
      *       )
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Scene")),
@@ -293,6 +324,11 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Delete(
+     *     path="/scenes/{scene}", operationId="deleteScene", summary="Delete the scene", tags={"Scenes"},
+     *     @OA\Parameter(description="ID", in="path", name="scene", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response="204", description="Success"),
+     * )
      * @Rest\Delete("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
@@ -317,6 +353,26 @@ class ScenesController extends RestController {
     }
 
     /**
+     * @OA\Patch(
+     *     path="/scenes/{scene}", operationId="executeScene", tags={"Scenes"},
+     *     @OA\Parameter(description="ID", in="path", name="scene", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          description="Defines an action to execute on scene. The `action` key is always required. The rest of the keys are params depending on the chosen action.",
+     *          externalDocs={"description": "Github Wiki", "url":"https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions"},
+     *          allOf={
+     *            @OA\Schema(@OA\Property(property="action", ref="#/components/schemas/ChannelFunctionActionEnumNames")),
+     *            @OA\Schema(ref="#/components/schemas/ChannelActionParams"),
+     *         }
+     *       ),
+     *     ),
+     *     @OA\Response(response="202", description="Action has been committed."),
+     *     @OA\Response(response="400", description="Invalid request", @OA\JsonContent(
+     *          @OA\Property(property="status", type="integer", example="400"),
+     *          @OA\Property(property="message", type="string", example="Cannot execute requested action."),
+     *     )),
+     * )
      * @Rest\Patch("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_EA') and is_granted('accessIdContains', scene)")
      */
