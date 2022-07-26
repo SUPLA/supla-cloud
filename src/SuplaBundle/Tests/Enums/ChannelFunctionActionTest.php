@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Enums;
 
 use PHPUnit\Framework\TestCase;
+use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class ChannelFunctionActionTest extends TestCase {
@@ -48,5 +49,65 @@ class ChannelFunctionActionTest extends TestCase {
         $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelFunctionAction.php');
         $message = 'Invalid documentation for channel function action names. Enum should be: ' . PHP_EOL . PHP_EOL . $names . PHP_EOL;
         $this->assertStringContainsString($names, $source, $message);
+    }
+
+    public function testGeneratingChannelFunctionActionMarkdownTableForDocs() {
+        // https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions
+        $this->markTestSkipped('Only for docs');
+        $lines = [
+            '| Action name | Additional parameters | Example parameters',
+            '| ------------- |-------------|---|',
+        ];
+        $docs = [
+            ChannelFunctionAction::SHUT => ['`percentage` an integer from 0 to 100 meaning how much to shut; optional, default 100'],
+            ChannelFunctionAction::REVEAL => ['`percentage` an integer from 0 to 100 meaning how much to shut; optional, default 100'],
+            ChannelFunctionAction::SET_RGBW_PARAMETERS => [
+                'new color for the device in one of the [described formats](https://github.com/SUPLA/supla-cloud/wiki/RGB-Channels-color-formats)',
+                '`brightness` an integer from 0 to 100 meaning the brightness of the white controller (or dimmer); optional, default 0',
+            ],
+            ChannelFunctionAction::COPY => ['`sourceChannelId` - the ID of the channel which state should be copied from'],
+        ];
+        $examples = [
+            ChannelFunctionAction::SHUT => [['percentage' => 40]],
+            ChannelFunctionAction::REVEAL => [['percentage' => 60]],
+            ChannelFunctionAction::SET_RGBW_PARAMETERS => [
+                ['color' => '0x00FF00', 'brightness' => 70],
+                ['color' => 362537, 'color_brightness' => 20, 'brightness' => 70],
+                ['brightness' => 50],
+                ['color' => 'random', 'color_brightness' => 100],
+            ],
+            ChannelFunctionAction::COPY => [['sourceChannelId' => 123]],
+        ];
+        $docs[ChannelFunctionAction::SHUT_PARTIALLY] = $docs[ChannelFunctionAction::SHUT];
+        $docs[ChannelFunctionAction::REVEAL_PARTIALLY] = $docs[ChannelFunctionAction::REVEAL];
+        $examples[ChannelFunctionAction::SHUT_PARTIALLY] = $examples[ChannelFunctionAction::SHUT];
+        $examples[ChannelFunctionAction::REVEAL_PARTIALLY] = $examples[ChannelFunctionAction::REVEAL];
+        foreach (ChannelFunctionAction::toArray() as $actionName => $actionId) {
+            if (in_array($actionId, [ChannelFunctionAction::AT_FORWARD_OUTSIDE, ChannelFunctionAction::AT_DISABLE_LOCAL_FUNCTION])) {
+                continue;
+            }
+            $docsForItem = implode('', array_map(function ($item) {
+                return '<li>' . $item;
+            }, $docs[$actionId] ?? []));
+            $examplesForItem = $examples[$actionId] ?? null ? '`' . implode('`<br> `', array_map(function ($item) {
+                        return json_encode($item);
+                    }, $examples[$actionId] ?? [])) . '`' : '';
+            $lines[] = sprintf('| `%s` (`%d`) | %s | %s |', $actionName, $actionId, $docsForItem, $examplesForItem);
+        }
+
+        $lines[] = '';
+        $lines[] = '| Channel Function        | Possible actions |';
+        $lines[] = '| ------------- |-------------|';
+        foreach (ChannelFunction::toArray() as $functionName => $functionId) {
+            if ($functionId === ChannelFunction::UNSUPPORTED) {
+                continue;
+            }
+            $actions = ChannelFunction::actions()[$functionId] ?? [];
+            $actions = implode(', ', array_map(function (ChannelFunctionAction $action) {
+                return sprintf('`%s` (`%d`)', $action->getName(), $action->getId());
+            }, $actions));
+            $lines[] = sprintf('| `%s` (`%d`) | %s |', $functionName, $functionId, $actions ?: '-');
+        }
+        echo implode(PHP_EOL, $lines);
     }
 }

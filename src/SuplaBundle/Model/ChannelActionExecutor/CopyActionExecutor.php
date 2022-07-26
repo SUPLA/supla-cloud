@@ -9,6 +9,12 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 
+/**
+ * @OA\Schema(schema="ChannelActionParamsCopy",
+ *     description="Action params for `COPY` action.",
+ *     @OA\Property(property="sourceChannelId", type="integer"),
+ * )
+ */
 class CopyActionExecutor extends SingleChannelActionExecutor {
     /** @var ActionableSubjectRepository */
     private $subjectRepository;

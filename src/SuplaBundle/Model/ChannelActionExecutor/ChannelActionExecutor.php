@@ -14,6 +14,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsPercentage"),
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsDimmer"),
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsRgbw"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsCopy"),
  *   }
  * )
  */
