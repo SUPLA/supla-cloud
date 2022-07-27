@@ -670,286 +670,286 @@ hourly: Hodinový cyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'%s trigger is not supported by the hardware.': ~
-'10 minutes before sunset, on day 10 of the month, May through August': ~
-'15 minutes after sunrise, every 2 days': ~
-A confirmation upon successful client app registration.: ~
-A confirmation upon successful device registration.: ~
-A new client app (smartphone) been added to your SUPLA-Cloud account.: ~
-A new device has been added to your SUPLA-Cloud account.: ~
-A new personal access token has been generated.: ~
-Access ID is not active right now.: ~
-Access to all of your devices through MQTT Broker: ~
-Action trigger: ~
-'Action trigger no. #{index}': ~
-Action triggers: ~
-Active period: ~
-Add a delay: ~
-Add action: ~
-Add new item to use in the scene: ~
-'After the device enters the configuration mode, it will not be accessible on your account.': ~
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
-'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-'App version: %clientAppSoftwareVersion%': ~
-Applications: ~
-Are you sure you want to delete this scene?: ~
-Are you sure you want to reset the counter state?: ~
-As in device: ~
-Associated measured channel: ~
-Associated measurement channel: ~
-'At 05:45 PM, on the last day of the month': ~
-'At 11:30 AM, on the third Wednesday of the month': ~
-At every 5th minute on day-of-month 30 in May: ~
-At specified time: ~
-At sunrise: ~
-'At sunrise, Monday through Friday': ~
-At sunset: ~
-Automatic calibration: ~
-Bar: ~
-Based on sunrise or sunset: ~
-Be right back!: ~
-Bottom position: ~
-Calibrate: ~
-Calibration successful.: ~
-Cannot calculate when to run the schedule - incorrect configuration?: ~
-Cannot change the channel function right now.: ~
-Cannot delete this I/O Device right now.: ~
-Caption is too long.: ~
-Change channel function: ~
-Change function: ~
-Channel group reference will be removed from the items below.: ~
-Channel is disconnected.: ~
-Channel name: ~
-Channel reference will be removed from the items below.: ~
-Channel value: ~
-Channel with action triggers: ~
-Channels groups are not supported for this function.: ~
-Chart data source type: ~
-Chart type: ~
-Check your email inbox: ~
-Choose channel function: ~
-Choose the source channel.: ~
-Clear: ~
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-'Client app ID: %clientAppId%': ~
-Close partially: ~
-Config of the schedule is too complicated.: ~
-Confirm My Account: ~
-Confirm if you want to perform the roller shutter calibration.: ~
-'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy state from other channel: ~
-Could not enter the configuration mode.: ~
-Create new scene: ~
-Current Overload: ~
-Default: ~
-'Device ID: %deviceId%': ~
-Device channel value: ~
-Device is disconnected.: ~
-'Device name: %deviceName%': ~
-Device should be now in configuration mode.: ~
-'Device software version: %deviceSoftwareVersion%': ~
-Differential: ~
-Digi Glass: ~
-Digi Glass Horizontal: ~
-Digi Glass Vertical: ~
-Direct links limit has been exceeded: ~
-Disable local function: ~
-Disables local device function and does nothing more.: ~
-Do you want to be redirected there? You may be asked to authenticate again.: ~
-'Doors, Gates, Windows': ~
-E-mail notifications: ~
-Entering configuration mode is unsupported in the firmware.: ~
-Execute: ~
-Execute an action: ~
-Feature limits: ~
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
-Forward active energy balanced: ~
-General purpose measurement: ~
-Generate new password: ~
-Host: ~
-Icon: ~
-'If you do not want to unregister your instance, please do not click the link.': ~
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': ~
-'If you really want to delete the account, here are the instructions.': ~
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': ~
-'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
-'If you wish to register your instance, [click here].': ~
-'If you wish to unregister your instance, [click here].': ~
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
-Include energy corrections in new measurements history (not recommended): ~
-Integration with MQTT Broker has been disabled.: ~
-Integration with MQTT Broker has been enabled.: ~
-Interpolate measurements: ~
-Interrupt: ~
-Interrupt and execute: ~
-Invalid action parameters: ~
-Invalid request.: ~
-Invalid token.: ~
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: ~
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
-Linear: ~
-Location name: ~
-MQTT Broker: ~
-MQTT Broker Username: ~
-MQTT Broker is disabled.: ~
-MQTT Broker password: ~
-MQTT Broker password has been changed.: ~
-MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
-Make sure to copy it now because you won’t be able to see it again!: ~
-Manage your new client app in the SUPLA-Cloud.: ~
-Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
-Manual: ~
-Maximum delay is 60 minutes.: ~
-Meters: ~
-Move down or stop: ~
-Move up or stop: ~
-'Name: %clientAppName%': ~
-Need one of these?: ~
-New IO device added to your account: ~
-New client app (smartphone) added to your account: ~
-New scene: ~
-No of channels: ~
-No of client apps: ~
-No of devices: ~
-No of operations: ~
-No schedule configuration.: ~
-None (channel disabled): ~
-Number of attempts to close: ~
-Number of attempts to open: ~
-Number of sections: ~
-OAuth integrations might stop working after the instance is unregistered.: ~
-Operations: ~
-Other: ~
-'Password must be at least {minLength} characters.': ~
-'Password must be no longer than {maxLength} characters.': ~
-Password reset instructions.: ~
-Please choose the schedule subject first.: ~
-Please confirm your SUPLA account.: ~
-Port: ~
-Precision: ~
-Protocol: ~
-Publish to integrations: ~
-Publishes the event to integrated services like MQTT or webhooks.: ~
-Reference to the scene will be removed from the items below.: ~
-Regeneration starts at: ~
-'Registered from IP address: %clientAppRegIp%': ~
-'Registered from IP address: %deviceRegIp%': ~
-Reset Your Password: ~
-Reset counter: ~
-Reverse active energy balanced: ~
-Roof window opening sensor: ~
-Roof window shutter operation: ~
-SUPLA - Private instance unregistration: ~
-SUPLA Server was unable to execute the scene.: ~
-SUPLA Server was unable to query for the scene state.: ~
-SUPLA – new client app has been added to your account: ~
-SUPLA – new device has been added to your account: ~
-Save or discard configuration changes first.: ~
-Scene: ~
-Scene must consist of at least one operation.: ~
-Scenes: ~
-Scenes limit has been exceeded: ~
-See available integrations: ~
-See in SUPLA-Cloud: ~
-Set value added: ~
-Setting the number of attempts to 1 disables the retrying behavior completely.: ~
-Shut partially: ~
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
-Some features depend on this channel group: ~
-Some features depend on this device: ~
-Some features depend on this scene: ~
-Some of the features you have configured rely on channels from this device.: ~
-Standard: ~
-Start from the homepage.: ~
-Step by step: ~
-Store measurements history: ~
-Switch the device to configuration mode: ~
-TLS: ~
-'Target Cloud is not registered, or is registered with another e-mail address.': ~
-The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
-The SUPLA infrastructure is being updated.: ~
-The counter has been reset.: ~
-The following items use the channels of these device. These references will be also removed.: ~
-'The following items will be deleted with this device:': ~
-The incident was detected at %datetime%.: ~
-'The items below rely on this channel function, so they will be deleted.': ~
-'The items below rely on this channel group, so they will be deleted.': ~
-'The items below rely on this scene, so they will be deleted.': ~
-The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: ~
-Too many actions in this schedule.: ~
-Too many operations in this scene: ~
-Triggers: ~
-Turning this device off will cause its channels not working in the following features.: ~
-Turning this device off will result in disabling features listed below.: ~
-Undo registration: ~
-Unregister my private SUPLA Cloud instance: ~
-Unsuccessful login attempt: ~
-Update in progress: ~
-'Use the [command] server command to change this account''s limits. For example:': ~
-Use working schedule for this access identifier: ~
-Value added: ~
-Value per unit: ~
-We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-We have sent you an email with further instructions.: ~
-Working schedule: ~
-You are changing the settings too quickly. You have to wait a while before making this change.: ~
-You cannot use SUPLA project name in the domain name.: ~
-You have requested to unregister your SUPLA Cloud instance: ~
-You have to choose at least one scope.: ~
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
-You must enable MQTT Broker first.: ~
-You must set sections with transparent or opaque parameters or both.: ~
-Your account and MQTT Broker connection.: ~
-'Your channel groups are allowed to have a maximum of {max} channels.': ~
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': ~
-Your password must contain at least one special character.: ~
-Your password must include at least one letter.: ~
-Your password must include at least one number.: ~
-Your password must include both upper and lower case letters.: ~
-Your preferences has been updated.: ~
-Your private SUPLA Cloud instance has been unregistered.: ~
-'Your scenes are allowed to have a maximum of {max} operations.': ~
-'Your schedules are allowed to have a maximum of {max} actions.': ~
-access to your e-mail address: ~
-actionTrigger_HOLD: ~
-actionTrigger_SHORT_PRESS_X1: ~
-actionTrigger_SHORT_PRESS_X2: ~
-actionTrigger_SHORT_PRESS_X3: ~
-actionTrigger_SHORT_PRESS_X4: ~
-actionTrigger_SHORT_PRESS_X5: ~
-actionTrigger_TOGGLE_X1: ~
-actionTrigger_TOGGLE_X2: ~
-actionTrigger_TOGGLE_X3: ~
-actionTrigger_TOGGLE_X4: ~
-actionTrigger_TOGGLE_X5: ~
-actionTrigger_TURN_OFF: ~
-actionTrigger_TURN_ON: ~
-actionableSubjectType_scene: ~
-addToHistoryMeasurementWarningSelected: ~
-addToHistoryMeasurementWarningUnselected: ~
-caption: ~
-choose the action: ~
-choose the scene: ~
-days: ~
-directLinkExecutionFailureReason_sceneDuringExecution: ~
-empty: ~
-hours: ~
-min.: ~
-or add a delay: ~
-prefix: ~
-scene: ~
-scheduleMode_crontab: ~
-suffix: ~
-'{minutes} minutes after sunrise': ~
-'{minutes} minutes after sunset': ~
-'{minutes} minutes before sunrise': ~
-'{minutes} minutes before sunset': ~
+'%s trigger is not supported by the hardware.': 'Spúšťač %s zariadenie nepodporuje.'
+'10 minutes before sunset, on day 10 of the month, May through August': '10 minút pred západom slnka, iba v 10. deň v mesiaci, od mája do augusta'
+'15 minutes after sunrise, every 2 days': '15 minút po východe slnka, každý druhý deň'
+A confirmation upon successful client app registration.: Potvrdenie registrácie novej klientskej aplikácie.
+A confirmation upon successful device registration.: Potvrdenie úspešnej registrácie zariadenia.
+A new client app (smartphone) been added to your SUPLA-Cloud account.: Do vášho účtu SUPLA-Cloud bola pridaná nová klientska aplikácia (smartfón).
+A new device has been added to your SUPLA-Cloud account.: Nové zariadenie bolo pridané do vášho účtu SUPLA-Cloud.
+A new personal access token has been generated.: Bol vygenerovaný nový osobný prístupový token
+Access ID is not active right now.: Prístupové ID nie je momentálne aktívne.
+Access to all of your devices through MQTT Broker: Prístup ku všetkým vašim zariadeniam cez MQTT Broker
+Action trigger: Spúšťač akcie
+'Action trigger no. #{index}': 'Spúšťač #{index}'
+Action triggers: Spúšťače akcií
+Active period: Obdobie činnosti
+Add a delay: Pridať oneskorenie
+Add action: Pridať akciu
+Add new item to use in the scene: Pridať novú položku na scénu
+'After the device enters the configuration mode, it will not be accessible on your account.': 'Po vstupe do konfiguračného režimu nebude zariadenie dostupné z vášho účtu.'
+'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Po aktualizácii bude aplikácia rýchlejšia, pohodlnejšia... jednoducho lepšia!'
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Počítadlo po tejto operácii začne počítať od 0 bez ohľadu na jeho aktuálny stav. Táto operácia sa nedá vrátiť späť.'
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': 'Po príkaze na otvorenie alebo zatvorenie brány sa systém pokúsi zatvoriť/otvoriť bránu a počká 60 sekúnd, aby skontroloval, či brána dosiahla požadovaný stav. Ak nie, systém sa pokúsi znova zatvoriť/otvoriť bránu. Tento parameter definuje maximálny počet pokusov systému na dosiahnutie cieľa. Odporúčaná hodnota je 5. Zmena tohto parametra neovplyvní činnosť plánov.'
+'App version: %clientAppSoftwareVersion%': 'Verzia aplikácie: %clientAppSoftwareVersion%'
+Applications: Aplikácie
+Are you sure you want to delete this scene?: Naozaj chcete odstrániť túto scénu?
+Are you sure you want to reset the counter state?: Naozaj chcete vynulovať počítadlo?
+As in device: Ako v zariadení
+Associated measured channel: Pridružený riadiaci kanál
+Associated measurement channel: Pridružený merací kanál
+'At 05:45 PM, on the last day of the month': 'o 5:45 posledného dňa v mesiaci'
+'At 11:30 AM, on the third Wednesday of the month': 'o 11:30, tretiu stredu v mesiaci'
+At every 5th minute on day-of-month 30 in May: každých 5 minút, 30. dňa v mesiaci, iba v máji
+At specified time: Pre uvedený čas
+At sunrise: pri východe slnka
+'At sunrise, Monday through Friday': 'pri východe slnka, od pondelka do piatku'
+At sunset: pri západe slnka
+Automatic calibration: Automatická kalibrácia
+Bar: Stĺpikový
+Based on sunrise or sunset: Na základe východ/západ
+Be right back!: Vráťte sa neskôr prosím!
+Bottom position: Dolná poloha
+Calibrate: Kalibrovať
+Calibration successful.: Kalibrácia úspešná
+Cannot calculate when to run the schedule - incorrect configuration?: Nepodarilo sa vypočítať dátum začiatku harmonogramu – nesprávna konfigurácia?
+Cannot change the channel function right now.: Funkcie tohto kanála sa momentálne nedajú zmeniť.
+Cannot delete this I/O Device right now.: Toto zariadenie sa momentálne nedá odstrániť.
+Caption is too long.: Názov je príliš dlhý.
+Change channel function: Zmeniť funkciu kanála
+Change function: Zmeniť funkciu
+Channel group reference will be removed from the items below.: Označenie skupiny kanálov bude z nasledujúcich položiek odstránené.
+Channel is disconnected.: Kanál je odpojený.
+Channel name: Názov kanála
+Channel reference will be removed from the items below.: Kanál bude odstránený z nasledujúcich položiek.
+Channel value: Hodnota
+Channel with action triggers: Kanál so spúšťačmi akcií
+Channels groups are not supported for this function.: Táto funkcia nepodporuje skupiny kanálov.
+Chart data source type: Typ zdroja údajov
+Chart type: Typ grafu
+Check your email inbox: Skontrolujte si doručenú poštu
+Choose channel function: Vyberte funkciu kanála
+Choose the source channel.: Vyberte zdrojový kanál.
+Clear: Zrušiť výber
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Kliknutím na odkaz nižšie potvrďte zrušenie registrácie vašej súkromnej inštancie SUPLA Cloud (%targetCloudUrl%).
+'Client app ID: %clientAppId%': 'ID:%clientAppId%'
+Close partially: Čiastočne zatvoriť
+Config of the schedule is too complicated.: Konfigurácia harmonogramu je príliš komplikovaná.
+Confirm My Account: Potvrdzujem svoj účet
+Confirm if you want to perform the roller shutter calibration.: Potvrďte, že modul bol kalibrovaný.
+'Confirm if you want to remove {deviceName} device and all of its channels.': 'Potvrďte, že chcete odstrániť zariadenie {deviceName} a všetky jeho kanály.'
+Copy state from other channel: Skopírovať stav z iného kanála
+Could not enter the configuration mode.: Zariadenie sa nepodarilo uviesť do konfiguračného režimu.
+Create new scene: Vytvoriť novú scénu
+Current Overload: Preťaženie
+Default: predvolene
+'Device ID: %deviceId%': 'ID zariadenia: %deviceId%'
+Device channel value: Hodnota zo zariadenia
+Device is disconnected.: Zariadenie je odpojené.
+'Device name: %deviceName%': 'Názov zariadenia: %deviceName%'
+Device should be now in configuration mode.: Zariadenie by teraz malo byť v konfiguračnom režime.
+'Device software version: %deviceSoftwareVersion%': 'Verzia softvéru: %deviceSoftwareVersion%'
+Differential: Striedavý
+Digi Glass: Digi Glass
+Digi Glass Horizontal: Digi Glass horizontálny
+Digi Glass Vertical: Digi Glass vertikálny
+Direct links limit has been exceeded: Bol prekročený limit priamych odkazov
+Disable local function: Vypnite funkciu zariadenia
+Disables local device function and does nothing more.: Nevykoná žiadnu akciu, ale vypne funkciu zariadenia, ktorá je predvolená pre túto akciu.
+Do you want to be redirected there? You may be asked to authenticate again.: Chcete, aby sme Vás tam presmerovali? Možno sa budete musieť znova prihlásiť.
+'Doors, Gates, Windows': 'Dvere, brány, okná'
+E-mail notifications: E-mailové upozornenia
+Entering configuration mode is unsupported in the firmware.: Firmvér zariadenia nepodporuje diaľkové prepínanie do konfiguračného režimu.
+Execute: Vykonať
+Execute an action: Vykonať akciu
+Feature limits: Funkčné limity
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Počas aktualizácie sa odporúča použiť adresu {suplaUrl}.'
+Forward active energy balanced: Spotrebovaná aktívna energia (vektorová bilancia)
+General purpose measurement: Všeobecný merací kanál
+Generate new password: Vygenerovať nové heslo
+Host: Host
+Icon: Ikona
+'If you do not want to unregister your instance, please do not click the link.': 'Ak nechcete zrušiť registráciu svojej inštancie, neklikajte na odkaz.'
+'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Ak sa vám nepodarí pripojiť k tomuto prístupovému bodu v priebehu niekoľkých minút, zariadenie sa reštartuje a pripojí sa pomocou posledných nastavení.'
+'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Ak chcete znova zaregistrovať svoju inštanciu SUPLA Cloud, pretože token vygenerovaný pri predchádzajúcej registrácii niekde zmizol - ste na správnom mieste.'
+'If you really want to delete the account, here are the instructions.': 'Ak aj napriek tomu chcete svoj účet SUPLA odstrániť, tu sú pokyny.'
+'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': 'Ak naozaj chcete zrušiť registráciu vašej súkromnej inštancie SUPLA Cloud - nižšie nájdete všetky pokyny.'
+'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Pokiaľ od nás nechcete dostávať takéto upozornenia, pozrite si nastavenia svojho účtu [tu].'
+'If you wish to register your instance, [click here].': 'Ak chcete zaregistrovať svoju inštanciu, [kliknite sem].'
+'If you wish to unregister your instance, [click here].': 'Ak chcete zrušiť registráciu svojej inštancie, [kliknite sem].'
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Ak chcete získať prihlasovacie údaje pre brokera MQTT, kontaktujte administrátora tejto inštancie SUPLA Cloud.'
+Include energy corrections in new measurements history (not recommended): Zahrnúť pridanú hodnotu do histórie (neodporúča sa)
+Integration with MQTT Broker has been disabled.: Integrácia s maklérom MQTT bola vypnutá.
+Integration with MQTT Broker has been enabled.: Integrácia s maklérom MQTT bola zapnutá.
+Interpolate measurements: Odhadnúť chýbajúce hodnoty
+Interrupt: Zastaviť
+Interrupt and execute: Prerušiť a vykonať
+Invalid action parameters: Nesprávne parametre vykonávania.
+Invalid request.: Neplatná požiadavka.
+Invalid token.: Neplatný token.
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: V tomto režime začne zariadenie vysielať svoju Wi-Fi sieť, ktorej účelom je umožniť konfiguráciu zariadenia alebo aktualizáciu firmvéru pomocou smartfónu, ktorý sa k tejto sieti pripojí.
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Majte na pamäti, že popis frázy v aplikácii nie je dokonalý a jeho jediným účelom je pomôcť vám zadať vhodnú hodnotu. Neslúži na kontrolu správnosti zadanej hodnoty, nehovoriac o pochválení sa, že "v SUPLI sa našla chyba". Po vykonaní zmien skontrolujte časť „Nadchádzajúce vykonania“, aby ste sa uistili, že konfigurácia harmonogramu, ktorú ste zadali, spĺňa Vaše očakávania.'
+Linear: Lineárny
+Location name: Názov miesta
+MQTT Broker: Maklér MQTT
+MQTT Broker Username: Používateľské meno
+MQTT Broker is disabled.: Maklér MQTT je vypnutý.
+MQTT Broker password: Heslo makléra MQTT
+MQTT Broker password has been changed.: Heslo makléra MQTT bolo zmenené.
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Používateľské meno alebo heslo nie sú nakonfigurované v tejto inštancii.
+Make sure to copy it now because you won’t be able to see it again!: Uistite sa, že ich uchovávate na bezpečnom mieste.
+Manage your new client app in the SUPLA-Cloud.: Spravovať nastavenia aplikácie v SUPLA-Cloud.
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Spravujte svoje zariadenie v SUPLA-Cloud alebo pomocou aplikácie SUPLA na vašom smartfóne.
+Manual: Návod
+Maximum delay is 60 minutes.: Maximálne oneskorenie je 60 minút.
+Meters: Počítadlá
+Move down or stop: Dole alebo zastaviť
+Move up or stop: Hore alebo zastaviť
+'Name: %clientAppName%': 'Názov: %clientAppName%'
+Need one of these?: Možno sa Vám zíde
+New IO device added to your account: Pridanie nového zariadenia
+New client app (smartphone) added to your account: Registrácia novej klientskej aplikácie (smartfón)
+New scene: Nová scéna
+No of channels: Počet kanálov
+No of client apps: Počet klientskych aplikácií
+No of devices: Počet zariadení
+No of operations: Počet operácií
+No schedule configuration.: Nebola zadaná žiadna konfigurácia harmonogramu.
+None (channel disabled): Žiadne (kanál je vypnutý)
+Number of attempts to close: Počet pokusov o zatvorenie
+Number of attempts to open: Počet pokusov o otvorenie
+Number of sections: Počet sekcií
+OAuth integrations might stop working after the instance is unregistered.: Integrácie s aplikáciami OAuth môžu prestať fungovať po zrušení registrácie vašej inštancie.
+Operations: Operácie
+Other: Iné
+'Password must be at least {minLength} characters.': 'Heslo musí mať aspoň {minLength} znakov.'
+'Password must be no longer than {maxLength} characters.': 'Heslo nemôže byť dlhšie ako {maxLength} znakov.'
+Password reset instructions.: Pokyny na obnovenie prístupu k vášmu účtu.
+Please choose the schedule subject first.: Najprv sa rozhodnite, čo má harmonogram riadiť
+Please confirm your SUPLA account.: Aktivujte si svoj SUPLA účet.
+Port: Port
+Precision: Presnosť
+Protocol: Protokol
+Publish to integrations: Publikovať v integráciách
+Publishes the event to integrated services like MQTT or webhooks.: Pri vykonaní tejto akcie upozorní integrácie, ako sú MQTT alebo webhooky.
+Reference to the scene will be removed from the items below.: Z nasledujúcich položiek bude odstránený pohľad na scénu.
+Regeneration starts at: Začiatok regenerácie
+'Registered from IP address: %clientAppRegIp%': 'Registrované z adresy IP: %clientAppRegIp%'
+'Registered from IP address: %deviceRegIp%': 'IP adresa: %deviceRegIp%'
+Reset Your Password: Nastaviť si nové heslo
+Reset counter: Vynulovať počítadlo
+Reverse active energy balanced: Vrátená aktívna energia (vektorová bilancia)
+Roof window opening sensor: Senzor otvárania strešného okna
+Roof window shutter operation: Otváranie strešného okna
+SUPLA - Private instance unregistration: SUPLA - odhlásenie súkromnej inštancie
+SUPLA Server was unable to execute the scene.: Server SUPLA nedokázal vykonať scénu.
+SUPLA Server was unable to query for the scene state.: Server SUPLA nemohol prečítať stav scény.
+SUPLA – new client app has been added to your account: SUPLA - bola zaregistrovaná nová klientská aplikácia
+SUPLA – new device has been added to your account: SUPLA – do vášho účtu bolo pridané nové zariadenie
+Save or discard configuration changes first.: Najprv uložte alebo zahoďte zmeny konfigurácie.
+Scene: Scéna
+Scene must consist of at least one operation.: Scéna musí obsahovať aspoň jednu operáciu
+Scenes: Scény
+Scenes limit has been exceeded: Nemôžete vytvoriť viac scén
+See available integrations: Pozrite si dostupné integrácie
+See in SUPLA-Cloud: Zobraziť na SUPLA-Cloud
+Set value added: Určiť pridanú hodnotu
+Setting the number of attempts to 1 disables the retrying behavior completely.: Nastavenie počtu pokusov na menej ako 2 môže mať za následok zlyhanie zatvárania alebo otvárania.
+Shut partially: Čiastočne zatieniť
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Zatvorte roletu v momente, keď sa dotkne spodného okraja a zadajte jej do tohto poľa percento zatvorenia. Táto operácia nie je potrebná, ale vďaka nej sa zlepší vizualizácia polohy rolety v mobilnej aplikácii.
+Some features depend on this channel group: Niektoré funkcie závisia od tejto skupiny kanálov.
+Some features depend on this device: Niektoré funkcie závisia od tohto zariadenia
+Some features depend on this scene: Niektoré funkcie závisia od tejto scény.
+Some of the features you have configured rely on channels from this device.: Niektoré funkcie využívajú kanály z tohto zariadenia.
+Standard: Štandardné
+Start from the homepage.: Začať z domovskej stránky.
+Step by step: Krok za krokom
+Store measurements history: Uchovávať históriu meraní
+Switch the device to configuration mode: Prepnúť zariadenie do konfiguračného režimu
+TLS: TLS
+'Target Cloud is not registered, or is registered with another e-mail address.': 'Táto inštancia SUPLA Cloud nie je zaregistrovaná alebo je zaregistrovaná pomocou inej e-mailovej adresy.'
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Heslo k maklérovi MQTT je viditeľné iba v tejto chvíli. Uistite sa, že ste ho zapísali na bezpečnom mieste. Nebude možné ho znova zobraziť.
+The SUPLA infrastructure is being updated.: Servery SUPLA sa aktualizujú.
+The counter has been reset.: Počítadlo bolo vynulované.
+The following items use the channels of these device. These references will be also removed.: Nasledujúce položky používajú kanály z tohto zariadenia. Budú taktiež odstránené.
+'The following items will be deleted with this device:': 'S týmto zariadením budú odstránené aj nasledujúce položky.'
+The incident was detected at %datetime%.: Udalosť sa stala %datetime%.
+'The items below rely on this channel function, so they will be deleted.': 'Nasledujúce položky sú založené na aktuálnej funkcii kanála, takže pri jej zmene budú odstránené.'
+'The items below rely on this channel group, so they will be deleted.': 'Nasledujúce položky používajú túto skupinu kanálov, takže keď ju odstránite, odstránia sa aj ony.'
+'The items below rely on this scene, so they will be deleted.': 'Položky nižšie sú založené na tejto scéne, takže budú odstránené.'
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Nové heslo nahradí to, ktoré momentálne používate. Niektoré integrácie môžu po zmene prestať fungovať. Pokračovať?
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Pomocou rámčeka sme označili oznámenie, z ktorého ste klikli na odkaz na odhlásenie.
+'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Zariadenie bolo vypnuté nadprúdovou ochranou. Pred zapnutím zariadenia sa prosím uistite, že bola odstránená príčina tejto udalosti. Naozaj chcete toto zariadenie zapnúť na diaľku?'
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Tento režim plánovania je určený pre technických alebo veľmi trpezlivých používateľov. Vyžaduje, aby boli časy spúšťania plánu špecifikované v notácii crontab obohatenej o niekoľko funkcií, ktoré sa nachádzajú iba v SUPLI. Ak ste ešte doteraz nepočuli o crontaboch a stále chcete používať tento režim, môže vám pomôcť webová stránka crontab.guru.'
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Tento spúšťač používa zariadenie lokálne (napr. zapína svetlo, ovláda roletu atď.). Ak mu priradíte inú činnosť, lokálna funkcia bude deaktivovaná.'
+Too many actions in this schedule.: Príliš veľa akcií v jednom harmonograme.
+Too many operations in this scene: Príliš veľa operácií na scéne.
+Triggers: Spúšťače
+Turning this device off will cause its channels not working in the following features.: Vypnutie zariadenia spôsobí, že jeho kanály prestanú fungovať v nasledujúcich položkách.
+Turning this device off will result in disabling features listed below.: Vypnutím zariadenia sa vypnú aj nasledujúce položky.
+Undo registration: Zrušiť registráciu
+Unregister my private SUPLA Cloud instance: Zrušiť registráciu mojej súkromnej inštancie SUPLA Cloud
+Unsuccessful login attempt: Prihlásenie zlyhalo
+Update in progress: Prebieha aktualizácia
+'Use the [command] server command to change this account''s limits. For example:': 'Ak chcete zmeniť limity pre tento účet, použite príkaz [command] na vašom serveri. Napríklad:'
+Use working schedule for this access identifier: Použite harmonogram dostupnosti pre toto ID prístupu
+Value added: Pridaná hodnota
+Value per unit: Hodnota na jednotku
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Budeme Vám posielať upozornenia o určitých udalostiach spojených s vaším účtom. Môžete zrušiť odber tých, ktoré nepotrebujete.
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Bola vyžiadaná žiadosť o zrušenie registrácie vašej súkromnej inštancie SUPLA Cloud (% targetCloudUrl%).
+We have sent you an email with further instructions.: Poslali sme vám správu s ďalšími pokynmi.
+Working schedule: Harmonogram činností
+You are changing the settings too quickly. You have to wait a while before making this change.: Nastavenia meníte príliš rýchlo. Pred zmenou týchto nastavení musíte chvíľu počkať.
+You cannot use SUPLA project name in the domain name.: Názov projektu SUPLA nemôžete použiť v názve hlavnej domény.
+You have requested to unregister your SUPLA Cloud instance: Požiadali ste o zrušenie registrácie Vašej inštancie SUPLA Cloud
+You have to choose at least one scope.: Musíte vybrať aspoň jednu oblasť.
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Ak stále chcete používať režim rozšíreného harmonogramu, pozrite si príklady nižšie.'
+You must enable MQTT Broker first.: Najprv musíte povoliť integráciu s maklérom MQTT.
+You must set sections with transparent or opaque parameters or both.: Musíte zvoliť priehľadnosť aspoň pre jednu sekciu.
+Your account and MQTT Broker connection.: Prepojenie vášho účtu s maklérom MQTT.
+'Your channel groups are allowed to have a maximum of {max} channels.': 'Vaše skupiny kanálov môžu mať maximálne {max} kanálov.'
+'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'Zariadenie vám umožňuje rozšíriť jeho funkčnosť a umožňuje vykonávať akúkoľvek akciu na ľubovoľnom zariadení, ktoré máte. Dostupné možnosti závisia od firmvéru a zariadenia, ktoré používate.'
+Your password must contain at least one special character.: Heslo musí obsahovať aspoň jeden špeciálny znak.
+Your password must include at least one letter.: Heslo musí obsahovať aspoň jedno písmeno.
+Your password must include at least one number.: Heslo musí obsahovať aspoň jednu číslicu.
+Your password must include both upper and lower case letters.: Heslo musí obsahovať veľké a malé písmená.
+Your preferences has been updated.: Vaše nastavenia boli uložené.
+Your private SUPLA Cloud instance has been unregistered.: Vaša súkromná inštancia SUPLA Cloud bola odhlásená.
+'Your scenes are allowed to have a maximum of {max} operations.': 'Vaše scény môžu mať maximálne {max} operácií.'
+'Your schedules are allowed to have a maximum of {max} actions.': 'Vaše harmonogramy môžu obsahovať maximálne {max} akcií.'
+access to your e-mail address: prístup k vašej e-mailovej adrese
+actionTrigger_HOLD: Podržanie tlačidla
+actionTrigger_SHORT_PRESS_X1: Stlačenie 1x
+actionTrigger_SHORT_PRESS_X2: Stlačenie 2x
+actionTrigger_SHORT_PRESS_X3: Stlačenie 3x
+actionTrigger_SHORT_PRESS_X4: Stlačenie 4x
+actionTrigger_SHORT_PRESS_X5: Stlačenie 5x
+actionTrigger_TOGGLE_X1: Prepnutie 1x
+actionTrigger_TOGGLE_X2: Prepnutie 2x
+actionTrigger_TOGGLE_X3: Prepnutie 3x
+actionTrigger_TOGGLE_X4: Prepnutie 4x
+actionTrigger_TOGGLE_X5: Prepnutie 5x
+actionTrigger_TURN_OFF: Vypnutie
+actionTrigger_TURN_ON: Zapnutie
+actionableSubjectType_scene: Scéna
+addToHistoryMeasurementWarningSelected: Zaškrtnutím tejto možnosti sa nastavené hodnoty pridajú k budúcim meraniam uloženým v histórii. V grafoch to bude znázornené ako náhle zvýšenie o zadanú hodnotu. Odporúčame, aby ste tieto parametre nastavili len pri prvej inštalácii počítadla. V prípade už existujúcich počítadiel, odporúčame vymazať históriu meraní hneď, ako zmeníte tieto nastavenia.
+addToHistoryMeasurementWarningUnselected: Zrušením začiarknutia tejto možnosti vynecháte nastavené hodnoty z budúcich meraní uložených v histórii. V grafoch to bude znázornené ako náhly pokles. Odporúčame, aby ste tieto parametre nastavili len pri prvej inštalácii počítadla. V prípade už existujúcich počítadiel, odporúčame vymazať históriu meraní hneď, ako zmeníte tieto nastavenia.
+caption: názov
+choose the action: vybrať akciu
+choose the scene: vybrať scénu
+days: dni
+directLinkExecutionFailureReason_sceneDuringExecution: Prebieha vykonávanie scény.
+empty: prázdny
+hours: hodiny
+min.: min.
+or add a delay: alebo pridať oneskorenie
+prefix: predvoľba
+scene: scéna
+scheduleMode_crontab: Pokročilý
+suffix: prípona
+'{minutes} minutes after sunrise': '{minutes} minút po východe slnka'
+'{minutes} minutes after sunset': '{minutes} minút po západe slnka'
+'{minutes} minutes before sunrise': '{minutes} minút pred východom slnka'
+'{minutes} minutes before sunset': '{minutes} minút pred západom slnka'
 
 #</editor-fold>
