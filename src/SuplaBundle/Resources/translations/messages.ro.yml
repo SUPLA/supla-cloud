@@ -625,7 +625,7 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'%s trigger is not supported by the hardware.':'Declanșatorul %s nu este acceptat de dispozitiv.'
+'%s trigger is not supported by the hardware.': 'Declanșatorul %s nu este acceptat de dispozitiv.'
 '10 minutes before sunset, on day 10 of the month, May through August': 'Cu 10 minute înainte de apus, numai în a 10-a zi a lunii, din mai până în august'
 '15 minutes after sunrise, every 2 days': 'La 15 minute după răsărit, o dată la două zile'
 A confirmation upon successful client app registration.: Confirmarea înregistrării unei noi aplicații de client.
