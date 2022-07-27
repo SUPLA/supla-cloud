@@ -1,10 +1,10 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
-...and start your adventure with building automation today!: ... en begin je avontuur met intelligente gebouwen al vandaag!
-...open and shut roller shutters: ... bedek en open de rolluiken
-'...open gateways, gates or doors': '... open de tuinpoort, poort of deur'
-...or control home appliances: ... of bedien huishoudelijke apparaten/elektronica
-...you can monitor temperature: ... u kunt de temperatuur volgen
+...and start your adventure with building automation today!: ...en begin je avontuur met intelligente gebouwen al vandaag!
+...open and shut roller shutters: ...bedek en open de rolluiken
+'...open gateways, gates or doors': '...open de tuinpoort, poort of deur'
+...or control home appliances: ...of bedien huishoudelijke apparaten/elektronica
+...you can monitor temperature: ...u kunt de temperatuur volgen
 A-Z: A-Z
 ACTIVE: ACTIEF
 AM2301 Temperature & Humidity Sensor: AM2301 temperatuur- en vochtigheidssensor
