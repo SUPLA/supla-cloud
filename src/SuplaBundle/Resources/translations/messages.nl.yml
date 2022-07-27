@@ -485,7 +485,7 @@ Valve closed manually: Klep werd met de hand gesloten.
 Visible: Zichtbaar
 Visit app webpage: Open de site van de applicatie
 WELCOME_MESSAGE: |
-  Uw huis of kantoor met SUPLI te verbinden, is eenvoudig. Het enige dat u moet doen, is de volgende 
+  Uw huis of kantoor met SUPLI te verbinden, is eenvoudig. Het enige dat u moet doen, is de volgende
   gegevens naar uw besturingsapparaten (I / O) en smartphones te herschrijven.
 Wait a while before the next request. You can check your limits in the account settings.: Wacht even voordat u nog een verzoek doet. U kunt het huidige gebruik van uw limieten in uw accountinstellingen controleren.
 Water meter: Watermeter
@@ -690,7 +690,7 @@ Add new item to use in the scene: Voeg een nieuw element toe aan de scène
 'After the device enters the configuration mode, it will not be accessible on your account.': 'Het toestel zal niet toegankelijk zijn vanuit uw account wanneer u de configuratiemodus opent.'
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Na de update, zal de app sneller, handiger zijn, .... Gewoon beter!'
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'De teller zal beginnen te tellen vanaf 0 na deze operatie, ongeacht zijn huidige toestand. Deze operatie kan niet ongedaan worden gemaakt.'
-'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': 'Nadat u opdracht hebt gegeven de poort te openen of te sluiten, zal het systeem proberen de poort te sluiten/openen en 60 seconden wachten om te zien of de poort de gewenste toestand heeft bereikt. Zo niet, dan zal het systeem opnieuw proberen te sluiten/openen. Deze parameter bepaalt het maximum aantal pogingen van het systeem om het doel te bereiken. De aanbevolen waarde is 5. Het wijzigen van deze parameter heeft geen invloed op de werking van de schema's.'
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': 'Nadat u opdracht hebt gegeven de poort te openen of te sluiten, zal het systeem proberen de poort te sluiten/openen en 60 seconden wachten om te zien of de poort de gewenste toestand heeft bereikt. Zo niet, dan zal het systeem opnieuw proberen te sluiten/openen. Deze parameter bepaalt het maximum aantal pogingen van het systeem om het doel te bereiken. De aanbevolen waarde is 5. Het wijzigen van deze parameter heeft geen invloed op de werking van de schema''s.'
 'App version: %clientAppSoftwareVersion%': 'Applicatieversie: %clientAppSoftwareVersion%'
 Applications: Applicaties
 Are you sure you want to delete this scene?: Weet u zeker dat u deze scène wilt verwijderen?
@@ -716,7 +716,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Kan geen s
 Cannot change the channel function right now.: De functie van dit kanaal kan op dit moment niet worden gewijzigd.
 Cannot delete this I/O Device right now.: Dit apparaat kan op dit moment niet worden verwijderd.
 Caption is too long.: De naam is te lang.
-Change channel function: Wijzig de kanaalfunctie 
+Change channel function: Wijzig de kanaalfunctie
 Change function: Wijzig de functie
 Channel group reference will be removed from the items below.: Het verwijzen naar een kanaalgroep wordt verwijderd uit onderstaande elementen.
 Channel is disconnected.: Het kanaal is losgekoppeld.
@@ -839,7 +839,7 @@ Regeneration starts at: Begin van regeneratie
 Reset Your Password: Een nieuw wachtwoord instellen
 Reset counter: Reset teller
 Reverse active energy balanced: Teruggekaatste energie (Vectorbalans)
-Roof window opening sensor:  Openingssensor dakvenster
+Roof window opening sensor: Openingssensor dakvenster
 Roof window shutter operation: Openen van het dakvenster
 SUPLA - Private instance unregistration: SUPLA - uitschrijving van een privé instantie
 SUPLA Server was unable to execute the scene.: De SUPLA Server was niet in staat om de scène uit te voeren.
@@ -916,7 +916,7 @@ Your password must include both upper and lower case letters.: Het wachtwoord mo
 Your preferences has been updated.: Uw instellingen zijn opgeslagen.
 Your private SUPLA Cloud instance has been unregistered.: Uw privé SUPLA Cloud instance is uitgeschreven.
 'Your scenes are allowed to have a maximum of {max} operations.': 'Uw scènes kunnen een maximum hebben van {max} operaties.'
-'Your schedules are allowed to have a maximum of {max} actions.': 'Uw schema's kunnen een maximum van {max} aandelen hebben.'
+'Your schedules are allowed to have a maximum of {max} actions.': 'Uw schema''s kunnen een maximum van {max} aandelen hebben.'
 access to your e-mail address: toegang tot uw e-mail adres
 actionTrigger_HOLD: De knop ingedrukt houden
 actionTrigger_SHORT_PRESS_X1: 1x drukken
