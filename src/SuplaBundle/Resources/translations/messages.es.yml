@@ -845,7 +845,7 @@ SUPLA - Private instance unregistration: SUPLA - desconectada una instancia priv
 SUPLA Server was unable to execute the scene.: SUPLA Server no pudo ejecutar la escena.
 SUPLA Server was unable to query for the scene state.: SUPLA Server no pudo leer el estado de la escena.
 SUPLA – new client app has been added to your account: SUPLA - registrada una nueva aplicación cliente
-SUPLA – new device has been added to your account: SUPLA: se ha agregado un nuevo dispositivo a tu cuenta
+SUPLA – new device has been added to your account: 'SUPLA: se ha agregado un nuevo dispositivo a tu cuenta'
 Save or discard configuration changes first.: Primero, guarda o descarta los cambios de configuración.
 Scene: Escena
 Scene must consist of at least one operation.: La escena debe contener al menos una operación.
