@@ -70,4 +70,25 @@ class SceneUtilsTest extends TestCase {
         $scene1->method('getOperations')->willReturn([$operation1]);
         SceneUtils::ensureOperationsAreNotCyclic($scene1);
     }
+
+    public function test640DeepSceneForbidden() {
+        $this->expectExceptionMessage('too many operations');
+        $sceneIdCounter = 1;
+        $scene = $firstScene = $this->createEntityMock(Scene::class);
+        // this generates a scene with 10^6 operations
+        for ($depth = 0; $depth < 6; $depth++) {
+            $sceneNext = $this->createEntityMock(Scene::class, ++$sceneIdCounter);
+            $operations = [];
+            for ($sceneCounter = 0; $sceneCounter < 10; $sceneCounter++) {
+                $operation = $this->createEntityMock(SceneOperation::class);
+                $operation->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+                $operation->method('getSubject')->willReturn($sceneNext);
+                $operations[] = $operation;
+            }
+            $scene->method('getOperations')->willReturn($operations);
+            $scene = $sceneNext;
+        }
+        $scene->method('getOperations')->willReturn([]);
+        SceneUtils::ensureOperationsAreNotCyclic($firstScene);
+    }
 }

@@ -21,17 +21,24 @@ use SuplaBundle\Entity\Scene;
 use SuplaBundle\Enums\ActionableSubjectType;
 
 final class SceneUtils {
+    private const MAX_OPERATIONS_EXECUTIONS_PER_SCENE = 640;
+
     private function __construct() {
     }
 
     /** @see https://gist.github.com/jmullan/450465/77bdaa2a57e73ecee8ca6d9449aad3f74b379ca5 */
-    public static function ensureOperationsAreNotCyclic(Scene $scene, array $usedScenesIds = []) {
+    public static function ensureOperationsAreNotCyclic(Scene $scene, array $usedScenesIds = [], int &$operationsCounter = 0) {
         $sceneId = $scene->isNew() ? 0 : $scene->getId();
         Assertion::notInArray($sceneId, $usedScenesIds, 'It is forbidden to have recursive execution of scenes.');
         $usedScenesIds[] = $sceneId;
         foreach ($scene->getOperations() as $operation) {
+            Assertion::lessThan(
+                $operationsCounter++,
+                self::MAX_OPERATIONS_EXECUTIONS_PER_SCENE,
+                'The scene would execute too many operations.' // i18n
+            );
             if ($operation->getSubjectType()->getValue() === ActionableSubjectType::SCENE) {
-                self::ensureOperationsAreNotCyclic($operation->getSubject(), $usedScenesIds);
+                self::ensureOperationsAreNotCyclic($operation->getSubject(), $usedScenesIds, $operationsCounter);
             }
         }
     }

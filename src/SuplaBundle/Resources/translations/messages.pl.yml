@@ -968,3 +968,4 @@ hourly: Każdy dzień
 # Translations below are missing. You want to translate them.
 You must set an action for each scene operation.: Wybierz akcję dla każdej operacji w scenie.
 #</editor-fold>
+The scene would execute too many operations.: Scena wykonuje zbyt wiele operacji.
