@@ -58,6 +58,7 @@ class ChannelFunctionActionTest extends TestCase {
             '| Action name | Additional parameters | Example parameters',
             '| ------------- |-------------|---|',
         ];
+        /// @codingStandardsIgnoreStart
         $docs = [
             ChannelFunctionAction::SHUT => ['`percentage` an integer from 0 to 100 meaning how much to shut; optional, default 100'],
             ChannelFunctionAction::REVEAL => ['`percentage` an integer from 0 to 100 meaning how much to shut; optional, default 100'],
@@ -78,6 +79,7 @@ class ChannelFunctionActionTest extends TestCase {
             ],
             ChannelFunctionAction::COPY => [['sourceChannelId' => 123]],
         ];
+        // @codingStandardsIgnoreEnd
         $docs[ChannelFunctionAction::SHUT_PARTIALLY] = $docs[ChannelFunctionAction::SHUT];
         $docs[ChannelFunctionAction::REVEAL_PARTIALLY] = $docs[ChannelFunctionAction::REVEAL];
         $examples[ChannelFunctionAction::SHUT_PARTIALLY] = $examples[ChannelFunctionAction::SHUT];
@@ -89,9 +91,11 @@ class ChannelFunctionActionTest extends TestCase {
             $docsForItem = implode('', array_map(function ($item) {
                 return '<li>' . $item;
             }, $docs[$actionId] ?? []));
-            $examplesForItem = $examples[$actionId] ?? null ? '`' . implode('`<br> `', array_map(function ($item) {
+            $examplesForItem = $examples[$actionId] ?? null
+                    ? '`' . implode('`<br> `', array_map(function ($item) {
                         return json_encode($item);
-                    }, $examples[$actionId] ?? [])) . '`' : '';
+                    }, $examples[$actionId] ?? [])) . '`'
+                    : '';
             $lines[] = sprintf('| `%s` (`%d`) | %s | %s |', $actionName, $actionId, $docsForItem, $examplesForItem);
         }
 
