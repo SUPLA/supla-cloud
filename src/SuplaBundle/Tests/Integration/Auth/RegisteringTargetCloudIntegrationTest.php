@@ -82,6 +82,22 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertContains('You cannot use SUPLA', $body['message']);
     }
 
+    public function testRegisteringTargetWithSuplaIoDomain() {
+        $client = $this->createHttpsClient();
+        TargetSuplaCloudRequestForwarder::$requestExecutor =
+            function (string $address, string $endpoint) use (&$targetCalled) {
+                $this->assertEquals('https://michael.supla.io', $address);
+                $this->assertEquals('server-info', $endpoint);
+                $targetCalled = true;
+                return [['cloudVersion' => '2.4.0'], Response::HTTP_OK];
+            };
+        $client->apiRequestV23('POST', '/api/register-target-cloud', ['email' => 'chief@supla.org', 'targetCloud' => 'michael.supla.io']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('token', $body);
+    }
+
     public function testRegisteringObsoleteCloud() {
         $client = $this->createHttpsClient();
         TargetSuplaCloudRequestForwarder::$requestExecutor =
