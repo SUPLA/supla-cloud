@@ -943,13 +943,15 @@ hourly: Ogni ora
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Interrupt and execute: ~
-Maximum delay is 60 minutes.: ~
-Reference to the scene will be removed from the items below.: ~
-SUPLA Server was unable to execute the scene.: ~
-SUPLA Server was unable to query for the scene state.: ~
-Some features depend on this scene: ~
-'The items below rely on this scene, so they will be deleted.': ~
-directLinkExecutionFailureReason_sceneDuringExecution: ~
+Interrupt and execute: Interrompi ed esegui
+Maximum delay is 60 minutes.: Massimo ritardo 60’
+Reference to the scene will be removed from the items below.: La relazione con lo scenario verrà rimosso dagli elementi seguenti
+SUPLA Server was unable to execute the scene.: Il server SUPLA non è stato in grado di eseguire lo scenario
+SUPLA Server was unable to query for the scene state.: Il server SUPLA non è stato in grado di richiedere lo stato dello scenario
+Some features depend on this scene: Alcune funzionalità dipendono da questo scenario
+'The items below rely on this scene, so they will be deleted.': 'I seguenti elementi si basano su questo scenario, di conseguenza verranno rimossi'
+directLinkExecutionFailureReason_sceneDuringExecution: Scenario in esecuzione
+The scene would execute too many operations.: È stato superato il numero massimo di azioni eseguibili dallo scenario
+You must set an action for each scene operation.: È necessario impostare un comando per ogni azione dello scenario
 
 #</editor-fold>
