@@ -29,6 +29,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @OA\Schema(
+ *     schema="ErrorResponse", type="object",
+ *     @OA\Property(property="status", type="integer", example="400"),
+ *     @OA\Property(property="message", type="string"),
+ * )
+ */
 class DefaultController extends AbstractController {
     /** @var string */
     private $suplaUrl;

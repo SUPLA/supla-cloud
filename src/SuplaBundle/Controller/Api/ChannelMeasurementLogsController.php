@@ -20,7 +20,7 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use PDO;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
 use SuplaBundle\Entity\ImpulseCounterLogItem;
@@ -30,6 +30,7 @@ use SuplaBundle\Entity\TempHumidityLogItem;
 use SuplaBundle\Entity\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
+use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\IODeviceManager;
@@ -105,6 +106,8 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 $table = 'supla_thermostat_log';
                 break;
+            default:
+                throw new ApiException('Invalid function.');
         }
 
         $unixDate = "UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))";
@@ -133,9 +136,8 @@ class ChannelMeasurementLogsController extends RestController {
             }
         }
 
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_NUM);
-        return $stmt->fetch();
+        $result = $stmt->executeQuery();
+        return $result->fetchNumeric();
     }
 
     private function logItems(
@@ -148,7 +150,7 @@ class ChannelMeasurementLogsController extends RestController {
         $beforeTimestamp = 0,
         $orderDesc = true,
         $sparse = null
-    ) {
+    ): array {
         $order = $orderDesc ? ' ORDER BY `date` DESC ' : ' ORDER BY `date` ASC ';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
@@ -172,7 +174,8 @@ class ChannelMeasurementLogsController extends RestController {
         DatabaseUtils::turnOffQueryBuffering($this->entityManager);
 
         if ($sparse > 0) {
-            $this->entityManager->getConnection()->exec('SET @nth_log_item_row := 0');
+            Assertion::between($sparse, 1, 1000, 'Invalid sparse value.');
+            $this->entityManager->getConnection()->executeStatement('SET @nth_log_item_row := 0');
             [$totalCount,] = $this->getMeasureLogsCount($channel, $afterTimestamp, $beforeTimestamp);
             if ($totalCount > $sparse) {
                 $nth = floor($totalCount / $sparse);
@@ -204,8 +207,8 @@ class ChannelMeasurementLogsController extends RestController {
             $stmt->bindValue(3, $offset, 'integer');
         }
 
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $result = $stmt->executeQuery();
+        return $result->fetchAllAssociative();
     }
 
     private function ensureChannelHasMeasurementLogs(IODeviceChannel $channel, ?array $allowedFuncList = null): void {
@@ -239,7 +242,7 @@ class ChannelMeasurementLogsController extends RestController {
         $orderDesc = true,
         $allowedFuncList = null,
         $sparse = null
-    ) {
+    ): array {
         $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
         $offset = intval($offset);
         $limit = intval($limit);
@@ -249,7 +252,7 @@ class ChannelMeasurementLogsController extends RestController {
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
             case ChannelFunction::HUMIDITY:
-                $result = $this->logItems(
+                return $this->logItems(
                     "`supla_temphumidity_log`",
                     "`temperature`, `humidity`",
                     $channel,
@@ -260,9 +263,8 @@ class ChannelMeasurementLogsController extends RestController {
                     $orderDesc,
                     $sparse
                 );
-                break;
             case ChannelFunction::THERMOMETER:
-                $result = $this->logItems(
+                return $this->logItems(
                     "`supla_temperature_log`",
                     "`temperature`",
                     $channel,
@@ -273,9 +275,8 @@ class ChannelMeasurementLogsController extends RestController {
                     $orderDesc,
                     $sparse
                 );
-                break;
             case ChannelFunction::ELECTRICITYMETER:
-                $result = $this->logItems(
+                return $this->logItems(
                     "`supla_em_log`",
                     "`phase1_fae`, `phase1_rae`, `phase1_fre`, "
                     . "`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
@@ -288,26 +289,24 @@ class ChannelMeasurementLogsController extends RestController {
                     $orderDesc,
                     $sparse
                 );
-                break;
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
             case ChannelFunction::IC_HEATMETER:
-                $result = $this->logItems(
-                    "`supla_ic_log`",
-                    "`counter`, `calculated_value` / 1000 calculated_value",
-                    $channel,
-                    $offset,
-                    $limit,
-                    $afterTimestamp,
-                    $beforeTimestamp,
-                    $orderDesc,
-                    $sparse
-                );
-                break;
+            return $this->logItems(
+                "`supla_ic_log`",
+                "`counter`, `calculated_value` / 1000 calculated_value",
+                $channel,
+                $offset,
+                $limit,
+                $afterTimestamp,
+                $beforeTimestamp,
+                $orderDesc,
+                $sparse
+            );
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
-                $result = $this->logItems(
+                return $this->logItems(
                     "`supla_thermostat_log`",
                     "`on`,`measured_temperature`,`preset_temperature`",
                     $channel,
@@ -318,12 +317,13 @@ class ChannelMeasurementLogsController extends RestController {
                     $orderDesc,
                     $sparse
                 );
-                break;
+            default:
+                throw new ApiException('Invalid function.');
         }
-        return $result;
     }
 
     /**
+     * @deprecated
      * @Rest\Get("/channels/{channel}/temperature-log-count")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
@@ -340,6 +340,7 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     /**
+     * @deprecated
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
@@ -356,6 +357,7 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     /**
+     * @deprecated
      * @Rest\Get("/channels/{channel}/temperature-log-items")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
@@ -376,6 +378,7 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     /**
+     * @deprecated
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-items")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
@@ -396,6 +399,69 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/channels/{channel}/measurement-logs", operationId="getChannelMeasurementLogs",
+     *     summary="Get channel measurement logs.", tags={"Channels"},
+     *     @OA\Parameter(name="channel", description="ID", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="afterTimestamp", description="Fetch log items created after this timestamp.", in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="beforeTimestamp", description="Fetch log items created before this timestamp.", in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="order", description="Whether to order items ascending or descending by creation date.", in="query", @OA\Schema(type="string", default="DESC", enum={"ASC", "DESC"})),
+     *     @OA\Parameter(name="sparse", description="Set the maximum items to return from the given period. If specified, the `limit` and `offset` params are ignored. For example, if you fetches the logs from the whole year and set the `sparse` param to `12`, the API will try to return up to 12 log items, equally distributed throug the whole year. Min: 1, Max: 1000.", in="query", @OA\Schema(type="integer", minimum=1, maximum=1000)),
+     *     @OA\Parameter(name="limit", description="Maximum items count in response, from 1 to 5000.", in="query", @OA\Schema(type="integer", default=5000, minimum=1, maximum=5000)),
+     *     @OA\Parameter(name="offset", description="Pagination offset.", in="query", @OA\Schema(type="integer", default=0)),
+     *     @OA\Response(response="200", description="Success",
+     *       headers={
+     *         @OA\Header(header="X-Total-Count", description="Total count of logs for this channel.", @OA\Schema(type="integer")),
+     *         @OA\Header(header="X-Count", description="Total count of logs for this channel, considering the supplied filters.", @OA\Schema(type="integer")),
+     *         @OA\Header(header="X-Min-Timestamp", description="Minimum timestamp of the log items, considering the supplied filters.", @OA\Schema(type="integer")),
+     *         @OA\Header(header="X-Max-Timestamp", description="Maximum timestamp of the log items, considering the supplied filters.", @OA\Schema(type="integer")),
+     *       },
+     *       @OA\JsonContent(oneOf={
+     *          @OA\Schema(type="array", description="Log item for `THERMOMETER`.", @OA\Items(
+     *            @OA\Property(property="date_timestamp", type="integer"),
+     *            @OA\Property(property="temperature", type="number", format="float"),
+     *          )),
+     *          @OA\Schema(type="array", description="Log item for `HUMIDITYANDTEMPERATURE`.", @OA\Items(
+     *            @OA\Property(property="date_timestamp", type="integer"),
+     *            @OA\Property(property="humidity", type="number", format="float"),
+     *            @OA\Property(property="temperature", type="number", format="float"),
+     *          )),
+     *          @OA\Schema(type="array", description="Log item for `HUMIDITY`.", @OA\Items(
+     *            @OA\Property(property="date_timestamp", type="integer"),
+     *            @OA\Property(property="humidity", type="number", format="float"),
+     *          )),
+     *          @OA\Schema(type="array", description="Log item for `ELECTRICITYMETER`.", @OA\Items(
+     *            @OA\Property(property="date_timestamp", type="integer"),
+     *            @OA\Property(property="phase1_fae", type="integer", nullable=true),
+     *            @OA\Property(property="phase1_rae", type="integer", nullable=true),
+     *            @OA\Property(property="phase1_fre", type="integer", nullable=true),
+     *            @OA\Property(property="phase1_rre", type="integer", nullable=true),
+     *            @OA\Property(property="phase2_fae", type="integer", nullable=true),
+     *            @OA\Property(property="phase2_rae", type="integer", nullable=true),
+     *            @OA\Property(property="phase2_fre", type="integer", nullable=true),
+     *            @OA\Property(property="phase2_rre", type="integer", nullable=true),
+     *            @OA\Property(property="phase3_fae", type="integer", nullable=true),
+     *            @OA\Property(property="phase3_rae", type="integer", nullable=true),
+     *            @OA\Property(property="phase3_fre", type="integer", nullable=true),
+     *            @OA\Property(property="phase3_rre", type="integer", nullable=true),
+     *            @OA\Property(property="fae_balanced", type="integer", nullable=true),
+     *            @OA\Property(property="rae_balanced", type="integer", nullable=true),
+     *          )),
+     *          @OA\Schema(type="array", description="Log item for impulse counters (`IC_*`).", @OA\Items(
+     *            @OA\Property(property="date_timestamp", type="integer"),
+     *            @OA\Property(property="counter", type="integer"),
+     *            @OA\Property(property="calculated_value", type="number", format="float"),
+     *          )),
+     *          @OA\Schema(type="array", description="Log item for thermostats (`THERMOSTAT*`).", @OA\Items(
+     *            @OA\Property(property="date_timestamp", type="integer"),
+     *            @OA\Property(property="on", type="boolean"),
+     *            @OA\Property(property="measured_temperature", type="number", format="float"),
+     *            @OA\Property(property="preset_temperature", type="number", format="float"),
+     *          )),
+     *       }),
+     *     ),
+     *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
+     * )
      * @Rest\Get("/channels/{channel}/measurement-logs")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
@@ -416,6 +482,9 @@ class ChannelMeasurementLogsController extends RestController {
             null,
             $request->query->get('sparse')
         );
+        if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            $logs = $this->adjustLogsFormat($logs, $channel);
+        }
         $view = $this->view($logs, Response::HTTP_OK);
         [$totalCountWithCondition, $minTimestamp, $maxTimestamp] = $this->getMeasureLogsCount(
             $channel,
@@ -432,6 +501,62 @@ class ChannelMeasurementLogsController extends RestController {
         $view->setHeader('X-Min-Timestamp', $minTimestamp);
         $view->setHeader('X-Max-Timestamp', $maxTimestamp);
         return $view;
+    }
+
+    private function adjustLogsFormat(array $logs, IODeviceChannel $channel): array {
+        switch ($channel->getFunction()->getId()) {
+            case ChannelFunction::HUMIDITYANDTEMPERATURE:
+                return array_map(function (array $item) {
+                    return [
+                        'date_timestamp' => intval($item['date_timestamp']),
+                        'temperature' => floatval($item['temperature']),
+                        'humidity' => floatval($item['humidity']),
+                    ];
+                }, $logs);
+            case ChannelFunction::HUMIDITY:
+                return array_map(function (array $item) {
+                    return [
+                        'date_timestamp' => intval($item['date_timestamp']),
+                        'humidity' => floatval($item['humidity']),
+                    ];
+                }, $logs);
+            case ChannelFunction::THERMOMETER:
+                return array_map(function (array $item) {
+                    return [
+                        'date_timestamp' => intval($item['date_timestamp']),
+                        'temperature' => floatval($item['temperature']),
+                    ];
+                }, $logs);
+            case ChannelFunction::ELECTRICITYMETER:
+                return array_map(function (array $item) {
+                    return array_map(function ($value) {
+                        return is_numeric($value) ? intval($value) : $value;
+                    }, $item);
+                }, $logs);
+            case ChannelFunction::IC_ELECTRICITYMETER:
+            case ChannelFunction::IC_GASMETER:
+            case ChannelFunction::IC_WATERMETER:
+            case ChannelFunction::IC_HEATMETER:
+                return array_map(function (array $item) {
+                    return [
+                        'date_timestamp' => intval($item['date_timestamp']),
+                        'counter' => floatval($item['counter']),
+                        'calculated_value' => floatval($item['calculated_value']),
+                    ];
+                }, $logs);
+            case ChannelFunction::THERMOSTAT:
+            case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
+                return array_map(function (array $item) {
+                    return [
+                        'date_timestamp' => intval($item['date_timestamp']),
+                        'on' => boolval($item['on']),
+                        'measured_temperature' => floatval($item['measured_temperature']),
+                        'preset_temperature' => floatval($item['preset_temperature']),
+                    ];
+                }, $logs);
+            default:
+                return $logs;
+        }
     }
 
     private function findTargetChannel(IODeviceChannel $channel): IODeviceChannel {
@@ -464,6 +589,13 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     /**
+     * @OA\Delete(
+     *     path="/channels/{channel}/measurement-logs", operationId="deleteChannelMeasurementLogs",
+     *     summary="Delete channel measurement logs.", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response="204", description="Success"),
+     *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
+     * )
      * @Rest\Delete("/channels/{channel}/measurement-logs")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
@@ -486,6 +618,13 @@ class ChannelMeasurementLogsController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/channels/{channel}/measurement-logs-csv", operationId="getChannelMeasurementLogsCsvFile",
+     *     summary="Get measurement logs as zipped CSV file.", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response="200", description="Success", @OA\MediaType(mediaType="application/zip")),
+     *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
+     * )
      * @Rest\Get("/channels/{channel}/measurement-logs-csv")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES') and is_granted('accessIdContains', channel)")
      */

@@ -54,7 +54,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $date = new DateTime($datestr);
         $oneday = new DateInterval('P1D');
 
-        foreach ([21, 22, 23] as $temperature) {
+        foreach ([21.3, 22.23, 23] as $temperature) {
             $logItem = new TemperatureLogItem();
             EntityUtils::setField($logItem, 'channel_id', 2 + $offset);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
@@ -64,7 +64,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         }
 
         $date = new DateTime($datestr);
-        foreach ([[21, 30], [22, 40], [23, 50]] as $th) {
+        foreach ([[21.5, 30.3], [22.005, 40.04], [23, 50.005]] as $th) {
             $logItem = new TempHumidityLogItem();
             EntityUtils::setField($logItem, 'channel_id', 3 + $offset);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
@@ -207,9 +207,19 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertEquals(3, $content['count']);
     }
 
-    private function getMeasurementLogs(int $channelId) {
+    private function getMeasurementLogsV22(int $channelId) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/channels/' . $channelId . '/measurement-logs');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(3, $content);
+        return $content;
+    }
+
+    private function getMeasurementLogsV24(int $channelId) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels/' . $channelId . '/measurement-logs');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $content = json_decode($response->getContent(), true);
@@ -230,56 +240,109 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
                 $value += $phase;
             });
             $this->emIncrement($eInOrder, 10);
-            $this->assertEquals($eInOrder, array_map('intval', array_column($content, 'phase' . $phase . '_rae')));
+            $this->assertEquals($eInOrder, array_column($content, 'phase' . $phase . '_rae'));
             $this->emIncrement($eInOrder, 10);
-            $this->assertEquals($eInOrder, array_map('intval', array_column($content, 'phase' . $phase . '_fre')));
+            $this->assertEquals($eInOrder, array_column($content, 'phase' . $phase . '_fre'));
             $this->emIncrement($eInOrder, 10);
-            $this->assertEquals($eInOrder, array_map('intval', array_column($content, 'phase' . $phase . '_rre')));
+            $this->assertEquals($eInOrder, array_column($content, 'phase' . $phase . '_rre'));
         }
     }
 
-    public function testGettingTemperatureLogs() {
-        $content = $this->getMeasurementLogs(2);
-        $temperaturesInOrder = [23, 22, 21];
-        $this->assertEquals($temperaturesInOrder, array_map('intval', array_column($content, 'temperature')));
+    public function testGettingTemperatureLogsV22() {
+        $content = $this->getMeasurementLogsV22(2);
+        $temperaturesInOrder = ['23.0000', '22.2300', '21.3000'];
+        $this->assertEquals($temperaturesInOrder, array_column($content, 'temperature'));
     }
 
-    public function testGettingTemperatureAndHumidityLogs() {
-        $content = $this->getMeasurementLogs(3);
-        $temperaturesInOrder = [23, 22, 21];
-        $this->assertEquals($temperaturesInOrder, array_map('intval', array_column($content, 'temperature')));
-        $humiditiesInOrder = [50, 40, 30];
-        $this->assertEquals($humiditiesInOrder, array_map('intval', array_column($content, 'humidity')));
+    public function testGettingTemperatureLogsInFloatsV24() {
+        $content = $this->getMeasurementLogsV24(2);
+        $temperaturesInOrder = [23, 22.23, 21.3];
+        $this->assertSame($temperaturesInOrder, array_column($content, 'temperature'));
+    }
+
+    public function testGettingTemperatureAndHumidityLogsV22() {
+        $content = $this->getMeasurementLogsV22(3);
+        $temperaturesInOrder = ['23.0000', '22.0050', '21.5000'];
+        $this->assertEquals($temperaturesInOrder, array_column($content, 'temperature'));
+        $humiditiesInOrder = ['50.0050', '40.0400', '30.3000'];
+        $this->assertEquals($humiditiesInOrder, array_column($content, 'humidity'));
+    }
+
+    public function testGettingTemperatureAndHumidityLogsV24() {
+        $content = $this->getMeasurementLogsV24(3);
+        $temperaturesInOrder = [23, 22.005, 21.5];
+        $this->assertEquals($temperaturesInOrder, array_column($content, 'temperature'));
+        $humiditiesInOrder = [50.005, 40.04, 30.3];
+        $this->assertEquals($humiditiesInOrder, array_column($content, 'humidity'));
     }
 
     public function testGettingElectricityMeasurementLogs() {
-        $content = $this->getMeasurementLogs(4);
+        $content = $this->getMeasurementLogsV22(4);
         $this->ensureElectricityMeasurementLogsOrder($content, [855000, 854900, 854800]);
     }
 
-    private function ensureImpulseCounterLogs($channelId) {
-        $content = $this->getMeasurementLogs($channelId);
+    public function testGettingElectricityMeasurementLogsInStringsV22() {
+        $firstLog = $this->getMeasurementLogsV22(4)[0];
+        $this->assertIsString($firstLog['date_timestamp']);
+        $this->assertSame('855002', $firstLog['phase2_fae']);
+        $this->assertNull($firstLog['fae_balanced']);
+    }
+
+    public function testGettingElectricityMeasurementLogsInIntsV24() {
+        $firstLog = $this->getMeasurementLogsV24(4)[0];
+        $this->assertIsInt($firstLog['date_timestamp']);
+        $this->assertSame(855002, $firstLog['phase2_fae']);
+        $this->assertNull($firstLog['fae_balanced']);
+    }
+
+    private function ensureImpulseCounterLogsV22($channelId) {
+        $content = $this->getMeasurementLogsV22($channelId);
+        $impulsesInOrder = ['300', '200', '100'];
+        $calculatedValuesInOrder = ['0.3000', '0.2000', '0.1000'];
+
+        $this->assertSame($impulsesInOrder, array_column($content, 'counter'));
+        $this->assertSame($calculatedValuesInOrder, array_column($content, 'calculated_value'));
+    }
+
+    public function testGettingElectricityCounterLogsV22() {
+        $this->ensureImpulseCounterLogsV22(5);
+    }
+
+    public function testGettingGasCounterLogsV22() {
+        $this->ensureImpulseCounterLogsV22(6);
+    }
+
+    public function testGettingWaterCounterLogsV22() {
+        $this->ensureImpulseCounterLogsV22(7);
+    }
+
+    public function testGettingHeatCounterLogsV22() {
+        $this->ensureImpulseCounterLogsV22(8);
+    }
+
+    private function ensureImpulseCounterLogsV24($channelId) {
+        $content = $this->getMeasurementLogsV24($channelId);
         $impulsesInOrder = [300, 200, 100];
         $calculatedValuesInOrder = [0.3, 0.2, 0.1];
 
-        $this->assertEquals($impulsesInOrder, array_map('intval', array_column($content, 'counter')));
-        $this->assertEquals($calculatedValuesInOrder, array_map('floatval', array_column($content, 'calculated_value')));
+        $this->assertSame($impulsesInOrder, array_column($content, 'counter'));
+        $this->assertSame($calculatedValuesInOrder, array_column($content, 'calculated_value'));
     }
 
-    public function testGettingElectricityCounterLogs() {
-        $this->ensureImpulseCounterLogs(5);
+    public function testGettingElectricityCounterLogsV24() {
+        $this->ensureImpulseCounterLogsV24(5);
     }
 
-    public function testGettingGasCounterLogs() {
-        $this->ensureImpulseCounterLogs(6);
+    public function testGettingGasCounterLogsV24() {
+        $this->ensureImpulseCounterLogsV24(6);
     }
 
-    public function testGettingWaterCounterLogs() {
-        $this->ensureImpulseCounterLogs(7);
+    public function testGettingWaterCounterLogsV24() {
+        $this->ensureImpulseCounterLogsV24(7);
     }
 
-    public function testGettingHeatCounterLogs() {
-        $this->ensureImpulseCounterLogs(8);
+    public function testGettingHeatCounterLogsV24() {
+        $this->ensureImpulseCounterLogsV24(8);
     }
 
     private function getMeasurementLogsAscending(int $channelId) {
@@ -371,9 +434,9 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     private function ensureGettingThermostatLogsWithOffset($channelId) {
         $content = $this->gettingMeasurementLogsWithOffset($channelId);
 
-        $this->assertEquals(1, intval($content[0]['on']));
-        $this->assertEquals(0, floatval($content[0]['measured_temperature']));
-        $this->assertEquals(5, floatval($content[0]['preset_temperature']));
+        $this->assertSame('1', $content[0]['on']);
+        $this->assertSame('0.00', $content[0]['measured_temperature']);
+        $this->assertSame('5.00', $content[0]['preset_temperature']);
     }
 
     public function testGettingElectricityCounterLogsWithOffset() {
@@ -395,6 +458,13 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testGettingThermostatLogsWithOffset() {
         $this->ensureGettingThermostatLogsWithOffset(9);
         $this->ensureGettingThermostatLogsWithOffset(10);
+    }
+
+    public function testGettingThermostatLogsV24() {
+        $firstLog = $this->getMeasurementLogsV24(9)[0];
+        $this->assertTrue($firstLog['on']);
+        $this->assertSame(30, $firstLog['measured_temperature']);
+        $this->assertSame(35, $firstLog['preset_temperature']);
     }
 
     private function getMeasurementLogsWithTimestampRange(int $channelId) {
