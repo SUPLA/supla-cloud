@@ -210,6 +210,8 @@
                 if (newSubject?.functionId !== oldSubject?.functionId) {
                     this.changeAction({});
                     Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
+                } else {
+                    this.updateModel();
                 }
             },
             value() {
