@@ -701,7 +701,7 @@ Associated measurement channel: Συναφές κανάλι μέτρησης
 'At 05:45 PM, on the last day of the month': 'στις 5:45 π.μ. την τελευταία ημέρα του μήνα'
 'At 11:30 AM, on the third Wednesday of the month': 'στις 11:30, την τρίτη Τετάρτη του μήνα'
 At every 5th minute on day-of-month 30 in May: κάθε 5 λεπτά, στις 30 του μήνα, μόνο τον Μάιο
-At specified time: Για την υποδεικνυόμενη ώρα 
+At specified time: Για την υποδεικνυόμενη ώρα
 At sunrise: κατά την ανατολή του ηλίου
 'At sunrise, Monday through Friday': 'κατά την ανατολή του ηλίου, Δευτέρα έως Παρασκευή'
 At sunset: κατά το ηλιοβασίλεμα
@@ -831,7 +831,7 @@ Port: Λιμάνι
 Precision: Ακρίβεια
 Protocol: Πρωτόκολλο
 Publish to integrations: Δημοσίευση στην ενοποίηση
-Publishes the event to integrated services like MQTT or webhooks.: Ειδοποιεί ενσωματώσεις όπως το MQTT ή το webhook κατά την εκτέλεση αυτής της ενέργειας. 
+Publishes the event to integrated services like MQTT or webhooks.: Ειδοποιεί ενσωματώσεις όπως το MQTT ή το webhook κατά την εκτέλεση αυτής της ενέργειας.
 Reference to the scene will be removed from the items below.: Το σημείο σκηνής αφαιρείται από τα παρακάτω στοιχεία.
 Regeneration starts at: Έναρξη της αναγέννησης
 'Registered from IP address: %clientAppRegIp%': 'Εγγεγραμμένος με διεύθυνση IP: %clientAppRegIp%'
@@ -841,7 +841,7 @@ Reset counter: Επαναφορά μετρητή
 Reverse active energy balanced: Επιστρεφόμενη ενεργή ενέργεια (Διανυσματικό ισοζύγιο)
 Roof window opening sensor: Αισθητήρας ανοίγματος παραθύρου οροφής
 Roof window shutter operation: Άνοιγμα παραθύρου οροφής
-SUPLA - Private instance unregistration: SUPLA - διαγραφή ιδιωτικής παρουσίας 
+SUPLA - Private instance unregistration: SUPLA - διαγραφή ιδιωτικής παρουσίας
 SUPLA Server was unable to execute the scene.: Ο διακομιστής SUPLA δεν μπόρεσε να εκτελέσει τη σκηνή.
 SUPLA Server was unable to query for the scene state.: Ο διακομιστής SUPLA δεν ήταν δυνατό να διαβάσει την κατάσταση της σκηνής.
 SUPLA – new client app has been added to your account: SUPLA - μια νέα εφαρμογή πελάτη έχει καταχωρηθεί
@@ -901,7 +901,7 @@ We have sent you an email with further instructions.: Σας έχουμε στε
 Working schedule: Χρονοδιάγραμμα δραστηριοτήτων
 You are changing the settings too quickly. You have to wait a while before making this change.: Αλλάζετε τις ρυθμίσεις πολύ γρήγορα. Πρέπει να περιμένετε λίγο πριν αλλάξετε αυτές τις ρυθμίσεις.
 You cannot use SUPLA project name in the domain name.: Δεν μπορείτε να χρησιμοποιήσετε το όνομα έργου SUPLA στο κύριο όνομα τομέα.
-You have requested to unregister your SUPLA Cloud instance: Ζητήσατε να διαγραφεί  η  παρουσία σας στο SUPLA Cloud 
+You have requested to unregister your SUPLA Cloud instance: Ζητήσατε να διαγραφεί  η  παρουσία σας στο SUPLA Cloud
 You have to choose at least one scope.: Πρέπει να επιλέξετε τουλάχιστον μία περιοχή.
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Εάν εξακολουθείτε να θέλετε να επωφεληθείτε από την προηγμένη λειτουργία χρονοδιαγράμματος, ρίξτε μια ματιά στα παρακάτω παραδείγματα.'
 You must enable MQTT Broker first.: Πρέπει πρώτα να ενεργοποιήσετε την ενσωμάτωση με τον μεσίτη MQTT.
