@@ -293,17 +293,17 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
             case ChannelFunction::IC_HEATMETER:
-            return $this->logItems(
-                "`supla_ic_log`",
-                "`counter`, `calculated_value` / 1000 calculated_value",
-                $channel,
-                $offset,
-                $limit,
-                $afterTimestamp,
-                $beforeTimestamp,
-                $orderDesc,
-                $sparse
-            );
+                return $this->logItems(
+                    "`supla_ic_log`",
+                    "`counter`, `calculated_value` / 1000 calculated_value",
+                    $channel,
+                    $offset,
+                    $limit,
+                    $afterTimestamp,
+                    $beforeTimestamp,
+                    $orderDesc,
+                    $sparse
+                );
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return $this->logItems(
