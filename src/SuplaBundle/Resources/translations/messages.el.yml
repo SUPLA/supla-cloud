@@ -670,286 +670,286 @@ hourly: Κύκλος ωρών
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'%s trigger is not supported by the hardware.': ~
-'10 minutes before sunset, on day 10 of the month, May through August': ~
-'15 minutes after sunrise, every 2 days': ~
-A confirmation upon successful client app registration.: ~
-A confirmation upon successful device registration.: ~
-A new client app (smartphone) been added to your SUPLA-Cloud account.: ~
-A new device has been added to your SUPLA-Cloud account.: ~
-A new personal access token has been generated.: ~
-Access ID is not active right now.: ~
-Access to all of your devices through MQTT Broker: ~
-Action trigger: ~
-'Action trigger no. #{index}': ~
-Action triggers: ~
-Active period: ~
-Add a delay: ~
-Add action: ~
-Add new item to use in the scene: ~
-'After the device enters the configuration mode, it will not be accessible on your account.': ~
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
-'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-'App version: %clientAppSoftwareVersion%': ~
-Applications: ~
-Are you sure you want to delete this scene?: ~
-Are you sure you want to reset the counter state?: ~
-As in device: ~
-Associated measured channel: ~
-Associated measurement channel: ~
-'At 05:45 PM, on the last day of the month': ~
-'At 11:30 AM, on the third Wednesday of the month': ~
-At every 5th minute on day-of-month 30 in May: ~
-At specified time: ~
-At sunrise: ~
-'At sunrise, Monday through Friday': ~
-At sunset: ~
-Automatic calibration: ~
-Bar: ~
-Based on sunrise or sunset: ~
-Be right back!: ~
-Bottom position: ~
-Calibrate: ~
-Calibration successful.: ~
-Cannot calculate when to run the schedule - incorrect configuration?: ~
-Cannot change the channel function right now.: ~
-Cannot delete this I/O Device right now.: ~
-Caption is too long.: ~
-Change channel function: ~
-Change function: ~
-Channel group reference will be removed from the items below.: ~
-Channel is disconnected.: ~
-Channel name: ~
-Channel reference will be removed from the items below.: ~
-Channel value: ~
-Channel with action triggers: ~
-Channels groups are not supported for this function.: ~
-Chart data source type: ~
-Chart type: ~
-Check your email inbox: ~
-Choose channel function: ~
-Choose the source channel.: ~
-Clear: ~
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-'Client app ID: %clientAppId%': ~
-Close partially: ~
-Config of the schedule is too complicated.: ~
-Confirm My Account: ~
-Confirm if you want to perform the roller shutter calibration.: ~
-'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Copy state from other channel: ~
-Could not enter the configuration mode.: ~
-Create new scene: ~
-Current Overload: ~
-Default: ~
-'Device ID: %deviceId%': ~
-Device channel value: ~
-Device is disconnected.: ~
-'Device name: %deviceName%': ~
-Device should be now in configuration mode.: ~
-'Device software version: %deviceSoftwareVersion%': ~
-Differential: ~
-Digi Glass: ~
-Digi Glass Horizontal: ~
-Digi Glass Vertical: ~
-Direct links limit has been exceeded: ~
-Disable local function: ~
-Disables local device function and does nothing more.: ~
-Do you want to be redirected there? You may be asked to authenticate again.: ~
-'Doors, Gates, Windows': ~
-E-mail notifications: ~
-Entering configuration mode is unsupported in the firmware.: ~
-Execute: ~
-Execute an action: ~
-Feature limits: ~
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
-Forward active energy balanced: ~
-General purpose measurement: ~
-Generate new password: ~
-Host: ~
-Icon: ~
-'If you do not want to unregister your instance, please do not click the link.': ~
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': ~
-'If you really want to delete the account, here are the instructions.': ~
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': ~
-'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
-'If you wish to register your instance, [click here].': ~
-'If you wish to unregister your instance, [click here].': ~
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
-Include energy corrections in new measurements history (not recommended): ~
-Integration with MQTT Broker has been disabled.: ~
-Integration with MQTT Broker has been enabled.: ~
-Interpolate measurements: ~
-Interrupt: ~
-Interrupt and execute: ~
-Invalid action parameters: ~
-Invalid request.: ~
-Invalid token.: ~
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: ~
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
-Linear: ~
-Location name: ~
-MQTT Broker: ~
-MQTT Broker Username: ~
-MQTT Broker is disabled.: ~
-MQTT Broker password: ~
-MQTT Broker password has been changed.: ~
-MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
-Make sure to copy it now because you won’t be able to see it again!: ~
-Manage your new client app in the SUPLA-Cloud.: ~
-Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
-Manual: ~
-Maximum delay is 60 minutes.: ~
-Meters: ~
-Move down or stop: ~
-Move up or stop: ~
-'Name: %clientAppName%': ~
-Need one of these?: ~
-New IO device added to your account: ~
-New client app (smartphone) added to your account: ~
-New scene: ~
-No of channels: ~
-No of client apps: ~
-No of devices: ~
-No of operations: ~
-No schedule configuration.: ~
-None (channel disabled): ~
-Number of attempts to close: ~
-Number of attempts to open: ~
-Number of sections: ~
-OAuth integrations might stop working after the instance is unregistered.: ~
-Operations: ~
-Other: ~
-'Password must be at least {minLength} characters.': ~
-'Password must be no longer than {maxLength} characters.': ~
-Password reset instructions.: ~
-Please choose the schedule subject first.: ~
-Please confirm your SUPLA account.: ~
-Port: ~
-Precision: ~
-Protocol: ~
-Publish to integrations: ~
-Publishes the event to integrated services like MQTT or webhooks.: ~
-Reference to the scene will be removed from the items below.: ~
-Regeneration starts at: ~
-'Registered from IP address: %clientAppRegIp%': ~
-'Registered from IP address: %deviceRegIp%': ~
-Reset Your Password: ~
-Reset counter: ~
-Reverse active energy balanced: ~
-Roof window opening sensor: ~
-Roof window shutter operation: ~
-SUPLA - Private instance unregistration: ~
-SUPLA Server was unable to execute the scene.: ~
-SUPLA Server was unable to query for the scene state.: ~
-SUPLA – new client app has been added to your account: ~
-SUPLA – new device has been added to your account: ~
-Save or discard configuration changes first.: ~
-Scene: ~
-Scene must consist of at least one operation.: ~
-Scenes: ~
-Scenes limit has been exceeded: ~
-See available integrations: ~
-See in SUPLA-Cloud: ~
-Set value added: ~
-Setting the number of attempts to 1 disables the retrying behavior completely.: ~
-Shut partially: ~
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
-Some features depend on this channel group: ~
-Some features depend on this device: ~
-Some features depend on this scene: ~
-Some of the features you have configured rely on channels from this device.: ~
-Standard: ~
-Start from the homepage.: ~
-Step by step: ~
-Store measurements history: ~
-Switch the device to configuration mode: ~
-TLS: ~
-'Target Cloud is not registered, or is registered with another e-mail address.': ~
-The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
-The SUPLA infrastructure is being updated.: ~
-The counter has been reset.: ~
-The following items use the channels of these device. These references will be also removed.: ~
-'The following items will be deleted with this device:': ~
-The incident was detected at %datetime%.: ~
-'The items below rely on this channel function, so they will be deleted.': ~
-'The items below rely on this channel group, so they will be deleted.': ~
-'The items below rely on this scene, so they will be deleted.': ~
-The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: ~
-Too many actions in this schedule.: ~
-Too many operations in this scene: ~
-Triggers: ~
-Turning this device off will cause its channels not working in the following features.: ~
-Turning this device off will result in disabling features listed below.: ~
-Undo registration: ~
-Unregister my private SUPLA Cloud instance: ~
-Unsuccessful login attempt: ~
-Update in progress: ~
-'Use the [command] server command to change this account''s limits. For example:': ~
-Use working schedule for this access identifier: ~
-Value added: ~
-Value per unit: ~
-We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-We have sent you an email with further instructions.: ~
-Working schedule: ~
-You are changing the settings too quickly. You have to wait a while before making this change.: ~
-You cannot use SUPLA project name in the domain name.: ~
-You have requested to unregister your SUPLA Cloud instance: ~
-You have to choose at least one scope.: ~
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
-You must enable MQTT Broker first.: ~
-You must set sections with transparent or opaque parameters or both.: ~
-Your account and MQTT Broker connection.: ~
-'Your channel groups are allowed to have a maximum of {max} channels.': ~
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': ~
-Your password must contain at least one special character.: ~
-Your password must include at least one letter.: ~
-Your password must include at least one number.: ~
-Your password must include both upper and lower case letters.: ~
-Your preferences has been updated.: ~
-Your private SUPLA Cloud instance has been unregistered.: ~
-'Your scenes are allowed to have a maximum of {max} operations.': ~
-'Your schedules are allowed to have a maximum of {max} actions.': ~
-access to your e-mail address: ~
-actionTrigger_HOLD: ~
-actionTrigger_SHORT_PRESS_X1: ~
-actionTrigger_SHORT_PRESS_X2: ~
-actionTrigger_SHORT_PRESS_X3: ~
-actionTrigger_SHORT_PRESS_X4: ~
-actionTrigger_SHORT_PRESS_X5: ~
-actionTrigger_TOGGLE_X1: ~
-actionTrigger_TOGGLE_X2: ~
-actionTrigger_TOGGLE_X3: ~
-actionTrigger_TOGGLE_X4: ~
-actionTrigger_TOGGLE_X5: ~
-actionTrigger_TURN_OFF: ~
-actionTrigger_TURN_ON: ~
-actionableSubjectType_scene: ~
-addToHistoryMeasurementWarningSelected: ~
-addToHistoryMeasurementWarningUnselected: ~
-caption: ~
-choose the action: ~
-choose the scene: ~
-days: ~
-directLinkExecutionFailureReason_sceneDuringExecution: ~
-empty: ~
-hours: ~
-min.: ~
-or add a delay: ~
-prefix: ~
-scene: ~
-scheduleMode_crontab: ~
-suffix: ~
-'{minutes} minutes after sunrise': ~
-'{minutes} minutes after sunset': ~
-'{minutes} minutes before sunrise': ~
-'{minutes} minutes before sunset': ~
+'%s trigger is not supported by the hardware.': 'Το έναυσμα %s δεν υποστηρίζεται από τη συσκευή.'
+'10 minutes before sunset, on day 10 of the month, May through August': '10 λεπτά πριν από τη δύση του ηλίου, μόνο τη 10η ημέρα του μήνα, από Μάιο έως Αύγουστο'
+'15 minutes after sunrise, every 2 days': '15 λεπτά μετά την ανατολή του ηλίου, κάθε δεύτερη μέρα'
+A confirmation upon successful client app registration.: Επιβεβαίωση εγγραφής της νέας εφαρμογής πελάτη.
+A confirmation upon successful device registration.: Επιβεβαιώστε ότι η συσκευή έχει εγγραφεί με επιτυχία.
+A new client app (smartphone) been added to your SUPLA-Cloud account.: Μια νέα εφαρμογή πελάτη (smartphone) έχει προστεθεί στο λογαριασμό σας SUPLA-Cloud.
+A new device has been added to your SUPLA-Cloud account.: Η νέα συσκευή έχει προστεθεί στον λογαριασμό σας SUPLA-Cloud.
+A new personal access token has been generated.: Δημιουργήθηκε ένα νέο προσωπικό διακριτικό πρόσβασης
+Access ID is not active right now.: Το αναγνωριστικό πρόσβασης δεν είναι τώρα ενεργό .
+Access to all of your devices through MQTT Broker: Πρόσβαση σε όλες τις συσκευές σας μέσω του μεσίτη MQTT
+Action trigger: Έναυσμα δράσης
+'Action trigger no. #{index}': 'Έναυσμα #{index}'
+Action triggers: Εναύσματα δράσης
+Active period: Περίοδος δραστηριότητας
+Add a delay: Προσθήκη καθυστέρησης
+Add action: Προσθήκη ενέργειας
+Add new item to use in the scene: Προσθήκη νέου στοιχείου στη σκηνή
+'After the device enters the configuration mode, it will not be accessible on your account.': 'Η συσκευή δεν θα είναι προσβάσιμη από τον λογαριασμό σας μετά την είσοδο στη λειτουργία διαμόρφωσης.'
+'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Μετά την ενημέρωση, η εφαρμογή θα είναι ταχύτερη, πιο βολική... Απλά καλύτερη!'
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Ο μετρητής θα αρχίσει να μετράει από το 0 μετά από αυτή τη ενέργεια, ανεξάρτητα από την τρέχουσα κατάστασή του. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.'
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': 'Αφού ανοίξετε ή κλείσετε την πύλη, το σύστημα θα προσπαθήσει να την κλείσει /ανοίξει και θα περιμένει 60 δευτερόλεπτα για να ελέγξει εάν η πύλη έχει φτάσει στην επιθυμητή κατάσταση. Εάν όχι, το σύστημα θα προσπαθήσει να την κλείσει/ανοίξει ξανά. Αυτή η παράμετρος καθορίζει τον μέγιστο αριθμό προσπαθειών από το σύστημα για την επίτευξη του στόχου. Η συνιστώμενη τιμή είναι 5. Η αλλαγή αυτής της παραμέτρου δεν επηρεάζει τη λειτουργία των χρονοδιαγραμμάτων.'
+'App version: %clientAppSoftwareVersion%': 'Έκδοση εφαρμογής: %clientAppSoftwareVersion%'
+Applications: Εφαρμογές
+Are you sure you want to delete this scene?: Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν τη σκηνή;
+Are you sure you want to reset the counter state?: Είστε βέβαιοι ότι θέλετε να επαναφέρετε τον μετρητή;
+As in device: Όπως και στη συσκευή
+Associated measured channel: Συναφές κανάλι ελέγχου
+Associated measurement channel: Συναφές κανάλι μέτρησης
+'At 05:45 PM, on the last day of the month': 'στις 5:45 π.μ. την τελευταία ημέρα του μήνα'
+'At 11:30 AM, on the third Wednesday of the month': 'στις 11:30, την τρίτη Τετάρτη του μήνα'
+At every 5th minute on day-of-month 30 in May: κάθε 5 λεπτά, στις 30 του μήνα, μόνο τον Μάιο
+At specified time: Για την υποδεικνυόμενη ώρα 
+At sunrise: κατά την ανατολή του ηλίου
+'At sunrise, Monday through Friday': 'κατά την ανατολή του ηλίου, Δευτέρα έως Παρασκευή'
+At sunset: κατά το ηλιοβασίλεμα
+Automatic calibration: Αυτόματη βαθμονόμηση
+Bar: Ράβδων
+Based on sunrise or sunset: Με βάση την Ανατολή/Δύση
+Be right back!: Επιστρέψτε σε λίγα λεπτά!
+Bottom position: Κάτω θέση
+Calibrate: Βαθμονόμηση
+Calibration successful.: Επιτυχής βαθμονόμηση
+Cannot calculate when to run the schedule - incorrect configuration?: Αποτυχία υπολογισμού οποιασδήποτε ημερομηνίας έναρξης χρονοδιαγράμματος - εσφαλμένη διαμόρφωση;
+Cannot change the channel function right now.: Δεν μπορείτε να αλλάξετε τη λειτουργία αυτού του καναλιού αυτήν τη στιγμή.
+Cannot delete this I/O Device right now.: Αυτή η συσκευή δεν μπορεί να καταργηθεί αυτήν τη στιγμή.
+Caption is too long.: Το όνομα είναι πολύ μεγάλο.
+Change channel function: Αλλαγή λειτουργίας καναλιού
+Change function: Αλλαγή λειτουργίας
+Channel group reference will be removed from the items below.: Η ένδειξη της ομάδας καναλιών καταργείται από τα παρακάτω στοιχεία.
+Channel is disconnected.: Το κανάλι είναι αποσυνδεδεμένο.
+Channel name: Όνομα καναλιού
+Channel reference will be removed from the items below.: Το κανάλι καταργείται από τα παρακάτω στοιχεία.
+Channel value: Τιμή
+Channel with action triggers: Κανάλι με εναύσματα δράσης
+Channels groups are not supported for this function.: Αυτή η δυνατότητα δεν υποστηρίζει ομάδες καναλιών.
+Chart data source type: Τύπος πηγής δεδομένων
+Chart type: Τύπος γραφήματος
+Check your email inbox: Ελέγξτε τα εισερχόμενά σας
+Choose channel function: Επιλέξτε τη λειτουργία καναλιού
+Choose the source channel.: Επιλέξτε το κανάλι προέλευσης.
+Clear: Αποκοπή
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Κάντε κλικ στον παρακάτω σύνδεσμο  για να επιβεβαιώσετε την κατάργηση της εγγραφής της ιδιωτικής σας παρουσίας SUPLA Cloud  (%targetCloudUrl%).
+'Client app ID: %clientAppId%': 'Αναγνωριστικό: %clientAppId%'
+Close partially: Κλείστε μερικώς
+Config of the schedule is too complicated.: Η διαμόρφωση του χρονοδιαγράμματος είναι πολύ περίπλοκη.
+Confirm My Account: Επιβεβαιώνω τον λογαριασμό μου
+Confirm if you want to perform the roller shutter calibration.: Επιβεβαιώστε ότι η μονάδα έχει βαθμονομηθεί.
+'Confirm if you want to remove {deviceName} device and all of its channels.': 'Επιβεβαιώστε ότι θέλετε να διαγράψετε το {deviceName} και όλα τα κανάλια του.'
+Copy state from other channel: Αντιγραφή κατάστασης από άλλο κανάλι
+Could not enter the configuration mode.: Απέτυχε η τοποθέτηση της συσκευής σε λειτουργία διαμόρφωσης.
+Create new scene: Δημιουργήστε μια νέα σκηνή
+Current Overload: Υπερφόρτωση
+Default: Προεπιλογή
+'Device ID: %deviceId%': 'Αναγνωριστικό συσκευής: %deviceId%'
+Device channel value: Αξία από τη συσκευή
+Device is disconnected.: Η συσκευή είναι αποσυνδεδεμένη.
+'Device name: %deviceName%': 'Όνομα συσκευής: %deviceName%'
+Device should be now in configuration mode.: Η συσκευή θα πρέπει τώρα να βρίσκεται σε λειτουργία διαμόρφωσης.
+'Device software version: %deviceSoftwareVersion%': 'Έκδοση λογισμικού: %συσκευήSoftwareVersion%'
+Differential: Διαφορικό
+Digi Glass: Digi Glass
+Digi Glass Horizontal: Digi Glass οριζόντια
+Digi Glass Vertical: Digi Glass κάθετη
+Direct links limit has been exceeded: Σημειώθηκε υπέρβαση του ορίου των άμεσων συνδέσμων
+Disable local function: Απενεργοποίηση της λειτουργίας της συσκευής
+Disables local device function and does nothing more.: Δεν εκτελεί καμία ενέργεια, αλλά απενεργοποιεί τη λειτουργία της συσκευής που είναι η προεπιλογή για αυτήν την ενέργεια.
+Do you want to be redirected there? You may be asked to authenticate again.: Θέλετε να σας ανακατευθύνουμε εκεί; Ίσως χρειαστεί να συνδεθείτε ξανά.
+'Doors, Gates, Windows': 'Πόρτες, πύλες, παράθυρα'
+E-mail notifications: Ειδοποιήσεις μέσω ηλεκτρονικού ταχυδρομείου
+Entering configuration mode is unsupported in the firmware.: Η απομακρυσμένη εναλλαγή σε λειτουργία διαμόρφωσης δεν υποστηρίζεται από το υλικολογισμικό της συσκευής.
+Execute: Εκτέλεση
+Execute an action: Εκτέλεση της ενέργειας
+Feature limits: Όρια λειτουργικότητας
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Κατά τη διάρκεια της ενημέρωσης, συνιστάται να χρησιμοποιήσετε τη διεύθυνση {suplaUrl}.'
+Forward active energy balanced: Ενεργή ενέργεια που λαμβάνεται (Διανυσματική ισορροπία)
+General purpose measurement: Γενικό κανάλι μέτρησης
+Generate new password: Δημιουργία νέου κωδικού πρόσβασης
+Host: Host
+Icon: Εικονίδιο
+'If you do not want to unregister your instance, please do not click the link.': 'Εάν δεν θέλετε να καταργήσετε την εγγραφή της παρουσίας σας, μην κάνετε κλικ στη σύνδεση.'
+'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Εάν αποτύχετε να συνδεθείτε σε αυτό το σημείο πρόσβασης για λίγα λεπτά, η συσκευή θα επανεκκινηθεί και θα συνδεθεί χρησιμοποιώντας τις τελευταίες ρυθμίσεις.'
+'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Εάν θέλετε να καταχωρήσετε ξανά την παρουσία σας στο SUPLA Cloud επειδή  το διακριτικό που δημιουργήθηκε κατά την προηγούμενη εγγραφή χάθηκε - βρίσκεστε στο σωστό μέρος.'
+'If you really want to delete the account, here are the instructions.': 'Εάν εξακολουθείτε να θέλετε να διαγράψετε τον λογαριασμό σας SUPLA, ακολουθούν οι οδηγίες.'
+'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': 'Εάν θέλετε πραγματικά να καταργήσετε την εγγραφή της ιδιωτικής σας παρουσίας στο SUPLA Cloud  - παρακάτω θα βρείτε όλες τις οδηγίες.'
+'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Εάν δεν θέλετε να λαμβάνετε τέτοιες ειδοποιήσεις από εμάς, <br> ανατρέξτε στις ρυθμίσεις του λογαριασμού σας [εδώ].'
+'If you wish to register your instance, [click here].': 'Αν θέλετε να καταχωρήσετε την παρουσία σας, [κάντε κλικ εδώ].'
+'If you wish to unregister your instance, [click here].': 'Αν θέλετε να καταργήσετε την καταχώρηση της παρουσίας σας, [κάντε κλικ εδώ].'
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Για να λάβετε τα στοιχεία σύνδεσης του μεσίτη MQTT, επικοινωνήστε με τον διαχειριστή αυτής της παρουσίας στο SUPLA Cloud.'
+Include energy corrections in new measurements history (not recommended): Να έχετε υπόψη την προστιθέμενη αξίας στο ιστορικό (δεν συνιστάται)
+Integration with MQTT Broker has been disabled.: Η ενσωμάτωση με τον μεσίτη MQTT έχει απενεργοποιηθεί.
+Integration with MQTT Broker has been enabled.: Η ενσωμάτωση με τον μεσίτη MQTT έχει ενεργοποιηθεί.
+Interpolate measurements: Εκτίμηση τιμών που λείπουν
+Interrupt: Παύση
+Interrupt and execute: Διακοπή και εκτέλεση
+Invalid action parameters: Εσφαλμένες παράμετροι εκτέλεσης.
+Invalid request.: Μη έγκυρο αίτημα.
+Invalid token.: Μη έγκυρο διακριτικό.
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Σε αυτήν τη λειτουργία, η συσκευή θα αρχίσει να μεταδίδει το δικό της δίκτυό Wi-Fi, σκοπός του οποίου είναι να σας επιτρέψει να διαμορφώσετε τη συσκευή ή να ενημερώσετε το υλικολογισμικό χρησιμοποιώντας ένα smartphone που θα συνδεθεί σε αυτό το δίκτυο.
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Λάβετε υπόψη ότι η περιγραφή της δεδομένης έκφρασης που παρουσιάζεται από την εφαρμογή δεν είναι τέλεια και η μόνη της εργασία είναι να σας βοηθήσει να εισαγάγετε την κατάλληλη τιμή. Δεν χρησιμοποιείται για να ελέγξει αν η τιμή που έχει εισαχθεί είναι σωστή, πολύ λιγότερο για να καυχηθεί ότι «υπάρχει σφάλμα στο SUPLA». Αφού πραγματοποιήσετε τις αλλαγές σας, ανατρέξτε στην ενότητα «Επερχόμενες εκτελέσεις» για να επιβεβαιώσετε ότι η διαμόρφωση του χρονοδιαγράμματος ανταποκρίνεται στις προσδοκίες σας.'
+Linear: Γραμμικός
+Location name: Όνομα τοποθεσίας
+MQTT Broker: Μεσίτης MQTT
+MQTT Broker Username: Όνομα χρήστη
+MQTT Broker is disabled.: Ο μεσίτης MQTT είναι απενεργοποιημένος.
+MQTT Broker password: Κωδικός πρόσβασης μεσίτη MQTT
+MQTT Broker password has been changed.: Ο κωδικός πρόσβασης του μεσίτη MQTT έχει αλλάξει.
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Το όνομα χρήστη ή ο κωδικός πρόσβασης δεν έχει ρυθμιστεί σε αυτήν την παρουσία.
+Make sure to copy it now because you won’t be able to see it again!: Βεβαιωθείτε ότι τα κρατάτε σε ασφαλές μέρος.
+Manage your new client app in the SUPLA-Cloud.: Διαχειριστείτε τις ρυθμίσεις της εφαρμογής στο SUPLA-Cloud.
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Διαχειριστείτε τη συσκευή σας στο SUPLA-Cloud ή χρησιμοποιώντας την εφαρμογή SUPLA στο smartphone σας.
+Manual: Οδηγίες
+Maximum delay is 60 minutes.: Η μέγιστη καθυστέρηση είναι 60 λεπτά.
+Meters: Μετρητές
+Move down or stop: Κάτω ή σταματήστε
+Move up or stop: Επάνω ή σταματήστε
+'Name: %clientAppName%': 'Όνομα: %clientAppName%'
+Need one of these?: Μπορεί να σας φανεί χρήσιμο
+New IO device added to your account: Προσθήκη νέας συσκευής
+New client app (smartphone) added to your account: Εγγραφή νέας εφαρμογής πελάτη (smartphone)
+New scene: Νέα σκηνή
+No of channels: Αριθμός καναλιών
+No of client apps: Αριθμός εφαρμογών πελάτη
+No of devices: Αριθμός συσκευών
+No of operations: Αριθμός ενέργειων
+No schedule configuration.: Δεν έχει καθοριστεί ρύθμιση παραμέτρων χρονοδιαγράμματος.
+None (channel disabled): Κανένα (απενεργοποιημένο κανάλι)
+Number of attempts to close: Αριθμός προσπαθειών κλεισίματος
+Number of attempts to open: Αριθμός προσπαθειών ανοίγματος
+Number of sections: Αριθμός ενοτήτων
+OAuth integrations might stop working after the instance is unregistered.: Οι ενσωματώσεις με εφαρμογές OAuth  ενδέχεται να σταματήσουν να λειτουργούν μετά την κατάργηση της καταχώρησης της παρουσίας σας.
+Operations: Ενέργειες
+Other: Άλλα
+'Password must be at least {minLength} characters.': 'Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον {minLength} χαρακτήρες.'
+'Password must be no longer than {maxLength} characters.': 'Ο κωδικός πρόσβασης δεν μπορεί να είναι μεγαλύτερος από {maxLength} χαρακτήρες. '
+Password reset instructions.: Οδηγίες για την επαναφορά της πρόσβασης στον λογαριασμό σας.
+Please choose the schedule subject first.: Αρχικά, επιλέξτε τι θέλετε να ελέγχει το χρονοδιάγραμμα
+Please confirm your SUPLA account.: Ενεργοποιήστε τον λογαριασμό σας στο SUPLA.
+Port: Λιμάνι
+Precision: Ακρίβεια
+Protocol: Πρωτόκολλο
+Publish to integrations: Δημοσίευση στην ενοποίηση
+Publishes the event to integrated services like MQTT or webhooks.: Ειδοποιεί ενσωματώσεις όπως το MQTT ή το webhook κατά την εκτέλεση αυτής της ενέργειας. 
+Reference to the scene will be removed from the items below.: Το σημείο σκηνής αφαιρείται από τα παρακάτω στοιχεία.
+Regeneration starts at: Έναρξη της αναγέννησης
+'Registered from IP address: %clientAppRegIp%': 'Εγγεγραμμένος με διεύθυνση IP: %clientAppRegIp%'
+'Registered from IP address: %deviceRegIp%': 'Διεύθυνση IP: %deviceRegIp%'
+Reset Your Password: Ορίστε έναν νέο κωδικό πρόσβασης
+Reset counter: Επαναφορά μετρητή
+Reverse active energy balanced: Επιστρεφόμενη ενεργή ενέργεια (Διανυσματικό ισοζύγιο)
+Roof window opening sensor: Αισθητήρας ανοίγματος παραθύρου οροφής
+Roof window shutter operation: Άνοιγμα παραθύρου οροφής
+SUPLA - Private instance unregistration: SUPLA - διαγραφή ιδιωτικής παρουσίας 
+SUPLA Server was unable to execute the scene.: Ο διακομιστής SUPLA δεν μπόρεσε να εκτελέσει τη σκηνή.
+SUPLA Server was unable to query for the scene state.: Ο διακομιστής SUPLA δεν ήταν δυνατό να διαβάσει την κατάσταση της σκηνής.
+SUPLA – new client app has been added to your account: SUPLA - μια νέα εφαρμογή πελάτη έχει καταχωρηθεί
+SUPLA – new device has been added to your account: SUPLA - μια νέα συσκευή έχει προστεθεί στο λογαριασμό σας
+Save or discard configuration changes first.: Αρχικά, αποθηκεύστε ή απορρίψτε τις αλλαγές διαμόρφωσης.
+Scene: Σκηνή
+Scene must consist of at least one operation.: Η σκηνή πρέπει να περιέχει τουλάχιστον μία ενέργεια
+Scenes: Σκηνές
+Scenes limit has been exceeded: Δεν μπορείτε να δημιουργήσετε περισσότερες σκηνές
+See available integrations: Δείτε τις διαθέσιμες ενσωματώσεις
+See in SUPLA-Cloud: Προβολή στο SUPLA-Cloud
+Set value added: Προσδιορισμός προστιθέμενης αξίας
+Setting the number of attempts to 1 disables the retrying behavior completely.: Ο ορισμός του αριθμού των προσπαθειών κάτω από το 2 μπορεί να έχει ως αποτέλεσμα το κλείσιμο ή το άνοιγμα να μην πραγματοποιηθεί.
+Shut partially: Μερικό κάλυμμα
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Κλείστε το ρολό μέχρι να αγγίξει το κάτω άκρο και ξαναγράψτε το ποσοστό κλεισίματος σε αυτό το πεδίο. Αυτή η λειτουργία δεν απαιτείται, αλλά η παροχή της θα βελτιώσει την απεικόνιση της θέσης του ρολού στην κινητή εφαρμογή.
+Some features depend on this channel group: Ορισμένες λειτουργίες εξαρτώνται από αυτήν την ομάδα καναλιών.
+Some features depend on this device: Ορισμένες λειτουργίες εξαρτώνται από αυτήν τη συσκευή
+Some features depend on this scene: Ορισμένες λειτουργίες εξαρτώνται από αυτήν τη σκηνή.
+Some of the features you have configured rely on channels from this device.: Ορισμένες λειτουργίες χρησιμοποιούν κανάλια από αυτήν τη συσκευή.
+Standard: Πρότυπο
+Start from the homepage.: Ξεκινήστε από την αρχική σελίδα.
+Step by step: Βήμα προς βήμα
+Store measurements history: Αποθηκεύστε το ιστορικό μετρήσεων
+Switch the device to configuration mode: Θέστε τη συσκευή σε λειτουργία διαμόρφωσης
+TLS: TLS
+'Target Cloud is not registered, or is registered with another e-mail address.': 'Αυτή η παρουσία SUPLA Cloud δεν έχει καταχωρηθεί ή έχει καταχωρηθεί με διαφορετική διεύθυνση ηλεκτρονικού ταχυδρομείου.'
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Ο κωδικός πρόσβασης για τον μεσίτη MQTT είναι ορατός μόνο αυτή τη στιγμή. Βεβαιωθείτε ότι τον έχετε αποθηκεύσει σε ασφαλές μέρος. Δεν θα μπορείτε να το δείτε ξανά.
+The SUPLA infrastructure is being updated.: Οι διακομιστές SUPLA ενημερώνονται.
+The counter has been reset.: Ο μετρητής έχει μηδενιστεί.
+The following items use the channels of these device. These references will be also removed.: Τα ακόλουθα στοιχεία χρησιμοποιούν κανάλια από αυτήν τη συσκευή. Θα διαγραφούν επίσης.
+'The following items will be deleted with this device:': 'Τα ακόλουθα στοιχεία θα διαγραφούν επίσης μαζί με αυτήν τη συσκευή.'
+The incident was detected at %datetime%.: Το συμβάν παρουσιάστηκε %datetime%.
+'The items below rely on this channel function, so they will be deleted.': 'Τα ακόλουθα στοιχεία βασίζονται στην τρέχουσα λειτουργία καναλιού, επομένως θα καταργηθούν όταν την αλλάξετε.'
+'The items below rely on this channel group, so they will be deleted.': 'Τα ακόλουθα στοιχεία χρησιμοποιούν αυτήν την ομάδα καναλιών, επομένως, όταν τη διαγράψετε, θα διαγραφούν επίσης.'
+'The items below rely on this scene, so they will be deleted.': 'Τα ακόλουθα στοιχεία βασίζονται σε αυτήν τη σκηνή, οπότε θα αφαιρεθούν.'
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Ο νέος κωδικός πρόσβασης θα αντικαταστήσει αυτόν που χρησιμοποιείτε αυτήν τη στιγμή. Ορισμένες ενσωματώσεις ενδέχεται να σταματήσουν να λειτουργούν αφού το αλλάξετε. Συνέχεια?
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Με τη βοήθεια του πλαισίου, έχουμε επισημάνει την ειδοποίηση από την οποία κάνατε κλικ στον σύνδεσμο για να καταργήσετε την εγγραφή σας.
+'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Η συσκευή έχει απενεργοποιηθεί με προστασία από υπερένταση. Πριν τις ενεργοποιήσετε, βεβαιωθείτε ότι το πρόβλημα που οδήγησε σε αυτό έχει επιλυθεί. Είστε βέβαιοι ότι θέλετε να ενεργοποιήσετε αυτήν τη συσκευή από απόσταση;'
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Αυτή η λειτουργία χρονοδιαγράμματος έχει σχεδιαστεί για τεχνικούς ή πολύ υπομονετικούς χρήστες. Απαιτεί τον καθορισμό των στιγμών ενεργοποίησης του χρονοδιαγράμματος σε συμβολισμό crontab, εμπλουτισμένο με διάφορες λειτουργίες που βρίσκονται μόνο στο SUPLI. Εάν δεν έχετε συναντήσει crontabs στο παρελθόν  και εξακολουθείτε να θέλετε να χρησιμοποιήσετε αυτήν τη λειτουργία, ο ιστότοπος crontab.guru  μπορεί να σας βοηθήσει.'
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Αυτό το έναυσμα χρησιμοποιείται τοπικά από τη συσκευή (π.χ. ανάβει το φως, ελέγχει τους τυφλούς κ.λπ.) Εάν του εκχωρήσετε μια διαφορετική ενέργεια, η τοπική λειτουργία απενεργοποιείται.
+Too many actions in this schedule.: Πάρα πολλές ενέργειες σε ένα χρονοδιάγραμμα.
+Too many operations in this scene: Πάρα πολλές ενέργειες στη σκηνή.
+Triggers: Εναύσματα
+Turning this device off will cause its channels not working in the following features.: Η απενεργοποίηση της συσκευής θα έχει ως αποτέλεσμα τα κανάλια της να σταματήσουν να λειτουργούν στα ακόλουθα στοιχεία.
+Turning this device off will result in disabling features listed below.: Η απενεργοποίηση της συσκευής θα απενεργοποιήσει επίσης τα ακόλουθα στοιχεία.
+Undo registration: Ανάκληση καταχώρησης
+Unregister my private SUPLA Cloud instance: Καταργήστε την καταχώρηση της ιδιωτικής παρουσίας μου στο SUPLA Cloud
+Unsuccessful login attempt: Η σύνδεση απέτυχε
+Update in progress: Ενημέρωση σε εξέλιξη
+'Use the [command] server command to change this account''s limits. For example:': 'Για να αλλάξετε τα όρια για αυτόν τον λογαριασμό, χρησιμοποιήστε την εντολή [command] στον διακομιστή σας. Για παράδειγμα:'
+Use working schedule for this access identifier: Χρήση χρονοδιαγράμματος διαθεσιμότητας για αυτό το αναγνωριστικό πρόσβασης
+Value added: Προστιθέμενη αξία
+Value per unit: Τιμή ανά μονάδα
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Θα σας στέλνουμε ειδοποιήσεις σχετικά με ορισμένα συμβάντα που σχετίζονται με τον λογαριασμό σας. Μπορείτε να καταργήσετε την εγγραφή σας από αυτά που δεν χρειάζεστε.
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Έχει ζητηθεί ένα αίτημα για την κατάργηση της καταχώρησης της ιδιωτικής σας παρουσίας SUPLA Cloud  (%targetCloudUrl%).
+We have sent you an email with further instructions.: Σας έχουμε στείλει ένα μήνυμα με περαιτέρω οδηγίες.
+Working schedule: Χρονοδιάγραμμα δραστηριοτήτων
+You are changing the settings too quickly. You have to wait a while before making this change.: Αλλάζετε τις ρυθμίσεις πολύ γρήγορα. Πρέπει να περιμένετε λίγο πριν αλλάξετε αυτές τις ρυθμίσεις.
+You cannot use SUPLA project name in the domain name.: Δεν μπορείτε να χρησιμοποιήσετε το όνομα έργου SUPLA στο κύριο όνομα τομέα.
+You have requested to unregister your SUPLA Cloud instance: Ζητήσατε να διαγραφεί  η  παρουσία σας στο SUPLA Cloud 
+You have to choose at least one scope.: Πρέπει να επιλέξετε τουλάχιστον μία περιοχή.
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Εάν εξακολουθείτε να θέλετε να επωφεληθείτε από την προηγμένη λειτουργία χρονοδιαγράμματος, ρίξτε μια ματιά στα παρακάτω παραδείγματα.'
+You must enable MQTT Broker first.: Πρέπει πρώτα να ενεργοποιήσετε την ενσωμάτωση με τον μεσίτη MQTT.
+You must set sections with transparent or opaque parameters or both.: Πρέπει να επιλέξετε τη διαφάνεια τουλάχιστον μίας ενότητας.
+Your account and MQTT Broker connection.: Συνδέστε τον λογαριασμό σας με τον μεσίτη MQTT.
+'Your channel groups are allowed to have a maximum of {max} channels.': 'Οι ομάδες καναλιών σας μπορούν να έχουν έως και {max} κανάλια.'
+'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'Η συσκευή σάς επιτρέπει να επεκτείνετε τη λειτουργικότητά της και σας επιτρέπει να εκτελέσετε οποιαδήποτε ενέργεια σε οποιαδήποτε συσκευή διαθέτετε. Οι επιλογές που έχετε στη διάθεσή σας εξαρτώνται από το υλικολογισμικό και τη συσκευή που χρησιμοποιείτε.'
+Your password must contain at least one special character.: Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον έναν ειδικό χαρακτήρα.
+Your password must include at least one letter.: Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον ένα γράμμα.
+Your password must include at least one number.: Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον ένα ψηφίο.
+Your password must include both upper and lower case letters.: Ο κωδικός πρόσβασης πρέπει να περιέχει κεφαλαία και πεζά γράμματα.
+Your preferences has been updated.: Οι ρυθμίσεις σας έχουν αποθηκευτεί.
+Your private SUPLA Cloud instance has been unregistered.: Η ιδιωτική σας παρουσία στο SUPLA Cloud  έχει διαγραφεί.
+'Your scenes are allowed to have a maximum of {max} operations.': 'Οι σκηνές σας μπορεί να έχουν έως και {max} ενέργειες.'
+'Your schedules are allowed to have a maximum of {max} actions.': 'Τα χρονοδιαγράμματά σας μπορούν να έχουν το πολύ {max} κοινόχρηστα στοιχεία.'
+access to your e-mail address: Πρόσβαση στη διεύθυνση ηλεκτρονικού ταχυδρομείου σας
+actionTrigger_HOLD: Κρατήστε πατημένο το κουμπί
+actionTrigger_SHORT_PRESS_X1: Πάτημα 1x
+actionTrigger_SHORT_PRESS_X2: Πάτημα 2x
+actionTrigger_SHORT_PRESS_X3: Πάτημα 3x
+actionTrigger_SHORT_PRESS_X4: Πάτημα 4x
+actionTrigger_SHORT_PRESS_X5: Πάτημα 5x
+actionTrigger_TOGGLE_X1: Εναλλαγή 1x
+actionTrigger_TOGGLE_X2: Εναλλαγή 2x
+actionTrigger_TOGGLE_X3: Εναλλαγή 3x
+actionTrigger_TOGGLE_X4: Εναλλαγή 4x
+actionTrigger_TOGGLE_X5: Εναλλαγή 5x
+actionTrigger_TURN_OFF: Απενεργοποίηση
+actionTrigger_TURN_ON: Ενεργοποίηση
+actionableSubjectType_scene: Σκηνή
+addToHistoryMeasurementWarningSelected: Η ενεργοποίηση αυτής της επιλογής προσθέτει τις καθορισμένες τιμές σε μελλοντικές μετρήσεις που είναι αποθηκευμένες στο ιστορικό. Αυτό μπορεί να εμφανιστεί στα γραφήματα ως ξαφνική αύξηση της τιμής που εισαγάγατε. Συνιστάται να ορίσετε αυτές τις παραμέτρους μόνο κατά την πρώτη εγκατάσταση του μετρητή. Για τους υπάρχοντες μετρητές, συνιστάται να διαγράψετε το ιστορικό μετρήσεων μόλις αλλάξετε αυτές τις ρυθμίσεις.
+addToHistoryMeasurementWarningUnselected: Η κατάργηση αυτής της επιλογής θα παραλείψει τις καθορισμένες τιμές από μελλοντικές μετρήσεις που αποθηκεύονται στο ιστορικό. Αυτό μπορεί να φανεί στα διαγράμματα ως ξαφνική πτώση. Συνιστάται να ορίσετε αυτές τις παραμέτρους μόνο κατά την πρώτη εγκατάσταση του μετρητή. Για τους υπάρχοντες μετρητές, συνιστάται να διαγράψετε το ιστορικό μετρήσεων μόλις αλλάξετε αυτές τις ρυθμίσεις.
+caption: όνομα
+choose the action: επιλέξτε ενέργεια
+choose the scene: επιλέξτε σκηνή
+days: ημέρες
+directLinkExecutionFailureReason_sceneDuringExecution: Η σκηνή βρίσκεται σε εξέλιξη.
+empty: άδειο
+hours: ώρες
+min.: λεπτά.
+or add a delay: ή προσθέστε καθυστέρηση
+prefix: πρόθεμα
+scene: σκηνή
+scheduleMode_crontab: Προχωρημένος
+suffix: επίθημα
+'{minutes} minutes after sunrise': '{λεπτά} λεπτά μετά την ανατολή του ηλίου'
+'{minutes} minutes after sunset': '{λεπτά} λεπτά μετά τη δύση του ηλίου'
+'{minutes} minutes before sunrise': '{λεπτά} λεπτά πριν την ανατολή του ηλίου'
+'{minutes} minutes before sunset': '{λεπτά} λεπτά πριν τη δύση του ηλίου'
 
 #</editor-fold>
