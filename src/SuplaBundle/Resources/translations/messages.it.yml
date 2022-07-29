@@ -368,6 +368,7 @@ Integration with MQTT Broker has been enabled.: L’integrazione con il Broker M
 Integrations: Integrazioni
 Interpolate measurements: Misurazioni interpolate
 Interrupt: Interrompere
+Interrupt and execute: Interrompi ed esegui
 Interval: Intervallo
 Invalid SUPLA Cloud URL.: Indirizzo URL dell’istanza SUPLA Cloud non valido.
 Invalid action parameters: Parametri di azione non validi
@@ -412,6 +413,7 @@ Manage your new client app in the SUPLA-Cloud.: Gestire la nuova app in SUPLA-Cl
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Gestire il nuovo dispositivo in SUPLA-Cloud o con l’applicazione SUPLA
 Manual: Istruzioni
 Manually closed: Chiuso manualmente
+Maximum delay is 60 minutes.: Massimo ritardo 60’
 'Maximum filesize limit is {limit}.': 'La dimensione massima del file è {limit}.'
 Meter value: Lettura del contatore
 Meters: Misuratori
@@ -520,6 +522,7 @@ RGB lighting: Illuminazione RGB
 Rain sensor: Sensore di pioggia
 Random: Casuale
 Read: Lettura
+Reference to the scene will be removed from the items below.: La relazione con lo scenario verrà rimosso dagli elementi seguenti
 Refresh: Aggiorna
 Regeneration starts at: La rigenerazione inizia alle
 Register: Registra
@@ -555,6 +558,8 @@ SUPLA - Password reset: SUPLA – Reimpostazione della password
 SUPLA - Private instance unregistration: SUPLA - annullamento della registrazione dell’istanza privata
 SUPLA Cloud is under maintenance.: SUPLA Cloud è in fase di aggiornamento.
 SUPLA Server was unable to execute the action.: Errore durante l'esecuzione dell'azione nel SUPLA Server.
+SUPLA Server was unable to execute the scene.: Il server SUPLA non è stato in grado di eseguire lo scenario
+SUPLA Server was unable to query for the scene state.: Il server SUPLA non è stato in grado di richiedere lo stato dello scenario
 'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA è disponibile sempre e ovunque, quindi non Ti preoccupare se prosssima volta ti dimenticherai di spegnere la luce'
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Notifica di accesso al %cloudHost% non riuscito
 SUPLA – new client app has been added to your account: SUPLA - nuova app aggiunta al tuo account
@@ -605,6 +610,7 @@ Smartphones: Smartphone
 SoftVer: VerSoft
 Some features depend on this channel group: Alcune funzionalità dipendo da questo gruppo di canali
 Some features depend on this device: Alcune caratteristiche dipendono da questo dispositivo
+Some features depend on this scene: Alcune funzionalità dipendono da questo scenario
 Some of the features you have configured rely on channels from this device.: Alcune delle funzionalità configurate si basano sui canali di questo dispositivo.
 Sources available from: Fonti disponibili in
 Staircase timer: Temporizzatore luce scale
@@ -648,6 +654,7 @@ The gate sensor must function properly in order to execute the scheduled action.
 The incident was detected at %datetime%.: L'evento è stato rilevato il %datetime%
 'The items below rely on this channel function, so they will be deleted.': Gli elementi di seguito si basano sulle funzioni di questo canale e verranno eliminate.
 'The items below rely on this channel group, so they will be deleted.': 'I seguenti elementi si basano su questo gruppo di canali, quindi verranno eliminati'
+'The items below rely on this scene, so they will be deleted.': 'I seguenti elementi si basano su questo scenario, di conseguenza verranno rimossi'
 The latest execution: Ultima esecuzione
 'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Il risultato dell`esecuzione è presentato come un sito web, perché la risposta in formato HTML è stata richiesta da te (o dal tuo browser).'
 The measurement history has been deleted.: Lo storico delle misurazioni è stato cancellato.
@@ -657,6 +664,7 @@ The notification marked with a border is the one you saw when you clicked the un
 The password and its confirm are not the same.: La password e la sua conferma non sono uguali.
 The password should be 8 or more characters.: La password deve contenere almeno 8 caratteri.
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Il carico è stato spento a causa di un sovraccarico di corrente. Prima di accenderlo, assicurarsi di aver preso le misure necessarie per risolvere il problema?'
+The scene would execute too many operations.: È stato superato il numero massimo di azioni eseguibili dallo scenario
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Il server ha restituito un errore 400, ciò significa che la richiesta trasmessa non è corretta.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Il server ha restituito l’errore HTTP 403. Ciò significa che non sei autorizzato a visualizzare questo elemento.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Il server ha restituito l’errore HTTP 404. Ciò significa che l’elemento che stai cercando non esiste.
@@ -749,6 +757,7 @@ You just need to execute the following command inside your host terminal.: Basta
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Se intendi utilizzare la modalità di pianificazione avanzata, potresti trovare utili i seguenti esempi'
 You must agree to the Terms and Conditions.: L’accettazione del Regolamento è obbligatoria.
 You must enable MQTT Broker first.: È necessario abilitare prima il Broker MQTT.
+You must set an action for each scene operation.: È necessario impostare un comando per ogni azione dello scenario
 You must set sections with transparent or opaque parameters or both.: È necessario impostare i parametri di trasparenza o opacità o entrambi per le sezioni.
 You need to provide icons for all states.: Devi fornire le icone a tutti gli stati.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Devi aggiornare la Tua istanza SUPLA Cloud alla versione minima 2.3.0.
@@ -823,6 +832,7 @@ directLinkExecutionFailureReason_noAllowedActions: Nessuna azione ammessa è sta
 directLinkExecutionFailureReason_noSlugOrAction: Richiesta non valida - richiesto codice del link e azione
 directLinkExecutionFailureReason_notActiveYet: Il link diretto non è ancora attivo.
 directLinkExecutionFailureReason_otherFailure: Errore nell'esecuzione dell'azione
+directLinkExecutionFailureReason_sceneDuringExecution: Scenario in esecuzione
 directLinkExecutionFailureReason_unsupportedAction: Azione selezionata non è corretta
 empty: vuoto
 executed: eseguito
@@ -943,15 +953,5 @@ hourly: Ogni ora
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Interrupt and execute: Interrompi ed esegui
-Maximum delay is 60 minutes.: Massimo ritardo 60’
-Reference to the scene will be removed from the items below.: La relazione con lo scenario verrà rimosso dagli elementi seguenti
-SUPLA Server was unable to execute the scene.: Il server SUPLA non è stato in grado di eseguire lo scenario
-SUPLA Server was unable to query for the scene state.: Il server SUPLA non è stato in grado di richiedere lo stato dello scenario
-Some features depend on this scene: Alcune funzionalità dipendono da questo scenario
-'The items below rely on this scene, so they will be deleted.': 'I seguenti elementi si basano su questo scenario, di conseguenza verranno rimossi'
-directLinkExecutionFailureReason_sceneDuringExecution: Scenario in esecuzione
-The scene would execute too many operations.: È stato superato il numero massimo di azioni eseguibili dallo scenario
-You must set an action for each scene operation.: È necessario impostare un comando per ogni azione dello scenario
 
 #</editor-fold>

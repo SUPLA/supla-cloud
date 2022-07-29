@@ -664,6 +664,7 @@ The notification marked with a border is the one you saw when you clicked the un
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Urządzenie zostało wyłączone zabezpieczeniem nadprądowym. Zanim je włączysz, upewnij się że rozwiązano problem, który do tego doprowadził. Czy na pewno chcesz włączyć to urządzenie zdalnie?'
+The scene would execute too many operations.: Scena wykonuje zbyt wiele operacji.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Serwer zwrócił błąd 400, co oznacza że przesłane żądanie jest niepoprawne.'
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Serwer zwrócił błąd HTTP 403. Oznacza to, że nie posiadasz wystarczających uprawnień do wyświetlenia tego elementu.'
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.'
@@ -756,6 +757,7 @@ You just need to execute the following command inside your host terminal.: Wysta
 'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Jeśli nadal chcesz skorzystać z zaawansowanego trybu harmonogramu, rzuć okiem na poniższe przykłady.'
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
 You must enable MQTT Broker first.: Musisz najpierw włączyć integrację z brokerem MQTT.
+You must set an action for each scene operation.: Wybierz akcję dla każdej operacji w scenie.
 You must set sections with transparent or opaque parameters or both.: Musisz wybrać przezroczystość przynajmniej jednej sekcji.
 You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musisz zaktualizować swoją instancję SUPLA Cloud do wersji co najmniej 2.3.0.
@@ -966,6 +968,5 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-You must set an action for each scene operation.: Wybierz akcję dla każdej operacji w scenie.
+
 #</editor-fold>
-The scene would execute too many operations.: Scena wykonuje zbyt wiele operacji.
