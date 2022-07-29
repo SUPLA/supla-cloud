@@ -679,7 +679,7 @@ A new client app (smartphone) been added to your SUPLA-Cloud account.: Ứng d�
 A new device has been added to your SUPLA-Cloud account.: Thiết bị mới đã được thêm vào tài khoản SUPLA-Cloud của bạn.
 A new personal access token has been generated.: Một mã truy cập cá nhân mới đã được tạo
 Access ID is not active right now.: ID truy cập không hoạt động tại thời điểm này.
-Access to all of your devices through MQTT Broker: Truy cập vào tất cả các thiết bị của bạn thông qua Broker MQTT 
+Access to all of your devices through MQTT Broker: Truy cập vào tất cả các thiết bị của bạn thông qua Broker MQTT
 Action trigger: Kích hoạt hành động
 'Action trigger no. #{index}': 'Kích hoạt # {index}'
 Action triggers: Những kích hoạt hành động
@@ -848,7 +848,7 @@ SUPLA – new client app has been added to your account: SUPLA – đã đăng k
 SUPLA – new device has been added to your account: SUPLA – đã thêm một thiết bị mới vào tài khoản của bạn
 Save or discard configuration changes first.: Trước tiên hãy lưu lại hoặc hủy bỏ những thay đổi trong cài đặt
 Scene: Hoạt cảnh
-Scene must consist of at least one operation.: Hoạt cảnh phải bao gồm ít nhất một hành động 
+Scene must consist of at least one operation.: Hoạt cảnh phải bao gồm ít nhất một hành động
 Scenes: Những hoạt cảnh
 Scenes limit has been exceeded: Bạn không thể tạo thêm hoạt cảnh
 See available integrations: Xem nhưng tích hợp có sẵn
@@ -881,7 +881,7 @@ The new password will replace the existing one. Some of the current integrations
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Chúng tôi đã đóng khung nhằm dấu những thông báo mà bạn  đã nhấp  vào liên kết hủy đăng ký.
 'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Thiệt bị đã được tắt chế độ bảo vệ trong trường hợp cháy/chập điện. Trước khi bật chúng, hãy đảm bảo rằng sự cố dẫn đến nó đã được giải quyết. Bạn có chắc chắn muốn bật thiết bị này từ xa không?'
 'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Chế độ lịch biểu này được thiết kế nhằm mục đích kĩ thuật hoặc cho những người dùng nâng cao. Nó yêu cầu bạn phải nhập thời gian kích hoạt lịch trình phải được chỉ định trong ký hiệu crontab, được bổ sung thêm một số chức năng chỉ có trong SUPLI. Nếu bạn chưa từng sử dụng crontabs trước đây và bạn vẫn muốn sử dụng chế độ này, trang web crontab.guru có thể giúp ích cho bạn.'
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Công tắc kích hoạt này được sử dụng nội bộ bởi thiết bị (ví dụ: bật đèn, điều khiển rèm cửa, v.v.). Nếu bạn gán cho nó một tác vụ khác, chức năng nội bộ sẽ bị tắt.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Công tắc kích hoạt này được sử dụng nội bộ bởi thiết bị (ví dụ: bật đèn, điều khiển rèm cửa, v.v.). Nếu bạn gán cho nó một tác vụ khác, chức năng nội bộ sẽ bị tắt.'
 Too many actions in this schedule.: Quá nhiều hoạt động trong một lịch biểu
 Too many operations in this scene: Quá nhiều thao tác trong hoạt cảnh.
 Triggers: Công tắc kích hoạt
@@ -896,7 +896,7 @@ Use working schedule for this access identifier: Hãy sử dụng lịch biểu 
 Value added: Giá trị tăng
 Value per unit: Giá trị mỗi đơn vị
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Chúng tôi sẽ gửi thông báo về những hoạt động liên quan đến tài khoản của bạn. Bạn có thể từ chối nhận những thông báo này nếu thấy không cần thiết.
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Đã gửi yêu cầu hủy đăng ký phiên bản SUPLA Cloud riêng của bạn (% targetCloudUrl%) 
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Đã gửi yêu cầu hủy đăng ký phiên bản SUPLA Cloud riêng của bạn (% targetCloudUrl%)
 We have sent you an email with further instructions.: Chúng tôi đã gửi cho bạn hướng dẫn cho các bước tiếp theo.
 Working schedule: Lịch hoạt động
 You are changing the settings too quickly. You have to wait a while before making this change.: Bạn thay đổi các cài đặt quá nhanh. Bạn cần đợi một lúc trước khi tiếp tục thay đổi các cài đặt này.
