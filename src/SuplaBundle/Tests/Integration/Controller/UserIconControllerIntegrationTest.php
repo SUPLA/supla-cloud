@@ -74,6 +74,28 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testCreatingIconForThermometer */
+    public function testGettingIcons() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/user-icons');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertArrayNotHasKey('images', $content[0]);
+    }
+
+    /** @depends testCreatingIconForThermometer */
+    public function testGettingIconsWithImages() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/user-icons?include=images');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertArrayHasKey('images', $content[0]);
+    }
+
+    /** @depends testCreatingIconForThermometer */
     public function testGettingThermometerIconWithImages(int $iconId) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/user-icons/' . $iconId . '?include=images');
