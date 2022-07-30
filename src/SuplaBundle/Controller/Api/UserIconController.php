@@ -59,7 +59,7 @@ class UserIconController extends RestController {
     }
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
-        return [];
+        return ['images'];
     }
 
     /**
@@ -188,6 +188,11 @@ class UserIconController extends RestController {
      *   path="/user-icons", operationId="getUserIcons", summary="List User Icons", tags={"User Icons"},
      *   @OA\Parameter(name="function", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(ref="#/components/schemas/ChannelFunctionEnumNames"))),
      *   @OA\Parameter(name="ids", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
+     *   @OA\Parameter(
+     *     description="List of extra fields to include in the response.",
+     *     in="query", name="include", required=false, explode=false,
+     *     @OA\Schema(type="array", @OA\Items(type="string", enum={"images"})),
+     *   ),
      *   @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/UserIcon")))
      * )
      * @Rest\Get("/user-icons", name="user_icons_list")
@@ -221,9 +226,7 @@ class UserIconController extends RestController {
      * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      */
     public function getUserIconAction(Request $request, UserIcon $userIcon) {
-        $view = $this->view($userIcon, Response::HTTP_OK);
-        $this->setSerializationGroups($view, $request, ['images']);
-        return $view;
+        return $this->serializedView($userIcon, $request);
     }
 
     /**
