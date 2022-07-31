@@ -32,12 +32,12 @@
                 <td v-for="weekday in [1,2,3,4,5,6,7]"
                     :class="['hidden-xs', 'weekday-column-' + weekday]"
                     :key="'0' + hour + weekday">
-                    <a :class="['time-slot', {'green': temporaryModel[weekday][hour]}]"
+                    <div :class="['time-slot', {'green': temporaryModel[weekday][hour]}]"
                         @mousedown="startSelection(weekday, hour)"
                         @mouseenter="expandSelection(weekday, hour)"
                         @mouseup="finishSelection()">
                         &nbsp;
-                    </a>
+                    </div>
                 </td>
             </tr>
             </tbody>
@@ -177,10 +177,13 @@
             height: 1px; // allows for the links inside tds fill the whole height https://stackoverflow.com/a/34781198/878514
         }
         td {
-            height: inherit;
+            height: 100%;
+            width: 100%;
             padding: 1px;
+            vertical-align: middle;
         }
         .time-slot {
+            cursor: pointer;
             display: block;
             height: 100%;
             background: $supla-grey-light;
