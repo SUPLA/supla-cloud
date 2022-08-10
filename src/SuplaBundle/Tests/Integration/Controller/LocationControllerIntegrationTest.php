@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Entity\IODeviceChannelGroup;
 use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
@@ -134,5 +135,38 @@ class LocationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(201, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertStringContainsString('Lokalizacja #', $content['caption']);
+    }
+
+    public function testDeletingLocation() {
+        $location = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', '/api/locations/' . $location->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+    }
+
+    public function testDeletingLocationWithIoDevice() {
+        $location = $this->createLocation($this->user);
+        $ioDevice = $this->createDeviceSonoff($location);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', '/api/locations/' . $location->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('Remove all the associated devices', $content['message']);
+        $this->assertEquals($ioDevice->getId(), $content['details']['relatedIds']);
+    }
+
+    public function testDeletingLocationWithScene() {
+        $location = $this->createLocation($this->user);
+        $scene = new Scene($location);
+        $this->persist($scene);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', '/api/locations/' . $location->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('Remove all the associated scenes', $content['message']);
+        $this->assertEquals($scene->getId(), $content['details']['relatedIds']);
     }
 }

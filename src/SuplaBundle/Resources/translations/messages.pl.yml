@@ -536,6 +536,7 @@ Relay switching time: Czas załączenia przekaźnika
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść grupy kanałów, które się w niej znajdują. Identyfikatory: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Przed usunięciem lokalizacji musisz najpierw przenieść kanały, które się w niej znajdują. Identyfikatory: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Usuń powiązane urządzenia zanim usuniesz tą lokalizację. Identyfikatory: {relatedIds}.'
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Usuń wszystkie powiązane sceny przed usunięciem tej lokalizacji. Identyfikatory: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}.'
 Repeat password: Powtórz hasło
 Reset Your Password: Ustaw nowe hasło

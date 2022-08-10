@@ -185,6 +185,10 @@ class LocationController extends RestController {
             $location->getChannelGroups(),
             'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.' // i18n
         );
+        $this->ensureNoRelatedEntities(
+            $location->getScenes(),
+            'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.' // i18n
+        );
         Assertion::greaterThan($this->getUser()->getLocations()->count(), 1, 'You cannot delete your last location.'); // i18n
         $result = $this->transactional(function (EntityManagerInterface $em) use ($location) {
             $em->remove($location);
