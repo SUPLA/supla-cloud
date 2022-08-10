@@ -31,6 +31,7 @@ class OAuthClientsFixture extends SuplaFixture {
         $user = $this->getReference(UsersFixture::USER);
         $this->createLocalSuplaScriptsClient($manager, $user);
         $this->createLocalSuplaCallerClient($manager, $user);
+        $this->createLocalSuplaIconsClient($manager, $user);
         $manager->flush();
     }
 
@@ -51,6 +52,18 @@ class OAuthClientsFixture extends SuplaFixture {
         $newClient->setRandomId('CALLERzqczpc4wgk0oo4wsoss040k88sks4goc0osow4sk8cgc');
         $newClient->setSecret('CALLERgd2oowo408gws84kwwo88k8ck8kwk4w0kccog444wocc');
         $newClient->setName('SUPLA Caller Tester');
+        $newClient->setRedirectUris(['http://localhost:8080/authorize']);
+        $newClient->setType(ApiClientType::USER());
+        $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
+        $newClient->setUser($user);
+        $manager->persist($newClient);
+    }
+
+    private function createLocalSuplaIconsClient(ObjectManager $manager, User $user) {
+        $newClient = new ApiClient();
+        $newClient->setRandomId('ICONSpzqczpc4wgk0oo4wsoss040k88sks4goc0osow4sk8cgc');
+        $newClient->setSecret('ICONSpgd2oowo408gws84kwwo88k8ck8kwk4w0kccog444wocc');
+        $newClient->setName('SUPLA Icons Tester');
         $newClient->setRedirectUris(['http://localhost:8080/authorize']);
         $newClient->setType(ApiClientType::USER());
         $newClient->setAllowedGrantTypes([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_REFRESH_TOKEN]);
