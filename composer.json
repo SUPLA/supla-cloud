@@ -52,13 +52,17 @@
     "symfony/phpunit-bridge": "^4.4"
   },
   "scripts": {
-    "post-install-cmd": [
-      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
-    ],
-    "post-update-cmd": [
-      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
-    ],
-    "test": [
+    "dump-version" : "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion",
+		    "build-parameters" : "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+    		"post-install-cmd" : [
+		      	"@build-parameters",
+			      "@dump-version"
+		    ],
+		    "post-update-cmd" : [
+			      "@build-parameters",
+			      "@dump-version"
+		    ],
+		    "test": [
       "phpunit -c app --testdox"
     ],
     "lint-backend": [
@@ -77,9 +81,6 @@
     "webpack": [
       "cd src/frontend && npm install",
       "cd src/frontend && npm run build"
-    ],
-    "dump-version": [
-      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
     ],
     "release": [
       "@dump-version",
