@@ -20,7 +20,7 @@
     "bootstrap": "3.4.1",
     "bootstrap-select": "^1.13.18",
     "change-case": "3.0.1",
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.3",
     "cronstrue": "^1.113.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.49",
     "find-in-files": "^0.5.0",
