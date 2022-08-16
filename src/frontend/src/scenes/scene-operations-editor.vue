@@ -279,6 +279,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                overflow: hidden;
                 &.primary {
                     background-color: #2e6da4 !important;
                 }

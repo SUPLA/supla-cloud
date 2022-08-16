@@ -314,6 +314,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
      * @see https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/#Refresh-Token-Automatic-Reuse-Detection
      */
     public function testCantRefreshTokenWithNewRefreshTokenIfOldRefreshTokenWasUsedIncorrectly() {
+        $this->markTestSkipped('RTRD disabled for now.');
         [$oldRefreshToken, $newRefreshToken, $newAccessToken] = $this->testRefreshingToken();
         $params = [
             'grant_type' => 'refresh_token',

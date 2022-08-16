@@ -125,7 +125,7 @@ class SuplaOAuth2 extends OAuth2 {
             if ($token && $token->hasExpired()) {
                 /** @var SuplaOAuthStorage $storage */
                 $storage = $this->storage;
-                $storage->refreshTokenReuseDetected($token);
+//                $storage->refreshTokenReuseDetected($token);
             }
             throw $e;
         }
