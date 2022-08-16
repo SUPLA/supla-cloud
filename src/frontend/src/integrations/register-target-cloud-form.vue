@@ -177,7 +177,6 @@
                 }
             },
             registerTargetCloud(data) {
-                console.log(data);
                 this.$http.post('register-target-cloud', data, {skipErrorHandler: true})
                     .then(({body}) => this.token = body.token)
                     .catch(({body, status}) => {

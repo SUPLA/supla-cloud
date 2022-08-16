@@ -265,7 +265,6 @@
                     return {dateStart: this.accessId.activeFrom, dateEnd: this.accessId.activeTo};
                 },
                 set(dates) {
-                    console.log(dates);
                     this.$set(this.accessId, 'activeFrom', dates.dateStart || null);
                     this.$set(this.accessId, 'activeTo', dates.dateEnd || null);
                 }

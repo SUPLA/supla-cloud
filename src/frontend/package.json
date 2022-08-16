@@ -8,7 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "cross-env CYPRESS=true vue-cli-service test:e2e --mode=dev",
     "test:e2e:ci": "cross-env CYPRESS=true vue-cli-service test:e2e --headless",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --mode=production",
     "collect-translations": "node scripts/collect-translations.js",
     "release": "node scripts/release.js",
     "release-dev": "cross-env NODE_ENV=development node scripts/release.js"
