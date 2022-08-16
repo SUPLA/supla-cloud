@@ -1,0 +1,8 @@
+{
+    "access_token": "Yjg5OGU2NzM1MTk3MDRiZmUyNDAxZTQxZWE5YTU1OTM5MmNiNGY3ZjMwOWM5ZjkwNjI5NDQ3NjY0YTdhZTgzMw.aHR0cDovL3N1cGxhLmxvY2Fs",
+    "expires_in": 29779,
+    "token_type": "bearer",
+    "scope": "channels_ea channelgroups_ea channels_files scenes_ea accessids_r accessids_rw account_r account_rw channels_r channels_rw channelgroups_r channelgroups_rw clientapps_r clientapps_rw directlinks_r directlinks_rw iodevices_r iodevices_rw locations_r locations_rw scenes_r scenes_rw schedules_r schedules_rw",
+    "download_token": "MDAxNjhjMTc1ZmJiMmNlMjVmOTRjZmVjNzZhYTFhMjBhYjgzZTJkZmMwMTA3YTY5N2ZjZjA0NjgyZmRlZTJkNg.aHR0cDovL3N1cGxhLmxvY2Fs",
+    "target_url": "http:\/\/supla.local"
+}

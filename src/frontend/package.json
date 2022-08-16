@@ -6,6 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "cross-env CYPRESS=true vue-cli-service test:e2e --mode=dev",
+    "test:e2e:ci": "cross-env CYPRESS=true vue-cli-service test:e2e --headless",
     "lint": "vue-cli-service lint",
     "collect-translations": "node scripts/collect-translations.js",
     "release": "node scripts/release.js",
@@ -51,6 +53,7 @@
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-e2e-cypress": "^5.0.8",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
@@ -58,8 +61,10 @@
     "babel-eslint": "^10.1.0",
     "chalk": "2.1.0",
     "cross-env": "5.0.5",
+    "cypress": "^9.7.0",
     "del": "^6.0.0",
     "eslint": "^7.32.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-html": "^4.0.2",
     "eslint-plugin-vue": "^8.0.3",
     "fs-extra": "4.0.1",
@@ -70,36 +75,6 @@
     "sass-loader": "^12.0.0",
     "vue-template-compiler": "^2.6.14",
     "yaml-loader": "^0.6.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "vue/html-button-has-type": ["error", {"button": true, "submit": true, "reset": true}],
-      "vue/multi-word-component-names": ["error", {"ignores":  ["dashboard", "flipper", "modal", "navbar", "privacy", "terms", "toggler"]}],
-      "vue/no-mutating-props": ["off"],
-      "vue/require-prop-types": ["off"]
-    },
-    "overrides": [
-      {
-        "files": [
-          "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
-        ],
-        "env": {
-          "mocha": true
-        }
-      }
-    ]
   },
   "browserslist": [
     "> 1%",

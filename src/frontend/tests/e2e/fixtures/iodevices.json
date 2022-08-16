@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "name": "SONOFF-DS",
+        "location": {
+            "caption": "Na zewn\u0105trz",
+            "id": 4,
+            "enabled": true
+        },
+        "enabled": true,
+        "comment": null,
+        "regDate": "2022-08-10T14:38:35+00:00",
+        "regIpv4": "33.240.253.198",
+        "lastConnected": "2022-08-10T14:38:35+00:00",
+        "lastIpv4": null,
+        "softwareVersion": "2.23",
+        "manufacturer": {
+            "id": 0,
+            "name": "UNKNOWN",
+            "caption": "Unknown"
+        },
+        "productId": null,
+        "gUIDString": "38353530-3137-37--",
+        "enterConfigurationModeAvailable": true,
+        "relationsCount": {
+            "channels": 3
+        },
+        "locationId": 4,
+        "originalLocationId": null,
+        "connected": true
+    },
+    {
+        "id": 2,
+        "name": "UNI-MODULE",
+        "location": {
+            "caption": "Gara\u017c",
+            "id": 5,
+            "enabled": true
+        },
+        "enabled": true,
+        "comment": null,
+        "regDate": "2022-08-10T14:38:35+00:00",
+        "regIpv4": "36.39.10.228",
+        "lastConnected": "2022-08-10T14:38:35+00:00",
+        "lastIpv4": null,
+        "softwareVersion": "2.26",
+        "manufacturer": {
+            "id": 0,
+            "name": "UNKNOWN",
+            "caption": "Unknown"
+        },
+        "productId": null,
+        "gUIDString": "36323335----",
+        "enterConfigurationModeAvailable": true,
+        "relationsCount": {
+            "channels": 10
+        },
+        "locationId": 5,
+        "originalLocationId": null,
+        "connected": true
+    },
+    {
+        "id": 3,
+        "name": "RGB-801",
+        "location": {
+            "caption": "Sypialnia",
+            "id": 3,
+            "enabled": true
+        },
+        "enabled": true,
+        "comment": null,
+        "regDate": "2022-08-10T14:38:35+00:00",
+        "regIpv4": "185.36.51.224",
+        "lastConnected": "2022-08-10T14:38:35+00:00",
+        "lastIpv4": null,
+        "softwareVersion": "2.33",
+        "manufacturer": {
+            "id": 0,
+            "name": "UNKNOWN",
+            "caption": "Unknown"
+        },
+        "productId": null,
+        "gUIDString": "34393536-3739-37--",
+        "enterConfigurationModeAvailable": true,
+        "relationsCount": {
+            "channels": 2
+        },
+        "locationId": 3,
+        "originalLocationId": null,
+        "connected": true
+    },
+    {
+        "id": 4,
+        "name": "ALL-IN-ONE MEGA DEVICE",
+        "location": {
+            "caption": "Na zewn\u0105trz",
+            "id": 4,
+            "enabled": true
+        },
+        "enabled": true,
+        "comment": null,
+        "regDate": "2022-08-10T14:38:35+00:00",
+        "regIpv4": "119.175.154.105",
+        "lastConnected": "2022-08-10T14:38:35+00:00",
+        "lastIpv4": null,
+        "softwareVersion": "2.27",
+        "manufacturer": {
+            "id": 0,
+            "name": "UNKNOWN",
+            "caption": "Unknown"
+        },
+        "productId": null,
+        "gUIDString": "39363633-3034-34--",
+        "enterConfigurationModeAvailable": true,
+        "relationsCount": {
+            "channels": 70
+        },
+        "locationId": 4,
+        "originalLocationId": null,
+        "connected": true
+    }
+]

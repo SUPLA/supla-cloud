@@ -1,0 +1,30 @@
+{
+    "id": 1,
+    "shortUniqueId": "8e75b19cf7ebae9e353d7008a1b9721a",
+    "email": "user@supla.org",
+    "enabled": true,
+    "timezone": "Europe\/Berlin",
+    "clientsRegistrationEnabled": "2022-08-17T14:38:34+00:00",
+    "ioDevicesRegistrationEnabled": "2022-08-17T14:38:34+00:00",
+    "oauthCompatUserName": null,
+    "limits": {
+        "clientApp": 200,
+        "channelGroup": 20,
+        "channelPerGroup": 10,
+        "directLink": 50,
+        "scene": 50,
+        "operationsPerScene": 20,
+        "schedule": 20,
+        "actionsPerSchedule": 20,
+        "accessId": 10,
+        "ioDevice": 100,
+        "location": 10,
+        "oauthClient": 20
+    },
+    "agreements": {
+        "rules": true,
+        "cookies": true
+    },
+    "locale": null,
+    "preferences": []
+}
