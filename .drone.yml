@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: install-frontend
-    image: node:14.16.1-slim
+    image: node:14.18.1-slim
     depends_on: [ clone ]
     commands:
       - npm install --global npm@7
@@ -14,22 +14,30 @@ steps:
       - npm install
 
   - name: build-frontend
-    image: node:14.16.1-slim
+    image: node:14.18.1-slim
     depends_on: [ install-frontend ]
     commands:
       - cd src/frontend && npm run build
 
   - name: lint-frontend
-    image: node:14.16.1-slim
+    image: node:14.18.1-slim
     depends_on: [ install-frontend ]
     commands:
       - cd src/frontend && npm run lint -s
 
   - name: audit-frontend
-    image: node:14.16.1-slim
+    image: node:14.18.1-slim
     depends_on: [ install-frontend ]
     commands:
       - cd src/frontend && npm audit --production
+
+  - name: test-frontend-e2e
+    image: cypress/base:14.18.1
+    depends_on: [ build-frontend ]
+    commands:
+      - cd src/frontend
+      - npm install
+      - npm run test:e2e:ci
 
   - name: install-backend
     image: supla/supla-cloud
