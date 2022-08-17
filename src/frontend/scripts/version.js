@@ -8,7 +8,7 @@ if (!version && fs.existsSync(backendBuildConfigPath)) {
 }
 
 if (!version) {
-    version = 'UNKNOWN';
+    version = 'UNKNOWN_VERSION';
 }
 
 if (version.charAt(0) === 'v') {

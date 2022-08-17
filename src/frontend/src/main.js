@@ -38,7 +38,9 @@ Vue.prototype.$changingRoute = false;
 Vue.http.options.root = '/api';
 Vue.prototype.compareFrontendAndBackendVersion = (backendVersion) => {
     Vue.prototype.$backendVersion = backendVersion;
-    Vue.prototype.$backendAndFrontendVersionMatches = Vue.prototype.$frontendVersion.indexOf(Vue.prototype.$backendVersion) === 0;
+    const frontendUnknown = Vue.prototype.$frontendVersion === 'UNKNOWN_VERSION';
+    const frontendAndBackendMatches = Vue.prototype.$frontendVersion.indexOf(Vue.prototype.$backendVersion) === 0;
+    Vue.prototype.$backendAndFrontendVersionMatches = frontendAndBackendMatches || frontendUnknown;
     EventBus.$emit('backend-version-updated');
 };
 
