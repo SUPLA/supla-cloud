@@ -91,6 +91,7 @@ steps:
   - name: notify
     image: mike1pol/drone-rocket
     depends_on: [ integration-tests ]
+    failure: ignore
     settings:
       url: { from_secret: rocket_url }
       user_id: { from_secret: rocket_user }
