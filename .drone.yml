@@ -41,16 +41,18 @@ steps:
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:ci
 
-#  - name: test-frontend-e2e-nightly
-#    image: cypress/base:14.18.1
-#    depends_on: [ build-frontend ]
-#    when:
-#      event: [ cron ]
-#    commands:
-#      - cd src/frontend
-#      - npm install --global npm@7
-#      - npm install
-#      - npm run test:e2e:ci
+  - name: test-frontend-e2e-nightly
+    image: cypress/base:14.18.1
+    depends_on: [ test-frontend-e2e ]
+    when:
+      cron: nightly
+      event: cron
+    commands:
+      - npm install --global npm@7
+      - cd src/frontend
+      - npm install
+      - node_modules/cypress/bin/cypress install
+      - npm run test:e2e:nightly
 
   - name: install-backend
     image: supla/supla-cloud
@@ -114,5 +116,6 @@ services:
 #  event:
 #    - cron
 #    - push
+#    - pull_request
 #  cron:
-#    - nightly
+#    - daily
