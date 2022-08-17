@@ -36,6 +36,7 @@ steps:
     depends_on: [ build-frontend ]
     commands:
       - cd src/frontend
+      - npm install --global npm@7
       - npm install
       - npm run test:e2e:ci
 
