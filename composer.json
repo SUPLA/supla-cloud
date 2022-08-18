@@ -32,6 +32,7 @@
     "friendsofsymfony/rest-bundle": "^2.7",
     "google/recaptcha": "^1.1",
     "gumlet/php-image-resize": "^2.0",
+    "incenteev/composer-parameter-handler": "~2.0"
     "myclabs/php-enum": "1.5.*",
     "nelmio/cors-bundle": "^1.5",
     "sensio/framework-extra-bundle": "^5.0",
@@ -52,11 +53,19 @@
     "symfony/phpunit-bridge": "^4.4"
   },
   "scripts": {
-    "post-install-cmd": [
+    "dump-version": [
       "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
     ],
+    "build-parameters": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+    ],
+    "post-install-cmd": [
+      "@build-parameters",
+      "@dump-version"
+    ],
     "post-update-cmd": [
-      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
+      "@build-parameters",
+      "@dump-version"
     ],
     "test": [
       "phpunit -c app --testdox"
@@ -77,9 +86,6 @@
     "webpack": [
       "cd src/frontend && npm install",
       "cd src/frontend && npm run build"
-    ],
-    "dump-version": [
-      "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
     ],
     "release": [
       "@dump-version",
