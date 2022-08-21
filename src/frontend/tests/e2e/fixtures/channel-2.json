@@ -1,0 +1,98 @@
+{
+    "id": 2,
+    "channelNumber": 1,
+    "iodevice": {
+        "enabled": true,
+        "comment": null,
+        "name": "SONOFF-DS",
+        "location": {
+            "caption": "Na zewn\u0105trz",
+            "id": 4,
+            "enabled": true,
+            "relationsCount": {
+                "channels": 60,
+                "channelGroups": 4,
+                "ioDevices": 4,
+                "accessIds": 1
+            }
+        },
+        "regDate": "2022-08-10T14:38:35+00:00",
+        "regIpv4": "33.240.253.198",
+        "lastConnected": "2022-08-10T14:38:35+00:00",
+        "lastIpv4": null,
+        "id": 1,
+        "gUIDString": "38353530-3137-37--",
+        "softwareVersion": "2.23",
+        "manufacturer": {
+            "id": 0,
+            "name": "UNKNOWN",
+            "caption": "Unknown"
+        },
+        "productId": null,
+        "enterConfigurationModeAvailable": true,
+        "locationId": 4,
+        "originalLocationId": null
+    },
+    "location": {
+        "caption": "Na zewn\u0105trz",
+        "id": 4,
+        "enabled": true,
+        "relationsCount": {
+            "channels": 60,
+            "channelGroups": 4,
+            "ioDevices": 4,
+            "accessIds": 1
+        }
+    },
+    "caption": "Explicabo voluptate sunt.",
+    "type": {
+        "id": 3000,
+        "name": "THERMOMETERDS18B20",
+        "caption": "DS18B20 Thermometer"
+    },
+    "function": {
+        "id": 40,
+        "name": "THERMOMETER",
+        "caption": "Thermometer",
+        "possibleVisualStates": [
+            "default"
+        ],
+        "maxAlternativeIconIndex": 0,
+        "output": false
+    },
+    "altIcon": 0,
+    "hidden": false,
+    "flags": 0,
+    "subjectType": "channel",
+    "inheritedLocation": true,
+    "supportedFunctions": [
+        {
+            "id": 40,
+            "name": "THERMOMETER",
+            "caption": "Thermometer",
+            "possibleVisualStates": [
+                "default"
+            ],
+            "maxAlternativeIconIndex": 0,
+            "output": false
+        }
+    ],
+    "possibleActions": [],
+    "relationsCount": {
+        "channelGroups": 0,
+        "directLinks": 0,
+        "schedules": 0,
+        "sceneOperations": 0,
+        "scenes": 0,
+        "actionTriggers": 0
+    },
+    "iodeviceId": 1,
+    "locationId": 4,
+    "functionId": 40,
+    "userIconId": null,
+    "typeId": 3000,
+    "config": {
+        "temperatureAdjustment": 0
+    },
+    "actionTriggersIds": []
+}

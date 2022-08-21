@@ -23,3 +23,17 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('suplaLogin', (stubBackend = true) => {
+    if (stubBackend) {
+        cy.intercept('GET', 'api/server-info', {fixture: 'server-info.json'});
+        cy.intercept('POST', 'api/webapp-auth', {fixture: 'access-token'});
+        cy.intercept('api/users/current', {fixture: 'current-user.json'});
+        cy.intercept('GET', 'api/iodevices?*', {headers: {'X-Total-Count': '4'}, fixture: 'iodevices.json'});
+    }
+    cy.visit('/');
+    cy.get('input[type=email]').type('user@supla.org');
+    cy.get('input[type=password]').type('pass');
+    cy.get('button[type=submit]').click();
+    cy.contains('.active', 'My SUPLA');
+})

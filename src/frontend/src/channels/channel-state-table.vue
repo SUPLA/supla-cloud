@@ -2,7 +2,8 @@
     <div v-if="currentState">
         <dl v-if="currentState.temperature !== undefined">
             <dd>{{ $t('Temperature') }}</dd>
-            <dt>{{ currentState.temperature }}&deg;C</dt>
+            <dt v-if="currentState.temperature > -272">{{ currentState.temperature }}&deg;C</dt>
+            <dt v-else>?&deg;C</dt>
         </dl>
         <dl v-if="currentState.humidity !== undefined">
             <dd>{{ $t('Humidity') }}</dd>
