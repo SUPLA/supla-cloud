@@ -31,6 +31,15 @@ steps:
     commands:
       - cd src/frontend && npm audit --production
 
+  - name: test-frontend-unit
+    image: node:14.18.1-slim
+    depends_on: [ build-frontend ]
+    commands:
+      - npm install --global npm@7
+      - cd src/frontend
+      - npm install
+      - npm run test:unit
+
   - name: test-frontend-e2e
     image: cypress/base:14.18.1
     depends_on: [ build-frontend ]
