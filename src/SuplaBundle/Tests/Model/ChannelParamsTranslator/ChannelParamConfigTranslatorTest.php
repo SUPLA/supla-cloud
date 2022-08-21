@@ -226,4 +226,12 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $config = $this->configTranslator->getConfigFromParams($channel);
         $this->assertFalse($config['timeSettingAvailable']);
     }
+
+    public function testDefault0IfConfigEmptyString() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::IC_GASMETER());
+        $this->configTranslator->setParamsFromConfig($channel, ['initialValue' => '']);
+        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->assertEquals(0, $config['initialValue']);
+    }
 }
