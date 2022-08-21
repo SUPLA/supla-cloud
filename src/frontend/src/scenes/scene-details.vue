@@ -38,7 +38,6 @@
                                     <div class="details-page-block text-center">
                                         <h3 class="text-center">{{ $t('Location') }}</h3>
                                         <square-location-chooser v-model="scene.location"
-                                            :disabled="hasPendingChanges"
                                             @input="sceneChanged()"></square-location-chooser>
                                     </div>
                                     <div v-if="scene.id"

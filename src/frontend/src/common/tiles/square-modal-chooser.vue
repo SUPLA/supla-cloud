@@ -1,7 +1,7 @@
 <template>
     <modal class="square-modal-chooser"
         :header="$t(titleI18n)"
-        cancellable="true"
+        :cancellable="true"
         @cancel="$emit('cancel')"
         @confirm="$emit('confirm', selectedItems)">
         <loading-cover :loading="!items">

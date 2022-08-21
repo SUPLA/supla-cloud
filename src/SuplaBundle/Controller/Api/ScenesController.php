@@ -221,7 +221,7 @@ class ScenesController extends RestController {
      */
     public function getSceneAction(Request $request, Scene $scene) {
         $this->ensureApiVersion24($request);
-        return $this->serializedView($scene, $request, ['scene.relationsCount']);
+        return $this->serializedView($scene, $request, ['scene.relationsCount', 'location.relationsCount']);
     }
 
     /**
