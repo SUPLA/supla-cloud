@@ -69,7 +69,7 @@
                     this.choosing = false;
                     this.$emit('change');
                 } else {
-                    this.channel.userIconId = undefined;
+                    this.channel.userIconId = null;
                     this.channel.altIcon = chosenIcon.index;
                     this.choosing = false;
                     this.$emit('change');

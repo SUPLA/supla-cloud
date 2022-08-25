@@ -336,15 +336,19 @@ class ChannelController extends RestController {
                     Assertion::integer($requestData['altIcon']);
                     $channel->setAltIcon($requestData['altIcon']);
                 }
-                if (isset($requestData['userIconId'])) {
-                    Assertion::integer($requestData['userIconId']);
-                    $icon = $userIconRepository->findForUser($channel->getUser(), $requestData['userIconId']);
-                    Assertion::eq(
-                        $icon->getFunction()->getId(),
-                        $channel->getFunction()->getId(),
-                        'Chosen user icon is for other function.'
-                    );
-                    $channel->setUserIcon($icon);
+                if (array_key_exists('userIconId', $requestData)) {
+                    if ($requestData['userIconId'] === null) {
+                        $channel->setUserIcon(null);
+                    } else {
+                        Assertion::integer($requestData['userIconId']);
+                        $icon = $userIconRepository->findForUser($channel->getUser(), $requestData['userIconId']);
+                        Assertion::eq(
+                            $icon->getFunction()->getId(),
+                            $channel->getFunction()->getId(),
+                            'Chosen user icon is for other function.'
+                        );
+                        $channel->setUserIcon($icon);
+                    }
                 }
                 $em->persist($channel);
                 $atIndex = 1;
