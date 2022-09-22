@@ -10,896 +10,896 @@
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'%s trigger is not supported by the hardware.': ~
-...and start your adventure with building automation today!: ~
-...open and shut roller shutters: ~
-'...open gateways, gates or doors': ~
-...or control home appliances: ~
-...you can monitor temperature: ~
-'10 minutes before sunset, on day 10 of the month, May through August': ~
-'15 minutes after sunrise, every 2 days': ~
-A confirmation upon successful client app registration.: ~
-A confirmation upon successful device registration.: ~
-A new client app (smartphone) been added to your SUPLA-Cloud account.: ~
-A new device has been added to your SUPLA-Cloud account.: ~
-A new personal access token has been generated.: ~
-A-Z: ~
-ACTIVE: ~
-AM2301 Temperature & Humidity Sensor: ~
-AM2302 Temperature & Humidity Sensor: ~
-API documentation: ~
-API rate limits: ~
-Access ID: ~
-Access ID is not active right now.: ~
-Access Identifier: ~
-Access Identifiers: ~
-Access identifier limit has been exceeded: ~
-Access to all of your devices through MQTT Broker: ~
-Account: ~
-Account access when you are unavailable: ~
-Account has been activated. You can Sign In now.: ~
-Action execution: ~
-Action trigger: ~
-'Action trigger no. #{index}': ~
-Action triggers: ~
-Actions: ~
-Active: ~
-Active period: ~
-Add: ~
-Add a delay: ~
-Add a new icon: ~
-Add action: ~
-Add first channel to set channel group function and save it: ~
-Add new channel group: ~
-Add new channel to this group: ~
-Add new item to use in the scene: ~
-Adjust parameters: ~
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': ~
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': ~
-'After the device enters the configuration mode, it will not be accessible on your account.': ~
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': ~
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': ~
-'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': ~
-'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': ~
-All: ~
-All the above and many more can be done from your phone or tablet: ~
-Allowed actions: ~
-Allows to perform an action only using the HTTP PATCH request.: ~
-'Alternatively, you can add a GET parameter to specify response format.': ~
-And more: ~
-'Any application or device that uses the {tokenName} token will not work anymore.': ~
+'%s trigger is not supported by the hardware.': 'Команда %s  не підтримується пристроєм.'
+...and start your adventure with building automation today!: ...і розпочніть свою подорож у сфері інтелектуального будівництва вже сьогодні!
+...open and shut roller shutters: …відкривати і закривати ролети
+'...open gateways, gates or doors': '...відкрити хвіртку, ворота або двері'
+...or control home appliances: ...або керувати побутовими приладами/аудіо/відеопристроями
+...you can monitor temperature: ...можна стежити за температурою
+'10 minutes before sunset, on day 10 of the month, May through August': 'за 10 хвилин до заходу сонця, лише у 10-й день місяця, з травня по серпень'
+'15 minutes after sunrise, every 2 days': '15 хвилин після сходу сонця, через день'
+A confirmation upon successful client app registration.: Підтвердження реєстрації  заявки нового клієнта.
+A confirmation upon successful device registration.: Підтвердження успішної реєстрації пристрою.
+A new client app (smartphone) been added to your SUPLA-Cloud account.: Новий клієнтський додаток (смартфон) було додано до вашого облікового запису SUPLA-Cloud
+A new device has been added to your SUPLA-Cloud account.: Новий пристрій додано до вашого облікового запису SUPLA-Cloud
+A new personal access token has been generated.: Створено новий особистий токен доступу 
+A-Z: А-Я
+ACTIVE: АКТИВНИЙ
+AM2301 Temperature & Humidity Sensor: Датчик температури та вологості AM2301
+AM2302 Temperature & Humidity Sensor: Датчик температури та вологості AM2302
+API documentation: Документація АРІ
+API rate limits: Ліміт запитів до АРІ
+Access ID: ID доступу
+Access ID is not active right now.: Ідентифікатор доступу наразі неактивний
+Access Identifier: Ідентифікатор доступу
+Access Identifiers: Ідентифікатори доступу
+Access identifier limit has been exceeded: Ліміт ідентифікатора доступу перевищено
+Access to all of your devices through MQTT Broker: Доступ до усіх ваших пристроїв через MQTT
+Account: Обліковий запис
+Account access when you are unavailable: Доступ до вашого облікового запису, коли ви недоступні
+Account has been activated. You can Sign In now.: Обліковий запис активовано. Ви можете авторизуватися
+Action execution: Виконання дії
+Action trigger: Команда дії
+'Action trigger no. #{index}': 'Команда #{index}'
+Action triggers: Команди дії
+Actions: Дії
+Active: Діючі
+Active period: Період дії
+Add: Додати
+Add a delay: Додати затримку
+Add a new icon: Додати нову піктограму
+Add action: Додати дію
+Add first channel to set channel group function and save it: Виберіть перший канал для визначення функції групи та збережіть його
+Add new channel group: Додайте нову групу каналів
+Add new channel to this group: Додайте новий канал до групи
+Add new item to use in the scene: Додайте новий елемент до сценарію
+Adjust parameters: Встановіть параметри
+'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Усі канали та групи каналів, які використовують цю піктограму, матимуть свої піктограми за замовчуванням після видалення.'
+'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Після надання доступу ви завжди можете передумати, скасувавши доступ у налаштуваннях облікового запису.'
+'After the device enters the configuration mode, it will not be accessible on your account.': 'Пристрій буде недоступний з вашого облікового запису після входу в режим налаштування.'
+'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Після оновлення додаток стане швидшим, зручнішим... просто кращим!'
+'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': '«Лічильник почне відлік від 0 після цієї операції, незалежно від його поточного стану. Цю операцію неможливо скасувати.'
+'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': 'Посилання буде згенеровано відразу після вибору об’єкта. Ви можете ввести всі інші параметри відразу після його створення.'
+'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': '«Після того, як ви віддасте наказ відкрити або закрити ворота, система спробує закрити/відкрити їх і зачекає 60 секунд, щоб перевірити, чи ворота досягли бажаного стану. Якщо ні, система спробує закрити/відкрити знову. Цей параметр визначає максимальну кількість спроб системи досягти мети. Рекомендоване значення — 5. Зміна цього параметра не впливає на роботу розкладів.'
+All: Все
+All the above and many more can be done from your phone or tablet: Ви можете робити все це та багато іншого за допомогою свого смартфона чи планшета
+Allowed actions: Дозволені дії
+Allows to perform an action only using the HTTP PATCH request.: Дозволяє виконувати дію лише за допомогою запиту HTTP PATCH.
+'Alternatively, you can add a GET parameter to specify response format.': 'Ви також можете додати параметр GET, щоб вказати формат відповіді.'
+And more: І значно більше
+'Any application or device that uses the {tokenName} token will not work anymore.': 'Усі програми або пристрої, які використовують токен {tokenName}, перестануть працювати.'
 'App version: %clientAppSoftwareVersion%': ~
-Application name cannot be blank.: ~
-Application requirements: ~
-Applications: ~
-Are you lost?: ~
-Are you sure you want to change channel’s function?: ~
-Are you sure you want to delete the entire measurement history saved for this channel?: ~
-Are you sure you want to delete this OAuth application?: ~
-Are you sure you want to delete this channel group?: ~
-Are you sure you want to delete this client?: ~
-Are you sure you want to delete this direct link?: ~
-Are you sure you want to delete this icon?: ~
-Are you sure you want to delete this scene?: ~
-Are you sure you want to delete this schedule?: ~
-Are you sure you want to reset the counter state?: ~
-Are you sure you want to revoke permissions granted to this OAuth application?: ~
-Are you sure you want to revoke this token?: ~
-Are you sure?: ~
-As in device: ~
-Assign Access Identifiers: ~
-Assign Client apps: ~
-Assign Locations: ~
-Associated measured channel: ~
-Associated measurement channel: ~
-'At 05:45 PM, on the last day of the month': ~
-'At 11:30 AM, on the third Wednesday of the month': ~
-At every 5th minute on day-of-month 30 in May: ~
-At specified time: ~
-At sunrise: ~
-'At sunrise, Monday through Friday': ~
-At sunset: ~
-Authorization callback URLs (one per line): ~
-'Authorize the application, so that it can access your account.': ~
-Authorized: ~
-Authorized OAuth apps: ~
-Automatic calibration: ~
-Automation: ~
-Back to apps list: ~
-Bar: ~
-Based on sunrise or sunset: ~
-Be notified when your channels change state: ~
-Be right back!: ~
-Bottom position: ~
-Bridge: ~
-Brightness: ~
-CLICK TO DISABLE: ~
-CLICK TO ENABLE: ~
-Calculated value: ~
-Calibrate: ~
-Calibration: ~
-Calibration successful.: ~
-Cancel: ~
-Cancel changes: ~
-Cancelled: ~
-Cannot calculate when to run the schedule - incorrect configuration?: ~
-Cannot change the channel function right now.: ~
-Cannot delete this I/O Device right now.: ~
-Cannot execute an action when the device is disconnected.: ~
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': ~
-Captcha token is not valid.: ~
-Caption: ~
-Caption is too long.: ~
-Change Password: ~
-Change channel function: ~
-Change function: ~
-Change icon: ~
-Changing channel’s function will also result in the following changes.: ~
-Channel: ~
-Channel No: ~
-Channel for the partial opening sensor: ~
-Channel for the sensor: ~
-Channel group: ~
-Channel group limit has been exceeded: ~
-Channel group must consist of at least one channel.: ~
-Channel group reference will be removed from the items below.: ~
-Channel groups: ~
-Channel is assigned to the I/O device location: ~
-Channel is disconnected.: ~
-Channel name: ~
-Channel reference will be removed from the items below.: ~
-Channel value: ~
-Channel with action triggers: ~
-Channels: ~
-Channels groups are not supported for this function.: ~
-Chart data source type: ~
-Chart type: ~
-Check the direct link you used and try again.: ~
-Check your email box: ~
-Check your email inbox: ~
-Choose: ~
-Choose Access Identifier: ~
-Choose Access Identifiers to be assigned to this Location: ~
-Choose channel function: ~
-Choose client apps: ~
-Choose location: ~
-Choose the source channel.: ~
-Clear: ~
-Click the following link to confirm removal of your account on %cloudHost%.: ~
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: ~
+Application name cannot be blank.: Назва програми не може бути пустою
+Application requirements: Вимоги до заявки
+Applications: Застосунки
+Are you lost?: Ви загубились? Ви щось шукаєте?
+Are you sure you want to change channel’s function?: Ви впевнені, що хочете змінити функцію каналу?
+Are you sure you want to delete the entire measurement history saved for this channel?: Ви впевнені, що бажаєте видалити всю історію вимірювань, зібрану для цього каналу?
+Are you sure you want to delete this OAuth application?: Ви впевнені, що бажаєте видалити цю програму OAuth?
+Are you sure you want to delete this channel group?: Ви впевнені, що бажаєте видалити цю групу каналів?
+Are you sure you want to delete this client?: Ви впевнені, що бажаєте видалити цю клієнтську програму?
+Are you sure you want to delete this direct link?: Ви впевнені, що хочете видалити це пряме посилання?
+Are you sure you want to delete this icon?: Ви впевнені, що хочете видалити цю піктограму?
+Are you sure you want to delete this scene?: Ви впевнені, що хочете видалити цю сцену?
+Are you sure you want to delete this schedule?: Ви впевнені, що хочете видалити цей розклад?
+Are you sure you want to reset the counter state?: Ви впевнені, що бажаєте скинути лічильник?
+Are you sure you want to revoke permissions granted to this OAuth application?: Ви впевнені, що бажаєте відкликати дозволи, надані цій програмі OAuth?
+Are you sure you want to revoke this token?: Ви впевнені, що бажаєте відкликати токен?
+Are you sure?: Ви впевнені?
+As in device: Як і в пристрої
+Assign Access Identifiers: Призначити ідентифікатори доступу
+Assign Client apps: Призначити клієнтські програми
+Assign Locations: Призначити місцезнаходження
+Associated measured channel: Пов’язаний канал керування
+Associated measurement channel: Пов’язаний канал вимірювання
+'At 05:45 PM, on the last day of the month': 'о 5:45 останнього дня місяця'
+'At 11:30 AM, on the third Wednesday of the month': 'об 11:30 третьої середи місяця'
+At every 5th minute on day-of-month 30 in May: кожні 5 хвилин 30 числа місяця, тільки в травні
+At specified time: На вказаний час
+At sunrise: на сході сонця
+'At sunrise, Monday through Friday': 'на сході сонця, з понеділка по п’ятницю'
+At sunset: на заході сонця
+Authorization callback URLs (one per line): URL-адреси зворотної авторизації (по одному на рядок)
+'Authorize the application, so that it can access your account.': 'Авторизуйте програму, щоб вона мала доступ до вашого облікового запису.'
+Authorized: Авторизований
+Authorized OAuth apps: Авторизовані програми OAuth
+Automatic calibration: Автоматичне калібрування
+Automation: Автоматизація
+Back to apps list: Назад до списку програм
+Bar: Пункт
+Based on sunrise or sunset: З розрахунку схід/захід
+Be notified when your channels change state: Повідомлення про зміни статусу каналу
+Be right back!: Поверніться через кілька хвилин!
+Bottom position: Нижня позиція
+Bridge: Перехід
+Brightness: Яскравість
+CLICK TO DISABLE: НАТИСНІТЬ, ЩОБ ВИМКНУТИ
+CLICK TO ENABLE: НАТИСНІТЬ, ЩОБ УВІМКНУТИ
+Calculated value: Покази лічильника
+Calibrate: Відкалібрувати
+Calibration: Калібрування
+Calibration successful.: Калібрування успішне
+Cancel: Скасувати
+Cancel changes: Скасувати зміни
+Cancelled: Скасовано
+Cannot calculate when to run the schedule - incorrect configuration?: Не вдалося розрахувати дату початку розкладу - неправильна конфігурація?
+Cannot change the channel function right now.: Наразі функції цього каналу не можна змінити.
+Cannot delete this I/O Device right now.: Цей пристрій наразі неможливо видалити.
+Cannot execute an action when the device is disconnected.: Неможливо виконати дію, коли пристрій відключено.
+'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Не надійшло повідомлення з посиланням для активації вашого облікового запису? Переконайтеся, що він не потрапив у папку СПАМ (небажана пошта). Або ви можете натиснути [тут], щоб надіслати його повторно.'
+Captcha token is not valid.: Недійсний код перевірки.
+Caption: Підпис
+Caption is too long.: Назва занадто довга.
+Change Password: Зміна пароля
+Change channel function: Змінити функцію каналу
+Change function: Змінити функцію
+Change icon: Змінити піктограму
+Changing channel’s function will also result in the following changes.: Зміна функції каналу також змінить наступне.
+Channel: Канал
+Channel No: Номер каналу
+Channel for the partial opening sensor: Канал для датчика проміжного відкриття
+Channel for the sensor: Датчик для каналу
+Channel group: Група каналів
+Channel group limit has been exceeded: Ліміт групи каналів перевищено
+Channel group must consist of at least one channel.: Група каналів має містити принаймні один канал.
+Channel group reference will be removed from the items below.: Позначення групи каналів буде видалено з наступних елементів.
+Channel groups: Групи каналів
+Channel is assigned to the I/O device location: Канал призначається до місця розташування пристрою
+Channel is disconnected.: Канал відключений.
+Channel name: Назва каналу
+Channel reference will be removed from the items below.: Канал буде видалено з наступних елементів.
+Channel value: Значення
+Channel with action triggers: Канал із командами дії
+Channels: Канали
+Channels groups are not supported for this function.: Ця функція не підтримує групи каналів.
+Chart data source type: Тип джерела даних
+Chart type: Тип діаграми
+Check the direct link you used and try again.: Перевірте відображене пряме посилання та повторіть спробу.
+Check your email box: Перевірте свою електронну скриньку
+Check your email inbox: Перевірте свою поштову скриньку
+Choose: Виберіть
+Choose Access Identifier: Виберіть ідентифікатор доступу
+Choose Access Identifiers to be assigned to this Location: «Виберіть ідентифікатори доступу, які потрібно призначити цьому місцезнаходженню»
+Choose channel function: Виберіть функцію каналу
+Choose client apps: Виберіть клієнтські програми
+Choose location: Будь ласка, виберіть місце
+Choose the source channel.: Виберіть вихідний канал.
+Clear: Очистити
+Click the following link to confirm removal of your account on %cloudHost%.: Щоб підтвердити, що ви хочете видалити свій обліковий запис %cloudHost%, натисніть посилання нижче.
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Натисніть посилання нижче, щоб підтвердити скасування реєстрації вашого приватного екземпляра SUPLA Cloud (% targetCloudUrl%).
 'Client app ID: %clientAppId%': ~
-Client registration: ~
-Client’s Apps: ~
-Client’s app has been deleted: ~
-Close: ~
-Close partially: ~
-Color: ~
-Color brightness: ~
-Coming Soon: ~
-Comment: ~
-Config of the schedule is too complicated.: ~
-Configuration: ~
-Confirm My Account: ~
-Confirm Password: ~
-Confirm if you want to perform the roller shutter calibration.: ~
-Confirm if you want to remove Access Identifier: ~
-'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': ~
-'Confirm if you want to remove {deviceName} device and all of its channels.': ~
-Connected: ~
-Connection with a private instance of the SUPLA cloud: ~
-Constraints: ~
-Copy state from other channel: ~
-Could not contact Autodiscover service. Try again in a while.: ~
-Could not enter the configuration mode.: ~
-Could not reset the password.: ~
-Could not reset the password. Please try again later.: ~
-Create New Access Identifier: ~
-Create New Location: ~
-Create New Schedule: ~
-Create an account: ~
-Create new direct link: ~
-Create new scene: ~
-Currency: ~
-Current Overload: ~
-Current Password: ~
-Current password is incorrect: ~
-Custom: ~
-Custom execution limit: ~
-DHT11 Temperature & Humidity Sensor: ~
-DHT21 Temperature & Humidity Sensor: ~
-DHT22 Temperature & Humidity Sensor: ~
-DS18B20 Thermometer: ~
-Data saved: ~
-Decline: ~
-Default: ~
-Delete: ~
-Delete measurement history: ~
-Delete my account: ~
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': ~
-Depth: ~
-Depth sensor: ~
-Description: ~
-Details: ~
-Device: ~
+Client registration: Реєстрація клієнтів
+Client’s Apps: Клієнтські програми
+Client’s app has been deleted: Клієнтську програму видалено
+Close: Закрити
+Close partially: Закрити частково
+Color: Колір
+Color brightness: Яскравість кольору
+Coming Soon: Незабаром буде доступно
+Comment: Коментар
+Config of the schedule is too complicated.: Конфігурація розкладу надто складна.
+Configuration: Конфігурація
+Confirm My Account: Я підтверджую свій обліковий запис
+Confirm Password: Підтвердження паролю
+Confirm if you want to perform the roller shutter calibration.: Переконайтеся, що модуль відкалібровано.
+Confirm if you want to remove Access Identifier: Підтвердіть, що ви хочете видалити ідентифікатор доступу
+'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Підтвердіть, що ви хочете видалити ідентифікатор місцезнаходження {locationId}. Пристрої вводу/виводу більше не підключатимуться до цього місця.'
+'Confirm if you want to remove {deviceName} device and all of its channels.': 'Підтвердіть, що ви хочете видалити {deviceName} і всі його канали.'
+Connected: Підключено
+Connection with a private instance of the SUPLA cloud: Підключення до приватного екземпляра хмари SUPLA.
+Constraints: Обмеження
+Copy state from other channel: Копіювати статус з іншого каналу
+Could not contact Autodiscover service. Try again in a while.: Не вдалося зв’язатися з реєстраційною службою. Спробуйте ще раз за мить.
+Could not enter the configuration mode.: Не вдалося перевести пристрій у режим конфігурації.
+Could not reset the password.: Помилка скидання пароля.
+Could not reset the password. Please try again later.: Пароль не можна скинути.Спробуйте ще раз за мить.
+Create New Access Identifier: Створіть новий ідентифікатор доступу
+Create New Location: Створіть нове місцезнаходження
+Create New Schedule: Створіть новий розклад
+Create an account: Створіть обліковий запис
+Create new direct link: Створіть нове пряме посилання
+Create new scene: Створіть нову сцену
+Currency: Валюта
+Current Overload: Перевантаження
+Current Password: Поточний пароль
+Current password is incorrect: Поточний пароль неправильний
+Custom: Користувацький
+Custom execution limit: Користувацький ліміт виконання
+DHT11 Temperature & Humidity Sensor: Датчик температури та вологості DHT11
+DHT21 Temperature & Humidity Sensor: Датчик температури та вологості DHT21
+DHT22 Temperature & Humidity Sensor: Датчик температури та вологості DHT22
+DS18B20 Thermometer: Термометр DS18B20
+Data saved: Дані збережено
+Decline: Будь ласка, відхиліть
+Default: за замовчуванням
+Delete: Видалити
+Delete measurement history: Видалити історію вимірювань
+Delete my account: Видалити мій обліковий запис
+'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Видалення вашого облікового запису також призведе до видалення всіх ваших даних, включаючи підключені пристрої, налаштовані канали, прямі посилання та історію вимірювань. Видалення облікового запису незворотне.'
+Depth: Глибина
+Depth sensor: Датчик глибини
+Description: Опис
+Details: Подробиці
+Device: Пристрій
 'Device ID: %deviceId%': ~
-Device channel value: ~
-Device is disconnected.: ~
+Device channel value: Значення від пристрою
+Device is disconnected.: Пристрій відключено.
 'Device name: %deviceName%': ~
-Device should be now in configuration mode.: ~
+Device should be now in configuration mode.: Тепер пристрій має бути в режимі налаштування.
 'Device software version: %deviceSoftwareVersion%': ~
-Device unavailable: ~
-Differential: ~
-Digi Glass: ~
-Digi Glass Horizontal: ~
-Digi Glass Vertical: ~
-Dimmer: ~
-Dimmer & RGB led controller: ~
-Dimmer and RGB lighting: ~
-Direct link: ~
-Direct link has been created successfully!: ~
-Direct link has been executed: ~
-'Direct link is not working right now. Reason:': ~
-Direct links: ~
-Direct links limit has been exceeded: ~
-Disable: ~
-Disable local function: ~
-Disabled: ~
-Disables local device function and does nothing more.: ~
-Disconnected: ~
-Distance: ~
-Distance sensor: ~
-Do you want to be redirected there? You may be asked to authenticate again.: ~
-'Don’t worry, you can always reset your password via email. Click here to do so.': ~
-Door lock operation: ~
-Door opening sensor: ~
-Doors and gates: ~
-'Doors, Gates, Windows': ~
-Download the history of measurement: ~
-Drag your image(s) here or click to select from the disk: ~
-E-mail notifications: ~
-Edit: ~
-Electric: ~
-Electricity meter: ~
-Empty!: ~
-Enable: ~
-Enabled: ~
-End date: ~
-Enter new password: ~
-Enter strong password: ~
-Enter the data below in the settings of your control device (I/O Device).: ~
-Enter the data below in your mobile SUPLA application on your smartphone.: ~
-Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: ~
-Enter your email address: ~
-Enter your password to prevent automatic logout.: ~
-Entering configuration mode is unsupported in the firmware.: ~
-Error: ~
-Error when communicating the server. Try again in a while.: ~
-Every: ~
-Example Auth URL: ~
-Execute: ~
-Execute an action: ~
-Executed action: ~
-Executed without confirmation: ~
-Execution history: ~
-Execution limit: ~
-Executions: ~
-Expired: ~
-Failed: ~
-Failed (zombie): ~
-Feature limits: ~
-File is too large: ~
-Flooding: ~
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': ~
-For devices: ~
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': ~
-Forgot your password?: ~
-Forward active energy: ~
-Forward active energy balanced: ~
-Forward reactive energy: ~
-From IP: ~
-From anywhere: ~
-Full closing time: ~
-Full documentation: ~
-Full opening time: ~
-Function: ~
-G5LA1A Relay: ~
-G5LA1A Relay x2: ~
-GENERATE: ~
-Garage door opening sensor: ~
-Garage door operation: ~
-Gas meter: ~
-Gate opening sensor: ~
-Gate operation: ~
-Gateway lock operation: ~
-Gateway opening sensor: ~
-General purpose measurement: ~
-Generate new password: ~
-Generate new token: ~
-Generate token: ~
-Get SUPLA on your devices: ~
-Go to I/O device details: ~
-Go to channel details: ~
-Go to your account: ~
-Grant access: ~
-Guru Meditation: ~
-HFD4 Relay: ~
-Heat meter: ~
-History of measurements: ~
-Home appliances: ~
-Home+ Heater: ~
-Host: ~
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': ~
-Humidity: ~
-Humidity Sensor: ~
-Humidity adjustment: ~
-Humidity sensor: ~
-'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': ~
-I agree: ~
-'I aree, taske me to the app': ~
-I confirm! Delete my account.: ~
-'I do not agree, get me out of here': ~
-I/O Devices: ~
-I/O devices registration: ~
-ID: ~
-INACTIVE: ~
-Icon: ~
-Idle: ~
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': ~
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': ~
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': ~
-'If you did not request this password reset, please ignore this information.': ~
-'If you do not want to delete your account on %cloudHost%, please do not click the link.': ~
-'If you do not want to unregister your instance, please do not click the link.': ~
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': ~
-'If you have doubts or more questions, you can contact us directly at %securityEmail%.': ~
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': ~
-'If you have not used this email address with %cloudHost%, please do not click the link.': ~
-'If you really want to delete the account, here are the instructions.': ~
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': ~
-'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': ~
-'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': ~
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': ~
-'If you wish not to receive such messages,<br> change it in your account settings [here].': ~
-'If you wish to register your instance, [click here].': ~
-'If you wish to see the available integrations, go to [cloud.supla.org/apps].': ~
-'If you wish to unregister your instance, [click here].': ~
-Impulse counter: ~
-Impulses: ~
-'In order to confirm account deletion, enter your password.': ~
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': ~
-Inactive: ~
-Include energy corrections in new measurements history (not recommended): ~
-Incorrect password: ~
-Information: ~
-Inherit I/O Device location: ~
-Initial value: ~
-Integration with MQTT Broker has been disabled.: ~
-Integration with MQTT Broker has been enabled.: ~
-Integrations: ~
-Interpolate measurements: ~
-Interrupt: ~
-Interrupt and execute: ~
-Interval: ~
-Invalid SUPLA Cloud URL.: ~
-Invalid action parameters: ~
-Invalid function for channel.: ~
+Device unavailable: Пристрій недоступний
+Differential: Диференціал
+Digi Glass: Digi Glass
+Digi Glass Horizontal: Digi Glass горизонтальний
+Digi Glass Vertical: Digi Glass вертикальний
+Dimmer: Диммер
+Dimmer & RGB led controller: RGB диммер і контролер освітлення
+Dimmer and RGB lighting: Диммер і RGB освітлення
+Direct link: Пряме посилання
+Direct link has been created successfully!: Пряме посилання успішно створено!
+Direct link has been executed: Зроблено пряме посилання
+'Direct link is not working right now. Reason:': 'На даний момент пряме посилання не працює. Причина:'
+Direct links: Прямі посилання
+Direct links limit has been exceeded: Ліміт прямих посилань перевищено
+Disable: Вимкнено
+Disable local function: Вимкніть функцію пристрою
+Disabled: Вимкнено
+Disables local device function and does nothing more.: Не виконує жодних дій, але вимикає функцію пристрою, яка є типовою для цієї дії.
+Disconnected: Відключено
+Distance: Відстань
+Distance sensor: Датчик відстані
+Do you want to be redirected there? You may be asked to authenticate again.: Ви хочете, щоб ми перенаправили вас туди?» Можливо, вам доведеться увійти знову.
+'Don’t worry, you can always reset your password via email. Click here to do so.': 'Не хвилюйся. Ви завжди можете змінити свій пароль за допомогою електронної пошти. Натисніть тут, щоб зробити це.'
+Door lock operation: Відкриття дверей
+Door opening sensor: Датчик відкриття дверей
+Doors and gates: Двері та ворота
+'Doors, Gates, Windows': 'Двері, ворота, вікна'
+Download the history of measurement: Завантажити історію вимірювань
+Drag your image(s) here or click to select from the disk: Перетягніть зображення сюди або натисніть, щоб вибрати з диска
+E-mail notifications: Сповіщення електронною поштою
+Edit: Редагувати
+Electric: Електрика
+Electricity meter: Лічильник електроенергії
+Empty!: Порожньо!
+Enable: Ввімкнути
+Enabled: В комплекті
+End date: Дата закінчення
+Enter new password: Введіть новий пароль
+Enter strong password: Введіть надійний пароль
+Enter the data below in the settings of your control device (I/O Device).: Введіть наступні дані в налаштуваннях вашого керуючого пристрою (пристрою введення/виведення).
+Enter the data below in your mobile SUPLA application on your smartphone.: Введіть наступні дані в мобільний додаток SUPLA, встановлений на вашому смартфоні.
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Надавайте лише домен разом із портом, якщо він не є стандартним (443). Нам потрібне з’єднання HTTPS.
+Enter your email address: Будь ласка, введіть адресу електронної пошти
+Enter your password to prevent automatic logout.: Введіть свій пароль, щоб запобігти автоматичному виходу.
+Entering configuration mode is unsupported in the firmware.: Віддалений перехід в режим конфігурації не підтримується мікропрограмою пристрою.
+Error: Помилка
+Error when communicating the server. Try again in a while.: Виникла проблема зв’язку із сервером. Спробуйте ще раз за мить.
+Every: Що
+Example Auth URL: Зразок URL-адреси авторизації
+Execute: Виконати
+Execute an action: Виконати дію
+Executed action: Дія виконана
+Executed without confirmation: Виконано без підтвердження
+Execution history: Історія продуктивності
+Execution limit: Ліміт виконання
+Executions: Виконання
+Expired: Минув термін придатності
+Failed: Не вдалося
+Failed (zombie): Не вдалося (zombie)
+Feature limits: Функціональні межі
+File is too large: Файл завеликий
+Flooding: Флуд
+'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Рекомендовано використовувати {suplaUrl} під час оновлення.'
+For devices: Для пристроїв
+'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'З міркувань безпеки повна URL-адреса цього прямого посилання відображатиметься лише один раз під час його створення.'
+Forgot your password?: Забули пароль?
+Forward active energy: Зібрана активна енергія
+Forward active energy balanced: Споживана активна енергія (Векторний баланс)
+Forward reactive energy: Розхід реактивної енергії
+From IP: З IP-адреси
+From anywhere: Звідки завгодно
+Full closing time: Загальний час закриття
+Full documentation: Повна документація
+Full opening time: Загальний час відкриття
+Function: Функція
+G5LA1A Relay: Реле G5LA1A
+G5LA1A Relay x2: Реле 2xG5LA1A
+GENERATE: ГЕНЕРУВАТИ
+Garage door opening sensor: Датчик відкриття гаражних воріт
+Garage door operation: Відкриття/закриття гаражних воріт
+Gas meter: Лічильник газу
+Gate opening sensor: Датчик відкриття воріт
+Gate operation: Відкриття/закриття воріт
+Gateway lock operation: Відкриття хвіртки
+Gateway opening sensor: Датчик відкриття хвіртки
+General purpose measurement: Загальний вимірювальний канал
+Generate new password: Згенеруйте новий пароль
+Generate new token: Згенеруйте новий токен
+Generate token: Згенеруйте токен
+Get SUPLA on your devices: Завантажте SUPLA на свої пристрої
+Go to I/O device details: Перейдіть до деталей пристрою
+Go to channel details: Перейдіть до деталей каналу
+Go to your account: Перейдіть до свого облікового запису
+Grant access: Надайте доступ
+Guru Meditation: Guru Meditation 
+HFD4 Relay: Реле HFD4
+Heat meter: Лічильник тепла
+History of measurements: Історія вимірювань
+Home appliances: Побутова техніка / телебачення
+Home+ Heater: Будинок + обігрівач
+Host: Хост
+'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'На жаль, на даний момент рівень використання нашого сервера піднявся до небезпечного рівня. Ми стежимо за ситуацією, повернемося за кілька хвилин.'
+Humidity: Вологість
+Humidity Sensor: Датчик вологості 
+Humidity adjustment: Регулювання вологості
+Humidity sensor: Датчик вологості
+'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Я приймаю [Правила] і даю згоду на обробку моїх персональних даних для цілей і обсягу, зазначених у [Правилах].'
+I agree: Я згоден
+'I aree, taske me to the app': 'Згоден, перейти в додаток'
+I confirm! Delete my account.: 'Будинок + обігрівач'
+'I do not agree, get me out of here': 'Я не згоден, вийти звідси'
+I/O Devices: Пристрої введення-виведення
+I/O devices registration: Реєстрація пристрою
+ID: ID
+INACTIVE: НЕАКТИВНИЙ
+Icon: Значок
+Idle: Бездіяльність
+'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Якщо посилання не працює, скопіюйте його в адресний рядок веб-браузера або введіть вручну.'
+'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Якщо ви розробник, який хоче надати додаткові функції для SUPLI, створіть програму OAuth для авторизації та використання користувачами.'
+'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Якщо ви впевнені, що маєте обліковий запис на cloud.supla.org, переконайтеся, що програма, яку ви намагаєтеся авторизувати, є загальнодоступною.'
+'If you did not request this password reset, please ignore this information.': 'Якщо ви не надсилали запит на скидання пароля, проігноруйте це повідомлення.'
+'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Якщо ви не хочете видаляти свій обліковий запис %cloudHost%, не натискайте посилання.'
+'If you do not want to unregister your instance, please do not click the link.': 'Якщо ви не хочете скасовувати реєстрацію свого екземпляра, не натискайте посилання.'
+'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Якщо вам не вдасться підключитися до цієї точки доступу протягом кількох хвилин, пристрій перезавантажиться та підключиться, використовуючи останні налаштування.'
+'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Якщо у вас є сумніви чи запитання, ви можете зв’язатися з нами за адресою% securityEmail%.'
+'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Якщо ви хочете повторно зареєструвати свій екземпляр SUPLA Cloud, оскільки маркер, згенерований під час попередньої реєстрації, відсутній, ви знаходитесь у правильному місці.'
+'If you have not used this email address with %cloudHost%, please do not click the link.': 'Якщо ви не вказували цю адресу електронної пошти в службі %cloudHost%, не натискайте посилання.'
+'If you really want to delete the account, here are the instructions.': 'Якщо ви все ще хочете видалити свій обліковий запис SUPLA, ось інструкції.'
+'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': 'Якщо ви дійсно хочете скасувати реєстрацію свого приватного екземпляра SUPLA Cloud, нижче ви знайдете всі інструкції.'
+'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Після повторної реєстрації вашого облікового запису, можливо, доведеться переналаштувати деякі пристрої, навіть якщо ви введете ту саму адресу електронної пошти.'
+'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Якщо ви хочете інтегрувати приватну хмару SUPLA із публічною програмою OAuth, вам потрібно [зареєструвати свій екземпляр].'
+'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Якщо ви хочете використовувати пряме посилання в іншому програмному забезпеченні, додайте відповідний заголовок запиту, щоб отримати легшу для обробки відповідь.'
+'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Якщо ви не хочете отримувати такі сповіщення від нас, перегляньте налаштування свого облікового запису [тут].'
+'If you wish to register your instance, [click here].': 'Якщо ви хочете зареєструвати свій екземпляр, [натисніть тут].'
+'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Якщо ви хочете побачити доступні інтеграції, перейдіть на [cloud.supla.org/apps].'
+'If you wish to unregister your instance, [click here].': 'Якщо ви хочете скасувати реєстрацію свого екземпляра, [натисніть тут].'
+Impulse counter: Лічильник імпульсів
+Impulses: Імпульси
+'In order to confirm account deletion, enter your password.': 'Введіть свій пароль, щоб підтвердити, що ви хочете видалити свій обліковий запис.'
+'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Щоб отримати дані для входу в брокер MQTT, зв’яжіться з адміністратором цього екземпляра SUPLA Cloud.'
+Inactive: Неактивний
+Include energy corrections in new measurements history (not recommended): Включати додану вартість в історію (не рекомендовано)
+Incorrect password: Невірний пароль
+Information: Інформація
+Inherit I/O Device location: Використовуйте місцезнаходження пристрою
+Initial value: Початкове значення
+Integration with MQTT Broker has been disabled.: Інтеграцію з брокером MQTT вимкнено.
+Integration with MQTT Broker has been enabled.: Увімкнено інтеграцію з брокером MQTT.
+Integrations: Інтеграції
+Interpolate measurements: Оцініть пропущені значення
+Interrupt: Перервати
+Interrupt and execute: Перервати і виконати
+Interval: Інтервал
+Invalid SUPLA Cloud URL.: Неправильна URL-адреса примірника SUPLA Cloud.
+Invalid action parameters: Неправильні параметри виконання.
+Invalid function for channel.: Недійсна функція для каналу.
 'Invalid redirect URI: {uri}': ~
-Invalid request: ~
-Invalid request.: ~
-Invalid token.: ~
-Inverted logic: ~
-Invisible: ~
-It is possible that another user have entered your email address by mistake while resetting password to their own account.: ~
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: ~
-'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': ~
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': ~
-Language is not available: ~
-Last access: ~
-Last connection: ~
-Last used: ~
-Let me choose later: ~
-Light switch: ~
-Lighting: ~
-Limit has been exceeded: ~
-Linear: ~
-'Liquid, Temp': ~
-Location: ~
-Location Identifier: ~
-Location limit has been exceeded: ~
-Location name: ~
-Locations: ~
-Login: ~
-MQTT Broker: ~
-MQTT Broker Username: ~
-MQTT Broker is disabled.: ~
-MQTT Broker password: ~
-MQTT Broker password has been changed.: ~
-MQTT Broker username and password is not configured in this SUPLA Cloud instance.: ~
-Mail sensor: ~
-Maintenance mode active. You cannot modify any data now.: ~
-Make sure to copy it now because you won’t be able to see it again!: ~
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: ~
-Manage your new client app in the SUPLA-Cloud.: ~
-Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: ~
-Manual: ~
-Manually closed: ~
-Maximum delay is 60 minutes.: ~
-'Maximum filesize limit is {limit}.': ~
-Meter value: ~
-Meters: ~
-Mobile Apps: ~
-Mode: ~
-Modification: ~
-Move down or stop: ~
-Move up or stop: ~
-My OAuth apps: ~
-My SUPLA: ~
-NOTICE!: ~
-Name: ~
+Invalid request: Невірний запит
+Invalid request.: Невірний запит.
+Invalid token.: Неприпустимий токен.
+Inverted logic: Зворотна логіка
+Invisible: Невидимий
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: Можливо, інший користувач помилково ввів вашу адресу електронної пошти, щоб змінити пароль свого облікового запису.
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: У цьому режимі пристрій почне транслювати свою мережу Wi-Fi, що дозволяє конфігурувати пристрій або оновлювати мікропрограму за допомогою смартфона, який підключається до цієї мережі.
+'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Пам’ятайте, що разом із вашим обліковим записом ми видалимо всі ваші дані, включаючи налаштування, налаштовані пристрої, розташування, розклади та всі інші функції, які пропонує SUPLA.'
+'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Пам’ятайте, що опис фрази в додатку не є досконалим і його єдина мета — допомогти вам ввести відповідне значення. Він не використовується для перевірки правильності введеного значення і тим більше для того, щоб похвалитися тим, що «виникла помилка в SUPLI». Після внесення змін перевірте розділ «Майбутні виконання», щоб підтвердити, що надана конфігурація розкладу відповідає вашим очікуванням.'
+Language is not available: Мова недоступна
+Last access: Останній дзвінок
+Last connection: Останній дзвінок
+Last used: Останнє використання
+Let me choose later: Дозвольте мені вибрати пізніше
+Light switch: Вмикач світла
+Lighting: Освітлення
+Limit has been exceeded: Ліміт перевищено
+Linear: Лінійний
+'Liquid, Temp': '«Рідина, Температура»'
+Location: Місцезнаходження
+Location Identifier: Ідентифікатор місцезнаходження
+Location limit has been exceeded: Ліміт місцезнаходження перевищено
+Location name: Назва місця
+Locations: Місцезнаходження
+Login: Логін
+MQTT Broker: Брокер MQTT
+MQTT Broker Username: Ім'я користувача
+MQTT Broker is disabled.: Брокер MQTT вимкнено.
+MQTT Broker password: Пароль брокера MQTT
+MQTT Broker password has been changed.: Пароль брокера MQTT змінено.
+MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Ім’я користувача чи пароль не налаштовано на цьому екземплярі.
+Mail sensor: Датчик пошти
+Maintenance mode active. You cannot modify any data now.: Робота в сервісному режимі. Ви не можете змінити жодні дані.
+Make sure to copy it now because you won’t be able to see it again!: Переконайтеся, що ви зберігаєте їх у безпечному місці.
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Переконайтеся, що ви помістили його в безпечне місце, якщо захочете використовувати його знову в майбутньому. Посилання більше не відображатиметься після виходу з цієї сторінки.
+Manage your new client app in the SUPLA-Cloud.: Керуйте налаштуваннями програми в SUPLA-Cloud.
+Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Керуйте своїм пристроєм у SUPLA-Cloud або за допомогою програми SUPLA на смартфоні.
+Manual: Інструкція
+Manually closed: Закривається вручну
+Maximum delay is 60 minutes.: Максимальна затримка становить 60 хвилин.
+'Maximum filesize limit is {limit}.': 'Максимальний розмір файлу становить {limit}.'
+Meter value: Покази лічильника
+Meters: Лічильники
+Mobile Apps: Мобільні додатки
+Mode: Режим
+Modification: Модифікація
+Move down or stop: Вниз або зупинитись
+Move up or stop: Вгору або зупинись
+My OAuth apps: Мої програми OAuth
+My SUPLA: Моя SUPLA
+NOTICE!: УВАГА!
+Name: Ім’я
 'Name: %clientAppName%': ~
-Need one of these?: ~
-Never: ~
-New IO device added to your account: ~
-New OAuth application: ~
-New channel group: ~
-New client app (smartphone) added to your account: ~
-New direct link: ~
-New password: ~
-New scene: ~
-Newer: ~
-'Next limit renewal: {date}': ~
-Next run date: ~
-'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': ~
-No function: ~
-No future executions - schedule disabled: ~
-No limit: ~
-No liquid sensor: ~
-'No location enabled. Go to [location list] or [add a new location].': ~
-No of channels: ~
-No of client apps: ~
-No of devices: ~
-No of operations: ~
-'No results match {0}': ~
-No schedule configuration.: ~
-No. of Client’s apps: ~
-No. of access identifiers: ~
-No. of channel groups: ~
-No. of channels: ~
-No. of devices: ~
-No. of locations: ~
-None: ~
-None (channel disabled): ~
-Number of attempts to close: ~
-Number of attempts to open: ~
-Number of sections: ~
-OAuth application: ~
-OAuth apps: ~
-OAuth authorization: ~
-OAuth integrations might stop working after the instance is unregistered.: ~
-'Off': ~
-Offline access: ~
-Older: ~
-'On': ~
-On/Off switch: ~
-'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': ~
-Open: ~
-Open / close: ~
-Open partially: ~
-Opening sensor: ~
-Operations: ~
-Original location: ~
-Other: ~
-'Otherwise go to [the homepage].': ~
-Partial opening sensor: ~
-Password: ~
-Password Reset: ~
-Password has been changed: ~
-'Password must be at least {minLength} characters.': ~
-'Password must be no longer than {maxLength} characters.': ~
-Password reset instructions.: ~
-Percentage of closing: ~
-Personal access tokens: ~
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: ~
-Personal token name is required.: ~
-Phase 1: ~
-Phase 2: ~
-Phase 3: ~
-Please choose the schedule subject first.: ~
-Please click the following link to reset your %cloudHost% password.: ~
-Please click the link we have sent you after the registration to proceed.: ~
-Please confirm your SUPLA account.: ~
-Please enter a valid email address: ~
-Please fill a valid email address: ~
-Please log in again to proceed.: ~
-Please provide a valid domain name for your private SUPLA Cloud: ~
-Please wait a moment before the next login attempt.: ~
-Port: ~
-Precision: ~
-Pressure sensor: ~
-Previous login: ~
-Price per: ~
-Private Cloud domain name: ~
-Private instance of the SUPLA cloud with given URL is already registered.: ~
-Proceed: ~
-Processing: ~
-Protocol: ~
-Public ID: ~
-Publish to integrations: ~
-Publishes the event to integrated services like MQTT or webhooks.: ~
-RESET: ~
-RGB led controller: ~
-RGB lighting: ~
-Rain sensor: ~
-Random: ~
-Read: ~
-Reference to the scene will be removed from the items below.: ~
-Refresh: ~
-Regeneration starts at: ~
-Register: ~
-Register a new OAuth application: ~
-Register private SUPLA Cloud: ~
-Registered: ~
+Need one of these?: Вам може знадобитися
+Never: Ніколи
+New IO device added to your account: Додавання нового пристрою
+New OAuth application: Нова програма OAuth
+New channel group: Нова група каналів
+New client app (smartphone) added to your account: Реєстрація нового клієнтського додатку (смартфон)
+New direct link: Нове пряме посилання
+New password: Новий пароль
+New scene: Нова сцена
+Newer: Новіший
+'Next limit renewal: {date}': 'Ліміт буде поновлено {date}'
+Next run date: Найближче виконання
+'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'У вас немає активних ідентифікаторів доступу. Перейдіть до [списку ідентифікаторів доступу] або [додайте новий ідентифікатор доступу].'
+No function: Без функції
+No future executions - schedule disabled: Виконання не заплановано – розклад вимкнено
+No limit: Необмежений
+No liquid sensor: Датчик нестачі рідини
+'No location enabled. Go to [location list] or [add a new location].': 'У вас немає активних місць. Перейдіть до [списку місць] або [додайте нове місце].'
+No of channels: Кількість каналів
+No of client apps: Кількість клієнтських заявок
+No of devices: Кількість пристроїв
+No of operations: Кількість операцій
+'No results match {0}': 'Немає результатів, що відповідають {0}'
+No schedule configuration.: Конфігурація розкладу не вказана.
+No. of Client’s apps: Кількість клієнтських заявок
+No. of access identifiers: Кількість ідентифікаторів доступу 
+No. of channel groups: Кількість груп каналів 
+No. of channels: Кількість каналів 
+No. of devices: Кількість пристроїв 
+No. of locations: Кількість місць
+None: Відсутність
+None (channel disabled): Немає (канал вимкнено)
+Number of attempts to close: Кількість спроб закриття
+Number of attempts to open: Кількість спроб відкриття
+Number of sections: Кількість секцій
+OAuth application: Програма OAuth
+OAuth apps: Програми OAuth
+OAuth authorization: Авторизація OAuth
+OAuth integrations might stop working after the instance is unregistered.: Інтеграція програми OAuth може перестати працювати після скасування реєстрації екземпляра.
+'Off': 'Вимкнено'
+Offline access: Офлайн-доступ
+Older: Старший
+'On': 'Ввімкнути'
+On/Off switch: Вимикач живлення
+'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Дозволяються лише доменні імена з необов’язковим номером порту. Наприклад. mysupla.org або mysupla.org:88. Потрібен протокол HTTPS.'
+Open: Відкрийте
+Open / close: Відкрийте / закрийте
+Open partially: Відкрийте частково
+Opening sensor: Датчик відкриття
+Operations: Операції
+Original location: Оригінальне місцезнаходження
+Other: Інший
+'Otherwise go to [the homepage].': 'В іншому випадку перейдіть на [домашню сторінку].'
+Partial opening sensor: Датчик непрямого відкриття
+Password: Пароль
+Password Reset: Скидання пароля
+Password has been changed: Пароль змінено
+'Password must be at least {minLength} characters.': 'Пароль має містити принаймні {minLength} символів.'
+'Password must be no longer than {maxLength} characters.': 'Пароль не може містити більше {maxLength} символів.'
+Password reset instructions.: Інструкція по відновленню доступу до облікового запису.
+Percentage of closing: Відсоток закриття
+Personal access tokens: Особисті токени доступу
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Особисті токени доступу працюють як звичайні токени доступу з тією різницею, що вони працюють необмежений час.
+Personal token name is required.: Потрібне ім’я особистого токена.
+Phase 1: Фаза 1
+Phase 2: Фаза 2
+Phase 3: Фаза 3
+Please choose the schedule subject first.: Спочатку виберіть, чим має керувати розклад
+Please click the following link to reset your %cloudHost% password.: Натисніть на посилання нижче, щоб скинути пароль %cloudHost%.
+Please click the link we have sent you after the registration to proceed.: Натисніть посилання в повідомленні, яке ми надіслали вам після створення облікового запису.
+Please confirm your SUPLA account.: Активуйте свій обліковий запис SUPLA.
+Please enter a valid email address: Будь ласка, введіть дійсну адресу електронної пошти
+Please fill a valid email address: Будь ласка, введіть дійсну адресу електронної пошти
+Please log in again to proceed.: Будь ласка, увійдіть знову, щоб продовжити.
+Please provide a valid domain name for your private SUPLA Cloud: Вкажіть дійсне доменне ім’я для вашої приватної хмари SUPLA
+Please wait a moment before the next login attempt.: Зачекайте деякий час, перш ніж спробувати увійти знову.
+Port: Порт
+Precision: Точність
+Pressure sensor: Датчик тиску
+Previous login: Попередній вхід
+Price per: Ціна за
+Private Cloud domain name: Ім’я домену приватної хмари
+Private instance of the SUPLA cloud with given URL is already registered.: За цією адресою вже зареєстровано приватну хмару SUPLA.
+Proceed: Продовжити
+Processing: В процесі
+Protocol: Протокол
+Public ID: Публічний ID
+Publish to integrations: Опублікувати для інтеграції
+Publishes the event to integrated services like MQTT or webhooks.: Повідомляє такі інтеграції, як MQTT або веб-хуки, коли виконується ця дія.
+RESET: СКИДАННЯ
+RGB led controller: Контролер освітлення RGB
+RGB lighting: RGB освітлення
+Rain sensor: Датчик дощу
+Random: Випадковий
+Read: Зчитування
+Reference to the scene will be removed from the items below.: Наведення на сцену буде видалено з наступних елементів.
+Refresh: Оновити
+Regeneration starts at: Початок відновлення
+Register: Реєстрація
+Register a new OAuth application: Зареєструйте нову програму OAuth
+Register private SUPLA Cloud: Зареєструйте приватну хмару SUPLA
+Registered: Зареєстровано
 'Registered from IP address: %clientAppRegIp%': ~
 'Registered from IP address: %deviceRegIp%': ~
-Relay: ~
-Relay switching time: ~
-'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': ~
-'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': ~
-'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': ~
-Repeat password: ~
-Reset Your Password: ~
-Reset counter: ~
-Retry on failure: ~
-Reveal: ~
-Reveal partially: ~
-Reverse active energy: ~
-Reverse active energy balanced: ~
-Reverse reactive energy: ~
-Revoke: ~
-Roller shutter opening sensor: ~
-Roller shutter operation: ~
-Roller shutters: ~
-Roof window opening sensor: ~
-Roof window shutter operation: ~
-SUPLA - Account Activation: ~
-SUPLA - Account Removal: ~
-SUPLA - Password reset: ~
-SUPLA - Private instance unregistration: ~
-SUPLA Cloud is under maintenance.: ~
-SUPLA Server was unable to execute the action.: ~
-SUPLA Server was unable to execute the scene.: ~
-SUPLA Server was unable to query for the scene state.: ~
-'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': ~
-SUPLA – %cloudHost% unsuccessful login attempt notification: ~
-SUPLA – new client app has been added to your account: ~
-SUPLA – new device has been added to your account: ~
-SUPLA.ORG Team: ~
-Save: ~
-Save and enable: ~
-Save changes: ~
-Save changes to see Access IDs: ~
-Save or discard configuration changes first.: ~
-Scene: ~
-Scene must consist of at least one operation.: ~
-Scenes: ~
-Scenes limit has been exceeded: ~
-Schedule: ~
-Schedule limit has been exceeded: ~
-Schedule mode: ~
-Schedules: ~
-Scope: ~
-Scopes: ~
-Scopes define which sections of your account can be accessed when using the token.: ~
-Search: ~
-Secret: ~
-See available integrations: ~
-See direct link possibilities: ~
-See in SUPLA-Cloud: ~
-Seems like a secret place: ~
-Select icon: ~
-Select the item (subject) you want to control using this link: ~
-Sensor (normal closed): ~
-Sensor (normal open): ~
-Sensor disconnected: ~
-Sensors: ~
-Server address: ~
-Server unreachable: ~
-Service temporarily unavailable: ~
-Set value added: ~
-Setting the number of attempts to 1 disables the retrying behavior completely.: ~
-Show my limits: ~
-Show on the Client’s devices: ~
-Shut: ~
-Shut partially: ~
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: ~
-Sign In: ~
-Sign Out: ~
-Sign in temporarily unavailable. Please try again later.: ~
-Smartphones: ~
-SoftVer: ~
-Some features depend on this channel group: ~
-Some features depend on this device: ~
-Some features depend on this scene: ~
-Some of the features you have configured rely on channels from this device.: ~
-Sources available from: ~
-Staircase timer: ~
-Standard: ~
-Start Here: ~
-Start date: ~
-Start from the homepage.: ~
-State: ~
-State webhook: ~
-Step by step: ~
-Stop: ~
-Store measurements history: ~
-Subject type: ~
-Success: ~
-Successful: ~
-Supla for devices: ~
-Switch the device to configuration mode: ~
-THIS CANNOT BE UNDONE!: ~
-TLS: ~
-'Target Cloud is not registered, or is registered with another e-mail address.': ~
-Temperature: ~
-Temperature & Humidity Sensor: ~
-Temperature Sensor: ~
-Temperature adjustment: ~
-Temperature and humidity sensor: ~
-Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: ~
-'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': ~
+Relay: Реле
+Relay switching time: Час увімкнення реле
+'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Перш ніж видаляти місцезнаходження, ви повинні спочатку перемістити групи каналів у цьому місці. Ідентифікатори: {relatedIds}.'
+'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Перш ніж видаляти місцезнаходження, ви повинні спочатку перемістити канали, які там знаходяться. Ідентифікатори: {relatedIds}.'
+'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Видаліть спарені пристрої перед видаленням цього розташування. Ідентифікатори: {relatedIds}.'
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Видаліть усі пов’язані сцени перед видаленням цього місця. Ідентифікатори: {relatedIds}.'
+'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'По-перше, видаліть усі пристрої, які використовують це місцезнаходження як вихідне. Ідентифікатори: {relatedIds}.'
+Repeat password: Повторіть пароль
+Reset Your Password: Встановіть новий пароль
+Reset counter: Скинути лічильник
+Retry on failure: Повторювати, коли не закінчено
+Reveal: Розкрити
+Reveal partially: Частково розкрити
+Reverse active energy: Активна енергія повернулася
+Reverse active energy balanced: Повернена активна енергія (Векторний баланс)
+Reverse reactive energy: Реактивна енергія повернута
+Revoke: Скасувати
+Roller shutter opening sensor: Датчик відкриття ролет
+Roller shutter operation: Відкриття та закриття ролет
+Roller shutters: Ролети
+Roof window opening sensor: Датчик відкриття вікна даху
+Roof window shutter operation: Відкриття вікна даху
+SUPLA - Account Activation: SUPLA - активація облікового запису
+SUPLA - Account Removal: SUPLA - Видалення облікового запису
+SUPLA - Password reset: SUPLA - Скинути пароль
+SUPLA - Private instance unregistration: SUPLA - зняття з реєстрації приватного екземпляра
+SUPLA Cloud is under maintenance.: SUPLA Cloud оновлюється.
+SUPLA Server was unable to execute the action.: Помилка під час виконання дії на сервері SUPLA.
+SUPLA Server was unable to execute the scene.: Сервер SUPLA не зміг виконати сцену.
+SUPLA Server was unable to query for the scene state.: Сервер SUPLA не зміг прочитати стан сцени.
+'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA доступна в будь-який час і в будь-якому місці, тож не хвилюйтеся, коли наступного разу забудете вимкнути світло'
+SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Сповіщення про невдалий вхід до% cloudHost%
+SUPLA – new client app has been added to your account: SUPLA - зареєстровано новий клієнтський додаток
+SUPLA – new device has been added to your account: SUPLA - до вашого облікового запису додано новий пристрій
+SUPLA.ORG Team: Команда SUPLA.ORG
+Save: Зберегти
+Save and enable: Зберегти та ввімкнути
+Save changes: Зберегти зміни
+Save changes to see Access IDs: Збережіть зміни, щоб переглянути ідентифікатори доступу
+Save or discard configuration changes first.: Спочатку збережіть або скасуйте зміни конфігурації.
+Scene: Сцена
+Scene must consist of at least one operation.: Сцена повинна містити принаймні одну операцію
+Scenes: Сцени
+Scenes limit has been exceeded: Ви не можете створювати більше сцен
+Schedule: Розклад
+Schedule limit has been exceeded: Ліміт розкладу перевищено
+Schedule mode:  Режим доступу
+Schedules: Розклади
+Scope: Область застосування
+Scopes: Діапазони
+Scopes define which sections of your account can be accessed when using the token.: Області визначають, до яких ресурсів облікового запису можна отримати доступ за допомогою маркера.
+Search: Пошук
+Secret: Секретний ключ (секрет)
+See available integrations: Перегляньте доступні інтеграції
+See direct link possibilities: Перегляньте можливості прямого посилання
+See in SUPLA-Cloud: Переглянути на SUPLA-Cloud
+Seems like a secret place: Щось нам підказує, що Вас тут не повинно бути
+Select icon: Виберіть піктограму
+Select the item (subject) you want to control using this link: Виберіть елемент (тему), яким хочете керувати за цим посиланням
+Sensor (normal closed): Датчик (нормально закритий)
+Sensor (normal open): Датчик (нормально відкритий)
+Sensor disconnected: Немає датчика
+Sensors: Датчики
+Server address: Адреса сервера
+Server unreachable: Сервер недоступний
+Service temporarily unavailable: Сервіс тимчасово недоступний
+Set value added: Визначте додану вартість
+Setting the number of attempts to 1 disables the retrying behavior completely.: Встановлення кількості спроб менше 2 може призвести до помилки закриття або відкриття.
+Show my limits: Покажіть мої ліміти
+Show on the Client’s devices: Показати на клієнтських пристроях
+Shut: Приховати
+Shut partially: Приховати частково
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Закрийте ролети, доки вони не торкнуться нижнього краю, і введіть у це поле відсоток закриття. Ця операція не є обов’язковою, але її виконання покращить візуалізацію положення ролет у мобільному додатку.
+Sign In: Увійти
+Sign Out: Вийти
+Sign in temporarily unavailable. Please try again later.: Вхід тимчасово недоступний. Будь-ласка спробуйте пізніше.
+Smartphones: Смартфони
+SoftVer: WerOpr
+Some features depend on this channel group: Деякі функції залежать від цієї групи каналів.
+Some features depend on this device: Деякі функції залежать від цього пристрою
+Some features depend on this scene: Деякі функції залежать від цієї сцени.
+Some of the features you have configured rely on channels from this device.: Деякі функції використовують канали з цього пристрою.
+Sources available from: Джерела доступні в
+Staircase timer: Сходовий таймер
+Standard: Стандартний
+Start Here: Розпочати тут
+Start date: Дата початку
+Start from the homepage.: Почати з головної сторінки
+State: Статус
+State webhook: Вебхук статусу
+Step by step: Крок за кроком
+Stop: Зупнити
+Store measurements history: Зберігати історію вимірювань
+Subject type: Тип суб’єкта
+Success: Успіх
+Successful: Успішний
+Supla for devices: Supla для пристроїв
+Switch the device to configuration mode: Переведіть пристрій у режим конфігурації
+THIS CANNOT BE UNDONE!: ЦЮ ОПЕРАЦІЮ НЕМОЖЛИВО БУДЕ СКАСУВАТИ!
+TLS: TLS
+'Target Cloud is not registered, or is registered with another e-mail address.': 'Цей екземпляр SUPLA Cloud не зареєстрований або зареєстрований з іншою електронною адресою.'
+Temperature: Температура
+Temperature & Humidity Sensor: Датчик температури та вологості
+Temperature Sensor: Температурний сенсор
+Temperature adjustment: Регулювання температури
+Temperature and humidity sensor: Датчик температури та вологості
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Дякуємо за реєстрацію облікового запису в службі %cloudHost%. Натисніть на посилання нижче, щоб завершити активацію.
+'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Завдяки інтеграції ви можете легко додавати нові функції до свого облікового запису, використовуючи рішення, надані зовнішніми постачальниками, розробниками або вами.'
 'The IP used for login is: %ip%': ~
-The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: ~
-The SUPLA infrastructure is being updated.: ~
-The Terms and Conditions have changed: ~
-The Terms and Conditions have changed – please read them and accept.: ~
-The activation link has been sent again. Check the inbox.: ~
-The client will be automatically logged out when deleted.: ~
-The counter has been reset.: ~
-The device is disabled: ~
-The following items use the channels of these device. These references will be also removed.: ~
-'The following items will be deleted with this device:': ~
-The gate sensor must function properly in order to execute the Open and Close actions.: ~
-The gate sensor must function properly in order to execute the scheduled action.: ~
-The incident was detected at %datetime%.: ~
-'The items below rely on this channel function, so they will be deleted.': ~
-'The items below rely on this channel group, so they will be deleted.': ~
-'The items below rely on this scene, so they will be deleted.': ~
-The latest execution: ~
-'The link result is presented as a website response, because you (or your browser) asked for HTML output.': ~
-The measurement history has been deleted.: ~
-The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: ~
-The next available executions: ~
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: ~
-The password and its confirm are not the same.: ~
-The password should be 8 or more characters.: ~
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': ~
-The scene would execute too many operations.: ~
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: ~
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: ~
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: ~
-'The server has returned an HTTP {statusCode} error.': ~
-'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': ~
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': ~
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': ~
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': ~
-There are no more channels you can add to this group: ~
-Thermometer: ~
-Thermostat: ~
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: ~
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: ~
-This is the list of applications you have granted access to your account.: ~
-This link is only valid for an hour.: ~
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': ~
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: ~
-Timezone: ~
-Toggle: ~
-Token does not exist: ~
-Too many actions in this schedule.: ~
-Too many channels in this group: ~
-Too many operations in this scene: ~
-Triggers: ~
-Turning this device off will cause its channels not working in the following features.: ~
-Turning this device off will result in disabling features listed below.: ~
-Type: ~
-Undo registration: ~
-Unit: ~
-Unknown: ~
-Unregister my private SUPLA Cloud instance: ~
-Unsuccessful login attempt: ~
-Unsupported function: ~
-Unsupported type: ~
-Update in progress: ~
-'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': ~
-'Use the [command] server command to change this account''s limits. For example:': ~
-Use working schedule for this access identifier: ~
-User is already confirmed. Try to log in.: ~
-Value added: ~
-Value per unit: ~
-Valve: ~
-Valve closed manually: ~
-Visible: ~
-Visit app webpage: ~
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Пароль брокера MQTT видно лише зараз. Обов’язково запишіть його у безпечному місці. Відобразити його знову буде неможливо.
+The SUPLA infrastructure is being updated.: Сервери SUPLA оновлюються.
+The Terms and Conditions have changed: Правила змінилися
+The Terms and Conditions have changed – please read them and accept.: Правила сайту змінилися - їх прийняття є обов’язковим.
+The activation link has been sent again. Check the inbox.: Повідомлення з посиланням для активації облікового запису надіслано повторно. Перевірте свою поштову скриньку.
+The client will be automatically logged out when deleted.: Видалення клієнта призведе до негайного виходу з системи.
+The counter has been reset.: Лічильник скинуто.
+The device is disabled: Пристрій вимкнено
+The following items use the channels of these device. These references will be also removed.: Наступні елементи використовують канали з цього пристрою. Вони також будуть видалені.
+'The following items will be deleted with this device:': 'Наведені нижче елементи також буде видалено разом із цим пристроєм.'
+The gate sensor must function properly in order to execute the Open and Close actions.: Датчик відкриття воріт має працювати належним чином, щоб виконати дію Відкрити або Закрити.
+The gate sensor must function properly in order to execute the scheduled action.: Щоб виконати дію, датчик відкриття воріт повинен працювати правильно.
+The incident was detected at %datetime%.: Подія відбулася % datetime%.
+'The items below rely on this channel function, so they will be deleted.': 'Наведені нижче елементи базуються на поточній функції каналу та будуть видалені, коли її буде змінено.'
+'The items below rely on this channel group, so they will be deleted.': 'Наведені нижче елементи використовують цю групу каналів, тому, якщо ви її видалите, вони також будуть видалені.'
+'The items below rely on this scene, so they will be deleted.': 'Наведені нижче елементи засновані на цій сцені, тому їх буде видалено.'
+The latest execution: Остання операція
+'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Результат представлено як веб-сторінку, оскільки ви (або ваш браузер) запитали відповідь HTML.'
+The measurement history has been deleted.: Історія вимірювань видалена.
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Новий пароль замінить той, який ви зараз використовуєте. Деякі інтеграції можуть перестати працювати після його зміни. Продовжувати?
+The next available executions: Майбутні операції
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: За допомогою рамки ми позначили сповіщення, у якому ви натиснули посилання для скасування підписки.
+The password and its confirm are not the same.: Пароль і його підтвердження не збігаються.
+The password should be 8 or more characters.: Пароль має бути не менше 8 символів.
+'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Пристрій було вимкнено захистом від перевищення напруги. Перш ніж увімкнути його, переконайтеся, що проблему, яка призвела до цього, вирішено. Ви впевнені, що бажаєте ввімкнути цей пристрій віддалено?'
+The scene would execute too many operations.: Сцена виконує забагато операцій.
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Сервер видав помилку 400, що означає, що відправлений запит неправильний.
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Сервер видав помилку HTTP 403. Це означає, що ви не маєте достатніх прав для перегляду цього елемента.
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Сервер видав помилку HTTP 404. Це означає, що елемент, який ви шукаєте, не існує.
+'The server has returned an HTTP {statusCode} error.': 'Сервер видав помилку {statusCode}.'
+'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Вибрані вами файли піктограм завеликі. Максимально дозволений розмір завантаження становить {limit}.'
+'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Вентиль не можна відкрити через пряме посилання або через API, якщо він був закритий вручну. Щоб відновити керування, відкрийте вентиль вручну.'
+'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Вентиль закрито вручну або по радіо. Перш ніж відкрити його, переконайтеся, що він не був закритий через затоплення. Щоб вимкнути попередження, відкрийте вентиль вручну. Ви впевнені, що бажаєте відкрити вентиль дистанційно?!'
+'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Вентиль не відкриється, якщо він був закритий вручну або по радіо, що може бути пов’язано із затопленням.'
+There are no more channels you can add to this group: Немає інших каналів для додавання до цієї групи
+Thermometer: Термометр
+Thermostat: Термостат
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Це пряме посилання вимагає подальшого уточнення параметрів виконуваної дії. Перегляньте наведені нижче приклади, щоб дізнатися, які параметри можна встановити.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ви отримуєте це повідомлення через невдалий вхід до SUPLA-CLOUD (% cloudHost%) за допомогою вашої електронної адреси.
+This is the list of applications you have granted access to your account.: Це список програм, яким ви надали доступ до свого облікового запису.
+This link is only valid for an hour.: Посилання буде активним протягом однієї години.
+'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Цей режим розкладу призначений для технічних або дуже терплячих користувачів. Він вимагає, щоб час запуску розкладу було зазначено в нотації crontab, збагаченої декількома функціями, доступними лише в SUPLA. Якщо ви раніше не бачили crontab і все ще хочете використовувати цей режим, сайт crontab.guru може бути вам корисним.'
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ця команда використовується пристроєм локально (наприклад, він вмикає світло, керує ролетами тощо). Якщо ви призначите їй іншу дію, локальну функцію буде вимкнено.
+Timezone: Часовий пояс
+Toggle: Переключити
+Token does not exist: Токен не існує
+Too many actions in this schedule.: Забагато дій в одному розкладі.
+Too many channels in this group: У цій групі забагато каналів
+Too many operations in this scene: Забагато операцій у сцені.
+Triggers: Команди
+Turning this device off will cause its channels not working in the following features.: Вимкнення пристрою призведе до того, що його канали перестануть працювати в наступних елементах.
+Turning this device off will result in disabling features listed below.: Вимкнення пристрою призведе до вимкнення наступних елементів.
+Type: Тип
+Undo registration: Скасувати реєстрацію
+Unit: Одиниця
+Unknown: Невідомий
+Unregister my private SUPLA Cloud instance: Скасувати реєстрацію мого приватного екземпляра SUPLA Cloud
+Unsuccessful login attempt: Помилка логіну
+Unsupported function: Функція не підтримується
+Unsupported type: Тип, що не підтримується
+Update in progress: Оновлення триває
+'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Завантажені файли не порушують моральні принципи, авторські права та права третіх осіб, і я маю право їх використовувати.'
+'Use the [command] server command to change this account''s limits. For example:': 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою [command] на своєму сервері. Наприклад:'
+Use working schedule for this access identifier: Використовуйте графік доступності для цього ідентифікатора доступу
+User is already confirmed. Try to log in.: Цей обліковий запис уже підтверджено. Авторизуйтесь
+Value added: Додана вартість
+Value per unit: Вартість за одиницю
+Valve: Вентиль
+Valve closed manually: Вентиль закритий вручну
+Visible: Видимий
+Visit app webpage: Відкрийте сайт додатку
 WELCOME_MESSAGE: ~
-Wait a while before the next request. You can check your limits in the account settings.: ~
-Water meter: ~
-We can notify you about certain events with your account. Opt out if you don't want us to bother you.: ~
-We could not connect to your SUPLA Cloud instance.: ~
-We have been asked to delete your SUPLA Cloud account (%cloudHost%).: ~
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: ~
-We have just sent you an activation link. You should be receiving it shortly.: ~
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: ~
-We have sent you an email with further instructions.: ~
-We should be ready shortly.: ~
-'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': ~
-We try to be faster: ~
-We were not able to find your account.: ~
-We will miss you: ~
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': ~
-We will use it only in justified situations.: ~
-Weather Station: ~
-Weight sensor: ~
-Welcome!: ~
-What this token is for?: ~
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': ~
-Where is the JSON?: ~
-Where is your SUPLA Cloud?: ~
-White: ~
-Wind sensor: ~
-Window opening sensor: ~
-With SUPLA you can operate the lights in your home or office: ~
-With function: ~
-Working period: ~
-Working schedule: ~
-YOUR LINK CODE: ~
-You are changing the settings too quickly. You have to wait a while before making this change.: ~
-'You can ignore this message, if you have accidentally entered an incorrect password.': ~
-You can use the application but you will not be able to modify any settings.: ~
-You cannot delete your last access identifier.: ~
-You cannot delete your last location.: ~
-You cannot use SUPLA project name in the domain name.: ~
-You have exceeded your API Rate Limit: ~
-You have requested to unregister your SUPLA Cloud instance: ~
-You have to choose at least one scope.: ~
-You just need to execute the following command inside your host terminal.: ~
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': ~
-You must agree to the Terms and Conditions.: ~
-You must enable MQTT Broker first.: ~
-You must set an action for each scene operation.: ~
-You must set sections with transparent or opaque parameters or both.: ~
-You need to provide icons for all states.: ~
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: ~
-You will not be able to generate a direct link with the same URL again.: ~
-Your account and MQTT Broker connection.: ~
-Your account has been deleted. We hope you will come back to us soon.: ~
-Your account has been locked.: ~
-Your account has not been confirmed yet.: ~
-Your account limits: ~
-'Your channel groups are allowed to have a maximum of {max} channels.': ~
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': ~
-Your email: ~
-Your instance is not registered or you are trying to authorize an application that is not public.: ~
-Your password must contain at least one special character.: ~
-Your password must include at least one letter.: ~
-Your password must include at least one number.: ~
-Your password must include both upper and lower case letters.: ~
-Your preferences has been updated.: ~
-Your private SUPLA Cloud instance has been unregistered.: ~
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: ~
-Your private SUPLA Cloud is almost registered.: ~
-Your private SUPLA Cloud is not registered.: ~
-'Your scenes are allowed to have a maximum of {max} operations.': ~
-'Your schedules are allowed to have a maximum of {max} actions.': ~
-Your session has been expired.: ~
-Your session is about to expire: ~
-'Your session will expire in [time].': ~
-'Yours faithfully,': ~
-access to your e-mail address: ~
-actionTrigger_HOLD: ~
-actionTrigger_SHORT_PRESS_X1: ~
-actionTrigger_SHORT_PRESS_X2: ~
-actionTrigger_SHORT_PRESS_X3: ~
-actionTrigger_SHORT_PRESS_X4: ~
-actionTrigger_SHORT_PRESS_X5: ~
-actionTrigger_TOGGLE_X1: ~
-actionTrigger_TOGGLE_X2: ~
-actionTrigger_TOGGLE_X3: ~
-actionTrigger_TOGGLE_X4: ~
-actionTrigger_TOGGLE_X5: ~
-actionTrigger_TURN_OFF: ~
-actionTrigger_TURN_ON: ~
-actionableSubjectType_channel: ~
-actionableSubjectType_channelGroup: ~
-actionableSubjectType_scene: ~
-addToHistoryMeasurementWarningSelected: ~
-addToHistoryMeasurementWarningUnselected: ~
-after: ~
-before: ~
-caption: ~
-channel: ~
-channelGroup: ~
-choose: ~
-choose a currency: ~
-choose the action: ~
-choose the channel: ~
-choose the channel group: ~
-choose the scene: ~
-choose the timezone: ~
-copied: ~
-copy: ~
-days: ~
-directLinkExecutionFailureReason_disabled: ~
-directLinkExecutionFailureReason_executionLimitExceeded: ~
-directLinkExecutionFailureReason_expired: ~
-directLinkExecutionFailureReason_forbiddenAction: ~
-directLinkExecutionFailureReason_httpGetForbidden: ~
-directLinkExecutionFailureReason_invalidActionParameters: ~
-directLinkExecutionFailureReason_invalidChannelState: ~
-directLinkExecutionFailureReason_invalidSlug: ~
-directLinkExecutionFailureReason_noAllowedActions: ~
-directLinkExecutionFailureReason_noSlugOrAction: ~
-directLinkExecutionFailureReason_notActiveYet: ~
-directLinkExecutionFailureReason_otherFailure: ~
-directLinkExecutionFailureReason_sceneDuringExecution: ~
-directLinkExecutionFailureReason_unsupportedAction: ~
-empty: ~
-executed: ~
-extend: ~
-from IP: ~
-from the IP: ~
-hours: ~
-min.: ~
-minutes: ~
-or add a delay: ~
-password: ~
-prefix: ~
-register-slide1-text: ~
-register-slide1-title: ~
-register-slide2-text: ~
-register-slide2-title: ~
-register-slide3-text: ~
-register-slide3-title: ~
-reset chart view: ~
-scene: ~
-scheduleMode_crontab: ~
-scheduleMode_daily: ~
-scheduleMode_minutely: ~
-scheduleMode_once: ~
-sec.: ~
-'smartphones, tablets, etc.': ~
-state-closed: ~
-state-default: ~
-state-empty: ~
-state-full: ~
-state-humidity: ~
-state-off: ~
-state-on: ~
-state-opened: ~
-state-partially_closed: ~
-state-revealed: ~
-state-rgb_off_dim_off: ~
-state-rgb_off_dim_on: ~
-state-rgb_on_dim_off: ~
-state-rgb_on_dim_on: ~
-state-shut: ~
-state-temperature: ~
-suffix: ~
-sunrise-after: ~
-sunrise-before: ~
-sunset-after: ~
-sunset-before: ~
-username: ~
-valid until: ~
-'{applicationName} will not be able to interact with your account until you grant the access again.': ~
-'{clientName} wants to access your account.': ~
-'{minutes} minutes after sunrise': ~
-'{minutes} minutes after sunset': ~
-'{minutes} minutes before sunrise': ~
-'{minutes} minutes before sunset': ~
-'{requests} out of {limit} / day': ~
-'{requests} out of {limit} / h': ~
-'{requests} out of {limit} / min': ~
-'{requests} out of {limit} / {seconds} sec.': ~
+Wait a while before the next request. You can check your limits in the account settings.: Зачекайте трохи, перш ніж робити інший запит. Ви можете перевірити поточне використання своїх лімітів у налаштуваннях облікового запису.
+Water meter: Лічильник води
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Ми надсилатимемо вам сповіщення про певні події, пов’язані з вашим обліковим записом. Ви можете скасувати підписку на ті, які вам не потрібні.
+We could not connect to your SUPLA Cloud instance.: Нам не вдалося підключитися до вашого приватного примірника SUPLA Cloud.
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Ми отримали вказівку видалити ваш обліковий запис SUPLA Cloud (% cloudHost%).
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Надійшов запит на скасування реєстрації вашого приватного екземпляра SUPLA Cloud (% targetCloudUrl%).
+We have just sent you an activation link. You should be receiving it shortly.: Щойно надіслано повідомлення з посиланням для активації вашого облікового запису. Зберігайте терпіння.
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Ми надіслали вам електронний лист із посиланням, що підтверджує видалення вашого облікового запису. Може, ви ще передумаєте!
+We have sent you an email with further instructions.: Ми надіслали вам повідомлення з подальшими інструкціями.
+We should be ready shortly.: Ми повинні невдовзі закінчити.
+'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Ми зберігаємо інформацію про ваші налаштування у вашому браузері, щоб полегшити використання програми (наприклад, за допомогою механізму файлів cookie). [Читати правила].'
+We try to be faster: Ми стаємо щоразу швидші
+We were not able to find your account.: Нам не вдалося знайти Ваш обліковий запис.
+We will miss you: Ми будемо сумувати за Вами
+'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Ми докладемо всіх зусиль, щоб піктограми відображалися найкраще, але ви отримаєте найкращі результати, завантажуючи файли PNG із прозорим фоном і шириною та висотою в пікселях.'
+We will use it only in justified situations.: Ми будемо використовувати його лише в обґрунтованих випадках.
+Weather Station: Метеостанція
+Weight sensor: Вага
+Welcome!: Привіт!
+What this token is for?: Для чого цей токен?
+'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Ви можете виконати дію прямого посилання, вказавши його унікальний ідентифікатор у тілі запиту HTTP PATCH. Це безпечніше, оскільки запобігає збереженню повної адреси вашого посилання в журналах доступу серверів, через які проходить ваш запит. Нижче ви знайдете приклад виконання за допомогою інструменту cURL.'
+Where is the JSON?: Де знаходиться JSON?
+Where is your SUPLA Cloud?: Де знаходиться Ваша Supla?
+White: Білий
+Wind sensor: Датчик вітру
+Window opening sensor: Датчик відкриття вікна
+With SUPLA you can operate the lights in your home or office: За допомогою SUPLA ви можете контролювати освітлення у Вашому домі чи офісі
+With function: З функцією
+Working period: Термін експлуатації
+Working schedule: Графік діяльності
+YOUR LINK CODE: ВАШ КОД ПОСИЛАННЯ
+You are changing the settings too quickly. You have to wait a while before making this change.: Ви занадто швидко змінюєте налаштування. Перш ніж змінити ці параметри, потрібно трохи почекати.
+'You can ignore this message, if you have accidentally entered an incorrect password.': 'Ви можете проігнорувати це повідомлення, якщо Ви ввели неправильний пароль.'
+You can use the application but you will not be able to modify any settings.: Ви можете використовувати програму, але неможливо внести зміни в конфігурацію.
+You cannot delete your last access identifier.: Ви не можете видалити свій останній ідентифікатор доступу.
+You cannot delete your last location.: Ви не можете видалити своє останнє місцезнаходження.
+You cannot use SUPLA project name in the domain name.: Ви не можете використовувати назву проекту SUPLA в основному доменному імені.
+You have exceeded your API Rate Limit: Ви використали ліміт запитів API
+You have requested to unregister your SUPLA Cloud instance: Ви попросили скасувати реєстрацію свого екземпляра SUPLA Cloud
+You have to choose at least one scope.: Необхідно вибрати принаймні один діапазон.
+You just need to execute the following command inside your host terminal.: Просто виконайте наступну команду всередині свого хост-терміналу.
+'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Якщо ви все ще хочете використовувати розширений режим розкладу, перегляньте приклади нижче.'
+You must agree to the Terms and Conditions.: Потрібне прийняття правил.
+You must enable MQTT Broker first.: Спочатку потрібно ввімкнути інтеграцію з брокером MQTT.
+You must set an action for each scene operation.: Виберіть дію для кожної операції в сцені.
+You must set sections with transparent or opaque parameters or both.: Ви повинні вибрати прозорість принаймні для одного розділу.
+You need to provide icons for all states.: Ви повинні надати піктограми для всіх станів.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Вам потрібно оновити свій екземпляр SUPLA Cloud принаймні до версії 2.3.0.
+You will not be able to generate a direct link with the same URL again.: Ви не зможете створити посилання за тією самою URL-адресою.
+Your account and MQTT Broker connection.: Зв’язування облікового запису з брокером MQTT.
+Your account has been deleted. We hope you will come back to us soon.: Обліковий запис видалено. Ми сподіваємося, що ви скоро повернетеся до нас.
+Your account has been locked.: Ваш обліковий запис заблоковано.
+Your account has not been confirmed yet.: Ваш обліковий запис ще не підтверджено.
+Your account limits: Ваші ліміти
+'Your channel groups are allowed to have a maximum of {max} channels.': 'Ваші групи каналів можуть мати максимум {max} каналів.'
+'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'Пристрій дозволяє розширити його функціональність і дозволяє виконувати будь-які дії на будь-якому вашому пристрої. Доступні параметри залежать від мікропрограми та пристрою, що використовується.'
+Your email: Ваша електронна скринька
+Your instance is not registered or you are trying to authorize an application that is not public.: Ваш екземпляр не зареєстровано, або ви намагаєтеся авторизувати програму, яка не є загальнодоступною.
+Your password must contain at least one special character.: Пароль повинен містити хоча б один спеціальний символ.
+Your password must include at least one letter.: Пароль повинен містити хоча б одну букву.
+Your password must include at least one number.: Пароль повинен містити хоча б одне число.
+Your password must include both upper and lower case letters.: Пароль має містити великі та малі літери.
+Your preferences has been updated.: Ваші налаштування збережено.
+Your private SUPLA Cloud instance has been unregistered.: Ваш приватний екземпляр SUPLA Cloud скасовано.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ваш приватний екземпляр хмари SUPLA недоступний. Будь ласка, переконайтеся, що ваш сервер підключено до Інтернету та з’єднання HTTPS працює належним чином.
+Your private SUPLA Cloud is almost registered.: Ваша приватна хмара SUPLA майже зареєстрована.
+Your private SUPLA Cloud is not registered.: Ваша приватна хмара SUPLA не зареєстрована.
+'Your scenes are allowed to have a maximum of {max} operations.': 'Ваші сцени можуть мати максимум {max} операцій.'
+'Your schedules are allowed to have a maximum of {max} actions.': 'Ваші розклади можуть мати максимум {max} дій.'
+Your session has been expired.: Ваш сеанс закінчився.
+Your session is about to expire: Ваш сеанс скоро закінчиться
+'Your session will expire in [time].': 'Ваш сеанс закінчиться через [time].'
+'Yours faithfully,': 'З повагою'
+access to your e-mail address: доступ до Вашої адреси електронної пошти
+actionTrigger_HOLD: Утримання кнопки
+actionTrigger_SHORT_PRESS_X1: Натиснення 1x
+actionTrigger_SHORT_PRESS_X2: Натиснення 2x
+actionTrigger_SHORT_PRESS_X3: Натиснення 3x
+actionTrigger_SHORT_PRESS_X4: Натиснення 4x
+actionTrigger_SHORT_PRESS_X5: Натиснення 5x
+actionTrigger_TOGGLE_X1: Переключення 1x
+actionTrigger_TOGGLE_X2: Переключення 2x
+actionTrigger_TOGGLE_X3: Переключення 3x
+actionTrigger_TOGGLE_X4: Переключення 4x
+actionTrigger_TOGGLE_X5: Переключення 5x
+actionTrigger_TURN_OFF: Вимкнення
+actionTrigger_TURN_ON: Увімкнення
+actionableSubjectType_channel: Канал
+actionableSubjectType_channelGroup: Група каналів
+actionableSubjectType_scene: Сцена
+addToHistoryMeasurementWarningSelected: Якщо вибрати цю опцію, задані значення будуть додані до майбутніх вимірювань, збережених в історії. Це можна побачити на графіках як раптове збільшення введеного значення. Ми рекомендуємо встановлювати ці параметри лише під час першого встановлення лічильника. Для існуючих лічильників ми рекомендуємо видалити історію вимірювань, як тільки ви зміните ці налаштування.
+addToHistoryMeasurementWarningUnselected: Якщо зняти прапорець із цієї опції, задані значення будуть видалені з майбутніх вимірювань, збережених в історії. Це можна побачити на графіках як раптове падіння. Ми рекомендуємо встановлювати ці параметри лише під час першого встановлення лічильника. Для існуючих лічильників ми рекомендуємо видалити історію вимірювань, як тільки ви зміните ці налаштування.
+after: після
+before: перед
+caption: назва
+channel: Канал
+channelGroup: Група каналів
+choose: вибрати
+choose a currency: оберіть валюту
+choose the action: оберіть дію
+choose the channel: оберіть канал
+choose the channel group: оберіть групу каналів
+choose the scene: оберіть сцену
+choose the timezone: оберіть часовий пояс
+copied: скопійовано
+copy: копіювати
+days: дні
+directLinkExecutionFailureReason_disabled: Пряме посилання вимкнено
+directLinkExecutionFailureReason_executionLimitExceeded: Ліміт виконань перевищено
+directLinkExecutionFailureReason_expired: Термін дії прямого посилання закінчився
+directLinkExecutionFailureReason_forbiddenAction: Посилання не дозволяє виконати цю дію
+directLinkExecutionFailureReason_httpGetForbidden: Цю дію було виконано за допомогою незаконного методу HTTP GET
+directLinkExecutionFailureReason_invalidActionParameters: Неправильні параметри прямого посилання
+directLinkExecutionFailureReason_invalidChannelState: Дія не може бути виконана через стан каналу.
+directLinkExecutionFailureReason_invalidSlug: Надісланий код перевірки неправильний.
+directLinkExecutionFailureReason_noAllowedActions: Не вибрано жодної дозволеної дії
+directLinkExecutionFailureReason_noSlugOrAction: Недійсний запит - потрібні код посилання та дія
+directLinkExecutionFailureReason_notActiveYet: Пряме посилання ще не активне
+directLinkExecutionFailureReason_otherFailure: Помилка під час виконання дії
+directLinkExecutionFailureReason_sceneDuringExecution: Сцена триває.
+directLinkExecutionFailureReason_unsupportedAction: Вибрана дія недійсна
+empty: порожньо
+executed: виконано
+extend: продовжити
+from IP: з IP-адреси
+from the IP: з адреси
+hours: години
+min.: хв.
+minutes: хвилин
+or add a delay: або додайте затримку
+password: пароль
+prefix: префікс
+register-slide1-text: На основі доступної електроніки SUPLA дозволить вам створювати прості модулі, які дозволять  контролювати компоненти автоматизації будівель. Завдяки SUPLA ви можете, серед іншого, керувати освітленням, вмикати та вимикати побутову техніку та аудіо/відео пристрої, відкривати та закривати ворота та двері, контролювати температуру в кімнатах. Ви можете зробити все одним рухом пальця.
+register-slide1-title: Власний розумний будинок
+register-slide2-text: Однією з основних ідей проєкту є простота та доступність. SUPLA дозволяє вам увімкнути світло одним пальцем або відкрити ворота, коли ви хочете увійти до помешкання. SUPLA доступна скрізь, де є доступ до Інтернету та під рукою смартфон або планшет. SUPLA розроблено на основі відкритого програмного забезпечення та відкритого апаратного забезпечення, завдяки чому ви також можете розвивати цей проєкт!
+register-slide2-title: SUPLA всюди!
+register-slide3-text: Комерційно доступні системи автоматизації будівель зазвичай дуже складні, закриті та дорогі. У багатьох випадках вони вимагають установки вже на етапі будівництва об'єкта. SUPLA проста, відкрита і безкоштовна. Вона дозволяє створювати виконувальні елементи на основі платформ RaspberryPI, Arduino або ESP8266 і підключати їх за допомогою LAN і WiFi. Приєднуйтесь до проєкту та створюйте власну версію системи автоматизації будівлі!
+register-slide3-title: Безкоштовна і відкрита!
+reset chart view: повернутися до початкового вигляду
+scene: сцена
+scheduleMode_crontab: Просунутий
+scheduleMode_daily: Тиждень
+scheduleMode_minutely: Інтервал
+scheduleMode_once: Один раз
+sec.: сек.
+'smartphones, tablets, etc.': 'смартфони, планшети тощо'
+state-closed: Зачинено
+state-default: За замовчуванням
+state-empty: Порожній
+state-full: Повний
+state-humidity: Вологість
+state-off: Вимкнено
+state-on: Увімкнено
+state-opened: Відчинено
+state-partially_closed: Частково зачинено
+state-revealed: Привідкрите
+state-rgb_off_dim_off: RGB і диммер вимкнено
+state-rgb_off_dim_on: RGB вимкнено, диммер увімкнено
+state-rgb_on_dim_off: RGB увімкнено, затемнення вимкнено
+state-rgb_on_dim_on: RGB і диммер включені
+state-shut: Зашторено
+state-temperature: Температура
+suffix: суфікс
+sunrise-after: схід
+sunrise-before: східний
+sunset-after: захід
+sunset-before: західний
+username: ім'я користувача
+valid until: закінчиться
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} не зможе взаємодіяти з вашим обліковим записом, доки ви знову не надасте доступ.'
+'{clientName} wants to access your account.': '{clientName} хоче отримати доступ до вашого облікового запису.'
+'{minutes} minutes after sunrise': '{minutes} хвилин після сходу сонця'
+'{minutes} minutes after sunset': '{minutes} хвилин після заходу сонця'
+'{minutes} minutes before sunrise': '{minutes} хвилин до сходу сонця'
+'{minutes} minutes before sunset': '{minutes} хвилин до заходу сонця'
+'{requests} out of {limit} / day': '{requests} from {limit} / день'
+'{requests} out of {limit} / h': '{requests} z {limit} / г'
+'{requests} out of {limit} / min': '{requests} z {limit} / хв'
+'{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} сек.'
 
 #</editor-fold>
