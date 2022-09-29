@@ -24,8 +24,8 @@
     import $ from "jquery";
     import Vue from "vue";
     import moment from "moment";
-    import 'eonasdan-bootstrap-datetimepicker';
-    import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
+    // import 'eonasdan-bootstrap-datetimepicker';
+    // import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
     export default {
         props: ['channel'],
