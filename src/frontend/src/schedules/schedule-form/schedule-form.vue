@@ -109,8 +109,6 @@
     import ScheduleFormModeDaily from "./modes/schedule-form-mode-daily.vue";
     import ScheduleFormModeCrontab from "./modes/schedule-form-mode-crontab.vue";
     import NextRunDatesPreview from "./next-run-dates-preview.vue";
-    import 'eonasdan-bootstrap-datetimepicker';
-    import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
     import Toggler from "../../common/gui/toggler";
     import PageContainer from "../../common/pages/page-container";
     import PendingChangesPage from "../../common/pages/pending-changes-page";

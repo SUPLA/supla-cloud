@@ -30,62 +30,92 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import moment from "moment";
-    import 'eonasdan-bootstrap-datetimepicker';
-    import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
-    import $ from "jquery";
+    import {Namespace, TempusDominus} from "@eonasdan/tempus-dominus";
+    import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 
     export default {
         props: ['value'],
         data() {
             return {
+                pickerStart: undefined,
+                pickerEnd: undefined,
                 dateStart: moment(),
                 dateEnd: undefined,
                 ready: false,
             };
         },
         mounted() {
-            let startDatePicker = $(this.$refs.startDatePicker);
-            let endDatePicker = $(this.$refs.endDatePicker);
-            startDatePicker.datetimepicker({
-                minDate: 'now',
+            this.pickerStart = new TempusDominus(this.$refs.startDatePicker, {
+                restrictions: {
+                    minDate: moment().subtract(1, 'minute').toDate(),
+                },
+                localization: {
+                    locale: this.$i18n.locale,
+                },
+                stepping: 1,
                 useCurrent: false,
-                locale: Vue.config.lang,
-                stepping: 1
-            });
-            endDatePicker.datetimepicker({
-                minDate: moment().add(5, 'minute'),
-                useCurrent: false,
-                locale: Vue.config.lang,
-                stepping: 1
+                display: {
+                    icons: {
+                        type: 'icons',
+                        time: 'pe-7s-clock',
+                        date: 'glyphicon glyphicon-calendar',
+                        up: 'glyphicon glyphicon-chevron-up',
+                        down: 'glyphicon glyphicon-chevron-down',
+                        previous: 'glyphicon glyphicon-chevron-left',
+                        next: 'glyphicon glyphicon-chevron-right',
+                        today: 'fa-solid fa-calendar-check',
+                        clear: 'glyphicon glyphicon-trash',
+                        close: 'glyphicon glyphicon-remove'
+                    },
+                }
             });
 
-            startDatePicker.on("dp.change", (e) => {
-                endDatePicker.data("DateTimePicker").minDate(e.date);
-                if (e.date) {
-                    this.dateStart = moment(e.date).startOf('minute');
+            this.pickerEnd = new TempusDominus(this.$refs.endDatePicker, {
+                restrictions: {
+                    minDate: moment().add(5, 'minute').toDate(),
+                },
+                localization: {
+                    locale: this.$i18n.locale,
+                },
+                stepping: 1,
+                useCurrent: false,
+            });
+
+            this.pickerStart.subscribe(Namespace.events.change, () => {
+                const date = this.pickerStart.viewDate;
+                this.pickerEnd.updateOptions({restrictions: {minDate: date}});
+                if (date) {
+                    this.dateStart = moment(date).startOf('minute');
                 } else {
                     this.dateStart = undefined;
                 }
                 this.onChange();
             });
-            endDatePicker.on("dp.change", (e) => {
-                startDatePicker.data("DateTimePicker").maxDate(e.date);
-                if (e.date) {
-                    this.dateEnd = moment(e.date).startOf('minute');
+
+            this.pickerEnd.subscribe(Namespace.events.change, () => {
+                const date = this.pickerEnd.viewDate;
+                this.pickerStart.updateOptions({restrictions: {maxDate: date}});
+                if (date) {
+                    this.dateEnd = moment(date).startOf('minute');
                 } else {
                     this.dateEnd = undefined;
                 }
                 this.onChange();
             });
+
             if (this.value && this.value.dateStart) {
-                startDatePicker.data('DateTimePicker').date(moment(this.value.dateStart).toDate());
+                this.pickerStart.dates.setFromInput(moment(this.value.dateStart).toDate());
             }
             if (this.value && this.value.dateEnd) {
-                endDatePicker.data('DateTimePicker').date(moment(this.value.dateEnd).toDate());
+                this.pickerEnd.dates.setFromInput(moment(this.value.dateEnd).toDate());
             }
+
             this.ready = true;
+        },
+        beforeDestroy() {
+            this.pickerStart?.dispose();
+            this.pickerEnd?.dispose();
         },
         methods: {
             onChange() {

@@ -9,33 +9,47 @@
 </template>
 
 <script>
-    import Vue from "vue";
-    import $ from "jquery";
     import moment from "moment";
+    import {Namespace, TempusDominus} from "@eonasdan/tempus-dominus";
+    import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 
     export default {
         props: ['value'],
+        data() {
+            return {
+                picker: undefined,
+            }
+        },
         mounted() {
-            let datepicker = $(this.$refs.datepicker);
-            datepicker.datetimepicker({
-                minDate: moment().add(1, 'minute').toDate(),
-                locale: Vue.config.lang,
+            this.picker = new TempusDominus(this.$refs.datepicker, {
+                restrictions: {
+                    minDate: moment().add(1, 'minute').toDate(),
+                },
+                localization: {
+                    locale: this.$i18n.locale,
+                },
                 stepping: 1,
-                inline: true,
-                sideBySide: true
-            }).on("dp.change", () => this.updateTimeExpression());
+                display: {
+                    inline: true,
+                    sideBySide: true,
+                }
+            });
             if (this.value) {
                 const currentDateFromExpression = moment(this.value, 'm H D M * Y');
                 if (currentDateFromExpression.isAfter(moment())) {
-                    datepicker.data('DateTimePicker').date(currentDateFromExpression);
+                    this.picker.dates.setFromInput(currentDateFromExpression.toDate());
                 }
             }
             this.updateTimeExpression();
+            this.picker.subscribe(Namespace.events.change, () => this.updateTimeExpression());
+        },
+        beforeDestroy() {
+            this.picker?.dispose();
         },
         methods: {
             updateTimeExpression() {
-                let date = $(this.$refs.datepicker).data('DateTimePicker').date();
-                let cronExpression = moment(date).format('m H D M * Y');
+                const date = this.picker.viewDate;
+                const cronExpression = moment(date).format('m H D M * Y');
                 this.$emit('input', cronExpression);
             }
         }
