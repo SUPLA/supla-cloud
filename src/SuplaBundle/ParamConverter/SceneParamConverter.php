@@ -81,8 +81,9 @@ class SceneParamConverter extends AbstractBodyParamConverter {
             $actionParam = $operationData['actionParam'] ?? [] ?: [];
             $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
             Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getPossibleActions()));
-            $delayMs = $operationData['delayMs'] ?? 0;
-            return new SceneOperation($subject, $action, $actionParam, $delayMs);
+            $delayMs = intval($operationData['delayMs'] ?? 0);
+            $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
+            return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);
         }, $operations);
         $scene->setOpeartions($operations);
         $scene->setAltIcon($data['altIcon'] ?? 0);

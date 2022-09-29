@@ -22,6 +22,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Model\ApiVersions;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 abstract class AbstractSerializer extends ObjectNormalizer {
@@ -38,7 +39,7 @@ abstract class AbstractSerializer extends ObjectNormalizer {
     }
 
     /** @required */
-    public function setNameConverter(NoopNameConverter $nameConverter) {
+    public function setNameConverter(NameConverterInterface $nameConverter) {
         $this->nameConverter = $nameConverter;
     }
 

@@ -27,6 +27,7 @@ services:
   Doctrine\ORM\EntityManager: '@doctrine.orm.default_entity_manager'
   Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
   Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface: '@serializer.mapping.class_metadata_factory'
+  Symfony\Component\Serializer\NameConverter\NameConverterInterface: '@serializer.name_converter.metadata_aware'
 
   SuplaBundle\Command\:
     resource: '../../../src/SuplaBundle/Command'
@@ -146,23 +147,23 @@ services:
   SuplaBundle\Auth\UserProvider: ~
   SuplaBundle\Auth\UserLoginAttemptListener:
     tags:
-      - { name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure }
-      - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveAuthenticationSuccess }
-      - { name: monolog.logger, channel: supla_debug }
+      - {name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure}
+      - {name: kernel.event_listener, event: security.interactive_login, method: onInteractiveAuthenticationSuccess}
+      - {name: monolog.logger, channel: supla_debug}
 
   SuplaBundle\Auth\SuplaOAuthStorage:
     $userProvider: '@SuplaBundle\Auth\UserProvider'
 
   SuplaBundle\Auth\OAuthEventListener:
     tags:
-      - { name: kernel.event_listener, event: fos_oauth_server.pre_authorization_process, method: onPreAuthorizationProcess }
-      - { name: kernel.event_listener, event: fos_oauth_server.post_authorization_process, method: onPostAuthorizationProcess }
+      - {name: kernel.event_listener, event: fos_oauth_server.pre_authorization_process, method: onPreAuthorizationProcess}
+      - {name: kernel.event_listener, event: fos_oauth_server.post_authorization_process, method: onPostAuthorizationProcess}
 
   SuplaBundle\EventListener\ApiExceptionHandler:
     arguments:
       - "%kernel.debug%"
     tags:
-      - { name: kernel.event_subscriber }
+      - {name: kernel.event_subscriber}
 
   SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitListener:
     arguments:
@@ -170,8 +171,8 @@ services:
       $blocking: '%supla.api_rate_limit.blocking%'
       $logger: '@monolog.logger.supla_api_rate_limit'
     tags:
-      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+      - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
+      - {name: kernel.event_listener, event: kernel.response, method: onKernelResponse}
   SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage:
     $cache: '@api_rate_limit'
   SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit:
@@ -183,7 +184,7 @@ services:
     arguments:
       $maintenanceMode: "%supla.maintenance_mode%"
     tags:
-      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController}
+      - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
 
   SuplaBundle\ParamConverter\:
     resource: '../../../src/SuplaBundle/ParamConverter'

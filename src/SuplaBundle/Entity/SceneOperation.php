@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity
@@ -77,16 +78,36 @@ class SceneOperation implements HasSubject {
 
     /**
      * @ORM\Column(name="delay_ms", type="integer", nullable=false, options={"default" : 0})
-     * @Groups({"basic"})
      */
     private $delayMs = 0;
 
-    public function __construct(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParam = [], $delayMs = 0) {
+    /**
+     * @ORM\Column(name="user_delay_ms", type="integer", nullable=false, options={"default" : 0})
+     * @Groups({"basic"})
+     * @SerializedName("delayMs")
+     */
+    private $userDelayMs = 0;
+
+    /**
+     * @ORM\Column(name="wait_for_completion", type="boolean", nullable=false, options={"default" : 0})
+     * @Groups({"basic"})
+     */
+    private $waitForCompletion = false;
+
+    public function __construct(
+        ActionableSubject $subject,
+        ChannelFunctionAction $action,
+        array $actionParam = [],
+        $userDelayMs = 0,
+        $waitForCompletion = false
+    ) {
         $this->initializeSubject($subject);
         $this->action = $action->getId();
         $this->setActionParam($actionParam);
-        Assertion::between($delayMs, 0, 3600000, 'Maximum delay is 60 minutes.'); // i18n
-        $this->delayMs = $delayMs;
+        Assertion::between($userDelayMs, 0, 3600000, 'Maximum delay is 60 minutes.'); // i18n
+        $this->userDelayMs = $userDelayMs;
+        $this->delayMs = $userDelayMs;
+        $this->waitForCompletion = $waitForCompletion;
     }
 
     public function getId(): int {
@@ -124,7 +145,11 @@ class SceneOperation implements HasSubject {
         $this->actionParam = $params;
     }
 
-    public function getDelayMs(): int {
-        return $this->delayMs ?? 0;
+    public function getUserDelayMs(): int {
+        return $this->userDelayMs ?? 0;
+    }
+
+    public function isWaitForCompletion(): bool {
+        return $this->waitForCompletion;
     }
 }
