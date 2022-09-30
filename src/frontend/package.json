@@ -46,7 +46,6 @@
     "vue-router": "^3.2.0",
     "vue-slider-component": "^3.2.13",
     "vue-switches": "^2.0.1",
-    "vue2-timepicker": "^1.1.6",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
