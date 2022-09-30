@@ -32,6 +32,14 @@
                                 @input="updateModel()"
                                 :possible-action-filter="possibleActionFilter(operation.subject)">
                             </channel-action-chooser>
+                            <div v-if="waitForCompletionAvailable(operation)">
+                                <label class="checkbox2 text-left">
+                                    <input type="checkbox"
+                                        @input="updateModel()"
+                                        v-model="operation.waitForCompletion">
+                                    {{ $t('Wait for this scene to finish before proceeding to the next step.') }}
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -83,6 +91,8 @@
     import draggable from 'vuedraggable';
     import SceneOperationDelaySlider from "./scene-operation-delay-slider";
     import Vue from 'vue';
+    import ChannelFunctionAction from "../common/enums/channel-function-action";
+    import ActionableSubjectType from "../common/enums/actionable-subject-type";
 
     let UNIQUE_OPERATION_ID = 0;
 
@@ -156,6 +166,11 @@
             },
             addDelay() {
                 this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: 5000});
+            },
+            waitForCompletionAvailable(operation) {
+                return operation.subjectType === ActionableSubjectType.SCENE &&
+                    operation.action &&
+                    [ChannelFunctionAction.EXECUTE, ChannelFunctionAction.INTERRUPT_AND_EXECUTE].includes(operation.action.id);
             }
         },
         watch: {
