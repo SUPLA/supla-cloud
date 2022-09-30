@@ -17,6 +17,7 @@
 namespace SuplaBundle\Utils;
 
 use Assert\Assertion;
+use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Enums\ActionableSubjectType;
 
@@ -43,17 +44,27 @@ final class SceneUtils {
         }
     }
 
-    private static function buildSceneExecutionsRelations(Scene $scene): array {
-        $relations = [];
-        foreach ($scene->getOperations() as $operation) {
-            if ($operation->getSubjectType()->getValue() === ActionableSubjectType::SCENE) {
-                $newPair = $scene->getId() . ':' . $operation->getSubject()->getId();
-                if (!in_array($newPair, $relations)) {
-                    $relations[] = $newPair;
-                    $relations = array_merge($relations, self::buildSceneExecutionsRelations($scene));
+    public static function updateDelaysAndEstimatedExecutionTimes(Scene $scene, EntityManagerInterface $entityManager) {
+        $scenesToCalculate = [$scene];
+        while ($currentScene = array_shift($scenesToCalculate)) {
+            $totalExecutionTime = 0;
+            $delayFromWaiting = 0;
+            foreach ($scene->getOperations() as $operation) {
+                $delayFromUser = $operation->getUserDelayMs();
+                $totalDelay = $delayFromUser + $delayFromWaiting;
+                $operation->setDelayMs($totalDelay);
+                $totalExecutionTime += $totalDelay;
+                if ($operation->isWaitForCompletion()) {
+                    // TODO set waiting delay
                 }
+                $entityManager->persist($operation);
+            }
+            $totalExecutionTime += $delayFromWaiting;
+            if ($currentScene->getEstimatedExecutionTime() !== $totalExecutionTime) {
+                // update scene and recalculate all dependent scenes
+                $currentScene->setEstimatedExecutionTime($totalExecutionTime);
+                $entityManager->persist($scene);
             }
         }
-        return $relations;
     }
 }

@@ -267,6 +267,7 @@ class ScenesController extends RestController {
         SceneUtils::ensureOperationsAreNotCyclic($scene);
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $em->persist($scene);
+            SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
             return $scene;
         });
         $this->suplaServer->userAction('ON-SCENE-ADDED', $scene->getId());
@@ -320,6 +321,7 @@ class ScenesController extends RestController {
             $scene->setOpeartions($updated->getOperations());
             SceneUtils::ensureOperationsAreNotCyclic($scene);
             $em->persist($scene);
+            SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
             return $this->getSceneAction($request, $scene);
         });
         $this->suplaServer->userAction('ON-SCENE-CHANGED', $scene->getId());

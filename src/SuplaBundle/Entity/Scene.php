@@ -176,6 +176,10 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
         return $this->estimatedExecutionTime;
     }
 
+    public function setEstimatedExecutionTime(int $estimatedExecutionTime): void {
+        $this->estimatedExecutionTime = $estimatedExecutionTime;
+    }
+
     /** @return SceneOperation[]|ArrayCollection */
     public function getOperations() {
         return $this->operations;

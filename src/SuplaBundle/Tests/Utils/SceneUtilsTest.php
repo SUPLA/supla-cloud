@@ -16,6 +16,7 @@
 
 namespace SuplaBundle\Tests\Utils;
 
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Scene;
 use SuplaBundle\Entity\SceneOperation;
@@ -90,5 +91,18 @@ class SceneUtilsTest extends TestCase {
         }
         $scene->method('getOperations')->willReturn([]);
         SceneUtils::ensureOperationsAreNotCyclic($firstScene);
+    }
+
+    public function testCalculatingSceneEstimatedExecutionTime() {
+        $scene = $this->createEntityMock(Scene::class);
+        $operation1 = $this->createEntityMock(SceneOperation::class);
+        $operation1->method('getUserDelayMs')->willReturn(10);
+        $operation1->expects($this->once())->method('setDelayMs')->with(10);
+        $operation2 = $this->createEntityMock(SceneOperation::class);
+        $operation2->method('getUserDelayMs')->willReturn(20);
+        $operation2->expects($this->once())->method('setDelayMs')->with(20);
+        $scene->method('getOperations')->willReturn([$operation1, $operation2]);
+        $scene->expects($this->once())->method('setEstimatedExecutionTime')->with(30);
+        SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $this->createMock(EntityManagerInterface::class));
     }
 }

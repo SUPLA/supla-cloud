@@ -149,6 +149,10 @@ class SceneOperation implements HasSubject {
         return $this->userDelayMs ?? 0;
     }
 
+    public function setDelayMs(int $delayMs): void {
+        $this->delayMs = $delayMs;
+    }
+
     public function isWaitForCompletion(): bool {
         return $this->waitForCompletion;
     }
