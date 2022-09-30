@@ -21,14 +21,17 @@
 </template>
 
 <script>
-    import $ from "jquery";
-    import Vue from "vue";
     import moment from "moment";
-    // import 'eonasdan-bootstrap-datetimepicker';
-    // import 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css';
+    import {Namespace, TempusDominus} from "@eonasdan/tempus-dominus";
+    import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 
     export default {
         props: ['channel'],
+        data() {
+            return {
+                picker: undefined,
+            };
+        },
         computed: {
             regenerationTime: {
                 set(value) {
@@ -47,24 +50,44 @@
             },
         },
         mounted() {
-            $(this.$refs.clockpicker).datetimepicker({
-                format: 'LT',
-                inline: true,
-                locale: Vue.config.lang,
+            this.picker = new TempusDominus(this.$refs.clockpicker, {
+                localization: {
+                    locale: this.$i18n.locale,
+                    format: 'LT',
+                },
                 stepping: 5,
-            }).on("dp.change", () => this.updateTime());
+                useCurrent: false,
+                defaultDate: moment().startOf('day').toDate(),
+                display: {
+                    components: {calendar: false},
+                    inline: true,
+                    viewMode: 'clock',
+                    icons: {
+                        type: 'icons',
+                        time: 'pe-7s-clock',
+                        date: 'glyphicon glyphicon-calendar',
+                        up: 'glyphicon glyphicon-chevron-up',
+                        down: 'glyphicon glyphicon-chevron-down',
+                        previous: 'glyphicon glyphicon-chevron-left',
+                        next: 'glyphicon glyphicon-chevron-right',
+                        today: 'fa-solid fa-calendar-check',
+                        clear: 'glyphicon glyphicon-trash',
+                        close: 'glyphicon glyphicon-remove'
+                    },
+                }
+            });
+
+            this.picker.subscribe(Namespace.events.change, () => {
+                const date = this.picker.viewDate;
+                this.regenerationTime = moment(date).format('H:m');
+            });
+
             if (this.regenerationTime) {
                 const parts = this.regenerationTime.split(':');
                 const currentDateFromExpression = moment().add(1, 'day').hour(parts[0]).minute(parts[1]);
-                $(this.$refs.clockpicker).data('DateTimePicker').date(currentDateFromExpression);
+                this.picker.dates.setFromInput(currentDateFromExpression.toDate());
             }
         },
-        methods: {
-            updateTime() {
-                const date = $(this.$refs.clockpicker).data('DateTimePicker').date();
-                this.regenerationTime = moment(date).format('H:m');
-            },
-        }
     };
 </script>
 
