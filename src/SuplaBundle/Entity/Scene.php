@@ -74,6 +74,12 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
     private $enabled = true;
 
     /**
+     * @ORM\Column(name="estimated_execution_time", type="integer", nullable=false, options={"default": 0})
+     * @Groups({"basic"})
+     */
+    private $estimatedExecutionTime;
+
+    /**
      * @ORM\Column(name="alt_icon", type="tinyint", nullable=false, options={"unsigned"=true, "default": 0})
      * @Groups({"basic"})
      */
@@ -164,6 +170,10 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
 
     public function setEnabled(bool $enabled) {
         $this->enabled = $enabled;
+    }
+
+    public function getEstimatedExecutionTime(): int {
+        return $this->estimatedExecutionTime;
     }
 
     /** @return SceneOperation[]|ArrayCollection */

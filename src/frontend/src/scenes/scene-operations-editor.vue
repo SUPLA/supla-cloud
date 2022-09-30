@@ -18,7 +18,9 @@
                     </div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title">{{ channelTitle(operation.subject) }}</h4>
+                            <h4 class="timeline-title">
+                                {{ channelTitle(operation.subject) }}
+                            </h4>
                             <div class="timeline-panel-controls">
                                 <div class="controls">
                                     <a @click="deleteOperation(operation)"><i class="glyphicon glyphicon-trash"></i></a>
@@ -37,7 +39,7 @@
                                     <input type="checkbox"
                                         @input="updateModel()"
                                         v-model="operation.waitForCompletion">
-                                    {{ $t('Wait for this scene to finish before proceeding to the next step.') }}
+                                    {{ $t('Wait for this scene to finish before proceeding to the next step ({seconds} seconds).', {seconds: operation.subject.estimatedExecutionTime / 1000}) }}
                                 </label>
                             </div>
                         </div>
@@ -170,8 +172,9 @@
             waitForCompletionAvailable(operation) {
                 return operation.subjectType === ActionableSubjectType.SCENE &&
                     operation.action &&
-                    [ChannelFunctionAction.EXECUTE, ChannelFunctionAction.INTERRUPT_AND_EXECUTE].includes(operation.action.id);
-            }
+                    [ChannelFunctionAction.EXECUTE, ChannelFunctionAction.INTERRUPT_AND_EXECUTE].includes(operation.action.id) &&
+                    operation.subject.estimatedExecutionTime > 999;
+            },
         },
         watch: {
             value() {
