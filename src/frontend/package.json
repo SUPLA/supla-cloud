@@ -15,7 +15,6 @@
     "release-dev": "cross-env NODE_ENV=development node scripts/release.js"
   },
   "dependencies": {
-    "@eonasdan/tempus-dominus": "^6.2.4",
     "apexcharts": "3.24.0",
     "autosize": "^4.0.2",
     "babel-runtime": "6.26.0",

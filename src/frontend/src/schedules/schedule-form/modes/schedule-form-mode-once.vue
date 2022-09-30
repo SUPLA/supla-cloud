@@ -2,7 +2,10 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="form-group">
-                <div ref="datepicker"></div>
+                <input type="datetime-local"
+                    v-model="theDate"
+                    :min="minDate"
+                    class="form-control datetimepicker-start">
             </div>
         </div>
     </div>
@@ -10,8 +13,6 @@
 
 <script>
     import moment from "moment";
-    import {Namespace, TempusDominus} from "@eonasdan/tempus-dominus";
-    import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 
     export default {
         props: ['value'],
@@ -20,38 +21,19 @@
                 picker: undefined,
             }
         },
-        mounted() {
-            this.picker = new TempusDominus(this.$refs.datepicker, {
-                restrictions: {
-                    minDate: moment().add(1, 'minute').toDate(),
+        computed: {
+            theDate: {
+                set(value) {
+                    const cronExpression = moment(value).format('m H D M * Y');
+                    this.$emit('input', cronExpression);
                 },
-                localization: {
-                    locale: this.$i18n.locale,
-                },
-                stepping: 1,
-                display: {
-                    inline: true,
-                    sideBySide: true,
+                get() {
+                    return moment(this.value, 'm H D M * Y').format(moment.HTML5_FMT.DATETIME_LOCAL);
                 }
-            });
-            if (this.value) {
-                const currentDateFromExpression = moment(this.value, 'm H D M * Y');
-                if (currentDateFromExpression.isAfter(moment())) {
-                    this.picker.dates.setFromInput(currentDateFromExpression.toDate());
-                }
-            }
-            this.updateTimeExpression();
-            this.picker.subscribe(Namespace.events.change, () => this.updateTimeExpression());
+            },
+            minDate() {
+                return moment().format(moment.HTML5_FMT.DATETIME_LOCAL);
+            },
         },
-        beforeDestroy() {
-            this.picker?.dispose();
-        },
-        methods: {
-            updateTimeExpression() {
-                const date = this.picker.viewDate;
-                const cronExpression = moment(date).format('m H D M * Y');
-                this.$emit('input', cronExpression);
-            }
-        }
     };
 </script>
