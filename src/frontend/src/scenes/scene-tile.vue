@@ -11,6 +11,8 @@
             <dl>
                 <dd>ID</dd>
                 <dt>{{ model.id }}</dt>
+                <dd>{{ $t('Estimated execution time') }}</dd>
+                <dt>{{ prettyMilliseconds(model.estimatedExecutionTime) }}</dt>
             </dl>
             <dl v-if="model.relationsCount">
                 <dd>{{ $t('No of operations') }}</dd>
@@ -22,6 +24,7 @@
 
 <script>
     import FunctionIcon from "../channels/function-icon";
+    import {prettyMilliseconds} from "../common/filters";
 
     export default {
         components: {FunctionIcon},
@@ -32,6 +35,11 @@
             },
             linkSpec() {
                 return this.noLink ? {} : {name: 'scene', params: {id: this.model.id}};
+            }
+        },
+        methods: {
+            prettyMilliseconds(ms) {
+                return prettyMilliseconds(ms, this);
             }
         }
     };

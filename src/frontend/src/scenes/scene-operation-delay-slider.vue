@@ -20,6 +20,7 @@
 <script>
     import VueSlider from 'vue-slider-component';
     import 'vue-slider-component/theme/antd.css';
+    import {prettyMilliseconds} from "../common/filters";
 
     export default {
         props: ['value'],
@@ -44,14 +45,7 @@
         },
         methods: {
             formattedValue(sliderValue = this.sliderValue) {
-                const ms = sliderValue;
-                if (ms < 1000) {
-                    return ms + ' ms';
-                } else if (ms < 60000) {
-                    return (Math.round(ms / 100) / 10) + ' ' + this.$t('sec.');
-                } else {
-                    return Math.round(ms / 60000) + ' ' + this.$t('min.');
-                }
+                return prettyMilliseconds(+sliderValue, this);
             },
             less() {
                 const index = this.possibleValues.indexOf(this.sliderValue);

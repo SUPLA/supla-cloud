@@ -53,6 +53,19 @@ export function roundToDecimals(num, decimals = 2) {
     return Math.round(num * multiplier) / multiplier;
 }
 
+export function prettyMilliseconds(ms, vue) {
+    if (typeof ms !== 'number' || isNaN(ms)) {
+        throw new TypeError('Expected a number');
+    }
+    if (ms < 1000) {
+        return ms + ' ms';
+    } else if (ms < 60000) {
+        return (Math.round(ms / 100) / 10) + ' ' + vue.$t('sec.');
+    } else {
+        return Math.round(ms / 60000) + ' ' + vue.$t('min.');
+    }
+}
+
 Vue.filter('withBaseUrl', withBaseUrl);
 Vue.filter('withDownloadAccessToken', withDownloadAccessToken);
 Vue.filter('deviceTitle', deviceTitle);

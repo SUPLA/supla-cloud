@@ -47,7 +47,9 @@ final class SceneUtils {
 
     public static function updateDelaysAndEstimatedExecutionTimes(Scene $scene, EntityManagerInterface $entityManager) {
         $scenesToCalculate = [$scene];
+        $shield = 150;
         while ($currentScene = array_shift($scenesToCalculate)) {
+            Assertion::greaterThan(--$shield, 0, 'Could not update scene estimated execution time.');
             $totalExecutionTime = 0;
             $delayFromWaiting = 0;
             foreach ($currentScene->getOperations() as $operation) {

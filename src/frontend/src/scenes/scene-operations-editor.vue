@@ -37,9 +37,9 @@
                             <div v-if="waitForCompletionAvailable(operation)">
                                 <label class="checkbox2 text-left">
                                     <input type="checkbox"
-                                        @input="updateModel()"
+                                        @change="updateModel()"
                                         v-model="operation.waitForCompletion">
-                                    {{ $t('Wait for this scene to finish before proceeding to the next step ({seconds} seconds).', {seconds: operation.subject.estimatedExecutionTime / 1000}) }}
+                                    {{ $t('Wait for this scene to finish before proceeding to the next step ({time}).', {time: prettyMilliseconds(operation.subject.estimatedExecutionTime)}) }}
                                 </label>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
 <script>
     import SubjectDropdown from "../devices/subject-dropdown";
     import FunctionIcon from "../channels/function-icon";
-    import {channelTitle} from "../common/filters";
+    import {channelTitle, prettyMilliseconds} from "../common/filters";
     import ChannelActionChooser from "../channels/action/channel-action-chooser";
     import draggable from 'vuedraggable';
     import SceneOperationDelaySlider from "./scene-operation-delay-slider";
@@ -172,9 +172,11 @@
             waitForCompletionAvailable(operation) {
                 return operation.subjectType === ActionableSubjectType.SCENE &&
                     operation.action &&
-                    [ChannelFunctionAction.EXECUTE, ChannelFunctionAction.INTERRUPT_AND_EXECUTE].includes(operation.action.id) &&
-                    operation.subject.estimatedExecutionTime > 999;
+                    [ChannelFunctionAction.EXECUTE, ChannelFunctionAction.INTERRUPT_AND_EXECUTE].includes(operation.action.id);
             },
+            prettyMilliseconds(ms) {
+                return prettyMilliseconds(ms, this);
+            }
         },
         watch: {
             value() {
@@ -186,27 +188,6 @@
 
 <style lang="scss">
     @import "../styles/variables";
-
-    ol.scene-timeline {
-        /* list-style-type: none;
-         margin-left: 20px;
-         border-left: 2px solid $supla-grey-light;
-         padding: 20px 0;
-         li {
-             display: flex;
-             .icon {
-                 display: block;
-                 background: $supla-green;
-                 width: 50px;
-                 height: 50px;
-                 border-radius: 50%;
-                 font-size: 38px;
-                 padding-top: 5px;
-                 text-align: center;
-                 margin-left: -25px;
-             }
-         }*/
-    }
 
     .scene-timeline {
         list-style: none;
