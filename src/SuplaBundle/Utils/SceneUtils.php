@@ -19,6 +19,7 @@ namespace SuplaBundle\Utils;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
 
 final class SceneUtils {
@@ -49,22 +50,43 @@ final class SceneUtils {
         while ($currentScene = array_shift($scenesToCalculate)) {
             $totalExecutionTime = 0;
             $delayFromWaiting = 0;
-            foreach ($scene->getOperations() as $operation) {
+            foreach ($currentScene->getOperations() as $operation) {
                 $delayFromUser = $operation->getUserDelayMs();
                 $totalDelay = $delayFromUser + $delayFromWaiting;
+                $delayFromWaiting = 0;
                 $operation->setDelayMs($totalDelay);
                 $totalExecutionTime += $totalDelay;
                 if ($operation->isWaitForCompletion()) {
-                    // TODO set waiting delay
+                    if ($operation->getSubjectType()->equals(ActionableSubjectType::SCENE())) {
+                        /** @var Scene $sceneToWaitFor */
+                        $sceneToWaitFor = $operation->getSubject();
+                        $delayFromWaiting = $sceneToWaitFor->getEstimatedExecutionTime();
+                    }
                 }
                 $entityManager->persist($operation);
             }
             $totalExecutionTime += $delayFromWaiting;
             if ($currentScene->getEstimatedExecutionTime() !== $totalExecutionTime) {
-                // update scene and recalculate all dependent scenes
+                $scenesToCalculate = array_merge($scenesToCalculate, self::getScenesThatUsesScene($currentScene));
                 $currentScene->setEstimatedExecutionTime($totalExecutionTime);
-                $entityManager->persist($scene);
+                $entityManager->persist($currentScene);
             }
         }
+    }
+
+    private static function getScenesThatUsesScene(Scene $currentScene): array {
+        $dependentScenes = [];
+        $currentScene->getOperationsThatReferToThisScene()
+            ->filter(function (SceneOperation $sceneOperation) {
+                return $sceneOperation->isWaitForCompletion();
+            })
+            ->map(function (SceneOperation $sceneOperation) {
+                return $sceneOperation->getOwningScene();
+            })
+            ->forAll(function (int $index, Scene $dependentScene) use (&$dependentScenes) {
+                $dependentScenes[$dependentScene->getId()] = $dependentScene;
+                return true;
+            });
+        return array_values($dependentScenes);
     }
 }

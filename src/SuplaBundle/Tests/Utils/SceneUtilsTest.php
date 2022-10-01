@@ -16,6 +16,7 @@
 
 namespace SuplaBundle\Tests\Utils;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Scene;
@@ -102,7 +103,70 @@ class SceneUtilsTest extends TestCase {
         $operation2->method('getUserDelayMs')->willReturn(20);
         $operation2->expects($this->once())->method('setDelayMs')->with(20);
         $scene->method('getOperations')->willReturn([$operation1, $operation2]);
-        $scene->expects($this->once())->method('setEstimatedExecutionTime')->with(30);
+        $scene->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection());
+        $scene->expects($this->once())->method('setEstimatedExecutionTime')->with(10 + 20);
         SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $this->createMock(EntityManagerInterface::class));
+    }
+
+    public function testTakingOtherSceneTimeIntoConsideration() {
+        $scene1 = $this->createEntityMock(Scene::class);
+        $scene2 = $this->createEntityMock(Scene::class);
+        $scene2->method('getEstimatedExecutionTime')->willReturn(100);
+        $operation1 = $this->createEntityMock(SceneOperation::class);
+        $operation1->method('getUserDelayMs')->willReturn(10);
+        $operation1->expects($this->once())->method('setDelayMs')->with(10);
+        $operation1->method('isWaitForCompletion')->willReturn(true);
+        $operation1->method('getSubject')->willReturn($scene2);
+        $operation1->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+        $operation2 = $this->createEntityMock(SceneOperation::class);
+        $operation2->method('getUserDelayMs')->willReturn(20);
+        $operation2->expects($this->once())->method('setDelayMs')->with(20 + 100);
+        $scene1->method('getOperations')->willReturn([$operation1, $operation2]);
+        $scene1->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection());
+        $scene1->expects($this->once())->method('setEstimatedExecutionTime')->with(10 + 20 + 100);
+        SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene1, $this->createMock(EntityManagerInterface::class));
+    }
+
+    public function testLastOperationWithWaitInfluencesSceneTime() {
+        $scene1 = $this->createEntityMock(Scene::class);
+        $scene2 = $this->createEntityMock(Scene::class);
+        $scene2->method('getEstimatedExecutionTime')->willReturn(100);
+        $operation1 = $this->createEntityMock(SceneOperation::class);
+        $operation1->method('getUserDelayMs')->willReturn(10);
+        $operation1->expects($this->once())->method('setDelayMs')->with(10);
+        $operation1->method('isWaitForCompletion')->willReturn(true);
+        $operation1->method('getSubject')->willReturn($scene2);
+        $operation1->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+        $operation2 = $this->createEntityMock(SceneOperation::class);
+        $operation2->method('getUserDelayMs')->willReturn(20);
+        $operation2->expects($this->once())->method('setDelayMs')->with(20);
+        $scene1->method('getOperations')->willReturn([$operation2, $operation1]);
+        $scene1->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection());
+        $scene1->expects($this->once())->method('setEstimatedExecutionTime')->with(10 + 20 + 100);
+        SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene1, $this->createMock(EntityManagerInterface::class));
+    }
+
+    public function testRecalculatingTimeOfDependentScenes() {
+        $scene1 = $this->createEntityMock(Scene::class);
+        $scene2 = $this->createEntityMock(Scene::class);
+        $scene1->method('getEstimatedExecutionTime')->willReturn(10);
+        $scene2->method('getEstimatedExecutionTime')->willReturn(100);
+        $operation1 = $this->createEntityMock(SceneOperation::class);
+        $operation1->method('getUserDelayMs')->willReturn(10);
+        $operation1->expects($this->once())->method('setDelayMs')->with(10);
+        $operation1->method('isWaitForCompletion')->willReturn(true);
+        $operation1->method('getSubject')->willReturn($scene2);
+        $operation1->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+        $operation1->method('getOwningScene')->willReturn($scene1);
+        $operation2 = $this->createEntityMock(SceneOperation::class);
+        $operation2->method('getUserDelayMs')->willReturn(20);
+        $operation2->expects($this->once())->method('setDelayMs')->with(20);
+        $scene1->method('getOperations')->willReturn([$operation1]);
+        $scene2->method('getOperations')->willReturn([$operation2]);
+        $scene1->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection([]));
+        $scene2->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection([$operation1, $operation1]));
+        $scene1->expects($this->once())->method('setEstimatedExecutionTime')->with(10 + 100);
+        $scene2->expects($this->once())->method('setEstimatedExecutionTime')->with(20);
+        SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene2, $this->createMock(EntityManagerInterface::class));
     }
 }
