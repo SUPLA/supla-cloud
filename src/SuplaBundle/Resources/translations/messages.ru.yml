@@ -157,7 +157,7 @@ Choose the source channel.: Выберите исходный канал.
 Clear: Очистить
 Click the following link to confirm removal of your account on %cloudHost%.: 'Чтобы подтвердить удаление Вашей учетной записи SUPLA, нажмите на ссылку ниже.'
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: 'Нажмите на ссылку ниже, чтобы подтвердить отмену регистрации вашего персонального экземпляра SUPLA Cloud (%targetCloudUrl%).'
-'Client app ID: %clientAppId%': 'Идентификатор: % clientAppId%'
+'Client app ID: %clientAppId%': 'Идентификатор: %clientAppId%'
 Client registration: Регистрация клиентов
 Client’s Apps: Клиентские приложения
 Client’s app has been deleted: Клиентское приложение было удалено
@@ -211,12 +211,12 @@ Depth sensor: датчик глубины
 Description: Описание
 Details: Подробная информация
 Device: Устройство
-'Device ID: %deviceId%': 'Идентификатор устройства: % deviceId%'
+'Device ID: %deviceId%': 'Идентификатор устройства: %deviceId%'
 Device channel value: Значение устройства
 Device is disconnected.: Устройство отключено.
-'Device name: %deviceName%': 'Имя устройства: % deviceName%'
+'Device name: %deviceName%': 'Имя устройства: %deviceName%'
 Device should be now in configuration mode.: Теперь устройство должно быть в режиме конфигурации.
-'Device software version: %deviceSoftwareVersion%': 'Версия программного обеспечения: % deviceSoftwareVersion%'
+'Device software version: %deviceSoftwareVersion%': 'Версия программного обеспечения: %deviceSoftwareVersion%'
 Device unavailable: Оборудование недоступно
 Differential: Дифференциальный
 Digi Glass: Digi Glass

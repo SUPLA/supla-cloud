@@ -156,7 +156,7 @@ Choose location: Chọn vị trí
 Choose the source channel.: Chọn kênh chính.
 Clear: Xóa bỏ
 Click the following link to confirm removal of your account on %cloudHost%.: Nhấp vào liên kết sau để xác nhận xóa tài khoản của bạn trên %cloudHost%.
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Nhấp vào liên kết bên dưới để xác nhận việc hủy đăng ký phiên bản Đám mây SUPLA riêng tư của bạn (% targetCloudUrl%).
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Nhấp vào liên kết bên dưới để xác nhận việc hủy đăng ký phiên bản Đám mây SUPLA riêng tư của bạn (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'Số Id: %clientAppId%'
 Client registration: Đăng ký Client
 Client’s Apps: Ứng dụng khách
@@ -717,7 +717,7 @@ Water meter: Thước đo nước
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Chúng tôi sẽ gửi thông báo về những hoạt động liên quan đến tài khoản của bạn. Bạn có thể từ chối nhận những thông báo này nếu thấy không cần thiết.
 We could not connect to your SUPLA Cloud instance.: Chúng tôi không thể kết nối với ví dụ SUPLA Cloud của bạn.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Chúng tôi đã được yêu cầu xóa tài khoản SUPLA Cloud của bạn.
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Đã gửi yêu cầu hủy đăng ký phiên bản SUPLA Cloud riêng của bạn (% targetCloudUrl%)
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Đã gửi yêu cầu hủy đăng ký phiên bản SUPLA Cloud riêng của bạn (%targetCloudUrl%)
 We have just sent you an activation link. You should be receiving it shortly.: Chúng tôi vừa gửi cho bạn một liên kết kích hoạt. Kiên nhẫn.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Chúng tôi đã gửi cho bạn một tin nhắn e-mail với một liên kết xác nhận xóa. Chỉ để được chắc chắn!
 We have sent you an email with further instructions.: Chúng tôi đã gửi cho bạn hướng dẫn cho các bước tiếp theo.

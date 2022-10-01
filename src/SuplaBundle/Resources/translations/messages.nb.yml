@@ -58,7 +58,7 @@ Allows to perform an action only using the HTTP PATCH request.: Gjennomføring a
 'Alternatively, you can add a GET parameter to specify response format.': Du kan også legge til en GET-parameter for å spesifisere svarformatet.
 And more: Og mye mer.
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Alle applikasjoner og enheter som benytter seg av token {tokenName} vil slutte å fungere.'
-'App version: %clientAppSoftwareVersion%': 'Appversjon: % clientAppSoftwareVersion%'
+'App version: %clientAppSoftwareVersion%': 'Appversjon: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Applikasjon navnet kan ikke være tomt.
 Application requirements: Krever applikasjon
 Applications: Apper

@@ -717,7 +717,7 @@ Water meter: Vodomer
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: 'Budeme Vám posielať upozornenia o určitých udalostiach spojených s vaším účtom. Môžete zrušiť odber tých, ktoré nepotrebujete.'
 We could not connect to your SUPLA Cloud instance.: Nepodarilo sa pripojiť s vašou súkromnou inštaláciou SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Dostali sme žiadosť o zrušenie Vášho účtu v SUPLA Cloud (%cloudHost%).
-We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Bola vyžiadaná žiadosť o zrušenie registrácie vašej súkromnej inštancie SUPLA Cloud (% targetCloudUrl%).
+We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Bola vyžiadaná žiadosť o zrušenie registrácie vašej súkromnej inštancie SUPLA Cloud (%targetCloudUrl%).
 We have just sent you an activation link. You should be receiving it shortly.: Práve bola odoslaná správa s odkazom na aktiváciu Vášho účtu. Prosíme o trpezlivosť.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Odoslali sme Vám emailovú správu s odkazom na potvrdenie zrušenia účtu. Možno si to ešte rozmyslíte!
 We have sent you an email with further instructions.: Poslali sme vám správu s ďalšími pokynmi.

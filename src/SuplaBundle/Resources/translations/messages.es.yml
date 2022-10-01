@@ -156,7 +156,7 @@ Choose location: Elige localización
 Choose the source channel.: Seleccionar un canal de origen.
 Clear: Limpiar
 Click the following link to confirm removal of your account on %cloudHost%.: 'Para confirmar la eliminación de tu cuenta SUPLA, haz clic en el siguiente enlace.'
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Haz clic en el enlace a continuación para confirmar la cancelación del registro de tu instancia privada de SUPLA Cloud (% targetCloudUrl%).
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Haz clic en el enlace a continuación para confirmar la cancelación del registro de tu instancia privada de SUPLA Cloud (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'ID :%clienteAppId%'
 Client registration: Registro de clientes
 Client’s Apps: Aplicaciones cliente
@@ -426,7 +426,7 @@ My OAuth apps: Mis aplicaciones OAuth
 My SUPLA: Mi SUPLA
 NOTICE!: ¡OJO!
 Name: Nombre
-'Name: %clientAppName%': 'Nombre:% clientAppName%'
+'Name: %clientAppName%': 'Nombre: %clientAppName%'
 Need one of these?: Puede que lo necesites
 Never: Nunca
 New IO device added to your account: Agregar un nuevo dispositivo

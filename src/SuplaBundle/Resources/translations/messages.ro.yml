@@ -156,8 +156,8 @@ Choose location: Selectați o locație
 Choose the source channel.: Selectați un canal sursă.
 Clear: Șterge
 Click the following link to confirm removal of your account on %cloudHost%.: 'Pentru a confirma că doriți să ștergeți contul dvs. SUPLA, faceți clic pe linkul de mai jos.'
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Faceți clic pe linkul de mai jos link pentru a confirma anularea înregistrării instanței dvs. private SUPLA Cloud (% targetCloudUrl%).
-'Client app ID: %clientAppId%': 'ID:% clientAppId%'
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Faceți clic pe linkul de mai jos link pentru a confirma anularea înregistrării instanței dvs. private SUPLA Cloud (%targetCloudUrl%).
+'Client app ID: %clientAppId%': 'ID: %clientAppId%'
 Client registration: Înregistrarea clienților
 Client’s Apps: Aplicații de client
 Client’s app has been deleted: Aplicația de client a fost eliminată
@@ -426,7 +426,7 @@ My OAuth apps: Aplicațiile mele OAuth
 My SUPLA: SUPLA mea
 NOTICE!: ATENŢIE!
 Name: Numele
-'Name: %clientAppName%': 'Nume:% clientAppName%'
+'Name: %clientAppName%': 'Nume: %clientAppName%'
 Need one of these?: S-ar putea să aveți nevoie de el
 Never: Niciodată
 New IO device added to your account: Adăugarea unui dispozitiv nou
