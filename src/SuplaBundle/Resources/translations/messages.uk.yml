@@ -68,7 +68,7 @@ Allows to perform an action only using the HTTP PATCH request.: Дозволяє
 'Alternatively, you can add a GET parameter to specify response format.': 'Ви також можете додати параметр GET, щоб вказати формат відповіді.'
 And more: І значно більше
 'Any application or device that uses the {tokenName} token will not work anymore.': 'Усі програми або пристрої, які використовують токен {tokenName}, перестануть працювати.'
-'App version: %clientAppSoftwareVersion%': ~
+'App version: %clientAppSoftwareVersion%': 'Версія застосунку: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Назва програми не може бути пустою
 Application requirements: Вимоги до заявки
 Applications: Застосунки
@@ -167,7 +167,7 @@ Choose the source channel.: Виберіть вихідний канал.
 Clear: Очистити
 Click the following link to confirm removal of your account on %cloudHost%.: Щоб підтвердити, що ви хочете видалити свій обліковий запис %cloudHost%, натисніть посилання нижче.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Натисніть посилання нижче, щоб підтвердити скасування реєстрації вашого приватного екземпляра SUPLA Cloud (% targetCloudUrl%).
-'Client app ID: %clientAppId%': ~
+'Client app ID: %clientAppId%': 'Ідентифікатор: %clientAppId%'
 Client registration: Реєстрація клієнтів
 Client’s Apps: Клієнтські програми
 Client’s app has been deleted: Клієнтську програму видалено
@@ -221,12 +221,12 @@ Depth sensor: Датчик глибини
 Description: Опис
 Details: Подробиці
 Device: Пристрій
-'Device ID: %deviceId%': ~
+'Device ID: %deviceId%': 'Ідентифікатор пристрою: %deviceId%'
 Device channel value: Значення від пристрою
 Device is disconnected.: Пристрій відключено.
-'Device name: %deviceName%': ~
+'Device name: %deviceName%': 'Назва приладу: %deviceName%'
 Device should be now in configuration mode.: Тепер пристрій має бути в режимі налаштування.
-'Device software version: %deviceSoftwareVersion%': ~
+'Device software version: %deviceSoftwareVersion%': 'Версія програмного забезпечення: %deviceSoftwareVersion%'
 Device unavailable: Пристрій недоступний
 Differential: Диференціал
 Digi Glass: Digi Glass
@@ -383,7 +383,7 @@ Interval: Інтервал
 Invalid SUPLA Cloud URL.: Неправильна URL-адреса примірника SUPLA Cloud.
 Invalid action parameters: Неправильні параметри виконання.
 Invalid function for channel.: Недійсна функція для каналу.
-'Invalid redirect URI: {uri}': ~
+'Invalid redirect URI: {uri}': 'Недійсна URL-адреса зворотного виклику: {uri}'
 Invalid request: Невірний запит
 Invalid request.: Невірний запит.
 Invalid token.: Неприпустимий токен.
@@ -436,7 +436,7 @@ My OAuth apps: Мої програми OAuth
 My SUPLA: Моя SUPLA
 NOTICE!: УВАГА!
 Name: Ім’я
-'Name: %clientAppName%': ~
+'Name: %clientAppName%': 'Назва: %clientAppName%'
 Need one of these?: Вам може знадобитися
 Never: Ніколи
 New IO device added to your account: Додавання нового пристрою
@@ -539,8 +539,8 @@ Register: Реєстрація
 Register a new OAuth application: Зареєструйте нову програму OAuth
 Register private SUPLA Cloud: Зареєструйте приватну хмару SUPLA
 Registered: Зареєстровано
-'Registered from IP address: %clientAppRegIp%': ~
-'Registered from IP address: %deviceRegIp%': ~
+'Registered from IP address: %clientAppRegIp%': 'Зареєстровано з IP-адреси: %clientAppRegIp%'
+'Registered from IP address: %deviceRegIp%': 'Адреса ІР: %deviceRegIp%'
 Relay: Реле
 Relay switching time: Час увімкнення реле
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Перш ніж видаляти місцезнаходження, ви повинні спочатку перемістити групи каналів у цьому місці. Ідентифікатори: {relatedIds}.'
@@ -649,7 +649,7 @@ Temperature adjustment: Регулювання температури
 Temperature and humidity sensor: Датчик температури та вологості
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Дякуємо за реєстрацію облікового запису в службі %cloudHost%. Натисніть на посилання нижче, щоб завершити активацію.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Завдяки інтеграції ви можете легко додавати нові функції до свого облікового запису, використовуючи рішення, надані зовнішніми постачальниками, розробниками або вами.'
-'The IP used for login is: %ip%': ~
+'The IP used for login is: %ip%': 'Спроба входу була зроблена з IP-адреси: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Пароль брокера MQTT видно лише зараз. Обов’язково запишіть його у безпечному місці. Відобразити його знову буде неможливо.
 The SUPLA infrastructure is being updated.: Сервери SUPLA оновлюються.
 The Terms and Conditions have changed: Правила змінилися
@@ -721,7 +721,9 @@ Valve: Вентиль
 Valve closed manually: Вентиль закритий вручну
 Visible: Видимий
 Visit app webpage: Відкрийте сайт додатку
-WELCOME_MESSAGE: ~
+WELCOME_MESSAGE:  |
+  Підключити свій дім чи офіс до SUPLI просто. Все, що вам потрібно зробити, це
+  переписати наступні дані на пристрої керування (входи/виходи) і смартфони.
 Wait a while before the next request. You can check your limits in the account settings.: Зачекайте трохи, перш ніж робити інший запит. Ви можете перевірити поточне використання своїх лімітів у налаштуваннях облікового запису.
 Water meter: Лічильник води
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Ми надсилатимемо вам сповіщення про певні події, пов’язані з вашим обліковим записом. Ви можете скасувати підписку на ті, які вам не потрібні.
