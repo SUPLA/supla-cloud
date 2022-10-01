@@ -221,7 +221,7 @@ Depth sensor: Датчик глибини
 Description: Опис
 Details: Подробиці
 Device: Пристрій
-'Device ID: %deviceId%': 'Ідентифікатор пристрою:% deviceId%'
+'Device ID: %deviceId%': 'Ідентифікатор пристрою: %deviceId%'
 Device channel value: Значення від пристрою
 Device is disconnected.: Пристрій відключено.
 'Device name: %deviceName%': 'Назва приладу: %deviceName%'
@@ -539,7 +539,7 @@ Register: Реєстрація
 Register a new OAuth application: Зареєструйте нову програму OAuth
 Register private SUPLA Cloud: Зареєструйте приватну хмару SUPLA
 Registered: Зареєстровано
-'Registered from IP address: %clientAppRegIp%': 'Зареєстровано з IP-адреси:% clientAppRegIp%'
+'Registered from IP address: %clientAppRegIp%': 'Зареєстровано з IP-адреси: %clientAppRegIp%'
 'Registered from IP address: %deviceRegIp%': 'Адреса ІР: %deviceRegIp%'
 Relay: Реле
 Relay switching time: Час увімкнення реле
@@ -649,7 +649,7 @@ Temperature adjustment: Регулювання температури
 Temperature and humidity sensor: Датчик температури та вологості
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Дякуємо за реєстрацію облікового запису в службі %cloudHost%. Натисніть на посилання нижче, щоб завершити активацію.
 'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Завдяки інтеграції ви можете легко додавати нові функції до свого облікового запису, використовуючи рішення, надані зовнішніми постачальниками, розробниками або вами.'
-'The IP used for login is: %ip%': 'Спроба входу була зроблена з IP-адреси:% ip%'
+'The IP used for login is: %ip%': 'Спроба входу була зроблена з IP-адреси: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Пароль брокера MQTT видно лише зараз. Обов’язково запишіть його у безпечному місці. Відобразити його знову буде неможливо.
 The SUPLA infrastructure is being updated.: Сервери SUPLA оновлюються.
 The Terms and Conditions have changed: Правила змінилися
