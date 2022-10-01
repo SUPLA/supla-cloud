@@ -61,6 +61,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *   @OA\Property(property="caption", type="string", description="Caption"),
  *   @OA\Property(property="altIcon", type="integer", description="Chosen alternative icon idenifier. Should not be greater than the `function.maxAlternativeIconIndex`."),
  *   @OA\Property(property="enabled", type="boolean", description="Whether this scenen is enabled or not"),
+ *   @OA\Property(property="estimatedExecutionTime", type="integer", description="Estimated execution time for this scene (in milliseconds)."),
  *   @OA\Property(property="subjectType", type="string", enum={"scene"}),
  *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
