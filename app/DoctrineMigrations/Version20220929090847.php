@@ -27,6 +27,6 @@ class Version20220929090847 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_scene_operation ADD user_delay_ms INT DEFAULT 0 NOT NULL, ADD wait_for_completion TINYINT(1) DEFAULT \'0\' NOT NULL');
         $this->addSql('ALTER TABLE supla_scene ADD estimated_execution_time INT DEFAULT 0 NOT NULL');
         $this->addSql('UPDATE supla_scene_operation SET user_delay_ms = delay_ms');
-        $this->addSql('UPDATE supla_scene SET estimated_execution_time = (SELECT COALESCE(SUM(delay_ms), 0) FROM supla_scene_operation WHERE scene_id = supla_scene.id);');
+        $this->addSql('UPDATE supla_scene SET estimated_execution_time = (SELECT COALESCE(SUM(delay_ms), 0) FROM supla_scene_operation WHERE owning_scene_id = supla_scene.id);');
     }
 }

@@ -77,7 +77,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
      * @ORM\Column(name="estimated_execution_time", type="integer", nullable=false, options={"default": 0})
      * @Groups({"basic"})
      */
-    private $estimatedExecutionTime;
+    private $estimatedExecutionTime = 0;
 
     /**
      * @ORM\Column(name="alt_icon", type="tinyint", nullable=false, options={"unsigned"=true, "default": 0})
@@ -121,6 +121,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
         $this->user = $location->getUser();
         $this->location = $location;
         $this->operations = new ArrayCollection();
+        $this->sceneOperations = new ArrayCollection();
     }
 
     public function getId(): int {
