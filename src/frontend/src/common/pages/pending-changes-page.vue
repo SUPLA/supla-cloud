@@ -2,7 +2,9 @@
     <form @submit.prevent="$emit('save')">
         <div class="clearfix left-right-header">
             <h2 class="no-margin-top"
+                v-if="header"
                 v-title>{{ header }}</h2>
+            <div v-else></div>
             <div class="button-container no-margin-top"
                 v-show="!$frontendConfig.maintenanceMode">
                 <transition name="fade">
