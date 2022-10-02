@@ -11,9 +11,9 @@
                     :id="'heading' + trigger">
                     <div class="panel-title"
                         @click="toggleExpand(trigger)">
-                        <div class="left-right-header">
+                        <div class="d-flex">
                             <a role="button"
-                                class="text-inherit"
+                                class="text-inherit flex-grow-1"
                                 :aria-expanded="!!expanded[trigger]"
                                 :aria-controls="'collapse' + trigger">
                                 {{ $t('actionTrigger_' + trigger) }}
@@ -106,7 +106,7 @@
                 }
             },
             disablesLocalOperation(trigger) {
-                return this.channel.config.disablesLocalOperation?.includes(trigger);
+                return true || this.channel.config.disablesLocalOperation?.includes(trigger);
             },
         }
     };
