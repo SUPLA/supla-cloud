@@ -65,6 +65,7 @@ use Symfony\Component\HttpFoundation\Response;
  *     @OA\Property(property="channels", type="integer"),
  *   ),
  *   @OA\Property(property="enterConfigurationModeAvailable", type="boolean"),
+ *   @OA\Property(property="isSleepModeEnabled", type="boolean"),
  * )
  */
 class IODeviceController extends RestController {

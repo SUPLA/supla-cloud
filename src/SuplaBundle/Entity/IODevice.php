@@ -255,4 +255,9 @@ class IODevice implements HasLocation, HasRelationsCount {
     public function isEnterConfigurationModeAvailable(): bool {
         return IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE()->isSupported($this->flags);
     }
+
+    /** @Groups({"basic"}) */
+    public function isSleepModeEnabled(): bool {
+        return IoDeviceFlags::SLEEP_MODE_ENABLED()->isSupported($this->flags);
+    }
 }

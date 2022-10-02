@@ -19,8 +19,11 @@ namespace SuplaBundle\Enums;
 
 /**
  * @method static IoDeviceFlags ENTER_CONFIGURATION_MODE_AVAILABLE()
+ * @method static IoDeviceFlags SLEEP_MODE_ENABLED()
  */
 final class IoDeviceFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-cloud/issues/448 */
     const ENTER_CONFIGURATION_MODE_AVAILABLE = 0x0010;
+    /** @see https://github.com/SUPLA/supla-cloud/issues/622 */
+    const SLEEP_MODE_ENABLED = 0x0020;
 }

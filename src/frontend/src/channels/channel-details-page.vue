@@ -162,6 +162,12 @@
             @cancel="loading = changeFunctionConfirmationObject = undefined"
             @confirm="changeFunction(changeFunctionConfirmationObject.newFunction, false)"></dependencies-warning-modal>
 
+        <modal v-if="sleepingDeviceWarning"
+            :header="$t('Device might be sleeping')"
+            @confirm="sleepingDeviceWarning = false">
+            {{ $t('If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.') }}
+        </modal>
+
     </page-container>
 </template>
 
@@ -211,7 +217,8 @@
                 hasPendingChanges: false,
                 changingFunction: false,
                 executingAction: false,
-                changeFunctionConfirmationObject: undefined
+                changeFunctionConfirmationObject: undefined,
+                sleepingDeviceWarning: false,
             };
         },
         mounted() {
@@ -249,6 +256,7 @@
                 this.changeFunctionConfirmationObject = undefined;
                 this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), channel, {skipErrorHandler: [409]})
                     .then(response => $.extend(this.channel, response.body))
+                    .then(() => this.afterSave())
                     .catch(response => {
                         if (response.status === 409) {
                             this.changeFunctionConfirmationObject = response.body;
@@ -266,6 +274,7 @@
                         this.$set(this.channel, 'hasPendingChanges', false);
                         EventBus.$emit('channel-updated');
                     })
+                    .then(() => this.afterSave())
                     .finally(() => this.loading = false);
             }, 1000),
             onLocationChange(location) {
@@ -275,7 +284,12 @@
                 }
                 this.$set(this.channel, 'location', location);
                 this.saveChanges();
-            }
+            },
+            afterSave() {
+                if (this.channel.iodevice.sleepModeEnabled) {
+                    this.sleepingDeviceWarning = true;
+                }
+            },
         },
         computed: {
             channelTitle() {
