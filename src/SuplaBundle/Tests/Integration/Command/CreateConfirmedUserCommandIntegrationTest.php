@@ -41,6 +41,16 @@ class CreateConfirmedUserCommandIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(['email' => 'newuser@supla.org'], SuplaAutodiscoverMock::$requests[1]['post']);
     }
 
+    /** @depends testCreatingUserWithCommand */
+    public function testCreatingUserThatExists() {
+        $command = $this->application->find('supla:user:create');
+        $commandTester = new CommandTester($command);
+        $exitCode = $commandTester->execute(['username' => 'newuser@supla.org', '--if-not-exists' => true]);
+        $this->assertEquals(0, $exitCode);
+        $output = $commandTester->getDisplay();
+        $this->assertStringContainsString('already exists', $output);
+    }
+
     public function testCreatingUserWithAdDisabled() {
         SuplaAutodiscoverMock::clear(false, false);
         $command = $this->application->find('supla:user:create');

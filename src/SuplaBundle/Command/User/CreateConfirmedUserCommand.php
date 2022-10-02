@@ -7,6 +7,7 @@ use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
@@ -32,6 +33,7 @@ class CreateConfirmedUserCommand extends Command {
             ->setAliases(['supla:create-confirmed-user'])
             ->addArgument('username', InputArgument::OPTIONAL)
             ->addArgument('password', InputArgument::OPTIONAL)
+            ->addOption('if-not-exists', null, InputOption::VALUE_NONE, 'Don’t throw an exception if the user exists already (for init).')
             ->setDescription('Create a confirmed user account.');
     }
 
@@ -41,7 +43,16 @@ class CreateConfirmedUserCommand extends Command {
         if (!$username) {
             $username = $helper->ask($input, $output, $this->usernameQuestion());
         } else {
-            $username = $this->validateUsername($username);
+            try {
+                $username = $this->validateUsername($username);
+            } catch (\RuntimeException $e) {
+                if ($e->getCode() == self::USERNAME_EXISTS_CODE && $input->getOption('if-not-exists')) {
+                    $output->writeln("User $username already exists.");
+                    return;
+                } else {
+                    throw $e;
+                }
+            }
         }
         $password = $input->getArgument('password');
         if (!$password) {
