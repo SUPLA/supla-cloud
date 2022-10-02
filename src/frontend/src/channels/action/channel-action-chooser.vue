@@ -166,7 +166,7 @@
                 }
             },
             selectFirstActionIfOnlyOne() {
-                if (!this.executorMode && (this.actionsToShow.length === 1 || this.alwaysSelectFirstAction) && (!this.value || !this.value.id)) {
+                if (!this.executorMode && (this.actionsToShow.length === 1 || this.alwaysSelectFirstAction) && (!this.action || !this.action.id)) {
                     this.action = this.actionsToShow[0];
                     this.param = {};
                     this.updateModel();

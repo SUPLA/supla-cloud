@@ -15,7 +15,8 @@
         <div v-if="subject && subject.subjectType !== 'other'">
             <channel-action-chooser :subject="subject"
                 @input="onActionChange()"
-                v-model="action"></channel-action-chooser>
+                :alwaysSelectFirstAction="true"
+                v-model="action"/>
         </div>
         <button v-if="value"
             type="button"
@@ -46,7 +47,7 @@
                 channelSavedListener: undefined,
             };
         },
-        mounted() {
+        beforeMount() {
             this.channelSavedListener = () => this.onValueChanged();
             EventBus.$on('channel-updated', this.channelSavedListener);
             this.onValueChanged();
@@ -65,8 +66,10 @@
                         }
                     } else if (!this.subject || this.value.subjectId !== this.subject.id) {
                         this.$http.get(subjectEndpointUrl(this.value))
-                            .then(response => this.subject = response.body)
-                            .then(() => this.action = this.value.action);
+                            .then(response => {
+                                this.subject = response.body;
+                                this.action = this.value.action;
+                            });
                     }
                 } else {
                     this.subject = undefined;
