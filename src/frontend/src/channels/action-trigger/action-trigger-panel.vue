@@ -106,7 +106,7 @@
                 }
             },
             disablesLocalOperation(trigger) {
-                return true || this.channel.config.disablesLocalOperation?.includes(trigger);
+                return this.channel.config.disablesLocalOperation?.includes(trigger);
             },
         }
     };
