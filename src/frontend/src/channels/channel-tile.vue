@@ -1,5 +1,5 @@
 <template>
-    <square-link :class="`clearfix pointer ${model.functionId == 0 ? 'yellow' : 'grey'} ${model.functionId != 0 ? 'with-label' : ''}`"
+    <square-link :class="`clearfix pointer with-label ${model.functionId == 0 ? 'yellow' : 'grey'}`"
         @click="$emit('click')">
         <router-link :to="linkSpec">
             <div class="clearfix">
