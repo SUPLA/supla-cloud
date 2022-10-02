@@ -380,7 +380,7 @@ Invalid token.: Niepoprawny token.
 Inverted logic: Odwrócona logika
 Invisible: Niewidoczne
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Jest możliwe, że inny użytkownik wprowadził przez pomyłkę Twój adres email w celu zresetowania hasła do własnego konta.'
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'W tym trybie urządzenie zacznie rozgłaszać swoją sieć Wi-Fi, którego celem jest umożliwienie konfiguracji urządzenia lub aktualizacja oprogramowania sprzętowego za pomocą smartfona, który połączy się z tą siecią.'
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'W tym trybie urządzenie zacznie rozgłaszać swoją sieć Wi-Fi, której celem jest umożliwienie konfiguracji urządzenia lub aktualizacja oprogramowania sprzętowego za pomocą smartfona, który połączy się z tą siecią.'
 'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Pamiętaj, że razem z Twoim kontem usuniemy wszystkie Twoje dane w tym ustawienia, skonfigurowane urządzenia, lokalizacje, harmonogramy i wszystkie inne funkcjonalności oferowane przez SUPLA.'
 'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Miej na uwadze, że prezentowany przez aplikację opis podanego wyrażenia nie jest idealny, a jedynym jego zadaniem jest pomóc Ci wprowadzić odpowiednią wartość. Nie służy on do sprawdzenia, czy wprowadzona wartość jest poprawna, ani tym bardziej do chwalenia się, że "znalazło się błąd w SUPLI". Po wprowadzeniu zmian sprawdź sekcję "Najbliższe wykonania" w celu potwierdzenia, że podana konfiguracja harmonogramu spełnia Twoje oczekiwania.'
 Language is not available: Język jest niedostępny
@@ -971,3 +971,5 @@ hourly: Każdy dzień
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpienia.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jeśli urządzenie jest teraz uśpione, zostanie wprowadzone w tryb konfiguracjiu przy jego najbliższym wybudzeniu.

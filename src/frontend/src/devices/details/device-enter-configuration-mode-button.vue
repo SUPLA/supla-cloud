@@ -16,6 +16,10 @@
             <p>{{ $t('After the device enters the configuration mode, it will not be accessible on your account.') }}</p>
             <p>{{ $t('It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.') }}</p>
             <p>{{ $t('If you fail to connect this AP for several minutes, it will restart itself and use the last settings.') }}</p>
+            <p v-if="device.sleepModeEnabled">
+                <strong>{{ $t('The device might be in a sleep mode.') }}</strong>
+                {{ $t('If the device is not awaken now, it will enter the configuration mode at the next wake up.') }}
+            </p>
         </modal-confirm>
     </div>
 </template>
