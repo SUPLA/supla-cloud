@@ -55,7 +55,9 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="hidden", type="boolean", description="Whether this channel is shown on client apps or not"),
  *   @OA\Property(property="inheritedLocation", type="boolean", description="Whether this channel inherits its IO Device's location (`true`) or not (`false`)"),
  *   @OA\Property(property="iodeviceId", type="integer"),
+ *   @OA\Property(property="iodevice", ref="#/components/schemas/Device", description="Only if requested by the `include` param."),
  *   @OA\Property(property="locationId", type="integer"),
+ *   @OA\Property(property="location", nullable=true, description="Channel location, if requested by the `include` param", ref="#/components/schemas/Location"),
  *   @OA\Property(property="functionId", type="integer", example=60),
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
@@ -75,7 +77,6 @@ use Symfony\Component\HttpFoundation\Response;
  *     @OA\Property(property="sceneOperations", type="integer"),
  *     @OA\Property(property="actionTriggers", type="integer"),
  * ),
- *   @OA\Property(property="location", nullable=true, description="Channel location, if requested by the `include` param", ref="#/components/schemas/Location"),
  *   @OA\Property(property="supportedFunctions", nullable=true, type="array", @OA\Items(ref="#/components/schemas/ChannelFunction")),
  * )
  */

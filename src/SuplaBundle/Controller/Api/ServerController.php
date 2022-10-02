@@ -65,7 +65,7 @@ class ServerController extends RestController {
      *     tags={"Server"},
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(
      *       @OA\Property(property="address", type="string", description="SUPLA Server address (to be used in smartphones)"),
-     *       @OA\Property(property="time", type="string", format="datetime", description="Current server time"),
+     *       @OA\Property(property="time", type="string", format="date-time", description="Current server time"),
      *       @OA\Property(property="timezone", @OA\Property(property="name", type="string", example="UTC"), @OA\Property(property="offset", type="integer")),
      *       @OA\Property(property="authenticated", type="boolean"),
      *       @OA\Property(property="cloudVersion", type="string"),

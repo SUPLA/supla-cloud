@@ -20,6 +20,7 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\IODevice;
@@ -35,6 +36,37 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Schema(
+ *   schema="Device", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="name", type="string", description="Device name set in the firmware."),
+ *   @OA\Property(property="comment", type="string", description="Device caption / comment given by the user."),
+ *   @OA\Property(property="gUIDString", type="string", description="Unique device identifier (GUID)."),
+ *   @OA\Property(property="enabled", type="boolean"),
+ *   @OA\Property(property="lastConnected", type="string", format="date-time"),
+ *   @OA\Property(property="lastIpv4", type="string", format="ipv4"),
+ *   @OA\Property(property="regDate", type="string", format="date-time"),
+ *   @OA\Property(property="regIpv4", type="string", format="ipv4"),
+ *   @OA\Property(property="softwareVersion", type="string"),
+ *   @OA\Property(property="productId", type="integer"),
+ *   @OA\Property(property="manufacturer", type="object",
+ *     @OA\Property(property="id", type="integer"),
+ *     @OA\Property(property="caption", type="string"),
+ *     @OA\Property(property="name", type="string"),
+ *   ),
+ *   @OA\Property(property="locationId", type="integer"),
+ *   @OA\Property(property="location", description="Device location, if requested by the `include` param", ref="#/components/schemas/Location"),
+ *   @OA\Property(property="originalLocationId", type="integer"),
+ *   @OA\Property(property="originalLocation", description="Device location that was specified in the device config during the first connection, if requested by the `include` param", ref="#/components/schemas/Location"),
+ *   @OA\Property(property="channels", type="array", description="Channels that belongs to this device, if requested by the `include` param", @OA\Items(ref="#/components/schemas/Channel")),
+ *   @OA\Property(property="connected", type="boolean", description="Whether the device is now connected to the SUPLA Server."),
+ *   @OA\Property(property="relationsCount", description="Counts of related entities.",
+ *     @OA\Property(property="channels", type="integer"),
+ *   ),
+ *   @OA\Property(property="enterConfigurationModeAvailable", type="boolean"),
+ * )
+ */
 class IODeviceController extends RestController {
     use SuplaServerAware;
     use Transactional;
@@ -64,7 +96,18 @@ class IODeviceController extends RestController {
         return $groups;
     }
 
-    /** @Security("has_role('ROLE_IODEVICES_R')") */
+    /**
+     * @OA\Get(
+     *     path="/iodevices", operationId="getIoDevices", summary="Get Devices", tags={"Devices"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "location", "originalLocation", "connected", "accessids"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Device"))),
+     * )
+     * @Security("has_role('ROLE_IODEVICES_R')")
+     */
     public function getIodevicesAction(Request $request) {
         $result = [];
         $user = $this->getUser();
@@ -126,6 +169,18 @@ class IODeviceController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/iodevices/{id}", operationId="getIoDevice", summary="Get Device", tags={"Devices"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(oneOf={
+     *       @OA\Schema(type="integer"), @OA\Schema(type="string"),
+     *     })),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"channels", "location", "originalLocation", "connected", "accessids"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
+     * )
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_R') and is_granted('accessIdContains', ioDevice)")
      * @Rest\Get("/iodevices/{ioDevice}", requirements={"ioDevice"="^\d+$"})
      */
@@ -179,6 +234,7 @@ class IODeviceController extends RestController {
     }
 
     /**
+     * Documented above (id oneOf).
      * @Security("has_role('ROLE_IODEVICES_R')")
      * @Rest\Get("/iodevices/{guid}")
      */
@@ -189,6 +245,29 @@ class IODeviceController extends RestController {
     }
 
     /**
+     * @OA\Put(
+     *     path="/iodevices/{id}", operationId="updateDevice", tags={"Devices"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(description="Whether to perform actions that require data loss (e.g. disable schedules when disabling the device)", in="query", name="safe", required=false, @OA\Schema(type="boolean")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="enabled", type="boolean"),
+     *          @OA\Property(property="comment", type="string"),
+     *          @OA\Property(property="locationId", type="integer"),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
+     *     @OA\Response(response="409", description="Device update would result in data loss, and the safe parameter has been set to true.",
+     *       @OA\JsonContent(
+     *         @OA\Property(property="channelGroups", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="directLinks", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="schedules", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="sceneOperations", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="actionTriggers", type="array", @OA\Items(type="object")),
+     *       )
+     *    ),
+     * )
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
@@ -204,10 +283,10 @@ class IODeviceController extends RestController {
             $ioDevice,
             $updatedDevice
         ) {
-            $enabledChanged = $ioDevice->getEnabled() != $updatedDevice->getEnabled();
+            $enabledChanged = $ioDevice->getEnabled() !== $updatedDevice->getEnabled();
             if ($enabledChanged) {
                 $shouldAsk = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
-                    ? $request->get('safe', false)
+                    ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
                     : !$request->get('confirm', false);
                 if (!$updatedDevice->getEnabled() && $shouldAsk) {
                     $dependencies = [];
@@ -237,6 +316,18 @@ class IODeviceController extends RestController {
     }
 
     /**
+     * @OA\Patch(
+     *     path="/iodevices/{id}", operationId="executeDeviceAction", tags={"Devices"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="action", type="string", enum={"enterConfigurationMode"}),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
+     *    ),
+     * )
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
@@ -262,12 +353,27 @@ class IODeviceController extends RestController {
     }
 
     /**
+     * @OA\Delete(
+     *     path="/iodevices/{id}", operationId="deleteDevice", summary="Delete the device", tags={"Devices"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(description="Whether to perform actions that require data loss (e.g. delete schedules when deleting the device)", in="query", name="safe", required=false, @OA\Schema(type="boolean")),
+     *     @OA\Response(response="204", description="Success"),
+     *     @OA\Response(response="409", description="Device deletion would result in data loss, and the safe parameter has been set to true.",
+     *       @OA\JsonContent(
+     *         @OA\Property(property="channelGroups", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="directLinks", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="schedules", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="sceneOperations", type="array", @OA\Items(type="object")),
+     *         @OA\Property(property="actionTriggers", type="array", @OA\Items(type="object")),
+     *       )
+     *    ),
+     * )
      * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
     public function deleteIodeviceAction(IODevice $ioDevice, Request $request, ChannelDependencies $channelDependencies) {
         $deviceId = $ioDevice->getId();
-        if ($request->get('safe', false)) {
+        if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
             $dependencies = [];
             foreach ($ioDevice->getChannels() as $channel) {
                 $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
