@@ -10,6 +10,13 @@ const router = new VueRouter({
     base: '/',
     linkActiveClass: 'active',
     mode: 'history',
+    scrollBehavior() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({x: 0, y: 0})
+            }, 500)
+        });
+    },
 });
 
 router.beforeEach((to, from, next) => {
