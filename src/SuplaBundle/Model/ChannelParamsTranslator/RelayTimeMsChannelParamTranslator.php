@@ -15,6 +15,7 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
  *   @OA\Property(property="openingSensorSecondaryChannelId", type="integer"),
  *   @OA\Property(property="numberOfAttemptsToOpen", type="integer", minimum=1, maximum=5),
  *   @OA\Property(property="numberOfAttemptsToClose", type="integer", minimum=1, maximum=5),
+ *   @OA\Property(property="stateVerificationMethodActive", type="boolean"),
  * )
  */
 class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {

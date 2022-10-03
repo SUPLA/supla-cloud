@@ -50,7 +50,7 @@ Adjust parameters: Ustaw parametry
 'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Po aktualizacji aplikacja będzie szybsza, wygodniejsza... Po prostu lepsza!'
 'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Licznik rozpocznie liczenie od 0 po tej operacji, niezależnie od jego obecnego stanu. Tej operacji nie da się cofnąć.'
 'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Link zostanie wygenerowany tuż po wybraniu podmiotu. Wszystkie pozostałe opcje możesz wprowadzić zaraz po jego utworzeniu.
-'After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.': 'Po tym jak zlecisz otwarcie lub zamknięcie bramy, system podejmie próbę jej zamknięcia/otwarcia i poczeka 60 sekund aby sprawdzić, czy brama osiągnęła pożądany stan. Jeśli nie, to system ponowi próbę zamknięcia/otwarcia. Niniejszy parametr określa maksymalną ilość prób osiągnięcia celu podjętą przez system. Wartością zalecaną jest 5. Zmiana tego parametru nie wpływa na działanie harmonogramów.'
+'channelConfigHelp_numberOfAttemptsGate': 'Po tym jak zlecisz otwarcie lub zamknięcie bramy, system podejmie próbę jej zamknięcia/otwarcia i poczeka 60 sekund aby sprawdzić, czy brama osiągnęła pożądany stan. Jeśli nie, to system ponowi próbę zamknięcia/otwarcia. Niniejszy parametr określa maksymalną liczbę prób osiągnięcia celu podjętą przez system. Wartością zalecaną jest 5. Zmiana tego parametru nie wpływa na działanie harmonogramów.'
 All: Wszystko
 All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tabletu
 Allowed actions: Dozwolone akcje
@@ -973,3 +973,8 @@ hourly: Każdy dzień
 #</editor-fold>
 The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpienia.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jeśli urządzenie jest teraz uśpione, zostanie wprowadzone w tryb konfiguracjiu przy jego najbliższym wybudzeniu.
+channelConfigHelp_stateVerificationMethod: 'Aktywne: pierwsza zmiana stanu czujnika na docelowy przerywa ponawianie prób. Pasywne: raz na 60s sprawdzamy stan czujnika i przerywamy ponawianie, gdy czujnik zaraportuje wtedy zadany stan.'
+State verification method: Sposób weryfikacji stanu
+channelConfig_stateVerificationMethod_active: Aktywny
+channelConfig_stateVerificationMethod_passive: Pasywny
+'Gate''s state verification': Weryfikacja stanu bramy

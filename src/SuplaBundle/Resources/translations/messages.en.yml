@@ -111,3 +111,8 @@ sunset-before: the sunset
 #</editor-fold>
 
 Wait for this scene to finish before proceeding to the next step ({time}).: Wait for this scene to finish before proceeding to the next step ({time}).
+
+channelConfigHelp_numberOfAttemptsGate: After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.
+channelConfigHelp_stateVerificationMethod: 'Active: the first state change reported by the sensor terminates further attempts to open or close. Passive: we will check the sensor every 60s and terminate further attempts to open or close if the sensor reports the desired state at that moment.'
+channelConfig_stateVerificationMethod_active: Active
+channelConfig_stateVerificationMethod_passive: Passive

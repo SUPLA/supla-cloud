@@ -1,7 +1,8 @@
 <template>
     <div>
+        <h4 class="text-center">{{ $t("Gate's state verification") }}</h4>
         <dl>
-            <dd v-tooltip="$t('After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.')">
+            <dd v-tooltip="$t('channelConfigHelp_numberOfAttemptsGate')">
                 {{ $t('Number of attempts to open') }}
                 <i class="pe-7s-help1"></i>
             </dd>
@@ -15,7 +16,7 @@
                     </a>
                 </div>
             </dt>
-            <dd v-tooltip="$t('After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.')">
+            <dd v-tooltip="$t('channelConfigHelp_numberOfAttemptsGate')">
                 {{ $t('Number of attempts to close') }}
                 <i class="pe-7s-help1"></i>
             </dd>
@@ -36,6 +37,24 @@
                 {{ $t('Setting the number of attempts to 1 disables the retrying behavior completely.') }}
             </div>
         </transition-expand>
+        <dl>
+            <dd v-tooltip="$t('channelConfigHelp_stateVerificationMethod')">
+                {{ $t('State verification method') }}
+                <i class="pe-7s-help1"></i>
+            </dd>
+            <dt>
+                <div class="btn-group btn-group-flex">
+                    <a :class="['btn', (stateVerificationMethodActive ? 'btn-green' : 'btn-default')]"
+                        @click="stateVerificationMethodActive = true">
+                        {{ $t('channelConfig_stateVerificationMethod_active') }}
+                    </a>
+                    <a :class="['btn', (!stateVerificationMethodActive ? 'btn-green' : 'btn-default')]"
+                        @click="stateVerificationMethodActive = false">
+                        {{ $t('channelConfig_stateVerificationMethod_passive') }}
+                    </a>
+                </div>
+            </dt>
+        </dl>
     </div>
 </template>
 
@@ -66,6 +85,15 @@
                 },
                 set(value) {
                     this.channel.config.numberOfAttemptsToClose = value;
+                    this.$emit('change');
+                }
+            },
+            stateVerificationMethodActive: {
+                get() {
+                    return this.channel.config.stateVerificationMethodActive;
+                },
+                set(value) {
+                    this.channel.config.stateVerificationMethodActive = value;
                     this.$emit('change');
                 }
             },

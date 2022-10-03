@@ -16,6 +16,7 @@ class NumberOfAttemptsToOpenOrCloseParamTranslator implements ChannelParamTransl
         return [
             'numberOfAttemptsToOpen' => $channel->getUserConfigValue('numberOfAttemptsToOpen', self::DEFAULT_ATTEMPTS),
             'numberOfAttemptsToClose' => $channel->getUserConfigValue('numberOfAttemptsToClose', self::DEFAULT_ATTEMPTS),
+            'stateVerificationMethodActive' => $channel->getUserConfigValue('stateVerificationMethodActive', false),
         ];
     }
 
@@ -28,6 +29,10 @@ class NumberOfAttemptsToOpenOrCloseParamTranslator implements ChannelParamTransl
         if (array_key_exists('numberOfAttemptsToClose', $config) || !isset($userConfig['numberOfAttemptsToClose'])) {
             $value = $config['numberOfAttemptsToClose'] ?? self::DEFAULT_ATTEMPTS;
             $userConfig['numberOfAttemptsToClose'] = intval($this->getValueInRange($value, self::MIN_ATTEMPTS, self::MAX_ATTEMPTS));
+        }
+        if (array_key_exists('stateVerificationMethodActive', $config) || !isset($userConfig['stateVerificationMethodActive'])) {
+            $value = $config['stateVerificationMethodActive'] ?? false;
+            $userConfig['stateVerificationMethodActive'] = boolval($value);
         }
         $channel->setUserConfig($userConfig);
     }
