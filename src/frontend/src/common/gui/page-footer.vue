@@ -8,11 +8,18 @@
                 <span v-if="username">
                     <session-countdown></session-countdown>
                 </span>
-                <router-link v-else-if="isPageActive(['/login', '/oauth-authorize']) && !$frontendConfig.maintenanceMode"
-                    to="/forgotten-password"
-                    class="brand nav-link">
-                    {{ $t('Forgot your password?') }}
-                </router-link>
+                <div v-else-if="isPageActive(['/login', '/oauth-authorize']) && !$frontendConfig.maintenanceMode">
+                    <a v-if="showRegisterCloud"
+                        class="brand nav-link"
+                        href="https://cloud.supla.org/register-cloud">
+                        {{ $t('Register your SUPLA Cloud') }}
+                    </a>
+                    <router-link
+                        to="/forgotten-password"
+                        class="brand nav-link">
+                        {{ $t('Forgot your password?') }}
+                    </router-link>
+                </div>
                 <a v-else
                     :href="$router.resolve({name: 'login'}).href"
                     class="nav-link">
@@ -38,7 +45,8 @@
         components: {LanguageSelector, SessionCountdown},
         data() {
             return {
-                versionSignature: ''
+                versionSignature: '',
+                showRegisterCloud: !this.$frontendConfig.actAsBrokerCloud && !this.$frontendConfig.isCloudRegistered,
             };
         },
         mounted() {
@@ -97,6 +105,9 @@
             text-align: center;
             .footer-left, .footer-right {
                 padding-bottom: 7px;
+            }
+            .nav-link {
+                display: inline-block;
             }
         }
     }

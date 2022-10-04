@@ -18,6 +18,7 @@
 namespace SuplaBundle\Twig;
 
 use Psr\Container\ContainerInterface;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 class FrontendConfig {
@@ -35,8 +36,12 @@ class FrontendConfig {
         'mqttBrokerEnabled' => 'supla.mqtt_broker.enabled',
     ];
 
-    public function __construct(ContainerInterface $container) {
+    /** @var SuplaAutodiscover */
+    private $autodiscover;
+
+    public function __construct(ContainerInterface $container, SuplaAutodiscover $autodiscover) {
         $this->container = $container;
+        $this->autodiscover = $autodiscover;
     }
 
     public function getConfig() {
@@ -44,6 +49,7 @@ class FrontendConfig {
         return array_merge(
             $parameters,
             [
+                'isCloudRegistered' => !$this->autodiscover->isTarget(),
                 'max_upload_size' => [
                     'file' => $this->getMaxUploadSizePerFile(),
                     'total' => $this->getMaxUploadSize(),
