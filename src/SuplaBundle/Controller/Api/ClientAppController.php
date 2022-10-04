@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -28,6 +29,24 @@ use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Schema(
+ *   schema="ClientApp", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="name", type="string", description="Name from the device"),
+ *   @OA\Property(property="caption", type="string", description="Caption set by the user"),
+ *   @OA\Property(property="enabled", type="boolean"),
+ *   @OA\Property(property="connected", type="boolean", description="Whether the app is connected now or not, sent only if requested by the `include` param"),
+ *   @OA\Property(property="lastAccessDate", type="string", format="date-time"),
+ *   @OA\Property(property="lastAccessIpv4", type="string", format="ipv4"),
+ *   @OA\Property(property="regDate", type="string", format="date-time"),
+ *   @OA\Property(property="regIpv4", type="string", format="ipv4"),
+ *   @OA\Property(property="softwareVersion", type="string"),
+ *   @OA\Property(property="protocolVersion", type="integer"),
+ *   @OA\Property(property="accessIdId", type="integer"),
+ *   @OA\Property(property="accessId", description="Access identifier, if requested by the `include` param", ref="#/components/schemas/AccessIdentifier"),
+ * )
+ */
 class ClientAppController extends RestController {
     use Transactional;
     use SuplaServerAware;
@@ -40,6 +59,15 @@ class ClientAppController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/client-apps", operationId="getClientApps", summary="Get Client Apps", tags={"Client Apps"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"accessId", "connected"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/ClientApp"))),
+     * )
      * @Rest\Get("/client-apps")
      * @Security("has_role('ROLE_CLIENTAPPS_R')")
      */
@@ -53,6 +81,19 @@ class ClientAppController extends RestController {
     }
 
     /**
+     * @OA\Put(
+     *     path="/client-apps/{id}", operationId="updateClientApp", summary="Update the client app", tags={"Client Apps"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *          @OA\Property(property="accessIdId", type="integer", nullable=true),
+     *          @OA\Property(property="caption", type="string", nullable=true),
+     *          @OA\Property(property="enabled", type="boolean", nullable=true),
+     *       ),
+     *     ),
+     *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/ClientApp")),
+     * )
      * @Rest\Put("/client-apps/{clientApp}")
      * @Security("clientApp.belongsToUser(user) and has_role('ROLE_CLIENTAPPS_RW')")
      * @UnavailableInMaintenance
@@ -86,6 +127,11 @@ class ClientAppController extends RestController {
     }
 
     /**
+     * @OA\Delete(
+     *     path="/client-apps/{id}", operationId="deleteClientApp", summary="Delete the client app", tags={"Client Apps"},
+     *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response="204", description="Success"),
+     * )
      * @Rest\Delete("/client-apps/{clientApp}")
      * @Security("clientApp.belongsToUser(user) and has_role('ROLE_CLIENTAPPS_RW')")
      * @UnavailableInMaintenance
