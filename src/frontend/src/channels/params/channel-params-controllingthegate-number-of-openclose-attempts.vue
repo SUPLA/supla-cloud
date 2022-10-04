@@ -39,7 +39,7 @@
         </transition-expand>
         <dl>
             <dd v-tooltip="$t('channelConfigHelp_stateVerificationMethod')">
-                {{ $t('State verification method') }}
+                {{ $t('Verification method') }}
                 <i class="pe-7s-help1"></i>
             </dd>
             <dt>

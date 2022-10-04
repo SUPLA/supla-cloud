@@ -974,7 +974,7 @@ hourly: Każdy dzień
 The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpienia.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jeśli urządzenie jest teraz uśpione, zostanie wprowadzone w tryb konfiguracjiu przy jego najbliższym wybudzeniu.
 channelConfigHelp_stateVerificationMethod: 'Aktywne: pierwsza zmiana stanu czujnika na docelowy przerywa ponawianie prób. Pasywne: raz na 60s sprawdzamy stan czujnika i przerywamy ponawianie, gdy czujnik zaraportuje wtedy zadany stan.'
-State verification method: Sposób weryfikacji stanu
+Verification method: Sposób weryfikacji
 channelConfig_stateVerificationMethod_active: Aktywny
 channelConfig_stateVerificationMethod_passive: Pasywny
 'Gate''s state verification': Weryfikacja stanu bramy

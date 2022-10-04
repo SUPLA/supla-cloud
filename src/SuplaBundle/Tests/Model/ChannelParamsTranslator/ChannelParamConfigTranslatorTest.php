@@ -214,6 +214,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             'numberOfAttemptsToOpen' => 5,
             'numberOfAttemptsToClose' => 5,
             'timeSettingAvailable' => true,
+            'stateVerificationMethodActive' => false,
         ], $config);
     }
 
