@@ -22,6 +22,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\DirectLink;
@@ -41,6 +42,28 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @OA\Schema(
+ *   schema="DirectLink", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="caption", type="string", description="Caption set by the user"),
+ *   @OA\Property(property="active", type="boolean"),
+ *   @OA\Property(property="disableHttpGet", type="boolean"),
+ *   @OA\Property(property="enabled", type="boolean"),
+ *   @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+ *   @OA\Property(property="subjectId", type="integer"),
+ *   @OA\Property(property="lastUsed", type="string", format="date-time"),
+ *   @OA\Property(property="lastIpv4", type="string", format="ipv4"),
+ *   @OA\Property(property="userId", type="integer"),
+ *   @OA\Property(property="executionsLimit", type="integer"),
+ *   @OA\Property(property="allowedActions", type="array", @OA\Items(ref="#/components/schemas/ChannelFunctionActionEnumNames")),
+ *   @OA\Property(property="activeDateRange", type="object",
+ *     @OA\Property(property="dateStart", type="string", format="date-time"),
+ *     @OA\Property(property="dateEnd", type="string", format="date-time"),
+ *   ),
+ *   @OA\Property(property="subject", description="Only if requested by the `include` param.", ref="#/components/schemas/ActionableSubject"),
+ * )
+ */
 class DirectLinkController extends RestController {
     use Transactional;
 
@@ -73,6 +96,17 @@ class DirectLinkController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/direct-links", operationId="getDirectLinks", summary="Get Direct Links", tags={"Direct Links"},
+     *     @OA\Parameter(name="subjectType", in="query", description="Return links only for particular subjectType. Must be used with subjectId.", required=false, @OA\Schema(ref="#/components/schemas/ActionableSubjectTypeNames")),
+     *     @OA\Parameter(name="subjectId", in="query", description="Return links only for particular subjectId. Must be used with subjectType.", required=false, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/DirectLink"))),
+     * )
      * @Rest\Get("/direct-links")
      * @Security("has_role('ROLE_DIRECTLINKS_R')")
      */
@@ -90,6 +124,16 @@ class DirectLinkController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/channels/{channel}/direct-links", operationId="getChannelDirectLinks", summary="Get channel direct links", tags={"Channels"},
+     *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/DirectLink"))),
+     * )
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
      * @Rest\Get("/channels/{channel}/direct-links")
      */
@@ -99,6 +143,16 @@ class DirectLinkController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/channel-groups/{channelGroup}/direct-links", operationId="getChannelGroupDirectLinks", summary="Get channel group direct links", tags={"Channel Groups"},
+     *     @OA\Parameter(description="ID", in="path", name="channelGroup", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/DirectLink"))),
+     * )
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
      * @Rest\Get("/channel-groups/{channelGroup}/direct-links")
      */
@@ -108,6 +162,16 @@ class DirectLinkController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/scenes/{scene}/direct-links", operationId="getSceneDirectLinks", summary="Get scene direct links", tags={"Scenes"},
+     *     @OA\Parameter(description="ID", in="path", name="scene", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/DirectLink"))),
+     * )
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
      * @Rest\Get("/scenes/{scene}/direct-links")
      */
@@ -117,6 +181,16 @@ class DirectLinkController extends RestController {
     }
 
     /**
+     * @OA\Get(
+     *     path="/direct-links/{directLink}", operationId="getDirectLink", summary="Get direct link", tags={"Direct Links"},
+     *     @OA\Parameter(description="ID", in="path", name="directLink", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/DirectLink")),
+     * )
      * @Rest\Get("/direct-links/{directLink}")
      * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_R')")
      */

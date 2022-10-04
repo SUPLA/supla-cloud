@@ -58,6 +58,7 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
                 'timeSettingAvailable' => true,
                 'numberOfAttemptsToOpen' => 5,
                 'numberOfAttemptsToClose' => 5,
+                'stateVerificationMethodActive' => false,
             ],
             $channel->getUserConfig()
         );
