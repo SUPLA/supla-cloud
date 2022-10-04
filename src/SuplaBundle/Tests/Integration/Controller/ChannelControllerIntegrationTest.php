@@ -487,6 +487,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'timeSettingAvailable' => true,
             'numberOfAttemptsToOpen' => 5,
             'numberOfAttemptsToClose' => 5,
+            'stateVerificationMethodActive' => false,
         ];
         $this->assertEquals($expectedConfig, $gateChannel->getUserConfig());
     }
