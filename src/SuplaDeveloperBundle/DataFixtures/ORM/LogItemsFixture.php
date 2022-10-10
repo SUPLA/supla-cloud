@@ -21,6 +21,7 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
+use SuplaBundle\Entity\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODevice;
@@ -53,6 +54,8 @@ class LogItemsFixture extends SuplaFixture {
         $this->createImpulseCounterLogItems();
         $this->entityManager->flush();
         $this->createElectricityMeterLogItems();
+        $this->entityManager->flush();
+        $this->createElectricityMeterVoltageLogItems();
         $this->entityManager->flush();
     }
 
@@ -195,6 +198,48 @@ class LogItemsFixture extends SuplaFixture {
                 EntityUtils::setField($logItem, $stateName, $state[$stateName]);
             }
             if ($this->faker->boolean(95)) {
+                $this->entityManager->persist($logItem);
+            }
+        }
+    }
+
+    private function createElectricityMeterVoltageLogItems() {
+        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+        $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+            return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
+        })->first();
+        $channelId = $ecChannel->getId();
+        $from = strtotime(self::SINCE);
+        $to = time();
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+            $above = $this->faker->boolean(3);
+            $below = $this->faker->boolean(3);
+            if ($above || $below) {
+                $logItem = new ElectricityMeterVoltageLogItem();
+                EntityUtils::setField($logItem, 'channel_id', $channelId);
+                EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+                $state = [
+                    'phaseNo' => $this->faker->numberBetween(0, 2),
+                    'countAbove' => $above ? $this->faker->numberBetween(1, 10) : 0,
+                    'countBelow' => $below ? $this->faker->numberBetween(1, 10) : 0,
+                    'secAbove' => $above ? $this->faker->numberBetween(1, 300) : 0,
+                    'secBelow' => $below ? $this->faker->numberBetween(1, 300) : 0,
+                    'minVoltage' => $this->faker->numberBetween($below ? 22000 : 23000, $below ? 23000 : 24000) / 100,
+                    'maxVoltage' => $this->faker->numberBetween($above ? 25000 : 23000, $above ? 27000 : 24000) / 100,
+                    'measurementTimeSec' => $this->faker->numberBetween(595, 605),
+                ];
+                $state['countTotal'] = $state['countAbove'] + $state['countBelow'];
+                $state['secTotal'] = $state['secAbove'] + $state['secBelow'];
+                $state['maxSecAbove'] = $above
+                    ? ($state['countAbove'] === 1 ? $state['secAbove'] : $this->faker->numberBetween(1, $state['secAbove']))
+                    : 0;
+                $state['maxSecBelow'] = $below
+                    ? ($state['countBelow'] === 1 ? $state['secBelow'] : $this->faker->numberBetween(1, $state['secBelow']))
+                    : 0;
+                $state['avgVoltage'] = $this->faker->numberBetween($state['minVoltage'] * 100, $state['maxVoltage'] * 100) / 100;
+                foreach ($state as $stateName => $value) {
+                    EntityUtils::setField($logItem, $stateName, $state[$stateName]);
+                }
                 $this->entityManager->persist($logItem);
             }
         }

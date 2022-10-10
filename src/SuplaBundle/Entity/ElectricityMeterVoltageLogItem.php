@@ -58,19 +58,19 @@ class ElectricityMeterVoltageLogItem {
     private $countBelow;
 
     /**
-     * @ORM\Column(name="total_sec", type="integer")
+     * @ORM\Column(name="sec_total", type="integer")
      */
-    private $totalSec;
+    private $secTotal;
 
     /**
-     * @ORM\Column(name="total_sec_above", type="integer")
+     * @ORM\Column(name="sec_above", type="integer")
      */
-    private $totalSecAbove;
+    private $secAbove;
 
     /**
-     * @ORM\Column(name="total_sec_below", type="integer")
+     * @ORM\Column(name="sec_below", type="integer")
      */
-    private $totalSecBelow;
+    private $secBelow;
 
     /**
      * @ORM\Column(name="max_sec_above", type="integer")
@@ -83,7 +83,7 @@ class ElectricityMeterVoltageLogItem {
     private $maxSecBelow;
 
     /**
-     * @ORM\Column(name="min_volate", type="decimal", precision=7, scale=2)
+     * @ORM\Column(name="min_voltage", type="decimal", precision=7, scale=2)
      */
     private $minVoltage;
 
