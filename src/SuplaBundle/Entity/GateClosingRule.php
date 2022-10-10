@@ -17,14 +17,8 @@
 
 namespace SuplaBundle\Entity;
 
-use Assert\Assertion;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use SuplaBundle\Entity\Common\HasRelationsCount;
-use SuplaBundle\Entity\Common\HasRelationsCountTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity()
@@ -89,4 +83,8 @@ class GateClosingRule {
     private $lastSeenOpen;
 
     private $activeNow;
+
+    public function getMaxTimeOpen(): int {
+        return $this->maxTimeOpen;
+    }
 }
