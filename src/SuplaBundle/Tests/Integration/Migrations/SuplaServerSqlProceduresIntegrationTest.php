@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
+use SuplaBundle\Entity\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\GateClosingRule;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -62,5 +63,20 @@ class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
         $closingAttemptDate = EntityUtils::getField($state, 'closingAttempt');
         $this->assertNotNull($closingAttemptDate);
         $this->assertGreaterThanOrEqual(time(), $closingAttemptDate->getTimestamp());
+    }
+
+    public function testSuplaAddEmVoltageLogItem() {
+        $parameters = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11.5, 12.5, 13.5, 14];
+        $query = 'CALL supla_add_em_voltage_log_item(' . implode(', ', $parameters) . ')';
+        $this->getEntityManager()->getConnection()->executeQuery($query);
+        $logItems = $this->getEntityManager()->getRepository(ElectricityMeterVoltageLogItem::class)->findAll();
+        $this->assertCount(1, $logItems);
+        /** @var ElectricityMeterVoltageLogItem $logItem */
+        $logItem = $logItems[0];
+        $this->assertNotNull($logItem);
+        $this->assertEquals(1, $logItem->getChannelId());
+        $this->assertEquals(2, EntityUtils::getField($logItem, 'phaseNo'));
+        $this->assertEquals(7, EntityUtils::getField($logItem, 'secAbove'));
+        $this->assertEquals(13.5, EntityUtils::getField($logItem, 'avgVoltage'));
     }
 }
