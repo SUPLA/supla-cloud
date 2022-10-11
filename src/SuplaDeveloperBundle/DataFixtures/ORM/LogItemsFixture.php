@@ -41,10 +41,13 @@ class LogItemsFixture extends SuplaFixture {
 
     const SINCE = '-40 day';
 
+    public function __construct() {
+        $this->faker = Factory::create('pl_PL');
+    }
+
     public function load(ObjectManager $manager) {
         ini_set('memory_limit', '1G');
         $this->entityManager = $manager;
-        $this->faker = Factory::create('pl_PL');
         $this->createTemperatureLogItems();
         $this->entityManager->flush();
         $this->createHumidityLogItems();
@@ -203,13 +206,15 @@ class LogItemsFixture extends SuplaFixture {
         }
     }
 
-    private function createElectricityMeterVoltageLogItems() {
-        $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
-        $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
-            return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
-        })->first();
-        $channelId = $ecChannel->getId();
-        $from = strtotime(self::SINCE);
+    public function createElectricityMeterVoltageLogItems(?int $channelId = null, ?string $since = null) {
+        if (!$channelId) {
+            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+            $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+                return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
+            })->first();
+            $channelId = $ecChannel->getId();
+        }
+        $from = strtotime($since ?: self::SINCE);
         $to = time();
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
             $above = $this->faker->boolean(3);
