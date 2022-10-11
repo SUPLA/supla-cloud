@@ -35,6 +35,9 @@
         <div v-if="currentTab == 'measurementsHistory'">
             <channel-measurements-history :channel="channel"></channel-measurements-history>
         </div>
+        <div v-if="currentTab == 'voltageHistory'">
+            <channel-voltage-history :channel="channel"/>
+        </div>
     </div>
 </template>
 
@@ -45,10 +48,13 @@
     import ScenesList from "../scenes/scenes-list";
     import ChannelMeasurementsHistory from "./channel-measurements-history";
     import ChannelActionTriggers from "@/channels/action-trigger/channel-action-triggers";
+    import ChannelFunction from "../common/enums/channel-function";
+    import ChannelVoltageHistory from "./channel-voltage-history";
 
     export default {
         props: ['channel'],
         components: {
+            ChannelVoltageHistory,
             ChannelActionTriggers,
             ChannelMeasurementsHistory, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
         },
@@ -112,6 +118,12 @@
                 this.availableTabs.push({
                     id: 'measurementsHistory',
                     header: 'History of measurements', // i18n
+                });
+            }
+            if (this.channel.function.id === ChannelFunction.ELECTRICITYMETER) {
+                this.availableTabs.push({
+                    id: 'voltageHistory',
+                    header: 'Voltage history', // i18n
                 });
             }
             const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
