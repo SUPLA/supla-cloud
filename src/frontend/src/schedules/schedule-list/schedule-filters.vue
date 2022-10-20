@@ -16,9 +16,9 @@
 </template>
 
 <script>
-    import moment from "moment";
     import BtnFilters from "../../common/btn-filters";
     import latinize from "latinize";
+    import {DateTime} from "luxon";
 
     export default {
         components: {BtnFilters},
@@ -60,7 +60,7 @@
                     } else if (!closestA1) {
                         return 1;
                     } else {
-                        return moment(closestA1.plannedTimestamp).diff(moment(closestA2.plannedTimestamp));
+                        return DateTime.fromISO(closestA1.plannedTimestamp).diff(DateTime.fromISO(closestA2.plannedTimestamp)).milliseconds;
                     }
                 } else {
                     return +a1.id - +a2.id;

@@ -116,11 +116,11 @@
     import SubjectDropdown from "../../devices/subject-dropdown";
     import ChannelActionChooser from "../../channels/action/channel-action-chooser";
     import Vue from "vue";
-    import moment from "moment";
     import {cloneDeep} from "lodash";
     import ActionableSubjectType from "../../common/enums/actionable-subject-type";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
     import DateRangePicker from "../../direct-links/date-range-picker";
+    import {DateTime} from "luxon";
 
     export default {
         props: ['id'],
@@ -181,7 +181,7 @@
             } else {
                 this.schedule = {
                     mode: 'daily',
-                    dateStart: moment().format(),
+                    dateStart: DateTime.now().startOf('second').toISO({suppressMilliseconds: true}),
                     retry: true,
                     config: this.configs.daily,
                 };

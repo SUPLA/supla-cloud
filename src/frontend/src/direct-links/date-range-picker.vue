@@ -25,7 +25,7 @@
 </template>
 
 <script>
-    import moment from "moment";
+    import {DateTime} from "luxon";
 
     export default {
         props: ['value'],
@@ -37,23 +37,29 @@
         },
         mounted() {
             if (this.value && this.value.dateStart) {
-                this.dateStart = moment(this.value.dateStart).format(moment.HTML5_FMT.DATETIME_LOCAL);
+                this.dateStart = this.formatForHtmlInput(this.value.dateStart);
             }
             if (this.value && this.value.dateEnd) {
-                this.dateEnd = moment(this.value.dateEnd).format(moment.HTML5_FMT.DATETIME_LOCAL);
+                this.dateEnd = this.formatForHtmlInput(this.value.dateEnd);
             }
         },
         methods: {
             onChange() {
+                const format = (date) => DateTime.fromISO(date).startOf('second').toISO({suppressMilliseconds: true});
                 this.$emit('input', {
-                    dateStart: this.dateStart ? moment(this.dateStart).format() : undefined,
-                    dateEnd: this.dateEnd ? moment(this.dateEnd).format() : undefined,
+                    dateStart: this.dateStart ? format(this.dateStart) : undefined,
+                    dateEnd: this.dateEnd ? format(this.dateEnd) : undefined,
                 });
+            },
+            formatForHtmlInput(datetime) {
+                return DateTime.fromISO(datetime)
+                    .startOf('minute')
+                    .toISO({includeOffset: false, suppressSeconds: true, suppressMilliseconds: true});
             },
         },
         computed: {
             minDate() {
-                return moment().format(moment.HTML5_FMT.DATETIME_LOCAL);
+                return this.formatForHtmlInput(DateTime.now().toISO());
             },
         }
     };
