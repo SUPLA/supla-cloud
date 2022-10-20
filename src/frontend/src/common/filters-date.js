@@ -24,6 +24,12 @@ export function formatDateTimeLong(datetime) {
     return formatDate(datetime, DateTime.DATETIME_MED_WITH_WEEKDAY);
 }
 
+export function formatDateForHtmlInput(datetime) {
+    return DateTime.fromISO(datetime)
+        .startOf('minute')
+        .toISO({includeOffset: false, suppressSeconds: true, suppressMilliseconds: true});
+}
+
 Vue.filter('formatDate', formatDate);
 Vue.filter('formatDateTime', formatDateTime);
 Vue.filter('formatDateTimeLong', formatDateTimeLong);

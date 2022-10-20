@@ -26,6 +26,7 @@
 
 <script>
     import {DateTime} from "luxon";
+    import {formatDateForHtmlInput} from "../common/filters-date";
 
     export default {
         props: ['value'],
@@ -37,10 +38,10 @@
         },
         mounted() {
             if (this.value && this.value.dateStart) {
-                this.dateStart = this.formatForHtmlInput(this.value.dateStart);
+                this.dateStart = formatDateForHtmlInput(this.value.dateStart);
             }
             if (this.value && this.value.dateEnd) {
-                this.dateEnd = this.formatForHtmlInput(this.value.dateEnd);
+                this.dateEnd = formatDateForHtmlInput(this.value.dateEnd);
             }
         },
         methods: {
@@ -51,15 +52,10 @@
                     dateEnd: this.dateEnd ? format(this.dateEnd) : undefined,
                 });
             },
-            formatForHtmlInput(datetime) {
-                return DateTime.fromISO(datetime)
-                    .startOf('minute')
-                    .toISO({includeOffset: false, suppressSeconds: true, suppressMilliseconds: true});
-            },
         },
         computed: {
             minDate() {
-                return this.formatForHtmlInput(DateTime.now().toISO());
+                return formatDateForHtmlInput(DateTime.now().toISO());
             },
         }
     };

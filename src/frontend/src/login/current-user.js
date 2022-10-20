@@ -1,8 +1,7 @@
 import Vue from "vue";
 import {Base64} from 'js-base64';
-import moment from "moment";
 import $ from "jquery";
-import {Settings} from 'luxon';
+import {DateTime, Settings} from 'luxon';
 
 export class CurrentUser {
     constructor() {
@@ -21,7 +20,6 @@ export class CurrentUser {
         Vue.http.headers.common['Authorization'] = this.getToken() ? 'Bearer ' + this.getToken() : undefined;
         this.determineServerUrl();
         Vue.http.options.root = this.serverUrl + Vue.config.external.baseUrl + '/api';
-        moment.tz.setDefault(this.userData && this.userData.timezone || undefined);
         Settings.defaultZone = this.userData && this.userData.timezone || 'system';
         return this.userData;
     }
@@ -45,7 +43,8 @@ export class CurrentUser {
 
     handleNewToken(response) {
         Vue.prototype.$localStorage.set('_token', response.body.access_token);
-        const tokenExpiration = moment().add(response.body.expires_in, 'seconds').format();
+        const tokenExpiration = DateTime.now().plus({seconds: response.body.expires_in})
+            .startOf('second').toISO({suppressMilliseconds: true});
         Vue.prototype.$localStorage.set('_token_expiration', tokenExpiration);
         Vue.prototype.$localStorage.set('_token_down', response.body.download_token);
         this.synchronizeAuthState();

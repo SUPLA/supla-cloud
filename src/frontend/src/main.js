@@ -1,5 +1,4 @@
 import $ from "jquery";
-import moment from "moment";
 import "bootstrap";
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,7 +10,6 @@ import vMediaQuery from 'v-media-query';
 import VTooltip from 'v-tooltip';
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
 import * as requestTransformers from "./common/http/transformers";
-import "moment-timezone";
 import "./common/common-components";
 import "./common/common-directives";
 import "./common/filters";
@@ -54,9 +52,6 @@ Vue.http.get('server-info')
         }
         const serverTime = DateTime.fromISO(info.time).toJSDate();
         const offset = serverTime.getTime() - renderStart.getTime();
-        moment.now = function () {
-            return Date.now() + offset;
-        };
         Settings.now = function () {
             return Date.now() + offset;
         };

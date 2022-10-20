@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueI18N from "vue-i18n";
-import moment from "moment";
 import {Settings} from "luxon";
 
 Vue.config.availableLanguages = [
@@ -38,7 +37,6 @@ Vue.prototype.$setLocale = (lang) => {
             } else {
                 document.getElementsByTagName("html")[0].removeAttribute('dir');
             }
-            moment.locale(lang);
             Settings.defaultLocale = lang;
             if (Vue.prototype.$user.userData && Vue.prototype.$user.userData.locale != lang) {
                 Vue.prototype.$updateUserLocale(lang);
