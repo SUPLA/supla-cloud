@@ -67,7 +67,10 @@
                             :key="log.date_timestamp"
                             class="voltage-log panel panel-default">
                             <div class="panel-body">
-                                <h4>{{ formatTimestamp(log.date_timestamp) }}</h4>
+                                <h4>
+                                    {{ log.date_timestamp | formatDate('DATETIME_FULL_WITH_SECONDS') }} -
+                                    {{ (log.date_timestamp + log.measurementTimeSec) | formatDate('DATETIME_FULL_WITH_SECONDS') }}
+                                </h4>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h4>{{ $t('Violation info') }}</h4>
@@ -175,9 +178,6 @@
                 });
         },
         methods: {
-            formatTimestamp(timestamp) {
-                return DateTime.fromSeconds(timestamp).toLocaleString(DateTime.DATE_HUGE);
-            },
             selectDay(stat) {
                 this.selectedDay = stat.dayFormatted;
                 const violations = this.logs.filter(log => log.day === stat.dayFormatted);

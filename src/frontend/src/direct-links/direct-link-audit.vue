@@ -13,7 +13,7 @@
                     {{ errorEntryMessage(entry.textParam) }}
                 </div>
                 <div class="text-muted small">
-                    {{ entry.createdAt | moment('LLL') }}
+                    {{ entry.createdAt | formatDateTime }}
                     {{ $t('from IP') }}
                     {{ entry.ipv4 }}
                 </div>

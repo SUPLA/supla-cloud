@@ -12,7 +12,7 @@
                 <dd>ID</dd>
                 <dt>{{ model.id }}</dt>
                 <dd>{{ $t('Last used') }}</dd>
-                <dt v-if="model.lastUsed">{{ model.lastUsed | moment("LT L") }}</dt>
+                <dt v-if="model.lastUsed">{{ model.lastUsed | formatDateTime }}</dt>
                 <dt v-else>{{ $t('Never') }}</dt>
                 <dd>{{ $t('Subject type') }}</dd>
                 <dt>{{ $t('actionableSubjectType_' + model.subjectType) }}</dt>

@@ -1,4 +1,5 @@
 import Vue from "vue";
+import "./filters-date";
 
 export function withBaseUrl(url, absolute = true) {
     if (url[0] != '/') {

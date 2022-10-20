@@ -19,7 +19,7 @@
                         <dl v-if="previousAuthAttempt">
                             <dt>{{ $t('Previous login') }}</dt>
                             <dd>
-                                <strong>{{ previousAuthAttempt.createdAt | moment('LLL') }}</strong>
+                                <strong>{{ previousAuthAttempt.createdAt | formatDateTime }}</strong>
                             </dd>
                             <dt>{{ $t('From IP') }}</dt>
                             <dd>

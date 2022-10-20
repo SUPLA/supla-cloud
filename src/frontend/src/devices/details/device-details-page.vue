@@ -30,9 +30,9 @@
                                         <dd>{{ $t('SoftVer') }}</dd>
                                         <dt>{{ device.softwareVersion }}</dt>
                                         <dd>{{ $t('Registered') }}</dd>
-                                        <dt>{{ device.regDate | moment("LT L") }}</dt>
+                                        <dt>{{ device.regDate | formatDateTime }}</dt>
                                         <dd>{{ $t('Last connection') }}</dd>
-                                        <dt>{{ device.lastConnected | moment("LT L") }}</dt>
+                                        <dt>{{ device.lastConnected | formatDateTime }}</dt>
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt>
                                             <toggler v-model="device.enabled"

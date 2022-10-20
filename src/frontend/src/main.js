@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
 import {i18n, setGuiLocale} from './locale';
 import router from './router';
-import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
 import vMediaQuery from 'v-media-query';
 import VTooltip from 'v-tooltip';
@@ -24,7 +23,6 @@ import App from "./App";
 import EventBus from "./common/event-bus";
 import {DateTime, Settings} from 'luxon';
 
-Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 Vue.use(VTooltip);
