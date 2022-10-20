@@ -2,6 +2,7 @@ import Vue from "vue";
 import {Base64} from 'js-base64';
 import moment from "moment";
 import $ from "jquery";
+import {Settings} from 'luxon';
 
 export class CurrentUser {
     constructor() {
@@ -21,6 +22,7 @@ export class CurrentUser {
         this.determineServerUrl();
         Vue.http.options.root = this.serverUrl + Vue.config.external.baseUrl + '/api';
         moment.tz.setDefault(this.userData && this.userData.timezone || undefined);
+        Settings.defaultZone = this.userData && this.userData.timezone || 'system';
         return this.userData;
     }
 

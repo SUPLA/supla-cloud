@@ -22,6 +22,7 @@ import {CurrentUser} from "./login/current-user";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
 import App from "./App";
 import EventBus from "./common/event-bus";
+import {DateTime, Settings} from 'luxon';
 
 Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
@@ -53,9 +54,12 @@ Vue.http.get('server-info')
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }
-        const serverTime = moment(info.time).toDate();
+        const serverTime = DateTime.fromISO(info.time).toJSDate();
         const offset = serverTime.getTime() - renderStart.getTime();
         moment.now = function () {
+            return Date.now() + offset;
+        };
+        Settings.now = function () {
             return Date.now() + offset;
         };
         Vue.prototype.$user = new CurrentUser();
