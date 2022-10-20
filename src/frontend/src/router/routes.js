@@ -74,7 +74,11 @@ export default [
             {path: ':id', component: () => import("@/access-ids/access-id-details"), name: 'accessId', props: true}
         ]
     },
-    {path: '/account', component: () => import("@/account-details/account-page"), meta: {bodyClass: 'green'}},
+    {
+        path: '/account',
+        component: () => import(/*webpackChunkName:"account-page"*/"@/account-details/account-page"),
+        meta: {bodyClass: 'green'}
+    },
     {
         path: '/channel-groups', component: () => import("@/channel-groups/channel-groups-page"), name: 'channelGroups', children: [
             {path: ':id', component: () => import("@/channel-groups/channel-group-details"), name: 'channelGroup', props: true}
