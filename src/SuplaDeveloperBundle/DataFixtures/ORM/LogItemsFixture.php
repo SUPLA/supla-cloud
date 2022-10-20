@@ -217,8 +217,8 @@ class LogItemsFixture extends SuplaFixture {
         $from = strtotime($since ?: self::SINCE);
         $to = time();
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
-            $above = $this->faker->boolean(3);
-            $below = $this->faker->boolean(3);
+            $above = $this->faker->boolean(2);
+            $below = $this->faker->boolean(2);
             if ($above || $below) {
                 $logItem = new ElectricityMeterVoltageLogItem();
                 EntityUtils::setField($logItem, 'channel_id', $channelId);

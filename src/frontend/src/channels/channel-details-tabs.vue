@@ -123,7 +123,7 @@
             if (this.channel.function.id === ChannelFunction.ELECTRICITYMETER) {
                 this.availableTabs.push({
                     id: 'voltageHistory',
-                    header: 'Voltage history', // i18n
+                    header: 'Voltage deviations', // i18n
                 });
             }
             const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
