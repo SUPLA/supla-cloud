@@ -21,6 +21,7 @@
     import "@/common/bootstrap-select";
     import moment from "moment";
     import $ from "jquery";
+    import {Settings} from "luxon";
 
     export default {
         props: ['timezone'],
@@ -34,6 +35,7 @@
         methods: {
             updateTimezone() {
                 moment.tz.setDefault(this.chosenTimezone);
+                Settings.defaultZone = this.chosenTimezone;
                 this.$http.patch('users/current', {timezone: this.chosenTimezone, action: 'change:userTimezone'});
             },
             initSelectPicker() {

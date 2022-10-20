@@ -53,7 +53,7 @@
     import ApexCharts from "apexcharts";
     import {measurementUnit} from "./channel-helpers";
     import $ from "jquery";
-    import moment from "moment";
+    import {DateTime} from "luxon";
 
     window.ApexCharts = ApexCharts;
 
@@ -531,7 +531,7 @@
                     },
                     tooltip: {
                         x: {
-                            formatter: (value) => moment.unix(value / 1000).format('LT D MMM'),
+                            formatter: (value) => DateTime.fromSeconds(value / 1000).toLocaleString(DateTime.DATETIME_MED),
                         }
                     },
                 };

@@ -130,8 +130,8 @@
 
 <script>
     import AccountLimitProgressbar from "./account-limit-progressbar";
-    import moment from "moment";
     import Vue from "vue";
+    import {DateTime} from "luxon";
 
     export default {
         components: {AccountLimitProgressbar},
@@ -176,7 +176,7 @@
                 if (!this.apiRateStatus) {
                     return;
                 }
-                return moment.unix(this.limits.apiRateLimit.status.reset).format('LTS L');
+                return DateTime.fromSeconds(this.limits.apiRateLimit.status.reset).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
             },
             changingInfoMessage() {
                 const message = this.$t('Use the [command] server command to change this account\'s limits. For example:')

@@ -66,8 +66,8 @@
 <script>
     import Vue from "vue";
     import $ from "jquery";
-    import moment from "moment";
     import AppState from "../../router/app-state";
+    import {DateTime} from "luxon";
 
     export default {
         data() {
@@ -105,9 +105,9 @@
             synchronizeExpirationTime() {
                 const expirationTime = this.$localStorage.get('_token_expiration');
                 if (expirationTime) {
-                    const timestamp = moment(expirationTime).unix();
+                    const timestamp = DateTime.fromISO(expirationTime).toSeconds();
                     if (timestamp > (new Date().getTime() / 1000)) {
-                        this.expirationTimestamp = moment(expirationTime).unix();
+                        this.expirationTimestamp = timestamp;
                         this.countdown();
                     }
                 }

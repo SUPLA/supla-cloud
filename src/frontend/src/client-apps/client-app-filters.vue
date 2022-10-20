@@ -21,7 +21,7 @@
 <script>
     import BtnFilters from "../common/btn-filters";
     import latinize from "latinize";
-    import moment from "moment";
+    import {DateTime} from "luxon";
 
     export default {
         components: {BtnFilters},
@@ -51,7 +51,6 @@
                         clientApp.caption,
                         clientApp.softwareVersion,
                         clientApp.protocolVersion,
-                        moment(clientApp.lastAccessDate).format("LT L"),
                         clientApp.lastAccessIpv4,
                         clientApp.accessId ? clientApp.accessId.caption : '',
                     ];
@@ -64,7 +63,7 @@
                 if (this.sort == 'az') {
                     return this.captionForSort(a1) < this.captionForSort(a2) ? -1 : 1;
                 } else {
-                    return moment(a2.lastAccessDate).diff(moment(a1.lastAccessDate));
+                    return DateTime.fromISO(a2.lastAccessDate.lastConnected).diff(DateTime.fromISO(a1.lastAccessDate)).milliseconds;
                 }
             },
             captionForSort(model) {
