@@ -11,6 +11,7 @@ use Doctrine\DBAL\Schema\Schema;
  * 3.New supla_v_auto_gate_closing view
  * 4.New supla_mark_gate_closed procedure
  * 5.New supla_mark_gate_open procedure
+ * 6.New supla_set_closing_attempt procedure
  */
 class Version20221020225729 extends NoWayBackMigration
 {
@@ -22,6 +23,7 @@ class Version20221020225729 extends NoWayBackMigration
         $this->createAutoGateClosingView();
         $this->createMarkGateClosedProcedure();
         $this->createMarkGateOpenProcedure();
+        $this->createSetClosingAttemptProcedure();
     }
 
 
@@ -176,6 +178,20 @@ BEGIN
       WHERE
              channel_id = _channel_id;
 END
+VIEW;
+        $this->addSql($view);
+    }
+
+    private function createSetClosingAttemptProcedure() {
+        $this->addSql('DROP PROCEDURE IF EXISTS supla_set_closing_attempt');
+        $view = <<<VIEW
+CREATE PROCEDURE `supla_set_closing_attempt`(IN `_channel_id` INT)
+    UPDATE
+        `supla_auto_gate_closing`
+    SET
+        closing_attempt = NOW()
+    WHERE
+        channel_id = _channel_id
 VIEW;
         $this->addSql($view);
     }
