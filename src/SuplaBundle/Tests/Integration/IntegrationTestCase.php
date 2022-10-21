@@ -96,14 +96,6 @@ abstract class IntegrationTestCase extends WebTestCase {
         $this->executeCommand('supla:initialize');
     }
 
-    protected function createDatabaseRoutines() {
-        $migrationsThatAddRoutines = ['20220309061812'];
-        foreach ($migrationsThatAddRoutines as $migration) {
-            $this->executeCommand('doctrine:migrations:version --all --delete ' . $migration);
-            $this->executeCommand('doctrine:migrations:execute ' . $migration);
-        }
-    }
-
     protected function initializeDatabaseForTests() {
     }
 

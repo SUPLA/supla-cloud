@@ -27,7 +27,7 @@ doctrine:
     auto_mapping: true
     dql:
       numeric_functions:
-        supla_is_access_id_now_active: SuplaBundle\Model\Doctrine\IsAccessIdNowActive
+        supla_is_now_active: SuplaBundle\Model\Doctrine\IsNowActive
 
 doctrine_migrations:
   namespace: Supla\Migrations

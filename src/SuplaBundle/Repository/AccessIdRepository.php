@@ -14,7 +14,7 @@ class AccessIdRepository extends EntityWithRelationsRepository {
             ->addSelect('aid entity')
             ->addSelect('COUNT(DISTINCT l) locations')
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s ca WHERE ca.accessId = aid) clientApps', ClientApp::class))
-            ->addSelect('supla_is_access_id_now_active(aid.activeFrom, aid.activeTo, aid.activeHours, u.timezone) isNowActive')
+            ->addSelect('supla_is_now_active(aid.activeFrom, aid.activeTo, aid.activeHours, u.timezone) isNowActive')
             ->from(AccessID::class, 'aid')
             ->leftJoin('aid.locations', 'l')
             ->innerJoin(User::class, 'u')

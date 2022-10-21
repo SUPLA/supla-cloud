@@ -31,7 +31,7 @@ class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
     private $user;
 
     protected function initializeDatabaseForTests() {
-        $this->createDatabaseRoutines();
+        $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
     }
 

@@ -38,7 +38,7 @@ class AccessIDControllerIntegrationTest extends IntegrationTestCase {
     private $location;
 
     protected function initializeDatabaseForTests() {
-        $this->createDatabaseRoutines();
+        $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
     }
 

@@ -27,6 +27,10 @@ class Version20221020225729 extends NoWayBackMigration
     }
 
 
+    private function dropSuplaAccessIdActiveView() {
+        $this->addSql("DROP VIEW IF EXISTS `supla_v_accessid_active`");
+    }
+
     private function renameIsNowActiveFunction() {
         $this->addSql('DROP FUNCTION IF EXISTS supla_is_access_id_now_active');
         $function = <<<FNC
@@ -61,15 +65,11 @@ FNC;
         $this->addSql($function);
     }
 
-    private function dropSuplaAccessIdActiveView() {
-        $this->addSql("DROP VIEW IF EXISTS `supla_v_accessid_active`");
-    }
-
     private function createSuplaAccessIdActiveView() {
         $view = <<<VIEW
 CREATE OR REPLACE VIEW supla_v_accessid_active AS SELECT
     sa.*,
-    supla_is_access_id_now_active(
+    supla_is_now_active(
         active_from,
         active_to,
         active_hours,
@@ -89,8 +89,8 @@ VIEW;
 CREATE TABLE `supla_auto_gate_closing`(
     `channel_id` INT(11) NOT NULL,
     `user_id` INT(11) NOT NULL,
-    `active_from` DATE DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\',
-    `active_to` date DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\',
+    `active_from` DATE DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_to` date DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `active_hours` varchar(768) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
     `max_time_open` int(11) NOT NULL,
     `seconds_open` int(11) DEFAULT NULL,
@@ -110,7 +110,7 @@ CREATE OR REPLACE VIEW supla_v_auto_gate_closing AS SELECT
     `c`.`user_id` AS `user_id`,
     `dc`.`iodevice_id` AS `device_id`,    
     `c`.`channel_id` AS `channel_id`,
-    `supla_is_access_id_now_active`(
+    `supla_is_now_active`(
         `c`.`active_from`,
         `c`.`active_to`,
         `c`.`active_hours`,

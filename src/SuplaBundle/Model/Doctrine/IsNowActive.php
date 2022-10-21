@@ -23,9 +23,9 @@ use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 
 /**
- * Support for supla_is_access_id_now_active function.
+ * Support for supla_is_now_active function.
  */
-class IsAccessIdNowActive extends FunctionNode {
+class IsNowActive extends FunctionNode {
     public $activeFrom = null;
     public $activeTo = null;
     public $activeHours = null;
@@ -33,7 +33,7 @@ class IsAccessIdNowActive extends FunctionNode {
 
     public function getSql(SqlWalker $sqlWalker) {
         return sprintf(
-            'supla_is_access_id_now_active(%s, %s, %s, %s)',
+            'supla_is_now_active(%s, %s, %s, %s)',
             $this->activeFrom->dispatch($sqlWalker),
             $this->activeTo->dispatch($sqlWalker),
             $this->activeHours->dispatch($sqlWalker),
