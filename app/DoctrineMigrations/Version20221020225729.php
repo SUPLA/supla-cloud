@@ -107,8 +107,9 @@ TABLE;
     private function createAutoGateClosingView() {
         $view = <<<VIEW
 CREATE OR REPLACE VIEW supla_v_auto_gate_closing AS SELECT
-    `c`.`channel_id` AS `channel_id`,
     `c`.`user_id` AS `user_id`,
+    `dc`.`iodevice_id` AS `device_id`,    
+    `c`.`channel_id` AS `channel_id`,
     `supla_is_access_id_now_active`(
         `c`.`active_from`,
         `c`.`active_to`,
@@ -121,11 +122,12 @@ CREATE OR REPLACE VIEW supla_v_auto_gate_closing AS SELECT
     `c`.`last_seen_open` AS `last_seen_open`
 FROM
     (
-        `supla`.`supla_auto_gate_closing` `c`
-    JOIN `supla`.`supla_user` `u`
+        `supla_auto_gate_closing` `c`
+    JOIN `supla_user` `u`
+    JOIN `supla_dev_channel` `dc`
     )
 WHERE
-    `c`.`user_id` = `u`.`id`
+    `c`.`user_id` = `u`.`id` AND `c`.`channel_id` = `dc`.`id`
 VIEW;
         $this->addSql($view);
     }
