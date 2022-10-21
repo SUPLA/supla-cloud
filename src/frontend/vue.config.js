@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+// const StatsPlugin = require('stats-webpack-plugin')
 
 module.exports = {
     lintOnSave: 'warning',
@@ -18,7 +19,8 @@ module.exports = {
             }),
             new webpack.DefinePlugin({
                 FRONTEND_VERSION: JSON.stringify(require('./scripts/version').version),
-            })
+            }),
+            // new StatsPlugin('stats.json'),
         ],
     },
     chainWebpack: (config) => {
