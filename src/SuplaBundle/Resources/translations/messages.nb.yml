@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Kunne ikke
 Cannot change the channel function right now.: Funksjonene til denne kanalen kan ikke endres for øyeblikket.
 Cannot delete this I/O Device right now.: Denne enheten kan ikke fjernes for øyeblikket.
 Cannot execute an action when the device is disconnected.: Ikke mulig å utføre handlingen når enheten er frakoblet.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Finner du ikke meldingen med en lenke for å aktivere din konto i innboksen? Se om den ikke er i mappen SPAM (søppelpost). Du kan også klikke [her] for å sende den på nytt.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Finner du ikke meldingen med en lenke for å aktivere din konto i innboksen? Se om den ikke er i mappen SPAM (søppelpost). Du kan også {clickHereLink} for å sende den på nytt.
 Captcha token is not valid.: Feil captcha.
 Caption: Underskrift
 Caption is too long.: Navnet er for langt.

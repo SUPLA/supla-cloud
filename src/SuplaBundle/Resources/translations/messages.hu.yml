@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nem siker�
 Cannot change the channel function right now.: Jelenleg nem lehet megváltoztatni a csatorna funkcióját.
 Cannot delete this I/O Device right now.: Ezt az eszközt jelenleg nem lehet törölni.
 Cannot execute an action when the device is disconnected.: Nem végezhet műveleteket, ha az eszköz ki van kapcsolva.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Nem érkezett meg a fiókaktiválási linket tartalmazó üzenet? Győződjön meg róla, hogy nem került a SPAM (kéretlen levelek) mappába. Az újraküldéshez kattintson a gombra [itt].
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nem érkezett meg a fiókaktiválási linket tartalmazó üzenet? Győződjön meg róla, hogy nem került a SPAM (kéretlen levelek) mappába. Az újraküldéshez kattintson a gombra {clickHereLink}.
 Captcha token is not valid.: Érvénytelen captcha.
 Caption: Aláírás
 Caption is too long.: Túl hosszú név.

@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Αποτυ
 Cannot change the channel function right now.: Δεν μπορείτε να αλλάξετε τη λειτουργία αυτού του καναλιού αυτήν τη στιγμή.
 Cannot delete this I/O Device right now.: Αυτή η συσκευή δεν μπορεί να καταργηθεί αυτήν τη στιγμή.
 Cannot execute an action when the device is disconnected.: Δεν μπορείτε να εκτελείτε ενέργειες, όταν η συσκευή είναι αποσυνδεδεμένη.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε κλικ [εδώ] για να το στείλετε ξανά.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Δε λάβατε το μήνυμα με το σύνδεσμο ενεργοποίησης του λογαριασμού σας; Βεβαιωθείτε ότι δεν βρίσκεται στο φάκελο SPAM (ανεπιθύμητη αλληλογραφία). Μπορείτε επίσης να κάνετε {clickHereLink} για να το στείλετε ξανά.
 Captcha token is not valid.: Μη έγκυρο captcha.
 Caption: Υπογραφή
 Caption is too long.: Το όνομα είναι πολύ μεγάλο.

@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Kan geen s
 Cannot change the channel function right now.: De functie van dit kanaal kan op dit moment niet worden gewijzigd.
 Cannot delete this I/O Device right now.: Dit apparaat kan op dit moment niet worden verwijderd.
 Cannot execute an action when the device is disconnected.: Wanneer het apparaat is losgekoppeld kunt u geen acties uitvoeren.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Geen bericht ontvangen met de activatie link voor uw account? Zorg ervoor dat deze niet in de map SPAM (ongewenste e-mail) staat. U kunt ook [hier] klikken om het opnieuw te verzenden.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Geen bericht ontvangen met de activatie link voor uw account? Zorg ervoor dat deze niet in de map SPAM (ongewenste e-mail) staat. U kunt ook {clickHereLink} om het opnieuw te verzenden.
 Captcha token is not valid.: Ongeldige captcha.
 Caption: Handtekening
 Caption is too long.: De naam is te lang.

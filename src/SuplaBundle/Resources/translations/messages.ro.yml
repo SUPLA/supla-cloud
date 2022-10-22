@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nu s-a put
 Cannot change the channel function right now.: Funcțiile acestui canal nu pot fi modificate momentan.
 Cannot delete this I/O Device right now.: Acest dispozitiv nu poate fi demontat în acest moment.
 Cannot execute an action when the device is disconnected.: Nu puteți efectua acțiuni atunci când dispozitivul este deconectat.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Nu ați primit mesajul cu linkul de activare pentru contul dvs.? Asigurați-vă că nu a ajuns în dosarul SPAM poșta nedorită). De asemenea, puteți face clic [aici] pentru a-l retrimite.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nu ați primit mesajul cu linkul de activare pentru contul dvs.? Asigurați-vă că nu a ajuns în dosarul SPAM poșta nedorită). De asemenea, puteți face {clickHereLink} pentru a-l retrimite.
 Captcha token is not valid.: Captcha incorectă.
 Caption: Semnătură
 Caption is too long.: Numele este prea lung.

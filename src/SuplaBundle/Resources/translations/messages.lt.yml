@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nepavyko a
 Cannot change the channel function right now.: Šiuo metu negalima pakeisti šio kanalo funkcijų.
 Cannot delete this I/O Device right now.: Šiuo metu negalima pašalinti šio įrenginio.
 Cannot execute an action when the device is disconnected.: Kai įrenginys atjungtas negalima atlikti veiksmo.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite paspausti [čia], kad jį išsiųstumėte dar kartą.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Negavote pranešimo su Jūsų paskyros aktyvavimo nuoroda? Įsitikinkite, kad jis nepateko į SPAM (Šlamštas) aplankalą. Taip pat galite {clickHereLink}, kad jį išsiųstumėte dar kartą.
 Captcha token is not valid.: Neteisingai įvestas captcha kodas.
 Caption: Parašas
 Caption is too long.: Pavadinimas per ilgas.

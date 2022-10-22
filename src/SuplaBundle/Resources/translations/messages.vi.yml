@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Không th�
 Cannot change the channel function right now.: Hiện không thể thay đổi các chức năng của kênh này.
 Cannot delete this I/O Device right now.: Không thể xóa thiết bị này vào lúc này.
 Cannot execute an action when the device is disconnected.: Không thể thực hiện thao tác khi thiết bị bị ngắt kết nối.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Có vấn đề với kích hoạt tài khoản? Đảm bảo rằng thư không rơi vào thư mục SPAM/Thùng Rác. Bạn cũng có thể nhấp vào [đây] để gửi lại liên kết kích hoạt tài khoản
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Có vấn đề với kích hoạt tài khoản? Đảm bảo rằng thư không rơi vào thư mục SPAM/Thùng Rác. Bạn cũng có thể nhấp {clickHereLink} để gửi lại liên kết kích hoạt tài khoản
 Captcha token is not valid.: Captcha không đúng.
 Caption: Chú thích
 Caption is too long.: Tên quá dài.

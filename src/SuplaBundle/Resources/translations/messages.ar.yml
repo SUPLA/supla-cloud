@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: فشل ف�
 Cannot change the channel function right now.: لا يمكن تغيير وظيفة هذه القناة في الوقت الحالي.
 Cannot delete this I/O Device right now.: لا يمكن إزالة هذا الجهاز في الوقت الحالي.
 Cannot execute an action when the device is disconnected.: لا يمكنك القيام بإجراءات عند فصل الجهاز.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: لم تتلق رسالة تحتوي على رابط لتنشيط حسابك؟ تأكد من عدم وجودها في مجلد الرسائل غير المرغوب فيها (البريد المحظور). يمكنك أيضا النقر فوق [هنا] لإعادة إرسالها.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: لم تتلق رسالة تحتوي على رابط لتنشيط حسابك؟ تأكد من عدم وجودها في مجلد الرسائل غير المرغوب فيها (البريد المحظور). يمكنك أيضا النقر {clickHereLink} لإعادة إرسالها.
 Captcha token is not valid.: كلمة التحقق غير صالحة.
 Caption: التوقيع
 Caption is too long.: الاسم أطول من المسموح به.

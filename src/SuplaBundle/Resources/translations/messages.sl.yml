@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Ni bilo mo
 Cannot change the channel function right now.: Trenutno ni mogoče spremeniti funkcije tega kanala.
 Cannot delete this I/O Device right now.: Trenutno ni mogoče odstraniti te naprave.
 Cannot execute an action when the device is disconnected.: Ko odklopite napravo, ne morete izvajati dejanj.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Sporočilo s povezavo, ki aktivira vaš račun, ni prispelo? Prepričajte se, da ni v mapi SPAM (junk mail). Za ponovno pošiljanje lahko kliknete tudi [tukaj].
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Sporočilo s povezavo, ki aktivira vaš račun, ni prispelo? Prepričajte se, da ni v mapi SPAM (junk mail). Za ponovno pošiljanje lahko kliknete {clickHereLink}.
 Captcha token is not valid.: Nepravilna captcha.
 Caption: Podpis
 Caption is too long.: Ime je predolgo.

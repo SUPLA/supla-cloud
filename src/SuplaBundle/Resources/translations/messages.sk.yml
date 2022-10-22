@@ -115,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nepodarilo
 Cannot change the channel function right now.: Funkcie tohto kanála sa momentálne nedajú zmeniť.
 Cannot delete this I/O Device right now.: Toto zariadenie sa momentálne nedá odstrániť.
 Cannot execute an action when the device is disconnected.: Nie je možné vykonávať akcie, keď je zariadenie odpojené.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Nedostali ste správu s odkazom na aktiváciu Vášho účtu? Uistite sa, že neskončila v zložke SPAM (nevyžiadaná pošta). Môžete tiež kliknúť [tu] a odoslať ju znova.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nedostali ste správu s odkazom na aktiváciu Vášho účtu? Uistite sa, že neskončila v zložke SPAM (nevyžiadaná pošta). Môžete tiež {clickHereLink} a odoslať ju znova.
 Captcha token is not valid.: Nesprávny captcha.
 Caption: Podpis
 Caption is too long.: Názov je príliš dlhý.
