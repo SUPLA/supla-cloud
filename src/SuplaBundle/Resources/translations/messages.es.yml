@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Si aún deseas eliminar tu cuenta SUPLA, aquí están las instrucciones.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Si realmente deseas cancelar el registro de tu instancia privada de SUPLA Cloud, a continuación encontrarás todas las instrucciones.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Al volver a registrar tu cuenta, puede que algunos dispositivos tengan que ser configurados de nuevo, incluso si ingresas la misma dirección de correo electrónico.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Si deseas integrar una nube privada SUPLA con una aplicación pública OAuth, debes [registrar tu instancia].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Si deseas integrar una nube privada SUPLA con una aplicación pública OAuth, debes {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Si quiere utilizar el enlace directo en otro software, añade el título adecuado de la orden, para recibir una respuesta más fácil para procesar.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Si no deseas recibir por nuestra parte tales notificaciones <br>, consulta la configuración de tu cuenta [aquí].
 If you wish to register your instance, [click here].: Si deseas registrar tu instancia, [haz clic aquí].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Si deseas ver las integraciones disponibles, ve a [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Si deseas ver las integraciones disponibles, ve a {0}.
 If you wish to unregister your instance, [click here].: Si deseas cancelar el registro de tu instancia, [haz clic aquí].
 Impulse counter: Contador de impulsos
 Impulses: Impulsos

@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Se ainda deseja excluir a sua conta SUPLA, aqui estão as instruções.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Se realmente deseja cancelar o registo da sua instância privada da SUPLA Cloud - abaixo encontrará todas as instruções.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Caso seja criada uma nova conta, certas configurações podem ser resgatadas, se o mesmo email for usado.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Se você deseja integrar aplicativos em nuvem SUPL privada com aplicações OAuth públicas, você tem que [registar o seu exemplo].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Se você deseja integrar aplicativos em nuvem SUPL privada com aplicações OAuth públicas, você tem que {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Se você quiser usar o link direto em outro software, adicione o cabeçalho de solicitação apropriado para ter a resposta mais rápida ao processo.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Se não quiser receber as nossas notificações, consulte as configurações da sua conta [aqui].
 If you wish to register your instance, [click here].: Se deseja registar a sua instância, [clique aqui].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Se você quiser ver as integrações disponíveis, vá para [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Se você quiser ver as integrações disponíveis, vá para {0}.
 If you wish to unregister your instance, [click here].: Se quiser cancelar o registo da sua instância, [clique aqui].
 Impulse counter: Contador de pulsos
 Impulses: Pulsos

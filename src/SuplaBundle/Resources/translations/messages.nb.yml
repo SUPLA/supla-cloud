@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Hvis du fortsatt ønsker å slette SUPLA-kontoen din, er instruksjonene her.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Hvis du virkelig ønsker å avregistrere din private SUPLA Cloud - nedenfor finner du alle instruksjonene.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Ved neste registrering av konto kan noen av enhetene kreve konfigurering på nytt selv om du oppgir den samme e-post adressen.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: JDersom du ønsker å integrere din privat SUPLA Cloud med offentlig applikasjon OAuth, må du [må du registrere din Cloud].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: JDersom du ønsker å integrere din privat SUPLA Cloud med offentlig applikasjon OAuth, må du {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: JDersom du ønsker å bruke dirkete lenke i et annet program, legg til tilsvarende forespørsel overskrift for å motta et svar som er enklere å prosessere.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Hvis du ikke ønsker å motta slike varsler fra oss, vennligst se kontoinnstillingene dine [her].
 If you wish to register your instance, [click here].: Hvis du vil registrere din cloud, [klikk her].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: JDersom du vil sjekke ut tilgjengelige integrasjoner gå til [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: JDersom du vil sjekke ut tilgjengelige integrasjoner gå til {0}.
 If you wish to unregister your instance, [click here].: Hvis du vil avregistrere din cloud, vennligst ikke klikk på lenken.
 Impulse counter: Impulsmåler
 Impulses: Impulser

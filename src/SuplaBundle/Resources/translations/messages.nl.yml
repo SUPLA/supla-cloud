@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Indien u toch uw SUPLA-account wenst te verwijderen, vindt u hier instructies.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Als u uw privé SUPLA Cloud instantie echt wilt uitschrijven - vindt u hieronder alle instructies.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Nadat u uw account opnieuw heeft geregistreerd, moeten sommige apparaten mogelijk opnieuw worden geconfigureerd, zelfs als u hetzelfde e-mailadres opgeeft.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Als u de private SUPLA-cloud met de openbare OAuth-toepassing wilt integreren, moet u [uw exemplaar registreren].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Als u de private SUPLA-cloud met de openbare OAuth-toepassing wilt integreren, moet u {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Als u de directe link in andere software wilt gebruiken, voegt de juiste koptekst toe om een antwoord te krijgen dat gemakkelijker te verwerken is.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Indien u dergelijke meldingen van ons niet wenst te ontvangen,<br> gelieve uw accountinstellingen [hier] te raadplegen.
 If you wish to register your instance, [click here].: Als u uw instantie wilt registreren, [klik hier].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Als u beschikbare integraties wilt zien, ga naar [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Als u beschikbare integraties wilt zien, ga naar {0}.
 If you wish to unregister your instance, [click here].: Indien u uw instantie wenst te deregistreren, [klik hier].
 Impulse counter: Pulsteller
 Impulses: Pulsen

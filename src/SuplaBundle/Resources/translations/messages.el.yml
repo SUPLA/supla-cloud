@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Εάν εξακολουθείτε να θέλετε να διαγράψετε τον λογαριασμό σας SUPLA, ακολουθούν οι οδηγίες.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Εάν θέλετε πραγματικά να καταργήσετε την εγγραφή της ιδιωτικής σας παρουσίας στο SUPLA Cloud  - παρακάτω θα βρείτε όλες τις οδηγίες.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Όταν καταχωρίσετε εκ νέου την εγγραφή του λογαριασμού σας, ορισμένες συσκευές ίσως θα χρειαστούν επαναπρογραμματισμό ακόμα κι αν παρέχετε την ίδια διεύθυνση ηλεκτρονικού ταχυδρομείου.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Αν θέλετε να ενώσετε το ιδιωτικό SUPLA με τη δημόσια εφαρμογή OAuth, θα πρέπει πρώτα να καταχωρήσετε την ιδιότητά σας.
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Αν θέλετε να ενώσετε το ιδιωτικό SUPLA με τη δημόσια εφαρμογή OAuth, θα πρέπει πρώτα να καταχωρήσετε την ιδιότητά σας.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Αν θέλετε να χρησιμοποιήσετε τον απευθείας σύνδεσμο σε άλλο λογισμικό, προσθέστε την κατάλληλη κεφαλίδα στο αίτημά σας για να λάβετε πιο εύκολη απάντηση προς επεξεργασία.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Εάν δεν θέλετε να λαμβάνετε τέτοιες ειδοποιήσεις από εμάς, <br> ανατρέξτε στις ρυθμίσεις του λογαριασμού σας [εδώ].
 If you wish to register your instance, [click here].: Αν θέλετε να καταχωρήσετε την παρουσία σας, [κάντε κλικ εδώ].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Εάν θέλετε να δείτε κάποιους διαθέσιμους συνδέσμους, μεταβείτε στο [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Εάν θέλετε να δείτε κάποιους διαθέσιμους συνδέσμους, μεταβείτε στο {0}.
 If you wish to unregister your instance, [click here].: Αν θέλετε να καταργήσετε την καταχώρηση της παρουσίας σας, [κάντε κλικ εδώ].
 Impulse counter: Μετρητής παλμών
 Impulses: Παλμοί

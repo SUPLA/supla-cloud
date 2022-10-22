@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Si vous souhaitez toujours supprimer votre compte SUPLA, voici les instructions.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Si vous voulez vraiment désinscrire votre instance privée SUPLA Cloud - vous trouverez ci-dessous toutes les instructions.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Après avoir ré-enregistré votre compte, il faudra probablement reconfigurer certains appareils. même si vous fournissez la même adresse e-mail.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Si vous souhaitez intégrer un nuage SUPLA privé à l'application publique OAuth, vous devez [enregistrer votre instance].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Si vous souhaitez intégrer un nuage SUPLA privé à l'application publique OAuth, vous devez {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Si vous souhaitez utiliser le lien direct dans un autre logiciel, ajoutez l`en-tête de requête approprié pour obtenir  la réponse  plus facile au traitement.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Si vous ne souhaitez pas recevoir de telles notifications de notre part, <br> veuillez consulter les paramètres de votre compte [ici].
 If you wish to register your instance, [click here].: Si vous souhaitez enregistrer votre instance, [cliquez ici].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Si vous voulez voir les intégrations disponibles, allez à [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Si vous voulez voir les intégrations disponibles, allez à {0}.
 If you wish to unregister your instance, [click here].: Si vous souhaitez désinscrire votre instance, [cliquez ici].
 Impulse counter: Compteur d’impulsions
 Impulses: Impulses

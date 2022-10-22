@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Nếu bạn vẫn muốn xóa tài khoản SUPLA, thì có thể tìm thấy hướng dẫn tại đây.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Nếu bạn chắc chắn muốn hủy đăng kí tài khoản cá nhân SUPLA Cloud – Bạn sẽ tìm thấy tất cả hướng dẫn bên dưới đây.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Nếu bạn đăng ký lại trong tương lai, một số thiết bị có thể cần cấu hình lại ngay cả khi bạn sử dụng cùng một địa chỉ email.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Nếu bạn muốn tích hợp Cloud của mình với các ứng dụng OAuth công khai, bạn phải [đăng ký phiên bản của mình].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Nếu bạn muốn tích hợp Cloud của mình với các ứng dụng OAuth công khai, bạn phải {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Nếu bạn muốn sử dụng liên kết theo chương trình, hãy thêm tiêu đề yêu cầu phù hợp để có được đầu ra mà bạn có thể dễ dàng phân tích.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Nếu bạn không muốn nhận thông báo từ chúng tô, <br> thì hãy xem lại thiết đặt tài khoản của bạn [tại đây].
 If you wish to register your instance, [click here].: Nếu bạn muốn đăng kí phiên bản của bạn [bấm vào đây]
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Nếu bạn muốn xem các tích hợp có sẵn, hãy truy cập [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Nếu bạn muốn xem các tích hợp có sẵn, hãy truy cập {0}.
 If you wish to unregister your instance, [click here].: Nếu bạn muốn hủy đăng kí phiên bản của bạn [bấm vào đây]
 Impulse counter: Bộ đếm xung
 Impulses: Impulses

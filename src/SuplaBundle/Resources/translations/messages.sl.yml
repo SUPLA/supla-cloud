@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Če še vedno želite odstraniti račun SUPLA,  najdete navodila tukaj.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Če res želite preklicati registracijo svoje zasebne instance SUPLA Cloud – najdete vsa navodila spodaj.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Po ponovni registraciji vašega računa lahko nekatere naprave zahtevajo ponovno konfiguracijo, tudi če vnesete isti e-naslov.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Če želite zasebni oblak SUPLA integrirati z javno aplikacijo OAuth, morate [registrirati svoj primerek].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Če želite zasebni oblak SUPLA integrirati z javno aplikacijo OAuth, morate {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Če želite neposredno povezavo uporabiti v drugi programski opremi, dodajte ustrezno glavo zahteve, da dobite odgovor, ki ga je lažje obdelati.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Če od nas ne želite prejemati tovrstnih sporočil, <br> si oglejte nastavitve svojega računa [tukaj].
 If you wish to register your instance, [click here].: Če želite registrirati svojo stopnjo [kliknite tukaj].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Če želite videti dostopne integracije, pojdite na [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Če želite videti dostopne integracije, pojdite na {0}.
 If you wish to unregister your instance, [click here].: Če želite preklicati registracijo svoje stopnje [kliknite tukaj].
 Impulse counter: Števec impulzov
 Impulses: Impulzi

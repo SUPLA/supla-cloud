@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Ak aj napriek tomu chcete svoj účet SUPLA odstrániť, tu sú pokyny.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Ak naozaj chcete zrušiť registráciu vašej súkromnej inštancie SUPLA Cloud - nižšie nájdete všetky pokyny.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Je možné, že po opätovnej registrácii účtu bude potrebné znova konfigurovať niektoré zariadenia, aj keď zadáte tú istú emailovú adresu.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Ak chcete integrovať súkromný mrak SUPLA s verejnou aplikáciou OAuth, musíte [zaregistrovať svoju inštaláciu].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Ak chcete integrovať súkromný mrak SUPLA s verejnou aplikáciou OAuth, {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Ak chcete priamy odkaz použiť v inom softvéri, vhodne doplňte hlavičku dopytu, aby ste dostali odpoveď, ktorá sa dá ľahšie spracovať.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Pokiaľ od nás nechcete dostávať takéto upozornenia, pozrite si nastavenia svojho účtu [tu].
 If you wish to register your instance, [click here].: Ak chcete zaregistrovať svoju inštanciu, [kliknite sem].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Ak si chcete pozrieť dostupné integrácie, prejdite na [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Ak si chcete pozrieť dostupné integrácie, prejdite na {0}.
 If you wish to unregister your instance, [click here].: Ak chcete zrušiť registráciu svojej inštancie, [kliknite sem].
 Impulse counter: Počítadlo impulzov
 Impulses: Impulzy

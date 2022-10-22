@@ -346,11 +346,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Ha még mindig szeretné törölni a SUPLA fiókját, itt találja az utasításokat.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Ha valóban szeretné törölni a saját SUPLA felhő példányát - az alábbiakban megtalálja az összes utasítást.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Fiókja újbóli regisztrációja után egyes eszközök újrakonfigurálást igényelhetnek, még akkor is, ha ugyanazt az e-mail címet adja meg.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor [regisztrálnia kell a példányt].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Ha a közvetlen linket más szoftverekben szeretné használni, akkor adja hozzá a megfelelő kérelem fejlécét, hogy könnyebben feldolgozható választ kapjon.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Ha nem szeretne ilyen értesítéseket kapni tőlünk, keresse fel fiókja beállításait [itt].
 If you wish to register your instance, [click here].: Ha szeretné regisztrálni a példányát, [Kattintson ide].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Ha szeretné megtekinteni az elérhető integrációkat, lépjen a [cloud.supla.org/apps] oldalra.
+If you wish to see the available integrations, go to {0}.: Ha szeretné megtekinteni az elérhető integrációkat, lépjen a {0} oldalra.
 If you wish to unregister your instance, [click here].: Ha szeretné letiltani a regisztrációt, [Kattintson ide].
 Impulse counter: Impulzusszámláló
 Impulses: impulzusok

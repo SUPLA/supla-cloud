@@ -348,11 +348,11 @@ If you have not used this email address with %cloudHost%, please do not click th
 If you really want to delete the account, here are the instructions.: Jeśli nadal chcesz usunąć konto SUPLA, tutaj znajdziesz instrukcje.
 If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Jeśli naprawdę chcesz wyrejestrować twoją prywatną instancję SUPLA Cloud - poniżej znajdziesz wszystkie instrukcje.
 If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Po ponownej rejestracji konta, niektóre urządzenia mogą wymagać ponownej konfiguracji nawet jeśli podasz ten sam adres e-mail.
-If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Jeśli chcesz zintegrować prywatną chmurę SUPLA z publiczna aplikacją OAuth, musisz [zarejestrować swoją instancję].
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Jeśli chcesz zintegrować prywatną chmurę SUPLA z publiczna aplikacją OAuth, {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Jeśli chcesz użyć linku bezpośredniego w innym oprogramowaniu, dodaj odpowiedni nagłówek żądania by otrzymać odpowiedź łatwiejszą w przetworzeniu.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Jeśli nie chcesz dostawać od nas takich powiadomień,<br> zajrzyj do ustawień swojego konta [tutaj].
 If you wish to register your instance, [click here].: Jeśli chcesz zarejestrować twoją instację, [kliknij tutaj].
-If you wish to see the available integrations, go to [cloud.supla.org/apps].: Jeśli chcesz zobaczyć dostępne integracje, przejdź do [cloud.supla.org/apps].
+If you wish to see the available integrations, go to {0}.: Jeśli chcesz zobaczyć dostępne integracje, przejdź do {0}.
 If you wish to unregister your instance, [click here].: Jeśli chcesz wyrejestrować twoją instancję, [kliknij tutaj].
 Impulse counter: Licznik impulsów
 Impulses: Impulsy
