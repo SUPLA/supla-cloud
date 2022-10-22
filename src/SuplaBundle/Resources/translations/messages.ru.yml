@@ -478,6 +478,7 @@ Opening sensor: Датчик открытия
 Operations: Операции
 Original location: Исходное локализацию
 Other: Другое
+Otherwise go to the homepage.: В противном случае перейдите на [домашнюю страницу].
 Partial opening sensor: Датчик промежуточного открытия
 Password: Пароль
 Password Reset: Сброс пароля
@@ -928,7 +929,6 @@ Minute: Минута
 Mondays: Понедельники
 Next: Далее
 Number: Номер
-Otherwise go to [the homepage].: В противном случае перейдите на [домашнюю страницу].
 Output: Выход
 Please select the schedules that should also be enabled.: Отметь графики, которые тоже должны быть включены.
 Registration: Регистрация
@@ -966,7 +966,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

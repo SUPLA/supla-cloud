@@ -480,6 +480,7 @@ Opening sensor: Czujnik otwarcia
 Operations: Operacje
 Original location: Oryginalna lokalizacja
 Other: Inne
+Otherwise go to the homepage.: W innym przypadku przejdź do [strony domowej].
 Partial opening sensor: Czujnik pośredniego otwarcia
 Password: Hasło
 Password Reset: Resetowanie hasła
@@ -949,7 +950,6 @@ Mondays: Poniedziałki
 Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer
-Otherwise go to [the homepage].: W innym przypadku przejdź do [strony domowej].
 Output: Wyjście
 Please select the schedules that should also be enabled.: Zaznacz harmonogramy, które także powinny zostać włączone.
 Read the following channel's state: Odczytaj stan poniższego kanału
@@ -990,7 +990,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Show days with issues only: ~
 Total time: ~

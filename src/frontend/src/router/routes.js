@@ -86,7 +86,7 @@ export default [
     },
     {
         path: '/channels/:id',
-        component: () => import("@/channels/channel-details-page"),
+        component: () => import(/*webpackChunkName:"channels-details-page"*/"@/channels/channel-details-page"),
         name: 'channel',
         props: true,
     },
@@ -130,18 +130,18 @@ export default [
     },
     {
         path: '/schedules',
-        component: () => import("@/schedules/schedule-list/schedules-page"),
+        component: () => import(/*webpackChunkName:"schedules-page"*/"@/schedules/schedule-list/schedules-page"),
         name: 'schedules',
         children: [
             {
                 path: ':id',
-                component: () => import("@/schedules/schedule-details/schedule-details-page"),
+                component: () => import(/*webpackChunkName:"schedules-details-page"*/"@/schedules/schedule-details/schedule-details-page"),
                 name: 'schedule',
                 props: true,
             },
             {
                 path: ':id/edit',
-                component: () => import("@/schedules/schedule-form/schedule-form"),
+                component: () => import(/*webpackChunkName:"schedules-form"*/"@/schedules/schedule-form/schedule-form"),
                 name: 'schedule.edit',
                 props: true,
             },

@@ -478,6 +478,7 @@ Opening sensor: Nyitó érzékelő
 Operations: Műveletek
 Original location: Eredeti lokálizáció
 Other: Egyéb
+Otherwise go to the homepage.: Más esetben lépjen a [kezdőlapra].
 Partial opening sensor: Közvetett nyitás érzékelője
 Password: Jelszó
 Password Reset: Jelszó visszaállítása
@@ -928,7 +929,6 @@ Minute: Perc
 Mondays: Hétfők
 Next: Tovább
 Number: Szám
-Otherwise go to [the homepage].: Más esetben lépjen a [kezdőlapra].
 Output: Kilépés
 Please select the schedules that should also be enabled.: Jelölje be az ütemezéseket, amelyeket szintén be akarja kapcsolni.
 Registration: Regisztráció
@@ -970,7 +970,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

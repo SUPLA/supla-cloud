@@ -478,6 +478,7 @@ Opening sensor: Åpningssensor
 Operations: Handlinger
 Original location: Opprinnelig lokalisering
 Other: Andre
+Otherwise go to the homepage.: I et annet tilfelle gå til [hjemmeside].
 Partial opening sensor: Delvisåpning sensor
 Password: Passord
 Password Reset: Tilbakestilling av passordet
@@ -928,7 +929,6 @@ Minute: Minutt
 Mondays: Mandag
 Next: Videre
 Number: Nummer
-Otherwise go to [the homepage].: I et annet tilfelle gå til [hjemmeside].
 Output: Utgang
 Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
 Registration: Registrering
@@ -966,7 +966,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

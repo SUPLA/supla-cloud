@@ -478,6 +478,7 @@ Opening sensor: Sensor openen
 Operations: Verrichtingen
 Original location: Oorspronkelijke locatie
 Other: Andere
+Otherwise go to the homepage.: Ga anders naar [startpagina].
 Partial opening sensor: Indirecte openingssensor
 Password: Wachtwoord
 Password Reset: Wachtwoord opnieuw instellen
@@ -927,7 +928,6 @@ Minute: Minuut
 Mondays: Maandagen
 Next: Doorgaan
 Number: Nummer
-Otherwise go to [the homepage].: Ga anders naar [startpagina].
 Output: Uitgang
 Please select the schedules that should also be enabled.: Selecteer schema's die ook moeten worden opgenomen.
 Registration: Registratie
@@ -966,7 +966,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

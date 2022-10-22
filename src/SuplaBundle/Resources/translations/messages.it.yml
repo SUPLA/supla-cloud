@@ -478,6 +478,7 @@ Opening sensor: Sensore di apertura
 Operations: Attività
 Original location: Localizzazione originale
 Other: Altro
+Otherwise go to the homepage.: Altrimenti passa a [home page].
 Partial opening sensor: Sensore di apertura parziale
 Password: Password
 Password Reset: Reset della password
@@ -930,7 +931,6 @@ Minute: Minuto
 Mondays: Lunedì
 Next: Avanti
 Number: Numero
-Otherwise go to [the homepage].: Altrimenti passa a [home page].
 Output: Uscita
 Please select the schedules that should also be enabled.: Seleziona gli scadenzari che, anch’essi, devono essere disabilitati.
 Registration: Registrazione
@@ -968,7 +968,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

@@ -478,6 +478,7 @@ Opening sensor: Датчик відкриття
 Operations: Операції
 Original location: Оригінальне місцезнаходження
 Other: Інший
+Otherwise go to the homepage.: В іншому випадку перейдіть на [домашню сторінку].
 Partial opening sensor: Датчик непрямого відкриття
 Password: Пароль
 Password Reset: Скидання пароля
@@ -898,7 +899,6 @@ valid until: закінчиться
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-Otherwise go to [the homepage].: В іншому випадку перейдіть на [домашню сторінку].
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
@@ -916,7 +916,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 Show days with issues only: ~

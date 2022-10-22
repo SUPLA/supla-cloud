@@ -12,7 +12,7 @@
             <a href="https://cloud.supla.org/apps">cloud.supla.org/apps</a>
         </i18n>
         <p>
-            {{ $t('Otherwise go to the home page.') }}
+            {{ $t('Otherwise go to the homepage.') }}
             <router-link to="/">{{ $t('Start from the homepage.') }}</router-link>
         </p>
     </whole-screen-message>

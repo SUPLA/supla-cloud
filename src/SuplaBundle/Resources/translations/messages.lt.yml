@@ -478,6 +478,7 @@ Opening sensor: Atidarymo jutiklis
 Operations: Operacijos
 Original location: Originali vieta
 Other: Kita
+Otherwise go to the homepage.: Kitu atveju pereikite į [naminį tinklalapį].
 Partial opening sensor: Netiesioginio atidarymo jutiklis
 Password: Slaptažodis
 Password Reset: Slaptažodžio atstatymas
@@ -928,7 +929,6 @@ Minute: Minutė
 Mondays: Pirmadieniai
 Next: Toliau
 Number: Numeris
-Otherwise go to [the homepage].: Kitu atveju pereikite į [naminį tinklalapį].
 Output: Išvestis
 Please select the schedules that should also be enabled.: Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.
 Registration: Registracija
@@ -966,7 +966,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

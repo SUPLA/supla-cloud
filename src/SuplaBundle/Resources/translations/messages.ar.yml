@@ -478,6 +478,7 @@ Opening sensor: مستشعر الفتح
 Operations: العمليات
 Original location: الموقع الأصلي
 Other: غيرها
+Otherwise go to the homepage.: خلاف ذلك، انتقل إلى [الصفحة الرئيسية].
 Partial opening sensor: مستشعر الفتح غير المباشر
 Password: كلمة المرور
 Password Reset: إعادة تعيين كلمة المرور
@@ -927,7 +928,6 @@ Minute: دقيقة
 Mondays: الاثنين
 Next: التالي
 Number: رقم
-Otherwise go to [the homepage].: خلاف ذلك، انتقل إلى [الصفحة الرئيسية].
 Output: خروج
 Please select the schedules that should also be enabled.: حدد الجداول التي ينبغي أن تدرج أيضا.
 Registration: تسجيل
@@ -969,7 +969,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

@@ -478,6 +478,7 @@ Opening sensor: Snímač otevření
 Operations: Operace
 Original location: Původní umístění
 Other: Jiné
+Otherwise go to the homepage.: V opačném případě přejděte na [domovskou stránku].
 Partial opening sensor: Snímač středního otevření
 Password: Heslo
 Password Reset: Resetovat heslo
@@ -928,7 +929,6 @@ Minute: Minuta
 Mondays: Pondělky
 Next: Dále
 Number: Číslo
-Otherwise go to [the homepage].: V opačném případě přejděte na [domovskou stránku].
 Output: Výstup
 Please select the schedules that should also be enabled.: Vyberte plány, které by měly být také zahrnuty.
 Registration: Registrace
@@ -966,7 +966,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

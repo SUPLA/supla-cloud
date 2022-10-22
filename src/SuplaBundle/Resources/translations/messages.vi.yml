@@ -478,6 +478,7 @@ Opening sensor: Cảm biến mở
 Operations: Thao tác
 Original location: Vị trí ban đầu
 Other: Khác
+Otherwise go to the homepage.: Nếu không, hãy truy cập [trang chủ].
 Partial opening sensor: Cảm biến mở một phần
 Password: Mật Khẩu
 Password Reset: Reset mật khẩu
@@ -928,7 +929,6 @@ Minute: Phút
 Mondays: Thứ hai
 Next: Tiếp theo
 Number: Số
-Otherwise go to [the homepage].: Nếu không, hãy truy cập [trang chủ].
 Output: Đầu ra
 Please select the schedules that should also be enabled.: Vui lòng chọn lịch trình cũng sẽ được kích hoạt.
 Registration: Đăng ký
@@ -966,7 +966,6 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
-Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
