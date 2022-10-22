@@ -94,14 +94,16 @@ CREATE TABLE `supla_auto_gate_closing`(
     `active_hours` varchar(768) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
     `max_time_open` int(11) NOT NULL,
     `seconds_open` int(11) DEFAULT NULL,
-    `closing_attempt` datetime DEFAULT NULL,
-    `last_seen_open` datetime DEFAULT NULL
+    `closing_attempt` datetime DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `last_seen_open` datetime DEFAULT NULL COMMENT '(DC2Type:utcdatetime)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 TABLE;
         $this->addSql($table);
 
-        $this->addSql("ALTER TABLE `supla_auto_gate_closing` ADD PRIMARY KEY (`channel_id`), ADD KEY (`max_time_open`), ADD KEY (`user_id`)");
-        $this->addSql("ALTER TABLE `supla_auto_gate_closing` ADD CONSTRAINT `FK_ABE928C9125F95D6` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE, ADD CONSTRAINT `FK_DFE928C9A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`)");
+        $this->addSql("ALTER TABLE `supla_auto_gate_closing` ADD PRIMARY KEY (`channel_id`)");
+        $this->addSql('CREATE INDEX IDX_E176CB9FA76ED395 ON supla_auto_gate_closing (user_id)');
+        $this->addSql('ALTER TABLE supla_auto_gate_closing ADD CONSTRAINT FK_E176CB9FA76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id)');
+        $this->addSql('ALTER TABLE supla_auto_gate_closing ADD CONSTRAINT FK_E176CB9F72F5A1AA FOREIGN KEY (channel_id) REFERENCES supla_dev_channel (id) ON DELETE CASCADE');
     }
 
     private function createAutoGateClosingView() {
