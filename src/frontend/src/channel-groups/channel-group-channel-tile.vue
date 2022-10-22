@@ -1,7 +1,7 @@
 <template>
     <flipper :flipped="!!flipped">
         <channel-tile :model="channel"
-            no-link="true"
+            no-link
             @click="flipped = true"
             slot="front"></channel-tile>
         <square-link :class="'clearfix pointer not-transform ' + (channel.enabled ? 'green' : 'grey')"
@@ -29,18 +29,19 @@
     </flipper>
 </template>
 
-<script>
+<script setup>
     import ChannelTile from "../channels/channel-tile";
+    import {ref} from "vue";
 
-    export default {
-        props: ['channel', 'removable'],
-        components: {ChannelTile},
-        data() {
-            return {
-                flipped: false,
-            };
-        }
-    };
+    defineProps({
+        channel: Object,
+        removable: {
+            type: Boolean,
+            default: true,
+        },
+    });
+
+    const flipped = ref(false);
 </script>
 
 <style>
