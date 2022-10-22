@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Uw scènes kunne
 Your schedules are allowed to have a maximum of {max} actions.: Uw schema's kunnen een maximum van {max} aandelen hebben.
 Your session has been expired.: Uw sessie is verlopen.
 Your session is about to expire: Je sessie verloopt zo
+Your session will expire in {0}.: Uw sessie verloopt over {0}.
 Yours faithfully,: Met hoogachting,
 access to your e-mail address: toegang tot uw e-mail adres
 actionTrigger_HOLD: De knop ingedrukt houden
@@ -944,7 +945,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Woensdagen
 When: Wanneer
 You will be logged out shortly: U wordt zo uitgelogd
-Your session will expire in {0}.: Uw sessie verloopt over {0}.
 execute: voer uit
 hourly: Uur cyclus
 

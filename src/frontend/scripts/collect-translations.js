@@ -10,6 +10,7 @@ const regexes = [
     "\\s[^:\\s][a-z0-9-]+-i18n=\"(.+?)\"", // any-i18n="...", but not :any-i18n="..."
     "i18n:(\\[.+?\\])", // // i18n:['...']
     "\\{% trans.+?%\\}(.+?)\\{% endtrans", // {% trans %} ... {% endtrans %}
+    "<i18n path=\"(.+?)\"", // <i18n path="..."
 ];
 
 const locations = [

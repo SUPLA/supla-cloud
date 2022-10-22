@@ -779,6 +779,7 @@ Your scenes are allowed to have a maximum of {max} operations.: يُسمح أن 
 Your schedules are allowed to have a maximum of {max} actions.: يُسمح أن تحتوي جداولك على ما يصل إلى {max} إجراءات.
 Your session has been expired.: انتهت جلستك.
 Your session is about to expire: سوف تنتهي جلستك بعد لحظة
+Your session will expire in {0}.: ستنتهي جلستك بعد {0}.
 Yours faithfully,: مع خالص التحيات
 access to your e-mail address: الوصول إلى عنوان البريد الإلكتروني الخاص بك
 actionTrigger_HOLD: اضغط باستمرار على الزر
@@ -946,7 +947,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: الأربعاء
 When: عندما
 You will be logged out shortly: سيتم تسجيل خروجك بعد لحظة
-Your session will expire in {0}.: ستنتهي جلستك بعد {0}.
 execute: تنفيذ
 hourly: دورة ساعية
 will expire: يبطل مفعولها

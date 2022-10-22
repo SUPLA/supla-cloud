@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Ihre Szenen dür
 Your schedules are allowed to have a maximum of {max} actions.: Ihre Zeitpläne dürfen maximal {max} Aktionen haben.
 Your session has been expired.: Deine Sitzung ist abgelaufen.
 Your session is about to expire: Deine Sitzung wird in kürze ablaufen
+Your session will expire in {0}.: Deine Session läuft in {0} ab.
 Yours faithfully,: Mit freundlichen Grüßen
 access to your e-mail address: Zugriff auf Ihre E-Mail-Adresse
 actionTrigger_HOLD: Halten der Taste
@@ -944,7 +945,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Mittwoche
 When: Wann
 You will be logged out shortly: Du wirst gleich ausgeloggt
-Your session will expire in {0}.: Deine Session läuft in {0} ab.
 execute: ausführen
 hourly: Stundenzyklus
 

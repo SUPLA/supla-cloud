@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Scenele dvs. pot
 Your schedules are allowed to have a maximum of {max} actions.: Programele dvs. pot avea maximum {max} acțiuni.
 Your session has been expired.: Sesiunea dvs. a expirat.
 Your session is about to expire: Sesiunea dvs. va expira îndată
+Your session will expire in {0}.: Sesiunea dvs. va expira peste {0}.
 Yours faithfully,: Cu stimă,
 access to your e-mail address: acces la adresa ta de e-mail
 actionTrigger_HOLD: Apăsare lungă a butonului
@@ -947,7 +948,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Zilele de miercuri
 When: Când
 You will be logged out shortly: Îndată veți fi deconectat
-Your session will expire in {0}.: Sesiunea dvs. va expira peste {0}.
 execute: execută
 hourly: Ciclu orar
 will expire: expiră

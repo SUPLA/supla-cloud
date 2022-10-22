@@ -26,6 +26,7 @@ We will try to display the received icons the best possible way, however you wil
 Your channel groups are allowed to have a maximum of {max} channels.: Your channel groups are allowed to have a maximum of {max} channels.
 Your scenes are allowed to have a maximum of {max} operations.: Your scenes are allowed to have a maximum of {max} operations.
 Your schedules are allowed to have a maximum of {max} actions.: Your schedules are allowed to have a maximum of {max} actions.
+Your session will expire in {0}.: Your session will expire in {0}.
 actionTrigger_HOLD: Hold
 actionTrigger_SHORT_PRESS_X1: Short press once
 actionTrigger_SHORT_PRESS_X2: Short press twice
@@ -108,7 +109,6 @@ sunset-before: the sunset
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-Your session will expire in {0}.: Your session will expire in {0}.
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">

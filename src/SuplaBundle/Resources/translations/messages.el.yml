@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Οι σκηνέ�
 Your schedules are allowed to have a maximum of {max} actions.: Τα χρονοδιαγράμματά σας μπορούν να έχουν το πολύ {max} κοινόχρηστα στοιχεία.
 Your session has been expired.: Η συνεδρία σας έχει λήξει.
 Your session is about to expire: Η συνεδρία σας θα λήξει σε λίγο
+Your session will expire in {0}.: Η συνεδρία σας θα λήξει σε {0}.
 Yours faithfully,: Με τιμή,
 access to your e-mail address: Πρόσβαση στη διεύθυνση ηλεκτρονικού ταχυδρομείου σας
 actionTrigger_HOLD: Κρατήστε πατημένο το κουμπί
@@ -944,7 +945,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Τετάρτες
 When: Πότε
 You will be logged out shortly: Σε λίγο θα αποσυνδεθείτε
-Your session will expire in {0}.: Η συνεδρία σας θα λήξει σε {0}.
 execute: Εκτέλεση
 hourly: Κύκλος ωρών
 

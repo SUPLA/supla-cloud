@@ -782,6 +782,7 @@ Your scenes are allowed to have a maximum of {max} operations.: E’ possibile i
 Your schedules are allowed to have a maximum of {max} actions.: I tuoi scadenzari possono eseguire massimo {max} azioni.
 Your session has been expired.: La Tua sessione è scaduta.
 Your session is about to expire: La tua sessione sta per scadere
+Your session will expire in {0}.: La Tua sessione scadrà fra {0}.
 Yours faithfully,: Distinti saluti,
 access to your e-mail address: Accedere al tuo indirizzo mail
 actionTrigger_HOLD: Pressione prolungata
@@ -946,7 +947,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Mercoledì
 When: Quando
 You will be logged out shortly: A breve verrà eseguito il log out
-Your session will expire in {0}.: La Tua sessione scadrà fra {0}.
 execute: esegui
 hourly: Ogni ora
 

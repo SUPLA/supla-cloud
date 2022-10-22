@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Dine scener kan 
 Your schedules are allowed to have a maximum of {max} actions.: Dine ruter kan ha maksimalt {max} aksjoner.
 Your session has been expired.: Din sesjon er over.
 Your session is about to expire: Din sesjon er snart over.
+Your session will expire in {0}.: Din sesjon er over om {0}.
 Yours faithfully,: Med vennlig hilsen,
 access to your e-mail address: tilgang til e-postadressen din
 actionTrigger_HOLD: Hold på knappen
@@ -944,7 +945,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Onsdager
 When: Når
 You will be logged out shortly: Snart blir du logget ut.
-Your session will expire in {0}.: Din sesjon er over om {0}.
 execute: utfør
 hourly: Timesyklus
 

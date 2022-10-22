@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Jūsų scenose g
 Your schedules are allowed to have a maximum of {max} actions.: Jūsų tvarkaraščiuose gali būti daugiausiai {max} veiksmų.
 Your session has been expired.: Jūsų sesija baigėsi.
 Your session is about to expire: Jūsų sesija baigsis.
+Your session will expire in {0}.: Jūsų sesija baigsis po {0}.
 Yours faithfully,: Pagarbiai,
 access to your e-mail address: prieiga prie Jūsų el. pašto adreso
 actionTrigger_HOLD: Mygtuko prilaikymas
@@ -944,7 +945,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Trečiadieniai
 When: Kada
 You will be logged out shortly: Netrukus busite atjungti
-Your session will expire in {0}.: Jūsų sesija baigsis po {0}.
 execute: atlik
 hourly: Valandinis ciklas
 

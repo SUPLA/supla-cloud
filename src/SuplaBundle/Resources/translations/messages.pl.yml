@@ -790,6 +790,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Twoje sceny mog�
 Your schedules are allowed to have a maximum of {max} actions.: Twoje harmonogramy mogą mieć maksymalnie {max} akcji.
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: Twoja sesja za chwilę wygaśnie
+Your session will expire in {0}.: Twoja sesja wygaśnie za {0}.
 Yours faithfully,: Z poważaniem
 access to your e-mail address: dostęp do Twojego adresu e-mail
 actionTrigger_HOLD: Przytrzymanie przycisku
@@ -971,7 +972,6 @@ Turning this device off will result in disabling all the associated schedules.: 
 Wednesdays: Środy
 When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
-Your session will expire in {0}.: Twoja sesja wygaśnie za {0}.
 execute: wykonaj
 hourly: Każdy dzień
 

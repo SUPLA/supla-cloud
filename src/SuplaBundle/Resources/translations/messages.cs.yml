@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Vaše scény moh
 Your schedules are allowed to have a maximum of {max} actions.: Vaše plány mohou mít maximálně {max} akcí.
 Your session has been expired.: Vaše relace vypršela.
 Your session is about to expire: Vaše relace brzy vyprší
+Your session will expire in {0}.: Vaše relace vyprší za {0}.
 Yours faithfully,: S pozdravem,
 access to your e-mail address: přístup k vaší e-mailové adrese
 actionTrigger_HOLD: Držení tlačítka
@@ -944,7 +945,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Středy
 When: Kdy
 You will be logged out shortly: Budete brzy odhlášeni
-Your session will expire in {0}.: Vaše relace vyprší za {0}.
 execute: proveď
 hourly: Hodinový cyklus
 

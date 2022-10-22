@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Những hoạt c
 Your schedules are allowed to have a maximum of {max} actions.: Những lịch biểu của bạn có thể có tối đa {max} hành động.
 Your session has been expired.: Phiên của bạn đã hết hạn.
 Your session is about to expire: Phiên bản của bạn sắp hết hạn
+Your session will expire in {0}.: Phiên của bạn sẽ hết hạn trong {0}.
 Yours faithfully,: Trân trọng
 access to your e-mail address: Quyền truy cập vào e-mail của bạn
 actionTrigger_HOLD: Giữ nút bấm
@@ -944,7 +945,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Thứ tư
 When: Khi
 You will be logged out shortly: Bạn sẽ được đăng xuất ngay
-Your session will expire in {0}.: Phiên của bạn sẽ hết hạn trong {0}.
 execute: Thực thi
 hourly: hàng giờ
 

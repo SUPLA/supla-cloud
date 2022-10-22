@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Ваши сце�
 Your schedules are allowed to have a maximum of {max} actions.: Ваши графики могут иметь максимум {max} действий.
 Your session has been expired.: Ваш сеанс завершен.
 Your session is about to expire: Ваша сессия истекает
+Your session will expire in {0}.: Ваш сеанс будет завершен через {0}.
 Yours faithfully,: Искренне Ваши,
 access to your e-mail address: доступ к вашему адресу электронной почты
 actionTrigger_HOLD: Удержание кнопки
@@ -944,7 +945,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Среды
 When: Когда
 You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
-Your session will expire in {0}.: Ваш сеанс будет завершен через {0}.
 execute: выполни
 hourly: Ежечасный цикл
 

@@ -780,6 +780,7 @@ Your scenes are allowed to have a maximum of {max} operations.: 'Jelenetein legf
 Your schedules are allowed to have a maximum of {max} actions.: Az Ön ütemterve maximum {max} műveletet tartalmazhat.
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: A munkamenete hamarosan lejár
+Your session will expire in {0}.: A munkamenete {0} múlva lejár.
 Yours faithfully,: Tisztelettel,
 access to your e-mail address: Hozzáférés az Ön e-mail címéhez
 actionTrigger_HOLD: Tartsa nyomva a gombot
@@ -947,7 +948,6 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 Wednesdays: Szerdák
 When: Mikor
 You will be logged out shortly: Hamarosan ki lesz léptetve
-Your session will expire in {0}.: A munkamenete {0} múlva lejár.
 execute: végrehajtás
 hourly: Óránkénti ciklus
 will expire: lejár

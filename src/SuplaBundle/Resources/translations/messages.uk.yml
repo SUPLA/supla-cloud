@@ -783,6 +783,7 @@ Your scenes are allowed to have a maximum of {max} operations.: Ваші сце�
 Your schedules are allowed to have a maximum of {max} actions.: Ваші розклади можуть мати максимум {max} дій.
 Your session has been expired.: Ваш сеанс закінчився.
 Your session is about to expire: Ваш сеанс скоро закінчиться
+Your session will expire in {0}.: Ваш сеанс закінчиться через {0}.
 Yours faithfully,: З повагою
 access to your e-mail address: доступ до Вашої адреси електронної пошти
 actionTrigger_HOLD: Утримання кнопки
@@ -896,7 +897,6 @@ valid until: закінчиться
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Ми зберігаємо інформацію про ваші налаштування у вашому браузері, щоб полегшити використання програми (наприклад, за допомогою механізму файлів cookie). [Читати правила].
-Your session will expire in {0}.: Ваш сеанс закінчиться через {0}.
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
