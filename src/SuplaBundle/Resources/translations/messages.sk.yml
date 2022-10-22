@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Ak chcete integrovať súkromný mrak SUPLA s verejnou aplikáciou OAuth, {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Ak chcete priamy odkaz použiť v inom softvéri, vhodne doplňte hlavičku dopytu, aby ste dostali odpoveď, ktorá sa dá ľahšie spracovať.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Pokiaľ od nás nechcete dostávať takéto upozornenia, pozrite si nastavenia svojho účtu [tu].
-If you wish to register your instance, [click here].: Ak chcete zaregistrovať svoju inštanciu, [kliknite sem].
+If you wish to register your instance, {clickHereLink}.: Ak chcete zaregistrovať svoju inštanciu, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Ak si chcete pozrieť dostupné integrácie, prejdite na {0}.
-If you wish to unregister your instance, [click here].: Ak chcete zrušiť registráciu svojej inštancie, [kliknite sem].
+If you wish to unregister your instance, {clickHereLink}.: Ak chcete zrušiť registráciu svojej inštancie, {clickHereLink}.
 Impulse counter: Počítadlo impulzov
 Impulses: Impulzy
 In order to confirm account deletion, enter your password.: Ak chcete potvrdiť zmazanie Vášho účtu, zadajte heslo.
@@ -478,7 +478,6 @@ Opening sensor: Snímač otvorenia
 Operations: Operácie
 Original location: Originálna poloha
 Other: Iné
-Otherwise go to [the homepage].: V inom prípade prejdite na [domovskú stránku].
 Partial opening sensor: Snímač prostredného otvorenia
 Password: Heslo
 Password Reset: Zmena hesla
@@ -816,6 +815,7 @@ choose the channel: vyberte kanál
 choose the channel group: vyberte skupinu kanálov
 choose the scene: vybrať scénu
 choose the timezone: vyberte časové pásmo
+click here: kliknite sem
 copied: skopírované
 copy: kopírovať
 days: dni
@@ -928,6 +928,7 @@ Minute: Minúta
 Mondays: Pondelky
 Next: Ďalej
 Number: Číslo
+Otherwise go to [the homepage].: V inom prípade prejdite na [domovskú stránku].
 Output: Výstup
 Please select the schedules that should also be enabled.: Zaznačte harmonogramy, ktoré tiež majú byť zapnuté.
 Registration: Registrácia
@@ -965,6 +966,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

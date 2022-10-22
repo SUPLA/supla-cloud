@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Jeigu norite suderinti privatų debesį SUPLA su viešąja programa OAuth, turite {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Jei nori pasinaudoti tiesiogine nuoroda kitoje programinėje įrangoje, pridėk atitinkamą užklausos antraštę, kad gauti lengviau apdorojamą atsakymą.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Jei nenorite iš mūsų gauti tokių pranešimų, <br> apsilankykite savo paskyros nustatymuose [čia].
-If you wish to register your instance, [click here].: Jei norite užregistruoti savo paskyrą, [spustelėkite čia].
+If you wish to register your instance, {clickHereLink}.: Jei norite užregistruoti savo paskyrą, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Jeigu norite pamatyti prieinamas integracijas, pereikite į {0}.
-If you wish to unregister your instance, [click here].: Jei norite išregistruoti savo paskyrą, [spustelėkite čia].
+If you wish to unregister your instance, {clickHereLink}.: Jei norite išregistruoti savo paskyrą, {clickHereLink}.
 Impulse counter: Impulsų skaitiklis
 Impulses: Impulsai
 In order to confirm account deletion, enter your password.: Jei norite patvirtinti norą pašalinti savo paskyrą, įveskite savo slaptažodį.
@@ -478,7 +478,6 @@ Opening sensor: Atidarymo jutiklis
 Operations: Operacijos
 Original location: Originali vieta
 Other: Kita
-Otherwise go to [the homepage].: Kitu atveju pereikite į [naminį tinklalapį].
 Partial opening sensor: Netiesioginio atidarymo jutiklis
 Password: Slaptažodis
 Password Reset: Slaptažodžio atstatymas
@@ -816,6 +815,7 @@ choose the channel: pasirinkite kanalą
 choose the channel group: pasirinkti kanalų grupę
 choose the scene: pasirinkti sceną
 choose the timezone: pasirinkti laiko zoną
+click here: spustelėkite čia
 copied: nukopijuota
 copy: kopijuoti
 days: dienų
@@ -928,6 +928,7 @@ Minute: Minutė
 Mondays: Pirmadieniai
 Next: Toliau
 Number: Numeris
+Otherwise go to [the homepage].: Kitu atveju pereikite į [naminį tinklalapį].
 Output: Išvestis
 Please select the schedules that should also be enabled.: Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.
 Registration: Registracija
@@ -965,6 +966,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

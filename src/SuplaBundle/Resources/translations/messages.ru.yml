@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Если вы хотите интегрировать персональное облако SUPLA с публичным приложением OAuth, вам необходимо {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Для использования ссылки в другом программном обеспечении, добавь соответствующий заголовок запроса, чтобы получить ответ, который будет легче обрабатывать.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Если вы не хотите получать от нас такие уведомления,<br> ознакомьтесь с настройками своей учетной записи [здесь].
-If you wish to register your instance, [click here].: Если вы хотите зарегистрировать свой экземпляр, [нажмите здесь].
+If you wish to register your instance, {clickHereLink}.: Если вы хотите зарегистрировать свой экземпляр, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Если вы хотите увидеть доступные интеграции, перейдите на {0}.
-If you wish to unregister your instance, [click here].: Если вы хотите отменить регистрацию вашего экземпляра, [нажмите здесь].
+If you wish to unregister your instance, {clickHereLink}.: Если вы хотите отменить регистрацию вашего экземпляра, {clickHereLink}.
 Impulse counter: Счетчик импульсов
 Impulses: Импульсы
 In order to confirm account deletion, enter your password.: Для подтверждения удаления вашей учетной записи введите свой пароль.
@@ -478,7 +478,6 @@ Opening sensor: Датчик открытия
 Operations: Операции
 Original location: Исходное локализацию
 Other: Другое
-Otherwise go to [the homepage].: В противном случае перейдите на [домашнюю страницу].
 Partial opening sensor: Датчик промежуточного открытия
 Password: Пароль
 Password Reset: Сброс пароля
@@ -816,6 +815,7 @@ choose the channel: выбери канал
 choose the channel group: выбрать группу каналов
 choose the scene: выбрать сцену
 choose the timezone: выбрать часовой пояс
+click here: нажмите здесь
 copied: скопировано
 copy: копировать
 days: дни
@@ -928,6 +928,7 @@ Minute: Минута
 Mondays: Понедельники
 Next: Далее
 Number: Номер
+Otherwise go to [the homepage].: В противном случае перейдите на [домашнюю страницу].
 Output: Выход
 Please select the schedules that should also be enabled.: Отметь графики, которые тоже должны быть включены.
 Registration: Регистрация
@@ -965,6 +966,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Ha a közvetlen linket más szoftverekben szeretné használni, akkor adja hozzá a megfelelő kérelem fejlécét, hogy könnyebben feldolgozható választ kapjon.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Ha nem szeretne ilyen értesítéseket kapni tőlünk, keresse fel fiókja beállításait [itt].
-If you wish to register your instance, [click here].: Ha szeretné regisztrálni a példányát, [Kattintson ide].
+If you wish to register your instance, {clickHereLink}.: Ha szeretné regisztrálni a példányát, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Ha szeretné megtekinteni az elérhető integrációkat, lépjen a {0} oldalra.
-If you wish to unregister your instance, [click here].: Ha szeretné letiltani a regisztrációt, [Kattintson ide].
+If you wish to unregister your instance, {clickHereLink}.: Ha szeretné letiltani a regisztrációt, {clickHereLink}.
 Impulse counter: Impulzusszámláló
 Impulses: impulzusok
 In order to confirm account deletion, enter your password.: A fiók törlésére irányuló szándékának megerősítéséhez írja be a jelszavát.
@@ -478,7 +478,6 @@ Opening sensor: Nyitó érzékelő
 Operations: Műveletek
 Original location: Eredeti lokálizáció
 Other: Egyéb
-Otherwise go to [the homepage].: Más esetben lépjen a [kezdőlapra].
 Partial opening sensor: Közvetett nyitás érzékelője
 Password: Jelszó
 Password Reset: Jelszó visszaállítása
@@ -816,6 +815,7 @@ choose the channel: csatorna kiválasztása
 choose the channel group: válasszon egy csatornacsoportot
 choose the scene: Válasszon jelenetet
 choose the timezone: válassza ki az időzónát
+click here: Kattintson ide
 copied: átmásolva
 copy: másolás
 days: napok
@@ -928,6 +928,7 @@ Minute: Perc
 Mondays: Hétfők
 Next: Tovább
 Number: Szám
+Otherwise go to [the homepage].: Más esetben lépjen a [kezdőlapra].
 Output: Kilépés
 Please select the schedules that should also be enabled.: Jelölje be az ütemezéseket, amelyeket szintén be akarja kapcsolni.
 Registration: Regisztráció
@@ -969,6 +970,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

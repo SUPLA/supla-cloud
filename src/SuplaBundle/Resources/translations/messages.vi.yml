@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Nếu bạn muốn tích hợp Cloud của mình với các ứng dụng OAuth công khai, bạn phải {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Nếu bạn muốn sử dụng liên kết theo chương trình, hãy thêm tiêu đề yêu cầu phù hợp để có được đầu ra mà bạn có thể dễ dàng phân tích.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Nếu bạn không muốn nhận thông báo từ chúng tô, <br> thì hãy xem lại thiết đặt tài khoản của bạn [tại đây].
-If you wish to register your instance, [click here].: Nếu bạn muốn đăng kí phiên bản của bạn [bấm vào đây]
+If you wish to register your instance, {clickHereLink}.: Nếu bạn muốn đăng kí phiên bản của bạn {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Nếu bạn muốn xem các tích hợp có sẵn, hãy truy cập {0}.
-If you wish to unregister your instance, [click here].: Nếu bạn muốn hủy đăng kí phiên bản của bạn [bấm vào đây]
+If you wish to unregister your instance, {clickHereLink}.: Nếu bạn muốn hủy đăng kí phiên bản của bạn {clickHereLink}.
 Impulse counter: Bộ đếm xung
 Impulses: Impulses
 In order to confirm account deletion, enter your password.: Để xác nhận xóa tài khoản, nhập mật khẩu.
@@ -478,7 +478,6 @@ Opening sensor: Cảm biến mở
 Operations: Thao tác
 Original location: Vị trí ban đầu
 Other: Khác
-Otherwise go to [the homepage].: Nếu không, hãy truy cập [trang chủ].
 Partial opening sensor: Cảm biến mở một phần
 Password: Mật Khẩu
 Password Reset: Reset mật khẩu
@@ -816,6 +815,7 @@ choose the channel: chọn kênh
 choose the channel group: chọn nhóm kênh
 choose the scene: Chọn hoạt cảnh
 choose the timezone: chọn múi giờ
+click here: bấm vào đây
 copied: sao chép
 copy: sao chép
 days: ngày
@@ -928,6 +928,7 @@ Minute: Phút
 Mondays: Thứ hai
 Next: Tiếp theo
 Number: Số
+Otherwise go to [the homepage].: Nếu không, hãy truy cập [trang chủ].
 Output: Đầu ra
 Please select the schedules that should also be enabled.: Vui lòng chọn lịch trình cũng sẽ được kích hoạt.
 Registration: Đăng ký
@@ -965,6 +966,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Αν θέλετε να ενώσετε το ιδιωτικό SUPLA με τη δημόσια εφαρμογή OAuth, θα πρέπει πρώτα να καταχωρήσετε την ιδιότητά σας.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Αν θέλετε να χρησιμοποιήσετε τον απευθείας σύνδεσμο σε άλλο λογισμικό, προσθέστε την κατάλληλη κεφαλίδα στο αίτημά σας για να λάβετε πιο εύκολη απάντηση προς επεξεργασία.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Εάν δεν θέλετε να λαμβάνετε τέτοιες ειδοποιήσεις από εμάς, <br> ανατρέξτε στις ρυθμίσεις του λογαριασμού σας [εδώ].
-If you wish to register your instance, [click here].: Αν θέλετε να καταχωρήσετε την παρουσία σας, [κάντε κλικ εδώ].
+If you wish to register your instance, {clickHereLink}.: Αν θέλετε να καταχωρήσετε την παρουσία σας, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Εάν θέλετε να δείτε κάποιους διαθέσιμους συνδέσμους, μεταβείτε στο {0}.
-If you wish to unregister your instance, [click here].: Αν θέλετε να καταργήσετε την καταχώρηση της παρουσίας σας, [κάντε κλικ εδώ].
+If you wish to unregister your instance, {clickHereLink}.: Αν θέλετε να καταργήσετε την καταχώρηση της παρουσίας σας, {clickHereLink}.
 Impulse counter: Μετρητής παλμών
 Impulses: Παλμοί
 In order to confirm account deletion, enter your password.: Για να επιβεβαιώσετε την πρόθεσή σας να διαγράψετε το λογαριασμό σας, πληκτρολογήστε τον κωδικό πρόσβασης.
@@ -478,7 +478,6 @@ Opening sensor: Αισθητήρας ανοίγματος
 Operations: Ενέργειες
 Original location: Αρχική τοποθεσία
 Other: Άλλα
-Otherwise go to [the homepage].: Διαφορετικά, μεταβείτε στην [αρχική σελίδα].
 Partial opening sensor: Αισθητήρας έμμεσου ανοίγματος
 Password: Κωδικός πρόσβασης
 Password Reset: Επαναφορά κωδικού πρόσβασης
@@ -816,6 +815,7 @@ choose the channel: επιλογή καναλιού
 choose the channel group: επιλογή ομάδας καναλιών
 choose the scene: επιλέξτε σκηνή
 choose the timezone: επιλογή ζώνης ώρας
+click here: κάντε κλικ εδώ
 copied: έγινε αντιγραφή
 copy: Αντιγραφή
 days: ημέρες
@@ -928,6 +928,7 @@ Minute: Λεπτό
 Mondays: Δευτέρες
 Next: Επόμενο
 Number: Αριθμός
+Otherwise go to [the homepage].: Διαφορετικά, μεταβείτε στην [αρχική σελίδα].
 Output: Έξοδος
 Please select the schedules that should also be enabled.: Επιλέξτε προγράμματα που επίσης πρέπει να συμπεριληφθούν.
 Registration: Εγγραφή
@@ -965,6 +966,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

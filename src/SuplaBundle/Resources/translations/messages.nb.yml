@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: JDersom du ønsker å integrere din privat SUPLA Cloud med offentlig applikasjon OAuth, må du {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: JDersom du ønsker å bruke dirkete lenke i et annet program, legg til tilsvarende forespørsel overskrift for å motta et svar som er enklere å prosessere.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Hvis du ikke ønsker å motta slike varsler fra oss, vennligst se kontoinnstillingene dine [her].
-If you wish to register your instance, [click here].: Hvis du vil registrere din cloud, [klikk her].
+If you wish to register your instance, {clickHereLink}.: Hvis du vil registrere din cloud, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: JDersom du vil sjekke ut tilgjengelige integrasjoner gå til {0}.
-If you wish to unregister your instance, [click here].: Hvis du vil avregistrere din cloud, vennligst ikke klikk på lenken.
+If you wish to unregister your instance, {clickHereLink}.: Hvis du vil avregistrere din cloud, vennligst ikke {clickHereLink}.
 Impulse counter: Impulsmåler
 Impulses: Impulser
 In order to confirm account deletion, enter your password.: For å bekrefte at du ønsker å fjerne din konto vennligst oppgi ditt passord.
@@ -478,7 +478,6 @@ Opening sensor: Åpningssensor
 Operations: Handlinger
 Original location: Opprinnelig lokalisering
 Other: Andre
-Otherwise go to [the homepage].: I et annet tilfelle gå til [hjemmeside].
 Partial opening sensor: Delvisåpning sensor
 Password: Passord
 Password Reset: Tilbakestilling av passordet
@@ -816,6 +815,7 @@ choose the channel: velg kanal
 choose the channel group: velg kanalgruppe
 choose the scene: velg scene
 choose the timezone: velg kanalgruppe
+click here: klikk her
 copied: kopiert
 copy: kopier
 days: dager
@@ -928,6 +928,7 @@ Minute: Minutt
 Mondays: Mandag
 Next: Videre
 Number: Nummer
+Otherwise go to [the homepage].: I et annet tilfelle gå til [hjemmeside].
 Output: Utgang
 Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
 Registration: Registrering
@@ -965,6 +966,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

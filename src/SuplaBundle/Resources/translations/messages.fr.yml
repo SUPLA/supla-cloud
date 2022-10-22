@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Si vous souhaitez intégrer un nuage SUPLA privé à l'application publique OAuth, vous devez {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Si vous souhaitez utiliser le lien direct dans un autre logiciel, ajoutez l`en-tête de requête approprié pour obtenir  la réponse  plus facile au traitement.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Si vous ne souhaitez pas recevoir de telles notifications de notre part, <br> veuillez consulter les paramètres de votre compte [ici].
-If you wish to register your instance, [click here].: Si vous souhaitez enregistrer votre instance, [cliquez ici].
+If you wish to register your instance, {clickHereLink}.: Si vous souhaitez enregistrer votre instance, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Si vous voulez voir les intégrations disponibles, allez à {0}.
-If you wish to unregister your instance, [click here].: Si vous souhaitez désinscrire votre instance, [cliquez ici].
+If you wish to unregister your instance, {clickHereLink}.: Si vous souhaitez désinscrire votre instance, {clickHereLink}.
 Impulse counter: Compteur d’impulsions
 Impulses: Impulses
 In order to confirm account deletion, enter your password.: Afin de confirmer que vous souhaitez supprimer votre compte, veuillez entrer votre mot de passe.
@@ -478,7 +478,6 @@ Opening sensor: Détecteur d'ouverture
 Operations: Activités
 Original location: Lieu d'origine
 Other: Autres
-Otherwise go to [the homepage].: Sinon, allez à [page d'accueil].
 Partial opening sensor: Capteur d'ouverture partielle
 Password: Mot de passe
 Password Reset: Réinitialisation du mot de passe
@@ -816,6 +815,7 @@ choose the channel: choisir la chaîne
 choose the channel group: choisissez le groupe de chaînes
 choose the scene: sélectionner une scène
 choose the timezone: choisissez le fuseau horaire
+click here: cliquez ici
 copied: copié
 copy: copier
 days: jours
@@ -928,6 +928,7 @@ Minute: Minute
 Mondays: Lundi
 Next: Suivre
 Number: Numéro
+Otherwise go to [the homepage].: Sinon, allez à [page d'accueil].
 Output: Sortie
 Please select the schedules that should also be enabled.: Sélectionnez les calendriers qui doivent être aussi activés.
 Registration: Inscription
@@ -965,6 +966,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

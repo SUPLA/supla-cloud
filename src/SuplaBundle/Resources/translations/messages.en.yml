@@ -5,6 +5,10 @@ Any application or device that uses the {tokenName} token will not work anymore.
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.
 Confirm if you want to remove {deviceName} device and all of its channels.: Confirm if you want to remove {deviceName} device and all of its channels.
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: For a short period of time, it is recommended for you to use the {suplaUrl} address.
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.
+If you wish to register your instance, {clickHereLink}.: If you wish to register your instance, {clickHereLink}.
+If you wish to see the available integrations, go to {0}.: If you wish to see the available integrations, go to {0}.
+If you wish to unregister your instance, {clickHereLink}.: If you wish to unregister your instance, {clickHereLink}.
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Maximum filesize limit is {limit}.: Maximum filesize limit is {limit}.
 'Next limit renewal: {date}': 'Next limit renewal: {date}'

@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Dacă doriți să integrați cloud-ul privat SUPLA cu aplicația publică OAuth, trebuie {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Dacă doriți să utilizați linkul direct în alt software, adăugați antetul de solicitare corespunzător pentru a obține un răspuns mai ușor de procesat.
 If you wish not to receive such messages,<br> change it in your account settings [here].: Dacă nu doriți să primiți astfel de notificări de la noi, vă rugăm să consultați setările contului dvs. [aici].
-If you wish to register your instance, [click here].: Dacă doriți să vă înregistrați instanța, [click aici].
+If you wish to register your instance, {clickHereLink}.: Dacă doriți să vă înregistrați instanța, {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: Dacă doriți să vedeți integrările disponibile, treceți la {0}.
-If you wish to unregister your instance, [click here].: Dacă doriți să vă anulați înregistrarea instanței, [faceți clic aici].
+If you wish to unregister your instance, {clickHereLink}.: Dacă doriți să vă anulați înregistrarea instanței, faceți {clickHereLink}.
 Impulse counter: Contor de impulsuri
 Impulses: Impulsuri
 In order to confirm account deletion, enter your password.: Pentru a confirma intenția de ștergere a contului, introduceți parola dvs.
@@ -478,7 +478,6 @@ Opening sensor: Senzor de deschidere
 Operations: Operațiuni
 Original location: Locația originală
 Other: Alte
-Otherwise go to [the homepage].: În caz contrar, treceți la [pagina principală].
 Partial opening sensor: Senzor de deschidere indirectă
 Password: Parolă
 Password Reset: Resetarea parolei
@@ -816,6 +815,7 @@ choose the channel: selectați un canal
 choose the channel group: selectați o grupă de canale
 choose the scene: selectați scena
 choose the timezone: selectați un fus orar
+click here: click aici
 copied: copiat
 copy: copiază
 days: zile
@@ -928,6 +928,7 @@ Minute: Minut
 Mondays: Zilele de luni
 Next: Mai departe
 Number: Număr
+Otherwise go to [the homepage].: În caz contrar, treceți la [pagina principală].
 Output: Ieșire
 Please select the schedules that should also be enabled.: Selectați planurile care ar trebui să fie, de asemenea, activate.
 Registration: Înregistrare
@@ -969,6 +970,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~

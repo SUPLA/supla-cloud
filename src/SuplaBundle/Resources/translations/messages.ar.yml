@@ -349,9 +349,9 @@ If you register yourself again in the future, some devices might need reconfigur
 If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: إذا كنت تريد دمج سحابة SUPLA الخاصة مع تطبيق OAuth  العام، يجب عليك {registerYourSuplaCloudLink}.
 If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: إذا كنت ترغب في استخدام الرابط المباشر في البرامج الأخرى، فأضف رأس الطلب المناسب للحصول على استجابة أسهل في معالجتها.
 If you wish not to receive such messages,<br> change it in your account settings [here].: إذا كنت لا ترغب في تلقي مثل هذه الإشعارات منا، <br> يرجى الرجوع إلى إعدادات حسابك [هنا].
-If you wish to register your instance, [click here].: إذا كنت ترغب في تسجيل المثيل الخاص بك، [انقر هنا].
+If you wish to register your instance, {clickHereLink}.: إذا كنت ترغب في تسجيل المثيل الخاص بك، {clickHereLink}.
 If you wish to see the available integrations, go to {0}.: إذا كنت تريد رؤية عمليات الدمج المتاحة، فانتقل إلى {0}.
-If you wish to unregister your instance, [click here].: إذا كنت ترغب في إلغاء تسجيل المثيل الخاص بك، [انقر هنا].
+If you wish to unregister your instance, {clickHereLink}.: إذا كنت ترغب في إلغاء تسجيل المثيل الخاص بك، {clickHereLink}.
 Impulse counter: عداد النبضات
 Impulses: النبضات
 In order to confirm account deletion, enter your password.: لتأكيد نيتك في حذف حسابك، أدخل كلمة المرور الخاصة بك.
@@ -478,7 +478,6 @@ Opening sensor: مستشعر الفتح
 Operations: العمليات
 Original location: الموقع الأصلي
 Other: غيرها
-Otherwise go to [the homepage].: خلاف ذلك، انتقل إلى [الصفحة الرئيسية].
 Partial opening sensor: مستشعر الفتح غير المباشر
 Password: كلمة المرور
 Password Reset: إعادة تعيين كلمة المرور
@@ -815,6 +814,7 @@ choose the channel: اختر القناة
 choose the channel group: اختر مجموعة القنوات
 choose the scene: تحديد مشهد
 choose the timezone: حدد المنطقة الزمنية
+click here: انقر هنا
 copied: تم النسخ
 copy: نسخ
 days: أيام
@@ -927,6 +927,7 @@ Minute: دقيقة
 Mondays: الاثنين
 Next: التالي
 Number: رقم
+Otherwise go to [the homepage].: خلاف ذلك، انتقل إلى [الصفحة الرئيسية].
 Output: خروج
 Please select the schedules that should also be enabled.: حدد الجداول التي ينبغي أن تدرج أيضا.
 Registration: تسجيل
@@ -968,6 +969,7 @@ Longest violation: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Otherwise go to the home page.: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
