@@ -784,7 +784,7 @@ Your private SUPLA Cloud is not registered.: Il tuo cloud privato SUPLA non è r
 'Your schedules are allowed to have a maximum of {max} actions.': 'I tuoi scadenzari possono eseguire massimo {max} azioni.'
 Your session has been expired.: La Tua sessione è scaduta.
 Your session is about to expire: La tua sessione sta per scadere
-'Your session will expire in [time].': 'La Tua sessione scadrà fra [time].'
+'Your session will expire in {0}.': 'La Tua sessione scadrà fra {0}.'
 'Yours faithfully,': 'Distinti saluti,'
 access to your e-mail address: Accedere al tuo indirizzo mail
 actionTrigger_HOLD: Pressione prolungata

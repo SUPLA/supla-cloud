@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: Το ιδιωτικό σας SUPLA 
 'Your schedules are allowed to have a maximum of {max} actions.': 'Τα χρονοδιαγράμματά σας μπορούν να έχουν το πολύ {max} κοινόχρηστα στοιχεία.'
 Your session has been expired.: Η συνεδρία σας έχει λήξει.
 Your session is about to expire: Η συνεδρία σας θα λήξει σε λίγο
-'Your session will expire in [time].': 'Η συνεδρία σας θα λήξει σε [time].'
+'Your session will expire in {0}.': 'Η συνεδρία σας θα λήξει σε {0}.'
 'Yours faithfully,': 'Με τιμή,'
 access to your e-mail address: Πρόσβαση στη διεύθυνση ηλεκτρονικού ταχυδρομείου σας
 actionTrigger_HOLD: Κρατήστε πατημένο το κουμπί

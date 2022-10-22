@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: Uw private cloud SUPLA is niet gere
 'Your schedules are allowed to have a maximum of {max} actions.': 'Uw schema''s kunnen een maximum van {max} aandelen hebben.'
 Your session has been expired.: Uw sessie is verlopen.
 Your session is about to expire: Je sessie verloopt zo
-'Your session will expire in [time].': 'Uw sessie verloopt over [tijd].'
+'Your session will expire in {0}.': 'Uw sessie verloopt over {0}.'
 'Yours faithfully,': 'Met hoogachting,'
 access to your e-mail address: toegang tot uw e-mail adres
 actionTrigger_HOLD: De knop ingedrukt houden

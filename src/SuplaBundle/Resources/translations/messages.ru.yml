@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: Ваше личное облако 
 'Your schedules are allowed to have a maximum of {max} actions.': 'Ваши графики могут иметь максимум {max} действий.'
 Your session has been expired.: Ваш сеанс завершен.
 Your session is about to expire: Ваша сессия истекает
-'Your session will expire in [time].': 'Ваш сеанс будет завершен через [время].'
+'Your session will expire in {0}.': 'Ваш сеанс будет завершен через {0}.'
 'Yours faithfully,': 'Искренне Ваши,'
 access to your e-mail address: доступ к вашему адресу электронной почты
 actionTrigger_HOLD: Удержание кнопки

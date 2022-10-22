@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: Tu nube privada SUPLA no está regi
 'Your schedules are allowed to have a maximum of {max} actions.': 'Tus programaciones pueden tener un máximo de {max} acciones.'
 Your session has been expired.: Tu sesión ha expirado.
 Your session is about to expire: Tu sesión está a punto de caducar
-'Your session will expire in [time].': 'Tu sesión va a expirar en [time].'
+'Your session will expire in {0}.': 'Tu sesión va a expirar en {0}.'
 'Yours faithfully,': Atentamente
 access to your e-mail address: acceso a tu dirección de correo electrónico
 actionTrigger_HOLD: Manteniendo pulsao el botón

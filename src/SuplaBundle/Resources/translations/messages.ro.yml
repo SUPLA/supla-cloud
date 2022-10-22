@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: Norul dvs. privat SUPLA nu este în
 'Your schedules are allowed to have a maximum of {max} actions.': 'Programele dvs. pot avea maximum {max} acțiuni.'
 Your session has been expired.: Sesiunea dvs. a expirat.
 Your session is about to expire: Sesiunea dvs. va expira îndată
-'Your session will expire in [time].': 'Sesiunea dvs. va expira peste [timp].'
+'Your session will expire in {0}.': 'Sesiunea dvs. va expira peste {0}.'
 'Yours faithfully,': 'Cu stimă,'
 access to your e-mail address: acces la adresa ta de e-mail
 actionTrigger_HOLD: Apăsare lungă a butonului

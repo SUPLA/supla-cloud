@@ -781,7 +781,7 @@ Your private SUPLA Cloud is not registered.: سحابة  SUPLA الخاصة غي
 'Your schedules are allowed to have a maximum of {max} actions.': 'يُسمح أن تحتوي جداولك على ما يصل إلى {max} إجراءات.'
 Your session has been expired.: انتهت جلستك.
 Your session is about to expire: سوف تنتهي جلستك بعد لحظة
-'Your session will expire in [time].': 'ستنتهي جلستك بعد [time].'
+'Your session will expire in {0}.': 'ستنتهي جلستك بعد {0}.'
 'Yours faithfully,': مع خالص التحيات
 access to your e-mail address: الوصول إلى عنوان البريد الإلكتروني الخاص بك
 actionTrigger_HOLD: اضغط باستمرار على الزر

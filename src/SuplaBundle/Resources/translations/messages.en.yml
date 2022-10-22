@@ -116,3 +116,4 @@ channelConfigHelp_numberOfAttemptsGate: After you request to open or close the g
 channelConfigHelp_stateVerificationMethod: 'Active: the first state change reported by the sensor terminates further attempts to open or close. Passive: we will check the sensor every 60s and terminate further attempts to open or close if the sensor reports the desired state at that moment.'
 channelConfig_stateVerificationMethod_active: Active
 channelConfig_stateVerificationMethod_passive: Passive
+Your session will expire in {0}.: Your session will expire in {0}.

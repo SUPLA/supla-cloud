@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: Váš súkromný cloud SUPLA nie je
 'Your schedules are allowed to have a maximum of {max} actions.': 'Vaše harmonogramy môžu obsahovať maximálne {max} akcií.'
 Your session has been expired.: Vaša relácia vypršala.
 Your session is about to expire: Vaša relácia čoskoro vyprší
-'Your session will expire in [time].': 'Vaša relácia vyprší za [time].'
+'Your session will expire in {0}.': 'Vaša relácia vyprší za {0}.'
 'Yours faithfully,': 'S pozdravom,'
 access to your e-mail address: prístup k vašej e-mailovej adrese
 actionTrigger_HOLD: Podržanie tlačidla

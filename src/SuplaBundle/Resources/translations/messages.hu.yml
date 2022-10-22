@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: A saját SUPLA felhője nincs regis
 'Your schedules are allowed to have a maximum of {max} actions.': 'Az Ön ütemterve maximum {max} műveletet tartalmazhat.'
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: A munkamenete hamarosan lejár
-'Your session will expire in [time].': 'A munkamenete [idő] múlva lejár.'
+'Your session will expire in {0}.': 'A munkamenete {0} múlva lejár.'
 'Yours faithfully,': 'Tisztelettel,'
 access to your e-mail address: Hozzáférés az Ön e-mail címéhez
 actionTrigger_HOLD: Tartsa nyomva a gombot

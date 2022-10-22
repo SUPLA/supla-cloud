@@ -795,7 +795,7 @@ Your private SUPLA Cloud is not registered.: Ваша приватна хмар�
 'Your schedules are allowed to have a maximum of {max} actions.': 'Ваші розклади можуть мати максимум {max} дій.'
 Your session has been expired.: Ваш сеанс закінчився.
 Your session is about to expire: Ваш сеанс скоро закінчиться
-'Your session will expire in [time].': 'Ваш сеанс закінчиться через [time].'
+'Your session will expire in {0}.': 'Ваш сеанс закінчиться через {0}.'
 'Yours faithfully,': 'З повагою'
 access to your e-mail address: доступ до Вашої адреси електронної пошти
 actionTrigger_HOLD: Утримання кнопки

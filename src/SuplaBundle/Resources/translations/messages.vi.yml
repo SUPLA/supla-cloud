@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: Đám mây SUPLA riêng tư của b
 'Your schedules are allowed to have a maximum of {max} actions.': 'Những lịch biểu của bạn có thể có tối đa {max} hành động.'
 Your session has been expired.: Phiên của bạn đã hết hạn.
 Your session is about to expire: Phiên bản của bạn sắp hết hạn
-'Your session will expire in [time].': 'Phiên của bạn sẽ hết hạn trong [thời gian].'
+'Your session will expire in {0}.': 'Phiên của bạn sẽ hết hạn trong {0}.'
 'Yours faithfully,': Trân trọng
 access to your e-mail address: Quyền truy cập vào e-mail của bạn
 actionTrigger_HOLD: Giữ nút bấm

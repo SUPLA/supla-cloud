@@ -782,7 +782,7 @@ Your private SUPLA Cloud is not registered.: Vaš zasebni oblak SUPLA ni registr
 'Your schedules are allowed to have a maximum of {max} actions.': 'Vaši urniki lahko imajo največ {max} dejanj.'
 Your session has been expired.: Vaša seja je potekla.
 Your session is about to expire: Vaša seja poteče čez trenutek
-'Your session will expire in [time].': 'Vaša seja bo potekla čez [time].'
+'Your session will expire in {0}.': 'Vaša seja bo potekla čez {0}.'
 'Yours faithfully,': 'S spoštovanjem,'
 access to your e-mail address: Dostop do vašega e-naslova.
 actionTrigger_HOLD: Držanje gumba.
