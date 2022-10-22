@@ -501,6 +501,7 @@ Please enter a valid email address: Εισαγάγετε μια έγκυρη δ�
 Please fill a valid email address: Εισαγάγετε μια έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου
 Please log in again to proceed.: Συνδεθείτε ξανά για να συνεχίσετε.
 Please provide a valid domain name for your private SUPLA Cloud: Εισαγάγετε το ακριβής όνομα τομέα για το ιδιωτικό σας SUPLA
+Please read the Terms and Conditions.: Διαβάστε τον Κανονισμό.
 Please wait a moment before the next login attempt.: Περιμένετε λίγο πριν από την επόμενη προσπάθεια σύνδεσης.
 Port: Λιμάνι
 Precision: Ακρίβεια
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: �
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Σας έχουμε στείλει ένα μήνυμα ηλεκτρονικού ταχυδρομείου με το σύνδεσμο που επιβεβαιώνει τη διαγραφή του λογαριασμού σας. Μπορείτε ακόμα να αλλάξετε γνώμη!
 We have sent you an email with further instructions.: Σας έχουμε στείλει ένα μήνυμα με περαιτέρω οδηγίες.
 We should be ready shortly.: Θα πρέπει να τελειώσουμε σύντομα.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Αποθηκεύουμε στο δικό σας πρόγραμμα περιήγησης τις πληροφορίες σχετικά με τις προτιμήσεις σας  για να διευκολύνουμε τη χρησιμοποίηση της εφαρμογής (π.χ. με εφαρμογή του μηχανισμού των cookies).
 We try to be faster: Είμαστε πιο γρήγοροι
 We were not able to find your account.: Δεν καταφέραμε να βρούμε τον λογαριασμό σας.
 We will miss you: Θα μας λείψετε
@@ -941,7 +943,6 @@ Thursdays: Πέμπτες
 Try again later: Δοκιμάστε αργότερα ξανά
 Tuesdays: Τρίτες
 Turning this device off will result in disabling all the associated schedules.: Η απενεργοποίηση αυτής της συσκευής θα οδηγήσει στην απενεργοποίηση επίσης των χρονοδιαγραμμάτων που σχετίζονται με αυτήν.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Αποθηκεύουμε στο δικό σας πρόγραμμα περιήγησης τις πληροφορίες σχετικά με τις προτιμήσεις σας  για να διευκολύνουμε τη χρησιμοποίηση της εφαρμογής (π.χ. με εφαρμογή του μηχανισμού των cookies). [Διαβάστε τον Κανονισμό].
 Wednesdays: Τετάρτες
 When: Πότε
 You will be logged out shortly: Σε λίγο θα αποσυνδεθείτε
@@ -965,7 +966,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -977,7 +977,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

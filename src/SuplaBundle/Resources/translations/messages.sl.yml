@@ -501,6 +501,7 @@ Please enter a valid email address: Vnesite pravi enaslov
 Please fill a valid email address: Vnesite pravi e-naslov
 Please log in again to proceed.: Za nadaljevanje se ponovno prijavite.
 Please provide a valid domain name for your private SUPLA Cloud: Vnesite pravo ime domene za vaš zasebni oblak SUPLA
+Please read the Terms and Conditions.: Preberite predpise.
 Please wait a moment before the next login attempt.: Počakajte trenutek, preden se spet prijavite.
 Port: Port
 Precision: Natančnost
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: P
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Poslali smo vam e-sporočilo s povezavo, s katerim potrdite izbris vašega računa. Morda si boste premislili!
 We have sent you an email with further instructions.: Poslali smo vam sporočilo z nadaljnjimi navodili.
 We should be ready shortly.: Kmalu bomo zaključili.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Podatke o vaših nastavitvah hranimo na vašem brskalniku, da olajšamo uporabo aplikacije (npr. z uporabo piškotkov).
 We try to be faster: Čedalje hitrejši smo
 We were not able to find your account.: Nismo našli vašega računa.
 We will miss you: Pogrešali te bomo
@@ -941,7 +943,6 @@ Thursdays: Četrtki
 Try again later: Poskusite znova pozneje.
 Tuesdays: Torki
 Turning this device off will result in disabling all the associated schedules.: Če izklopite to napravo, bo tudi izklopljen urnik, ki je z njo povezan.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Podatke o vaših nastavitvah hranimo na vašem brskalniku, da olajšamo uporabo aplikacije (npr. z uporabo piškotkov). [Preberite predpise].
 Wednesdays: Srede
 When: Ko
 You will be logged out shortly: Čez trenutek boste odjavljeni
@@ -965,7 +966,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -977,7 +977,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

@@ -501,6 +501,7 @@ Please enter a valid email address: Inserisci l’indirizzo e-mail corretto
 Please fill a valid email address: Inserisci un’email valida
 Please log in again to proceed.: Accedi di nuovo per continuare.
 Please provide a valid domain name for your private SUPLA Cloud: Inserisci il nome corretto del dominio per la Tua nuvola privata SUPLA
+Please read the Terms and Conditions.: Leggi il Regolamento.
 Please wait a moment before the next login attempt.: Aspetta un momento prima di un altro tentativo di login.
 Port: Porta
 Precision: Precisione
@@ -722,6 +723,7 @@ We have just sent you an activation link. You should be receiving it shortly.: I
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Ti abbiamo inviato un messaggio e-mail contenente il link di conferma della cancellazione dell’account. Forse cambierai la Tua decisione!
 We have sent you an email with further instructions.: Ti è stata inviata una mail con ulteriori informazioni
 We should be ready shortly.: Dovremmo finire presto.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Conserviamo nel Tuo broswer le informazioni sulle Tue preferenze al fine di facilitare l’uso dell’applicazione (ad esempio mediante un meccanismo di cookies).
 We try to be faster: Stiamo diventando più veloci
 We were not able to find your account.: Non siamo riusciti a trovare il Tuo account.
 We will miss you: Ci mancherai
@@ -943,7 +945,6 @@ Thursdays: Giovedì
 Try again later: Riprova più tardi
 Tuesdays: Martedì
 Turning this device off will result in disabling all the associated schedules.: Lo spegnimento di questo dispositivo causerà anche la disabilitazione degli scadenzari ad esso uniti.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Conserviamo nel Tuo broswer le informazioni sulle Tue preferenze al fine di facilitare l’uso dell’applicazione (ad esempio mediante un meccanismo di cookies). [Leggi il Regolamento].
 Wednesdays: Mercoledì
 When: Quando
 You will be logged out shortly: A breve verrà eseguito il log out
@@ -967,7 +968,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -978,7 +978,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~
 channelConfig_stateVerificationMethod_passive: ~

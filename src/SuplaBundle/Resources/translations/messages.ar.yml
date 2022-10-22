@@ -501,6 +501,7 @@ Please enter a valid email address: يرجى إدخال عنوان بريد إل
 Please fill a valid email address: يرجى إدخال عنوان بريد إلكتروني صالح
 Please log in again to proceed.: تسجيل الدخول مرة أخرى للمتابعة.
 Please provide a valid domain name for your private SUPLA Cloud: أدخل اسم المجال الصحيح لسحابة SUPLA الخاصة بك
+Please read the Terms and Conditions.: اقرأ اللوائح.
 Please wait a moment before the next login attempt.: انتظر لحظة قبل محاولة تسجيل الدخول التالية.
 Port: منفذ
 Precision: دقة
@@ -720,6 +721,7 @@ We have just sent you an activation link. You should be receiving it shortly.: �
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: لقد أرسلنا لك بريدًا إلكترونيًا به رابط يؤكد حذف حسابك. ربما سوف تغير رأيك!
 We have sent you an email with further instructions.: لقد أرسلنا لك رسالة تحتوي على مزيد من التعليمات.
 We should be ready shortly.: Powinniśmy niedługo skończyć.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: نقوم بتخزين معلومات حول تفضيلاتك في متصفحك لتسهيل استخدام التطبيق (مثل استخدام آلية ملفات تعريف الارتباط).
 We try to be faster: نحن نصبح أسرع
 We were not able to find your account.: لم نتمكن من العثور على حسابك.
 We will miss you: سنفتقدك
@@ -943,7 +945,6 @@ Try again later: يرجى المحاولة مرة أخرى لاحقًا
 Tuesdays: الثلاثاء
 Turning this device off will result in disabling all the associated schedules.: سيؤدي إيقاف تشغيل هذا الجهاز أيضًا إلى إيقاف تشغيل الجداول الزمنية المرتبطة بها.
 We have just sent you an activation link. Be patient.: تم إرسال رسالة تحتوي على رابط لتفعيل حسابك. اصبر.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: نقوم بتخزين معلومات حول تفضيلاتك في متصفحك لتسهيل استخدام التطبيق (مثل استخدام آلية ملفات تعريف الارتباط). [اقرأ اللوائح].
 Wednesdays: الأربعاء
 When: عندما
 You will be logged out shortly: سيتم تسجيل خروجك بعد لحظة
@@ -968,7 +969,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -980,7 +980,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

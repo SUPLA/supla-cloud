@@ -501,6 +501,7 @@ Please enter a valid email address: Tast inn korrekt e-post adresse
 Please fill a valid email address: Tast inn korrekt e-post adresse
 Please log in again to proceed.: Logg inn på nytt for å fortsette.
 Please provide a valid domain name for your private SUPLA Cloud: Oppgi korrekt navn på din private SUPLA Cloud.
+Please read the Terms and Conditions.: Les regelverket.
 Please wait a moment before the next login attempt.: Vent litt før det neste pålogging forsøket.
 Port: Port
 Precision: Presisjon
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: M
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vi sendte en e-post med lenke hvor du kan bekrefte fjerning av kontoen. Kanskje du ombestemmer deg!
 We have sent you an email with further instructions.: Vi har sendt deg en melding med ytterligere instruksjoner.
 We should be ready shortly.: Vi bør bli ferdige snart
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Vi lagrer informasjon om dine preferanser i nettleseren din for å gjøre bruken av applikasjoner lettere (f.eks. ved hjelp av informasjonskapsler).
 We try to be faster: Vi er raskere og raskere
 We were not able to find your account.: Vi klarte ikke å finne din konto.
 We will miss you: Vi kommer til å savne deg
@@ -941,7 +943,6 @@ Thursdays: Torsdager
 Try again later: Prøv en gang til senere
 Tuesdays: Tirsdager
 Turning this device off will result in disabling all the associated schedules.: Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Vi lagrer informasjon om dine preferanser i nettleseren din for å gjøre bruken av applikasjoner lettere (f.eks. ved hjelp av informasjonskapsler). [Les regelverket].
 Wednesdays: Onsdager
 When: Når
 You will be logged out shortly: Snart blir du logget ut.
@@ -965,7 +966,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -977,7 +977,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

@@ -501,6 +501,7 @@ Please enter a valid email address: Zadejte správnou mailovou adresu
 Please fill a valid email address: Zadejte správnou e-mailovou adresu
 Please log in again to proceed.: Chcete-li pokračovat, přihlaste se znovu.
 Please provide a valid domain name for your private SUPLA Cloud: Zadejte správný název domény pro váš soukromý cloud SUPLA
+Please read the Terms and Conditions.: Přečtěte si pravidla.
 Please wait a moment before the next login attempt.: Počkejte chvíli na další pokus o přihlášení.
 Port: Port
 Precision: Přesnost
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: P
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vyslali jsme Vám e-mail s potvrzením odkazu pro odstranění účtu. Nechceš si to ještě rozmyslet?
 We have sent you an email with further instructions.: Poslali jsme vám zprávu s dalšími pokyny.
 We should be ready shortly.: Měli bychom mít už brzy hotovo.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie).
 We try to be faster: Jsme čím dál tím rychlejší
 We were not able to find your account.: Váš účet jsme nenašli.
 We will miss you: Budete nám chybět.
@@ -941,7 +943,6 @@ Thursdays: Čtvrtky
 Try again later: Zkuste to prosím později
 Tuesdays: Úterky
 Turning this device off will result in disabling all the associated schedules.: Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie). [Přečtěte si pravidla].
 Wednesdays: Středy
 When: Kdy
 You will be logged out shortly: Budete brzy odhlášeni
@@ -965,7 +966,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -977,7 +977,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

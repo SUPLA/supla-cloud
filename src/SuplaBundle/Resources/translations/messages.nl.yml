@@ -501,6 +501,7 @@ Please enter a valid email address: Voer alstublieft een geldig e-mailadres in
 Please fill a valid email address: Voer alstublieft een geldig e-mailadres in
 Please log in again to proceed.: Meld u opnieuw aan om door te gaan.
 Please provide a valid domain name for your private SUPLA Cloud: Voer de juiste domeinnaam in voor uw privé SUPLA-cloud
+Please read the Terms and Conditions.: Lees het reglement.
 Please wait a moment before the next login attempt.: Wacht even voor de volgende inlogpoging.
 Port: Poort
 Precision: Nauwkeurigheid
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: E
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: We hebben u een e-mail gestuurd met een link om uw account te verwijderen. Misschien zul je van gedachten veranderen!
 We have sent you an email with further instructions.: We hebben u een bericht gestuurd met verdere instructies.
 We should be ready shortly.: We zouden binnenkort klaar moeten zijn.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: We slaan informatie over uw voorkeuren op in uw browser om het gebruik van de applicatie te vergemakkelijken (bijv. Met behulp van een cookiemechanisme).
 We try to be faster: We proberen sneller te zijn.
 We were not able to find your account.: We konden uw account niet vinden.
 We will miss you: We zullen je missen
@@ -941,7 +943,6 @@ Thursdays: Donderdagen
 Try again later: Probeer het later eens opnieuw
 Tuesdays: Diensdagen
 Turning this device off will result in disabling all the associated schedules.: Als u dit apparaat uitschakelt, wordt ook de bijbehorende harmongoram uitgeschakeld.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: We slaan informatie over uw voorkeuren op in uw browser om het gebruik van de applicatie te vergemakkelijken (bijv. Met behulp van een cookiemechanisme). [Lees het reglement].
 Wednesdays: Woensdagen
 When: Wanneer
 You will be logged out shortly: U wordt zo uitgelogd
@@ -965,7 +966,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -977,7 +977,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

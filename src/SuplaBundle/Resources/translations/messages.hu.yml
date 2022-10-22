@@ -501,6 +501,7 @@ Please enter a valid email address: Kérjük, adjon meg egy érvényes e-mail c�
 Please fill a valid email address: Adja meg helyes e-mail címét
 Please log in again to proceed.: Jelentkezzen be újra a folytatáshoz.
 Please provide a valid domain name for your private SUPLA Cloud: Írja be a helyes domain nevét a magán SUPLA felhőhöz
+Please read the Terms and Conditions.: Olvassa el a Szabályzatot.
 Please wait a moment before the next login attempt.: Várjon egy pillanatot a következő bejelentkezési kísérlet előtt.
 Port: Port
 Precision: Pontosság
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: E
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Küldtünk egy e-mailt a linkkel, amely megerősíti a fiókja törlését. Talán még meggondolja magát!
 We have sent you an email with further instructions.: Elküldtünk Önnek egy üzenetet további utasításokkal.
 We should be ready shortly.: Powinniśmy niedługo skończyć.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Az alkalmazás használatának megkönnyítése érdekében az Ön böngészőjében tárolunk információkat az Ön preferenciáiról (például egy cookie-mechanizmus használatával).
 We try to be faster: Egyre gyorsabbak vagyunk
 We were not able to find your account.: Nem találtuk a fiókját.
 We will miss you: Hiányozni fog
@@ -944,7 +946,6 @@ Try again later: Kérjük, próbálja meg újra később.
 Tuesdays: Keddek
 Turning this device off will result in disabling all the associated schedules.: Az eszköz kikapcsolásakor kikapcsolódnak a hozzá tartozó harmonográmok is.
 We have just sent you an activation link. Be patient.: Nemrég elküldtük a fiók aktiválására szolgáló linket tartalmazó üzenetet. Köszönjük türelmét.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Az alkalmazás használatának megkönnyítése érdekében az Ön böngészőjében tárolunk információkat az Ön preferenciáiról (például egy cookie-mechanizmus használatával). [Olvassa el a Szabályzatot].
 Wednesdays: Szerdák
 When: Mikor
 You will be logged out shortly: Hamarosan ki lesz léptetve
@@ -969,7 +970,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -981,7 +981,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

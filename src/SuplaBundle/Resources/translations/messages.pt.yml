@@ -501,6 +501,7 @@ Please enter a valid email address: Insira endereço de e-mail válido
 Please fill a valid email address: Introduza o endereço email correto
 Please log in again to proceed.: Ligue-se de novo para continuar.
 Please provide a valid domain name for your private SUPLA Cloud: Forneça um nome de domínio correto para sua nuvem SUPLA privada
+Please read the Terms and Conditions.: Por favor, leio os termos e condições.
 Please wait a moment before the next login attempt.: Aguarde um momento antes de tentar novamente.
 Port: Porta
 Precision: Precisão
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: A
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Enviamos para você uma mensagem de e-mail com o link pata confirmar a deleção da conta. Você aindapode mudar de opinião!
 We have sent you an email with further instructions.: Enviamos uma mensagem com mais instruções.
 We should be ready shortly.: Devemos terminar em breve.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Nós guardamos alguns dados no seu navegador (e.g. cookies) para se lembrar de suas preferências e para fazer o uso da aplicação mais fácil.
 We try to be faster: Estamos ficando mais rápidos
 We were not able to find your account.: Não conseguimos encontrar sua conta.
 We will miss you: Sentiremos sua falta
@@ -941,7 +943,6 @@ Thursdays: Quintas
 Try again later: Tente novamente mais tarde
 Tuesdays: Terças
 Turning this device off will result in disabling all the associated schedules.: Desligar este dispositivo fará com que as agendas associadas fiquem desligadas igualmente.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Nós guardamos alguns dados no seu navegador (e.g. cookies) para se lembrar de suas preferências e para fazer o uso da aplicação mais fácil. [Por favor, leio os termos e condições].
 Wednesdays: Quartas
 When: Quando
 You will be logged out shortly: Será desligado dentro de um momento
@@ -965,7 +966,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -977,7 +977,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

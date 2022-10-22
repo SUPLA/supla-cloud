@@ -501,6 +501,7 @@ Please enter a valid email address: Vui lòng nhập một địa chỉ email h�
 Please fill a valid email address: Vui lòng điền địa chỉ email hợp lệ
 Please log in again to proceed.: Vui lòng đăng nhập lại để tiếp tục.
 Please provide a valid domain name for your private SUPLA Cloud: Vui lòng cung cấp một tên miền hợp lệ cho Đám mây SUPLA riêng tư của bạn
+Please read the Terms and Conditions.: Vui lòng đọc Điều khoản và Điều kiện.
 Please wait a moment before the next login attempt.: Vui lòng đợi trong giây lát trước lần đăng nhập tiếp theo.
 Port: Cổng
 Precision: Độ chính xác
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: C
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Chúng tôi đã gửi cho bạn một tin nhắn e-mail với một liên kết xác nhận xóa. Chỉ để được chắc chắn!
 We have sent you an email with further instructions.: Chúng tôi đã gửi cho bạn hướng dẫn cho các bước tiếp theo.
 We should be ready shortly.: Chúng ta nên sẵn sàng trong thời gian ngắn.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: 'Chúng tôi lưu trữ một số dữ liệu (ví dụ: cookie) trong trình duyệt của bạn để ghi nhớ tùy chọn của bạn và để giúp việc sử dụng ứng dụng dễ dàng hơn.'
 We try to be faster: Chúng tôi cố gắng để được nhanh hơn
 We were not able to find your account.: Chúng tôi không thể tìm thấy tài khoản của bạn.
 We will miss you: Chúng tôi sẽ nhớ bạn
@@ -941,7 +943,6 @@ Thursdays: Thứ năm
 Try again later: Thử lại sau
 Tuesdays: Thứ ba
 Turning this device off will result in disabling all the associated schedules.: Tắt thiết bị này sẽ dẫn đến vô hiệu hóa tất cả các lịch trình liên quan.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: 'Chúng tôi lưu trữ một số dữ liệu (ví dụ: cookie) trong trình duyệt của bạn để ghi nhớ tùy chọn của bạn và để giúp việc sử dụng ứng dụng dễ dàng hơn [Vui lòng đọc Điều khoản và Điều kiện].'
 Wednesdays: Thứ tư
 When: Khi
 You will be logged out shortly: Bạn sẽ được đăng xuất ngay
@@ -965,7 +966,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -977,7 +977,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

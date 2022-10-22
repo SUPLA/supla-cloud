@@ -501,6 +501,7 @@ Please enter a valid email address: Введите правильный адре
 Please fill a valid email address: Впишите корретный почтовый адрес
 Please log in again to proceed.: Войдите снова, чтобы продолжить.
 Please provide a valid domain name for your private SUPLA Cloud: Введите правильное имя домена для вашего персонального облака SUPLA
+Please read the Terms and Conditions.: Читать правила.
 Please wait a moment before the next login attempt.: Подождите минуту перед следующей попыткой входа.
 Port: Порт
 Precision: Точность
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: �
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Вам отправлено электронное письмо с ссылкой для подтверждения удаления учетной записи. Может, Вы еще передумаете!
 We have sent you an email with further instructions.: Мы отправили вам сообщение с дальнейшими инструкциями.
 We should be ready shortly.: Мы должны закончить в ближайшее время.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Мы сохраняем в вашем браузере информацию о ваших предпочтениях для облегчения использования приложения (например, с помощью механизма куки).
 We try to be faster: Мы становимся быстрее
 We were not able to find your account.: Не удалось найти вашу учетную запись.
 We will miss you: Мы будем скучать без вас
@@ -941,7 +943,6 @@ Thursdays: Четверги
 Try again later: Попытайся повторно задать команду
 Tuesdays: Вторники
 Turning this device off will result in disabling all the associated schedules.: Выключение этого оборудования приведет  к одновременному выключению графиков, которые с ним соединены.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Мы сохраняем в вашем браузере информацию о ваших предпочтениях для облегчения использования приложения (например, с помощью механизма куки). [Читать правила].
 Wednesdays: Среды
 When: Когда
 You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
@@ -965,7 +966,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -977,7 +977,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

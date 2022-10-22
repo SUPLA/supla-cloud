@@ -501,6 +501,7 @@ Please enter a valid email address: Vă rugăm să introduceți o adresă de e-m
 Please fill a valid email address: Vă rugăm să introduceți o adresă de e-mail validă
 Please log in again to proceed.: Conectați-vă din nou pentru a continua.
 Please provide a valid domain name for your private SUPLA Cloud: Introduceți numele de domeniu corect pentru cloud-ul dvs. privat SUPLA
+Please read the Terms and Conditions.: Citiți regulamentul.
 Please wait a moment before the next login attempt.: Așteptați un moment înainte de următoarea încercare de conectare.
 Port: Port
 Precision: Precizie
@@ -721,6 +722,7 @@ We have just sent you an activation link. You should be receiving it shortly.: T
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: V-am trimis un mesaj e-mail cu un link de confirmare a ștergerii contului. Poate te vei răzgândi!
 We have sent you an email with further instructions.: V-am trimis un mesaj cu instrucțiuni suplimentare.
 We should be ready shortly.: Powinniśmy niedługo skończyć.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Stocăm în browser-ul dvs. informații despre preferințele dvs. pentru a facilita utilizarea aplicației (de exemplu, folosind mecanismul cookie).
 We try to be faster: Devenim tot mai rapizi
 We were not able to find your account.: Nu am reușit să găsim contul dvs.
 We will miss you: Ne va fi dor de tine
@@ -944,7 +946,6 @@ Try again later: Încercați din nou mai târziu
 Tuesdays: Zilele de marți
 Turning this device off will result in disabling all the associated schedules.: Dezactivarea acestui dispozitiv va dezactiva, de asemenea, planurile de executare asociate cu acesta.
 We have just sent you an activation link. Be patient.: Tocmai a fost trimis un mesaj cu un link pentru activarea contului dvs. Răbdare.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Stocăm în browser-ul dvs. informații despre preferințele dvs. pentru a facilita utilizarea aplicației (de exemplu, folosind mecanismul cookie). [Citiți regulamentul].
 Wednesdays: Zilele de miercuri
 When: Când
 You will be logged out shortly: Îndată veți fi deconectat
@@ -969,7 +970,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
 Show days with issues only: ~
@@ -981,7 +981,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~

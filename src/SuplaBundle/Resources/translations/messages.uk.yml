@@ -501,6 +501,7 @@ Please enter a valid email address: Будь ласка, введіть дійс
 Please fill a valid email address: Будь ласка, введіть дійсну адресу електронної пошти
 Please log in again to proceed.: Будь ласка, увійдіть знову, щоб продовжити.
 Please provide a valid domain name for your private SUPLA Cloud: Вкажіть дійсне доменне ім’я для вашої приватної хмари SUPLA
+Please read the Terms and Conditions.: Читати правила.
 Please wait a moment before the next login attempt.: Зачекайте деякий час, перш ніж спробувати увійти знову.
 Port: Порт
 Precision: Точність
@@ -723,6 +724,7 @@ We have just sent you an activation link. You should be receiving it shortly.: �
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Ми надіслали вам електронний лист із посиланням, що підтверджує видалення вашого облікового запису. Може, ви ще передумаєте!
 We have sent you an email with further instructions.: Ми надіслали вам повідомлення з подальшими інструкціями.
 We should be ready shortly.: Ми повинні невдовзі закінчити.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Ми зберігаємо інформацію про ваші налаштування у вашому браузері, щоб полегшити використання програми (наприклад, за допомогою механізму файлів cookie).
 We try to be faster: Ми стаємо щоразу швидші
 We were not able to find your account.: Нам не вдалося знайти Ваш обліковий запис.
 We will miss you: Ми будемо сумувати за Вами
@@ -896,7 +898,6 @@ valid until: закінчиться
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Ми зберігаємо інформацію про ваші налаштування у вашому браузері, щоб полегшити використання програми (наприклад, за допомогою механізму файлів cookie). [Читати правила].
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
@@ -915,7 +916,6 @@ Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
 Phase number: ~
-Please read the Terms and Conditions.: ~
 Register your SUPLA Cloud: ~
 Show days with issues only: ~
 The device might be in a sleep mode.: ~
@@ -925,7 +925,6 @@ Violation info: ~
 Violations count: ~
 Voltage deviations: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
-We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~
 channelConfig_stateVerificationMethod_passive: ~
