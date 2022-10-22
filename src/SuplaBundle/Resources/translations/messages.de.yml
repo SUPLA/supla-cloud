@@ -3,11 +3,11 @@
 '%s trigger is not supported by the hardware.': Der Auslöser %s wird durch das Gerät nicht unterstützt.
 ...and start your adventure with building automation today!: … und jetzt mit dem Erlebnis mit den intelligenten Gebäuden starten!
 ...open and shut roller shutters: ...die Rolladen auf- und zumachen
-'...open gateways, gates or doors': '...du kannst die Pforte, die Tür und der Tor aufmachen'
+...open gateways, gates or doors: ...du kannst die Pforte, die Tür und der Tor aufmachen
 ...or control home appliances: ...oder Haushaltwaren steuern
 ...you can monitor temperature: ...du kannst die Temperatur überwachen
-'10 minutes before sunset, on day 10 of the month, May through August': '10 Minuten vor dem Sonnenuntergang, nur am 10. Monatstag, von Mai bis August'
-'15 minutes after sunrise, every 2 days': '15 Minuten nach dem Sonnenaufgang, jeden zweiten Tag'
+10 minutes before sunset, on day 10 of the month, May through August: 10 Minuten vor dem Sonnenuntergang, nur am 10. Monatstag, von Mai bis August
+15 minutes after sunrise, every 2 days: 15 Minuten nach dem Sonnenaufgang, jeden zweiten Tag
 A confirmation upon successful client app registration.: Registrierungsbestätigung der neuen Client-Anwendung.
 A confirmation upon successful device registration.: Bestätigung der erfolgreichen Geräteregistrierung.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Neue Client-Anwendung (Smartphone) wurde zu deinem SUPLA-Cloud-Konto hinzugefügt.
@@ -26,7 +26,7 @@ Access Identifiers: Zugriffskennungen
 Access identifier limit has been exceeded: Limit der Zugriffskennungen wurde überschritten
 Access to all of your devices through MQTT Broker: Zugriff zu all deinen Geräten über MQTT-Broker
 Account: Konto
-Account access when you are unavailable: 'Konto Zugriff, wenn du nicht erreichbar bist'
+Account access when you are unavailable: Konto Zugriff, wenn du nicht erreichbar bist
 Account has been activated. You can Sign In now.: Konto wurde aktiviert. Du kannst dich anmelden.
 Action execution: Aktion ausführen
 Action trigger: Der Auslöser der Aktion
@@ -39,37 +39,36 @@ Add: Füge hinzu
 Add a delay: Füge Verzögerung hinzu
 Add a new icon: Fügen Sie ein neues Symbol hinzu
 Add action: Füge Aktion hinzu
-Add first channel to set channel group function and save it: 'Wählen Sie den ersten Kanal aus, um die Funktion der Gruppe festzulegen und speichern Sie ihn'
+Add first channel to set channel group function and save it: Wählen Sie den ersten Kanal aus, um die Funktion der Gruppe festzulegen und speichern Sie ihn
 Add new channel group: Neue Kanalgruppe hinzufügen
 Add new channel to this group: Einen neuen Kanal zur Gruppe hinzufügen
 Add new item to use in the scene: Füge ein neues Element zur Szene hinzu
 Adjust parameters: Stelle Die Paramter ein
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Alle Kanäle und Kanalgruppen, die dieses Symbol verwenden, erhalten nach dem Löschen Standardsymbole.'
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Nachdem Sie Zugriff gewährt haben, können Sie Ihre Meinung jederzeit ändern, indem Sie in Ihren Kontoeinstellungen Zugriff erhalten.'
-'After the device enters the configuration mode, it will not be accessible on your account.': Das Gerät wird über dein Konto nach dem Eintritt in den Konfiguration-Modus nicht verfügbar.
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Nach der Aktualisierung wird die Anwendung schneller, bequemer… Einfach besser!'
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Der Zähler beginnt nach diesem Vorgang bei 0 zu zählen, unabhängig von seinem derzeitigen Stand. Dieser Vorgang kann nicht rückgängig gemacht werden'
-'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Der link wird unverzüglich nach dem sie die Komponente gewählt haben generiert. Alle anderen Optionen können sie gleich nachdem der Link generiert wird einpflegen
-'channelConfigHelp_numberOfAttemptsGate': 'Nachdem Sie das Öffnen oder Schließen des Tors angefordert haben, wird das System versuchen, es zu schließen/öffnen und wartet 60 Sekunden lang, um zu prüfen, ob das Tor den gewünschten Zustand erreicht hat. Wenn nicht, wird das System den Versuch des Schließens/ Öffnens wiederholen. Der folgende Parameter bestimmt die maximale Anzahl der Versuche, die das System unternimmt, um das Ziel zu erreichen. Der empfohlene Wert beträgt 5. Die Änderung dieses Parameters hat keinen Einfluss auf die Zeitpläne.'
+After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Alle Kanäle und Kanalgruppen, die dieses Symbol verwenden, erhalten nach dem Löschen Standardsymbole.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: Nachdem Sie Zugriff gewährt haben, können Sie Ihre Meinung jederzeit ändern, indem Sie in Ihren Kontoeinstellungen Zugriff erhalten.
+After the device enters the configuration mode, it will not be accessible on your account.: Das Gerät wird über dein Konto nach dem Eintritt in den Konfiguration-Modus nicht verfügbar.
+After the update, the application will be faster, more comfortable, more powerful... Just better!: Nach der Aktualisierung wird die Anwendung schneller, bequemer… Einfach besser!
+After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Der Zähler beginnt nach diesem Vorgang bei 0 zu zählen, unabhängig von seinem derzeitigen Stand. Dieser Vorgang kann nicht rückgängig gemacht werden
+After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Der link wird unverzüglich nach dem sie die Komponente gewählt haben generiert. Alle anderen Optionen können sie gleich nachdem der Link generiert wird einpflegen
 All: Alles
 All the above and many more can be done from your phone or tablet: Das alles und noch mehr kannst du mit deinem Smartphone oder Tablet machen
 Allowed actions: Zulässige Maβnahmen
 Allows to perform an action only using the HTTP PATCH request.: Ermöglicht das Ausführen einer Aktion nur unter Verwendung der HTTP PATCH-Anforderung.
-'Alternatively, you can add a GET parameter to specify response format.': 'Sie können auch den GET-Parameter hinzufügen, um den Format der Antwort zu bestimmen'
+Alternatively, you can add a GET parameter to specify response format.: Sie können auch den GET-Parameter hinzufügen, um den Format der Antwort zu bestimmen
 And more: Und viel mehr
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Alle Anwendungen oder Geräte, die das Token {tokenName} verwenden, werden aufhören zu funktionieren.'
+Any application or device that uses the {tokenName} token will not work anymore.: Alle Anwendungen oder Geräte, die das Token {tokenName} verwenden, werden aufhören zu funktionieren.
 'App version: %clientAppSoftwareVersion%': 'Version der Anwendung: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Der Anwendungsname darf nicht leer sein
 Application requirements: Anwendungsanforderungen
 Applications: Anwendungen
 Are you lost?: Hast du dich verlaufen?
 Are you sure you want to change channel’s function?: Wollen Sie wirklich die Funktion des Kanals ändern?
-Are you sure you want to delete the entire measurement history saved for this channel?: 'Sind Sie sicher, dass sie den ganzen Messverlauf für diese Kanalgruppe löschen wollen?'
+Are you sure you want to delete the entire measurement history saved for this channel?: Sind Sie sicher, dass sie den ganzen Messverlauf für diese Kanalgruppe löschen wollen?
 Are you sure you want to delete this OAuth application?: Möchten Sie diese OAuth-Anwendung wirklich löschen?
 Are you sure you want to delete this channel group?: Wollen Sie diese Kanalgruppe wirklich löschen?
-Are you sure you want to delete this client?: 'Sind Sie sicher, dass Sie diese Client-Anwendung löschen möchten?'
+Are you sure you want to delete this client?: Sind Sie sicher, dass Sie diese Client-Anwendung löschen möchten?
 Are you sure you want to delete this direct link?: Sind Sie Sicher się möchten den link löschen?
-Are you sure you want to delete this icon?: 'Sind Sie sicher, dass Sie dieses Symbol löschen wollen?'
+Are you sure you want to delete this icon?: Sind Sie sicher, dass Sie dieses Symbol löschen wollen?
 Are you sure you want to delete this scene?: Möchten Sie diese Szene wirklich löschen?
 Are you sure you want to delete this schedule?: Willst Du dieses Harmonogramm bestimmt entfernen?
 Are you sure you want to reset the counter state?: Möchten Sie den Zähler wirklich zurücksetzen?
@@ -82,15 +81,15 @@ Assign Client apps: Client-Anwendungen zuordnen
 Assign Locations: Lokalisierung zuordnen
 Associated measured channel: Zugehöriger Steuerkanal
 Associated measurement channel: Zugehöriger Messkanal
-'At 05:45 PM, on the last day of the month': 'am letzten Tag des Monats um 17:45 Uhr'
-'At 11:30 AM, on the third Wednesday of the month': 'am dritten Mittwoch des Monats um 11:30 Uhr'
-At every 5th minute on day-of-month 30 in May: 'alle 5 Minuten, am 30. Tag des Monats, nur im Mai'
+At 05:45 PM, on the last day of the month: am letzten Tag des Monats um 17:45 Uhr
+At 11:30 AM, on the third Wednesday of the month: am dritten Mittwoch des Monats um 11:30 Uhr
+At every 5th minute on day-of-month 30 in May: alle 5 Minuten, am 30. Tag des Monats, nur im Mai
 At specified time: Zur angegebenen Zeit
 At sunrise: bei Sonnenaufgang
-'At sunrise, Monday through Friday': 'bei Sonnenaufgang, von Montag bis Freitag'
+At sunrise, Monday through Friday: bei Sonnenaufgang, von Montag bis Freitag
 At sunset: bei Sonnenuntergang
 Authorization callback URLs (one per line): Rückgabe URLs zur Autorisierung (eine pro Zeile)
-'Authorize the application, so that it can access your account.': 'Autorisieren Sie die Anwendung, damit sie auf Ihr Konto zugreifen kann.'
+Authorize the application, so that it can access your account.: Autorisieren Sie die Anwendung, damit sie auf Ihr Konto zugreifen kann.
 Authorized: Authentifiziert
 Authorized OAuth apps: Autorisierte OAuth-Anwendungen
 Automatic calibration: Automatische Kalibrierung
@@ -112,11 +111,11 @@ Calibration successful.: Kalibrierung erfolgreich
 Cancel: Abbrechen
 Cancel changes: Änderungen rückgängig machen
 Cancelled: Anulliert
-Cannot calculate when to run the schedule - incorrect configuration?: 'Es konnte nicht berechnet werden, wann der Zeitplan ausgeführt werden soll - falsche Konfiguration?'
+Cannot calculate when to run the schedule - incorrect configuration?: Es konnte nicht berechnet werden, wann der Zeitplan ausgeführt werden soll - falsche Konfiguration?
 Cannot change the channel function right now.: Die Funktion dieses Kanals kann momentan nicht geändert werden.
 Cannot delete this I/O Device right now.: Dieses Gerät kann momentan nicht gelöscht werden.
-Cannot execute an action when the device is disconnected.: 'Die Aktion kann nicht vorgenommen werden, wenn das Gerät getrennt ist.'
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Nachricht mit dem Link zur Aktivierung Deines Kontos nicht angekommen? Versichere Dich, dass es nicht in die SPAM-Datei (unerwünschte Mail) gelangt ist. Du kannst auch [hier] klicken, um sie erneut zu senden.'
+Cannot execute an action when the device is disconnected.: Die Aktion kann nicht vorgenommen werden, wenn das Gerät getrennt ist.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Nachricht mit dem Link zur Aktivierung Deines Kontos nicht angekommen? Versichere Dich, dass es nicht in die SPAM-Datei (unerwünschte Mail) gelangt ist. Du kannst auch [hier] klicken, um sie erneut zu senden.
 Captcha token is not valid.: Falsches Captcha.
 Caption: Bildunterschrift
 Caption is too long.: Name zu lang.
@@ -149,14 +148,14 @@ Check your email box: Deine E-mail überprüfen
 Check your email inbox: Überprüfen sie Ihr E-Mail-Postfach
 Choose: Wählen
 Choose Access Identifier: Wähle eine Zugriffs-Identifizierung
-Choose Access Identifiers to be assigned to this Location: 'Die Zugriffskennungen wählen, die zu dieser Lokalisierung zugeordnet werden'
+Choose Access Identifiers to be assigned to this Location: Die Zugriffskennungen wählen, die zu dieser Lokalisierung zugeordnet werden
 Choose channel function: Wählen Sie die Funktion des Kanals
 Choose client apps: Wählen Sie Clientanwendungen aus
 Choose location: Wählen Sie eine Lokalisierung
 Choose the source channel.: Wählen Sie den Quellkanal.
 Clear: Löschen
 Click the following link to confirm removal of your account on %cloudHost%.: Um das Konto zu löschen bitte auf den unteren Link klicken.
-Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: 'Klicken Sie auf den Link unten, um die Abmeldung Ihrer privaten SUPLA-Cloud-Instant zu bestätigen (%targetCloudUrl%).'
+Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Klicken Sie auf den Link unten, um die Abmeldung Ihrer privaten SUPLA-Cloud-Instant zu bestätigen (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'Kennung: %clientAppId%'
 Client registration: Registrierung der Client-Anwendungen
 Client’s Apps: Client-Anwendungen
@@ -172,9 +171,9 @@ Configuration: Konfiguration
 Confirm My Account: Ich bestätige Mein Konto
 Confirm Password: Kennwort bestätigen
 Confirm if you want to perform the roller shutter calibration.: Bestätigen Sie die Modulkalibrierung.
-Confirm if you want to remove Access Identifier: 'Bestätigen Sie, wenn Sie Zugriffskennung löschen möchten'
-'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Bestätigen Sie, wenn Sie die ID der Lokaliesierung {locationId} entfernen möchten. Sie können die E/A-Geräte nicht mehr an diese Lokalisierung anschließen.'
-'Confirm if you want to remove {deviceName} device and all of its channels.': 'Bestätigen Sie, dass Sie das Gerät {deviceName} und alle seinen Kanäle löschen möchten.'
+Confirm if you want to remove Access Identifier: Bestätigen Sie, wenn Sie Zugriffskennung löschen möchten
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Bestätigen Sie, wenn Sie die ID der Lokaliesierung {locationId} entfernen möchten. Sie können die E/A-Geräte nicht mehr an diese Lokalisierung anschließen.
+Confirm if you want to remove {deviceName} device and all of its channels.: Bestätigen Sie, dass Sie das Gerät {deviceName} und alle seinen Kanäle löschen möchten.
 Connected: Verbunden
 Connection with a private instance of the SUPLA cloud: Verbindung mit der Privaten Cloud Instanz SUPLA.
 Constraints: Einschränkungen
@@ -205,7 +204,7 @@ Default: Standard
 Delete: Löschen
 Delete measurement history: Löschen Sie den Messverlauf
 Delete my account: Mein Konto löschen.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Wenn Sie Ihr Konto löschen, werden auch alle Ihre Daten gelöscht, einschließlich der angeschlossenen Geräte, der konfigurierten Kanäle, der Direktverbindungen und des Messverlaufs. Das Löschen Ihres Kontos ist unwiderruflich.'
+Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Wenn Sie Ihr Konto löschen, werden auch alle Ihre Daten gelöscht, einschließlich der angeschlossenen Geräte, der konfigurierten Kanäle, der Direktverbindungen und des Messverlaufs. Das Löschen Ihres Kontos ist unwiderruflich.
 Depth: Tiefe
 Depth sensor: Tiefensensor
 Description: Beschreibung
@@ -234,18 +233,18 @@ Direct links limit has been exceeded: Das Limit für Direktverbindungen wurde ü
 Disable: Ausschalten
 Disable local function: Deaktivieren Sie die Funktion des Geräts
 Disabled: Ausgeschaltet
-Disables local device function and does nothing more.: 'Es führt nichts aus, aber deaktiviert die Gerätefunktion, die für diese Aktion Standardfunktion ist.'
+Disables local device function and does nothing more.: Es führt nichts aus, aber deaktiviert die Gerätefunktion, die für diese Aktion Standardfunktion ist.
 Disconnected: Nicht verbunden
 Distance: Entfernung
 Distance sensor: Abstandssensor
 Do you want to be redirected there? You may be asked to authenticate again.: Möchten Sie du dorthin weitergeleitet werden? Nochmaliges Anmelden kann notwendig sein.
-'Don’t worry, you can always reset your password via email. Click here to do so.': 'Mach dir keine Sorgen. Du kannst dein Kennwort durch das Konto E-mail zurücksetzen. Hier klicken, um das zu machen.'
+Don’t worry, you can always reset your password via email. Click here to do so.: Mach dir keine Sorgen. Du kannst dein Kennwort durch das Konto E-mail zurücksetzen. Hier klicken, um das zu machen.
 Door lock operation: Tür aufmachen
 Door opening sensor: Tür-Öffnungssensor
 Doors and gates: Türen und Toren
-'Doors, Gates, Windows': 'Türen, Toren, Fenster'
+Doors, Gates, Windows: Türen, Toren, Fenster
 Download the history of measurement: Verlauf der Messung herunterladen
-Drag your image(s) here or click to select from the disk: 'Ziehen Sie das Bild hierher oder klicken Sie, um es von der Festplatte auszuwählen'
+Drag your image(s) here or click to select from the disk: Ziehen Sie das Bild hierher oder klicken Sie, um es von der Festplatte auszuwählen
 E-mail notifications: E-Mail-Benachrichtigungen
 Edit: Editieren
 Electric: Strom
@@ -257,10 +256,10 @@ End date: Abschlussdatum
 Enter new password: Neues Kennwort eingeben
 Enter strong password: Sicherer Kennwort eintragen
 Enter the data below in the settings of your control device (I/O Device).: Tragen Sie nachfolgende Daten  in den Einstellungen Ihres Steuergerätes (Eingans-/Ausgangsgerät) ein.
-Enter the data below in your mobile SUPLA application on your smartphone.: 'Tragen Sie nachfolgende Daten  in der Mobilapplikation SUPLA ein, die auf Ihrer Smartphone installiert ist.'
-Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Geben Sie nur die Domäne mit dem Port an, wenn dies nicht Standard ist (443). Wir benötigen eine HTTPS-Verbindung.'
+Enter the data below in your mobile SUPLA application on your smartphone.: Tragen Sie nachfolgende Daten  in der Mobilapplikation SUPLA ein, die auf Ihrer Smartphone installiert ist.
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Geben Sie nur die Domäne mit dem Port an, wenn dies nicht Standard ist (443). Wir benötigen eine HTTPS-Verbindung.
 Enter your email address: Bitte deine E-mail Adresse eintragen
-Enter your password to prevent automatic logout.: 'Gib Dein Passwort ein, um nicht automatisch abgemeldet zu werden.'
+Enter your password to prevent automatic logout.: Gib Dein Passwort ein, um nicht automatisch abgemeldet zu werden.
 Entering configuration mode is unsupported in the firmware.: Der ferngesteuerte Aufruf des Konfigurationsmodus wird durch die Firmware nicht unterstützt.
 Error: Fehler
 Error when communicating the server. Try again in a while.: Es gab ein Problem beim Kommunizieren mit dem Server. Bitte versuchen Sie es noch einmal.
@@ -279,9 +278,9 @@ Failed (zombie): Nicht erfolgreich (Zombie)
 Feature limits: Beschränkungen der Funktionalität
 File is too large: Die Datei ist zu groß
 Flooding: Überflutung
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Während der Aktualisierung wird empfohlen, die Adresse {suplaUrl} zu verwenden.'
+For a short period of time, it is recommended for you to use the {suplaUrl} address.: Während der Aktualisierung wird empfohlen, die Adresse {suplaUrl} zu verwenden.
 For devices: für Geräte
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Aus Sicherheitsgründen wird die vollständige URL dieses direkten Links beim Erstellen nur einmal angezeigt.
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Aus Sicherheitsgründen wird die vollständige URL dieses direkten Links beim Erstellen nur einmal angezeigt.
 Forgot your password?: Kennwort vergessen?
 Forward active energy: Wirkenergie aufgenommen
 Forward active energy balanced: Wirkenergie aufgenommen (Vektor-Bilanz)
@@ -318,45 +317,45 @@ History of measurements: Messhistorie
 Home appliances: Haushaltwaren
 Home+ Heater: Heizelement Home+
 Host: Host
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Leider, ist der Gerbrauch von unseren Servern zur Zeit bis auf das gefährliche Niveau gestiegen. Wir überwachen die Situation, komme einer Weile zurück.'
+However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Leider, ist der Gerbrauch von unseren Servern zur Zeit bis auf das gefährliche Niveau gestiegen. Wir überwachen die Situation, komme einer Weile zurück.
 Humidity: Feuchtigkeit
 Humidity Sensor: Feuchtesensor
 Humidity adjustment: Feuchtigkeitsregulierung
 Humidity sensor: Feuchtigkeitssensor
-'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'ch akzeptiere [die Bestimmungen] und stimme der Verarbeitung meiner persönlichen Daten für den unter [die Bestimmungen] angegebenen Zweck und Umfang zu.'
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: ch akzeptiere [die Bestimmungen] und stimme der Verarbeitung meiner persönlichen Daten für den unter [die Bestimmungen] angegebenen Zweck und Umfang zu.
 I agree: Ich stimme zu
-'I aree, taske me to the app': 'Einverstanden, weiter zur Bewerbung'
+I aree, taske me to the app: Einverstanden, weiter zur Bewerbung
 I confirm! Delete my account.: Ich bestätige! Mein Konto löschen.
-'I do not agree, get me out of here': 'Ich bin nicht einverstanden, bringt mich hier raus'
+I do not agree, get me out of here: Ich bin nicht einverstanden, bringt mich hier raus
 I/O Devices: E/A Geräte
 I/O devices registration: Geräteregistrierung
 ID: ID
 INACTIVE: INAKTIV
 Icon: Symbol
 Idle: Untätig
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Falls der Link nicht funktioniert, kopieren Sie ihn in die Adresseleiste oder geben się ihn manuell ein.'
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Wenn Sie als Entwickler zusätzliche Funktionen für SUPLA bereitstellen möchten, erstellen Sie eine OAuth-Anwendung, die Benutzer autorisieren und verwenden können.'
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Wenn Sie sicher sind, dass Sie ein Konto bei cloud.supla.org haben, überprüfen Sie, ob die Anwendung, die Sie autorisieren möchten, öffentlich ist.'
-'If you did not request this password reset, please ignore this information.': 'Wenn Sie es nicht angefordert haben, Ihr Kennwort zurückzusetzen, dann ignorieren Sie diese Meldung.'
-'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Falls Du das Konto bei %cloudHost% nicht löschen willst, klicke nicht auf den Verweis.'
-'If you do not want to unregister your instance, please do not click the link.': 'Wenn Sie Ihre Instanz nicht abmelden möchtest, klicken Sie nicht auf den Link.'
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Wenn Sie sich mit diesem Accesspoint mehrere Minuten lang nicht verbinden können, startet das Gerät neu und verwendet dabei die letzten Einstellungen.'
-'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Wenn Sie Zweifel oder Fragen haben, können Sie uns unter der Adresse %securityEmail% kontaktieren.'
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Wenn Sie Ihre SUPLA-Cloud-Instanz erneut registrieren möchten, weil das Token von letzter Registrierung verloren ist – Sie sind am richtigen Ort'
-'If you have not used this email address with %cloudHost%, please do not click the link.': 'Wenn Sie die E-Mail-Adresse auf der Website %cloudHost% nicht angegeben haben, klicken Sie nicht auf den Link.'
-'If you really want to delete the account, here are the instructions.': 'Wenn Sie das SUPLA-Konto immer noch löschen möchten, finden Sie hier die Anweisungen.'
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': Wenn Sie Ihre private SUPLA-Cloud-Instanz abmelden möchten - alle Anweisungen befinden sich weiter unten.
-'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': Nach erneuter Kontoregistrierung kann bei manchen Geräten eine erneute Konfigurierung erforderlich sein auch wenn die selbe E-Mail Adresse angegeben wurde.
-'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Wenn Sie eine private SUPLA-Cloud mit einer öffentlichen OAuth-Anwendung integrieren möchten, müssen Sie [Ihre Instanz registrieren].'
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Wenn Sie einen direkten Link in einer anderen Software verwenden möchten, fügen Sie den entsprechenden Anfragekopf hinzu, um eine leichter zu verarbeitende Antwort zu erhalten.'
-'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Wenn Sie solche Informationen von uns nicht bekommen möchten,<br> sehen Sie sich Ihre Kontoeinstellungen an [hier].'
-'If you wish to register your instance, [click here].': 'Wenn Sie Ihre Instanz registrieren möchtest, [hier klicken].'
-'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Wenn Sie die verfügbaren Integrationen sehen möchten, gehen Sie zu [cloud.supla.org/apps].'
-'If you wish to unregister your instance, [click here].': 'Wenn Sie Ihre Instanz abmelden möchten, [hier klicken].'
+If the link is not working, please copy and paste it or enter manually in a new browser window.: Falls der Link nicht funktioniert, kopieren Sie ihn in die Adresseleiste oder geben się ihn manuell ein.
+If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Wenn Sie als Entwickler zusätzliche Funktionen für SUPLA bereitstellen möchten, erstellen Sie eine OAuth-Anwendung, die Benutzer autorisieren und verwenden können.
+If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Wenn Sie sicher sind, dass Sie ein Konto bei cloud.supla.org haben, überprüfen Sie, ob die Anwendung, die Sie autorisieren möchten, öffentlich ist.
+If you did not request this password reset, please ignore this information.: Wenn Sie es nicht angefordert haben, Ihr Kennwort zurückzusetzen, dann ignorieren Sie diese Meldung.
+If you do not want to delete your account on %cloudHost%, please do not click the link.: Falls Du das Konto bei %cloudHost% nicht löschen willst, klicke nicht auf den Verweis.
+If you do not want to unregister your instance, please do not click the link.: Wenn Sie Ihre Instanz nicht abmelden möchtest, klicken Sie nicht auf den Link.
+If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Wenn Sie sich mit diesem Accesspoint mehrere Minuten lang nicht verbinden können, startet das Gerät neu und verwendet dabei die letzten Einstellungen.
+If you have doubts or more questions, you can contact us directly at %securityEmail%.: Wenn Sie Zweifel oder Fragen haben, können Sie uns unter der Adresse %securityEmail% kontaktieren.
+If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.: Wenn Sie Ihre SUPLA-Cloud-Instanz erneut registrieren möchten, weil das Token von letzter Registrierung verloren ist – Sie sind am richtigen Ort
+If you have not used this email address with %cloudHost%, please do not click the link.: Wenn Sie die E-Mail-Adresse auf der Website %cloudHost% nicht angegeben haben, klicken Sie nicht auf den Link.
+If you really want to delete the account, here are the instructions.: Wenn Sie das SUPLA-Konto immer noch löschen möchten, finden Sie hier die Anweisungen.
+If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Wenn Sie Ihre private SUPLA-Cloud-Instanz abmelden möchten - alle Anweisungen befinden sich weiter unten.
+If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Nach erneuter Kontoregistrierung kann bei manchen Geräten eine erneute Konfigurierung erforderlich sein auch wenn die selbe E-Mail Adresse angegeben wurde.
+If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Wenn Sie eine private SUPLA-Cloud mit einer öffentlichen OAuth-Anwendung integrieren möchten, müssen Sie [Ihre Instanz registrieren].
+If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Wenn Sie einen direkten Link in einer anderen Software verwenden möchten, fügen Sie den entsprechenden Anfragekopf hinzu, um eine leichter zu verarbeitende Antwort zu erhalten.
+If you wish not to receive such messages,<br> change it in your account settings [here].: Wenn Sie solche Informationen von uns nicht bekommen möchten,<br> sehen Sie sich Ihre Kontoeinstellungen an [hier].
+If you wish to register your instance, [click here].: Wenn Sie Ihre Instanz registrieren möchtest, [hier klicken].
+If you wish to see the available integrations, go to [cloud.supla.org/apps].: Wenn Sie die verfügbaren Integrationen sehen möchten, gehen Sie zu [cloud.supla.org/apps].
+If you wish to unregister your instance, [click here].: Wenn Sie Ihre Instanz abmelden möchten, [hier klicken].
 Impulse counter: Impulszähler
 Impulses: Impulse
-'In order to confirm account deletion, enter your password.': 'Um zu bestätigen, dass Sie Ihr Konto löschen möchten, geben Sie bitte Ihr Passwort ein.'
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Um die MQTT-Broker-Anmeldedaten zu erhalten, wenden Sie sich an den Administrator dieser SUPLA-Cloud-Instanz.'
+In order to confirm account deletion, enter your password.: Um zu bestätigen, dass Sie Ihr Konto löschen möchten, geben Sie bitte Ihr Passwort ein.
+In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Um die MQTT-Broker-Anmeldedaten zu erhalten, wenden Sie sich an den Administrator dieser SUPLA-Cloud-Instanz.
 Inactive: Nicht aktiv
 Include energy corrections in new measurements history (not recommended): Berücksichtigen Sie den im Messverlauf hinzugefügten Wert (nicht empfohlen)
 Incorrect password: Falsches Passwort
@@ -379,10 +378,10 @@ Invalid request.: Falsche Anforderung.
 Invalid token.: Falsches Token.
 Inverted logic: Umgekehrte Logik
 Invisible: Unsichtbar
-It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Es ist möglich, dass ein anderer Benutzer Ihre Email-Adresse zufällig falsch eingegebe hat, um sein Kennwort für eigenes Konto zurückzusetzen.'
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'In diesem Modus beginnt das Gerät mit der Übertragung seines eigenen WLAN-Netzes, um die Konfiguration des Geräts oder Aktualisierung der Firmware mithilfe vom Smartphone zu ermöglichen, das sich mit diesem Netz verbindet.'
-'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Zusammen mit dem Konto werden alle Deine Daten inclusive Einstellungen, konfigurierte Geräte, Standortverlauf, Terminpläne und andere Aktivitäten, die SUPLA bietet, gelöscht.'
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Beachten Sie, dass die Beschreibung des angegebenen Crontabs, die durch die Anwendung präsentiert wurde, nicht perfekt ist und seine einzige Aufgabe ist es, Ihnen bei der Einführung eines angemessenen Werts zu helfen. Es soll nicht überprüfen, ob der eingeführte Wert korrekt ist und nicht zeigen, dass „ein Fehler in SUPLA gefunden wurde“. Nach der Einführung der Änderungen überprüfen Sie den Teil „Nächste Ausführungen“, um zu bestätigen, dass die angegebene Konfiguration des Zeitplans Ihren Erwartungen entspricht.'
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: Es ist möglich, dass ein anderer Benutzer Ihre Email-Adresse zufällig falsch eingegebe hat, um sein Kennwort für eigenes Konto zurückzusetzen.
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: In diesem Modus beginnt das Gerät mit der Übertragung seines eigenen WLAN-Netzes, um die Konfiguration des Geräts oder Aktualisierung der Firmware mithilfe vom Smartphone zu ermöglichen, das sich mit diesem Netz verbindet.
+Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Zusammen mit dem Konto werden alle Deine Daten inclusive Einstellungen, konfigurierte Geräte, Standortverlauf, Terminpläne und andere Aktivitäten, die SUPLA bietet, gelöscht.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Beachten Sie, dass die Beschreibung des angegebenen Crontabs, die durch die Anwendung präsentiert wurde, nicht perfekt ist und seine einzige Aufgabe ist es, Ihnen bei der Einführung eines angemessenen Werts zu helfen. Es soll nicht überprüfen, ob der eingeführte Wert korrekt ist und nicht zeigen, dass „ein Fehler in SUPLA gefunden wurde“. Nach der Einführung der Änderungen überprüfen Sie den Teil „Nächste Ausführungen“, um zu bestätigen, dass die angegebene Konfiguration des Zeitplans Ihren Erwartungen entspricht.
 Language is not available: Die Sprache ist nicht verfügbar
 Last access: Die letzte Verbindung
 Last connection: Letzte Verbindung
@@ -392,7 +391,7 @@ Light switch: Licht anmachen
 Lighting: Licht
 Limit has been exceeded: Das Limit wurde überschritten
 Linear: Linear
-'Liquid, Temp': 'Flüssigkeit, Temperatur'
+Liquid, Temp: Flüssigkeit, Temperatur
 Location: Lokalisierung
 Location Identifier: ID der Lokalisierung
 Location limit has been exceeded: Limit der Lokalisierungen wurde überschritten
@@ -407,14 +406,14 @@ MQTT Broker password has been changed.: Kennwort des MQTT-Brokers wurde geänder
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Benutzername oder Kennwort sind in dieser Instanz nicht konfiguriert.
 Mail sensor: Posteinwurferkennung
 Maintenance mode active. You cannot modify any data now.: Aktion im Servicemodus. Du kannst keine Daten modifizieren.
-Make sure to copy it now because you won’t be able to see it again!: 'Vergewissern Sie sich, dass Sie sie an einem sicheren Ort aufbewahren.'
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Stellen Sie sicher, dass der Link an einer sicheren Stelle gespeichert ist, wenn Sie es in Zukunft erneut verwenden möchten. Der link wird nicht wieder angezeigt nachdem sie diese Seite verlassen.'
+Make sure to copy it now because you won’t be able to see it again!: Vergewissern Sie sich, dass Sie sie an einem sicheren Ort aufbewahren.
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Stellen Sie sicher, dass der Link an einer sicheren Stelle gespeichert ist, wenn Sie es in Zukunft erneut verwenden möchten. Der link wird nicht wieder angezeigt nachdem sie diese Seite verlassen.
 Manage your new client app in the SUPLA-Cloud.: Verwalten Sie die Einstellungen der Anwendung in der SUPLA-Cloud.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Verwalten Sie Ihr Gerät in der SUPLA-Cloud oder mithilfe der SUPPLA-Anwendung an Ihrem Smartphone.
 Manual: Anweisung
 Manually closed: Manuell geschlossen
 Maximum delay is 60 minutes.: Maximale Verzögerung beträgt 60 Minuten.
-'Maximum filesize limit is {limit}.': 'Die maximale Dateigröße ist {limit}.'
+Maximum filesize limit is {limit}.: Die maximale Dateigröße ist {limit}.
 Meter value: Zählerstand
 Meters: Zähler
 Mobile Apps: Mobile Apps
@@ -437,19 +436,19 @@ New direct link: Neuer direkt link
 New password: Neuer Kennwort
 New scene: Neue Szene
 Newer: Neuere
-'Next limit renewal: {date}': 'Limit wird erneuert {Daten}'
+'Next limit renewal: {date}': Limit wird erneuert {Daten}
 Next run date: Nächste Ausführung
-'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Sie haben keine aktive Zugriffskennung. Gehen Sie zu [Liste der Zugriffskennungen] oder[neue Zugriffskennung hinzufügen].'
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Sie haben keine aktive Zugriffskennung. Gehen Sie zu [Liste der Zugriffskennungen] oder[neue Zugriffskennung hinzufügen].
 No function: Keine Funktion
 No future executions - schedule disabled: Keine vorausgeplanten Ausführungen- Harmonogramm ausgeschaltet
 No limit: Unbegrenzt
 No liquid sensor: Kein Flüssigkeitssensor
-'No location enabled. Go to [location list] or [add a new location].': 'Sie haben keine aktive Lokalisierung. Gehe zu[Liste Lokalisierung] oder[neuen Lokalisierung hinzufügen].'
+No location enabled. Go to [location list] or [add a new location].: Sie haben keine aktive Lokalisierung. Gehe zu[Liste Lokalisierung] oder[neuen Lokalisierung hinzufügen].
 No of channels: Anzahl der Kanäle
 No of client apps: Anzahl der Client-Anwendungen
 No of devices: Anzahl der Geräte
 No of operations: Anzahl der Vorgänge
-'No results match {0}': 'Keine Ergebnisse stimmen überein {0}'
+No results match {0}: Keine Ergebnisse stimmen überein {0}
 No schedule configuration.: Konfiguration des Zeitplans wurde nicht angegeben.
 No. of Client’s apps: Anzahl der Client-Anwendungen
 No. of access identifiers: Anzahl der Zugangskennungen
@@ -471,7 +470,7 @@ Offline access: Offline-Zugriff
 Older: Ältere
 'On': EIN
 On/Off switch: Aufladen anmachen
-'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Erlaubt sind nur Domänennamen mit optionaler Anschlussnummer. Zum Beispiel mysupla.org oder mysupla.org:88. HTTPS ist erforderlich.'
+Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Erlaubt sind nur Domänennamen mit optionaler Anschlussnummer. Zum Beispiel mysupla.org oder mysupla.org:88. HTTPS ist erforderlich.
 Open: Öffne
 Open / close: Öffnen / schließen
 Open partially: Öffne teilweise
@@ -479,30 +478,30 @@ Opening sensor: Öffnungssensor
 Operations: Vorgänge
 Original location: Ursprünglicher Standort
 Other: Sonstige
-'Otherwise go to [the homepage].': 'Andernfalls gehen Sie zur [Startseite].'
+Otherwise go to [the homepage].: Andernfalls gehen Sie zur [Startseite].
 Partial opening sensor: Indirekter Öffnungssensor
 Password: Kennwort
 Password Reset: Kennwort zurücksetzen
 Password has been changed: Kennwort wurde geädert
-'Password must be at least {minLength} characters.': 'Kennwort muss mindestens {minLength} Zeichen lang sein.'
-'Password must be no longer than {maxLength} characters.': 'Kennwort darf nicht länger als {maxLength} Zeichen sein.'
+Password must be at least {minLength} characters.: Kennwort muss mindestens {minLength} Zeichen lang sein.
+Password must be no longer than {maxLength} characters.: Kennwort darf nicht länger als {maxLength} Zeichen sein.
 Password reset instructions.: Anweisungen zur Wiederherstellung des Zugriffs auf Ihr Konto.
 Percentage of closing: Prozentsatz des Abschlusses
 Personal access tokens: Persönliche Zugriffstoken
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Persönliche Zugriffstoken funktionieren wie gewöhnliche Zugriffstoken mit dem Unterschied, dass sie unbefristet funktionieren.'
-Personal token name is required.: 'Es ist erforderlich, einen persönlichen Token-Namen anzugeben.'
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Persönliche Zugriffstoken funktionieren wie gewöhnliche Zugriffstoken mit dem Unterschied, dass sie unbefristet funktionieren.
+Personal token name is required.: Es ist erforderlich, einen persönlichen Token-Namen anzugeben.
 Phase 1: Phase 1
 Phase 2: Phase 2
 Phase 3: Phase 3
-Please choose the schedule subject first.: 'Wählen Sie zuerst, was der Zeitplan steuern soll.'
-Please click the following link to reset your %cloudHost% password.: 'Klicken Sie auf den folgenden Link, um Ihr Kennwort auf der Website %cloudHost% zurückzusetzen.'
-Please click the link we have sent you after the registration to proceed.: 'Klicke auf den Link in der Nachricht, die wir Dir nach Einrichtung des Kontos gesendet haben.'
+Please choose the schedule subject first.: Wählen Sie zuerst, was der Zeitplan steuern soll.
+Please click the following link to reset your %cloudHost% password.: Klicken Sie auf den folgenden Link, um Ihr Kennwort auf der Website %cloudHost% zurückzusetzen.
+Please click the link we have sent you after the registration to proceed.: Klicke auf den Link in der Nachricht, die wir Dir nach Einrichtung des Kontos gesendet haben.
 Please confirm your SUPLA account.: Aktivieren Sie Ihr Konto in SUPLA.
 Please enter a valid email address: Geben Sie ihre korrekte E-Mail-Adresse ein
 Please fill a valid email address: Korrekte E-mail Adresse eintragen
-Please log in again to proceed.: 'Melde Dich wieder an, um fortzusetzen.'
+Please log in again to proceed.: Melde Dich wieder an, um fortzusetzen.
 Please provide a valid domain name for your private SUPLA Cloud: Geben Sie den richtigen Domainnamen für Ihre private SUPLA-Cloud an
-Please wait a moment before the next login attempt.: 'Bitte warten Sie einen Moment, bevor Sie sich erneut anmelden.'
+Please wait a moment before the next login attempt.: Bitte warten Sie einen Moment, bevor Sie sich erneut anmelden.
 Port: Port
 Precision: Präzision
 Pressure sensor: Drucksensor
@@ -515,7 +514,7 @@ Processing: Im Gang
 Protocol: Protokoll
 Public ID: Öffentliche ID
 Publish to integrations: Veröffentlichen Sie für Integration
-Publishes the event to integrated services like MQTT or webhooks.: 'Solche Integrationen wie MQTT oder Webhooks werden benachrichtigt, dass diese Aktion ausgeführt wurde.'
+Publishes the event to integrated services like MQTT or webhooks.: Solche Integrationen wie MQTT oder Webhooks werden benachrichtigt, dass diese Aktion ausgeführt wurde.
 RESET: RÜCKSETZEN
 RGB led controller: RGB- Beleuchtungskontroller
 RGB lighting: RGB- Beleuchtung
@@ -540,7 +539,7 @@ Relay switching time: Dauer der Befestigung des Relais
 Repeat password: Kennwort wiederholen
 Reset Your Password: Setzen Sie neues Kennwort
 Reset counter: Setzen Sie den Zähler zurück
-Retry on failure: 'Wiederholen, wenn nicht ausgeführt'
+Retry on failure: Wiederholen, wenn nicht ausgeführt
 Reveal: Aufdecken
 Reveal partially: Decke teilweise auf
 Reverse active energy: Wirkleistung rückgeliefert
@@ -560,7 +559,7 @@ SUPLA Cloud is under maintenance.: Aktualisierung der SUPLA Cloud dauert
 SUPLA Server was unable to execute the action.: Ein Fehler bei der Ausführung der Aktion im SUPLA Server
 SUPLA Server was unable to execute the scene.: SUPLA-Server konnte die Szene nicht ausführen.
 SUPLA Server was unable to query for the scene state.: SUPLA-Server konnte den Status der Szene nicht lesen.
-'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA ist überall und immer erreichbar. Keine Sorge, falls du mal vergisst, das Licht zu Hause auszuschalten'
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA ist überall und immer erreichbar. Keine Sorge, falls du mal vergisst, das Licht zu Hause auszuschalten
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Benachrichtigung über fehlgeschlagene Anmeldung bei %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - neue Client-App wurde registriert
 SUPLA – new device has been added to your account: SUPLA - ein neues Gerät wurde zu Ihrem Konto hinzugefügt
@@ -568,7 +567,7 @@ SUPLA.ORG Team: Team SUPLA.ORG
 Save: Speichern
 Save and enable: Speichern und aktivieren
 Save changes: Speichern Sie Ihre Änderungen
-Save changes to see Access IDs: 'Sichern Sie die Änderungen, um die Zugangskennung anzuzeigen'
+Save changes to see Access IDs: Sichern Sie die Änderungen, um die Zugangskennung anzuzeigen
 Save or discard configuration changes first.: Speichern Sie oder verwerfen Sie zuerst die Konfigurationsänderungen.
 Scene: Szene
 Scene must consist of at least one operation.: Szene soll wenigstens aus einem Vorgang bestehen
@@ -580,7 +579,7 @@ Schedule mode: Harmonogrammmodus
 Schedules: Harmonogramme
 Scope: Bereich (scope)
 Scopes: Bereiche
-Scopes define which sections of your account can be accessed when using the token.: 'Bereiche bestimmen, auf welche Teile des Kontos mit dem Token zugegriffen werden kann.'
+Scopes define which sections of your account can be accessed when using the token.: Bereiche bestimmen, auf welche Teile des Kontos mit dem Token zugegriffen werden kann.
 Search: Suchen
 Secret: Der Geheimschlüssel (secret)
 See available integrations: Sehen Sie die verfügbaren Integrationen an
@@ -588,7 +587,7 @@ See direct link possibilities: Sehen Sie die Möglichkeiten des direkten Links
 See in SUPLA-Cloud: Sehen Sie in der SUPLA-Cloud
 Seems like a secret place: Scheint ein geheimer Bereich zu sein
 Select icon: Symbol wählen
-Select the item (subject) you want to control using this link: 'Wählen Sie eine Komponente, die Sie anhand dieser Links kontrollieren wollen'
+Select the item (subject) you want to control using this link: Wählen Sie eine Komponente, die Sie anhand dieser Links kontrollieren wollen
 Sensor (normal closed): Sensor (normal zu)
 Sensor (normal open): Sensor (normal auf)
 Sensor disconnected: Fehlender Sensor
@@ -597,12 +596,12 @@ Server address: Server-Adresse
 Server unreachable: Serwer unerreichbar
 Service temporarily unavailable: Dienstleistung ist temporär nicht verfügbar
 Set value added: Bestimmen Sie den hinzugefügten Wert
-Setting the number of attempts to 1 disables the retrying behavior completely.: 'Wenn die Anzahl der Versuche unter 2 festgelegt wird, kann es dazu kommen, dass das Schließen oder Öffnen nicht erfolgen.'
+Setting the number of attempts to 1 disables the retrying behavior completely.: Wenn die Anzahl der Versuche unter 2 festgelegt wird, kann es dazu kommen, dass das Schließen oder Öffnen nicht erfolgen.
 Show my limits: Zeige meine Limits
 Show on the Client’s devices: In Client-Geräten anzeigen
 Shut: Abdecken
 Shut partially: Verdecken Sie teilweise
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Schließen Sie den Rollladen, bis er den unteren Rand berührt, und tragen Sie den Prozentsatz des Schließens in dieses Feld ein. Dieser Vorgang ist nicht erforderlich, verbessert jedoch die Visualisierung der Rollladenposition in der mobilen Anwendung.'
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Schließen Sie den Rollladen, bis er den unteren Rand berührt, und tragen Sie den Prozentsatz des Schließens in dieses Feld ein. Dieser Vorgang ist nicht erforderlich, verbessert jedoch die Visualisierung der Rollladenposition in der mobilen Anwendung.
 Sign In: Anmelden
 Sign Out: Abmelden
 Sign in temporarily unavailable. Please try again later.: Login ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später noch einmal.
@@ -630,16 +629,16 @@ Supla for devices: SUPLA für Geräte
 Switch the device to configuration mode: Schalten Sie das Gerät in den Konfigurationsmodus um
 THIS CANNOT BE UNDONE!: DIESER VORGANG KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN
 TLS: TLS
-'Target Cloud is not registered, or is registered with another e-mail address.': Diese SUPLA-Cloud-Instanz ist nicht registriert oder wurde mit einer anderen E-Mail-Adresse registriert.
+Target Cloud is not registered, or is registered with another e-mail address.: Diese SUPLA-Cloud-Instanz ist nicht registriert oder wurde mit einer anderen E-Mail-Adresse registriert.
 Temperature: Temperatur
 Temperature & Humidity Sensor: Temperatur- und Feuchtesensor
 Temperature Sensor: Temperatursensor
 Temperature adjustment: Temperaturanpassung
 Temperature and humidity sensor: Temperatur- und Feuchtigkeitssensor
-Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Danke für die Registrierung eines Kontos bei %cloudHost%. Um die Aktivierung abzuschließen, klicken Sie den Link unten.'
-'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dank Integrationen können Sie Ihrem Konto problemlos neue Funktionen hinzufügen, indem Sie Lösungen von externen Anbietern, Programmierern oder von Ihnen selbst verwenden.'
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Danke für die Registrierung eines Kontos bei %cloudHost%. Um die Aktivierung abzuschließen, klicken Sie den Link unten.
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dank Integrationen können Sie Ihrem Konto problemlos neue Funktionen hinzufügen, indem Sie Lösungen von externen Anbietern, Programmierern oder von Ihnen selbst verwenden.
 'The IP used for login is: %ip%': 'Der Anmeldeversuch wurde von der folgenden IP-Adresse durchgeführt: %ip%'
-The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: 'Kennwort des MQTT-Brokers ist nur in diesem Moment sichtbar. Vergewissern Sie dich, dass Sie es an einem sicheren Ort aufbewahren. Sie werden es nicht mehr sehen können.'
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Kennwort des MQTT-Brokers ist nur in diesem Moment sichtbar. Vergewissern Sie dich, dass Sie es an einem sicheren Ort aufbewahren. Sie werden es nicht mehr sehen können.
 The SUPLA infrastructure is being updated.: Die SUPLA-Infrastruktur wird aktualisiert.
 The Terms and Conditions have changed: Die Vorschriften wurden geändert
 The Terms and Conditions have changed – please read them and accept.: Die Bestimmungen des Dienstes wurden geändert - seine Zustimmung ist erforderlich.
@@ -652,35 +651,35 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Zwecks der Ausführung der Aktion Öffnen oder Schließen muss der Tor-Öffnungssensor einwandfrei funktionieren.
 The gate sensor must function properly in order to execute the scheduled action.: Zwecks der Ausführung einer Aktion muss der Tor-Öffnungssensor einwandfrei funktionieren.
 The incident was detected at %datetime%.: Der Vorfall ereignete sich am %datetime%.
-'The items below rely on this channel function, so they will be deleted.': 'Folgende Elemente basieren auf aktueller Funktion des Kanals, daher werden sie nach ihrer Änderung gelöscht.'
-'The items below rely on this channel group, so they will be deleted.': 'Folgende Elemente verwenden diese Gruppe der Kanäle, daher werden sie nach ihrer Entfernung auch gelöscht.'
-'The items below rely on this scene, so they will be deleted.': 'Folgende Elemente basieren auf dieser Szene, deswegen werden sie gelöscht.'
+The items below rely on this channel function, so they will be deleted.: Folgende Elemente basieren auf aktueller Funktion des Kanals, daher werden sie nach ihrer Änderung gelöscht.
+The items below rely on this channel group, so they will be deleted.: Folgende Elemente verwenden diese Gruppe der Kanäle, daher werden sie nach ihrer Entfernung auch gelöscht.
+The items below rely on this scene, so they will be deleted.: Folgende Elemente basieren auf dieser Szene, deswegen werden sie gelöscht.
 The latest execution: Letzte Ausführung
-'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Das Ergebnis wird als Website dargestellt, weil Sie (oder Ihr Browser) um eine Antwort im HTML-Format gebeten haben.'
+The link result is presented as a website response, because you (or your browser) asked for HTML output.: Das Ergebnis wird als Website dargestellt, weil Sie (oder Ihr Browser) um eine Antwort im HTML-Format gebeten haben.
 The measurement history has been deleted.: Messverlauf wurde gelöscht.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Neues Kennwort ersetzt das vorhandene. Einige Integrationen können nach seiner Änderung nicht mehr funktionieren. Möchten Sie fortfahren?
 The next available executions: die nächsten Ausführungen
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: 'Mit dem Rahmen haben wir die Benachrichtigung markiert, die Sie geklickt haben, um sich abzumelden.'
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Mit dem Rahmen haben wir die Benachrichtigung markiert, die Sie geklickt haben, um sich abzumelden.
 The password and its confirm are not the same.: Das Passwort und seine Bestätigung sind nicht identisch.
 The password should be 8 or more characters.: Das Kennwort sollte mindestens 8 Zeichen lang sein.
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Das Gerät wurde durch Leitungsschutzschalter abgeschaltet. Vor dem Einschalter stellen Sie sicher, dass das Problem, das dazu geführt hat, gelöst wurde. Möchten Sie dieses Gerät wirklich aus der Ferne einschalten?'
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Der Server hat den Fehler 400 zurückgegeben, was bedeutet, dass die angeforderte Nachfrage falsch ist.'
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Der Server gab HTTP 403-Fehler zurück, was bedeutet, dass Sie nicht genügend Berechtigungen haben, um dieses Element anzuzeigen.'
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Der Server hat den Fehler HTTP 404 zurückgegeben, was bedeutet, dass das gesuchte Objekt nicht existiert.'
-'The server has returned an HTTP {statusCode} error.': 'Der Server hat den Fehler {statusCode} zurückgegeben'
-'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Die von Ihnen ausgewählten Symboldateien sind zu groß. Die maximal zulässige Uploadgröße ist {limit}.'
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Das Ventil kann nicht mit Hilfe eines direkten Links oder mittels API geöffnet werden, weil es manuell geschlossen wurde. Um die Steuerung wieder aufzunehmen öffnen Sie das Ventil manuell.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Das Ventil wurde manuell oder per Funk geschlossen. Vor seiner Öffnung versichern Sie sich, dass es nicht wegen Überflutung geschlossen wurde. Um die Warnung abzuschalten, öffnen sie das Ventil manuell. Wollen Sie wirklich das Ventil aus der Ferne öffnen?'
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Das Ventil wird nicht geöffnet, wenn es manuell oder durch das Funksystem geschlossen wurde, was mit Überflutung zu tun haben kann'
-There are no more channels you can add to this group: 'Es gibt keine anderen Kanäle, die zu dieser Gruppe hinzugefügt werden können.'
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Das Gerät wurde durch Leitungsschutzschalter abgeschaltet. Vor dem Einschalter stellen Sie sicher, dass das Problem, das dazu geführt hat, gelöst wurde. Möchten Sie dieses Gerät wirklich aus der Ferne einschalten?
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Der Server hat den Fehler 400 zurückgegeben, was bedeutet, dass die angeforderte Nachfrage falsch ist.
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Der Server gab HTTP 403-Fehler zurück, was bedeutet, dass Sie nicht genügend Berechtigungen haben, um dieses Element anzuzeigen.
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Der Server hat den Fehler HTTP 404 zurückgegeben, was bedeutet, dass das gesuchte Objekt nicht existiert.
+The server has returned an HTTP {statusCode} error.: Der Server hat den Fehler {statusCode} zurückgegeben
+The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Die von Ihnen ausgewählten Symboldateien sind zu groß. Die maximal zulässige Uploadgröße ist {limit}.
+The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Das Ventil kann nicht mit Hilfe eines direkten Links oder mittels API geöffnet werden, weil es manuell geschlossen wurde. Um die Steuerung wieder aufzunehmen öffnen Sie das Ventil manuell.
+The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Das Ventil wurde manuell oder per Funk geschlossen. Vor seiner Öffnung versichern Sie sich, dass es nicht wegen Überflutung geschlossen wurde. Um die Warnung abzuschalten, öffnen sie das Ventil manuell. Wollen Sie wirklich das Ventil aus der Ferne öffnen?
+The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Das Ventil wird nicht geöffnet, wenn es manuell oder durch das Funksystem geschlossen wurde, was mit Überflutung zu tun haben kann
+There are no more channels you can add to this group: Es gibt keine anderen Kanäle, die zu dieser Gruppe hinzugefügt werden können.
 Thermometer: Thermometer
 Thermostat: Thermostat
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Diese direkte Verbindung erfordert eine weitere Klärung der Parameter der durchgeführten Aktion. In den folgenden Beispielen erfahren Sie, welche Parameter Sie einstellen können.'
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Diese direkte Verbindung erfordert eine weitere Klärung der Parameter der durchgeführten Aktion. In den folgenden Beispielen erfahren Sie, welche Parameter Sie einstellen können.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Sie erhalten diese Information aufgrund eines fehlgeschlagenen Anmeldeversuchs bei SUPLA-CLOUD mit Ihrer E-Mail-Adresse.
-This is the list of applications you have granted access to your account.: 'Dies ist die Liste der Anwendungen, denen Sie Zugriff auf Ihr Konto gewährt haben.'
+This is the list of applications you have granted access to your account.: Dies ist die Liste der Anwendungen, denen Sie Zugriff auf Ihr Konto gewährt haben.
 This link is only valid for an hour.: Der Link wird für eine Stunde aktiv sein.
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Dieser Modus des Harmonogramms ist für fortgeschrittene oder sehr geduldige Benutzer gedacht. Erforderlich ist die Angabe des Ausführungsverhaltens der Zeitpläne in der Crontab-Notation, erweitert um einige Funktionen, die nur bei SUPLA vorhanden sind. Wenn Sie Crontabs noch nicht  kennen und diesen Modus immer noch verwenden möchten, kann die Website crontab.guru hilfreich sein.'
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Dieser Auslöser wird durch das Gerät verwendet (z. B. er schaltet das Licht ein oder steuert den Rollladen usw.). Wenn Sie ihm eine andere Aktion zuweisen, wird die lokale Funktion deaktiviert.'
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Dieser Modus des Harmonogramms ist für fortgeschrittene oder sehr geduldige Benutzer gedacht. Erforderlich ist die Angabe des Ausführungsverhaltens der Zeitpläne in der Crontab-Notation, erweitert um einige Funktionen, die nur bei SUPLA vorhanden sind. Wenn Sie Crontabs noch nicht  kennen und diesen Modus immer noch verwenden möchten, kann die Website crontab.guru hilfreich sein.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Dieser Auslöser wird durch das Gerät verwendet (z. B. er schaltet das Licht ein oder steuert den Rollladen usw.). Wenn Sie ihm eine andere Aktion zuweisen, wird die lokale Funktion deaktiviert.
 Timezone: Zeitzone
 Toggle: Wechseln
 Token does not exist: Token existiert nicht
@@ -688,7 +687,7 @@ Too many actions in this schedule.: Zu viele Aktionen in einem Zeitplan.
 Too many channels in this group: Zu viele Kanäle in dieser Gruppe
 Too many operations in this scene: Zu viele Vorgänge in einer Szene.
 Triggers: Die Auslöser
-Turning this device off will cause its channels not working in the following features.: 'Das Ausschalten dieses Geräts führt dazu, dass seine Kanäle bei den folgenden Elementen nicht funktionieren.'
+Turning this device off will cause its channels not working in the following features.: Das Ausschalten dieses Geräts führt dazu, dass seine Kanäle bei den folgenden Elementen nicht funktionieren.
 Turning this device off will result in disabling features listed below.: Das Ausschalten dieses Geräts führt auch zur Deaktivierung der folgenden Elemente.
 Type: Typ
 Undo registration: Machen Sie die Anmeldung rückgängig
@@ -699,7 +698,7 @@ Unsuccessful login attempt: Anmeldeversuch erfolglos
 Unsupported function: Nicht unterstützte Funktion
 Unsupported type: Nicht unterstützter Typ
 Update in progress: Aktualisierung läuft
-'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Die hochgeladenen Dateien verstosen nicht gegen die guten Sittent, verletzen keine Urheberrechte und Rechte Dritter. Ich habe das Recht die Dateien zu verwenden.'
+Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Die hochgeladenen Dateien verstosen nicht gegen die guten Sittent, verletzen keine Urheberrechte und Rechte Dritter. Ich habe das Recht die Dateien zu verwenden.
 'Use the [command] server command to change this account''s limits. For example:': 'Verwenden Sie den Serverbefehl [command], um die Limits Ihres Kontos zu ändern. Zum Beispiel:'
 Use working schedule for this access identifier: Verwenden Sie für diese Zugriffskennung den Verfügbarkeitszeitplan
 User is already confirmed. Try to log in.: Dieses Konto ist schon bestätigt. Melde Dich an.
@@ -714,25 +713,24 @@ WELCOME_MESSAGE: |
   Alles was Du tun musst besteht darin, dass du die unten aufgeführten Daten an die Steuergeräte (Eingang/Ausgang) der Smartfons umschreiben sollst.
 Wait a while before the next request. You can check your limits in the account settings.: Vor Ausführung einer weiteren Anforderung warten Sie einen Moment ab. Sie können aktuellen Verbrauch Ihrer Limits in den Einstellungen des Kontos prüfen.
 Water meter: Wasserzähler
-We can notify you about certain events with your account. Opt out if you don't want us to bother you.: 'Wir werden Sie über bestimmte Ereignisse benachrichtigen, die mit Ihrem Konto verbunden sind. Die nicht benötigten können Sie abbestellen.'
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Wir werden Sie über bestimmte Ereignisse benachrichtigen, die mit Ihrem Konto verbunden sind. Die nicht benötigten können Sie abbestellen.
 We could not connect to your SUPLA Cloud instance.: Wir konnten keine Verbindung zu Ihrer privaten SUPLA Cloud-Instanz herstellen.
-We have been asked to delete your SUPLA Cloud account (%cloudHost%).: 'Wir haben den Auftrag erhalten, Dein Konto bei SUPLA Cloud (%cloudHost%) zu löschen.'
+We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Wir haben den Auftrag erhalten, Dein Konto bei SUPLA Cloud (%cloudHost%) zu löschen.
 We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Abmeldung Ihrer privaten SUPLA-Cloud-Instanz (%targetCloudUrl%) wurde beauftragt.
 We have just sent you an activation link. You should be receiving it shortly.: Nachricht mit dem Link zur Aktivierung Deines Kontos wurde gerade erst gesendet. Hab Geduld.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Wir haben Dir eine E-Mail mit einem Bestätigungslink zur Kontolöschung geschickt. Vielleicht änderst Du noch deine Meinung!
 We have sent you an email with further instructions.: Wir haben Ihnen eine Nachricht mit weiteren Anweisungen geschickt.
 We should be ready shortly.: Wir sollen bald fertig sein
-'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Wir speichern Informationen über Ihre Präferenzen in Ihrem Browser, um die Nutzung der Anwendung zu erleichtern (z.B. durch Cookies). [Vorschriften lesen].'
 We try to be faster: Wir sind immer schneller
 We were not able to find your account.: Wir konnten Ihr Konto nicht finden.
 We will miss you: Wir werden Sie vermissen.
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Wir tun unser Bestes um die zugesandten Piktogramme gut anzuzeigen, aber das beste Ergebnis erreichen Sie indem Sie uns ein PNG file mit einem transparentem Hintergrund, der Breite {width} und Höhe {height} zuschicken.'
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Wir tun unser Bestes um die zugesandten Piktogramme gut anzuzeigen, aber das beste Ergebnis erreichen Sie indem Sie uns ein PNG file mit einem transparentem Hintergrund, der Breite {width} und Höhe {height} zuschicken.
 We will use it only in justified situations.: Wir werden diese nur in begründeten Fällen verwenden.
 Weather Station: Wetterstation
 Weight sensor: Gewicht
 Welcome!: Hallo!
 What this token is for?: Wozu dient dieses Token?
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Sie können eine Direkt Link-Aktion ausführen, indem Sie ihre eindeutige Kennung in den HTTP PATCH-Anfrage eingeben. Dies ist sicherer, da es verhindert, dass Sie die vollständige Adresse Ihres Links in den Zugriffsprotokollen der Server speichern, über die Ihre Anfrage läuft. Nachfolgend finden Sie eine exemplarische Ausführung mit dem cURL-Tool.'
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Sie können eine Direkt Link-Aktion ausführen, indem Sie ihre eindeutige Kennung in den HTTP PATCH-Anfrage eingeben. Dies ist sicherer, da es verhindert, dass Sie die vollständige Adresse Ihres Links in den Zugriffsprotokollen der Server speichern, über die Ihre Anfrage läuft. Nachfolgend finden Sie eine exemplarische Ausführung mit dem cURL-Tool.
 Where is the JSON?: Wo ist JSON?
 Where is your SUPLA Cloud?: Wo ist deine private SUPLA-Cloud?
 White: Weiß
@@ -743,9 +741,9 @@ With function: Mit Funktion
 Working period: Die Betriebsdauer
 Working schedule: Zeitplan der Aktivitäten
 YOUR LINK CODE: DER CODE IHRES LINKS
-You are changing the settings too quickly. You have to wait a while before making this change.: 'Sie ändern die Einstellungen zu schnell. Sie müssen eine Weile warten, bevor Sie diese Einstellungen ändern.'
-'You can ignore this message, if you have accidentally entered an incorrect password.': 'Sie können diese Information ignorieren, wenn Sie das falsche Passwort eingegeben haben.'
-You can use the application but you will not be able to modify any settings.: 'Du kannst die Anwendung benutzen, aber es ist unmöglich, Konfiguration zu ändern'
+You are changing the settings too quickly. You have to wait a while before making this change.: Sie ändern die Einstellungen zu schnell. Sie müssen eine Weile warten, bevor Sie diese Einstellungen ändern.
+You can ignore this message, if you have accidentally entered an incorrect password.: Sie können diese Information ignorieren, wenn Sie das falsche Passwort eingegeben haben.
+You can use the application but you will not be able to modify any settings.: Du kannst die Anwendung benutzen, aber es ist unmöglich, Konfiguration zu ändern
 You cannot delete your last access identifier.: Sie können Ihre letzte Zugangskennung nicht löschen.
 You cannot delete your last location.: Sie können Ihre letzte Lokalisierung nicht löschen.
 You cannot use SUPLA project name in the domain name.: Sie dürfen den SUPLA-Projektnamen im Namen der Hauptdomäne nicht verwenden.
@@ -753,7 +751,7 @@ You have exceeded your API Rate Limit: Sie haben Ihren Limit der Anforderungen z
 You have requested to unregister your SUPLA Cloud instance: Sie haben die Abmeldung Ihrer SUPLA-Cloud-Instanz beauftragt.
 You have to choose at least one scope.: Sie müssen mindestens einen Bereich auswählen.
 You just need to execute the following command inside your host terminal.: Führen Sie einfach den folgenden Befehl im Terminal Ihres Hosts aus.
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Wenn Sie den erweiterten Modus des Harmonogramms immer noch verwenden möchten, schauen Sie sich die folgenden Beispiele an.'
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Wenn Sie den erweiterten Modus des Harmonogramms immer noch verwenden möchten, schauen Sie sich die folgenden Beispiele an.
 You must agree to the Terms and Conditions.: Die Annahme der Richtlinie ist erforderlich.
 You must enable MQTT Broker first.: Zuerst müssen Sie die Integration mit dem MQTT-Broker aktivieren.
 You must set sections with transparent or opaque parameters or both.: Sie müssen die Transparenz von wenigstens einem Teil wählen.
@@ -761,29 +759,28 @@ You need to provide icons for all states.: Sie müssen Symbole für alle Status 
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Sie müssen Ihre SUPLA-Cloud-Instanz auf mindestens Version 2.3.0 aktualisieren.
 You will not be able to generate a direct link with the same URL again.: Das Erstellen eines Linkes mit der gleichen URL wird nicht möglich sein.
 Your account and MQTT Broker connection.: Verbindung Ihres Kontos mit dem MQTT-Broker.
-Your account has been deleted. We hope you will come back to us soon.: 'Das Konto wurde gelöscht. Wir hoffen, dass Sie bald zu uns zurückkehren werden.'
+Your account has been deleted. We hope you will come back to us soon.: Das Konto wurde gelöscht. Wir hoffen, dass Sie bald zu uns zurückkehren werden.
 Your account has been locked.: Ihr Konto wurde gesperrt.
 Your account has not been confirmed yet.: Dein Konto wurde noch nicht bestätigt.
 Your account limits: Deine Limits
-'Your channel groups are allowed to have a maximum of {max} channels.': 'Ihre Kanalgruppen dürfen maximal {max} Kanäle haben.'
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'Das Gerät ermöglicht die Erweiterung seiner Funktionalität und die Ausführung einer beliebigen Aktion auf jedem Gerät, das Sie besitzen. Die verfügbaren Optionen hängen von der verwendeten Firmware und vom Gerät ab.'
+Your channel groups are allowed to have a maximum of {max} channels.: Ihre Kanalgruppen dürfen maximal {max} Kanäle haben.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Das Gerät ermöglicht die Erweiterung seiner Funktionalität und die Ausführung einer beliebigen Aktion auf jedem Gerät, das Sie besitzen. Die verfügbaren Optionen hängen von der verwendeten Firmware und vom Gerät ab.
 Your email: Deine E-mail
-Your instance is not registered or you are trying to authorize an application that is not public.: 'Ihre Instanz ist nicht registriert oder Sie versuchen, eine Anwendung zu autorisieren, die nicht öffentlich ist.'
+Your instance is not registered or you are trying to authorize an application that is not public.: Ihre Instanz ist nicht registriert oder Sie versuchen, eine Anwendung zu autorisieren, die nicht öffentlich ist.
 Your password must contain at least one special character.: Kennwort muss mindestens ein Sonderzeichen enthalten.
 Your password must include at least one letter.: Kennwort muss mindestens einen Buchstaben enthalten.
 Your password must include at least one number.: Kennwort muss mindestens eine Ziffer enthalten.
 Your password must include both upper and lower case letters.: Kennwort muss sowohl Groß- als auch Kleinbuchstaben enthalten.
 Your preferences has been updated.: Ihre Einstellungen wurden aktualisiert.
 Your private SUPLA Cloud instance has been unregistered.: Ihre private SUPLA-Cloud-Instanz wurde abgemeldet.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Ihre private SUPLA-Cloud-Instanz ist nicht verfügbar. Stellen Sie sicher, dass Ihr Server online ist und die HTTPS-Verbindung ordnungsgemäß funktioniert.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ihre private SUPLA-Cloud-Instanz ist nicht verfügbar. Stellen Sie sicher, dass Ihr Server online ist und die HTTPS-Verbindung ordnungsgemäß funktioniert.
 Your private SUPLA Cloud is almost registered.: Ihre private SUPLA-Cloud ist fast registriert.
 Your private SUPLA Cloud is not registered.: Ihre private SUPLA-Cloud ist nicht registriert
-'Your scenes are allowed to have a maximum of {max} operations.': 'Ihre Szenen dürfen maximal {max} Vorgänge haben.'
-'Your schedules are allowed to have a maximum of {max} actions.': 'Ihre Zeitpläne dürfen maximal {max} Aktionen haben.'
+Your scenes are allowed to have a maximum of {max} operations.: Ihre Szenen dürfen maximal {max} Vorgänge haben.
+Your schedules are allowed to have a maximum of {max} actions.: Ihre Zeitpläne dürfen maximal {max} Aktionen haben.
 Your session has been expired.: Deine Sitzung ist abgelaufen.
 Your session is about to expire: Deine Sitzung wird in kürze ablaufen
-'Your session will expire in {0}.': 'Deine Session läuft in {0} ab.'
-'Yours faithfully,': Mit freundlichen Grüßen
+Yours faithfully,: Mit freundlichen Grüßen
 access to your e-mail address: Zugriff auf Ihre E-Mail-Adresse
 actionTrigger_HOLD: Halten der Taste
 actionTrigger_SHORT_PRESS_X1: 1x drücken
@@ -801,12 +798,13 @@ actionTrigger_TURN_ON: Einschalten
 actionableSubjectType_channel: Kanal
 actionableSubjectType_channelGroup: Kanalgruppe
 actionableSubjectType_scene: Szene
-addToHistoryMeasurementWarningSelected: 'Bei der Aktivierung dieser Einstellung werden die eingestellten Werte zu den künftigen Messungen hinzugefügt, die in dem Verlauf gespeichert werden. Dies kann in den Diagrammen als plötzlicher Anstieg um den eingegebenen Wert sichtbar sein. Wir empfehlen, diese Parameter nur bei der ersten Installation des Zählers einzustellen. Für vorhandene Zähler empfehlen wir, den Messverlauf zu löschen, sobald diese Einstellungen geändert wurden.'
-addToHistoryMeasurementWarningUnselected: 'Bei der Deaktivierung dieser Einstellung werden die eingestellten Werte zu den künftigen Messungen, die in dem Verlauf gespeichert werden, nicht hinzugefügt. Dies kann in den Diagrammen als plötzlicher Abfall sichtbar sein. Wir empfehlen, diese Parameter nur bei der ersten Installation des Zählers einzustellen. Für vorhandene Zähler empfehlen wir, den Messverlauf zu löschen, sobald diese Einstellungen geändert wurden.'
+addToHistoryMeasurementWarningSelected: Bei der Aktivierung dieser Einstellung werden die eingestellten Werte zu den künftigen Messungen hinzugefügt, die in dem Verlauf gespeichert werden. Dies kann in den Diagrammen als plötzlicher Anstieg um den eingegebenen Wert sichtbar sein. Wir empfehlen, diese Parameter nur bei der ersten Installation des Zählers einzustellen. Für vorhandene Zähler empfehlen wir, den Messverlauf zu löschen, sobald diese Einstellungen geändert wurden.
+addToHistoryMeasurementWarningUnselected: Bei der Deaktivierung dieser Einstellung werden die eingestellten Werte zu den künftigen Messungen, die in dem Verlauf gespeichert werden, nicht hinzugefügt. Dies kann in den Diagrammen als plötzlicher Abfall sichtbar sein. Wir empfehlen, diese Parameter nur bei der ersten Installation des Zählers einzustellen. Für vorhandene Zähler empfehlen wir, den Messverlauf zu löschen, sobald diese Einstellungen geändert wurden.
 after: Nach
 before: Vor
 caption: Name
 channel: Kanal
+channelConfigHelp_numberOfAttemptsGate: Nachdem Sie das Öffnen oder Schließen des Tors angefordert haben, wird das System versuchen, es zu schließen/öffnen und wartet 60 Sekunden lang, um zu prüfen, ob das Tor den gewünschten Zustand erreicht hat. Wenn nicht, wird das System den Versuch des Schließens/ Öffnens wiederholen. Der folgende Parameter bestimmt die maximale Anzahl der Versuche, die das System unternimmt, um das Ziel zu erreichen. Der empfohlene Wert beträgt 5. Die Änderung dieses Parameters hat keinen Einfluss auf die Zeitpläne.
 channelGroup: Kanalgruppe
 choose: auswählen
 choose a currency: wählen Sie eine Währung
@@ -821,7 +819,7 @@ days: Tage
 directLinkExecutionFailureReason_disabled: Direkter link ist deaktiviert
 directLinkExecutionFailureReason_executionLimitExceeded: Der Ausführungslimit wurde überschritten
 directLinkExecutionFailureReason_expired: Der direkte Link ist abgelaufen
-directLinkExecutionFailureReason_forbiddenAction: 'Link erlaubt es nicht, diese Aktion auszuführen.'
+directLinkExecutionFailureReason_forbiddenAction: Link erlaubt es nicht, diese Aktion auszuführen.
 directLinkExecutionFailureReason_httpGetForbidden: Das Ausführen dieser Aktion mithilfe einer ungültigen HTTP-GET-Methode wurde verhindert.
 directLinkExecutionFailureReason_invalidActionParameters: Falsche Link Parameter
 directLinkExecutionFailureReason_invalidChannelState: Die Aktion kann nicht aufgrund des Kanalzustands ausgeführt werden.
@@ -843,11 +841,11 @@ minutes: Minuten
 or add a delay: oder Verzögerung hinzufügen
 password: Kennwort
 prefix: Präfix
-register-slide1-text: 'Auf der Grundlage der verfügbaren Elektronik, SUPLA ermöglicht es Ihnen, einfache Module zu bauen, was Ihnen Steuerung und Überwachung von Gebäudeautomationskomponenten erlauben würde. Mit SUPLA können Sie unter anderem die Beleuchtung kontrollieren, Geräte und Elektronik, ein- und ausschalten, Toren und Türen auf- und zumachen und die Temperatur im Raum prüfen. Das alles können Sie was mit einer kurzen Fingerbewegung tun.'
+register-slide1-text: Auf der Grundlage der verfügbaren Elektronik, SUPLA ermöglicht es Ihnen, einfache Module zu bauen, was Ihnen Steuerung und Überwachung von Gebäudeautomationskomponenten erlauben würde. Mit SUPLA können Sie unter anderem die Beleuchtung kontrollieren, Geräte und Elektronik, ein- und ausschalten, Toren und Türen auf- und zumachen und die Temperatur im Raum prüfen. Das alles können Sie was mit einer kurzen Fingerbewegung tun.
 register-slide1-title: Eigenes inteligentes Wohnen
-register-slide2-text: 'Die grundlegenden Ziele des Projekts sind Einfachheit und Verfügbarkeit. SUPLA ermöglicht Ihnen mit einer Fingerbewegung das Licht einzuschalten oder der Tor aufmachen. SUPLA ist überall verfügbar, wo Sie Zugang zum Internet haben und Smartphone oder Tablet dabei haben. SUPLA wird auf den Prinzipien von Open Source Software und Open-Hardware entwickelt, so dass auch Sie dieses Projekt entwickeln können!'
+register-slide2-text: Die grundlegenden Ziele des Projekts sind Einfachheit und Verfügbarkeit. SUPLA ermöglicht Ihnen mit einer Fingerbewegung das Licht einzuschalten oder der Tor aufmachen. SUPLA ist überall verfügbar, wo Sie Zugang zum Internet haben und Smartphone oder Tablet dabei haben. SUPLA wird auf den Prinzipien von Open Source Software und Open-Hardware entwickelt, so dass auch Sie dieses Projekt entwickeln können!
 register-slide2-title: SUPLA überall!
-register-slide3-text: 'Die auf dem Markt verfügbaren Gebäudeautomationssystemen sind in der Regel sehr komplex, geschlossen und teuer. In vielen Fällen erfordern sie die Installation in der Phase der Konstruktion der Anlage. SUPLA ist einfach, offen und kostenlos und ermöglicht Ihnen, Stellantriebe zu bauen, basierend auf der Plattform RaspberryPI, Arduino oder ESP8266 und kombiniert sie mit der Verwendung von LAN und WiFi. Schließen Sie sich dem Project ein und  bauen Sie Ihre eigene Version des Gebäudeautomationssystems!'
+register-slide3-text: Die auf dem Markt verfügbaren Gebäudeautomationssystemen sind in der Regel sehr komplex, geschlossen und teuer. In vielen Fällen erfordern sie die Installation in der Phase der Konstruktion der Anlage. SUPLA ist einfach, offen und kostenlos und ermöglicht Ihnen, Stellantriebe zu bauen, basierend auf der Plattform RaspberryPI, Arduino oder ESP8266 und kombiniert sie mit der Verwendung von LAN und WiFi. Schließen Sie sich dem Project ein und  bauen Sie Ihre eigene Version des Gebäudeautomationssystems!
 register-slide3-title: Kostenlos und offen!
 reset chart view: Zurück zur Anfangsansicht
 scene: Szene
@@ -856,7 +854,7 @@ scheduleMode_daily: Tageszyklus
 scheduleMode_minutely: Minutenzyklus
 scheduleMode_once: einmaliger
 sec.: Sek.
-'smartphones, tablets, etc.': 'smartphones, Tablets usw'
+smartphones, tablets, etc.: smartphones, Tablets usw
 state-closed: Geschlossen
 state-default: Als Standard
 state-empty: Leer
@@ -868,8 +866,8 @@ state-opened: Offen
 state-partially_closed: Teilweise geschlossen
 state-revealed: Hochgezogen
 state-rgb_off_dim_off: RGB und Dimmer aus
-state-rgb_off_dim_on: 'RGB aus, Dimmer an'
-state-rgb_on_dim_off: 'RGB an, Dimmer aus'
+state-rgb_off_dim_on: RGB aus, Dimmer an
+state-rgb_on_dim_off: RGB an, Dimmer aus
 state-rgb_on_dim_on: RGB und Dimmer an
 state-shut: Abgedeckt
 state-temperature: Temperatur
@@ -903,12 +901,12 @@ Cannot send an activation e-mail. Try again later.: Nachricht mit Aktivierungsli
 Channel will be deleted from the channel group below: Der Kanal wird aus den folgenden Kanalgruppen entfernt
 Channels in channel group: Kanäle in Kanalgruppen
 Chosen hour: Ausgewählte Uhrzeit
-'Confirm if you want to remove {deviceName} device': 'Bestätige, wenn du das Gerät löschen möchtest {deviceName}'
+Confirm if you want to remove {deviceName} device: Bestätige, wenn du das Gerät löschen möchtest {deviceName}
 DISABLED: AUSGESCHALTET
 Date: "Data \tDatum"
 Days: Tage
 Direct links below will be deleted: Die unten aufgeführten direkten Links werden gelöscht
-'Doors, Gates': 'Türen, Toren'
+Doors, Gates: Türen, Toren
 ENABLED: EINGESCHALTET
 Email already exists: E-Mail existiert bereits
 Existing schedules: Bestehende/existierende Harmonogramme
@@ -917,7 +915,7 @@ Hi: Hallo
 Hour: Uhrzeit
 Hours: Stunden
 I/O: E/A
-'If you want to stay here, do something!': 'Wenn Du hier bleiben willst, tu etwas!'
+If you want to stay here, do something!: Wenn Du hier bleiben willst, tu etwas!
 Input: Eingabe
 Languages: Sprachen
 Loading: Laden
@@ -928,7 +926,7 @@ Mondays: Montage
 Next: Weiter
 Number: Nummer
 Output: Ausgabe
-Please select the schedules that should also be enabled.: 'Markiere die Harmonogramme, die auch ausgeschaltet werden sollten.'
+Please select the schedules that should also be enabled.: Markiere die Harmonogramme, die auch ausgeschaltet werden sollten.
 Registration: Registrierung
 Remove: Löschen
 Saturdays: Samstage
@@ -941,17 +939,48 @@ Sunrise / Sunset: Sonnenaufgang/Sonnenuntergang
 Thursdays: Donnerstage
 Try again later: Versuche später nochmals
 Tuesdays: Dienstage
-Turning this device off will result in disabling all the associated schedules.: 'Das Ausschalten dieses Geräts verursacht auch das Ausschalten von Harmonogrammen, mit denen es in Verbindung steht.'
+Turning this device off will result in disabling all the associated schedules.: Das Ausschalten dieses Geräts verursacht auch das Ausschalten von Harmonogrammen, mit denen es in Verbindung steht.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Wir speichern Informationen über Ihre Präferenzen in Ihrem Browser, um die Nutzung der Anwendung zu erleichtern (z.B. durch Cookies). [Vorschriften lesen].
 Wednesdays: Mittwoche
 When: Wann
 You will be logged out shortly: Du wirst gleich ausgeloggt
+Your session will expire in {0}.: Deine Session läuft in {0} ab.
 execute: ausführen
 hourly: Stundenzyklus
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Above threshold: ~
+Average voltage: ~
+Below threshold: ~
+Device might be sleeping: ~
+Error when communicating the AD. Try again in a while.: ~
+Estimated execution time: ~
+Gate's state verification: ~
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
+Longest violation: ~
+Maximum voltage: ~
+Measurement window: ~
+Minimum voltage: ~
+Phase number: ~
+Please read the Terms and Conditions.: ~
+Register your SUPLA Cloud: ~
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
+Show days with issues only: ~
+The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
+Total time: ~
+Verification method: ~
+Violation info: ~
+Violations count: ~
+Voltage deviations: ~
+Wait for this scene to finish before proceeding to the next step ({time}).: ~
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
+channelConfigHelp_stateVerificationMethod: ~
+channelConfig_stateVerificationMethod_active: ~
+channelConfig_stateVerificationMethod_passive: ~
 
 #</editor-fold>

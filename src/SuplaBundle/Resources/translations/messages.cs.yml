@@ -3,11 +3,11 @@
 '%s trigger is not supported by the hardware.': Spouštěč %s není zařízením podporován.
 ...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
 ...open and shut roller shutters: ...otevírat a zavírat rolety
-'...open gateways, gates or doors': '...otevřít branky, brány a dveře'
+...open gateways, gates or doors: ...otevřít branky, brány a dveře
 ...or control home appliances: ...nebo ovládat domácí spotřebiče
 ...you can monitor temperature: ...můžete sledovat teplotu
-'10 minutes before sunset, on day 10 of the month, May through August': '10 minut před západem slunce, pouze 10. den v měsíci, od května do srpna'
-'15 minutes after sunrise, every 2 days': '15 minut po východu slunce, každý druhý den'
+10 minutes before sunset, on day 10 of the month, May through August: 10 minut před západem slunce, pouze 10. den v měsíci, od května do srpna
+15 minutes after sunrise, every 2 days: 15 minut po východu slunce, každý druhý den
 A confirmation upon successful client app registration.: Potvrzení registrace nové klientské aplikace.
 A confirmation upon successful device registration.: Potvrzení úspěšné registrace zařízení.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Do vašeho účtu SUPLA-Cloud byla přidána nová klientská aplikace (smartphone).
@@ -26,11 +26,11 @@ Access Identifiers: Identifikátory přístupu
 Access identifier limit has been exceeded: Limit přístupových ID byl překročen
 Access to all of your devices through MQTT Broker: Přístup ke všem vašim zařízením prostřednictvím MQTT Broker
 Account: Ůčet
-Account access when you are unavailable: 'Přístup k účtu, pokud nejste dostupní'
+Account access when you are unavailable: Přístup k účtu, pokud nejste dostupní
 Account has been activated. You can Sign In now.: Účet byl aktivován. Můžete se přihlásit
 Action execution: Provedení akce
 Action trigger: Spouštěč akce
-'Action trigger no. #{index}': 'Spouštěč č. {index}'
+'Action trigger no. #{index}': Spouštěč č. {index}
 Action triggers: Spouštěče akcí
 Actions: Akce
 Active: Aktivní
@@ -44,20 +44,19 @@ Add new channel group: Přidat novou skupinu kanálů
 Add new channel to this group: Přidejte nový kanál do skupiny
 Add new item to use in the scene: Přidat na scénu novou položku
 Adjust parameters: Nastavte parametry
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Veškeré kanály a skupiny kanálů, které používají tuto ikonu, budou mít po smazání výchozí ikony.'
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Po udělení přístupu můžete vždy změnit svůj názor tím, že v nastavení účtu zrušíte přístup.'
-'After the device enters the configuration mode, it will not be accessible on your account.': Po vstupu do konfiguračního režimu nebude zařízení z vašeho účtu dostupné.
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Po aktualizaci bude aplikace rychlejší, pohodlnější ... jednoduše lepší!'
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': Měřič začne po této operaci počítat od 0 bez ohledu na jeho aktuální stav. Tuto operaci nelze vrátit zpět.
-'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Odkaz bude generován hned po výběru předmětu. Všechny ostatní možnosti můžete realizovat ihned po jejím vytvoření.
-'channelConfigHelp_numberOfAttemptsGate': 'Poté, co nařídíte otevření nebo zavření brány, se jí systém pokusí zavřít/otevřít a počká 60 sekund, proto aby mohl zkontrolovat, zda brána dosáhla požadovaného stavu. Pokud ne, systém se pokusí bránu znovu zavřít/otevřít. Tento parametr definuje maximální počet pokusů systému o dosažení cíle. Doporučená hodnota je 5. Změna tohoto parametru neovlivní činnost plánů.'
+After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Veškeré kanály a skupiny kanálů, které používají tuto ikonu, budou mít po smazání výchozí ikony.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po udělení přístupu můžete vždy změnit svůj názor tím, že v nastavení účtu zrušíte přístup.
+After the device enters the configuration mode, it will not be accessible on your account.: Po vstupu do konfiguračního režimu nebude zařízení z vašeho účtu dostupné.
+After the update, the application will be faster, more comfortable, more powerful... Just better!: Po aktualizaci bude aplikace rychlejší, pohodlnější ... jednoduše lepší!
+After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Měřič začne po této operaci počítat od 0 bez ohledu na jeho aktuální stav. Tuto operaci nelze vrátit zpět.
+After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Odkaz bude generován hned po výběru předmětu. Všechny ostatní možnosti můžete realizovat ihned po jejím vytvoření.
 All: Všechno
-All the above and many more can be done from your phone or tablet: 'To vše a mnohem více, můžete udělat prostřednictvím smartphonu nebo tabletu'
+All the above and many more can be done from your phone or tablet: To vše a mnohem více, můžete udělat prostřednictvím smartphonu nebo tabletu
 Allowed actions: Dovolené akce
 Allows to perform an action only using the HTTP PATCH request.: Umožňuje provádět akci pouze pomocí žádosti HTTP PATCH.
-'Alternatively, you can add a GET parameter to specify response format.': Můžete rovněž pro určení formátu odpovědi přidat parametr GET.
+Alternatively, you can add a GET parameter to specify response format.: Můžete rovněž pro určení formátu odpovědi přidat parametr GET.
 And more: a více
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Všechny aplikace nebo zařízení, které používají token {tokenName}, přestanou fungovat.'
+Any application or device that uses the {tokenName} token will not work anymore.: Všechny aplikace nebo zařízení, které používají token {tokenName}, přestanou fungovat.
 'App version: %clientAppSoftwareVersion%': 'Verze aplikace: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Název aplikace nesmí být prázdný
 Application requirements: Požadavky aplikace
@@ -82,15 +81,15 @@ Assign Client apps: Přiřaďte klientské aplikace
 Assign Locations: Připiš lokalizace
 Associated measured channel: Související řídicí kanál
 Associated measurement channel: Související měřicí kanál
-'At 05:45 PM, on the last day of the month': 'v 5:45 posledního dne v měsíci'
-'At 11:30 AM, on the third Wednesday of the month': 'v 11:30, třetí středu v měsíci'
-At every 5th minute on day-of-month 30 in May: 'každých 5 minut, 30. dne v měsíci, pouze v květnu'
+At 05:45 PM, on the last day of the month: v 5:45 posledního dne v měsíci
+At 11:30 AM, on the third Wednesday of the month: v 11:30, třetí středu v měsíci
+At every 5th minute on day-of-month 30 in May: každých 5 minut, 30. dne v měsíci, pouze v květnu
 At specified time: Po uvedenou dobu
 At sunrise: při východu slunce
-'At sunrise, Monday through Friday': 'při východu slunce, pondělí až pátek'
+At sunrise, Monday through Friday: při východu slunce, pondělí až pátek
 At sunset: při západu slunce
 Authorization callback URLs (one per line): Autorizační zpětné URL adresy(jeden na řádek)
-'Authorize the application, so that it can access your account.': 'Autorizujte aplikaci tak, aby měla přístup k vašemu účtu.'
+Authorize the application, so that it can access your account.: Autorizujte aplikaci tak, aby měla přístup k vašemu účtu.
 Authorized: Ověřeno
 Authorized OAuth apps: Autorizované aplikace OAuth
 Automatic calibration: Automatická kalibrace
@@ -115,8 +114,8 @@ Cancelled: Zrušeno
 Cannot calculate when to run the schedule - incorrect configuration?: Nelze vypočítat žádné datum zahájení plánu – nesprávná konfigurace?
 Cannot change the channel function right now.: Funkci tohoto kanálu nelze v tuto chvíli změnit.
 Cannot delete this I/O Device right now.: Toto zařízení nelze v tuto chvíli odebrat.
-Cannot execute an action when the device is disconnected.: 'Je zakázané provádět akci, pokud je zařízení vypnuté.'
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Neobdrželi jste zprávu s odkazem aktivujícím Váš účet? Ujistěte se, že neskončila ve složce SPAM (nevyžádaná pošta). Můžete také kliknout [zde] a odeslat ji znovu.'
+Cannot execute an action when the device is disconnected.: Je zakázané provádět akci, pokud je zařízení vypnuté.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Neobdrželi jste zprávu s odkazem aktivujícím Váš účet? Ujistěte se, že neskončila ve složce SPAM (nevyžádaná pošta). Můžete také kliknout [zde] a odeslat ji znovu.
 Captcha token is not valid.: Nesprávná captcha
 Caption: Podpis
 Caption is too long.: Název je příliš dlouhý.
@@ -149,13 +148,13 @@ Check your email box: Zkontrolujte e-mailovou schránku
 Check your email inbox: Zkontrolujte si doručenou poštu
 Choose: Vybrat
 Choose Access Identifier: Vybrat přístupový identifikátor
-Choose Access Identifiers to be assigned to this Location: 'Vyberte ID přístupu, které budou k tomuto místu přiřazeny'
+Choose Access Identifiers to be assigned to this Location: Vyberte ID přístupu, které budou k tomuto místu přiřazeny
 Choose channel function: Vyberte funkci kanálu
 Choose client apps: Vyberte klientské aplikace
 Choose location: Vyberte umístění
 Choose the source channel.: Vyberte zdrojový kanál.
 Clear: Vymazat
-Click the following link to confirm removal of your account on %cloudHost%.: 'Pokud chcete opravdu smazat Váš účet SUPLA, tak klikněte na níže uvedený odkaz.'
+Click the following link to confirm removal of your account on %cloudHost%.: Pokud chcete opravdu smazat Váš účet SUPLA, tak klikněte na níže uvedený odkaz.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Kliknutím na níže uvedený odkaz potvrdíte zrušení registrace vaší soukromé instance SUPLA Cloud (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'Identifikátor: %clientAppId%'
 Client registration: Registrace zákazníka
@@ -171,10 +170,10 @@ Config of the schedule is too complicated.: Konfigurace rozvrhu je příliš slo
 Configuration: Konfigurace
 Confirm My Account: Potvrzuji svůj účet
 Confirm Password: Potvrzení hesla
-Confirm if you want to perform the roller shutter calibration.: 'Potvrdit, že byl modul zkalibrován.'
-Confirm if you want to remove Access Identifier: 'Potvrď, jestli chceš odstranit identifikátor přístupu'
-'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Potvrďte, že chcete smazat identifikátor polohy Potvrďte, že chcete smazat identifikátor polohy {locationId}. Další připojení I / O zařízení na toto místo nebude možné.. Další připojení I / O zařízení na toto místo nebude možné.'
-'Confirm if you want to remove {deviceName} device and all of its channels.': 'Potvrdit, že chcete odebrat {deviceName} a všechny jeho kanály.'
+Confirm if you want to perform the roller shutter calibration.: Potvrdit, že byl modul zkalibrován.
+Confirm if you want to remove Access Identifier: Potvrď, jestli chceš odstranit identifikátor přístupu
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potvrďte, že chcete smazat identifikátor polohy Potvrďte, že chcete smazat identifikátor polohy {locationId}. Další připojení I / O zařízení na toto místo nebude možné.. Další připojení I / O zařízení na toto místo nebude možné.
+Confirm if you want to remove {deviceName} device and all of its channels.: Potvrdit, že chcete odebrat {deviceName} a všechny jeho kanály.
 Connected: Připojeno
 Connection with a private instance of the SUPLA cloud: Připojení k soukromé instanci cloudu SUPLA.
 Constraints: Omezení
@@ -205,7 +204,7 @@ Default: výchozí stav
 Delete: Vymazat
 Delete measurement history: Vymazat historii měření
 Delete my account: Odstranit můj účet.
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Odstranění Vašeho účtu způsobí odstranění všech Vaších osobních údajů včetně Vaších připojených zařízení, nakonfigurovaných kanálů, bezprostředních odkazů a měřenou historii. Odstranění účtu je již nevratné.'
+Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Odstranění Vašeho účtu způsobí odstranění všech Vaších osobních údajů včetně Vaších připojených zařízení, nakonfigurovaných kanálů, bezprostředních odkazů a měřenou historii. Odstranění účtu je již nevratné.
 Depth: Hloubka
 Depth sensor: Snímač hloubky
 Description: Popis
@@ -234,16 +233,16 @@ Direct links limit has been exceeded: Byl překročen limit přímých odkazů
 Disable: Vypnout
 Disable local function: Vypněte funkci zařízení
 Disabled: Deaktivován
-Disables local device function and does nothing more.: 'Neprovede žádnou akci, ale zakáže funkci zařízení, která je pro tuto akci výchozí.'
+Disables local device function and does nothing more.: Neprovede žádnou akci, ale zakáže funkci zařízení, která je pro tuto akci výchozí.
 Disconnected: Odpojeno
 Distance: Vzdálenost
 Distance sensor: Snímač vzdálenosti
-Do you want to be redirected there? You may be asked to authenticate again.: 'Chcete, na dané místo přesměrovat? Možná se bude nutné znovu přihlásit.'
-'Don’t worry, you can always reset your password via email. Click here to do so.': Nebojte se. Heslo můžete vždy obnovit prostřednictvím e-mailu. Klepněte zde pro provedení.
+Do you want to be redirected there? You may be asked to authenticate again.: Chcete, na dané místo přesměrovat? Možná se bude nutné znovu přihlásit.
+Don’t worry, you can always reset your password via email. Click here to do so.: Nebojte se. Heslo můžete vždy obnovit prostřednictvím e-mailu. Klepněte zde pro provedení.
 Door lock operation: Otevření dveří
 Door opening sensor: Snímač otevření dveří
 Doors and gates: Dveře a brány
-'Doors, Gates, Windows': 'Dveře, vrata, okna'
+Doors, Gates, Windows: Dveře, vrata, okna
 Download the history of measurement: Stáhnout historii měření
 Drag your image(s) here or click to select from the disk: Přetáhněte obrázek zde nebo klepnutím vyberte z disku
 E-mail notifications: E-mailové upozornění
@@ -258,9 +257,9 @@ Enter new password: Zadejte nové heslo
 Enter strong password: Zadejte silné heslo
 Enter the data below in the settings of your control device (I/O Device).: Do nastavení ovládacího zařízení (zařízení I / O) zadejte následující údaje.
 Enter the data below in your mobile SUPLA application on your smartphone.: Do mobilní aplikace SUPLA nainstalované na smartphonu zadejte následující údaje.
-Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Zadejte pouze doménu s portem, pokud není standardní (443). Vyžadujeme připojení HTTPS.'
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Zadejte pouze doménu s portem, pokud není standardní (443). Vyžadujeme připojení HTTPS.
 Enter your email address: Zadejte svou e-mailovou adresu
-Enter your password to prevent automatic logout.: 'Uveďte své heslo, aby jste zabránili automatickému odhlášení.'
+Enter your password to prevent automatic logout.: Uveďte své heslo, aby jste zabránili automatickému odhlášení.
 Entering configuration mode is unsupported in the firmware.: Dálkové přepínání do konfiguračního režimu není podporováno firmwarem zařízení.
 Error: Chyba
 Error when communicating the server. Try again in a while.: Při komunikaci se serverem došlo k problému. Zkuste to prosím znovu.
@@ -279,9 +278,9 @@ Failed (zombie): Neúspěšný (zombie)
 Feature limits: Limity funkčnosti
 File is too large: Plik jest za duży
 Flooding: Záplavení
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Během aktualizace se doporučuje použít adresu {suplaUrl}.'
+For a short period of time, it is recommended for you to use the {suplaUrl} address.: Během aktualizace se doporučuje použít adresu {suplaUrl}.
 For devices: Pro zařízení
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.'
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Z bezpečnostních důvodů, se při vytváření zobrazí úplná adresa URL tohoto přímého odkazu pouze jednou.
 Forgot your password?: Zapoměl jsi heslo?
 Forward active energy: Pobíraná činná energie
 Forward active energy balanced: Spotřebovaná aktivní energie (Vektorový graf)
@@ -318,45 +317,45 @@ History of measurements: Historie měření
 Home appliances: Domácí spotřebiče
 Home+ Heater: Topení Home+
 Host: Host
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Bohužel, aktuálně jsou naše servery plně vytížené. Celou situaci sledujeme, zkuste to za chvíli.'
+However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Bohužel, aktuálně jsou naše servery plně vytížené. Celou situaci sledujeme, zkuste to za chvíli.
 Humidity: Vlhkost
 Humidity Sensor: Snímač vlhkosti
 Humidity adjustment: Nastavení vlhkosti
 Humidity sensor: Snímač vlhkosti
-'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Souhlasím s  [Podmínky] a souhlasím se zpracováním mých osobních údajů za účelem a rozsahu stanoveným v [nařízení].'
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: Souhlasím s  [Podmínky] a souhlasím se zpracováním mých osobních údajů za účelem a rozsahu stanoveným v [nařízení].
 I agree: Souhlasím
-'I aree, taske me to the app': 'ZSouhlasím, vezmi mě do aplikace'
+I aree, taske me to the app: ZSouhlasím, vezmi mě do aplikace
 I confirm! Delete my account.: Potvrzuji! Odstranit můj účet.
-'I do not agree, get me out of here': 'Nesouhlasím, opustit toto pole'
+I do not agree, get me out of here: Nesouhlasím, opustit toto pole
 I/O Devices: Zařízení vs/vý
 I/O devices registration: Registrace zařízení
 ID: ID
 INACTIVE: NEAKTIVNÍ
 Icon: Ikona
 Idle: Nečinný
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Pokud odkaz nefunguje, zkopírujte jej do vyhledávacího panelu nebo jej zadejte ručně.'
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Pokud jste programátor, který chce poskytnout další funkce pro službu SUPLI, vytvořte aplikaci OAuth, kterou uživatelé mohou autorizovat a používat.'
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Pokud jste si jisti, že máte účet na cloud.supla.org, zkontrolujte, zda je aplikace, kterou se pokoušíte autorizovat, veřejná.'
-'If you did not request this password reset, please ignore this information.': 'Pokud jste nepožádali o obnovení hesla, ignorujte tuto zprávu.'
-'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Pokud nechcete smazat svůj účet na webu %cloudHost%, tak neklikejte na odkaz.'
-'If you do not want to unregister your instance, please do not click the link.': 'Pokud nechcete svou instanci zrušit, neklikejte na odkaz.'
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Pokud se vám během několika minut nepodaří připojit k tomuto přístupovému bodu, zařízení se restartuje a připojí se pomocí posledního nastavení.'
-'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Máte-li pochybnosti nebo otázky, můžete nás kontaktovat na adrese %securityEmail%.'
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Pokud chcete znovu zaregistrovat svou instanci Cloudu SUPLA, protože token vygenerovaný při předchozí registraci byl ztracen - jste na správném místě.'
-'If you have not used this email address with %cloudHost%, please do not click the link.': 'Pokud jste tuto e-mailovou adresu neuvedli na webových stránkách %cloudHost%, neklikněte na odkaz.'
-'If you really want to delete the account, here are the instructions.': 'Pokud stále chcete smazat svůj účet SUPLA, zde je návod.'
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': Pokud opravdu chcete zrušit registraci vaší soukromé instance Cloudu SUPLA - níže najdete návod.
-'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': Po opětovné registraci účtu může být nutné některá zařízení nakonfigurovat znovu i kdybyste uvedli stejnou e-mailovou adresu.
-'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Pokud chcete integrovat soukromý cloud SUPLA s veřejnou aplikací OAuth, musíte [zaregistrovat svou instanci].'
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Pokud chcete používat přímý odkaz v jiném programu, tak musíte dodat odpovědný nadpis požadavané akce , proto abyste mohli dostat odpověď, která se bude jednodušeji přetvářet. '
-'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Pokud si nepřejete od nás dostávat tato upozornění, podívejte se prosím na nastavení svého účtu [zde].'
-'If you wish to register your instance, [click here].': 'Pokud chcete zaregistrovat svou instanci, [klikněte zde].'
-'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Chcete-li zobrazit dostupné integrace, přejděte na stránku [cloud.supla.org/apps].'
-'If you wish to unregister your instance, [click here].': 'Pokud chcete zrušit registraci své instance, [klikněte zde].'
+If the link is not working, please copy and paste it or enter manually in a new browser window.: Pokud odkaz nefunguje, zkopírujte jej do vyhledávacího panelu nebo jej zadejte ručně.
+If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Pokud jste programátor, který chce poskytnout další funkce pro službu SUPLI, vytvořte aplikaci OAuth, kterou uživatelé mohou autorizovat a používat.
+If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Pokud jste si jisti, že máte účet na cloud.supla.org, zkontrolujte, zda je aplikace, kterou se pokoušíte autorizovat, veřejná.
+If you did not request this password reset, please ignore this information.: Pokud jste nepožádali o obnovení hesla, ignorujte tuto zprávu.
+If you do not want to delete your account on %cloudHost%, please do not click the link.: Pokud nechcete smazat svůj účet na webu %cloudHost%, tak neklikejte na odkaz.
+If you do not want to unregister your instance, please do not click the link.: Pokud nechcete svou instanci zrušit, neklikejte na odkaz.
+If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Pokud se vám během několika minut nepodaří připojit k tomuto přístupovému bodu, zařízení se restartuje a připojí se pomocí posledního nastavení.
+If you have doubts or more questions, you can contact us directly at %securityEmail%.: Máte-li pochybnosti nebo otázky, můžete nás kontaktovat na adrese %securityEmail%.
+If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.: Pokud chcete znovu zaregistrovat svou instanci Cloudu SUPLA, protože token vygenerovaný při předchozí registraci byl ztracen - jste na správném místě.
+If you have not used this email address with %cloudHost%, please do not click the link.: Pokud jste tuto e-mailovou adresu neuvedli na webových stránkách %cloudHost%, neklikněte na odkaz.
+If you really want to delete the account, here are the instructions.: Pokud stále chcete smazat svůj účet SUPLA, zde je návod.
+If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Pokud opravdu chcete zrušit registraci vaší soukromé instance Cloudu SUPLA - níže najdete návod.
+If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Po opětovné registraci účtu může být nutné některá zařízení nakonfigurovat znovu i kdybyste uvedli stejnou e-mailovou adresu.
+If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Pokud chcete integrovat soukromý cloud SUPLA s veřejnou aplikací OAuth, musíte [zaregistrovat svou instanci].
+If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: 'Pokud chcete používat přímý odkaz v jiném programu, tak musíte dodat odpovědný nadpis požadavané akce , proto abyste mohli dostat odpověď, která se bude jednodušeji přetvářet. '
+If you wish not to receive such messages,<br> change it in your account settings [here].: Pokud si nepřejete od nás dostávat tato upozornění, podívejte se prosím na nastavení svého účtu [zde].
+If you wish to register your instance, [click here].: Pokud chcete zaregistrovat svou instanci, [klikněte zde].
+If you wish to see the available integrations, go to [cloud.supla.org/apps].: Chcete-li zobrazit dostupné integrace, přejděte na stránku [cloud.supla.org/apps].
+If you wish to unregister your instance, [click here].: Pokud chcete zrušit registraci své instance, [klikněte zde].
 Impulse counter: Počítadlo implulzů
 Impulses: Impulzy
-'In order to confirm account deletion, enter your password.': 'Pro potvrzení, že chcete odstranit Váš účet zadejte Vaše heslo.'
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Pro získání přihlašovacích údajů do brokeru MQTT, kontaktujte prosím administrátora této instance SUPLA Cloud.'
+In order to confirm account deletion, enter your password.: Pro potvrzení, že chcete odstranit Váš účet zadejte Vaše heslo.
+In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Pro získání přihlašovacích údajů do brokeru MQTT, kontaktujte prosím administrátora této instance SUPLA Cloud.
 Inactive: Neaktivní
 Include energy corrections in new measurements history (not recommended): Zahrnout přidanou hodnotu do historie (nedoporučuje se)
 Incorrect password: Nesprávné heslo
@@ -379,10 +378,10 @@ Invalid request.: Neplatná žádost.
 Invalid token.: Neplatný token.
 Inverted logic: Obrácená logika
 Invisible: Neviditelný
-It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Je možné, že jiný uživatel omylem zadal vaši e-mailovou adresu, aby obnovil heslo na svůj vlastní účet.'
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'V tomto režimu začne zařízení vysílat svou Wi-Fi síť, za účelem konfigurace zařízení nebo aktualizace firmwaru pomocí smartphonu, který se k této síti připojí.'
-'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Nezapomeňte, že spolu s Vaším účtem odstraníme i všechny Vaše údaje včetně nastavení, nakonfigurovaných zařízení, umístění, harmonogramů a všech dalších funkcí nabízených pomocí SUPLA.'
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Pamatujte, že popis fráze v aplikaci není dokonalý a jeho jediným účelem je pomoci vám zadat vhodnou hodnotu. Neslouží ke kontrole správnosti zadané hodnoty, natož aby se chlubil tím, že "v SUPLI došlo k chybě". Po provedení změn zkontrolujte část „Dalšího nejbližšího spuštění“ a potvrďte, že vámi zadaná konfigurace plánu vám vyhovuje.'
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: Je možné, že jiný uživatel omylem zadal vaši e-mailovou adresu, aby obnovil heslo na svůj vlastní účet.
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: V tomto režimu začne zařízení vysílat svou Wi-Fi síť, za účelem konfigurace zařízení nebo aktualizace firmwaru pomocí smartphonu, který se k této síti připojí.
+Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Nezapomeňte, že spolu s Vaším účtem odstraníme i všechny Vaše údaje včetně nastavení, nakonfigurovaných zařízení, umístění, harmonogramů a všech dalších funkcí nabízených pomocí SUPLA.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Pamatujte, že popis fráze v aplikaci není dokonalý a jeho jediným účelem je pomoci vám zadat vhodnou hodnotu. Neslouží ke kontrole správnosti zadané hodnoty, natož aby se chlubil tím, že "v SUPLI došlo k chybě". Po provedení změn zkontrolujte část „Dalšího nejbližšího spuštění“ a potvrďte, že vámi zadaná konfigurace plánu vám vyhovuje.
 Language is not available: Jazyk není k dispozici
 Last access: Poslední hovor
 Last connection: Poslední připojení
@@ -392,7 +391,7 @@ Light switch: Spínač světel
 Lighting: Osvětlení
 Limit has been exceeded: Limit byl překročen
 Linear: Lineární
-'Liquid, Temp': 'Kapalina, Teplota'
+Liquid, Temp: Kapalina, Teplota
 Location: Lokalizace
 Location Identifier: Identifikátor lokalizace
 Location limit has been exceeded: Limit umístění byl překročen
@@ -407,14 +406,14 @@ MQTT Broker password has been changed.: Heslo brokera MQTT bylo změněno.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: V této instanci není nakonfigurováno uživatelské jméno ani heslo.
 Mail sensor: Poštovní snímač
 Maintenance mode active. You cannot modify any data now.: Provoz v servisním režimu. Není možné upravovat žádné údaje.
-Make sure to copy it now because you won’t be able to see it again!: 'Ujistěte se, že je uchováváte na bezpečném místě.'
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.'
+Make sure to copy it now because you won’t be able to see it again!: Ujistěte se, že je uchováváte na bezpečném místě.
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Ujistěte se, že je uložen na bezpečném místě, pokud jej chcete v budoucnu použít. Po odchodu z této stránky již nebude odkaz zobrazen.
 Manage your new client app in the SUPLA-Cloud.: Spravujte nastavení aplikace v SUPLA-Cloud.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Spravujte své zařízení v SUPLA-Cloud nebo pomocí aplikace SUPLA na vašem mobilním zařízení.
 Manual: Návod
 Manually closed: Uzavřeno ručně
 Maximum delay is 60 minutes.: Maximální zpoždění je 60 minut.
-'Maximum filesize limit is {limit}.': 'Maksymalny rozmiar pliku to {limit}.'
+Maximum filesize limit is {limit}.: Maksymalny rozmiar pliku to {limit}.
 Meter value: Stav měřiče
 Meters: Měřiče
 Mobile Apps: Mobilní aplikace
@@ -437,19 +436,19 @@ New direct link: Nový přímý odkaz
 New password: Nové heslo
 New scene: Nová scéna
 Newer: Novější
-'Next limit renewal: {date}': 'Limit bude brzy obnoven {date}'
+'Next limit renewal: {date}': Limit bude brzy obnoven {date}
 Next run date: Nejbližší výkon
-'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nemáte aktivní identifikátory přístupu. Přejděte na [seznam přístupových ID] nebo [přidat přístupové ID].'
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nemáte aktivní identifikátory přístupu. Přejděte na [seznam přístupových ID] nebo [přidat přístupové ID].
 No function: Bez funkce
 No future executions - schedule disabled: Žádné naplánované výkony - plán zakázán
 No limit: Bez omezení
 No liquid sensor: Snímač nedostatku kapaliny
-'No location enabled. Go to [location list] or [add a new location].': 'Nemáte aktivní místa. Přejděte na [seznam míst] nebo [přidat nové umístění]..'
+No location enabled. Go to [location list] or [add a new location].: Nemáte aktivní místa. Přejděte na [seznam míst] nebo [přidat nové umístění]..
 No of channels: Počet kanálů
 No of client apps: Počet klientských aplikací
 No of devices: Počet zařízení
 No of operations: Počet operací
-'No results match {0}': 'Žádné výsledky neodpovídají výsledkům {0}'
+No results match {0}: Žádné výsledky neodpovídají výsledkům {0}
 No schedule configuration.: Nebyla zadána žádná konfigurace plánu.
 No. of Client’s apps: Počet klientských aplikací
 No. of access identifiers: Počet identifikátorů přístupu
@@ -471,7 +470,7 @@ Offline access: Přístup offline
 Older: Starší
 'On': Zapnout
 On/Off switch: Síťový spínač
-'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Pouze názvy domén s volitelným číslem portu jsou povoleny. Například. mysupla.org nebo mysupla.org:88. Je vyžadován protokol HTTPS.'
+Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Pouze názvy domén s volitelným číslem portu jsou povoleny. Například. mysupla.org nebo mysupla.org:88. Je vyžadován protokol HTTPS.
 Open: Otevřít
 Open / close: Otevřít / zavřít
 Open partially: Zkuste postupně otevírat
@@ -479,28 +478,28 @@ Opening sensor: Snímač otevření
 Operations: Operace
 Original location: Původní umístění
 Other: Jiné
-'Otherwise go to [the homepage].': 'V opačném případě přejděte na [domovskou stránku].'
+Otherwise go to [the homepage].: V opačném případě přejděte na [domovskou stránku].
 Partial opening sensor: Snímač středního otevření
 Password: Heslo
 Password Reset: Resetovat heslo
 Password has been changed: Heslo bylo změněno
-'Password must be at least {minLength} characters.': 'Heslo musí mít minimálně {minLength} znaků.'
-'Password must be no longer than {maxLength} characters.': 'Heslo nesmí být delší než {maxLength} znaků.'
+Password must be at least {minLength} characters.: Heslo musí mít minimálně {minLength} znaků.
+Password must be no longer than {maxLength} characters.: Heslo nesmí být delší než {maxLength} znaků.
 Password reset instructions.: Pokyny pro obnovení přístupu k vašemu účtu.
 Percentage of closing: Procento uzavření
 Personal access tokens: Osobní přístupové tokeny
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Osobní přístupové tokeny fungují stejně jako obyčejné tokeny s tím rozdílem, že fungují neomezeně.'
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osobní přístupové tokeny fungují stejně jako obyčejné tokeny s tím rozdílem, že fungují neomezeně.
 Personal token name is required.: Je třeba poskytnout název osobního tokenu.
 Phase 1: Jednofázová
 Phase 2: Dvoufázová
 Phase 3: Třífázová
-Please choose the schedule subject first.: 'Nejprve vyberte, co má plán ovládat'
+Please choose the schedule subject first.: Nejprve vyberte, co má plán ovládat
 Please click the following link to reset your %cloudHost% password.: Kliknutím na níže uvedený odkaz obnovíte své heslo pro webovou stránku %cloudHost%.
-Please click the link we have sent you after the registration to proceed.: 'Klikněte na odkaz ze zprávy, kterou jsme Vám zaslali po vytvoření účtu.'
+Please click the link we have sent you after the registration to proceed.: Klikněte na odkaz ze zprávy, kterou jsme Vám zaslali po vytvoření účtu.
 Please confirm your SUPLA account.: Aktivujte si svůj SUPLA účet.
 Please enter a valid email address: Zadejte správnou mailovou adresu
 Please fill a valid email address: Zadejte správnou e-mailovou adresu
-Please log in again to proceed.: 'Chcete-li pokračovat, přihlaste se znovu.'
+Please log in again to proceed.: Chcete-li pokračovat, přihlaste se znovu.
 Please provide a valid domain name for your private SUPLA Cloud: Zadejte správný název domény pro váš soukromý cloud SUPLA
 Please wait a moment before the next login attempt.: Počkejte chvíli na další pokus o přihlášení.
 Port: Port
@@ -515,7 +514,7 @@ Processing: Zpracovává se
 Protocol: Protokol
 Public ID: Veřejné ID
 Publish to integrations: Publikovat pro integraci
-Publishes the event to integrated services like MQTT or webhooks.: 'Při provedení této akce upozorní integrace, jako je MQTT nebo webhooky.'
+Publishes the event to integrated services like MQTT or webhooks.: Při provedení této akce upozorní integrace, jako je MQTT nebo webhooky.
 RESET: RESET
 RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Osvětlení RGB
@@ -540,7 +539,7 @@ Relay switching time: Doba sepnutí relé
 Repeat password: Opakujte heslo
 Reset Your Password: Nastavit nové heslo
 Reset counter: Vynulovat měřič
-Retry on failure: 'Opakujte, když není hotovo'
+Retry on failure: Opakujte, když není hotovo
 Reveal: Odkrýt
 Reveal partially: Částečně odkrytí
 Reverse active energy: Činná vrácená energie
@@ -560,7 +559,7 @@ SUPLA Cloud is under maintenance.: Probíhá aktualizace SUPLA Cloudu.
 SUPLA Server was unable to execute the action.: Chyba při provádění akce na SUPLA Serveru.
 SUPLA Server was unable to execute the scene.: SUPLA Server nemohl spustit scénu.
 SUPLA Server was unable to query for the scene state.: SUPLA Server nebyl schopen přečíst stav scény.
-'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA je k dispozici kdykoli a kdekoli, takže se nebojte, když příště zapomenete vypnout světlo'
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA je k dispozici kdykoli a kdekoli, takže se nebojte, když příště zapomenete vypnout světlo
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - upozornění na neúspěšné přihlášení na %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - byla zaregistrována nová klientská aplikace
 SUPLA – new device has been added to your account: SUPLA – do vašeho účtu bylo přidáno nové zařízení
@@ -580,15 +579,15 @@ Schedule mode: Režim plánu
 Schedules: Plány
 Scope: Rozsah (scope)
 Scopes: Rozsahy
-Scopes define which sections of your account can be accessed when using the token.: 'Rozsahy určí, které části účtu mohou být přístupné pomocí tokenu.'
+Scopes define which sections of your account can be accessed when using the token.: Rozsahy určí, které části účtu mohou být přístupné pomocí tokenu.
 Search: Hledej
 Secret: Tajný klíč (secret)
 See available integrations: Podívejte se na dostupné integrace
 See direct link possibilities: Prohlédněte si možnosti přímého linku
 See in SUPLA-Cloud: Zobrazit na SUPLA-Cloud
-Seems like a secret place: 'Něco nám říká, že byste tady neměl být'
+Seems like a secret place: Něco nám říká, že byste tady neměl být
 Select icon: Vyberte ikonu
-Select the item (subject) you want to control using this link: 'Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu'
+Select the item (subject) you want to control using this link: Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu
 Sensor (normal closed): Snímač (normálně zavřený)
 Sensor (normal open): Snímač (normálně otevřený)
 Sensor disconnected: Žádný snímač
@@ -597,12 +596,12 @@ Server address: Adresa serveru
 Server unreachable: Server není dosažitelný
 Service temporarily unavailable: Služba dočasně nedostupná
 Set value added: Určit přidanou hodnotu
-Setting the number of attempts to 1 disables the retrying behavior completely.: 'Nastavení počtu pokusů na méně než 2 může mít za následek selhání, zavření nebo otevření.'
+Setting the number of attempts to 1 disables the retrying behavior completely.: Nastavení počtu pokusů na méně než 2 může mít za následek selhání, zavření nebo otevření.
 Show my limits: Ukázat moje limity
 Show on the Client’s devices: Zobrazit v klientských zařízeních
 Shut: Zakrýt
 Shut partially: Částečně zakrýt
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Zavřete roletu, dokud se nedotkne spodního okraje a do tohoto pole zadejte procento jejího uzavření. Tato operace není vyžadována, ale její poskytnutí zlepší vizualizaci polohy rolety v mobilní aplikaci.'
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Zavřete roletu, dokud se nedotkne spodního okraje a do tohoto pole zadejte procento jejího uzavření. Tato operace není vyžadována, ale její poskytnutí zlepší vizualizaci polohy rolety v mobilní aplikaci.
 Sign In: Přihlas se
 Sign Out: Odhlas se
 Sign in temporarily unavailable. Please try again later.: Přihlášení dočasně nedostupné. Zkuste to prosím později.
@@ -630,16 +629,16 @@ Supla for devices: Supla na zařízeních
 Switch the device to configuration mode: Přepněte zařízení do konfiguračního režimu
 THIS CANNOT BE UNDONE!: TUTO AKCI NELZE VRÁTIT ZPĚT!
 TLS: TLS
-'Target Cloud is not registered, or is registered with another e-mail address.': 'Tato instance SUPLA Cloud není registrována, nebo je registrována pomocí jiné e-mailové adresy.'
+Target Cloud is not registered, or is registered with another e-mail address.: Tato instance SUPLA Cloud není registrována, nebo je registrována pomocí jiné e-mailové adresy.
 Temperature: Teplota
 Temperature & Humidity Sensor: Snímač teploty a vlhkosti
 Temperature Sensor: Snímač teploty
 Temperature adjustment: Nastavení teploty
 Temperature and humidity sensor: Snímač teploty a vlhkosti
-Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Děkujeme, že jste zaregistrovali svůj účet na webových stránkách %cloudHost%. K ukončení aktivace klikněte na odkaz níže.'
-'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Díky integrací můžete snadno přidávat nové funkce do svého účtu pomocí řešení poskytovaných externími dodavateli, programátory nebo sami.'
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Děkujeme, že jste zaregistrovali svůj účet na webových stránkách %cloudHost%. K ukončení aktivace klikněte na odkaz níže.
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Díky integrací můžete snadno přidávat nové funkce do svého účtu pomocí řešení poskytovaných externími dodavateli, programátory nebo sami.
 'The IP used for login is: %ip%': 'Přihlašovací pokus byl proveden z adresy IP: %ip%'
-The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: 'Heslo k brokerovi MQTT je viditelné pouze v tuto chvíli. Ujistěte se, že jste si ho zapsal/a na bezpečné místo. Nebude možné jej totiž znovu zobrazit.'
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Heslo k brokerovi MQTT je viditelné pouze v tuto chvíli. Ujistěte se, že jste si ho zapsal/a na bezpečné místo. Nebude možné jej totiž znovu zobrazit.
 The SUPLA infrastructure is being updated.: Probíhá aktualizace serverů SUPLA.
 The Terms and Conditions have changed: Podmínky se změnily
 The Terms and Conditions have changed – please read them and accept.: Podmínky servisu se změnily - vyžaduje se jejich přijetí.
@@ -652,35 +651,35 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Pro otevírání a zavírání závory musí snímač závory fungovat velice správně.
 The gate sensor must function properly in order to execute the scheduled action.: K vykonání akce musí snímač otevření brány pracovat správně.
 The incident was detected at %datetime%.: Událost se stala %datetime%.
-'The items below rely on this channel function, so they will be deleted.': 'Následující položky jsou založeny na aktuální funkci kanálu, takže budou při změně odstraněny.'
-'The items below rely on this channel group, so they will be deleted.': 'Následující položky používají tuto skupinu kanálů, takže když je smažete, budou smazány také.'
-'The items below rely on this scene, so they will be deleted.': 'Položky níže jsou založeny na této scéně, takže budou odstraněny.'
+The items below rely on this channel function, so they will be deleted.: Následující položky jsou založeny na aktuální funkci kanálu, takže budou při změně odstraněny.
+The items below rely on this channel group, so they will be deleted.: Následující položky používají tuto skupinu kanálů, takže když je smažete, budou smazány také.
+The items below rely on this scene, so they will be deleted.: Položky níže jsou založeny na této scéně, takže budou odstraněny.
 The latest execution: Poslední výkon
-'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Výsledek je prezentovaný ve formě internetové stránky, poněvadž Vy (nebo Váš prohlížeč) požádal o odpověď ve formátu HTML.'
+The link result is presented as a website response, because you (or your browser) asked for HTML output.: Výsledek je prezentovaný ve formě internetové stránky, poněvadž Vy (nebo Váš prohlížeč) požádal o odpověď ve formátu HTML.
 The measurement history has been deleted.: Historie měření byla odstraněná.
-The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: 'Nové heslo nahradí to, které aktuálně používáte. Některé integrace mohou po změně přestat fungovat. Pokračovat?'
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Nové heslo nahradí to, které aktuálně používáte. Některé integrace mohou po změně přestat fungovat. Pokračovat?
 The next available executions: Nejbližší výkony
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: 'Pomocí rámečku jsme označili oznámení, ze kterého jste klikl/klikla na odkaz pro odhlášení.'
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Pomocí rámečku jsme označili oznámení, ze kterého jste klikl/klikla na odkaz pro odhlášení.
 The password and its confirm are not the same.: Heslo a jeho potvrzení nejsou stejné.
 The password should be 8 or more characters.: Heslo musí mít ninimum 8 znaků.
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Zařízení bylo vypnuto bezpečnostní ochranou. Před jejich povolením se prosím ujistěte, že problém, který k tomu vedl, byl vyřešen. Opravdu chcete toto zařízení zapnout na dálku?'
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Server signalizuje chybu 400, což znamená, že požadovaná žádost je nesprávná.'
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'Server vrátil chybu HTTP 403. To znamená, že nemáte dostatečná oprávnění k zobrazení této položky.'
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.'
-'The server has returned an HTTP {statusCode} error.': 'Server vrátil chybu {statusCode}.'
-'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.'
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': Ventil není možné otevřít pomocí přímého odkazu nebo API pokud byl uzavřen dálkovým ovladačem nebo záplavovým čidlem. Pro obnovení funkce ovládání otevřete ventil pomocí ovládacího tlačítka na ventilu.
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Ventil byl uzavřen dálkovým ovladačem (klíčenkou nebo záplavovým čidlem). Než ventil znovu otevřete, ujistěte se, že nebyl uzavřen kvůli úniku vody. Pokud je záplavové čidlo ve vodě,  NEvyšle ventilu  opakovaně signál pro uzavření. Chcete-li varování vypnout, otevřte ventil pomocí ovládacího tlačítka na ventilu. Opravdu chcete ventil otevřít?!'
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Ventil se neotevře, dokud bude manuálně nebo vzdáleně uzavřený. Může to souviset s jeho zalitím.'
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Zařízení bylo vypnuto bezpečnostní ochranou. Před jejich povolením se prosím ujistěte, že problém, který k tomu vedl, byl vyřešen. Opravdu chcete toto zařízení zapnout na dálku?
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Server signalizuje chybu 400, což znamená, že požadovaná žádost je nesprávná.
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Server vrátil chybu HTTP 403. To znamená, že nemáte dostatečná oprávnění k zobrazení této položky.
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Server vrátil chybu HTTP 404. To znamená, že položka, kterou hledáte, neexistuje.
+The server has returned an HTTP {statusCode} error.: Server vrátil chybu {statusCode}.
+The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.
+The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Ventil není možné otevřít pomocí přímého odkazu nebo API pokud byl uzavřen dálkovým ovladačem nebo záplavovým čidlem. Pro obnovení funkce ovládání otevřete ventil pomocí ovládacího tlačítka na ventilu.
+The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Ventil byl uzavřen dálkovým ovladačem (klíčenkou nebo záplavovým čidlem). Než ventil znovu otevřete, ujistěte se, že nebyl uzavřen kvůli úniku vody. Pokud je záplavové čidlo ve vodě,  NEvyšle ventilu  opakovaně signál pro uzavření. Chcete-li varování vypnout, otevřte ventil pomocí ovládacího tlačítka na ventilu. Opravdu chcete ventil otevřít?!
+The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Ventil se neotevře, dokud bude manuálně nebo vzdáleně uzavřený. Může to souviset s jeho zalitím.
 There are no more channels you can add to this group: K této skupině nejsou přidány žádné další kanály
 Thermometer: Teploměr
 Thermostat: Termostat
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.'
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Tento přímý odkaz vyžaduje další upřesnění parametrů prováděné akce. Na níže uvedeném příkladu zjistíte, které parametry můžete nastavit.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Tyto informace se zobrazují kvůli neúspěšnému pokusu o přihlášení k SUPLA-CLOUD pomocí vaší e-mailové adresy.
-This is the list of applications you have granted access to your account.: 'Toto je seznam aplikací, kterým jste udělili přístup k vašemu účtu.'
+This is the list of applications you have granted access to your account.: Toto je seznam aplikací, kterým jste udělili přístup k vašemu účtu.
 This link is only valid for an hour.: Odkaz bude aktivní po dobu jedné hodiny.
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Tento plánovací režim je určen pro technické nebo velmi trpělivé uživatele. Vyžaduje, aby byly časy spuštění plánu specifikovány v notaci crontab, obohacené o několik funkcí, které lze nalézt pouze v SUPLI. Pokud jste crontabs ještě neviděli a přesto chcete tento režim používat, může vám pomoci web crontab.guru.'
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Tento spouštěč je lokálně používán zařízením (např. rozsvěcuje světlo, ovládá roletu atd.) Pokud jí přiřadíte jinou akci, lokální funkce bude deaktivována.'
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Tento plánovací režim je určen pro technické nebo velmi trpělivé uživatele. Vyžaduje, aby byly časy spuštění plánu specifikovány v notaci crontab, obohacené o několik funkcí, které lze nalézt pouze v SUPLI. Pokud jste crontabs ještě neviděli a přesto chcete tento režim používat, může vám pomoci web crontab.guru.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Tento spouštěč je lokálně používán zařízením (např. rozsvěcuje světlo, ovládá roletu atd.) Pokud jí přiřadíte jinou akci, lokální funkce bude deaktivována.
 Timezone: Časová zóna
 Toggle: Přepnout
 Token does not exist: Token neexistuje
@@ -688,7 +687,7 @@ Too many actions in this schedule.: Příliš mnoho akcí v jednom plánu.
 Too many channels in this group: Příliš mnoho kanálů v této skupině
 Too many operations in this scene: Příliš mnoho operací na scéně.
 Triggers: Spouštěče
-Turning this device off will cause its channels not working in the following features.: 'Vypnutí zařízení způsobí, že jeho kanály přestanou fungovat v následujících položkách.'
+Turning this device off will cause its channels not working in the following features.: Vypnutí zařízení způsobí, že jeho kanály přestanou fungovat v následujících položkách.
 Turning this device off will result in disabling features listed below.: Vypnutím zařízení se vypnou také následující položky.
 Type: Typ
 Undo registration: Zrušit registraci
@@ -699,7 +698,7 @@ Unsuccessful login attempt: Přihlášení selhalo
 Unsupported function: Nepodporovaná funkce
 Unsupported type: Nepodporavný typ
 Update in progress: Probíhá aktualizace
-'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.'
+Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.
 'Use the [command] server command to change this account''s limits. For example:': 'Chcete-li změnit limity pro tento účet, použijte příkaz [command] na vašem serveru. Například:'
 Use working schedule for this access identifier: Použijte plán dostupnosti pro tento přístupový identifikátor
 User is already confirmed. Try to log in.: Tento účet je již potvrzen. Přihlaste se.
@@ -714,7 +713,7 @@ WELCOME_MESSAGE: |
   přepište následující údaje do ovládacích.
 Wait a while before the next request. You can check your limits in the account settings.: Před zadáním dalšího požadavku počkejte chvilku. V nastavení účtu můžete zkontrolovat aktuální využití svých limitů.
 Water meter: Vodoměr
-We can notify you about certain events with your account. Opt out if you don't want us to bother you.: 'Budeme vám zasílat oznámení o určitých událostech souvisejících s vaším účtem. Můžete se odhlásit z odběru těch, které už nepotřebujete.'
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Budeme vám zasílat oznámení o určitých událostech souvisejících s vaším účtem. Můžete se odhlásit z odběru těch, které už nepotřebujete.
 We could not connect to your SUPLA Cloud instance.: Nemohli jsme se připojit k vaší soukromé instanci SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Obdrželi jsme pokyny k odstranění Vašeho účtu v SUPLA Cloud (%cloudHost%).
 We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Byl vyžádán požadavek na zrušení registrace vaší soukromé instance SUPLA Cloud (%targetCloudUrl%).
@@ -722,17 +721,16 @@ We have just sent you an activation link. You should be receiving it shortly.: P
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Vyslali jsme Vám e-mail s potvrzením odkazu pro odstranění účtu. Nechceš si to ještě rozmyslet?
 We have sent you an email with further instructions.: Poslali jsme vám zprávu s dalšími pokyny.
 We should be ready shortly.: Měli bychom mít už brzy hotovo.
-'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie). [Přečtěte si pravidla].'
 We try to be faster: Jsme čím dál tím rychlejší
 We were not able to find your account.: Váš účet jsme nenašli.
 We will miss you: Budete nám chybět.
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Uděláme vše pro to, aby se zobrazené ikony zobrazovaly jak nejlépe, ale nejlepší výsledky dosáhnete tím, že nahrajete soubory PNG s průhledným pozadím, šířkou {width} a výškou {height} pixelů.'
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Uděláme vše pro to, aby se zobrazené ikony zobrazovaly jak nejlépe, ale nejlepší výsledky dosáhnete tím, že nahrajete soubory PNG s průhledným pozadím, šířkou {width} a výškou {height} pixelů.
 We will use it only in justified situations.: Použijeme jej pouze v odůvodněných případech.
 Weather Station: Meteorologická stanice
 Weight sensor: Váha
 Welcome!: Vítejte!
 What this token is for?: K čemu je tento token?
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Proces vytvoření přímého linku můžete vyvolat tím, že podáte jeho unikátní identifikátor v obsahu požadavku  HTTP PATCH. Tato cesta je bezpečnější, protože neumožňuje uložit celou Vaší adresu odkazu v loginech dostupných serverů, pomocí kterých přechází Tvůj požadavek. Níže se nacházejí příkladové požadované akce dostupné pomocí nástroje  cURL.'
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Proces vytvoření přímého linku můžete vyvolat tím, že podáte jeho unikátní identifikátor v obsahu požadavku  HTTP PATCH. Tato cesta je bezpečnější, protože neumožňuje uložit celou Vaší adresu odkazu v loginech dostupných serverů, pomocí kterých přechází Tvůj požadavek. Níže se nacházejí příkladové požadované akce dostupné pomocí nástroje  cURL.
 Where is the JSON?: Kde je JSON?
 Where is your SUPLA Cloud?: Kde se nachází Vaše Supla?
 White: Bílý
@@ -744,8 +742,8 @@ Working period: Období provozu
 Working schedule: Plán činnosti
 YOUR LINK CODE: KÓD VAŠEHO ODKAZU
 You are changing the settings too quickly. You have to wait a while before making this change.: Měníte nastavení příliš rychle. Před změnou těchto nastavení musíte chvíli počkat.
-'You can ignore this message, if you have accidentally entered an incorrect password.': 'Tyto informace můžete ignorovat, pokud jste zadali nesprávné heslo.'
-You can use the application but you will not be able to modify any settings.: 'Můžete používat aplikaci, ale není možné změnit nastavení konfigurace'
+You can ignore this message, if you have accidentally entered an incorrect password.: Tyto informace můžete ignorovat, pokud jste zadali nesprávné heslo.
+You can use the application but you will not be able to modify any settings.: Můžete používat aplikaci, ale není možné změnit nastavení konfigurace
 You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
 You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
 You cannot use SUPLA project name in the domain name.: V názvu hlavní domény nemůžete použít název projektu SUPLA.
@@ -753,7 +751,7 @@ You have exceeded your API Rate Limit: Využili jste svůj maximální limit API
 You have requested to unregister your SUPLA Cloud instance: Požádali jste o zrušení registrace vaší instance SUPLA Cloud
 You have to choose at least one scope.: Musíte vybrat alespoň jeden rozsah.
 You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Pokud stále chcete používat režim pokročilého plánování, podívejte se na níže uvedené příklady.'
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Pokud stále chcete používat režim pokročilého plánování, podívejte se na níže uvedené příklady.
 You must agree to the Terms and Conditions.: Je nutné souhlasit se Smluvními podmínkami.
 You must enable MQTT Broker first.: Nejprve musíte povolit integraci s brokerem MQTT.
 You must set sections with transparent or opaque parameters or both.: Musíte zvolit průhlednost alespoň pro jednu sekci.
@@ -761,29 +759,28 @@ You need to provide icons for all states.: Musíte přidat ikony pro všechny st
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musíte aktualizovat svojí instanci SUPLA Cloud do minimální verze 2.3.0.
 You will not be able to generate a direct link with the same URL again.: Není možné vytvořit odkaz se stejnou adresou URL.
 Your account and MQTT Broker connection.: Propojení vašeho účtu s brokerem MQTT.
-Your account has been deleted. We hope you will come back to us soon.: 'Účet był odstraněn. Doufáme, že se k nám zase vrátite.'
+Your account has been deleted. We hope you will come back to us soon.: Účet był odstraněn. Doufáme, že se k nám zase vrátite.
 Your account has been locked.: Váš účet byl zablokován.
 Your account has not been confirmed yet.: Váš účet dosud nebyl potvrzen.
 Your account limits: Vaše limity
-'Your channel groups are allowed to have a maximum of {max} channels.': 'Vaše skupiny kanálů mohou mít maximálně {max} kanálů.'
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'Zařízení umožňuje rozšířit jeho funkčnost a umožňuje provádět jakoukoli činnost na jakémkoli vašem zařízení. Dostupné možnosti závisí na firmwaru a zařízení, které používáte.'
+Your channel groups are allowed to have a maximum of {max} channels.: Vaše skupiny kanálů mohou mít maximálně {max} kanálů.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Zařízení umožňuje rozšířit jeho funkčnost a umožňuje provádět jakoukoli činnost na jakémkoli vašem zařízení. Dostupné možnosti závisí na firmwaru a zařízení, které používáte.
 Your email: Váš e-mail
-Your instance is not registered or you are trying to authorize an application that is not public.: 'Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.'
+Your instance is not registered or you are trying to authorize an application that is not public.: Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.
 Your password must contain at least one special character.: Heslo musí obsahovat alespoň jeden speciální znak.
 Your password must include at least one letter.: Heslo musí obsahovat alespoň jedno písmeno.
 Your password must include at least one number.: Heslo musí obsahovat alespoň jedno číslo.
 Your password must include both upper and lower case letters.: Heslo musí obsahovat velká a malá písmena.
 Your preferences has been updated.: Vaše nastavení bylo uloženo.
 Your private SUPLA Cloud instance has been unregistered.: Vaše soukromá instance SUPLA Cloud byla zrušena.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.
 Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
 Your private SUPLA Cloud is not registered.: Váš soukromý cloud SUPLA není registrován.
-'Your scenes are allowed to have a maximum of {max} operations.': 'Vaše scény mohou mít maximálně {max} operací.'
-'Your schedules are allowed to have a maximum of {max} actions.': 'Vaše plány mohou mít maximálně {max} akcí.'
+Your scenes are allowed to have a maximum of {max} operations.: Vaše scény mohou mít maximálně {max} operací.
+Your schedules are allowed to have a maximum of {max} actions.: Vaše plány mohou mít maximálně {max} akcí.
 Your session has been expired.: Vaše relace vypršela.
 Your session is about to expire: Vaše relace brzy vyprší
-'Your session will expire in {0}.': 'Vaše relace vyprší za {0}.'
-'Yours faithfully,': 'S pozdravem,'
+Yours faithfully,: S pozdravem,
 access to your e-mail address: přístup k vaší e-mailové adrese
 actionTrigger_HOLD: Držení tlačítka
 actionTrigger_SHORT_PRESS_X1: Stiskněte 1x
@@ -801,12 +798,13 @@ actionTrigger_TURN_ON: Zařazení
 actionableSubjectType_channel: Kanál
 actionableSubjectType_channelGroup: Skupina kanálů
 actionableSubjectType_scene: Scéna
-addToHistoryMeasurementWarningSelected: 'Zaškrtnutím této možnosti se nastavené hodnoty přidají k budoucím měřením uloženým v historii. V grafech je to vidět jako náhlé zvýšení o zadanou hodnotu. Doporučujeme, abyste tyto parametry nastavili pouze při první instalaci měřiče. U stávajících měřičů doporučujeme vymazat historii měření, jakmile tato nastavení změníte.'
-addToHistoryMeasurementWarningUnselected: 'Zrušením zaškrtnutí této možnosti vynecháte nastavené hodnoty z budoucích měření uložených v historii. To lze v grafech vidět jako náhlý pokles. Doporučujeme, abyste tyto parametry nastavili pouze při první instalaci měřiče. U stávajících měřičů doporučujeme vymazat historii měření, jakmile tato nastavení změníte.'
+addToHistoryMeasurementWarningSelected: Zaškrtnutím této možnosti se nastavené hodnoty přidají k budoucím měřením uloženým v historii. V grafech je to vidět jako náhlé zvýšení o zadanou hodnotu. Doporučujeme, abyste tyto parametry nastavili pouze při první instalaci měřiče. U stávajících měřičů doporučujeme vymazat historii měření, jakmile tato nastavení změníte.
+addToHistoryMeasurementWarningUnselected: Zrušením zaškrtnutí této možnosti vynecháte nastavené hodnoty z budoucích měření uložených v historii. To lze v grafech vidět jako náhlý pokles. Doporučujeme, abyste tyto parametry nastavili pouze při první instalaci měřiče. U stávajících měřičů doporučujeme vymazat historii měření, jakmile tato nastavení změníte.
 after: po
 before: před
 caption: název
 channel: Kanál
+channelConfigHelp_numberOfAttemptsGate: Poté, co nařídíte otevření nebo zavření brány, se jí systém pokusí zavřít/otevřít a počká 60 sekund, proto aby mohl zkontrolovat, zda brána dosáhla požadovaného stavu. Pokud ne, systém se pokusí bránu znovu zavřít/otevřít. Tento parametr definuje maximální počet pokusů systému o dosažení cíle. Doporučená hodnota je 5. Změna tohoto parametru neovlivní činnost plánů.
 channelGroup: Skupina kanálů
 choose: vybrat
 choose a currency: vyberte měnu
@@ -827,7 +825,7 @@ directLinkExecutionFailureReason_invalidActionParameters: Nesprávné parametry 
 directLinkExecutionFailureReason_invalidChannelState: Stav kanálu nedovoluje provést požadovanou akci.
 directLinkExecutionFailureReason_invalidSlug: Vyslaný ověřovací kód je nesprávný
 directLinkExecutionFailureReason_noAllowedActions: Nebyly vybrány žádné povolené akce
-directLinkExecutionFailureReason_noSlugOrAction: 'Nesprávný požadavek, je nutné provést akci a zadat kód linku'
+directLinkExecutionFailureReason_noSlugOrAction: Nesprávný požadavek, je nutné provést akci a zadat kód linku
 directLinkExecutionFailureReason_notActiveYet: Přímý odkaz ještě není aktivní
 directLinkExecutionFailureReason_otherFailure: Chyba při provádění akce
 directLinkExecutionFailureReason_sceneDuringExecution: Probíhá scéna.
@@ -843,11 +841,11 @@ minutes: minuty
 or add a delay: nebo přidat zpoždění
 password: heslo
 prefix: předpona
-register-slide1-text: 'Na základě dostupné elektroniky Vám SUPLA umožní vytvářet jednoduché moduly, které vám umožní ovládat a řídit komponenty automatizace budov. Díky SUPLI můžete mimo jiné ovládat osvětlení, zapínat a vypínat domácí spotřebiče a elektroniku, otvírat a zavírat brány a dveře nebo řídit teplotu v místnostech. To vše můžete udělat jedním prstem.'
+register-slide1-text: Na základě dostupné elektroniky Vám SUPLA umožní vytvářet jednoduché moduly, které vám umožní ovládat a řídit komponenty automatizace budov. Díky SUPLI můžete mimo jiné ovládat osvětlení, zapínat a vypínat domácí spotřebiče a elektroniku, otvírat a zavírat brány a dveře nebo řídit teplotu v místnostech. To vše můžete udělat jedním prstem.
 register-slide1-title: Vlastní inteligentní budova
-register-slide2-text: 'Jedním ze základních předpokladů projektu je jednoduchost a dostupnost. SUPLA umožňuje zapnout světlo jedním pohybem prstu nebo otevřít bránu, když chcete vstoupit do areálu. SUPLA je k dispozici všude tam, kde máte přístup k Internetu a máte k dispozici smartphone nebo tablet. SUPLA je vyvíjen na principech Open Software a Open Equipment, díky nimž můžete také tento projekt vyvíjet!'
+register-slide2-text: Jedním ze základních předpokladů projektu je jednoduchost a dostupnost. SUPLA umožňuje zapnout světlo jedním pohybem prstu nebo otevřít bránu, když chcete vstoupit do areálu. SUPLA je k dispozici všude tam, kde máte přístup k Internetu a máte k dispozici smartphone nebo tablet. SUPLA je vyvíjen na principech Open Software a Open Equipment, díky nimž můžete také tento projekt vyvíjet!
 register-slide2-title: SUPLA všude!
-register-slide3-text: 'Systémy automatizace budov dostupné na trhu jsou obvykle velmi složité, uzavřené a nákladné. V mnoha případech vyžadují instalaci již ve fázi výstavby budovy. SUPLA je jednoduchá, otevřená a zdarma. Umožňuje vytvářet výkonné prvky založené na platformách RaspberryPI, Arduino nebo ESP8266 a kombinovat je pomocí LAN a WiFi sítí. Připojte se k projektu a sestavte vlastní verzi systému automatizace budov!'
+register-slide3-text: Systémy automatizace budov dostupné na trhu jsou obvykle velmi složité, uzavřené a nákladné. V mnoha případech vyžadují instalaci již ve fázi výstavby budovy. SUPLA je jednoduchá, otevřená a zdarma. Umožňuje vytvářet výkonné prvky založené na platformách RaspberryPI, Arduino nebo ESP8266 a kombinovat je pomocí LAN a WiFi sítí. Připojte se k projektu a sestavte vlastní verzi systému automatizace budov!
 register-slide3-title: Zdarma a otevřená!
 reset chart view: vrátit se na původní náhled
 scene: scéna
@@ -856,7 +854,7 @@ scheduleMode_daily: Denní cyklus
 scheduleMode_minutely: Minutový cyklus
 scheduleMode_once: Jednorázový
 sec.: sek.
-'smartphones, tablets, etc.': 'smartphony, tablety atd.'
+smartphones, tablets, etc.: smartphony, tablety atd.
 state-closed: Zavřené
 state-default: Výchozí
 state-empty: Prázdné
@@ -868,8 +866,8 @@ state-opened: Otevřené
 state-partially_closed: Částečně zavřené
 state-revealed: Odkryté
 state-rgb_off_dim_off: RGB a stmívač vypnutý
-state-rgb_off_dim_on: 'RGB vypnuté, stmívač zapnutý'
-state-rgb_on_dim_off: 'RGB zapnuté, stmívač vypnutý'
+state-rgb_off_dim_on: RGB vypnuté, stmívač zapnutý
+state-rgb_on_dim_off: RGB zapnuté, stmívač vypnutý
 state-rgb_on_dim_on: RGB a stmívač zapnuté
 state-shut: Zakryté
 state-temperature: Teplota
@@ -903,12 +901,12 @@ Cannot send an activation e-mail. Try again later.: Nelze odeslat zprávu s akti
 Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
 Channels in channel group: Kanály ve skupinách kanálů
 Chosen hour: Vybraný čas
-'Confirm if you want to remove {deviceName} device': 'Potvrďte, že chcete odebrat zařízení {deviceName}'
+Confirm if you want to remove {deviceName} device: Potvrďte, že chcete odebrat zařízení {deviceName}
 DISABLED: VYPNUTO
 Date: Datum
 Days: Dny
 Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
-'Doors, Gates': 'Dveře, Brány'
+Doors, Gates: Dveře, Brány
 ENABLED: ZAPNUTO
 Email already exists: E-mailová adresa již existuje
 Existing schedules: Stávající plány
@@ -917,7 +915,7 @@ Hi: Ahoj
 Hour: Hodina
 Hours: Hodiny
 I/O: Vstup/ Výstup
-'If you want to stay here, do something!': 'Pokud chcete zůstat, udělejte něco!'
+If you want to stay here, do something!: Pokud chcete zůstat, udělejte něco!
 Input: Vvstup
 Languages: Jazyky
 Loading: Načítání
@@ -928,7 +926,7 @@ Mondays: Pondělky
 Next: Dále
 Number: Číslo
 Output: Výstup
-Please select the schedules that should also be enabled.: 'Vyberte plány, které by měly být také zahrnuty.'
+Please select the schedules that should also be enabled.: Vyberte plány, které by měly být také zahrnuty.
 Registration: Registrace
 Remove: Vymazat
 Saturdays: Soboty
@@ -941,17 +939,48 @@ Sunrise / Sunset: Východ / Západ
 Thursdays: Čtvrtky
 Try again later: Zkuste to prosím později
 Tuesdays: Úterky
-Turning this device off will result in disabling all the associated schedules.: 'Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.'
+Turning this device off will result in disabling all the associated schedules.: Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: Ukládáme informace o vašich preferencích do vašeho prohlížeče, abychom usnadnili používání aplikace (např. Pomocí mechanismu souborů cookie). [Přečtěte si pravidla].
 Wednesdays: Středy
 When: Kdy
 You will be logged out shortly: Budete brzy odhlášeni
+Your session will expire in {0}.: Vaše relace vyprší za {0}.
 execute: proveď
 hourly: Hodinový cyklus
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Above threshold: ~
+Average voltage: ~
+Below threshold: ~
+Device might be sleeping: ~
+Error when communicating the AD. Try again in a while.: ~
+Estimated execution time: ~
+Gate's state verification: ~
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
+Longest violation: ~
+Maximum voltage: ~
+Measurement window: ~
+Minimum voltage: ~
+Phase number: ~
+Please read the Terms and Conditions.: ~
+Register your SUPLA Cloud: ~
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
+Show days with issues only: ~
+The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
+Total time: ~
+Verification method: ~
+Violation info: ~
+Violations count: ~
+Voltage deviations: ~
+Wait for this scene to finish before proceeding to the next step ({time}).: ~
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
+channelConfigHelp_stateVerificationMethod: ~
+channelConfig_stateVerificationMethod_active: ~
+channelConfig_stateVerificationMethod_passive: ~
 
 #</editor-fold>

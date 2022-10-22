@@ -1,30 +1,31 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 'Action trigger no. #{index}': 'Action trigger no. #{index}'
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Any application or device that uses the {tokenName} token will not work anymore.'
-'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.'
-'Confirm if you want to remove {deviceName} device and all of its channels.': 'Confirm if you want to remove {deviceName} device and all of its channels.'
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'For a short period of time, it is recommended for you to use the {suplaUrl} address.'
+Any application or device that uses the {tokenName} token will not work anymore.: Any application or device that uses the {tokenName} token will not work anymore.
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.
+Confirm if you want to remove {deviceName} device and all of its channels.: Confirm if you want to remove {deviceName} device and all of its channels.
+For a short period of time, it is recommended for you to use the {suplaUrl} address.: For a short period of time, it is recommended for you to use the {suplaUrl} address.
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
-'Maximum filesize limit is {limit}.': 'Maximum filesize limit is {limit}.'
+Maximum filesize limit is {limit}.: Maximum filesize limit is {limit}.
 'Next limit renewal: {date}': 'Next limit renewal: {date}'
-'No results match {0}': 'No results match {0}'
-'Password must be at least {minLength} characters.': 'Password must be at least {minLength} characters.'
-'Password must be no longer than {maxLength} characters.': 'Password must be no longer than {maxLength} characters.'
+No results match {0}: No results match {0}
+Password must be at least {minLength} characters.: Password must be at least {minLength} characters.
+Password must be no longer than {maxLength} characters.: Password must be no longer than {maxLength} characters.
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.'
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.'
-'The server has returned an HTTP {statusCode} error.': 'The server has returned an HTTP {statusCode} error.'
-'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'The set of icons you have chosen is too large. Maximum upload limit is {limit}.'
+The server has returned an HTTP {statusCode} error.: The server has returned an HTTP {statusCode} error.
+The set of icons you have chosen is too large. Maximum upload limit is {limit}.: The set of icons you have chosen is too large. Maximum upload limit is {limit}.
 WELCOME_MESSAGE: |
   Having your house or the office connected to SUPLA is very easy.
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.'
-'Your channel groups are allowed to have a maximum of {max} channels.': 'Your channel groups are allowed to have a maximum of {max} channels.'
-'Your scenes are allowed to have a maximum of {max} operations.': 'Your scenes are allowed to have a maximum of {max} operations.'
-'Your schedules are allowed to have a maximum of {max} actions.': 'Your schedules are allowed to have a maximum of {max} actions.'
+Wait for this scene to finish before proceeding to the next step ({time}).: Wait for this scene to finish before proceeding to the next step ({time}).
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.
+Your channel groups are allowed to have a maximum of {max} channels.: Your channel groups are allowed to have a maximum of {max} channels.
+Your scenes are allowed to have a maximum of {max} operations.: Your scenes are allowed to have a maximum of {max} operations.
+Your schedules are allowed to have a maximum of {max} actions.: Your schedules are allowed to have a maximum of {max} actions.
 actionTrigger_HOLD: Hold
 actionTrigger_SHORT_PRESS_X1: Short press once
 actionTrigger_SHORT_PRESS_X2: Short press twice
@@ -41,9 +42,13 @@ actionTrigger_TURN_ON: Turn on
 actionableSubjectType_channel: Channel
 actionableSubjectType_channelGroup: Channel group
 actionableSubjectType_scene: Scene
-addToHistoryMeasurementWarningSelected: 'Selecting this option will result in adding the added value to the future measurements. It might produce an undesired increase in the measurement history chart. We recommend to set this option only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.'
-addToHistoryMeasurementWarningUnselected: 'Unselecting this option will result in ignoring the added value in the future measurements. It might produce an undesired decrease in the measurement history chart. We recommend to set this option only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.'
+addToHistoryMeasurementWarningSelected: Selecting this option will result in adding the added value to the future measurements. It might produce an undesired increase in the measurement history chart. We recommend to set this option only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.
+addToHistoryMeasurementWarningUnselected: Unselecting this option will result in ignoring the added value in the future measurements. It might produce an undesired decrease in the measurement history chart. We recommend to set this option only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.
 channel: Channel
+channelConfigHelp_numberOfAttemptsGate: After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.
+channelConfigHelp_stateVerificationMethod: 'Active: the first state change reported by the sensor terminates further attempts to open or close. Passive: we will check the sensor every 60s and terminate further attempts to open or close if the sensor reports the desired state at that moment.'
+channelConfig_stateVerificationMethod_active: Active
+channelConfig_stateVerificationMethod_passive: Passive
 channelGroup: Channel group
 directLinkExecutionFailureReason_disabled: Direct link is disabled.
 directLinkExecutionFailureReason_executionLimitExceeded: Execution limit has been exceeded.
@@ -59,11 +64,11 @@ directLinkExecutionFailureReason_notActiveYet: Direct link is not active yet.
 directLinkExecutionFailureReason_otherFailure: Direct link execution failure.
 directLinkExecutionFailureReason_sceneDuringExecution: Scene is being executed now.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
-register-slide1-text: 'Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.'
+register-slide1-text: Based on available electronics, SUPLA enables you to build simple modules to navigate and operate building automation elements. Through SUPLA you can, among others, control the lighting, switch on and off household appliances and media, open and shut gates and doors, or control room temperature. All the above can be done with just touch of a finger.
 register-slide1-title: Develop your own building automation
-register-slide2-text: 'One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!'
+register-slide2-text: One of the main assumptions of this project is simplicity and availability. SUPLA allows simple light operation or gate opening, when you want to leave your premises, with just touch of a finger. SUPLA is available from any place on Earth if you just have a smartphone or tables available as well as Internet access.  SUPLA is developed based on an Open Software and Hardware. This way, you can also develop this project!
 register-slide2-title: SUPLA everywhere!
-register-slide3-text: 'Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!'
+register-slide3-text: Building automation systems available on the market are usually very complex, closed and expensive. In many cases they must be installed on the very early stages of house construction.  SUPLA is simple, open and free of charge. It gives an opportunity to build elements based on RaspberryPI, Arduino or ESP8266 platforms and then join them either through LAN or WiFi. Join the project and build your own version of building automation system!
 register-slide3-title: Free of charge and open!
 scheduleMode_crontab: Advanced (crontab)
 scheduleMode_daily: Week
@@ -80,8 +85,8 @@ state-opened: Open
 state-partially_closed: Partially closed
 state-revealed: Revealed
 state-rgb_off_dim_off: RGB and dimmer off
-state-rgb_off_dim_on: 'RGB off, dimmer on'
-state-rgb_on_dim_off: 'RGB on, dimmer off'
+state-rgb_off_dim_on: RGB off, dimmer on
+state-rgb_on_dim_off: RGB on, dimmer off
 state-rgb_on_dim_on: RGB and dimmer on
 state-shut: Shut
 state-temperature: Temperature
@@ -103,17 +108,10 @@ sunset-before: the sunset
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+Your session will expire in {0}.: Your session will expire in {0}.
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-
-Wait for this scene to finish before proceeding to the next step ({time}).: Wait for this scene to finish before proceeding to the next step ({time}).
-
-channelConfigHelp_numberOfAttemptsGate: After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.
-channelConfigHelp_stateVerificationMethod: 'Active: the first state change reported by the sensor terminates further attempts to open or close. Passive: we will check the sensor every 60s and terminate further attempts to open or close if the sensor reports the desired state at that moment.'
-channelConfig_stateVerificationMethod_active: Active
-channelConfig_stateVerificationMethod_passive: Passive
-Your session will expire in {0}.: Your session will expire in {0}.

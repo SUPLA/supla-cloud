@@ -3,11 +3,11 @@
 '%s trigger is not supported by the hardware.': De %s trigger wordt niet ondersteund door het apparaat.
 ...and start your adventure with building automation today!: ...en begin je avontuur met intelligente gebouwen al vandaag!
 ...open and shut roller shutters: ...bedek en open de rolluiken
-'...open gateways, gates or doors': '...open de tuinpoort, poort of deur'
+...open gateways, gates or doors: ...open de tuinpoort, poort of deur
 ...or control home appliances: ...of bedien huishoudelijke apparaten/elektronica
 ...you can monitor temperature: ...u kunt de temperatuur volgen
-'10 minutes before sunset, on day 10 of the month, May through August': '10 minuten voor zonsondergang, alleen op de 10e van de maand, van mei tot augustus'
-'15 minutes after sunrise, every 2 days': '15 minuten na zonsopgang, om de andere dag'
+10 minutes before sunset, on day 10 of the month, May through August: 10 minuten voor zonsondergang, alleen op de 10e van de maand, van mei tot augustus
+15 minutes after sunrise, every 2 days: 15 minuten na zonsopgang, om de andere dag
 A confirmation upon successful client app registration.: Bevestiging van de registratie van de nieuwe cliëntapplicatie.
 A confirmation upon successful device registration.: Bevestiging van succesvolle apparaatregistratie.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Een nieuwe cliëntapplicatie (smartphone) is toegevoegd aan uw SUPLA-Cloud account.
@@ -44,20 +44,19 @@ Add new channel group: Voeg een nieuwe groep kanalen toe
 Add new channel to this group: Voeg een nieuw kanaal toe aan de groep
 Add new item to use in the scene: Voeg een nieuw element toe aan de scène
 Adjust parameters: Stel de parameters in
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Alle kanalen en kanaalgroepen die dit pictogram gebruiken, ontvangen de standaardpictogrammen wanneer ze worden verwijderd.'
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Nadat u toegang hebt verleend, kunt u altijd van gedachten veranderen door de toegang in uw accountinstellingen in te trekken.'
-'After the device enters the configuration mode, it will not be accessible on your account.': Het toestel zal niet toegankelijk zijn vanuit uw account wanneer u de configuratiemodus opent.
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Na de update, zal de app sneller, handiger zijn, .... Gewoon beter!'
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'De teller zal beginnen te tellen vanaf 0 na deze operatie, ongeacht zijn huidige toestand. Deze operatie kan niet ongedaan worden gemaakt.'
-'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': De link wordt direct na het selecteren van de entiteit gegenereerd. U kunt alle andere opties invoeren zodra u deze hebt gemaakt.
-'channelConfigHelp_numberOfAttemptsGate': 'Nadat u opdracht hebt gegeven de poort te openen of te sluiten, zal het systeem proberen de poort te sluiten/openen en 60 seconden wachten om te zien of de poort de gewenste toestand heeft bereikt. Zo niet, dan zal het systeem opnieuw proberen te sluiten/openen. Deze parameter bepaalt het maximum aantal pogingen van het systeem om het doel te bereiken. De aanbevolen waarde is 5. Het wijzigen van deze parameter heeft geen invloed op de werking van de schema''s.'
+After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Alle kanalen en kanaalgroepen die dit pictogram gebruiken, ontvangen de standaardpictogrammen wanneer ze worden verwijderd.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: Nadat u toegang hebt verleend, kunt u altijd van gedachten veranderen door de toegang in uw accountinstellingen in te trekken.
+After the device enters the configuration mode, it will not be accessible on your account.: Het toestel zal niet toegankelijk zijn vanuit uw account wanneer u de configuratiemodus opent.
+After the update, the application will be faster, more comfortable, more powerful... Just better!: Na de update, zal de app sneller, handiger zijn, .... Gewoon beter!
+After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: De teller zal beginnen te tellen vanaf 0 na deze operatie, ongeacht zijn huidige toestand. Deze operatie kan niet ongedaan worden gemaakt.
+After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: De link wordt direct na het selecteren van de entiteit gegenereerd. U kunt alle andere opties invoeren zodra u deze hebt gemaakt.
 All: Alles
 All the above and many more can be done from your phone or tablet: Dit alles en nog veel meer kun je doen via een smartphone of tablet
 Allowed actions: Toegestane acties
 Allows to perform an action only using the HTTP PATCH request.: Hiermee kunt u acties alleen uitvoeren met een HTTP PATCH-verzoek.
-'Alternatively, you can add a GET parameter to specify response format.': U kunt ook een GET parameter toevoegen om het antwoordformaat te specificeren.
+Alternatively, you can add a GET parameter to specify response format.: U kunt ook een GET parameter toevoegen om het antwoordformaat te specificeren.
 And more: En nog veel meer
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Alle toepassingen of apparaten die het token {tokenName} gebruiken, zullen niet meer werken.'
+Any application or device that uses the {tokenName} token will not work anymore.: Alle toepassingen of apparaten die het token {tokenName} gebruiken, zullen niet meer werken.
 'App version: %clientAppSoftwareVersion%': 'Applicatieversie: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Naam van applicatie mag niet leeg zijn
 Application requirements: Vereisten van de applicatie
@@ -82,15 +81,15 @@ Assign Client apps: Wijs klant-applicaties toe
 Assign Locations: Wijs locaties toe
 Associated measured channel: Verwant controlekanaal
 Associated measurement channel: Verwant meetkanaal
-'At 05:45 PM, on the last day of the month': 'om 5:45 op de laatste dag van de maand'
-'At 11:30 AM, on the third Wednesday of the month': 'om 11:30 uur, op de derde woensdag van de maand'
-At every 5th minute on day-of-month 30 in May: 'elke 5 minuten, op de 30ste van de maand, alleen in mei'
+At 05:45 PM, on the last day of the month: om 5:45 op de laatste dag van de maand
+At 11:30 AM, on the third Wednesday of the month: om 11:30 uur, op de derde woensdag van de maand
+At every 5th minute on day-of-month 30 in May: elke 5 minuten, op de 30ste van de maand, alleen in mei
 At specified time: Voor de aangegeven tijd
 At sunrise: bij zonsopgang
-'At sunrise, Monday through Friday': 'bij zonsopgang, van maandag tot vrijdag'
+At sunrise, Monday through Friday: bij zonsopgang, van maandag tot vrijdag
 At sunset: bij zonsondergang
 Authorization callback URLs (one per line): Retourautorisatie-URL's (één per regel)
-'Authorize the application, so that it can access your account.': Autoriseer de applicatie zodat deze tot uw account toegang heeft.
+Authorize the application, so that it can access your account.: Autoriseer de applicatie zodat deze tot uw account toegang heeft.
 Authorized: Geverifieerd
 Authorized OAuth apps: Geautoriseerde OAuth-applicaties
 Automatic calibration: Automatische ijking
@@ -116,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Kan geen s
 Cannot change the channel function right now.: De functie van dit kanaal kan op dit moment niet worden gewijzigd.
 Cannot delete this I/O Device right now.: Dit apparaat kan op dit moment niet worden verwijderd.
 Cannot execute an action when the device is disconnected.: Wanneer het apparaat is losgekoppeld kunt u geen acties uitvoeren.
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Geen bericht ontvangen met de activatie link voor uw account? Zorg ervoor dat deze niet in de map SPAM (ongewenste e-mail) staat. U kunt ook [hier] klikken om het opnieuw te verzenden.'
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.: Geen bericht ontvangen met de activatie link voor uw account? Zorg ervoor dat deze niet in de map SPAM (ongewenste e-mail) staat. U kunt ook [hier] klikken om het opnieuw te verzenden.
 Captcha token is not valid.: Ongeldige captcha.
 Caption: Handtekening
 Caption is too long.: De naam is te lang.
@@ -173,8 +172,8 @@ Confirm My Account: Ik bevestig mijn account
 Confirm Password: Bevestiging wachtwoord
 Confirm if you want to perform the roller shutter calibration.: Controleer of de module is gekalibreerd.
 Confirm if you want to remove Access Identifier: Bevestig dat u de toegangs-ID wilt verwijderen
-'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Bevestig dat u locatie-ID {locationId} wilt verwijderen. Verdere verbindingen van I / O-apparaten met deze locatie zullen onmogelijk zijn'
-'Confirm if you want to remove {deviceName} device and all of its channels.': 'Bevestig dat u het apparaat {deviceName} en al zijn kanalen wilt wissen.'
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Bevestig dat u locatie-ID {locationId} wilt verwijderen. Verdere verbindingen van I / O-apparaten met deze locatie zullen onmogelijk zijn
+Confirm if you want to remove {deviceName} device and all of its channels.: Bevestig dat u het apparaat {deviceName} en al zijn kanalen wilt wissen.
 Connected: Online
 Connection with a private instance of the SUPLA cloud: Verbinding met een privé SUPLA cloud-exemplaar.
 Constraints: Beperkingen
@@ -205,7 +204,7 @@ Default: standaard
 Delete: Verwijder
 Delete measurement history: Verwijder meetgeschiedenis
 Delete my account: Verwijder Mijn account
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Als u uw account verwijdert, worden ook al uw gegevens verwijderd, inclusief de gegevens over uw verbonden apparaten, geconfigureerde kanalen, directe links en meetgeschiedenis. Het verwijderen van de account kan niet ongedaan worden.'
+Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Als u uw account verwijdert, worden ook al uw gegevens verwijderd, inclusief de gegevens over uw verbonden apparaten, geconfigureerde kanalen, directe links en meetgeschiedenis. Het verwijderen van de account kan niet ongedaan worden.
 Depth: Diepte
 Depth sensor: Dieptesensor
 Description: Beschrijving
@@ -234,16 +233,16 @@ Direct links limit has been exceeded: De limiet voor directe verbindingen is ove
 Disable: Zet uit
 Disable local function: De functie van het apparaat uitschakelen
 Disabled: Uitgeschakeld
-Disables local device function and does nothing more.: 'Het voert geen actie uit, maar schakelt de functie van het apparaat uit, wat de standaard is voor deze actie.'
+Disables local device function and does nothing more.: Het voert geen actie uit, maar schakelt de functie van het apparaat uit, wat de standaard is voor deze actie.
 Disconnected: De verbinding werd verbroken
 Distance: Afstand
 Distance sensor: Afstandssensor
 Do you want to be redirected there? You may be asked to authenticate again.: Wilt u dat we u daarheen doorverwijzen? Misschien moet u zich opnieuw aanmelden.
-'Don’t worry, you can always reset your password via email. Click here to do so.': Maak je geen zorgen. U kunt uw wachtwoord altijd opnieuw instellen via uw e-mail. Klik hier om dit te doen.
+Don’t worry, you can always reset your password via email. Click here to do so.: Maak je geen zorgen. U kunt uw wachtwoord altijd opnieuw instellen via uw e-mail. Klik hier om dit te doen.
 Door lock operation: Deuropener
 Door opening sensor: Sensor deuropening
 Doors and gates: Deuren en poorten
-'Doors, Gates, Windows': 'Deuren, poorten, ramen'
+Doors, Gates, Windows: Deuren, poorten, ramen
 Download the history of measurement: Download meetgeschiedenis
 Drag your image(s) here or click to select from the disk: Sleep het beeld hierheen of klik hier om op de schijf te selecteren
 E-mail notifications: Kennisgevingen per e-mail
@@ -279,9 +278,9 @@ Failed (zombie): Mislukt (zombies)
 Feature limits: Functionele grenzen
 File is too large: Het bestand is te groot
 Flooding: Overstroming
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Bij het bijwerken wordt aanbevolen het {suplaUrl} adres te gebruiken.'
+For a short period of time, it is recommended for you to use the {suplaUrl} address.: Bij het bijwerken wordt aanbevolen het {suplaUrl} adres te gebruiken.
 For devices: Voor apparaten
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Om veiligheidsredenen wordt de volledige URL van deze directe link slechts één keer - tijdens het aanmaken ervan - getoond.
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Om veiligheidsredenen wordt de volledige URL van deze directe link slechts één keer - tijdens het aanmaken ervan - getoond.
 Forgot your password?: Wachtwoord vergeten?
 Forward active energy: Opgenomen actieve energie
 Forward active energy balanced: Toevoer van actieve energie (vectorbalans)
@@ -318,45 +317,45 @@ History of measurements: Meetgeschiedenis
 Home appliances: Huishoudelijke toestellen / elektronica
 Home+ Heater: Verwarming Home +
 Host: Gastheer
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': We kunnen geen verbinding maken met registratiedienst. Probeer het later opnieuw
+However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: We kunnen geen verbinding maken met registratiedienst. Probeer het later opnieuw
 Humidity: Vochtigheid
 Humidity Sensor: Vochtigheidssensor
 Humidity adjustment: Aanpassing vochtigheid
 Humidity sensor: Vochtigheidssensor
-'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Ik accepteer [Reglement] en ga akkoord met de verwerking van mijn persoonlijke gegevens voor het doel en de reikwijdte zoals in [Reglement] aangegeven.'
+I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].: Ik accepteer [Reglement] en ga akkoord met de verwerking van mijn persoonlijke gegevens voor het doel en de reikwijdte zoals in [Reglement] aangegeven.
 I agree: Ik ben het er mee eens
-'I aree, taske me to the app': 'ZIk ga akkoord, ga naar de applicatie'
-I confirm! Delete my account.: 'Ik ga akkoord, ga naar de applicatie'
-'I do not agree, get me out of here': 'Ik ga akkoord, ga naar de applicatie'
+I aree, taske me to the app: ZIk ga akkoord, ga naar de applicatie
+I confirm! Delete my account.: Ik ga akkoord, ga naar de applicatie
+I do not agree, get me out of here: Ik ga akkoord, ga naar de applicatie
 I/O Devices: I / O-apparaten
 I/O devices registration: Apparaatregistratie
 ID: ID
 INACTIVE: INACTIVE
 Icon: Icoon
 Idle: Zonder activiteiten
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Als de link niet werkt, kopieert u deze naar de browserwerkbalk of voert u deze handmatig in.'
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Als u een programmeur bent die extra functies voor SUPLI wil bieden, maakt u een OAuth-toepassing die gebruikers kunnen autoriseren en gebruiken.'
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Als je zeker weet dat je een account hebt bij cloud.supla.org, controleer dan of de applicatie die je probeert te autoriseren, publiekelijk beschikbaar is.'
-'If you did not request this password reset, please ignore this information.': Negeer dit bericht als u niet om een wachtwoordreset hebt gevraagd.
-'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Als u uw account op %cloudHost% niet wilt verwijderen, klikt u niet op de link.'
-'If you do not want to unregister your instance, please do not click the link.': 'Als u uw instantie niet wilt uitschrijven, klik dan niet op de link.'
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Als u gedurende enkele minuten geen verbinding maakt met dit toegangspunt, wordt het apparaat opnieuw opgestart en maakt het verbinding met de laatste instellingen.'
-'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Als u twijfels of vragen hebt, kunt u contact met ons opnemen door te schrijven naar het adres %securityEmail%.'
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Als u gedurende enkele minuten geen verbinding maakt met dit toegangspunt, wordt het apparaat opnieuw opgestart en maakt het verbinding met de laatste instellingen.'
-'If you have not used this email address with %cloudHost%, please do not click the link.': 'Als u dit e-mailadres niet op %cloudHost% hebt opgegeven, klikt u niet op de link.'
-'If you really want to delete the account, here are the instructions.': 'Indien u toch uw SUPLA-account wenst te verwijderen, vindt u hier instructies.'
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': Als u uw privé SUPLA Cloud instantie echt wilt uitschrijven - vindt u hieronder alle instructies.
-'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Nadat u uw account opnieuw heeft geregistreerd, moeten sommige apparaten mogelijk opnieuw worden geconfigureerd, zelfs als u hetzelfde e-mailadres opgeeft.'
-'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Als u de private SUPLA-cloud met de openbare OAuth-toepassing wilt integreren, moet u [uw exemplaar registreren].'
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Als u de directe link in andere software wilt gebruiken, voegt de juiste koptekst toe om een antwoord te krijgen dat gemakkelijker te verwerken is.'
-'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Indien u dergelijke meldingen van ons niet wenst te ontvangen,<br> gelieve uw accountinstellingen [hier] te raadplegen.'
-'If you wish to register your instance, [click here].': 'Als u uw instantie wilt registreren, [klik hier].'
-'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Als u beschikbare integraties wilt zien, ga naar [cloud.supla.org/apps].'
-'If you wish to unregister your instance, [click here].': 'Indien u uw instantie wenst te deregistreren, [klik hier].'
+If the link is not working, please copy and paste it or enter manually in a new browser window.: Als de link niet werkt, kopieert u deze naar de browserwerkbalk of voert u deze handmatig in.
+If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Als u een programmeur bent die extra functies voor SUPLI wil bieden, maakt u een OAuth-toepassing die gebruikers kunnen autoriseren en gebruiken.
+If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Als je zeker weet dat je een account hebt bij cloud.supla.org, controleer dan of de applicatie die je probeert te autoriseren, publiekelijk beschikbaar is.
+If you did not request this password reset, please ignore this information.: Negeer dit bericht als u niet om een wachtwoordreset hebt gevraagd.
+If you do not want to delete your account on %cloudHost%, please do not click the link.: Als u uw account op %cloudHost% niet wilt verwijderen, klikt u niet op de link.
+If you do not want to unregister your instance, please do not click the link.: Als u uw instantie niet wilt uitschrijven, klik dan niet op de link.
+If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Als u gedurende enkele minuten geen verbinding maakt met dit toegangspunt, wordt het apparaat opnieuw opgestart en maakt het verbinding met de laatste instellingen.
+If you have doubts or more questions, you can contact us directly at %securityEmail%.: Als u twijfels of vragen hebt, kunt u contact met ons opnemen door te schrijven naar het adres %securityEmail%.
+If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.: Als u gedurende enkele minuten geen verbinding maakt met dit toegangspunt, wordt het apparaat opnieuw opgestart en maakt het verbinding met de laatste instellingen.
+If you have not used this email address with %cloudHost%, please do not click the link.: Als u dit e-mailadres niet op %cloudHost% hebt opgegeven, klikt u niet op de link.
+If you really want to delete the account, here are the instructions.: Indien u toch uw SUPLA-account wenst te verwijderen, vindt u hier instructies.
+If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Als u uw privé SUPLA Cloud instantie echt wilt uitschrijven - vindt u hieronder alle instructies.
+If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Nadat u uw account opnieuw heeft geregistreerd, moeten sommige apparaten mogelijk opnieuw worden geconfigureerd, zelfs als u hetzelfde e-mailadres opgeeft.
+If you want to integrate your Cloud with public OAuth applications, you must [register your instance].: Als u de private SUPLA-cloud met de openbare OAuth-toepassing wilt integreren, moet u [uw exemplaar registreren].
+If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Als u de directe link in andere software wilt gebruiken, voegt de juiste koptekst toe om een antwoord te krijgen dat gemakkelijker te verwerken is.
+If you wish not to receive such messages,<br> change it in your account settings [here].: Indien u dergelijke meldingen van ons niet wenst te ontvangen,<br> gelieve uw accountinstellingen [hier] te raadplegen.
+If you wish to register your instance, [click here].: Als u uw instantie wilt registreren, [klik hier].
+If you wish to see the available integrations, go to [cloud.supla.org/apps].: Als u beschikbare integraties wilt zien, ga naar [cloud.supla.org/apps].
+If you wish to unregister your instance, [click here].: Indien u uw instantie wenst te deregistreren, [klik hier].
 Impulse counter: Pulsteller
 Impulses: Pulsen
-'In order to confirm account deletion, enter your password.': Voer uw wachtwoord in om uw intentie om uw account te verwijderen te bevestigen.
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': Neem contact op met de beheerder van deze SUPLA Cloud instantie om de inloggegevens voor de MQTT-makelaar te verkrijgen.
+In order to confirm account deletion, enter your password.: Voer uw wachtwoord in om uw intentie om uw account te verwijderen te bevestigen.
+In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Neem contact op met de beheerder van deze SUPLA Cloud instantie om de inloggegevens voor de MQTT-makelaar te verkrijgen.
 Inactive: Niet actief
 Include energy corrections in new measurements history (not recommended): Toegevoegde waarde in de geschiedenis opnemen (niet aanbevolen)
 Incorrect password: Het wachtwoord is onjuist
@@ -380,9 +379,9 @@ Invalid token.: Verkeerde token.
 Inverted logic: Omgekeerde logica
 Invisible: Onzichtbaar
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Het is mogelijk dat een andere gebruiker per ongeluk uw e-mailadres heeft ingevoerd om uw accountwachtwoord opnieuw in te stellen.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'In deze modus begint het toestel zijn Wi-Fi-netwerk uit te zenden, zodat het toestel kan worden geconfigureerd of de firmware kan worden bijgewerkt met behulp van een smartphone die verbinding maakt met dit netwerk.'
-'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Vergeet niet dat we samen met uw account al uw gegevens, inclusief instellingen, geconfigureerde apparaten, locaties, schema''s en alle andere functionaliteiten aangeboden door SUPLA.'
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Bedenk dat de beschrijving van de gegeven uitdrukking die de applicatie geeft niet perfect is, en alleen bedoeld is om u te helpen de juiste waarde in te voeren. Het is er niet om te controleren of de ingevoerde waarde correct is, laat staan om op te scheppen dat er "een fout is gevonden in SUPLI". Nadat u uw wijzigingen hebt aangebracht, controleert u de sectie "Dichtsbijzijnde uitvoeringen" om te bevestigen dat de gegeven planningsconfiguratie aan uw verwachtingen voldoet.'
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: In deze modus begint het toestel zijn Wi-Fi-netwerk uit te zenden, zodat het toestel kan worden geconfigureerd of de firmware kan worden bijgewerkt met behulp van een smartphone die verbinding maakt met dit netwerk.
+Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Vergeet niet dat we samen met uw account al uw gegevens, inclusief instellingen, geconfigureerde apparaten, locaties, schema's en alle andere functionaliteiten aangeboden door SUPLA.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Bedenk dat de beschrijving van de gegeven uitdrukking die de applicatie geeft niet perfect is, en alleen bedoeld is om u te helpen de juiste waarde in te voeren. Het is er niet om te controleren of de ingevoerde waarde correct is, laat staan om op te scheppen dat er "een fout is gevonden in SUPLI". Nadat u uw wijzigingen hebt aangebracht, controleert u de sectie "Dichtsbijzijnde uitvoeringen" om te bevestigen dat de gegeven planningsconfiguratie aan uw verwachtingen voldoet.
 Language is not available: Taal niet beschikbaar
 Last access: Recente verbinding
 Last connection: Recente verbinding
@@ -392,7 +391,7 @@ Light switch: Lichtschakelaar
 Lighting: Verlichting
 Limit has been exceeded: De limiet is overschreden
 Linear: Lineair
-'Liquid, Temp': 'Vloeistof, Temperatuur'
+Liquid, Temp: Vloeistof, Temperatuur
 Location: Localisatie
 Location Identifier: Locatie ID
 Location limit has been exceeded: Locatielimiet overschreden
@@ -414,7 +413,7 @@ Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Be
 Manual: Instructies
 Manually closed: Handmatig gesloten
 Maximum delay is 60 minutes.: De maximale vertraging is 60 minuten.
-'Maximum filesize limit is {limit}.': 'De maximale bestandsgrootte is {limit}.'
+Maximum filesize limit is {limit}.: De maximale bestandsgrootte is {limit}.
 Meter value: Meterstand
 Meters: Tellers
 Mobile Apps: Mobiele applicaties
@@ -439,17 +438,17 @@ New scene: Nieuwe scène
 Newer: Nieuwere
 'Next limit renewal: {date}': 'Volgende limiet vernieuwing: {date}'
 Next run date: Komende uitvoering
-'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'U hebt geen actieve toegangs-ID''s. Ga naar [lijst met toegangs-ID] of [voeg nieuwe toegangs-ID toe].'
+No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: U hebt geen actieve toegangs-ID's. Ga naar [lijst met toegangs-ID] of [voeg nieuwe toegangs-ID toe].
 No function: Geen functie beschikbaar
 No future executions - schedule disabled: Geen geplande uitvoeringen - schema uitgeschakeld
 No limit: Geen limiet
 No liquid sensor: Vloeistofniveau-sensor
-'No location enabled. Go to [location list] or [add a new location].': 'U heeft geen actieve locaties. Ga naar [locatielijst] of [nieuwe locatie toevoegen].'
+No location enabled. Go to [location list] or [add a new location].: U heeft geen actieve locaties. Ga naar [locatielijst] of [nieuwe locatie toevoegen].
 No of channels: Aantal kanalen
 No of client apps: Aantal cliëntapplicaties
 No of devices: Aantal apparaten
 No of operations: Aantal bewerkingen
-'No results match {0}': 'Geen resultaten gevonden die bij {0} passen'
+No results match {0}: Geen resultaten gevonden die bij {0} passen
 No schedule configuration.: Er is geen schemaconfiguratie voorzien.
 No. of Client’s apps: Het aantal klant-applicaties
 No. of access identifiers: Aantal toegangs-ID's
@@ -471,7 +470,7 @@ Offline access: Offline toegang
 Older: Oudere
 'On': Zet in
 On/Off switch: Aan / uit schakelaar
-'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Alleen domeinnamen met het optionele poortnummer zijn toegestaan. Bijvoorbeeld. mysupla.org of mysupla.org:88. HTTPS is vereist.'
+Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Alleen domeinnamen met het optionele poortnummer zijn toegestaan. Bijvoorbeeld. mysupla.org of mysupla.org:88. HTTPS is vereist.
 Open: Openen
 Open / close: Openen / sluiten
 Open partially: Gedeeltelijk open
@@ -479,17 +478,17 @@ Opening sensor: Sensor openen
 Operations: Verrichtingen
 Original location: Oorspronkelijke locatie
 Other: Andere
-'Otherwise go to [the homepage].': 'Ga anders naar [startpagina].'
+Otherwise go to [the homepage].: Ga anders naar [startpagina].
 Partial opening sensor: Indirecte openingssensor
 Password: Wachtwoord
 Password Reset: Wachtwoord opnieuw instellen
 Password has been changed: Het wachtwoord is gewijzigd
-'Password must be at least {minLength} characters.': 'Het wachtwoord moet minstens {minLength} tekens bevatten.'
-'Password must be no longer than {maxLength} characters.': 'Het wachtwoord mag niet langer zijn dan {maxLength} tekens.'
+Password must be at least {minLength} characters.: Het wachtwoord moet minstens {minLength} tekens bevatten.
+Password must be no longer than {maxLength} characters.: Het wachtwoord mag niet langer zijn dan {maxLength} tekens.
 Password reset instructions.: Instructies om de toegang tot uw account te herstellen.
 Percentage of closing: Percentage van sluiting
 Personal access tokens: Persoonlijke toegangstokens
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Persoonlijke toegangstokens werken als gewone toegangstokens, behalve dat ze voor onbepaalde tijd werken.'
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Persoonlijke toegangstokens werken als gewone toegangstokens, behalve dat ze voor onbepaalde tijd werken.
 Personal token name is required.: Persoonlijke tokennaam is vereist.
 Phase 1: Fase 1
 Phase 2: Fase 2
@@ -560,7 +559,7 @@ SUPLA Cloud is under maintenance.: SUPLA Cloud is in onderhoud.
 SUPLA Server was unable to execute the action.: Fout tijdens het uitvoeren van actie in SUPLA Server.
 SUPLA Server was unable to execute the scene.: De SUPLA Server was niet in staat om de scène uit te voeren.
 SUPLA Server was unable to query for the scene state.: De SUPLA Server kon de status van de scène niet lezen.
-'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA is altijd en overal beschikbaar, dus maak je geen zorgen de volgende keer dat je vergeet het licht uit te doen'
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA is altijd en overal beschikbaar, dus maak je geen zorgen de volgende keer dat je vergeet het licht uit te doen
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - melding over mislukte aanmelding bij %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - nieuwe cliëntapplicatie geregistreerd
 SUPLA – new device has been added to your account: SUPLA - een nieuw apparaat is toegevoegd aan uw account
@@ -597,12 +596,12 @@ Server address: Serveradres
 Server unreachable: Server onbereikbaar
 Service temporarily unavailable: Service tijdelijk niet beschikbaar
 Set value added: Toegevoegde waarde bepalen
-Setting the number of attempts to 1 disables the retrying behavior completely.: 'Als u het aantal pogingen lager instelt dan 2, kan dit ertoe leiden dat het sluiten of openen niet plaatsvindt.'
+Setting the number of attempts to 1 disables the retrying behavior completely.: Als u het aantal pogingen lager instelt dan 2, kan dit ertoe leiden dat het sluiten of openen niet plaatsvindt.
 Show my limits: Laat mijn limieten zien
 Show on the Client’s devices: Geef weer op klantgenapparaten
 Shut: Sluit
 Shut partially: Gedeeltelijk bedekken
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Sluit het rolluik totdat het de onderrand raakt en voer het sluitingspercentage in dit veld in. Deze handeling is niet vereist, maar het invoeren ervan zal de visualisatie van de positie van het rolluik in de mobiele app verbeteren.'
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Sluit het rolluik totdat het de onderrand raakt en voer het sluitingspercentage in dit veld in. Deze handeling is niet vereist, maar het invoeren ervan zal de visualisatie van de positie van het rolluik in de mobiele app verbeteren.
 Sign In: Inloggen
 Sign Out: Uitloggen
 Sign in temporarily unavailable. Please try again later.: Inloggen tijdelijk niet beschikbaar. Probeer het later eens opnieuw.
@@ -630,48 +629,48 @@ Supla for devices: Supla voor apparaten
 Switch the device to configuration mode: Schakel het apparaat in configuratiemodus
 THIS CANNOT BE UNDONE!: DEZE OPERATIE KAN NIET WORDEN ONGEDAAN!
 TLS: TLS
-'Target Cloud is not registered, or is registered with another e-mail address.': 'Deze SUPLA Cloud instantie is niet geregistreerd, of is geregistreerd met een ander e-mailadres.'
+Target Cloud is not registered, or is registered with another e-mail address.: Deze SUPLA Cloud instantie is niet geregistreerd, of is geregistreerd met een ander e-mailadres.
 Temperature: Temperatuur
 Temperature & Humidity Sensor: Temperatuur- en vochtigheidssensor
 Temperature Sensor: emperatuursensor
 Temperature adjustment: Temperatuur aanpassing
 Temperature and humidity sensor: Temperatuur- en vochtigheidssensor
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Bedankt voor het registreren van een account op %cloudHost%. Klik op de onderstaande link om de activering te voltooien.
-'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Dankzij integraties kunt u eenvoudig aan uw account nieuwe functies toevoegen met behulp van oplossingen van externe leveranciers, programmeurs of uzelf.'
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Dankzij integraties kunt u eenvoudig aan uw account nieuwe functies toevoegen met behulp van oplossingen van externe leveranciers, programmeurs of uzelf.
 'The IP used for login is: %ip%': 'De inlogpoging is gedaan vanaf het IP-adres: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Het wachtwoord van uw MQTT-makelaar is alleen op dit moment zichtbaar. Zorg ervoor dat u het op een veilige plaats bewaart. Het zal niet mogelijk zijn om het opnieuw te bekijken.
 The SUPLA infrastructure is being updated.: Er wordt gewerkt aan een update van de SUPLA-servers.
 The Terms and Conditions have changed: Het reglement is gewijzigd
 The Terms and Conditions have changed – please read them and accept.: Website reglement is gewijzigd - goedkeuring is vereist.
 The activation link has been sent again. Check the inbox.: Een bericht met een link om uw account te activeren is opnieuw verzonden. Controleer je inbox.
-The client will be automatically logged out when deleted.: 'Als de klant wordt verwijderd, wordt hij onmiddellijk uitgelogd.'
+The client will be automatically logged out when deleted.: Als de klant wordt verwijderd, wordt hij onmiddellijk uitgelogd.
 The counter has been reset.: De teller is teruggezet.
 The device is disabled: Het apparaat is uitgeschakeld
 The following items use the channels of these device. These references will be also removed.: De volgende items gebruiken kanalen van dit apparaat. Ook zij zullen worden verwijderd.
 'The following items will be deleted with this device:': De volgende items zullen ook worden verwijderd met dit apparaat.
 The gate sensor must function properly in order to execute the Open and Close actions.: De poortopeningsensor moet correct werken om de actie Openen of Sluiten uit te voeren.
-The gate sensor must function properly in order to execute the scheduled action.: 'Om de actie uit te voeren, moet de poortopeningssensor correct werken.'
+The gate sensor must function properly in order to execute the scheduled action.: Om de actie uit te voeren, moet de poortopeningssensor correct werken.
 The incident was detected at %datetime%.: De gebeurtenis vond plaats %datetime%.
-'The items below rely on this channel function, so they will be deleted.': 'De volgende items zijn gebaseerd op de huidige kanaalfunctie, en zullen dus worden verwijderd als die verandert.'
-'The items below rely on this channel group, so they will be deleted.': 'De volgende items gebruiken deze groep kanalen, dus wanneer ze verwijderd worden, zullen ze ook verwijderd worden.'
-'The items below rely on this scene, so they will be deleted.': 'De volgende elementen zijn gebaseerd op deze scène, dus zullen worden verwijderd.'
+The items below rely on this channel function, so they will be deleted.: De volgende items zijn gebaseerd op de huidige kanaalfunctie, en zullen dus worden verwijderd als die verandert.
+The items below rely on this channel group, so they will be deleted.: De volgende items gebruiken deze groep kanalen, dus wanneer ze verwijderd worden, zullen ze ook verwijderd worden.
+The items below rely on this scene, so they will be deleted.: De volgende elementen zijn gebaseerd op deze scène, dus zullen worden verwijderd.
 The latest execution: Laatste uitvoering
-'The link result is presented as a website response, because you (or your browser) asked for HTML output.': Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.
+The link result is presented as a website response, because you (or your browser) asked for HTML output.: Het resultaat van de implementatie wordt gepresenteerd als een website omdat u (of uw browser) om een antwoord in HTML-formaat hebt gevraagd.
 The measurement history has been deleted.: Meetgeschiedenis is verwijderd.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Het nieuwe wachtwoord vervangt het wachtwoord dat u momenteel gebruikt. Sommige integraties kunnen stoppen met werken nadat ze veranderd zijn. Doorgaan?
 The next available executions: Komende uitvoering
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Met behulp van een kader hebben wij de kennisgeving gemarkeerd waarvan u op de afmeldingslink hebt geklikt.
 The password and its confirm are not the same.: Het wachtwoord en de bevestiging zijn niet hetzelfde.
 The password should be 8 or more characters.: Het wachtwoord moet minimaal 8 tekens bevatten.
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Het toestel is uitgeschakeld door de overstroombeveiliging. Voordat u het inschakelt, moet u ervoor zorgen dat het probleem dat hiertoe heeft geleid, is opgelost. Weet u zeker dat u dit apparaat op afstand wilt inschakelen?'
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'De server heeft een 400-fout verzonden, wat betekent dat het verzonden verzoek ongeldig is.'
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Het toestel is uitgeschakeld door de overstroombeveiliging. Voordat u het inschakelt, moet u ervoor zorgen dat het probleem dat hiertoe heeft geleid, is opgelost. Weet u zeker dat u dit apparaat op afstand wilt inschakelen?
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: De server heeft een 400-fout verzonden, wat betekent dat het verzonden verzoek ongeldig is.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: De server heeft een HTTP 403-fout verzonden. Dit betekent dat u niet voldoende rechten hebt om dit item te bekijken.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: De server heeft een HTTP 404-fout verzonden. Dit betekent dat het item dat u zoekt niet bestaat.
-'The server has returned an HTTP {statusCode} error.': 'De server heeft de fout {statusCode} verzonden.'
-'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'De pictogrambestanden die u hebt geselecteerd, zijn te groot. De maximaal toegestane uploadgrootte is {limit}.'
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'De klep kan niet worden geopend via een directe link of via API wanneer deze handmatig is gesloten. Om de besturing te hervatten, opent u de klep handmatig.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'De klep is handmatig of per radio gesloten. Voordat u de klep opent, moet u ervoor zorgen dat zij niet vanwege wateroverlast is gesloten. Om de waarschuwing uit te schakelen, opent u de klep handmatig. Weet u zeker dat u de klep op afstand wilt openen?!'
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'De klep wordt niet geopend als deze met de hand of op afstand is gesloten, wat door een overstroming zou kunnen worden veroorzaakt.'
+The server has returned an HTTP {statusCode} error.: De server heeft de fout {statusCode} verzonden.
+The set of icons you have chosen is too large. Maximum upload limit is {limit}.: De pictogrambestanden die u hebt geselecteerd, zijn te groot. De maximaal toegestane uploadgrootte is {limit}.
+The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: De klep kan niet worden geopend via een directe link of via API wanneer deze handmatig is gesloten. Om de besturing te hervatten, opent u de klep handmatig.
+The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: De klep is handmatig of per radio gesloten. Voordat u de klep opent, moet u ervoor zorgen dat zij niet vanwege wateroverlast is gesloten. Om de waarschuwing uit te schakelen, opent u de klep handmatig. Weet u zeker dat u de klep op afstand wilt openen?!
+The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: De klep wordt niet geopend als deze met de hand of op afstand is gesloten, wat door een overstroming zou kunnen worden veroorzaakt.
 There are no more channels you can add to this group: Er zijn geen andere kanalen om aan deze groep toe te voegen
 Thermometer: Thermometer
 Thermostat: Thermostaat
@@ -679,8 +678,8 @@ This direct link requires further parameters in order to be executed properly. S
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: U ontvangt deze informatie vanwege een mislukte poging om met uw e-mailadres in te loggen op SUPLA-CLOUD.
 This is the list of applications you have granted access to your account.: Dit is de lijst met applicaties die u toegang tot uw account hebt verleend.
 This link is only valid for an hour.: De link blijft één uur actief.
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Deze planningsmodus is ontworpen met technische of zeer geduldige gebruikers in gedachten. Het vereist dat de tijdstippen waarop het schema wordt gestart worden opgegeven in crontab notatie, uitgebreid met enkele functionaliteiten die alleen in SUPLI te vinden zijn. Als u nog niet eerder met crontabs in aanraking bent gekomen en toch deze modus wilt gebruiken, kan de crontab.guru website nuttig voor u zijn.'
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Deze trigger wordt lokaal door het apparaat gebruikt (b.v. steekt een licht aan, bedient een rolluik, etc.) Als u er een andere actie aan toewijst, wordt de lokale functie uitgeschakeld.'
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Deze planningsmodus is ontworpen met technische of zeer geduldige gebruikers in gedachten. Het vereist dat de tijdstippen waarop het schema wordt gestart worden opgegeven in crontab notatie, uitgebreid met enkele functionaliteiten die alleen in SUPLI te vinden zijn. Als u nog niet eerder met crontabs in aanraking bent gekomen en toch deze modus wilt gebruiken, kan de crontab.guru website nuttig voor u zijn.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Deze trigger wordt lokaal door het apparaat gebruikt (b.v. steekt een licht aan, bedient een rolluik, etc.) Als u er een andere actie aan toewijst, wordt de lokale functie uitgeschakeld.
 Timezone: Tijdzone
 Toggle: Schakel
 Token does not exist: Het token bestaat niet
@@ -688,7 +687,7 @@ Too many actions in this schedule.: Te veel acties in één schema.
 Too many channels in this group: Te veel kanalen in deze groep
 Too many operations in this scene: Te veel handelingen in een scène.
 Triggers: Triggers
-Turning this device off will cause its channels not working in the following features.: 'Als u het apparaat uitschakelt, zullen de kanalen niet meer werken in de volgende gevallen.'
+Turning this device off will cause its channels not working in the following features.: Als u het apparaat uitschakelt, zullen de kanalen niet meer werken in de volgende gevallen.
 Turning this device off will result in disabling features listed below.: Het uitschakelen van het apparaat zal ook de onderstaande elementen uitschakelen.
 Type: Type
 Undo registration: De inschrijving intrekken
@@ -699,7 +698,7 @@ Unsuccessful login attempt: Mislukte aanmelding
 Unsupported function: Niet-ondersteunde functie
 Unsupported type: Niet-ondersteund type
 Update in progress: Update in uitvoering
-'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'op het zedelijkheid, het auteursrecht en de rechten van derden en ik heb het recht om ze te gebruiken.'
+Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: op het zedelijkheid, het auteursrecht en de rechten van derden en ik heb het recht om ze te gebruiken.
 'Use the [command] server command to change this account''s limits. For example:': 'Om de limieten voor deze account te wijzigen, gebruikt u het [commando] commando op uw server. Bijvoorbeeld:'
 Use working schedule for this access identifier: Gebruik het beschikbaarheidsschema voor deze toegangsidentificatie
 User is already confirmed. Try to log in.: Dit account is al bevestigd. Log dan in!
@@ -722,17 +721,16 @@ We have just sent you an activation link. You should be receiving it shortly.: E
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: We hebben u een e-mail gestuurd met een link om uw account te verwijderen. Misschien zul je van gedachten veranderen!
 We have sent you an email with further instructions.: We hebben u een bericht gestuurd met verdere instructies.
 We should be ready shortly.: We zouden binnenkort klaar moeten zijn.
-'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'We slaan informatie over uw voorkeuren op in uw browser om het gebruik van de applicatie te vergemakkelijken (bijv. Met behulp van een cookiemechanisme). [Lees het reglement].'
 We try to be faster: We proberen sneller te zijn.
 We were not able to find your account.: We konden uw account niet vinden.
 We will miss you: We zullen je missen
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'We zullen ons best doen om de weergegeven pictogrammen op de beste manier te verzenden, maar u krijgt de beste resultaten door PNG-bestanden met een transparante achtergrond en pixels met breedte {width} en hoogte {height} te verzenden.'
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: We zullen ons best doen om de weergegeven pictogrammen op de beste manier te verzenden, maar u krijgt de beste resultaten door PNG-bestanden met een transparante achtergrond en pixels met breedte {width} en hoogte {height} te verzenden.
 We will use it only in justified situations.: We zullen het alleen gebruiken in gerechtvaardigde gevallen
 Weather Station: Weerstation
 Weight sensor: Gewicht
 Welcome!: Welkom!
 What this token is for?: Wat doet dit token?
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': U kunt de directe link-actie uitvoeren door de unieke ID ervan op te geven in de body van het HTTP PATCH-verzoek. Dit is veiliger omdat hierdoor wordt voorkomen dat het volledige adres van uw link wordt opgeslagen in de logs voor toegang tot de server waardoor uw verzoek wordt verwerkt. Hieronder vindt u een voorbeeld met behulp van de cURL-tool.
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: U kunt de directe link-actie uitvoeren door de unieke ID ervan op te geven in de body van het HTTP PATCH-verzoek. Dit is veiliger omdat hierdoor wordt voorkomen dat het volledige adres van uw link wordt opgeslagen in de logs voor toegang tot de server waardoor uw verzoek wordt verwerkt. Hieronder vindt u een voorbeeld met behulp van de cURL-tool.
 Where is the JSON?: Waar is JSON?
 Where is your SUPLA Cloud?: Waar bevindt uw-Supla zich?
 White: Wit
@@ -744,8 +742,8 @@ Working period: Gebruiksperiode
 Working schedule: Activiteitenschema
 YOUR LINK CODE: UW LINKCODE
 You are changing the settings too quickly. You have to wait a while before making this change.: U verandert de instellingen te snel. U moet een tijdje wachten voordat u deze instellingen wijzigt.
-'You can ignore this message, if you have accidentally entered an incorrect password.': U kunt deze informatie negeren als u het verkeerde wachtwoord hebt ingevoerd.
-You can use the application but you will not be able to modify any settings.: 'U kunt de applicatie gebruiken, maar u kunt geen instellingen wijzigen.'
+You can ignore this message, if you have accidentally entered an incorrect password.: U kunt deze informatie negeren als u het verkeerde wachtwoord hebt ingevoerd.
+You can use the application but you will not be able to modify any settings.: U kunt de applicatie gebruiken, maar u kunt geen instellingen wijzigen.
 You cannot delete your last access identifier.: U kunt uw laatste toegangs-ID niet verwijderen.
 You cannot delete your last location.: U kunt uw laatste locatie niet verwijderen.
 You cannot use SUPLA project name in the domain name.: U kunt de SUPLA-projectnaam niet gebruiken in de hoofddomeinnaam.
@@ -753,7 +751,7 @@ You have exceeded your API Rate Limit: U heeft uw limiet van API-verzoeken verbr
 You have requested to unregister your SUPLA Cloud instance: U heeft gevraagd om uw SUPLA Cloud instantie uit te schrijven
 You have to choose at least one scope.: U moet ten minste één bereik selecteren.
 You just need to execute the following command inside your host terminal.: Voer gewoon de volgende opdracht uit in de terminal van uw host.
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Als u toch de geavanceerde planningsmodus wilt gebruiken, kijk dan eens naar de volgende voorbeelden.'
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Als u toch de geavanceerde planningsmodus wilt gebruiken, kijk dan eens naar de volgende voorbeelden.
 You must agree to the Terms and Conditions.: Aanvaarding van reglement is vereist.
 You must enable MQTT Broker first.: U moet eerst de integratie met de MQTT-makelaar inschakelen.
 You must set sections with transparent or opaque parameters or both.: U moet transparantie kiezen voor ten minste één sectie.
@@ -765,8 +763,8 @@ Your account has been deleted. We hope you will come back to us soon.: Account i
 Your account has been locked.: Uw account is geblokkeerd.
 Your account has not been confirmed yet.: Uw account is nog niet bevestigd.
 Your account limits: Uw limieten.
-'Your channel groups are allowed to have a maximum of {max} channels.': 'Uw kanaalgroepen kunnen een maximum van {max} kanalen hebben.'
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': U kunt de functionaliteit van het apparaat uitbreiden en u kunt elke actie uitvoeren op elk apparaat dat u bezit. De beschikbare opties zijn afhankelijk van de firmware en het toestel dat u gebruikt.
+Your channel groups are allowed to have a maximum of {max} channels.: Uw kanaalgroepen kunnen een maximum van {max} kanalen hebben.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: U kunt de functionaliteit van het apparaat uitbreiden en u kunt elke actie uitvoeren op elk apparaat dat u bezit. De beschikbare opties zijn afhankelijk van de firmware en het toestel dat u gebruikt.
 Your email: Uw e-mailadres
 Your instance is not registered or you are trying to authorize an application that is not public.: Uw exemplaar is niet geregistreerd of u probeert een toepassing te autoriseren die niet openbaar is.
 Your password must contain at least one special character.: Het wachtwoord moet ten minste één speciaal teken bevatten.
@@ -778,12 +776,11 @@ Your private SUPLA Cloud instance has been unregistered.: Uw privé SUPLA Cloud 
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Uw privé-exemplaar van SUPLA cloud is niet beschikbaar. Zorg ervoor dat uw server online is en dat de HTTPS-verbinding correct werkt.
 Your private SUPLA Cloud is almost registered.: Uw privé SUPLA cloud is bijna geregistreerd.
 Your private SUPLA Cloud is not registered.: Uw private cloud SUPLA is niet geregistreerd.
-'Your scenes are allowed to have a maximum of {max} operations.': 'Uw scènes kunnen een maximum hebben van {max} operaties.'
-'Your schedules are allowed to have a maximum of {max} actions.': 'Uw schema''s kunnen een maximum van {max} aandelen hebben.'
+Your scenes are allowed to have a maximum of {max} operations.: Uw scènes kunnen een maximum hebben van {max} operaties.
+Your schedules are allowed to have a maximum of {max} actions.: Uw schema's kunnen een maximum van {max} aandelen hebben.
 Your session has been expired.: Uw sessie is verlopen.
 Your session is about to expire: Je sessie verloopt zo
-'Your session will expire in {0}.': 'Uw sessie verloopt over {0}.'
-'Yours faithfully,': 'Met hoogachting,'
+Yours faithfully,: Met hoogachting,
 access to your e-mail address: toegang tot uw e-mail adres
 actionTrigger_HOLD: De knop ingedrukt houden
 actionTrigger_SHORT_PRESS_X1: 1x drukken
@@ -802,11 +799,12 @@ actionableSubjectType_channel: Kanaal
 actionableSubjectType_channelGroup: Kanaalgroep
 actionableSubjectType_scene: Scène
 addToHistoryMeasurementWarningSelected: Door deze optie aan te vinken worden de ingestelde waarden toegevoegd aan toekomstige metingen die in de geschiedenis zijn opgeslagen. Dit kan op de grafieken zichtbaar zijn als een plotselinge verhoging met de ingevoerde waarde. Wij raden aan deze parameters alleen in te stellen wanneer de meter voor het eerst wordt geïnstalleerd. Voor bestaande meters raden wij aan de meetgeschiedenis onmiddellijk te wissen na het wijzigen van deze instellingen.
-addToHistoryMeasurementWarningUnselected: 'Als u deze optie deselecteert, worden de ingestelde waarden bij toekomstige metingen die in de geschiedenis worden opgeslagen, weggelaten. Dit kan op de grafieken zichtbaar zijn als een plotselinge daling. Wij raden aan deze parameters alleen in te stellen wanneer de meter voor het eerst wordt geïnstalleerd. Voor bestaande meters raden wij aan de meetgeschiedenis onmiddellijk na het wijzigen van deze instellingen te wissen.'
+addToHistoryMeasurementWarningUnselected: Als u deze optie deselecteert, worden de ingestelde waarden bij toekomstige metingen die in de geschiedenis worden opgeslagen, weggelaten. Dit kan op de grafieken zichtbaar zijn als een plotselinge daling. Wij raden aan deze parameters alleen in te stellen wanneer de meter voor het eerst wordt geïnstalleerd. Voor bestaande meters raden wij aan de meetgeschiedenis onmiddellijk na het wijzigen van deze instellingen te wissen.
 after: na
 before: voor
 caption: naam
 channel: Kanaal
+channelConfigHelp_numberOfAttemptsGate: Nadat u opdracht hebt gegeven de poort te openen of te sluiten, zal het systeem proberen de poort te sluiten/openen en 60 seconden wachten om te zien of de poort de gewenste toestand heeft bereikt. Zo niet, dan zal het systeem opnieuw proberen te sluiten/openen. Deze parameter bepaalt het maximum aantal pogingen van het systeem om het doel te bereiken. De aanbevolen waarde is 5. Het wijzigen van deze parameter heeft geen invloed op de werking van de schema's.
 channelGroup: Kanaalgroep
 choose: kies
 choose a currency: selecteer valuta
@@ -825,7 +823,7 @@ directLinkExecutionFailureReason_forbiddenAction: De link staat deze actie niet 
 directLinkExecutionFailureReason_httpGetForbidden: De uitvoering van handelingen door middel van een niet veroorloofde  HTTP GET-methode werd onmogelijk gemaakt.
 directLinkExecutionFailureReason_invalidActionParameters: Ongeldige directe link-parameters
 directLinkExecutionFailureReason_invalidChannelState: De actie kan niet worden uitgevoerd vanwege de status van het kanaal.
-directLinkExecutionFailureReason_invalidSlug: 'De verificatiecode die u heeft opgegeven, is onjuist.'
+directLinkExecutionFailureReason_invalidSlug: De verificatiecode die u heeft opgegeven, is onjuist.
 directLinkExecutionFailureReason_noAllowedActions: Geen toegestane acties geselecteerd
 directLinkExecutionFailureReason_noSlugOrAction: Ongeldig verzoek - linkcode en actie zijn vereist
 directLinkExecutionFailureReason_notActiveYet: De directe link is nog niet actief
@@ -843,11 +841,11 @@ minutes: minuten
 or add a delay: of een vertraging toevoegen
 password: wachtwoord
 prefix: voorvoegsel
-register-slide1-text: 'Op basis van de beschikbare elektronica kunt u met SUPLA eenvoudige modules bouwen waarmee u componenten van de gebouwautomatisering kunt besturen en controleren. Dankzij SUPLI kunt u onder andere de verlichting regelen, huishoudelijke apparaten en elektronica in- en uitschakelen, poorten en deuren openen en sluiten, of de temperatuur in de kamers regelen. Je kunt dit allemaal doen met één vingerbeweging.'
+register-slide1-text: Op basis van de beschikbare elektronica kunt u met SUPLA eenvoudige modules bouwen waarmee u componenten van de gebouwautomatisering kunt besturen en controleren. Dankzij SUPLI kunt u onder andere de verlichting regelen, huishoudelijke apparaten en elektronica in- en uitschakelen, poorten en deuren openen en sluiten, of de temperatuur in de kamers regelen. Je kunt dit allemaal doen met één vingerbeweging.
 register-slide1-title: Eigen intelligent gebouw
-register-slide2-text: 'JEen van de uitgangspunten van het project zijn eenvoud en beschikbaarheid. Met SUPLA kunt u het licht aandoen met één vingerbeweging of de toegangspoort openen wanneer u het pand wilt betreden. SUPLA is beschikbaar overal waar u toegang hebt tot internet en een smartphone of tablet bij de hand hebt. SUPLA is ontwikkeld op basis van Open Software en Open Equipment, waardoor u dit project ook kunt ontwikkelen!'
+register-slide2-text: JEen van de uitgangspunten van het project zijn eenvoud en beschikbaarheid. Met SUPLA kunt u het licht aandoen met één vingerbeweging of de toegangspoort openen wanneer u het pand wilt betreden. SUPLA is beschikbaar overal waar u toegang hebt tot internet en een smartphone of tablet bij de hand hebt. SUPLA is ontwikkeld op basis van Open Software en Open Equipment, waardoor u dit project ook kunt ontwikkelen!
 register-slide2-title: SUPLA overal!
-register-slide3-text: 'Op de markt beschikbare gebouwautomatiseringssystemen zijn meestal erg complex, gesloten en duur. In veel gevallen vereisen ze installatie al in het stadium van het bouwen van de faciliteit. SUPLA is eenvoudig, open en gratis. Het maakt het mogelijk om executive-elementen te bouwen op basis van RaspberryPI, Arduino of ESP8266 platforms en deze te verbinden via LAN en WiFi. Doe mee met het project en bouw je eigen versie van het gebouwautomatiseringssysteem!'
+register-slide3-text: Op de markt beschikbare gebouwautomatiseringssystemen zijn meestal erg complex, gesloten en duur. In veel gevallen vereisen ze installatie al in het stadium van het bouwen van de faciliteit. SUPLA is eenvoudig, open en gratis. Het maakt het mogelijk om executive-elementen te bouwen op basis van RaspberryPI, Arduino of ESP8266 platforms en deze te verbinden via LAN en WiFi. Doe mee met het project en bouw je eigen versie van het gebouwautomatiseringssysteem!
 register-slide3-title: Gratis en open!
 reset chart view: reset oorspronkelijke weergave
 scene: scène
@@ -856,7 +854,7 @@ scheduleMode_daily: Dagelijkse cyclus
 scheduleMode_minutely: Minuut cyclus
 scheduleMode_once: Eenmalig
 sec.: sec.
-'smartphones, tablets, etc.': 'smartphones, tablets etc.'
+smartphones, tablets, etc.: smartphones, tablets etc.
 state-closed: Gesloten
 state-default: Standaard
 state-empty: Blanco
@@ -868,8 +866,8 @@ state-opened: Geopend
 state-partially_closed: Gedeeltelijk gesloten
 state-revealed: Open
 state-rgb_off_dim_off: RGB en dimmer uit
-state-rgb_off_dim_on: 'RGB uit, dimmer aan'
-state-rgb_on_dim_off: 'RGB aan, dimmer uit'
+state-rgb_off_dim_on: RGB uit, dimmer aan
+state-rgb_on_dim_off: RGB aan, dimmer uit
 state-rgb_on_dim_on: RGB en dimmer aan
 state-shut: Gesloten
 state-temperature: Temperatuur
@@ -903,12 +901,12 @@ Cannot send an activation e-mail. Try again later.: Het bericht met activeringsl
 Channel will be deleted from the channel group below: Het kanaal wordt uit de volgende kanaalgroepen verwijderd
 Channels in channel group: Kanalen in kanalengroep
 Chosen hour: Geselecteerd uur
-'Confirm if you want to remove {deviceName} device': 'Bevestig dat u {deviceName} wilt verwijderen'
+Confirm if you want to remove {deviceName} device: Bevestig dat u {deviceName} wilt verwijderen
 DISABLED: UITGESCHAKELD
 Date: Datum
 Days: Dagen
 Direct links below will be deleted: De hieronder vermelde directe links worden verwijderd
-'Doors, Gates': 'Deuren, poorten'
+Doors, Gates: Deuren, poorten
 ENABLED: Ingeschakeld
 Email already exists: Email adres bestaat al
 Existing schedules: Bestaande schema's
@@ -917,7 +915,7 @@ Hi: Hoi
 Hour: Uur
 Hours: Uren
 I/O: Input / Outpt
-'If you want to stay here, do something!': 'Als je hier wilt blijven, doe dan iets!'
+If you want to stay here, do something!: Als je hier wilt blijven, doe dan iets!
 Input: Ingang
 Languages: Talen
 Loading: Opladen
@@ -941,17 +939,48 @@ Sunrise / Sunset: Oost-West
 Thursdays: Donderdagen
 Try again later: Probeer het later eens opnieuw
 Tuesdays: Diensdagen
-Turning this device off will result in disabling all the associated schedules.: 'Als u dit apparaat uitschakelt, wordt ook de bijbehorende harmongoram uitgeschakeld.'
+Turning this device off will result in disabling all the associated schedules.: Als u dit apparaat uitschakelt, wordt ook de bijbehorende harmongoram uitgeschakeld.
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].: We slaan informatie over uw voorkeuren op in uw browser om het gebruik van de applicatie te vergemakkelijken (bijv. Met behulp van een cookiemechanisme). [Lees het reglement].
 Wednesdays: Woensdagen
 When: Wanneer
 You will be logged out shortly: U wordt zo uitgelogd
+Your session will expire in {0}.: Uw sessie verloopt over {0}.
 execute: voer uit
 hourly: Uur cyclus
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Above threshold: ~
+Average voltage: ~
+Below threshold: ~
+Device might be sleeping: ~
+Error when communicating the AD. Try again in a while.: ~
+Estimated execution time: ~
+Gate's state verification: ~
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
+Longest violation: ~
+Maximum voltage: ~
+Measurement window: ~
+Minimum voltage: ~
+Phase number: ~
+Please read the Terms and Conditions.: ~
+Register your SUPLA Cloud: ~
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
+Show days with issues only: ~
+The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
+Total time: ~
+Verification method: ~
+Violation info: ~
+Violations count: ~
+Voltage deviations: ~
+Wait for this scene to finish before proceeding to the next step ({time}).: ~
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: ~
 You must set an action for each scene operation.: ~
+channelConfigHelp_stateVerificationMethod: ~
+channelConfig_stateVerificationMethod_active: ~
+channelConfig_stateVerificationMethod_passive: ~
 
 #</editor-fold>
