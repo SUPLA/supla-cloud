@@ -438,12 +438,12 @@ New scene: Nova scena
 Newer: Novejše
 'Next limit renewal: {date}': Omejitev bo obnovljena {date}
 Next run date: Prihodnja izvršitev
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nimate nobenih aktivnih identifikatorjev dostopa. Pojdite na [seznam identifikatorjev dostopa] ali [dodaj nov identifikator dostopa].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nimate nobenih aktivnih identifikatorjev dostopa. Pojdite na {accessIdsListLink} ali {newAccessIdLink}.
 No function: Brez funkcije
 No future executions - schedule disabled: Brez načrtovanih nastopov - urnik izklopljen
 No limit: Brez omejitve
 No liquid sensor: Senzor pomanjkanja tekočine
-No location enabled. Go to [location list] or [add a new location].: Nimate nobenih aktivnih lokacij. Pojdite na [seznam lokacij] ali [dodaj novo lokacijo].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Nimate nobenih aktivnih lokacij. Pojdite na {locationsListLink} ali {newLocationLink}.
 No of channels: Število kanalov
 No of client apps: Število odjemalskih aplikacij
 No of devices: Število naprav

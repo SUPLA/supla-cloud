@@ -438,12 +438,12 @@ New scene: Neue Szene
 Newer: Neuere
 'Next limit renewal: {date}': Limit wird erneuert {Daten}
 Next run date: Nächste Ausführung
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Sie haben keine aktive Zugriffskennung. Gehen Sie zu [Liste der Zugriffskennungen] oder[neue Zugriffskennung hinzufügen].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Sie haben keine aktive Zugriffskennung. Gehen Sie zu {accessIdsListLink} oder{newAccessIdLink}.
 No function: Keine Funktion
 No future executions - schedule disabled: Keine vorausgeplanten Ausführungen- Harmonogramm ausgeschaltet
 No limit: Unbegrenzt
 No liquid sensor: Kein Flüssigkeitssensor
-No location enabled. Go to [location list] or [add a new location].: Sie haben keine aktive Lokalisierung. Gehe zu[Liste Lokalisierung] oder[neuen Lokalisierung hinzufügen].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Sie haben keine aktive Lokalisierung. Gehe zu {locationsListLink} oder {newLocationLink}.
 No of channels: Anzahl der Kanäle
 No of client apps: Anzahl der Client-Anwendungen
 No of devices: Anzahl der Geräte

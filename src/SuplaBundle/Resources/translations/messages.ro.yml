@@ -438,12 +438,12 @@ New scene: O noua scena
 Newer: Mai noi
 'Next limit renewal: {date}': Limita va fi reînnoită {date}
 Next run date: Execuția următoare
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nu aveți identificatoare de acces active. Accesați [lista de identificatoare de acces] sau [adăugați un nou identificator de acces].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nu aveți identificatoare de acces active. Accesați {accessIdsListLink} sau {newAccessIdLink}.
 No function: Nu există funcții
 No future executions - schedule disabled: Nu există execuții planificate - planul este dezactivat
 No limit: Nelimitat
 No liquid sensor: Senzor lipsă de lichid
-No location enabled. Go to [location list] or [add a new location].: Nu aveți locații active. Accesați [lista locațiilor] sau [adăugați o locație nouă].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Nu aveți locații active. Accesați {locationsListLink} sau {newLocationLink}.
 No of channels: Numărul de canale
 No of client apps: Numărul de aplicații client
 No of devices: Numărul de dispozitive

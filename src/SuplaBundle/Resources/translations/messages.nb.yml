@@ -438,12 +438,12 @@ New scene: En ny scene
 Newer: Nyere
 'Next limit renewal: {date}': Begrensningen vil bli fornyet {date}
 Next run date: Neste utførelsesdato
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Du har ingen aktive tilgang identifikatorer. Gå til [tilgang identifikator liste] eller [legg til ny tilgang identifikator].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Du har ingen aktive tilgang identifikatorer. Gå til {accessIdsListLink} eller {newAccessIdLink}.
 No function: Manglende funksjoner
 No future executions - schedule disabled: Mangel på planlagte utførelser – plan skrudd av
 No limit: Uten begrensninger
 No liquid sensor: Væskemangelsensor
-No location enabled. Go to [location list] or [add a new location].: Du har ingen aktive lokaliseringer. Gå til [lokaliseringsliste] eller [legg til ny lokalisering.
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Du har ingen aktive lokaliseringer. Gå til {locationsListLink} eller {newLocationLink}.
 No of channels: Antall kanaler
 No of client apps: Antall kundensapper
 No of devices: Antall enheter

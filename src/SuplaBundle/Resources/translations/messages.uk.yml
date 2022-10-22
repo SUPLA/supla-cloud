@@ -438,12 +438,12 @@ New scene: Нова сцена
 Newer: Новіший
 'Next limit renewal: {date}': Ліміт буде поновлено {date}
 Next run date: Найближче виконання
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: У вас немає активних ідентифікаторів доступу. Перейдіть до [списку ідентифікаторів доступу] або [додайте новий ідентифікатор доступу].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: У вас немає активних ідентифікаторів доступу. Перейдіть до {accessIdsListLink} або {newAccessIdLink}.
 No function: Без функції
 No future executions - schedule disabled: Виконання не заплановано – розклад вимкнено
 No limit: Необмежений
 No liquid sensor: Датчик нестачі рідини
-No location enabled. Go to [location list] or [add a new location].: У вас немає активних місць. Перейдіть до [списку місць] або [додайте нове місце].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: У вас немає активних місць. Перейдіть до {locationsListLink} або {newLocationLink}.
 No of channels: Кількість каналів
 No of client apps: Кількість клієнтських заявок
 No of devices: Кількість пристроїв

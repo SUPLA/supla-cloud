@@ -438,12 +438,12 @@ New scene: Νέα σκηνή
 Newer: Νεότερα
 'Next limit renewal: {date}': Το όριο θα ανανεωθεί {date}
 Next run date: Επόμενη εκτέλεση
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Δεν έχετε ενεργά αναγνωριστικά πρόσβασης. Μεταβείτε στη [λίστα αναγνωριστικών πρόσβασης] ή στο [add new id access].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Δεν έχετε ενεργά αναγνωριστικά πρόσβασης. Μεταβείτε στη {accessIdsListLink} ή στο {newAccessIdLink}.
 No function: Δεν υπάρχει λειτουργία
 No future executions - schedule disabled: Δεν υπάρχουν προγραμματισμένες εκτελέσεις - απενεργοποιημένο χρονοδιάγραμμα
 No limit: Χωρίς όριο
 No liquid sensor: Αισθητήρας έλλειψης υγρού
-No location enabled. Go to [location list] or [add a new location].: Δεν έχετε ενεργές τοποθεσίες. Μεταβείτε στη [λίστα τοποθεσιών] ή [προσθέστε νέα τοποθεσία].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Δεν έχετε ενεργές τοποθεσίες. Μεταβείτε στη {locationsListLink} ή {newLocationLink}.
 No of channels: Αριθμός καναλιών
 No of client apps: Αριθμός εφαρμογών πελάτη
 No of devices: Αριθμός συσκευών

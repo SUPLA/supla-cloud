@@ -438,12 +438,12 @@ New scene: Új jelenet
 Newer: Újabb
 'Next limit renewal: {date}': A határidő frissült
 Next run date: Legközelebbi végrehajtás
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nincs aktív hozzáférési azonosítója. Ugrás [hozzáférési azonosító lista] vagy [új hozzáférési azonosító hozzáadása].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nincs aktív hozzáférési azonosítója. Ugrás {accessIdsListLink} vagy {newAccessIdLink}.
 No function: Nincs implementált funkció
 No future executions - schedule disabled: Nincsenek tervezett műveletek - ütemezés kikapcsolva
 No limit: Nincs korlátozás
 No liquid sensor: Folyadékhiány-érzékelő
-No location enabled. Go to [location list] or [add a new location].: Nincs aktív lokálizálás. Lépjen a [helylista] vagy [új hely hozzáadása] pontra.
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Nincs aktív lokálizálás. Lépjen a {locationsListLink} vagy {newLocationLink} pontra.
 No of channels: Csatornák száma
 No of client apps: Ügyfélalkalmazások száma
 No of devices: Eszközök száma

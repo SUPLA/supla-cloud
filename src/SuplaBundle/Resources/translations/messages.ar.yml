@@ -438,12 +438,12 @@ New scene: مشهد جديد
 Newer: أحدث
 'Next limit renewal: {date}': سيتم تجديد الحد {date}
 Next run date: الاجراءات القادمة
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: ليس لديك أي معرفات وصول نشطة. انتقل إلى [قائمة معرّف الوصول] أو [إضافة معرف وصول جديد].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: ليس لديك أي معرفات وصول نشطة. انتقل إلى {accessIdsListLink} أو {newAccessIdLink}.
 No function: لا توجد وظيفة
 No future executions - schedule disabled: لا اجراءات مخطط لها - الجدول الزمني غير مفعل
 No limit: دون حد
 No liquid sensor: مستشعر نقص السائل
-No location enabled. Go to [location list] or [add a new location].: ليس لديك أي مواقع نشطة. انتقل إلى [قائمة المواقع] أو [إضافة موقع جديد].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: ليس لديك أي مواقع نشطة. انتقل إلى {locationsListLink} أو {newLocationLink}.
 No of channels: عدد القنوات
 No of client apps: عدد تطبيقات العميل
 No of devices: عدد الأجهزة

@@ -8,6 +8,8 @@ For a short period of time, it is recommended for you to use the {suplaUrl} addr
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Maximum filesize limit is {limit}.: Maximum filesize limit is {limit}.
 'Next limit renewal: {date}': 'Next limit renewal: {date}'
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: No location enabled. Go to {locationsListLink} or {newLocationLink}.
 No results match {0}: No results match {0}
 Password must be at least {minLength} characters.: Password must be at least {minLength} characters.
 Password must be no longer than {maxLength} characters.: Password must be no longer than {maxLength} characters.

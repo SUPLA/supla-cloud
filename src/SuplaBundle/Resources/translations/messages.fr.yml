@@ -438,12 +438,12 @@ New scene: Une nouvelle scène
 Newer: Plus récent
 'Next limit renewal: {date}': La limite sera renouvelée le {date}
 Next run date: Prochain programme
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Vous n'avez pas d'identifiants d'accès actifs. Aller à [liste des identifiants d'accès] ou [ajouter un nouvel identifiant d'accès].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Vous n'avez pas d'identifiants d'accès actifs. Aller à {accessIdsListLink} ou {newAccessIdLink}.
 No function: Aucune fonction
 No future executions - schedule disabled: Aucun programme planifié - le calendrier est désactivé
 No limit: Pas de limite
 No liquid sensor: Capteur d'absence de liquide
-No location enabled. Go to [location list] or [add a new location].: Vous n'avez pas de lieux actifs. Aller à [liste des lieux] ou [ajouter un nouveau lieu].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Vous n'avez pas de lieux actifs. Aller à {locationsListLink} ou {newLocationLink}.
 No of channels: Nombre de chaînes
 No of client apps: Nombre d'applications clientes
 No of devices: Nombre d’appareils

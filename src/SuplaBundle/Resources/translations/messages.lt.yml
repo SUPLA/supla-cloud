@@ -438,12 +438,12 @@ New scene: Nauja scena
 Newer: Naujesnės
 'Next limit renewal: {date}': Limitas bus atnaujintas {date}
 Next run date: Artimiausias atlikimas
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Neturite jokių aktyvių prieigos identifikatorių. Eikite į [prieigos identifikatorių sąrašą] ir [pridėkite naują prieigos identifikatorių].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Neturite jokių aktyvių prieigos identifikatorių. Eikite į {accessIdsListLink} ir {newAccessIdLink}.
 No function: Funkcijų nėra
 No future executions - schedule disabled: Nėra suplanuotų atlikimų – tvarkaraštis išjungtasy
 No limit: Be limito
 No liquid sensor: Skysčio stygiaus jutiklis
-No location enabled. Go to [location list] or [add a new location].: Neturite jokių aktyvių vietų. Eikite į [vietų sąrašą] ir [pridėkite naują vietą].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Neturite jokių aktyvių vietų. Eikite į {locationsListLink} ir {newLocationLink}.
 No of channels: Kanalų skaičius
 No of client apps: Kliento programų skaičius
 No of devices: Įrenginių skaičius

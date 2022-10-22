@@ -438,12 +438,12 @@ New scene: Hoạt cảnh mới
 Newer: Gần đây
 'Next limit renewal: {date}': Gia hạn tiếp theo {date}
 Next run date: Ngày chạy tiếp theo
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Không có định danh truy cập được kích hoạt.Chuyển đến [danh sách định danh truy cập] hoặc [thêm số nhận dạng truy cập mới]
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Không có định danh truy cập được kích hoạt.Chuyển đến {accessIdsListLink} hoặc {newAccessIdLink}.
 No function: Không có chức năng
 No future executions - schedule disabled: Không thực hiện trong tương lai - bị vô hiệu hóa theo lịch trình
 No limit: Không giới hạn
 No liquid sensor: Không có cảm biến chất lỏng
-No location enabled. Go to [location list] or [add a new location].: Không có vị trí kích hoạt. Chuyển đến [danh sách vị trí] hoặc [thêm vị trí mới].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Không có vị trí kích hoạt. Chuyển đến {locationsListLink} hoặc {newLocationLink}.
 No of channels: Số lượng kênh
 No of client apps: Số lượng ứng dụng client
 No of devices: Số lượng thiết bị

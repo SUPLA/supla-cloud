@@ -438,12 +438,12 @@ New scene: Nová scéna
 Newer: Novšie
 'Next limit renewal: {date}': Limit sa obnoví {date}
 Next run date: Najbližšie vykonanie
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nemáte žiadne aktívne identifikátory prístupu. Prejdite na [zoznam identifikátorov prístupu] alebo [pridajte nový identifikátor prístupu].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nemáte žiadne aktívne identifikátory prístupu. Prejdite na {accessIdsListLink} alebo {newAccessIdLink}.
 No function: Žiadna funkcia
 No future executions - schedule disabled: Žiadne naplánované vykonania – harmonogram je vypnutý
 No limit: Bez limitu
 No liquid sensor: Snímač prítomnosti kvapaliny
-No location enabled. Go to [location list] or [add a new location].: Nemáte žiadny aktívne polohy. Prejdite na [zoznam polôh] alebo [pridajte novú polohu].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Nemáte žiadny aktívne polohy. Prejdite na {locationsListLink} alebo {newLocationLink}.
 No of channels: Počet kanálov
 No of client apps: Počet klientskych aplikácií
 No of devices: Počet zariadení

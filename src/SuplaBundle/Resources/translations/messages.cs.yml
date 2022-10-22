@@ -438,12 +438,12 @@ New scene: Nová scéna
 Newer: Novější
 'Next limit renewal: {date}': Limit bude brzy obnoven {date}
 Next run date: Nejbližší výkon
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: Nemáte aktivní identifikátory přístupu. Přejděte na [seznam přístupových ID] nebo [přidat přístupové ID].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nemáte aktivní identifikátory přístupu. Přejděte na {accessIdsListLink} nebo {newAccessIdLink}.
 No function: Bez funkce
 No future executions - schedule disabled: Žádné naplánované výkony - plán zakázán
 No limit: Bez omezení
 No liquid sensor: Snímač nedostatku kapaliny
-No location enabled. Go to [location list] or [add a new location].: Nemáte aktivní místa. Přejděte na [seznam míst] nebo [přidat nové umístění]..
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Nemáte aktivní místa. Přejděte na {locationsListLink} nebo {newLocationLink}..
 No of channels: Počet kanálů
 No of client apps: Počet klientských aplikací
 No of devices: Počet zařízení

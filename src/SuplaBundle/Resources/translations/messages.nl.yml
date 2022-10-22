@@ -438,12 +438,12 @@ New scene: Nieuwe scène
 Newer: Nieuwere
 'Next limit renewal: {date}': 'Volgende limiet vernieuwing: {date}'
 Next run date: Komende uitvoering
-No access identifier enabled. Go to [access identifier list] or [add a new access identifier].: U hebt geen actieve toegangs-ID's. Ga naar [lijst met toegangs-ID] of [voeg nieuwe toegangs-ID toe].
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: U hebt geen actieve toegangs-ID's. Ga naar {accessIdsListLink} of {newAccessIdLink}.
 No function: Geen functie beschikbaar
 No future executions - schedule disabled: Geen geplande uitvoeringen - schema uitgeschakeld
 No limit: Geen limiet
 No liquid sensor: Vloeistofniveau-sensor
-No location enabled. Go to [location list] or [add a new location].: U heeft geen actieve locaties. Ga naar [locatielijst] of [nieuwe locatie toevoegen].
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: U heeft geen actieve locaties. Ga naar {locationsListLink} of {newLocationLink}.
 No of channels: Aantal kanalen
 No of client apps: Aantal cliëntapplicaties
 No of devices: Aantal apparaten
