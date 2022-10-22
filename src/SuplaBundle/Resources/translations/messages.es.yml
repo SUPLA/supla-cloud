@@ -700,7 +700,7 @@ Unsupported function: Función no compatible
 Unsupported type: Tipo no compatible
 Update in progress: La actualización en curso.
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Los archivos cargados no violan los buenos modales, derechos de autor y derechos de terceros, y tengo el derecho de usarlos.
-'Use the [command] server command to change this account''s limits. For example:': 'Para cambiar los límites de esta cuenta, usa el comando [comando] en tu servidor. Por ejemplo:'
+'Use the {0} server command to change this account''s limits. For example:': 'Para cambiar los límites de esta cuenta, usa el comando {0} en tu servidor. Por ejemplo:'
 Use working schedule for this access identifier: Usar un horario de disponibilidad para este ID de acceso
 User is already confirmed. Try to log in.: Esta cuenta ya está confirmada. Inicia sesión.
 Value added: Valor añadido

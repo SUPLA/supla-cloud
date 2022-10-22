@@ -20,6 +20,7 @@ Password must be no longer than {maxLength} characters.: Password must be no lon
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.'
 The server has returned an HTTP {statusCode} error.: The server has returned an HTTP {statusCode} error.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: The set of icons you have chosen is too large. Maximum upload limit is {limit}.
+'Use the {0} server command to change this account''s limits. For example:': 'Use the {0} server command to change this account''s limits. For example:'
 WELCOME_MESSAGE: |
   Having your house or the office connected to SUPLA is very easy.
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.

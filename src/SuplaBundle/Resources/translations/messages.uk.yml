@@ -702,7 +702,7 @@ Unsupported function: Функція не підтримується
 Unsupported type: Тип, що не підтримується
 Update in progress: Оновлення триває
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Завантажені файли не порушують моральні принципи, авторські права та права третіх осіб, і я маю право їх використовувати.
-'Use the [command] server command to change this account''s limits. For example:': 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою [command] на своєму сервері. Наприклад:'
+'Use the {0} server command to change this account''s limits. For example:': 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
 Use working schedule for this access identifier: Використовуйте графік доступності для цього ідентифікатора доступу
 User is already confirmed. Try to log in.: Цей обліковий запис уже підтверджено. Авторизуйтесь
 Value added: Додана вартість

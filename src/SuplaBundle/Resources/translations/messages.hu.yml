@@ -700,7 +700,7 @@ Unsupported function: Nem támogatott funkció
 Unsupported type: Nem támogatott típus
 Update in progress: Frissítés folyamatban
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: A feltöltött fájlok nem ütköznek a közerkölcsbe, nem sértik a szerzői jogokat se a harmadik személyek jogait, és jogsult vagyok ezek használatára.
-'Use the [command] server command to change this account''s limits. For example:': 'A [command] kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
+'Use the {0} server command to change this account''s limits. For example:': 'A {0} kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
 Use working schedule for this access identifier: Használja a hozzáférési ütemtervet a hozzáférési azonosítóhoz
 User is already confirmed. Try to log in.: Ezt a fiókot már megerősítettük. Belépés
 Value added: Hozzáadott érték

@@ -700,7 +700,7 @@ Unsupported function: Funksjon ikke støttet
 Unsupported type: Type ikke støttet
 Update in progress: Oppdatering pågår
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Opplastede filer berører ikke gode skikker, opphavsrett eller tredjeparts rettigheter og jeg har rett til å bruke dem.
-'Use the [command] server command to change this account''s limits. For example:': 'For å endre grensene for denne kontoen, bruk kommandoen [command] på serveren din. For eksempel:'
+'Use the {0} server command to change this account''s limits. For example:': 'For å endre grensene for denne kontoen, bruk kommandoen {0} på serveren din. For eksempel:'
 Use working schedule for this access identifier: bruk tilgjengelighetsplanen for denne tilgangs-IDen
 User is already confirmed. Try to log in.: Konto er bekreftet. Logg inn.
 Value added: Merverdi

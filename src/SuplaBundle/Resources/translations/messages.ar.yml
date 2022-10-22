@@ -700,7 +700,7 @@ Unsupported function: وظيفة غير مدعومة
 Unsupported type: نوع غير مدعوم
 Update in progress: جاري التحديث
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: لا تنتهك الملفات التي تم تحميلها حقوق الطبع والنشر وحقوق الأطراف الأخرى، ولدي الحق في استخدامها.
-'Use the [command] server command to change this account''s limits. For example:': 'لتغيير حدود هذا الحساب، استخدم الأمر [command] على الخادم الخاص بك. على سبيل المثال:'
+'Use the {0} server command to change this account''s limits. For example:': 'لتغيير حدود هذا الحساب، استخدم الأمر {0} على الخادم الخاص بك. على سبيل المثال:'
 Use working schedule for this access identifier: استخدام جدول توفر لمعرف الوصول هذا
 User is already confirmed. Try to log in.: تم تأكيد هذا الحساب بالفعل. قم بتسجيل الدخول
 Value added: القيمة المضافة

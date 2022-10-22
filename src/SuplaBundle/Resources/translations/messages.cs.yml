@@ -700,7 +700,7 @@ Unsupported function: Nepodporovaná funkce
 Unsupported type: Nepodporavný typ
 Update in progress: Probíhá aktualizace
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Nahrané soubory neporušují dobré chování, autorská práva a práva třetích stran a mám právo je používat.
-'Use the [command] server command to change this account''s limits. For example:': 'Chcete-li změnit limity pro tento účet, použijte příkaz [command] na vašem serveru. Například:'
+'Use the {0} server command to change this account''s limits. For example:': 'Chcete-li změnit limity pro tento účet, použijte příkaz {0} na vašem serveru. Například:'
 Use working schedule for this access identifier: Použijte plán dostupnosti pro tento přístupový identifikátor
 User is already confirmed. Try to log in.: Tento účet je již potvrzen. Přihlaste se.
 Value added: Přidaná hodnota

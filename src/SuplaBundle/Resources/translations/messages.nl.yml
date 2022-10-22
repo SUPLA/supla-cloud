@@ -700,7 +700,7 @@ Unsupported function: Niet-ondersteunde functie
 Unsupported type: Niet-ondersteund type
 Update in progress: Update in uitvoering
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: op het zedelijkheid, het auteursrecht en de rechten van derden en ik heb het recht om ze te gebruiken.
-'Use the [command] server command to change this account''s limits. For example:': 'Om de limieten voor deze account te wijzigen, gebruikt u het [commando] commando op uw server. Bijvoorbeeld:'
+'Use the {0} server command to change this account''s limits. For example:': 'Om de limieten voor deze account te wijzigen, gebruikt u het {0} commando op uw server. Bijvoorbeeld:'
 Use working schedule for this access identifier: Gebruik het beschikbaarheidsschema voor deze toegangsidentificatie
 User is already confirmed. Try to log in.: Dit account is al bevestigd. Log dan in!
 Value added: Toegevoegde waarde

@@ -700,7 +700,7 @@ Unsupported function: Funcție nesuportată
 Unsupported type: Tip nesuportat
 Update in progress: Actualizarea este în curs
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Fișierele încărcate nu încalcă bunele obiceiuri, drepturile de autor și drepturile terților, iar eu am dreptul să le folosesc.
-'Use the [command] server command to change this account''s limits. For example:': 'Pentru a modifica limitele pentru acest cont, utilizați comanda [comandă] de pe serverul dvs. De exemplu:'
+'Use the {0} server command to change this account''s limits. For example:': 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
 Use working schedule for this access identifier: Utilizați un program de disponibilitate pentru acest ID de acces
 User is already confirmed. Try to log in.: Acest cont a fost deja confirmat. Conectați-vă
 Value added: Valoare adăugată

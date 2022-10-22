@@ -701,7 +701,7 @@ Unsupported function: Funzione non supportata
 Unsupported type: Tipo non supportato
 Update in progress: Aggiornamento in corso
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: I file inviati non contengono contenuti inappropriati, non violano i diritti d’autore od i diritti di terzi, ed io ho il diritto di utilizzarli.
-'Use the [command] server command to change this account''s limits. For example:': 'Usa il [command] comando server per cambiare i limiti dell’account. Per esempio:'
+'Use the {0} server command to change this account''s limits. For example:': 'Usa il {0} comando server per cambiare i limiti dell’account. Per esempio:'
 Use working schedule for this access identifier: Usa la pianificazione oraria per questo identificatore dell’accesso
 User is already confirmed. Try to log in.: Questo account è già confermato. Accedi.
 Value added: Valore aggiunto

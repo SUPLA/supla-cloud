@@ -700,7 +700,7 @@ Unsupported function: Неподдерживаемая функция
 Unsupported type: Неподдерживаемый тип
 Update in progress: Идет обновление
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Загруженные файлы не нарушают норм нравственности, авторских прав и прав третьих лиц, и я имею право их использовать.
-'Use the [command] server command to change this account''s limits. For example:': 'Чтобы изменить лимиты для этой учетной записи, используйте команду [command] на вашем сервере. Например:'
+'Use the {0} server command to change this account''s limits. For example:': 'Чтобы изменить лимиты для этой учетной записи, используйте команду {0} на вашем сервере. Например:'
 Use working schedule for this access identifier: Используйте график доступности для этого идентификатора доступа
 User is already confirmed. Try to log in.: Эта учетная запись уже подтверждена. Войдите.
 Value added: Добавленное значение

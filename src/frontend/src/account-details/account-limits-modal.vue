@@ -111,7 +111,9 @@
         <div v-if="showChangingInfo"
             class="alert alert-info my-3">
             <p class="mb-2">
-                <component :is="changingInfoMessage"></component>
+                <i18n path="Use the {0} server command to change this account's limits. For example:">
+                    <code>supla:user:change-limits</code>
+                </i18n>
             </p>
             <pre><code>docker-compose exec -u www-data supla-cloud php bin/console supla:user:change-limits {{ user.email }}</code></pre>
         </div>
@@ -177,11 +179,6 @@
                     return;
                 }
                 return DateTime.fromSeconds(this.limits.apiRateLimit.status.reset).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
-            },
-            changingInfoMessage() {
-                const message = this.$t('Use the [command] server command to change this account\'s limits. For example:')
-                    .replace(/\[(.+?)\]/, '<code>supla:user:change-limits</code>');
-                return {template: `<span>${message}</span>`};
             },
         }
     };

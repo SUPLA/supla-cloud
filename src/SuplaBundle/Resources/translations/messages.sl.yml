@@ -700,7 +700,7 @@ Unsupported function: Nepodprta funkcija
 Unsupported type: Nepodprti tip
 Update in progress: Posodobitev v teku
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Poslane datoteke ne kršijo veljavnih običajev spodobnosti, avtorskih pravic in pravic tretjih oseb, in jaz jih imam pravico uporabljati.
-'Use the [command] server command to change this account''s limits. For example:': 'Če želite spremeniti omejitve za ta račun, uporabite ukaz [command] na svojem strežniku. Na primer:'
+'Use the {0} server command to change this account''s limits. For example:': 'Če želite spremeniti omejitve za ta račun, uporabite ukaz {0} na svojem strežniku. Na primer:'
 Use working schedule for this access identifier: Uporabite urnik razpoložljivost za ta identifikator dostopa
 User is already confirmed. Try to log in.: Ta račun je že potrjen. Prijava
 Value added: Dodana vrednost

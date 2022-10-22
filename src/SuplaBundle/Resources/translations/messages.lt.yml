@@ -700,7 +700,7 @@ Unsupported function: Funkcija nepalaikoma
 Unsupported type: Tipas nepalaikomas
 Update in progress: Vyksta atnaujinimas
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.
-'Use the [command] server command to change this account''s limits. For example:': 'Norėdami pakeisti šios paskyros apribojimus, savo serveryje pasinaudokite komanda [command]. Pavyzdžiui:'
+'Use the {0} server command to change this account''s limits. For example:': 'Norėdami pakeisti šios paskyros apribojimus, savo serveryje pasinaudokite komanda {0}. Pavyzdžiui:'
 Use working schedule for this access identifier: Šiam prieigos identifikatoriui naudoti prieinamumo tvarkaraštį
 User is already confirmed. Try to log in.: Ši paskyra jau patvirtinta. Prisijungti.
 Value added: Reikšmė pridėta
