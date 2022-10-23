@@ -163,15 +163,15 @@ BEGIN
         closing_attempt = NULL,
         last_seen_open = NULL
     WHERE
-        channel_id = _channel_id AND last_seen_open IS NOT NULL AND TIMESTAMPDIFF(MINUTE, last_seen_open, NOW()) >= 4;
+        channel_id = _channel_id AND last_seen_open IS NOT NULL AND TIMESTAMPDIFF(MINUTE, last_seen_open, UTC_TIMESTAMP()) >= 4;
         
     UPDATE
         `supla_auto_gate_closing`
     SET
         seconds_open = IFNULL(seconds_open, 0) + IFNULL(
-            UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(last_seen_open),
+            UNIX_TIMESTAMP(UTC_TIMESTAMP()) - UNIX_TIMESTAMP(last_seen_open),
             0),
-            last_seen_open = NOW()
+            last_seen_open = UTC_TIMESTAMP()
         WHERE
             channel_id = _channel_id;
       
@@ -193,7 +193,7 @@ CREATE PROCEDURE `supla_set_closing_attempt`(IN `_channel_id` INT)
     UPDATE
         `supla_auto_gate_closing`
     SET
-        closing_attempt = NOW()
+        closing_attempt = UTC_TIMESTAMP()
     WHERE
         channel_id = _channel_id
 VIEW;
