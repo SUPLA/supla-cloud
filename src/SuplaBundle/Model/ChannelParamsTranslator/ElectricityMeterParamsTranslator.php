@@ -19,6 +19,9 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="currency", type="string"),
  *     @OA\Property(property="electricityMeterInitialValues", type="object"),
  *     @OA\Property(property="relatedChannelId", type="integer"),
+ *     @OA\Property(property="addToHistory", type="boolean"),
+ *     @OA\Property(property="lowerVoltageThreshold", type="number"),
+ *     @OA\Property(property="upperVoltageThreshold", type="number"),
  * )
  */
 class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
