@@ -62,7 +62,7 @@ class GateClosingRule {
      * @ORM\Column(name="max_time_open", type="integer")
      * @Groups({"basic"})
      */
-    private $maxTimeOpen;
+    private $maxTimeOpen = 0;
 
     /**
      * @ORM\Column(name="seconds_open", type="integer", nullable=true)
@@ -87,8 +87,17 @@ class GateClosingRule {
 
     private $activeNow;
 
+    public function __construct(IODeviceChannel $channel) {
+        $this->channel = $channel;
+        $this->user = $channel->getUser();
+    }
+
     public function getMaxTimeOpen(): int {
         return $this->maxTimeOpen;
+    }
+
+    public function setMaxTimeOpen(int $maxTimeOpen): void {
+        $this->maxTimeOpen = $maxTimeOpen;
     }
 
     public function getActiveFrom(): ?\DateTime {
@@ -122,5 +131,13 @@ class GateClosingRule {
 
     public function setActiveNow(bool $activeNow): void {
         $this->activeNow = $activeNow;
+    }
+
+    public function isEnabled(): bool {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled) {
+        $this->enabled = $enabled;
     }
 }

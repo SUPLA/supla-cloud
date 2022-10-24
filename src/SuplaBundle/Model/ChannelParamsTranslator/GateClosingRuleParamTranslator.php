@@ -1,0 +1,59 @@
+<?php
+
+namespace SuplaBundle\Model\ChannelParamsTranslator;
+
+use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\GateClosingRule;
+use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Repository\GateClosingRuleRepository;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+class GateClosingRuleParamTranslator implements ChannelParamTranslator {
+    use FixedRangeParamsTranslator;
+
+    /** @var EntityManagerInterface */
+    private $entityManager;
+    /** @var GateClosingRuleRepository */
+    private $repository;
+    /** @var NormalizerInterface */
+    private $normalizer;
+
+    public function __construct(EntityManagerInterface $entityManager, NormalizerInterface $normalizer) {
+        $this->entityManager = $entityManager;
+        $this->repository = $entityManager->getRepository(GateClosingRule::class);
+        $this->normalizer = $normalizer;
+    }
+
+    public function getConfigFromParams(IODeviceChannel $channel): array {
+        $rule = $this->repository->find($channel->getId());
+        return ['gateClosingRule' => $this->normalizer->normalize($rule)];
+    }
+
+    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+        $ruleConfig = $config['gateClosingRule'] ?? [];
+        if ($ruleConfig) {
+            /** @var GateClosingRule $rule */
+            $rule = $this->repository->find($channel->getId());
+            if (!$rule) {
+                $rule = new GateClosingRule($channel);
+            }
+            if (array_key_exists('enabled', $ruleConfig)) {
+                $rule->setEnabled(boolval($ruleConfig['enabled']));
+            }
+            if (array_key_exists('maxTimeOpen', $ruleConfig)) {
+                $rule->setMaxTimeOpen(intval($this->getValueInRange($ruleConfig['maxTimeOpen'], 5, 3600)));
+            }
+            if ($rule->getMaxTimeOpen()) {
+                $this->entityManager->persist($rule);
+            }
+        }
+    }
+
+    public function supports(IODeviceChannel $channel): bool {
+        return in_array($channel->getFunction()->getId(), [
+            ChannelFunction::CONTROLLINGTHEGATE,
+            ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
+        ]);
+    }
+}
