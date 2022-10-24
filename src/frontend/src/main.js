@@ -91,6 +91,11 @@ Vue.http.get('server-info')
                 for (const transformer in requestTransformers) {
                     Vue.http.interceptors.push(requestTransformers[transformer]);
                 }
+            } else {
+                // eslint-disable-next-line no-console
+                console.warn('App container #vue-container could not be found.');
             }
         });
-    });
+    })
+    // eslint-disable-next-line no-console
+    .catch((error) => console.warn(error));

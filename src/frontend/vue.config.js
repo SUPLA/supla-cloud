@@ -13,6 +13,13 @@ module.exports = {
         proxy: 'http://supla.local'
     },
     configureWebpack: {
+        // this module contains tempate compiler that is required for server-rendered pages to work,
+        // i.e. OAuth login form or direct links execution results
+        resolve: {
+            alias: {
+                'vue$': 'vue/dist/vue.esm.js'
+            }
+        },
         plugins: [
             new webpack.ProvidePlugin({
                 jQuery: 'jquery',
