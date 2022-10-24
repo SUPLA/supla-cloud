@@ -3,7 +3,6 @@
 namespace Supla\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Schema\Schema;
 
 /**
  * 1.Rename the function supla_is_access_id_now_active to supla_is_now_active + Modify dependent view
@@ -89,7 +88,7 @@ VIEW;
 CREATE TABLE `supla_auto_gate_closing`(
     `channel_id` INT(11) NOT NULL,
     `user_id` INT(11) NOT NULL,
-    `enabled` TINYINT(1) DEFAULT \'0\' NOT NULL,
+    `enabled` TINYINT(1) DEFAULT '0' NOT NULL,
     `active_from` DATE DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `active_to` date DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `active_hours` varchar(768) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,

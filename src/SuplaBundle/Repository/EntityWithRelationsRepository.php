@@ -7,11 +7,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
+use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class EntityWithRelationsRepository extends EntityRepository {
     protected $alias;
+    protected $pkColumn = 'id';
 
     public function find($id, $lockMode = null, $lockVersion = null) {
         if (is_array($id)) {
@@ -19,7 +21,7 @@ abstract class EntityWithRelationsRepository extends EntityRepository {
             Assertion::notNull($id, 'Invalid ID given.');
         }
         $query = $this->getEntityWithRelationsCountQuery()
-            ->where($this->alias . '.id = :id')
+            ->where($this->alias . ".$this->pkColumn = :id")
             ->setParameter('id', $id)
             ->getQuery();
         try {
@@ -62,7 +64,9 @@ abstract class EntityWithRelationsRepository extends EntityRepository {
     public function hydrateRelationsQueryResult(array $result) {
         $entity = $result['entity'];
         unset($result['entity']);
-        $entity->setRelationsCount(array_map('intval', $result));
+        if ($entity instanceof HasRelationsCount) {
+            $entity->setRelationsCount(array_map('intval', $result));
+        }
         return $entity;
     }
 

@@ -1,0 +1,28 @@
+<?php
+namespace SuplaBundle\Repository;
+
+use Doctrine\ORM\QueryBuilder;
+use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Entity\GateClosingRule;
+use SuplaBundle\Entity\User;
+
+class GateClosingRuleRepository extends EntityWithRelationsRepository {
+    protected $alias = 'gcr';
+    protected $pkColumn = 'channel';
+
+    protected function getEntityWithRelationsCountQuery(): QueryBuilder {
+        return $this->_em->createQueryBuilder()
+            ->addSelect('gcr entity')
+            ->addSelect('supla_is_now_active(gcr.activeFrom, gcr.activeTo, gcr.activeHours, u.timezone) isNowActive')
+            ->from(GateClosingRule::class, 'gcr')
+            ->innerJoin(User::class, 'u');
+//            ->groupBy('gcr.channel, u.timezone');
+    }
+
+    public function hydrateRelationsQueryResult(array $result) {
+        /** @var AccessID $entity */
+        $entity = parent::hydrateRelationsQueryResult($result);
+        $entity->setActiveNow(!!$result['isNowActive']);
+        return $entity;
+    }
+}

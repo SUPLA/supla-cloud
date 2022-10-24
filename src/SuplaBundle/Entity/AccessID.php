@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Entity;
 
-use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -178,39 +177,11 @@ class AccessID implements HasRelationsCount {
     }
 
     public function getActiveHours(): ?array {
-        if ($this->activeHours) {
-            $defs = explode(',', $this->activeHours);
-            $activeHours = [];
-            foreach ($defs as $def) {
-                if ($def) {
-                    $weekday = intval(((string)$def)[0]);
-                    $hour = intval(substr((string)$def, 1));
-                    $activeHours[$weekday][] = $hour;
-                }
-            }
-            return $activeHours;
-        } else {
-            return null;
-        }
+        return ActiveHours::fromString($this->activeHours)->toArray();
     }
 
     public function setActiveHours(?array $activeHours): void {
-        $this->activeHours = null;
-        if ($activeHours) {
-            $databaseRepresentation = [];
-            foreach ($activeHours as $weekday => $hours) {
-                Assertion::between($weekday, 1, 7, 'Weekday must be between 1 and 7.');
-                Assertion::isArray($hours);
-                Assertion::allBetween($hours, 0, 23, 'All hours should be between 0 and 23.');
-                $hours = array_map(function ($hour) use ($weekday) {
-                    return $weekday . $hour;
-                }, array_unique($hours));
-                $databaseRepresentation = array_merge($databaseRepresentation, $hours);
-            }
-            if ($databaseRepresentation) {
-                $this->activeHours = ',' . implode(',', $databaseRepresentation) . ',';
-            }
-        }
+        $this->activeHours = ActiveHours::fromArray($activeHours)->toString();
     }
 
     /**

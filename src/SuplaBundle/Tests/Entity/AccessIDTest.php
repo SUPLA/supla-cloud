@@ -36,12 +36,6 @@ class AccessIDTest extends TestCase {
         ];
     }
 
-    public function testSetActiveHoursDuplicates() {
-        $accessId = new AccessID();
-        $accessId->setActiveHours([1 => [11, 11]]);
-        $this->assertEquals([1 => [11]], $accessId->getActiveHours());
-    }
-
     public function testDatabaseRepresentation() {
         $accessId = new AccessID();
         $accessId->setActiveHours([1 => [22], 6 => [23, 0, 4]]);
@@ -53,33 +47,5 @@ class AccessIDTest extends TestCase {
         $accessId = new AccessID();
         $accessId->setActiveHours(null);
         $this->assertNull($accessId->getActiveHours());
-    }
-
-    public function testSetActiveHoursToEmptyArray() {
-        $accessId = new AccessID();
-        $accessId->setActiveHours([]);
-        $this->assertNull($accessId->getActiveHours());
-    }
-
-    public function testSetActiveHoursToEmptyDef() {
-        $accessId = new AccessID();
-        $accessId->setActiveHours([1 => []]);
-        $this->assertNull($accessId->getActiveHours());
-    }
-
-    /** @dataProvider invalidActiveHours */
-    public function testSetInvalidActiveHours($invalidActiveHours) {
-        $this->expectException(\InvalidArgumentException::class);
-        $accessId = new AccessID();
-        $accessId->setActiveHours($invalidActiveHours);
-    }
-
-    public function invalidActiveHours() {
-        return [
-            [[1]],
-            [[1 => 22]],
-            [[1 => [24]]],
-            [[8 => [22]]],
-        ];
     }
 }

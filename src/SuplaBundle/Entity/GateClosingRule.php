@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\GateClosingRuleRepository")
  * @ORM\Table(name="supla_auto_gate_closing")
  */
 class GateClosingRule {
@@ -66,25 +66,61 @@ class GateClosingRule {
 
     /**
      * @ORM\Column(name="seconds_open", type="integer", nullable=true)
-     * @Groups({"basic"})
      */
     private $secondsOpen;
 
     /**
      * @ORM\Column(name="closing_attempt", type="utcdatetime", nullable=true)
-     * @Groups({"basic"})
      */
     private $closingAttempt;
 
     /**
      * @ORM\Column(name="last_seen_open", type="utcdatetime", nullable=true)
-     * @Groups({"basic"})
      */
     private $lastSeenOpen;
+
+    /**
+     * @ORM\Column(name="enabled", type="boolean", nullable=false, options={"default"=0})
+     * @Groups({"basic"})
+     */
+    private $enabled = false;
 
     private $activeNow;
 
     public function getMaxTimeOpen(): int {
         return $this->maxTimeOpen;
+    }
+
+    public function getActiveFrom(): ?\DateTime {
+        return $this->activeFrom;
+    }
+
+    public function setActiveFrom(?\DateTime $activeFrom): void {
+        $this->activeFrom = $activeFrom;
+    }
+
+    public function getActiveTo(): ?\DateTime {
+        return $this->activeTo;
+    }
+
+    public function setActiveTo(?\DateTime $activeTo): void {
+        $this->activeTo = $activeTo;
+    }
+
+    public function getActiveHours(): ?array {
+        return ActiveHours::fromString($this->activeHours)->toArray();
+    }
+
+    public function setActiveHours(?array $activeHours): void {
+        $this->activeHours = ActiveHours::fromArray($activeHours)->toString();
+    }
+
+    /** @Groups({"basic"}) */
+    public function isActiveNow(): ?bool {
+        return $this->activeNow;
+    }
+
+    public function setActiveNow(bool $activeNow): void {
+        $this->activeNow = $activeNow;
     }
 }
