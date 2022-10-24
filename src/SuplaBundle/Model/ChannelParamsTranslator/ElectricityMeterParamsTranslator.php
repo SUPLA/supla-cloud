@@ -32,6 +32,8 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             'countersAvailable' => ($channel->getProperties()['countersAvailable'] ?? []) ?: [],
             'electricityMeterInitialValues' => new JsonArrayObject($channel->getUserConfig()['electricityMeterInitialValues'] ?? []),
             'addToHistory' => $channel->getUserConfigValue('addToHistory', false),
+            'lowerVoltageThreshold' => $channel->getUserConfigValue('lowerVoltageThreshold'),
+            'upperVoltageThreshold' => $channel->getUserConfigValue('upperVoltageThreshold'),
         ];
     }
 
@@ -59,6 +61,19 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
         }
         if (array_key_exists('addToHistory', $config)) {
             $channel->setUserConfigValue('addToHistory', boolval($config['addToHistory']));
+        }
+        if (array_key_exists('lowerVoltageThreshold', $config)) {
+            $threshold = $config['lowerVoltageThreshold'] ? $this->getValueInRange($config['lowerVoltageThreshold'], 5, 240) : null;
+            $channel->setUserConfigValue('lowerVoltageThreshold', $threshold);
+        }
+        if (array_key_exists('upperVoltageThreshold', $config)) {
+            $threshold = $config['upperVoltageThreshold'] ? $this->getValueInRange($config['upperVoltageThreshold'], 10, 500) : null;
+            $channel->setUserConfigValue('upperVoltageThreshold', $threshold);
+        }
+        $lowerVoltageThreshold = $channel->getUserConfigValue('lowerVoltageThreshold');
+        $upperVoltageThreshold = $channel->getUserConfigValue('upperVoltageThreshold');
+        if ($lowerVoltageThreshold && $upperVoltageThreshold) {
+            Assertion::lessThan($lowerVoltageThreshold, $upperVoltageThreshold);
         }
     }
 
