@@ -2,11 +2,13 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\GateClosingRule;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Repository\GateClosingRuleRepository;
+use SuplaBundle\Utils\JsonArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class GateClosingRuleParamTranslator implements ChannelParamTranslator {
@@ -27,7 +29,8 @@ class GateClosingRuleParamTranslator implements ChannelParamTranslator {
 
     public function getConfigFromParams(IODeviceChannel $channel): array {
         $rule = $this->repository->find($channel->getId());
-        return ['gateClosingRule' => $this->normalizer->normalize($rule)];
+        $closingRuleConfig = $rule ? $this->normalizer->normalize($rule) : new JsonArrayObject([]);
+        return ['gateClosingRule' => $closingRuleConfig];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
@@ -43,6 +46,10 @@ class GateClosingRuleParamTranslator implements ChannelParamTranslator {
             }
             if (array_key_exists('maxTimeOpen', $ruleConfig)) {
                 $rule->setMaxTimeOpen(intval($this->getValueInRange($ruleConfig['maxTimeOpen'], 5, 3600)));
+            }
+            if (array_key_exists('activeHours', $ruleConfig)) {
+                Assertion::isArray($ruleConfig['activeHours']);
+                $rule->setActiveHours($ruleConfig['activeHours']);
             }
             if ($rule->getMaxTimeOpen()) {
                 $this->entityManager->persist($rule);

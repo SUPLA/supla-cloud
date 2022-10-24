@@ -85,4 +85,16 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
         $this->assertFalse($config['gateClosingRule']['enabled']);
         $this->assertEquals(10, $config['gateClosingRule']['maxTimeOpen']);
     }
+
+    /** @depends testSettingMaxTimeOpen */
+    public function testSettingActiveHours() {
+        $this->paramsTranslator->setParamsFromConfig($this->gate, ['gateClosingRule' => ['activeHours' => [2 => [2, 3, 4]]]]);
+        $this->getEntityManager()->flush();
+        $rule = $this->ruleRepository->find($this->gate->getId());
+        $this->assertNotNull($rule);
+        $this->assertFalse($rule->isEnabled());
+        $this->assertEquals(10, $rule->getMaxTimeOpen());
+        $this->assertNotNull($rule->getActiveHours());
+        $this->assertEquals([2 => [2, 3, 4]], $rule->getActiveHours());
+    }
 }
