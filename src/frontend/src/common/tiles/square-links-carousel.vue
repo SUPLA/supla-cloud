@@ -123,22 +123,23 @@
 
     @mixin carousel-navigation-below {
         .VueCarousel {
+            .VueCarousel-navigation {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 5px;
+                margin-top: -5px;
+                margin-bottom: 10px;
+            }
             .VueCarousel-navigation-button {
                 position: static !important;
                 top: initial;
-                height: 25px;
-                width: 25px;
+                height: auto;
+                width: auto;
                 margin: 0 !important;
                 padding: 0 !important;
                 background: transparent;
                 color: $supla-grey-dark !important;
                 transform: none !important;
-                &.VueCarousel-navigation-prev {
-                    float: left;
-                }
-                &.VueCarousel-navigation-next {
-                    float: right;
-                }
             }
         }
     }

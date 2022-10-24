@@ -34,6 +34,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaDeveloperBundle\DataFixtures\ORM\LogItemsFixture;
 
 /** @small */
 class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCase {
@@ -127,6 +128,11 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $this->getEntityManager()->persist($logItem);
             $date->add($oneday);
         }
+
+        $fixture = new LogItemsFixture();
+        EntityUtils::setField($fixture, 'entityManager', $this->getEntityManager());
+        $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-1 day');
+        $this->getEntityManager()->flush();
     }
 
     protected function initializeDatabaseForTests() {
@@ -786,5 +792,51 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $testItem = $content[3];
         $expectedRow = "$testItem[date_timestamp],\"" . date('Y-m-d H:i:s', $testItem['date_timestamp']) . "\",$testItem[temperature]\n";
         $this->assertStringContainsString($expectedRow, $csv);
+    }
+
+    public function testGettingVoltageLogsFromNotSupportedDevice() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=voltage");
+        $response = $client->getResponse();
+        $this->assertStatusCode('400', $response);
+    }
+
+    public function testGettingUnsupportedLogsType() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=unicorn");
+        $response = $client->getResponse();
+        $this->assertStatusCode('400', $response);
+    }
+
+    public function testSettingLogsTypeToDefault() {
+        $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=default");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+    }
+
+    public function testGettingVoltageLogs() {
+        $channelId = $this->device1->getChannels()[3]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=voltage");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertGreaterThan(0, count($content));
+        $log = $content[0];
+        $this->assertArrayHasKey('phaseNo', $log);
+        $this->assertArrayHasKey('countTotal', $log);
+        $this->assertSame($log['countTotal'], intval($log['countTotal']));
+        $this->assertArrayHasKey('countAbove', $log);
+        $this->assertArrayHasKey('secBelow', $log);
+        $this->assertArrayHasKey('maxSecAbove', $log);
+        $this->assertArrayHasKey('minVoltage', $log);
+        $this->assertArrayHasKey('avgVoltage', $log);
+        $this->assertArrayHasKey('measurementTimeSec', $log);
+        $this->assertSame($log['avgVoltage'], floatval($log['avgVoltage']));
+        $this->assertNotSame($log['avgVoltage'], intval($log['avgVoltage']));
     }
 }

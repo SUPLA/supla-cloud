@@ -81,12 +81,18 @@
 
                                 <div class="text-right mt-3 small"
                                     v-if="!isBusy">
-                                    <component v-if="unregister"
-                                        :is="registerText"
-                                        @click="unregister = false"></component>
-                                    <component v-else
-                                        :is="unregisterText"
-                                        @click="unregister = true"></component>
+                                    <i18n path="If you wish to register your instance, {clickHereLink}."
+                                        v-if="unregister">
+                                        <template #clickHereLink>
+                                            <a @click.prevent="unregister = false">{{ $t('click here') }}</a>
+                                        </template>
+                                    </i18n>
+                                    <i18n path="If you wish to unregister your instance, {clickHereLink}."
+                                        v-else>
+                                        <template #clickHereLink>
+                                            <a @click.prevent="unregister = true">{{ $t('click here') }}</a>
+                                        </template>
+                                    </i18n>
                                 </div>
 
                             </form>
@@ -119,7 +125,7 @@
                 targetCloud: '',
                 isBusy: false,
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
-                error: Vue.config.external.actAsBrokerCloud ? 0 : 404,
+                error: false, //Vue.config.external.actAsBrokerCloud ? 0 : 404,
                 regulationsAgreed: false,
                 errorMessage: '',
                 token: undefined,
@@ -146,16 +152,6 @@
             },
             tokenCommand() {
                 return `docker exec -it -u www-data supla-cloud php bin/console supla:register-target-cloud ${this.token}`;
-            },
-            unregisterText() {
-                const template = this.$t('If you wish to unregister your instance, [click here].')
-                    .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
-                return {template: `<span>${template}</span>`};
-            },
-            registerText() {
-                const template = this.$t('If you wish to register your instance, [click here].')
-                    .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
-                return {template: `<span>${template}</span>`};
             },
         },
         methods: {

@@ -8,7 +8,6 @@
       <option name="KEEP_SINGLE_LINE_BLOCKS" value="true" />
     </CssCodeStyleSettings>
     <HTMLCodeStyleSettings>
-      <option name="HTML_ATTRIBUTE_WRAP" value="2" />
       <option name="HTML_TEXT_WRAP" value="0" />
       <option name="HTML_ALIGN_ATTRIBUTES" value="false" />
       <option name="HTML_ELEMENTS_TO_INSERT_NEW_LINE_BEFORE" value="body" />

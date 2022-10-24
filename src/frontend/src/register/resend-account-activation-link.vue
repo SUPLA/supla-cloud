@@ -1,9 +1,12 @@
 <template>
     <div>
         <button-loading-dots v-if="loading"></button-loading-dots>
-        <component v-else-if="!success && !error"
-            :is="resendHelpText"
-            @click="resendActivationLink()"></component>
+        <i18n path="Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend."
+            v-else-if="!success && !error">
+            <template #clickHereLink>
+                <a @click="resendActivationLink()">{{ $t('click here') }}</a>
+            </template>
+        </i18n>
         <span v-else-if="error">
             {{ $t(error) }}
         </span>
@@ -26,13 +29,6 @@
                 success: false,
                 error: ''
             };
-        },
-        computed: {
-            resendHelpText() {
-                const template = this.$t('Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.')
-                    .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
-                return {template: `<span>${template}</span>`};
-            }
         },
         methods: {
             resendActivationLink() {

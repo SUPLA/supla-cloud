@@ -19,8 +19,9 @@
 <script>
     import Vue from "vue";
     import "@/common/bootstrap-select";
-    import moment from "moment";
     import $ from "jquery";
+    import {DateTime, Settings} from "luxon";
+    import TIMEZONES_LIST from "./timezones-list.json";
 
     export default {
         props: ['timezone'],
@@ -33,7 +34,7 @@
         },
         methods: {
             updateTimezone() {
-                moment.tz.setDefault(this.chosenTimezone);
+                Settings.defaultZone = this.chosenTimezone;
                 this.$http.patch('users/current', {timezone: this.chosenTimezone, action: 'change:userTimezone'});
             },
             initSelectPicker() {
@@ -42,13 +43,11 @@
         },
         computed: {
             availableTimezones() {
-                return moment.tz.names().filter(function (timezone) {
-                    return timezone.match(/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific|UTC)\//);
-                }).map(function (timezone) {
+                return TIMEZONES_LIST.map(function (timezone) {
                     return {
                         name: timezone,
-                        offset: moment.tz(timezone).utcOffset() / 60,
-                        currentTime: moment.tz(timezone).format('H:mm')
+                        offset: DateTime.now().setZone(timezone).offset / 60,
+                        currentTime: DateTime.now().setZone(timezone).toLocaleString(DateTime.TIME_SIMPLE),
                     };
                 }).sort(function (timezone1, timezone2) {
                     if (timezone1.offset == timezone2.offset) {

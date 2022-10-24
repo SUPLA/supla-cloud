@@ -1,18 +1,15 @@
 import $ from "jquery";
-import moment from "moment";
 import "bootstrap";
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
 import {i18n, setGuiLocale} from './locale';
 import router from './router';
-import VueMoment from "vue-moment";
 import VueResource from "vue-resource";
 import vMediaQuery from 'v-media-query';
 import VTooltip from 'v-tooltip';
 import ResponseErrorInterceptor from "./common/http/response-error-interceptor";
 import * as requestTransformers from "./common/http/transformers";
-import "moment-timezone";
 import "./common/common-components";
 import "./common/common-directives";
 import "./common/filters";
@@ -22,8 +19,8 @@ import {CurrentUser} from "./login/current-user";
 import {LocalStorageWithMemoryFallback} from "./common/local-storage";
 import App from "./App";
 import EventBus from "./common/event-bus";
+import {DateTime, Settings} from 'luxon';
 
-Vue.use(VueMoment, {moment});
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 Vue.use(VTooltip);
@@ -53,9 +50,9 @@ Vue.http.get('server-info')
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }
-        const serverTime = moment(info.time).toDate();
+        const serverTime = DateTime.fromISO(info.time).toJSDate();
         const offset = serverTime.getTime() - renderStart.getTime();
-        moment.now = function () {
+        Settings.now = function () {
             return Date.now() + offset;
         };
         Vue.prototype.$user = new CurrentUser();

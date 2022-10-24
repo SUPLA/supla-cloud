@@ -3,11 +3,11 @@
 '%s trigger is not supported by the hardware.': Az eseményindító az eszköz által nem támogatott.
 ...and start your adventure with building automation today!: ... és kezdje el kalandját intelligens épületekkel már ma!
 ...open and shut roller shutters: ... felhúzni és lehúzni a redőnyöket
-'...open gateways, gates or doors': '...kinyitni a kiskaput, a nagykaput vagy az ajtót'
+...open gateways, gates or doors: ...kinyitni a kiskaput, a nagykaput vagy az ajtót
 ...or control home appliances: ... vagy háztartási készülékeket / elektronikát működtethet
 ...you can monitor temperature: ... megfigyelheti a hőmérsékletet
-'10 minutes before sunset, on day 10 of the month, May through August': '10 perccel napnyugta előtt, májustól augusztusig csak a hónap 10. napján'
-'15 minutes after sunrise, every 2 days': '15 perccel napfelkelte után, minden második nap'
+10 minutes before sunset, on day 10 of the month, May through August: 10 perccel napnyugta előtt, májustól augusztusig csak a hónap 10. napján
+15 minutes after sunrise, every 2 days: 15 perccel napfelkelte után, minden második nap
 A confirmation upon successful client app registration.: Az új ügyfélalkalmazás regisztrációjának megerősítése.
 A confirmation upon successful device registration.: A készülék sikeres regisztrációjának megerősítése.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Új ügyfélalkalmazás (okostelefon) került hozzáadásra a SUPLA-felhő fiókjához.
@@ -26,7 +26,7 @@ Access Identifiers: Hozzáférési azonosítók
 Access identifier limit has been exceeded: A hozzáférési azonosítás korlátozása túllépve
 Access to all of your devices through MQTT Broker: Hozzáférés az összes eszközéhez az MQTT Broker-en keresztül
 Account: Felhasznalói fiók
-Account access when you are unavailable: 'Hozzáférés a fiókhoz, ha nem  elérhető'
+Account access when you are unavailable: Hozzáférés a fiókhoz, ha nem  elérhető
 Account has been activated. You can Sign In now.: A fiók aktiválva lett. A bejelentkezés megengedett.
 Action execution: Műveletek végrehajtása
 Action trigger: Eseményindító
@@ -44,37 +44,36 @@ Add new channel group: Új csatornacsoport hozzáadása
 Add new channel to this group: Új csatorna hozzáadása a csoporthoz
 Add new item to use in the scene: Új elem hozzáadása a jelenethez
 Adjust parameters: Állítsa be a paramétereket
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Minden csatorna és csatornacsoport, amely ezt az ikont használja, az alapértelmezett ikonokat kapja eltávolításukkor.'
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'A hozzáférés megadása után bármikor meggondolhatja magát úgy, hogy visszavonja a hozzáférést a fiókbeállításokban.'
-'After the device enters the configuration mode, it will not be accessible on your account.': Az eszköz fiókjából nem lesz elérhető a konfigurációs módba lépés után.
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'A frissítés után az alkalmazás gyorsabb, kényelmesebb.... Egyszerűen jobb lesz!'
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': A művelet után a számláló a jelenlegi állapotától függetlenül 0-ról indul. A művelet nem visszavonható.
-'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': 'A link közvetlenül az entitás kiválasztása után jön létre. Az összes többi lehetőséget megadhatja, miután az entitást létrehozta.'
-'channelConfigHelp_numberOfAttemptsGate': 'Miután a kapu nyitási vagy zárási parancsát elrendelte, a rendszer megkísérli a kapu zárását/nyitását, és 60 másodpercig várakozik, hogy ellenőrizhesse, a kapu a kívánt állapotba került-e. Hiba esetén a rendszer újra megkisérli a művelet végrehajtását. Az alábbi paraméterrel lehet meghatározni a próbálkozások számát. Az ajánlott érték 5. A paraméter módosítása nincs hatással az ütemtervre.'
+After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Minden csatorna és csatornacsoport, amely ezt az ikont használja, az alapértelmezett ikonokat kapja eltávolításukkor.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: A hozzáférés megadása után bármikor meggondolhatja magát úgy, hogy visszavonja a hozzáférést a fiókbeállításokban.
+After the device enters the configuration mode, it will not be accessible on your account.: Az eszköz fiókjából nem lesz elérhető a konfigurációs módba lépés után.
+After the update, the application will be faster, more comfortable, more powerful... Just better!: A frissítés után az alkalmazás gyorsabb, kényelmesebb.... Egyszerűen jobb lesz!
+After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: A művelet után a számláló a jelenlegi állapotától függetlenül 0-ról indul. A művelet nem visszavonható.
+After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: A link közvetlenül az entitás kiválasztása után jön létre. Az összes többi lehetőséget megadhatja, miután az entitást létrehozta.
 All: Minden
-All the above and many more can be done from your phone or tablet: 'Mindezt és még sok mást, megtehet okostelefonon vagy táblagépen'
+All the above and many more can be done from your phone or tablet: Mindezt és még sok mást, megtehet okostelefonon vagy táblagépen
 Allowed actions: Megengedett műveletek
 Allows to perform an action only using the HTTP PATCH request.: Lehetővé teszi a műveletek végrehajtását csak a HTTP PATCH kéréssel.
-'Alternatively, you can add a GET parameter to specify response format.': A válasz formátumának megadásához egy GET paramétert is megadhat.
+Alternatively, you can add a GET parameter to specify response format.: A válasz formátumának megadásához egy GET paramétert is megadhat.
 And more: És még sok más
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Az összes alkalmazás vagy eszköz, amely a {tokenName} tokent használja, nem fog működni.'
+Any application or device that uses the {tokenName} token will not work anymore.: Az összes alkalmazás vagy eszköz, amely a {tokenName} tokent használja, nem fog működni.
 'App version: %clientAppSoftwareVersion%': 'Az alkalmazás verziója: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Az alkalmazás neve nem lehet üres
 Application requirements: Alkalmazási követelmények
 Applications: Alkalmazások
 Are you lost?: Eltévedt? Keres valamit?
 Are you sure you want to change channel’s function?: Biztosan meg akarja változtatni a csatorna funkciót?
-Are you sure you want to delete the entire measurement history saved for this channel?: 'Biztos benne, hogy törli ezen a csatornán összesített mérési előzményeit?'
+Are you sure you want to delete the entire measurement history saved for this channel?: Biztos benne, hogy törli ezen a csatornán összesített mérési előzményeit?
 Are you sure you want to delete this OAuth application?: Biztosan törli az OAuth alkalmazást?
 Are you sure you want to delete this channel group?: Biztosan törölni akarja ezt a csatorna csoportot?
 Are you sure you want to delete this client?: Biztosan törli ezt az ügyfélalkalmazást?
 Are you sure you want to delete this direct link?: Biztosan törli ezt a közvetlen linket?
 Are you sure you want to delete this icon?: Biztosan törli ezt az ikont?
-Are you sure you want to delete this scene?: 'Biztos, hogy törölni akarja ezt a képernyőt?'
+Are you sure you want to delete this scene?: Biztos, hogy törölni akarja ezt a képernyőt?
 Are you sure you want to delete this schedule?: Biztosan törli ezt az ütemtervet?
-Are you sure you want to reset the counter state?: 'Biztos, hogy vissza akarja állítani a mérőórát?'
+Are you sure you want to reset the counter state?: Biztos, hogy vissza akarja állítani a mérőórát?
 Are you sure you want to revoke permissions granted to this OAuth application?: Biztosan visszavonja az OAuth alkalmazás számára biztosított engedélyeket?
-Are you sure you want to revoke this token?: 'Biztos benne, hogy visszavonja a tokent?'
+Are you sure you want to revoke this token?: Biztos benne, hogy visszavonja a tokent?
 Are you sure?: Biztosan ezt szeretné?
 As in device: Mint a készülékben
 Assign Access Identifiers: Rendelje hozzá  a hozzáférési azonosítókat
@@ -82,15 +81,15 @@ Assign Client apps: Rendelje hozzá az ügyfélalkalmazásokat
 Assign Locations: Lokálizáció hozzárendelése
 Associated measured channel: Kapcsolódó vezérlőcsatorna
 Associated measurement channel: Kapcsolódó mérési csatorna
-'At 05:45 PM, on the last day of the month': 'a hónap utolsó napján 5:45-kor'
-'At 11:30 AM, on the third Wednesday of the month': '11:30-kor a hónap harmadik szerdáján'
-At every 5th minute on day-of-month 30 in May: '5 percenként, a hónap 30. napján, csak májusban'
+At 05:45 PM, on the last day of the month: a hónap utolsó napján 5:45-kor
+At 11:30 AM, on the third Wednesday of the month: 11:30-kor a hónap harmadik szerdáján
+At every 5th minute on day-of-month 30 in May: 5 percenként, a hónap 30. napján, csak májusban
 At specified time: A megadott időpontban
 At sunrise: napfelkeltekor
-'At sunrise, Monday through Friday': 'napfelkeltekor, hétfőtől péntekig'
+At sunrise, Monday through Friday: napfelkeltekor, hétfőtől péntekig
 At sunset: naplementekor
 Authorization callback URLs (one per line): Visszatérési engedély URL (soronként egy)
-'Authorize the application, so that it can access your account.': 'Hitelesítse az alkalmazást, hogy hozzáférhessen a fiókjához.'
+Authorize the application, so that it can access your account.: Hitelesítse az alkalmazást, hogy hozzáférhessen a fiókjához.
 Authorized: Hitelesített
 Authorized OAuth apps: Engedélyezett OAuth alkalmazások
 Automatic calibration: Automatikus kalibrálás
@@ -115,8 +114,8 @@ Cancelled: Visszavont
 Cannot calculate when to run the schedule - incorrect configuration?: Nem sikerült kiszámítani az ütemezés kezdeti dátumát - helytelen konfiguráció?
 Cannot change the channel function right now.: Jelenleg nem lehet megváltoztatni a csatorna funkcióját.
 Cannot delete this I/O Device right now.: Ezt az eszközt jelenleg nem lehet törölni.
-Cannot execute an action when the device is disconnected.: 'Nem végezhet műveleteket, ha az eszköz ki van kapcsolva.'
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Nem érkezett meg a fiókaktiválási linket tartalmazó üzenet? Győződjön meg róla, hogy nem került a SPAM (kéretlen levelek) mappába. Az újraküldéshez kattintson a gombra [itt].'
+Cannot execute an action when the device is disconnected.: Nem végezhet műveleteket, ha az eszköz ki van kapcsolva.
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nem érkezett meg a fiókaktiválási linket tartalmazó üzenet? Győződjön meg róla, hogy nem került a SPAM (kéretlen levelek) mappába. Az újraküldéshez kattintson a gombra {clickHereLink}.
 Captcha token is not valid.: Érvénytelen captcha.
 Caption: Aláírás
 Caption is too long.: Túl hosszú név.
@@ -144,7 +143,7 @@ Channels: Csatornák
 Channels groups are not supported for this function.: A funkció nem támogatja a csatornacsoportokat.
 Chart data source type: Adatforrás típusa
 Chart type: Diagram típusa
-Check the direct link you used and try again.: 'Ellenőrizze a hívott közvetlen linket, és próbálja újra.'
+Check the direct link you used and try again.: Ellenőrizze a hívott közvetlen linket, és próbálja újra.
 Check your email box: Ellenőrizze az e-mail postafiókját
 Check your email inbox: Ellenőrizze a postaládáját
 Choose: Válassza ki
@@ -155,7 +154,7 @@ Choose client apps: Válassza ki az Ügyfélalkalmazásokat
 Choose location: Új lokálizáció kiválasztása
 Choose the source channel.: Válassza ki a forráscsatornát.
 Clear: Törlés
-Click the following link to confirm removal of your account on %cloudHost%.: 'Ha megerősíti a SUPLA-fiókja törlését, kattintson az alábbi linkre.'
+Click the following link to confirm removal of your account on %cloudHost%.: Ha megerősíti a SUPLA-fiókja törlését, kattintson az alábbi linkre.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Kattintson az alábbi linkre a saját SUPLA felhő (%targetCloudUrl%) regisztráció törlése megerősítéséhez.
 'Client app ID: %clientAppId%': 'ID: %clientAppId%'
 Client registration: Ügyfél regisztráció
@@ -172,9 +171,9 @@ Configuration: Konfigurálás
 Confirm My Account: Megerősítem a Fiókom
 Confirm Password: Jelszó megerősítése
 Confirm if you want to perform the roller shutter calibration.: Erősítse meg a modul kalibrálását.
-Confirm if you want to remove Access Identifier: 'Erősítse meg, hogy el akarja távolítani a Hozzáférési Azonosítót'
-'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Erősítse meg, hogy el akarja távolítani a {locationId} helyazonosítót. Nincs további I / O eszköz csatlakozási lehetőség ehhez a lokálizációhoz.'
-'Confirm if you want to remove {deviceName} device and all of its channels.': 'Erősítse meg, hogy törölni kívánja a {eszközNév} eszközt és annak összes csatornáját.'
+Confirm if you want to remove Access Identifier: Erősítse meg, hogy el akarja távolítani a Hozzáférési Azonosítót
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Erősítse meg, hogy el akarja távolítani a {locationId} helyazonosítót. Nincs további I / O eszköz csatlakozási lehetőség ehhez a lokálizációhoz.
+Confirm if you want to remove {deviceName} device and all of its channels.: Erősítse meg, hogy törölni kívánja a {eszközNév} eszközt és annak összes csatornáját.
 Connected: Csatlakozva
 Connection with a private instance of the SUPLA cloud: Csatlakozás egy magán SUPLA felhőhöz.
 Constraints: Korlátozások
@@ -182,7 +181,7 @@ Copy state from other channel: Állapot másolás másik csatornáról
 Could not contact Autodiscover service. Try again in a while.: Nem sikerült kapcsolatba lépni a regisztrációs szolgálattal. Próbálja meg újra kicsit később.
 Could not enter the configuration mode.: Nem sikerült az eszközt konfigurációs üzemmódba helyezni.
 Could not reset the password.: A jelszó visszaállítása sikertelen.
-Could not reset the password. Please try again later.: 'Nem lehet visszaállítani a jelszót. Kérjük, rövidesen próbálja újra.'
+Could not reset the password. Please try again later.: Nem lehet visszaállítani a jelszót. Kérjük, rövidesen próbálja újra.
 Create New Access Identifier: Hozzon létre egy új Hozzáférési Azonosítót
 Create New Location: Hozzon létre új Lokálizációt
 Create New Schedule: Hozzon létre egy új ütemezést
@@ -205,7 +204,7 @@ Default: alapértelmezett
 Delete: Eltávolítás
 Delete measurement history: Mérési előzményeket törlése
 Delete my account: A fiók törlése
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'A fiók törlésével az összes adat törlődik, beleértve a csatlakoztatott eszközöket, a konfigurált csatornákat, a közvetlen linkeket és a mérési előzményeket. A fiók törlése végleges.'
+Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: A fiók törlésével az összes adat törlődik, beleértve a csatlakoztatott eszközöket, a konfigurált csatornákat, a közvetlen linkeket és a mérési előzményeket. A fiók törlése végleges.
 Depth: Mélység
 Depth sensor: Mélységérzékelő
 Description: Leírás
@@ -234,18 +233,18 @@ Direct links limit has been exceeded: Túllépte a közvetlen hivatkozások maxi
 Disable: Kikapcsolás
 Disable local function: Eszközfunkció letiltása
 Disabled: Kikapcsolva
-Disables local device function and does nothing more.: 'Nem hajt végre semmilyen műveletet, de letiltja az eszköz funkciót, amely alapértelmezett az adott művelethez.'
+Disables local device function and does nothing more.: Nem hajt végre semmilyen műveletet, de letiltja az eszköz funkciót, amely alapértelmezett az adott művelethez.
 Disconnected: Szétszakadt
 Distance: Távolság
 Distance sensor: Távolságérzékelő
-Do you want to be redirected there? You may be asked to authenticate again.: 'Szeretné, ha átirányítanánk oda? Előfordulhat, hogy újra be kell jelentkeznie.'
-'Don’t worry, you can always reset your password via email. Click here to do so.': 'Ne aggódj. A jelszavát bármikor visszaállíthatja az e-mail segítségével. Kattintson ide, ha vissza akarja állítani a jelszavát.'
+Do you want to be redirected there? You may be asked to authenticate again.: Szeretné, ha átirányítanánk oda? Előfordulhat, hogy újra be kell jelentkeznie.
+Don’t worry, you can always reset your password via email. Click here to do so.: Ne aggódj. A jelszavát bármikor visszaállíthatja az e-mail segítségével. Kattintson ide, ha vissza akarja állítani a jelszavát.
 Door lock operation: Az ajtó kinyitása
 Door opening sensor: Ajtónyitás érzékelő
 Doors and gates: Ajtók és kapuk
-'Doors, Gates, Windows': 'Ajtók, kapuk, ablakok'
+Doors, Gates, Windows: Ajtók, kapuk, ablakok
 Download the history of measurement: Töltse le a mérési előzményeket
-Drag your image(s) here or click to select from the disk: 'Húzza ide a képet, vagy kattintson a lemezről való kiválasztáshoz'
+Drag your image(s) here or click to select from the disk: Húzza ide a képet, vagy kattintson a lemezről való kiválasztáshoz
 E-mail notifications: E-mail értesítések
 Edit: Szerkesztés
 Electric: Villamosság
@@ -258,12 +257,12 @@ Enter new password: Adjon meg egy új jelszót
 Enter strong password: Írjon be egy erős jelszót
 Enter the data below in the settings of your control device (I/O Device).: Írja be az alábbi adatokat a vezérlőkészülék (I / O eszköz) beállításaiba.
 Enter the data below in your mobile SUPLA application on your smartphone.: Írja be az alábbi adatokat az okostelefonjára telepített SUPLA mobilalkalmazásba.
-Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Csak a domaint adja meg a porttal együtt, ha nem szabványos (443). HTTPS kapcsolat szükséges.'
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Csak a domaint adja meg a porttal együtt, ha nem szabványos (443). HTTPS kapcsolat szükséges.
 Enter your email address: Írja be e-mail címét
 Enter your password to prevent automatic logout.: Írja be a jelszavát az automatikus kijelentkezés megakadályozására.
 Entering configuration mode is unsupported in the firmware.: A belső vezérlőprogram nem támogatja a konfigurációs üzemmódba való távoli kapcsolatot.
 Error: Hiba
-Error when communicating the server. Try again in a while.: 'Hiba történt a szerverrel való kommunikáció során. Kérjük, rövidesen próbálja újra.'
+Error when communicating the server. Try again in a while.: Hiba történt a szerverrel való kommunikáció során. Kérjük, rövidesen próbálja újra.
 Every: Co
 Example Auth URL: Engedélyezési URL minta
 Execute: Végrehajtás
@@ -279,9 +278,9 @@ Failed (zombie): Sikertelen (zombie)
 Feature limits: Szolgáltatási korlátok
 File is too large: A fájl túl nagy
 Flooding: Elárasztás
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'A frissítések során ajánlott a {suplaUrl} cím használata.'
+For a short period of time, it is recommended for you to use the {suplaUrl} address.: A frissítések során ajánlott a {suplaUrl} cím használata.
 For devices: Eszközökhöz
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': Biztonsági okokból a közvetlen link teljes URL-je csak egyszer jelenik meg a létrehozása során.
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Biztonsági okokból a közvetlen link teljes URL-je csak egyszer jelenik meg a létrehozása során.
 Forgot your password?: Elfelejtetted a jelszavad?
 Forward active energy: Fogyasztott aktív energia
 Forward active energy balanced: Aktív energiafogyasztás (Egyensúlyi vektor)
@@ -318,45 +317,45 @@ History of measurements: Mérési előzmények
 Home appliances: Háztartási gépek / elektronika
 Home+ Heater: Fűtés Home+
 Host: Hoszt
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Sajnos jelenleg nagy a szervereink leterheltsége. Ellenőrizzük a helyzetet, kérjük, jöjjön vissza kicsit később.'
+However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Sajnos jelenleg nagy a szervereink leterheltsége. Ellenőrizzük a helyzetet, kérjük, jöjjön vissza kicsit később.
 Humidity: Nedvességtartalom
 Humidity Sensor: Páratartalom-érzékelő
 Humidity adjustment: Páratartalom beállítása
 Humidity sensor: Páratartalom-érzékelő
-'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Elfogadom a [Szabályzat] és elfogadom a személyes adataim feldolgozását a [Szabályzat] által megadott célra és hatályra.'
+I accept the Terms and Conditions and hereby agree for processing of my personal data for the purposes included in the said Terms and Conditions.: Elfogadom a Szabályzat és elfogadom a személyes adataim feldolgozását a Szabályzat által megadott célra és hatályra.
 I agree: Egyetértek
-'I aree, taske me to the app': 'Egyetértek, tovább az alkalmazáshoz'
+I aree, taske me to the app: Egyetértek, tovább az alkalmazáshoz
 I confirm! Delete my account.: Megerősítés! A fiók törlése.
-'I do not agree, get me out of here': 'Nem értek egyet, vigyél el innen'
+I do not agree, get me out of here: Nem értek egyet, vigyél el innen
 I/O Devices: I / O eszközök
 I/O devices registration: Készülék regisztráció
 ID: ID
 INACTIVE: INAKTIV
 Icon: Ikon
 Idle: Üres járat
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Ha a link nem működik, másolja át a böngésző eszköztárába, vagy írja be.'
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Ha programozó, aki további szolgáltatásokat szeretne biztosítani a SUPLI számára, hozzon létre egy OAuth alkalmazást, amelyet a felhasználók engedélyezhetnek és használhatnak.'
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Ha biztos benne, hogy van fiókja a cloud.supla.org webhelyen, ellenőrizze, hogy az alkalmazás, amelyet engedélyezni próbál, nyilvános.'
-'If you did not request this password reset, please ignore this information.': 'Ha nem kérte a jelszó visszaállítását, kérjük, hagyja figyelmen kívül ezt az üzenetet.'
-'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Ha nem akarja törölni fiókját a cloud.supla.org webhelyen, akkor ne kattintson a linkre.'
-'If you do not want to unregister your instance, please do not click the link.': 'Ha nem szeretné törölni a példányát, ne kattintson a linkre.'
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Ha néhány percig nem sikerül csatlakoznia ehhez a hozzáférési ponthoz, a készülék újraindul, és az utolsó beállításoknak megfelelően csatlakozik.'
-'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Ha bármilyen kétsége vagy kérdése van, vegye fel velünk a kapcsolatot a %securityEmail% e-mail címen.'
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Ha újra szeretné regisztrálni saját SUPLA felhő példányát, mert az előző regisztráció során generált token eltűnt - a megfelelő helyen jár.'
-'If you have not used this email address with %cloudHost%, please do not click the link.': 'Ha nem adta meg ezt az e-mail címet a %cloudHost% webhelyen, ne kattintson a linkre.'
-'If you really want to delete the account, here are the instructions.': 'Ha még mindig szeretné törölni a SUPLA fiókját, itt találja az utasításokat.'
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': Ha valóban szeretné törölni a saját SUPLA felhő példányát - az alábbiakban megtalálja az összes utasítást.
-'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Fiókja újbóli regisztrációja után egyes eszközök újrakonfigurálást igényelhetnek, még akkor is, ha ugyanazt az e-mail címet adja meg.'
-'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor [regisztrálnia kell a példányt].'
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Ha a közvetlen linket más szoftverekben szeretné használni, akkor adja hozzá a megfelelő kérelem fejlécét, hogy könnyebben feldolgozható választ kapjon.'
-'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Ha nem szeretne ilyen értesítéseket kapni tőlünk, keresse fel fiókja beállításait [itt].'
-'If you wish to register your instance, [click here].': 'Ha szeretné regisztrálni a példányát, [Kattintson ide].'
-'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Ha szeretné megtekinteni az elérhető integrációkat, lépjen a [cloud.supla.org/apps] oldalra.'
-'If you wish to unregister your instance, [click here].': 'Ha szeretné letiltani a regisztrációt, [Kattintson ide].'
+If the link is not working, please copy and paste it or enter manually in a new browser window.: Ha a link nem működik, másolja át a böngésző eszköztárába, vagy írja be.
+If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Ha programozó, aki további szolgáltatásokat szeretne biztosítani a SUPLI számára, hozzon létre egy OAuth alkalmazást, amelyet a felhasználók engedélyezhetnek és használhatnak.
+If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Ha biztos benne, hogy van fiókja a cloud.supla.org webhelyen, ellenőrizze, hogy az alkalmazás, amelyet engedélyezni próbál, nyilvános.
+If you did not request this password reset, please ignore this information.: Ha nem kérte a jelszó visszaállítását, kérjük, hagyja figyelmen kívül ezt az üzenetet.
+If you do not want to delete your account on %cloudHost%, please do not click the link.: Ha nem akarja törölni fiókját a cloud.supla.org webhelyen, akkor ne kattintson a linkre.
+If you do not want to unregister your instance, please do not click the link.: Ha nem szeretné törölni a példányát, ne kattintson a linkre.
+If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Ha néhány percig nem sikerül csatlakoznia ehhez a hozzáférési ponthoz, a készülék újraindul, és az utolsó beállításoknak megfelelően csatlakozik.
+If you have doubts or more questions, you can contact us directly at %securityEmail%.: Ha bármilyen kétsége vagy kérdése van, vegye fel velünk a kapcsolatot a %securityEmail% e-mail címen.
+If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.: Ha újra szeretné regisztrálni saját SUPLA felhő példányát, mert az előző regisztráció során generált token eltűnt - a megfelelő helyen jár.
+If you have not used this email address with %cloudHost%, please do not click the link.: Ha nem adta meg ezt az e-mail címet a %cloudHost% webhelyen, ne kattintson a linkre.
+If you really want to delete the account, here are the instructions.: Ha még mindig szeretné törölni a SUPLA fiókját, itt találja az utasításokat.
+If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Ha valóban szeretné törölni a saját SUPLA felhő példányát - az alábbiakban megtalálja az összes utasítást.
+If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Fiókja újbóli regisztrációja után egyes eszközök újrakonfigurálást igényelhetnek, még akkor is, ha ugyanazt az e-mail címet adja meg.
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Ha integrálni szeretné a magán SUPLA felhőt a nyilvános OAuth alkalmazással, akkor {registerYourSuplaCloudLink}.
+If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Ha a közvetlen linket más szoftverekben szeretné használni, akkor adja hozzá a megfelelő kérelem fejlécét, hogy könnyebben feldolgozható választ kapjon.
+If you wish not to receive such messages,<br> change it in your account settings [here].: Ha nem szeretne ilyen értesítéseket kapni tőlünk, keresse fel fiókja beállításait [itt].
+If you wish to register your instance, {clickHereLink}.: Ha szeretné regisztrálni a példányát, {clickHereLink}.
+If you wish to see the available integrations, go to {0}.: Ha szeretné megtekinteni az elérhető integrációkat, lépjen a {0} oldalra.
+If you wish to unregister your instance, {clickHereLink}.: Ha szeretné letiltani a regisztrációt, {clickHereLink}.
 Impulse counter: Impulzusszámláló
 Impulses: impulzusok
-'In order to confirm account deletion, enter your password.': A fiók törlésére irányuló szándékának megerősítéséhez írja be a jelszavát.
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': Az MQTT bróker bejelentkezési adatainak megszerzéséhez vegye fel a kapcsolatot a SUPLA Cloud fájlkezelőjével.
+In order to confirm account deletion, enter your password.: A fiók törlésére irányuló szándékának megerősítéséhez írja be a jelszavát.
+In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Az MQTT bróker bejelentkezési adatainak megszerzéséhez vegye fel a kapcsolatot a SUPLA Cloud fájlkezelőjével.
 Inactive: Inaktív
 Include energy corrections in new measurements history (not recommended): Vegye figyelembe a történethez hozzáadott állapotatribútumot (nem ajánlott)
 Incorrect password: Hibás jelszó
@@ -379,10 +378,10 @@ Invalid request.: Érvénytelen kérés.
 Invalid token.: Érvénytelen token.
 Inverted logic: Fordított logika
 Invisible: Láthatatlan
-It is possible that another user have entered your email address by mistake while resetting password to their own account.: 'Lehetséges, hogy egy másik felhasználó véletlenül megadta az e-mail címét, hogy visszaállítsa a fiókja jelszavát.'
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'Ebben a módban a készülék elkezdi sugározni a Wi-Fi hálózati hozzáférését, amely lehetővé teszi a készülék konfigurálását vagy a hardverfrissítést a hálózathoz csatlakoztatott okostelefonon keresztül.'
-'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Ne feledje, hogy fiókjával együtt töröljük az összes adatait, beleértve a beállításokat, a konfigurált eszközöket, a lokálizációkat, ütemezéseket és az összes többi funkciót, amelyet a SUPLA kínál.'
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Ne feledje, hogy az alkalmazás által az adott kifejezés leírása nem tökéletes, és az egyetlen feladata, hogy segítsen beírni a megfelelő értéket. Nem arra szolgál, hogy ellenőrizze, hogy a megadott érték helyes-e, és még kevésbé arra, hogy a SUPLI-ban talált hibával dicsekedjen. Miután elvégezte a módosításokat, ellenőrizze a "Következő események" szakaszt, hogy megerősítse, hogy a megadott ütemterv-konfiguráció megfelel-e az Ön elvárásainak.'
+It is possible that another user have entered your email address by mistake while resetting password to their own account.: Lehetséges, hogy egy másik felhasználó véletlenül megadta az e-mail címét, hogy visszaállítsa a fiókja jelszavát.
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Ebben a módban a készülék elkezdi sugározni a Wi-Fi hálózati hozzáférését, amely lehetővé teszi a készülék konfigurálását vagy a hardverfrissítést a hálózathoz csatlakoztatott okostelefonon keresztül.
+Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Ne feledje, hogy fiókjával együtt töröljük az összes adatait, beleértve a beállításokat, a konfigurált eszközöket, a lokálizációkat, ütemezéseket és az összes többi funkciót, amelyet a SUPLA kínál.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Ne feledje, hogy az alkalmazás által az adott kifejezés leírása nem tökéletes, és az egyetlen feladata, hogy segítsen beírni a megfelelő értéket. Nem arra szolgál, hogy ellenőrizze, hogy a megadott érték helyes-e, és még kevésbé arra, hogy a SUPLI-ban talált hibával dicsekedjen. Miután elvégezte a módosításokat, ellenőrizze a "Következő események" szakaszt, hogy megerősítse, hogy a megadott ütemterv-konfiguráció megfelel-e az Ön elvárásainak.
 Language is not available: A nyelv nem érhető el
 Last access: Legutóbbi kapcsolat
 Last connection: Legutóbbi kapcsolat
@@ -392,7 +391,7 @@ Light switch: Fény kapcsoló
 Lighting: Világítás
 Limit has been exceeded: A határértéket túllépték
 Linear: Lineáris
-'Liquid, Temp': 'Folyadék, hőmérséklet'
+Liquid, Temp: Folyadék, hőmérséklet
 Location: Helyszín
 Location Identifier: Helyazonosító
 Location limit has been exceeded: A helyazonosító korlát túllépve
@@ -408,19 +407,19 @@ MQTT Broker username and password is not configured in this SUPLA Cloud instance
 Mail sensor: Levél érzékelő
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to copy it now because you won’t be able to see it again!: Tárolja biztonságos helyen.
-Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: 'Ügyeljen arra, hogy biztonságos helyen elmentette, ha a jövőben használni akarja. Az oldal elhagyása után a link már nem jelenik meg.'
+Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Ügyeljen arra, hogy biztonságos helyen elmentette, ha a jövőben használni akarja. Az oldal elhagyása után a link már nem jelenik meg.
 Manage your new client app in the SUPLA-Cloud.: Kezelje az új ügyfélalkalmazást a SUPLA-felhőben.
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Kezelje készülékét a SUPLA-felhőben vagy az okostelefonon található SUPLA alkalmazással.
 Manual: Utasítások
 Manually closed: Manuálisan zárva
 Maximum delay is 60 minutes.: A maximális késleltetés 60 perc.
-'Maximum filesize limit is {limit}.': 'A maximális fájlméret {limit}.'
+Maximum filesize limit is {limit}.: A maximális fájlméret {limit}.
 Meter value: Mérőóra leolvasás
 Meters: Mérőórák
 Mobile Apps: Okostelefon-alkalmazás
 Mode: Mód
 Modification: Módosítás
-Move down or stop: 'Lefelé mozgat, vagy leállít'
+Move down or stop: Lefelé mozgat, vagy leállít
 Move up or stop: Felfelé mozgat vagy leállít
 My OAuth apps: Saját OAuth alkalmazások
 My SUPLA: Saját SUPLA-m
@@ -439,17 +438,17 @@ New scene: Új jelenet
 Newer: Újabb
 'Next limit renewal: {date}': A határidő frissült
 Next run date: Legközelebbi végrehajtás
-'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nincs aktív hozzáférési azonosítója. Ugrás [hozzáférési azonosító lista] vagy [új hozzáférési azonosító hozzáadása].'
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nincs aktív hozzáférési azonosítója. Ugrás {accessIdsListLink} vagy {newAccessIdLink}.
 No function: Nincs implementált funkció
 No future executions - schedule disabled: Nincsenek tervezett műveletek - ütemezés kikapcsolva
 No limit: Nincs korlátozás
 No liquid sensor: Folyadékhiány-érzékelő
-'No location enabled. Go to [location list] or [add a new location].': 'Nincs aktív lokálizálás. Lépjen a [helylista] vagy [új hely hozzáadása] pontra.'
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Nincs aktív lokálizálás. Lépjen a {locationsListLink} vagy {newLocationLink} pontra.
 No of channels: Csatornák száma
 No of client apps: Ügyfélalkalmazások száma
 No of devices: Eszközök száma
 No of operations: Műveletek száma
-'No results match {0}': 'Nincs találat {0}'
+No results match {0}: Nincs találat {0}
 No schedule configuration.: Az ütemterv konfigurálása nincs megadva.
 No. of Client’s apps: Az ügyfélalkalmazások száma
 No. of access identifiers: Hozzáférési azonosítók száma
@@ -465,13 +464,13 @@ Number of sections: Szekciók száma
 OAuth application: OAuth alkalmazás
 OAuth apps: OAuth alkalmazások
 OAuth authorization: OAuth engedélyezés
-OAuth integrations might stop working after the instance is unregistered.: 'Előfordulhat, hogy az OAuth-alkalmazásokkal való integrációk a regisztráció törlése után nem működnek.'
+OAuth integrations might stop working after the instance is unregistered.: Előfordulhat, hogy az OAuth-alkalmazásokkal való integrációk a regisztráció törlése után nem működnek.
 'Off': Kikapcsolás
 Offline access: Offline hozzáférés
 Older: Régebbi
 'On': Bekapcsolás
 On/Off switch: Főkapcsoló
-'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Csak az opcionális portszámmal rendelkező tartománynevek használhatók. Például. mysupla.org vagy mysupla.org:88. A HTTPS szükséges.'
+Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Csak az opcionális portszámmal rendelkező tartománynevek használhatók. Például. mysupla.org vagy mysupla.org:88. A HTTPS szükséges.
 Open: Megnyitás
 Open / close: Nyitás / Bezárás
 Open partially: Részleges megnyitás
@@ -479,29 +478,30 @@ Opening sensor: Nyitó érzékelő
 Operations: Műveletek
 Original location: Eredeti lokálizáció
 Other: Egyéb
-'Otherwise go to [the homepage].': 'Más esetben lépjen a [kezdőlapra].'
+Otherwise go to the homepage.: Más esetben lépjen a [kezdőlapra].
 Partial opening sensor: Közvetett nyitás érzékelője
 Password: Jelszó
 Password Reset: Jelszó visszaállítása
 Password has been changed: A jelszava megváltozott.
-'Password must be at least {minLength} characters.': 'A jelszónak legalább {minLength} karaktereknek kell lennie.'
-'Password must be no longer than {maxLength} characters.': 'A jelszó nem lehet hosszabb, mint {maxLength} karakter.'
+Password must be at least {minLength} characters.: A jelszónak legalább {minLength} karaktereknek kell lennie.
+Password must be no longer than {maxLength} characters.: A jelszó nem lehet hosszabb, mint {maxLength} karakter.
 Password reset instructions.: Utasítások a fiókjához való hozzáférés visszaállításához.
 Percentage of closing: A bezárás százalékos aránya
 Personal access tokens: Személyes hozzáférési tokenek
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'A személyes hozzáférési tokenek a normálhoz hasonlóan működnek, azzal a különbséggel, hogy határozatlan ideig érvénesek.'
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: A személyes hozzáférési tokenek a normálhoz hasonlóan működnek, azzal a különbséggel, hogy határozatlan ideig érvénesek.
 Personal token name is required.: Személyes token név megadása szükséges.
 Phase 1: 1 Szakasz
 Phase 2: 2 Szakasz
 Phase 3: 3 Szakasz
 Please choose the schedule subject first.: Először válassza ki az ütemterv tárgyát.
 Please click the following link to reset your %cloudHost% password.: Kattintson az alábbi linkre a %cloudHost% jelszavának visszaállításához.
-Please click the link we have sent you after the registration to proceed.: 'Kattintson az üzenetben kapott linkre, amelyet a fiók létrehozása után küldtünk neked.'
+Please click the link we have sent you after the registration to proceed.: Kattintson az üzenetben kapott linkre, amelyet a fiók létrehozása után küldtünk neked.
 Please confirm your SUPLA account.: Erősítse meg a SUPLA- fiókját.
-Please enter a valid email address: 'Kérjük, adjon meg egy érvényes e-mail címet'
+Please enter a valid email address: Kérjük, adjon meg egy érvényes e-mail címet
 Please fill a valid email address: Adja meg helyes e-mail címét
 Please log in again to proceed.: Jelentkezzen be újra a folytatáshoz.
 Please provide a valid domain name for your private SUPLA Cloud: Írja be a helyes domain nevét a magán SUPLA felhőhöz
+Please read the Terms and Conditions.: Olvassa el a Szabályzatot.
 Please wait a moment before the next login attempt.: Várjon egy pillanatot a következő bejelentkezési kísérlet előtt.
 Port: Port
 Precision: Pontosság
@@ -515,7 +515,7 @@ Processing: Folyamatban
 Protocol: Protokoll
 Public ID: Publikus ID
 Publish to integrations: Közzététel az integrációkban
-Publishes the event to integrated services like MQTT or webhooks.: 'Tájékoztatja az integrációkat, például az MQTT-t vagy a webhooki-t a művelet végrehajtásáról.'
+Publishes the event to integrated services like MQTT or webhooks.: Tájékoztatja az integrációkat, például az MQTT-t vagy a webhooki-t a művelet végrehajtásáról.
 RESET: RESET
 RGB led controller: RGB világításvezérlő
 RGB lighting: RGB világítás
@@ -540,7 +540,7 @@ Relay switching time: A relé bekapcsolásának ideje
 Repeat password: A jelszó ismétlése
 Reset Your Password: Állítson be új jelszót
 Reset counter: Mérőóra visszaállítása
-Retry on failure: 'Ismételje meg, ha nincs végrehajtva'
+Retry on failure: Ismételje meg, ha nincs végrehajtva
 Reveal: Elhúzás
 Reveal partially: Részbeni elhúzás
 Reverse active energy: Visszatérő aktív energia
@@ -560,7 +560,7 @@ SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Hiba történt a művelet végrehajtása során a SUPLA szerveren.
 SUPLA Server was unable to execute the scene.: A Supla Server nem tudta befejezni a jelenetet.
 SUPLA Server was unable to query for the scene state.: A SUPLA Server nem tudta leolvasni a jelenet állapotát.
-'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'A SUPLA bármikor és bárhonnan elérhető, ezért ne aggódjon, amikor legközelebb elfelejti kikapcsolni a fényt'
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: A SUPLA bármikor és bárhonnan elérhető, ezért ne aggódjon, amikor legközelebb elfelejti kikapcsolni a fényt
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Értesítés a %cloudHost% oldalra történő sikertelen bejelentkezésről
 SUPLA – new client app has been added to your account: SUPLA – új ügyfélalkalmazás regisztrálva
 SUPLA – new device has been added to your account: SUPLA - új eszköz hozzáadva a fiókjához
@@ -580,15 +580,15 @@ Schedule mode: Ütemezés mód
 Schedules: Ütemtervek
 Scope: Az alkalmazási terület (scope)
 Scopes: Az alkalmazási területek
-Scopes define which sections of your account can be accessed when using the token.: 'Az alkalmazási tartományok határozzák meg, hogy melyik fiók forrásokhoz érhető el a hozzáférés a token segítségével.'
+Scopes define which sections of your account can be accessed when using the token.: Az alkalmazási tartományok határozzák meg, hogy melyik fiók forrásokhoz érhető el a hozzáférés a token segítségével.
 Search: Keresés
 Secret: Titkos kulcs (secret)
 See available integrations: Nézze meg a rendelkezésre álló integrációkat
 See direct link possibilities: Lássa meg a közvetlen link lehetőségeit
 See in SUPLA-Cloud: Nézze meg a SUPLA-felhőben
-Seems like a secret place: 'Valami azt súgja, hogy nem szabad itt lennie'
+Seems like a secret place: Valami azt súgja, hogy nem szabad itt lennie
 Select icon: Ikon kiválasztása
-Select the item (subject) you want to control using this link: 'Válassza ki az elemet  (entitást), amelyet ellenőrizni szeretne ezzel a linkkel'
+Select the item (subject) you want to control using this link: Válassza ki az elemet  (entitást), amelyet ellenőrizni szeretne ezzel a linkkel
 Sensor (normal closed): Érzékelő (általában zárt)
 Sensor (normal open): Érzékelő (általában nyitva)
 Sensor disconnected: Érzékelőhiány
@@ -597,15 +597,15 @@ Server address: A szerver címe
 Server unreachable: A Szerver nem érhető el
 Service temporarily unavailable: A szolgáltatás ideiglenesen nem érhető el
 Set value added: Hozzáadott érték beállítása
-Setting the number of attempts to 1 disables the retrying behavior completely.: 'Ha a próbálkozások számát kevesebb, mint 2-re állítja, előfordulhat, hogy a lezárás vagy megnyitás sikertelen.'
+Setting the number of attempts to 1 disables the retrying behavior completely.: Ha a próbálkozások számát kevesebb, mint 2-re állítja, előfordulhat, hogy a lezárás vagy megnyitás sikertelen.
 Show my limits: Korlátozásaim megjelenítése
 Show on the Client’s devices: Megjelenítés az ügyfél eszközökön
 Shut: Befüggőnyözés
 Shut partially: Részleges elsötétítés
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Húzza le a redőnyt ütközéséig, és jegyezze fel a zárás százalék értékét ebbe a mezőbe. Ez a művelet nem szükséges, de megadása javítja a redőny helyzetének megjelenítését a mobilalkalmazásban.'
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Húzza le a redőnyt ütközéséig, és jegyezze fel a zárás százalék értékét ebbe a mezőbe. Ez a művelet nem szükséges, de megadása javítja a redőny helyzetének megjelenítését a mobilalkalmazásban.
 Sign In: Jelentkezzen be
 Sign Out: Lépjen ki
-Sign in temporarily unavailable. Please try again later.: 'A bejelentkezés átmenetileg nem érhető el. Kérjük, próbálja meg újra később.'
+Sign in temporarily unavailable. Please try again later.: A bejelentkezés átmenetileg nem érhető el. Kérjük, próbálja meg újra később.
 Smartphones: Okostelefonok
 SoftVer: WerOpr
 Some features depend on this channel group: Egyes funkciók ettől a csatorna csoporttól függenek.
@@ -630,16 +630,16 @@ Supla for devices: Supla bizonyos eszközökre
 Switch the device to configuration mode: Csatlakoztassa a készüléket konfigurációs módba
 THIS CANNOT BE UNDONE!: EZT A MŰVELETET NEM LEHET VISSZAVONNI!
 TLS: TLS
-'Target Cloud is not registered, or is registered with another e-mail address.': 'Ez a SUPLA felhő nincs regisztrálva, vagy más e-mail címmel van regisztrálva.'
+Target Cloud is not registered, or is registered with another e-mail address.: Ez a SUPLA felhő nincs regisztrálva, vagy más e-mail címmel van regisztrálva.
 Temperature: Hőmérséklet
 Temperature & Humidity Sensor: Hőmérséklet- és páratartalom-érzékelő
 Temperature Sensor: Hőmérséklet-érzékelő
 Temperature adjustment: Hőmérséklet beállítása
 Temperature and humidity sensor: Hőmérséklet- és páratartalom-érzékelő
-Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Köszönjük, hogy regisztrálta a fiókját a %cloudHost% webhelyen. Az aktiválás befejezéséhez kattintson az alábbi linkre.'
-'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Az integrációknak köszönhetően könnyedén hozzáadhat az fiókjához  új funkciókat a külső szállítók, programozók vagy saját maga által nyújtott megoldásokat felhasználásával.'
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Köszönjük, hogy regisztrálta a fiókját a %cloudHost% webhelyen. Az aktiválás befejezéséhez kattintson az alábbi linkre.
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Az integrációknak köszönhetően könnyedén hozzáadhat az fiókjához  új funkciókat a külső szállítók, programozók vagy saját maga által nyújtott megoldásokat felhasználásával.
 'The IP used for login is: %ip%': 'A bejelentkezési kísérlet a következő: %ip% IP-címről történt.'
-The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: 'Az MQTT bróker jelszava csak jelenleg látható. Győződjön meg róla, hogy biztonságos helyre mentette. Újjabb megjelenítése nem lehetséges.'
+The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Az MQTT bróker jelszava csak jelenleg látható. Győződjön meg róla, hogy biztonságos helyre mentette. Újjabb megjelenítése nem lehetséges.
 The SUPLA infrastructure is being updated.: A SUPLA kiszolgálók frissítése folyamatban van.
 The Terms and Conditions have changed: A  Szabályzat megváltozott
 The Terms and Conditions have changed – please read them and accept.: A szolgáltatás Szabályzata megváltozott - jóváhagyás szükséges.
@@ -649,38 +649,38 @@ The counter has been reset.: A mérőóra alaphelyzetbe került.
 The device is disabled: Az eszköz ki van kapcsolva
 The following items use the channels of these device. These references will be also removed.: Az alábbi elemek a készülék csatornáit használják. Ezek szintén törlésre kerülnek.
 'The following items will be deleted with this device:': Az alábbi elemek a készülékkel együtt törlésre kerülnek.
-The gate sensor must function properly in order to execute the Open and Close actions.: 'A kapu nyitó érzékelőnek rendeltetésszerűen kell működnie ahhoz, hogy a Nyitás Zárás művelet végrehajtása megtörténjen.'
+The gate sensor must function properly in order to execute the Open and Close actions.: A kapu nyitó érzékelőnek rendeltetésszerűen kell működnie ahhoz, hogy a Nyitás Zárás művelet végrehajtása megtörténjen.
 The gate sensor must function properly in order to execute the scheduled action.: A művelet végrehajtásához a kapunyílás-érzékelőnek megfelelően kell működnie.
 The incident was detected at %datetime%.: Az esemény helye %datetime%.
-'The items below rely on this channel function, so they will be deleted.': 'Az alábbi elemek az aktuális csatornafunkción alapulnak, ezért a csatorna módosításakor törlődnek.'
-'The items below rely on this channel group, so they will be deleted.': 'Az alábbi elemek ezt a csatornacsoportot használják, így a visszavonással automatikusan törlésre kerülnek.'
-'The items below rely on this scene, so they will be deleted.': 'Az alábbi elemek erre a jelenetre épülnek, így törlésre kerülnek.'
+The items below rely on this channel function, so they will be deleted.: Az alábbi elemek az aktuális csatornafunkción alapulnak, ezért a csatorna módosításakor törlődnek.
+The items below rely on this channel group, so they will be deleted.: Az alábbi elemek ezt a csatornacsoportot használják, így a visszavonással automatikusan törlésre kerülnek.
+The items below rely on this scene, so they will be deleted.: Az alábbi elemek erre a jelenetre épülnek, így törlésre kerülnek.
 The latest execution: Legutóbbi végrehajtás
-'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'A megvalósítás eredménye weboldalként jelenik meg, mert Ön (vagy a böngészője) HTML formátumban kért választ.'
+The link result is presented as a website response, because you (or your browser) asked for HTML output.: A megvalósítás eredménye weboldalként jelenik meg, mert Ön (vagy a böngészője) HTML formátumban kért választ.
 The measurement history has been deleted.: A mérési előzményeket törölték.
-The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: 'Az új jelszó a jelenleg használt jelszót felülírja. Előfordulhat, hogy egyes integrációk a módosítás után nem működnek. Folytatja?'
+The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Az új jelszó a jelenleg használt jelszót felülírja. Előfordulhat, hogy egyes integrációk a módosítás után nem működnek. Folytatja?
 The next available executions: Legközelebbi végrehajtások
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: 'Az értesítést kerettel emeltük ki, amelyen a leiratkozás linkjére kattintott.'
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Az értesítést kerettel emeltük ki, amelyen a leiratkozás linkjére kattintott.
 The password and its confirm are not the same.: A jelszó és a megerősítése nem egyezik.
 The password should be 8 or more characters.: A jelszónak legalább 8 karakterből kell állnia.
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'A készüléket a túlfeszültség védelem kikapcsolta. Bekapcsolás előtt győződjön meg róla, hogy a probléma megoldódott-e. Biztosan szeretné távolról bekapcsolni a készüléket?'
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'A szerver 400-as hibát adott vissza, ami azt jelenti, hogy az elküldött kérés nem érvényes.'
-The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: 'A szerver HTTP 403-as hibát adott vissza. Ez azt jelenti, hogy nincs elegendő jogosultsága az elem megtekintéséhez.'
-The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: 'A szerver HTTP 404-es hibát adott vissza. Ez azt jelenti, hogy a keresett elem nem létezik.'
-'The server has returned an HTTP {statusCode} error.': 'A szerver a {statusCode} hibát adott vissza.'
-'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'A kiválasztott ikonfájlok túl nagyok. A maximális feltöltési méret {limit}.'
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'A szelep nem nyitható meg közvetlen csatlakozással vagy API-n keresztül, amennyiben manuálisan zárva van. A vezérlés újraindításához nyissa meg a szelepet manuálisan.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'A szelepet kézi vagy rádiós üzemmódban elzárták. Mielőtt kinyitná, győződjön meg róla, hogy elárasztás miatt nem lett-e elzárva. A figyelmeztetés kikapcsolásához nyissa meg a szelepet manuálisan. Biztos, hogy távolról szeretné megnyitni a szelepet?'
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'A szelep nem nyitható, ha manuálisan vagy rádiós úton el lett elzárva, amit az elárasztás idézhetett elő.'
-There are no more channels you can add to this group: 'Nincs további csatorna, amelyet hozzá lehetne adni ehhez a csoporthoz'
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: A készüléket a túlfeszültség védelem kikapcsolta. Bekapcsolás előtt győződjön meg róla, hogy a probléma megoldódott-e. Biztosan szeretné távolról bekapcsolni a készüléket?
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: A szerver 400-as hibát adott vissza, ami azt jelenti, hogy az elküldött kérés nem érvényes.
+The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: A szerver HTTP 403-as hibát adott vissza. Ez azt jelenti, hogy nincs elegendő jogosultsága az elem megtekintéséhez.
+The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: A szerver HTTP 404-es hibát adott vissza. Ez azt jelenti, hogy a keresett elem nem létezik.
+The server has returned an HTTP {statusCode} error.: A szerver a {statusCode} hibát adott vissza.
+The set of icons you have chosen is too large. Maximum upload limit is {limit}.: A kiválasztott ikonfájlok túl nagyok. A maximális feltöltési méret {limit}.
+The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: A szelep nem nyitható meg közvetlen csatlakozással vagy API-n keresztül, amennyiben manuálisan zárva van. A vezérlés újraindításához nyissa meg a szelepet manuálisan.
+The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: A szelepet kézi vagy rádiós üzemmódban elzárták. Mielőtt kinyitná, győződjön meg róla, hogy elárasztás miatt nem lett-e elzárva. A figyelmeztetés kikapcsolásához nyissa meg a szelepet manuálisan. Biztos, hogy távolról szeretné megnyitni a szelepet?
+The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: A szelep nem nyitható, ha manuálisan vagy rádiós úton el lett elzárva, amit az elárasztás idézhetett elő.
+There are no more channels you can add to this group: Nincs további csatorna, amelyet hozzá lehetne adni ehhez a csoporthoz
 Thermometer: Hőmérő
 Thermostat: Termosztát
-This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: 'Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.'
-This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: 'Ezt az információt azért kapja meg, mert az e-mail címével sikertelenül megkisérelt bejelentkezni a SUPLA-CLOUD-ba.'
-This is the list of applications you have granted access to your account.: 'Ez olyan alkalmazások listája, amelyeknek hozzáférést biztosított a fiókjához.'
+This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.
+This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ezt az információt azért kapja meg, mert az e-mail címével sikertelenül megkisérelt bejelentkezni a SUPLA-CLOUD-ba.
+This is the list of applications you have granted access to your account.: Ez olyan alkalmazások listája, amelyeknek hozzáférést biztosított a fiókjához.
 This link is only valid for an hour.: A link egy órán keresztül aktív lesz.
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Ez az ütemterv a műszaki beállítottságú vagy nagyon türelmes felhasználók számára készült. Meg kell adni az ütemterv végrehajtási módját a crontab megjelölésben, amelyet néhány csak a SUPLI-ban található funkció egészít ki. Ha még soha nem találkozott a crontabokkal, és ennek ellenére szeretné használni ezt a módot, a crontab.guru oldal a segíthet Önnek.'
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Ezt az eseményindítót a készülék helyileg használja (például bekapcsolja a fényt, vezérli a redönyt stb.) A helyi funkció kikapcsolódik, ha más műveletet rendel hozzá.'
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ez az ütemterv a műszaki beállítottságú vagy nagyon türelmes felhasználók számára készült. Meg kell adni az ütemterv végrehajtási módját a crontab megjelölésben, amelyet néhány csak a SUPLI-ban található funkció egészít ki. Ha még soha nem találkozott a crontabokkal, és ennek ellenére szeretné használni ezt a módot, a crontab.guru oldal a segíthet Önnek.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ezt az eseményindítót a készülék helyileg használja (például bekapcsolja a fényt, vezérli a redönyt stb.) A helyi funkció kikapcsolódik, ha más műveletet rendel hozzá.
 Timezone: Időzóna
 Toggle: Átkapcsolás
 Token does not exist: A token nem létezik
@@ -699,8 +699,8 @@ Unsuccessful login attempt: Sikertelen bejelentkezési kisérlet
 Unsupported function: Nem támogatott funkció
 Unsupported type: Nem támogatott típus
 Update in progress: Frissítés folyamatban
-'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'A feltöltött fájlok nem ütköznek a közerkölcsbe, nem sértik a szerzői jogokat se a harmadik személyek jogait, és jogsult vagyok ezek használatára.'
-'Use the [command] server command to change this account''s limits. For example:': 'A [command] kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
+Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: A feltöltött fájlok nem ütköznek a közerkölcsbe, nem sértik a szerzői jogokat se a harmadik személyek jogait, és jogsult vagyok ezek használatára.
+'Use the {0} server command to change this account''s limits. For example:': 'A {0} kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
 Use working schedule for this access identifier: Használja a hozzáférési ütemtervet a hozzáférési azonosítóhoz
 User is already confirmed. Try to log in.: Ezt a fiókot már megerősítettük. Belépés
 Value added: Hozzáadott érték
@@ -714,25 +714,25 @@ WELCOME_MESSAGE: |
   hogy a következő adatokat bevezeti a vezérlőberendezésekbe (I / O) és az okostelefonjaiba.
 Wait a while before the next request. You can check your limits in the account settings.: Várjon egy percet a következő kérés előtt. Az aktuális korlátozásokat a fiók beállításokban ellenőrizheti.
 Water meter: Vízmérő
-We can notify you about certain events with your account. Opt out if you don't want us to bother you.: 'Értesítéseket küldünk Önnek a fiókjához kapcsolódó bizonyos eseményekről. Leiratkozhat azokról, amikre nincs szüksége.'
+We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Értesítéseket küldünk Önnek a fiókjához kapcsolódó bizonyos eseményekről. Leiratkozhat azokról, amikre nincs szüksége.
 We could not connect to your SUPLA Cloud instance.: Nem sikerült csatlakozni a magán SUPLA cloudra.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Utasítást kaptunk fiókja törlésére a SUPLA Cloud (%cloudHost%) szolgáltatásban.
 We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Saját SUPLA felhő regisztrációjának törlésére vonatkozó kérés (%targetCloudUrl%) érkezett.
 We have just sent you an activation link. You should be receiving it shortly.: Elküldtünk Önnek egy fiókaktiválási üzenetet. Hamarosan megkapja.
-We have sent you an e-mail message with a delete confirmation link. Just to be sure!: 'Küldtünk egy e-mailt a linkkel, amely megerősíti a fiókja törlését. Talán még meggondolja magát!'
+We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Küldtünk egy e-mailt a linkkel, amely megerősíti a fiókja törlését. Talán még meggondolja magát!
 We have sent you an email with further instructions.: Elküldtünk Önnek egy üzenetet további utasításokkal.
 We should be ready shortly.: Powinniśmy niedługo skończyć.
-'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Az alkalmazás használatának megkönnyítése érdekében az Ön böngészőjében tárolunk információkat az Ön preferenciáiról (például egy cookie-mechanizmus használatával). [Olvassa el a Szabályzatot].'
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Az alkalmazás használatának megkönnyítése érdekében az Ön böngészőjében tárolunk információkat az Ön preferenciáiról (például egy cookie-mechanizmus használatával).
 We try to be faster: Egyre gyorsabbak vagyunk
 We were not able to find your account.: Nem találtuk a fiókját.
 We will miss you: Hiányozni fog
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Mindent megteszünk annak érdekében, hogy a megjelenített ikonokat a lehető legjobb módon láthatóak legyenek, de a legjobb eredményt akkor érheti el, ha átlátszó háttérrel és {width} szélességgel  és {height} magassággal  képpontos PNG fájlokat küld.'
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Mindent megteszünk annak érdekében, hogy a megjelenített ikonokat a lehető legjobb módon láthatóak legyenek, de a legjobb eredményt akkor érheti el, ha átlátszó háttérrel és {width} szélességgel  és {height} magassággal  képpontos PNG fájlokat küld.
 We will use it only in justified situations.: Csak indokolt esetekben fogjuk alkalmazni.
 Weather Station: Időjárás
 Weight sensor: Súly
 Welcome!: Helló!
 What this token is for?: Mire való ez a token?
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Közvetlen linkműveletet hajthat végre, ha megadja annak egyedi azonosítóját a HTTP PATCH kérés törzsében. Ez a biztonságosabb, mert megakadályozza, hogy a link teljes címe a szerver hozzáférési naplóiban kerüljön mentésre, amelyen keresztül a kérés átadódik. Az alábbiakban talál egy példát e műveletre a cURL eszköz használatával.'
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Közvetlen linkműveletet hajthat végre, ha megadja annak egyedi azonosítóját a HTTP PATCH kérés törzsében. Ez a biztonságosabb, mert megakadályozza, hogy a link teljes címe a szerver hozzáférési naplóiban kerüljön mentésre, amelyen keresztül a kérés átadódik. Az alábbiakban talál egy példát e műveletre a cURL eszköz használatával.
 Where is the JSON?: Hol van a JSON?
 Where is your SUPLA Cloud?: Hol található a Suplája?
 White: Fehér
@@ -744,8 +744,8 @@ Working period: A működési időszaka
 Working schedule: Tevékenységi ütemterv
 YOUR LINK CODE: A LINKJE KÓDJA
 You are changing the settings too quickly. You have to wait a while before making this change.: Túl gyorsan módosítja a beállításokat. Az aktuális beállítások módosítása előtt várjon egy percet.
-'You can ignore this message, if you have accidentally entered an incorrect password.': 'Ha hibás jelszót adott meg, akkor ezt az információt figyelmen kívül hagyhatja.'
-You can use the application but you will not be able to modify any settings.: 'Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.'
+You can ignore this message, if you have accidentally entered an incorrect password.: Ha hibás jelszót adott meg, akkor ezt az információt figyelmen kívül hagyhatja.
+You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
 You cannot delete your last access identifier.: Az utolsó hozzáférési azonosítót nem törölheti.
 You cannot delete your last location.: Az utolsó lokálizációt nem törölheti.
 You cannot use SUPLA project name in the domain name.: A SUPLA projektnév nem használható a fő tartománynévben.
@@ -753,7 +753,7 @@ You have exceeded your API Rate Limit: Túllépte az API-kérelmek határérték
 You have requested to unregister your SUPLA Cloud instance: Saját SUPLA felhő regisztrációjának törlését kérte
 You have to choose at least one scope.: Válasszon legalább egy tartományt.
 You just need to execute the following command inside your host terminal.: Elegendő futtatni a következő parancsot a gazdagépen.
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Ha továbbra is használni kívánja a speciális ütemtervet, nézze meg az alábbi példákat.'
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Ha továbbra is használni kívánja a speciális ütemtervet, nézze meg az alábbi példákat.
 You must agree to the Terms and Conditions.: A szabályzat elfogadása kötelező.
 You must enable MQTT Broker first.: Először engedélyezze az integrációt az MQTT brókerrel.
 You must set sections with transparent or opaque parameters or both.: Válassza ki legalább egy szekció átláthatóságát.
@@ -761,29 +761,29 @@ You need to provide icons for all states.: Minden állapothoz meg kell adnia egy
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Frissítenie kell a SUPLA Cloud példányát legalább a 2.3.0 verzióra.
 You will not be able to generate a direct link with the same URL again.: Link létrehozása ugyanazon URL-címmel nem lehetséges.
 Your account and MQTT Broker connection.: Csatlakoztassa fiókját az MQTT brókerhez.
-Your account has been deleted. We hope you will come back to us soon.: 'A fiókot töröltük. Reméljük, hogy hamarosan visszatér hozzánk.'
+Your account has been deleted. We hope you will come back to us soon.: A fiókot töröltük. Reméljük, hogy hamarosan visszatér hozzánk.
 Your account has been locked.: A fiókja letiltásra került.
 Your account has not been confirmed yet.: Még nem erősítette meg a fiókját.
 Your account limits: Az Ön határértékei
-'Your channel groups are allowed to have a maximum of {max} channels.': 'A csatorna csoportok maximum {max} csatornákkal rendelkezhetnek.'
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': 'A készülék lehetővé teszi a funkciók bővítését, és lehetővé teszi, hogy bármilyen műveletet végezzen bármilyen eszközön. A rendelkezésre álló beállítások a használt hardver és szoftver függvényében állnak rendelkezésre.'
+Your channel groups are allowed to have a maximum of {max} channels.: A csatorna csoportok maximum {max} csatornákkal rendelkezhetnek.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: A készülék lehetővé teszi a funkciók bővítését, és lehetővé teszi, hogy bármilyen műveletet végezzen bármilyen eszközön. A rendelkezésre álló beállítások a használt hardver és szoftver függvényében állnak rendelkezésre.
 Your email: Az e-mail címe
-Your instance is not registered or you are trying to authorize an application that is not public.: 'Az entitása nincs regisztrálva, vagy nem nyilvános alkalmazást próbál engedélyeztetni.'
+Your instance is not registered or you are trying to authorize an application that is not public.: Az entitása nincs regisztrálva, vagy nem nyilvános alkalmazást próbál engedélyeztetni.
 Your password must contain at least one special character.: A jelszónak legalább egy speciális karaktert kell tartalmaznia.
 Your password must include at least one letter.: A jelszónak legalább egy betűt kell tartalmaznia.
 Your password must include at least one number.: A jelszónak legalább egy számjegyet kell tartalmaznia.
 Your password must include both upper and lower case letters.: A jelszónak kis és nagy betűket kell tartalmaznia.
 Your preferences has been updated.: Beállításait rögzítették.
 Your private SUPLA Cloud instance has been unregistered.: A saját SUPLA felhő példányát töröltük.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: 'A SUPLA felhő magán példánya nem érhető el. Győződjön meg arról, hogy szervere online és a HTTPS kapcsolat megfelelően működik.'
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: A SUPLA felhő magán példánya nem érhető el. Győződjön meg arról, hogy szervere online és a HTTPS kapcsolat megfelelően működik.
 Your private SUPLA Cloud is almost registered.: A saját SUPLA felhője majdnem regisztrált.
 Your private SUPLA Cloud is not registered.: A saját SUPLA felhője nincs regisztrálva.
-'Your scenes are allowed to have a maximum of {max} operations.': 'Jelenetein legfeljebb {max} művelet hajtható végre. '
-'Your schedules are allowed to have a maximum of {max} actions.': 'Az Ön ütemterve maximum {max} műveletet tartalmazhat.'
+Your scenes are allowed to have a maximum of {max} operations.: 'Jelenetein legfeljebb {max} művelet hajtható végre. '
+Your schedules are allowed to have a maximum of {max} actions.: Az Ön ütemterve maximum {max} műveletet tartalmazhat.
 Your session has been expired.: Twoja sesja wygasła.
 Your session is about to expire: A munkamenete hamarosan lejár
-'Your session will expire in [time].': 'A munkamenete [idő] múlva lejár.'
-'Yours faithfully,': 'Tisztelettel,'
+Your session will expire in {0}.: A munkamenete {0} múlva lejár.
+Yours faithfully,: Tisztelettel,
 access to your e-mail address: Hozzáférés az Ön e-mail címéhez
 actionTrigger_HOLD: Tartsa nyomva a gombot
 actionTrigger_SHORT_PRESS_X1: Nyomja meg 1x
@@ -801,12 +801,13 @@ actionTrigger_TURN_ON: Bekapcsol
 actionableSubjectType_channel: Csatorna
 actionableSubjectType_channelGroup: Csatorna csoport
 actionableSubjectType_scene: Jelenet
-addToHistoryMeasurementWarningSelected: 'Ha ezt a beállítást választja, a beállított értékek hozzáadódnak a történetben tárolt jövőbeli mérésekhez. Ez a diagramokban a megadott értékeknek köszönhető, hirtelen növekedésként látható. Javasoljuk, hogy ezeket a paramétereket csak a mérő első telepítésekor állítsa be. A meglévő mérőórák esetében javasoljuk, hogy törölje a mérési előzményeket, e beállítások módosítása után.'
-addToHistoryMeasurementWarningUnselected: 'Ha ezt a beállítást választja, beállított értékeket a jövőbeli méréseknél kihagyja a történetéből. Ez a diagramokban hirtelen csökkenésnek tekinthető. Javasoljuk, hogy ezeket a paramétereket csak a mérő első telepítésekor állítsa be. A meglévő mérőórák esetében javasoljuk, hogy törölje a mérési előzményeket, e beállítások módosítása után.'
+addToHistoryMeasurementWarningSelected: Ha ezt a beállítást választja, a beállított értékek hozzáadódnak a történetben tárolt jövőbeli mérésekhez. Ez a diagramokban a megadott értékeknek köszönhető, hirtelen növekedésként látható. Javasoljuk, hogy ezeket a paramétereket csak a mérő első telepítésekor állítsa be. A meglévő mérőórák esetében javasoljuk, hogy törölje a mérési előzményeket, e beállítások módosítása után.
+addToHistoryMeasurementWarningUnselected: Ha ezt a beállítást választja, beállított értékeket a jövőbeli méréseknél kihagyja a történetéből. Ez a diagramokban hirtelen csökkenésnek tekinthető. Javasoljuk, hogy ezeket a paramétereket csak a mérő első telepítésekor állítsa be. A meglévő mérőórák esetében javasoljuk, hogy törölje a mérési előzményeket, e beállítások módosítása után.
 after: utána
 before: előtte
 caption: név
 channel: Csatorna
+channelConfigHelp_numberOfAttemptsGate: Miután a kapu nyitási vagy zárási parancsát elrendelte, a rendszer megkísérli a kapu zárását/nyitását, és 60 másodpercig várakozik, hogy ellenőrizhesse, a kapu a kívánt állapotba került-e. Hiba esetén a rendszer újra megkisérli a művelet végrehajtását. Az alábbi paraméterrel lehet meghatározni a próbálkozások számát. Az ajánlott érték 5. A paraméter módosítása nincs hatással az ütemtervre.
 channelGroup: Csatorna csoport
 choose: válassza ki
 choose a currency: válasszon pénznemet
@@ -815,6 +816,7 @@ choose the channel: csatorna kiválasztása
 choose the channel group: válasszon egy csatornacsoportot
 choose the scene: Válasszon jelenetet
 choose the timezone: válassza ki az időzónát
+click here: Kattintson ide
 copied: átmásolva
 copy: másolás
 days: napok
@@ -843,11 +845,11 @@ minutes: perc
 or add a delay: vagy késleltetés megadása
 password: jelszó
 prefix: előtag
-register-slide1-text: 'A rendelkezésre álló elektronika alapján a SUPLA lehetővé teszi az egyszerű modulok elkészítését, amelyek lehetővé teszik az épület automatizálási részeinek vezérlését és irányítását. A SUPLA-nak köszönhetően többek között ellenőrizheti a világítást, be- és kikapcsolhatja a háztartási készülékeket, kinyithatja és bezárhatja a kapukat és az ajtókat, vagy szabályozhatja a helyiség hőmérsékletét. Mindezt egy mozdulattal megteheti.'
+register-slide1-text: A rendelkezésre álló elektronika alapján a SUPLA lehetővé teszi az egyszerű modulok elkészítését, amelyek lehetővé teszik az épület automatizálási részeinek vezérlését és irányítását. A SUPLA-nak köszönhetően többek között ellenőrizheti a világítást, be- és kikapcsolhatja a háztartási készülékeket, kinyithatja és bezárhatja a kapukat és az ajtókat, vagy szabályozhatja a helyiség hőmérsékletét. Mindezt egy mozdulattal megteheti.
 register-slide1-title: Saját Intelligens Épület
-register-slide2-text: 'A projekt alapelvei az egyszerűség és hogy álandóan rendelkezésre áll. A SUPLA lehetővé teszi, hogy egy mozdulattal bekapcsolja a világjtást vagy megnyissa a bejárati kaput, amikor az ingatlanba kíván belépni. A SUPLA bárhol elérhető, ahol van internet-hozzáférés, és kéznél van okostelefon vagy táblagép. A SUPLA-t a nyílt szoftver és a nyílt forráskódú szoftver és hardver elve alapján fejlesztették ki, amelynek köszönhetően Ön is fejlesztheti ezt a projektet!'
+register-slide2-text: A projekt alapelvei az egyszerűség és hogy álandóan rendelkezésre áll. A SUPLA lehetővé teszi, hogy egy mozdulattal bekapcsolja a világjtást vagy megnyissa a bejárati kaput, amikor az ingatlanba kíván belépni. A SUPLA bárhol elérhető, ahol van internet-hozzáférés, és kéznél van okostelefon vagy táblagép. A SUPLA-t a nyílt szoftver és a nyílt forráskódú szoftver és hardver elve alapján fejlesztették ki, amelynek köszönhetően Ön is fejlesztheti ezt a projektet!
 register-slide2-title: SUPLA mindenhol!
-register-slide3-text: 'A piacon elérhető épületi automatizálási rendszerek okosotthonhoz általában nagyon összetettek, zártak és költségesek. Sok esetben a telepítést már a létesítmény építésének szakaszában megkövetelik. A SUPLA egyszerű, nyitott és ingyenes. Lehetővé teszi a RaspberryPI, Arduino vagy ESP8266 platformokon alapuló végrehajtó elemek felépítését és LAN és WiFi általi összekapcsolásukat. Csatlakozzon a projekthez, és készítse el az épület automatizálási rendszerének saját verzióját!'
+register-slide3-text: A piacon elérhető épületi automatizálási rendszerek okosotthonhoz általában nagyon összetettek, zártak és költségesek. Sok esetben a telepítést már a létesítmény építésének szakaszában megkövetelik. A SUPLA egyszerű, nyitott és ingyenes. Lehetővé teszi a RaspberryPI, Arduino vagy ESP8266 platformokon alapuló végrehajtó elemek felépítését és LAN és WiFi általi összekapcsolásukat. Csatlakozzon a projekthez, és készítse el az épület automatizálási rendszerének saját verzióját!
 register-slide3-title: Ingyenes és nyitott!
 reset chart view: vissza az eredeti nézethez
 scene: jelenet
@@ -856,7 +858,7 @@ scheduleMode_daily: Napi ciklus
 scheduleMode_minutely: Perces ciklus
 scheduleMode_once: Egyszer használatos
 sec.: mp.
-'smartphones, tablets, etc.': 'okostelefonok, táblagépek stb.'
+smartphones, tablets, etc.: okostelefonok, táblagépek stb.
 state-closed: Zárva
 state-default: Eredmény
 state-empty: Üres
@@ -868,8 +870,8 @@ state-opened: Nyitva
 state-partially_closed: Részben zárt
 state-revealed: Elhúzva
 state-rgb_off_dim_off: RGB és fényerőszabályzó kikapcsolva
-state-rgb_off_dim_on: 'RGB kikapcsolva, fényerőszabályzó bekapcsolva'
-state-rgb_on_dim_off: 'RGB bekapcsolva, fényerőszabályzó kikapcsolva'
+state-rgb_off_dim_on: RGB kikapcsolva, fényerőszabályzó bekapcsolva
+state-rgb_on_dim_off: RGB bekapcsolva, fényerőszabályzó kikapcsolva
 state-rgb_on_dim_on: RGB és fényerőszabályzó bekapcsolva
 state-shut: Elfüggönyözve
 state-temperature: Hőmérséklet
@@ -880,8 +882,8 @@ sunset-after: napnyugtakor
 sunset-before: napnyugta előtt
 username: felhasználó neve
 valid until: érvényessége lejár
-'{applicationName} will not be able to interact with your account until you grant the access again.': 'A (z) {applicationName} csak akkor léphet kapcsolatba fiókjával, ha újra hozzáférést biztosít.'
-'{clientName} wants to access your account.': 'A (z) {clientName} hozzáférni kíván fiókjához.'
+'{applicationName} will not be able to interact with your account until you grant the access again.': A (z) {applicationName} csak akkor léphet kapcsolatba fiókjával, ha újra hozzáférést biztosít.
+'{clientName} wants to access your account.': A (z) {clientName} hozzáférni kíván fiókjához.
 '{minutes} minutes after sunrise': perccel napfelkelte után
 '{minutes} minutes after sunset': perccel napnyugta után
 '{minutes} minutes before sunrise': perccel napfelkelte előtt
@@ -899,25 +901,25 @@ Access identifier password must be no longer than 32 characters.: A hozzáféré
 Action: Műveletek
 Are you sure you want to disable this device?: Biztosan ki akarja kapcsolni ezt az eszközt?
 Assigned Locations: Hozzárendelt Lokálizációk
-Cannot send an activation e-mail. Try again later.: 'Nem lehet üzenetet küldeni az aktiválási linkkel. Kérjük, próbálja meg újra később.'
+Cannot send an activation e-mail. Try again later.: Nem lehet üzenetet küldeni az aktiválási linkkel. Kérjük, próbálja meg újra később.
 Channel will be deleted from the channel group below: A csatorná eltávolítva a következő csatornacsoportokból
 Chosen hour: Kiválasztott óra
-'Confirm if you want to remove {deviceName} device': 'Erősítse meg, hogy el akarja távolítani a (z) {deviceName}'
+Confirm if you want to remove {deviceName} device: Erősítse meg, hogy el akarja távolítani a (z) {deviceName}
 DISABLED: KIKAPCSOLVA
 Date: Dátum
 Days: Napok
 Direct links below will be deleted: Az alább felsorolt közvetlen linkek eltávolításra kerülnek
-'Doors, Gates': 'Ajtók,  Kapuk'
+Doors, Gates: Ajtók,  Kapuk
 ENABLED: BEKAPCSOLVA
 Email already exists: Az e-mail cím már létezik
 Existing schedules: Meglévő ütemtervek
 Fridays: Péntekek
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Nem érkezett üzenet a fiókját aktiváló linkkel? Ellenőrizze, hogy nincs-e a SPAM (levélszemét) mappában. A [ide] gombra kattintva ismét elküldheti.'
+Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: Nem érkezett üzenet a fiókját aktiváló linkkel? Ellenőrizze, hogy nincs-e a SPAM (levélszemét) mappában. A [ide] gombra kattintva ismét elküldheti.
 Hi: Szia!
 Hour: Óra
 Hours: Órák
 I/O: Bejárat/Kijárat
-'If you want to stay here, do something!': 'Ha itt akar maradni, csináljon valamit!'
+If you want to stay here, do something!: Ha itt akar maradni, csináljon valamit!
 Input: Bejárat
 Languages: Nyelvek
 Loading: Töltés
@@ -928,7 +930,7 @@ Mondays: Hétfők
 Next: Tovább
 Number: Szám
 Output: Kilépés
-Please select the schedules that should also be enabled.: 'Jelölje be az ütemezéseket, amelyeket szintén be akarja kapcsolni.'
+Please select the schedules that should also be enabled.: Jelölje be az ütemezéseket, amelyeket szintén be akarja kapcsolni.
 Registration: Regisztráció
 Registration of new I/O devices: Eszköz regisztráció
 Registration of new clients: Ügyfél regisztráció
@@ -941,7 +943,7 @@ Subject: Entitás
 Sundays: Vasárnapok
 Sunrise / Sunset: Kelet / Nyugat
 Thursdays: Csütörtökök
-Try again later: 'Kérjük, próbálja meg újra később.'
+Try again later: Kérjük, próbálja meg újra később.
 Tuesdays: Keddek
 Turning this device off will result in disabling all the associated schedules.: Az eszköz kikapcsolásakor kikapcsolódnak a hozzá tartozó harmonográmok is.
 We have just sent you an activation link. Be patient.: Nemrég elküldtük a fiók aktiválására szolgáló linket tartalmazó üzenetet. Köszönjük türelmét.
@@ -955,7 +957,34 @@ will expire: lejár
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Above threshold: ~
+Average voltage: ~
+Below threshold: ~
+Device might be sleeping: ~
+Error when communicating the AD. Try again in a while.: ~
+Estimated execution time: ~
+Gate's state verification: ~
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
+Longest violation: ~
+Maximum voltage: ~
+Measurement window: ~
+Minimum voltage: ~
+Phase number: ~
+Register your SUPLA Cloud: ~
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
+Show days with issues only: ~
+The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
+Total time: ~
+Verification method: ~
+Violation info: ~
+Violations count: ~
+Voltage deviations: ~
+Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~
+channelConfigHelp_stateVerificationMethod: ~
+channelConfig_stateVerificationMethod_active: ~
+channelConfig_stateVerificationMethod_passive: ~
 
 #</editor-fold>

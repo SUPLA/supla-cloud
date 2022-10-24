@@ -132,7 +132,7 @@
                                         :key="app.id">
                                         <td>{{ app.id }}</td>
                                         <td>{{ app.caption }}</td>
-                                        <td>{{ app.lastAccessDate | moment("LT L") }}</td>
+                                        <td>{{ app.lastAccessDate | formatDateTime }}</td>
                                     </tr>
                                     </tbody>
                                 </table>

@@ -69,11 +69,11 @@
 
 <script>
     import Vue from 'vue';
-    import moment from "moment";
     import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
     import InvisibleRecaptcha from './invisible-recaptcha.vue';
     import RegulationsCheckbox from "../common/errors/regulations-checkbox";
     import ResendAccountActivationLink from "./resend-account-activation-link";
+    import {DateTime} from "luxon";
 
     export default {
         components: {ResendAccountActivationLink, RegulationsCheckbox, ButtonLoadingDots, InvisibleRecaptcha},
@@ -83,7 +83,7 @@
                 username: '',
                 password: '',
                 confirmPassword: '',
-                timezone: moment.tz.guess() || 'Europe/Warsaw',
+                timezone: DateTime.local().setZone("system").zoneName || 'Europe/Warsaw',
                 isBusy: false,
                 errorMessage: '',
                 regulationsAcceptRequired: Vue.config.external.regulationsAcceptRequired,

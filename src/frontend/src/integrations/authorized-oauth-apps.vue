@@ -19,7 +19,7 @@
                     <td>
                         <oauth-scope-label :scope="authorizedApp.scope"></oauth-scope-label>
                     </td>
-                    <td>{{ authorizedApp.authorizationDate | moment("LT L") }}</td>
+                    <td>{{ authorizedApp.authorizationDate | formatDateTime }}</td>
                     <td class="text-right">
                         <button type="button"
                             class="btn btn-red"

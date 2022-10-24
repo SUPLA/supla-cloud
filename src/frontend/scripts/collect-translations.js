@@ -10,6 +10,7 @@ const regexes = [
     "\\s[^:\\s][a-z0-9-]+-i18n=\"(.+?)\"", // any-i18n="...", but not :any-i18n="..."
     "i18n:(\\[.+?\\])", // // i18n:['...']
     "\\{% trans.+?%\\}(.+?)\\{% endtrans", // {% trans %} ... {% endtrans %}
+    "<i18n path=\"(.+?)\"", // <i18n path="..."
 ];
 
 const locations = [
@@ -58,7 +59,7 @@ readFiles()
         };
         fs.readdirSync(translationsDirectory).forEach(file => {
             let translationFilePath = `${translationsDirectory}/${file}`;
-            const existingMessages = yaml.safeLoad(fs.readFileSync(translationFilePath, 'utf8'));
+            const existingMessages = yaml.load(fs.readFileSync(translationFilePath, 'utf8'));
 
             const matched = {};
             let missing = {};
@@ -80,9 +81,9 @@ readFiles()
                 }
             }
 
-            const matchedYml = yaml.safeDump(matched, yamlDumpConfig);
-            const missingYml = yaml.safeDump(missing, yamlDumpConfig);
-            const extraYml = yaml.safeDump(existingMessages, yamlDumpConfig);
+            const matchedYml = yaml.dump(matched, yamlDumpConfig);
+            const missingYml = yaml.dump(missing, yamlDumpConfig);
+            const extraYml = yaml.dump(existingMessages, yamlDumpConfig);
 
             const matchedCount = Object.keys(matched).length;
             const extraCount = Object.keys(existingMessages).length;

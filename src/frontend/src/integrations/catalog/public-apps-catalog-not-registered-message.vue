@@ -1,39 +1,22 @@
 <template>
     <whole-screen-message icon="pe-7s-mouse"
         header-i18n="Your private SUPLA Cloud is not registered.">
+        <i18n path="If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}."
+            tag="p">
+            <template #registerYourSuplaCloudLink>
+                <a href="https://cloud.supla.org/register-cloud">{{ $t('Register your SUPLA Cloud') }}</a>
+            </template>
+        </i18n>
+        <i18n path="If you wish to see the available integrations, go to {0}."
+            tag="p">
+            <a href="https://cloud.supla.org/apps">cloud.supla.org/apps</a>
+        </i18n>
         <p>
-            <component :is="registerCloudMessage"></component>
-        </p>
-        <p>
-            <component :is="onlyCatalogMessage"></component>
-        </p>
-        <p>
-            <component :is="otherwiseMessage"></component>
+            {{ $t('Otherwise go to the homepage.') }}
+            <router-link to="/">{{ $t('Start from the homepage.') }}</router-link>
         </p>
     </whole-screen-message>
 </template>
 
-<script>
-    import WholeScreenMessage from "../../register/whole-screen-message";
-
-    export default {
-        components: {WholeScreenMessage},
-        computed: {
-            registerCloudMessage() {
-                const message = this.$t('If you want to integrate your Cloud with public OAuth applications, you must [register your instance].')
-                    .replace(/\[(.+?)\]/, `<a href="https://cloud.supla.org/register-cloud">$1</a>`);
-                return {template: `<span>${message}</span>`};
-            },
-            onlyCatalogMessage() {
-                const message = this.$t('If you wish to see the available integrations, go to [cloud.supla.org/apps].')
-                    .replace(/\[(.+?)\]/, `<a href="https://cloud.supla.org/apps">$1</a>`);
-                return {template: `<span>${message}</span>`};
-            },
-            otherwiseMessage() {
-                const message = this.$t('Otherwise go to [the homepage].')
-                    .replace(/\[(.+?)\]/, `<router-link to="/">$1</router-link>`);
-                return {template: `<span>${message}</span>`};
-            }
-        }
-    };
-</script>
+<script setup>
+    import WholeScreenMessage from "../../register/whole-screen-message";</script>

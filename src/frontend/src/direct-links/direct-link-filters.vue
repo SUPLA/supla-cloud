@@ -18,7 +18,7 @@
 <script>
     import BtnFilters from "../common/btn-filters";
     import latinize from "latinize";
-    import moment from "moment";
+    import {DateTime} from "luxon";
 
     export default {
         components: {BtnFilters},
@@ -49,7 +49,8 @@
             },
             compare(a, b) {
                 if (this.sort === 'lastUsed') {
-                    return moment(b.lastUsed || '2000-01-01T00:00:00').diff(moment(a.lastUsed || '2000-01-01T00:00:00'));
+                    return DateTime.fromISO(b.lastUsed || '2000-01-01T00:00:00')
+                        .diff(DateTime.fromISO(a.lastUsed || '2000-01-01T00:00:00')).milliseconds;
                 } else if (this.sort === 'caption') {
                     return this.captionForSort(a) < this.captionForSort(b) ? -1 : 1;
                 } else {

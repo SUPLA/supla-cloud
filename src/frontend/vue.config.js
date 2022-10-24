@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+// const StatsPlugin = require('stats-webpack-plugin')
 
 module.exports = {
     lintOnSave: 'warning',
@@ -12,18 +13,14 @@ module.exports = {
         proxy: 'http://supla.local'
     },
     configureWebpack: {
-        resolve: {
-            alias: {
-                'vue$': 'vue/dist/vue.esm.js'
-            }
-        },
         plugins: [
             new webpack.ProvidePlugin({
                 jQuery: 'jquery',
             }),
             new webpack.DefinePlugin({
                 FRONTEND_VERSION: JSON.stringify(require('./scripts/version').version),
-            })
+            }),
+            // new StatsPlugin('stats.json'),
         ],
     },
     chainWebpack: (config) => {

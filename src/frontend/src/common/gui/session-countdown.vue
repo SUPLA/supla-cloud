@@ -2,7 +2,10 @@
     <span v-if="expirationTimestamp">
         <span v-if="secondsLeft > 0"
             class="text-muted">
-            <component :is="expireText"></component>
+            <i18n path="Your session will expire in {0}."
+                tag="span">
+                <span>{{ timeLeft }}</span>
+            </i18n>
             <a @click="show()"
                 v-if="secondsLeft < 300">{{ $t('extend') }}</a>
         </span>
@@ -11,7 +14,10 @@
             :header="$t('Your session is about to expire')"
             :class="['text-center session-countdown-modal', {expiring: secondsLeft < 60}]">
             <p>
-                <component :is="expireText"></component>
+                <i18n path="Your session will expire in {0}."
+                    tag="span">
+                    <span>{{ timeLeft }}</span>
+                </i18n>
             </p>
             <div class="form-group">
                 <p>{{ $t('Enter your password to prevent automatic logout.') }}</p>
@@ -66,8 +72,8 @@
 <script>
     import Vue from "vue";
     import $ from "jquery";
-    import moment from "moment";
     import AppState from "../../router/app-state";
+    import {DateTime} from "luxon";
 
     export default {
         data() {
@@ -86,11 +92,6 @@
             this.interval = setInterval(() => this.countdown(), 1000);
         },
         computed: {
-            expireText() {
-                const template = this.$t('Your session will expire in [time].')
-                    .replace(/\[.+\]/g, `<span class="session-timeout-countdown"></span>`);
-                return {template: `<span>${template}</span>`};
-            },
             timeLeft() {
                 if (this.secondsLeft > 0) {
                     const minutes = Math.floor(this.secondsLeft / 60);
@@ -105,9 +106,9 @@
             synchronizeExpirationTime() {
                 const expirationTime = this.$localStorage.get('_token_expiration');
                 if (expirationTime) {
-                    const timestamp = moment(expirationTime).unix();
+                    const timestamp = DateTime.fromISO(expirationTime).toSeconds();
                     if (timestamp > (new Date().getTime() / 1000)) {
-                        this.expirationTimestamp = moment(expirationTime).unix();
+                        this.expirationTimestamp = timestamp;
                         this.countdown();
                     }
                 }
@@ -133,7 +134,6 @@
             countdown() {
                 if (this.expirationTimestamp) {
                     this.secondsLeft = this.expirationTimestamp - Math.floor(new Date().getTime() / 1000);
-                    $('.session-timeout-countdown').text(this.timeLeft);
                     if (this.secondsLeft < 60 && !this.showDialog) {
                         this.show();
                     }

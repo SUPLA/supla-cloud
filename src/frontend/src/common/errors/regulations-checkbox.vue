@@ -2,16 +2,18 @@
     <div>
         <div class="form-group"
             v-if="implicitAgreement">
-            <component :is="checkboxLabel"
-                @click="rulesShown = true"></component>
+            {{ $t('I accept the Terms and Conditions and hereby agree for processing of my personal data for the purposes included in the said Terms and Conditions.') }}
+            <a @click.prevent="rulesShown = true">{{ $t('Please read the Terms and Conditions.') }}</a>
         </div>
         <label class="checkbox2"
             v-else>
             <input type="checkbox"
                 v-model="agreed"
                 @change="$emit('input', agreed)">
-            <component :is="checkboxLabel"
-                @click="rulesShown = true"></component>
+            <span>
+                {{ $t('I accept the Terms and Conditions and hereby agree for processing of my personal data for the purposes included in the said Terms and Conditions.') }}
+                <a @click.prevent="rulesShown = true">{{ $t('Please read the Terms and Conditions.') }}</a>
+            </span>
         </label>
         <regulations-modal v-if="rulesShown"
             @confirm="rulesShown = false"></regulations-modal>
@@ -30,12 +32,5 @@
                 rulesShown: false
             };
         },
-        computed: {
-            checkboxLabel() {
-                const template = this.$t('I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].')
-                    .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
-                return {template: `<span>${template}</span>`};
-            }
-        }
     };
 </script>

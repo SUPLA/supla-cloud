@@ -2,8 +2,8 @@
     <transition name="fade">
         <div v-if="shown"
             class="alert alert-warning cookie-warning">
-            <component :is="warningText"
-                @click="regulationsShown = true"></component>
+            {{ $t('We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.') }}
+            <a @click="regulationsShown = true">{{ $t('Please read the Terms and Conditions.') }}</a>
             <a @click="agree()"
                 class="btn btn-default btn-xs pull-right">{{ $t('I agree') }}</a>
             <regulations-modal v-if="regulationsShown"
@@ -29,13 +29,6 @@
                 this.$http.patch('users/current', {action: 'agree:cookies'});
             }
         },
-        computed: {
-            warningText() {
-                const template = this.$t('We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].')
-                    .replace(/\[(.+?)\]/g, `<a @click.prevent="$emit('click')">$1</a>`);
-                return {template: `<span>${template}</span>`};
-            }
-        }
     };
 </script>
 

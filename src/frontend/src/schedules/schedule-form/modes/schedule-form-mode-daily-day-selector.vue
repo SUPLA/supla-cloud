@@ -34,9 +34,8 @@
 </template>
 
 <script>
-
-    import moment from "moment";
-    import {flatten, difference} from "lodash";
+    import {difference, flatten} from "lodash";
+    import {DateTime} from "luxon";
 
     export default {
         props: ['weekdayGroups'],
@@ -76,7 +75,7 @@
                 this.nextGroup();
             },
             dayLabel(day) {
-                return moment(day === 7 ? 0 : day, 'd').format('ddd');
+                return DateTime.fromFormat(day.toString(), 'c').toFormat('ccc');
             },
             groupLabel(group) {
                 return [...group].sort().map(this.dayLabel).join(', ');

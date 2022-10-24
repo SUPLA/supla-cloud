@@ -71,44 +71,13 @@ class ChannelMeasurementLogsController extends RestController {
         $this->channelParamConfigTranslator = $channelParamConfigTranslator;
     }
 
-    private function getMeasureLogsCount(IODeviceChannel $channel, $afterTimestamp = 0, $beforeTimestamp = 0) {
-        $this->ensureChannelHasMeasurementLogs($channel);
-        $functionId = $channel->getFunction()->getId();
-        Assertion::inArray(
-            $functionId,
-            [
-                ChannelFunction::HUMIDITYANDTEMPERATURE, ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITY,
-                ChannelFunction::ELECTRICITYMETER, ChannelFunction::IC_GASMETER, ChannelFunction::IC_WATERMETER,
-                ChannelFunction::IC_HEATMETER, ChannelFunction::IC_ELECTRICITYMETER, ChannelFunction::THERMOSTAT,
-                ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
-            ],
-            'Cannot fetch measurementLogsCount for channel with function ' . $channel->getFunction()->getName()
-        );
-
-        switch ($channel->getFunction()->getId()) {
-            case ChannelFunction::HUMIDITYANDTEMPERATURE:
-            case ChannelFunction::HUMIDITY:
-                $table = 'supla_temphumidity_log';
-                break;
-            case ChannelFunction::THERMOMETER:
-                $table = 'supla_temperature_log';
-                break;
-            case ChannelFunction::ELECTRICITYMETER:
-                $table = 'supla_em_log';
-                break;
-            case ChannelFunction::IC_ELECTRICITYMETER:
-            case ChannelFunction::IC_GASMETER:
-            case ChannelFunction::IC_WATERMETER:
-            case ChannelFunction::IC_HEATMETER:
-                $table = 'supla_ic_log';
-                break;
-            case ChannelFunction::THERMOSTAT:
-            case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
-                $table = 'supla_thermostat_log';
-                break;
-            default:
-                throw new ApiException('Invalid function.');
-        }
+    private function getMeasureLogsCount(
+        IODeviceChannel $channel,
+        $afterTimestamp = 0,
+        $beforeTimestamp = 0,
+        ?string $logsType = 'default'
+    ) {
+        $table = $this->getLogsTableName($channel, $logsType);
 
         $unixDate = "UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'))";
         $sql = "SELECT COUNT(*), MIN($unixDate), MAX($unixDate) FROM `$table` WHERE channel_id = ? ";
@@ -151,6 +120,12 @@ class ChannelMeasurementLogsController extends RestController {
         $orderDesc = true,
         $sparse = null
     ): array {
+        $offset = intval($offset);
+        $limit = intval($limit);
+        if ($limit <= 0) {
+            $limit = self::RECORD_LIMIT_PER_REQUEST;
+        }
+
         $order = $orderDesc ? ' ORDER BY `date` DESC ' : ' ORDER BY `date` ASC ';
         $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) AS date_timestamp, $fields ";
         $sql .= "FROM $table WHERE channel_id = ? ";
@@ -211,6 +186,35 @@ class ChannelMeasurementLogsController extends RestController {
         return $result->fetchAllAssociative();
     }
 
+    private function getLogsTableName(IODeviceChannel $channel, ?string $logsType = 'default'): string {
+        $this->ensureChannelHasMeasurementLogs($channel);
+        if ($logsType === 'default') {
+            $logsType = '';
+        }
+        $functionDescriptor = ($logsType ?: '') . $channel->getFunction()->getId();
+        switch ($functionDescriptor) {
+            case ChannelFunction::HUMIDITYANDTEMPERATURE:
+            case ChannelFunction::HUMIDITY:
+                return 'supla_temphumidity_log';
+            case ChannelFunction::THERMOMETER:
+                return 'supla_temperature_log';
+            case ChannelFunction::ELECTRICITYMETER:
+                return 'supla_em_log';
+            case 'voltage' . ChannelFunction::ELECTRICITYMETER:
+                return 'supla_em_voltage_log';
+            case ChannelFunction::IC_ELECTRICITYMETER:
+            case ChannelFunction::IC_GASMETER:
+            case ChannelFunction::IC_WATERMETER:
+            case ChannelFunction::IC_HEATMETER:
+                return 'supla_ic_log';
+            case ChannelFunction::THERMOSTAT:
+            case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
+                return 'supla_thermostat_log';
+            default:
+                throw new ApiException('Invalid function.');
+        }
+    }
+
     private function ensureChannelHasMeasurementLogs(IODeviceChannel $channel, ?array $allowedFuncList = null): void {
         if ($allowedFuncList == null) {
             $allowedFuncList = [
@@ -240,21 +244,16 @@ class ChannelMeasurementLogsController extends RestController {
         $afterTimestamp = 0,
         $beforeTimestamp = 0,
         $orderDesc = true,
-        $allowedFuncList = null,
-        $sparse = null
+        $sparse = null,
+        $logsType = 'default'
     ): array {
-        $this->ensureChannelHasMeasurementLogs($channel, $allowedFuncList);
-        $offset = intval($offset);
-        $limit = intval($limit);
-        if ($limit <= 0) {
-            $limit = self::RECORD_LIMIT_PER_REQUEST;
-        }
+        $table = $this->getLogsTableName($channel, $logsType);
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
             case ChannelFunction::HUMIDITY:
                 return $this->logItems(
-                    "`supla_temphumidity_log`",
-                    "`temperature`, `humidity`",
+                    $table,
+                    '`temperature`, `humidity`',
                     $channel,
                     $offset,
                     $limit,
@@ -265,8 +264,8 @@ class ChannelMeasurementLogsController extends RestController {
                 );
             case ChannelFunction::THERMOMETER:
                 return $this->logItems(
-                    "`supla_temperature_log`",
-                    "`temperature`",
+                    $table,
+                    '`temperature`',
                     $channel,
                     $offset,
                     $limit,
@@ -276,11 +275,16 @@ class ChannelMeasurementLogsController extends RestController {
                     $sparse
                 );
             case ChannelFunction::ELECTRICITYMETER:
+                $columns = $logsType === 'voltage' ?
+                    'phase_no phaseNo, count_total countTotal, count_above countAbove, count_below countBelow, sec_total secTotal,' .
+                    'sec_below secBelow, sec_above secAbove, max_sec_above maxSecAbove, max_sec_below maxSecBelow,' .
+                    'min_voltage minVoltage, max_voltage maxVoltage, avg_voltage avgVoltage, measurement_time_sec measurementTimeSec' :
+                    '`phase1_fae`, `phase1_rae`, `phase1_fre`, '
+                    . '`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, '
+                    . '`phase3_rae`, `phase3_fre`, `phase3_rre`, `fae_balanced`, `rae_balanced`';
                 return $this->logItems(
-                    "`supla_em_log`",
-                    "`phase1_fae`, `phase1_rae`, `phase1_fre`, "
-                    . "`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, "
-                    . "`phase3_rae`, `phase3_fre`, `phase3_rre`, `fae_balanced`, `rae_balanced`",
+                    $table,
+                    $columns,
                     $channel,
                     $offset,
                     $limit,
@@ -294,8 +298,8 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_WATERMETER:
             case ChannelFunction::IC_HEATMETER:
                 return $this->logItems(
-                    "`supla_ic_log`",
-                    "`counter`, `calculated_value` / 1000 calculated_value",
+                    $table,
+                    '`counter`, `calculated_value` / 1000 calculated_value',
                     $channel,
                     $offset,
                     $limit,
@@ -307,8 +311,8 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return $this->logItems(
-                    "`supla_thermostat_log`",
-                    "`on`,`measured_temperature`,`preset_temperature`",
+                    $table,
+                    '`on`,`measured_temperature`,`preset_temperature`',
                     $channel,
                     $offset,
                     $limit,
@@ -365,14 +369,14 @@ class ChannelMeasurementLogsController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
+        $this->ensureChannelHasMeasurementLogs($channel, [ChannelFunction::THERMOMETER]);
         $result = $this->getMeasurementLogItemsAction(
             $channel,
             @$request->query->get('offset'),
             @$request->query->get('limit'),
             0,
             0,
-            false,
-            [ChannelFunction::THERMOMETER]
+            false
         );
         return $this->handleView($this->view(['log' => $result], Response::HTTP_OK));
     }
@@ -386,14 +390,14 @@ class ChannelMeasurementLogsController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
+        $this->ensureChannelHasMeasurementLogs($channel, [ChannelFunction::HUMIDITYANDTEMPERATURE]);
         $result = $this->getMeasurementLogItemsAction(
             $channel,
             @$request->query->get('offset'),
             @$request->query->get('limit'),
             0,
             0,
-            false,
-            [ChannelFunction::HUMIDITYANDTEMPERATURE]
+            false
         );
         return $this->handleView($this->view(['log' => $result], Response::HTTP_OK));
     }
@@ -407,6 +411,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     @OA\Parameter(name="beforeTimestamp", description="Fetch log items created before this timestamp.", in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="order", description="Whether to order items ascending or descending by creation date.", in="query", @OA\Schema(type="string", default="DESC", enum={"ASC", "DESC"})),
      *     @OA\Parameter(name="sparse", description="Set the maximum items to return from the given period. If specified, the `limit` and `offset` params are ignored. For example, if you fetches the logs from the whole year and set the `sparse` param to `12`, the API will try to return up to 12 log items, equally distributed throug the whole year. Min: 1, Max: 1000.", in="query", @OA\Schema(type="integer", minimum=1, maximum=1000)),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to return. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage"})),
      *     @OA\Parameter(name="limit", description="Maximum items count in response, from 1 to 5000.", in="query", @OA\Schema(type="integer", default=5000, minimum=1, maximum=5000)),
      *     @OA\Parameter(name="offset", description="Pagination offset.", in="query", @OA\Schema(type="integer", default=0)),
      *     @OA\Response(response="200", description="Success",
@@ -479,8 +484,8 @@ class ChannelMeasurementLogsController extends RestController {
             $minTimestampParam,
             $maxTimestampParam,
             $request->query->get('order') !== 'ASC',
-            null,
-            $request->query->get('sparse')
+            $request->query->get('sparse'),
+            $request->query->get('logsType'),
         );
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
             $logs = $this->adjustLogsFormat($logs, $channel);
@@ -489,10 +494,11 @@ class ChannelMeasurementLogsController extends RestController {
         [$totalCountWithCondition, $minTimestamp, $maxTimestamp] = $this->getMeasureLogsCount(
             $channel,
             $minTimestampParam,
-            $maxTimestampParam
+            $maxTimestampParam,
+            $request->query->get('logsType')
         );
         if ($minTimestampParam || $maxTimestampParam) {
-            [$totalCount,] = $this->getMeasureLogsCount($channel);
+            [$totalCount,] = $this->getMeasureLogsCount($channel, 0, 0, $request->query->get('logsType'));
         } else {
             $totalCount = $totalCountWithCondition;
         }
@@ -529,9 +535,14 @@ class ChannelMeasurementLogsController extends RestController {
                 }, $logs);
             case ChannelFunction::ELECTRICITYMETER:
                 return array_map(function (array $item) {
-                    return array_map(function ($value) {
-                        return is_numeric($value) ? intval($value) : $value;
-                    }, $item);
+                    array_walk($item, function (&$value, string $field) {
+                        if (in_array($field, ['minVoltage', 'maxVoltage', 'avgVoltage'])) {
+                            $value = floatval($value);
+                        } else {
+                            $value = is_numeric($value) ? intval($value) : $value;
+                        }
+                    });
+                    return $item;
                 }, $logs);
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:

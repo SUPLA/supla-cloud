@@ -28,7 +28,14 @@
                         </div>
                         <div v-else-if="!loading"
                             class="alert alert-warning">
-                            <component :is="noEnabledLocationsWarning"></component>
+                            <i18n path="No location enabled. Go to {locationsListLink} or {newLocationLink}.">
+                                <template #locationsListLink>
+                                    <router-link :to="{name: 'locations'}">{{ $t('Locations') }}</router-link>
+                                </template>
+                                <template #newLocationLink>
+                                    <router-link :to="{name: 'location', params: {id: 'new'}}">{{ $t('Create New Location') }}</router-link>
+                                </template>
+                            </i18n>
                         </div>
                     </loading-cover>
                 </div>
@@ -59,7 +66,14 @@
                         </div>
                         <div v-else-if="!loading"
                             class="alert alert-warning">
-                            <component :is="noEnabledAccessIdsWarning"></component>
+                            <i18n path="No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.">
+                                <template #accessIdsListLink>
+                                    <router-link :to="{name: 'accessIds'}">{{ $t('Access Identifiers') }}</router-link>
+                                </template>
+                                <template #newAccessIdLink>
+                                    <router-link :to="{name: 'accessId', params: {id: 'new'}}">{{ $t('Create New Access Identifier') }}</router-link>
+                                </template>
+                            </i18n>
                         </div>
                     </loading-cover>
                 </div>
@@ -92,21 +106,8 @@
                     this.location = enabledLocations[0];
                 }
             }).finally(() => this.loading = false);
-            // this.$http.get('server-info').then(response => this.address = response.body.address);
         },
         computed: {
-            noEnabledLocationsWarning() {
-                const warning = this.$t('No location enabled. Go to [location list] or [add a new location].')
-                    .replace(/\[(.+?)\]/, `<router-link :to="{name: 'locations'}">$1</router-link>`)
-                    .replace(/\[(.+?)\]/, `<router-link :to="{name: 'location', params: {id: 'new'}}">$1</router-link>`);
-                return {template: `<span>${warning}</span>`};
-            },
-            noEnabledAccessIdsWarning() {
-                const warning = this.$t('No access identifier enabled. Go to [access identifier list] or [add a new access identifier].')
-                    .replace(/\[(.+?)\]/, `<router-link :to="{name: 'accessIds'}">$1</router-link>`)
-                    .replace(/\[(.+?)\]/, `<router-link :to="{name: 'accessId', params: {id: 'new'}}">$1</router-link>`);
-                return {template: `<span>${warning}</span>`};
-            },
             suplaServerHost() {
                 return this.$frontendConfig.suplaUrl.replace(/https?:\/\//, '');
             }

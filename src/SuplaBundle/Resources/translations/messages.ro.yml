@@ -3,11 +3,11 @@
 '%s trigger is not supported by the hardware.': Declanșatorul %s nu este acceptat de dispozitiv.
 ...and start your adventure with building automation today!: ...și începeți aventura cu clădiri inteligente de astăzi!
 ...open and shut roller shutters: ...închiderea și deschiderea jaluzelelor
-'...open gateways, gates or doors': '...deschiderea portiței, porții sau ușii'
+...open gateways, gates or doors: ...deschiderea portiței, porții sau ușii
 ...or control home appliances: ...sau controlul dispozitivelor electrocasnice/electronice
 ...you can monitor temperature: ...puteți monitoriza temperatura
-'10 minutes before sunset, on day 10 of the month, May through August': 'Cu 10 minute înainte de apus, numai în a 10-a zi a lunii, din mai până în august'
-'15 minutes after sunrise, every 2 days': 'La 15 minute după răsărit, o dată la două zile'
+10 minutes before sunset, on day 10 of the month, May through August: Cu 10 minute înainte de apus, numai în a 10-a zi a lunii, din mai până în august
+15 minutes after sunrise, every 2 days: La 15 minute după răsărit, o dată la două zile
 A confirmation upon successful client app registration.: Confirmarea înregistrării unei noi aplicații de client.
 A confirmation upon successful device registration.: Confirmarea înregistrării cu succes a dispozitivului.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Noua aplicație client (smartphone) a fost adăugată la contul tău SUPLA-Cloud.
@@ -44,20 +44,19 @@ Add new channel group: Adaugă o grupă nouă de canale
 Add new channel to this group: Adaugă un canal nou în grupă
 Add new item to use in the scene: Adăugați un element nou la scenă
 Adjust parameters: Setează parametrii
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Toate canalele și grupele de canale care utilizează această pictogramă, vor primi pictograme implicite după eliminarea acesteia.'
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'După acordarea accesului, puteți oricând să vă răzgândiți revocând accesul în setările contului dvs.'
-'After the device enters the configuration mode, it will not be accessible on your account.': Dispozitivul nu va fi disponibil din contul Tău după ce intrați în modul de configurare.
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'După actualizare, aplicația va fi mai rapidă, mai convenabilă... Pur și simplu mai bună!'
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Contorul va începe să socotească de la 0 după această operație, indiferent de starea sa curentă. Această operațiune nu poate fi anulată.'
-'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': Link-ul va fi generat imediat după selectarea entității. Puteți introduce toate celelalte opțiuni imediat după crearea acestuia.
-'channelConfigHelp_numberOfAttemptsGate': 'După ce ordonați deschiderea sau închiderea porții, sistemul va încerca să o închidă/deschidă și să aștepte 60 de secunde pentru a verifica dacă poarta a ajuns în starea dorită. Dacă nu, sistemul va încerca să se închidă/deschidă din nou. Acest parametru definește numărul maxim de încercări ale sistemului de a atinge obiectivul. Valoarea recomandată este 5. Modificarea acestui parametru nu afectează funcționarea programelor.'
+After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Toate canalele și grupele de canale care utilizează această pictogramă, vor primi pictograme implicite după eliminarea acesteia.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: După acordarea accesului, puteți oricând să vă răzgândiți revocând accesul în setările contului dvs.
+After the device enters the configuration mode, it will not be accessible on your account.: Dispozitivul nu va fi disponibil din contul Tău după ce intrați în modul de configurare.
+After the update, the application will be faster, more comfortable, more powerful... Just better!: După actualizare, aplicația va fi mai rapidă, mai convenabilă... Pur și simplu mai bună!
+After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Contorul va începe să socotească de la 0 după această operație, indiferent de starea sa curentă. Această operațiune nu poate fi anulată.
+After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Link-ul va fi generat imediat după selectarea entității. Puteți introduce toate celelalte opțiuni imediat după crearea acestuia.
 All: Tot
 All the above and many more can be done from your phone or tablet: Toate acestea și multe altele pot fi făcute prin intermediul unui smartphone sau al unei tablete
 Allowed actions: Acțiuni permise
 Allows to perform an action only using the HTTP PATCH request.: Permite executarea acțiunilor numai cu utilizarea cererii HTTP PATCH.
-'Alternatively, you can add a GET parameter to specify response format.': 'De asemenea, puteți adăuga un parametru GET pentru a specifica formatul răspunsului.'
+Alternatively, you can add a GET parameter to specify response format.: De asemenea, puteți adăuga un parametru GET pentru a specifica formatul răspunsului.
 And more: Și multe altele
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Toate aplicațiile sau dispozitivele care folosesc simbolul {tokenName} vor înceta să funcționeze.'
+Any application or device that uses the {tokenName} token will not work anymore.: Toate aplicațiile sau dispozitivele care folosesc simbolul {tokenName} vor înceta să funcționeze.
 'App version: %clientAppSoftwareVersion%': 'Versiunea aplicației: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Numele aplicației nu poate fi necompletat
 Application requirements: Cerințele aplicației
@@ -82,15 +81,15 @@ Assign Client apps: Alocați aplicații de client
 Assign Locations: Alocați Locații
 Associated measured channel: Canal de control asociat
 Associated measurement channel: Canal de măsurare asociat
-'At 05:45 PM, on the last day of the month': 'la 5:45 în ultima zi a lunii'
-'At 11:30 AM, on the third Wednesday of the month': 'la 11:30, în a treia zi de miercuri a lunii'
-At every 5th minute on day-of-month 30 in May: 'la fiecare 5 minute, 30. ziua lunii, numai în mai'
+At 05:45 PM, on the last day of the month: la 5:45 în ultima zi a lunii
+At 11:30 AM, on the third Wednesday of the month: la 11:30, în a treia zi de miercuri a lunii
+At every 5th minute on day-of-month 30 in May: la fiecare 5 minute, 30. ziua lunii, numai în mai
 At specified time: Pentru ora indicată
 At sunrise: la răsăritul soarelui
-'At sunrise, Monday through Friday': 'la răsăritul soarelui, de luni până vineri'
+At sunrise, Monday through Friday: la răsăritul soarelui, de luni până vineri
 At sunset: la apusul soarelui
 Authorization callback URLs (one per line): URL de răspuns pentru autorizare (una pe linie)
-'Authorize the application, so that it can access your account.': Autorizați aplicația astfel încât aceasta să poată accesa contul dvs.
+Authorize the application, so that it can access your account.: Autorizați aplicația astfel încât aceasta să poată accesa contul dvs.
 Authorized: Autorizată
 Authorized OAuth apps: Aplicații autorizate OAuth
 Automatic calibration: Calibrare automată
@@ -116,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Nu s-a put
 Cannot change the channel function right now.: Funcțiile acestui canal nu pot fi modificate momentan.
 Cannot delete this I/O Device right now.: Acest dispozitiv nu poate fi demontat în acest moment.
 Cannot execute an action when the device is disconnected.: Nu puteți efectua acțiuni atunci când dispozitivul este deconectat.
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Nu ați primit mesajul cu linkul de activare pentru contul dvs.? Asigurați-vă că nu a ajuns în dosarul SPAM poșta nedorită). De asemenea, puteți face clic [aici] pentru a-l retrimite.'
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Nu ați primit mesajul cu linkul de activare pentru contul dvs.? Asigurați-vă că nu a ajuns în dosarul SPAM poșta nedorită). De asemenea, puteți face {clickHereLink} pentru a-l retrimite.
 Captcha token is not valid.: Captcha incorectă.
 Caption: Semnătură
 Caption is too long.: Numele este prea lung.
@@ -124,7 +123,7 @@ Change Password: Schimbarea parolei
 Change channel function: Schimbați funcția canalului
 Change function: Schimbați funcția
 Change icon: Modifică pictograma
-Changing channel’s function will also result in the following changes.: 'Modificarea funcției canalului va provoca, de asemenea, următoarele modificări.'
+Changing channel’s function will also result in the following changes.: Modificarea funcției canalului va provoca, de asemenea, următoarele modificări.
 Channel: Canal
 Channel No: Numărul canalului
 Channel for the partial opening sensor: Canal pentru senzorul de deschidere intermediară
@@ -155,7 +154,7 @@ Choose client apps: Selectați aplicațiile de client
 Choose location: Selectați o locație
 Choose the source channel.: Selectați un canal sursă.
 Clear: Șterge
-Click the following link to confirm removal of your account on %cloudHost%.: 'Pentru a confirma că doriți să ștergeți contul dvs. SUPLA, faceți clic pe linkul de mai jos.'
+Click the following link to confirm removal of your account on %cloudHost%.: Pentru a confirma că doriți să ștergeți contul dvs. SUPLA, faceți clic pe linkul de mai jos.
 Click the following link to confirm unregistration of your private SUPLA Cloud instance (%targetCloudUrl%).: Faceți clic pe linkul de mai jos link pentru a confirma anularea înregistrării instanței dvs. private SUPLA Cloud (%targetCloudUrl%).
 'Client app ID: %clientAppId%': 'ID: %clientAppId%'
 Client registration: Înregistrarea clienților
@@ -173,8 +172,8 @@ Confirm My Account: Confirm contul meu
 Confirm Password: Confirmarea parolei
 Confirm if you want to perform the roller shutter calibration.: Confirmați că modulul a fost calibrat.
 Confirm if you want to remove Access Identifier: Confirmați că doriți să eliminați Identificatorul de Acces
-'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Confirmați că doriți să eliminați ID-ul locației {locationId}. Nu se pot conecta alte dispozitive I / O cu această locație va fi imposibilă.'
-'Confirm if you want to remove {deviceName} device and all of its channels.': 'Confirmați că doriți să eliminați {deviceName} și toate canalele acestuia.'
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirmați că doriți să eliminați ID-ul locației {locationId}. Nu se pot conecta alte dispozitive I / O cu această locație va fi imposibilă.
+Confirm if you want to remove {deviceName} device and all of its channels.: Confirmați că doriți să eliminați {deviceName} și toate canalele acestuia.
 Connected: Conectat
 Connection with a private instance of the SUPLA cloud: Conexiune la o instanță  privată a cloud-ului SUPLA.
 Constraints: Restricții
@@ -205,18 +204,18 @@ Default: în mod implicit
 Delete: Șterge
 Delete measurement history: Șterge istoricul măsurătorilor
 Delete my account: Șterge contul meu
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Ștergerea contului dvs. va duce la ștergerea tuturor datelor, inclusiv a dispozitivelor conectate, canalelor configurate, linkurilor directe și istoricului măsurătorilor. Ștergerea contului este permanentă.'
+Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Ștergerea contului dvs. va duce la ștergerea tuturor datelor, inclusiv a dispozitivelor conectate, canalelor configurate, linkurilor directe și istoricului măsurătorilor. Ștergerea contului este permanentă.
 Depth: Adâncime
 Depth sensor: Senzor de adâncime
 Description: Descriere
 Details: Detalii
 Device: Dispozitiv
-'Device ID: %deviceId%': 'Identificator dispozitiv:%deviceId%'
+'Device ID: %deviceId%': Identificator dispozitiv:%deviceId%
 Device channel value: Valoare de pe dispozitiv
 Device is disconnected.: Dispozitivul este deconectat.
-'Device name: %deviceName%': 'Nume dispozitiv:%deviceName%'
+'Device name: %deviceName%': Nume dispozitiv:%deviceName%
 Device should be now in configuration mode.: Dispozitivul ar trebui să fie acum în modul de configurare.
-'Device software version: %deviceSoftwareVersion%': 'Versiune software:%deviceSoftwareVersion%'
+'Device software version: %deviceSoftwareVersion%': Versiune software:%deviceSoftwareVersion%
 Device unavailable: Dispozitivul nu este disponibil
 Differential: Diferenţial
 Digi Glass: Digi Glass
@@ -234,16 +233,16 @@ Direct links limit has been exceeded: Limita legăturilor directe a fost depăș
 Disable: Dezactivează
 Disable local function: Dezactivați funcția dispozitivului
 Disabled: Dezactivate
-Disables local device function and does nothing more.: 'Nu întreprinde nici o acțiune, dar dezactivează funcția dispozitivului care este implicită pentru această acțiune.'
+Disables local device function and does nothing more.: Nu întreprinde nici o acțiune, dar dezactivează funcția dispozitivului care este implicită pentru această acțiune.
 Disconnected: Deconectat
 Distance: Distanță
 Distance sensor: Senzor de distanță
 Do you want to be redirected there? You may be asked to authenticate again.: Doriți să vă redirecționăm acolo? Poate fi necesar să vă conectați din nou.
-'Don’t worry, you can always reset your password via email. Click here to do so.': Nu vă faceți griji. Puteți reseta întotdeauna parola prin intermediul poștei e-mail. Faceți clic aici pentru a face acest lucru.
+Don’t worry, you can always reset your password via email. Click here to do so.: Nu vă faceți griji. Puteți reseta întotdeauna parola prin intermediul poștei e-mail. Faceți clic aici pentru a face acest lucru.
 Door lock operation: Deschiderea ușii
 Door opening sensor: Senzor de deschidere a ușilor
 Doors and gates: Uși și porți
-'Doors, Gates, Windows': 'Uși, porți, ferestre'
+Doors, Gates, Windows: Uși, porți, ferestre
 Download the history of measurement: Descărcați istoricul măsurătorilor
 Drag your image(s) here or click to select from the disk: Trageți imaginea aici sau faceți clic pentru a selecta de pe disc
 E-mail notifications: Notificări prin email
@@ -258,7 +257,7 @@ Enter new password: Introduceți o parolă nouă
 Enter strong password: Introduceți o parolă puternică
 Enter the data below in the settings of your control device (I/O Device).: Introduceți următoarele date în setările dispozitivului de control (dispozitiv I/O).
 Enter the data below in your mobile SUPLA application on your smartphone.: Introduceți următoarele date în aplicația mobilă SUPLA instalată pe smartphone-ul dvs.
-Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: 'Introduceți numai domeniul împreună cu numărul portului, dacă nu este standard (443). Este necesară o conexiune HTTPS.'
+Enter the domain with the port only if it is not standard (443). We require HTTPS connection.: Introduceți numai domeniul împreună cu numărul portului, dacă nu este standard (443). Este necesară o conexiune HTTPS.
 Enter your email address: Introduceți adresa dvs. de e-mail
 Enter your password to prevent automatic logout.: Introduceți parola pentru a preveni deconectarea automată.
 Entering configuration mode is unsupported in the firmware.: Comutarea de la distanță în modul de configurare nu este acceptată de firmware-ul dispozitivului.
@@ -279,9 +278,9 @@ Failed (zombie): Eșuat (zombi)
 Feature limits: Limite funcționale
 File is too large: Fișierul este prea mare
 Flooding: Inundare
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Este recomandat să utilizați adresa {suplaUrl} în timpul actualizării.'
+For a short period of time, it is recommended for you to use the {suplaUrl} address.: Este recomandat să utilizați adresa {suplaUrl} în timpul actualizării.
 For devices: Pentru dispozitive
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Din motive de securitate, URL-ul complet al acestui link direct va fi afișat o singură dată în timpul creării sale.'
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Din motive de securitate, URL-ul complet al acestui link direct va fi afișat o singură dată în timpul creării sale.
 Forgot your password?: Ați uitat parola?
 Forward active energy: Energie activă consumată
 Forward active energy balanced: Energia activă preluată (Balanță vectorială)
@@ -318,45 +317,45 @@ History of measurements: Istoricul măsurătorilor
 Home appliances: Aparate electrocasnice/electronice
 Home+ Heater: Încălzitor Home+
 Host: Gazdă
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Din păcate, utilizarea serverului nostru a crescut la un nivel nesigur în acest moment. Monitorizăm situația, reveniți în câteva momente.'
+However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Din păcate, utilizarea serverului nostru a crescut la un nivel nesigur în acest moment. Monitorizăm situația, reveniți în câteva momente.
 Humidity: Umiditate
 Humidity Sensor: Senzor de umiditate
 Humidity adjustment: Reglarea umidității
 Humidity sensor: Senzor de umiditate
-'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Accept [Regulamentul] și sunt de acord cu prelucrarea datelor mele cu caracter personal în scopul și sfera indicată în [Regulament].'
+I accept the Terms and Conditions and hereby agree for processing of my personal data for the purposes included in the said Terms and Conditions.: Accept Regulamentul și sunt de acord cu prelucrarea datelor mele cu caracter personal în scopul și sfera indicată în Regulament.
 I agree: Sunt de acord
-'I aree, taske me to the app': 'Sunt de acord, treci la aplicație'
+I aree, taske me to the app: Sunt de acord, treci la aplicație
 I confirm! Delete my account.: Confirm! Șterge contul meu.
-'I do not agree, get me out of here': 'Nu sunt de acord, vreau să ies de aici'
+I do not agree, get me out of here: Nu sunt de acord, vreau să ies de aici
 I/O Devices: Dispozitive I/O
 I/O devices registration: Înregistrarea dispozitivelori
 ID: ID
 INACTIVE: INACTIVĂ
 Icon: Pictogramă
 Idle: Inactive
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Dacă linkul nu funcționează, copiați-l în bara browser-ului sau introduceți-l manual.'
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Dacă sunteți un programator care dorește să ofere funcții suplimentare pentru SUPLI, creați o aplicație OAuth pe care utilizatorii o vor putea autoriza și utiliza.'
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Dacă sunteți sigur că aveți un cont pe cloud.supla.org, verificați dacă aplicația pe care încercați să o autorizați este publică.'
-'If you did not request this password reset, please ignore this information.': 'Dacă nu ați solicitat resetarea parolei, ignorați acest mesaj.'
-'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Dacă nu doriți să ștergeți contul dvs. de pe %cloudHost%, nu faceți clic pe link.'
-'If you do not want to unregister your instance, please do not click the link.': 'Dacă nu doriți să vă anulați înregistrarea instanței, vă rugăm să nu faceți clic pe link.'
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Dacă nu reușiți să vă conectați la acest punct de acces timp de câteva minute, dispozitivul se va reporni și se va conecta utilizând ultimele setări.'
-'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Dacă aveți îndoieli sau întrebări, ne puteți contacta scriind la adresa %securityEmail%.'
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Dacă doriți să vă reînregistrați instanța SUPLA Cloud, deoarece tokenul generat în timpul înregistrării anterioare a fost pierdut - sunteți în locul potrivit.'
-'If you have not used this email address with %cloudHost%, please do not click the link.': 'Dacă nu ați furnizat această adresă de e-mail pe %cloudHost%, nu faceți clic pe link.'
-'If you really want to delete the account, here are the instructions.': 'Dacă tot doriți să vă ștergeți contul SUPLA, aici veți găsi instrucțiuni.'
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': Dacă doriți cu adevărat să anulați înregistrarea instanței private a SUPLA Cloud - mai jos veți găsi toate instrucțiunile.
-'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'După reînregistrarea contului dvs., unele dispozitive pot necesita reconfigurare, chiar dacă veți furniza aceeași adresă de e-mail.'
-'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Dacă doriți să integrați cloud-ul privat SUPLA cu aplicația publică OAuth, trebuie [să înregistrați instanța dvs.].'
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Dacă doriți să utilizați linkul direct în alt software, adăugați antetul de solicitare corespunzător pentru a obține un răspuns mai ușor de procesat.'
-'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Dacă nu doriți să primiți astfel de notificări de la noi, vă rugăm să consultați setările contului dvs. [aici].'
-'If you wish to register your instance, [click here].': 'Dacă doriți să vă înregistrați instanța, [click aici].'
-'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Dacă doriți să vedeți integrările disponibile, treceți la [cloud.supla.org/apps].'
-'If you wish to unregister your instance, [click here].': 'Dacă doriți să vă anulați înregistrarea instanței, [faceți clic aici].'
+If the link is not working, please copy and paste it or enter manually in a new browser window.: Dacă linkul nu funcționează, copiați-l în bara browser-ului sau introduceți-l manual.
+If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Dacă sunteți un programator care dorește să ofere funcții suplimentare pentru SUPLI, creați o aplicație OAuth pe care utilizatorii o vor putea autoriza și utiliza.
+If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Dacă sunteți sigur că aveți un cont pe cloud.supla.org, verificați dacă aplicația pe care încercați să o autorizați este publică.
+If you did not request this password reset, please ignore this information.: Dacă nu ați solicitat resetarea parolei, ignorați acest mesaj.
+If you do not want to delete your account on %cloudHost%, please do not click the link.: Dacă nu doriți să ștergeți contul dvs. de pe %cloudHost%, nu faceți clic pe link.
+If you do not want to unregister your instance, please do not click the link.: Dacă nu doriți să vă anulați înregistrarea instanței, vă rugăm să nu faceți clic pe link.
+If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Dacă nu reușiți să vă conectați la acest punct de acces timp de câteva minute, dispozitivul se va reporni și se va conecta utilizând ultimele setări.
+If you have doubts or more questions, you can contact us directly at %securityEmail%.: Dacă aveți îndoieli sau întrebări, ne puteți contacta scriind la adresa %securityEmail%.
+If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.: Dacă doriți să vă reînregistrați instanța SUPLA Cloud, deoarece tokenul generat în timpul înregistrării anterioare a fost pierdut - sunteți în locul potrivit.
+If you have not used this email address with %cloudHost%, please do not click the link.: Dacă nu ați furnizat această adresă de e-mail pe %cloudHost%, nu faceți clic pe link.
+If you really want to delete the account, here are the instructions.: Dacă tot doriți să vă ștergeți contul SUPLA, aici veți găsi instrucțiuni.
+If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Dacă doriți cu adevărat să anulați înregistrarea instanței private a SUPLA Cloud - mai jos veți găsi toate instrucțiunile.
+If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: După reînregistrarea contului dvs., unele dispozitive pot necesita reconfigurare, chiar dacă veți furniza aceeași adresă de e-mail.
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Dacă doriți să integrați cloud-ul privat SUPLA cu aplicația publică OAuth, trebuie {registerYourSuplaCloudLink}.
+If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Dacă doriți să utilizați linkul direct în alt software, adăugați antetul de solicitare corespunzător pentru a obține un răspuns mai ușor de procesat.
+If you wish not to receive such messages,<br> change it in your account settings [here].: Dacă nu doriți să primiți astfel de notificări de la noi, vă rugăm să consultați setările contului dvs. [aici].
+If you wish to register your instance, {clickHereLink}.: Dacă doriți să vă înregistrați instanța, {clickHereLink}.
+If you wish to see the available integrations, go to {0}.: Dacă doriți să vedeți integrările disponibile, treceți la {0}.
+If you wish to unregister your instance, {clickHereLink}.: Dacă doriți să vă anulați înregistrarea instanței, faceți {clickHereLink}.
 Impulse counter: Contor de impulsuri
 Impulses: Impulsuri
-'In order to confirm account deletion, enter your password.': 'Pentru a confirma intenția de ștergere a contului, introduceți parola dvs.'
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Pentru a obține detalii de conectare pentru brokerul MQTT, vă rugăm să contactați administratorul acestei instanțe SUPLA Cloud.'
+In order to confirm account deletion, enter your password.: Pentru a confirma intenția de ștergere a contului, introduceți parola dvs.
+In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Pentru a obține detalii de conectare pentru brokerul MQTT, vă rugăm să contactați administratorul acestei instanțe SUPLA Cloud.
 Inactive: Inactiv
 Include energy corrections in new measurements history (not recommended): Includeți valoare adăugată în istorie (nu este recomandat)
 Incorrect password: Parolă incorectă
@@ -380,9 +379,9 @@ Invalid token.: Token nevalid.
 Inverted logic: Logică inversă
 Invisible: Invizibil
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Este posibil ca un alt utilizator să fi introdus adresa dvs. de e-mail din greșeală pentru a reseta parola pentru propriul cont.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'În acest mod, dispozitivul va începe să-și difuzeze rețeaua Wi-Fi, al cărei scop este să permită configurarea dispozitivului sau actualizarea firmware-ului folosind un smartphone care se va conecta la această rețea.'
-'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Nu uitați că, împreună cu contul dvs., vom șterge toate datele, inclusiv setările, dispozitivele configurate, locațiile, planurile de executare și toate celelalte funcționalități oferite de SUPLA.'
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Rețineți că descrierea expresiei din aplicație nu este perfectă și singurul scop este să vă ajute să introduceți valoarea corespunzătoare. Nu este folosit pentru a verifica dacă valoarea introdusă este corectă, darămite să ne lăudăm că „a fost o eroare în SUPLI”. După ce ați făcut modificările, verificați secțiunea „Upcoming Executes” pentru a confirma că configurația de program pe care ați introdus-o satisface așteptările dvs.'
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: În acest mod, dispozitivul va începe să-și difuzeze rețeaua Wi-Fi, al cărei scop este să permită configurarea dispozitivului sau actualizarea firmware-ului folosind un smartphone care se va conecta la această rețea.
+Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Nu uitați că, împreună cu contul dvs., vom șterge toate datele, inclusiv setările, dispozitivele configurate, locațiile, planurile de executare și toate celelalte funcționalități oferite de SUPLA.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Rețineți că descrierea expresiei din aplicație nu este perfectă și singurul scop este să vă ajute să introduceți valoarea corespunzătoare. Nu este folosit pentru a verifica dacă valoarea introdusă este corectă, darămite să ne lăudăm că „a fost o eroare în SUPLI”. După ce ați făcut modificările, verificați secțiunea „Upcoming Executes” pentru a confirma că configurația de program pe care ați introdus-o satisface așteptările dvs.
 Language is not available: Limba nu este disponibilă
 Last access: Ultima conexiune
 Last connection: Ultima conexiune
@@ -392,7 +391,7 @@ Light switch: Întrerupător de lumină
 Lighting: Iluminare
 Limit has been exceeded: Limita a fost depășită
 Linear: Liniar
-'Liquid, Temp': 'Lichid, Temperatură'
+Liquid, Temp: Lichid, Temperatură
 Location: Locație
 Location Identifier: Identificatorul Locației
 Location limit has been exceeded: Limita de locații a fost depășită
@@ -414,7 +413,7 @@ Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Ge
 Manual: Instrucțiune
 Manually closed: Închis manual
 Maximum delay is 60 minutes.: Întârzierea maximă este de 60 de minute.
-'Maximum filesize limit is {limit}.': 'Mărimea maximă a fișierului este de {limit}.'
+Maximum filesize limit is {limit}.: Mărimea maximă a fișierului este de {limit}.
 Meter value: Starea contorului
 Meters: Contoare
 Mobile Apps: Aplicații mobile
@@ -437,19 +436,19 @@ New direct link: Link direct nou
 New password: Parolă nouă
 New scene: O noua scena
 Newer: Mai noi
-'Next limit renewal: {date}': 'Limita va fi reînnoită {date}'
+'Next limit renewal: {date}': Limita va fi reînnoită {date}
 Next run date: Execuția următoare
-'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Nu aveți identificatoare de acces active. Accesați [lista de identificatoare de acces] sau [adăugați un nou identificator de acces].'
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Nu aveți identificatoare de acces active. Accesați {accessIdsListLink} sau {newAccessIdLink}.
 No function: Nu există funcții
 No future executions - schedule disabled: Nu există execuții planificate - planul este dezactivat
 No limit: Nelimitat
 No liquid sensor: Senzor lipsă de lichid
-'No location enabled. Go to [location list] or [add a new location].': 'Nu aveți locații active. Accesați [lista locațiilor] sau [adăugați o locație nouă].'
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Nu aveți locații active. Accesați {locationsListLink} sau {newLocationLink}.
 No of channels: Numărul de canale
 No of client apps: Numărul de aplicații client
 No of devices: Numărul de dispozitive
 No of operations: Numărul de operații
-'No results match {0}': 'Niciun rezultat nu se potrivește cu {0}'
+No results match {0}: Niciun rezultat nu se potrivește cu {0}
 No schedule configuration.: Nu a fost specificată nici o configurație de program.
 No. of Client’s apps: Numărul de aplicații de client
 No. of access identifiers: Numărul de identificatoare de acces
@@ -471,7 +470,7 @@ Offline access: Acces offline
 Older: Mai vechi
 'On': Activează
 On/Off switch: Comutator de alimentare
-'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Sunt permise numai numele de domenii cu număr de port opțional. De exemplu, mysupla.org sau mysupla.org:88. HTTPS este necesar.'
+Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Sunt permise numai numele de domenii cu număr de port opțional. De exemplu, mysupla.org sau mysupla.org:88. HTTPS este necesar.
 Open: Deschide
 Open / close: Deschide / închide
 Open partially: Deschide parțial
@@ -479,22 +478,22 @@ Opening sensor: Senzor de deschidere
 Operations: Operațiuni
 Original location: Locația originală
 Other: Alte
-'Otherwise go to [the homepage].': 'În caz contrar, treceți la [pagina principală].'
+Otherwise go to the homepage.: În caz contrar, treceți la [pagina principală].
 Partial opening sensor: Senzor de deschidere indirectă
 Password: Parolă
 Password Reset: Resetarea parolei
 Password has been changed: Parola a fost modificată
-'Password must be at least {minLength} characters.': 'Parola trebuie să aibă cel puțin {minLength} caractere.'
-'Password must be no longer than {maxLength} characters.': 'Parola nu poate fi mai lungă de {maxLength} caractere.'
+Password must be at least {minLength} characters.: Parola trebuie să aibă cel puțin {minLength} caractere.
+Password must be no longer than {maxLength} characters.: Parola nu poate fi mai lungă de {maxLength} caractere.
 Password reset instructions.: Instrucțiuni pentru restabilirea accesului la contul dvs.
 Percentage of closing: Procentul de închidere
 Personal access tokens: Token-uri personale de acces
-Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: 'Token-urile personale de acces funcționează ca cele obișnuite, cu diferența că nu expiră.'
+Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Token-urile personale de acces funcționează ca cele obișnuite, cu diferența că nu expiră.
 Personal token name is required.: Este necesară furnizarea numelui token-ului personal.
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
-Please choose the schedule subject first.: 'În primul rând, alegeți ce ar trebui să controleze programul'
+Please choose the schedule subject first.: În primul rând, alegeți ce ar trebui să controleze programul
 Please click the following link to reset your %cloudHost% password.: Faceți clic pe linkul de mai jos pentru a reseta parola pentru %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Faceți clic pe linkul din mesajul pe care vi l-am trimis după crearea contului.
 Please confirm your SUPLA account.: Activează-ți contul SUPLA.
@@ -502,6 +501,7 @@ Please enter a valid email address: Vă rugăm să introduceți o adresă de e-m
 Please fill a valid email address: Vă rugăm să introduceți o adresă de e-mail validă
 Please log in again to proceed.: Conectați-vă din nou pentru a continua.
 Please provide a valid domain name for your private SUPLA Cloud: Introduceți numele de domeniu corect pentru cloud-ul dvs. privat SUPLA
+Please read the Terms and Conditions.: Citiți regulamentul.
 Please wait a moment before the next login attempt.: Așteptați un moment înainte de următoarea încercare de conectare.
 Port: Port
 Precision: Precizie
@@ -529,8 +529,8 @@ Register: Înregistrează
 Register a new OAuth application: Înregistrați o nouă aplicație OAuth
 Register private SUPLA Cloud: Înregistrați un cloud privat SUPLA
 Registered: Înregistrat
-'Registered from IP address: %clientAppRegIp%': 'Înregistrat de la adresa IP:% clientAppRegIp%'
-'Registered from IP address: %deviceRegIp%': 'Adresă IP:% deviceRegIp%'
+'Registered from IP address: %clientAppRegIp%': Înregistrat de la adresa IP:% clientAppRegIp%
+'Registered from IP address: %deviceRegIp%': Adresă IP:% deviceRegIp%
 Relay: Releu
 Relay switching time: Timpul de acționare al releului
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Înainte de eliminarea unei locații, trebuie mai întâi să mutați grupele de canale care se află în aceasta. Identificatoare: {relatedIds}.'
@@ -560,7 +560,7 @@ SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Eroare la executarea acțiunii în SUPLA Server.
 SUPLA Server was unable to execute the scene.: SUPLA Server nu a putut executa scena.
 SUPLA Server was unable to query for the scene state.: SUPLA Server nu a putut citi starea scenei.
-'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA este disponibilă oricând și oriunde, așa că nu vă faceți griji data viitoare când uitați să stingeți lumina'
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA este disponibilă oricând și oriunde, așa că nu vă faceți griji data viitoare când uitați să stingeți lumina
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Notificare despre o conectare eșuată la %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA - a fost înregistrată o nouă aplicație client
 SUPLA – new device has been added to your account: SUPLA - un dispozitiv nou a fost adăugat în contul dvs
@@ -569,7 +569,7 @@ Save: Salvează
 Save and enable: Salvează și activează
 Save changes: Salvează modificările
 Save changes to see Access IDs: Salvați modificările pentru afișarea identificatoarelor de acces
-Save or discard configuration changes first.: 'Mai întâi, salvați sau renunțați la modificările de configurare.'
+Save or discard configuration changes first.: Mai întâi, salvați sau renunțați la modificările de configurare.
 Scene: Scena
 Scene must consist of at least one operation.: Scena trebuie să conțină cel puțin o operație
 Scenes: Scene
@@ -602,7 +602,7 @@ Show my limits: Arată-mi limitele
 Show on the Client’s devices: Afișează pe dispozitivele de client
 Shut: Ascunde
 Shut partially: Acoperiți parțial
-Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: 'Închideți jaluzeaua până când atinge marginea de jos și introduceți procentul de închidere în acest câmp. Această operațiune nu este necesară, dar furnizarea acesteia va îmbunătăți vizualizarea poziției jaluzelei în aplicația mobilă.'
+Shut the roller until it touches the bottom and type the percentage of closing in. This is not required but will improve the visualization of the roller state in the mobile application when provided.: Închideți jaluzeaua până când atinge marginea de jos și introduceți procentul de închidere în acest câmp. Această operațiune nu este necesară, dar furnizarea acesteia va îmbunătăți vizualizarea poziției jaluzelei în aplicația mobilă.
 Sign In: Conectați-vă
 Sign Out: Deconectați-vă
 Sign in temporarily unavailable. Please try again later.: Conectare indisponibilă temporar. Încercați din nou mai târziu.
@@ -630,14 +630,14 @@ Supla for devices: Supla pentru dispozitive
 Switch the device to configuration mode: Puneți dispozitivul în modul de configurare
 THIS CANNOT BE UNDONE!: ACEASTĂ OPERAȚIUNE NU POATE FI REVOCATĂ!
 TLS: TLS
-'Target Cloud is not registered, or is registered with another e-mail address.': Această instanță SUPLA Cloud nu este înregistrată sau este înregistrată folosind o altă adresă de e-mail.
+Target Cloud is not registered, or is registered with another e-mail address.: Această instanță SUPLA Cloud nu este înregistrată sau este înregistrată folosind o altă adresă de e-mail.
 Temperature: Temperatură
 Temperature & Humidity Sensor: Senzor de temperatură și umiditate
 Temperature Sensor: Senzor de temperatură
 Temperature adjustment: Reglarea temperaturii
 Temperature and humidity sensor: Senzor de temperatură și umiditate
-Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: 'Vă mulțumim pentru înregistrarea unui cont în serviciul %cloudHost%. Pentru a finaliza activarea, faceți clic pe linkul de mai jos.'
-'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Datorită integrărilor, puteți adăuga cu ușurință noi funcții la contul dvs., folosind soluții furnizate de furnizori externi, programatori sau de către dvs.'
+Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Vă mulțumim pentru înregistrarea unui cont în serviciul %cloudHost%. Pentru a finaliza activarea, faceți clic pe linkul de mai jos.
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Datorită integrărilor, puteți adăuga cu ușurință noi funcții la contul dvs., folosind soluții furnizate de furnizori externi, programatori sau de către dvs.
 'The IP used for login is: %ip%': 'Încercarea de conectare a fost făcută de la adresa IP: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Parola pentru brokerul MQTT este vizibilă doar în acest moment. Asigurați-vă că le ați scris într-un loc sigur. Nu va fi posibil să-l afișați din nou.
 The SUPLA infrastructure is being updated.: Serverele SUPLA sunt în curs de actualizare.
@@ -647,31 +647,31 @@ The activation link has been sent again. Check the inbox.: Mesajul cu linkul de 
 The client will be automatically logged out when deleted.: Ștergerea clientului va duce la deconectarea imediată a acestuia.
 The counter has been reset.: Contorul a fost resetat.
 The device is disabled: Dispozitivul este oprit
-The following items use the channels of these device. These references will be also removed.: 'Următoarele articole folosesc canale de pe acest dispozitiv. Vor fi, de asemenea, șterse.'
-'The following items will be deleted with this device:': 'Următoarele elemente vor fi, de asemenea, șterse cu acest dispozitiv.'
+The following items use the channels of these device. These references will be also removed.: Următoarele articole folosesc canale de pe acest dispozitiv. Vor fi, de asemenea, șterse.
+'The following items will be deleted with this device:': Următoarele elemente vor fi, de asemenea, șterse cu acest dispozitiv.
 The gate sensor must function properly in order to execute the Open and Close actions.: Senzorul de deschidere a porții trebuie să funcționeze corect pentru a efectua acțiunea Deschidere sau Închidere.
-The gate sensor must function properly in order to execute the scheduled action.: 'Pentru a efectua acțiunea, senzorul de deschidere al porții trebuie să funcționeze corect.'
+The gate sensor must function properly in order to execute the scheduled action.: Pentru a efectua acțiunea, senzorul de deschidere al porții trebuie să funcționeze corect.
 The incident was detected at %datetime%.: Evenimentul a avut loc% datetime%.
-'The items below rely on this channel function, so they will be deleted.': 'Elemente de mai jos se bazează pe funcția curentă a canalului, deci vor fi eliminate atunci când sunt modificate.'
-'The items below rely on this channel group, so they will be deleted.': 'Elemente de mai jos folosesc acest grup de canale, așa că atunci când îl ștergeți, vor fi și ele șterse.'
-'The items below rely on this scene, so they will be deleted.': 'Elementele de mai jos se bazează pe această scenă, așa că vor fi eliminate.'
+The items below rely on this channel function, so they will be deleted.: Elemente de mai jos se bazează pe funcția curentă a canalului, deci vor fi eliminate atunci când sunt modificate.
+The items below rely on this channel group, so they will be deleted.: Elemente de mai jos folosesc acest grup de canale, așa că atunci când îl ștergeți, vor fi și ele șterse.
+The items below rely on this scene, so they will be deleted.: Elementele de mai jos se bazează pe această scenă, așa că vor fi eliminate.
 The latest execution: Ultima executare
-'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Rezultatul efectuării este prezentat sub forma unui site web, deoarece dvs. (sau browser-ul dvs.) ați solicitat un răspuns în format HTML.'
+The link result is presented as a website response, because you (or your browser) asked for HTML output.: Rezultatul efectuării este prezentat sub forma unui site web, deoarece dvs. (sau browser-ul dvs.) ați solicitat un răspuns în format HTML.
 The measurement history has been deleted.: Istoricul măsurătorilor a fost șters.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Noua parolă o va înlocui pe cea pe care o utilizați în prezent. Unele integrări pot înceta să funcționeze după ce le-au schimbat. A continua?
 The next available executions: Execuțiile următoare
-The notification marked with a border is the one you saw when you clicked the unsubscribe link.: 'Cu un cadru, am marcat notificarea din care ați dat clic / ați dat clic pe linkul de dezabonare.'
+The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Cu un cadru, am marcat notificarea din care ați dat clic / ați dat clic pe linkul de dezabonare.
 The password and its confirm are not the same.: Parola și confirmarea acesteia nu corespund.
 The password should be 8 or more characters.: Parola trebuie să aibă cel puțin 8 caractere.
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Dispozitivul a fost oprit prin protecție la supracurent. Înainte de a le activa, asigurați-vă că problema care a dus la aceasta a fost rezolvată. Sigur doriți să porniți acest dispozitiv de la distanță?'
-The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: 'Serverul a returnat o eroare 400, ceea ce înseamnă că solicitarea trimisă nu este validă.'
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Dispozitivul a fost oprit prin protecție la supracurent. Înainte de a le activa, asigurați-vă că problema care a dus la aceasta a fost rezolvată. Sigur doriți să porniți acest dispozitiv de la distanță?
+The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serverul a returnat o eroare 400, ceea ce înseamnă că solicitarea trimisă nu este validă.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serverul a returnat eroarea HTTP 403. Aceasta înseamnă că nu aveți permisiuni suficiente pentru a vizualiza acest element.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serverul a returnat eroarea HTTP 404. Acest lucru înseamnă că elementul pe care îl căutați nu există.
-'The server has returned an HTTP {statusCode} error.': 'Serverul a returnat eroarea {statusCode}.'
-'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Fișierele de pictograme selectate sunt prea mari. Mărimea maximă permisă pentru încărcare este de {limit}.'
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Supapa nu poate fi deschisă printr-un link direct sau prin API atunci când a fost închisă manual. Pentru a relua controlul, deschideți supapa manual.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Supapa a fost închisă manual sau prin radio. Înainte de a-l deschide, asigurați-vă că nu a fost închis din cauza inundației. Pentru a dezactiva avertismentul, deschideți supapa manual. Sigur doriți să deschideți supapa de la distanță?!'
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Supapa nu se va deschide dacă a fost închisă manual sau prin radio, ceea ce ar putea fi legat de inundație.'
+The server has returned an HTTP {statusCode} error.: Serverul a returnat eroarea {statusCode}.
+The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Fișierele de pictograme selectate sunt prea mari. Mărimea maximă permisă pentru încărcare este de {limit}.
+The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Supapa nu poate fi deschisă printr-un link direct sau prin API atunci când a fost închisă manual. Pentru a relua controlul, deschideți supapa manual.
+The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Supapa a fost închisă manual sau prin radio. Înainte de a-l deschide, asigurați-vă că nu a fost închis din cauza inundației. Pentru a dezactiva avertismentul, deschideți supapa manual. Sigur doriți să deschideți supapa de la distanță?!
+The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Supapa nu se va deschide dacă a fost închisă manual sau prin radio, ceea ce ar putea fi legat de inundație.
 There are no more channels you can add to this group: Nu există alte canale care ar putea fi adăugate la această grupă
 Thermometer: Termometru
 Thermostat: Termostat
@@ -679,8 +679,8 @@ This direct link requires further parameters in order to be executed properly. S
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Primiți această informație în legătură cu o încercare nereușită de conectare la SUPLA-CLOUD folosind adresa dvs. de e-mail.
 This is the list of applications you have granted access to your account.: Aceasta este lista de aplicații cărora le-ați acordat acces la contul dvs.
 This link is only valid for an hour.: Linkul va fi activ timp de o oră.
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Acest mod de programare este conceput pentru utilizatorii tehnici sau foarte răbdători. Necesită indicarea momentelor de declanșare a programului în notația crontab, îmbogățită cu mai multe funcționalități găsite doar în SUPLI. Dacă nu ați întâlnit crontab-uri înainte și încă doriți să utilizați acest mod, site-ul web crontab.guru vă poate fi de ajutor.'
-This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Acest declanșator este utilizat local de dispozitiv (de exemplu, aprinde lumina, comandă jaluzea etc.). Dacă îi atribuiți o altă acțiune, funcția locală va fi dezactivată.'
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Acest mod de programare este conceput pentru utilizatorii tehnici sau foarte răbdători. Necesită indicarea momentelor de declanșare a programului în notația crontab, îmbogățită cu mai multe funcționalități găsite doar în SUPLI. Dacă nu ați întâlnit crontab-uri înainte și încă doriți să utilizați acest mod, site-ul web crontab.guru vă poate fi de ajutor.
+This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Acest declanșator este utilizat local de dispozitiv (de exemplu, aprinde lumina, comandă jaluzea etc.). Dacă îi atribuiți o altă acțiune, funcția locală va fi dezactivată.
 Timezone: Fus orar
 Toggle: Comutare
 Token does not exist: Token-ul nu există
@@ -699,8 +699,8 @@ Unsuccessful login attempt: Autentificare eșuata
 Unsupported function: Funcție nesuportată
 Unsupported type: Tip nesuportat
 Update in progress: Actualizarea este în curs
-'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Fișierele încărcate nu încalcă bunele obiceiuri, drepturile de autor și drepturile terților, iar eu am dreptul să le folosesc.'
-'Use the [command] server command to change this account''s limits. For example:': 'Pentru a modifica limitele pentru acest cont, utilizați comanda [comandă] de pe serverul dvs. De exemplu:'
+Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Fișierele încărcate nu încalcă bunele obiceiuri, drepturile de autor și drepturile terților, iar eu am dreptul să le folosesc.
+'Use the {0} server command to change this account''s limits. For example:': 'Pentru a modifica limitele pentru acest cont, utilizați comanda {0} de pe serverul dvs. De exemplu:'
 Use working schedule for this access identifier: Utilizați un program de disponibilitate pentru acest ID de acces
 User is already confirmed. Try to log in.: Acest cont a fost deja confirmat. Conectați-vă
 Value added: Valoare adăugată
@@ -722,17 +722,17 @@ We have just sent you an activation link. You should be receiving it shortly.: T
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: V-am trimis un mesaj e-mail cu un link de confirmare a ștergerii contului. Poate te vei răzgândi!
 We have sent you an email with further instructions.: V-am trimis un mesaj cu instrucțiuni suplimentare.
 We should be ready shortly.: Powinniśmy niedługo skończyć.
-'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Stocăm în browser-ul dvs. informații despre preferințele dvs. pentru a facilita utilizarea aplicației (de exemplu, folosind mecanismul cookie). [Citiți regulamentul].'
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Stocăm în browser-ul dvs. informații despre preferințele dvs. pentru a facilita utilizarea aplicației (de exemplu, folosind mecanismul cookie).
 We try to be faster: Devenim tot mai rapizi
 We were not able to find your account.: Nu am reușit să găsim contul dvs.
 We will miss you: Ne va fi dor de tine
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Vom face tot posibilul pentru ca pictogramele trimise să fie afișate cât mai bine, dar veți obține cele mai bune rezultate trimițând fișiere PNG cu un fond transparent și o lățime de {width} și o înălțime de {height} pixeli.'
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Vom face tot posibilul pentru ca pictogramele trimise să fie afișate cât mai bine, dar veți obține cele mai bune rezultate trimițând fișiere PNG cu un fond transparent și o lățime de {width} și o înălțime de {height} pixeli.
 We will use it only in justified situations.: Îl vom folosi numai în cazuri justificate.
 Weather Station: Stație meteorologică
 Weight sensor: Greutate
 Welcome!: Salut!
 What this token is for?: Pentru ce servește acest token?
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Puteți efectua acțiunea linkului direct, completând identificatorul său unic direct în corpul cererii HTTP PATCH. Acest lucru este mai sigur, deoarece împiedică salvarea adresei complete a linkului dvs. în jurnalele de acces ale serverelor prin care trece solicitarea. Mai jos veți găsi un exemplu de executare folosind instrumentul cURL.'
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Puteți efectua acțiunea linkului direct, completând identificatorul său unic direct în corpul cererii HTTP PATCH. Acest lucru este mai sigur, deoarece împiedică salvarea adresei complete a linkului dvs. în jurnalele de acces ale serverelor prin care trece solicitarea. Mai jos veți găsi un exemplu de executare folosind instrumentul cURL.
 Where is the JSON?: Unde este JSON?
 Where is your SUPLA Cloud?: Unde se află Supla ta?
 White: Alb
@@ -744,8 +744,8 @@ Working period: Perioada de funcționare
 Working schedule: Program de activitate
 YOUR LINK CODE: CODUL LINKULUI TĂU
 You are changing the settings too quickly. You have to wait a while before making this change.: Schimbați setările prea repede. Trebuie să așteptați un timp înainte de a modifica aceste setări.
-'You can ignore this message, if you have accidentally entered an incorrect password.': Puteți ignora acest mesaj dacă dvs. ați introdus o parolă greșită.
-You can use the application but you will not be able to modify any settings.: 'Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.'
+You can ignore this message, if you have accidentally entered an incorrect password.: Puteți ignora acest mesaj dacă dvs. ați introdus o parolă greșită.
+You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
 You cannot delete your last access identifier.: Nu puteți șterge ultimul identificator de acces.
 You cannot delete your last location.: Nu puteți șterge ultima locație.
 You cannot use SUPLA project name in the domain name.: Nu puteți utiliza denumirea proiectului SUPLA în denumirea domeniului principal.
@@ -753,7 +753,7 @@ You have exceeded your API Rate Limit: Ați folosit limita de solicitări API
 You have requested to unregister your SUPLA Cloud instance: Ați solicitat să vă anulați înregistrarea instanței SUPLA Cloud
 You have to choose at least one scope.: Trebuie să selectați cel puțin un interval.
 You just need to execute the following command inside your host terminal.: Trebuie numai să executați următoarea comandă în interiorul terminalului gazdei dvs.
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Dacă tot doriți să utilizați modul de programare avansat, aruncați o privire la exemplele de mai jos.'
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Dacă tot doriți să utilizați modul de programare avansat, aruncați o privire la exemplele de mai jos.
 You must agree to the Terms and Conditions.: Acceptarea regulamentului este obligatorie.
 You must enable MQTT Broker first.: Mai întâi trebuie să activați integrarea cu brokerul MQTT.
 You must set sections with transparent or opaque parameters or both.: Trebuie să alegeți transparența pentru cel puțin o secțiune.
@@ -765,8 +765,8 @@ Your account has been deleted. We hope you will come back to us soon.: Contul a 
 Your account has been locked.: Contul dvs. a fost blocat.
 Your account has not been confirmed yet.: Contul dvs. nu a fost încă confirmat.
 Your account limits: Limitele dvs.
-'Your channel groups are allowed to have a maximum of {max} channels.': 'Grupurile dvs. de canale pot avea maximum {max} canale.'
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': Dispozitivul vă permite să-și extindeți funcționalitatea și vă permite să efectuați orice acțiune pe orice dispozitiv pe care îl aveți. Opțiunile disponibile depind de firmware-ul și dispozitivul pe care îl utilizați.
+Your channel groups are allowed to have a maximum of {max} channels.: Grupurile dvs. de canale pot avea maximum {max} canale.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Dispozitivul vă permite să-și extindeți funcționalitatea și vă permite să efectuați orice acțiune pe orice dispozitiv pe care îl aveți. Opțiunile disponibile depind de firmware-ul și dispozitivul pe care îl utilizați.
 Your email: E-mailul dvs.
 Your instance is not registered or you are trying to authorize an application that is not public.: Instanța dvs. nu este înregistrată sau încercați să autorizați o aplicație care nu este publică.
 Your password must contain at least one special character.: Parola trebuie să conțină cel puțin un caracter special.
@@ -778,12 +778,12 @@ Your private SUPLA Cloud instance has been unregistered.: Instanța dvs. privat�
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Instanța dvs. privată SUPLA cloud nu este disponibilă. Asigurați-vă că serverul dvs. este online și conexiunea HTTPS funcționează corect.
 Your private SUPLA Cloud is almost registered.: Norul dvs. privat SUPLA este aproape înregistrat.
 Your private SUPLA Cloud is not registered.: Norul dvs. privat SUPLA nu este înregistrat.
-'Your scenes are allowed to have a maximum of {max} operations.': 'Scenele dvs. pot avea maximum {max} operații.'
-'Your schedules are allowed to have a maximum of {max} actions.': 'Programele dvs. pot avea maximum {max} acțiuni.'
+Your scenes are allowed to have a maximum of {max} operations.: Scenele dvs. pot avea maximum {max} operații.
+Your schedules are allowed to have a maximum of {max} actions.: Programele dvs. pot avea maximum {max} acțiuni.
 Your session has been expired.: Sesiunea dvs. a expirat.
 Your session is about to expire: Sesiunea dvs. va expira îndată
-'Your session will expire in [time].': 'Sesiunea dvs. va expira peste [timp].'
-'Yours faithfully,': 'Cu stimă,'
+Your session will expire in {0}.: Sesiunea dvs. va expira peste {0}.
+Yours faithfully,: Cu stimă,
 access to your e-mail address: acces la adresa ta de e-mail
 actionTrigger_HOLD: Apăsare lungă a butonului
 actionTrigger_SHORT_PRESS_X1: Apăsare 1x
@@ -801,12 +801,13 @@ actionTrigger_TURN_ON: Pornire
 actionableSubjectType_channel: Canal
 actionableSubjectType_channelGroup: Grupă de canale
 actionableSubjectType_scene: Scenă
-addToHistoryMeasurementWarningSelected: 'Bifarea acestei opțiuni va adăuga valorile setate la măsurătorile viitoare salvate în istoric. Acest lucru poate fi văzut în grafice ca o creștere bruscă a valorii introduse. Vă recomandăm să setați acești parametri numai atunci când instalați contorul pentru prima dată. Pentru contoarele existente, vă recomandăm să ștergeți istoricul măsurătorilor imediat ce modificați aceste setări.'
-addToHistoryMeasurementWarningUnselected: 'Trasarea acestei opțiuni va omite valorile setate din măsurătorile viitoare salvate în istoric. Acest lucru poate fi văzut în grafice ca o scădere bruscă. Vă recomandăm să setați acești parametri numai atunci când instalați contorul pentru prima dată. Pentru contoarele existente, vă recomandăm să ștergeți istoricul măsurătorilor imediat ce modificați aceste setări.'
+addToHistoryMeasurementWarningSelected: Bifarea acestei opțiuni va adăuga valorile setate la măsurătorile viitoare salvate în istoric. Acest lucru poate fi văzut în grafice ca o creștere bruscă a valorii introduse. Vă recomandăm să setați acești parametri numai atunci când instalați contorul pentru prima dată. Pentru contoarele existente, vă recomandăm să ștergeți istoricul măsurătorilor imediat ce modificați aceste setări.
+addToHistoryMeasurementWarningUnselected: Trasarea acestei opțiuni va omite valorile setate din măsurătorile viitoare salvate în istoric. Acest lucru poate fi văzut în grafice ca o scădere bruscă. Vă recomandăm să setați acești parametri numai atunci când instalați contorul pentru prima dată. Pentru contoarele existente, vă recomandăm să ștergeți istoricul măsurătorilor imediat ce modificați aceste setări.
 after: după
 before: înainte de
 caption: nume
 channel: Canal
+channelConfigHelp_numberOfAttemptsGate: După ce ordonați deschiderea sau închiderea porții, sistemul va încerca să o închidă/deschidă și să aștepte 60 de secunde pentru a verifica dacă poarta a ajuns în starea dorită. Dacă nu, sistemul va încerca să se închidă/deschidă din nou. Acest parametru definește numărul maxim de încercări ale sistemului de a atinge obiectivul. Valoarea recomandată este 5. Modificarea acestui parametru nu afectează funcționarea programelor.
 channelGroup: Grupă de canale
 choose: alegeți
 choose a currency: alegeți valuta
@@ -815,6 +816,7 @@ choose the channel: selectați un canal
 choose the channel group: selectați o grupă de canale
 choose the scene: selectați scena
 choose the timezone: selectați un fus orar
+click here: click aici
 copied: copiat
 copy: copiază
 days: zile
@@ -843,11 +845,11 @@ minutes: minute
 or add a delay: sau adăugați o întârziere
 password: parola
 prefix: prefix
-register-slide1-text: 'Pe baza dispozitivelor electronice disponibile, SUPLA vă va permite să construiți module simple pentru comanda și monitorizarea componentelor de automatizare a clădirilor. Datorită SUPLA puteți, printre altele, să controlați iluminatul, să porniți și să opriți dispozitivele electrocasnice și electronice, să deschideți și să închideți porțile și ușile sau să controlați temperatura în camere. Toate acestea le puteți face cu o singură mișcare a degetului.'
+register-slide1-text: Pe baza dispozitivelor electronice disponibile, SUPLA vă va permite să construiți module simple pentru comanda și monitorizarea componentelor de automatizare a clădirilor. Datorită SUPLA puteți, printre altele, să controlați iluminatul, să porniți și să opriți dispozitivele electrocasnice și electronice, să deschideți și să închideți porțile și ușile sau să controlați temperatura în camere. Toate acestea le puteți face cu o singură mișcare a degetului.
 register-slide1-title: Propria Clădire Inteligentă
-register-slide2-text: 'Unele dintre obiectivele de bază ale proiectului sunt simplitatea și disponibilitatea. SUPLA vă permite să porniți lumina sau să deschideți poarta de intrare atunci când doriți să accesați proprietatea, cu o singură mișcare de deget. SUPLA este disponibilă oriunde aveți acces la Internet și dispuneți de un smartphone sau o tabletă. SUPLA este dezvoltată pe principiul Open Source și Open Hardware, de aceea poți dezvolta și tu acest proiect!'
+register-slide2-text: Unele dintre obiectivele de bază ale proiectului sunt simplitatea și disponibilitatea. SUPLA vă permite să porniți lumina sau să deschideți poarta de intrare atunci când doriți să accesați proprietatea, cu o singură mișcare de deget. SUPLA este disponibilă oriunde aveți acces la Internet și dispuneți de un smartphone sau o tabletă. SUPLA este dezvoltată pe principiul Open Source și Open Hardware, de aceea poți dezvolta și tu acest proiect!
 register-slide2-title: SUPLA oriunde!
-register-slide3-text: 'Sistemele de automatizare a clădirilor disponibile pe piață sunt de obicei foarte complexe, închise și costisitoare. În multe cazuri, acestea necesită instalare deja în faza de construcție a obiectului. SUPLA este simplă, deschisă și gratuită. Permite construirea de dispozitive de acționare pe baza platformelor RaspberryPI, Arduino sau ESP8266 și conectarea acestora utilizând rețelele LAN și WiFi. Alăturați-vă proiectului și construiți propria versiune a sistemului de automatizare a clădirilor!'
+register-slide3-text: Sistemele de automatizare a clădirilor disponibile pe piață sunt de obicei foarte complexe, închise și costisitoare. În multe cazuri, acestea necesită instalare deja în faza de construcție a obiectului. SUPLA este simplă, deschisă și gratuită. Permite construirea de dispozitive de acționare pe baza platformelor RaspberryPI, Arduino sau ESP8266 și conectarea acestora utilizând rețelele LAN și WiFi. Alăturați-vă proiectului și construiți propria versiune a sistemului de automatizare a clădirilor!
 register-slide3-title: Gratuită și deschisă!
 reset chart view: reveniți la vizualizarea inițială
 scene: scenă
@@ -856,7 +858,7 @@ scheduleMode_daily: Ciclu zilnic
 scheduleMode_minutely: Ciclu în minute
 scheduleMode_once: Unic
 sec.: sec.
-'smartphones, tablets, etc.': 'smartphone-uri, tablete etc.'
+smartphones, tablets, etc.: smartphone-uri, tablete etc.
 state-closed: Închise
 state-default: Implicit
 state-empty: Gol
@@ -868,8 +870,8 @@ state-opened: Deschise
 state-partially_closed: Parțial închise
 state-revealed: Deschise
 state-rgb_off_dim_off: RGB și variatorul de lumină dezactivate
-state-rgb_off_dim_on: 'RGB dezactivat, variatorul de lumină activat'
-state-rgb_on_dim_off: 'RGB activat, variatorul de lumină dezactivat'
+state-rgb_off_dim_on: RGB dezactivat, variatorul de lumină activat
+state-rgb_on_dim_off: RGB activat, variatorul de lumină dezactivat
 state-rgb_on_dim_on: RGB și variatorul de lumină activate
 state-shut: Închise
 state-temperature: Temperatură
@@ -902,22 +904,22 @@ Assigned Locations: Locații atribuite
 Cannot send an activation e-mail. Try again later.: Mesajul cu link-ul de activare nu poate fi trimis. Încercați din nou mai târziu.
 Channel will be deleted from the channel group below: Canalul va fi eliminat din următoarele grupe de canale
 Chosen hour: Ora selectată
-'Confirm if you want to remove {deviceName} device': 'Confirmați că doriți să eliminați dispozitivul {deviceName}'
+Confirm if you want to remove {deviceName} device: Confirmați că doriți să eliminați dispozitivul {deviceName}
 DISABLED: DEZACTIVAT
 Date: Data
 Days: Zile
 Direct links below will be deleted: Linkurile directe enumerate mai jos vor fi eliminate
-'Doors, Gates': 'Uși, Porți'
+Doors, Gates: Uși, Porți
 ENABLED: ACTIVAT
 Email already exists: Adresa de e-mail există deja
 Existing schedules: Planificări existente
 Fridays: Zilele de vineri
-'Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.': 'Mesajul cu linkul de activare a contul dvs. nu a sosit? Asigurați-vă că nu se află în folderul SPAM (junk mail). Puteți, de asemenea, să faceți clic [aici] pentru a-l retrimite.'
+Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: Mesajul cu linkul de activare a contul dvs. nu a sosit? Asigurați-vă că nu se află în folderul SPAM (junk mail). Puteți, de asemenea, să faceți clic [aici] pentru a-l retrimite.
 Hi: Salut
 Hour: Ora
 Hours: Ore
 I/O: Intrare/Ieșire
-'If you want to stay here, do something!': 'Dacă vrei să rămâi aici, fă ceva!'
+If you want to stay here, do something!: Dacă vrei să rămâi aici, fă ceva!
 Input: Intrare
 Languages: Limbi
 Loading: Încărcare
@@ -928,7 +930,7 @@ Mondays: Zilele de luni
 Next: Mai departe
 Number: Număr
 Output: Ieșire
-Please select the schedules that should also be enabled.: 'Selectați planurile care ar trebui să fie, de asemenea, activate.'
+Please select the schedules that should also be enabled.: Selectați planurile care ar trebui să fie, de asemenea, activate.
 Registration: Înregistrare
 Registration of new I/O devices: Înregistrarea dispozitivelor
 Registration of new clients: Înregistrarea clienților
@@ -943,7 +945,7 @@ Sunrise / Sunset: Est / Vest
 Thursdays: Zilele de joi
 Try again later: Încercați din nou mai târziu
 Tuesdays: Zilele de marți
-Turning this device off will result in disabling all the associated schedules.: 'Dezactivarea acestui dispozitiv va dezactiva, de asemenea, planurile de executare asociate cu acesta.'
+Turning this device off will result in disabling all the associated schedules.: Dezactivarea acestui dispozitiv va dezactiva, de asemenea, planurile de executare asociate cu acesta.
 We have just sent you an activation link. Be patient.: Tocmai a fost trimis un mesaj cu un link pentru activarea contului dvs. Răbdare.
 Wednesdays: Zilele de miercuri
 When: Când
@@ -955,7 +957,34 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Above threshold: ~
+Average voltage: ~
+Below threshold: ~
+Device might be sleeping: ~
+Error when communicating the AD. Try again in a while.: ~
+Estimated execution time: ~
+Gate's state verification: ~
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
+Longest violation: ~
+Maximum voltage: ~
+Measurement window: ~
+Minimum voltage: ~
+Phase number: ~
+Register your SUPLA Cloud: ~
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
+Show days with issues only: ~
+The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
+Total time: ~
+Verification method: ~
+Violation info: ~
+Violations count: ~
+Voltage deviations: ~
+Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~
+channelConfigHelp_stateVerificationMethod: ~
+channelConfig_stateVerificationMethod_active: ~
+channelConfig_stateVerificationMethod_passive: ~
 
 #</editor-fold>

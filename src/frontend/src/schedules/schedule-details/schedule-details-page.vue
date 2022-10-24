@@ -50,11 +50,11 @@
                                         <dd>{{ $t('Mode') }}</dd>
                                         <dt>{{ $t(`scheduleMode_${schedule.mode}`) }}</dt>
                                         <dd>{{ $t('Start date') }}</dd>
-                                        <dt>{{ schedule.dateStart | moment('LLL') }}</dt>
+                                        <dt>{{ schedule.dateStart | formatDateTimeLong }}</dt>
                                     </dl>
                                     <dl v-if="schedule.dateEnd">
                                         <dd>{{ $t('End date') }}</dd>
-                                        <dt>{{ schedule.dateEnd | moment('LLL') }}</dt>
+                                        <dt>{{ schedule.dateEnd | formatDateTimeLong }}</dt>
                                     </dl>
                                 </div>
                             </div>

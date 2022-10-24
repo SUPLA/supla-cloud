@@ -29,9 +29,10 @@
 </template>
 
 <script>
-    import moment from "moment";
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
     import Vue from "vue";
+    import {formatDateTimeLong} from "../../common/filters-date";
+    import {DateTime} from "luxon";
 
     export default {
         props: ['value', 'schedule', 'config'],
@@ -71,8 +72,8 @@
             },
             humanizeNextRunDate(dateString) {
                 return {
-                    date: moment(dateString).format('LLL'),
-                    fromNow: moment(dateString).fromNow()
+                    date: formatDateTimeLong(dateString),
+                    fromNow: DateTime.fromISO(dateString).toRelative(),
                 };
             },
         },

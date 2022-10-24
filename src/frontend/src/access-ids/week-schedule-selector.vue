@@ -65,8 +65,8 @@
 </template>
 
 <script>
-    import moment from "moment";
     import {cloneDeep} from "lodash";
+    import {DateTime} from "luxon";
 
     export default {
         components: {},
@@ -102,12 +102,12 @@
         },
         methods: {
             hourLabelStart(hour) {
-                const start = moment(('0' + hour).substr(-2), 'HH');
-                return start.format('LT');
+                const start = DateTime.fromFormat(('0' + hour).substr(-2), 'HH');
+                return start.toLocaleString(DateTime.TIME_SIMPLE);
             },
             hourLabelEnd(hour) {
-                const end = moment(('0' + hour).substr(-2), 'HH').endOf('hour');
-                return end.format('LT');
+                const end = DateTime.fromFormat(('0' + hour).substr(-2), 'HH').endOf('hour');
+                return end.toLocaleString(DateTime.TIME_SIMPLE);
             },
             startSelection(weekday, hour) {
                 this.copyFrom = undefined;

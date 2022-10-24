@@ -22,12 +22,12 @@
                 <dt v-if="latestExecution && latestExecution.resultTimestamp"
                     :class="latestExecution.failed ? 'text-danger' : ''"
                     :title="$t(latestExecution.result.caption)">
-                    {{ latestExecution.resultTimestamp | moment('LLL') }}
+                    {{ latestExecution.resultTimestamp | formatDateTime }}
                 </dt>
                 <dt v-else>-</dt>
                 <dd>{{ $t('Next run date') }}</dd>
                 <dt v-if="nearestExecution">
-                    {{ nearestExecution.plannedTimestamp | moment('LLL') }}
+                    {{ nearestExecution.plannedTimestamp | formatDateTime }}
                 </dt>
                 <dt v-else>-</dt>
             </dl>

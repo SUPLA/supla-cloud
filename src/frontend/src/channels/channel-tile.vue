@@ -5,7 +5,7 @@
             <div class="clearfix">
                 <function-icon :model="model"
                     class="pull-right"
-                    width="90"></function-icon>
+                    width="90"/>
                 <h3 class="no-margin-top line-clamp line-clamp-4">{{ caption }}</h3>
             </div>
             <dl class="ellipsis"
@@ -42,24 +42,22 @@
     </square-link>
 </template>
 
-<script>
+<script setup>
     import FunctionIcon from "./function-icon";
     import ConnectionStatusLabel from "../devices/list/connection-status-label.vue";
     import ActionTriggerIndicator from "@/channels/action-trigger/action-trigger-indicator";
+    import {computed} from "vue";
+    import {i18n} from "@/locale";
 
-    export default {
-        props: ['model', 'noLink'],
-        components: {ActionTriggerIndicator, FunctionIcon, ConnectionStatusLabel},
-        computed: {
-            caption() {
-                return this.model.caption || this.$t(this.model.function.caption);
-            },
-            linkSpec() {
-                return this.noLink ? {} : {name: 'channel', params: {id: this.model.id}};
-            },
-            hasActionTrigger() {
-                return this.model?.relationsCount?.actionTriggers > 0;
-            },
+    const props = defineProps({
+        model: Object,
+        noLink: {
+            type: Boolean,
+            default: false,
         }
-    };
+    });
+
+    const caption = computed(() => props.model.caption || i18n.t(props.model.function.caption));
+    const linkSpec = computed(() => props.noLink ? {} : {name: 'channel', params: {id: props.model.id}});
+    const hasActionTrigger = computed(() => props.model?.relationsCount?.actionTriggers > 0);
 </script>

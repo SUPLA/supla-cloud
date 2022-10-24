@@ -12,7 +12,8 @@
 </template>
 
 <script>
-    import moment from "moment";
+    import {formatDateForHtmlInput} from "../../../common/filters-date";
+    import {DateTime} from "luxon";
 
     export default {
         props: ['value'],
@@ -24,15 +25,16 @@
         computed: {
             theDate: {
                 set(value) {
-                    const cronExpression = moment(value).format('m H D M * Y');
+                    const cronExpression = DateTime.fromISO(value).toFormat('m H d L * y');
                     this.$emit('input', cronExpression);
                 },
                 get() {
-                    return moment(this.value, 'm H D M * Y').format(moment.HTML5_FMT.DATETIME_LOCAL);
+                    const date = this.value ? DateTime.fromFormat(this.value, 'm H d L * y') : DateTime.now().plus({minutes: 1});
+                    return formatDateForHtmlInput(date.toISO());
                 }
             },
             minDate() {
-                return moment().format(moment.HTML5_FMT.DATETIME_LOCAL);
+                return formatDateForHtmlInput(DateTime.now().toISO());
             },
         },
     };

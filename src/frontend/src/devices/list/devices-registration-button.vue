@@ -51,8 +51,8 @@
 </style>
 
 <script>
-    import moment from "moment";
     import ButtonLoadingDots from "../../common/gui/loaders/button-loading-dots.vue";
+    import {DateTime} from "luxon";
 
     export default {
         props: ['field', 'captionI18n'],
@@ -65,7 +65,7 @@
         },
         computed: {
             enabledUntilCalendar() {
-                return this.enabledUntil ? moment(this.enabledUntil).calendar() : '';
+                return this.enabledUntil ? DateTime.fromISO(this.enabledUntil).toLocaleString(DateTime.DATETIME_SHORT) : '';
             }
         },
         mounted() {

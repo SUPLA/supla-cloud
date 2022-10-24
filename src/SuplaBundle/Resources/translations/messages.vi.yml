@@ -3,11 +3,11 @@
 '%s trigger is not supported by the hardware.': Kích hoạt %s không được thiết bị hỗ trợ.
 ...and start your adventure with building automation today!: ...và bắt đầu cuộc phiêu lưu của bạn với tự động hóa tòa nhà ngày hôm nay!
 ...open and shut roller shutters: ...mở và đóng cửa chớp lăn
-'...open gateways, gates or doors': ...Mở cổng hoặc cửa
+...open gateways, gates or doors: ...Mở cổng hoặc cửa
 ...or control home appliances: ...hoặc kiểm soát các thiết bị gia dụng
 ...you can monitor temperature: ...bạn có thể theo dõi nhiệt độ
-'10 minutes before sunset, on day 10 of the month, May through August': '10 phút trước khi mặt trời lặn, chỉ vào ngày mùng 10 của tháng, từ tháng 5 đến tháng 8'
-'15 minutes after sunrise, every 2 days': '15 phút sau khi mặt trời mọc, đều đặn cách 1 ngày'
+10 minutes before sunset, on day 10 of the month, May through August: 10 phút trước khi mặt trời lặn, chỉ vào ngày mùng 10 của tháng, từ tháng 5 đến tháng 8
+15 minutes after sunrise, every 2 days: 15 phút sau khi mặt trời mọc, đều đặn cách 1 ngày
 A confirmation upon successful client app registration.: Xác nhận đăng ký ứng dụng khách hàng mới
 A confirmation upon successful device registration.: Xác nhận đăng ký thiết bị thành công.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Ứng dụng khách hàng mới (điện thoại thông minh) đã được thêm vào tài khoản đám mây SUPLA của bạn.
@@ -44,20 +44,19 @@ Add new channel group: Thêm nhóm kênh mới.
 Add new channel to this group: Thêm mới.
 Add new item to use in the scene: Thêm một mục mới vào cảnh
 Adjust parameters: Điều chỉnh thông số
-'After deletion of this icon all channels and channel groups that use this icon, will receive default icons.': 'Sau khi xóa icon, tất cả các channels và channel grops sẽ trở lại icon mặc định.'
-'After granting the access, you can always remove it by adjusting the settings in your account settings section.': 'Sau khi cấp quyền truy cập, bạn luôn có thể xóa quyền truy cập bằng cách điều chỉnh cài đặt trong phần cài đặt tài khoản của bạn'
-'After the device enters the configuration mode, it will not be accessible on your account.': Sẽ không vào được thiết bị từ cấp độ tài khoản của bạn sau khi vào chế độ cấu hình.
-'After the update, the application will be faster, more comfortable, more powerful... Just better!': 'Sau khi cập nhật, ứng dụng sẽ nhanh hơn, tiện lợi hơn ... Đơn giản là tốt hơn!'
-'After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.': 'Máy sẽ bắt đầu đếm từ 0 sau hoạt động này, bất kể trạng thái hiện tại của nó. Không thể hồi lại thao tác này.'
-'After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.': 'Sau khi bạn chọn một đối tượng, một liên kết trực tiếp sẽ được tạo ra. Bạn sẽ có thể đặt tất cả các tùy chọn khác sau khi tạo.'
-'channelConfigHelp_numberOfAttemptsGate': 'Sau khi bạn ra lệnh mở hoặc đóng cổng, hệ thống sẽ thử đóng / mở và chờ 60 giây để kiểm tra xem cổng đã đạt trạng thái mong muốn hay chưa. Nếu chưa, hệ thống sẽ thử đóng / mở 1 lần nữa. Tham số bên dưới xác định số lần thử tối đa của hệ thống để đạt được mục tiêu. Giá trị được khuyến khích là 5. Việc thay đổi thông số này không ảnh hưởng đến hoạt động của lịch trình.'
+After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Sau khi xóa icon, tất cả các channels và channel grops sẽ trở lại icon mặc định.
+After granting the access, you can always remove it by adjusting the settings in your account settings section.: Sau khi cấp quyền truy cập, bạn luôn có thể xóa quyền truy cập bằng cách điều chỉnh cài đặt trong phần cài đặt tài khoản của bạn
+After the device enters the configuration mode, it will not be accessible on your account.: Sẽ không vào được thiết bị từ cấp độ tài khoản của bạn sau khi vào chế độ cấu hình.
+After the update, the application will be faster, more comfortable, more powerful... Just better!: Sau khi cập nhật, ứng dụng sẽ nhanh hơn, tiện lợi hơn ... Đơn giản là tốt hơn!
+After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Máy sẽ bắt đầu đếm từ 0 sau hoạt động này, bất kể trạng thái hiện tại của nó. Không thể hồi lại thao tác này.
+After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Sau khi bạn chọn một đối tượng, một liên kết trực tiếp sẽ được tạo ra. Bạn sẽ có thể đặt tất cả các tùy chọn khác sau khi tạo.
 All: Tất cả
 All the above and many more can be done from your phone or tablet: Tất cả có thể được thực hiện từ điện thoại và máy tính bảng của bản.
 Allowed actions: Cho phép thao tác
 Allows to perform an action only using the HTTP PATCH request.: Cho phép bạn thực hiện một hành động chỉ bằng cách sử dụng yêu cầu HTTP PATCH.
-'Alternatively, you can add a GET parameter to specify response format.': Bạn cũng có thể thêm tham số GET để chỉ định định dạng phản hồi.
+Alternatively, you can add a GET parameter to specify response format.: Bạn cũng có thể thêm tham số GET để chỉ định định dạng phản hồi.
 And more: Thêm nữa
-'Any application or device that uses the {tokenName} token will not work anymore.': 'Bất kỳ ứng dụng hoặc thiết bị nào sử dụng mã thông báo {tokenName} sẽ không hoạt động nữa.'
+Any application or device that uses the {tokenName} token will not work anymore.: Bất kỳ ứng dụng hoặc thiết bị nào sử dụng mã thông báo {tokenName} sẽ không hoạt động nữa.
 'App version: %clientAppSoftwareVersion%': 'Phiên bản ứng dụng: %clientAppSoftwareVersion%'
 Application name cannot be blank.: Tên ứng dụng không được để trống.
 Application requirements: Yêu cầu ứng dụng.
@@ -82,15 +81,15 @@ Assign Client apps: Chỉ định ứng dụng khách
 Assign Locations: Chỉ định địa điểm
 Associated measured channel: Kênh điều khiển liên kết
 Associated measurement channel: Kênh đo lường được liên kết
-'At 05:45 PM, on the last day of the month': 'lúc 5:45 ngày cuối cùng của tháng'
-'At 11:30 AM, on the third Wednesday of the month': 'lúc 11:30, thứ tư thứ ba của tháng'
-At every 5th minute on day-of-month 30 in May: '5 phút một lần, vào ngày 30 của tháng, chỉ trong tháng 5'
+At 05:45 PM, on the last day of the month: lúc 5:45 ngày cuối cùng của tháng
+At 11:30 AM, on the third Wednesday of the month: lúc 11:30, thứ tư thứ ba của tháng
+At every 5th minute on day-of-month 30 in May: 5 phút một lần, vào ngày 30 của tháng, chỉ trong tháng 5
 At specified time: Trong thời gian chỉ định
 At sunrise: khi mặt trời mọc
-'At sunrise, Monday through Friday': 'lúc mặt trời mọc, từ thứ Hai đến thứ Sáu'
+At sunrise, Monday through Friday: lúc mặt trời mọc, từ thứ Hai đến thứ Sáu
 At sunset: lúc hoàng hôn
 Authorization callback URLs (one per line): URL gọi lại ủy quyền (một trên mỗi dòng)
-'Authorize the application, so that it can access your account.': Cho phép ứng dụng để ứng dụng có thể truy cập vào tài khoản của bạn.
+Authorize the application, so that it can access your account.: Cho phép ứng dụng để ứng dụng có thể truy cập vào tài khoản của bạn.
 Authorized: Được hủy quyền
 Authorized OAuth apps: Ứng dụng OAuth ủy quyền
 Automatic calibration: Hiệu chuẩn tự động
@@ -116,7 +115,7 @@ Cannot calculate when to run the schedule - incorrect configuration?: Không th�
 Cannot change the channel function right now.: Hiện không thể thay đổi các chức năng của kênh này.
 Cannot delete this I/O Device right now.: Không thể xóa thiết bị này vào lúc này.
 Cannot execute an action when the device is disconnected.: Không thể thực hiện thao tác khi thiết bị bị ngắt kết nối.
-'Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please click [here] to resend.': 'Có vấn đề với kích hoạt tài khoản? Đảm bảo rằng thư không rơi vào thư mục SPAM/Thùng Rác. Bạn cũng có thể nhấp vào [đây] để gửi lại liên kết kích hoạt tài khoản'
+Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Có vấn đề với kích hoạt tài khoản? Đảm bảo rằng thư không rơi vào thư mục SPAM/Thùng Rác. Bạn cũng có thể nhấp {clickHereLink} để gửi lại liên kết kích hoạt tài khoản
 Captcha token is not valid.: Captcha không đúng.
 Caption: Chú thích
 Caption is too long.: Tên quá dài.
@@ -173,8 +172,8 @@ Confirm My Account: Xác nhận tài khoản của tôi
 Confirm Password: Xác nhận mật khẩu
 Confirm if you want to perform the roller shutter calibration.: Xác nhận rằng mô-đun đã được hiệu chuẩn.
 Confirm if you want to remove Access Identifier: Xác nhận muốn xóa?
-'Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.': 'Xác nhận nếu bạn muốn xóa vị trí ID {locationId}. Bạn sẽ không còn có thể kết nối các thiết bị i/o với vị trí này.'
-'Confirm if you want to remove {deviceName} device and all of its channels.': 'Xác nhận là bạn muốn xóa thiết bị {deviceName} và tất cả các kênh'
+Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Xác nhận nếu bạn muốn xóa vị trí ID {locationId}. Bạn sẽ không còn có thể kết nối các thiết bị i/o với vị trí này.
+Confirm if you want to remove {deviceName} device and all of its channels.: Xác nhận là bạn muốn xóa thiết bị {deviceName} và tất cả các kênh
 Connected: Đã kết nối
 Connection with a private instance of the SUPLA cloud: Kết nối với một phiên bản riêng.
 Constraints: Ràng buộc
@@ -205,7 +204,7 @@ Default: Mặc định
 Delete: Xóa
 Delete measurement history: Xóa lịch sử đo
 Delete my account: Xóa tài khoản
-'Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.': 'Xóa tài khoản dẫn đến xóa tất cả các dữ liệu liên quan, bao gốm các thiết bị được kết nối, cấu hình kênh, link liên kết, lịch sử. Xóa tài khoản là không thể lấy lại được.'
+Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Xóa tài khoản dẫn đến xóa tất cả các dữ liệu liên quan, bao gốm các thiết bị được kết nối, cấu hình kênh, link liên kết, lịch sử. Xóa tài khoản là không thể lấy lại được.
 Depth: Sâu
 Depth sensor: Cảm biến độ sâu
 Description: Description
@@ -234,16 +233,16 @@ Direct links limit has been exceeded: Giới hạn liên kết đã bị vượt
 Disable: Vô hiệu hóa
 Disable local function: Tắt các tính năng của thiết bị
 Disabled: Tắt
-Disables local device function and does nothing more.: 'Không thực hiện hành động nào, nhưng vô hiệu hóa chức năng mặc định của thiết bị cho hành động này.'
+Disables local device function and does nothing more.: Không thực hiện hành động nào, nhưng vô hiệu hóa chức năng mặc định của thiết bị cho hành động này.
 Disconnected: Ngắt kết nối
 Distance: Distance
 Distance sensor: Cảm biến Distance
 Do you want to be redirected there? You may be asked to authenticate again.: Bạn có muốn chúng tôi chuyển trang không? Có thể sẽ cần phải đăng nhập lại.
-'Don’t worry, you can always reset your password via email. Click here to do so.': Đừng lo lắng bạn có thể đặt lại mật khẩu qua email. Click vào đây.
+Don’t worry, you can always reset your password via email. Click here to do so.: Đừng lo lắng bạn có thể đặt lại mật khẩu qua email. Click vào đây.
 Door lock operation: Khóa cửa
 Door opening sensor: Cảm biến mở cửa
 Doors and gates: Cửa và cổng
-'Doors, Gates, Windows': 'Cửa ra vào, cổng, cửa sổ'
+Doors, Gates, Windows: Cửa ra vào, cổng, cửa sổ
 Download the history of measurement: Tải xuống lịch sử đo lường
 Drag your image(s) here or click to select from the disk: Kéo hình ảnh ở đây hoặc nhấp để chọn nó từ đĩa
 E-mail notifications: Thông báo qua e-mail
@@ -279,9 +278,9 @@ Failed (zombie): Thất bại
 Feature limits: Giới hạn chức năng
 File is too large: tập tin quá lớn
 Flooding: Ngập
-'For a short period of time, it is recommended for you to use the {suplaUrl} address.': 'Trong quá trình nâng cấp khuyến cáo sử dụng liên kết từ {suplaUrl}.'
+For a short period of time, it is recommended for you to use the {suplaUrl} address.: Trong quá trình nâng cấp khuyến cáo sử dụng liên kết từ {suplaUrl}.
 For devices: Cho thiết bị
-'For security reasons, the full URL of this direct link will be displayed only once, during creation.': 'Vì lý do bảo mật, URL đầy đủ của link liên kết này sẽ chỉ được hiển thị một lần, trong khi tạo'
+For security reasons, the full URL of this direct link will be displayed only once, during creation.: Vì lý do bảo mật, URL đầy đủ của link liên kết này sẽ chỉ được hiển thị một lần, trong khi tạo
 Forgot your password?: Quên mật khẩu?
 Forward active energy: Forward active energy
 Forward active energy balanced: Năng lượng tiêu thụ (Cân bằng véc tơ)
@@ -318,45 +317,45 @@ History of measurements: Lịch sử đo lường
 Home appliances: Thiết bị gia dụng
 Home+ Heater: Home+ Heater
 Host: Host
-'However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.': 'Tuy nhiên, hiện tại có quá nhiều load trên máy chủ của chúng tôi. Chúng tôi đang theo dõi tình hình. Trở lại sau một lúc'
+However, currently there is too heavy load on our servers. We are monitoring the situation. Come back in a while.: Tuy nhiên, hiện tại có quá nhiều load trên máy chủ của chúng tôi. Chúng tôi đang theo dõi tình hình. Trở lại sau một lúc
 Humidity: Độ ẩm
 Humidity Sensor: Cảm biến độ ẩm
 Humidity adjustment: Điều chỉnh độ ẩm
 Humidity sensor: Cảm biến độ ẩm
-'I accept the [Terms and Conditions] and hereby agree for processing of my personal data for the purposes included in the said [Terms and Conditions].': 'Tôi chấp nhận [Điều khoản và điều kiện] và từ đó đồng ý xử lý dữ liệu cá nhân của tôi cho các mục đích được nêu trong [Điều khoản và điều kiện].'
+I accept the Terms and Conditions and hereby agree for processing of my personal data for the purposes included in the said Terms and Conditions.: Tôi chấp nhận Điều khoản và điều kiện và từ đó đồng ý xử lý dữ liệu cá nhân của tôi cho các mục đích được nêu trong Điều khoản và điều kiện.
 I agree: Tôi đồng ý
-'I aree, taske me to the app': 'Tôi đồng ý, đưa tôi đến ứng dụng '
+I aree, taske me to the app: 'Tôi đồng ý, đưa tôi đến ứng dụng '
 I confirm! Delete my account.: Tôi xác nhận! Xóa tài khoản
-'I do not agree, get me out of here': 'Tôi không đồng ý, đưa tôi rời khỏi đây :)'
+I do not agree, get me out of here: Tôi không đồng ý, đưa tôi rời khỏi đây :)
 I/O Devices: Thiết bị I/O
 I/O devices registration: Đăng ký thiết bị I/O mới
 ID: ID
 INACTIVE: KHÔNG HOẠT ĐỘNG
 Icon: Biểu tượng icon
 Idle: Không hoạt động
-'If the link is not working, please copy and paste it or enter manually in a new browser window.': 'Nếu liên kết không hoạt động, vui lòng sao chép và dán hoặc nhập thủ công trong cửa sổ trình duyệt mới.'
-'If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.': 'Nếu bạn là nhà phát triển muốn cung cấp các tính năng bổ sung cho SUPLA, hãy tạo một ứng dụng OAuth mà người dùng có thể ủy quyền và sử dụng'
-'If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.': 'Nếu bạn chắc chắn rằng bạn có tài khoản trên cloud.supla.org, hãy kiểm tra xem ứng dụng bạn đang cố gắng ủy quyền có công khai không'
-'If you did not request this password reset, please ignore this information.': 'Nếu bạn không yêu cầu đặt lại mật khẩu, xin vui lòng bỏ qua thông tin này.'
-'If you do not want to delete your account on %cloudHost%, please do not click the link.': 'Nếu bạn không muốn xóa tài khoản của mình trên %cloudHost%, vui lòng không nhấp vào liên kết.'
-'If you do not want to unregister your instance, please do not click the link.': 'Nếu bạn không muốn hủy bỏ đăng kí cho trường hợp của bạn, thì không bấm vào liên kết'
-'If you fail to connect this AP for several minutes, it will restart itself and use the last settings.': 'Nếu bạn không thể kết nối với điểm phát trong vòng vài phút, thiết bị sẽ tự khởi động lại và kết nối bằng các cài đặt gần nhất.'
-'If you have doubts or more questions, you can contact us directly at %securityEmail%.': 'Nếu bạn có nghi ngờ hoặc có nhiều câu hỏi, bạn có thể liên hệ trực tiếp với chúng tôi tại %securityEmail%.'
-'If you have lost your instance token and you are going to re-register your instance, it''s the right thing to do.': 'Nếu bạn muốn đăng kí lại SUPLA Cloud, bởi mã token được tạo ở lần đã kí trước đã mất -bạn đã tìm đến đúng chỗ.'
-'If you have not used this email address with %cloudHost%, please do not click the link.': 'Nếu bạn chưa sử dụng địa chỉ email này với cloud.supla.org, vui lòng không nhấp vào liên kết.'
-'If you really want to delete the account, here are the instructions.': 'Nếu bạn vẫn muốn xóa tài khoản SUPLA, thì có thể tìm thấy hướng dẫn tại đây.'
-'If you really want to unregister your private SUPLA Cloud instance, here are the instructions.': Nếu bạn chắc chắn muốn hủy đăng kí tài khoản cá nhân SUPLA Cloud – Bạn sẽ tìm thấy tất cả hướng dẫn bên dưới đây.
-'If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.': 'Nếu bạn đăng ký lại trong tương lai, một số thiết bị có thể cần cấu hình lại ngay cả khi bạn sử dụng cùng một địa chỉ email.'
-'If you want to integrate your Cloud with public OAuth applications, you must [register your instance].': 'Nếu bạn muốn tích hợp Cloud của mình với các ứng dụng OAuth công khai, bạn phải [đăng ký phiên bản của mình].'
-'If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.': 'Nếu bạn muốn sử dụng liên kết theo chương trình, hãy thêm tiêu đề yêu cầu phù hợp để có được đầu ra mà bạn có thể dễ dàng phân tích.'
-'If you wish not to receive such messages,<br> change it in your account settings [here].': 'Nếu bạn không muốn nhận thông báo từ chúng tô, <br> thì hãy xem lại thiết đặt tài khoản của bạn [tại đây].'
-'If you wish to register your instance, [click here].': 'Nếu bạn muốn đăng kí phiên bản của bạn [bấm vào đây]'
-'If you wish to see the available integrations, go to [cloud.supla.org/apps].': 'Nếu bạn muốn xem các tích hợp có sẵn, hãy truy cập [cloud.supla.org/apps].'
-'If you wish to unregister your instance, [click here].': 'Nếu bạn muốn hủy đăng kí phiên bản của bạn [bấm vào đây]'
+If the link is not working, please copy and paste it or enter manually in a new browser window.: Nếu liên kết không hoạt động, vui lòng sao chép và dán hoặc nhập thủ công trong cửa sổ trình duyệt mới.
+If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Nếu bạn là nhà phát triển muốn cung cấp các tính năng bổ sung cho SUPLA, hãy tạo một ứng dụng OAuth mà người dùng có thể ủy quyền và sử dụng
+If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Nếu bạn chắc chắn rằng bạn có tài khoản trên cloud.supla.org, hãy kiểm tra xem ứng dụng bạn đang cố gắng ủy quyền có công khai không
+If you did not request this password reset, please ignore this information.: Nếu bạn không yêu cầu đặt lại mật khẩu, xin vui lòng bỏ qua thông tin này.
+If you do not want to delete your account on %cloudHost%, please do not click the link.: Nếu bạn không muốn xóa tài khoản của mình trên %cloudHost%, vui lòng không nhấp vào liên kết.
+If you do not want to unregister your instance, please do not click the link.: Nếu bạn không muốn hủy bỏ đăng kí cho trường hợp của bạn, thì không bấm vào liên kết
+If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Nếu bạn không thể kết nối với điểm phát trong vòng vài phút, thiết bị sẽ tự khởi động lại và kết nối bằng các cài đặt gần nhất.
+If you have doubts or more questions, you can contact us directly at %securityEmail%.: Nếu bạn có nghi ngờ hoặc có nhiều câu hỏi, bạn có thể liên hệ trực tiếp với chúng tôi tại %securityEmail%.
+If you have lost your instance token and you are going to re-register your instance, it's the right thing to do.: Nếu bạn muốn đăng kí lại SUPLA Cloud, bởi mã token được tạo ở lần đã kí trước đã mất -bạn đã tìm đến đúng chỗ.
+If you have not used this email address with %cloudHost%, please do not click the link.: Nếu bạn chưa sử dụng địa chỉ email này với cloud.supla.org, vui lòng không nhấp vào liên kết.
+If you really want to delete the account, here are the instructions.: Nếu bạn vẫn muốn xóa tài khoản SUPLA, thì có thể tìm thấy hướng dẫn tại đây.
+If you really want to unregister your private SUPLA Cloud instance, here are the instructions.: Nếu bạn chắc chắn muốn hủy đăng kí tài khoản cá nhân SUPLA Cloud – Bạn sẽ tìm thấy tất cả hướng dẫn bên dưới đây.
+If you register yourself again in the future, some devices might need reconfiguration even if you use the same e-mail address.: Nếu bạn đăng ký lại trong tương lai, một số thiết bị có thể cần cấu hình lại ngay cả khi bạn sử dụng cùng một địa chỉ email.
+If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: Nếu bạn muốn tích hợp Cloud của mình với các ứng dụng OAuth công khai, bạn phải {registerYourSuplaCloudLink}.
+If you want to use the link programmatically, add an appropriate request header to obtain an output you can easily parse.: Nếu bạn muốn sử dụng liên kết theo chương trình, hãy thêm tiêu đề yêu cầu phù hợp để có được đầu ra mà bạn có thể dễ dàng phân tích.
+If you wish not to receive such messages,<br> change it in your account settings [here].: Nếu bạn không muốn nhận thông báo từ chúng tô, <br> thì hãy xem lại thiết đặt tài khoản của bạn [tại đây].
+If you wish to register your instance, {clickHereLink}.: Nếu bạn muốn đăng kí phiên bản của bạn {clickHereLink}.
+If you wish to see the available integrations, go to {0}.: Nếu bạn muốn xem các tích hợp có sẵn, hãy truy cập {0}.
+If you wish to unregister your instance, {clickHereLink}.: Nếu bạn muốn hủy đăng kí phiên bản của bạn {clickHereLink}.
 Impulse counter: Bộ đếm xung
 Impulses: Impulses
-'In order to confirm account deletion, enter your password.': 'Để xác nhận xóa tài khoản, nhập mật khẩu.'
-'In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.': 'Để nhận chi tiết đăng nhập vào kênh môi giới MQTT, vui lòng liên hệ với quản trị viên của phiên bản SUPLA Cloud này.'
+In order to confirm account deletion, enter your password.: Để xác nhận xóa tài khoản, nhập mật khẩu.
+In order to get the MQTT Broker credentials, concact the administator of this SUPLA Cloud instance.: Để nhận chi tiết đăng nhập vào kênh môi giới MQTT, vui lòng liên hệ với quản trị viên của phiên bản SUPLA Cloud này.
 Inactive: Không hoạt động
 Include energy corrections in new measurements history (not recommended): Bao gồm giá trị gia tăng trong lịch sử (không khuyến nghị)
 Incorrect password: Mật khẩu không chính xác
@@ -380,9 +379,9 @@ Invalid token.: Mã token không hợp lệ.
 Inverted logic: Inverted logic
 Invisible: Không hiển thị
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Có thể một Người dùng khác đã nhập nhầm địa chỉ email của bạn trong khi đặt lại mật khẩu vào tài khoản của họ.
-It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: 'Trong chế độ này thiết bị sẽ phát sóng amngj Wi-Fi của mình, nhằm mục đích cài đặt thiết bị hoặc nâng cấp phần mềm thiệt bị thông qua điện thoại smartphone, được kết nối vớ mạng này.'
-'Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.': 'Hãy nhớ rằng chúng tôi sẽ xóa tất cả các cài đặt, thiết bị được định cấu hình, vị trí, lịch trình và tất cả các tính năng khác mà bạn đã sử dụng trong SUPLA cùng với tài khoản của bạn.'
-'Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.': 'Hãy lưu ý là, những mô tả được trình bày bởi úng dụng không thực sự hoàn hà, mục đích của chúng là hỗ trợ bạn nhập đúng giá trị. Những mô tả này không nên dùng để kiểm tra xem những giá trị được nhập có chính xác không. Hoặc dùng để báo lỗi trong ứng dụng SUPLI. Sau khi thực hiện các thay đổi, hãy kiểm tra phần "Các lần thực hiện sắp tới" để xác nhận rằng cấu hình lịch biểu bạn đã nhập là phù hợp với mong muốn của bạn.'
+It will start to broadcast its own access point that is meant to be connected with your smartphone to configure its connection settings and/or update the firmware.: Trong chế độ này thiết bị sẽ phát sóng amngj Wi-Fi của mình, nhằm mục đích cài đặt thiết bị hoặc nâng cấp phần mềm thiệt bị thông qua điện thoại smartphone, được kết nối vớ mạng này.
+Keep in mind that we will delete all your settings, configured devices, locations, schedules and all other features that you used in SUPLA along with your account.: Hãy nhớ rằng chúng tôi sẽ xóa tất cả các cài đặt, thiết bị được định cấu hình, vị trí, lịch trình và tất cả các tính năng khác mà bạn đã sử dụng trong SUPLA cùng với tài khoản của bạn.
+Keep in mind, that the humanized description of the entered crontab is not perfect. It is meant to help you find appropriate value, not to validate your input. Pay attention to the "Closest executions" section for final confiration that the schedule you configured behaves as expected.: Hãy lưu ý là, những mô tả được trình bày bởi úng dụng không thực sự hoàn hà, mục đích của chúng là hỗ trợ bạn nhập đúng giá trị. Những mô tả này không nên dùng để kiểm tra xem những giá trị được nhập có chính xác không. Hoặc dùng để báo lỗi trong ứng dụng SUPLI. Sau khi thực hiện các thay đổi, hãy kiểm tra phần "Các lần thực hiện sắp tới" để xác nhận rằng cấu hình lịch biểu bạn đã nhập là phù hợp với mong muốn của bạn.
 Language is not available: Ngôn ngữ không có sẵn
 Last access: Truy cập lần cuối
 Last connection: Kết nối lần cuối
@@ -392,7 +391,7 @@ Light switch: Công tắc đèn
 Lighting: Lighting
 Limit has been exceeded: Đã vượt quá giới hạn
 Linear: Biểu đồ dạng đường
-'Liquid, Temp': 'Chất lỏng, Nhiệt độ'
+Liquid, Temp: Chất lỏng, Nhiệt độ
 Location: Vị trí
 Location Identifier: Định danh vị trí
 Location limit has been exceeded: Giới hạn vị trí đã bị vượt quá
@@ -407,14 +406,14 @@ MQTT Broker password has been changed.: Mật khẩu giao thức MQTT đã đư�
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Tên người dùng hoặc mật khẩu chưa được thiết đặt cho trường hợp này.
 Mail sensor: Cảm biến mail
 Maintenance mode active. You cannot modify any data now.: Chế độ bảo trì hoạt động. Hiện tại bạn không thể sửa đổi bất kỳ dữ liệu.
-Make sure to copy it now because you won’t be able to see it again!: 'Hãy chắc chắn là, bạn đã lưu dữ chúng ở nơi an toàn.'
+Make sure to copy it now because you won’t be able to see it again!: Hãy chắc chắn là, bạn đã lưu dữ chúng ở nơi an toàn.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Đảm bảo lưu nó ở một nơi an toàn nếu bạn muốn truy cập nó trong tương lai. Liên kết sẽ không hiển thị lại sau khi bạn rời khỏi trang này.
 Manage your new client app in the SUPLA-Cloud.: Quản lí cài đặt ứng dùng thông qua SUPLA-Cloud
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Quán lí thiết bị của bạn thông qua SUPLA-Cloud hoặc qua sự trợ giúp của ứng dụng SUPLA trên điện thoại smartphone của bạn.
 Manual: Hướng dẫn
 Manually closed: Đóng thủ công
 Maximum delay is 60 minutes.: Độ trễ tối đa là 60 phút.
-'Maximum filesize limit is {limit}.': 'Giới hạn kích thước tệp tối đa là {limit}.'
+Maximum filesize limit is {limit}.: Giới hạn kích thước tệp tối đa là {limit}.
 Meter value: giá trị bộ đếm
 Meters: Bộ đếm
 Mobile Apps: Ứng dụng di động
@@ -437,19 +436,19 @@ New direct link: Link liên kết mới
 New password: Mật khẩu mới
 New scene: Hoạt cảnh mới
 Newer: Gần đây
-'Next limit renewal: {date}': 'Gia hạn tiếp theo {date}'
+'Next limit renewal: {date}': Gia hạn tiếp theo {date}
 Next run date: Ngày chạy tiếp theo
-'No access identifier enabled. Go to [access identifier list] or [add a new access identifier].': 'Không có định danh truy cập được kích hoạt.Chuyển đến [danh sách định danh truy cập] hoặc [thêm số nhận dạng truy cập mới]'
+No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: Không có định danh truy cập được kích hoạt.Chuyển đến {accessIdsListLink} hoặc {newAccessIdLink}.
 No function: Không có chức năng
 No future executions - schedule disabled: Không thực hiện trong tương lai - bị vô hiệu hóa theo lịch trình
 No limit: Không giới hạn
 No liquid sensor: Không có cảm biến chất lỏng
-'No location enabled. Go to [location list] or [add a new location].': 'Không có vị trí kích hoạt. Chuyển đến [danh sách vị trí] hoặc [thêm vị trí mới].'
+No location enabled. Go to {locationsListLink} or {newLocationLink}.: Không có vị trí kích hoạt. Chuyển đến {locationsListLink} hoặc {newLocationLink}.
 No of channels: Số lượng kênh
 No of client apps: Số lượng ứng dụng client
 No of devices: Số lượng thiết bị
 No of operations: Số lượng hoạt động
-'No results match {0}': 'sKhông có kết quả trùng khớp {0}'
+No results match {0}: sKhông có kết quả trùng khớp {0}
 No schedule configuration.: Chưa cài đặt lịch trình chiếu
 No. of Client’s apps: Số ứng dụng Client's Apps
 No. of access identifiers: Số định danh truy cập
@@ -471,7 +470,7 @@ Offline access: Truy cập offline
 Older: Lớn hơn
 'On': Mở
 On/Off switch: Bật/Tắt
-'Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.': 'Chỉ cho phép tên miền với số cổng tùy chọn. Ví dụ. mysupla.org hoặc mysupla.org:88. HTTPS là bắt buộc.'
+Only domain names with an optional port number are allowed. E.g. mysupla.org or mysupla.org:88. HTTPS is required.: Chỉ cho phép tên miền với số cổng tùy chọn. Ví dụ. mysupla.org hoặc mysupla.org:88. HTTPS là bắt buộc.
 Open: Mở
 Open / close: Mở / Đóng
 Open partially: Mở một phần
@@ -479,13 +478,13 @@ Opening sensor: Cảm biến mở
 Operations: Thao tác
 Original location: Vị trí ban đầu
 Other: Khác
-'Otherwise go to [the homepage].': 'Nếu không, hãy truy cập [trang chủ].'
+Otherwise go to the homepage.: Nếu không, hãy truy cập [trang chủ].
 Partial opening sensor: Cảm biến mở một phần
 Password: Mật Khẩu
 Password Reset: Reset mật khẩu
 Password has been changed: Mật khẩu đã được thay đổi
-'Password must be at least {minLength} characters.': 'Mật khẩu phải bao gồm ít nhất {minLength} kí tự.'
-'Password must be no longer than {maxLength} characters.': 'Mật khẩu không được dài hơn {maxLength} kí tự.'
+Password must be at least {minLength} characters.: Mật khẩu phải bao gồm ít nhất {minLength} kí tự.
+Password must be no longer than {maxLength} characters.: Mật khẩu không được dài hơn {maxLength} kí tự.
 Password reset instructions.: Hướng dẫn tái lập quyền truy cập vào Tài Khoản của bạn.
 Percentage of closing: Tỷ lệ đóng
 Personal access tokens: Mã thông báo truy cập cá nhân
@@ -494,7 +493,7 @@ Personal token name is required.: Tên mã thông báo cá nhân là bắt buộ
 Phase 1: Giai đoạn 1
 Phase 2: Giai đoạn 2
 Phase 3: Giai đoạn 3
-Please choose the schedule subject first.: 'Trước tiên, hãy chọn những gì lịch trình sẽ kiểm soát'
+Please choose the schedule subject first.: Trước tiên, hãy chọn những gì lịch trình sẽ kiểm soát
 Please click the following link to reset your %cloudHost% password.: Vui lòng nhấp vào liên kết sau để đặt lại mật khẩu cloud.supla.org của bạn.
 Please click the link we have sent you after the registration to proceed.: Vui lòng nhấp vào liên kết chúng tôi đã gửi cho bạn sau khi đăng ký để tiến hành.
 Please confirm your SUPLA account.: Kích hoạt tài khoản SUPLA của bạn
@@ -502,6 +501,7 @@ Please enter a valid email address: Vui lòng nhập một địa chỉ email h�
 Please fill a valid email address: Vui lòng điền địa chỉ email hợp lệ
 Please log in again to proceed.: Vui lòng đăng nhập lại để tiếp tục.
 Please provide a valid domain name for your private SUPLA Cloud: Vui lòng cung cấp một tên miền hợp lệ cho Đám mây SUPLA riêng tư của bạn
+Please read the Terms and Conditions.: Vui lòng đọc Điều khoản và Điều kiện.
 Please wait a moment before the next login attempt.: Vui lòng đợi trong giây lát trước lần đăng nhập tiếp theo.
 Port: Cổng
 Precision: Độ chính xác
@@ -560,7 +560,7 @@ SUPLA Cloud is under maintenance.: Đám mây SUPLA đang được bảo trì.
 SUPLA Server was unable to execute the action.: Máy chủ SUPLA không thể thực thi hành động.
 SUPLA Server was unable to execute the scene.: Máy chủ SUPLA không thể thực thi hoạt cảnh này.
 SUPLA Server was unable to query for the scene state.: Máy chủ SUPLA không thể đọc được tình trạng của hoạt cảnh này.
-'SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time': 'SUPLA có thể truy cập ở mọi nơi mọi lúc, vì vậy đừng lo lắng, nếu bạn quên tắt đèn lần sau'
+SUPLA is available from anywhere at any time, so do not worry, if you forget to turn the lights off next time: SUPLA có thể truy cập ở mọi nơi mọi lúc, vì vậy đừng lo lắng, nếu bạn quên tắt đèn lần sau
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - %cloudHost% thông báo cố gắng đăng nhập không thành công
 SUPLA – new client app has been added to your account: SUPLA – đã đăng kí một ứng dụng client mới
 SUPLA – new device has been added to your account: SUPLA – đã thêm một thiết bị mới vào tài khoản của bạn
@@ -630,14 +630,14 @@ Supla for devices: Supla cho các thiết bị
 Switch the device to configuration mode: Chuyển thiết bị sang chế đố cài đặt
 THIS CANNOT BE UNDONE!: TĐIỀU NÀY KHÔNG THỂ ĐƯỢC HOÀN TÁC!
 TLS: TLS
-'Target Cloud is not registered, or is registered with another e-mail address.': 'Trường hợp SUPLA Cloud này chưa được đăng kí, hoặc đã được đăng kí bằng một địa chỉ e-mail khác.'
+Target Cloud is not registered, or is registered with another e-mail address.: Trường hợp SUPLA Cloud này chưa được đăng kí, hoặc đã được đăng kí bằng một địa chỉ e-mail khác.
 Temperature: Nhiệt độ
 Temperature & Humidity Sensor: Cảm biến nhiệt độ và độ ẩm
 Temperature Sensor: Cảm biến nhiệt độ
 Temperature adjustment: Điều chỉnh nhiệt độ
 Temperature and humidity sensor: Cảm biến nhiệt độ và độ ẩm
 Thank you for registering an account with %cloudHost%. Please click the following link to complete activation of your account.: Cảm ơn bạn đã đăng ký tài khoản với %cloudHost%. Vui lòng nhấp vào liên kết sau để hoàn thành kích hoạt tài khoản của bạn.
-'Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.': 'Nhờ tích hợp, bạn có thể dễ dàng thêm các tính năng mới vào tài khoản của mình bằng các giải pháp được cung cấp bởi các nhà cung cấp bên ngoài, nhà phát triển hoặc của chính bạn.'
+Thanks to integrations, you can easily add new features to your account using solutions provided by external suppliers, developers or by yourself.: Nhờ tích hợp, bạn có thể dễ dàng thêm các tính năng mới vào tài khoản của mình bằng các giải pháp được cung cấp bởi các nhà cung cấp bên ngoài, nhà phát triển hoặc của chính bạn.
 'The IP used for login is: %ip%': 'IP được sử dụng để đăng nhập là: %ip%'
 The MQTT Broker password is visible now only. Make sure to save it in a safe place. You will not be able to see it again.: Mật khẩu đăng nhập giao thức MQTT chỉ được hiển thị vào lúc này. Hãy chắc chắn rằng bạn đã ghi lại ở một nơi an toàn. Mật khẩu sẽ không được hiển thị lại.
 The SUPLA infrastructure is being updated.: Đang cập nhập máy chủ SUPLA.
@@ -652,26 +652,26 @@ The following items use the channels of these device. These references will be a
 The gate sensor must function properly in order to execute the Open and Close actions.: Cảm biến mở cổng phải hoạt động tốt để thực hiện hành động Mở hoặc Đóng.
 The gate sensor must function properly in order to execute the scheduled action.: Cảm biến cổng phải hoạt động đúng để thực hiện hành động theo lịch trình
 The incident was detected at %datetime%.: Sử việc sảy ra vào %datetime%.
-'The items below rely on this channel function, so they will be deleted.': 'Các mục sau dựa trên các chức năng của kênh, nên cũng sẽ bị xóa sau thay đổi.'
-'The items below rely on this channel group, so they will be deleted.': 'Các mục sau sử dụng nhóm kênh này, nên cũng sẽ bị xóa sau khi xóa kênh.'
-'The items below rely on this scene, so they will be deleted.': 'Các mục dưới đây dựa vào hoạt cảnh này, nên cũng sẽ bị xóa.'
+The items below rely on this channel function, so they will be deleted.: Các mục sau dựa trên các chức năng của kênh, nên cũng sẽ bị xóa sau thay đổi.
+The items below rely on this channel group, so they will be deleted.: Các mục sau sử dụng nhóm kênh này, nên cũng sẽ bị xóa sau khi xóa kênh.
+The items below rely on this scene, so they will be deleted.: Các mục dưới đây dựa vào hoạt cảnh này, nên cũng sẽ bị xóa.
 The latest execution: Thực thi mới nhất
-'The link result is presented as a website response, because you (or your browser) asked for HTML output.': 'Kết quả liên kết được trình bày dưới dạng trang web thay thế, bởi vì bạn (hoặc trình duyệt của bạn) đã yêu cầu đầu ra HTML..'
+The link result is presented as a website response, because you (or your browser) asked for HTML output.: Kết quả liên kết được trình bày dưới dạng trang web thay thế, bởi vì bạn (hoặc trình duyệt của bạn) đã yêu cầu đầu ra HTML..
 The measurement history has been deleted.: Lịch sử đo lường đã được xóa.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Mật khẩu mới sẽ thay thế mật khẩu bạn đang sử dụng. Một số tích hợp có thể sẽ dừng hoạt động sau thay đổi này. Bạn có tiếp tục?
 The next available executions: Các thực thi có sẵn tiếp theo
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Chúng tôi đã đóng khung nhằm dấu những thông báo mà bạn  đã nhấp  vào liên kết hủy đăng ký.
 The password and its confirm are not the same.: Mật khẩu và xác nhận không giống nhau.
 The password should be 8 or more characters.: Mật khẩu phải có 8 ký tự trở lên.
-'The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?': 'Thiệt bị đã được tắt chế độ bảo vệ trong trường hợp cháy/chập điện. Trước khi bật chúng, hãy đảm bảo rằng sự cố dẫn đến nó đã được giải quyết. Bạn có chắc chắn muốn bật thiết bị này từ xa không?'
+The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Thiệt bị đã được tắt chế độ bảo vệ trong trường hợp cháy/chập điện. Trước khi bật chúng, hãy đảm bảo rằng sự cố dẫn đến nó đã được giải quyết. Bạn có chắc chắn muốn bật thiết bị này từ xa không?
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Máy chủ đã trả về Lỗi HTTP 400. Điều đó có nghĩa là yêu cầu bạn cố gắng thực hiện không hợp lệ.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Máy chủ đã trả về Lỗi HTTP 403. Điều đó có nghĩa là bạn không được phép hiển thị mục bạn đang tìm kiếm.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist
-'The server has returned an HTTP {statusCode} error.': 'Máy chủ đã trả về lỗi HTTP {statusCode}.'
-'The set of icons you have chosen is too large. Maximum upload limit is {limit}.': 'Bộ biểu tượng bạn đã chọn quá lớn. Giới hạn tải lên tối đa là {limit}.'
-'The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.': 'Không thể mở van qua liên kết trực tiếp hoặc qua API khi nó đã được đóng bằng tay. Để tiếp tục điều khiển, hãy mở van bằng tay.'
-'The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!': 'Van đã được đóng bằng tay hoặc bằng radio. Trước khi mở nó, hãy chắc chắn rằng nó chưa bị đóng lại do ngập nước. Để tắt cảnh báo, hãy mở van bằng tay. Bạn có chắc chắn muốn mở van từ xa?!'
-'The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.': 'Van sẽ không được mở nếu nó được đóng bằng tay hoặc từ xa, điều này có thể gây ra bởi lũ lụt.'
+The server has returned an HTTP {statusCode} error.: Máy chủ đã trả về lỗi HTTP {statusCode}.
+The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Bộ biểu tượng bạn đã chọn quá lớn. Giới hạn tải lên tối đa là {limit}.
+The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Không thể mở van qua liên kết trực tiếp hoặc qua API khi nó đã được đóng bằng tay. Để tiếp tục điều khiển, hãy mở van bằng tay.
+The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Van đã được đóng bằng tay hoặc bằng radio. Trước khi mở nó, hãy chắc chắn rằng nó chưa bị đóng lại do ngập nước. Để tắt cảnh báo, hãy mở van bằng tay. Bạn có chắc chắn muốn mở van từ xa?!
+The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Van sẽ không được mở nếu nó được đóng bằng tay hoặc từ xa, điều này có thể gây ra bởi lũ lụt.
 There are no more channels you can add to this group: Không có thêm kênh bạn có thể thêm vào nhóm này.
 Thermometer: Nhiệt kế
 Thermostat: Bình giữ nhiệt
@@ -679,7 +679,7 @@ This direct link requires further parameters in order to be executed properly. S
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: thông tin này đã được tạo tự động do nỗ lực đăng nhập không thành công vào SUPLA-CLOUD với việc sử dụng địa chỉ email của bạn.
 This is the list of applications you have granted access to your account.: Đây là danh sách các ứng dụng bạn đã cấp quyền truy cập vào tài khoản của bạn..
 This link is only valid for an hour.: Liên kết này chỉ có hiệu lực trong một giờ.
-'This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.': 'Chế độ lịch biểu này được thiết kế nhằm mục đích kĩ thuật hoặc cho những người dùng nâng cao. Nó yêu cầu bạn phải nhập thời gian kích hoạt lịch trình phải được chỉ định trong ký hiệu crontab, được bổ sung thêm một số chức năng chỉ có trong SUPLI. Nếu bạn chưa từng sử dụng crontabs trước đây và bạn vẫn muốn sử dụng chế độ này, trang web crontab.guru có thể giúp ích cho bạn.'
+This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Chế độ lịch biểu này được thiết kế nhằm mục đích kĩ thuật hoặc cho những người dùng nâng cao. Nó yêu cầu bạn phải nhập thời gian kích hoạt lịch trình phải được chỉ định trong ký hiệu crontab, được bổ sung thêm một số chức năng chỉ có trong SUPLI. Nếu bạn chưa từng sử dụng crontabs trước đây và bạn vẫn muốn sử dụng chế độ này, trang web crontab.guru có thể giúp ích cho bạn.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Công tắc kích hoạt này được sử dụng nội bộ bởi thiết bị (ví dụ: bật đèn, điều khiển rèm cửa, v.v.). Nếu bạn gán cho nó một tác vụ khác, chức năng nội bộ sẽ bị tắt.'
 Timezone: Múi giờ
 Toggle: Chuyển đổi
@@ -699,8 +699,8 @@ Unsuccessful login attempt: Truy cập không thành công
 Unsupported function: Chức năng không được hỗ trợ
 Unsupported type: Loại không được hỗ trợ
 Update in progress: Đang cập nhật
-'Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.': 'Các tệp đã tải lên không chứa bất kỳ nội dung không phù hợp hoặc có bản quyền nào, chúng cũng không vi phạm Quyền của bên thứ ba và tôi có quyền sử dụng chúng.'
-'Use the [command] server command to change this account''s limits. For example:': 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh [command] trên máy chủ của bạn. Ví dụ:'
+Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Các tệp đã tải lên không chứa bất kỳ nội dung không phù hợp hoặc có bản quyền nào, chúng cũng không vi phạm Quyền của bên thứ ba và tôi có quyền sử dụng chúng.
+'Use the {0} server command to change this account''s limits. For example:': 'Để thay đổi các hạn mức cho tài khoản này, hãy sử dụng câu lệnh {0} trên máy chủ của bạn. Ví dụ:'
 Use working schedule for this access identifier: Hãy sử dụng lịch biểu cho ID truy cập này
 User is already confirmed. Try to log in.: Người dùng đã được xác nhận. Hãy thử đăng nhập.
 Value added: Giá trị tăng
@@ -722,29 +722,29 @@ We have just sent you an activation link. You should be receiving it shortly.: C
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Chúng tôi đã gửi cho bạn một tin nhắn e-mail với một liên kết xác nhận xóa. Chỉ để được chắc chắn!
 We have sent you an email with further instructions.: Chúng tôi đã gửi cho bạn hướng dẫn cho các bước tiếp theo.
 We should be ready shortly.: Chúng ta nên sẵn sàng trong thời gian ngắn.
-'We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier [Please read the Terms and Conditions].': 'Chúng tôi lưu trữ một số dữ liệu (ví dụ: cookie) trong trình duyệt của bạn để ghi nhớ tùy chọn của bạn và để giúp việc sử dụng ứng dụng dễ dàng hơn [Vui lòng đọc Điều khoản và Điều kiện].'
+We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: 'Chúng tôi lưu trữ một số dữ liệu (ví dụ: cookie) trong trình duyệt của bạn để ghi nhớ tùy chọn của bạn và để giúp việc sử dụng ứng dụng dễ dàng hơn.'
 We try to be faster: Chúng tôi cố gắng để được nhanh hơn
 We were not able to find your account.: Chúng tôi không thể tìm thấy tài khoản của bạn.
 We will miss you: Chúng tôi sẽ nhớ bạn
-'We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.': 'Chúng tôi sẽ cố gắng hiển thị các biểu tượng nhận được theo cách tốt nhất có thể, tuy nhiên bạn sẽ thu được kết quả tốt nhất bằng cách gửi cho chúng tôi qua tệp PNG có nền trong suốt, chiều rộng {width} px và chiều cao {height}.'
+We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Chúng tôi sẽ cố gắng hiển thị các biểu tượng nhận được theo cách tốt nhất có thể, tuy nhiên bạn sẽ thu được kết quả tốt nhất bằng cách gửi cho chúng tôi qua tệp PNG có nền trong suốt, chiều rộng {width} px và chiều cao {height}.
 We will use it only in justified situations.: Chúng tôi sẽ chỉ sử dụng nó trong các tình huống hợp lý.
 Weather Station: Trạm thời tiết
 Weight sensor: Cảm biến trọng lượng
 Welcome!: Chào mừng bạn
 What this token is for?: Mã thông báo này để làm gì ?
-'When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.': 'Khi bạn thực hiện liên kết với phương thức HTTP PATCH, bạn có thể bỏ qua phần ngẫu nhiên của liên kết và gửi nó trong phần thân yêu cầu. Điều này an toàn hơn vì yêu cầu như vậy sẽ không được lưu trữ trong bất kỳ nhật ký máy chủ hoặc proxy nào, bất kể cấu hình của chúng. Vui lòng tìm một yêu cầu ví dụ cURL dưới đây.'
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Khi bạn thực hiện liên kết với phương thức HTTP PATCH, bạn có thể bỏ qua phần ngẫu nhiên của liên kết và gửi nó trong phần thân yêu cầu. Điều này an toàn hơn vì yêu cầu như vậy sẽ không được lưu trữ trong bất kỳ nhật ký máy chủ hoặc proxy nào, bất kể cấu hình của chúng. Vui lòng tìm một yêu cầu ví dụ cURL dưới đây.
 Where is the JSON?: JSON ở đâu?
 Where is your SUPLA Cloud?: Đám mây SUPLA của bạn ở đâu??
 White: Trắng
 Wind sensor: Cảm biến gió
 Window opening sensor: Cảm biến mở cửa sổ
-With SUPLA you can operate the lights in your home or office: 'Với SUPLA, bạn có thể vận hành đèn trong nhà hoặc văn phòng của bạn'
+With SUPLA you can operate the lights in your home or office: Với SUPLA, bạn có thể vận hành đèn trong nhà hoặc văn phòng của bạn
 With function: Với chức năng
 Working period: Thời gian làm việc
 Working schedule: Lịch hoạt động
 YOUR LINK CODE: MÃ LIÊN KẾT CỦA BẠN
 You are changing the settings too quickly. You have to wait a while before making this change.: Bạn thay đổi các cài đặt quá nhanh. Bạn cần đợi một lúc trước khi tiếp tục thay đổi các cài đặt này.
-'You can ignore this message, if you have accidentally entered an incorrect password.': 'Bạn có thể bỏ qua thông báo này, nếu bạn vô tình nhập sai mật khẩu.'
+You can ignore this message, if you have accidentally entered an incorrect password.: Bạn có thể bỏ qua thông báo này, nếu bạn vô tình nhập sai mật khẩu.
 You can use the application but you will not be able to modify any settings.: Bạn có thể sử dụng ứng dụng nhưng bạn sẽ không thể sửa đổi bất kỳ cài đặt nào.
 You cannot delete your last access identifier.: Bạn không thể xóa định danh truy cập cuối cùng của bạn.
 You cannot delete your last location.: Bạn không thể xóa vị trí cuối cùng của bạn.
@@ -753,7 +753,7 @@ You have exceeded your API Rate Limit: Bạn đã sử dụng hết giới hạn
 You have requested to unregister your SUPLA Cloud instance: Bạn đã yêu cầu hủy đăng kí phiên bản SUPLA Cloud của bạn.
 You have to choose at least one scope.: Bạn phải chọn ít nhất một phạm vi
 You just need to execute the following command inside your host terminal.: Bạn chỉ cần thực hiện lệnh sau trong thiết bị đầu cuối máy chủ của bạn.
-'You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.': 'Nếu bạn muốn tiếp tục sử dụng chế độ lịch biểu nâng cao, hãy xem những ví dụ dưới đây.'
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Nếu bạn muốn tiếp tục sử dụng chế độ lịch biểu nâng cao, hãy xem những ví dụ dưới đây.
 You must agree to the Terms and Conditions.: Bạn phải đồng ý với các Điều khoản và Điều kiện.
 You must enable MQTT Broker first.: Trước tiên bạn phải bật kết nối với giao thức MQTT.
 You must set sections with transparent or opaque parameters or both.: Bạn phải chọn độ trong suốt cho ít nhất một phần.
@@ -765,25 +765,25 @@ Your account has been deleted. We hope you will come back to us soon.: Tài kho�
 Your account has been locked.: Tài khoản của bạn đã bị khóa.
 Your account has not been confirmed yet.: Tài khoản của bạn chưa được xác nhận.
 Your account limits: Giới hạn tài khoản của bạn
-'Your channel groups are allowed to have a maximum of {max} channels.': 'Các nhóm kênh có thể có tối đã {max} kênh'
-'Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).': Thiết bị cho phép mở rộng các tính năng và cho phép thực hiện các thao tác bất kì trên thiết bị bạn sở hữu. Những tính năng có phụ thuộc vào phiên bản phần mềm trên thiết bị.
+Your channel groups are allowed to have a maximum of {max} channels.: Các nhóm kênh có thể có tối đã {max} kênh
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Thiết bị cho phép mở rộng các tính năng và cho phép thực hiện các thao tác bất kì trên thiết bị bạn sở hữu. Những tính năng có phụ thuộc vào phiên bản phần mềm trên thiết bị.
 Your email: Địa chỉ email của bạn
 Your instance is not registered or you are trying to authorize an application that is not public.: Trường hợp của bạn chưa được đăng ký hoặc bạn đang cố gắng ủy quyền cho một ứng dụng không công khai.
 Your password must contain at least one special character.: Mật khẩu phải bao gồm ít nhất một kí tự đặc biệt.
 Your password must include at least one letter.: Mật khẩu phải bao gồm ít nhất một chữ cái.
 Your password must include at least one number.: Mật khẩu phải bao gồm ít nhất một con số.
 Your password must include both upper and lower case letters.: Mật khẩu phải bao gồm chữ viêt thường và chữ viết hoa.
-Your preferences has been updated.: 'Cài đặt của bạn đã được ghi nhớ,'
+Your preferences has been updated.: Cài đặt của bạn đã được ghi nhớ,
 Your private SUPLA Cloud instance has been unregistered.: Phiên bản SUPLA Cloud riêng của bạn đã bị hủy đăng kí.
 Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ví dụ SUPLA Cloud riêng tư của bạn không khả dụng. Đảm bảo rằng máy chủ của bạn đang trực tuyến và kết nối https của bạn hoạt động chính xác.
 Your private SUPLA Cloud is almost registered.: Đám mây SUPLA riêng tư của bạn gần như đã được đăng ký.
 Your private SUPLA Cloud is not registered.: Đám mây SUPLA riêng tư của bạn chưa được đăng ký.
-'Your scenes are allowed to have a maximum of {max} operations.': 'Những hoạt cảnh của bạn có thể có tối đa {max} thao tác.'
-'Your schedules are allowed to have a maximum of {max} actions.': 'Những lịch biểu của bạn có thể có tối đa {max} hành động.'
+Your scenes are allowed to have a maximum of {max} operations.: Những hoạt cảnh của bạn có thể có tối đa {max} thao tác.
+Your schedules are allowed to have a maximum of {max} actions.: Những lịch biểu của bạn có thể có tối đa {max} hành động.
 Your session has been expired.: Phiên của bạn đã hết hạn.
 Your session is about to expire: Phiên bản của bạn sắp hết hạn
-'Your session will expire in [time].': 'Phiên của bạn sẽ hết hạn trong [thời gian].'
-'Yours faithfully,': Trân trọng
+Your session will expire in {0}.: Phiên của bạn sẽ hết hạn trong {0}.
+Yours faithfully,: Trân trọng
 access to your e-mail address: Quyền truy cập vào e-mail của bạn
 actionTrigger_HOLD: Giữ nút bấm
 actionTrigger_SHORT_PRESS_X1: Bấm 1x
@@ -807,6 +807,7 @@ after: Sau
 before: Trước
 caption: Tên
 channel: Kênh
+channelConfigHelp_numberOfAttemptsGate: Sau khi bạn ra lệnh mở hoặc đóng cổng, hệ thống sẽ thử đóng / mở và chờ 60 giây để kiểm tra xem cổng đã đạt trạng thái mong muốn hay chưa. Nếu chưa, hệ thống sẽ thử đóng / mở 1 lần nữa. Tham số bên dưới xác định số lần thử tối đa của hệ thống để đạt được mục tiêu. Giá trị được khuyến khích là 5. Việc thay đổi thông số này không ảnh hưởng đến hoạt động của lịch trình.
 channelGroup: Nhóm kênh
 choose: chọn
 choose a currency: chọn tiền tệ
@@ -815,6 +816,7 @@ choose the channel: chọn kênh
 choose the channel group: chọn nhóm kênh
 choose the scene: Chọn hoạt cảnh
 choose the timezone: chọn múi giờ
+click here: bấm vào đây
 copied: sao chép
 copy: sao chép
 days: ngày
@@ -843,11 +845,11 @@ minutes: phút
 or add a delay: Hoặc thêm độ trễ
 password: mật khẩu
 prefix: Tiền tố
-register-slide1-text: 'Dựa trên các thiết bị điện tử có sẵn, SUPLA cho phép bạn xây dựng các mô-đun đơn giản mà bạn có thể quản lý và điều khiển các thành phần tự động hóa trong tòa nhà của mình. Nhờ SUPLA, trong số những thứ khác, bạn có thể quản lý ánh sáng, bật và tắt thiết bị gia dụng, mở / đóng cửa và cổng hoặc kiểm soát nhiệt độ phòng. Tất cả điều này bạn có thể làm chỉ với một cú nhấp chuột trên màn hình'
+register-slide1-text: Dựa trên các thiết bị điện tử có sẵn, SUPLA cho phép bạn xây dựng các mô-đun đơn giản mà bạn có thể quản lý và điều khiển các thành phần tự động hóa trong tòa nhà của mình. Nhờ SUPLA, trong số những thứ khác, bạn có thể quản lý ánh sáng, bật và tắt thiết bị gia dụng, mở / đóng cửa và cổng hoặc kiểm soát nhiệt độ phòng. Tất cả điều này bạn có thể làm chỉ với một cú nhấp chuột trên màn hình
 register-slide1-title: Phát triển tòa nhà thông minh của riêng bạn
 register-slide2-text: Một trong những giả định chính của dự án là sự đơn giản và sẵn có. SUPLA cho phép bạn bật đèn hoặc mở cửa chỉ bằng một cú nhấp chuột và khi bạn muốn vào sở hữu của chúng tôi. SUPLA luôn khả dụng mọi lúc mọi nơi với quyền truy cập vào mạng Internet và điện thoại thông minh hoặc máy tính bảng của bạn. Sự phát triển của SUPLA dựa trên các nguyên tắc của phần mềm nguồn mở và phần cứng mở để bạn có thể tự cam kết với dự án này!
 register-slide2-title: SUPLA ở khắp mọi nơi!
-register-slide3-text: 'Các hệ thống tự động hóa tòa nhà có sẵn trên thị trường thường rất phức tạp, khép kín và đắt tiền. Trong nhiều trường hợp, chúng đòi hỏi phải được cài đặt ở giai đoạn xây dựng. SUPLA rất đơn giản, cởi mở và miễn phí. Nó cho phép bạn xây dựng các thành phần cho các hệ thống truyền động từ nền tảng RaspberryPl, Arduino hoặc ESP8266 và kết nối chúng với mạng LAN và WiFi. Tham gia dự án và xây dựng phiên bản hệ thống tự động hóa tòa nhà của riêng bạn!'
+register-slide3-text: Các hệ thống tự động hóa tòa nhà có sẵn trên thị trường thường rất phức tạp, khép kín và đắt tiền. Trong nhiều trường hợp, chúng đòi hỏi phải được cài đặt ở giai đoạn xây dựng. SUPLA rất đơn giản, cởi mở và miễn phí. Nó cho phép bạn xây dựng các thành phần cho các hệ thống truyền động từ nền tảng RaspberryPl, Arduino hoặc ESP8266 và kết nối chúng với mạng LAN và WiFi. Tham gia dự án và xây dựng phiên bản hệ thống tự động hóa tòa nhà của riêng bạn!
 register-slide3-title: Miễn phí và mở!
 reset chart view: đặt lại chế độ xem biểu đồ
 scene: Hoạt cảnh
@@ -856,7 +858,7 @@ scheduleMode_daily: hằng ngày
 scheduleMode_minutely: từng phút
 scheduleMode_once: một lần
 sec.: giây
-'smartphones, tablets, etc.': 'smartphones, tablettes, etc.'
+smartphones, tablets, etc.: smartphones, tablettes, etc.
 state-closed: Đóng
 state-default: Mặc định
 state-empty: Trống
@@ -868,8 +870,8 @@ state-opened: Mở
 state-partially_closed: Đóng một phần
 state-revealed: Tiết lộ
 state-rgb_off_dim_off: RGB và dimmer bị vô hiệu hóa
-state-rgb_off_dim_on: 'Tắt RGB, mở dimmer'
-state-rgb_on_dim_off: 'Bật RGB, tắt dần'
+state-rgb_off_dim_on: Tắt RGB, mở dimmer
+state-rgb_on_dim_off: Bật RGB, tắt dần
 state-rgb_on_dim_on: bật RGB và dim
 state-shut: Chuyển đổi
 state-temperature: nhiệt độ
@@ -903,12 +905,12 @@ Cannot send an activation e-mail. Try again later.: Không gửi mail được. 
 Channel will be deleted from the channel group below: Kênh sẽ bị xóa khỏi nhóm kênh
 Channels in channel group: Các kênh trong nhóm kênh
 Chosen hour: Giờ được chọn
-'Confirm if you want to remove {deviceName} device': 'Xác nhận muốn xóa {deviceName} thiết bị'
+Confirm if you want to remove {deviceName} device: Xác nhận muốn xóa {deviceName} thiết bị
 DISABLED: TẮT
 Date: Ngày
 Days: Từ chối.
 Direct links below will be deleted: Link liên kết dưới đây sẽ bị xóa
-'Doors, Gates': 'Cửa, Cổng'
+Doors, Gates: Cửa, Cổng
 ENABLED: BẬT
 Email already exists: Email đã tồn tại
 Existing schedules: Lịch trình hiện có
@@ -917,7 +919,7 @@ Hi: Hi
 Hour: Giờ
 Hours: Giờ
 I/O: Đầu vào/Đầu ra
-'If you want to stay here, do something!': 'Nếu bạn muốn ở lại đây, hãy làm gì đó!'
+If you want to stay here, do something!: Nếu bạn muốn ở lại đây, hãy làm gì đó!
 Input: Đầu vào
 Languages: Idiomas
 Loading: Đang tải
@@ -951,7 +953,34 @@ hourly: hàng giờ
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Above threshold: ~
+Average voltage: ~
+Below threshold: ~
+Device might be sleeping: ~
+Error when communicating the AD. Try again in a while.: ~
+Estimated execution time: ~
+Gate's state verification: ~
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
+Longest violation: ~
+Maximum voltage: ~
+Measurement window: ~
+Minimum voltage: ~
+Phase number: ~
+Register your SUPLA Cloud: ~
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
+Show days with issues only: ~
+The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
+Total time: ~
+Verification method: ~
+Violation info: ~
+Violations count: ~
+Voltage deviations: ~
+Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~
+channelConfigHelp_stateVerificationMethod: ~
+channelConfig_stateVerificationMethod_active: ~
+channelConfig_stateVerificationMethod_passive: ~
 
 #</editor-fold>

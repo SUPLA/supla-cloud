@@ -74,7 +74,11 @@ export default [
             {path: ':id', component: () => import("@/access-ids/access-id-details"), name: 'accessId', props: true}
         ]
     },
-    {path: '/account', component: () => import("@/account-details/account-page"), meta: {bodyClass: 'green'}},
+    {
+        path: '/account',
+        component: () => import(/*webpackChunkName:"account-page"*/"@/account-details/account-page"),
+        meta: {bodyClass: 'green'}
+    },
     {
         path: '/channel-groups', component: () => import("@/channel-groups/channel-groups-page"), name: 'channelGroups', children: [
             {path: ':id', component: () => import("@/channel-groups/channel-group-details"), name: 'channelGroup', props: true}
@@ -82,7 +86,7 @@ export default [
     },
     {
         path: '/channels/:id',
-        component: () => import("@/channels/channel-details-page"),
+        component: () => import(/*webpackChunkName:"channels-details-page"*/"@/channels/channel-details-page"),
         name: 'channel',
         props: true,
     },
@@ -126,18 +130,18 @@ export default [
     },
     {
         path: '/schedules',
-        component: () => import("@/schedules/schedule-list/schedules-page"),
+        component: () => import(/*webpackChunkName:"schedules-page"*/"@/schedules/schedule-list/schedules-page"),
         name: 'schedules',
         children: [
             {
                 path: ':id',
-                component: () => import("@/schedules/schedule-details/schedule-details-page"),
+                component: () => import(/*webpackChunkName:"schedules-details-page"*/"@/schedules/schedule-details/schedule-details-page"),
                 name: 'schedule',
                 props: true,
             },
             {
                 path: ':id/edit',
-                component: () => import("@/schedules/schedule-form/schedule-form"),
+                component: () => import(/*webpackChunkName:"schedules-form"*/"@/schedules/schedule-form/schedule-form"),
                 name: 'schedule.edit',
                 props: true,
             },

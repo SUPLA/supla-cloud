@@ -8,7 +8,7 @@
                 <div>
                     <span class="label label-default">{{ $t(execution.action.caption) }}</span>
                 </div>
-                {{ (execution.resultTimestamp || execution.plannedTimestamp) | moment('LLLL') }}
+                {{ (execution.resultTimestamp || execution.plannedTimestamp) | formatDateTimeLong }}
                 <div class="small"
                     v-if="execution.id != 1">
                     {{ $t(execution.result.caption) }}
@@ -21,7 +21,7 @@
                     <div>
                         <span class="label label-default">{{ $t(execution.action.caption) }}</span>
                     </div>
-                    {{ execution.plannedTimestamp | moment('LLLL') }}
+                    {{ execution.plannedTimestamp | formatDateTimeLong }}
                 </li>
             </template>
         </ul>
