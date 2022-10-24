@@ -67,6 +67,11 @@ abstract class IntegrationTestCase extends WebTestCase {
             $this->executeCommand('doctrine:schema:create');
             $this->executeCommand('supla:initialize:create-webapp-client');
             $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE supla_email_notifications;');
+            $this->getEntityManager()->getConnection()->executeQuery('DROP FUNCTION IF EXISTS supla_is_now_active;');
+            $this->getEntityManager()->getConnection()->executeQuery(
+                'CREATE FUNCTION supla_is_now_active(`a` DATETIME, `b` DATETIME, `c` VARCHAR(768), `d` VARCHAR(50)) RETURNS INT(11)
+                 BEGIN RETURN 1=1; END'
+            );
             $this->initializeDatabaseForTests();
             $reflection = new ReflectionClass($this);
             $vars = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);

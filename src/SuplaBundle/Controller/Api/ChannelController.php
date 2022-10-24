@@ -283,6 +283,7 @@ class ChannelController extends RestController {
             $channelConfig = $requestData['config'] ?? $paramConfigTranslator->getConfigFromParams($channel);
             if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
                 $channelToReadConfig = new IODeviceChannel();
+                EntityUtils::setField($channelToReadConfig, 'id', $channel->getId());
                 EntityUtils::setField($channelToReadConfig, 'type', $channel->getType()->getId());
                 $functionId = $newFunction ? $newFunction->getId() : $channel->getFunction()->getId();
                 EntityUtils::setField($channelToReadConfig, 'function', $functionId);
