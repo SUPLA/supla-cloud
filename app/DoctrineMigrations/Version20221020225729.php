@@ -89,6 +89,7 @@ VIEW;
 CREATE TABLE `supla_auto_gate_closing`(
     `channel_id` INT(11) NOT NULL,
     `user_id` INT(11) NOT NULL,
+    `enabled` TINYINT(1) DEFAULT \'0\' NOT NULL,
     `active_from` DATE DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `active_to` date DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     `active_hours` varchar(768) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -110,6 +111,7 @@ TABLE;
         $view = <<<VIEW
 CREATE OR REPLACE VIEW supla_v_auto_gate_closing AS SELECT
     `c`.`user_id` AS `user_id`,
+    `c`.`enabled` AS `enabled`,
     `dc`.`iodevice_id` AS `device_id`,    
     `c`.`channel_id` AS `channel_id`,
     `supla_is_now_active`(
