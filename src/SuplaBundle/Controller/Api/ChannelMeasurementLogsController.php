@@ -619,7 +619,7 @@ class ChannelMeasurementLogsController extends RestController {
         $this->ensureChannelHasMeasurementLogs($channel);
         $logsType = $request->query->get('logsType');
         if ($logsType === 'voltage') {
-//            $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel);
+            $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel);
         } else {
             $this->deleteMeasurementLogs(ThermostatLogItem::class, $channel);
             $this->deleteMeasurementLogs(ElectricityMeterLogItem::class, $channel);
@@ -635,14 +635,17 @@ class ChannelMeasurementLogsController extends RestController {
      *     path="/channels/{channel}/measurement-logs-csv", operationId="getChannelMeasurementLogsCsvFile",
      *     summary="Get measurement logs as zipped CSV file.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage"})),
      *     @OA\Response(response="200", description="Success", @OA\MediaType(mediaType="application/zip")),
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
      * @Rest\Get("/channels/{channel}/measurement-logs-csv")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES') and is_granted('accessIdContains', channel)")
      */
-    public function channelItemGetCSVAction(IODeviceChannel $channel, MeasurementCsvExporter $measurementCsvExporter) {
-        $filePath = $measurementCsvExporter->generateCsv($channel);
+    public function channelItemGetCSVAction(Request $request, IODeviceChannel $channel, MeasurementCsvExporter $measurementCsvExporter) {
+        $logsType = $request->query->get('logsType');
+        $filePath = $measurementCsvExporter->generateCsv($channel, $logsType);
+        $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
         return new StreamedResponse(
             function () use ($filePath) {
                 readfile($filePath);
@@ -651,7 +654,7 @@ class ChannelMeasurementLogsController extends RestController {
             200,
             [
                 'Content-Type' => 'application/zip',
-                'Content-Disposition' => 'attachment; filename="measurement_' . $channel->getId() . '.zip"',
+                'Content-Disposition' => 'attachment; filename="' . $prefix . $channel->getId() . '.zip"',
             ]
         );
     }

@@ -4,8 +4,8 @@
             <div class="container"
                 v-if="logs && logs.length > 0">
                 <div class="text-right mb-3">
-                    <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
-                        class="hidden btn btn-default mx-1">{{ $t('Download the history of measurement') }}</a>
+                    <a :href="`/api/channels/${channel.id}/measurement-logs-csv?logsType=voltage&` | withDownloadAccessToken"
+                        class="btn btn-default mx-1">{{ $t('Download the history of measurement') }}</a>
                     <button @click="deleteConfirm = true"
                         type="button"
                         class="btn btn-red ml-1">

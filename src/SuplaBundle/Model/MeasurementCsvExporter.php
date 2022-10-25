@@ -35,11 +35,11 @@ class MeasurementCsvExporter {
         $this->entityManager = $entityManager;
     }
 
-    public function generateCsv(IODeviceChannel $channel): string {
+    public function generateCsv(IODeviceChannel $channel, ?string $logsType = 'default'): string {
         $tempFile = tempnam(sys_get_temp_dir(), 'supla_csv_');
         Assertion::string($tempFile, 'Could not generate temporary file.');
         DatabaseUtils::turnOffQueryBuffering($this->entityManager);
-        [$csvHeaders, $sqlQuery] = $this->getDataFetchDefinition($channel);
+        [$csvHeaders, $sqlQuery] = $this->getDataFetchDefinition($channel, $logsType ?: 'default');
         $handle = fopen($tempFile, 'w+');
         fputcsv($handle, $csvHeaders);
         $stmt = $this->entityManager->getConnection()->prepare($sqlQuery);
@@ -49,11 +49,12 @@ class MeasurementCsvExporter {
             fputcsv($handle, $row);
         }
         fclose($handle);
-        $filename = $this->compress($tempFile, 'measurement_' . $channel->getId() . '.csv');
+        $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
+        $filename = $this->compress($tempFile, $prefix . $channel->getId() . '.csv');
         return $filename;
     }
 
-    private function getDataFetchDefinition(IODeviceChannel $channel): array {
+    private function getDataFetchDefinition(IODeviceChannel $channel, string $logsType): array {
         // @codingStandardsIgnoreStart
         $timestampSelect = "UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`)) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
         switch ($channel->getFunction()->getId()) {
@@ -72,27 +73,50 @@ class MeasurementCsvExporter {
                     "SELECT $timestampSelect, `counter`, `calculated_value` / 1000 calculated_value FROM `supla_ic_log` WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::ELECTRICITYMETER:
-                return [
-                    [
-                        'Timestamp',
-                        'Date and time',
-                        'Phase 1 Forward active Energy kWh',
-                        'Phase 1 Reverse active Energy kWh',
-                        'Phase 1 Forward reactive Energy kvarh',
-                        'Phase 1 Reverse reactive Energy kvarh',
-                        'Phase 2 Forward active Energy kWh',
-                        'Phase 2 Reverse active Energy kWh',
-                        'Phase 2 Forward reactive Energy kvarh',
-                        'Phase 2 Reverse reactive Energy kvarh',
-                        'Phase 3 Forward active Energy kWh',
-                        'Phase 3 Reverse active Energy kWh',
-                        'Phase 3 Forward reactive Energy kvarh',
-                        'Phase 3 Reverse reactive Energy kvarh',
-                        'Forward active Energy kWh - Vector balance',
-                        'Reverse active Energy kWh - Vector balance',
-                    ],
-                    "SELECT $timestampSelect, IFNULL(`phase1_fae`, 0) / 100000.00 phase1_fae, IFNULL(`phase1_rae`, 0) / 100000.00 phase1_rae, IFNULL(`phase1_fre`, 0) / 100000.00 phase1_fre, IFNULL(`phase1_rre`, 0) / 100000.00 phase1_rre, IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, IFNULL(`phase2_fre`, 0) / 100000.00 phase2_fre, IFNULL(`phase2_rre`, 0) / 100000.00 phase2_rre, IFNULL(`phase3_fae`, 0) / 100000.00 phase3_fae, IFNULL(`phase3_rae`, 0) / 100000.00 phase3_rae, IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre, IFNULL(`fae_balanced`, 0) / 100000.00 fae_balanced, IFNULL(`rae_balanced`, 0) / 100000.00 rae_balanced FROM `supla_em_log` WHERE channel_id = :channelId",
-                ];
+                if ($logsType === 'voltage') {
+                    return [
+                        [
+                            'Measurement start (timestamp)',
+                            'Measurement start',
+                            'Measurement time (seconds)',
+                            'Phase number',
+                            'Total count',
+                            'Count above',
+                            'Count below',
+                            'Total seconds',
+                            'Seconds above',
+                            'Seconds below',
+                            'Maximum seconds above',
+                            'Maximum seconds below',
+                            'Minimum voltage',
+                            'Maximum voltage',
+                            'Average voltage',
+                        ],
+                        "SELECT $timestampSelect, measurement_time_sec, phase_no, count_total, count_above, count_below, sec_total, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage FROM `supla_em_voltage_log` WHERE channel_id = :channelId",
+                    ];
+                } else {
+                    return [
+                        [
+                            'Timestamp',
+                            'Date and time',
+                            'Phase 1 Forward active Energy kWh',
+                            'Phase 1 Reverse active Energy kWh',
+                            'Phase 1 Forward reactive Energy kvarh',
+                            'Phase 1 Reverse reactive Energy kvarh',
+                            'Phase 2 Forward active Energy kWh',
+                            'Phase 2 Reverse active Energy kWh',
+                            'Phase 2 Forward reactive Energy kvarh',
+                            'Phase 2 Reverse reactive Energy kvarh',
+                            'Phase 3 Forward active Energy kWh',
+                            'Phase 3 Reverse active Energy kWh',
+                            'Phase 3 Forward reactive Energy kvarh',
+                            'Phase 3 Reverse reactive Energy kvarh',
+                            'Forward active Energy kWh - Vector balance',
+                            'Reverse active Energy kWh - Vector balance',
+                        ],
+                        "SELECT $timestampSelect, IFNULL(`phase1_fae`, 0) / 100000.00 phase1_fae, IFNULL(`phase1_rae`, 0) / 100000.00 phase1_rae, IFNULL(`phase1_fre`, 0) / 100000.00 phase1_fre, IFNULL(`phase1_rre`, 0) / 100000.00 phase1_rre, IFNULL(`phase2_fae`, 0) / 100000.00 phase2_fae, IFNULL(`phase2_rae`, 0) / 100000.00 phase2_rae, IFNULL(`phase2_fre`, 0) / 100000.00 phase2_fre, IFNULL(`phase2_rre`, 0) / 100000.00 phase2_rre, IFNULL(`phase3_fae`, 0) / 100000.00 phase3_fae, IFNULL(`phase3_rae`, 0) / 100000.00 phase3_rae, IFNULL(`phase3_fre`, 0) / 100000.00 phase3_fre, IFNULL(`phase3_rre`, 0) / 100000.00 phase3_rre, IFNULL(`fae_balanced`, 0) / 100000.00 fae_balanced, IFNULL(`rae_balanced`, 0) / 100000.00 rae_balanced FROM `supla_em_log` WHERE channel_id = :channelId",
+                    ];
+                }
             case ChannelFunction::THERMOMETER:
                 return [
                     ['Timestamp', 'Date and time', 'Temperature'],
