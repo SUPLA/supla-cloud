@@ -23,6 +23,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
+use SuplaBundle\Entity\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Entity\TemperatureLogItem;
