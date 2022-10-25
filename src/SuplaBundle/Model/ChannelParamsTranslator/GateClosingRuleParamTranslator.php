@@ -14,6 +14,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class GateClosingRuleParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
 
+    private const MIN_TIME = 300;
+
     /** @var EntityManagerInterface */
     private $entityManager;
     /** @var GateClosingRuleRepository */
@@ -45,11 +47,15 @@ class GateClosingRuleParamTranslator implements ChannelParamTranslator {
                 $rule->setEnabled(boolval($ruleConfig['enabled']));
             }
             if (array_key_exists('maxTimeOpen', $ruleConfig)) {
-                $rule->setMaxTimeOpen(intval($this->getValueInRange($ruleConfig['maxTimeOpen'], 300, 3600 * 8)));
+                $rule->setMaxTimeOpen(intval($this->getValueInRange($ruleConfig['maxTimeOpen'], self::MIN_TIME, 3600 * 8)));
             }
             if (array_key_exists('activeHours', $ruleConfig)) {
-                Assertion::isArray($ruleConfig['activeHours']);
-                $rule->setActiveHours($ruleConfig['activeHours']);
+                if ($ruleConfig['activeHours']) {
+                    Assertion::isArray($ruleConfig['activeHours']);
+                    $rule->setActiveHours($ruleConfig['activeHours']);
+                } else {
+                    $rule->setActiveHours(null);
+                }
             }
             if (array_key_exists('activeFrom', $ruleConfig)) {
                 if ($ruleConfig['activeFrom']) {
@@ -71,7 +77,7 @@ class GateClosingRuleParamTranslator implements ChannelParamTranslator {
                 Assertion::lessThan($rule->getActiveFrom()->getTimestamp(), $rule->getActiveTo()->getTimestamp());
             }
             if (!$rule->getMaxTimeOpen()) {
-                $rule->setMaxTimeOpen(60);
+                $rule->setMaxTimeOpen(self::MIN_TIME);
             }
             $this->entityManager->persist($rule);
         }

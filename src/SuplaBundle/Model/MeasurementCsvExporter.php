@@ -76,8 +76,8 @@ class MeasurementCsvExporter {
                 if ($logsType === 'voltage') {
                     return [
                         [
-                            'Measurement start (timestamp)',
-                            'Measurement start',
+                            'Measurement end (timestamp)',
+                            'Measurement end',
                             'Measurement time (seconds)',
                             'Phase number',
                             'Total count',
