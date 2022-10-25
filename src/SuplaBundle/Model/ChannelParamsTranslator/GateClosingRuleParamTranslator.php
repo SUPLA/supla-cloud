@@ -45,15 +45,35 @@ class GateClosingRuleParamTranslator implements ChannelParamTranslator {
                 $rule->setEnabled(boolval($ruleConfig['enabled']));
             }
             if (array_key_exists('maxTimeOpen', $ruleConfig)) {
-                $rule->setMaxTimeOpen(intval($this->getValueInRange($ruleConfig['maxTimeOpen'], 5, 3600)));
+                $rule->setMaxTimeOpen(intval($this->getValueInRange($ruleConfig['maxTimeOpen'], 300, 3600 * 8)));
             }
             if (array_key_exists('activeHours', $ruleConfig)) {
                 Assertion::isArray($ruleConfig['activeHours']);
                 $rule->setActiveHours($ruleConfig['activeHours']);
             }
-            if ($rule->getMaxTimeOpen()) {
-                $this->entityManager->persist($rule);
+            if (array_key_exists('activeFrom', $ruleConfig)) {
+                if ($ruleConfig['activeFrom']) {
+                    Assertion::date($ruleConfig['activeFrom'], \DateTime::ATOM);
+                    $rule->setActiveFrom(new \DateTime($ruleConfig['activeFrom']));
+                } else {
+                    $rule->setActiveFrom(null);
+                }
             }
+            if (array_key_exists('activeTo', $ruleConfig)) {
+                if ($ruleConfig['activeTo']) {
+                    Assertion::date($ruleConfig['activeTo'], \DateTime::ATOM);
+                    $rule->setActiveTo(new \DateTime($ruleConfig['activeTo']));
+                } else {
+                    $rule->setActiveFrom(null);
+                }
+            }
+            if ($rule->getActiveFrom() && $rule->getActiveTo()) {
+                Assertion::lessThan($rule->getActiveFrom()->getTimestamp(), $rule->getActiveTo()->getTimestamp());
+            }
+            if (!$rule->getMaxTimeOpen()) {
+                $rule->setMaxTimeOpen(60);
+            }
+            $this->entityManager->persist($rule);
         }
     }
 

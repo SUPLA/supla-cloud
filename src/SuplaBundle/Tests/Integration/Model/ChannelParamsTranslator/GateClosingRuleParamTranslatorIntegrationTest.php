@@ -65,16 +65,17 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
         $this->assertNull($this->ruleRepository->find($this->gate->getId()));
         $config = $this->paramsTranslator->getConfigFromParams($this->gate);
         $this->assertArrayHasKey('closingRule', $config);
-        $this->assertNull($config['closingRule']);
+        $this->assertNotNull($config['closingRule']);
+        $this->assertEmpty($config['closingRule']);
     }
 
     public function testSettingMaxTimeOpen() {
-        $this->paramsTranslator->setParamsFromConfig($this->gate, ['closingRule' => ['maxTimeOpen' => 10]]);
+        $this->paramsTranslator->setParamsFromConfig($this->gate, ['closingRule' => ['maxTimeOpen' => 600]]);
         $this->getEntityManager()->flush();
         $rule = $this->ruleRepository->find($this->gate->getId());
         $this->assertNotNull($rule);
         $this->assertFalse($rule->isEnabled());
-        $this->assertEquals(10, $rule->getMaxTimeOpen());
+        $this->assertEquals(600, $rule->getMaxTimeOpen());
         $this->assertNull($rule->getActiveFrom());
         $this->assertNull($rule->getActiveTo());
         $this->assertNull($rule->getActiveHours());
@@ -83,7 +84,7 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
         $this->assertArrayHasKey('closingRule', $config);
         $this->assertNotNull($config['closingRule']);
         $this->assertFalse($config['closingRule']['enabled']);
-        $this->assertEquals(10, $config['closingRule']['maxTimeOpen']);
+        $this->assertEquals(600, $config['closingRule']['maxTimeOpen']);
     }
 
     /** @depends testSettingMaxTimeOpen */
@@ -93,8 +94,44 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
         $rule = $this->ruleRepository->find($this->gate->getId());
         $this->assertNotNull($rule);
         $this->assertFalse($rule->isEnabled());
-        $this->assertEquals(10, $rule->getMaxTimeOpen());
+        $this->assertEquals(600, $rule->getMaxTimeOpen());
         $this->assertNotNull($rule->getActiveHours());
         $this->assertEquals([2 => [2, 3, 4]], $rule->getActiveHours());
+    }
+
+    /** @depends testSettingMaxTimeOpen */
+    public function testSettingActiveFrom() {
+        $this->paramsTranslator->setParamsFromConfig($this->gate, ['closingRule' => ['activeFrom' => '2022-10-25T15:09:00+02:00']]);
+        $this->getEntityManager()->flush();
+        $rule = $this->ruleRepository->find($this->gate->getId());
+        $this->assertNotNull($rule);
+        $this->assertFalse($rule->isEnabled());
+        $this->assertEquals(600, $rule->getMaxTimeOpen());
+        $this->assertNotNull($rule->getActiveFrom());
+        $this->assertEquals('2022-10-25T13:09:00+00:00', $rule->getActiveFrom()->format(\DateTime::ATOM));
+    }
+
+    /** @depends testSettingActiveFrom */
+    public function testClearingActiveFrom() {
+        $this->paramsTranslator->setParamsFromConfig($this->gate, ['closingRule' => ['activeFrom' => null]]);
+        $this->getEntityManager()->flush();
+        $rule = $this->ruleRepository->find($this->gate->getId());
+        $this->assertEquals(600, $rule->getMaxTimeOpen());
+        $this->assertNull($rule->getActiveFrom());
+    }
+
+    /** @depends testSettingActiveFrom */
+    public function testSettingActiveFromToInvalidDate() {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->paramsTranslator->setParamsFromConfig($this->gate, ['closingRule' => ['activeFrom' => 'unicorn']]);
+    }
+
+    /** @depends testSettingActiveFrom */
+    public function testSettingActiveFromAfterActiveTo() {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->paramsTranslator->setParamsFromConfig($this->gate, ['closingRule' => [
+            'activeFrom' => '2022-10-25T15:09:00+02:00',
+            'activeTo' => '2022-10-24T15:09:00+02:00',
+        ]]);
     }
 }

@@ -1,22 +1,22 @@
 <template>
     <div class="channel-params-closing-rule">
-        <h4 class="text-center">{{ $t("Automatic closing") }}</h4>
+        <h4 class="text-center">{{ $t("Close automatically") }}</h4>
         <dl>
             <dd>{{ $t('Enabled') }}</dd>
             <dt class="text-center">
                 <toggler v-model="props.channel.config.closingRule.enabled" @input="$emit('change')"/>
             </dt>
-            <dd>{{ $t('Maximum open time') }}</dd>
+            <dd>{{ $t('Close after') }}</dd>
             <dt>
                 <span class="input-group">
                     <input type="number"
                         step="1"
                         min="5"
-                        max="3600"
+                        max="480"
                         class="form-control text-center"
-                        v-model="props.channel.config.closingRule.maxTimeOpen"
+                        v-model="maxTimeOpenMin"
                         @change="$emit('change')">
-                    <span class="input-group-addon">{{ $t('sec.') }}</span>
+                    <span class="input-group-addon">{{ $t('min.') }}</span>
                 </span>
             </dt>
             <dd>{{ $t('Working schedule') }}</dd>
@@ -30,7 +30,7 @@
             class="modal-800"
             @confirm="(changing = false) || $emit('change')">
             <DateRangePicker v-model="activeDateRange"/>
-            <WeekScheduleSelector v-if="changing" v-model="activeHours"/>
+            <WeekScheduleSelector v-model="activeHours"/>
         </modal>
     </div>
 </template>
@@ -44,6 +44,15 @@
 
     const props = defineProps({channel: Object});
     const changing = ref(false);
+
+    const maxTimeOpenMin = computed({
+        get() {
+            return Math.floor(props.channel.config.closingRule.maxTimeOpen / 60);
+        },
+        set(value) {
+            set(props.channel.config.closingRule, 'maxTimeOpen', value * 60);
+        }
+    });
 
     const activeDateRange = computed({
         get() {
@@ -68,9 +77,9 @@
             }
         },
         set(weekSchedule) {
-            props.channel.config.closingRule.activeHours = mapValues(weekSchedule, (hours) => {
+            set(props.channel.config.closingRule, 'activeHours', mapValues(weekSchedule, (hours) => {
                 return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
-            });
+            }));
         }
     });
 </script>

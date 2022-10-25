@@ -18,7 +18,7 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
  *   @OA\Property(property="stateVerificationMethodActive", type="boolean"),
  *   @OA\Property(property="closingRule",
  *      @OA\Property(property="enabled", type="boolean"),
- *      @OA\Property(property="maxTimeOpen", type="integer", minimum=5, maximum=3600),
+ *      @OA\Property(property="maxTimeOpen", type="integer", minimum=300, maximum=28800),
  *      @OA\Property(property="activeFrom", type="string", format="date-time"),
  *      @OA\Property(property="activeTo", type="string", format="date-time"),
  *      @OA\Property(property="activeHours", ref="#/components/schemas/ActiveHoursDef"),

@@ -14,10 +14,27 @@
 
     export default {
         props: {
-            schedule: Object,
+            schedule: {
+                type: Object,
+                required: false,
+            },
             emptyCaption: {
                 type: String,
                 default: 'No schedule',
+            }
+        },
+        data() {
+            return {
+                weekdayLabels: [
+                    '',
+                    DateTime.fromFormat('1', 'c').toFormat('ccc'),
+                    DateTime.fromFormat('2', 'c').toFormat('ccc'),
+                    DateTime.fromFormat('3', 'c').toFormat('ccc'),
+                    DateTime.fromFormat('4', 'c').toFormat('ccc'),
+                    DateTime.fromFormat('5', 'c').toFormat('ccc'),
+                    DateTime.fromFormat('6', 'c').toFormat('ccc'),
+                    DateTime.fromFormat('7', 'c').toFormat('ccc'),
+                ]
             }
         },
         methods: {
@@ -37,23 +54,15 @@
             this.$emit('hasSomethingSet', this.hasSomethingSet);
         },
         computed: {
-            weekdayLabels() {
-                return [
-                    '',
-                    DateTime.fromFormat('1', 'c').toFormat('ccc'),
-                    DateTime.fromFormat('2', 'c').toFormat('ccc'),
-                    DateTime.fromFormat('3', 'c').toFormat('ccc'),
-                    DateTime.fromFormat('4', 'c').toFormat('ccc'),
-                    DateTime.fromFormat('5', 'c').toFormat('ccc'),
-                    DateTime.fromFormat('6', 'c').toFormat('ccc'),
-                    DateTime.fromFormat('7', 'c').toFormat('ccc'),
-                ];
-            },
             hasSomethingSet() {
-                const entries = Object.entries(this.schedule);
-                return this.schedule && entries.length !== 0 && (entries.length !== 7 || entries.reduce((has, [, hours]) => {
-                    return has || (hours.length > 0 && hours.length < 24);
-                }, false));
+                if (this.schedule) {
+                    const entries = Object.entries(this.schedule);
+                    return entries.length !== 0 && (entries.length !== 7 || entries.reduce((has, [, hours]) => {
+                        return has || (hours.length > 0 && hours.length < 24);
+                    }, false));
+                } else {
+                    return false;
+                }
             },
             weekScheduleCaption() {
                 const captionBlocks = Object.entries(this.schedule).reduce((weekdayBlocks, [weekday, hours]) => {

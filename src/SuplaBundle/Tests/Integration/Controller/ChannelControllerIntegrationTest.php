@@ -488,7 +488,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'numberOfAttemptsToOpen' => 5,
             'numberOfAttemptsToClose' => 5,
             'stateVerificationMethodActive' => false,
-            'closingRule' => null,
+            'closingRule' => [],
         ];
         $this->assertEquals($expectedConfig, $gateChannel->getUserConfig());
     }

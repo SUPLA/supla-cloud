@@ -47,6 +47,9 @@
         methods: {
             onChange() {
                 const format = (date) => DateTime.fromISO(date).startOf('second').toISO({suppressMilliseconds: true});
+                if (this.dateStart && this.dateEnd && DateTime.fromISO(this.dateStart) >= DateTime.fromISO(this.dateEnd)) {
+                    this.dateEnd = formatDateForHtmlInput(DateTime.fromISO(this.dateStart).plus({minutes: 1}).toISO());
+                }
                 this.$emit('input', {
                     dateStart: this.dateStart ? format(this.dateStart) : undefined,
                     dateEnd: this.dateEnd ? format(this.dateEnd) : undefined,

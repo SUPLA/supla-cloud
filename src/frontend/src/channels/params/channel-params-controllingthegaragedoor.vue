@@ -12,8 +12,8 @@
                     @input="$emit('change')"></channels-id-dropdown>
             </dt>
         </dl>
-        <channel-params-controllingthegate-number-of-openclose-attempts :channel="channel"
-            @change="$emit('change')"></channel-params-controllingthegate-number-of-openclose-attempts>
+        <channel-params-controllingthegate-number-of-openclose-attempts :channel="channel" @change="$emit('change')"/>
+        <ChannelParamsControllingthegateClosingRule :channel="channel" @change="$emit('change')"/>
     </div>
 </template>
 
@@ -22,9 +22,13 @@
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import ChannelParamsControllingthegateNumberOfOpencloseAttempts
         from "@/channels/params/channel-params-controllingthegate-number-of-openclose-attempts";
+    import ChannelParamsControllingthegateClosingRule from "@/channels/params/channel-params-controllingthegate-closing-rule";
 
     export default {
-        components: {ChannelParamsControllingthegateNumberOfOpencloseAttempts, ChannelsIdDropdown, ChannelParamsControllingAnyLock},
+        components: {
+            ChannelParamsControllingthegateClosingRule,
+            ChannelParamsControllingthegateNumberOfOpencloseAttempts, ChannelsIdDropdown, ChannelParamsControllingAnyLock
+        },
         props: ['channel'],
         watch: {
             'channel.config.openingSensorChannelId'() {
