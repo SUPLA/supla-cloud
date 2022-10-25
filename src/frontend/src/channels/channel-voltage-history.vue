@@ -68,8 +68,8 @@
                             class="voltage-log panel panel-default">
                             <div class="panel-body">
                                 <h4>
-                                    {{ log.date_timestamp | formatDate('DATETIME_SHORT_WITH_SECONDS') }} &mdash;
-                                    {{ (log.date_timestamp + log.measurementTimeSec) | formatDate('DATETIME_SHORT_WITH_SECONDS') }}
+                                    {{ (log.date_timestamp - log.measurementTimeSec) | formatDate('DATETIME_SHORT_WITH_SECONDS') }} &mdash;
+                                    {{ log.date_timestamp | formatDate('DATETIME_SHORT_WITH_SECONDS') }}
                                 </h4>
                                 <div class="row">
                                     <div class="col-md-4">
