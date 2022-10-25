@@ -13,8 +13,8 @@
         </dl>
         <div class="form-group"></div>
         <channel-params-electricity-meter-initial-values :channel="channel" @save="$emit('save')"/>
-        <channel-params-meter-reset :channel="channel"/>
         <ChannelParamsElectricityMeterVoltageThresholds :channel="channel" @change="$emit('change')"/>
+        <channel-params-meter-reset :channel="channel" class="mt-4"/>
     </div>
 </template>
 

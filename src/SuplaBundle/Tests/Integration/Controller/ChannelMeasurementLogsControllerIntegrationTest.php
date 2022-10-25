@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use DateInterval;
 use DateTime;
 use SuplaBundle\Entity\ElectricityMeterLogItem;
+use SuplaBundle\Entity\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\ImpulseCounterLogItem;
 use SuplaBundle\Entity\IODevice;
@@ -574,29 +575,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->ensureElectricityMeasurementLogsOrder($content, [854800, 854900, 855000]);
     }
 
-    private function deleteMeasurementLogs(int $channelId) {
-        $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV23('DELETE', '/api/channels/' . $channelId . '/measurement-logs');
-        $response = $client->getResponse();
-        $this->assertStatusCode('2xx', $response);
-    }
-
-    public function testDeletingMeasurementLogs() {
-        foreach ($this->device1->getChannels() as $channel) {
-            if ($channel->getType()->getId() != ChannelType::RELAY) {
-                $this->testMeasurementLogsCount($channel->getId());
-                $this->deleteMeasurementLogs($channel->getId());
-                $this->testMeasurementLogsCount($channel->getId(), 0);
-            }
-        }
-
-        foreach ($this->device2->getChannels() as $channel) {
-            if ($channel->getType()->getId() != ChannelType::RELAY) {
-                $this->testMeasurementLogsCount($channel->getId());
-            }
-        }
-    }
-
     public function testGettingLogsFromChannelWithManyLogs() {
         $channelId = $this->deviceWithManyLogs->getChannels()[1]->getId();
         $client = $this->createAuthenticatedClient($this->user);
@@ -838,5 +816,40 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertArrayHasKey('measurementTimeSec', $log);
         $this->assertSame($log['avgVoltage'], floatval($log['avgVoltage']));
         $this->assertNotSame($log['avgVoltage'], intval($log['avgVoltage']));
+    }
+
+    public function testDeletingVoltageLogs() {
+        $channelId = $this->device1->getChannels()[3]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', "/api/channels/{$channelId}/measurement-logs?logsType=voltage");
+        $response = $client->getResponse();
+        $this->assertStatusCode('204', $response);
+        $voltageRepository = $this->getEntityManager()->getRepository(ElectricityMeterVoltageLogItem::class);
+        $emLogRepository = $this->getEntityManager()->getRepository(ElectricityMeterLogItem::class);
+        $this->assertEmpty($voltageRepository->findBy(['channel_id' => $channelId]));
+        $this->assertNotEmpty($emLogRepository->findBy(['channel_id' => $channelId]));
+    }
+
+    private function deleteMeasurementLogs(int $channelId) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV23('DELETE', '/api/channels/' . $channelId . '/measurement-logs');
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+    }
+
+    public function testDeletingMeasurementLogs() {
+        foreach ($this->device1->getChannels() as $channel) {
+            if ($channel->getType()->getId() != ChannelType::RELAY) {
+                $this->testMeasurementLogsCount($channel->getId());
+                $this->deleteMeasurementLogs($channel->getId());
+                $this->testMeasurementLogsCount($channel->getId(), 0);
+            }
+        }
+
+        foreach ($this->device2->getChannels() as $channel) {
+            if ($channel->getType()->getId() != ChannelType::RELAY) {
+                $this->testMeasurementLogsCount($channel->getId());
+            }
+        }
     }
 }

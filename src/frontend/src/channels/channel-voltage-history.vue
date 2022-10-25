@@ -2,15 +2,15 @@
     <div>
         <loading-cover :loading="!logs">
             <div class="container"
-                v-if="logs">
-                <div class="text-right mb-3 hidden">
+                v-if="logs && logs.length > 0">
+                <div class="text-right mb-3">
                     <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
-                        class="btn btn-default mx-1">{{ $t('Download the history of measurement') }}</a>
+                        class="hidden btn btn-default mx-1">{{ $t('Download the history of measurement') }}</a>
                     <button @click="deleteConfirm = true"
                         type="button"
                         class="btn btn-red ml-1">
                         <i class="pe-7s-trash"></i>
-                        {{ $t('Delete measurement history') }}
+                        {{ $t('Delete voltage deviations history') }}
                     </button>
                 </div>
                 <div class="text-center">
@@ -68,8 +68,8 @@
                             class="voltage-log panel panel-default">
                             <div class="panel-body">
                                 <h4>
-                                    {{ log.date_timestamp | formatDate('DATETIME_FULL_WITH_SECONDS') }} -
-                                    {{ (log.date_timestamp + log.measurementTimeSec) | formatDate('DATETIME_FULL_WITH_SECONDS') }}
+                                    {{ log.date_timestamp | formatDate('DATETIME_SHORT_WITH_SECONDS') }} &mdash;
+                                    {{ (log.date_timestamp + log.measurementTimeSec) | formatDate('DATETIME_SHORT_WITH_SECONDS') }}
                                 </h4>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -126,12 +126,19 @@
             </div>
             <empty-list-placeholder v-if="logs && logs.length === 0"/>
         </loading-cover>
+        <modal-confirm v-if="deleteConfirm"
+            class="modal-warning"
+            @confirm="deleteMeasurements()"
+            @cancel="deleteConfirm = false"
+            :header="$t('Are you sure you want to delete the entire voltage deviations history saved for this channel?')">
+        </modal-confirm>
     </div>
 </template>
 
 <script>
     import {DateTime} from "luxon";
     import {Carousel, Slide} from 'vue-carousel';
+    import {successNotification} from "@/common/notifier";
 
     export default {
         components: {Carousel, Slide},
@@ -148,6 +155,7 @@
                 selectedDayViolations: undefined,
                 selectedDayPart: 0,
                 daysWithIssuesOnly: false,
+                deleteConfirm: false,
             };
         },
         beforeMount() {
@@ -197,6 +205,17 @@
             },
             formatDuration(duration) {
                 return `${Math.floor(duration / 3600)}h ${Math.floor(((duration % 3600) / 60))}m ${Math.floor(duration % 60)}s`;
+            },
+            deleteMeasurements() {
+                this.deleteConfirm = false;
+                this.$http.delete('channels/' + this.channel.id + '/measurement-logs?logsType=voltage')
+                    .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')))
+                    .then(() => {
+                        this.logs = [];
+                        this.stats = [];
+                        this.selectedDayViolations = [];
+                        this.selectedDay = undefined;
+                    });
             },
         },
         computed: {

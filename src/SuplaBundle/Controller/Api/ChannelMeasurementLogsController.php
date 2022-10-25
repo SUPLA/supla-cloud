@@ -604,6 +604,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     path="/channels/{channel}/measurement-logs", operationId="deleteChannelMeasurementLogs",
      *     summary="Delete channel measurement logs.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage"})),
      *     @OA\Response(response="204", description="Success"),
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
@@ -612,19 +613,20 @@ class ChannelMeasurementLogsController extends RestController {
      * @UnavailableInMaintenance
      */
     public function deleteMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
-
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             throw new NotFoundHttpException();
         }
-
         $this->ensureChannelHasMeasurementLogs($channel);
-
-        $this->deleteMeasurementLogs(ThermostatLogItem::class, $channel);
-        $this->deleteMeasurementLogs(ElectricityMeterLogItem::class, $channel);
-        $this->deleteMeasurementLogs(ImpulseCounterLogItem::class, $channel);
-        $this->deleteMeasurementLogs(TemperatureLogItem::class, $channel);
-        $this->deleteMeasurementLogs(TempHumidityLogItem::class, $channel);
-
+        $logsType = $request->query->get('logsType');
+        if ($logsType === 'voltage') {
+//            $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel);
+        } else {
+            $this->deleteMeasurementLogs(ThermostatLogItem::class, $channel);
+            $this->deleteMeasurementLogs(ElectricityMeterLogItem::class, $channel);
+            $this->deleteMeasurementLogs(ImpulseCounterLogItem::class, $channel);
+            $this->deleteMeasurementLogs(TemperatureLogItem::class, $channel);
+            $this->deleteMeasurementLogs(TempHumidityLogItem::class, $channel);
+        }
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 
