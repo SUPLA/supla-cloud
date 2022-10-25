@@ -36,7 +36,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @OA\Schema(
- *   schema="AccessIdentifierActiveHoursDef", type="object",
+ *   schema="ActiveHoursDef", type="object",
  *   @OA\Property(property="1", type="array", @OA\Items(type="integer")),
  *   @OA\Property(property="2", type="array", @OA\Items(type="integer")),
  *   @OA\Property(property="3", type="array", @OA\Items(type="integer")),
@@ -52,7 +52,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="enabled", type="boolean", description="`true` if enabled"),
  *   @OA\Property(property="activeFrom", type="string", format="date-time"),
  *   @OA\Property(property="activeTo", type="string", format="date-time"),
- *   @OA\Property(property="activeHours", ref="#/components/schemas/AccessIdentifierActiveHoursDef"),
+ *   @OA\Property(property="activeHours", ref="#/components/schemas/ActiveHoursDef"),
  *   @OA\Property(property="activeNow", type="boolean", description="`true` if active now. Returned only if requested by the `include` parameter."),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.", @OA\Property(property="locations", type="integer"), @OA\Property(property="clientApps", type="integer")),
  *   @OA\Property(property="password", type="string", description="Location password (plain text). Returned only if requested by the `include` parameter."),
@@ -201,7 +201,7 @@ class AccessIDController extends RestController {
      *          @OA\Property(property="password", type="string", description="Provide new password if you want to change it."),
      *          @OA\Property(property="activeFrom", type="string", format="date-time"),
      *          @OA\Property(property="activeTo", type="string", format="date-time"),
-     *          @OA\Property(property="activeHours", ref="#/components/schemas/AccessIdentifierActiveHoursDef"),
+     *          @OA\Property(property="activeHours", ref="#/components/schemas/ActiveHoursDef"),
      *          @OA\Property(property="locationsIds", type="array", description="Location identifiers to assign to this AID.", @OA\Items(type="integer")),
      *          @OA\Property(property="clientAppsIds", type="array", description="Client Apps identifiers to assign to this Access Identifier. If client app is connected to any other AID, it will be disconnected from the old one before assigning.", @OA\Items(type="integer")),
      *       )

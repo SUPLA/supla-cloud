@@ -64,12 +64,12 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
     public function testNoRuleAtTheBeginning() {
         $this->assertNull($this->ruleRepository->find($this->gate->getId()));
         $config = $this->paramsTranslator->getConfigFromParams($this->gate);
-        $this->assertArrayHasKey('gateClosingRule', $config);
-        $this->assertNull($config['gateClosingRule']);
+        $this->assertArrayHasKey('closingRule', $config);
+        $this->assertNull($config['closingRule']);
     }
 
     public function testSettingMaxTimeOpen() {
-        $this->paramsTranslator->setParamsFromConfig($this->gate, ['gateClosingRule' => ['maxTimeOpen' => 10]]);
+        $this->paramsTranslator->setParamsFromConfig($this->gate, ['closingRule' => ['maxTimeOpen' => 10]]);
         $this->getEntityManager()->flush();
         $rule = $this->ruleRepository->find($this->gate->getId());
         $this->assertNotNull($rule);
@@ -80,15 +80,15 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
         $this->assertNull($rule->getActiveHours());
         $this->assertTrue($rule->isActiveNow());
         $config = $this->paramsTranslator->getConfigFromParams($this->gate);
-        $this->assertArrayHasKey('gateClosingRule', $config);
-        $this->assertNotNull($config['gateClosingRule']);
-        $this->assertFalse($config['gateClosingRule']['enabled']);
-        $this->assertEquals(10, $config['gateClosingRule']['maxTimeOpen']);
+        $this->assertArrayHasKey('closingRule', $config);
+        $this->assertNotNull($config['closingRule']);
+        $this->assertFalse($config['closingRule']['enabled']);
+        $this->assertEquals(10, $config['closingRule']['maxTimeOpen']);
     }
 
     /** @depends testSettingMaxTimeOpen */
     public function testSettingActiveHours() {
-        $this->paramsTranslator->setParamsFromConfig($this->gate, ['gateClosingRule' => ['activeHours' => [2 => [2, 3, 4]]]]);
+        $this->paramsTranslator->setParamsFromConfig($this->gate, ['closingRule' => ['activeHours' => [2 => [2, 3, 4]]]]);
         $this->getEntityManager()->flush();
         $rule = $this->ruleRepository->find($this->gate->getId());
         $this->assertNotNull($rule);

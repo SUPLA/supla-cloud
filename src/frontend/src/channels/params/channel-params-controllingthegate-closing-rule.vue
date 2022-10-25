@@ -4,7 +4,7 @@
         <dl>
             <dd>{{ $t('Enabled') }}</dd>
             <dt class="text-center">
-                <toggler v-model="props.channel.config.gateClosingRule.enabled" @input="$emit('change')"/>
+                <toggler v-model="props.channel.config.closingRule.enabled" @input="$emit('change')"/>
             </dt>
             <dd>{{ $t('Maximum open time') }}</dd>
             <dt>
@@ -14,14 +14,14 @@
                         min="5"
                         max="3600"
                         class="form-control text-center"
-                        v-model="props.channel.config.gateClosingRule.maxTimeOpen"
+                        v-model="props.channel.config.closingRule.maxTimeOpen"
                         @change="$emit('change')">
                     <span class="input-group-addon">{{ $t('sec.') }}</span>
                 </span>
             </dt>
             <dd>{{ $t('Working schedule') }}</dd>
             <dt>
-                <WeekScheduleCaption :schedule="props.channel.config.gateClosingRule.activeHours" :emptyCaption="$t('everyday')"/>
+                <WeekScheduleCaption :schedule="props.channel.config.closingRule.activeHours" :emptyCaption="$t('everyday')"/>
                 <div><a @click="changing = true">{{ $t('Change') }}</a></div>
             </dt>
         </dl>
@@ -47,18 +47,18 @@
 
     const activeDateRange = computed({
         get() {
-            return {dateStart: props.channel.config.gateClosingRule.activeFrom, dateEnd: props.channel.config.gateClosingRule.activeTo};
+            return {dateStart: props.channel.config.closingRule.activeFrom, dateEnd: props.channel.config.closingRule.activeTo};
         },
         set(dates) {
-            set(props.channel.config.gateClosingRule, 'activeFrom', dates.dateStart || null);
-            set(props.channel.config.gateClosingRule, 'activeTo', dates.dateEnd || null);
+            set(props.channel.config.closingRule, 'activeFrom', dates.dateStart || null);
+            set(props.channel.config.closingRule, 'activeTo', dates.dateEnd || null);
         }
     });
 
     const activeHours = computed({
         get() {
-            if (props.channel.config.gateClosingRule.activeHours) {
-                return mapValues(props.channel.config.gateClosingRule.activeHours, (hours) => {
+            if (props.channel.config.closingRule.activeHours) {
+                return mapValues(props.channel.config.closingRule.activeHours, (hours) => {
                     const hoursDef = {};
                     [...Array(24).keys()].forEach((hour) => hoursDef[hour] = hours.includes(hour) ? 1 : 0);
                     return hoursDef;
@@ -68,7 +68,7 @@
             }
         },
         set(weekSchedule) {
-            props.channel.config.gateClosingRule.activeHours = mapValues(weekSchedule, (hours) => {
+            props.channel.config.closingRule.activeHours = mapValues(weekSchedule, (hours) => {
                 return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
             });
         }

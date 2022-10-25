@@ -16,6 +16,14 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
  *   @OA\Property(property="numberOfAttemptsToOpen", type="integer", minimum=1, maximum=5),
  *   @OA\Property(property="numberOfAttemptsToClose", type="integer", minimum=1, maximum=5),
  *   @OA\Property(property="stateVerificationMethodActive", type="boolean"),
+ *   @OA\Property(property="closingRule",
+ *      @OA\Property(property="enabled", type="boolean"),
+ *      @OA\Property(property="maxTimeOpen", type="integer", minimum=5, maximum=3600),
+ *      @OA\Property(property="activeFrom", type="string", format="date-time"),
+ *      @OA\Property(property="activeTo", type="string", format="date-time"),
+ *      @OA\Property(property="activeHours", ref="#/components/schemas/ActiveHoursDef"),
+ *      @OA\Property(property="activeNow", type="boolean", readOnly=true),
+ *   ),
  * )
  */
 class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {

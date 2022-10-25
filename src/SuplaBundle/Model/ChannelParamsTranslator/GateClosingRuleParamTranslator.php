@@ -30,11 +30,11 @@ class GateClosingRuleParamTranslator implements ChannelParamTranslator {
     public function getConfigFromParams(IODeviceChannel $channel): array {
         $rule = $this->repository->find($channel->getId());
         $closingRuleConfig = $rule ? $this->normalizer->normalize($rule) : new JsonArrayObject([]);
-        return ['gateClosingRule' => $closingRuleConfig];
+        return ['closingRule' => $closingRuleConfig];
     }
 
     public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        $ruleConfig = $config['gateClosingRule'] ?? [];
+        $ruleConfig = $config['closingRule'] ?? [];
         if ($ruleConfig) {
             /** @var GateClosingRule $rule */
             $rule = $this->repository->find($channel->getId());
