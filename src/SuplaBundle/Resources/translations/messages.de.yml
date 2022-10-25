@@ -954,8 +954,14 @@ hourly: Stundenzyklus
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Above threshold: ~
+Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
+Change: ~
+Close after: ~
+Close automatically: ~
+Delete voltage deviations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
@@ -963,6 +969,7 @@ Gate's state verification: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
 Longest violation: ~
+Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
@@ -973,14 +980,17 @@ Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
+Upper voltage threshold: ~
 Verification method: ~
 Violation info: ~
 Violations count: ~
 Voltage deviations: ~
+Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~
 channelConfig_stateVerificationMethod_passive: ~
+everyday: ~
 
 #</editor-fold>

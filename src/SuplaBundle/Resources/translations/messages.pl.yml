@@ -119,6 +119,7 @@ Can’t find activation email? Please check your SPAM or Junk mail folders. Alte
 Captcha token is not valid.: Niepoprawna captcha.
 Caption: Podpis
 Caption is too long.: Nazwa jest za długa.
+Change: Zmień
 Change Password: Zmiana hasła
 Change channel function: Zmień funkcję kanału
 Change function: Zmień funkcję
@@ -915,7 +916,6 @@ And set the same state for: i ustaw taki sam stan dla
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
-Change: Zmień
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels in channel group: Kanały w grupach kanałów
 Chosen hour: Wybrana godzina
@@ -979,23 +979,32 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Above threshold: ~
-Average voltage: ~
-Below threshold: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-Longest violation: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Phase number: ~
-Show days with issues only: ~
-Total time: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
+Above threshold: Powyżej progu
+Are you sure you want to delete the entire voltage deviations history saved for this channel?: Czy jesteś pewny/a, że chcesz usunąć całą historię wychyleń napięcia tego kanału?
+Automatic closing rule: Automatyczne zamykanie bramy
+Average voltage: Średnie napięcie
+Below threshold: Poniżej progu
+Close after: Zamknij po
+Close automatically: Zamykaj automatycznie
+Delete voltage deviations history: Usuń historię wychyleń napięcia
+Device might be sleeping: Urządzenie może być w trybie uśpienia
+Error when communicating the AD. Try again in a while.: Błąd przy komunikacji z AD. Spróbuj ponownie za chwilę.
+Estimated execution time: Szacowany czas wykonania
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Jeśli urządzenie jest obecnie w trybie uśpienia, zmiany w konfiguracji zostaną wprowadzone po jego wybudzeniu.
+Longest violation: Najdłuższe naruszenie
+Lower voltage threshold: Próg niskiego napięcia
+Maximum voltage: Najwyższe napięcie
+Measurement window: Czas pomiaru
+Minimum voltage: Najniższe napięcie
+Phase number: Faza
+Show days with issues only: Pokaż tylko dni, w których odnotowano naruszenia
+Total time: Całkowity czas
+Upper voltage threshold: Próg wysokiego napięcia
+Violation info: Szczegóły naruszenia
+Violations count: Liczba naruszeń
+Voltage deviations: Wychylenia napięcia
+Voltage monitoring: Monitorowanie napięcia
+Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny prze kontynuowaniem akcji ({time}).
+everyday: codziennie
 
 #</editor-fold>
