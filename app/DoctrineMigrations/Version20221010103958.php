@@ -27,6 +27,7 @@ class Version20221010103958 extends NoWayBackMigration {
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_add_em_voltage_log_item`');
         $this->addSql(<<<PROCEDURE
             CREATE PROCEDURE `supla_add_em_voltage_log_item`(
+                IN `_date` DATETIME, 
                 IN `_channel_id` INT(11), 
                 IN `_phase_no` TINYINT,
                 IN `_count_total` INT(11),
@@ -44,7 +45,7 @@ class Version20221010103958 extends NoWayBackMigration {
             ) NO SQL BEGIN
 
             INSERT INTO `supla_em_voltage_log` (`date`,channel_id, phase_no, count_total, count_above, count_below, sec_total, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage, measurement_time_sec)
-                              VALUES (UTC_TIMESTAMP(),_channel_id,_phase_no,_count_total,_count_above,_count_below,_sec_total,_sec_above,_sec_below,_max_sec_above,_max_sec_below,_min_voltage,_max_voltage,_avg_voltage,_measurement_time_sec);
+                              VALUES (_date,_channel_id,_phase_no,_count_total,_count_above,_count_below,_sec_total,_sec_above,_sec_below,_max_sec_above,_max_sec_below,_min_voltage,_max_voltage,_avg_voltage,_measurement_time_sec);
 
             END
 PROCEDURE
