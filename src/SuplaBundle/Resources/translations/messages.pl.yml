@@ -1004,7 +1004,7 @@ Violation info: Szczegóły naruszenia
 Violations count: Liczba naruszeń
 Voltage deviations: Wychylenia napięcia
 Voltage monitoring: Monitorowanie napięcia
-Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny prze kontynuowaniem akcji ({time}).
+Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny przed kontynuowaniem akcji ({time}).
 everyday: codziennie
 
 #</editor-fold>
