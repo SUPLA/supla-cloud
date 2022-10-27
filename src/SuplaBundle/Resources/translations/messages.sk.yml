@@ -285,6 +285,7 @@ Forgot your password?: Nepamätáte si heslo?
 Forward active energy: Činná energia prijatá
 Forward active energy balanced: Spotrebovaná aktívna energia (vektorová bilancia)
 Forward reactive energy: Pasívna energia prijatá
+Fridays: Piatky
 From IP: Z IP adresy
 From anywhere: Z každého miesta
 Full closing time: Celkový čas zatvorenia
@@ -419,6 +420,7 @@ Meters: Počítadlá
 Mobile Apps: Mobilné aplikácie
 Mode: Režim
 Modification: Úprava
+Mondays: Pondelky
 Move down or stop: Dole alebo zastaviť
 Move up or stop: Hore alebo zastaviť
 My OAuth apps: Moje aplikácie OAuth
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Oznáme
 SUPLA – new client app has been added to your account: SUPLA - bola zaregistrovaná nová klientská aplikácia
 SUPLA – new device has been added to your account: SUPLA – do vášho účtu bolo pridané nové zariadenie
 SUPLA.ORG Team: Tím SUPLA.ORG
+Saturdays: Soboty
 Save: Uložiť
 Save and enable: Uložiť a zapnúť
 Save changes: Uložiť zmeny
@@ -626,6 +629,7 @@ Store measurements history: Uchovávať históriu meraní
 Subject type: Typ subjektu
 Success: Úspech
 Successful: Úspešné
+Sundays: Nedele
 Supla for devices: SUPLA na zariadenia
 Switch the device to configuration mode: Prepnúť zariadenie do konfiguračného režimu
 THIS CANNOT BE UNDONE!: TÚTO OPERÁCIU NIE JE MOŽNÉ VRÁTIŤ SPÄŤ!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Toto 
 This link is only valid for an hour.: Nuoroda bus aktyvi vieną valandą.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Tento režim plánovania je určený pre technických alebo veľmi trpezlivých používateľov. Vyžaduje, aby boli časy spúšťania plánu špecifikované v notácii crontab obohatenej o niekoľko funkcií, ktoré sa nachádzajú iba v SUPLI. Ak ste ešte doteraz nepočuli o crontaboch a stále chcete používať tento režim, môže vám pomôcť webová stránka crontab.guru.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Tento spúšťač používa zariadenie lokálne (napr. zapína svetlo, ovláda roletu atď.). Ak mu priradíte inú činnosť, lokálna funkcia bude deaktivovaná.
+Thursdays: Štvrtky
 Timezone: Časové pásmo
 Toggle: Prepnite
 Token does not exist: Token neexistuje
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Príliš veľa akcií v jednom harmonograme.
 Too many channels in this group: Príliš veľa kanálov v tejto skupine
 Too many operations in this scene: Príliš veľa operácií na scéne.
 Triggers: Spúšťače
+Tuesdays: Utorky
 Turning this device off will cause its channels not working in the following features.: Vypnutie zariadenia spôsobí, že jeho kanály prestanú fungovať v nasledujúcich položkách.
 Turning this device off will result in disabling features listed below.: Vypnutím zariadenia sa vypnú aj nasledujúce položky.
 Type: Typ
@@ -729,6 +735,7 @@ We will miss you: Budete nám chýbať
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Robíme všetko preto, aby sa zaslané ikony zobrazovali čo najlepšie, ale najlepšie výsledky dosiahnete, ak budete používať súbory vo formáte .png s priehľadným pozadím a so šírkou {width} a výškou {height} pixelov.
 We will use it only in justified situations.: Použijeme ho výhradne iba v opodstatnených prípadoch.
 Weather Station: Meteorologická stanica
+Wednesdays: Stredy
 Weight sensor: Hmotnosť
 Welcome!: Dobrý deň!
 What this token is for?: Na čo je určený tento token?
@@ -914,7 +921,6 @@ Doors, Gates: Dvere, Brány
 ENABLED: ZAPNUTÉ
 Email already exists: Emailová adresa už existuje
 Existing schedules: Existujúce harmonogramy
-Fridays: Piatky
 Hi: Dobrý deň
 Hour: Čas
 Hours: Hodiny
@@ -926,25 +932,19 @@ Loading: Načítavanie
 Location password must be at least 4 characters.: Heslo pre umiestnenie musí mať dĺžku aspoň 4 znakov.
 Location password must be no longer than 32 characters.: Heslo pre umiestnenie nesmie byť dlhší ako 32 znakov.
 Minute: Minúta
-Mondays: Pondelky
 Next: Ďalej
 Number: Číslo
 Output: Výstup
 Please select the schedules that should also be enabled.: Zaznačte harmonogramy, ktoré tiež majú byť zapnuté.
 Registration: Registrácia
 Remove: Odstrániť
-Saturdays: Soboty
 Schedule cannot be enabled: Nepodarilo sa zapnúť harmonogram
 Schedules below will be deleted: Nasledujúce harmonogramy budú odstránené
 Status: Status
 Subject: Subjekt
-Sundays: Nedele
 Sunrise / Sunset: Východ / Západ
-Thursdays: Štvrtky
 Try again later: Skúste opäť neskôr.
-Tuesdays: Utorky
 Turning this device off will result in disabling all the associated schedules.: Vypnutím tohto zariadenia sa vypnú aj harmonogramy, ktoré sú s týmto zariadením previazané.
-Wednesdays: Stredy
 When: Kedy
 You will be logged out shortly: O chvíľu budete odhlásený
 execute: vykonať
@@ -953,38 +953,39 @@ hourly: Hodinový cyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

@@ -285,6 +285,7 @@ Forgot your password?: Kennwort vergessen?
 Forward active energy: Wirkenergie aufgenommen
 Forward active energy balanced: Wirkenergie aufgenommen (Vektor-Bilanz)
 Forward reactive energy: Blindleistung bezogen
+Fridays: Freitage
 From IP: Aus der IP Adresse
 From anywhere: Aus jedem Ort
 Full closing time: Volle Schließungszeit
@@ -419,6 +420,7 @@ Meters: Zähler
 Mobile Apps: Mobile Apps
 Mode: Modus
 Modification: Änderung
+Mondays: Montage
 Move down or stop: Nach unten oder anhalten
 Move up or stop: Nach oben oder anhalten
 My OAuth apps: Meine OAuth-Anwendungen
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Benachr
 SUPLA – new client app has been added to your account: SUPLA - neue Client-App wurde registriert
 SUPLA – new device has been added to your account: SUPLA - ein neues Gerät wurde zu Ihrem Konto hinzugefügt
 SUPLA.ORG Team: Team SUPLA.ORG
+Saturdays: Samstage
 Save: Speichern
 Save and enable: Speichern und aktivieren
 Save changes: Speichern Sie Ihre Änderungen
@@ -626,6 +629,7 @@ Store measurements history: Bewahren Sie den Messverlauf auf
 Subject type: Art der Entität
 Success: Erfolg
 Successful: Erfolgreiche
+Sundays: Sonntage
 Supla for devices: SUPLA für Geräte
 Switch the device to configuration mode: Schalten Sie das Gerät in den Konfigurationsmodus um
 THIS CANNOT BE UNDONE!: DIESER VORGANG KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Dies 
 This link is only valid for an hour.: Der Link wird für eine Stunde aktiv sein.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Dieser Modus des Harmonogramms ist für fortgeschrittene oder sehr geduldige Benutzer gedacht. Erforderlich ist die Angabe des Ausführungsverhaltens der Zeitpläne in der Crontab-Notation, erweitert um einige Funktionen, die nur bei SUPLA vorhanden sind. Wenn Sie Crontabs noch nicht  kennen und diesen Modus immer noch verwenden möchten, kann die Website crontab.guru hilfreich sein.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Dieser Auslöser wird durch das Gerät verwendet (z. B. er schaltet das Licht ein oder steuert den Rollladen usw.). Wenn Sie ihm eine andere Aktion zuweisen, wird die lokale Funktion deaktiviert.
+Thursdays: Donnerstage
 Timezone: Zeitzone
 Toggle: Wechseln
 Token does not exist: Token existiert nicht
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Zu viele Aktionen in einem Zeitplan.
 Too many channels in this group: Zu viele Kanäle in dieser Gruppe
 Too many operations in this scene: Zu viele Vorgänge in einer Szene.
 Triggers: Die Auslöser
+Tuesdays: Dienstage
 Turning this device off will cause its channels not working in the following features.: Das Ausschalten dieses Geräts führt dazu, dass seine Kanäle bei den folgenden Elementen nicht funktionieren.
 Turning this device off will result in disabling features listed below.: Das Ausschalten dieses Geräts führt auch zur Deaktivierung der folgenden Elemente.
 Type: Typ
@@ -729,6 +735,7 @@ We will miss you: Wir werden Sie vermissen.
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Wir tun unser Bestes um die zugesandten Piktogramme gut anzuzeigen, aber das beste Ergebnis erreichen Sie indem Sie uns ein PNG file mit einem transparentem Hintergrund, der Breite {width} und Höhe {height} zuschicken.
 We will use it only in justified situations.: Wir werden diese nur in begründeten Fällen verwenden.
 Weather Station: Wetterstation
+Wednesdays: Mittwoche
 Weight sensor: Gewicht
 Welcome!: Hallo!
 What this token is for?: Wozu dient dieses Token?
@@ -914,7 +921,6 @@ Doors, Gates: Türen, Toren
 ENABLED: EINGESCHALTET
 Email already exists: E-Mail existiert bereits
 Existing schedules: Bestehende/existierende Harmonogramme
-Fridays: Freitage
 Hi: Hallo
 Hour: Uhrzeit
 Hours: Stunden
@@ -926,25 +932,19 @@ Loading: Laden
 Location password must be at least 4 characters.: Das Kennwort für den Standort muss mindestens 4 Zeichen lang sein.
 Location password must be no longer than 32 characters.: Das Kennwort für den Standort darf nicht länger als 32 Zeichen sein.
 Minute: Minute
-Mondays: Montage
 Next: Weiter
 Number: Nummer
 Output: Ausgabe
 Please select the schedules that should also be enabled.: Markiere die Harmonogramme, die auch ausgeschaltet werden sollten.
 Registration: Registrierung
 Remove: Löschen
-Saturdays: Samstage
 Schedule cannot be enabled: Es ist nicht gelungen das Harmonogramm einzuschalten
 Schedules below will be deleted: Folgende Zeitpläne werden gelöscht
 Status: Status
 Subject: Subjekt
-Sundays: Sonntage
 Sunrise / Sunset: Sonnenaufgang/Sonnenuntergang
-Thursdays: Donnerstage
 Try again later: Versuche später nochmals
-Tuesdays: Dienstage
 Turning this device off will result in disabling all the associated schedules.: Das Ausschalten dieses Geräts verursacht auch das Ausschalten von Harmonogrammen, mit denen es in Verbindung steht.
-Wednesdays: Mittwoche
 When: Wann
 You will be logged out shortly: Du wirst gleich ausgeloggt
 execute: ausführen
@@ -953,38 +953,39 @@ hourly: Stundenzyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

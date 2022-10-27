@@ -285,6 +285,7 @@ Forgot your password?: هل نسيت كلمة المرور؟
 Forward active energy: الطاقة النشطة المستهلكة
 Forward active energy balanced: الطاقة النشطة المأخوذة (التوازن المتجه)
 Forward reactive energy: الطاقة التفاعلية المأخوذة
+Fridays: الجمعة
 From IP: من عنوان  IP
 From anywhere: من أي مكان
 Full closing time: إجمالي وقت الإغلاق
@@ -419,6 +420,7 @@ Meters: العدادات
 Mobile Apps: تطبيقات المحمول
 Mode: النمط
 Modification: التعديل
+Mondays: الاثنين
 Move down or stop: لأسفل أو توقف
 Move up or stop: لأعلى أو توقف
 My OAuth apps: تطبيقات OAuth الخاصة بي
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: 'SUPLA:  إخطا
 SUPLA – new client app has been added to your account: SUPLA – تم تسجيل تطبيق عملاء جديد
 SUPLA – new device has been added to your account: SUPLA - تمت إضافة جهاز جديد إلى حسابك
 SUPLA.ORG Team: فريق SUPLA.ORG
+Saturdays: السبت
 Save: حفظ
 Save and enable: حفظ وإيقاف التشغيل
 Save changes: حفظ التغييرات
@@ -626,6 +629,7 @@ Store measurements history: احتفاظ بتاريخ من القياسات
 Subject type: نوع الكيان
 Success: نجاح
 Successful: تم بناجح
+Sundays: الأحد
 Supla for devices: Supla على اللأجهزة
 Switch the device to configuration mode: وضع الجهاز في وضع التكوين
 THIS CANNOT BE UNDONE!: لا يمكن الانسحاب من هذه العملية!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: هذ�
 This link is only valid for an hour.: سوف يكون الرابط نشطًا لمدة ساعة واحدة.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: تم تصميم وضع الجدول الزمني هذا للمستخدمين التقنيين أو الصبورين للغاية. يتطلب تحديد لحظات تشغيل الجدول الزمني في تدوين crontab المخصب بالعديد من الوظائف الموجودة فقط في ASUPL. إذا لم تكن قد واجهت crontabs من قبل  وما زلت ترغب في استخدام هذا الوضع،  فقد يكون موقع crontab.guru مفيدا لك.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: يتم استخدام هذا المشغل محليا بواسطة الجهاز (على سبيل المثال، يقوم بتشغيل الضوء، والتحكم في الستارة، وما إلى ذلك) إذا قمت بتعيين إجراء مختلف له، فسيتم تعطيل الوظيفة المحلية.
+Thursdays: الخميس
 Timezone: المنطقة الزمنية
 Toggle: تحويل
 Token does not exist: الرمز المميز غير موجود
@@ -688,6 +693,7 @@ Too many actions in this schedule.: عدد الإجراءات في جدول زم
 Too many channels in this group: العديد من القنوات في هذه المجموعة
 Too many operations in this scene: عدد العمليات في المشهد أكبر من اللازم.
 Triggers: مشغلات
+Tuesdays: الثلاثاء
 Turning this device off will cause its channels not working in the following features.: سيؤدي إيقاف تشغيل الجهاز إلى توقف قنواته عن العمل في العناصر التالية.
 Turning this device off will result in disabling features listed below.: سيؤدي إيقاف تشغيل الجهاز أيضا إلى إيقاف تشغيل العناصر التالية.
 Type: النوع
@@ -728,6 +734,7 @@ We will miss you: سنفتقدك
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: سنبذل قصارى جهدنا لإرسال الرموز المعروضة بأفضل طريقة، لكنك ستحصل على أفضل النتائج عن طريق إرسال ملفات PNG بخلفية شفافة وعرض {width} وارتفاع {height} بكسل.
 We will use it only in justified situations.: سوف نستخدمها فقط في الحالات المبررة.
 Weather Station: محطة الطقس
+Wednesdays: الأربعاء
 Weight sensor: الوزن
 Welcome!: مرحبا!
 What this token is for?: ماذا يفعل هذا الرمز المميز؟
@@ -912,7 +919,6 @@ Doors, Gates: الأبواب ، البوابات
 ENABLED: مفعلة
 Email already exists: البريد الإلكتروني موجود بالفعل
 Existing schedules: الجداول الزمنية الحالية
-Fridays: الجمعة
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: الرسالة مع رابط تفعيل حسابك لم تصل؟ تأكد من أنه غير موجود في مجلد الرسائل غير المطلوبة (البريد العشوائي). يمكنك أيضًا النقر [هنا] لإرسالها مرة أخرى.
 Hi: مرحبا
 Hour: الساعة
@@ -925,7 +931,6 @@ Loading: التحميل
 Location password must be at least 4 characters.: يجب ألا يقل طول كلمة مرور الموقع عن 4 أحرف.
 Location password must be no longer than 32 characters.: لا يمكن ألا تتجاوز كلمة مرور الموقع 32 حرفًا.
 Minute: دقيقة
-Mondays: الاثنين
 Next: التالي
 Number: رقم
 Output: خروج
@@ -934,19 +939,14 @@ Registration: تسجيل
 Registration of new I/O devices: تسجيل الجهاز
 Registration of new clients: تسجيل العملاء
 Remove: حذف
-Saturdays: السبت
 Schedule cannot be enabled: لم يتم تشغيل الجدول الزمني
 Schedules below will be deleted: سيتم حذف الجداول الزمنية التالية
 Status: الحالة
 Subject: الكيان
-Sundays: الأحد
 Sunrise / Sunset: الشرق / الغرب
-Thursdays: الخميس
 Try again later: يرجى المحاولة مرة أخرى لاحقًا
-Tuesdays: الثلاثاء
 Turning this device off will result in disabling all the associated schedules.: سيؤدي إيقاف تشغيل هذا الجهاز أيضًا إلى إيقاف تشغيل الجداول الزمنية المرتبطة بها.
 We have just sent you an activation link. Be patient.: تم إرسال رسالة تحتوي على رابط لتفعيل حسابك. اصبر.
-Wednesdays: الأربعاء
 When: عندما
 You will be logged out shortly: سيتم تسجيل خروجك بعد لحظة
 execute: تنفيذ
@@ -956,38 +956,39 @@ will expire: يبطل مفعولها
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

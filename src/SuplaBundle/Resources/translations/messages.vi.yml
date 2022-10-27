@@ -285,6 +285,7 @@ Forgot your password?: Quên mật khẩu?
 Forward active energy: Forward active energy
 Forward active energy balanced: Năng lượng tiêu thụ (Cân bằng véc tơ)
 Forward reactive energy: Năng lượng phản ứng lấy
+Fridays: Thứ sáu
 From IP: Từ IP
 From anywhere: Từ bất cứ đâu
 Full closing time: Tổng thời gian đóng cửa
@@ -419,6 +420,7 @@ Meters: Bộ đếm
 Mobile Apps: Ứng dụng di động
 Mode: Chế độ
 Modification: Sửa đổi
+Mondays: Thứ hai
 Move down or stop: Xuống dưới hoạc dừng lại
 Move up or stop: Lên trên hoặc dừng lại
 My OAuth apps: Ứng dụng OAuths
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - %cloudHos
 SUPLA – new client app has been added to your account: SUPLA – đã đăng kí một ứng dụng client mới
 SUPLA – new device has been added to your account: SUPLA – đã thêm một thiết bị mới vào tài khoản của bạn
 SUPLA.ORG Team: Đội SUPLA.ORG
+Saturdays: Thứ bảy
 Save: Lưu
 Save and enable: Lưu và kích hoạt
 Save changes: Lưu thay đổi
@@ -626,6 +629,7 @@ Store measurements history: Lưu giữ lịch sử đã được đo đạc
 Subject type: Loại đối tượng
 Success: Thành công
 Successful: Thành công
+Sundays: Chủ Nhật
 Supla for devices: Supla cho các thiết bị
 Switch the device to configuration mode: Chuyển thiết bị sang chế đố cài đặt
 THIS CANNOT BE UNDONE!: TĐIỀU NÀY KHÔNG THỂ ĐƯỢC HOÀN TÁC!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Đây
 This link is only valid for an hour.: Liên kết này chỉ có hiệu lực trong một giờ.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Chế độ lịch biểu này được thiết kế nhằm mục đích kĩ thuật hoặc cho những người dùng nâng cao. Nó yêu cầu bạn phải nhập thời gian kích hoạt lịch trình phải được chỉ định trong ký hiệu crontab, được bổ sung thêm một số chức năng chỉ có trong SUPLI. Nếu bạn chưa từng sử dụng crontabs trước đây và bạn vẫn muốn sử dụng chế độ này, trang web crontab.guru có thể giúp ích cho bạn.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Công tắc kích hoạt này được sử dụng nội bộ bởi thiết bị (ví dụ: bật đèn, điều khiển rèm cửa, v.v.). Nếu bạn gán cho nó một tác vụ khác, chức năng nội bộ sẽ bị tắt.'
+Thursdays: Thứ năm
 Timezone: Múi giờ
 Toggle: Chuyển đổi
 Token does not exist: Mã thông báo không tồn tại
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Quá nhiều hoạt động trong một lị
 Too many channels in this group: Quá nhiều kênh trong nhóm này
 Too many operations in this scene: Quá nhiều thao tác trong hoạt cảnh.
 Triggers: Công tắc kích hoạt
+Tuesdays: Thứ ba
 Turning this device off will cause its channels not working in the following features.: Tắt thiệt bị sẽ khiến cho các kênh của nó dừng hoạt động trong các mục dưới đây.
 Turning this device off will result in disabling features listed below.: Tắt thiệt bị sẽ khiến cho những mục sau bị tắt theo.
 Type: Loại
@@ -729,6 +735,7 @@ We will miss you: Chúng tôi sẽ nhớ bạn
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Chúng tôi sẽ cố gắng hiển thị các biểu tượng nhận được theo cách tốt nhất có thể, tuy nhiên bạn sẽ thu được kết quả tốt nhất bằng cách gửi cho chúng tôi qua tệp PNG có nền trong suốt, chiều rộng {width} px và chiều cao {height}.
 We will use it only in justified situations.: Chúng tôi sẽ chỉ sử dụng nó trong các tình huống hợp lý.
 Weather Station: Trạm thời tiết
+Wednesdays: Thứ tư
 Weight sensor: Cảm biến trọng lượng
 Welcome!: Chào mừng bạn
 What this token is for?: Mã thông báo này để làm gì ?
@@ -914,7 +921,6 @@ Doors, Gates: Cửa, Cổng
 ENABLED: BẬT
 Email already exists: Email đã tồn tại
 Existing schedules: Lịch trình hiện có
-Fridays: Thứ sáu
 Hi: Hi
 Hour: Giờ
 Hours: Giờ
@@ -926,25 +932,19 @@ Loading: Đang tải
 Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
 Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
 Minute: Phút
-Mondays: Thứ hai
 Next: Tiếp theo
 Number: Số
 Output: Đầu ra
 Please select the schedules that should also be enabled.: Vui lòng chọn lịch trình cũng sẽ được kích hoạt.
 Registration: Đăng ký
 Remove: Gỡ bỏ
-Saturdays: Thứ bảy
 Schedule cannot be enabled: Lịch trình không thể được kích hoạt
 Schedules below will be deleted: Lịch trình dưới đây sẽ bị xóa
 Status: Trạng thái
 Subject: Đối tượng
-Sundays: Chủ Nhật
 Sunrise / Sunset: Sáng / Chiều
-Thursdays: Thứ năm
 Try again later: Thử lại sau
-Tuesdays: Thứ ba
 Turning this device off will result in disabling all the associated schedules.: Tắt thiết bị này sẽ dẫn đến vô hiệu hóa tất cả các lịch trình liên quan.
-Wednesdays: Thứ tư
 When: Khi
 You will be logged out shortly: Bạn sẽ được đăng xuất ngay
 execute: Thực thi
@@ -953,38 +953,39 @@ hourly: hàng giờ
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

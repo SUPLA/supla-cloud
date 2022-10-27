@@ -285,6 +285,7 @@ Forgot your password?: Husker du ikke passordet?
 Forward active energy: Aktiv energi nedlastet
 Forward active energy balanced: Aktivt energiforbruk (vektorbalanse)
 Forward reactive energy: Passiv energi nedlastet
+Fridays: Fredager
 From IP: Fra IP adressen
 From anywhere: Fra hvert sted
 Full closing time: Total stengetid
@@ -419,6 +420,7 @@ Meters: Tellere
 Mobile Apps: Mobilapper
 Mode: Modus
 Modification: Modifisering
+Mondays: Mandag
 Move down or stop: Ned eller stopp
 Move up or stop: Opp eller stopp
 My OAuth apps: Mine apper OAuth
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – beskjed
 SUPLA – new client app has been added to your account: SUPLA - en ny klientapplikasjon er registrert
 SUPLA – new device has been added to your account: SUPLA - en ny enhet er lagt til kontoen din
 SUPLA.ORG Team: SUPLA.ORG Team
+Saturdays: Lørdager
 Save: Lagre
 Save and enable: Lagre og skru på
 Save changes: Lagre endringer
@@ -626,6 +629,7 @@ Store measurements history: Lagre målehistorikk
 Subject type: Enhetstype
 Success: Suksess
 Successful: Vellykket
+Sundays: Søndager
 Supla for devices: SUPLA for enheter
 Switch the device to configuration mode: Sett enheten i konfigurasjonsmodus
 THIS CANNOT BE UNDONE!: DU KAN IKKE ANGRE PÅ DENNE HANDLINGEN!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Dette
 This link is only valid for an hour.: Lenken er aktiv i en time.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Denne tidsplanmodusen er designet for tekniske eller svært tålmodige brukere. Det krever at tidsplanens utløsertider spesifiseres i crontab-notasjon, beriket med flere funksjoner som bare finnes i SUPLI. Hvis du ikke har sett crontabs før og fortsatt ønsker å bruke denne modusen, kan nettstedet crontab.guru være til hjelp for deg.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Denne utløseren brukes lokalt av enheten (f.eks. slår den på lyset, kontrollerer rullegardinen osv.). Hvis du tilordner den en annen handling, vil den lokale funksjonen bli deaktivert.
+Thursdays: Torsdager
 Timezone: Tidssone
 Toggle: Bytt
 Token does not exist: Token finnes ikke
@@ -688,6 +693,7 @@ Too many actions in this schedule.: For mange handlinger i én tidsplan.
 Too many channels in this group: For mange kanaler i denne gruppen
 Too many operations in this scene: For mange operasjoner på åstedet.
 Triggers: Utløsere
+Tuesdays: Tirsdager
 Turning this device off will cause its channels not working in the following features.: Å slå av enheten vil slutte kanalene å fungere i følgende elementer.
 Turning this device off will result in disabling features listed below.: Å slå av enheten vil også slå av følgende elementer.
 Type: Type
@@ -729,6 +735,7 @@ We will miss you: Vi kommer til å savne deg
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Vi gjør alt vi kan for at ikonene du sendte skal synes godt, men du vil få de beste resultatene hvis du sender PNG filer med gjennomsiktig bakgrunn og bredden {width} og høyden {height} piksler.
 We will use it only in justified situations.: Vi vil kun bruke den i berettiget situasjoner.
 Weather Station: Værstasjon
+Wednesdays: Onsdager
 Weight sensor: Vekt
 Welcome!: Hei!
 What this token is for?: Hva brukes denne token til?
@@ -914,7 +921,6 @@ Doors, Gates: Dører, Porter
 ENABLED: PÅ
 Email already exists: Denne e-post adressen eksisterer allerede
 Existing schedules: Eksisterende planer
-Fridays: Fredager
 Hi: Hei
 Hour: Time
 Hours: Timer
@@ -926,25 +932,19 @@ Loading: Lading
 Location password must be at least 4 characters.: Passord for lokalisering må ha minst 4 tegn.
 Location password must be no longer than 32 characters.: Passord for lokalisering kan ikke ha mer enn 32 tegn.
 Minute: Minutt
-Mondays: Mandag
 Next: Videre
 Number: Nummer
 Output: Utgang
 Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
 Registration: Registrering
 Remove: Fjern
-Saturdays: Lørdager
 Schedule cannot be enabled: Aktivering av planen mislykket
 Schedules below will be deleted: Planene nedenfor blir fjernet
 Status: Status
 Subject: Enhet
-Sundays: Søndager
 Sunrise / Sunset: Soloppgang / Solnedgang
-Thursdays: Torsdager
 Try again later: Prøv en gang til senere
-Tuesdays: Tirsdager
 Turning this device off will result in disabling all the associated schedules.: Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.
-Wednesdays: Onsdager
 When: Når
 You will be logged out shortly: Snart blir du logget ut.
 execute: utfør
@@ -953,38 +953,39 @@ hourly: Timesyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

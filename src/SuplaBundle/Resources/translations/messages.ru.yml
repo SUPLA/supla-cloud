@@ -285,6 +285,7 @@ Forgot your password?: Не помнишь пароль?
 Forward active energy: Продвижение активной энергии
 Forward active energy balanced: Активная энергия взята (векторный баланс)
 Forward reactive energy: Пассивная энергия взята
+Fridays: Пятницы
 From IP: C IP
 From anywhere: Отовсюду
 Full closing time: Общее время закрытия
@@ -419,6 +420,7 @@ Meters: Счетчики
 Mobile Apps: Мобильное приложение
 Mode: Режим
 Modification: Модификация
+Mondays: Понедельники
 Move down or stop: Вниз или остановить
 Move up or stop: Вверх или остановить
 My OAuth apps: Мои приложения OAuth
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Уве�
 SUPLA – new client app has been added to your account: SUPLA - зарегистрировано новое клиентское приложение
 SUPLA – new device has been added to your account: SUPLA - новое устройство добавлено в вашу учетную запись
 SUPLA.ORG Team: Команда SUPLA.ORG
+Saturdays: Субботы
 Save: Сохранить
 Save and enable: Сохранить и включить
 Save changes: Сохранить изменения
@@ -626,6 +629,7 @@ Store measurements history: Сохранять историю измерений
 Subject type: Тип субъекта
 Success: Успешно
 Successful: Выполнено успешно
+Sundays: Воскресенья
 Supla for devices: Supla для устройств
 Switch the device to configuration mode: Перевести устройство в режим конфигурации
 THIS CANNOT BE UNDONE!: ЭТУ ОПЕРАЦИЮ НЕВОЗМОЖНО ОТМЕНИТЬ!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Эт�
 This link is only valid for an hour.: Ссылка действительна в течении часа.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Этот режим графика предназначен для технических или очень терпеливых пользователей. Он требует, чтобы вы указали триггерные моменты графика в нотации crontab, обогащенной несколькими функциональными возможностями, встречающимися только в SUPLA. Если вы еще не встречались с crontab и по-прежнему хотите использовать этот режим, сайт crontab.guru может оказаться для вас полезным.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Этот триггер используется локально устройством (например, включает свет, управляет роллетой и т. д.) Если назначить ему другое действие, то локальная функция отключится.
+Thursdays: Четверги
 Timezone: Часовой пояс
 Toggle: переключать
 Token does not exist: индификатор не существует
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Слишком много действий �
 Too many channels in this group: Слишком много каналов в этой группе
 Too many operations in this scene: Слишком много операций на сцене.
 Triggers: Триггеры
+Tuesdays: Вторники
 Turning this device off will cause its channels not working in the following features.: Выключение устройства приведет к тому, что его каналы перестанут работать в следующих элементах.
 Turning this device off will result in disabling features listed below.: Выключение устройства также отключит следующие элементы.
 Type: Тип
@@ -729,6 +735,7 @@ We will miss you: Мы будем скучать без вас
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Мы сделаем все возможное, чтобы загруженные значки отображались оптимально, но наилучшие результаты вы получите, загрузив PNG-файлы с прозрачным фоном и шириной {width} и высотой {height} пикселей.
 We will use it only in justified situations.: Он используется только в обоснованных случаях.
 Weather Station: Метеостанция
+Wednesdays: Среды
 Weight sensor: Весы
 Welcome!: Добро пожаловать!
 What this token is for?: Для чего служит этот токен?
@@ -914,7 +921,6 @@ Doors, Gates: Двери, Калитки
 ENABLED: ИСПОЛЬЗУЕТСЯ
 Email already exists: Адрес электронной почты уже существует
 Existing schedules: Существующие графики
-Fridays: Пятницы
 Hi: Привет
 Hour: Час
 Hours: Часов
@@ -926,25 +932,19 @@ Loading: Зарядка
 Location password must be at least 4 characters.: Пароль для локализации должен быть не менее 4 символов.
 Location password must be no longer than 32 characters.: Пароль для локализации не может быть длиннее 32 символов.
 Minute: Минута
-Mondays: Понедельники
 Next: Далее
 Number: Номер
 Output: Выход
 Please select the schedules that should also be enabled.: Отметь графики, которые тоже должны быть включены.
 Registration: Регистрация
 Remove: Удалить
-Saturdays: Субботы
 Schedule cannot be enabled: Не получилось запустить график
 Schedules below will be deleted: Следующие графики будут удалены
 Status: Статус
 Subject: Субъект
-Sundays: Воскресенья
 Sunrise / Sunset: Восход/Закат
-Thursdays: Четверги
 Try again later: Попытайся повторно задать команду
-Tuesdays: Вторники
 Turning this device off will result in disabling all the associated schedules.: Выключение этого оборудования приведет  к одновременному выключению графиков, которые с ним соединены.
-Wednesdays: Среды
 When: Когда
 You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
 execute: выполни
@@ -953,38 +953,39 @@ hourly: Ежечасный цикл
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

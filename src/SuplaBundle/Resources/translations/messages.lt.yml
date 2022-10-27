@@ -285,6 +285,7 @@ Forgot your password?: Pamiršote slaptažodį?
 Forward active energy: Aktyvioji energija parsisiųsta
 Forward active energy balanced: Aktyvioji energija atsisiųsta (Vektorinis balansas)
 Forward reactive energy: Reaktyvioji energija parsisiųsta
+Fridays: Penktadieniai
 From IP: Iš IP adreso
 From anywhere: Iš kiekvienos vietos
 Full closing time: Bendras uždarymo laikas
@@ -419,6 +420,7 @@ Meters: Skaitikliai
 Mobile Apps: Mobiliosios programos
 Mode: Režimas
 Modification: Modifikavimas
+Mondays: Pirmadieniai
 Move down or stop: Žemyn arba sustabdyti
 Move up or stop: Aukštyn arba sustabdyti
 My OAuth apps: Mano programos OAuth
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Praneš
 SUPLA – new client app has been added to your account: SUPLA – užregistruota nauja kliento programa
 SUPLA – new device has been added to your account: SUPLA – naujas įrenginys pridėtas prie Jūsų paskyros
 SUPLA.ORG Team: SUPLA.ORG komanda
+Saturdays: Šeštadieniai
 Save: Išsaugoti
 Save and enable: Išsaugoti ir įjungti
 Save changes: Išsaugoti pakeitimus
@@ -626,6 +629,7 @@ Store measurements history: Išsaugoti matavimų istoriją
 Subject type: Subjekto tipas
 Success: Sėkmė
 Successful: Sėkmingai
+Sundays: Sekmadieniai
 Supla for devices: Supla įrenginiams
 Switch the device to configuration mode: Perjungti įrenginį į konfigūravimo režimą
 THIS CANNOT BE UNDONE!: ŠIS VEIKSMAS NEGRĮŽTAMAS!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Tai p
 This link is only valid for an hour.: Nuoroda bus aktyvi vieną valandą.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Šis tvarkaraščio režimas suprojektuotas galvojant apie technikus arba labai kantrius naudotojus. Jame reikia nurodyti tvarkaraščio paleidimo momentus crontab įraše, kuriame yra kelios papildomos funkcijos, kurios prieinamos tik SUPLA programoje. Jei anksčiau nedirbote su crontab‘ais, bet ir toliau norite naudotis šiuo režimu, crontab.guru svetainė gali būti Jums naudinga.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Šį trigerį įrenginys naudoja tik lokaliai (pvz. įjungia šviesą, valdo žaliuzę ir t.t.). Jei jam priskirsite kitą veiksmą tai lokali funkcija bus išjungta.
+Thursdays: Ketvirtadieniai
 Timezone: Laiko juosta
 Toggle: Perjungti
 Token does not exist: Atpažinimo ženklas neegzistuoja
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Viename tvarkaraštyje per daug veiksmų.
 Too many channels in this group: Šioje grupė per daug kanalų
 Too many operations in this scene: Scenoje per daug operacijų.
 Triggers: Trigeriai
+Tuesdays: Antradieniai
 Turning this device off will cause its channels not working in the following features.: Jei įrenginys bus išjungtas, žemiau nurodytose elementuose nustos veikti jo kanalai.
 Turning this device off will result in disabling features listed below.: Jei įrenginys bus išjungtas taip pat bus išjungti žemiau nurodyti elementai.
 Type: Tipas
@@ -729,6 +735,7 @@ We will miss you: Ilgėsimės Jūsų
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Mes padarysime viską, kas įmanoma,kad persiųstos piktogramos būtų rodomos kuo geriausiai, bet geriausius rezultatus pasieksite, siunčiant  PNG failus su skaidriu fonu, o taip pat {width} pločio ir {height} aukščio pikseliais.
 We will use it only in justified situations.: Panaudosime jį tik pagrįstais atvejais.
 Weather Station: Meteorologijos stotis
+Wednesdays: Trečiadieniai
 Weight sensor: Svoris
 Welcome!: Sveiki!
 What this token is for?: Kam yra skirtas šis tokenas?
@@ -914,7 +921,6 @@ Doors, Gates: Durys, Vartai
 ENABLED: ĮJUNGTA
 Email already exists: El. pašto adresas jau egzistuoja
 Existing schedules: Egzistuojantys tvarkaraščiai
-Fridays: Penktadieniai
 Hi: Sveiki
 Hour: Laikas
 Hours: Valandos
@@ -926,25 +932,19 @@ Loading: Krovimas
 Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
 Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
 Minute: Minutė
-Mondays: Pirmadieniai
 Next: Toliau
 Number: Numeris
 Output: Išvestis
 Please select the schedules that should also be enabled.: Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.
 Registration: Registracija
 Remove: Pašalinti
-Saturdays: Šeštadieniai
 Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
 Schedules below will be deleted: Šie tvarkaraščiai bus pašalinti
 Status: Statusas
 Subject: Subjektas
-Sundays: Sekmadieniai
 Sunrise / Sunset: Saulėtekis / Saulėlydis
-Thursdays: Ketvirtadieniai
 Try again later: Pabandykite dar kartą vėliau
-Tuesdays: Antradieniai
 Turning this device off will result in disabling all the associated schedules.: Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.
-Wednesdays: Trečiadieniai
 When: Kada
 You will be logged out shortly: Netrukus busite atjungti
 execute: atlik
@@ -953,38 +953,39 @@ hourly: Valandinis ciklas
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

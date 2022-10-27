@@ -285,6 +285,7 @@ Forgot your password?: Wachtwoord vergeten?
 Forward active energy: Opgenomen actieve energie
 Forward active energy balanced: Toevoer van actieve energie (vectorbalans)
 Forward reactive energy: Reactieve energie opgenomen
+Fridays: Vrijdagen
 From IP: Van een IP-adres
 From anywhere: Van een willekeurige plaats
 Full closing time: Totale sluitingstijd
@@ -419,6 +420,7 @@ Meters: Tellers
 Mobile Apps: Mobiele applicaties
 Mode: Modaliteiten
 Modification: Wijziging
+Mondays: Maandagen
 Move down or stop: Omlaag of stop
 Move up or stop: Omhoog of stop
 My OAuth apps: Mijn OAuth-applicaties
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - melding o
 SUPLA – new client app has been added to your account: SUPLA - nieuwe cliëntapplicatie geregistreerd
 SUPLA – new device has been added to your account: SUPLA - een nieuw apparaat is toegevoegd aan uw account
 SUPLA.ORG Team: Het SUPLA.ORG-team
+Saturdays: Zaterdagen
 Save: Opslaan
 Save and enable: Opslaan en inschakelen
 Save changes: Wijzigingen opslaan
@@ -626,6 +629,7 @@ Store measurements history: Houd een geschiedenis bij van uw metingen
 Subject type: Typ podmiotu
 Success: Succes
 Successful: Geslaagd
+Sundays: Zondagen
 Supla for devices: Supla voor apparaten
 Switch the device to configuration mode: Schakel het apparaat in configuratiemodus
 THIS CANNOT BE UNDONE!: DEZE OPERATIE KAN NIET WORDEN ONGEDAAN!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Dit i
 This link is only valid for an hour.: De link blijft één uur actief.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Deze planningsmodus is ontworpen met technische of zeer geduldige gebruikers in gedachten. Het vereist dat de tijdstippen waarop het schema wordt gestart worden opgegeven in crontab notatie, uitgebreid met enkele functionaliteiten die alleen in SUPLI te vinden zijn. Als u nog niet eerder met crontabs in aanraking bent gekomen en toch deze modus wilt gebruiken, kan de crontab.guru website nuttig voor u zijn.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Deze trigger wordt lokaal door het apparaat gebruikt (b.v. steekt een licht aan, bedient een rolluik, etc.) Als u er een andere actie aan toewijst, wordt de lokale functie uitgeschakeld.
+Thursdays: Donderdagen
 Timezone: Tijdzone
 Toggle: Schakel
 Token does not exist: Het token bestaat niet
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Te veel acties in één schema.
 Too many channels in this group: Te veel kanalen in deze groep
 Too many operations in this scene: Te veel handelingen in een scène.
 Triggers: Triggers
+Tuesdays: Diensdagen
 Turning this device off will cause its channels not working in the following features.: Als u het apparaat uitschakelt, zullen de kanalen niet meer werken in de volgende gevallen.
 Turning this device off will result in disabling features listed below.: Het uitschakelen van het apparaat zal ook de onderstaande elementen uitschakelen.
 Type: Type
@@ -729,6 +735,7 @@ We will miss you: We zullen je missen
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: We zullen ons best doen om de weergegeven pictogrammen op de beste manier te verzenden, maar u krijgt de beste resultaten door PNG-bestanden met een transparante achtergrond en pixels met breedte {width} en hoogte {height} te verzenden.
 We will use it only in justified situations.: We zullen het alleen gebruiken in gerechtvaardigde gevallen
 Weather Station: Weerstation
+Wednesdays: Woensdagen
 Weight sensor: Gewicht
 Welcome!: Welkom!
 What this token is for?: Wat doet dit token?
@@ -913,7 +920,6 @@ Doors, Gates: Deuren, poorten
 ENABLED: Ingeschakeld
 Email already exists: Email adres bestaat al
 Existing schedules: Bestaande schema's
-Fridays: Vrijdagen
 Hi: Hoi
 Hour: Uur
 Hours: Uren
@@ -925,25 +931,19 @@ Loading: Opladen
 Location password must be at least 4 characters.: Locatiewachtwoord moet minimaal 4 tekens lang zijn.
 Location password must be no longer than 32 characters.: Locatiewachtwoord mag niet langer zijn dan 32 tekens.
 Minute: Minuut
-Mondays: Maandagen
 Next: Doorgaan
 Number: Nummer
 Output: Uitgang
 Please select the schedules that should also be enabled.: Selecteer schema's die ook moeten worden opgenomen.
 Registration: Registratie
 Remove: Verwijder
-Saturdays: Zaterdagen
 Schedule cannot be enabled: Kan tijdschema niet inschakelen
 Schedules below will be deleted: De volgende tijdschema's worden verwijderd
 Status: Status
 Subject: Entiteit
-Sundays: Zondagen
 Sunrise / Sunset: Oost-West
-Thursdays: Donderdagen
 Try again later: Probeer het later eens opnieuw
-Tuesdays: Diensdagen
 Turning this device off will result in disabling all the associated schedules.: Als u dit apparaat uitschakelt, wordt ook de bijbehorende harmongoram uitgeschakeld.
-Wednesdays: Woensdagen
 When: Wanneer
 You will be logged out shortly: U wordt zo uitgelogd
 click Here: klik hier
@@ -953,38 +953,39 @@ hourly: Uur cyclus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

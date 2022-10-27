@@ -285,6 +285,7 @@ Forgot your password?: Esqueceu a sua senha?
 Forward active energy: Energia ativa direta
 Forward active energy balanced: Energia ativa consumida (balanço vetorial)
 Forward reactive energy: Energia reativa consumida
+Fridays: Sextas
 From IP: Desde o endereço IP
 From anywhere: Desde cada sítio
 Full closing time: Tempo inteiro do fecho
@@ -419,6 +420,7 @@ Meters: Contadores
 Mobile Apps: Aplicações móveis
 Mode: Modo
 Modification: Modificação
+Mondays: Segundas
 Move down or stop: Para baixo ou parar
 Move up or stop: Para cima ou parar
 My OAuth apps: Meus aplicativos OAuth
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Aviso d
 SUPLA – new client app has been added to your account: SUPLA - uma nova aplicação cliente foi registada
 SUPLA – new device has been added to your account: SUPLA - um novo dispositivo foi adicionado à sua conta
 SUPLA.ORG Team: Equipe da SUPLA.ORG
+Saturdays: Sábados
 Save: Gravar
 Save and enable: Gravar e ligar
 Save changes: Salvar modificações
@@ -626,6 +629,7 @@ Store measurements history: Armazenar histórico das medições
 Subject type: Tipo de entidade
 Success: Sucesso
 Successful: Sucedido
+Sundays: Domingos
 Supla for devices: Supla para os dispositivos
 Switch the device to configuration mode: Colocar o dispositivo no modo de configuração
 THIS CANNOT BE UNDONE!: ESSA OPERAÇÃO É IRREVERSÍVEL!!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Esta 
 This link is only valid for an hour.: A ligação permanecerá ativa por uma hora.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Este modo de agendamento é projetado para usuários técnicos ou muito pacientes. Exige que os tempos de disparo do agendamento sejam especificados em notação crontab, enriquecida com diversas funcionalidades encontradas apenas no SUPLA. Se ainda não teve contacto com crontabs antes e ainda deseja usar este modo, o site crontab.guru pode ser útil.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Este gatilho é usado localmente pelo dispositivo (por exemplo, acende uma luz, controla uma persiana, etc.) Se lhe atribuir uma ação diferente, o recurso local será desabilitado.
+Thursdays: Quintas
 Timezone: Fuso horário
 Toggle: Trocar
 Token does not exist: O token não existe
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Muitas ações em um agendamento.
 Too many channels in this group: Demasiados canais neste grupo
 Too many operations in this scene: Muitas operações no cenário.
 Triggers: Gatilhos
+Tuesdays: Terças
 Turning this device off will cause its channels not working in the following features.: Desligar o dispositivo fará com que os seus canais parem de funcionar nos elementos abaixo.
 Turning this device off will result in disabling features listed below.: Desligar o dispositivo também desligará os elementos abaixo.
 Type: Tipo
@@ -729,6 +735,7 @@ We will miss you: Sentiremos sua falta
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Faremos o nosso melhor para que os ícones enviados apareçam melhor, mas para você obter os melhores resultados, faça o upload de arquivos PNG com fundo transparente e largura {width} e altura {height} pixels.
 We will use it only in justified situations.: Vamos usá-lo apenas em casos justificados.
 Weather Station: Estação meteorológica
+Wednesdays: Quartas
 Weight sensor: Peso
 Welcome!: Seja bem-vindo!
 What this token is for?: Para que serve esse token?
@@ -914,7 +921,6 @@ Doors, Gates: Portas, Portões
 ENABLED: WLIGADO
 Email already exists: E-mail já existe
 Existing schedules: Agendas existentes
-Fridays: Sextas
 Hi: Olá
 Hour: Hora
 Hours: Horas
@@ -926,25 +932,19 @@ Loading: A carregar
 Location password must be at least 4 characters.: A senha para o localizador deve ter pelo menos quatro caracteres.
 Location password must be no longer than 32 characters.: A senha para o localizador não pode ser maior que 32 caracteres.
 Minute: Minuto
-Mondays: Segundas
 Next: Continuar
 Number: Número
 Output: Saída
 Please select the schedules that should also be enabled.: Marque as agendas que também deveriam ser ligadas.
 Registration: Registar
 Remove: Suprimir
-Saturdays: Sábados
 Schedule cannot be enabled: Falha ao ativar a agenda
 Schedules below will be deleted: A programação abaixo será apagada
 Status: Status
 Subject: Sujeito
-Sundays: Domingos
 Sunrise / Sunset: Nascer do sol / Pôr-do-sol
-Thursdays: Quintas
 Try again later: Tente novamente mais tarde
-Tuesdays: Terças
 Turning this device off will result in disabling all the associated schedules.: Desligar este dispositivo fará com que as agendas associadas fiquem desligadas igualmente.
-Wednesdays: Quartas
 When: Quando
 You will be logged out shortly: Será desligado dentro de um momento
 execute: realizar
@@ -953,38 +953,39 @@ hourly: Ciclo horário
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

@@ -285,6 +285,7 @@ Forgot your password?: Elfelejtetted a jelszavad?
 Forward active energy: Fogyasztott aktív energia
 Forward active energy balanced: Aktív energiafogyasztás (Egyensúlyi vektor)
 Forward reactive energy: Reaktív energiafogyasztás
+Fridays: Péntekek
 From IP: IP-címről
 From anywhere: Bárhonnan
 Full closing time: Teljes bezárási idő
@@ -419,6 +420,7 @@ Meters: Mérőórák
 Mobile Apps: Okostelefon-alkalmazás
 Mode: Mód
 Modification: Módosítás
+Mondays: Hétfők
 Move down or stop: Lefelé mozgat, vagy leállít
 Move up or stop: Felfelé mozgat vagy leállít
 My OAuth apps: Saját OAuth alkalmazások
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Értesít
 SUPLA – new client app has been added to your account: SUPLA – új ügyfélalkalmazás regisztrálva
 SUPLA – new device has been added to your account: SUPLA - új eszköz hozzáadva a fiókjához
 SUPLA.ORG Team: A SUPLA.ORG Csapata
+Saturdays: Szombatok
 Save: Mentés
 Save and enable: Mentés és bekapcsolás
 Save changes: Változtatások mentése
@@ -626,6 +629,7 @@ Store measurements history: Mentse a mérési előzményeket
 Subject type: Entitás típusa
 Success: Siker
 Successful: Sikeres
+Sundays: Vasárnapok
 Supla for devices: Supla bizonyos eszközökre
 Switch the device to configuration mode: Csatlakoztassa a készüléket konfigurációs módba
 THIS CANNOT BE UNDONE!: EZT A MŰVELETET NEM LEHET VISSZAVONNI!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Ez ol
 This link is only valid for an hour.: A link egy órán keresztül aktív lesz.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ez az ütemterv a műszaki beállítottságú vagy nagyon türelmes felhasználók számára készült. Meg kell adni az ütemterv végrehajtási módját a crontab megjelölésben, amelyet néhány csak a SUPLI-ban található funkció egészít ki. Ha még soha nem találkozott a crontabokkal, és ennek ellenére szeretné használni ezt a módot, a crontab.guru oldal a segíthet Önnek.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ezt az eseményindítót a készülék helyileg használja (például bekapcsolja a fényt, vezérli a redönyt stb.) A helyi funkció kikapcsolódik, ha más műveletet rendel hozzá.
+Thursdays: Csütörtökök
 Timezone: Időzóna
 Toggle: Átkapcsolás
 Token does not exist: A token nem létezik
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Túl sok munka egy ütemtervben.
 Too many channels in this group: Túl sok csatorna van ebben a csoportban
 Too many operations in this scene: Túl sok művelet a jelenetben.
 Triggers: Eseményindítók
+Tuesdays: Keddek
 Turning this device off will cause its channels not working in the following features.: A készülék kikapcsolásával a csatornák az alábbi elemekben nem fognak működni.
 Turning this device off will result in disabling features listed below.: A készülék kikapcsolásával az alábbi elemeket is kikapcsolja.
 Type: Típus
@@ -729,6 +735,7 @@ We will miss you: Hiányozni fog
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Mindent megteszünk annak érdekében, hogy a megjelenített ikonokat a lehető legjobb módon láthatóak legyenek, de a legjobb eredményt akkor érheti el, ha átlátszó háttérrel és {width} szélességgel  és {height} magassággal  képpontos PNG fájlokat küld.
 We will use it only in justified situations.: Csak indokolt esetekben fogjuk alkalmazni.
 Weather Station: Időjárás
+Wednesdays: Szerdák
 Weight sensor: Súly
 Welcome!: Helló!
 What this token is for?: Mire való ez a token?
@@ -913,7 +920,6 @@ Doors, Gates: Ajtók,  Kapuk
 ENABLED: BEKAPCSOLVA
 Email already exists: Az e-mail cím már létezik
 Existing schedules: Meglévő ütemtervek
-Fridays: Péntekek
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: Nem érkezett üzenet a fiókját aktiváló linkkel? Ellenőrizze, hogy nincs-e a SPAM (levélszemét) mappában. A [ide] gombra kattintva ismét elküldheti.
 Hi: Szia!
 Hour: Óra
@@ -926,7 +932,6 @@ Loading: Töltés
 Location password must be at least 4 characters.: A helyazonosító jelszónak legalább 4 karakter hosszúnak kell lennie.
 Location password must be no longer than 32 characters.: A helyazonosító jelszó nem lehet hosszabb 32 karakternél.
 Minute: Perc
-Mondays: Hétfők
 Next: Tovább
 Number: Szám
 Output: Kilépés
@@ -935,19 +940,14 @@ Registration: Regisztráció
 Registration of new I/O devices: Eszköz regisztráció
 Registration of new clients: Ügyfél regisztráció
 Remove: Eltávolítás
-Saturdays: Szombatok
 Schedule cannot be enabled: Az ütemezés engedélyezése sikertelen
 Schedules below will be deleted: Az alábbi ütemtervek törlésre kerülnek
 Status: Státusz
 Subject: Entitás
-Sundays: Vasárnapok
 Sunrise / Sunset: Kelet / Nyugat
-Thursdays: Csütörtökök
 Try again later: Kérjük, próbálja meg újra később.
-Tuesdays: Keddek
 Turning this device off will result in disabling all the associated schedules.: Az eszköz kikapcsolásakor kikapcsolódnak a hozzá tartozó harmonográmok is.
 We have just sent you an activation link. Be patient.: Nemrég elküldtük a fiók aktiválására szolgáló linket tartalmazó üzenetet. Köszönjük türelmét.
-Wednesdays: Szerdák
 When: Mikor
 You will be logged out shortly: Hamarosan ki lesz léptetve
 execute: végrehajtás
@@ -957,38 +957,39 @@ will expire: lejár
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

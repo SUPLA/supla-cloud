@@ -10,14 +10,15 @@
                         type="button"
                         class="btn btn-red ml-1">
                         <i class="pe-7s-trash"></i>
-                        {{ $t('Delete voltage deviations history') }}
+                        {{ $t('Delete voltage aberrations history') }}
                     </button>
                 </div>
                 <div class="text-center">
                     <label class="checkbox2">
                         <input type="checkbox"
-                            v-model="daysWithIssuesOnly">
-                        {{ $t('Show days with issues only') }}
+                            v-model="daysWithIssuesOnly"
+                            @change="selectVisibleStat()">
+                        {{ $t('Hide days without aberrations') }}
                     </label>
                 </div>
                 <carousel
@@ -36,7 +37,11 @@
                             ]"
                             @click="selectDay(date)">
                             <p class="day">{{ date.day.toLocaleString({month: 'numeric', day: 'numeric'}) }}</p>
-                            <p class="sec">{{ formatDuration(date.secTotal) }}</p>
+                            <p class="sec" v-if="date.secTotal" :title="$t('Number of aberrations')">
+                                <span class="glyphicon glyphicon-arrow-down below-threshold-indicator"></span> {{ date.countBelowTotal }}
+                                <span class="glyphicon glyphicon-arrow-up above-threshold-indicator"></span> {{ date.countAboveTotal }}
+                            </p>
+                            <p class="sec" v-else><span class="glyphicon glyphicon-ok-sign text-success"></span></p>
                         </a>
                     </slide>
                 </carousel>
@@ -50,14 +55,11 @@
                         v-for="(v, $index) in selectedDayViolations"
                         :key="$index">
                         <p class="day">{{ v.label }}</p>
-                        <p class="sec">
-                            <span class="pe-7s-angle-up-circle"></span>
-                            {{ formatDuration(v.secAboveTotal) }}
+                        <p class="sec" v-if="v.secTotal" :title="$t('Number of aberrations')">
+                            <span class="glyphicon glyphicon-arrow-down below-threshold-indicator"></span> {{ v.countBelowTotal }}
+                            <span class="glyphicon glyphicon-arrow-up above-threshold-indicator"></span> {{ v.countAboveTotal }}
                         </p>
-                        <p class="sec">
-                            <span class="pe-7s-angle-down-circle"></span>
-                            {{ formatDuration(v.secBelowTotal) }}
-                        </p>
+                        <p class="sec" v-else><span class="glyphicon glyphicon-ok-sign text-success"></span></p>
                     </a>
                 </div>
                 <div class="voltage-logs-list-container">
@@ -73,7 +75,7 @@
                                 </h4>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h4>{{ $t('Violation info') }}</h4>
+                                        <h4>{{ $t('Aberration info') }}</h4>
                                         <dl class="dl-grid">
                                             <dt>{{ $t('Phase number') }}</dt>
                                             <dd>{{ log.phaseNo }}</dd>
@@ -90,11 +92,11 @@
                                             {{ $t('Below threshold') }}
                                         </h4>
                                         <dl class="dl-grid">
-                                            <dt>{{ $t('Violations count') }}</dt>
+                                            <dt>{{ $t('Aberrations count') }}</dt>
                                             <dd>{{ log.countBelow }}</dd>
                                             <dt>{{ $t('Total time') }}</dt>
                                             <dd>{{ log.secBelow }} {{ $t('sec.') }}</dd>
-                                            <dt>{{ $t('Longest violation') }}</dt>
+                                            <dt>{{ $t('Longest aberration') }}</dt>
                                             <dd>{{ log.maxSecBelow }} {{ $t('sec.') }}</dd>
                                             <dt>{{ $t('Minimum voltage') }}</dt>
                                             <dd :class="{'text-danger text-bold': log.countBelow > 0}">{{ log.minVoltage }} V</dd>
@@ -107,11 +109,11 @@
                                             {{ $t('Above threshold') }}
                                         </h4>
                                         <dl class="dl-grid">
-                                            <dt>{{ $t('Violations count') }}</dt>
+                                            <dt>{{ $t('Aberrations count') }}</dt>
                                             <dd>{{ log.countAbove }}</dd>
                                             <dt>{{ $t('Total time') }}</dt>
                                             <dd>{{ log.secAbove }} {{ $t('sec.') }}</dd>
-                                            <dt>{{ $t('Longest violation') }}</dt>
+                                            <dt>{{ $t('Longest aberration') }}</dt>
                                             <dd>{{ log.maxSecAbove }} {{ $t('sec.') }}</dd>
                                             <dt>{{ $t('Maximum voltage') }}</dt>
                                             <dd :class="{'text-danger text-bold': log.countAbove > 0}">{{ log.maxVoltage }} V</dd>
@@ -130,7 +132,7 @@
             class="modal-warning"
             @confirm="deleteMeasurements()"
             @cancel="deleteConfirm = false"
-            :header="$t('Are you sure you want to delete the entire voltage deviations history saved for this channel?')">
+            :header="$t('Are you sure you want to delete the entire voltage aberrations history saved for this channel?')">
         </modal-confirm>
     </div>
 </template>
@@ -168,17 +170,21 @@
                         log.date = date;
                         log.day = date.toFormat('ddMM');
                         if (!dayStats[log.day]) {
-                            dayStats[log.day] = 0;
+                            dayStats[log.day] = {secTotal: 0, countBelowTotal: 0, countAboveTotal: 0};
                         }
-                        dayStats[log.day] += log.secTotal;
+                        dayStats[log.day].secTotal += log.secTotal;
+                        dayStats[log.day].countBelowTotal += log.countBelow;
+                        dayStats[log.day].countAboveTotal += log.countAbove;
                         return log;
                     });
                     if (this.logs.length) {
                         const minDate = DateTime.fromSeconds(this.logs[0].date_timestamp).endOf('day');
                         for (let day = DateTime.now().endOf('day'); day >= minDate; day = day.minus({days: 1})) {
-                            const secTotal = dayStats[day.toFormat('ddMM')] || 0;
+                            const secTotal = dayStats[day.toFormat('ddMM')]?.secTotal || 0;
+                            const countBelowTotal = dayStats[day.toFormat('ddMM')]?.countBelowTotal || 0;
+                            const countAboveTotal = dayStats[day.toFormat('ddMM')]?.countAboveTotal || 0;
                             const dayFormatted = day.toFormat('ddMM');
-                            this.stats.push({day, dayFormatted, secTotal});
+                            this.stats.push({day, dayFormatted, secTotal, countBelowTotal, countAboveTotal});
                             this.maxSecTotal = Math.max(this.maxSecTotal, secTotal);
                         }
                         this.selectDay(this.stats[0]);
@@ -194,14 +200,19 @@
                 for (let dayPart = stat.day.startOf('day'); dayPart < stat.day.endOf('day'); dayPart = dayPart.plus({hours: 6})) {
                     const nextPart = dayPart.plus({hours: 6});
                     const violationsForPart = violations.filter(log => dayPart <= log.date && log.date < nextPart);
-                    const secBelowTotal = violationsForPart.reduce((sum, log) => log.secBelow + sum, 0);
-                    const secAboveTotal = violationsForPart.reduce((sum, log) => log.secAbove + sum, 0);
+                    const countBelowTotal = violationsForPart.reduce((sum, log) => log.countBelow + sum, 0);
+                    const countAboveTotal = violationsForPart.reduce((sum, log) => log.countAbove + sum, 0);
                     const label = dayPart.toLocaleString(DateTime.TIME_SIMPLE) + ' - ' + nextPart.minus({minutes: 1}).toLocaleString(DateTime.TIME_SIMPLE);
-                    const secTotal = secBelowTotal + secAboveTotal;
+                    const secTotal = violationsForPart.reduce((sum, log) => log.secTotal + sum, 0);
                     this.maxSecTotalInSelectedDay = Math.max(this.maxSecTotalInSelectedDay, secTotal);
-                    this.selectedDayViolations.push({label, violations: violationsForPart, secBelowTotal, secAboveTotal, secTotal});
+                    this.selectedDayViolations.push({label, violations: violationsForPart, countBelowTotal, countAboveTotal, secTotal});
                 }
                 this.selectedDayPart = 0;
+            },
+            selectVisibleStat() {
+                if (this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay) === -1) {
+                    this.selectDay(this.statsToShow[0]);
+                }
             },
             formatDuration(duration) {
                 return `${Math.floor(duration / 3600)}h ${Math.floor(((duration % 3600) / 60))}m ${Math.floor(duration % 60)}s`;
@@ -300,5 +311,13 @@
                 background-color: lighten($gradientColor, 55% - ($i * 5%));
             }
         }
+    }
+
+    .below-threshold-indicator {
+        color: #1b6d85;
+    }
+
+    .above-threshold-indicator {
+        color: #761c19;
     }
 </style>

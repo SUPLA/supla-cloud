@@ -285,6 +285,7 @@ Forgot your password?: Ați uitat parola?
 Forward active energy: Energie activă consumată
 Forward active energy balanced: Energia activă preluată (Balanță vectorială)
 Forward reactive energy: Energie reactivă preluată
+Fridays: Zilele de vineri
 From IP: De la adresa IP
 From anywhere: De oriunde
 Full closing time: Timp total de închidere
@@ -419,6 +420,7 @@ Meters: Contoare
 Mobile Apps: Aplicații mobile
 Mode: Mod
 Modification: Modificare
+Mondays: Zilele de luni
 Move down or stop: Jos sau opriți
 Move up or stop: Sus sau opriți
 My OAuth apps: Aplicațiile mele OAuth
@@ -565,6 +567,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Notific
 SUPLA – new client app has been added to your account: SUPLA - a fost înregistrată o nouă aplicație client
 SUPLA – new device has been added to your account: SUPLA - un dispozitiv nou a fost adăugat în contul dvs
 SUPLA.ORG Team: Echipa SUPLA.ORG
+Saturdays: Zilele de sâmbătă
 Save: Salvează
 Save and enable: Salvează și activează
 Save changes: Salvează modificările
@@ -626,6 +629,7 @@ Store measurements history: Stocați istoricul măsurătorilor
 Subject type: Tipul entității
 Success: Succes
 Successful: Reușite
+Sundays: Zilele de duminică
 Supla for devices: Supla pentru dispozitive
 Switch the device to configuration mode: Puneți dispozitivul în modul de configurare
 THIS CANNOT BE UNDONE!: ACEASTĂ OPERAȚIUNE NU POATE FI REVOCATĂ!
@@ -681,6 +685,7 @@ This is the list of applications you have granted access to your account.: Aceas
 This link is only valid for an hour.: Linkul va fi activ timp de o oră.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Acest mod de programare este conceput pentru utilizatorii tehnici sau foarte răbdători. Necesită indicarea momentelor de declanșare a programului în notația crontab, îmbogățită cu mai multe funcționalități găsite doar în SUPLI. Dacă nu ați întâlnit crontab-uri înainte și încă doriți să utilizați acest mod, site-ul web crontab.guru vă poate fi de ajutor.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Acest declanșator este utilizat local de dispozitiv (de exemplu, aprinde lumina, comandă jaluzea etc.). Dacă îi atribuiți o altă acțiune, funcția locală va fi dezactivată.
+Thursdays: Zilele de joi
 Timezone: Fus orar
 Toggle: Comutare
 Token does not exist: Token-ul nu există
@@ -688,6 +693,7 @@ Too many actions in this schedule.: Prea multe acțiuni într-un singur program.
 Too many channels in this group: Prea multe canale în această grupă
 Too many operations in this scene: Prea multe operațiuni în scenă.
 Triggers: Declanșatoare
+Tuesdays: Zilele de marți
 Turning this device off will cause its channels not working in the following features.: Oprirea dispozitivului va face ca canalele acestuia să nu mai funcționeze în următoarele elemente.
 Turning this device off will result in disabling features listed below.: Oprirea dispozitivului va dezactiva și elemente de mai jos.
 Type: Tip
@@ -729,6 +735,7 @@ We will miss you: Ne va fi dor de tine
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Vom face tot posibilul pentru ca pictogramele trimise să fie afișate cât mai bine, dar veți obține cele mai bune rezultate trimițând fișiere PNG cu un fond transparent și o lățime de {width} și o înălțime de {height} pixeli.
 We will use it only in justified situations.: Îl vom folosi numai în cazuri justificate.
 Weather Station: Stație meteorologică
+Wednesdays: Zilele de miercuri
 Weight sensor: Greutate
 Welcome!: Salut!
 What this token is for?: Pentru ce servește acest token?
@@ -913,7 +920,6 @@ Doors, Gates: Uși, Porți
 ENABLED: ACTIVAT
 Email already exists: Adresa de e-mail există deja
 Existing schedules: Planificări existente
-Fridays: Zilele de vineri
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: Mesajul cu linkul de activare a contul dvs. nu a sosit? Asigurați-vă că nu se află în folderul SPAM (junk mail). Puteți, de asemenea, să faceți clic [aici] pentru a-l retrimite.
 Hi: Salut
 Hour: Ora
@@ -926,7 +932,6 @@ Loading: Încărcare
 Location password must be at least 4 characters.: Parola pentru locație trebuie să aibă cel puțin 4 caractere.
 Location password must be no longer than 32 characters.: Parola pentru locație nu poate fi mai lungă de 32 de caractere.
 Minute: Minut
-Mondays: Zilele de luni
 Next: Mai departe
 Number: Număr
 Output: Ieșire
@@ -935,19 +940,14 @@ Registration: Înregistrare
 Registration of new I/O devices: Înregistrarea dispozitivelor
 Registration of new clients: Înregistrarea clienților
 Remove: Șterge
-Saturdays: Zilele de sâmbătă
 Schedule cannot be enabled: Planul de execuție nu a fost activat
 Schedules below will be deleted: Următoarele planuri de execuție vor fi șterse
 Status: Stare
 Subject: Entitate
-Sundays: Zilele de duminică
 Sunrise / Sunset: Est / Vest
-Thursdays: Zilele de joi
 Try again later: Încercați din nou mai târziu
-Tuesdays: Zilele de marți
 Turning this device off will result in disabling all the associated schedules.: Dezactivarea acestui dispozitiv va dezactiva, de asemenea, planurile de executare asociate cu acesta.
 We have just sent you an activation link. Be patient.: Tocmai a fost trimis un mesaj cu un link pentru activarea contului dvs. Răbdare.
-Wednesdays: Zilele de miercuri
 When: Când
 You will be logged out shortly: Îndată veți fi deconectat
 execute: execută
@@ -957,38 +957,39 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Aberration info: ~
+Aberrations count: ~
 Above threshold: ~
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: ~
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
 Automatic closing rule: ~
 Average voltage: ~
 Below threshold: ~
 Change: ~
 Close after: ~
 Close automatically: ~
-Delete voltage deviations history: ~
+Delete voltage aberrations history: ~
 Device might be sleeping: ~
 Error when communicating the AD. Try again in a while.: ~
 Estimated execution time: ~
 Gate's state verification: ~
+Hide days without aberrations: ~
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest violation: ~
+Longest aberration: ~
 Lower voltage threshold: ~
 Maximum voltage: ~
 Measurement window: ~
 Minimum voltage: ~
+Number of aberrations: ~
 Phase number: ~
 Register your SUPLA Cloud: ~
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-Show days with issues only: ~
 The device might be in a sleep mode.: ~
 The scene would execute too many operations.: ~
 Total time: ~
 Upper voltage threshold: ~
 Verification method: ~
-Violation info: ~
-Violations count: ~
-Voltage deviations: ~
+Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~

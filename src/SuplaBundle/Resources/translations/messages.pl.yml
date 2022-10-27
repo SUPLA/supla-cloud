@@ -19,6 +19,9 @@ AM2301 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2301
 AM2302 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności AM2302
 API documentation: Dokumentacja API
 API rate limits: Limit żądań do API
+Aberration info: Szczegóły aberracji
+Aberrations count: Liczba aberracji
+Above threshold: Powyżej progu
 Access ID: ID dostępu
 Access ID is not active right now.: Identyfikator dostępu nie jest teraz aktywny.
 Access Identifier: Identyfikator Dostępu
@@ -64,6 +67,7 @@ Applications: Aplikacje
 Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
 Are you sure you want to change channel’s function?: Czy na pewno chcesz zmienić funkcję kanału?
 Are you sure you want to delete the entire measurement history saved for this channel?: Czy na pewno chcesz usunąć całą historię pomiarów zgromadzoną dla tego kanału?
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Czy jesteś pewny/a, że chcesz usunąć całą historię aberracji napięcia tego kanału?
 Are you sure you want to delete this OAuth application?: Czy na pewno chcesz usunąć tą aplikację OAuth?
 Are you sure you want to delete this channel group?: Czy na pewno chcesz usunąć tę grupę kanałów?
 Are you sure you want to delete this client?: Czy na pewno chcesz usunąć tę aplikację kliencką?
@@ -93,12 +97,15 @@ Authorize the application, so that it can access your account.: Autoryzuj aplika
 Authorized: Zautoryzowano
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Automatic calibration: Automatyczna kalibracja
+Automatic closing rule: Automatyczne zamykanie bramy
 Automation: Automatyka
+Average voltage: Średnie napięcie
 Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
 Based on sunrise or sunset: W oparciu o wschód / zachód
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Be right back!: Wróć za kilka chwil!
+Below threshold: Poniżej progu
 Bottom position: Dolna pozycja
 Bridge: Most
 Brightness: Jasność
@@ -162,6 +169,8 @@ Client registration: Rejestracja klientów
 Client’s Apps: Aplikacje klienckie
 Client’s app has been deleted: Aplikacja kliencka została usunięta
 Close: Zamknij
+Close after: Zamknij po
+Close automatically: Zamykaj automatycznie
 Close partially: Zamknij częściowo
 Color: Kolor
 Color brightness: Jasność koloru
@@ -205,6 +214,7 @@ Default: domyślnie
 Delete: Usuń
 Delete measurement history: Usuń historię pomiarów
 Delete my account: Usuń moje konto
+Delete voltage aberrations history: Usuń historię aberracji napięcia
 Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Usunięcie Twojego konta spowoduje także usunięcie wszystkich Twoich danych, między innymi Twoich połączonych urządzeń, skonfigurowanych kanałów, linków bezpośrednich i historii pomiarów. Usunięcie konta jest nieodwracalne.
 Depth: Głębokość
 Depth sensor: Czujnik głębokości
@@ -214,6 +224,7 @@ Device: Urządzenie
 'Device ID: %deviceId%': 'Identyfikator urządzenia: %deviceId%'
 Device channel value: Wartość z urządzenia
 Device is disconnected.: Urządzenie jest rozłączone.
+Device might be sleeping: Urządzenie może być w trybie uśpienia
 'Device name: %deviceName%': 'Nazwa urządzenia: %deviceName%'
 Device should be now in configuration mode.: Urządzenie powinno być teraz w trybie konfiguracji.
 'Device software version: %deviceSoftwareVersion%': 'Wersja oprogramowania: %deviceSoftwareVersion%'
@@ -263,7 +274,9 @@ Enter your email address: Wprowadź Twój adres email
 Enter your password to prevent automatic logout.: Podaj swoje hasło by zapobiec automatycznemu wylogowaniu.
 Entering configuration mode is unsupported in the firmware.: Zdalne przełączanie w tryb konfiguracji jest niewspierane przez oprogramowanie sprzętowe urządzenia.
 Error: Błąd
+Error when communicating the AD. Try again in a while.: Błąd przy komunikacji z AD. Spróbuj ponownie za chwilę.
 Error when communicating the server. Try again in a while.: Wystąpił problem w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę.
+Estimated execution time: Szacowany czas wykonania
 Every: Co
 Example Auth URL: Przykładowy URL autoryzacyjny
 Execute: Wykonaj
@@ -286,6 +299,7 @@ Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
 Forward active energy balanced: Energia czynna pobrana (Bilans wektorowy)
 Forward reactive energy: Energia bierna pobrana
+Fridays: Piątki
 From IP: Z adresu IP
 From anywhere: Z każdego miejsca
 Full closing time: Całkowity czas zamknięcia
@@ -315,6 +329,7 @@ Grant access: Przyznaj dostęp
 Guru Meditation: Guru Meditation
 HFD4 Relay: Przekaźnik HFD4
 Heat meter: Licznik ciepła
+Hide days without aberrations: Ukryj dni bez aberracji
 History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
 Home+ Heater: Grzałka Home+
@@ -335,6 +350,7 @@ ID: ID
 INACTIVE: NIEAKTYWNA
 Icon: Ikona
 Idle: Bezczynne
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Jeśli urządzenie jest obecnie w trybie uśpienia, zmiany w konfiguracji zostaną wprowadzone po jego wybudzeniu.
 If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jeśli urządzenie jest teraz uśpione, zostanie wprowadzone w tryb konfiguracjiu przy jego najbliższym wybudzeniu.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Jeśli link nie działa, skopiuj go do paska adresu przeglądarki internetowej lub wpisz ręcznie.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.
@@ -401,6 +417,8 @@ Location limit has been exceeded: Limit lokalizacji został przekroczony
 Location name: Nazwa lokalizacji
 Locations: Lokalizacje
 Login: Logowanie
+Longest aberration: Najdłuższa aberracja
+Lower voltage threshold: Próg niskiego napięcia
 MQTT Broker: Broker MQTT
 MQTT Broker Username: Nazwa użytkownika
 MQTT Broker is disabled.: Broker MQTT jest wyłączony.
@@ -417,11 +435,15 @@ Manual: Instrukcja
 Manually closed: Zamknięty manualnie
 Maximum delay is 60 minutes.: Maksymalne opóźnienie to 60 minut.
 Maximum filesize limit is {limit}.: Maksymalny rozmiar pliku to {limit}.
+Maximum voltage: Najwyższe napięcie
+Measurement window: Czas pomiaru
 Meter value: Stan licznika
 Meters: Liczniki
+Minimum voltage: Najniższe napięcie
 Mobile Apps: Aplikacje mobilne
 Mode: Tryb
 Modification: Modyfikacja
+Mondays: Poniedziałki
 Move down or stop: W dół lub zatrzymaj
 Move up or stop: W górę lub zatrzymaj
 My OAuth apps: Moje aplikacje OAuth
@@ -461,6 +483,7 @@ No. of devices: Liczba urządzeń
 No. of locations: Liczba lokalizacji
 None: Brak
 None (channel disabled): Brak (kanał wyłączony)
+Number of aberrations: Liczba aberracji
 Number of attempts to close: Liczba prób zamknięcia
 Number of attempts to open: Liczba prób otwarcia
 Number of sections: Liczba sekcji
@@ -496,6 +519,7 @@ Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
+Phase number: Faza
 Please choose the schedule subject first.: Najpierw wybierz czym harmonogram ma sterować
 Please click the following link to reset your %cloudHost% password.: Kliknij poniższy link w celu zresetowania Twojego hasła do aplikacji %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.
@@ -570,6 +594,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Powiado
 SUPLA – new client app has been added to your account: SUPLA – zarejestrowano nową aplikację kliencką
 SUPLA – new device has been added to your account: SUPLA - nowe urządzenie zostało dodane do Twojego konta
 SUPLA.ORG Team: Zespół SUPLA.ORG
+Saturdays: Soboty
 Save: Zapisz
 Save and enable: Zapisz i włącz
 Save changes: Zapisz zmiany
@@ -631,6 +656,7 @@ Store measurements history: Przechowuj historię pomiarów
 Subject type: Typ podmiotu
 Success: Sukces
 Successful: Udane
+Sundays: Niedziele
 Supla for devices: Supla na urządzenia
 Switch the device to configuration mode: Przełącz urządzenie w tryb konfiguracyjny
 THIS CANNOT BE UNDONE!: TEJ OPERACJI NIE DA SIĘ COFNĄĆ!
@@ -688,13 +714,16 @@ This is the list of applications you have granted access to your account.: To je
 This link is only valid for an hour.: Link będzie aktywny przez godzinę.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ten wyzwalacz jest używany lokalnie przez urządzenie (np. włącza światło, steruje roletą itd.) Jeśli przypiszesz mu inną akcję, to lokalna funkcja zostanie wyłączona.
+Thursdays: Czwartki
 Timezone: Strefa czasowa
 Toggle: Przełącz
 Token does not exist: Token nie istnieje
 Too many actions in this schedule.: Zbyt wiele akcji w jednym harmonogramie.
 Too many channels in this group: Zbyt dużo kanałów w tej grupie
 Too many operations in this scene: Zbyt wiele operacji w scenie.
+Total time: Całkowity czas
 Triggers: Wyzwalacze
+Tuesdays: Wtorki
 Turning this device off will cause its channels not working in the following features.: Wyłączenie urządzenia spowoduje, że jego kanały przestaną działać w poniższych elementach.
 Turning this device off will result in disabling features listed below.: Wyłączenie urządzenia spowoduje także wyłączenie poniższych elementów.
 Type: Typ
@@ -707,6 +736,7 @@ Unsupported function: Niewspierana funkcja
 Unsupported type: Niewspierany typ
 Update in progress: Trwa aktualizacja
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Przesłane pliki nie naruszają dobrych obyczajów, praw autorskich oraz praw osób trzecich, a ja mam prawo z nich korzystać.
+Upper voltage threshold: Próg wysokiego napięcia
 'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
 Use working schedule for this access identifier: Używaj harmonogramu dostępności dla tego identyfikatora dostępu
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
@@ -717,10 +747,13 @@ Valve closed manually: Zawór zamknięty manualnie
 Verification method: Sposób weryfikacji
 Visible: Widoczne
 Visit app webpage: Otwórz witrynę aplikacji
+Voltage aberrations: Aberracje napięcia
+Voltage monitoring: Monitorowanie napięcia
 WELCOME_MESSAGE: |
   Podłączenie Twojego domu lub biura do SUPLI jest proste. Wszystko co musisz zrobić to
   przepisać do swoich urządzeń sterujących (wejścia/wyjścia) oraz smartfonów poniższe dane.
 Wait a while before the next request. You can check your limits in the account settings.: Odczekaj chwilę przed wykonaniem kolejnego żądania. Możesz sprawdzić aktualne wykorzystanie Twoich limitów w ustawieniach konta.
+Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny przed kontynuowaniem akcji ({time}).
 Water meter: Licznik wody
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Będziemy wysyłać Ci powiadomienia o niektórych zdarzeniach związanych z Twoim kontem. Możesz wypisać się z tych, których nie potrzebujesz.
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
@@ -737,6 +770,7 @@ We will miss you: Będziemy za Tobą tęsknić
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.
 We will use it only in justified situations.: Użyjemy go wyłącznie w uzasadnionych przypadkach.
 Weather Station: Stacja pogodowa
+Wednesdays: Środy
 Weight sensor: Waga
 Welcome!: Witaj!
 What this token is for?: Do czego służy ten token?
@@ -847,6 +881,7 @@ directLinkExecutionFailureReason_otherFailure: Błąd przy wykonaniu akcji
 directLinkExecutionFailureReason_sceneDuringExecution: Scena jest w trakcie wykonywania.
 directLinkExecutionFailureReason_unsupportedAction: Wybrana akcja jest niepoprawna
 empty: pusty
+everyday: codziennie
 executed: wykonano
 extend: przedłuż
 from IP: z adresu IP
@@ -931,7 +966,6 @@ ENABLED: WŁĄCZONE
 Email already exists: Adres e-mail już istnieje
 Execute the scene: Wykonaj scenę
 Existing schedules: Istniejące harmonogramy
-Fridays: Piątki
 Generic action: Inna akcja
 Hi: Cześć
 Hour: Godzina
@@ -946,7 +980,6 @@ Loading: Ładowanie
 Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
 Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
 Minute: Minuta
-Mondays: Poniedziałki
 Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer
@@ -958,19 +991,15 @@ Registration: Rejestracja
 Remaining: Pozostało
 Remove: Usuń
 Requests limit: Limit żądań
-Saturdays: Soboty
 Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
 Set initial values: Ustaw wartości początkowe
+Show days with issues only: Pokaż tylko dni, w których odnotowano naruszenia
 Status: Status
 Subject: Podmiot
-Sundays: Niedziele
 Sunrise / Sunset: Wschód / Zachód
-Thursdays: Czwartki
 Try again later: Spróbuj ponownie później
-Tuesdays: Wtorki
 Turning this device off will result in disabling all the associated schedules.: Wyłączenie tego urządzenia spowoduje także wyłączenie harmonogramów, które są z nim powiązane.
-Wednesdays: Środy
 When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
@@ -979,32 +1008,5 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Above threshold: Powyżej progu
-Are you sure you want to delete the entire voltage deviations history saved for this channel?: Czy jesteś pewny/a, że chcesz usunąć całą historię wychyleń napięcia tego kanału?
-Automatic closing rule: Automatyczne zamykanie bramy
-Average voltage: Średnie napięcie
-Below threshold: Poniżej progu
-Close after: Zamknij po
-Close automatically: Zamykaj automatycznie
-Delete voltage deviations history: Usuń historię wychyleń napięcia
-Device might be sleeping: Urządzenie może być w trybie uśpienia
-Error when communicating the AD. Try again in a while.: Błąd przy komunikacji z AD. Spróbuj ponownie za chwilę.
-Estimated execution time: Szacowany czas wykonania
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Jeśli urządzenie jest obecnie w trybie uśpienia, zmiany w konfiguracji zostaną wprowadzone po jego wybudzeniu.
-Longest violation: Najdłuższe naruszenie
-Lower voltage threshold: Próg niskiego napięcia
-Maximum voltage: Najwyższe napięcie
-Measurement window: Czas pomiaru
-Minimum voltage: Najniższe napięcie
-Phase number: Faza
-Show days with issues only: Pokaż tylko dni, w których odnotowano naruszenia
-Total time: Całkowity czas
-Upper voltage threshold: Próg wysokiego napięcia
-Violation info: Szczegóły naruszenia
-Violations count: Liczba naruszeń
-Voltage deviations: Wychylenia napięcia
-Voltage monitoring: Monitorowanie napięcia
-Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny przed kontynuowaniem akcji ({time}).
-everyday: codziennie
 
 #</editor-fold>
