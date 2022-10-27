@@ -850,6 +850,7 @@ after: po
 before: przed
 caption: nazwa
 channel: Kanał
+channelConfigHelp_gateCloseAfterHelp: Agent uruchamiający procedurę zamykania bramy może mieć maksymalnie jednominutowe opóźnienie w stosunku do zadanego czasu.
 channelConfigHelp_numberOfAttemptsGate: Po tym jak zlecisz otwarcie lub zamknięcie bramy, system podejmie próbę jej zamknięcia/otwarcia i poczeka 60 sekund aby sprawdzić, czy brama osiągnęła pożądany stan. Jeśli nie, to system ponowi próbę zamknięcia/otwarcia. Niniejszy parametr określa maksymalną liczbę prób osiągnięcia celu podjętą przez system. Wartością zalecaną jest 5. Zmiana tego parametru nie wpływa na działanie harmonogramów.
 channelConfigHelp_stateVerificationMethod: 'Aktywne: pierwsza zmiana stanu czujnika na docelowy przerywa ponawianie prób. Pasywne: raz na 60s sprawdzamy stan czujnika i przerywamy ponawianie, gdy czujnik zaraportuje wtedy zadany stan.'
 channelConfig_stateVerificationMethod_active: Aktywny

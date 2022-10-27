@@ -992,6 +992,7 @@ Voltage aberrations: ~
 Voltage monitoring: ~
 Wait for this scene to finish before proceeding to the next step ({time}).: ~
 You must set an action for each scene operation.: ~
+channelConfigHelp_gateCloseAfterHelp: ~
 channelConfigHelp_stateVerificationMethod: ~
 channelConfig_stateVerificationMethod_active: ~
 channelConfig_stateVerificationMethod_passive: ~

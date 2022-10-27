@@ -6,7 +6,10 @@
             <dt class="text-center">
                 <toggler v-model="props.channel.config.closingRule.enabled" @input="$emit('change')"/>
             </dt>
-            <dd>{{ $t('Close after') }}</dd>
+            <dd v-tooltip="$t('channelConfigHelp_gateCloseAfterHelp')">
+                {{ $t('Close after') }}
+                <i class="pe-7s-help1"></i>
+            </dd>
             <dt>
                 <span class="input-group">
                     <input type="number"
