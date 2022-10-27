@@ -66,8 +66,11 @@
         },
         methods: {
             changeTab(id) {
-                this.currentTab = id;
-                this.$router.push({query: {tab: id}});
+                const currentTab = this.availableTabs.filter(tab => tab.id === id)[0];
+                this.currentTab = currentTab ? currentTab.id : (this.availableTabs[0] ? this.availableTabs[0].id : undefined);
+                if (this.$route.query.tab !== this.currentTab) {
+                    this.$router.push({query: {tab: id}});
+                }
             }
         },
         mounted() {
@@ -126,8 +129,12 @@
                     header: 'Voltage aberrations', // i18n
                 });
             }
-            const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
-            this.currentTab = currentTab ? currentTab.id : (this.availableTabs[0] ? this.availableTabs[0].id : undefined);
+            this.changeTab(this.$route.query.tab);
+        },
+        watch: {
+            '$route.query.tab'() {
+                this.changeTab(this.$route.query.tab);
+            }
         },
     };
 </script>

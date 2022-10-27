@@ -51,7 +51,7 @@
                             `gradient-${Math.floor(v.secTotal * 10 / maxSecTotalInSelectedDay) * 10}`,
                             {selected: selectedDayPart === $index}
                             ]"
-                        @click="selectedDayPart = $index"
+                        @click="selectDayPart($index)"
                         v-for="(v, $index) in selectedDayViolations"
                         :key="$index">
                         <p class="day">{{ v.label }}</p>
@@ -187,12 +187,20 @@
                             this.stats.push({day, dayFormatted, secTotal, countBelowTotal, countAboveTotal});
                             this.maxSecTotal = Math.max(this.maxSecTotal, secTotal);
                         }
-                        this.selectDay(this.stats[this.stats.length - 1]);
+                        if (this.$route.query.day) {
+                            this.selectDay(this.$route.query.day);
+                        } else {
+                            this.selectDay('');
+                        }
                     }
                 });
         },
         methods: {
             selectDay(stat) {
+                if (typeof stat === 'string') {
+                    const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(stat);
+                    stat = index === -1 ? this.statsToShow[this.statsToShow.length - 1] : this.statsToShow[index];
+                }
                 this.selectedDay = stat.dayFormatted;
                 const violations = this.logs.filter(log => log.day === stat.dayFormatted);
                 this.selectedDayViolations = [];
@@ -207,7 +215,7 @@
                     this.maxSecTotalInSelectedDay = Math.max(this.maxSecTotalInSelectedDay, secTotal);
                     this.selectedDayViolations.push({label, violations: violationsForPart, countBelowTotal, countAboveTotal, secTotal});
                 }
-                this.selectedDayPart = 0;
+                this.selectDayPart();
                 const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
                 if (index !== -1) {
                     this.$nextTick(() => {
@@ -217,16 +225,25 @@
                     });
                 }
             },
-            selectVisibleStat() {
-                let currentDayIndex = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
-                if (currentDayIndex === -1) {
-                    this.selectDay(this.statsToShow[this.statsToShow.length - 1]);
-                } else {
-                    this.selectDay(this.statsToShow[currentDayIndex]);
+            selectDayPart(index = undefined) {
+                if (index === undefined) {
+                    index = Math.max(0, Math.min(4, +this.$route.query.part));
+                    if (![0, 1, 2, 3].includes(index)) {
+                        index = 0;
+                    }
+                }
+                this.selectedDayPart = index;
+                if (this.selectedDay !== this.$route.query.day || this.selectedDayPart !== +this.$route.query.part) {
+                    const query = {...this.$route.query, day: this.selectedDay, part: +this.selectedDayPart};
+                    if (this.$route.query.day) {
+                        this.$router.push({query});
+                    } else {
+                        this.$router.replace({query});
+                    }
                 }
             },
-            formatDuration(duration) {
-                return `${Math.floor(duration / 3600)}h ${Math.floor(((duration % 3600) / 60))}m ${Math.floor(duration % 60)}s`;
+            selectVisibleStat() {
+                this.selectDay(this.selectedDay);
             },
             deleteMeasurements() {
                 this.deleteConfirm = false;
@@ -244,7 +261,15 @@
             statsToShow() {
                 return this.daysWithIssuesOnly ? this.stats.filter(s => s.secTotal > 0) : this.stats;
             }
-        }
+        },
+        watch: {
+            '$route.query.day'() {
+                this.selectDay(this.$route.query.day);
+            },
+            '$route.query.part'() {
+                this.selectDay(this.$route.query.day);
+            },
+        },
     };
 </script>
 

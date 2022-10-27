@@ -10,7 +10,10 @@ const router = new VueRouter({
     base: '/',
     linkActiveClass: 'active',
     mode: 'history',
-    scrollBehavior() {
+    scrollBehavior(to, from, savedPosition) {
+        if (to.path === from.path) {
+            return savedPosition;
+        }
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve({x: 0, y: 0})
