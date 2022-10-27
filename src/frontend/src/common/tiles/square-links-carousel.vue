@@ -33,10 +33,10 @@
                     :class="isSelected(item) ? 'selected' : ''"
                     :no-link="noLinks"
                     @click="onItemClick(item)"
-                    :model="item"></component>
+                    :model="item"/>
             </slide>
         </carousel>
-        <empty-list-placeholder v-else></empty-list-placeholder>
+        <empty-list-placeholder v-else/>
     </div>
 </template>
 

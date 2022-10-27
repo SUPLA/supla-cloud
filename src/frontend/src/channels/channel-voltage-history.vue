@@ -70,8 +70,8 @@
                             class="voltage-log panel panel-default">
                             <div class="panel-body">
                                 <h4>
-                                    {{ (log.date_timestamp - log.measurementTimeSec) | formatDate('DATETIME_SHORT_WITH_SECONDS') }} &mdash;
-                                    {{ log.date_timestamp | formatDate('DATETIME_SHORT_WITH_SECONDS') }}
+                                    {{ (log.date_timestamp - log.measurementTimeSec) | formatDate('TIME_WITH_SECONDS') }} &mdash;
+                                    {{ log.date_timestamp | formatDate('TIME_WITH_SECONDS') }}
                                 </h4>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -88,7 +88,7 @@
                                     <div class="col-md-4 col-sm-6">
                                         <h4>
                                             <span v-if="log.countBelow > 0"
-                                                class="violation-indicator text-danger">&bull;</span>
+                                                class="glyphicon glyphicon-arrow-down below-threshold-indicator"></span>
                                             {{ $t('Below threshold') }}
                                         </h4>
                                         <dl class="dl-grid">
@@ -105,7 +105,7 @@
                                     <div class="col-md-4 col-sm-6">
                                         <h4>
                                             <span v-if="log.countAbove > 0"
-                                                class="violation-indicator text-danger">&bull;</span>
+                                                class="glyphicon glyphicon-arrow-up above-threshold-indicator"></span>
                                             {{ $t('Above threshold') }}
                                         </h4>
                                         <dl class="dl-grid">
@@ -160,7 +160,7 @@
                 deleteConfirm: false,
             };
         },
-        beforeMount() {
+        mounted() {
             const afterTimestamp = Math.round(DateTime.now().minus({days: 30}).startOf('day').toSeconds());
             this.$http.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=ASC&afterTimestamp=${afterTimestamp}`)
                 .then(({body: logItems}) => {
@@ -179,7 +179,7 @@
                     });
                     if (this.logs.length) {
                         const minDate = DateTime.fromSeconds(this.logs[0].date_timestamp).endOf('day');
-                        for (let day = DateTime.now().endOf('day'); day >= minDate; day = day.minus({days: 1})) {
+                        for (let day = minDate; day <= DateTime.now().endOf('day'); day = day.plus({days: 1})) {
                             const secTotal = dayStats[day.toFormat('ddMM')]?.secTotal || 0;
                             const countBelowTotal = dayStats[day.toFormat('ddMM')]?.countBelowTotal || 0;
                             const countAboveTotal = dayStats[day.toFormat('ddMM')]?.countAboveTotal || 0;
@@ -187,7 +187,7 @@
                             this.stats.push({day, dayFormatted, secTotal, countBelowTotal, countAboveTotal});
                             this.maxSecTotal = Math.max(this.maxSecTotal, secTotal);
                         }
-                        this.selectDay(this.stats[0]);
+                        this.selectDay(this.stats[this.stats.length - 1]);
                     }
                 });
         },
@@ -208,10 +208,21 @@
                     this.selectedDayViolations.push({label, violations: violationsForPart, countBelowTotal, countAboveTotal, secTotal});
                 }
                 this.selectedDayPart = 0;
+                const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
+                if (index !== -1) {
+                    this.$nextTick(() => {
+                        let desiredPage = index - this.$refs.carousel.perPage + 2;
+                        desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, desiredPage));
+                        this.$refs.carousel.goToPage(desiredPage);
+                    });
+                }
             },
             selectVisibleStat() {
-                if (this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay) === -1) {
-                    this.selectDay(this.statsToShow[0]);
+                let currentDayIndex = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
+                if (currentDayIndex === -1) {
+                    this.selectDay(this.statsToShow[this.statsToShow.length - 1]);
+                } else {
+                    this.selectDay(this.statsToShow[currentDayIndex]);
                 }
             },
             formatDuration(duration) {
@@ -263,12 +274,6 @@
 
     .voltage-logs-list-container {
         min-height: 500px;
-    }
-
-    .violation-indicator {
-        font-size: 2em;
-        line-height: 0.5em;
-        vertical-align: middle;
     }
 
     .voltage-day-stat {
