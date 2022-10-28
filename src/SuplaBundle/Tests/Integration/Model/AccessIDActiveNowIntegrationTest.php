@@ -33,6 +33,9 @@ class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
     protected function initializeDatabaseForTests() {
         $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
+        $anotherUser = $this->createConfirmedUser('another@supla.org');
+        $anotherUser->setTimezone('Pacific/Honolulu');
+        $this->persist($anotherUser);
         date_default_timezone_set('America/Antigua');
         $this->getEntityManager()->getConnection()->executeQuery('SET GLOBAL time_zone = "+8:00";');
     }

@@ -4,7 +4,6 @@ namespace SuplaBundle\Repository;
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\ClientApp;
-use SuplaBundle\Entity\User;
 
 class AccessIdRepository extends EntityWithRelationsRepository {
     protected $alias = 'aid';
@@ -17,7 +16,7 @@ class AccessIdRepository extends EntityWithRelationsRepository {
             ->addSelect('supla_is_now_active(aid.activeFrom, aid.activeTo, aid.activeHours, u.timezone) isNowActive')
             ->from(AccessID::class, 'aid')
             ->leftJoin('aid.locations', 'l')
-            ->innerJoin(User::class, 'u')
+            ->innerJoin('aid.user', 'u')
             ->groupBy('aid.id, u.timezone');
     }
 
