@@ -33,39 +33,44 @@ class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
     protected function initializeDatabaseForTests() {
         $this->initializeDatabaseWithMigrations();
         $this->user = $this->createConfirmedUser();
+        date_default_timezone_set('America/Antigua');
+        $this->getEntityManager()->getConnection()->executeQuery('SET GLOBAL time_zone = "+8:00";');
     }
 
     /** @dataProvider activeNowAccessIds */
     public function testActiveNowAccessIds(callable $accessIdFactory, bool $expectActive = true) {
         $accessId = $accessIdFactory(new AccessID($this->user));
         $accessId->setPassword('xxx');
-        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->persist($accessId->getUser());
         $this->getEntityManager()->persist($accessId);
         $this->getEntityManager()->flush();
+        $aid = $this->getEntityManager()->getRepository(AccessID::class)->find($accessId->getId());
         $query = 'SELECT is_now_active FROM supla_v_accessid_active WHERE id = ' . $accessId->getId();
         $result = $this->getEntityManager()->getConnection()->executeQuery($query);
-        $isActive = $result->fetchOne();
+        $isActiveFromView = $result->fetchOne();
         if ($expectActive) {
-            $this->assertTrue(!!$isActive);
+            $this->assertTrue(!!$isActiveFromView);
+            $this->assertTrue($aid->isActiveNow());
         } else {
-            $this->assertFalse(!!$isActive);
+            $this->assertFalse(!!$isActiveFromView);
+            $this->assertFalse($aid->isActiveNow());
         }
     }
 
     public function activeNowAccessIds() {
         return [
-            'no constraints' => [function (AccessID $aid) {
-                return $aid;
-            }],
-            'full activeHours spec' => [function (AccessID $aid) {
-                $fullSpec = range(1, 7);
-                $fullSpec = array_flip($fullSpec);
-                $fullSpec = array_map(function ($v) {
-                    return range(0, 23);
-                }, $fullSpec);
-                $aid->setActiveHours($fullSpec);
-                return $aid;
-            }],
+//            'no constraints' => [function (AccessID $aid) {
+//                return $aid;
+//            }],
+//            'full activeHours spec' => [function (AccessID $aid) {
+//                $fullSpec = range(1, 7);
+//                $fullSpec = array_flip($fullSpec);
+//                $fullSpec = array_map(function ($v) {
+//                    return range(0, 23);
+//                }, $fullSpec);
+//                $aid->setActiveHours($fullSpec);
+//                return $aid;
+//            }],
             'active in Europe/Warsaw' => [function (AccessID $aid) {
                 $timezone = new \DateTimeZone('Europe/Warsaw');
                 $aid->getUser()->setTimezone($timezone->getName());
