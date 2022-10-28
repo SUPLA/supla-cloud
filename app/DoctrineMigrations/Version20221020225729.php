@@ -11,6 +11,7 @@ use Doctrine\DBAL\Migrations\AbstractMigration;
  * 4.New supla_mark_gate_closed procedure
  * 5.New supla_mark_gate_open procedure
  * 6.New supla_set_closing_attempt procedure
+ * 7.Fixing incorrectly calculated date in function supla_current_weekday_hour
  */
 class Version20221020225729 extends NoWayBackMigration
 {
@@ -23,8 +24,8 @@ class Version20221020225729 extends NoWayBackMigration
         $this->createMarkGateClosedProcedure();
         $this->createMarkGateOpenProcedure();
         $this->createSetClosingAttemptProcedure();
+        $this->createWeekdayHourFunction();
     }
-
 
     private function dropSuplaAccessIdActiveView() {
         $this->addSql("DROP VIEW IF EXISTS `supla_v_accessid_active`");
@@ -194,5 +195,23 @@ CREATE PROCEDURE `supla_set_closing_attempt`(IN `_channel_id` INT)
         channel_id = _channel_id
 VIEW;
         $this->addSql($view);
+    }
+
+    private function createWeekdayHourFunction() {
+        $this->addSql('DROP FUNCTION IF EXISTS supla_current_weekday_hour');
+        $function = <<<FNC
+        CREATE FUNCTION supla_current_weekday_hour(`user_timezone` VARCHAR(50))
+        RETURNS VARCHAR(3)
+        BEGIN
+            DECLARE current_weekday INT;
+            DECLARE current_hour INT;
+            DECLARE current_time_in_user_timezone DATETIME;
+            SELECT IFNULL(CONVERT_TZ(UTC_TIMESTAMP, 'UTC', `user_timezone`), UTC_TIMESTAMP) INTO current_time_in_user_timezone; 
+            SELECT (WEEKDAY(current_time_in_user_timezone) + 1) INTO current_weekday;
+            SELECT HOUR(current_time_in_user_timezone) INTO current_hour;
+            RETURN CONCAT(current_weekday, current_hour);
+        END
+FNC;
+        $this->addSql($function);
     }
 }
