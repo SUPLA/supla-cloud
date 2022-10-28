@@ -63,7 +63,7 @@
                 if (this.sort == 'az') {
                     return this.captionForSort(a1) < this.captionForSort(a2) ? -1 : 1;
                 } else {
-                    return DateTime.fromISO(a2.lastAccessDate.lastConnected).diff(DateTime.fromISO(a1.lastAccessDate)).milliseconds;
+                    return DateTime.fromISO(a2.lastAccessDate).diff(DateTime.fromISO(a1.lastAccessDate)).milliseconds;
                 }
             },
             captionForSort(model) {
