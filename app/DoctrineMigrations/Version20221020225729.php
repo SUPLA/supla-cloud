@@ -198,9 +198,8 @@ VIEW;
     }
 
     private function createWeekdayHourFunction() {
-        $this->addSql('DROP FUNCTION IF EXISTS supla_current_weekday_hour');
         $function = <<<FNC
-        CREATE FUNCTION supla_current_weekday_hour(`user_timezone` VARCHAR(50))
+        CREATE OR REPLACE FUNCTION supla_current_weekday_hour(`user_timezone` VARCHAR(50))
         RETURNS VARCHAR(3)
         BEGIN
             DECLARE current_weekday INT;
