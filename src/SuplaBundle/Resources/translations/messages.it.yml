@@ -990,7 +990,7 @@ Voltage aberrations: Aberrazioni della tensione
 Voltage monitoring: Monitoraggio della tensione
 Wait for this scene to finish before proceeding to the next step ({time}).: Attendi il completamento dell’esecuzione della scena prima di procedere con l’azione ({time}).
 channelConfigHelp_gateCloseAfterHelp: L’agente che avvia la procedura di chiusura del cancello può avere un ritardo fino a un minuto rispetto all’orario impostato.
-channelConfigHelp_stateVerificationMethod: Attivi: la prima modifica dello stato del sensore in target interrompe i tentativi. Passivi: controlliamo lo stato del sensore una volta ogni 60 secondi e interrompiamo i tentativi quando il sensore segnala lo stato impostato.
+channelConfigHelp_stateVerificationMethod: 'Attivi: la prima modifica dello stato del sensore in target interrompe i tentativi. Passivi: controlliamo lo stato del sensore una volta ogni 60 secondi e interrompiamo i tentativi quando il sensore segnala lo stato impostato.'
 channelConfig_stateVerificationMethod_active: Attivo
 channelConfig_stateVerificationMethod_passive: Passivo
 everyday: ogni giorno
