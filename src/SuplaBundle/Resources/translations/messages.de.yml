@@ -953,46 +953,46 @@ hourly: Stundenzyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Details der Aberration
+Aberrations count: Anzahl der Aberrationen
+Above threshold: Über der Schwelle
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Möchten Sie wirklich den gesamten Spannungsaberrationsverlauf für diesen Kanal löschen?
+Automatic closing rule: Automatische Torschließung
+Average voltage: Mittelspannung
+Below threshold: Unter der Schwelle
+Change: Ändern
+Close after: Danach schließen
+Close automatically: Automatisch schließen
+Delete voltage aberrations history: Verlauf der Spannungsaberration löschen
+Device might be sleeping: Das Gerät kann möglicherweise im Ruhezustand sein
+Error when communicating the AD. Try again in a while.: Fehler bei der Kommunikation mit AD. Bitte versuchen Sie es gleich noch einmal.
+Estimated execution time: Geschätzte Ausführungszeit
+Gate's state verification: Überprüfung des Tor-Standes
+Hide days without aberrations: Tage ohne Aberration verstecken
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Befindet sich das Gerät derzeit im Ruhezustand, werden die Konfigurationsänderungen nach dem Aufwachen wirksam.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Wenn sich das Gerät jetzt im Ruhezustand befindet, wechselt es beim nächsten Aufwachen in den Konfigurationsmodus.
+Longest aberration: Die längste Aberration
+Lower voltage threshold: Niederspannungsschwelle
+Maximum voltage: Höchste Spannung
+Measurement window: Zeitpunkt der Messung
+Minimum voltage: Niedrigste Spannung
+Number of aberrations: Anzahl der Aberrationen
+Phase number: Phase
+Register your SUPLA Cloud: Registrieren Sie Ihre SUPLA Cloud-Instanz
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Löschen Sie alle zugehörigen Szenen, bevor Sie diesen Standort löschen. IDs: {relatedIds}.'
+The device might be in a sleep mode.: Das Gerät kann im Ruhezustand arbeiten.
+The scene would execute too many operations.: Die Szene führt zu viele Vorgänge aus.
+Total time: Gesamtzeit
+Upper voltage threshold: Hochspannungsschwelle
+Verification method: Überprüfungsmethode
+Voltage aberrations: Spannungsaberrationen
+Voltage monitoring: Spannungsüberwachung
+Wait for this scene to finish before proceeding to the next step ({time}).: Warten Sie, bis die Ausführung der Szene abgeschlossen ist, bevor Sie mit der Aktion fortfahren ({time}).
+You must set an action for each scene operation.: Wählen Sie eine Aktion für jede Operation in der Szene aus.
+channelConfigHelp_gateCloseAfterHelp: Der Agent, der den Tor-Schließvorgang startet, kann bis zu einer Minute von der eingestellten Zeit verzögert werden.
+channelConfigHelp_stateVerificationMethod: Aktiv: Wenn der Sensor zum ersten Mal in den Zielzustand wechselt, stoppt er die Wiederholungsversuche. Passiv: Einmal alle 60 Sekunden überprüfen wir den Zustand des Sensors und beenden die Wiederholung, wenn der Sensor den eingestellten Zustand meldet.
+channelConfig_stateVerificationMethod_active: Aktiv
+channelConfig_stateVerificationMethod_passive: Passiv
+everyday: Täglich
 
 #</editor-fold>
