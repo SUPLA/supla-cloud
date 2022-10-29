@@ -957,46 +957,46 @@ will expire: lejár
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Eltérések részletei
+Aberrations count: Eltérések száma
+Above threshold: Küszöbérték felett
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Biztos, hogy törölni akarja a csatorna teljes feszültségeltérési előzményét?
+Automatic closing rule: Ajtó automatikus bezárása
+Average voltage: Középfeszültség
+Below threshold: Küszöbérték alatt
+Change: Változtat
+Close after: Bezárás miután
+Close automatically: Automatikus bezárás
+Delete voltage aberrations history: Feszültségeltérés előzményeinek törlése
+Device might be sleeping: A készülék alvó üzemmódban lehet
+Error when communicating the AD. Try again in a while.: Hiba az AD-vel való kommunikációban. Próbálja meg újra kicsivel később.
+Estimated execution time: Becsült végrehajtási idő
+Gate's state verification: Ajtó állapotának ellenőrzése
+Hide days without aberrations: Napokat elrejtése eltérések nélkül
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Ha a készülék jelenleg alvó üzemmódban van, a konfigurációk módosításai akkor kerülnek végrehajtásra, amikor a készülék elindul.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Ha a készülék most alszik, akkor a következő felébresztéskor konfigurációs módba lép be.
+Longest aberration: Leghosszabb eltérés
+Lower voltage threshold: Alacsony feszültség küszöbértéke
+Maximum voltage: Legmagasabb feszültség
+Measurement window: Mérés ideje
+Minimum voltage: Legalacsonyabb feszültség
+Number of aberrations: Eltérések száma
+Phase number: Fázis
+Register your SUPLA Cloud: Regisztrálja a SUPLA Cloud példányát
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'A hely törlése előtt távolítsa el az összes kapcsolódó helyszínt. Azonosítók: {relatedIds}.'
+The device might be in a sleep mode.: A készülék alvó üzemmódban is működhet.
+The scene would execute too many operations.: A helyszín túl sok műveletet hajt végre.
+Total time: Teljes idő
+Upper voltage threshold: Magas feszültség küszöbértéke
+Verification method: Ellenőrzés módja
+Voltage aberrations: Feszültség eltérés
+Voltage monitoring: Feszültségfigyelés
+Wait for this scene to finish before proceeding to the next step ({time}).: Várja meg, amíg a helyszín befejeződik, mielőtt folytatja a műveletet ({time}).
+You must set an action for each scene operation.: Válasszon ki egy műveletet a helyszín minden egyes műveletéhez.
+channelConfigHelp_gateCloseAfterHelp: A kapunyitási eljárást kezdeményező ágens a beállított időponttól számított legfeljebb egy perc késleltetést kaphat.
+channelConfigHelp_stateVerificationMethod: 'Aktív: az érzékelő állapotának első változása a célra megszakítja az újbóli próbálkozást. Passzív: 60 másodpercenként egyszer ellenőrizzük az érzékelő állapotát, és megszakítjuk a megújítást, ha az érzékelő jelenti a megadott állapotot.'
+channelConfig_stateVerificationMethod_active: Aktív
+channelConfig_stateVerificationMethod_passive: Passzív
+everyday: naponta
 
 #</editor-fold>
