@@ -990,7 +990,7 @@ Voltage monitoring: Spannungsüberwachung
 Wait for this scene to finish before proceeding to the next step ({time}).: Warten Sie, bis die Ausführung der Szene abgeschlossen ist, bevor Sie mit der Aktion fortfahren ({time}).
 You must set an action for each scene operation.: Wählen Sie eine Aktion für jede Operation in der Szene aus.
 channelConfigHelp_gateCloseAfterHelp: Der Agent, der den Tor-Schließvorgang startet, kann bis zu einer Minute von der eingestellten Zeit verzögert werden.
-channelConfigHelp_stateVerificationMethod: Aktiv: Wenn der Sensor zum ersten Mal in den Zielzustand wechselt, stoppt er die Wiederholungsversuche. Passiv: Einmal alle 60 Sekunden überprüfen wir den Zustand des Sensors und beenden die Wiederholung, wenn der Sensor den eingestellten Zustand meldet.
+channelConfigHelp_stateVerificationMethod: 'Aktiv: Wenn der Sensor zum ersten Mal in den Zielzustand wechselt, stoppt er die Wiederholungsversuche. Passiv: Einmal alle 60 Sekunden überprüfen wir den Zustand des Sensors und beenden die Wiederholung, wenn der Sensor den eingestellten Zustand meldet.'
 channelConfig_stateVerificationMethod_active: Aktiv
 channelConfig_stateVerificationMethod_passive: Passiv
 everyday: Täglich
