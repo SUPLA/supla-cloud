@@ -990,7 +990,7 @@ Voltage monitoring: Control de voltaje
 Wait for this scene to finish before proceeding to the next step ({time}).: Espera a que termine la ejecución de la escena antes de continuar con la acción ({time}).
 You must set an action for each scene operation.: Seleccionar una acción para cada operación en la escena.
 channelConfigHelp_gateCloseAfterHelp: El agente que inicia el procedimiento de cierre de la puerta puede retrasarse hasta un minuto del tiempo establecido.
-channelConfigHelp_stateVerificationMethod: Activo: el primer cambio del estado del sensor al definitivo, frena la repetición de las pruebas. Pasivo: una vez cada 60 segundos, verificamos el estado del sensor y dejamos de repetirlo cuando el sensor informe el estado establecido.
+channelConfigHelp_stateVerificationMethod: 'Activo: el primer cambio del estado del sensor al definitivo, frena la repetición de las pruebas. Pasivo: una vez cada 60 segundos, verificamos el estado del sensor y dejamos de repetirlo cuando el sensor informe el estado establecido.'
 channelConfig_stateVerificationMethod_active: Activo
 channelConfig_stateVerificationMethod_passive: Pasivo
 everyday: a diario
