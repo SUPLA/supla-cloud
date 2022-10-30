@@ -955,44 +955,44 @@ hourly: Ogni ora
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Dettagli dell’aberrazione
+Aberrations count: Numero di aberrazioni
+Above threshold: Sopra la soglia
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Sei sicuro/a di voler cancellare tutta la cronologia delle aberrazioni di tensione di questo canale?
+Automatic closing rule: Chiusura automatica del cancello
+Average voltage: Tensione media
+Below threshold: Sotto la soglia
+Change: Modifica
+Close after: Chiudi dopo
+Close automatically: Chiudi automaticamente
+Delete voltage aberrations history: Cancella la cronologia delle aberrazioni di tensione
+Device might be sleeping: Il dispositivo potrebbe essere in modalità standby
+Error when communicating the AD. Try again in a while.: Errore di comunicazione con AD. Riprova tra un attimo.
+Estimated execution time: Tempo stimato per il completamento
+Gate's state verification: Verifica dello stato del cancello
+Hide days without aberrations: Nascondi giorni senza aberrazioni
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Se il dispositivo è attualmente in modalità standby, le modifiche alla configurazione avranno effetto alla riattivazione.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Se il dispositivo è ora inattivo, entrerà in modalità di configurazione alla prossima riattivazione.
+Longest aberration: Aberrazione più lunga
+Lower voltage threshold: Soglia di bassa tensione
+Maximum voltage: Tensione più alta
+Measurement window: Tempo di misurazione
+Minimum voltage: Tensione più bassa
+Number of aberrations: Numero di aberrazioni
+Phase number: Fase
+Register your SUPLA Cloud: Registra la Tua istanza SUPLA Cloud
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Elimina tutte le scene correlate prima di eliminare questa posizione. Identificatori: {relatedIds}.'
+The device might be in a sleep mode.: Il dispositivo può funzionare in modalità standby.
+Total time: Tempo totale
+Upper voltage threshold: Soglia di alta tensione
+Verification method: Metodo di verifica
+Voltage aberrations: Aberrazioni della tensione
+Voltage monitoring: Monitoraggio della tensione
+Wait for this scene to finish before proceeding to the next step ({time}).: Attendi il completamento dell’esecuzione della scena prima di procedere con l’azione ({time}).
+channelConfigHelp_gateCloseAfterHelp: L’agente che avvia la procedura di chiusura del cancello può avere un ritardo fino a un minuto rispetto all’orario impostato.
+channelConfigHelp_stateVerificationMethod: 'Attivi: la prima modifica dello stato del sensore in target interrompe i tentativi. Passivi: controlliamo lo stato del sensore una volta ogni 60 secondi e interrompiamo i tentativi quando il sensore segnala lo stato impostato.'
+channelConfig_stateVerificationMethod_active: Attivo
+channelConfig_stateVerificationMethod_passive: Passivo
+everyday: ogni giorno
 
 #</editor-fold>
