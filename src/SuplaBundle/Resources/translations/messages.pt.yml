@@ -953,46 +953,46 @@ hourly: Ciclo horário
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Detalhes de aberrações
+Aberrations count: Número de aberrações
+Above threshold: Acima do limiar
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Tem a certeza de que quer remover todo o histórico de aberrações de tensão deste canal?
+Automatic closing rule: Fecho automático do portãoFecho automático do portão
+Average voltage: Tensão média
+Below threshold: Abaixo do limiar
+Change: Alterar
+Close after: Fechar depois
+Close automatically: Fechar automaticamente
+Delete voltage aberrations history: Remover o histórico de aberrações de tensão
+Device might be sleeping: O dispositivo pode estar em modo de repouso
+Error when communicating the AD. Try again in a while.: Erro de comunicação com AD. Tente novamente dentro de momentos.
+Estimated execution time: Tempo de execução estimado
+Gate's state verification: Verificação do estado do portão
+Hide days without aberrations: Ocultar dias sem aberrações
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Se o dispositivo estiver atualmente em modo de repouso, serão feitas alterações de configuração quando o mesmo acordar.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Se o dispositivo estiver agora em modo de repouso, entrará em modo de configuração na próxima vez que acordar.
+Longest aberration: Aberração mais longa
+Lower voltage threshold: Limiar de baixa tensão
+Maximum voltage: Tensão mais alta
+Measurement window: Tempo de medição
+Minimum voltage: Tensão mais baixa
+Number of aberrations: Número de aberrações
+Phase number: Fase
+Register your SUPLA Cloud: Registe a sua instância SUPLA Cloud
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Remover todos os cenários associados antes de apagar esta localização. Identificadores: {relatedIds}.'
+The device might be in a sleep mode.: O dispositivo pode funcionar em modo de repouso.
+The scene would execute too many operations.: O cenário executa demasiadas operações.
+Total time: Tempo total
+Upper voltage threshold: Limiar de alta tensão
+Verification method: Método de verificação
+Voltage aberrations: Aberrações da tensão
+Voltage monitoring: Monitorização da tensão
+Wait for this scene to finish before proceeding to the next step ({time}).: Aguardar que o cenário termine antes de continuar com a ação ({time}).
+You must set an action for each scene operation.: Selecionar uma ação para cada operação no cenário.
+channelConfigHelp_gateCloseAfterHelp: O agente que desencadeia o procedimento de fecho do portão pode ter um atraso máximo de um minuto em relação ao tempo definido.
+channelConfigHelp_stateVerificationMethod: 'Ativo: a primeira mudança do estado do sensor para o estado alvo interrompe a reentrada. Passivo: verificamos o estado do sensor uma vez a cada 60s e interrompemos a reentrada quando o sensor reporta então o estado alvo.'
+channelConfig_stateVerificationMethod_active: Ativo
+channelConfig_stateVerificationMethod_passive: Passivo
+everyday: todos os dias
 
 #</editor-fold>
