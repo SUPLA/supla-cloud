@@ -953,47 +953,47 @@ hourly: Uur cyclus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-click here: ~
-everyday: ~
+Aberration info: Aberratie details
+Aberrations count: Aantal aberraties
+Above threshold: Overschrijding drempelwaarde
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Weet u zeker dat u de hele geschiedenis van spanningsaberratie van dit kanaal wilt verwijderen?
+Automatic closing rule: Automatische poortsluiting
+Average voltage: Gemiddelde spanning
+Below threshold: Onder drempelwaarde
+Change: Wijzig
+Close after: Sluit na
+Close automatically: Automatisch sluiten
+Delete voltage aberrations history: Verwijder geschiedenis spanningsaberratie
+Device might be sleeping: Apparaat staat mogelijk in stand-by.
+Error when communicating the AD. Try again in a while.: Fout in communicatie met AD. Probeer zo meteen nogmaals.
+Estimated execution time: Geschatte uitvoeringstijd
+Gate's state verification: Controleer de poortstatus
+Hide days without aberrations: Verberg dagen zonder aberratie
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Indien het apparaat nu in stand-by staat, worden wijzigingen in de configuratiemodus na inschakeling doorgevoerd.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Indien het apparaat nu in stand-by staat, wordt het na de eerste inschakeling in de configuratiemodus gezet.
+Longest aberration: Langste aberratie
+Lower voltage threshold: Drempelwaarde laagspanning
+Maximum voltage: Hoogste spanningswaarde
+Measurement window: Meettijd
+Minimum voltage: Laagste spanningswaarde
+Number of aberrations: Aantal aberraties
+Phase number: Fase
+Register your SUPLA Cloud: Registreer uw SUPLA Cloud instantie
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Verwijder alle bijbehorende scènes voordat je deze locatie verwijdert. Identificatoren: {relatedIds}.'
+The device might be in a sleep mode.: Het apparaat werkt ook in stand-by modus.
+The scene would execute too many operations.: De scène voert teveel operaties uit.
+Total time: Totale tijd
+Upper voltage threshold: Drempelwaarde hoogspanning
+Verification method: Verificatiemethode
+Voltage aberrations: Spanningsaberraties
+Voltage monitoring: Spanningsbewaking
+Wait for this scene to finish before proceeding to the next step ({time}).: Wacht op de voltooiing van de uitvoering van de scène alvorens verder te gaan met de actie ({time}).
+You must set an action for each scene operation.: Selecteer een actie voor elke operatie tijdens de scène.
+channelConfigHelp_gateCloseAfterHelp: Degene die de procedure van het sluiten van de poort start, mag een maximale vertraging hebben van één minuut vanaf de ingestelde tijd.
+channelConfigHelp_stateVerificationMethod: 'Actief: de eerste verandering van de sensortoestand in doelmodus onderbreekt het opnieuw proberen. Passief: eenmaal per 60 seconden wordt de sensortoestand gecontroleerd en het opnieuw proberen wordt onderbroken wanneer de sensor de doeltoestand meldt.'
+channelConfig_stateVerificationMethod_active: Actief
+channelConfig_stateVerificationMethod_passive: Passief
+click here: klik hier
+everyday: dagelijks
 
 #</editor-fold>
