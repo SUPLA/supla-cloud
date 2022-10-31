@@ -953,46 +953,46 @@ hourly: hàng giờ
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Cụ thể độ sai lệch
+Aberrations count: Số sai lệch
+Above threshold: Trên ngưỡng
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Bạn có chắc chắn muốn xóa toàn bộ lịch sử độ sai lệch điện áp của kênh này không?
+Automatic closing rule: Tự động đóng cổng
+Average voltage: Điện áp trung bình
+Below threshold: Dưới ngưỡng
+Change: Thay đổi
+Close after: Đóng sau 
+Close automatically: Đóng tự động
+Delete voltage aberrations history: Xóa lịch sử độ sai lệch điện áp
+Device might be sleeping: Thiết bị có thể ở chế độ ngủ
+Error when communicating the AD. Try again in a while.: Lỗi kết nối với AD. Vui lòng thử lại sau giây lát.
+Estimated execution time: Thời gian thực hiện ước tính
+Gate's state verification: Xác minh trạng thái của cổng
+Hide days without aberrations: Ẩn ngày không sai lệch 
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Nếu thiết bị của bạn hiện đang ở chế độ ngủ, các thay đổi về cấu hình sẽ chạy khi thiết bị được bật.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Nếu thiết bị hiện đang ở chế độ ngủ, chế độ cấu hình sẽ được chạy như lần gần đây nhất.
+Longest aberration: Độ sai lệch dài nhất
+Lower voltage threshold: Ngưỡng điện áp thấp
+Maximum voltage: Điện áp cao nhất
+Measurement window: Thời gian đo
+Minimum voltage: Điện áp thấp nhất
+Number of aberrations: Số sai lệch
+Phase number: Pha
+Register your SUPLA Cloud: Đăng ký phiên bản SUPLA Cloud của bạn
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Xóa tất cả các cảnh liên quan trước khi xóa vị trí này. Mã định danh: {relatedIds}.'
+The device might be in a sleep mode.: Thiết bị có thể hoạt động ở chế độ ngủ.
+The scene would execute too many operations.: Cảnh này đã qua quá nhiều thao tác.
+Total time: Tổng thời gian
+Upper voltage threshold: Ngưỡng điện áp cao
+Verification method: Phương pháp xác minh
+Voltage aberrations:  Sai lệch điện áp
+Voltage monitoring: Giám sát điện áp
+Wait for this scene to finish before proceeding to the next step ({time}).: Chờ cảnh kết thúc trước khi tiếp tục hành động ({time}).
+You must set an action for each scene operation.: Chọn hành động cho từng diễn biến trong cảnh.
+channelConfigHelp_gateCloseAfterHelp: Bên chạy quy trình tắt cổng có thể chậm hơn tối đa một phút so với thời gian quy định.
+channelConfigHelp_stateVerificationMethod: 'Hoạt động: Thay đổi lần đầu tiên trạng thái của cảm biến theo mục tiêu sẽ ngừng các lần thử lại. Thụ động: cứ sau 60 giây, chúng tôi kiểm tra trạng thái của cảm biến và dừng lặp lại khi cảm biến đã báo cáo ở trạng thái cài đặt.'
+channelConfig_stateVerificationMethod_active: Hoạt động
+channelConfig_stateVerificationMethod_passive: Bị động
+everyday: Hàng ngày
 
 #</editor-fold>
