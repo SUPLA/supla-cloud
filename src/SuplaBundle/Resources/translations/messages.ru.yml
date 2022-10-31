@@ -953,46 +953,46 @@ hourly: Ежечасный цикл
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Подробности аберрации
+Aberrations count: Количество аберраций
+Above threshold: Выше порога
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Вы уверены, что хотите удалить всю историю аббераций напряжения этого канала?
+Automatic closing rule: Автоматическое закрытие ворот
+Average voltage: Среднее напряжение
+Below threshold: Ниже порога
+Change: Изменить
+Close after: Закрыть после
+Close automatically: Закрыть автоматически
+Delete voltage aberrations history: Удалить историю аббераций напряжения
+Device might be sleeping: Устройство может находиться в спящем режиме
+Error when communicating the AD. Try again in a while.: Ошибка при коммуникации с AD. Повторите попытку позже.
+Estimated execution time: Примерное время выполнения
+Gate's state verification: Проверка статуса ворот
+Hide days without aberrations: Скрыть дни без аберрации
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Если устройство в данный момент находится в спящем режиме, изменения конфигурации вступят в силу после его пробуждения.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Если устройство сейчас находится в спящем режиме, оно войдет в режим конфигурации при ближайшем пробуждении.
+Longest aberration: Самая длинная аберрация
+Lower voltage threshold: Порог низкого напряжения
+Maximum voltage: Максимальное напряжение
+Measurement window: Время измерения
+Minimum voltage: Минимальное напряжение
+Number of aberrations: Количество аберраций
+Phase number: Фаза
+Register your SUPLA Cloud: Зарегистрируйте свой экземпляр SUPLA Cloud
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Удалите все связанные сцены перед удалением этого местоположения. Идентификаторы: {relatedIds}.'
+The device might be in a sleep mode.: Устройство может работать в спящем режиме.
+The scene would execute too many operations.: Сцена выполняет слишком много операций.
+Total time: Общее время
+Upper voltage threshold: Порог высокого напряжения
+Verification method: Метод проверки
+Voltage aberrations: Аберрации напряжения
+Voltage monitoring: Контроль напряжения
+Wait for this scene to finish before proceeding to the next step ({time}).: Дождитесь завершения выполнения сцены перед тем, как продолжить действие ({time}).
+You must set an action for each scene operation.: Выберите действие для каждой операции в сцене.
+channelConfigHelp_gateCloseAfterHelp: Агент, запускающий процедуру закрытия ворот, может иметь задержку до одной минуты от заданного времени.
+channelConfigHelp_stateVerificationMethod: 'Активные: первый переход датчика в целевое состояние прекращает повторные попытки. Пассивные: раз в 60 секунд проверяем состояние датчика и прерываем повтор, когда датчик сообщает заданное состояние.'
+channelConfig_stateVerificationMethod_active: Активный
+channelConfig_stateVerificationMethod_passive: Пассивный
+everyday: ежедневно
 
 #</editor-fold>
