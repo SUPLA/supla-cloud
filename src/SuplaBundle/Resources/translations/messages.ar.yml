@@ -956,46 +956,46 @@ will expire: يبطل مفعولها
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: تفاصيل الانحراف
+Aberrations count: عدد الانحرافات
+Above threshold: فوق العتبة
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: هل أنت متأكد أنك تريد حذف كل تاريخ انحراف الجهد لهذه القناة؟
+Automatic closing rule: إغلاق تلقائي للبوابة
+Average voltage: الجهد المتوسط
+Below threshold: تحت العتبة
+Change: تغيير
+Close after: إغلاق بعد
+Close automatically: إغلاق تلقائي
+Delete voltage aberrations history: حذف تاريخ انحراف الجهد
+Device might be sleeping: قد يكون الجهاز في وضع السكون
+Error when communicating the AD. Try again in a while.: خطأ أثناء الاتصال بـ AD. يرجى المحاولة مرة أخرى في لحظة.
+Estimated execution time: الوقت المقدر للإكمال
+Gate's state verification: التحقق من حالة البوابة
+Hide days without aberrations: إخفاء الأيام بدون انحراف
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: إذا كان الجهاز في وضع السكون حاليًا، فستسري تغييرات الإعدادات بعد تشغيله.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: إذا كان الجهاز في وضع السكون حاليًا، فسيدخل في وضع الإعدادات بعد تشغيله مرة أخرى.
+Longest aberration: أطول انحراف
+Lower voltage threshold: عتبة الجهد المنخفض
+Maximum voltage: أعلى جهد
+Measurement window: وقت القياس
+Minimum voltage: جهد منخفض
+Number of aberrations: عدد الانحرافات
+Phase number: طور
+Register your SUPLA Cloud: قم بتسجيل مثيل SUPLA Cloud الخاص بك
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'احذف جميع المشاهد ذات الصلة قبل حذف هذا الموقع. المعرفات: {relatedIds}.'
+The device might be in a sleep mode.: يمكن للجهاز العمل في وضع السكون.
+The scene would execute too many operations.: يتم تنفيذ العديد من العمليات في المشهد.
+Total time: الوقت الكلي
+Upper voltage threshold: عتبة الجهد العالي
+Verification method: طريقة التحقق
+Voltage aberrations: انحرافات الجهد
+Voltage monitoring: مراقبة الجهد
+Wait for this scene to finish before proceeding to the next step ({time}).: 'انتظر حتى ينتهي تنفيذ المشهد قبل متابعة الإجراء ({time}).'
+You must set an action for each scene operation.: حدد إجراءً لكل عملية في المشهد.
+channelConfigHelp_gateCloseAfterHelp: يمكن أن يتأخر العميل الذي يبدأ عملية إغلاق البوابة لمدة تصل إلى دقيقة واحدة من الوقت المحدد.
+channelConfigHelp_stateVerificationMethod: 'نشط: التغيير الأول لحالة المستشعر إلى الحالة المستهدفة يتسبب في  التوقف عن إعادة المحاولات. سلبي: مرة واحدة كل 60 ثانية نتحقق من حالة المستشعر ونتوقف عن الإعادة عندما يبلغ المستشعر عن الحالة المحددة.'
+channelConfig_stateVerificationMethod_active: نشط
+channelConfig_stateVerificationMethod_passive: سلبي
+everyday: يوميا
 
 #</editor-fold>

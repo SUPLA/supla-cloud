@@ -953,46 +953,46 @@ hourly: Urni cikel
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Podrobnosti o odstopanju
+Aberrations count: Število odstopanj
+Above threshold: Nad pragom
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino napetostnih odstopanj za ta kanal?
+Automatic closing rule: Samodejno zapiranje vrat
+Average voltage: Srednja napetost
+Below threshold: Pod pragom
+Change: Spremeni
+Close after: Zapri po
+Close automatically: Zapri samodejno
+Delete voltage aberrations history: Izbriši zgodovino napetostnih odstopanj
+Device might be sleeping: Naprava je morda v načinu mirovanja
+Error when communicating the AD. Try again in a while.: Napaka pri komunikaciji z AD. Poskusite znova čez nekaj trenutkov.
+Estimated execution time: Predviden čas za dokončanje
+Gate's state verification: Preverjanje statusa prehoda
+Hide days without aberrations: Skrij dneve brez odstopanj
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Če je naprava trenutno v načinu mirovanja, bodo spremembe konfiguracije začele veljati, ko se naprava prebudi.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Če naprava zdaj miruje, bo naslednjič, ko se prebudi, vstopila v konfiguracijski način.
+Longest aberration: Najdaljše odstopanje
+Lower voltage threshold: Prag nizke napetosti
+Maximum voltage: Najvišja napetost
+Measurement window: Čas meritve
+Minimum voltage: Najnižja napetost
+Number of aberrations: Število odstopanj
+Phase number: Faza
+Register your SUPLA Cloud: Registrirajte svojo različico SUPLA Cloud
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Izbrišite vse povezane scene, preden izbrišete to lokacijo. Identifikatorji: {relatedIds}.'
+The device might be in a sleep mode.: Naprava lahko deluje v načinu mirovanja.
+The scene would execute too many operations.: Scena izvaja preveč operacij.
+Total time: Skupni čas
+Upper voltage threshold: Prag visoke napetosti
+Verification method: Način potrjevanja
+Voltage aberrations: Napetostna odstopanja
+Voltage monitoring: Nadzor napetosti
+Wait for this scene to finish before proceeding to the next step ({time}).: Počakajte, da se izvedba scene konča, preden nadaljujete z dejanjem ({time}).
+You must set an action for each scene operation.: Izberite dejanje za vsako operacijo v sceni.
+channelConfigHelp_gateCloseAfterHelp: Agent, ki začne postopek zapiranja vrat, se lahko zamakne do ene minute od nastavljenega časa.
+channelConfigHelp_stateVerificationMethod: 'Aktivno: Ko se senzor prvič spremeni v ciljno stanje, ustavi ponovne poskuse. Pasivno: enkrat na 60 sekund preverimo stanje senzorja in prenehamo s ponavljanjem, ko senzor javi nastavljeno stanje.'
+channelConfig_stateVerificationMethod_active: Aktiven
+channelConfig_stateVerificationMethod_passive: Pasiven
+everyday: vsakodnevno
 
 #</editor-fold>

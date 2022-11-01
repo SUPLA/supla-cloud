@@ -903,50 +903,50 @@ valid until: закінчиться
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Fridays: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Mondays: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-Saturdays: ~
-Sundays: ~
-The device might be in a sleep mode.: ~
-Thursdays: ~
-Total time: ~
+Aberration info: Деталі аберації
+Aberrations count: Кількість аберацій
+Above threshold: Вище порогового значення
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
+Automatic closing rule: Автоматичне закриття воріт
+Average voltage: Середня напруга
+Below threshold: Нижче порогового значення
+Change: Змінити
+Close after: Закрити після
+Close automatically: Закривати автоматично
+Delete voltage aberrations history: Видалити історію аберації напруги
+Device might be sleeping: Пристрій може бути в режимі сну
+Error when communicating the AD. Try again in a while.: Помилка під час зв’язку з AD. Спробуйте ще раз пізніше.
+Estimated execution time: Приблизний час виконання
+Fridays: П’ятниці
+Gate's state verification: Перевірка статусу воріт
+Hide days without aberrations: приховати дні без аберації
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Якщо пристрій знаходиться в режимі сну, то зміни в конфігурації можливі лише після виходу з цього режиму.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Якщо пристрій зараз перебуває в режимі сну, він увійде в режим конфігурації наступного разу, коли вийде з режиму сну.
+Longest aberration: Найдовша аберація
+Lower voltage threshold: Поріг низької напруги
+Maximum voltage: Найвища напруга
+Measurement window: Час вимірювання
+Minimum voltage: Найнижча напруга
+Mondays: Понеділки
+Number of aberrations: Кількість аберацій
+Phase number: Фаза
+Register your SUPLA Cloud: Зареєструйте свій екземпляр у хмарі SUPLA
+Saturdays: Суботи
+Sundays: Неділі
+The device might be in a sleep mode.: Пристрій може працювати в режимі сну
+Thursdays: Четверги
+Total time: Загальний час
 Tuesdays: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-Wednesdays: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Upper voltage threshold: поріг високої напруги
+Verification method: Метод верифікації
+Voltage aberrations: Аберації напруги
+Voltage monitoring: Моніторинг напруги
+Wait for this scene to finish before proceeding to the next step ({time}).: Зачекайте, доки завершиться виконання сцени, перш ніж продовжувати дію ({time}).
+Wednesdays: Середи
+channelConfigHelp_gateCloseAfterHelp: Виберіть дію для кожної операції в сцені.
+channelConfigHelp_stateVerificationMethod: 'Активний: перша зміна стану датчика на цільовий стан перериває повторення спроб. Пасивний: ми перевіряємо стан датчика кожні 60 секунд і перериваємо повторні спроби, коли датчик повідомляє про цільовий стан.'
+channelConfig_stateVerificationMethod_active: Активний
+channelConfig_stateVerificationMethod_passive: Пасивний
+everyday: Щоденно
 
 #</editor-fold>
