@@ -953,46 +953,46 @@ hourly: Valandinis ciklas
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Išsami informacija apie aberaciją
+Aberrations count: Aberacijų skaičius
+Above threshold: Virš slenksčio
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ar esate tikri, kad norite pašalinti visą šio kanalo įtampos aberacijų istoriją?
+Automatic closing rule: Automatinis vartų uždarymas
+Average voltage: Vidutinė įtampa
+Below threshold: Žemiau slenksčio
+Change: Keisti
+Close after: Uždaryti po
+Close automatically: Uždaryti automatiškai
+Delete voltage aberrations history: Pašalinti įtampos aberacijų istoriją
+Device might be sleeping: Įrenginys gali būti miego režime
+Error when communicating the AD. Try again in a while.: Ryšio su AD klaida. Netrukus pabandykite dar kartą.
+Estimated execution time: Numatomas atlikimo laikas
+Gate's state verification: Vartų būsenos tikrinimas
+Hide days without aberrations: Slėpti dienas be aberacijų
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Jei įrenginys dabar yra miego režime, konfigūracijos pakeitimai bus įvesti po jo pažadinimo.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jei įrenginys dabar užmigdytas, kai bus pažadintas artimiausiu metu jis bus įjungtas konfigūracijos režime.
+Longest aberration: Ilgiausia aberacija
+Lower voltage threshold: Žemos įtampos slenkstis
+Maximum voltage: Aukščiausia įtampa
+Measurement window: Matavimo laikas
+Minimum voltage: Žemiausia įtampa
+Number of aberrations: Aberacijų skaičius
+Phase number: Fazė
+Register your SUPLA Cloud: Užregistruokite savo SUPLA Cloud įrengimą
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Pašalinkite visas susijusias scenas prieš šios vietos pašalinimą. Identifikatoriai: {relatedIds}.'
+The device might be in a sleep mode.: Įrenginys gali veikti miego režimu.
+The scene would execute too many operations.: Scena atlieka per daug operacijų.
+Total time: Bendras laikas
+Upper voltage threshold: Aukštos įtampos slenkstis
+Verification method: Tikrinimo būdas
+Voltage aberrations: Įtampos aberacijos
+Voltage monitoring: Įtampos stebėjimas
+Wait for this scene to finish before proceeding to the next step ({time}).: Prieš tęsdami akciją ({time}) palaukite, kol bus baigtas scenos vykdymas.
+You must set an action for each scene operation.: Pasirinkite akciją kiekvienai scenos operacijai.
+channelConfigHelp_gateCloseAfterHelp: Agentas paleidžiantis vartų uždarymo procedūrą gali vėluoti daugiausiai iki vienos minutės nustatyto laiko atžvilgiu.
+channelConfigHelp_stateVerificationMethod: 'Aktyvūs: pirmas būsenos jutiklio pakeitimas į numatytąjį nutraukia bandymų kartojimą. Pasyvūs: kartą per 60 s. tikriname jutiklio būseną ir nutraukiame kartojimą, kai jutiklis praneš tada apie nustatytą būseną.'
+channelConfig_stateVerificationMethod_active: Aktyvus
+channelConfig_stateVerificationMethod_passive: Pasyvus
+everyday: kasdien
 
 #</editor-fold>
