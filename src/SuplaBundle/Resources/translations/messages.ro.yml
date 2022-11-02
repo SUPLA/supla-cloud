@@ -957,46 +957,46 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Detaliile aberației
+Aberrations count: Numărul de aberații
+Above threshold: Peste prag
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Sigur doriți să ștergeți întreg istoricul aberațiilor de tensiune pentru acest canal?
+Automatic closing rule: Închidere automată a ușii de garaj
+Average voltage: Tensiune medie
+Below threshold: Sub pragul
+Change: Schimbă
+Close after: Închide după
+Close automatically: Închide automat
+Delete voltage aberrations history: Șterge istoricul aberațiilor de tensiune
+Device might be sleeping: Dispozitivul poate să fie în modul de repaus
+Error when communicating the AD. Try again in a while.: Eroare la comunicarea cu AD. Încercați din nou peste o clipă.
+Estimated execution time: Timp estimat pentru realizare
+Gate's state verification: Verificarea stării ușii de garaj
+Hide days without aberrations: Ascunde zilele fără aberații
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Dacă dispozitivul este momentan în modul de repaus, modificările de configurare vor intra în vigoare după acționare.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Dacă dispozitivul este acum în stare de repaus, va intra în modul de configurare după următoarea acționare.
+Longest aberration: Cea mai lungă aberație
+Lower voltage threshold: Prag de tensiune joasă
+Maximum voltage: Cea mai mare tensiune
+Measurement window: Timpul de măsurare
+Minimum voltage: Tensiune cea mai joasă
+Number of aberrations: Numărul de aberații
+Phase number: Fază
+Register your SUPLA Cloud: Înregistrați-vă instanța SUPLA Cloud
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Ștergeți toate scenele conexe înainte de a șterge această locație. Identificatori: {relatedIds}.'
+The device might be in a sleep mode.: Dispozitivul poate funcționa în modul de repaus.
+The scene would execute too many operations.: Scena efectuează prea multe operații.
+Total time: Timpul total
+Upper voltage threshold: Prag de înaltă tensiune
+Verification method: Metoda de verificare
+Voltage aberrations: Aberații de tensiune
+Voltage monitoring: Monitorizarea tensiunii
+Wait for this scene to finish before proceeding to the next step ({time}).: Așteaptă finalizarea scenei înainte de a continua acţiunea ({time}).
+You must set an action for each scene operation.: Selectați acțiune pentru fiecare operațiune din scenă.
+channelConfigHelp_gateCloseAfterHelp: Agentul care începe procedura de închidere a ușii de garaj poate avea întârziere până la un minut în raport cu timpul setat.
+channelConfigHelp_stateVerificationMethod: 'Activ: prima modificare a stării senzorului la starea țintă, întrerupe repetarea încercărilor. Pasiv: o dată la 60 de secunde, verificăm starea senzorului și oprim repetarea încercărilor când senzorul raportează starea setată.'
+channelConfig_stateVerificationMethod_active: Activ
+channelConfig_stateVerificationMethod_passive: Pasiv
+everyday: zilnic
 
 #</editor-fold>
