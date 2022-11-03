@@ -19,6 +19,9 @@ AM2301 Temperature & Humidity Sensor: Датчик температури та �
 AM2302 Temperature & Humidity Sensor: Датчик температури та вологості AM2302
 API documentation: Документація АРІ
 API rate limits: Ліміт запитів до АРІ
+Aberration info: Деталі аберації
+Aberrations count: Кількість аберацій
+Above threshold: Вище порогового значення
 Access ID: ID доступу
 Access ID is not active right now.: Ідентифікатор доступу наразі неактивний
 Access Identifier: Ідентифікатор доступу
@@ -64,6 +67,7 @@ Applications: Застосунки
 Are you lost?: Ви загубились? Ви щось шукаєте?
 Are you sure you want to change channel’s function?: Ви впевнені, що хочете змінити функцію каналу?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ви впевнені, що бажаєте видалити всю історію вимірювань, зібрану для цього каналу?
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
 Are you sure you want to delete this OAuth application?: Ви впевнені, що бажаєте видалити цю програму OAuth?
 Are you sure you want to delete this channel group?: Ви впевнені, що бажаєте видалити цю групу каналів?
 Are you sure you want to delete this client?: Ви впевнені, що бажаєте видалити цю клієнтську програму?
@@ -93,12 +97,15 @@ Authorize the application, so that it can access your account.: Авторизу
 Authorized: Авторизований
 Authorized OAuth apps: Авторизовані програми OAuth
 Automatic calibration: Автоматичне калібрування
+Automatic closing rule: Автоматичне закриття воріт
 Automation: Автоматизація
+Average voltage: Середня напруга
 Back to apps list: Назад до списку програм
 Bar: Пункт
 Based on sunrise or sunset: З розрахунку схід/захід
 Be notified when your channels change state: Повідомлення про зміни статусу каналу
 Be right back!: Поверніться через кілька хвилин!
+Below threshold: Нижче порогового значення
 Bottom position: Нижня позиція
 Bridge: Перехід
 Brightness: Яскравість
@@ -119,6 +126,7 @@ Can’t find activation email? Please check your SPAM or Junk mail folders. Alte
 Captcha token is not valid.: Недійсний код перевірки.
 Caption: Підпис
 Caption is too long.: Назва занадто довга.
+Change: Змінити
 Change Password: Зміна пароля
 Change channel function: Змінити функцію каналу
 Change function: Змінити функцію
@@ -161,6 +169,8 @@ Client registration: Реєстрація клієнтів
 Client’s Apps: Клієнтські програми
 Client’s app has been deleted: Клієнтську програму видалено
 Close: Закрити
+Close after: Закрити після
+Close automatically: Закривати автоматично
 Close partially: Закрити частково
 Color: Колір
 Color brightness: Яскравість кольору
@@ -204,6 +214,7 @@ Default: за замовчуванням
 Delete: Видалити
 Delete measurement history: Видалити історію вимірювань
 Delete my account: Видалити мій обліковий запис
+Delete voltage aberrations history: Видалити історію аберації напруги
 Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Видалення вашого облікового запису також призведе до видалення всіх ваших даних, включаючи підключені пристрої, налаштовані канали, прямі посилання та історію вимірювань. Видалення облікового запису незворотне.
 Depth: Глибина
 Depth sensor: Датчик глибини
@@ -213,6 +224,7 @@ Device: Пристрій
 'Device ID: %deviceId%': 'Ідентифікатор пристрою: %deviceId%'
 Device channel value: Значення від пристрою
 Device is disconnected.: Пристрій відключено.
+Device might be sleeping: Пристрій може бути в режимі сну
 'Device name: %deviceName%': 'Назва приладу: %deviceName%'
 Device should be now in configuration mode.: Тепер пристрій має бути в режимі налаштування.
 'Device software version: %deviceSoftwareVersion%': 'Версія програмного забезпечення: %deviceSoftwareVersion%'
@@ -262,7 +274,9 @@ Enter your email address: Будь ласка, введіть адресу ел�
 Enter your password to prevent automatic logout.: Введіть свій пароль, щоб запобігти автоматичному виходу.
 Entering configuration mode is unsupported in the firmware.: Віддалений перехід в режим конфігурації не підтримується мікропрограмою пристрою.
 Error: Помилка
+Error when communicating the AD. Try again in a while.: Помилка під час зв’язку з AD. Спробуйте ще раз пізніше.
 Error when communicating the server. Try again in a while.: Виникла проблема зв’язку із сервером. Спробуйте ще раз за мить.
+Estimated execution time: Приблизний час виконання
 Every: Що
 Example Auth URL: Зразок URL-адреси авторизації
 Execute: Виконати
@@ -285,6 +299,7 @@ Forgot your password?: Забули пароль?
 Forward active energy: Зібрана активна енергія
 Forward active energy balanced: Споживана активна енергія (Векторний баланс)
 Forward reactive energy: Розхід реактивної енергії
+Fridays: П’ятниці
 From IP: З IP-адреси
 From anywhere: Звідки завгодно
 Full closing time: Загальний час закриття
@@ -299,6 +314,7 @@ Garage door operation: Відкриття/закриття гаражних во
 Gas meter: Лічильник газу
 Gate opening sensor: Датчик відкриття воріт
 Gate operation: Відкриття/закриття воріт
+Gate's state verification: Перевірка статусу воріт
 Gateway lock operation: Відкриття хвіртки
 Gateway opening sensor: Датчик відкриття хвіртки
 General purpose measurement: Загальний вимірювальний канал
@@ -313,6 +329,7 @@ Grant access: Надайте доступ
 Guru Meditation: Guru Meditation
 HFD4 Relay: Реле HFD4
 Heat meter: Лічильник тепла
+Hide days without aberrations: приховати дні без аберації
 History of measurements: Історія вимірювань
 Home appliances: Побутова техніка / телебачення
 Home+ Heater: Будинок + обігрівач
@@ -333,6 +350,8 @@ ID: ID
 INACTIVE: НЕАКТИВНИЙ
 Icon: Значок
 Idle: Бездіяльність
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Якщо пристрій знаходиться в режимі сну, то зміни в конфігурації можливі лише після виходу з цього режиму.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Якщо пристрій зараз перебуває в режимі сну, він увійде в режим конфігурації наступного разу, коли вийде з режиму сну.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Якщо посилання не працює, скопіюйте його в адресний рядок веб-браузера або введіть вручну.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Якщо ви розробник, який хоче надати додаткові функції для SUPLI, створіть програму OAuth для авторизації та використання користувачами.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Якщо ви впевнені, що маєте обліковий запис на cloud.supla.org, переконайтеся, що програма, яку ви намагаєтеся авторизувати, є загальнодоступною.
@@ -398,6 +417,8 @@ Location limit has been exceeded: Ліміт місцезнаходження п
 Location name: Назва місця
 Locations: Місцезнаходження
 Login: Логін
+Longest aberration: Найдовша аберація
+Lower voltage threshold: Поріг низької напруги
 MQTT Broker: Брокер MQTT
 MQTT Broker Username: Ім'я користувача
 MQTT Broker is disabled.: Брокер MQTT вимкнено.
@@ -414,11 +435,15 @@ Manual: Інструкція
 Manually closed: Закривається вручну
 Maximum delay is 60 minutes.: Максимальна затримка становить 60 хвилин.
 Maximum filesize limit is {limit}.: Максимальний розмір файлу становить {limit}.
+Maximum voltage: Найвища напруга
+Measurement window: Час вимірювання
 Meter value: Покази лічильника
 Meters: Лічильники
+Minimum voltage: Найнижча напруга
 Mobile Apps: Мобільні додатки
 Mode: Режим
 Modification: Модифікація
+Mondays: Понеділки
 Move down or stop: Вниз або зупинитись
 Move up or stop: Вгору або зупинись
 My OAuth apps: Мої програми OAuth
@@ -458,6 +483,7 @@ No. of devices: Кількість пристроїв
 No. of locations: Кількість місць
 None: Відсутність
 None (channel disabled): Немає (канал вимкнено)
+Number of aberrations: Кількість аберацій
 Number of attempts to close: Кількість спроб закриття
 Number of attempts to open: Кількість спроб відкриття
 Number of sections: Кількість секцій
@@ -493,6 +519,7 @@ Personal token name is required.: Потрібне ім’я особистог�
 Phase 1: Фаза 1
 Phase 2: Фаза 2
 Phase 3: Фаза 3
+Phase number: Фаза
 Please choose the schedule subject first.: Спочатку виберіть, чим має керувати розклад
 Please click the following link to reset your %cloudHost% password.: Натисніть на посилання нижче, щоб скинути пароль %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Натисніть посилання в повідомленні, яке ми надіслали вам після створення облікового запису.
@@ -528,6 +555,7 @@ Regeneration starts at: Початок відновлення
 Register: Реєстрація
 Register a new OAuth application: Зареєструйте нову програму OAuth
 Register private SUPLA Cloud: Зареєструйте приватну хмару SUPLA
+Register your SUPLA Cloud: Зареєструйте свій екземпляр у хмарі SUPLA
 Registered: Зареєстровано
 'Registered from IP address: %clientAppRegIp%': 'Зареєстровано з IP-адреси: %clientAppRegIp%'
 'Registered from IP address: %deviceRegIp%': 'Адреса ІР: %deviceRegIp%'
@@ -566,6 +594,7 @@ SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA - Спов�
 SUPLA – new client app has been added to your account: SUPLA - зареєстровано новий клієнтський додаток
 SUPLA – new device has been added to your account: SUPLA - до вашого облікового запису додано новий пристрій
 SUPLA.ORG Team: Команда SUPLA.ORG
+Saturdays: Суботи
 Save: Зберегти
 Save and enable: Зберегти та ввімкнути
 Save changes: Зберегти зміни
@@ -627,6 +656,7 @@ Store measurements history: Зберігати історію вимірюван
 Subject type: Тип суб’єкта
 Success: Успіх
 Successful: Успішний
+Sundays: Неділі
 Supla for devices: Supla для пристроїв
 Switch the device to configuration mode: Переведіть пристрій у режим конфігурації
 THIS CANNOT BE UNDONE!: ЦЮ ОПЕРАЦІЮ НЕМОЖЛИВО БУДЕ СКАСУВАТИ!
@@ -648,6 +678,7 @@ The activation link has been sent again. Check the inbox.: Повідомлен�
 The client will be automatically logged out when deleted.: Видалення клієнта призведе до негайного виходу з системи.
 The counter has been reset.: Лічильник скинуто.
 The device is disabled: Пристрій вимкнено
+The device might be in a sleep mode.: Пристрій може працювати в режимі сну
 The following items use the channels of these device. These references will be also removed.: Наступні елементи використовують канали з цього пристрою. Вони також будуть видалені.
 'The following items will be deleted with this device:': Наведені нижче елементи також буде видалено разом із цим пристроєм.
 The gate sensor must function properly in order to execute the Open and Close actions.: Датчик відкриття воріт має працювати належним чином, щоб виконати дію Відкрити або Закрити.
@@ -683,12 +714,14 @@ This is the list of applications you have granted access to your account.: Це 
 This link is only valid for an hour.: Посилання буде активним протягом однієї години.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Цей режим розкладу призначений для технічних або дуже терплячих користувачів. Він вимагає, щоб час запуску розкладу було зазначено в нотації crontab, збагаченої декількома функціями, доступними лише в SUPLA. Якщо ви раніше не бачили crontab і все ще хочете використовувати цей режим, сайт crontab.guru може бути вам корисним.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ця команда використовується пристроєм локально (наприклад, він вмикає світло, керує ролетами тощо). Якщо ви призначите їй іншу дію, локальну функцію буде вимкнено.
+Thursdays: Четверги
 Timezone: Часовий пояс
 Toggle: Переключити
 Token does not exist: Токен не існує
 Too many actions in this schedule.: Забагато дій в одному розкладі.
 Too many channels in this group: У цій групі забагато каналів
 Too many operations in this scene: Забагато операцій у сцені.
+Total time: Загальний час
 Triggers: Команди
 Turning this device off will cause its channels not working in the following features.: Вимкнення пристрою призведе до того, що його канали перестануть працювати в наступних елементах.
 Turning this device off will result in disabling features listed below.: Вимкнення пристрою призведе до вимкнення наступних елементів.
@@ -702,6 +735,7 @@ Unsupported function: Функція не підтримується
 Unsupported type: Тип, що не підтримується
 Update in progress: Оновлення триває
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Завантажені файли не порушують моральні принципи, авторські права та права третіх осіб, і я маю право їх використовувати.
+Upper voltage threshold: поріг високої напруги
 'Use the {0} server command to change this account''s limits. For example:': 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
 Use working schedule for this access identifier: Використовуйте графік доступності для цього ідентифікатора доступу
 User is already confirmed. Try to log in.: Цей обліковий запис уже підтверджено. Авторизуйтесь
@@ -709,12 +743,16 @@ Value added: Додана вартість
 Value per unit: Вартість за одиницю
 Valve: Вентиль
 Valve closed manually: Вентиль закритий вручну
+Verification method: Метод верифікації
 Visible: Видимий
 Visit app webpage: Відкрийте сайт додатку
+Voltage aberrations: Аберації напруги
+Voltage monitoring: Моніторинг напруги
 WELCOME_MESSAGE: |
   Підключити свій дім чи офіс до SUPLI просто. Все, що вам потрібно зробити, це
   переписати наступні дані на пристрої керування (входи/виходи) і смартфони.
 Wait a while before the next request. You can check your limits in the account settings.: Зачекайте трохи, перш ніж робити інший запит. Ви можете перевірити поточне використання своїх лімітів у налаштуваннях облікового запису.
+Wait for this scene to finish before proceeding to the next step ({time}).: Зачекайте, доки завершиться виконання сцени, перш ніж продовжувати дію ({time}).
 Water meter: Лічильник води
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Ми надсилатимемо вам сповіщення про певні події, пов’язані з вашим обліковим записом. Ви можете скасувати підписку на ті, які вам не потрібні.
 We could not connect to your SUPLA Cloud instance.: Нам не вдалося підключитися до вашого приватного примірника SUPLA Cloud.
@@ -731,6 +769,7 @@ We will miss you: Ми будемо сумувати за Вами
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Ми докладемо всіх зусиль, щоб піктограми відображалися найкраще, але ви отримаєте найкращі результати, завантажуючи файли PNG із прозорим фоном і шириною та висотою в пікселях.
 We will use it only in justified situations.: Ми будемо використовувати його лише в обґрунтованих випадках.
 Weather Station: Метеостанція
+Wednesdays: Середи
 Weight sensor: Вага
 Welcome!: Привіт!
 What this token is for?: Для чого цей токен?
@@ -810,7 +849,11 @@ after: після
 before: перед
 caption: назва
 channel: Канал
+channelConfigHelp_gateCloseAfterHelp: Виберіть дію для кожної операції в сцені.
 channelConfigHelp_numberOfAttemptsGate: «Після того, як ви віддасте наказ відкрити або закрити ворота, система спробує закрити/відкрити їх і зачекає 60 секунд, щоб перевірити, чи ворота досягли бажаного стану. Якщо ні, система спробує закрити/відкрити знову. Цей параметр визначає максимальну кількість спроб системи досягти мети. Рекомендоване значення — 5. Зміна цього параметра не впливає на роботу розкладів.
+channelConfigHelp_stateVerificationMethod: 'Активний: перша зміна стану датчика на цільовий стан перериває повторення спроб. Пасивний: ми перевіряємо стан датчика кожні 60 секунд і перериваємо повторні спроби, коли датчик повідомляє про цільовий стан.'
+channelConfig_stateVerificationMethod_active: Активний
+channelConfig_stateVerificationMethod_passive: Пасивний
 channelGroup: Група каналів
 choose: вибрати
 choose a currency: оберіть валюту
@@ -838,6 +881,7 @@ directLinkExecutionFailureReason_otherFailure: Помилка під час ви
 directLinkExecutionFailureReason_sceneDuringExecution: Сцена триває.
 directLinkExecutionFailureReason_unsupportedAction: Вибрана дія недійсна
 empty: порожньо
+everyday: Щоденно
 executed: виконано
 extend: продовжити
 from IP: з IP-адреси
@@ -903,50 +947,6 @@ valid until: закінчиться
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: Деталі аберації
-Aberrations count: Кількість аберацій
-Above threshold: Вище порогового значення
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
-Automatic closing rule: Автоматичне закриття воріт
-Average voltage: Середня напруга
-Below threshold: Нижче порогового значення
-Change: Змінити
-Close after: Закрити після
-Close automatically: Закривати автоматично
-Delete voltage aberrations history: Видалити історію аберації напруги
-Device might be sleeping: Пристрій може бути в режимі сну
-Error when communicating the AD. Try again in a while.: Помилка під час зв’язку з AD. Спробуйте ще раз пізніше.
-Estimated execution time: Приблизний час виконання
-Fridays: П’ятниці
-Gate's state verification: Перевірка статусу воріт
-Hide days without aberrations: приховати дні без аберації
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Якщо пристрій знаходиться в режимі сну, то зміни в конфігурації можливі лише після виходу з цього режиму.
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: Якщо пристрій зараз перебуває в режимі сну, він увійде в режим конфігурації наступного разу, коли вийде з режиму сну.
-Longest aberration: Найдовша аберація
-Lower voltage threshold: Поріг низької напруги
-Maximum voltage: Найвища напруга
-Measurement window: Час вимірювання
-Minimum voltage: Найнижча напруга
-Mondays: Понеділки
-Number of aberrations: Кількість аберацій
-Phase number: Фаза
-Register your SUPLA Cloud: Зареєструйте свій екземпляр у хмарі SUPLA
-Saturdays: Суботи
-Sundays: Неділі
-The device might be in a sleep mode.: Пристрій може працювати в режимі сну
-Thursdays: Четверги
-Total time: Загальний час
 Tuesdays: ~
-Upper voltage threshold: поріг високої напруги
-Verification method: Метод верифікації
-Voltage aberrations: Аберації напруги
-Voltage monitoring: Моніторинг напруги
-Wait for this scene to finish before proceeding to the next step ({time}).: Зачекайте, доки завершиться виконання сцени, перш ніж продовжувати дію ({time}).
-Wednesdays: Середи
-channelConfigHelp_gateCloseAfterHelp: Виберіть дію для кожної операції в сцені.
-channelConfigHelp_stateVerificationMethod: 'Активний: перша зміна стану датчика на цільовий стан перериває повторення спроб. Пасивний: ми перевіряємо стан датчика кожні 60 секунд і перериваємо повторні спроби, коли датчик повідомляє про цільовий стан.'
-channelConfig_stateVerificationMethod_active: Активний
-channelConfig_stateVerificationMethod_passive: Пасивний
-everyday: Щоденно
 
 #</editor-fold>

@@ -19,6 +19,9 @@ AM2301 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2301
 AM2302 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis AM2302
 API documentation: API dokumentacija
 API rate limits: API užklausų apribojimas
+Aberration info: Išsami informacija apie aberaciją
+Aberrations count: Aberacijų skaičius
+Above threshold: Virš slenksčio
 Access ID: Prieigos ID
 Access ID is not active right now.: Prieigos identifikatorius šiuo metu neaktyvus.
 Access Identifier: Prieigos identifikatorius
@@ -64,6 +67,7 @@ Applications: Programos
 Are you lost?: Pasiklydote? Kažko ieškote?
 Are you sure you want to change channel’s function?: Ar tikrai norite pakeisti kanalo funkciją?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ar tikrai norite pašalinti šio kanalo sukauptų matmenų visą istoriją?
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ar esate tikri, kad norite pašalinti visą šio kanalo įtampos aberacijų istoriją?
 Are you sure you want to delete this OAuth application?: Ar tikrai norite pašalinti šią OAuth programą?
 Are you sure you want to delete this channel group?: Ar tikrai norite pašalinti šią kanalų grupę?
 Are you sure you want to delete this client?: Ar tikrai norite pašalinti šią kliento programą?
@@ -93,12 +97,15 @@ Authorize the application, so that it can access your account.: Autorizuokite pr
 Authorized: Autorizuota
 Authorized OAuth apps: Autorizuotos programos OAuth
 Automatic calibration: Automatinis kalibravimas
+Automatic closing rule: Automatinis vartų uždarymas
 Automation: Automatika
+Average voltage: Vidutinė įtampa
 Back to apps list: Grįžti į programų sąrašą
 Bar: Stulpelinis
 Based on sunrise or sunset: Pagal rytus / vakarus
 Be notified when your channels change state: Pranešimas apie kanalų būsenos pasikeitimus
 Be right back!: Grįžkite po kelių akimirkų!
+Below threshold: Žemiau slenksčio
 Bottom position: Apatinė padėtis
 Bridge: Tiltas
 Brightness: Ryškumas
@@ -119,6 +126,7 @@ Can’t find activation email? Please check your SPAM or Junk mail folders. Alte
 Captcha token is not valid.: Neteisingai įvestas captcha kodas.
 Caption: Parašas
 Caption is too long.: Pavadinimas per ilgas.
+Change: Keisti
 Change Password: Slaptažodžio keitimas
 Change channel function: Pakeisti kanalo funkciją
 Change function: Pakeisti funkciją
@@ -161,6 +169,8 @@ Client registration: Klientų registracija
 Client’s Apps: Klientų programos
 Client’s app has been deleted: Kliento programa pašalinta
 Close: Uždaryti
+Close after: Uždaryti po
+Close automatically: Uždaryti automatiškai
 Close partially: Uždaryti iš dalies
 Color: Spalva
 Color brightness: Šviesos ryškumas
@@ -204,6 +214,7 @@ Default: pagal nutylėjimą
 Delete: Pašalinti
 Delete measurement history: Pašalinti matavimų istoriją
 Delete my account: Pašalinti mano paskyrą
+Delete voltage aberrations history: Pašalinti įtampos aberacijų istoriją
 Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
 Depth: Gylis
 Depth sensor: Gilio jutiklis
@@ -213,6 +224,7 @@ Device: Įrenginys
 'Device ID: %deviceId%': 'Įrenginio identifikatorius: %deviceId%'
 Device channel value: Reikšmė iš įrenginio
 Device is disconnected.: Įrenginys atjungtas.
+Device might be sleeping: Įrenginys gali būti miego režime
 'Device name: %deviceName%': 'Įrenginio pavadinimas: %deviceName%'
 Device should be now in configuration mode.: Įrenginys dabar turėtų būti konfigūravimo režime.
 'Device software version: %deviceSoftwareVersion%': 'Programinės įrangos versija: %deviceSoftwareVersion%'
@@ -262,7 +274,9 @@ Enter your email address: Įveskite savo el. pašto adresą
 Enter your password to prevent automatic logout.: Norėdami išvengti automatinio atsijungimo įveskite savo slaptažodį.
 Entering configuration mode is unsupported in the firmware.: Įrenginio programinė įranga nepalaiko nuotolinio perjungimo į konfigūravimo režimą.
 Error: Klaida
+Error when communicating the AD. Try again in a while.: Ryšio su AD klaida. Netrukus pabandykite dar kartą.
 Error when communicating the server. Try again in a while.: Ryšio su serveriu metu įvyko klaida. Pabandykite dar kartą vėliau.
+Estimated execution time: Numatomas atlikimo laikas
 Every: Kas
 Example Auth URL: Pavyzdinis URL autorizavimui
 Execute: Atlikti
@@ -300,6 +314,7 @@ Garage door operation: Garažo vartų atidarymas/uždarymas
 Gas meter: Dujų skaitiklis
 Gate opening sensor: Įvažiavimo vartų atidarymo jutiklis
 Gate operation: Įvažiavimo vartų atidarymas/uždarymas
+Gate's state verification: Vartų būsenos tikrinimas
 Gateway lock operation: Durelių atidarymas
 Gateway opening sensor: Durelių atidarymo jutiklis
 General purpose measurement: Bendras matavimo kanalas
@@ -314,6 +329,7 @@ Grant access: Pateikti prieigą
 Guru Meditation: Guru Meditation
 HFD4 Relay: Relė HFD4
 Heat meter: Šilumos skaitiklis
+Hide days without aberrations: Slėpti dienas be aberacijų
 History of measurements: Matmenų istorija
 Home appliances: Buitinė technika/RTV įranga
 Home+ Heater: Šildytuvas Home+
@@ -334,6 +350,8 @@ ID: ID
 INACTIVE: NEAKTYVI
 Icon: Piktograma
 Idle: Nenaudojamos
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Jei įrenginys dabar yra miego režime, konfigūracijos pakeitimai bus įvesti po jo pažadinimo.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jei įrenginys dabar užmigdytas, kai bus pažadintas artimiausiu metu jis bus įjungtas konfigūracijos režime.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Jei nuoroda neveikia, nukopijuokite ją į paieškos juostą arba įveskite rankiniu būdu.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Jeigu esate programuotojas, kuris nori pateikti papildomas funkcijas SUPLA'I, sukurkite OAuth programą, kurią vartotojai galės autorizuoti ir naudoti.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Jeigu esate tikri, kad turite paskyrą cloud.cupla org patikrinkite, ar programa, su kuria bandote autorizuoti yra vieša.
@@ -399,6 +417,8 @@ Location limit has been exceeded: Viršutinė vietų riba viršyta
 Location name: Vietos pavadinimas
 Locations: Vietos
 Login: Pieteikšanās
+Longest aberration: Ilgiausia aberacija
+Lower voltage threshold: Žemos įtampos slenkstis
 MQTT Broker: MQTT brokeris
 MQTT Broker Username: Vartotojo vardas
 MQTT Broker is disabled.: MQTT brokeris išjungtas.
@@ -415,8 +435,11 @@ Manual: Instrukcija
 Manually closed: Uždarytas rankiniu būdu
 Maximum delay is 60 minutes.: Maksimalus vėlavimas, tai 60 minučių.
 Maximum filesize limit is {limit}.: Maksimalus failo dydis tai {limit}.
+Maximum voltage: Aukščiausia įtampa
+Measurement window: Matavimo laikas
 Meter value: Skaitiklio būsena
 Meters: Skaitikliai
+Minimum voltage: Žemiausia įtampa
 Mobile Apps: Mobiliosios programos
 Mode: Režimas
 Modification: Modifikavimas
@@ -460,6 +483,7 @@ No. of devices: Įrenginių skaičius
 No. of locations: Vietų skaičius
 None: Nėra
 None (channel disabled): Nėra (kanalas išjungtas)
+Number of aberrations: Aberacijų skaičius
 Number of attempts to close: Uždarymo bandymų skaičius
 Number of attempts to open: Atidarymo bandymų skaičius
 Number of sections: Skyrių skaičius
@@ -495,6 +519,7 @@ Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identif
 Phase 1: 1 fazė
 Phase 2: 2 fazė
 Phase 3: 3 fazė
+Phase number: Fazė
 Please choose the schedule subject first.: Pirmiau pasirinkite, ką tvarkaraštis valdys
 Please click the following link to reset your %cloudHost% password.: Norėdami atstatyti savo slaptažodį %cloudHost% svetainėje, spustelėkite žemiau pateiktą nuorodą
 Please click the link we have sent you after the registration to proceed.: Paspauskite nuorodą pranešime, kurį Jums išsiuntėme, kai paskyra buvo sukurta.
@@ -530,6 +555,7 @@ Regeneration starts at: Regeneracijos pradžia
 Register: Registruoti
 Register a new OAuth application: Registruotis į OAuth programą
 Register private SUPLA Cloud: Įregistruokite privatų SUPLA debesį
+Register your SUPLA Cloud: Užregistruokite savo SUPLA Cloud įrengimą
 Registered: Užregistruotas
 'Registered from IP address: %clientAppRegIp%': 'Užregistruota iš IP adreso: %clientAppRegIp%'
 'Registered from IP address: %deviceRegIp%': 'IP adresas: %deviceRegIp%'
@@ -538,6 +564,7 @@ Relay switching time: Relė perjungimo laikas
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Prieš pašalindami vietą pirmiau turite perkelti kanalų grupes, kurios yra joje. Identifikatoriai: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Prieš pašalindami vietas pirmiau turite perkelti kanalus, kurie joje yra. Identifikatoria: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Pašalinkite susietus įrenginius prieš pašalindami vietą. Identifikatoriai: {relatedIds}.'
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Pašalinkite visas susijusias scenas prieš šios vietos pašalinimą. Identifikatoriai: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Pirmiau pašalinkite visus įrenginius, kurie naudoja šią vietą kaip originalią vietą. Identifikatoriai: {relatedIds}.'
 Repeat password: Pakartokite slaptažodį
 Reset Your Password: Nustatyti naują slaptažodį
@@ -651,6 +678,7 @@ The activation link has been sent again. Check the inbox.: Pranešimas su Jūsų
 The client will be automatically logged out when deleted.: Kliento pašalinimas sukels, kad jis iškart bus atjungtas.
 The counter has been reset.: Skaitiklis nustatytas iš naujo.
 The device is disabled: Įrenginys išjungtas
+The device might be in a sleep mode.: Įrenginys gali veikti miego režimu.
 The following items use the channels of these device. These references will be also removed.: Žemiau nurodyti elementai naudoja šio įrenginio kanalus. Jie taip pat bus pašalinti.
 'The following items will be deleted with this device:': Žemiau nurodyti elementai taip pat bus pašalinti su šiuo įrenginiu.
 The gate sensor must function properly in order to execute the Open and Close actions.: Norint įvykdyti veiksmą Atidaryti arba Uždaryti, vartelių atidarymo jutiklis turi veikti tinkamai.
@@ -668,6 +696,7 @@ The notification marked with a border is the one you saw when you clicked the un
 The password and its confirm are not the same.: Slaptažodis ir jo patvirtinimas nėra identiški.
 The password should be 8 or more characters.: Slaptažodį turi sudaryti mažiausiai 8 simboliai.
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: 'Įrenginys buvo išjungtas dėl srovės perkrovos. Prieš jį išjungdami, įsitikinkite, kad problema, kurį tai sukėlė, buvo išspręsta. Ar tikrai norite išjungti šį įrenginį nuotoliniu būdu? '
+The scene would execute too many operations.: Scena atlieka per daug operacijų.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serveris grąžino 400 klaidą, kas reiškia, kad siunčiama užklausa yra klaidinga.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Serveris grąžino HTTP 403 klaidą. Tai reiškia, kad neturite pakankamai įgaliojimu šio elemento peržiūrai.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serveris grąžino HTTP 404 klaidą. Tai reiškia, kad elementas, kurio ieškote, neegzistuoja.
@@ -692,6 +721,7 @@ Token does not exist: Atpažinimo ženklas neegzistuoja
 Too many actions in this schedule.: Viename tvarkaraštyje per daug veiksmų.
 Too many channels in this group: Šioje grupė per daug kanalų
 Too many operations in this scene: Scenoje per daug operacijų.
+Total time: Bendras laikas
 Triggers: Trigeriai
 Tuesdays: Antradieniai
 Turning this device off will cause its channels not working in the following features.: Jei įrenginys bus išjungtas, žemiau nurodytose elementuose nustos veikti jo kanalai.
@@ -706,6 +736,7 @@ Unsupported function: Funkcija nepalaikoma
 Unsupported type: Tipas nepalaikomas
 Update in progress: Vyksta atnaujinimas
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Įkelti failai nepažeidžia gerų įpročių, autorių teisių ir trečiųjų šalių teisių, o aš turiu teisę jais naudoti.
+Upper voltage threshold: Aukštos įtampos slenkstis
 'Use the {0} server command to change this account''s limits. For example:': 'Norėdami pakeisti šios paskyros apribojimus, savo serveryje pasinaudokite komanda {0}. Pavyzdžiui:'
 Use working schedule for this access identifier: Šiam prieigos identifikatoriui naudoti prieinamumo tvarkaraštį
 User is already confirmed. Try to log in.: Ši paskyra jau patvirtinta. Prisijungti.
@@ -713,12 +744,16 @@ Value added: Reikšmė pridėta
 Value per unit: Reikmė vienetui
 Valve: Vožtuvas
 Valve closed manually: Vožtuvas uždarytas rankiniu būdu
+Verification method: Tikrinimo būdas
 Visible: Matomi
 Visit app webpage: Atveriet lietojumprogrammas vietni
+Voltage aberrations: Įtampos aberacijos
+Voltage monitoring: Įtampos stebėjimas
 WELCOME_MESSAGE: |
   Jūsų namų ar ofiso prijungimas prie SUPLA yra paprastas. Viskas, ką turite padaryti, tai
   perrašyti į savo valdymo (įvesties/išvesties) įrenginius bei išmaniuosius telefonus žemiau pateiktus duomenis.
 Wait a while before the next request. You can check your limits in the account settings.: Prieš atlikdami sekančią užklausą palaukite kelias sekundes. Dabartinį savo apribojimų naudojimą galite patikrinti paskyros nustatymuose.
+Wait for this scene to finish before proceeding to the next step ({time}).: Prieš tęsdami akciją ({time}) palaukite, kol bus baigtas scenos vykdymas.
 Water meter: Vandens skaitiklis
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Siųsime Jums pranešimus apie kai kuriuos įvykius susijusius su Jūsų paskyra. Galite atsisakyti tų, kurių Jums nereikia.
 We could not connect to your SUPLA Cloud instance.: Nepavyko susijungti su jūsų privačia SUPLA Cloud instancija.
@@ -763,6 +798,7 @@ You just need to execute the following command inside your host terminal.: Pakan
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Jei ir toliau norite naudoti išplėstinį tvarkaraščio režimą, peržiūrėkite žemiau pateiktus pavyzdžius.
 You must agree to the Terms and Conditions.: Sutikimas su taisyklėmis būtinas.
 You must enable MQTT Broker first.: Pirmiau turite įjungti integravimą su MQTT brokeriu.
+You must set an action for each scene operation.: Pasirinkite akciją kiekvienai scenos operacijai.
 You must set sections with transparent or opaque parameters or both.: Turite pasirinkti bent vieno skyriaus skaidrumą.
 You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Privalote atnaujinti savo SUPLA Cloud versija bent iki 2.3.0 versijos.
@@ -814,7 +850,11 @@ after: po
 before: prieš
 caption: pavadinimas
 channel: Kanalas
+channelConfigHelp_gateCloseAfterHelp: Agentas paleidžiantis vartų uždarymo procedūrą gali vėluoti daugiausiai iki vienos minutės nustatyto laiko atžvilgiu.
 channelConfigHelp_numberOfAttemptsGate: Kai nurodysite vartų atidarymą arba uždarymą, sistema bandys juos uždaryti / atidaryti ir palauks 60 sekundžių, kad patikrintų, ar vartai pasiekė norimą būseną. Jei ne, sistema vėl bandys juos uždaryti / atidaryt. Šis parametras nustato maksimalų sistemos bandymų pasiekti tikslą skaičių. Rekomenduojama reikšmė, tai 5. Šio parametro pakeitimas neįtakos tvarkaraščių veikimo.
+channelConfigHelp_stateVerificationMethod: 'Aktyvūs: pirmas būsenos jutiklio pakeitimas į numatytąjį nutraukia bandymų kartojimą. Pasyvūs: kartą per 60 s. tikriname jutiklio būseną ir nutraukiame kartojimą, kai jutiklis praneš tada apie nustatytą būseną.'
+channelConfig_stateVerificationMethod_active: Aktyvus
+channelConfig_stateVerificationMethod_passive: Pasyvus
 channelGroup: Kanalų grupė
 choose: pasirinkti
 choose a currency: pasirinkti valiutą
@@ -842,6 +882,7 @@ directLinkExecutionFailureReason_otherFailure: Akcijos vykdymo klaida
 directLinkExecutionFailureReason_sceneDuringExecution: Scena vykdoma.
 directLinkExecutionFailureReason_unsupportedAction: Pasirinkta akcija neteisinga
 empty: tuščias
+everyday: kasdien
 executed: atlikta
 extend: tęsti
 from IP: iš IP adreso
@@ -953,46 +994,5 @@ hourly: Valandinis ciklas
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: Išsami informacija apie aberaciją
-Aberrations count: Aberacijų skaičius
-Above threshold: Virš slenksčio
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ar esate tikri, kad norite pašalinti visą šio kanalo įtampos aberacijų istoriją?
-Automatic closing rule: Automatinis vartų uždarymas
-Average voltage: Vidutinė įtampa
-Below threshold: Žemiau slenksčio
-Change: Keisti
-Close after: Uždaryti po
-Close automatically: Uždaryti automatiškai
-Delete voltage aberrations history: Pašalinti įtampos aberacijų istoriją
-Device might be sleeping: Įrenginys gali būti miego režime
-Error when communicating the AD. Try again in a while.: Ryšio su AD klaida. Netrukus pabandykite dar kartą.
-Estimated execution time: Numatomas atlikimo laikas
-Gate's state verification: Vartų būsenos tikrinimas
-Hide days without aberrations: Slėpti dienas be aberacijų
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Jei įrenginys dabar yra miego režime, konfigūracijos pakeitimai bus įvesti po jo pažadinimo.
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jei įrenginys dabar užmigdytas, kai bus pažadintas artimiausiu metu jis bus įjungtas konfigūracijos režime.
-Longest aberration: Ilgiausia aberacija
-Lower voltage threshold: Žemos įtampos slenkstis
-Maximum voltage: Aukščiausia įtampa
-Measurement window: Matavimo laikas
-Minimum voltage: Žemiausia įtampa
-Number of aberrations: Aberacijų skaičius
-Phase number: Fazė
-Register your SUPLA Cloud: Užregistruokite savo SUPLA Cloud įrengimą
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Pašalinkite visas susijusias scenas prieš šios vietos pašalinimą. Identifikatoriai: {relatedIds}.'
-The device might be in a sleep mode.: Įrenginys gali veikti miego režimu.
-The scene would execute too many operations.: Scena atlieka per daug operacijų.
-Total time: Bendras laikas
-Upper voltage threshold: Aukštos įtampos slenkstis
-Verification method: Tikrinimo būdas
-Voltage aberrations: Įtampos aberacijos
-Voltage monitoring: Įtampos stebėjimas
-Wait for this scene to finish before proceeding to the next step ({time}).: Prieš tęsdami akciją ({time}) palaukite, kol bus baigtas scenos vykdymas.
-You must set an action for each scene operation.: Pasirinkite akciją kiekvienai scenos operacijai.
-channelConfigHelp_gateCloseAfterHelp: Agentas paleidžiantis vartų uždarymo procedūrą gali vėluoti daugiausiai iki vienos minutės nustatyto laiko atžvilgiu.
-channelConfigHelp_stateVerificationMethod: 'Aktyvūs: pirmas būsenos jutiklio pakeitimas į numatytąjį nutraukia bandymų kartojimą. Pasyvūs: kartą per 60 s. tikriname jutiklio būseną ir nutraukiame kartojimą, kai jutiklis praneš tada apie nustatytą būseną.'
-channelConfig_stateVerificationMethod_active: Aktyvus
-channelConfig_stateVerificationMethod_passive: Pasyvus
-everyday: kasdien
 
 #</editor-fold>

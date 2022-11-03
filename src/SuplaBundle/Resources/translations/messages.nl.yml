@@ -19,6 +19,9 @@ AM2301 Temperature & Humidity Sensor: AM2301 temperatuur- en vochtigheidssensor
 AM2302 Temperature & Humidity Sensor: AM2302 temperatuur- en vochtigheidssensor
 API documentation: API-documentatie
 API rate limits: Limiet vragen aan de API
+Aberration info: Aberratie details
+Aberrations count: Aantal aberraties
+Above threshold: Overschrijding drempelwaarde
 Access ID: Toegangs-ID
 Access ID is not active right now.: De toegangsidentificatie is nu niet actief.
 Access Identifier: Toegangsidentificatie
@@ -64,6 +67,7 @@ Applications: Applicaties
 Are you lost?: Bent u verdwaald? Zoekt u iets?
 Are you sure you want to change channel’s function?: Weet u zeker dat u de kanaalfunctie wilt wijzigen?
 Are you sure you want to delete the entire measurement history saved for this channel?: Weet u zeker dat u de bewaarde geschiedenis van dit kanaal volledig wilt verwijderen?
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Weet u zeker dat u de hele geschiedenis van spanningsaberratie van dit kanaal wilt verwijderen?
 Are you sure you want to delete this OAuth application?: Weet u zeker dat u deze OAuth-toepassing wilt verwijderen?
 Are you sure you want to delete this channel group?: Wilt u deze groep verwijderen?
 Are you sure you want to delete this client?: Weet u zeker dat u deze klantapplicatie  wilt verwijderen?
@@ -93,12 +97,15 @@ Authorize the application, so that it can access your account.: Autoriseer de ap
 Authorized: Geverifieerd
 Authorized OAuth apps: Geautoriseerde OAuth-applicaties
 Automatic calibration: Automatische ijking
+Automatic closing rule: Automatische poortsluiting
 Automation: Automatiek
+Average voltage: Gemiddelde spanning
 Back to apps list: Keer terug naar de applicatielijst
 Bar: Post
 Based on sunrise or sunset: Gebaseerd op oost/west
 Be notified when your channels change state: Melding van wijzigingen in de kanaalstatus
 Be right back!: Kom over een paar minuten terug!
+Below threshold: Onder drempelwaarde
 Bottom position: Onderste positie
 Bridge: Brug
 Brightness: Helderheid
@@ -119,6 +126,7 @@ Can’t find activation email? Please check your SPAM or Junk mail folders. Alte
 Captcha token is not valid.: Ongeldige captcha.
 Caption: Handtekening
 Caption is too long.: De naam is te lang.
+Change: Wijzig
 Change Password: Wachtwoord wijzigen
 Change channel function: Wijzig de kanaalfunctie
 Change function: Wijzig de functie
@@ -161,6 +169,8 @@ Client registration: Klantenregistratie
 Client’s Apps: Klant-applicaties
 Client’s app has been deleted: Klant-applicatie is verwijderd
 Close: Sluiten
+Close after: Sluit na
+Close automatically: Automatisch sluiten
 Close partially: Gedeeltelijk sluiten
 Color: Kleur
 Color brightness: Kleur helderheid
@@ -204,6 +214,7 @@ Default: standaard
 Delete: Verwijder
 Delete measurement history: Verwijder meetgeschiedenis
 Delete my account: Verwijder Mijn account
+Delete voltage aberrations history: Verwijder geschiedenis spanningsaberratie
 Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Als u uw account verwijdert, worden ook al uw gegevens verwijderd, inclusief de gegevens over uw verbonden apparaten, geconfigureerde kanalen, directe links en meetgeschiedenis. Het verwijderen van de account kan niet ongedaan worden.
 Depth: Diepte
 Depth sensor: Dieptesensor
@@ -213,6 +224,7 @@ Device: Toestel
 'Device ID: %deviceId%': 'Apparaat-identificatie: %deviceId%'
 Device channel value: Waarde van het apparaat
 Device is disconnected.: Het apparaat is losgekoppeld.
+Device might be sleeping: Apparaat staat mogelijk in stand-by.
 'Device name: %deviceName%': 'Apparaatnaam: %deviceName%'
 Device should be now in configuration mode.: Het apparaat moet nu in de configuratiemodus staan.
 'Device software version: %deviceSoftwareVersion%': 'Softwareversie: %deviceSoftwareVersion%'
@@ -262,7 +274,9 @@ Enter your email address: Voer je e-mailadres in
 Enter your password to prevent automatic logout.: PVoer uw wachtwoord in om automatisch uitloggen te voorkomen.
 Entering configuration mode is unsupported in the firmware.: Het op afstand omschakelen naar de configuratiemodus wordt niet ondersteund door de firmware van het apparaat.
 Error: Fout
+Error when communicating the AD. Try again in a while.: Fout in communicatie met AD. Probeer zo meteen nogmaals.
 Error when communicating the server. Try again in a while.: Er is een probleem bij de communicatie met de server opgetreden. Probeer het later opnieuw.
+Estimated execution time: Geschatte uitvoeringstijd
 Every: Wat
 Example Auth URL: Voorbeeld van autorisatie-URL
 Execute: Uitvoeren
@@ -300,6 +314,7 @@ Garage door operation: Garagedeur openen / sluiten
 Gas meter: Gasmeter
 Gate opening sensor: Toegangssensor openingspoort
 Gate operation: Opritpoort openen / sluiten
+Gate's state verification: Controleer de poortstatus
 Gateway lock operation: Het openen van het poortje
 Gateway opening sensor: Openingssensor van het poortje
 General purpose measurement: Algemeen meetkanaal
@@ -314,6 +329,7 @@ Grant access: Verleen toegang
 Guru Meditation: Guru Meditation
 HFD4 Relay: HFD4-relais
 Heat meter: Warmtemeter
+Hide days without aberrations: Verberg dagen zonder aberratie
 History of measurements: Meetgeschiedenis
 Home appliances: Huishoudelijke toestellen / elektronica
 Home+ Heater: Verwarming Home +
@@ -334,6 +350,8 @@ ID: ID
 INACTIVE: INACTIVE
 Icon: Icoon
 Idle: Zonder activiteiten
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Indien het apparaat nu in stand-by staat, worden wijzigingen in de configuratiemodus na inschakeling doorgevoerd.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Indien het apparaat nu in stand-by staat, wordt het na de eerste inschakeling in de configuratiemodus gezet.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Als de link niet werkt, kopieert u deze naar de browserwerkbalk of voert u deze handmatig in.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Als u een programmeur bent die extra functies voor SUPLI wil bieden, maakt u een OAuth-toepassing die gebruikers kunnen autoriseren en gebruiken.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Als je zeker weet dat je een account hebt bij cloud.supla.org, controleer dan of de applicatie die je probeert te autoriseren, publiekelijk beschikbaar is.
@@ -399,6 +417,8 @@ Location limit has been exceeded: Locatielimiet overschreden
 Location name: Naam van de plaats
 Locations: Locaties
 Login: Login
+Longest aberration: Langste aberratie
+Lower voltage threshold: Drempelwaarde laagspanning
 MQTT Broker: MQTT-makelaar
 MQTT Broker Username: Naam gebruiker
 MQTT Broker is disabled.: De MQTT-makelaar is gedeactiveerd.
@@ -415,8 +435,11 @@ Manual: Instructies
 Manually closed: Handmatig gesloten
 Maximum delay is 60 minutes.: De maximale vertraging is 60 minuten.
 Maximum filesize limit is {limit}.: De maximale bestandsgrootte is {limit}.
+Maximum voltage: Hoogste spanningswaarde
+Measurement window: Meettijd
 Meter value: Meterstand
 Meters: Tellers
+Minimum voltage: Laagste spanningswaarde
 Mobile Apps: Mobiele applicaties
 Mode: Modaliteiten
 Modification: Wijziging
@@ -460,6 +483,7 @@ No. of devices: Aantal apparaten
 No. of locations: Aantal locaties
 None: Geen
 None (channel disabled): Geen (kanaal uitgeschakeld)
+Number of aberrations: Aantal aberraties
 Number of attempts to close: Aantal pogingen tot afsluiting
 Number of attempts to open: Aantal openingspogingen
 Number of sections: Aantal secties
@@ -495,6 +519,7 @@ Personal token name is required.: Persoonlijke tokennaam is vereist.
 Phase 1: Fase 1
 Phase 2: Fase 2
 Phase 3: Fase 3
+Phase number: Fase
 Please choose the schedule subject first.: Selecteer eerst wat het schema moet regelen
 Please click the following link to reset your %cloudHost% password.: Klik op de onderstaande link om uw wachtwoord voor %cloudHost% opnieuw in te stellen.
 Please click the link we have sent you after the registration to proceed.: Klik op de link met het bericht dat we u hebben gestuurd nadat het account is gemaakt.
@@ -530,6 +555,7 @@ Regeneration starts at: Begin van regeneratie
 Register: Registreer
 Register a new OAuth application: Registreer nieuwe OAuth-applicatie
 Register private SUPLA Cloud: Registreer private SUPLA-cloud
+Register your SUPLA Cloud: Registreer uw SUPLA Cloud instantie
 Registered: geregistreerd
 'Registered from IP address: %clientAppRegIp%': 'Geregistreerd vanaf IP-adres: %clientAppRegIp%.'
 'Registered from IP address: %deviceRegIp%': 'IP-adres: %deviceRegIp%.'
@@ -538,6 +564,7 @@ Relay switching time: Inschakeltijd relais
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID''s: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Voordat u een locatie kunt verwijderen, moet u eerst de kanaalgroepen die erin zijn, verplaatsen. ID''s: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Verwijder gekoppelde apparaten voordat u deze locatie verwijdert. ID''s: {relatedIds}.'
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Verwijder alle bijbehorende scènes voordat je deze locatie verwijdert. Identificatoren: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Verwijder eerst alle apparaten die deze locatie als de oorspronkelijke locatie gebruiken. ID''s: {relatedIds}.'
 Repeat password: Wachtwoord opnieuw invoeren
 Reset Your Password: Een nieuw wachtwoord instellen
@@ -651,6 +678,7 @@ The activation link has been sent again. Check the inbox.: Een bericht met een l
 The client will be automatically logged out when deleted.: Als de klant wordt verwijderd, wordt hij onmiddellijk uitgelogd.
 The counter has been reset.: De teller is teruggezet.
 The device is disabled: Het apparaat is uitgeschakeld
+The device might be in a sleep mode.: Het apparaat werkt ook in stand-by modus.
 The following items use the channels of these device. These references will be also removed.: De volgende items gebruiken kanalen van dit apparaat. Ook zij zullen worden verwijderd.
 'The following items will be deleted with this device:': De volgende items zullen ook worden verwijderd met dit apparaat.
 The gate sensor must function properly in order to execute the Open and Close actions.: De poortopeningsensor moet correct werken om de actie Openen of Sluiten uit te voeren.
@@ -668,6 +696,7 @@ The notification marked with a border is the one you saw when you clicked the un
 The password and its confirm are not the same.: Het wachtwoord en de bevestiging zijn niet hetzelfde.
 The password should be 8 or more characters.: Het wachtwoord moet minimaal 8 tekens bevatten.
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Het toestel is uitgeschakeld door de overstroombeveiliging. Voordat u het inschakelt, moet u ervoor zorgen dat het probleem dat hiertoe heeft geleid, is opgelost. Weet u zeker dat u dit apparaat op afstand wilt inschakelen?
+The scene would execute too many operations.: De scène voert teveel operaties uit.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: De server heeft een 400-fout verzonden, wat betekent dat het verzonden verzoek ongeldig is.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: De server heeft een HTTP 403-fout verzonden. Dit betekent dat u niet voldoende rechten hebt om dit item te bekijken.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: De server heeft een HTTP 404-fout verzonden. Dit betekent dat het item dat u zoekt niet bestaat.
@@ -692,6 +721,7 @@ Token does not exist: Het token bestaat niet
 Too many actions in this schedule.: Te veel acties in één schema.
 Too many channels in this group: Te veel kanalen in deze groep
 Too many operations in this scene: Te veel handelingen in een scène.
+Total time: Totale tijd
 Triggers: Triggers
 Tuesdays: Diensdagen
 Turning this device off will cause its channels not working in the following features.: Als u het apparaat uitschakelt, zullen de kanalen niet meer werken in de volgende gevallen.
@@ -706,6 +736,7 @@ Unsupported function: Niet-ondersteunde functie
 Unsupported type: Niet-ondersteund type
 Update in progress: Update in uitvoering
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: op het zedelijkheid, het auteursrecht en de rechten van derden en ik heb het recht om ze te gebruiken.
+Upper voltage threshold: Drempelwaarde hoogspanning
 'Use the {0} server command to change this account''s limits. For example:': 'Om de limieten voor deze account te wijzigen, gebruikt u het {0} commando op uw server. Bijvoorbeeld:'
 Use working schedule for this access identifier: Gebruik het beschikbaarheidsschema voor deze toegangsidentificatie
 User is already confirmed. Try to log in.: Dit account is al bevestigd. Log dan in!
@@ -713,12 +744,16 @@ Value added: Toegevoegde waarde
 Value per unit: Waarde per eenheid
 Valve: Klep
 Valve closed manually: Klep werd met de hand gesloten.
+Verification method: Verificatiemethode
 Visible: Zichtbaar
 Visit app webpage: Open de site van de applicatie
+Voltage aberrations: Spanningsaberraties
+Voltage monitoring: Spanningsbewaking
 WELCOME_MESSAGE: |
   Uw huis of kantoor met SUPLI te verbinden, is eenvoudig. Het enige dat u moet doen, is de volgende
   gegevens naar uw besturingsapparaten (I / O) en smartphones te herschrijven.
 Wait a while before the next request. You can check your limits in the account settings.: Wacht even voordat u nog een verzoek doet. U kunt het huidige gebruik van uw limieten in uw accountinstellingen controleren.
+Wait for this scene to finish before proceeding to the next step ({time}).: Wacht op de voltooiing van de uitvoering van de scène alvorens verder te gaan met de actie ({time}).
 Water meter: Watermeter
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Wij zullen u berichten sturen over bepaalde gebeurtenissen met betrekking tot uw account. U kunt zich afmelden voor degene die u niet nodig hebt.
 We could not connect to your SUPLA Cloud instance.: We kunnen geen verbinding maken met uw privé-SUPLA Cloud-exemplaar.
@@ -763,6 +798,7 @@ You just need to execute the following command inside your host terminal.: Voer 
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Als u toch de geavanceerde planningsmodus wilt gebruiken, kijk dan eens naar de volgende voorbeelden.
 You must agree to the Terms and Conditions.: Aanvaarding van reglement is vereist.
 You must enable MQTT Broker first.: U moet eerst de integratie met de MQTT-makelaar inschakelen.
+You must set an action for each scene operation.: Selecteer een actie voor elke operatie tijdens de scène.
 You must set sections with transparent or opaque parameters or both.: U moet transparantie kiezen voor ten minste één sectie.
 You need to provide icons for all states.: U moet pictogrammen voor alle staten opgeven.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: U moet uw SUPLA Cloud-software naar ten minste versie 2.3.0. bijwerken
@@ -814,7 +850,11 @@ after: na
 before: voor
 caption: naam
 channel: Kanaal
+channelConfigHelp_gateCloseAfterHelp: Degene die de procedure van het sluiten van de poort start, mag een maximale vertraging hebben van één minuut vanaf de ingestelde tijd.
 channelConfigHelp_numberOfAttemptsGate: Nadat u opdracht hebt gegeven de poort te openen of te sluiten, zal het systeem proberen de poort te sluiten/openen en 60 seconden wachten om te zien of de poort de gewenste toestand heeft bereikt. Zo niet, dan zal het systeem opnieuw proberen te sluiten/openen. Deze parameter bepaalt het maximum aantal pogingen van het systeem om het doel te bereiken. De aanbevolen waarde is 5. Het wijzigen van deze parameter heeft geen invloed op de werking van de schema's.
+channelConfigHelp_stateVerificationMethod: 'Actief: de eerste verandering van de sensortoestand in doelmodus onderbreekt het opnieuw proberen. Passief: eenmaal per 60 seconden wordt de sensortoestand gecontroleerd en het opnieuw proberen wordt onderbroken wanneer de sensor de doeltoestand meldt.'
+channelConfig_stateVerificationMethod_active: Actief
+channelConfig_stateVerificationMethod_passive: Passief
 channelGroup: Kanaalgroep
 choose: kies
 choose a currency: selecteer valuta
@@ -823,6 +863,7 @@ choose the channel: selecteer kanaal
 choose the channel group: selecteer een kanaalgroep
 choose the scene: selecteer scène
 choose the timezone: selecteer tijdzone
+click here: klik hier
 copied: gekopieerd
 copy: kopiëren
 days: dagen
@@ -841,6 +882,7 @@ directLinkExecutionFailureReason_otherFailure: Fout bij uitvoeren van actie
 directLinkExecutionFailureReason_sceneDuringExecution: De scène wordt uitgevoerd.
 directLinkExecutionFailureReason_unsupportedAction: De geselecteerde actie is ongeldig
 empty: leeg
+everyday: dagelijks
 executed: afgehandeld
 extend: verlengen
 from IP: van een IP-adres
@@ -953,47 +995,5 @@ hourly: Uur cyclus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: Aberratie details
-Aberrations count: Aantal aberraties
-Above threshold: Overschrijding drempelwaarde
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Weet u zeker dat u de hele geschiedenis van spanningsaberratie van dit kanaal wilt verwijderen?
-Automatic closing rule: Automatische poortsluiting
-Average voltage: Gemiddelde spanning
-Below threshold: Onder drempelwaarde
-Change: Wijzig
-Close after: Sluit na
-Close automatically: Automatisch sluiten
-Delete voltage aberrations history: Verwijder geschiedenis spanningsaberratie
-Device might be sleeping: Apparaat staat mogelijk in stand-by.
-Error when communicating the AD. Try again in a while.: Fout in communicatie met AD. Probeer zo meteen nogmaals.
-Estimated execution time: Geschatte uitvoeringstijd
-Gate's state verification: Controleer de poortstatus
-Hide days without aberrations: Verberg dagen zonder aberratie
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Indien het apparaat nu in stand-by staat, worden wijzigingen in de configuratiemodus na inschakeling doorgevoerd.
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: Indien het apparaat nu in stand-by staat, wordt het na de eerste inschakeling in de configuratiemodus gezet.
-Longest aberration: Langste aberratie
-Lower voltage threshold: Drempelwaarde laagspanning
-Maximum voltage: Hoogste spanningswaarde
-Measurement window: Meettijd
-Minimum voltage: Laagste spanningswaarde
-Number of aberrations: Aantal aberraties
-Phase number: Fase
-Register your SUPLA Cloud: Registreer uw SUPLA Cloud instantie
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Verwijder alle bijbehorende scènes voordat je deze locatie verwijdert. Identificatoren: {relatedIds}.'
-The device might be in a sleep mode.: Het apparaat werkt ook in stand-by modus.
-The scene would execute too many operations.: De scène voert teveel operaties uit.
-Total time: Totale tijd
-Upper voltage threshold: Drempelwaarde hoogspanning
-Verification method: Verificatiemethode
-Voltage aberrations: Spanningsaberraties
-Voltage monitoring: Spanningsbewaking
-Wait for this scene to finish before proceeding to the next step ({time}).: Wacht op de voltooiing van de uitvoering van de scène alvorens verder te gaan met de actie ({time}).
-You must set an action for each scene operation.: Selecteer een actie voor elke operatie tijdens de scène.
-channelConfigHelp_gateCloseAfterHelp: Degene die de procedure van het sluiten van de poort start, mag een maximale vertraging hebben van één minuut vanaf de ingestelde tijd.
-channelConfigHelp_stateVerificationMethod: 'Actief: de eerste verandering van de sensortoestand in doelmodus onderbreekt het opnieuw proberen. Passief: eenmaal per 60 seconden wordt de sensortoestand gecontroleerd en het opnieuw proberen wordt onderbroken wanneer de sensor de doeltoestand meldt.'
-channelConfig_stateVerificationMethod_active: Actief
-channelConfig_stateVerificationMethod_passive: Passief
-click here: klik hier
-everyday: dagelijks
 
 #</editor-fold>

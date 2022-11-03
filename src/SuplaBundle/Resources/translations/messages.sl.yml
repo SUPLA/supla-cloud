@@ -19,6 +19,9 @@ AM2301 Temperature & Humidity Sensor: AM2301 senzor temperature in vlažnosti
 AM2302 Temperature & Humidity Sensor: AM2302 senzor temperature in vlažnosti
 API documentation: API Dokumentacija
 API rate limits: Omejitev zahtev do API
+Aberration info: Podrobnosti o odstopanju
+Aberrations count: Število odstopanj
+Above threshold: Nad pragom
 Access ID: ID dostopa
 Access ID is not active right now.: ID dostopa trenutno ni aktiven.
 Access Identifier: Identifikator dostopa
@@ -64,6 +67,7 @@ Applications: Aplikacije
 Are you lost?: Ste se izgubili? Nekaj iščete?
 Are you sure you want to change channel’s function?: Ali ste prepričani, da želite spremeniti funkcijo kanala?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino meritev, zbrano za ta kanal?
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino napetostnih odstopanj za ta kanal?
 Are you sure you want to delete this OAuth application?: Ali ste prepričani, da želite izbrisati to aplikacijo OAuth?
 Are you sure you want to delete this channel group?: Ali zares želite odstraniti to skupino kanalov?
 Are you sure you want to delete this client?: Ali ste prepričani, da želite izbrisati to odjemalsko aplikacijo?
@@ -93,12 +97,15 @@ Authorize the application, so that it can access your account.: Dovolite aplikac
 Authorized: Overjeno
 Authorized OAuth apps: Overjene aplikacije OAuth
 Automatic calibration: Samodejno umerjanje
+Automatic closing rule: Samodejno zapiranje vrat
 Automation: Avtomatizacija
+Average voltage: Srednja napetost
 Back to apps list: Vrnitev na seznam aplikacij
 Bar: Bar
 Based on sunrise or sunset: Na podlagi sončnega vzhoda / zahoda
 Be notified when your channels change state: Obveščanje o spremembah stanja kanalov
 Be right back!: Vrnite se čez nekaj trenutkov!
+Below threshold: Pod pragom
 Bottom position: Spodnji položaj
 Bridge: Most
 Brightness: Svetlost
@@ -119,6 +126,7 @@ Can’t find activation email? Please check your SPAM or Junk mail folders. Alte
 Captcha token is not valid.: Nepravilna captcha.
 Caption: Podpis
 Caption is too long.: Ime je predolgo.
+Change: Spremeni
 Change Password: Sprememba gesla
 Change channel function: Spremenite funkcijo kanala
 Change function: Spremenite funkcijo
@@ -161,6 +169,8 @@ Client registration: Registracija strank
 Client’s Apps: Odjemalske aplikacije
 Client’s app has been deleted: Odjemalska aplikacija je bila odstranjena
 Close: Zaprite
+Close after: Zapri po
+Close automatically: Zapri samodejno
 Close partially: Delno zapri
 Color: Barva
 Color brightness: Barvna svetlost
@@ -204,6 +214,7 @@ Default: privzeto
 Delete: Izbrišite
 Delete measurement history: Izbrišite zgodovino meritev
 Delete my account: Izbrišite moj račun
+Delete voltage aberrations history: Izbriši zgodovino napetostnih odstopanj
 Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Če izbrišete račun, bodo izbrisani tudi vsi vaši podatki, vključno s povezanimi napravami, konfiguriranimi kanali, neposrednimi povezavami in zgodovino meritev. Izbris računa je trajen.
 Depth: Globina
 Depth sensor: Senzor globine
@@ -213,6 +224,7 @@ Device: Naprava
 'Device ID: %deviceId%': 'Identifikator naprave: %deviceId%'
 Device channel value: Vrednost iz naprave.
 Device is disconnected.: Naprava je odklopljena.
+Device might be sleeping: Naprava je morda v načinu mirovanja
 'Device name: %deviceName%': 'Ime naprave: %deviceName%'
 Device should be now in configuration mode.: Naprava bi morala bit zdaj v načinu konfiguracije.
 'Device software version: %deviceSoftwareVersion%': 'Različica programske opreme: %deviceSoftwareVersion%'
@@ -262,7 +274,9 @@ Enter your email address: Vnesite svoj e-naslov
 Enter your password to prevent automatic logout.: Vnesite geslo, da preprečite samodejno odjavo.
 Entering configuration mode is unsupported in the firmware.: Vdelana programska oprema naprave ne podpira oddaljenega preklopa v način konfiuracije.
 Error: Napaka
+Error when communicating the AD. Try again in a while.: Napaka pri komunikaciji z AD. Poskusite znova čez nekaj trenutkov.
 Error when communicating the server. Try again in a while.: Pri komunikaciji s strežnikom je prišlo do težave. Poskusite znova čez trenutek.
+Estimated execution time: Predviden čas za dokončanje
 Every: Kaj
 Example Auth URL: Vzorčni avtorizacijski URL
 Execute: Izvedi
@@ -300,6 +314,7 @@ Garage door operation: Odpiranje/zapiranje garažnih vrat
 Gas meter: Merilnik plina
 Gate opening sensor: Senzor odprtja vhodnih vrat
 Gate operation: Odpiranje/zapiranje vhodnih vrat
+Gate's state verification: Preverjanje statusa prehoda
 Gateway lock operation: Odpiranje vratc
 Gateway opening sensor: Senzor odprtja vratc
 General purpose measurement: Splošni merilni kanal
@@ -314,6 +329,7 @@ Grant access: Odobrite dostop
 Guru Meditation: Guru Meditation
 HFD4 Relay: HFD4 rele
 Heat meter: Merilnik toplote
+Hide days without aberrations: Skrij dneve brez odstopanj
 History of measurements: Zgodovina meritev
 Home appliances: Gospodinjski aparati/elektronika
 Home+ Heater: Home+ grelec
@@ -334,6 +350,8 @@ ID: ID
 INACTIVE: NEAKTIVNA
 Icon: Ikona
 Idle: Nedejavno
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Če je naprava trenutno v načinu mirovanja, bodo spremembe konfiguracije začele veljati, ko se naprava prebudi.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Če naprava zdaj miruje, bo naslednjič, ko se prebudi, vstopila v konfiguracijski način.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Če povezava ne deluje, jo kopirajte v brskalno vrstico ali jo vpišite ročno.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Če ste programer, ki želi zagotoviti dodatne funkcije za SUPLO, ustvarite aplikacijo OAuth, ki jo lahko uporabniki overijo in uporabljajo.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Če ste prepričani, da imate račun na cloud.supla.org, preverite, ali je aplikacija, ki jo poskušate overiti, javna.
@@ -399,6 +417,8 @@ Location limit has been exceeded: Omejitev lokacije je bila presežena
 Location name: Ime lokacije
 Locations: Lokacije
 Login: Prijava
+Longest aberration: Najdaljše odstopanje
+Lower voltage threshold: Prag nizke napetosti
 MQTT Broker: Posrednik MQTT
 MQTT Broker Username: Uporabniško ime
 MQTT Broker is disabled.: Posrednik MQTT je izklopljen.
@@ -415,8 +435,11 @@ Manual: Navodila
 Manually closed: Ročno zaprt
 Maximum delay is 60 minutes.: Največji zamik je 60 minut.
 Maximum filesize limit is {limit}.: Največja velikost datoteke je {limit}.
+Maximum voltage: Najvišja napetost
+Measurement window: Čas meritve
 Meter value: Stanje števca
 Meters: Števci
+Minimum voltage: Najnižja napetost
 Mobile Apps: Stanje števca
 Mode: Način
 Modification: Modifikacija
@@ -460,6 +483,7 @@ No. of devices: Število naprav
 No. of locations: Število lokacij
 None: Ni prisotna
 None (channel disabled): Brez (kanal izklopljen)
+Number of aberrations: Število odstopanj
 Number of attempts to close: Število poskusov zapiranja
 Number of attempts to open: Število poskusov odpiranja
 Number of sections: Število odsekov
@@ -495,6 +519,7 @@ Personal token name is required.: Ime osebnega tokena je obvezno.
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
+Phase number: Faza
 Please choose the schedule subject first.: Najprej izberite predmet urnika.
 Please click the following link to reset your %cloudHost% password.: Kliknite spodnjo povezavo, da ponastavite geslo za %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Kliknite povezavo s sporočila, ki smo ga vam poslali po ustvaritvi računa.
@@ -530,6 +555,7 @@ Regeneration starts at: Začetek regeneracije
 Register: Registrirajte se
 Register a new OAuth application: Registrirajte novo aplikacijo OAuth
 Register private SUPLA Cloud: Registrirajte zasebni oblak SUPLA
+Register your SUPLA Cloud: Registrirajte svojo različico SUPLA Cloud
 Registered: Registrirani
 'Registered from IP address: %clientAppRegIp%': 'Registrirano z naslova IP: %clientAppRegIp%'
 'Registered from IP address: %deviceRegIp%': 'Naslov IP: %deviceRegIp%'
@@ -538,6 +564,7 @@ Relay switching time: Čas vklopa releja
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete lokacijo, morate najprej premakniti skupine kanalov v njej. Identifikatorji: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete lokacijo, morate najprej premakniti kanale v njej. Identifikatorji: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete to lokacijo, odstranite povezane naprave. Identifikatorji: {relatedIds}.'
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Izbrišite vse povezane scene, preden izbrišete to lokacijo. Identifikatorji: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najprej odstranite vse naprave, ki uporabljajo to lokacijo kot prvotno lokacijo. Identifikatorji: {relatedIds}.'
 Repeat password: Ponovite geslo
 Reset Your Password: Nastavite novo geslo
@@ -651,6 +678,7 @@ The activation link has been sent again. Check the inbox.: Ponovno je bilo posla
 The client will be automatically logged out when deleted.: Če stranko odstranite, se bo takoj odjavil.
 The counter has been reset.: Števec je ponastavljen.
 The device is disabled: Naprava je izklopljena
+The device might be in a sleep mode.: Naprava lahko deluje v načinu mirovanja.
 The following items use the channels of these device. These references will be also removed.: Naslednji elementi uporabljajo kanale iz te naprave. Tudi ti bodo odstranjeni.
 'The following items will be deleted with this device:': Naslednji elementi bodo tudi odstranjeni s to napravo.
 The gate sensor must function properly in order to execute the Open and Close actions.: Senzor odpiranja vrat mora pravilno delovati, da izvede dejanje Odpri ali Zapri.
@@ -668,6 +696,7 @@ The notification marked with a border is the one you saw when you clicked the un
 The password and its confirm are not the same.: Geslo in potrditev nista enaka.
 The password should be 8 or more characters.: Geslo mora imeti najmanj 8 znakov.
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Naprava je bila izklopljena zaradi pretokovne zaščite. Preden jo vklopite, se prepričajte, da je težava, ki je to povzročila, odpravljena. Ali ste prepričani, da želite vklopiti to napravo na daljavo?
+The scene would execute too many operations.: Scena izvaja preveč operacij.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Strežnik je vrnil napako 400, kar pomeni, da poslana zahteva ni prava.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Strežnik je vrnil napako HTTP 403. To pomeni, da nimate zadostnih dovoljenj za ogled tega elementa.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Strežnik je vrnil napako HTTP 404. To pomeni, da iskani izdelek ne obstaja.
@@ -692,6 +721,7 @@ Token does not exist: Token ne obstaja
 Too many actions in this schedule.: Preveč dejanj v enem urniku.
 Too many channels in this group: V tej skupini je preveč kanalov
 Too many operations in this scene: Preveliko operacij v sceni.
+Total time: Skupni čas
 Triggers: Sprožilci
 Tuesdays: Torki
 Turning this device off will cause its channels not working in the following features.: Če napravo izklopite, bodo njeni kanali prenehali delovati v naslednjih elementih.
@@ -706,6 +736,7 @@ Unsupported function: Nepodprta funkcija
 Unsupported type: Nepodprti tip
 Update in progress: Posodobitev v teku
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Poslane datoteke ne kršijo veljavnih običajev spodobnosti, avtorskih pravic in pravic tretjih oseb, in jaz jih imam pravico uporabljati.
+Upper voltage threshold: Prag visoke napetosti
 'Use the {0} server command to change this account''s limits. For example:': 'Če želite spremeniti omejitve za ta račun, uporabite ukaz {0} na svojem strežniku. Na primer:'
 Use working schedule for this access identifier: Uporabite urnik razpoložljivost za ta identifikator dostopa
 User is already confirmed. Try to log in.: Ta račun je že potrjen. Prijava
@@ -713,12 +744,16 @@ Value added: Dodana vrednost
 Value per unit: Vrednost na enoto
 Valve: Ventil
 Valve closed manually: Ventil je bil zaprt ročno
+Verification method: Način potrjevanja
 Visible: Vidno
 Visit app webpage: Odprite spletno mesto aplikacij
+Voltage aberrations: Napetostna odstopanja
+Voltage monitoring: Nadzor napetosti
 WELCOME_MESSAGE: |
   Povezovanje vašega doma ali pisarne s SUPLO je enostavno. Vse, kar morate storiti, je to, 
   da v nadzorne naprave (vhoda/izhoda) in pametne telefone vpišete naslednje podatke.
 Wait a while before the next request. You can check your limits in the account settings.: Počakajte trenutek, preden oddate novo zahtevo. Trenutno uporabo vaših omejitev lahko preverite v nastavitvah računa.
+Wait for this scene to finish before proceeding to the next step ({time}).: Počakajte, da se izvedba scene konča, preden nadaljujete z dejanjem ({time}).
 Water meter: Merilnik vode
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Pošiljali vam bomo obvestila o določenih dogodkih, povezanih z vašim računom. Od tistih, ki jih ne potrebujete, se lahko odjavite.
 We could not connect to your SUPLA Cloud instance.: Nismo se mogli povezati z vašim zasebnim primerom v oblaku SUPLA.
@@ -763,6 +798,7 @@ You just need to execute the following command inside your host terminal.: Samo 
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Če še vedno želite uporabljati napredni način urnika, si oglejte spodnje primere.
 You must agree to the Terms and Conditions.: Sprejemanje predpisov je potrebno.
 You must enable MQTT Broker first.: Najprej morate vklopiti integracijo s posrednikom MQTT.
+You must set an action for each scene operation.: Izberite dejanje za vsako operacijo v sceni.
 You must set sections with transparent or opaque parameters or both.: Izbrati morate prosojnost za vsaj en razdelek.
 You need to provide icons for all states.: Navesti morate ikone za vsa stanja.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: Svoj primerek SUPLA Cloud morate posodobiti na različico vsaj 2.3.0.
@@ -814,7 +850,11 @@ after: po
 before: pred
 caption: Ime
 channel: Kanal
+channelConfigHelp_gateCloseAfterHelp: Agent, ki začne postopek zapiranja vrat, se lahko zamakne do ene minute od nastavljenega časa.
 channelConfigHelp_numberOfAttemptsGate: Ko naročite, da se vrata odprejo ali zaprejo, jih bo sistem poskusil zapreti/odpreti in počakal 60 sekund, da preveri, ali so vrata dosegla želeno stanje. Če ne, jih bo sistem poskusil znova zapreti/odpreti. Ta parameter določa največje število poskusov sistema za dosego cilja. Priporočena vrednost je 5. Spreminjanje tega parametra ne vpliva na delovanje urnikov.
+channelConfigHelp_stateVerificationMethod: 'Aktivno: Ko se senzor prvič spremeni v ciljno stanje, ustavi ponovne poskuse. Pasivno: enkrat na 60 sekund preverimo stanje senzorja in prenehamo s ponavljanjem, ko senzor javi nastavljeno stanje.'
+channelConfig_stateVerificationMethod_active: Aktiven
+channelConfig_stateVerificationMethod_passive: Pasiven
 channelGroup: Skupina kanalov
 choose: Izberite
 choose a currency: Izberite valuto
@@ -842,6 +882,7 @@ directLinkExecutionFailureReason_otherFailure: Napaka pri izvajanju dejanja
 directLinkExecutionFailureReason_sceneDuringExecution: Scena je v času izvajanja.
 directLinkExecutionFailureReason_unsupportedAction: Izbrano dejanje ni pravilno
 empty: prazen
+everyday: vsakodnevno
 executed: opravljeno
 extend: podaljšajte
 from IP: z naslova IP
@@ -953,46 +994,5 @@ hourly: Urni cikel
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: Podrobnosti o odstopanju
-Aberrations count: Število odstopanj
-Above threshold: Nad pragom
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino napetostnih odstopanj za ta kanal?
-Automatic closing rule: Samodejno zapiranje vrat
-Average voltage: Srednja napetost
-Below threshold: Pod pragom
-Change: Spremeni
-Close after: Zapri po
-Close automatically: Zapri samodejno
-Delete voltage aberrations history: Izbriši zgodovino napetostnih odstopanj
-Device might be sleeping: Naprava je morda v načinu mirovanja
-Error when communicating the AD. Try again in a while.: Napaka pri komunikaciji z AD. Poskusite znova čez nekaj trenutkov.
-Estimated execution time: Predviden čas za dokončanje
-Gate's state verification: Preverjanje statusa prehoda
-Hide days without aberrations: Skrij dneve brez odstopanj
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Če je naprava trenutno v načinu mirovanja, bodo spremembe konfiguracije začele veljati, ko se naprava prebudi.
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: Če naprava zdaj miruje, bo naslednjič, ko se prebudi, vstopila v konfiguracijski način.
-Longest aberration: Najdaljše odstopanje
-Lower voltage threshold: Prag nizke napetosti
-Maximum voltage: Najvišja napetost
-Measurement window: Čas meritve
-Minimum voltage: Najnižja napetost
-Number of aberrations: Število odstopanj
-Phase number: Faza
-Register your SUPLA Cloud: Registrirajte svojo različico SUPLA Cloud
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Izbrišite vse povezane scene, preden izbrišete to lokacijo. Identifikatorji: {relatedIds}.'
-The device might be in a sleep mode.: Naprava lahko deluje v načinu mirovanja.
-The scene would execute too many operations.: Scena izvaja preveč operacij.
-Total time: Skupni čas
-Upper voltage threshold: Prag visoke napetosti
-Verification method: Način potrjevanja
-Voltage aberrations: Napetostna odstopanja
-Voltage monitoring: Nadzor napetosti
-Wait for this scene to finish before proceeding to the next step ({time}).: Počakajte, da se izvedba scene konča, preden nadaljujete z dejanjem ({time}).
-You must set an action for each scene operation.: Izberite dejanje za vsako operacijo v sceni.
-channelConfigHelp_gateCloseAfterHelp: Agent, ki začne postopek zapiranja vrat, se lahko zamakne do ene minute od nastavljenega časa.
-channelConfigHelp_stateVerificationMethod: 'Aktivno: Ko se senzor prvič spremeni v ciljno stanje, ustavi ponovne poskuse. Pasivno: enkrat na 60 sekund preverimo stanje senzorja in prenehamo s ponavljanjem, ko senzor javi nastavljeno stanje.'
-channelConfig_stateVerificationMethod_active: Aktiven
-channelConfig_stateVerificationMethod_passive: Pasiven
-everyday: vsakodnevno
 
 #</editor-fold>

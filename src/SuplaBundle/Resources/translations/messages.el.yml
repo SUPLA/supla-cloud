@@ -19,6 +19,9 @@ AM2301 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασί�
 AM2302 Temperature & Humidity Sensor: Αισθητήρας θερμοκρασίας και υγρασίας AM2302
 API documentation: Φάκελος API
 API rate limits: Όριο αιτημάτων API
+Aberration info: Λεπτομέρειες παρέκκλισης
+Aberrations count: Αριθμός παρεκκλίσεων
+Above threshold: Πάνω από το όριο
 Access ID: Κωδικός πρόσβασης
 Access ID is not active right now.: Το αναγνωριστικό πρόσβασης δεν είναι τώρα ενεργό .
 Access Identifier: Αναγνωριστικό πρόσβασης
@@ -64,6 +67,7 @@ Applications: Εφαρμογές
 Are you lost?: Έχετε χαθεί; Ψάχνετε κάτι;
 Are you sure you want to change channel’s function?: Είστε βέβαιοι ότι θέλετε να αλλάξετε τη λειτουργία του καναλιού;
 Are you sure you want to delete the entire measurement history saved for this channel?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε όλο το ιστορικό μετρήσεων για αυτό το κανάλι;
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Είστε βέβαιοι ότι θέλετε να διαγράψετε όλο το ιστορικό παρεκκλίσεων τάσης για αυτό το κανάλι;
 Are you sure you want to delete this OAuth application?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτήν την εφαρμογή OAuth;
 Are you sure you want to delete this channel group?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτή την ομάδα καναλιών;
 Are you sure you want to delete this client?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτή την εφαρμογή πελάτη;
@@ -93,12 +97,15 @@ Authorize the application, so that it can access your account.: Εγκρίνετ
 Authorized: Εγκρίθηκε
 Authorized OAuth apps: Εγκεκριμένες εφαρμογές OAuth
 Automatic calibration: Αυτόματη βαθμονόμηση
+Automatic closing rule: Αυτόματο κλείσιμο πόρτας
 Automation: Αυτοματοποίηση
+Average voltage: Μέση τάση
 Back to apps list: Επιστροφή στη λίστα εφαρμογών
 Bar: Ράβδων
 Based on sunrise or sunset: Με βάση την Ανατολή/Δύση
 Be notified when your channels change state: Ειδοποίηση για αλλαγές στην κατάσταση των καναλιών
 Be right back!: Επιστρέψτε σε λίγα λεπτά!
+Below threshold: Κάτω από το όριο
 Bottom position: Κάτω θέση
 Bridge: Γέφυρα
 Brightness: Φωτεινότητα
@@ -119,6 +126,7 @@ Can’t find activation email? Please check your SPAM or Junk mail folders. Alte
 Captcha token is not valid.: Μη έγκυρο captcha.
 Caption: Υπογραφή
 Caption is too long.: Το όνομα είναι πολύ μεγάλο.
+Change: Αλλαγή
 Change Password: Αλλαγή κωδικού πρόσβασης
 Change channel function: Αλλαγή λειτουργίας καναλιού
 Change function: Αλλαγή λειτουργίας
@@ -161,6 +169,8 @@ Client registration: Εγγραφή πελατών
 Client’s Apps: Εφαρμογές πελάτη
 Client’s app has been deleted: Η εφαρμογή πελάτη έχει καταργηθεί
 Close: Κλείσιμο
+Close after: Κλείσιμο μετά
+Close automatically: Αυτόματο κλείσιμο
 Close partially: Κλείστε μερικώς
 Color: Χρώμα
 Color brightness: Φωτεινότητα χρώματος
@@ -204,6 +214,7 @@ Default: Προεπιλογή
 Delete: Διαγραφή
 Delete measurement history: Διαγραφή ιστορικού μετρήσεων
 Delete my account: Διαγραφή του λογαριασμού
+Delete voltage aberrations history: Διαγραφή ιστορικού παρεκκλίσεων τάσης
 Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Η διαγραφή του λογαριασμού σας θα διαγράψει επίσης όλα τα δεδομένα σας, συμπεριλαμβανομένων των συνδεδεμένων συσκευών, των διαμορφωμένων καναλιών, των απευθείας συνδέσμων και του ιστορικού μετρήσεων. Η διαγραφή λογαριασμού είναι μόνιμη.
 Depth: Βάθος
 Depth sensor: Αισθητήρας βάθους
@@ -213,6 +224,7 @@ Device: Συσκευή
 'Device ID: %deviceId%': 'Αναγνωριστικό συσκευής: %deviceId%'
 Device channel value: Αξία από τη συσκευή
 Device is disconnected.: Η συσκευή είναι αποσυνδεδεμένη.
+Device might be sleeping: Η συσκευή ενδέχεται να βρίσκεται σε κατάσταση αναστολής λειτουργίας
 'Device name: %deviceName%': 'Όνομα συσκευής: %deviceName%'
 Device should be now in configuration mode.: Η συσκευή θα πρέπει τώρα να βρίσκεται σε λειτουργία διαμόρφωσης.
 'Device software version: %deviceSoftwareVersion%': 'Έκδοση λογισμικού: %συσκευήSoftwareVersion%'
@@ -262,7 +274,9 @@ Enter your email address: Εισαγάγετε τη δική σας διεύθυ
 Enter your password to prevent automatic logout.: Εισαγάγετε τον κωδικό πρόσβασης για να αποτρέψετε την αυτόματη αποσύνδεση.
 Entering configuration mode is unsupported in the firmware.: Η απομακρυσμένη εναλλαγή σε λειτουργία διαμόρφωσης δεν υποστηρίζεται από το υλικολογισμικό της συσκευής.
 Error: Σφάλμα!
+Error when communicating the AD. Try again in a while.: Σφάλμα κατά την επικοινωνία με το AD. Δοκιμάστε ξανά σε λίγο.
 Error when communicating the server. Try again in a while.: Παρουσιάστηκε πρόβλημα κατά την επικοινωνία με το διακομιστή. Δοκιμάστε ξανά σε λίγο.
+Estimated execution time: Εκτιμώμενος χρόνος ολοκλήρωσης
 Every: Τι
 Example Auth URL: Παράδειγμα διεύθυνσης URL έγκρισης
 Execute: Εκτέλεση
@@ -300,6 +314,7 @@ Garage door operation: Άνοιγμα/κλείσιμο της γκαραζόπο
 Gas meter: Μετρητής αερίου
 Gate opening sensor: Αισθητήρας ανοίγματος της πύλης εισόδου
 Gate operation: Άνοιγμα/κλείσιμο της πύλης εισόδου
+Gate's state verification: Επαλήθευση κατάστασης πύλης
 Gateway lock operation: Άνοιγμα της αυλόπορτας
 Gateway opening sensor: Αισθητήρας ανοίγματος της αυλόπορτας
 General purpose measurement: Γενικό κανάλι μέτρησης
@@ -314,6 +329,7 @@ Grant access: Χορήγηση πρόσβασης
 Guru Meditation: Guru Meditation
 HFD4 Relay: Ηλεκτρονόμος HFD4
 Heat meter: Μετρητής θερμότητας
+Hide days without aberrations: Απόκρυψη ημερών χωρίς παρεκκλίσεις
 History of measurements: Ιστορικό μετρήσεων
 Home appliances: Οικιακές συσκευές/συσκευές RTV
 Home+ Heater: Θερμαντήρας Home+
@@ -334,6 +350,8 @@ ID: ID
 INACTIVE: ΑΝΕΝΕΡΓΗ
 Icon: Εικονίδιο
 Idle: Σε αδράνεια
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Εάν η συσκευή βρίσκεται αυτήν τη στιγμή σε κατάσταση αναστολής λειτουργίας, οι αλλαγές διαμόρφωσης θα τεθούν σε ισχύ όταν ξυπνήσει.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Εάν η συσκευή βρίσκεται τώρα σε αδράνεια, θα μπει σε λειτουργία διαμόρφωσης την επόμενη φορά που θα ξυπνήσει.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Εάν ο σύνδεσμος δεν λειτουργεί αυτόματα, αντιγράψτε τον στη γραμμή διευθύνσεων του προγράμματος περιήγησης ή να τον εισαγάγετε χειροκίνητα.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Εάν είστε προγραμματιστής που θέλει να προσθέσει πρόσθετες λειτουργίες στο SUPLA, δημιουργήστε μια εφαρμογή OAuth την οποία θα μπορέσουν να εγκρίνουν και να χρησιμοποιούν οι χρήστες.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Εάν είστε βέβαιοι ότι έχετε έναν λογαριασμό στο cloud.supla.org, ελέγξτε εάν η εφαρμογή που προσπαθείτε να εγκρίνετε είναι δημόσια.
@@ -399,6 +417,8 @@ Location limit has been exceeded: Υπέρβαση ορίου των τοποθ�
 Location name: Όνομα τοποθεσίας
 Locations: Τοποθεσίες
 Login: Σύνδεση
+Longest aberration: Μεγαλύτερη παρέκκλιση
+Lower voltage threshold: Όριο χαμηλής τάσης
 MQTT Broker: Μεσίτης MQTT
 MQTT Broker Username: Όνομα χρήστη
 MQTT Broker is disabled.: Ο μεσίτης MQTT είναι απενεργοποιημένος.
@@ -415,8 +435,11 @@ Manual: Οδηγίες
 Manually closed: Κλειστός χειροκίνητα
 Maximum delay is 60 minutes.: Η μέγιστη καθυστέρηση είναι 60 λεπτά.
 Maximum filesize limit is {limit}.: Το μέγιστο μέγεθος αρχείου είναι {limit}.
+Maximum voltage: Υψηλότερη τάση
+Measurement window: Χρόνος μέτρησης
 Meter value: Κατάσταση μετρητή
 Meters: Μετρητές
+Minimum voltage: Χαμηλότερη τάση
 Mobile Apps: Κινητές εφαρμογές
 Mode: Τρόπος λειτουργίας
 Modification: Τροποποίηση
@@ -460,6 +483,7 @@ No. of devices: Αριθμός συσκευών
 No. of locations: Αριθμός τοποθεσιών
 None: Κανένα
 None (channel disabled): Κανένα (απενεργοποιημένο κανάλι)
+Number of aberrations: Αριθμός παρεκκλίσεων
 Number of attempts to close: Αριθμός προσπαθειών κλεισίματος
 Number of attempts to open: Αριθμός προσπαθειών ανοίγματος
 Number of sections: Αριθμός ενοτήτων
@@ -495,6 +519,7 @@ Personal token name is required.: Είναι αναγκαίο να δώσετε 
 Phase 1: Φάση 1
 Phase 2: Φάση 2
 Phase 3: Φάση 3
+Phase number: Φάση
 Please choose the schedule subject first.: Αρχικά, επιλέξτε τι θέλετε να ελέγχει το χρονοδιάγραμμα
 Please click the following link to reset your %cloudHost% password.: Κάντε κλικ στον παρακάτω σύνδεσμο για να επαναφέρετε τον κωδικό πρόσβασης για το %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Κάντε κλικ στο σύνδεσμο που λάβατε με μήνυμα μετά τη δημιουργία του λογαριασμού.
@@ -530,6 +555,7 @@ Regeneration starts at: Έναρξη της αναγέννησης
 Register: Εγγραφή
 Register a new OAuth application: Εγγραφή νέας εφαρμογής OAuth
 Register private SUPLA Cloud: Εγγραφή ιδιωτικού SUPLA-cloud
+Register your SUPLA Cloud: Καταχωρίστε την παρουσία σας στο SUPLA Cloud
 Registered: Εγγεγραμμένος
 'Registered from IP address: %clientAppRegIp%': 'Εγγεγραμμένος με διεύθυνση IP: %clientAppRegIp%'
 'Registered from IP address: %deviceRegIp%': 'Διεύθυνση IP: %deviceRegIp%'
@@ -538,6 +564,7 @@ Relay switching time: Χρόνος ενεργοποίησης του ηλεκτ�
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Προτού  διαγράψετε μια τοποθεσία, πρέπει πρώτα να μετακινήσετε ομάδες καναλιών που συνδέονται με αυτήν. Αναγνωριστικά: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Προτού διαγράψετε μια τοποθεσία, πρέπει πρώτα να μετακινήσετε τα κανάλια που συνδέονται με αυτήν. Αναγνωριστικά: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Προτού διαγράψετε την τοποθεσία, αφαιρέστε τις συσχετισμένες με αυτή συσκευές. Αναγνωριστικά: {relatedIds}.'
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Διαγράψτε όλες τις σχετικές σκηνές πριν διαγράψετε αυτήν την τοποθεσία. Αναγνωριστικά: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Αφαιρέστε πρώτα όλες τις συσκευές που χρησιμοποιούν την τοποθεσία ως αρχική τοποθεσία. Αναγνωριστικά: {relatedIds}.'
 Repeat password: Επαναλάβετε τον κωδικό
 Reset Your Password: Ορίστε έναν νέο κωδικό πρόσβασης
@@ -651,6 +678,7 @@ The activation link has been sent again. Check the inbox.: To μήνυμα με 
 The client will be automatically logged out when deleted.: Η διαγραφή του πελάτη θα οδηγήσει στην άμεση αποσύνδεσή του.
 The counter has been reset.: Ο μετρητής έχει μηδενιστεί.
 The device is disabled: Η συσκευή είναι απενεργοποιημένη
+The device might be in a sleep mode.: Η συσκευή μπορεί να λειτουργήσει σε κατάσταση αναστολής λειτουργίας.
 The following items use the channels of these device. These references will be also removed.: Τα ακόλουθα στοιχεία χρησιμοποιούν κανάλια από αυτήν τη συσκευή. Θα διαγραφούν επίσης.
 'The following items will be deleted with this device:': Τα ακόλουθα στοιχεία θα διαγραφούν επίσης μαζί με αυτήν τη συσκευή.
 The gate sensor must function properly in order to execute the Open and Close actions.: Ο αισθητήρας ανοίγματος της πύλης πρέπει να λειτουργεί σωστά για να εκτελέσει την εντολή Άνοιγμα ή Κλείσιμο.
@@ -668,6 +696,7 @@ The notification marked with a border is the one you saw when you clicked the un
 The password and its confirm are not the same.: Ο κωδικός πρόσβασης και η επιβεβαίωσή του δεν συμφωνούν.
 The password should be 8 or more characters.: Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 8 χαρακτήρες.
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Η συσκευή έχει απενεργοποιηθεί με προστασία από υπερένταση. Πριν τις ενεργοποιήσετε, βεβαιωθείτε ότι το πρόβλημα που οδήγησε σε αυτό έχει επιλυθεί. Είστε βέβαιοι ότι θέλετε να ενεργοποιήσετε αυτήν τη συσκευή από απόσταση;
+The scene would execute too many operations.: Η σκηνή εκτελεί πάρα πολλές επεμβάσεις.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Ο διακομιστής επέστρεψε το σφάλμα 400,  που σημαίνει ότι το απεσταλμένο αίτημα δεν είναι έγκυρο.
 The server has returned an HTTP 403 Error. It means that you are not authorized to display the item you are looking for.: Ο διακομιστής επέστρεψε το σφάλμα HTTP 403. Αυτό σημαίνει ότι δεν έχετε επαρκή δικαιώματα για να εμφανίσετε αυτό το στοιχείο.
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Ο διακομιστής επέστρεψε το σφάλμα HTTP 404. Αυτό σημαίνει ότι το στοιχείο που ψάχνετε δεν υπάρχει.
@@ -692,6 +721,7 @@ Token does not exist: Το διακριτικό όνομα δεν υπάρχει
 Too many actions in this schedule.: Πάρα πολλές ενέργειες σε ένα χρονοδιάγραμμα.
 Too many channels in this group: Πάρα πολλά κανάλια σε αυτήν την ομάδα
 Too many operations in this scene: Πάρα πολλές ενέργειες στη σκηνή.
+Total time: Συνολικός χρόνος
 Triggers: Εναύσματα
 Tuesdays: Τρίτες
 Turning this device off will cause its channels not working in the following features.: Η απενεργοποίηση της συσκευής θα έχει ως αποτέλεσμα τα κανάλια της να σταματήσουν να λειτουργούν στα ακόλουθα στοιχεία.
@@ -706,6 +736,7 @@ Unsupported function: Μη υποστηριζόμενη λειτουργία
 Unsupported type: Μη υποστηριζόμενο είδος
 Update in progress: Ενημέρωση σε εξέλιξη
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: Τα απεσταλμένα αρχεία δεν παραβιάζουν την ευπρέπεια, τα πνευματικά δικαιώματα και τα δικαιώματα τρίτων και έχω το δικαίωμα να τα χρησιμοποιήσω.
+Upper voltage threshold: Όριο υψηλής τάσης
 'Use the {0} server command to change this account''s limits. For example:': 'Για να αλλάξετε τα όρια για αυτόν τον λογαριασμό, χρησιμοποιήστε την εντολή {0} στον διακομιστή σας. Για παράδειγμα:'
 Use working schedule for this access identifier: Χρήση χρονοδιαγράμματος διαθεσιμότητας για αυτό το αναγνωριστικό πρόσβασης
 User is already confirmed. Try to log in.: Αυτός ο λογαριασμός έχει ήδη επιβεβαιωθεί. Σύνδεση
@@ -713,12 +744,16 @@ Value added: Προστιθέμενη αξία
 Value per unit: Τιμή ανά μονάδα
 Valve: Βαλβίδα
 Valve closed manually: Η βαλβίδα κλειστή με το χέρι
+Verification method: Μέθοδος επαλήθευσης
 Visible: Ορατά
 Visit app webpage: Ανοίξτε τον ιστότοπο της εφαρμογής
+Voltage aberrations: Παρεκκλίσεις τάσης
+Voltage monitoring: Παρακολούθηση τάσης
 WELCOME_MESSAGE: |
   Η σύνδεση του σπιτιού ή του γραφείου σας με το SUPLA είναι εύκολη. Το μόνο που έχετε να κάνετε είναι
   να καταχωρίσετε τα παρακάτω στοιχεία στις συσκευές ελέγχου (εισόδου/εξόδου) και στα smartphones.
 Wait a while before the next request. You can check your limits in the account settings.: Περιμένετε λίγο προτου δώσετε μια άλλη εντολή. Μπορείτε να ελέγξετε την τρέχουσα χρήση σας στις ρυθμίσεις του λογαριασμού σας.
+Wait for this scene to finish before proceeding to the next step ({time}).: Περιμένετε να ολοκληρωθεί η εκτέλεση της σκηνής πριν συνεχίσετε με την ενέργεια ({time}).
 Water meter: Μετρητής νερού
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Θα σας στέλνουμε ειδοποιήσεις σχετικά με ορισμένα συμβάντα που σχετίζονται με τον λογαριασμό σας. Μπορείτε να καταργήσετε την εγγραφή σας από αυτά που δεν χρειάζεστε.
 We could not connect to your SUPLA Cloud instance.: Δεν μπορέσαμε να συνδεθούμε με το ιδιωτικό σας SUPLA Cloud.
@@ -763,6 +798,7 @@ You just need to execute the following command inside your host terminal.: Αρ�
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Εάν εξακολουθείτε να θέλετε να επωφεληθείτε από την προηγμένη λειτουργία χρονοδιαγράμματος, ρίξτε μια ματιά στα παρακάτω παραδείγματα.
 You must agree to the Terms and Conditions.: Απαιτείται η αποδοχή του Κανονισμού.
 You must enable MQTT Broker first.: Πρέπει πρώτα να ενεργοποιήσετε την ενσωμάτωση με τον μεσίτη MQTT.
+You must set an action for each scene operation.: Επιλέξτε μια ενέργεια για κάθε λειτουργία στη σκηνή.
 You must set sections with transparent or opaque parameters or both.: Πρέπει να επιλέξετε τη διαφάνεια τουλάχιστον μίας ενότητας.
 You need to provide icons for all states.: Θα πρέπει να στείλετε εικονίδια για την κάθε κατάσταση.
 You need to update your SUPLA Cloud to version 2.3.0. or newer.: MΠρέπει να ενημερώσετε το SUPLA Cloud τουλάχιστον μέχρι την έκδοση 2.3.0.
@@ -814,7 +850,11 @@ after: μετά
 before: πριν
 caption: όνομα
 channel: Κανάλι
+channelConfigHelp_gateCloseAfterHelp: Ο πράκτορας που ξεκινά τη διαδικασία κλεισίματος πύλης μπορεί να καθυστερήσει το πολύ ένα λεπτό από την καθορισμένη ώρα.
 channelConfigHelp_numberOfAttemptsGate: Αφού ανοίξετε ή κλείσετε την πύλη, το σύστημα θα προσπαθήσει να την κλείσει /ανοίξει και θα περιμένει 60 δευτερόλεπτα για να ελέγξει εάν η πύλη έχει φτάσει στην επιθυμητή κατάσταση. Εάν όχι, το σύστημα θα προσπαθήσει να την κλείσει/ανοίξει ξανά. Αυτή η παράμετρος καθορίζει τον μέγιστο αριθμό προσπαθειών από το σύστημα για την επίτευξη του στόχου. Η συνιστώμενη τιμή είναι 5. Η αλλαγή αυτής της παραμέτρου δεν επηρεάζει τη λειτουργία των χρονοδιαγραμμάτων.
+channelConfigHelp_stateVerificationMethod: 'Ενεργός: η πρώτη αλλαγή της κατάστασης του αισθητήρα σε στόχο σταματά τις επαναλήψεις. Παθητικός: μία φορά κάθε 60 δευτερόλεπτα, ελέγχουμε την κατάσταση του αισθητήρα και σταματάμε την επανάληψη όταν ο αισθητήρας αναφέρει την κατάσταση ρύθμισης.'
+channelConfig_stateVerificationMethod_active: Ενεργός
+channelConfig_stateVerificationMethod_passive: Παθητικός
 channelGroup: Ομάδα καναλιών
 choose: επιλογή
 choose a currency: επιλογή νομίσματος
@@ -842,6 +882,7 @@ directLinkExecutionFailureReason_otherFailure: Σφάλμα κατά την εκ
 directLinkExecutionFailureReason_sceneDuringExecution: Η σκηνή βρίσκεται σε εξέλιξη.
 directLinkExecutionFailureReason_unsupportedAction: Η επιλεγμένη ενέργεια δεν είναι έγκυρη
 empty: άδειο
+everyday: καθημερινά
 executed: εκτελέστηκε
 extend: επέκταση
 from IP: από τη διεύθυνση IP
@@ -953,46 +994,5 @@ hourly: Κύκλος ωρών
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: Λεπτομέρειες παρέκκλισης
-Aberrations count: Αριθμός παρεκκλίσεων
-Above threshold: Πάνω από το όριο
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Είστε βέβαιοι ότι θέλετε να διαγράψετε όλο το ιστορικό παρεκκλίσεων τάσης για αυτό το κανάλι;
-Automatic closing rule: Αυτόματο κλείσιμο πόρτας
-Average voltage: Μέση τάση
-Below threshold: Κάτω από το όριο
-Change: Αλλαγή
-Close after: Κλείσιμο μετά
-Close automatically: Αυτόματο κλείσιμο
-Delete voltage aberrations history: Διαγραφή ιστορικού παρεκκλίσεων τάσης
-Device might be sleeping: Η συσκευή ενδέχεται να βρίσκεται σε κατάσταση αναστολής λειτουργίας
-Error when communicating the AD. Try again in a while.: Σφάλμα κατά την επικοινωνία με το AD. Δοκιμάστε ξανά σε λίγο.
-Estimated execution time: Εκτιμώμενος χρόνος ολοκλήρωσης
-Gate's state verification: Επαλήθευση κατάστασης πύλης
-Hide days without aberrations: Απόκρυψη ημερών χωρίς παρεκκλίσεις
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Εάν η συσκευή βρίσκεται αυτήν τη στιγμή σε κατάσταση αναστολής λειτουργίας, οι αλλαγές διαμόρφωσης θα τεθούν σε ισχύ όταν ξυπνήσει.
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: Εάν η συσκευή βρίσκεται τώρα σε αδράνεια, θα μπει σε λειτουργία διαμόρφωσης την επόμενη φορά που θα ξυπνήσει.
-Longest aberration: Μεγαλύτερη παρέκκλιση
-Lower voltage threshold: Όριο χαμηλής τάσης
-Maximum voltage: Υψηλότερη τάση
-Measurement window: Χρόνος μέτρησης
-Minimum voltage: Χαμηλότερη τάση
-Number of aberrations: Αριθμός παρεκκλίσεων
-Phase number: Φάση
-Register your SUPLA Cloud: Καταχωρίστε την παρουσία σας στο SUPLA Cloud
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Διαγράψτε όλες τις σχετικές σκηνές πριν διαγράψετε αυτήν την τοποθεσία. Αναγνωριστικά: {relatedIds}.'
-The device might be in a sleep mode.: Η συσκευή μπορεί να λειτουργήσει σε κατάσταση αναστολής λειτουργίας.
-The scene would execute too many operations.: Η σκηνή εκτελεί πάρα πολλές επεμβάσεις.
-Total time: Συνολικός χρόνος
-Upper voltage threshold: Όριο υψηλής τάσης
-Verification method: Μέθοδος επαλήθευσης
-Voltage aberrations: Παρεκκλίσεις τάσης
-Voltage monitoring: Παρακολούθηση τάσης
-Wait for this scene to finish before proceeding to the next step ({time}).: Περιμένετε να ολοκληρωθεί η εκτέλεση της σκηνής πριν συνεχίσετε με την ενέργεια ({time}).
-You must set an action for each scene operation.: Επιλέξτε μια ενέργεια για κάθε λειτουργία στη σκηνή.
-channelConfigHelp_gateCloseAfterHelp: Ο πράκτορας που ξεκινά τη διαδικασία κλεισίματος πύλης μπορεί να καθυστερήσει το πολύ ένα λεπτό από την καθορισμένη ώρα.
-channelConfigHelp_stateVerificationMethod: 'Ενεργός: η πρώτη αλλαγή της κατάστασης του αισθητήρα σε στόχο σταματά τις επαναλήψεις. Παθητικός: μία φορά κάθε 60 δευτερόλεπτα, ελέγχουμε την κατάσταση του αισθητήρα και σταματάμε την επανάληψη όταν ο αισθητήρας αναφέρει την κατάσταση ρύθμισης.'
-channelConfig_stateVerificationMethod_active: Ενεργός
-channelConfig_stateVerificationMethod_passive: Παθητικός
-everyday: καθημερινά
 
 #</editor-fold>

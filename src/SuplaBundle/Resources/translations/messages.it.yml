@@ -19,6 +19,9 @@ AM2301 Temperature & Humidity Sensor: Termometro di temperatura e umidità AM230
 AM2302 Temperature & Humidity Sensor: Termometro di temperatura e umidità AM2302
 API documentation: Documentazione API
 API rate limits: Limite richiesta API
+Aberration info: Dettagli dell’aberrazione
+Aberrations count: Numero di aberrazioni
+Above threshold: Sopra la soglia
 Access ID: ID di accesso
 Access ID is not active right now.: ID di accesso non attivo in questo momento
 Access Identifier: Identificatore dell’Accesso
@@ -64,6 +67,7 @@ Applications: Applicazioni
 Are you lost?: Ti sei perso? Cerchi qualcosa?
 Are you sure you want to change channel’s function?: Sei sicuro di voler cambiare la funzione del canale?
 Are you sure you want to delete the entire measurement history saved for this channel?: Sei sicuro di voler cancellare tutto lo storico delle misurazioni salvato per questo canale?
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Sei sicuro/a di voler cancellare tutta la cronologia delle aberrazioni di tensione di questo canale?
 Are you sure you want to delete this OAuth application?: Sei sicuro di voler cancellare questa applicazione Oauth?
 Are you sure you want to delete this channel group?: Sei sicuro di voler eliminare questo gruppo di canali?
 Are you sure you want to delete this client?: Sei sicuro di voler rimuovere questa applicazione del cliente?
@@ -93,12 +97,15 @@ Authorize the application, so that it can access your account.: Autoriza l’app
 Authorized: Autorizzato
 Authorized OAuth apps: Applicazioni OAuth autorizzate
 Automatic calibration: Calibrazione automatica
+Automatic closing rule: Chiusura automatica del cancello
 Automation: Automazione
+Average voltage: Tensione media
 Back to apps list: Torna all’elenco delle applicazioni
 Bar: Bar
 Based on sunrise or sunset: Basata su alba o tramonto
 Be notified when your channels change state: Segnalazione di cambio dello stato dei canali
 Be right back!: Torno subito!
+Below threshold: Sotto la soglia
 Bottom position: Posizione soglia inferione
 Bridge: Ponte
 Brightness: Luminosità
@@ -119,6 +126,7 @@ Can’t find activation email? Please check your SPAM or Junk mail folders. Alte
 Captcha token is not valid.: Captcha non valido.
 Caption: Titolo
 Caption is too long.: Descrizione troppo lunga
+Change: Modifica
 Change Password: Cambio della password
 Change channel function: Cambia la funzione del canale
 Change function: Cambia funzione
@@ -161,6 +169,8 @@ Client registration: Registrazione dei clienti
 Client’s Apps: Applicazioni del cliente
 Client’s app has been deleted: Applicazione del cliente è stata rimossa
 Close: Chiudi
+Close after: Chiudi dopo
+Close automatically: Chiudi automaticamente
 Close partially: Chiudere parzialmente
 Color: Colore
 Color brightness: Luminosità del colore
@@ -204,6 +214,7 @@ Default: Default
 Delete: Elimina
 Delete measurement history: cancella lo storico delle misurazioni
 Delete my account: Cancella il mio account
+Delete voltage aberrations history: Cancella la cronologia delle aberrazioni di tensione
 Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: 'La cancellazione del Tuo account comporterà la cancellazione di tutti i Tuoi dati, ad esempio:  Tuoi dispositivi collegati, canali configurati, link diretti e storico delle misurazioni. La cancellazione dell’account è irreversibile.'
 Depth: Profondità
 Depth sensor: Sensore di profondità
@@ -213,6 +224,7 @@ Device: Dispositivo
 'Device ID: %deviceId%': ID dispositivo
 Device channel value: Valore canale del dispositivo
 Device is disconnected.: Dispositivo disconnesso
+Device might be sleeping: Il dispositivo potrebbe essere in modalità standby
 'Device name: %deviceName%': Nome dispositivo
 Device should be now in configuration mode.: Il dispositivo dovrebbe ora essere in modalità di configurazione
 'Device software version: %deviceSoftwareVersion%': Versione SW del dispositivo
@@ -262,7 +274,9 @@ Enter your email address: Inserisci il Tuo indirizzo email
 Enter your password to prevent automatic logout.: Inserisci la Tua password per impedire il logout automatico.
 Entering configuration mode is unsupported in the firmware.: Il FW non supporta l’attivazione della modalità di configurazione
 Error: Errore
+Error when communicating the AD. Try again in a while.: Errore di comunicazione con AD. Riprova tra un attimo.
 Error when communicating the server. Try again in a while.: Si è verificato un errore durante la comunicazione con il server. Riprova tra un attimo.
+Estimated execution time: Tempo stimato per il completamento
 Every: Ogni
 Example Auth URL: Esempio dell’url di autorizzazione
 Execute: Eseguire
@@ -300,6 +314,7 @@ Garage door operation: Apertura/chiusura del cancello per garage
 Gas meter: Misuratore del gas
 Gate opening sensor: Sensore di apertura del cancello d’ingresso
 Gate operation: Apertura/chiusura del cancello d’ingresso
+Gate's state verification: Verifica dello stato del cancello
 Gateway lock operation: Apertura del cancello
 Gateway opening sensor: Sensore di apertura del cancello
 General purpose measurement: Misuratore generica
@@ -314,6 +329,7 @@ Grant access: Concedi l’accesso
 Guru Meditation: Guru Meditation
 HFD4 Relay: Relè HFD4
 Heat meter: Contatore di calore
+Hide days without aberrations: Nascondi giorni senza aberrazioni
 History of measurements: Storia delle misurazioni
 Home appliances: Elettrodomestici
 Home+ Heater: Riscaldatore Home+
@@ -334,6 +350,8 @@ ID: ID
 INACTIVE: INATTIVA
 Icon: Icona
 Idle: Inattivi
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Se il dispositivo è attualmente in modalità standby, le modifiche alla configurazione avranno effetto alla riattivazione.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Se il dispositivo è ora inattivo, entrerà in modalità di configurazione alla prossima riattivazione.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Se il link non funziona, copialo oppure scrivilo manualmente nella barra degli indirizzi.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Se sei uno sviluppatore che vuole fornire funzionalità aggiuntive per SUPLA, puoi creare un’applicazione OAuth che gli utenti possono autorizzare e usare.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Se sei sicuro di essere in possesso di un account su cloud.supla.org, verifica che l’applicazione che stai cercando di autorizzare, sia pubblica.
@@ -399,6 +417,8 @@ Location limit has been exceeded: Il limite della localizzazione è stato supera
 Location name: Nome Localizzazione
 Locations: Localizzazioni
 Login: Log in
+Longest aberration: Aberrazione più lunga
+Lower voltage threshold: Soglia di bassa tensione
 MQTT Broker: Broker MQTT
 MQTT Broker Username: Broker MQTT username
 MQTT Broker is disabled.: Il Broker MQTT è disabilitato.
@@ -415,8 +435,11 @@ Manual: Istruzioni
 Manually closed: Chiuso manualmente
 Maximum delay is 60 minutes.: Massimo ritardo 60’
 Maximum filesize limit is {limit}.: La dimensione massima del file è {limit}.
+Maximum voltage: Tensione più alta
+Measurement window: Tempo di misurazione
 Meter value: Lettura del contatore
 Meters: Misuratori
+Minimum voltage: Tensione più bassa
 Mobile Apps: Applicazioni mobili
 Mode: Modalità
 Modification: Modifica
@@ -460,6 +483,7 @@ No. of devices: Numero dei dispositivi
 No. of locations: Numero delle localizzazioni
 None: Nessuno
 None (channel disabled): Nessuna (canale disabilitato)
+Number of aberrations: Numero di aberrazioni
 Number of attempts to close: Numero di tentativi di chiusura
 Number of attempts to open: Numero di tentativi di apertura
 Number of sections: Numero di sezioni
@@ -495,6 +519,7 @@ Personal token name is required.: Nome del token personale richiesto.
 Phase 1: Fase 1
 Phase 2: Fase 2
 Phase 3: Fase 3
+Phase number: Fase
 Please choose the schedule subject first.: Selezionare l’elemento che deve essere comandato dallo scadenzario
 Please click the following link to reset your %cloudHost% password.: Clicca sul seguente link per reimpostare la tua password per il sito %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Clicca il link all’interno del messaggio che Ti abbiamo inviato dopo aver creato l’account.
@@ -530,6 +555,7 @@ Regeneration starts at: La rigenerazione inizia alle
 Register: Registra
 Register a new OAuth application: Registra la nuova applicazione OAuth
 Register private SUPLA Cloud: Registra la nuvola privata SUPLA
+Register your SUPLA Cloud: Registra la Tua istanza SUPLA Cloud
 Registered: Registrato
 'Registered from IP address: %clientAppRegIp%': 'Registrato dall’indirizzo IP: %clientAppRegIp%'
 'Registered from IP address: %deviceRegIp%': 'Registrato dall’indirizzo IP: %deviceRegIp%'
@@ -538,6 +564,7 @@ Relay switching time: Tempo di commutazione del relè
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Prima di eliminare la localizzazione, devi trasferire i gruppi di canali in essa presenti. Identificatori: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Prima di eliminare la localizzazione, devi trasferire i canali in essa presenti. Identificatori: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Prima di eliminare questa localizzazione, elimina i dispositivi collegati. Identificatori: {relatedIds}.'
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Elimina tutte le scene correlate prima di eliminare questa posizione. Identificatori: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Prima elimina tutti i dispositivi che usano questa localizzazione come localizzazione originale. Identificatori: {relatedIds}.'
 Repeat password: Ripeti la password
 Reset Your Password: Reset password
@@ -651,6 +678,7 @@ The activation link has been sent again. Check the inbox.: Il messaggio con il l
 The client will be automatically logged out when deleted.: Eliminare il cliente causerà la sua immediata disconnessione.
 The counter has been reset.: Il contatore è stato resettato
 The device is disabled: Il dispositivo è spento
+The device might be in a sleep mode.: Il dispositivo può funzionare in modalità standby.
 The following items use the channels of these device. These references will be also removed.: I seguenti elementi utilizzano i canali di questo dispositivo. Verranno rimossi anche questi elementi.
 'The following items will be deleted with this device:': I seguenti elementi verranno eliminate con questo dispositivo
 The gate sensor must function properly in order to execute the Open and Close actions.: Sensore dell'apertura del cancello deve funzionare correttamente per effettuare l'azione Apri o Chiudi.
@@ -693,6 +721,7 @@ Token does not exist: Il token non esiste
 Too many actions in this schedule.: Troppe azioni nello scadenziario
 Too many channels in this group: Troppi canali in questo gruppo
 Too many operations in this scene: Troppe azioni nello scenario
+Total time: Tempo totale
 Triggers: Comandi
 Tuesdays: Martedì
 Turning this device off will cause its channels not working in the following features.: Disattivando questo dispositivo, i suoi canali non funzioneranno nelle seguenti funzionalità.
@@ -707,6 +736,7 @@ Unsupported function: Funzione non supportata
 Unsupported type: Tipo non supportato
 Update in progress: Aggiornamento in corso
 Uploaded files do not contain any inappropriate or copyrighted content, nor do they violate Third Party Rights and I have the right to use them.: I file inviati non contengono contenuti inappropriati, non violano i diritti d’autore od i diritti di terzi, ed io ho il diritto di utilizzarli.
+Upper voltage threshold: Soglia di alta tensione
 'Use the {0} server command to change this account''s limits. For example:': 'Usa il {0} comando server per cambiare i limiti dell’account. Per esempio:'
 Use working schedule for this access identifier: Usa la pianificazione oraria per questo identificatore dell’accesso
 User is already confirmed. Try to log in.: Questo account è già confermato. Accedi.
@@ -714,12 +744,16 @@ Value added: Valore aggiunto
 Value per unit: Valore unitario
 Valve: Valvola
 Valve closed manually: Valvola chiusa manualmente
+Verification method: Metodo di verifica
 Visible: Visibile
 Visit app webpage: Apri il sito web dell’applicazione
+Voltage aberrations: Aberrazioni della tensione
+Voltage monitoring: Monitoraggio della tensione
 WELCOME_MESSAGE: |
   Connettere la Tua casa o l’ufficio con SUPLA è molto semplice.
   Tutto quello che devi fare è riscrivere nei Tuoi dispositivi di controllo (entrate/uscite) e nei smartphone i seguenti dati.
 Wait a while before the next request. You can check your limits in the account settings.: Aspetta un attimo prima di effettuare la prossima richiesta. Puoi controllare l'attuale uso dei Tuoi limiti nelle impostazioni del Tuo account.
+Wait for this scene to finish before proceeding to the next step ({time}).: Attendi il completamento dell’esecuzione della scena prima di procedere con l’azione ({time}).
 Water meter: Misuratore dell'acqua
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: È possibile ricevere notifiche sul tuo account al verificarsi di alcuni eventi. Disabilita le opzioni per quali non vuoi ricevere notifiche.
 We could not connect to your SUPLA Cloud instance.: Non riuscivamo a connetterci con la Tua istanza privata SUPLA Cloud.
@@ -816,7 +850,11 @@ after: dopo
 before: prima
 caption: Descrizione
 channel: Canale
+channelConfigHelp_gateCloseAfterHelp: L’agente che avvia la procedura di chiusura del cancello può avere un ritardo fino a un minuto rispetto all’orario impostato.
 channelConfigHelp_numberOfAttemptsGate: dopo la richiesta di apertura o chiusura del cancello, ci sarà un’attesa di 60" ad ogni commutazione del relè per verificare se il cancello ha raggiunto lo stato desiderato. In caso il valore desiderato non sia raggiunto, verrà eseguito un nuovo tentativo. Con questo parametro è possibile impostare il numero di tentativi. Il valore consigliato è 5. La modifica di questo parametro non influisce sui scadenzari.
+channelConfigHelp_stateVerificationMethod: 'Attivi: la prima modifica dello stato del sensore in target interrompe i tentativi. Passivi: controlliamo lo stato del sensore una volta ogni 60 secondi e interrompiamo i tentativi quando il sensore segnala lo stato impostato.'
+channelConfig_stateVerificationMethod_active: Attivo
+channelConfig_stateVerificationMethod_passive: Passivo
 channelGroup: Gruppo di canali
 choose: scegli
 choose a currency: seleziona la valuta
@@ -844,6 +882,7 @@ directLinkExecutionFailureReason_otherFailure: Errore nell'esecuzione dell'azion
 directLinkExecutionFailureReason_sceneDuringExecution: Scenario in esecuzione
 directLinkExecutionFailureReason_unsupportedAction: Azione selezionata non è corretta
 empty: vuoto
+everyday: ogni giorno
 executed: eseguito
 extend: prolunga la durata
 from IP: dall’indirizzo IP
@@ -955,44 +994,5 @@ hourly: Ogni ora
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: Dettagli dell’aberrazione
-Aberrations count: Numero di aberrazioni
-Above threshold: Sopra la soglia
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Sei sicuro/a di voler cancellare tutta la cronologia delle aberrazioni di tensione di questo canale?
-Automatic closing rule: Chiusura automatica del cancello
-Average voltage: Tensione media
-Below threshold: Sotto la soglia
-Change: Modifica
-Close after: Chiudi dopo
-Close automatically: Chiudi automaticamente
-Delete voltage aberrations history: Cancella la cronologia delle aberrazioni di tensione
-Device might be sleeping: Il dispositivo potrebbe essere in modalità standby
-Error when communicating the AD. Try again in a while.: Errore di comunicazione con AD. Riprova tra un attimo.
-Estimated execution time: Tempo stimato per il completamento
-Gate's state verification: Verifica dello stato del cancello
-Hide days without aberrations: Nascondi giorni senza aberrazioni
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Se il dispositivo è attualmente in modalità standby, le modifiche alla configurazione avranno effetto alla riattivazione.
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: Se il dispositivo è ora inattivo, entrerà in modalità di configurazione alla prossima riattivazione.
-Longest aberration: Aberrazione più lunga
-Lower voltage threshold: Soglia di bassa tensione
-Maximum voltage: Tensione più alta
-Measurement window: Tempo di misurazione
-Minimum voltage: Tensione più bassa
-Number of aberrations: Numero di aberrazioni
-Phase number: Fase
-Register your SUPLA Cloud: Registra la Tua istanza SUPLA Cloud
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Elimina tutte le scene correlate prima di eliminare questa posizione. Identificatori: {relatedIds}.'
-The device might be in a sleep mode.: Il dispositivo può funzionare in modalità standby.
-Total time: Tempo totale
-Upper voltage threshold: Soglia di alta tensione
-Verification method: Metodo di verifica
-Voltage aberrations: Aberrazioni della tensione
-Voltage monitoring: Monitoraggio della tensione
-Wait for this scene to finish before proceeding to the next step ({time}).: Attendi il completamento dell’esecuzione della scena prima di procedere con l’azione ({time}).
-channelConfigHelp_gateCloseAfterHelp: L’agente che avvia la procedura di chiusura del cancello può avere un ritardo fino a un minuto rispetto all’orario impostato.
-channelConfigHelp_stateVerificationMethod: 'Attivi: la prima modifica dello stato del sensore in target interrompe i tentativi. Passivi: controlliamo lo stato del sensore una volta ogni 60 secondi e interrompiamo i tentativi quando il sensore segnala lo stato impostato.'
-channelConfig_stateVerificationMethod_active: Attivo
-channelConfig_stateVerificationMethod_passive: Passivo
-everyday: ogni giorno
 
 #</editor-fold>
