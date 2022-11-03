@@ -953,46 +953,46 @@ hourly: Timesyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Avvikets detaljer
+Aberrations count: Antall avvik
+Above threshold: Over terskelen
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Er du sikker på at du vil slette all spenningsavvikshistorikk for denne kanalen?
+Automatic closing rule: Automatisk portlukking
+Average voltage: Middels spenning
+Below threshold: Under terskelen
+Change: Endre
+Close after: Lukk etter
+Close automatically: Lukk automatisk
+Delete voltage aberrations history: Slett historie om spenningsavvik
+Device might be sleeping: Enheten kan være i hvilemodus
+Error when communicating the AD. Try again in a while.: Feil ved kommunikasjon med AD. Prøv igjen om et øyeblikk.
+Estimated execution time: Estimert utførelsestid
+Gate's state verification: Verifisering av portstatus
+Hide days without aberrations: Skjul dager uten avvik
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Hvis enheten for øyeblikket er i hvilemodus, vil konfigurasjonsendringer bli gjort når den er våken.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Hvis enheten nå er sovende, vil den bli satt i konfigurasjonsmodus ved nærmeste vekking.
+Longest aberration: Lengste avvik
+Lower voltage threshold: Lav spenning terskel
+Maximum voltage: Høyeste spenning
+Measurement window: Måling tid
+Minimum voltage: Laveste spenning
+Number of aberrations: Antall avvik
+Phase number: Fase
+Register your SUPLA Cloud: Registrer din SUPLA Cloud-forekomst
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Slett alle relaterte scener før du sletter denne plasseringen. Identifikatorer: {relatedIds}.'
+The device might be in a sleep mode.: Enheten kan fungere i hvilemodus.
+The scene would execute too many operations.: Scenen utfører for mange operasjoner.
+Total time: Total tid
+Upper voltage threshold: Høy spenning terskel
+Verification method: Verifisering metode
+Voltage aberrations: Spenningsavvik
+Voltage monitoring: Spenning overvåking
+Wait for this scene to finish before proceeding to the next step ({time}).: Vent til scenen er ferdig før du fortsetter handlingen ({time}).
+You must set an action for each scene operation.: Velg en handling for hver handling i scenen.
+channelConfigHelp_gateCloseAfterHelp: Agenten som utløser portlukkingsprosedyren kan ha et maksimum på ett minutts forsinkelse i forhold til innstillingstiden.
+channelConfigHelp_stateVerificationMethod: 'Aktiv: Den første endringen i sensorstatusen til målet avbryter forsøket på nytt. Passiv: en gang på 60-tallet sjekker vi statusen til sensoren og slutter å prøve på nytt når sensoren deretter infiserer den gitte tilstanden.'
+channelConfig_stateVerificationMethod_active: Aktiv
+channelConfig_stateVerificationMethod_passive: Passiv
+everyday: hver dag
 
 #</editor-fold>

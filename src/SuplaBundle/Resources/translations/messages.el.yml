@@ -953,46 +953,46 @@ hourly: Κύκλος ωρών
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Aberration info: ~
-Aberrations count: ~
-Above threshold: ~
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ~
-Automatic closing rule: ~
-Average voltage: ~
-Below threshold: ~
-Change: ~
-Close after: ~
-Close automatically: ~
-Delete voltage aberrations history: ~
-Device might be sleeping: ~
-Error when communicating the AD. Try again in a while.: ~
-Estimated execution time: ~
-Gate's state verification: ~
-Hide days without aberrations: ~
-If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: ~
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: ~
-Longest aberration: ~
-Lower voltage threshold: ~
-Maximum voltage: ~
-Measurement window: ~
-Minimum voltage: ~
-Number of aberrations: ~
-Phase number: ~
-Register your SUPLA Cloud: ~
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': ~
-The device might be in a sleep mode.: ~
-The scene would execute too many operations.: ~
-Total time: ~
-Upper voltage threshold: ~
-Verification method: ~
-Voltage aberrations: ~
-Voltage monitoring: ~
-Wait for this scene to finish before proceeding to the next step ({time}).: ~
-You must set an action for each scene operation.: ~
-channelConfigHelp_gateCloseAfterHelp: ~
-channelConfigHelp_stateVerificationMethod: ~
-channelConfig_stateVerificationMethod_active: ~
-channelConfig_stateVerificationMethod_passive: ~
-everyday: ~
+Aberration info: Λεπτομέρειες παρέκκλισης
+Aberrations count: Αριθμός παρεκκλίσεων
+Above threshold: Πάνω από το όριο
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Είστε βέβαιοι ότι θέλετε να διαγράψετε όλο το ιστορικό παρεκκλίσεων τάσης για αυτό το κανάλι;
+Automatic closing rule: Αυτόματο κλείσιμο πόρτας
+Average voltage: Μέση τάση
+Below threshold: Κάτω από το όριο
+Change: Αλλαγή
+Close after: Κλείσιμο μετά
+Close automatically: Αυτόματο κλείσιμο
+Delete voltage aberrations history: Διαγραφή ιστορικού παρεκκλίσεων τάσης
+Device might be sleeping: Η συσκευή ενδέχεται να βρίσκεται σε κατάσταση αναστολής λειτουργίας
+Error when communicating the AD. Try again in a while.: Σφάλμα κατά την επικοινωνία με το AD. Δοκιμάστε ξανά σε λίγο.
+Estimated execution time: Εκτιμώμενος χρόνος ολοκλήρωσης
+Gate's state verification: Επαλήθευση κατάστασης πύλης
+Hide days without aberrations: Απόκρυψη ημερών χωρίς παρεκκλίσεις
+If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Εάν η συσκευή βρίσκεται αυτήν τη στιγμή σε κατάσταση αναστολής λειτουργίας, οι αλλαγές διαμόρφωσης θα τεθούν σε ισχύ όταν ξυπνήσει.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Εάν η συσκευή βρίσκεται τώρα σε αδράνεια, θα μπει σε λειτουργία διαμόρφωσης την επόμενη φορά που θα ξυπνήσει.
+Longest aberration: Μεγαλύτερη παρέκκλιση
+Lower voltage threshold: Όριο χαμηλής τάσης
+Maximum voltage: Υψηλότερη τάση
+Measurement window: Χρόνος μέτρησης
+Minimum voltage: Χαμηλότερη τάση
+Number of aberrations: Αριθμός παρεκκλίσεων
+Phase number: Φάση
+Register your SUPLA Cloud: Καταχωρίστε την παρουσία σας στο SUPLA Cloud
+'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Διαγράψτε όλες τις σχετικές σκηνές πριν διαγράψετε αυτήν την τοποθεσία. Αναγνωριστικά: {relatedIds}.'
+The device might be in a sleep mode.: Η συσκευή μπορεί να λειτουργήσει σε κατάσταση αναστολής λειτουργίας.
+The scene would execute too many operations.: Η σκηνή εκτελεί πάρα πολλές επεμβάσεις.
+Total time: Συνολικός χρόνος
+Upper voltage threshold: Όριο υψηλής τάσης
+Verification method: Μέθοδος επαλήθευσης
+Voltage aberrations: Παρεκκλίσεις τάσης
+Voltage monitoring: Παρακολούθηση τάσης
+Wait for this scene to finish before proceeding to the next step ({time}).: Περιμένετε να ολοκληρωθεί η εκτέλεση της σκηνής πριν συνεχίσετε με την ενέργεια ({time}).
+You must set an action for each scene operation.: Επιλέξτε μια ενέργεια για κάθε λειτουργία στη σκηνή.
+channelConfigHelp_gateCloseAfterHelp: Ο πράκτορας που ξεκινά τη διαδικασία κλεισίματος πύλης μπορεί να καθυστερήσει το πολύ ένα λεπτό από την καθορισμένη ώρα.
+channelConfigHelp_stateVerificationMethod: 'Ενεργός: η πρώτη αλλαγή της κατάστασης του αισθητήρα σε στόχο σταματά τις επαναλήψεις. Παθητικός: μία φορά κάθε 60 δευτερόλεπτα, ελέγχουμε την κατάσταση του αισθητήρα και σταματάμε την επανάληψη όταν ο αισθητήρας αναφέρει την κατάσταση ρύθμισης.'
+channelConfig_stateVerificationMethod_active: Ενεργός
+channelConfig_stateVerificationMethod_passive: Παθητικός
+everyday: καθημερινά
 
 #</editor-fold>
