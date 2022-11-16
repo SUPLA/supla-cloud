@@ -53,7 +53,7 @@
         @include loading-dots-color($supla-green);
     }
 
-    .btn-orange.btn-outline:not(:hover) {
+    .btn-orange.btn-outline:not(:hover), .btn-danger {
         @include loading-dots-color($supla-orange);
     }
 

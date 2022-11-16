@@ -84,10 +84,55 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testDeletingUserAccount */
+    public function testCheckingIfTokenExistsBadToken() {
+        $client = $this->createHttpsClient();
+        $client->apiRequest('GET', 'api/confirm-deletion/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdlj');
+        $this->assertStatusCode(404, $client->getResponse());
+        $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+    }
+
+    /** @depends testDeletingUserAccount */
+    public function testCheckingIfTokenExists() {
+        $client = $this->createHttpsClient();
+        $client->apiRequest('GET', 'api/confirm-deletion/' . $this->user->getToken());
+        $this->assertStatusCode(200, $client->getResponse());
+        $body = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals(['exists' => true], $body);
+    }
+
+    /** @depends testDeletingUserAccount */
     public function testDeletingWithBadToken() {
         $client = $this->createHttpsClient();
-        $client->apiRequest('PATCH', 'api/confirm-deletion/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdlj');
+        $client->apiRequest(
+            'PATCH',
+            'api/confirm-deletion',
+            ['token' => 'asdf', 'username' => 'supler@supla.org', 'password' => 'supla123']
+        );
         $this->assertStatusCode(404, $client->getResponse());
+        $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+    }
+
+    /** @depends testDeletingUserAccount */
+    public function testDeletingWithBadPassword() {
+        $client = $this->createHttpsClient();
+        $client->apiRequest(
+            'PATCH',
+            'api/confirm-deletion',
+            ['token' => $this->user->getToken(), 'username' => 'supler@supla.org', 'password' => 'xxx']
+        );
+        $this->assertStatusCode(400, $client->getResponse());
+        $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+    }
+
+    /** @depends testDeletingUserAccount */
+    public function testDeletingWithBadUsername() {
+        $client = $this->createHttpsClient();
+        $client->apiRequest(
+            'PATCH',
+            'api/confirm-deletion',
+            ['token' => $this->user->getToken(), 'username' => 'bad@supla.org', 'password' => 'supla123']
+        );
+        $this->assertStatusCode(400, $client->getResponse());
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }
 
@@ -96,7 +141,11 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $userId = $this->user->getId();
         $this->user = $this->getEntityManager()->find(User::class, $userId);
-        $client->apiRequest('PATCH', 'api/confirm-deletion/' . $this->user->getToken());
+        $client->apiRequest(
+            'PATCH',
+            'api/confirm-deletion',
+            ['token' => $this->user->getToken(), 'username' => 'supler@supla.org', 'password' => 'supla123']
+        );
         $this->assertStatusCode(204, $client->getResponse());
         $this->getDoctrine()->resetEntityManager();
         $this->assertNull($this->getEntityManager()->find(User::class, $userId));
@@ -122,7 +171,11 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         TestTimeProvider::setTime('+61 minutes');
         $client = $this->createHttpsClient();
         $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
-        $client->apiRequest('PATCH', 'api/confirm-deletion/' . $this->user->getToken());
+        $client->apiRequest(
+            'PATCH',
+            'api/confirm-deletion',
+            ['token' => $this->user->getToken(), 'username' => 'supler@supla.org', 'password' => 'supla123']
+        );
         $this->assertStatusCode(404, $client->getResponse());
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }

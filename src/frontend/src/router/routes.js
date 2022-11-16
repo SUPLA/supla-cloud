@@ -60,7 +60,7 @@ export default [
     {
         path: '/confirm-deletion/:token',
         component: () => import("@/login/confirm-account-deletion"),
-        meta: {unrestricted: true},
+        meta: {unrestricted: true, bodyClass: 'account-deletion-page'},
         props: true
     },
     {

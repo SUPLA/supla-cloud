@@ -305,13 +305,13 @@ class UserManager {
         });
     }
 
-    public function deleteAccountByToken(string $token) {
+    public function findByDeleteToken(string $token): User {
         $date = $this->timeProvider->getDateTime();
         $date->setTimeZone(new DateTimeZone('UTC'));
         $date->sub(new DateInterval('PT1H'));
         $qb = $this->rep->createQueryBuilder('u');
         try {
-            $user = $qb->where($qb->expr()->eq('u.token', ':token'))
+            return $qb->where($qb->expr()->eq('u.token', ':token'))
                 ->andWhere("u.token != ''")
                 ->andWhere("u.token IS NOT NULL")
                 ->andWhere("u.enabled = 1")
@@ -323,6 +323,5 @@ class UserManager {
         } catch (NoResultException $e) {
             throw new NotFoundHttpException('Token does not exist', $e);
         }
-        $this->deleteAccount($user);
     }
 }

@@ -439,11 +439,35 @@ class UserController extends RestController {
     }
 
     /**
-     * @Rest\Patch("/confirm-deletion/{token}")
+     * @Rest\Get("/confirm-deletion/{token}")
      * @UnavailableInMaintenance
      */
-    public function confirmDeletingAccountAction(string $token) {
-        $this->userManager->deleteAccountByToken($token);
+    public function confirmDeletingAccountTokenExistsAction(string $token) {
+        $this->userManager->findByDeleteToken($token);
+        return $this->view(['exists' => true], Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Patch("/confirm-deletion")
+     * @UnavailableInMaintenance
+     */
+    public function confirmDeletingAccountAction(Request $request) {
+        $data = $request->request->all();
+        Assertion::keyExists($data, 'token', 'Invalid request - no token.');
+        $user = $this->userManager->findByDeleteToken($data['token']);
+        Assertion::keyExists($data, 'username', 'Invalid request - no email.');
+        Assertion::keyExists($data, 'password', 'Invalid request - no password.');
+        $password = $data['password'] ?? '';
+        Assertion::eq($user->getUsername(), $data['username'], 'Token is created for another user.');
+        Assertion::true($this->userManager->isPasswordValid($user, $password), 'Incorrect password'); // i18n
+        if ($this->recaptchaEnabled) {
+            Assertion::keyExists($data, 'captchaCode', 'Invalid request - no captchaCode.');
+            $gRecaptchaResponse = $data['captchaCode'];
+            $recaptcha = new ReCaptcha($this->recaptchaSecret);
+            $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
+            Assertion::true($resp->isSuccess(), 'Captcha token is not valid.');
+        }
+        $this->userManager->deleteAccount($user);
         return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
