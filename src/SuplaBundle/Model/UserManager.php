@@ -167,8 +167,15 @@ class UserManager {
         }
     }
 
-    public function accountDeleteRequest(User $user): void {
+    public function accountDeleteRequest(User $user, string $password): void {
+        Assertion::true($this->isPasswordValid($user, $password), 'Incorrect password'); // i18n
         if ($user->isEnabled()) {
+            if ($user->getAccountRemovalRequestedAt()) {
+                $diff = abs($this->timeProvider->getDateTime()->getTimestamp() - $user->getAccountRemovalRequestedAt()->getTimestamp());
+                if ($diff < 300) {
+                    return;
+                }
+            }
             $user->setTokenForAccountRemoval($this->genToken($user));
             $this->transactional(function (EntityManagerInterface $em) use ($user) {
                 $em->persist($user);

@@ -9,13 +9,13 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="username">{{ $t('Your email') }}</label>
-                        <input type="email" class="form-control" autocomplete="off" v-model="username">
+                        <input type="email" id="username" class="form-control" autocomplete="off" v-model="username">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="username">{{ $t('Password') }}</label>
-                        <input type="password" class="form-control" autocomplete="off" v-model="password">
+                        <label for="password">{{ $t('Password') }}</label>
+                        <input type="password" id="password" class="form-control" autocomplete="off" v-model="password">
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
             };
         },
         mounted() {
-            this.$http.get('confirm-deletion/' + this.token, {skipErrorHandler: [400]})
+            this.$http.get('account-deletion/' + this.token, {skipErrorHandler: [400]})
                 .then(() => this.tokenExists = true)
                 .catch(() => {
                     errorNotification(this.$t('Error'), this.$t('Token does not exist'));
@@ -98,12 +98,13 @@
             confirmDeletion(captchaCode) {
                 this.isBusy = true;
                 const requestData = {...this.requestData, captchaCode};
-                this.$http.patch('confirm-deletion', requestData, {skipErrorHandler: [400]})
+                this.$http.patch('account-deletion', requestData, {skipErrorHandler: [400]})
                     .then(() => {
                         successNotification(this.$t('Successful'), this.$t('Your account has been deleted. We hope you will come back to us soon.'));
                         this.$router.push({name: 'login'});
                     })
                     .catch(() => errorNotification(this.$t('Error'), this.$t('Invalid username or password')))
+                    .finally(() => this.isBusy = false);
             },
         },
         computed: {

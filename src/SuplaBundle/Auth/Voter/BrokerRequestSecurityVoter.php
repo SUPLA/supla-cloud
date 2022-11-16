@@ -42,11 +42,19 @@ class BrokerRequestSecurityVoter extends Voter {
      * @inheritdoc
      */
     protected function voteOnAttribute($attribute, $request, TokenInterface $token) {
-        if ($request instanceof Request && $request->headers->has('SUPLA-Broker-Token')) {
+        if ($request instanceof Request) {
+            return $this->isRequestFromBroker($request);
+        }
+        return false;
+    }
+
+    public function isRequestFromBroker(Request $request): bool {
+        if ($request->headers->has('SUPLA-Broker-Token')) {
             $brokerToken = $request->headers->get('SUPLA-Broker-Token');
             $info = $this->autodiscover->getInfo($brokerToken);
             return boolval($info['isBroker'] ?? false);
+        } else {
+            return false;
         }
-        return false;
     }
 }

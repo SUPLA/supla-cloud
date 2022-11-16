@@ -453,12 +453,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         return $this;
     }
 
-    /**
-     * Gets the timestamp that the user requested a password reset.
-     *
-     * @return null|DateTime
-     */
-    public function getPasswordRequestedAt() {
+    public function getPasswordRequestedAt(): ?DateTime {
         return $this->passwordRequestedAt;
     }
 
@@ -466,6 +461,10 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         $this->setToken($token);
         $this->accountRemovalRequestedAt = new DateTime();
         return $token;
+    }
+
+    public function getAccountRemovalRequestedAt(): ?DateTime {
+        return $this->accountRemovalRequestedAt;
     }
 
     public function getRoles(): array {

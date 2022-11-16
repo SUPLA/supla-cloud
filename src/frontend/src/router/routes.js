@@ -58,10 +58,15 @@ export default [
         props: true
     },
     {
-        path: '/confirm-deletion/:token',
+        path: '/account-deletion/:token',
         component: () => import("@/login/confirm-account-deletion"),
         meta: {unrestricted: true, bodyClass: 'account-deletion-page'},
         props: true
+    },
+    {
+        path: '/db99845855b2ecbfecca9a095062b96c3e27703f',
+        component: () => import("@/login/request-account-deletion"),
+        meta: {unrestricted: true, bodyClass: 'account-deletion-page'},
     },
     {
         path: '/confirm-target-cloud-deletion/:targetCloudId/:token',

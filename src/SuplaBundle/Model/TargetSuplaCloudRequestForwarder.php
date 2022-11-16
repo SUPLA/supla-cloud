@@ -66,6 +66,10 @@ class TargetSuplaCloudRequestForwarder {
         return $this->sendRequest($target, 'register-resend', ['email' => $username]);
     }
 
+    public function requestUserDeletion(TargetSuplaCloud $target, string $username, string $password): array {
+        return $this->sendRequest($target, 'account-deletion', ['username' => $username, 'password' => $password], 'PUT');
+    }
+
     public function getUserInfo(TargetSuplaCloud $target, string $username): array {
         return $this->sendRequest($target, 'user-info', ['username' => $username], 'PATCH');
     }

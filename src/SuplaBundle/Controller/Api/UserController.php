@@ -28,6 +28,7 @@ use InvalidArgumentException;
 use OpenApi\Annotations as OA;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Auth\Voter\BrokerRequestSecurityVoter;
 use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -48,6 +49,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
@@ -193,8 +195,7 @@ class UserController extends RestController {
         if ($data['action'] == 'delete') {
             $this->assertNotApiUser();
             $password = $data['password'] ?? '';
-            Assertion::true($this->userManager->isPasswordValid($user, $password), 'Incorrect password'); // i18n
-            $this->userManager->accountDeleteRequest($user);
+            $this->userManager->accountDeleteRequest($user, $password);
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
         $headers = [];
@@ -439,7 +440,7 @@ class UserController extends RestController {
     }
 
     /**
-     * @Rest\Get("/confirm-deletion/{token}")
+     * @Rest\Get("/account-deletion/{token}")
      * @UnavailableInMaintenance
      */
     public function confirmDeletingAccountTokenExistsAction(string $token) {
@@ -448,7 +449,38 @@ class UserController extends RestController {
     }
 
     /**
-     * @Rest\Patch("/confirm-deletion")
+     * @Rest\Put("/account-deletion")
+     * @UnavailableInMaintenance
+     */
+    public function requestUserDeletionAction(Request $request, BrokerRequestSecurityVoter $brokerRequestSecurityVoter) {
+        $data = $request->request->all();
+        Assert::that($data)->keyExists('username')->keyExists('password');
+        $username = $data['username'];
+        $password = $data['password'];
+        if (!$brokerRequestSecurityVoter->isRequestFromBroker($request)) {
+            if ($this->recaptchaEnabled) {
+                Assertion::keyExists($data, 'captchaCode', 'Invalid request - no captchaCode.');
+                $gRecaptchaResponse = $data['captchaCode'];
+                $recaptcha = new ReCaptcha($this->recaptchaSecret);
+                $resp = $recaptcha->verify($gRecaptchaResponse, $_SERVER['REMOTE_ADDR']);
+                Assertion::true($resp->isSuccess(), 'Captcha token is not valid.');
+            }
+            $server = $this->autodiscover->getAuthServerForUser($username);
+            if (!$server->isLocal()) {
+                [$content, $status] = $this->suplaCloudRequestForwarder->requestUserDeletion($server, $username, $password);
+                return new JsonResponse($content, $status);
+            }
+        }
+        $user = $this->userManager->userByEmail($username);
+        if (!$user || !$user->isEnabled()) {
+            throw new NotFoundHttpException('User does not exist.');
+        }
+        $this->userManager->accountDeleteRequest($user, $password);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @Rest\Patch("/account-deletion")
      * @UnavailableInMaintenance
      */
     public function confirmDeletingAccountAction(Request $request) {

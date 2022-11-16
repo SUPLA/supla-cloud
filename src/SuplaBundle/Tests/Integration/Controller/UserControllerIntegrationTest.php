@@ -86,7 +86,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testDeletingUserAccount */
     public function testCheckingIfTokenExistsBadToken() {
         $client = $this->createHttpsClient();
-        $client->apiRequest('GET', 'api/confirm-deletion/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdlj');
+        $client->apiRequest('GET', 'api/account-deletion/aslkjfdalskdjflkasdflkjalsjflaksdjflkajsdfjlkasndfkansdlj');
         $this->assertStatusCode(404, $client->getResponse());
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
     }
@@ -94,7 +94,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testDeletingUserAccount */
     public function testCheckingIfTokenExists() {
         $client = $this->createHttpsClient();
-        $client->apiRequest('GET', 'api/confirm-deletion/' . $this->user->getToken());
+        $client->apiRequest('GET', 'api/account-deletion/' . $this->user->getToken());
         $this->assertStatusCode(200, $client->getResponse());
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals(['exists' => true], $body);
@@ -105,7 +105,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $client->apiRequest(
             'PATCH',
-            'api/confirm-deletion',
+            'api/account-deletion',
             ['token' => 'asdf', 'username' => 'supler@supla.org', 'password' => 'supla123']
         );
         $this->assertStatusCode(404, $client->getResponse());
@@ -117,7 +117,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $client->apiRequest(
             'PATCH',
-            'api/confirm-deletion',
+            'api/account-deletion',
             ['token' => $this->user->getToken(), 'username' => 'supler@supla.org', 'password' => 'xxx']
         );
         $this->assertStatusCode(400, $client->getResponse());
@@ -129,7 +129,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $client = $this->createHttpsClient();
         $client->apiRequest(
             'PATCH',
-            'api/confirm-deletion',
+            'api/account-deletion',
             ['token' => $this->user->getToken(), 'username' => 'bad@supla.org', 'password' => 'supla123']
         );
         $this->assertStatusCode(400, $client->getResponse());
@@ -143,7 +143,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->user = $this->getEntityManager()->find(User::class, $userId);
         $client->apiRequest(
             'PATCH',
-            'api/confirm-deletion',
+            'api/account-deletion',
             ['token' => $this->user->getToken(), 'username' => 'supler@supla.org', 'password' => 'supla123']
         );
         $this->assertStatusCode(204, $client->getResponse());
@@ -173,11 +173,28 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
         $client->apiRequest(
             'PATCH',
-            'api/confirm-deletion',
+            'api/account-deletion',
             ['token' => $this->user->getToken(), 'username' => 'supler@supla.org', 'password' => 'supla123']
         );
         $this->assertStatusCode(404, $client->getResponse());
         $this->assertNotNull($this->getEntityManager()->find(User::class, $this->user->getId()));
+    }
+
+    public function testRequestingDeletionWithoutLogin() {
+        $client = $this->createHttpsClient();
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $client->apiRequest(
+            'PUT',
+            'api/account-deletion',
+            ['username' => 'supler@supla.org', 'password' => 'supla123']
+        );
+        $this->assertStatusCode(204, $client->getResponse());
+        $this->flushMessagesQueue($client);
+        $this->assertNotEmpty(TestMailer::getMessages());
+        $confirmationMessage = TestMailer::getMessages()[0];
+        $this->assertArrayHasKey($this->user->getEmail(), $confirmationMessage->getTo());
+        $this->assertContains('Removal', $confirmationMessage->getSubject());
+        $this->assertContains($this->user->getToken(), $confirmationMessage->getBody());
     }
 
     /** @small */
