@@ -20,6 +20,7 @@ import {LocalStorageWithMemoryFallback} from "./common/local-storage";
 import App from "./App";
 import EventBus from "./common/event-bus";
 import {DateTime, Settings} from 'luxon';
+import './hello';
 
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
@@ -73,7 +74,7 @@ Vue.http.get('server-info')
                     },
                     mounted() {
                         document.getElementById('page-preloader').remove();
-                        $('#vue-container').removeClass('invisible');
+                        $('#vue-container').removeClass('hidden');
                     },
                 };
                 if (!$("#vue-container").children().length) {
