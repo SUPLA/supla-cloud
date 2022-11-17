@@ -32,3 +32,21 @@ Vue.directive('focus', {
         }
     }
 });
+
+function insertTooltip(element, binding) {
+    if (binding.value) {
+        const placement = binding.modifiers.bottom ? 'bottom' : 'top';
+        $(element).tooltip({
+            title: binding.value,
+            placement,
+        });
+    } else {
+        $(element).tooltip('destroy');
+    }
+}
+
+Vue.directive('tooltip', {
+    inserted: insertTooltip,
+    update: insertTooltip,
+    componentUpdated: insertTooltip,
+})
