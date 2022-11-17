@@ -88,10 +88,11 @@
         </transition>
         <div v-if="!oauth && !$frontendConfig.maintenanceMode && $frontendConfig.accountsRegistrationEnabled"
             class="additional-buttons">
-            <router-link to="/devices"
+            <router-link
+                to="/forgotten-password"
                 class="btn btn-white btn-wrapped">
-                <img src="assets/img/devices.png">
-                {{ $t('Supla for devices') }}
+                <span class="pe-7s-help1 mr-1 login-button-icon"></span>
+                {{ $t('Forgot your password?') }}
             </router-link>
             <router-link to="/register"
                 class="btn btn-white btn-wrapped">
@@ -156,7 +157,6 @@
         .additional-buttons {
             display: flex;
             justify-content: space-between;
-
             > .btn {
                 flex: 1;
                 max-width: 48%;
@@ -168,6 +168,11 @@
                     float: left;
                     height: 23px;
                     margin-right: 5px;
+                }
+
+                .login-button-icon {
+                    color: #23a618;
+                    font-size: 1.5em;
                 }
             }
         }

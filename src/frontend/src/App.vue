@@ -9,11 +9,10 @@
                 <maintenance-warning></maintenance-warning>
             </div>
             <loading-cover :loading="$changingRoute">
-                <transition name="fade-router">
-                    <router-view></router-view>
-                </transition>
+                <router-view></router-view>
             </loading-cover>
-            <cookie-warning v-if="$frontendConfig.requireCookiePolicyAcceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
+            <cookie-warning
+                v-if="$frontendConfig.requireCookiePolicyAcceptance && $user.username && !$user.userData.agreements.cookies"></cookie-warning>
             <cloud-version-mismatch-warning-modal></cloud-version-mismatch-warning-modal>
         </div>
         <page-footer :username="$user.username"></page-footer>

@@ -39,7 +39,6 @@ export default [
         meta: {unrestricted: true},
         props: true,
     },
-    {path: '/devices', component: () => import("@/login/supla-devices-splash"), meta: {unrestricted: true, onlyUnauthenticated: true}},
     {
         path: '/forgotten-password',
         component: () => import("@/login/remind-password"),

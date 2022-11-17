@@ -1,35 +1,32 @@
 <template>
     <div class="page-footer">
         <div class="container-fluid">
-            <div class="footer-left">
-                <language-selector></language-selector>
-            </div>
-            <div class="footer-right">
-                <span v-if="username">
-                    <session-countdown></session-countdown>
-                </span>
-                <div v-else-if="isPageActive(['/login', '/oauth-authorize']) && !$frontendConfig.maintenanceMode">
-                    <a v-if="showRegisterCloud"
-                        class="brand nav-link"
-                        href="https://cloud.supla.org/register-cloud">
-                        {{ $t('Register your SUPLA Cloud') }}
-                    </a>
-                    <router-link
-                        to="/forgotten-password"
-                        class="brand nav-link">
-                        {{ $t('Forgot your password?') }}
-                    </router-link>
+            <div class="row">
+                <div class="col-sm-3">
+                    <language-selector/>
                 </div>
-                <a v-else
-                    :href="$router.resolve({name: 'login'}).href"
-                    class="nav-link">
-                    {{ $t('Sign In') }}
-                </a>
-            </div>
-            <div class="footer-center">
-                <span class="text-muted">SUPLA Cloud {{ versionSignature }}</span>
-                <a class="brand nav-link"
-                    href="https://www.supla.org">www.supla.org</a>
+                <div class="col-sm-6 text-center">
+                    <span class="text-muted">SUPLA Cloud {{ versionSignature }}</span>
+                    <a class="brand nav-link"
+                        href="https://www.supla.org">www.supla.org</a>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <span v-if="username">
+                        <session-countdown></session-countdown>
+                    </span>
+                    <div v-else-if="isPageActive(['/login', '/oauth-authorize']) && !$frontendConfig.maintenanceMode">
+                        <a v-if="showRegisterCloud"
+                            class="brand nav-link"
+                            href="https://cloud.supla.org/register-cloud">
+                            {{ $t('Register your SUPLA Cloud') }}
+                        </a>
+                    </div>
+                    <a v-else
+                        :href="$router.resolve({name: 'login'}).href"
+                        class="nav-link">
+                        {{ $t('Sign In') }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -89,22 +86,9 @@
                 color: $supla-black;
             }
         }
-        .footer-center {
-            text-align: center;
-        }
-        @include on-xs-and-up {
-            .footer-left {
-                float: left;
-            }
-            .footer-right {
-                text-align: right;
-                float: right;
-            }
-        }
         @include on-xs-and-down {
-            text-align: center;
-            .footer-left, .footer-right {
-                padding-bottom: 7px;
+            &, .text-right {
+                text-align: center;
             }
             .nav-link {
                 display: inline-block;
