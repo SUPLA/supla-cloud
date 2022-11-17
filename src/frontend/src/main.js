@@ -1,4 +1,3 @@
-import $ from "jquery";
 import "bootstrap";
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -61,42 +60,41 @@ Vue.http.get('server-info')
     .then(() => Vue.prototype.$user.fetchUser())
     .then((userData) => setGuiLocale(userData))
     .then(() => {
-        $(document).ready(() => {
-            if ($('#vue-container').length) {
-                const appConfig = {
-                    i18n,
-                    router,
-                    components: {
-                        OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
-                        ErrorPage: () => import("./common/errors/error-page"),
-                        DirectLinkExecutionResult: () => import("./direct-links/result-page/direct-link-execution-result"),
-                        PageFooter: () => import("./common/gui/page-footer"),
-                    },
-                    mounted() {
-                        document.getElementById('page-preloader').remove();
-                        $('#vue-container').removeClass('hidden');
-                    },
-                };
-                if (!$("#vue-container").children().length) {
-                    appConfig.render = h => h(App);
-                }
-                const app = new Vue(appConfig).$mount('#vue-container');
-
-                router.beforeEach((to, from, next) => {
-                    Vue.prototype.$changingRoute = true;
-                    next();
-                });
-                router.afterEach(() => Vue.prototype.$changingRoute = false);
-
-                Vue.http.interceptors.push(ResponseErrorInterceptor(app));
-                for (const transformer in requestTransformers) {
-                    Vue.http.interceptors.push(requestTransformers[transformer]);
-                }
-            } else {
-                // eslint-disable-next-line no-console
-                console.warn('App container #vue-container could not be found.');
+        const appContainer = document.getElementById('vue-container');
+        if (appContainer) {
+            const appConfig = {
+                i18n,
+                router,
+                components: {
+                    OauthAuthorizeForm: () => import("./login/oauth-authorize-form"),
+                    ErrorPage: () => import("./common/errors/error-page"),
+                    DirectLinkExecutionResult: () => import("./direct-links/result-page/direct-link-execution-result"),
+                    PageFooter: () => import("./common/gui/page-footer"),
+                },
+                mounted() {
+                    document.getElementById('page-preloader').remove();
+                    appContainer.classList.remove('hidden');
+                },
+            };
+            if (!appContainer.children.length) {
+                appConfig.render = h => h(App);
             }
-        });
+            const app = new Vue(appConfig).$mount('#vue-container');
+
+            router.beforeEach((to, from, next) => {
+                Vue.prototype.$changingRoute = true;
+                next();
+            });
+            router.afterEach(() => Vue.prototype.$changingRoute = false);
+
+            Vue.http.interceptors.push(ResponseErrorInterceptor(app));
+            for (const transformer in requestTransformers) {
+                Vue.http.interceptors.push(requestTransformers[transformer]);
+            }
+        } else {
+            // eslint-disable-next-line no-console
+            console.warn('App container #vue-container could not be found.');
+        }
     })
     // eslint-disable-next-line no-console
     .catch((error) => console.warn(error));
