@@ -1,4 +1,5 @@
-import "bootstrap";
+import 'bootstrap/js/collapse';
+import 'bootstrap/js/dropdown';
 import "pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Vue from "vue";
