@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': Az eseményindító az eszköz által nem támogatott.
-...and start your adventure with building automation today!: ... és kezdje el kalandját intelligens épületekkel már ma!
 ...open and shut roller shutters: ... felhúzni és lehúzni a redőnyöket
 ...open gateways, gates or doors: ...kinyitni a kiskaput, a nagykaput vagy az ajtót
 ...or control home appliances: ... vagy háztartási készülékeket / elektronikát működtethet
@@ -174,7 +173,6 @@ Close automatically: Automatikus bezárás
 Close partially: Részleges bezárás
 Color: Szín
 Color brightness: Szín fényerő
-Coming Soon: Hamarosan elérhető
 Comment: Megjegyzés
 Config of the schedule is too complicated.: Az ütemezés konfigurálása túl bonyolult.
 Configuration: Konfigurálás
@@ -215,7 +213,7 @@ Delete: Eltávolítás
 Delete measurement history: Mérési előzményeket törlése
 Delete my account: A fiók törlése
 Delete voltage aberrations history: Feszültségeltérés előzményeinek törlése
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: A fiók törlésével az összes adat törlődik, beleértve a csatlakoztatott eszközöket, a konfigurált csatornákat, a közvetlen linkeket és a mérési előzményeket. A fiók törlése végleges.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: A fiók törlésével az összes adat törlődik, beleértve a csatlakoztatott eszközöket, a konfigurált csatornákat, a közvetlen linkeket és a mérési előzményeket. A fiók törlése végleges.
 Depth: Mélység
 Depth sensor: Mélységérzékelő
 Description: Leírás
@@ -321,7 +319,6 @@ General purpose measurement: Általános mérési csatorna
 Generate new password: Új jelszó generálása
 Generate new token: Generáljon egy új tokent
 Generate token: Generálj tokent
-Get SUPLA on your devices: Töltse le  SUPLA-t a készülékeire
 Go to I/O device details: Tovább az eszköz részleteihez
 Go to channel details: Ugrás a csatorna részleteihez
 Go to your account: Tovább a fiókjához
@@ -440,7 +437,6 @@ Measurement window: Mérés ideje
 Meter value: Mérőóra leolvasás
 Meters: Mérőórák
 Minimum voltage: Legalacsonyabb feszültség
-Mobile Apps: Okostelefon-alkalmazás
 Mode: Mód
 Modification: Módosítás
 Mondays: Hétfők
@@ -642,7 +638,6 @@ Some features depend on this channel group: Egyes funkciók ettől a csatorna cs
 Some features depend on this device: Egyes funkciók ettől a készüléktől függenek.
 Some features depend on this scene: Egyes funkciók ettől a jelenettől függenek.
 Some of the features you have configured rely on channels from this device.: Egyes funkciók a készülék csatornáit használják.
-Sources available from: Források a következő nyelven érhetők el
 Staircase timer: Lépcsőautomata
 Standard: Szabványos
 Start Here: Kezdje itt
@@ -657,7 +652,6 @@ Subject type: Entitás típusa
 Success: Siker
 Successful: Sikeres
 Sundays: Vasárnapok
-Supla for devices: Supla bizonyos eszközökre
 Switch the device to configuration mode: Csatlakoztassa a készüléket konfigurációs módba
 THIS CANNOT BE UNDONE!: EZT A MŰVELETET NEM LEHET VISSZAVONNI!
 TLS: TLS
@@ -944,6 +938,7 @@ valid until: érvényessége lejár
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ... és kezdje el kalandját intelligens épületekkel már ma!
 Access identifier password must be at least 8 characters.: A hozzáférési azonosító jelszavának legalább 8 karakter hosszúnak kell lennie.
 Access identifier password must be no longer than 32 characters.: A hozzáférési azonosító jelszava nem lehet hosszabb 32 karakternél.
 Action: Műveletek
@@ -952,6 +947,7 @@ Assigned Locations: Hozzárendelt Lokálizációk
 Cannot send an activation e-mail. Try again later.: Nem lehet üzenetet küldeni az aktiválási linkkel. Kérjük, próbálja meg újra később.
 Channel will be deleted from the channel group below: A csatorná eltávolítva a következő csatornacsoportokból
 Chosen hour: Kiválasztott óra
+Coming Soon: Hamarosan elérhető
 Confirm if you want to remove {deviceName} device: Erősítse meg, hogy el akarja távolítani a (z) {deviceName}
 DISABLED: KIKAPCSOLVA
 Date: Dátum
@@ -961,6 +957,7 @@ Doors, Gates: Ajtók,  Kapuk
 ENABLED: BEKAPCSOLVA
 Email already exists: Az e-mail cím már létezik
 Existing schedules: Meglévő ütemtervek
+Get SUPLA on your devices: Töltse le  SUPLA-t a készülékeire
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: Nem érkezett üzenet a fiókját aktiváló linkkel? Ellenőrizze, hogy nincs-e a SPAM (levélszemét) mappában. A [ide] gombra kattintva ismét elküldheti.
 Hi: Szia!
 Hour: Óra
@@ -973,6 +970,7 @@ Loading: Töltés
 Location password must be at least 4 characters.: A helyazonosító jelszónak legalább 4 karakter hosszúnak kell lennie.
 Location password must be no longer than 32 characters.: A helyazonosító jelszó nem lehet hosszabb 32 karakternél.
 Minute: Perc
+Mobile Apps: Okostelefon-alkalmazás
 Next: Tovább
 Number: Szám
 Output: Kilépés
@@ -983,9 +981,11 @@ Registration of new clients: Ügyfél regisztráció
 Remove: Eltávolítás
 Schedule cannot be enabled: Az ütemezés engedélyezése sikertelen
 Schedules below will be deleted: Az alábbi ütemtervek törlésre kerülnek
+Sources available from: Források a következő nyelven érhetők el
 Status: Státusz
 Subject: Entitás
 Sunrise / Sunset: Kelet / Nyugat
+Supla for devices: Supla bizonyos eszközökre
 Try again later: Kérjük, próbálja meg újra később.
 Turning this device off will result in disabling all the associated schedules.: Az eszköz kikapcsolásakor kikapcsolódnak a hozzá tartozó harmonográmok is.
 We have just sent you an activation link. Be patient.: Nemrég elküldtük a fiók aktiválására szolgáló linket tartalmazó üzenetet. Köszönjük türelmét.
@@ -998,5 +998,10 @@ will expire: lejár
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>

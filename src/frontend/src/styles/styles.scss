@@ -353,6 +353,11 @@ body.blue {
   color: $supla-white;
 }
 
+body.warning {
+  background-color: lighten($supla-red, 10%);
+  color: $supla-white;
+}
+
 body.maintenance-mode {
   nav.navbar-top {
     background: $supla-yellow;

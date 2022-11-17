@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': Spouštěč %s není zařízením podporován.
-...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
 ...open and shut roller shutters: ...otevírat a zavírat rolety
 ...open gateways, gates or doors: ...otevřít branky, brány a dveře
 ...or control home appliances: ...nebo ovládat domácí spotřebiče
@@ -174,7 +173,6 @@ Close automatically: Zavřít automaticky
 Close partially: Částečně zavřít
 Color: Barvy
 Color brightness: Jas barev
-Coming Soon: Brzy k dispozici
 Comment: Komentář
 Config of the schedule is too complicated.: Konfigurace rozvrhu je příliš složitá.
 Configuration: Konfigurace
@@ -215,7 +213,7 @@ Delete: Vymazat
 Delete measurement history: Vymazat historii měření
 Delete my account: Odstranit můj účet.
 Delete voltage aberrations history: Vymazat historii aberace napětí
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Odstranění Vašeho účtu způsobí odstranění všech Vaších osobních údajů včetně Vaších připojených zařízení, nakonfigurovaných kanálů, bezprostředních odkazů a měřenou historii. Odstranění účtu je již nevratné.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Odstranění Vašeho účtu způsobí odstranění všech Vaších osobních údajů včetně Vaších připojených zařízení, nakonfigurovaných kanálů, bezprostředních odkazů a měřenou historii. Odstranění účtu je již nevratné.
 Depth: Hloubka
 Depth sensor: Snímač hloubky
 Description: Popis
@@ -321,7 +319,6 @@ General purpose measurement: Obecný měřicí kanál
 Generate new password: Vygenerovat nové heslo
 Generate new token: Generovat nový token
 Generate token: Generovat token
-Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
 Go to I/O device details: Přejděte na detaily zařízení
 Go to channel details: Přejděte na detaily kanálu
 Go to your account: Přejděte do účtu
@@ -440,7 +437,6 @@ Measurement window: Čas měření
 Meter value: Stav měřiče
 Meters: Měřiče
 Minimum voltage: Nízké napětí
-Mobile Apps: Mobilní aplikace
 Mode: Režim
 Modification: Modifikace
 Mondays: Pondělky
@@ -642,7 +638,6 @@ Some features depend on this channel group: Některé funkce závisí na této s
 Some features depend on this device: Některé funkce závisí na tomto zařízení
 Some features depend on this scene: Některé funkce závisí na této scéně.
 Some of the features you have configured rely on channels from this device.: Některé funkce využívají kanály tohoto zařízení.
-Sources available from: Zdroje dostupné v
 Staircase timer: Schodišťový automat
 Standard: Standardní
 Start Here: Začni tady
@@ -657,7 +652,6 @@ Subject type: Typ předmětu
 Success: Úspěch
 Successful: Úspěšný
 Sundays: Neděle
-Supla for devices: Supla na zařízeních
 Switch the device to configuration mode: Přepněte zařízení do konfiguračního režimu
 THIS CANNOT BE UNDONE!: TUTO AKCI NELZE VRÁTIT ZPĚT!
 TLS: TLS
@@ -944,6 +938,7 @@ valid until: vyprší
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
 Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
 Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
 Action: Akce
@@ -953,6 +948,7 @@ Cannot send an activation e-mail. Try again later.: Nelze odeslat zprávu s akti
 Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
 Channels in channel group: Kanály ve skupinách kanálů
 Chosen hour: Vybraný čas
+Coming Soon: Brzy k dispozici
 Confirm if you want to remove {deviceName} device: Potvrďte, že chcete odebrat zařízení {deviceName}
 DISABLED: VYPNUTO
 Date: Datum
@@ -962,6 +958,7 @@ Doors, Gates: Dveře, Brány
 ENABLED: ZAPNUTO
 Email already exists: E-mailová adresa již existuje
 Existing schedules: Stávající plány
+Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
 Hi: Ahoj
 Hour: Hodina
 Hours: Hodiny
@@ -973,6 +970,7 @@ Loading: Načítání
 Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
 Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
 Minute: Minuta
+Mobile Apps: Mobilní aplikace
 Next: Dále
 Number: Číslo
 Output: Výstup
@@ -981,9 +979,11 @@ Registration: Registrace
 Remove: Vymazat
 Schedule cannot be enabled: Plán nemohl být zapnutý
 Schedules below will be deleted: Následující plány budou smazány
+Sources available from: Zdroje dostupné v
 Status: Stav
 Subject: Předmět
 Sunrise / Sunset: Východ / Západ
+Supla for devices: Supla na zařízeních
 Try again later: Zkuste to prosím později
 Turning this device off will result in disabling all the associated schedules.: Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.
 When: Kdy
@@ -994,5 +994,10 @@ hourly: Hodinový cyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>

@@ -96,9 +96,11 @@
         }
     }
 
-    .green .page-footer {
-        &, & a, & select {
-            color: $supla-white !important;
+    .green, .blue, .warning {
+        .page-footer {
+            &, & a, & select {
+                color: $supla-white !important;
+            }
         }
     }
 

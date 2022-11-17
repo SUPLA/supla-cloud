@@ -3,19 +3,19 @@
         <loading-cover :loading="!tokenExists" class="mt-5"/>
         <div v-if="tokenExists">
             <h1 v-title>{{ $t('We will miss you!') }}</h1>
-            <p class="text-center">{{ $t('Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.') }}</p>
+            <p class="text-center">{{ $t('Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.') }}</p>
             <p class="">{{ $t('This is the final step in the deletion process. Completing the form will result in an irreversible data loss.') }}</p>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="username">{{ $t('Your email') }}</label>
-                        <input type="email" id="username" class="form-control" autocomplete="off" v-model="username">
+                        <input type="email" id="username" class="form-control" autocomplete="new-password" v-model="username">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="password">{{ $t('Password') }}</label>
-                        <input type="password" id="password" class="form-control" autocomplete="off" v-model="password">
+                        <input type="password" id="password" class="form-control" autocomplete="new-password" v-model="password">
                     </div>
                 </div>
             </div>
@@ -27,37 +27,41 @@
                     </span>
                 </label>
             </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <router-link to="/" class="btn btn-green btn-lg">
-                    {{ $t('No, take me back!') }}
-                </router-link>
-                <div v-if="captchaEnabled">
-                    <invisible-recaptcha
-                        :sitekey="captchaSiteKey"
-                        :callback="checkCaptcha"
-                        id="registerRecaptcha"
-                        type="submit"
-                        btn-class="btn btn-danger"
-                        :disabled="isBusy"
-                        :form-valid="!!requestData">
-                        <template>
+            <div class="row">
+                <div class="col-sm-6 text-left">
+                    <router-link to="/" class="btn btn-green btn-lg">
+                        {{ $t('No, take me back!') }}
+                    </router-link>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <div v-if="captchaEnabled">
+                        <invisible-recaptcha
+                            :sitekey="captchaSiteKey"
+                            :callback="checkCaptcha"
+                            id="registerRecaptcha"
+                            type="submit"
+                            btn-class="btn btn-danger"
+                            :disabled="isBusy"
+                            :form-valid="!!requestData">
+                            <template>
+                                <span v-if="!isBusy">
+                                    {{ $t('Delete my account') }}
+                                </span>
+                                <button-loading-dots v-else></button-loading-dots>
+                            </template>
+                        </invisible-recaptcha>
+                    </div>
+                    <div v-else>
+                        <button type="button"
+                            @click="confirmDeletion()"
+                            :disabled="!requestData"
+                            class="btn btn-danger">
                             <span v-if="!isBusy">
                                 {{ $t('Delete my account') }}
                             </span>
                             <button-loading-dots v-else></button-loading-dots>
-                        </template>
-                    </invisible-recaptcha>
-                </div>
-                <div v-else>
-                    <button type="button"
-                        @click="confirmDeletion()"
-                        :disabled="!requestData"
-                        class="btn btn-danger">
-                        <span v-if="!isBusy">
-                            {{ $t('Delete my account') }}
-                        </span>
-                        <button-loading-dots v-else></button-loading-dots>
-                    </button>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

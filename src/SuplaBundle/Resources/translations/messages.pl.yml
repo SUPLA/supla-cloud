@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': Wyzwalacz %s nie jest wspierany przez urządzenie.
-...and start your adventure with building automation today!: ...i rozpocznij przygodę z inteligentnymi budynkami już dzisiaj!
 ...open and shut roller shutters: ...zasłonić i odsłonić rolety
 ...open gateways, gates or doors: ...otworzyć furtkę, bramę lub drzwi
 ...or control home appliances: ...lub sterować sprzętem AGD/RTV
@@ -174,7 +173,6 @@ Close automatically: Zamykaj automatycznie
 Close partially: Zamknij częściowo
 Color: Kolor
 Color brightness: Jasność koloru
-Coming Soon: Dostępne wkrótce
 Comment: Komentarz
 Config of the schedule is too complicated.: Konfiguracja harmonogramu jest zbyt skomplikowana.
 Configuration: Konfiguracja
@@ -215,7 +213,7 @@ Delete: Usuń
 Delete measurement history: Usuń historię pomiarów
 Delete my account: Usuń moje konto
 Delete voltage aberrations history: Usuń historię aberracji napięcia
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Usunięcie Twojego konta spowoduje także usunięcie wszystkich Twoich danych, między innymi Twoich połączonych urządzeń, skonfigurowanych kanałów, linków bezpośrednich i historii pomiarów. Usunięcie konta jest nieodwracalne.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Usunięcie Twojego konta spowoduje także usunięcie wszystkich Twoich danych, między innymi Twoich połączonych urządzeń, skonfigurowanych kanałów, linków bezpośrednich i historii pomiarów. Usunięcie konta jest nieodwracalne.
 Depth: Głębokość
 Depth sensor: Czujnik głębokości
 Description: Opis
@@ -321,7 +319,6 @@ General purpose measurement: Ogólny kanał pomiarowy
 Generate new password: Wygeneruj nowe hasło
 Generate new token: Generuj nowy token
 Generate token: Generuj token
-Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
 Go to I/O device details: Przejdź do szczegółów urządzenia
 Go to channel details: Przejdź do szczegółów kanału
 Go to your account: Przejdź do swojego konta
@@ -344,6 +341,7 @@ I agree: Zgadzam się
 I aree, taske me to the app: Zgadzam się, przejdź do aplikacji
 I confirm! Delete my account.: Potwierdzam! Usuń moje konto.
 I do not agree, get me out of here: Nie zgadzam się, zabierz mnie stąd
+I understand that my SUPLA account will be permanently deleted.: Rozumiem, że moje konto SUPLA zostanie bezpowrotnie usunięte.
 I/O Devices: Urządzenia we/wy
 I/O devices registration: Rejestracja urządzeń
 ID: ID
@@ -395,6 +393,7 @@ Invalid function for channel.: Niepoprawna funkcja dla kanału.
 Invalid request: Niepoprawne żądanie
 Invalid request.: Niepoprawne żądanie.
 Invalid token.: Niepoprawny token.
+Invalid username or password: Niepoprawna nazwa użytkownika lub hasło
 Inverted logic: Odwrócona logika
 Invisible: Niewidoczne
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Jest możliwe, że inny użytkownik wprowadził przez pomyłkę Twój adres email w celu zresetowania hasła do własnego konta.
@@ -440,7 +439,6 @@ Measurement window: Czas pomiaru
 Meter value: Stan licznika
 Meters: Liczniki
 Minimum voltage: Najniższe napięcie
-Mobile Apps: Aplikacje mobilne
 Mode: Tryb
 Modification: Modyfikacja
 Mondays: Poniedziałki
@@ -475,6 +473,7 @@ No of devices: Liczba urządzeń
 No of operations: Liczba operacji
 No results match {0}: Żadne wyniki nie pasują do {0}
 No schedule configuration.: Nie podano konfiguracji harmonogramu.
+No, take me back!: Nie, zabierz mnie stąd!
 No. of Client’s apps: Liczba aplikacji klienckich
 No. of access identifiers: Liczba identyfikatorów dostępu
 No. of channel groups: Liczba grup kanałów
@@ -642,7 +641,6 @@ Some features depend on this channel group: Niektóre funkcjonalności zależą 
 Some features depend on this device: Niektóre funkcjonalności zależą od tego urządzenia
 Some features depend on this scene: Niektóre funkcjonalności zależą od tej sceny.
 Some of the features you have configured rely on channels from this device.: Niektóre funkcjonalności używają kanałów z tego urządzenia.
-Sources available from: Źródła dostępne w
 Staircase timer: Automat schodowy
 Standard: Standardowe
 Start Here: Rozpocznij tutaj
@@ -657,7 +655,6 @@ Subject type: Typ podmiotu
 Success: Sukces
 Successful: Udane
 Sundays: Niedziele
-Supla for devices: Supla na urządzenia
 Switch the device to configuration mode: Przełącz urządzenie w tryb konfiguracyjny
 THIS CANNOT BE UNDONE!: TEJ OPERACJI NIE DA SIĘ COFNĄĆ!
 TLS: TLS
@@ -710,6 +707,7 @@ Thermometer: Termometr
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD (%cloudHost%) przy użyciu Twojego adresu email.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To jest ostatni etap usuwania Twojego konta. Wypełnienie i zatwierdzenie formularza będzie skutkować nieodwracalnym usunięciem Twoich danych.
 This is the list of applications you have granted access to your account.: To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.
 This link is only valid for an hour.: Link będzie aktywny przez godzinę.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.
@@ -767,6 +765,7 @@ We store some data (e.g. cookies) in your browser to remember your preferences a
 We try to be faster: Jesteśmy coraz szybsi
 We were not able to find your account.: Nie udało nam się znaleźć Twojego konta.
 We will miss you: Będziemy za Tobą tęsknić
+We will miss you!: Będziemy tęsknić za Tobą!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.
 We will use it only in justified situations.: Użyjemy go wyłącznie w uzasadnionych przypadkach.
 Weather Station: Stacja pogodowa
@@ -944,6 +943,7 @@ valid until: wygaśnie
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...i rozpocznij przygodę z inteligentnymi budynkami już dzisiaj!
 Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
 Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Action: Akcja
@@ -955,6 +955,7 @@ Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomo�
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels in channel group: Kanały w grupach kanałów
 Chosen hour: Wybrana godzina
+Coming Soon: Dostępne wkrótce
 Confirm if you want to remove {deviceName} device: Potwierdź chęć usunięcia urządzenia {deviceName}
 Copy channel state: Powiel stan kanału
 Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
@@ -968,6 +969,7 @@ Email already exists: Adres e-mail już istnieje
 Execute the scene: Wykonaj scenę
 Existing schedules: Istniejące harmonogramy
 Generic action: Inna akcja
+Get SUPLA on your devices: Pobierz SUPLĘ na Twoje urządzenia
 Hi: Cześć
 Hour: Godzina
 Hours: Godziny
@@ -981,6 +983,7 @@ Loading: Ładowanie
 Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
 Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
 Minute: Minuta
+Mobile Apps: Aplikacje mobilne
 Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer
@@ -996,9 +999,11 @@ Schedule cannot be enabled: Nie udało się włączyć harmonogramu
 Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
 Set initial values: Ustaw wartości początkowe
 Show days with issues only: Pokaż tylko dni, w których odnotowano naruszenia
+Sources available from: Źródła dostępne w
 Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
+Supla for devices: Supla na urządzenia
 Try again later: Spróbuj ponownie później
 Turning this device off will result in disabling all the associated schedules.: Wyłączenie tego urządzenia spowoduje także wyłączenie harmonogramów, które są z nim powiązane.
 When: Kiedy
@@ -1011,4 +1016,3 @@ hourly: Każdy dzień
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-Invalid username or password: Niepoprawna nazwa użytkownika lub hasło

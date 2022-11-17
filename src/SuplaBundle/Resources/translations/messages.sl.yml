@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': Naprava ne podpira sprožilca %s.
-...and start your adventure with building automation today!: ... in začnite svojo pustolovščino z inteligentnimi zgradbami že danes!
 ...open and shut roller shutters: ...spustiti in dvigniti rolete
 ...open gateways, gates or doors: ...odpreti vratca, dvoriščna vrata ali vrata
 ...or control home appliances: ...ali nadzirati z gospodinjskimi aparati/elektroniko
@@ -174,7 +173,6 @@ Close automatically: Zapri samodejno
 Close partially: Delno zapri
 Color: Barva
 Color brightness: Barvna svetlost
-Coming Soon: Kmalu na voljo
 Comment: Opombe
 Config of the schedule is too complicated.: Konfiguracija urnika je preveč komplicirana.
 Configuration: KKonfiguracija
@@ -215,7 +213,7 @@ Delete: Izbrišite
 Delete measurement history: Izbrišite zgodovino meritev
 Delete my account: Izbrišite moj račun
 Delete voltage aberrations history: Izbriši zgodovino napetostnih odstopanj
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Če izbrišete račun, bodo izbrisani tudi vsi vaši podatki, vključno s povezanimi napravami, konfiguriranimi kanali, neposrednimi povezavami in zgodovino meritev. Izbris računa je trajen.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Če izbrišete račun, bodo izbrisani tudi vsi vaši podatki, vključno s povezanimi napravami, konfiguriranimi kanali, neposrednimi povezavami in zgodovino meritev. Izbris računa je trajen.
 Depth: Globina
 Depth sensor: Senzor globine
 Description: Opis
@@ -321,7 +319,6 @@ General purpose measurement: Splošni merilni kanal
 Generate new password: Ustvarite novo geslo
 Generate new token: Ustvarite nov token
 Generate token: Ustvarite token
-Get SUPLA on your devices: Prenesite SUPLA na svoje naprave
 Go to I/O device details: Pojdite na podrobnosti o napravi
 Go to channel details: Pojdite na podrobnosti kanala
 Go to your account: Pojdite na svoj račun
@@ -440,7 +437,6 @@ Measurement window: Čas meritve
 Meter value: Stanje števca
 Meters: Števci
 Minimum voltage: Najnižja napetost
-Mobile Apps: Stanje števca
 Mode: Način
 Modification: Modifikacija
 Mondays: Ponedeljki
@@ -642,7 +638,6 @@ Some features depend on this channel group: Nekatere funkcije so odvisne od te s
 Some features depend on this device: Nekatere funkcije so odvisne od te naprave
 Some features depend on this scene: Nekatere funkcije so odvisne od te scene.
 Some of the features you have configured rely on channels from this device.: Nekatere funkcije uporabljajo kanale te naprave.
-Sources available from: Viri, ki so na voljo v
 Staircase timer: Stopniščni avtomat
 Standard: Standardni
 Start Here: Začnite tukaj
@@ -657,7 +652,6 @@ Subject type: Vrsta subjekta
 Success: Uspeh
 Successful: Uspešno
 Sundays: Nedelje
-Supla for devices: Supla za naprave
 Switch the device to configuration mode: Preklopite napravo v konfiguracijski način
 THIS CANNOT BE UNDONE!: TE OPERACIJE NI MOGOčE UMAKNITI!
 TLS: TLS
@@ -944,6 +938,7 @@ valid until: poteče
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ... in začnite svojo pustolovščino z inteligentnimi zgradbami že danes!
 Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
 Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
 Action: Dejanje
@@ -953,6 +948,7 @@ Cannot send an activation e-mail. Try again later.: Sporočila ni mogoče poslat
 Channel will be deleted from the channel group below: Kanal bo odstranjen z naslednjih skupin kanalov
 Channels in channel group: Kanali v skupinah kanalov
 Chosen hour: Izbrana ura
+Coming Soon: Kmalu na voljo
 Confirm if you want to remove {deviceName} device: Potrdite, da želite odstraniti napravo {deviceName}
 DISABLED: IZKLOPLJENO
 Date: Datum
@@ -962,6 +958,7 @@ Doors, Gates: Vrata, Dvoriščna vrata
 ENABLED: VKLOPLJENO
 Email already exists: E-naslov že obstaja
 Existing schedules: Obstoječi urniki
+Get SUPLA on your devices: Prenesite SUPLA na svoje naprave
 Hi: Pozdravljeni!
 Hour: Ura
 Hours: Ure
@@ -973,6 +970,7 @@ Loading: Polnjenje
 Location password must be at least 4 characters.: Lokacijsko geslo mora vsebovati vsaj 4 znake.
 Location password must be no longer than 32 characters.: Lokacijsko geslo ne sme biti daljše od 32 znakov.
 Minute: Minuta
+Mobile Apps: Stanje števca
 Next: Naprej
 Number: Številka
 Output: Izstop
@@ -981,9 +979,11 @@ Registration: Registracija
 Remove: Izbrišite
 Schedule cannot be enabled: Ni bilo mogoče vklopiti urnika
 Schedules below will be deleted: Spodnji urniki bodo izbrisani
+Sources available from: Viri, ki so na voljo v
 Status: Status
 Subject: Subjekt
 Sunrise / Sunset: Vzhod / Zahod
+Supla for devices: Supla za naprave
 Try again later: Poskusite znova pozneje.
 Turning this device off will result in disabling all the associated schedules.: Če izklopite to napravo, bo tudi izklopljen urnik, ki je z njo povezan.
 When: Ko
@@ -994,5 +994,10 @@ hourly: Urni cikel
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>

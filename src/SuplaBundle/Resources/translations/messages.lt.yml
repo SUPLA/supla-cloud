@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': Įrenginys nepalaiko %s trigerio.
-...and start your adventure with building automation today!: ...ir pradėkite savo nuotykius su išmaniaisiais pastatais jau šiandien!
 ...open and shut roller shutters: ...uždengti ir atidengti žaliuzes
 ...open gateways, gates or doors: ...atidaryti dureles, vartus ar duris
 ...or control home appliances: ...ar valdyti buitinę techniką/RTV įrangą
@@ -174,7 +173,6 @@ Close automatically: Uždaryti automatiškai
 Close partially: Uždaryti iš dalies
 Color: Spalva
 Color brightness: Šviesos ryškumas
-Coming Soon: Netrukus bus prieinami
 Comment: Komentaras
 Config of the schedule is too complicated.: Tvarkaraščio konfigūravimas per sudėtingas.
 Configuration: Konfigūracija
@@ -215,7 +213,7 @@ Delete: Pašalinti
 Delete measurement history: Pašalinti matavimų istoriją
 Delete my account: Pašalinti mano paskyrą
 Delete voltage aberrations history: Pašalinti įtampos aberacijų istoriją
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: 'Su Jūsų paskyros pašalinimu taip pat bus pašalinti visi Jūsų duomenys, be kita ko Jūsų suporuoti įrenginiai, konfigūruoti kanalai, tiesioginės nuorodos ir matavimo istorija. Paskyros pašalinimas yra negrįžtamas. '
 Depth: Gylis
 Depth sensor: Gilio jutiklis
 Description: Aprašas
@@ -321,7 +319,6 @@ General purpose measurement: Bendras matavimo kanalas
 Generate new password: Išgeneruoti naują slaptažodį
 Generate new token: Generuoti naują tokeną
 Generate token: Generuoti tokeną
-Get SUPLA on your devices: Atsisiųskite SUPLA į savo įrenginius
 Go to I/O device details: Eiti į įrenginio detalę informaciją
 Go to channel details: Eiti į kanalo detalę informaciją
 Go to your account: Eiti į savo paskyrą
@@ -440,7 +437,6 @@ Measurement window: Matavimo laikas
 Meter value: Skaitiklio būsena
 Meters: Skaitikliai
 Minimum voltage: Žemiausia įtampa
-Mobile Apps: Mobiliosios programos
 Mode: Režimas
 Modification: Modifikavimas
 Mondays: Pirmadieniai
@@ -642,7 +638,6 @@ Some features depend on this channel group: Kai kurie funkcionalumai priklauso n
 Some features depend on this device: Kai kurie funkcionalumai priklauso nuo šio įrenginio.
 Some features depend on this scene: Kai kurie funkcionalumai priklauso nuo šios scenos.
 Some of the features you have configured rely on channels from this device.: Kai kurie funkcionalumai naudoja šio įrenginio kanalus.
-Sources available from: Šaltiniai prieinami
 Staircase timer: Laiptų automatas
 Standard: Standartiniai
 Start Here: Pradėti čia
@@ -657,7 +652,6 @@ Subject type: Subjekto tipas
 Success: Sėkmė
 Successful: Sėkmingai
 Sundays: Sekmadieniai
-Supla for devices: Supla įrenginiams
 Switch the device to configuration mode: Perjungti įrenginį į konfigūravimo režimą
 THIS CANNOT BE UNDONE!: ŠIS VEIKSMAS NEGRĮŽTAMAS!
 TLS: TLS
@@ -944,6 +938,7 @@ valid until: baigsis
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...ir pradėkite savo nuotykius su išmaniaisiais pastatais jau šiandien!
 Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
 Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
 Action: Veiksmas
@@ -953,6 +948,7 @@ Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti prane�
 Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
 Channels in channel group: Kanalai kanalų grupėse
 Chosen hour: Pasirinktas laikas
+Coming Soon: Netrukus bus prieinami
 Confirm if you want to remove {deviceName} device: Patvirtinkite, kad norite pašalinti įrenginį {deviceName}
 DISABLED: IŠJUNGTA
 Date: Data
@@ -962,6 +958,7 @@ Doors, Gates: Durys, Vartai
 ENABLED: ĮJUNGTA
 Email already exists: El. pašto adresas jau egzistuoja
 Existing schedules: Egzistuojantys tvarkaraščiai
+Get SUPLA on your devices: Atsisiųskite SUPLA į savo įrenginius
 Hi: Sveiki
 Hour: Laikas
 Hours: Valandos
@@ -973,6 +970,7 @@ Loading: Krovimas
 Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
 Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
 Minute: Minutė
+Mobile Apps: Mobiliosios programos
 Next: Toliau
 Number: Numeris
 Output: Išvestis
@@ -981,9 +979,11 @@ Registration: Registracija
 Remove: Pašalinti
 Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
 Schedules below will be deleted: Šie tvarkaraščiai bus pašalinti
+Sources available from: Šaltiniai prieinami
 Status: Statusas
 Subject: Subjektas
 Sunrise / Sunset: Saulėtekis / Saulėlydis
+Supla for devices: Supla įrenginiams
 Try again later: Pabandykite dar kartą vėliau
 Turning this device off will result in disabling all the associated schedules.: Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.
 When: Kada
@@ -994,5 +994,10 @@ hourly: Valandinis ciklas
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>

@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': Kích hoạt %s không được thiết bị hỗ trợ.
-...and start your adventure with building automation today!: ...và bắt đầu cuộc phiêu lưu của bạn với tự động hóa tòa nhà ngày hôm nay!
 ...open and shut roller shutters: ...mở và đóng cửa chớp lăn
 ...open gateways, gates or doors: ...Mở cổng hoặc cửa
 ...or control home appliances: ...hoặc kiểm soát các thiết bị gia dụng
@@ -174,7 +173,6 @@ Close automatically: Đóng tự động
 Close partially: Đóng một phần
 Color: Màu
 Color brightness: Độ sáng màu
-Coming Soon: Sắp có
 Comment: Bình luận
 Config of the schedule is too complicated.: Cấu hình lịch trình quá phức tạp.
 Configuration: Cấu hình
@@ -215,7 +213,7 @@ Delete: Xóa
 Delete measurement history: Xóa lịch sử đo
 Delete my account: Xóa tài khoản
 Delete voltage aberrations history: Xóa lịch sử độ sai lệch điện áp
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Xóa tài khoản dẫn đến xóa tất cả các dữ liệu liên quan, bao gốm các thiết bị được kết nối, cấu hình kênh, link liên kết, lịch sử. Xóa tài khoản là không thể lấy lại được.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Xóa tài khoản dẫn đến xóa tất cả các dữ liệu liên quan, bao gốm các thiết bị được kết nối, cấu hình kênh, link liên kết, lịch sử. Xóa tài khoản là không thể lấy lại được.
 Depth: Sâu
 Depth sensor: Cảm biến độ sâu
 Description: Description
@@ -321,7 +319,6 @@ General purpose measurement: Các kênh đo lường cơ bản
 Generate new password: Tạo mật khẩu mới
 Generate new token: Tạo mã thông báo mới
 Generate token: Tạo mã thông báo
-Get SUPLA on your devices: Get SUPLA on your devices
 Go to I/O device details: Chi tiết thiết bị I/O
 Go to channel details: Chi tiết kênh
 Go to your account: Chi tiết tài khoản
@@ -440,7 +437,6 @@ Measurement window: Thời gian đo
 Meter value: giá trị bộ đếm
 Meters: Bộ đếm
 Minimum voltage: Điện áp thấp nhất
-Mobile Apps: Ứng dụng di động
 Mode: Chế độ
 Modification: Sửa đổi
 Mondays: Thứ hai
@@ -642,7 +638,6 @@ Some features depend on this channel group: Một số chức năng không thu�
 Some features depend on this device: Một số chức năng không thuộc thiết bị này.
 Some features depend on this scene: Một số tính năng nằm trong hoạt cảnh này.
 Some of the features you have configured rely on channels from this device.: Một số chức năng sử dụng kênh thuộc thiết bị này.
-Sources available from: Nguồn có sẵn từ
 Staircase timer: Hẹn giờ cầu thang
 Standard: Tiêu chuẩn
 Start Here: Bắt đầu ở đây
@@ -657,7 +652,6 @@ Subject type: Loại đối tượng
 Success: Thành công
 Successful: Thành công
 Sundays: Chủ Nhật
-Supla for devices: Supla cho các thiết bị
 Switch the device to configuration mode: Chuyển thiết bị sang chế đố cài đặt
 THIS CANNOT BE UNDONE!: TĐIỀU NÀY KHÔNG THỂ ĐƯỢC HOÀN TÁC!
 TLS: TLS
@@ -944,6 +938,7 @@ valid until: sẽ hết hạn
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...và bắt đầu cuộc phiêu lưu của bạn với tự động hóa tòa nhà ngày hôm nay!
 Access identifier password must be at least 8 characters.: Mật khẩu truy cập tối thiểu 8 kí tự..
 Access identifier password must be no longer than 32 characters.: Mật khẩu truy cập không quá 32 kí tự.
 Action: Hoạt động
@@ -953,6 +948,7 @@ Cannot send an activation e-mail. Try again later.: Không gửi mail được. 
 Channel will be deleted from the channel group below: Kênh sẽ bị xóa khỏi nhóm kênh
 Channels in channel group: Các kênh trong nhóm kênh
 Chosen hour: Giờ được chọn
+Coming Soon: Sắp có
 Confirm if you want to remove {deviceName} device: Xác nhận muốn xóa {deviceName} thiết bị
 DISABLED: TẮT
 Date: Ngày
@@ -962,6 +958,7 @@ Doors, Gates: Cửa, Cổng
 ENABLED: BẬT
 Email already exists: Email đã tồn tại
 Existing schedules: Lịch trình hiện có
+Get SUPLA on your devices: Get SUPLA on your devices
 Hi: Hi
 Hour: Giờ
 Hours: Giờ
@@ -973,6 +970,7 @@ Loading: Đang tải
 Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
 Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
 Minute: Phút
+Mobile Apps: Ứng dụng di động
 Next: Tiếp theo
 Number: Số
 Output: Đầu ra
@@ -981,9 +979,11 @@ Registration: Đăng ký
 Remove: Gỡ bỏ
 Schedule cannot be enabled: Lịch trình không thể được kích hoạt
 Schedules below will be deleted: Lịch trình dưới đây sẽ bị xóa
+Sources available from: Nguồn có sẵn từ
 Status: Trạng thái
 Subject: Đối tượng
 Sunrise / Sunset: Sáng / Chiều
+Supla for devices: Supla cho các thiết bị
 Try again later: Thử lại sau
 Turning this device off will result in disabling all the associated schedules.: Tắt thiết bị này sẽ dẫn đến vô hiệu hóa tất cả các lịch trình liên quan.
 When: Khi
@@ -994,5 +994,10 @@ hourly: hàng giờ
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>

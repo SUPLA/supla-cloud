@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': '% S-utløser støttes ikke av enheten.'
-...and start your adventure with building automation today!: ...start ditt eventyr med smarte hus allerede i dag!
 ...open and shut roller shutters: ...åpne og stenge rullegardiner
 ...open gateways, gates or doors: ...åpne hageport, port eller dør
 ...or control home appliances: ...styre hvitevarer og elektronikk
@@ -174,7 +173,6 @@ Close automatically: Lukk automatisk
 Close partially: Lukk delvis
 Color: Farge
 Color brightness: Farge lysstyrke
-Coming Soon: Tilgjengelig snart
 Comment: Kommentar
 Config of the schedule is too complicated.: Tidsplankonfigurasjonen er for komplisert.
 Configuration: Konfigurasjon
@@ -215,7 +213,7 @@ Delete: Fjern
 Delete measurement history: Fjern målingshistorie
 Delete my account: Fjern min konto
 Delete voltage aberrations history: Slett historie om spenningsavvik
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Fjerning av din konto vil føre til fjerning av alle dine data, blant annet linket enheter, konfigurerte kanaler, direkte lenker og målingshistorie. Fjerning av konto er irreversibel.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Fjerning av din konto vil føre til fjerning av alle dine data, blant annet linket enheter, konfigurerte kanaler, direkte lenker og målingshistorie. Fjerning av konto er irreversibel.
 Depth: Dybde
 Depth sensor: Dybdesensor
 Description: Beskrivelse
@@ -321,7 +319,6 @@ General purpose measurement: Generell målekanal
 Generate new password: Generer et nytt passord
 Generate new token: Generer ny token
 Generate token: Generer token
-Get SUPLA on your devices: Last ned SUPLA på dine enheter
 Go to I/O device details: Gå til opplysninger om enheten
 Go to channel details: Gå til opplysninger om kanalen
 Go to your account: Gå til din konto
@@ -440,7 +437,6 @@ Measurement window: Måling tid
 Meter value: Meterlesing
 Meters: Tellere
 Minimum voltage: Laveste spenning
-Mobile Apps: Mobilapper
 Mode: Modus
 Modification: Modifisering
 Mondays: Mandag
@@ -642,7 +638,6 @@ Some features depend on this channel group: Noe funksjonalitet avhenger av denne
 Some features depend on this device: Noe funksjonalitet avhenger av denne enheten.
 Some features depend on this scene: Noe funksjonalitet avhenger av denne scenen.
 Some of the features you have configured rely on channels from this device.: Noen funksjoner bruker kanaler fra denne enheten.
-Sources available from: Kilder tilgjengelig i
 Staircase timer: Trappeautomat
 Standard: Standard
 Start Here: Start her
@@ -657,7 +652,6 @@ Subject type: Enhetstype
 Success: Suksess
 Successful: Vellykket
 Sundays: Søndager
-Supla for devices: SUPLA for enheter
 Switch the device to configuration mode: Sett enheten i konfigurasjonsmodus
 THIS CANNOT BE UNDONE!: DU KAN IKKE ANGRE PÅ DENNE HANDLINGEN!
 TLS: TLS
@@ -944,6 +938,7 @@ valid until: utløper
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...start ditt eventyr med smarte hus allerede i dag!
 Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
 Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
 Action: Handling
@@ -953,6 +948,7 @@ Cannot send an activation e-mail. Try again later.: Sending av melding med aktiv
 Channel will be deleted from the channel group below: Kanalen blir fjernet fra kanalgruppene nedenfor
 Channels in channel group: Kanaler i kanalgrupper
 Chosen hour: Valgt time
+Coming Soon: Tilgjengelig snart
 Confirm if you want to remove {deviceName} device: Bekreft at du vil fjerne enheten {deviceName}
 DISABLED: AV
 Date: Dato
@@ -962,6 +958,7 @@ Doors, Gates: Dører, Porter
 ENABLED: PÅ
 Email already exists: Denne e-post adressen eksisterer allerede
 Existing schedules: Eksisterende planer
+Get SUPLA on your devices: Last ned SUPLA på dine enheter
 Hi: Hei
 Hour: Time
 Hours: Timer
@@ -973,6 +970,7 @@ Loading: Lading
 Location password must be at least 4 characters.: Passord for lokalisering må ha minst 4 tegn.
 Location password must be no longer than 32 characters.: Passord for lokalisering kan ikke ha mer enn 32 tegn.
 Minute: Minutt
+Mobile Apps: Mobilapper
 Next: Videre
 Number: Nummer
 Output: Utgang
@@ -981,9 +979,11 @@ Registration: Registrering
 Remove: Fjern
 Schedule cannot be enabled: Aktivering av planen mislykket
 Schedules below will be deleted: Planene nedenfor blir fjernet
+Sources available from: Kilder tilgjengelig i
 Status: Status
 Subject: Enhet
 Sunrise / Sunset: Soloppgang / Solnedgang
+Supla for devices: SUPLA for enheter
 Try again later: Prøv en gang til senere
 Turning this device off will result in disabling all the associated schedules.: Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.
 When: Når
@@ -994,5 +994,10 @@ hourly: Timesyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>

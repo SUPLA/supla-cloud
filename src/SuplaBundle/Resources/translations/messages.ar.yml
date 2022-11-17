@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': مشغل %s غير مدعوم من قبل الجهاز.
-...and start your adventure with building automation today!: ... وابدأ مغامرتك مع المباني الذكية اليوم!
 ...open and shut roller shutters: ... إسدال وكشف الستائر
 ...open gateways, gates or doors: ... فتح البوابة الصغيرة أو البوابة الكبيرة أو الباب
 ...or control home appliances: ... أو التحكم في الأجهزة المنزلية / الالكترونيات
@@ -174,7 +173,6 @@ Close automatically: إغلاق تلقائي
 Close partially: إغلاق جزئي
 Color: اللون
 Color brightness: سطوع اللون
-Coming Soon: متاح قريبا
 Comment: تعليق
 Config of the schedule is too complicated.: إن ترتيب الجدول الزمني أكثر تعقيدا من اللازم.
 Configuration: الترتيب
@@ -215,7 +213,7 @@ Delete: حذف
 Delete measurement history: حذف سجل القياسات
 Delete my account: قم بحذف حسابي
 Delete voltage aberrations history: حذف تاريخ انحراف الجهد
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: سيؤدي حذف حسابك إلى حذف جميع بياناتك، بما في ذلك أجهزتك المتصلة والقنوات المكوّنة والروابط المباشرة وسجلّ القياسات. لا يمكن التراجع عن حذف الحساب.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: سيؤدي حذف حسابك إلى حذف جميع بياناتك، بما في ذلك أجهزتك المتصلة والقنوات المكوّنة والروابط المباشرة وسجلّ القياسات. لا يمكن التراجع عن حذف الحساب.
 Depth: العمق
 Depth sensor: مستشعر العمق
 Description: الوصف
@@ -321,7 +319,6 @@ General purpose measurement: قناة قياس عامة
 Generate new password: إنشاء كلمة مرور جديدة
 Generate new token: توليد رمز جديد
 Generate token: توليد الرمز
-Get SUPLA on your devices: قم بتنزيل SUPLA للأجهزة الخاصة بك
 Go to I/O device details: انتقل إلى تفاصيل الجهاز
 Go to channel details: انتقل إلى تفاصيل القناة
 Go to your account: انتقل إلى حسابك
@@ -440,7 +437,6 @@ Measurement window: وقت القياس
 Meter value: قراءة العداد
 Meters: العدادات
 Minimum voltage: جهد منخفض
-Mobile Apps: تطبيقات المحمول
 Mode: النمط
 Modification: التعديل
 Mondays: الاثنين
@@ -642,7 +638,6 @@ Some features depend on this channel group: تعتمد بعض الوظائف ع�
 Some features depend on this device: تعتمد بعض الوظائف على هذا الجهاز
 Some features depend on this scene: تعتمد بعض الوظائف على هذا المشهد.
 Some of the features you have configured rely on channels from this device.: تستخدم بعض الوظائف قنوات من هذا الجهاز.
-Sources available from: المصادر المتاحة في
 Staircase timer: الدرج الآلي
 Standard: معياري
 Start Here: ابدأ هنا
@@ -657,7 +652,6 @@ Subject type: نوع الكيان
 Success: نجاح
 Successful: تم بناجح
 Sundays: الأحد
-Supla for devices: Supla على اللأجهزة
 Switch the device to configuration mode: وضع الجهاز في وضع التكوين
 THIS CANNOT BE UNDONE!: لا يمكن الانسحاب من هذه العملية!
 TLS: TLS
@@ -943,6 +937,7 @@ valid until: ينتهي
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ... وابدأ مغامرتك مع المباني الذكية اليوم!
 Access identifier password must be at least 8 characters.: يجب أن تتكون كلمة المرور الخاصة بمعرف الوصول من 8 أحرف على الأقل.
 Access identifier password must be no longer than 32 characters.: لا يمكن أن تكون كلمة المرور الخاصة بمعرف الوصول أطول من 32 حرفًا.
 Action: الاجراء
@@ -951,6 +946,7 @@ Assigned Locations: المواقع المخصصة
 Cannot send an activation e-mail. Try again later.: غير قادر على إرسال رسالة مع رابط التفعيل. يرجى المحاولة مرة أخرى لاحقًا.
 Channel will be deleted from the channel group below: ستتم إزالة القناة من مجموعات القنوات التالية
 Chosen hour: الوقت المحدد
+Coming Soon: متاح قريبا
 Confirm if you want to remove {deviceName} device: أكد أنك تريد إزالة {deviceName}
 DISABLED: غير مشغل
 Date: التاريخ
@@ -960,6 +956,7 @@ Doors, Gates: الأبواب ، البوابات
 ENABLED: مفعلة
 Email already exists: البريد الإلكتروني موجود بالفعل
 Existing schedules: الجداول الزمنية الحالية
+Get SUPLA on your devices: قم بتنزيل SUPLA للأجهزة الخاصة بك
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: الرسالة مع رابط تفعيل حسابك لم تصل؟ تأكد من أنه غير موجود في مجلد الرسائل غير المطلوبة (البريد العشوائي). يمكنك أيضًا النقر [هنا] لإرسالها مرة أخرى.
 Hi: مرحبا
 Hour: الساعة
@@ -972,6 +969,7 @@ Loading: التحميل
 Location password must be at least 4 characters.: يجب ألا يقل طول كلمة مرور الموقع عن 4 أحرف.
 Location password must be no longer than 32 characters.: لا يمكن ألا تتجاوز كلمة مرور الموقع 32 حرفًا.
 Minute: دقيقة
+Mobile Apps: تطبيقات المحمول
 Next: التالي
 Number: رقم
 Output: خروج
@@ -982,9 +980,11 @@ Registration of new clients: تسجيل العملاء
 Remove: حذف
 Schedule cannot be enabled: لم يتم تشغيل الجدول الزمني
 Schedules below will be deleted: سيتم حذف الجداول الزمنية التالية
+Sources available from: المصادر المتاحة في
 Status: الحالة
 Subject: الكيان
 Sunrise / Sunset: الشرق / الغرب
+Supla for devices: Supla على اللأجهزة
 Try again later: يرجى المحاولة مرة أخرى لاحقًا
 Turning this device off will result in disabling all the associated schedules.: سيؤدي إيقاف تشغيل هذا الجهاز أيضًا إلى إيقاف تشغيل الجداول الزمنية المرتبطة بها.
 We have just sent you an activation link. Be patient.: تم إرسال رسالة تحتوي على رابط لتفعيل حسابك. اصبر.
@@ -997,5 +997,10 @@ will expire: يبطل مفعولها
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>

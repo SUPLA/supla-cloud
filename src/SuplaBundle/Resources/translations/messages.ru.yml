@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': Триггер %s не поддерживается устройством.
-...and start your adventure with building automation today!: ...и начни творить свою домашнюю автоматику!
 ...open and shut roller shutters: ...открывать и закрывать роллеты
 ...open gateways, gates or doors: ...открыть ворота, калитки или двери
 ...or control home appliances: ...или управлять бытовой техникой
@@ -174,7 +173,6 @@ Close automatically: Закрыть автоматически
 Close partially: Закрыть частично
 Color: Цвет
 Color brightness: Яркость цвета
-Coming Soon: Скоро будет
 Comment: Коментарий
 Config of the schedule is too complicated.: Конфигурация графика слишком сложная.
 Configuration: Конфигурация
@@ -215,7 +213,7 @@ Delete: Удалить
 Delete measurement history: Удалить историю измерений
 Delete my account: Удалить мою учетную запись
 Delete voltage aberrations history: Удалить историю аббераций напряжения
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Удаление учетной записи приведет к удалению всех ваших данных, включая ваши подключенные устройства, настроенные каналы, прямые ссылки и историю измерений. Удаление учетной записи является необратимым.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Удаление учетной записи приведет к удалению всех ваших данных, включая ваши подключенные устройства, настроенные каналы, прямые ссылки и историю измерений. Удаление учетной записи является необратимым.
 Depth: Глубина
 Depth sensor: датчик глубины
 Description: Описание
@@ -321,7 +319,6 @@ General purpose measurement: Общий канал измерения
 Generate new password: Создать новый пароль
 Generate new token: Создать новый токен
 Generate token: Создать токен
-Get SUPLA on your devices: Загрузи SUPLА на свое устройство
 Go to I/O device details: Перейти к подробной информации устройства
 Go to channel details: Перейти к подробной информации канала
 Go to your account: Перейди в свой аккаунт
@@ -440,7 +437,6 @@ Measurement window: Время измерения
 Meter value: Состояние счетчика
 Meters: Счетчики
 Minimum voltage: Минимальное напряжение
-Mobile Apps: Мобильное приложение
 Mode: Режим
 Modification: Модификация
 Mondays: Понедельники
@@ -642,7 +638,6 @@ Some features depend on this channel group: Некоторые функции з
 Some features depend on this device: Некоторые функции зависят от этого устройства
 Some features depend on this scene: Некоторые функциональные возможности зависят от этой сцены.
 Some of the features you have configured rely on channels from this device.: Некоторые функции используют каналы с этого устройства.
-Sources available from: Исходный код доступен на
 Staircase timer: Лестничный автомат
 Standard: Стандартные
 Start Here: Начни отсюда
@@ -657,7 +652,6 @@ Subject type: Тип субъекта
 Success: Успешно
 Successful: Выполнено успешно
 Sundays: Воскресенья
-Supla for devices: Supla для устройств
 Switch the device to configuration mode: Перевести устройство в режим конфигурации
 THIS CANNOT BE UNDONE!: ЭТУ ОПЕРАЦИЮ НЕВОЗМОЖНО ОТМЕНИТЬ!
 TLS: TLS
@@ -944,6 +938,7 @@ valid until: Истечет
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...и начни творить свою домашнюю автоматику!
 Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
 Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
 Action: Акция
@@ -953,6 +948,7 @@ Cannot send an activation e-mail. Try again later.: Невозможно отп�
 Channel will be deleted from the channel group below: Канал будет удален из следующих групп каналов
 Channels in channel group: Каналы в группах каналов
 Chosen hour: Заданное время
+Coming Soon: Скоро будет
 Confirm if you want to remove {deviceName} device: Подтвердите удаление {deviceName}
 DISABLED: НЕ ИСПОЛЬЗУЕТСЯ
 Date: Дата
@@ -962,6 +958,7 @@ Doors, Gates: Двери, Калитки
 ENABLED: ИСПОЛЬЗУЕТСЯ
 Email already exists: Адрес электронной почты уже существует
 Existing schedules: Существующие графики
+Get SUPLA on your devices: Загрузи SUPLА на свое устройство
 Hi: Привет
 Hour: Час
 Hours: Часов
@@ -973,6 +970,7 @@ Loading: Зарядка
 Location password must be at least 4 characters.: Пароль для локализации должен быть не менее 4 символов.
 Location password must be no longer than 32 characters.: Пароль для локализации не может быть длиннее 32 символов.
 Minute: Минута
+Mobile Apps: Мобильное приложение
 Next: Далее
 Number: Номер
 Output: Выход
@@ -981,9 +979,11 @@ Registration: Регистрация
 Remove: Удалить
 Schedule cannot be enabled: Не получилось запустить график
 Schedules below will be deleted: Следующие графики будут удалены
+Sources available from: Исходный код доступен на
 Status: Статус
 Subject: Субъект
 Sunrise / Sunset: Восход/Закат
+Supla for devices: Supla для устройств
 Try again later: Попытайся повторно задать команду
 Turning this device off will result in disabling all the associated schedules.: Выключение этого оборудования приведет  к одновременному выключению графиков, которые с ним соединены.
 When: Когда
@@ -994,5 +994,10 @@ hourly: Ежечасный цикл
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>

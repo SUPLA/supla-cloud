@@ -1,7 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
 '%s trigger is not supported by the hardware.': Der Auslöser %s wird durch das Gerät nicht unterstützt.
-...and start your adventure with building automation today!: … und jetzt mit dem Erlebnis mit den intelligenten Gebäuden starten!
 ...open and shut roller shutters: ...die Rolladen auf- und zumachen
 ...open gateways, gates or doors: ...du kannst die Pforte, die Tür und der Tor aufmachen
 ...or control home appliances: ...oder Haushaltwaren steuern
@@ -174,7 +173,6 @@ Close automatically: Automatisch schließen
 Close partially: Schließen Sie teilweise
 Color: Farbe
 Color brightness: Helligkeit des Farbtons
-Coming Soon: Bald erreichbar
 Comment: Kommentar
 Config of the schedule is too complicated.: Die Konfiguration des Zeitplans ist zu kompliziert.
 Configuration: Konfiguration
@@ -215,7 +213,7 @@ Delete: Löschen
 Delete measurement history: Löschen Sie den Messverlauf
 Delete my account: Mein Konto löschen.
 Delete voltage aberrations history: Verlauf der Spannungsaberration löschen
-Deleting your account will result also in deletion of all your data, including your connected devices, configure channels, direct links and measurement history. Deleting an account is irreversible.: Wenn Sie Ihr Konto löschen, werden auch alle Ihre Daten gelöscht, einschließlich der angeschlossenen Geräte, der konfigurierten Kanäle, der Direktverbindungen und des Messverlaufs. Das Löschen Ihres Kontos ist unwiderruflich.
+Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.: Wenn Sie Ihr Konto löschen, werden auch alle Ihre Daten gelöscht, einschließlich der angeschlossenen Geräte, der konfigurierten Kanäle, der Direktverbindungen und des Messverlaufs. Das Löschen Ihres Kontos ist unwiderruflich.
 Depth: Tiefe
 Depth sensor: Tiefensensor
 Description: Beschreibung
@@ -321,7 +319,6 @@ General purpose measurement: Allgemeiner Messkanal
 Generate new password: Generieren Sie ein neues Kennwort
 Generate new token: Generieren Sie ein neues Token
 Generate token: Token generieren
-Get SUPLA on your devices: SUPLA auf deine Mobilgeräte herunterladen
 Go to I/O device details: Zu den Gerätedetails
 Go to channel details: Gehen Sie zu den Kanaldetails
 Go to your account: Geh zu deinem Konto
@@ -440,7 +437,6 @@ Measurement window: Zeitpunkt der Messung
 Meter value: Zählerstand
 Meters: Zähler
 Minimum voltage: Niedrigste Spannung
-Mobile Apps: Mobile Apps
 Mode: Modus
 Modification: Änderung
 Mondays: Montage
@@ -642,7 +638,6 @@ Some features depend on this channel group: Einige Funktionen hängen von dieser
 Some features depend on this device: Einige Funktionen hängen von diesem Gerät ab
 Some features depend on this scene: Einige Funktionen hängen von dieser Szene ab.
 Some of the features you have configured rely on channels from this device.: Einige Funktionen verwenden Kanäle von diesem Gerät.
-Sources available from: Quelltext in
 Staircase timer: Treppenlichtsensor
 Standard: Standardmäßig
 Start Here: Hier starten
@@ -657,7 +652,6 @@ Subject type: Art der Entität
 Success: Erfolg
 Successful: Erfolgreiche
 Sundays: Sonntage
-Supla for devices: SUPLA für Geräte
 Switch the device to configuration mode: Schalten Sie das Gerät in den Konfigurationsmodus um
 THIS CANNOT BE UNDONE!: DIESER VORGANG KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN
 TLS: TLS
@@ -944,6 +938,7 @@ valid until: es erlischt
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: … und jetzt mit dem Erlebnis mit den intelligenten Gebäuden starten!
 Access identifier password must be at least 8 characters.: Das Passwort für die Zugriffskennung muss mindestens 8 Zeichen lang sein
 Access identifier password must be no longer than 32 characters.: Das Passwort für die Zugriffskennung darf nicht länger als 32 Zeichen sein.
 Action: Aktion
@@ -953,6 +948,7 @@ Cannot send an activation e-mail. Try again later.: Nachricht mit Aktivierungsli
 Channel will be deleted from the channel group below: Der Kanal wird aus den folgenden Kanalgruppen entfernt
 Channels in channel group: Kanäle in Kanalgruppen
 Chosen hour: Ausgewählte Uhrzeit
+Coming Soon: Bald erreichbar
 Confirm if you want to remove {deviceName} device: Bestätige, wenn du das Gerät löschen möchtest {deviceName}
 DISABLED: AUSGESCHALTET
 Date: "Data \tDatum"
@@ -962,6 +958,7 @@ Doors, Gates: Türen, Toren
 ENABLED: EINGESCHALTET
 Email already exists: E-Mail existiert bereits
 Existing schedules: Bestehende/existierende Harmonogramme
+Get SUPLA on your devices: SUPLA auf deine Mobilgeräte herunterladen
 Hi: Hallo
 Hour: Uhrzeit
 Hours: Stunden
@@ -973,6 +970,7 @@ Loading: Laden
 Location password must be at least 4 characters.: Das Kennwort für den Standort muss mindestens 4 Zeichen lang sein.
 Location password must be no longer than 32 characters.: Das Kennwort für den Standort darf nicht länger als 32 Zeichen sein.
 Minute: Minute
+Mobile Apps: Mobile Apps
 Next: Weiter
 Number: Nummer
 Output: Ausgabe
@@ -981,9 +979,11 @@ Registration: Registrierung
 Remove: Löschen
 Schedule cannot be enabled: Es ist nicht gelungen das Harmonogramm einzuschalten
 Schedules below will be deleted: Folgende Zeitpläne werden gelöscht
+Sources available from: Quelltext in
 Status: Status
 Subject: Subjekt
 Sunrise / Sunset: Sonnenaufgang/Sonnenuntergang
+Supla for devices: SUPLA für Geräte
 Try again later: Versuche später nochmals
 Turning this device off will result in disabling all the associated schedules.: Das Ausschalten dieses Geräts verursacht auch das Ausschalten von Harmonogrammen, mit denen es in Verbindung steht.
 When: Wann
@@ -994,5 +994,10 @@ hourly: Stundenzyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+I understand that my SUPLA account will be permanently deleted.: ~
+Invalid username or password: ~
+No, take me back!: ~
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+We will miss you!: ~
 
 #</editor-fold>
