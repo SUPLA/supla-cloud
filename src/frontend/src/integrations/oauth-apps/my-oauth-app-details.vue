@@ -3,7 +3,8 @@
         <loading-cover :loading="loading">
             <div v-if="app">
                 <div class="container">
-                    <pending-changes-page :header="app.id ? $t('OAuth application') : $t('New OAuth application') + (app.id ? ' ID'+ app.id : '')"
+                    <pending-changes-page
+                        :header="app.id ? $t('OAuth application') : $t('New OAuth application') + (app.id ? ' ID'+ app.id : '')"
                         @cancel="cancelChanges()"
                         @save="saveOauthApp()"
                         :deletable="app.id"
@@ -88,6 +89,7 @@
     import Vue from "vue";
     import CopyButton from "../../common/copy-button";
     import $ from "jquery";
+    import autosize from "autosize";
 
     export default {
         props: ['id'],
@@ -169,6 +171,19 @@
         watch: {
             id() {
                 this.fetch();
+            }
+        },
+        directives: {
+            autosize: {
+                bind(el) {
+                    autosize(el);
+                },
+                componentUpdated(el) {
+                    autosize(el);
+                },
+                unbind(el) {
+                    autosize.destroy(el);
+                }
             }
         }
     };

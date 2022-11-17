@@ -112,7 +112,7 @@ export default [
                 path: 'apps', component: () => import("@/integrations/oauth-apps/my-oauth-apps-page"), name: 'myOauthApps', children: [
                     {
                         path: ':id',
-                        component: () => import("@/integrations/oauth-apps/my-oauth-app-details"),
+                        component: () => import(/*webpackChunkName:"my-oauth-app-details"*/"@/integrations/oauth-apps/my-oauth-app-details"),
                         name: 'myOauthApp',
                         props: true
                     }

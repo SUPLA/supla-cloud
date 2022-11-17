@@ -13,7 +13,7 @@ module.exports = {
         proxy: 'http://supla.local'
     },
     configureWebpack: {
-        // this module contains tempate compiler that is required for server-rendered pages to work,
+        // this module contains template compiler that is required for server-rendered pages to work,
         // i.e. OAuth login form or direct links execution results
         resolve: {
             alias: {

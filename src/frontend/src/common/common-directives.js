@@ -1,5 +1,4 @@
 import Vue from "vue";
-import autosize from "autosize";
 import $ from "jquery";
 
 Vue.directive('go-to-link-on-row-click', {
@@ -22,18 +21,6 @@ Vue.directive('title', {
     inserted: (el, binding) => updatePageTitle(binding.value || el.innerText),
     update: (el, binding) => updatePageTitle(binding.value || el.innerText),
     componentUpdated: (el, binding) => updatePageTitle(binding.value || el.innerText),
-});
-
-Vue.directive('autosize', {
-    bind(el) {
-        autosize(el);
-    },
-    componentUpdated(el) {
-        autosize(el);
-    },
-    unbind(el) {
-        autosize.destroy(el);
-    }
 });
 
 Vue.directive('focus', {
