@@ -49,7 +49,7 @@ class FrontendConfig {
         return array_merge(
             $parameters,
             [
-                'isCloudRegistered' => !$this->autodiscover->isTarget(),
+                'isCloudRegistered' => $this->autodiscover->isTarget(),
                 'max_upload_size' => [
                     'file' => $this->getMaxUploadSizePerFile(),
                     'total' => $this->getMaxUploadSize(),
