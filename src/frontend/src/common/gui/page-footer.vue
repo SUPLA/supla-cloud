@@ -65,11 +65,11 @@
                 return this.$route.path.indexOf('/login') === 0 || this.$route.path.indexOf('/oauth-authorize') === 0;
             },
             domain() {
-                return window.location.host;
+                return this.$frontendConfig.suplaUrl.replace(/https?:\/\//, '');
             },
             showRegisterCloud() {
                 return !this.$frontendConfig.actAsBrokerCloud && !this.$frontendConfig.isCloudRegistered
-                    && window.location.protocol.indexOf('https') === 0
+                    && this.$frontendConfig.suplaUrl.indexOf('https') === 0
                     && this.domain.indexOf('localhost:') !== 0
                     && this.domain !== 'localhost';
             },
