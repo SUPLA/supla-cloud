@@ -122,7 +122,7 @@
         data() {
             return {
                 email: '',
-                targetCloud: '',
+                targetCloud: this.$route.query.domain || '',
                 isBusy: false,
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
                 error: false, //Vue.config.external.actAsBrokerCloud ? 0 : 404,

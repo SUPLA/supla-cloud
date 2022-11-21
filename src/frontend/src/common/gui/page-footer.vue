@@ -14,10 +14,10 @@
                     <span v-if="username">
                         <session-countdown></session-countdown>
                     </span>
-                    <div v-else-if="isPageActive(['/login', '/oauth-authorize']) && !$frontendConfig.maintenanceMode">
+                    <div v-else-if="isLoginPage && !$frontendConfig.maintenanceMode">
                         <a v-if="showRegisterCloud"
                             class="brand nav-link"
-                            href="https://cloud.supla.org/register-cloud">
+                            :href="`https://cloud.supla.org/register-cloud?domain=${domain}`">
                             {{ $t('Register your SUPLA Cloud') }}
                         </a>
                     </div>
@@ -42,8 +42,7 @@
         components: {LanguageSelector, SessionCountdown},
         data() {
             return {
-                versionSignature: '',
-                showRegisterCloud: !this.$frontendConfig.actAsBrokerCloud && !this.$frontendConfig.isCloudRegistered,
+                versionSignature: ''
             };
         },
         mounted() {
@@ -60,13 +59,21 @@
                         this.$frontendVersion
                         : `${this.$frontendVersion} / ${this.$backendVersion}`;
             },
-            isPageActive(input) {
-                const paths = Array.isArray(input) ? input : [input];
-                return paths.some(path => {
-                    return this.$route.path.indexOf(path) === 0;
-                });
-            },
         },
+        computed: {
+            isLoginPage() {
+                return this.$route.path.indexOf('/login') === 0 || this.$route.path.indexOf('/oauth-authorize') === 0;
+            },
+            domain() {
+                return window.location.host;
+            },
+            showRegisterCloud() {
+                return !this.$frontendConfig.actAsBrokerCloud && !this.$frontendConfig.isCloudRegistered
+                    && window.location.protocol.indexOf('https') === 0
+                    && this.domain.indexOf('localhost:') !== 0
+                    && this.domain !== 'localhost';
+            },
+        }
     };
 </script>
 
