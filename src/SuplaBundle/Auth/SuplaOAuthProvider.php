@@ -27,8 +27,14 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class SuplaOAuthProvider extends OAuthProvider {
     public function authenticate(TokenInterface $token) {
         $authenticatedToken = parent::authenticate($token);
-        /** @var AccessToken $accessToken */
         $accessToken = $this->serverService->verifyAccessToken($token->getToken());
+        /** @var AccessToken $accessToken */
+        if ($accessToken->getIssuedWithRefreshToken()) {
+            /** @var SuplaOAuthStorage $storage */
+            $storage = $this->serverService->getStorage();
+            $storage->unsetRefreshToken($accessToken->getIssuedWithRefreshToken()->getToken());
+            $storage->markAccessTokenIssuedWithRefreshToken($accessToken, null);
+        }
         if ($accessToken->isForWebapp()) {
             $authenticatedToken = new WebappToken($authenticatedToken);
         } elseif ($accessToken->isForPublicApp()) {

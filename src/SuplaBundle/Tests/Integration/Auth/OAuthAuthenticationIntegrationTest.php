@@ -292,11 +292,39 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     }
 
     /**
-     * This tests if the Refresh Token Rotation works.
+     * This test ensures that a used refresh token can be used again, if access token has not been used yet.
+     */
+    public function testCanRefreshTokenWithOldRefreshTokenIfAccessTokenHasNotBeenUsed() {
+        [$oldRefreshToken, ,] = $this->testRefreshingToken();
+        $params = [
+            'grant_type' => 'refresh_token',
+            'client_id' => $this->client->getPublicId(),
+            'client_secret' => $this->client->getSecret(),
+            'refresh_token' => $oldRefreshToken,
+        ];
+        $client = $this->createInsulatedClient();
+        $client->followRedirects();
+        $client->apiRequest('POST', '/oauth/v2/token', $params);
+        $this->assertStatusCode(200, $client->getResponse());
+    }
+
+    private function useAnAccessToken(string $accessToken): void {
+        $client = $this->createInsulatedClient(
+            ['debug' => false],
+            ['HTTP_AUTHORIZATION' => 'Bearer ' . $accessToken, 'HTTPS' => true]
+        );
+        $client->followRedirects();
+        $client->request('GET', '/api/users/current');
+        $this->assertStatusCode(200, $client->getResponse());
+    }
+
+    /**
+     * This tests if the Refresh Token Rotation works. The old refresh token gets expired when the access token is used for the first time.
      * @see https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/#Refresh-Token-Rotation
      */
     public function testCantRefreshTokenWithUsedRefreshToken() {
-        [$usedRefreshToken, ,] = $this->testRefreshingToken();
+        [$usedRefreshToken, , $accessToken] = $this->testRefreshingToken();
+        $this->useAnAccessToken($accessToken);
         $params = [
             'grant_type' => 'refresh_token',
             'client_id' => $this->client->getPublicId(),
@@ -322,6 +350,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
             'client_secret' => $this->client->getSecret(),
             'refresh_token' => $oldRefreshToken,
         ];
+        $this->useAnAccessToken($newAccessToken);
         $client = $this->createInsulatedClient();
         $this->executeCommand('supla:clean:obsolete-oauth-tokens', $client); // ensure the expired refresh token is not removed immediately
         $client->followRedirects();

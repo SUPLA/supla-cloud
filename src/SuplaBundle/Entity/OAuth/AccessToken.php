@@ -54,6 +54,12 @@ class AccessToken extends BaseAccessToken {
     protected $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="RefreshToken")
+     * @ORM\JoinColumn(name="issued_with_refresh_token_id", nullable=true, onDelete="SET NULL")
+     */
+    protected $issuedWithRefreshToken;
+
+    /**
      * @ORM\Column(name="name", type="string", length=100, nullable=true)
      * @Groups({"basic"})
      */
@@ -112,5 +118,13 @@ class AccessToken extends BaseAccessToken {
 
     public function setApiClientAuthorization(ApiClientAuthorization $apiClientAuthorization) {
         $this->apiClientAuthorization = $apiClientAuthorization;
+    }
+
+    public function getIssuedWithRefreshToken(): ?RefreshToken {
+        return $this->issuedWithRefreshToken;
+    }
+
+    public function setIssuedWithRefreshToken(?RefreshToken $refreshToken): void {
+        $this->issuedWithRefreshToken = $refreshToken;
     }
 }

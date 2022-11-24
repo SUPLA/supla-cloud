@@ -159,6 +159,11 @@ class SuplaOAuthStorage extends OAuthStorage {
         }
     }
 
+    public function markAccessTokenIssuedWithRefreshToken(AccessToken $accessToken, ?RefreshToken $refreshToken): void {
+        $accessToken->setIssuedWithRefreshToken($refreshToken);
+        $this->accessTokenManager->updateToken($accessToken);
+    }
+
     /**
      * @param AccessToken|RefreshToken $token
      * @param ApiClient $client

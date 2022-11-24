@@ -75,6 +75,11 @@ class SuplaOAuth2 extends OAuth2 {
     ) {
         $clientType = $client->getType()->getValue();
         $accessTokenLifetime = $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['access']);
+        $refreshToken = null;
+        if ($this->oldRefreshToken) {
+            $refreshToken = $this->storage->getRefreshToken($this->oldRefreshToken);
+            $this->oldRefreshToken = null;
+        }
         $token = parent::createAccessToken(
             $client,
             $user,
@@ -83,6 +88,10 @@ class SuplaOAuth2 extends OAuth2 {
             (new OAuthScope($scope))->hasScope('offline_access'),
             $this->randomizeTokenLifetime($this->tokensLifetime[$clientType]['refresh'])
         );
+        if ($refreshToken) {
+            $accessToken = $this->storage->getAccessToken($token['access_token']);
+            $this->storage->markAccessTokenIssuedWithRefreshToken($accessToken, $refreshToken);
+        }
         if ($clientType == ApiClientType::WEBAPP) {
             $tokenUsedForFilesDownload = parent::createAccessToken(
                 $client,
