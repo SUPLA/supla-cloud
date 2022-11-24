@@ -365,8 +365,8 @@ class ChannelController extends RestController {
             $this->suplaServer->reconnect();
             return $this->getChannelAction($request, $channel->clearRelationsCount());
         } else {
-            $data = json_decode($request->getContent(), true);
-            $this->channelActionExecutor->executeAction($channel, ChannelFunctionAction::SET_RGBW_PARAMETERS(), $data);
+            $actionParams = json_decode($request->getContent(), true);
+            $this->channelActionExecutor->executeAction($channel, ChannelFunctionAction::SET_RGBW_PARAMETERS(), $actionParams);
             return $this->handleView($this->view(null, Response::HTTP_OK));
         }
     }
