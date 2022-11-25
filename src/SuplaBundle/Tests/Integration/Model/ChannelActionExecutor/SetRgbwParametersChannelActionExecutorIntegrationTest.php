@@ -67,6 +67,14 @@ class SetRgbwParametersChannelActionExecutorIntegrationTest extends IntegrationT
             [['hsv' => ['hue' => 0, 'saturation' => 100, 'value' => 55]], 'SET-RGBW-VALUE:1,1,1,16711680,55,0,0'],
             [['rgb' => ['red' => 140, 'green' => 0, 'blue' => 0]], 'SET-RGBW-VALUE:1,1,1,16711680,55,0,0'],
             [['color' => '0xFF0000', 'turnOnOff' => true], 'SET-RGBW-VALUE:1,1,1,16711680,100,0,2'],
+            [
+                ['color' => '0xFF0000', 'turnOnOff' => true, 'alexaCorrelationToken' => 'unicorn'],
+                'SET-RGBW-VALUE:1,1,1,16711680,100,0,2,ALEXA-CORRELATION-TOKEN=dW5pY29ybg==',
+            ],
+            [
+                ['color' => '0xFF0000', 'turnOnOff' => true, 'googleRequestId' => 'unicorn'],
+                'SET-RGBW-VALUE:1,1,1,16711680,100,0,2,GOOGLE-REQUEST-ID=dW5pY29ybg==',
+            ],
         ];
     }
 }

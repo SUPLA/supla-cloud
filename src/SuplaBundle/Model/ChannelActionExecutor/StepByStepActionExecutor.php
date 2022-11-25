@@ -6,7 +6,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 
 class StepByStepActionExecutor extends UpOrStopActionExecutor {
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $command = $subject->buildServerActionCommand('ACTION-SBS', $this->assignCommonParams([], $actionParams));
+        $command = $subject->buildServerActionCommand('ACTION-SBS');
         $this->suplaServer->executeCommand($command);
     }
 

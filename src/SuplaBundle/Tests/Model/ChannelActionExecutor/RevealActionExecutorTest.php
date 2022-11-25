@@ -49,22 +49,6 @@ class RevealActionExecutorTest extends TestCase {
         $this->assertSame(99, $validated['percentage']);
     }
 
-    public function testValidatingActionParamsWithCorrelationToken() {
-        $executor = new RevealActionExecutor();
-        $subject = $this->createMock(ActionableSubject::class);
-        $validated = $executor->validateActionParams($subject, ['percentage' => '55', 'alexaCorrelationToken' => 'abcd']);
-        $this->assertSame(55, $validated['percentage']);
-        $this->assertSame("abcd", $validated['alexaCorrelationToken']);
-    }
-
-    public function testValidatingActionParamsWithGoogleRequestId() {
-        $executor = new RevealActionExecutor();
-        $subject = $this->createMock(ActionableSubject::class);
-        $validated = $executor->validateActionParams($subject, ['percentage' => '55', 'googleRequestId' => 'abcd']);
-        $this->assertSame(55, $validated['percentage']);
-        $this->assertSame("abcd", $validated['googleRequestId']);
-    }
-
     /**
      * @dataProvider expectedServerCommandsProvider
      */

@@ -39,6 +39,8 @@ abstract class SuplaServer {
     protected $localSuplaCloud;
     /** @var LoggerInterface */
     private $logger;
+    /** @var array */
+    private $commandContext = [];
 
     public function __construct(string $socketPath, LocalSuplaCloud $localSuplaCloud, LoggerInterface $logger) {
         $this->socketPath = $socketPath;
@@ -71,8 +73,22 @@ abstract class SuplaServer {
         return 'DOWN';
     }
 
+    public function setCommandContext(string $name, string $value): void {
+        $this->commandContext[$name] = $value;
+    }
+
+    public function clearCommandContext(): void {
+        $this->commandContext = [];
+    }
+
     private function doExecuteCommand(string $command) {
         if ($this->connect() !== false) {
+            if ($this->commandContext) {
+                $commandSuffix = implode(',', array_map(function ($key, $value) {
+                    return $key . '=' . base64_encode($value);
+                }, array_keys($this->commandContext), $this->commandContext));
+                $command = $command . ',' . $commandSuffix;
+            }
             $result = $this->command($command);
         } else {
             throw new SuplaServerIsDownException();
@@ -275,8 +291,8 @@ abstract class SuplaServer {
         return [];
     }
 
-    public function executeScene(Scene $scene, array $params = []) {
-        $command = $scene->buildServerActionCommand('EXECUTE-SCENE', $params);
+    public function executeScene(Scene $scene) {
+        $command = $scene->buildServerActionCommand('EXECUTE-SCENE');
         $result = $this->doExecuteCommand($command) ?: '';
         if (strpos($result, 'IS-DURING-EXECUTION:') === 0) {
             throw new SceneDuringExecutionException($scene);

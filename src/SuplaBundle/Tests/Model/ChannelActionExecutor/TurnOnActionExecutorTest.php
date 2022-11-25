@@ -22,8 +22,8 @@ class TurnOnActionExecutorTest extends TestCase {
     public function validatingActionParamsProvider() {
         return [
             [[], true],
-            [['alexaCorrelationToken' => 'abcd'], true],
-            [['googleRequestId' => 'abcd'], true],
+            [['alexaCorrelationToken' => 'abcd'], false],
+            [['googleRequestId' => 'abcd'], false],
         ];
     }
 }

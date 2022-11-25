@@ -16,7 +16,7 @@ interface ActionableSubject {
      * Returns a footprint of this functionable item for identification in SUPLA Server commands.
      * See SuplaServer#executeCommand for more details.
      */
-    public function buildServerActionCommand(string $command, array $actionParams): string;
+    public function buildServerActionCommand(string $command, array $actionParams = []): string;
 
     /** Returns one of the ActionableSubjectType enum values. */
     public function getSubjectType(): string;

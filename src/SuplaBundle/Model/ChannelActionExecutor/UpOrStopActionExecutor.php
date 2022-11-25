@@ -10,7 +10,7 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 
 class UpOrStopActionExecutor extends SingleChannelActionExecutor {
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $command = $subject->buildServerActionCommand('ACTION-UP-OR-STOP', $this->assignCommonParams([], $actionParams));
+        $command = $subject->buildServerActionCommand('ACTION-UP-OR-STOP');
         $this->suplaServer->executeCommand($command);
     }
 

@@ -10,7 +10,7 @@ class ToggleActionExecutor extends TurnOnActionExecutor {
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $command = $subject->buildServerActionCommand('ACTION-TOGGLE', $this->assignCommonParams([], $actionParams));
+        $command = $subject->buildServerActionCommand('ACTION-TOGGLE');
         $this->suplaServer->executeCommand($command);
     }
 }

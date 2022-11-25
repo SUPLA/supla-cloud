@@ -17,15 +17,19 @@
 
 namespace SuplaBundle\Tests\Integration\Traits;
 
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Response;
 
 trait ResponseAssertions {
     /**
      * Asserts that HTTP response's status code is equal to expected or belongs to expected family.
      * @param $expectedStatus int|string|int[] representing code (eg. 200, 404) or string representing code family (eg. '2xx', '4xx')
-     * @param Response $clientResponse
+     * @param Response|KernelBrowser $clientResponse
      */
-    protected function assertStatusCode($expectedStatus, Response $clientResponse, string $message = '') {
+    protected function assertStatusCode($expectedStatus, $clientResponse, string $message = '') {
+        if ($clientResponse instanceof KernelBrowser) {
+            $clientResponse = $clientResponse->getResponse();
+        }
         $actualStatus = $clientResponse->getStatusCode();
         $fullStatusLine = $this->getResponseStatusLine($clientResponse);
         $message = ($message ? $message . PHP_EOL : '') . "Response status $actualStatus isn't %s: $fullStatusLine. Response content: \n"

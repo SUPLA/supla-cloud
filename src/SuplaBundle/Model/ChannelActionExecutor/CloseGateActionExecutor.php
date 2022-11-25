@@ -7,7 +7,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 
 class CloseGateActionExecutor extends SingleChannelActionExecutor {
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $command = $subject->buildServerActionCommand('ACTION-CLOSE', $this->assignCommonParams([], $actionParams));
+        $command = $subject->buildServerActionCommand('ACTION-CLOSE');
         $this->suplaServer->executeCommand($command);
     }
 

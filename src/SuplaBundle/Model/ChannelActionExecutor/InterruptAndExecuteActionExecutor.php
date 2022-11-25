@@ -15,7 +15,7 @@ class InterruptAndExecuteActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function execute(ActionableSubject $scene, array $actionParams = []) {
-        $command = $scene->buildServerActionCommand('INTERRUPT-AND-EXECUTE-SCENE', $this->assignCommonParams([], $actionParams));
+        $command = $scene->buildServerActionCommand('INTERRUPT-AND-EXECUTE-SCENE');
         $this->suplaServer->executeCommand($command);
     }
 }

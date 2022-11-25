@@ -6,7 +6,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 
 class DownOrStopActionExecutor extends UpOrStopActionExecutor {
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $command = $subject->buildServerActionCommand('ACTION-DOWN-OR-STOP', $this->assignCommonParams([], $actionParams));
+        $command = $subject->buildServerActionCommand('ACTION-DOWN-OR-STOP');
         $this->suplaServer->executeCommand($command);
     }
 

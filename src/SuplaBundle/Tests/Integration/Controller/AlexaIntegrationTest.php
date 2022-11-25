@@ -29,10 +29,9 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
-use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
-class GoogleHomeIntegrationTest extends IntegrationTestCase {
+class AlexaIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
@@ -62,70 +61,70 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $this->persist($this->scene);
     }
 
-    public function testChangingChannelStateWithGoogle() {
+    public function testChangingChannelStateWithAlexa() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
             'action' => 'turn-on',
-            'googleRequestId' => 'unicorn',
+            'alexaCorrelationToken' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains(
-            'SET-CHAR-VALUE:1,1,1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'),
+            'SET-CHAR-VALUE:1,1,1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
             $commands,
             implode(PHP_EOL, $commands)
         );
     }
 
-    public function testChangingChannelStateWithGoogleAndParams() {
+    public function testChangingChannelStateWithAlexaAndParams() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channels/2', json_encode([
             'action' => ChannelFunctionAction::SHUT_PARTIALLY,
             'percentage' => 45,
-            'googleRequestId' => 'unicorn',
+            'alexaCorrelationToken' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains(
-            'SET-CHAR-VALUE:1,1,2,55,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'),
+            'SET-CHAR-VALUE:1,1,2,55,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
             $commands,
             implode(PHP_EOL, $commands)
         );
     }
 
-    public function testChangingChannelGroupStateWithGoogle() {
+    public function testChangingChannelGroupStateWithAlexa() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channel-groups/1', json_encode([
             'action' => 'turn-on',
-            'googleRequestId' => 'unicorn',
+            'alexaCorrelationToken' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains(
-            'SET-CG-CHAR-VALUE:1,1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'),
+            'SET-CG-CHAR-VALUE:1,1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
             $commands,
             implode(PHP_EOL, $commands)
         );
     }
 
-    public function testExecutingSceneWithGoogle() {
+    public function testExecutingSceneWithAlexa() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/scenes/1', json_encode([
             'action' => 'execute',
-            'googleRequestId' => 'unicorn',
+            'alexaCorrelationToken' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains(
-            'EXECUTE-SCENE:1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'),
+            'EXECUTE-SCENE:1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
             $commands,
             implode(PHP_EOL, $commands)
         );

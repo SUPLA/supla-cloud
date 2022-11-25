@@ -228,7 +228,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
         return ChannelFunction::SCENE();
     }
 
-    public function buildServerActionCommand(string $command, array $actionParams): string {
+    public function buildServerActionCommand(string $command, array $actionParams = []): string {
         $params = array_merge([$this->getUser()->getId(), $this->getId()], $actionParams);
         $params = implode(',', $params);
         return "$command:$params";
