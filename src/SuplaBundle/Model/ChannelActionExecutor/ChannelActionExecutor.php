@@ -5,7 +5,10 @@ use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Supla\SuplaServerAware;
 
 /**
@@ -22,7 +25,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 class ChannelActionExecutor {
     use SuplaServerAware;
 
-    private const INTEGRATIONS_ACTION_PARAMS = ['alexaCorrelationToken', 'googleRequestId'];
+    private const INTEGRATIONS_ACTION_PARAMS = ['alexaCorrelationToken', 'googleRequestId', 'googleUserConfirmation'];
 
     /** @var SingleChannelActionExecutor[][] */
     private $actionExecutors = [];
@@ -38,7 +41,7 @@ class ChannelActionExecutor {
         $executor = $this->getExecutor($subject, $action);
         [$actionParams, $integrationsParams] = $this->groupActionParams($actionParams);
         $actionParams = $executor->validateActionParams($subject, $actionParams);
-        $this->processIntegrationParams($integrationsParams);
+        $this->processIntegrationParams($subject, $integrationsParams);
         $executor->execute($subject, $actionParams);
         $this->suplaServer->clearCommandContext();
     }
@@ -72,10 +75,24 @@ class ChannelActionExecutor {
         ];
     }
 
-    private function processIntegrationParams(array $integrationsParams): void {
+    private function processIntegrationParams(ActionableSubject $subject, array $integrationsParams): void {
         if (isset($integrationsParams['googleRequestId'])) {
             $googleRequestId = $integrationsParams['googleRequestId'];
             Assertion::maxLength($googleRequestId, 512, 'Google Request Id is too long.');
+            if ($subject instanceof IODeviceChannel) {
+                $settings = $subject->getUserConfigValue('googleHome', []);
+                if ($settings['googleHomeDisabled'] ?? false) {
+                    throw new ApiException('Google Home has been disabled for this channel.', 409);
+                }
+                if ($settings['needsUserConfirmation'] ?? false) {
+                    if (!($integrationsParams['googleUserConfirmation'] ?? false)) {
+                        throw new ApiExceptionWithDetails(
+                            'Param googleUserConfirmation=true is required for this channel.',
+                            ['needsUserConfirmation' => true]
+                        );
+                    }
+                }
+            }
             $this->suplaServer->setCommandContext('GOOGLE-REQUEST-ID', $googleRequestId);
         } elseif (isset($integrationsParams['alexaCorrelationToken'])) {
             $alexaCorrelationToken = $integrationsParams['alexaCorrelationToken'];

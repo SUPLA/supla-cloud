@@ -490,7 +490,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'stateVerificationMethodActive' => false,
             'closingRule' => [],
         ];
-        $this->assertEquals($expectedConfig, $gateChannel->getUserConfig());
+        $userConfig = array_diff_key($gateChannel->getUserConfig(), ['googleHome' => '']);
+        $this->assertEquals($expectedConfig, $userConfig);
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe */

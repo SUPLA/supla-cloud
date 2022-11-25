@@ -130,4 +130,99 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
             implode(PHP_EOL, $commands)
         );
     }
+
+    public function testSettingGoogleHomeConfigDisabled() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/1', [
+            'config' => ['googleHome' => ['googleHomeDisabled' => true]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $channel = $this->freshEntity($this->device->getChannels()[0]);
+        $channelConfig = $channel->getUserConfig();
+        $this->assertArrayHasKey('googleHome', $channelConfig);
+        $this->assertTrue($channelConfig['googleHome']['googleHomeDisabled']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigDisabled */
+    public function testExecutingActionWithGoogleDisabledChannel() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+            'googleRequestId' => 'unicorn',
+        ]));
+        $this->assertStatusCode(Response::HTTP_CONFLICT, $client);
+    }
+
+    /** @depends testSettingGoogleHomeConfigDisabled */
+    public function testExecutingActionWithGoogleDisabledChannelButWithoutGoogle() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+        ]));
+        $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
+    }
+
+    public function testSettingGoogleHomeConfigNeedsUserConfirmation() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/1', [
+            'config' => ['googleHome' => [
+                'googleHomeDisabled' => false,
+                'needsUserConfirmation' => true,
+                'pin' => null,
+            ]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $channel = $this->freshEntity($this->device->getChannels()[0]);
+        $channelConfig = $channel->getUserConfig();
+        $this->assertArrayHasKey('googleHome', $channelConfig);
+        $this->assertTrue($channelConfig['googleHome']['needsUserConfirmation']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigNeedsUserConfirmation */
+    public function testExecutingActionWithoutConfirmation() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+            'googleRequestId' => 'unicorn',
+        ]));
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client);
+        $body = $client->getResponseBody();
+        $this->assertArrayHasKey('details', $body);
+        $this->assertTrue($body['details']['needsUserConfirmation']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigNeedsUserConfirmation */
+    public function testExecutingActionWithConfirmation() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+            'googleRequestId' => 'unicorn',
+            'googleUserConfirmation' => true,
+        ]));
+        $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
+    }
+
+    public function testSettingGoogleHomeConfigPin() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/1', [
+            'config' => ['googleHome' => [
+                'googleHomeDisabled' => false,
+                'needsUserConfirmation' => false,
+                'pin' => '1234',
+            ]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $channel = $this->freshEntity($this->device->getChannels()[0]);
+        $channelConfig = $channel->getUserConfig();
+        $this->assertArrayHasKey('googleHome', $channelConfig);
+        $this->assertNotNull($channelConfig['googleHome']['pin']);
+        $this->assertEquals(40, strlen($channelConfig['googleHome']['pin']));
+        $configFromBody = $client->getResponseBody()['config']['googleHome'];
+        $this->assertArrayHasKey('pinSet', $configFromBody);
+        $this->assertArrayNotHasKey('pin', $configFromBody);
+        $this->assertTrue($configFromBody['pinSet']);
+    }
 }

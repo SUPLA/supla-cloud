@@ -72,7 +72,11 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
-            $normalized['config'] = new JsonArrayObject($this->paramsTranslator->getConfigFromParams($channel));
+            $config = (new JsonArrayObject($this->paramsTranslator->getConfigFromParams($channel)))->jsonSerialize();
+            if (is_array($config) && isset($config['googleHome']) && isset($config['googleHome']['pin'])) {
+                unset($config['googleHome']['pin']);
+            }
+            $normalized['config'] = $config;
             if ($this->isSerializationGroupRequested('channel.actionTriggers', $context)) {
                 $actionTriggers = $this->channelRepository->findActionTriggers($channel);
                 $normalized['actionTriggersIds'] = EntityUtils::mapToIds($actionTriggers);
