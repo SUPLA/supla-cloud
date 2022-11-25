@@ -33,7 +33,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    private const SAMPLE_PNG_FILEPATH = \AppKernel::ROOT_PATH . '/src/SuplaBundle/Tests/Utils/sample-icon.png';
+    private const SAMPLE_PNG_FILEPATH = \AppKernel::ROOT_PATH . '/../src/SuplaBundle/Tests/Utils/sample-icon.png';
 
     /** @var User */
     private $user;
