@@ -19,11 +19,13 @@ namespace Supla\Migrations;
 
 /**
  * Add supla_oauth_access_tokens.issued_with_refresh_token_id
+ * Add scenes.hidden
  */
 class Version20221124222346 extends NoWayBackMigration {
     public function migrate() {
         $this->addSql('ALTER TABLE supla_oauth_access_tokens ADD issued_with_refresh_token_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_oauth_access_tokens ADD CONSTRAINT FK_2402564BD2B4D7C8 FOREIGN KEY (issued_with_refresh_token_id) REFERENCES supla_oauth_refresh_tokens (id) ON DELETE SET NULL');
         $this->addSql('CREATE INDEX IDX_2402564BD2B4D7C8 ON supla_oauth_access_tokens (issued_with_refresh_token_id)');
+        $this->addSql('ALTER TABLE supla_scene ADD hidden TINYINT(1) DEFAULT \'0\' NOT NULL');
     }
 }
