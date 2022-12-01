@@ -769,4 +769,8 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     public function getPreference(string $name, $defaultValue = null) {
         return $this->getPreferences()[$name] ?? $defaultValue;
     }
+
+    public function hashValue(string $value): string {
+        return sha1($this->longUniqueId . $value);
+    }
 }

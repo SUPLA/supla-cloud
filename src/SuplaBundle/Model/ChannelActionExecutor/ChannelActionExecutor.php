@@ -25,7 +25,7 @@ use SuplaBundle\Supla\SuplaServerAware;
 class ChannelActionExecutor {
     use SuplaServerAware;
 
-    private const INTEGRATIONS_ACTION_PARAMS = ['alexaCorrelationToken', 'googleRequestId', 'googleUserConfirmation'];
+    private const INTEGRATIONS_ACTION_PARAMS = ['alexaCorrelationToken', 'googleRequestId', 'googleUserConfirmation', 'googlePin'];
 
     /** @var SingleChannelActionExecutor[][] */
     private $actionExecutors = [];
@@ -89,6 +89,22 @@ class ChannelActionExecutor {
                         throw new ApiExceptionWithDetails(
                             'Param googleUserConfirmation=true is required for this channel.',
                             ['needsUserConfirmation' => true]
+                        );
+                    }
+                }
+                if ($settings['pin'] ?? false) {
+                    if (!($integrationsParams['googlePin'] ?? false)) {
+                        throw new ApiExceptionWithDetails(
+                            'Param googlePin=PIN is required for this channel.',
+                            ['needsPin' => true]
+                        );
+                    }
+                    $pinStored = $settings['pin'];
+                    $pinSent = $subject->getUser()->hashValue($integrationsParams['googlePin']);
+                    if ($pinStored !== $pinSent) {
+                        throw new ApiExceptionWithDetails(
+                            'PIN sent in googlePin=PIN is invalid for this channel.',
+                            ['invalidPin' => true]
                         );
                     }
                 }

@@ -60,7 +60,7 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
                         ->string()
                         ->betweenLength(self::MIN_PIN_LENGTH, self::MAX_PIN_LENGTH)
                         ->numeric();
-                    $finalSettings['pin'] = sha1($this->secret . $pin);
+                    $finalSettings['pin'] = $channel->getUser()->hashValue($pin);
                 } else {
                     $finalSettings['pin'] = null;
                 }

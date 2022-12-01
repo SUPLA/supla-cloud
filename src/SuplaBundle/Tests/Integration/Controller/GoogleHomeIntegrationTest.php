@@ -225,4 +225,51 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $this->assertArrayNotHasKey('pin', $configFromBody);
         $this->assertTrue($configFromBody['pinSet']);
     }
+
+    /** @depends testSettingGoogleHomeConfigPin */
+    public function testExecutingActionWithoutPinWithoutGoogle() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+        ]));
+        $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
+    }
+
+    /** @depends testSettingGoogleHomeConfigPin */
+    public function testExecutingActionWithoutPin() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+            'googleRequestId' => 'unicorn',
+        ]));
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client);
+        $body = $client->getResponseBody();
+        $this->assertArrayHasKey('details', $body);
+        $this->assertTrue($body['details']['needsPin']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigPin */
+    public function testExecutingActionWithInvalidPin() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+            'googleRequestId' => 'unicorn',
+            'googlePin' => '1222',
+        ]));
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client);
+        $body = $client->getResponseBody();
+        $this->assertArrayHasKey('details', $body);
+        $this->assertTrue($body['details']['invalidPin']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigPin */
+    public function testExecutingActionWithPin() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+            'googleRequestId' => 'unicorn',
+            'googlePin' => '1234',
+        ]));
+        $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
+    }
 }
