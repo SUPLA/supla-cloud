@@ -97,6 +97,12 @@
         }
     }
 
+    .modal-450 {
+        .modal-container {
+            max-width: 450px;
+        }
+    }
+
     .modal-default-button {
         float: right;
     }

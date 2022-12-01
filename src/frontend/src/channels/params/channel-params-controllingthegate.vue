@@ -14,6 +14,7 @@
         </dl>
         <channel-params-controllingthegate-number-of-openclose-attempts :channel="channel" @change="$emit('change')"/>
         <ChannelParamsControllingthegateClosingRule :channel="channel" @change="$emit('change')"/>
+        <ChannelParamsIntegrationsSettings :channel="channel" @change="$emit('change')"/>
     </div>
 </template>
 
@@ -23,9 +24,11 @@
     import ChannelParamsControllingthegateNumberOfOpencloseAttempts
         from "@/channels/params/channel-params-controllingthegate-number-of-openclose-attempts";
     import ChannelParamsControllingthegateClosingRule from "@/channels/params/channel-params-controllingthegate-closing-rule";
+    import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
 
     export default {
         components: {
+            ChannelParamsIntegrationsSettings,
             ChannelParamsControllingthegateClosingRule,
             ChannelParamsControllingthegateNumberOfOpencloseAttempts, ChannelsIdDropdown, ChannelParamsControllingAnyLock
         },
