@@ -659,6 +659,17 @@ body.warning {
   vertical-align: top !important;
 }
 
+input.no-spinner {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  & {
+    -moz-appearance: textfield;
+  }
+}
+
 @import "./buttons";
 @import "./checkbox";
 @import "./notifications";

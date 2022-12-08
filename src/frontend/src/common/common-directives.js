@@ -33,6 +33,16 @@ Vue.directive('focus', {
     }
 });
 
+Vue.directive('input-digits-only', {
+    inserted: function (el) {
+        el.addEventListener('keypress', event => {
+            if (!/\d/.test(event.key)) {
+                return event.preventDefault();
+            }
+        });
+    }
+});
+
 function insertTooltip(element, binding) {
     if (binding.value) {
         const placement = binding.modifiers.bottom ? 'bottom' : 'top';
