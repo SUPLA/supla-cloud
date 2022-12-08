@@ -272,4 +272,20 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         ]));
         $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
     }
+
+    public function testFetchingChannelsForGoogleIntegration() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/1', [
+            'config' => ['googleHome' => ['googleHomeDisabled' => false]],
+        ]);
+        $client->apiRequestV24('GET', '/api/channels?forIntegration=google-home');
+        $this->assertCount(3, $client->getResponseBody());
+        $client->apiRequestV24('PUT', '/api/channels/1', [
+            'config' => ['googleHome' => ['googleHomeDisabled' => true]],
+        ]);
+        $client->apiRequestV24('GET', '/api/channels?forIntegration=google-home');
+        $fetchedChannels = $client->getResponseBody();
+        $this->assertCount(2, $fetchedChannels);
+        $this->assertNotContains(1, array_column($fetchedChannels, 'id'));
+    }
 }

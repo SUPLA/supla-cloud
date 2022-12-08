@@ -162,4 +162,20 @@ class AlexaIntegrationTest extends IntegrationTestCase {
         ]));
         $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
     }
+
+    public function testFetchingChannelsForAlexaIntegration() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/1', [
+            'config' => ['alexa' => ['alexaDisabled' => false]],
+        ]);
+        $client->apiRequestV24('GET', '/api/channels?forIntegration=alexa');
+        $this->assertCount(3, $client->getResponseBody());
+        $client->apiRequestV24('PUT', '/api/channels/1', [
+            'config' => ['alexa' => ['alexaDisabled' => true]],
+        ]);
+        $client->apiRequestV24('GET', '/api/channels?forIntegration=alexa');
+        $fetchedChannels = $client->getResponseBody();
+        $this->assertCount(2, $fetchedChannels);
+        $this->assertNotContains(1, array_column($fetchedChannels, 'id'));
+    }
 }

@@ -132,6 +132,11 @@ class ChannelController extends RestController {
      *         in="query", name="include", required=false, explode=false,
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"iodevice", "location", "connected", "state", "supportedFunctions", "relationsCount", "actionTriggers", "userIcon"})),
      *     ),
+     *     @OA\Parameter(
+     *         description="Select an integration that the channels should be returned for.",
+     *         in="query", name="forIntegration", required=false,
+     *         @OA\Schema(type="string", enum={"google-home", "alexa"}),
+     *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Channel"))),
      * )
      * @Rest\Get(name="channels_list")
@@ -160,6 +165,15 @@ class ChannelController extends RestController {
                 $skipIds = array_filter(array_map('intval', explode(',', $skipIds)));
                 if ($skipIds) {
                     $builder->andWhere("$alias.id NOT IN(:skipIds)")->setParameter('skipIds', $skipIds);
+                }
+            }
+            if (($forIntegration = $request->get('forIntegration')) !== null) {
+                if ($forIntegration === 'google-home') {
+                    $builder->andWhere("$alias.userConfig IS NULL OR $alias.userConfig NOT LIKE :googleHomeFilter")
+                        ->setParameter('googleHomeFilter', '%"googleHomeDisabled":true%');
+                } elseif ($forIntegration === 'alexa') {
+                    $builder->andWhere("$alias.userConfig IS NULL OR $alias.userConfig NOT LIKE :alexaFilter")
+                        ->setParameter('alexaFilter', '%"alexaDisabled":true%');
                 }
             }
         };
