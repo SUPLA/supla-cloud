@@ -490,7 +490,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'stateVerificationMethodActive' => false,
             'closingRule' => [],
         ];
-        $userConfig = array_diff_key($gateChannel->getUserConfig(), ['googleHome' => '']);
+        $userConfig = array_diff_key($gateChannel->getUserConfig(), ['googleHome' => '', 'alexa' => '']);
         $this->assertEquals($expectedConfig, $userConfig);
     }
 

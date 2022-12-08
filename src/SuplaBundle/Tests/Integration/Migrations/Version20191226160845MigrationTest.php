@@ -61,7 +61,7 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
                 'stateVerificationMethodActive' => false,
                 'closingRule' => [],
             ],
-            array_diff_key($channel->getUserConfig(), ['googleHome' => '']),
+            array_diff_key($channel->getUserConfig(), ['googleHome' => '', 'alexa' => '']),
         );
     }
 
