@@ -28,43 +28,55 @@
                     <toggler v-model="googleEnabled"></toggler>
                 </dt>
             </dl>
-            <dl v-if="googleEnabled">
-                <dd>{{ $t('Action confirmation') }}</dd>
-                <dt class="text-center">
-                    <div class="btn-group d-flex align-items-center justify-content-center">
-                        <a :class="['btn', {'btn-default': googleActionConfirmation !== 'none', 'btn-green': googleActionConfirmation === 'none'}]"
-                            @click="googleActionConfirmation = 'none'">
-                            {{ $t('None') }}
-                        </a>
-                        <a :class="['btn', {'btn-default': googleActionConfirmation !== 'simple', 'btn-green': googleActionConfirmation === 'simple'}]"
-                            @click="googleActionConfirmation = 'simple'">
-                            {{ $t('Simple') }}
-                        </a>
-                        <a :class="['btn', {'btn-default': googleActionConfirmation !== 'pin', 'btn-green': googleActionConfirmation === 'pin'}]"
-                            @click="googleActionConfirmation = 'pin'">
-                            {{ $t('PIN') }}
-                        </a>
+            <div v-if="googleEnabled">
+                <dl>
+                    <dd>{{ $t('Action confirmation') }}</dd>
+                    <dt class="text-center">
+                        <div class="btn-group d-flex align-items-center justify-content-center">
+                            <a :class="['btn', {'btn-default': googleActionConfirmation !== 'none', 'btn-green': googleActionConfirmation === 'none'}]"
+                                @click="googleActionConfirmation = 'none'">
+                                {{ $t('None') }}
+                            </a>
+                            <a :class="['btn', {'btn-default': googleActionConfirmation !== 'simple', 'btn-green': googleActionConfirmation === 'simple'}]"
+                                @click="googleActionConfirmation = 'simple'">
+                                {{ $t('Simple') }}
+                            </a>
+                            <a :class="['btn', {'btn-default': googleActionConfirmation !== 'pin', 'btn-green': googleActionConfirmation === 'pin'}]"
+                                @click="googleActionConfirmation = 'pin'">
+                                {{ $t('PIN') }}
+                            </a>
+                        </div>
+                    </dt>
+                </dl>
+                <transition-expand>
+                    <div class="alert alert-warning mt-3 mb-0" v-if="googleActionConfirmation === 'none'">
+                        {{ $t('By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).') }}
                     </div>
-                </dt>
-            </dl>
-            <dl v-if="googleEnabled && googleActionConfirmation === 'pin'">
-                <dd>{{ $t('PIN') }}</dd>
-                <dt class="text-center">
-                    <input
-                        v-if="changingGooglePin"
-                        v-focus
-                        type="number"
-                        v-input-digits-only
-                        class="form-control text-center pin-input no-spinner d-inline-block"
-                        v-model="googleSettings.pin">
-                    <a v-else @click="changingGooglePin = true">{{ $t('change') }}</a>
-                </dt>
-            </dl>
-            <transition-expand>
-                <div class="alert alert-danger mt-3 mb-0" v-if="googlePinError">
-                    {{ $t('PIN for Google must have a length between {minLength} and {maxLength} digits.', {minLength: 4, maxLength: 8}) }}
-                </div>
-            </transition-expand>
+                </transition-expand>
+                <dl v-if="googleEnabled && googleActionConfirmation === 'pin'">
+                    <dd>{{ $t('PIN') }}</dd>
+                    <dt class="text-center">
+                        <input
+                            v-if="changingGooglePin"
+                            v-focus
+                            type="number"
+                            v-input-digits-only
+                            class="form-control text-center pin-input no-spinner d-inline-block"
+                            v-model="googleSettings.pin">
+                        <a v-else @click="changingGooglePin = true">{{ $t('change') }}</a>
+                    </dt>
+                </dl>
+                <transition-expand>
+                    <div class="alert alert-danger mt-3 mb-0" v-if="googlePinError">
+                        {{
+                            $t('PIN for Google must have a length between {minLength} and {maxLength} digits.', {
+                                minLength: 4,
+                                maxLength: 8
+                            })
+                        }}
+                    </div>
+                </transition-expand>
+            </div>
         </modal>
     </div>
 </template>
