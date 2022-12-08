@@ -113,6 +113,12 @@ class ChannelActionExecutor {
         } elseif (isset($integrationsParams['alexaCorrelationToken'])) {
             $alexaCorrelationToken = $integrationsParams['alexaCorrelationToken'];
             Assertion::maxLength($alexaCorrelationToken, 2048, 'Correlation token is too long.');
+            if ($subject instanceof IODeviceChannel) {
+                $settings = $subject->getUserConfigValue('alexa', []);
+                if ($settings['alexaDisabled'] ?? false) {
+                    throw new ApiException('Alexa has been disabled for this channel.', 409);
+                }
+            }
             $this->suplaServer->setCommandContext('ALEXA-CORRELATION-TOKEN', $alexaCorrelationToken);
         }
     }

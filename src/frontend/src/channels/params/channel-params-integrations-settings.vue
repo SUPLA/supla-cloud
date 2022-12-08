@@ -2,14 +2,21 @@
     <div class="channel-params-integrations-settings">
         <h4 class="text-center">{{ $t("Integrations settings") }}</h4>
         <div class="btn-group d-flex align-items-center justify-content-center">
-            <a class="btn btn-default"
-                @click="$emit('input', time)">
-                Alexa<sup>&reg;</sup>
-            </a>
-            <a class="btn btn-default" @click="openGoogleSettings()">
-                Google Home<sup>&reg;</sup>
-            </a>
+            <a class="btn btn-default" @click="openAlexaSettings()">Alexa<sup>&reg;</sup></a>
+            <a class="btn btn-default" @click="openGoogleSettings()">Google Home<sup>&reg;</sup></a>
         </div>
+        <modal v-if="alexaSettings" class="modal-450"
+            :header="$t('{serviceName} integration', {serviceName: 'Alexa®'})"
+            @confirm="updateAlexaSettings()"
+            :cancellable="true"
+            @cancel="alexaSettings = undefined">
+            <dl>
+                <dd>{{ $t('Available') }}</dd>
+                <dt class="text-center">
+                    <toggler v-model="alexaEnabled"></toggler>
+                </dt>
+            </dl>
+        </modal>
         <modal v-if="googleSettings" class="modal-450"
             :header="$t('{serviceName} integration', {serviceName: 'Google Home®'})"
             @confirm="updateGoogleSettings()"
@@ -75,12 +82,16 @@
                 googleSettings: undefined,
                 changingGooglePin: false,
                 googlePinError: false,
+                alexaSettings: undefined,
             }
         },
         methods: {
             openGoogleSettings() {
                 this.googleSettings = {...(this.channel.config.googleHome || {})};
                 this.changingGooglePin = !this.googleSettings.pinSet;
+            },
+            openAlexaSettings() {
+                this.alexaSettings = {...(this.channel.config.alexa || {})};
             },
             updateGoogleSettings() {
                 this.googlePinError = false;
@@ -103,9 +114,22 @@
                     this.$emit('change');
                     this.googleSettings = undefined;
                 }
-            }
+            },
+            updateAlexaSettings() {
+                this.channel.config.alexa = {alexaDisabled: this.alexaSettings.alexaDisabled};
+                this.$emit('change');
+                this.alexaSettings = undefined;
+            },
         },
         computed: {
+            alexaEnabled: {
+                get() {
+                    return !this.alexaSettings.alexaDisabled;
+                },
+                set(value) {
+                    this.alexaSettings.alexaDisabled = !value;
+                }
+            },
             googleEnabled: {
                 get() {
                     return !this.googleSettings.googleHomeDisabled;

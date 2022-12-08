@@ -29,6 +29,7 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
 class AlexaIntegrationTest extends IntegrationTestCase {
@@ -128,5 +129,37 @@ class AlexaIntegrationTest extends IntegrationTestCase {
             $commands,
             implode(PHP_EOL, $commands)
         );
+    }
+
+    public function testSettingAlexaConfigDisabled() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/1', [
+            'config' => ['alexa' => ['alexaDisabled' => true]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $channel = $this->freshEntity($this->device->getChannels()[0]);
+        $channelConfig = $channel->getUserConfig();
+        $this->assertArrayHasKey('alexa', $channelConfig);
+        $this->assertTrue($channelConfig['alexa']['alexaDisabled']);
+    }
+
+    /** @depends testSettingAlexaConfigDisabled */
+    public function testExecutingActionWithAlexaDisabledChannel() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+            'alexaCorrelationToken' => 'unicorn',
+        ]));
+        $this->assertStatusCode(Response::HTTP_CONFLICT, $client);
+    }
+
+    /** @depends testSettingAlexaConfigDisabled */
+    public function testExecutingActionWithAlexaDisabledChannelButWithoutAlexa() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
+            'action' => 'turn-on',
+        ]));
+        $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
     }
 }

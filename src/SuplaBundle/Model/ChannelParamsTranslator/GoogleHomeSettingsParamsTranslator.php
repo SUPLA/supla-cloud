@@ -10,7 +10,7 @@ use SuplaBundle\Entity\IODeviceChannel;
 /**
  * @OA\Schema(schema="ChannelConfigGoogleHomeSettings", description="Config for Google Home integration.",
  *   @OA\Property(property="googleHome",
- *     @OA\Property(property="googleHomeEnabled", type="boolean"),
+ *     @OA\Property(property="googleHomeDisabled", type="boolean"),
  *     @OA\Property(property="needsUserConfirmation", type="boolean"),
  *     @OA\Property(property="pin", type="string", minLength=4, maxLength=8),
  *     @OA\Property(property="pinSet", type="boolean", readOnly=true),
