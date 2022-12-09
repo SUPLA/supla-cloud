@@ -2,8 +2,8 @@
     <div class="channel-params-integrations-settings">
         <h4 class="text-center">{{ $t("Integrations settings") }}</h4>
         <div class="btn-group d-flex align-items-center justify-content-center">
-            <a class="btn btn-default" @click="openAlexaSettings()">Alexa<sup>&reg;</sup></a>
-            <a class="btn btn-default" @click="openGoogleSettings()">Google Home<sup>&reg;</sup></a>
+            <a class="btn btn-default" @click="openAlexaSettings()" v-if="channel.config.alexa">Alexa<sup>&reg;</sup></a>
+            <a class="btn btn-default" @click="openGoogleSettings()" v-if="channel.config.googleHome">Google Home<sup>&reg;</sup></a>
         </div>
         <modal v-if="alexaSettings" class="modal-450"
             :header="$t('{serviceName} integration', {serviceName: 'Alexa®'})"
@@ -28,7 +28,7 @@
                     <toggler v-model="googleEnabled"></toggler>
                 </dt>
             </dl>
-            <div v-if="googleEnabled">
+            <div v-if="googleEnabled && canSetGoogleUserConfirmation">
                 <dl>
                     <dd>{{ $t('Action confirmation') }}</dd>
                     <dt class="text-center">
@@ -172,7 +172,10 @@
                         this.googleSettings.pinSet = false;
                     }
                 }
-            }
+            },
+            canSetGoogleUserConfirmation() {
+                return 'pinSet' in this.channel.config.googleHome;
+            },
         }
     };
 </script>

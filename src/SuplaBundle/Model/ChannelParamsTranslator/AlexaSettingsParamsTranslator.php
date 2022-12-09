@@ -5,6 +5,7 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Enums\ChannelFunction;
 
 /**
  * @OA\Schema(schema="ChannelConfigAlexaSettings", description="Config for Alexa integration.",
@@ -48,6 +49,23 @@ class AlexaSettingsParamsTranslator implements ChannelParamTranslator {
     }
 
     public function supports(IODeviceChannel $channel): bool {
-        return $channel->getFunction()->isOutput();
+        // https://github.com/ACSOFTWARE/supla-aws-lambda/blob/master/alexa/channels.js#L283
+        return in_array($channel->getFunction()->getId(), [
+            ChannelFunction::LIGHTSWITCH,
+            ChannelFunction::STAIRCASETIMER,
+            ChannelFunction::POWERSWITCH,
+            ChannelFunction::RGBLIGHTING,
+            ChannelFunction::DIMMER,
+            ChannelFunction::DIMMERANDRGBLIGHTING,
+            ChannelFunction::OPENINGSENSOR_GATE,
+            ChannelFunction::OPENINGSENSOR_GATEWAY,
+            ChannelFunction::OPENINGSENSOR_GARAGEDOOR,
+            ChannelFunction::OPENINGSENSOR_DOOR,
+            ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER,
+            ChannelFunction::OPENINGSENSOR_WINDOW,
+            ChannelFunction::THERMOMETER,
+            ChannelFunction::HUMIDITYANDTEMPERATURE,
+            ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+        ]);
     }
 }

@@ -51,9 +51,9 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $this->user = $this->createConfirmedUser();
         $this->location = $this->createLocation($this->user);
         $this->device = $this->createDevice($this->location, [
-            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
-            [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $this->location, [$this->device->getChannels()[0]]);
         $this->persist($this->channelGroup);
@@ -66,7 +66,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
             'googleRequestId' => 'unicorn',
         ]));
         $response = $client->getResponse();
@@ -101,7 +101,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channel-groups/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
             'googleRequestId' => 'unicorn',
         ]));
         $response = $client->getResponse();
@@ -131,6 +131,32 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         );
     }
 
+    public function testSettingGoogleHomeConfigDisabledForRollerShutter() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/2', [
+            'config' => ['googleHome' => ['googleHomeDisabled' => true]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $channel = $this->freshEntity($this->device->getChannels()[1]);
+        $channelConfig = $channel->getUserConfig();
+        $this->assertArrayHasKey('googleHome', $channelConfig);
+        $this->assertTrue($channelConfig['googleHome']['googleHomeDisabled']);
+        $this->assertArrayNotHasKey('needsUserConfirmation', $channelConfig['googleHome']);
+    }
+
+    public function testSettingGoogleHomeConfigDisabledForUnsupportedDoor() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/3', [
+            'config' => ['googleHome' => ['googleHomeDisabled' => true]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $channel = $this->freshEntity($this->device->getChannels()[2]);
+        $channelConfig = $channel->getUserConfig();
+        $this->assertArrayNotHasKey('googleHome', $channelConfig);
+    }
+
     public function testSettingGoogleHomeConfigDisabled() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PUT', '/api/channels/1', [
@@ -142,13 +168,14 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $channelConfig = $channel->getUserConfig();
         $this->assertArrayHasKey('googleHome', $channelConfig);
         $this->assertTrue($channelConfig['googleHome']['googleHomeDisabled']);
+        $this->assertFalse($channelConfig['googleHome']['needsUserConfirmation']);
     }
 
     /** @depends testSettingGoogleHomeConfigDisabled */
     public function testExecutingActionWithGoogleDisabledChannel() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
             'googleRequestId' => 'unicorn',
         ]));
         $this->assertStatusCode(Response::HTTP_CONFLICT, $client);
@@ -158,7 +185,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
     public function testExecutingActionWithGoogleDisabledChannelButWithoutGoogle() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
         ]));
         $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
     }
@@ -184,7 +211,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
     public function testExecutingActionWithoutConfirmation() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
             'googleRequestId' => 'unicorn',
         ]));
         $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client);
@@ -197,7 +224,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
     public function testExecutingActionWithConfirmation() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
             'googleRequestId' => 'unicorn',
             'googleUserConfirmation' => true,
         ]));
@@ -230,7 +257,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
     public function testExecutingActionWithoutPinWithoutGoogle() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
         ]));
         $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
     }
@@ -239,7 +266,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
     public function testExecutingActionWithoutPin() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
             'googleRequestId' => 'unicorn',
         ]));
         $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client);
@@ -252,7 +279,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
     public function testExecutingActionWithInvalidPin() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
             'googleRequestId' => 'unicorn',
             'googlePin' => '1222',
         ]));
@@ -266,7 +293,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
     public function testExecutingActionWithPin() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
-            'action' => 'turn-on',
+            'action' => 'open-close',
             'googleRequestId' => 'unicorn',
             'googlePin' => '1234',
         ]));
@@ -275,9 +302,8 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
 
     public function testFetchingChannelsForGoogleIntegration() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('PUT', '/api/channels/1', [
-            'config' => ['googleHome' => ['googleHomeDisabled' => false]],
-        ]);
+        $client->apiRequestV24('PUT', '/api/channels/1', ['config' => ['googleHome' => ['googleHomeDisabled' => false]]]);
+        $client->apiRequestV24('PUT', '/api/channels/2', ['config' => ['googleHome' => ['googleHomeDisabled' => false]]]);
         $client->apiRequestV24('GET', '/api/channels?forIntegration=google-home');
         $this->assertCount(3, $client->getResponseBody());
         $client->apiRequestV24('PUT', '/api/channels/1', [

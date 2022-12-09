@@ -1,8 +1,12 @@
 <template>
-    <component :is="additionalChannelParamsComponent"
-        :channel="channel"
-        @change="$emit('change')"
-        @save="$emit('save')"></component>
+    <div>
+        <component :is="additionalChannelParamsComponent"
+            :channel="channel"
+            @change="$emit('change')"
+            @save="$emit('save')"></component>
+        <ChannelParamsIntegrationsSettings :channel="channel" @change="$emit('change')"
+            v-if="channel.config.googleHome || channel.config.alexa"/>
+    </div>
 </template>
 
 <script>
@@ -38,10 +42,12 @@
     import ChannelParamsDigiglassHorizontal from "./channel-params-digiglass";
     import ChannelParamsPowerswitch from "./channel-params-powerswitch";
     import ChannelParamsLightswitch from "./channel-params-powerswitch";
+    import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
 
     export default {
         props: ['channel'],
         components: {
+            ChannelParamsIntegrationsSettings,
             ChannelParamsControllingthedoorlock,
             ChannelParamsControllingthegaragedoor,
             ChannelParamsNone,
@@ -84,7 +90,7 @@
                 } else {
                     return 'channel-params-none';
                 }
-            }
+            },
         }
     };
 </script>
