@@ -11,10 +11,14 @@
             :intitial-username="lastUsername"
             :submit-button-text="askForTargetCloud ? $t('Proceed') : ''">
             <template slot="aboveForm">
-                <h4 v-if="clientName"
-                    class="client-name-prompt">
-                    {{ $t('{clientName} wants to access your account.', {clientName: clientName}) }}
-                </h4>
+                <div v-if="clientName">
+                    <h4 class="client-name-prompt">
+                        {{ $t('{clientName} wants to access your account.', {clientName: clientName}) }}
+                    </h4>
+                    <h6 class="mb-3 text-muted text-center">
+                        {{ $t('By signing in, you are authorizing {clientName} to control your devices.', {clientName: clientName}) }}
+                    </h6>
+                </div>
             </template>
             <div v-if="askForTargetCloud">
                 <div class="form-group text-center">
