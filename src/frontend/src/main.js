@@ -73,13 +73,13 @@ Vue.http.get('server-info')
                 },
                 mounted() {
                     document.getElementById('page-preloader').remove();
-                    appContainer.classList.remove('hidden');
+                    document.getElementById('vue-container').classList.remove('hidden');
                 },
             };
             if (!appContainer.children.length) {
                 appConfig.render = h => h(App);
             }
-            const app = new Vue(appConfig).$mount('#vue-container');
+            const app = new Vue(appConfig).$mount(appContainer);
 
             router.beforeEach((to, from, next) => {
                 Vue.prototype.$changingRoute = true;
