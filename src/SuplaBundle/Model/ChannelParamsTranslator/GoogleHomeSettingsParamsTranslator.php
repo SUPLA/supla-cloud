@@ -56,7 +56,8 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
             }
             if ($this->canSetUserConfirmation($channel)) {
                 if (array_key_exists('needsUserConfirmation', $googleHomeSettings)) {
-                    $finalSettings['needsUserConfirmation'] = filter_var($googleHomeSettings['needsUserConfirmation'], FILTER_VALIDATE_BOOLEAN);
+                    $needsUserConfirmation = $googleHomeSettings['needsUserConfirmation'];
+                    $finalSettings['needsUserConfirmation'] = filter_var($needsUserConfirmation, FILTER_VALIDATE_BOOLEAN);
                 }
                 if (array_key_exists('pin', $googleHomeSettings) || ($finalSettings['needsUserConfirmation'] ?? false)) {
                     $pin = $googleHomeSettings['pin'] ?? null;
