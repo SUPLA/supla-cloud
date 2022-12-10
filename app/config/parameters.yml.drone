@@ -1,6 +1,5 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
-  database_driver: pdo_mysql
   database_host: database
   database_port: ~
   database_name: supla_test

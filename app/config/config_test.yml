@@ -1,12 +1,6 @@
 imports:
   - { resource: config.yml }
 
-doctrine:
-  dbal:
-    connections:
-      default:
-        dbname: supla_test
-
 framework:
   profiler:
     collect: false
@@ -35,6 +29,7 @@ monolog:
 parameters:
   admin_email: admin@supla.org
   mailer_from: SUPLA TESTS <noreply@supla.local>
+  database_name: supla_test
 
 services:
   SuplaBundle\Tests\Integration\TestMailer: ~
