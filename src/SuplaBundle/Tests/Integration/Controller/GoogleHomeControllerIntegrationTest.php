@@ -17,8 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\GoogleHome;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\GoogleHome;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -28,7 +27,7 @@ class GoogleHomeControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     /** @var Client $client */

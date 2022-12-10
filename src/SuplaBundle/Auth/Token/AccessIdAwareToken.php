@@ -18,10 +18,10 @@
 namespace SuplaBundle\Auth\Token;
 
 use FOS\OAuthServerBundle\Security\Authentication\Token\OAuthToken;
-use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Entity\Main\AccessID;
 
 class AccessIdAwareToken extends OAuthToken {
-    /** @var AccessID */
+    /** @var \SuplaBundle\Entity\Main\AccessID */
     private $accessId;
 
     public function __construct(OAuthToken $token, AccessID $accessId) {

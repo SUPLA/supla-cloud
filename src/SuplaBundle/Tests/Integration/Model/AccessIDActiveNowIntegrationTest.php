@@ -17,9 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Model;
 
-use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 
@@ -27,7 +26,7 @@ use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 class AccessIDActiveNowIntegrationTest extends IntegrationTestCase {
     use UserFixtures;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

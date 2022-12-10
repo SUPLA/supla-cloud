@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelStateGetter;
 
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Enums\SceneInitiatiorType;
 use SuplaBundle\Supla\SuplaServerAware;
 

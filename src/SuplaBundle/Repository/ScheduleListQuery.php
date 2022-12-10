@@ -2,17 +2,17 @@
 namespace SuplaBundle\Repository;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\User;
 
 class ScheduleListQuery {
     private $user;
     private $channel;
     private $channelGroup;
     private $orderBy = [];
-    /** @var Scene */
+    /** @var \SuplaBundle\Entity\Main\Scene */
     private $scene;
 
     private function __construct() {

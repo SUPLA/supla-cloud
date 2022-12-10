@@ -4,7 +4,7 @@ namespace SuplaBundle\EventListener\ApiRateLimit;
 
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 
 class ApiRateLimitStorage {
     /** @var CacheItemPoolInterface */

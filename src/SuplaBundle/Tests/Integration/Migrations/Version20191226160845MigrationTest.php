@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\UserIcon;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\UserIcon;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -40,7 +40,7 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testChannelParamsConfigIsSet() {
-        /** @var IODeviceChannel $channel */
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 150);
         $paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
         $this->assertNotEmpty($channel->getUserConfig());
@@ -48,7 +48,7 @@ class Version20191226160845MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testChannelParamsConfigDefault() {
-        /** @var IODeviceChannel $channel */
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 151);
         $this->assertEquals(
             [

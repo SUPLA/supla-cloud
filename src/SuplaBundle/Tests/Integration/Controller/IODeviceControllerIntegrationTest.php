@@ -18,13 +18,12 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -41,7 +40,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
     /** @var IODevice */
     private $device;

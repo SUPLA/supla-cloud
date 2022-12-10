@@ -2,6 +2,9 @@
 namespace SuplaBundle\Entity;
 
 use InvalidArgumentException;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Enums\ActionableSubjectType;
 
 /**

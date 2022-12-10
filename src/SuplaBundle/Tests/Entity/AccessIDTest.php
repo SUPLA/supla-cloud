@@ -18,13 +18,12 @@
 namespace SuplaBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\EntityUtils;
 
 class AccessIDTest extends TestCase {
     /** @dataProvider validActiveHours */
     public function testSetActiveHoursToHours($validActiveHours) {
-        $accessId = new AccessID();
+        $accessId = new \SuplaBundle\Entity\Main\AccessID();
         $accessId->setActiveHours($validActiveHours);
         $this->assertEquals($validActiveHours, $accessId->getActiveHours());
     }
@@ -37,14 +36,14 @@ class AccessIDTest extends TestCase {
     }
 
     public function testDatabaseRepresentation() {
-        $accessId = new AccessID();
+        $accessId = new \SuplaBundle\Entity\Main\AccessID();
         $accessId->setActiveHours([1 => [22], 6 => [23, 0, 4]]);
         $databaseRepresentation = EntityUtils::getField($accessId, 'activeHours');
         $this->assertEquals(',122,623,60,64,', $databaseRepresentation);
     }
 
     public function testSetActiveHoursToNull() {
-        $accessId = new AccessID();
+        $accessId = new \SuplaBundle\Entity\Main\AccessID();
         $accessId->setActiveHours(null);
         $this->assertNull($accessId->getActiveHours());
     }

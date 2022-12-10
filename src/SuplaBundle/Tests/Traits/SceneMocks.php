@@ -3,7 +3,7 @@
 namespace SuplaBundle\Tests\Traits;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 

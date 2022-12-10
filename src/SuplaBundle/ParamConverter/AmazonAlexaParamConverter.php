@@ -18,7 +18,7 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\AmazonAlexa;
+use SuplaBundle\Entity\Main\AmazonAlexa;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\AmazonAlexaRepository;
 

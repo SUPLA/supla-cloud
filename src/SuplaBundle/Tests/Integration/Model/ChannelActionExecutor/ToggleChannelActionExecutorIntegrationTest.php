@@ -17,8 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -31,7 +30,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 class ToggleChannelActionExecutorIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;

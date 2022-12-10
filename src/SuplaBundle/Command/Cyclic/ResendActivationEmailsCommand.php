@@ -20,7 +20,6 @@ namespace SuplaBundle\Command\Cyclic;
 use DateInterval;
 use DateTime;
 use Exception;
-use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\UserManager;
@@ -74,7 +73,7 @@ class ResendActivationEmailsCommand extends AbstractCyclicCommand {
             ->where('u.enabled = 0 AND u.token IS NOT NULL AND u.regDate BETWEEN :dateFrom AND :dateTo')
             ->setParameters(['dateFrom' => $hourAgo->format(DateTime::ATOM), 'dateTo' => $halfHourAgo->format(DateTime::ATOM)]);
 
-        /** @var User[] $usersToNotify */
+        /** @var \SuplaBundle\Entity\Main\User[] $usersToNotify */
         $usersToNotify = $qb->getQuery()->execute();
         $output->writeln(sprintf('Users to resend activation e-mail: <info>%d</info>.', count($usersToNotify)));
 

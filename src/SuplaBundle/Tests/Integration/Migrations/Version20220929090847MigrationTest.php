@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\Scene;
 
 /**
  * @see Version20220929090847

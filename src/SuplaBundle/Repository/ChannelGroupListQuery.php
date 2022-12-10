@@ -3,15 +3,15 @@ namespace SuplaBundle\Repository;
 
 use Assert\Assertion;
 use Doctrine\Common\Collections\Criteria;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\User;
 
 class ChannelGroupListQuery {
     /** @var User */
     private $user;
-    /** @var IODeviceChannel */
+    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
     private $channel;
     /** @var Schedule */
     private $schedule;

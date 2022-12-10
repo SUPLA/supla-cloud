@@ -2,7 +2,7 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\Scene;
 
 class SceneRepository extends EntityWithRelationsRepository {
     protected $alias = 's';

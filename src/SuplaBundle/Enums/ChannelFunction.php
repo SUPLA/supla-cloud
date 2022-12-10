@@ -19,7 +19,7 @@ namespace SuplaBundle\Enums;
 
 use MyCLabs\Enum\Enum;
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Exception\ApiException;
 use Symfony\Component\Serializer\Annotation\Groups;
 use UnexpectedValueException;

@@ -19,7 +19,6 @@ namespace SuplaBundle\Command\Cyclic;
 
 use DateInterval;
 use DateTime;
-use SuplaBundle\Entity\User;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -57,7 +56,7 @@ class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
             ->where('u.enabled = 0 AND u.token IS NOT NULL AND u.regDate < :regDate')
             ->setParameters(['regDate' => $now->format(DateTime::ATOM)]);
 
-        /** @var User[] $usersToDelete */
+        /** @var \SuplaBundle\Entity\Main\User[] $usersToDelete */
         $usersToDelete = $qb->getQuery()->execute();
         $output->writeln(sprintf('Users to remove: <info>%d</info>.', count($usersToDelete)));
 

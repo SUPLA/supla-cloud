@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\Audit;
 
 use Doctrine\Common\Collections\Criteria;
-use SuplaBundle\Entity\AuditEntry;
+use SuplaBundle\Entity\Main\AuditEntry;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Model\TimeProvider;

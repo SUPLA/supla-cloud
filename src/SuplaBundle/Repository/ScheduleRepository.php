@@ -3,10 +3,9 @@ namespace SuplaBundle\Repository;
 
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\Schedule;
 
 class ScheduleRepository extends EntityRepository {
-    /** @return Schedule[] */
+    /** @return \SuplaBundle\Entity\Main\Schedule[] */
     public function findByQuery(ScheduleListQuery $query): array {
         $criteria = Criteria::create();
         if ($query->getUser()) {

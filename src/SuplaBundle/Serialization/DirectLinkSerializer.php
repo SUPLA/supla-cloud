@@ -18,7 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use DateTime;
-use SuplaBundle\Entity\DirectLink;
+use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\InactiveDirectLinkException;
 use SuplaBundle\Model\ApiVersions;
@@ -38,7 +38,7 @@ class DirectLinkSerializer extends AbstractSerializer implements NormalizerAware
     }
 
     /**
-     * @param DirectLink $directLink
+     * @param \SuplaBundle\Entity\Main\DirectLink $directLink
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $directLink, array $context) {

@@ -20,9 +20,9 @@ namespace SuplaBundle\Enums;
 use MyCLabs\Enum\Enum;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Exception\ApiException;
 
 /**

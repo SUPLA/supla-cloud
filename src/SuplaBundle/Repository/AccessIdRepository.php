@@ -2,8 +2,8 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use SuplaBundle\Entity\AccessID;
-use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\Main\AccessID;
+use SuplaBundle\Entity\Main\ClientApp;
 
 class AccessIdRepository extends EntityWithRelationsRepository {
     protected $alias = 'aid';
@@ -21,7 +21,7 @@ class AccessIdRepository extends EntityWithRelationsRepository {
     }
 
     public function hydrateRelationsQueryResult(array $result) {
-        /** @var AccessID $entity */
+        /** @var \SuplaBundle\Entity\Main\AccessID $entity */
         $entity = parent::hydrateRelationsQueryResult($result);
         $entity->setActiveNow(!!$result['isNowActive']);
         return $entity;

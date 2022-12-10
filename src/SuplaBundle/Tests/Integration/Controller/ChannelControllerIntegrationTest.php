@@ -19,15 +19,13 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
-use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -48,11 +46,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
-    /** @var Location */
+    /** @var \SuplaBundle\Entity\Main\Location */
     private $location;
-    /** @var AccessToken */
+    /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken */
     private $peronsalToken;
 
     protected function initializeDatabaseForTests() {

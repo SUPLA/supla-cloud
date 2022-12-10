@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Utils\NumberUtils;
 

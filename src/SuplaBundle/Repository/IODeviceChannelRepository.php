@@ -2,10 +2,10 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Enums\ChannelFunction;
 
 class IODeviceChannelRepository extends EntityWithRelationsRepository {

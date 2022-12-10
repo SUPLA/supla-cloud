@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\AuditEntry;
+use SuplaBundle\Entity\Main\AuditEntry;
 use SuplaBundle\Model\ApiVersions;
 
 class AuditEntrySerializer extends AbstractSerializer {

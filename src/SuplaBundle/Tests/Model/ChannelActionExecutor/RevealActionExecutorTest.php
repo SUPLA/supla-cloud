@@ -4,7 +4,7 @@ namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ChannelActionExecutor\RevealActionExecutor;
 use SuplaBundle\Supla\SuplaServer;
 

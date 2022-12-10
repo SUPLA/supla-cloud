@@ -3,7 +3,7 @@
 namespace SuplaBundle\Tests\Traits;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 

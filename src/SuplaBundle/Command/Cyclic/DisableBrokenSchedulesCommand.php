@@ -19,8 +19,8 @@ namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 use SuplaBundle\Model\Audit\Audit;

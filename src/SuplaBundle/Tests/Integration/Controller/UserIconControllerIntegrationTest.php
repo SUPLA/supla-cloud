@@ -17,10 +17,9 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -37,7 +36,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
     /** @var Location */
     private $location;

@@ -19,6 +19,7 @@ namespace SuplaBundle\Command\Cyclic;
 
 use DateTime;
 use DateTimeZone;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Repository\UserRepository;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -48,7 +49,7 @@ class ClearPassedRegistrationDatesCommand extends AbstractCyclicCommand {
         $now = new DateTime(null, new DateTimeZone("UTC"));
         $qb = $this->userRepository
             ->createQueryBuilder('t')
-            ->update('SuplaBundle:User', 'u')
+            ->update(User::class, 'u')
             ->set('u.' . $field, '?1')
             ->where('u.' . $field . ' IS NOT NULL AND u.' . $field . ' < ?2')
             ->setParameters([1 => null, 2 => $now]);

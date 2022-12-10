@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -38,7 +38,7 @@ class ScheduleSerializer extends AbstractSerializer implements NormalizerAwareIn
     }
 
     /**
-     * @param Schedule $schedule
+     * @param \SuplaBundle\Entity\Main\Schedule $schedule
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $schedule, array $context) {

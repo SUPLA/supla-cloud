@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Tests\Integration\Auth;
 
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;

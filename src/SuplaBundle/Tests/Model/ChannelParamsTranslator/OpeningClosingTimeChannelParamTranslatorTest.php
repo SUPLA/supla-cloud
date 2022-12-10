@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Model\ChannelParamsTranslator;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Model\ChannelParamsTranslator\OpeningClosingTimeChannelParamTranslator;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
@@ -29,7 +29,7 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
 
     /** @var OpeningClosingTimeChannelParamTranslator */
     private $configTranslator;
-    /** @var IODeviceChannel */
+    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
     private $channel;
 
     /** @before */

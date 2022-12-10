@@ -18,10 +18,9 @@
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\ScheduleMode;
 
 class ScheduleWithTimezone extends Schedule {
     public function __construct($config = '*/5 * * * *', $timezone = 'Europe/Warsaw') {

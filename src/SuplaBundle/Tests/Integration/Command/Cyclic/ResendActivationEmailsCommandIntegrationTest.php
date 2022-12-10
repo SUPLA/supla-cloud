@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestMailer;
@@ -32,7 +32,7 @@ class ResendActivationEmailsCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

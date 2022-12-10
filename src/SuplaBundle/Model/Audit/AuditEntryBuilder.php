@@ -4,15 +4,14 @@ namespace SuplaBundle\Model\Audit;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use MyCLabs\Enum\Enum;
-use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AuditEntry;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\TimeProvider;
 
 class AuditEntryBuilder {
     /** @var AuditedEvent */
     private $event;
-    /** @var User|null */
+    /** @var \SuplaBundle\Entity\Main\User|null */
     private $user;
     private $textParam;
     private $intParam;
@@ -33,7 +32,7 @@ class AuditEntryBuilder {
         return $this;
     }
 
-    /** @param User|null $user */
+    /** @param \SuplaBundle\Entity\Main\User|null $user */
     public function setUser($user): AuditEntryBuilder {
         $this->user = $user;
         return $this;

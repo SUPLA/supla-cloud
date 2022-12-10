@@ -2,17 +2,17 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use SuplaBundle\Entity\AccessID;
-use SuplaBundle\Entity\ClientApp;
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AccessID;
+use SuplaBundle\Entity\Main\ClientApp;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\User;
 
 /**
  * @method User|null findOneByEmail(string $email)

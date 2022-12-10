@@ -5,7 +5,7 @@ use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Exception\ApiExceptionWithDetails;

@@ -19,8 +19,6 @@ namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 use SuplaBundle\Model\Schedule\SchedulePlanners\OnceSchedulePlanner;
 

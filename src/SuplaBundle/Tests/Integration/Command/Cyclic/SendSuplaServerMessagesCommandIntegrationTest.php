@@ -17,9 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
-use SuplaBundle\Entity\ClientApp;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\ClientApp;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestMailer;
@@ -32,7 +31,7 @@ use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

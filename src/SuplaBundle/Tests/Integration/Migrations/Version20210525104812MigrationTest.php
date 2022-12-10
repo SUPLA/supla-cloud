@@ -17,8 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Enums\ScheduleMode;
 
 /**
@@ -43,7 +42,7 @@ class Version20210525104812MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testMigratedDailyScheduleWithDays() {
-        /** @var Schedule $schedule */
+        /** @var \SuplaBundle\Entity\Main\Schedule $schedule */
         $schedule = $this->getEntityManager()->find(Schedule::class, 6);
         $this->assertEquals(ScheduleMode::DAILY, $schedule->getMode()->getValue());
         $config = $schedule->getConfig();
@@ -67,7 +66,7 @@ class Version20210525104812MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testMigratedMinutelyScheduleToDaily() {
-        /** @var Schedule $schedule */
+        /** @var \SuplaBundle\Entity\Main\Schedule $schedule */
         $schedule = $this->getEntityManager()->find(Schedule::class, 2);
         $this->assertEquals(ScheduleMode::MINUTELY, $schedule->getMode()->getValue());
         $config = $schedule->getConfig();

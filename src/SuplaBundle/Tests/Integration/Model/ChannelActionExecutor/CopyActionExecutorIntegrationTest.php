@@ -17,9 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelActionExecutor;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -35,11 +34,11 @@ class CopyActionExecutorIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
-    /** @var IODeviceChannelGroup */
+    /** @var \SuplaBundle\Entity\Main\IODeviceChannelGroup */
     private $channelGroup;
 
     public function initializeDatabaseForTests() {

@@ -3,9 +3,9 @@ namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IODeviceRepository extends EntityWithRelationsRepository {
@@ -13,9 +13,9 @@ class IODeviceRepository extends EntityWithRelationsRepository {
 
     /**
      * Finds IO Device by id that belongs to the given user using GUID.
-     * @param User $user user that should own the device
+     * @param \SuplaBundle\Entity\Main\User $user user that should own the device
      * @param string $guid id of the device to return
-     * @return IODevice found device
+     * @return \SuplaBundle\Entity\Main\IODevice found device
      * @throws NotFoundHttpException if the device does not exist or does not belong to the given user
      */
     public function findForUserByGuid(User $user, string $guid): IODevice {

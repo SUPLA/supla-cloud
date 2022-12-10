@@ -22,7 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;

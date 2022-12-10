@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\Common\HasRelationsCount;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Model\ApiVersions;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;

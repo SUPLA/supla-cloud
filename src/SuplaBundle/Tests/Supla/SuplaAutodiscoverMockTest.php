@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Supla;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;

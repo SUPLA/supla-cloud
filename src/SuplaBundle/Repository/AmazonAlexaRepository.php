@@ -18,8 +18,8 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\User;
-use SuplaBundle\Entity\AmazonAlexa;
+use SuplaBundle\Entity\Main\AmazonAlexa;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AmazonAlexaRepository extends EntityRepository {

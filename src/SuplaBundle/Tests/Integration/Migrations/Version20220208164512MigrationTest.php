@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 
 /**
  * @see Version20220208164512
@@ -60,7 +60,7 @@ class Version20220208164512MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testMigratedNumberOfAttemptsToOpenOrClose() {
-        /** @var IODeviceChannel $channel */
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 156);
         $this->assertArrayNotHasKey('numberOfAttemptsToOpenOrClose', $channel->getUserConfig());
         $this->assertArrayHasKey('numberOfAttemptsToOpen', $channel->getUserConfig());

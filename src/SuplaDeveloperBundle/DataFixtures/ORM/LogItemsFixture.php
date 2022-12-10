@@ -20,14 +20,13 @@ namespace SuplaDeveloperBundle\DataFixtures\ORM;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use SuplaBundle\Entity\ElectricityMeterLogItem;
-use SuplaBundle\Entity\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\ImpulseCounterLogItem;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\TemperatureLogItem;
-use SuplaBundle\Entity\TempHumidityLogItem;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
+use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
+use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
@@ -64,7 +63,7 @@ class LogItemsFixture extends SuplaFixture {
 
     private function createTemperatureLogItems() {
         $sonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF);
-        /** @var IODeviceChannel $thermometer */
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $thermometer */
         $thermometer = $sonoff->getChannels()[1];
         $thermometerId = $thermometer->getId();
         $from = strtotime(self::SINCE);
@@ -83,7 +82,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createHumidityLogItems() {
-        /** @var IODevice $device */
+        /** @var \SuplaBundle\Entity\Main\IODevice $device */
         $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
         $humidity = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::HUMIDITY;
@@ -107,7 +106,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createTemperatureAndHumidityLogItems() {
-        /** @var IODevice $device */
+        /** @var \SuplaBundle\Entity\Main\IODevice $device */
         $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
         $tempAndHumidity = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() === ChannelFunction::HUMIDITYANDTEMPERATURE;

@@ -2,10 +2,10 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Location;
 
 class LocationRepository extends EntityWithRelationsRepository {
     protected $alias = 'l';

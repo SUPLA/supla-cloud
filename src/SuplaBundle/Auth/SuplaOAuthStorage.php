@@ -25,10 +25,10 @@ use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use OAuth2\Model\IOAuth2Client;
 use OAuth2\OAuth2AuthenticateException;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\OAuth\RefreshToken;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\RefreshToken;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
@@ -92,7 +92,7 @@ class SuplaOAuthStorage extends OAuthStorage {
     }
 
     protected function migrateUserPasswordIfAuthenticatedWithLegacy($username, $plainPassword) {
-        /** @var User $user */
+        /** @var \SuplaBundle\Entity\Main\User $user */
         $user = $this->userProvider->loadUserByUsername($username);
         if ($user->hasLegacyPassword()) {
             $user->clearLegacyPassword();
@@ -151,7 +151,7 @@ class SuplaOAuthStorage extends OAuthStorage {
     }
 
     public function unsetRefreshToken($tokenString) {
-        /** @var RefreshToken $token */
+        /** @var \SuplaBundle\Entity\Main\OAuth\RefreshToken $token */
         $token = $this->refreshTokenManager->findTokenByToken($tokenString);
         if (null !== $token) {
             $token->expire();
@@ -165,7 +165,7 @@ class SuplaOAuthStorage extends OAuthStorage {
     }
 
     /**
-     * @param AccessToken|RefreshToken $token
+     * @param \SuplaBundle\Entity\Main\OAuth\AccessToken|RefreshToken $token
      * @param ApiClient $client
      * @param User $user
      * @throws OAuth2AuthenticateException

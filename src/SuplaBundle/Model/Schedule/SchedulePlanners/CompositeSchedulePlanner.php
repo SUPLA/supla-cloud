@@ -21,8 +21,8 @@ use Assert\Assertion;
 use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 class CompositeSchedulePlanner {
@@ -65,7 +65,7 @@ class CompositeSchedulePlanner {
      * @param string $currentDate
      * @param string $until
      * @param int $maxCount
-     * @return ScheduledExecution[]
+     * @return \SuplaBundle\Entity\Main\ScheduledExecution[]
      */
     public function calculateScheduleExecutionsUntil(Schedule $schedule, $until = '+5days', $currentDate = 'now', $maxCount = PHP_INT_MAX) {
         return CompositeSchedulePlanner::wrapInScheduleTimezone($schedule, function () use ($schedule, $until, $currentDate, $maxCount) {

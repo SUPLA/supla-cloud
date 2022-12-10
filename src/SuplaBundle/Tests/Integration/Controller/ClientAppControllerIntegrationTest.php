@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -85,7 +85,7 @@ class ClientAppControllerIntegrationTest extends IntegrationTestCase {
         $client->request('DELETE', '/api/client-apps/' . $this->clientApp->getId());
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $existingApps = self::$container->get('doctrine')->getRepository('SuplaBundle:ClientApp')->findAll();
+        $existingApps = self::$container->get('doctrine')->getRepository(ClientApp::class)->findAll();
         $this->assertCount(0, $existingApps);
     }
 }

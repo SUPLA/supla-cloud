@@ -17,11 +17,10 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 
 class ChannelGroupsFixture extends SuplaFixture {
     const ORDER = DevicesFixture::ORDER + 1;
@@ -40,9 +39,9 @@ class ChannelGroupsFixture extends SuplaFixture {
     }
 
     private function createLightGroup() {
-        /** @var IODevice $sonoff */
+        /** @var \SuplaBundle\Entity\Main\IODevice $sonoff */
         $sonoff = $this->getReference(DevicesFixture::DEVICE_SONOFF);
-        /** @var IODevice $full */
+        /** @var \SuplaBundle\Entity\Main\IODevice $full */
         $full = $this->getReference(DevicesFixture::DEVICE_FULL);
         $lightChannelFromSonoff = $sonoff->getChannels()[0];
         $lightChannelFromFull = $full->getChannels()[0];

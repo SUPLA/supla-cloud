@@ -18,7 +18,7 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\GoogleHome;
+use SuplaBundle\Entity\Main\GoogleHome;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\GoogleHomeRepository;
 

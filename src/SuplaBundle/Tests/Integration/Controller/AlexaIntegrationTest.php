@@ -17,12 +17,11 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -40,9 +39,9 @@ class AlexaIntegrationTest extends IntegrationTestCase {
     private $user;
     /** @var IODevice */
     private $device;
-    /** @var Location */
+    /** @var \SuplaBundle\Entity\Main\Location */
     private $location;
-    /** @var IODeviceChannelGroup */
+    /** @var \SuplaBundle\Entity\Main\IODeviceChannelGroup */
     private $channelGroup;
     /** @var Scene */
     private $scene;

@@ -20,7 +20,7 @@ namespace SuplaBundle\Command\Cyclic;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
-use SuplaBundle\Entity\OAuth\RefreshToken;
+use SuplaBundle\Entity\Main\OAuth\RefreshToken;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

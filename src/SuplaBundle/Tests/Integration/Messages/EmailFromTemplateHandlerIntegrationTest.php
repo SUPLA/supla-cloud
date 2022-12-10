@@ -17,9 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Messages;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Message\EmailFromTemplateHandler;
 use SuplaBundle\Message\Emails\FailedAuthAttemptEmailNotification;
 use SuplaBundle\Message\Emails\ResetPasswordEmailNotification;
@@ -36,7 +35,7 @@ class EmailFromTemplateHandlerIntegrationTest extends IntegrationTestCase {
     private $user;
     /** @var IODevice */
     private $device;
-    /** @var Location */
+    /** @var \SuplaBundle\Entity\Main\Location */
     private $location;
     /** @var EmailFromTemplateHandler */
     private $handler;

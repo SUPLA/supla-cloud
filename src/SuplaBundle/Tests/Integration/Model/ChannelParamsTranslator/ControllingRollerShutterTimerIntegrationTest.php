@@ -17,8 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelParamsTranslator;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -33,7 +32,7 @@ class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
     private $device;
     /** @var ChannelParamConfigTranslator */
     private $paramsTranslator;
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     public function initializeDatabaseForTests() {

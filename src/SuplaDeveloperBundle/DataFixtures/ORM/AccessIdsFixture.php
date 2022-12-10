@@ -18,7 +18,7 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Persistence\ObjectManager;
-use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\Model\AccessIdManager;
 
 class AccessIdsFixture extends SuplaFixture {

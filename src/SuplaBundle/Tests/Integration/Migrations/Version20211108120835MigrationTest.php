@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;
 
 /**
@@ -31,7 +31,7 @@ class Version20211108120835MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testMigratedDailyScheduleWithAsterisk() {
-        /** @var IODeviceChannel $channel */
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 67);
         $this->assertEquals(ChannelType::IMPULSECOUNTER, $channel->getType()->getId());
         $this->assertEquals(0, $channel->getParam1());

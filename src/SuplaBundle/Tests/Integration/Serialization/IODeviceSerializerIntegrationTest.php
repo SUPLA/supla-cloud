@@ -17,8 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Serialization;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -26,7 +25,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 class IODeviceSerializerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
     /** @var IODevice */
     private $device;

@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Tests\Entity;
 
-use PHPUnit\Framework\TestCase;
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use PHPUnit\Framework\TestCase;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleActionExecutionResult;
 

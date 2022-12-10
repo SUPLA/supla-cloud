@@ -22,11 +22,11 @@ use Assert\Assertion;
 use DateTime;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -149,7 +149,7 @@ class ScheduleController extends RestController {
         });
     }
 
-    /** @return Schedule */
+    /** @return \SuplaBundle\Entity\Main\Schedule */
     private function fillSchedule(Schedule $schedule, array $data, Request $request) {
         if (!ApiVersions::V2_3()->isRequestedEqualOrGreaterThan($request)) {
             $data['subjectId'] = $data['channelId'] ?? null;

@@ -2,7 +2,7 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 
 class AccessTokenRepository extends EntityRepository {
     public function findPersonalTokens(User $user) {

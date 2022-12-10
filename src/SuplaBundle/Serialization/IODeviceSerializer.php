@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -43,7 +43,7 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
     }
 
     /**
-     * @param IODevice $ioDevice
+     * @param \SuplaBundle\Entity\Main\IODevice $ioDevice
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $ioDevice, array $context) {

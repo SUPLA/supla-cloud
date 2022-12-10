@@ -3,7 +3,7 @@
 namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 

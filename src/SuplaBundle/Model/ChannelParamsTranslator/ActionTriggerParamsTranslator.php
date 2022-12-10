@@ -5,7 +5,7 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;

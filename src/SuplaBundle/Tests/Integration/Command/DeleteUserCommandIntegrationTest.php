@@ -17,8 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Command;
 
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
@@ -31,7 +30,7 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     protected function setUp() {

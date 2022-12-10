@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\UserIcon;
+use SuplaBundle\Entity\Main\UserIcon;
 
 class UserIconSerializer extends AbstractSerializer {
     /**
-     * @param UserIcon $icon
+     * @param \SuplaBundle\Entity\Main\UserIcon $icon
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $icon, array $context) {

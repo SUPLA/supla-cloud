@@ -2,10 +2,10 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Entity\ClientApp;
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Main\AuditEntry;
+use SuplaBundle\Entity\Main\ClientApp;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODevice;
 
 /**
  * @see Version20200124084227

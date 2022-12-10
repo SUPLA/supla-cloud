@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Model\ChannelStateGetter\SceneStateGetter;
 use SuplaBundle\Repository\SceneRepository;
 use SuplaBundle\Utils\JsonArrayObject;

@@ -18,9 +18,8 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\OAuth\ApiClientAuthorization;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\OAuthHelper;
@@ -33,9 +32,9 @@ class MqttSettingsControllerIntegrationTest extends IntegrationTestCase {
     use ResponseAssertions;
     use OAuthHelper;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
-    /** @var ApiClient */
+    /** @var \SuplaBundle\Entity\Main\OAuth\ApiClient */
     private $client;
     /** @var ApiClientAuthorizationRepository */
     private $apiClientAuthorizationRepository;

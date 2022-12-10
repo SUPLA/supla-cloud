@@ -18,8 +18,8 @@ namespace SuplaBundle\Utils;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\SceneOperation;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
 
 final class SceneUtils {
@@ -60,7 +60,7 @@ final class SceneUtils {
                 $totalExecutionTime += $totalDelay;
                 if ($operation->isWaitForCompletion()) {
                     if ($operation->getSubjectType()->equals(ActionableSubjectType::SCENE())) {
-                        /** @var Scene $sceneToWaitFor */
+                        /** @var \SuplaBundle\Entity\Main\Scene $sceneToWaitFor */
                         $sceneToWaitFor = $operation->getSubject();
                         $delayFromWaiting = $sceneToWaitFor->getEstimatedExecutionTime();
                     }

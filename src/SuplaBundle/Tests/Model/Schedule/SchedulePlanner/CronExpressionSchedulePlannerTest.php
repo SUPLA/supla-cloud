@@ -17,10 +17,8 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
-use PHPUnit\Framework\TestCase;
 use DateTime;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Enums\ScheduleMode;
+use PHPUnit\Framework\TestCase;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CronExpressionSchedulePlanner;
 
 class CronExpressionSchedulePlannerTest extends TestCase {

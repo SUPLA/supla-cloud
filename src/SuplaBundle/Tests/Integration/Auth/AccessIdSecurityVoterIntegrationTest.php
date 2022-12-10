@@ -19,11 +19,10 @@ namespace SuplaBundle\Tests\Integration\Auth;
 
 use DateTime;
 use SuplaBundle\Auth\OAuthScope;
-use SuplaBundle\Entity\AccessID;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Location;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AccessID;
+use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Repository\ApiClientRepository;
@@ -35,7 +34,7 @@ class AccessIdSecurityVoterIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
     /** @var Location */
     private $location1;

@@ -20,9 +20,7 @@ namespace SuplaBundle\Model;
 use Assert\Assertion;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use OAuth2\Model\OAuth2AccessToken;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -42,7 +40,7 @@ trait CurrentUserAware {
         $this->accessTokenManager = $accessTokenManager;
     }
 
-    /** @return User|null */
+    /** @return \SuplaBundle\Entity\Main\User|null */
     protected function getCurrentUser() {
         if (null === $token = $this->getCurrentUserToken()) {
             return null;
@@ -64,13 +62,13 @@ trait CurrentUserAware {
         return $this->tokenStorage->getToken();
     }
 
-    /** @return ApiClient|null */
+    /** @return \SuplaBundle\Entity\Main\OAuth\ApiClient|null */
     protected function getCurrentApiClient() {
         /** @var OAuth2AccessToken $token */
         if (null === $token = $this->getCurrentUserToken()) {
             return null;
         }
-        /** @var AccessToken $accessToken */
+        /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken $accessToken */
         $accessToken = $this->accessTokenManager->findTokenByToken($token->getToken());
         return $accessToken ? $accessToken->getClient() : null;
     }

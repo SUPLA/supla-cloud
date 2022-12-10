@@ -18,7 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
@@ -50,7 +50,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
     }
 
     /**
-     * @param IODeviceChannel $channel
+     * @param \SuplaBundle\Entity\Main\IODeviceChannel $channel
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $channel, array $context) {

@@ -19,9 +19,7 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
 use DateTime;
 use RuntimeException;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
-use Symfony\Component\Validator\Constraints\Date;
+use SuplaBundle\Entity\Main\Schedule;
 
 abstract class SchedulePlanner {
     /**
@@ -29,7 +27,7 @@ abstract class SchedulePlanner {
      *
      * @param string $crontab the crontab expression to calculate the next run date for
      * @param DateTime $currentDate the current date
-     * @return ScheduledExecution the next execution
+     * @return \SuplaBundle\Entity\Main\ScheduledExecution the next execution
      * @throws RuntimeException if the next run date could not be calculated
      */
     abstract public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime;

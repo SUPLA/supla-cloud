@@ -18,7 +18,7 @@
 namespace SuplaBundle\Tests\Model\ChannelParamsTranslator;
 
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelParamsTranslator\GeneralPurposeMeasurementParamsTranslator;
 

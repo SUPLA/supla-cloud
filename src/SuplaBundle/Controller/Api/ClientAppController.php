@@ -21,7 +21,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;

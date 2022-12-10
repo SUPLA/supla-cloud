@@ -22,8 +22,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -163,7 +163,7 @@ class ExecuteDirectLinkController extends Controller {
                         $this->suplaServer->isChannelConnected($directLink->getSubject());
                 } elseif ($directLink->getSubjectType() == ActionableSubjectType::CHANNEL_GROUP()) {
                     $errorData['devices_connected'] = [];
-                    /** @var IODeviceChannelGroup $channelGroup */
+                    /** @var \SuplaBundle\Entity\Main\IODeviceChannelGroup $channelGroup */
                     $channelGroup = $directLink->getSubject();
                     foreach ($channelGroup->getChannels() as $channel) {
                         $errorData['devices_connected'][$channel->getId()] =
@@ -289,7 +289,7 @@ class ExecuteDirectLinkController extends Controller {
     }
 
     /**
-     * @param DirectLink|null $directLink
+     * @param \SuplaBundle\Entity\Main\DirectLink|null $directLink
      */
     private function directLinkResponse(
         $directLink,

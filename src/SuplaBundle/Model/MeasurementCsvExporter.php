@@ -19,7 +19,7 @@ namespace SuplaBundle\Model;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Utils\DatabaseUtils;

@@ -18,7 +18,7 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Persistence\ObjectManager;
-use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Tests\AnyFieldSetter;
 
 class ClientAppsFixture extends SuplaFixture {

@@ -3,7 +3,7 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 

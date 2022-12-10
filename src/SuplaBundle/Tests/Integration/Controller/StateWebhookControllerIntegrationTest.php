@@ -18,9 +18,8 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\StateWebhook;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\StateWebhook;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Repository\StateWebhookRepository;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -38,7 +37,7 @@ class StateWebhookControllerIntegrationTest extends IntegrationTestCase {
     /** @var ApiClient */
     private $client;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
     /** @var StateWebhookRepository */
     private $stateWebhookRepository;

@@ -22,7 +22,7 @@ use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use OAuth2\OAuth2;
 use OAuth2\OAuth2RedirectException;
 use OAuth2\OAuth2ServerException;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -97,7 +97,7 @@ class BrokerAuthorizeController extends AuthorizeController {
 
     protected function getClient() {
         try {
-            /** @var ApiClient $client */
+            /** @var \SuplaBundle\Entity\Main\OAuth\ApiClient $client */
             $client = parent::getClient();
             if ($client->getPublicClientId()) {
                 $clientData = $this->autodiscover->getPublicClient($client->getPublicClientId());

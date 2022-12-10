@@ -18,8 +18,8 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\User;
-use SuplaBundle\Entity\GoogleHome;
+use SuplaBundle\Entity\Main\GoogleHome;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GoogleHomeRepository extends EntityRepository {

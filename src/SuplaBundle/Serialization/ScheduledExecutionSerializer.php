@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 
 class ScheduledExecutionSerializer extends AbstractSerializer {
     /**
-     * @param ScheduledExecution $scheduledExecution
+     * @param \SuplaBundle\Entity\Main\ScheduledExecution $scheduledExecution
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $scheduledExecution, array $context) {

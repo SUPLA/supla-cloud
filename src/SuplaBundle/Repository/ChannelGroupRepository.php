@@ -2,10 +2,10 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\Schedule;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\Schedule;
 
 class ChannelGroupRepository extends EntityWithRelationsRepository {
     protected $alias = 'cg';

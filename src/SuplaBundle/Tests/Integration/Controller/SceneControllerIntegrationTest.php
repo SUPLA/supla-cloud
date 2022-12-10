@@ -17,11 +17,11 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\DirectLink;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannelGroup;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -39,7 +39,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
     /** @var IODeviceChannelGroup */
     private $channelGroup;

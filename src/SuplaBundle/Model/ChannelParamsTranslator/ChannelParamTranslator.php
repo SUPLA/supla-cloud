@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 
 interface ChannelParamTranslator {
     public function getConfigFromParams(IODeviceChannel $channel): array;

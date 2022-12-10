@@ -1,6 +1,8 @@
 <?php
 namespace SuplaBundle\Entity;
 
+use SuplaBundle\Entity\Main\User;
+
 /**
  * @method User getUser()
  */

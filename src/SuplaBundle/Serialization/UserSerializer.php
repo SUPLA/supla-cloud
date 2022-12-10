@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
@@ -53,7 +53,7 @@ class UserSerializer extends AbstractSerializer {
     }
 
     /**
-     * @param User $user
+     * @param \SuplaBundle\Entity\Main\User $user
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $user, array $context) {

@@ -2,8 +2,8 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\CurrentUserAware;

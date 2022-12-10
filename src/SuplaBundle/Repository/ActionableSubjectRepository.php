@@ -2,7 +2,7 @@
 namespace SuplaBundle\Repository;
 
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -26,7 +26,7 @@ class ActionableSubjectRepository {
 
     /**
      * Finds subject by type and id that belongs to the given user.
-     * @param User $user user that should own the channel
+     * @param \SuplaBundle\Entity\Main\User $user user that should own the channel
      * @param string|ActionableSubjectType $type type of the subject to return
      * @param int $id id of the subject to return
      * @return ActionableSubject found subject

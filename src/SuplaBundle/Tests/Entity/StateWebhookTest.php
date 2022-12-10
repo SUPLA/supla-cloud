@@ -19,18 +19,16 @@ namespace SuplaBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\StateWebhook;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Enums\ChannelFunction;
 
 class StateWebhookTest extends TestCase {
-    /** @var StateWebhook */
+    /** @var \SuplaBundle\Entity\Main\StateWebhook */
     private $webhook;
 
     /** @before */
     public function init() {
-        $this->webhook = new StateWebhook($this->createMock(ApiClient::class), $this->createMock(User::class));
+        $this->webhook = new \SuplaBundle\Entity\Main\StateWebhook($this->createMock(ApiClient::class), $this->createMock(\SuplaBundle\Entity\Main\User::class));
     }
 
     public function testSettingFunctions() {

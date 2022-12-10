@@ -2,7 +2,7 @@
 namespace SuplaBundle\Tests\Model\ChannelActionExecutor;
 
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ChannelActionExecutor\ShutActionExecutor;
 use SuplaBundle\Supla\SuplaServer;
 

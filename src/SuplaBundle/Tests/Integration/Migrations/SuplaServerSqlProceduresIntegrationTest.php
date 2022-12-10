@@ -17,9 +17,9 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\GateClosingRule;
+use SuplaBundle\Entity\Main\GateClosingRule;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\UserFixtures;
 
@@ -71,7 +71,7 @@ class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->getConnection()->executeQuery($query);
         $logItems = $this->getEntityManager()->getRepository(ElectricityMeterVoltageLogItem::class)->findAll();
         $this->assertCount(1, $logItems);
-        /** @var ElectricityMeterVoltageLogItem $logItem */
+        /** @var \SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem $logItem */
         $logItem = $logItems[0];
         $this->assertNotNull($logItem);
         $this->assertEquals(1, $logItem->getChannelId());

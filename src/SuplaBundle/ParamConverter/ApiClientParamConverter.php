@@ -2,7 +2,7 @@
 namespace SuplaBundle\ParamConverter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 
 class ApiClientParamConverter extends AbstractBodyParamConverter {

@@ -4,8 +4,8 @@ namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\GateClosingRule;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\GateClosingRule;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Repository\GateClosingRuleRepository;
 use SuplaBundle\Utils\JsonArrayObject;

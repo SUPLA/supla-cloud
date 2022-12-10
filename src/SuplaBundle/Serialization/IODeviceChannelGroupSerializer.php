@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Repository\ChannelGroupRepository;
@@ -40,7 +40,7 @@ class IODeviceChannelGroupSerializer extends AbstractSerializer implements Norma
     }
 
     /**
-     * @param IODeviceChannelGroup $group
+     * @param \SuplaBundle\Entity\Main\IODeviceChannelGroup $group
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $group, array $context) {

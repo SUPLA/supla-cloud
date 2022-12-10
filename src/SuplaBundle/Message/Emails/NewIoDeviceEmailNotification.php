@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Message\Emails;
 
-use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Message\AsyncMessage;
 use SuplaBundle\Message\BurningMessage;
 use SuplaBundle\Message\EmailFromTemplate;

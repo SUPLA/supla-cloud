@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Model\Audit;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\Audit\AuditEntryBuilder;

@@ -2,8 +2,8 @@
 namespace SuplaBundle\Model\Audit;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AuditEntry;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\RealClientIpResolver;

@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
-use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AuditEntry;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Message\UserOptOutNotifications;
 use SuplaBundle\Repository\AuditEntryRepository;
@@ -35,7 +35,7 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

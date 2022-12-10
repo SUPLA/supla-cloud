@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\SceneOperation;
+use SuplaBundle\Entity\Main\SceneOperation;
 
 class SceneOperationSerializer extends AbstractSerializer {
     /**

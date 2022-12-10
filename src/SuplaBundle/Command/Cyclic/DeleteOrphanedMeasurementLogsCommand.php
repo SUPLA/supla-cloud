@@ -18,6 +18,9 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
+use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
+use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,9 +42,9 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->logClean($output, 'SuplaBundle:TemperatureLogItem', 'TemperatureLog');
-        $this->logClean($output, 'SuplaBundle:TempHumidityLogItem', 'TempHumidityLog');
-        $this->logClean($output, 'SuplaBundle:ElectricityMeterLogItem', 'ElectricityMeterLogItem');
+        $this->logClean($output, TemperatureLogItem::class, 'TemperatureLog');
+        $this->logClean($output, TempHumidityLogItem::class, 'TempHumidityLog');
+        $this->logClean($output, ElectricityMeterLogItem::class, 'ElectricityMeterLogItem');
     }
 
     protected function logClean($output, $entity, $name) {

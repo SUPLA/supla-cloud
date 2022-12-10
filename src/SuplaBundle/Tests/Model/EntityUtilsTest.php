@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Model;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 
 class EntityUtilsTest extends TestCase {
     public function testSetField() {

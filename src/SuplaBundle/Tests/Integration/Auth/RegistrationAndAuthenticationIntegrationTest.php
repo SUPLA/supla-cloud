@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Auth;
 
-use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AuditEntry;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\AuthenticationFailureReason;
 use SuplaBundle\Model\Audit\Audit;
@@ -37,7 +37,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     const EMAIL = 'cooltester@supla.org';
     const PASSWORD = 'alamakota';
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $createdUser;
 
     /** @var Audit */
@@ -649,7 +649,7 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
     private function getLatestAuditEntry(): AuditEntry {
         $entries = $this->audit->getRepository()->findAll();
         $this->assertGreaterThanOrEqual(1, count($entries));
-        /** @var AuditEntry $entry */
+        /** @var \SuplaBundle\Entity\Main\AuditEntry $entry */
         $entry = end($entries);
         return $entry;
     }

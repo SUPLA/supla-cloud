@@ -5,7 +5,7 @@ namespace SuplaBundle\Model\Dependencies;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -40,7 +40,7 @@ abstract class ActionableSubjectDependencies {
         }
     }
 
-    /** @return Collection|IODeviceChannel[] */
+    /** @return Collection|\SuplaBundle\Entity\Main\IODeviceChannel[] */
     protected function findActionTriggersForSubject(ActionableSubject $subject): Collection {
         return $subject->getUser()
             ->getChannels()

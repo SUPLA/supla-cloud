@@ -3,7 +3,7 @@
 namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 

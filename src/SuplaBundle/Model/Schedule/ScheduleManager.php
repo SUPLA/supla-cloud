@@ -28,11 +28,11 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
@@ -66,7 +66,7 @@ class ScheduleManager {
     ) {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
-        $this->scheduledExecutionsRepository = $doctrine->getRepository('SuplaBundle:ScheduledExecution');
+        $this->scheduledExecutionsRepository = $doctrine->getRepository(ScheduledExecution::class);
         $this->ioDeviceManager = $ioDeviceManager;
         $this->schedulePlanner = $schedulePlanner;
         $this->timeProvider = $timeProvider;
@@ -76,7 +76,7 @@ class ScheduleManager {
     /** @return IODeviceChannel[] */
     public function getSchedulableChannels(User $user) {
         $schedulableFunctions = $this->getFunctionsThatCanBeScheduled();
-        $channels = $this->doctrine->getRepository('SuplaBundle:IODeviceChannel')->findBy(['user' => $user]);
+        $channels = $this->doctrine->getRepository(IODeviceChannel::class)->findBy(['user' => $user]);
         $schedulableChannels = array_filter($channels, function (IODeviceChannel $channel) use ($schedulableFunctions) {
             return in_array($channel->getFunction()->getId(), $schedulableFunctions);
         });
@@ -193,7 +193,7 @@ class ScheduleManager {
         Assertion::notEmpty($nextScheduleExecutions, 'Cannot calculate when to run the schedule - incorrect configuration?'); // i18n
     }
 
-    /** @return ScheduledExecution|null */
+    /** @return \SuplaBundle\Entity\Main\ScheduledExecution|null */
     private function findLatestExecution(Schedule $schedule) {
         return current($this->scheduledExecutionsRepository->findBy(['schedule' => $schedule], ['plannedTimestamp' => 'DESC'], 1));
     }
@@ -230,7 +230,7 @@ class ScheduleManager {
 
     public function deleteScheduledExecutions(Schedule $schedule) {
         $this->entityManager->createQueryBuilder()
-            ->delete('SuplaBundle:ScheduledExecution', 's')
+            ->delete(ScheduledExecution::class, 's')
             ->where('s.schedule = :schedule')
             ->andWhere('s.consumed = 0')
             ->setParameter('schedule', $schedule)
@@ -255,7 +255,7 @@ class ScheduleManager {
         $this->entityManager->flush();
     }
 
-    /** @return Schedule[] */
+    /** @return \SuplaBundle\Entity\Main\Schedule[] */
     public function findSchedulesForDevice(IODevice $device): array {
         $schedules = [];
         foreach ($device->getChannels() as $channel) {
@@ -264,7 +264,7 @@ class ScheduleManager {
         return $schedules;
     }
 
-    /** @return Schedule[] */
+    /** @return \SuplaBundle\Entity\Main\Schedule[] */
     public function onlyEnabled(array $schedules): array {
         return array_filter($schedules, function (Schedule $schedule) {
             return $schedule->getEnabled();

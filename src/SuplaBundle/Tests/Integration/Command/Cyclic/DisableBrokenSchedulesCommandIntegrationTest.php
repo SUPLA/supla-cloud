@@ -17,9 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
-use SuplaBundle\Entity\AuditEntry;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AuditEntry;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
@@ -33,9 +31,9 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
-    /** @var Schedule */
+    /** @var \SuplaBundle\Entity\Main\Schedule */
     private $schedule;
 
     private $resultSuccess = ScheduleActionExecutionResult::SUCCESS;
@@ -104,7 +102,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
     private function getLatestAuditEntry(): AuditEntry {
         $entries = self::$container->get(Audit::class)->getRepository()->findAll();
         $this->assertGreaterThanOrEqual(1, count($entries));
-        /** @var AuditEntry $entry */
+        /** @var \SuplaBundle\Entity\Main\AuditEntry $entry */
         $entry = end($entries);
         return $entry;
     }

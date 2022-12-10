@@ -2,7 +2,7 @@
 namespace SuplaBundle\Command\Initialization;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -44,7 +44,7 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
             $i = 0;
             foreach ($iterator as $row) {
                 $channel = $row[0];
-                /** @var IODeviceChannel $channel */
+                /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
                 $config = $this->paramConfigTranslator->getConfigFromParams($channel);
                 $channel->setUserConfig($config);
                 $this->entityManager->persist($channel);

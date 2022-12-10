@@ -22,11 +22,11 @@ use Faker\Factory;
 use Faker\Generator;
 use InvalidArgumentException;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\SceneOperation;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Utils\SceneUtils;
@@ -73,7 +73,7 @@ class ScenesFixture extends SuplaFixture {
         $subjectFactories = [
             function (User $user) {
                 do {
-                    /** @var IODeviceChannel $channel */
+                    /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
                     $channel = $this->faker->randomElement($user->getChannels());
                 } while (!$channel->getFunction()->isOutput());
                 return $channel;

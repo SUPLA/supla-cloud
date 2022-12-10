@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelStateGetter;
 
-use SuplaBundle\Entity\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
@@ -29,7 +28,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 class PercentageChannelStateGetterIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
     /** @var ChannelStateGetter */
     private $channelStateGetter;

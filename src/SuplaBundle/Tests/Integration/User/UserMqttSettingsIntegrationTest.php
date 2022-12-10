@@ -18,7 +18,7 @@
 namespace SuplaBundle\Tests\Integration\User;
 
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
@@ -31,7 +31,7 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

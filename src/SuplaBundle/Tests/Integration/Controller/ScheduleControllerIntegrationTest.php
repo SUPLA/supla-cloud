@@ -19,10 +19,9 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use DateTime;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -38,7 +37,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
 
     /** @var User */
     private $user;
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
 
     protected function initializeDatabaseForTests() {
@@ -106,7 +105,7 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingMinutelySchedule */
     public function testEditingStartDateOfScheduleThatHasExecutedExecutions(Schedule $schedule) {
-        /** @var ScheduledExecution[] $executions */
+        /** @var \SuplaBundle\Entity\Main\ScheduledExecution[] $executions */
         $scheduledExecutionsRepository = $this->getDoctrine()->getRepository(ScheduledExecution::class);
         $executions = $scheduledExecutionsRepository->findBy(['schedule' => $schedule]);
         $execution = $executions[0];

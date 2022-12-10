@@ -1,6 +1,7 @@
 <?php
 namespace SuplaBundle\Entity;
 
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 

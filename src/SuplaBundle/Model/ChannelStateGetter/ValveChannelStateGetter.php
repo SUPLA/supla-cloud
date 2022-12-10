@@ -2,7 +2,7 @@
 namespace SuplaBundle\Model\ChannelStateGetter;
 
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ValveStateBits;
 use SuplaBundle\Supla\SuplaServerAware;

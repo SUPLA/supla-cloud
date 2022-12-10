@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\Location;
+use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Repository\LocationRepository;
 

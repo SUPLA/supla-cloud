@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 
 /**
  * @see Version20200108201101
@@ -30,7 +30,7 @@ class Version20200108201101MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testImpulseCounterInitialValueIsMigrated() {
-        /** @var IODeviceChannel $channel */
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 67);
         $this->assertNotEmpty($channel->getUserConfig());
         $this->assertEquals(103, $channel->getUserConfig()['initialValue']);

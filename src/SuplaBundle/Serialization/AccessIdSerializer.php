@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Serialization;
 
-use SuplaBundle\Entity\AccessID;
+use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Repository\AccessIdRepository;
 

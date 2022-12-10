@@ -18,7 +18,7 @@
 namespace SuplaBundle\Model\ChannelStateGetter;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;
 
 class DigiglassState {

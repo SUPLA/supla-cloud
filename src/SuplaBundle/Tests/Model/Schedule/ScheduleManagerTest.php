@@ -22,14 +22,13 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
-use SuplaBundle\Tests\Model\Schedule\SchedulePlanner\ScheduleWithTimezone;
 
 class ScheduleManagerTest extends TestCase {
     private $doctrine;

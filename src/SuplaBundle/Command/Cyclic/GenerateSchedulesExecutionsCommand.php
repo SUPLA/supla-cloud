@@ -21,8 +21,8 @@ use DateTime;
 use DateTimeZone;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Repository\ScheduleRepository;
@@ -81,7 +81,7 @@ class GenerateSchedulesExecutionsCommand extends AbstractCyclicCommand {
         $oldestExecutionToLeave = current($this->scheduleManager->findClosestExecutions($schedule)['past']);
         if ($oldestExecutionToLeave) {
             return $this->entityManager->createQueryBuilder()
-                ->delete('SuplaBundle:ScheduledExecution', 's')
+                ->delete(ScheduledExecution::class, 's')
                 ->where('s.schedule = :schedule')
                 ->andWhere('s.resultTimestamp < :expirationDate')
                 ->setParameter('schedule', $schedule)

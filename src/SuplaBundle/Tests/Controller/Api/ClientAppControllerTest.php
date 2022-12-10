@@ -23,8 +23,8 @@ use FOS\RestBundle\View\View;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Controller\Api\ClientAppController;
-use SuplaBundle\Entity\ClientApp;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\ClientApp;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Supla\SuplaServer;
 use Symfony\Component\HttpFoundation\Request;
 

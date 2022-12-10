@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Message;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\TimeProvider;
 
 class EmailFromTemplate {

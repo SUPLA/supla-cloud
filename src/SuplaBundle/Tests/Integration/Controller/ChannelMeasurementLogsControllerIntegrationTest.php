@@ -19,15 +19,14 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use DateInterval;
 use DateTime;
-use SuplaBundle\Entity\ElectricityMeterLogItem;
-use SuplaBundle\Entity\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\ImpulseCounterLogItem;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\TemperatureLogItem;
-use SuplaBundle\Entity\TempHumidityLogItem;
-use SuplaBundle\Entity\ThermostatLogItem;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
+use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
+use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -42,13 +41,13 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device1;
     /** @var IODevice */
     private $device2;
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $deviceWithManyLogs;
 
     protected function addLogItems($offset = 0) {

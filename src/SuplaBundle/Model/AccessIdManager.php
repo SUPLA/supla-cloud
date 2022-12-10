@@ -17,8 +17,8 @@
 
 namespace SuplaBundle\Model;
 
-use SuplaBundle\Entity\AccessID;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\AccessID;
+use SuplaBundle\Entity\Main\User;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AccessIdManager {

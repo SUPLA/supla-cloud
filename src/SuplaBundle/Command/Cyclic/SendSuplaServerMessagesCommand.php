@@ -19,9 +19,9 @@ namespace SuplaBundle\Command\Cyclic;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\ClientApp;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODevice;
+use SuplaBundle\Entity\Main\ClientApp;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Message\EmailFromTemplate;
 use SuplaBundle\Message\EmailFromTemplateAsync;
 use SuplaBundle\Message\Emails\NewClientAppEmailNotification;

@@ -25,11 +25,9 @@ use OAuth2\OAuth2;
 use Psr\Container\ContainerInterface;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
-use SuplaBundle\Entity\DirectLink;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\OAuth\AccessToken;
-use SuplaBundle\Entity\OAuth\ApiClient;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\DirectLink;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
@@ -52,15 +50,15 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     private $clientManager;
     /** @var User */
     private $user;
-    /** @var AccessToken */
+    /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken */
     private $peronsalToken;
     /** @var array */
     private $appToken;
     /** @var array */
     private $publicAppToken;
-    /** @var ApiClient */
+    /** @var \SuplaBundle\Entity\Main\OAuth\ApiClient */
     private $apiClient;
-    /** @var AccessToken */
+    /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken */
     private $smartphoneToken;
 
     protected function initializeDatabaseForTests() {

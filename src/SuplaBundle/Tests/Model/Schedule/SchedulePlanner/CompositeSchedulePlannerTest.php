@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Tests\Model\Schedule\SchedulePlanner;
 
-use PHPUnit\Framework\TestCase;
 use DateTime;
 use DateTimeZone;
-use SuplaBundle\Entity\ScheduledExecution;
+use PHPUnit\Framework\TestCase;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\SchedulePlanners\CompositeSchedulePlanner;

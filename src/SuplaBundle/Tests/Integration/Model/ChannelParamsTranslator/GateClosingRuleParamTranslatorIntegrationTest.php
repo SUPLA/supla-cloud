@@ -17,10 +17,10 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelParamsTranslator;
 
-use SuplaBundle\Entity\GateClosingRule;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\GateClosingRule;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -36,7 +36,7 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
     private $device;
     /** @var ChannelParamConfigTranslator */
     private $paramsTranslator;
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
     /** @var IODeviceChannel */
     private $gate;

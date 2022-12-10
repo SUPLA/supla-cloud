@@ -2,7 +2,7 @@
 namespace SuplaBundle\Command\User;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStatus;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitStorage;
 use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
@@ -98,7 +98,7 @@ class ApiInfoCommand extends Command {
         $users = $this->entityManager->createQuery("SELECT u FROM $userClass u")->iterate();
         $someDisplayed = false;
         foreach ($users as $userRow) {
-            /** @var User $user */
+            /** @var \SuplaBundle\Entity\Main\User $user */
             $user = $userRow[0];
             $cacheItem = $this->apiRateLimitStorage->getItem($this->apiRateLimitStorage->getUserKey($user));
             if ($cacheItem->isHit()) {

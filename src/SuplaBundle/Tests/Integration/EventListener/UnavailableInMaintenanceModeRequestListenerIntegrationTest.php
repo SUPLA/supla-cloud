@@ -18,7 +18,6 @@
 namespace SuplaBundle\Tests\Integration\EventListener;
 
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\User;
 use SuplaBundle\EventListener\UnavailableInMaintenanceRequestListener;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -29,7 +28,7 @@ class UnavailableInMaintenanceModeRequestListenerIntegrationTest extends Integra
     use SuplaApiHelper;
     use ResponseAssertions;
 
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     protected function initializeDatabaseForTests() {

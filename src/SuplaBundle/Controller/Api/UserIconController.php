@@ -27,7 +27,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\UserIcon;
+use SuplaBundle\Entity\Main\UserIcon;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;

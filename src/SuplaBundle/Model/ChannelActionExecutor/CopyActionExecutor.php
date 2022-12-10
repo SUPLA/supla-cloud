@@ -3,7 +3,6 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 
 use Assert\Assertion;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\IODeviceChannel;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -62,7 +61,7 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        /** @var IODeviceChannel $sourceChannel */
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $sourceChannel */
         $sourceChannel = $this->subjectRepository
             ->findForUser($subject->getUser(), ActionableSubjectType::CHANNEL, $actionParams['sourceChannelId']);
         $command = $subject->buildServerActionCommand('ACTION-COPY', [$sourceChannel->getIoDevice()->getId(), $sourceChannel->getId()]);

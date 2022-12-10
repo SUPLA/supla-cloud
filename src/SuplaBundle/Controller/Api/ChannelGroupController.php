@@ -26,8 +26,8 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -94,7 +94,7 @@ class ChannelGroupController extends RestController {
         return $groups;
     }
 
-    /** @return Collection|IODeviceChannelGroup[] */
+    /** @return Collection|\SuplaBundle\Entity\Main\IODeviceChannelGroup[] */
     private function returnChannelGroups(callable $filters = null): Collection {
         return $this->channelGroupRepository->findAllForUser($this->getUser(), $filters)
             ->filter(function (IODeviceChannelGroup $channelGroup) {

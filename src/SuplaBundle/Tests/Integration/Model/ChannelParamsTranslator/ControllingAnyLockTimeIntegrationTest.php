@@ -17,8 +17,6 @@
 
 namespace SuplaBundle\Tests\Integration\Model\ChannelParamsTranslator;
 
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
@@ -29,11 +27,11 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
 
-    /** @var IODevice */
+    /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
     /** @var ChannelParamConfigTranslator */
     private $paramsTranslator;
-    /** @var User */
+    /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
     public function initializeDatabaseForTests() {

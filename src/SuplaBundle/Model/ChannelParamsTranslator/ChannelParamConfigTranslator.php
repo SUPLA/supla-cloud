@@ -3,7 +3,7 @@
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 
 /**
  * @OA\Schema(schema="ChannelConfig", description="Configuration of the channel.",

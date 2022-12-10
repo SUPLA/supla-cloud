@@ -19,9 +19,9 @@ namespace SuplaBundle\Tests\Supla;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
 
@@ -34,9 +34,9 @@ class SuplaServerMockTest extends TestCase {
 
     /** @var User */
     private $user;
-    /** @var IODeviceChannel */
+    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
     private $device;
-    /** @var IODeviceChannel */
+    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
     private $channel;
 
     /** @before */

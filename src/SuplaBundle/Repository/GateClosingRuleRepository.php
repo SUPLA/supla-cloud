@@ -2,8 +2,8 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
-use SuplaBundle\Entity\AccessID;
-use SuplaBundle\Entity\GateClosingRule;
+use SuplaBundle\Entity\Main\AccessID;
+use SuplaBundle\Entity\Main\GateClosingRule;
 
 class GateClosingRuleRepository extends EntityWithRelationsRepository {
     protected $alias = 'gcr';

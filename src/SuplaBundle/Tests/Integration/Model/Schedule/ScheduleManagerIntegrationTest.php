@@ -19,9 +19,8 @@ namespace SuplaBundle\Tests\Integration\Model\Schedule;
 
 use DateTime;
 use InvalidArgumentException;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Schedule;
-use SuplaBundle\Entity\ScheduledExecution;
+use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ScheduledExecution;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -35,7 +34,7 @@ class ScheduleManagerIntegrationTest extends IntegrationTestCase {
     /** @var ScheduleManager */
     private $scheduleManager;
 
-    /** @var IODeviceChannel */
+    /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
     private $channel;
 
     protected function initializeDatabaseForTests() {

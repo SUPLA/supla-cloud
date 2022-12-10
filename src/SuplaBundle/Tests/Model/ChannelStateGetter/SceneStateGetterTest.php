@@ -18,7 +18,7 @@
 namespace SuplaBundle\Tests\Model\ChannelStateGetter;
 
 use PHPUnit\Framework\TestCase;
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Enums\SceneInitiatiorType;
 use SuplaBundle\Model\ChannelStateGetter\SceneStateGetter;
 use SuplaBundle\Supla\SuplaServerMock;

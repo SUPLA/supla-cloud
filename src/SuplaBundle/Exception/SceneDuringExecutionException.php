@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Exception;
 
-use SuplaBundle\Entity\Scene;
+use SuplaBundle\Entity\Main\Scene;
 use Symfony\Component\HttpFoundation\Response;
 
 class SceneDuringExecutionException extends ApiExceptionWithDetails {

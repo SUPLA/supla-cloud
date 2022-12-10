@@ -21,14 +21,14 @@ use FOS\OAuthServerBundle\Security\Authentication\Provider\OAuthProvider;
 use SuplaBundle\Auth\Token\AccessIdAwareToken;
 use SuplaBundle\Auth\Token\PublicOauthAppToken;
 use SuplaBundle\Auth\Token\WebappToken;
-use SuplaBundle\Entity\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class SuplaOAuthProvider extends OAuthProvider {
     public function authenticate(TokenInterface $token) {
         $authenticatedToken = parent::authenticate($token);
         $accessToken = $this->serverService->verifyAccessToken($token->getToken());
-        /** @var AccessToken $accessToken */
+        /** @var \SuplaBundle\Entity\Main\OAuth\AccessToken $accessToken */
         if ($accessToken->getIssuedWithRefreshToken()) {
             /** @var SuplaOAuthStorage $storage */
             $storage = $this->serverService->getStorage();

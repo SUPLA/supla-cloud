@@ -18,7 +18,7 @@
 namespace SuplaBundle\Serialization;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\ClientApp;
+use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Supla\SuplaServerAware;
@@ -28,7 +28,7 @@ class ClientAppSerializer extends AbstractSerializer {
     use CurrentUserAware;
 
     /**
-     * @param ClientApp $clientApp
+     * @param \SuplaBundle\Entity\Main\ClientApp $clientApp
      * @inheritdoc
      */
     protected function addExtraFields(array &$normalized, $clientApp, array $context) {

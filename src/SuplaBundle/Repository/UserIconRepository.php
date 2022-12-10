@@ -2,8 +2,8 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SuplaBundle\Entity\User;
-use SuplaBundle\Entity\UserIcon;
+use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Entity\Main\UserIcon;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserIconRepository extends EntityRepository {

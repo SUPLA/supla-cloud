@@ -18,7 +18,6 @@
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
 use Doctrine\Persistence\ObjectManager;
-use SuplaBundle\Entity\Location;
 use SuplaBundle\Model\LocationManager;
 
 class LocationsFixture extends SuplaFixture {
@@ -39,7 +38,7 @@ class LocationsFixture extends SuplaFixture {
     public function load(ObjectManager $manager) {
         $user = $this->getReference(UsersFixture::USER);
         foreach (['Sypialnia', 'Na zewnątrz', 'Garaż'] as $caption) {
-            /** @var Location $location */
+            /** @var \SuplaBundle\Entity\Main\Location $location */
             $location = $this->locationManager->createLocation($user);
             $location->setCaption($caption);
             $manager->persist($location);

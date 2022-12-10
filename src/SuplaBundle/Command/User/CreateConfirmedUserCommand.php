@@ -1,7 +1,7 @@
 <?php
 namespace SuplaBundle\Command\User;
 
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\UserManager;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\Console\Command\Command;

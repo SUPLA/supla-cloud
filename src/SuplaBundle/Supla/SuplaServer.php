@@ -18,11 +18,11 @@
 namespace SuplaBundle\Supla;
 
 use Psr\Log\LoggerInterface;
-use SuplaBundle\Entity\ClientApp;
-use SuplaBundle\Entity\IODevice;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\Scene;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\ClientApp;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Exception\SceneDuringExecutionException;
 use SuplaBundle\Model\ChannelStateGetter\ElectricityMeterChannelState;

@@ -2,8 +2,8 @@
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\IODeviceChannel;
-use SuplaBundle\Entity\User;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;

@@ -2,10 +2,8 @@
 
 namespace SuplaBundle\Model\ChannelParamsTranslator;
 
-use SuplaBundle\Entity\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Enums\ChannelFunctionBitsFlags;
-use SuplaBundle\Utils\NumberUtils;
 
 class DigiglassParamTranslator implements ChannelParamTranslator {
     use FixedRangeParamsTranslator;
