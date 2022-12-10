@@ -6,28 +6,36 @@ imports:
 
 doctrine:
   dbal:
-    charset: utf8mb4
-    default_table_options:
-      charset: utf8mb4
-      collate: utf8mb4_unicode_ci
-    dbname: "%database_name%"
-    driver: "%database_driver%"
-    host: "%database_host%"
-    password: "%database_password%"
-    port: "%database_port%"
+    connections:
+      default:
+        dbname: "%database_name%"
+        driver: "%database_driver%"
+        host: "%database_host%"
+        password: "%database_password%"
+        port: "%database_port%"
+        user: "%database_user%"
+        schema_filter: ~^(?!(esp_|supla_email_notifications))~
+        charset: utf8mb4
+        default_table_options:
+          charset: utf8mb4
+          collate: utf8mb4_unicode_ci
+    default_connection: default
     types:
       ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
       stringdatetime: SuplaBundle\Model\Doctrine\StringDateTime
       tinyint: SuplaBundle\Model\Doctrine\TinyintType
       utcdatetime: SuplaBundle\Model\Doctrine\UTCDateTimeType
-    user: "%database_user%"
-    schema_filter: ~^(?!(esp_|supla_email_notifications))~
+
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
-    auto_mapping: true
-    dql:
-      numeric_functions:
-        supla_is_now_active: SuplaBundle\Model\Doctrine\IsNowActive
+    entity_managers:
+      default:
+        connection: default
+        auto_mapping: true
+        dql:
+          numeric_functions:
+            supla_is_now_active: SuplaBundle\Model\Doctrine\IsNowActive
+
 
 doctrine_migrations:
   namespace: Supla\Migrations

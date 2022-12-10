@@ -3,7 +3,9 @@ imports:
 
 doctrine:
   dbal:
-    dbname: supla_test
+    connections:
+      default:
+        dbname: supla_test
 
 framework:
   profiler:
