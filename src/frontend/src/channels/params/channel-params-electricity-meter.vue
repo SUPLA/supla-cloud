@@ -1,8 +1,7 @@
 <template>
     <div>
-        <channel-params-meter-cost :channel="channel"
-            unit="kWh"
-            @change="$emit('change')"/>
+        <ChannelParamsElectricityMeterEnabledPhases :channel="channel" @change="$emit('change')"/>
+        <channel-params-meter-cost :channel="channel" unit="kWh" @change="$emit('change')"/>
         <dl>
             <dd>{{ $t('Associated measured channel') }}</dd>
             <dt>
@@ -24,6 +23,7 @@
     import ChannelParamsMeterReset from "@/channels/params/channel-params-meter-reset";
     import ChannelParamsElectricityMeterInitialValues from "@/channels/params/channel-params-electricity-meter-initial-values";
     import ChannelParamsElectricityMeterVoltageThresholds from "@/channels/params/channel-params-electricity-meter-voltage-thresholds";
+    import ChannelParamsElectricityMeterEnabledPhases from "@/channels/params/channel-params-electricity-meter-enabled-phases";
 
     defineProps({channel: Object});
 </script>
