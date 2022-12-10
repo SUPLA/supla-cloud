@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Integration;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestListenerDefaultImplementation;
@@ -28,8 +29,8 @@ class IntegrationTestCaseListener implements TestListener {
         if ($test instanceof IntegrationTestCase) {
             try {
                 $test->prepareIntegrationTest();
-            } catch (Exception $e) {
-                throw new PHPUnit_Framework_ExpectationFailedException('Could not start the test: ' . $e->getMessage(), null, $e);
+            } catch (\Exception $e) {
+                throw new ExpectationFailedException('Could not start the test: ' . $e->getMessage(), null, $e);
             }
         }
     }

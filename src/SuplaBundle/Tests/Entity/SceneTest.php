@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
@@ -29,8 +30,8 @@ class SceneTest extends TestCase {
 
     public function testSettingOwningScene() {
         $scene = new Scene($this->createMock(Location::class));
-        $operation = new \SuplaBundle\Entity\Main\SceneOperation($this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class), ChannelFunctionAction::OPEN());
-        $operation2 = new \SuplaBundle\Entity\Main\SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
+        $operation = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
+        $operation2 = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
         $scene->setOpeartions([$operation, $operation2]);
         $this->assertSame($scene, $operation->getOwningScene());
         $this->assertSame($scene, $operation2->getOwningScene());
@@ -40,8 +41,8 @@ class SceneTest extends TestCase {
 
     public function testAddingOperationsManyTimes() {
         $scene = new Scene($this->createMock(Location::class));
-        $operation = new \SuplaBundle\Entity\Main\SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
-        $operation2 = new \SuplaBundle\Entity\Main\SceneOperation($this->createMock(\SuplaBundle\Entity\Main\IODeviceChannel::class), ChannelFunctionAction::OPEN());
+        $operation = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
+        $operation2 = new SceneOperation($this->createMock(IODeviceChannel::class), ChannelFunctionAction::OPEN());
         $scene->setOpeartions([$operation, $operation2]);
         $scene->setOpeartions([$operation2, $operation]);
         $this->assertCount(2, $scene->getOperations());

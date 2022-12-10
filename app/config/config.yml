@@ -31,10 +31,22 @@ doctrine:
     entity_managers:
       default:
         connection: default
-        auto_mapping: true
         dql:
           numeric_functions:
             supla_is_now_active: SuplaBundle\Model\Doctrine\IsNowActive
+        mappings:
+          FOSOAuthServerBundle: ~
+          Main:
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/Main'
+            prefix: 'SuplaBundle\Entity\Main'
+      measurement_logs:
+        connection: default
+        mappings:
+          MeasurementLogs:
+            type: annotation
+            dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
+            prefix: 'SuplaBundle\Entity\MeasurementLogs'
 
 
 doctrine_migrations:

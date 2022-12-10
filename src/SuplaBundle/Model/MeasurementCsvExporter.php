@@ -31,8 +31,8 @@ class MeasurementCsvExporter {
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager) {
-        $this->entityManager = $entityManager;
+    public function __construct($measurementLogsEntityManager) {
+        $this->entityManager = $measurementLogsEntityManager;
     }
 
     public function generateCsv(IODeviceChannel $channel, ?string $logsType = 'default'): string {

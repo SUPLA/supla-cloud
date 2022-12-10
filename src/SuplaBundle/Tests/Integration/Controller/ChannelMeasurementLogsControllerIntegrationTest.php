@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use DateInterval;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
@@ -60,7 +61,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             EntityUtils::setField($logItem, 'channel_id', 2 + $offset);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
             EntityUtils::setField($logItem, 'temperature', $temperature);
-            $this->getEntityManager()->persist($logItem);
+            $this->getMeasurementLogsEntityManager()->persist($logItem);
             $date->add($oneday);
         }
 
@@ -71,7 +72,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
             EntityUtils::setField($logItem, 'temperature', $th[0]);
             EntityUtils::setField($logItem, 'humidity', $th[1]);
-            $this->getEntityManager()->persist($logItem);
+            $this->getMeasurementLogsEntityManager()->persist($logItem);
             $date->add($oneday);
         }
 
@@ -88,7 +89,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
                 EntityUtils::setField($logItem, 'phase' . $phase . '_rre', $energy + $phase + 30);
             }
 
-            $this->getEntityManager()->persist($logItem);
+            $this->getMeasurementLogsEntityManager()->persist($logItem);
             $date->add($oneday);
         }
 
@@ -100,7 +101,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
                 EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
                 EntityUtils::setField($logItem, 'counter', $impulses);
                 EntityUtils::setField($logItem, 'calculated_value', $impulses);
-                $this->getEntityManager()->persist($logItem);
+                $this->getMeasurementLogsEntityManager()->persist($logItem);
             }
             $date->add($oneday);
         }
@@ -114,7 +115,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
                 EntityUtils::setField($logItem, "on", $temperature > -10);
                 EntityUtils::setField($logItem, 'measuredTemperature', $temperature);
                 EntityUtils::setField($logItem, 'presetTemperature', $temperature + 5);
-                $this->getEntityManager()->persist($logItem);
+                $this->getMeasurementLogsEntityManager()->persist($logItem);
             }
             $date->add($oneday);
         }
@@ -125,14 +126,13 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
             EntityUtils::setField($logItem, 'temperature', 0);
             EntityUtils::setField($logItem, 'humidity', $humidity);
-            $this->getEntityManager()->persist($logItem);
+            $this->getMeasurementLogsEntityManager()->persist($logItem);
             $date->add($oneday);
         }
 
-        $fixture = new LogItemsFixture();
-        EntityUtils::setField($fixture, 'entityManager', $this->getEntityManager());
+        $fixture = new LogItemsFixture($this->getDoctrine());
         $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-1 day');
-        $this->getEntityManager()->flush();
+        $this->getMeasurementLogsEntityManager()->flush();
     }
 
     protected function initializeDatabaseForTests() {
@@ -167,18 +167,19 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
             if (rand(0, 100) < 99) {
-                $this->getEntityManager()->persist($logItem);
+                $this->getMeasurementLogsEntityManager()->persist($logItem);
             }
             if (rand() % 2 == 0) {
                 $logItem = new TemperatureLogItem();
                 EntityUtils::setField($logItem, 'channel_id', 5000);
                 EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
                 EntityUtils::setField($logItem, 'temperature', rand(0, 200) / 10);
-                $this->getEntityManager()->persist($logItem);
+                $this->getMeasurementLogsEntityManager()->persist($logItem);
             }
         }
 
         $this->getEntityManager()->flush();
+        $this->getMeasurementLogsEntityManager()->flush();
     }
 
     /** @dataProvider measurementLogsCounts */
@@ -823,8 +824,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $client->apiRequestV24('DELETE', "/api/channels/{$channelId}/measurement-logs?logsType=voltage");
         $response = $client->getResponse();
         $this->assertStatusCode('204', $response);
-        $voltageRepository = $this->getEntityManager()->getRepository(ElectricityMeterVoltageLogItem::class);
-        $emLogRepository = $this->getEntityManager()->getRepository(ElectricityMeterLogItem::class);
+        $voltageRepository = $this->getDoctrine()->getRepository(ElectricityMeterVoltageLogItem::class);
+        $emLogRepository = $this->getDoctrine()->getRepository(ElectricityMeterLogItem::class);
         $this->assertEmpty($voltageRepository->findBy(['channel_id' => $channelId]));
         $this->assertNotEmpty($emLogRepository->findBy(['channel_id' => $channelId]));
     }
@@ -850,5 +851,9 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
                 $this->testMeasurementLogsCount($channel->getId());
             }
         }
+    }
+
+    protected function getMeasurementLogsEntityManager(): EntityManagerInterface {
+        return $this->getDoctrine()->getEntityManager('measurement_logs');
     }
 }

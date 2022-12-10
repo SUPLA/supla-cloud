@@ -34,7 +34,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use function SuplaBundle\Entity\count;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\UserRepository")

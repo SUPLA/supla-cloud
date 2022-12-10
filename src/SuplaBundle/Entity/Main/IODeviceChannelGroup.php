@@ -31,7 +31,6 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use function SuplaBundle\Entity\count;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")

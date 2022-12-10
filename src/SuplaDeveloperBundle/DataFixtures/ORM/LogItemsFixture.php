@@ -17,6 +17,7 @@
 
 namespace SuplaDeveloperBundle\DataFixtures\ORM;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
@@ -40,13 +41,13 @@ class LogItemsFixture extends SuplaFixture {
 
     const SINCE = '-40 day';
 
-    public function __construct() {
+    public function __construct(Registry $doctrine) {
         $this->faker = Factory::create('pl_PL');
+        $this->entityManager = $doctrine->getManager('measurement_logs');
     }
 
     public function load(ObjectManager $manager) {
         ini_set('memory_limit', '1G');
-        $this->entityManager = $manager;
         $this->createTemperatureLogItems();
         $this->entityManager->flush();
         $this->createHumidityLogItems();

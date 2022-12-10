@@ -36,7 +36,6 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\MeasurementCsvExporter;
-use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\DatabaseUtils;
@@ -47,7 +46,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ChannelMeasurementLogsController extends RestController {
     use SuplaServerAware;
-    use Transactional;
 
     const RECORD_LIMIT_PER_REQUEST = 5000;
 
@@ -63,11 +61,11 @@ class ChannelMeasurementLogsController extends RestController {
     public function __construct(
         IODeviceManager $deviceManager,
         IODeviceChannelRepository $channelRepository,
-        EntityManagerInterface $entityManager,
+        $measurementLogsEntityManager,
         ChannelParamConfigTranslator $channelParamConfigTranslator
     ) {
         $this->deviceManager = $deviceManager;
-        $this->entityManager = $entityManager;
+        $this->entityManager = $measurementLogsEntityManager;
         $this->channelRepository = $channelRepository;
         $this->channelParamConfigTranslator = $channelParamConfigTranslator;
     }

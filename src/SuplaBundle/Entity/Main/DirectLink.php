@@ -32,7 +32,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use function SuplaBundle\Entity\random_int;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\DirectLinkRepository")

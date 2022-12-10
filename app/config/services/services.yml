@@ -8,6 +8,7 @@ services:
       $recaptchaSecret: '%recaptcha_secret%'
       $recaptchaEnabled: '%recaptcha_enabled%'
       $secret: '%secret%'
+      $measurementLogsEntityManager: '@doctrine.orm.measurement_logs_entity_manager'
 
   _instanceof:
     SuplaBundle\ParamConverter\AbstractBodyParamConverter:

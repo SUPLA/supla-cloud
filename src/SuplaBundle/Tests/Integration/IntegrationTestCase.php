@@ -63,8 +63,10 @@ abstract class IntegrationTestCase extends WebTestCase {
         self::$dataForTests = array_intersect_key(self::$dataForTests, [static::class => '']);
         $initializedAtLeastOnce = isset(self::$dataForTests[static::class]);
         if (!$initializedAtLeastOnce || $this->isLarge() || (!$this->hasDependencies() && !$this->isSmall())) {
-            $this->executeCommand('doctrine:schema:drop --force');
-            $this->executeCommand('doctrine:schema:create');
+            $this->executeCommand('doctrine:schema:drop --force --em=default');
+            $this->executeCommand('doctrine:schema:drop --force --em=measurement_logs');
+            $this->executeCommand('doctrine:schema:create --em=default');
+            $this->executeCommand('doctrine:schema:create --em=measurement_logs');
             $this->executeCommand('supla:initialize:create-webapp-client');
             $this->getEntityManager()->getConnection()->executeQuery('TRUNCATE supla_email_notifications;');
             $this->getEntityManager()->getConnection()->executeQuery('DROP FUNCTION IF EXISTS supla_is_now_active;');

@@ -21,6 +21,7 @@ use Assert\Assertion;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;

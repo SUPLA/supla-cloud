@@ -30,7 +30,6 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ScheduleMode;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use function SuplaBundle\Entity\count;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ScheduleRepository")
