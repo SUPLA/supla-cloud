@@ -254,20 +254,15 @@
                 chart: {stacked: true},
             }),
             series: function (allLogs) {
-                return [
-                    {
-                        name: `${channelTitle(this.channel, this)} (${this.$t('Phase 1')})`,
-                        data: allLogs.map((item) => [item.date_timestamp * 1000, item['phase1_' + this.chartMode]]),
-                    },
-                    {
-                        name: `${channelTitle(this.channel, this)} (${this.$t('Phase 2')})`,
-                        data: allLogs.map((item) => [item.date_timestamp * 1000, item['phase2_' + this.chartMode]]),
-                    },
-                    {
-                        name: `${channelTitle(this.channel, this)} (${this.$t('Phase 3')})`,
-                        data: allLogs.map((item) => [item.date_timestamp * 1000, item['phase3_' + this.chartMode]]),
-                    },
-                ];
+                const enabledPhases = [1, 2, 3].filter(phaseNo => !(this.channel.config.disabledPhases || []).includes(phaseNo));
+                return enabledPhases.map((phaseNo) => {
+                    // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
+                    const phaseLabel = `Phase ${phaseNo}`;
+                    return {
+                        name: `${channelTitle(this.channel, this)} (${this.$t(phaseLabel)})`,
+                        data: allLogs.map((item) => [item.date_timestamp * 1000, item[`phase${phaseNo}_${this.chartMode}`]]),
+                    };
+                });
             },
             fixLog: (log) => {
                 if (log.phase1_fae !== undefined && log.phase1_fae !== null) {

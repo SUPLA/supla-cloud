@@ -165,18 +165,21 @@
             this.$http.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=ASC&afterTimestamp=${afterTimestamp}`)
                 .then(({body: logItems}) => {
                     const dayStats = {};
-                    this.logs = logItems.map(log => {
-                        const date = DateTime.fromSeconds(log.date_timestamp);
-                        log.date = date;
-                        log.day = date.toFormat('ddMM');
-                        if (!dayStats[log.day]) {
-                            dayStats[log.day] = {secTotal: 0, countBelowTotal: 0, countAboveTotal: 0};
-                        }
-                        dayStats[log.day].secTotal += log.secTotal;
-                        dayStats[log.day].countBelowTotal += log.countBelow;
-                        dayStats[log.day].countAboveTotal += log.countAbove;
-                        return log;
-                    });
+                    const enabledPhases = [1, 2, 3].filter(phaseNo => !(this.channel.config.disabledPhases || []).includes(phaseNo));
+                    this.logs = logItems
+                        .filter(({phaseNo}) => enabledPhases.includes(phaseNo))
+                        .map(log => {
+                            const date = DateTime.fromSeconds(log.date_timestamp);
+                            log.date = date;
+                            log.day = date.toFormat('ddMM');
+                            if (!dayStats[log.day]) {
+                                dayStats[log.day] = {secTotal: 0, countBelowTotal: 0, countAboveTotal: 0};
+                            }
+                            dayStats[log.day].secTotal += log.secTotal;
+                            dayStats[log.day].countBelowTotal += log.countBelow;
+                            dayStats[log.day].countAboveTotal += log.countAbove;
+                            return log;
+                        });
                     if (this.logs.length) {
                         const minDate = DateTime.fromSeconds(this.logs[0].date_timestamp).endOf('day');
                         for (let day = minDate; day <= DateTime.now().endOf('day'); day = day.plus({days: 1})) {

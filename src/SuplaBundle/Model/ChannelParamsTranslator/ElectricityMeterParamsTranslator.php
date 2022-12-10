@@ -75,9 +75,13 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             $channel->setUserConfigValue('upperVoltageThreshold', $threshold);
         }
         if (array_key_exists('disabledPhases', $config)) {
-            Assertion::isArray($config['disabledPhases'], 'disabledPhases config value must be an array');
-            Assertion::allInArray($config['disabledPhases'], [1, 2, 3], 'disabledPhases may only contain values: 1, 2, 3');
-            $disabledPhases = array_values(array_unique($config['disabledPhases']));
+            $disabledPhases = $config['disabledPhases'];
+            if (!$disabledPhases) {
+                $disabledPhases = [];
+            }
+            Assertion::isArray($disabledPhases, 'disabledPhases config value must be an array');
+            Assertion::allInArray($disabledPhases, [1, 2, 3], 'disabledPhases may only contain values: 1, 2, 3');
+            $disabledPhases = array_values(array_unique($disabledPhases));
             Assertion::lessThan(count($disabledPhases), 3, 'You must leave at least one phase enabled.'); // i18n
             $channel->setUserConfigValue('disabledPhases', $disabledPhases);
         }
