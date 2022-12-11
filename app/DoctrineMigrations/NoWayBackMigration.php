@@ -42,6 +42,6 @@ abstract class NoWayBackMigration extends AbstractMigration implements Container
     }
 
     protected function getConnection(): Connection {
-        return $this->container->get('doctrine.orm.entity_manager')->getConnection();
+        return $this->connection;
     }
 }

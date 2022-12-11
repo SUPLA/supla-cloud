@@ -26,7 +26,7 @@ doctrine:
         password: "%database_password%"
         port: "%database_port%"
         user: "%database_user%"
-        schema_filter: ~^supla_(.+)_log$~
+        schema_filter: ~^(migration_versions|supla_(.+)_log)$~
         charset: utf8mb4
         default_table_options:
           charset: utf8mb4
