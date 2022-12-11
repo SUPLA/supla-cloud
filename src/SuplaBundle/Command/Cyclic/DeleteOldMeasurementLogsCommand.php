@@ -18,44 +18,40 @@
 namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
-use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
 use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicCommand {
+class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var int */
+    private $logsRetentionDaysForEmVoltageLogs;
 
-    public function __construct($measurementLogsEntityManager) {
+    public function __construct($measurementLogsEntityManager, int $logsRetentionDaysForEmVoltageLogs) {
         parent::__construct();
         $this->entityManager = $measurementLogsEntityManager;
+        $this->logsRetentionDaysForEmVoltageLogs = $logsRetentionDaysForEmVoltageLogs;
     }
 
     protected function configure() {
         $this
-            ->setName('supla:clean:orphaned-measurement-logs')
-            ->setDescription('Delete logs of channels that has been deleted.');
+            ->setName('supla:clean:old-measurement-logs')
+            ->setDescription('Delete logs of channels that should be deleted due to the retention policy.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->logClean($output, ElectricityMeterLogItem::class);
-        $this->logClean($output, ElectricityMeterVoltageLogItem::class);
-        $this->logClean($output, ImpulseCounterLogItem::class);
-        $this->logClean($output, TemperatureLogItem::class);
-        $this->logClean($output, TempHumidityLogItem::class);
-        $this->logClean($output, ThermostatLogItem::class);
+        $this->logClean($output, ElectricityMeterVoltageLogItem::class, $this->logsRetentionDaysForEmVoltageLogs);
     }
 
-    protected function logClean(OutputInterface $output, string $entity): void {
-        $sql = "DELETE t FROM `" . $this->entityManager->getClassMetadata($entity)->getTableName()
-            . "` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
+    protected function logClean(OutputInterface $output, string $entity, int $olderThanDays): void {
+        $sql = sprintf(
+            'DELETE FROM `%s` WHERE `date` < DATE_SUB(CURRENT_DATE, INTERVAL %d DAY)',
+            $this->entityManager->getClassMetadata($entity)->getTableName(),
+            $olderThanDays
+        );
         $stmt = $this->entityManager->getConnection()->prepare($sql);
         $stmt->executeStatement();
         $rowCount = $stmt->rowCount();
@@ -66,6 +62,6 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
     }
 
     public function shouldRunNow(TimeProvider $timeProvider): bool {
-        return date('H:i', $timeProvider->getTimestamp()) === '01:20';
+        return date('H:i', $timeProvider->getTimestamp()) === '02:20';
     }
 }

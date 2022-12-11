@@ -110,6 +110,11 @@ class Configuration implements ConfigurationInterface {
                     ->scalarNode('password')->defaultNull()->info('Password for the MQTT Broker (if integrated_auth is off).')->end()
                 ->end()->end()
             ->end();
+        $rootNode->children()
+            ->arrayNode('measurement_logs_retention')->addDefaultsIfNotSet()->children()
+                ->scalarNode('em_voltage_aberrations')->defaultValue(90)->info('How many days the voltage aberrations logs should be kept.')->end()
+            ->end()->end()
+            ->end();
         // @formatter:on
         // @codingStandardsIgnoreEnd
         return $treeBuilder;

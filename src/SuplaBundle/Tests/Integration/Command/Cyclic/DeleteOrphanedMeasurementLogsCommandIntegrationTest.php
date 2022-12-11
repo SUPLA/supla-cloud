@@ -15,7 +15,7 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Tests\Integration\Command;
+namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
@@ -32,7 +32,7 @@ class DeleteOrphanedMeasurementLogsCommandIntegrationTest extends IntegrationTes
         EntityUtils::setField($logItem, 'temperature', 20);
         $entityManager = $this->getEntityManager('measurement_logs');
         $entityManager->persist($logItem);
-        $entityManager->flush();;
+        $entityManager->flush();
         $command = $this->application->find('supla:clean:orphaned-measurement-logs');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([]);

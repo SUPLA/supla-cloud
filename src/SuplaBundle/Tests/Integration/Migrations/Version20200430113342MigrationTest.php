@@ -24,7 +24,8 @@ class Version20200430113342MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testRemovingDuplicates() {
-        $logsCount = $this->getEntityManager('measurement_logs')->createQuery('SELECT COUNT(t.channel_id) FROM ' . TemperatureLogItem::class . ' t')
+        $logsCount = $this->getEntityManager('measurement_logs')
+            ->createQuery('SELECT COUNT(t.channel_id) FROM ' . TemperatureLogItem::class . ' t')
             ->getSingleScalarResult();
         $this->assertEquals(2, $logsCount);
     }
