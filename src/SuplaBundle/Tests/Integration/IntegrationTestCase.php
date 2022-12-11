@@ -133,8 +133,8 @@ abstract class IntegrationTestCase extends WebTestCase {
         return self::$container->get('doctrine');
     }
 
-    protected function getEntityManager(): EntityManagerInterface {
-        return $this->getDoctrine()->getEntityManager();
+    protected function getEntityManager($name = null): EntityManagerInterface {
+        return $this->getDoctrine()->getEntityManager($name);
     }
 
     protected function persist($entity) {

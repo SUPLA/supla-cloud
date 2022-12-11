@@ -68,8 +68,8 @@ class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
     public function testSuplaAddEmVoltageLogItem() {
         $parameters = ['"2022-10-26 16:09:00"', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11.5, 12.5, 13.5, 14];
         $query = 'CALL supla_add_em_voltage_log_item(' . implode(', ', $parameters) . ')';
-        $this->getEntityManager()->getConnection()->executeQuery($query);
-        $logItems = $this->getEntityManager()->getRepository(ElectricityMeterVoltageLogItem::class)->findAll();
+        $this->getEntityManager('measurement_logs')->getConnection()->executeQuery($query);
+        $logItems = $this->getEntityManager('measurement_logs')->getRepository(ElectricityMeterVoltageLogItem::class)->findAll();
         $this->assertCount(1, $logItems);
         /** @var \SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem $logItem */
         $logItem = $logItems[0];

@@ -854,6 +854,6 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     }
 
     protected function getMeasurementLogsEntityManager(): EntityManagerInterface {
-        return $this->getDoctrine()->getEntityManager('measurement_logs');
+        return $this->getEntityManager('measurement_logs');
     }
 }
