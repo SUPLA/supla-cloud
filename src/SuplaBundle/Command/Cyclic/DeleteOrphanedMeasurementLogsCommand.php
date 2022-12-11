@@ -19,8 +19,11 @@ namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
 use SuplaBundle\Model\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,9 +33,9 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct($measurementLogsEntityManager) {
         parent::__construct();
-        $this->entityManager = $entityManager;
+        $this->entityManager = $measurementLogsEntityManager;
     }
 
     protected function configure() {
@@ -42,17 +45,24 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $this->logClean($output, TemperatureLogItem::class, 'TemperatureLog');
-        $this->logClean($output, TempHumidityLogItem::class, 'TempHumidityLog');
-        $this->logClean($output, ElectricityMeterLogItem::class, 'ElectricityMeterLogItem');
+        $this->logClean($output, ElectricityMeterLogItem::class);
+        $this->logClean($output, ElectricityMeterVoltageLogItem::class);
+        $this->logClean($output, ImpulseCounterLogItem::class);
+        $this->logClean($output, TemperatureLogItem::class);
+        $this->logClean($output, TempHumidityLogItem::class);
+        $this->logClean($output, ThermostatLogItem::class);
     }
 
-    protected function logClean($output, $entity, $name) {
+    protected function logClean(OutputInterface $output, string $entity): void {
         $sql = "DELETE t FROM `" . $this->entityManager->getClassMetadata($entity)->getTableName()
             . "` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
         $stmt = $this->entityManager->getConnection()->prepare($sql);
-        $stmt->execute();
-        $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $stmt->rowCount(), $name));
+        $stmt->executeStatement();
+        $rowCount = $stmt->rowCount();
+        if ($rowCount || $output->isVerbose()) {
+            $className = basename(str_replace('\\', '/', $entity));
+            $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $rowCount, $className));
+        }
     }
 
     public function shouldRunNow(TimeProvider $timeProvider): bool {
