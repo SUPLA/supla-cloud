@@ -26,7 +26,12 @@ Vue.config.availableLanguages = [
 
 Vue.use(VueI18N);
 
-const i18n = new VueI18N({fallbackLocale: 'en'});
+const i18n = new VueI18N({
+    fallbackLocale: 'en',
+    silentFallbackWarn: true,
+    silentTranslationWarn: true,
+    formatFallbackMessages: true,
+});
 
 Vue.prototype.$setLocale = (lang) => {
     if (i18n.locale !== lang) {

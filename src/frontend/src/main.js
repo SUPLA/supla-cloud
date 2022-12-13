@@ -73,7 +73,7 @@ Vue.http.get('server-info')
                 },
                 mounted() {
                     document.getElementById('page-preloader').remove();
-                    document.getElementById('vue-container').classList.remove('hidden');
+                    document.getElementById('vue-container')?.classList.remove('hidden');
                 },
             };
             if (!appContainer.children.length) {

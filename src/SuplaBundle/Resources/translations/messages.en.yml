@@ -1,42 +1,8 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
-'Action trigger no. #{index}': 'Action trigger no. #{index}'
-Any application or device that uses the {tokenName} token will not work anymore.: Any application or device that uses the {tokenName} token will not work anymore.
-By signing in, you are authorizing {clientName} to control your devices.: By signing in, you are authorizing {clientName} to control your devices.
-Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.: Can’t find activation email? Please check your SPAM or Junk mail folders. Alternately please {clickHereLink} to resend.
-Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirm if you want to remove Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.
-Confirm if you want to remove {deviceName} device and all of its channels.: Confirm if you want to remove {deviceName} device and all of its channels.
-For a short period of time, it is recommended for you to use the {suplaUrl} address.: For a short period of time, it is recommended for you to use the {suplaUrl} address.
-If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.: If you want to integrate your Cloud with public OAuth applications, you must {registerYourSuplaCloudLink}.
-If you wish to register your instance, {clickHereLink}.: If you wish to register your instance, {clickHereLink}.
-If you wish to see the available integrations, go to {0}.: If you wish to see the available integrations, go to {0}.
-If you wish to unregister your instance, {clickHereLink}.: If you wish to unregister your instance, {clickHereLink}.
-'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
-Maximum filesize limit is {limit}.: Maximum filesize limit is {limit}.
-'Next limit renewal: {date}': 'Next limit renewal: {date}'
-No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.: No access identifier enabled. Go to {accessIdsListLink} or {newAccessIdLink}.
-No location enabled. Go to {locationsListLink} or {newLocationLink}.: No location enabled. Go to {locationsListLink} or {newLocationLink}.
-No results match {0}: No results match {0}
-PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN for Google must have a length between {minLength} and {maxLength} digits.
-Password must be at least {minLength} characters.: Password must be at least {minLength} characters.
-Password must be no longer than {maxLength} characters.: Password must be no longer than {maxLength} characters.
-'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.'
-'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.'
-'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.'
-'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.'
-'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.'
-The server has returned an HTTP {statusCode} error.: The server has returned an HTTP {statusCode} error.
-The set of icons you have chosen is too large. Maximum upload limit is {limit}.: The set of icons you have chosen is too large. Maximum upload limit is {limit}.
-'Use the {0} server command to change this account''s limits. For example:': 'Use the {0} server command to change this account''s limits. For example:'
 WELCOME_MESSAGE: |
   Having your house or the office connected to SUPLA is very easy.
   All you need to do is to rewrite on your control devices (In/Out) and smartphones the following data.
-Wait for this scene to finish before proceeding to the next step ({time}).: Wait for this scene to finish before proceeding to the next step ({time}).
-We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.
-Your channel groups are allowed to have a maximum of {max} channels.: Your channel groups are allowed to have a maximum of {max} channels.
-Your scenes are allowed to have a maximum of {max} operations.: Your scenes are allowed to have a maximum of {max} operations.
-Your schedules are allowed to have a maximum of {max} actions.: Your schedules are allowed to have a maximum of {max} actions.
-Your session will expire in {0}.: Your session will expire in {0}.
 actionTrigger_HOLD: Hold
 actionTrigger_SHORT_PRESS_X1: Short press once
 actionTrigger_SHORT_PRESS_X2: Short press twice
@@ -106,17 +72,6 @@ sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset
 sunset-before: the sunset
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} will not be able to interact with your account until you grant the access again.'
-'{clientName} wants to access your account.': '{clientName} wants to access your account.'
-'{minutes} minutes after sunrise': '{minutes} minutes after sunrise'
-'{minutes} minutes after sunset': '{minutes} minutes after sunset'
-'{minutes} minutes before sunrise': '{minutes} minutes before sunrise'
-'{minutes} minutes before sunset': '{minutes} minutes before sunset'
-'{requests} out of {limit} / day': '{requests} out of {limit} / day'
-'{requests} out of {limit} / h': '{requests} out of {limit} / h'
-'{requests} out of {limit} / min': '{requests} out of {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} out of {limit} / {seconds} sec.'
-'{serviceName} integration': '{serviceName} integration'
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -127,4 +82,3 @@ sunset-before: the sunset
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-'History of voltage aberrations is kept for {days} days only.': 'History of voltage aberrations is kept for {days} days only.'
