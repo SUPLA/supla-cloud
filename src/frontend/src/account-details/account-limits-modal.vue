@@ -1,5 +1,5 @@
 <template>
-    <modal class="account-limits-modal"
+    <modal class="account-limits-modal modal-800"
         :header="$t('Your account limits')">
         <loading-cover :loading="fetching">
             <div v-if="limits">
@@ -8,6 +8,11 @@
                         <li :class="{active: currentTab === 'features'}">
                             <a @click="currentTab = 'features'">
                                 {{ $t('Feature limits') }}
+                            </a>
+                        </li>
+                        <li :class="{active: currentTab === 'data'}">
+                            <a @click="currentTab = 'data'">
+                                {{ $t('Data limits') }}
                             </a>
                         </li>
                         <li :class="{active: currentTab === 'api'}"
@@ -72,6 +77,9 @@
                         </dd>
                     </dl>
                 </div>
+                <div v-if="currentTab === 'data'">
+                    <p>{{ $t('The events in voltage aberrations history will be automatically deleted after {days} days.', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 180}) }}</p>
+                </div>
                 <div v-if="currentTab === 'api'">
                     <div class="row">
                         <div class="col-xs-12 api-rate-limit-progress">
@@ -108,7 +116,7 @@
                 </div>
             </div>
         </loading-cover>
-        <div v-if="showChangingInfo"
+        <div v-if="showChangingInfo && currentTab !== 'data'"
             class="alert alert-info my-3">
             <p class="mb-2">
                 <i18n path="Use the {0} server command to change this account's limits. For example:">

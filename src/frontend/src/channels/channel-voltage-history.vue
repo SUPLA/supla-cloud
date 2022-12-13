@@ -27,9 +27,6 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="small text-muted mt-2">
-                        {{ $t('Voltage aberrations events are automatically deleted after {days} days.', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 90}) }}
-                    </div>
                 </div>
                 <div class="text-center">
                     <label class="checkbox2">

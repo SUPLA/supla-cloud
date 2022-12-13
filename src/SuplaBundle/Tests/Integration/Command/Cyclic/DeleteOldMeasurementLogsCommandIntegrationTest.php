@@ -37,7 +37,7 @@ class DeleteOldMeasurementLogsCommandIntegrationTest extends IntegrationTestCase
     public function testDeletingOrphanedTemperatureLog() {
         $this->createEmVoltageLogItem('now');
         $this->createEmVoltageLogItem('-60 days');
-        $this->createEmVoltageLogItem('-100 days');
+        $this->createEmVoltageLogItem('-200 days');
         $logItems = $this->entityManager->getRepository(ElectricityMeterVoltageLogItem::class)->findAll();
         $this->assertCount(3, $logItems);
         $command = $this->application->find('supla:clean:old-measurement-logs');

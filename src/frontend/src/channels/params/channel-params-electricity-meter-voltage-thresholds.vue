@@ -2,9 +2,8 @@
     <div>
         <h4 class="text-center">{{ $t("Voltage monitoring") }}</h4>
         <dl>
-            <dd v-tooltip="$t('Voltage aberrations events are automatically deleted after {days} days.', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 90})">
+            <dd>
                 {{ $t('Enabled') }}
-                <i class="pe-7s-help1"></i>
             </dd>
             <dt class="text-center">
                 <toggler v-model="enabled" @input="$emit('change')"/>

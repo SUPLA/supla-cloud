@@ -212,6 +212,7 @@ DHT11 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT11
 DHT21 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT21
 DHT22 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT22
 DS18B20 Thermometer: Termometr DS18B20
+Data limits: Limity danych
 Data saved: Dane zostały zapisane
 Decline: Odmów
 Default: domyślnie
@@ -689,6 +690,7 @@ The device is disabled: Urządzenie jest wyłączone
 The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpienia.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Cała historia aberracji napięcia dla fazy {phaseNumber} zostanie usunięta.
 The entire history of the voltage aberrations will be removed from this channel.: Cała historia aberracji napięcia zostanie usunięta dla tego kanału.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Zdarzenia w historii aberracji napięcia będą automatycznie usuwane po {days} dniach.
 The following items use the channels of these device. These references will be also removed.: Poniższe elementy używają kanałów z tego urządzenia. One również zostaną usunięte.
 'The following items will be deleted with this device:': Poniższe elementy zostaną również usunięte razem z tym urządzeniem.
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
@@ -759,7 +761,6 @@ Verification method: Sposób weryfikacji
 Visible: Widoczne
 Visit app webpage: Otwórz witrynę aplikacji
 Voltage aberrations: Aberracje napięcia
-Voltage aberrations events are automatically deleted after {days} days.: Wpisy w historii aberracji napięcia są automatycznie usuwane po {days} dniach.
 Voltage monitoring: Monitorowanie napięcia
 WELCOME_MESSAGE: |
   Podłączenie Twojego domu lub biura do SUPLI jest proste. Wszystko co musisz zrobić to
@@ -1021,7 +1022,6 @@ Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
 Supla for devices: Supla na urządzenia
 Try again later: Spróbuj ponownie później
-Turning this device off will result in disabling all the associated schedules.: Wyłączenie tego urządzenia spowoduje także wyłączenie harmonogramów, które są z nim powiązane.
 When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
