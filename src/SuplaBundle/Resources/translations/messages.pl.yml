@@ -1028,3 +1028,4 @@ hourly: Każdy dzień
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+'History of voltage aberrations is kept for {days} days only.': 'Historia aberracji napięcia jest przechowywana przez {days} dni.'

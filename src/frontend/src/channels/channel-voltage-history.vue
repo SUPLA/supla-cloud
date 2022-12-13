@@ -12,6 +12,9 @@
                         <i class="pe-7s-trash"></i>
                         {{ $t('Delete voltage aberrations history') }}
                     </button>
+                    <div class="small text-muted mt-2">
+                        {{ $t('History of voltage aberrations is kept for {days} days only.', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 90}) }}
+                    </div>
                 </div>
                 <div class="text-center">
                     <label class="checkbox2">

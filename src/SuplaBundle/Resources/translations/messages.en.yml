@@ -127,3 +127,4 @@ sunset-before: the sunset
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+'History of voltage aberrations is kept for {days} days only.': 'History of voltage aberrations is kept for {days} days only.'

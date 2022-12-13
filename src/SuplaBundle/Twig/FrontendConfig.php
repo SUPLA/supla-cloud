@@ -34,6 +34,9 @@ class FrontendConfig {
         'maintenanceMode' => 'supla.maintenance_mode',
         'accountsRegistrationEnabled' => 'supla.accounts_registration_enabled',
         'mqttBrokerEnabled' => 'supla.mqtt_broker.enabled',
+        'measurementLogsRetention' => [
+            'voltageAberrations' => 'supla.measurement_logs_retention.em_voltage_aberrations',
+        ],
     ];
 
     /** @var SuplaAutodiscover */
@@ -45,7 +48,7 @@ class FrontendConfig {
     }
 
     public function getConfig() {
-        $parameters = array_map([$this->container, 'getParameter'], self::PUBLIC_PARAMETERS);
+        $parameters = $this->mapParameters(self::PUBLIC_PARAMETERS);
         return array_merge(
             $parameters,
             [
@@ -56,6 +59,16 @@ class FrontendConfig {
                 ],
             ]
         );
+    }
+
+    private function mapParameters(array $parameters): array {
+        return array_map(function ($parameter) {
+            if (is_array($parameter)) {
+                return $this->mapParameters($parameter);
+            } else {
+                return $this->container->getParameter($parameter);
+            }
+        }, $parameters);
     }
 
     private function getMaxUploadSizePerFile(): int {
