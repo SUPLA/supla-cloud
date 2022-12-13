@@ -30,6 +30,7 @@ Access to all of your devices through MQTT Broker: Dostęp do wszystich Twoich u
 Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
+Action confirmation: Potwierdzenie akcji
 Action execution: Wykonywanie akcji
 Action trigger: Wyzwalacz akcji
 'Action trigger no. #{index}': 'Wyzwalacz #{index}'
@@ -98,6 +99,7 @@ Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Automatic calibration: Automatyczna kalibracja
 Automatic closing rule: Automatyczne zamykanie bramy
 Automation: Automatyka
+Available: Dostępne
 Average voltage: Średnie napięcie
 Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
@@ -108,6 +110,8 @@ Below threshold: Poniżej progu
 Bottom position: Dolna pozycja
 Bridge: Most
 Brightness: Jasność
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Wyłączenie tej opcji umożliwi sterowanie tym urządzeniem z poziomu integracji bez dodatkowego potwierdzenia. To może prowadzić do niebezpiecznego lub mniej bezpiecznego stanu (np. przypadkowego otwarcia bramy).
+By signing in, you are authorizing {clientName} to control your devices.: Logując się, upoważaniasz aplikację {clientName} do kontrolowania Twoich urządzeń.
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
 CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
 Calculated value: Stan licznika
@@ -182,6 +186,7 @@ Confirm if you want to perform the roller shutter calibration.: Potwierdź przep
 Confirm if you want to remove Access Identifier: Potwierdź chęć usunięcia Identyfikatora Dostępu
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potwierdź chęć usunięcia Lokalizacji ID{locationId}. Dalsze łączenie się urządzeń we/wy z tą lokalizacją będzie niemożliwe.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potwierdź, że chcesz usunąć urządzenie {deviceName} i wszystkie jego kanały.
+Confirmation: Potwierdzenie
 Connected: Połączony
 Connection with a private instance of the SUPLA cloud: Połączenie z prywatną instancją chmury SUPLA.
 Constraints: Ograniczenia
@@ -262,6 +267,7 @@ Electricity meter: Licznik energii elektrycznej
 Empty!: Pusto!
 Enable: Włącz
 Enabled: Włączone
+Enabled phases: Aktywne fazy
 End date: Data zakończenia
 Enter new password: Wprowadź nowe hasło
 Enter strong password: Wprowadź silne hasło
@@ -382,6 +388,7 @@ Initial value: Wartość początkowa
 Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
 Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
 Integrations: Integracje
+Integrations settings: Ustawienia integracji
 Interpolate measurements: Szacuj brakujące wartości
 Interrupt: Przerwij
 Interrupt and execute: Przerwij i wykonaj
@@ -504,6 +511,8 @@ Operations: Operacje
 Original location: Oryginalna lokalizacja
 Other: Inne
 Otherwise go to the homepage.: W innym przypadku przejdź do [strony domowej].
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN dla Google musi mieć co najmniej {minLength} i co najwyżej {maxLength} cyfr.
 Partial opening sensor: Czujnik pośredniego otwarcia
 Password: Hasło
 Password Reset: Resetowanie hasła
@@ -797,6 +806,7 @@ You just need to execute the following command inside your host terminal.: Wysta
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Jeśli nadal chcesz skorzystać z zaawansowanego trybu harmonogramu, rzuć okiem na poniższe przykłady.
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
 You must enable MQTT Broker first.: Musisz najpierw włączyć integrację z brokerem MQTT.
+You must leave at least one phase enabled.: Przynajmniej jedna faza musi pozostać aktywna.
 You must set an action for each scene operation.: Wybierz akcję dla każdej operacji w scenie.
 You must set sections with transparent or opaque parameters or both.: Musisz wybrać przezroczystość przynajmniej jednej sekcji.
 You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
@@ -848,6 +858,7 @@ addToHistoryMeasurementWarningUnselected: Odznaczenie tej opcji spowoduje pomini
 after: po
 before: przed
 caption: nazwa
+change: zmień
 channel: Kanał
 channelConfigHelp_gateCloseAfterHelp: Agent uruchamiający procedurę zamykania bramy może mieć maksymalnie jednominutowe opóźnienie w stosunku do zadanego czasu.
 channelConfigHelp_numberOfAttemptsGate: Po tym jak zlecisz otwarcie lub zamknięcie bramy, system podejmie próbę jej zamknięcia/otwarcia i poczeka 60 sekund aby sprawdzić, czy brama osiągnęła pożądany stan. Jeśli nie, to system ponowi próbę zamknięcia/otwarcia. Niniejszy parametr określa maksymalną liczbę prób osiągnięcia celu podjętą przez system. Wartością zalecaną jest 5. Zmiana tego parametru nie wpływa na działanie harmonogramów.
@@ -939,6 +950,7 @@ valid until: wygaśnie
 '{requests} out of {limit} / h': '{requests} z {limit} / h'
 '{requests} out of {limit} / min': '{requests} z {limit} / min'
 '{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} sek.'
+'{serviceName} integration': Integracja z {serviceName}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">

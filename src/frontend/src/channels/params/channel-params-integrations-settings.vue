@@ -39,7 +39,7 @@
                             </a>
                             <a :class="['btn', {'btn-default': googleActionConfirmation !== 'simple', 'btn-green': googleActionConfirmation === 'simple'}]"
                                 @click="googleActionConfirmation = 'simple'">
-                                {{ $t('Simple') }}
+                                {{ $t('Confirmation') }}
                             </a>
                             <a :class="['btn', {'btn-default': googleActionConfirmation !== 'pin', 'btn-green': googleActionConfirmation === 'pin'}]"
                                 @click="googleActionConfirmation = 'pin'">
@@ -53,29 +53,31 @@
                         {{ $t('By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).') }}
                     </div>
                 </transition-expand>
-                <dl v-if="googleEnabled && googleActionConfirmation === 'pin'">
-                    <dd>{{ $t('PIN') }}</dd>
-                    <dt class="text-center">
-                        <input
-                            v-if="changingGooglePin"
-                            v-focus
-                            type="number"
-                            v-input-digits-only
-                            class="form-control text-center pin-input no-spinner d-inline-block"
-                            v-model="googleSettings.pin">
-                        <a v-else @click="changingGooglePin = true">{{ $t('change') }}</a>
-                    </dt>
-                </dl>
-                <transition-expand>
-                    <div class="alert alert-danger mt-3 mb-0" v-if="googlePinError">
-                        {{
-                            $t('PIN for Google must have a length between {minLength} and {maxLength} digits.', {
-                                minLength: 4,
-                                maxLength: 8
-                            })
-                        }}
-                    </div>
-                </transition-expand>
+                <div v-if="googleEnabled && googleActionConfirmation === 'pin'">
+                    <dl>
+                        <dd>{{ $t('PIN') }}</dd>
+                        <dt class="text-center">
+                            <input
+                                v-if="googleSettings.changingPin"
+                                v-focus
+                                type="number"
+                                v-input-digits-only
+                                class="form-control text-center pin-input no-spinner d-inline-block"
+                                v-model="googleSettings.pin">
+                            <a v-else @click="googleSettings.changingPin = true">{{ $t('change') }}</a>
+                        </dt>
+                    </dl>
+                    <transition-expand>
+                        <div class="alert alert-danger mt-3 mb-0" v-if="googleSettings.pinError">
+                            {{
+                                $t('PIN for Google must have a length between {minLength} and {maxLength} digits.', {
+                                    minLength: 4,
+                                    maxLength: 8
+                                })
+                            }}
+                        </div>
+                    </transition-expand>
+                </div>
             </div>
         </modal>
     </div>
@@ -92,31 +94,35 @@
         data() {
             return {
                 googleSettings: undefined,
-                changingGooglePin: false,
-                googlePinError: false,
                 alexaSettings: undefined,
             }
         },
         methods: {
             openGoogleSettings() {
-                this.googleSettings = {...(this.channel.config.googleHome || {})};
-                this.changingGooglePin = !this.googleSettings.pinSet;
+                this.googleSettings = {
+                    ...(this.channel.config.googleHome || {}),
+                    pinError: false,
+                    changingPin: false,
+                };
+                if (!this.googleSettings.pinSet) {
+                    this.googleSettings.changingPin = true;
+                }
             },
             openAlexaSettings() {
                 this.alexaSettings = {...(this.channel.config.alexa || {})};
             },
             updateGoogleSettings() {
-                this.googlePinError = false;
+                this.googleSettings.pinError = false;
                 const pin = this.googleSettings.pin || '';
-                if (this.googleSettings.pinSet && this.changingGooglePin && (pin.length < 4 || pin.length > 8)) {
-                    this.googlePinError = true;
+                if (this.googleSettings.pinSet && this.googleSettings.changingPin && (pin.length < 4 || pin.length > 8)) {
+                    this.googleSettings.pinError = true;
                 } else {
                     const settings = {
                         googleHomeDisabled: this.googleSettings.googleHomeDisabled,
                         needsUserConfirmation: this.googleSettings.needsUserConfirmation,
                         pinSet: this.googleSettings.pinSet,
                     };
-                    if (this.googleSettings.pinSet && this.changingGooglePin) {
+                    if (this.googleSettings.pinSet && this.googleSettings.changingPin) {
                         settings.pin = this.googleSettings.pin;
                     }
                     if (!this.googleSettings.pinSet && !this.googleSettings.needsUserConfirmation) {
