@@ -131,7 +131,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         }
 
         $fixture = new LogItemsFixture($this->getDoctrine());
-        $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-1 day');
+        $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-2 day', 1);
+        $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-2 day', 2);
         $this->getMeasurementLogsEntityManager()->flush();
     }
 
@@ -816,6 +817,25 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertArrayHasKey('measurementTimeSec', $log);
         $this->assertSame($log['avgVoltage'], floatval($log['avgVoltage']));
         $this->assertNotSame($log['avgVoltage'], intval($log['avgVoltage']));
+    }
+
+    public function testDeletingVoltageLogsForSelectedPhase() {
+        $channelId = $this->device1->getChannels()[3]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $voltageRepository = $this->getDoctrine()->getRepository(ElectricityMeterVoltageLogItem::class);
+        $logsBefore = $voltageRepository->findBy(['channel_id' => $channelId]);
+        $client->apiRequestV24('DELETE', "/api/channels/{$channelId}/measurement-logs?logsType=voltage&phase=1");
+        $response = $client->getResponse();
+        $this->assertStatusCode('204', $response);
+        $emLogRepository = $this->getDoctrine()->getRepository(ElectricityMeterLogItem::class);
+        $logsAfter = $voltageRepository->findBy(['channel_id' => $channelId]);
+        $this->assertNotEmpty($logsAfter);
+        $phases = array_unique(array_map(function (ElectricityMeterVoltageLogItem $log) {
+            return EntityUtils::getField($log, 'phaseNo');
+        }, $logsAfter));
+        $this->assertEquals([2], $phases);
+        $this->assertLessThan(count($logsBefore), count($logsAfter));
+        $this->assertNotEmpty($emLogRepository->findBy(['channel_id' => $channelId]));
     }
 
     public function testDeletingVoltageLogs() {

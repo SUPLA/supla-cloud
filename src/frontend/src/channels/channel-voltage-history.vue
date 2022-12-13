@@ -6,12 +6,27 @@
                 <div class="text-right mb-3">
                     <a :href="`/api/channels/${channel.id}/measurement-logs-csv?logsType=voltage&` | withDownloadAccessToken"
                         class="btn btn-default mx-1">{{ $t('Download the history of measurement') }}</a>
-                    <button @click="deleteConfirm = true"
-                        type="button"
-                        class="btn btn-red ml-1">
-                        <i class="pe-7s-trash"></i>
-                        {{ $t('Delete voltage aberrations history') }}
-                    </button>
+                    <div class="d-inline-block dropdown">
+                        <button class="btn btn-danger dropdown-toggle btn-wrapped"
+                            type="button"
+                            data-toggle="dropdown">
+                            {{ $t('Delete voltage aberrations history') }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li v-for="phaseNo in enabledPhases"
+                                :key="phaseNo">
+                                <a @click="deleteConfirm = phaseNo">
+                                    {{ $t('Phase {phaseNumber}', {phaseNumber: phaseNo}) }}
+                                </a>
+                            </li>
+                            <li>
+                                <a @click="deleteConfirm = true">
+                                    {{ $t('All events') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="small text-muted mt-2">
                         {{ $t('Voltage aberrations events are automatically deleted after {days} days.', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 90}) }}
                     </div>
@@ -135,7 +150,13 @@
             class="modal-warning"
             @confirm="deleteMeasurements()"
             @cancel="deleteConfirm = false"
-            :header="$t('Are you sure you want to delete the entire voltage aberrations history saved for this channel?')">
+            :header="$t('Are you sure you want to delete the events from the voltage aberrations history?')">
+            <p v-if="deleteConfirm === true">
+                {{ $t('The entire history of the voltage aberrations will be removed from this channel.') }}
+            </p>
+            <p v-else>
+                {{ $t('The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.', {phaseNumber: deleteConfirm}) }}
+            </p>
         </modal-confirm>
     </div>
 </template>
@@ -164,44 +185,46 @@
             };
         },
         mounted() {
-            const afterTimestamp = Math.round(DateTime.now().minus({days: 30}).startOf('day').toSeconds());
-            this.$http.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=ASC&afterTimestamp=${afterTimestamp}`)
-                .then(({body: logItems}) => {
-                    const dayStats = {};
-                    const enabledPhases = [1, 2, 3].filter(phaseNo => !(this.channel.config.disabledPhases || []).includes(phaseNo));
-                    this.logs = logItems
-                        .filter(({phaseNo}) => enabledPhases.includes(phaseNo))
-                        .map(log => {
-                            const date = DateTime.fromSeconds(log.date_timestamp);
-                            log.date = date;
-                            log.day = date.toFormat('ddMM');
-                            if (!dayStats[log.day]) {
-                                dayStats[log.day] = {secTotal: 0, countBelowTotal: 0, countAboveTotal: 0};
-                            }
-                            dayStats[log.day].secTotal += log.secTotal;
-                            dayStats[log.day].countBelowTotal += log.countBelow;
-                            dayStats[log.day].countAboveTotal += log.countAbove;
-                            return log;
-                        });
-                    if (this.logs.length) {
-                        const minDate = DateTime.fromSeconds(this.logs[0].date_timestamp).endOf('day');
-                        for (let day = minDate; day <= DateTime.now().endOf('day'); day = day.plus({days: 1})) {
-                            const secTotal = dayStats[day.toFormat('ddMM')]?.secTotal || 0;
-                            const countBelowTotal = dayStats[day.toFormat('ddMM')]?.countBelowTotal || 0;
-                            const countAboveTotal = dayStats[day.toFormat('ddMM')]?.countAboveTotal || 0;
-                            const dayFormatted = day.toFormat('ddMM');
-                            this.stats.push({day, dayFormatted, secTotal, countBelowTotal, countAboveTotal});
-                            this.maxSecTotal = Math.max(this.maxSecTotal, secTotal);
-                        }
-                        if (this.$route.query.day) {
-                            this.selectDay(this.$route.query.day);
-                        } else {
-                            this.selectDay('');
-                        }
-                    }
-                });
+            this.fetchLogs();
         },
         methods: {
+            fetchLogs() {
+                const afterTimestamp = Math.round(DateTime.now().minus({days: 30}).startOf('day').toSeconds());
+                this.$http.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=ASC&afterTimestamp=${afterTimestamp}`)
+                    .then(({body: logItems}) => {
+                        const dayStats = {};
+                        this.logs = logItems
+                            .filter(({phaseNo}) => this.enabledPhases.includes(phaseNo))
+                            .map(log => {
+                                const date = DateTime.fromSeconds(log.date_timestamp);
+                                log.date = date;
+                                log.day = date.toFormat('ddMM');
+                                if (!dayStats[log.day]) {
+                                    dayStats[log.day] = {secTotal: 0, countBelowTotal: 0, countAboveTotal: 0};
+                                }
+                                dayStats[log.day].secTotal += log.secTotal;
+                                dayStats[log.day].countBelowTotal += log.countBelow;
+                                dayStats[log.day].countAboveTotal += log.countAbove;
+                                return log;
+                            });
+                        if (this.logs.length) {
+                            const minDate = DateTime.fromSeconds(this.logs[0].date_timestamp).endOf('day');
+                            for (let day = minDate; day <= DateTime.now().endOf('day'); day = day.plus({days: 1})) {
+                                const secTotal = dayStats[day.toFormat('ddMM')]?.secTotal || 0;
+                                const countBelowTotal = dayStats[day.toFormat('ddMM')]?.countBelowTotal || 0;
+                                const countAboveTotal = dayStats[day.toFormat('ddMM')]?.countAboveTotal || 0;
+                                const dayFormatted = day.toFormat('ddMM');
+                                this.stats.push({day, dayFormatted, secTotal, countBelowTotal, countAboveTotal});
+                                this.maxSecTotal = Math.max(this.maxSecTotal, secTotal);
+                            }
+                            if (this.$route.query.day) {
+                                this.selectDay(this.$route.query.day);
+                            } else {
+                                this.selectDay('');
+                            }
+                        }
+                    });
+            },
             selectDay(stat) {
                 if (typeof stat === 'string') {
                     const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(stat);
@@ -252,21 +275,27 @@
                 this.selectDay(this.selectedDay);
             },
             deleteMeasurements() {
+                const phaseToDelete = this.deleteConfirm === true ? '' : this.deleteConfirm;
                 this.deleteConfirm = false;
-                this.$http.delete('channels/' + this.channel.id + '/measurement-logs?logsType=voltage')
+                this.$http.delete(`channels/${this.channel.id}/measurement-logs?logsType=voltage&phase=${phaseToDelete}`)
                     .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')))
                     .then(() => {
-                        this.logs = [];
+                        this.logs = undefined;
                         this.stats = [];
                         this.selectedDayViolations = [];
                         this.selectedDay = undefined;
+                        this.selectedDayPart = 0;
+                        return this.fetchLogs();
                     });
             },
         },
         computed: {
             statsToShow() {
                 return this.daysWithIssuesOnly ? this.stats.filter(s => s.secTotal > 0) : this.stats;
-            }
+            },
+            enabledPhases() {
+                return [1, 2, 3].filter(phaseNo => !(this.channel.config.disabledPhases || []).includes(phaseNo));
+            },
         },
         watch: {
             '$route.query.day'() {

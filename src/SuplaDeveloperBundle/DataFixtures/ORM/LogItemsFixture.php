@@ -206,7 +206,7 @@ class LogItemsFixture extends SuplaFixture {
         }
     }
 
-    public function createElectricityMeterVoltageLogItems(?int $channelId = null, ?string $since = null) {
+    public function createElectricityMeterVoltageLogItems(?int $channelId = null, ?string $since = null, int $phaseNo = null) {
         if (!$channelId) {
             $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
             $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
@@ -224,7 +224,7 @@ class LogItemsFixture extends SuplaFixture {
                 EntityUtils::setField($logItem, 'channel_id', $channelId);
                 EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
                 $state = [
-                    'phaseNo' => $this->faker->numberBetween(0, 2),
+                    'phaseNo' => $phaseNo ?: $this->faker->numberBetween(1, 3),
                     'countAbove' => $above ? $this->faker->numberBetween(1, 10) : 0,
                     'countBelow' => $below ? $this->faker->numberBetween(1, 10) : 0,
                     'secAbove' => $above ? $this->faker->numberBetween(1, 300) : 0,

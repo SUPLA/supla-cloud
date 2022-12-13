@@ -19,6 +19,7 @@ namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -601,16 +602,18 @@ class ChannelMeasurementLogsController extends RestController {
         return $targetChannel ?: $channel;
     }
 
-    private function deleteMeasurementLogs($entityClass, IODeviceChannel $channel) {
+    private function deleteMeasurementLogs($entityClass, IODeviceChannel $channel, callable $filters = null) {
         $repo = $this->getDoctrine()->getRepository($entityClass);
-
-        $repo->createQueryBuilder('log')
+        $qb = $repo->createQueryBuilder('log')
             ->delete()
             ->where('log.channel_id = :channelId')
             ->setParameters([
                 'channelId' => $channel->getId(),
-            ])
-            ->getQuery()
+            ]);
+        if ($filters) {
+            $qb = $filters($qb);
+        }
+        $qb->getQuery()
             ->execute();
     }
 
@@ -634,7 +637,12 @@ class ChannelMeasurementLogsController extends RestController {
         $this->ensureChannelHasMeasurementLogs($channel);
         $logsType = $request->query->get('logsType');
         if ($logsType === 'voltage') {
-            $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel);
+            $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel, function (QueryBuilder $qb) use ($request) {
+                if (in_array($phaseNo = $request->get('phase'), [1, 2, 3])) {
+                    $qb->andWhere('log.phaseNo = :phaseNo')->setParameter('phaseNo', $phaseNo);
+                }
+                return $qb;
+            });
         } else {
             $this->deleteMeasurementLogs(ThermostatLogItem::class, $channel);
             $this->deleteMeasurementLogs(ElectricityMeterLogItem::class, $channel);

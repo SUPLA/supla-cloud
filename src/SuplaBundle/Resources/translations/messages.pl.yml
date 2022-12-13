@@ -54,6 +54,7 @@ After the update, the application will be faster, more comfortable, more powerfu
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Licznik rozpocznie liczenie od 0 po tej operacji, niezależnie od jego obecnego stanu. Tej operacji nie da się cofnąć.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Link zostanie wygenerowany tuż po wybraniu podmiotu. Wszystkie pozostałe opcje możesz wprowadzić zaraz po jego utworzeniu.
 All: Wszystko
+All events: Wszystkie zdarzenia
 All the above and many more can be done from your phone or tablet: Wszystko to i wiele więcej możesz zrobić za pośrednictwem smartphone-a lub tabletu
 Allowed actions: Dozwolone akcje
 Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykonanie akcji tylko przy użyciu żądania HTTP PATCH.
@@ -67,7 +68,7 @@ Applications: Aplikacje
 Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
 Are you sure you want to change channel’s function?: Czy na pewno chcesz zmienić funkcję kanału?
 Are you sure you want to delete the entire measurement history saved for this channel?: Czy na pewno chcesz usunąć całą historię pomiarów zgromadzoną dla tego kanału?
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Czy jesteś pewny/a, że chcesz usunąć całą historię aberracji napięcia tego kanału?
+Are you sure you want to delete the events from the voltage aberrations history?: Czy na pewno chcesz usunąć wszystkie zdarzenia z historii aberracji napięcia?
 Are you sure you want to delete this OAuth application?: Czy na pewno chcesz usunąć tą aplikację OAuth?
 Are you sure you want to delete this channel group?: Czy na pewno chcesz usunąć tę grupę kanałów?
 Are you sure you want to delete this client?: Czy na pewno chcesz usunąć tę aplikację kliencką?
@@ -528,6 +529,7 @@ Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
 Phase number: Faza
+Phase {phaseNumber}: Faza {phaseNumber}
 Please choose the schedule subject first.: Najpierw wybierz czym harmonogram ma sterować
 Please click the following link to reset your %cloudHost% password.: Kliknij poniższy link w celu zresetowania Twojego hasła do aplikacji %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.
@@ -685,6 +687,8 @@ The client will be automatically logged out when deleted.: Usunięcie klienta sp
 The counter has been reset.: Licznik został zresetowany.
 The device is disabled: Urządzenie jest wyłączone
 The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpienia.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Cała historia aberracji napięcia dla fazy {phaseNumber} zostanie usunięta.
+The entire history of the voltage aberrations will be removed from this channel.: Cała historia aberracji napięcia zostanie usunięta dla tego kanału.
 The following items use the channels of these device. These references will be also removed.: Poniższe elementy używają kanałów z tego urządzenia. One również zostaną usunięte.
 'The following items will be deleted with this device:': Poniższe elementy zostaną również usunięte razem z tym urządzeniem.
 The gate sensor must function properly in order to execute the Open and Close actions.: Czujnik otwarcia bramy musi działać poprawnie by wykonać akcję Otwórz lub Zamknij.
@@ -755,6 +759,7 @@ Verification method: Sposób weryfikacji
 Visible: Widoczne
 Visit app webpage: Otwórz witrynę aplikacji
 Voltage aberrations: Aberracje napięcia
+Voltage aberrations events are automatically deleted after {days} days.: Wpisy w historii aberracji napięcia są automatycznie usuwane po {days} dniach.
 Voltage monitoring: Monitorowanie napięcia
 WELCOME_MESSAGE: |
   Podłączenie Twojego domu lub biura do SUPLI jest proste. Wszystko co musisz zrobić to
@@ -959,7 +964,6 @@ valid until: wygaśnie
 Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
 Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Action: Akcja
-Actual behavior of the triggers depend on the device you use and its configuration. The descriptions below are only examples of how the device may work.: Rzeczywiste zachowanie wyzwalacza zależy od używanego urządzenia i jego konfiguracji. Opisy pod spodem są tylko przykładami jak urządzenie może działać.
 And set the same state for: i ustaw taki sam stan dla
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
@@ -1028,4 +1032,3 @@ hourly: Każdy dzień
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-'History of voltage aberrations is kept for {days} days only.': 'Historia aberracji napięcia jest przechowywana przez {days} dni.'
