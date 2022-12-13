@@ -13,7 +13,7 @@
                         {{ $t('Delete voltage aberrations history') }}
                     </button>
                     <div class="small text-muted mt-2">
-                        {{ $t('History of voltage aberrations is kept for {days} days only.', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 90}) }}
+                        {{ $t('Voltage aberrations events are automatically deleted after {days} days.', {days: $frontendConfig.measurementLogsRetention?.voltageAberrations || 90}) }}
                     </div>
                 </div>
                 <div class="text-center">
