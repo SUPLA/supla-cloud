@@ -51,7 +51,7 @@
                     </dt>
                 </dl>
                 <transition-expand>
-                    <div class="alert alert-warning mt-3 mb-0" v-if="googleActionConfirmation === 'none'">
+                    <div class="alert alert-warning mt-3 mb-0" v-if="displayNoConfirmationWarning">
                         {{ $t('By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).') }}
                     </div>
                 </transition-expand>
@@ -87,6 +87,8 @@
 
 <script>
     import TransitionExpand from "@/common/gui/transition-expand";
+    import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {TransitionExpand},
@@ -105,6 +107,7 @@
                     ...(this.subject.config.googleHome || {}),
                     pinError: false,
                     changingPin: false,
+                    dirty: false,
                 };
                 if (!this.googleSettings.pinSet) {
                     this.googleSettings.changingPin = true;
@@ -179,10 +182,16 @@
                         this.googleSettings.needsUserConfirmation = false;
                         this.googleSettings.pinSet = false;
                     }
+                    this.googleSettings.dirty = true;
                 }
             },
             canSetGoogleUserConfirmation() {
                 return 'pinSet' in this.subject.config.googleHome;
+            },
+            displayNoConfirmationWarning() {
+                return this.googleActionConfirmation === 'none' && this.googleSettings.dirty
+                    && this.subject.subjectType === ActionableSubjectType.CHANNEL
+                    && [ChannelFunction.CONTROLLINGTHEGATE, ChannelFunction.CONTROLLINGTHEGARAGEDOOR].includes(this.subject.functionId);
             },
         }
     };
