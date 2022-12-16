@@ -234,6 +234,7 @@ class ScenesController extends RestController {
      *       required=true,
      *       @OA\JsonContent(
      *         @OA\Property(property="enabled", type="boolean"),
+     *         @OA\Property(property="hidden", type="boolean"),
      *         @OA\Property(property="caption", type="string"),
      *         @OA\Property(property="locationId", type="integer"),
      *         @OA\Property(property="altIcon", type="integer"),
@@ -284,6 +285,7 @@ class ScenesController extends RestController {
      *       required=true,
      *       @OA\JsonContent(
      *         @OA\Property(property="enabled", type="boolean"),
+     *         @OA\Property(property="hidden", type="boolean"),
      *         @OA\Property(property="caption", type="string"),
      *         @OA\Property(property="locationId", type="integer"),
      *         @OA\Property(property="altIcon", type="integer"),
@@ -313,6 +315,7 @@ class ScenesController extends RestController {
         $sceneResponse = $this->transactional(function (EntityManagerInterface $em) use ($request, $scene, $updated) {
             $scene->setCaption($updated->getCaption());
             $scene->setEnabled($updated->isEnabled());
+            $scene->setHidden($updated->isHidden());
             $scene->setLocation($updated->getLocation());
             $scene->setUserIcon($updated->getUserIcon());
             $scene->setAltIcon($updated->getAltIcon());

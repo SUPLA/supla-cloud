@@ -83,6 +83,9 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
      */
     private $hidden = false;
 
+    /** @ORM\Column(name="user_config", type="string", length=2048, nullable=true) */
+    private $userConfig;
+
     /**
      * @ORM\Column(name="estimated_execution_time", type="integer", nullable=false, options={"default": 0})
      * @Groups({"basic"})

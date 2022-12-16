@@ -27,10 +27,16 @@
                                             </dl>
                                             <dl class="mt-2">
                                                 <dd>{{ $t('Enabled') }}</dd>
-                                                <dt>
+                                                <dt class="text-center">
                                                     <toggler
                                                         @input="sceneChanged()"
                                                         v-model="scene.enabled"></toggler>
+                                                </dt>
+                                                <dd>{{ $t('Show on the Client’s devices') }}</dd>
+                                                <dt class="text-center">
+                                                    <toggler v-model="scene.hidden"
+                                                        invert="true"
+                                                        @input="sceneChanged()"></toggler>
                                                 </dt>
                                             </dl>
                                         </div>

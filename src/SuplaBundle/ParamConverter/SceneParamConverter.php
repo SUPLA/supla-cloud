@@ -61,6 +61,7 @@ class SceneParamConverter extends AbstractBodyParamConverter {
         $scene->setCaption($data['caption'] ?? '');
         Assertion::maxLength($scene->getCaption(), 100, 'Caption is too long.'); // i18n
         $scene->setEnabled($data['enabled'] ?? false);
+        $scene->setHidden($data['hidden'] ?? false);
         $operations = $data['operations'] ?? [];
         Assertion::isArray($operations, 'Invalid operations spec.');
         Assertion::allIsArray($operations, 'Invalid operations spec.');
