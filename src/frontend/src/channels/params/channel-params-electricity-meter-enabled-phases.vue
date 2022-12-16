@@ -48,9 +48,14 @@
             if (!props.channel.config.disabledPhases) {
                 props.channel.config.disabledPhases = [];
             }
+            if (!props.channel.config.enabledPhases) {
+                props.channel.config.enabledPhases = [];
+            }
             if (enabledPhases.value.includes(phaseNo)) {
                 props.channel.config.disabledPhases.push(phaseNo);
+                props.channel.config.enabledPhases.splice(props.channel.config.enabledPhases.indexOf(phaseNo), 1);
             } else {
+                props.channel.config.enabledPhases.push(phaseNo);
                 props.channel.config.disabledPhases.splice(props.channel.config.disabledPhases.indexOf(phaseNo), 1);
             }
             emit('change');
