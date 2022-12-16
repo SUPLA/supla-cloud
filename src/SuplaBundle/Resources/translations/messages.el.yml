@@ -66,7 +66,6 @@ Applications: Εφαρμογές
 Are you lost?: Έχετε χαθεί; Ψάχνετε κάτι;
 Are you sure you want to change channel’s function?: Είστε βέβαιοι ότι θέλετε να αλλάξετε τη λειτουργία του καναλιού;
 Are you sure you want to delete the entire measurement history saved for this channel?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε όλο το ιστορικό μετρήσεων για αυτό το κανάλι;
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Είστε βέβαιοι ότι θέλετε να διαγράψετε όλο το ιστορικό παρεκκλίσεων τάσης για αυτό το κανάλι;
 Are you sure you want to delete this OAuth application?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτήν την εφαρμογή OAuth;
 Are you sure you want to delete this channel group?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτή την ομάδα καναλιών;
 Are you sure you want to delete this client?: Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτή την εφαρμογή πελάτη;
@@ -942,6 +941,7 @@ valid until: θα σβήσει
 Access identifier password must be at least 8 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης πρέπει να αποτελείται τουλάχιστον από 8 χαρακτήρες.
 Access identifier password must be no longer than 32 characters.: Ο κωδικός πρόσβασης για το αναγνωριστικό πρόσβασης δεν μπορεί να υπερβαίνει τους 32 χαρακτήρες.
 Action: Ενέργεια
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Είστε βέβαιοι ότι θέλετε να διαγράψετε όλο το ιστορικό παρεκκλίσεων τάσης για αυτό το κανάλι;
 Are you sure you want to disable this device?: Είστε βέβαιοι ότι θέλετε να απενεργοποιήσετε αυτή τη συσκευή;
 Assigned Locations: Παραχωρημένες τοποθεσίες
 Cannot send an activation e-mail. Try again later.: Δεν είναι δυνατή η αποστολή μηνύματος με το σύνδεσμο ενεργοποίησης. Δοκιμάστε ξανά αργότερα.
@@ -994,10 +994,30 @@ hourly: Κύκλος ωρών
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Action confirmation: ~
+All events: ~
+Are you sure you want to delete the events from the voltage aberrations history?: ~
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
+By signing in, you are authorizing {clientName} to control your devices.: ~
+Channel available for {serviceName}: ~
+Confirmation: ~
+Data limits: ~
+Enabled phases: ~
 I understand that my SUPLA account will be permanently deleted.: ~
+Integrations settings: ~
 Invalid username or password: ~
 No, take me back!: ~
+PIN: ~
+PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
+Phase {phaseNumber}: ~
+Scene available for {serviceName}: ~
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
+The entire history of the voltage aberrations will be removed from this channel.: ~
+The events in voltage aberrations history will be automatically deleted after {days} days.: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
 We will miss you!: ~
+You must leave at least one phase enabled.: ~
+change: ~
+'{serviceName} integration': ~
 
 #</editor-fold>

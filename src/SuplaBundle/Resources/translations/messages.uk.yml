@@ -66,7 +66,6 @@ Applications: Застосунки
 Are you lost?: Ви загубились? Ви щось шукаєте?
 Are you sure you want to change channel’s function?: Ви впевнені, що хочете змінити функцію каналу?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ви впевнені, що бажаєте видалити всю історію вимірювань, зібрану для цього каналу?
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
 Are you sure you want to delete this OAuth application?: Ви впевнені, що бажаєте видалити цю програму OAuth?
 Are you sure you want to delete this channel group?: Ви впевнені, що бажаєте видалити цю групу каналів?
 Are you sure you want to delete this client?: Ви впевнені, що бажаєте видалити цю клієнтську програму?
@@ -939,6 +938,7 @@ valid until: закінчиться
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ...and start your adventure with building automation today!: ...і розпочніть свою подорож у сфері інтелектуального будівництва вже сьогодні!
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
 Coming Soon: Незабаром буде доступно
 Get SUPLA on your devices: Завантажте SUPLA на свої пристрої
 Mobile Apps: Мобільні додатки
@@ -948,10 +948,30 @@ Supla for devices: Supla для пристроїв
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Action confirmation: ~
+All events: ~
+Are you sure you want to delete the events from the voltage aberrations history?: ~
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
+By signing in, you are authorizing {clientName} to control your devices.: ~
+Channel available for {serviceName}: ~
+Confirmation: ~
+Data limits: ~
+Enabled phases: ~
 I understand that my SUPLA account will be permanently deleted.: ~
+Integrations settings: ~
 Invalid username or password: ~
 No, take me back!: ~
+PIN: ~
+PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
+Phase {phaseNumber}: ~
+Scene available for {serviceName}: ~
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
+The entire history of the voltage aberrations will be removed from this channel.: ~
+The events in voltage aberrations history will be automatically deleted after {days} days.: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
 We will miss you!: ~
+You must leave at least one phase enabled.: ~
+change: ~
+'{serviceName} integration': ~
 
 #</editor-fold>

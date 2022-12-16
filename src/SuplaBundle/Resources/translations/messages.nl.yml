@@ -66,7 +66,6 @@ Applications: Applicaties
 Are you lost?: Bent u verdwaald? Zoekt u iets?
 Are you sure you want to change channel’s function?: Weet u zeker dat u de kanaalfunctie wilt wijzigen?
 Are you sure you want to delete the entire measurement history saved for this channel?: Weet u zeker dat u de bewaarde geschiedenis van dit kanaal volledig wilt verwijderen?
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Weet u zeker dat u de hele geschiedenis van spanningsaberratie van dit kanaal wilt verwijderen?
 Are you sure you want to delete this OAuth application?: Weet u zeker dat u deze OAuth-toepassing wilt verwijderen?
 Are you sure you want to delete this channel group?: Wilt u deze groep verwijderen?
 Are you sure you want to delete this client?: Weet u zeker dat u deze klantapplicatie  wilt verwijderen?
@@ -942,6 +941,7 @@ valid until: vervallen
 Access identifier password must be at least 8 characters.: Het wachtwoord voor de toegangs-ID moet minimaal 8 tekens bevatten.
 Access identifier password must be no longer than 32 characters.: Het wachtwoord voor de toegangs-ID mag niet langer zijn dan 32 tekens.
 Action: Actie
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Weet u zeker dat u de hele geschiedenis van spanningsaberratie van dit kanaal wilt verwijderen?
 Are you sure you want to disable this device?: Weet u zeker dat u dit apparaat wilt uitschakelen?
 Assigned Locations: Wijs locaties toe
 Cannot send an activation e-mail. Try again later.: Het bericht met activeringslink kan niet verzonden worden. Probeer het later eens opnieuw.
@@ -995,10 +995,30 @@ hourly: Uur cyclus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Action confirmation: ~
+All events: ~
+Are you sure you want to delete the events from the voltage aberrations history?: ~
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
+By signing in, you are authorizing {clientName} to control your devices.: ~
+Channel available for {serviceName}: ~
+Confirmation: ~
+Data limits: ~
+Enabled phases: ~
 I understand that my SUPLA account will be permanently deleted.: ~
+Integrations settings: ~
 Invalid username or password: ~
 No, take me back!: ~
+PIN: ~
+PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
+Phase {phaseNumber}: ~
+Scene available for {serviceName}: ~
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
+The entire history of the voltage aberrations will be removed from this channel.: ~
+The events in voltage aberrations history will be automatically deleted after {days} days.: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
 We will miss you!: ~
+You must leave at least one phase enabled.: ~
+change: ~
+'{serviceName} integration': ~
 
 #</editor-fold>
