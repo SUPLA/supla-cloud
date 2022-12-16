@@ -12,6 +12,7 @@
         <carousel v-if="newItemTile || items.length > 0"
             :navigation-enabled="true"
             :pagination-enabled="false"
+            :scroll-per-page="false"
             navigation-next-label="&gt;"
             navigation-prev-label="&lt;"
             :per-page-custom="[[1024, 4], [768, 3], [600, 2], [1, 1]]"
@@ -108,7 +109,7 @@
                         if (this.showNewItemTile) {
                             ++desiredPage;
                         }
-                        desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, desiredPage));
+                        desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount - 1, desiredPage));
                         this.$refs.carousel.goToPage(desiredPage);
                     });
                 }
@@ -137,7 +138,7 @@
                 width: auto;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: transparent;
+                background-color: transparent !important;
                 color: $supla-grey-dark !important;
                 transform: none !important;
             }
@@ -152,7 +153,7 @@
             }
         }
         .VueCarousel-navigation-button {
-            background: black;
+            background-color: black !important;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -160,7 +161,8 @@
             text-align: center;
             font-size: 2em;
             line-height: 1.1em;
-            font-family: 'Quicksand';
+            font-family: 'Quicksand' !important;
+            padding-top: 3px !important;
             &.VueCarousel-navigation-prev {
                 left: -5px;
             }
@@ -171,6 +173,9 @@
         }
         .VueCarousel-slide {
             padding: 5px;
+            a:focus {
+                color: inherit;
+            }
         }
         h2 {
             margin-top: 3px;
