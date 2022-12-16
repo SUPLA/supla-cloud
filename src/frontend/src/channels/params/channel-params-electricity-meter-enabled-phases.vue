@@ -5,7 +5,7 @@
             <dt class="text-center">
                 <div class="btn-group btn-group-flex">
                     <a :class="'btn ' + (enabledPhases.includes(phaseNo) ? 'btn-green' : 'btn-default')"
-                        v-for="phaseNo in [1,2,3]"
+                        v-for="phaseNo in (props.channel.config.availablePhases || [1,2,3])"
                         :key="phaseNo"
                         @click="togglePhase(phaseNo)">
                         {{ phaseNo }}
@@ -28,7 +28,7 @@
     const props = defineProps({channel: Object});
     const emit = defineEmits(['change'])
 
-    const enabledPhases = computed(() => [1, 2, 3].filter(phaseNo => !(props.channel.config.disabledPhases || []).includes(phaseNo)));
+    const enabledPhases = computed(() => props.channel.config.enabledPhases || []);
 
     const errorShown = ref(false);
 

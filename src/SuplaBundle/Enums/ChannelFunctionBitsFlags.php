@@ -23,6 +23,9 @@ namespace SuplaBundle\Enums;
  * @method static ChannelFunctionBitsFlags AUTO_CALIBRATION_AVAILABLE()
  * @method static ChannelFunctionBitsFlags RECALIBRATE_ACTION_AVAILABLE()
  * @method static ChannelFunctionBitsFlags ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()
+ * @method static ChannelFunctionBitsFlags ELECTRICITY_METER_PHASE1_UNSUPPORTED()
+ * @method static ChannelFunctionBitsFlags ELECTRICITY_METER_PHASE2_UNSUPPORTED()
+ * @method static ChannelFunctionBitsFlags ELECTRICITY_METER_PHASE3_UNSUPPORTED()
  */
 final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-core/blob/ffa56e4579812c50ca15202c698d0c1d363a0258/supla-common/proto.h#L458 */
@@ -34,4 +37,8 @@ final class ChannelFunctionBitsFlags extends ChannelFunctionBits {
     const RECALIBRATE_ACTION_AVAILABLE = 0x4000;
     /** @see https://github.com/SUPLA/supla-core/blob/9c4af87e14fc0164ac9d80e66e107cf9dc113f92/supla-common/proto.h#L457 */
     const ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS = 0x0080;
+    /** @see https://github.com/SUPLA/supla-cloud/issues/639 */
+    const ELECTRICITY_METER_PHASE1_UNSUPPORTED = 0x00020000;
+    const ELECTRICITY_METER_PHASE2_UNSUPPORTED = 0x00040000;
+    const ELECTRICITY_METER_PHASE3_UNSUPPORTED = 0x00080000;
 }

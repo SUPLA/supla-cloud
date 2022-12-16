@@ -245,7 +245,6 @@
                     });
             },
             loadMoreIfNeeded(page) {
-                debugger;
                 if (page === 0 && !this.allLoaded && !this.fetching) {
                     this.$refs.carousel.dragging = true;
                     this.selectDay(this.stats[0]);
@@ -274,7 +273,6 @@
                 }
                 this.selectDayPart();
                 const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
-                debugger;
                 if (index !== -1) {
                     setTimeout(() => {
                         let desiredPage = index - this.$refs.carousel.perPage + 2;
@@ -323,7 +321,7 @@
                 return this.daysWithIssuesOnly ? this.stats.filter(s => s.secTotal > 0) : this.stats;
             },
             enabledPhases() {
-                return [1, 2, 3].filter(phaseNo => !(this.channel.config.disabledPhases || []).includes(phaseNo));
+                return this.channel.config.enabledPhases || [];
             },
         },
         watch: {

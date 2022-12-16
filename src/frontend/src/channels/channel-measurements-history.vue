@@ -254,7 +254,7 @@
                 chart: {stacked: true},
             }),
             series: function (allLogs) {
-                const enabledPhases = [1, 2, 3].filter(phaseNo => !(this.channel.config.disabledPhases || []).includes(phaseNo));
+                const enabledPhases = this.channel.config.enabledPhases || [];
                 return enabledPhases.map((phaseNo) => {
                     // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
                     const phaseLabel = `Phase ${phaseNo}`;

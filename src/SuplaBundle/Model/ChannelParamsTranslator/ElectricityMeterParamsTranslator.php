@@ -38,6 +38,11 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             'lowerVoltageThreshold' => $channel->getUserConfigValue('lowerVoltageThreshold'),
             'upperVoltageThreshold' => $channel->getUserConfigValue('upperVoltageThreshold'),
             'disabledPhases' => $channel->getUserConfigValue('disabledPhases', []),
+            'enabledPhases' => array_values(array_diff(
+                $this->getAvailablePhases($channel),
+                $channel->getUserConfigValue('disabledPhases', [])
+            )),
+            'availablePhases' => $this->getAvailablePhases($channel),
         ];
     }
 
@@ -80,7 +85,7 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
                 $disabledPhases = [];
             }
             Assertion::isArray($disabledPhases, 'disabledPhases config value must be an array');
-            Assertion::allInArray($disabledPhases, [1, 2, 3], 'disabledPhases may only contain values: 1, 2, 3');
+            Assertion::allInArray($disabledPhases, $this->getAvailablePhases($channel), 'disabledPhases may only contain available phases');
             $disabledPhases = array_values(array_unique($disabledPhases));
             Assertion::lessThan(count($disabledPhases), 3, 'You must leave at least one phase enabled.'); // i18n
             $channel->setUserConfigValue('disabledPhases', $disabledPhases);
@@ -96,5 +101,19 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
         return in_array($channel->getFunction()->getId(), [
             ChannelFunction::ELECTRICITYMETER,
         ]);
+    }
+
+    private function getAvailablePhases(IODeviceChannel $channel): array {
+        $availablePhases = [];
+        if (!ChannelFunctionBitsFlags::ELECTRICITY_METER_PHASE1_UNSUPPORTED()->isOn($channel->getFlags())) {
+            $availablePhases[] = 1;
+        }
+        if (!ChannelFunctionBitsFlags::ELECTRICITY_METER_PHASE2_UNSUPPORTED()->isOn($channel->getFlags())) {
+            $availablePhases[] = 2;
+        }
+        if (!ChannelFunctionBitsFlags::ELECTRICITY_METER_PHASE3_UNSUPPORTED()->isOn($channel->getFlags())) {
+            $availablePhases[] = 3;
+        }
+        return $availablePhases;
     }
 }
