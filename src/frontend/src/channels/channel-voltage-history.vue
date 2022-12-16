@@ -176,6 +176,7 @@
         },
         data() {
             return {
+                loadedLogsCount: 0,
                 logs: [],
                 stats: [],
                 maxSecTotal: 600,
@@ -194,12 +195,12 @@
             this.fetchLogs();
         },
         methods: {
-            fetchLogs(offset = 0) {
+            fetchLogs() {
                 this.fetching = true;
-                // animacja nie powinn sie pojawiac, reszta dziala
-                return this.$http.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=DESC&offset=${offset}&behforeTimestamp=${this.beforeTimestamp}`)
+                return this.$http.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=DESC&offset=${this.loadedLogsCount}&behforeTimestamp=${this.beforeTimestamp}`)
                     .then(({body: logItems}) => {
                         this.allLoaded = logItems.length < 1000;
+                        this.loadedLogsCount += 1000;
                         const newLogs = logItems
                             .reverse()
                             .filter(({phaseNo}) => this.enabledPhases.includes(phaseNo))
@@ -240,7 +241,7 @@
                     })
                     .finally(() => {
                         this.fetching = false;
-                        if (this.selectedDay === this.stats[0].dayFormatted) {
+                        if (this.stats.length && this.selectedDay === this.stats[0].dayFormatted) {
                             this.loadMoreIfNeeded(0);
                         }
                     });
@@ -249,7 +250,7 @@
                 if (page === 0 && !this.allLoaded && !this.fetching) {
                     this.$refs.carousel.dragging = true;
                     this.selectDay(this.stats[0]);
-                    this.fetchLogs(this.logs.length)
+                    this.fetchLogs()
                         .finally(() => setTimeout(() => this.$refs.carousel.dragging = false));
                 }
             },
@@ -268,7 +269,7 @@
                     const countBelowTotal = violationsForPart.reduce((sum, log) => log.countBelow + sum, 0);
                     const countAboveTotal = violationsForPart.reduce((sum, log) => log.countAbove + sum, 0);
                     const label = dayPart.toLocaleString(DateTime.TIME_SIMPLE) + ' - ' + nextPart.minus({minutes: 1}).toLocaleString(DateTime.TIME_SIMPLE);
-                    const secTotalAboveOrBelow = violationsForPart.reduce((sum, log) => log.secTotalAboveOrBelow + sum, 0);
+                    const secTotalAboveOrBelow = violationsForPart.reduce((sum, log) => log.secBelow + log.secAbove + sum, 0);
                     this.maxSecTotalInSelectedDay = Math.max(this.maxSecTotalInSelectedDay, secTotalAboveOrBelow);
                     this.selectedDayViolations.push({
                         label,
@@ -319,6 +320,7 @@
                         this.selectedDayViolations = [];
                         this.selectedDay = undefined;
                         this.selectedDayPart = 0;
+                        this.loadedLogsCount = 0;
                         return this.fetchLogs();
                     });
             },
