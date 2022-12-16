@@ -50,12 +50,12 @@
                         <a v-if="date !== statsToShow[0] || !fetching"
                             :class="[
                             'voltage-day-stat',
-                            `gradient-${Math.floor(date.secTotal * 10 / maxSecTotal) * 10}`,
+                            `gradient-${chooseGradient(date.secTotalAboveOrBelow, maxSecTotal)}`,
                             {selected: selectedDay === date.dayFormatted}
                             ]"
                             @click="selectDay(date)">
                             <p class="day">{{ date.day.toLocaleString({month: 'numeric', day: 'numeric'}) }}</p>
-                            <p class="sec" v-if="date.secTotal" :title="$t('Number of aberrations')">
+                            <p class="sec" v-if="date.secTotalAboveOrBelow" :title="$t('Number of aberrations')">
                                 <span class="glyphicon glyphicon-arrow-down below-threshold-indicator"></span> {{ date.countBelowTotal }}
                                 <span class="glyphicon glyphicon-arrow-up above-threshold-indicator"></span> {{ date.countAboveTotal }}
                             </p>
@@ -69,14 +69,14 @@
                 <div class="day-parts mb-3">
                     <a :class="[
                             'voltage-day-stat',
-                            `gradient-${Math.floor(v.secTotal * 10 / maxSecTotalInSelectedDay) * 10}`,
+                            `gradient-${chooseGradient(v.secTotalAboveOrBelow, maxSecTotalInSelectedDay)}`,
                             {selected: selectedDayPart === $index}
                             ]"
                         @click="selectDayPart($index)"
                         v-for="(v, $index) in selectedDayViolations"
                         :key="$index">
                         <p class="day">{{ v.label }}</p>
-                        <p class="sec" v-if="v.secTotal" :title="$t('Number of aberrations')">
+                        <p class="sec" v-if="v.secTotalAboveOrBelow" :title="$t('Number of aberrations')">
                             <span class="glyphicon glyphicon-arrow-down below-threshold-indicator"></span> {{ v.countBelowTotal }}
                             <span class="glyphicon glyphicon-arrow-up above-threshold-indicator"></span> {{ v.countAboveTotal }}
                         </p>
@@ -213,9 +213,10 @@
                         const dayStats = {};
                         this.logs.forEach((log) => {
                             if (!dayStats[log.day]) {
-                                dayStats[log.day] = {secTotal: 0, countBelowTotal: 0, countAboveTotal: 0};
+                                dayStats[log.day] = {secTotalAboveOrBelow: 0, countBelowTotal: 0, countAboveTotal: 0};
                             }
-                            dayStats[log.day].secTotal += log.secTotal;
+                            dayStats[log.day].secTotalAboveOrBelow += log.secBelow;
+                            dayStats[log.day].secTotalAboveOrBelow += log.secAbove;
                             dayStats[log.day].countBelowTotal += log.countBelow;
                             dayStats[log.day].countAboveTotal += log.countAbove;
                         });
@@ -223,12 +224,12 @@
                             this.stats = [];
                             const minDate = DateTime.fromSeconds(this.logs[0].date_timestamp).endOf('day');
                             for (let day = minDate; day <= DateTime.now().endOf('day'); day = day.plus({days: 1})) {
-                                const secTotal = dayStats[day.toFormat('ddMM')]?.secTotal || 0;
+                                const secTotalAboveOrBelow = dayStats[day.toFormat('ddMM')]?.secTotalAboveOrBelow || 0;
                                 const countBelowTotal = dayStats[day.toFormat('ddMM')]?.countBelowTotal || 0;
                                 const countAboveTotal = dayStats[day.toFormat('ddMM')]?.countAboveTotal || 0;
                                 const dayFormatted = day.toFormat('ddMM');
-                                this.stats.push({day, dayFormatted, secTotal, countBelowTotal, countAboveTotal});
-                                this.maxSecTotal = Math.max(this.maxSecTotal, secTotal);
+                                this.stats.push({day, dayFormatted, secTotalAboveOrBelow, countBelowTotal, countAboveTotal});
+                                this.maxSecTotal = Math.max(this.maxSecTotal, secTotalAboveOrBelow);
                             }
                             if (this.$route.query.day) {
                                 this.selectDay(this.$route.query.day);
@@ -267,9 +268,15 @@
                     const countBelowTotal = violationsForPart.reduce((sum, log) => log.countBelow + sum, 0);
                     const countAboveTotal = violationsForPart.reduce((sum, log) => log.countAbove + sum, 0);
                     const label = dayPart.toLocaleString(DateTime.TIME_SIMPLE) + ' - ' + nextPart.minus({minutes: 1}).toLocaleString(DateTime.TIME_SIMPLE);
-                    const secTotal = violationsForPart.reduce((sum, log) => log.secTotal + sum, 0);
-                    this.maxSecTotalInSelectedDay = Math.max(this.maxSecTotalInSelectedDay, secTotal);
-                    this.selectedDayViolations.push({label, violations: violationsForPart, countBelowTotal, countAboveTotal, secTotal});
+                    const secTotalAboveOrBelow = violationsForPart.reduce((sum, log) => log.secTotalAboveOrBelow + sum, 0);
+                    this.maxSecTotalInSelectedDay = Math.max(this.maxSecTotalInSelectedDay, secTotalAboveOrBelow);
+                    this.selectedDayViolations.push({
+                        label,
+                        violations: violationsForPart,
+                        countBelowTotal,
+                        countAboveTotal,
+                        secTotalAboveOrBelow
+                    });
                 }
                 this.selectDayPart();
                 const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
@@ -315,10 +322,17 @@
                         return this.fetchLogs();
                     });
             },
+            chooseGradient(amount, maximum) {
+                if (amount > 0) {
+                    return Math.max(10, Math.floor(amount * 10 / maximum) * 10);
+                } else {
+                    return 0;
+                }
+            }
         },
         computed: {
             statsToShow() {
-                return this.daysWithIssuesOnly ? this.stats.filter(s => s.secTotal > 0) : this.stats;
+                return this.daysWithIssuesOnly ? this.stats.filter(s => s.secTotalAboveOrBelow > 0) : this.stats;
             },
             enabledPhases() {
                 return this.channel.config.enabledPhases || [];
@@ -396,11 +410,11 @@
     }
 
     $gradientColor: #ff851b;
-    @for $i from 0 through 10 {
+    @for $i from 1 through 10 {
         .gradient-#{$i * 10} {
-            background-color: lighten($gradientColor, 50% - ($i * 5%));
+            background-color: lighten($gradientColor, 42% - ($i * 4.2%));
             &:hover {
-                background-color: lighten($gradientColor, 55% - ($i * 5%));
+                background-color: lighten($gradientColor, 47% - ($i * 4.2%));
             }
         }
     }
