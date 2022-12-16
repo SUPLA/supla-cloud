@@ -100,7 +100,6 @@ Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Automatic calibration: Automatyczna kalibracja
 Automatic closing rule: Automatyczne zamykanie bramy
 Automation: Automatyka
-Available: Dostępne
 Average voltage: Średnie napięcie
 Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
@@ -138,6 +137,7 @@ Change icon: Zmień ikonę
 Changing channel’s function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
 Channel: Kanał
 Channel No: Numer kanału
+Channel available for {serviceName}: Kanał dostępny dla {serviceName}
 Channel for the partial opening sensor: Kanał dla czujnika pośredniego otwarcia
 Channel for the sensor: Czujnik dla kanału
 Channel group: Grupa kanałów
@@ -612,6 +612,7 @@ Save changes: Zapisz zmiany
 Save changes to see Access IDs: Zapisz zmiany by wyświetlić identyfikatory dostępu
 Save or discard configuration changes first.: Najpierw zapisz lub odrzuć zmiany w konfiguracji.
 Scene: Scena
+Scene available for {serviceName}: Scena dostępna dla {serviceName}
 Scene must consist of at least one operation.: Scena musi zawierać co najmniej jedną operację
 Scenes: Sceny
 Scenes limit has been exceeded: Nie możesz stworzyć więcej scen
@@ -968,6 +969,7 @@ Action: Akcja
 And set the same state for: i ustaw taki sam stan dla
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
+Available: Dostępne
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels in channel group: Kanały w grupach kanałów
