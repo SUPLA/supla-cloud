@@ -20,6 +20,7 @@
                             max="240"
                             class="form-control"
                             v-model="lowerVoltageThreshold"
+                            @blur="adjustUpperThresholdIfNeeded()"
                             @change="$emit('change')">
                         <span class="input-group-addon">V</span>
                     </span>
@@ -33,6 +34,7 @@
                             max="500"
                             class="form-control"
                             v-model="upperVoltageThreshold"
+                            @blur="adjustLowerThresholdIfNeeded()"
                             @change="$emit('change')">
                         <span class="input-group-addon">V</span>
                     </span>
@@ -58,9 +60,6 @@
         set(value) {
             props.channel.config.lowerVoltageThreshold = +value;
             lastLowerThreshold = +value;
-            if (props.channel.config.upperVoltageThreshold && props.channel.config.upperVoltageThreshold <= value) {
-                upperVoltageThreshold.value = Math.min(500, props.channel.config.lowerVoltageThreshold + 5);
-            }
         }
     });
 
@@ -71,9 +70,6 @@
         set(value) {
             props.channel.config.upperVoltageThreshold = +value;
             lastUpperThreshold = +value;
-            if (props.channel.config.lowerVoltageThreshold && props.channel.config.lowerVoltageThreshold >= value) {
-                lowerVoltageThreshold.value = Math.max(5, props.channel.config.upperVoltageThreshold - 5);
-            }
         }
     });
 
@@ -86,5 +82,17 @@
             props.channel.config.upperVoltageThreshold = enabled ? lastUpperThreshold : 0;
         }
     });
+
+    function adjustUpperThresholdIfNeeded() {
+        if (lowerVoltageThreshold.value >= upperVoltageThreshold.value) {
+            upperVoltageThreshold.value = Math.min(500, lowerVoltageThreshold.value + 5);
+        }
+    }
+
+    function adjustLowerThresholdIfNeeded() {
+        if (lowerVoltageThreshold.value >= upperVoltageThreshold.value) {
+            lowerVoltageThreshold.value = Math.max(5, upperVoltageThreshold.value - 5);
+        }
+    }
 </script>
 
