@@ -35,14 +35,10 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
         $googleHomeSettings = $channel->getUserConfigValue('googleHome', []);
         $settings = [
             'googleHomeDisabled' => $googleHomeSettings['googleHomeDisabled'] ?? false,
+            'needsUserConfirmation' => $googleHomeSettings['needsUserConfirmation'] ?? false,
+            'pin' => $googleHomeSettings['pin'] ?? null,
+            'pinSet' => !!($googleHomeSettings['pin'] ?? false),
         ];
-        if ($this->canSetUserConfirmation($channel)) {
-            $settings = array_merge($settings, [
-                'needsUserConfirmation' => $googleHomeSettings['needsUserConfirmation'] ?? false,
-                'pin' => $googleHomeSettings['pin'] ?? null,
-                'pinSet' => !!($googleHomeSettings['pin'] ?? false),
-            ]);
-        }
         return ['googleHome' => $settings];
     }
 
@@ -54,22 +50,20 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
             if (array_key_exists('googleHomeDisabled', $googleHomeSettings)) {
                 $finalSettings['googleHomeDisabled'] = filter_var($googleHomeSettings['googleHomeDisabled'], FILTER_VALIDATE_BOOLEAN);
             }
-            if ($this->canSetUserConfirmation($channel)) {
-                if (array_key_exists('needsUserConfirmation', $googleHomeSettings)) {
-                    $needsUserConfirmation = $googleHomeSettings['needsUserConfirmation'];
-                    $finalSettings['needsUserConfirmation'] = filter_var($needsUserConfirmation, FILTER_VALIDATE_BOOLEAN);
-                }
-                if (array_key_exists('pin', $googleHomeSettings) || ($finalSettings['needsUserConfirmation'] ?? false)) {
-                    $pin = $googleHomeSettings['pin'] ?? null;
-                    if ($pin) {
-                        Assert::that($pin)
-                            ->string()
-                            ->betweenLength(self::MIN_PIN_LENGTH, self::MAX_PIN_LENGTH)
-                            ->numeric();
-                        $finalSettings['pin'] = $channel->getUser()->hashValue($pin);
-                    } else {
-                        $finalSettings['pin'] = null;
-                    }
+            if (array_key_exists('needsUserConfirmation', $googleHomeSettings)) {
+                $needsUserConfirmation = $googleHomeSettings['needsUserConfirmation'];
+                $finalSettings['needsUserConfirmation'] = filter_var($needsUserConfirmation, FILTER_VALIDATE_BOOLEAN);
+            }
+            if (array_key_exists('pin', $googleHomeSettings) || ($finalSettings['needsUserConfirmation'] ?? false)) {
+                $pin = $googleHomeSettings['pin'] ?? null;
+                if ($pin) {
+                    Assert::that($pin)
+                        ->string()
+                        ->betweenLength(self::MIN_PIN_LENGTH, self::MAX_PIN_LENGTH)
+                        ->numeric();
+                    $finalSettings['pin'] = $channel->getUser()->hashValue($pin);
+                } else {
+                    $finalSettings['pin'] = null;
                 }
             }
             $channel->setUserConfigValue('googleHome', $finalSettings);

@@ -140,7 +140,7 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $channelConfig = $channel->getUserConfig();
         $this->assertArrayHasKey('googleHome', $channelConfig);
         $this->assertTrue($channelConfig['googleHome']['googleHomeDisabled']);
-        $this->assertArrayNotHasKey('needsUserConfirmation', $channelConfig['googleHome']);
+        $this->assertArrayHasKey('needsUserConfirmation', $channelConfig['googleHome']);
     }
 
     public function testSettingGoogleHomeConfigDisabledForUnsupportedDoor() {
