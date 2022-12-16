@@ -41,11 +41,14 @@
                     :pagination-enabled="false"
                     navigation-next-label="&gt;"
                     navigation-prev-label="&lt;"
+                    :scroll-per-page="false"
                     :per-page-custom="[[1200, 10], [1024, 7], [600, 4], [1, 3]]"
+                    @pageChange="loadMoreIfNeeded($event)"
                     ref="carousel">
                     <slide v-for="date in statsToShow"
                         :key="date.dayFormatted">
-                        <a :class="[
+                        <a v-if="date !== statsToShow[0] || !fetching"
+                            :class="[
                             'voltage-day-stat',
                             `gradient-${Math.floor(date.secTotal * 10 / maxSecTotal) * 10}`,
                             {selected: selectedDay === date.dayFormatted}
@@ -58,6 +61,9 @@
                             </p>
                             <p class="sec" v-else><span class="glyphicon glyphicon-ok-sign text-success"></span></p>
                         </a>
+                        <div v-else class="text-center pt-3">
+                            <button-loading-dots/>
+                        </div>
                     </slide>
                 </carousel>
                 <div class="day-parts mb-3">
@@ -170,7 +176,7 @@
         },
         data() {
             return {
-                logs: undefined,
+                logs: [],
                 stats: [],
                 maxSecTotal: 600,
                 maxSecTotalInSelectedDay: 600,
@@ -179,32 +185,42 @@
                 selectedDayPart: 0,
                 daysWithIssuesOnly: false,
                 deleteConfirm: false,
+                allLoaded: false,
+                fetching: false,
+                beforeTimestamp: Math.round(DateTime.now().toSeconds()),
             };
         },
         mounted() {
             this.fetchLogs();
         },
         methods: {
-            fetchLogs() {
-                const afterTimestamp = Math.round(DateTime.now().minus({days: 30}).startOf('day').toSeconds());
-                this.$http.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=ASC&afterTimestamp=${afterTimestamp}`)
+            fetchLogs(offset = 0) {
+                this.fetching = true;
+                // animacja nie powinn sie pojawiac, reszta dziala
+                return this.$http.get(`channels/${this.channel.id}/measurement-logs?logsType=voltage&limit=1000&order=DESC&offset=${offset}&behforeTimestamp=${this.beforeTimestamp}`)
                     .then(({body: logItems}) => {
-                        const dayStats = {};
-                        this.logs = logItems
+                        this.allLoaded = logItems.length < 1000;
+                        const newLogs = logItems
+                            .reverse()
                             .filter(({phaseNo}) => this.enabledPhases.includes(phaseNo))
                             .map(log => {
                                 const date = DateTime.fromSeconds(log.date_timestamp);
                                 log.date = date;
                                 log.day = date.toFormat('ddMM');
-                                if (!dayStats[log.day]) {
-                                    dayStats[log.day] = {secTotal: 0, countBelowTotal: 0, countAboveTotal: 0};
-                                }
-                                dayStats[log.day].secTotal += log.secTotal;
-                                dayStats[log.day].countBelowTotal += log.countBelow;
-                                dayStats[log.day].countAboveTotal += log.countAbove;
                                 return log;
                             });
+                        this.logs.unshift(...newLogs);
+                        const dayStats = {};
+                        this.logs.forEach((log) => {
+                            if (!dayStats[log.day]) {
+                                dayStats[log.day] = {secTotal: 0, countBelowTotal: 0, countAboveTotal: 0};
+                            }
+                            dayStats[log.day].secTotal += log.secTotal;
+                            dayStats[log.day].countBelowTotal += log.countBelow;
+                            dayStats[log.day].countAboveTotal += log.countAbove;
+                        });
                         if (this.logs.length) {
+                            this.stats = [];
                             const minDate = DateTime.fromSeconds(this.logs[0].date_timestamp).endOf('day');
                             for (let day = minDate; day <= DateTime.now().endOf('day'); day = day.plus({days: 1})) {
                                 const secTotal = dayStats[day.toFormat('ddMM')]?.secTotal || 0;
@@ -220,7 +236,22 @@
                                 this.selectDay('');
                             }
                         }
+                    })
+                    .finally(() => {
+                        this.fetching = false;
+                        if (this.selectedDay === this.stats[0].dayFormatted) {
+                            this.loadMoreIfNeeded(0);
+                        }
                     });
+            },
+            loadMoreIfNeeded(page) {
+                debugger;
+                if (page === 0 && !this.allLoaded && !this.fetching) {
+                    this.$refs.carousel.dragging = true;
+                    this.selectDay(this.stats[0]);
+                    this.fetchLogs(this.logs.length)
+                        .finally(() => setTimeout(() => this.$refs.carousel.dragging = false));
+                }
             },
             selectDay(stat) {
                 if (typeof stat === 'string') {
@@ -243,10 +274,11 @@
                 }
                 this.selectDayPart();
                 const index = this.statsToShow.map(stat => stat.dayFormatted).indexOf(this.selectedDay);
+                debugger;
                 if (index !== -1) {
-                    this.$nextTick(() => {
+                    setTimeout(() => {
                         let desiredPage = index - this.$refs.carousel.perPage + 2;
-                        desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount, desiredPage));
+                        desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount - 1, desiredPage));
                         this.$refs.carousel.goToPage(desiredPage);
                     });
                 }

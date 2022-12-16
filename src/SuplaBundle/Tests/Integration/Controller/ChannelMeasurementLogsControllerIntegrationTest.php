@@ -873,6 +873,20 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         }
     }
 
+    public function testGetMeasurementLogsWithTimestampRangeAndOffset() {
+        $beforeDate = new DateTime('2018-09-17');
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/2/measurement-logs?beforeTimestamp={$beforeDate->getTimestamp()}");
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+        $client->apiRequestV24('GET', "/api/channels/2/measurement-logs?beforeTimestamp={$beforeDate->getTimestamp()}&offset=1");
+        $content2 = json_decode($client->getResponse()->getContent(), true);
+        $this->assertCount(1, $content2);
+        $this->assertEquals($content[1], $content2[0]);
+    }
+
     protected function getMeasurementLogsEntityManager(): EntityManagerInterface {
         return $this->getEntityManager('measurement_logs');
     }

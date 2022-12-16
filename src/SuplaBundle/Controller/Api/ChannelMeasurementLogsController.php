@@ -140,7 +140,7 @@ class ChannelMeasurementLogsController extends RestController {
                 $sql .= "AND UNIX_TIMESTAMP(CONVERT_TZ(`date`, '+00:00', 'SYSTEM')) < ? ";
             }
             if (!$sparse) {
-                $limitSql = 'LIMIT ?';
+                $limitSql = 'LIMIT ? OFFSET ?';
             }
         } elseif (!$sparse) {
             $limitSql = 'LIMIT ? OFFSET ?';
@@ -174,7 +174,8 @@ class ChannelMeasurementLogsController extends RestController {
                 $n++;
             }
             if (!$sparse) {
-                $stmt->bindValue($n, $limit, 'integer');
+                $stmt->bindValue($n++, $limit, 'integer');
+                $stmt->bindValue($n, $offset, 'integer');
             }
         } elseif (!$sparse) {
             Assertion::between($limit, 0, self::RECORD_LIMIT_PER_REQUEST, 'Invalid limit.');
