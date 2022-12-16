@@ -4,7 +4,7 @@
             :channel="channel"
             @change="$emit('change')"
             @save="$emit('save')"></component>
-        <ChannelParamsIntegrationsSettings :channel="channel" @change="$emit('change')"
+        <ChannelParamsIntegrationsSettings :subject="channel" @change="$emit('change')"
             v-if="channel.config.googleHome || channel.config.alexa"/>
     </div>
 </template>

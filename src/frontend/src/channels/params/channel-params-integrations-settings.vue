@@ -2,8 +2,8 @@
     <div class="channel-params-integrations-settings">
         <h4 class="text-center">{{ $t("Integrations settings") }}</h4>
         <div class="btn-group d-flex align-items-center justify-content-center">
-            <a class="btn btn-default" @click="openAlexaSettings()" v-if="channel.config.alexa">Alexa<sup>&reg;</sup></a>
-            <a class="btn btn-default" @click="openGoogleSettings()" v-if="channel.config.googleHome">Google Home<sup>&reg;</sup></a>
+            <a class="btn btn-default" @click="openAlexaSettings()" v-if="subject.config.alexa">Alexa<sup>&reg;</sup></a>
+            <a class="btn btn-default" @click="openGoogleSettings()" v-if="subject.config.googleHome">Google Home<sup>&reg;</sup></a>
         </div>
         <modal v-if="alexaSettings" class="modal-450"
             :header="$t('{serviceName} integration', {serviceName: 'Alexa®'})"
@@ -11,7 +11,8 @@
             :cancellable="true"
             @cancel="alexaSettings = undefined">
             <dl>
-                <dd>{{ $t('Available') }}</dd>
+                <dd v-if="subject.subjectType === 'channel'">{{ $t('Channel available for {serviceName}', {serviceName: 'Alexa®'}) }}</dd>
+                <dd v-else>{{ $t('Scene available for {serviceName}', {serviceName: 'Alexa®'}) }}</dd>
                 <dt class="text-center">
                     <toggler v-model="alexaEnabled"></toggler>
                 </dt>
@@ -23,7 +24,8 @@
             :cancellable="true"
             @cancel="googleSettings = undefined">
             <dl>
-                <dd>{{ $t('Available') }}</dd>
+                <dd v-if="subject.subjectType === 'channel'">{{ $t('Channel available for {serviceName}', {serviceName: 'Google Home®'}) }}</dd>
+                <dd v-else>{{ $t('Scene available for {serviceName}', {serviceName: 'Google Home®'}) }}</dd>
                 <dt class="text-center">
                     <toggler v-model="googleEnabled"></toggler>
                 </dt>
@@ -89,7 +91,7 @@
     export default {
         components: {TransitionExpand},
         props: {
-            channel: Object,
+            subject: Object,
         },
         data() {
             return {
@@ -100,7 +102,7 @@
         methods: {
             openGoogleSettings() {
                 this.googleSettings = {
-                    ...(this.channel.config.googleHome || {}),
+                    ...(this.subject.config.googleHome || {}),
                     pinError: false,
                     changingPin: false,
                 };
@@ -109,7 +111,7 @@
                 }
             },
             openAlexaSettings() {
-                this.alexaSettings = {...(this.channel.config.alexa || {})};
+                this.alexaSettings = {...(this.subject.config.alexa || {})};
             },
             updateGoogleSettings() {
                 this.googleSettings.pinError = false;
@@ -128,13 +130,13 @@
                     if (!this.googleSettings.pinSet && !this.googleSettings.needsUserConfirmation) {
                         settings.pin = null;
                     }
-                    this.channel.config.googleHome = settings;
+                    this.subject.config.googleHome = settings;
                     this.$emit('change');
                     this.googleSettings = undefined;
                 }
             },
             updateAlexaSettings() {
-                this.channel.config.alexa = {alexaDisabled: this.alexaSettings.alexaDisabled};
+                this.subject.config.alexa = {alexaDisabled: this.alexaSettings.alexaDisabled};
                 this.$emit('change');
                 this.alexaSettings = undefined;
             },
@@ -180,7 +182,7 @@
                 }
             },
             canSetGoogleUserConfirmation() {
-                return 'pinSet' in this.channel.config.googleHome;
+                return 'pinSet' in this.subject.config.googleHome;
             },
         }
     };

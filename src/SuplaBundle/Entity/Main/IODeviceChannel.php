@@ -26,6 +26,8 @@ use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
+use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Entity\HasUserConfigTrait;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -47,9 +49,10 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     }
  * )
  */
-class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCount {
+class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCount, HasUserConfig {
     use BelongsToUser;
     use HasRelationsCountTrait;
+    use HasUserConfigTrait;
 
     /**
      * @ORM\Id
@@ -434,25 +437,6 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     public function getFlags(): int {
         return intval($this->flags);
-    }
-
-    public function setUserConfig(array $config): void {
-        $config = array_diff_key($config, $this->getProperties());
-        $this->userConfig = $config ? json_encode($config, JSON_UNESCAPED_UNICODE) : '{}';
-    }
-
-    public function setUserConfigValue(string $valueName, $value): void {
-        $config = $this->getUserConfig();
-        $config[$valueName] = $value;
-        $this->setUserConfig($config);
-    }
-
-    public function getUserConfig(): array {
-        return $this->userConfig ? (json_decode($this->userConfig, true) ?: []) : [];
-    }
-
-    public function getUserConfigValue(string $valueName, $default = null) {
-        return $this->getUserConfig()[$valueName] ?? $default;
     }
 
     public function getProperties(): array {

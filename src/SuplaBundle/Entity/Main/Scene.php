@@ -28,6 +28,8 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
+use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Entity\HasUserConfigTrait;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -39,9 +41,10 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
  * @ORM\Table(name="supla_scene")
  */
-class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
+class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig {
     use BelongsToUser;
     use HasRelationsCountTrait;
+    use HasUserConfigTrait;
 
     /**
      * @ORM\Id
@@ -265,5 +268,9 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount {
             $entityManager->persist($this);
             $suplaServer->userAction('ON-SCENE-CHANGED', $this->getId(), $this->getUser());
         }
+    }
+
+    public function getProperties(): array {
+        return [];
     }
 }
