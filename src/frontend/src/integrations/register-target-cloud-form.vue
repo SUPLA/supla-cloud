@@ -69,7 +69,7 @@
                                     type="submit"
                                     :disabled="isBusy"
                                     :form-valid="!computedErrorMessage"
-                                    btn-class="btn-black">
+                                    btn-class="btn-black btn btn-block btn-lg">
                                     <template>
                                         <span v-if="!isBusy">
                                             <span v-if="unregister">{{ $t('Undo registration') }}</span>
