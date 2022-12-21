@@ -3,7 +3,6 @@ imports:
   - {resource: security.yml}
   - {resource: services/*.yml}
   - {resource: config_build.yml, ignore_errors: not_found}
-  - {resource: config_docker.yml, ignore_errors: not_found}
 
 doctrine:
   dbal:
