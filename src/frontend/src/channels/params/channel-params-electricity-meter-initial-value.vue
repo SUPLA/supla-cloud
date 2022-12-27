@@ -62,14 +62,14 @@
                 },
                 set(value) {
                     if (value) {
-                        const defaultInitialValue = +(((this.value || 0) / this.enabledPhases.length).toFixed(3));
+                        const defaultInitialValue = +(Number((this.value || 0) / this.enabledPhases.length).toFixed(3));
                         const valueForPhases = {};
                         for (let phaseNo of this.enabledPhases) {
                             valueForPhases['' + phaseNo] = defaultInitialValue;
                         }
                         this.$emit('input', valueForPhases);
                     } else {
-                        const defaultInitialValue = +this.enabledPhases.map(e => this.value[e] || 0).reduce((a, b) => a + b, 0).toFixed(3);
+                        const defaultInitialValue = +(Number(this.enabledPhases.map(e => +this.value[e] || 0).reduce((a, b) => a + b, 0)).toFixed(3));
                         this.$emit('input', defaultInitialValue);
                     }
                 }
@@ -85,7 +85,7 @@
                     return this.value;
                 },
                 set(value) {
-                    this.$emit('input', value);
+                    this.$emit('input', +value);
                 }
             }
         }
