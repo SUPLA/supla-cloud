@@ -1,7 +1,7 @@
 <template>
     <div>
         <dl v-if="advancedModeAvailable" class="mb-3">
-            <dd>{{ $t('Set different values for each phase') }}</dd>
+            <dd>{{ $t('Set values for each phase separately') }}</dd>
             <dt class="text-center">
                 <Toggler v-model="advancedMode"/>
             </dt>

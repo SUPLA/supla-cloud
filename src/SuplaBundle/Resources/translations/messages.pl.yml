@@ -638,8 +638,8 @@ Sensors: Czujniki
 Server address: Adres serwera
 Server unreachable: Serwer nieosiągalny
 Service temporarily unavailable: Usługa tymczasowo niedostępna
-Set different values for each phase: Ustal inną wartość dla każdej fazy
 Set value added: Ustal wartość dodaną
+Set values for each phase separately: Ustal wartość dla każdej fazy osobno
 Setting the number of attempts to 1 disables the retrying behavior completely.: Ustawienie liczby prób poniżej 2 może skutkować tym, że zamknięcie lub otwarcie nie dojdzie do skutku.
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
