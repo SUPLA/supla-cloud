@@ -771,7 +771,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         ob_end_clean();
         $memAfter = memory_get_usage();
         $memDiff = ($memAfter - $memBefore) / 1024;
-        $this->assertLessThan(3000, $memDiff); // less than ~5MB memory consumption
+        $this->assertLessThan(5000, $memDiff); // less than ~5MB memory consumption
         // https://stackoverflow.com/a/23113182/878514
         $head = unpack("Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen", substr($data, 0, 30));
         $filename = substr($data, 30, $head['namelen']);
