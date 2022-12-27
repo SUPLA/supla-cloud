@@ -71,9 +71,13 @@ h1 {
   }
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
   font-family: $supla-font-special;
   word-break: break-word;
+}
+
+h5 {
+  font-size: 1.3em;
 }
 
 a {

@@ -13,28 +13,26 @@
         </dl>
         <modal-confirm v-if="settingInitialValues"
             :header="$t('Set value added')"
-            :loading="loading"
             class="modal-800"
             @confirm="saveChanges()"
             @cancel="settingInitialValues = false">
-            <div class="initial-values-fields">
-                <div class="form-group"
-                    :key="counterName"
-                    v-for="counterName in countersAvailable">
-                    <label :for="'initial-value-' + counterName">{{ $t(labels[counterName] || counterName) }}</label>
-                    <span class="input-group">
-                        <input type="number"
-                            step="0.001"
-                            min="-10000000"
-                            :id="'initial-value-' + counterName"
-                            max="10000000"
-                            class="form-control"
-                            v-model="initialValues[counterName]"
-                            @change="$emit('change')">
-                        <span class="input-group-addon">
-                            kWh
-                        </span>
-                    </span>
+            <div class="row mb-5">
+                <div class="col-xs-4">
+                    <a v-for="counterName in countersAvailable" :key="`link-${counterName}`"
+                        @click="currentCounter = counterName"
+                        :class="['btn btn-block btn-wrapped ellipsis', {'btn-green': currentCounter === counterName, 'btn-white': currentCounter !== counterName}]">
+                        {{ $t(labels[counterName] || counterName) }}
+                    </a>
+                </div>
+                <div class="col-xs-8">
+                    <div>
+                        <h5 class="m-0 mb-2">{{ $t(labels[currentCounter] || currentCounter) }}</h5>
+                        <ChannelParamsElectricityMeterInitialValue
+                            :channel="channel"
+                            :counter-name="currentCounter"
+                            v-model="initialValues[currentCounter]"
+                            :key="`form-${currentCounter}`"/>
+                    </div>
                 </div>
             </div>
             <channel-params-meter-initial-values-mode v-model="addToHistory"></channel-params-meter-initial-values-mode>
@@ -44,15 +42,17 @@
 
 <script>
     import ChannelParamsMeterInitialValuesMode from "./channel-params-meter-initial-values-mode";
+    import ChannelParamsElectricityMeterInitialValue from "@/channels/params/channel-params-electricity-meter-initial-value";
 
     export default {
-        components: {ChannelParamsMeterInitialValuesMode},
+        components: {ChannelParamsElectricityMeterInitialValue, ChannelParamsMeterInitialValuesMode},
         props: ['channel'],
         data() {
             return {
                 settingInitialValues: false,
                 initialValues: {},
                 addToHistory: undefined,
+                currentCounter: undefined,
                 labels: {
                     forwardActiveEnergy: 'Forward active energy', // i18n
                     reverseActiveEnergy: 'Reverse active energy', // i18n
@@ -71,9 +71,10 @@
                 this.settingInitialValues = true;
                 for (const counterName of this.countersAvailable) {
                     if (!this.initialValues[counterName]) {
-                        this.initialValues[counterName] = 0;
+                        this.$set(this.initialValues, counterName, 0);
                     }
                 }
+                this.currentCounter = this.countersAvailable[0];
             },
             saveChanges() {
                 this.channel.config.electricityMeterInitialValues = this.initialValues;
@@ -97,15 +98,5 @@
     scoped>
     @import '../../styles/mixins';
 
-    .initial-values-fields {
-        display: flex;
-        flex-wrap: wrap;
-        .form-group {
-            min-width: 50%;
-            @include on-xs-and-down {
-                width: 100%;
-            }
-        }
-    }
 
 </style>
