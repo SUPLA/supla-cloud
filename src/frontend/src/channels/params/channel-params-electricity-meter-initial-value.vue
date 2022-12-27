@@ -32,8 +32,7 @@
                     id="initial-value"
                     max="10000000"
                     class="form-control"
-                    v-model="value"
-                    @change="$emit('change')">
+                    v-model="initialValue">
                 <span class="input-group-addon">
                     kWh
                 </span>
@@ -63,14 +62,14 @@
                 },
                 set(value) {
                     if (value) {
-                        const defaultInitialValue = this.value || 0;
+                        const defaultInitialValue = +(((this.value || 0) / this.enabledPhases.length).toFixed(3));
                         const valueForPhases = {};
                         for (let phaseNo of this.enabledPhases) {
                             valueForPhases['' + phaseNo] = defaultInitialValue;
                         }
                         this.$emit('input', valueForPhases);
                     } else {
-                        const defaultInitialValue = this.value[this.enabledPhases[0]] || 0;
+                        const defaultInitialValue = +this.enabledPhases.map(e => this.value[e] || 0).reduce((a, b) => a + b, 0).toFixed(3);
                         this.$emit('input', defaultInitialValue);
                     }
                 }
@@ -80,6 +79,14 @@
             },
             advancedModeAvailable() {
                 return !['forwardActiveEnergyBalanced', 'reverseActiveEnergyBalanced'].includes(this.counterName);
+            },
+            initialValue: {
+                get() {
+                    return this.value;
+                },
+                set(value) {
+                    this.$emit('input', value);
+                }
             }
         }
     };
