@@ -58,14 +58,7 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
         }
         if (array_key_exists('electricityMeterInitialValues', $config)) {
             $values = is_array($config['electricityMeterInitialValues']) ? $config['electricityMeterInitialValues'] : [];
-            $countersAvailable = $channel->getProperties()['countersAvailable'] ?? [];
-            $initialValues = $channel->getUserConfig()['electricityMeterInitialValues'] ?? [];
-            foreach ($values as $counterName => $initialValue) {
-                Assertion::inArray($counterName, $countersAvailable);
-                $initialValue = $this->getValueInRange($initialValue, -100000000, 100000000); // 100 mln
-                $initialValue = NumberUtils::maximumDecimalPrecision($initialValue, 3);
-                $initialValues[$counterName] = $initialValue;
-            }
+            $initialValues = $this->getInitialValues($values, $channel);
             $channel->setUserConfigValue('electricityMeterInitialValues', $initialValues);
         }
         if (array_key_exists('addToHistory', $config)) {
@@ -115,5 +108,33 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
             $availablePhases[] = 3;
         }
         return $availablePhases;
+    }
+
+    private function getInitialValues(array $values, IODeviceChannel $channel): array {
+        $countersAvailable = $channel->getProperties()['countersAvailable'] ?? [];
+        $initialValues = $channel->getUserConfig()['electricityMeterInitialValues'] ?? [];
+        $enabledPhases = $this->getAvailablePhases($channel);
+        foreach ($values as $counterName => $initialValue) {
+            Assertion::inArray($counterName, $countersAvailable);
+            if (is_array($initialValue)) {
+                Assertion::notInArray(
+                    $counterName,
+                    ['forwardActiveEnergyBalanced', 'reverseActiveEnergyBalanced'],
+                    'Advanced mode is unsupported for this counter.'
+                );
+                $valueForEachPhase = [];
+                foreach ($enabledPhases as $enabledPhase) {
+                    $initialValueForPhase = $this->getValueInRange($initialValue[$enabledPhase] ?? 0, -100000000, 100000000, 0); // 100 mln
+                    $initialValueForPhase = NumberUtils::maximumDecimalPrecision($initialValueForPhase, 3);
+                    $valueForEachPhase[$enabledPhase] = $initialValueForPhase;
+                }
+                $initialValues[$counterName] = $valueForEachPhase;
+            } else {
+                $initialValue = $this->getValueInRange($initialValue, -100000000, 100000000, 0); // 100 mln
+                $initialValue = NumberUtils::maximumDecimalPrecision($initialValue, 3);
+                $initialValues[$counterName] = $initialValue;
+            }
+        }
+        return $initialValues;
     }
 }
