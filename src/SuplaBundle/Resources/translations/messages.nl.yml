@@ -1012,6 +1012,7 @@ PIN: ~
 PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
 Phase {phaseNumber}: ~
 Scene available for {serviceName}: ~
+Set values for each phase separately: ~
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
 The entire history of the voltage aberrations will be removed from this channel.: ~
 The events in voltage aberrations history will be automatically deleted after {days} days.: ~
