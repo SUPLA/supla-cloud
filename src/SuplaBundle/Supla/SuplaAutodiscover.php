@@ -304,8 +304,7 @@ abstract class SuplaAutodiscover {
         return $publicClients['clients'];
     }
 
-    /** @return array|null */
-    public function getPublicClient(string $publicClientId) {
+    public function getPublicClient(string $publicClientId): ?array {
         $publicClients = $this->getPublicClients();
         $publicClient = array_filter($publicClients, function ($publicClientData) use ($publicClientId) {
             return $publicClientData['id'] == $publicClientId;

@@ -411,7 +411,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
     public function testForcesReauthorizationIfUserIsAlreadyLoggedInButHitsPublicId() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
-            'name' => 'unicorn',
+            'name' => 'Unicorn App',
             'description' => 'Cool app',
             'redirectUris' => ['https://cool.app'],
         ];
@@ -426,13 +426,15 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $routerView = $crawler->filter('router-view')->getNode(0);
         $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
         $this->assertEquals('true', $askForTargetCloud);
+        $clientName = $routerView->getAttribute('client-name');
+        $this->assertEquals('Unicorn App', $clientName);
     }
 
     public function testForcesReauthrozatoinIfUserIsAlreadyLoggedInButHitsIdNotMappedYet() {
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['1_public']['clientId'] = '1_local';
         SuplaAutodiscoverMock::$clientMapping['https://supla.local']['2_public']['clientId'] = '2_local';
         SuplaAutodiscoverMock::$publicClients['1_public'] = [
-            'name' => 'unicorn',
+            'name' => 'Unicorn App',
             'description' => 'Cool app',
             'redirectUris' => ['https://cool.app'],
         ];
@@ -450,6 +452,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($routerView);
         $askForTargetCloud = $routerView->getAttribute(':ask-for-target-cloud');
         $this->assertEquals('false', $askForTargetCloud);
+        $clientName = $routerView->getAttribute('client-name');
+        $this->assertEquals('Unicorn App', $clientName);
     }
 
     /** @large */
