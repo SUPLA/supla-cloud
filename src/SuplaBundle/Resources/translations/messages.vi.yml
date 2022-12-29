@@ -1016,9 +1016,16 @@ The entire history of the voltage aberrations from phase {phaseNumber} will be r
 The entire history of the voltage aberrations will be removed from this channel.: ~
 The events in voltage aberrations history will be automatically deleted after {days} days.: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
+'This password will protect your home. Therefore, it must:': ~
+'We also strongly advise you to choose a password that:': ~
 We will miss you!: ~
 You must leave at least one phase enabled.: ~
+be at least {numChars} characters long: ~
 change: ~
+contains a character that is neither a letter nor a digit: ~
+contains a digit: ~
+contains lower and upper letters: ~
+is at least {numChars} characters long: ~
 '{serviceName} integration': ~
 
 #</editor-fold>

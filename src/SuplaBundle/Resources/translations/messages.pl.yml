@@ -1033,5 +1033,12 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+'This password will protect your home. Therefore, it must:': ~
+'We also strongly advise you to choose a password that:': ~
+be at least {numChars} characters long: ~
+contains a character that is neither a letter nor a digit: ~
+contains a digit: ~
+contains lower and upper letters: ~
+is at least {numChars} characters long: ~
 
 #</editor-fold>
