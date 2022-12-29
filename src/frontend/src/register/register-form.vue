@@ -1,51 +1,102 @@
 <template>
     <div class="create-form">
-        <h1 class="page-title"
-            v-title>{{ $t('Create an account') }}</h1>
-
-        <div class="alert error"
-            v-if="errorMessage">
-            <p>{{ errorMessage }}</p>
-            <p v-if="resendActivationLinkOption">
-                <resend-account-activation-link :username="username"></resend-account-activation-link>
-            </p>
-        </div>
+        <h1 class="page-title" v-title>{{ $t('Create an account') }}</h1>
 
         <form @submit.prevent="submit()"
             class="register-form">
             <input type="hidden"
                 name="timezone"
                 :value="timezone">
+            <div :class="['form-group', {'has-error': errorEmail}]">
+                <label for="email">{{ $t('Enter your email address') }}</label>
+                <input type="email"
+                    id="email"
+                    class="form-control"
+                    autocorrect="off"
+                    v-focus="true"
+                    autocapitalize="none"
+                    @blur="emailTouched = true"
+                    v-model="username">
+                <div class="help-block for-error-only">
+                    {{ $t('Please enter a valid email address') }}
+                </div>
+            </div>
+            <div :class="['form-group', {'has-error': passwordTouched && errorPassword}]">
+                <label for="password">{{ $t('Enter strong password') }}</label>
+                <input type="password"
+                    @blur="passwordTouched = true"
+                    id="password"
+                    class="form-control"
+                    v-model="password">
+                <div class="help-block for-error-only">
+                    {{ $t('The password should be 8 or more characters.') }}
+                </div>
+                <div class="help-block">
+                    {{ $t('This password will protect your home. Therefore, it must:') }}
+                    <ul class="fa-ul">
+                        <li>
+                            <fa-checklist-bullet :value="!errorPassword"/>
+                            {{ $t('be at least {numChars} characters long', {numChars: 8}) }}
+                        </li>
+                    </ul>
+                    {{ $t('We also strongly advise you to choose a password that:') }}
+                    <ul class="fa-ul">
+                        <li>
+                            <fa-checklist-bullet :value="password.length >= 12"/>
+                            {{ $t('is at least {numChars} characters long', {numChars: 12}) }}
+                        </li>
+                        <li>
+                            <fa-checklist-bullet :value="!!(password.match(/[A-Z]/) && password.match(/[a-z]/))"/>
+                            {{ $t('contains lower and upper letters') }}
+                        </li>
+                        <li>
+                            <fa-checklist-bullet :value="!!password.match(/[0-9]/)"/>
+                            {{ $t('contains a digit') }}
+                        </li>
+                        <li>
+                            <fa-checklist-bullet :value="!!password.match(/[^0-9a-z]/i)"/>
+                            {{ $t('contains a character that is neither a letter nor a digit') }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div :class="['form-group', {'has-error': errorPasswordConfirm}]">
+                <label for="password-confirm">{{ $t('Repeat password') }}</label>
+                <input type="password"
+                    id="password-confirm"
+                    @blur="passwordConfirmTouched = true"
+                    class="form-control"
+                    v-model="confirmPassword">
+                <div class="help-block for-error-only">
+                    {{ $t('The password and its confirm are not the same.') }}
+                </div>
+            </div>
 
-            <input type="email"
-                class="form-input"
-                autocorrect="off"
-                v-focus="true"
-                autocapitalize="none"
-                :placeholder="$t('Enter your email address')"
-                v-model="username">
-
-            <input type="password"
-                class="form-input"
-                :placeholder="$t('Enter strong password')"
-                v-model="password">
-
-            <input type="password"
-                class="form-input"
-                :placeholder="$t('Repeat password')"
-                v-model="confirmPassword">
-
-            <regulations-checkbox v-model="regulationsAgreed"
-                v-if="regulationsAcceptRequired"></regulations-checkbox>
+            <div :class="['form-group', {'has-error': errorRegulations}]">
+                <regulations-checkbox v-model="regulationsAgreed"
+                    @input="regulationsTouched = true"
+                    v-if="regulationsAcceptRequired"></regulations-checkbox>
+                <div class="help-block for-error-only">
+                    {{ $t('You must agree to the Terms and Conditions.') }}
+                </div>
+            </div>
+            <transition-expand>
+                <div class="alert error"
+                    v-if="errorMessage">
+                    <p>{{ errorMessage }}</p>
+                    <p v-if="resendActivationLinkOption">
+                        <resend-account-activation-link :username="username"></resend-account-activation-link>
+                    </p>
+                </div>
+            </transition-expand>
 
             <div v-if="captchaEnabled">
                 <invisible-recaptcha
                     :sitekey="captchaSiteKey"
                     :callback="checkCaptcha"
                     id="registerRecaptcha"
-                    type="submit"
                     :disabled="isBusy"
-                    :form-valid="!computedErrorMessage">
+                    :form-valid="formIsValid">
                     <template>
                         <span v-if="!isBusy">
                             {{ $t('Create an account') }}
@@ -74,9 +125,14 @@
     import RegulationsCheckbox from "../common/errors/regulations-checkbox";
     import ResendAccountActivationLink from "./resend-account-activation-link";
     import {DateTime} from "luxon";
+    import FaChecklistBullet from "@/register/fa-checklist-bullet";
+    import TransitionExpand from "@/common/gui/transition-expand";
 
     export default {
-        components: {ResendAccountActivationLink, RegulationsCheckbox, ButtonLoadingDots, InvisibleRecaptcha},
+        components: {
+            TransitionExpand,
+            FaChecklistBullet, ResendAccountActivationLink, RegulationsCheckbox, ButtonLoadingDots, InvisibleRecaptcha
+        },
 
         data() {
             return {
@@ -91,23 +147,29 @@
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
                 captchaToken: null,
                 regulationsAgreed: false,
-                resendActivationLinkOption: false
+                resendActivationLinkOption: false,
+                emailTouched: false,
+                passwordTouched: false,
+                passwordConfirmTouched: false,
+                regulationsTouched: false,
             };
         },
         computed: {
-            computedErrorMessage() {
-                let errorMessage = '';
-                if (this.username.indexOf('@') <= 0) {
-                    errorMessage = this.$t('Please enter a valid email address');
-                } else if (this.password.length < 8) {
-                    errorMessage = this.$t('The password should be 8 or more characters.');
-                } else if (this.password != this.confirmPassword) {
-                    errorMessage = this.$t('The password and its confirm are not the same.');
-                } else if (!this.regulationsAgreed && this.regulationsAcceptRequired) {
-                    errorMessage = this.$t('You must agree to the Terms and Conditions.');
-                }
-                return errorMessage;
-            }
+            errorEmail() {
+                return this.emailTouched && this.username.indexOf('@') === -1;
+            },
+            errorPassword() {
+                return this.password.length < 8;
+            },
+            errorPasswordConfirm() {
+                return this.passwordConfirmTouched && this.password !== this.confirmPassword;
+            },
+            errorRegulations() {
+                return this.regulationsTouched && !this.regulationsAgreed && this.regulationsAcceptRequired;
+            },
+            formIsValid() {
+                return !this.errorEmail && !this.errorPassword && !this.errorPasswordConfirm && !this.errorRegulations;
+            },
         },
         methods: {
             checkCaptcha(recaptchaToken) {
@@ -116,8 +178,13 @@
             },
             submit() {
                 this.resendActivationLinkOption = false;
-                this.errorMessage = this.computedErrorMessage;
-                if (this.errorMessage) {
+                this.emailTouched = true;
+                this.passwordTouched = true;
+                this.passwordConfirmTouched = true;
+                this.regulationsTouched = true;
+                this.errorMessage = '';
+                if (!this.formIsValid) {
+                    this.errorMessage = this.$t('Fix the errors above and try again.');
                     return;
                 }
                 const data = {

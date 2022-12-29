@@ -28,7 +28,6 @@
                         :sitekey="captchaSiteKey"
                         :callback="checkCaptcha"
                         id="registerRecaptcha"
-                        type="submit"
                         btn-class="btn btn-danger"
                         :disabled="isBusy"
                         :form-valid="!!requestData">

@@ -45,7 +45,7 @@ body.green {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px $supla-green inset !important;
+    -webkit-box-shadow: 0 0 0 30px darken($supla-green, 16.5%) inset !important;
     -webkit-text-fill-color: $supla-white !important;
   }
 }
@@ -317,7 +317,7 @@ table {
 }
 
 body.green {
-  background: $supla-green;
+  background: darken($supla-green, 6%);
   color: $supla-white;
 
   nav.navbar-top {

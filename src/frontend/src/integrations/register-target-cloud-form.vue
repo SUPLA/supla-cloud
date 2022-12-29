@@ -66,7 +66,6 @@
                                     :sitekey="captchaSiteKey"
                                     :callback="submit"
                                     id="registerRecaptcha"
-                                    type="submit"
                                     :disabled="isBusy"
                                     :form-valid="!computedErrorMessage"
                                     btn-class="btn-black btn btn-block btn-lg">
