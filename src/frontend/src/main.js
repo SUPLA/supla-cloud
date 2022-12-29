@@ -21,6 +21,7 @@ import App from "./App";
 import EventBus from "./common/event-bus";
 import {DateTime, Settings} from 'luxon';
 import './hello';
+import './styles/fontawesome';
 
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
