@@ -31,7 +31,7 @@
                 <div class="help-block for-error-only">
                     {{ $t('The password should be 8 or more characters.') }}
                 </div>
-                <div class="help-block">
+                <div class="help-block hidden-xs">
                     {{ $t('This password will protect your home. Therefore, it must:') }}
                     <ul class="fa-ul">
                         <li>
@@ -75,7 +75,7 @@
             <div :class="['form-group', {'has-error': errorRegulations}]">
                 <regulations-checkbox v-model="regulationsAgreed"
                     @input="regulationsTouched = true"
-                    v-if="regulationsAcceptRequired"></regulations-checkbox>
+                    v-if="regulationsAcceptRequired"/>
                 <div class="help-block for-error-only">
                     {{ $t('You must agree to the Terms and Conditions.') }}
                 </div>

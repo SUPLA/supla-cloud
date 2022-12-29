@@ -50,6 +50,16 @@ body.green {
   }
 }
 
+body.blue {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px darken($supla-blue, 7%) inset !important;
+    -webkit-text-fill-color: $supla-white !important;
+  }
+}
+
 .form-group-lg {
   input:-webkit-autofill::first-line {
     font-size: 18px;
@@ -345,6 +355,10 @@ body.green {
 
   p a:not(.btn) {
     color: $supla-yellow;
+  }
+
+  @include on-xs-and-down {
+    background: darken($supla-green, 10%) !important;
   }
 }
 
