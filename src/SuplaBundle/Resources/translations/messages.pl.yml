@@ -1033,12 +1033,12 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'This password will protect your home. Therefore, it must:': ~
-'We also strongly advise you to choose a password that:': ~
-be at least {numChars} characters long: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
+'This password will protect your home. Therefore, it must:': 'To hasło ochroni Twój dom. Dlatego:'
+'We also strongly advise you to choose a password that:': 'Ponadto, zdecydownanie zalecamy aby wybrać hasło które:'
+be at least {numChars} characters long: 'musi mieć co najmniej {numChars} znaków'
+contains a character that is neither a letter nor a digit: 'zawiera znak, który nie jest literą ani cyfrą'
+contains a digit: 'zawiera cyfrę'
+contains lower and upper letters: 'zawiera małe i duże litery'
+is at least {numChars} characters long: 'posiada conajmniej {numChars} znaków'
 
 #</editor-fold>
