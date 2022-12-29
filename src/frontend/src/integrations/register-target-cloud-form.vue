@@ -34,40 +34,57 @@
                                 v-title>
                                 {{ $t('Register private SUPLA Cloud') }}</h1>
 
-                            <div class="error"
-                                v-if="errorMessage">
-                                {{ errorMessage }}
-                            </div>
-
                             <form @submit.prevent="submit()"
                                 class="register-form">
-                                <input type="email"
-                                    class="form-input"
-                                    autocorrect="off"
-                                    autocapitalize="none"
-                                    required
-                                    :placeholder="$t('Enter your email address')"
-                                    v-model="email">
-                                <span class="help-block">{{ $t('We will use it only in justified situations.') }}</span>
+                                <div :class="['form-group', {'has-error': errorEmail}]">
+                                    <label for="email">{{ $t('Enter your email address') }}</label>
+                                    <input type="email"
+                                        class="form-control"
+                                        autocorrect="off"
+                                        autocapitalize="none"
+                                        @blur="emailTouched = true"
+                                        id="email"
+                                        v-focus="true"
+                                        v-model="email">
+                                    <div class="help-block for-error-only">{{ $t('Please enter a valid email address') }}</div>
+                                    <span class="help-block">{{ $t('We will use it only in justified situations.') }}</span>
+                                </div>
 
+                                <div :class="['form-group', {'has-error': errorUrl}]">
+                                    <label for="url">{{ $t('Where is your SUPLA Cloud?') }}</label>
+                                    <input type="text"
+                                        class="form-control"
+                                        autocorrect="off"
+                                        autocapitalize="none"
+                                        id="url"
+                                        @blur="urlTouched = true"
+                                        v-model="targetCloud">
+                                    <div
+                                        class="help-block for-error-only">{{ $t('Please provide a valid domain name for your private SUPLA Cloud') }}
+                                    </div>
+                                    <span class="help-block">
+                                        {{ $t('Enter the domain with the port only if it is not standard (443). We require HTTPS connection.') }}
+                                    </span>
+                                </div>
+                                <div :class="['form-group', {'has-error': errorRegulations}]">
+                                    <regulations-checkbox v-model="regulationsAgreed" @input="regulationsTouched = true"/>
+                                    <div class="help-block for-error-only">
+                                        {{ $t('You must agree to the Terms and Conditions.') }}
+                                    </div>
+                                </div>
 
-                                <input type="text"
-                                    class="form-input"
-                                    autocorrect="off"
-                                    required
-                                    autocapitalize="none"
-                                    :placeholder="$t('Where is your SUPLA Cloud?')"
-                                    v-model="targetCloud">
-                                <span class="help-block">{{ $t('Enter the domain with the port only if it is not standard (443). We require HTTPS connection.') }}</span>
-
-                                <regulations-checkbox v-model="regulationsAgreed"></regulations-checkbox>
+                                <transition-expand>
+                                    <div class="alert error" v-if="errorMessage">
+                                        <p>{{ errorMessage }}</p>
+                                    </div>
+                                </transition-expand>
 
                                 <invisible-recaptcha
                                     :sitekey="captchaSiteKey"
                                     :callback="submit"
                                     id="registerRecaptcha"
                                     :disabled="isBusy"
-                                    :form-valid="!computedErrorMessage"
+                                    :form-valid="formIsValid"
                                     btn-class="btn-black btn btn-block btn-lg">
                                     <template>
                                         <span v-if="!isBusy">
@@ -124,12 +141,15 @@
                 targetCloud: this.$route.query.domain || '',
                 isBusy: false,
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
-                error: false, //Vue.config.external.actAsBrokerCloud ? 0 : 404,
+                error: Vue.config.external.actAsBrokerCloud ? 0 : 404,
                 regulationsAgreed: false,
                 errorMessage: '',
                 token: undefined,
                 unregister: false,
                 unregistered: false,
+                emailTouched: false,
+                urlTouched: false,
+                regulationsTouched: false,
             };
         },
         mounted() {
@@ -138,16 +158,17 @@
             }
         },
         computed: {
-            computedErrorMessage() {
-                let errorMessage;
-                if (this.email.indexOf('@') <= 0) {
-                    errorMessage = this.$t('Please enter a valid email address');
-                } else if (this.targetCloud.indexOf('.') <= 0) {
-                    errorMessage = this.$t('Please provide a valid domain name for your private SUPLA Cloud');
-                } else if (!this.regulationsAgreed) {
-                    errorMessage = this.$t('You must agree to the Terms and Conditions.');
-                }
-                return errorMessage;
+            errorEmail() {
+                return this.emailTouched && this.email.indexOf('@') === -1;
+            },
+            errorUrl() {
+                return this.urlTouched && this.targetCloud.indexOf('.') === -1;
+            },
+            errorRegulations() {
+                return this.regulationsTouched && !this.regulationsAgreed;
+            },
+            formIsValid() {
+                return !this.errorEmail && !this.errorUrl && !this.errorRegulations;
             },
             tokenCommand() {
                 return `docker exec -it -u www-data supla-cloud php bin/console supla:register-target-cloud ${this.token}`;
@@ -155,8 +176,12 @@
         },
         methods: {
             submit(captcha) {
-                this.errorMessage = this.computedErrorMessage;
-                if (this.errorMessage) {
+                this.emailTouched = true;
+                this.urlTouched = true;
+                this.regulationsTouched = true;
+                this.errorMessage = '';
+                if (!this.formIsValid) {
+                    this.errorMessage = this.$t('Fix the errors above and try again.');
                     return;
                 }
                 const data = {

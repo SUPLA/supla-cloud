@@ -29,6 +29,10 @@
       }
     }
   }
+
+  @include on-xs-and-down {
+    min-height: auto;
+  }
 }
 
 .register-slider-body {
