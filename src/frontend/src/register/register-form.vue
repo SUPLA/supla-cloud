@@ -184,7 +184,6 @@
                 this.regulationsTouched = true;
                 this.errorMessage = '';
                 if (!this.formIsValid) {
-                    this.errorMessage = this.$t('Fix the errors above and try again.');
                     return;
                 }
                 const data = {
