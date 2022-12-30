@@ -266,6 +266,7 @@ E-mail notifications: Powiadomienia e-mail
 Edit: Edytuj
 Electric: Elektryka
 Electricity meter: Licznik energii elektrycznej
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Licznik energii elektrycznej nie zgłosił możliwości konfiguracji wartości dodanych. Zaktualizuj firmware urządzenia i spróbuj ponownie.
 Empty!: Pusto!
 Enable: Włącz
 Enabled: Włączone
@@ -727,6 +728,7 @@ This information has been generated automatically due to an unsuccessful login a
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To jest ostatni etap usuwania Twojego konta. Wypełnienie i zatwierdzenie formularza będzie skutkować nieodwracalnym usunięciem Twoich danych.
 This is the list of applications you have granted access to your account.: To jest lista aplikacji, którym udzieliłeś(aś) dostępu do Twojego konta.
 This link is only valid for an hour.: Link będzie aktywny przez godzinę.
+'This password will protect your home. Therefore, it must:': 'To hasło ochroni Twój dom. Dlatego:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ten wyzwalacz jest używany lokalnie przez urządzenie (np. włącza światło, steruje roletą itd.) Jeśli przypiszesz mu inną akcję, to lokalna funkcja zostanie wyłączona.
 Thursdays: Czwartki
@@ -770,6 +772,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Odczekaj chwilę przed wykonaniem kolejnego żądania. Możesz sprawdzić aktualne wykorzystanie Twoich limitów w ustawieniach konta.
 Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny przed kontynuowaniem akcji ({time}).
 Water meter: Licznik wody
+'We also strongly advise you to choose a password that:': 'Ponadto, zdecydownanie zalecamy aby wybrać hasło które:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Będziemy wysyłać Ci powiadomienia o niektórych zdarzeniach związanych z Twoim kontem. Możesz wypisać się z tych, których nie potrzebujesz.
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Otrzymaliśmy dyspozycję usunięcia Twojego konta w SUPLA Cloud (%cloudHost%).
@@ -864,6 +867,7 @@ actionableSubjectType_scene: Scena
 addToHistoryMeasurementWarningSelected: Zaznaczenie tej opcji spowoduje dodanie ustawionych wartości do przyszłych pomiarów zapisywanych w historii. Może to być widoczne na wykresach jako nagły przyrost o wprowadzoną wartość. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 addToHistoryMeasurementWarningUnselected: Odznaczenie tej opcji spowoduje pominięcie ustawionych wartości w przyszłych pomiarach zapisywanych w historii. Może to być widoczne na wykresach jako nagły spadek. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 after: po
+be at least {numChars} characters long: musi mieć co najmniej {numChars} znaków
 before: przed
 caption: nazwa
 change: zmień
@@ -882,6 +886,9 @@ choose the channel group: wybierz grupę kanałów
 choose the scene: wybierz scenę
 choose the timezone: wybierz strefę czasową
 click here: kliknij tutaj
+contains a character that is neither a letter nor a digit: zawiera znak, który nie jest literą ani cyfrą
+contains a digit: zawiera cyfrę
+contains lower and upper letters: zawiera małe i duże litery
 copied: skopiowano
 copy: kopiuj
 days: dni
@@ -906,6 +913,7 @@ extend: przedłuż
 from IP: z adresu IP
 from the IP: z adresu
 hours: godziny
+is at least {numChars} characters long: posiada conajmniej {numChars} znaków
 min.: min.
 minutes: minut
 or add a delay: lub dodaj opóźnienie
@@ -1033,12 +1041,5 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'This password will protect your home. Therefore, it must:': 'To hasło ochroni Twój dom. Dlatego:'
-'We also strongly advise you to choose a password that:': 'Ponadto, zdecydownanie zalecamy aby wybrać hasło które:'
-be at least {numChars} characters long: 'musi mieć co najmniej {numChars} znaków'
-contains a character that is neither a letter nor a digit: 'zawiera znak, który nie jest literą ani cyfrą'
-contains a digit: 'zawiera cyfrę'
-contains lower and upper letters: 'zawiera małe i duże litery'
-is at least {numChars} characters long: 'posiada conajmniej {numChars} znaków'
 
 #</editor-fold>

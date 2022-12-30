@@ -15,27 +15,33 @@
             :header="$t('Set value added')"
             class="modal-800"
             @confirm="saveChanges()"
-            @cancel="settingInitialValues = false">
-            <div class="row mb-5">
-                <div class="col-xs-4">
-                    <a v-for="counterName in countersAvailable" :key="`link-${counterName}`"
-                        @click="currentCounter = counterName"
-                        :class="['btn btn-block btn-wrapped ellipsis', {'btn-green': currentCounter === counterName, 'btn-white': currentCounter !== counterName}]">
-                        {{ $t(labels[counterName] || counterName) }}
-                    </a>
-                </div>
-                <div class="col-xs-8">
-                    <div>
-                        <h5 class="m-0 mb-2">{{ $t(labels[currentCounter] || currentCounter) }}</h5>
-                        <ChannelParamsElectricityMeterInitialValue
-                            :channel="channel"
-                            :counter-name="currentCounter"
-                            v-model="initialValues[currentCounter]"
-                            :key="`form-${currentCounter}`"/>
+            @cancel="settingInitialValues = false"
+            :cancellable="countersAvailable && countersAvailable.length > 0">
+            <div v-if="countersAvailable && countersAvailable.length > 0">
+                <div class="row mb-5">
+                    <div class="col-xs-4">
+                        <a v-for="counterName in countersAvailable" :key="`link-${counterName}`"
+                            @click="currentCounter = counterName"
+                            :class="['btn btn-block btn-wrapped ellipsis', {'btn-green': currentCounter === counterName, 'btn-white': currentCounter !== counterName}]">
+                            {{ $t(labels[counterName] || counterName) }}
+                        </a>
+                    </div>
+                    <div class="col-xs-8">
+                        <div>
+                            <h5 class="m-0 mb-2">{{ $t(labels[currentCounter] || currentCounter) }}</h5>
+                            <ChannelParamsElectricityMeterInitialValue
+                                :channel="channel"
+                                :counter-name="currentCounter"
+                                v-model="initialValues[currentCounter]"
+                                :key="`form-${currentCounter}`"/>
+                        </div>
                     </div>
                 </div>
+                <ChannelParamsMeterInitialValuesMode v-model="addToHistory"/>
             </div>
-            <channel-params-meter-initial-values-mode v-model="addToHistory"></channel-params-meter-initial-values-mode>
+            <div v-else class="alert alert-warning">
+                {{ $t('Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.') }}
+            </div>
         </modal-confirm>
     </div>
 </template>
