@@ -27,7 +27,7 @@
     "js-base64": "^2.4.5",
     "latinize": "0.4.0",
     "lodash": "^4.17.20",
-    "luxon": "^3.0.4",
+    "luxon": "^3.2.1",
     "pixeden-stroke-7-icon": "^1.2.3",
     "pnotify": "3.2.1",
     "spectrum-colorpicker": "1.8.0",
