@@ -18,14 +18,10 @@
 namespace SuplaBundle\Entity\Main;
 
 use Assert\Assertion;
-use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\HasSubject;
 use SuplaBundle\Entity\HasSubjectTrait;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity
@@ -51,19 +47,19 @@ class SceneOperation implements HasSubject {
     private $owningScene;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannel")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="sceneOperations")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="sceneOperations")
      * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Scene")
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="sceneOperations")
      * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $scene;

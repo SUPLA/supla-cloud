@@ -33,6 +33,10 @@ class IpAddressType extends Type {
         return true;
     }
 
+    public function requiresSQLCommentHint(AbstractPlatform $platform) {
+        return true;
+    }
+
     public function convertToPHPValueSQL($sqlExpr, $platform) {
         return sprintf('INET_NTOA(%s)', $sqlExpr);
     }
