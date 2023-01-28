@@ -18,7 +18,6 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\User;
@@ -196,6 +195,21 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($content['enabled']);
         $this->assertEquals(1, $content['relationsCount']['operations']);
         return $content;
+    }
+
+    /** @depends testUpdatingSceneDetails */
+    public function testUpdatingSceneDetailsCaptionOnly($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/' . $id, ['caption' => 'My scene 3']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertEquals('My scene 3', $content['caption']);
+        $this->assertEquals(1, $content['altIcon']);
+        $this->assertFalse($content['enabled']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
     }
 
     /** @depends testUpdatingSceneDetails */

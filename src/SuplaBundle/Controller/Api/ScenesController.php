@@ -36,6 +36,7 @@ use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Dependencies\SceneDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\SceneRepository;
+use SuplaBundle\Serialization\RequestFiller\SceneRequestFiller;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\SceneUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -254,20 +255,15 @@ class ScenesController extends RestController {
      * @Rest\Post("/scenes")
      * @Security("has_role('ROLE_SCENES_RW')")
      */
-    public function postSceneAction(Request $request, Scene $scene, TranslatorInterface $translator) {
+    public function postSceneAction(Request $request, SceneRequestFiller $sceneFiller, TranslatorInterface $translator) {
         $this->ensureApiVersion24($request);
         $user = $this->getUser();
+        $scene = $sceneFiller->fillFromRequest($request);
         if (!$scene->getCaption()) {
             $caption = $translator->trans('Scene', [], null, $user->getLocale()); // i18n
             $scene->setCaption($caption . ' #' . ($user->getScenes()->count() + 1));
         }
         Assertion::false($user->isLimitSceneExceeded(), 'Scenes limit has been exceeded'); // i18n
-        Assertion::lessOrEqualThan(
-            $scene->getOperations()->count(),
-            $user->getLimitOperationsPerScene(),
-            'Too many operations in this scene' // i18n
-        );
-        SceneUtils::ensureOperationsAreNotCyclic($scene);
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $em->persist($scene);
             SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
@@ -305,26 +301,14 @@ class ScenesController extends RestController {
      * @Rest\Put("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
-    public function putSceneAction(Scene $scene, Scene $updated, Request $request) {
+    public function putSceneAction(Scene $scene, SceneRequestFiller $sceneFiller, Request $request) {
         $this->ensureApiVersion24($request);
-        Assertion::lessOrEqualThan(
-            $updated->getOperations()->count(),
-            $scene->getUser()->getLimitOperationsPerScene(),
-            'Too many operations in this scene' // i18n
-        );
-        $sceneResponse = $this->transactional(function (EntityManagerInterface $em) use ($request, $scene, $updated) {
-            $scene->setCaption($updated->getCaption());
-            $scene->setEnabled($updated->isEnabled());
-            $scene->setHidden($updated->isHidden());
-            $scene->setLocation($updated->getLocation());
-            $scene->setUserIcon($updated->getUserIcon());
-            $scene->setAltIcon($updated->getAltIcon());
+        $sceneResponse = $this->transactional(function (EntityManagerInterface $em) use ($sceneFiller, $request, $scene) {
             $scene->getOperations()->forAll(function (int $index, SceneOperation $sceneOperation) use ($em) {
                 $em->remove($sceneOperation);
                 return true;
             });
-            $scene->setOpeartions($updated->getOperations());
-            SceneUtils::ensureOperationsAreNotCyclic($scene);
+            $scene = $sceneFiller->fillFromRequest($request, $scene);
             $em->persist($scene);
             SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
             return $this->getSceneAction($request, $scene);
