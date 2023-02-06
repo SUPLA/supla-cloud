@@ -108,11 +108,15 @@ class SceneRequestFiller extends AbstractRequestFiller {
             SceneUtils::ensureOperationsAreNotCyclic($scene);
         }
         if (array_key_exists('userIconId', $data)) {
-            $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
-            Assertion::eq($icon->getFunction()->getId(), $scene->getFunction()->getId(), 'Chosen user icon is for other function.');
+            $icon = null;
+            if ($data['userIconId']) {
+                $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
+                Assertion::eq($icon->getFunction()->getId(), $scene->getFunction()->getId(), 'Chosen user icon is for other function.');
+            }
             $scene->setUserIcon($icon);
             $scene->setAltIcon(0);
-        } elseif (array_key_exists('altIcon', $data)) {
+        }
+        if (!$scene->getUserIcon() && array_key_exists('altIcon', $data)) {
             $scene->setAltIcon($data['altIcon'] ?? 0);
         }
         return $scene;

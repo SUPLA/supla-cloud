@@ -61,11 +61,15 @@ class ChannelGroupRequestFiller extends AbstractRequestFiller {
             );
         }
         if (array_key_exists('userIconId', $data)) {
-            $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
-            Assertion::eq($icon->getFunction()->getId(), $channelGroup->getFunction()->getId(), 'Chosen user icon is for other function.');
+            $icon = null;
+            if ($data['userIconId']) {
+                $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
+                Assertion::eq($icon->getFunction()->getId(), $channelGroup->getFunction()->getId(), 'Chosen user icon is for other function.');
+            }
             $channelGroup->setUserIcon($icon);
             $channelGroup->setAltIcon(0);
-        } elseif (array_key_exists('altIcon', $data)) {
+        }
+        if (!$channelGroup->getUserIcon() && array_key_exists('altIcon', $data)) {
             $channelGroup->setAltIcon($data['altIcon'] ?? 0);
         }
         if (array_key_exists('caption', $data)) {
