@@ -305,7 +305,7 @@ For security reasons, the full URL of this direct link will be displayed only on
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
 Forward active energy balanced: Energia czynna pobrana (Bilans wektorowy)
-Forward reactive energy: Energia bierna pobrana
+Forward reactive energy: Energia bierna indukcyjna
 Fridays: Piątki
 From IP: Z adresu IP
 From anywhere: Z każdego miejsca
@@ -586,7 +586,7 @@ Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
 Reverse active energy: Energia czynna zwrócona
 Reverse active energy balanced: Energia czynna zwrócona (Bilans wektorowy)
-Reverse reactive energy: Energia bierna zwrócona
+Reverse reactive energy: Energia bierna pojemnościowa
 Revoke: Unieważnij
 Roller shutter opening sensor: Czujnik otwarcia rolet
 Roller shutter operation: Otwieranie i zamykanie rolet
