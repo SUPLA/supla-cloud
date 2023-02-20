@@ -10,6 +10,7 @@ use SuplaBundle\Repository\UserIconRepository;
 
 class ChannelGroupRequestFiller extends AbstractRequestFiller {
     use CurrentUserAware;
+    use UserAltIconRequestFiller;
 
     /** @var LocationRepository */
     private $locationRepository;
@@ -28,11 +29,7 @@ class ChannelGroupRequestFiller extends AbstractRequestFiller {
         $this->userIconRepository = $userIconRepository;
     }
 
-    /**
-     * @param array $data
-     * @param IODeviceChannelGroup $channelGroup
-     * @return IODeviceChannelGroup
-     */
+    /** @param IODeviceChannelGroup $channelGroup */
     public function fillFromData(array $data, $channelGroup = null) {
         $user = $this->getCurrentUserOrThrow();
         if (!$channelGroup) {
@@ -60,18 +57,6 @@ class ChannelGroupRequestFiller extends AbstractRequestFiller {
                 'Too many channels in this group' // i18n
             );
         }
-        if (array_key_exists('userIconId', $data)) {
-            $icon = null;
-            if ($data['userIconId']) {
-                $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
-                Assertion::eq($icon->getFunction()->getId(), $channelGroup->getFunction()->getId(), 'Chosen user icon is for other function.');
-            }
-            $channelGroup->setUserIcon($icon);
-            $channelGroup->setAltIcon(0);
-        }
-        if (!$channelGroup->getUserIcon() && array_key_exists('altIcon', $data)) {
-            $channelGroup->setAltIcon($data['altIcon'] ?? 0);
-        }
         if (array_key_exists('caption', $data)) {
             Assertion::string($data['caption']);
             $channelGroup->setCaption($data['caption'] ?? '');
@@ -80,6 +65,7 @@ class ChannelGroupRequestFiller extends AbstractRequestFiller {
         if (array_key_exists('hidden', $data)) {
             $channelGroup->setHidden(boolval($data['hidden']));
         }
+        $this->fillUserAltIcon($this->userIconRepository, $data, $channelGroup);
         return $channelGroup;
     }
 }

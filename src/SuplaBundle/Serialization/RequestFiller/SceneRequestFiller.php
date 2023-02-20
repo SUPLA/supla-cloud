@@ -19,6 +19,7 @@ use SuplaBundle\Utils\SceneUtils;
 
 class SceneRequestFiller extends AbstractRequestFiller {
     use CurrentUserAware;
+    use UserAltIconRequestFiller;
 
     /** @var IODeviceChannelRepository */
     private $channelRepository;
@@ -47,9 +48,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
         $this->userIconRepository = $userIconRepository;
     }
 
-    /**
-     * @param Scene $scene
-     */
+    /** @param Scene $scene */
     public function fillFromData(array $data, $scene = null) {
         $user = $this->getCurrentUserOrThrow();
         if (!$scene) {
@@ -107,18 +106,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
             $scene->setOpeartions($operations);
             SceneUtils::ensureOperationsAreNotCyclic($scene);
         }
-        if (array_key_exists('userIconId', $data)) {
-            $icon = null;
-            if ($data['userIconId']) {
-                $icon = $this->userIconRepository->findForUser($user, $data['userIconId']);
-                Assertion::eq($icon->getFunction()->getId(), $scene->getFunction()->getId(), 'Chosen user icon is for other function.');
-            }
-            $scene->setUserIcon($icon);
-            $scene->setAltIcon(0);
-        }
-        if (!$scene->getUserIcon() && array_key_exists('altIcon', $data)) {
-            $scene->setAltIcon($data['altIcon'] ?? 0);
-        }
+        $this->fillUserAltIcon($this->userIconRepository, $data, $scene);
         return $scene;
     }
 }
