@@ -5,7 +5,7 @@ module.exports = defineConfig({
     screenshotsFolder: 'tests/e2e/screenshots',
     videosFolder: 'tests/e2e/videos',
     e2e: {
-        baseUrl: 'http://localhost:8008',
+        baseUrl: 'http://localhost:8080',
         setupNodeEvents(on, config) {
         },
         specPattern: 'tests/e2e/specs/**/*.cy.{js,jsx,ts,tsx}',
