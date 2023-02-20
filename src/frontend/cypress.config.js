@@ -4,6 +4,9 @@ module.exports = defineConfig({
     fixturesFolder: 'tests/e2e/fixtures',
     screenshotsFolder: 'tests/e2e/screenshots',
     videosFolder: 'tests/e2e/videos',
+    env: {
+        DATABASE: "mysql://root:php@localhost/supla_test",
+    },
     e2e: {
         baseUrl: 'http://localhost:8080',
         setupNodeEvents(on, config) {

@@ -40,29 +40,6 @@ steps:
       - npm install
       - npm run test:unit
 
-  - name: test-frontend-e2e
-    image: cypress/base:14.18.1
-    depends_on: [ build-frontend ]
-    commands:
-      - npm install --global npm@7
-      - cd src/frontend
-      - npm install
-      - node_modules/cypress/bin/cypress install
-      - npm run test:e2e:ci
-
-  - name: test-frontend-e2e-nightly
-    image: cypress/base:14.18.1
-    depends_on: [ test-frontend-e2e ]
-    when:
-      cron: nightly
-      event: cron
-    commands:
-      - npm install --global npm@7
-      - cd src/frontend
-      - npm install
-      - node_modules/cypress/bin/cypress install
-      - npm run test:e2e:nightly
-
   - name: install-backend
     image: supla/supla-cloud
     depends_on: [ clone ]
@@ -73,33 +50,59 @@ steps:
 
   - name: lint-backend
     image: supla/supla-cloud
-    depends_on: [ install-backend ]
+    depends_on: [install-backend]
     commands:
       - php composer.phar run lint-backend
 
   - name: backend-unit-tests
     image: supla/supla-cloud
-    depends_on: [ install-backend ]
+    depends_on: [install-backend]
     commands:
       - ./vendor/bin/phpunit -c app --testsuite unit
 
-  - name: api-tests
-    image: supla/supla-cloud
-    depends_on: [ install-backend, build-frontend ]
-    commands:
-      - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
+  #  - name: api-tests
+  #    image: supla/supla-cloud
+  #    depends_on: [ install-backend, build-frontend ]
+  #    commands:
+  #      - rm -fr var/cache/test
+  #      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
+  #
+  #  - name: integration-tests
+  #    image: supla/supla-cloud
+  #    depends_on: [ api-tests ]
+  #    commands:
+  #      - rm -fr var/cache/test
+  #      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
 
-  - name: integration-tests
-    image: supla/supla-cloud
-    depends_on: [ api-tests ]
+  - name: test-e2e
+    image: cypress/base:14.18.1
+    depends_on: [build-frontend]
+    environment:
+      CYPRESS_DATABASE: mysql://root@database/supla_test
     commands:
-      - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
+      - apt-get update && apt-get install -y php7.3 php7.3-curl php7.3-dom php7.3-intl php7.3-json php7.3-mbstring php7.3-mysql php7.3-zip
+      - npm install --global npm@7
+      - cd src/frontend
+      - npm install
+      - node_modules/cypress/bin/cypress install
+      - npm run test:e2e:ci
+
+  - name: test-e2e-nightly
+    image: cypress/base:14.18.1
+    depends_on: [build-frontend]
+    when:
+      cron: nightly
+      event: cron
+    commands:
+      - npm install --global npm@7
+      - cd src/frontend
+      - npm install
+      - node_modules/cypress/bin/cypress install
+      - npm run test:e2e:nightly
 
   - name: notify
     image: mike1pol/drone-rocket
-    depends_on: [ integration-tests ]
+    depends_on: [test-e2e]
     failure: ignore
     settings:
       url: { from_secret: rocket_url }

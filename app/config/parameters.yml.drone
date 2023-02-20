@@ -1,4 +1,3 @@
-# This file is a "template" of what your parameters.yml file should look like
 parameters:
   database_host: database
   database_port: ~
