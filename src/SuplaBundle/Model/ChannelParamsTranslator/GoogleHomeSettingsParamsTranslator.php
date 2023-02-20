@@ -70,13 +70,6 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
         }
     }
 
-    private function canSetUserConfirmation(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
-            ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
-            ChannelFunction::CONTROLLINGTHEGATE,
-        ]);
-    }
-
     public function supports(IODeviceChannel $channel): bool {
         // https://github.com/ACSOFTWARE/supla-aws-lambda/blob/master/google/channels.js#L92
         return in_array($channel->getFunction()->getId(), [
@@ -89,6 +82,7 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
             ChannelFunction::CONTROLLINGTHEGATE,
             ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
+            ChannelFunction::SCENE,
         ]);
     }
 }
