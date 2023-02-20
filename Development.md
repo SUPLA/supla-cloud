@@ -39,7 +39,7 @@ uses mock of supla-server by default.
 
 1. Run backend with
    ```
-   php7.3 -S localhost:8008 -t web
+   php7.3 -S 127.0.0.1:8008 -t web
    ```
 2. Run webpack dev server (frontend) with
     ```

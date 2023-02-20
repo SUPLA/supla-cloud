@@ -1,4 +1,8 @@
 describe('Login tests', () => {
+    before(function () {
+        cy.task('seed:database', 'sample-company');
+    });
+
     it('Visits the app root url', () => {
         cy.visit('/')
         cy.contains('button', 'Sign In')
