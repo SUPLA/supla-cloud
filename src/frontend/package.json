@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "backend": "php7.3 -S localhost:8008 -t ../../web",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "cross-env CYPRESS=true vue-cli-service test:e2e --mode=dev",
     "test:e2e:ci": "cross-env CYPRESS=true vue-cli-service test:e2e --headless --spec=tests/e2e/specs/stubbed/*.js",

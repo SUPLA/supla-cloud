@@ -15,7 +15,7 @@ parameters:
   mailer_from: ~
   admin_email: ~
 
-  supla_server: ~
+  supla_server: localhost:8008
   supla_require_regulations_acceptance: false
   supla_require_cookie_policy_acceptance: false
   brute_force_auth_prevention_enabled: true

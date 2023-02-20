@@ -10,7 +10,7 @@ module.exports = {
         ? '/dist/'
         : '/',
     devServer: {
-        proxy: 'http://supla.local'
+        proxy: 'http://[::1]:8008'
     },
     configureWebpack: {
         // this module contains template compiler that is required for server-rendered pages to work,

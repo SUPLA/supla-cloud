@@ -39,7 +39,7 @@ class AuditEntryBuilder {
     }
 
     public function setIpv4($ipv4): AuditEntryBuilder {
-        $this->ipv4 = $ipv4 ?: null;
+        $this->ipv4 = filter_var($ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ?: null;
         return $this;
     }
 
