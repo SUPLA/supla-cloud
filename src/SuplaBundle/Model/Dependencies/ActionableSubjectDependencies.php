@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Supla\SuplaServerAware;
 
 abstract class ActionableSubjectDependencies {

@@ -21,7 +21,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\UserIcon;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 

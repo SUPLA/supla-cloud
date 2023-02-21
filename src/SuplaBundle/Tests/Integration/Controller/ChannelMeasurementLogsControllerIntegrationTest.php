@@ -30,7 +30,7 @@ use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;

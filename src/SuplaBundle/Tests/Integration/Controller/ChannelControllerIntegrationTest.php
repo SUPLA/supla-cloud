@@ -32,7 +32,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;

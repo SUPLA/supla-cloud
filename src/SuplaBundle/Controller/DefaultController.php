@@ -128,7 +128,7 @@ class DefaultController extends AbstractController {
                 __DIR__,
                 __DIR__ . '/../Enums',
                 __DIR__ . '/../Model/ChannelActionExecutor',
-                __DIR__ . '/../Model/ChannelParamsTranslator',
+                __DIR__ . '/../Model/UserConfigTranslator',
                 __DIR__ . '/../Model/ChannelStateGetter',
             ]);
             $openapi->info = new OA\Info(['title' => 'SUPLA Cloud API', 'version' => $version]);

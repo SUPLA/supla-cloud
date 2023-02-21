@@ -4,8 +4,8 @@ namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\Schedule\ScheduleManager;
+use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
 
 /**
  * This class is responsible for detecting and possibly clearing all items that rely on the given scene.

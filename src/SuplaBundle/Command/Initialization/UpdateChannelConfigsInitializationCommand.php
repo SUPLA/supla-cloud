@@ -3,7 +3,7 @@ namespace SuplaBundle\Command\Initialization;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
