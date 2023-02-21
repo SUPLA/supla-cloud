@@ -1,6 +1,6 @@
 describe('Login tests', () => {
     before(function () {
-        cy.task('seed:database', 'sample-company');
+        cy.task('seed:database', '01_user.sql');
     });
 
     it('Visits the app root url', () => {
@@ -23,6 +23,6 @@ describe('Login tests', () => {
         cy.get('button[type=submit]').click();
         cy.contains('.active', 'My SUPLA');
         cy.get('.square-link').should('have.length.at.least', 4)
-        cy.contains('a', 'MEGA DEVICE');
+        cy.contains('a', 'Temperature');
     });
 })

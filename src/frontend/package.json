@@ -77,6 +77,7 @@
     "js-yaml": "^4.1.0",
     "json-loader": "^0.5.7",
     "mysql": "^2.18.1",
+    "mysql-import": "^5.0.26",
     "ora": "1.3.0",
     "sass": "^1.54.0",
     "sass-loader": "^12.0.0",

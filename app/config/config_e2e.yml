@@ -3,6 +3,7 @@ imports:
 
 parameters:
   supla_protocol: http
+  database_name: supla_test
 
 services:
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
