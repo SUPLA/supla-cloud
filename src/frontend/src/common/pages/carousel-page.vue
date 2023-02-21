@@ -79,7 +79,8 @@
                     if (this.limit && this.items.length >= this.limit) {
                         return warningNotification('Error', 'Limit has been exceeded', this);
                     }
-                    this.$router.push({name: this.detailsRoute, params: {id: 'new'}});
+                    this.$router.push({name: this.detailsRoute, params: {id: 'new'}}).catch(() => {
+                    });
                 }
                 this.item = item;
             },

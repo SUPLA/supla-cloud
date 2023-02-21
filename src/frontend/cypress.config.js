@@ -9,6 +9,9 @@ module.exports = defineConfig({
     },
     e2e: {
         baseUrl: 'http://localhost:8080',
+        defaultCommandTimeout: 5000,
+        taskTimeout: 10000,
+        pageLoadTimeout: 10000,
         setupNodeEvents(on, config) {
             require('./tests/e2e/plugins/seeder')(on, config);
         },

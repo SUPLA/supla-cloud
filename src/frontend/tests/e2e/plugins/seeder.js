@@ -31,6 +31,7 @@ module.exports = (on, config) => {
                         });
                         const additionalFixtures = fixtures ? (Array.isArray(fixtures) ? fixtures : [fixtures]) : [];
                         const fixtureFiles = ['schema.sql', '00_required.sql', ...additionalFixtures];
+                        console.log(fixtureFiles);
                         for (const fileToImport of fixtureFiles) {
                             const fullPath = path.resolve(`./tests/e2e/plugins/data/${fileToImport}`);
                             await importer.import(fullPath);

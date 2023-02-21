@@ -9,3 +9,7 @@ VALUES (1, '562a0121f0a8cced85ef4574afec72ef',
         'aq4qd2kmqowkg0cocs08o8kksg8c8gg', 'user@supla.org', '$2y$13$uEYplFmAyV8y.KM34th35.pqQ7W/gh/5yQzvAPhbuDStEF/Gqxxsa', 1,
         '2023-01-12 05:57:05.000', NULL, NULL, 10, 10, 100, 200, 'Europe/Berlin', 20, NULL, '2023-01-19 05:57:06.000',
         '2023-01-19 05:57:06.000', 20, 10, 1, 1, NULL, NULL, 50, 20, 'pl', NULL, 50, NULL, 0, NULL, 20, '{}', 20);
+
+INSERT INTO supla_location
+    (id, user_id, password, caption, enabled)
+VALUES (1, 1, '3c4d', 'Location #1', 1);
