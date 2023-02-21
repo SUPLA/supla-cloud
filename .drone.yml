@@ -76,9 +76,9 @@ steps:
 
   - name: test-e2e
     image: cypress/base:14.18.1
-    depends_on: [integration-tests]
+    depends_on: [install-backend, build-frontend]
     environment:
-      CYPRESS_DATABASE: mysql://root@database/supla_test
+      CYPRESS_DATABASE: mysql://root@database/supla_e2e
     commands:
       - apt-get update && apt-get install -y php7.3 php7.3-curl php7.3-dom php7.3-intl php7.3-json php7.3-mbstring php7.3-mysql php7.3-zip
       - npm install --global npm@7
@@ -89,7 +89,7 @@ steps:
 
   - name: test-e2e-nightly
     image: cypress/base:14.18.1
-    depends_on: [install-frontend]
+    depends_on: [test-e2e]
     when:
       cron: nightly
       event: cron
@@ -102,7 +102,7 @@ steps:
 
   - name: notify
     image: mike1pol/drone-rocket
-    depends_on: [test-e2e]
+    depends_on: [integration-tests, test-e2e]
     failure: ignore
     settings:
       url: {from_secret: rocket_url}
@@ -124,11 +124,3 @@ services:
       MYSQL_DATABASE: supla_test
       MYSQL_USER: drone
       MYSQL_PASSWORD: ~
-
-#trigger:
-#  event:
-#    - cron
-#    - push
-#    - pull_request
-#  cron:
-#    - daily

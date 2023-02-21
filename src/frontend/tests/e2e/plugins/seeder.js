@@ -8,7 +8,7 @@ module.exports = (on, config) => {
         async 'seed:database'(fixtures) {
             const connectionString = config.env.DATABASE;
             const connectionConfig = new ConnectionString(connectionString);
-            const database = connectionConfig.path ? connectionConfig.path[0] : 'supla_test';
+            const database = connectionConfig.path ? connectionConfig.path[0] : 'supla_e2e';
             const connection = mysql.createConnection({
                 host: connectionConfig.host,
                 user: connectionConfig.user,

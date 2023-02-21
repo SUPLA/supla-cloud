@@ -5,7 +5,7 @@ module.exports = defineConfig({
     screenshotsFolder: 'tests/e2e/screenshots',
     videosFolder: 'tests/e2e/videos',
     env: {
-        DATABASE: "mysql://root:php@localhost/supla_test",
+        DATABASE: "mysql://root:php@localhost/supla_e2e",
     },
     e2e: {
         baseUrl: 'http://localhost:8080',
