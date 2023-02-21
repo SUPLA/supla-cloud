@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Integration\Model\UserConfigTranslator;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -30,7 +30,7 @@ class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
 
     /** @var IODevice */
     private $device;
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $paramsTranslator;
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -46,7 +46,7 @@ class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
 
     /** @before */
     public function init() {
-        $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $this->paramsTranslator = self::$container->get(ConfigTranslator::class);
         $this->simulateAuthentication($this->user);
     }
 
@@ -54,23 +54,23 @@ class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
         $channel = $this->device->getChannels()[0];
         $this->assertEquals(0, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, []);
+        $this->paramsTranslator->setConfig($channel, []);
         $this->assertEquals(0, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 0]);
+        $this->paramsTranslator->setConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 0]);
         $this->assertEquals(1000, $channel->getParam1());
         $this->assertEquals(0, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 600]);
+        $this->paramsTranslator->setConfig($channel, ['openingTimeS' => 100, 'closingTimeS' => 600]);
         $this->assertEquals(1000, $channel->getParam1());
         $this->assertEquals(6000, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['openingTimeS' => 1000, 'closingTimeS' => 3000]);
+        $this->paramsTranslator->setConfig($channel, ['openingTimeS' => 1000, 'closingTimeS' => 3000]);
         $this->assertEquals(6000, $channel->getParam1());
         $this->assertEquals(6000, $channel->getParam3());
     }
 
     public function testSettingOpeningSensorForRollerShutter() {
         $channel = $this->device->getChannels()[0];
-        $this->paramsTranslator->setParamsFromConfig($channel, ['openingSensorChannelId' => $this->device->getChannels()[1]->getId()]);
+        $this->paramsTranslator->setConfig($channel, ['openingSensorChannelId' => $this->device->getChannels()[1]->getId()]);
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($channel->getId(), $this->device->getChannels()[1]->getParam1());
         $this->assertEquals($this->device->getChannels()[1]->getId(), $this->device->getChannels()[0]->getParam2());
@@ -78,7 +78,7 @@ class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
 
     public function testSettingRollerShutterForOpeningSensor() {
         $sensor = $this->device->getChannels()[1];
-        $this->paramsTranslator->setParamsFromConfig($sensor, ['openingSensorChannelId' => $this->device->getChannels()[0]->getId()]);
+        $this->paramsTranslator->setConfig($sensor, ['openingSensorChannelId' => $this->device->getChannels()[0]->getId()]);
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($sensor->getId(), $this->device->getChannels()[0]->getParam2());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam1());

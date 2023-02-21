@@ -3,7 +3,7 @@ namespace SuplaBundle\Command\Initialization;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,10 +14,10 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
 
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $paramConfigTranslator;
 
-    public function __construct(EntityManagerInterface $entityManager, ChannelParamConfigTranslator $paramConfigTranslator) {
+    public function __construct(EntityManagerInterface $entityManager, ConfigTranslator $paramConfigTranslator) {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->paramConfigTranslator = $paramConfigTranslator;
@@ -45,7 +45,7 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
             foreach ($iterator as $row) {
                 $channel = $row[0];
                 /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
-                $config = $this->paramConfigTranslator->getConfigFromParams($channel);
+                $config = $this->paramConfigTranslator->getConfig($channel);
                 $channel->setUserConfig($config);
                 $this->entityManager->persist($channel);
                 if ((++$i % self::BATCH_SIZE) === 0) {

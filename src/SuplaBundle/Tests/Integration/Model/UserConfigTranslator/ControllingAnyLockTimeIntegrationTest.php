@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Integration\Model\UserConfigTranslator;
 
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -29,7 +29,7 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
 
     /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $paramsTranslator;
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -41,33 +41,33 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
         ]);
-        $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $this->paramsTranslator = self::$container->get(ConfigTranslator::class);
         $this->simulateAuthentication($this->user);
     }
 
     public function testUpdatingControllingTheDoorLockTime() {
         $channel = $this->device->getChannels()[0];
         $this->assertEquals(0, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 0]);
+        $this->paramsTranslator->setConfig($channel, ['relayTimeMs' => 0]);
         $this->assertEquals(500, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 1000]);
+        $this->paramsTranslator->setConfig($channel, ['relayTimeMs' => 1000]);
         $this->assertEquals(1000, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => -5]);
+        $this->paramsTranslator->setConfig($channel, ['relayTimeMs' => -5]);
         $this->assertEquals(500, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 1000000]);
+        $this->paramsTranslator->setConfig($channel, ['relayTimeMs' => 1000000]);
         $this->assertEquals(120000, $channel->getParam1());
     }
 
     public function testUpdatingControllingTheGateTime() {
         $channel = $this->device->getChannels()[1];
         $this->assertEquals(0, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 0]);
+        $this->paramsTranslator->setConfig($channel, ['relayTimeMs' => 0]);
         $this->assertEquals(500, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 1000]);
+        $this->paramsTranslator->setConfig($channel, ['relayTimeMs' => 1000]);
         $this->assertEquals(1000, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => -5]);
+        $this->paramsTranslator->setConfig($channel, ['relayTimeMs' => -5]);
         $this->assertEquals(500, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['relayTimeMs' => 1000000]);
+        $this->paramsTranslator->setConfig($channel, ['relayTimeMs' => 1000000]);
         $this->assertEquals(2000, $channel->getParam1());
     }
 }

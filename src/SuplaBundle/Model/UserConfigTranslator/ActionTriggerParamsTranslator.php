@@ -5,7 +5,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -24,7 +24,7 @@ use SuplaBundle\Utils\JsonArrayObject;
  *     @OA\Property(property="actions", type="object", description="List of configured AT actions."),
  * )
  */
-class ActionTriggerParamsTranslator implements ChannelParamTranslator {
+class ActionTriggerParamsTranslator implements UserConfigTranslator {
     use CurrentUserAware;
 
     /** @var ActionableSubjectRepository */
@@ -37,31 +37,31 @@ class ActionTriggerParamsTranslator implements ChannelParamTranslator {
         $this->channelActionExecutor = $channelActionExecutor;
     }
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
+    public function getConfig(HasUserConfig $subject): array {
         return [
-            'actionTriggerCapabilities' => $channel->getProperties()['actionTriggerCapabilities'] ?? [],
-            'disablesLocalOperation' => $channel->getProperties()['disablesLocalOperation'] ?? [],
-            'relatedChannelId' => $channel->getParam1() ?: null,
-            'hideInChannelsList' => !!$channel->getParam1(),
-            'actions' => new JsonArrayObject($channel->getUserConfig()['actions'] ?? []),
+            'actionTriggerCapabilities' => $subject->getProperties()['actionTriggerCapabilities'] ?? [],
+            'disablesLocalOperation' => $subject->getProperties()['disablesLocalOperation'] ?? [],
+            'relatedChannelId' => $subject->getParam1() ?: null,
+            'hideInChannelsList' => !!$subject->getParam1(),
+            'actions' => new JsonArrayObject($subject->getUserConfig()['actions'] ?? []),
         ];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+    public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('actions', $config)) {
             $actions = $config['actions'] ?: [];
             Assertion::isArray($actions);
-            $supportedTriggers = $this->getConfigFromParams($channel)['actionTriggerCapabilities'];
+            $supportedTriggers = $this->getConfig($subject)['actionTriggerCapabilities'];
             Assertion::allInArray(array_keys($actions), $supportedTriggers, '%s trigger is not supported by the hardware.'); // i18n
             $actions = array_map(function (array $action) {
                 return $this->adjustAction($action);
             }, $actions);
-            $channel->setUserConfig(array_replace($channel->getUserConfig(), ['actions' => $actions]));
+            $subject->setUserConfig(array_replace($subject->getUserConfig(), ['actions' => $actions]));
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::ACTION_TRIGGER,
         ]);
     }

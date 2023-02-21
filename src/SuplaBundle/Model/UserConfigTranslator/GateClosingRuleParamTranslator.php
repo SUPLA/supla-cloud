@@ -4,14 +4,14 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\GateClosingRule;
-use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Repository\GateClosingRuleRepository;
 use SuplaBundle\Utils\JsonArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class GateClosingRuleParamTranslator implements ChannelParamTranslator {
+class GateClosingRuleParamTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const MIN_TIME = 300;
@@ -29,19 +29,19 @@ class GateClosingRuleParamTranslator implements ChannelParamTranslator {
         $this->normalizer = $normalizer;
     }
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
-        $rule = $this->repository->find($channel->getId());
+    public function getConfig(HasUserConfig $subject): array {
+        $rule = $this->repository->find($subject->getId());
         $closingRuleConfig = $rule ? $this->normalizer->normalize($rule) : new JsonArrayObject([]);
         return ['closingRule' => $closingRuleConfig];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+    public function setConfig(HasUserConfig $subject, array $config) {
         $ruleConfig = $config['closingRule'] ?? [];
         if ($ruleConfig) {
             /** @var GateClosingRule $rule */
-            $rule = $this->repository->find($channel->getId());
+            $rule = $this->repository->find($subject->getId());
             if (!$rule) {
-                $rule = new GateClosingRule($channel);
+                $rule = new GateClosingRule($subject);
             }
             if (array_key_exists('enabled', $ruleConfig)) {
                 $rule->setEnabled(boolval($ruleConfig['enabled']));
@@ -83,8 +83,8 @@ class GateClosingRuleParamTranslator implements ChannelParamTranslator {
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::CONTROLLINGTHEGATE,
             ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
         ]);

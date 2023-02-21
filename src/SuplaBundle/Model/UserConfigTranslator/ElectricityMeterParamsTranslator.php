@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
@@ -24,53 +25,53 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="upperVoltageThreshold", type="number"),
  * )
  */
-class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
+class ElectricityMeterParamsTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
+    public function getConfig(HasUserConfig $subject): array {
         return [
-            'pricePerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam2() / 10000, 4),
-            'currency' => $channel->getTextParam1() ?: null,
-            'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($channel->getFlags()),
-            'countersAvailable' => ($channel->getProperties()['countersAvailable'] ?? []) ?: [],
-            'electricityMeterInitialValues' => new JsonArrayObject($channel->getUserConfig()['electricityMeterInitialValues'] ?? []),
-            'addToHistory' => $channel->getUserConfigValue('addToHistory', false),
-            'lowerVoltageThreshold' => $channel->getUserConfigValue('lowerVoltageThreshold'),
-            'upperVoltageThreshold' => $channel->getUserConfigValue('upperVoltageThreshold'),
-            'disabledPhases' => $channel->getUserConfigValue('disabledPhases', []),
+            'pricePerUnit' => NumberUtils::maximumDecimalPrecision($subject->getParam2() / 10000, 4),
+            'currency' => $subject->getTextParam1() ?: null,
+            'resetCountersAvailable' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE()->isSupported($subject->getFlags()),
+            'countersAvailable' => ($subject->getProperties()['countersAvailable'] ?? []) ?: [],
+            'electricityMeterInitialValues' => new JsonArrayObject($subject->getUserConfig()['electricityMeterInitialValues'] ?? []),
+            'addToHistory' => $subject->getUserConfigValue('addToHistory', false),
+            'lowerVoltageThreshold' => $subject->getUserConfigValue('lowerVoltageThreshold'),
+            'upperVoltageThreshold' => $subject->getUserConfigValue('upperVoltageThreshold'),
+            'disabledPhases' => $subject->getUserConfigValue('disabledPhases', []),
             'enabledPhases' => array_values(array_diff(
-                $this->getAvailablePhases($channel),
-                $channel->getUserConfigValue('disabledPhases', [])
+                $this->getAvailablePhases($subject),
+                $subject->getUserConfigValue('disabledPhases', [])
             )),
-            'availablePhases' => $this->getAvailablePhases($channel),
+            'availablePhases' => $this->getAvailablePhases($subject),
         ];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+    public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('pricePerUnit', $config)) {
-            $channel->setParam2(intval($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000));
+            $subject->setParam2(intval($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000));
         }
         if (array_key_exists('currency', $config)) {
             $currency = $config['currency'];
             if (!$currency || preg_match('/^[A-Z]{3}$/', $currency)) {
-                $channel->setTextParam1($currency);
+                $subject->setTextParam1($currency);
             }
         }
         if (array_key_exists('electricityMeterInitialValues', $config)) {
             $values = is_array($config['electricityMeterInitialValues']) ? $config['electricityMeterInitialValues'] : [];
-            $initialValues = $this->getInitialValues($values, $channel);
-            $channel->setUserConfigValue('electricityMeterInitialValues', $initialValues);
+            $initialValues = $this->getInitialValues($values, $subject);
+            $subject->setUserConfigValue('electricityMeterInitialValues', $initialValues);
         }
         if (array_key_exists('addToHistory', $config)) {
-            $channel->setUserConfigValue('addToHistory', boolval($config['addToHistory']));
+            $subject->setUserConfigValue('addToHistory', boolval($config['addToHistory']));
         }
         if (array_key_exists('lowerVoltageThreshold', $config)) {
             $threshold = $config['lowerVoltageThreshold'] ? $this->getValueInRange($config['lowerVoltageThreshold'], 5, 240) : null;
-            $channel->setUserConfigValue('lowerVoltageThreshold', $threshold);
+            $subject->setUserConfigValue('lowerVoltageThreshold', $threshold);
         }
         if (array_key_exists('upperVoltageThreshold', $config)) {
             $threshold = $config['upperVoltageThreshold'] ? $this->getValueInRange($config['upperVoltageThreshold'], 10, 500) : null;
-            $channel->setUserConfigValue('upperVoltageThreshold', $threshold);
+            $subject->setUserConfigValue('upperVoltageThreshold', $threshold);
         }
         if (array_key_exists('disabledPhases', $config)) {
             $disabledPhases = $config['disabledPhases'];
@@ -78,20 +79,20 @@ class ElectricityMeterParamsTranslator implements ChannelParamTranslator {
                 $disabledPhases = [];
             }
             Assertion::isArray($disabledPhases, 'disabledPhases config value must be an array');
-            Assertion::allInArray($disabledPhases, $this->getAvailablePhases($channel), 'disabledPhases may only contain available phases');
+            Assertion::allInArray($disabledPhases, $this->getAvailablePhases($subject), 'disabledPhases may only contain available phases');
             $disabledPhases = array_values(array_unique($disabledPhases));
             Assertion::lessThan(count($disabledPhases), 3, 'You must leave at least one phase enabled.'); // i18n
-            $channel->setUserConfigValue('disabledPhases', $disabledPhases);
+            $subject->setUserConfigValue('disabledPhases', $disabledPhases);
         }
-        $lowerVoltageThreshold = $channel->getUserConfigValue('lowerVoltageThreshold');
-        $upperVoltageThreshold = $channel->getUserConfigValue('upperVoltageThreshold');
+        $lowerVoltageThreshold = $subject->getUserConfigValue('lowerVoltageThreshold');
+        $upperVoltageThreshold = $subject->getUserConfigValue('upperVoltageThreshold');
         if ($lowerVoltageThreshold && $upperVoltageThreshold) {
             Assertion::lessThan($lowerVoltageThreshold, $upperVoltageThreshold);
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::ELECTRICITYMETER,
         ]);
     }

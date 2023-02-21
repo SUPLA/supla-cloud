@@ -3,7 +3,7 @@
 namespace SuplaBundle\Model\UserConfigTranslator;
 
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 
 /**
@@ -11,23 +11,23 @@ use SuplaBundle\Enums\ChannelFunction;
  *   @OA\Property(property="invertedLogic", type="boolean"),
  * )
  */
-class InvertedLogicParamTranslator implements ChannelParamTranslator {
+class InvertedLogicParamTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
+    public function getConfig(HasUserConfig $subject): array {
         return [
-            'invertedLogic' => boolval($channel->getParam3()),
+            'invertedLogic' => boolval($subject->getParam3()),
         ];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+    public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('invertedLogic', $config)) {
-            $channel->setParam3($config['invertedLogic'] ? 1 : 0);
+            $subject->setParam3($config['invertedLogic'] ? 1 : 0);
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::MAILSENSOR,
             ChannelFunction::NOLIQUIDSENSOR,
             ChannelFunction::OPENINGSENSOR_DOOR,

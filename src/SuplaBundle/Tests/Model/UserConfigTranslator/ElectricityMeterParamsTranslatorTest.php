@@ -21,13 +21,13 @@ use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterParamsTranslator;
-use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeChannelParamTranslator;
+use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
 class ElectricityMeterParamsTranslatorTest extends TestCase {
     use UnitTestHelper;
 
-    /** @var OpeningClosingTimeChannelParamTranslator */
+    /** @var OpeningClosingTimeUserConfigTranslator */
     private $configTranslator;
     /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
     private $channel;
@@ -43,8 +43,8 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
     }
 
     public function testDisablingPhases() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['disabledPhases' => [2]]);
-        $config = $this->configTranslator->getConfigFromParams($this->channel);
+        $this->configTranslator->setConfig($this->channel, ['disabledPhases' => [2]]);
+        $config = $this->configTranslator->getConfig($this->channel);
         $this->assertArrayHasKey('enabledPhases', $config);
         $this->assertArrayHasKey('disabledPhases', $config);
         $this->assertEquals([1, 3], $config['enabledPhases']);
@@ -52,7 +52,7 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
     }
 
     public function testSettingInitialValues() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['electricityMeterInitialValues' => [
+        $this->configTranslator->setConfig($this->channel, ['electricityMeterInitialValues' => [
             'forwardActiveEnergy' => 123.45,
         ]]);
         $config = $this->channel->getUserConfig();
@@ -61,10 +61,10 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
     }
 
     public function testLeavingPreviousInitialValues() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['electricityMeterInitialValues' => [
+        $this->configTranslator->setConfig($this->channel, ['electricityMeterInitialValues' => [
             'forwardActiveEnergy' => 123.45,
         ]]);
-        $this->configTranslator->setParamsFromConfig($this->channel, ['electricityMeterInitialValues' => [
+        $this->configTranslator->setConfig($this->channel, ['electricityMeterInitialValues' => [
             'reverseActiveEnergyBalanced' => 234.56,
         ]]);
         $config = $this->channel->getUserConfig();
@@ -75,13 +75,13 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
 
     public function testChecksSupportedCounters() {
         $this->expectExceptionMessage('is not an element of the valid values');
-        $this->configTranslator->setParamsFromConfig($this->channel, ['electricityMeterInitialValues' => [
+        $this->configTranslator->setConfig($this->channel, ['electricityMeterInitialValues' => [
             'forwardActiveEnergyBalanced' => 123.45,
         ]]);
     }
 
     public function testSettingInitialValuesForEveryPhase() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['electricityMeterInitialValues' => [
+        $this->configTranslator->setConfig($this->channel, ['electricityMeterInitialValues' => [
             'forwardActiveEnergy' => [1 => 100, 2 => 200, 3 => 300],
         ]]);
         $config = $this->channel->getUserConfig();
@@ -90,7 +90,7 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
     }
 
     public function testSettingInitialValuesForOnePhaseSetsOthersToDefaults() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['electricityMeterInitialValues' => [
+        $this->configTranslator->setConfig($this->channel, ['electricityMeterInitialValues' => [
             'forwardActiveEnergy' => [2 => 200],
         ]]);
         $config = $this->channel->getUserConfig();
@@ -100,13 +100,13 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
 
     public function testCannotSetValuesForEachPhaseForReverseActiveEnergyBalanced() {
         $this->expectExceptionMessage('Advanced mode is unsupported for this counter');
-        $this->configTranslator->setParamsFromConfig($this->channel, ['electricityMeterInitialValues' => [
+        $this->configTranslator->setConfig($this->channel, ['electricityMeterInitialValues' => [
             'reverseActiveEnergyBalanced' => [2 => 200],
         ]]);
     }
 
     public function testSettingInitialValuesMixedAdvancedAndSimpleMode() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['electricityMeterInitialValues' => [
+        $this->configTranslator->setConfig($this->channel, ['electricityMeterInitialValues' => [
             'forwardActiveEnergy' => [1 => 300.1, 2 => 200],
             'reverseActiveEnergyBalanced' => 200,
         ]]);

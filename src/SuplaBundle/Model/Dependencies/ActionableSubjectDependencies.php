@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Supla\SuplaServerAware;
 
 abstract class ActionableSubjectDependencies {
@@ -15,12 +15,12 @@ abstract class ActionableSubjectDependencies {
 
     /** @var EntityManagerInterface */
     protected $entityManager;
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     protected $channelParamConfigTranslator;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ChannelParamConfigTranslator $channelParamConfigTranslator
+        ConfigTranslator $channelParamConfigTranslator
     ) {
         $this->entityManager = $entityManager;
         $this->channelParamConfigTranslator = $channelParamConfigTranslator;
@@ -28,14 +28,14 @@ abstract class ActionableSubjectDependencies {
 
     protected function clearActionTriggersThatReferencesSubject(ActionableSubject $subject): void {
         foreach ($this->findActionTriggersForSubject($subject) as $actionTrigger) {
-            $config = $this->channelParamConfigTranslator->getConfigFromParams($actionTrigger);
+            $config = $this->channelParamConfigTranslator->getConfig($actionTrigger);
             $actions = $actionTrigger->getUserConfig()['actions'] ?? [];
             $config['actions'] = array_filter($actions, function (array $action) use ($subject) {
                 $referencesThisSubject = $action['subjectType'] === $subject->getSubjectType()
                     && $action['subjectId'] === $subject->getId();
                 return !$referencesThisSubject;
             });
-            $this->channelParamConfigTranslator->setParamsFromConfig($actionTrigger, $config);
+            $this->channelParamConfigTranslator->setConfig($actionTrigger, $config);
             $this->entityManager->persist($actionTrigger);
         }
     }

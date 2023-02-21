@@ -36,7 +36,7 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\MeasurementCsvExporter;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\DatabaseUtils;
@@ -56,14 +56,14 @@ class ChannelMeasurementLogsController extends RestController {
     private $entityManager;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $channelParamConfigTranslator;
 
     public function __construct(
         IODeviceManager $deviceManager,
         IODeviceChannelRepository $channelRepository,
         $measurementLogsEntityManager,
-        ChannelParamConfigTranslator $channelParamConfigTranslator
+        ConfigTranslator $channelParamConfigTranslator
     ) {
         $this->deviceManager = $deviceManager;
         $this->entityManager = $measurementLogsEntityManager;
@@ -594,7 +594,7 @@ class ChannelMeasurementLogsController extends RestController {
             ChannelFunction::LIGHTSWITCH,
             ChannelFunction::STAIRCASETIMER,
         ])) {
-            $channelConfig = $this->channelParamConfigTranslator->getConfigFromParams($channel);
+            $channelConfig = $this->channelParamConfigTranslator->getConfig($channel);
             $relatedMeasurementChannelId = $channelConfig['relatedChannelId'] ?? null;
             if ($relatedMeasurementChannelId) {
                 $targetChannel = $this->channelRepository->findForUser($channel->getUser(), $relatedMeasurementChannelId);

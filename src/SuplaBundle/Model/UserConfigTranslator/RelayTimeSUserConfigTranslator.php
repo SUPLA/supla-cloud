@@ -3,7 +3,7 @@
 namespace SuplaBundle\Model\UserConfigTranslator;
 
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
@@ -15,24 +15,24 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="relatedChannelId", type="integer"),
  * )
  */
-class RelayTimeSChannelParamTranslator implements ChannelParamTranslator {
+class RelayTimeSUserConfigTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
+    public function getConfig(HasUserConfig $subject): array {
         return [
-            'relayTimeS' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10, 1),
-            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($channel->getFlags()),
+            'relayTimeS' => NumberUtils::maximumDecimalPrecision($subject->getParam1() / 10, 1),
+            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($subject->getFlags()),
         ];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+    public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('relayTimeS', $config)) {
-            $channel->setParam1(intval($this->getValueInRange($config['relayTimeS'], 0, 7200) * 10));
+            $subject->setParam1(intval($this->getValueInRange($config['relayTimeS'], 0, 7200) * 10));
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::STAIRCASETIMER,
         ]);
     }

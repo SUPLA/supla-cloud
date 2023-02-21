@@ -22,7 +22,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterParamsTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementParamsTranslator;
@@ -30,21 +30,21 @@ use SuplaBundle\Model\UserConfigTranslator\HumidityAdjustmentParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterParamsTranslator;
 use SuplaBundle\Model\UserConfigTranslator\InvertedLogicParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTranslator;
-use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeChannelParamTranslator;
-use SuplaBundle\Model\UserConfigTranslator\RelayTimeMsChannelParamTranslator;
-use SuplaBundle\Model\UserConfigTranslator\RelayTimeSChannelParamTranslator;
+use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\RelayTimeMsUserConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\RelayTimeSUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\TemperatureAdjustmentParamTranslator;
 
 class ChannelParamConfigTranslatorTest extends TestCase {
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $configTranslator;
 
     /** @before */
     public function createTranslator() {
-        $this->configTranslator = new ChannelParamConfigTranslator([
-            new RelayTimeMsChannelParamTranslator(),
-            new RelayTimeSChannelParamTranslator(),
-            new OpeningClosingTimeChannelParamTranslator(),
+        $this->configTranslator = new ConfigTranslator([
+            new RelayTimeMsUserConfigTranslator(),
+            new RelayTimeSUserConfigTranslator(),
+            new OpeningClosingTimeUserConfigTranslator(),
             new ElectricityMeterParamsTranslator(),
             new ImpulseCounterParamsTranslator(),
             new HumidityAdjustmentParamTranslator(),
@@ -64,7 +64,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     ) {
         $channel = new IODeviceChannel();
         $channel->setFunction($channelFunction);
-        $this->configTranslator->setParamsFromConfig($channel, $expectedConfig);
+        $this->configTranslator->setConfig($channel, $expectedConfig);
         $channel->setFunction($channelFunction);
         $channel->setParam1($params[0] ?? 0);
         $channel->setParam2($params[1] ?? 0);
@@ -73,7 +73,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setTextParam1($params[4] ?? null);
         $channel->setTextParam2($params[5] ?? null);
         $channel->setTextParam3($params[6] ?? null);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertEquals($expectedConfig, array_intersect_key($config, $expectedConfig));
     }
 
@@ -93,7 +93,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setTextParam1('aaa');
         $channel->setTextParam2('bbb');
         $channel->setTextParam3('ccc');
-        $this->configTranslator->setParamsFromConfig($channel, $config);
+        $this->configTranslator->setConfig($channel, $config);
         $this->assertEquals($expectedParams[0] ?? 111, $channel->getParam1());
         $this->assertEquals($expectedParams[1] ?? 222, $channel->getParam2());
         $this->assertEquals($expectedParams[2] ?? 333, $channel->getParam3());
@@ -120,7 +120,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setTextParam1('aaa');
         $channel->setTextParam2('bbb');
         $channel->setTextParam3('ccc');
-        $this->configTranslator->setParamsFromConfig($channel, $config);
+        $this->configTranslator->setConfig($channel, $config);
         $this->configTranslator->clearConfig($channel);
         $this->assertEquals(($expectedParams[0] ?? null) !== null ? $expectedDefaults[0] ?? 0 : 111, $channel->getParam1());
         $this->assertEquals(($expectedParams[1] ?? null) !== null ? 0 : 222, $channel->getParam2());
@@ -199,8 +199,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     public function testNotOverwritingExistingParamsFromConfigIfNotGiven() {
         $channel = new IODeviceChannel();
         $channel->setFunction(ChannelFunction::HUMIDITYANDTEMPERATURE());
-        $this->configTranslator->setParamsFromConfig($channel, ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]);
-        $this->configTranslator->setParamsFromConfig($channel, ['temperatureAdjustment' => 1]);
+        $this->configTranslator->setConfig($channel, ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]);
+        $this->configTranslator->setConfig($channel, ['temperatureAdjustment' => 1]);
         $this->assertEquals(100, $channel->getParam2());
         $this->assertEquals(124, $channel->getParam3());
     }
@@ -208,7 +208,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     public function testReturningDefaultsIfNoneSet() {
         $channel = new IODeviceChannel();
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertEquals([
             'relayTimeMs' => 500,
             'numberOfAttemptsToOpen' => 5,
@@ -221,18 +221,18 @@ class ChannelParamConfigTranslatorTest extends TestCase {
     public function testReturningInfoFromFlagsNoneSet() {
         $channel = new IODeviceChannel();
         $channel->setFunction(ChannelFunction::CONTROLLINGTHEGATE());
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertTrue($config['timeSettingAvailable']);
         EntityUtils::setField($channel, 'flags', ChannelFunctionBitsFlags::getAllFeaturesFlag());
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertFalse($config['timeSettingAvailable']);
     }
 
     public function testDefault0IfConfigEmptyString() {
         $channel = new IODeviceChannel();
         $channel->setFunction(ChannelFunction::IC_GASMETER());
-        $this->configTranslator->setParamsFromConfig($channel, ['initialValue' => '']);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->configTranslator->setConfig($channel, ['initialValue' => '']);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertEquals(0, $config['initialValue']);
     }
 }

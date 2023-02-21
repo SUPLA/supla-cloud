@@ -2,38 +2,38 @@
 
 namespace SuplaBundle\Model\UserConfigTranslator;
 
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Utils\NumberUtils;
 
-class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslator {
+class GeneralPurposeMeasurementParamsTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
+    public function getConfig(HasUserConfig $subject): array {
         return array_merge([
-            'initialValue' => NumberUtils::maximumDecimalPrecision($channel->getParam1() / 10000, 4),
-            'impulsesPerUnit' => NumberUtils::maximumDecimalPrecision($channel->getParam3() / 10000, 4),
-            'unitPrefix' => $channel->getTextParam1() ?: null,
-            'unitSuffix' => $channel->getTextParam2() ?: null,
-        ], $this->getValuesFromParam2($channel->getParam2()));
+            'initialValue' => NumberUtils::maximumDecimalPrecision($subject->getParam1() / 10000, 4),
+            'impulsesPerUnit' => NumberUtils::maximumDecimalPrecision($subject->getParam3() / 10000, 4),
+            'unitPrefix' => $subject->getTextParam1() ?: null,
+            'unitSuffix' => $subject->getTextParam2() ?: null,
+        ], $this->getValuesFromParam2($subject->getParam2()));
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+    public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('initialValue', $config)) {
-            $channel->setParam1(intval($this->getValueInRange($config['initialValue'], -1000000, 1000000) * 10000));
+            $subject->setParam1(intval($this->getValueInRange($config['initialValue'], -1000000, 1000000) * 10000));
         }
-        $channel->setParam2($this->setValuesToParam2($config, $channel->getParam2()));
+        $subject->setParam2($this->setValuesToParam2($config, $subject->getParam2()));
         if (array_key_exists('impulsesPerUnit', $config)) {
-            $channel->setParam3(intval($this->getValueInRange($config['impulsesPerUnit'], -1000000, 1000000) * 10000));
+            $subject->setParam3(intval($this->getValueInRange($config['impulsesPerUnit'], -1000000, 1000000) * 10000));
         }
         if (array_key_exists('unitPrefix', $config)) {
             if (mb_strlen($config['unitPrefix'] ?? '', 'UTF-8') <= 4) {
-                $channel->setTextParam1($config['unitPrefix']);
+                $subject->setTextParam1($config['unitPrefix']);
             }
         }
         if (array_key_exists('unitSuffix', $config)) {
             if (mb_strlen($config['unitSuffix'] ?? '', 'UTF-8') <= 4) {
-                $channel->setTextParam2($config['unitSuffix']);
+                $subject->setTextParam2($config['unitSuffix']);
             }
         }
     }
@@ -80,8 +80,8 @@ class GeneralPurposeMeasurementParamsTranslator implements ChannelParamTranslato
         return $value;
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
         ]);
     }

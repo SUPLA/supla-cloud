@@ -3,7 +3,7 @@
 namespace SuplaBundle\Model\UserConfigTranslator;
 
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 
@@ -26,7 +26,7 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
  *   ),
  * )
  */
-class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {
+class RelayTimeMsUserConfigTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const TIMES = [
@@ -36,22 +36,22 @@ class RelayTimeMsChannelParamTranslator implements ChannelParamTranslator {
         ChannelFunction::CONTROLLINGTHEGATEWAYLOCK => [500, 120000],
     ];
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
+    public function getConfig(HasUserConfig $subject): array {
         return [
-            'relayTimeMs' => $channel->getParam1() ?: 500,
-            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($channel->getFlags()),
+            'relayTimeMs' => $subject->getParam1() ?: 500,
+            'timeSettingAvailable' => !ChannelFunctionBitsFlags::TIME_SETTING_NOT_AVAILABLE()->isSupported($subject->getFlags()),
         ];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        if (array_key_exists('relayTimeMs', $config) || !$channel->getParam1()) {
-            $times = self::TIMES[$channel->getFunction()->getId()] ?? [500, 10000];
-            $channel->setParam1($this->getValueInRange($config['relayTimeMs'] ?? 0, $times[0], $times[1]));
+    public function setConfig(HasUserConfig $subject, array $config) {
+        if (array_key_exists('relayTimeMs', $config) || !$subject->getParam1()) {
+            $times = self::TIMES[$subject->getFunction()->getId()] ?? [500, 10000];
+            $subject->setParam1($this->getValueInRange($config['relayTimeMs'] ?? 0, $times[0], $times[1]));
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::CONTROLLINGTHEDOORLOCK,
             ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
             ChannelFunction::CONTROLLINGTHEGATE,

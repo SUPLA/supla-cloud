@@ -19,11 +19,11 @@ namespace SuplaBundle\Tests\Model\UserConfigTranslator;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementParamsTranslator;
 
 class GeneralPurposeMeasurementParamsTranslatorTest extends TestCase {
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $configTranslator;
 
     /** @before */
@@ -34,16 +34,16 @@ class GeneralPurposeMeasurementParamsTranslatorTest extends TestCase {
     /** @dataProvider unitExamples */
     public function testSettingUnitPrefix($unit, $expectedUnit) {
         $channel = new IODeviceChannel();
-        $this->configTranslator->setParamsFromConfig($channel, ['unitPrefix' => $unit]);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->configTranslator->setConfig($channel, ['unitPrefix' => $unit]);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertEquals($expectedUnit, $config['unitPrefix']);
     }
 
     /** @dataProvider unitExamples */
     public function testSettingUnitSuffix($unit, $expectedUnit) {
         $channel = new IODeviceChannel();
-        $this->configTranslator->setParamsFromConfig($channel, ['unitSuffix' => $unit]);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->configTranslator->setConfig($channel, ['unitSuffix' => $unit]);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertEquals($expectedUnit, $config['unitSuffix']);
     }
 
@@ -62,7 +62,7 @@ class GeneralPurposeMeasurementParamsTranslatorTest extends TestCase {
     /** @dataProvider paramInfoExamples */
     public function testEncodingParamInfo(array $config, int $expectedValue) {
         $channel = new IODeviceChannel();
-        $this->configTranslator->setParamsFromConfig($channel, $config);
+        $this->configTranslator->setConfig($channel, $config);
         $this->assertEquals($expectedValue, $channel->getParam2());
     }
 

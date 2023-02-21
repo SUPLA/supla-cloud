@@ -22,7 +22,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\JsonArrayObject;
@@ -35,13 +35,13 @@ class IODeviceChannelSerializer extends AbstractSerializer {
     private $channelStateGetter;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $paramsTranslator;
 
     public function __construct(
         ChannelStateGetter $channelStateGetter,
         IODeviceChannelRepository $channelRepository,
-        ChannelParamConfigTranslator $paramsTranslator
+        ConfigTranslator $paramsTranslator
     ) {
         parent::__construct();
         $this->channelStateGetter = $channelStateGetter;
@@ -72,7 +72,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
-            $config = (new JsonArrayObject($this->paramsTranslator->getConfigFromParams($channel)))->jsonSerialize();
+            $config = (new JsonArrayObject($this->paramsTranslator->getConfig($channel)))->jsonSerialize();
             if (is_array($config) && isset($config['googleHome']) && isset($config['googleHome']['pin'])) {
                 unset($config['googleHome']['pin']);
             }

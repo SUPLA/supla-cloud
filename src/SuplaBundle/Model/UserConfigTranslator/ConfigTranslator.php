@@ -3,7 +3,7 @@
 namespace SuplaBundle\Model\UserConfigTranslator;
 
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 
 /**
  * @OA\Schema(schema="ChannelConfig", description="Configuration of the channel.",
@@ -21,37 +21,37 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
  *   }
  * )
  */
-class ChannelParamConfigTranslator {
-    /** @var ChannelParamTranslator[] */
+class ConfigTranslator {
+    /** @var UserConfigTranslator[] */
     private $translators = [];
 
     public function __construct(iterable $translators) {
         $this->translators = $translators;
     }
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
+    public function getConfig(HasUserConfig $subject): array {
         $config = [];
         foreach ($this->translators as $translator) {
-            if ($translator->supports($channel)) {
-                $config = array_merge($config, $translator->getConfigFromParams($channel));
+            if ($translator->supports($subject)) {
+                $config = array_merge($config, $translator->getConfig($subject));
             }
         }
         return $config;
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config): void {
+    public function setConfig(HasUserConfig $subject, array $config): void {
         foreach ($this->translators as $translator) {
-            if ($translator->supports($channel)) {
-                $translator->setParamsFromConfig($channel, $config);
+            if ($translator->supports($subject)) {
+                $translator->setConfig($subject, $config);
             }
         }
     }
 
-    public function clearConfig(IODeviceChannel $channel) {
-        $config = $this->getConfigFromParams($channel);
+    public function clearConfig(HasUserConfig $subject) {
+        $config = $this->getConfig($subject);
         $config = array_map(function () {
             return null;
         }, $config);
-        $this->setParamsFromConfig($channel, $config);
+        $this->setConfig($subject, $config);
     }
 }

@@ -54,7 +54,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
     public function testGettingSupportedTriggers() {
         $channel = ChannelStub::create(ChannelFunction::ACTION_TRIGGER())
             ->properties(['actionTriggerCapabilities' => ['HOLD', 'PRESS_3X']]);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertArrayHasKey('actionTriggerCapabilities', $config);
         $this->assertEquals(['HOLD', 'PRESS_3X'], $config['actionTriggerCapabilities']);
     }
@@ -62,16 +62,16 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
     public function testCloudCannotChangeSupportedTriggers() {
         $channel = ChannelStub::create(ChannelFunction::ACTION_TRIGGER())
             ->properties(['actionTriggerCapabilities' => ['HOLD', 'PRESS_3X']]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actionTriggerCapabilities' => ['PRESS_2X']]);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->configTranslator->setConfig($channel, ['actionTriggerCapabilities' => ['PRESS_2X']]);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertArrayHasKey('actionTriggerCapabilities', $config);
         $this->assertEquals(['HOLD', 'PRESS_3X'], $config['actionTriggerCapabilities']);
     }
 
     public function testCanSetEmptyActions() {
         $channel = ChannelStub::create(ChannelFunction::ACTION_TRIGGER());
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => null]);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->configTranslator->setConfig($channel, ['actions' => null]);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertArrayHasKey('actions', $config);
         $this->assertEmpty($config['actions']);
     }
@@ -86,14 +86,14 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->subjectRepositoryMock->method('findForUser')
             ->willReturnOnConsecutiveCalls(ChannelStub::create(ChannelFunction::CONTROLLINGTHEDOORLOCK()), $this->createSceneMock());
         $this->actionExecutorMock->method('validateActionParams')->willReturn([]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
         return $channel;
     }
 
     /** @depends testCanSetValidActions */
     public function testGettingActionsInConfig(IODeviceChannel $channel) {
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertArrayHasKey('actions', $config);
         $this->assertCount(2, $config['actions']);
     }
@@ -108,7 +108,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->subjectRepositoryMock->method('findForUser')
             ->willReturnOnConsecutiveCalls(ChannelStub::create(ChannelFunction::CONTROLLINGTHEDOORLOCK()), $this->createSceneMock());
         $this->actionExecutorMock->method('validateActionParams')->willReturn([]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
         $actions['PRESS']['action']['param'] = [];
         $actions['PRESS_2X']['action']['param'] = [];
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
@@ -120,7 +120,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             'action' => ['id' => ChannelFunctionAction::AT_FORWARD_OUTSIDE],
         ]];
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
     }
 
@@ -130,7 +130,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             'action' => ['id' => ChannelFunctionAction::AT_DISABLE_LOCAL_FUNCTION],
         ]];
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
     }
 
@@ -146,7 +146,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
         $this->subjectRepositoryMock->method('findForUser')->willReturn(ChannelStub::create(ChannelFunction::POWERSWITCH()));
         $this->actionExecutorMock->method('validateActionParams')->willReturnArgument(2);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
     }
 
@@ -154,21 +154,21 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->expectException(\InvalidArgumentException::class);
         $actions = ['PRESS' => ['subjectType' => 'channel', 'action' => ['id' => ChannelFunctionAction::OPEN]]];
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
 
     public function testCannotSetActionWithNoSubjectType() {
         $this->expectException(\InvalidArgumentException::class);
         $actions = ['PRESS' => ['subjectId' => 1, 'action' => ['id' => ChannelFunctionAction::OPEN]]];
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
 
     public function testCannotSetActionWithNoAction() {
         $this->expectException(\InvalidArgumentException::class);
         $actions = ['PRESS' => ['subjectType' => 'channel', 'subjectId' => 1]];
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())->properties(['actionTriggerCapabilities' => ['PRESS']]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
 
     public function testCannotSetActionWithInvalidSubject() {
@@ -181,7 +181,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             ->properties(['actionTriggerCapabilities' => ['PRESS', 'PRESS_2X']]);
         $this->subjectRepositoryMock->method('findForUser')->willThrowException(new NotFoundHttpException());
         $this->actionExecutorMock->method('validateActionParams')->willReturn([]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
 
     public function testCanNotSetActionThatDoesNotMatchFunction() {
@@ -193,7 +193,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             ->properties(['actionTriggerCapabilities' => ['PRESS', 'PRESS_2X']]);
         $this->subjectRepositoryMock->method('findForUser')->willReturnOnConsecutiveCalls(ChannelStub::create());
         $this->actionExecutorMock->method('validateActionParams')->willReturn([]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
 
     public function testCanNotSetInvalidActionParams() {
@@ -206,7 +206,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->actionExecutorMock->method('validateActionParams')->willThrowException(new \InvalidArgumentException());
         $channel = ChannelStub::create(ChannelType::ACTION_TRIGGER())
             ->properties(['actionTriggerCapabilities' => ['PRESS', 'PRESS_2X']]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
 
     public function testCannotSetUnsupportedTrigger() {
@@ -220,7 +220,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->subjectRepositoryMock->method('findForUser')
             ->willReturnOnConsecutiveCalls(ChannelStub::create(ChannelFunction::CONTROLLINGTHEDOORLOCK()), $this->createSceneMock());
         $this->actionExecutorMock->method('validateActionParams')->willReturn([]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
 
     public function testLowercaseTriggerNamesAreNotSupported() {
@@ -234,7 +234,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->subjectRepositoryMock->method('findForUser')
             ->willReturnOnConsecutiveCalls(ChannelStub::create(ChannelFunction::CONTROLLINGTHEDOORLOCK()), $this->createSceneMock());
         $this->actionExecutorMock->method('validateActionParams')->willReturn([]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
     }
 
     public function testCannotSaveRubbishInConfig() {
@@ -247,7 +247,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
         $this->subjectRepositoryMock->method('findForUser')
             ->willReturnOnConsecutiveCalls(ChannelStub::create(ChannelFunction::CONTROLLINGTHEDOORLOCK()), $this->createSceneMock());
         $this->actionExecutorMock->method('validateActionParams')->willReturn([]);
-        $this->configTranslator->setParamsFromConfig($channel, ['actions' => $actions]);
+        $this->configTranslator->setConfig($channel, ['actions' => $actions]);
         unset($actions['PRESS']['unicorn']);
         unset($actions['PRESS']['action']['unicorn']);
         $this->assertEquals($actions, $channel->getUserConfig()['actions']);
@@ -255,7 +255,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
 
     public function testGettingRelatedChannelIdNull() {
         $channel = new IODeviceChannel();
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertArrayHasKey('relatedChannelId', $config);
         $this->assertArrayHasKey('hideInChannelsList', $config);
         $this->assertNull($config['relatedChannelId']);
@@ -265,7 +265,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
     public function testGettingRelatedChannelId() {
         $channel = new IODeviceChannel();
         $channel->setParam1(123);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertArrayHasKey('relatedChannelId', $config);
         $this->assertArrayHasKey('hideInChannelsList', $config);
         $this->assertEquals(123, $config['relatedChannelId']);
@@ -275,8 +275,8 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
     public function testCloudCannotChangeRelatedChannelId() {
         $channel = new IODeviceChannel();
         $channel->setParam1(123);
-        $this->configTranslator->setParamsFromConfig($channel, ['relatedChannelId' => 234]);
-        $config = $this->configTranslator->getConfigFromParams($channel);
+        $this->configTranslator->setConfig($channel, ['relatedChannelId' => 234]);
+        $config = $this->configTranslator->getConfig($channel);
         $this->assertArrayHasKey('relatedChannelId', $config);
         $this->assertEquals(123, $config['relatedChannelId']);
     }

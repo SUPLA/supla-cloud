@@ -30,7 +30,7 @@ use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -554,10 +554,10 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public function testGettingElectricityMeasurementsLogsCountFromRelatedRelay() {
         $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
-        /** @var ChannelParamConfigTranslator $paramsTranslator */
-        $paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        /** @var ConfigTranslator $paramsTranslator */
+        $paramsTranslator = self::$container->get(ConfigTranslator::class);
         $relayChannel = $this->device1->getChannels()[0];
-        $paramsTranslator->setParamsFromConfig($relayChannel, ['relatedChannelId' => 4]);
+        $paramsTranslator->setConfig($relayChannel, ['relatedChannelId' => 4]);
         $this->getEntityManager()->persist($relayChannel);
         $this->getEntityManager()->flush();
         $content = $this->getMeasurementLogsAscending($relayChannel->getId());
@@ -566,10 +566,10 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public function testGettingElectricityMeasurementsLogsCountFromRelatedStaircaseTimer() {
         $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
-        /** @var ChannelParamConfigTranslator $paramsTranslator */
-        $paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        /** @var ConfigTranslator $paramsTranslator */
+        $paramsTranslator = self::$container->get(ConfigTranslator::class);
         $staircaseTimerChannel = $this->device1->getChannels()[10];
-        $paramsTranslator->setParamsFromConfig($staircaseTimerChannel, ['relatedChannelId' => 4]);
+        $paramsTranslator->setConfig($staircaseTimerChannel, ['relatedChannelId' => 4]);
         $this->getEntityManager()->persist($staircaseTimerChannel);
         $this->getEntityManager()->flush();
         $content = $this->getMeasurementLogsAscending($staircaseTimerChannel->getId());

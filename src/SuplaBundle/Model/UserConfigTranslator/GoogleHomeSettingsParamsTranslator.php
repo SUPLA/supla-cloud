@@ -5,7 +5,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use Assert\Assert;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 
 /**
@@ -18,7 +18,7 @@ use SuplaBundle\Enums\ChannelFunction;
  *   ),
  * )
  */
-class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
+class GoogleHomeSettingsParamsTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const MIN_PIN_LENGTH = 4;
@@ -31,8 +31,8 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
         $this->secret = $secret;
     }
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
-        $googleHomeSettings = $channel->getUserConfigValue('googleHome', []);
+    public function getConfig(HasUserConfig $subject): array {
+        $googleHomeSettings = $subject->getUserConfigValue('googleHome', []);
         $settings = [
             'googleHomeDisabled' => $googleHomeSettings['googleHomeDisabled'] ?? false,
             'needsUserConfirmation' => $googleHomeSettings['needsUserConfirmation'] ?? false,
@@ -42,9 +42,9 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
         return ['googleHome' => $settings];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+    public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('googleHome', $config) && is_array($config['googleHome'])) {
-            $finalSettings = $channel->getUserConfigValue('googleHome', []);
+            $finalSettings = $subject->getUserConfigValue('googleHome', []);
             $googleHomeSettings = $config['googleHome'];
             Assertion::isArray($googleHomeSettings);
             if (array_key_exists('googleHomeDisabled', $googleHomeSettings)) {
@@ -61,18 +61,18 @@ class GoogleHomeSettingsParamsTranslator implements ChannelParamTranslator {
                         ->string()
                         ->betweenLength(self::MIN_PIN_LENGTH, self::MAX_PIN_LENGTH)
                         ->numeric();
-                    $finalSettings['pin'] = $channel->getUser()->hashValue($pin);
+                    $finalSettings['pin'] = $subject->getUser()->hashValue($pin);
                 } else {
                     $finalSettings['pin'] = null;
                 }
             }
-            $channel->setUserConfigValue('googleHome', $finalSettings);
+            $subject->setUserConfigValue('googleHome', $finalSettings);
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
+    public function supports(HasUserConfig $subject): bool {
         // https://github.com/ACSOFTWARE/supla-aws-lambda/blob/master/google/channels.js#L92
-        return in_array($channel->getFunction()->getId(), [
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::LIGHTSWITCH,
             ChannelFunction::STAIRCASETIMER,
             ChannelFunction::POWERSWITCH,

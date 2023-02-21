@@ -2,6 +2,7 @@
 namespace SuplaBundle\Model\UserConfigTranslator;
 
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
@@ -9,7 +10,7 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class RelatedChannelsConnector implements ChannelParamTranslator {
+class RelatedChannelsConnector implements UserConfigTranslator {
     use Transactional;
 
     /** @var IODeviceChannelRepository */
@@ -19,21 +20,21 @@ class RelatedChannelsConnector implements ChannelParamTranslator {
         $this->channelRepository = $channelRepository;
     }
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
-        $possibleRelations = self::getPossibleRelations()[$channel->getFunction()->getId()];
+    public function getConfig(HasUserConfig $subject): array {
+        $possibleRelations = self::getPossibleRelations()[$subject->getFunction()->getId()];
         $config = [];
         foreach ($possibleRelations as $possibleParamPairs) {
             foreach ($possibleParamPairs as $paramName => $params) {
-                $config[$paramName] = $channel->getParam($params[0]) ?: null;
+                $config[$paramName] = $subject->getParam($params[0]) ?: null;
             }
         }
         return $config;
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        $this->transactional(function (EntityManagerInterface $em) use ($channel, $config) {
-            $user = $channel->getUser();
-            $this->pairRelatedChannel($em, $user, $channel, $config);
+    public function setConfig(HasUserConfig $subject, array $config) {
+        $this->transactional(function (EntityManagerInterface $em) use ($subject, $config) {
+            $user = $subject->getUser();
+            $this->pairRelatedChannel($em, $user, $subject, $config);
         });
     }
 
@@ -93,8 +94,8 @@ class RelatedChannelsConnector implements ChannelParamTranslator {
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), array_keys(self::getPossibleRelations()));
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), array_keys(self::getPossibleRelations()));
     }
 
     public static function getPossibleRelations(): array {

@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Integration\Model\UserConfigTranslator;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -30,7 +30,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
 
     /** @var IODevice */
     private $device;
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $paramsTranslator;
 
     public function initializeDatabaseForTests() {
@@ -43,7 +43,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_HEATMETER],
         ]);
-        $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $this->paramsTranslator = self::$container->get(ConfigTranslator::class);
     }
 
     public function meterChannelsProvider() {
@@ -58,15 +58,15 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
     public function testUpdatingPricePerUnit(int $channelIndex) {
         $channel = $this->device->getChannels()[$channelIndex];
         $this->assertEquals(0, $channel->getParam2());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 1000]);
+        $this->paramsTranslator->setConfig($channel, ['pricePerUnit' => 1000]);
         $this->assertEquals(1000 * 10000, $channel->getParam2());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 0.0001]);
+        $this->paramsTranslator->setConfig($channel, ['pricePerUnit' => 0.0001]);
         $this->assertEquals(1, $channel->getParam2());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 1001]);
+        $this->paramsTranslator->setConfig($channel, ['pricePerUnit' => 1001]);
         $this->assertEquals(1000 * 10000, $channel->getParam2());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => 0]);
+        $this->paramsTranslator->setConfig($channel, ['pricePerUnit' => 0]);
         $this->assertEquals(0, $channel->getParam2());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['pricePerUnit' => -1]);
+        $this->paramsTranslator->setConfig($channel, ['pricePerUnit' => -1]);
         $this->assertEquals(0, $channel->getParam2());
     }
 
@@ -74,15 +74,15 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
     public function testUpdatingImpulsesPerUnit(int $channelIndex) {
         $channel = $this->device->getChannels()[$channelIndex];
         $this->assertEquals(0, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1000000]);
+        $this->paramsTranslator->setConfig($channel, ['impulsesPerUnit' => 1000000]);
         $this->assertEquals(1000000, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1]);
+        $this->paramsTranslator->setConfig($channel, ['impulsesPerUnit' => 1]);
         $this->assertEquals(1, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 1000001]);
+        $this->paramsTranslator->setConfig($channel, ['impulsesPerUnit' => 1000001]);
         $this->assertEquals(1000000, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => 0]);
+        $this->paramsTranslator->setConfig($channel, ['impulsesPerUnit' => 0]);
         $this->assertEquals(0, $channel->getParam3());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['impulsesPerUnit' => -1]);
+        $this->paramsTranslator->setConfig($channel, ['impulsesPerUnit' => -1]);
         $this->assertEquals(0, $channel->getParam3());
     }
 
@@ -90,21 +90,21 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
     public function testUpdatingInitialValue(int $channelIndex) {
         $channel = $this->device->getChannels()[$channelIndex];
         $this->assertEquals(0, $channel->getParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1000000]);
+        $this->paramsTranslator->setConfig($channel, ['initialValue' => 1000000]);
         $this->assertEquals(1000000, $channel->getUserConfigValue('initialValue'));
-        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 100.50]);
+        $this->paramsTranslator->setConfig($channel, ['initialValue' => 100.50]);
         $this->assertEquals(100.50, $channel->getUserConfigValue('initialValue'));
-        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 1]);
+        $this->paramsTranslator->setConfig($channel, ['initialValue' => 1]);
         $this->assertEquals(1, $channel->getUserConfigValue('initialValue'));
-        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0.01]);
+        $this->paramsTranslator->setConfig($channel, ['initialValue' => 0.01]);
         $this->assertEquals(0.01, $channel->getUserConfigValue('initialValue'));
-        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 100000001]);
+        $this->paramsTranslator->setConfig($channel, ['initialValue' => 100000001]);
         $this->assertEquals(100000000, $channel->getUserConfigValue('initialValue'));
-        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => 0]);
+        $this->paramsTranslator->setConfig($channel, ['initialValue' => 0]);
         $this->assertEquals(0, $channel->getUserConfigValue('initialValue'));
-        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => -1]);
+        $this->paramsTranslator->setConfig($channel, ['initialValue' => -1]);
         $this->assertEquals(-1, $channel->getUserConfigValue('initialValue'));
-        $this->paramsTranslator->setParamsFromConfig($channel, ['initialValue' => -100000001]);
+        $this->paramsTranslator->setConfig($channel, ['initialValue' => -100000001]);
         $this->assertEquals(-100000000, $channel->getUserConfigValue('initialValue'));
     }
 
@@ -112,15 +112,15 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
     public function testUpdatingCurrency(int $channelIndex) {
         $channel = $this->device->getChannels()[$channelIndex];
         $this->assertEquals(null, $channel->getTextParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'PLN']);
+        $this->paramsTranslator->setConfig($channel, ['currency' => 'PLN']);
         $this->assertEquals("PLN", $channel->getTextParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'ABCD']);
+        $this->paramsTranslator->setConfig($channel, ['currency' => 'ABCD']);
         $this->assertEquals("PLN", $channel->getTextParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => 'P']);
+        $this->paramsTranslator->setConfig($channel, ['currency' => 'P']);
         $this->assertEquals("PLN", $channel->getTextParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => '']);
+        $this->paramsTranslator->setConfig($channel, ['currency' => '']);
         $this->assertEquals("", $channel->getTextParam1());
-        $this->paramsTranslator->setParamsFromConfig($channel, ['currency' => null]);
+        $this->paramsTranslator->setConfig($channel, ['currency' => null]);
         $this->assertEquals(null, $channel->getTextParam1());
     }
 
@@ -129,18 +129,18 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
         $channel = $this->device->getChannels()[$channelIndex];
         if ($channel->getType()->getId() == ChannelType::IMPULSECOUNTER) {
             $this->assertEquals(null, $channel->getTextParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh']);
+            $this->paramsTranslator->setConfig($channel, ['unit' => 'kWh']);
             $this->assertEquals("kWh", $channel->getTextParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh²']);
+            $this->paramsTranslator->setConfig($channel, ['unit' => 'kWh²']);
             $this->assertEquals("kWh²", $channel->getTextParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh²³']);
+            $this->paramsTranslator->setConfig($channel, ['unit' => 'kWh²³']);
             $this->assertEquals('kWh²', $channel->getTextParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => '']);
+            $this->paramsTranslator->setConfig($channel, ['unit' => '']);
             $this->assertEquals("", $channel->getTextParam2());
-            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => null]);
+            $this->paramsTranslator->setConfig($channel, ['unit' => null]);
             $this->assertEquals(null, $channel->getTextParam2());
         } elseif ($channel->getType()->getId() == ChannelType::ELECTRICITYMETER) {
-            $this->paramsTranslator->setParamsFromConfig($channel, ['unit' => 'kWh']);
+            $this->paramsTranslator->setConfig($channel, ['unit' => 'kWh']);
             $this->assertEquals(null, $channel->getTextParam2());
         }
     }

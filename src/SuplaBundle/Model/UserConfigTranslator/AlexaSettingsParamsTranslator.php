@@ -4,7 +4,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 
 /**
@@ -14,7 +14,7 @@ use SuplaBundle\Enums\ChannelFunction;
  *   ),
  * )
  */
-class AlexaSettingsParamsTranslator implements ChannelParamTranslator {
+class AlexaSettingsParamsTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const MIN_PIN_LENGTH = 4;
@@ -27,8 +27,8 @@ class AlexaSettingsParamsTranslator implements ChannelParamTranslator {
         $this->secret = $secret;
     }
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
-        $alexaSettings = $channel->getUserConfigValue('alexa', []);
+    public function getConfig(HasUserConfig $subject): array {
+        $alexaSettings = $subject->getUserConfigValue('alexa', []);
         return [
             'alexa' => [
                 'alexaDisabled' => $alexaSettings['alexaDisabled'] ?? false,
@@ -36,21 +36,21 @@ class AlexaSettingsParamsTranslator implements ChannelParamTranslator {
         ];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
+    public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('alexa', $config) && is_array($config['alexa'])) {
-            $finalSettings = $channel->getUserConfigValue('alexa', []);
+            $finalSettings = $subject->getUserConfigValue('alexa', []);
             $alexaSettings = $config['alexa'];
             Assertion::isArray($alexaSettings);
             if (array_key_exists('alexaDisabled', $alexaSettings)) {
                 $finalSettings['alexaDisabled'] = filter_var($alexaSettings['alexaDisabled'], FILTER_VALIDATE_BOOLEAN);
             }
-            $channel->setUserConfigValue('alexa', $finalSettings);
+            $subject->setUserConfigValue('alexa', $finalSettings);
         }
     }
 
-    public function supports(IODeviceChannel $channel): bool {
+    public function supports(HasUserConfig $subject): bool {
         // https://github.com/ACSOFTWARE/supla-aws-lambda/blob/master/alexa/channels.js#L283
-        return in_array($channel->getFunction()->getId(), [
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::LIGHTSWITCH,
             ChannelFunction::STAIRCASETIMER,
             ChannelFunction::POWERSWITCH,

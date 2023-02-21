@@ -21,60 +21,60 @@ use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
-use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeChannelParamTranslator;
+use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 
 class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
     use UnitTestHelper;
 
-    /** @var OpeningClosingTimeChannelParamTranslator */
+    /** @var OpeningClosingTimeUserConfigTranslator */
     private $configTranslator;
     /** @var \SuplaBundle\Entity\Main\IODeviceChannel */
     private $channel;
 
     /** @before */
     public function createTranslator() {
-        $this->configTranslator = new OpeningClosingTimeChannelParamTranslator();
+        $this->configTranslator = new OpeningClosingTimeUserConfigTranslator();
         $this->channel = new IODeviceChannel();
     }
 
     public function testSettingTimes() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 10, 'closingTimeS' => 20]);
+        $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 10, 'closingTimeS' => 20]);
         $this->assertEquals(100, $this->channel->getParam1());
         $this->assertEquals(200, $this->channel->getParam3());
     }
 
     public function testSettingLargeTimes() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 100, 'closingTimeS' => 500]);
+        $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 100, 'closingTimeS' => 500]);
         $this->assertEquals(1000, $this->channel->getParam1());
         $this->assertEquals(5000, $this->channel->getParam3());
     }
 
     public function testSettingTooLargeTimes() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 700, 'closingTimeS' => 700]);
+        $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 700, 'closingTimeS' => 700]);
         $this->assertEquals(6000, $this->channel->getParam1());
         $this->assertEquals(6000, $this->channel->getParam3());
     }
 
     public function testMinimumTimeIfNoAutoCalibration() {
-        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
+        $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
         $this->assertEquals(0, $this->channel->getParam1());
         $this->assertEquals(0, $this->channel->getParam3());
     }
 
     public function testAllow0IfAutoCalibration() {
         EntityUtils::setField($this->channel, 'flags', ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE);
-        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
+        $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 0]);
         $this->assertEquals(0, $this->channel->getParam1());
         $this->assertEquals(0, $this->channel->getParam3());
     }
 
     public function testBoth0IfFirst0() {
         EntityUtils::setField($this->channel, 'flags', ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE);
-        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 1]);
+        $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 0, 'closingTimeS' => 1]);
         $this->assertEquals(0, $this->channel->getParam1());
         $this->assertEquals(0, $this->channel->getParam3());
-        $this->configTranslator->setParamsFromConfig($this->channel, ['openingTimeS' => 1, 'closingTimeS' => 0]);
+        $this->configTranslator->setConfig($this->channel, ['openingTimeS' => 1, 'closingTimeS' => 0]);
         $this->assertEquals(10, $this->channel->getParam1());
         $this->assertEquals(0, $this->channel->getParam3());
     }
@@ -87,7 +87,7 @@ class OpeningClosingTimeChannelParamTranslatorTest extends TestCase {
         );
         $this->channel->setParam1(123);
         $this->channel->setParam3(234);
-        $config = $this->configTranslator->getConfigFromParams($this->channel);
+        $config = $this->configTranslator->getConfig($this->channel);
         $expected = [
             'openingTimeS' => 12.3,
             'closingTimeS' => 23.4,

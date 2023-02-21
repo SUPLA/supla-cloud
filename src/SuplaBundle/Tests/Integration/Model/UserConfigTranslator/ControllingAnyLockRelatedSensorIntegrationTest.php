@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Integration\Model\UserConfigTranslator;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -45,7 +45,7 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
-    /** @var ChannelParamConfigTranslator */
+    /** @var ConfigTranslator */
     private $paramsTranslator;
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -65,23 +65,23 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     /** @before */
     public function init() {
-        $this->paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $this->paramsTranslator = self::$container->get(ConfigTranslator::class);
         $this->simulateAuthentication($this->user);
     }
 
     public function testSettingOpeningSensorForChannel() {
         $channel = $this->device->getChannels()[0];
-        $this->paramsTranslator->setParamsFromConfig($channel, ['openingSensorChannelId' => $this->device->getChannels()[1]->getId()]);
+        $this->paramsTranslator->setConfig($channel, ['openingSensorChannelId' => $this->device->getChannels()[1]->getId()]);
         $this->getEntityManager()->refresh($this->device);
-        $channelConfig = $this->paramsTranslator->getConfigFromParams($this->device->getChannels()[0]);
-        $sensorConfig = $this->paramsTranslator->getConfigFromParams($this->device->getChannels()[1]);
+        $channelConfig = $this->paramsTranslator->getConfig($this->device->getChannels()[0]);
+        $sensorConfig = $this->paramsTranslator->getConfig($this->device->getChannels()[1]);
         $this->assertEquals($channel->getId(), $sensorConfig['openingSensorChannelId']);
         $this->assertEquals($this->device->getChannels()[1]->getId(), $channelConfig['openingSensorChannelId']);
     }
 
     public function testSettingChannelForOpeningSensor() {
         $sensor = $this->device->getChannels()[1];
-        $this->paramsTranslator->setParamsFromConfig($sensor, ['openingSensorChannelId' => $this->device->getChannels()[0]->getId()]);
+        $this->paramsTranslator->setConfig($sensor, ['openingSensorChannelId' => $this->device->getChannels()[0]->getId()]);
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals($sensor->getId(), $this->device->getChannels()[0]->getParam2());
         $this->assertEquals($this->device->getChannels()[0]->getId(), $this->device->getChannels()[1]->getParam1());
@@ -89,12 +89,12 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testChangingOpeningSensorForChannelClearsPreviousSelection() {
         // pair 0 & 3
-        $this->paramsTranslator->setParamsFromConfig(
+        $this->paramsTranslator->setConfig(
             $this->device->getChannels()[0],
             ['openingSensorChannelId' => $this->device->getChannels()[1]->getId()]
         );
         // pair 0 & 4
-        $this->paramsTranslator->setParamsFromConfig(
+        $this->paramsTranslator->setConfig(
             $this->device->getChannels()[0],
             ['openingSensorChannelId' => $this->device->getChannels()[2]->getId()]
         );
@@ -107,19 +107,19 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testClearingOpeningSensorForChannelClearsBothConnections() {
         // pair 0 & 3
-        $this->paramsTranslator->setParamsFromConfig(
+        $this->paramsTranslator->setConfig(
             $this->device->getChannels()[0],
             ['openingSensorChannelId' => $this->device->getChannels()[1]->getId()]
         );
         // unpair 0
-        $this->paramsTranslator->setParamsFromConfig($this->device->getChannels()[0], ['openingSensorChannelId' => null]);
+        $this->paramsTranslator->setConfig($this->device->getChannels()[0], ['openingSensorChannelId' => null]);
         $this->device = $this->getEntityManager()->find(IODevice::class, $this->device->getId());
         $this->assertEquals(0, $this->device->getChannels()[0]->getParam2());
         $this->assertEquals(0, $this->device->getChannels()[1]->getParam1());
     }
 
     public function testTryingToPairInvalidChannelsIsNotSuccessful() {
-        $this->paramsTranslator->setParamsFromConfig(
+        $this->paramsTranslator->setConfig(
             $this->device->getChannels()[0],
             ['openingSensorChannelId' => $this->device->getChannels()[3]->getId()]
         );
@@ -130,7 +130,7 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testSettingRelatedChannelForPowerswitch() {
         // pair 4 powerswitch & 5 EM
-        $this->paramsTranslator->setParamsFromConfig(
+        $this->paramsTranslator->setConfig(
             $this->device->getChannels()[4],
             ['relatedChannelId' => $this->device->getChannels()[5]->getId()]
         );
@@ -141,7 +141,7 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
 
     public function testSettingRelatedChannelForElectricityMeter() {
         // pair 5 EM & 4 powerswitch
-        $this->paramsTranslator->setParamsFromConfig(
+        $this->paramsTranslator->setConfig(
             $this->device->getChannels()[5],
             ['relatedChannelId' => $this->device->getChannels()[4]->getId()]
         );
@@ -155,7 +155,7 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
         $this->device->getChannels()[0]->setParam2(1234);
         $this->getEntityManager()->persist($this->device->getChannels()[0]);
         // unpair invalid channel
-        $this->paramsTranslator->setParamsFromConfig($this->device->getChannels()[0], ['openingSensorChannelId' => null]);
+        $this->paramsTranslator->setConfig($this->device->getChannels()[0], ['openingSensorChannelId' => null]);
         $this->getEntityManager()->refresh($this->device);
         $this->assertEquals(0, $this->device->getChannels()[0]->getParam2());
     }

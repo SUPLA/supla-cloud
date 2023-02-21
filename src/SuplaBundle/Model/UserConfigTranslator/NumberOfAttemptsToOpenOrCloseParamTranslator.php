@@ -2,26 +2,26 @@
 
 namespace SuplaBundle\Model\UserConfigTranslator;
 
-use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 
-class NumberOfAttemptsToOpenOrCloseParamTranslator implements ChannelParamTranslator {
+class NumberOfAttemptsToOpenOrCloseParamTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const MIN_ATTEMPTS = 1;
     private const MAX_ATTEMPTS = 5;
     private const DEFAULT_ATTEMPTS = self::MAX_ATTEMPTS;
 
-    public function getConfigFromParams(IODeviceChannel $channel): array {
+    public function getConfig(HasUserConfig $subject): array {
         return [
-            'numberOfAttemptsToOpen' => $channel->getUserConfigValue('numberOfAttemptsToOpen', self::DEFAULT_ATTEMPTS),
-            'numberOfAttemptsToClose' => $channel->getUserConfigValue('numberOfAttemptsToClose', self::DEFAULT_ATTEMPTS),
-            'stateVerificationMethodActive' => $channel->getUserConfigValue('stateVerificationMethodActive', false),
+            'numberOfAttemptsToOpen' => $subject->getUserConfigValue('numberOfAttemptsToOpen', self::DEFAULT_ATTEMPTS),
+            'numberOfAttemptsToClose' => $subject->getUserConfigValue('numberOfAttemptsToClose', self::DEFAULT_ATTEMPTS),
+            'stateVerificationMethodActive' => $subject->getUserConfigValue('stateVerificationMethodActive', false),
         ];
     }
 
-    public function setParamsFromConfig(IODeviceChannel $channel, array $config) {
-        $userConfig = $channel->getUserConfig();
+    public function setConfig(HasUserConfig $subject, array $config) {
+        $userConfig = $subject->getUserConfig();
         if (array_key_exists('numberOfAttemptsToOpen', $config) || !isset($userConfig['numberOfAttemptsToOpen'])) {
             $value = $config['numberOfAttemptsToOpen'] ?? self::DEFAULT_ATTEMPTS;
             $userConfig['numberOfAttemptsToOpen'] = intval($this->getValueInRange($value, self::MIN_ATTEMPTS, self::MAX_ATTEMPTS));
@@ -34,11 +34,11 @@ class NumberOfAttemptsToOpenOrCloseParamTranslator implements ChannelParamTransl
             $value = $config['stateVerificationMethodActive'] ?? false;
             $userConfig['stateVerificationMethodActive'] = boolval($value);
         }
-        $channel->setUserConfig($userConfig);
+        $subject->setUserConfig($userConfig);
     }
 
-    public function supports(IODeviceChannel $channel): bool {
-        return in_array($channel->getFunction()->getId(), [
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
             ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
             ChannelFunction::CONTROLLINGTHEGATE,
         ]);
