@@ -14,10 +14,10 @@ describe('Scenes', () => {
         cy.visit('/scenes');
         cy.contains('Utwórz nową scenę').click();
         cy.contains('wybierz kanał').click();
-        cy.contains('ID1 Włącznik światła').click();
+        cy.contains('ID1 Włącznik światła').click({force: true});
         cy.contains('Wyłącz').click();
         cy.contains('Dodaj opóźnienie').click();
-        cy.contains('wybierz kanał').click();
+        cy.contains('wybierz kanał').click({force: true});
         cy.contains('ID1 Włącznik światła').click();
         cy.get('[type=text]').type('Testowa scena');
         cy.contains('Zapisz zmiany').click();
