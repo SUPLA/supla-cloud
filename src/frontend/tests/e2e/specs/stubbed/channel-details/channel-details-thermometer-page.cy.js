@@ -1,6 +1,6 @@
 describe('Channel details page', () => {
     beforeEach(function () {
-        cy.suplaLogin();
+        cy.loginStub();
         cy.intercept('GET', 'api/channels/2?include=iodevice*', {fixture: 'channel-2.json'});
         cy.intercept('GET', 'api/channels/2/direct-links*', {body: []});
         cy.intercept('GET', 'api/iodevices/1?include=connected', {body: {id: 1, connected: true}});

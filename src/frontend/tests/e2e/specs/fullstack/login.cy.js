@@ -17,12 +17,23 @@ describe('Login tests', () => {
     });
 
     it('Performs successful authentication', () => {
+        cy.login();
         cy.visit('/')
-        cy.get('input[type=email]').type('user@supla.org');
-        cy.get('input[type=password]').type('pass');
-        cy.get('button[type=submit]').click();
-        cy.contains('.active', 'My SUPLA');
         cy.get('.square-link').should('have.length.at.least', 4)
-        cy.contains('a', 'Temperature');
+        cy.contains('a', 'Temperatura');
+    });
+
+    it('Enables IO devices registration', () => {
+        cy.login();
+        cy.visit('/');
+        cy.contains('button', 'Rejestracja urządzeń: NIEAKTYWNA').click();
+        cy.contains('button', 'Rejestracja urządzeń: AKTYWNA');
+    });
+
+    it('Enables smartphones registration', () => {
+        cy.login();
+        cy.visit('/smartphones');
+        cy.contains('button', 'Rejestracja klientów: NIEAKTYWNA').click();
+        cy.contains('button', 'Rejestracja klientów: AKTYWNA');
     });
 })
