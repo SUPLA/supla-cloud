@@ -51,7 +51,7 @@ class SceneSerializer extends AbstractSerializer {
         $normalized['locationId'] = $scene->getLocation()->getId();
         $normalized['functionId'] = $scene->getFunction()->getId();
         $normalized['userIconId'] = $scene->getUserIcon() ? $scene->getUserIcon()->getId() : null;
-        $normalized['config'] = (new JsonArrayObject($this->configTranslator->getConfig($scene)))->jsonSerialize();
+        $normalized['config'] = $this->configTranslator->getPublicConfig($scene);
         if (!isset($normalized['relationsCount']) && $this->isSerializationGroupRequested('scene.relationsCount', $context)) {
             $normalized['relationsCount'] = $this->sceneRepository->find($scene->getId())->getRelationsCount();
         }

@@ -20,6 +20,7 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -110,8 +111,8 @@ class ScenesController extends RestController {
         return $groups;
     }
 
-    private function returnScenes(): Collection {
-        return $this->sceneRepository->findAllForUser($this->getUser())
+    private function returnScenes(callable $additionalConditions = null): Collection {
+        return $this->sceneRepository->findAllForUser($this->getUser(), $additionalConditions)
             ->filter(function (Scene $scene) {
                 return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $scene);
             });
@@ -140,6 +141,11 @@ class ScenesController extends RestController {
      *         in="query", name="include", required=false, explode=false,
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"location", "state"})),
      *     ),
+     *     @OA\Parameter(
+     *         description="Select an integration that the scenes should be returned for.",
+     *         in="query", name="forIntegration", required=false,
+     *         @OA\Schema(type="string", enum={"google-home", "alexa"}),
+     *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
      * )
      * @Rest\Get("/scenes", name="scenes_list")
@@ -147,7 +153,18 @@ class ScenesController extends RestController {
      */
     public function getScenesAction(Request $request) {
         $this->ensureApiVersion24($request);
-        return $this->serializedView($this->returnScenes()->getValues(), $request);
+        $filters = function (QueryBuilder $builder, string $alias) use ($request) {
+            if (($forIntegration = $request->get('forIntegration')) !== null) {
+                if ($forIntegration === 'google-home') {
+                    $builder->andWhere("$alias.userConfig IS NULL OR $alias.userConfig NOT LIKE :googleHomeFilter")
+                        ->setParameter('googleHomeFilter', '%"googleHomeDisabled":true%');
+                } elseif ($forIntegration === 'alexa') {
+                    $builder->andWhere("$alias.userConfig IS NULL OR $alias.userConfig NOT LIKE :alexaFilter")
+                        ->setParameter('alexaFilter', '%"alexaDisabled":true%');
+                }
+            }
+        };
+        return $this->serializedView($this->returnScenes($filters)->getValues(), $request);
     }
 
     /**

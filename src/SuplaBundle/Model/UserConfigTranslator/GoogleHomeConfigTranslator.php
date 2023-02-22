@@ -18,7 +18,7 @@ use SuplaBundle\Enums\ChannelFunction;
  *   ),
  * )
  */
-class GoogleHomeSettingsParamsTranslator implements UserConfigTranslator {
+class GoogleHomeConfigTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const MIN_PIN_LENGTH = 4;

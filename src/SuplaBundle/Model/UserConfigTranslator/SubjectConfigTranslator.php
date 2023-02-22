@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Utils\JsonArrayObject;
 
 /**
  * @OA\Schema(schema="ChannelConfig", description="Configuration of the channel.",
@@ -53,5 +54,14 @@ class SubjectConfigTranslator {
             return null;
         }, $config);
         $this->setConfig($subject, $config);
+    }
+
+    public function getPublicConfig(HasUserConfig $subject) {
+        $config = $this->getConfig($subject);
+        $config = (new JsonArrayObject($config))->jsonSerialize();
+        if (is_array($config) && isset($config['googleHome']) && isset($config['googleHome']['pin'])) {
+            unset($config['googleHome']['pin']);
+        }
+        return $config;
     }
 }

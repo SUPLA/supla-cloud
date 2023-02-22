@@ -36,17 +36,17 @@ class IODeviceChannelSerializer extends AbstractSerializer {
     /** @var IODeviceChannelRepository */
     private $channelRepository;
     /** @var SubjectConfigTranslator */
-    private $paramsTranslator;
+    private $configTranslator;
 
     public function __construct(
         ChannelStateGetter $channelStateGetter,
         IODeviceChannelRepository $channelRepository,
-        SubjectConfigTranslator $paramsTranslator
+        SubjectConfigTranslator $configTranslator
     ) {
         parent::__construct();
         $this->channelStateGetter = $channelStateGetter;
         $this->channelRepository = $channelRepository;
-        $this->paramsTranslator = $paramsTranslator;
+        $this->configTranslator = $configTranslator;
     }
 
     /**
@@ -72,11 +72,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
-            $config = (new JsonArrayObject($this->paramsTranslator->getConfig($channel)))->jsonSerialize();
-            if (is_array($config) && isset($config['googleHome']) && isset($config['googleHome']['pin'])) {
-                unset($config['googleHome']['pin']);
-            }
-            $normalized['config'] = $config;
+            $normalized['config'] = $this->configTranslator->getPublicConfig($channel);
             if ($this->isSerializationGroupRequested('channel.actionTriggers', $context)) {
                 $actionTriggers = $this->channelRepository->findActionTriggers($channel);
                 $normalized['actionTriggersIds'] = EntityUtils::mapToIds($actionTriggers);
