@@ -1,4 +1,4 @@
-import {fillGaps} from "@/channels/channel-measurements-history-chart-strategies";
+import {CHART_TYPES, fillGaps} from "@/channels/channel-measurements-history-chart-strategies";
 
 describe('Channel measurement history data strategies', () => {
     describe('fillGaps', function () {
@@ -57,6 +57,54 @@ describe('Channel measurement history data strategies', () => {
             expect(filled[2]).toEqual({date_timestamp: 1950, temperature: null});
             expect(filled[6]).toEqual({date_timestamp: 3950, temperature: null});
             expect(filled[9]).toEqual({date_timestamp: 5100, temperature: 22.25});
+        });
+    });
+
+    describe('ELECTRICITYMETER', function () {
+        const strategy = CHART_TYPES.ELECTRICITYMETER;
+
+        describe('fixLog', function () {
+            it('does nothing to no log', () => {
+                expect(strategy.fixLog({})).toEqual({});
+            });
+
+            it('does nothing to empty log', () => {
+                expect(strategy.fixLog(strategy.emptyLog())).toEqual(strategy.emptyLog());
+            });
+
+            it('fixes a full log', () => {
+                const logToFix = {
+                    date_timestamp: null,
+                    phase1_fae: 100000, phase2_fae: 200000, phase3_fae: 300000,
+                    phase1_rae: 400000, phase2_rae: 500000, phase3_rae: 600000,
+                    phase1_fre: 700000, phase2_fre: 800000, phase3_fre: 900000,
+                    phase1_rre: 1000000, phase2_rre: 1100000, phase3_rre: 1200000,
+                };
+                expect(strategy.fixLog(logToFix)).toEqual({
+                    date_timestamp: null,
+                    phase1_fae: 1, phase2_fae: 2, phase3_fae: 3,
+                    phase1_rae: 4, phase2_rae: 5, phase3_rae: 6,
+                    phase1_fre: 7, phase2_fre: 8, phase3_fre: 9,
+                    phase1_rre: 10, phase2_rre: 11, phase3_rre: 12,
+                });
+            });
+
+            it('fixes a partial log', () => {
+                const logToFix = {
+                    date_timestamp: null,
+                    phase1_fae: null, phase2_fae: 200000, phase3_fae: null,
+                    phase1_rae: 400000, phase2_rae: null, phase3_rae: 600000,
+                    phase1_fre: null, phase2_fre: 800000, phase3_fre: 900000,
+                    phase1_rre: 1000000, phase2_rre: 1100000, phase3_rre: 1200000,
+                };
+                expect(strategy.fixLog(logToFix)).toEqual({
+                    date_timestamp: null,
+                    phase1_fae: null, phase2_fae: 2, phase3_fae: null,
+                    phase1_rae: 4, phase2_rae: null, phase3_rae: 6,
+                    phase1_fre: null, phase2_fre: 8, phase3_fre: 9,
+                    phase1_rre: 10, phase2_rre: 11, phase3_rre: 12,
+                });
+            });
         });
     });
 })

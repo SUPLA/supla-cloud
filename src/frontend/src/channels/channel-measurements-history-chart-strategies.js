@@ -208,22 +208,14 @@ export const CHART_TYPES = {
             });
         },
         fixLog: (log) => {
-            if (log.phase1_fae !== undefined && log.phase1_fae !== null) {
-                // factors from supla-core
-                // https://github.com/SUPLA/supla-core/blob/2628a51b678a2d300fc81b16c24c6a3a5f8d20e8/supla-common/proto.h#L1081
-                log.phase1_fae = +log.phase1_fae * 0.00001;
-                log.phase2_fae = +log.phase2_fae * 0.00001;
-                log.phase3_fae = +log.phase3_fae * 0.00001;
-                log.phase1_rae = +log.phase1_rae * 0.00001;
-                log.phase2_rae = +log.phase2_rae * 0.00001;
-                log.phase3_rae = +log.phase3_rae * 0.00001;
-                log.phase1_fre = +log.phase1_fre * 0.00001;
-                log.phase2_fre = +log.phase2_fre * 0.00001;
-                log.phase3_fre = +log.phase3_fre * 0.00001;
-                log.phase1_rre = +log.phase1_rre * 0.00001;
-                log.phase2_rre = +log.phase2_rre * 0.00001;
-                log.phase3_rre = +log.phase3_rre * 0.00001;
-            }
+            ['fae', 'rae', 'fre', 'rre'].forEach((suffix) => {
+                for (let phaseNo = 1; phaseNo <= 3; phaseNo++) {
+                    const attributeName = `phase${phaseNo}_${suffix}`;
+                    if (log[attributeName] !== undefined && log[attributeName] !== null) {
+                        log[attributeName] = +(+log[attributeName] * 0.00001).toFixed(5);
+                    }
+                }
+            });
             return log;
         },
         adjustLogs: (logs) => {
