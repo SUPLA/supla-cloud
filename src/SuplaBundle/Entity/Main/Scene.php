@@ -243,6 +243,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         return $this->schedules;
     }
 
+    /** @return SceneOperation[] */
     public function getOperationsThatReferToThisScene(): Collection {
         return $this->sceneOperations;
     }

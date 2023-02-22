@@ -43,6 +43,12 @@ final class SceneUtils {
                 self::ensureOperationsAreNotCyclic($operation->getSubject(), $usedScenesIds, $operationsCounter);
             }
         }
+        foreach ($scene->getOperationsThatReferToThisScene() as $operationThatExecutesThisScene) {
+            $sceneThatExecutesThisScene = $operationThatExecutesThisScene->getOwningScene();
+            if (!in_array($sceneThatExecutesThisScene->getId(), $usedScenesIds)) {
+                self::ensureOperationsAreNotCyclic($sceneThatExecutesThisScene);
+            }
+        }
     }
 
     public static function updateDelaysAndEstimatedExecutionTimes(Scene $scene, EntityManagerInterface $entityManager) {
