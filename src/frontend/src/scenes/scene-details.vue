@@ -39,6 +39,7 @@
                                                         @input="sceneChanged()"></toggler>
                                                 </dt>
                                             </dl>
+                                            <ChannelParamsIntegrationsSettings :subject="scene" @change="sceneChanged()"/>
                                         </div>
                                     </div>
                                     <div class="details-page-block text-center">
@@ -117,10 +118,12 @@
     import AppState from "../router/app-state";
     import ChannelActionExecutor from "../channels/action/channel-action-executor";
     import DependenciesWarningModal from "../channels/dependencies/dependencies-warning-modal";
+    import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings.vue";
 
     export default {
         props: ['id', 'item'],
         components: {
+            ChannelParamsIntegrationsSettings,
             DependenciesWarningModal,
             ChannelActionExecutor,
             SceneDetailsTabs,

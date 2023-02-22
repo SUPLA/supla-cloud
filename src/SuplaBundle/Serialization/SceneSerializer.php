@@ -19,6 +19,7 @@ namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Model\ChannelStateGetter\SceneStateGetter;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Repository\SceneRepository;
 use SuplaBundle\Utils\JsonArrayObject;
 
@@ -27,11 +28,14 @@ class SceneSerializer extends AbstractSerializer {
     private $sceneRepository;
     /** @var SceneStateGetter */
     private $sceneStateGetter;
+    /** @var ConfigTranslator */
+    private $configTranslator;
 
-    public function __construct(SceneRepository $sceneRepository, SceneStateGetter $sceneStateGetter) {
+    public function __construct(SceneRepository $sceneRepository, SceneStateGetter $sceneStateGetter, ConfigTranslator $configTranslator) {
         parent::__construct();
         $this->sceneRepository = $sceneRepository;
         $this->sceneStateGetter = $sceneStateGetter;
+        $this->configTranslator = $configTranslator;
     }
 
     /**
@@ -43,7 +47,7 @@ class SceneSerializer extends AbstractSerializer {
         $normalized['locationId'] = $scene->getLocation()->getId();
         $normalized['functionId'] = $scene->getFunction()->getId();
         $normalized['userIconId'] = $scene->getUserIcon() ? $scene->getUserIcon()->getId() : null;
-        $normalized['config'] = (new JsonArrayObject($scene->getUserConfig()))->jsonSerialize();
+        $normalized['config'] = (new JsonArrayObject($this->configTranslator->getConfig($scene)))->jsonSerialize();
         if (!isset($normalized['relationsCount']) && $this->isSerializationGroupRequested('scene.relationsCount', $context)) {
             $normalized['relationsCount'] = $this->sceneRepository->find($scene->getId())->getRelationsCount();
         }

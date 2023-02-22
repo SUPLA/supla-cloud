@@ -66,6 +66,7 @@ class AlexaSettingsParamsTranslator implements UserConfigTranslator {
             ChannelFunction::THERMOMETER,
             ChannelFunction::HUMIDITYANDTEMPERATURE,
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+            ChannelFunction::SCENE,
         ]);
     }
 }

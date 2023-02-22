@@ -140,6 +140,9 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $content['operations']);
         $this->assertEquals(1, $content['relationsCount']['operations']);
         $this->assertArrayNotHasKey('id', $content['operations'][0]);
+        $this->assertArrayHasKey('config', $content);
+        $this->assertArrayHasKey('googleHome', $content['config']);
+        $this->assertArrayHasKey('alexa', $content['config']);
     }
 
     /** @depends testCreatingScene */

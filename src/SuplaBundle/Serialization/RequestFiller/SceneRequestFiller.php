@@ -10,6 +10,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
+use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -31,21 +32,23 @@ class SceneRequestFiller extends AbstractRequestFiller {
     private $locationRepository;
     /** @var UserIconRepository */
     private $userIconRepository;
-    /**
-     * @var ActionableSubjectRepository
-     */
+    /** @var ActionableSubjectRepository */
     private $subjectRepository;
+    /** @var ConfigTranslator */
+    private $configTranslator;
 
     public function __construct(
         ActionableSubjectRepository $subjectRepository,
         ChannelActionExecutor $channelActionExecutor,
         LocationRepository $locationRepository,
-        UserIconRepository $userIconRepository
+        UserIconRepository $userIconRepository,
+        ConfigTranslator $configTranslator
     ) {
         $this->subjectRepository = $subjectRepository;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->locationRepository = $locationRepository;
         $this->userIconRepository = $userIconRepository;
+        $this->configTranslator = $configTranslator;
     }
 
     /** @param Scene $scene */
@@ -107,6 +110,10 @@ class SceneRequestFiller extends AbstractRequestFiller {
             SceneUtils::ensureOperationsAreNotCyclic($scene);
         }
         $this->fillUserAltIcon($this->userIconRepository, $data, $scene);
+        if (array_key_exists('config', $data)) {
+            Assertion::isArray($data['config']);
+            $this->configTranslator->setConfig($scene, $data['config']);
+        }
         return $scene;
     }
 }
