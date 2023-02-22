@@ -22,7 +22,6 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterParamsTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementParamsTranslator;
@@ -33,15 +32,16 @@ use SuplaBundle\Model\UserConfigTranslator\NumberOfAttemptsToOpenOrCloseParamTra
 use SuplaBundle\Model\UserConfigTranslator\OpeningClosingTimeUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\RelayTimeMsUserConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\RelayTimeSUserConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\TemperatureAdjustmentParamTranslator;
 
 class ChannelParamConfigTranslatorTest extends TestCase {
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $configTranslator;
 
     /** @before */
     public function createTranslator() {
-        $this->configTranslator = new ConfigTranslator([
+        $this->configTranslator = new SubjectConfigTranslator([
             new RelayTimeMsUserConfigTranslator(),
             new RelayTimeSUserConfigTranslator(),
             new OpeningClosingTimeUserConfigTranslator(),

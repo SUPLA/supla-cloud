@@ -10,7 +10,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -34,7 +34,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
     private $userIconRepository;
     /** @var ActionableSubjectRepository */
     private $subjectRepository;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $configTranslator;
 
     public function __construct(
@@ -42,7 +42,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
         ChannelActionExecutor $channelActionExecutor,
         LocationRepository $locationRepository,
         UserIconRepository $userIconRepository,
-        ConfigTranslator $configTranslator
+        SubjectConfigTranslator $configTranslator
     ) {
         $this->subjectRepository = $subjectRepository;
         $this->channelActionExecutor = $channelActionExecutor;

@@ -22,7 +22,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\GateClosingRuleRepository;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -33,7 +33,7 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
 
     /** @var IODevice */
     private $device;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $paramsTranslator;
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -56,7 +56,7 @@ class GateClosingRuleParamTranslatorIntegrationTest extends IntegrationTestCase 
 
     /** @before */
     public function init() {
-        $this->paramsTranslator = self::$container->get(ConfigTranslator::class);
+        $this->paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
     }
 

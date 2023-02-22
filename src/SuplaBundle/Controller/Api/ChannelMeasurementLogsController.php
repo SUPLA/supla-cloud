@@ -36,7 +36,7 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\MeasurementCsvExporter;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\DatabaseUtils;
@@ -56,14 +56,14 @@ class ChannelMeasurementLogsController extends RestController {
     private $entityManager;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $channelParamConfigTranslator;
 
     public function __construct(
         IODeviceManager $deviceManager,
         IODeviceChannelRepository $channelRepository,
         $measurementLogsEntityManager,
-        ConfigTranslator $channelParamConfigTranslator
+        SubjectConfigTranslator $channelParamConfigTranslator
     ) {
         $this->deviceManager = $deviceManager;
         $this->entityManager = $measurementLogsEntityManager;

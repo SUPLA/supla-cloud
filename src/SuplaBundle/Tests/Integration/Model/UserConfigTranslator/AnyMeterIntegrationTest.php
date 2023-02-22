@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Integration\Model\UserConfigTranslator;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -30,7 +30,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
 
     /** @var IODevice */
     private $device;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $paramsTranslator;
 
     public function initializeDatabaseForTests() {
@@ -43,7 +43,7 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_HEATMETER],
         ]);
-        $this->paramsTranslator = self::$container->get(ConfigTranslator::class);
+        $this->paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
     }
 
     public function meterChannelsProvider() {

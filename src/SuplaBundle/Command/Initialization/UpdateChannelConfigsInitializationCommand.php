@@ -3,7 +3,7 @@ namespace SuplaBundle\Command\Initialization;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,10 +14,10 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
 
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $paramConfigTranslator;
 
-    public function __construct(EntityManagerInterface $entityManager, ConfigTranslator $paramConfigTranslator) {
+    public function __construct(EntityManagerInterface $entityManager, SubjectConfigTranslator $paramConfigTranslator) {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->paramConfigTranslator = $paramConfigTranslator;

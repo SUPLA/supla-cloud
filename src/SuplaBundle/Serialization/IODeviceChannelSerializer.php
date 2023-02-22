@@ -22,7 +22,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\JsonArrayObject;
@@ -35,13 +35,13 @@ class IODeviceChannelSerializer extends AbstractSerializer {
     private $channelStateGetter;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $paramsTranslator;
 
     public function __construct(
         ChannelStateGetter $channelStateGetter,
         IODeviceChannelRepository $channelRepository,
-        ConfigTranslator $paramsTranslator
+        SubjectConfigTranslator $paramsTranslator
     ) {
         parent::__construct();
         $this->channelStateGetter = $channelStateGetter;

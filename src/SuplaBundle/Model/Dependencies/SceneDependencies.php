@@ -5,7 +5,7 @@ namespace SuplaBundle\Model\Dependencies;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Model\Schedule\ScheduleManager;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /**
  * This class is responsible for detecting and possibly clearing all items that rely on the given scene.
@@ -16,7 +16,7 @@ class SceneDependencies extends ActionableSubjectDependencies {
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ConfigTranslator $channelParamConfigTranslator,
+        SubjectConfigTranslator $channelParamConfigTranslator,
         ScheduleManager $scheduleManager
     ) {
         parent::__construct($entityManager, $channelParamConfigTranslator);

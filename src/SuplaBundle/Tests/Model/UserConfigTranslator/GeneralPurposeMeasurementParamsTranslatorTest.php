@@ -19,11 +19,11 @@ namespace SuplaBundle\Tests\Model\UserConfigTranslator;
 
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementParamsTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 class GeneralPurposeMeasurementParamsTranslatorTest extends TestCase {
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $configTranslator;
 
     /** @before */

@@ -19,7 +19,7 @@ namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Model\ChannelStateGetter\SceneStateGetter;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\SceneRepository;
 use SuplaBundle\Utils\JsonArrayObject;
 
@@ -28,10 +28,14 @@ class SceneSerializer extends AbstractSerializer {
     private $sceneRepository;
     /** @var SceneStateGetter */
     private $sceneStateGetter;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $configTranslator;
 
-    public function __construct(SceneRepository $sceneRepository, SceneStateGetter $sceneStateGetter, ConfigTranslator $configTranslator) {
+    public function __construct(
+        SceneRepository $sceneRepository,
+        SceneStateGetter $sceneStateGetter,
+        SubjectConfigTranslator $configTranslator
+    ) {
         parent::__construct();
         $this->sceneRepository = $sceneRepository;
         $this->sceneStateGetter = $sceneStateGetter;

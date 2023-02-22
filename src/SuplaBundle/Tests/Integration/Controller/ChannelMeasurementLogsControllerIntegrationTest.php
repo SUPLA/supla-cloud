@@ -30,7 +30,7 @@ use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -554,8 +554,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public function testGettingElectricityMeasurementsLogsCountFromRelatedRelay() {
         $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
-        /** @var ConfigTranslator $paramsTranslator */
-        $paramsTranslator = self::$container->get(ConfigTranslator::class);
+        /** @var SubjectConfigTranslator $paramsTranslator */
+        $paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $relayChannel = $this->device1->getChannels()[0];
         $paramsTranslator->setConfig($relayChannel, ['relatedChannelId' => 4]);
         $this->getEntityManager()->persist($relayChannel);
@@ -566,8 +566,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public function testGettingElectricityMeasurementsLogsCountFromRelatedStaircaseTimer() {
         $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
-        /** @var ConfigTranslator $paramsTranslator */
-        $paramsTranslator = self::$container->get(ConfigTranslator::class);
+        /** @var SubjectConfigTranslator $paramsTranslator */
+        $paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $staircaseTimerChannel = $this->device1->getChannels()[10];
         $paramsTranslator->setConfig($staircaseTimerChannel, ['relatedChannelId' => 4]);
         $this->getEntityManager()->persist($staircaseTimerChannel);

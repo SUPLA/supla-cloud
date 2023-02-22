@@ -37,7 +37,7 @@ use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
@@ -262,7 +262,7 @@ class ChannelController extends RestController {
         Request $request,
         IODeviceChannel $channel,
         ChannelDependencies $channelDependencies,
-        ConfigTranslator $paramConfigTranslator,
+        SubjectConfigTranslator $paramConfigTranslator,
         LocationRepository $locationRepository,
         UserIconRepository $userIconRepository
     ) {
@@ -437,7 +437,7 @@ class ChannelController extends RestController {
     public function patchChannelSettingsAction(
         Request $request,
         IODeviceChannel $channel,
-        ConfigTranslator $paramConfigTranslator
+        SubjectConfigTranslator $paramConfigTranslator
     ) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');

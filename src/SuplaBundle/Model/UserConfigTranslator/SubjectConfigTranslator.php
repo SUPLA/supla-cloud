@@ -21,7 +21,7 @@ use SuplaBundle\Entity\HasUserConfig;
  *   }
  * )
  */
-class ConfigTranslator {
+class SubjectConfigTranslator {
     /** @var UserConfigTranslator[] */
     private $translators = [];
 

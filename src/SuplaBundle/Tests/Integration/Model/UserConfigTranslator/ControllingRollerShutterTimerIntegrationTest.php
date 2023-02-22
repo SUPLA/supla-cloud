@@ -20,7 +20,7 @@ namespace SuplaBundle\Tests\Integration\Model\UserConfigTranslator;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -30,7 +30,7 @@ class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
 
     /** @var IODevice */
     private $device;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $paramsTranslator;
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -46,7 +46,7 @@ class ControllingRollerShutterTimerIntegrationTest extends IntegrationTestCase {
 
     /** @before */
     public function init() {
-        $this->paramsTranslator = self::$container->get(ConfigTranslator::class);
+        $this->paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
     }
 

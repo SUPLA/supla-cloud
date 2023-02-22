@@ -72,6 +72,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *   @OA\Property(property="locationId", type="integer"),
  *   @OA\Property(property="functionId", type="integer", enum={2000}),
  *   @OA\Property(property="userIconId", type="integer"),
+ *   @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
  *   @OA\Property(property="state", ref="#/components/schemas/SceneState"),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.",
  *     @OA\Property(property="sceneOperations", description="Number of scene operations, that this scene is used for an action.", type="integer"),

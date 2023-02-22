@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Integration\Model\UserConfigTranslator;
 
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
@@ -29,7 +29,7 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
 
     /** @var \SuplaBundle\Entity\Main\IODevice */
     private $device;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $paramsTranslator;
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -41,7 +41,7 @@ class ControllingAnyLockTimeIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
         ]);
-        $this->paramsTranslator = self::$container->get(ConfigTranslator::class);
+        $this->paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
     }
 

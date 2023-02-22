@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\UserConfigTranslator\ConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaServerAware;
 
 abstract class ActionableSubjectDependencies {
@@ -15,12 +15,12 @@ abstract class ActionableSubjectDependencies {
 
     /** @var EntityManagerInterface */
     protected $entityManager;
-    /** @var ConfigTranslator */
+    /** @var SubjectConfigTranslator */
     protected $channelParamConfigTranslator;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ConfigTranslator $channelParamConfigTranslator
+        SubjectConfigTranslator $channelParamConfigTranslator
     ) {
         $this->entityManager = $entityManager;
         $this->channelParamConfigTranslator = $channelParamConfigTranslator;

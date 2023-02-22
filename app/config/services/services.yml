@@ -109,7 +109,7 @@ services:
   SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
     - !tagged supla.channel_action_executor
 
-  SuplaBundle\Model\UserConfigTranslator\ConfigTranslator:
+  SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator:
     - !tagged supla.user_config_translator
 
   SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:
