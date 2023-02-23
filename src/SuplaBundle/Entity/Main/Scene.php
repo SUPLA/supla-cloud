@@ -133,6 +133,8 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
      */
     private $directLinks;
 
+    private $commandExecutionsCount = 0;
+
     public function __construct(Location $location) {
         $this->user = $location->getUser();
         $this->location = $location;
@@ -211,6 +213,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
     }
 
     public function setOpeartions($operations) {
+        $this->commandExecutionsCount = 0;
         $this->operations->clear();
         foreach ($operations as $operation) {
             EntityUtils::setField($operation, 'owningScene', $this);
@@ -273,5 +276,13 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
 
     public function getProperties(): array {
         return [];
+    }
+
+    public function getCommandExecutionsCount(): int {
+        return $this->commandExecutionsCount;
+    }
+
+    public function setCommandExecutionsCount(int $commandExecutionsCount): void {
+        $this->commandExecutionsCount = $commandExecutionsCount;
     }
 }

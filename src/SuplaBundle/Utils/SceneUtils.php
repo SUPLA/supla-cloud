@@ -43,12 +43,6 @@ final class SceneUtils {
                 self::ensureOperationsAreNotCyclic($operation->getSubject(), $usedScenesIds, $operationsCounter);
             }
         }
-        foreach ($scene->getOperationsThatReferToThisScene() as $operationThatExecutesThisScene) {
-            $sceneThatExecutesThisScene = $operationThatExecutesThisScene->getOwningScene();
-            if (!in_array($sceneThatExecutesThisScene->getId(), $usedScenesIds)) {
-                self::ensureOperationsAreNotCyclic($sceneThatExecutesThisScene);
-            }
-        }
     }
 
     public static function updateDelaysAndEstimatedExecutionTimes(Scene $scene, EntityManagerInterface $entityManager) {
@@ -58,26 +52,40 @@ final class SceneUtils {
             Assertion::greaterThan(--$shield, 0, 'Could not update scene estimated execution time.');
             $totalExecutionTime = 0;
             $delayFromWaiting = 0;
+            $commandExecutionsCount = 0;
             foreach ($currentScene->getOperations() as $operation) {
+                /** @var SceneOperation $operation */
                 $delayFromUser = $operation->getUserDelayMs();
                 $totalDelay = $delayFromUser + $delayFromWaiting;
                 $delayFromWaiting = 0;
                 $operation->setDelayMs($totalDelay);
                 $totalExecutionTime += $totalDelay;
-                if ($operation->isWaitForCompletion()) {
-                    if ($operation->getSubjectType()->equals(ActionableSubjectType::SCENE())) {
-                        /** @var \SuplaBundle\Entity\Main\Scene $sceneToWaitFor */
-                        $sceneToWaitFor = $operation->getSubject();
-                        $delayFromWaiting = $sceneToWaitFor->getEstimatedExecutionTime();
+                if ($operation->getSubjectType()->equals(ActionableSubjectType::SCENE())) {
+                    /** @var Scene $executedScene */
+                    $executedScene = $operation->getSubject();
+                    $commandExecutionsCount += $executedScene->getCommandExecutionsCount();
+                    if ($operation->isWaitForCompletion()) {
+                        $delayFromWaiting = $executedScene->getEstimatedExecutionTime();
                     }
+                } else {
+                    ++$commandExecutionsCount;
                 }
                 $entityManager->persist($operation);
             }
             $totalExecutionTime += $delayFromWaiting;
-            if ($currentScene->getEstimatedExecutionTime() !== $totalExecutionTime) {
+            $executionTimeChanged = $currentScene->getEstimatedExecutionTime() !== $totalExecutionTime;
+            if ($executionTimeChanged || $currentScene->getCommandExecutionsCount() !== $commandExecutionsCount) {
+                Assertion::lessThan(
+                    $commandExecutionsCount,
+                    self::MAX_OPERATIONS_EXECUTIONS_PER_SCENE,
+                    'The scene would execute too many operations.' // i18n
+                );
                 $scenesToCalculate = array_merge($scenesToCalculate, self::getScenesThatUsesScene($currentScene));
-                $currentScene->setEstimatedExecutionTime($totalExecutionTime);
-                $entityManager->persist($currentScene);
+                $currentScene->setCommandExecutionsCount($commandExecutionsCount);
+                if ($executionTimeChanged) {
+                    $currentScene->setEstimatedExecutionTime($totalExecutionTime);
+                    $entityManager->persist($currentScene);
+                }
             }
         }
     }
@@ -85,9 +93,6 @@ final class SceneUtils {
     private static function getScenesThatUsesScene(Scene $currentScene): array {
         $dependentScenes = [];
         $currentScene->getOperationsThatReferToThisScene()
-            ->filter(function (SceneOperation $sceneOperation) {
-                return $sceneOperation->isWaitForCompletion();
-            })
             ->map(function (SceneOperation $sceneOperation) {
                 return $sceneOperation->getOwningScene();
             })
