@@ -439,3 +439,9 @@
         }
     };
 </script>
+
+<style lang="scss" scoped>
+    ::v-deep .apexcharts-menu-item.exportCSV {
+        display: none;
+    }
+</style>
