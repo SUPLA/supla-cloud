@@ -219,6 +219,9 @@ export const CHART_TYPES = {
             return log;
         },
         adjustLogs: (logs) => {
+            if (!logs || logs.length < 2) {
+                return logs;
+            }
             let previousLog = logs[0];
             const adjustedLogs = [];
             for (let i = 1; i < logs.length; i++) {
@@ -265,8 +268,20 @@ export const CHART_TYPES = {
             return logs;
         },
         yaxes: function (logs) {
-            const values = this.adjustLogs(logs).map(log => log['phase1_' + this.chartMode] + log['phase2_' + this.chartMode] + log['phase3_' + this.chartMode]).filter(t => t > 0);
+            const values = CHART_TYPES.ELECTRICITYMETER.adjustLogs(logs)
+                .map(log => log['phase1_' + this.chartMode] + log['phase2_' + this.chartMode] + log['phase3_' + this.chartMode])
+                .filter(t => t > 0);
             const maxMeasurement = Math.max.apply(this, values);
+            let roundLevel = 1;
+            while (roundLevel < 4 && maxMeasurement * Math.pow(10, roundLevel) < 1) {
+                ++roundLevel;
+            }
+            let maxRounded = Math.ceil(maxMeasurement * Math.pow(10, roundLevel - 1)) / Math.pow(10, roundLevel - 1);
+            if (maxRounded / 5 > maxMeasurement) {
+                maxRounded /= 5;
+            } else if (maxRounded / 2 > maxMeasurement) {
+                maxRounded /= 2;
+            }
             const label = {
                 fae: this.$t("Forward active energy"),
                 rae: this.$t("Reverse active energy"),
@@ -279,7 +294,7 @@ export const CHART_TYPES = {
                     title: {text: label},
                     labels: {formatter: (v) => `${(+v).toFixed(5)} ${measurementUnit(this.channel)}`},
                     min: 0,
-                    max: maxMeasurement + Math.max(0.00001, maxMeasurement),
+                    max: maxRounded,
                 }
             ];
         },

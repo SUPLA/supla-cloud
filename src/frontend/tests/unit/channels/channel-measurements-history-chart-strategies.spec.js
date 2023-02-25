@@ -106,5 +106,60 @@ describe('Channel measurement history data strategies', () => {
                 });
             });
         });
+
+        describe('yaxes', function () {
+            const vueMock = {
+                $t: a => a,
+                chartMode: 'fae',
+                channel: {},
+            };
+
+            it('chooses a label', () => {
+                const logs = [{phase1_fae: 1, phase2_fae: 1, phase3_fae: 1}];
+                const yaxes = strategy.yaxes.call(vueMock, logs);
+                expect(yaxes).toHaveLength(1);
+                expect(yaxes[0].title.text).toEqual('Forward active energy');
+            });
+
+            it('calculates max for one log with rounded max', () => {
+                const logs = [{phase1_fae: 1, phase2_fae: 1, phase3_fae: 1}];
+                const yaxes = strategy.yaxes.call(vueMock, logs);
+                expect(yaxes[0].max).toEqual(3);
+            });
+
+            it('calculates max for one log with rounded max ceil', () => {
+                const logs = [{phase1_fae: 1, phase2_fae: 1.01, phase3_fae: 1}];
+                const yaxes = strategy.yaxes.call(vueMock, logs);
+                expect(yaxes[0].max).toEqual(4);
+            });
+
+            it('calculates max for one log with rounded max less than one', () => {
+                const logs = [{phase1_fae: 0.01, phase2_fae: 0.02, phase3_fae: 0.03}];
+                const yaxes = strategy.yaxes.call(vueMock, logs);
+                expect(yaxes[0].max).toEqual(0.1);
+            });
+
+            it('calculates max for one log with rounded max/2', () => {
+                const logs = [{phase1_fae: 0.001, phase2_fae: 0.001, phase3_fae: 0.001}];
+                const yaxes = strategy.yaxes.call(vueMock, logs);
+                expect(yaxes[0].max).toEqual(0.005);
+            });
+
+            it('calculates max for one log with rounded max/5', () => {
+                const logs = [{phase1_fae: 0.0001, phase2_fae: 0.001, phase3_fae: 0.0001}];
+                const yaxes = strategy.yaxes.call(vueMock, logs);
+                expect(yaxes[0].max).toEqual(0.002);
+            });
+
+            it('calculates max for one log with many logs', () => {
+                const logs = [
+                    {phase1_fae: 0.001, phase2_fae: 0.001, phase3_fae: 0.001},
+                    {phase1_fae: 0.001, phase2_fae: 0.03, phase3_fae: 0.001},
+                    {phase1_fae: 0.001, phase2_fae: 0.012, phase3_fae: 0.001},
+                ];
+                const yaxes = strategy.yaxes.call(vueMock, logs);
+                expect(yaxes[0].max).toEqual(0.05);
+            });
+        });
     });
 })
