@@ -241,8 +241,20 @@
                         }
                     },
                     tooltip: {
+                        shared: true,
                         x: {
-                            formatter: (value) => DateTime.fromSeconds(value / 1000).toLocaleString(DateTime.DATETIME_MED),
+                            formatter: (value, {series, seriesIndex, dataPointIndex, w}) => {
+                                let datetimeLabel = DateTime.fromSeconds(value / 1000).toLocaleString(DateTime.DATETIME_MED);
+                                if (series) {
+                                    const nextPoint = w.config.series[seriesIndex].data[dataPointIndex + 1];
+                                    if (nextPoint) {
+                                        const nextPointTimestamp = nextPoint[0];
+                                        datetimeLabel += ' - ' + DateTime.fromSeconds(nextPointTimestamp / 1000)
+                                            .toLocaleString(DateTime.DATETIME_MED);
+                                    }
+                                }
+                                return datetimeLabel;
+                            }
                         }
                     },
                 };
