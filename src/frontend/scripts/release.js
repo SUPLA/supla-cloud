@@ -112,7 +112,7 @@ function clearLocalConfigFiles() {
         'release/app/config/config_test.yml',
         'release/app/config/parameters.yml',
         'release/app/config/parameters.yml.travis',
-        'release/web/app_dev.php',
+        'release/web/router.php',
         'release/web/assets/**/*.map',
     ];
     if (process.env.NODE_ENV !== 'development') {
