@@ -150,9 +150,14 @@ class UserIconController extends RestController {
                     Assertion::notNull($imageFromRequest, "Icon for this function must consist of $imagesCount images.");
                 }
                 if ($imageFromRequest) {
-                    $image = $imageFromRequest->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
-                    $image = ImageResize::createFromString($image);
-                    $imageString = $image->crop(210, 156)->getImageAsString(IMAGETYPE_PNG);
+                    if ($imageFromRequest->getSourceHeight() !== 156 || $imageFromRequest->getSourceWidth() !== 210) {
+                        $image = $imageFromRequest->resizeToHeight(156, true)->getImageAsString(IMAGETYPE_PNG);
+                        $image = ImageResize::createFromString($image);
+                        $image = $image->crop(210, 156);
+                    } else {
+                        $image = $imageFromRequest;
+                    }
+                    $imageString = $image->getImageAsString(IMAGETYPE_PNG);
                 } else {
                     $imageString = $sourceIcon->getImages()[$iconIndex - 1];
                 }
