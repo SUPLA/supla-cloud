@@ -56,7 +56,7 @@ class MeasurementCsvExporter {
 
     private function getDataFetchDefinition(IODeviceChannel $channel, string $logsType): array {
         // @codingStandardsIgnoreStart
-        $timestampSelect = "UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`)) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
+        $timestampSelect = "UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'), `date`)) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:

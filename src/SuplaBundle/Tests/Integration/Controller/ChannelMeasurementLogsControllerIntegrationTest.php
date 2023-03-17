@@ -779,11 +779,12 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $csv = gzinflate(substr($data, 30 + $head['namelen'] + $head['exlen'], $head['csize']));
         $this->assertStringContainsString("Temperature", $csv);
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('GET', "/api/channels/{$channelId}/measurement-logs?offset=50&limit=10");
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?offset=50&limit=10");
         $response = $client->getResponse();
         $content = json_decode($response->getContent(), true);
         $testItem = $content[3];
-        $expectedRow = "$testItem[date_timestamp],\"" . date('Y-m-d H:i:s', $testItem['date_timestamp']) . "\",$testItem[temperature]\n";
+        $dateTime = new \DateTime('@' . $testItem['date_timestamp'], new \DateTimeZone($this->user->getTimezone()));
+        $expectedRow = "$testItem[date_timestamp],\"" . $dateTime->format('Y-m-d H:i:s') . "\",$testItem[temperature]";
         $this->assertStringContainsString($expectedRow, $csv);
     }
 
