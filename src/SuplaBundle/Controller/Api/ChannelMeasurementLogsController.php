@@ -277,7 +277,7 @@ class ChannelMeasurementLogsController extends RestController {
                 );
             case ChannelFunction::ELECTRICITYMETER:
                 $columns = $logsType === 'voltage' ?
-                    'phase_no phaseNo, count_total countTotal, count_above countAbove, count_below countBelow, sec_total secTotal,' .
+                    'phase_no phaseNo, count_total countTotal, count_above countAbove, count_below countBelow, ' .
                     'sec_below secBelow, sec_above secAbove, max_sec_above maxSecAbove, max_sec_below maxSecBelow,' .
                     'min_voltage minVoltage, max_voltage maxVoltage, avg_voltage avgVoltage, measurement_time_sec measurementTimeSec' :
                     '`phase1_fae`, `phase1_rae`, `phase1_fre`, '
@@ -459,7 +459,6 @@ class ChannelMeasurementLogsController extends RestController {
      *            @OA\Property(property="countTotal", type="integer"),
      *            @OA\Property(property="countAbove", type="integer"),
      *            @OA\Property(property="countBelow", type="integer"),
-     *            @OA\Property(property="secTotal", type="integer"),
      *            @OA\Property(property="secAbove", type="integer"),
      *            @OA\Property(property="secBelow", type="integer"),
      *            @OA\Property(property="maxSecAbove", type="integer"),

@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -234,7 +234,7 @@ class LogItemsFixture extends SuplaFixture {
                     'measurementTimeSec' => $this->faker->numberBetween(595, 605),
                 ];
                 $state['countTotal'] = $state['countAbove'] + $state['countBelow'];
-                $state['secTotal'] = $state['secAbove'] + $state['secBelow'];
+                $state['secAbove'] + $state['secBelow'];
                 $state['maxSecAbove'] = $above
                     ? ($state['countAbove'] === 1 ? $state['secAbove'] : $this->faker->numberBetween(1, $state['secAbove']))
                     : 0;

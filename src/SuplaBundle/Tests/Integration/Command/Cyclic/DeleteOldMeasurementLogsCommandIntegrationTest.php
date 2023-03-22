@@ -55,7 +55,7 @@ class DeleteOldMeasurementLogsCommandIntegrationTest extends IntegrationTestCase
         $state = [
             'phaseNo' => 1, 'measurementTimeSec' => 600,
             'countAbove' => 2, 'countBelow' => 3, 'countTotal' => 5,
-            'secAbove' => 0, 'secBelow' => 3, 'secTotal' => 6, 'maxSecAbove' => 2, 'maxSecBelow' => 3,
+            'secAbove' => 0, 'secBelow' => 3, 'maxSecAbove' => 2, 'maxSecBelow' => 3,
             'minVoltage' => 100, 'maxVoltage' => 230, 'avgVoltage' => 200,
         ];
         foreach ($state as $stateName => $value) {
