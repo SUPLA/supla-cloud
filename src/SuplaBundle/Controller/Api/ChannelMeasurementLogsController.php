@@ -656,19 +656,26 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @OA\Get(
-     *     path="/channels/{channel}/measurement-logs-csv", operationId="getChannelMeasurementLogsCsvFile",
-     *     summary="Get measurement logs as zipped CSV file.", tags={"Channels"},
+     *     path="/channels/{channel}/measurement-logs-download", operationId="downloadChannelMeasurementLogs",
+     *     summary="Get measurement logs as a zipped file.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage"})),
+     *     @OA\Parameter(name="format", description="Format of the export.", in="query", @OA\Schema(type="string", enum={"csv", "xlsx", "ods", "html"})),
+     *     @OA\Parameter(name="separator", description="Separator for te CSV format.", in="query", @OA\Schema(type="string", enum={",", ";", "tab"})),
      *     @OA\Response(response="200", description="Success", @OA\MediaType(mediaType="application/zip")),
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
      * @Rest\Get("/channels/{channel}/measurement-logs-csv")
+     * @Rest\Get("/channels/{channel}/measurement-logs-download")
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES') and is_granted('accessIdContains', channel)")
      */
     public function channelItemGetCSVAction(Request $request, IODeviceChannel $channel, MeasurementCsvExporter $measurementCsvExporter) {
         $logsType = $request->query->get('logsType');
-        $filePath = $measurementCsvExporter->generateCsv($channel, $logsType);
+        $format = $request->query->get('format') ?: 'csv';
+        Assertion::inArray($format, ['csv', 'xlsx', 'ods', 'html'], 'Unsupported export format.');
+        $separator = $request->query->get('separator') ?: ',';
+        Assertion::inArray($separator, [',', ';', 'tab'], 'Unsupported separator.');
+        $filePath = $measurementCsvExporter->createZipArchiveWithLogs($channel, $logsType, $format, $separator);
         $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
         return new StreamedResponse(
             function () use ($filePath) {

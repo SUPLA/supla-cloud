@@ -46,7 +46,7 @@
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelGroupsList from "../channel-groups/channel-groups-list";
     import ScenesList from "../scenes/scenes-list";
-    import ChannelMeasurementsHistory from "./channel-measurements-history";
+    import ChannelMeasurementsHistory from "./history/channel-measurements-history.vue";
     import ChannelActionTriggers from "@/channels/action-trigger/channel-action-triggers";
     import ChannelFunction from "../common/enums/channel-function";
     import ChannelVoltageHistory from "./channel-voltage-history";

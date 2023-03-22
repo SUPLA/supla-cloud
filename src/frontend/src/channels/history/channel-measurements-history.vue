@@ -3,16 +3,7 @@
         <div class="container">
             <div :class="'form-group text-' + (sparseLogs.length ? 'right' : 'center')"
                 v-if="hasLogs">
-                <div>
-                    <a :href="`/api/channels/${channel.id}/measurement-logs-csv?` | withDownloadAccessToken"
-                        class="btn btn-default mx-1">{{ $t('Download the history of measurement') }}</a>
-                    <button @click="deleteConfirm = true"
-                        type="button"
-                        class="btn btn-red ml-1">
-                        <i class="pe-7s-trash"></i>
-                        {{ $t('Delete measurement history') }}
-                    </button>
-                </div>
+                <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()"/>
             </div>
 
             <div v-if="supportsChart">
@@ -34,26 +25,19 @@
                 </div>
             </div>
 
-            <modal-confirm v-if="deleteConfirm"
-                class="modal-warning"
-                @confirm="deleteMeasurements()"
-                @cancel="deleteConfirm = false"
-                :header="$t('Are you sure you want to delete the entire measurement history saved for this channel?')">
-            </modal-confirm>
-
             <empty-list-placeholder v-if="hasLogs === false"></empty-list-placeholder>
         </div>
     </loading-cover>
 </template>
 
 <script>
-    import {successNotification} from "../common/notifier";
     import {debounce, merge} from "lodash";
-    import {channelTitle} from "../common/filters";
+    import {channelTitle} from "../../common/filters";
     import ApexCharts from "apexcharts";
     import $ from "jquery";
     import {DateTime} from "luxon";
     import {CHART_TYPES, fillGaps} from "./channel-measurements-history-chart-strategies";
+    import ChannelMeasurementsDownload from "@/channels/history/channel-measurements-download.vue";
 
     window.ApexCharts = ApexCharts;
 
@@ -79,6 +63,7 @@
     const DENSE_LOGS_COUNT = 150;
 
     export default {
+        components: {ChannelMeasurementsDownload},
         props: ['channel'],
         data: function () {
             return {
@@ -408,18 +393,13 @@
                 this.rerenderBigChart();
                 this.rerenderSmallChart();
             },
-            deleteMeasurements() {
-                this.deleteConfirm = false;
-                this.$http.delete('channels/' + this.channel.id + '/measurement-logs')
-                    .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')))
-                    .then(() => {
-                        this.hasLogs = false;
-                        this.sparseLogs = undefined;
-                        this.bigChart?.destroy();
-                        this.smallChart?.destroy();
-                        this.bigChart = undefined;
-                        this.smallChart = undefined;
-                    });
+            onMeasurementsDelete() {
+                this.hasLogs = false;
+                this.sparseLogs = undefined;
+                this.bigChart?.destroy();
+                this.smallChart?.destroy();
+                this.bigChart = undefined;
+                this.smallChart = undefined;
             },
         },
         computed: {

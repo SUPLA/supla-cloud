@@ -1,4 +1,4 @@
-import {CHART_TYPES, fillGaps} from "@/channels/channel-measurements-history-chart-strategies";
+import {CHART_TYPES, fillGaps} from "@/channels/history/channel-measurements-history-chart-strategies";
 
 describe('Channel measurement history data strategies', () => {
     describe('fillGaps', function () {
