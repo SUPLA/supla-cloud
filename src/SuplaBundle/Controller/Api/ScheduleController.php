@@ -21,6 +21,7 @@ use Assert\Assert;
 use Assert\Assertion;
 use DateTime;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
@@ -36,6 +37,46 @@ use SuplaBundle\Repository\ScheduleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @OA\Schema(
+ *   schema="ScheduleConfigEntry", type="object",
+ *   @OA\Property(property="crontab", type="string"),
+ *   @OA\Property(property="action", type="object",
+ *     @OA\Property(property="id", ref="#/components/schemas/ChannelFunctionActionIds"),
+ *     @OA\Property(property="param", nullable=true, ref="#/components/schemas/ChannelActionParams"),
+ *   )
+ * )
+ * @OA\Schema(
+ *   schema="ScheduleScheduledExecution", type="object",
+ *   @OA\Property(property="actionId", ref="#/components/schemas/ChannelFunctionActionIds"),
+ *   @OA\Property(property="actionParam", nullable=true, ref="#/components/schemas/ChannelActionParams"),
+ *   @OA\Property(property="plannedTimestamp", type="string", format="date-time"),
+ *   @OA\Property(property="resultTimestamp", type="string", format="date-time"),
+ *   @OA\Property(property="failed", type="boolean"),
+ *   @OA\Property(property="result", type="object",
+ *     @OA\Property(property="id", type="integer", enum={0,1,2,3,4,5,6,7,8,9,10}),
+ *     @OA\Property(property="caption", type="string"),
+ *   ),
+ * )
+ * @OA\Schema(
+ *   schema="Schedule", type="object",
+ *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="caption", type="string", description="Caption"),
+ *   @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+ *   @OA\Property(property="subjectId", type="integer"),
+ *   @OA\Property(property="dateStart", type="string", format="date-time"),
+ *   @OA\Property(property="dateEnd", type="string", format="date-time"),
+ *   @OA\Property(property="retry", type="boolean"),
+ *   @OA\Property(property="enabled", type="boolean"),
+ *   @OA\Property(property="mode", type="string", enum={"once", "minutely", "daily", "crontab"}),
+ *   @OA\Property(property="config", type="array", @OA\Items(ref="#/components/schemas/ScheduleConfigEntry")),
+ *   @OA\Property(property="subject", description="Only if requested by the `include` param.", ref="#/components/schemas/ActionableSubject"),
+ *   @OA\Property(property="closestExecutions", description="Only if requested by the `include` param.", type="object",
+ *     @OA\Property(property="past", type="array", @OA\Items(ref="#/components/schemas/ScheduleScheduledExecution")),
+ *     @OA\Property(property="future", type="array", @OA\Items(ref="#/components/schemas/ScheduleScheduledExecution")),
+ *  )
+ * )
+ */
 class ScheduleController extends RestController {
     /** @var ScheduleRepository */
     private $scheduleRepository;
@@ -62,7 +103,18 @@ class ScheduleController extends RestController {
         }
     }
 
-    /** @Security("has_role('ROLE_SCHEDULES_R')") */
+    /**
+     * @OA\Get(
+     *     path="/schedules", operationId="getSchedules", summary="Get Schedules", tags={"Schedules"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject", "closestExecutions"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Schedule"))),
+     * )
+     * @Security("has_role('ROLE_SCHEDULES_R')")
+     */
     public function getSchedulesAction(Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
     }
