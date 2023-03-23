@@ -35,6 +35,26 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
         $this->user = $this->createConfirmedUser();
     }
 
+    public function testListOfSessions() {
+        $this->testCreatingPersonalAccessToken();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest('GET', '/api/access-tokens');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+        $this->assertArrayHasKey('id', $content[0]);
+        $this->assertArrayHasKey('name', $content[0]);
+        $this->assertArrayHasKey('scope', $content[0]);
+        $this->assertArrayHasKey('issuerIp', $content[0]);
+        $this->assertArrayHasKey('apiClientAuthorization', $content[0]);
+        $this->assertArrayHasKey('isForWebapp', $content[0]);
+        $this->assertArrayNotHasKey('token', $content[0]);
+        $this->assertArrayHasKey('issuerSystem', $content[0]);
+        $this->assertIsArray($content[1]['issuerSystem']);
+        $this->assertArrayHasKey('os', $content[1]['issuerSystem']);
+    }
+
     public function testCreatingPersonalAccessToken() {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest('POST', '/api/oauth-personal-tokens', [

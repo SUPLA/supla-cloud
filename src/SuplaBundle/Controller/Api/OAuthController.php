@@ -28,6 +28,7 @@ use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
+use SuplaBundle\Entity\Main\OAuth\RefreshToken;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessTokenRepository;
@@ -200,5 +201,35 @@ class OAuthController extends RestController {
         } else {
             return new Response('', Response::HTTP_NOT_ACCEPTABLE);
         }
+    }
+
+    /**
+     * @Security("has_role('ROLE_WEBAPP')")
+     * @Rest\Get("/access-tokens")
+     */
+    public function getAccessTokensAction(Request $request) {
+        $accessTokens = $this->accessTokenRepository->createQueryBuilder('at')
+            ->where('at.user = :user')
+            ->andWhere('at.expiresAt IS NULL OR at.expiresAt > :obsoleteDate')
+            ->setParameter('user', $this->getUser())
+            ->setParameter('obsoleteDate', new \DateTime('-1 day', new \DateTimeZone('UTC')))
+            ->getQuery()
+            ->getResult();
+        return $this->serializedView($accessTokens, $request, ['issuer']);
+    }
+
+    /**
+     * @Security("has_role('ROLE_WEBAPP')")
+     * @Rest\Get("/refresh-tokens")
+     */
+    public function getRefreshTokensAction(EntityManagerInterface $entityManager, Request $request) {
+        $refreshTokens = $entityManager->getRepository(RefreshToken::class)->createQueryBuilder('rt')
+            ->where('at.user = :user')
+            ->andWhere('rt.expiresAt IS NULL OR rt.expiresAt > :obsoleteDate')
+            ->setParameter('user', $this->getUser())
+            ->setParameter('obsoleteDate', new \DateTime('-1 day', new \DateTimeZone('UTC')))
+            ->getQuery()
+            ->getResult();
+        return $this->serializedView($refreshTokens, $request, ['issuer']);
     }
 }
