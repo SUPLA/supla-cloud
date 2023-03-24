@@ -71,7 +71,6 @@
 
 <script>
     import Vue from "vue";
-    import $ from "jquery";
     import AppState from "../../router/app-state";
     import {DateTime} from "luxon";
 
@@ -147,7 +146,7 @@
                 this.cancel();
                 clearInterval(this.interval);
                 this.expirationTimestamp = undefined;
-                $("#logoutButton")[0].click();
+                document.getElementById('logoutButton').dispatchEvent(new MouseEvent('click'));
             }
         },
         beforeDestroy() {

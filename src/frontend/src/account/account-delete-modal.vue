@@ -29,7 +29,6 @@
 <script>
     import {errorNotification, successNotification} from "../common/notifier";
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
-    import $ from "jquery";
 
     export default {
         components: {ButtonLoadingDots},
@@ -52,7 +51,7 @@
                             this.$t('We have sent you an e-mail message with a delete confirmation link. Just to be sure!')
                         );
                         this.$emit('cancel');
-                        $("#logoutButton")[0].click();
+                        document.getElementById('logoutButton').dispatchEvent(new MouseEvent('click'));
                     })
                     .finally(() => this.loading = false);
             }

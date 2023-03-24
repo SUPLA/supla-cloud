@@ -16,16 +16,6 @@
                                 {{ suplaServerHost }}
                             </dd>
                         </dl>
-                        <dl v-if="previousAuthAttempt">
-                            <dt>{{ $t('Previous login') }}</dt>
-                            <dd>
-                                <strong>{{ previousAuthAttempt.createdAt | formatDateTime }}</strong>
-                            </dd>
-                            <dt>{{ $t('From IP') }}</dt>
-                            <dd>
-                                <strong>{{ previousAuthAttempt.ipv4 }}</strong>
-                            </dd>
-                        </dl>
                         <dl>
                             <dt>{{ $t('Timezone') }}</dt>
                             <dd>
@@ -33,8 +23,6 @@
                             </dd>
                         </dl>
                         <div class="form-group text-center">
-                            <a class="btn btn-default"
-                                @click="changingPassword = true">{{ $t('Change Password') }}</a>
                             <a class="btn btn-default"
                                 @click="changingNotifications = true">{{ $t('E-mail notifications') }}</a>
                             <a class="btn btn-default"
@@ -49,9 +37,6 @@
             </loading-cover>
         </div>
         <div v-if="user">
-            <account-password-change-modal v-if="changingPassword"
-                @cancel="changingPassword = false"
-                :user="user"></account-password-change-modal>
             <account-opt-out-notifications-modal v-if="changingNotifications"
                 @cancel="closeOptOutNotificationsModal()"
                 :user="user"></account-opt-out-notifications-modal>
@@ -68,7 +53,6 @@
 <script>
     import AnimatedSvg from "./animated-svg";
     import TimezonePicker from "./timezone-picker";
-    import AccountPasswordChangeModal from "./account-password-change-modal";
     import AccountOptOutNotificationsModal from "./account-opt-out-notifications-modal";
     import AccountDeleteModal from "./account-delete-modal";
     import AccountLimitsModal from "./account-limits-modal";
@@ -76,7 +60,6 @@
     export default {
         components: {
             AccountLimitsModal,
-            AccountPasswordChangeModal,
             AccountDeleteModal,
             TimezonePicker,
             AnimatedSvg,
@@ -85,9 +68,7 @@
         data() {
             return {
                 user: undefined,
-                authAttempts: [],
                 animationFinished: false,
-                changingPassword: false,
                 deletingAccount: false,
                 showingLimits: false,
                 changingNotifications: false,
@@ -97,9 +78,6 @@
             setTimeout(() => this.animationFinished = true, 2000);
             this.$http.get('users/current').then(response => {
                 this.user = response.body;
-            });
-            this.$http.get('users/current/audit', {params: {events: ['AUTHENTICATION_SUCCESS']}}).then(response => {
-                this.authAttempts = response.body;
             });
             if (this.$route.query.optOutNotification) {
                 this.changingNotifications = true;
@@ -114,9 +92,6 @@
             }
         },
         computed: {
-            previousAuthAttempt() {
-                return this.authAttempts[1] || this.authAttempts[0];
-            },
             suplaServerHost() {
                 return this.$frontendConfig.suplaUrl.replace(/https?:\/\//, '');
             }

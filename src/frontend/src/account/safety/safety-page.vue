@@ -17,7 +17,7 @@
                             {{ $t('Applications with access') }}
                         </router-link>
                         <router-link :to="{name: 'safety.changePassword'}" class="btn">
-                            {{ $t('Change password') }}
+                            {{ $t('Change Password') }}
                         </router-link>
                     </div>
                 </div>
