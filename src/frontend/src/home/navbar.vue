@@ -124,7 +124,7 @@
                             </router-link>
                             <li>
                                 <router-link
-                                    :to="{name: 'authorized-oauth-apps'}">
+                                    :to="{name: 'safety.log'}">
                                     <fa icon="shield-halved" fixed-width/>
                                     {{ $t('Safety') }}
                                 </router-link>

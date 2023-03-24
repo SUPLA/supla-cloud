@@ -234,6 +234,7 @@ class UserController extends RestController {
                     ->maxLength(32)
                     ->validate($newPassword);
                 $this->userManager->setPassword($newPassword, $user);
+                $this->auditEntry(AuditedEvent::PASSWORD_CHANGED())->setUser($user)->buildAndFlush();
             } elseif ($data['action'] == 'agree:rules') {
                 $this->assertNotApiUser();
                 $user->agreeOnRules();
@@ -292,7 +293,7 @@ class UserController extends RestController {
         if ($events) {
             $criteria->andWhere(Criteria::expr()->in('event', $events));
         }
-        $criteria->setMaxResults(2); // currently used only for displaying last IPs
+        $criteria->setMaxResults(30);
         $entries = $this->auditEntryRepository->matching($criteria);
         return $this->view($entries, Response::HTTP_OK);
     }
