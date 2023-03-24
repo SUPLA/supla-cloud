@@ -29,7 +29,12 @@ export default [
     {
         path: '/register',
         component: () => import("@/register/create-account"),
-        meta: {unrestricted: true, onlyUnauthenticated: true, unavailableInMaintenance: true, bodyClass: 'green register-slider-body'},
+        meta: {
+            unrestricted: true,
+            onlyUnauthenticated: true,
+            unavailableInMaintenance: true,
+            bodyClass: 'green darker register-slider-body',
+        },
         alias: '/account/create_here'
     },
     {

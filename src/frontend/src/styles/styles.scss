@@ -327,8 +327,12 @@ table {
 }
 
 body.green {
-  background: darken($supla-green, 6%);
+  background-color: $supla-green;
   color: $supla-white;
+
+  &.darker {
+    background-color: darken($supla-green, 6%);
+  }
 
   nav.navbar-top {
     background: $supla-green;
