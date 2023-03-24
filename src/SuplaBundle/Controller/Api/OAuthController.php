@@ -224,7 +224,7 @@ class OAuthController extends RestController {
      */
     public function getRefreshTokensAction(EntityManagerInterface $entityManager, Request $request) {
         $refreshTokens = $entityManager->getRepository(RefreshToken::class)->createQueryBuilder('rt')
-            ->where('at.user = :user')
+            ->where('rt.user = :user')
             ->andWhere('rt.expiresAt IS NULL OR rt.expiresAt > :obsoleteDate')
             ->setParameter('user', $this->getUser())
             ->setParameter('obsoleteDate', new \DateTime('-1 day', new \DateTimeZone('UTC')))

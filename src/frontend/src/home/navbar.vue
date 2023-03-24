@@ -55,7 +55,7 @@
                     </router-link>
 
                     <li class="dropdown"
-                        :class="{'active': subIsActive(['/schedules', '/channel-groups'])}">
+                        :class="{'active': subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links'])}">
                         <a class="dropdown-toggle"
                             data-toggle="dropdown">
                             <i class="hidden-sm hidden-xs pe-7s-config"></i>
@@ -63,34 +63,30 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <router-link tag="li"
-                                to="/schedules">
-                                <a>
+                            <li>
+                                <router-link :to="{name: 'schedules'}">
                                     <i class="hidden-sm hidden-xs pe-7s-clock"></i>
                                     {{ $t('Schedules') }}
-                                </a>
-                            </router-link>
-                            <router-link tag="li"
-                                to="/channel-groups">
-                                <a>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'channelGroups'}">
                                     <i class="hidden-sm hidden-xs pe-7s-keypad"></i>
                                     {{ $t('Channel groups') }}
-                                </a>
-                            </router-link>
-                            <router-link tag="li"
-                                :to="{name: 'directLinks'}">
-                                <a>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'directLinks'}">
                                     <i class="hidden-sm hidden-xs pe-7s-link"></i>
                                     {{ $t('Direct links') }}
-                                </a>
-                            </router-link>
-                            <router-link tag="li"
-                                :to="{name: 'scenes'}">
-                                <a>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'scenes'}">
                                     <i class="hidden-sm hidden-xs supla-icon supla-icon-scene"></i>
                                     {{ $t('Scenes') }}
-                                </a>
-                            </router-link>
+                                </router-link>
+                            </li>
                             <li role="separator"
                                 class="divider"></li>
                             <li>
@@ -112,25 +108,33 @@
                         <ul class="dropdown-menu">
                             <router-link tag="li"
                                 to="/account">
-                                <a class="my-account">
+                                <a class="text-center">
                                     <span class="username"
                                         v-if="$user">{{ $user.username }}</span>
                                     {{ $t('Go to your account') }}
                                 </a>
                             </router-link>
                             <li class="divider"></li>
-                            <li class="bottom">
-                                <div class="btn-group btn-group-justified">
-                                    <router-link :to="{name: 'authorized-oauth-apps'}"
-                                        class="btn btn-default btn-wrapped">
-                                        {{ $t('Integrations') }}
-                                    </router-link>
-                                    <a class="btn btn-default btn-wrapped"
-                                        id="logoutButton"
-                                        @click="logout()">
-                                        {{ $t('Sign Out') }}
-                                    </a>
-                                </div>
+                            <router-link tag="li"
+                                :to="{name: 'authorized-oauth-apps'}">
+                                <a>
+                                    <fa icon="puzzle-piece" fixed-width/>
+                                    {{ $t('Integrations') }}
+                                </a>
+                            </router-link>
+                            <li>
+                                <router-link
+                                    :to="{name: 'authorized-oauth-apps'}">
+                                    <fa icon="shield-halved" fixed-width/>
+                                    {{ $t('Safety') }}
+                                </router-link>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a id="logoutButton" @click="logout()">
+                                    <fa icon="sign-out" fixed-width/>
+                                    {{ $t('Sign Out') }}
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -255,24 +259,11 @@
                 min-width: 240px;
             }
 
-            &, a {
-                text-align: center;
-            }
-
             .username {
                 display: block;
                 text-align: center;
                 font-size: 1.3em;
                 font-family: $supla-font-special;
-            }
-
-            .btn-group {
-                margin: 0;
-                padding: 0;
-
-                .btn {
-                    border: 0;
-                }
             }
         }
     }
