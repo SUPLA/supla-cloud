@@ -11,7 +11,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(accessToken, $index) in webappTokens" :key="$index">
+                <tr v-for="accessToken in webappTokens" :key="accessToken.id">
                     <td>
                         <span v-if="accessToken.issuerSystem">
                             {{ accessToken.issuerSystem.browserName || $t('Unknown browser') }}
@@ -20,6 +20,7 @@
                             <span v-if="accessToken.issuerSystem.device !== 'Other'">{{ accessToken.issuerSystem.device || '' }}</span>
                         </span>
                         <em v-else>{{ $t('unknown') }}</em>
+                        <span v-if="accessToken.issuerIp">/ {{ accessToken.issuerIp }}</span>
                     </td>
                     <td>
                         {{ accessToken.expiresAt | formatDateTime }}
@@ -33,16 +34,33 @@
                 </tr>
                 </tbody>
             </table>
-            {{ applicationTokens }}
+            <h2>{{ $t('Active applications') }}</h2>
+            <table class="table table-striped" v-if="accessTokens">
+                <thead>
+                <tr>
+                    <th>{{ $t('Application') }}</th>
+                    <th>{{ $t('Expires at') }}</th>
+                    <th>{{ $t('Actions') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="accessToken in applicationTokens" :key="accessToken.id">
+                    <td>
+                        {{ accessToken.apiClientAuthorization.apiClient.name }}
+                    </td>
+                    <td>
+                        {{ accessToken.expiresAt | formatDateTime }}
+                    </td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
         </loading-cover>
     </div>
 </template>
 
 <script>
-    import OauthScopeLabel from "@/account/integrations/oauth-scope-label.vue";
-
     export default {
-        components: {OauthScopeLabel},
         data() {
             return {
                 accessTokens: undefined,

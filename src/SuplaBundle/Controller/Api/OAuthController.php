@@ -28,7 +28,6 @@ use SuplaBundle\Auth\SuplaOAuth2;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
-use SuplaBundle\Entity\Main\OAuth\RefreshToken;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\Transactional;
@@ -218,21 +217,6 @@ class OAuthController extends RestController {
             ->setParameter('obsoleteDate', $timeProvider->getTimestamp())
             ->getQuery()
             ->getResult();
-        return $this->serializedView($accessTokens, $request, ['issuer']);
-    }
-
-    /**
-     * @Security("has_role('ROLE_WEBAPP')")
-     * @Rest\Get("/refresh-tokens")
-     */
-    public function getRefreshTokensAction(EntityManagerInterface $entityManager, Request $request) {
-        $refreshTokens = $entityManager->getRepository(RefreshToken::class)->createQueryBuilder('rt')
-            ->where('rt.user = :user')
-            ->andWhere('rt.expiresAt IS NULL OR rt.expiresAt > :obsoleteDate')
-            ->setParameter('user', $this->getUser())
-            ->setParameter('obsoleteDate', new \DateTime('-1 day', new \DateTimeZone('UTC')))
-            ->getQuery()
-            ->getResult();
-        return $this->serializedView($refreshTokens, $request, ['issuer']);
+        return $this->serializedView($accessTokens, $request, ['issuer', 'client']);
     }
 }
