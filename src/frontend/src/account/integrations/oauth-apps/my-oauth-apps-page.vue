@@ -28,8 +28,8 @@
 </template>
 
 <script>
-    import CarouselPage from "../../common/pages/carousel-page";
-    import MyOauthAppTile from "./my-oauth-app-tile";
+    import CarouselPage from "../../../common/pages/carousel-page.vue";
+    import MyOauthAppTile from "./my-oauth-app-tile.vue";
     import Vue from "vue";
 
     Vue.component('MyOauthAppTile', MyOauthAppTile);

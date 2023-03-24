@@ -19,4 +19,4 @@
 </template>
 
 <script setup>
-    import WholeScreenMessage from "../../register/whole-screen-message";</script>
+    import WholeScreenMessage from "../../../register/whole-screen-message.vue";</script>

@@ -106,8 +106,8 @@
 </template>
 
 <script>
-    import {infoNotification, successNotification} from "../common/notifier";
-    import CopyButton from "../common/copy-button";
+    import {infoNotification, successNotification} from "../../common/notifier";
+    import CopyButton from "../../common/copy-button.vue";
 
     export default {
         components: {CopyButton},
@@ -159,8 +159,8 @@
 </script>
 
 <style lang="scss">
-    @import '../styles/mixins';
-    @import '../styles/variables';
+    @import '../../styles/mixins';
+    @import '../../styles/variables';
 
     .mqtt-state-header {
         font-size: 2em;

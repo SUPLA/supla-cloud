@@ -121,14 +121,14 @@
 </template>
 
 <script>
-    import RegisterSlider from '../register/register-slider';
-    import RegulationsCheckbox from "../common/errors/regulations-checkbox";
-    import InvisibleRecaptcha from "../register/invisible-recaptcha";
+    import RegisterSlider from '../../register/register-slider.vue';
+    import RegulationsCheckbox from "../../common/errors/regulations-checkbox.vue";
+    import InvisibleRecaptcha from "../../register/invisible-recaptcha.vue";
     import Vue from "vue";
-    import ButtonLoadingDots from '../common/gui/loaders/button-loading-dots.vue';
-    import PageContainer from "../common/pages/page-container";
-    import CopyButton from "../common/copy-button";
-    import WholeScreenMessage from "../register/whole-screen-message";
+    import ButtonLoadingDots from '../../common/gui/loaders/button-loading-dots.vue';
+    import PageContainer from "../../common/pages/page-container.vue";
+    import CopyButton from "../../common/copy-button.vue";
+    import WholeScreenMessage from "../../register/whole-screen-message.vue";
 
     export default {
         components: {

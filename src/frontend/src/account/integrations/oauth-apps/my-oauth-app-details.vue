@@ -84,10 +84,10 @@
 </template>
 
 <script>
-    import PageContainer from "../../common/pages/page-container";
-    import PendingChangesPage from "../../common/pages/pending-changes-page";
+    import PageContainer from "../../../common/pages/page-container.vue";
+    import PendingChangesPage from "../../../common/pages/pending-changes-page.vue";
     import Vue from "vue";
-    import CopyButton from "../../common/copy-button";
+    import CopyButton from "../../../common/copy-button.vue";
     import $ from "jquery";
     import autosize from "autosize";
 

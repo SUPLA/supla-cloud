@@ -31,8 +31,8 @@
 </template>
 
 <script>
-    import OauthScopePreview from "../../login/oauth-scope-preview";
-    import I18nText from "./i18n-text";
+    import OauthScopePreview from "../../../login/oauth-scope-preview.vue";
+    import I18nText from "./i18n-text.vue";
 
     export default {
         props: ['app'],

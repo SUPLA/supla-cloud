@@ -39,7 +39,7 @@ export default [
     },
     {
         path: '/apps/:id?',
-        component: () => import("@/integrations/catalog/public-apps-catalog"),
+        component: () => import("@/account/integrations/catalog/public-apps-catalog"),
         name: 'publicApps',
         meta: {unrestricted: true},
         props: true,
@@ -74,7 +74,7 @@ export default [
     },
     {
         path: '/confirm-target-cloud-deletion/:targetCloudId/:token',
-        component: () => import("@/integrations/confirm-target-cloud-deletion"),
+        component: () => import("@/account/integrations/confirm-target-cloud-deletion"),
         meta: {unrestricted: true},
         props: true
     },
@@ -85,7 +85,7 @@ export default [
     },
     {
         path: '/account',
-        component: () => import(/*webpackChunkName:"account-page"*/"@/account-details/account-page"),
+        component: () => import(/*webpackChunkName:"account-page"*/"@/account/account-page"),
         meta: {bodyClass: 'green'}
     },
     {
@@ -111,25 +111,32 @@ export default [
         ]
     },
     {
-        path: '/integrations', component: () => import("@/integrations/integrations-page"), children: [
-            {path: 'authorized', component: () => import("@/integrations/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
+        path: '/integrations', component: () => import("@/account/integrations/integrations-page"), children: [
+            {path: 'authorized', component: () => import("@/account/integrations/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
             {
-                path: 'apps', component: () => import("@/integrations/oauth-apps/my-oauth-apps-page"), name: 'myOauthApps', children: [
+                path: 'apps',
+                component: () => import("@/account/integrations/oauth-apps/my-oauth-apps-page"),
+                name: 'myOauthApps',
+                children: [
                     {
                         path: ':id',
-                        component: () => import(/*webpackChunkName:"my-oauth-app-details"*/"@/integrations/oauth-apps/my-oauth-app-details"),
+                        component: () => import(/*webpackChunkName:"my-oauth-app-details"*/"@/account/integrations/oauth-apps/my-oauth-app-details"),
                         name: 'myOauthApp',
                         props: true
                     }
                 ]
             },
-            {path: 'tokens', component: () => import("@/integrations/personal-tokens/personal-access-tokens"), name: 'personal-tokens'},
-            {path: 'mqtt-broker', component: () => import("@/integrations/mqtt-broker-settings"), name: 'mqtt-broker'},
+            {
+                path: 'tokens',
+                component: () => import("@/account/integrations/personal-tokens/personal-access-tokens"),
+                name: 'personal-tokens'
+            },
+            {path: 'mqtt-broker', component: () => import("@/account/integrations/mqtt-broker-settings"), name: 'mqtt-broker'},
         ]
     },
     {
         path: '/register-cloud',
-        component: () => import("@/integrations/register-target-cloud-form"),
+        component: () => import("@/account/integrations/register-target-cloud-form"),
         meta: {unrestricted: true, unavailableInMaintenance: true, bodyClass: 'register-slider-body'}
     },
     {

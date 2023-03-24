@@ -13,7 +13,7 @@
 
 <script>
 
-    import I18nText from "./i18n-text";
+    import I18nText from "./i18n-text.vue";
 
     export default {
         components: {I18nText},

@@ -4,7 +4,7 @@
 </template>
 
 <script>
-    import {errorNotification, successNotification} from "../common/notifier";
+    import {errorNotification, successNotification} from "../../common/notifier";
 
     export default {
         props: ['targetCloudId', 'token'],

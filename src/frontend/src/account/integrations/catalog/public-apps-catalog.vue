@@ -45,10 +45,10 @@
 </template>
 
 <script>
-    import PublicAppsCatalogNotRegisteredMessage from "./public-apps-catalog-not-registered-message";
-    import PublicAppTile from "./public-app-tile";
-    import PublicAppDetails from "./public-app-details";
-    import PageContainer from "../../common/pages/page-container";
+    import PublicAppsCatalogNotRegisteredMessage from "./public-apps-catalog-not-registered-message.vue";
+    import PublicAppTile from "./public-app-tile.vue";
+    import PublicAppDetails from "./public-app-details.vue";
+    import PageContainer from "../../../common/pages/page-container.vue";
 
     export default {
         props: ['id'],
