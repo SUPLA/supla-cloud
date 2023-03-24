@@ -22,11 +22,15 @@
                     const existingScopes = [];
                     for (let suffix of scope.suffixes) {
                         if (scopes.indexOf(scopeId(scope, suffix)) !== -1) {
-                            existingScopes.push(this.$t(scopeSuffixLabels[suffix]));
+                            existingScopes.push(scopeSuffixLabels[suffix]);
                         }
                     }
+                    if (existingScopes.includes('Read') && existingScopes.includes('Modification')) {
+                        existingScopes.splice(existingScopes.indexOf('Read'), 1);
+                    }
                     if (existingScopes.length) {
-                        existing.push(`${this.$t(scope.label)} (${existingScopes.join(', ')})`);
+                        let allowedActionsLabels = existingScopes.map(label => this.$t(label)).join(', ');
+                        existing.push(`${this.$t(scope.label)} (${allowedActionsLabels})`);
                     }
                 }
                 return existing.join(', ');

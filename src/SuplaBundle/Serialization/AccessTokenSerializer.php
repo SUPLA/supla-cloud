@@ -18,9 +18,13 @@
 namespace SuplaBundle\Serialization;
 
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use UAParser\Parser;
 
-class AccessTokenSerializer extends AbstractSerializer {
+class AccessTokenSerializer extends AbstractSerializer implements NormalizerAwareInterface {
+    use NormalizerAwareTrait;
+
     /**
      * @param AccessToken $accessToken
      * @inheritdoc
@@ -33,12 +37,14 @@ class AccessTokenSerializer extends AbstractSerializer {
                 $normalized['issuerSystem'] = [
                     'os' => $parsed->os->family,
                     'device' => $parsed->device->family,
-                    'browser' => "{$parsed->ua->family} {$parsed->ua->major}",
+                    'browserName' => $parsed->ua->family,
+                    'browserVersion' => $parsed->ua->major,
                 ];
             }
             $normalized['issuerIp'] = $accessToken->getIssuerIp();
             $normalized['isForWebapp'] = $accessToken->isForWebapp();
-            $normalized['apiClientAuthorization'] = $accessToken->getApiClientAuthorization();
+//            $normalized['apiClientAuthorization'] = $this->normalizer->normalize($accessToken->getApiClientAuthorization());
+            $normalized['expiresAt'] = (new \DateTime('@' . $accessToken->getExpiresAt()))->format(\DateTime::ATOM);
         }
     }
 

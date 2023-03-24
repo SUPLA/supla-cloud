@@ -30,6 +30,7 @@ use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\Main\OAuth\RefreshToken;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessTokenRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -207,12 +208,14 @@ class OAuthController extends RestController {
      * @Security("has_role('ROLE_WEBAPP')")
      * @Rest\Get("/access-tokens")
      */
-    public function getAccessTokensAction(Request $request) {
+    public function getAccessTokensAction(Request $request, TimeProvider $timeProvider) {
         $accessTokens = $this->accessTokenRepository->createQueryBuilder('at')
             ->where('at.user = :user')
-            ->andWhere('at.expiresAt IS NULL OR at.expiresAt > :obsoleteDate')
+            ->andWhere('at.expiresAt IS NOT NULL AND at.expiresAt > :obsoleteDate')
+            ->andWhere("at.scope != 'channels_files'")
+            ->orderBy('at.expiresAt', 'DESC')
             ->setParameter('user', $this->getUser())
-            ->setParameter('obsoleteDate', new \DateTime('-1 day', new \DateTimeZone('UTC')))
+            ->setParameter('obsoleteDate', $timeProvider->getTimestamp())
             ->getQuery()
             ->getResult();
         return $this->serializedView($accessTokens, $request, ['issuer']);

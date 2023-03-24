@@ -137,7 +137,7 @@ export default [
     {
         path: '/safety', component: () => import(/*webpackChunkName:"safety"*/"@/account/safety/safety-page"), children: [
             {path: 'log', component: () => import("@/account/safety/security-log"), name: 'safety.log'},
-            {path: 'access-tokens', component: () => import("@/account/safety/security-log"), name: 'safety.accessTokens'},
+            {path: 'access-tokens', component: () => import("@/account/safety/security-access-tokens"), name: 'safety.accessTokens'},
             {path: 'refresh-tokens', component: () => import("@/account/safety/security-log"), name: 'safety.refreshTokens'},
             {path: 'change-password', component: () => import("@/account/safety/account-password-change"), name: 'safety.changePassword'},
         ]

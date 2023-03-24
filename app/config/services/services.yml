@@ -149,6 +149,7 @@ services:
     resource: '../../../src/SuplaBundle/Auth/Voter'
 
   SuplaBundle\Auth\UserProvider: ~
+  SuplaBundle\Auth\SuplaAccessTokenManager: ~
   SuplaBundle\Auth\UserLoginAttemptListener:
     tags:
       - {name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure}

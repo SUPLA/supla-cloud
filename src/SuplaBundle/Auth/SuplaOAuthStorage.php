@@ -18,7 +18,6 @@
 namespace SuplaBundle\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface;
@@ -53,7 +52,7 @@ class SuplaOAuthStorage extends OAuthStorage {
 
     public function __construct(
         ClientManagerInterface $clientManager,
-        AccessTokenManagerInterface $accessTokenManager,
+        SuplaAccessTokenManager $accessTokenManager,
         RefreshTokenManagerInterface $refreshTokenManager,
         AuthCodeManagerInterface $authCodeManager,
         UserProviderInterface $userProvider,
