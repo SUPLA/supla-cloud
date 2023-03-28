@@ -22,16 +22,16 @@
                     <td>{{ authorizedApp.authorizationDate | formatDateTime }}</td>
                     <td class="text-right">
                         <button type="button"
-                            class="btn btn-red"
+                            class="btn btn-red btn-xs"
                             @click="appToRevoke = authorizedApp">
-                            <i class="pe-7s-close-circle"></i>
+                            <fa icon="times-circle"/>
                             {{ $t('Revoke') }}
                         </button>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <empty-list-placeholder v-else-if="authorizedApps"></empty-list-placeholder>
+            <empty-list-placeholder v-else-if="authorizedApps"/>
         </loading-cover>
         <modal-confirm v-if="appToRevoke"
             class="modal-warning"
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import OauthScopeLabel from "./oauth-scope-label.vue";
+    import OauthScopeLabel from "../integrations/oauth-scope-label.vue";
 
     export default {
         components: {OauthScopeLabel},

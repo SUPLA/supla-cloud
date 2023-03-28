@@ -86,7 +86,7 @@
 
 <script>
     import PersonalAccessTokenGenerateForm from "./personal-access-token-generate-form.vue";
-    import OauthScopeLabel from "../oauth-scope-label.vue";
+    import OauthScopeLabel from "../../integrations/oauth-scope-label.vue";
     import CopyButton from "../../../common/copy-button.vue";
 
     export default {

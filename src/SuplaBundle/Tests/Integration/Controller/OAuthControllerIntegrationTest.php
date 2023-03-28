@@ -129,7 +129,7 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @large */
-    public function testListOfTokensDoesNotContainTokens() {
+    public function testListOfPersonalTokensDoesNotContainTokens() {
         $this->testCreatingPersonalAccessToken();
         $client = $this->createAuthenticatedClient();
         $client->apiRequest('GET', '/api/oauth-personal-tokens');

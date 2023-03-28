@@ -112,11 +112,10 @@ export default [
     },
     {
         path: '/integrations', component: () => import("@/account/integrations/integrations-page"), children: [
-            {path: 'authorized', component: () => import("@/account/integrations/authorized-oauth-apps"), name: 'authorized-oauth-apps'},
             {
                 path: 'apps',
                 component: () => import("@/account/integrations/oauth-apps/my-oauth-apps-page"),
-                name: 'myOauthApps',
+                name: 'integrations.myOauthApps',
                 children: [
                     {
                         path: ':id',
@@ -126,19 +125,23 @@ export default [
                     }
                 ]
             },
-            {
-                path: 'tokens',
-                component: () => import("@/account/integrations/personal-tokens/personal-access-tokens"),
-                name: 'personal-tokens'
-            },
-            {path: 'mqtt-broker', component: () => import("@/account/integrations/mqtt-broker-settings"), name: 'mqtt-broker'},
+            {path: 'mqtt-broker', component: () => import("@/account/integrations/mqtt-broker-settings"), name: 'integrations.mqtt'},
         ]
     },
     {
-        path: '/safety', component: () => import(/*webpackChunkName:"safety"*/"@/account/safety/safety-page"), children: [
+        path: '/security', component: () => import(/*webpackChunkName:"safety"*/"@/account/safety/safety-page"), children: [
             {path: 'log', component: () => import("@/account/safety/security-log"), name: 'safety.log'},
             {path: 'access-tokens', component: () => import("@/account/safety/security-access-tokens"), name: 'safety.accessTokens'},
-            {path: 'refresh-tokens', component: () => import("@/account/safety/security-log"), name: 'safety.refreshTokens'},
+            {
+                path: 'authorized-apps',
+                component: () => import("@/account/safety/authorized-oauth-apps"),
+                name: 'safety.authorizedOAuthApps'
+            },
+            {
+                path: 'personal-access-tokens',
+                component: () => import("@/account/safety/personal-tokens/personal-access-tokens"),
+                name: 'safety.personalTokens'
+            },
             {path: 'change-password', component: () => import("@/account/safety/account-password-change"), name: 'safety.changePassword'},
         ]
     },

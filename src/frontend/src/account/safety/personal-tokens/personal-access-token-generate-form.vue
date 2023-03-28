@@ -41,7 +41,7 @@
 </template>
 
 <script>
-    import {availableScopes, scopeId, scopeSuffixLabels} from "../oauth-scopes";
+    import {availableScopes, scopeId, scopeSuffixLabels} from "../../integrations/oauth-scopes";
 
     export default {
         data() {

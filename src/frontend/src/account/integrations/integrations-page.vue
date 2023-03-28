@@ -17,20 +17,12 @@
             <div class="form-group">
                 <div class="btn-filters">
                     <div class="btn-group btn-group-filters">
-                        <router-link :to="{name: 'authorized-oauth-apps'}"
-                            class="btn">
-                            {{ $t('Authorized OAuth apps') }}
-                        </router-link>
-                        <router-link :to="{name: 'myOauthApps'}"
+                        <router-link :to="{name: 'integrations.myOauthApps'}"
                             class="btn">
                             {{ $t('My OAuth apps') }}
                         </router-link>
-                        <router-link :to="{name: 'personal-tokens'}"
-                            class="btn">
-                            {{ $t('Personal access tokens') }}
-                        </router-link>
                         <router-link v-if="$frontendConfig.mqttBrokerEnabled"
-                            :to="{name: 'mqtt-broker'}"
+                            :to="{name: 'integrations.mqtt'}"
                             class="btn">
                             {{ $t('MQTT Broker') }}
                         </router-link>

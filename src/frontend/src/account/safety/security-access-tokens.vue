@@ -26,7 +26,7 @@
                         {{ accessToken.expiresAt | formatDateTime }}
                     </td>
                     <td>
-                        <a href="" class="btn btn-default btn-xs">
+                        <a @click="accessTokenToDelete = accessToken" class="btn btn-default btn-xs">
                             <fa icon="sign-out"/>
                             {{ $t('Log out') }}
                         </a>
@@ -35,7 +35,7 @@
                 </tbody>
             </table>
             <h2>{{ $t('Active applications') }}</h2>
-            <table class="table table-striped" v-if="accessTokens">
+            <table class="table table-striped" v-if="accessTokens && applicationTokens.length > 0">
                 <thead>
                 <tr>
                     <th>{{ $t('Application') }}</th>
@@ -55,22 +55,49 @@
                 </tr>
                 </tbody>
             </table>
+            <empty-list-placeholder v-else-if="accessTokens"/>
         </loading-cover>
+        <modal-confirm v-if="accessTokenToDelete"
+            class="modal-warning"
+            @confirm="deleteAccessToken(accessTokenToDelete)"
+            @cancel="accessTokenToDelete = undefined"
+            :header="$t('Are you sure you want to log out this device?')"
+            :loading="deleting">
+            {{ $t('The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.') }}
+        </modal-confirm>
     </div>
 </template>
 
 <script>
+    import {successNotification} from "@/common/notifier";
+
     export default {
         data() {
             return {
                 accessTokens: undefined,
+                deleting: false,
+                accessTokenToDelete: undefined,
             };
         },
         mounted() {
-            this.$http.get('access-tokens')
-                .then(response => {
-                    this.accessTokens = response.body;
-                });
+            this.fetchTokens();
+        },
+        methods: {
+            fetchTokens() {
+                this.accessTokens = undefined;
+                return this.$http.get('access-tokens')
+                    .then(response => {
+                        this.accessTokens = response.body;
+                    });
+            },
+            deleteAccessToken(token) {
+                this.deleting = true;
+                this.$http.delete(`access-tokens/${token.id}`)
+                    .then(() => successNotification(this.$t('Success'), this.$t('Selected device has been logged out.')))
+                    .then(() => this.fetchTokens())
+                    .then(() => this.accessTokenToDelete = undefined)
+                    .finally(() => this.deleting = false);
+            },
         },
         computed: {
             webappTokens() {

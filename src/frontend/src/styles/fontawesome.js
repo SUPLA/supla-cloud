@@ -10,9 +10,10 @@ import {
     faPuzzlePiece,
     faShieldHalved,
     faSignIn,
-    faSignOut
+    faSignOut,
+    faTimesCircle
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey);
+library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle);
 
 Vue.component('fa', FontAwesomeIcon)

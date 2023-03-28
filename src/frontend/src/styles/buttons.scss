@@ -59,8 +59,12 @@
   }
   &-red, &-danger {
     background: $supla-red;
-    color: $supla-white;
+    color: darken($supla-white, 5%);
     border: 1px solid $supla-red;
+    &:hover {
+      color: $supla-white;
+      background: darken($supla-red, 5%);
+    }
     &-outline {
       border: 1px solid $supla-red;
       background: $supla-white;
@@ -113,6 +117,13 @@
   }
   &.active {
     box-shadow: none;
+  }
+  // FA icons
+  > svg:first-child {
+    margin-right: .3em;
+  }
+  > svg:last-child {
+    margin-left: .3em;
   }
 }
 

@@ -2,7 +2,7 @@
     <div>
         <div class="container">
 
-            <h1 v-title>{{ $t('Safety') }}</h1>
+            <h1 v-title>{{ $t('Security') }}</h1>
 
             <div class="form-group">
                 <div class="btn-filters">
@@ -13,8 +13,11 @@
                         <router-link :to="{name: 'safety.accessTokens'}" class="btn">
                             {{ $t('Active sessions') }}
                         </router-link>
-                        <router-link :to="{name: 'safety.refreshTokens'}" class="btn">
+                        <router-link :to="{name: 'safety.authorizedOAuthApps'}" class="btn">
                             {{ $t('Applications with access') }}
+                        </router-link>
+                        <router-link :to="{name: 'safety.personalTokens'}" class="btn">
+                            {{ $t('Personal access tokens') }}
                         </router-link>
                         <router-link :to="{name: 'safety.changePassword'}" class="btn">
                             {{ $t('Change Password') }}

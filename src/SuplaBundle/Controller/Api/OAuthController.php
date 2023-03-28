@@ -178,10 +178,11 @@ class OAuthController extends RestController {
 
     /**
      * @Rest\Delete("/oauth-personal-tokens/{accessToken}")
-     * @Security("accessToken.belongsToUser(user) and accessToken.isPersonal() and has_role('ROLE_WEBAPP')")
+     * @Rest\Delete("/access-tokens/{accessToken}")
+     * @Security("accessToken.belongsToUser(user) and has_role('ROLE_WEBAPP')")
      * @UnavailableInMaintenance
      */
-    public function deletePersonalTokenAction(AccessToken $accessToken, Request $request) {
+    public function deletePersonalTokenAction(AccessToken $accessToken) {
         return $this->transactional(function (EntityManagerInterface $em) use ($accessToken) {
             $em->remove($accessToken);
             return new Response('', Response::HTTP_NO_CONTENT);

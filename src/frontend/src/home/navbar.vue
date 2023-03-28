@@ -116,7 +116,7 @@
                             </router-link>
                             <li class="divider"></li>
                             <router-link tag="li"
-                                :to="{name: 'authorized-oauth-apps'}">
+                                :to="{name: 'integrations.myOauthApps'}">
                                 <a>
                                     <fa icon="puzzle-piece" fixed-width/>
                                     {{ $t('Integrations') }}
@@ -126,7 +126,7 @@
                                 <router-link
                                     :to="{name: 'safety.log'}">
                                     <fa icon="shield-halved" fixed-width/>
-                                    {{ $t('Safety') }}
+                                    {{ $t('Security') }}
                                 </router-link>
                             </li>
                             <li class="divider"></li>
