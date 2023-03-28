@@ -80,7 +80,7 @@ steps:
     environment:
       CYPRESS_DATABASE: mysql://root@database/supla_e2e
     commands:
-      - apt-get update && apt-get install -y php7.3 php7.3-curl php7.3-dom php7.3-intl php7.3-json php7.3-mbstring php7.3-mysql php7.3-zip
+      - apt-get update && apt-get install -y dialog php7.3 php7.3-curl php7.3-dom php7.3-intl php7.3-json php7.3-mbstring php7.3-mysql php7.3-zip
       - npm install --global npm@7
       - cd src/frontend
       - npm install

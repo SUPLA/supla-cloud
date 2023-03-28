@@ -1,5 +1,5 @@
 -- mysqldump -h 127.0.0.1 --routines -u root --no-data -p supla > schema.sql
-
+--
 -- MariaDB dump 10.19  Distrib 10.6.11-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 127.0.0.1    Database: supla
@@ -154,7 +154,7 @@ CREATE TABLE `supla_audit`
     KEY          `supla_audit_created_at_idx` (`created_at`),
     KEY          `supla_audit_int_param` (`int_param`),
     CONSTRAINT `FK_EFE348F4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,7 +392,6 @@ CREATE TABLE `supla_em_voltage_log`
     `count_total`          int(11) NOT NULL,
     `count_above`          int(11) NOT NULL,
     `count_below`          int(11) NOT NULL,
-    `sec_total`            int(11) NOT NULL,
     `sec_above`            int(11) NOT NULL,
     `sec_below`            int(11) NOT NULL,
     `max_sec_above`        int(11) NOT NULL,
@@ -425,7 +424,7 @@ CREATE TABLE `supla_email_notifications`
     KEY            `IDX_7C77A74CFB7336F0` (`queue_name`),
     KEY            `IDX_7C77A74CE3BD61CE` (`available_at`),
     KEY            `IDX_7C77A74C16BA31DB` (`delivered_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -541,6 +540,8 @@ CREATE TABLE `supla_oauth_access_tokens`
     `access_id`                    int(11) DEFAULT NULL,
     `api_client_authorization_id`  int(11) DEFAULT NULL,
     `issued_with_refresh_token_id` int(11) DEFAULT NULL,
+    `issuer_browser_string`        varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `issuer_ip`                    int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQ_2402564B5F37A13B` (`token`),
     KEY                            `IDX_2402564B19EB6921` (`client_id`),
@@ -553,7 +554,7 @@ CREATE TABLE `supla_oauth_access_tokens`
     CONSTRAINT `FK_2402564BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_2402564BCA22CF77` FOREIGN KEY (`api_client_authorization_id`) REFERENCES `supla_oauth_client_authorizations` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_2402564BD2B4D7C8` FOREIGN KEY (`issued_with_refresh_token_id`) REFERENCES `supla_oauth_refresh_tokens` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -578,7 +579,7 @@ CREATE TABLE `supla_oauth_auth_codes`
     KEY            `IDX_48E00E5DA76ED395` (`user_id`),
     CONSTRAINT `FK_48E00E5D19EB6921` FOREIGN KEY (`client_id`) REFERENCES `supla_oauth_clients` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_48E00E5DA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -724,7 +725,7 @@ CREATE TABLE `supla_scene`
     CONSTRAINT `FK_A482585764D218E` FOREIGN KEY (`location_id`) REFERENCES `supla_location` (`id`),
     CONSTRAINT `FK_A4825857A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`),
     CONSTRAINT `FK_A4825857CB4C938` FOREIGN KEY (`user_icon_id`) REFERENCES `supla_user_icons` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -755,7 +756,7 @@ CREATE TABLE `supla_scene_operation`
     CONSTRAINT `FK_64A50CF572F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_64A50CF589E4AAEE` FOREIGN KEY (`channel_group_id`) REFERENCES `supla_dev_channel_group` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_64A50CF5E019BC26` FOREIGN KEY (`owning_scene_id`) REFERENCES `supla_scene` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -824,7 +825,7 @@ CREATE TABLE `supla_scheduled_executions`
     KEY                 `fetched_timestamp_idx` (`fetched_timestamp`),
     KEY                 `consumed_idx` (`consumed`),
     CONSTRAINT `FK_FB21DBDCA40BC2D5` FOREIGN KEY (`schedule_id`) REFERENCES `supla_schedule` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=428 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=512 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -977,7 +978,7 @@ CREATE TABLE `supla_user_icons`
     PRIMARY KEY (`id`),
     KEY       `IDX_27B32ACA76ED395` (`user_id`),
     CONSTRAINT `FK_EEB07467A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1479,7 +1480,6 @@ DEFINER=`root`@`%` PROCEDURE `supla_add_em_voltage_log_item`(
                 IN `_count_total` INT(11),
                 IN `_count_above` INT(11),
                 IN `_count_below` INT(11),
-                IN `_sec_total` INT(11),
                 IN `_sec_above` INT(11),
                 IN `_sec_below` INT(11),
                 IN `_max_sec_above` INT(11),
@@ -1491,11 +1491,10 @@ DEFINER=`root`@`%` PROCEDURE `supla_add_em_voltage_log_item`(
             )
     NO SQL
 BEGIN
-
-INSERT INTO `supla_em_voltage_log` (`date`, channel_id, phase_no, count_total, count_above, count_below, sec_total, sec_above, sec_below,
+INSERT INTO `supla_em_voltage_log` (`date`, channel_id, phase_no, count_total, count_above, count_below, sec_above, sec_below,
                                     max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage, measurement_time_sec)
-VALUES (_date, _channel_id, _phase_no, _count_total, _count_above, _count_below, _sec_total, _sec_above, _sec_below, _max_sec_above,
-        _max_sec_below, _min_voltage, _max_voltage, _avg_voltage, _measurement_time_sec);
+VALUES (_date, _channel_id, _phase_no, _count_total, _count_above, _count_below, _sec_above, _sec_below, _max_sec_above, _max_sec_below,
+        _min_voltage, _max_voltage, _avg_voltage, _measurement_time_sec);
 
 END ;;
 DELIMITER ;
@@ -2483,7 +2482,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `supla_v_client_channel` AS select `c`.`id` AS `id`,`c`.`type` AS `type`,`c`.`func` AS `func`,ifnull(`c`.`param1`,0) AS `param1`,ifnull(`c`.`param2`,0) AS `param2`,`c`.`caption` AS `caption`,ifnull(`c`.`param3`,0) AS `param3`,ifnull(`c`.`param4`,0) AS `param4`,`c`.`text_param1` AS `text_param1`,`c`.`text_param2` AS `text_param2`,`c`.`text_param3` AS `text_param3`,ifnull(`d`.`manufacturer_id`,0) AS `manufacturer_id`,ifnull(`d`.`product_id`,0) AS `product_id`,ifnull(`c`.`user_icon_id`,0) AS `user_icon_id`,`c`.`user_id` AS `user_id`,`c`.`channel_number` AS `channel_number`,`c`.`iodevice_id` AS `iodevice_id`,`cl`.`id` AS `client_id`,(case ifnull(`c`.`location_id`,0) when 0 then `d`.`location_id` else `c`.`location_id` end) AS `location_id`,ifnull(`c`.`alt_icon`,0) AS `alt_icon`,`d`.`protocol_version` AS `protocol_version`,ifnull(`c`.`flags`,0) AS `flags`,ifnull(`em_subc`.`flags`,0) AS `em_subc_flags`,`v`.`value` AS `value`,time_to_sec(timediff(`v`.`valid_to`,utc_timestamp())) AS `validity_time_sec`,`c`.`user_config` AS `user_config`,`em_subc`.`user_config` AS `em_subc_user_config` from (((((((`supla_dev_channel` `c` join `supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) join `supla_location` `l` on((`l`.`id` = (case ifnull(`c`.`location_id`,0) when 0 then `d`.`location_id` else `c`.`location_id` end)))) join `supla_rel_aidloc` `r` on((`r`.`location_id` = `l`.`id`))) join `supla_accessid` `a` on((`a`.`id` = `r`.`access_id`))) join `supla_client` `cl` on((`cl`.`access_id` = `r`.`access_id`))) left join `supla_dev_channel_value` `v` on(((`c`.`id` = `v`.`channel_id`) and (`v`.`valid_to` >= utc_timestamp())))) left join `supla_dev_channel` `em_subc` on(((`em_subc`.`user_id` = `c`.`user_id`) and (`em_subc`.`type` = 5000) and ((`c`.`func` = 130) or (`c`.`func` = 140)) and (`c`.`param1` = `em_subc`.`id`)))) where ((((`c`.`func` is not null) and (`c`.`func` <> 0)) or (`c`.`type` = 8000)) and (ifnull(`c`.`hidden`,0) = 0) and (`d`.`enabled` = 1) and (`l`.`enabled` = 1) and (`a`.`enabled` = 1)) */;
+/*!50001 VIEW `supla_v_client_channel` AS select `c`.`id` AS `id`,`c`.`type` AS `type`,`c`.`func` AS `func`,ifnull(`c`.`param1`,0) AS `param1`,ifnull(`c`.`param2`,0) AS `param2`,`c`.`caption` AS `caption`,ifnull(`c`.`param3`,0) AS `param3`,ifnull(`c`.`param4`,0) AS `param4`,`c`.`text_param1` AS `text_param1`,`c`.`text_param2` AS `text_param2`,`c`.`text_param3` AS `text_param3`,ifnull(`d`.`manufacturer_id`,0) AS `manufacturer_id`,ifnull(`d`.`product_id`,0) AS `product_id`,ifnull(`c`.`user_icon_id`,0) AS `user_icon_id`,`c`.`user_id` AS `user_id`,`c`.`channel_number` AS `channel_number`,`c`.`iodevice_id` AS `iodevice_id`,`cl`.`id` AS `client_id`,(case ifnull(`c`.`location_id`,0) when 0 then `d`.`location_id` else `c`.`location_id` end) AS `location_id`,ifnull(`c`.`alt_icon`,0) AS `alt_icon`,`d`.`protocol_version` AS `protocol_version`,ifnull(`c`.`flags`,0) AS `flags`,ifnull(`em_subc`.`flags`,0) AS `em_subc_flags`,`v`.`value` AS `value`,time_to_sec(timediff(`v`.`valid_to`,utc_timestamp())) AS `validity_time_sec`,`c`.`user_config` AS `user_config`,`em_subc`.`user_config` AS `em_subc_user_config` from (((((((`supla_dev_channel` `c` join `supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) join `supla_location` `l` on((`l`.`id` = (case ifnull(`c`.`location_id`,0) when 0 then `d`.`location_id` else `c`.`location_id` end)))) join `supla_rel_aidloc` `r` on((`r`.`location_id` = `l`.`id`))) join `supla_accessid` `a` on((`a`.`id` = `r`.`access_id`))) join `supla_client` `cl` on((`cl`.`access_id` = `r`.`access_id`))) left join `supla_dev_channel_value` `v` on(((`c`.`id` = `v`.`channel_id`) and (`v`.`valid_to` >= utc_timestamp())))) left join `supla_dev_channel` `em_subc` on(((`em_subc`.`user_id` = `c`.`user_id`) and (`em_subc`.`type` = 5000) and ((((`c`.`func` = 130) or (`c`.`func` = 140)) and (`c`.`param1` = `em_subc`.`id`)) or ((`c`.`func` = 300) and (`c`.`param2` = `em_subc`.`id`)))))) where ((((`c`.`func` is not null) and (`c`.`func` <> 0)) or (`c`.`type` = 8000)) and (ifnull(`c`.`hidden`,0) = 0) and (`d`.`enabled` = 1) and (`l`.`enabled` = 1) and (`a`.`enabled` = 1)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -2605,4 +2604,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-21 11:20:48
+-- Dump completed on 2023-03-28 14:01:39
