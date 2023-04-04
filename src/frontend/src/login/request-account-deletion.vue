@@ -66,7 +66,7 @@
 </template>
 
 <script>
-    import {errorNotification, successNotification} from "../common/notifier";
+    import {errorNotification} from "../common/notifier";
     import Vue from "vue";
     import InvisibleRecaptcha from "@/register/invisible-recaptcha";
 
@@ -90,11 +90,7 @@
                 this.isBusy = true;
                 const requestData = {...this.requestData, captchaCode};
                 this.$http.put('account-deletion', requestData, {skipErrorHandler: [400]})
-                    .then(() => {
-                        successNotification(
-                            this.$t('Successful'),
-                        );
-                    })
+                    .then(() => this.isSent = true)
                     .catch(() => errorNotification(this.$t('Error'), this.$t('Invalid username or password')))
                     .finally(() => this.isBusy = false);
             },
