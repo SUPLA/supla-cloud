@@ -33,7 +33,7 @@ export default [
             unrestricted: true,
             onlyUnauthenticated: true,
             unavailableInMaintenance: true,
-            bodyClass: 'green darker register-slider-body'
+            bodyClass: 'green darker register-slider-body',
         },
         alias: '/account/create_here'
     },
