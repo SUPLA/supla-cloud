@@ -193,6 +193,11 @@ export const CHART_TYPES = {
     },
     ELECTRICITYMETER: {
         chartType: 'bar',
+        allAttributesArray() {
+            return ['fae', 'rae', 'fre', 'rre'].map((suffix) => {
+                return [1, 2, 3].map(phaseNo => `phase${phaseNo}_${suffix}`);
+            }).flat();
+        },
         chartOptions: () => ({
             chart: {stacked: true},
         }),
@@ -208,12 +213,9 @@ export const CHART_TYPES = {
             });
         },
         fixLog: (log) => {
-            ['fae', 'rae', 'fre', 'rre'].forEach((suffix) => {
-                for (let phaseNo = 1; phaseNo <= 3; phaseNo++) {
-                    const attributeName = `phase${phaseNo}_${suffix}`;
-                    if (log[attributeName] !== undefined && log[attributeName] !== null) {
-                        log[attributeName] = +(+log[attributeName] * 0.00001).toFixed(5);
-                    }
+            CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
+                if (log[attributeName] !== undefined && log[attributeName] !== null) {
+                    log[attributeName] = +(+log[attributeName] * 0.00001).toFixed(5);
                 }
             });
             return log;
@@ -226,15 +228,11 @@ export const CHART_TYPES = {
             const adjustedLogs = [];
             for (let i = 1; i < logs.length; i++) {
                 const log = {...logs[i]};
-                ['fae', 'rae', 'fre', 'rre'].forEach((suffix) => {
-                    for (let phaseNo = 1; phaseNo <= 3; phaseNo++) {
-                        const attributeName = `phase${phaseNo}_${suffix}`;
-                        if (log[attributeName] === null) {
-                            log[attributeName] = previousLog[attributeName];
-                        }
-                        log[attributeName] -= previousLog[attributeName] || log[attributeName];
+                CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
+                    if (log[attributeName] === null) {
+                        log[attributeName] = previousLog[attributeName];
                     }
-
+                    log[attributeName] -= previousLog[attributeName] || log[attributeName];
                 });
                 adjustedLogs.push(log);
                 previousLog = logs[i];
@@ -249,7 +247,7 @@ export const CHART_TYPES = {
                 if (currentValue === null && firstNullLog === undefined) {
                     firstNullLog = currentNonNullLog;
                 } else if (currentValue !== null && firstNullLog !== undefined && lastNonNullLog !== undefined) {
-                    ['phase1_fae', 'phase2_fae', 'phase3_fae'].forEach((attribute) => {
+                    CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attribute) => {
                         const currentValue = logs[currentNonNullLog][attribute];
                         const logsToFill = currentNonNullLog - firstNullLog;
                         const lastKnownValue = logs[lastNonNullLog][attribute];

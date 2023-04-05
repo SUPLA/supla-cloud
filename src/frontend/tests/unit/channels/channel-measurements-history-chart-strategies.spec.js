@@ -105,6 +105,24 @@ describe('Channel measurement history data strategies', () => {
                     phase1_rre: 10, phase2_rre: 11, phase3_rre: 12,
                 });
             });
+
+            it('interpolates gaps for EM logs', () => {
+                const logs = require('./measurement-logs/em_logs_case1.json');
+                const filled = fillGaps(logs, 600 * 1000, CHART_TYPES.ELECTRICITYMETER.emptyLog());
+                expect(filled).toHaveLength(logs.length + 3);
+                const interpolated = strategy.interpolateGaps(filled);
+                expect(interpolated[1].phase3_rre).toEqual(logs[1].phase3_rre);
+                // logs[1] = 32358298
+                // --- gap ---
+                // logs[2] = 32363098
+                // difference = 32363098 - 32358298 = 4800, so:
+                // interpolated[2] = 32358298 + 2400 = 32360698
+                // interpolated[3] = logs[2]
+                expect(interpolated[2].phase3_rre).not.toEqual(logs[2].phase3_rre);
+                expect(interpolated[2].phase3_rre).toEqual(32360698);
+                expect(interpolated[3].phase3_rre).toEqual(logs[2].phase3_rre);
+                expect(interpolated[4].phase3_rre).toEqual(logs[3].phase3_rre);
+            });
         });
 
         describe('yaxes', function () {
