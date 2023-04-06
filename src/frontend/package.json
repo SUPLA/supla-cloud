@@ -28,6 +28,7 @@
     "change-case": "3.0.1",
     "core-js": "^3.27.1",
     "cronstrue": "^2.27.0",
+    "idb": "^7.1.1",
     "jquery": "^3.5.1",
     "js-base64": "^2.4.5",
     "latinize": "0.4.0",
