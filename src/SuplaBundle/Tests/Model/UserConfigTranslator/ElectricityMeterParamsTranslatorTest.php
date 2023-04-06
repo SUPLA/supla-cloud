@@ -115,4 +115,13 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
         $this->assertEquals([1 => 300.1, 2 => 200, 3 => 0], $config['electricityMeterInitialValues']['forwardActiveEnergy']);
         $this->assertEquals(200, $config['electricityMeterInitialValues']['reverseActiveEnergyBalanced']);
     }
+
+    public function testReadingResetCountersAvailable() {
+        EntityUtils::setField($this->channel, 'flags', 0x2000);
+        $config = $this->configTranslator->getConfig($this->channel);
+        $this->assertTrue($config['resetCountersAvailable']);
+        EntityUtils::setField($this->channel, 'flags', 0);
+        $config = $this->configTranslator->getConfig($this->channel);
+        $this->assertFalse($config['resetCountersAvailable']);
+    }
 }
