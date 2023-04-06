@@ -4,11 +4,8 @@
         <p class="text-center">{{ $t('Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.') }}</p>
         <div v-if="isSent">
             <fa icon="check" fixed-width size="xl"/>
-            <br>
             <p class="my-3">{{ $t('We have sent you an e-mail message with a delete confirmation link. Just to be sure!') }}</p>
-            <router-link to="?ack=true" class="btn btn-green btn-lg">
-                {{ $t('Close') }}
-            </router-link>
+            <a href="?ack=true" class="btn btn-green btn-lg">{{ $t('Close') }}</a>
         </div>
         <div v-else>
             <div class="row">
