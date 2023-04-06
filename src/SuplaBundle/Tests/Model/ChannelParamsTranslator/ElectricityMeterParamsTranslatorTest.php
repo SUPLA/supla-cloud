@@ -118,10 +118,10 @@ class ElectricityMeterParamsTranslatorTest extends TestCase {
 
     public function testReadingResetCountersAvailable() {
         EntityUtils::setField($this->channel, 'flags', 0x2000);
-        $config = $this->configTranslator->getConfig($this->channel);
+        $config = $this->configTranslator->getConfigFromParams($this->channel);
         $this->assertTrue($config['resetCountersAvailable']);
         EntityUtils::setField($this->channel, 'flags', 0);
-        $config = $this->configTranslator->getConfig($this->channel);
+        $config = $this->configTranslator->getConfigFromParams($this->channel);
         $this->assertFalse($config['resetCountersAvailable']);
     }
 }
