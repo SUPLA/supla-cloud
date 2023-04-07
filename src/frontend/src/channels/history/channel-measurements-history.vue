@@ -48,7 +48,7 @@
     import {channelTitle} from "../../common/filters";
     import ApexCharts from "apexcharts";
     import {DateTime} from "luxon";
-    import {CHART_TYPES, fillGaps} from "./channel-measurements-history-chart-strategies";
+    import {CHART_TYPES} from "./channel-measurements-history-chart-strategies";
     import ChannelMeasurementsDownload from "@/channels/history/channel-measurements-download.vue";
     import {IndexedDbMeasurementLogsStorage} from "@/channels/history/channel-measurements-storage";
 
@@ -109,10 +109,10 @@
                 this.fetchSparseLogs().then((logs) => {
                     this.hasLogs = logs.length > 0;
                     if (logs.length > 1) {
-                        const minTimestamp = logs[0].date_timestamp * 1000;
-                        const maxTimestamp = logs[logs.length - 1].date_timestamp * 1000;
-                        const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / SPARSE_LOGS_COUNT));
-                        this.sparseLogs = this.fillGaps(logs, expectedInterval);
+                        // const minTimestamp = logs[0].date_timestamp * 1000;
+                        // const maxTimestamp = logs[logs.length - 1].date_timestamp * 1000;
+                        // const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / SPARSE_LOGS_COUNT));
+                        this.sparseLogs = logs;//this.fillGaps(logs, expectedInterval);
                         this.renderCharts();
                     }
                 });
@@ -333,55 +333,11 @@
                 }
                 return this.chartStrategy.adjustLogs(logs);
             },
-            fillGaps(logs, expectedInterval) {
-                if (logs.length < 2) {
-                    return logs;
-                }
-                const filledLogs = fillGaps(logs, expectedInterval, this.chartStrategy.emptyLog());
-                return this.chartStrategy.interpolateGaps(filledLogs);
-            },
-            mergeLogs(sparseLogs, denseLogs) {
-                let sparseLogsIndex = 0;
-                let denseLogsIndex = 0;
-                const mergedLogs = [];
-                while (denseLogsIndex < denseLogs.length || sparseLogsIndex < sparseLogs.length) {
-                    if (denseLogsIndex >= denseLogs.length) {
-                        mergedLogs.push(sparseLogs[sparseLogsIndex++]);
-                    } else if (sparseLogsIndex >= sparseLogs.length) {
-                        mergedLogs.push(denseLogs[denseLogsIndex++]);
-                    } else {
-                        const sparseLogsNextTimestamp = sparseLogs[sparseLogsIndex].date_timestamp;
-                        const denseLogsNextTimestamp = denseLogs[denseLogsIndex].date_timestamp;
-                        if (sparseLogsNextTimestamp < denseLogsNextTimestamp) {
-                            mergedLogs.push(sparseLogs[sparseLogsIndex++]);
-                        } else if (sparseLogsNextTimestamp > denseLogsNextTimestamp) {
-                            mergedLogs.push(denseLogs[denseLogsIndex++]);
-                        } else {
-                            mergedLogs.push(denseLogs[denseLogsIndex]);
-                            ++denseLogsIndex;
-                            ++sparseLogsIndex;
-                        }
-                    }
-                }
-                return mergedLogs;
-            },
             fetchDenseLogs() {
                 const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000) - 1;
                 const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000) + 1;
                 return this.storage.fetchDenseLogs(afterTimestamp, beforeTimestamp, this.aggregationMethod).then(logItems => {
-                    // return this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
-                    //     sparse: DENSE_LOGS_COUNT,
-                    //     afterTimestamp: Math.floor(this.currentMinTimestamp / 1000) - 1,
-                    //     beforeTimestamp: Math.ceil(this.currentMaxTimestamp / 1000) + 1,
-                    //     order: 'ASC',
-                    // }))
-                    //     .then(({body: logItems}) => {
-                    const expectedInterval = Math.max(600000, Math.ceil(this.visibleRange / DENSE_LOGS_COUNT));
-                    if (logItems.length < 2) {
-                        // hit empty period, let's use the sparse logs
-                        return this.denseLogs = this.sparseLogs;
-                    }
-                    return this.denseLogs = logItems;//this.fillGaps(logItems, expectedInterval);
+                    return this.denseLogs = logItems;
                 });
             },
             updateChartLocale() {
@@ -421,7 +377,8 @@
             },
             changeAggregationMethod(newMethod) {
                 this.aggregationMethod = newMethod;
-                this.rerenderBigChart();
+                this.fetchingDenseLogs = true;
+                this.fetchDenseLogs().then(() => this.rerenderBigChart());
             },
             onMeasurementsDelete() {
                 this.hasLogs = false;
