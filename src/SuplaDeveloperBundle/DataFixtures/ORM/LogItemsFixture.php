@@ -75,6 +75,7 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'channel_id', $thermometerId);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
+            $temperature = max(-270, $temperature);
             EntityUtils::setField($logItem, 'temperature', $temperature);
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
