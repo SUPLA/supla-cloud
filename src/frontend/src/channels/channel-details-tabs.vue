@@ -46,7 +46,6 @@
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelGroupsList from "../channel-groups/channel-groups-list";
     import ScenesList from "../scenes/scenes-list";
-    import ChannelMeasurementsHistory from "./history/channel-measurements-history.vue";
     import ChannelActionTriggers from "@/channels/action-trigger/channel-action-triggers";
     import ChannelFunction from "../common/enums/channel-function";
     import ChannelVoltageHistory from "./channel-voltage-history";
@@ -54,9 +53,8 @@
     export default {
         props: ['channel'],
         components: {
-            ChannelVoltageHistory,
-            ChannelActionTriggers,
-            ChannelMeasurementsHistory, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
+            ChannelMeasurementsHistory: () => import(/*webpackChunkName:"measurement-history"*/"./history/channel-measurements-history.vue"),
+            ChannelVoltageHistory, ChannelActionTriggers, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
         },
         data() {
             return {
