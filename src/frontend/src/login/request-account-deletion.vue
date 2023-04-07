@@ -22,40 +22,29 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6 text-left mb-3">
-                    <router-link to="/" class="btn btn-green btn-lg btn-take-me-back">
-                        {{ $t('No, take me back!') }}
-                    </router-link>
+            <div class="text-center mb-3">
+                <div v-if="captchaEnabled">
+                    <invisible-recaptcha
+                        :sitekey="captchaSiteKey"
+                        :callback="checkCaptcha"
+                        id="registerRecaptcha"
+                        btn-class="btn btn-danger"
+                        :disabled="isBusy"
+                        :form-valid="!!requestData">
+                        <template>
+                            <span v-if="!isBusy">{{ $t('Delete my account') }}</span>
+                            <button-loading-dots v-else/>
+                        </template>
+                    </invisible-recaptcha>
                 </div>
-                <div class="col-sm-6 text-right mb-3">
-                    <div v-if="captchaEnabled">
-                        <invisible-recaptcha
-                            :sitekey="captchaSiteKey"
-                            :callback="checkCaptcha"
-                            id="registerRecaptcha"
-                            btn-class="btn btn-danger"
-                            :disabled="isBusy"
-                            :form-valid="!!requestData">
-                            <template>
-                                <span v-if="!isBusy">
-                                    {{ $t('Delete my account') }}
-                                </span>
-                                <button-loading-dots v-else></button-loading-dots>
-                            </template>
-                        </invisible-recaptcha>
-                    </div>
-                    <div v-else>
-                        <button type="button"
-                            @click="confirmDeletion()"
-                            :disabled="!requestData"
-                            class="btn btn-danger">
-                            <span v-if="!isBusy">
-                                {{ $t('Delete my account') }}
-                            </span>
-                            <button-loading-dots v-else></button-loading-dots>
-                        </button>
-                    </div>
+                <div v-else>
+                    <button type="button"
+                        @click="confirmDeletion()"
+                        :disabled="!requestData"
+                        class="btn btn-danger">
+                        <span v-if="!isBusy">{{ $t('Delete my account') }}</span>
+                        <button-loading-dots v-else/>
+                    </button>
                 </div>
             </div>
         </div>
@@ -110,19 +99,5 @@
     p {
         font-size: 1.3em;
         margin-bottom: 2em;
-    }
-
-    @include on-xs-and-down {
-        .col-sm-6 {
-            text-align: center !important;
-        }
-    }
-</style>
-
-<style lang="scss">
-    .smartphone-webview {
-        .btn-take-me-back {
-            display: none;
-        }
     }
 </style>

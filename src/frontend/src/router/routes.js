@@ -70,7 +70,7 @@ export default [
     {
         path: '/db99845855b2ecbfecca9a095062b96c3e27703f',
         component: () => import("@/login/request-account-deletion"),
-        meta: {unrestricted: true, bodyClass: 'account-deletion-page warning'},
+        meta: {unrestricted: true, bodyClass: 'account-deletion-page warning smartphone-webview'},
     },
     {
         path: '/confirm-target-cloud-deletion/:targetCloudId/:token',
