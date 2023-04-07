@@ -41,7 +41,7 @@ export class IndexedDbMeasurementLogsStorage {
         if (timestampRange > 3600 * 6 && timestampRange < 86400 * 7) {
             strategies.push('hour');
         }
-        if (timestampRange > 86400 * 2 && timestampRange < 86400 * 365) {
+        if (timestampRange > 86400 * 5 && timestampRange < 86400 * 365) {
             strategies.push('day');
         }
         if (timestampRange > 86400 * 60) {
@@ -93,28 +93,46 @@ export class IndexedDbMeasurementLogsStorage {
     }
 
     async init(vue) {
-        const lastLog = await this.getNewestLog();
-        const afterTimestamp = (+lastLog?.date_timestamp || 0) + 1;
-        return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=ASC&afterTimestamp=${afterTimestamp}`)
+        return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=1000`)
             .then(async ({body: logItems}) => {
                 if (logItems.length) {
-                    const lastLog = await this.getNewestLog();
-                    if (lastLog) {
-                        logItems.unshift(lastLog);
+                    logItems.reverse();
+                    const existingLog = await (await this.db).get('logs', logItems[0].date_timestamp);
+                    if (!existingLog) {
+                        await (await this.db).clear('logs');
                     }
-                    logItems = fillGaps(logItems, 600, this.chartStrategy.emptyLog());
-                    logItems = this.chartStrategy.interpolateGaps(logItems)
-                    if (lastLog) {
-                        logItems.shift();
-                    }
-                    const tx = (await this.db).transaction('logs', 'readwrite');
-                    logItems.forEach(async (log) => {
-                        log = this.adjustLogBeforeStorage(log);
-                        await tx.store.add(log);
-                    });
-                    await tx.done;
-                    return this.init(vue);
+                    return await this.storeLogs(logItems);
                 }
             });
+    }
+
+    async fetchOlderLogs(vue, progressCallback, somethingDownloaded = false) {
+        const oldestLog = await this.getOldestLog();
+        if (oldestLog) {
+            const beforeTimestamp = +oldestLog.date_timestamp - 1;
+            return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=2500&beforeTimestamp=${beforeTimestamp}`)
+                .then(async ({body: logItems, headers}) => {
+                    if (logItems.length) {
+                        const totalCount = +headers.get('X-Total-Count');
+                        const savedCount = await (await this.db).count('logs');
+                        logItems.reverse();
+                        await this.storeLogs(logItems);
+                        progressCallback(savedCount * 100 / totalCount);
+                        return this.fetchOlderLogs(vue, progressCallback, true);
+                    }
+                    return somethingDownloaded;
+                });
+        }
+    }
+
+    async storeLogs(logs) {
+        logs = fillGaps(logs, 600, this.chartStrategy.emptyLog());
+        logs = this.chartStrategy.interpolateGaps(logs)
+        const tx = (await this.db).transaction('logs', 'readwrite');
+        logs.forEach(async (log) => {
+            log = this.adjustLogBeforeStorage(log);
+            await tx.store.put(log);
+        });
+        await tx.done;
     }
 }

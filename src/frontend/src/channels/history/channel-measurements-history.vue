@@ -34,7 +34,31 @@
                     </div>
                 </div>
 
-                <div :class="sparseLogs && sparseLogs.length > 10 ? '' : 'invisible'">
+                <transition-expand>
+                    <div v-if="fetchingLogsProgress" class="mb-5">
+                        <div v-if="fetchingLogsProgress === true" class="text-center">
+                            <label>{{ $t('All logs has been downloaded. Refresh the page to see them.') }}</label>
+                            <div>
+                                <a href="" class="btn btn-default">{{ $t('Refresh the page') }}</a>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="form-group text-center">
+                                <label>{{ $t('You can browse only the most recent logs now. Wait a while for the full history.') }}</label>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped active"
+                                    role="progressbar"
+                                    aria-valuemin="0" :aria-valuenow="Math.min(100, fetchingLogsProgress)" aria-valuemax="100"
+                                    :style="{width: Math.min(100, fetchingLogsProgress) + '%'}">
+                                    <span v-if="fetchingLogsProgress < 100">{{ Math.min(100, Math.round(fetchingLogsProgress)) }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </transition-expand>
+
+                <div :class="sparseLogs && sparseLogs.length > 4 ? '' : 'invisible'">
                     <div ref="bigChart"></div>
                     <div ref="smallChart"></div>
                 </div>
@@ -53,6 +77,7 @@
     import {CHART_TYPES} from "./channel-measurements-history-chart-strategies";
     import ChannelMeasurementsDownload from "@/channels/history/channel-measurements-download.vue";
     import {IndexedDbMeasurementLogsStorage} from "@/channels/history/channel-measurements-storage";
+    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     window.ApexCharts = ApexCharts;
 
@@ -78,7 +103,7 @@
     const DENSE_LOGS_COUNT = 150;
 
     export default {
-        components: {ChannelMeasurementsDownload},
+        components: {TransitionExpand, ChannelMeasurementsDownload},
         props: ['channel'],
         data: function () {
             return {
@@ -101,22 +126,25 @@
                 },
                 aggregationMethod: 'day',
                 storage: undefined,
+                fetchingLogsProgress: false,
             };
         },
         mounted() {
-            this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
-            this.storage.init(this);
             if (this.supportsChart) {
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
-                this.fetchSparseLogs().then((logs) => {
-                    this.hasLogs = logs.length > 0;
-                    if (logs.length > 1) {
-                        // const minTimestamp = logs[0].date_timestamp * 1000;
-                        // const maxTimestamp = logs[logs.length - 1].date_timestamp * 1000;
-                        // const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / SPARSE_LOGS_COUNT));
-                        this.sparseLogs = logs;//this.fillGaps(logs, expectedInterval);
-                        this.renderCharts();
-                    }
+                this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
+                this.storage.init(this).then(() => {
+                    this.fetchSparseLogs().then((logs) => {
+                        this.hasLogs = logs.length > 0;
+                        if (logs.length > 1) {
+                            // const minTimestamp = logs[0].date_timestamp * 1000;
+                            // const maxTimestamp = logs[logs.length - 1].date_timestamp * 1000;
+                            // const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / SPARSE_LOGS_COUNT));
+                            this.sparseLogs = logs;//this.fillGaps(logs, expectedInterval);
+                            this.renderCharts();
+                            this.fetchAllLogs();
+                        }
+                    });
                 });
             } else {
                 this.hasLogs = true;
@@ -126,6 +154,10 @@
             }
         },
         methods: {
+            fetchAllLogs() {
+                this.storage.fetchOlderLogs(this, (progress) => this.fetchingLogsProgress = progress)
+                    .then((downloaded) => this.fetchingLogsProgress = downloaded);
+            },
             getSmallChartSeries() {
                 const series = [];
                 if (this.sparseLogs.length) {

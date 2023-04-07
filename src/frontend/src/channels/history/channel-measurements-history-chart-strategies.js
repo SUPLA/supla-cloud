@@ -139,6 +139,11 @@ export const CHART_TYPES = {
         },
         adjustLogs: (logs) => logs,
         interpolateGaps: (logs) => logs,
+        aggregateLogs: (logs) => {
+            const humidities = logs.map(log => log.humidity).filter(t => t || t === 0);
+            const averageHumidity = humidities.reduce((a, b) => a + b, 0) / humidities.length;
+            return {...logs[0], humidity: averageHumidity, min: Math.min.apply(null, humidities), max: Math.max.apply(null, humidities)};
+        },
         yaxes: function (logs) {
             const humidities = logs.map(log => log.humidity).filter(h => h !== null);
             return [
