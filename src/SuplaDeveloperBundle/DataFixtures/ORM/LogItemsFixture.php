@@ -67,7 +67,7 @@ class LogItemsFixture extends SuplaFixture {
         /** @var \SuplaBundle\Entity\Main\IODeviceChannel $thermometer */
         $thermometer = $sonoff->getChannels()[1];
         $thermometerId = $thermometer->getId();
-        $from = strtotime('-10 years');//self::SINCE);
+        $from = strtotime(self::SINCE);
         $to = time();
         $temperature = 10;
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
@@ -176,7 +176,7 @@ class LogItemsFixture extends SuplaFixture {
         $channelId = $ecChannel->getId();
         $from = strtotime(self::SINCE);
         $to = time();
-        $state = [
+        $state = $initialState = [
             'phase1_fae' => 1,
             'phase1_rae' => 0,
             'phase1_fre' => 1,
@@ -202,6 +202,9 @@ class LogItemsFixture extends SuplaFixture {
             }
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
+            }
+            if ($this->faker->boolean(1) && $this->faker->boolean(10)) {
+                $state = $initialState;
             }
         }
     }
