@@ -18,38 +18,7 @@
                 :header="$t('Are you sure you want to delete the entire measurement history saved for this channel?')"/>
 
             <modal v-if="showDownloadConfig" @confirm="showDownloadConfig = false" :header="$t('Download measurements history')">
-                <div class="form-group">
-                    <label>{{ $t('File format') }}</label>
-                    <div class="radio d-flex justify-content-center">
-                        <label class="mx-3"><input type="radio" value="csv" v-model="downloadConfig.format"> CSV</label>
-                        <label class="mx-3"><input type="radio" value="xlsx" v-model="downloadConfig.format"> XLSX</label>
-                        <label class="mx-3"><input type="radio" value="ods" v-model="downloadConfig.format"> ODS</label>
-                        <label class="mx-3"><input type="radio" value="html" v-model="downloadConfig.format"> HTML</label>
-                    </div>
-                </div>
-
-                <transition-expand>
-                    <div v-if="downloadConfig.format === 'csv'" class="form-group">
-                        <label>{{ $t('Value separator') }}</label>
-                        <div class="radio d-flex justify-content-center">
-                            <label class="mx-3"><input type="radio" value="," v-model="downloadConfig.separator"> {{ $t('Comma') }}
-                                <code>,</code></label>
-                            <label class="mx-3"><input type="radio" value=";" v-model="downloadConfig.separator"> {{ $t('Colon') }}
-                                <code>;</code></label>
-                            <label class="mx-3"><input type="radio" value="tab" v-model="downloadConfig.separator"> {{ $t('Tab') }}
-                                <code>\t</code></label>
-                        </div>
-                    </div>
-                </transition-expand>
-
-                <div class="text-center form-group">
-                    <a :href="`/api/channels/${channel.id}/measurement-logs-download?${downloadParams}&` | withDownloadAccessToken"
-                        target="_blank"
-                        class="btn btn-default">
-                        <fa icon="download" class="mr-1"/>
-                        {{ $t('Download the history of measurement') }}
-                    </a>
-                </div>
+                <ChannelMeasurementsDownloadForm :storage="storage"/>
             </modal>
         </div>
     </div>
@@ -57,21 +26,19 @@
 
 <script>
     import {successNotification} from "@/common/notifier";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     export default {
-        components: {TransitionExpand},
+        components: {
+            ChannelMeasurementsDownloadForm: () => import(/*webpackChunkName:"measurement-download-form"*/"@/channels/history/channel-measurements-download-form.vue"),
+        },
         props: {
             channel: Object,
+            storage: Object,
         },
         data() {
             return {
                 deleteConfirm: false,
                 showDownloadConfig: false,
-                downloadConfig: {
-                    format: 'csv',
-                    separator: ',',
-                },
             };
         },
         methods: {
@@ -80,17 +47,8 @@
                 this.$http.delete(`channels/${this.channel.id}/measurement-logs`)
                     .then(() => successNotification(this.$t('Success'), this.$t('The measurement history has been deleted.')))
                     .then(() => this.$emit('delete'));
-            }
+            },
         },
-        computed: {
-            downloadParams() {
-                let params = `format=${this.downloadConfig.format}`;
-                if (this.downloadConfig.format === 'csv') {
-                    params += `&separator=${this.downloadConfig.separator}`;
-                }
-                return params;
-            }
-        }
     };
 </script>
 

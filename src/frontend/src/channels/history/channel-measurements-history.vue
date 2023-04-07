@@ -3,7 +3,7 @@
         <div class="container">
             <div :class="'form-group text-' + (sparseLogs.length ? 'right' : 'center')"
                 v-if="hasLogs">
-                <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()"/>
+                <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()" :storage="storage"/>
             </div>
 
             <div v-if="supportsChart && this.storage">
