@@ -23,11 +23,32 @@ export function fillGaps(logs, expectedInterval, defaultLog) {
 
 export const CHART_TYPES = {
     THERMOMETER: {
-        chartType: 'line',
-        chartOptions: () => ({}),
+        chartType: 'rangeArea',
+        chartOptions: () => ({
+            fill: {opacity: [1, .25]},
+            stroke: {curve: 'straight', width: [2, 0]},
+            colors: ['#00d150', '#00d150'],
+            legend: {show: false}
+        }),
         series: function (allLogs) {
-            const temperatureSeries = allLogs.map((item) => [item.date_timestamp * 1000, item.temperature]);
-            return [{name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries}];
+            const temperatureSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.temperature}));
+            const series = [
+                {
+                    name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                    type: 'line',
+                    data: temperatureSeries
+                },
+            ];
+            if (allLogs[0].min !== undefined) {
+                const rangeSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
+                series.push({
+                    name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')} - ${this.$t('range')})`,
+                    type: 'rangeArea',
+                    data: rangeSeries
+                });
+                series[0].name = `${channelTitle(this.channel, this)} (${this.$t('Temperature')} - ${this.$t('average')})`;
+            }
+            return series;
         },
         fixLog: (log) => {
             if (log.temperature !== undefined && log.temperature !== null) {
@@ -40,17 +61,17 @@ export const CHART_TYPES = {
         aggregateLogs: (logs) => {
             const temperatures = logs.map(log => log.temperature).filter(t => t || t === 0);
             const averageTemp = temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
-            return {...logs[0], temperature: averageTemp,/* min: Math.min(temperatures), max: Math.max(temperatures) */};
+            return {...logs[0], temperature: averageTemp, min: Math.min.apply(null, temperatures), max: Math.max.apply(null, temperatures)};
         },
         yaxes: function (logs) {
-            const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
+            // const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
                     title: {text: this.$t("Temperature")},
-                    labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
-                    min: Math.floor(Math.min.apply(this, temperatures)),
-                    max: Math.ceil(Math.max.apply(this, temperatures)),
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)}°C` : '?'},
+                    // min: Math.floor(Math.min.apply(this, temperatures)),
+                    // max: Math.ceil(Math.max.apply(this, temperatures)),
                 }
             ];
         },
@@ -60,8 +81,8 @@ export const CHART_TYPES = {
         chartType: 'line',
         chartOptions: () => ({}),
         series: function (allLogs) {
-            const temperatureSeries = allLogs.map((item) => [item.date_timestamp * 1000, item.temperature]);
-            const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.humidity]);
+            const temperatureSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.temperature}));
+            const humiditySeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.humidity}));
             return [
                 {name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries},
                 {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries},
@@ -85,7 +106,7 @@ export const CHART_TYPES = {
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
                     title: {text: this.$t("Temperature")},
-                    labels: {formatter: (v) => `${(+v).toFixed(2)}°C`},
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)}°C` : '?'},
                     min: Math.floor(Math.min.apply(this, temperatures)),
                     max: Math.ceil(Math.max.apply(this, temperatures)),
                 },
@@ -93,7 +114,7 @@ export const CHART_TYPES = {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
                     opposite: true,
                     title: {text: this.$t('Humidity')},
-                    labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(1)}%` : '?'},
                     min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
                     max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
                 }
@@ -105,7 +126,7 @@ export const CHART_TYPES = {
         chartType: 'line',
         chartOptions: () => ({}),
         series: function (allLogs) {
-            const humiditySeries = allLogs.map((item) => [item.date_timestamp * 1000, item.humidity]);
+            const humiditySeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.humidity}));
             return [
                 {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries},
             ];
@@ -125,7 +146,7 @@ export const CHART_TYPES = {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
                     opposite: true,
                     title: {text: this.$t('Humidity')},
-                    labels: {formatter: (v) => `${(+v).toFixed(1)}%`},
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(1)}%` : '?'},
                     min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
                     max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
                 }
@@ -137,7 +158,7 @@ export const CHART_TYPES = {
         chartType: 'bar',
         chartOptions: () => ({}),
         series: function (allLogs) {
-            const calculatedValues = allLogs.map((item) => [item.date_timestamp * 1000, item.calculated_value]);
+            const calculatedValues = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.calculated_value}));
             return [{name: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`, data: calculatedValues}];
         },
         fixLog: (log) => {
@@ -188,7 +209,7 @@ export const CHART_TYPES = {
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`,
                     title: {text: this.$t("Calculated value")},
-                    labels: {formatter: (v) => `${(+v).toFixed(2)} ${measurementUnit(this.channel)}`},
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)} ${measurementUnit(this.channel)}` : '?'},
                     min: 0,
                     max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
                 }
@@ -213,7 +234,7 @@ export const CHART_TYPES = {
                 const phaseLabel = `Phase ${phaseNo}`;
                 return {
                     name: `${channelTitle(this.channel, this)} (${this.$t(phaseLabel)})`,
-                    data: allLogs.map((item) => [item.date_timestamp * 1000, item[`phase${phaseNo}_${this.chartMode}`]]),
+                    data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_${this.chartMode}`]})),
                 };
             });
         },
@@ -225,6 +246,7 @@ export const CHART_TYPES = {
             });
             return log;
         },
+        aggregateLogs: (logs) => logs[logs.length - 1],
         adjustLogs: (logs) => {
             if (!logs || logs.length < 2) {
                 return logs;
@@ -295,7 +317,7 @@ export const CHART_TYPES = {
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${label})`,
                     title: {text: label},
-                    labels: {formatter: (v) => `${(+v).toFixed(5)} ${measurementUnit(this.channel)}`},
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(5)} ${measurementUnit(this.channel)}` : '?'},
                     min: 0,
                     max: maxRounded,
                 }
