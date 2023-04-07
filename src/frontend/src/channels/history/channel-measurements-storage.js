@@ -134,7 +134,6 @@ export class IndexedDbMeasurementLogsStorage {
         logs = this.chartStrategy.interpolateGaps(logs)
         const tx = (await this.db).transaction('logs', 'readwrite');
         logs = this.adjustLogsBeforeStorage(logs);
-        console.log(logs.filter(l => l.counterReset));
         logs.forEach(async (log) => {
             await tx.store.put(log);
         });
