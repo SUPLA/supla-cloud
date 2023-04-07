@@ -37,6 +37,11 @@ export const CHART_TYPES = {
         },
         adjustLogs: (logs) => logs,
         interpolateGaps: (logs) => logs,
+        aggregateLogs: (logs) => {
+            const temperatures = logs.map(log => log.temperature).filter(t => t || t === 0);
+            const averageTemp = temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
+            return {...logs[0], temperature: averageTemp,/* min: Math.min(temperatures), max: Math.max(temperatures) */};
+        },
         yaxes: function (logs) {
             const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
             return [
