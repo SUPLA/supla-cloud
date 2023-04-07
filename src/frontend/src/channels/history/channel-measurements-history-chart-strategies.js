@@ -78,15 +78,39 @@ export const CHART_TYPES = {
         emptyLog: () => ({date_timestamp: null, temperature: null}),
     },
     HUMIDITYANDTEMPERATURE: {
-        chartType: 'line',
-        chartOptions: () => ({}),
+        chartType: 'rangeArea',
+        chartOptions() {
+            return {
+                fill: {opacity: [1, 1, .25, .25]},
+                stroke: {curve: 'straight', width: [2, 2, 0, 0]},
+                colors: ['#00d150', '#008ffb', '#00d150', '#008ffb'],
+                legend: {customLegendItems: [this.$t('Temperature'), this.$t('Humidity')]}
+            }
+        },
         series: function (allLogs) {
             const temperatureSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.temperature}));
             const humiditySeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.humidity}));
-            return [
-                {name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, data: temperatureSeries},
-                {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries},
+            const series = [
+                {name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, type: 'line', data: temperatureSeries},
+                {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, type: 'line', data: humiditySeries},
             ];
+            // if (allLogs[0].minTemperature !== undefined) {
+            //     const tempRange = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.minTemperature, item.maxTemperature]}));
+            //     series.push({
+            //         name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')} - ${this.$t('range')})`,
+            //         type: 'rangeArea',
+            //         data: tempRange
+            //     });
+            //     series[0].name = `${channelTitle(this.channel, this)} (${this.$t('Temperature')} - ${this.$t('average')})`;
+            //     const humRange = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.minHumidity, item.maxHumidity]}));
+            //     series.push({
+            //         name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')} - ${this.$t('range')})`,
+            //         type: 'rangeArea',
+            //         data: humRange
+            //     });
+            //     series[1].name = `${channelTitle(this.channel, this)} (${this.$t('Humidity')} - ${this.$t('average')})`;
+            // }
+            return series;
         },
         fixLog: (log) => {
             if (log.temperature !== undefined && log.temperature !== null) {
@@ -99,37 +123,67 @@ export const CHART_TYPES = {
         },
         adjustLogs: (logs) => logs,
         interpolateGaps: (logs) => logs,
+        aggregateLogs: (logs) => {
+            const humidities = logs.map(log => log.humidity).filter(t => t || t === 0);
+            const temperatures = logs.map(log => log.temperature).filter(t => t || t === 0);
+            const averageHumidity = humidities.reduce((a, b) => a + b, 0) / humidities.length;
+            const averageTemperature = temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
+            return {
+                ...logs[0],
+                humidity: averageHumidity,
+                temperature: averageTemperature,
+                minHumidity: Math.min.apply(null, humidities),
+                maxHumidity: Math.max.apply(null, humidities),
+                minTemperature: Math.min.apply(null, temperatures),
+                maxTemperature: Math.max.apply(null, temperatures)
+            };
+        },
         yaxes: function (logs) {
-            const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
-            const humidities = logs.map(log => log.humidity).filter(h => h !== null);
+            // const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
+            // const humidities = logs.map(log => log.humidity).filter(h => h !== null);
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
                     title: {text: this.$t("Temperature")},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)}°C` : '?'},
-                    min: Math.floor(Math.min.apply(this, temperatures)),
-                    max: Math.ceil(Math.max.apply(this, temperatures)),
+                    // min: Math.floor(Math.min.apply(this, temperatures)),
+                    // max: Math.ceil(Math.max.apply(this, temperatures)),
                 },
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
                     opposite: true,
                     title: {text: this.$t('Humidity')},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(1)}%` : '?'},
-                    min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
-                    max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
+                    // min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
+                    // max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
                 }
             ];
         },
         emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
     },
     HUMIDITY: {
-        chartType: 'line',
-        chartOptions: () => ({}),
+        chartType: 'rangeArea',
+        chartOptions: () => ({
+            fill: {opacity: [1, .25]},
+            stroke: {curve: 'straight', width: [2, 0]},
+            colors: ['#008ffb', '#008ffb'],
+            legend: {show: false}
+        }),
         series: function (allLogs) {
             const humiditySeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.humidity}));
-            return [
-                {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, data: humiditySeries},
+            const series = [
+                {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, type: 'line', data: humiditySeries},
             ];
+            if (allLogs[0].min !== undefined) {
+                const rangeSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
+                series.push({
+                    name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')} - ${this.$t('range')})`,
+                    type: 'rangeArea',
+                    data: rangeSeries
+                });
+                series[0].name = `${channelTitle(this.channel, this)} (${this.$t('Humidity')} - ${this.$t('average')})`;
+            }
+            return series;
         },
         fixLog: (log) => {
             if (log.humidity !== undefined && log.humidity !== null) {
@@ -145,15 +199,15 @@ export const CHART_TYPES = {
             return {...logs[0], humidity: averageHumidity, min: Math.min.apply(null, humidities), max: Math.max.apply(null, humidities)};
         },
         yaxes: function (logs) {
-            const humidities = logs.map(log => log.humidity).filter(h => h !== null);
+            // const humidities = logs.map(log => log.humidity).filter(h => h !== null);
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
                     opposite: true,
                     title: {text: this.$t('Humidity')},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(1)}%` : '?'},
-                    min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
-                    max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
+                    // min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
+                    // max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
                 }
             ];
         },

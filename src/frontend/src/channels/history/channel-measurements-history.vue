@@ -363,7 +363,7 @@
                     yaxis: {labels: {show: false}}
                 };
 
-                const chartOptions = this.chartStrategy.chartOptions();
+                const chartOptions = this.chartStrategy.chartOptions.call(this);
                 const series = this.getSmallChartSeries();
                 merge(bigChartOptions, chartOptions);
                 merge(smallChartOptions, chartOptions);
