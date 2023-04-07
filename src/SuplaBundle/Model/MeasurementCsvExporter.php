@@ -18,17 +18,7 @@
 namespace SuplaBundle\Model;
 
 use Assert\Assertion;
-use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Doctrine\ORM\EntityManagerInterface;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Settings;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Html;
-use PhpOffice\PhpSpreadsheet\Writer\IWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Ods;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Exception\ApiException;
@@ -45,32 +35,15 @@ class MeasurementCsvExporter {
         $this->entityManager = $measurementLogsEntityManager;
     }
 
-    public function createZipArchiveWithLogs(
-        IODeviceChannel $channel,
-        ?string $logsType = 'default',
-        ?string $format = 'csv',
-        ?string $separator = ','
-    ): string {
-        $csvDumpPath = $this->dumpLogsToCsv($channel, $logsType ?: 'default', $this->getCsvSeparator($format, $separator));
-        if ($format === 'csv') {
-            $exportedPath = $csvDumpPath;
-        } else {
-            $exportedPath = tempnam(sys_get_temp_dir(), 'supla_export_');
-            $filesystemAdapter = new Local(sys_get_temp_dir());
-            $pool = new FilesystemCachePool(new Filesystem($filesystemAdapter));
-            Settings::setCache($pool);
-            $reader = IOFactory::createReader('Csv');
-            $spreadsheet = $reader->load($csvDumpPath);
-            $writer = $this->getSpreadsheetWriter($format, $spreadsheet);
-            $writer->save($exportedPath);
-            unlink($csvDumpPath);
-        }
+    public function createZipArchiveWithLogs(IODeviceChannel $channel, ?string $logsType = 'default'): string {
+        $csvDumpPath = $this->dumpLogsToCsv($channel, $logsType ?: 'default');
+        $exportedPath = $csvDumpPath;
         $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
-        $filename = $this->compress($exportedPath, $prefix . $channel->getId() . '.' . $format);
+        $filename = $this->compress($exportedPath, $prefix . $channel->getId() . '.csv');
         return $filename;
     }
 
-    private function dumpLogsToCsv(IODeviceChannel $channel, string $logsType, string $separator): string {
+    private function dumpLogsToCsv(IODeviceChannel $channel, string $logsType): string {
         $tempFile = tempnam(sys_get_temp_dir(), 'supla_csv_');
         Assertion::string($tempFile, 'Could not generate temporary file.');
         DatabaseUtils::turnOffQueryBuffering($this->entityManager);
@@ -81,7 +54,7 @@ class MeasurementCsvExporter {
         $timezone = $this->getCurrentUserOrThrow()->getTimezone();
         $result = $stmt->executeQuery([':timezone' => $timezone, ':channelId' => $channel->getId()]);
         while ($row = $result->fetchNumeric()) {
-            fputcsv($handle, $row, $separator);
+            fputcsv($handle, $row);
         }
         fclose($handle);
         return $tempFile;
@@ -179,26 +152,5 @@ class MeasurementCsvExporter {
         $zip->close();
         unlink($tempFile);
         return $zipPath;
-    }
-
-    private function getCsvSeparator(string $targetFormat, string $separator): string {
-        if ($targetFormat === 'csv') {
-            return $separator === 'tab' ? "\t" : $separator;
-        } else {
-            return ',';
-        }
-    }
-
-    private function getSpreadsheetWriter(string $format, Spreadsheet $spreadsheet): IWriter {
-        switch ($format) {
-            case 'xlsx':
-                return new Xlsx($spreadsheet);
-            case 'html':
-                return new Html($spreadsheet);
-            case 'ods':
-                return new Ods($spreadsheet);
-            default:
-                throw new \InvalidArgumentException('Unsupported export format: ' . $format);
-        }
     }
 }
