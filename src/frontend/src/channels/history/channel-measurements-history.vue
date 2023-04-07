@@ -6,7 +6,7 @@
                 <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()"/>
             </div>
 
-            <div v-if="supportsChart">
+            <div v-if="supportsChart && this.storage">
                 <div class="form-group text-center"
                     v-if="sparseLogs && sparseLogs.length > 1">
                     <div class="btn-group"
@@ -23,12 +23,14 @@
                 <div class="form-group text-center"
                     v-if="sparseLogs && sparseLogs.length > 1">
                     <div class="btn-group">
-                        <a :class="'btn btn-' + (aggregationMethod === mode ? 'green' : 'default')"
+                        <button :class="'btn btn-' + (aggregationMethod === mode ? 'green' : 'default')"
+                            type="button"
                             :key="mode"
+                            :disabled="!availableAggregationStrategies.includes(mode)"
                             @click="changeAggregationMethod(mode)"
                             v-for="mode in ['all', 'hour', 'day', 'month']">
                             {{ mode }}
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -261,16 +263,28 @@
                     },
                     tooltip: {
                         shared: true,
+                        intersect: false,
                         x: {
-                            formatter: (value, {series, seriesIndex, dataPointIndex, w}) => {
+                            formatter: (value, info) => {//, {series, seriesIndex, dataPointIndex, w}) => {
+                                // console.log(value, s, e);
                                 let nextPointTimestamp = undefined;
-                                if (series) {
-                                    const nextPoint = w.config.series[seriesIndex].data[dataPointIndex + 1];
+                                if (info?.series && info.seriesIndex !== undefined) {
+                                    // debugger;
+                                    const nextPoint = info.w.config.series[info.seriesIndex].data[info.dataPointIndex + 1];
                                     if (nextPoint) {
-                                        nextPointTimestamp = nextPoint[0];
+                                        nextPointTimestamp = nextPoint.x;
                                     }
                                 }
-                                return this.formatPointLabel(value, nextPointTimestamp);
+                                if (value && info?.series) {
+                                    return this.formatPointLabel(value, nextPointTimestamp);
+                                } else {
+                                    return this.$t('Value');
+                                }
+                                // debugger;
+                                // const label = value && info?.series ? this.formatPointLabel(value, nextPointTimestamp) : undefined;
+                                // console.log(label);
+                                // return label;
+                                // return undefined;
                             }
                         }
                     },
@@ -336,6 +350,9 @@
             fetchDenseLogs() {
                 const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000) - 1;
                 const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000) + 1;
+                if (!this.availableAggregationStrategies.includes(this.aggregationMethod)) {
+                    this.aggregationMethod = this.availableAggregationStrategies[this.availableAggregationStrategies.length - 1];
+                }
                 return this.storage.fetchDenseLogs(afterTimestamp, beforeTimestamp, this.aggregationMethod).then(logItems => {
                     return this.denseLogs = logItems;
                 });
@@ -392,6 +409,9 @@
         computed: {
             visibleRange() {
                 return this.currentMaxTimestamp && (this.currentMaxTimestamp - this.currentMinTimestamp);
+            },
+            availableAggregationStrategies() {
+                return this.storage.getAvailableAggregationStrategies(this.visibleRange / 1000);
             },
             supportsChart() {
                 return this.channel && CHART_TYPES[this.channel.function.name];

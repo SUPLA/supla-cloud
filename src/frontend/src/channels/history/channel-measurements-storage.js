@@ -22,25 +22,43 @@ export class IndexedDbMeasurementLogsStorage {
         return this.chartStrategy.fixLog(log);
     }
 
-    async fetchSparseLogs(numberOfLogs) {
-        const totalCount = await (await this.db).count('logs');
-        const step = Math.max(1, Math.floor(totalCount / numberOfLogs));
-        const store = (await this.db).transaction('logs').store;
-        const logs = [];
-        for await(const cursor of store.index('date').iterate(null)) {
-            logs.push(cursor.value);
-            cursor.advance(step);
+    async fetchSparseLogs() {
+        const oldestLog = await this.getOldestLog();
+        if (!oldestLog) {
+            return [];
         }
-        const lastLog = await this.getLastLog();
-        if (logs.indexOf(lastLog) === -1) {
-            logs.push(lastLog);
-        }
-        return logs;
+        const newestLog = await this.getNewestLog();
+        const availableStrategies = this.getAvailableAggregationStrategies(newestLog.date_timestamp - oldestLog.date_timestamp);
+        const sparseLogs = await this.fetchDenseLogs(0, newestLog.date_timestamp + 1, availableStrategies[availableStrategies.length - 1]);
+        return sparseLogs;
     }
 
-    async getLastLog() {
+    getAvailableAggregationStrategies(timestampRange) {
+        const strategies = [];
+        if (timestampRange < 86400 * 7) {
+            strategies.push('all');
+        }
+        if (timestampRange > 3600 * 6 && timestampRange < 86400 * 7) {
+            strategies.push('hour');
+        }
+        if (timestampRange > 86400 * 2 && timestampRange < 86400 * 365) {
+            strategies.push('day');
+        }
+        if (timestampRange > 86400 * 60) {
+            strategies.push('month');
+        }
+        return strategies;
+    }
+
+    async getNewestLog() {
         const index = (await this.db).transaction('logs').store.index('date');
         const cursor = await index.openCursor(null, 'prev');
+        return cursor?.value;
+    }
+
+    async getOldestLog() {
+        const index = (await this.db).transaction('logs').store.index('date');
+        const cursor = await index.openCursor(null);
         return cursor?.value;
     }
 
@@ -75,12 +93,12 @@ export class IndexedDbMeasurementLogsStorage {
     }
 
     async init(vue) {
-        const lastLog = await this.getLastLog();
+        const lastLog = await this.getNewestLog();
         const afterTimestamp = (+lastLog?.date_timestamp || 0) + 1;
         return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=ASC&afterTimestamp=${afterTimestamp}`)
             .then(async ({body: logItems}) => {
                 if (logItems.length) {
-                    const lastLog = await this.getLastLog();
+                    const lastLog = await this.getNewestLog();
                     if (lastLog) {
                         logItems.unshift(lastLog);
                     }
