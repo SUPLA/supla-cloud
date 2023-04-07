@@ -50,9 +50,9 @@ export class IndexedDbMeasurementLogsStorage {
         const range = IDBKeyRange.bound(fromDate, toDate);
         const logs = await (await this.db).getAllFromIndex('logs', 'date', range);
         const keyFunc = {
-            hour: (log) => '' + log.date.getFullYear() + log.date.getMonth() + log.date.getDate() + log.date.getHours(),
-            day: (log) => '' + log.date.getFullYear() + log.date.getMonth() + log.date.getDate(),
-            month: (log) => '' + log.date.getFullYear() + log.date.getMonth(),
+            hour: (log) => `${log.date.getFullYear()}_${log.date.getMonth()}_${log.date.getDate()}_${log.date.getHours()}`,
+            day: (log) => `${log.date.getFullYear()}_${log.date.getMonth()}_${log.date.getDate()}`,
+            month: (log) => `${log.date.getFullYear()}_${log.date.getMonth()}`,
         }[aggregationMethod];
         if (keyFunc) {
             const aggregatedLogsKeys = {};
@@ -60,7 +60,7 @@ export class IndexedDbMeasurementLogsStorage {
             console.time('aggregating');
             logs.forEach(log => {
                 const key = keyFunc(log);
-                if (!aggregatedLogsKeys[key]) {
+                if (aggregatedLogsKeys[key] === undefined) {
                     aggregatedLogsKeys[key] = aggregatedLogs.length;
                     aggregatedLogs.push([]);
                 }
