@@ -1,6 +1,6 @@
 import {openDB} from "idb/with-async-ittr";
 import {DateTime} from "luxon";
-import {CHART_TYPES} from "@/channels/history/channel-measurements-history-chart-strategies";
+import {CHART_TYPES, fillGaps} from "@/channels/history/channel-measurements-history-chart-strategies";
 
 export class IndexedDbMeasurementLogsStorage {
     constructor(channel) {
@@ -80,6 +80,15 @@ export class IndexedDbMeasurementLogsStorage {
         return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=ASC&afterTimestamp=${afterTimestamp}`)
             .then(async ({body: logItems}) => {
                 if (logItems.length) {
+                    const lastLog = await this.getLastLog();
+                    if (lastLog) {
+                        logItems.unshift(lastLog);
+                    }
+                    logItems = fillGaps(logItems, 600, this.chartStrategy.emptyLog());
+                    logItems = this.chartStrategy.interpolateGaps(logItems)
+                    if (lastLog) {
+                        logItems.shift();
+                    }
                     const tx = (await this.db).transaction('logs', 'readwrite');
                     logItems.forEach(async (log) => {
                         log = this.adjustLogBeforeStorage(log);

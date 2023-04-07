@@ -18,7 +18,7 @@ describe('Channel measurement history data strategies', () => {
                     {"date_timestamp": 2500, "temperature": 22.25},
                     {"date_timestamp": 3000, "temperature": 21.8125},
                 ],
-                500 * 1000,
+                500,
                 {date_timestamp: null, temperature: null}
             );
             expect(filled).toHaveLength(5);
@@ -35,7 +35,7 @@ describe('Channel measurement history data strategies', () => {
                     {"date_timestamp": 1950, "temperature": 22.25},
                     {"date_timestamp": 2600, "temperature": 21.8125},
                 ],
-                500 * 1000,
+                500,
                 {date_timestamp: null, temperature: null}
             );
             expect(filled).toHaveLength(4);
@@ -49,7 +49,7 @@ describe('Channel measurement history data strategies', () => {
                     {"date_timestamp": 5100, "temperature": 22.25},
                     {"date_timestamp": 5555, "temperature": 21.8125},
                 ],
-                500 * 1000,
+                500,
                 {date_timestamp: null, temperature: null}
             );
             expect(filled).toHaveLength(11);
@@ -108,7 +108,7 @@ describe('Channel measurement history data strategies', () => {
 
             it('interpolates gaps for EM logs', () => {
                 const logs = require('./measurement-logs/em_logs_case1.json');
-                const filled = fillGaps(logs, 600 * 1000, CHART_TYPES.ELECTRICITYMETER.emptyLog());
+                const filled = fillGaps(logs, 600, CHART_TYPES.ELECTRICITYMETER.emptyLog());
                 expect(filled).toHaveLength(logs.length + 3);
                 const interpolated = strategy.interpolateGaps(filled);
                 expect(interpolated[1].phase3_rre).toEqual(logs[1].phase3_rre);
