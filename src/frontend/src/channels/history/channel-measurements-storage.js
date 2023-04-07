@@ -16,10 +16,14 @@ export class IndexedDbMeasurementLogsStorage {
         });
     }
 
-    adjustLogBeforeStorage(log) {
-        log.date_timestamp = +log.date_timestamp;
-        log.date = DateTime.fromSeconds(log.date_timestamp).toJSDate();
-        return this.chartStrategy.fixLog(log);
+    adjustLogsBeforeStorage(logs) {
+        logs = logs.map(log => {
+            log.date_timestamp = +log.date_timestamp;
+            log.date = DateTime.fromSeconds(log.date_timestamp).toJSDate();
+            return log;
+        });
+        logs = this.chartStrategy.adjustLogs(logs);
+        return logs.map(log => this.chartStrategy.fixLog(log));
     }
 
     async fetchSparseLogs() {
@@ -129,8 +133,9 @@ export class IndexedDbMeasurementLogsStorage {
         logs = fillGaps(logs, 600, this.chartStrategy.emptyLog());
         logs = this.chartStrategy.interpolateGaps(logs)
         const tx = (await this.db).transaction('logs', 'readwrite');
+        logs = this.adjustLogsBeforeStorage(logs);
+        console.log(logs.filter(l => l.counterReset));
         logs.forEach(async (log) => {
-            log = this.adjustLogBeforeStorage(log);
             await tx.store.put(log);
         });
         await tx.done;

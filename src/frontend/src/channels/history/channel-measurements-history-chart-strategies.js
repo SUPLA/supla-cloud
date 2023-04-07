@@ -305,7 +305,26 @@ export const CHART_TYPES = {
             });
             return log;
         },
-        aggregateLogs: (logs) => logs[logs.length - 1],
+        aggregateLogs: (logs) => {
+            const aggregatedLog = {
+                ...(CHART_TYPES.ELECTRICITYMETER.emptyLog()),
+                date_timestamp: logs[0].date_timestamp,
+                date: logs[0].date
+            };
+            logs.forEach(log => {
+                CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
+                    if (log[attributeName]) {
+                        aggregatedLog[attributeName] = +aggregatedLog[attributeName] + log[attributeName];
+                    }
+                    if (log.counterReset) {
+                        aggregatedLog.counterReset = true;
+                        // aggregatedLog.date_timestamp = log.date_timestamp;
+                        // aggregatedLog.date = log.date;
+                    }
+                });
+            });
+            return aggregatedLog;
+        },
         adjustLogs: (logs) => {
             if (!logs || logs.length < 2) {
                 return logs;
@@ -313,17 +332,32 @@ export const CHART_TYPES = {
             let previousLog = logs[0];
             const adjustedLogs = [];
             for (let i = 1; i < logs.length; i++) {
-                const log = {...logs[i]};
+                let log = {...logs[i]};
                 CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
                     if (log[attributeName] === null) {
                         log[attributeName] = previousLog[attributeName];
                     }
                     log[attributeName] -= previousLog[attributeName] || log[attributeName];
+                    if (log[attributeName] < 0) {
+                        log[attributeName] += previousLog[attributeName];
+                        log.counterReset = true;
+                    }
                 });
                 adjustedLogs.push(log);
                 previousLog = logs[i];
             }
             return adjustedLogs;
+        },
+        getAnnotations: function (logs) {
+            return logs.filter(log => log.counterReset).map(log => ({
+                x: log.date_timestamp * 1000,
+                borderColor: '#f00',
+                label: {
+                    borderColor: '#f00',
+                    style: {color: '#f00',},
+                    text: this.$t('Counter reset'),
+                }
+            }));
         },
         interpolateGaps: (logs) => {
             let firstNullLog = undefined;

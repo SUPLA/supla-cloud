@@ -161,16 +161,16 @@
             getSmallChartSeries() {
                 const series = [];
                 if (this.sparseLogs.length) {
-                    const allLogs = this.adjustLogs(this.sparseLogs);
-                    return this.chartStrategy.series.call(this, allLogs);
+                    // const allLogs = this.adjustLogs(this.sparseLogs);
+                    return this.chartStrategy.series.call(this, this.sparseLogs);
                 }
                 return series;
             },
             getBigChartSeries() {
                 const series = [];
                 if (this.denseLogs.length) {
-                    const allLogs = this.denseLogs;
-                    return this.chartStrategy.series.call(this, this.adjustLogs(allLogs));
+                    // const allLogs = this.denseLogs;
+                    return this.chartStrategy.series.call(this, this.denseLogs);
                 }
                 return series;
             },
@@ -373,12 +373,12 @@
                 this.smallChart.render();
                 this.updateChartLocale();
             },
-            adjustLogs(logs) {
-                if (!logs || !logs.length) {
-                    return logs;
-                }
-                return this.chartStrategy.adjustLogs(logs);
-            },
+            // adjustLogs(logs) {
+            //     if (!logs || !logs.length) {
+            //         return logs;
+            //     }
+            //     return this.chartStrategy.adjustLogs(logs);
+            // },
             fetchDenseLogs() {
                 const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000) - 1;
                 const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000) + 1;
@@ -409,6 +409,9 @@
                             max: this.currentMaxTimestamp,
                         },
                         yaxis: this.chartStrategy.yaxes.call(this, this.denseLogs),
+                        annotations: {
+                            xaxis: this.chartStrategy.getAnnotations?.call(this, this.denseLogs) || [],
+                        },
                     }, false, false);
                 }
                 this.fetchingDenseLogs = false;
