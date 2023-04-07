@@ -67,7 +67,7 @@ export class IndexedDbMeasurementLogsStorage {
                 aggregatedLogs[aggregatedLogsKeys[key]].push(log);
             });
             console.timeEnd('aggregating');
-            const finalLogs = aggregatedLogs.map(logs => logs[logs.length - 1]);
+            const finalLogs = aggregatedLogs.map(this.chartStrategy.aggregateLogs);
             return finalLogs;
         } else {
             return logs;
