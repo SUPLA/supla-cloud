@@ -47,7 +47,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     public function load(ObjectManager $manager) {
-        ini_set('memory_limit', '1G');
+        ini_set('memory_limit', '4G');
         $this->createTemperatureLogItems();
         $this->entityManager->flush();
         $this->createHumidityLogItems();
@@ -67,7 +67,7 @@ class LogItemsFixture extends SuplaFixture {
         /** @var \SuplaBundle\Entity\Main\IODeviceChannel $thermometer */
         $thermometer = $sonoff->getChannels()[1];
         $thermometerId = $thermometer->getId();
-        $from = strtotime(self::SINCE);
+        $from = strtotime('-10 years');//self::SINCE);
         $to = time();
         $temperature = 10;
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
