@@ -1,9 +1,11 @@
 import {openDB} from "idb/with-async-ittr";
 import {DateTime} from "luxon";
+import {CHART_TYPES} from "@/channels/history/channel-measurements-history-chart-strategies";
 
 export class IndexedDbMeasurementLogsStorage {
     constructor(channel) {
         this.channel = channel;
+        this.chartStrategy = CHART_TYPES[this.channel.function.name];
         this.db = openDB(`channel_measurement_logs_${this.channel.id}`, 1, {
             upgrade(db) {
                 if (!db.objectStoreNames.contains("logs")) {
@@ -14,22 +16,24 @@ export class IndexedDbMeasurementLogsStorage {
         });
     }
 
+    adjustLogBeforeStorage(log) {
+        log.date_timestamp = +log.date_timestamp;
+        log.date = DateTime.fromSeconds(log.date_timestamp).toJSDate();
+        return this.chartStrategy.fixLog(log);
+    }
+
     async fetchSparseLogs(numberOfLogs) {
         const totalCount = await (await this.db).count('logs');
-        console.log(totalCount);
         const step = Math.max(1, Math.floor(totalCount / numberOfLogs));
-        console.log(step);
         const store = (await this.db).transaction('logs').store;
         const logs = [];
         for await(const cursor of store.index('date').iterate(null)) {
             logs.push(cursor.value);
             cursor.advance(step);
         }
-        for await(const cursor of store.index('date').iterate(null, 'prev')) {
-            if (logs.indexOf(cursor.value) === -1) {
-                logs.push(cursor.value);
-            }
-            break;
+        const lastLog = await this.getLastLog();
+        if (logs.indexOf(lastLog) === -1) {
+            logs.push(lastLog);
         }
         return logs;
     }
@@ -40,11 +44,34 @@ export class IndexedDbMeasurementLogsStorage {
         return cursor?.value;
     }
 
-    async fetchDenseLogs(afterTimestamp, beforeTimestamp) {
+    async fetchDenseLogs(afterTimestamp, beforeTimestamp, aggregationMethod) {
         const fromDate = DateTime.fromSeconds(afterTimestamp).toJSDate();
         const toDate = DateTime.fromSeconds(beforeTimestamp).toJSDate();
         const range = IDBKeyRange.bound(fromDate, toDate);
-        return (await this.db).getAllFromIndex('logs', 'date', range);
+        const logs = await (await this.db).getAllFromIndex('logs', 'date', range);
+        const keyFunc = {
+            hour: (log) => '' + log.date.getFullYear() + log.date.getMonth() + log.date.getDate() + log.date.getHours(),
+            day: (log) => '' + log.date.getFullYear() + log.date.getMonth() + log.date.getDate(),
+            month: (log) => '' + log.date.getFullYear() + log.date.getMonth(),
+        }[aggregationMethod];
+        if (keyFunc) {
+            const aggregatedLogsKeys = {};
+            const aggregatedLogs = [];
+            console.time('aggregating');
+            logs.forEach(log => {
+                const key = keyFunc(log);
+                if (!aggregatedLogsKeys[key]) {
+                    aggregatedLogsKeys[key] = aggregatedLogs.length;
+                    aggregatedLogs.push([]);
+                }
+                aggregatedLogs[aggregatedLogsKeys[key]].push(log);
+            });
+            console.timeEnd('aggregating');
+            const finalLogs = aggregatedLogs.map(logs => logs[logs.length - 1]);
+            return finalLogs;
+        } else {
+            return logs;
+        }
     }
 
     async init(vue) {
@@ -55,7 +82,7 @@ export class IndexedDbMeasurementLogsStorage {
                 if (logItems.length) {
                     const tx = (await this.db).transaction('logs', 'readwrite');
                     logItems.forEach(async (log) => {
-                        log.date = DateTime.fromSeconds(log.date_timestamp).toJSDate();
+                        log = this.adjustLogBeforeStorage(log);
                         await tx.store.add(log);
                     });
                     await tx.done;

@@ -19,6 +19,19 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="form-group text-center"
+                    v-if="sparseLogs && sparseLogs.length > 1">
+                    <div class="btn-group">
+                        <a :class="'btn btn-' + (aggregationMethod === mode ? 'green' : 'default')"
+                            :key="mode"
+                            @click="changeAggregationMethod(mode)"
+                            v-for="mode in ['all', 'hour', 'day', 'month']">
+                            {{ mode }}
+                        </a>
+                    </div>
+                </div>
+
                 <div :class="sparseLogs && sparseLogs.length > 10 ? '' : 'invisible'">
                     <div ref="bigChart"></div>
                     <div ref="smallChart"></div>
@@ -34,7 +47,6 @@
     import {debounce, merge} from "lodash";
     import {channelTitle} from "../../common/filters";
     import ApexCharts from "apexcharts";
-    import $ from "jquery";
     import {DateTime} from "luxon";
     import {CHART_TYPES, fillGaps} from "./channel-measurements-history-chart-strategies";
     import ChannelMeasurementsDownload from "@/channels/history/channel-measurements-download.vue";
@@ -85,6 +97,7 @@
                     fre: 'Forward reactive energy', // i18n
                     rre: 'Reverse reactive energy', // i18n
                 },
+                aggregationMethod: 'day',
                 storage: undefined,
             };
         },
@@ -94,7 +107,6 @@
             if (this.supportsChart) {
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.fetchSparseLogs().then((logs) => {
-                    logs = this.fixLogs(logs);
                     this.hasLogs = logs.length > 0;
                     if (logs.length > 1) {
                         const minTimestamp = logs[0].date_timestamp * 1000;
@@ -123,9 +135,7 @@
             getBigChartSeries() {
                 const series = [];
                 if (this.denseLogs.length) {
-                    const allLogs = this.chartStrategy.chartType === 'line'
-                        ? this.mergeLogs(this.sparseLogs, this.denseLogs)
-                        : this.denseLogs;
+                    const allLogs = this.denseLogs;
                     return this.chartStrategy.series.call(this, this.adjustLogs(allLogs));
                 }
                 return series;
@@ -146,6 +156,25 @@
                     }
                     return logItems;
                 });
+            },
+            formatPointLabel(pointTimestampMs, nextPointTimestampMs) {
+                if (this.aggregationMethod === 'hour') {
+                    let datetimeLabel = DateTime.fromSeconds(pointTimestampMs / 1000).startOf('hour').toLocaleString(DateTime.DATETIME_MED);
+                    if (nextPointTimestampMs) {
+                        datetimeLabel += ' - ' + DateTime.fromSeconds(pointTimestampMs / 1000).endOf('hour').toLocaleString(DateTime.DATETIME_MED);
+                    }
+                    return datetimeLabel;
+                } else if (this.aggregationMethod === 'day') {
+                    return DateTime.fromSeconds(pointTimestampMs / 1000).toLocaleString(DateTime.DATE_MED);
+                } else if (this.aggregationMethod === 'month') {
+                    return DateTime.fromSeconds(pointTimestampMs / 1000).toLocaleString({year: 'numeric', month: 'long'});
+                } else {
+                    let datetimeLabel = DateTime.fromSeconds(pointTimestampMs / 1000).toLocaleString(DateTime.DATETIME_MED);
+                    if (nextPointTimestampMs) {
+                        datetimeLabel += ' - ' + DateTime.fromSeconds(nextPointTimestampMs / 1000).toLocaleString(DateTime.DATETIME_MED);
+                    }
+                    return datetimeLabel;
+                }
             },
             renderCharts() {
                 const updateSmallChart = () => {
@@ -169,7 +198,7 @@
                 const fetchPreciseLogs = debounce(() => {
                     this.fetchingDenseLogs = true;
                     this.fetchDenseLogs().then(() => this.rerenderBigChart());
-                }, 500);
+                }, 50);
 
                 let chartId = `channel${this.channel.id}`;
                 const bigChartOptions = {
@@ -234,16 +263,14 @@
                         shared: true,
                         x: {
                             formatter: (value, {series, seriesIndex, dataPointIndex, w}) => {
-                                let datetimeLabel = DateTime.fromSeconds(value / 1000).toLocaleString(DateTime.DATETIME_MED);
+                                let nextPointTimestamp = undefined;
                                 if (series) {
                                     const nextPoint = w.config.series[seriesIndex].data[dataPointIndex + 1];
                                     if (nextPoint) {
-                                        const nextPointTimestamp = nextPoint[0];
-                                        datetimeLabel += ' - ' + DateTime.fromSeconds(nextPointTimestamp / 1000)
-                                            .toLocaleString(DateTime.DATETIME_MED);
+                                        nextPointTimestamp = nextPoint[0];
                                     }
                                 }
-                                return datetimeLabel;
+                                return this.formatPointLabel(value, nextPointTimestamp);
                             }
                         }
                     },
@@ -300,15 +327,6 @@
                 this.smallChart.render();
                 this.updateChartLocale();
             },
-            fixLogs(logs) {
-                if (!logs || !logs.length) {
-                    return logs;
-                }
-                return logs.map((log) => {
-                    log.date_timestamp = +log.date_timestamp;
-                    return this.chartStrategy.fixLog(log);
-                });
-            },
             adjustLogs(logs) {
                 if (!logs || !logs.length) {
                     return logs;
@@ -350,7 +368,7 @@
             fetchDenseLogs() {
                 const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000) - 1;
                 const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000) + 1;
-                return this.storage.fetchDenseLogs(afterTimestamp, beforeTimestamp).then(logItems => {
+                return this.storage.fetchDenseLogs(afterTimestamp, beforeTimestamp, this.aggregationMethod).then(logItems => {
                     // return this.$http.get(`channels/${this.channel.id}/measurement-logs?` + $.param({
                     //     sparse: DENSE_LOGS_COUNT,
                     //     afterTimestamp: Math.floor(this.currentMinTimestamp / 1000) - 1,
@@ -363,7 +381,7 @@
                         // hit empty period, let's use the sparse logs
                         return this.denseLogs = this.sparseLogs;
                     }
-                    return this.denseLogs = this.fillGaps(this.fixLogs(logItems), expectedInterval);
+                    return this.denseLogs = logItems;//this.fillGaps(logItems, expectedInterval);
                 });
             },
             updateChartLocale() {
@@ -400,6 +418,10 @@
                 this.chartMode = newMode;
                 this.rerenderBigChart();
                 this.rerenderSmallChart();
+            },
+            changeAggregationMethod(newMethod) {
+                this.aggregationMethod = newMethod;
+                this.rerenderBigChart();
             },
             onMeasurementsDelete() {
                 this.hasLogs = false;
