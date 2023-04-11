@@ -1,4 +1,4 @@
-import {openDB} from "idb/with-async-ittr";
+import {openDB} from "idb";
 import {DateTime} from "luxon";
 import {CHART_TYPES, fillGaps} from "@/channels/history/channel-measurements-history-chart-strategies";
 
@@ -121,6 +121,8 @@ export class IndexedDbMeasurementLogsStorage {
                         await this.storeLogs(logItems);
                         progressCallback(savedCount * 100 / totalCount);
                         return this.fetchOlderLogs(vue, progressCallback, true);
+                    } else {
+                        this.isReady = true;
                     }
                     return somethingDownloaded;
                 });
@@ -132,6 +134,9 @@ export class IndexedDbMeasurementLogsStorage {
         logs = this.chartStrategy.interpolateGaps(logs);
         const tx = (await this.db).transaction('logs', 'readwrite');
         logs = this.adjustLogsBeforeStorage(logs);
+        if (logs.length > 1) {
+            logs.shift();
+        }
         logs.forEach(async (log) => {
             await tx.store.put(log);
         });
