@@ -1,54 +1,60 @@
 <template>
     <div>
         <div v-if="supportsFrontendExport">
-            <div class="form-group">
-                <label>{{ $t('File format') }}</label>
-                <div class="radio d-flex justify-content-center">
-                    <label class="mx-3"><input type="radio" value="csv" v-model="downloadConfig.format"> CSV</label>
-                    <label class="mx-3"><input type="radio" value="ods" v-model="downloadConfig.format"> ODS</label>
-                    <label class="mx-3"><input type="radio" value="xlsx" v-model="downloadConfig.format"> XLSX</label>
-                    <label class="mx-3"><input type="radio" value="html" v-model="downloadConfig.format"> HTML</label>
+            <div v-if="storage.isReady">
+
+                <div class="form-group">
+                    <label>{{ $t('File format') }}</label>
+                    <div class="radio d-flex justify-content-center">
+                        <label class="mx-3"><input type="radio" value="csv" v-model="downloadConfig.format"> CSV</label>
+                        <label class="mx-3"><input type="radio" value="ods" v-model="downloadConfig.format"> ODS</label>
+                        <label class="mx-3"><input type="radio" value="xlsx" v-model="downloadConfig.format"> XLSX</label>
+                        <label class="mx-3"><input type="radio" value="html" v-model="downloadConfig.format"> HTML</label>
+                    </div>
+                </div>
+
+                <transition-expand>
+                    <div v-if="downloadConfig.format === 'csv'" class="form-group">
+                        <label>{{ $t('Value separator') }}</label>
+                        <div class="radio d-flex justify-content-center">
+                            <label class="mx-3"><input type="radio" value="," v-model="downloadConfig.separator"> {{ $t('Comma') }}
+                                <code>,</code></label>
+                            <label class="mx-3"><input type="radio" value=";" v-model="downloadConfig.separator"> {{ $t('Colon') }}
+                                <code>;</code></label>
+                            <label class="mx-3"><input type="radio" value="tab" v-model="downloadConfig.separator"> {{ $t('Tab') }}
+                                <code>\t</code></label>
+                        </div>
+                    </div>
+                </transition-expand>
+
+                <transition-expand>
+                    <div v-if="supportsCumulativeLogs" class="form-group">
+                        <label>{{ $t('Logs transformation') }}</label>
+                        <div class="radio text-center">
+                            <label class="mx-3"><input type="radio" value="none" v-model="downloadConfig.transformation">
+                                {{ $t('Incremental') }}
+                                <span class="small">({{ $t('values as seen on chart') }})</span>
+                            </label>
+                            <label class="mx-3"><input type="radio" value="cumulative" v-model="downloadConfig.transformation">
+                                {{ $t('Counter') }}
+                                <span class="small">({{ $t('values as seen on counter') }})</span>
+                            </label>
+                        </div>
+                    </div>
+                </transition-expand>
+
+                <div class="text-center mt-4">
+                    <a @click="download()" v-if="!downloading" class="btn btn-default">
+                        <fa icon="download" class="mr-1"/>
+                        {{ $t('Download the history of measurement') }}
+                    </a>
+                    <span v-else>
+                        {{ $t('Your data are being collected. Please be patient. ') }}
+                    </span>
                 </div>
             </div>
-
-            <transition-expand>
-                <div v-if="downloadConfig.format === 'csv'" class="form-group">
-                    <label>{{ $t('Value separator') }}</label>
-                    <div class="radio d-flex justify-content-center">
-                        <label class="mx-3"><input type="radio" value="," v-model="downloadConfig.separator"> {{ $t('Comma') }}
-                            <code>,</code></label>
-                        <label class="mx-3"><input type="radio" value=";" v-model="downloadConfig.separator"> {{ $t('Colon') }}
-                            <code>;</code></label>
-                        <label class="mx-3"><input type="radio" value="tab" v-model="downloadConfig.separator"> {{ $t('Tab') }}
-                            <code>\t</code></label>
-                    </div>
-                </div>
-            </transition-expand>
-
-            <transition-expand>
-                <div v-if="supportsCumulativeLogs" class="form-group">
-                    <label>{{ $t('Logs transformation') }}</label>
-                    <div class="radio text-center">
-                        <label class="mx-3"><input type="radio" value="none" v-model="downloadConfig.transformation">
-                            {{ $t('Incremental') }}
-                            <span class="small">({{ $t('values as seen on chart') }})</span>
-                        </label>
-                        <label class="mx-3"><input type="radio" value="cumulative" v-model="downloadConfig.transformation">
-                            {{ $t('Counter') }}
-                            <span class="small">({{ $t('values as seen on counter') }})</span>
-                        </label>
-                    </div>
-                </div>
-            </transition-expand>
-
-            <div class="text-center mt-4">
-                <a @click="download()" v-if="!downloading" class="btn btn-default">
-                    <fa icon="download" class="mr-1"/>
-                    {{ $t('Download the history of measurement') }}
-                </a>
-                <span v-else>
-                    {{ $t('Your data are being collected. Please be patient. ') }}
-                </span>
+            <div v-else class="alert alert-info">
+                {{ $t('Your data are being fetched from the server. Wait for it to complete before exporting your logs.') }}
             </div>
         </div>
         <div v-else class="text-center">
