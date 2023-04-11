@@ -33,7 +33,7 @@
             <direct-links-list :subject="channel"></direct-links-list>
         </div>
         <div v-if="currentTab == 'measurementsHistory'">
-            <channel-measurements-history :channel="channel"></channel-measurements-history>
+            <channel-measurements-history :channel="channel" @rerender="rerenderMeasurementsHistory()"/>
         </div>
         <div v-if="currentTab == 'voltageHistory'">
             <channel-voltage-history :channel="channel"/>
@@ -69,6 +69,10 @@
                 if (this.$route.query.tab !== this.currentTab) {
                     this.$router.push({query: {tab: id}});
                 }
+            },
+            rerenderMeasurementsHistory() {
+                this.currentTab = undefined;
+                this.$nextTick(() => this.currentTab = 'measurementsHistory');
             }
         },
         mounted() {
