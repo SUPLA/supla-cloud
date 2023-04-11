@@ -5,7 +5,6 @@ export function fillGaps(logs, expectedInterval, defaultLog) {
     if (logs.length < 2) {
         return logs;
     }
-    // expectedInterval /= 1000;
     let lastTimestamp = 0;
     const filledLogs = [];
     for (const log of logs) {
@@ -63,15 +62,12 @@ export const CHART_TYPES = {
             const averageTemp = temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
             return {...logs[0], temperature: averageTemp, min: Math.min.apply(null, temperatures), max: Math.max.apply(null, temperatures)};
         },
-        yaxes: function (logs) {
-            // const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
+        yaxes: function () {
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
                     title: {text: this.$t("Temperature")},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)}°C` : '?'},
-                    // min: Math.floor(Math.min.apply(this, temperatures)),
-                    // max: Math.ceil(Math.max.apply(this, temperatures)),
                 }
             ];
         },
@@ -138,24 +134,19 @@ export const CHART_TYPES = {
                 maxTemperature: Math.max.apply(null, temperatures)
             };
         },
-        yaxes: function (logs) {
-            // const temperatures = logs.map(log => log.temperature).filter(t => t !== null);
-            // const humidities = logs.map(log => log.humidity).filter(h => h !== null);
+        yaxes: function () {
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
                     title: {text: this.$t("Temperature")},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)}°C` : '?'},
-                    // min: Math.floor(Math.min.apply(this, temperatures)),
-                    // max: Math.ceil(Math.max.apply(this, temperatures)),
                 },
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
                     opposite: true,
                     title: {text: this.$t('Humidity')},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(1)}%` : '?'},
-                    // min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
-                    // max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
+                    min: 0,
                 }
             ];
         },
@@ -198,16 +189,13 @@ export const CHART_TYPES = {
             const averageHumidity = humidities.reduce((a, b) => a + b, 0) / humidities.length;
             return {...logs[0], humidity: averageHumidity, min: Math.min.apply(null, humidities), max: Math.max.apply(null, humidities)};
         },
-        yaxes: function (logs) {
-            // const humidities = logs.map(log => log.humidity).filter(h => h !== null);
+        yaxes: function () {
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
                     opposite: true,
                     title: {text: this.$t('Humidity')},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(1)}%` : '?'},
-                    // min: Math.floor(Math.max(0, Math.min.apply(this, humidities))),
-                    // max: Math.ceil(Math.min(100, Math.max.apply(this, humidities) + 1)),
                 }
             ];
         },
@@ -310,16 +298,12 @@ export const CHART_TYPES = {
             }
             return logs;
         },
-        yaxes: function (logs) {
-            // const values = CHART_TYPES.IC_GASMETER.adjustLogs(logs).map(log => log.calculated_value).filter(t => t !== null);
-            // const maxMeasurement = Math.max.apply(this, values);
+        yaxes: function () {
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`,
                     title: {text: this.$t("Calculated value")},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)} ${measurementUnit(this.channel)}` : '?'},
-                    // min: 0,
-                    // max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
                 }
             ];
         },
@@ -370,8 +354,6 @@ export const CHART_TYPES = {
                     }
                     if (log.counterReset) {
                         aggregatedLog.counterReset = true;
-                        // aggregatedLog.date_timestamp = log.date_timestamp;
-                        // aggregatedLog.date = log.date;
                     }
                 });
             });
@@ -386,7 +368,7 @@ export const CHART_TYPES = {
             for (let i = 1; i < logs.length; i++) {
                 let log = {...logs[i]};
                 CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
-                    if (log.hasOwnProperty(attributeName)) {
+                    if (Object.prototype.hasOwnProperty.call(log, attributeName)) {
                         if (log[attributeName] === null) {
                             if (latestState[attributeName] !== null) {
                                 log[attributeName] = 0;
@@ -411,7 +393,7 @@ export const CHART_TYPES = {
             for (let i = 1; i < logs.length; i++) {
                 let log = {...logs[i]};
                 CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
-                    if (log.hasOwnProperty(attributeName)) {
+                    if (Object.prototype.hasOwnProperty.call(log, attributeName)) {
                         if (log[attributeName] === null) {
                             log[attributeName] = adjustedLogs[i - 1][attributeName];
                         }
@@ -451,7 +433,6 @@ export const CHART_TYPES = {
                         if (normalizedStep >= 0) {
                             for (let i = 0; i < logsToFill; i++) {
                                 logs[i + firstNullLog][attribute] = lastKnownValue + normalizedStep * (i + 1);
-                                // logs[i].interpolated = true; may be useful
                             }
                         }
                     });
