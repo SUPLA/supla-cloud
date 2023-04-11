@@ -12,7 +12,7 @@ export function fillGaps(logs, expectedInterval, defaultLog) {
         const currentTimestamp = log.date_timestamp;
         if (lastTimestamp && (currentTimestamp - lastTimestamp) > expectedInterval * 1.5) {
             for (let missingTimestamp = lastTimestamp + expectedInterval; missingTimestamp < currentTimestamp; missingTimestamp += expectedInterval) {
-                filledLogs.push({...defaultLog, date_timestamp: missingTimestamp, /* interpolated: true */});
+                filledLogs.push({...defaultLog, date_timestamp: missingTimestamp, interpolated: true});
             }
         }
         filledLogs.push(log);
