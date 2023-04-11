@@ -332,22 +332,46 @@ export const CHART_TYPES = {
             if (!logs || logs.length < 2) {
                 return logs;
             }
-            let previousLog = logs[0];
-            const adjustedLogs = [];
+            let latestState = {...logs[0]};
+            const adjustedLogs = [logs[0]];
             for (let i = 1; i < logs.length; i++) {
                 let log = {...logs[i]};
                 CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
-                    if (log[attributeName] === null) {
-                        log[attributeName] = previousLog[attributeName];
-                    }
-                    log[attributeName] -= previousLog[attributeName] || log[attributeName];
-                    if (log[attributeName] < 0) {
-                        log[attributeName] += previousLog[attributeName];
-                        log.counterReset = true;
+                    if (log.hasOwnProperty(attributeName)) {
+                        if (log[attributeName] === null) {
+                            if (latestState[attributeName] !== null) {
+                                log[attributeName] = 0;
+                            }
+                        } else {
+                            const newState = log[attributeName];
+                            log[attributeName] -= latestState[attributeName] || 0;
+                            if (log[attributeName] < 0) {
+                                log[attributeName] += latestState[attributeName];
+                                log.counterReset = true;
+                            }
+                            latestState[attributeName] = newState;
+                        }
                     }
                 });
                 adjustedLogs.push(log);
-                previousLog = logs[i];
+            }
+            return adjustedLogs;
+        },
+        cumulateLogs: (logs) => {
+            const adjustedLogs = [logs[0]];
+            for (let i = 1; i < logs.length; i++) {
+                let log = {...logs[i]};
+                CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
+                    if (log.hasOwnProperty(attributeName)) {
+                        if (log[attributeName] === null) {
+                            log[attributeName] = adjustedLogs[i - 1][attributeName];
+                        }
+                        if (!log.counterReset) {
+                            log[attributeName] += adjustedLogs[i - 1][attributeName] || log[attributeName];
+                        }
+                    }
+                });
+                adjustedLogs.push(log);
             }
             return adjustedLogs;
         },

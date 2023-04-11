@@ -25,6 +25,22 @@
                 </div>
             </transition-expand>
 
+            <transition-expand>
+                <div v-if="supportsCumulativeLogs" class="form-group">
+                    <label>{{ $t('Logs transformation') }}</label>
+                    <div class="radio text-center">
+                        <label class="mx-3"><input type="radio" value="none" v-model="downloadConfig.transformation">
+                            {{ $t('Incremental') }}
+                            <span class="small">({{ $t('values as seen on chart') }})</span>
+                        </label>
+                        <label class="mx-3"><input type="radio" value="cumulative" v-model="downloadConfig.transformation">
+                            {{ $t('Counter') }}
+                            <span class="small">({{ $t('values as seen on counter') }})</span>
+                        </label>
+                    </div>
+                </div>
+            </transition-expand>
+
             <div class="text-center mt-4">
                 <a @click="download()" v-if="!downloading" class="btn btn-default">
                     <fa icon="download" class="mr-1"/>
@@ -99,6 +115,7 @@
                 downloadConfig: {
                     format: 'csv',
                     separator: ',',
+                    transformation: 'none',
                 },
             };
         },
@@ -106,7 +123,11 @@
             async download() {
                 this.downloading = true;
                 this.$emit('downloading', true);
-                const rows = (await (await this.storage.db).getAllFromIndex('logs', 'date'))
+                let rows = (await (await this.storage.db).getAllFromIndex('logs', 'date'));
+                if (this.downloadConfig.transformation === 'cumulative') {
+                    rows = this.storage.chartStrategy.cumulateLogs(rows);
+                }
+                rows = rows
                     .filter(row => !row.interpolated)
                     .map(row => {
                         delete row.counterReset;
@@ -141,7 +162,12 @@
             },
             supportsFrontendExport() {
                 return window.indexedDB && !!this.exportFields;
-            }
+            },
+            supportsCumulativeLogs() {
+                return [
+                    ChannelFunction.ELECTRICITYMETER,
+                ].includes(this.channel.functionId);
+            },
         }
     };
 </script>

@@ -23,7 +23,7 @@ describe('Channel measurement history data strategies', () => {
             );
             expect(filled).toHaveLength(5);
             expect(filled[1]).toEqual({date_timestamp: 1500, temperature: 25.25});
-            expect(filled[2]).toEqual({date_timestamp: 2000, temperature: null});
+            expect(filled[2]).toEqual({date_timestamp: 2000, temperature: null, interpolated: true});
             expect(filled[3]).toEqual({date_timestamp: 2500, temperature: 22.25});
         });
 
@@ -54,8 +54,8 @@ describe('Channel measurement history data strategies', () => {
             );
             expect(filled).toHaveLength(11);
             expect(filled[1]).toEqual({date_timestamp: 1450, temperature: 25.25});
-            expect(filled[2]).toEqual({date_timestamp: 1950, temperature: null});
-            expect(filled[6]).toEqual({date_timestamp: 3950, temperature: null});
+            expect(filled[2]).toEqual({date_timestamp: 1950, temperature: null, interpolated: true});
+            expect(filled[6]).toEqual({date_timestamp: 3950, temperature: null, interpolated: true});
             expect(filled[9]).toEqual({date_timestamp: 5100, temperature: 22.25});
         });
     });
@@ -123,6 +123,70 @@ describe('Channel measurement history data strategies', () => {
                 expect(interpolated[3].phase3_rre).toEqual(logs[2].phase3_rre);
                 expect(interpolated[4].phase3_rre).toEqual(logs[3].phase3_rre);
             });
+
+            it('adjusts logs and store deltas for charts', () => {
+                const logs = [
+                    {date_timestamp: 0, phase1_fae: 1},
+                    {date_timestamp: 1, phase1_fae: 2},
+                    {date_timestamp: 2, phase1_fae: 4},
+                    {date_timestamp: 3, phase1_fae: 4},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs);
+                const adjustedPhase1Fae = adjustedLogs.map(l => l.phase1_fae);
+                expect(adjustedPhase1Fae).toEqual([1, 1, 2, 0]);
+            });
+
+            it('can cumulate data back for export', () => {
+                const logs = [
+                    {date_timestamp: 0, phase1_fae: 1},
+                    {date_timestamp: 1, phase1_fae: 1},
+                    {date_timestamp: 2, phase1_fae: 2},
+                    {date_timestamp: 3, phase1_fae: 0},
+                ];
+                const cumulatedLogs = strategy.cumulateLogs(logs);
+                const cumulatedPhase1Fae = cumulatedLogs.map(l => l.phase1_fae);
+                expect(cumulatedPhase1Fae).toEqual([1, 2, 4, 4]);
+            });
+
+            it('detects counter resets', () => {
+                const logs = [
+                    {date_timestamp: 0, phase1_fae: 1},
+                    {date_timestamp: 1, phase1_fae: 2},
+                    {date_timestamp: 2, phase1_fae: 4},
+                    {date_timestamp: 3, phase1_fae: 4},
+                    {date_timestamp: 4, phase1_fae: 1},
+                    {date_timestamp: 5, phase1_fae: 7},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs);
+                const adjustedPhase1Fae = adjustedLogs.map(l => l.phase1_fae);
+                expect(adjustedPhase1Fae).toEqual([1, 1, 2, 0, 1, 6]);
+                expect(adjustedLogs[4].counterReset).toBeTruthy();
+            });
+
+            it('cumulates logs back with counter reset', () => {
+                const logs = [
+                    {date_timestamp: 0, phase1_fae: 1},
+                    {date_timestamp: 1, phase1_fae: 2},
+                    {date_timestamp: 2, phase1_fae: 4},
+                    {date_timestamp: 3, phase1_fae: 4},
+                    {date_timestamp: 4, phase1_fae: 1, counterReset: true},
+                    {date_timestamp: 5, phase1_fae: 7},
+                ];
+                expect(strategy.cumulateLogs(strategy.adjustLogs(logs))).toEqual(logs);
+            });
+
+            it('adjusts null values', () => {
+                const logs = [
+                    {date_timestamp: 0, phase1_fae: 1},
+                    {date_timestamp: 1, phase1_fae: 2},
+                    {date_timestamp: 2, phase1_fae: null},
+                    {date_timestamp: 3, phase1_fae: 4},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs);
+                const adjustedPhase1Fae = adjustedLogs.map(l => l.phase1_fae);
+                expect(adjustedPhase1Fae).toEqual([1, 1, 0, 2]);
+            });
+
         });
 
         describe('yaxes', function () {
