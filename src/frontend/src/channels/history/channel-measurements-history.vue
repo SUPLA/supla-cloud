@@ -37,9 +37,9 @@
                 <transition-expand>
                     <div v-if="fetchingLogsProgress" class="mb-5">
                         <div v-if="fetchingLogsProgress === true" class="text-center">
-                            <label>{{ $t('All logs has been downloaded. Refresh the page to see them.') }}</label>
+                            <label>{{ $t('All logs has been downloaded. Reload the chart to see them.') }}</label>
                             <div>
-                                <a href="" class="btn btn-default">{{ $t('Refresh the page') }}</a>
+                                <a @click="$emit('rerender')" class="btn btn-default">{{ $t('Reload the chart') }}</a>
                             </div>
                         </div>
                         <div v-else>
@@ -231,11 +231,7 @@
                                     icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
                                     index: 2,
                                     title: this.$t('reset chart view'),
-                                    click: () => {
-                                        this.currentMaxTimestamp = this.sparseLogs[this.sparseLogs.length - 1].date_timestamp * 1000;
-                                        this.currentMinTimestamp = this.sparseLogs[Math.max(0, this.sparseLogs.length - 30)].date_timestamp * 1000;
-                                        updateSmallChart();
-                                    }
+                                    click: () => this.$emit('rerender'),
                                 }]
                             },
                         },
@@ -304,7 +300,10 @@
                             enabled: true,
                             xaxis: {
                                 max: this.sparseLogs[this.sparseLogs.length - 1].date_timestamp * 1000,
-                                min: this.sparseLogs[Math.max(0, this.sparseLogs.length - 30)].date_timestamp * 1000,
+                                min: Math.max(
+                                    this.sparseLogs[Math.max(0, this.sparseLogs.length - 30)].date_timestamp * 1000,
+                                    this.sparseLogs[this.sparseLogs.length - 1].date_timestamp * 1000 - 86400_000 * 6,
+                                )
                             },
                         },
                         events: {
