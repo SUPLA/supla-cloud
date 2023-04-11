@@ -79,7 +79,6 @@ export class IndexedDbMeasurementLogsStorage {
         if (keyFunc) {
             const aggregatedLogsKeys = {};
             const aggregatedLogs = [];
-            console.time('aggregating');
             logs.forEach(log => {
                 const key = keyFunc(log);
                 if (aggregatedLogsKeys[key] === undefined) {
@@ -88,7 +87,6 @@ export class IndexedDbMeasurementLogsStorage {
                 }
                 aggregatedLogs[aggregatedLogsKeys[key]].push(log);
             });
-            console.timeEnd('aggregating');
             const finalLogs = aggregatedLogs.map(this.chartStrategy.aggregateLogs);
             return finalLogs;
         } else {

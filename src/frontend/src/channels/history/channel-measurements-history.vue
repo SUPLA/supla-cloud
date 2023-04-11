@@ -99,9 +99,6 @@
         require("apexcharts/dist/locales/sl.json"),
     ];
 
-    const SPARSE_LOGS_COUNT = 300;
-    const DENSE_LOGS_COUNT = 150;
-
     export default {
         components: {TransitionExpand, ChannelMeasurementsDownload},
         props: ['channel'],
@@ -134,13 +131,10 @@
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
                 this.storage.init(this).then(() => {
-                    this.fetchSparseLogs().then((logs) => {
+                    this.storage.fetchSparseLogs().then((logs) => {
                         this.hasLogs = logs.length > 0;
                         if (logs.length > 1) {
-                            // const minTimestamp = logs[0].date_timestamp * 1000;
-                            // const maxTimestamp = logs[logs.length - 1].date_timestamp * 1000;
-                            // const expectedInterval = Math.max(600000, Math.ceil((maxTimestamp - minTimestamp) / SPARSE_LOGS_COUNT));
-                            this.sparseLogs = logs;//this.fillGaps(logs, expectedInterval);
+                            this.sparseLogs = logs;
                             this.renderCharts();
                             this.fetchAllLogs();
                         }
@@ -173,23 +167,6 @@
                     return this.chartStrategy.series.call(this, this.denseLogs);
                 }
                 return series;
-            },
-            fetchSparseLogs() {
-                return this.storage.fetchSparseLogs(SPARSE_LOGS_COUNT).then(logItems => {
-                    // return this.$http.get(`channels/${this.channel.id}/measurement-logs?sparse=${SPARSE_LOGS_COUNT}&order=ASC`)
-                    //     .then(({body: logItems, headers}) => {
-                    if (logItems.length > 0) {
-                        // const maxTimestamp = headers.get('X-Max-Timestamp');
-                        // if (maxTimestamp && maxTimestamp > logItems[logItems.length - 1].date_timestamp) {
-                        //     logItems.push({...logItems[logItems.length - 1], date_timestamp: maxTimestamp});
-                        // }
-                        // const minTimestamp = headers.get('X-Min-Timestamp');
-                        // if (minTimestamp && minTimestamp < logItems[0].date_timestamp) {
-                        //     logItems.unshift({...logItems[0], date_timestamp: minTimestamp});
-                        // }
-                    }
-                    return logItems;
-                });
             },
             formatPointLabel(pointTimestampMs, nextPointTimestampMs) {
                 if (this.aggregationMethod === 'hour') {
@@ -297,11 +274,9 @@
                         shared: true,
                         intersect: false,
                         x: {
-                            formatter: (value, info) => {//, {series, seriesIndex, dataPointIndex, w}) => {
-                                // console.log(value, s, e);
+                            formatter: (value, info) => {
                                 let nextPointTimestamp = undefined;
                                 if (info?.series && info.seriesIndex !== undefined) {
-                                    // debugger;
                                     const nextPoint = info.w.config.series[info.seriesIndex].data[info.dataPointIndex + 1];
                                     if (nextPoint) {
                                         nextPointTimestamp = nextPoint.x;
@@ -312,11 +287,6 @@
                                 } else {
                                     return this.$t('Value');
                                 }
-                                // debugger;
-                                // const label = value && info?.series ? this.formatPointLabel(value, nextPointTimestamp) : undefined;
-                                // console.log(label);
-                                // return label;
-                                // return undefined;
                             }
                         }
                     },
@@ -373,12 +343,6 @@
                 this.smallChart.render();
                 this.updateChartLocale();
             },
-            // adjustLogs(logs) {
-            //     if (!logs || !logs.length) {
-            //         return logs;
-            //     }
-            //     return this.chartStrategy.adjustLogs(logs);
-            // },
             fetchDenseLogs() {
                 const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000) - 1;
                 const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000) + 1;
