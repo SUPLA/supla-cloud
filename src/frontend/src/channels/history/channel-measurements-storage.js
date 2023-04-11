@@ -6,7 +6,7 @@ export class IndexedDbMeasurementLogsStorage {
     constructor(channel) {
         this.channel = channel;
         this.chartStrategy = CHART_TYPES[this.channel.function.name];
-        this.db = openDB(`channel_measurement_logs_${this.channel.id}`, 1, {
+        this.db = openDB(`channel_measurement_logs_${this.channel.id}`, 2, {
             upgrade(db) {
                 if (!db.objectStoreNames.contains("logs")) {
                     const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});

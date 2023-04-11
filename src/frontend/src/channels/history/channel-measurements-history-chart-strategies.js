@@ -279,9 +279,12 @@ export const CHART_TYPES = {
     ELECTRICITYMETER: {
         chartType: 'bar',
         allAttributesArray() {
-            return ['fae', 'rae', 'fre', 'rre'].map((suffix) => {
-                return [1, 2, 3].map(phaseNo => `phase${phaseNo}_${suffix}`);
-            }).flat();
+            return ['fae', 'rae', 'fre', 'rre']
+                .map((suffix) => {
+                    return [1, 2, 3].map(phaseNo => `phase${phaseNo}_${suffix}`);
+                })
+                .concat(['fae_balanced', 'rae_balanced'])
+                .flat();
         },
         chartOptions: () => ({
             chart: {stacked: true},
@@ -422,6 +425,7 @@ export const CHART_TYPES = {
             phase1_rae: null, phase2_rae: null, phase3_rae: null,
             phase1_fre: null, phase2_fre: null, phase3_fre: null,
             phase1_rre: null, phase2_rre: null, phase3_rre: null,
+            fae_balanced: null, rae_balanced: null,
         }),
     },
 };
