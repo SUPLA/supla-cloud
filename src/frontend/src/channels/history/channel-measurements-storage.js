@@ -113,7 +113,7 @@ export class IndexedDbMeasurementLogsStorage {
     async fetchOlderLogs(vue, progressCallback, somethingDownloaded = false) {
         const oldestLog = await this.getOldestLog();
         if (oldestLog) {
-            const beforeTimestamp = +oldestLog.date_timestamp - 1;
+            const beforeTimestamp = +oldestLog.date_timestamp - 300;
             return vue.$http.get(`channels/${this.channel.id}/measurement-logs?order=DESC&limit=2500&beforeTimestamp=${beforeTimestamp}`)
                 .then(async ({body: logItems, headers}) => {
                     if (logItems.length) {
@@ -131,7 +131,7 @@ export class IndexedDbMeasurementLogsStorage {
 
     async storeLogs(logs) {
         logs = fillGaps(logs, 600, this.chartStrategy.emptyLog());
-        logs = this.chartStrategy.interpolateGaps(logs)
+        logs = this.chartStrategy.interpolateGaps(logs);
         const tx = (await this.db).transaction('logs', 'readwrite');
         logs = this.adjustLogsBeforeStorage(logs);
         logs.forEach(async (log) => {

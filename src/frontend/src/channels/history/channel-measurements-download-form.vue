@@ -102,7 +102,17 @@
             {field: 'fae_balanced', label: 'Forward active Energy kWh - Vector balance'},
             {field: 'rae_balanced', label: 'Reverse active Energy kWh - Vector balance'},
         ],
+        [ChannelFunction.IC_GASMETER]: [
+            {field: 'date_timestamp', label: 'Timestamp'},
+            {field: 'date', label: 'Date and time'},
+            {field: 'counter', label: 'Counter'},
+            {field: 'calculated_value', label: 'Calculated value'},
+        ],
     };
+
+    EXPORT_DEFINITIONS[ChannelFunction.IC_HEATMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
+    EXPORT_DEFINITIONS[ChannelFunction.IC_WATERMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
+    EXPORT_DEFINITIONS[ChannelFunction.IC_ELECTRICITYMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
 
     export default {
         components: {TransitionExpand},
@@ -148,7 +158,7 @@
                 });
                 XLSX.utils.sheet_add_aoa(worksheet, [columnLabels], {origin: "A1"});
                 const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, channelTitle(this.channel, this));
+                XLSX.utils.book_append_sheet(workbook, worksheet, channelTitle(this.channel, this).substr(0, 30));
                 const filename = `measurements_${this.channel.id}.${this.downloadConfig.format}`;
                 XLSX.writeFile(workbook, filename, {compression: true, FS: fieldSeparator});
             },
@@ -164,9 +174,7 @@
                 return window.indexedDB && !!this.exportFields;
             },
             supportsCumulativeLogs() {
-                return [
-                    ChannelFunction.ELECTRICITYMETER,
-                ].includes(this.channel.functionId);
+                return !!this.storage.chartStrategy.cumulateLogs;
             },
         }
     };

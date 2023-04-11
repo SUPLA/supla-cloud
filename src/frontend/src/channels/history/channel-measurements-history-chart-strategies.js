@@ -222,36 +222,85 @@ export const CHART_TYPES = {
         },
         fixLog: (log) => {
             if (log.calculated_value !== undefined && log.calculated_value !== null) {
-                log.calculated_value = +log.calculated_value;
+                log.calculated_value = +(+log.calculated_value).toFixed(5);
             }
             return log;
         },
+        aggregateLogs: (logs) => {
+            const aggregatedLog = {
+                ...(CHART_TYPES.IC_GASMETER.emptyLog()),
+                date_timestamp: logs[0].date_timestamp,
+                date: logs[0].date
+            };
+            logs.forEach(log => {
+                if (log.counter) {
+                    aggregatedLog.counter += log.counter;
+                    aggregatedLog.calculated_value += log.calculated_value;
+                    if (log.counterReset) {
+                        aggregatedLog.counterReset = true;
+                    }
+                }
+            });
+            return aggregatedLog;
+        },
         adjustLogs: (logs) => {
             let previousLog = logs[0];
-            const adjustedLogs = [];
+            const adjustedLogs = [logs[0]];
             for (let i = 1; i < logs.length; i++) {
                 const log = {...logs[i]};
-                log.calculated_value -= previousLog.calculated_value;
-                log.counter -= previousLog.counter;
+                if (log.counter >= previousLog.counter) {
+                    log.calculated_value -= previousLog.calculated_value;
+                    log.counter -= previousLog.counter;
+                } else {
+                    log.counterReset = true;
+                }
                 adjustedLogs.push(log);
                 previousLog = logs[i];
             }
             return adjustedLogs;
+        },
+        cumulateLogs: (logs) => {
+            const adjustedLogs = [logs[0]];
+            for (let i = 1; i < logs.length; i++) {
+                let log = {...logs[i]};
+                if (!log.counterReset && log.counter !== null) {
+                    log.counter += adjustedLogs[i - 1].counter || 0;
+                    log.calculated_value += adjustedLogs[i - 1].calculated_value || 0;
+                }
+                adjustedLogs.push(log);
+            }
+            return adjustedLogs;
+        },
+        getAnnotations: function (logs) {
+            return logs.filter(log => log.counterReset).map(log => ({
+                x: log.date_timestamp * 1000,
+                borderColor: '#f00',
+                label: {
+                    borderColor: '#f00',
+                    style: {color: '#f00',},
+                    text: this.$t('Counter reset'),
+                }
+            }));
         },
         interpolateGaps: (logs) => {
             let firstNullLog = undefined;
             let lastNonNullLog = undefined;
             for (let currentNonNullLog = 0; currentNonNullLog < logs.length; currentNonNullLog++) {
                 const currentValue = logs[currentNonNullLog].calculated_value;
+                const currentCounter = logs[currentNonNullLog].counter;
                 if (currentValue === null && firstNullLog === undefined) {
                     firstNullLog = currentNonNullLog;
                 } else if (currentValue !== null && firstNullLog !== undefined && lastNonNullLog !== undefined) {
                     const logsToFill = currentNonNullLog - firstNullLog;
                     const lastKnownValue = logs[lastNonNullLog].calculated_value;
+                    const lastKnownCounter = logs[lastNonNullLog].counter;
                     const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
-                    for (let i = 0; i < logsToFill; i++) {
-                        logs[i + firstNullLog].calculated_value = lastKnownValue + normalizedStep * (i + 1);
-                        // logs[i].interpolated = true; may be useful
+                    const normalizedCounter = (currentCounter - lastKnownCounter) / (logsToFill + 1);
+                    if (normalizedCounter >= 0) {
+                        for (let i = 0; i < logsToFill; i++) {
+                            logs[i + firstNullLog].calculated_value = lastKnownValue + normalizedStep * (i + 1);
+                            logs[i + firstNullLog].counter = Math.floor(lastKnownCounter + normalizedCounter * (i + 1));
+                        }
                     }
                     firstNullLog = undefined;
                 }
@@ -262,15 +311,15 @@ export const CHART_TYPES = {
             return logs;
         },
         yaxes: function (logs) {
-            const values = this.adjustLogs(logs).map(log => log.calculated_value).filter(t => t !== null);
-            const maxMeasurement = Math.max.apply(this, values);
+            // const values = CHART_TYPES.IC_GASMETER.adjustLogs(logs).map(log => log.calculated_value).filter(t => t !== null);
+            // const maxMeasurement = Math.max.apply(this, values);
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`,
                     title: {text: this.$t("Calculated value")},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)} ${measurementUnit(this.channel)}` : '?'},
-                    min: 0,
-                    max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
+                    // min: 0,
+                    // max: maxMeasurement + Math.min(0.1, maxMeasurement * 0.05),
                 }
             ];
         },
@@ -399,9 +448,11 @@ export const CHART_TYPES = {
                         const logsToFill = currentNonNullLog - firstNullLog;
                         const lastKnownValue = logs[lastNonNullLog][attribute];
                         const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
-                        for (let i = 0; i < logsToFill; i++) {
-                            logs[i + firstNullLog][attribute] = lastKnownValue + normalizedStep * (i + 1);
-                            // logs[i].interpolated = true; may be useful
+                        if (normalizedStep >= 0) {
+                            for (let i = 0; i < logsToFill; i++) {
+                                logs[i + firstNullLog][attribute] = lastKnownValue + normalizedStep * (i + 1);
+                                // logs[i].interpolated = true; may be useful
+                            }
                         }
                     });
                     firstNullLog = undefined;
