@@ -49,27 +49,28 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import XLSX from "xlsx";
     import ChannelFunction from "@/common/enums/channel-function";
+    import {channelTitle} from "@/common/filters";
 
     const EXPORT_DEFINITIONS = {
         [ChannelFunction.THERMOMETER]: [
             {field: 'date_timestamp', label: 'Timestamp'},
-            {field: 'dateFormatted', label: 'Date and time'},
+            {field: 'date', label: 'Date and time'},
             {field: 'temperature', label: 'Temperature'},
         ],
         [ChannelFunction.HUMIDITYANDTEMPERATURE]: [
             {field: 'date_timestamp', label: 'Timestamp'},
-            {field: 'dateFormatted', label: 'Date and time'},
+            {field: 'date', label: 'Date and time'},
             {field: 'temperature', label: 'Temperature'},
             {field: 'humidity', label: 'Humidity'},
         ],
         [ChannelFunction.HUMIDITY]: [
             {field: 'date_timestamp', label: 'Timestamp'},
-            {field: 'dateFormatted', label: 'Date and time'},
+            {field: 'date', label: 'Date and time'},
             {field: 'humidity', label: 'Humidity'},
         ],
         [ChannelFunction.ELECTRICITYMETER]: [
             {field: 'date_timestamp', label: 'Timestamp'},
-            {field: 'dateFormatted', label: 'Date and time'},
+            {field: 'date', label: 'Date and time'},
             {field: 'phase1_fae', label: 'Phase 1 Forward active Energy kWh'},
             {field: 'phase1_rae', label: 'Phase 1 Reverse active Energy kWh'},
             {field: 'phase1_fre', label: 'Phase 1 Forward reactive Energy kvarh'},
@@ -105,12 +106,12 @@
             async download() {
                 this.downloading = true;
                 this.$emit('downloading', true);
-                const rows = (await (await this.storage.db).getAllFromIndex('logs', 'date')).map(row => {
-                    row.dateFormatted = row.date.toLocaleString(this.$i18n.locale);
-                    delete row.date;
-                    delete row.counterReset;
-                    return row;
-                });
+                const rows = (await (await this.storage.db).getAllFromIndex('logs', 'date'))
+                    .filter(row => !row.interpolated)
+                    .map(row => {
+                        delete row.counterReset;
+                        return row;
+                    });
                 await this.downloadFile(rows);
                 this.downloading = false;
                 this.$emit('downloading', false);
@@ -119,11 +120,15 @@
                 const fieldSeparator = this.downloadConfig.separator === 'tab' ? "\t" : this.downloadConfig.separator;
                 const columnLabels = this.exportFields.map(f => f.label);
                 const jsonFields = this.exportFields.map(f => f.field);
-                const worksheet = XLSX.utils.json_to_sheet(rows, {header: jsonFields});
+                const worksheet = XLSX.utils.json_to_sheet(rows, {
+                    header: jsonFields,
+                    dateNF: 'yyyy"-"mm"-"dd" "hh":"mm":"ss',
+                    cellDates: true
+                });
                 XLSX.utils.sheet_add_aoa(worksheet, [columnLabels], {origin: "A1"});
                 const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, "Dates");
-                const filename = 'measurements.' + this.downloadConfig.format;
+                XLSX.utils.book_append_sheet(workbook, worksheet, channelTitle(this.channel, this));
+                const filename = `measurements_${this.channel.id}.${this.downloadConfig.format}`;
                 XLSX.writeFile(workbook, filename, {compression: true, FS: fieldSeparator});
             },
         },
