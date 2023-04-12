@@ -342,7 +342,7 @@ export const CHART_TYPES = {
                         data: cumulatedLogs.map((item) => ({x: item.x, y: item.fae})),
                     },
                     {
-                        name: `${channelTitle(this.channel, this)} oddane`,
+                        name: `${channelTitle(this.channel, this)} - ${this.$t('Reverse active energy')}`,
                         data: cumulatedLogs.map((item) => ({
                             x: item.x, y: -item.rae, goals: [
                                 {
