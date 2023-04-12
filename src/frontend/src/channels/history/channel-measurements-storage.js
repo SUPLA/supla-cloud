@@ -105,7 +105,10 @@ export class IndexedDbMeasurementLogsStorage {
                     if (!existingLog) {
                         await (await this.db).clear('logs');
                     }
-                    return await this.storeLogs(logItems);
+                    await this.storeLogs(logItems);
+                }
+                if (logItems.length < 10) {
+                    this.isReady = true;
                 }
             });
     }
