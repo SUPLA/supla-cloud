@@ -766,7 +766,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs");
         $memBefore = memory_get_usage();
         ob_start();
-        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs-download");
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs-csv");
         $data = ob_get_contents();
         ob_end_clean();
         $memAfter = memory_get_usage();
