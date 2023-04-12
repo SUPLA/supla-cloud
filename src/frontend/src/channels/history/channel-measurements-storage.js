@@ -39,8 +39,8 @@ export class IndexedDbMeasurementLogsStorage {
 
     getAvailableAggregationStrategies(timestampRange) {
         const strategies = [];
-        if (timestampRange < 86400 * 7) {
-            strategies.push('all');
+        if (timestampRange < 86400 * 3) {
+            strategies.push('minute');
         }
         if (timestampRange > 3600 * 6 && timestampRange < 86400 * 7) {
             strategies.push('hour');
@@ -67,8 +67,8 @@ export class IndexedDbMeasurementLogsStorage {
     }
 
     async fetchDenseLogs(afterTimestamp, beforeTimestamp, aggregationMethod) {
-        const fromDate = DateTime.fromSeconds(afterTimestamp).toJSDate();
-        const toDate = DateTime.fromSeconds(beforeTimestamp).toJSDate();
+        const fromDate = DateTime.fromSeconds(afterTimestamp).startOf(aggregationMethod).toJSDate();
+        const toDate = DateTime.fromSeconds(beforeTimestamp).endOf(aggregationMethod).toJSDate();
         const range = IDBKeyRange.bound(fromDate, toDate);
         const logs = await (await this.db).getAllFromIndex('logs', 'date', range);
         const keyFunc = {
@@ -85,6 +85,8 @@ export class IndexedDbMeasurementLogsStorage {
                     aggregatedLogsKeys[key] = aggregatedLogs.length;
                     aggregatedLogs.push([]);
                 }
+                log.date = DateTime.fromJSDate(log.date).startOf(aggregationMethod).toJSDate();
+                log.date_timestamp = Math.floor(log.date.getTime() / 1000);
                 aggregatedLogs[aggregatedLogsKeys[key]].push(log);
             });
             const finalLogs = aggregatedLogs.map(this.chartStrategy.aggregateLogs);

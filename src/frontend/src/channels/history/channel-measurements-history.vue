@@ -28,7 +28,7 @@
                             :key="mode"
                             :disabled="!availableAggregationStrategies.includes(mode)"
                             @click="changeAggregationMethod(mode)"
-                            v-for="mode in ['all', 'hour', 'day', 'month']">
+                            v-for="mode in ['minute', 'hour', 'day', 'month']">
                             {{ mode }}
                         </button>
                     </div>
@@ -310,12 +310,12 @@
                         events: {
                             selection: (chartContext, {xaxis}) => {
                                 if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
-                                    this.bigChart.updateOptions({
-                                        xaxis: {
-                                            min: xaxis.min,
-                                            max: xaxis.max,
-                                        },
-                                    }, false, false, false, false, false);
+                                    // this.bigChart.updateOptions({
+                                    //     xaxis: {
+                                    //         // min: xaxis.min,
+                                    //         // max: xaxis.max,
+                                    //     },
+                                    // }, false, false, false, false, false);
                                     this.currentMinTimestamp = xaxis.min;
                                     this.currentMaxTimestamp = xaxis.max;
                                     fetchPreciseLogs();
@@ -368,10 +368,10 @@
                     const series = this.getBigChartSeries();
                     this.bigChart.updateSeries(series, true);
                     const newChartOptions = {
-                        xaxis: {
-                            min: this.currentMinTimestamp,
-                            max: this.currentMaxTimestamp,
-                        },
+                        // xaxis: {
+                        //     min: this.denseLogs[0].date_timestamp,
+                        //     max: this.currentMaxTimestamp,
+                        // },
                         yaxis: this.chartStrategy.yaxes.call(this, this.denseLogs),
                         annotations: {
                             xaxis: this.chartStrategy.getAnnotations?.call(this, this.denseLogs) || [],
