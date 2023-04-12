@@ -28,3 +28,7 @@ export function removeByValue(array, value) {
         array.splice(array.indexOf(value), 1);
     }
 }
+
+export function deepCopy(object) {
+    return JSON.parse(JSON.stringify(object));
+}
