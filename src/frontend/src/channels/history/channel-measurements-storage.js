@@ -66,7 +66,7 @@ export class IndexedDbMeasurementLogsStorage {
         return cursor?.value;
     }
 
-    async fetchDenseLogs(afterTimestamp, beforeTimestamp, aggregationMethod) {
+    async fetchDenseLogs(afterTimestamp, beforeTimestamp, aggregationMethod = 'minute') {
         const fromDate = DateTime.fromSeconds(afterTimestamp).startOf(aggregationMethod).toJSDate();
         const toDate = DateTime.fromSeconds(beforeTimestamp).endOf(aggregationMethod).toJSDate();
         const range = IDBKeyRange.bound(fromDate, toDate);
@@ -139,6 +139,10 @@ export class IndexedDbMeasurementLogsStorage {
         logs = this.chartStrategy.interpolateGaps(logs);
         const tx = (await this.db).transaction('logs', 'readwrite');
         logs = this.adjustLogsBeforeStorage(logs);
+        // the following if-s mitigate risk of bad-filled gaps when fetching logs by pages
+        if (logs.length > 100) {
+            logs.splice(0, 15);
+        }
         if (logs.length > 1) {
             logs.shift();
         }
