@@ -58,7 +58,7 @@
                     </div>
                 </transition-expand>
 
-                <div :class="sparseLogs && sparseLogs.length > 4 ? '' : 'invisible'">
+                <div>
                     <div ref="bigChart"></div>
                     <div ref="smallChart"></div>
                 </div>
