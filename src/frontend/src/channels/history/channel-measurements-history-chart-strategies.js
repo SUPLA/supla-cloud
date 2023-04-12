@@ -319,19 +319,85 @@ export const CHART_TYPES = {
                 .concat(['fae_balanced', 'rae_balanced'])
                 .flat();
         },
-        chartOptions: () => ({
-            chart: {stacked: true},
-        }),
+        chartOptions() {
+            const options = {chart: {stacked: true}};
+            if (this.chartMode === 'fae_rae') {
+                options.colors = ['#ff7373', '#00d150'];
+            } else {
+                options.colors = ['#00d150', '#008ffb', '#ff851b'];
+            }
+            return options;
+        },
         series: function (allLogs) {
             const enabledPhases = this.channel.config.enabledPhases || [];
-            return enabledPhases.map((phaseNo) => {
-                // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
-                const phaseLabel = `Phase ${phaseNo}`;
-                return {
-                    name: `${channelTitle(this.channel, this)} (${this.$t(phaseLabel)})`,
-                    data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_${this.chartMode}`]})),
-                };
-            });
+            if (this.chartMode === 'fae_rae') {
+                const cumulatedLogs = allLogs.map(log => ({
+                    x: log.date_timestamp * 1000,
+                    fae: enabledPhases.map(phaseNo => log[`phase${phaseNo}_fae`]).reduce((a, b) => a + (b || 0), 0),
+                    rae: enabledPhases.map(phaseNo => log[`phase${phaseNo}_rae`]).reduce((a, b) => a + (b || 0), 0),
+                }));
+                return [
+                    {
+                        name: `${channelTitle(this.channel, this)} - ${this.$t('Forward active energy')}`,
+                        data: cumulatedLogs.map((item) => ({x: item.x, y: item.fae})),
+                    },
+                    {
+                        name: `${channelTitle(this.channel, this)} oddane`,
+                        data: cumulatedLogs.map((item) => ({
+                            x: item.x, y: -item.rae, goals: [
+                                {
+                                    name: this.$t('Balance'),
+                                    value: item.fae - item.rae,
+                                    strokeHeight: 6,
+                                    strokeWidth: 0,
+                                    strokeLineCap: 'round',
+                                    strokeColor: item.fae - item.rae < 0 ? '#005600' : '#f00',
+                                }
+                            ]
+                        })),
+                    }
+                ];
+            } else {
+                return enabledPhases.map((phaseNo) => {
+                    // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
+                    const phaseLabel = `Phase ${phaseNo}`;
+                    return {
+                        name: `${channelTitle(this.channel, this)} (${this.$t(phaseLabel)})`,
+                        data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_${this.chartMode}`]})),
+                    };
+                });
+            }
+        },
+        yaxes: function (logs) {
+            // const values = logs
+            //     .map(log => log['phase1_' + this.chartMode] + log['phase2_' + this.chartMode] + log['phase3_' + this.chartMode])
+            //     .filter(t => t > 0);
+            // const maxMeasurement = Math.max.apply(this, values);
+            // let roundLevel = 1;
+            // while (roundLevel < 4 && maxMeasurement * Math.pow(10, roundLevel) < 1) {
+            //     ++roundLevel;
+            // }
+            // let maxRounded = Math.ceil(maxMeasurement * Math.pow(10, roundLevel - 1)) / Math.pow(10, roundLevel - 1);
+            // if (maxRounded / 5 > maxMeasurement) {
+            //     maxRounded /= 5;
+            // } else if (maxRounded / 2 > maxMeasurement) {
+            //     maxRounded /= 2;
+            // }
+            const label = {
+                fae: this.$t("Forward active energy"),
+                rae: this.$t("Reverse active energy"),
+                fre: this.$t("Forward reactive energy"),
+                rre: this.$t("Reverse reactive energy"),
+            }[this.chartMode];
+            return [
+                {
+                    seriesName: `${channelTitle(this.channel, this)} (${label})`,
+                    title: {text: label},
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(5)} ${measurementUnit(this.channel)}` : '?'},
+                    // min: 0,
+                    // max: maxRounded,
+                }
+            ];
         },
         fixLog: (log) => {
             CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
@@ -443,37 +509,6 @@ export const CHART_TYPES = {
                 }
             }
             return logs;
-        },
-        yaxes: function (logs) {
-            const values = CHART_TYPES.ELECTRICITYMETER.adjustLogs(logs)
-                .map(log => log['phase1_' + this.chartMode] + log['phase2_' + this.chartMode] + log['phase3_' + this.chartMode])
-                .filter(t => t > 0);
-            const maxMeasurement = Math.max.apply(this, values);
-            let roundLevel = 1;
-            while (roundLevel < 4 && maxMeasurement * Math.pow(10, roundLevel) < 1) {
-                ++roundLevel;
-            }
-            let maxRounded = Math.ceil(maxMeasurement * Math.pow(10, roundLevel - 1)) / Math.pow(10, roundLevel - 1);
-            if (maxRounded / 5 > maxMeasurement) {
-                maxRounded /= 5;
-            } else if (maxRounded / 2 > maxMeasurement) {
-                maxRounded /= 2;
-            }
-            const label = {
-                fae: this.$t("Forward active energy"),
-                rae: this.$t("Reverse active energy"),
-                fre: this.$t("Forward reactive energy"),
-                rre: this.$t("Reverse reactive energy"),
-            }[this.chartMode];
-            return [
-                {
-                    seriesName: `${channelTitle(this.channel, this)} (${label})`,
-                    title: {text: label},
-                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(5)} ${measurementUnit(this.channel)}` : '?'},
-                    min: 0,
-                    max: maxRounded,
-                }
-            ];
         },
         emptyLog: () => ({
             date_timestamp: null,

@@ -120,6 +120,7 @@
                     rae: 'Reverse active energy', // i18n
                     fre: 'Forward reactive energy', // i18n
                     rre: 'Reverse reactive energy', // i18n
+                    fae_rae: 'Arithmetic balance', // i18n
                 },
                 aggregationMethod: 'day',
                 storage: undefined,
@@ -366,7 +367,7 @@
                 if (this.denseLogs && this.denseLogs.length) {
                     const series = this.getBigChartSeries();
                     this.bigChart.updateSeries(series, true);
-                    this.bigChart.updateOptions({
+                    const newChartOptions = {
                         xaxis: {
                             min: this.currentMinTimestamp,
                             max: this.currentMaxTimestamp,
@@ -375,7 +376,8 @@
                         annotations: {
                             xaxis: this.chartStrategy.getAnnotations?.call(this, this.denseLogs) || [],
                         },
-                    }, false, false);
+                    };
+                    this.bigChart.updateOptions(merge(newChartOptions, this.chartStrategy.chartOptions.call(this)), false, false);
                 }
                 this.fetchingDenseLogs = false;
             },
@@ -383,6 +385,7 @@
                 if (this.sparseLogs && this.sparseLogs.length) {
                     const series = this.getSmallChartSeries();
                     this.smallChart.updateSeries(series, true);
+                    this.smallChart.updateOptions(this.chartStrategy.chartOptions.call(this), false, false);
                 }
             },
             changeChartMode(newMode) {
@@ -423,8 +426,12 @@
                         reverseReactiveEnergy: 'rre'
                     };
                     const defaultModes = ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy'];
-                    const modes = this.channel.config.countersAvailable || defaultModes;
-                    return modes.filter(mode => modesMap[mode]).map(mode => modesMap[mode]);
+                    const modes = (this.channel.config.countersAvailable || defaultModes)
+                        .filter(mode => modesMap[mode]).map(mode => modesMap[mode]);
+                    if (modes.includes('fae') && modes.includes('rae')) {
+                        modes.push('fae_rae');
+                    }
+                    return modes;
                 }
                 return [];
             },
