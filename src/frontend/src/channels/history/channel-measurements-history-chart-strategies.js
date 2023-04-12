@@ -369,33 +369,34 @@ export const CHART_TYPES = {
             }
         },
         yaxes: function (logs) {
-            // const values = logs
-            //     .map(log => log['phase1_' + this.chartMode] + log['phase2_' + this.chartMode] + log['phase3_' + this.chartMode])
-            //     .filter(t => t > 0);
-            // const maxMeasurement = Math.max.apply(this, values);
-            // let roundLevel = 1;
-            // while (roundLevel < 4 && maxMeasurement * Math.pow(10, roundLevel) < 1) {
-            //     ++roundLevel;
-            // }
-            // let maxRounded = Math.ceil(maxMeasurement * Math.pow(10, roundLevel - 1)) / Math.pow(10, roundLevel - 1);
-            // if (maxRounded / 5 > maxMeasurement) {
-            //     maxRounded /= 5;
-            // } else if (maxRounded / 2 > maxMeasurement) {
-            //     maxRounded /= 2;
-            // }
+            const values = logs
+                .map(log => log['phase1_' + this.chartMode] + log['phase2_' + this.chartMode] + log['phase3_' + this.chartMode])
+                .filter(t => t > 0);
+            const maxMeasurement = Math.max.apply(this, values);
+            let roundLevel = 1;
+            while (roundLevel < 4 && maxMeasurement * Math.pow(10, roundLevel) < 1) {
+                ++roundLevel;
+            }
+            let maxRounded = Math.ceil(maxMeasurement * Math.pow(10, roundLevel - 1)) / Math.pow(10, roundLevel - 1);
+            if (maxRounded / 5 > maxMeasurement) {
+                maxRounded /= 5;
+            } else if (maxRounded / 2 > maxMeasurement) {
+                maxRounded /= 2;
+            }
             const label = {
                 fae: this.$t("Forward active energy"),
                 rae: this.$t("Reverse active energy"),
                 fre: this.$t("Forward reactive energy"),
                 rre: this.$t("Reverse reactive energy"),
             }[this.chartMode];
+            const unit = ['fre', 'rre'].includes(this.chartMode) ? 'kvarh' : 'kWh';
             return [
                 {
                     seriesName: `${channelTitle(this.channel, this)} (${label})`,
                     title: {text: label},
-                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(5)} ${measurementUnit(this.channel)}` : '?'},
+                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(5)} ${unit}` : '?'},
                     // min: 0,
-                    // max: maxRounded,
+                    max: this.chartMode === 'fae_rae' ? undefined : maxRounded,
                 }
             ];
         },

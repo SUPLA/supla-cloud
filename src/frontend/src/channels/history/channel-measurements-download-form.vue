@@ -177,7 +177,7 @@
                 return EXPORT_DEFINITIONS[this.channel.functionId];
             },
             supportsFrontendExport() {
-                return window.indexedDB && !!this.exportFields;
+                return window.indexedDB && this.storage.hasSupport && !!this.exportFields;
             },
             supportsCumulativeLogs() {
                 return !!this.storage.chartStrategy.cumulateLogs;
