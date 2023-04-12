@@ -7,6 +7,7 @@
 
             <div v-if="supportsChart && storage && hasStorageSupport">
                 <div class="text-center my-3" v-if="sparseLogs && sparseLogs.length > 1">
+                    <ChannelMeasurementsPredefinedTimeRanges :storage="storage" @choose="setTimeRange($event)"/>
                     <div class="d-inline-block dropdown mx-2 my-2">
                         <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
                             {{ $t('Logs aggregation:') }}
@@ -88,6 +89,7 @@
     import ChannelMeasurementsDownload from "@/channels/history/channel-measurements-download.vue";
     import {IndexedDbMeasurementLogsStorage} from "@/channels/history/channel-measurements-storage";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import ChannelMeasurementsPredefinedTimeRanges from "@/channels/history/channel-measurements-predefined-time-ranges.vue";
 
     window.ApexCharts = ApexCharts;
 
@@ -110,7 +112,7 @@
     ];
 
     export default {
-        components: {TransitionExpand, ChannelMeasurementsDownload},
+        components: {ChannelMeasurementsPredefinedTimeRanges, TransitionExpand, ChannelMeasurementsDownload},
         props: ['channel'],
         data: function () {
             return {
@@ -119,6 +121,7 @@
                 currentMaxTimestamp: undefined,
                 hasLogs: undefined,
                 sparseLogs: [],
+                sparseLogsAggregation: 'minute',
                 denseLogs: [],
                 bigChart: undefined,
                 smallChart: undefined,
@@ -147,11 +150,14 @@
                     this.storage.init(this).then((firstPageOfLogs) => {
                         this.hasLogs = firstPageOfLogs.length > 0;
                         if (this.hasLogs && hasSupport) {
-                            this.storage.fetchSparseLogs().then((logs) => {
-                                this.sparseLogs = logs;
-                                this.renderCharts();
-                                this.fetchAllLogs();
-                            });
+                            this.storage.getSparseLogsAggregationStrategy().then(strategy => {
+                                this.sparseLogsAggregation = strategy;
+                                this.storage.fetchSparseLogs().then((logs) => {
+                                    this.sparseLogs = logs;
+                                    this.renderCharts();
+                                    this.fetchAllLogs();
+                                });
+                            })
                         }
                     });
                 });
@@ -240,7 +246,7 @@
                                 zoom: true,
                                 zoomin: true,
                                 zoomout: true,
-                                pan: true,
+                                pan: false,
                                 reset: false,
                                 customIcons: [{
                                     icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
@@ -324,14 +330,8 @@
                         events: {
                             selection: (chartContext, {xaxis}) => {
                                 if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
-                                    // this.bigChart.updateOptions({
-                                    //     xaxis: {
-                                    //         // min: xaxis.min,
-                                    //         // max: xaxis.max,
-                                    //     },
-                                    // }, false, false, false, false, false);
-                                    this.currentMinTimestamp = xaxis.min;
-                                    this.currentMaxTimestamp = xaxis.max;
+                                    this.currentMinTimestamp = DateTime.fromMillis(xaxis.min).startOf(this.sparseLogsAggregation).toMillis();
+                                    this.currentMaxTimestamp = DateTime.fromMillis(xaxis.max).endOf(this.sparseLogsAggregation).toMillis();
                                     fetchPreciseLogs();
                                 }
                             },
@@ -357,9 +357,15 @@
                 this.smallChart.render();
                 this.updateChartLocale();
             },
+            setTimeRange({afterTimestampMs, beforeTimestampMs}) {
+                this.currentMinTimestamp = afterTimestampMs;
+                this.currentMaxTimestamp = beforeTimestampMs;
+                this.fetchingDenseLogs = true;
+                this.fetchDenseLogs().then(() => this.rerenderBigChart());
+            },
             fetchDenseLogs() {
-                const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000) - 1;
-                const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000) + 1;
+                const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000);
+                const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000);
                 if (!this.availableAggregationStrategies.includes(this.aggregationMethod)) {
                     this.aggregationMethod = this.availableAggregationStrategies[this.availableAggregationStrategies.length - 1];
                 }
