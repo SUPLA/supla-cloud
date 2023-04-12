@@ -1,12 +1,12 @@
 <template>
     <div>
-        <a class="btn btn-default mx-1" @click="showDownloadConfig = true">
+        <a class="btn btn-default mx-1 my-1" @click="showDownloadConfig = true">
             <fa icon="gear" class="mr-1"/>
             {{ $t('Download the history of measurement') }}
         </a>
         <button @click="deleteConfirm = true"
             type="button"
-            class="btn btn-red ml-1">
+            class="btn btn-red ml-1 my-1">
             <i class="pe-7s-trash"></i>
             {{ $t('Delete measurement history') }}
         </button>

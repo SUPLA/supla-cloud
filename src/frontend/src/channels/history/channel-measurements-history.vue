@@ -1,36 +1,42 @@
 <template>
     <loading-cover :loading="hasLogs === undefined || fetchingDenseLogs">
         <div class="container">
-            <div :class="'form-group text-' + (sparseLogs.length ? 'right' : 'center')"
-                v-if="hasLogs">
+            <div :class="'download-buttons form-group text-' + (sparseLogs.length ? 'right' : 'center')" v-if="hasLogs">
                 <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()" :storage="storage"/>
             </div>
 
             <div v-if="supportsChart && storage && hasStorageSupport">
-                <div class="form-group text-center"
-                    v-if="sparseLogs && sparseLogs.length > 1">
-                    <div class="btn-group"
-                        v-if="supportedChartModes.length > 1">
-                        <a :class="'btn btn-' + (chartMode === mode ? 'green' : 'default')"
-                            :key="mode"
-                            @click="changeChartMode(mode)"
-                            v-for="mode in supportedChartModes">
-                            {{ $t(chartModeLabels[mode]) }}
-                        </a>
-                    </div>
-                </div>
-
-                <div class="form-group text-center"
-                    v-if="sparseLogs && sparseLogs.length > 1">
-                    <div class="btn-group">
-                        <button :class="'btn btn-' + (aggregationMethod === mode ? 'green' : 'default')"
-                            type="button"
-                            :key="mode"
-                            :disabled="!availableAggregationStrategies.includes(mode)"
-                            @click="changeAggregationMethod(mode)"
-                            v-for="mode in ['minute', 'hour', 'day', 'month']">
-                            {{ mode }}
+                <div class="text-center my-3" v-if="sparseLogs && sparseLogs.length > 1">
+                    <div class="d-inline-block dropdown mx-2 my-2">
+                        <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
+                            {{ $t('Logs aggregation:') }}
+                            {{ $t(`logs_aggregation_${aggregationMethod}`) }}
+                            <span class="caret"></span>
                         </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li v-for="mode in ['minute', 'hour', 'day', 'month']"
+                                :key="mode"
+                                :class="{disabled: !availableAggregationStrategies.includes(mode), active: mode === aggregationMethod}">
+                                <a @click="changeAggregationMethod(mode)">
+                                    {{ $t(`logs_aggregation_${mode}`) }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="d-inline-block dropdown" v-if="supportedChartModes.length > 1">
+                        <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
+                            {{ $t('Chart mode:') }}
+                            {{ $t(chartModeLabels[chartMode]) }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li v-for="mode in supportedChartModes" :key="mode"
+                                :class="{active: mode === chartMode}">
+                                <a @click="changeChartMode(mode)">
+                                    {{ $t(chartModeLabels[mode]) }}
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -402,9 +408,11 @@
                 this.rerenderSmallChart();
             },
             changeAggregationMethod(newMethod) {
-                this.aggregationMethod = newMethod;
-                this.fetchingDenseLogs = true;
-                this.fetchDenseLogs().then(() => this.rerenderBigChart());
+                if (this.availableAggregationStrategies.includes(newMethod)) {
+                    this.aggregationMethod = newMethod;
+                    this.fetchingDenseLogs = true;
+                    this.fetchDenseLogs().then(() => this.rerenderBigChart());
+                }
             },
             onMeasurementsDelete() {
                 this.hasLogs = false;
@@ -453,7 +461,15 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "../../styles/mixins";
+
     ::v-deep .apexcharts-menu-item.exportCSV {
         display: none;
+    }
+
+    .download-buttons {
+        @include on-xs-and-down {
+            text-align: center;
+        }
     }
 </style>

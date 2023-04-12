@@ -451,6 +451,17 @@ body.warning {
   }
 }
 
+.dropdown-menu > li {
+  > a {
+    white-space: normal;
+  }
+  &.active > a {
+    &, &:focus, &:hover {
+      background-color: $supla-green;
+    }
+  }
+}
+
 .bootstrap-select {
   max-width: 100%;
   .text {
@@ -458,16 +469,6 @@ body.warning {
   }
   .dropdown-toggle {
     color: $supla-black;
-  }
-  .dropdown-menu > li {
-    > a {
-      white-space: normal;
-    }
-    &.active > a {
-      &, &:focus, &:hover {
-        background-color: $supla-green;
-      }
-    }
   }
   .subject-dropdown-option {
     padding: 5px 3px;

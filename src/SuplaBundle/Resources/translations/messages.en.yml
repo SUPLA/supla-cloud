@@ -82,3 +82,7 @@ sunset-before: the sunset
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+logs_aggregation_day: Days
+logs_aggregation_minute: Minutes
+logs_aggregation_hour: Hours
+logs_aggregation_month: Months

@@ -9,7 +9,6 @@ export class IndexedDbMeasurementLogsStorage {
         if (window.indexedDB) {
             this.db = openDB(`channel_measurement_logs_${this.channel.id}`, 2, {
                 upgrade(db) {
-                    debugger;
                     if (!db.objectStoreNames.contains("logs")) {
                         const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
                         os.createIndex("date", "date", {unique: true});
