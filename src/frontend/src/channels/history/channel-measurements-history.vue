@@ -6,7 +6,7 @@
                 <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()" :storage="storage"/>
             </div>
 
-            <div v-if="supportsChart && this.storage">
+            <div v-if="supportsChart && storage && hasStorageSupport">
                 <div class="form-group text-center"
                     v-if="sparseLogs && sparseLogs.length > 1">
                     <div class="btn-group"
@@ -65,6 +65,10 @@
             </div>
 
             <empty-list-placeholder v-if="hasLogs === false"></empty-list-placeholder>
+
+            <div class="alert alert-warning my-5" v-if="!hasStorageSupport">
+                {{ $t('Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.') }}
+            </div>
         </div>
     </loading-cover>
 </template>
@@ -125,19 +129,23 @@
                 aggregationMethod: 'day',
                 storage: undefined,
                 fetchingLogsProgress: false,
+                hasStorageSupport: true,
             };
         },
         mounted() {
             if (this.supportsChart) {
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
-                this.storage.init(this).then(() => {
-                    this.storage.fetchSparseLogs().then((logs) => {
-                        this.hasLogs = logs.length > 0;
-                        if (logs.length > 1) {
-                            this.sparseLogs = logs;
-                            this.renderCharts();
-                            this.fetchAllLogs();
+                this.storage.checkSupport().then(hasSupport => {
+                    this.hasStorageSupport = hasSupport;
+                    this.storage.init(this).then((firstPageOfLogs) => {
+                        this.hasLogs = firstPageOfLogs.length > 0;
+                        if (this.hasLogs && hasSupport) {
+                            this.storage.fetchSparseLogs().then((logs) => {
+                                this.sparseLogs = logs;
+                                this.renderCharts();
+                                this.fetchAllLogs();
+                            });
                         }
                     });
                 });

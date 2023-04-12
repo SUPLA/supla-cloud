@@ -6,14 +6,26 @@ export class IndexedDbMeasurementLogsStorage {
     constructor(channel) {
         this.channel = channel;
         this.chartStrategy = CHART_TYPES[this.channel.function.name];
-        this.db = openDB(`channel_measurement_logs_${this.channel.id}`, 2, {
-            upgrade(db) {
-                if (!db.objectStoreNames.contains("logs")) {
-                    const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
-                    os.createIndex("date", "date", {unique: true});
+        if (window.indexedDB) {
+            this.db = openDB(`channel_measurement_logs_${this.channel.id}`, 2, {
+                upgrade(db) {
+                    debugger;
+                    if (!db.objectStoreNames.contains("logs")) {
+                        const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
+                        os.createIndex("date", "date", {unique: true});
+                    }
                 }
-            },
-        });
+            });
+        }
+    }
+
+    async checkSupport() {
+        try {
+            await (await this.db).count('logs');
+            return this.hasSupport = true;
+        } catch (e) {
+            return this.hasSupport = false;
+        }
     }
 
     adjustLogsBeforeStorage(logs) {
@@ -101,15 +113,18 @@ export class IndexedDbMeasurementLogsStorage {
             .then(async ({body: logItems}) => {
                 if (logItems.length) {
                     logItems.reverse();
-                    const existingLog = await (await this.db).get('logs', logItems[0].date_timestamp);
-                    if (!existingLog) {
-                        await (await this.db).clear('logs');
+                    if (this.hasSupport) {
+                        const existingLog = await (await this.db).get('logs', logItems[0].date_timestamp);
+                        if (!existingLog) {
+                            await (await this.db).clear('logs');
+                        }
+                        await this.storeLogs(logItems);
                     }
-                    await this.storeLogs(logItems);
                 }
-                if (logItems.length < 10) {
+                if (logItems.length < 10 || !this.hasSupport) {
                     this.isReady = true;
                 }
+                return logItems;
             });
     }
 
