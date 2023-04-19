@@ -65,6 +65,7 @@
                     </div>
                 </transition-expand>
 
+                <h3 class="text-center my-5" v-if="sparseLogs.length === 0">{{ $t('Your chart is being drawn...') }}</h3>
                 <div>
                     <div ref="bigChart"></div>
                     <div ref="smallChart"></div>
