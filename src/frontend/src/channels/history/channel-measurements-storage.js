@@ -101,8 +101,6 @@ export class IndexedDbMeasurementLogsStorage {
                     aggregatedLogsKeys[key] = aggregatedLogs.length;
                     aggregatedLogs.push([]);
                 }
-                log.date = DateTime.fromJSDate(log.date).startOf(aggregationMethod).toJSDate();
-                log.date_timestamp = Math.floor(log.date.getTime() / 1000);
                 aggregatedLogs[aggregatedLogsKeys[key]].push(log);
             });
             const finalLogs = aggregatedLogs.map(this.chartStrategy.aggregateLogs);
