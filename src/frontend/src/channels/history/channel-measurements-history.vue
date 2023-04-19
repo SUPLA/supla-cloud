@@ -41,6 +41,8 @@
                     </div>
                 </div>
 
+                <DateRangePicker v-model="dateRange" :min="null"/>
+
                 <transition-expand>
                     <div v-if="fetchingLogsProgress" class="mb-5">
                         <div v-if="fetchingLogsProgress === true" class="text-center">
@@ -91,6 +93,7 @@
     import {IndexedDbMeasurementLogsStorage} from "@/channels/history/channel-measurements-storage";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import ChannelMeasurementsPredefinedTimeRanges from "@/channels/history/channel-measurements-predefined-time-ranges.vue";
+    import DateRangePicker from "@/direct-links/date-range-picker.vue";
 
     window.ApexCharts = ApexCharts;
 
@@ -113,7 +116,7 @@
     ];
 
     export default {
-        components: {ChannelMeasurementsPredefinedTimeRanges, TransitionExpand, ChannelMeasurementsDownload},
+        components: {DateRangePicker, ChannelMeasurementsPredefinedTimeRanges, TransitionExpand, ChannelMeasurementsDownload},
         props: ['channel'],
         data: function () {
             return {
@@ -169,6 +172,15 @@
                 this.chartMode = this.supportedChartModes[0];
             }
         },
+        created() {
+            this.setTimeRange = debounce(({afterTimestampMs, beforeTimestampMs}) => {
+                this.currentMinTimestamp = afterTimestampMs;
+                this.currentMaxTimestamp = beforeTimestampMs;
+                this.fetchingDenseLogs = true;
+                this.updateSmallChart();
+                this.fetchDenseLogs().then(() => this.rerenderBigChart());
+            }, 50);
+        },
         methods: {
             fetchAllLogs() {
                 this.storage.fetchOlderLogs(this, (progress) => this.fetchingLogsProgress = progress)
@@ -210,29 +222,6 @@
                 }
             },
             renderCharts() {
-                const updateSmallChart = () => {
-                    this.smallChart.updateOptions(
-                        {
-                            chart: {
-                                selection: {
-                                    xaxis: {
-                                        min: this.currentMinTimestamp,
-                                        max: this.currentMaxTimestamp,
-                                    }
-                                }
-                            }
-                        },
-                        false,
-                        false
-                    );
-                    fetchPreciseLogs();
-                };
-
-                const fetchPreciseLogs = debounce(() => {
-                    this.fetchingDenseLogs = true;
-                    this.fetchDenseLogs().then(() => this.rerenderBigChart());
-                }, 50);
-
                 let chartId = `channel${this.channel.id}`;
                 const bigChartOptions = {
                     chart: {
@@ -261,14 +250,10 @@
                         locales,
                         events: {
                             zoomed: (chartContext, {xaxis}) => {
-                                this.currentMaxTimestamp = xaxis.max;
-                                this.currentMinTimestamp = xaxis.min;
-                                updateSmallChart();
+                                this.setTimeRange({afterTimestampMs: xaxis.min, beforeTimestampMs: xaxis.max});
                             },
                             scrolled: (chartContext, {xaxis}) => {
-                                this.currentMaxTimestamp = xaxis.max;
-                                this.currentMinTimestamp = xaxis.min;
-                                updateSmallChart();
+                                this.setTimeRange({afterTimestampMs: xaxis.min, beforeTimestampMs: xaxis.max});
                             },
                             // click: (event, chartContext, config) => {
                             //     console.log(event, chartContext, config);
@@ -331,9 +316,10 @@
                         events: {
                             selection: (chartContext, {xaxis}) => {
                                 if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
-                                    this.currentMinTimestamp = DateTime.fromMillis(xaxis.min).startOf(this.sparseLogsAggregation).toMillis();
-                                    this.currentMaxTimestamp = DateTime.fromMillis(xaxis.max).endOf(this.sparseLogsAggregation).toMillis();
-                                    fetchPreciseLogs();
+                                    this.setTimeRange({
+                                        afterTimestampMs: DateTime.fromMillis(xaxis.min).startOf(this.sparseLogsAggregation).toMillis(),
+                                        beforeTimestampMs: DateTime.fromMillis(xaxis.max).endOf(this.sparseLogsAggregation).toMillis(),
+                                    });
                                 }
                             },
                         },
@@ -358,11 +344,21 @@
                 this.smallChart.render();
                 this.updateChartLocale();
             },
-            setTimeRange({afterTimestampMs, beforeTimestampMs}) {
-                this.currentMinTimestamp = afterTimestampMs;
-                this.currentMaxTimestamp = beforeTimestampMs;
-                this.fetchingDenseLogs = true;
-                this.fetchDenseLogs().then(() => this.rerenderBigChart());
+            updateSmallChart() {
+                this.smallChart.updateOptions(
+                    {
+                        chart: {
+                            selection: {
+                                xaxis: {
+                                    min: this.currentMinTimestamp,
+                                    max: this.currentMaxTimestamp,
+                                }
+                            }
+                        }
+                    },
+                    false,
+                    false
+                );
             },
             fetchDenseLogs() {
                 const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000);
@@ -431,6 +427,21 @@
             },
         },
         computed: {
+            dateRange: {
+                get() {
+                    console.log('get');
+                    return {
+                        dateStart: this.currentMinTimestamp ? DateTime.fromMillis(this.currentMinTimestamp).toISO() : undefined,
+                        dateEnd: this.currentMaxTimestamp ? DateTime.fromMillis(this.currentMaxTimestamp).toISO() : undefined,
+                    };
+                },
+                set(dateRange) {
+                    this.setTimeRange({
+                        afterTimestampMs: DateTime.fromISO(dateRange.dateStart).toMillis(),
+                        beforeTimestampMs: DateTime.fromISO(dateRange.dateEnd).toMillis(),
+                    });
+                }
+            },
             visibleRange() {
                 return this.currentMaxTimestamp && (this.currentMaxTimestamp - this.currentMinTimestamp);
             },

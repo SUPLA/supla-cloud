@@ -6,7 +6,7 @@
                 <input type="datetime-local"
                     v-model="dateStart"
                     :min="minDate"
-                    :max="dateEnd"
+                    :max="dateEnd || maxDate"
                     @change="onChange()"
                     class="form-control datetimepicker-start">
             </div>
@@ -16,7 +16,8 @@
                 <label>{{ $t('End date') }}</label>
                 <input type="datetime-local"
                     v-model="dateEnd"
-                    :min="dateStart"
+                    :min="dateStart || minDate"
+                    :max="maxDate"
                     @change="onChange()"
                     class="form-control datetimepicker-end">
             </div>
@@ -29,7 +30,11 @@
     import {formatDateForHtmlInput} from "../common/filters-date";
 
     export default {
-        props: ['value'],
+        props: {
+            value: Object,
+            min: {type: Date, default: undefined},
+            max: {type: Date, default: undefined},
+        },
         data() {
             return {
                 dateStart: undefined,
@@ -37,14 +42,17 @@
             };
         },
         mounted() {
-            if (this.value && this.value.dateStart) {
-                this.dateStart = formatDateForHtmlInput(this.value.dateStart);
-            }
-            if (this.value && this.value.dateEnd) {
-                this.dateEnd = formatDateForHtmlInput(this.value.dateEnd);
-            }
+            this.setFromValue();
         },
         methods: {
+            setFromValue() {
+                if (this.value && this.value.dateStart) {
+                    this.dateStart = formatDateForHtmlInput(this.value.dateStart);
+                }
+                if (this.value && this.value.dateEnd) {
+                    this.dateEnd = formatDateForHtmlInput(this.value.dateEnd);
+                }
+            },
             onChange() {
                 const format = (date) => DateTime.fromISO(date).startOf('second').toISO({suppressMilliseconds: true});
                 if (this.dateStart && this.dateEnd && DateTime.fromISO(this.dateStart) >= DateTime.fromISO(this.dateEnd)) {
@@ -58,8 +66,27 @@
         },
         computed: {
             minDate() {
-                return formatDateForHtmlInput(DateTime.now().toISO());
+                if (this.min !== undefined) {
+                    if (this.min) {
+                        return formatDateForHtmlInput(DateTime.fromJSDate(this.min).toISO());
+                    } else {
+                        return undefined;
+                    }
+                } else {
+                    return formatDateForHtmlInput(DateTime.now().toISO());
+                }
             },
+            maxDate() {
+                if (this.max !== undefined && this.max) {
+                    return formatDateForHtmlInput(DateTime.fromJSDate(this.min).toISO());
+                }
+                return undefined;
+            },
+        },
+        watch: {
+            value() {
+                this.setFromValue();
+            }
         }
     };
 </script>
