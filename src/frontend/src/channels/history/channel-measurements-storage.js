@@ -103,7 +103,13 @@ export class IndexedDbMeasurementLogsStorage {
                 }
                 aggregatedLogs[aggregatedLogsKeys[key]].push(log);
             });
-            const finalLogs = aggregatedLogs.map(this.chartStrategy.aggregateLogs);
+            const finalLogs = aggregatedLogs
+                .map(this.chartStrategy.aggregateLogs)
+                .map(log => {
+                    log.date = DateTime.fromJSDate(log.date).startOf(aggregationMethod).toJSDate();
+                    log.date_timestamp = Math.floor(log.date.getTime() / 1000);
+                    return log;
+                });
             return finalLogs;
         } else {
             return logs;
