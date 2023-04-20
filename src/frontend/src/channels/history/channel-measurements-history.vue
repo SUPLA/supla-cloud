@@ -41,7 +41,8 @@
                     </div>
                 </div>
 
-                <DateRangePicker v-model="dateRange" :min="null"/>
+                <DateRangePicker v-model="dateRange" :min="null" class="my-3"
+                    :label-date-start="$t('Show logs from')" :label-date-end="$t('Show logs to')"/>
 
                 <transition-expand>
                     <div v-if="fetchingLogsProgress" class="mb-5">
@@ -174,8 +175,12 @@
         },
         created() {
             this.setTimeRange = debounce(({afterTimestampMs, beforeTimestampMs}) => {
-                this.currentMinTimestamp = afterTimestampMs;
-                this.currentMaxTimestamp = beforeTimestampMs;
+                let minTimestamp = DateTime.fromMillis(afterTimestampMs);
+                minTimestamp = minTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
+                let maxTimestamp = DateTime.fromMillis(beforeTimestampMs);
+                maxTimestamp = maxTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
+                this.currentMinTimestamp = minTimestamp.toMillis();
+                this.currentMaxTimestamp = maxTimestamp.toMillis();
                 this.fetchingDenseLogs = true;
                 this.updateSmallChart();
                 this.fetchDenseLogs().then(() => this.rerenderBigChart());
@@ -261,7 +266,7 @@
                         },
                     },
                     title: {style: {fontSize: '20px', fontWeight: 'normal', fontFamily: 'Quicksand'}},
-                    legend: {show: true, showForSingleSeries: true, position: 'top'},
+                    legend: {show: true, showForSingleSeries: true, position: 'top', onItemClick: {toggleDataSeries: false}},
                     stroke: {width: 3,/* curve: 'smooth'*/},
                     colors: ['#00d150', '#008ffb', '#ff851b'],
                     dataLabels: {enabled: false},
