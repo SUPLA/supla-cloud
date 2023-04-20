@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label>{{ $t('Start date') }}</label>
+                <label>{{ labelDateStart || $t('Start date') }}</label>
                 <input type="datetime-local"
                     v-model="dateStart"
                     :min="minDate"
@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label>{{ $t('End date') }}</label>
+                <label>{{ labelDateEnd || $t('End date') }}</label>
                 <input type="datetime-local"
                     v-model="dateEnd"
                     :min="dateStart || minDate"
@@ -32,6 +32,8 @@
     export default {
         props: {
             value: Object,
+            labelDateStart: {type: String},
+            labelDateEnd: {type: String},
             min: {type: Date, default: undefined},
             max: {type: Date, default: undefined},
         },
