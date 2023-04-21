@@ -71,7 +71,7 @@
                 <h3 class="text-center my-5" v-if="sparseLogs.length === 0">{{ $t('Your chart is being drawn...') }}</h3>
                 <div>
                     <div ref="bigChart"></div>
-                    <div ref="smallChart"></div>
+                    <!--                    <div ref="smallChart"></div>-->
                 </div>
             </div>
 
@@ -144,28 +144,28 @@
                 storage: undefined,
                 fetchingLogsProgress: false,
                 hasStorageSupport: true,
+                oldestLog: undefined,
+                newestLog: undefined,
             };
         },
-        mounted() {
+        async mounted() {
             if (this.supportsChart) {
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
-                this.storage.checkSupport().then(hasSupport => {
-                    this.hasStorageSupport = hasSupport;
-                    this.storage.init(this).then((firstPageOfLogs) => {
-                        this.hasLogs = firstPageOfLogs.length > 0;
-                        if (this.hasLogs && hasSupport) {
-                            this.storage.getSparseLogsAggregationStrategy().then(strategy => {
-                                this.sparseLogsAggregation = strategy;
-                                this.storage.fetchSparseLogs().then((logs) => {
-                                    this.sparseLogs = logs;
-                                    this.renderCharts();
-                                    this.fetchAllLogs();
-                                });
-                            })
-                        }
-                    });
-                });
+                this.hasStorageSupport = await this.storage.checkSupport();
+                this.hasLogs = (await this.storage.init(this)).length > 0;
+                if (this.hasLogs && this.hasStorageSupport) {
+                    this.sparseLogsAggregation = await this.storage.getSparseLogsAggregationStrategy();
+                    this.sparseLogs = await this.storage.fetchSparseLogs();
+                    this.newestLog = await this.storage.getNewestLog();
+                    this.oldestLog = await this.storage.getOldestLog();
+                    this.fetchAllLogs();
+                    this.renderCharts();
+                    this.setTimeRange({
+                        afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86_400_000 * 7),
+                        beforeTimestampMs: Math.min(this.newestLog.date_timestamp * 1000, DateTime.now().toMillis()),
+                    })
+                }
             } else {
                 this.hasLogs = true;
             }
@@ -179,10 +179,9 @@
                 minTimestamp = minTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
                 let maxTimestamp = DateTime.fromMillis(beforeTimestampMs);
                 maxTimestamp = maxTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
-                this.currentMinTimestamp = minTimestamp.toMillis();
-                this.currentMaxTimestamp = maxTimestamp.toMillis();
+                this.currentMinTimestamp = Math.max(this.oldestLog.date_timestamp * 1000 - 86_400_000, minTimestamp.toMillis());
+                this.currentMaxTimestamp = Math.min(this.newestLog.date_timestamp * 1000 + 86_400_000, maxTimestamp.toMillis());
                 this.fetchingDenseLogs = true;
-                this.updateSmallChart();
                 this.fetchDenseLogs().then(() => this.rerenderBigChart());
             }, 50);
         },
@@ -191,21 +190,30 @@
                 this.storage.fetchOlderLogs(this, (progress) => this.fetchingLogsProgress = progress)
                     .then((downloaded) => this.fetchingLogsProgress = downloaded);
             },
-            getSmallChartSeries() {
-                const series = [];
-                if (this.sparseLogs.length) {
-                    // const allLogs = this.adjustLogs(this.sparseLogs);
-                    return this.chartStrategy.series.call(this, this.sparseLogs);
-                }
-                return series;
-            },
+            // getSmallChartSeries() {
+            //     const series = [];
+            //     if (this.sparseLogs.length) {
+            // const allLogs = this.adjustLogs(this.sparseLogs);
+            // return this.chartStrategy.series.call(this, this.sparseLogs);
+            // }
+            // return series;
+            // },
             getBigChartSeries() {
-                const series = [];
                 if (this.denseLogs.length) {
-                    // const allLogs = this.denseLogs;
-                    return this.chartStrategy.series.call(this, this.denseLogs);
+                    const logsForChart = [...this.denseLogs];
+                    if (this.oldestLog.date_timestamp < logsForChart[0].date_timestamp) {
+                        const log = {...logsForChart[0]};
+                        log.date_timestamp = this.oldestLog.date_timestamp;
+                        log.date = this.oldestLog.date;
+                        logsForChart.unshift(log);
+                    }
+                    // const lastLogToDisplay = logsForChart[logsForChart.length - 1];
+                    // if (this.newestLog.date_timestamp > (lastLogToDisplay.date_timestamp_to || lastLogToDisplay.date_timestamp)) {
+                    //     // logsForChart.push(this.newestLog);
+                    // }
+                    return this.chartStrategy.series.call(this, logsForChart);
                 }
-                return series;
+                return [];
             },
             formatPointLabel(pointTimestampMs, nextPointTimestampMs) {
                 if (this.aggregationMethod === 'hour') {
@@ -241,7 +249,7 @@
                                 zoom: true,
                                 zoomin: true,
                                 zoomout: true,
-                                pan: false,
+                                pan: false, // disabled because of https://github.com/apexcharts/apexcharts.js/issues/3757#issuecomment-1517485503
                                 reset: false,
                                 customIcons: [{
                                     icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
@@ -257,9 +265,10 @@
                             zoomed: (chartContext, {xaxis}) => {
                                 this.setTimeRange({afterTimestampMs: xaxis.min, beforeTimestampMs: xaxis.max});
                             },
-                            scrolled: (chartContext, {xaxis}) => {
+                            scrolled: debounce((chartContext, {xaxis}) => {
+                                console.log('scrolled', xaxis);
                                 this.setTimeRange({afterTimestampMs: xaxis.min, beforeTimestampMs: xaxis.max});
-                            },
+                            }, 200),
                             // click: (event, chartContext, config) => {
                             //     console.log(event, chartContext, config);
                             // },
@@ -300,71 +309,71 @@
                     },
                 };
 
-                const smallChartOptions = {
-                    chart: {
-                        id: 'smallChart',
-                        height: 130,
-                        type: this.chartStrategy.chartType,
-                        brush: {target: chartId, enabled: true, autoScaleYaxis: false},
-                        locales,
-                        animations: {enabled: false},
-                        selection: {
-                            enabled: true,
-                            xaxis: {
-                                max: this.sparseLogs[this.sparseLogs.length - 1].date_timestamp * 1000,
-                                min: Math.max(
-                                    this.sparseLogs[Math.max(0, this.sparseLogs.length - 30)].date_timestamp * 1000,
-                                    this.sparseLogs[this.sparseLogs.length - 1].date_timestamp * 1000 - 86400_000 * 6,
-                                )
-                            },
-                        },
-                        events: {
-                            selection: (chartContext, {xaxis}) => {
-                                if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
-                                    this.setTimeRange({
-                                        afterTimestampMs: DateTime.fromMillis(xaxis.min).startOf(this.sparseLogsAggregation).toMillis(),
-                                        beforeTimestampMs: DateTime.fromMillis(xaxis.max).endOf(this.sparseLogsAggregation).toMillis(),
-                                    });
-                                }
-                            },
-                        },
-                    },
-                    colors: ['#00d150', '#008ffb', '#ff851b'],
-                    legend: {show: false},
-                    xaxis: {
-                        type: 'datetime',
-                        tooltip: {enabled: false},
-                        labels: {datetimeUTC: false}
-                    },
-                    yaxis: {labels: {show: false}}
-                };
+                // const smallChartOptions = {
+                //     chart: {
+                //         id: 'smallChart',
+                //         height: 130,
+                //         type: this.chartStrategy.chartType,
+                //         brush: {target: chartId, enabled: true, autoScaleYaxis: false},
+                //         locales,
+                //         animations: {enabled: false},
+                //         selection: {
+                //             enabled: true,
+                //             xaxis: {
+                //                 max: this.sparseLogs[this.sparseLogs.length - 1].date_timestamp * 1000,
+                //                 min: Math.max(
+                //                     this.sparseLogs[Math.max(0, this.sparseLogs.length - 30)].date_timestamp * 1000,
+                //                     this.sparseLogs[this.sparseLogs.length - 1].date_timestamp * 1000 - 86400_000 * 6,
+                //                 )
+                //             },
+                //         },
+                //         events: {
+                //             selection: (chartContext, {xaxis}) => {
+                //                 if (xaxis.min !== this.currentMinTimestamp || xaxis.max !== this.currentMaxTimestamp) {
+                //                     this.setTimeRange({
+                //                         afterTimestampMs: DateTime.fromMillis(xaxis.min).startOf(this.sparseLogsAggregation).toMillis(),
+                //                         beforeTimestampMs: DateTime.fromMillis(xaxis.max).endOf(this.sparseLogsAggregation).toMillis(),
+                //                     });
+                //                 }
+                //             },
+                //         },
+                //     },
+                //     colors: ['#00d150', '#008ffb', '#ff851b'],
+                //     legend: {show: false},
+                //     xaxis: {
+                //         type: 'datetime',
+                //         tooltip: {enabled: false},
+                //         labels: {datetimeUTC: false}
+                //     },
+                //     yaxis: {labels: {show: false}}
+                // };
 
                 const chartOptions = this.chartStrategy.chartOptions.call(this);
-                const series = this.getSmallChartSeries();
+                const series = this.getBigChartSeries();
                 merge(bigChartOptions, chartOptions);
-                merge(smallChartOptions, chartOptions);
+                // merge(smallChartOptions, chartOptions);
                 this.bigChart = new ApexCharts(this.$refs.bigChart, {...bigChartOptions, series});
-                this.smallChart = new ApexCharts(this.$refs.smallChart, {...smallChartOptions, series});
+                // this.smallChart = new ApexCharts(this.$refs.smallChart, {...smallChartOptions, series});
                 this.bigChart.render();
-                this.smallChart.render();
+                // this.smallChart.render();
                 this.updateChartLocale();
             },
-            updateSmallChart() {
-                this.smallChart.updateOptions(
-                    {
-                        chart: {
-                            selection: {
-                                xaxis: {
-                                    min: this.currentMinTimestamp,
-                                    max: this.currentMaxTimestamp,
-                                }
-                            }
-                        }
-                    },
-                    false,
-                    false
-                );
-            },
+            // updateSmallChart() {
+            // this.smallChart.updateOptions(
+            //     {
+            //         chart: {
+            //             selection: {
+            //                 xaxis: {
+            //                     min: this.currentMinTimestamp,
+            //                     max: this.currentMaxTimestamp,
+            //                 }
+            //             }
+            //         }
+            //     },
+            //     false,
+            //     false
+            // );
+            // },
             fetchDenseLogs() {
                 const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000);
                 const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000);
@@ -378,7 +387,7 @@
             updateChartLocale() {
                 const availableLocales = locales.map((l) => l.name);
                 const locale = availableLocales.includes(this.$i18n.locale) ? this.$i18n.locale : 'en';
-                this.smallChart.setLocale(locale);
+                // this.smallChart.setLocale(locale);
                 this.bigChart.setLocale(locale);
                 this.bigChart.updateOptions({
                     title: {text: channelTitle(this.channel, this)},
@@ -390,10 +399,10 @@
                     const series = this.getBigChartSeries();
                     this.bigChart.updateSeries(series, true);
                     const newChartOptions = {
-                        // xaxis: {
-                        //     min: this.denseLogs[0].date_timestamp,
-                        //     max: this.currentMaxTimestamp,
-                        // },
+                        xaxis: {
+                            min: this.currentMinTimestamp,
+                            max: this.currentMaxTimestamp,
+                        },
                         yaxis: this.chartStrategy.yaxes.call(this, this.denseLogs),
                         annotations: {
                             xaxis: this.chartStrategy.getAnnotations?.call(this, this.denseLogs) || [],
@@ -404,16 +413,16 @@
                 this.fetchingDenseLogs = false;
             },
             rerenderSmallChart() {
-                if (this.sparseLogs && this.sparseLogs.length) {
-                    const series = this.getSmallChartSeries();
-                    this.smallChart.updateSeries(series, true);
-                    this.smallChart.updateOptions(this.chartStrategy.chartOptions.call(this), false, false);
-                }
+                // if (this.sparseLogs && this.sparseLogs.length) {
+                //     const series = this.getSmallChartSeries();
+                //     this.smallChart.updateSeries(series, true);
+                //     this.smallChart.updateOptions(this.chartStrategy.chartOptions.call(this), false, false);
+                // }
             },
             changeChartMode(newMode) {
                 this.chartMode = newMode;
                 this.rerenderBigChart();
-                this.rerenderSmallChart();
+                // this.rerenderSmallChart();
             },
             changeAggregationMethod(newMethod) {
                 if (this.availableAggregationStrategies.includes(newMethod)) {
@@ -426,15 +435,14 @@
                 this.hasLogs = false;
                 this.sparseLogs = undefined;
                 this.bigChart?.destroy();
-                this.smallChart?.destroy();
+                // this.smallChart?.destroy();
                 this.bigChart = undefined;
-                this.smallChart = undefined;
+                // this.smallChart = undefined;
             },
         },
         computed: {
             dateRange: {
                 get() {
-                    console.log('get');
                     return {
                         dateStart: this.currentMinTimestamp ? DateTime.fromMillis(this.currentMinTimestamp).toISO() : undefined,
                         dateEnd: this.currentMaxTimestamp ? DateTime.fromMillis(this.currentMaxTimestamp).toISO() : undefined,

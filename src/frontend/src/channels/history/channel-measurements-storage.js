@@ -49,7 +49,7 @@ export class IndexedDbMeasurementLogsStorage {
 
     async fetchSparseLogs() {
         const aggregationStrategy = await this.getSparseLogsAggregationStrategy();
-        const sparseLogs = await this.fetchDenseLogs(0, DateTime.now().toSeconds(), aggregationStrategy);
+        const sparseLogs = await this.fetchDenseLogs(0, 0, aggregationStrategy);
         return sparseLogs;
     }
 
@@ -86,7 +86,7 @@ export class IndexedDbMeasurementLogsStorage {
         const fromDate = DateTime.fromSeconds(afterTimestamp).startOf(aggregationMethod).toJSDate();
         const toDate = DateTime.fromSeconds(beforeTimestamp).endOf(aggregationMethod).toJSDate();
         const range = IDBKeyRange.bound(fromDate, toDate);
-        const logs = await (await this.db).getAllFromIndex('logs', 'date', range);
+        const logs = await (await this.db).getAllFromIndex('logs', 'date', afterTimestamp > 0 ? range : undefined);
         const keyFunc = {
             hour: (log) => `${log.date.getFullYear()}_${log.date.getMonth()}_${log.date.getDate()}_${log.date.getHours()}`,
             day: (log) => `${log.date.getFullYear()}_${log.date.getMonth()}_${log.date.getDate()}`,
@@ -106,8 +106,10 @@ export class IndexedDbMeasurementLogsStorage {
             const finalLogs = aggregatedLogs
                 .map(this.chartStrategy.aggregateLogs)
                 .map(log => {
-                    log.date = DateTime.fromJSDate(log.date).startOf(aggregationMethod).toJSDate();
+                    const theDate = DateTime.fromJSDate(log.date);
+                    log.date = theDate.startOf(aggregationMethod).toJSDate();
                     log.date_timestamp = Math.floor(log.date.getTime() / 1000);
+                    log.date_timestamp_to = theDate.endOf(aggregationMethod).toSeconds();
                     return log;
                 });
             return finalLogs;
