@@ -121,6 +121,15 @@ class ClientApp {
      */
     private $disableAfterDate;
 
+    /** @ORM\Column(name="push_token", type="string", length=255, nullable=true) */
+    private $pushToken;
+
+    /** @ORM\Column(name="platform", type="tinyint", nullable=true, options={"unsigned": true}) */
+    private $platform;
+
+    /** @ORM\Column(name="devel_env", type="boolean", options={"default": 0}) */
+    private $isDevEnv;
+
     public function getId(): int {
         return $this->id;
     }
