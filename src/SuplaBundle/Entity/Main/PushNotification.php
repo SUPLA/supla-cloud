@@ -18,13 +18,16 @@
 namespace SuplaBundle\Entity\Main;
 
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Enums\ActionableSubjectType;
+use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_push_notification")
  */
-class PushNotification {
+class PushNotification implements ActionableSubject {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -60,9 +63,6 @@ class PushNotification {
      */
     private $accessId;
 
-    /** @ORM\Column(name="trigger", type="string", length=2048, nullable=true) */
-    private $trigger;
-
     /** @ORM\Column(name="managed_by_device", type="boolean", options={"default": 0}) */
     private $managedByDevice;
 
@@ -74,4 +74,28 @@ class PushNotification {
 
     /** @ORM\Column(name="sound", type="integer", nullable=true) */
     private $sound;
+
+    public function getId(): int {
+        return $this->id;
+    }
+
+    public function getUser(): User {
+        return $this->user;
+    }
+
+    public function getFunction(): ChannelFunction {
+        return ChannelFunction::NOTIFICATION();
+    }
+
+    public function getPossibleActions(): array {
+        return $this->getFunction()->getDefaultPossibleActions();
+    }
+
+    public function buildServerActionCommand(string $command, array $actionParams = []): string {
+        // TODO: Implement buildServerActionCommand() method.
+    }
+
+    public function getOwnSubjectType(): string {
+        return ActionableSubjectType::NOTIFICATION;
+    }
 }

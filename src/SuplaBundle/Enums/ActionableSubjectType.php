@@ -35,6 +35,7 @@ use SuplaBundle\Exception\ApiException;
  * @method static ActionableSubjectType CHANNEL_GROUP()
  * @method static ActionableSubjectType SCENE()
  * @method static ActionableSubjectType SCHEDULE()
+ * @method static ActionableSubjectType NOTIFICATION()
  * @method static ActionableSubjectType OTHER()
  */
 final class ActionableSubjectType extends Enum {
@@ -42,6 +43,7 @@ final class ActionableSubjectType extends Enum {
     const CHANNEL_GROUP = 'channelGroup'; // i18n:['actionableSubjectType_channelGroup']
     const SCENE = 'scene'; // i18n:['actionableSubjectType_scene']
     const SCHEDULE = 'schedule'; // i18n:['actionableSubjectType_schedule']
+    const NOTIFICATION = 'notification'; // i18n:['actionableSubjectType_notification']
     const OTHER = 'other';
 
     public static function forEntity(ActionableSubject $subject): self {
