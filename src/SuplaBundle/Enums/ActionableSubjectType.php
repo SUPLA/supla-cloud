@@ -23,22 +23,25 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Exception\ApiException;
 
 /**
- * @OA\Schema(schema="ActionableSubjectTypeNames", type="string", enum={"channel","channelGroup","scene","other"})
+ * @OA\Schema(schema="ActionableSubjectTypeNames", type="string", enum={"channel","channelGroup","scene","schedule","other"})
  * @OA\Schema(schema="ActionableSubject", oneOf={
  *    @OA\Schema(ref="#/components/schemas/Channel"),
  *    @OA\Schema(ref="#/components/schemas/ChannelGroup"),
  *    @OA\Schema(ref="#/components/schemas/Scene"),
+ *    @OA\Schema(ref="#/components/schemas/Schedule"),
  * })
  *
  * @method static ActionableSubjectType CHANNEL()
  * @method static ActionableSubjectType CHANNEL_GROUP()
  * @method static ActionableSubjectType SCENE()
+ * @method static ActionableSubjectType SCHEDULE()
  * @method static ActionableSubjectType OTHER()
  */
 final class ActionableSubjectType extends Enum {
     const CHANNEL = 'channel'; // i18n:['actionableSubjectType_channel']
     const CHANNEL_GROUP = 'channelGroup'; // i18n:['actionableSubjectType_channelGroup']
     const SCENE = 'scene'; // i18n:['actionableSubjectType_scene']
+    const SCHEDULE = 'schedule'; // i18n:['actionableSubjectType_schedule']
     const OTHER = 'other';
 
     public static function forEntity(ActionableSubject $subject): self {

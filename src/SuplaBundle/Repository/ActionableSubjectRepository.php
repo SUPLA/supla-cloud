@@ -13,15 +13,19 @@ class ActionableSubjectRepository {
     private $channelGroupRepository;
     /** @var SceneRepository */
     private $sceneRepository;
+    /** @var ScheduleRepository */
+    private $scheduleRepository;
 
     public function __construct(
         IODeviceChannelRepository $channelRepository,
         ChannelGroupRepository $channelGroupRepository,
-        SceneRepository $sceneRepository
+        SceneRepository $sceneRepository,
+        ScheduleRepository $scheduleRepository
     ) {
         $this->channelRepository = $channelRepository;
         $this->channelGroupRepository = $channelGroupRepository;
         $this->sceneRepository = $sceneRepository;
+        $this->scheduleRepository = $scheduleRepository;
     }
 
     /**
@@ -41,6 +45,10 @@ class ActionableSubjectRepository {
                 return $this->channelGroupRepository->findForUser($user, $id);
             case ActionableSubjectType::SCENE:
                 return $this->sceneRepository->findForUser($user, $id);
+            case ActionableSubjectType::SCHEDULE:
+                return $this->scheduleRepository->findForUser($user, $id);
+            default:
+                throw new \InvalidArgumentException('No repository configured for ' . $subjectType);
         }
     }
 }

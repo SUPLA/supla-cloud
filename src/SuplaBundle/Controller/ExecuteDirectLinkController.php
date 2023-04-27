@@ -22,6 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -322,13 +323,15 @@ class ExecuteDirectLinkController extends Controller {
                     'subject' => $this->normalizer->normalize($subject, null, $normalizationContext),
                     'state' => $data,
                 ];
-                $normalized['subject']['userIcon'] = $this->normalizer->normalize($subject->getUserIcon(), null, $normalizationContext);
-                if ($subject instanceof IODeviceChannelGroup) {
-                    $normalized['channels'] = [];
-                    foreach ($subject->getChannels() as $channel) {
-                        $channelData = $this->normalizer->normalize($channel, null, $normalizationContext);
-                        $channelData['userIcon'] = $this->normalizer->normalize($channel->getUserIcon(), null, $normalizationContext);
-                        $normalized['channels'][] = $channelData;
+                if ($subject instanceof HasIcon) {
+                    $normalized['subject']['userIcon'] = $this->normalizer->normalize($subject->getUserIcon(), null, $normalizationContext);
+                    if ($subject instanceof IODeviceChannelGroup) {
+                        $normalized['channels'] = [];
+                        foreach ($subject->getChannels() as $channel) {
+                            $channelData = $this->normalizer->normalize($channel, null, $normalizationContext);
+                            $channelData['userIcon'] = $this->normalizer->normalize($channel->getUserIcon(), null, $normalizationContext);
+                            $normalized['channels'][] = $channelData;
+                        }
                     }
                 }
             }

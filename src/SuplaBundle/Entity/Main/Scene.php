@@ -25,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
@@ -41,7 +42,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
  * @ORM\Table(name="supla_scene")
  */
-class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig {
+class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig, HasIcon {
     use BelongsToUser;
     use HasRelationsCountTrait;
     use HasUserConfigTrait;

@@ -128,7 +128,7 @@ FRONTEND;
         }, $functionIdsUsedInFrontend);
         $functionIdsUsedInFrontend = ArrayUtils::flattenOnce($functionIdsUsedInFrontend);
         $functionIdsUsedInFrontend = array_map('intval', $functionIdsUsedInFrontend);
-        $skip = [ChannelFunction::SCENE];
+        $skip = [ChannelFunction::SCENE, ChannelFunction::SCHEDULE];
         foreach (ChannelFunction::values() as $functionName => $channelFunction) {
             $functionId = $channelFunction->getValue();
             if (in_array($functionId, $skip)) {

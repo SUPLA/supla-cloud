@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Traits;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Enums\ActionableSubjectType;
 
 trait UnitTestHelper {
@@ -32,7 +33,7 @@ trait UnitTestHelper {
         $mock = $this->createEntityMock($entityClass, $id);
         if ($entityClass === IODeviceChannel::class) {
             $mock->method('getOwnSubjectType')->willReturn(ActionableSubjectType::CHANNEL());
-        } elseif ($entityClass === IODeviceChannel::class) {
+        } elseif ($entityClass === Scene::class) {
             $mock->method('getOwnSubjectType')->willReturn(ActionableSubjectType::SCENE());
         }
         return $mock;

@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
@@ -49,7 +50,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     }
  * )
  */
-class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCount, HasUserConfig {
+class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCount, HasUserConfig, HasIcon {
     use BelongsToUser;
     use HasRelationsCountTrait;
     use HasUserConfigTrait;
@@ -399,8 +400,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->altIcon = intval($altIcon);
     }
 
-    /** @return UserIcon|null */
-    public function getUserIcon() {
+    public function getUserIcon(): ?UserIcon {
         return $this->userIcon;
     }
 

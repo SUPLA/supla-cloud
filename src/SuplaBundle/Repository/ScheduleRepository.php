@@ -2,10 +2,13 @@
 namespace SuplaBundle\Repository;
 
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use SuplaBundle\Entity\Main\Schedule;
 
-class ScheduleRepository extends EntityRepository {
-    /** @return \SuplaBundle\Entity\Main\Schedule[] */
+class ScheduleRepository extends EntityWithRelationsRepository {
+    protected $alias = 'sch';
+
+    /** @return Schedule[] */
     public function findByQuery(ScheduleListQuery $query): array {
         $criteria = Criteria::create();
         if ($query->getUser()) {
@@ -24,5 +27,11 @@ class ScheduleRepository extends EntityRepository {
             $criteria->orderBy($query->getOrderBy());
         }
         return $this->matching($criteria)->toArray();
+    }
+
+    protected function getEntityWithRelationsCountQuery(): QueryBuilder {
+        return $this->_em->createQueryBuilder()
+            ->addSelect('sch entity')
+            ->from(Schedule::class, 'sch');
     }
 }

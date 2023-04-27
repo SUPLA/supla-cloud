@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
@@ -36,7 +37,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
  * @ORM\Table(name="supla_dev_channel_group")
  */
-class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelationsCount {
+class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelationsCount, HasIcon {
     use BelongsToUser;
     use HasRelationsCountTrait;
 
@@ -199,8 +200,7 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
         $this->altIcon = intval($altIcon);
     }
 
-    /** @return UserIcon|null */
-    public function getUserIcon() {
+    public function getUserIcon(): ?UserIcon {
         return $this->userIcon;
     }
 
