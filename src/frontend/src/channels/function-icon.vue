@@ -11,7 +11,7 @@
         </template>
         <template v-else>
             <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
-                :width="width">
+                :width="width" :height="width">
         </template>
     </span>
 </template>
@@ -100,6 +100,7 @@
 
 <style lang="scss">
     .channel-icon {
+        line-height: 0;
         img {
             max-width: 100%;
             @for $i from 5 to 12 {
