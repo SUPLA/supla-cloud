@@ -142,7 +142,7 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
     }
 
     /** @Groups({"basic"}) */
-    public function getSubjectType(): string {
+    public function getOwnSubjectType(): string {
         return ActionableSubjectType::CHANNEL_GROUP;
     }
 

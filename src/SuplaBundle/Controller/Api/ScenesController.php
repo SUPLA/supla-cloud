@@ -65,7 +65,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *   @OA\Property(property="enabled", type="boolean", description="Whether this scene is enabled or not"),
  *   @OA\Property(property="hidden", type="boolean", description="Whether this scene is shown on client apps or not"),
  *   @OA\Property(property="estimatedExecutionTime", type="integer", description="Estimated execution time for this scene (in milliseconds)."),
- *   @OA\Property(property="subjectType", type="string", enum={"scene"}),
+ *   @OA\Property(property="ownSubjectType", type="string", enum={"scene"}),
  *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="operations", description="Scene operations, only if requested in the `include` param", type="array", @OA\Items(ref="#/components/schemas/SceneOperation")),

@@ -20,9 +20,6 @@ namespace SuplaBundle\Enums;
 use MyCLabs\Enum\Enum;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\IODeviceChannelGroup;
-use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Exception\ApiException;
 
 /**
@@ -45,12 +42,8 @@ final class ActionableSubjectType extends Enum {
     const OTHER = 'other';
 
     public static function forEntity(ActionableSubject $subject): self {
-        if ($subject instanceof IODeviceChannel) {
-            return self::CHANNEL();
-        } elseif ($subject instanceof IODeviceChannelGroup) {
-            return self::CHANNEL_GROUP();
-        } elseif ($subject instanceof Scene) {
-            return self::SCENE();
+        if (self::isValid($subject->getOwnSubjectType())) {
+            return new self($subject->getOwnSubjectType());
         } else {
             throw new \InvalidArgumentException('Invalid entity given: ' . get_class($subject));
         }

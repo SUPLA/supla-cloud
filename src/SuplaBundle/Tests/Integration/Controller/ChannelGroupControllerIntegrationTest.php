@@ -140,10 +140,10 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('id', $content);
         $this->assertArrayNotHasKey('channelsIds', $content);
-        $this->assertArrayHasKey('subjectType', $content);
+        $this->assertArrayHasKey('ownSubjectType', $content);
         $this->assertArrayHasKey('relationsCount', $content);
         $this->assertEquals(2, $content['relationsCount']['channels']);
-        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['subjectType']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['ownSubjectType']);
         return $content;
     }
 
@@ -159,12 +159,12 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('id', $content);
-        $this->assertArrayHasKey('subjectType', $content);
+        $this->assertArrayHasKey('ownSubjectType', $content);
         $this->assertArrayHasKey('relationsCount', $content);
         $this->assertEquals(2, $content['relationsCount']['channels']);
         $this->assertEquals('Nowy caption', $content['caption']);
         $this->assertFalse($content['hidden']);
-        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['subjectType']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['ownSubjectType']);
     }
 
     /** @depends testCreatingChannelGroupV24 */

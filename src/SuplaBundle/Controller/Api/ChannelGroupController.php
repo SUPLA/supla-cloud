@@ -48,7 +48,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="caption", type="string", description="Caption"),
  *   @OA\Property(property="altIcon", type="integer", description="Chosen alternative icon idenifier. Should not be greater than the `function.maxAlternativeIconIndex`."),
  *   @OA\Property(property="hidden", type="boolean", description="Whether this channel group is shown on client apps or not"),
- *   @OA\Property(property="subjectType", type="string", enum={"channelGroup"}),
+ *   @OA\Property(property="ownSubjectType", type="string", enum={"channelGroup"}),
  *   @OA\Property(property="functionId", type="integer", example=60),
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="locationId", type="integer"),

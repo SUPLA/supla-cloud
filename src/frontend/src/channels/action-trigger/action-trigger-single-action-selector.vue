@@ -12,7 +12,7 @@
                 </template>
             </subject-dropdown>
         </div>
-        <div v-if="subject && subject.subjectType !== 'other'">
+        <div v-if="subject && subject.ownSubjectType !== 'other'">
             <channel-action-chooser :subject="subject"
                 @input="onActionChange()"
                 :alwaysSelectFirstAction="true"
@@ -57,11 +57,11 @@
         },
         methods: {
             onValueChanged() {
-                if (this.value?.subjectType) {
-                    if (this.value.subjectType === ActionableSubjectType.OTHER) {
+                if (this.value?.ownSubjectType) {
+                    if (this.value.ownSubjectType === ActionableSubjectType.OTHER) {
                         if (this.value.action?.id) {
                             const otherAction = this.value.action.id;
-                            this.subject = {id: otherAction, subjectType: ActionableSubjectType.OTHER};
+                            this.subject = {id: otherAction, ownSubjectType: ActionableSubjectType.OTHER};
                             this.action = this.value.action;
                         }
                     } else if (!this.subject || this.value.subjectId !== this.subject.id) {
@@ -77,7 +77,7 @@
                 }
             },
             onSubjectChange() {
-                if (this.subject?.subjectType === ActionableSubjectType.OTHER) {
+                if (this.subject?.ownSubjectType === ActionableSubjectType.OTHER) {
                     this.action = {id: this.subject.id};
                     this.onActionChange();
                 }
@@ -85,8 +85,8 @@
             onActionChange() {
                 if (this.isActionFullySpecified()) {
                     this.$emit('input', {
-                        subjectId: this.subject.subjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
-                        subjectType: this.subject.subjectType,
+                        subjectId: this.subject.ownSubjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
+                        subjectType: this.subject.ownSubjectType,
                         action: this.action,
                     });
                 } else {

@@ -71,8 +71,8 @@
                 }
             },
             updateBasedOnValue() {
-                if (this.value && this.value.subjectType) {
-                    this.subjectType = this.value.subjectType;
+                if (this.value && this.value.ownSubjectType) {
+                    this.subjectType = this.value.ownSubjectType;
                     this.subject = this.value;
                 } else if (this.subject) {
                     Vue.nextTick(() => this.subject = undefined);

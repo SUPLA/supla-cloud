@@ -11,7 +11,7 @@
             :cancellable="true"
             @cancel="alexaSettings = undefined">
             <dl>
-                <dd v-if="subject.subjectType === 'channel'">{{ $t('Channel available for {serviceName}', {serviceName: 'Alexa®'}) }}</dd>
+                <dd v-if="subject.ownSubjectType === 'channel'">{{ $t('Channel available for {serviceName}', {serviceName: 'Alexa®'}) }}</dd>
                 <dd v-else>{{ $t('Scene available for {serviceName}', {serviceName: 'Alexa®'}) }}</dd>
                 <dt class="text-center">
                     <toggler v-model="alexaEnabled"></toggler>
@@ -24,7 +24,7 @@
             :cancellable="true"
             @cancel="googleSettings = undefined">
             <dl>
-                <dd v-if="subject.subjectType === 'channel'">{{ $t('Channel available for {serviceName}', {serviceName: 'Google Home®'}) }}</dd>
+                <dd v-if="subject.ownSubjectType === 'channel'">{{ $t('Channel available for {serviceName}', {serviceName: 'Google Home®'}) }}</dd>
                 <dd v-else>{{ $t('Scene available for {serviceName}', {serviceName: 'Google Home®'}) }}</dd>
                 <dt class="text-center">
                     <toggler v-model="googleEnabled"></toggler>
@@ -190,7 +190,7 @@
             },
             displayNoConfirmationWarning() {
                 return this.googleActionConfirmation === 'none' && this.googleSettings.dirty
-                    && this.subject.subjectType === ActionableSubjectType.CHANNEL
+                    && this.subject.ownSubjectType === ActionableSubjectType.CHANNEL
                     && [ChannelFunction.CONTROLLINGTHEGATE, ChannelFunction.CONTROLLINGTHEGARAGEDOOR].includes(this.subject.functionId);
             },
         }

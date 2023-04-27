@@ -6,7 +6,7 @@ describe('ChannelActionChooser', () => {
 
     const SCENE = {
         id: 1,
-        subjectType: ActionableSubjectType.SCENE,
+        ownSubjectType: ActionableSubjectType.SCENE,
         possibleActions: [
             {"id": 3000, "name": "EXECUTE", "nameSlug": "execute", "caption": "Execute"},
             {"id": 3001, "name": "INTERRUPT", "nameSlug": "interrupt", "caption": "Interrupt"},
@@ -25,7 +25,7 @@ describe('ChannelActionChooser', () => {
 
     const GATEWAY = {
         id: 5,
-        subjectType: ActionableSubjectType.CHANNEL,
+        ownSubjectType: ActionableSubjectType.CHANNEL,
         possibleActions: [{"id": 10, "name": "OPEN", "nameSlug": "open", "caption": "Open"}],
         functionId: 90,
         "function": {

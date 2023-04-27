@@ -31,9 +31,9 @@ trait UnitTestHelper {
     public function createSubjectMock(string $entityClass, int $id = 1): MockObject {
         $mock = $this->createEntityMock($entityClass, $id);
         if ($entityClass === IODeviceChannel::class) {
-            $mock->method('getSubjectType')->willReturn(ActionableSubjectType::CHANNEL());
+            $mock->method('getOwnSubjectType')->willReturn(ActionableSubjectType::CHANNEL());
         } elseif ($entityClass === IODeviceChannel::class) {
-            $mock->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+            $mock->method('getOwnSubjectType')->willReturn(ActionableSubjectType::SCENE());
         }
         return $mock;
     }

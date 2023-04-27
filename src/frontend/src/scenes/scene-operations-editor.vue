@@ -123,7 +123,7 @@
                         operation.action = {id: operation.actionId, param: operation.actionParam};
                         operation.id = UNIQUE_OPERATION_ID++;
                         if (operation.subject && !operation.subjectType) {
-                            operation.subjectType = operation.subject.subjectType;
+                            operation.subjectType = operation.subject.ownSubjectType;
                         }
                         if (operation.delayMs) {
                             this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: operation.delayMs});
@@ -138,7 +138,7 @@
             },
             addSceneOperation(subject) {
                 if (subject) {
-                    this.operations.push({id: UNIQUE_OPERATION_ID++, subject, subjectType: subject.subjectType, delayMs: 0});
+                    this.operations.push({id: UNIQUE_OPERATION_ID++, subject, subjectType: subject.ownSubjectType, delayMs: 0});
                 }
             },
             channelTitle(subject) {

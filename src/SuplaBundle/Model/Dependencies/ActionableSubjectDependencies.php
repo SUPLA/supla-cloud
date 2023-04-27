@@ -31,7 +31,7 @@ abstract class ActionableSubjectDependencies {
             $config = $this->channelParamConfigTranslator->getConfig($actionTrigger);
             $actions = $actionTrigger->getUserConfig()['actions'] ?? [];
             $config['actions'] = array_filter($actions, function (array $action) use ($subject) {
-                $referencesThisSubject = $action['subjectType'] === $subject->getSubjectType()
+                $referencesThisSubject = $action['subjectType'] === $subject->getOwnSubjectType()
                     && $action['subjectId'] === $subject->getId();
                 return !$referencesThisSubject;
             });
@@ -49,7 +49,7 @@ abstract class ActionableSubjectDependencies {
             })
             ->filter(function (IODeviceChannel $ch) use ($subject) {
                 return !!array_filter($ch->getUserConfig()['actions'] ?? [], function ($action) use ($subject) {
-                    return $action['subjectType'] === $subject->getSubjectType()
+                    return $action['subjectType'] === $subject->getOwnSubjectType()
                         && $action['subjectId'] === $subject->getId();
                 });
             });

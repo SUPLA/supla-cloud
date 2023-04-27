@@ -151,7 +151,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
     }
 
     /** @Groups({"basic"}) */
-    public function getSubjectType(): string {
+    public function getOwnSubjectType(): string {
         return ActionableSubjectType::SCENE;
     }
 

@@ -248,7 +248,7 @@
             chooseSubjectForNewLink(subject) {
                 if (subject) {
                     const toSend = {
-                        subjectType: subject.subjectType,
+                        subjectType: subject.ownSubjectType,
                         subjectId: subject.id,
                         allowedActions: ['read'],
                     };

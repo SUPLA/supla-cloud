@@ -63,7 +63,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
  *   @OA\Property(property="typeId", type="integer", example=1000),
  *   @OA\Property(property="type", ref="#/components/schemas/ChannelType"),
- *   @OA\Property(property="subjectType", type="string", enum={"channel"}),
+ *   @OA\Property(property="ownSubjectType", type="string", enum={"channel"}),
  *   @OA\Property(property="state", ref="#/components/schemas/ChannelState"),
  *   @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
  *   @OA\Property(property="userIconId", type="integer"),

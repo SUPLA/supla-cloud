@@ -56,7 +56,7 @@
         mounted() {
             let endpoint = this.endpoint;
             if (this.subject) {
-                endpoint = `${changeCase.paramCase(this.subject.subjectType)}s/${this.subject.id}/${endpoint}`;
+                endpoint = `${changeCase.paramCase(this.subject.ownSubjectType)}s/${this.subject.id}/${endpoint}`;
             }
             this.$http.get(endpoint)
                 .then(response => this.items = response.body)

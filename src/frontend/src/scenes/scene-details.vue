@@ -162,7 +162,7 @@
                     this.scene = {enabled: true, operations: []};
                     const subjectForNewScene = AppState.shiftTask('sceneCreate');
                     if (subjectForNewScene) {
-                        this.scene.operations.push({subject: subjectForNewScene, type: subjectForNewScene.subjectType});
+                        this.scene.operations.push({subject: subjectForNewScene, type: subjectForNewScene.ownSubjectType});
                     }
                 }
             },
