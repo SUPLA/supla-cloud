@@ -10,6 +10,9 @@
             <li :class="subjectType == 'scene' ? 'active' : ''">
                 <a @click="changeSubjectType('scene')">{{ $t('Scenes') }}</a>
             </li>
+            <li :class="subjectType == 'schedule' ? 'active' : ''" v-if="!disableSchedules">
+                <a @click="changeSubjectType('schedule')">{{ $t('Schedules') }}</a>
+            </li>
             <li :class="subjectType == 'other' ? 'active' : ''"
                 v-if="hasOthersSlot">
                 <a @click="changeSubjectType('other')">{{ $t('Other') }}</a>
@@ -30,6 +33,11 @@
             v-if="subjectType == 'scene'"
             :filter="filter"
             v-model="subject"></scenes-dropdown>
+        <schedules-dropdown
+            @input="subjectChanged"
+            v-if="subjectType == 'schedule'"
+            :filter="filter"
+            v-model="subject"></schedules-dropdown>
         <slot name="other"
             :subject="subject"
             :on-input="subjectChanged"
@@ -42,10 +50,20 @@
     import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown";
     import ScenesDropdown from "../scenes/scenes-dropdown";
     import Vue from "vue";
+    import SchedulesDropdown from "@/schedules/schedules-dropdown.vue";
 
     export default {
-        props: ['value', 'channelsDropdownParams', 'filter', 'clearOnSelect'],
-        components: {ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
+        props: {
+            value: Object,
+            channelsDropdownParams: String,
+            filter: {
+                type: Function,
+                default: () => true,
+            },
+            clearOnSelect: Boolean,
+            disableSchedules: Boolean,
+        },
+        components: {SchedulesDropdown, ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
         data() {
             return {
                 subject: undefined,

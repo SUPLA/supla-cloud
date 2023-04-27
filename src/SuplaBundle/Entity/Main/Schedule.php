@@ -255,10 +255,12 @@ class Schedule implements HasSubject, ActionableSubject {
         $this->retry = $retry;
     }
 
+    /** @Groups({"basic"}) */
     public function getFunction(): ChannelFunction {
         return ChannelFunction::SCHEDULE();
     }
 
+    /** @Groups({"basic"}) */
     public function getPossibleActions(): array {
         return $this->getFunction()->getDefaultPossibleActions();
     }
@@ -267,6 +269,7 @@ class Schedule implements HasSubject, ActionableSubject {
         throw new \InvalidArgumentException('Schedules does not have any function in supla-server commands.');
     }
 
+    /** @Groups({"basic"}) */
     public function getOwnSubjectType(): string {
         return ActionableSubjectType::SCHEDULE;
     }

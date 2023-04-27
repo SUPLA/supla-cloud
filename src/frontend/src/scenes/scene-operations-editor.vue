@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <label>{{ $t('Add new item to use in the scene') }}</label>
                             <subject-dropdown @input="addSceneOperation($event)"
-                                :clear-on-select="true"
+                                clear-on-select
                                 channelsDropdownParams="io=output"></subject-dropdown>
                         </div>
                         <div class="form-group">
