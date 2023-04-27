@@ -1,5 +1,5 @@
 <template>
-    <div class="channel-params-integrations-settings">
+    <div class="channel-params-integrations-settings" v-if="subject.config && (subject.config.alexa || subject.config.googleHome)">
         <h4 class="text-center">{{ $t("Integrations settings") }}</h4>
         <div class="btn-group d-flex align-items-center justify-content-center">
             <a class="btn btn-default" @click="openAlexaSettings()" v-if="subject.config.alexa">Alexa<sup>&reg;</sup></a>

@@ -159,7 +159,7 @@
                         .catch(response => this.error = response.status)
                         .finally(() => this.loading = false);
                 } else {
-                    this.scene = {enabled: true, operations: []};
+                    this.scene = {enabled: true, operations: [], config: {}};
                     const subjectForNewScene = AppState.shiftTask('sceneCreate');
                     if (subjectForNewScene) {
                         this.scene.operations.push({subject: subjectForNewScene, type: subjectForNewScene.ownSubjectType});
