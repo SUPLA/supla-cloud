@@ -3,6 +3,7 @@
         <div class="form-group">
             <subject-dropdown v-model="subject"
                 @input="onSubjectChange()"
+                use-dropdown-for-types
                 channels-dropdown-params="io=output&hasFunction=1">
                 <template #other="props">
                     <action-trigger-other-actions-dropdown
@@ -57,8 +58,8 @@
         },
         methods: {
             onValueChanged() {
-                if (this.value?.ownSubjectType) {
-                    if (this.value.ownSubjectType === ActionableSubjectType.OTHER) {
+                if (this.value?.subjectType) {
+                    if (this.value.subjectType === ActionableSubjectType.OTHER) {
                         if (this.value.action?.id) {
                             const otherAction = this.value.action.id;
                             this.subject = {id: otherAction, ownSubjectType: ActionableSubjectType.OTHER};

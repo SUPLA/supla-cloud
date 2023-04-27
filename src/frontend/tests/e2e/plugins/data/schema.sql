@@ -154,7 +154,7 @@ CREATE TABLE `supla_audit`
     KEY          `supla_audit_created_at_idx` (`created_at`),
     KEY          `supla_audit_int_param` (`int_param`),
     CONSTRAINT `FK_EFE348F4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,6 +207,9 @@ CREATE TABLE `supla_client`
     `auth_key`           varchar(64) COLLATE utf8_unicode_ci                           DEFAULT NULL,
     `caption`            varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `disable_after_date` datetime                                                      DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `push_id`            varchar(255) COLLATE utf8_unicode_ci                          DEFAULT NULL,
+    `platform`           tinyint(3) unsigned DEFAULT NULL COMMENT '(DC2Type:tinyint)',
+    `devel_env`          tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_CLIENTAPP` (`user_id`,`guid`),
     KEY                  `IDX_5430007F4FEA67CF` (`access_id`),
@@ -336,16 +339,19 @@ CREATE TABLE `supla_direct_link`
     `enabled`          tinyint(1) NOT NULL,
     `disable_http_get` tinyint(1) NOT NULL DEFAULT '0',
     `scene_id`         int(11) DEFAULT NULL,
+    `schedule_id`      int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY                `IDX_6AE7809FA76ED395` (`user_id`),
     KEY                `IDX_6AE7809F72F5A1AA` (`channel_id`),
     KEY                `IDX_6AE7809F89E4AAEE` (`channel_group_id`),
     KEY                `IDX_6AE7809F166053B4` (`scene_id`),
+    KEY                `IDX_6AE7809FA40BC2D5` (`schedule_id`),
     CONSTRAINT `FK_6AE7809F166053B4` FOREIGN KEY (`scene_id`) REFERENCES `supla_scene` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_6AE7809F72F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_6AE7809F89E4AAEE` FOREIGN KEY (`channel_group_id`) REFERENCES `supla_dev_channel_group` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_6AE7809FA40BC2D5` FOREIGN KEY (`schedule_id`) REFERENCES `supla_schedule` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_6AE7809FA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,7 +430,7 @@ CREATE TABLE `supla_email_notifications`
     KEY            `IDX_7C77A74CFB7336F0` (`queue_name`),
     KEY            `IDX_7C77A74CE3BD61CE` (`available_at`),
     KEY            `IDX_7C77A74C16BA31DB` (`delivered_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -540,8 +546,8 @@ CREATE TABLE `supla_oauth_access_tokens`
     `access_id`                    int(11) DEFAULT NULL,
     `api_client_authorization_id`  int(11) DEFAULT NULL,
     `issued_with_refresh_token_id` int(11) DEFAULT NULL,
-    `issuer_browser_string`        varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
     `issuer_ip`                    int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
+    `issuer_browser_string`        varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQ_2402564B5F37A13B` (`token`),
     KEY                            `IDX_2402564B19EB6921` (`client_id`),
@@ -554,7 +560,7 @@ CREATE TABLE `supla_oauth_access_tokens`
     CONSTRAINT `FK_2402564BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_2402564BCA22CF77` FOREIGN KEY (`api_client_authorization_id`) REFERENCES `supla_oauth_client_authorizations` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_2402564BD2B4D7C8` FOREIGN KEY (`issued_with_refresh_token_id`) REFERENCES `supla_oauth_refresh_tokens` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -603,7 +609,7 @@ CREATE TABLE `supla_oauth_client_authorizations`
     KEY                         `IDX_6B78739619EB6921` (`client_id`),
     CONSTRAINT `FK_6B78739619EB6921` FOREIGN KEY (`client_id`) REFERENCES `supla_oauth_clients` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_6B787396A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -659,6 +665,53 @@ CREATE TABLE `supla_oauth_refresh_tokens`
     CONSTRAINT `FK_B809538CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_B809538CCA22CF77` FOREIGN KEY (`api_client_authorization_id`) REFERENCES `supla_oauth_client_authorizations` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `supla_push_notification`
+--
+
+DROP TABLE IF EXISTS `supla_push_notification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_push_notification`
+(
+    `id`                int(11) NOT NULL AUTO_INCREMENT,
+    `user_id`           int(11) DEFAULT NULL,
+    `channel_id`        int(11) DEFAULT NULL,
+    `iodevice_id`       int(11) DEFAULT NULL,
+    `trigger`           varchar(2048) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `managed_by_device` tinyint(1) NOT NULL DEFAULT '0',
+    `title`             varchar(100) COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `message`           varchar(255) COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `sound`             int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY                 `IDX_2B227408A76ED395` (`user_id`),
+    KEY                 `IDX_2B22740872F5A1AA` (`channel_id`),
+    KEY                 `IDX_2B227408125F95D6` (`iodevice_id`),
+    CONSTRAINT `FK_2B227408125F95D6` FOREIGN KEY (`iodevice_id`) REFERENCES `supla_iodevice` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_2B22740872F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_2B227408A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `supla_rel_aid_pushnotification`
+--
+
+DROP TABLE IF EXISTS `supla_rel_aid_pushnotification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_rel_aid_pushnotification`
+(
+    `push_notification_id` int(11) NOT NULL,
+    `access_id`            int(11) NOT NULL,
+    PRIMARY KEY (`push_notification_id`, `access_id`),
+    KEY                    `IDX_4A24B3E04E328CBE` (`push_notification_id`),
+    KEY                    `IDX_4A24B3E04FEA67CF` (`access_id`),
+    CONSTRAINT `FK_4A24B3E04E328CBE` FOREIGN KEY (`push_notification_id`) REFERENCES `supla_push_notification` (`id`),
+    CONSTRAINT `FK_4A24B3E04FEA67CF` FOREIGN KEY (`access_id`) REFERENCES `supla_accessid` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -725,7 +778,7 @@ CREATE TABLE `supla_scene`
     CONSTRAINT `FK_A482585764D218E` FOREIGN KEY (`location_id`) REFERENCES `supla_location` (`id`),
     CONSTRAINT `FK_A4825857A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`),
     CONSTRAINT `FK_A4825857CB4C938` FOREIGN KEY (`user_icon_id`) REFERENCES `supla_user_icons` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -747,16 +800,19 @@ CREATE TABLE `supla_scene_operation`
     `delay_ms`            int(11) NOT NULL DEFAULT '0',
     `user_delay_ms`       int(11) NOT NULL DEFAULT '0',
     `wait_for_completion` tinyint(1) NOT NULL DEFAULT '0',
+    `schedule_id`         int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY                   `IDX_64A50CF5E019BC26` (`owning_scene_id`),
     KEY                   `IDX_64A50CF572F5A1AA` (`channel_id`),
     KEY                   `IDX_64A50CF589E4AAEE` (`channel_group_id`),
     KEY                   `IDX_64A50CF5166053B4` (`scene_id`),
+    KEY                   `IDX_64A50CF5A40BC2D5` (`schedule_id`),
     CONSTRAINT `FK_64A50CF5166053B4` FOREIGN KEY (`scene_id`) REFERENCES `supla_scene` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_64A50CF572F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_64A50CF589E4AAEE` FOREIGN KEY (`channel_group_id`) REFERENCES `supla_dev_channel_group` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_64A50CF5A40BC2D5` FOREIGN KEY (`schedule_id`) REFERENCES `supla_schedule` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_64A50CF5E019BC26` FOREIGN KEY (`owning_scene_id`) REFERENCES `supla_scene` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -825,7 +881,7 @@ CREATE TABLE `supla_scheduled_executions`
     KEY                 `fetched_timestamp_idx` (`fetched_timestamp`),
     KEY                 `consumed_idx` (`consumed`),
     CONSTRAINT `FK_FB21DBDCA40BC2D5` FOREIGN KEY (`schedule_id`) REFERENCES `supla_schedule` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=512 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=781 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2604,4 +2660,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-28 14:01:39
+-- Dump completed on 2023-04-27 23:28:57
