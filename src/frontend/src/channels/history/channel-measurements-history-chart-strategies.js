@@ -553,7 +553,7 @@ export const CHART_TYPES = {
             phase1_rae: null, phase2_rae: null, phase3_rae: null,
             phase1_fre: null, phase2_fre: null, phase3_fre: null,
             phase1_rre: null, phase2_rre: null, phase3_rre: null,
-            fae_total: null, rae_total: null, fae_rae_balance: null,
+            fae_total: 0, rae_total: 0, fae_rae_balance: 0,
             fae_balanced: null, rae_balanced: null,
         }),
     },
