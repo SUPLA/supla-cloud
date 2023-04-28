@@ -82,7 +82,7 @@
                     </div>
                 </transition-expand>
 
-                <h3 class="text-center my-5" v-if="denseLogs.length === 0">{{ $t('Your chart is being drawn...') }}</h3>
+                <h3 class="text-center my-5" v-if="hasLogs && denseLogs.length === 0">{{ $t('Your chart is being drawn...') }}</h3>
                 <div ref="bigChart"></div>
                 <div v-if="channel.functionId === ChannelFunction.ELECTRICITYMETER && denseLogs.length > 0">
                     <h3>{{ $t('Summary for selected time range') }}</h3>
@@ -174,7 +174,7 @@
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
                 this.hasStorageSupport = await this.storage.checkSupport();
-                this.hasLogs = (await this.storage.init(this)).length > 0;
+                this.hasLogs = (await this.storage.init(this)).length > 1;
                 if (this.hasLogs && this.hasStorageSupport) {
                     this.newestLog = await this.storage.getNewestLog();
                     this.oldestLog = await this.storage.getOldestLog();
@@ -182,7 +182,7 @@
                     this.renderCharts();
                     this.setTimeRange({
                         afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86_400_000 * 7),
-                        beforeTimestampMs: Math.min(this.newestLog.date_timestamp * 1000, DateTime.now().toMillis()),
+                        beforeTimestampMs: this.newestLog.date_timestamp * 1000,
                     })
                 }
             } else {
@@ -197,7 +197,7 @@
                 let minTimestamp = DateTime.fromMillis(afterTimestampMs);
                 minTimestamp = minTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
                 let maxTimestamp = DateTime.fromMillis(beforeTimestampMs);
-                maxTimestamp = maxTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
+                maxTimestamp = maxTimestamp.set({seconds: 0, minutes: Math.ceil(minTimestamp.get('minute') / 10) * 10});
                 const diff = maxTimestamp.toSeconds() - minTimestamp.toSeconds();
                 if (diff < 600) {
                     minTimestamp = minTimestamp.minus({minutes: 10});
@@ -210,9 +210,16 @@
                     minTimestamp = minTimestamp.startOf(this.aggregationMethod);
                     maxTimestamp = maxTimestamp.endOf(this.aggregationMethod);
                 }
+                this.currentMinTimestamp = minTimestamp.toMillis();//) - Math.floor(Math.random() * 100);
+                this.currentMaxTimestamp = maxTimestamp.toMillis();
+                if (this.currentMinTimestamp < this.oldestLog.date_timestamp * 1000) {
+                    this.currentMinTimestamp = this.oldestLog.date_timestamp * 1000;
+                }
+                if (this.currentMaxTimestamp <= this.currentMinTimestamp || this.currentMaxTimestamp > this.newestLog.date_timestamp * 1000) {
+                    this.currentMaxTimestamp = this.newestLog.date_timestamp * 1000;
+                }
                 // the random below forces date range picker to rerender even if the same 10-minute slot was set
-                this.currentMinTimestamp = Math.max(this.oldestLog.date_timestamp * 1000, minTimestamp.toMillis()) + Math.floor(Math.random() * 100);
-                this.currentMaxTimestamp = Math.min(this.newestLog.date_timestamp * 1000, maxTimestamp.toMillis());
+                this.currentMinTimestamp += Math.floor(Math.random() * 100);
                 this.fetchingDenseLogs = true;
                 this.fetchDenseLogs().then(() => this.rerenderBigChart());
             }, 50);
