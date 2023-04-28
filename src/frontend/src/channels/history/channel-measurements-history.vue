@@ -25,7 +25,7 @@
                     </div>
                     <div class="d-inline-block dropdown mx-2 my-2">
                         <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
-                            {{ $t('Logs aggregation:') }}
+                            {{ $t('Aggregation') }}:
                             {{ $t(`logs_aggregation_${aggregationMethod}`) }}
                             <span class="caret"></span>
                         </button>
@@ -193,6 +193,10 @@
                 minTimestamp = minTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
                 let maxTimestamp = DateTime.fromMillis(beforeTimestampMs);
                 maxTimestamp = maxTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
+                const diff = maxTimestamp.toSeconds() - minTimestamp.toSeconds();
+                if (diff < 600) {
+                    minTimestamp = minTimestamp.minus({minutes: 10});
+                }
                 const availableAggregationStrategies = this.storage.getAvailableAggregationStrategies(maxTimestamp.toSeconds() - minTimestamp.toSeconds());
                 if (!availableAggregationStrategies.includes(this.aggregationMethod)) {
                     this.aggregationMethod = availableAggregationStrategies[availableAggregationStrategies.length - 1];
