@@ -37,22 +37,6 @@ export class IndexedDbMeasurementLogsStorage {
         return logs.map(log => this.chartStrategy.fixLog(log));
     }
 
-    async getSparseLogsAggregationStrategy() {
-        const oldestLog = await this.getOldestLog();
-        if (!oldestLog) {
-            return 'minute';
-        }
-        const newestLog = await this.getNewestLog();
-        const availableStrategies = this.getAvailableAggregationStrategies(newestLog.date_timestamp - oldestLog.date_timestamp);
-        return availableStrategies.pop();
-    }
-
-    async fetchSparseLogs() {
-        const aggregationStrategy = await this.getSparseLogsAggregationStrategy();
-        const sparseLogs = await this.fetchDenseLogs(0, 0, aggregationStrategy);
-        return sparseLogs;
-    }
-
     getAvailableAggregationStrategies(timestampRange) {
         const strategies = [];
         if (timestampRange < 86400 * 10) {
