@@ -346,7 +346,7 @@ export const CHART_TYPES = {
                                     strokeHeight: 6,
                                     strokeWidth: 0,
                                     strokeLineCap: 'round',
-                                    strokeColor: item.fae_rae_balance < 0 ? '#005600' : '#f00',
+                                    strokeColor: item.fae_rae_balance <= 0 ? '#005600' : '#f00',
                                 }
                             ]
                         })),
@@ -368,7 +368,7 @@ export const CHART_TYPES = {
                                     strokeHeight: 6,
                                     strokeWidth: 0,
                                     strokeLineCap: 'round',
-                                    strokeColor: item.fae_balanced - item.rae_balanced < 0 ? '#005600' : '#f00',
+                                    strokeColor: item.fae_balanced - item.rae_balanced <= 0 ? '#005600' : '#f00',
                                 }
                             ]
                         })),
