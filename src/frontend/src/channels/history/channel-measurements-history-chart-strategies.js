@@ -411,7 +411,23 @@ export const CHART_TYPES = {
                 {
                     seriesName: label,
                     title: {text: label},
-                    labels: {formatter: (v) => v !== null ? `${(+v).toFixed(5)} ${unit}` : '?'},
+                    labels: {
+                        formatter: (v) => {
+                            if (v === null) {
+                                return '?';
+                            } else {
+                                let label = `${(+v).toFixed(5)} ${unit}`;
+                                if (['fae'].includes(this.chartMode)) {
+                                    const {pricePerUnit, currency} = this.channel.config;
+                                    if (pricePerUnit) {
+                                        const cost = (v * pricePerUnit).toFixed(2);
+                                        label += ` = ${cost} ${currency || 'PLN'}`;
+                                    }
+                                }
+                                return label;
+                            }
+                        }
+                    },
                     // min: 0,
                     max: this.chartMode === 'fae_rae' ? undefined : maxRounded,
                 }
