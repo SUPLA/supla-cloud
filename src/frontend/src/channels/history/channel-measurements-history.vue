@@ -153,6 +153,7 @@
                     fre: 'Forward reactive energy', // i18n
                     rre: 'Reverse reactive energy', // i18n
                     fae_rae: 'Arithmetic balance', // i18n
+                    fae_rae_vector: 'Vector balance', // i18n
                 },
                 aggregationMethod: 'day',
                 storage: undefined,
@@ -508,10 +509,13 @@
                         reverseReactiveEnergy: 'rre'
                     };
                     const defaultModes = ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy'];
-                    const modes = (this.channel.config.countersAvailable || defaultModes)
-                        .filter(mode => modesMap[mode]).map(mode => modesMap[mode]);
+                    let availableModes = this.channel.config.countersAvailable || defaultModes;
+                    const modes = availableModes.filter(mode => modesMap[mode]).map(mode => modesMap[mode]);
                     if (modes.includes('fae') && modes.includes('rae')) {
                         modes.push('fae_rae');
+                    }
+                    if (availableModes.includes('forwardActiveEnergyBalanced') && availableModes.includes('reverseActiveEnergyBalanced')) {
+                        modes.push('fae_rae_vector');
                     }
                     return modes;
                 }
