@@ -5,6 +5,8 @@ import {faSquare} from '@fortawesome/free-regular-svg-icons'
 import {
     faCheck,
     faCheckSquare,
+    faChevronLeft,
+    faChevronRight,
     faDownload,
     faGear,
     faKey,
@@ -15,6 +17,7 @@ import {
     faTimesCircle
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle, faCheck);
+library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle, faCheck,
+    faChevronLeft, faChevronRight);
 
 Vue.component('fa', FontAwesomeIcon)

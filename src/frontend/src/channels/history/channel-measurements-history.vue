@@ -8,6 +8,21 @@
             <div v-if="supportsChart && storage && hasStorageSupport">
                 <div class="text-center my-3" v-if="sparseLogs && sparseLogs.length > 1">
                     <ChannelMeasurementsPredefinedTimeRanges :storage="storage" @choose="setTimeRange($event)"/>
+                    <div class="d-inline-block dropdown" v-if="supportedChartModes.length > 1">
+                        <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
+                            {{ $t('Chart mode:') }}
+                            {{ $t(chartModeLabels[chartMode]) }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li v-for="mode in supportedChartModes" :key="mode"
+                                :class="{active: mode === chartMode}">
+                                <a @click="changeChartMode(mode)">
+                                    {{ $t(chartModeLabels[mode]) }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="d-inline-block dropdown mx-2 my-2">
                         <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
                             {{ $t('Logs aggregation:') }}
@@ -24,25 +39,24 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="d-inline-block dropdown" v-if="supportedChartModes.length > 1">
-                        <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
-                            {{ $t('Chart mode:') }}
-                            {{ $t(chartModeLabels[chartMode]) }}
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li v-for="mode in supportedChartModes" :key="mode"
-                                :class="{active: mode === chartMode}">
-                                <a @click="changeChartMode(mode)">
-                                    {{ $t(chartModeLabels[mode]) }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
 
-                <DateRangePicker v-model="dateRange" :min="null" class="my-3"
-                    :label-date-start="$t('Show logs from')" :label-date-end="$t('Show logs to')"/>
+                <div class="history-date-range-picker d-flex my-3" v-if="oldestLog && newestLog">
+                    <div class="d-flex flex-column form-group mr-3 justify-content-end">
+                        <button type="button" class="btn btn-default" @click="panTime(-1)"
+                            :disabled="oldestLog.date_timestamp * 1000 >= currentMinTimestamp">
+                            <fa icon="chevron-left"/>
+                        </button>
+                    </div>
+                    <DateRangePicker v-model="dateRange" :min="null" class="flex-grow-1"
+                        :label-date-start="$t('Show logs from')" :label-date-end="$t('Show logs to')"/>
+                    <div class="d-flex flex-column justify-content-end form-group ml-3">
+                        <button class="btn btn-default" type="button" @click="panTime(1)"
+                            :disabled="newestLog.date_timestamp * 1000 <= currentMaxTimestamp">
+                            <fa icon="chevron-right"/>
+                        </button>
+                    </div>
+                </div>
 
                 <transition-expand>
                     <div v-if="fetchingLogsProgress" class="mb-5">
@@ -156,9 +170,9 @@
                 this.hasLogs = (await this.storage.init(this)).length > 0;
                 if (this.hasLogs && this.hasStorageSupport) {
                     this.sparseLogsAggregation = await this.storage.getSparseLogsAggregationStrategy();
-                    this.sparseLogs = await this.storage.fetchSparseLogs();
                     this.newestLog = await this.storage.getNewestLog();
                     this.oldestLog = await this.storage.getOldestLog();
+                    this.sparseLogs = await this.storage.fetchSparseLogs();
                     this.fetchAllLogs();
                     this.renderCharts();
                     this.setTimeRange({
@@ -179,8 +193,16 @@
                 minTimestamp = minTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
                 let maxTimestamp = DateTime.fromMillis(beforeTimestampMs);
                 maxTimestamp = maxTimestamp.set({seconds: 0, minutes: Math.floor(minTimestamp.get('minute') / 10) * 10});
-                this.currentMinTimestamp = Math.max(this.oldestLog.date_timestamp * 1000 - 86_400_000, minTimestamp.toMillis());
-                this.currentMaxTimestamp = Math.min(this.newestLog.date_timestamp * 1000 + 86_400_000, maxTimestamp.toMillis());
+                const availableAggregationStrategies = this.storage.getAvailableAggregationStrategies(maxTimestamp.toSeconds() - minTimestamp.toSeconds());
+                if (!availableAggregationStrategies.includes(this.aggregationMethod)) {
+                    this.aggregationMethod = availableAggregationStrategies[availableAggregationStrategies.length - 1];
+                }
+                if (this.aggregationMethod !== 'minute') {
+                    minTimestamp = minTimestamp.startOf(this.aggregationMethod);
+                    maxTimestamp = maxTimestamp.endOf(this.aggregationMethod);
+                }
+                this.currentMinTimestamp = Math.max(this.oldestLog.date_timestamp * 1000, minTimestamp.toMillis());
+                this.currentMaxTimestamp = Math.min(this.newestLog.date_timestamp * 1000, maxTimestamp.toMillis());
                 this.fetchingDenseLogs = true;
                 this.fetchDenseLogs().then(() => this.rerenderBigChart());
             }, 50);
@@ -251,12 +273,14 @@
                                 zoomout: true,
                                 pan: false, // disabled because of https://github.com/apexcharts/apexcharts.js/issues/3757#issuecomment-1517485503
                                 reset: false,
-                                customIcons: [{
-                                    icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
-                                    index: 2,
-                                    title: this.$t('reset chart view'),
-                                    click: () => this.$emit('rerender'),
-                                }]
+                                customIcons: [
+                                    {
+                                        icon: '<span class="pe-7s-refresh" style="font-weight: bold"></span>',
+                                        index: 2,
+                                        title: this.$t('reset chart view'),
+                                        click: () => this.$emit('rerender'),
+                                    }
+                                ]
                             },
                         },
                         animations: {enabled: false},
@@ -439,6 +463,13 @@
                 this.bigChart = undefined;
                 // this.smallChart = undefined;
             },
+            panTime(direction) {
+                const panWindow = {minute: 600_000, hour: 3600_000, day: 86_400_000, month: 28 * 86_400_00,}[this.aggregationMethod];
+                this.setTimeRange({
+                    afterTimestampMs: this.currentMinTimestamp + panWindow * direction,
+                    beforeTimestampMs: this.currentMaxTimestamp + panWindow * direction,
+                });
+            },
         },
         computed: {
             dateRange: {
@@ -501,6 +532,14 @@
     .download-buttons {
         @include on-xs-and-down {
             text-align: center;
+        }
+    }
+
+    @include on-sm-and-down {
+        .history-date-range-picker {
+            .justify-content-end {
+                justify-content: center;
+            }
         }
     }
 </style>
