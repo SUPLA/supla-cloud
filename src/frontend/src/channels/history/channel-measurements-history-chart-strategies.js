@@ -315,12 +315,13 @@ export const CHART_TYPES = {
                 .map((suffix) => {
                     return [1, 2, 3].map(phaseNo => `phase${phaseNo}_${suffix}`);
                 })
+                .concat(['fae_total', 'rae_total', 'fae_rae_balance'])
                 .concat(['fae_balanced', 'rae_balanced'])
                 .flat();
         },
         chartOptions() {
             const options = {chart: {stacked: true}};
-            if (this.chartMode === 'fae_rae') {
+            if (['fae_rae_vector', 'fae_rae'].includes(this.chartMode)) {
                 options.colors = ['#ff7373', '#00d150'];
             } else {
                 options.colors = ['#00d150', '#008ffb', '#ff851b'];
@@ -328,34 +329,51 @@ export const CHART_TYPES = {
             return options;
         },
         series: function (allLogs) {
-            const enabledPhases = this.channel.config.enabledPhases || [];
+            const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
             if (this.chartMode === 'fae_rae') {
-                const cumulatedLogs = allLogs.map(log => ({
-                    x: log.date_timestamp * 1000,
-                    fae: enabledPhases.map(phaseNo => log[`phase${phaseNo}_fae`]).reduce((a, b) => a + (b || 0), 0),
-                    rae: enabledPhases.map(phaseNo => log[`phase${phaseNo}_rae`]).reduce((a, b) => a + (b || 0), 0),
-                }));
                 return [
                     {
                         name: `${this.$t('Forward active energy')}`,
-                        data: cumulatedLogs.map((item) => ({x: item.x, y: item.fae})),
+                        data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.fae_total})),
                     },
                     {
                         name: `${this.$t('Reverse active energy')}`,
-                        data: cumulatedLogs.map((item) => ({
-                            x: item.x, y: -item.rae, goals: [
+                        data: allLogs.map((item) => ({
+                            x: item.date_timestamp * 1000, y: -item.rae_total, goals: [
                                 {
                                     name: this.$t('Balance'),
-                                    value: item.fae - item.rae,
+                                    value: item.fae_rae_balance,
                                     strokeHeight: 6,
                                     strokeWidth: 0,
                                     strokeLineCap: 'round',
-                                    strokeColor: item.fae - item.rae < 0 ? '#005600' : '#f00',
+                                    strokeColor: item.fae_rae_balance < 0 ? '#005600' : '#f00',
                                 }
                             ]
                         })),
-                    }
+                    },
                 ];
+            } else if (this.chartMode === 'fae_rae_vector') {
+                return [
+                    {
+                        name: `${this.$t('Forward active energy (vector balance)')}`,
+                        data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.fae_balanced})),
+                    },
+                    {
+                        name: `${this.$t('Reverse active energy (vector balance)')}`,
+                        data: allLogs.map((item) => ({
+                            x: item.date_timestamp * 1000, y: -item.rae_balanced, goals: [
+                                {
+                                    name: this.$t('Balance'),
+                                    value: item.fae_balanced - item.rae_balanced,
+                                    strokeHeight: 6,
+                                    strokeWidth: 0,
+                                    strokeLineCap: 'round',
+                                    strokeColor: item.fae_balanced - item.rae_balanced < 0 ? '#005600' : '#f00',
+                                }
+                            ]
+                        })),
+                    },
+                ]
             } else {
                 return enabledPhases.map((phaseNo) => {
                     // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
@@ -405,6 +423,9 @@ export const CHART_TYPES = {
                     log[attributeName] = +(+log[attributeName] * 0.00001).toFixed(5);
                 }
             });
+            log.fae_total = [1, 2, 3].map(phaseNo => log[`phase${phaseNo}_fae`]).reduce((a, b) => a + (b || 0), 0);
+            log.rae_total = [1, 2, 3].map(phaseNo => log[`phase${phaseNo}_rae`]).reduce((a, b) => a + (b || 0), 0);
+            log.fae_rae_balance = +(log.fae_total - log.rae_total).toFixed(5);
             return log;
         },
         aggregateLogs: (logs) => {
@@ -516,6 +537,7 @@ export const CHART_TYPES = {
             phase1_rae: null, phase2_rae: null, phase3_rae: null,
             phase1_fre: null, phase2_fre: null, phase3_fre: null,
             phase1_rre: null, phase2_rre: null, phase3_rre: null,
+            fae_total: null, rae_total: null, fae_rae_balance: null,
             fae_balanced: null, rae_balanced: null,
         }),
     },
