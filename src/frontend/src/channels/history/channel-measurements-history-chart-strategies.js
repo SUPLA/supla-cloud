@@ -412,12 +412,12 @@ export const CHART_TYPES = {
                     seriesName: label,
                     title: {text: label},
                     labels: {
-                        formatter: (v) => {
+                        formatter: (v, dataPoint) => {
                             if (v === null) {
                                 return '?';
                             } else {
                                 let label = `${(+v).toFixed(5)} ${unit}`;
-                                if (['fae'].includes(this.chartMode)) {
+                                if (typeof dataPoint === 'object' && ['fae'].includes(this.chartMode)) {
                                     const {pricePerUnit, currency} = this.channel.config;
                                     if (pricePerUnit) {
                                         const cost = (v * pricePerUnit).toFixed(2);
