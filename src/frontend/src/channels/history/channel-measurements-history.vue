@@ -49,7 +49,7 @@
                         </button>
                     </div>
                     <DateRangePicker v-model="dateRange" :min="null" class="flex-grow-1"
-                        :label-date-start="$t('Show logs from')" :label-date-end="$t('Show logs to')"/>
+                        :label-date-start="$t('From')" :label-date-end="$t('To')"/>
                     <div class="d-flex flex-column justify-content-end form-group ml-3">
                         <button class="btn btn-default" type="button" @click="panTime(1)"
                             :disabled="newestLog.date_timestamp * 1000 <= currentMaxTimestamp">
@@ -83,8 +83,10 @@
                 </transition-expand>
 
                 <h3 class="text-center my-5" v-if="denseLogs.length === 0">{{ $t('Your chart is being drawn...') }}</h3>
-                <div>
-                    <div ref="bigChart"></div>
+                <div ref="bigChart"></div>
+                <div v-if="channel.functionId === ChannelFunction.ELECTRICITYMETER && denseLogs.length > 0">
+                    <h3>{{ $t('Summary for selected time range') }}</h3>
+                    <ChannelMeasurementsHistorySummaryTableElectricityMeter :channel="channel" :logs="denseLogs"/>
                 </div>
             </div>
 
@@ -108,6 +110,9 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import ChannelMeasurementsPredefinedTimeRanges from "@/channels/history/channel-measurements-predefined-time-ranges.vue";
     import DateRangePicker from "@/direct-links/date-range-picker.vue";
+    import ChannelMeasurementsHistorySummaryTableElectricityMeter
+        from "@/channels/history/channel-measurements-history-summary-table-electricity-meter.vue";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     window.ApexCharts = ApexCharts;
 
@@ -130,7 +135,10 @@
     ];
 
     export default {
-        components: {DateRangePicker, ChannelMeasurementsPredefinedTimeRanges, TransitionExpand, ChannelMeasurementsDownload},
+        components: {
+            ChannelMeasurementsHistorySummaryTableElectricityMeter,
+            DateRangePicker, ChannelMeasurementsPredefinedTimeRanges, TransitionExpand, ChannelMeasurementsDownload
+        },
         props: ['channel'],
         data: function () {
             return {
@@ -158,6 +166,7 @@
                 hasStorageSupport: true,
                 oldestLog: undefined,
                 newestLog: undefined,
+                ChannelFunction,
             };
         },
         async mounted() {
@@ -196,6 +205,10 @@
                 const availableAggregationStrategies = this.storage.getAvailableAggregationStrategies(maxTimestamp.toSeconds() - minTimestamp.toSeconds());
                 if (!availableAggregationStrategies.includes(this.aggregationMethod)) {
                     this.aggregationMethod = availableAggregationStrategies[availableAggregationStrategies.length - 1];
+                }
+                if (this.aggregationMethod !== 'minute') {
+                    minTimestamp = minTimestamp.startOf(this.aggregationMethod);
+                    maxTimestamp = maxTimestamp.endOf(this.aggregationMethod);
                 }
                 // the random below forces date range picker to rerender even if the same 10-minute slot was set
                 this.currentMinTimestamp = Math.max(this.oldestLog.date_timestamp * 1000, minTimestamp.toMillis()) + Math.floor(Math.random() * 100);
