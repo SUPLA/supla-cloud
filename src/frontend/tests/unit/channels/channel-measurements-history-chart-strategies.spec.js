@@ -63,10 +63,6 @@ describe('Channel measurement history data strategies', () => {
     describe('ELECTRICITYMETER', function () {
         const strategy = CHART_TYPES.ELECTRICITYMETER;
 
-        it('does nothing to no log', () => {
-            expect(strategy.fixLog({})).toEqual({});
-        });
-
         it('does nothing to empty log', () => {
             expect(strategy.fixLog(strategy.emptyLog())).toEqual(strategy.emptyLog());
         });
@@ -85,6 +81,7 @@ describe('Channel measurement history data strategies', () => {
                 phase1_rae: 4, phase2_rae: 5, phase3_rae: 6,
                 phase1_fre: 7, phase2_fre: 8, phase3_fre: 9,
                 phase1_rre: 10, phase2_rre: 11, phase3_rre: 12,
+                fae_total: 6, rae_total: 15, fae_rae_balance: -9,
             });
         });
 
@@ -102,6 +99,7 @@ describe('Channel measurement history data strategies', () => {
                 phase1_rae: 4, phase2_rae: null, phase3_rae: 6,
                 phase1_fre: null, phase2_fre: 8, phase3_fre: 9,
                 phase1_rre: 10, phase2_rre: 11, phase3_rre: 12,
+                fae_total: 2, rae_total: 10, fae_rae_balance: -8,
             });
         });
 
