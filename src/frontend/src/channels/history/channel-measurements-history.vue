@@ -173,6 +173,7 @@
             if (this.supportsChart) {
                 this.chartStrategy = CHART_TYPES[this.channel.function.name];
                 this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
+                await this.storage.connect();
                 this.hasStorageSupport = await this.storage.checkSupport();
                 this.hasLogs = (await this.storage.init(this)).length > 1;
                 if (this.hasLogs && this.hasStorageSupport) {

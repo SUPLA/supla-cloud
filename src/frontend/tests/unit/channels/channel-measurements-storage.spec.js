@@ -11,6 +11,8 @@ describe('Channel measurements storage', () => {
             function: {name: 'THERMOMETER'},
         });
 
+        beforeEach(async () => await storage.connect());
+
         it('stores logs', async () => {
             await storage.storeLogs([
                 {date_timestamp: 123, temperature: 12}
@@ -29,6 +31,8 @@ describe('Channel measurements storage', () => {
             functionId: ChannelFunction.ELECTRICITYMETER,
             function: {name: 'ELECTRICITYMETER'},
         });
+
+        beforeEach(async () => await storage.connect());
 
         it('stores logs partially', async () => {
             const logs = [

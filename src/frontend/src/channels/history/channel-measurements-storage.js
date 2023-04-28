@@ -6,19 +6,26 @@ export class IndexedDbMeasurementLogsStorage {
     constructor(channel) {
         this.channel = channel;
         this.chartStrategy = CHART_TYPES[this.channel.function.name];
+    }
+
+    async connect() {
         if (window.indexedDB) {
-            this.db = openDB(`channel_measurement_logs_${this.channel.id}`, 2, {
-                upgrade(db) {
-                    if (!db.objectStoreNames.contains("logs")) {
-                        const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
-                        os.createIndex("date", "date", {unique: true});
+            this.db = await openDB(`channel_measurement_logs_${this.channel.id}`, 3, {
+                async upgrade(db) {
+                    if (db.objectStoreNames.contains('logs')) {
+                        await db.deleteObjectStore('logs');
                     }
+                    const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
+                    os.createIndex("date", "date", {unique: true});
                 }
             });
         }
     }
 
     async checkSupport() {
+        if (!this.db) {
+            return this.hasSupport = false;
+        }
         try {
             await (await this.db).count('logs');
             return this.hasSupport = true;
