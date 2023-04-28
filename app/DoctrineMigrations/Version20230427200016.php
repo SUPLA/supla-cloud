@@ -19,6 +19,7 @@ namespace Supla\Migrations;
 
 /**
  * Schedule as a subject for direct links and scenes.
+ * Schedule enable/disable procedures
  */
 class Version20230427200016 extends NoWayBackMigration {
     public function migrate() {
@@ -28,5 +29,7 @@ class Version20230427200016 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_scene_operation ADD schedule_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_scene_operation ADD CONSTRAINT FK_64A50CF5A40BC2D5 FOREIGN KEY (schedule_id) REFERENCES supla_schedule (id) ON DELETE CASCADE');
         $this->addSql('CREATE INDEX IDX_64A50CF5A40BC2D5 ON supla_scene_operation (schedule_id)');
+        $this->addSql('CREATE PROCEDURE `supla_enable_schedule`(IN `_user_id` INT, IN `_id` INT) UPDATE supla_schedule SET enabled = 1 WHERE id = _id AND user_id = _user_id;CREATE PROCEDURE `supla_enable_schedule`(IN `_user_id` INT, IN `_id` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER UPDATE supla_schedule SET enabled = 1 WHERE id = _id AND user_id = _user_id');
+        $this->addSql('CREATE PROCEDURE `supla_disable_schedule`(IN `_user_id` INT, IN `_id` INT) UPDATE supla_schedule SET enabled = 0 WHERE id = _id AND user_id = _user_id;CREATE PROCEDURE `supla_enable_schedule`(IN `_user_id` INT, IN `_id` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER UPDATE supla_schedule SET enabled = 0 WHERE id = _id AND user_id = _user_id');
     }
 }
