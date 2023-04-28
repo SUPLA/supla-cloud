@@ -55,13 +55,13 @@ export class IndexedDbMeasurementLogsStorage {
 
     getAvailableAggregationStrategies(timestampRange) {
         const strategies = [];
-        if (timestampRange < 86400 * 3) {
+        if (timestampRange < 86400 * 10) {
             strategies.push('minute');
         }
-        if (timestampRange > 3600 * 6 && timestampRange < 86400 * 7) {
+        if (timestampRange > 3600 * 6 && timestampRange < 86400 * 21) {
             strategies.push('hour');
         }
-        if (timestampRange > 86400 * 5 && timestampRange < 86400 * 365) {
+        if (timestampRange > 86400 * 3 && timestampRange < 86400 * 400) {
             strategies.push('day');
         }
         if (timestampRange > 86400 * 60) {

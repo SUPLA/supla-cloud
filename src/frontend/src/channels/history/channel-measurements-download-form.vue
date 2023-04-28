@@ -138,7 +138,6 @@
         methods: {
             async download() {
                 this.downloading = true;
-                this.$emit('downloading', true);
                 let rows = (await (await this.storage.db).getAllFromIndex('logs', 'date'));
                 if (this.downloadConfig.transformation === 'cumulative') {
                     rows = this.storage.chartStrategy.cumulateLogs(rows);
@@ -151,7 +150,7 @@
                     });
                 await this.downloadFile(rows);
                 this.downloading = false;
-                this.$emit('downloading', false);
+                this.$emit('downloaded');
             },
             async downloadFile(rows) {
                 const fieldSeparator = this.downloadConfig.separator === 'tab' ? "\t" : this.downloadConfig.separator;

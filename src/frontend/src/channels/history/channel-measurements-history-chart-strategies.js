@@ -1,4 +1,3 @@
-import {channelTitle} from "@/common/filters";
 import {measurementUnit} from "@/channels/channel-helpers";
 
 export function fillGaps(logs, expectedInterval, defaultLog) {
@@ -33,7 +32,7 @@ export const CHART_TYPES = {
             const temperatureSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.temperature}));
             const series = [
                 {
-                    name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                    name: `${this.$t('Temperature')}`,
                     type: 'line',
                     data: temperatureSeries
                 },
@@ -41,11 +40,11 @@ export const CHART_TYPES = {
             if (allLogs[0].min !== undefined) {
                 const rangeSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
                 series.push({
-                    name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')} - ${this.$t('range')})`,
+                    name: `${this.$t('Temperature')} - ${this.$t('range')}`,
                     type: 'rangeArea',
                     data: rangeSeries
                 });
-                series[0].name = `${channelTitle(this.channel, this)} (${this.$t('Temperature')} - ${this.$t('average')})`;
+                series[0].name = `${this.$t('Temperature')} - ${this.$t('average')}`;
             }
             return series;
         },
@@ -65,7 +64,7 @@ export const CHART_TYPES = {
         yaxes: function () {
             return [
                 {
-                    seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                    seriesName: this.$t('Temperature'),
                     title: {text: this.$t("Temperature")},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)}°C` : '?'},
                 }
@@ -87,8 +86,8 @@ export const CHART_TYPES = {
             const temperatureSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.temperature}));
             const humiditySeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.humidity}));
             const series = [
-                {name: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`, type: 'line', data: temperatureSeries},
-                {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, type: 'line', data: humiditySeries},
+                {name: `${this.$t('Temperature')}`, type: 'line', data: temperatureSeries},
+                {name: `${this.$t('Humidity')}`, type: 'line', data: humiditySeries},
             ];
             // if (allLogs[0].minTemperature !== undefined) {
             //     const tempRange = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.minTemperature, item.maxTemperature]}));
@@ -137,12 +136,12 @@ export const CHART_TYPES = {
         yaxes: function () {
             return [
                 {
-                    seriesName: `${channelTitle(this.channel, this)} (${this.$t('Temperature')})`,
+                    seriesName: `${this.$t('Temperature')}`,
                     title: {text: this.$t("Temperature")},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)}°C` : '?'},
                 },
                 {
-                    seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
+                    seriesName: this.$t('Humidity'),
                     opposite: true,
                     title: {text: this.$t('Humidity')},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(1)}%` : '?'},
@@ -163,16 +162,16 @@ export const CHART_TYPES = {
         series: function (allLogs) {
             const humiditySeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.humidity}));
             const series = [
-                {name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`, type: 'line', data: humiditySeries},
+                {name: `${this.$t('Humidity')}`, type: 'line', data: humiditySeries},
             ];
             if (allLogs[0].min !== undefined) {
                 const rangeSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
                 series.push({
-                    name: `${channelTitle(this.channel, this)} (${this.$t('Humidity')} - ${this.$t('range')})`,
+                    name: `${this.$t('Humidity')} - ${this.$t('range')}`,
                     type: 'rangeArea',
                     data: rangeSeries
                 });
-                series[0].name = `${channelTitle(this.channel, this)} (${this.$t('Humidity')} - ${this.$t('average')})`;
+                series[0].name = `${this.$t('Humidity')} - ${this.$t('average')}`;
             }
             return series;
         },
@@ -192,7 +191,7 @@ export const CHART_TYPES = {
         yaxes: function () {
             return [
                 {
-                    seriesName: `${channelTitle(this.channel, this)} (${this.$t('Humidity')})`,
+                    seriesName: this.$t('Humidity'),
                     opposite: true,
                     title: {text: this.$t('Humidity')},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(1)}%` : '?'},
@@ -206,7 +205,7 @@ export const CHART_TYPES = {
         chartOptions: () => ({}),
         series: function (allLogs) {
             const calculatedValues = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.calculated_value}));
-            return [{name: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`, data: calculatedValues}];
+            return [{name: this.$t('Calculated value'), data: calculatedValues}];
         },
         fixLog: (log) => {
             if (log.calculated_value !== undefined && log.calculated_value !== null) {
@@ -301,7 +300,7 @@ export const CHART_TYPES = {
         yaxes: function () {
             return [
                 {
-                    seriesName: `${channelTitle(this.channel, this)} (${this.$t('Calculated value')})`,
+                    seriesName: this.$t('Calculated value'),
                     title: {text: this.$t("Calculated value")},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)} ${measurementUnit(this.channel)}` : '?'},
                 }
@@ -338,11 +337,11 @@ export const CHART_TYPES = {
                 }));
                 return [
                     {
-                        name: `${channelTitle(this.channel, this)} - ${this.$t('Forward active energy')}`,
+                        name: `${this.$t('Forward active energy')}`,
                         data: cumulatedLogs.map((item) => ({x: item.x, y: item.fae})),
                     },
                     {
-                        name: `${channelTitle(this.channel, this)} - ${this.$t('Reverse active energy')}`,
+                        name: `${this.$t('Reverse active energy')}`,
                         data: cumulatedLogs.map((item) => ({
                             x: item.x, y: -item.rae, goals: [
                                 {
@@ -362,7 +361,7 @@ export const CHART_TYPES = {
                     // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
                     const phaseLabel = `Phase ${phaseNo}`;
                     return {
-                        name: `${channelTitle(this.channel, this)} (${this.$t(phaseLabel)})`,
+                        name: `${this.$t(phaseLabel)}`,
                         data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item[`phase${phaseNo}_${this.chartMode}`]})),
                     };
                 });
@@ -392,7 +391,7 @@ export const CHART_TYPES = {
             const unit = ['fre', 'rre'].includes(this.chartMode) ? 'kvarh' : 'kWh';
             return [
                 {
-                    seriesName: `${channelTitle(this.channel, this)} (${label})`,
+                    seriesName: label,
                     title: {text: label},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(5)} ${unit}` : '?'},
                     // min: 0,
