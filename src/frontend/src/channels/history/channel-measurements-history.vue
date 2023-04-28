@@ -197,11 +197,8 @@
                 if (!availableAggregationStrategies.includes(this.aggregationMethod)) {
                     this.aggregationMethod = availableAggregationStrategies[availableAggregationStrategies.length - 1];
                 }
-                if (this.aggregationMethod !== 'minute') {
-                    minTimestamp = minTimestamp.startOf(this.aggregationMethod);
-                    maxTimestamp = maxTimestamp.endOf(this.aggregationMethod);
-                }
-                this.currentMinTimestamp = Math.max(this.oldestLog.date_timestamp * 1000, minTimestamp.toMillis());
+                // the random below forces date range picker to rerender even if the same 10-minute slot was set
+                this.currentMinTimestamp = Math.max(this.oldestLog.date_timestamp * 1000, minTimestamp.toMillis()) + Math.floor(Math.random() * 100);
                 this.currentMaxTimestamp = Math.min(this.newestLog.date_timestamp * 1000, maxTimestamp.toMillis());
                 this.fetchingDenseLogs = true;
                 this.fetchDenseLogs().then(() => this.rerenderBigChart());
