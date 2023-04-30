@@ -127,6 +127,9 @@ class ClientApp {
     /** @ORM\Column(name="platform", type="tinyint", nullable=true, options={"unsigned": true}) */
     private $platform;
 
+    /** @ORM\Column(name="app_id", type="integer", nullable=false, options={"default": 0}) */
+    private $appId;
+
     /** @ORM\Column(name="devel_env", type="boolean", options={"default": 0}) */
     private $isDevEnv;
 
