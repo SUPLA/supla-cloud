@@ -40,12 +40,6 @@ class ValueBasedTrigger {
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODevice", inversedBy="channels")
-     * @ORM\JoinColumn(name="owning_iodevice_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     */
-    private $owningIoDevice;
-
-    /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="pushNotifications")
      * @ORM\JoinColumn(name="owning_channel_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
