@@ -88,4 +88,10 @@ class ValueBasedTrigger {
      * @Groups({"basic"})
      */
     private $actionParam;
+
+    /**
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     * @Groups({"basic"})
+     */
+    protected $enabled = false;
 }
