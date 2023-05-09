@@ -27,7 +27,7 @@
     "bootstrap-select": "^1.13.18",
     "change-case": "3.0.1",
     "core-js": "^3.27.1",
-    "cronstrue": "^1.113.0",
+    "cronstrue": "^2.27.0",
     "jquery": "^3.5.1",
     "js-base64": "^2.4.5",
     "latinize": "0.4.0",
