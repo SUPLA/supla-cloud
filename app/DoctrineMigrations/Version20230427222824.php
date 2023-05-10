@@ -22,6 +22,7 @@ namespace Supla\Migrations;
  * supla_client push columns
  * supla_value_based_trigger
  * supla_remove_push_recipients procedure
+ * Add supla_user.limit_push_notifications.
  */
 class Version20230427222824 extends NoWayBackMigration {
     public function migrate() {
@@ -42,5 +43,6 @@ class Version20230427222824 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_value_based_trigger ADD CONSTRAINT FK_1DFF99CA4E328CBE FOREIGN KEY (push_notification_id) REFERENCES supla_push_notification (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_client ADD push_token VARCHAR(255) DEFAULT NULL, ADD platform TINYINT UNSIGNED DEFAULT NULL COMMENT \'(DC2Type:tinyint)\', ADD app_id INT DEFAULT \'0\' NOT NULL, ADD devel_env TINYINT(1) DEFAULT \'0\' NOT NULL');
         $this->addSql('CREATE PROCEDURE `supla_remove_push_recipients`(IN `_user_id` INT, IN `_client_id` INT) UPDATE supla_client SET push_token = NULL WHERE id = _client_id AND user_id = _user_id');
+        $this->addSql('ALTER TABLE supla_user ADD limit_push_notifications INT DEFAULT 20 NOT NULL');
     }
 }

@@ -185,6 +185,11 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     private $limitOAuthClient;
 
     /**
+     * @ORM\Column(name="limit_push_notifications", type="integer", options={"default"=20})
+     */
+    private $limitPushNotifications;
+
+    /**
      * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $accessids;
@@ -327,6 +332,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitOperationsPerScene' => 20,
             'limitSchedule' => 20,
             'limitActionsPerSchedule' => 20,
+            'limitPushNotifications' => 60,
         ],
         'big' => [
             'limitIoDev' => 200,
@@ -341,6 +347,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitOperationsPerScene' => 50,
             'limitSchedule' => 150,
             'limitActionsPerSchedule' => 40,
+            'limitPushNotifications' => 60,
         ],
     ];
 
@@ -592,6 +599,10 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     public function isLimitOAuthClientExceeded() {
         return $this->limitOAuthClient > 0 && count($this->getApiClients()) >= $this->limitOAuthClient;
+    }
+
+    public function getLimitPushNotifications(): int {
+        return $this->limitPushNotifications;
     }
 
     /** @return DateTime|null */
