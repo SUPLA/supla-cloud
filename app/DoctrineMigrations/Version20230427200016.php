@@ -20,6 +20,9 @@ namespace Supla\Migrations;
 /**
  * Schedule as a subject for direct links and scenes.
  * Schedule enable/disable procedures
+ * New procedure added "supla_enable_schedule"
+ * New procedure added "supla_disable_schedule"
+ * New procedure added "supla_set_channel_group_caption"
  */
 class Version20230427200016 extends NoWayBackMigration {
     public function migrate() {
@@ -31,5 +34,6 @@ class Version20230427200016 extends NoWayBackMigration {
         $this->addSql('CREATE INDEX IDX_64A50CF5A40BC2D5 ON supla_scene_operation (schedule_id)');
         $this->addSql('CREATE PROCEDURE `supla_enable_schedule`(IN `_user_id` INT, IN `_id` INT) UPDATE supla_schedule SET enabled = 1 WHERE id = _id AND user_id = _user_id');
         $this->addSql('CREATE PROCEDURE `supla_disable_schedule`(IN `_user_id` INT, IN `_id` INT) UPDATE supla_schedule SET enabled = 0 WHERE id = _id AND user_id = _user_id');
+        $this->addSql("CREATE PROCEDURE `supla_set_channel_group_caption`(IN `_user_id` INT, IN `_channel_group_id` INT, IN `_caption` VARCHAR(255) CHARSET utf8mb4) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER UPDATE supla_dev_channel_group SET caption = _caption WHERE id = _channel_group_id AND user_id = _user_id");
     }
 }
