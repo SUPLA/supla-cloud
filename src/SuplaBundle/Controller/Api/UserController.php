@@ -29,7 +29,6 @@ use OpenApi\Annotations as OA;
 use ReCaptcha\ReCaptcha;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\BrokerRequestSecurityVoter;
-use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
@@ -235,13 +234,7 @@ class UserController extends RestController {
                     ->maxLength(32)
                     ->validate($newPassword);
                 $this->userManager->setPassword($newPassword, $user);
-                $this->entityManager->getRepository(AccessToken::class)->createQueryBuilder('at')
-                    ->delete()
-                    ->where('at.user = :user')
-                    ->andWhere('at.expiresAt IS NOT NULL')
-                    ->setParameter('user', $this->getUser())
-                    ->getQuery()
-                    ->execute();
+                $this->userManager->clearSessions($user);
                 $this->auditEntry(AuditedEvent::PASSWORD_CHANGED())->setUser($user)->buildAndFlush();
             } elseif ($data['action'] == 'agree:rules') {
                 $this->assertNotApiUser();
@@ -542,6 +535,7 @@ class UserController extends RestController {
                     $user->setToken(null);
                     $user->setPasswordRequestedAt(null);
                     $this->userManager->setPassword($password, $user, true);
+                    $this->userManager->clearSessions($user);
                     $this->auditEntry(AuditedEvent::PASSWORD_RESET())
                         ->setTextParam($user->getUsername())
                         ->setUser($user)
