@@ -48,7 +48,7 @@
     "vue-slider-component": "^3.2.13",
     "vue-switches": "^2.0.1",
     "vuedraggable": "^2.24.3",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.2/xlsx-0.19.2.tgz"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.3/xlsx-0.19.3.tgz"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
