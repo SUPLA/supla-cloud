@@ -757,4 +757,28 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1, $content['relationsCount']['operations']);
         return $content;
     }
+
+    public function testCreatingSceneWithDelayOnlyOperation() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[0]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
+                ],
+                [
+                    'delayMs' => 222,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene', $content['caption']);
+        $this->assertEquals(2, $content['relationsCount']['operations']);
+    }
 }

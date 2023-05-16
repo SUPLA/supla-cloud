@@ -128,7 +128,9 @@
                         if (operation.delayMs) {
                             this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: operation.delayMs});
                         }
-                        this.operations.push(operation);
+                        if (operation.subjectId) {
+                            this.operations.push(operation);
+                        }
                     }
                 }
             },
@@ -163,11 +165,15 @@
                         delay += operation.delayMs;
                     }
                 }
+                if (delay) {
+                    operations.push({id: UNIQUE_OPERATION_ID++, delayMs: delay});
+                }
                 this.lastValue = operations;
                 this.$emit('input', operations);
             },
             addDelay() {
                 this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: 5000});
+                this.updateModel();
             },
             waitForCompletionAvailable(operation) {
                 return operation.subjectType === ActionableSubjectType.SCENE &&

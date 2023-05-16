@@ -104,19 +104,25 @@ class SceneOperation implements HasSubject {
     private $waitForCompletion = false;
 
     public function __construct(
-        ActionableSubject $subject,
+        ?ActionableSubject $subject,
         ChannelFunctionAction $action,
         array $actionParam = [],
         $userDelayMs = 0,
         $waitForCompletion = false
     ) {
-        $this->initializeSubject($subject);
+        if ($subject) {
+            $this->initializeSubject($subject);
+        }
         $this->action = $action->getId();
         $this->setActionParam($actionParam);
         Assertion::between($userDelayMs, 0, 3600000, 'Maximum delay is 60 minutes.'); // i18n
         $this->userDelayMs = $userDelayMs;
         $this->delayMs = $userDelayMs;
         $this->waitForCompletion = $waitForCompletion;
+    }
+
+    public static function delayOnly(int $delayMs): self {
+        return new self(null, ChannelFunctionAction::VOID(), [], $delayMs);
     }
 
     public function getId(): int {

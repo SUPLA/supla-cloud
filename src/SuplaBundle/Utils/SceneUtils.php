@@ -39,7 +39,7 @@ final class SceneUtils {
                 self::MAX_OPERATIONS_EXECUTIONS_PER_SCENE,
                 'The scene would execute too many operations.' // i18n
             );
-            if ($operation->getSubjectType()->getValue() === ActionableSubjectType::SCENE) {
+            if ($operation->getSubjectType() == ActionableSubjectType::SCENE()) {
                 self::ensureOperationsAreNotCyclic($operation->getSubject(), $usedScenesIds, $operationsCounter);
             }
         }
@@ -60,7 +60,7 @@ final class SceneUtils {
                 $delayFromWaiting = 0;
                 $operation->setDelayMs($totalDelay);
                 $totalExecutionTime += $totalDelay;
-                if ($operation->getSubjectType()->equals(ActionableSubjectType::SCENE())) {
+                if ($operation->getSubjectType() == ActionableSubjectType::SCENE()) {
                     /** @var Scene $executedScene */
                     $executedScene = $operation->getSubject();
                     $commandExecutionsCount += $executedScene->getCommandExecutionsCount();

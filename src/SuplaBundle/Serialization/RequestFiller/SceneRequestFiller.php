@@ -87,24 +87,31 @@ class SceneRequestFiller extends AbstractRequestFiller {
                 'Too many operations in this scene' // i18n
             );
             $operations = array_map(function (array $operationData) use ($scene, $user) {
-                Assertion::keyExists($operationData, 'subjectId', 'You must set subjectId for each scene operation.');
-                Assertion::keyExists($operationData, 'subjectType', 'You must set subjectType for each scene operation.');
-                Assertion::keyExists(
-                    $operationData,
-                    'actionId',
-                    'You must set an action for each scene operation.' // i18n
-                );
-                Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
-                /** @var ActionableSubject $subject */
-                $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
-                Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');
-                $action = ChannelFunctionAction::fromString($operationData['actionId']);
-                $actionParam = $operationData['actionParam'] ?? [] ?: [];
-                $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
-                Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getPossibleActions()));
-                $delayMs = intval($operationData['delayMs'] ?? 0);
-                $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
-                return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);
+                if ($operationData['subjectId'] ?? false) {
+                    Assertion::keyExists($operationData, 'subjectId', 'You must set subjectId for each scene operation.');
+                    Assertion::keyExists($operationData, 'subjectType', 'You must set subjectType for each scene operation.');
+                    Assertion::keyExists(
+                        $operationData,
+                        'actionId',
+                        'You must set an action for each scene operation.' // i18n
+                    );
+                    Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
+                    /** @var ActionableSubject $subject */
+                    $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
+                    Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');
+                    $action = ChannelFunctionAction::fromString($operationData['actionId']);
+                    $actionParam = $operationData['actionParam'] ?? [] ?: [];
+                    $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
+                    Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getPossibleActions()));
+                    $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
+                    $delayMs = intval($operationData['delayMs'] ?? 0);
+                    return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);
+                } else {
+                    $operationData['actionId'] = ChannelFunctionAction::VOID;
+                    $delayMs = intval($operationData['delayMs'] ?? 0);
+                    Assertion::greaterThan($delayMs, 0, 'You have to set the delay for delay-only scene operation.');
+                    return SceneOperation::delayOnly($delayMs);
+                }
             }, $operations);
             $scene->setOpeartions($operations);
             SceneUtils::ensureOperationsAreNotCyclic($scene);

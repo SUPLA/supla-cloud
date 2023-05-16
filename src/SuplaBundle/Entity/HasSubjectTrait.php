@@ -37,7 +37,11 @@ trait HasSubjectTrait {
         return $this->channel ?: $this->channelGroup ?: $this->scene ?: $this->schedule;
     }
 
-    public function getSubjectType(): ActionableSubjectType {
-        return ActionableSubjectType::forEntity($this->getTheSubject());
+    public function getSubjectType(): ?ActionableSubjectType {
+        return $this->hasSubject() ? ActionableSubjectType::forEntity($this->getTheSubject()) : null;
+    }
+
+    public function hasSubject(): bool {
+        return !!$this->getTheSubject();
     }
 }
