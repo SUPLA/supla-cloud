@@ -44,11 +44,11 @@
                 <div class="history-date-range-picker d-flex my-3" v-if="oldestLog && newestLog">
                     <div class="d-flex flex-column form-group mr-3 justify-content-end">
                         <button type="button" class="btn btn-default" @click="panTime(-1)"
-                            :disabled="oldestLog.date_timestamp * 1000 >= currentMinTimestamp">
+                            :disabled="oldestLog.date_timestamp * 1000 + 1000 >= currentMinTimestamp">
                             <fa icon="chevron-left"/>
                         </button>
                     </div>
-                    <DateRangePicker v-model="dateRange" :min="null" class="flex-grow-1"
+                    <DateRangePicker v-model="dateRange" :min="minDate" class="flex-grow-1"
                         :label-date-start="$t('From')" :label-date-end="$t('To')"/>
                     <div class="d-flex flex-column justify-content-end form-group ml-3">
                         <button class="btn btn-default" type="button" @click="panTime(1)"
@@ -413,6 +413,9 @@
                         beforeTimestampMs: DateTime.fromISO(dateRange.dateEnd).toMillis(),
                     });
                 }
+            },
+            minDate() {
+                return this.oldestLog ? DateTime.fromSeconds(this.oldestLog.date_timestamp).toJSDate() : null;
             },
             visibleRange() {
                 return this.currentMaxTimestamp && (this.currentMaxTimestamp - this.currentMinTimestamp);
