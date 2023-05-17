@@ -492,7 +492,6 @@ export const CHART_TYPES = {
                 });
                 adjustedLogs.push(log);
             }
-            adjustedLogs[0] = CHART_TYPES.ELECTRICITYMETER.emptyLog();
             return adjustedLogs;
         },
         cumulateLogs: (logs) => {
