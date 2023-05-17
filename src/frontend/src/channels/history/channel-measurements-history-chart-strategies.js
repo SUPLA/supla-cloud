@@ -202,10 +202,13 @@ export const CHART_TYPES = {
     },
     IC_GASMETER: {
         chartType: 'bar',
-        chartOptions: () => ({}),
+        chartOptions: () => ({
+            legend: {show: false},
+            tooltip: {followCursor: true, theme: 'no-series-label'},
+        }),
         series: function (allLogs) {
             const calculatedValues = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.calculated_value}));
-            return [{name: this.$t('Calculated value'), data: calculatedValues}];
+            return [{name: this.$t('Value'), data: calculatedValues}];
         },
         fixLog: (log) => {
             if (log.calculated_value !== undefined && log.calculated_value !== null) {
@@ -300,8 +303,8 @@ export const CHART_TYPES = {
         yaxes: function () {
             return [
                 {
-                    seriesName: this.$t('Calculated value'),
-                    title: {text: this.$t("Calculated value")},
+                    seriesName: this.$t('Value'),
+                    title: {text: this.$t('Value')},
                     labels: {formatter: (v) => v !== null ? `${(+v).toFixed(2)} ${measurementUnit(this.channel)}` : '?'},
                 }
             ];

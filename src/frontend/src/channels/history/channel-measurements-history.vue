@@ -312,6 +312,7 @@
                     tooltip: {
                         shared: true,
                         intersect: false,
+                        followCursor: true,
                         x: {
                             formatter: (value, info) => {
                                 let nextPointTimestamp = undefined;
@@ -461,6 +462,14 @@
 
     ::v-deep .apexcharts-menu-item.exportCSV {
         display: none;
+    }
+
+    ::v-deep .apexcharts-tooltip {
+        background: #f3f3f3;
+        border: 1px solid #e3e3e3;
+        .apexcharts-tooltip-text-y-label {
+            display: none;
+        }
     }
 
     .download-buttons {
