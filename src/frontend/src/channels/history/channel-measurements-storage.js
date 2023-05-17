@@ -10,7 +10,7 @@ export class IndexedDbMeasurementLogsStorage {
 
     async connect() {
         if (window.indexedDB) {
-            this.db = await openDB(`channel_measurement_logs_${this.channel.id}`, 3, {
+            this.db = await openDB(`channel_measurement_logs_${this.channel.id}`, 4, {
                 async upgrade(db) {
                     if (db.objectStoreNames.contains('logs')) {
                         await db.deleteObjectStore('logs');
@@ -143,6 +143,11 @@ export class IndexedDbMeasurementLogsStorage {
                         progressCallback(savedCount * 100 / totalCount);
                         return this.fetchOlderLogs(vue, progressCallback, true);
                     } else {
+                        const oldestLog = await this.getOldestLog();
+                        const emptyOldestLog = this.chartStrategy.emptyLog();
+                        emptyOldestLog.date_timestamp = oldestLog.date_timestamp;
+                        emptyOldestLog.date = DateTime.fromSeconds(emptyOldestLog.date_timestamp).toJSDate();
+                        await (await this.db).put('logs', emptyOldestLog);
                         this.isReady = true;
                     }
                     return somethingDownloaded;

@@ -142,8 +142,13 @@
             async download() {
                 this.downloading = true;
                 let rows = (await (await this.storage.db).getAllFromIndex('logs', 'date'));
+                rows.shift(); // removes the first null log
                 if (this.downloadConfig.transformation === 'cumulative') {
+                    const firstLogResponse = await this.$http.get(`channels/${this.storage.channel.id}/measurement-logs?order=ASC&limit=1`);
+                    const firstLog = firstLogResponse.body[0];
+                    rows.unshift(this.storage.chartStrategy.fixLog(firstLog));
                     rows = this.storage.chartStrategy.cumulateLogs(rows);
+                    rows.shift();
                 }
                 rows = rows
                     .filter(row => !row.interpolated)
