@@ -24,8 +24,8 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @OA\Schema(schema="ChannelFunctionActionEnumNames", type="string", example="OPEN", enum={"VOID","READ","SET","EXECUTE","INTERRUPT","INTERRUPT_AND_EXECUTE","OPEN","CLOSE","SHUT","REVEAL","REVEAL_PARTIALLY","SHUT_PARTIALLY","TURN_ON","TURN_OFF","SET_RGBW_PARAMETERS","OPEN_CLOSE","STOP","TOGGLE","OPEN_PARTIALLY","CLOSE_PARTIALLY","UP_OR_STOP","DOWN_OR_STOP","STEP_BY_STEP","COPY","ENABLE","DISABLE","AT_FORWARD_OUTSIDE","AT_DISABLE_LOCAL_FUNCTION"})
- * @OA\Schema(schema="ChannelFunctionActionIds", type="integer", example=10, enum={-1,1000,2000,3000,3001,3002,10,20,30,40,50,51,60,70,80,90,100,110,120,130,140,150,160,10100,200,210,10000,10200})
+ * @OA\Schema(schema="ChannelFunctionActionEnumNames", type="string", example="OPEN", enum={"READ","SET","EXECUTE","INTERRUPT","INTERRUPT_AND_EXECUTE","VOID","OPEN","CLOSE","SHUT","REVEAL","REVEAL_PARTIALLY","SHUT_PARTIALLY","TURN_ON","TURN_OFF","SET_RGBW_PARAMETERS","OPEN_CLOSE","STOP","TOGGLE","OPEN_PARTIALLY","CLOSE_PARTIALLY","UP_OR_STOP","DOWN_OR_STOP","STEP_BY_STEP","COPY","ENABLE","DISABLE","AT_FORWARD_OUTSIDE","AT_DISABLE_LOCAL_FUNCTION"})
+ * @OA\Schema(schema="ChannelFunctionActionIds", type="integer", example=10, enum={1000,2000,3000,3001,3002,-1,10,20,30,40,50,51,60,70,80,90,100,110,120,130,140,150,160,10100,200,210,10000,10200})
  * @OA\Schema(
  *   schema="ChannelFunctionAction", type="object",
  *   @OA\Property(property="id", ref="#/components/schemas/ChannelFunctionActionIds"),
@@ -116,6 +116,7 @@ final class ChannelFunctionAction extends Enum {
 
     public static function captions(): array {
         return [
+            self::VOID => 'Noop', // i18n
             self::READ => 'Read', // i18n
             self::SET => 'Adjust parameters', // i18n
             self::OPEN => 'Open', // i18n
