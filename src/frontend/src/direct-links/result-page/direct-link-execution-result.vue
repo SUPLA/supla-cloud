@@ -94,7 +94,7 @@
         <button type="button"
             class="btn btn-link"
             @click="jsonHintVisible = true"
-            v-if="!jsonHintVisible">
+            v-if="action && !jsonHintVisible">
             <i class="pe-7s-help1"></i>
         </button>
         <div class="well mt-4"
