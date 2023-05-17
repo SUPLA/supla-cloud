@@ -65,25 +65,25 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <router-link :to="{name: 'schedules'}">
-                                    <i class="hidden-sm hidden-xs pe-7s-clock"></i>
+                                    <i class="hidden-sm hidden-xs pe-7s-clock mr-1"></i>
                                     {{ $t('Schedules') }}
                                 </router-link>
                             </li>
                             <li>
                                 <router-link :to="{name: 'channelGroups'}">
-                                    <i class="hidden-sm hidden-xs pe-7s-keypad"></i>
+                                    <i class="hidden-sm hidden-xs pe-7s-keypad mr-1"></i>
                                     {{ $t('Channel groups') }}
                                 </router-link>
                             </li>
                             <li>
                                 <router-link :to="{name: 'directLinks'}">
-                                    <i class="hidden-sm hidden-xs pe-7s-link"></i>
+                                    <i class="hidden-sm hidden-xs pe-7s-link mr-1"></i>
                                     {{ $t('Direct links') }}
                                 </router-link>
                             </li>
                             <li>
                                 <router-link :to="{name: 'scenes'}">
-                                    <i class="hidden-sm hidden-xs supla-icon supla-icon-scene"></i>
+                                    <i class="hidden-sm hidden-xs supla-icon supla-icon-scene mr-1"></i>
                                     {{ $t('Scenes') }}
                                 </router-link>
                             </li>
@@ -106,26 +106,22 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <router-link tag="li"
-                                to="/account">
-                                <a class="text-center">
-                                    <span class="username"
-                                        v-if="$user">{{ $user.username }}</span>
-                                    {{ $t('Go to your account') }}
-                                </a>
-                            </router-link>
-                            <li class="divider"></li>
-                            <router-link tag="li"
-                                :to="{name: 'integrations.myOauthApps'}">
-                                <a>
-                                    <fa icon="puzzle-piece" fixed-width/>
-                                    {{ $t('Integrations') }}
-                                </a>
-                            </router-link>
                             <li>
-                                <router-link
-                                    :to="{name: 'safety.log'}">
-                                    <fa icon="shield-halved" fixed-width/>
+                                <router-link to="/account" class="text-center">
+                                    <span class="username" v-if="$user">{{ $user.username }}</span>
+                                    {{ $t('Go to your account') }}
+                                </router-link>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <router-link :to="{name: 'integrations.myOauthApps'}">
+                                    <fa icon="puzzle-piece" class="mr-1" fixed-width/>
+                                    {{ $t('Integrations') }}
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'safety.log'}">
+                                    <fa icon="shield-halved" class="mr-1" fixed-width/>
                                     {{ $t('Security') }}
                                 </router-link>
                             </li>
@@ -265,6 +261,10 @@
                 font-size: 1.3em;
                 font-family: $supla-font-special;
             }
+        }
+
+        .dropdown-menu li > a {
+            white-space: nowrap;
         }
     }
 </style>
