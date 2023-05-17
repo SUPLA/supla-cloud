@@ -169,7 +169,9 @@ describe('Channel measurement history data strategies', () => {
                 {date_timestamp: 4, phase1_fae: 1, counterReset: true},
                 {date_timestamp: 5, phase1_fae: 7},
             ];
-            expect(strategy.cumulateLogs(strategy.adjustLogs(logs))).toEqual(logs);
+            const cumulatedLogs = strategy.cumulateLogs(strategy.adjustLogs(logs));
+            expect(cumulatedLogs.map(l => l.phase1_fae)).toEqual(logs.map(l => l.phase1_fae));
+            expect(cumulatedLogs.map(l => l.counterReset)).toEqual(logs.map(l => l.counterReset));
         });
 
         it('adjusts null values', () => {
@@ -182,6 +184,18 @@ describe('Channel measurement history data strategies', () => {
             const adjustedLogs = strategy.adjustLogs(logs);
             const adjustedPhase1Fae = adjustedLogs.map(l => l.phase1_fae);
             expect(adjustedPhase1Fae).toEqual([1, 1, 0, 2]);
+        });
+
+        it('adjusts all null values', () => {
+            const logs = [
+                {date_timestamp: 0, phase1_fae: 1},
+                {date_timestamp: 1, phase1_fae: 2},
+                {date_timestamp: 2, phase1_fae: null},
+                {date_timestamp: 3, phase1_fae: 4},
+            ];
+            const adjustedLogs = strategy.adjustLogs(logs);
+            const adjustedPhase1Fae = adjustedLogs.map(l => l.phase2_fae);
+            expect(adjustedPhase1Fae).toEqual([undefined, 0, 0, 0]);
         });
 
         describe('yaxes', function () {

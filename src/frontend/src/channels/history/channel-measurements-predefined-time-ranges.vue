@@ -4,7 +4,7 @@
             {{ $t('Predefined time ranges') }}
             <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu dropdown-menu-right">
+        <ul class="dropdown-menu dropdown-menu-right" v-if="newestLog">
             <li v-for="(range, $index) in availableRanges" :key="$index">
                 <a @click="setRange(range)">{{ $t(range.label) }}</a>
             </li>
@@ -62,6 +62,16 @@
                         from: () => DateTime.now().minus({months: 1}).startOf('month'),
                         to: () => DateTime.now().minus({months: 1}).endOf('month'),
                     },
+                    {
+                        label: 'this year', // i18n
+                        from: () => DateTime.now().startOf('year'),
+                        to: () => DateTime.now(),
+                    },
+                    {
+                        label: 'the whole history', // i18n
+                        from: () => DateTime.fromSeconds(this.oldestLog.date_timestamp),
+                        to: () => DateTime.fromSeconds(this.newestLog.date_timestamp),
+                    },
                 ],
                 oldestLog: undefined,
                 newestLog: undefined,
@@ -79,8 +89,7 @@
         computed: {
             availableRanges() {
                 return this.ranges.filter(range => {
-                    return (range.from().toSeconds() > this.oldestLog?.date_timestamp && range.from().toSeconds() < this.newestLog?.date_timestamp)
-                        || (range.to().toSeconds() > this.oldestLog?.date_timestamp && range.to().toSeconds() < this.newestLog?.date_timestamp);
+                    return range.from().toSeconds() < this.newestLog.date_timestamp && range.to().toSeconds() > this.oldestLog.date_timestamp;
                 });
             }
         }

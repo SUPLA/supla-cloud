@@ -452,7 +452,7 @@ export const CHART_TYPES = {
             };
             logs.forEach(log => {
                 CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
-                    if (log[attributeName]) {
+                    if (Number.isFinite(log[attributeName])) {
                         aggregatedLog[attributeName] = +aggregatedLog[attributeName] + log[attributeName];
                     }
                     if (log.counterReset) {
@@ -473,9 +473,7 @@ export const CHART_TYPES = {
                 CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
                     if (Object.prototype.hasOwnProperty.call(log, attributeName)) {
                         if (log[attributeName] === null) {
-                            if (latestState[attributeName] !== null) {
-                                log[attributeName] = 0;
-                            }
+                            log[attributeName] = 0;
                         } else {
                             const newState = log[attributeName];
                             log[attributeName] -= latestState[attributeName] || 0;
@@ -485,10 +483,13 @@ export const CHART_TYPES = {
                             }
                             latestState[attributeName] = newState;
                         }
+                    } else {
+                        log[attributeName] = 0;
                     }
                 });
                 adjustedLogs.push(log);
             }
+            adjustedLogs[0] = CHART_TYPES.ELECTRICITYMETER.emptyLog();
             return adjustedLogs;
         },
         cumulateLogs: (logs) => {
