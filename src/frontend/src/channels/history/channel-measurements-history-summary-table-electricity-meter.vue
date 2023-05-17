@@ -11,22 +11,22 @@
         </thead>
         <tbody>
         <tr v-if="countersAvailable.includes('forwardActiveEnergy')">
-            <th>{{ $t('Forward active Energy') }} (kWh)</th>
+            <th>{{ $t('Forward active energy') }} (kWh)</th>
             <td>{{ totalLog.fae_total.toFixed(5) }}</td>
             <td v-for="phaseNo in enabledPhases" :key="`header_fae_${phaseNo}`">{{ totalLog[`phase${phaseNo}_fae`].toFixed(5) }}</td>
         </tr>
         <tr v-if="countersAvailable.includes('reverseActiveEnergy')">
-            <th>{{ $t('Reverse active Energy') }} (kWh)</th>
+            <th>{{ $t('Reverse active energy') }} (kWh)</th>
             <td>{{ totalLog.rae_total.toFixed(5) }}</td>
             <td v-for="phaseNo in enabledPhases" :key="`header_rae_${phaseNo}`">{{ totalLog[`phase${phaseNo}_rae`].toFixed(5) }}</td>
         </tr>
         <tr v-if="countersAvailable.includes('reverseActiveEnergy')">
-            <th>{{ $t('Forward reactive Energy') }} (kvarh)</th>
+            <th>{{ $t('Forward reactive energy') }} (kvarh)</th>
             <td>{{ (totalLog.phase1_fre + totalLog.phase2_fre + totalLog.phase3_fre).toFixed(5) }}</td>
             <td v-for="phaseNo in enabledPhases" :key="`header_fre_${phaseNo}`">{{ totalLog[`phase${phaseNo}_fre`].toFixed(5) }}</td>
         </tr>
         <tr v-if="countersAvailable.includes('reverseReactiveEnergy')">
-            <th>{{ $t('Reverse reactive Energy') }} (kvarh)</th>
+            <th>{{ $t('Reverse reactive energy') }} (kvarh)</th>
             <td>{{ (totalLog.phase1_rre + totalLog.phase2_rre + totalLog.phase3_rre).toFixed(5) }}</td>
             <td v-for="phaseNo in enabledPhases" :key="`header_rre_${phaseNo}`">{{ totalLog[`phase${phaseNo}_rre`].toFixed(5) }}</td>
         </tr>

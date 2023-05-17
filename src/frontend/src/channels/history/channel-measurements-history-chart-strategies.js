@@ -358,11 +358,11 @@ export const CHART_TYPES = {
             } else if (this.chartMode === 'fae_rae_vector') {
                 return [
                     {
-                        name: `${this.$t('Forward active energy (vector balance)')}`,
+                        name: `${this.$t('Forward active energy')} (${this.$t('vector balance')})`,
                         data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.fae_balanced})),
                     },
                     {
-                        name: `${this.$t('Reverse active energy (vector balance)')}`,
+                        name: `${this.$t('Reverse active energy')} (${this.$t('vector balance')})`,
                         data: allLogs.map((item) => ({
                             x: item.date_timestamp * 1000, y: -item.rae_balanced, goals: [
                                 {

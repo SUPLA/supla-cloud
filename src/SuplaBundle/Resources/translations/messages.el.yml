@@ -93,7 +93,6 @@ At sunset: κατά το ηλιοβασίλεμα
 Authorization callback URLs (one per line): Διευθύνσεις επιστροφής URL εξουσιοδότησης (μία ανά γραμμή)
 Authorize the application, so that it can access your account.: Εγκρίνετε την εφαρμογή ώστε να έχει πρόσβαση στο λογαριασμό σας.
 Authorized: Εγκρίθηκε
-Authorized OAuth apps: Εγκεκριμένες εφαρμογές OAuth
 Automatic calibration: Αυτόματη βαθμονόμηση
 Automatic closing rule: Αυτόματο κλείσιμο πόρτας
 Automation: Αυτοματοποίηση
@@ -109,7 +108,6 @@ Bridge: Γέφυρα
 Brightness: Φωτεινότητα
 CLICK TO DISABLE: ΚΑΝΤΕ ΚΛΙΚ ΓΙΑ ΝΑ ΚΛΕΙΣΕΤΕ
 CLICK TO ENABLE: ΚΑΝΤΕ ΚΛΙΚ ΓΙΑ ΝΑ ΕΝΕΡΓΟΠΟΙΗΣΕΤΕ
-Calculated value: Ανάγνωση μετρητή
 Calibrate: Βαθμονόμηση
 Calibration: Βαθμονόμηση
 Calibration successful.: Επιτυχής βαθμονόμηση
@@ -297,7 +295,6 @@ Forward active energy: Ληφθείσα ενεργή ενέργεια
 Forward active energy balanced: Ενεργή ενέργεια που λαμβάνεται (Διανυσματική ισορροπία)
 Forward reactive energy: Ληφθείσα παθητική ενέργεια
 Fridays: Παρασκευές
-From IP: Από τη διεύθυνση IP
 From anywhere: Από κάθε σημείο
 Full closing time: Συνολικός χρόνος κλεισίματος
 Full documentation: Πλήρης φάκελος
@@ -528,7 +525,6 @@ Please wait a moment before the next login attempt.: Περιμένετε λίγ
 Port: Λιμάνι
 Precision: Ακρίβεια
 Pressure sensor: Αισθητήρας πίεσης
-Previous login: Προηγούμενη σύνδεση
 Price per: Τιμή για
 Private Cloud domain name: Όνομα τομέα του ιδιωτικού σύννεφου
 Private instance of the SUPLA cloud with given URL is already registered.: Ένα ιδιωτικό σύννεφο SUPLA είναι ήδη καταχωρημένο σε αυτή τη διεύθυνση.
@@ -944,6 +940,8 @@ Action: Ενέργεια
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Είστε βέβαιοι ότι θέλετε να διαγράψετε όλο το ιστορικό παρεκκλίσεων τάσης για αυτό το κανάλι;
 Are you sure you want to disable this device?: Είστε βέβαιοι ότι θέλετε να απενεργοποιήσετε αυτή τη συσκευή;
 Assigned Locations: Παραχωρημένες τοποθεσίες
+Authorized OAuth apps: Εγκεκριμένες εφαρμογές OAuth
+Calculated value: Ανάγνωση μετρητή
 Cannot send an activation e-mail. Try again later.: Δεν είναι δυνατή η αποστολή μηνύματος με το σύνδεσμο ενεργοποίησης. Δοκιμάστε ξανά αργότερα.
 Channel will be deleted from the channel group below: Το κανάλι θα αφαιρεθεί από τις ακόλουθες ομάδες καναλιών
 Channels in channel group: Κανάλια σε ομάδες καναλιών
@@ -958,6 +956,7 @@ Doors, Gates: Πόρτες, πύλες
 ENABLED: ΕΝΕΡΓΟΠΟΙΗΜΕΝΟ
 Email already exists: Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου υπάρχει ήδη
 Existing schedules: Υπάρχοντα χρονοδιαγράμματα
+From IP: Από τη διεύθυνση IP
 Get SUPLA on your devices: Κατεβάστε το SUPLA στις συσκευές σας
 Hi: Γεια σας!
 Hour: Ώρα
@@ -975,6 +974,7 @@ Next: Επόμενο
 Number: Αριθμός
 Output: Έξοδος
 Please select the schedules that should also be enabled.: Επιλέξτε προγράμματα που επίσης πρέπει να συμπεριληφθούν.
+Previous login: Προηγούμενη σύνδεση
 Registration: Εγγραφή
 Remove: Διαγραφή
 Schedule cannot be enabled: Αποτυχία ενεργοποίησης του χρονοδιαγράμματος
@@ -995,37 +995,108 @@ hourly: Κύκλος ωρών
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 Action confirmation: ~
+Active applications: ~
+Active sessions: ~
+Active web sessions: ~
+Aggregation: ~
 All events: ~
+All logs has been downloaded. Reload the chart to see them.: ~
+Application: ~
+Applications with access: ~
 Are you sure you want to delete the events from the voltage aberrations history?: ~
+Are you sure you want to log out this device?: ~
+Arithmetic balance: ~
+Authentication failure: ~
+Authentication successful: ~
+Balance: ~
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
 By signing in, you are authorizing {clientName} to control your devices.: ~
+Change the password and log out: ~
 Channel available for {serviceName}: ~
+Chart mode: ~
+Colon: ~
+Comma: ~
 Confirmation: ~
+Counter: ~
+Counter reset: ~
 Data limits: ~
+Date and time: ~
+Download measurements history: ~
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
 Enabled phases: ~
+Expires at: ~
+File format: ~
+From: ~
 I understand that my SUPLA account will be permanently deleted.: ~
+IP Address: ~
+Incremental: ~
 Integrations settings: ~
 Invalid username or password: ~
+Log out: ~
+Logs transformation: ~
 No, take me back!: ~
+Noop: ~
+Operation: ~
 PIN: ~
 PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
+Password changed: ~
+Password reset: ~
 Phase {phaseNumber}: ~
+Predefined time ranges: ~
+Reload the chart: ~
 Scene available for {serviceName}: ~
+Security: ~
+Security log: ~
+Selected device has been logged out.: ~
 Set values for each phase separately: ~
+Summary for selected time range: ~
+Tab: ~
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
 The entire history of the voltage aberrations will be removed from this channel.: ~
 The events in voltage aberrations history will be automatically deleted after {days} days.: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
 'This password will protect your home. Therefore, it must:': ~
+To: ~
+Total: ~
+Unknown browser: ~
+Value: ~
+Value separator: ~
+Vector balance: ~
 'We also strongly advise you to choose a password that:': ~
 We will miss you!: ~
+You can browse only the most recent logs now. Wait a while for the full history.: ~
 You must leave at least one phase enabled.: ~
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
+Your chart is being drawn...: ~
+Your data are being collected. Please be patient.: ~
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
+actionableSubjectType_schedule: ~
+average: ~
 be at least {numChars} characters long: ~
 change: ~
+choose the schedule: ~
 contains a character that is neither a letter nor a digit: ~
 contains a digit: ~
 contains lower and upper letters: ~
 is at least {numChars} characters long: ~
+last 24 hours: ~
+last 30 days: ~
+last 6 hours: ~
+last 7 days: ~
+previous month: ~
+range: ~
+schedule: ~
+the whole history: ~
+this month: ~
+this year: ~
+today: ~
+unknown: ~
+values as seen on chart: ~
+values as seen on counter: ~
+vector balance: ~
+yesterday: ~
 '{serviceName} integration': ~
 
 #</editor-fold>

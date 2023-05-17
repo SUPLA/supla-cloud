@@ -10,7 +10,7 @@
                     <ChannelMeasurementsPredefinedTimeRanges :storage="storage" @choose="setTimeRange($event)"/>
                     <div class="d-inline-block dropdown" v-if="supportedChartModes.length > 1">
                         <button class="btn btn-default dropdown-toggle btn-wrapped" type="button" data-toggle="dropdown">
-                            {{ $t('Chart mode:') }}
+                            {{ $t('Chart mode') }}:
                             {{ $t(chartModeLabels[chartMode]) }}
                             <span class="caret"></span>
                         </button>
