@@ -55,7 +55,7 @@ export class IndexedDbMeasurementLogsStorage {
         if (timestampRange > 86400 * 3 && timestampRange < 86400 * 400) {
             strategies.push('day');
         }
-        if (timestampRange > 86400 * 28) {
+        if (timestampRange > 86400 * 40) {
             strategies.push('month');
         }
         return strategies;
