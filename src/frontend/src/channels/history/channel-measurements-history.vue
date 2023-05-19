@@ -30,6 +30,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
+                            <!-- i18n:['logs_aggregation_minute','logs_aggregation_hour','logs_aggregation_day','logs_aggregation_month'] -->
                             <li v-for="mode in ['minute', 'hour', 'day', 'month']"
                                 :key="mode"
                                 :class="{disabled: !availableAggregationStrategies.includes(mode), active: mode === aggregationMethod}">
@@ -51,10 +52,13 @@
                     <DateRangePicker v-model="dateRange" :min="minDate" class="flex-grow-1"
                         :label-date-start="$t('From')" :label-date-end="$t('To')"/>
                     <div class="d-flex flex-column justify-content-end form-group ml-3">
-                        <button class="btn btn-default" type="button" @click="panTime(1)"
-                            :disabled="newestLog.date_timestamp * 1000 <= currentMaxTimestamp">
-                            <fa icon="chevron-right"/>
-                        </button>
+                        <div class="d-flex">
+                            <button class="btn btn-default" type="button" @click="panTime(1)"
+                                :disabled="newestLog.date_timestamp * 1000 <= currentMaxTimestamp">
+                                <fa icon="chevron-right"/>
+                            </button>
+                            <button class="btn btn-default ml-3" type="button">{{ $t('OK') }}</button>
+                        </div>
                     </div>
                 </div>
 

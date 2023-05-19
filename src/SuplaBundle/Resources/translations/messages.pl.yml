@@ -1111,5 +1111,10 @@ hourly: Każdy dzień
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+OK: OK
+logs_aggregation_day: dni
+logs_aggregation_hour: godziny
+logs_aggregation_minute: minuty
+logs_aggregation_month: miesiące
 
 #</editor-fold>

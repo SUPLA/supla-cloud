@@ -1039,6 +1039,7 @@ Log out: ~
 Logs transformation: ~
 No, take me back!: ~
 Noop: ~
+OK: ~
 Operation: ~
 PIN: ~
 PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
@@ -1088,6 +1089,10 @@ last 24 hours: ~
 last 30 days: ~
 last 6 hours: ~
 last 7 days: ~
+logs_aggregation_day: ~
+logs_aggregation_hour: ~
+logs_aggregation_minute: ~
+logs_aggregation_month: ~
 previous month: ~
 range: ~
 schedule: ~
