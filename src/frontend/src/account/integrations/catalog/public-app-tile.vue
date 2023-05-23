@@ -1,8 +1,8 @@
 <template>
     <square-link class="clearfix pointer blue public-app">
         <router-link :to="linkSpec">
-            <img class="app-image"
-                :src="'https://www.supla.org/assets/img/AD/' + app.id">
+            <img class="app-icon" alt="Logo"
+                :src="`https://www.supla.org/assets/img/AD/${app.id}.webp`">
             <h3>{{ app.name }}</h3>
             <p>
                 <i18n-text :text="app.description"></i18n-text>
@@ -28,7 +28,7 @@
 
 <style lang="scss">
     .public-app {
-        .app-image {
+        .app-icon {
             max-width: 100px;
             max-height: 60px;
             float: right;
