@@ -387,8 +387,10 @@
             changeAggregationMethod(newMethod) {
                 if (this.availableAggregationStrategies.includes(newMethod)) {
                     this.aggregationMethod = newMethod;
-                    this.fetchingDenseLogs = true;
-                    this.fetchDenseLogs().then(() => this.rerenderBigChart());
+                    this.setTimeRange({
+                        afterTimestampMs: this.currentMinTimestamp,
+                        beforeTimestampMs: this.currentMaxTimestamp,
+                    });
                 }
             },
             onMeasurementsDelete() {
@@ -397,10 +399,12 @@
                 this.bigChart = undefined;
             },
             panTime(direction) {
-                const panWindow = {minute: 600_000, hour: 3600_000, day: 86_400_000, month: 28 * 86_400_00,}[this.aggregationMethod];
+                // const panWindow = {minute: 600_000, hour: 3600_000, day: 86_400_000, month: 28 * 86_400_00,}[this.aggregationMethod];
+                const duration = {[`${this.aggregationMethod}s`]: this.aggregationMethod === 'minute' ? 10 : 1};
+                const method = direction > 0 ? 'plus' : 'minus';
                 this.setTimeRange({
-                    afterTimestampMs: this.currentMinTimestamp + panWindow * direction,
-                    beforeTimestampMs: this.currentMaxTimestamp + panWindow * direction,
+                    afterTimestampMs: DateTime.fromMillis(this.currentMinTimestamp)[method](duration).toMillis(),// + panWindow * direction,
+                    beforeTimestampMs: DateTime.fromMillis(this.currentMaxTimestamp)[method](duration).toMillis(),
                 });
             },
         },
