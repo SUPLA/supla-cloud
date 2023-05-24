@@ -344,8 +344,8 @@
                 this.updateChartLocale();
             },
             fetchDenseLogs() {
-                const afterTimestamp = Math.floor(this.currentMinTimestamp / 1000);
-                const beforeTimestamp = Math.ceil(this.currentMaxTimestamp / 1000);
+                const afterTimestamp = DateTime.fromMillis(this.currentMinTimestamp).toSeconds();
+                const beforeTimestamp = DateTime.fromMillis(this.currentMaxTimestamp).toSeconds();
                 if (!this.availableAggregationStrategies.includes(this.aggregationMethod)) {
                     this.aggregationMethod = this.availableAggregationStrategies[this.availableAggregationStrategies.length - 1];
                 }
