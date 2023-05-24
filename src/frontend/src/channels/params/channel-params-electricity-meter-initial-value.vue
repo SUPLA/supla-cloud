@@ -18,7 +18,7 @@
                         class="form-control"
                         v-model="value[phaseNumber]">
                     <span class="input-group-addon">
-                        kWh
+                        {{ unit }}
                     </span>
                 </span>
             </div>
@@ -34,7 +34,7 @@
                     class="form-control"
                     v-model="initialValue">
                 <span class="input-group-addon">
-                    kWh
+                    {{ unit }}
                 </span>
             </span>
         </div>
@@ -87,7 +87,10 @@
                 set(value) {
                     this.$emit('input', +value);
                 }
-            }
+            },
+            unit() {
+                return this.counterName.toLowerCase().indexOf("reactive") === -1 ? 'kWh' : 'kvarh';
+            },
         }
     };
 </script>

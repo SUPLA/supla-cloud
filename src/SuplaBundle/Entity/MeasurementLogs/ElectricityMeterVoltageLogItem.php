@@ -58,11 +58,6 @@ class ElectricityMeterVoltageLogItem {
     private $countBelow;
 
     /**
-     * @ORM\Column(name="sec_total", type="integer")
-     */
-    private $secTotal;
-
-    /**
      * @ORM\Column(name="sec_above", type="integer")
      */
     private $secAbove;

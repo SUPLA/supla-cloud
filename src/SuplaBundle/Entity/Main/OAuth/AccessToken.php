@@ -23,6 +23,7 @@ use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\Main\AccessID;
 use SuplaBundle\Enums\ApiClientType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -77,6 +78,23 @@ class AccessToken extends BaseAccessToken {
      */
     private $apiClientAuthorization;
 
+    /**
+     * @ORM\Column(name="issuer_ip", type="ipaddress", nullable=true, options={"unsigned"=true})
+     */
+    private $issuerIp;
+
+    /**
+     * @ORM\Column(name="issuer_browser_string", type="string", length=255, nullable=true)
+     */
+    private $issuerBrowserString;
+
+    public function __construct(Request $request = null) {
+        if ($request) {
+            $this->issuerIp = $request->getClientIp();
+            $this->issuerBrowserString = $request->headers->get('User-Agent');
+        }
+    }
+
     /** @Groups({"basic"}) */
     public function getScope() {
         return parent::getScope();
@@ -116,6 +134,10 @@ class AccessToken extends BaseAccessToken {
         return $this->accessId;
     }
 
+    public function getApiClientAuthorization(): ?ApiClientAuthorization {
+        return $this->apiClientAuthorization;
+    }
+
     public function setApiClientAuthorization(ApiClientAuthorization $apiClientAuthorization) {
         $this->apiClientAuthorization = $apiClientAuthorization;
     }
@@ -126,5 +148,13 @@ class AccessToken extends BaseAccessToken {
 
     public function setIssuedWithRefreshToken(?RefreshToken $refreshToken): void {
         $this->issuedWithRefreshToken = $refreshToken;
+    }
+
+    public function getIssuerIp(): ?string {
+        return $this->issuerIp;
+    }
+
+    public function getIssuerBrowserString(): ?string {
+        return $this->issuerBrowserString;
     }
 }

@@ -20,7 +20,7 @@ interface ActionableSubject {
     public function buildServerActionCommand(string $command, array $actionParams = []): string;
 
     /** Returns one of the ActionableSubjectType enum values. */
-    public function getSubjectType(): string;
+    public function getOwnSubjectType(): string;
 
     public function getUser(): User;
 }

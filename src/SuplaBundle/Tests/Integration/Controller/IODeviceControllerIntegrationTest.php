@@ -28,7 +28,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -298,7 +298,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     public function testDeletingDeviceClearsRelatedGateOtherDevices() {
         $device = $this->createDeviceFull($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
-        $paramConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $paramConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->freshEntity($this->location), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
@@ -307,7 +307,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $gateChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
         })->first();
-        $paramConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $paramConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals($gateChannel->getId(), $sensorChannel->getParam1());
         $client->request('DELETE', '/api/iodevices/' . $device->getId());
@@ -318,7 +318,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingDeviceClearsRelatedSensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $paramConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $paramConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->freshEntity($this->location), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
@@ -329,7 +329,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         })->first();
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         // assign sensor to the gate from other device
-        $paramConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $paramConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
         $client->request('DELETE', '/api/iodevices/' . $anotherDevice->getId());
@@ -341,7 +341,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     public function testDeletingDeviceClearsRelatedSecondaryGateOtherDevices() {
         $device = $this->createDeviceFull($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
-        $paramConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $paramConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->freshEntity($this->location), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
@@ -350,7 +350,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $gateChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
             return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
         })->first();
-        $paramConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorSecondaryChannelId' => $sensorChannel->getId()]);
+        $paramConfigTranslator->setConfig($gateChannel, ['openingSensorSecondaryChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals($gateChannel->getId(), $sensorChannel->getParam2());
         $client->request('DELETE', '/api/iodevices/' . $device->getId());
@@ -361,7 +361,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
 
     public function testDeletingDeviceClearsRelatedSecondarySensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $paramConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $paramConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->freshEntity($this->location), [
             [ChannelType::RELAY, ChannelFunction::OPENINGSENSOR_GATE],
@@ -372,7 +372,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         })->first();
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         // assign sensor to the gate from other device
-        $paramConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorSecondaryChannelId' => $sensorChannel->getId()]);
+        $paramConfigTranslator->setConfig($gateChannel, ['openingSensorSecondaryChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam3());
         $client->request('DELETE', '/api/iodevices/' . $anotherDevice->getId());

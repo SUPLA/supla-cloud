@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <label>{{ $t('Add new item to use in the scene') }}</label>
                             <subject-dropdown @input="addSceneOperation($event)"
-                                :clear-on-select="true"
+                                clear-on-select
                                 channelsDropdownParams="io=output"></subject-dropdown>
                         </div>
                         <div class="form-group">
@@ -123,12 +123,14 @@
                         operation.action = {id: operation.actionId, param: operation.actionParam};
                         operation.id = UNIQUE_OPERATION_ID++;
                         if (operation.subject && !operation.subjectType) {
-                            operation.subjectType = operation.subject.subjectType;
+                            operation.subjectType = operation.subject.ownSubjectType;
                         }
                         if (operation.delayMs) {
                             this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: operation.delayMs});
                         }
-                        this.operations.push(operation);
+                        if (operation.subjectId) {
+                            this.operations.push(operation);
+                        }
                     }
                 }
             },
@@ -138,7 +140,7 @@
             },
             addSceneOperation(subject) {
                 if (subject) {
-                    this.operations.push({id: UNIQUE_OPERATION_ID++, subject, subjectType: subject.subjectType, delayMs: 0});
+                    this.operations.push({id: UNIQUE_OPERATION_ID++, subject, subjectType: subject.ownSubjectType, delayMs: 0});
                 }
             },
             channelTitle(subject) {
@@ -163,11 +165,15 @@
                         delay += operation.delayMs;
                     }
                 }
+                if (delay) {
+                    operations.push({id: UNIQUE_OPERATION_ID++, delayMs: delay});
+                }
                 this.lastValue = operations;
                 this.$emit('input', operations);
             },
             addDelay() {
                 this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: 5000});
+                this.updateModel();
             },
             waitForCompletionAvailable(operation) {
                 return operation.subjectType === ActionableSubjectType.SCENE &&

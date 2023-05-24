@@ -29,6 +29,7 @@ use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
+use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\AccessTokenRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -177,10 +178,11 @@ class OAuthController extends RestController {
 
     /**
      * @Rest\Delete("/oauth-personal-tokens/{accessToken}")
-     * @Security("accessToken.belongsToUser(user) and accessToken.isPersonal() and has_role('ROLE_WEBAPP')")
+     * @Rest\Delete("/access-tokens/{accessToken}")
+     * @Security("accessToken.belongsToUser(user) and has_role('ROLE_WEBAPP')")
      * @UnavailableInMaintenance
      */
-    public function deletePersonalTokenAction(AccessToken $accessToken, Request $request) {
+    public function deletePersonalTokenAction(AccessToken $accessToken) {
         return $this->transactional(function (EntityManagerInterface $em) use ($accessToken) {
             $em->remove($accessToken);
             return new Response('', Response::HTTP_NO_CONTENT);
@@ -200,5 +202,22 @@ class OAuthController extends RestController {
         } else {
             return new Response('', Response::HTTP_NOT_ACCEPTABLE);
         }
+    }
+
+    /**
+     * @Security("has_role('ROLE_WEBAPP')")
+     * @Rest\Get("/access-tokens")
+     */
+    public function getAccessTokensAction(Request $request, TimeProvider $timeProvider) {
+        $accessTokens = $this->accessTokenRepository->createQueryBuilder('at')
+            ->where('at.user = :user')
+            ->andWhere('at.expiresAt IS NOT NULL AND at.expiresAt > :obsoleteDate')
+            ->andWhere("at.scope != 'channels_files'")
+            ->orderBy('at.expiresAt', 'DESC')
+            ->setParameter('user', $this->getUser())
+            ->setParameter('obsoleteDate', $timeProvider->getTimestamp())
+            ->getQuery()
+            ->getResult();
+        return $this->serializedView($accessTokens, $request, ['issuer', 'client']);
     }
 }

@@ -18,7 +18,6 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\Main\DirectLink;
-use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\User;
@@ -26,6 +25,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -141,6 +141,9 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $content['operations']);
         $this->assertEquals(1, $content['relationsCount']['operations']);
         $this->assertArrayNotHasKey('id', $content['operations'][0]);
+        $this->assertArrayHasKey('config', $content);
+        $this->assertArrayHasKey('googleHome', $content['config']);
+        $this->assertArrayHasKey('alexa', $content['config']);
     }
 
     /** @depends testCreatingScene */
@@ -196,6 +199,21 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($content['enabled']);
         $this->assertEquals(1, $content['relationsCount']['operations']);
         return $content;
+    }
+
+    /** @depends testUpdatingSceneDetails */
+    public function testUpdatingSceneDetailsCaptionOnly($sceneDetails) {
+        $id = $sceneDetails['id'];
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/' . $id, ['caption' => 'My scene 3']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($id, $content['id']);
+        $this->assertEquals('My scene 3', $content['caption']);
+        $this->assertEquals(1, $content['altIcon']);
+        $this->assertFalse($content['enabled']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
     }
 
     /** @depends testUpdatingSceneDetails */
@@ -713,5 +731,54 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
             ],
         ]);
         $this->assertStatusCode(201, $client->getResponse());
+    }
+
+    public function testCreatingSceneWithScheduleOperation() {
+        $schedule = $this->createSchedule($this->channelGroup, '*/5 * * * *', [
+            'mode' => ScheduleMode::MINUTELY,
+        ]);
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene with schedule',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $schedule->getId(),
+                    'subjectType' => ActionableSubjectType::SCHEDULE,
+                    'actionId' => ChannelFunctionAction::DISABLE,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene with schedule', $content['caption']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
+        return $content;
+    }
+
+    public function testCreatingSceneWithDelayOnlyOperation() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->device->getChannels()[0]->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'actionId' => ChannelFunctionAction::TURN_ON,
+                ],
+                [
+                    'delayMs' => 222,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene', $content['caption']);
+        $this->assertEquals(2, $content['relationsCount']['operations']);
     }
 }

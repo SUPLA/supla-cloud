@@ -63,7 +63,7 @@
     "altIcon": 0,
     "hidden": false,
     "flags": 0,
-    "subjectType": "channel",
+    "ownSubjectType": "channel",
     "inheritedLocation": true,
     "supportedFunctions": [
         {

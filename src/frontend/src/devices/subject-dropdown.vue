@@ -1,6 +1,16 @@
 <template>
     <div :class="'subject-dropdown ' + (subjectType == 'channel' ? 'first-selected' : '')">
-        <ul class="nav nav-tabs">
+        <div class="form-group" v-if="useDropdownForTypes">
+            <select class="form-control" v-model="subjectType">
+                <option value="channel">{{ $t('Channels') }}</option>
+                <option value="channelGroup">{{ $t('Channel groups') }}</option>
+                <option value="scene">{{ $t('Scenes') }}</option>
+                <option value="schedule">{{ $t('Schedules') }}</option>
+                <option value="other">{{ $t('Other') }}</option>
+            </select>
+        </div>
+
+        <ul class="nav nav-tabs" v-else>
             <li :class="subjectType == 'channel' ? 'active' : ''">
                 <a @click="changeSubjectType('channel')">{{ $t('Channels') }}</a>
             </li>
@@ -10,11 +20,15 @@
             <li :class="subjectType == 'scene' ? 'active' : ''">
                 <a @click="changeSubjectType('scene')">{{ $t('Scenes') }}</a>
             </li>
+            <li :class="subjectType == 'schedule' ? 'active' : ''" v-if="!disableSchedules">
+                <a @click="changeSubjectType('schedule')">{{ $t('Schedules') }}</a>
+            </li>
             <li :class="subjectType == 'other' ? 'active' : ''"
                 v-if="hasOthersSlot">
                 <a @click="changeSubjectType('other')">{{ $t('Other') }}</a>
             </li>
         </ul>
+
         <channels-dropdown v-model="subject"
             v-if="subjectType == 'channel'"
             @input="subjectChanged"
@@ -30,6 +44,11 @@
             v-if="subjectType == 'scene'"
             :filter="filter"
             v-model="subject"></scenes-dropdown>
+        <schedules-dropdown
+            @input="subjectChanged"
+            v-if="subjectType == 'schedule'"
+            :filter="filter"
+            v-model="subject"></schedules-dropdown>
         <slot name="other"
             :subject="subject"
             :on-input="subjectChanged"
@@ -42,10 +61,21 @@
     import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown";
     import ScenesDropdown from "../scenes/scenes-dropdown";
     import Vue from "vue";
+    import SchedulesDropdown from "@/schedules/schedules-dropdown.vue";
 
     export default {
-        props: ['value', 'channelsDropdownParams', 'filter', 'clearOnSelect'],
-        components: {ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
+        props: {
+            value: Object,
+            channelsDropdownParams: String,
+            filter: {
+                type: Function,
+                default: () => true,
+            },
+            clearOnSelect: Boolean,
+            disableSchedules: Boolean,
+            useDropdownForTypes: Boolean,
+        },
+        components: {SchedulesDropdown, ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
         data() {
             return {
                 subject: undefined,
@@ -71,8 +101,8 @@
                 }
             },
             updateBasedOnValue() {
-                if (this.value && this.value.subjectType) {
-                    this.subjectType = this.value.subjectType;
+                if (this.value && this.value.ownSubjectType) {
+                    this.subjectType = this.value.ownSubjectType;
                     this.subject = this.value;
                 } else if (this.subject) {
                     Vue.nextTick(() => this.subject = undefined);

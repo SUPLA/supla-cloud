@@ -4,7 +4,7 @@ name: default
 steps:
   - name: install-frontend
     image: node:14.18.1-slim
-    depends_on: [ clone ]
+    depends_on: [clone]
     commands:
       - npm install --global npm@7
       - npm -v
@@ -15,44 +15,81 @@ steps:
 
   - name: build-frontend
     image: node:14.18.1-slim
-    depends_on: [ install-frontend ]
+    depends_on: [install-frontend]
     commands:
       - cd src/frontend && npm run build
 
   - name: lint-frontend
     image: node:14.18.1-slim
-    depends_on: [ install-frontend ]
+    depends_on: [install-frontend]
     commands:
       - cd src/frontend && npm run lint -s
 
   - name: audit-frontend
     image: node:14.18.1-slim
-    depends_on: [ install-frontend ]
+    depends_on: [install-frontend]
     commands:
       - cd src/frontend && npm audit --production
 
   - name: test-frontend-unit
     image: node:14.18.1-slim
-    depends_on: [ build-frontend ]
+    depends_on: [build-frontend]
     commands:
       - npm install --global npm@7
       - cd src/frontend
       - npm install
       - npm run test:unit
 
-  - name: test-frontend-e2e
-    image: cypress/base:14.18.1
-    depends_on: [ build-frontend ]
+  - name: install-backend
+    image: supla/supla-cloud
+    depends_on: [clone]
     commands:
+      - cp app/config/parameters.yml.drone app/config/parameters.yml
+      - wget https://raw.githubusercontent.com/composer/getcomposer.org/bd32eb14d904154cd0d5b2850b817f48cbf1e2bd/web/installer -O - -q | php -- --quiet --2
+      - php composer.phar install --optimize-autoloader
+
+  - name: lint-backend
+    image: supla/supla-cloud
+    depends_on: [install-backend]
+    commands:
+      - php composer.phar run lint-backend
+
+  - name: backend-unit-tests
+    image: supla/supla-cloud
+    depends_on: [install-backend]
+    commands:
+      - ./vendor/bin/phpunit -c app --testsuite unit
+
+  - name: api-tests
+    image: supla/supla-cloud
+    depends_on: [install-backend, build-frontend]
+    commands:
+      - rm -fr var/cache/test
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
+
+  - name: integration-tests
+    image: supla/supla-cloud
+    depends_on: [api-tests]
+    commands:
+      - rm -fr var/cache/test
+      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
+
+  - name: test-e2e
+    image: cypress/base:14.18.1
+    depends_on: [install-backend, build-frontend]
+    environment:
+      CYPRESS_DATABASE: mysql://root@database/supla_e2e
+    commands:
+      - apt-get update && apt-get install -y dialog php7.3 php7.3-curl php7.3-dom php7.3-intl php7.3-json php7.3-mbstring php7.3-mysql php7.3-zip
       - npm install --global npm@7
       - cd src/frontend
       - npm install
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:ci
 
-  - name: test-frontend-e2e-nightly
+  - name: test-e2e-nightly
     image: cypress/base:14.18.1
-    depends_on: [ test-frontend-e2e ]
+    depends_on: [test-e2e]
     when:
       cron: nightly
       event: cron
@@ -63,55 +100,21 @@ steps:
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:nightly
 
-  - name: install-backend
-    image: supla/supla-cloud
-    depends_on: [ clone ]
-    commands:
-      - cp app/config/parameters.yml.drone app/config/parameters.yml
-      - wget https://raw.githubusercontent.com/composer/getcomposer.org/bd32eb14d904154cd0d5b2850b817f48cbf1e2bd/web/installer -O - -q | php -- --quiet --2
-      - php composer.phar install --optimize-autoloader
-
-  - name: lint-backend
-    image: supla/supla-cloud
-    depends_on: [ install-backend ]
-    commands:
-      - php composer.phar run lint-backend
-
-  - name: backend-unit-tests
-    image: supla/supla-cloud
-    depends_on: [ install-backend ]
-    commands:
-      - ./vendor/bin/phpunit -c app --testsuite unit
-
-  - name: api-tests
-    image: supla/supla-cloud
-    depends_on: [ install-backend, build-frontend ]
-    commands:
-      - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite api
-
-  - name: integration-tests
-    image: supla/supla-cloud
-    depends_on: [ api-tests ]
-    commands:
-      - rm -fr var/cache/test
-      - ./vendor/bin/phpunit -c app --stop-on-error --stop-on-failure --testsuite integration
-
   - name: notify
     image: mike1pol/drone-rocket
-    depends_on: [ integration-tests ]
+    depends_on: [integration-tests, test-e2e]
     failure: ignore
     settings:
-      url: { from_secret: rocket_url }
-      user_id: { from_secret: rocket_user }
-      token: { from_secret: rocket_token }
+      url: {from_secret: rocket_url}
+      user_id: {from_secret: rocket_user}
+      token: {from_secret: rocket_token}
       channel: github
     when:
-      status: [ success, failure ]
+      status: [success, failure]
     trigger:
-      status: [ success, failure ]
+      status: [success, failure]
       event:
-        exclude: [ pull_request ]
+        exclude: [pull_request]
 
 services:
   - name: database
@@ -121,11 +124,3 @@ services:
       MYSQL_DATABASE: supla_test
       MYSQL_USER: drone
       MYSQL_PASSWORD: ~
-
-#trigger:
-#  event:
-#    - cron
-#    - push
-#    - pull_request
-#  cron:
-#    - daily

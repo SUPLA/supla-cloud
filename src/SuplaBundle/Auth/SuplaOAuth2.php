@@ -29,6 +29,7 @@ use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class SuplaOAuth2 extends OAuth2 {
@@ -40,6 +41,8 @@ class SuplaOAuth2 extends OAuth2 {
     private $localSuplaCloud;
     /** @var ApiClientAuthorizationRepository */
     private $apiClientAuthorizationRepository;
+    /** @var RequestStack */
+    private $requestStack;
 
     public function __construct(
         SuplaOAuthStorage $storage,
@@ -47,7 +50,8 @@ class SuplaOAuth2 extends OAuth2 {
         array $tokensLifetime,
         LocalSuplaCloud $localSuplaCloud,
         SuplaAutodiscover $autodiscover,
-        ApiClientAuthorizationRepository $apiClientAuthorizationRepository
+        ApiClientAuthorizationRepository $apiClientAuthorizationRepository,
+        RequestStack $requestStack
     ) {
         parent::__construct($storage, $config);
         $this->tokensLifetime = $tokensLifetime;
@@ -55,6 +59,7 @@ class SuplaOAuth2 extends OAuth2 {
         $this->localSuplaCloud = $localSuplaCloud;
         $this->autodiscover = $autodiscover;
         $this->apiClientAuthorizationRepository = $apiClientAuthorizationRepository;
+        $this->requestStack = $requestStack;
     }
 
     protected function genAccessToken() {
@@ -107,7 +112,7 @@ class SuplaOAuth2 extends OAuth2 {
     }
 
     public function createPersonalAccessToken(User $user, string $name, OAuthScope $scope): AccessToken {
-        $token = new AccessToken();
+        $token = new AccessToken($this->requestStack->getCurrentRequest());
         $token->setScope((string)($scope->ensureThatAllScopesAreSupported()->addImplicitScopes()));
         $token->setUser($user);
         $token->setName($name);

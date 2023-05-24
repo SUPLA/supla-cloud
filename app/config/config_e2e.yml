@@ -1,0 +1,10 @@
+imports:
+  - { resource: config.yml }
+
+parameters:
+  supla_protocol: http
+  database_name: supla_e2e
+
+services:
+  SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
+  SuplaBundle\Supla\SuplaAutodiscover: '@SuplaBundle\Supla\SuplaAutodiscoverMock'

@@ -20,6 +20,7 @@ namespace SuplaBundle\Controller\Api;
 use Assert\Assertion;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -36,6 +37,7 @@ use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Dependencies\SceneDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\SceneRepository;
+use SuplaBundle\Serialization\RequestFiller\SceneRequestFiller;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\SceneUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,7 +65,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *   @OA\Property(property="enabled", type="boolean", description="Whether this scene is enabled or not"),
  *   @OA\Property(property="hidden", type="boolean", description="Whether this scene is shown on client apps or not"),
  *   @OA\Property(property="estimatedExecutionTime", type="integer", description="Estimated execution time for this scene (in milliseconds)."),
- *   @OA\Property(property="subjectType", type="string", enum={"scene"}),
+ *   @OA\Property(property="ownSubjectType", type="string", enum={"scene"}),
  *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="operations", description="Scene operations, only if requested in the `include` param", type="array", @OA\Items(ref="#/components/schemas/SceneOperation")),
@@ -71,6 +73,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *   @OA\Property(property="locationId", type="integer"),
  *   @OA\Property(property="functionId", type="integer", enum={2000}),
  *   @OA\Property(property="userIconId", type="integer"),
+ *   @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
  *   @OA\Property(property="state", ref="#/components/schemas/SceneState"),
  *   @OA\Property(property="relationsCount", description="Counts of related entities.",
  *     @OA\Property(property="sceneOperations", description="Number of scene operations, that this scene is used for an action.", type="integer"),
@@ -108,8 +111,8 @@ class ScenesController extends RestController {
         return $groups;
     }
 
-    private function returnScenes(): Collection {
-        return $this->sceneRepository->findAllForUser($this->getUser())
+    private function returnScenes(callable $additionalConditions = null): Collection {
+        return $this->sceneRepository->findAllForUser($this->getUser(), $additionalConditions)
             ->filter(function (Scene $scene) {
                 return $this->isGranted(AccessIdSecurityVoter::PERMISSION_NAME, $scene);
             });
@@ -138,6 +141,11 @@ class ScenesController extends RestController {
      *         in="query", name="include", required=false, explode=false,
      *         @OA\Schema(type="array", @OA\Items(type="string", enum={"location", "state"})),
      *     ),
+     *     @OA\Parameter(
+     *         description="Select an integration that the scenes should be returned for.",
+     *         in="query", name="forIntegration", required=false,
+     *         @OA\Schema(type="string", enum={"google-home", "alexa"}),
+     *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
      * )
      * @Rest\Get("/scenes", name="scenes_list")
@@ -145,7 +153,18 @@ class ScenesController extends RestController {
      */
     public function getScenesAction(Request $request) {
         $this->ensureApiVersion24($request);
-        return $this->serializedView($this->returnScenes()->getValues(), $request);
+        $filters = function (QueryBuilder $builder, string $alias) use ($request) {
+            if (($forIntegration = $request->get('forIntegration')) !== null) {
+                if ($forIntegration === 'google-home') {
+                    $builder->andWhere("$alias.userConfig IS NULL OR $alias.userConfig NOT LIKE :googleHomeFilter")
+                        ->setParameter('googleHomeFilter', '%"googleHomeDisabled":true%');
+                } elseif ($forIntegration === 'alexa') {
+                    $builder->andWhere("$alias.userConfig IS NULL OR $alias.userConfig NOT LIKE :alexaFilter")
+                        ->setParameter('alexaFilter', '%"alexaDisabled":true%');
+                }
+            }
+        };
+        return $this->serializedView($this->returnScenes($filters)->getValues(), $request);
     }
 
     /**
@@ -254,20 +273,15 @@ class ScenesController extends RestController {
      * @Rest\Post("/scenes")
      * @Security("has_role('ROLE_SCENES_RW')")
      */
-    public function postSceneAction(Request $request, Scene $scene, TranslatorInterface $translator) {
+    public function postSceneAction(Request $request, SceneRequestFiller $sceneFiller, TranslatorInterface $translator) {
         $this->ensureApiVersion24($request);
         $user = $this->getUser();
+        $scene = $sceneFiller->fillFromRequest($request);
         if (!$scene->getCaption()) {
             $caption = $translator->trans('Scene', [], null, $user->getLocale()); // i18n
             $scene->setCaption($caption . ' #' . ($user->getScenes()->count() + 1));
         }
         Assertion::false($user->isLimitSceneExceeded(), 'Scenes limit has been exceeded'); // i18n
-        Assertion::lessOrEqualThan(
-            $scene->getOperations()->count(),
-            $user->getLimitOperationsPerScene(),
-            'Too many operations in this scene' // i18n
-        );
-        SceneUtils::ensureOperationsAreNotCyclic($scene);
         $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
             $em->persist($scene);
             SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
@@ -305,26 +319,14 @@ class ScenesController extends RestController {
      * @Rest\Put("/scenes/{scene}")
      * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
      */
-    public function putSceneAction(Scene $scene, Scene $updated, Request $request) {
+    public function putSceneAction(Scene $scene, SceneRequestFiller $sceneFiller, Request $request) {
         $this->ensureApiVersion24($request);
-        Assertion::lessOrEqualThan(
-            $updated->getOperations()->count(),
-            $scene->getUser()->getLimitOperationsPerScene(),
-            'Too many operations in this scene' // i18n
-        );
-        $sceneResponse = $this->transactional(function (EntityManagerInterface $em) use ($request, $scene, $updated) {
-            $scene->setCaption($updated->getCaption());
-            $scene->setEnabled($updated->isEnabled());
-            $scene->setHidden($updated->isHidden());
-            $scene->setLocation($updated->getLocation());
-            $scene->setUserIcon($updated->getUserIcon());
-            $scene->setAltIcon($updated->getAltIcon());
+        $sceneResponse = $this->transactional(function (EntityManagerInterface $em) use ($sceneFiller, $request, $scene) {
             $scene->getOperations()->forAll(function (int $index, SceneOperation $sceneOperation) use ($em) {
                 $em->remove($sceneOperation);
                 return true;
             });
-            $scene->setOpeartions($updated->getOperations());
-            SceneUtils::ensureOperationsAreNotCyclic($scene);
+            $scene = $sceneFiller->fillFromRequest($request, $scene);
             $em->persist($scene);
             SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
             return $this->getSceneAction($request, $scene);

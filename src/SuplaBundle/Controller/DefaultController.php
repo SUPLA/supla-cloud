@@ -121,14 +121,14 @@ class DefaultController extends AbstractController {
     public function getApiDocsSchemaActionV24() {
         $version = $this->getParameter('supla.version');
         $cacheItem = $this->openApiCache->getItem('openApi' . $version);
-        if ($cacheItem->isHit() && APPLICATION_ENV === 'prod') {
+        if ($cacheItem->isHit() && defined('APPLICATION_ENV') && APPLICATION_ENV === 'prod') {
             $yaml = $cacheItem->get();
         } else {
             $openapi = Generator::scan([
                 __DIR__,
                 __DIR__ . '/../Enums',
                 __DIR__ . '/../Model/ChannelActionExecutor',
-                __DIR__ . '/../Model/ChannelParamsTranslator',
+                __DIR__ . '/../Model/UserConfigTranslator',
                 __DIR__ . '/../Model/ChannelStateGetter',
             ]);
             $openapi->info = new OA\Info(['title' => 'SUPLA Cloud API', 'version' => $version]);

@@ -18,6 +18,8 @@
                 <dt>{{ model.id }}</dt>
                 <dd>{{ $t('Subject type') }}</dd>
                 <dt>{{ model.subjectType == 'channel' ? $t('Channel') : $t('Channel group') }}</dt>
+            </dl>
+            <dl v-if="model.closestExecutions">
                 <dd>{{ $t('The latest execution') }}</dd>
                 <dt v-if="latestExecution && latestExecution.resultTimestamp"
                     :class="latestExecution.failed ? 'text-danger' : ''"
@@ -47,16 +49,16 @@
                 return this.model.caption || this.$t('Schedule') + ' ID' + this.model.id;
             },
             scheduleLabel() {
-                return channelTitle(this.model.subject, this);
+                return this.model.subject ? channelTitle(this.model.subject, this) : '';
             },
             nearestExecution() {
-                if (this.model.closestExecutions.future.length) {
+                if (this.model.closestExecutions?.future.length) {
                     return this.model.closestExecutions.future[0];
                 }
                 return undefined;
             },
             latestExecution() {
-                if (this.model.closestExecutions.past.length) {
+                if (this.model.closestExecutions?.past.length) {
                     return this.model.closestExecutions.past[this.model.closestExecutions.past.length - 1];
                 }
                 return undefined;

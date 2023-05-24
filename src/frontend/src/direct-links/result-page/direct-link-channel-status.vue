@@ -74,14 +74,14 @@
                 return this.directLink.state ? Object.keys(this.directLink.state) : [];
             },
             channels() {
-                if (this.directLink.subject.subjectType === 'channelGroup') {
+                if (this.directLink.subject.ownSubjectType === 'channelGroup') {
                     return this.directLink.channels;
                 } else {
                     return [this.directLink.subject];
                 }
             },
             channelsState() {
-                if (this.directLink.subject.subjectType === 'channelGroup') {
+                if (this.directLink.subject.ownSubjectType === 'channelGroup') {
                     return this.directLink.state;
                 } else {
                     return {[this.directLink.subject.id]: this.directLink.state};

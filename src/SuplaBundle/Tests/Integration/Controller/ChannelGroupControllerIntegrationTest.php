@@ -140,10 +140,31 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('id', $content);
         $this->assertArrayNotHasKey('channelsIds', $content);
-        $this->assertArrayHasKey('subjectType', $content);
+        $this->assertArrayHasKey('ownSubjectType', $content);
         $this->assertArrayHasKey('relationsCount', $content);
         $this->assertEquals(2, $content['relationsCount']['channels']);
-        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['subjectType']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['ownSubjectType']);
+        return $content;
+    }
+
+    /** @depends testUpdatingChannelGroupV24 */
+    public function testUpdatingChannelGroupV24OnlyCaption(array $cgData) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24(
+            'PUT',
+            '/api/channel-groups/' . $cgData['id'],
+            ['caption' => 'Nowy caption']
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayHasKey('ownSubjectType', $content);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertEquals(2, $content['relationsCount']['channels']);
+        $this->assertEquals('Nowy caption', $content['caption']);
+        $this->assertFalse($content['hidden']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL_GROUP, $content['ownSubjectType']);
     }
 
     /** @depends testCreatingChannelGroupV24 */

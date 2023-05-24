@@ -32,7 +32,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -110,10 +110,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
         $this->assertArrayHasKey('relationsCount', $content);
-        $this->assertArrayHasKey('subjectType', $content);
+        $this->assertArrayHasKey('ownSubjectType', $content);
         $this->assertArrayNotHasKey('param1', $content);
         $this->assertArrayHasKey('config', $content);
-        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['subjectType']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['ownSubjectType']);
     }
 
     public function testGettingChannelInfoWithDeviceLocationV24() {
@@ -293,7 +293,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testChangingChannelFunctionClearsRelatedSensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $channelParamConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
@@ -304,7 +304,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         })->first();
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         // assign sensor to the gate from other device
-        $channelParamConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $channelParamConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
         $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId(), [

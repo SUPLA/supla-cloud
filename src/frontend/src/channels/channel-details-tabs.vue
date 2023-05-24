@@ -33,7 +33,7 @@
             <direct-links-list :subject="channel"></direct-links-list>
         </div>
         <div v-if="currentTab == 'measurementsHistory'">
-            <channel-measurements-history :channel="channel"></channel-measurements-history>
+            <channel-measurements-history :channel="channel" @rerender="rerenderMeasurementsHistory()"/>
         </div>
         <div v-if="currentTab == 'voltageHistory'">
             <channel-voltage-history :channel="channel"/>
@@ -46,7 +46,6 @@
     import DirectLinksList from "../direct-links/direct-links-list";
     import ChannelGroupsList from "../channel-groups/channel-groups-list";
     import ScenesList from "../scenes/scenes-list";
-    import ChannelMeasurementsHistory from "./channel-measurements-history";
     import ChannelActionTriggers from "@/channels/action-trigger/channel-action-triggers";
     import ChannelFunction from "../common/enums/channel-function";
     import ChannelVoltageHistory from "./channel-voltage-history";
@@ -54,9 +53,8 @@
     export default {
         props: ['channel'],
         components: {
-            ChannelVoltageHistory,
-            ChannelActionTriggers,
-            ChannelMeasurementsHistory, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
+            ChannelMeasurementsHistory: () => import(/*webpackChunkName:"measurement-history"*/"./history/channel-measurements-history.vue"),
+            ChannelVoltageHistory, ChannelActionTriggers, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
         },
         data() {
             return {
@@ -71,6 +69,10 @@
                 if (this.$route.query.tab !== this.currentTab) {
                     this.$router.push({query: {tab: id}});
                 }
+            },
+            rerenderMeasurementsHistory() {
+                this.currentTab = undefined;
+                this.$nextTick(() => this.currentTab = 'measurementsHistory');
             }
         },
         mounted() {

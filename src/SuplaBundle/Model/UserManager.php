@@ -23,6 +23,7 @@ use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
@@ -141,6 +142,16 @@ class UserManager {
                 $em->persist($user);
             });
         }
+    }
+
+    public function clearSessions(User $user): void {
+        $this->entityManager->getRepository(AccessToken::class)->createQueryBuilder('at')
+            ->delete()
+            ->where('at.user = :user')
+            ->andWhere('at.expiresAt IS NOT NULL')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute();
     }
 
     public function isPasswordValid(User $user, string $password): bool {

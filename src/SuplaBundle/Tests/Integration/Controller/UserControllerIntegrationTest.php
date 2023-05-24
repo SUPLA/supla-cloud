@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\Main\AuditEntry;
+use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\AuditedEvent;
 use SuplaBundle\Message\UserOptOutNotifications;
@@ -229,19 +230,6 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @small */
-    public function testChangingUserPassword() {
-        /** @var TestClient $client */
-        $client = self::createAuthenticatedClient();
-        $client->apiRequest(
-            'PATCH',
-            '/api/users/current',
-            ['action' => 'change:password', 'oldPassword' => 'supla123', 'newPassword' => 'Gb;Bq?8V#}WkX"2f']
-        );
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-    }
-
-    /** @small */
     public function testChangingOptOutNotifications() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();
@@ -268,5 +256,26 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         );
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
+    }
+
+    /** @small */
+    public function testChangingUserPassword() {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest(
+            'PATCH',
+            '/api/users/current',
+            ['action' => 'change:password', 'oldPassword' => 'supla123', 'newPassword' => 'Gb;Bq?8V#}WkX"2f']
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+    }
+
+    /**
+     * @small
+     * @depends testChangingUserPassword
+     */
+    public function testChangingUserPasswordClearsWebappTokens() {
+        $this->assertEquals(0, $this->getEntityManager()->getRepository(AccessToken::class)->count([]));
     }
 }

@@ -39,7 +39,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     @ORM\Index(name="date_start_idx", columns={"date_start"})
  * })
  */
-class Schedule implements HasSubject {
+class Schedule implements HasSubject, ActionableSubject {
     use BelongsToUser;
     use HasSubjectTrait;
 
@@ -135,7 +135,7 @@ class Schedule implements HasSubject {
         Assertion::keyIsset($data, 'mode', 'No schedule mode given.');
         $this->setMode(new ScheduleMode($data['mode']));
         if ($data['subject'] ?? null) {
-            $this->initializeSubject($data['subject']);
+            $this->setSubject($data['subject']);
         }
         $this->setDateStart(empty($data['dateStart']) ? new DateTime() : DateTime::createFromFormat(DateTime::ATOM, $data['dateStart']));
         $this->setDateEnd(empty($data['dateEnd']) ? null : DateTime::createFromFormat(DateTime::ATOM, $data['dateEnd']));
@@ -144,7 +144,7 @@ class Schedule implements HasSubject {
         $this->setConfig($data['config'] ?? null);
     }
 
-    public function getId() {
+    public function getId(): int {
         return $this->id;
     }
 
@@ -152,8 +152,9 @@ class Schedule implements HasSubject {
         return $this->user;
     }
 
-    /** @param IODeviceChannel|IODeviceChannelGroup|null $subject */
+    /** @param IODeviceChannel|IODeviceChannelGroup|Scene|null $subject */
     public function setSubject($subject) {
+        Assertion::notIsInstanceOf($subject, Schedule::class, 'You cannot control schedule with schedule.');
         $this->initializeSubject($subject);
     }
 
@@ -252,5 +253,24 @@ class Schedule implements HasSubject {
             $retry = false;
         }
         $this->retry = $retry;
+    }
+
+    /** @Groups({"basic"}) */
+    public function getFunction(): ChannelFunction {
+        return ChannelFunction::SCHEDULE();
+    }
+
+    /** @Groups({"basic"}) */
+    public function getPossibleActions(): array {
+        return $this->getFunction()->getDefaultPossibleActions();
+    }
+
+    public function buildServerActionCommand(string $command, array $actionParams = []): string {
+        throw new \InvalidArgumentException('Schedules does not have any function in supla-server commands.');
+    }
+
+    /** @Groups({"basic"}) */
+    public function getOwnSubjectType(): string {
+        return ActionableSubjectType::SCHEDULE;
     }
 }

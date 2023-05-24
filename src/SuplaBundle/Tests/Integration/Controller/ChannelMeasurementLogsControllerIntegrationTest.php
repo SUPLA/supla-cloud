@@ -30,7 +30,7 @@ use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ThermostatLogItem;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -554,10 +554,10 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public function testGettingElectricityMeasurementsLogsCountFromRelatedRelay() {
         $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
-        /** @var ChannelParamConfigTranslator $paramsTranslator */
-        $paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        /** @var SubjectConfigTranslator $paramsTranslator */
+        $paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $relayChannel = $this->device1->getChannels()[0];
-        $paramsTranslator->setParamsFromConfig($relayChannel, ['relatedChannelId' => 4]);
+        $paramsTranslator->setConfig($relayChannel, ['relatedChannelId' => 4]);
         $this->getEntityManager()->persist($relayChannel);
         $this->getEntityManager()->flush();
         $content = $this->getMeasurementLogsAscending($relayChannel->getId());
@@ -566,10 +566,10 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
 
     public function testGettingElectricityMeasurementsLogsCountFromRelatedStaircaseTimer() {
         $this->device1 = $this->getEntityManager()->find(IODevice::class, $this->device1->getId());
-        /** @var ChannelParamConfigTranslator $paramsTranslator */
-        $paramsTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        /** @var SubjectConfigTranslator $paramsTranslator */
+        $paramsTranslator = self::$container->get(SubjectConfigTranslator::class);
         $staircaseTimerChannel = $this->device1->getChannels()[10];
-        $paramsTranslator->setParamsFromConfig($staircaseTimerChannel, ['relatedChannelId' => 4]);
+        $paramsTranslator->setConfig($staircaseTimerChannel, ['relatedChannelId' => 4]);
         $this->getEntityManager()->persist($staircaseTimerChannel);
         $this->getEntityManager()->flush();
         $content = $this->getMeasurementLogsAscending($staircaseTimerChannel->getId());
@@ -779,11 +779,12 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $csv = gzinflate(substr($data, 30 + $head['namelen'] + $head['exlen'], $head['csize']));
         $this->assertStringContainsString("Temperature", $csv);
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV22('GET', "/api/channels/{$channelId}/measurement-logs?offset=50&limit=10");
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?offset=50&limit=10");
         $response = $client->getResponse();
         $content = json_decode($response->getContent(), true);
         $testItem = $content[3];
-        $expectedRow = "$testItem[date_timestamp],\"" . date('Y-m-d H:i:s', $testItem['date_timestamp']) . "\",$testItem[temperature]\n";
+        $dateTime = new \DateTime('@' . $testItem['date_timestamp'], new \DateTimeZone($this->user->getTimezone()));
+        $expectedRow = "$testItem[date_timestamp],\"" . $dateTime->format('Y-m-d H:i:s') . "\",$testItem[temperature]";
         $this->assertStringContainsString($expectedRow, $csv);
     }
 

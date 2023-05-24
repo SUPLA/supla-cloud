@@ -4,8 +4,8 @@ namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\Schedule\ScheduleManager;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /**
  * This class is responsible for detecting and possibly clearing all items that rely on the given channel (and its function).
@@ -18,7 +18,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ChannelParamConfigTranslator $channelParamConfigTranslator,
+        SubjectConfigTranslator $channelParamConfigTranslator,
         ScheduleManager $scheduleManager,
         ChannelGroupDependencies $channelGroupDependencies
     ) {

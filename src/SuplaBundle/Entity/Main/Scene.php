@@ -25,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
@@ -41,7 +42,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
  * @ORM\Table(name="supla_scene")
  */
-class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig {
+class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig, HasIcon {
     use BelongsToUser;
     use HasRelationsCountTrait;
     use HasUserConfigTrait;
@@ -133,6 +134,8 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
      */
     private $directLinks;
 
+    private $commandExecutionsCount = 0;
+
     public function __construct(Location $location) {
         $this->user = $location->getUser();
         $this->location = $location;
@@ -149,7 +152,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
     }
 
     /** @Groups({"basic"}) */
-    public function getSubjectType(): string {
+    public function getOwnSubjectType(): string {
         return ActionableSubjectType::SCENE;
     }
 
@@ -211,6 +214,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
     }
 
     public function setOpeartions($operations) {
+        $this->commandExecutionsCount = 0;
         $this->operations->clear();
         foreach ($operations as $operation) {
             EntityUtils::setField($operation, 'owningScene', $this);
@@ -243,6 +247,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         return $this->schedules;
     }
 
+    /** @return SceneOperation[] */
     public function getOperationsThatReferToThisScene(): Collection {
         return $this->sceneOperations;
     }
@@ -272,5 +277,13 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
 
     public function getProperties(): array {
         return [];
+    }
+
+    public function getCommandExecutionsCount(): int {
+        return $this->commandExecutionsCount;
+    }
+
+    public function setCommandExecutionsCount(int $commandExecutionsCount): void {
+        $this->commandExecutionsCount = $commandExecutionsCount;
     }
 }

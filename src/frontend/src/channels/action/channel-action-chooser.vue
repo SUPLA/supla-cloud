@@ -46,7 +46,7 @@
                                 <channels-id-dropdown v-model="param.sourceChannelId"
                                     :hide-none="true"
                                     @input="paramsChanged()"
-                                    :params="`function=${subject.function.id}&skipIds=${(subject.subjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
+                                    :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
                             <div v-if="executorMode"
                                 class="mt-3">

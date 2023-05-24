@@ -22,12 +22,14 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\DirectLinkExecutionFailureReason;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -607,5 +609,57 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(201, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertStringContainsString('Link bezpośredni #', $content['caption']);
+    }
+
+    public function testCreatingDirectLinkForSchedule() {
+        $this->channelGroup = $this->getEntityManager()->find(IODeviceChannelGroup::class, $this->channelGroup->getId());
+        $schedule = $this->createSchedule($this->channelGroup, '*/5 * * * *', [
+            'mode' => ScheduleMode::MINUTELY,
+        ]);
+        $response = $this->createDirectLink([
+            'caption' => 'My link for schedule',
+            'subjectType' => ActionableSubjectType::SCHEDULE,
+            'subjectId' => $schedule->getId(),
+            'allowedActions' => ['read', 'enable', 'disable'],
+        ]);
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My link for schedule', $content['caption']);
+        $this->assertEquals(ActionableSubjectType::SCHEDULE, $content['subjectType']);
+        $this->assertEquals($schedule->getId(), $content['subjectId']);
+        $this->assertArrayHasKey('slug', $content);
+        return $content;
+    }
+
+    /** @depends testCreatingDirectLinkForSchedule */
+    public function testDisablingScheduleWithDirectLink(array $directLink) {
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/disable");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $schedule = $this->getEntityManager()->find(Schedule::class, $directLink['subjectId']);
+        $this->assertFalse($schedule->getEnabled());
+        return $directLink;
+    }
+
+    /** @depends testDisablingScheduleWithDirectLink */
+    public function testEnablingScheduleWithDirectLink(array $directLink) {
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/enable");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $schedule = $this->getEntityManager()->find(Schedule::class, $directLink['subjectId']);
+        $this->assertTrue($schedule->getEnabled());
+    }
+
+    /** @depends testCreatingDirectLinkForSchedule */
+    public function testReadingScheduleStateDirectLink(array $directLink) {
+        $client = $this->createClient();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read?format=json");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('enabled', $content);
     }
 }

@@ -33,11 +33,11 @@ use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
@@ -63,7 +63,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="possibleActions", type="array", description="What action can you execute on this subject?", @OA\Items(ref="#/components/schemas/ChannelFunctionAction")),
  *   @OA\Property(property="typeId", type="integer", example=1000),
  *   @OA\Property(property="type", ref="#/components/schemas/ChannelType"),
- *   @OA\Property(property="subjectType", type="string", enum={"channel"}),
+ *   @OA\Property(property="ownSubjectType", type="string", enum={"channel"}),
  *   @OA\Property(property="state", ref="#/components/schemas/ChannelState"),
  *   @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
  *   @OA\Property(property="userIconId", type="integer"),
@@ -262,7 +262,7 @@ class ChannelController extends RestController {
         Request $request,
         IODeviceChannel $channel,
         ChannelDependencies $channelDependencies,
-        ChannelParamConfigTranslator $paramConfigTranslator,
+        SubjectConfigTranslator $paramConfigTranslator,
         LocationRepository $locationRepository,
         UserIconRepository $userIconRepository
     ) {
@@ -294,7 +294,7 @@ class ChannelController extends RestController {
                     Assertion::true($this->suplaServer->userAction('BEFORE-CHANNEL-FUNCTION-CHANGE', $channel->getId()), $cannotChangeMsg);
                 }
             }
-            $channelConfig = $requestData['config'] ?? $paramConfigTranslator->getConfigFromParams($channel);
+            $channelConfig = $requestData['config'] ?? $paramConfigTranslator->getConfig($channel);
             if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
                 $channelToReadConfig = new IODeviceChannel();
                 EntityUtils::setField($channelToReadConfig, 'id', $channel->getId());
@@ -308,7 +308,7 @@ class ChannelController extends RestController {
                 $channelToReadConfig->setTextParam1($requestData['textParam1'] ?? null);
                 $channelToReadConfig->setTextParam2($requestData['textParam2'] ?? null);
                 $channelToReadConfig->setTextParam3($requestData['textParam3'] ?? null);
-                $channelConfig = $paramConfigTranslator->getConfigFromParams($channelToReadConfig);
+                $channelConfig = $paramConfigTranslator->getConfig($channelToReadConfig);
             }
 
             if (isset($requestData['inheritedLocation']) && $requestData['inheritedLocation']) {
@@ -346,8 +346,8 @@ class ChannelController extends RestController {
                     $channel->setAltIcon(0);
                     $em->persist($channel);
                 }
-                $paramConfigTranslator->setParamsFromConfig($channel, $channelConfig);
-                $channel->setUserConfig($paramConfigTranslator->getConfigFromParams($channel));
+                $paramConfigTranslator->setConfig($channel, $channelConfig);
+                $channel->setUserConfig($paramConfigTranslator->getConfig($channel));
                 if (isset($requestData['altIcon'])) {
                     Assertion::integer($requestData['altIcon']);
                     $channel->setAltIcon($requestData['altIcon']);
@@ -437,11 +437,11 @@ class ChannelController extends RestController {
     public function patchChannelSettingsAction(
         Request $request,
         IODeviceChannel $channel,
-        ChannelParamConfigTranslator $paramConfigTranslator
+        SubjectConfigTranslator $paramConfigTranslator
     ) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
-        $channelConfig = $paramConfigTranslator->getConfigFromParams($channel);
+        $channelConfig = $paramConfigTranslator->getConfig($channel);
         $channel = $this->transactional(function (EntityManagerInterface $em) use ($body, $channel, $channelConfig) {
             $action = $body['action'];
             if ($action === 'resetCounters') {

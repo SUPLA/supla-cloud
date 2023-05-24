@@ -177,4 +177,28 @@ class AlexaIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, $fetchedChannels);
         $this->assertNotContains(1, array_column($fetchedChannels, 'id'));
     }
+
+    public function testSettingAlexaConfigDisabledForScene() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/1', [
+            'config' => ['alexa' => ['alexaDisabled' => true]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $scene = $this->freshEntity($this->scene);
+        $sceneConfig = $scene->getUserConfig();
+        $this->assertArrayHasKey('alexa', $sceneConfig);
+        $this->assertTrue($sceneConfig['alexa']['alexaDisabled']);
+    }
+
+    public function testFetchingScenesForAlexaIntegration() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/1', ['config' => ['alexa' => ['alexaDisabled' => false]]]);
+        $client->apiRequestV24('GET', '/api/scenes?forIntegration=alexa');
+        $this->assertCount(1, $client->getResponseBody());
+        $client->apiRequestV24('PUT', '/api/scenes/1', ['config' => ['alexa' => ['alexaDisabled' => true]],]);
+        $client->apiRequestV24('GET', '/api/scenes?forIntegration=alexa');
+        $fetchedChannels = $client->getResponseBody();
+        $this->assertCount(0, $fetchedChannels);
+    }
 }

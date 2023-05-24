@@ -35,6 +35,23 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
         $this->user = $this->createConfirmedUser();
     }
 
+    public function testListOfAccessTokens() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest('GET', '/api/access-tokens');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
+        $this->assertArrayHasKey('id', $content[0]);
+        $this->assertArrayHasKey('name', $content[0]);
+        $this->assertArrayHasKey('scope', $content[0]);
+        $this->assertArrayHasKey('issuerIp', $content[0]);
+        $this->assertArrayHasKey('apiClientAuthorization', $content[0]);
+        $this->assertArrayHasKey('isForWebapp', $content[0]);
+        $this->assertArrayNotHasKey('token', $content[0]);
+        $this->assertArrayHasKey('issuerSystem', $content[0]);
+    }
+
     public function testCreatingPersonalAccessToken() {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest('POST', '/api/oauth-personal-tokens', [
@@ -112,7 +129,7 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @large */
-    public function testListOfTokensDoesNotContainTokens() {
+    public function testListOfPersonalTokensDoesNotContainTokens() {
         $this->testCreatingPersonalAccessToken();
         $client = $this->createAuthenticatedClient();
         $client->apiRequest('GET', '/api/oauth-personal-tokens');

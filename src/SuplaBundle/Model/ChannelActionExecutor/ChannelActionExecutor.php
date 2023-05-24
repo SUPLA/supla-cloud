@@ -5,6 +5,7 @@ use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Exception\ApiException;
@@ -79,7 +80,7 @@ class ChannelActionExecutor {
         if (isset($integrationsParams['googleRequestId'])) {
             $googleRequestId = $integrationsParams['googleRequestId'];
             Assertion::maxLength($googleRequestId, 512, 'Google Request Id is too long.');
-            if ($subject instanceof IODeviceChannel) {
+            if ($subject instanceof HasUserConfig) {
                 $settings = $subject->getUserConfigValue('googleHome', []);
                 if ($settings['googleHomeDisabled'] ?? false) {
                     throw new ApiException('Google Home has been disabled for this channel.', 409);

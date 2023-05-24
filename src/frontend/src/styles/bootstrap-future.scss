@@ -3,19 +3,23 @@
 }
 
 .d-inline-block {
-  display: flex;
+  display: inline-block;
+}
+
+.flex-column {
+  flex-direction: column;
 }
 
 .flex-grow-1 {
   flex-grow: 1;
 }
 
-.d-inline-block {
-  display: inline-block;
-}
-
 .justify-content-between {
   justify-content: space-between;
+}
+
+.justify-content-end {
+  justify-content: end;
 }
 
 .justify-content-center {

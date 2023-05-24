@@ -66,7 +66,7 @@ class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSuplaAddEmVoltageLogItem() {
-        $parameters = ['"2022-10-26 16:09:00"', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11.5, 12.5, 13.5, 14];
+        $parameters = ['"2022-10-26 16:09:00"', 1, 2, 3, 4, 5, 6, 7, 8, 9, 11.5, 12.5, 13.5, 14];
         $query = 'CALL supla_add_em_voltage_log_item(' . implode(', ', $parameters) . ')';
         $this->getEntityManager('measurement_logs')->getConnection()->executeQuery($query);
         $logItems = $this->getEntityManager('measurement_logs')->getRepository(ElectricityMeterVoltageLogItem::class)->findAll();
@@ -76,7 +76,7 @@ class SuplaServerSqlProceduresIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($logItem);
         $this->assertEquals(1, $logItem->getChannelId());
         $this->assertEquals(2, EntityUtils::getField($logItem, 'phaseNo'));
-        $this->assertEquals(7, EntityUtils::getField($logItem, 'secAbove'));
+        $this->assertEquals(6, EntityUtils::getField($logItem, 'secAbove'));
         $this->assertEquals(13.5, EntityUtils::getField($logItem, 'avgVoltage'));
         $this->assertEquals('2022-10-26 16:09:00', EntityUtils::getField($logItem, 'date'));
     }

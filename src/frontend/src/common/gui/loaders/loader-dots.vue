@@ -13,6 +13,7 @@
         position: relative;
         width: 120px;
         margin: 100px auto;
+        height: 1px;
     }
 
     .loader-dots div {

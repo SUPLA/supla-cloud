@@ -34,9 +34,9 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\IODeviceManager;
 use SuplaBundle\Model\MeasurementCsvExporter;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\DatabaseUtils;
@@ -56,14 +56,14 @@ class ChannelMeasurementLogsController extends RestController {
     private $entityManager;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
-    /** @var ChannelParamConfigTranslator */
+    /** @var SubjectConfigTranslator */
     private $channelParamConfigTranslator;
 
     public function __construct(
         IODeviceManager $deviceManager,
         IODeviceChannelRepository $channelRepository,
         $measurementLogsEntityManager,
-        ChannelParamConfigTranslator $channelParamConfigTranslator
+        SubjectConfigTranslator $channelParamConfigTranslator
     ) {
         $this->deviceManager = $deviceManager;
         $this->entityManager = $measurementLogsEntityManager;
@@ -277,7 +277,7 @@ class ChannelMeasurementLogsController extends RestController {
                 );
             case ChannelFunction::ELECTRICITYMETER:
                 $columns = $logsType === 'voltage' ?
-                    'phase_no phaseNo, count_total countTotal, count_above countAbove, count_below countBelow, sec_total secTotal,' .
+                    'phase_no phaseNo, count_total countTotal, count_above countAbove, count_below countBelow, ' .
                     'sec_below secBelow, sec_above secAbove, max_sec_above maxSecAbove, max_sec_below maxSecBelow,' .
                     'min_voltage minVoltage, max_voltage maxVoltage, avg_voltage avgVoltage, measurement_time_sec measurementTimeSec' :
                     '`phase1_fae`, `phase1_rae`, `phase1_fre`, '
@@ -459,7 +459,6 @@ class ChannelMeasurementLogsController extends RestController {
      *            @OA\Property(property="countTotal", type="integer"),
      *            @OA\Property(property="countAbove", type="integer"),
      *            @OA\Property(property="countBelow", type="integer"),
-     *            @OA\Property(property="secTotal", type="integer"),
      *            @OA\Property(property="secAbove", type="integer"),
      *            @OA\Property(property="secBelow", type="integer"),
      *            @OA\Property(property="maxSecAbove", type="integer"),
@@ -594,7 +593,7 @@ class ChannelMeasurementLogsController extends RestController {
             ChannelFunction::LIGHTSWITCH,
             ChannelFunction::STAIRCASETIMER,
         ])) {
-            $channelConfig = $this->channelParamConfigTranslator->getConfigFromParams($channel);
+            $channelConfig = $this->channelParamConfigTranslator->getConfig($channel);
             $relatedMeasurementChannelId = $channelConfig['relatedChannelId'] ?? null;
             if ($relatedMeasurementChannelId) {
                 $targetChannel = $this->channelRepository->findForUser($channel->getUser(), $relatedMeasurementChannelId);
@@ -656,8 +655,8 @@ class ChannelMeasurementLogsController extends RestController {
 
     /**
      * @OA\Get(
-     *     path="/channels/{channel}/measurement-logs-csv", operationId="getChannelMeasurementLogsCsvFile",
-     *     summary="Get measurement logs as zipped CSV file.", tags={"Channels"},
+     *     path="/channels/{channel}/measurement-logs-download", operationId="downloadChannelMeasurementLogs",
+     *     summary="Get measurement logs as a zipped CSV file.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage"})),
      *     @OA\Response(response="200", description="Success", @OA\MediaType(mediaType="application/zip")),
@@ -668,7 +667,7 @@ class ChannelMeasurementLogsController extends RestController {
      */
     public function channelItemGetCSVAction(Request $request, IODeviceChannel $channel, MeasurementCsvExporter $measurementCsvExporter) {
         $logsType = $request->query->get('logsType');
-        $filePath = $measurementCsvExporter->generateCsv($channel, $logsType);
+        $filePath = $measurementCsvExporter->createZipArchiveWithLogs($channel, $logsType);
         $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
         return new StreamedResponse(
             function () use ($filePath) {

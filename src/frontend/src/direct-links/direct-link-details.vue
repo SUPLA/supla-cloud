@@ -96,6 +96,7 @@
                                                 v-if="directLink.subjectType == 'channelGroup'"></channel-group-tile>
                                             <scene-tile :model="directLink.subject"
                                                 v-if="directLink.subjectType == 'scene'"></scene-tile>
+                                            <ScheduleTile v-if="directLink.subjectType === 'schedule'" :model="directLink.subject"/>
                                         </div>
                                     </div>
                                 </div>
@@ -183,6 +184,7 @@
     import PageContainer from "../common/pages/page-container";
     import ChannelTile from "../channels/channel-tile";
     import SceneTile from "../scenes/scene-tile";
+    import ScheduleTile from "../schedules/schedule-list/schedule-tile";
     import ChannelGroupTile from "../channel-groups/channel-group-tile";
     import DirectLinkPreview from "./direct-link-preview";
     import DateRangePicker from "./date-range-picker";
@@ -200,6 +202,7 @@
             DateRangePicker,
             DirectLinkPreview,
             ChannelTile,
+            ScheduleTile,
             SceneTile,
             ChannelGroupTile,
             PageContainer,
@@ -248,7 +251,7 @@
             chooseSubjectForNewLink(subject) {
                 if (subject) {
                     const toSend = {
-                        subjectType: subject.subjectType,
+                        subjectType: subject.ownSubjectType,
                         subjectId: subject.id,
                         allowedActions: ['read'],
                     };

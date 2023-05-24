@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../integrations/oauth-scopes";
+    import {addImplicitScopes, arrayOfScopes, availableScopes, scopeId, scopeSuffixLabels} from "../account/integrations/oauth-scopes";
     import {cloneDeep} from "lodash";
 
     export default {
