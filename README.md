@@ -10,9 +10,6 @@ Your home connected. www.supla.org
 | ------------- |-------------|
 | [![Build Status](https://ci.supla.org/api/badges/SUPLA/supla-cloud/status.svg)](https://ci.supla.org/SUPLA/supla-cloud/) | [![Build Status](https://ci.supla.org/api/badges/SUPLA/supla-cloud/status.svg?ref=refs/heads/develop)](https://ci.supla.org/SUPLA/supla-cloud/) |
 
-
-<img src="https://www.supla.org/assets/img/cloud/pl/cloud-3.png" height="500">
-
 ## Installation
 
 https://github.com/SUPLA/supla-docker
