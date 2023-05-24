@@ -325,7 +325,15 @@ export const CHART_TYPES = {
         chartOptions() {
             const options = {chart: {stacked: true}};
             if (['fae_rae_vector', 'fae_rae'].includes(this.chartMode)) {
-                options.colors = ['#ff7373', '#00d150'];
+                options.colors = ['#ff7373', '#ccc', '#00d150', '#ccc'];
+                options.tooltip = {
+                    custom(ctx) {
+                        const value = ctx.series[0][ctx.dataPointIndex] || ctx.series[2][ctx.dataPointIndex];
+                        const formatted = ctx.w.config.yaxis[0].labels.formatter(value);
+                        return `<div class="p-3">${formatted}</div>`;
+                    }
+                };
+                options.legend = {show: false};
             } else {
                 options.colors = ['#00d150', '#008ffb', '#ff851b'];
             }
@@ -334,49 +342,35 @@ export const CHART_TYPES = {
         series: function (allLogs) {
             const enabledPhases = this.channel.config.enabledPhases || [1, 2, 3];
             if (this.chartMode === 'fae_rae') {
-                return [
-                    {
-                        name: `${this.$t('Forward active energy')}`,
-                        data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.fae_total})),
-                    },
-                    {
-                        name: `${this.$t('Reverse active energy')}`,
-                        data: allLogs.map((item) => ({
-                            x: item.date_timestamp * 1000, y: -item.rae_total, goals: [
-                                {
-                                    name: this.$t('Balance'),
-                                    value: item.fae_rae_balance,
-                                    strokeHeight: 6,
-                                    strokeWidth: 0,
-                                    strokeLineCap: 'round',
-                                    strokeColor: item.fae_rae_balance <= 0 ? '#005600' : '#f00',
-                                }
-                            ]
-                        })),
-                    },
+                const series = [
+                    {name: `${this.$t('Forward active energy')}`, data: []},
+                    {name: `${this.$t('Forward active energy')}`, data: []},
+                    {name: `${this.$t('Reverse active energy')}`, data: []},
+                    {name: `${this.$t('Reverse active energy')}`, data: []},
                 ];
+                allLogs.forEach((item) => {
+                    const balance = item.fae_rae_balance;
+                    series[0].data.push({x: item.date_timestamp * 1000, y: balance > 0 ? balance : 0});
+                    series[1].data.push({x: item.date_timestamp * 1000, y: item.fae_total - (balance > 0 ? balance : 0)});
+                    series[2].data.push({x: item.date_timestamp * 1000, y: balance < 0 ? balance : 0});
+                    series[3].data.push({x: item.date_timestamp * 1000, y: -item.rae_total - (balance < 0 ? balance : 0)});
+                });
+                return series;
             } else if (this.chartMode === 'fae_rae_vector') {
-                return [
-                    {
-                        name: `${this.$t('Forward active energy')} (${this.$t('vector balance')})`,
-                        data: allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.fae_balanced})),
-                    },
-                    {
-                        name: `${this.$t('Reverse active energy')} (${this.$t('vector balance')})`,
-                        data: allLogs.map((item) => ({
-                            x: item.date_timestamp * 1000, y: -item.rae_balanced, goals: [
-                                {
-                                    name: this.$t('Balance'),
-                                    value: item.fae_balanced - item.rae_balanced,
-                                    strokeHeight: 6,
-                                    strokeWidth: 0,
-                                    strokeLineCap: 'round',
-                                    strokeColor: item.fae_balanced - item.rae_balanced <= 0 ? '#005600' : '#f00',
-                                }
-                            ]
-                        })),
-                    },
-                ]
+                const series = [
+                    {name: `${this.$t('Forward active energy balance')}`, data: []},
+                    {name: `${this.$t('Forward active energy')}`, data: []},
+                    {name: `${this.$t('Reverse active energy balance')}`, data: []},
+                    {name: `${this.$t('Reverse active energy')}`, data: []},
+                ];
+                allLogs.forEach((item) => {
+                    const balance = item.fae_balanced - item.rae_balanced;
+                    series[0].data.push({x: item.date_timestamp * 1000, y: balance > 0 ? balance : 0});
+                    series[1].data.push({x: item.date_timestamp * 1000, y: item.fae_balanced - (balance > 0 ? balance : 0)});
+                    series[2].data.push({x: item.date_timestamp * 1000, y: balance < 0 ? balance : 0});
+                    series[3].data.push({x: item.date_timestamp * 1000, y: -item.rae_balanced - (balance < 0 ? balance : 0)});
+                });
+                return series;
             } else {
                 return enabledPhases.map((phaseNo) => {
                     // i18n: ['Phase 1', 'Phase 2', 'Phase 3']
