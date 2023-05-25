@@ -309,6 +309,7 @@
                     markers: {size: 0},
                     xaxis: {
                         type: 'datetime',
+                        crosshairs: {show: false},
                         labels: {
                             datetimeUTC: false,
                         }

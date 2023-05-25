@@ -339,7 +339,7 @@ export const CHART_TYPES = {
         chartOptions() {
             const options = {chart: {stacked: true}};
             if (['fae_rae_vector', 'fae_rae'].includes(this.chartMode)) {
-                options.colors = ['#ff7373', '#ccc', '#00d150', '#ccc'];
+                options.colors = ['#ff7373', '#aaa', '#00d150', '#aaa'];
                 options.tooltip = {
                     custom(ctx) {
                         const value = ctx.series[0][ctx.dataPointIndex] || ctx.series[2][ctx.dataPointIndex];
@@ -349,6 +349,7 @@ export const CHART_TYPES = {
                 };
                 options.legend = {show: false};
             } else {
+                options.tooltip = {custom: undefined};
                 options.colors = ['#00d150', '#008ffb', '#ff851b'];
             }
             return options;
