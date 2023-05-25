@@ -38,7 +38,9 @@ export const CHART_TYPES = {
                 },
             ];
             if (allLogs[0].min !== undefined) {
-                const rangeSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
+                const rangeSeries = allLogs
+                    .filter((item) => item.min !== null)
+                    .map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
                 series.push({
                     name: `${this.$t('Temperature')} - ${this.$t('range')}`,
                     type: 'rangeArea',
@@ -59,7 +61,12 @@ export const CHART_TYPES = {
         aggregateLogs: (logs) => {
             const temperatures = logs.map(log => log.temperature).filter(t => t || t === 0);
             const averageTemp = temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
-            return {...logs[0], temperature: averageTemp, min: Math.min.apply(null, temperatures), max: Math.max.apply(null, temperatures)};
+            return {
+                ...logs[0],
+                temperature: isNaN(averageTemp) ? null : averageTemp,
+                min: isNaN(averageTemp) ? null : Math.min.apply(null, temperatures),
+                max: isNaN(averageTemp) ? null : Math.max.apply(null, temperatures),
+            };
         },
         yaxes: function () {
             return [
@@ -125,8 +132,8 @@ export const CHART_TYPES = {
             const averageTemperature = temperatures.reduce((a, b) => a + b, 0) / temperatures.length;
             return {
                 ...logs[0],
-                humidity: averageHumidity,
-                temperature: averageTemperature,
+                humidity: isNaN(averageHumidity) ? null : averageHumidity,
+                temperature: isNaN(averageTemperature) ? null : averageTemperature,
                 minHumidity: Math.min.apply(null, humidities),
                 maxHumidity: Math.max.apply(null, humidities),
                 minTemperature: Math.min.apply(null, temperatures),
@@ -165,7 +172,9 @@ export const CHART_TYPES = {
                 {name: `${this.$t('Humidity')}`, type: 'line', data: humiditySeries},
             ];
             if (allLogs[0].min !== undefined) {
-                const rangeSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
+                const rangeSeries = allLogs
+                    .filter((item) => item.min !== null)
+                    .map((item) => ({x: item.date_timestamp * 1000, y: [item.min, item.max]}));
                 series.push({
                     name: `${this.$t('Humidity')} - ${this.$t('range')}`,
                     type: 'rangeArea',
@@ -186,7 +195,12 @@ export const CHART_TYPES = {
         aggregateLogs: (logs) => {
             const humidities = logs.map(log => log.humidity).filter(t => t || t === 0);
             const averageHumidity = humidities.reduce((a, b) => a + b, 0) / humidities.length;
-            return {...logs[0], humidity: averageHumidity, min: Math.min.apply(null, humidities), max: Math.max.apply(null, humidities)};
+            return {
+                ...logs[0],
+                humidity: isNaN(averageHumidity) ? null : averageHumidity,
+                min: isNaN(averageHumidity) ? null : Math.min.apply(null, humidities),
+                max: isNaN(averageHumidity) ? null : Math.max.apply(null, humidities),
+            };
         },
         yaxes: function () {
             return [
