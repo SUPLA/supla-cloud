@@ -349,6 +349,7 @@ export const CHART_TYPES = {
                 };
                 options.legend = {show: false};
             } else {
+                options.legend = {show: true};
                 options.tooltip = {custom: undefined};
                 options.colors = ['#00d150', '#008ffb', '#ff851b'];
             }
