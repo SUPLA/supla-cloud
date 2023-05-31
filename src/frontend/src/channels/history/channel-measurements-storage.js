@@ -10,15 +10,21 @@ export class IndexedDbMeasurementLogsStorage {
 
     async connect() {
         if (window.indexedDB) {
-            this.db = await openDB(`channel_measurement_logs_${this.channel.id}`, 4, {
-                async upgrade(db) {
-                    if (db.objectStoreNames.contains('logs')) {
-                        await db.deleteObjectStore('logs');
+            try {
+                this.db = await openDB(`channel_measurement_logs_${this.channel.id}`, 4, {
+                    async upgrade(db) {
+                        if (db.objectStoreNames.contains('logs')) {
+                            await db.deleteObjectStore('logs');
+                        }
+                        const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
+                        os.createIndex("date", "date", {unique: true});
                     }
-                    const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
-                    os.createIndex("date", "date", {unique: true});
-                }
-            });
+                });
+            } catch (e) {
+                console.warn(e); // eslint-disable-line no-console
+                this.db = undefined;
+                this.hasSupport = false;
+            }
         }
     }
 
