@@ -1012,7 +1012,6 @@ Are you sure you want to log out this device?: ~
 Arithmetic balance: ~
 Authentication failure: ~
 Authentication successful: ~
-Balance: ~
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
 By signing in, you are authorizing {clientName} to control your devices.: ~
 Change the password and log out: ~
@@ -1030,6 +1029,7 @@ Electricity meter device has no available counters configured. Please upgrade th
 Enabled phases: ~
 Expires at: ~
 File format: ~
+Forward active energy balance: ~
 From: ~
 I understand that my SUPLA account will be permanently deleted.: ~
 IP Address: ~
@@ -1050,6 +1050,7 @@ Password reset: ~
 Phase {phaseNumber}: ~
 Predefined time ranges: ~
 Reload the chart: ~
+Reverse active energy balance: ~
 Scene available for {serviceName}: ~
 Security: ~
 Security log: ~
@@ -1070,6 +1071,7 @@ Value: ~
 Value separator: ~
 Vector balance: ~
 'We also strongly advise you to choose a password that:': ~
+We were not able to prepare your data. Please see the error details below.: ~
 We will miss you!: ~
 You can browse only the most recent logs now. Wait a while for the full history.: ~
 You must leave at least one phase enabled.: ~
@@ -1104,7 +1106,6 @@ today: ~
 unknown: ~
 values as seen on chart: ~
 values as seen on counter: ~
-vector balance: ~
 yesterday: ~
 '{serviceName} integration': ~
 

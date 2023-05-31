@@ -112,7 +112,6 @@ Automatic closing rule: Automatyczne zamykanie bramy
 Automation: Automatyka
 Average voltage: Średnie napięcie
 Back to apps list: Powrót do listy aplikacji
-Balance: Bilans
 Bar: Słupkowy
 Based on sunrise or sunset: W oparciu o wschód / zachód
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
@@ -324,6 +323,7 @@ For devices: Dla urządzeń
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
+Forward active energy balance: Balans czynnej energii pobranej
 Forward active energy balanced: Energia czynna pobrana (Bilans wektorowy)
 Forward reactive energy: Energia bierna indukcyjna
 Fridays: Piątki
@@ -525,6 +525,7 @@ OAuth application: Aplikacja OAuth
 OAuth apps: Aplikacje OAuth
 OAuth authorization: Autoryzacja OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integracje z aplikacjami OAuth mogą przestać działać po wyrejestrowaniu twojej instancji.
+OK: OK
 'Off': Wyłącz
 Offline access: Dostęp offline
 Older: Starsze
@@ -615,6 +616,7 @@ Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
 Reverse active energy: Energia czynna zwrócona
+Reverse active energy balance: Balans czynnej energii zwróconej
 Reverse active energy balanced: Energia czynna zwrócona (Bilans wektorowy)
 Reverse reactive energy: Energia bierna pojemnościowa
 Revoke: Unieważnij
@@ -826,6 +828,7 @@ We should be ready shortly.: Powinniśmy niedługo skończyć.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Przechowujemy w Twojej przeglądarce informacje o Twoich preferencjach w celu ułatwienia korzystania z aplikacji (np. za pomocą mechanizmu ciasteczek).
 We try to be faster: Jesteśmy coraz szybsi
 We were not able to find your account.: Nie udało nam się znaleźć Twojego konta.
+We were not able to prepare your data. Please see the error details below.: W trakcie przygotowania danych pojawił się błąd. Zapoznaj się z jego szczegółami poniżej.
 We will miss you: Będziemy za Tobą tęsknić
 We will miss you!: Będziemy tęsknić za Tobą!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.
@@ -968,6 +971,10 @@ last 24 hours: ostatnie 24 godziny
 last 30 days: ostatnie 30 dni
 last 6 hours: ostatnie 6 godzin
 last 7 days: ostatnie 7 dni
+logs_aggregation_day: dni
+logs_aggregation_hour: godziny
+logs_aggregation_minute: minuty
+logs_aggregation_month: miesiące
 min.: min.
 minutes: minut
 or add a delay: lub dodaj opóźnienie
@@ -1020,7 +1027,6 @@ username: nazwa użytkownika
 valid until: wygaśnie
 values as seen on chart: wartości tak jak na wykresie
 values as seen on counter: wartości tak jak na liczniku
-vector balance: bilans wektorowy
 yesterday: wczoraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
@@ -1046,6 +1052,7 @@ Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć t
 Assigned Locations: Przypisane Lokalizacje
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Available: Dostępne
+Balance: Bilans
 Calculated value: Stan licznika
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
@@ -1107,14 +1114,10 @@ When: Kiedy
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
 hourly: Każdy dzień
+vector balance: bilans wektorowy
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-OK: OK
-logs_aggregation_day: dni
-logs_aggregation_hour: godziny
-logs_aggregation_minute: minuty
-logs_aggregation_month: miesiące
 
 #</editor-fold>

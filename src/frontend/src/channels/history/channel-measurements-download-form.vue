@@ -49,8 +49,12 @@
                         {{ $t('Download the history of measurement') }}
                     </a>
                     <span v-else>
-                        {{ $t('Your data are being collected. Please be patient. ') }}
+                        {{ $t('Your data are being collected. Please be patient.') }}
                     </span>
+                    <div v-if="downloadError" class="text-danger mt-3">
+                        <p>{{ $t('We were not able to prepare your data. Please see the error details below.') }}</p>
+                        {{ downloadError }}
+                    </div>
                 </div>
             </div>
             <div v-else class="alert alert-info">
@@ -131,6 +135,7 @@
         data() {
             return {
                 downloading: false,
+                downloadError: undefined,
                 downloadConfig: {
                     format: 'csv',
                     separator: ',',
@@ -141,24 +146,31 @@
         methods: {
             async download() {
                 this.downloading = true;
-                let rows = (await (await this.storage.db).getAllFromIndex('logs', 'date'));
-                rows.shift(); // removes the first null log
-                if (this.downloadConfig.transformation === 'cumulative') {
-                    const firstLogResponse = await this.$http.get(`channels/${this.storage.channel.id}/measurement-logs?order=ASC&limit=1`);
-                    const firstLog = firstLogResponse.body[0];
-                    rows.unshift(this.storage.chartStrategy.fixLog(firstLog));
-                    rows = this.storage.chartStrategy.cumulateLogs(rows);
-                    rows.shift();
+                this.downloadError = undefined;
+                try {
+                    let rows = (await (await this.storage.db).getAllFromIndex('logs', 'date'));
+                    rows.shift(); // removes the first null log
+                    if (this.downloadConfig.transformation === 'cumulative') {
+                        const firstLogResponse = await this.$http.get(`channels/${this.storage.channel.id}/measurement-logs?order=ASC&limit=1`);
+                        const firstLog = firstLogResponse.body[0];
+                        rows.unshift(this.storage.chartStrategy.fixLog(firstLog));
+                        rows = this.storage.chartStrategy.cumulateLogs(rows);
+                        rows.shift();
+                    }
+                    rows = rows
+                        .filter(row => !row.interpolated)
+                        .map(row => {
+                            delete row.counterReset;
+                            return row;
+                        });
+                    await this.downloadFile(rows);
+                    this.$emit('downloaded');
+                } catch (e) {
+                    this.downloadError = e.toString();
+                    throw e;
+                } finally {
+                    this.downloading = false;
                 }
-                rows = rows
-                    .filter(row => !row.interpolated)
-                    .map(row => {
-                        delete row.counterReset;
-                        return row;
-                    });
-                await this.downloadFile(rows);
-                this.downloading = false;
-                this.$emit('downloaded');
             },
             async downloadFile(rows) {
                 const fieldSeparator = this.downloadConfig.separator === 'tab' ? "\t" : this.downloadConfig.separator;
@@ -171,7 +183,8 @@
                 });
                 XLSX.utils.sheet_add_aoa(worksheet, [columnLabels], {origin: "A1"});
                 const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, channelTitle(this.channel, this).substr(0, 30));
+                const sheetName = channelTitle(this.channel, this).replace(/[^0-9a-z]/ig, '_').replace(/_+/g, ' ').substr(0, 30);
+                XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
                 const filename = `measurements_${this.channel.id}.${this.downloadConfig.format}`;
                 XLSX.writeFile(workbook, filename, {compression: true, FS: fieldSeparator});
             },
