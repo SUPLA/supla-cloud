@@ -6,8 +6,8 @@
         "offset": 7200
     },
     "authenticated": false,
-    "cloudVersion": "22.12",
-    "cloudVersionFull": "22.12",
+    "cloudVersion": "23.05.01",
+    "cloudVersionFull": "23.05.01",
     "apiVersion": "2.4.0",
     "supportedApiVersions": [
         "2.1.0",
