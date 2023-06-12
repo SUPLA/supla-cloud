@@ -24,6 +24,7 @@ use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;
+use SuplaBundle\Repository\SettingsStringRepository;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 
 /**
@@ -41,7 +42,8 @@ class SuplaAutodiscoverMockTest extends TestCase {
         $this->autodiscover = new SuplaAutodiscoverMock(
             new LocalSuplaCloud('https://supla.local'),
             $this->userManager,
-            $this->createMock(LoggerInterface::class)
+            $this->createMock(LoggerInterface::class),
+            $this->createMock(SettingsStringRepository::class)
         );
         SuplaAutodiscoverMock::clear();
     }

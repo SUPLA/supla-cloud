@@ -20,6 +20,7 @@ namespace SuplaBundle\Supla;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\UserManager;
+use SuplaBundle\Repository\SettingsStringRepository;
 
 class SuplaAutodiscoverMock extends SuplaAutodiscover {
     public static $mockedResponses = [];
@@ -70,13 +71,19 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         'user2@supla.org' => 'localhost:81',
     ];
 
-    public function __construct(LocalSuplaCloud $localSuplaCloud, UserManager $userManager, LoggerInterface $logger) {
+    public function __construct(
+        LocalSuplaCloud $localSuplaCloud,
+        UserManager $userManager,
+        LoggerInterface $logger,
+        SettingsStringRepository $settingsStringRepository
+    ) {
         parent::__construct(
             count(self::$userMapping) ? 'mocked-autodiscover' : false,
             $localSuplaCloud,
             self::$isBroker,
             $userManager,
-            $logger
+            $logger,
+            $settingsStringRepository
         );
     }
 
