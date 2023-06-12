@@ -24,15 +24,16 @@ use FOS\OAuthServerBundle\Model\ClientInterface;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\InstanceSettings;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\UserManager;
+use SuplaBundle\Repository\SettingsStringRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class SuplaAutodiscover {
-    const TARGET_CLOUD_TOKEN_SAVE_PATH = AppKernel::VAR_PATH . '/local/target-cloud-token';
     const PUBLIC_CLIENTS_SAVE_PATH = AppKernel::VAR_PATH . '/local/public-clients';
     const BROKER_CLOUDS_SAVE_PATH = AppKernel::VAR_PATH . '/local/broker-clouds';
 
@@ -46,19 +47,23 @@ abstract class SuplaAutodiscover {
     protected $localSuplaCloud;
     /** @var LoggerInterface */
     private $logger;
+    /** @var SettingsStringRepository */
+    protected $settingsStringRepository;
 
     public function __construct(
         $autodiscoverUrl,
         LocalSuplaCloud $localSuplaCloud,
         bool $actAsBrokerCloud,
         UserManager $userManager,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        SettingsStringRepository $settingsStringRepository
     ) {
         $this->autodiscoverUrl = $autodiscoverUrl;
         $this->userManager = $userManager;
         $this->localSuplaCloud = $localSuplaCloud;
         $this->actAsBrokerCloud = $actAsBrokerCloud;
         $this->logger = $logger;
+        $this->settingsStringRepository = $settingsStringRepository;
         if (strpos($this->autodiscoverUrl, 'http') !== 0) {
             $this->autodiscoverUrl = 'https://' . $this->autodiscoverUrl;
         }
@@ -73,7 +78,7 @@ abstract class SuplaAutodiscover {
     }
 
     public function isTarget(): bool {
-        return file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH);
+        return $this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN);
     }
 
     abstract protected function remoteRequest(

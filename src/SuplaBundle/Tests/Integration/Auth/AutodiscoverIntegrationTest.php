@@ -21,7 +21,9 @@ use AppKernel;
 use SuplaBundle\Auth\AutodiscoverPublicClientStub;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
+use SuplaBundle\Entity\Main\SettingsString;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\InstanceSettings;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscover;
@@ -34,11 +36,12 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * For these tests to run, you need to launch your local instance of SUPLA Autodiscover from https://github.com/SUPLA/supla-autodiscover
  * The directories supla-cloud and supla-autodiscover should be next to each other (in the same parent dir).
+ * Run AD with php7.4 -S localhost:8010 -t web web/app.php
  * Then, update app/config/config_local.yml so the "Real" Autodiscover is being used in the tests instead of the Mocked one:
  */
 /*
 supla:
-  autodiscover_url: http://suplaad.local
+  autodiscover_url: http://localhost:8010
 parameters:
   act_as_broker_cloud: true
   supla_protocol: http
@@ -63,7 +66,7 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
 
     /** @before */
     public function clearState() {
-        @unlink(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH);
+        $this->getDoctrine()->getRepository(SettingsString::class)->clearValue(InstanceSettings::TARGET_TOKEN);
         @unlink(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH);
         @unlink(SuplaAutodiscover::BROKER_CLOUDS_SAVE_PATH);
         $path = realpath(self::AD_PROJECT_PATH);
@@ -88,7 +91,6 @@ class AutodiscoverIntegrationTest extends IntegrationTestCase {
         $this->assertStringStartsWith('php bin/console supla:register-target-cloud ', $command);
         $result = $this->executeCommand(substr($command, strlen('php bin/console ')));
         $this->assertContains('correctly', $result);
-        @chmod(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH, 0777); // so user running test and apache can read these
         @chmod(SuplaAutodiscover::PUBLIC_CLIENTS_SAVE_PATH, 0777);
     }
 

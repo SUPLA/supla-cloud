@@ -17,6 +17,14 @@ class SettingsStringRepository extends EntityRepository {
         return $setting !== null;
     }
 
+    public function clearValue(string $name): void {
+        $setting = $this->findOneBy(['name' => $name]);
+        if ($setting) {
+            $this->_em->remove($setting);
+            $this->_em->flush();;
+        }
+    }
+
     public function setValue(string $name, string $value): void {
         if ($this->hasValue($name)) {
             $setting = $this->findOneBy(['name' => $name]);

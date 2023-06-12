@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Supla;
 
+use SuplaBundle\Enums\InstanceSettings;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,8 +37,8 @@ class SuplaAutodiscoverReal extends SuplaAutodiscover {
             $headers = array_merge(['Content-Type' => 'application/json', 'Content-Length' => strlen($content)], $headers);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
         }
-        if (!isset($headers['Authorization']) && file_exists(self::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
-            $headers['Authorization'] = 'Bearer ' . file_get_contents(self::TARGET_CLOUD_TOKEN_SAVE_PATH);
+        if (!isset($headers['Authorization']) && $this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN)) {
+            $headers['Authorization'] = 'Bearer ' . $this->settingsStringRepository->getValue(InstanceSettings::TARGET_TOKEN);
         }
         $headers = array_map(function ($headerName, $headerValue) {
             return "$headerName: $headerValue";

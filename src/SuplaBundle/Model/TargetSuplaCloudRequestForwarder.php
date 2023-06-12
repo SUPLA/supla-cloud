@@ -18,8 +18,9 @@
 namespace SuplaBundle\Model;
 
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Enums\InstanceSettings;
 use SuplaBundle\Exception\ApiException;
-use SuplaBundle\Supla\SuplaAutodiscover;
+use SuplaBundle\Repository\SettingsStringRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,6 +29,8 @@ class TargetSuplaCloudRequestForwarder {
     private $logger;
     /** @var RealClientIpResolver */
     private $clientIpResolver;
+    /** @var SettingsStringRepository */
+    private $settingsStringRepository;
 
     /**
      * For the sake of tests.
@@ -35,9 +38,14 @@ class TargetSuplaCloudRequestForwarder {
      */
     public static $requestExecutor;
 
-    public function __construct(LoggerInterface $logger, RealClientIpResolver $clientIpResolver) {
+    public function __construct(
+        LoggerInterface $logger,
+        RealClientIpResolver $clientIpResolver,
+        SettingsStringRepository $settingsStringRepository
+    ) {
         $this->logger = $logger;
         $this->clientIpResolver = $clientIpResolver;
+        $this->settingsStringRepository = $settingsStringRepository;
     }
 
     public function issueWebappToken(TargetSuplaCloud $target, string $username, string $password): array {
@@ -107,8 +115,8 @@ class TargetSuplaCloudRequestForwarder {
             $headers[] = 'Content-Type: application/json';
             $headers[] = 'Content-Length: ' . strlen($content);
         }
-        if (file_exists(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH)) {
-            $headers[] = 'SUPLA-Broker-Token: Bearer ' . file_get_contents(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH);
+        if ($this->settingsStringRepository->hasValue(InstanceSettings::TARGET_TOKEN)) {
+            $headers[] = 'SUPLA-Broker-Token: Bearer ' . $this->settingsStringRepository->getValue(InstanceSettings::TARGET_TOKEN);
         }
         if ($headers) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

@@ -2,7 +2,9 @@
 namespace SuplaBundle\Command;
 
 use Assert\Assertion;
+use SuplaBundle\Enums\InstanceSettings;
 use SuplaBundle\Model\LocalSuplaCloud;
+use SuplaBundle\Repository\SettingsStringRepository;
 use SuplaBundle\Supla\SuplaAutodiscover;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,11 +16,18 @@ class RegisterTargetCloudCommand extends Command {
     private $autodiscover;
     /** @var LocalSuplaCloud */
     private $localSuplaCloud;
+    /** @var SettingsStringRepository */
+    private $settingsStringRepository;
 
-    public function __construct(SuplaAutodiscover $autodiscover, LocalSuplaCloud $localSuplaCloud) {
+    public function __construct(
+        SuplaAutodiscover $autodiscover,
+        LocalSuplaCloud $localSuplaCloud,
+        SettingsStringRepository $settingsStringRepository
+    ) {
         parent::__construct();
         $this->autodiscover = $autodiscover;
         $this->localSuplaCloud = $localSuplaCloud;
+        $this->settingsStringRepository = $settingsStringRepository;
     }
 
     protected function configure() {
@@ -46,10 +55,7 @@ class RegisterTargetCloudCommand extends Command {
         $output->writeln('Registering your private SUPLA Cloud...');
         $registrationToken = $input->getArgument('registrationToken');
         $authorizationToken = $this->autodiscover->registerTargetCloud($registrationToken);
-        $written = file_put_contents(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH, $authorizationToken);
-        Assertion::greaterThan($written, 0, 'Could not save the token file. Please contact us with your cloud address name.');
-        $chmodChanged = chmod(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH, 0600);
-        Assertion::true($chmodChanged, 'Could not change the token file permissions.');
+        $this->settingsStringRepository->setValue(InstanceSettings::TARGET_TOKEN, $authorizationToken);
         $output->writeln('<info>You have correctly registered your private SUPLA Cloud!');
         $output->writeln("<info>Now, go to {$this->localSuplaCloud->getAddress()}/apps to explore new possibilities!");
     }
