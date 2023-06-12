@@ -78,3 +78,7 @@ services:
   SuplaBundle\Repository\DirectLinkRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\Main\DirectLink]
+
+  SuplaBundle\Repository\SettingsStringRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\SettingsString]
