@@ -21,7 +21,7 @@ class SettingsStringRepository extends EntityRepository {
         $setting = $this->findOneBy(['name' => $name]);
         if ($setting) {
             $this->_em->remove($setting);
-            $this->_em->flush();;
+            $this->_em->flush();
         }
     }
 
