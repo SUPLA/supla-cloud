@@ -17,11 +17,35 @@
 
 namespace Supla\Migrations;
 
+use AppKernel;
+use Doctrine\DBAL\Schema\Schema;
+use SuplaBundle\Enums\InstanceSettings;
+use SuplaBundle\Supla\SuplaAutodiscover;
+
 /**
  * supla_settings_string.
  */
 class Version20230612185931 extends NoWayBackMigration {
+    const PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH = AppKernel::VAR_PATH . '/local/target-cloud-token';
+
     public function migrate() {
         $this->addSql('CREATE TABLE supla_settings_string (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL, value VARCHAR(1024) NOT NULL, UNIQUE INDEX UNIQ_814604C95E237E06 (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->moveTargetCloudTokenToSettings();
+    }
+
+    private function moveTargetCloudTokenToSettings() {
+        if (file_exists(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH)) {
+            $token = file_get_contents(SuplaAutodiscover::TARGET_CLOUD_TOKEN_SAVE_PATH);
+            $this->addSql('INSERT INTO supla_settings_string (name, value) VALUES (:name, :value)', [
+                'name' => InstanceSettings::TARGET_TOKEN,
+                'value' => $token,
+            ]);
+        }
+    }
+
+    public function postUp(Schema $schema): void {
+        if (file_exists(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH)) {
+            unlink(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH);
+        }
     }
 }
