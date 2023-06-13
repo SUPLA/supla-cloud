@@ -78,6 +78,7 @@ FROM DUAL
            _channel_id)) LIMIT 1)
 PROCEDURE
         );
+        $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_push_notification_client_token`');
         $this->addSql(<<<PROCEDURE
 CREATE PROCEDURE `supla_update_push_notification_client_token`(IN `_user_id` INT, IN `_client_id` INT, IN `_token` VARCHAR(255) CHARSET utf8mb4, IN `_platform` TINYINT, IN `_app_id` INT, IN `_devel_env` TINYINT)
 UPDATE supla_client SET 
