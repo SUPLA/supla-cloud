@@ -46,7 +46,7 @@
                     </div>
                 </template>
                 <template v-if="operation.subject && operation.subjectType === 'notification'">
-                    <div :class="['timeline-badge action', {danger: !operation.isValid}]">
+                    <div :class="['timeline-badge action', {danger: displayValidationErrors && !operation.isValid}]">
                         <i class="pe-7s-volume"></i>
                     </div>
                     <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !operation.isValid}]">
@@ -199,6 +199,7 @@
                 if (delay) {
                     operations.push({id: UNIQUE_OPERATION_ID++, delayMs: delay});
                 }
+                this.operations = operations;
                 this.lastValue = operations;
                 this.$emit('input', operations);
             },
@@ -207,7 +208,10 @@
                 this.updateModel();
             },
             addNotification() {
-                this.operations.push({id: UNIQUE_OPERATION_ID++, subject: {}, subjectType: ActionableSubjectType.NOTIFICATION});
+                this.operations.push({
+                    id: UNIQUE_OPERATION_ID++, subject: {}, subjectType: ActionableSubjectType.NOTIFICATION,
+                    action: {id: ChannelFunctionAction.SEND}
+                });
                 this.updateModel();
             },
             waitForCompletionAvailable(operation) {

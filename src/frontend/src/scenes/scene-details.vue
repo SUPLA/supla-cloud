@@ -152,6 +152,7 @@
         methods: {
             fetch() {
                 this.hasPendingChanges = false;
+                this.displayValidationErrors = false;
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
@@ -173,7 +174,7 @@
             saveScene() {
                 this.displayValidationErrors = true;
                 if (this.scene.operations.find(o => o.isValid === false)) {
-                    warningNotification(this.$t('Invalid scene operations'), this.$t('Please fix the problems with operation and try again.'));
+                    warningNotification(this.$t('Invalid scene'), this.$t('Please fix the problems with operations and try again.'));
                     return;
                 }
                 const toSend = Vue.util.extend({}, this.scene);
@@ -188,6 +189,7 @@
                         .then(response => {
                             this.$emit('update', response.body);
                             this.scene.operations = response.body.operations;
+                            this.displayValidationErrors = false;
                         })
                         .then(() => this.hasPendingChanges = false)
                         .finally(() => this.loading = false);

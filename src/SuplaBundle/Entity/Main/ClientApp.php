@@ -128,10 +128,10 @@ class ClientApp {
     private $platform;
 
     /** @ORM\Column(name="app_id", type="integer", nullable=false, options={"default": 0}) */
-    private $appId;
+    private $appId = 0;
 
     /** @ORM\Column(name="devel_env", type="boolean", options={"default": 0}) */
-    private $isDevEnv;
+    private $isDevEnv = false;
 
     public function getId(): int {
         return $this->id;

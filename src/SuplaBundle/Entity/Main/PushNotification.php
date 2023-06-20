@@ -17,17 +17,21 @@
 
 namespace SuplaBundle\Entity\Main;
 
+use Assert\Assertion;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SuplaBundle\Repository\PushNotificationRepository")
  * @ORM\Table(name="supla_push_notification")
  */
 class PushNotification implements ActionableSubject {
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -61,19 +65,29 @@ class PushNotification implements ActionableSubject {
      *     inverseJoinColumns={ @ORM\JoinColumn(name="access_id", referencedColumnName="id") }
      * )
      */
-    private $accessId;
+    private $accessIds;
 
     /** @ORM\Column(name="managed_by_device", type="boolean", options={"default": 0}) */
-    private $managedByDevice;
+    private $managedByDevice = false;
 
-    /** @ORM\Column(name="title", type="string", length=100, nullable=true) */
+    /**
+     * @ORM\Column(name="title", type="string", length=100, nullable=true)
+     * @Groups({"basic"})
+     */
     private $title;
 
-    /** @ORM\Column(name="body", type="string", length=255, nullable=true) */
+    /**
+     * @ORM\Column(name="body", type="string", length=255, nullable=true)
+     * @Groups({"basic"})
+     */
     private $body;
 
     /** @ORM\Column(name="sound", type="integer", nullable=true) */
     private $sound;
+
+    public function __construct(User $user) {
+        $this->user = $user;
+    }
 
     public function getId(): int {
         return $this->id;
@@ -98,4 +112,25 @@ class PushNotification implements ActionableSubject {
     public function getOwnSubjectType(): string {
         return ActionableSubjectType::NOTIFICATION;
     }
+
+    public function validate(): void {
+        Assertion::notBlank($this->getTitle() . $this->getBody(), 'Notification title or body must be set.');
+    }
+
+    public function getTitle(): string {
+        return $this->title ?: '';
+    }
+
+    public function setTitle(string $title): void {
+        $this->title = $title;
+    }
+
+    public function getBody(): string {
+        return $this->body ?: '';
+    }
+
+    public function setBody(string $body): void {
+        $this->body = $body;
+    }
+
 }

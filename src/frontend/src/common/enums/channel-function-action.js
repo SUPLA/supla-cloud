@@ -23,6 +23,7 @@ const ChannelFunctionAction = Object.freeze({
     STEP_BY_STEP: 160,
     ENABLE: 200,
     DISABLE: 210,
+    SEND: 220,
     COPY: 10100,
     AT_FORWARD_OUTSIDE: 10000,
     AT_DISABLE_LOCAL_FUNCTION: 10200,

@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -780,5 +781,58 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($content['enabled']);
         $this->assertEquals('My scene', $content['caption']);
         $this->assertEquals(2, $content['relationsCount']['operations']);
+    }
+
+    public function testCreatingSceneWithNotification() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene with notification',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subject' => ['title' => 'Sample notification'],
+                    'subjectType' => ActionableSubjectType::NOTIFICATION,
+                    'actionId' => ChannelFunctionAction::SEND,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene with notification', $content['caption']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
+        /** @var PushNotification $notification */
+        $notification = $this->getEntityManager()->find(PushNotification::class, 1);
+        $this->assertNotNull($notification);
+        $this->assertEquals('Sample notification', $notification->getTitle());
+        return $content;
+    }
+
+    /** @depends testCreatingSceneWithNotification */
+    public function testEditingSceneWithNotification(array $scene) {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('PUT', "/api/scenes/$scene[id]", [
+            'caption' => 'My scene with notification updated',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subject' => ['title' => 'Another notification updated'],
+                    'subjectType' => ActionableSubjectType::NOTIFICATION,
+                    'actionId' => ChannelFunctionAction::SEND,
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene with notification updated', $content['caption']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
+        /** @var PushNotification $notification */
+        $notification = $this->getEntityManager()->find(PushNotification::class, 2);
+        $this->assertNotNull($notification);
+        $this->assertEquals('Another notification updated', $notification->getTitle());
+        $this->assertNull($this->getEntityManager()->find(PushNotification::class, 1));
     }
 }

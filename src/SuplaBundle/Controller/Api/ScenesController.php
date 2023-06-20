@@ -275,14 +275,14 @@ class ScenesController extends RestController {
      */
     public function postSceneAction(Request $request, SceneRequestFiller $sceneFiller, TranslatorInterface $translator) {
         $this->ensureApiVersion24($request);
-        $user = $this->getUser();
-        $scene = $sceneFiller->fillFromRequest($request);
-        if (!$scene->getCaption()) {
-            $caption = $translator->trans('Scene', [], null, $user->getLocale()); // i18n
-            $scene->setCaption($caption . ' #' . ($user->getScenes()->count() + 1));
-        }
-        Assertion::false($user->isLimitSceneExceeded(), 'Scenes limit has been exceeded'); // i18n
-        $scene = $this->transactional(function (EntityManagerInterface $em) use ($scene) {
+        $scene = $this->transactional(function (EntityManagerInterface $em) use ($translator, $request, $sceneFiller) {
+            $user = $this->getUser();
+            $scene = $sceneFiller->fillFromRequest($request);
+            if (!$scene->getCaption()) {
+                $caption = $translator->trans('Scene', [], null, $user->getLocale()); // i18n
+                $scene->setCaption($caption . ' #' . ($user->getScenes()->count() + 1));
+            }
+            Assertion::false($user->isLimitSceneExceeded(), 'Scenes limit has been exceeded'); // i18n
             $em->persist($scene);
             SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
             return $scene;

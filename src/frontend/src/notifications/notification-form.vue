@@ -32,7 +32,7 @@
             },
             validate() {
                 this.$emit('isValid', this.validTitleAndBody);
-            }
+            },
         },
         computed: {
             title: {
@@ -58,7 +58,7 @@
         watch: {
             value() {
                 this.validate();
-            }
+            },
         }
     };
 </script>

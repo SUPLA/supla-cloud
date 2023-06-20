@@ -4,6 +4,7 @@ namespace SuplaBundle\Serialization\RequestFiller;
 use Assert\Assertion;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -15,6 +16,7 @@ use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
+use SuplaBundle\Repository\PushNotificationRepository;
 use SuplaBundle\Repository\UserIconRepository;
 use SuplaBundle\Utils\SceneUtils;
 
@@ -36,9 +38,12 @@ class SceneRequestFiller extends AbstractRequestFiller {
     private $subjectRepository;
     /** @var SubjectConfigTranslator */
     private $configTranslator;
+    /** @var PushNotificationRepository */
+    private $notificationRepository;
 
     public function __construct(
         ActionableSubjectRepository $subjectRepository,
+        PushNotificationRepository $notificationRepository,
         ChannelActionExecutor $channelActionExecutor,
         LocationRepository $locationRepository,
         UserIconRepository $userIconRepository,
@@ -49,6 +54,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
         $this->locationRepository = $locationRepository;
         $this->userIconRepository = $userIconRepository;
         $this->configTranslator = $configTranslator;
+        $this->notificationRepository = $notificationRepository;
     }
 
     /** @param Scene $scene */
@@ -87,25 +93,18 @@ class SceneRequestFiller extends AbstractRequestFiller {
                 'Too many operations in this scene' // i18n
             );
             $operations = array_map(function (array $operationData) use ($scene, $user) {
-                if ($operationData['subjectId'] ?? false) {
-                    Assertion::keyExists($operationData, 'subjectId', 'You must set subjectId for each scene operation.');
-                    Assertion::keyExists($operationData, 'subjectType', 'You must set subjectType for each scene operation.');
+                if ($operationData['subjectType'] ?? false) {
+                    Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
                     Assertion::keyExists(
                         $operationData,
                         'actionId',
                         'You must set an action for each scene operation.' // i18n
                     );
-                    Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
-                    /** @var ActionableSubject $subject */
-                    $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
-                    Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');
-                    $action = ChannelFunctionAction::fromString($operationData['actionId']);
-                    $actionParam = $operationData['actionParam'] ?? [] ?: [];
-                    $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
-                    Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getPossibleActions()));
-                    $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
-                    $delayMs = intval($operationData['delayMs'] ?? 0);
-                    return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);
+                    if ($operationData['subjectType'] === ActionableSubjectType::NOTIFICATION) {
+                        return $this->createNotificationOperation($operationData);
+                    } else {
+                        return $this->createActionOperation($operationData);
+                    }
                 } else {
                     $operationData['actionId'] = ChannelFunctionAction::VOID;
                     $delayMs = intval($operationData['delayMs'] ?? 0);
@@ -122,5 +121,32 @@ class SceneRequestFiller extends AbstractRequestFiller {
             $this->configTranslator->setConfig($scene, $data['config']);
         }
         return $scene;
+    }
+
+    private function createActionOperation(array $operationData): SceneOperation {
+        Assertion::keyExists($operationData, 'subjectId', 'You must set subjectId for each scene operation.');
+        $user = $this->getCurrentUserOrThrow();
+        /** @var ActionableSubject $subject */
+        $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
+        Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');
+        $action = ChannelFunctionAction::fromString($operationData['actionId']);
+        $actionParam = $operationData['actionParam'] ?? [] ?: [];
+        $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
+        Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getPossibleActions()));
+        $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
+        $delayMs = intval($operationData['delayMs'] ?? 0);
+        return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);
+    }
+
+    private function createNotificationOperation($operationData): SceneOperation {
+        Assertion::keyExists($operationData, 'subject', 'Missing notification configuration.');
+        $user = $this->getCurrentUserOrThrow();
+        $notification = new PushNotification($user);
+        $notificationDefinition = $operationData['subject'];
+        $notification->setTitle($notificationDefinition['title'] ?? '');
+        $notification->setBody($notificationDefinition['body'] ?? '');
+        $notification->validate();
+        $delayMs = intval($operationData['delayMs'] ?? 0);
+        return new SceneOperation($notification, ChannelFunctionAction::SEND(), [], $delayMs);
     }
 }

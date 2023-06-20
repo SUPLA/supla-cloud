@@ -82,3 +82,7 @@ services:
   SuplaBundle\Repository\SettingsStringRepository:
     factory: ["@doctrine.orm.entity_manager", getRepository]
     arguments: [SuplaBundle\Entity\Main\SettingsString]
+
+  SuplaBundle\Repository\PushNotificationRepository:
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments: [SuplaBundle\Entity\Main\PushNotification]
