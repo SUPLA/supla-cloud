@@ -12,6 +12,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+use SuplaBundle\Repository\AccessIdRepository;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -39,22 +40,22 @@ class SceneRequestFiller extends AbstractRequestFiller {
     /** @var SubjectConfigTranslator */
     private $configTranslator;
     /** @var PushNotificationRepository */
-    private $notificationRepository;
+    private $aidRepository;
 
     public function __construct(
         ActionableSubjectRepository $subjectRepository,
-        PushNotificationRepository $notificationRepository,
         ChannelActionExecutor $channelActionExecutor,
         LocationRepository $locationRepository,
         UserIconRepository $userIconRepository,
-        SubjectConfigTranslator $configTranslator
+        SubjectConfigTranslator $configTranslator,
+        AccessIdRepository $aidRepository
     ) {
         $this->subjectRepository = $subjectRepository;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->locationRepository = $locationRepository;
         $this->userIconRepository = $userIconRepository;
         $this->configTranslator = $configTranslator;
-        $this->notificationRepository = $notificationRepository;
+        $this->aidRepository = $aidRepository;
     }
 
     /** @param Scene $scene */
@@ -139,12 +140,19 @@ class SceneRequestFiller extends AbstractRequestFiller {
     }
 
     private function createNotificationOperation($operationData): SceneOperation {
-        Assertion::keyExists($operationData, 'subject', 'Missing notification configuration.');
+        Assertion::keyExists($operationData, 'subject', 'Missing notification subject configuration.');
+        Assertion::isArray($operationData['subject'], 'Missing notification subject configuration.');
+        Assertion::keyExists($operationData['subject'], 'accessIds', 'No notification recipients.');
+        Assertion::isArray($operationData['subject']['accessIds'], 'No notification recipients.');
         $user = $this->getCurrentUserOrThrow();
         $notification = new PushNotification($user);
         $notificationDefinition = $operationData['subject'];
         $notification->setTitle($notificationDefinition['title'] ?? '');
         $notification->setBody($notificationDefinition['body'] ?? '');
+        $accessIds = array_map(function ($aid) {
+            return $this->aidRepository->findForUser($this->getCurrentUserOrThrow(), $aid['id'] ?? 0);
+        }, $operationData['subject']['accessIds']);
+        $notification->setAccessIds($accessIds);
         $notification->validate();
         $delayMs = intval($operationData['delayMs'] ?? 0);
         return new SceneOperation($notification, ChannelFunctionAction::SEND(), [], $delayMs);

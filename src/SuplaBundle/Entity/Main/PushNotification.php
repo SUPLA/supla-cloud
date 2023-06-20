@@ -18,6 +18,8 @@
 namespace SuplaBundle\Entity\Main;
 
 use Assert\Assertion;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
@@ -64,6 +66,7 @@ class PushNotification implements ActionableSubject {
      *     joinColumns={ @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id") },
      *     inverseJoinColumns={ @ORM\JoinColumn(name="access_id", referencedColumnName="id") }
      * )
+     * @Groups({"basic"})
      */
     private $accessIds;
 
@@ -87,6 +90,7 @@ class PushNotification implements ActionableSubject {
 
     public function __construct(User $user) {
         $this->user = $user;
+        $this->accessIds = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -133,4 +137,13 @@ class PushNotification implements ActionableSubject {
         $this->body = $body;
     }
 
+    /** @return Collection|AccessID[] */
+    public function getAccessIds(): Collection {
+        return $this->accessIds;
+    }
+
+    /** @param AccessID[]|Collection $locations */
+    public function setAccessIds($accessIds): void {
+        $this->accessIds = $accessIds;
+    }
 }

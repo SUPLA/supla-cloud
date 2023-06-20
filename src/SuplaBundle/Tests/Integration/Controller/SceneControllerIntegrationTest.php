@@ -785,12 +785,13 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCreatingSceneWithNotification() {
         $client = $this->createAuthenticatedClientDebug($this->user);
+        $aid = $this->user->getAccessIDS()[0];
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene with notification',
             'enabled' => true,
             'operations' => [
                 [
-                    'subject' => ['title' => 'Sample notification'],
+                    'subject' => ['title' => 'Sample notification', 'accessIds' => [['id' => $aid->getId()]]],
                     'subjectType' => ActionableSubjectType::NOTIFICATION,
                     'actionId' => ChannelFunctionAction::SEND,
                 ],
@@ -812,12 +813,13 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingSceneWithNotification */
     public function testEditingSceneWithNotification(array $scene) {
         $client = $this->createAuthenticatedClientDebug($this->user);
+        $aid = $this->user->getAccessIDS()[0];
         $client->apiRequestV24('PUT', "/api/scenes/$scene[id]", [
             'caption' => 'My scene with notification updated',
             'enabled' => true,
             'operations' => [
                 [
-                    'subject' => ['title' => 'Another notification updated'],
+                    'subject' => ['title' => 'Another notification updated', 'accessIds' => [['id' => $aid->getId()]]],
                     'subjectType' => ActionableSubjectType::NOTIFICATION,
                     'actionId' => ChannelFunctionAction::SEND,
                 ],

@@ -486,6 +486,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         $this->enabled = $boolean;
     }
 
+    /** @return Collection|AccessID[] */
     public function getAccessIDS() {
         return $this->accessids;
     }
