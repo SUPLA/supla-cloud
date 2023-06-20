@@ -74,7 +74,6 @@
                                 <div class="col-md-8">
                                     <div class="">
                                         <h3 class="text-center">{{ $t('Operations') }}</h3>
-                                        {{ scene.operations }}
                                         <SceneOperationsEditor v-model="scene.operations" @input="sceneChanged()"
                                             :display-validation-errors="displayValidationErrors"/>
                                     </div>

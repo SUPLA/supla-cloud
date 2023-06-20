@@ -20,6 +20,7 @@ use SuplaBundle\Supla\SuplaServerAware;
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsDimmer"),
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsRgbw"),
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsCopy"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsSend"),
  *   }
  * )
  */

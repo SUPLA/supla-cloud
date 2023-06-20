@@ -140,21 +140,18 @@ class SceneRequestFiller extends AbstractRequestFiller {
     }
 
     private function createNotificationOperation($operationData): SceneOperation {
-        Assertion::keyExists($operationData, 'subject', 'Missing notification subject configuration.');
-        Assertion::isArray($operationData['subject'], 'Missing notification subject configuration.');
-        Assertion::keyExists($operationData['subject'], 'accessIds', 'No notification recipients.');
-        Assertion::isArray($operationData['subject']['accessIds'], 'No notification recipients.');
         $user = $this->getCurrentUserOrThrow();
         $notification = new PushNotification($user);
-        $notificationDefinition = $operationData['subject'];
-        $notification->setTitle($notificationDefinition['title'] ?? '');
-        $notification->setBody($notificationDefinition['body'] ?? '');
-        $accessIds = array_map(function ($aid) {
-            return $this->aidRepository->findForUser($this->getCurrentUserOrThrow(), $aid['id'] ?? 0);
-        }, $operationData['subject']['accessIds']);
+        $actionParam = $operationData['actionParam'] ?? [] ?: [];
+        $actionParam = $this->channelActionExecutor->validateActionParams($notification, ChannelFunctionAction::SEND(), $actionParam);
+        $notification->setTitle($actionParam['title'] ?? '');
+        $notification->setBody($actionParam['body'] ?? '');
+        $accessIds = array_map(function (int $aid) {
+            return $this->aidRepository->findForUser($this->getCurrentUserOrThrow(), $aid);
+        }, $actionParam['accessIds']);
         $notification->setAccessIds($accessIds);
         $notification->validate();
         $delayMs = intval($operationData['delayMs'] ?? 0);
-        return new SceneOperation($notification, ChannelFunctionAction::SEND(), [], $delayMs);
+        return new SceneOperation($notification, ChannelFunctionAction::SEND(), $actionParam, $delayMs);
     }
 }

@@ -61,10 +61,10 @@
             },
             accessIds: {
                 get() {
-                    return this.value?.accessIds || [];
+                    return this.value?.accessIds?.map(id => ({id})) || [];
                 },
                 set(accessIds) {
-                    this.change({accessIds});
+                    this.change({accessIds: accessIds.map(aid => aid.id)});
                 }
             },
             validTitleAndBody() {

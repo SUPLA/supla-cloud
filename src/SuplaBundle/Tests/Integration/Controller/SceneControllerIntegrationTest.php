@@ -791,9 +791,9 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
             'enabled' => true,
             'operations' => [
                 [
-                    'subject' => ['title' => 'Sample notification', 'accessIds' => [['id' => $aid->getId()]]],
                     'subjectType' => ActionableSubjectType::NOTIFICATION,
                     'actionId' => ChannelFunctionAction::SEND,
+                    'actionParam' => ['title' => 'Sample notification', 'accessIds' => [['id' => $aid->getId()]]],
                 ],
             ],
         ]);
@@ -819,9 +819,9 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
             'enabled' => true,
             'operations' => [
                 [
-                    'subject' => ['title' => 'Another notification updated', 'accessIds' => [['id' => $aid->getId()]]],
                     'subjectType' => ActionableSubjectType::NOTIFICATION,
                     'actionId' => ChannelFunctionAction::SEND,
+                    'actionParam' => ['title' => 'Another notification updated', 'accessIds' => [$aid->getId()]],
                 ],
             ],
         ]);

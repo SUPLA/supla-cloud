@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="timeline-body">
-                            <NotificationForm v-model="operation.subject"
+                            <NotificationForm v-model="operation.action.param"
                                 :display-validation-errors="displayValidationErrors"
                                 @isValid="operation.isValid = $event; updateModel()"
                                 @input="updateModel()"/>
@@ -73,7 +73,6 @@
                             @delete="deleteOperation(operation)"
                             @input="updateModel()"></scene-operation-delay-slider>
                     </div>
-
                 </template>
             </div>
         </draggable>
@@ -210,7 +209,7 @@
             addNotification() {
                 this.operations.push({
                     id: UNIQUE_OPERATION_ID++, subject: {}, subjectType: ActionableSubjectType.NOTIFICATION,
-                    action: {id: ChannelFunctionAction.SEND}
+                    action: {id: ChannelFunctionAction.SEND, param: {}}
                 });
                 this.updateModel();
             },

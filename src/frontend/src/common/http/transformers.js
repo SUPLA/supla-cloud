@@ -1,5 +1,4 @@
 import Vue from "vue";
-import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 
 export function channelGroupTransformer(request, next) {
     if (request.url.startsWith('channel-groups')) {
@@ -142,9 +141,7 @@ export function sceneTransformer(request, next) {
                     }
                     if (operation.subject) {
                         operation.subjectId = operation.subject.id;
-                        if (operation.subjectType !== ActionableSubjectType.NOTIFICATION) {
-                            delete operation.subject;
-                        }
+                        delete operation.subject;
                     }
                     if (operation.action) {
                         operation.actionId = operation.action.id;
