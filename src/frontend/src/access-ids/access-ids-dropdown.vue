@@ -93,3 +93,9 @@
         }
     };
 </script>
+
+<style lang="scss">
+    .bootstrap-select.show-tick .dropdown-menu li a span.text {
+        margin-right: 0;
+    }
+</style>
