@@ -3,6 +3,7 @@ const ActionableSubjectType = Object.freeze({
     CHANNEL_GROUP: 'channelGroup',
     SCENE: 'scene',
     SCHEDULE: 'schedule',
+    NOTIFICATION: 'notification',
     OTHER: 'other',
 });
 

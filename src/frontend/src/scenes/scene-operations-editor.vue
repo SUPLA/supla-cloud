@@ -10,7 +10,7 @@
             <div :class="['timeline-item', {'timeline-item-delay': !operation.subject}]"
                 v-for="operation of operations"
                 :key="operation.id">
-                <template v-if="operation.subject">
+                <template v-if="operation.subject && operation.subjectType !== 'notification'">
                     <div :class="['timeline-badge action', {'warning': !(operation.action && operation.action.id)}]"
                         v-tooltip="!(operation.action && operation.action.id) ? $t('choose the action') : ''">
                         <function-icon :model="operation.subject"
@@ -45,6 +45,27 @@
                         </div>
                     </div>
                 </template>
+                <template v-if="operation.subject && operation.subjectType === 'notification'">
+                    <div :class="['timeline-badge action', {danger: !operation.isValid}]">
+                        <i class="pe-7s-volume"></i>
+                    </div>
+                    <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !operation.isValid}]">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ $t('Send a notification') }}</h4>
+                            <div class="timeline-panel-controls">
+                                <div class="controls">
+                                    <a @click="deleteOperation(operation)"><i class="glyphicon glyphicon-trash"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-body">
+                            <NotificationForm v-model="operation.subject"
+                                :display-validation-errors="displayValidationErrors"
+                                @isValid="operation.isValid = $event; updateModel()"
+                                @input="updateModel()"/>
+                        </div>
+                    </div>
+                </template>
                 <template v-else>
                     <div class="timeline-badge"><i class="pe-7s-stopwatch"></i></div>
                     <div class="timeline-panel-container">
@@ -62,19 +83,25 @@
                 <div class="timeline-panel">
                     <div class="timeline-body">
                         <div class="form-group">
-                            <label>{{ $t('Add new item to use in the scene') }}</label>
+                            <label>{{ $t('Add new action to the scene') }}</label>
                             <subject-dropdown @input="addSceneOperation($event)"
                                 clear-on-select
                                 channelsDropdownParams="io=output"></subject-dropdown>
                         </div>
                         <div class="form-group">
-                            <label>{{ $t('or add a delay') }}</label>
+                            <label>{{ $t('or another element') }}</label>
                             <div>
                                 <button type="button"
                                     @click="addDelay()"
-                                    class="btn btn-default">
+                                    class="btn btn-default mr-2">
                                     <i class="pe-7s-stopwatch"></i>
                                     {{ $t('Add a delay') }}
+                                </button>
+                                <button type="button"
+                                    @click="addNotification()"
+                                    class="btn btn-default">
+                                    <i class="pe-7s-volume"></i>
+                                    {{ $t('Send a notification') }}
                                 </button>
                             </div>
                         </div>
@@ -95,13 +122,17 @@
     import Vue from 'vue';
     import ChannelFunctionAction from "../common/enums/channel-function-action";
     import ActionableSubjectType from "../common/enums/actionable-subject-type";
+    import NotificationForm from "@/notifications/notification-form";
 
     let UNIQUE_OPERATION_ID = 0;
 
     export default {
-        props: ['value'],
+        props: {
+            value: Array,
+            displayValidationErrors: Boolean,
+        },
         components: {
-            SceneOperationDelaySlider,
+            SceneOperationDelaySlider, NotificationForm,
             ChannelActionChooser, FunctionIcon, SubjectDropdown, draggable
         },
         data() {
@@ -175,6 +206,10 @@
                 this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: 5000});
                 this.updateModel();
             },
+            addNotification() {
+                this.operations.push({id: UNIQUE_OPERATION_ID++, subject: {}, subjectType: ActionableSubjectType.NOTIFICATION});
+                this.updateModel();
+            },
             waitForCompletionAvailable(operation) {
                 return operation.subjectType === ActionableSubjectType.SCENE &&
                     operation.action &&
@@ -238,6 +273,10 @@
                 margin-left: 100px;
                 padding: 20px;
                 position: relative;
+
+                &-danger {
+                    border-color: $supla-red;
+                }
 
                 .timeline-heading {
                     .timeline-panel-controls {
@@ -318,7 +357,7 @@
             .timeline-badge + .timeline-panel {
                 &:before {
                     border-bottom: 15px solid transparent;
-                    border-left: 0 solid #ccc;
+                    border-left: 0;
                     border-right: 15px solid #ccc;
                     border-top: 15px solid transparent;
                     content: " ";
@@ -327,6 +366,10 @@
                     left: -15px;
                     right: auto;
                     top: 26px;
+                }
+
+                &-danger:before {
+                    border-right-color: $supla-red;
                 }
 
                 &:after {

@@ -74,9 +74,8 @@
                                 <div class="col-md-8">
                                     <div class="">
                                         <h3 class="text-center">{{ $t('Operations') }}</h3>
-                                        <scene-operations-editor
-                                            v-model="scene.operations"
-                                            @input="sceneChanged()"></scene-operations-editor>
+                                        <SceneOperationsEditor v-model="scene.operations" @input="sceneChanged()"
+                                            :display-validation-errors="displayValidationErrors"/>
                                     </div>
                                 </div>
                             </div>
@@ -119,6 +118,7 @@
     import ChannelActionExecutor from "../channels/action/channel-action-executor";
     import DependenciesWarningModal from "../channels/dependencies/dependencies-warning-modal";
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings.vue";
+    import {warningNotification} from "@/common/notifier";
 
     export default {
         props: ['id', 'item'],
@@ -142,6 +142,7 @@
                 error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
+                displayValidationErrors: false,
                 dependenciesThatPreventsDeletion: undefined,
             };
         },
@@ -170,6 +171,11 @@
                 this.hasPendingChanges = true;
             },
             saveScene() {
+                this.displayValidationErrors = true;
+                if (this.scene.operations.find(o => o.isValid === false)) {
+                    warningNotification(this.$t('Invalid scene operations'), this.$t('Please fix the problems with operation and try again.'));
+                    return;
+                }
                 const toSend = Vue.util.extend({}, this.scene);
                 this.loading = true;
                 if (this.isNew) {
