@@ -998,115 +998,115 @@ will expire: lejár
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-Active applications: ~
-Active sessions: ~
-Active web sessions: ~
-Aggregation: ~
-All events: ~
-All logs has been downloaded. Reload the chart to see them.: ~
-Application: ~
-Applications with access: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-Are you sure you want to log out this device?: ~
-Arithmetic balance: ~
-Authentication failure: ~
-Authentication successful: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Change the password and log out: ~
-Channel available for {serviceName}: ~
-Chart mode: ~
-Colon: ~
-Comma: ~
-Confirmation: ~
-Counter: ~
-Counter reset: ~
-Data limits: ~
-Date and time: ~
-Download measurements history: ~
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
-Enabled phases: ~
-Expires at: ~
-File format: ~
-Forward active energy balance: ~
-From: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-IP Address: ~
-Incremental: ~
-Integrations settings: ~
-Invalid username or password: ~
-Log out: ~
-Logs transformation: ~
-No, take me back!: ~
-Noop: ~
-OK: ~
-Operation: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
-Password changed: ~
-Password reset: ~
-Phase {phaseNumber}: ~
-Predefined time ranges: ~
-Reload the chart: ~
-Reverse active energy balance: ~
-Scene available for {serviceName}: ~
-Security: ~
-Security log: ~
-Selected device has been logged out.: ~
-Set values for each phase separately: ~
-Summary for selected time range: ~
-Tab: ~
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-'This password will protect your home. Therefore, it must:': ~
-To: ~
-Total: ~
-Unknown browser: ~
-Value: ~
-Value separator: ~
-Vector balance: ~
-'We also strongly advise you to choose a password that:': ~
-We were not able to prepare your data. Please see the error details below.: ~
-We will miss you!: ~
-You can browse only the most recent logs now. Wait a while for the full history.: ~
-You must leave at least one phase enabled.: ~
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
-Your chart is being drawn...: ~
-Your data are being collected. Please be patient.: ~
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
-actionableSubjectType_schedule: ~
-average: ~
-be at least {numChars} characters long: ~
-change: ~
-choose the schedule: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
-last 24 hours: ~
-last 30 days: ~
-last 6 hours: ~
-last 7 days: ~
-logs_aggregation_day: ~
-logs_aggregation_hour: ~
-logs_aggregation_minute: ~
-logs_aggregation_month: ~
-previous month: ~
-range: ~
-schedule: ~
-the whole history: ~
-this month: ~
-this year: ~
-today: ~
-unknown: ~
-values as seen on chart: ~
-values as seen on counter: ~
-yesterday: ~
-'{serviceName} integration': ~
+Action confirmation: Művelet megerősítése
+Active applications: Aktív alkalmazások
+Active sessions: Aktív munkamenetek
+Active web sessions: Aktív munkamenetek (web)
+Aggregation: Aggregálás
+All events: Minden esemény
+All logs has been downloaded. Reload the chart to see them.: Az összes mérési adat le van töltve. A megtekintéshez töltse újra a diagramot.
+Application: Alkalmazás
+Applications with access: Alkalmazás hozzáféréssel
+Are you sure you want to delete the events from the voltage aberrations history?: Biztosan ki akar törölni minden eseményt a feszültségeltérések történetből?
+Are you sure you want to log out this device?: Biztosan ki akar jelentkezni ezzel a berendezéssel?
+Arithmetic balance: Aritmetikai mérleg
+Authentication failure: Bejelentkezési hiba
+Authentication successful: Sikeres bejelentkezés
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Ha letiltja ezt az opciót, akkor ez az eszköz további megerősítés nélkül vezérelhető az integrációból. Ez nem biztonságos vagy kevésbé biztonságos állapothoz vezethet (pl. egy kapu véletlen kinyitása).
+By signing in, you are authorizing {clientName} to control your devices.: A bejelentkezéssel Ön engedélyezi a {clientName} alkalmazásnak, hogy irányítsa az eszközeit.
+Change the password and log out: Jelszó módosítása és kijelentkezés
+Channel available for {serviceName}: Csatorna elérhető a {serviceName} számára
+Chart mode: Diagram típusa
+Colon: Pontosvessző
+Comma: Vessző
+Confirmation: Megerősítés
+Counter: Számláló
+Counter reset: Számláló visszaállítása
+Data limits: Adatkorlátok
+Date and time: Dátum és idő
+Download measurements history: Töltse le a mérési előzményeket
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: A villamosenergia-mérő nem jelentette a hozzáadott értékek konfigurálásának lehetőségét. Frissítse a vezérlőprogramot, és próbálja meg újra.
+Enabled phases: Aktív fázisok
+Expires at: Lejárat
+File format: Fájlformátum
+Forward active energy balance: Az aktív energiabevitel mérlege
+From: -től
+I understand that my SUPLA account will be permanently deleted.: Tudomásul veszem, hogy a SUPLA-fiókom visszavonhatatlanul törlésre kerül.
+IP Address: IP-cím
+Incremental: Inkrementális
+Integrations settings: Integrációs beállítások
+Invalid username or password: Helytelen felhasználónév vagy jelszó
+Log out: Kijelentkezés
+Logs transformation: Értékátalakítás
+No, take me back!: Nem, vigyél ki innen!
+Noop: Hiányzó művelet
+OK: OK
+Operation: Művelet
+PIN: PIN-KÓD
+PIN for Google must have a length between {minLength} and {maxLength} digits.: A Google PIN-kódjának legalább {minLength} és legfeljebb {maxLength} számjegyből kell állnia.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: A jelszó megváltoztatásával az összes jelenlegi munkamenet kijelentkezik. Ez azonban nem érinti azokat a alkalmazásokat, amelyekre Ön már adott engedélyt. Az alkalmazások bejelentkezési hozzájárulásait külön kell visszavonnia.
+Password changed: Módosított jelszó
+Password reset: Jelszó módosítása
+Phase {phaseNumber}: Fázis {phaseNumber}
+Predefined time ranges: Időtartományok
+Reload the chart: Táblázat újratöltése
+Reverse active energy balance: A visszaadott aktív energia egyenlege
+Scene available for {serviceName}: A {serviceName} számára elérhető jelenet
+Security: Biztonság
+Security log: Biztonsági napló
+Selected device has been logged out.: A kiválasztott eszköz kijelentkezett
+Set values for each phase separately: Határozza meg az értéket minden egyes fázisra külön
+Summary for selected time range: Összefoglaló a kiválasztott hatókörre vonatkozóan
+Tab: Tabulátor
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Ezt a munkamenetet használó eszköz elveszíti a SUPLA Cloud-hozzáférést. Az alkalmazás további használatához újra be kell jelentkeznie az alkalmazásba.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: A {phaseNumber} fázisra vonatkozó összes feszültségeltérési előzményt eltávolítjuk.
+The entire history of the voltage aberrations will be removed from this channel.: A feszültségeltérés minden előzménye eltávolításra kerül ezen a csatornán.
+The events in voltage aberrations history will be automatically deleted after {days} days.: A feszültségeltérési előzmények {days} nap után automatikusan törlődnek.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Ez a fiók törlésének utolsó szakasza. Az űrlap kitöltése és jóváhagyása az Ön adatainak visszafordíthatatlan törlését eredményezi.
+'This password will protect your home. Therefore, it must:': 'Ez a jelszó védi az otthonát. Ezért:'
+To: -ig
+Total: Összeg
+Unknown browser: Ismeretlen böngésző
+Value: Érték
+Value separator: Fix távolság
+Vector balance: Vektor egyensúly
+'We also strongly advise you to choose a password that:': 'Továbbá erősen javasoljuk, hogy olyan jelszót válasszon, amely:'
+We were not able to prepare your data. Please see the error details below.: Hiba történt az adatok előkészítése során. A részleteket alább olvashatja.
+We will miss you!: Hiányozni fog nekünk!
+You can browse only the most recent logs now. Wait a while for the full history.: Jelenleg csak a legfrissebb mérések jelennek meg. Várjon egy kicsit, amíg az összes előzmény letöltődik.
+You must leave at least one phase enabled.: Legalább egy fázisnak aktívnak kell maradnia.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Az Ön böngészője nem támogatja az ügyféladatbázis-mechanizmust (IndexedDB). Ez a funkció a diagramok megjelenítéséhez és a fejlett adatexport-beállítások támogatásához szükséges. Frissítse böngészőjét, vagy lépjen ki az inkognitó módból, hogy használhassa ezeket a funkciókat.
+Your chart is being drawn...: A diagram megjelenítése folyamatban...
+Your data are being collected. Please be patient.: Gyűjtjük az adatait, türelmét köszönjük.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Az adatai letöltődnek a szerverről. Az exportálás előtt várja meg, amíg a letöltések befejeződnek.
+actionableSubjectType_schedule: Ütemterv
+average: Átlag
+be at least {numChars} characters long: legalább {numChars} karakterekből kell állnia
+change: változtassa meg
+choose the schedule: Válassza ki a ütemtervet
+contains a character that is neither a letter nor a digit: olyan karaktert tartalmaz, amely sem betű, sem szám nem lehet
+contains a digit: tartalmaz egy számot
+contains lower and upper letters: kis- és nagybetűket tartalmaz
+is at least {numChars} characters long: legalább {numChars} karakterekkel rendelkezik
+last 24 hours: az elmúlt 24 órában
+last 30 days: az elmúlt 30 napban
+last 6 hours: az elmúlt 6 órában
+last 7 days: az elmúlt 7 napban
+logs_aggregation_day: nap
+logs_aggregation_hour: óra
+logs_aggregation_minute: perc
+logs_aggregation_month: hónap
+previous month: előző hónap
+range: Tartomány
+schedule: Ütemterv
+the whole history: Összes előzmény
+this month: Folyó hó
+this year: Folyó év
+today: Ma
+unknown: Ismeretlen
+values as seen on chart: a diagramon szereplő értékek
+values as seen on counter: a számlálóban szereplő értékek
+yesterday: Tegnap
+'{serviceName} integration': 'Integráció a {serviceName} szolgáltatással}'
 
 #</editor-fold>
