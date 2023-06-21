@@ -994,115 +994,115 @@ hourly: Valandinis ciklas
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-Active applications: ~
-Active sessions: ~
-Active web sessions: ~
-Aggregation: ~
-All events: ~
-All logs has been downloaded. Reload the chart to see them.: ~
-Application: ~
-Applications with access: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-Are you sure you want to log out this device?: ~
-Arithmetic balance: ~
-Authentication failure: ~
-Authentication successful: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Change the password and log out: ~
-Channel available for {serviceName}: ~
-Chart mode: ~
-Colon: ~
-Comma: ~
-Confirmation: ~
-Counter: ~
-Counter reset: ~
-Data limits: ~
-Date and time: ~
-Download measurements history: ~
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
-Enabled phases: ~
-Expires at: ~
-File format: ~
-Forward active energy balance: ~
-From: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-IP Address: ~
-Incremental: ~
-Integrations settings: ~
-Invalid username or password: ~
-Log out: ~
-Logs transformation: ~
-No, take me back!: ~
-Noop: ~
-OK: ~
-Operation: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
-Password changed: ~
-Password reset: ~
-Phase {phaseNumber}: ~
-Predefined time ranges: ~
-Reload the chart: ~
-Reverse active energy balance: ~
-Scene available for {serviceName}: ~
-Security: ~
-Security log: ~
-Selected device has been logged out.: ~
-Set values for each phase separately: ~
-Summary for selected time range: ~
-Tab: ~
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-'This password will protect your home. Therefore, it must:': ~
-To: ~
-Total: ~
-Unknown browser: ~
-Value: ~
-Value separator: ~
-Vector balance: ~
-'We also strongly advise you to choose a password that:': ~
-We were not able to prepare your data. Please see the error details below.: ~
-We will miss you!: ~
-You can browse only the most recent logs now. Wait a while for the full history.: ~
-You must leave at least one phase enabled.: ~
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
-Your chart is being drawn...: ~
-Your data are being collected. Please be patient.: ~
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
-actionableSubjectType_schedule: ~
-average: ~
-be at least {numChars} characters long: ~
-change: ~
-choose the schedule: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
-last 24 hours: ~
-last 30 days: ~
-last 6 hours: ~
-last 7 days: ~
-logs_aggregation_day: ~
-logs_aggregation_hour: ~
-logs_aggregation_minute: ~
-logs_aggregation_month: ~
-previous month: ~
-range: ~
-schedule: ~
-the whole history: ~
-this month: ~
-this year: ~
-today: ~
-unknown: ~
-values as seen on chart: ~
-values as seen on counter: ~
-yesterday: ~
-'{serviceName} integration': ~
+Action confirmation: Veiksmo patvirtinimas
+Active applications: Aktyvios programos
+Active sessions: Aktyvios sesijos
+Active web sessions: Aktyvios sesijos (web)
+Aggregation: Agregavimas
+All events: Visi įvykiai
+All logs has been downloaded. Reload the chart to see them.: Visi matavimo duomenys buvo parsisiųsti. Perkraukite diagramą, kad juos pamatytumėte.
+Application: Programėlė
+Applications with access: Programėlė su prieiga
+Are you sure you want to delete the events from the voltage aberrations history?: Ar tikrai norite pašalinti visus įvykius iš įtampos aberacijos istorijos?
+Are you sure you want to log out this device?: Ar tikrai norite atsijungti nuo šio prietaiso?
+Arithmetic balance: Aritmetinis balansas
+Authentication failure: Prisijungimo klaida
+Authentication successful: Prisijungimas sėkmingas
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Išjungę šią parinktį galėsite valdyti šį įrenginį iš integravimo lygio be papildomo patvirtinimo. Tai gali sukelti pavojingą ar mažiau saugią būklę (pvz., netyčia atidarius vartus).
+By signing in, you are authorizing {clientName} to control your devices.: Prisijungdami įgaliojate {clientName} valdyti Jūsų įrenginius.
+Change the password and log out: Pakeiskite slaptažodį ir atsijunkite
+Channel available for {serviceName}: Kanalas prieinamas {serviceName}
+Chart mode: Diagramos tipas
+Colon: Kabliataškis
+Comma: Kablelis
+Confirmation: Patvirtinimas
+Counter: Skaitiklis
+Counter reset: Skaitiklio atstatymas
+Data limits: Duomenų apribojimai
+Date and time: Data ir laikas
+Download measurements history: Atsisiųsti matavimų istoriją
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Elektros skaitiklis nepranešė apie galimybę konfigūruoti pridėtines vertes. Atnaujinkite prietaiso programinę įrangą ir bandykite dar kartą.
+Enabled phases: Aktyvios fazės
+Expires at: Galioja iki
+File format: Failo formatas
+Forward active energy balance: Aktyviosios energijos sąnaudų balansas
+From: Nuo
+I understand that my SUPLA account will be permanently deleted.: Suprantu, kad mano SUPLA paskyra bus negrįžtamai ištrinta.
+IP Address: IP adresas
+Incremental: Inkrementinis
+Integrations settings: Integracijos nustatymai
+Invalid username or password: Neteisingas naudotojo vardas arba slaptažodis
+Log out: Atsijungti
+Logs transformation: Vertės transformacija
+No, take me back!: Ne, išveskite mane iš čia!
+Noop: Nėra operacijos
+OK: OK
+Operation: Operacija
+PIN: PIN KODAS
+PIN for Google must have a length between {minLength} and {maxLength} digits.: \"Google\" PIN kodą turi sudaryti ne mažiau kaip {minLength} ir ne daugiau kaip {maxLength} skaitmenų.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Pakeitus slaptažodį bus atsijungta nuo visų dabartinių sesijų. Tačiau tai neturės įtakos paraiškoms, kurioms buvo suteiktas Jūsų leidimas. Programėlės prisijungimo teises reikia panaikinti atskirai.
+Password changed: Pakeistas slaptažodis
+Password reset: Nustatyti slaptažodį iš naujo
+Phase {phaseNumber}: Fazė {phaseNumber}
+Predefined time ranges: Laiko intervalai
+Reload the chart: Perkrovimo diagrama
+Reverse active energy balance: Grąžintos aktyviosios energijos balansas
+Scene available for {serviceName}: Scena prieinama {serviceName}
+Security: Saugumas
+Security log: Saugumo žurnalas
+Selected device has been logged out.: Pasirinktas įrenginys buvo išregistruotas
+Set values for each phase separately: Nustatykite kiekvienos fazės vertę atskirai
+Summary for selected time range: Pasirinkto diapazono suvestinė
+Tab: Tabuliatorius
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Šią sesiją naudojantis įrenginys neteks prieigos prie \"SUPLA Cloud\". Jei norite toliau naudotis programėle, turėsite prisijungti dar kartą.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Bus pašalinta visa fazės {phaseNumber} įtampos aberacijos istorija.
+The entire history of the voltage aberrations will be removed from this channel.: Bus pašalinta visa šio kanalo įtampos aberacijos istorija.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Įvykiai įtampos aberacijos istorijoje bus automatiškai ištrinti po {days} dienų.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Tai paskutinis Jūsų paskyros ištrynimo veiksmas. Užpildžius ir patvirtinus formą Jūsų duomenys bus negrįžtamai ištrinti.
+'This password will protect your home. Therefore, it must:': `Šis slaptažodis apsaugo Jūsų namus. Todėl:`
+To: Iki
+Total: Iš viso
+Unknown browser: Nežinoma naršyklė
+Value: Reikšmė
+Value separator: Separatorius
+Vector balance: Vektorinis balansas
+'We also strongly advise you to choose a password that:': 'Be to, primygtinai rekomenduojame pasirinkti slaptažodį, kuris:'
+We were not able to prepare your data. Please see the error details below.: Rengiant duomenis įvyko klaida. Išsamią informaciją žr. toliau.
+We will miss you!: Mes Jūsų pasiilgsime!
+You can browse only the most recent logs now. Wait a while for the full history.: Šiuo metu rodomi tik naujausi matavimai. Palaukite, kol bus atsisiųsta visa istorija.
+You must leave at least one phase enabled.: Bent viena fazė turi išlikti aktyvi.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Jūsų naršyklė nepalaiko kliento duomenų bazės mechanizmo (IndexedDB). Ši funkcija reikalinga norint rodyti grafikus ir palaikyti išplėstinius duomenų eksporto nustatymus. Atnaujinkite naršyklę arba išeikite iš inkognito režimo, kad galėtumėte naudotis šiomis funkcijomis.
+Your chart is being drawn...: Jūsų diagrama yra brėžiama...
+Your data are being collected. Please be patient.: Renkame Jūsų duomenis, prašome kantrybės.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Jūsų duomenys parsiunčiami iš serverio. Prieš eksportuodami palaukite, kol parsiuntimas bus baigtas.
+actionableSubjectType_schedule: Tvarkaraštis
+average: vidutinė
+be at least {numChars} characters long: turi turėti ne mažiau kaip {numChars} simbolių
+change: keisti
+choose the schedule: pasirinkti tvarkaraštį
+contains a character that is neither a letter nor a digit: yra simbolis, kuris nėra nei raidė, nei skaičius.
+contains a digit: yra skaičius
+contains lower and upper letters: yra didžiosios ir mažosios raidės
+is at least {numChars} characters long: turi bent {numChars} simbolių
+last 24 hours: paskutinės 24 valandos
+last 30 days: paskutinės 30 dienų
+last 6 hours: paskutinės 6 valandos
+last 7 days: paskutinės 7 dienos
+logs_aggregation_day: dienų
+logs_aggregation_hour: valandos
+logs_aggregation_minute: minutės
+logs_aggregation_month: mėnesių
+previous month: ankstesnis mėnuo
+range: diapazonas
+schedule: tvarkaraštis
+the whole history: visa istorija
+this month: einamasis mėnuo
+this year: einamieji metai
+today: šiandien
+unknown: nežinomas
+values as seen on chart: vertės, kaip parodyta diagramoje
+values as seen on counter: reikšmes, kaip skaitiklyje
+yesterday: vakar
+'{serviceName} integration': 'Integravimas su {serviceName}'
 
 #</editor-fold>
