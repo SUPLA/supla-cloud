@@ -998,115 +998,115 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-Active applications: ~
-Active sessions: ~
-Active web sessions: ~
-Aggregation: ~
-All events: ~
-All logs has been downloaded. Reload the chart to see them.: ~
-Application: ~
-Applications with access: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-Are you sure you want to log out this device?: ~
-Arithmetic balance: ~
-Authentication failure: ~
-Authentication successful: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Change the password and log out: ~
-Channel available for {serviceName}: ~
-Chart mode: ~
-Colon: ~
-Comma: ~
-Confirmation: ~
-Counter: ~
-Counter reset: ~
-Data limits: ~
-Date and time: ~
-Download measurements history: ~
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
-Enabled phases: ~
-Expires at: ~
-File format: ~
-Forward active energy balance: ~
-From: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-IP Address: ~
-Incremental: ~
-Integrations settings: ~
-Invalid username or password: ~
-Log out: ~
-Logs transformation: ~
-No, take me back!: ~
-Noop: ~
-OK: ~
-Operation: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
-Password changed: ~
-Password reset: ~
-Phase {phaseNumber}: ~
-Predefined time ranges: ~
-Reload the chart: ~
-Reverse active energy balance: ~
-Scene available for {serviceName}: ~
-Security: ~
-Security log: ~
-Selected device has been logged out.: ~
-Set values for each phase separately: ~
-Summary for selected time range: ~
-Tab: ~
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-'This password will protect your home. Therefore, it must:': ~
-To: ~
-Total: ~
-Unknown browser: ~
-Value: ~
-Value separator: ~
-Vector balance: ~
-'We also strongly advise you to choose a password that:': ~
-We were not able to prepare your data. Please see the error details below.: ~
-We will miss you!: ~
-You can browse only the most recent logs now. Wait a while for the full history.: ~
-You must leave at least one phase enabled.: ~
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
-Your chart is being drawn...: ~
-Your data are being collected. Please be patient.: ~
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
-actionableSubjectType_schedule: ~
-average: ~
-be at least {numChars} characters long: ~
-change: ~
-choose the schedule: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
-last 24 hours: ~
-last 30 days: ~
-last 6 hours: ~
-last 7 days: ~
-logs_aggregation_day: ~
-logs_aggregation_hour: ~
-logs_aggregation_minute: ~
-logs_aggregation_month: ~
-previous month: ~
-range: ~
-schedule: ~
-the whole history: ~
-this month: ~
-this year: ~
-today: ~
-unknown: ~
-values as seen on chart: ~
-values as seen on counter: ~
-yesterday: ~
-'{serviceName} integration': ~
+Action confirmation: Confirmarea acțiunii
+Active applications: Aplicații active
+Active sessions: Sesiuni active
+Active web sessions: Sesiuni active (web)
+Aggregation: Agregare
+All events: Toate evenimentele
+All logs has been downloaded. Reload the chart to see them.: Au fost descărcate toate datele de măsurare Reîncarcă diagramă pentru a le vedea.
+Application: Aplicație
+Applications with access: Aplicație cu acces
+Are you sure you want to delete the events from the voltage aberrations history?: Ești sigur că vrei să ștergi toate evenimentele din istoricul aberațiilor de tensiune?
+Are you sure you want to log out this device?: Ești sigur că dorești să te deconectezi de pe acest dispozitiv?
+Arithmetic balance: Balanța aritmetică
+Authentication failure: Eroare de conectare
+Authentication successful: Conectare reușită
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Dezactivarea acestei opțiuni permite controlul acestui dispozitiv de la nivelul de integrare fără confirmare suplimentară. Acest lucru poate conduce la o stare periculoasă sau mai puțin sigură (de exemplu, deschiderea accidentală a unei porți).
+By signing in, you are authorizing {clientName} to control your devices.: Prin conectare, autorizezi aplicația {clientName} pentru controlul dispozitivelor tale.
+Change the password and log out: Schimbă-ți parola și deconectează-te.
+Channel available for {serviceName}: Canal disponibil pentru {serviceName}
+Chart mode: Tipul de diagramă
+Colon: Punct și virgulă
+Comma: Virgulă
+Confirmation: Confirmare
+Counter: Contor
+Counter reset: Resetarea contorului
+Data limits: Limitele datelor
+Date and time: Data şi ora
+Download measurements history: Descărcați istoricul măsurătorilor
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Contorul de energie electrică nu a raportat posibilitatea de a configura valorile adăugate. Actualizează firmware-ul dispozitivului și încercă din nou.
+Enabled phases: Faze active
+Expires at: Expiră
+File format: Formatul fișierului
+Forward active energy balance: Balanță a energiei active consumate
+From: De la
+I understand that my SUPLA account will be permanently deleted.: Înțeleg, că contul meu SUPLA va fi șters definitiv.
+IP Address: Adresă IP
+Incremental: Incrementală
+Integrations settings: Setările de integrare
+Invalid username or password: Nume de utilizator sau parolă incorectă
+Log out: Deconectare
+Logs transformation: Transformarea valorii
+No, take me back!: Nu, scoateți-mă de aici!
+Noop: Lipsea activității
+OK: OK
+Operation: Operațiuni
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-ul pentru Google trebuie să conțină cel puțin {minLength} și cel mult {maxLength} cifre.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Schimbarea parolei va deconecta toate sesiunile curente. Cu toate acestea, acest lucru nu va afecta aplicațiile care au fost autorizate de tine. Consimțământul pentru conectarea la aplicație trebuie retras separat.
+Password changed: Parolă modificată
+Password reset: Resetează parola
+Phase {phaseNumber}: Faza {phaseNumber}
+Predefined time ranges: Domeniu de timp
+Reload the chart: Reîncarcă graficul
+Reverse active energy balance: Balanța energiei active returnate
+Scene available for {serviceName}: Scenă disponibilă pentru {serviceName}
+Security: Siguranţă
+Security log: Jurnal de securitate
+Selected device has been logged out.: Dispozitivul selectat a fost deconectat
+Set values for each phase separately: Fixează valoarea pentru fiecare fază în parte
+Summary for selected time range: Rezumat pentru intervalul selectat
+Tab: Tabulator
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Dispozitivul care utilizează această sesiune va pierde accesul la SUPLA Cloud. În scopul continuării folosirii aplicației, va fi necesar să te conectezi din nou.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Tot istoricul aberațiilor de tensiune pentru faza {phaseNumber}.va fi șters
+The entire history of the voltage aberrations will be removed from this channel.: Tot istoricul aberațiilor de tensiune va fi șters pentru acest canal.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Evenimentele din istoricul aberațiilor de tensiune vor fi șterse automat după {days} câteva zile.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Aceasta este etapa finală de ștergere a contului tău. Completarea și aprobarea formularului va duce la ștergerea ireversibilă a datelor tale.
+'This password will protect your home. Therefore, it must:': 'Această parolă va proteja casa ta. Prin urmare:'
+To: Până la
+Total: Suma
+Unknown browser: Browser necunoscut
+Value: Valoarea
+Value separator: Delimitator
+Vector balance: Bilanț vectorial
+'We also strongly advise you to choose a password that:': 'În plus, recomandăm cu tărie alegerea parolei care:'
+We were not able to prepare your data. Please see the error details below.: Pe parcursul pregătirii datelor a apărut o eroare Vezi mai jos detaliile acestuia.
+We will miss you!: Ne va fi dor de tine!
+You can browse only the most recent logs now. Wait a while for the full history.: În prezent, sunt afișate doar cele mai recente măsurători. Așteaptă puțin pentru a descărca istoricul întreg.
+You must leave at least one phase enabled.: Cel puțin o fază trebuie să rămână activă.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Browserul tău nu susține mecanismul bazei de date client (IndexedDB). Această funcționalitate este necesară pentru a afișa grafice și pentru a susține setările avansate de export de date. Actualizează browserul tău sau ieși din modul incognito pentru a beneficia de aceste funcții.
+Your chart is being drawn...: Graficul tău este în curs de desenare...
+Your data are being collected. Please be patient.: Colectăm datele tale, răbdare.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Datele tale sunt descărcate de pe server. Așteptați finalizarea descărcărilor înainte de a le exporta.
+actionableSubjectType_schedule: Program
+average: medie
+be at least {numChars} characters long: trebuie să aibă cel puțin {numChars} caractere
+change: schimbă
+choose the schedule: selectează-ți programul
+contains a character that is neither a letter nor a digit: conține un caracter care nu este nici literă, nici număr
+contains a digit: conține o cifră
+contains lower and upper letters: conține litere majuscule și minuscule
+is at least {numChars} characters long: are cel puțin {numChars} caractere
+last 24 hours: ultimele 24 de ore
+last 30 days: ultimele 30 de zile
+last 6 hours: ultimele 6 ore
+last 7 days: ultimele 7 zile
+logs_aggregation_day: zile
+logs_aggregation_hour: ore
+logs_aggregation_minute: minute
+logs_aggregation_month: luni
+previous month: luna precedentă
+range: domeniu
+schedule: program
+the whole history: istoricul întreg
+this month: luna curentă
+this year: anul curent
+today: azi
+unknown: necunoscut
+values as seen on chart: valori așa cum se arată în diagramă
+values as seen on counter: valori așa cum să arată  pe contor
+yesterday: ieri
+'{serviceName} integration': 'Integrare cu {serviceName}'
 
 #</editor-fold>
