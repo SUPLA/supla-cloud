@@ -11,7 +11,7 @@ describe('NotificationForm', () => {
         expect(actions.length).toBe(3);
     });
 
-    it('validates at mount', async () => {
+    it('does not validate at mount', async () => {
         let valid;
         mount(NotificationForm, {
             propsData: {value: {}},
@@ -20,7 +20,7 @@ describe('NotificationForm', () => {
                 isValid: (isValid) => valid = isValid,
             }
         });
-        expect(valid).toEqual(false)
+        expect(valid).toBeUndefined();
     });
 
     it('updates after change', async () => {
@@ -34,14 +34,15 @@ describe('NotificationForm', () => {
         expect(wrapper.vm.valid).toBeTruthy();
     });
 
-    it('maintains notification id and other fields', () => {
+    it('maintains notification id and other fields', async () => {
         const wrapper = mount({
             data: () => ({notification: {id: 123, title: 'rainbow', property: 'unicorn', accessIds: [1]}, valid: false}),
             template: '<div><nf v-model="notification" @isValid="valid = $event"/></div>',
             components: {nf: NotificationForm},
         }, {stubs: {AccessIdsDropdown: {template: '<div />'}}});
+        await wrapper.find('input').setValue('test');
         expect(wrapper.vm.notification.id).toEqual(123);
-        expect(wrapper.vm.notification.title).toEqual('rainbow');
+        expect(wrapper.vm.notification.title).toEqual('test');
         expect(wrapper.vm.notification.property).toEqual('unicorn');
         expect(wrapper.vm.valid).toBeTruthy();
     });
