@@ -23,6 +23,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\User;
@@ -881,5 +882,45 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('sceneOperations', $content['relationsCount']);
         $this->assertEquals(1, $content['relationsCount']['scenes']);
         $this->assertEquals(2, $content['relationsCount']['sceneOperations']);
+    }
+
+    public function testSettingNotificationForActionTrigger() {
+        $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
+        $trigger = $anotherDevice->getChannels()[2];
+        $actions = ['TURN_ON' => [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'action' => ['id' => ChannelFunctionAction::SEND, 'param' => ['title' => 'ABC', 'accessIds' => [1]]]]];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertArrayHasKey('actions', $trigger->getUserConfig());
+        $this->assertCount(1, $trigger->getUserConfig()['actions']);
+        $notificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
+        $notification = $this->getEntityManager()->find(PushNotification::class, $notificationId);
+        $this->assertNotNull($notification);
+        $this->assertEquals('ABC', $notification->getTitle());
+        $this->assertEquals($trigger->getId(), $notification->getChannel()->getId());
+        return $trigger;
+    }
+
+    /** @depends testSettingNotificationForActionTrigger */
+    public function testChangingNotificationForActionTrigger(IODeviceChannel $trigger) {
+        $previousNotificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
+        $actions = ['TURN_ON' => [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'action' => ['id' => ChannelFunctionAction::SEND, 'param' => ['title' => 'DEF', 'accessIds' => [1]]]]];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertArrayHasKey('actions', $trigger->getUserConfig());
+        $this->assertCount(1, $trigger->getUserConfig()['actions']);
+        $notificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
+        $this->assertNotEquals($notificationId, $previousNotificationId);
+        $notification = $this->getEntityManager()->find(PushNotification::class, $notificationId);
+        $this->assertNotNull($notification);
+        $this->assertEquals('DEF', $notification->getTitle());
+        $this->assertNull($this->getEntityManager()->find(PushNotification::class, $previousNotificationId));
     }
 }

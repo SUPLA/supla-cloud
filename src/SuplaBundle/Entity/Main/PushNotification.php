@@ -17,7 +17,6 @@
 
 namespace SuplaBundle\Entity\Main;
 
-use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,6 +24,7 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Repository\AccessIdRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -119,10 +119,6 @@ class PushNotification implements ActionableSubject {
         return ActionableSubjectType::NOTIFICATION;
     }
 
-    public function validate(): void {
-        Assertion::notBlank($this->getTitle() . $this->getBody(), 'Notification title or body must be set.');
-    }
-
     public function getTitle(): string {
         return $this->title ?: '';
     }
@@ -147,5 +143,22 @@ class PushNotification implements ActionableSubject {
     /** @param AccessID[]|Collection $locations */
     public function setAccessIds($accessIds): void {
         $this->accessIds = $accessIds;
+    }
+
+    public function getChannel(): ?IODeviceChannel {
+        return $this->channel;
+    }
+
+    public function setChannel(IODeviceChannel $channel): void {
+        $this->channel = $channel;
+    }
+
+    public function initFromValidatedActionParams(array $actionParam, AccessIdRepository $aidRepository) {
+        $this->setTitle($actionParam['title'] ?? '');
+        $this->setBody($actionParam['body'] ?? '');
+        $accessIds = array_map(function (int $aid) use ($aidRepository) {
+            return $aidRepository->findForUser($this->getUser(), $aid);
+        }, $actionParam['accessIds']);
+        $this->setAccessIds($accessIds);
     }
 }

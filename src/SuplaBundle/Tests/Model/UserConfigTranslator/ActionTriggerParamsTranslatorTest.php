@@ -82,7 +82,7 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
             'HOLD' => ['subjectId' => 1, 'subjectType' => 'scene', 'action' => ['id' => ChannelFunctionAction::EXECUTE, 'param' => []]],
         ];
         $channel = ChannelStub::create(ChannelFunction::ACTION_TRIGGER())
-            ->properties(['actionTriggerCapabilities' => ['HOLD', 'PRESS']]);
+            ->properties(['actionTriggerCapabilities' => ['HOLD', 'PRESS', 'PRESS_2X']]);
         $this->subjectRepositoryMock->method('findForUser')
             ->willReturnOnConsecutiveCalls(ChannelStub::create(ChannelFunction::CONTROLLINGTHEDOORLOCK()), $this->createSceneMock());
         $this->actionExecutorMock->method('validateActionParams')->willReturn([]);

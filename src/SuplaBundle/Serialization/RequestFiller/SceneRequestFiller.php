@@ -17,7 +17,6 @@ use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
-use SuplaBundle\Repository\PushNotificationRepository;
 use SuplaBundle\Repository\UserIconRepository;
 use SuplaBundle\Utils\SceneUtils;
 
@@ -39,7 +38,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
     private $subjectRepository;
     /** @var SubjectConfigTranslator */
     private $configTranslator;
-    /** @var PushNotificationRepository */
+    /** @var AccessIdRepository */
     private $aidRepository;
 
     public function __construct(
@@ -144,13 +143,7 @@ class SceneRequestFiller extends AbstractRequestFiller {
         $notification = new PushNotification($user);
         $actionParam = $operationData['actionParam'] ?? [] ?: [];
         $actionParam = $this->channelActionExecutor->validateActionParams($notification, ChannelFunctionAction::SEND(), $actionParam);
-        $notification->setTitle($actionParam['title'] ?? '');
-        $notification->setBody($actionParam['body'] ?? '');
-        $accessIds = array_map(function (int $aid) {
-            return $this->aidRepository->findForUser($this->getCurrentUserOrThrow(), $aid);
-        }, $actionParam['accessIds']);
-        $notification->setAccessIds($accessIds);
-        $notification->validate();
+        $notification->initFromValidatedActionParams($actionParam, $this->aidRepository);
         $delayMs = intval($operationData['delayMs'] ?? 0);
         return new SceneOperation($notification, ChannelFunctionAction::SEND(), $actionParam, $delayMs);
     }
