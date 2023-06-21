@@ -2,7 +2,8 @@
     <div class="channel-action-chooser">
         <div class="w-100 mb-3">
             <div :class="['panel-group panel-accordion', {'panel-accordion-disabled': disabled}]">
-                <div :class="['panel panel-default', {'panel-success': isSelected(possibleAction.id), 'action-without-params': !ChannelFunctionAction.requiresParams(possibleAction.id)}]"
+                <div
+                    :class="['panel panel-default', {'panel-success': isSelected(possibleAction.id), 'action-without-params': !ChannelFunctionAction.requiresParams(possibleAction.id)}]"
                     v-for="possibleAction in actionsToShow"
                     :key="possibleAction.id">
                     <div class="panel-heading"
@@ -27,7 +28,8 @@
                     <transition-expand>
                         <div class="panel-body"
                             v-if="ChannelFunctionAction.requiresParams(possibleAction.id) && action && action.id === possibleAction.id">
-                            <div v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
+                            <div
+                                v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
                                 <rolette-shutter-partial-percentage v-model="param"
                                     @input="paramsChanged()"></rolette-shutter-partial-percentage>
                             </div>
@@ -48,9 +50,15 @@
                                     @input="paramsChanged()"
                                     :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
-                            <div v-if="executorMode"
-                                class="mt-3">
-                                <button :class="['btn btn-block btn-execute', {'btn-grey': !isSelected(possibleAction.id), 'btn-green': isSelected(possibleAction.id)}]"
+                            <div v-if="action.id === ChannelFunctionAction.SEND">
+                                <NotificationForm v-model="param"
+                                    display-validation-errors
+                                    @isValid="paramsChanged($event)"
+                                />
+                            </div>
+                            <div v-if="executorMode" class="mt-3">
+                                <button
+                                    :class="['btn btn-block btn-execute', {'btn-grey': !isSelected(possibleAction.id), 'btn-green': isSelected(possibleAction.id)}]"
                                     type="button"
                                     :disabled="!paramsSet || executing.includes(action.id)"
                                     @click="updateModel()">
@@ -84,9 +92,11 @@
     import DigiglassParametersSetter from "./digiglass-parameters-setter";
     import ChannelsIdDropdown from "../../devices/channels-id-dropdown";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
+    import NotificationForm from "@/notifications/notification-form.vue";
 
     export default {
         components: {
+            NotificationForm,
             ChannelsIdDropdown,
             DigiglassParametersSetter,
             RgbwParametersSetter,
@@ -139,8 +149,8 @@
                     this.paramsSet = false;
                 }
             },
-            paramsChanged() {
-                this.paramsSet = true;
+            paramsChanged(isValid = true) {
+                this.paramsSet = isValid;
                 if (!this.executorMode) {
                     this.updateModel();
                 }

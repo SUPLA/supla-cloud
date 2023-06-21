@@ -37,6 +37,7 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.OPEN_PARTIALLY,
             ChannelFunctionAction.CLOSE_PARTIALLY,
             ChannelFunctionAction.COPY,
+            ChannelFunctionAction.SEND,
         ].includes(actionId);
     },
 
@@ -48,6 +49,7 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.UP_OR_STOP,
             ChannelFunctionAction.DOWN_OR_STOP,
             ChannelFunctionAction.STEP_BY_STEP,
+            ChannelFunctionAction.SEND,
         ].includes(actionId);
     }
 });

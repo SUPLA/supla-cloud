@@ -5,6 +5,7 @@ describe('NotificationForm', () => {
     it('renders the form', () => {
         const wrapper = mount(NotificationForm, {
             propsData: {value: {}},
+            stubs: {AccessIdsDropdown: {template: '<div />'}},
         });
         const actions = wrapper.findAll('.form-group');
         expect(actions.length).toBe(3);
@@ -14,6 +15,7 @@ describe('NotificationForm', () => {
         let valid;
         mount(NotificationForm, {
             propsData: {value: {}},
+            stubs: {AccessIdsDropdown: {template: '<div />'}},
             listeners: {
                 isValid: (isValid) => valid = isValid,
             }

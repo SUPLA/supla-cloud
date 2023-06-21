@@ -105,6 +105,7 @@ class PushNotification implements ActionableSubject {
         return ChannelFunction::NOTIFICATION();
     }
 
+    /** @Groups({"basic"}) */
     public function getPossibleActions(): array {
         return $this->getFunction()->getDefaultPossibleActions();
     }
@@ -113,6 +114,7 @@ class PushNotification implements ActionableSubject {
         // TODO: Implement buildServerActionCommand() method.
     }
 
+    /** @Groups({"basic"}) */
     public function getOwnSubjectType(): string {
         return ActionableSubjectType::NOTIFICATION;
     }

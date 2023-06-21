@@ -1,11 +1,12 @@
 <template>
     <div :class="'subject-dropdown ' + (subjectType == 'channel' ? 'first-selected' : '')">
         <div class="form-group" v-if="useDropdownForTypes">
-            <select class="form-control" v-model="subjectType">
+            <select class="form-control" v-model="subjectType" @change="changeSubjectType()">
                 <option value="channel">{{ $t('Channels') }}</option>
                 <option value="channelGroup">{{ $t('Channel groups') }}</option>
                 <option value="scene">{{ $t('Scenes') }}</option>
-                <option value="schedule">{{ $t('Schedules') }}</option>
+                <option value="schedule" v-if="!disableSchedules">{{ $t('Schedules') }}</option>
+                <option value="notification" v-if="!disableNotifications">{{ $t('Send notification') }}</option>
                 <option value="other">{{ $t('Other') }}</option>
             </select>
         </div>
@@ -23,8 +24,10 @@
             <li :class="subjectType == 'schedule' ? 'active' : ''" v-if="!disableSchedules">
                 <a @click="changeSubjectType('schedule')">{{ $t('Schedules') }}</a>
             </li>
-            <li :class="subjectType == 'other' ? 'active' : ''"
-                v-if="hasOthersSlot">
+            <li :class="subjectType == 'notification' ? 'active' : ''" v-if="!disableNotifications">
+                <a @click="changeSubjectType('notification')">{{ $t('Send notification') }}</a>
+            </li>
+            <li :class="subjectType == 'other' ? 'active' : ''" v-if="hasOthersSlot">
                 <a @click="changeSubjectType('other')">{{ $t('Other') }}</a>
             </li>
         </ul>
@@ -62,6 +65,8 @@
     import ScenesDropdown from "../scenes/scenes-dropdown";
     import Vue from "vue";
     import SchedulesDropdown from "@/schedules/schedules-dropdown.vue";
+    import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+    import ChannelFunctionAction from "@/common/enums/channel-function-action";
 
     export default {
         props: {
@@ -73,6 +78,7 @@
             },
             clearOnSelect: Boolean,
             disableSchedules: Boolean,
+            disableNotifications: Boolean,
             useDropdownForTypes: Boolean,
         },
         components: {SchedulesDropdown, ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
@@ -86,10 +92,17 @@
             this.updateBasedOnValue();
         },
         methods: {
-            changeSubjectType(subjectType) {
+            changeSubjectType(subjectType = this.subjectType) {
                 this.subjectType = subjectType;
                 this.subject = undefined;
-                this.subjectChanged();
+                if (this.subjectType === ActionableSubjectType.NOTIFICATION) {
+                    this.subject = {
+                        id: -1,
+                        ownSubjectType: ActionableSubjectType.NOTIFICATION,
+                        possibleActions: [{id: ChannelFunctionAction.SEND, name: 'SEND', caption: 'Send'}],
+                    };
+                }
+                this.subjectChanged(this.subject);
             },
             subjectChanged(subject) {
                 if (this.subject != subject) {
