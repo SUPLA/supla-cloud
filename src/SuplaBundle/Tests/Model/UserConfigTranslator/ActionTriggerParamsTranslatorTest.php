@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Model\UserConfigTranslator;
 
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Main\IODeviceChannel;
@@ -26,6 +27,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\UserConfigTranslator\ActionTriggerParamsTranslator;
+use SuplaBundle\Repository\AccessIdRepository;
 use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Tests\Traits\ChannelStub;
 use SuplaBundle\Tests\Traits\SceneMocks;
@@ -47,7 +49,12 @@ class ActionTriggerParamsTranslatorTest extends TestCase {
     public function createTranslator() {
         $this->subjectRepositoryMock = $this->createMock(ActionableSubjectRepository::class);
         $this->actionExecutorMock = $this->createMock(ChannelActionExecutor::class);
-        $this->configTranslator = new ActionTriggerParamsTranslator($this->subjectRepositoryMock, $this->actionExecutorMock);
+        $this->configTranslator = new ActionTriggerParamsTranslator(
+            $this->subjectRepositoryMock,
+            $this->actionExecutorMock,
+            $this->createMock(AccessIdRepository::class),
+            $this->createMock(EntityManagerInterface::class)
+        );
         $this->configTranslator->setTokenStorage($this->getMockedTokenStorage());
     }
 

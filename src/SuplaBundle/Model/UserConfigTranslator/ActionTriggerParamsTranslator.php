@@ -96,8 +96,13 @@ class ActionTriggerParamsTranslator implements UserConfigTranslator {
             );
             $actionDefinition['action'] = ['id' => $actionToExecute['id']];
         } elseif ($action['subjectType'] === ActionableSubjectType::NOTIFICATION) {
+            Assertion::eq(ChannelFunctionAction::SEND, $channelFunctionAction->getId());
             $notification = new PushNotification($this->getCurrentUser());
-            $params = $this->channelActionExecutor->validateActionParams($notification, $channelFunctionAction, $actionToExecute['param'] ?? []);
+            $params = $this->channelActionExecutor->validateActionParams(
+                $notification,
+                $channelFunctionAction,
+                $actionToExecute['param'] ?? []
+            );
             $notification->initFromValidatedActionParams($params, $this->aidRepository);
             $notification->setChannel($subject);
             $this->entityManager->persist($notification);
