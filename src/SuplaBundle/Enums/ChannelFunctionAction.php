@@ -144,7 +144,7 @@ final class ChannelFunctionAction extends Enum {
             self::COPY => 'Copy state from other channel', // i18n
             self::ENABLE => 'Enable', // i18n
             self::DISABLE => 'Disable', // i18n
-            self::SEND => 'Send', // i18n
+            self::SEND => 'Send notification', // i18n
             self::AT_DISABLE_LOCAL_FUNCTION => 'Disable local function', // i18n
             self::AT_FORWARD_OUTSIDE => 'Publish to integrations', // i18n
         ];

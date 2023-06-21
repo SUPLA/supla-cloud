@@ -99,7 +99,7 @@
                     this.subject = {
                         id: -1,
                         ownSubjectType: ActionableSubjectType.NOTIFICATION,
-                        possibleActions: [{id: ChannelFunctionAction.SEND, name: 'SEND', caption: 'Send'}],
+                        possibleActions: [{id: ChannelFunctionAction.SEND, name: 'SEND', caption: 'Send notification'}],
                     };
                 }
                 this.subjectChanged(this.subject);
@@ -118,7 +118,12 @@
                     this.subjectType = this.value.ownSubjectType;
                     this.subject = this.value;
                 } else if (this.subject) {
-                    Vue.nextTick(() => this.subject = undefined);
+                    Vue.nextTick(() => {
+                        this.subject = undefined;
+                        if (this.subjectType === ActionableSubjectType.NOTIFICATION) {
+                            this.changeSubjectType(ActionableSubjectType.NOTIFICATION);
+                        }
+                    });
                 }
             },
         },

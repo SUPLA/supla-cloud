@@ -30,9 +30,6 @@
         data() {
             return {};
         },
-        mounted() {
-            this.validate();
-        },
         methods: {
             change(newProps) {
                 this.$emit('input', {...this.value, ...newProps});
