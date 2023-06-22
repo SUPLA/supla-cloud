@@ -18,13 +18,22 @@
 namespace SuplaBundle\Entity\Main;
 
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Entity\HasSubject;
+use SuplaBundle\Entity\HasSubjectTrait;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="supla_value_based_trigger")
  */
-class ValueBasedTrigger {
+class ValueBasedTrigger implements HasSubject {
+    use HasSubjectTrait;
+    use BelongsToUser;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -70,12 +79,12 @@ class ValueBasedTrigger {
     private $schedule;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PushNotification", inversedBy="sceneOperations")
+     * @ORM\ManyToOne(targetEntity="PushNotification", inversedBy="pushNotifications", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $pushNotification;
 
-    /** @ORM\Column(name="trigger", type="string", length=2048, nullable=true) */
+    /** @ORM\Column(name="`trigger`", type="string", length=2048, nullable=true) */
     private $trigger;
 
     /**
@@ -90,8 +99,73 @@ class ValueBasedTrigger {
     private $actionParam;
 
     /**
-     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     * @ORM\Column(name="enabled", type="boolean", nullable=false, options={"default": 1})
      * @Groups({"basic"})
      */
-    protected $enabled = false;
+    protected $enabled = true;
+
+    public function __construct(User $user, IODeviceChannel $channel) {
+        $this->user = $user;
+        $this->owningChannel = $channel;
+    }
+
+    public function getId(): int {
+        return $this->id;
+    }
+
+    public function getUser(): User {
+        return $this->user;
+    }
+
+    public function getOwningChannel(): IODeviceChannel {
+        return $this->owningChannel;
+    }
+
+    /**
+     * @Groups({"reaction.subject"})
+     * @MaxDepth(1)
+     */
+    public function getSubject(): ?ActionableSubject {
+        return $this->getTheSubject();
+    }
+
+    public function setSubject(ActionableSubject $subject) {
+        $this->initializeSubject($subject);
+    }
+
+    public function getTrigger(): array {
+        return $this->trigger ? json_decode($this->trigger, true) : [];
+    }
+
+    public function setTrigger(array $trigger): void {
+        $this->trigger = json_encode($trigger, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getAction(): ChannelFunctionAction {
+        return new ChannelFunctionAction($this->action);
+    }
+
+    public function setAction(ChannelFunctionAction $action): void {
+        $this->action = $action->getId();
+    }
+
+    public function getActionParam(): ?array {
+        return $this->actionParam ? json_decode($this->actionParam, true) : $this->actionParam;
+    }
+
+    public function setActionParam(?array $actionParam): void {
+        if ($actionParam) {
+            $this->actionParam = json_encode($actionParam, JSON_UNESCAPED_UNICODE);
+        } else {
+            $this->actionParam = null;
+        }
+    }
+
+    public function isEnabled(): bool {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): void {
+        $this->enabled = $enabled;
+    }
 }

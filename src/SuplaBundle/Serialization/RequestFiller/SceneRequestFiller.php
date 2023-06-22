@@ -2,18 +2,12 @@
 namespace SuplaBundle\Serialization\RequestFiller;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Repository\AccessIdRepository;
-use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
@@ -28,33 +22,25 @@ class SceneRequestFiller extends AbstractRequestFiller {
     private $channelRepository;
     /** @var ChannelGroupRepository */
     private $channelGroupRepository;
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
     /** @var LocationRepository */
     private $locationRepository;
     /** @var UserIconRepository */
     private $userIconRepository;
-    /** @var ActionableSubjectRepository */
-    private $subjectRepository;
     /** @var SubjectConfigTranslator */
     private $configTranslator;
-    /** @var AccessIdRepository */
-    private $aidRepository;
+    /** @var SubjectActionFiller */
+    private $subjectActionFiller;
 
     public function __construct(
-        ActionableSubjectRepository $subjectRepository,
-        ChannelActionExecutor $channelActionExecutor,
         LocationRepository $locationRepository,
         UserIconRepository $userIconRepository,
         SubjectConfigTranslator $configTranslator,
-        AccessIdRepository $aidRepository
+        SubjectActionFiller $subjectActionFiller
     ) {
-        $this->subjectRepository = $subjectRepository;
-        $this->channelActionExecutor = $channelActionExecutor;
         $this->locationRepository = $locationRepository;
         $this->userIconRepository = $userIconRepository;
         $this->configTranslator = $configTranslator;
-        $this->aidRepository = $aidRepository;
+        $this->subjectActionFiller = $subjectActionFiller;
     }
 
     /** @param Scene $scene */
@@ -100,11 +86,10 @@ class SceneRequestFiller extends AbstractRequestFiller {
                         'actionId',
                         'You must set an action for each scene operation.' // i18n
                     );
-                    if ($operationData['subjectType'] === ActionableSubjectType::NOTIFICATION) {
-                        return $this->createNotificationOperation($operationData);
-                    } else {
-                        return $this->createActionOperation($operationData);
-                    }
+                    [$subject, $action, $actionParam] = $this->subjectActionFiller->getSubjectAndAction($operationData);
+                    $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
+                    $delayMs = intval($operationData['delayMs'] ?? 0);
+                    return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);
                 } else {
                     $operationData['actionId'] = ChannelFunctionAction::VOID;
                     $delayMs = intval($operationData['delayMs'] ?? 0);
@@ -121,30 +106,5 @@ class SceneRequestFiller extends AbstractRequestFiller {
             $this->configTranslator->setConfig($scene, $data['config']);
         }
         return $scene;
-    }
-
-    private function createActionOperation(array $operationData): SceneOperation {
-        Assertion::keyExists($operationData, 'subjectId', 'You must set subjectId for each scene operation.');
-        $user = $this->getCurrentUserOrThrow();
-        /** @var ActionableSubject $subject */
-        $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
-        Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');
-        $action = ChannelFunctionAction::fromString($operationData['actionId']);
-        $actionParam = $operationData['actionParam'] ?? [] ?: [];
-        $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
-        Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getPossibleActions()));
-        $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
-        $delayMs = intval($operationData['delayMs'] ?? 0);
-        return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);
-    }
-
-    private function createNotificationOperation($operationData): SceneOperation {
-        $user = $this->getCurrentUserOrThrow();
-        $notification = new PushNotification($user);
-        $actionParam = $operationData['actionParam'] ?? [] ?: [];
-        $actionParam = $this->channelActionExecutor->validateActionParams($notification, ChannelFunctionAction::SEND(), $actionParam);
-        $notification->initFromValidatedActionParams($actionParam, $this->aidRepository);
-        $delayMs = intval($operationData['delayMs'] ?? 0);
-        return new SceneOperation($notification, ChannelFunctionAction::SEND(), $actionParam, $delayMs);
     }
 }

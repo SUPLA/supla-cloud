@@ -5,16 +5,13 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
-use SuplaBundle\Repository\AccessIdRepository;
-use SuplaBundle\Repository\ActionableSubjectRepository;
+use SuplaBundle\Serialization\RequestFiller\SubjectActionFiller;
 use SuplaBundle\Utils\JsonArrayObject;
 
 /**
@@ -30,25 +27,14 @@ use SuplaBundle\Utils\JsonArrayObject;
 class ActionTriggerParamsTranslator implements UserConfigTranslator {
     use CurrentUserAware;
 
-    /** @var ActionableSubjectRepository */
-    private $subjectRepository;
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
-    /** @var AccessIdRepository */
-    private $aidRepository;
     /** @var EntityManagerInterface */
     private $entityManager;
+    /** @var SubjectActionFiller */
+    private $subjectActionFiller;
 
-    public function __construct(
-        ActionableSubjectRepository $subjectRepository,
-        ChannelActionExecutor $channelActionExecutor,
-        AccessIdRepository $accessIdRepository,
-        EntityManagerInterface $entityManager
-    ) {
-        $this->subjectRepository = $subjectRepository;
-        $this->channelActionExecutor = $channelActionExecutor;
-        $this->aidRepository = $accessIdRepository;
+    public function __construct(EntityManagerInterface $entityManager, SubjectActionFiller $subjectActionFiller) {
         $this->entityManager = $entityManager;
+        $this->subjectActionFiller = $subjectActionFiller;
     }
 
     public function getConfig(HasUserConfig $subject): array {
@@ -87,7 +73,6 @@ class ActionTriggerParamsTranslator implements UserConfigTranslator {
         Assertion::keyExists($action, 'action');
         $actionToExecute = $action['action'];
         Assertion::keyExists($actionToExecute, 'id');
-        $channelFunctionAction = ChannelFunctionAction::fromString($actionToExecute['id']);
         $actionDefinition = ['subjectType' => $subjectType->getValue()];
         if ($action['subjectType'] === ActionableSubjectType::OTHER) {
             Assertion::inArray(
@@ -95,32 +80,17 @@ class ActionTriggerParamsTranslator implements UserConfigTranslator {
                 [ChannelFunctionAction::AT_DISABLE_LOCAL_FUNCTION, ChannelFunctionAction::AT_FORWARD_OUTSIDE]
             );
             $actionDefinition['action'] = ['id' => $actionToExecute['id']];
-        } elseif ($action['subjectType'] === ActionableSubjectType::NOTIFICATION) {
-            Assertion::eq(ChannelFunctionAction::SEND, $channelFunctionAction->getId());
-            $notification = new PushNotification($this->getCurrentUser());
-            $params = $this->channelActionExecutor->validateActionParams(
-                $notification,
-                $channelFunctionAction,
-                $actionToExecute['param'] ?? []
-            );
-            $notification->initFromValidatedActionParams($params, $this->aidRepository);
-            $notification->setChannel($subject);
-            $this->entityManager->persist($notification);
-            $this->entityManager->flush();
-            $actionDefinition['subjectId'] = $notification->getId();
-            $actionDefinition['action'] = ['id' => ChannelFunctionAction::SEND, 'param' => $params];
         } else {
-            $user = $this->getCurrentUser();
-            Assertion::keyExists($action, 'subjectId');
-            $subject = $this->subjectRepository->findForUser($user, $action['subjectType'], $action['subjectId']);
-            Assertion::inArray(
-                $channelFunctionAction->getId(),
-                EntityUtils::mapToIds($subject->getPossibleActions()),
-                'Cannot execute the requested action on given subject.'
+            [$triggerSubject, $channelFunctionAction, $actionParam] = $this->subjectActionFiller->getSubjectAndAction(
+                array_merge($action, ['actionId' => $actionToExecute['id'], 'actionParam' => $actionToExecute['param'] ?? []])
             );
-            $params = $this->channelActionExecutor->validateActionParams($subject, $channelFunctionAction, $actionToExecute['param'] ?? []);
-            $actionDefinition['subjectId'] = $subject->getId();
-            $actionDefinition['action'] = ['id' => $channelFunctionAction->getId(), 'param' => $params];
+            if ($triggerSubject instanceof PushNotification) {
+                $triggerSubject->setChannel($subject);
+                $this->entityManager->persist($triggerSubject);
+                $this->entityManager->flush();
+            }
+            $actionDefinition['subjectId'] = $triggerSubject->getId();
+            $actionDefinition['action'] = ['id' => $channelFunctionAction->getId(), 'param' => $actionParam];
         }
         return $actionDefinition;
     }

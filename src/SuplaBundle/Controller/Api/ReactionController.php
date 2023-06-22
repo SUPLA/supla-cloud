@@ -17,12 +17,17 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\ValueBasedTrigger;
+use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Serialization\RequestFiller\ValueBasedTriggerRequestFiller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @OA\Schema(
@@ -52,9 +57,26 @@ class ReactionController extends RestController {
      * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
      * @Rest\Put("/channels/{channel}/reactions")
      */
-    public function putChannelReactionsAction(IODeviceChannel $channel, Request $request) {
-//        $this->ensureApiVersion24($request);
-//        $scenes = $this->returnScenesFilteredBySubject($channel);
-//        return $this->serializedView($scenes->getValues(), $request);
+    public function putChannelReactionsAction(IODeviceChannel $channel, Request $request, ValueBasedTriggerRequestFiller $requestFiller) {
+        $this->ensureApiVersion24($request);
+        $reactions = $request->request->all();
+        $vbts = $this->transactional(function (EntityManagerInterface $em) use ($requestFiller, $reactions, $channel) {
+            // TODO clear
+            $list = [];
+            foreach ($reactions as $reaction) {
+                $vbt = new ValueBasedTrigger($this->getUser(), $channel);
+                $requestFiller->fillFromData($reaction, $vbt);
+                $em->persist($vbt);
+                $list[] = $vbt;
+            }
+            return $list;
+        });
+        return $this->serializedView($vbts, $request);
+    }
+
+    private function ensureApiVersion24(Request $request) {
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
     }
 }

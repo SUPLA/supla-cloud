@@ -75,7 +75,7 @@ class SceneOperation implements HasSubject {
     private $schedule;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PushNotification", inversedBy="sceneOperations", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="PushNotification", inversedBy="pushNotifications", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $pushNotification;
