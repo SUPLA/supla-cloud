@@ -15,6 +15,11 @@
                 </ul>
             </div>
         </div>
+        <div v-if="currentTab == 'reactions'">
+            <div class="container">
+                <ChannelReactionsConfig :subject="channel"/>
+            </div>
+        </div>
         <div v-if="currentTab == 'actionTriggers'">
             <div class="container">
                 <channel-action-triggers :channel="channel"></channel-action-triggers>
@@ -49,10 +54,12 @@
     import ChannelActionTriggers from "@/channels/action-trigger/channel-action-triggers";
     import ChannelFunction from "../common/enums/channel-function";
     import ChannelVoltageHistory from "./channel-voltage-history";
+    import ChannelReactionsConfig from "@/channels/reactions/channel-reactions-config.vue";
 
     export default {
         props: ['channel'],
         components: {
+            ChannelReactionsConfig,
             ChannelMeasurementsHistory: () => import(/*webpackChunkName:"measurement-history"*/"./history/channel-measurements-history.vue"),
             ChannelVoltageHistory, ChannelActionTriggers, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
         },
@@ -76,6 +83,11 @@
             }
         },
         mounted() {
+            this.availableTabs.push({
+                id: 'reactions',
+                header: 'Reactions', // i18n
+                count: 666,
+            });
             if (this.channel.possibleActions?.length) {
                 if (this.channel.actionTriggersIds?.length) {
                     this.availableTabs.push({
