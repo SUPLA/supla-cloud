@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="panel-group panel-accordion">
+        <div class="panel-group panel-accordion m-0">
             <div v-for="possibleCondition in possibleConditions" :key="possibleCondition.caption">
                 <transition-expand>
                     <div v-if="!currentCondition || isSelected(possibleCondition)"

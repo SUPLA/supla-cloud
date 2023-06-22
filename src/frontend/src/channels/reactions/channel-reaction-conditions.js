@@ -4,16 +4,16 @@ import ReactionConditionThreshold from "@/channels/reactions/params/reaction-con
 export const ChannelReactionConditions = {
     [ChannelFunction.HUMIDITYANDTEMPERATURE]: [
         {
-            caption: 'temperature changed', // i18n
+            caption: 'Temperature', // i18n
             test: ({on_change_to = {}}) => on_change_to.name === 'temperature' && (Object.hasOwn(on_change_to, 'gt') || Object.hasOwn(on_change_to, 'lt')),
             component: ReactionConditionThreshold,
-            props: {unit: '°C', field: 'temperature'},
+            props: {label: 'When the temperature will be', unit: '°C', field: 'temperature'}, // i18n
         },
         {
-            caption: 'humidity changed', // i18n
+            caption: 'Humidity', // i18n
             test: ({on_change_to = {}}) => on_change_to.name === 'humidity' && (Object.hasOwn(on_change_to, 'gt') || Object.hasOwn(on_change_to, 'lt')),
             component: ReactionConditionThreshold,
-            props: {unit: '%', field: 'humidity'},
+            props: {label: 'When the humidity will be', unit: '%', field: 'humidity'}, // i18n
         },
     ],
     [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: [

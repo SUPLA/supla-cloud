@@ -1,11 +1,13 @@
 <template>
     <div class="form-group">
-        <label>{{ $t('Threshold') }}</label>
+        <label>{{ $t(label) }}</label>
         <span class="input-group">
             <span class="input-group-btn">
-                <a class="btn btn-white" @click="operator = operator === 'lt' ? 'gt' : 'lt'">
-                    <span v-if="operator === 'lt'">{{ $t('decreases below') }}</span>
-                    <span v-else>{{ $t('raises above') }}</span>
+                <a class="btn btn-white" @click="nextOperator()">
+                    <span v-if="operator === 'lt'">&lt;</span>
+                    <span v-else-if="operator === 'le'">&le;</span>
+                    <span v-else-if="operator === 'gt'">&gt;</span>
+                    <span v-else>&ge;</span>
                 </a>
             </span>
             <input type="number"
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+    const OPERATORS = ['lt', 'le', 'gt', 'ge'];
     export default {
         props: {
             value: Object,
@@ -29,6 +32,10 @@
             field: {
                 type: String,
                 required: true,
+            },
+            label: {
+                type: String,
+                default: 'Threshold', // i18n
             }
         },
         mounted() {
@@ -39,12 +46,17 @@
         methods: {
             updateModel() {
                 this.onChangeTo = {[this.operator]: this.threshold};
-            }
+            },
+            nextOperator() {
+                const nextIndex = OPERATORS.indexOf(this.operator) + 1;
+                this.operator = nextIndex >= OPERATORS.length ? OPERATORS[0] : OPERATORS[nextIndex];
+            },
         },
         computed: {
             operator: {
                 get() {
-                    return (this.onChangeTo && Object.hasOwn(this.onChangeTo, 'gt')) ? 'gt' : 'lt';
+                    const operator = this.onChangeTo ? OPERATORS.find(op => Object.hasOwn(this.onChangeTo, op)) : undefined;
+                    return operator || OPERATORS[0];
                 },
                 set(operator) {
                     this.onChangeTo = {[operator]: this.threshold};

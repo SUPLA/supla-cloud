@@ -73,6 +73,7 @@ describe('ChannelReactionsConfig', () => {
             });
             await wrapper.find('.panel-heading').trigger('click');
             expect(wrapper.text()).not.toContain('Threshold');
+            expect(wrapper.text()).not.toContain('temperature');
             expect(wrapper.findAll('.panel-body').length).toEqual(0);
         });
     });
@@ -116,6 +117,8 @@ describe('ChannelReactionsConfig', () => {
             });
             expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 20, name: 'temperature'}});
             await wrapper.find('.input-group-btn a').trigger('click');
+            expect(wrapper.vm.condition).toEqual({on_change_to: {le: 20, name: 'temperature'}});
+            await wrapper.find('.input-group-btn a').trigger('click');
             expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 20, name: 'temperature'}});
             await wrapper.find('.form-control').setValue('22');
             expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 22, name: 'temperature'}});
@@ -142,7 +145,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            expect(wrapper.find('.input-group-btn a').text()).toContain('raises above');
+            expect(wrapper.find('.input-group-btn a').text()).toContain('>');
             expect(wrapper.find('.form-control').element.value).toEqual('33');
         });
 
@@ -155,7 +158,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            expect(wrapper.find('.input-group-btn a').text()).toContain('raises above');
+            expect(wrapper.find('.input-group-btn a').text()).toContain('>');
             expect(wrapper.find('.form-control').element.value).toEqual('0');
         });
     });
