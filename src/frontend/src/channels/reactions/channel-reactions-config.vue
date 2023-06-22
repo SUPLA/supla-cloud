@@ -15,7 +15,7 @@
         },
         data() {
             return {
-                condition: {},
+                condition: {},//{on_change_to: {gt: 33, name: 'temperature'}},
             }
         }
     }

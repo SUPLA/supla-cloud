@@ -16,11 +16,13 @@
                                 <span v-if="isSelected(possibleCondition)" class="glyphicon glyphicon-ok"></span>
                             </div>
                         </div>
-                        <transition-expand>
-                            <div class="panel-body" v-if="isSelected(possibleCondition)">
-                                asdf
-                            </div>
-                        </transition-expand>
+                        <div v-if="possibleCondition.component">
+                            <transition-expand>
+                                <div class="panel-body" v-if="isSelected(possibleCondition)">
+                                    <Component :is="possibleCondition.component" v-model="currentConditionJson"/>
+                                </div>
+                            </transition-expand>
+                        </div>
                     </div>
                 </transition-expand>
             </div>
@@ -40,27 +42,36 @@
             value: Object,
         },
         data() {
-            return {};
+            return {
+                currentCondition: undefined,
+            };
+        },
+        mounted() {
+            if (!this.currentCondition && this.value) {
+                this.currentCondition = this.possibleConditions.find(c => c.test ? c.test(this.value) : isEqual(c.def(), this.value));
+            }
+            if (!this.currentCondition && this.possibleConditions.length === 1) {
+                this.changeCondition(this.possibleConditions[0]);
+            }
         },
         methods: {
             isSelected(condition) {
-                return condition.id === this.currentCondition?.id;
+                return condition && (condition.id === this.currentCondition?.id);
             },
             changeCondition(condition) {
-                this.currentCondition = this.isSelected(condition) ? undefined : condition;
+                if (this.possibleConditions.length > 1 || !this.currentCondition) {
+                    this.currentCondition = this.isSelected(condition) ? undefined : condition;
+                    this.currentConditionJson = this.currentCondition?.def ? this.currentCondition.def() : undefined;
+                }
             }
         },
         computed: {
-            currentCondition: {
+            currentConditionJson: {
                 get() {
-                    if (this.value) {
-                        return this.possibleConditions.find(c => isEqual(c.def(), this.value));
-                    } else {
-                        return undefined;
-                    }
+                    return this.value;
                 },
-                set(condition) {
-                    this.$emit('input', condition?.def());
+                set(def) {
+                    this.$emit('input', def);
                 }
             },
             possibleConditions() {
