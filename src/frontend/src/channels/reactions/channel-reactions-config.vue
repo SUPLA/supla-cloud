@@ -41,7 +41,11 @@
                 if (this.reactions.find(r => r.reaction.isValid === false)) {
                     this.displayValidationErrors = true;
                     warningNotification(this.$t('Error'), this.$t('At least one reaction is not valid.'));
+                    return;
                 }
+                this.displayValidationErrors = false;
+                const reactions = this.reactions.map(r => r.reaction);
+                this.$http.put(`channels/${this.subject.id}/reactions`, reactions);
             }
         }
     }
