@@ -133,7 +133,7 @@ describe('ChannelReactionsConfig', () => {
                 components: {cc: ChannelReactionConditionChooser},
             });
             await wrapper.find('.form-control').setValue('');
-            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 0, name: 'temperature'}});
+            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 0, name: 'temperature', resume: {ge: 20}}});
         });
 
         it('can initialize temperature condition with initial value', async () => {
@@ -173,7 +173,7 @@ describe('ChannelReactionsConfig', () => {
             await wrapper.findAll('.panel-heading').at(1).trigger('click');
             expect(wrapper.text()).toContain('%');
             await wrapper.find('.form-control').setValue('50');
-            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 50, name: 'humidity'}});
+            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 50, name: 'humidity', resume: {ge: 50}}});
         });
 
         it('initializes humidity condition from json', async () => {

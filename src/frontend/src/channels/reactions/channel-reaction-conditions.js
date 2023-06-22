@@ -7,7 +7,12 @@ export const ChannelReactionConditions = {
             caption: 'Temperature', // i18n
             test: ({on_change_to = {}}) => on_change_to.name === 'temperature' && (Object.hasOwn(on_change_to, 'gt') || Object.hasOwn(on_change_to, 'lt')),
             component: ReactionConditionThreshold,
-            props: {label: 'When the temperature will be', unit: '°C', field: 'temperature'}, // i18n
+            props: {
+                label: 'When the temperature will be', // i18n
+                suspendLabel: 'and wait until the temperature will be', // i18n
+                unit: '°C',
+                field: 'temperature',
+            },
         },
         {
             caption: 'Humidity', // i18n
