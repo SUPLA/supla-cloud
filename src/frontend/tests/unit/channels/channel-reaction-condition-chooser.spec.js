@@ -4,7 +4,6 @@ import ChannelReactionConditionChooser from "@/channels/reactions/channel-reacti
 import {ChannelReactionConditions} from "@/channels/reactions/channel-reaction-conditions";
 
 describe('ChannelReactionsConfig', () => {
-
     describe('OPENINGSENSOR_GARAGEDOOR', () => {
         const GARAGEDOOR = {id: 5, functionId: ChannelFunction.OPENINGSENSOR_GARAGEDOOR};
 
@@ -89,6 +88,15 @@ describe('ChannelReactionsConfig', () => {
             expect(wrapper.vm.condition).toBeDefined();
         });
 
+        it('displays unit', async () => {
+            const wrapper = await mount({
+                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                template: '<div><cc :subject="channel" v-model="condition"/></div>',
+                components: {cc: ChannelReactionConditionChooser},
+            });
+            expect(wrapper.text()).toContain('°C');
+        });
+
         it('cannot deselect the only available condition', async () => {
             const wrapper = await mount({
                 data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
@@ -149,6 +157,34 @@ describe('ChannelReactionsConfig', () => {
             });
             expect(wrapper.find('.input-group-btn a').text()).toContain('raises above');
             expect(wrapper.find('.form-control').element.value).toEqual('0');
+        });
+    });
+
+    describe('HUMIDITYANDTEMPERATURE', () => {
+        it('can set humidity threshold', async () => {
+            const wrapper = await mount({
+                data: () => ({channel: {functionId: ChannelFunction.HUMIDITYANDTEMPERATURE}, condition: undefined}),
+                template: '<div><cc :subject="channel" v-model="condition"/></div>',
+                components: {cc: ChannelReactionConditionChooser},
+            });
+            await wrapper.findAll('.panel-heading').at(1).trigger('click');
+            expect(wrapper.text()).toContain('%');
+            await wrapper.find('.form-control').setValue('50');
+            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 50, name: 'humidity'}});
+        });
+
+        it('initializes humidity condition from json', async () => {
+            const wrapper = await mount({
+                data: () => ({
+                    channel: {functionId: ChannelFunction.HUMIDITYANDTEMPERATURE},
+                    condition: {on_change_to: {lt: 60, name: 'humidity'}}
+                }),
+                template: '<div><cc :subject="channel" v-model="condition"/></div>',
+                components: {cc: ChannelReactionConditionChooser},
+            });
+            expect(wrapper.findAll('.panel-success').length).toEqual(1);
+            expect(wrapper.text()).toContain('%');
+            expect(wrapper.find('.form-control').element.value).toEqual('60');
         });
     });
 });

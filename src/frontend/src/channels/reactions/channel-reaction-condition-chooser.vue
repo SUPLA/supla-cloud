@@ -19,7 +19,8 @@
                         <div v-if="possibleCondition.component">
                             <transition-expand>
                                 <div class="panel-body" v-if="isSelected(possibleCondition)">
-                                    <Component :is="possibleCondition.component" v-model="currentConditionJson"/>
+                                    <Component :is="possibleCondition.component"
+                                        v-model="currentConditionJson" v-bind="possibleCondition.props || {}"/>
                                 </div>
                             </transition-expand>
                         </div>

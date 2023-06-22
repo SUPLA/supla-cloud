@@ -13,9 +13,7 @@
                 v-focus="true"
                 v-model="threshold"
                 class="form-control">
-            <span class="input-group-addon">
-                &deg;C
-            </span>
+            <span class="input-group-addon">{{ unit }}</span>
         </span>
     </div>
 </template>
@@ -24,6 +22,14 @@
     export default {
         props: {
             value: Object,
+            unit: {
+                type: String,
+                default: '',
+            },
+            field: {
+                type: String,
+                required: true,
+            }
         },
         mounted() {
             if (!this.value) {
@@ -58,7 +64,7 @@
                     return this.value?.on_change_to;
                 },
                 set(value) {
-                    this.$emit('input', {on_change_to: {...value, name: 'temperature'}});
+                    this.$emit('input', {on_change_to: {...value, name: this.field}});
                 }
             }
         }
