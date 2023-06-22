@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="panel-group panel-accordion">
-            <div v-for="possibleCondition in possibleConditions" :key="possibleCondition.id">
+            <div v-for="possibleCondition in possibleConditions" :key="possibleCondition.caption">
                 <transition-expand>
                     <div v-if="!currentCondition || isSelected(possibleCondition)"
                         :class="['panel panel-default', {'panel-success': isSelected(possibleCondition), 'action-without-params': true}]">
@@ -57,7 +57,7 @@
         },
         methods: {
             isSelected(condition) {
-                return condition && (condition.id === this.currentCondition?.id);
+                return condition && (condition.caption === this.currentCondition?.caption);
             },
             changeCondition(condition) {
                 if (this.possibleConditions.length > 1 || !this.currentCondition) {
