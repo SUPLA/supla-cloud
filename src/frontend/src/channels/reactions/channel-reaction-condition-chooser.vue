@@ -27,7 +27,6 @@
                     </div>
                 </transition-expand>
             </div>
-            {{ currentConditionJson }}
         </div>
     </div>
 </template>

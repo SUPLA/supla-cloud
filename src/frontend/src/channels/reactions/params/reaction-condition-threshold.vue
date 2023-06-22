@@ -75,12 +75,12 @@
             };
         },
         mounted() {
-            if (!this.value) {
-                this.updateModel();
-            }
             this.operatorValue = this.operator;
             this.thresholdValue = this.threshold;
             this.resumeThresholdValue = this.resumeThreshold;
+            if (!this.value) {
+                this.updateModel();
+            }
         },
         methods: {
             updateModel() {
@@ -123,7 +123,7 @@
                 },
             },
             resumeOperator() {
-                return {lt: 'ge', le: 'gt', ge: 'lt', gt: 'le'}[this.operator];
+                return {lt: 'ge', le: 'gt', ge: 'lt', gt: 'le'}[this.operatorValue];
             },
             resumeThreshold: {
                 get() {

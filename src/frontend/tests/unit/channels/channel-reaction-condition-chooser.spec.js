@@ -115,15 +115,15 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 20, name: 'temperature'}});
+            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 20, name: 'temperature', resume: {ge: 20}}});
             await wrapper.find('.input-group-btn a').trigger('click');
-            expect(wrapper.vm.condition).toEqual({on_change_to: {le: 20, name: 'temperature'}});
+            expect(wrapper.vm.condition).toEqual({on_change_to: {le: 20, name: 'temperature', resume: {gt: 20}}});
             await wrapper.find('.input-group-btn a').trigger('click');
-            expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 20, name: 'temperature'}});
+            expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 20, name: 'temperature', resume: {le: 20}}});
             await wrapper.find('.form-control').setValue('22');
-            expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 22, name: 'temperature'}});
+            expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 22, name: 'temperature', resume: {le: 20}}});
             await wrapper.find('.form-control').setValue('0');
-            expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 0, name: 'temperature'}});
+            expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 0, name: 'temperature', resume: {le: 0}}});
         });
 
         it('cannot set empty threshold for temerature', async () => {
