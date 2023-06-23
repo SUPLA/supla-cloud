@@ -35,21 +35,25 @@
         <channels-dropdown v-model="subject"
             v-if="subjectType == 'channel'"
             @input="subjectChanged"
+            :dropdownContainer="dropdownContainer"
             :filter="filter"
             :params="channelsDropdownParams"></channels-dropdown>
         <channel-groups-dropdown @input="subjectChanged"
             v-if="subjectType == 'channelGroup'"
+            :dropdownContainer="dropdownContainer"
             :filter="filter"
             :params="channelsDropdownParams"
             v-model="subject"></channel-groups-dropdown>
         <scenes-dropdown
             @input="subjectChanged"
             v-if="subjectType == 'scene'"
+            :dropdownContainer="dropdownContainer"
             :filter="filter"
             v-model="subject"></scenes-dropdown>
         <schedules-dropdown
             @input="subjectChanged"
             v-if="subjectType == 'schedule'"
+            :dropdownContainer="dropdownContainer"
             :filter="filter"
             v-model="subject"></schedules-dropdown>
         <slot name="other"
@@ -80,6 +84,7 @@
             disableSchedules: Boolean,
             disableNotifications: Boolean,
             useDropdownForTypes: Boolean,
+            dropdownContainer: String,
         },
         components: {SchedulesDropdown, ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
         data() {

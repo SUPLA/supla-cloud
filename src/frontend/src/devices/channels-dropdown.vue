@@ -9,6 +9,7 @@
             ref="dropdown"
             data-live-search="true"
             data-width="100%"
+            :data-container="dropdownContainer"
             data-style="btn-default btn-wrapped"
             v-model="chosenChannel"
             @change="$emit('input', chosenChannel)">
@@ -35,7 +36,7 @@
     import {channelIconUrl} from "../common/filters";
 
     export default {
-        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter'],
+        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'dropdownContainer'],
         components: {ButtonLoadingDots},
         data() {
             return {
@@ -83,6 +84,7 @@
                 }
             },
             initSelectPicker() {
+                console.log(this.selectOptions)
                 Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
             },
         },

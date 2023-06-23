@@ -13,6 +13,7 @@
 
 <script>
     import {triggerHumanizer} from "@/channels/reactions/trigger-humanizer";
+    import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 
     export default {
         props: ['model'],
@@ -21,6 +22,9 @@
                 return triggerHumanizer(this.model.owningChannel.functionId, this.model.trigger, this);
             },
             subjectCaption() {
+                if (this.model.subject.ownSubjectType === ActionableSubjectType.NOTIFICATION) {
+                    return '';
+                }
                 return this.model.subject.caption || `ID${this.model.subject.id} ${this.$t(this.model.subject.function.caption)}`;
             },
         }

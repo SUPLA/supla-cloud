@@ -46,6 +46,7 @@
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.COPY">
                                 <channels-id-dropdown v-model="param.sourceChannelId"
+                                    :dropdown-container="dropdownContainer"
                                     :hide-none="true"
                                     @input="paramsChanged()"
                                     :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
@@ -112,6 +113,7 @@
             alwaysSelectFirstAction: {type: Boolean, default: false},
             executing: {type: Array, default: () => []},
             executed: {type: Array, default: () => []},
+            dropdownContainer: String,
         },
         data() {
             return {
