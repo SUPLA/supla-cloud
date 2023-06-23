@@ -5,15 +5,19 @@ use Assert\Assertion;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\CurrentUserAware;
+use SuplaBundle\Model\ValueBasedTriggerValidator;
 
 class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
     use CurrentUserAware;
 
     /** @var SubjectActionFiller */
     private $subjectActionFiller;
+    /** @var ValueBasedTriggerValidator */
+    private $triggerValidator;
 
-    public function __construct(SubjectActionFiller $subjectActionFiller) {
+    public function __construct(SubjectActionFiller $subjectActionFiller, ValueBasedTriggerValidator $triggerValidator) {
         $this->subjectActionFiller = $subjectActionFiller;
+        $this->triggerValidator = $triggerValidator;
     }
 
     /** @param ValueBasedTrigger $vbt */
@@ -30,7 +34,9 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
         $vbt->setSubject($subject);
         $vbt->setAction($action);
         $vbt->setActionParam($actionParam);
-        // TODO validate trigger
+        Assertion::keyExists($data, 'trigger', 'Missing trigger.');
+        Assertion::isArray($data['trigger'], 'Invalid trigger definition.');
+        $this->triggerValidator->validate($vbt->getOwningChannel(), $data['trigger']);
         $vbt->setTrigger($data['trigger']);
         return $vbt;
     }

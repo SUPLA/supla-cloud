@@ -127,9 +127,7 @@ class DefaultController extends AbstractController {
             $openapi = Generator::scan([
                 __DIR__,
                 __DIR__ . '/../Enums',
-                __DIR__ . '/../Model/ChannelActionExecutor',
-                __DIR__ . '/../Model/UserConfigTranslator',
-                __DIR__ . '/../Model/ChannelStateGetter',
+                __DIR__ . '/../Model',
             ]);
             $openapi->info = new OA\Info(['title' => 'SUPLA Cloud API', 'version' => $version]);
             $yaml = $openapi->toYaml();

@@ -142,4 +142,17 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(204, $response);
         $this->assertNull($this->getEntityManager()->find(ValueBasedTrigger::class, $id));
     }
+
+    public function testCreatingReactionWithInvalidTrigger() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', "/api/channels/{$this->thermometer->getId()}/reactions", [
+            'subjectId' => $this->lightswitch->getId(), 'subjectType' => $this->lightswitch->getOwnSubjectType(),
+            'actionId' => ChannelFunctionAction::TURN_ON,
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'unicorn', 'resume' => ['ge' => 20]]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertStringContainsString('Unsupported field name', $content['message']);
+    }
 }

@@ -39,17 +39,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
  *   @OA\Property(property="subjectId", type="integer"),
  *   @OA\Property(property="owningChannelId", description="ID of the channel that this reaction belongs to.", type="integer"),
+ *   @OA\Property(property="trigger", ref="#/components/schemas/ReactionTrigger"),
  *   @OA\Property(property="subject", description="Only if requested by the `include` param.", ref="#/components/schemas/ActionableSubject"),
- * )
- * @OA\Schema(schema="ReactionTriggerThresholdLt", description="Reaction trigger based on numeric state.",
- *     @OA\Property(property="lt", type="number")
- * )
- * @OA\Schema(schema="ReactionTrigger", description="Reaction trigger.",
- *     @OA\Property(property="on_change_to", type="object",
- *       oneOf={
- *         @OA\Schema(ref="#/components/schemas/ReactionTriggerThresholdLt"),
- *       }
- *     )
  * )
  */
 class ReactionController extends RestController {
