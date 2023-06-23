@@ -75,7 +75,7 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "resume": ""}}', 'Invalid resume'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "resume": {}}}', 'Invalid resume'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "resume": {"le": 20}}}', 'must have a ge operator'],
-            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "name": "temperature", "resume": {"ge": 19}}}', 'must be greater'],
+            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "name": "temperature", "resume": {"ge": 19}}}', 'must be greate'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"gt": 20, "name": "temperature", "resume": {"le": 21}}}', 'must be less'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"gt": 20, "name": "unicorn", "resume": {"le": 20}}}', 'Unsupported'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"gt": 20, "name": "humidity", "resume": {"le": 20}}}', 'Unsupported'],

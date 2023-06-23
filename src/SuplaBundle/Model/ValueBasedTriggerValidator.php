@@ -101,9 +101,17 @@ class ValueBasedTriggerValidator {
             Assertion::keyExists($resume, $resumeOperator, "Resume for this trigger must have a $resumeOperator operator.");
             Assertion::numeric($resume[$resumeOperator], 'Threshold must be numeric.');
             if (in_array($operator, ['lt', 'le'])) {
-                Assertion::lessOrEqualThan($onChangeTo[$operator], $resume[$resumeOperator], 'Resume value must be greater than monitored value.');
+                Assertion::lessOrEqualThan(
+                    $onChangeTo[$operator],
+                    $resume[$resumeOperator],
+                    'Resume value must be greater than monitored value.'
+                );
             } else {
-                Assertion::greaterOrEqualThan($onChangeTo[$operator], $resume[$resumeOperator], 'Resume value must be less than monitored value.');
+                Assertion::greaterOrEqualThan(
+                    $onChangeTo[$operator],
+                    $resume[$resumeOperator],
+                    'Resume value must be less than monitored value.'
+                );
             }
         }
     }

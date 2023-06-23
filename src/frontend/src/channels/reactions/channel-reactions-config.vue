@@ -1,66 +1,33 @@
 <template>
-    <div class="channel-reactions-config">
-        <PendingChangesPage @cancel="cancelChanges()" @save="saveReactions()" :is-pending="hasPendingChanges">
-            <div v-for="(r, $index) in reactions" :key="$index"
-                :class="['channel-reaction-item', {'channel-reaction-item-error': displayValidationErrors && r.reaction.isValid === false}]">
-                <ChannelReaction :subject="subject" v-model="r.reaction" @input="hasPendingChanges = true"/>
-            </div>
-            <div class="text-right">
-                <a @click="addReaction()"
-                    class="btn btn-green btn-lg btn-wrapped">
-                    <i class="pe-7s-plus"></i>
-                    {{ $t('Add new reaction') }}
-                </a>
-            </div>
-        </PendingChangesPage>
+    <div>
+        <ListPage header-i18n="Reactions"
+            tile="reaction-tile"
+            endpoint="reactions?include=subject,owningChannel"
+            create-new-label-i18n="Create New Reaction"
+            :limit="$user.userData.limits.schedule"
+            :subject="subject"
+            @add="newReaction = {}"/>
+        <ChannelReactionModal v-if="newReaction" @cancel="newReaction = undefined" :subject="subject" v-model="newReaction"/>
     </div>
 </template>
 
 <script>
-    import ChannelReaction from "@/channels/reactions/channel-reaction.vue";
-    import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
-    import {warningNotification} from "@/common/notifier";
+    import ReactionTile from "./reaction-tile";
+    import ListPage from "../../common/pages/list-page";
+    import Vue from "vue";
+    import ChannelReactionModal from "@/channels/reactions/channel-reaction-modal.vue";
+
+    Vue.component('ReactionTile', ReactionTile);
 
     export default {
-        components: {PendingChangesPage, ChannelReaction},
+        components: {ChannelReactionModal, ListPage},
         props: {
             subject: Object,
         },
         data() {
             return {
-                hasPendingChanges: false,
-                displayValidationErrors: false,
-                reactions: [],
-            }
+                newReaction: undefined,
+            };
         },
-        methods: {
-            addReaction() {
-                this.reactions.push({reaction: {}});
-            },
-            saveReactions() {
-                if (this.reactions.find(r => r.reaction.isValid === false)) {
-                    this.displayValidationErrors = true;
-                    warningNotification(this.$t('Error'), this.$t('At least one reaction is not valid.'));
-                    return;
-                }
-                this.displayValidationErrors = false;
-                const reactions = this.reactions.map(r => r.reaction);
-                this.$http.put(`channels/${this.subject.id}/reactions`, reactions);
-            }
-        }
-    }
+    };
 </script>
-
-<style lang="scss">
-    @import "../../styles/variables";
-
-    .channel-reaction-item {
-        padding: 1em;
-        padding-bottom: 1.5em;
-        margin: 1em 0;
-        border-bottom: 1px solid $supla-grey-light;
-        &-error {
-            border: 1px solid $supla-red;
-        }
-    }
-</style>

@@ -51,6 +51,7 @@ class ValueBasedTrigger implements HasSubject {
     /**
      * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="ownReactions")
      * @ORM\JoinColumn(name="owning_channel_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Groups({"reaction.owningChannel"})
      */
     private $owningChannel;
 
@@ -92,6 +93,7 @@ class ValueBasedTrigger implements HasSubject {
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
+     * @Groups({"basic"})
      */
     private $action;
 

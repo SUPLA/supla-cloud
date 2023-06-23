@@ -48,8 +48,9 @@ class ReactionController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         $groups = [
-            'subject',
+            'subject', 'owningChannel',
             'subject' => 'reaction.subject',
+            'owningChannel' => 'reaction.owningChannel',
         ];
         return $groups;
     }
@@ -61,7 +62,7 @@ class ReactionController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject", "owningChannel"})),
      *     ),
      *     @OA\RequestBody(
      *       required=true,
@@ -98,7 +99,7 @@ class ReactionController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject", "owningChannel"})),
      *     ),
      *     @OA\RequestBody(
      *       required=true,
@@ -139,7 +140,7 @@ class ReactionController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject", "owningChannel"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Reaction"))),
      * )
@@ -159,7 +160,7 @@ class ReactionController extends RestController {
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
-     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject", "owningChannel"})),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Reaction")),
      * )
