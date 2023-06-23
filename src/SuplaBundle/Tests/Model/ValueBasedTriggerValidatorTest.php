@@ -48,6 +48,9 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::HUMIDITYANDTEMPERATURE(), '{"on_change_to": {"ge": 20, "name": "humidity"}}'],
             [ChannelFunction::DEPTHSENSOR(), '{"on_change_to": {"ge": 20}}'],
             [ChannelFunction::DEPTHSENSOR(), '{"on_change_to": {"ge": 20, "resume": {"lt": 10}}}'],
+            [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"eq": "hi"}}'],
+            [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), '{"on_change_to": {"ne": "closed"}}'],
+            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"eq": 20}}'],
         ];
     }
 
@@ -79,6 +82,9 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::DEPTHSENSOR(), '{"on_change_to": {"gt": 20, "name": "depth", "resume": {"le": 20}}}', 'not required'],
             [ChannelFunction::HUMIDITYANDTEMPERATURE(), '{"on_change_to": {"gt": 20}}', 'Missing trigger field'],
             [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"gt": 20}}', 'trigger unsupported for this function'],
+            [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"eq": "lo", "ne": "lo"}}', 'only one condition'],
+            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"eq": "lo"}}', 'must be numeric'],
+            [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"eq": "blabla"}}', 'comparison value'],
         ];
     }
 }

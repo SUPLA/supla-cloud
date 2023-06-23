@@ -11,13 +11,16 @@ use SuplaBundle\Enums\ChannelFunction;
  * @OA\Schema(schema="ReactionTrigger", description="Reaction trigger.",
  *   @OA\Property(property="on_change_to", type="object",
  *     oneOf={
- *       @OA\Schema(ref="#/components/schemas/ReactionTriggerThresholdLt"),
- *       @OA\Schema(ref="#/components/schemas/ReactionTriggerThresholdLe"),
- *       @OA\Schema(ref="#/components/schemas/ReactionTriggerThresholdGt"),
- *       @OA\Schema(ref="#/components/schemas/ReactionTriggerThresholdGe"),
+ *       @OA\Schema(ref="#/components/schemas/ReactionTriggerLt"),
+ *       @OA\Schema(ref="#/components/schemas/ReactionTriggerLe"),
+ *       @OA\Schema(ref="#/components/schemas/ReactionTriggerGt"),
+ *       @OA\Schema(ref="#/components/schemas/ReactionTriggerGe"),
+ *       @OA\Schema(ref="#/components/schemas/ReactionTriggerEq"),
+ *       @OA\Schema(ref="#/components/schemas/ReactionTriggerNe"),
  *     }
  *   )
  * )
+ * @OA\Schema(schema="ReactionTriggerFieldNames", type="string", example="temperature", enum={"temperature", "humidity"})
  */
 class ValueBasedTriggerValidator {
     private const FIELD_NAMES = [
@@ -37,31 +40,48 @@ class ValueBasedTriggerValidator {
         Assertion::isArray($trigger['on_change_to'], 'on_change_to must be an object');
         Assertion::count($trigger, 1, 'No extra keys allowed.');
         $onChangeTo = $trigger['on_change_to'];
+        $this->validateFieldName($channel, $onChangeTo);
         if (array_intersect_key($onChangeTo, array_flip(['lt', 'le', 'gt', 'ge']))) {
             $this->validateThresholdTrigger($channel, $onChangeTo);
+        } elseif (array_intersect_key($onChangeTo, array_flip(['eq', 'ne']))) {
+            $this->validateEqualityTrigger($channel, $onChangeTo);
         } else {
             throw new \InvalidArgumentException('Unrecognized trigger format.');
         }
     }
 
+    private function validateFieldName(IODeviceChannel $channel, array $onChangeTo): void {
+        $possibleFieldNames = array_filter(self::FIELD_NAMES, function ($functionIds) use ($channel) {
+            return in_array($channel->getFunction()->getId(), $functionIds);
+        });
+        if ($possibleFieldNames) {
+            if (count($possibleFieldNames) > 1 || isset($onChangeTo['name'])) {
+                Assertion::keyExists($onChangeTo, 'name', 'Missing trigger field definition.');
+                $possibleFieldNames = array_keys($possibleFieldNames);
+                Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name.');
+            }
+        } else {
+            Assertion::keyNotExists($onChangeTo, 'name', 'Field name is not required for this channel. Remove it.');
+        }
+    }
+
     /**
-     * @OA\Schema(schema="ReactionTriggerFieldNames", type="string", example="temperature", enum={"temperature", "humidity"})
-     * @OA\Schema(schema="ReactionTriggerThresholdLt", description="Reaction trigger based on numeric state (less than).",
+     * @OA\Schema(schema="ReactionTriggerLt", description="Reaction trigger based on numeric state (less than).",
      *     @OA\Property(property="lt", type="number"),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *     @OA\Property(property="resume", @OA\Property(property="ge", type="number"))
      * )
-     * @OA\Schema(schema="ReactionTriggerThresholdLe", description="Reaction trigger based on numeric state (less than or equal).",
+     * @OA\Schema(schema="ReactionTriggerLe", description="Reaction trigger based on numeric state (less than or equal).",
      *     @OA\Property(property="le", type="number"),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *     @OA\Property(property="resume", @OA\Property(property="gt", type="number"))
      * )
-     * @OA\Schema(schema="ReactionTriggerThresholdGt", description="Reaction trigger based on numeric state (greater than).",
+     * @OA\Schema(schema="ReactionTriggerGt", description="Reaction trigger based on numeric state (greater than).",
      *     @OA\Property(property="gt", type="number"),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *     @OA\Property(property="resume", @OA\Property(property="le", type="number"))
      * )
-     * @OA\Schema(schema="ReactionTriggerThresholdGe", description="Reaction trigger based on numeric state (greater than or equal).",
+     * @OA\Schema(schema="ReactionTriggerGe", description="Reaction trigger based on numeric state (greater than or equal).",
      *     @OA\Property(property="ge", type="number"),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *     @OA\Property(property="resume", @OA\Property(property="lt", type="number"))
@@ -86,17 +106,32 @@ class ValueBasedTriggerValidator {
                 Assertion::greaterOrEqualThan($onChangeTo[$operator], $resume[$resumeOperator], 'Resume value must be less than monitored value.');
             }
         }
-        $possibleFieldNames = array_filter(self::FIELD_NAMES, function ($functionIds) use ($channel) {
-            return in_array($channel->getFunction()->getId(), $functionIds);
-        });
-        if ($possibleFieldNames) {
-            if (count($possibleFieldNames) > 1 || isset($onChangeTo['name'])) {
-                Assertion::keyExists($onChangeTo, 'name', 'Missing trigger field definition.');
-                $possibleFieldNames = array_keys($possibleFieldNames);
-                Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name.');
-            }
+    }
+
+    /**
+     * @OA\Schema(schema="ReactionTriggerEq", description="Reaction trigger based on numeric or binary state (equal).",
+     *     @OA\Property(property="eq", oneOf={
+     *       @OA\Schema(type="number"),
+     *       @OA\Schema(type="string", enum={"hi", "closed", "on", "lo", "low", "open", "off"}),
+     *     }),
+     *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
+     * )
+     * @OA\Schema(schema="ReactionTriggerNe", description="Reaction trigger based on numeric or binary state (not equal).",
+     *     @OA\Property(property="ne", oneOf={
+     *       @OA\Schema(type="number"),
+     *       @OA\Schema(type="string", enum={"hi", "closed", "on", "lo", "low", "open", "off"}),
+     *     }),
+     *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
+     * )
+     */
+    private function validateEqualityTrigger(IODeviceChannel $channel, array $onChangeTo): void {
+        $mainCondition = array_intersect_key($onChangeTo, array_flip(['eq', 'ne']));
+        Assertion::count($mainCondition, 1, 'You must define only one condition for the threshold (eq, ne).');
+        $operator = key($mainCondition);
+        if (in_array($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT)) {
+            Assertion::numeric($onChangeTo[$operator], 'Threshold must be numeric.');
         } else {
-            Assertion::keyNotExists($onChangeTo, 'name', 'Field name is not required for this channel. Remove it.');
+            Assertion::inArray($onChangeTo[$operator], ['hi', 'closed', 'on', 'lo', 'low', 'open', 'off'], 'Invalid comparison value.');
         }
     }
 }
