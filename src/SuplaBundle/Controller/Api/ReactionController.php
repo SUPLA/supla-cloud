@@ -27,26 +27,124 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Serialization\RequestFiller\ValueBasedTriggerRequestFiller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @OA\Schema(
  *   schema="Reaction", type="object",
  *   @OA\Property(property="id", type="integer", description="Identifier"),
+ *   @OA\Property(property="actionId", ref="#/components/schemas/ChannelFunctionActionIds"),
+ *   @OA\Property(property="actionParam", nullable=true, ref="#/components/schemas/ChannelActionParams"),
+ *   @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+ *   @OA\Property(property="subjectId", type="integer"),
+ *   @OA\Property(property="owningChannelId", description="ID of the channel that this reaction belongs to.", type="integer"),
+ *   @OA\Property(property="subject", description="Only if requested by the `include` param.", ref="#/components/schemas/ActionableSubject"),
+ * )
+ * @OA\Schema(schema="ReactionTriggerThresholdLt", description="Reaction trigger based on numeric state.",
+ *     @OA\Property(property="lt", type="number")
+ * )
+ * @OA\Schema(schema="ReactionTrigger", description="Reaction trigger.",
+ *     @OA\Property(property="on_change_to", type="object",
+ *       oneOf={
+ *         @OA\Schema(ref="#/components/schemas/ReactionTriggerThresholdLt"),
+ *       }
+ *     )
  * )
  */
 class ReactionController extends RestController {
     use Transactional;
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
-        $groups = [];
+        $groups = [
+            'subject',
+            'subject' => 'reaction.subject',
+        ];
         return $groups;
     }
 
     /**
-     * @OA\Put(
-     *     path="/channels/{channel}/reactions", operationId="updateChannelReactions", summary="Update channel scenes", tags={"Channels"},
+     * @OA\Post(
+     *     path="/channels/{channel}/reactions", operationId="createChannelReaction", summary="Create channel reaction", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *     ),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *         @OA\Property(property="subjectId", type="integer"),
+     *         @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+     *         @OA\Property(property="actionId", ref="#/components/schemas/ChannelFunctionActionIds"),
+     *         @OA\Property(property="actionParam", nullable=true, ref="#/components/schemas/ChannelActionParams"),
+     *         @OA\Property(property="trigger", ref="#/components/schemas/ReactionTrigger"),
+     *         @OA\Property(property="enabled", type="boolean"),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Reaction")),
+     * )
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Rest\Post("/channels/{channel}/reactions")
+     */
+    public function postChannelReactionsAction(IODeviceChannel $channel, Request $request, ValueBasedTriggerRequestFiller $requestFiller) {
+        $this->ensureApiVersion24($request);
+        $vbt = $this->transactional(function (EntityManagerInterface $em) use ($request, $requestFiller, $channel) {
+            $vbt = new ValueBasedTrigger($this->getUser(), $channel);
+            $requestFiller->fillFromRequest($request, $vbt);
+            $em->persist($vbt);
+            return $vbt;
+        });
+        return $this->serializedView($vbt, $request);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/channels/{channel}/reactions/{reaction}", operationId="updateChannelReaction", summary="Update channel reaction", tags={"Channels"},
+     *     @OA\Parameter(description="Channel ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(description="Reaction ID", in="path", name="reaction", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *     ),
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(
+     *         @OA\Property(property="subjectId", type="integer"),
+     *         @OA\Property(property="subjectType", ref="#/components/schemas/ActionableSubjectTypeNames"),
+     *         @OA\Property(property="actionId", ref="#/components/schemas/ChannelFunctionActionIds"),
+     *         @OA\Property(property="actionParam", nullable=true, ref="#/components/schemas/ChannelActionParams"),
+     *         @OA\Property(property="trigger", ref="#/components/schemas/ReactionTrigger"),
+     *         @OA\Property(property="enabled", type="boolean"),
+     *       )
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Reaction")),
+     * )
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Rest\Put("/channels/{channel}/reactions/{vbt}")
+     */
+    public function putChannelReactionAction(
+        IODeviceChannel $channel,
+        ValueBasedTrigger $vbt,
+        Request $request,
+        ValueBasedTriggerRequestFiller $requestFiller
+    ) {
+        $this->ensureApiVersion24($request);
+        $this->ensureVbtBelongsToChannel($vbt, $channel);
+        $vbt = $this->transactional(function (EntityManagerInterface $em) use ($vbt, $request, $requestFiller, $channel) {
+            $requestFiller->fillFromRequest($request, $vbt);
+            $em->persist($vbt);
+            return $vbt;
+        });
+        return $this->serializedView($vbt, $request);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/channels/{channel}/reactions", operationId="getChannelReactions", summary="Get channel reactions", tags={"Channels"},
+     *     @OA\Parameter(description="Channel ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
@@ -54,28 +152,62 @@ class ReactionController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Reaction"))),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
-     * @Rest\Put("/channels/{channel}/reactions")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Rest\Get("/channels/{channel}/reactions")
      */
-    public function putChannelReactionsAction(IODeviceChannel $channel, Request $request, ValueBasedTriggerRequestFiller $requestFiller) {
+    public function getChannelReactionsAction(IODeviceChannel $channel, Request $request) {
         $this->ensureApiVersion24($request);
-        $reactions = $request->request->all();
-        $vbts = $this->transactional(function (EntityManagerInterface $em) use ($requestFiller, $reactions, $channel) {
-            // TODO clear
-            $list = [];
-            foreach ($reactions as $reaction) {
-                $vbt = new ValueBasedTrigger($this->getUser(), $channel);
-                $requestFiller->fillFromData($reaction, $vbt);
-                $em->persist($vbt);
-                $list[] = $vbt;
-            }
-            return $list;
+        return $this->serializedView($channel->getOwnReactions(), $request);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/channels/{channel}/reactions/{reaction}", operationId="getChannelReaction", summary="Get channel reaction", tags={"Channels"},
+     *     @OA\Parameter(description="Channel ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(description="Reaction ID", in="path", name="reaction", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"subject"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Reaction")),
+     * )
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Rest\Get("/channels/{channel}/reactions/{vbt}")
+     */
+    public function getChannelReactionAction(IODeviceChannel $channel, ValueBasedTrigger $vbt, Request $request) {
+        $this->ensureApiVersion24($request);
+        $this->ensureVbtBelongsToChannel($vbt, $channel);
+        return $this->serializedView($vbt, $request);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/channels/{channel}/reactions/{reaction}", operationId="deleteChannelReaction", summary="Delete channel reaction", tags={"Channels"},
+     *     @OA\Parameter(description="Channel ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
+     *     @OA\Parameter(description="Reaction ID", in="path", name="reaction", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response="204", description="Success"),
+     * )
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Rest\Delete("/channels/{channel}/reactions/{vbt}")
+     */
+    public function deleteChannelReactionAction(IODeviceChannel $channel, ValueBasedTrigger $vbt, Request $request) {
+        $this->ensureApiVersion24($request);
+        $this->ensureVbtBelongsToChannel($vbt, $channel);
+        $this->transactional(function (EntityManagerInterface $em) use ($vbt) {
+            $em->remove($vbt);
         });
-        return $this->serializedView($vbts, $request);
+        return new Response('', Response::HTTP_NO_CONTENT);
     }
 
     private function ensureApiVersion24(Request $request) {
         if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            throw new NotFoundHttpException();
+        }
+    }
+
+    private function ensureVbtBelongsToChannel(ValueBasedTrigger $vbt, IODeviceChannel $channel): void {
+        if ($channel->getId() !== $vbt->getOwningChannel()->getId()) {
             throw new NotFoundHttpException();
         }
     }

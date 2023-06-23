@@ -21,6 +21,8 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Entity\Main\ValueBasedTrigger;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -56,18 +58,88 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->thermometer = $this->device->getChannels()[1];
     }
 
-    public function testSavingReactions() {
+    public function testCreatingReaction() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('PUT', "/api/channels/{$this->thermometer->getId()}/reactions", [
-            [
-                'subjectId' => $this->lightswitch->getId(), 'subjectType' => $this->lightswitch->getOwnSubjectType(),
-                'actionId' => ChannelFunctionAction::TURN_ON,
-                'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
-            ],
+        $client->apiRequestV24('POST', "/api/channels/{$this->thermometer->getId()}/reactions", [
+            'subjectId' => $this->lightswitch->getId(), 'subjectType' => $this->lightswitch->getOwnSubjectType(),
+            'actionId' => ChannelFunctionAction::TURN_ON,
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(1, $content);
+        $this->assertArrayHasKey('subjectId', $content);
+        $this->assertArrayHasKey('trigger', $content);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['subjectType']);
+        return $content['id'];
+    }
+
+    /** @depends testCreatingReaction */
+    public function testGettingReaction(int $id) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$this->thermometer->getId()}/reactions/{$id}");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(ChannelFunctionAction::TURN_ON, $content['actionId']);
+        $this->assertEquals(20, $content['trigger']['on_change_to']['lt']);
+    }
+
+    /** @depends testCreatingReaction */
+    public function testCantGetReactionFromNotOwnedChannel(int $id) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$this->lightswitch->getId()}/reactions/{$id}");
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+    }
+
+    /** @depends testCreatingReaction */
+    public function testGettingReactions() {
+        $this->testCreatingReaction();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$this->thermometer->getId()}/reactions");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content);
+        $reaction = $content[0];
+        $this->assertEquals(ChannelFunctionAction::TURN_ON, $reaction['actionId']);
+        $this->assertEquals(20, $reaction['trigger']['on_change_to']['lt']);
+    }
+
+    /** @depends testGettingReactions */
+    public function testGettingReactionsRelationsCount() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$this->thermometer->getId()}");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('ownReactions', $content['relationsCount']);
+        $this->assertEquals(2, $content['relationsCount']['ownReactions']);
+    }
+
+    /** @depends testCreatingReaction */
+    public function testUpdatingReaction(int $id) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', "/api/channels/{$this->thermometer->getId()}/reactions/{$id}", [
+            'subjectId' => $this->lightswitch->getId(), 'subjectType' => $this->lightswitch->getOwnSubjectType(),
+            'actionId' => ChannelFunctionAction::TURN_OFF,
+            'trigger' => ['on_change_to' => ['lt' => 30, 'name' => 'temperature', 'resume' => ['ge' => 30]]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(ChannelFunctionAction::TURN_OFF, $content['actionId']);
+        $this->assertEquals(30, $content['trigger']['on_change_to']['lt']);
+    }
+
+    /** @depends testCreatingReaction */
+    public function testDeletingReaction(int $id) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('DELETE', "/api/channels/{$this->thermometer->getId()}/reactions/{$id}");
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+        $this->assertNull($this->getEntityManager()->find(ValueBasedTrigger::class, $id));
     }
 }

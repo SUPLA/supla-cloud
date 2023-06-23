@@ -49,42 +49,45 @@ class ValueBasedTrigger implements HasSubject {
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="pushNotifications")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="ownReactions")
      * @ORM\JoinColumn(name="owning_channel_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $owningChannel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="sceneOperations")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="reactions")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="sceneOperations")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="reactions")
      * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="sceneOperations")
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="reactions")
      * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $scene;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Schedule", inversedBy="sceneOperations")
+     * @ORM\ManyToOne(targetEntity="Schedule", inversedBy="reactions")
      * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $schedule;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PushNotification", inversedBy="pushNotifications", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="PushNotification", inversedBy="reactions", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $pushNotification;
 
-    /** @ORM\Column(name="`trigger`", type="string", length=2048, nullable=true) */
+    /**
+     * @ORM\Column(name="`trigger`", type="string", length=2048, nullable=true)
+     * @Groups({"basic"})
+     */
     private $trigger;
 
     /**
