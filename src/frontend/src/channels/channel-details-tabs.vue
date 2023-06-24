@@ -74,7 +74,7 @@
                 const currentTab = this.availableTabs.filter(tab => tab.id === id)[0];
                 this.currentTab = currentTab ? currentTab.id : (this.availableTabs[0] ? this.availableTabs[0].id : undefined);
                 if (this.$route.query.tab !== this.currentTab) {
-                    this.$router.push({query: {tab: id}});
+                    this.$router.push({name: 'channel', params: {id: this.channel.id}, query: {tab: id}});
                 }
             },
             rerenderMeasurementsHistory() {
@@ -147,7 +147,9 @@
         },
         watch: {
             '$route.query.tab'() {
-                this.changeTab(this.$route.query.tab);
+                if (this.$route.name === 'channel') {
+                    this.changeTab(this.$route.query.tab);
+                }
             }
         },
     };

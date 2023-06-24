@@ -1,29 +1,30 @@
 <template>
     <div>
-        <ListPage v-if="listLoaded"
+        <CarouselPage v-if="listLoaded"
+            permanent-carousel-view
             header-i18n="Reactions"
             tile="reaction-tile"
-            endpoint="reactions?include=subject,owningChannel"
+            :endpoint="`channels/${subject.id}/reactions?include=subject,owningChannel`"
             create-new-label-i18n="Create New Reaction"
+            list-route="channel"
+            details-route="channelReaction"
+            id-param-name="reactionId"
             :limit="$user.userData.limits.schedule"
-            :subject="subject"
+            :new-item-factory="newReactionFactory"
             @add="newReaction = {}"/>
-        <ChannelReactionModal v-if="newReaction" :subject="subject" v-model="newReaction"
-            @cancel="newReaction = undefined" @confirm="addNewReaction($event)"/>
     </div>
 </template>
 
 <script>
     import ReactionTile from "./reaction-tile";
-    import ListPage from "../../common/pages/list-page";
     import Vue from "vue";
-    import ChannelReactionModal from "@/channels/reactions/channel-reaction-modal.vue";
     import {successNotification} from "@/common/notifier";
+    import CarouselPage from "@/common/pages/carousel-page.vue";
 
     Vue.component('ReactionTile', ReactionTile);
 
     export default {
-        components: {ChannelReactionModal, ListPage},
+        components: {CarouselPage},
         props: {
             subject: Object,
         },
@@ -34,6 +35,11 @@
             };
         },
         methods: {
+            newReactionFactory() {
+                return {
+                    owningChannel: this.subject,
+                };
+            },
             addNewReaction(reaction) {
                 this.$http.post(`channels/${this.subject.id}/reactions`, reaction)
                     .then(() => {

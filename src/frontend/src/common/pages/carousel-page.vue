@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="item">
+        <div v-if="item || permanentCarouselView">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
@@ -51,7 +51,25 @@
     import $ from "jquery";
 
     export default {
-        props: ['headerI18n', 'tile', 'filters', 'endpoint', 'createNewLabelI18n', 'detailsRoute', 'listRoute', 'limit'],
+        props: {
+            headerI18n: String,
+            tile: String,
+            filters: String,
+            endpoint: String,
+            createNewLabelI18n: String,
+            detailsRoute: String,
+            listRoute: String,
+            limit: Number,
+            permanentCarouselView: Boolean,
+            idParamName: {
+                type: String,
+                default: 'id',
+            },
+            newItemFactory: {
+                type: Function,
+                default: () => ({}),
+            }
+        },
         components: {ListPage, SquareLinksCarouselWithFilters},
         data() {
             return {
@@ -63,12 +81,12 @@
             this.$http.get(this.endpoint)
                 .then(({body}) => {
                     this.items = body;
-                    if (this.$route.params.id) {
-                        const selected = this.items.find(item => item.id == this.$route.params.id);
+                    if (this.$route.params[this.idParamName]) {
+                        const selected = this.items.find(item => item.id == this.$route.params[this.idParamName]);
                         if (selected) {
                             this.itemChanged(selected);
-                        } else if (this.$route.params.id === 'new') {
-                            this.itemChanged({});
+                        } else if (this.$route.params[this.idParamName] === 'new') {
+                            this.itemChanged(this.newItemFactory());
                         }
                     }
                 });
@@ -79,15 +97,15 @@
                     if (this.limit && this.items.length >= this.limit) {
                         return warningNotification('Error', 'Limit has been exceeded', this);
                     }
-                    this.$router.push({name: this.detailsRoute, params: {id: 'new'}}).catch(() => {
-                    });
+                    item = this.newItemFactory();
+                    this.$router.push({name: this.detailsRoute, params: {[this.idParamName]: 'new'}}).catch(() => undefined);
                 }
                 this.item = item;
             },
             onItemAdded(item) {
                 this.items.push(item);
                 this.item = item;
-                this.$router.push({name: this.detailsRoute, params: {id: item.id}});
+                this.$router.push({name: this.detailsRoute, params: {[this.idParamName]: item.id}});
             },
             onItemUpdated(item) {
                 const itemToUpdate = this.items.find(c => item.id == c.id);
@@ -105,16 +123,19 @@
             }
         },
         watch: {
-            '$route.params.id'() {
-                if (this.$route.params.id) {
-                    let selected = this.items.find(item => item.id == this.$route.params.id);
-                    if (!selected) {
-                        selected = {};
+            '$route.params': {
+                handler() {
+                    if (this.$route.params[this.idParamName]) {
+                        let selected = this.items.find(item => item.id == this.$route.params[this.idParamName]);
+                        if (!selected) {
+                            selected = {};
+                        }
+                        this.itemChanged(selected);
+                    } else {
+                        this.item = undefined;
                     }
-                    this.itemChanged(selected);
-                } else {
-                    this.item = undefined;
-                }
+                },
+                deep: true,
             }
         }
     };

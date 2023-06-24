@@ -84,7 +84,6 @@
                 }
             },
             initSelectPicker() {
-                console.log(this.selectOptions)
                 Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
             },
         },

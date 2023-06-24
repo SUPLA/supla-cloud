@@ -1,30 +1,20 @@
 <template>
-    <modal-confirm @cancel="$emit('cancel')" @confirm="submitForm()" :header="$t('Configure behavior')" :loading="loading">
-        <div class="channel-reaction">
-            <div class="mb-3">
-                <ChannelReactionConditionChooser :subject="subject" v-model="trigger" @input="updateModel()"
-                    v-if="editingWhat === 'trigger'"/>
-                <a class="step-link" @click="editingWhat = 'trigger'" v-else>{{ triggerCaption }}</a>
+    <div>
+        <h2 v-if="item.id">{{ $t('Edit reaction') }}</h2>
+        <h2 v-else>{{ $t('New reaction') }}</h2>
+        <div class="channel-reaction row">
+            <div class="col-sm-6">
+                <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="updateModel()"/>
             </div>
-
-            <div v-if="editingWhat === 'action'">
-
-                <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1"
-                    dropdown-container=".modal-wrapper"/>
+            <div class="col-sm-6">
+                <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1"/>
                 <div v-if="targetSubject">
                     <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
-                        @input="updateModel()" dropdown-container=".modal-wrapper"/>
+                        @input="updateModel()"/>
                 </div>
             </div>
-            <a class="step-link" @click="editingWhat = 'action'" v-else>
-                <span v-if="action">
-                    {{ $t(action.caption) }}
-                    {{ subjectCaption }}
-                </span>
-                <span v-else>{{ $t('choose the action') }}</span>
-            </a>
         </div>
-    </modal-confirm>
+    </div>
 </template>
 
 <script>
@@ -37,16 +27,13 @@
     export default {
         components: {ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser},
         props: {
-            subject: Object,
-            value: Object,
+            item: Object,
         },
         data() {
             return {
-                trigger: {},//{on_change_to: {gt: 33, name: 'temperature'}},
+                trigger: {},
                 targetSubject: undefined,
                 action: undefined,
-                editingWhat: 'trigger',
-                loading: false,
             };
         },
         methods: {
@@ -75,6 +62,9 @@
                     return '';
                 }
                 return this.targetSubject.caption || `ID${this.targetSubject.id} ${this.$t(this.targetSubject.function.caption)}`;
+            },
+            owningChannel() {
+                return this.item?.owningChannel;
             },
         }
     }

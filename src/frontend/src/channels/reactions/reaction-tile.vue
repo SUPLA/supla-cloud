@@ -1,13 +1,14 @@
 <template>
     <square-link :class="'clearfix pointer lift-up ' + (model.enabled ? 'green' : 'grey')" @click="$emit('click')">
-        <a class="text-center">
+        <router-link :to="{name: 'channelReaction', params: {id: this.model.owningChannel.id, reactionId: this.model.id}}"
+            class="text-center">
             <h3>{{ triggerCaption }}</h3>
             <fa icon="chevron-down"/>
             <h4>
                 {{ $t(model.action.caption) }}
                 {{ subjectCaption }}
             </h4>
-        </a>
+        </router-link>
     </square-link>
 </template>
 
