@@ -106,6 +106,7 @@
                 this.items.push(item);
                 this.item = item;
                 this.$router.push({name: this.detailsRoute, params: {[this.idParamName]: item.id}});
+                this.$emit('count', this.items.length);
             },
             onItemUpdated(item) {
                 const itemToUpdate = this.items.find(c => item.id == c.id);
@@ -115,6 +116,7 @@
                 this.items.splice(this.items.indexOf(this.item), 1);
                 this.item = undefined;
                 this.$router.push({name: this.listRouteName});
+                this.$emit('count', this.items.length);
             }
         },
         computed: {

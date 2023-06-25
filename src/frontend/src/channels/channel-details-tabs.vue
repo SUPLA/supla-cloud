@@ -17,7 +17,7 @@
         </div>
         <div v-if="currentTab == 'reactions'">
             <div class="container">
-                <ChannelReactionsConfig :subject="channel"/>
+                <ChannelReactionsConfig :subject="channel" @count="setCount('reactions', $event)"/>
             </div>
         </div>
         <div v-if="currentTab == 'actionTriggers'">
@@ -73,20 +73,23 @@
             changeTab(id) {
                 const currentTab = this.availableTabs.filter(tab => tab.id === id)[0];
                 this.currentTab = currentTab ? currentTab.id : (this.availableTabs[0] ? this.availableTabs[0].id : undefined);
-                if (this.$route.query.tab !== this.currentTab) {
+                if (this.$route.query.tab && this.$route.query.tab !== this.currentTab) {
                     this.$router.push({name: 'channel', params: {id: this.channel.id}, query: {tab: id}});
                 }
             },
             rerenderMeasurementsHistory() {
                 this.currentTab = undefined;
                 this.$nextTick(() => this.currentTab = 'measurementsHistory');
-            }
+            },
+            setCount(tabId, count) {
+                this.availableTabs.find(t => t.id = tabId).count = count;
+            },
         },
         mounted() {
             this.availableTabs.push({
                 id: 'reactions',
                 header: 'Reactions', // i18n
-                count: 666,
+                count: this.channel.relationsCount.ownReactions,
             });
             if (this.channel.possibleActions?.length) {
                 if (this.channel.actionTriggersIds?.length) {
