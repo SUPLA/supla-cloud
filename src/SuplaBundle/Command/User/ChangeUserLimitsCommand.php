@@ -70,6 +70,8 @@ class ChangeUserLimitsCommand extends Command {
                      'limitOperationsPerScene' => 'Operations per Scene',
                      'limitSchedule' => 'Schedules',
                      'limitActionsPerSchedule' => 'Actions per Schedule',
+                     'limitPushNotifications' => 'Push notifications',
+                     'limitValueBasedTriggers' => 'Value based triggers (reactions)',
                  ] as $field => $label) {
             $currentLimit = EntityUtils::getField($user, $field);
             $newLimit = $limitForAll

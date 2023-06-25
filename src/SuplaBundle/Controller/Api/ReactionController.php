@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
@@ -83,7 +84,9 @@ class ReactionController extends RestController {
     public function postChannelReactionsAction(IODeviceChannel $channel, Request $request, ValueBasedTriggerRequestFiller $requestFiller) {
         $this->ensureApiVersion24($request);
         $vbt = $this->transactional(function (EntityManagerInterface $em) use ($request, $requestFiller, $channel) {
-            $vbt = new ValueBasedTrigger($this->getUser(), $channel);
+            $user = $this->getUser();
+            Assertion::false($user->isLimitReactionsExceeded(), 'Reactions limit has been exceeded'); // i18n
+            $vbt = new ValueBasedTrigger($user, $channel);
             $requestFiller->fillFromRequest($request, $vbt);
             $em->persist($vbt);
             return $vbt;
