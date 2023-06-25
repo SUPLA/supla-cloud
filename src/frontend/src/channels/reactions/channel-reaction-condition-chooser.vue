@@ -2,32 +2,27 @@
     <div>
         <div class="panel-group panel-accordion m-0">
             <div v-for="possibleCondition in possibleConditions" :key="possibleCondition.caption">
-                <transition-expand>
-                    <div v-if="!currentCondition || isSelected(possibleCondition)">
-                        <div v-if="possibleConditions.length > 1"
-                            :class="['panel panel-default', {'panel-success': isSelected(possibleCondition), 'action-without-params': true}]">
-                            <div class="panel-heading d-flex"
-                                @click="changeCondition(possibleCondition)">
-                                <a role="button"
-                                    tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
-                                    class="text-inherit flex-grow-1">
-                                    {{ $t(possibleCondition.caption) }}
-                                </a>
-                                <div>
-                                    <span v-if="isSelected(possibleCondition)" class="glyphicon glyphicon-ok"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="possibleCondition.component">
-                            <transition-expand>
-                                <div class="" v-if="isSelected(possibleCondition)">
-                                    <Component :is="possibleCondition.component"
-                                        v-model="currentConditionJson" v-bind="possibleCondition.props || {}"/>
-                                </div>
-                            </transition-expand>
+                <div :class="['panel panel-default', {'panel-success': isSelected(possibleCondition)}]">
+                    <div class="panel-heading d-flex" v-if="possibleConditions.length > 1"
+                        @click="changeCondition(possibleCondition)">
+                        <a role="button"
+                            tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
+                            class="text-inherit flex-grow-1">
+                            {{ $t(possibleCondition.caption) }}
+                        </a>
+                        <div>
+                            <span v-if="isSelected(possibleCondition)" class="glyphicon glyphicon-ok"></span>
                         </div>
                     </div>
-                </transition-expand>
+                    <div v-if="isSelected(possibleCondition) && possibleCondition.component">
+                        <transition-expand>
+                            <div class="panel-body" v-if="isSelected(possibleCondition)">
+                                <Component :is="possibleCondition.component"
+                                    v-model="currentConditionJson" v-bind="possibleCondition.props || {}"/>
+                            </div>
+                        </transition-expand>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

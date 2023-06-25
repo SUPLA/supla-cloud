@@ -1,13 +1,24 @@
 <template>
-    <PendingChangesPage :header="item.id ? $t('Edit reaction') : $t('New reaction')" :is-pending="hasPendingChanges" :deletable="!!item.id"
+    <PendingChangesPage :header="item.id ? $t('Edit reaction') : $t('New reaction')" :is-pending="hasPendingChanges"
+        :deletable="!!item.id" :cancellable="!!item.id"
         @delete="deleteConfirm = true"
         @cancel="cancelChanges()"
         @save="submitForm()">
         <div class="channel-reaction row mt-3">
             <div class="col-sm-6">
+                <transition-expand>
+                    <div class="alert alert-danger" v-if="displayValidationErrors && !trigger">
+                        {{ $t('Please select a valid condition') }}
+                    </div>
+                </transition-expand>
                 <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="onChanged()"/>
             </div>
             <div class="col-sm-6">
+                <transition-expand>
+                    <div class="alert alert-danger" v-if="displayValidationErrors && !action">
+                        {{ $t('Please select a valid action') }}
+                    </div>
+                </transition-expand>
                 <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1"/>
                 <div v-if="targetSubject">
                     <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
@@ -33,23 +44,25 @@
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
     import {successNotification} from "@/common/notifier";
     import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
+    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     export default {
-        components: {PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser},
+        components: {TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser},
         props: {
             item: Object,
         },
         data() {
             return {
-                trigger: {},
+                trigger: undefined,
                 targetSubject: undefined,
                 action: undefined,
                 hasPendingChanges: false,
                 deleteConfirm: false,
                 loading: false,
+                displayValidationErrors: false,
             };
         },
-        mounted() {
+        beforeMount() {
             if (this.item.id) {
                 this.initFromItem();
             }
@@ -63,16 +76,21 @@
             },
             initFromItem() {
                 this.hasPendingChanges = false;
+                this.displayValidationErrors = false;
                 this.trigger = this.item.trigger ? {...this.item.trigger} : {};
                 this.targetSubject = this.item.subject ? {...this.item.subject} : undefined;
                 this.action = this.item.actionId ? {id: this.item.actionId, param: {...this.item.actionParam}} : undefined;
             },
             submitForm() {
-                const updateFunc = this.item.id ? 'updateReaction' : 'addNewReaction';
-                this.loading = true;
-                this[updateFunc]()
-                    .then(() => this.hasPendingChanges = false)
-                    .finally(() => this.loading = false);
+                this.displayValidationErrors = true;
+                if (this.reaction.isValid) {
+                    const updateFunc = this.item.id ? 'updateReaction' : 'addNewReaction';
+                    this.loading = true;
+                    this[updateFunc]()
+                        .then(() => this.hasPendingChanges = false)
+                        .then(() => this.displayValidationErrors = false)
+                        .finally(() => this.loading = false);
+                }
             },
             addNewReaction() {
                 return this.$http.post(`channels/${this.owningChannel.id}/reactions?include=subject,owningChannel`, this.reaction)

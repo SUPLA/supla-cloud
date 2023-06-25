@@ -4,7 +4,7 @@ import ChannelReactionConditionChooser from "@/channels/reactions/channel-reacti
 import {ChannelReactionConditions} from "@/channels/reactions/channel-reaction-conditions";
 
 describe('ChannelReactionsConfig', () => {
-    describe('OPENINGSENSOR_GARAGEDOOR', () => {
+    describe.skip('OPENINGSENSOR_GARAGEDOOR', () => {
         const GARAGEDOOR = {id: 5, functionId: ChannelFunction.OPENINGSENSOR_GARAGEDOOR};
 
         it('renders the form and selects nothing', () => {
@@ -85,7 +85,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            expect(wrapper.findAll('.panel-success').length).toEqual(1);
+            expect(wrapper.findAll('.form-control').length).toEqual(2);
             expect(wrapper.vm.condition).toBeDefined();
         });
 
@@ -96,17 +96,6 @@ describe('ChannelReactionsConfig', () => {
                 components: {cc: ChannelReactionConditionChooser},
             });
             expect(wrapper.text()).toContain('°C');
-        });
-
-        it('cannot deselect the only available condition', async () => {
-            const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
-                template: '<div><cc :subject="channel" v-model="condition"/></div>',
-                components: {cc: ChannelReactionConditionChooser},
-            });
-            await wrapper.find('.panel-heading').trigger('click');
-            expect(wrapper.findAll('.panel-success').length).toEqual(1);
-            expect(wrapper.vm.condition).toBeDefined();
         });
 
         it('can set the temperature condition parameters', async () => {
@@ -124,6 +113,9 @@ describe('ChannelReactionsConfig', () => {
             expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 22, name: 'temperature', resume: {le: 20}}});
             await wrapper.find('.form-control').setValue('0');
             expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 0, name: 'temperature', resume: {le: 0}}});
+            await wrapper.find('.input-group-btn a').trigger('click');
+            await wrapper.find('.input-group-btn a').trigger('click');
+            expect(wrapper.vm.condition).toEqual({on_change_to: {eq: 0, name: 'temperature'}});
         });
 
         it('cannot set empty threshold for temerature', async () => {

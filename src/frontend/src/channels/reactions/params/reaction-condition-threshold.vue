@@ -5,7 +5,9 @@
             <span class="input-group">
                 <span class="input-group-btn">
                     <a class="btn btn-white" @click="nextOperator()">
-                        <span v-if="operator === 'lt'">&lt;</span>
+                        <span v-if="operator === 'eq'">=</span>
+                        <span v-else-if="operator === 'ne'">&ne;</span>
+                        <span v-else-if="operator === 'lt'">&lt;</span>
                         <span v-else-if="operator === 'le'">&le;</span>
                         <span v-else-if="operator === 'gt'">&gt;</span>
                         <span v-else>&ge;</span>
@@ -19,34 +21,29 @@
                 <span class="input-group-addon">{{ unit }}</span>
             </span>
         </div>
-        <p class="text-right">
+        <p>
             {{ $t('then execute the action') }}
-            {{ $t(suspendLabel) }}
+            <span v-if="resumeOperator">{{ $t(suspendLabel) }}</span>
         </p>
-        <div class="row">
-            <div class="col-xs-8 col-xs-offset-4">
-
-                <div class="form-group">
-                    <span class="input-group">
-                        <span class="input-group-addon">
-                            <span v-if="resumeOperator === 'lt'">&lt;</span>
-                            <span v-else-if="resumeOperator === 'le'">&le;</span>
-                            <span v-else-if="resumeOperator === 'gt'">&gt;</span>
-                            <span v-else>&ge;</span>
-                        </span>
-                        <input type="number" required class="form-control" v-model="resumeThreshold"
-                            :min="['lt', 'le'].includes(operator) ? threshold : undefined"
-                            :max="['gt', 'ge'].includes(operator) ? threshold : undefined">
-                        <span class="input-group-addon">{{ unit }}</span>
-                    </span>
-                </div>
-            </div>
+        <div class="form-group" v-if="resumeOperator">
+            <span class="input-group">
+                <span class="input-group-addon">
+                    <span v-if="resumeOperator === 'lt'">&lt;</span>
+                    <span v-else-if="resumeOperator === 'le'">&le;</span>
+                    <span v-else-if="resumeOperator === 'gt'">&gt;</span>
+                    <span v-else>&ge;</span>
+                </span>
+                <input type="number" required class="form-control" v-model="resumeThreshold"
+                    :min="['lt', 'le'].includes(operator) ? threshold : undefined"
+                    :max="['gt', 'ge'].includes(operator) ? threshold : undefined">
+                <span class="input-group-addon">{{ unit }}</span>
+            </span>
         </div>
     </div>
 </template>
 
 <script>
-    const OPERATORS = ['lt', 'le', 'gt', 'ge'];
+    const OPERATORS = ['lt', 'le', 'gt', 'ge', 'eq', 'ne'];
     export default {
         props: {
             value: Object,
@@ -84,7 +81,10 @@
         },
         methods: {
             updateModel() {
-                const value = {[this.operatorValue]: this.thresholdValue, resume: {[this.resumeOperator]: this.resumeThresholdValue}};
+                const value = {[this.operatorValue]: this.thresholdValue};
+                if (this.resumeOperator) {
+                    value.resume = {[this.resumeOperator]: this.resumeThresholdValue};
+                }
                 this.onChangeTo = value;
             },
             nextOperator() {

@@ -11,6 +11,7 @@
                     <div class="btn-toolbar"
                         v-if="showPendingButtons">
                         <a class="btn btn-grey"
+                            v-if="cancellable"
                             @click="$emit('cancel')">
                             <i class="pe-7s-back"></i>
                             {{ $t('Cancel changes') }}
@@ -44,6 +45,7 @@
                 <div class="btn-toolbar"
                     v-if="isPending">
                     <a class="btn btn-grey"
+                        v-if="cancellable"
                         @click="$emit('cancel')">
                         <i class="pe-7s-back"></i>
                         {{ $t('Cancel changes') }}
@@ -61,7 +63,7 @@
 
 <script>
     export default {
-        props: ['header', 'deletable', 'isPending'],
+        props: ['header', 'deletable', 'cancellable', 'isPending'],
         data() {
             return {
                 lastPendingState: false,

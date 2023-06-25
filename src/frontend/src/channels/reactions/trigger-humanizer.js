@@ -10,6 +10,7 @@ const DEFAULT_FIELD_NAMES = {
     [ChannelFunction.THERMOMETER]: 'the temperature', // di18n
     [ChannelFunction.HUMIDITY]: 'the humidity', // di18n
     [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: 'the garage door', // i18n
+    [ChannelFunction.OPENINGSENSOR_GATE]: 'the gate', // i18n
     [ChannelFunction.LIGHTSWITCH]: 'the device', // i18n
     [ChannelFunction.POWERSWITCH]: 'the device', // i18n
 };
