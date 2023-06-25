@@ -42,28 +42,20 @@ export function triggerHumanizer(channelFunction, trigger, vue) {
     } else if (onChangeTo.name) {
         field = vue.$t(onChangeTo.name);
     }
-    if (Object.hasOwn(onChangeTo, 'eq')) {
-        const value = translateState(onChangeTo.eq, vue);
+    let operator;
+    for (const op of ['eq', 'ne', 'lt', 'gt', 'le', 'ge']) {
+        if (Object.hasOwn(onChangeTo, op)) {
+            operator = op;
+        }
+    }
+    if (operator) {
+        const value = translateState(onChangeTo[operator], vue);
         if (Number.isFinite(value)) {
-            return vue.$t('When {field} will be equal to {value}', {field, value});
+            const operatorLabel = {eq: '=', ne: '≠', le: '≤', lt: '<', ge: '≥', gt: '>'}[operator];
+            return vue.$t('When {field} {operator} {value}', {field, operator: operatorLabel || operator, value});
         } else {
             return vue.$t('When {field} will be {value}', {field, value});
         }
-    } else if (Object.hasOwn(onChangeTo, 'ne')) {
-        const value = translateState(onChangeTo.ne, vue);
-        if (Number.isFinite(value)) {
-            return vue.$t('When {field} will be different than {value}', {field, value});
-        } else {
-            return vue.$t('When {field} will not be {value}', {field, value});
-        }
-    } else if (Object.hasOwn(onChangeTo, 'lt')) {
-        return vue.$t('When {field} will be lower than {value}', {field, value: onChangeTo.lt});
-    } else if (Object.hasOwn(onChangeTo, 'gt')) {
-        return vue.$t('When {field} will be greater than {value}', {field, value: onChangeTo.gt});
-    } else if (Object.hasOwn(onChangeTo, 'le')) {
-        return vue.$t('When {field} will be lower than or equal to {value}', {field, value: onChangeTo.le});
-    } else if (Object.hasOwn(onChangeTo, 'ge')) {
-        return vue.$t('When {field} will be greater than or equal to {value}', {field, value: onChangeTo.ge});
     }
     return vue.$t('When the condition is met');
 }
