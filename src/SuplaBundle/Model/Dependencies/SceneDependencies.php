@@ -41,7 +41,7 @@ class SceneDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($directLink);
         }
         foreach ($scene->getOperationsThatReferToThisScene() as $sceneOperation) {
-            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager, $this->suplaServer);
+            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
         }
         $this->clearActionTriggersThatReferencesSubject($scene);
     }

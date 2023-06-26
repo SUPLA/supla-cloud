@@ -8,10 +8,8 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Supla\SuplaServerAware;
 
 abstract class ActionableSubjectDependencies {
-    use SuplaServerAware;
 
     /** @var EntityManagerInterface */
     protected $entityManager;

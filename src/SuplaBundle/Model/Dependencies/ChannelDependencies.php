@@ -57,7 +57,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($directLink);
         }
         foreach ($channel->getSceneOperations() as $sceneOperation) {
-            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager, $this->suplaServer);
+            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
         }
         $this->clearActionTriggersThatReferencesSubject($channel);
     }

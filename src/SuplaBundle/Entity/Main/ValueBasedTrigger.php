@@ -22,14 +22,14 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\HasSubject;
 use SuplaBundle\Entity\HasSubjectTrait;
-use SuplaBundle\Entity\Main\Listeners\ValueBasedTriggerListener;
+use SuplaBundle\Entity\Main\Listeners\ValueBasedTriggerEntityListener;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity
- * @ORM\EntityListeners({ValueBasedTriggerListener::class})
+ * @ORM\EntityListeners({ValueBasedTriggerEntityListener::class})
  * @ORM\Table(name="supla_value_based_trigger")
  */
 class ValueBasedTrigger implements HasSubject {

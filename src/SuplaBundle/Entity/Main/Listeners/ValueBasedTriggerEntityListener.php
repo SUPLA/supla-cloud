@@ -5,7 +5,7 @@ namespace SuplaBundle\Entity\Main\Listeners;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Supla\SuplaServerAware;
 
-class ValueBasedTriggerListener {
+class ValueBasedTriggerEntityListener {
     use SuplaServerAware;
 
     /**

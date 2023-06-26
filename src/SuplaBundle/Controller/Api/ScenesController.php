@@ -38,7 +38,6 @@ use SuplaBundle\Model\Dependencies\SceneDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\SceneRepository;
 use SuplaBundle\Serialization\RequestFiller\SceneRequestFiller;
-use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\SceneUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,7 +85,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ScenesController extends RestController {
     use Transactional;
-    use SuplaServerAware;
 
     /** @var SceneRepository */
     private $sceneRepository;
@@ -287,7 +285,6 @@ class ScenesController extends RestController {
             SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
             return $scene;
         });
-        $this->suplaServer->userAction('ON-SCENE-ADDED', $scene->getId());
         return $this->serializedView($scene, $request, ['scene.relationsCount'], Response::HTTP_CREATED);
     }
 
@@ -331,7 +328,6 @@ class ScenesController extends RestController {
             SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $em);
             return $this->getSceneAction($request, $scene);
         });
-        $this->suplaServer->userAction('ON-SCENE-CHANGED', $scene->getId());
         return $sceneResponse;
     }
 
@@ -360,7 +356,6 @@ class ScenesController extends RestController {
             $sceneDependencies->clearDependencies($scene);
             $em->remove($scene);
         });
-        $this->suplaServer->userAction('ON-SCENE-REMOVED', $sceneId);
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 
