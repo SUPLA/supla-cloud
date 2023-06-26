@@ -26,6 +26,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -71,6 +72,7 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('subjectId', $content);
         $this->assertArrayHasKey('trigger', $content);
         $this->assertEquals(ActionableSubjectType::CHANNEL, $content['subjectType']);
+        $this->assertContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
         return $content['id'];
     }
 
@@ -132,6 +134,7 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals(ChannelFunctionAction::TURN_OFF, $content['actionId']);
         $this->assertEquals(30, $content['trigger']['on_change_to']['lt']);
+        $this->assertContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
     }
 
     /** @depends testCreatingReaction */
@@ -141,6 +144,7 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
         $this->assertNull($this->getEntityManager()->find(ValueBasedTrigger::class, $id));
+        $this->assertContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
     }
 
     public function testCreatingReactionWithInvalidTrigger() {
@@ -154,5 +158,6 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertStringContainsString('Unsupported field name', $content['message']);
+        $this->assertNotContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
     }
 }
