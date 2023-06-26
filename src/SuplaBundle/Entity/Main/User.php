@@ -629,7 +629,15 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     }
 
     public function isLimitNotificationsExceeded(): bool {
-        return $this->limitPushNotifications > 0 && count($this->getPushNotifications()) >= $this->limitPushNotifications;
+        if ($this->limitPushNotifications) {
+            if ($this->relationsCount) {
+                return $this->relationsCount['pushNotifications'] >= $this->limitPushNotifications;
+            } else {
+                return count($this->getPushNotifications()) >= $this->limitPushNotifications;
+            }
+        } else {
+            return false;
+        }
     }
 
     public function getLimitOperationsPerScene(): int {

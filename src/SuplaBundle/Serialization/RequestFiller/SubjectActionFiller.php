@@ -12,6 +12,7 @@ use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Repository\AccessIdRepository;
 use SuplaBundle\Repository\ActionableSubjectRepository;
+use SuplaBundle\Repository\UserRepository;
 
 class SubjectActionFiller {
     use CurrentUserAware;
@@ -22,15 +23,19 @@ class SubjectActionFiller {
     private $channelActionExecutor;
     /** @var AccessIdRepository */
     private $aidRepository;
+    /** @var UserRepository */
+    private $userRepository;
 
     public function __construct(
         ActionableSubjectRepository $subjectRepository,
         ChannelActionExecutor $channelActionExecutor,
-        AccessIdRepository $aidRepository
+        AccessIdRepository $aidRepository,
+        UserRepository $userRepository
     ) {
         $this->subjectRepository = $subjectRepository;
         $this->channelActionExecutor = $channelActionExecutor;
         $this->aidRepository = $aidRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function getSubjectAndAction(array $data): array {
@@ -50,6 +55,7 @@ class SubjectActionFiller {
 
     private function createNotificationSubject(array $data) {
         $user = $this->getCurrentUserOrThrow();
+        $user = $this->userRepository->find($user->getId()); // to fetch relations count
         Assertion::false($user->isLimitNotificationsExceeded(), 'Reactions limit has been exceeded'); // i18n
         $notification = new PushNotification($user);
         $actionParam = $data['actionParam'] ?? [] ?: [];
