@@ -7,7 +7,7 @@
                 <option value="scene">{{ $t('Scenes') }}</option>
                 <option value="schedule" v-if="!disableSchedules">{{ $t('Schedules') }}</option>
                 <option value="notification" v-if="!disableNotifications">{{ $t('Send notification') }}</option>
-                <option value="other">{{ $t('Other') }}</option>
+                <option value="other" v-if="hasOthersSlot">{{ $t('Other') }}</option>
             </select>
         </div>
 
@@ -16,7 +16,7 @@
                 <a @click="changeSubjectType('channel')">{{ $t('Channels') }}</a>
             </li>
             <li :class="subjectType == 'channelGroup' ? 'active' : ''">
-                <a @click="changeSubjectType('channelGroup')">{{ $t('Channel groups') }}</a>
+                <a @click="changeSubjectType('channelGroup')">{{ $t('Groups') }}</a>
             </li>
             <li :class="subjectType == 'scene' ? 'active' : ''">
                 <a @click="changeSubjectType('scene')">{{ $t('Scenes') }}</a>
@@ -25,7 +25,7 @@
                 <a @click="changeSubjectType('schedule')">{{ $t('Schedules') }}</a>
             </li>
             <li :class="subjectType == 'notification' ? 'active' : ''" v-if="!disableNotifications">
-                <a @click="changeSubjectType('notification')">{{ $t('Send notification') }}</a>
+                <a @click="changeSubjectType('notification')">{{ $t('Notification') }}</a>
             </li>
             <li :class="subjectType == 'other' ? 'active' : ''" v-if="hasOthersSlot">
                 <a @click="changeSubjectType('other')">{{ $t('Other') }}</a>

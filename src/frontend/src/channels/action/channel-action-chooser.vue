@@ -1,5 +1,5 @@
 <template>
-    <div class="channel-action-chooser">
+    <div :class="['channel-action-chooser', `channel-action-chooser-action-${action && action.id}`]">
         <div class="w-100 mb-3">
             <div :class="['panel-group panel-accordion', {'panel-accordion-disabled': disabled}]">
                 <div
@@ -238,6 +238,8 @@
 </script>
 
 <style lang="scss">
+    @import "../../styles/variables";
+
     .channel-action-chooser {
         .panel-heading {
             display: flex;

@@ -91,6 +91,8 @@
                     this.selectedIds = this.selected.map(item => item.id || item);
                 } else if (this.selected && !this.isSelected(this.selected)) {
                     this.selectedIds = [this.selected.id];
+                } else if (!this.selected) {
+                    this.selectedIds = [];
                 }
             }
         },

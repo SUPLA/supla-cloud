@@ -15,7 +15,7 @@
             @change="$emit('input', chosenChannel)">
             <option :value="undefined"
                 :title="$t('choose the channel')"
-                v-show="!hideNone && chosenChannel">
+                v-if="!hideNone && chosenChannel">
                 {{ $t('None') }}
             </option>
             <option v-for="channel in channelsForDropdown"

@@ -11,7 +11,7 @@
                         {{ $t('Please select a valid condition') }}
                     </div>
                 </transition-expand>
-                <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="onChanged()"/>
+                <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="onChanged()" class="mb-3"/>
             </div>
             <div class="col-sm-6">
                 <transition-expand>
@@ -19,7 +19,8 @@
                         {{ $t('Please select a valid action') }}
                     </div>
                 </transition-expand>
-                <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1"/>
+                <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1"
+                    use-dropdown-for-types/>
                 <div v-if="targetSubject">
                     <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
                         @input="onChanged()"/>

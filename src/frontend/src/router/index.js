@@ -11,7 +11,7 @@ const router = new VueRouter({
     linkActiveClass: 'active',
     mode: 'history',
     scrollBehavior(to, from, savedPosition) {
-        if (to.path === from.path || ['channelReaction'].includes(to.name)) {
+        if (to.path === from.path || ['channelReaction', 'channel'].includes(to.name)) {
             return savedPosition;
         }
         return new Promise((resolve) => {

@@ -73,7 +73,7 @@
             changeTab(id) {
                 const currentTab = this.availableTabs.filter(tab => tab.id === id)[0];
                 this.currentTab = currentTab ? currentTab.id : (this.availableTabs[0] ? this.availableTabs[0].id : undefined);
-                if (this.$route.query.tab && this.$route.query.tab !== this.currentTab) {
+                if ((this.$route.name === 'channel' || this.currentTab !== 'reactions') && this.$route.query.tab !== this.currentTab) {
                     this.$router.push({name: 'channel', params: {id: this.channel.id}, query: {tab: id}});
                 }
             },
