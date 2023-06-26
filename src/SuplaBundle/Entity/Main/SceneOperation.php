@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\HasSubject;
 use SuplaBundle\Entity\HasSubjectTrait;
+use SuplaBundle\Entity\Main\Listeners\SceneOperationEntityListener;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -29,6 +30,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity
+ * @ORM\EntityListeners({SceneOperationEntityListener::class})
  * @ORM\Table(name="supla_scene_operation")
  */
 class SceneOperation implements HasSubject {

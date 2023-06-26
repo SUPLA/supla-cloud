@@ -393,6 +393,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('channelGroups', $content);
         $this->assertArrayHasKey('directLinks', $content);
         $this->assertArrayHasKey('schedules', $content);
+        $this->assertArrayHasKey('reactions', $content);
         $this->assertCount(1, $content['channelGroups']);
         $this->assertEmpty($content['directLinks']);
         $this->assertEquals($cg->getId(), $content['channelGroups'][0]['id']);
@@ -464,7 +465,6 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(204, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(SceneOperation::class, $scene->getOperations()[0]->getId()));
         $this->assertNull($this->getEntityManager()->find(Scene::class, $scene->getId()));
-        $this->assertNotContains('USER-ON-SCENE-CHANGED:1,' . $scene->getId(), SuplaServerMock::$executedCommands);
         $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $scene->getId(), SuplaServerMock::$executedCommands);
     }
 
