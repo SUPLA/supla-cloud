@@ -185,7 +185,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     private $limitOAuthClient;
 
     /**
-     * @ORM\Column(name="limit_push_notifications", type="integer", options={"default"=60})
+     * @ORM\Column(name="limit_push_notifications", type="integer", options={"default"=20})
      */
     private $limitPushNotifications;
 
@@ -347,7 +347,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitOperationsPerScene' => 20,
             'limitSchedule' => 20,
             'limitActionsPerSchedule' => 20,
-            'limitPushNotifications' => 60,
+            'limitPushNotifications' => 20,
             'limitValueBasedTriggers' => 50,
         ],
         'big' => [
