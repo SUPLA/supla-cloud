@@ -24,7 +24,9 @@ use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -348,5 +350,41 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNull($triggerInTheSameDevice);
         $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $group->getId()));
         $this->assertEmpty($triggerInAnotherDevice->getUserConfig()['actions']);
+    }
+
+    public function testDeletingChannelGroupTriesToClearRelatedReactions() {
+        $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
+        $location = $this->user->getLocations()[0];
+        $anotherDevice = $this->createDeviceSonoff($location);
+        $group = new IODeviceChannelGroup($this->user, $location, [$anotherDevice->getChannels()[0]]);
+        $this->getEntityManager()->persist($group);
+        $this->getEntityManager()->flush();
+        $thermometer = $anotherDevice->getChannels()[1];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('POST', "/api/channels/{$thermometer->getId()}/reactions", [
+            'subjectId' => $group->getId(), 'subjectType' => $group->getOwnSubjectType(),
+            'actionId' => ChannelFunctionAction::TURN_ON,
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        $this->assertStatusCode(201, $client->getResponse());
+        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $group->getId() . '?safe=1');
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('reactions', $content);
+        $this->assertCount(1, $content['reactions']);
+        return [$thermometer, $group];
+    }
+
+    /** @depends testDeletingChannelGroupTriesToClearRelatedReactions */
+    public function testDeletingChannelGroupDeletesRelatedReactions(array $params) {
+        [$thermometer, $group] = $params;
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $group->getId());
+        $this->assertStatusCode(204, $client->getResponse());
+        $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEmpty($content);
+        $this->assertContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
     }
 }

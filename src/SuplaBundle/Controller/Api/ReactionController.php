@@ -93,8 +93,7 @@ class ReactionController extends RestController {
             $em->persist($vbt);
             return $vbt;
         });
-        $this->suplaServer->userAction('ON-VBT-CHANGED');
-        return $this->serializedView($vbt, $request);
+        return $this->serializedView($vbt, $request, [], Response::HTTP_CREATED);
     }
 
     /**
@@ -136,7 +135,6 @@ class ReactionController extends RestController {
             $em->persist($vbt);
             return $vbt;
         });
-        $this->suplaServer->userAction('ON-VBT-CHANGED');
         return $this->serializedView($vbt, $request);
     }
 
@@ -196,7 +194,6 @@ class ReactionController extends RestController {
         $this->transactional(function (EntityManagerInterface $em) use ($vbt) {
             $em->remove($vbt);
         });
-        $this->suplaServer->userAction('ON-VBT-CHANGED');
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 

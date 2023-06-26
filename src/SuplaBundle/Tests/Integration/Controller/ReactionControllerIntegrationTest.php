@@ -67,7 +67,7 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
             'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
         ]);
         $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
+        $this->assertStatusCode(201, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('subjectId', $content);
         $this->assertArrayHasKey('trigger', $content);

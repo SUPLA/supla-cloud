@@ -29,6 +29,7 @@ class ChannelGroupDependencies extends ActionableSubjectDependencies {
             'schedules' => $channelGroup->getSchedules()->toArray(),
             'sceneOperations' => $channelGroup->getSceneOperations()->toArray(),
             'actionTriggers' => $this->findActionTriggersForSubject($channelGroup)->getValues(),
+            'reactions' => $channelGroup->getReactions()->toArray(),
         ];
     }
 

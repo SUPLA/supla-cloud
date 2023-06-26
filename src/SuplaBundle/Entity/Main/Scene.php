@@ -134,6 +134,13 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
      */
     private $directLinks;
 
+    /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="scene", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $reactions;
+
     private $commandExecutionsCount = 0;
 
     public function __construct(Location $location) {
@@ -245,6 +252,10 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
 
     public function getSchedules(): Collection {
         return $this->schedules;
+    }
+
+    public function getReactions(): Collection {
+        return $this->reactions;
     }
 
     /** @return SceneOperation[] */

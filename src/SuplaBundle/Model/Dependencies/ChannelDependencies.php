@@ -34,6 +34,8 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             'schedules' => $channel->getSchedules()->toArray(),
             'sceneOperations' => $channel->getSceneOperations()->toArray(),
             'actionTriggers' => $this->findActionTriggersForSubject($channel)->getValues(),
+            'ownReactions' => $channel->getOwnReactions()->toArray(),
+            'reactions' => $channel->getReactions()->toArray(),
         ];
     }
 

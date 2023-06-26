@@ -837,4 +837,43 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('Another notification updated', $notification->getTitle());
         $this->assertNull($this->getEntityManager()->find(PushNotification::class, 1));
     }
+
+    public function testDeletingSceneWithCircularDependencies() {
+        $sceneOne = $this->testCreatingScene();
+        $sceneOne = $this->getEntityManager()->find(Scene::class, $sceneOne['id']);
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $sceneOne->getId(),
+                    'subjectType' => $sceneOne->getOwnSubjectType(),
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                ],
+            ],
+        ]);
+        $sceneTwo = json_decode($client->getResponse()->getContent(), true);
+        $sceneTwo = $this->getEntityManager()->find(Scene::class, $sceneTwo['id']);
+        $thermometer = $this->device->getChannels()[4];
+        $client->apiRequestV24('POST', "/api/channels/{$thermometer->getId()}/reactions", [
+            'subjectId' => $sceneTwo->getId(), 'subjectType' => $sceneTwo->getOwnSubjectType(),
+            'actionId' => ChannelFunctionAction::EXECUTE,
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        SuplaServerMock::$executedCommands = [];
+        // deleting scene one will result in deleting scene two (the only action) and in consequence - deletes also the reaction
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneOne->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneOne->getId()));
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneTwo->getId()));
+        $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneOne->getId(), SuplaServerMock::$executedCommands);
+        $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneTwo->getId(), SuplaServerMock::$executedCommands);
+        $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEmpty($content);
+        $this->assertContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
+    }
 }

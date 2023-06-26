@@ -28,6 +28,7 @@ class SceneDependencies extends ActionableSubjectDependencies {
             'directLinks' => $scene->getDirectLinks()->toArray(),
             'schedules' => $scene->getSchedules()->toArray(),
             'sceneOperations' => $scene->getOperationsThatReferToThisScene()->toArray(),
+            'reactions' => $scene->getReactions()->toArray(),
             'actionTriggers' => $this->findActionTriggersForSubject($scene)->getValues(),
         ];
     }
