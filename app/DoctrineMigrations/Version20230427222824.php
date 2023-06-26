@@ -48,7 +48,7 @@ class Version20230427222824 extends NoWayBackMigration {
         $this->addSql('CREATE INDEX IDX_64A50CF54E328CBE ON supla_scene_operation (push_notification_id)');
         $this->addSql('ALTER TABLE supla_client ADD push_token VARCHAR(255) DEFAULT NULL, ADD platform TINYINT UNSIGNED DEFAULT NULL COMMENT \'(DC2Type:tinyint)\', ADD app_id INT DEFAULT \'0\' NOT NULL, ADD devel_env TINYINT(1) DEFAULT \'0\' NOT NULL');
         $this->addSql('CREATE PROCEDURE `supla_remove_push_recipients`(IN `_user_id` INT, IN `_client_id` INT) UPDATE supla_client SET push_token = NULL WHERE id = _client_id AND user_id = _user_id');
-        $this->addSql('ALTER TABLE supla_user ADD limit_push_notifications INT DEFAULT 60 NOT NULL, ADD limit_value_based_triggers INT DEFAULT 50 NOT NULL');
+        $this->addSql('ALTER TABLE supla_user ADD limit_push_notifications INT DEFAULT 20 NOT NULL, ADD limit_value_based_triggers INT DEFAULT 50 NOT NULL');
         $this->addSql(<<<PROCEDURE
 CREATE PROCEDURE `supla_register_device_managed_push`(IN `_user_id` INT, IN `_device_id` INT, IN `_channel_id` INT, IN `_sm_title` TINYINT, IN `_sm_body` TINYINT, IN `_sm_sound` TINYINT)
 INSERT INTO `supla_push_notification`(
