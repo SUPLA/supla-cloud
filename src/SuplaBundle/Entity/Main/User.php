@@ -185,9 +185,14 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     private $limitOAuthClient;
 
     /**
-     * @ORM\Column(name="limit_push_notifications", type="integer", options={"default"=20})
+     * @ORM\Column(name="limit_push_notifications", type="integer", options={"default"=200})
      */
     private $limitPushNotifications;
+
+    /**
+     * @ORM\Column(name="limit_push_notifications_per_hour", type="integer", options={"default"=20})
+     */
+    private $limitPushNotificationsPerHour;
 
     /**
      * @ORM\Column(name="limit_value_based_triggers", type="integer", options={"default"=50})
@@ -347,7 +352,8 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitOperationsPerScene' => 20,
             'limitSchedule' => 20,
             'limitActionsPerSchedule' => 20,
-            'limitPushNotifications' => 20,
+            'limitPushNotifications' => 200,
+            'limitPushNotificationsPerHour' => 20,
             'limitValueBasedTriggers' => 50,
         ],
         'big' => [
@@ -363,7 +369,8 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitOperationsPerScene' => 50,
             'limitSchedule' => 150,
             'limitActionsPerSchedule' => 40,
-            'limitPushNotifications' => 120,
+            'limitPushNotifications' => 500,
+            'limitPushNotificationsPerHour' => 100,
             'limitValueBasedTriggers' => 200,
         ],
     ];
@@ -646,10 +653,6 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     public function isLimitOAuthClientExceeded() {
         return $this->limitOAuthClient > 0 && count($this->getApiClients()) >= $this->limitOAuthClient;
-    }
-
-    public function getLimitPushNotifications(): int {
-        return $this->limitPushNotifications;
     }
 
     /** @return DateTime|null */

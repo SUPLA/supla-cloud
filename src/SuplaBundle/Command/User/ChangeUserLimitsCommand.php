@@ -71,6 +71,7 @@ class ChangeUserLimitsCommand extends Command {
                      'limitSchedule' => 'Schedules',
                      'limitActionsPerSchedule' => 'Actions per Schedule',
                      'limitPushNotifications' => 'Push notifications',
+                     'limitPushNotificationsPerHour' => 'Push notifications per hour',
                      'limitValueBasedTriggers' => 'Value based triggers (reactions)',
                  ] as $field => $label) {
             $currentLimit = EntityUtils::getField($user, $field);
