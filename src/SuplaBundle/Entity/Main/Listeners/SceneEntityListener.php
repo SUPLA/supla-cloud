@@ -11,16 +11,16 @@ class SceneEntityListener {
 
     /** @ORM\PostPersist */
     public function postPersist(Scene $scene) {
-        $this->suplaServer->userAction('ON-SCENE-ADDED', $scene->getId());
+        $this->suplaServer->userAction('ON-SCENE-ADDED', $scene->getId(), $scene->getUser());
     }
 
     /** @ORM\PostUpdate */
     public function postUpdate(Scene $scene) {
-        $this->suplaServer->userAction('ON-SCENE-CHANGED', $scene->getId());
+        $this->suplaServer->userAction('ON-SCENE-CHANGED', $scene->getId(), $scene->getUser());
     }
 
     /** @ORM\PreRemove */
     public function preRemove(Scene $scene) {
-        $this->suplaServer->userAction('ON-SCENE-REMOVED', $scene->getId());
+        $this->suplaServer->userAction('ON-SCENE-REMOVED', $scene->getId(), $scene->getUser());
     }
 }

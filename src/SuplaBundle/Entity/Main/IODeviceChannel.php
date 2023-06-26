@@ -225,6 +225,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->channelGroups = new ArrayCollection();
         $this->sceneOperations = new ArrayCollection();
         $this->ownReactions = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): int {

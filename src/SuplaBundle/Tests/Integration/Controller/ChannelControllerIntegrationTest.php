@@ -923,4 +923,54 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('DEF', $notification->getTitle());
         $this->assertNull($this->getEntityManager()->find(PushNotification::class, $previousNotificationId));
     }
+
+    public function testChangingChannelFunctionClearsOwnReactions() {
+        $thermometer = $this->device->getChannels()[6];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('POST', "/api/channels/{$thermometer->getId()}/reactions", [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'actionId' => ChannelFunctionAction::SEND,
+            'actionParam' => ['title' => 'sdf', 'accessIds' => [1]],
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId() . '?safe=1', ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('ownReactions', $content);
+        $this->assertCount(1, $content['ownReactions']);
+        $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId(), ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEmpty($content);
+    }
+
+    public function testChangingChannelFunctionClearsRelatedReactions() {
+        $thermometer = $this->device->getChannels()[6];
+        $relay = $this->device->getChannels()[1];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId() . '?safe=1', ['functionId' => ChannelFunction::THERMOMETER]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('POST', "/api/channels/{$thermometer->getId()}/reactions", [
+            'subjectId' => $relay->getId(),
+            'subjectType' => ActionableSubjectType::CHANNEL,
+            'actionId' => ChannelFunctionAction::OPEN,
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        $this->assertStatusCode(201, $client->getResponse());
+        $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId() . '?safe=1', ['functionId' => ChannelFunction::POWERSWITCH]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('reactions', $content);
+        $this->assertCount(1, $content['reactions']);
+        $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId(), ['functionId' => ChannelFunction::POWERSWITCH]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEmpty($content);
+    }
 }

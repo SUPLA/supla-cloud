@@ -59,6 +59,12 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         foreach ($channel->getSceneOperations() as $sceneOperation) {
             $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
         }
+        foreach ($channel->getOwnReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
+        }
+        foreach ($channel->getReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
+        }
         $this->clearActionTriggersThatReferencesSubject($channel);
     }
 }

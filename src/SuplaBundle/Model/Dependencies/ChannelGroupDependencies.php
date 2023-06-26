@@ -43,6 +43,9 @@ class ChannelGroupDependencies extends ActionableSubjectDependencies {
         foreach ($channelGroup->getSceneOperations() as $sceneOperation) {
             $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
         }
+        foreach ($channelGroup->getReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
+        }
         $this->clearActionTriggersThatReferencesSubject($channelGroup);
     }
 }

@@ -28,6 +28,7 @@ class ValueBasedTriggerSerializer extends AbstractSerializer {
         if ($vbt->hasSubject()) {
             $normalized['subjectType'] = $vbt->getSubjectType()->getValue();
             $normalized['subjectId'] = $vbt->getSubject()->getId();
+            $normalized['functionId'] = $vbt->getSubject()->getFunction()->getId();
             $normalized['actionId'] = $vbt->getAction()->getId();
         }
         $normalized['owningChannelId'] = $vbt->getOwningChannel()->getId();

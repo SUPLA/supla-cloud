@@ -3,6 +3,7 @@
 namespace SuplaBundle\Entity\Main\Listeners;
 
 use Doctrine\ORM\Mapping as ORM;
+use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Supla\SuplaServerAware;
 
 class ValueBasedTriggerEntityListener {
@@ -13,7 +14,7 @@ class ValueBasedTriggerEntityListener {
      * @ORM\PostRemove
      * @ORM\PostUpdate
      */
-    public function notifySuplaServer() {
-        $this->suplaServer->userAction('ON-VBT-CHANGED');
+    public function notifySuplaServer(ValueBasedTrigger $vbt) {
+        $this->suplaServer->userAction('ON-VBT-CHANGED', [], $vbt->getUser());
     }
 }

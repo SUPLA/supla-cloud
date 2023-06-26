@@ -149,6 +149,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         $this->location = $location;
         $this->operations = new ArrayCollection();
         $this->sceneOperations = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): int {

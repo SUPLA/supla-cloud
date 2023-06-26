@@ -838,7 +838,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNull($this->getEntityManager()->find(PushNotification::class, 1));
     }
 
-    public function testDeletingSceneWithCircularDependencies() {
+    public function testDeletingSceneThatIsUsedAsOnlyOperationInAnotherSceneThatIsReferencedByValueBasedTrigger() {
         $sceneOne = $this->testCreatingScene();
         $sceneOne = $this->getEntityManager()->find(Scene::class, $sceneOne['id']);
         $client = $this->createAuthenticatedClientDebug($this->user);
