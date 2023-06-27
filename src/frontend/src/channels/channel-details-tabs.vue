@@ -55,6 +55,7 @@
     import ChannelFunction from "../common/enums/channel-function";
     import ChannelVoltageHistory from "./channel-voltage-history";
     import ChannelReactionsConfig from "@/channels/reactions/channel-reactions-config.vue";
+    import {ChannelReactionConditions} from "@/channels/reactions/channel-reaction-conditions";
 
     export default {
         props: ['channel'],
@@ -86,11 +87,13 @@
             },
         },
         mounted() {
-            this.availableTabs.push({
-                id: 'reactions',
-                header: 'Reactions', // i18n
-                count: this.channel.relationsCount.ownReactions,
-            });
+            if (ChannelReactionConditions[this.channel.functionId]) {
+                this.availableTabs.push({
+                    id: 'reactions',
+                    header: 'Reactions', // i18n
+                    count: this.channel.relationsCount.ownReactions,
+                });
+            }
             if (this.channel.possibleActions?.length) {
                 if (this.channel.actionTriggersIds?.length) {
                     this.availableTabs.push({

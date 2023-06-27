@@ -93,7 +93,6 @@
         },
         methods: {
             itemChanged(item) {
-                console.log(item);
                 if (!item.id) {
                     if (this.limit && this.items.length >= this.limit) {
                         return warningNotification('Error', 'Limit has been exceeded', this);
