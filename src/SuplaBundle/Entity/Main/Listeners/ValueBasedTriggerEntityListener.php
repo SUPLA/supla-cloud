@@ -15,6 +15,6 @@ class ValueBasedTriggerEntityListener {
      * @ORM\PostUpdate
      */
     public function notifySuplaServer(ValueBasedTrigger $vbt) {
-        $this->suplaServer->userAction('ON-VBT-CHANGED', [], $vbt->getUser());
+        $this->suplaServer->postponeUserAction('ON-VBT-CHANGED', [], $vbt->getUser());
     }
 }

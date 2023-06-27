@@ -12,6 +12,6 @@ class SceneOperationEntityListener {
     /** @ORM\PostRemove */
     public function postRemove(SceneOperation $sceneOperation) {
         $scene = $sceneOperation->getOwningScene();
-        $this->suplaServer->userAction('ON-SCENE-CHANGED', $scene->getId(), $scene->getUser());
+        $this->suplaServer->postponeUserAction('ON-SCENE-CHANGED', $scene->getId(), $scene->getUser());
     }
 }

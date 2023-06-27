@@ -76,4 +76,12 @@ class SuplaServerMockTest extends TestCase {
         $this->server->getCharValue($this->channel);
         $this->assertContains('GET-CHAR-VALUE:111,222,333', SuplaServerMock::$executedCommands);
     }
+
+    public function testCommandsWithinTransaction() {
+        $this->server->postponeUserAction('ON-WHATEVER', [], $this->user);
+        $this->assertEmpty(SuplaServerMock::$executedCommands);
+        $this->server->flushPostponedCommands();
+        $this->assertCount(1, SuplaServerMock::$executedCommands);
+        $this->assertContains('USER-ON-WHATEVER:111', SuplaServerMock::$executedCommands);
+    }
 }
