@@ -118,6 +118,20 @@ describe('ChannelReactionsConfig', () => {
             expect(wrapper.vm.condition).toEqual({on_change_to: {eq: 0, name: 'temperature'}});
         });
 
+        it('can set negative threshold', async () => {
+            const wrapper = await mount({
+                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                template: '<div><cc :subject="channel" v-model="condition"/></div>',
+                components: {cc: ChannelReactionConditionChooser},
+            });
+            await wrapper.find('.form-control').setValue('');
+            expect(wrapper.vm.condition).toBeUndefined();
+            await wrapper.find('.form-control').setValue('-');
+            expect(wrapper.vm.condition).toBeUndefined();
+            await wrapper.find('.form-control').setValue('-2');
+            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: -2, name: 'temperature', resume: {ge: 20}}});
+        });
+
         it('cannot set empty threshold for temerature', async () => {
             const wrapper = await mount({
                 data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
@@ -125,7 +139,7 @@ describe('ChannelReactionsConfig', () => {
                 components: {cc: ChannelReactionConditionChooser},
             });
             await wrapper.find('.form-control').setValue('');
-            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 0, name: 'temperature', resume: {ge: 20}}});
+            expect(wrapper.vm.condition).toBeUndefined();
         });
 
         it('can initialize temperature condition with initial value', async () => {
