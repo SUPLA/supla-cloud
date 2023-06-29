@@ -124,6 +124,9 @@ class ClientApp {
     /** @ORM\Column(name="push_token", type="string", length=255, nullable=true) */
     private $pushToken;
 
+    /** @ORM\Column(name="push_token_update_time", type="datetime", nullable=true) */
+    private $pushTokenUpdateTime;
+
     /** @ORM\Column(name="platform", type="tinyint", nullable=true, options={"unsigned": true}) */
     private $platform;
 
