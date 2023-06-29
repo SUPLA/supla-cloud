@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div class="form-group">
-            <label>{{ $t(label) }}</label>
+    <div class="reaction-condition-threshold">
+        <div class="form-group d-flex align-items-center">
+            <label class="flex-grow-1 pr-3">{{ $t(label) }}</label>
             <span class="input-group">
                 <span class="input-group-btn">
                     <a class="btn btn-white" @click="nextOperator()">
@@ -22,11 +22,12 @@
                 <span class="input-group-addon">{{ unit }}</span>
             </span>
         </div>
-        <p>
-            {{ $t('then execute the action') }}
-            <span v-if="resumeOperator">{{ $t(suspendLabel) }}</span>
-        </p>
-        <div class="form-group" v-if="resumeOperator">
+
+        <div class="form-group d-flex align-items-center" v-if="resumeOperator">
+            <span class="flex-grow-1 pr-4">
+                {{ $t('then execute the action') }}
+                <span v-if="resumeOperator">{{ $t(suspendLabel) }}</span>
+            </span>
             <span class="input-group">
                 <span class="input-group-addon">
                     <span v-if="resumeOperator === 'lt'">&lt;</span>
@@ -126,3 +127,11 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .reaction-condition-threshold {
+        input[type=number] {
+            width: 80px;
+        }
+    }
+</style>
