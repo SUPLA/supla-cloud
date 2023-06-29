@@ -56,7 +56,7 @@ const ChannelFunctionAction = Object.freeze({
             case ChannelFunctionAction.COPY:
                 return !!params.sourceChannelId;
             case ChannelFunctionAction.SEND:
-                return !!((params.title || params.body) && params.accessIds?.length > 0);
+                return !!(params.body && params.accessIds?.length > 0);
             default:
                 return true;
         }

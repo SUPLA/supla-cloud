@@ -1,14 +1,13 @@
 <template>
     <div class="notification-subject-form">
-        <div :class="['form-group', {'has-error': displayValidationErrors && !validTitleAndBody}]">
+        <div class="form-group">
             <label>{{ $t('Title') }}</label>
             <input type="text" class="form-control" v-model="title" name="notification-title">
-            <div class="help-block help-error">{{ $t('Notification must have title or body.') }}</div>
         </div>
-        <div :class="['form-group', {'has-error': displayValidationErrors && !validTitleAndBody}]">
+        <div :class="['form-group', {'has-error': displayValidationErrors && !body}]">
             <label>{{ $t('Body') }}</label>
             <input type="text" class="form-control" v-model="body" name="notification-body">
-            <div class="help-block help-error">{{ $t('Notification must have title or body.') }}</div>
+            <div class="help-block help-error">{{ $t('Notification must have a body.') }}</div>
         </div>
         <div :class="['form-group', {'has-error': displayValidationErrors && !validRecipients}]">
             <label>{{ $t('Recipients') }}</label>
@@ -59,9 +58,6 @@
                 set(accessIds) {
                     this.change({accessIds: accessIds.map(aid => aid.id)});
                 }
-            },
-            validTitleAndBody() {
-                return !!(this.title || this.body)
             },
             validRecipients() {
                 return this.accessIds.length > 0;

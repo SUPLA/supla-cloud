@@ -96,6 +96,6 @@
 
 <style lang="scss">
     .bootstrap-select.show-tick .dropdown-menu li a span.text {
-        margin-right: 0;
+        margin-right: 0 !important;
     }
 </style>

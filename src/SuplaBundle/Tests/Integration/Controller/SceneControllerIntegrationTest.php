@@ -793,7 +793,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectType' => ActionableSubjectType::NOTIFICATION,
                     'actionId' => ChannelFunctionAction::SEND,
-                    'actionParam' => ['title' => 'Sample notification', 'accessIds' => [['id' => $aid->getId()]]],
+                    'actionParam' => ['body' => 'Sample notification', 'accessIds' => [['id' => $aid->getId()]]],
                 ],
             ],
         ]);
@@ -806,7 +806,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         /** @var PushNotification $notification */
         $notification = $this->getEntityManager()->find(PushNotification::class, 1);
         $this->assertNotNull($notification);
-        $this->assertEquals('Sample notification', $notification->getTitle());
+        $this->assertEquals('Sample notification', $notification->getBody());
         return $content;
     }
 
@@ -821,7 +821,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 [
                     'subjectType' => ActionableSubjectType::NOTIFICATION,
                     'actionId' => ChannelFunctionAction::SEND,
-                    'actionParam' => ['title' => 'Another notification updated', 'accessIds' => [$aid->getId()]],
+                    'actionParam' => ['body' => 'Another notification updated', 'accessIds' => [$aid->getId()]],
                 ],
             ],
         ]);
@@ -834,7 +834,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         /** @var PushNotification $notification */
         $notification = $this->getEntityManager()->find(PushNotification::class, 2);
         $this->assertNotNull($notification);
-        $this->assertEquals('Another notification updated', $notification->getTitle());
+        $this->assertEquals('Another notification updated', $notification->getBody());
         $this->assertNull($this->getEntityManager()->find(PushNotification::class, 1));
     }
 

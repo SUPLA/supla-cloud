@@ -889,7 +889,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $trigger = $anotherDevice->getChannels()[2];
         $actions = ['TURN_ON' => [
             'subjectType' => ActionableSubjectType::NOTIFICATION,
-            'action' => ['id' => ChannelFunctionAction::SEND, 'param' => ['title' => 'ABC', 'accessIds' => [1]]]]];
+            'action' => ['id' => ChannelFunctionAction::SEND, 'param' => ['body' => 'ABC', 'accessIds' => [1]]]]];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
         $this->assertStatusCode(200, $client->getResponse());
@@ -899,7 +899,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $notificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
         $notification = $this->getEntityManager()->find(PushNotification::class, $notificationId);
         $this->assertNotNull($notification);
-        $this->assertEquals('ABC', $notification->getTitle());
+        $this->assertEquals('ABC', $notification->getBody());
         $this->assertEquals($trigger->getId(), $notification->getChannel()->getId());
         return $trigger;
     }
@@ -909,7 +909,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $previousNotificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
         $actions = ['TURN_ON' => [
             'subjectType' => ActionableSubjectType::NOTIFICATION,
-            'action' => ['id' => ChannelFunctionAction::SEND, 'param' => ['title' => 'DEF', 'accessIds' => [1]]]]];
+            'action' => ['id' => ChannelFunctionAction::SEND, 'param' => ['body' => 'DEF', 'accessIds' => [1]]]]];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
         $this->assertStatusCode(200, $client->getResponse());
@@ -920,7 +920,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotEquals($notificationId, $previousNotificationId);
         $notification = $this->getEntityManager()->find(PushNotification::class, $notificationId);
         $this->assertNotNull($notification);
-        $this->assertEquals('DEF', $notification->getTitle());
+        $this->assertEquals('DEF', $notification->getBody());
         $this->assertNull($this->getEntityManager()->find(PushNotification::class, $previousNotificationId));
     }
 
@@ -930,7 +930,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('POST', "/api/channels/{$thermometer->getId()}/reactions", [
             'subjectType' => ActionableSubjectType::NOTIFICATION,
             'actionId' => ChannelFunctionAction::SEND,
-            'actionParam' => ['title' => 'sdf', 'accessIds' => [1]],
+            'actionParam' => ['body' => 'sdf', 'accessIds' => [1]],
             'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
         ]);
         $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId() . '?safe=1', ['functionId' => ChannelFunction::NONE]);

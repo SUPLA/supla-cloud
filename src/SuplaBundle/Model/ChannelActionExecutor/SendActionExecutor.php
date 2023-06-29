@@ -47,10 +47,9 @@ class SendActionExecutor extends SingleChannelActionExecutor {
         if (isset($actionParams['title'])) {
             Assertion::string($actionParams['title']);
         }
-        if (isset($actionParams['body'])) {
-            Assertion::string($actionParams['body']);
-        }
-        Assertion::notBlank(($actionParams['title'] ?? '') . ($actionParams['body'] ?? ''), 'Notification must have title and/or body.');
+        Assertion::keyExists($actionParams, 'body', 'Notification must have a body.');
+        Assertion::string($actionParams['body']);
+        Assertion::notBlank($actionParams['body'], 'Notification must have a body.');
         Assertion::keyExists($actionParams, 'accessIds', 'Notification must have recipients.');
         Assertion::isArray($actionParams['accessIds'], 'Notification must have recipients.');
         $actionParams['accessIds'] = array_map(function ($aid) use ($notification) {
