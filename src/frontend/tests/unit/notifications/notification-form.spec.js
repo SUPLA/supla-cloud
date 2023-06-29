@@ -11,39 +11,27 @@ describe('NotificationForm', () => {
         expect(actions.length).toBe(3);
     });
 
-    it('does not validate at mount', async () => {
-        let valid;
-        mount(NotificationForm, {
-            propsData: {value: {}},
-            stubs: {AccessIdsDropdown: {template: '<div />'}},
-            listeners: {
-                isValid: (isValid) => valid = isValid,
-            }
-        });
-        expect(valid).toBeUndefined();
-    });
-
     it('updates after change', async () => {
         const wrapper = mount({
             data: () => ({notification: {accessIds: [1]}, valid: false}),
-            template: '<div><nf v-model="notification" @isValid="valid = $event"/></div>',
+            template: '<div><nf v-model="notification"/></div>',
             components: {nf: NotificationForm},
         }, {stubs: {AccessIdsDropdown: {template: '<div />'}}});
         await wrapper.find('input').setValue('test');
         expect(wrapper.vm.notification).toEqual({title: 'test', accessIds: [1]});
-        expect(wrapper.vm.valid).toBeTruthy();
+        await wrapper.findAll('input').at(1).setValue('test');
+        expect(wrapper.vm.notification).toEqual({title: 'test', body: 'test', accessIds: [1]});
     });
 
     it('maintains notification id and other fields', async () => {
         const wrapper = mount({
             data: () => ({notification: {id: 123, title: 'rainbow', property: 'unicorn', accessIds: [1]}, valid: false}),
-            template: '<div><nf v-model="notification" @isValid="valid = $event"/></div>',
+            template: '<div><nf v-model="notification"/></div>',
             components: {nf: NotificationForm},
         }, {stubs: {AccessIdsDropdown: {template: '<div />'}}});
         await wrapper.find('input').setValue('test');
         expect(wrapper.vm.notification.id).toEqual(123);
         expect(wrapper.vm.notification.title).toEqual('test');
         expect(wrapper.vm.notification.property).toEqual('unicorn');
-        expect(wrapper.vm.valid).toBeTruthy();
     });
 });
