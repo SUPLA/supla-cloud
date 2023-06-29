@@ -64,7 +64,7 @@
             },
             suspendLabel: {
                 type: String,
-                default: 'Suspend until', // i18n
+                default: 'and suspend until', // i18n
             }
         },
         data() {

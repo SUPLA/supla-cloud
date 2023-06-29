@@ -19,7 +19,12 @@ export const ChannelReactionConditions = {
             caption: 'Humidity', // i18n
             test: ({on_change_to = {}}) => on_change_to.name === 'humidity',
             component: ReactionConditionThreshold,
-            props: {label: 'When the humidity will be', unit: '%', field: 'humidity'}, // i18n
+            props: {
+                label: 'When the humidity will be',
+                unit: '%',
+                field: 'humidity',
+                suspendLabel: 'and wait until the humidity will be', // i18n
+            }, // i18n
         },
     ],
     [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: [
@@ -58,17 +63,13 @@ function withPropLabel(def, label) {
 
 ChannelReactionConditions[ChannelFunction.THERMOMETER] = [ChannelReactionConditions[ChannelFunction.HUMIDITYANDTEMPERATURE][0]];
 ChannelReactionConditions[ChannelFunction.HUMIDITY] = [ChannelReactionConditions[ChannelFunction.HUMIDITYANDTEMPERATURE][1]];
-ChannelReactionConditions[ChannelFunction.CONTROLLINGTHEGARAGEDOOR] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR];
 ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GATE] = [
     withPropLabel(ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR][0], 'When the gate will be') // i18n
 ];
-ChannelReactionConditions[ChannelFunction.CONTROLLINGTHEGATE] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GATE];
 ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GATEWAY] = [
     withPropLabel(ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR][0], 'When the gateway will be') // i18n
 ];
-ChannelReactionConditions[ChannelFunction.CONTROLLINGTHEGATEWAYLOCK] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GATEWAY];
 ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_DOOR] = [
     withPropLabel(ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR][0], 'When the door will be') // i18n
 ];
-ChannelReactionConditions[ChannelFunction.CONTROLLINGTHEDOORLOCK] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_DOOR];
 ChannelReactionConditions[ChannelFunction.LIGHTSWITCH] = ChannelReactionConditions[ChannelFunction.POWERSWITCH];

@@ -31,7 +31,6 @@
 <script>
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {ChannelReactionConditions} from "@/channels/reactions/channel-reaction-conditions";
-    import {isEqual} from "lodash";
 
     export default {
         components: {TransitionExpand},
@@ -46,7 +45,7 @@
         },
         mounted() {
             if (!this.currentCondition && this.value) {
-                this.currentCondition = this.possibleConditions.find(c => c.test ? c.test(this.value) : isEqual(c.def(), this.value));
+                this.currentCondition = this.possibleConditions.find(c => c.test(this.value));
             }
             if (!this.currentCondition && this.possibleConditions.length === 1) {
                 this.changeCondition(this.possibleConditions[0]);
@@ -74,6 +73,13 @@
             },
             possibleConditions() {
                 return ChannelReactionConditions[this.subject.functionId] || [];
+            }
+        },
+        watch: {
+            value() {
+                if (this.value) {
+                    this.currentCondition = this.possibleConditions.find(c => c.test(this.value));
+                }
             }
         }
     }

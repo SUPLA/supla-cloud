@@ -38,8 +38,8 @@ describe('ChannelActionChooser', () => {
         },
     };
 
-    it('renders available actions', () => {
-        const wrapper = mount(ChannelActionChooser, {
+    it('renders available actions', async () => {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: SCENE, value: undefined},
         });
         const actions = wrapper.findAll('.panel-heading');
@@ -50,21 +50,20 @@ describe('ChannelActionChooser', () => {
     });
 
     it('selects first action if only one action', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: GATEWAY, value: undefined},
         });
         const actions = wrapper.findAll('.panel-heading');
         expect(actions.length).toBe(1);
         expect(actions.at(0).text()).toEqual('Open');
         expect(wrapper.emitted().input).toBeTruthy();
-        await wrapper.vm.$nextTick();
         const selectedAction = wrapper.find('.panel-success');
         expect(selectedAction.exists()).toBeTruthy();
         expect(selectedAction.text()).toEqual('Open');
     });
 
     it('selects first action if asked by prop', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: SCENE, value: undefined, alwaysSelectFirstAction: true},
         });
         expect(wrapper.emitted().input).toBeTruthy();
@@ -72,17 +71,15 @@ describe('ChannelActionChooser', () => {
         const action = wrapper.emitted().input[0][0];
         expect(action.id).toEqual(3000);
         expect(action.param).toBeNull();
-        await wrapper.vm.$nextTick();
         const selectedAction = wrapper.find('.panel-success');
         expect(selectedAction.exists()).toBeTruthy();
         expect(selectedAction.text()).toEqual('Execute');
     });
 
     it('selects action from outer value', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: SCENE, value: {id: 3001, param: {}}},
         });
-        await wrapper.vm.$nextTick();
         expect(wrapper.emitted().input).toBeFalsy();
         const selectedAction = wrapper.find('.panel-success');
         expect(selectedAction.exists()).toBeTruthy();
@@ -91,10 +88,9 @@ describe('ChannelActionChooser', () => {
     });
 
     it('updates action from outer value', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: SCENE, value: {id: 3001, param: {}}},
         });
-        await wrapper.vm.$nextTick();
         expect(wrapper.emitted().input).toBeFalsy();
         const selectedAction = wrapper.find('.panel-success');
         expect(selectedAction.exists()).toBeTruthy();
@@ -103,12 +99,10 @@ describe('ChannelActionChooser', () => {
     });
 
     it('selects action from outer value if alwaysSelectFirstAction is enabled', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: SCENE, value: {id: 3001, param: {}}, alwaysSelectFirstAction: true},
         });
-        await wrapper.vm.$nextTick();
-        wrapper.setProps({value: {id: 3002, param: {}}});
-        await wrapper.vm.$nextTick();
+        await wrapper.setProps({value: {id: 3002, param: {}}});
         expect(wrapper.emitted().input).toBeFalsy();
         const selectedAction = wrapper.find('.panel-success');
         expect(selectedAction.exists()).toBeTruthy();
@@ -117,12 +111,10 @@ describe('ChannelActionChooser', () => {
     });
 
     it('clears action when the subject is cleared', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: SCENE, value: {id: 3001, param: {}}},
         });
-        await wrapper.vm.$nextTick();
-        wrapper.setProps({subject: undefined});
-        await wrapper.vm.$nextTick();
+        await wrapper.setProps({subject: undefined});
         expect(wrapper.emitted().input).toBeTruthy();
         expect(wrapper.emitted().input.length).toBe(1);
         expect(wrapper.emitted().input[0]).toEqual([undefined]);
@@ -131,12 +123,10 @@ describe('ChannelActionChooser', () => {
     });
 
     it('changes action when the subject is changed', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: SCENE, value: {id: 3001, param: {}}},
         });
-        await wrapper.vm.$nextTick();
-        wrapper.setProps({subject: GATEWAY});
-        await wrapper.vm.$nextTick();
+        await wrapper.setProps({subject: GATEWAY});
         expect(wrapper.emitted().input).toBeTruthy();
         expect(wrapper.emitted().input.length).toBe(2);
         expect(wrapper.emitted().input.at(0)[0]).toBeUndefined();
@@ -148,14 +138,11 @@ describe('ChannelActionChooser', () => {
     });
 
     it('clears action when the subject is changed', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: GATEWAY, value: undefined},
         });
-        await wrapper.vm.$nextTick();
-        wrapper.setProps({subject: SCENE});
-        await wrapper.vm.$nextTick();
+        await wrapper.setProps({subject: SCENE});
         expect(wrapper.emitted().input).toBeTruthy();
-        await wrapper.vm.$nextTick();
         expect(wrapper.emitted().input.length).toBe(2);
         expect(wrapper.emitted().input[1]).toEqual([undefined]);
         const selectedAction = wrapper.find('.panel-success');
@@ -163,12 +150,10 @@ describe('ChannelActionChooser', () => {
     });
 
     it('selects first action for new subject', async () => {
-        const wrapper = mount(ChannelActionChooser, {
+        const wrapper = await mount(ChannelActionChooser, {
             propsData: {subject: GATEWAY, value: undefined, alwaysSelectFirstAction: true},
         });
-        await wrapper.vm.$nextTick();
-        wrapper.setProps({subject: SCENE});
-        await wrapper.vm.$nextTick();
+        await wrapper.setProps({subject: SCENE});
         expect(wrapper.emitted().input).toBeTruthy();
         await wrapper.vm.$nextTick();
         const selectedAction = wrapper.find('.panel-success');

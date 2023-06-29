@@ -46,6 +46,7 @@
     import {successNotification} from "@/common/notifier";
     import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import {deepCopy} from "@/common/utils";
 
     export default {
         components: {TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser},
@@ -76,11 +77,12 @@
                 this.initFromItem();
             },
             initFromItem() {
-                this.hasPendingChanges = false;
                 this.displayValidationErrors = false;
-                this.trigger = this.item.trigger ? {...this.item.trigger} : {};
-                this.targetSubject = this.item.subject ? {...this.item.subject} : undefined;
-                this.action = this.item.actionId ? {id: this.item.actionId, param: {...this.item.actionParam}} : undefined;
+                const item = deepCopy(this.item);
+                this.trigger = item.trigger || {};
+                this.targetSubject = item.subject;
+                this.action = item.actionId ? {id: item.actionId, param: item.actionParam} : undefined;
+                this.$nextTick(() => this.hasPendingChanges = false);
             },
             submitForm() {
                 this.displayValidationErrors = true;

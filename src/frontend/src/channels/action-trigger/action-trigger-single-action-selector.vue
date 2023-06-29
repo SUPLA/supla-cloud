@@ -71,6 +71,8 @@
                                 this.subject = response.body;
                                 this.action = this.value.action;
                             });
+                    } else {
+                        this.action = this.value.action;
                     }
                 } else {
                     this.subject = undefined;
@@ -111,6 +113,11 @@
             },
             filterOtherActions(action) {
                 return action.id !== ChannelFunctionAction.AT_DISABLE_LOCAL_FUNCTION || this.disablesLocalOperation(this.trigger);
+            }
+        },
+        watch: {
+            value() {
+                this.onValueChanged();
             }
         }
     };

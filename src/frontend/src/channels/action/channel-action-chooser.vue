@@ -164,7 +164,7 @@
                             this.updateModel();
                         }
                     }
-                } else if (this.isFullySpecified) {
+                } else {
                     this.action = {};
                     this.param = {};
                     this.selectFirstActionIfOnlyOne();
@@ -216,16 +216,17 @@
                     this.changeAction({});
                     Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
                 } else {
-                    this.updateModel();
+                    this.updateAction();
                 }
             },
             value() {
                 if (this.value && this.action?.id && this.value.id !== this.action.id) {
                     this.value.param = {};
                 }
-                this.updateAction();
+                if (this.value) {
+                    this.updateAction();
+                }
             },
-
         },
     };
 </script>
