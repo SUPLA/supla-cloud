@@ -1,6 +1,6 @@
 <template>
-    <div class="form-group">
-        <label>{{ $t(label) }}</label>
+    <div class="d-flex align-items-center">
+        <label class="flex-grow-1">{{ $t(label) }}</label>
         <div class="btn-group btn-group-flex">
             <a :class="'btn ' + (isEqual(option.trigger, trigger) ? 'btn-green' : 'btn-default')"
                 v-for="option in options"

@@ -85,6 +85,7 @@
                             <label>{{ $t('Add new action to the scene') }}</label>
                             <subject-dropdown @input="addSceneOperation($event)"
                                 clear-on-select
+                                disable-notifications
                                 channelsDropdownParams="io=output"></subject-dropdown>
                         </div>
                         <div class="form-group">

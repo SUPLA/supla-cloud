@@ -1,12 +1,13 @@
 <template>
     <div :class="['channel-action-chooser', `channel-action-chooser-action-${action && action.id}`]">
-        <div class="w-100 mb-3">
-            <div :class="['panel-group panel-accordion', {'panel-accordion-disabled': disabled}]">
+        <div class="w-100">
+            <div :class="['panel-group panel-accordion m-0', {'panel-accordion-disabled': disabled}]">
                 <div
-                    :class="['panel panel-default', {'panel-success': isSelected(possibleAction.id), 'action-without-params': !ChannelFunctionAction.requiresParams(possibleAction.id)}]"
+                    :class="[{'panel panel-default': possibleAction.name !== 'SEND', 'panel-success': isSelected(possibleAction.id), 'action-without-params': !ChannelFunctionAction.requiresParams(possibleAction.id)}]"
                     v-for="possibleAction in actionsToShow"
                     :key="possibleAction.id">
                     <div class="panel-heading"
+                        v-show="possibleAction.name !== 'SEND'"
                         @click="changeAction(possibleAction)">
                         <a role="button"
                             tabindex="0"
@@ -26,7 +27,7 @@
                         </div>
                     </div>
                     <transition-expand>
-                        <div class="panel-body"
+                        <div :class="{'panel-body': possibleAction.name !== 'SEND'}"
                             v-if="ChannelFunctionAction.requiresParams(possibleAction.id) && action && action.id === possibleAction.id">
                             <div
                                 v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">

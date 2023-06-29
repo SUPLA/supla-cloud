@@ -19,12 +19,12 @@
                         {{ $t('Please select a valid action') }}
                     </div>
                 </transition-expand>
-                <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1"
-                    use-dropdown-for-types/>
-                <div v-if="targetSubject">
-                    <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
-                        @input="onChanged()"/>
-                </div>
+                <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1">
+                    <div v-if="targetSubject" class="mt-3">
+                        <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
+                            @input="onChanged()"/>
+                    </div>
+                </SubjectDropdown>
             </div>
         </div>
         <modal-confirm v-if="deleteConfirm"

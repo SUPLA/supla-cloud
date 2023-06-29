@@ -56,6 +56,7 @@
                                 <div class="form-group">
                                     <subject-dropdown v-model="schedule.subject"
                                         disable-schedules
+                                        disable-notifications
                                         channels-dropdown-params="io=output&hasFunction=1"
                                         :filter="filterOutNotSchedulableSubjects"></subject-dropdown>
                                 </div>
