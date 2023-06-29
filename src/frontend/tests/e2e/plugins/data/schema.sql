@@ -192,29 +192,30 @@ DROP TABLE IF EXISTS `supla_client`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `supla_client`
 (
-    `id`                 int(11) NOT NULL AUTO_INCREMENT,
-    `access_id`          int(11) DEFAULT NULL,
-    `guid`               varbinary(16) NOT NULL,
-    `name`               varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `enabled`            tinyint(1) NOT NULL,
-    `reg_ipv4`           int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
-    `reg_date`           datetime                            NOT NULL COMMENT '(DC2Type:utcdatetime)',
-    `last_access_ipv4`   int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
-    `last_access_date`   datetime                            NOT NULL COMMENT '(DC2Type:utcdatetime)',
-    `software_version`   varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-    `protocol_version`   int(11) NOT NULL,
-    `user_id`            int(11) NOT NULL,
-    `auth_key`           varchar(64) COLLATE utf8_unicode_ci                           DEFAULT NULL,
-    `caption`            varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `disable_after_date` datetime                                                      DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `push_token`         varchar(255) COLLATE utf8_unicode_ci                          DEFAULT NULL,
-    `platform`           tinyint(3) unsigned DEFAULT NULL COMMENT '(DC2Type:tinyint)',
-    `app_id`             int(11) NOT NULL DEFAULT '0',
-    `devel_env`          tinyint(1) NOT NULL DEFAULT '0',
+    `id`                     int(11) NOT NULL AUTO_INCREMENT,
+    `access_id`              int(11) DEFAULT NULL,
+    `guid`                   varbinary(16) NOT NULL,
+    `name`                   varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `enabled`                tinyint(1) NOT NULL,
+    `reg_ipv4`               int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
+    `reg_date`               datetime                            NOT NULL COMMENT '(DC2Type:utcdatetime)',
+    `last_access_ipv4`       int(10) unsigned DEFAULT NULL COMMENT '(DC2Type:ipaddress)',
+    `last_access_date`       datetime                            NOT NULL COMMENT '(DC2Type:utcdatetime)',
+    `software_version`       varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+    `protocol_version`       int(11) NOT NULL,
+    `user_id`                int(11) NOT NULL,
+    `auth_key`               varchar(64) COLLATE utf8_unicode_ci                           DEFAULT NULL,
+    `caption`                varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `disable_after_date`     datetime                                                      DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `push_token`             varchar(255) COLLATE utf8_unicode_ci                          DEFAULT NULL,
+    `push_token_update_time` datetime                                                      DEFAULT NULL,
+    `platform`               tinyint(3) unsigned DEFAULT NULL COMMENT '(DC2Type:tinyint)',
+    `app_id`                 int(11) NOT NULL DEFAULT '0',
+    `devel_env`              tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_CLIENTAPP` (`user_id`,`guid`),
-    KEY                  `IDX_5430007F4FEA67CF` (`access_id`),
-    KEY                  `IDX_5430007FA76ED395` (`user_id`),
+    KEY                      `IDX_5430007F4FEA67CF` (`access_id`),
+    KEY                      `IDX_5430007FA76ED395` (`user_id`),
     CONSTRAINT `FK_5430007F4FEA67CF` FOREIGN KEY (`access_id`) REFERENCES `supla_accessid` (`id`) ON DELETE SET NULL,
     CONSTRAINT `FK_5430007FA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -2664,20 +2665,13 @@ DELIMITER ;;
 CREATE
 DEFINER=`root`@`%` PROCEDURE `supla_update_push_notification_client_token`(IN `_user_id` INT, IN `_client_id` INT, IN `_token` VARCHAR(255) CHARSET utf8mb4, IN `_platform` TINYINT, IN `_app_id` INT, IN `_devel_env` TINYINT)
 UPDATE supla_client
-SET push_token = _token,
-    platform   = _platform,
-    app_id     = _app_id,
-    devel_env  = _devel_env
+SET push_token             = _token,
+    push_token_update_time = UTC_TIMESTAMP(),
+    platform               = _platform,
+    app_id                 = _app_id,
+    devel_env              = _devel_env
 WHERE id = _client_id
-  AND user_id = _user_id
-  AND ((_token IS NULL AND push_token IS NOT NULL)
-    OR (push_token IS NULL AND _token IS NOT NULL)
-    OR (push_token IS NOT NULL
-        AND _token IS NOT NULL AND push_token != _token)
-    OR platform
-    != _platform
-   OR app_id != app_id
-   OR devel_env != _devel_env);;
+  AND user_id = _user_id;;
 DELIMITER;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -2898,4 +2892,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-26 14:22:48
+-- Dump completed on 2023-06-29 21:15:26
