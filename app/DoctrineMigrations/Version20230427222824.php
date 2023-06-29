@@ -92,13 +92,6 @@ UPDATE supla_client SET
    devel_env = _devel_env
 WHERE id = _client_id
  AND user_id = _user_id
- AND ((_token IS NULL AND push_token IS NOT NULL)
-   OR (push_token IS NULL AND _token IS NOT NULL)
-   OR (push_token IS NOT NULL 
-      AND _token IS NOT NULL AND push_token != _token)
-   OR platform != _platform 
-   OR app_id != app_id
-   OR devel_env != _devel_env)
 PROCEDURE
         );
     }
