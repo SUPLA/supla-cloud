@@ -11,12 +11,12 @@
                 v-for="operation of operations"
                 :key="operation.id">
                 <template v-if="operation.subject && operation.subjectType !== 'notification'">
-                    <div :class="['timeline-badge action', {'warning': !(operation.action && operation.action.id)}]"
+                    <div :class="['timeline-badge action', {'danger': operation.isValid === false}]"
                         v-tooltip="!(operation.action && operation.action.id) ? $t('choose the action') : ''">
                         <function-icon :model="operation.subject"
                             width="38"></function-icon>
                     </div>
-                    <div class="timeline-panel">
+                    <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !operation.isValid}]">
                         <div class="timeline-heading">
                             <h4 class="timeline-title">
                                 {{ channelTitle(operation.subject) }}
@@ -45,8 +45,8 @@
                         </div>
                     </div>
                 </template>
-                <template v-if="operation.subject && operation.subjectType === 'notification'">
-                    <div :class="['timeline-badge action', {danger: displayValidationErrors && !operation.isValid}]">
+                <template v-else-if="operation.subject && operation.subjectType === 'notification'">
+                    <div :class="['timeline-badge action', {'danger': operation.isValid === false}]">
                         <i class="pe-7s-volume"></i>
                     </div>
                     <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !operation.isValid}]">
@@ -61,7 +61,6 @@
                         <div class="timeline-body">
                             <NotificationForm v-model="operation.action.param"
                                 :display-validation-errors="displayValidationErrors"
-                                @isValid="operation.isValid = $event; updateModel()"
                                 @input="updateModel()"/>
                         </div>
                     </div>
@@ -186,11 +185,12 @@
                 let delay = 0;
                 for (const op of this.operations) {
                     const operation = Vue.util.extend({}, op);
-                    if (operation.subject) {
+                    if (operation.subjectType) {
                         operation.delayMs = delay;
                         operation.actionId = operation.action?.id;
                         operation.actionParam = operation.action?.param;
-                        operations.push(operation);
+                        operation.isValid = !!operation.actionId && ChannelFunctionAction.paramsValid(operation.actionId, operation.actionParam),
+                            operations.push(operation);
                         delay = 0;
                     } else if (operation.delayMs) {
                         delay += operation.delayMs;

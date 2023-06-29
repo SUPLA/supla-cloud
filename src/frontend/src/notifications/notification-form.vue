@@ -33,11 +33,7 @@
         methods: {
             change(newProps) {
                 this.$emit('input', {...this.value, ...newProps});
-                this.validate();
-            },
-            validate() {
-                this.$emit('isValid', this.validTitleAndBody && this.validRecipients);
-            },
+            }
         },
         computed: {
             title: {
@@ -71,11 +67,6 @@
                 return this.accessIds.length > 0;
             },
         },
-        watch: {
-            value() {
-                this.validate();
-            },
-        }
     };
 </script>
 

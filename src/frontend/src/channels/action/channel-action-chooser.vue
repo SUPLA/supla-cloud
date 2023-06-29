@@ -53,16 +53,13 @@
                                     :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SEND">
-                                <NotificationForm v-model="param"
-                                    display-validation-errors
-                                    @isValid="paramsChanged($event)"
-                                />
+                                <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors/>
                             </div>
                             <div v-if="executorMode" class="mt-3">
                                 <button
                                     :class="['btn btn-block btn-execute', {'btn-grey': !isSelected(possibleAction.id), 'btn-green': isSelected(possibleAction.id)}]"
                                     type="button"
-                                    :disabled="!paramsSet || executing.includes(action.id)"
+                                    :disabled="!isFullySpecified || executing.includes(action.id)"
                                     @click="updateModel()">
                                     <span
                                         class="text-inherit">
@@ -121,7 +118,6 @@
                 action: {},
                 param: {},
                 paramHistory: {},
-                paramsSet: false,
                 ChannelFunctionAction,
             };
         },
@@ -134,7 +130,7 @@
                 if (action.id === this.action?.id && this.executorMode && ChannelFunctionAction.requiresParams(action.id)) {
                     return this.changeAction({}); // collapse params panel
                 }
-                if (this.action && this.paramsSet) {
+                if (this.action && this.isFullySpecified) {
                     this.paramHistory[this.action.id] = {...this.param};
                 }
                 this.action = action;
@@ -146,14 +142,11 @@
             resetParams() {
                 if (this.paramHistory[this.action.id]) {
                     this.param = {...this.paramHistory[this.action.id]};
-                    this.paramsSet = true;
                 } else {
                     this.param = {};
-                    this.paramsSet = false;
                 }
             },
-            paramsChanged(isValid = true) {
-                this.paramsSet = isValid;
+            paramsChanged() {
                 if (!this.executorMode) {
                     this.updateModel();
                 }
@@ -165,7 +158,6 @@
                         if (action) {
                             this.action = action;
                             this.param = this.value.param || {};
-                            this.paramsSet = true;
                         } else {
                             this.action = {};
                             this.param = {};
@@ -199,7 +191,7 @@
                 if (this.executorMode) {
                     return this.executed.includes(actionId);
                 } else {
-                    return this.action.id === actionId && (this.paramsSet || !ChannelFunctionAction.requiresParams(actionId));
+                    return this.action.id === actionId && this.isFullySpecified;
                 }
             },
         },
@@ -212,7 +204,7 @@
                     return false;
                 }
                 if (ChannelFunctionAction.requiresParams(this.action.id)) {
-                    return this.paramsSet;
+                    return ChannelFunctionAction.paramsValid(this.action.id, this.param);
                 } else {
                     return true;
                 }

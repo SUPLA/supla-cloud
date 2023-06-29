@@ -63,7 +63,15 @@
 
 <script>
     export default {
-        props: ['header', 'deletable', 'cancellable', 'isPending'],
+        props: {
+            header: String,
+            deletable: Boolean,
+            cancellable: {
+                type: Boolean,
+                default: true,
+            },
+            isPending: Boolean,
+        },
         data() {
             return {
                 lastPendingState: false,

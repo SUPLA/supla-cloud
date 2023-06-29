@@ -41,6 +41,27 @@ const ChannelFunctionAction = Object.freeze({
         ].includes(actionId);
     },
 
+    paramsValid(actionId, params) {
+        switch (actionId) {
+            case ChannelFunctionAction.SET:
+                return params.transparent?.length > 0 || params.opaque?.length > 0;
+            case ChannelFunctionAction.SET_RGBW_PARAMETERS:
+                return !!(params.brightness >= 0 || params.brightness <= 100 || params.hue
+                    || params.colorBrightness >= 0 || params.colorBrightness <= 100);
+            case ChannelFunctionAction.REVEAL_PARTIALLY:
+            case ChannelFunctionAction.SHUT_PARTIALLY:
+            case ChannelFunctionAction.OPEN_PARTIALLY:
+            case ChannelFunctionAction.CLOSE_PARTIALLY:
+                return params.percentage >= 0 && params.percentage <= 100;
+            case ChannelFunctionAction.COPY:
+                return !!params.sourceChannelId;
+            case ChannelFunctionAction.SEND:
+                return !!((params.title || params.body) && params.accessIds?.length > 0);
+            default:
+                return true;
+        }
+    },
+
     availableInSchedules(actionId) {
         return ![
             ChannelFunctionAction.OPEN_CLOSE,
