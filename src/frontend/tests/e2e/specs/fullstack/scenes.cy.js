@@ -23,7 +23,7 @@ describe('Scenes', () => {
         cy.contains('ID1 Włącznik światła').click();
         cy.get('[type=text]').type('Testowa scena');
         cy.contains('Wyślij powiadomienie').click();
-        cy.get('[name=notification-title]').type('Testowe powiadomienie');
+        cy.get('[name=notification-body]').type('Testowe powiadomienie');
         cy.contains('wybierz identyfikatory dostępu').click();
         cy.get('a.dropdown-item').click();
         cy.contains('Zapisz zmiany').click();
