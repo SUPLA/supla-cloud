@@ -26,24 +26,26 @@ export const ChannelReactionConditions = {
     ],
     [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: [
         {
-            test: ({on_change_to = {}}) => on_change_to.eq,
+            test: (t) => t.on_change_to?.eq || t.on_change,
             component: ReactionConditionButtons,
             props: {
                 options: [
                     {label: 'opened', trigger: {on_change_to: {eq: 'open'}}}, // i18n
                     {label: 'closed', trigger: {on_change_to: {eq: 'closed'}}}, // i18n
+                    {label: 'opened or closed', trigger: {on_change: {}}}, // i18n
                 ]
             },
         },
     ],
     [ChannelFunction.POWERSWITCH]: [
         {
-            test: ({on_change_to = {}}) => on_change_to.eq,
+            test: (t) => t.on_change_to?.eq || t.on_change,
             component: ReactionConditionButtons,
             props: {
                 options: [
                     {label: 'turned on', trigger: {on_change_to: {eq: 'on'}}}, // i18n
                     {label: 'turned off', trigger: {on_change_to: {eq: 'off'}}}, // i18n
+                    {label: 'turned on or off', trigger: {on_change: {}}}, // i18n
                 ]
             },
         },

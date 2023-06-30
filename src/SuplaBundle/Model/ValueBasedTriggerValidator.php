@@ -59,17 +59,27 @@ class ValueBasedTriggerValidator {
     ];
 
     public function validate(IODeviceChannel $channel, array $trigger): void {
-        Assertion::keyExists($trigger, 'on_change_to', 'Missing on_change_to in trigger.');
-        Assertion::isArray($trigger['on_change_to'], 'on_change_to must be an object');
-        Assertion::count($trigger, 1, 'No extra keys allowed.');
-        $onChangeTo = $trigger['on_change_to'];
-        $this->validateFieldName($channel, $onChangeTo);
-        if (array_intersect_key($onChangeTo, array_flip(['lt', 'le', 'gt', 'ge']))) {
-            $this->validateThresholdTrigger($channel, $onChangeTo);
-        } elseif (array_intersect_key($onChangeTo, array_flip(['eq', 'ne']))) {
-            $this->validateEqualityTrigger($channel, $onChangeTo);
+        Assertion::count($trigger, 1, 'Invalid trigger. Only one on_change or on_change_to section can be defined.');
+        if (isset($trigger['on_change'])) {
+            Assertion::isArray($trigger['on_change'], 'on_change_to must be an object');
+            if ($trigger['on_change']) {
+                Assertion::count($trigger['on_change'], 1, 'Only name can be defined inside on_change trigger.');
+                Assertion::keyExists($trigger['on_change'], 'name', 'Only name can be defined inside on_change trigger.');
+                $this->validateFieldName($channel, $trigger['on_change']);
+            }
+        } elseif (isset($trigger['on_change_to'])) {
+            Assertion::isArray($trigger['on_change_to'], 'on_change_to must be an object');
+            $onChangeTo = $trigger['on_change_to'];
+            $this->validateFieldName($channel, $onChangeTo);
+            if (array_intersect_key($onChangeTo, array_flip(['lt', 'le', 'gt', 'ge']))) {
+                $this->validateThresholdTrigger($channel, $onChangeTo);
+            } elseif (array_intersect_key($onChangeTo, array_flip(['eq', 'ne']))) {
+                $this->validateEqualityTrigger($channel, $onChangeTo);
+            } else {
+                throw new \InvalidArgumentException('Unrecognized trigger format.');
+            }
         } else {
-            throw new \InvalidArgumentException('Unrecognized trigger format.');
+            throw new \InvalidArgumentException('Missing on_change_to and on_change definition.');
         }
     }
 

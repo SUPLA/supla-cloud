@@ -24,6 +24,7 @@ use SuplaBundle\Entity\HasSubject;
 use SuplaBundle\Entity\HasSubjectTrait;
 use SuplaBundle\Entity\Main\Listeners\ValueBasedTriggerEntityListener;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Utils\JsonArrayObject;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
@@ -141,7 +142,11 @@ class ValueBasedTrigger implements HasSubject {
     }
 
     public function getTrigger(): array {
-        return $this->trigger ? json_decode($this->trigger, true) : [];
+        $trigger = $this->trigger ? json_decode($this->trigger, true) : [];
+        if (isset($trigger['on_change']) && !$trigger['on_change']) {
+            $trigger['on_change'] = new JsonArrayObject([]);
+        }
+        return $trigger;
     }
 
     public function setTrigger(array $trigger): void {

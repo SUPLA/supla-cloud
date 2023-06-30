@@ -51,6 +51,11 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"eq": "hi"}}'],
             [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), '{"on_change_to": {"ne": "closed"}}'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"eq": 20}}'],
+            [ChannelFunction::THERMOMETER(), '{"on_change": {}}'],
+            [ChannelFunction::THERMOMETER(), '{"on_change": {"name": "temperature"}}'],
+            [ChannelFunction::HUMIDITYANDTEMPERATURE(), '{"on_change": {"name": "temperature"}}'],
+            [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), '{"on_change": {}}'],
+            [ChannelFunction::CONTROLLINGTHEROOFWINDOW(), '{"on_change": {}}'],
         ];
     }
 
@@ -65,12 +70,12 @@ class ValueBasedTriggerValidatorTest extends TestCase {
 
     public function invalidTriggers() {
         return [
-            [ChannelFunction::THERMOMETER(), '{}', 'Missing on_change_to'],
+            [ChannelFunction::THERMOMETER(), '{}', 'Invalid trigger'],
             [ChannelFunction::THERMOMETER(), '{"unicorn": {}}', 'Missing on_change_to'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": ""}', 'on_change_to must be an object'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {}}', 'Unrecognized trigger format'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "gt": 30}}', 'only one condition'],
-            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20}, "unicorn": ""}', 'No extra keys'],
+            [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20}, "unicorn": ""}', 'Only one on_change'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": "ala"}}', 'must be numeric'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "resume": ""}}', 'Invalid resume'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"lt": 20, "resume": {}}}', 'Invalid resume'],
@@ -85,6 +90,8 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"eq": "lo", "ne": "lo"}}', 'only one condition'],
             [ChannelFunction::THERMOMETER(), '{"on_change_to": {"eq": "lo"}}', 'must be numeric'],
             [ChannelFunction::MAILSENSOR(), '{"on_change_to": {"eq": "blabla"}}', 'comparison value'],
+            [ChannelFunction::THERMOMETER(), '{"on_change": {"unicorn": "rainbow"}}', 'Only name can be defined'],
+            [ChannelFunction::THERMOMETER(), '{"on_change": {"name": "rainbow"}}', 'Unsupported'],
         ];
     }
 }

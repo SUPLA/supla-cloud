@@ -31,6 +31,7 @@ class ValueBasedTriggerSerializer extends AbstractSerializer {
             $normalized['functionId'] = $vbt->getSubject()->getFunction()->getId();
             $normalized['actionId'] = $vbt->getAction()->getId();
         }
+        $normalized['trigger'] = $vbt->getTrigger();
         $normalized['owningChannelId'] = $vbt->getOwningChannel()->getId();
     }
 
