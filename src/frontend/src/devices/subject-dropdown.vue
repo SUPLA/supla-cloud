@@ -5,7 +5,7 @@
                 <div class="panel panel-default" v-if="!subjectType || subjectType === 'channel'">
                     <div class="panel-heading d-flex" @click="changeSubjectType('channel')">
                         <a role="button"
-                            tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
+                            tabindex="0"
                             class="text-inherit flex-grow-1">
                             {{ $t('Channels') }}
                         </a>
@@ -35,7 +35,7 @@
                 <div class="panel panel-default" v-if="!subjectType || subjectType === 'channelGroup'">
                     <div class="panel-heading d-flex" @click="changeSubjectType('channelGroup')">
                         <a role="button"
-                            tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
+                            tabindex="0"
                             class="text-inherit flex-grow-1">
                             {{ $t('Channel groups') }}
                         </a>
@@ -65,7 +65,7 @@
                 <div class="panel panel-default" v-if="!subjectType || subjectType === 'scene'">
                     <div class="panel-heading d-flex" @click="changeSubjectType('scene')">
                         <a role="button"
-                            tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
+                            tabindex="0"
                             class="text-inherit flex-grow-1">
                             {{ $t('Scenes') }}
                         </a>
@@ -94,7 +94,7 @@
                 <div class="panel panel-default" v-if="!disableSchedules && (!subjectType || subjectType === 'schedule')">
                     <div class="panel-heading d-flex" @click="changeSubjectType('schedule')">
                         <a role="button"
-                            tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
+                            tabindex="0"
                             class="text-inherit flex-grow-1">
                             {{ $t('Schedules') }}
                         </a>
@@ -123,7 +123,7 @@
                 <div class="panel panel-default" v-if="!disableNotifications && (!subjectType || subjectType === 'notification')">
                     <div class="panel-heading d-flex" @click="changeSubjectType('notification')">
                         <a role="button"
-                            tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
+                            tabindex="0"
                             class="text-inherit flex-grow-1">
                             {{ $t('Send notification') }}
                         </a>
@@ -140,7 +140,7 @@
                 <div class="panel panel-default" v-if="hasOthersSlot && (!subjectType || subjectType === 'other')">
                     <div class="panel-heading d-flex" @click="changeSubjectType('other')">
                         <a role="button"
-                            tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
+                            tabindex="0"
                             class="text-inherit flex-grow-1">
                             {{ $t('Other') }}
                         </a>
