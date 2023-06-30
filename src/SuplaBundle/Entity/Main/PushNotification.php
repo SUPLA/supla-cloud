@@ -63,8 +63,8 @@ class PushNotification implements ActionableSubject {
     /**
      * @ORM\ManyToMany(targetEntity="AccessID", inversedBy="pushNotifications", cascade={"persist"})
      * @ORM\JoinTable(name="supla_rel_aid_pushnotification",
-     *     joinColumns={ @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id") },
-     *     inverseJoinColumns={ @ORM\JoinColumn(name="access_id", referencedColumnName="id") }
+     *     joinColumns={ @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id", onDelete="CASCADE") },
+     *     inverseJoinColumns={ @ORM\JoinColumn(name="access_id", referencedColumnName="id", onDelete="CASCADE") }
      * )
      * @Groups({"basic"})
      */

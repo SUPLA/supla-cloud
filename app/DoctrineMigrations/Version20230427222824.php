@@ -34,8 +34,8 @@ class Version20230427222824 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_push_notification ADD CONSTRAINT FK_2B227408A76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_push_notification ADD CONSTRAINT FK_2B22740872F5A1AA FOREIGN KEY (channel_id) REFERENCES supla_dev_channel (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_push_notification ADD CONSTRAINT FK_2B227408125F95D6 FOREIGN KEY (iodevice_id) REFERENCES supla_iodevice (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE supla_rel_aid_pushnotification ADD CONSTRAINT FK_4A24B3E04E328CBE FOREIGN KEY (push_notification_id) REFERENCES supla_push_notification (id)');
-        $this->addSql('ALTER TABLE supla_rel_aid_pushnotification ADD CONSTRAINT FK_4A24B3E04FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id)');
+        $this->addSql('ALTER TABLE supla_rel_aid_pushnotification ADD CONSTRAINT FK_4A24B3E04E328CBE FOREIGN KEY (push_notification_id) REFERENCES supla_push_notification (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE supla_rel_aid_pushnotification ADD CONSTRAINT FK_4A24B3E04FEA67CF FOREIGN KEY (access_id) REFERENCES supla_accessid (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_value_based_trigger ADD CONSTRAINT FK_1DFF99CAA76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_value_based_trigger ADD CONSTRAINT FK_1DFF99CA13740A2 FOREIGN KEY (owning_channel_id) REFERENCES supla_dev_channel (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE supla_value_based_trigger ADD CONSTRAINT FK_1DFF99CA72F5A1AA FOREIGN KEY (channel_id) REFERENCES supla_dev_channel (id) ON DELETE CASCADE');
