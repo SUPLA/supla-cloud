@@ -2,7 +2,8 @@
     <div :class="'subject-dropdown ' + (subjectType == 'channel' ? 'first-selected' : '')">
         <div class="panel-group panel-accordion m-0">
             <transition-expand>
-                <div class="panel panel-default" v-if="!subjectType || subjectType === 'channel'">
+                <div :class="`panel panel-${subjectType === 'channel' ? 'success' : 'default'}`"
+                    v-if="!subjectType || subjectType === 'channel'">
                     <div class="panel-heading d-flex" @click="changeSubjectType('channel')">
                         <a role="button"
                             tabindex="0"
@@ -32,7 +33,8 @@
                 </div>
             </transition-expand>
             <transition-expand>
-                <div class="panel panel-default" v-if="!subjectType || subjectType === 'channelGroup'">
+                <div :class="`panel panel-${subjectType === 'channelGroup' ? 'success' : 'default'}`"
+                    v-if="!subjectType || subjectType === 'channelGroup'">
                     <div class="panel-heading d-flex" @click="changeSubjectType('channelGroup')">
                         <a role="button"
                             tabindex="0"
@@ -62,7 +64,8 @@
                 </div>
             </transition-expand>
             <transition-expand>
-                <div class="panel panel-default" v-if="!subjectType || subjectType === 'scene'">
+                <div :class="`panel panel-${subjectType === 'scene' ? 'success' : 'default'}`"
+                    v-if="!subjectType || subjectType === 'scene'">
                     <div class="panel-heading d-flex" @click="changeSubjectType('scene')">
                         <a role="button"
                             tabindex="0"
@@ -91,7 +94,8 @@
                 </div>
             </transition-expand>
             <transition-expand>
-                <div class="panel panel-default" v-if="!disableSchedules && (!subjectType || subjectType === 'schedule')">
+                <div :class="`panel panel-${subjectType === 'schedule' ? 'success' : 'default'}`"
+                    v-if="!disableSchedules && (!subjectType || subjectType === 'schedule')">
                     <div class="panel-heading d-flex" @click="changeSubjectType('schedule')">
                         <a role="button"
                             tabindex="0"
@@ -120,7 +124,8 @@
                 </div>
             </transition-expand>
             <transition-expand>
-                <div class="panel panel-default" v-if="!disableNotifications && (!subjectType || subjectType === 'notification')">
+                <div :class="`panel panel-${subjectType === 'notification' ? 'success' : 'default'}`"
+                    v-if="!disableNotifications && (!subjectType || subjectType === 'notification')">
                     <div class="panel-heading d-flex" @click="changeSubjectType('notification')">
                         <a role="button"
                             tabindex="0"
@@ -137,7 +142,8 @@
                 </div>
             </transition-expand>
             <transition-expand>
-                <div class="panel panel-default" v-if="hasOthersSlot && (!subjectType || subjectType === 'other')">
+                <div :class="`panel panel-${subjectType === 'other' ? 'success' : 'default'}`"
+                    v-if="hasOthersSlot && (!subjectType || subjectType === 'other')">
                     <div class="panel-heading d-flex" @click="changeSubjectType('other')">
                         <a role="button"
                             tabindex="0"
