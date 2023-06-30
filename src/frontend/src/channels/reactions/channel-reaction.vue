@@ -136,7 +136,7 @@
                     subjectType: this.targetSubject?.ownSubjectType,
                     actionId: this.action?.id,
                     actionParam: this.action?.param,
-                    isValid: !!(this.trigger && this.action && this.subject),
+                    isValid: !!(this.trigger && this.action && this.targetSubject),
                 };
             },
         }

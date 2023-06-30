@@ -19,7 +19,7 @@
                     v-model="threshold"
                     @input="updateModel()"
                     class="form-control">
-                <span class="input-group-addon">{{ unit }}</span>
+                <span class="input-group-addon" v-if="unit">{{ unit }}</span>
             </span>
         </div>
 
@@ -38,7 +38,7 @@
                     @input="updateModel()"
                     :min="['lt', 'le'].includes(operator) ? threshold : undefined"
                     :max="['gt', 'ge'].includes(operator) ? threshold : undefined">
-                <span class="input-group-addon">{{ unit }}</span>
+                <span class="input-group-addon" v-if="unit">{{ unit }}</span>
             </span>
         </div>
     </div>
@@ -52,14 +52,8 @@
         props: {
             value: Object,
             subject: Object,
-            unit: {
-                type: String,
-                default: '',
-            },
-            field: {
-                type: String,
-                required: true,
-            },
+            unit: String,
+            field: String,
             defaultThreshold: {
                 type: Number,
                 default: 20,

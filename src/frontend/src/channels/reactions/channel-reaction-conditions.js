@@ -19,7 +19,6 @@ export const ChannelReactionConditions = {
             test: ({on_change_to = {}}) => on_change_to.name === 'humidity',
             component: ReactionConditionThreshold,
             props: {
-                fieldLabelI18n: 'the humidity', // i18n
                 unit: '%',
                 field: 'humidity',
             },
@@ -54,7 +53,13 @@ export const ChannelReactionConditions = {
             test: ({on_change_to = {}}) => on_change_to.name,
             component: ReactionConditionElectricitymeter,
         },
-    ]
+    ],
+    [ChannelFunction.CONTROLLINGTHEROLLERSHUTTER]: [
+        {
+            test: ({on_change_to = {}}) => on_change_to.name,
+            component: ReactionConditionThreshold,
+        },
+    ],
 };
 
 ChannelReactionConditions[ChannelFunction.THERMOMETER] = [ChannelReactionConditions[ChannelFunction.HUMIDITYANDTEMPERATURE][0]];
@@ -62,4 +67,7 @@ ChannelReactionConditions[ChannelFunction.HUMIDITY] = [ChannelReactionConditions
 ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GATE] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR];
 ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GATEWAY] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR];
 ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_DOOR] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR];
+ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_ROLLERSHUTTER] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR];
+ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_ROOFWINDOW] = ChannelReactionConditions[ChannelFunction.OPENINGSENSOR_GARAGEDOOR];
 ChannelReactionConditions[ChannelFunction.LIGHTSWITCH] = ChannelReactionConditions[ChannelFunction.POWERSWITCH];
+ChannelReactionConditions[ChannelFunction.CONTROLLINGTHEROOFWINDOW] = ChannelReactionConditions[ChannelFunction.CONTROLLINGTHEROLLERSHUTTER];

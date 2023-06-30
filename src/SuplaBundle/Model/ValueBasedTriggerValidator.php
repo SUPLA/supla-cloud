@@ -54,6 +54,8 @@ class ValueBasedTriggerValidator {
         ChannelFunction::HUMIDITY,
         ChannelFunction::DEPTHSENSOR,
         ChannelFunction::ELECTRICITYMETER,
+        ChannelFunction::CONTROLLINGTHEROOFWINDOW,
+        ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
     ];
 
     public function validate(IODeviceChannel $channel, array $trigger): void {

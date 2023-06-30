@@ -43,6 +43,10 @@ export const DEFAULT_FIELD_NAMES = {
     [ChannelFunction.OPENINGSENSOR_DOOR]: 'the door', // i18n
     [ChannelFunction.LIGHTSWITCH]: 'the device', // i18n
     [ChannelFunction.POWERSWITCH]: 'the device', // i18n
+    [ChannelFunction.CONTROLLINGTHEROLLERSHUTTER]: 'the roller shutter closed percentage', // i18n
+    [ChannelFunction.CONTROLLINGTHEROOFWINDOW]: 'the roof window closed percentage', // i18n
+    [ChannelFunction.OPENINGSENSOR_ROLLERSHUTTER]: 'the roller shutter', // i18n
+    [ChannelFunction.OPENINGSENSOR_ROOFWINDOW]: 'the roof window', // i18n
 };
 
 const STATES = {
