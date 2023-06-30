@@ -28,6 +28,7 @@ class ValueBasedTriggerValidator {
         'humidity' => [ChannelFunction::HUMIDITY, ChannelFunction::HUMIDITYANDTEMPERATURE],
         'brightness' => [ChannelFunction::DIMMER, ChannelFunction::DIMMERANDRGBLIGHTING],
         'color_brightness' => [ChannelFunction::RGBLIGHTING, ChannelFunction::DIMMERANDRGBLIGHTING],
+        'color' => [ChannelFunction::RGBLIGHTING, ChannelFunction::DIMMERANDRGBLIGHTING],
         'voltage_avg' => [ChannelFunction::ELECTRICITYMETER],
         'voltage1' => [ChannelFunction::ELECTRICITYMETER],
         'voltage2' => [ChannelFunction::ELECTRICITYMETER],

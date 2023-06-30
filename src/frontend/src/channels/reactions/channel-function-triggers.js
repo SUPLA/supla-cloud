@@ -145,6 +145,10 @@ export const ChannelFunctionTriggers = {
             caption: 'When the RGB color brightness changes', // i18n
             def: () => ({on_change: {name: 'color_brightness'}})
         },
+        {
+            caption: 'When the RGB color changes', // i18n
+            def: () => ({on_change: {name: 'color'}})
+        },
     ],
     [ChannelFunction.DIMMERANDRGBLIGHTING]: [
         {
@@ -176,6 +180,10 @@ export const ChannelFunctionTriggers = {
         {
             caption: 'When the RGB color brightness changes', // i18n
             def: () => ({on_change: {name: 'color_brightness'}})
+        },
+        {
+            caption: 'When the RGB color changes', // i18n
+            def: () => ({on_change: {name: 'color'}})
         },
     ],
     [ChannelFunction.DEPTHSENSOR]: [
