@@ -46,7 +46,7 @@
         },
         beforeMount() {
             if (!this.currentCondition && this.value) {
-                this.currentCondition = this.possibleConditions.find(c => c.test(this.value));
+                this.currentCondition = this.possibleConditions.find(c => !c.test || c.test(this.value));
             }
             if (!this.currentCondition && this.possibleConditions.length === 1) {
                 this.changeCondition(this.possibleConditions[0]);
@@ -79,7 +79,7 @@
         watch: {
             value() {
                 if (this.value) {
-                    this.currentCondition = this.possibleConditions.find(c => c.test(this.value));
+                    this.currentCondition = this.possibleConditions.find(c => !c.test || c.test(this.value));
                 }
             }
         }

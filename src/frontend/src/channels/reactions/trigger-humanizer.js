@@ -1,4 +1,5 @@
 import ChannelFunction from "@/common/enums/channel-function";
+import {isEqual} from "lodash";
 
 export const FIELD_NAMES = {
     color: '',
@@ -49,6 +50,42 @@ export const DEFAULT_FIELD_NAMES = {
     [ChannelFunction.OPENINGSENSOR_ROOFWINDOW]: 'the roof window', // i18n
 };
 
+export const STATIC_TRIGGERS = {
+    [ChannelFunction.OPENINGSENSOR_GATE]: [
+        {label: 'When the gate will be opened', trigger: {on_change_to: {eq: 'open'}}}, // i18n
+        {label: 'When the gate will be closed', trigger: {on_change_to: {eq: 'closed'}}}, // i18n
+        {label: 'When the gate will be opened or closed', trigger: {on_change: {}}}, // i18n
+    ],
+    [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: [
+        {label: 'When the garage door will be opened', trigger: {on_change_to: {eq: 'open'}}}, // i18n
+        {label: 'When the garage door will be closed', trigger: {on_change_to: {eq: 'closed'}}}, // i18n
+        {label: 'When the garage door will be opened or closed', trigger: {on_change: {}}}, // i18n
+    ],
+    [ChannelFunction.OPENINGSENSOR_GATEWAY]: [
+        {label: 'When the gateway will be opened', trigger: {on_change_to: {eq: 'open'}}}, // i18n
+        {label: 'When the gateway will be closed', trigger: {on_change_to: {eq: 'closed'}}}, // i18n
+        {label: 'When the gateway will be opened or closed', trigger: {on_change: {}}}, // i18n
+    ],
+    [ChannelFunction.OPENINGSENSOR_DOOR]: [
+        {label: 'When the door will be opened', trigger: {on_change_to: {eq: 'open'}}}, // i18n
+        {label: 'When the door will be closed', trigger: {on_change_to: {eq: 'closed'}}}, // i18n
+        {label: 'When the door will be opened or closed', trigger: {on_change: {}}}, // i18n
+    ],
+    [ChannelFunction.OPENINGSENSOR_ROLLERSHUTTER]: [
+        {label: 'When the roller shutter will be opened', trigger: {on_change_to: {eq: 'open'}}}, // i18n
+        {label: 'When the roller shutter will be closed', trigger: {on_change_to: {eq: 'closed'}}}, // i18n
+        {label: 'When the roller shutter will be opened or closed', trigger: {on_change: {}}}, // i18n
+    ],
+    [ChannelFunction.OPENINGSENSOR_ROOFWINDOW]: [
+        {label: 'When the roof window will be opened', trigger: {on_change_to: {eq: 'open'}}}, // i18n
+        {label: 'When the roof window will be closed', trigger: {on_change_to: {eq: 'closed'}}}, // i18n
+        {label: 'When the roof window will be opened or closed', trigger: {on_change: {}}}, // i18n
+    ],
+    [ChannelFunction.CONTROLLINGTHEROLLERSHUTTER]: [
+        {label: 'When the roller shutter will change', trigger: {on_change: {}}}, // i18n
+    ],
+};
+
 const STATES = {
     hi: 'in high state', // i18n
     closed: 'closed', // i18n
@@ -68,6 +105,12 @@ function translateState(state, vue) {
 }
 
 export function triggerHumanizer(channelFunction, trigger, vue) {
+    if (STATIC_TRIGGERS[channelFunction]) {
+        const customTrigger = STATIC_TRIGGERS[channelFunction].find(ct => isEqual(ct.trigger, trigger));
+        if (customTrigger) {
+            return vue.$t(customTrigger.label);
+        }
+    }
     const onChangeTo = trigger?.on_change_to || {};
     let field = vue.$t('the sensor');
     if (onChangeTo.name && FIELD_NAMES[onChangeTo.name]) {
