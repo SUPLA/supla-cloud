@@ -1,6 +1,7 @@
 import {mount} from '@vue/test-utils'
 import ChannelActionChooser from '@/channels/action/channel-action-chooser.vue'
 import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+import {deepCopy} from "@/common/utils";
 
 describe('ChannelActionChooser', () => {
 
@@ -159,5 +160,20 @@ describe('ChannelActionChooser', () => {
         const selectedAction = wrapper.find('.panel-success');
         expect(selectedAction.exists()).toBeTruthy();
         expect(selectedAction.text()).toEqual('Execute');
+    });
+
+    it('maintains action when the subject is replaced with its copy', async () => {
+        const wrapper = await mount(ChannelActionChooser, {
+            propsData: {subject: SCENE, value: {id: 3001, param: {}}},
+        });
+        expect(wrapper.html()).toContain('Interrupt');
+        expect(wrapper.find('.panel-success').text()).toContain('Interrupt');
+        expect(wrapper.find('.panel-success').text()).not.toContain('execute');
+        await wrapper.findAll('.panel-heading').at(2).trigger('click');
+        expect(wrapper.find('.panel-success').text()).toContain('Interrupt and execute');
+        expect(wrapper.vm.action.id).toEqual(3002);
+        await wrapper.setProps({subject: deepCopy(SCENE)});
+        expect(wrapper.find('.panel-success').text()).not.toContain('execute');
+        expect(wrapper.vm.action.id).toEqual(3001);
     });
 })

@@ -15,7 +15,7 @@
             </div>
             <div class="col-sm-6">
                 <transition-expand>
-                    <div class="alert alert-danger" v-if="displayValidationErrors && !action">
+                    <div class="alert alert-danger" v-if="displayValidationErrors && (!action || !targetSubject)">
                         {{ $t('Please select a valid action') }}
                     </div>
                 </transition-expand>
@@ -136,7 +136,7 @@
                     subjectType: this.targetSubject?.ownSubjectType,
                     actionId: this.action?.id,
                     actionParam: this.action?.param,
-                    isValid: !!(this.trigger && this.action),
+                    isValid: !!(this.trigger && this.action && this.subject),
                 };
             },
         }
