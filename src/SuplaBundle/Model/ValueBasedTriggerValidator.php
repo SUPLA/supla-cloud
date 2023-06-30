@@ -26,6 +26,8 @@ class ValueBasedTriggerValidator {
     private const FIELD_NAMES = [
         'temperature' => [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE],
         'humidity' => [ChannelFunction::HUMIDITY, ChannelFunction::HUMIDITYANDTEMPERATURE],
+        'brightness' => [ChannelFunction::DIMMER, ChannelFunction::DIMMERANDRGBLIGHTING],
+        'color_brightness' => [ChannelFunction::RGBLIGHTING, ChannelFunction::DIMMERANDRGBLIGHTING],
         'voltage_avg' => [ChannelFunction::ELECTRICITYMETER],
         'voltage1' => [ChannelFunction::ELECTRICITYMETER],
         'voltage2' => [ChannelFunction::ELECTRICITYMETER],
@@ -46,6 +48,8 @@ class ValueBasedTriggerValidator {
         'power_apparent1' => [ChannelFunction::ELECTRICITYMETER],
         'power_apparent2' => [ChannelFunction::ELECTRICITYMETER],
         'power_apparent3' => [ChannelFunction::ELECTRICITYMETER],
+        'manually_closed' => [ChannelFunction::VALVEOPENCLOSE],
+        'flooding' => [ChannelFunction::VALVEOPENCLOSE],
     ];
 
     private const THRESHOLD_SUPPORT = [
@@ -56,6 +60,17 @@ class ValueBasedTriggerValidator {
         ChannelFunction::ELECTRICITYMETER,
         ChannelFunction::CONTROLLINGTHEROOFWINDOW,
         ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
+        ChannelFunction::WINDSENSOR,
+        ChannelFunction::WEIGHTSENSOR,
+        ChannelFunction::RAINSENSOR,
+        ChannelFunction::PRESSURESENSOR,
+        ChannelFunction::RGBLIGHTING,
+        ChannelFunction::DIMMERANDRGBLIGHTING,
+        ChannelFunction::DIMMER,
+        ChannelFunction::IC_ELECTRICITYMETER,
+        ChannelFunction::IC_GASMETER,
+        ChannelFunction::IC_WATERMETER,
+        ChannelFunction::IC_HEATMETER,
     ];
 
     public function validate(IODeviceChannel $channel, array $trigger): void {

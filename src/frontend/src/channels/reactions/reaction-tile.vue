@@ -13,14 +13,14 @@
 </template>
 
 <script>
-    import {triggerHumanizer} from "@/channels/reactions/trigger-humanizer";
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+    import {channelFunctionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
 
     export default {
         props: ['model'],
         computed: {
             triggerCaption() {
-                return triggerHumanizer(this.model.owningChannel.functionId, this.model.trigger, this);
+                return channelFunctionTriggerCaption(this.model.owningChannel.functionId, this.model.trigger, this);
             },
             subjectCaption() {
                 if (this.model.subject.ownSubjectType === ActionableSubjectType.NOTIFICATION) {

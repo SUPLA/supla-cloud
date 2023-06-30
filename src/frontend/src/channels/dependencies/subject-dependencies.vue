@@ -96,13 +96,13 @@
 </template>
 
 <script>
-    import {triggerHumanizer} from "@/channels/reactions/trigger-humanizer";
+    import {channelFunctionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
 
     export default {
         props: ['dependencies'],
         methods: {
             humanizeTrigger(reaction) {
-                return triggerHumanizer(reaction.functionId, reaction.trigger, this);
+                return channelFunctionTriggerCaption(reaction.functionId, reaction.trigger, this);
             }
         },
         computed: {

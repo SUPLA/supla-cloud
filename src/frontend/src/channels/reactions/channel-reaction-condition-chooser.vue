@@ -19,7 +19,8 @@
                             <div class="panel-body" v-if="isSelected(possibleCondition)">
                                 <Component :is="possibleCondition.component"
                                     :subject="subject"
-                                    v-model="currentConditionJson" v-bind="possibleCondition.props || {}"/>
+                                    v-model="currentConditionJson"
+                                    v-bind="possibleCondition.props || {}"/>
                             </div>
                         </transition-expand>
                     </div>
@@ -31,7 +32,7 @@
 
 <script>
     import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import {ChannelReactionConditions} from "@/channels/reactions/channel-reaction-conditions";
+    import {ChannelFunctionTriggers, findTriggerDefinition} from "@/channels/reactions/channel-function-triggers";
 
     export default {
         components: {TransitionExpand},
@@ -46,7 +47,7 @@
         },
         beforeMount() {
             if (!this.currentCondition && this.value) {
-                this.currentCondition = this.possibleConditions.find(c => !c.test || c.test(this.value));
+                this.currentCondition = findTriggerDefinition(this.subject.functionId, this.value);
             }
             if (!this.currentCondition && this.possibleConditions.length === 1) {
                 this.changeCondition(this.possibleConditions[0]);
@@ -58,7 +59,7 @@
             },
             changeCondition(condition) {
                 if (this.possibleConditions.length > 1 || !this.currentCondition) {
-                    this.currentCondition = this.isSelected(condition) ? undefined : condition;
+                    this.currentCondition = condition;
                     this.currentConditionJson = this.currentCondition?.def ? this.currentCondition.def() : undefined;
                 }
             }
@@ -73,13 +74,13 @@
                 }
             },
             possibleConditions() {
-                return ChannelReactionConditions[this.subject.functionId] || [];
+                return ChannelFunctionTriggers[this.subject.functionId] || [];
             }
         },
         watch: {
             value() {
                 if (this.value) {
-                    this.currentCondition = this.possibleConditions.find(c => !c.test || c.test(this.value));
+                    this.currentCondition = findTriggerDefinition(this.subject.functionId, this.value);
                 }
             }
         }

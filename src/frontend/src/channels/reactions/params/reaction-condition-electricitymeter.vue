@@ -21,7 +21,8 @@
                 </a>
             </div>
         </div>
-        <ReactionConditionThreshold v-if="field" v-model="trigger" :field="fieldName" :unit="field.unit" :default-threshold="230"/>
+        <ReactionConditionThreshold v-if="field" v-model="trigger" :field="fieldName" :default-threshold="230"
+            :unit="unit" :label-i18n="labelI18n" :resume-label-i18n="resumeLabelI18n"/>
     </div>
 </template>
 
@@ -33,6 +34,9 @@
         props: {
             value: Object,
             subject: Object,
+            unit: Function,
+            labelI18n: Function,
+            resumeLabelI18n: Function,
         },
         data() {
             return {

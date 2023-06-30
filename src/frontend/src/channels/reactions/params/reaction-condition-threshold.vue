@@ -1,7 +1,7 @@
 <template>
     <div class="reaction-condition-threshold">
         <div class="form-group d-flex align-items-center">
-            <label class="flex-grow-1 pr-3">{{ label }}</label>
+            <label class="flex-grow-1 pr-3">{{ $t(labelI18n(field)) }}</label>
             <span class="input-group">
                 <span class="input-group-btn">
                     <a class="btn btn-white" @click="nextOperator()">
@@ -17,15 +17,17 @@
                     required
                     v-focus="true"
                     v-model="threshold"
+                    step="0.01"
                     @input="updateModel()"
                     class="form-control">
-                <span class="input-group-addon" v-if="unit">{{ unit }}</span>
+                <span class="input-group-addon" v-if="unit(field)">{{ unit(field) }}</span>
             </span>
         </div>
 
         <div class="form-group d-flex align-items-center" v-if="resumeOperator">
             <span class="flex-grow-1 pr-4">
-                {{ $t('then execute the action and wait until {field} will be', {field: fieldLabel}) }}
+                {{ $t('then execute the action') }}
+                {{ $t(resumeLabelI18n(field)) }}
             </span>
             <span class="input-group">
                 <span class="input-group-addon">
@@ -35,29 +37,43 @@
                     <span v-else>&ge;</span>
                 </span>
                 <input type="number" required class="form-control" v-model="resumeThreshold"
+                    step="0.01"
                     @input="updateModel()"
                     :min="['lt', 'le'].includes(operator) ? threshold : undefined"
                     :max="['gt', 'ge'].includes(operator) ? threshold : undefined">
-                <span class="input-group-addon" v-if="unit">{{ unit }}</span>
+                <span class="input-group-addon" v-if="unit(field)">{{ unit(field) }}</span>
             </span>
         </div>
     </div>
 </template>
 
 <script>
-    import {DEFAULT_FIELD_NAMES, FIELD_NAMES} from "@/channels/reactions/trigger-humanizer";
-
-    const OPERATORS = ['lt', 'le', 'gt', 'ge', 'eq', 'ne'];
     export default {
         props: {
             value: Object,
             subject: Object,
-            unit: String,
             field: String,
+            operators: {
+                type: Array,
+                default: () => ['lt', 'le', 'gt', 'ge', 'eq', 'ne'],
+            },
+            unit: {
+                type: Function,
+                default: () => '',
+            },
+            labelI18n: {
+                type: Function,
+                default: () => 'When the value will be', // i18n
+            },
+            resumeLabelI18n: {
+                type: Function,
+                default: () => 'and wait until the value will be', // i18n
+            },
             defaultThreshold: {
                 type: Number,
                 default: 20,
-            }
+            },
+            disableResume: Boolean,
         },
         data() {
             return {
@@ -74,7 +90,7 @@
         },
         methods: {
             updateInternalState() {
-                this.operator = OPERATORS.find(op => Object.hasOwn(this.onChangeTo, op)) || OPERATORS[0];
+                this.operator = this.operators.find(op => Object.hasOwn(this.onChangeTo, op)) || this.operators[0];
                 this.threshold = Number.isFinite(this.onChangeTo[this.operator]) ? this.onChangeTo[this.operator] : this.defaultThreshold;
                 const resume = this.onChangeTo.resume || {};
                 this.resumeThreshold = Number.isFinite(resume[this.resumeOperator]) ? resume[this.resumeOperator] : this.defaultThreshold;
@@ -92,8 +108,8 @@
                 }
             },
             nextOperator() {
-                const nextIndex = OPERATORS.indexOf(this.operator) + 1;
-                this.operator = nextIndex >= OPERATORS.length ? OPERATORS[0] : OPERATORS[nextIndex];
+                const nextIndex = this.operators.indexOf(this.operator) + 1;
+                this.operator = nextIndex >= this.operators.length ? this.operators[0] : this.operators[nextIndex];
                 this.updateModel();
             },
             adjustResumeThreshold() {
@@ -106,7 +122,7 @@
         },
         computed: {
             resumeOperator() {
-                return {lt: 'ge', le: 'gt', ge: 'lt', gt: 'le'}[this.operator];
+                return !this.disableResume && {lt: 'ge', le: 'gt', ge: 'lt', gt: 'le'}[this.operator];
             },
             onChangeTo: {
                 get() {
@@ -115,16 +131,6 @@
                 set(value) {
                     this.$emit('input', value ? {on_change_to: {...value, name: this.field}} : undefined);
                 }
-            },
-            fieldLabel() {
-                return this.$t(
-                    (this.field && FIELD_NAMES[this.field]) ||
-                    DEFAULT_FIELD_NAMES[this.subject.functionId] ||
-                    'the value' // i18n
-                );
-            },
-            label() {
-                return this.$t('When {field} will be', {field: this.fieldLabel});
             },
         },
         watch: {

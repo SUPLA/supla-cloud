@@ -12,6 +12,10 @@
                     </div>
                 </transition-expand>
                 <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="onChanged()" class="mb-3"/>
+                <div class="mt-3">
+                    <h2 class="text-danger">DEBUG</h2>
+                    <pre><code>{{ trigger }}</code></pre>
+                </div>
             </div>
             <div class="col-sm-6">
                 <transition-expand>
@@ -41,7 +45,6 @@
     import ChannelReactionConditionChooser from "@/channels/reactions/channel-reaction-condition-chooser.vue";
     import SubjectDropdown from "@/devices/subject-dropdown.vue";
     import ChannelActionChooser from "@/channels/action/channel-action-chooser.vue";
-    import {triggerHumanizer} from "@/channels/reactions/trigger-humanizer";
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
     import {successNotification} from "@/common/notifier";
     import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
@@ -117,9 +120,6 @@
             }
         },
         computed: {
-            triggerCaption() {
-                return triggerHumanizer(this.subject.functionId, this.trigger, this);
-            },
             subjectCaption() {
                 if (this.targetSubject.ownSubjectType === ActionableSubjectType.NOTIFICATION) {
                     return '';

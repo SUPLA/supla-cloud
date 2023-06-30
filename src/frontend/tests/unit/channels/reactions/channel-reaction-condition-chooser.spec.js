@@ -12,8 +12,8 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            const actions = wrapper.findAll('.btn');
-            expect(actions.length).toBe(2);
+            const actions = wrapper.findAll('.panel-heading');
+            expect(actions.length).toBe(3);
             expect(wrapper.vm.condition).toBeUndefined();
         });
 
@@ -23,7 +23,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            await wrapper.find('.btn').trigger('click');
+            await wrapper.find('.panel-heading').trigger('click');
             expect(wrapper.vm.condition).toEqual({on_change_to: {eq: 'open'}});
         });
 
@@ -33,8 +33,8 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            await wrapper.find('.btn').trigger('click');
-            await wrapper.find('.btn').trigger('click');
+            await wrapper.find('.panel-heading').trigger('click');
+            await wrapper.find('.panel-heading').trigger('click');
             expect(wrapper.vm.condition).toEqual({on_change_to: {eq: 'open'}});
         });
 
@@ -44,7 +44,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            await wrapper.findAll('.btn').at(1).trigger('click');
+            await wrapper.findAll('.panel-heading').at(1).trigger('click');
             expect(wrapper.vm.condition).toEqual({on_change_to: {eq: 'closed'}});
         });
 
@@ -54,29 +54,32 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            expect(wrapper.findAll('.btn-green').length).toBe(1);
-            expect(wrapper.find('.btn-green').text()).toContain('closed');
+            expect(wrapper.findAll('.panel-success').length).toBe(1);
+            expect(wrapper.find('.panel-success').text()).toContain('closed');
             expect(wrapper.vm.condition).toEqual({on_change_to: {eq: 'closed'}});
         });
     });
 
-    describe('THERMOMETER', () => {
+    describe('ELECTRICITYMETER', () => {
         it('selects the first action by default if only one', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                data: () => ({channel: {functionId: ChannelFunction.ELECTRICITYMETER, config: {}}, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
             expect(wrapper.findAll('.form-control').length).toEqual(2);
             expect(wrapper.vm.condition).toBeDefined();
         });
+    });
 
+    describe('THERMOMETER', () => {
         it('displays unit', async () => {
             const wrapper = await mount({
                 data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
+            await wrapper.find('.panel-heading').trigger('click');
             expect(wrapper.text()).toContain('°C');
         });
 
@@ -86,6 +89,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
+            await wrapper.find('.panel-heading').trigger('click');
             expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 20, name: 'temperature', resume: {ge: 20}}});
             await wrapper.find('.input-group-btn a').trigger('click');
             expect(wrapper.vm.condition).toEqual({on_change_to: {le: 20, name: 'temperature', resume: {gt: 20}}});
@@ -106,6 +110,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
+            await wrapper.find('.panel-heading').trigger('click');
             await wrapper.find('.form-control').setValue('');
             expect(wrapper.vm.condition).toBeUndefined();
             await wrapper.find('.form-control').setValue('-');
@@ -120,6 +125,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
+            await wrapper.find('.panel-heading').trigger('click');
             await wrapper.find('.form-control').setValue('');
             expect(wrapper.vm.condition).toBeUndefined();
         });
@@ -149,6 +155,18 @@ describe('ChannelReactionsConfig', () => {
             expect(wrapper.find('.input-group-btn a').text()).toContain('>');
             expect(wrapper.find('.form-control').element.value).toEqual('0');
         });
+
+        it('can initialize temperature condition on_change', async () => {
+            const wrapper = await mount({
+                data: () => ({
+                    channel: {functionId: ChannelFunction.THERMOMETER},
+                    condition: {on_change: {name: 'temperature'}}
+                }),
+                template: '<div><cc :subject="channel" v-model="condition"/></div>',
+                components: {cc: ChannelReactionConditionChooser},
+            });
+            expect(wrapper.find('.panel-success').text()).toContain('temperature changes');
+        });
     });
 
     describe('HUMIDITYANDTEMPERATURE', () => {
@@ -158,7 +176,7 @@ describe('ChannelReactionsConfig', () => {
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
-            await wrapper.findAll('.panel-heading').at(1).trigger('click');
+            await wrapper.findAll('.panel-heading').at(2).trigger('click');
             expect(wrapper.text()).toContain('%');
             await wrapper.find('.form-control').setValue('50');
             expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 50, name: 'humidity', resume: {ge: 50}}});
