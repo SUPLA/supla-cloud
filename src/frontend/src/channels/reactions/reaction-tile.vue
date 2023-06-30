@@ -31,3 +31,12 @@
         }
     };
 </script>
+
+<style lang="scss" scoped>
+    .active > h3:before {
+        content: ' ';
+        width: 20px;
+        float: right;
+        height: 5px;
+    }
+</style>
