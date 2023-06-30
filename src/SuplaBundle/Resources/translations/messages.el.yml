@@ -994,115 +994,115 @@ hourly: Κύκλος ωρών
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-Active applications: ~
-Active sessions: ~
-Active web sessions: ~
-Aggregation: ~
-All events: ~
-All logs has been downloaded. Reload the chart to see them.: ~
-Application: ~
-Applications with access: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-Are you sure you want to log out this device?: ~
-Arithmetic balance: ~
-Authentication failure: ~
-Authentication successful: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Change the password and log out: ~
-Channel available for {serviceName}: ~
-Chart mode: ~
-Colon: ~
-Comma: ~
-Confirmation: ~
-Counter: ~
-Counter reset: ~
-Data limits: ~
-Date and time: ~
-Download measurements history: ~
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
-Enabled phases: ~
-Expires at: ~
-File format: ~
-Forward active energy balance: ~
-From: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-IP Address: ~
-Incremental: ~
-Integrations settings: ~
-Invalid username or password: ~
-Log out: ~
-Logs transformation: ~
-No, take me back!: ~
-Noop: ~
-OK: ~
-Operation: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
-Password changed: ~
-Password reset: ~
-Phase {phaseNumber}: ~
-Predefined time ranges: ~
-Reload the chart: ~
-Reverse active energy balance: ~
-Scene available for {serviceName}: ~
-Security: ~
-Security log: ~
-Selected device has been logged out.: ~
-Set values for each phase separately: ~
-Summary for selected time range: ~
-Tab: ~
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-'This password will protect your home. Therefore, it must:': ~
-To: ~
-Total: ~
-Unknown browser: ~
-Value: ~
-Value separator: ~
-Vector balance: ~
-'We also strongly advise you to choose a password that:': ~
-We were not able to prepare your data. Please see the error details below.: ~
-We will miss you!: ~
-You can browse only the most recent logs now. Wait a while for the full history.: ~
-You must leave at least one phase enabled.: ~
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
-Your chart is being drawn...: ~
-Your data are being collected. Please be patient.: ~
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
-actionableSubjectType_schedule: ~
-average: ~
-be at least {numChars} characters long: ~
-change: ~
-choose the schedule: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
-last 24 hours: ~
-last 30 days: ~
-last 6 hours: ~
-last 7 days: ~
-logs_aggregation_day: ~
-logs_aggregation_hour: ~
-logs_aggregation_minute: ~
-logs_aggregation_month: ~
-previous month: ~
-range: ~
-schedule: ~
-the whole history: ~
-this month: ~
-this year: ~
-today: ~
-unknown: ~
-values as seen on chart: ~
-values as seen on counter: ~
-yesterday: ~
-'{serviceName} integration': ~
+Action confirmation: Επιβεβαίωση ενέργειας
+Active applications: Ενεργές εφαρμογές
+Active sessions: Ενεργές συνεδρίες
+Active web sessions: Ενεργές συνεδρίες (web)
+Aggregation: Συσσώρευση
+All events: Όλα τα συμβάντα
+All logs has been downloaded. Reload the chart to see them.: Λήφθηκαν όλα τα δεδομένα μετρήσεων. Επαναφορτώστε το διάγραμμα για να τα δείτε.
+Application: Εφαρμογή
+Applications with access: Εφαρμογή με πρόσβαση
+Are you sure you want to delete the events from the voltage aberrations history?: Είστε σίγουροι ότι θέλετε να διαγράψετε όλα τα συμβάντα από την ιστορία εκτροπών της έντασης;
+Are you sure you want to log out this device?: Σίγουρα θέλετε να αποσυνδέσετε αυτήν τη συσκευή;
+Arithmetic balance: Αριθμητική ισορροπία
+Authentication failure: Σφάλμα σύνδεσης
+Authentication successful: Επιτυχής σύνδεση
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Η απενεργοποίηση αυτής της επιλογής θα επιτρέψει τον έλεγχο αυτής της συσκευής από το επίπεδο της ενσωμάτωσης χωρίς να χρειάζεται η πρόσθετη επιβεβαίωση. Αυτό μπορεί να οδηγήσει σε μη ασφαλή ή λιγότερο ασφαλή κατάσταση (π.χ. τυχαίο άνοιγμα μιας πύλης).
+By signing in, you are authorizing {clientName} to control your devices.: Με τη σύνδεση, δίνετε την εξουσιοδότηση στην εφαρμογή {clientName} να ελέγχει τις συσκευές σας.
+Change the password and log out: Αλλάξτε τον κωδικό πρόσβασής σας και αποσυνδεθείτε
+Channel available for {serviceName}: Κανάλι διαθέσιμο για {serviceName}
+Chart mode: Τύπος διαγράμματος
+Colon: Ερωτηματικό
+Comma: Κόμμα
+Confirmation: Επιβεβαίωση
+Counter: Μετρητής
+Counter reset: Επαναφορά μετρητή
+Data limits: Όρια δεδομένων
+Date and time: Ημερομηνία και ώρα
+Download measurements history: Κάντε λήψη του ιστορικού μετρήσεων
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Ο μετρητής ηλεκτρικής ενέργειας δεν ανέφερε τη δυνατότητα διαμόρφωσης προστιθέμενων τιμών. Ενημερώστε το υλικολογισμικό της συσκευής και δοκιμάστε ξανά.
+Enabled phases: Ενεργά στάδια
+Expires at: Λήγει
+File format: Μορφή αρχείου
+Forward active energy balance: Ισολογισμός ενεργής λήφθεισας ενέργειας
+From: Από
+I understand that my SUPLA account will be permanently deleted.: Κατανοώ ότι ο λογαριασμός μου στο SUPLA θα διαγραφεί οριστικά.
+IP Address: Διεύθυνση IP
+Incremental: Aυξ.
+Integrations settings: Ρυθμίσεις συσσώρευσης
+Invalid username or password: Λάθος όνομα χρήστη ή κωδικός πρόσβασης
+Log out: Αποσύνδεση
+Logs transformation: Μετασχηματισμός αξιών
+No, take me back!: Όχι, πάρτε με από εδώ!
+Noop: Καμία λειτουργία
+OK: OK
+Operation: Λειτουργία
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: Το PIN για την Google πρέπει να έχει τουλάχιστον {minLength} και το πολύ {maxLength} ψηφία.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Η αλλαγή του κωδικού πρόσβασης θα έχει ως αποτέλεσμα την αποσύνδεση όλων των τρέχουσων συνεδρίων. Ωστόσο, αυτό δεν θα επηρεάσει τις εφαρμογές που έχουν εγκριθεί από εσάς. Τις εγκρίσεις για τη σύνδεση των εφαρμογών πρέπει να τις ακυρώσετε ξεχωριστά.
+Password changed: Ο κωδικός πρόσβασης έχει αλλάξει
+Password reset: Επαναφορά κωδικού πρόσβασης
+Phase {phaseNumber}: Στάδιο {phaseNumber}
+Predefined time ranges: Χρονικές περιοχές
+Reload the chart: Επαναφόρτωση διαγράμματος
+Reverse active energy balance: Ισολιγισμός ενεργής επιστραφήσας ενέργειας
+Scene available for {serviceName}: Σκηνή διαθέσιμη για {serviceName}
+Security: Ασφάλεια
+Security log: Ημερολόγιο ασφαλείας
+Selected device has been logged out.: Η επιλεγμένη συσκευή έχει αποσυνδεθεί
+Set values for each phase separately: Καθορίστε την τιμή για κάθε στάδιο ξεχωριστά
+Summary for selected time range: Σύνοψη για την επιλεγμένη περιοχή
+Tab: Στηλοθέτης
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Μια συσκευή που χρησιμοποιεί αυτή τη συνεδρία θα χάσει την πρόσβαση στο SUPLA Cloud. Για να συνεχίσετε να χρησιμοποιείτε την εφαρμογή, θα πρέπει να ξανασυνδεθείτε.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Όλο το ιστορικό εκτροπών τάσης για το στάδιο {phaseNumber} θα διαγραφεί.
+The entire history of the voltage aberrations will be removed from this channel.: Όλο το ιστορικό των εκτροπών τάσης θα διαγραφεί για αυτό το κανάλι.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Τα συμβάντα στο ιστορικό εκτροπών τάσης θα διαγραφούν αυτόματα μετά από {days} ημέρες.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Αυτή είναι η τελική φάση της διαγραφής του λογαριασμού σας. Η συμπλήρωση και η έγκριση της φόρμας θα έχει ως αποτέλεσμα τη μη αναστρέψιμη διαγραφή των δεδομένων σας.
+'This password will protect your home. Therefore, it must:': 'Αυτός ο κωδικός θα προστατεύσει το σπίτι σας. Επομένως:'
+To: ΠΡΟΣ
+Total: Σύνολο
+Unknown browser: Άγνωστο πρόγραμμα περιήγησης
+Value: Αξία
+Value separator: Διαχωριστής
+Vector balance: Διανυσματική ισορροπία
+'We also strongly advise you to choose a password that:': 'Επιπλέον, σας συνιστούμε να επιλέξετε έναν κωδικό πρόσβασης που:'
+We were not able to prepare your data. Please see the error details below.: Κατά την προετοιμασία των δεδομένων προέκυψε σφάλμα. Διαβάστε τις λεπτομέρειες παρακάτω.
+We will miss you!: Θα μας λείψετε!
+You can browse only the most recent logs now. Wait a while for the full history.: Επί του παρόντος, εμφανίζονται μόνο οι πιο πρόσφατες μετρήσεις. Περιμένετε λίγο για να λάβετε ολόκληρη την ιστορία.
+You must leave at least one phase enabled.: Τουλάχιστον μια φάση πρέπει να παραμείνει ενεργή.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Το πρόγραμμα περιήγησής σας δεν υποστηρίζει το μηχανισμό βάσης δεδομένων πελάτη (IndexedDB). Αυτή η λειτουργία απαιτείται για την εμφάνιση γραφημάτων και την υποστήριξη προηγμένων ρυθμίσεων εξαγωγής δεδομένων. Ενημερώστε το πρόγραμμα περιήγησής σας ή βγείτε από τη λειτουργία incognito για να επωφεληθείτε από αυτές τις λειτουργίες.
+Your chart is being drawn...: Το γράφημά σας σχεδιάζεται...
+Your data are being collected. Please be patient.: Συλλέγουμε τα δεδομένα σας, περιμένετε.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Γίνεται λήψη των δεδομέμνων σας από τον διακομιστή. Περιμένετε να ολοκληρωθούν οι λήψεις πριν τα εξάγετε.
+actionableSubjectType_schedule: Χρονοδιάγραμμα
+average: μέσος όρος
+be at least {numChars} characters long: πρέπει να έχει τουλάχιστον {numChars} χαρακτήρες
+change: αλλαγή
+choose the schedule: επιλέξτε το χρονοδιάγραμμα
+contains a character that is neither a letter nor a digit: περιέχει χαρακτήρα που δεν είναι ούτε γράμμα ούτε ψηφίο
+contains a digit: περιέχει έναν ψηφίο
+contains lower and upper letters: περιέχει κεφαλαία και πεζά γράμματα
+is at least {numChars} characters long: έχει τουλάχιστον {numChars} χαρακτήρες
+last 24 hours: τις τελευταίες 24 ώρες
+last 30 days: τις τελευταίες 30 ημέρες
+last 6 hours: τις τελευταίες 6 ώρες
+last 7 days: τις τελευταίες 7 ημέρες
+logs_aggregation_day: ημέρες
+logs_aggregation_hour: ώρες
+logs_aggregation_minute: λεπτά
+logs_aggregation_month: μήνες
+previous month: προηγούμενος μήνας
+range: περιοχή
+schedule: χρονοδιάγραμμα
+the whole history: ολόκληρη η ιστορία
+this month: τρέχων μήνας
+this year: τρέχων έτος
+today: σήμερα
+unknown: άγνωστο
+values as seen on chart: τιμές όπως στο διάγραμμα
+values as seen on counter: τιμές όπως στον μετρητή
+yesterday: χθες
+'{serviceName} integration': 'Ενσωμάτωση με {serviceName}'
 
 #</editor-fold>

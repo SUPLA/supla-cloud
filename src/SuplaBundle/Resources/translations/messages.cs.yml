@@ -994,115 +994,115 @@ hourly: Hodinový cyklus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-Active applications: ~
-Active sessions: ~
-Active web sessions: ~
-Aggregation: ~
-All events: ~
-All logs has been downloaded. Reload the chart to see them.: ~
-Application: ~
-Applications with access: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-Are you sure you want to log out this device?: ~
-Arithmetic balance: ~
-Authentication failure: ~
-Authentication successful: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Change the password and log out: ~
-Channel available for {serviceName}: ~
-Chart mode: ~
-Colon: ~
-Comma: ~
-Confirmation: ~
-Counter: ~
-Counter reset: ~
-Data limits: ~
-Date and time: ~
-Download measurements history: ~
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
-Enabled phases: ~
-Expires at: ~
-File format: ~
-Forward active energy balance: ~
-From: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-IP Address: ~
-Incremental: ~
-Integrations settings: ~
-Invalid username or password: ~
-Log out: ~
-Logs transformation: ~
-No, take me back!: ~
-Noop: ~
-OK: ~
-Operation: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
-Password changed: ~
-Password reset: ~
-Phase {phaseNumber}: ~
-Predefined time ranges: ~
-Reload the chart: ~
-Reverse active energy balance: ~
-Scene available for {serviceName}: ~
-Security: ~
-Security log: ~
-Selected device has been logged out.: ~
-Set values for each phase separately: ~
-Summary for selected time range: ~
-Tab: ~
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-'This password will protect your home. Therefore, it must:': ~
-To: ~
-Total: ~
-Unknown browser: ~
-Value: ~
-Value separator: ~
-Vector balance: ~
-'We also strongly advise you to choose a password that:': ~
-We were not able to prepare your data. Please see the error details below.: ~
-We will miss you!: ~
-You can browse only the most recent logs now. Wait a while for the full history.: ~
-You must leave at least one phase enabled.: ~
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
-Your chart is being drawn...: ~
-Your data are being collected. Please be patient.: ~
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
-actionableSubjectType_schedule: ~
-average: ~
-be at least {numChars} characters long: ~
-change: ~
-choose the schedule: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
-last 24 hours: ~
-last 30 days: ~
-last 6 hours: ~
-last 7 days: ~
-logs_aggregation_day: ~
-logs_aggregation_hour: ~
-logs_aggregation_minute: ~
-logs_aggregation_month: ~
-previous month: ~
-range: ~
-schedule: ~
-the whole history: ~
-this month: ~
-this year: ~
-today: ~
-unknown: ~
-values as seen on chart: ~
-values as seen on counter: ~
-yesterday: ~
-'{serviceName} integration': ~
+Action confirmation: Potvrzení akce
+Active applications: Aktivní aplikace
+Active sessions: Aktivní relace
+Active web sessions: Aktivní relace (web)
+Aggregation: Agregace
+All events: Všechny události
+All logs has been downloaded. Reload the chart to see them.: Všechna naměřená data byla stažena. Pokud si chceš graf prohlédnout, musíš ho znovu načíst.
+Application: Aplikace
+Applications with access: Aplikace s přístupem
+Are you sure you want to delete the events from the voltage aberrations history?: Jsi si jistý, že chceš z příběhu o odchylce napětí odstranit všechny události?
+Are you sure you want to log out this device?: Opravdu chceš toto zařízení odhlásit?
+Arithmetic balance: Aritmetická rovnováha
+Authentication failure: Chyba přihlašování
+Authentication successful: Přihlášení proběhlo úspěšně
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Zakázání této možnosti umožní ovládání tohoto zařízení z integrace bez dalšího potvrzení. To může vést k nebezpečnému nebo méně bezpečnému stavu (např. náhodné otevření brány).
+By signing in, you are authorizing {clientName} to control your devices.: Přihlášením budeš aplikaci autorizovat {clientName} k ovládání vašich zařízení.
+Change the password and log out: Změň heslo a odhlaš se
+Channel available for {serviceName}: Kanál je dostupný pro {serviceName}
+Chart mode: Typ grafu
+Colon: Středník
+Comma: Čárka
+Confirmation: Potvrzení
+Counter: Počítadlo
+Counter reset: Reset počitadla
+Data limits: Datové limity
+Date and time: Datum a čas
+Download measurements history: Stáhni si historii měření
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Elektroměr neohlásil možnost konfigurace přidaných hodnot. Aktualizuj firmware zařízení a zkus to znovu.
+Enabled phases: Aktivní fáze
+Expires at: Vyprší
+File format: Formát souboru
+Forward active energy balance: Bilance příkonu aktivní energie
+From: Od
+I understand that my SUPLA account will be permanently deleted.: Beru na vědomí, že můj účet SUPLA bude nenávratně smazán.
+IP Address: IP adresa
+Incremental: Inkrementální
+Integrations settings: Nastavení integrace
+Invalid username or password: Nesprávné uživatelské jméno nebo heslo
+Log out: Odhlásit
+Logs transformation: Transformace hodnot
+No, take me back!: Ne, dostaň mě odsud!
+Noop: Žádná operace
+OK: Ok
+Operation: Operace
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN pro Google musí mít nejméně {minLength} a nejvýše {maxLength} číslic.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Změnou hesla dojde k odhlášení všech aktuálních relací. To se však netýká aplikací, které obdržely tvé povolení. Souhlasy s přihlášením k žádosti musíš stáhnout zvlášť.
+Password changed: Heslo změněno
+Password reset: Obnovit heslo
+Phase {phaseNumber}: Fáze {phaseNumber}
+Predefined time ranges: Časové rozsahy
+Reload the chart: Graf načítání
+Reverse active energy balance: Bilance vrácené aktivní energie
+Scene available for {serviceName}: Scéna dostupná pro {serviceName}
+Security: Bezpečnost
+Security log: Bezpečnostní protokol
+Selected device has been logged out.: Vybrané zařízení bylo odhlášeno
+Set values for each phase separately: Urči, prosím, hodnotu pro každou fázi zvlášť
+Summary for selected time range: Shrnutí pro vybranou oblast působnosti
+Tab: Tabulátor
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Zařízení, které tuto relaci použije, ztratí přístup ke službě SUPLA Cloud. Pokud chceš aplikaci dále používat, budeš se do ní muset znovu přihlásit.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Veškerá historie aberací napětí pro fázi {phaseNumber} bude odstraněna.
+The entire history of the voltage aberrations will be removed from this channel.: Veškerá historie napěťových odchylek bude pro tento kanál odstraněna.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Události v historii napěťových aberací se automaticky odstraní po {days} dnech.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Toto je poslední fáze odstranění tvého účtu. Vyplněním a schválením formuláře dojde k nevratnému vymazání tvých údajů.
+'This password will protect your home. Therefore, it must:': 'Toto heslo chrání tvůj dům. Z tohoto důvodu:'
+To: Do
+Total: Součet
+Unknown browser: Neznámý prohlížeč
+Value: Hodnota
+Value separator: Oddělovač
+Vector balance: Vektorová rovnováha
+'We also strongly advise you to choose a password that:': 'Mimo ůrazně doporučujeme zvolit heslo, které:'
+We were not able to prepare your data. Please see the error details below.: Při přípravě dat došlo k chybě. Podrobnosti si přečti níže.
+We will miss you!: Budeš nám chybět!
+You can browse only the most recent logs now. Wait a while for the full history.: V současné době se zobrazují pouze nejnovější měření. Chvíli počkej, až se celá  stáhne.
+You must leave at least one phase enabled.: Alespoň jedna fáze musí zůstat aktivní.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Tvůj prohlížeč nepodporuje mechanismus klientské databáze (IndexedDB). Tato funkce je nutná pro zobrazení grafů a podporu pokročilých nastavení exportu dat. Chceš-li tyto funkce využívat, aktualizuj prohlížeč nebo ukonči režim inkognito.
+Your chart is being drawn...: Tvůj graf je nakreslen...
+Your data are being collected. Please be patient.: Shromažďujeme tvé údaje, prosíme o trpělivost.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Tvé udaje se stahují ze serveru. Před exportem počkej na dokončení stahování.
+actionableSubjectType_schedule: Harmonogram
+average: průměr
+be at least {numChars} characters long: musí mít alespoň {numChars} znaků
+change: změň
+choose the schedule: vyber harmonogram
+contains a character that is neither a letter nor a digit: obsahuje znak, který není ani písmenem, ani číslicí.
+contains a digit: obsahuje číslo
+contains lower and upper letters: obsahuje velká a malá písmena
+is at least {numChars} characters long: má alespoň {numChars} znaků
+last 24 hours: posledních 24 hodin
+last 30 days: posledních 30 dní
+last 6 hours: posledních 6 hodin
+last 7 days: posledních 7 dní
+logs_aggregation_day: dní
+logs_aggregation_hour: hodiny
+logs_aggregation_minute: minuty
+logs_aggregation_month: měsíce
+previous month: předchozí měsíc
+range: rozsah
+schedule: harmonogram
+the whole history: celá historie
+this month: aktuální měsíc
+this year: aktuální rok
+today: dnes
+unknown: neznámý
+values as seen on chart: hodnoty jako v diagramu
+values as seen on counter: hodnoty jako na počítadle
+yesterday: včera
+'{serviceName} integration': 'Integrace s {serviceName}.'
 
 #</editor-fold>

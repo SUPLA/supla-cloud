@@ -994,115 +994,115 @@ hourly: Cycle par heures
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-Active applications: ~
-Active sessions: ~
-Active web sessions: ~
-Aggregation: ~
-All events: ~
-All logs has been downloaded. Reload the chart to see them.: ~
-Application: ~
-Applications with access: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-Are you sure you want to log out this device?: ~
-Arithmetic balance: ~
-Authentication failure: ~
-Authentication successful: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Change the password and log out: ~
-Channel available for {serviceName}: ~
-Chart mode: ~
-Colon: ~
-Comma: ~
-Confirmation: ~
-Counter: ~
-Counter reset: ~
-Data limits: ~
-Date and time: ~
-Download measurements history: ~
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
-Enabled phases: ~
-Expires at: ~
-File format: ~
-Forward active energy balance: ~
-From: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-IP Address: ~
-Incremental: ~
-Integrations settings: ~
-Invalid username or password: ~
-Log out: ~
-Logs transformation: ~
-No, take me back!: ~
-Noop: ~
-OK: ~
-Operation: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
-Password changed: ~
-Password reset: ~
-Phase {phaseNumber}: ~
-Predefined time ranges: ~
-Reload the chart: ~
-Reverse active energy balance: ~
-Scene available for {serviceName}: ~
-Security: ~
-Security log: ~
-Selected device has been logged out.: ~
-Set values for each phase separately: ~
-Summary for selected time range: ~
-Tab: ~
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-'This password will protect your home. Therefore, it must:': ~
-To: ~
-Total: ~
-Unknown browser: ~
-Value: ~
-Value separator: ~
-Vector balance: ~
-'We also strongly advise you to choose a password that:': ~
-We were not able to prepare your data. Please see the error details below.: ~
-We will miss you!: ~
-You can browse only the most recent logs now. Wait a while for the full history.: ~
-You must leave at least one phase enabled.: ~
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
-Your chart is being drawn...: ~
-Your data are being collected. Please be patient.: ~
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
-actionableSubjectType_schedule: ~
-average: ~
-be at least {numChars} characters long: ~
-change: ~
-choose the schedule: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
-last 24 hours: ~
-last 30 days: ~
-last 6 hours: ~
-last 7 days: ~
-logs_aggregation_day: ~
-logs_aggregation_hour: ~
-logs_aggregation_minute: ~
-logs_aggregation_month: ~
-previous month: ~
-range: ~
-schedule: ~
-the whole history: ~
-this month: ~
-this year: ~
-today: ~
-unknown: ~
-values as seen on chart: ~
-values as seen on counter: ~
-yesterday: ~
-'{serviceName} integration': ~
+Action confirmation: Confirmation de l’action
+Active applications: Applications actives
+Active sessions: Sessions actives
+Active web sessions: Sessions actives (web)
+Aggregation: Agrégation
+All events: Tous les événements
+All logs has been downloaded. Reload the chart to see them.: Toutes les données de mesure ont été téléchargées. Recharger le graphique pour les voir.
+Application: Application
+Applications with access: Application avec accès
+Are you sure you want to delete the events from the voltage aberrations history?: Êtes-vous sûr de vouloir supprimer tous les événements de l’historique de l’aberration de la tension ?
+Are you sure you want to log out this device?: Êtes-vous sûr de vouloir vous déconnecter de cet appareil ?
+Arithmetic balance: Bilan arithmétique
+Authentication failure: Erreur de connexion
+Authentication successful: Connexion réussie
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: La désactivation de cette option permettra à ce dispositif d’être contrôlé à partir de l’intégration sans confirmation supplémentaire. Cela peut conduire à une situation dangereuse ou moins sûre (par exemple, l’ouverture accidentelle d’un portail).
+By signing in, you are authorizing {clientName} to control your devices.: En vous connectant, vous autorisez l’application {clientName} à contrôler vos appareils.
+Change the password and log out: Modifier votre mot de passe et vous déconnecter
+Channel available for {serviceName}: Canal disponible pour {serviceName}
+Chart mode: Type de graphique
+Colon: Point-virgule
+Comma: Virgule
+Confirmation: Confirmation
+Counter: Compteur
+Counter reset: Remise à zéro du compteur
+Data limits: Limites des données
+Date and time: Date et heure
+Download measurements history: Télécharger l’historique des mesures
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Le compteur d’électricité n’indiquait pas la possibilité de configurer des valeurs ajoutées. Mettez à jour le firmware de l’appareil et réessayez.
+Enabled phases: Phases actives
+Expires at: Expiration
+File format: Format de fichier
+Forward active energy balance: Bilan de l’énergie active consommée
+From: De
+I understand that my SUPLA account will be permanently deleted.: Je comprends que mon compte SUPLA sera irrémédiablement supprimé.
+IP Address: Adresse IP
+Incremental: Incrémental
+Integrations settings: Paramètres d’intégration
+Invalid username or password: Nom d’utilisateur ou mot de passe incorrect
+Log out: Déconnexion
+Logs transformation: Transformation de la valeur
+No, take me back!: Non, faites-moi sortir d’ici !
+Noop: Aucune opération
+OK: OK
+Operation: Opération
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: Le code PIN pour Google doit comporter au moins {minLength} et au plus {maxLength} chiffres.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: La modification du mot de passe entraîne la déconnexion de toutes les sessions en cours. Toutefois, cela n’affectera pas les applications qui ont reçu une autorisation de votre part. Vous devez retirer votre demande d’autorisation de connexion séparément.
+Password changed: Mot de passe modifié
+Password reset: Réinitialiser le mot de passe
+Phase {phaseNumber}: Phase {phaseNumber}
+Predefined time ranges: Plages de temps
+Reload the chart: Recharger le graphique
+Reverse active energy balance: Bilan de l’énergie active restituée
+Scene available for {serviceName}: Scène disponible pour {serviceName}
+Security: Sécurité
+Security log: Journal de sécurité
+Selected device has been logged out.: L’appareil sélectionné a été déconnecté
+Set values for each phase separately: Déterminer la valeur de chaque phase séparément
+Summary for selected time range: Résumé pour le champ d’application sélectionné
+Tab: Tabulateur
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Un appareil qui utilise cette session va perdre l’accès à SUPLA Cloud. Pour continuer à utiliser l’application, vous devrez vous connecter à nouveau.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Tout l’historique des aberrations de tension pour la phase {phaseNumber} sera supprimé.
+The entire history of the voltage aberrations will be removed from this channel.: Tous les antécédents d’aberration de tension seront supprimés pour ce canal.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Les événements de l’historique des aberrations de tension seront automatiquement supprimés après {days} jours.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: C’est l’étape finale de la suppression de votre compte. Le fait de remplir et d’approuver le formulaire entraînera la suppression irréversible de vos données.
+'This password will protect your home. Therefore, it must:': 'Ce mot de passe protégera votre maison. C’est pourqoui :'
+To: À
+Total: Total
+Unknown browser: Navigateur inconnu
+Value: Valeur
+Value separator: Séparateur
+Vector balance: Bilan vectoriel
+'We also strongly advise you to choose a password that:': 'En outre, nous vous recommandons définitivement de choisir un mot de passe qui :'
+We were not able to prepare your data. Please see the error details below.: Une erreur s’est produite lors de la préparation des données. Lire les détails ci-dessous.
+We will miss you!: Vous allez nous manquer !
+You can browse only the most recent logs now. Wait a while for the full history.: Actuellement, seules les mesures les plus récentes sont affichées. Attendez un peu que l’historique complet soit téléchargé.
+You must leave at least one phase enabled.: Au moins une phase doit rester active.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Votre navigateur ne supporte pas le mécanisme de base de données client (IndexedDB). Cette fonctionnalité est nécessaire pour afficher des graphiques et prendre en charge des paramètres avancés d’exportation de données. Mettez à jour votre navigateur ou quittez le mode incognito pour profiter de ces fonctionnalités.
+Your chart is being drawn...: Votre graphique est dessiné...
+Your data are being collected. Please be patient.: Nous collectons vos données, merci de patienter.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vos données sont téléchargées depuis le serveur. Attendez que la fin de téléchargement avant de les exporter.
+actionableSubjectType_schedule: Calendrier
+average: moyenne
+be at least {numChars} characters long: doit comporter au moins {numChars} caractères
+change: modifier
+choose the schedule: sélectionner un calendrier
+contains a character that is neither a letter nor a digit: contient un caractère qui n’est ni une lettre ni un chiffre
+contains a digit: contient un chiffre
+contains lower and upper letters: contient des lettres majuscules et minuscules
+is at least {numChars} characters long: contient au moins {numChars} caractères
+last 24 hours: 24 dernières heures
+last 30 days: 30 derniers jours
+last 6 hours: 6 dernières heures
+last 7 days: 7 derniers jours
+logs_aggregation_day: jours
+logs_aggregation_hour: heures
+logs_aggregation_minute: minutes
+logs_aggregation_month: mois
+previous month: mois précédent
+range: période
+schedule: calendrier
+the whole history: historique complet
+this month: mois en cours
+this year: année en cours
+today: aujourd’hui
+unknown: inconnu
+values as seen on chart: valeurs comme dans la graphique
+values as seen on counter: valeurs comme sur le compteur
+yesterday: hier
+'{serviceName} integration': 'Intégration avec {serviceName}'
 
 #</editor-fold>

@@ -994,115 +994,115 @@ hourly: hàng giờ
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-Active applications: ~
-Active sessions: ~
-Active web sessions: ~
-Aggregation: ~
-All events: ~
-All logs has been downloaded. Reload the chart to see them.: ~
-Application: ~
-Applications with access: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-Are you sure you want to log out this device?: ~
-Arithmetic balance: ~
-Authentication failure: ~
-Authentication successful: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Change the password and log out: ~
-Channel available for {serviceName}: ~
-Chart mode: ~
-Colon: ~
-Comma: ~
-Confirmation: ~
-Counter: ~
-Counter reset: ~
-Data limits: ~
-Date and time: ~
-Download measurements history: ~
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
-Enabled phases: ~
-Expires at: ~
-File format: ~
-Forward active energy balance: ~
-From: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-IP Address: ~
-Incremental: ~
-Integrations settings: ~
-Invalid username or password: ~
-Log out: ~
-Logs transformation: ~
-No, take me back!: ~
-Noop: ~
-OK: ~
-Operation: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
-Password changed: ~
-Password reset: ~
-Phase {phaseNumber}: ~
-Predefined time ranges: ~
-Reload the chart: ~
-Reverse active energy balance: ~
-Scene available for {serviceName}: ~
-Security: ~
-Security log: ~
-Selected device has been logged out.: ~
-Set values for each phase separately: ~
-Summary for selected time range: ~
-Tab: ~
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-'This password will protect your home. Therefore, it must:': ~
-To: ~
-Total: ~
-Unknown browser: ~
-Value: ~
-Value separator: ~
-Vector balance: ~
-'We also strongly advise you to choose a password that:': ~
-We were not able to prepare your data. Please see the error details below.: ~
-We will miss you!: ~
-You can browse only the most recent logs now. Wait a while for the full history.: ~
-You must leave at least one phase enabled.: ~
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
-Your chart is being drawn...: ~
-Your data are being collected. Please be patient.: ~
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
-actionableSubjectType_schedule: ~
-average: ~
-be at least {numChars} characters long: ~
-change: ~
-choose the schedule: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
-last 24 hours: ~
-last 30 days: ~
-last 6 hours: ~
-last 7 days: ~
-logs_aggregation_day: ~
-logs_aggregation_hour: ~
-logs_aggregation_minute: ~
-logs_aggregation_month: ~
-previous month: ~
-range: ~
-schedule: ~
-the whole history: ~
-this month: ~
-this year: ~
-today: ~
-unknown: ~
-values as seen on chart: ~
-values as seen on counter: ~
-yesterday: ~
-'{serviceName} integration': ~
+Action confirmation: Xác nhận hoạt động
+Active applications: Các ứng dụng hoạt động
+Active sessions: Các phiên hoạt động
+Active web sessions: Các phiên hoạt động (trang mạng)
+Aggregation: Tổng hợp
+All events: Tất cả các sự kiện
+All logs has been downloaded. Reload the chart to see them.: Đã tải xuống tất cả dữ liệu đo. Tải lại biểu đồ để xem chúng.
+Application: Ứng dụng
+Applications with access: Ứng dụng có quyền truy cập
+Are you sure you want to delete the events from the voltage aberrations history?: Bạn có chắc chắn muốn xóa tất cả các sự kiện trong lịch sử sự cố điện áp?
+Are you sure you want to log out this device?: Bạn có chắc chắn muốn đăng xuất thiết bị này?
+Arithmetic balance: Cân bằng số học
+Authentication failure: Lỗi đăng nhập
+Authentication successful: Đăng nhập thành công
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: 'Tắt tùy chọn này sẽ cho phép điều khiển thiết bị ở mức tích hợp mà không cần xác nhận bổ sung. Điều này có thể dẫn đến tình trạng nguy hiểm hoặc ít an toàn hơn (ví dụ: mở cổng ngẫu nhiên).'
+By signing in, you are authorizing {clientName} to control your devices.: Bằng cách đăng nhập, bạn cho phép ứng dụng {clientName} kiểm soát các thiết bị của bạn.
+Change the password and log out: Thay đổi mật khẩu và đăng xuất
+Channel available for {serviceName}: Kênh có sẵn cho {serviceName}
+Chart mode: Loại biểu đồ
+Colon: Dấu chấm câu
+Comma: Dấu phẩy
+Confirmation: Xác nhận
+Counter: Bộ đếm
+Counter reset: Đặt lại bộ đếm
+Data limits: Giới hạn dữ liệu
+Date and time: Ngày giờ
+Download measurements history: Tải lịch sử đo đạc
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Bộ đếm năng lượng điện không báo cáo khả năng tạo cấu hình cho f các giá trị đã thêm. Vui lòng cập nhật phần sụn của thiết bị và thử lại.
+Enabled phases: Các pha hoạt động
+Expires at: Hết hạn
+File format: Định dạng tệp
+Forward active energy balance: Cân bằng năng lượng hoạt động tiêu thụ
+From: Từ
+I understand that my SUPLA account will be permanently deleted.: Tôi hiểu rằng tài khoản SUPLA của tôi sẽ bị xóa không thể phục hồi sau khi xóa
+IP Address: Địa chỉ IP
+Incremental: Gia tăng
+Integrations settings: Cài đặt tích hợp
+Invalid username or password: Tên người dùng hoặc mật khẩu không đúng
+Log out: Đăng xuất
+Logs transformation: Chuyển đổi giá trị
+No, take me back!: Không, đưa tôi ra khỏi đây!
+Noop: Không có hoạt động
+OK: Đồng ý
+Operation: Hoạt động
+PIN: Số nhận dạng cá nhân
+PIN for Google must have a length between {minLength} and {maxLength} digits.: Số nhận dạng cá nhân cho Google phải có ít nhất {minLength} và tối đa {maxLength} chữ số.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Thay đổi mật khẩu dẫn đến việc đăng xuất khỏi tất cả các hoạt động hiện tại. Tuy nhiên, điều này sẽ không ảnh hưởng đến các ứng dụng đã có sự cho phép từ Bạn. Việc cho phép đăng nhập ứng dụng được xóa bỏ ở một phần riêng.
+Password changed: Mật khẩu đã được thay đổi
+Password reset: Đặt lại mật khẩu
+Phase {phaseNumber}: Pha {phaseNumber}
+Predefined time ranges: Khoảng thời gian
+Reload the chart: Tải lại biểu đồ
+Reverse active energy balance: Cân bằng năng lượng hoạt động trở lại
+Scene available for {serviceName}: Cảnh có sẵn cho {serviceName}
+Security: Sự an toàn
+Security log: Nhật ký bảo mật
+Selected device has been logged out.: Thiết bị được chọn đã đăng xuất
+Set values for each phase separately: Tự đặt giá trị cho từng pha một
+Summary for selected time range: Tóm tắt cho khoảng thời gian đã chọn
+Tab: Bộ điều pha
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Thiết bị sử dụng phiên này sẽ mất quyền truy cập vào SUPLA Cloud. Để tiếp tục sử dụng ứng dụng, cần đăng nhập lại trên thiết bị đó.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Toàn bộ lịch sử sự cố điện áp cho pha {phaseNumber} sẽ bị xóa.
+The entire history of the voltage aberrations will be removed from this channel.: Toàn bộ lịch sử sự cố điện áp cho kênh này sẽ bị xóa.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Các sự kiện trong lịch sử sự cố điện áp sẽ tự động bị xóa sau {days} ngày.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Đây là giai đoạn cuối cùng trong quá trình xóa tài khoản của bạn. Việc điền và xác nhận biểu mẫu sẽ giúp xóa dữ liệu của bạn ở mức không thể phục hồi.
+'This password will protect your home. Therefore, it must:': 'Mật khẩu này sẽ bảo vệ ngôi nhà của Bạn. Vì vậy:'
+To: Đến
+Total: Tổng
+Unknown browser: Trình duyệt không xác định
+Value: Giá trị
+Value separator: Phân tách
+Vector balance: Cân bằng vector
+'We also strongly advise you to choose a password that:': 'Hơn nữa, chúng tôi rất đề nghị chọn bạn một mật khẩu mà:'
+We were not able to prepare your data. Please see the error details below.: Trong quá trình chuẩn bị dữ liệu đã xảy ra lỗi. Vui lòng xem chi tiết bên dưới.
+We will miss you!: Chúng tôi sẽ nhớ Bạn!
+You can browse only the most recent logs now. Wait a while for the full history.: Hiện chỉ hiển thị các đo đạc mới nhất. Vui lòng đợi một chút để tải toàn bộ lịch sử.
+You must leave at least one phase enabled.: Ít nhất một pha phải được giữ nguyên hoạt động.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Trình duyệt của bạn không hỗ trợ cơ chế cơ sở dữ liệu khách hàng (IndexedDB). Chức năng này là cần thiết để hiển thị biểu đồ và hỗ trợ các cài đặt nâng cao để xuất dữ liệu. Vui lòng cập nhật trình duyệt hoặc thoát khỏi chế độ ẩn danh để sử dụng các chức năng này.
+Your chart is being drawn...: Biểu đồ của bạn đang được vẽ...
+Your data are being collected. Please be patient.: Chúng tôi đang thu thập dữ liệu của bạn, hãy kiên nhẫn.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dữ liệu của bạn đang được tải từ máy chủ. Vui lòng đợi cho đến khi hoàn tất việc tải xuống trước khi xuất dữ liệu.
+actionableSubjectType_schedule: Lịch trình
+average: Trung bình
+be at least {numChars} characters long: phải có ít nhất {numChars} ký tự
+change: thay đổi
+choose the schedule: chọn lịch trình
+contains a character that is neither a letter nor a digit: chứa ký tự không phải là chữ cái hoặc số
+contains a digit: chứa số
+contains lower and upper letters: chứa chữ cái in hoa và chữ cái thường
+is at least {numChars} characters long: phải có ít nhất {numChars} ký tự
+last 24 hours: 24 giờ gần nhất
+last 30 days: 30 ngày gần nhất
+last 6 hours: 6 giờ gần nhất
+last 7 days: 7 ngày gần nhất
+logs_aggregation_day: ngày
+logs_aggregation_hour: giờ
+logs_aggregation_minute: phút
+logs_aggregation_month: tháng
+previous month: tháng trước
+range: khoảng thời gian
+schedule: lịch trình
+the whole history: toàn bộ lịch sử
+this month: tháng hiện tại
+this year: năm hiện tại
+today: hôm nay
+unknown: không xác định
+values as seen on chart: giá trị như trên biểu đồ
+values as seen on counter: giá trị như trên đồng hồ đo
+yesterday: hôm qua
+'{serviceName} integration': 'tích hợp với {serviceName}'
 
 #</editor-fold>

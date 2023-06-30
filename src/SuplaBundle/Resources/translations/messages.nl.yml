@@ -995,115 +995,115 @@ hourly: Uur cyclus
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-Active applications: ~
-Active sessions: ~
-Active web sessions: ~
-Aggregation: ~
-All events: ~
-All logs has been downloaded. Reload the chart to see them.: ~
-Application: ~
-Applications with access: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-Are you sure you want to log out this device?: ~
-Arithmetic balance: ~
-Authentication failure: ~
-Authentication successful: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Change the password and log out: ~
-Channel available for {serviceName}: ~
-Chart mode: ~
-Colon: ~
-Comma: ~
-Confirmation: ~
-Counter: ~
-Counter reset: ~
-Data limits: ~
-Date and time: ~
-Download measurements history: ~
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
-Enabled phases: ~
-Expires at: ~
-File format: ~
-Forward active energy balance: ~
-From: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-IP Address: ~
-Incremental: ~
-Integrations settings: ~
-Invalid username or password: ~
-Log out: ~
-Logs transformation: ~
-No, take me back!: ~
-Noop: ~
-OK: ~
-Operation: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
-Password changed: ~
-Password reset: ~
-Phase {phaseNumber}: ~
-Predefined time ranges: ~
-Reload the chart: ~
-Reverse active energy balance: ~
-Scene available for {serviceName}: ~
-Security: ~
-Security log: ~
-Selected device has been logged out.: ~
-Set values for each phase separately: ~
-Summary for selected time range: ~
-Tab: ~
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-'This password will protect your home. Therefore, it must:': ~
-To: ~
-Total: ~
-Unknown browser: ~
-Value: ~
-Value separator: ~
-Vector balance: ~
-'We also strongly advise you to choose a password that:': ~
-We were not able to prepare your data. Please see the error details below.: ~
-We will miss you!: ~
-You can browse only the most recent logs now. Wait a while for the full history.: ~
-You must leave at least one phase enabled.: ~
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
-Your chart is being drawn...: ~
-Your data are being collected. Please be patient.: ~
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
-actionableSubjectType_schedule: ~
-average: ~
-be at least {numChars} characters long: ~
-change: ~
-choose the schedule: ~
-contains a character that is neither a letter nor a digit: ~
-contains a digit: ~
-contains lower and upper letters: ~
-is at least {numChars} characters long: ~
-last 24 hours: ~
-last 30 days: ~
-last 6 hours: ~
-last 7 days: ~
-logs_aggregation_day: ~
-logs_aggregation_hour: ~
-logs_aggregation_minute: ~
-logs_aggregation_month: ~
-previous month: ~
-range: ~
-schedule: ~
-the whole history: ~
-this month: ~
-this year: ~
-today: ~
-unknown: ~
-values as seen on chart: ~
-values as seen on counter: ~
-yesterday: ~
-'{serviceName} integration': ~
+Action confirmation: Bevestigen van de actie
+Active applications: Actieve toepassingen
+Active sessions: Actieve sessies
+Active web sessions: Actieve sessies (web)
+Aggregation: Aggregatie
+All events: Alle gebeurtenissen
+All logs has been downloaded. Reload the chart to see them.: Alle meetgegevens zijn opgehaald. Vernieuw de grafiek om ze te bekijken.
+Application: Applicatie
+Applications with access: Applicatie met toegang
+Are you sure you want to delete the events from the voltage aberrations history?: Weet je zeker dat je alle gebeurtenissen uit de spanningsafwijkinggeschiedenis wilt verwijderen?
+Are you sure you want to log out this device?: Weet je zeker dat je dit apparaat wilt uitloggen?
+Arithmetic balance: Rekenkundige balans
+Authentication failure: Inlogfout
+Authentication successful: Inloggen geslaagd
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Door deze optie uit te schakelen, kan dit apparaat worden bestuurd via integratie zonder extra bevestiging. Dit kan leiden tot een gevaarlijke of minder veilige situatie (bijv. per ongeluk openen van een poort).
+By signing in, you are authorizing {clientName} to control your devices.: Door in te loggen, machtig je de {clientName}-applicatie om je apparaten te bedienen.
+Change the password and log out: Wijzig wachtwoord en log uit
+Channel available for {serviceName}: Kanaal beschikbaar voor {serviceName}
+Chart mode: Grafiektype
+Colon: Puntkomma
+Comma: Komma
+Confirmation: Bevestiging
+Counter: Teller
+Counter reset: Reset teller
+Data limits: Gegevenslimieten
+Date and time: Datum en tijd
+Download measurements history: Meetgeschiedenis downloaden
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: De elektriciteitsmeter heeft geen melding gemaakt van de mogelijkheid om toegevoegde waarden te configureren. Werk het firmware van het apparaat bij en probeer het opnieuw.
+Enabled phases: Actieve fasen
+Expires at: Verloopt op
+File format: Bestandsformaat 
+Forward active energy balance: Balans van actieve afgenomen energie
+From: Van
+I understand that my SUPLA account will be permanently deleted.: Ik begrijp dat mijn SUPLA-account permanent zal worden verwijderd.
+IP Address: IP-adres
+Incremental: Incrementele
+Integrations settings: Integratie-instellingen
+Invalid username or password: Ongeldige gebruikersnaam of wachtwoord
+Log out: Uitloggen
+Logs transformation: Waardetransformatie
+No, take me back!: Nee, haal me hier weg!
+Noop: Geen bewerkingen
+OK: OK
+Operation: Operatie
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: De Google-PIN moet uit minimaal {minLength} en maximaal {maxLength} cijfers bestaan.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Het wijzigen van het wachtwoord zal alle huidige sessies uitloggen. Dit heeft echter geen invloed op applicaties die je gemachtigd hebt. Toestemmingen voor applicatie-inlog moeten afzonderlijk worden ingetrokken.
+Password changed: Wachtwoord gewijzigd
+Password reset: Reset wachtwoord
+Phase {phaseNumber}: Fase {phaseNumber}
+Predefined time ranges: Tijdreeksen
+Reload the chart: Vernieuw grafiek
+Reverse active energy balance: Balans van actief teruggeleverde energie
+Scene available for {serviceName}: Scene beschikbaar voor {serviceName}
+Security: Veiligheid
+Security log: Veiligheidslog
+Selected device has been logged out.: Het geselecteerde apparaat is uitgelogd
+Set values for each phase separately: Stel de waarde apart in voor elke fase
+Summary for selected time range: Samenvatting voor het geselecteerde bereik
+Tab: Tabblad
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Het apparaat dat deze sessie gebruikt, verliest de toegang tot SUPLA Cloud. Om de app te blijven gebruiken, moet je opnieuw inloggen.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: De volledige spanningsafwijkinggeschiedenis voor fase {phaseNumber} wordt verwijderd.
+The entire history of the voltage aberrations will be removed from this channel.: De volledige spanningsafwijkinggeschiedenis wordt verwijderd voor dit kanaal.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Gebeurtenissen in de spanningsafwijkinggeschiedenis worden automatisch verwijderd na {days} dagen.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Dit is de laatste stap om je account te verwijderen. Het invullen en verzenden van het formulier zal resulteren in onherstelbaar verlies van je gegevens.
+'This password will protect your home. Therefore, it must:': 'Dit wachtwoord zal je huis beschermen. Daarom:'
+To: Tot
+Total: Som
+Unknown browser: Onbekende browser
+Value: Waarde
+Value separator: Scheidingsteken
+Vector balance: Vectorbalans
+'We also strongly advise you to choose a password that:': 'Bovendien raden we je sterk aan om een wachtwoord te kiezen dat:'
+We were not able to prepare your data. Please see the error details below.: Tijdens het voorbereiden van de gegevens is er een fout opgetreden. Bekijk hieronder de details van de fout.
+We will miss you!: We zullen je missen!
+You can browse only the most recent logs now. Wait a while for the full history.: Alleen de meest recente metingen worden momenteel weergegeven. Wacht even terwijl de volledige geschiedenis wordt gedownload.
+You must leave at least one phase enabled.: Er moet minstens één fase actief blijven.
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Je browser ondersteunt geen client-side database mechanisme (IndexedDB). Deze functionaliteit is vereist voor het weergeven van grafieken en ondersteuning van geavanceerde gegevensexportinstellingen. Werk je browser bij of verlaat de incognitomodus om van deze functionaliteiten gebruik te kunnen maken.
+Your chart is being drawn...: Je grafiek wordt getekend...
+Your data are being collected. Please be patient.: We verzamelen je gegevens, even geduld.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Je gegevens worden van de server opgehaald. Wacht tot het ophalen is voltooid voordat je ze exporteert.
+actionableSubjectType_schedule: Schema
+average: Gemiddelde
+be at least {numChars} characters long: moet minimaal {numChars} tekens bevatten
+change: Wijzigen
+choose the schedule: Kies een Schema
+contains a character that is neither a letter nor a digit: bevat een teken dat geen letter of cijfer is
+contains a digit: bevat een cijfer
+contains lower and upper letters: bevat zowel kleine als hoofdletters
+is at least {numChars} characters long: moet minimaal {numChars} tekens bevatten
+last 24 hours: afgelopen 24 uur
+last 30 days: afgelopen 30 dagen
+last 6 hours: afgelopen 3 uur
+last 7 days: afgelopen 7 dagen
+logs_aggregation_day: Dagen
+logs_aggregation_hour: Uren
+logs_aggregation_minute: Minuten
+logs_aggregation_month: Maanden
+previous month: Vorige maand
+range: Bereik
+schedule: Schema
+the whole history: Volledige geschiedenis
+this month: Huidige maand
+this year: Huidig jaar
+today: Vandaag
+unknown: Onbekend
+values as seen on chart: waarden zoals in de grafiek
+values as seen on counter: waarden zoals op de teller
+yesterday: gisteren
+'{serviceName} integration': 'Integratie met {serviceName}'
 
 #</editor-fold>
