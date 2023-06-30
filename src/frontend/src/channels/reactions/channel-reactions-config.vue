@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="channel-reactions-config">
         <CarouselPage
             permanent-carousel-view
             header-i18n="Reactions"
@@ -36,3 +36,9 @@
         }
     };
 </script>
+
+<style lang="scss">
+    .channel-reactions-config {
+        min-height: 850px;
+    }
+</style>

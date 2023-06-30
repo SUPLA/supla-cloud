@@ -18,6 +18,7 @@
                         <transition-expand>
                             <div class="panel-body" v-if="isSelected(possibleCondition)">
                                 <Component :is="possibleCondition.component"
+                                    :subject="subject"
                                     v-model="currentConditionJson" v-bind="possibleCondition.props || {}"/>
                             </div>
                         </transition-expand>
@@ -43,7 +44,7 @@
                 currentCondition: undefined,
             };
         },
-        mounted() {
+        beforeMount() {
             if (!this.currentCondition && this.value) {
                 this.currentCondition = this.possibleConditions.find(c => c.test(this.value));
             }

@@ -1123,3 +1123,5 @@ vector balance: bilans wektorowy
 #</editor-fold>
 Send a notification: Wyślij powiadomienie
 choose access identifiers: wybierz identyfikatory dostępu
+average voltage of all phases: średnie napięcie ze wszystkich faz
+'When {field} will be': Kiedy {field} będzie

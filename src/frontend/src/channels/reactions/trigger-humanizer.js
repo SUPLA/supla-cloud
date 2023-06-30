@@ -1,12 +1,36 @@
 import ChannelFunction from "@/common/enums/channel-function";
 
-const FIELD_NAMES = {
+export const FIELD_NAMES = {
+    color: '',
+    color_brightness: '',
+    brightness: '',
     temperature: 'the temperature', // i18n
     humidity: 'the humidity', // i18n
+    flooding: '', // i18n
+    manually_closed: '', // i18n
+    voltage_avg: 'average voltage of all phases', // i18n
     voltage1: 'the voltage of phase 1', // i18n
+    voltage2: 'the voltage of phase 2', // i18n
+    voltage3: ' the voltage of phase 3', // i18n
+    current_sum: 'summarized current of all phases', // i18n
+    current1: 'the current of phase 1', // i18n
+    current2: 'the current of phase 2', // i18n
+    current3: 'the current of phase 3', // i18n
+    power_active_sum: 'summarized active power of all phases', // i18n
+    power_active1: 'the active power of phase 1', // i18n
+    power_active2: 'the active power of phase 2', // i18n
+    power_active3: 'the active power of phase 3', // i18n
+    power_reactive_sum: 'summarized reactive power of all phases', // i18n
+    power_reactive1: 'the reactive power of phase 1', // i18n
+    power_reactive2: 'the reactive power of phase 2', // i18n
+    power_reactive3: 'the reactive power of phase 3', // i18n
+    power_apparent_sum: 'summarized apparent power of all phases', // i18n
+    power_apparent1: 'the apparent power of phase 1', // i18n
+    power_apparent2: 'the apparent power of phase 2', // i18n
+    power_apparent3: 'the apparent power of phase 3', // i18n
 };
 
-const DEFAULT_FIELD_NAMES = {
+export const DEFAULT_FIELD_NAMES = {
     [ChannelFunction.THERMOMETER]: 'the temperature', // di18n
     [ChannelFunction.HUMIDITY]: 'the humidity', // di18n
     [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: 'the garage door', // i18n

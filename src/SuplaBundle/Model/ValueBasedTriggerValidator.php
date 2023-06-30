@@ -26,6 +26,26 @@ class ValueBasedTriggerValidator {
     private const FIELD_NAMES = [
         'temperature' => [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE],
         'humidity' => [ChannelFunction::HUMIDITY, ChannelFunction::HUMIDITYANDTEMPERATURE],
+        'voltage_avg' => [ChannelFunction::ELECTRICITYMETER],
+        'voltage1' => [ChannelFunction::ELECTRICITYMETER],
+        'voltage2' => [ChannelFunction::ELECTRICITYMETER],
+        'voltage3' => [ChannelFunction::ELECTRICITYMETER],
+        'current_sum' => [ChannelFunction::ELECTRICITYMETER],
+        'current1' => [ChannelFunction::ELECTRICITYMETER],
+        'current2' => [ChannelFunction::ELECTRICITYMETER],
+        'current3' => [ChannelFunction::ELECTRICITYMETER],
+        'power_active_sum' => [ChannelFunction::ELECTRICITYMETER],
+        'power_active1' => [ChannelFunction::ELECTRICITYMETER],
+        'power_active2' => [ChannelFunction::ELECTRICITYMETER],
+        'power_active3' => [ChannelFunction::ELECTRICITYMETER],
+        'power_reactive_sum' => [ChannelFunction::ELECTRICITYMETER],
+        'power_reactive1' => [ChannelFunction::ELECTRICITYMETER],
+        'power_reactive2' => [ChannelFunction::ELECTRICITYMETER],
+        'power_reactive3' => [ChannelFunction::ELECTRICITYMETER],
+        'power_apparent_sum' => [ChannelFunction::ELECTRICITYMETER],
+        'power_apparent1' => [ChannelFunction::ELECTRICITYMETER],
+        'power_apparent2' => [ChannelFunction::ELECTRICITYMETER],
+        'power_apparent3' => [ChannelFunction::ELECTRICITYMETER],
     ];
 
     private const THRESHOLD_SUPPORT = [
@@ -33,6 +53,7 @@ class ValueBasedTriggerValidator {
         ChannelFunction::HUMIDITYANDTEMPERATURE,
         ChannelFunction::HUMIDITY,
         ChannelFunction::DEPTHSENSOR,
+        ChannelFunction::ELECTRICITYMETER,
     ];
 
     public function validate(IODeviceChannel $channel, array $trigger): void {

@@ -1,7 +1,7 @@
 <template>
     <div class="reaction-condition-threshold">
         <div class="form-group d-flex align-items-center">
-            <label class="flex-grow-1 pr-3">{{ $t(label) }}</label>
+            <label class="flex-grow-1 pr-3">{{ label }}</label>
             <span class="input-group">
                 <span class="input-group-btn">
                     <a class="btn btn-white" @click="nextOperator()">
@@ -25,8 +25,7 @@
 
         <div class="form-group d-flex align-items-center" v-if="resumeOperator">
             <span class="flex-grow-1 pr-4">
-                {{ $t('then execute the action') }}
-                <span v-if="resumeOperator">{{ $t(suspendLabel) }}</span>
+                {{ $t('then execute the action and wait until {field} will be', {field: fieldLabel}) }}
             </span>
             <span class="input-group">
                 <span class="input-group-addon">
@@ -46,10 +45,13 @@
 </template>
 
 <script>
+    import {DEFAULT_FIELD_NAMES, FIELD_NAMES} from "@/channels/reactions/trigger-humanizer";
+
     const OPERATORS = ['lt', 'le', 'gt', 'ge', 'eq', 'ne'];
     export default {
         props: {
             value: Object,
+            subject: Object,
             unit: {
                 type: String,
                 default: '',
@@ -58,20 +60,16 @@
                 type: String,
                 required: true,
             },
-            label: {
-                type: String,
-                default: 'Threshold', // i18n
-            },
-            suspendLabel: {
-                type: String,
-                default: 'and suspend until', // i18n
+            defaultThreshold: {
+                type: Number,
+                default: 20,
             }
         },
         data() {
             return {
                 operator: 'lt',
-                threshold: 20,
-                resumeThreshold: 20,
+                threshold: this.defaultThreshold,
+                resumeThreshold: this.defaultThreshold,
             };
         },
         mounted() {
@@ -83,9 +81,9 @@
         methods: {
             updateInternalState() {
                 this.operator = OPERATORS.find(op => Object.hasOwn(this.onChangeTo, op)) || OPERATORS[0];
-                this.threshold = Number.isFinite(this.onChangeTo[this.operator]) ? this.onChangeTo[this.operator] : 20;
+                this.threshold = Number.isFinite(this.onChangeTo[this.operator]) ? this.onChangeTo[this.operator] : this.defaultThreshold;
                 const resume = this.onChangeTo.resume || {};
-                this.resumeThreshold = Number.isFinite(resume[this.resumeOperator]) ? resume[this.resumeOperator] : 20;
+                this.resumeThreshold = Number.isFinite(resume[this.resumeOperator]) ? resume[this.resumeOperator] : this.defaultThreshold;
             },
             updateModel() {
                 if (Number.isFinite(parseFloat(this.threshold))) {
@@ -123,6 +121,21 @@
                 set(value) {
                     this.$emit('input', value ? {on_change_to: {...value, name: this.field}} : undefined);
                 }
+            },
+            fieldLabel() {
+                return this.$t(
+                    (this.field && FIELD_NAMES[this.field]) ||
+                    DEFAULT_FIELD_NAMES[this.subject.functionId] ||
+                    'the value' // i18n
+                );
+            },
+            label() {
+                return this.$t('When {field} will be', {field: this.fieldLabel});
+            },
+        },
+        watch: {
+            field() {
+                this.updateModel();
             }
         }
     }
