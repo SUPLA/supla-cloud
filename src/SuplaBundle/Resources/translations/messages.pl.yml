@@ -48,7 +48,6 @@ Add action: Dodaj akcję
 Add first channel to set channel group function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
 Add new channel group: Dodaj nową grupę kanałów
 Add new channel to this group: Dodaj nowy kanał do grupy
-Add new item to use in the scene: Dodaj nowy element do sceny
 Adjust parameters: Ustaw parametry
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Wszystkie kanały oraz grupy kanałów, które używają tej ikony, po jej usunięciu otrzymają ikony domyślne.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po przyznaniu dostępu zawsze możesz zmienić zdanie odbierając dostęp w ustawieniach swojego konta.
@@ -667,6 +666,7 @@ Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
 Select icon: Wybierz ikonę
 Select the item (subject) you want to control using this link: Wybierz element (podmiot), który chcesz kontrolować za pomocą tego linka
 Selected device has been logged out.: Wybrane urządzenie zostało wylogowane
+Send a notification: Wyślij powiadomienie
 Sensor (normal closed): Czujnik (normalnie zamknięty)
 Sensor (normal open): Czujnik (normalnie otwarty)
 Sensor disconnected: Brak czujnika
@@ -932,6 +932,7 @@ channelConfig_stateVerificationMethod_passive: Pasywny
 channelGroup: Grupa kanałów
 choose: wybierz
 choose a currency: wybierz walutę
+choose access identifiers: wybierz identyfikatory dostępu
 choose the action: wybierz akcję
 choose the channel: wybierz kanał
 choose the channel group: wybierz grupę kanałów
@@ -977,7 +978,6 @@ logs_aggregation_minute: minuty
 logs_aggregation_month: miesiące
 min.: min.
 minutes: minut
-or add a delay: lub dodaj opóźnienie
 password: hasło
 prefix: prefiks
 previous month: poprzedni miesiąc
@@ -1047,6 +1047,7 @@ yesterday: wczoraj
 Access identifier password must be at least 8 characters.: Hasło dla identyfikatora dostępu musi mieć co najmniej 8 znaków.
 Access identifier password must be no longer than 32 characters.: Hasło dla identyfikatora dostępu nie może być dłuższe niż 32 znaki.
 Action: Akcja
+Add new item to use in the scene: Dodaj nowy element do sceny
 And set the same state for: i ustaw taki sam stan dla
 Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć to urządzenie?
 Assigned Locations: Przypisane Lokalizacje
@@ -1111,17 +1112,166 @@ Sunrise / Sunset: Wschód / Zachód
 Supla for devices: Supla na urządzenia
 Try again later: Spróbuj ponownie później
 When: Kiedy
+When {field} will be: Gdy {field} będzie
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
+average voltage of all phases: średnie napięcie ze wszystkich faz
 execute: wykonaj
 hourly: Każdy dzień
+or add a delay: lub dodaj opóźnienie
 vector balance: bilans wektorowy
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+Add new action to the scene: ~
+Are you sure you want to delete this reaction?: ~
+Body: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
+Create New Reaction: ~
+Edit reaction: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
+Invalid scene: ~
+Missing action.: ~
+New reaction: ~
+Notification: ~
+Notification must be sent to someone.: ~
+Notification must have a body.: ~
+Notifications: ~
+Phase: ~
+Please fix the problems with operations and try again.: ~
+Please select a valid action: ~
+Please select a valid condition: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Reakcja została dodana: ~
+Reakcja została zaktualizowana: ~
+Recipients: ~
+Send notification: ~
+Title: ~
+When a new mail comes: ~
+When average voltage of all phases will be: ~
+When changes state: ~
+When indicates liquid exists: ~
+When indicates no liquid: ~
+When summarized active power of all phases will be: ~
+When summarized apparent power of all phases will be: ~
+When summarized current of all phases will be: ~
+When summarized reactive power of all phases will be: ~
+When the RGB color brightness changes: ~
+When the RGB color changes: ~
+When the RGB reaches desired color brightness: ~
+When the active power of phase 1 will be: ~
+When the active power of phase 2 will be: ~
+When the active power of phase 3 will be: ~
+When the apparent power of phase 1 will be: ~
+When the apparent power of phase 2 will be: ~
+When the apparent power of phase 3 will be: ~
+When the brightness will be: ~
+When the calculated value will be: ~
+When the condition is met: ~
+When the current of phase 1 will be: ~
+When the current of phase 2 will be: ~
+When the current of phase 3 will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness changes: ~
+When the dimmer reaches desired brightness: ~
+When the distance changes: ~
+When the distance is: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter increases: ~
+When the electricity meter reaches a desired calculated value: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter increases: ~
+When the gas meter reaches a desired calculated value: ~
+When the gas value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter increases: ~
+When the heat meter reaches a desired calculated value: ~
+When the humidity changes: ~
+When the humidity reaches desired level: ~
+When the humidity will be: ~
+When the mail has been taken: ~
+When the measured rain will be: ~
+When the pressure changes: ~
+When the pressure reaches desired value: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power of phase 1 will be: ~
+When the reactive power of phase 2 will be: ~
+When the reactive power of phase 3 will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches desired position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches desired position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the sensor value changes: ~
+When the temperature changes: ~
+When the temperature reaches desired value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve has detected flooding: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage of phase 1 will be: ~
+When the voltage of phase 2 will be: ~
+When the voltage of phase 3 will be: ~
+When the water meter increases: ~
+When the water meter reaches a desired calculated value: ~
+When the water value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches desired speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches desired value: ~
+You must set an action for each reaction.: ~
+actionableSubjectType_notification: ~
+all: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
+choose the access identifiers: ~
+current: ~
+notification: ~
+or another element: ~
+power active: ~
+power apparent: ~
+power reactive: ~
+then execute the action: ~
+voltage: ~
 
 #</editor-fold>
-Send a notification: Wyślij powiadomienie
-choose access identifiers: wybierz identyfikatory dostępu
-average voltage of all phases: średnie napięcie ze wszystkich faz
-'When {field} will be': Gdy {field} będzie
