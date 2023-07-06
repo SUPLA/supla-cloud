@@ -1123,155 +1123,157 @@ vector balance: bilans wektorowy
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Add new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create New Reaction: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must be sent to someone.: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a valid action: ~
-Please select a valid condition: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Reakcja została dodana: ~
-Reakcja została zaktualizowana: ~
-Recipients: ~
-Send notification: ~
-Title: ~
-When a new mail comes: ~
-When average voltage of all phases will be: ~
-When changes state: ~
-When indicates liquid exists: ~
-When indicates no liquid: ~
-When summarized active power of all phases will be: ~
-When summarized apparent power of all phases will be: ~
-When summarized current of all phases will be: ~
-When summarized reactive power of all phases will be: ~
-When the RGB color brightness changes: ~
-When the RGB color changes: ~
-When the RGB reaches desired color brightness: ~
-When the active power of phase 1 will be: ~
-When the active power of phase 2 will be: ~
-When the active power of phase 3 will be: ~
-When the apparent power of phase 1 will be: ~
-When the apparent power of phase 2 will be: ~
-When the apparent power of phase 3 will be: ~
-When the brightness will be: ~
-When the calculated value will be: ~
-When the condition is met: ~
-When the current of phase 1 will be: ~
-When the current of phase 2 will be: ~
-When the current of phase 3 will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness changes: ~
-When the dimmer reaches desired brightness: ~
-When the distance changes: ~
-When the distance is: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter increases: ~
-When the electricity meter reaches a desired calculated value: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter increases: ~
-When the gas meter reaches a desired calculated value: ~
-When the gas value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter increases: ~
-When the heat meter reaches a desired calculated value: ~
-When the humidity changes: ~
-When the humidity reaches desired level: ~
-When the humidity will be: ~
-When the mail has been taken: ~
-When the measured rain will be: ~
-When the pressure changes: ~
-When the pressure reaches desired value: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power of phase 1 will be: ~
-When the reactive power of phase 2 will be: ~
-When the reactive power of phase 3 will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches desired position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches desired position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the sensor value changes: ~
-When the temperature changes: ~
-When the temperature reaches desired value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve has detected flooding: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage of phase 1 will be: ~
-When the voltage of phase 2 will be: ~
-When the voltage of phase 3 will be: ~
-When the water meter increases: ~
-When the water meter reaches a desired calculated value: ~
-When the water value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches desired speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches desired value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-all: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose the access identifiers: ~
-current: ~
-notification: ~
-or another element: ~
-power active: ~
-power apparent: ~
-power reactive: ~
-then execute the action: ~
-voltage: ~
+Add new action to the scene: Dodaj nową akcję do sceny
+Are you sure you want to delete this reaction?: Czy na pewno chcesz usunąć tą reakcję?
+Body: Treść
+Choose the channel: Wybierz kanał
+Choose the channel group: Wybierz grupę kanałów
+Choose the scene: Wybierz scenę
+Choose the schedule: Wybierz harmonogram
+Create New Reaction: Utwórz nową reakcję
+Edit reaction: Edytuj reakcję
+Go to the channel: Przejdź do kanału
+Go to the channel group: Przejdź do grupy kanałów
+Go to the scene: Przejdź do sceny
+Go to the schedule: Przejdź do harmonogramu
+Invalid scene: Niepoprawna scena
+Missing action.: Brak akcji
+New reaction: Nowa reakcja
+Notification: Powiadomienie
+Notification must be sent to someone.: Powiadomienie musi być wysłane do kogoś.
+Notification must have a body.: Powiadomienie musi mieć treść.
+Notifications: Powiadomienia
+Phase: Faza
+Please fix the problems with operations and try again.: Rozwiąż problemy z operacjami i spróbuj ponownie.
+Please select a valid action: Proszę wybrać akcję
+Please select a valid condition: Proszę wybrać warunek
+Reactions: Reakcje
+Reactions limit has been exceeded: Przekroczono limit reakcji
+Reakcja została dodana: Reakcja została dodana
+Reakcja została zaktualizowana: Reakcja została zaktualizowana
+Recipients: Odbiorcy
+Send notification: Wyślij powiadomienie
+Title: Tytuł
+When a new mail comes: Kiedy przyjdzie nowa poczta
+When average voltage of all phases will be: Kiedy średnie napiecie z wszystkich faz bęzie
+When liquid is detected: Kiedy wykryto ciecz lub jej brak
+When a lack of liquid is detected: Kiedy zostanie wykryta ciecz
+When liquid or lack thereof is detected: Kiedy wykryto brak cieczy
+When summarized active power of all phases will be: Kiedy suma mocy czynnej z wszystkich faz będzie
+When summarized apparent power of all phases will be: Kiedy suma mocy pozornej z wszystkich faz będzie
+When summarized current of all phases will be: Kiedy suma prądów z wszystkich faz będzie
+When summarized reactive power of all phases will be: Kiedy suma mocy biernej z wszystkich faz będzie
+When the RGB lighting brightness level changes: Kiedy poziom jasności oświetlenia RGB się zmieni
+When the color changes: Kiedy kolor się zmieni
+When the RGB lighting reaches a certain level of brightness: Kiedy oświetlenie RGB osiągnie określony poziom jasności
+When the active power of phase 1 will be: Kiedy moc czynna na fazie 1 będzie
+When the active power of phase 2 will be: Kiedy moc czynna na fazie 2 będzie
+When the active power of phase 3 will be: Kiedy moc czynna na fazie 3 będzie
+When the apparent power of phase 1 will be: Kiedy moc pozorna na fazie 1 będzie
+When the apparent power of phase 2 will be: Kiedy moc pozorna na fazie 2 będzie
+When the apparent power of phase 3 will be: Kiedy moc pozorna na fazie 3 będzie
+When the brightness will be: Kiedy jasność będzie
+When the calculated value will be: Kiedy przeliczona wartość będzie
+When the condition is met: Kiedy warunek zostanie spełniony
+When the current of phase 1 will be: Kiedy prąd na fazie 1 będzie
+When the current of phase 2 will be: Kiedy prąd na fazie 2 będzie
+When the current of phase 3 will be: Kiedy prąd na fazie 3 będzie
+When the depth changes: Kiedy głębokość się zmieni
+When the depth is: Kiedy głębokość będzie
+When the device is turned off: Kiedy urządzenie zostanie wyłączone
+When the device is turned on: Kiedy urządzenie zostanie włączone
+When the device is turned on or off: Kiedy urządzenie zostanie włączone lub wyłączone
+When the brightness level changes: Kiedy poziom jasności się zmieni
+When the lighting reaches a certain level of brightness: Gdy oświetlenie osiągnie określony poziom jasności
+When the distance changes: Kiedy odległość się zmieni
+When a certain distance is reached: Kiedy określona odległość zostanie osiągnięta
+When the distance will be: Kiedy odległość będzie
+When the door will be closed: Kiedy drzwi zostaną zamknięte
+When the door will be opened: Kiedy drzwi zostaną otwarte
+When the door will be opened or closed: Kiedy drzwi zostaną zamknięte lub otwarte
+When the electricity meter increases: Kiedy wartość licznika energii elektrycznej wzrasta
+When the electricity meter reaches a certain value: Kiedy licznik osiągnie określoną wartość
+When the garage door will be closed: Kiedy drzwi garażu zostaną zamknięte
+When the garage door will be opened: Kiedy drzwi garażu zostaną otwarte
+When the garage door will be opened or closed: Kiedy drzwi garażu zostaną zamknięte lub otwarte
+When the gas meter increases: Kiedy wartość licznika gazu wzrasta
+When the gas meter reaches a certain value: Kiedy licznik gazu osiągnie określoną wartość
+When the gas meter value will be: Kiedy wartość licznika gazu będzie
+When the gate will be closed: Kiedy brama zostanie zamknięta
+When the gate will be opened: Kiedy brama zostanie otwarta
+When the gate will be opened or closed: Kiedy brama zostanie otwarta lub zamknięta
+When the gateway will be closed: Kiedy furtka zostanie zamknięta
+When the gateway will be opened: Kiedy furtka zostanie otwarta
+When the gateway will be opened or closed: Kiedy furtka zostanie zamknięta lub otwarta
+When the heat meter increases: Kiedy wartość licznika ciepła wzrasta
+When the heat meter reaches a certain value: Kiedy licznik ciepła osiągnie określoną wartość
+When the humidity changes: Kiedy wilgotność się zmieni
+When the humidity reaches a certain level: Kiedy wilgotność osiągnie określony poziom
+When the humidity will be: Kiedy wilgotność będzie
+When the mail has been taken: Kiedy poczta zostanie odebrana
+When the amount of measured rain will be: Kiedy ilość mierzonego deszczu będzie
+When the pressure changes: Kiedy ciśnienie się zmieni
+When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
+When the pressure will be: Kiedy ciśnienie będzie
+When the rain amount changes: Kiedy zmieni się ilość opadów
+When the reactive power of phase 1 will be: Kiedy moc bierna na fazie 1 będzie
+When the reactive power of phase 2 will be: Kiedy moc bierna na fazie 2 będzie
+When the reactive power of phase 3 will be: Kiedy moc bierna na fazie 3 będzie
+When the roller shutter position changes: Kiedy zmieni się pozycja rolety
+When the roller shutter reaches: Kiedy roleta osiągnie
+'% of closing': '% zamknięcia'
+When the roller shutter reaches a certain position: Kiedy roleta osiągnie określoną pozycję
+When the roller shutter will be closed: Kiedy roleta zostanie zamknięta
+When the roller shutter will be opened: Kiedy roleta zostanie otwarta
+When the roller shutter will be opened or closed: Kiedy roleta zostanie otwarta lub zamknięta
+When the roof window position changes: Kiedy zmieni się pozycja okan dachowego
+When the roof window reaches: Kiedy okno dachowe osiągnie
+When the roof window reaches a certain position: Kiedy okno dachowe osiągnie określoną pozycję
+When the roof window will be closed: Kiedy okno dachowe zostanie zamknięte
+When the roof window will be opened: Kiedy okno dachowe zostanie otwarte
+When the roof window will be opened or closed: Kiedy okno dachowe zostanie zamknięte lub otwarte
+When the mail comes or is taken: Kiedy przyjdzie poczta lub zostanie zabrana
+When the temperature changes: Kiedy zmieni się temperatura
+When the temperature reaches a certain value: Kiedy temperatura osiągnie określoną wartość
+When the temperature will be: Kiedy temperatura będzie
+When the value will be: Kiedy wartość będzie
+When flooding is detected: Kiedy zostanie wykryte zalanie
+When the valve is closed: Kiedy zawór zostanie zamknięty
+When the valve is manually closed: Kiedy zawór zostanie ręcznie zamknięty
+When the valve is opened: Kiedy zawór zostanie otwarty
+When the valve is opened or closed: Kiedy zawór zostanie zamknięty lub otwarty
+When the voltage of phase 1 will be: Kiedy napięcie na fazie 1 będzie
+When the voltage of phase 2 will be: Kiedy napięcie na fazie 2 będzie
+When the voltage of phase 3 will be: Kiedy napięcie na fazie 3 będzie
+When the water meter increases: Kiedy wartość licznika wody wzrasta
+When the water meter reaches a certain value: Kiedy licznik wody osiągnie określoną wartość
+When the water meter value will be: Kiedy wartość licznika wody będzie
+When the weight changes: Kiedy waga się zmieni
+When the weight will be: Kiedy waga będzie
+When the wind reaches a certain speed: Kiedy wiatr osiągnie określoną prędkość
+When the wind speed changes: Kiedy prędkość wiatru się zmieni
+When the wind speed will be: Kiedy prędkość wiatru będzie
+When the window will be closed: Kiedy okno zostanie zamknięte
+When the window will be opened: Kiedy okno zostanie otwarte
+When the window will be opened or closed: Kiedy okno zostanie zamknięte lub otwarte
+When there is certain amount of rain: Kiedy pada określona ilość deszczu
+When there weight reaches a certain value: Kiedy waga osiągnie określoną wartość
+You must set an action for each reaction.: Kusisz ustawić akcję dla każdej reakcji.
+actionableSubjectType_notification: Powiadomienie
+all: wszystko
+and wait until it reaches: i czekaj, aż osiągnie
+and wait until it will be: i czekaj, aż będzie
+and wait until the humidity will be: i czekaj, aż wilgotność będzie
+and wait until the temperature will be: i czekaj, aż temperatura będzie
+and wait until the value will be: i czekaj, aż wartość będzie
+choose the access identifiers: wybierz identyfikatory dostępu
+current: napięcie
+notification: powiadomienie
+or another element: lub inny element
+power active: moc czynna
+power apparent: moc pozorna
+power reactive: moc bierna
+then execute the action: ,wtedy wykonaj akcję
+voltage: napięcie
 
 #</editor-fold>
