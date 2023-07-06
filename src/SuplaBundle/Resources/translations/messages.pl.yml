@@ -1123,14 +1123,14 @@ vector balance: bilans wektorowy
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Add new action to the scene: Dodaj nową akcję do sceny
+Add a new action to the scene: Dodaj nową akcję do sceny
 Are you sure you want to delete this reaction?: Czy na pewno chcesz usunąć tą reakcję?
 Body: Treść
 Choose the channel: Wybierz kanał
 Choose the channel group: Wybierz grupę kanałów
 Choose the scene: Wybierz scenę
 Choose the schedule: Wybierz harmonogram
-Create New Reaction: Utwórz nową reakcję
+Create new reaction: Utwórz nową reakcję
 Edit reaction: Edytuj reakcję
 Go to the channel: Przejdź do kanału
 Go to the channel group: Przejdź do grupy kanałów
@@ -1140,25 +1140,25 @@ Invalid scene: Niepoprawna scena
 Missing action.: Brak akcji
 New reaction: Nowa reakcja
 Notification: Powiadomienie
-Notification must be sent to someone.: Powiadomienie musi być wysłane do kogoś.
+The notification must have a recipient.: Powiadomienie musi posiadać odbiorcę.
 Notification must have a body.: Powiadomienie musi mieć treść.
 Notifications: Powiadomienia
 Phase: Faza
 Please fix the problems with operations and try again.: Rozwiąż problemy z operacjami i spróbuj ponownie.
-Please select a valid action: Proszę wybrać akcję
-Please select a valid condition: Proszę wybrać warunek
+Please select an action: Proszę wybrać akcję
+Please select a condition: Proszę wybrać warunek
 Reactions: Reakcje
 Reactions limit has been exceeded: Przekroczono limit reakcji
-Reakcja została dodana: Reakcja została dodana
-Reakcja została zaktualizowana: Reakcja została zaktualizowana
+The reaction has been added: Reakcja została dodana
+The reaction has been changed: Reakcja została zmieniona
 Recipients: Odbiorcy
 Send notification: Wyślij powiadomienie
 Title: Tytuł
 When a new mail comes: Kiedy przyjdzie nowa poczta
 When average voltage of all phases will be: Kiedy średnie napiecie z wszystkich faz bęzie
-When liquid is detected: Kiedy wykryto ciecz lub jej brak
-When a lack of liquid is detected: Kiedy zostanie wykryta ciecz
-When liquid or lack thereof is detected: Kiedy wykryto brak cieczy
+When liquid is detected: Kiedy zostanie wykryta ciecz
+When a lack of liquid is detected: Kiedy zostanie wykryty brak cieczy
+When liquid or lack thereof is detected: Kiedy zostanie wykryta ciecz lub jej brak
 When summarized active power of all phases will be: Kiedy suma mocy czynnej z wszystkich faz będzie
 When summarized apparent power of all phases will be: Kiedy suma mocy pozornej z wszystkich faz będzie
 When summarized current of all phases will be: Kiedy suma prądów z wszystkich faz będzie
@@ -1173,13 +1173,12 @@ When the apparent power of phase 1 will be: Kiedy moc pozorna na fazie 1 będzie
 When the apparent power of phase 2 will be: Kiedy moc pozorna na fazie 2 będzie
 When the apparent power of phase 3 will be: Kiedy moc pozorna na fazie 3 będzie
 When the brightness will be: Kiedy jasność będzie
-When the calculated value will be: Kiedy przeliczona wartość będzie
 When the condition is met: Kiedy warunek zostanie spełniony
 When the current of phase 1 will be: Kiedy prąd na fazie 1 będzie
 When the current of phase 2 will be: Kiedy prąd na fazie 2 będzie
 When the current of phase 3 will be: Kiedy prąd na fazie 3 będzie
-When the depth changes: Kiedy głębokość się zmieni
-When the depth is: Kiedy głębokość będzie
+When the depth changes: Kiedy pomiar głębokości się zmieni
+When the depth is: Kiedy pomiar głębokości będzie
 When the device is turned off: Kiedy urządzenie zostanie wyłączone
 When the device is turned on: Kiedy urządzenie zostanie włączone
 When the device is turned on or off: Kiedy urządzenie zostanie włączone lub wyłączone
@@ -1191,13 +1190,13 @@ When the distance will be: Kiedy odległość będzie
 When the door will be closed: Kiedy drzwi zostaną zamknięte
 When the door will be opened: Kiedy drzwi zostaną otwarte
 When the door will be opened or closed: Kiedy drzwi zostaną zamknięte lub otwarte
-When the electricity meter increases: Kiedy wartość licznika energii elektrycznej wzrasta
+When the electricity meter value changes: Kiedy wartość licznika energii elektrycznej się zmieni
 When the electricity meter reaches a certain value: Kiedy licznik osiągnie określoną wartość
-When the garage door will be closed: Kiedy drzwi garażu zostaną zamknięte
-When the garage door will be opened: Kiedy drzwi garażu zostaną otwarte
-When the garage door will be opened or closed: Kiedy drzwi garażu zostaną zamknięte lub otwarte
-When the gas meter increases: Kiedy wartość licznika gazu wzrasta
-When the gas meter reaches a certain value: Kiedy licznik gazu osiągnie określoną wartość
+When the garage door will be closed: Kiedy brama garażowa zostanie zamknięta
+When the garage door will be opened: Kiedy brama garażowa zostanie otwarta
+When the garage door will be opened or closed: Kiedy brama garażowa zostanie zamknięta lub otwarta
+When the gas meter value changes: Kiedy wartość licznika gazu sie zmieni
+When the gas meter value reaches a certain value: Kiedy licznik gazu osiągnie określoną wartość
 When the gas meter value will be: Kiedy wartość licznika gazu będzie
 When the gate will be closed: Kiedy brama zostanie zamknięta
 When the gate will be opened: Kiedy brama zostanie otwarta
@@ -1205,13 +1204,13 @@ When the gate will be opened or closed: Kiedy brama zostanie otwarta lub zamkni�
 When the gateway will be closed: Kiedy furtka zostanie zamknięta
 When the gateway will be opened: Kiedy furtka zostanie otwarta
 When the gateway will be opened or closed: Kiedy furtka zostanie zamknięta lub otwarta
-When the heat meter increases: Kiedy wartość licznika ciepła wzrasta
-When the heat meter reaches a certain value: Kiedy licznik ciepła osiągnie określoną wartość
+When the heat meter value changes: Kiedy wartość licznika się zmieni
+When the heat meter value reaches a certain value: Kiedy licznik ciepła osiągnie określoną wartość
 When the humidity changes: Kiedy wilgotność się zmieni
 When the humidity reaches a certain level: Kiedy wilgotność osiągnie określony poziom
 When the humidity will be: Kiedy wilgotność będzie
 When the mail has been taken: Kiedy poczta zostanie odebrana
-When the amount of measured rain will be: Kiedy ilość mierzonego deszczu będzie
+When the precipitation amount will be: Kiedy ilość mierzonego deszczu będzie
 When the pressure changes: Kiedy ciśnienie się zmieni
 When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
 When the pressure will be: Kiedy ciśnienie będzie
@@ -1258,7 +1257,7 @@ When the window will be opened: Kiedy okno zostanie otwarte
 When the window will be opened or closed: Kiedy okno zostanie zamknięte lub otwarte
 When there is certain amount of rain: Kiedy pada określona ilość deszczu
 When there weight reaches a certain value: Kiedy waga osiągnie określoną wartość
-You must set an action for each reaction.: Kusisz ustawić akcję dla każdej reakcji.
+You must set an action for each reaction.: Musisz ustawić akcję dla każdej reakcji.
 actionableSubjectType_notification: Powiadomienie
 all: wszystko
 and wait until it reaches: i czekaj, aż osiągnie
@@ -1267,7 +1266,7 @@ and wait until the humidity will be: i czekaj, aż wilgotność będzie
 and wait until the temperature will be: i czekaj, aż temperatura będzie
 and wait until the value will be: i czekaj, aż wartość będzie
 choose the access identifiers: wybierz identyfikatory dostępu
-current: napięcie
+current: prąd
 notification: powiadomienie
 or another element: lub inny element
 power active: moc czynna

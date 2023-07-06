@@ -8,7 +8,7 @@
             <div class="col-sm-6">
                 <transition-expand>
                     <div class="alert alert-danger" v-if="displayValidationErrors && !trigger">
-                        {{ $t('Please select a valid condition') }}
+                        {{ $t('Please select a condition') }}
                     </div>
                 </transition-expand>
                 <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="onChanged()" class="mb-3"/>
@@ -20,7 +20,7 @@
             <div class="col-sm-6">
                 <transition-expand>
                     <div class="alert alert-danger" v-if="displayValidationErrors && (!action || !targetSubject)">
-                        {{ $t('Please select a valid action') }}
+                        {{ $t('Please select an action') }}
                     </div>
                 </transition-expand>
                 <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1">
@@ -102,14 +102,14 @@
                 return this.$http.post(`channels/${this.owningChannel.id}/reactions?include=subject,owningChannel`, this.reaction)
                     .then((response) => {
                         this.$emit('add', response.body);
-                        successNotification(this.$t('Success'), this.$t('Reakcja została dodana'));
+                        successNotification(this.$t('Success'), this.$t('The reaction has been added'));
                     });
             },
             updateReaction() {
                 return this.$http.put(`channels/${this.owningChannel.id}/reactions/${this.item.id}?include=subject,owningChannel`, this.reaction)
                     .then((response) => {
                         this.$emit('update', response.body);
-                        successNotification(this.$t('Success'), this.$t('Reakcja została zaktualizowana'));
+                        successNotification(this.$t('Success'), this.$t('The reaction has been changed'));
                     });
             },
             deleteReaction() {

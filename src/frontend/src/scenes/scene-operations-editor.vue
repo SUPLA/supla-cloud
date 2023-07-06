@@ -81,7 +81,7 @@
                 <div class="timeline-panel">
                     <div class="timeline-body">
                         <div class="form-group">
-                            <label>{{ $t('Add new action to the scene') }}</label>
+                            <label>{{ $t('Add a new action to the scene') }}</label>
                             <subject-dropdown @input="addSceneOperation($event)"
                                 clear-on-select
                                 disable-notifications

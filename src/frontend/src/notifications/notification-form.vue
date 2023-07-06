@@ -12,7 +12,7 @@
         <div :class="['form-group', {'has-error': displayValidationErrors && !validRecipients}]">
             <label>{{ $t('Recipients') }}</label>
             <AccessIdsDropdown v-model="accessIds"/>
-            <div class="help-block help-error">{{ $t('Notification must be sent to someone.') }}</div>
+            <div class="help-block help-error">{{ $t('The notification must have a recipient.') }}</div>
         </div>
     </div>
 </template>

@@ -262,7 +262,7 @@ export const ChannelFunctionTriggers = {
             component: ReactionConditionThreshold,
             props: {
                 unit: () => 'l/m',
-                labelI18n: () => 'When the amount of measured rain will be', // i18n
+                labelI18n: () => 'When the precipitation amount will be', // i18n
                 resumeLabelI18n: () => 'and wait until it will be', // i18n
             },
         },
@@ -341,17 +341,17 @@ export const ChannelFunctionTriggers = {
             props: {
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
-                labelI18n: () => 'When the calculated value will be', // i18n
+                labelI18n: () => 'When the value will be', // i18n
             },
         },
         {
-            caption: 'When the electricity meter increases', // i18n
+            caption: 'When the electricity meter value changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.IC_GASMETER]: [
         {
-            caption: 'When the gas meter reaches a certain value', // i18n
+            caption: 'When the gas meter value reaches a certain value', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -361,7 +361,7 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the gas meter increases', // i18n
+            caption: 'When the gas meter value changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
@@ -377,13 +377,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the water meter increases', // i18n
+            caption: 'When the water meter value will be', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.IC_HEATMETER]: [
         {
-            caption: 'When the heat meter reaches a certain value', // i18n
+            caption: 'When the heat meter value reaches a certain value', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -393,7 +393,7 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the heat meter increases', // i18n
+            caption: 'When the heat meter value changes', // i18n
             def: () => ({on_change: {}})
         },
     ],

@@ -5,7 +5,7 @@
             header-i18n="Reactions"
             tile="reaction-tile"
             :endpoint="`channels/${subject.id}/reactions?include=subject,owningChannel`"
-            create-new-label-i18n="Create New Reaction"
+            create-new-label-i18n="Create new reaction"
             list-route="channel"
             details-route="channelReaction"
             id-param-name="reactionId"
