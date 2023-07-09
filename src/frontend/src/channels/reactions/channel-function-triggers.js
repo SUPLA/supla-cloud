@@ -325,6 +325,16 @@ export const ChannelFunctionTriggers = {
                         power_apparent1: 'When the apparent power of phase 1 will be', // i18n
                         power_apparent2: 'When the apparent power of phase 2 will be', // i18n
                         power_apparent3: 'When the apparent power of phase 3 will be', // i18n
+                        fae1: 'When the forward active energy of phase 1 will be', // i18n
+                        fae2: 'When the forward active energy of phase 2 will be', // i18n
+                        fae3: 'When the forward active energy of phase 3 will be', // i18n
+                        fae_sum: 'When the summarized forward active energy of all phases will be', // i18n
+                        fae_balanced: 'When the balanced forward active energy will be', // i18n
+                        rae1: 'When the reverse active energy of phase 1 will be', // i18n
+                        rae2: 'When the reverse active energy of phase 2 will be', // i18n
+                        rae3: 'When the reverse active energy of phase 3 will be', // i18n
+                        rae_sum: 'When the summarized reverse active energy of all phases will be', // i18n
+                        rae_balanced: 'When the balanced reverse active energy will be', // i18n
                     }[fieldName];
                 },
                 resumeLabelI18n: () => 'and wait until it reaches', // i18n
@@ -339,6 +349,8 @@ export const ChannelFunctionTriggers = {
                         return 'var';
                     } else if (fieldName.startsWith('power_apparent')) {
                         return 'VA';
+                    } else if (fieldName.startsWith('fae') || fieldName.startsWith('rae')) {
+                        return 'kWh';
                     }
                 },
             },
