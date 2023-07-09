@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% zamknięcia'
 '%s trigger is not supported by the hardware.': Wyzwalacz %s nie jest wspierany przez urządzenie.
 ...open and shut roller shutters: ...zasłonić i odsłonić rolety
 ...open gateways, gates or doors: ...otworzyć furtkę, bramę lub drzwi
@@ -43,6 +44,7 @@ Active sessions: Aktywne sesje
 Active web sessions: Aktywne sesje (web)
 Add: Dodaj
 Add a delay: Dodaj opóźnienie
+Add a new action to the scene: Dodaj nową akcję do sceny
 Add a new icon: Dodaj nową ikonę
 Add action: Dodaj akcję
 Add first channel to set channel group function and save it: Wybierz pierwszy kanał by określić funkcję grupy i ją zapisać
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Czy na pewno chcesz usuną�
 Are you sure you want to delete this client?: Czy na pewno chcesz usunąć tę aplikację kliencką?
 Are you sure you want to delete this direct link?: Czy na pewno chcesz usunąć ten link bezpośredni?
 Are you sure you want to delete this icon?: Czy na pewno chcesz usunąć tą ikonę?
+Are you sure you want to delete this reaction?: Czy na pewno chcesz usunąć tą reakcję?
 Are you sure you want to delete this scene?: Czy na pewno chcesz usunąć tę scenę?
 Are you sure you want to delete this schedule?: Czy na pewno chcesz usunąć ten harmonogram?
 Are you sure you want to log out this device?: Czy na pewno chcesz wylogować to urządzenie?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: W oparciu o wschód / zachód
 Be notified when your channels change state: Powiadamianie o zmianach stanu kanałów
 Be right back!: Wróć za kilka chwil!
 Below threshold: Poniżej progu
+Body: Treść
 Bottom position: Dolna pozycja
 Bridge: Most
 Brightness: Jasność
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Wybierz Identyfikator
 Choose channel function: Wybierz funkcję kanału
 Choose client apps: Wybierz aplikacje klienckie
 Choose location: Wybierz lokalizację
+Choose the channel: Wybierz kanał
+Choose the channel group: Wybierz grupę kanałów
+Choose the scene: Wybierz scenę
+Choose the schedule: Wybierz harmonogram
 Choose the source channel.: Wybierz kanał źródłowy.
 Clear: Wyczyść
 Click the following link to confirm removal of your account on %cloudHost%.: Aby potwierdzić chęć usunięcia Twojego konta na %cloudHost%, kliknij poniższy link.
@@ -215,6 +223,7 @@ Create New Location: Utwórz nową Lokalizację
 Create New Schedule: Utwórz nowy harmonogram
 Create an account: Utwórz konto
 Create new direct link: Utwórz nowy link bezpośredni
+Create new reaction: Utwórz nową reakcję
 Create new scene: Utwórz nową scenę
 Currency: Waluta
 Current Overload: Przeciążenie
@@ -280,6 +289,7 @@ Download the history of measurement: Pobierz historię pomiarów
 Drag your image(s) here or click to select from the disk: Przeciągnij obraz tutaj lub kliknij aby wybrać z dysku
 E-mail notifications: Powiadomienia e-mail
 Edit: Edytuj
+Edit reaction: Edytuj reakcję
 Electric: Elektryka
 Electricity meter: Licznik energii elektrycznej
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Licznik energii elektrycznej nie zgłosił możliwości konfiguracji wartości dodanych. Zaktualizuj firmware urządzenia i spróbuj ponownie.
@@ -349,6 +359,10 @@ Generate new token: Generuj nowy token
 Generate token: Generuj token
 Go to I/O device details: Przejdź do szczegółów urządzenia
 Go to channel details: Przejdź do szczegółów kanału
+Go to the channel: Przejdź do kanału
+Go to the channel group: Przejdź do grupy kanałów
+Go to the scene: Przejdź do sceny
+Go to the schedule: Przejdź do harmonogramu
 Go to your account: Przejdź do swojego konta
 Grant access: Przyznaj dostęp
 Guru Meditation: Guru Meditation
@@ -423,6 +437,7 @@ Invalid function for channel.: Niepoprawna funkcja dla kanału.
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
 Invalid request: Niepoprawne żądanie
 Invalid request.: Niepoprawne żądanie.
+Invalid scene: Niepoprawna scena
 Invalid token.: Niepoprawny token.
 Invalid username or password: Niepoprawna nazwa użytkownika lub hasło
 Inverted logic: Odwrócona logika
@@ -472,6 +487,7 @@ Measurement window: Czas pomiaru
 Meter value: Stan licznika
 Meters: Liczniki
 Minimum voltage: Najniższe napięcie
+Missing action.: Brak akcji
 Mode: Tryb
 Modification: Modyfikacja
 Mondays: Poniedziałki
@@ -490,6 +506,7 @@ New channel group: Nowa grupa kanałów
 New client app (smartphone) added to your account: Rejestracja nowej aplikacji klienckiej (smartfona)
 New direct link: Nowy link bezpośredni
 New password: Nowe hasło
+New reaction: Nowa reakcja
 New scene: Nowa scena
 Newer: Nowsze
 'Next limit renewal: {date}': Limit zostanie odnowiony {date}
@@ -516,6 +533,9 @@ No. of locations: Liczba lokalizacji
 None: Brak
 None (channel disabled): Brak (kanał wyłączony)
 Noop: Brak operacji
+Notification: Powiadomienie
+Notification must have a body.: Powiadomienie musi mieć treść.
+Notifications: Powiadomienia
 Number of aberrations: Liczba aberracji
 Number of attempts to close: Liczba prób zamknięcia
 Number of attempts to open: Liczba prób otwarcia
@@ -556,6 +576,7 @@ Percentage of closing: Procent zamknięcia
 Personal access tokens: Osobiste tokeny dostępowe
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osobiste tokeny dostępowe działają tak jak zwykłe z tą różnicą, że działają bezterminowo.
 Personal token name is required.: Wymagane jest podanie nazwy tokena osobistego.
+Phase: Faza
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
@@ -567,9 +588,12 @@ Please click the link we have sent you after the registration to proceed.: Klikn
 Please confirm your SUPLA account.: Aktywuj swoje konto w SUPLA.
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
+Please fix the problems with operations and try again.: Rozwiąż problemy z operacjami i spróbuj ponownie.
 Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
 Please read the Terms and Conditions.: Przeczytaj regulamin.
+Please select a condition: Proszę wybrać warunek
+Please select an action: Proszę wybrać akcję
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Port: Port
 Precision: Dokładność
@@ -589,7 +613,10 @@ RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Oświetlenie RGB
 Rain sensor: Czujnik deszczu
 Random: Losowy
+Reactions: Reakcje
+Reactions limit has been exceeded: Przekroczono limit reakcji
 Read: Odczyt
+Recipients: Odbiorcy
 Reference to the scene will be removed from the items below.: Wskazanie na scenę zostanie usunięte z poniższych elementów.
 Refresh: Odśwież
 Regeneration starts at: Początek regeneracji
@@ -667,6 +694,7 @@ Select icon: Wybierz ikonę
 Select the item (subject) you want to control using this link: Wybierz element (podmiot), który chcesz kontrolować za pomocą tego linka
 Selected device has been logged out.: Wybrane urządzenie zostało wylogowane
 Send a notification: Wyślij powiadomienie
+Send notification: Wyślij powiadomienie
 Sensor (normal closed): Czujnik (normalnie zamknięty)
 Sensor (normal open): Czujnik (normalnie otwarty)
 Sensor disconnected: Brak czujnika
@@ -746,8 +774,11 @@ The measurement history has been deleted.: Historia pomiarów została usunięta
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Nowe hasło zastąpi to, którego używasz obecnie. Niektóre integracje mogą przestać działać po jego zmianie. Kontynuować?
 The next available executions: Najbliższe wykonania
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Za pomocą ramki zaznaczyliśmy powiadomienie, z którego kliknąłeś/kliknęłaś link do wypisania się.
+The notification must have a recipient.: Powiadomienie musi posiadać odbiorcę.
 The password and its confirm are not the same.: Hasło i jego potwierdzenie nie są takie same.
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
+The reaction has been added: Reakcja została dodana
+The reaction has been changed: Reakcja została zmieniona
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Urządzenie zostało wyłączone zabezpieczeniem nadprądowym. Zanim je włączysz, upewnij się że rozwiązano problem, który do tego doprowadził. Czy na pewno chcesz włączyć to urządzenie zdalnie?
 The scene would execute too many operations.: Scena wykonuje zbyt wiele operacji.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serwer zwrócił błąd 400, co oznacza że przesłane żądanie jest niepoprawne.
@@ -771,6 +802,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ten wyzwalacz jest używany lokalnie przez urządzenie (np. włącza światło, steruje roletą itd.) Jeśli przypiszesz mu inną akcję, to lokalna funkcja zostanie wyłączona.
 Thursdays: Czwartki
 Timezone: Strefa czasowa
+Title: Tytuł
 To: Do
 Toggle: Przełącz
 Token does not exist: Token nie istnieje
@@ -838,6 +870,107 @@ Wednesdays: Środy
 Weight sensor: Waga
 Welcome!: Witaj!
 What this token is for?: Do czego służy ten token?
+When a certain distance is reached: Kiedy określona odległość zostanie osiągnięta
+When a lack of liquid is detected: Kiedy zostanie wykryty brak cieczy
+When a new mail comes: Kiedy przyjdzie nowa poczta
+When average voltage of all phases will be: Kiedy średnie napiecie z wszystkich faz bęzie
+When flooding is detected: Kiedy zostanie wykryte zalanie
+When liquid is detected: Kiedy zostanie wykryta ciecz
+When liquid or lack thereof is detected: Kiedy zostanie wykryta ciecz lub jej brak
+When summarized active power of all phases will be: Kiedy suma mocy czynnej z wszystkich faz będzie
+When summarized apparent power of all phases will be: Kiedy suma mocy pozornej z wszystkich faz będzie
+When summarized current of all phases will be: Kiedy suma prądów z wszystkich faz będzie
+When summarized reactive power of all phases will be: Kiedy suma mocy biernej z wszystkich faz będzie
+When the RGB lighting brightness level changes: Kiedy poziom jasności oświetlenia RGB się zmieni
+When the RGB lighting reaches a certain level of brightness: Kiedy oświetlenie RGB osiągnie określony poziom jasności
+When the active power of phase 1 will be: Kiedy moc czynna na fazie 1 będzie
+When the active power of phase 2 will be: Kiedy moc czynna na fazie 2 będzie
+When the active power of phase 3 will be: Kiedy moc czynna na fazie 3 będzie
+When the apparent power of phase 1 will be: Kiedy moc pozorna na fazie 1 będzie
+When the apparent power of phase 2 will be: Kiedy moc pozorna na fazie 2 będzie
+When the apparent power of phase 3 will be: Kiedy moc pozorna na fazie 3 będzie
+When the brightness level changes: Kiedy poziom jasności się zmieni
+When the brightness will be: Kiedy jasność będzie
+When the color changes: Kiedy kolor się zmieni
+When the condition is met: Kiedy warunek zostanie spełniony
+When the current of phase 1 will be: Kiedy prąd na fazie 1 będzie
+When the current of phase 2 will be: Kiedy prąd na fazie 2 będzie
+When the current of phase 3 will be: Kiedy prąd na fazie 3 będzie
+When the depth changes: Kiedy pomiar głębokości się zmieni
+When the depth is: Kiedy pomiar głębokości będzie
+When the device is turned off: Kiedy urządzenie zostanie wyłączone
+When the device is turned on: Kiedy urządzenie zostanie włączone
+When the device is turned on or off: Kiedy urządzenie zostanie włączone lub wyłączone
+When the distance changes: Kiedy odległość się zmieni
+When the distance will be: Kiedy odległość będzie
+When the door will be closed: Kiedy drzwi zostaną zamknięte
+When the door will be opened: Kiedy drzwi zostaną otwarte
+When the door will be opened or closed: Kiedy drzwi zostaną zamknięte lub otwarte
+When the electricity meter reaches a certain value: Kiedy licznik osiągnie określoną wartość
+When the electricity meter value changes: Kiedy wartość licznika energii elektrycznej się zmieni
+When the garage door will be closed: Kiedy brama garażowa zostanie zamknięta
+When the garage door will be opened: Kiedy brama garażowa zostanie otwarta
+When the garage door will be opened or closed: Kiedy brama garażowa zostanie zamknięta lub otwarta
+When the gas meter value changes: Kiedy wartość licznika gazu sie zmieni
+When the gas meter value reaches a certain value: Kiedy licznik gazu osiągnie określoną wartość
+When the gas meter value will be: Kiedy wartość licznika gazu będzie
+When the gate will be closed: Kiedy brama zostanie zamknięta
+When the gate will be opened: Kiedy brama zostanie otwarta
+When the gate will be opened or closed: Kiedy brama zostanie otwarta lub zamknięta
+When the gateway will be closed: Kiedy furtka zostanie zamknięta
+When the gateway will be opened: Kiedy furtka zostanie otwarta
+When the gateway will be opened or closed: Kiedy furtka zostanie zamknięta lub otwarta
+When the heat meter value changes: Kiedy wartość licznika się zmieni
+When the heat meter value reaches a certain value: Kiedy licznik ciepła osiągnie określoną wartość
+When the humidity changes: Kiedy wilgotność się zmieni
+When the humidity reaches a certain level: Kiedy wilgotność osiągnie określony poziom
+When the humidity will be: Kiedy wilgotność będzie
+When the lighting reaches a certain level of brightness: Gdy oświetlenie osiągnie określony poziom jasności
+When the mail comes or is taken: Kiedy przyjdzie poczta lub zostanie zabrana
+When the mail has been taken: Kiedy poczta zostanie odebrana
+When the precipitation amount will be: Kiedy ilość mierzonego deszczu będzie
+When the pressure changes: Kiedy ciśnienie się zmieni
+When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
+When the pressure will be: Kiedy ciśnienie będzie
+When the rain amount changes: Kiedy zmieni się ilość opadów
+When the reactive power of phase 1 will be: Kiedy moc bierna na fazie 1 będzie
+When the reactive power of phase 2 will be: Kiedy moc bierna na fazie 2 będzie
+When the reactive power of phase 3 will be: Kiedy moc bierna na fazie 3 będzie
+When the roller shutter position changes: Kiedy zmieni się pozycja rolety
+When the roller shutter reaches: Kiedy roleta osiągnie
+When the roller shutter reaches a certain position: Kiedy roleta osiągnie określoną pozycję
+When the roller shutter will be closed: Kiedy roleta zostanie zamknięta
+When the roller shutter will be opened: Kiedy roleta zostanie otwarta
+When the roller shutter will be opened or closed: Kiedy roleta zostanie otwarta lub zamknięta
+When the roof window position changes: Kiedy zmieni się pozycja okan dachowego
+When the roof window reaches: Kiedy okno dachowe osiągnie
+When the roof window reaches a certain position: Kiedy okno dachowe osiągnie określoną pozycję
+When the roof window will be closed: Kiedy okno dachowe zostanie zamknięte
+When the roof window will be opened: Kiedy okno dachowe zostanie otwarte
+When the roof window will be opened or closed: Kiedy okno dachowe zostanie zamknięte lub otwarte
+When the temperature changes: Kiedy zmieni się temperatura
+When the temperature reaches a certain value: Kiedy temperatura osiągnie określoną wartość
+When the temperature will be: Kiedy temperatura będzie
+When the value will be: Kiedy wartość będzie
+When the valve is closed: Kiedy zawór zostanie zamknięty
+When the valve is manually closed: Kiedy zawór zostanie ręcznie zamknięty
+When the valve is opened: Kiedy zawór zostanie otwarty
+When the valve is opened or closed: Kiedy zawór zostanie zamknięty lub otwarty
+When the voltage of phase 1 will be: Kiedy napięcie na fazie 1 będzie
+When the voltage of phase 2 will be: Kiedy napięcie na fazie 2 będzie
+When the voltage of phase 3 will be: Kiedy napięcie na fazie 3 będzie
+When the water meter reaches a certain value: Kiedy licznik wody osiągnie określoną wartość
+When the water meter value will be: Kiedy wartość licznika wody będzie
+When the weight changes: Kiedy waga się zmieni
+When the weight will be: Kiedy waga będzie
+When the wind reaches a certain speed: Kiedy wiatr osiągnie określoną prędkość
+When the wind speed changes: Kiedy prędkość wiatru się zmieni
+When the wind speed will be: Kiedy prędkość wiatru będzie
+When the window will be closed: Kiedy okno zostanie zamknięte
+When the window will be opened: Kiedy okno zostanie otwarte
+When the window will be opened or closed: Kiedy okno zostanie zamknięte lub otwarte
+When there is certain amount of rain: Kiedy pada określona ilość deszczu
+When there weight reaches a certain value: Kiedy waga osiągnie określoną wartość
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Możesz wykonać akcję linku bezpośredniego podając jego unikalny identyfikator w treści żądania HTTP PATCH. Jest to bezpieczniejsze, gdyż uniemożliwia to zapisanie pełnego adresu Twojego linku w logach dostępowych serwerów, przez które przechodzi Twoje żądanie. Poniżej znajdziesz przykładowe wykonanie za pomocą narzędzia cURL.
 Where is the JSON?: Gdzie jest JSON?
 Where is your SUPLA Cloud?: Gdzie znajduje się Twoja Supla?
@@ -864,6 +997,7 @@ You may find the below examples helpful, provided that you are still willing to 
 You must agree to the Terms and Conditions.: Akceptacja regulaminu jest wymagana.
 You must enable MQTT Broker first.: Musisz najpierw włączyć integrację z brokerem MQTT.
 You must leave at least one phase enabled.: Przynajmniej jedna faza musi pozostać aktywna.
+You must set an action for each reaction.: Musisz ustawić akcję dla każdej reakcji.
 You must set an action for each scene operation.: Wybierz akcję dla każdej operacji w scenie.
 You must set sections with transparent or opaque parameters or both.: Musisz wybrać przezroczystość przynajmniej jednej sekcji.
 You need to provide icons for all states.: Musisz dostarczyć ikony dla wszystkich stanów.
@@ -913,11 +1047,18 @@ actionTrigger_TURN_OFF: Wyłączenie
 actionTrigger_TURN_ON: Włączenie
 actionableSubjectType_channel: Kanał
 actionableSubjectType_channelGroup: Grupa kanałów
+actionableSubjectType_notification: Powiadomienie
 actionableSubjectType_scene: Scena
 actionableSubjectType_schedule: Harmonogram
 addToHistoryMeasurementWarningSelected: Zaznaczenie tej opcji spowoduje dodanie ustawionych wartości do przyszłych pomiarów zapisywanych w historii. Może to być widoczne na wykresach jako nagły przyrost o wprowadzoną wartość. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 addToHistoryMeasurementWarningUnselected: Odznaczenie tej opcji spowoduje pominięcie ustawionych wartości w przyszłych pomiarach zapisywanych w historii. Może to być widoczne na wykresach jako nagły spadek. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 after: po
+all: wszystko
+and wait until it reaches: i czekaj, aż osiągnie
+and wait until it will be: i czekaj, aż będzie
+and wait until the humidity will be: i czekaj, aż wilgotność będzie
+and wait until the temperature will be: i czekaj, aż temperatura będzie
+and wait until the value will be: i czekaj, aż wartość będzie
 average: średnia
 be at least {numChars} characters long: musi mieć co najmniej {numChars} znaków
 before: przed
@@ -933,6 +1074,7 @@ channelGroup: Grupa kanałów
 choose: wybierz
 choose a currency: wybierz walutę
 choose access identifiers: wybierz identyfikatory dostępu
+choose the access identifiers: wybierz identyfikatory dostępu
 choose the action: wybierz akcję
 choose the channel: wybierz kanał
 choose the channel group: wybierz grupę kanałów
@@ -945,6 +1087,7 @@ contains a digit: zawiera cyfrę
 contains lower and upper letters: zawiera małe i duże litery
 copied: skopiowano
 copy: kopiuj
+current: prąd
 days: dni
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
@@ -978,7 +1121,12 @@ logs_aggregation_minute: minuty
 logs_aggregation_month: miesiące
 min.: min.
 minutes: minut
+notification: powiadomienie
+or another element: lub inny element
 password: hasło
+power active: moc czynna
+power apparent: moc pozorna
+power reactive: moc bierna
 prefix: prefiks
 previous month: poprzedni miesiąc
 range: zakres
@@ -1019,6 +1167,7 @@ sunrise-before: wschodem
 sunset-after: zachodzie
 sunset-before: zachodem
 the whole history: cała historia
+then execute the action: wtedy wykonaj akcję
 this month: bieżący miesiąc
 this year: bieżący rok
 today: dziś
@@ -1027,6 +1176,7 @@ username: nazwa użytkownika
 valid until: wygaśnie
 values as seen on chart: wartości tak jak na wykresie
 values as seen on counter: wartości tak jak na liczniku
+voltage: napięcie
 yesterday: wczoraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
@@ -1112,6 +1262,7 @@ Sunrise / Sunset: Wschód / Zachód
 Supla for devices: Supla na urządzenia
 Try again later: Spróbuj ponownie później
 When: Kiedy
+When the water meter increases: Kiedy wartość licznika wody wzrasta
 When {field} will be: Gdy {field} będzie
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 average voltage of all phases: średnie napięcie ze wszystkich faz
@@ -1123,156 +1274,23 @@ vector balance: bilans wektorowy
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Add a new action to the scene: Dodaj nową akcję do sceny
-Are you sure you want to delete this reaction?: Czy na pewno chcesz usunąć tą reakcję?
-Body: Treść
-Choose the channel: Wybierz kanał
-Choose the channel group: Wybierz grupę kanałów
-Choose the scene: Wybierz scenę
-Choose the schedule: Wybierz harmonogram
-Create new reaction: Utwórz nową reakcję
-Edit reaction: Edytuj reakcję
-Go to the channel: Przejdź do kanału
-Go to the channel group: Przejdź do grupy kanałów
-Go to the scene: Przejdź do sceny
-Go to the schedule: Przejdź do harmonogramu
-Invalid scene: Niepoprawna scena
-Missing action.: Brak akcji
-New reaction: Nowa reakcja
-Notification: Powiadomienie
-The notification must have a recipient.: Powiadomienie musi posiadać odbiorcę.
-Notification must have a body.: Powiadomienie musi mieć treść.
-Notifications: Powiadomienia
-Phase: Faza
-Please fix the problems with operations and try again.: Rozwiąż problemy z operacjami i spróbuj ponownie.
-Please select an action: Proszę wybrać akcję
-Please select a condition: Proszę wybrać warunek
-Reactions: Reakcje
-Reactions limit has been exceeded: Przekroczono limit reakcji
-The reaction has been added: Reakcja została dodana
-The reaction has been changed: Reakcja została zmieniona
-Recipients: Odbiorcy
-Send notification: Wyślij powiadomienie
-Title: Tytuł
-When a new mail comes: Kiedy przyjdzie nowa poczta
-When average voltage of all phases will be: Kiedy średnie napiecie z wszystkich faz bęzie
-When liquid is detected: Kiedy zostanie wykryta ciecz
-When a lack of liquid is detected: Kiedy zostanie wykryty brak cieczy
-When liquid or lack thereof is detected: Kiedy zostanie wykryta ciecz lub jej brak
-When summarized active power of all phases will be: Kiedy suma mocy czynnej z wszystkich faz będzie
-When summarized apparent power of all phases will be: Kiedy suma mocy pozornej z wszystkich faz będzie
-When summarized current of all phases will be: Kiedy suma prądów z wszystkich faz będzie
-When summarized reactive power of all phases will be: Kiedy suma mocy biernej z wszystkich faz będzie
-When the RGB lighting brightness level changes: Kiedy poziom jasności oświetlenia RGB się zmieni
-When the color changes: Kiedy kolor się zmieni
-When the RGB lighting reaches a certain level of brightness: Kiedy oświetlenie RGB osiągnie określony poziom jasności
-When the active power of phase 1 will be: Kiedy moc czynna na fazie 1 będzie
-When the active power of phase 2 will be: Kiedy moc czynna na fazie 2 będzie
-When the active power of phase 3 will be: Kiedy moc czynna na fazie 3 będzie
-When the apparent power of phase 1 will be: Kiedy moc pozorna na fazie 1 będzie
-When the apparent power of phase 2 will be: Kiedy moc pozorna na fazie 2 będzie
-When the apparent power of phase 3 will be: Kiedy moc pozorna na fazie 3 będzie
-When the brightness will be: Kiedy jasność będzie
-When the condition is met: Kiedy warunek zostanie spełniony
-When the current of phase 1 will be: Kiedy prąd na fazie 1 będzie
-When the current of phase 2 will be: Kiedy prąd na fazie 2 będzie
-When the current of phase 3 will be: Kiedy prąd na fazie 3 będzie
-When the depth changes: Kiedy pomiar głębokości się zmieni
-When the depth is: Kiedy pomiar głębokości będzie
-When the device is turned off: Kiedy urządzenie zostanie wyłączone
-When the device is turned on: Kiedy urządzenie zostanie włączone
-When the device is turned on or off: Kiedy urządzenie zostanie włączone lub wyłączone
-When the brightness level changes: Kiedy poziom jasności się zmieni
-When the lighting reaches a certain level of brightness: Gdy oświetlenie osiągnie określony poziom jasności
-When the distance changes: Kiedy odległość się zmieni
-When a certain distance is reached: Kiedy określona odległość zostanie osiągnięta
-When the distance will be: Kiedy odległość będzie
-When the door will be closed: Kiedy drzwi zostaną zamknięte
-When the door will be opened: Kiedy drzwi zostaną otwarte
-When the door will be opened or closed: Kiedy drzwi zostaną zamknięte lub otwarte
-When the electricity meter value changes: Kiedy wartość licznika energii elektrycznej się zmieni
-When the electricity meter reaches a certain value: Kiedy licznik osiągnie określoną wartość
-When the garage door will be closed: Kiedy brama garażowa zostanie zamknięta
-When the garage door will be opened: Kiedy brama garażowa zostanie otwarta
-When the garage door will be opened or closed: Kiedy brama garażowa zostanie zamknięta lub otwarta
-When the gas meter value changes: Kiedy wartość licznika gazu sie zmieni
-When the gas meter value reaches a certain value: Kiedy licznik gazu osiągnie określoną wartość
-When the gas meter value will be: Kiedy wartość licznika gazu będzie
-When the gate will be closed: Kiedy brama zostanie zamknięta
-When the gate will be opened: Kiedy brama zostanie otwarta
-When the gate will be opened or closed: Kiedy brama zostanie otwarta lub zamknięta
-When the gateway will be closed: Kiedy furtka zostanie zamknięta
-When the gateway will be opened: Kiedy furtka zostanie otwarta
-When the gateway will be opened or closed: Kiedy furtka zostanie zamknięta lub otwarta
-When the heat meter value changes: Kiedy wartość licznika się zmieni
-When the heat meter value reaches a certain value: Kiedy licznik ciepła osiągnie określoną wartość
-When the humidity changes: Kiedy wilgotność się zmieni
-When the humidity reaches a certain level: Kiedy wilgotność osiągnie określony poziom
-When the humidity will be: Kiedy wilgotność będzie
-When the mail has been taken: Kiedy poczta zostanie odebrana
-When the precipitation amount will be: Kiedy ilość mierzonego deszczu będzie
-When the pressure changes: Kiedy ciśnienie się zmieni
-When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
-When the pressure will be: Kiedy ciśnienie będzie
-When the rain amount changes: Kiedy zmieni się ilość opadów
-When the reactive power of phase 1 will be: Kiedy moc bierna na fazie 1 będzie
-When the reactive power of phase 2 will be: Kiedy moc bierna na fazie 2 będzie
-When the reactive power of phase 3 will be: Kiedy moc bierna na fazie 3 będzie
-When the roller shutter position changes: Kiedy zmieni się pozycja rolety
-When the roller shutter reaches: Kiedy roleta osiągnie
-'% of closing': '% zamknięcia'
-When the roller shutter reaches a certain position: Kiedy roleta osiągnie określoną pozycję
-When the roller shutter will be closed: Kiedy roleta zostanie zamknięta
-When the roller shutter will be opened: Kiedy roleta zostanie otwarta
-When the roller shutter will be opened or closed: Kiedy roleta zostanie otwarta lub zamknięta
-When the roof window position changes: Kiedy zmieni się pozycja okan dachowego
-When the roof window reaches: Kiedy okno dachowe osiągnie
-When the roof window reaches a certain position: Kiedy okno dachowe osiągnie określoną pozycję
-When the roof window will be closed: Kiedy okno dachowe zostanie zamknięte
-When the roof window will be opened: Kiedy okno dachowe zostanie otwarte
-When the roof window will be opened or closed: Kiedy okno dachowe zostanie zamknięte lub otwarte
-When the mail comes or is taken: Kiedy przyjdzie poczta lub zostanie zabrana
-When the temperature changes: Kiedy zmieni się temperatura
-When the temperature reaches a certain value: Kiedy temperatura osiągnie określoną wartość
-When the temperature will be: Kiedy temperatura będzie
-When the value will be: Kiedy wartość będzie
-When flooding is detected: Kiedy zostanie wykryte zalanie
-When the valve is closed: Kiedy zawór zostanie zamknięty
-When the valve is manually closed: Kiedy zawór zostanie ręcznie zamknięty
-When the valve is opened: Kiedy zawór zostanie otwarty
-When the valve is opened or closed: Kiedy zawór zostanie zamknięty lub otwarty
-When the voltage of phase 1 will be: Kiedy napięcie na fazie 1 będzie
-When the voltage of phase 2 will be: Kiedy napięcie na fazie 2 będzie
-When the voltage of phase 3 will be: Kiedy napięcie na fazie 3 będzie
-When the water meter increases: Kiedy wartość licznika wody wzrasta
-When the water meter reaches a certain value: Kiedy licznik wody osiągnie określoną wartość
-When the water meter value will be: Kiedy wartość licznika wody będzie
-When the weight changes: Kiedy waga się zmieni
-When the weight will be: Kiedy waga będzie
-When the wind reaches a certain speed: Kiedy wiatr osiągnie określoną prędkość
-When the wind speed changes: Kiedy prędkość wiatru się zmieni
-When the wind speed will be: Kiedy prędkość wiatru będzie
-When the window will be closed: Kiedy okno zostanie zamknięte
-When the window will be opened: Kiedy okno zostanie otwarte
-When the window will be opened or closed: Kiedy okno zostanie zamknięte lub otwarte
-When there is certain amount of rain: Kiedy pada określona ilość deszczu
-When there weight reaches a certain value: Kiedy waga osiągnie określoną wartość
-You must set an action for each reaction.: Musisz ustawić akcję dla każdej reakcji.
-actionableSubjectType_notification: Powiadomienie
-all: wszystko
-and wait until it reaches: i czekaj, aż osiągnie
-and wait until it will be: i czekaj, aż będzie
-and wait until the humidity will be: i czekaj, aż wilgotność będzie
-and wait until the temperature will be: i czekaj, aż temperatura będzie
-and wait until the value will be: i czekaj, aż wartość będzie
-choose the access identifiers: wybierz identyfikatory dostępu
-current: prąd
-notification: powiadomienie
-or another element: lub inny element
-power active: moc czynna
-power apparent: moc pozorna
-power reactive: moc bierna
-then execute the action: ,wtedy wykonaj akcję
-voltage: napięcie
+When the RGB color brightness changes: ~
+When the RGB color changes: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the calculated value will be: ~
+When the dimmer brightness changes: ~
+When the forward active energy of phase 1 will be: ~
+When the forward active energy of phase 2 will be: ~
+When the forward active energy of phase 3 will be: ~
+When the reverse active energy of phase 1 will be: ~
+When the reverse active energy of phase 2 will be: ~
+When the reverse active energy of phase 3 will be: ~
+When the summarized forward active energy of all phases will be: ~
+When the summarized reverse active energy of all phases will be: ~
+forward active energy: ~
+forward active energy balanced: ~
+reverse active energy: ~
+reverse active energy balanced: ~
 
 #</editor-fold>
