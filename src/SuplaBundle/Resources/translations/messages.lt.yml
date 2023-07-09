@@ -1059,7 +1059,7 @@ The entire history of the voltage aberrations from phase {phaseNumber} will be r
 The entire history of the voltage aberrations will be removed from this channel.: Bus pašalinta visa šio kanalo įtampos aberacijos istorija.
 The events in voltage aberrations history will be automatically deleted after {days} days.: Įvykiai įtampos aberacijos istorijoje bus automatiškai ištrinti po {days} dienų.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Tai paskutinis Jūsų paskyros ištrynimo veiksmas. Užpildžius ir patvirtinus formą Jūsų duomenys bus negrįžtamai ištrinti.
-'This password will protect your home. Therefore, it must:': `Šis slaptažodis apsaugo Jūsų namus. Todėl:`
+'This password will protect your home. Therefore, it must:': 'Šis slaptažodis apsaugo Jūsų namus. Todėl:'
 To: Iki
 Total: Iš viso
 Unknown browser: Nežinoma naršyklė
