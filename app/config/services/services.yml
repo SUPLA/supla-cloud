@@ -82,6 +82,11 @@ services:
       $authorizeForm: '@fos_oauth_server.authorize.form'
       $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
 
+  SuplaBundle\Entity\Main\Listeners\:
+    resource: '../../../src/SuplaBundle/Entity/Main/Listeners'
+    tags:
+      - {name: doctrine.orm.entity_listener}
+
   SuplaBundle\Message\:
     resource: '../../../src/SuplaBundle/Message'
 

@@ -18,8 +18,11 @@
 namespace SuplaBundle\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
+use SuplaBundle\Supla\SuplaServerAware;
 
 trait Transactional {
+    use SuplaServerAware;
+
     /** @var EntityManagerInterface */
     private $entityManager;
 
@@ -29,6 +32,8 @@ trait Transactional {
     }
 
     public function transactional(callable $function) {
-        return $this->entityManager->transactional($function);
+        $result = $this->entityManager->transactional($function);
+        $this->suplaServer->flushPostponedCommands();
+        return $result;
     }
 }

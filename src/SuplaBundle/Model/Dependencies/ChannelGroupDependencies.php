@@ -29,6 +29,7 @@ class ChannelGroupDependencies extends ActionableSubjectDependencies {
             'schedules' => $channelGroup->getSchedules()->toArray(),
             'sceneOperations' => $channelGroup->getSceneOperations()->toArray(),
             'actionTriggers' => $this->findActionTriggersForSubject($channelGroup)->getValues(),
+            'reactions' => $channelGroup->getReactions()->toArray(),
         ];
     }
 
@@ -40,7 +41,10 @@ class ChannelGroupDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($directLink);
         }
         foreach ($channelGroup->getSceneOperations() as $sceneOperation) {
-            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager, $this->suplaServer);
+            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
+        }
+        foreach ($channelGroup->getReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
         }
         $this->clearActionTriggersThatReferencesSubject($channelGroup);
     }

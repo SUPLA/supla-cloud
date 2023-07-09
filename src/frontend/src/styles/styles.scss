@@ -71,6 +71,14 @@ body.blue {
   margin-left: .3em;
 }
 
+.help-block.help-error {
+  display: none;
+}
+
+.has-error .help-error {
+  display: block;
+}
+
 h1 {
   font-size: 42px;
   line-height: 42px;

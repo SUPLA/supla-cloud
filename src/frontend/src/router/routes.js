@@ -98,6 +98,14 @@ export default [
         component: () => import(/*webpackChunkName:"channels-details-page"*/"@/channels/channel-details-page"),
         name: 'channel',
         props: true,
+        children: [
+            {
+                path: 'reactions/:reactionId',
+                component: () => import("@/channels/reactions/channel-reaction"),
+                name: 'channelReaction',
+                props: true
+            }
+        ],
     },
     {path: '/devices/:id', component: () => import("@/devices/details/device-details-page"), name: 'device', props: true},
     {

@@ -15,6 +15,11 @@
                 </ul>
             </div>
         </div>
+        <div v-if="currentTab == 'reactions'">
+            <div class="container">
+                <ChannelReactionsConfig :subject="channel" @count="setCount('reactions', $event)"/>
+            </div>
+        </div>
         <div v-if="currentTab == 'actionTriggers'">
             <div class="container">
                 <channel-action-triggers :channel="channel"></channel-action-triggers>
@@ -49,10 +54,13 @@
     import ChannelActionTriggers from "@/channels/action-trigger/channel-action-triggers";
     import ChannelFunction from "../common/enums/channel-function";
     import ChannelVoltageHistory from "./channel-voltage-history";
+    import ChannelReactionsConfig from "@/channels/reactions/channel-reactions-config.vue";
+    import {ChannelFunctionTriggers} from "@/channels/reactions/channel-function-triggers";
 
     export default {
         props: ['channel'],
         components: {
+            ChannelReactionsConfig,
             ChannelMeasurementsHistory: () => import(/*webpackChunkName:"measurement-history"*/"./history/channel-measurements-history.vue"),
             ChannelVoltageHistory, ChannelActionTriggers, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
         },
@@ -64,18 +72,27 @@
         },
         methods: {
             changeTab(id) {
-                const currentTab = this.availableTabs.filter(tab => tab.id === id)[0];
-                this.currentTab = currentTab ? currentTab.id : (this.availableTabs[0] ? this.availableTabs[0].id : undefined);
-                if (this.$route.query.tab !== this.currentTab) {
-                    this.$router.push({query: {tab: id}});
+                this.currentTab = id;
+                if ((this.$route.name === 'channel' || this.currentTab !== 'reactions') && this.$route.query.tab !== this.currentTab) {
+                    this.$router.push({name: 'channel', params: {id: this.channel.id}, query: {tab: id}});
                 }
             },
             rerenderMeasurementsHistory() {
                 this.currentTab = undefined;
                 this.$nextTick(() => this.currentTab = 'measurementsHistory');
-            }
+            },
+            setCount(tabId, count) {
+                this.availableTabs.find(t => t.id = tabId).count = count;
+            },
         },
         mounted() {
+            if (ChannelFunctionTriggers[this.channel.functionId]) {
+                this.availableTabs.push({
+                    id: 'reactions',
+                    header: 'Reactions', // i18n
+                    count: this.channel.relationsCount.ownReactions,
+                });
+            }
             if (this.channel.possibleActions?.length) {
                 if (this.channel.actionTriggersIds?.length) {
                     this.availableTabs.push({
@@ -131,11 +148,15 @@
                     header: 'Voltage aberrations', // i18n
                 });
             }
-            this.changeTab(this.$route.query.tab);
+            const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
+            this.currentTab = currentTab ? currentTab.id : this.availableTabs[0].id;
         },
         watch: {
             '$route.query.tab'() {
-                this.changeTab(this.$route.query.tab);
+                if (this.$route.name === 'channel') {
+                    const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
+                    this.currentTab = currentTab ? currentTab.id : this.availableTabs[0].id;
+                }
             }
         },
     };

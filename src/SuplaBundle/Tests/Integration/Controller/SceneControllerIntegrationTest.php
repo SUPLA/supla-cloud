@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -780,5 +781,99 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($content['enabled']);
         $this->assertEquals('My scene', $content['caption']);
         $this->assertEquals(2, $content['relationsCount']['operations']);
+    }
+
+    public function testCreatingSceneWithNotification() {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $aid = $this->user->getAccessIDS()[0];
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene with notification',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectType' => ActionableSubjectType::NOTIFICATION,
+                    'actionId' => ChannelFunctionAction::SEND,
+                    'actionParam' => ['body' => 'Sample notification', 'accessIds' => [['id' => $aid->getId()]]],
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene with notification', $content['caption']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
+        /** @var PushNotification $notification */
+        $notification = $this->getEntityManager()->find(PushNotification::class, 1);
+        $this->assertNotNull($notification);
+        $this->assertEquals('Sample notification', $notification->getBody());
+        return $content;
+    }
+
+    /** @depends testCreatingSceneWithNotification */
+    public function testEditingSceneWithNotification(array $scene) {
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $aid = $this->user->getAccessIDS()[0];
+        $client->apiRequestV24('PUT', "/api/scenes/$scene[id]", [
+            'caption' => 'My scene with notification updated',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectType' => ActionableSubjectType::NOTIFICATION,
+                    'actionId' => ChannelFunctionAction::SEND,
+                    'actionParam' => ['body' => 'Another notification updated', 'accessIds' => [$aid->getId()]],
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene with notification updated', $content['caption']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
+        /** @var PushNotification $notification */
+        $notification = $this->getEntityManager()->find(PushNotification::class, 2);
+        $this->assertNotNull($notification);
+        $this->assertEquals('Another notification updated', $notification->getBody());
+        $this->assertNull($this->getEntityManager()->find(PushNotification::class, 1));
+    }
+
+    public function testDeletingSceneThatIsUsedAsOnlyOperationInAnotherSceneThatIsReferencedByValueBasedTrigger() {
+        $sceneOne = $this->testCreatingScene();
+        $sceneOne = $this->getEntityManager()->find(Scene::class, $sceneOne['id']);
+        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $sceneOne->getId(),
+                    'subjectType' => $sceneOne->getOwnSubjectType(),
+                    'actionId' => ChannelFunctionAction::EXECUTE,
+                ],
+            ],
+        ]);
+        $sceneTwo = json_decode($client->getResponse()->getContent(), true);
+        $sceneTwo = $this->getEntityManager()->find(Scene::class, $sceneTwo['id']);
+        $thermometer = $this->device->getChannels()[4];
+        $client->apiRequestV24('POST', "/api/channels/{$thermometer->getId()}/reactions", [
+            'subjectId' => $sceneTwo->getId(), 'subjectType' => $sceneTwo->getOwnSubjectType(),
+            'actionId' => ChannelFunctionAction::EXECUTE,
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        SuplaServerMock::$executedCommands = [];
+        // deleting scene one will result in deleting scene two (the only action) and in consequence - deletes also the reaction
+        $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneOne->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneOne->getId()));
+        $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneTwo->getId()));
+        $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneOne->getId(), SuplaServerMock::$executedCommands);
+        $this->assertContains('USER-ON-SCENE-REMOVED:1,' . $sceneTwo->getId(), SuplaServerMock::$executedCommands);
+        $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEmpty($content);
+        $this->assertContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
     }
 }

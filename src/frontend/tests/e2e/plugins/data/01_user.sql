@@ -13,3 +13,7 @@ VALUES (1, '562a0121f0a8cced85ef4574afec72ef',
 INSERT INTO supla_location
     (id, user_id, password, caption, enabled)
 VALUES (1, 1, '3c4d', 'Location #1', 1);
+
+INSERT INTO supla_accessid
+    (id, user_id, password, caption, enabled)
+VALUES (1, 1, '3c4d', 'AID #1', 1);

@@ -9,12 +9,13 @@
             ref="dropdown"
             data-live-search="true"
             data-width="100%"
+            :data-container="dropdownContainer"
             data-style="btn-default btn-wrapped"
             v-model="chosenChannel"
             @change="$emit('input', chosenChannel)">
             <option :value="undefined"
                 :title="$t('choose the channel')"
-                v-show="!hideNone && chosenChannel">
+                v-if="!hideNone && chosenChannel">
                 {{ $t('None') }}
             </option>
             <option v-for="channel in channelsForDropdown"
@@ -35,7 +36,7 @@
     import {channelIconUrl} from "../common/filters";
 
     export default {
-        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter'],
+        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'dropdownContainer'],
         components: {ButtonLoadingDots},
         data() {
             return {

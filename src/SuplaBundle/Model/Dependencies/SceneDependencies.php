@@ -28,6 +28,7 @@ class SceneDependencies extends ActionableSubjectDependencies {
             'directLinks' => $scene->getDirectLinks()->toArray(),
             'schedules' => $scene->getSchedules()->toArray(),
             'sceneOperations' => $scene->getOperationsThatReferToThisScene()->toArray(),
+            'reactions' => $scene->getReactions()->toArray(),
             'actionTriggers' => $this->findActionTriggersForSubject($scene)->getValues(),
         ];
     }
@@ -40,7 +41,10 @@ class SceneDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($directLink);
         }
         foreach ($scene->getOperationsThatReferToThisScene() as $sceneOperation) {
-            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager, $this->suplaServer);
+            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
+        }
+        foreach ($scene->getReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
         }
         $this->clearActionTriggersThatReferencesSubject($scene);
     }

@@ -23,6 +23,7 @@ const ChannelFunctionAction = Object.freeze({
     STEP_BY_STEP: 160,
     ENABLE: 200,
     DISABLE: 210,
+    SEND: 220,
     COPY: 10100,
     AT_FORWARD_OUTSIDE: 10000,
     AT_DISABLE_LOCAL_FUNCTION: 10200,
@@ -36,7 +37,29 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.OPEN_PARTIALLY,
             ChannelFunctionAction.CLOSE_PARTIALLY,
             ChannelFunctionAction.COPY,
+            ChannelFunctionAction.SEND,
         ].includes(actionId);
+    },
+
+    paramsValid(actionId, params) {
+        switch (actionId) {
+            case ChannelFunctionAction.SET:
+                return params.transparent?.length > 0 || params.opaque?.length > 0;
+            case ChannelFunctionAction.SET_RGBW_PARAMETERS:
+                return !!(params.brightness >= 0 || params.brightness <= 100 || params.hue
+                    || params.colorBrightness >= 0 || params.colorBrightness <= 100);
+            case ChannelFunctionAction.REVEAL_PARTIALLY:
+            case ChannelFunctionAction.SHUT_PARTIALLY:
+            case ChannelFunctionAction.OPEN_PARTIALLY:
+            case ChannelFunctionAction.CLOSE_PARTIALLY:
+                return params.percentage >= 0 && params.percentage <= 100;
+            case ChannelFunctionAction.COPY:
+                return !!params.sourceChannelId;
+            case ChannelFunctionAction.SEND:
+                return !!(params.body && params.accessIds?.length > 0);
+            default:
+                return true;
+        }
     },
 
     availableInSchedules(actionId) {
@@ -47,6 +70,7 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.UP_OR_STOP,
             ChannelFunctionAction.DOWN_OR_STOP,
             ChannelFunctionAction.STEP_BY_STEP,
+            ChannelFunctionAction.SEND,
         ].includes(actionId);
     }
 });

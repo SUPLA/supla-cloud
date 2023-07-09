@@ -98,6 +98,20 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     private $sceneOperations;
 
     /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="owningChannel", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $ownReactions;
+
+    /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="channel", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $reactions;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="channels")
      * @ORM\JoinColumn(name="location_id", referencedColumnName="id", nullable=true)
      * @Groups({"channel.location"})
@@ -210,6 +224,8 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->schedules = new ArrayCollection();
         $this->channelGroups = new ArrayCollection();
         $this->sceneOperations = new ArrayCollection();
+        $this->ownReactions = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -270,6 +286,16 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     /** @return Collection|SceneOperation[] */
     public function getSceneOperations(): Collection {
         return $this->sceneOperations;
+    }
+
+    /** @return Collection|ValueBasedTrigger[] */
+    public function getOwnReactions(): Collection {
+        return $this->ownReactions;
+    }
+
+    /** @return Collection|ValueBasedTrigger[] */
+    public function getReactions(): Collection {
+        return $this->reactions;
     }
 
     public function getFunction(): ChannelFunction {

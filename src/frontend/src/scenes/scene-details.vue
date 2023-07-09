@@ -62,9 +62,8 @@
                                         class="details-page-block">
                                         <h3 class="text-center">{{ $t('Actions') }}</h3>
                                         <div class="pt-3">
-                                            <channel-action-executor :subject="scene"
-                                                :disabled="hasPendingChanges"/>
-                                            <div class="alert alert-warning text-center m-0"
+                                            <channel-action-executor :subject="scene" :disabled="hasPendingChanges"/>
+                                            <div class="alert alert-warning text-center m-0 mt-3"
                                                 v-if="hasPendingChanges">
                                                 {{ $t('Save or discard configuration changes first.') }}
                                             </div>
@@ -74,9 +73,8 @@
                                 <div class="col-md-8">
                                     <div class="">
                                         <h3 class="text-center">{{ $t('Operations') }}</h3>
-                                        <scene-operations-editor
-                                            v-model="scene.operations"
-                                            @input="sceneChanged()"></scene-operations-editor>
+                                        <SceneOperationsEditor v-model="scene.operations" @input="sceneChanged()"
+                                            :display-validation-errors="displayValidationErrors"/>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +104,6 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import Toggler from "../common/gui/toggler";
     import PendingChangesPage from "../common/pages/pending-changes-page";
     import PageContainer from "../common/pages/page-container";
@@ -119,6 +116,8 @@
     import ChannelActionExecutor from "../channels/action/channel-action-executor";
     import DependenciesWarningModal from "../channels/dependencies/dependencies-warning-modal";
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings.vue";
+    import {warningNotification} from "@/common/notifier";
+    import {deepCopy} from "@/common/utils";
 
     export default {
         props: ['id', 'item'],
@@ -142,6 +141,7 @@
                 error: false,
                 deleteConfirm: false,
                 hasPendingChanges: false,
+                displayValidationErrors: false,
                 dependenciesThatPreventsDeletion: undefined,
             };
         },
@@ -151,6 +151,7 @@
         methods: {
             fetch() {
                 this.hasPendingChanges = false;
+                this.displayValidationErrors = false;
                 if (this.id && this.id != 'new') {
                     this.loading = true;
                     this.error = false;
@@ -170,7 +171,12 @@
                 this.hasPendingChanges = true;
             },
             saveScene() {
-                const toSend = Vue.util.extend({}, this.scene);
+                this.displayValidationErrors = true;
+                if (this.scene.operations.find(o => o.isValid === false)) {
+                    warningNotification(this.$t('Invalid scene'), this.$t('Please fix the problems with operations and try again.'));
+                    return;
+                }
+                const toSend = deepCopy(this.scene);
                 this.loading = true;
                 if (this.isNew) {
                     this.$http.post('scenes', toSend)
@@ -182,6 +188,7 @@
                         .then(response => {
                             this.$emit('update', response.body);
                             this.scene.operations = response.body.operations;
+                            this.displayValidationErrors = false;
                         })
                         .then(() => this.hasPendingChanges = false)
                         .finally(() => this.loading = false);

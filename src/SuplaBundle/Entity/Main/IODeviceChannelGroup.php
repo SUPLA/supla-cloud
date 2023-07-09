@@ -123,6 +123,13 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
      */
     private $sceneOperations;
 
+    /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="channelGroup", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $reactions;
+
     /** @param IODeviceChannel[] $channels */
     public function __construct(User $user = null, Location $location = null, array $channels = []) {
         $this->channels = new ArrayCollection();
@@ -131,6 +138,7 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
         $this->sceneOperations = new ArrayCollection();
         $this->user = $user;
         $this->location = $location;
+        $this->reactions = new ArrayCollection();
         if (count($channels)) {
             Assertion::notNull($user);
             Assertion::notNull($location);
@@ -249,5 +257,10 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
     /** @return Collection|SceneOperation[] */
     public function getSceneOperations(): Collection {
         return $this->sceneOperations;
+    }
+
+    /** @return Collection|ValueBasedTrigger[] */
+    public function getReactions(): Collection {
+        return $this->reactions;
     }
 }

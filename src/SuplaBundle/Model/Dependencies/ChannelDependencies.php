@@ -34,6 +34,8 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             'schedules' => $channel->getSchedules()->toArray(),
             'sceneOperations' => $channel->getSceneOperations()->toArray(),
             'actionTriggers' => $this->findActionTriggersForSubject($channel)->getValues(),
+            'ownReactions' => $channel->getOwnReactions()->toArray(),
+            'reactions' => $channel->getReactions()->toArray(),
         ];
     }
 
@@ -55,7 +57,13 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($directLink);
         }
         foreach ($channel->getSceneOperations() as $sceneOperation) {
-            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager, $this->suplaServer);
+            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
+        }
+        foreach ($channel->getOwnReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
+        }
+        foreach ($channel->getReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
         }
         $this->clearActionTriggersThatReferencesSubject($channel);
     }

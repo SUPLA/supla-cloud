@@ -41,6 +41,8 @@ abstract class SuplaServer {
     private $logger;
     /** @var array */
     private $commandContext = [];
+    /** @var array */
+    private $postponedCommands = [];
 
     public function __construct(string $socketPath, LocalSuplaCloud $localSuplaCloud, LoggerInterface $logger) {
         $this->socketPath = $socketPath;
@@ -138,6 +140,22 @@ abstract class SuplaServer {
         }
         $result = $this->doExecuteCommand($command);
         return $result !== false && preg_match("/^OK:" . $userId . "\n/", $result) === 1;
+    }
+
+    public function postponeUserAction($action, $params = [], User $user = null): void {
+        $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
+        $command = "USER-{$action}:{$userId}";
+        if ($params) {
+            $params = is_array($params) ? $params : [$params];
+            $command .= ',' . implode(',', $params);
+        }
+        $this->postponeCommand($command);
+    }
+
+    public function postponeCommand(string $command): void {
+        $this->postponedCommands[] = [
+            'command' => $command,
+        ];
     }
 
     public function deviceAction(IODevice $device, string $commandName): bool {
@@ -330,5 +348,14 @@ abstract class SuplaServer {
                 ['error' => 'suplaServerError', 'response' => $result],
             );
         }
+    }
+
+    public function flushPostponedCommands(): array {
+        $results = [];
+        foreach ($this->postponedCommands as $postponedCommand) {
+            $results[] = $this->doExecuteCommand($postponedCommand['command']);
+        }
+        $this->postponedCommands = [];
+        return $results;
     }
 }

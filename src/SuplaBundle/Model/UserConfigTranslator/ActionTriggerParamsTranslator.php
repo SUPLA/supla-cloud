@@ -3,15 +3,15 @@
 namespace SuplaBundle\Model\UserConfigTranslator;
 
 use Assert\Assertion;
+use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Annotations as OA;
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
-use SuplaBundle\Repository\ActionableSubjectRepository;
+use SuplaBundle\Serialization\RequestFiller\SubjectActionFiller;
 use SuplaBundle\Utils\JsonArrayObject;
 
 /**
@@ -27,14 +27,14 @@ use SuplaBundle\Utils\JsonArrayObject;
 class ActionTriggerParamsTranslator implements UserConfigTranslator {
     use CurrentUserAware;
 
-    /** @var ActionableSubjectRepository */
-    private $subjectRepository;
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
+    /** @var EntityManagerInterface */
+    private $entityManager;
+    /** @var SubjectActionFiller */
+    private $subjectActionFiller;
 
-    public function __construct(ActionableSubjectRepository $subjectRepository, ChannelActionExecutor $channelActionExecutor) {
-        $this->subjectRepository = $subjectRepository;
-        $this->channelActionExecutor = $channelActionExecutor;
+    public function __construct(EntityManagerInterface $entityManager, SubjectActionFiller $subjectActionFiller) {
+        $this->entityManager = $entityManager;
+        $this->subjectActionFiller = $subjectActionFiller;
     }
 
     public function getConfig(HasUserConfig $subject): array {
@@ -53,9 +53,10 @@ class ActionTriggerParamsTranslator implements UserConfigTranslator {
             Assertion::isArray($actions);
             $supportedTriggers = $this->getConfig($subject)['actionTriggerCapabilities'];
             Assertion::allInArray(array_keys($actions), $supportedTriggers, '%s trigger is not supported by the hardware.'); // i18n
-            $actions = array_map(function (array $action) {
-                return $this->adjustAction($action);
+            $actions = array_map(function (array $action) use ($subject) {
+                return $this->adjustAction($subject, $action);
             }, $actions);
+            $this->clearOldNotifications($subject->getUserConfigValue('actions', []));
             $subject->setUserConfig(array_replace($subject->getUserConfig(), ['actions' => $actions]));
         }
     }
@@ -66,13 +67,12 @@ class ActionTriggerParamsTranslator implements UserConfigTranslator {
         ]);
     }
 
-    private function adjustAction(array $action): array {
+    private function adjustAction(HasUserConfig $subject, array $action): array {
         Assertion::keyExists($action, 'subjectType');
         $subjectType = ActionableSubjectType::fromString($action['subjectType']);
         Assertion::keyExists($action, 'action');
         $actionToExecute = $action['action'];
         Assertion::keyExists($actionToExecute, 'id');
-        $channelFunctionAction = ChannelFunctionAction::fromString($actionToExecute['id']);
         $actionDefinition = ['subjectType' => $subjectType->getValue()];
         if ($action['subjectType'] === ActionableSubjectType::OTHER) {
             Assertion::inArray(
@@ -81,18 +81,28 @@ class ActionTriggerParamsTranslator implements UserConfigTranslator {
             );
             $actionDefinition['action'] = ['id' => $actionToExecute['id']];
         } else {
-            $user = $this->getCurrentUser();
-            Assertion::keyExists($action, 'subjectId');
-            $subject = $this->subjectRepository->findForUser($user, $action['subjectType'], $action['subjectId']);
-            Assertion::inArray(
-                $channelFunctionAction->getId(),
-                EntityUtils::mapToIds($subject->getPossibleActions()),
-                'Cannot execute the requested action on given subject.'
+            [$triggerSubject, $channelFunctionAction, $actionParam] = $this->subjectActionFiller->getSubjectAndAction(
+                array_merge($action, ['actionId' => $actionToExecute['id'], 'actionParam' => $actionToExecute['param'] ?? []])
             );
-            $params = $this->channelActionExecutor->validateActionParams($subject, $channelFunctionAction, $actionToExecute['param'] ?? []);
-            $actionDefinition['subjectId'] = $subject->getId();
-            $actionDefinition['action'] = ['id' => $channelFunctionAction->getId(), 'param' => $params];
+            if ($triggerSubject instanceof PushNotification) {
+                $triggerSubject->setChannel($subject);
+                $this->entityManager->persist($triggerSubject);
+                $this->entityManager->flush();
+            }
+            $actionDefinition['subjectId'] = $triggerSubject->getId();
+            $actionDefinition['action'] = ['id' => $channelFunctionAction->getId(), 'param' => $actionParam];
         }
         return $actionDefinition;
+    }
+
+    private function clearOldNotifications(array $actionsConfig) {
+        foreach ($actionsConfig as $action) {
+            if ($action['subjectType'] === ActionableSubjectType::NOTIFICATION) {
+                $notification = $this->entityManager->find(PushNotification::class, $action['subjectId'] ?? 0);
+                if ($notification) {
+                    $this->entityManager->remove($notification);
+                }
+            }
+        }
     }
 }

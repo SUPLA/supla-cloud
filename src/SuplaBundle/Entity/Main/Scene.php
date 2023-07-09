@@ -31,15 +31,16 @@ use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\HasUserConfigTrait;
+use SuplaBundle\Entity\Main\Listeners\SceneEntityListener;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Supla\SuplaServer;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
+ * @ORM\EntityListeners({SceneEntityListener::class})
  * @ORM\Table(name="supla_scene")
  */
 class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig, HasIcon {
@@ -134,6 +135,13 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
      */
     private $directLinks;
 
+    /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="scene", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $reactions;
+
     private $commandExecutionsCount = 0;
 
     public function __construct(Location $location) {
@@ -141,6 +149,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         $this->location = $location;
         $this->operations = new ArrayCollection();
         $this->sceneOperations = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -247,6 +256,10 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         return $this->schedules;
     }
 
+    public function getReactions(): Collection {
+        return $this->reactions;
+    }
+
     /** @return SceneOperation[] */
     public function getOperationsThatReferToThisScene(): Collection {
         return $this->sceneOperations;
@@ -263,15 +276,13 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         return "$command:$params";
     }
 
-    public function removeOperation(SceneOperation $sceneOperation, EntityManagerInterface $entityManager, SuplaServer $suplaServer) {
+    public function removeOperation(SceneOperation $sceneOperation, EntityManagerInterface $entityManager) {
         $this->getOperations()->removeElement($sceneOperation);
         $entityManager->remove($sceneOperation);
         if ($this->getOperations()->isEmpty()) {
             $entityManager->remove($this);
-            $suplaServer->userAction('ON-SCENE-REMOVED', $this->getId(), $this->getUser());
         } else {
             $entityManager->persist($this);
-            $suplaServer->userAction('ON-SCENE-CHANGED', $this->getId(), $this->getUser());
         }
     }
 

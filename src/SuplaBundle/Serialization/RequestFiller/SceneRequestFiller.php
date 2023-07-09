@@ -2,16 +2,12 @@
 namespace SuplaBundle\Serialization\RequestFiller;
 
 use Assert\Assertion;
-use SuplaBundle\Entity\ActionableSubject;
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Repository\ActionableSubjectRepository;
 use SuplaBundle\Repository\ChannelGroupRepository;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
@@ -26,29 +22,25 @@ class SceneRequestFiller extends AbstractRequestFiller {
     private $channelRepository;
     /** @var ChannelGroupRepository */
     private $channelGroupRepository;
-    /** @var ChannelActionExecutor */
-    private $channelActionExecutor;
     /** @var LocationRepository */
     private $locationRepository;
     /** @var UserIconRepository */
     private $userIconRepository;
-    /** @var ActionableSubjectRepository */
-    private $subjectRepository;
     /** @var SubjectConfigTranslator */
     private $configTranslator;
+    /** @var SubjectActionFiller */
+    private $subjectActionFiller;
 
     public function __construct(
-        ActionableSubjectRepository $subjectRepository,
-        ChannelActionExecutor $channelActionExecutor,
         LocationRepository $locationRepository,
         UserIconRepository $userIconRepository,
-        SubjectConfigTranslator $configTranslator
+        SubjectConfigTranslator $configTranslator,
+        SubjectActionFiller $subjectActionFiller
     ) {
-        $this->subjectRepository = $subjectRepository;
-        $this->channelActionExecutor = $channelActionExecutor;
         $this->locationRepository = $locationRepository;
         $this->userIconRepository = $userIconRepository;
         $this->configTranslator = $configTranslator;
+        $this->subjectActionFiller = $subjectActionFiller;
     }
 
     /** @param Scene $scene */
@@ -87,22 +79,14 @@ class SceneRequestFiller extends AbstractRequestFiller {
                 'Too many operations in this scene' // i18n
             );
             $operations = array_map(function (array $operationData) use ($scene, $user) {
-                if ($operationData['subjectId'] ?? false) {
-                    Assertion::keyExists($operationData, 'subjectId', 'You must set subjectId for each scene operation.');
-                    Assertion::keyExists($operationData, 'subjectType', 'You must set subjectType for each scene operation.');
+                if ($operationData['subjectType'] ?? false) {
+                    Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
                     Assertion::keyExists(
                         $operationData,
                         'actionId',
                         'You must set an action for each scene operation.' // i18n
                     );
-                    Assertion::inArray($operationData['subjectType'], ActionableSubjectType::toArray(), 'Invalid subject type.');
-                    /** @var ActionableSubject $subject */
-                    $subject = $this->subjectRepository->findForUser($user, $operationData['subjectType'], $operationData['subjectId']);
-                    Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');
-                    $action = ChannelFunctionAction::fromString($operationData['actionId']);
-                    $actionParam = $operationData['actionParam'] ?? [] ?: [];
-                    $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
-                    Assertion::inArray($action->getId(), EntityUtils::mapToIds($subject->getPossibleActions()));
+                    [$subject, $action, $actionParam] = $this->subjectActionFiller->getSubjectAndAction($operationData);
                     $waitForCompletion = boolval($operationData['waitForCompletion'] ?? false);
                     $delayMs = intval($operationData['delayMs'] ?? 0);
                     return new SceneOperation($subject, $action, $actionParam, $delayMs, $waitForCompletion);

@@ -121,6 +121,21 @@ class ClientApp {
      */
     private $disableAfterDate;
 
+    /** @ORM\Column(name="push_token", type="string", length=255, nullable=true) */
+    private $pushToken;
+
+    /** @ORM\Column(name="push_token_update_time", type="datetime", nullable=true) */
+    private $pushTokenUpdateTime;
+
+    /** @ORM\Column(name="platform", type="tinyint", nullable=true, options={"unsigned": true}) */
+    private $platform;
+
+    /** @ORM\Column(name="app_id", type="integer", nullable=false, options={"default": 0}) */
+    private $appId = 0;
+
+    /** @ORM\Column(name="devel_env", type="boolean", options={"default": 0}) */
+    private $isDevEnv = false;
+
     public function getId(): int {
         return $this->id;
     }

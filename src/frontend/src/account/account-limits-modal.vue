@@ -70,6 +70,16 @@
                             <account-limit-progressbar :limit="limits.directLink"
                                 :value="relationsCount.directLinks"></account-limit-progressbar>
                         </dd>
+                        <dt>{{ $t('Notifications') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.pushNotifications"
+                                :value="relationsCount.pushNotifications"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('Reactions') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.valueBasedTriggers"
+                                :value="relationsCount.valueBasedTriggers"></account-limit-progressbar>
+                        </dd>
                         <dt>{{ $t('OAuth apps') }}</dt>
                         <dd>
                             <account-limit-progressbar :limit="limits.oauthClient"

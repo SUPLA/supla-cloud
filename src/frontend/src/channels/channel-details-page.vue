@@ -226,6 +226,7 @@
         },
         methods: {
             fetchChannel() {
+                this.channel = undefined;
                 this.loading = true;
                 this.error = false;
                 this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]})
@@ -313,6 +314,13 @@
                 const noApiActionFunctions = ['VALVEPERCENTAGE'];
                 return this.channel.possibleActions?.length && !noApiActionFunctions.includes(this.channel.function.name);
             },
+        },
+        watch: {
+            id(l, a) {
+                if (+l !== +a) {
+                    this.fetchChannel();
+                }
+            }
         }
     };
 </script>

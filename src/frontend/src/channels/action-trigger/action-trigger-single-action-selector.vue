@@ -3,7 +3,6 @@
         <div class="form-group">
             <subject-dropdown v-model="subject"
                 @input="onSubjectChange()"
-                use-dropdown-for-types
                 channels-dropdown-params="io=output&hasFunction=1">
                 <template #other="props">
                     <action-trigger-other-actions-dropdown
@@ -11,14 +10,15 @@
                         :filter="filterOtherActions"
                         @input="props.onInput"></action-trigger-other-actions-dropdown>
                 </template>
+                <div v-if="subject && subject.ownSubjectType !== 'other'" class="mt-3">
+                    <channel-action-chooser :subject="subject"
+                        @input="onActionChange()"
+                        :alwaysSelectFirstAction="true"
+                        v-model="action"/>
+                </div>
             </subject-dropdown>
         </div>
-        <div v-if="subject && subject.ownSubjectType !== 'other'">
-            <channel-action-chooser :subject="subject"
-                @input="onActionChange()"
-                :alwaysSelectFirstAction="true"
-                v-model="action"/>
-        </div>
+
         <button v-if="value"
             type="button"
             class="btn btn-default btn-block mt-3"
@@ -71,6 +71,8 @@
                                 this.subject = response.body;
                                 this.action = this.value.action;
                             });
+                    } else {
+                        this.action = this.value.action;
                     }
                 } else {
                     this.subject = undefined;
@@ -80,6 +82,10 @@
             onSubjectChange() {
                 if (this.subject?.ownSubjectType === ActionableSubjectType.OTHER) {
                     this.action = {id: this.subject.id};
+                    this.onActionChange();
+                }
+                if (!this.subject) {
+                    this.action = undefined;
                     this.onActionChange();
                 }
             },
@@ -107,6 +113,11 @@
             },
             filterOtherActions(action) {
                 return action.id !== ChannelFunctionAction.AT_DISABLE_LOCAL_FUNCTION || this.disablesLocalOperation(this.trigger);
+            }
+        },
+        watch: {
+            value() {
+                this.onValueChanged();
             }
         }
     };
