@@ -170,7 +170,7 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the dimmer brightness changes', // i18n
+            caption: 'When the brightness level changes', // i18n
             def: () => ({on_change: {name: 'brightness'}})
         },
         {
@@ -186,11 +186,11 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the RGB color brightness changes', // i18n
+            caption: 'When the RGB lighting brightness level changes', // i18n
             def: () => ({on_change: {name: 'color_brightness'}})
         },
         {
-            caption: 'When the RGB color changes', // i18n
+            caption: 'When the color changes', // i18n
             def: () => ({on_change: {name: 'color'}})
         },
     ],
@@ -328,12 +328,12 @@ export const ChannelFunctionTriggers = {
                         fae1: 'When the forward active energy of phase 1 will be', // i18n
                         fae2: 'When the forward active energy of phase 2 will be', // i18n
                         fae3: 'When the forward active energy of phase 3 will be', // i18n
-                        fae_sum: 'When the summarized forward active energy of all phases will be', // i18n
+                        fae_sum: 'When the forward active energy of all phases will be', // i18n
                         fae_balanced: 'When the balanced forward active energy will be', // i18n
                         rae1: 'When the reverse active energy of phase 1 will be', // i18n
                         rae2: 'When the reverse active energy of phase 2 will be', // i18n
                         rae3: 'When the reverse active energy of phase 3 will be', // i18n
-                        rae_sum: 'When the summarized reverse active energy of all phases will be', // i18n
+                        rae_sum: 'When the reverse active energy of all phases will be', // i18n
                         rae_balanced: 'When the balanced reverse active energy will be', // i18n
                     }[fieldName];
                 },
@@ -364,7 +364,7 @@ export const ChannelFunctionTriggers = {
             props: {
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
-                labelI18n: () => 'When the value will be', // i18n
+                labelI18n: () => 'When the electricity meter value will be', // i18n
             },
         },
         {
@@ -412,7 +412,7 @@ export const ChannelFunctionTriggers = {
             props: {
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
-                labelI18n: () => 'When the calculated value will be', // i18n
+                labelI18n: () => 'When the heat meter value will be', // i18n
             },
         },
         {

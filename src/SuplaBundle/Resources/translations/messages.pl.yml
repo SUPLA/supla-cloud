@@ -906,7 +906,8 @@ When the distance will be: Kiedy odległość będzie
 When the door will be closed: Kiedy drzwi zostaną zamknięte
 When the door will be opened: Kiedy drzwi zostaną otwarte
 When the door will be opened or closed: Kiedy drzwi zostaną zamknięte lub otwarte
-When the electricity meter reaches a certain value: Kiedy licznik osiągnie określoną wartość
+When the electricity meter reaches a certain value: Kiedy licznik energii osiągnie określoną wartość
+When the electricity meter value will be: Kiedy wartość licznika energii będzie
 When the electricity meter value changes: Kiedy wartość licznika energii elektrycznej się zmieni
 When the garage door will be closed: Kiedy brama garażowa zostanie zamknięta
 When the garage door will be opened: Kiedy brama garażowa zostanie otwarta
@@ -1274,23 +1275,20 @@ vector balance: bilans wektorowy
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-When the RGB color brightness changes: ~
-When the RGB color changes: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the calculated value will be: ~
-When the dimmer brightness changes: ~
-When the forward active energy of phase 1 will be: ~
-When the forward active energy of phase 2 will be: ~
-When the forward active energy of phase 3 will be: ~
-When the reverse active energy of phase 1 will be: ~
-When the reverse active energy of phase 2 will be: ~
-When the reverse active energy of phase 3 will be: ~
-When the summarized forward active energy of all phases will be: ~
-When the summarized reverse active energy of all phases will be: ~
-forward active energy: ~
-forward active energy balanced: ~
-reverse active energy: ~
-reverse active energy balanced: ~
+When the balanced forward active energy will be: Kiedy zbilansowana, pobrana energia czynna będzie
+When the balanced reverse active energy will be: Kiedy zbilansowana, zwrócona energia czynna będzie
+When the heat meter value will be: Kiedy wartość licznika ciepła będzie
+When the forward active energy of phase 1 will be: Kiedy pobrana energia czynna na fazie 1 będzie
+When the forward active energy of phase 2 will be: Kiedy pobrana energia czynna na fazie 2 będzie
+When the forward active energy of phase 3 will be: Kiedy pobrana energia czynna na fazie 3 będzie
+When the reverse active energy of phase 1 will be: Kiedy zwrócona energia czynna na fazie 1 będzie
+When the reverse active energy of phase 2 will be: Kiedy zwrócona energia czynna na fazie 2 będzie
+When the reverse active energy of phase 3 will be: Kiedy zwrócona energia czynna na fazie 3 będzie
+When the forward active energy of all phases will be: Kiedy pobrana energia czynna na wszystkich fazach będzie
+When the reverse active energy of all phases will be: Kiedy zwrócona energia czynna na wszystkich fazach będzie
+forward active energy: Energia czynna pobrana
+forward active energy balanced: Zbilansowana energia czynna pobrana
+reverse active energy: Energia czynna zwrócona
+reverse active energy balanced: Zbilansowana energia czynna zwrócona
 
 #</editor-fold>
