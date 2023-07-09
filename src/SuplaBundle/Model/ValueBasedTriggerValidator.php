@@ -9,7 +9,6 @@ use SuplaBundle\Enums\ChannelFunction;
 
 /**
  * @OA\Schema(schema="ReactionTrigger", description="Reaction trigger.",
- *   @OA\Property(property="on_change_to", type="object",
  *     oneOf={
  *       @OA\Schema(ref="#/components/schemas/ReactionTriggerLt"),
  *       @OA\Schema(ref="#/components/schemas/ReactionTriggerLe"),
@@ -17,10 +16,48 @@ use SuplaBundle\Enums\ChannelFunction;
  *       @OA\Schema(ref="#/components/schemas/ReactionTriggerGe"),
  *       @OA\Schema(ref="#/components/schemas/ReactionTriggerEq"),
  *       @OA\Schema(ref="#/components/schemas/ReactionTriggerNe"),
+ *       @OA\Schema(ref="#/components/schemas/ReactionTriggerChange"),
  *     }
- *   )
  * )
- * @OA\Schema(schema="ReactionTriggerFieldNames", type="string", example="temperature", enum={"temperature", "humidity"})
+ * @OA\Schema(schema="ReactionTriggerFieldNames", type="string", example="temperature", enum={
+ *    "temperature",
+ *    "humidity",
+ *    "brightness",
+ *    "color_brightness",
+ *    "color",
+ *    "voltage_avg",
+ *    "voltage1",
+ *    "voltage2",
+ *    "voltage3",
+ *    "current_sum",
+ *    "current1",
+ *    "current2",
+ *    "current3",
+ *    "power_active_sum",
+ *    "power_active1",
+ *    "power_active2",
+ *    "power_active3",
+ *    "power_reactive_sum",
+ *    "power_reactive1",
+ *    "power_reactive2",
+ *    "power_reactive3",
+ *    "power_apparent_sum",
+ *    "power_apparent1",
+ *    "power_apparent2",
+ *    "power_apparent3",
+ *    "fae1",
+ *    "fae2",
+ *    "fae3",
+ *    "fae_sum",
+ *    "fae_balanced",
+ *    "rae1",
+ *    "rae2",
+ *    "rae3",
+ *    "rae_sum",
+ *    "rae_balanced",
+ *    "manually_closed",
+ *    "flooding",
+ * })
  */
 class ValueBasedTriggerValidator {
     private const FIELD_NAMES = [
@@ -84,6 +121,13 @@ class ValueBasedTriggerValidator {
         ChannelFunction::IC_HEATMETER,
     ];
 
+    /**
+     * @OA\Schema(schema="ReactionTriggerChange", description="Reaction trigger based any state (on every change).",
+     *   @OA\Property(property="on_change", type="object",
+     *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
+     *   )
+     * )
+     */
     public function validate(IODeviceChannel $channel, array $trigger): void {
         Assertion::count($trigger, 1, 'Invalid trigger. Only one on_change or on_change_to section can be defined.');
         if (isset($trigger['on_change'])) {
@@ -126,24 +170,32 @@ class ValueBasedTriggerValidator {
 
     /**
      * @OA\Schema(schema="ReactionTriggerLt", description="Reaction trigger based on numeric state (less than).",
+     *   @OA\Property(property="on_change_to", type="object", required={"lt"},
      *     @OA\Property(property="lt", type="number"),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *     @OA\Property(property="resume", @OA\Property(property="ge", type="number"))
+     *   )
      * )
      * @OA\Schema(schema="ReactionTriggerLe", description="Reaction trigger based on numeric state (less than or equal).",
+     *   @OA\Property(property="on_change_to", type="object",  required={"le"},
      *     @OA\Property(property="le", type="number"),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *     @OA\Property(property="resume", @OA\Property(property="gt", type="number"))
+     *   )
      * )
      * @OA\Schema(schema="ReactionTriggerGt", description="Reaction trigger based on numeric state (greater than).",
+     *   @OA\Property(property="on_change_to", type="object",  required={"gt"},
      *     @OA\Property(property="gt", type="number"),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *     @OA\Property(property="resume", @OA\Property(property="le", type="number"))
+     *   )
      * )
      * @OA\Schema(schema="ReactionTriggerGe", description="Reaction trigger based on numeric state (greater than or equal).",
+     *   @OA\Property(property="on_change_to", type="object",  required={"ge"},
      *     @OA\Property(property="ge", type="number"),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
      *     @OA\Property(property="resume", @OA\Property(property="lt", type="number"))
+     *   )
      * )
      */
     private function validateThresholdTrigger(IODeviceChannel $channel, array $onChangeTo): void {
@@ -177,18 +229,22 @@ class ValueBasedTriggerValidator {
 
     /**
      * @OA\Schema(schema="ReactionTriggerEq", description="Reaction trigger based on numeric or binary state (equal).",
+     *   @OA\Property(property="on_change_to", type="object",  required={"eq"},
      *     @OA\Property(property="eq", oneOf={
      *       @OA\Schema(type="number"),
      *       @OA\Schema(type="string", enum={"hi", "closed", "on", "lo", "low", "open", "off"}),
      *     }),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
+     *   )
      * )
      * @OA\Schema(schema="ReactionTriggerNe", description="Reaction trigger based on numeric or binary state (not equal).",
+     *   @OA\Property(property="on_change_to", type="object",  required={"ne"},
      *     @OA\Property(property="ne", oneOf={
      *       @OA\Schema(type="number"),
      *       @OA\Schema(type="string", enum={"hi", "closed", "on", "lo", "low", "open", "off"}),
      *     }),
      *     @OA\Property(property="name", ref="#/components/schemas/ReactionTriggerFieldNames"),
+     *   )
      * )
      */
     private function validateEqualityTrigger(IODeviceChannel $channel, array $onChangeTo): void {
