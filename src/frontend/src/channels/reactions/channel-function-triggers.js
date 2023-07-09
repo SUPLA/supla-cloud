@@ -82,7 +82,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: () => '% of closing', // i18
+                unit: () => '% of closing', // i18n
                 labelI18n: () => 'When the roller shutter reaches', // i18n
                 resumeLabelI18n: () => 'and wait until it reaches', // i18n
             },
@@ -98,7 +98,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: () => '% of closing', // i18
+                unit: () => '% of closing', // i18n
                 labelI18n: () => 'When the roof window reaches', // i18n
                 resumeLabelI18n: () => 'and wait until it reaches', // i18n
             },

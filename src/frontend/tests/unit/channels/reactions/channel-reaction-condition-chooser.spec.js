@@ -119,6 +119,23 @@ describe('ChannelReactionsConfig', () => {
             expect(wrapper.vm.condition).toEqual({on_change_to: {lt: -2, name: 'temperature', resume: {ge: 20}}});
         });
 
+        it('can set negative resume threshold', async () => {
+            const wrapper = await mount({
+                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                template: '<div><cc :subject="channel" v-model="condition"/></div>',
+                components: {cc: ChannelReactionConditionChooser},
+            });
+            await wrapper.find('.panel-heading').trigger('click');
+            await wrapper.find('.btn-white').trigger('click');
+            await wrapper.find('.btn-white').trigger('click');
+            await wrapper.findAll('.form-control').at(1).setValue('');
+            expect(wrapper.vm.condition).toBeUndefined();
+            await wrapper.findAll('.form-control').at(1).setValue('-');
+            expect(wrapper.vm.condition).toBeUndefined();
+            await wrapper.findAll('.form-control').at(1).setValue('-2');
+            expect(wrapper.vm.condition).toEqual({on_change_to: {gt: 20, name: 'temperature', resume: {le: -2}}});
+        });
+
         it('cannot set empty threshold for temerature', async () => {
             const wrapper = await mount({
                 data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),

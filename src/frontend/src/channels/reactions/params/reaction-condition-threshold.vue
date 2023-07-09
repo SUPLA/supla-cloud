@@ -20,7 +20,7 @@
                     step="0.01"
                     @input="updateModel()"
                     class="form-control">
-                <span class="input-group-addon" v-if="unit(field)">{{ unit(field) }}</span>
+                <span class="input-group-addon" v-if="unit(field)">{{ $t(unit(field)) }}</span>
             </span>
         </div>
 
@@ -96,7 +96,7 @@
                 this.resumeThreshold = Number.isFinite(resume[this.resumeOperator]) ? resume[this.resumeOperator] : this.defaultThreshold;
             },
             updateModel() {
-                if (Number.isFinite(parseFloat(this.threshold))) {
+                if (Number.isFinite(parseFloat(this.threshold)) && (!this.resumeOperator || Number.isFinite(parseFloat(this.resumeThreshold)))) {
                     const value = {[this.operator]: parseFloat(this.threshold)};
                     if (this.resumeOperator) {
                         this.adjustResumeThreshold();
