@@ -17,7 +17,7 @@
                     required
                     v-focus="true"
                     v-model="threshold"
-                    step="0.01"
+                    :step="step()" :min="min()" :max="max()"
                     @input="updateModel()"
                     class="form-control">
                 <span class="input-group-addon" v-if="unit(field)">{{ $t(unit(field)) }}</span>
@@ -37,10 +37,10 @@
                     <span v-else>&ge;</span>
                 </span>
                 <input type="number" required class="form-control" v-model="resumeThreshold"
-                    step="0.01"
+                    :step="step()"
                     @input="updateModel()"
-                    :min="['lt', 'le'].includes(operator) ? threshold : undefined"
-                    :max="['gt', 'ge'].includes(operator) ? threshold : undefined">
+                    :min="['lt', 'le'].includes(operator) ? threshold : min()"
+                    :max="['gt', 'ge'].includes(operator) ? threshold : max()">
                 <span class="input-group-addon" v-if="unit(field)">{{ unit(field) }}</span>
             </span>
         </div>
@@ -56,6 +56,18 @@
             operators: {
                 type: Array,
                 default: () => ['lt', 'le', 'gt', 'ge', 'eq', 'ne'],
+            },
+            min: {
+                type: Function,
+                default: () => undefined,
+            },
+            max: {
+                type: Function,
+                default: () => undefined,
+            },
+            step: {
+                type: Function,
+                default: () => 0.01,
             },
             unit: {
                 type: Function,

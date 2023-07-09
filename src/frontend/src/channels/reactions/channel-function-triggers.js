@@ -25,6 +25,7 @@ export const ChannelFunctionTriggers = {
             test: ({on_change_to = {}}) => on_change_to.name === 'humidity',
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '%',
                 field: 'humidity',
                 labelI18n: () => 'When the humidity will be', // i18n
@@ -82,6 +83,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '% of closing', // i18n
                 labelI18n: () => 'When the roller shutter reaches', // i18n
                 resumeLabelI18n: () => 'and wait until it reaches', // i18n
@@ -98,6 +100,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '% of closing', // i18n
                 labelI18n: () => 'When the roof window reaches', // i18n
                 resumeLabelI18n: () => 'and wait until it reaches', // i18n
@@ -119,6 +122,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '%',
                 labelI18n: () => 'When the brightness will be', // i18n
                 resumeLabelI18n: () => 'and wait until it will be', // i18n
@@ -135,6 +139,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to?.name === 'color_brightness',
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '%',
                 field: 'color_brightness',
                 labelI18n: () => 'When the brightness will be', // i18n
@@ -152,10 +157,12 @@ export const ChannelFunctionTriggers = {
     ],
     [ChannelFunction.DIMMERANDRGBLIGHTING]: [
         {
+            min: () => 0, max: () => 100, step: () => 1,
             caption: 'When the lighting reaches a certain level of brightness', // i18n
             test: (t) => t.on_change_to?.name === 'brightness',
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '%',
                 field: 'brightness',
                 labelI18n: () => 'When the brightness will be', // i18n
@@ -171,6 +178,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to?.name === 'color_brightness',
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '%',
                 field: 'color_brightness',
                 labelI18n: () => 'When the brightness will be', // i18n
@@ -229,6 +237,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0,
                 unit: () => 'm/s',
                 labelI18n: () => 'When the wind speed will be', // i18n
                 resumeLabelI18n: () => 'and wait until it will be', // i18n
@@ -245,6 +254,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0,
                 unit: () => 'hPa',
                 labelI18n: () => 'When the pressure will be', // i18n
                 resumeLabelI18n: () => 'and wait until it will be', // i18n
@@ -261,6 +271,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                min: () => 0,
                 unit: () => 'l/m',
                 labelI18n: () => 'When the precipitation amount will be', // i18n
                 resumeLabelI18n: () => 'and wait until it will be', // i18n
