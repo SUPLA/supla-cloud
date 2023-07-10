@@ -12,10 +12,6 @@
                     </div>
                 </transition-expand>
                 <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="onChanged()" class="mb-3"/>
-                <div class="mt-3">
-                    <h2 class="text-danger">DEBUG</h2>
-                    <pre><code>{{ trigger }}</code></pre>
-                </div>
             </div>
             <div class="col-sm-6">
                 <transition-expand>
