@@ -21,7 +21,7 @@
                         v-for="p in availablePhases"
                         :key="p"
                         @click="phase = p">
-                        {{ p === 'all' ? $t('all') : p }}
+                        {{ p === 'all' ? (field.name === 'voltage' ? $t('average') : $t('sum')) : p }}
                     </a>
                 </div>
             </div>
