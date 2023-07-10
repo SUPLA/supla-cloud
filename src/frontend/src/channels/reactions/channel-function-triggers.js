@@ -158,7 +158,7 @@ export const ChannelFunctionTriggers = {
     [ChannelFunction.DIMMERANDRGBLIGHTING]: [
         {
             min: () => 0, max: () => 100, step: () => 1,
-            caption: 'When the lighting reaches a certain level of brightness', // i18n
+            caption: 'When the dimmer reaches a certain brightness level', // i18n
             test: (t) => t.on_change_to?.name === 'brightness',
             component: ReactionConditionThreshold,
             props: {
@@ -170,7 +170,7 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the brightness level changes', // i18n
+            caption: 'When the dimmer brightness level changes', // i18n
             def: () => ({on_change: {name: 'brightness'}})
         },
         {
