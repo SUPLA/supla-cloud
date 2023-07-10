@@ -44,7 +44,7 @@ describe('ChannelFunctionTriggers', () => {
             ['When the garage door will be opened', ChannelFunction.OPENINGSENSOR_GARAGEDOOR, {on_change_to: {eq: 'open'}}],
             ['When the garage door will be opened or closed', ChannelFunction.OPENINGSENSOR_GARAGEDOOR, {on_change: {}}],
             ['When the device is turned off', ChannelFunction.LIGHTSWITCH, {on_change_to: {eq: 'off'}}],
-            ['When the voltage of phase 1 will be > 230V', ChannelFunction.ELECTRICITYMETER, {on_change_to: {gt: 230, name: 'voltage1'}}],
+            ['When the voltage will be > 230V', ChannelFunction.ELECTRICITYMETER, {on_change_to: {gt: 230, name: 'voltage1'}}],
             ['When the condition is met', ChannelFunction.HUMIDITY, {}],
         ];
 
