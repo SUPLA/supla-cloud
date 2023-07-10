@@ -14,7 +14,7 @@
             </div>
         </div>
         <transition-expand>
-            <div class="form-group d-flex align-items-center" v-if="!field.disablePhases">
+            <div class="form-group d-flex align-items-center" v-if="subject.config.enabledPhases.length > 1 && !field.disablePhases">
                 <label class="flex-grow-1 pr-3">{{ $t('Phase') }}</label>
                 <div class="btn-group btn-group-flex">
                     <a :class="'btn ' + ((phase === p) ? 'btn-green' : 'btn-default')"
@@ -26,7 +26,9 @@
                 </div>
             </div>
         </transition-expand>
-        <ReactionConditionThreshold v-if="field" v-model="trigger" :field="fieldName" :default-threshold="230"
+        <ReactionConditionThreshold v-if="field" v-model="trigger" :field="fieldName"
+            :subject="subject"
+            :default-threshold="defaultThreshold(fieldName, subject)"
             :unit="unit" :label-i18n="labelI18n" :resume-label-i18n="resumeLabelI18n"/>
     </div>
 </template>
@@ -43,6 +45,7 @@
             unit: Function,
             labelI18n: Function,
             resumeLabelI18n: Function,
+            defaultThreshold: Function,
         },
         data() {
             return {
@@ -118,11 +121,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .reaction-condition-threshold {
-        input[type=number] {
-            width: 80px;
-        }
-    }
-</style>

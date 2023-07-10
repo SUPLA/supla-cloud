@@ -337,6 +337,47 @@ export const ChannelFunctionTriggers = {
                         rae_balanced: 'When the balanced reverse active energy will be', // i18n
                     }[fieldName];
                 },
+                defaultThreshold: (fieldName, subject) => {
+                    if (fieldName.startsWith('voltage')) {
+                        return 240;
+                    } else if (fieldName.startsWith('current')) {
+                        return 16;
+                    } else if (fieldName.startsWith('fae')) {
+                        const energy = (() => {
+                            switch (fieldName) {
+                                case 'fae1':
+                                    return subject.state?.phases[0]?.totalForwardActiveEnergy;
+                                case 'fae2':
+                                    return subject.state?.phases[1]?.totalForwardActiveEnergy;
+                                case 'fae3':
+                                    return subject.state?.phases[2]?.totalForwardActiveEnergy;
+                                default:
+                                    return (subject.config.enabledPhases || [1, 2, 3])
+                                        .map(phaseNo => subject.state?.phases[phaseNo - 1]?.totalForwardActiveEnergy)
+                                        .reduce((e, sum) => +e + sum, 0);
+                            }
+                        })();
+                        return Math.ceil(energy + 1000);
+                    } else if (fieldName.startsWith('rae')) {
+                        const energy = (() => {
+                            switch (fieldName) {
+                                case 'rae1':
+                                    return subject.state?.phases[0]?.totalReverseActiveEnergy;
+                                case 'rae2':
+                                    return subject.state?.phases[1]?.totalReverseActiveEnergy;
+                                case 'rae3':
+                                    return subject.state?.phases[2]?.totalReverseActiveEnergy;
+                                default:
+                                    return (subject.config.enabledPhases || [1, 2, 3])
+                                        .map(phaseNo => subject.state?.phases[phaseNo - 1]?.totalReverseActiveEnergy)
+                                        .reduce((e, sum) => +e + sum, 0);
+                            }
+                        })();
+                        return Math.ceil(energy + 1000);
+                    } else {
+                        return 1000;
+                    }
+                },
                 resumeLabelI18n: () => 'and wait until it reaches', // i18n
                 unit: (fieldName) => {
                     if (fieldName.startsWith('voltage')) {

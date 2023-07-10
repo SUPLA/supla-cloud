@@ -148,7 +148,14 @@
         watch: {
             field() {
                 this.updateModel();
-            }
+            },
+            defaultThreshold(currentValue, previousValue) {
+                if (this.threshold == previousValue && (!this.resumeOperator || this.resumeThreshold == previousValue)) {
+                    this.threshold = currentValue;
+                    this.resumeThreshold = currentValue;
+                    this.updateModel();
+                }
+            },
         }
     }
 </script>
@@ -156,7 +163,7 @@
 <style lang="scss">
     .reaction-condition-threshold {
         input[type=number] {
-            width: 80px;
+            width: 95px;
         }
     }
 </style>
