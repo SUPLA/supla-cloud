@@ -63,7 +63,10 @@ describe('ChannelReactionsConfig', () => {
     describe('ELECTRICITYMETER', () => {
         it('selects the first action by default if only one', async () => {
             const wrapper = await mount({
-                data: () => ({channel: {functionId: ChannelFunction.ELECTRICITYMETER, config: {}}, condition: undefined}),
+                data: () => ({
+                    channel: {functionId: ChannelFunction.ELECTRICITYMETER, config: {enabledPhases: [1, 2, 3]}},
+                    condition: undefined
+                }),
                 template: '<div><cc :subject="channel" v-model="condition"/></div>',
                 components: {cc: ChannelReactionConditionChooser},
             });
