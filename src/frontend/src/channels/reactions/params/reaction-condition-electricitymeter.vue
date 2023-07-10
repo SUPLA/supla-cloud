@@ -27,7 +27,7 @@
             </div>
         </transition-expand>
         <ReactionConditionThreshold v-if="field" v-model="trigger" :field="fieldName"
-            :subject="subject"
+            :subject="subject" :operators="operators"
             :default-threshold="defaultThreshold(fieldName, subject)"
             :unit="unit" :label-i18n="labelI18n" :resume-label-i18n="resumeLabelI18n"/>
     </div>
@@ -113,6 +113,13 @@
                     return `${this.field.name}${this.phase}`;
                 }
             },
+            operators() {
+                if (this.fieldName.startsWith('fae') || this.fieldName.startsWith('rae')) {
+                    return ['gt', 'ge', 'eq'];
+                } else {
+                    return undefined;
+                }
+            }
         },
         watch: {
             value() {

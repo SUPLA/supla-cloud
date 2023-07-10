@@ -98,6 +98,9 @@
             if (!this.value) {
                 this.updateModel();
             }
+            if (!this.resumeThreshold) {
+                this.resumeThreshold = this.threshold;
+            }
         },
         methods: {
             updateInternalState() {
@@ -153,6 +156,11 @@
                     this.threshold = currentValue;
                     this.resumeThreshold = currentValue;
                     this.updateModel();
+                }
+            },
+            operators(currentValue, previousValue) {
+                if (currentValue.length !== previousValue.length) {
+                    this.operator = this.operators[0];
                 }
             },
         }
