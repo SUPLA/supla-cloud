@@ -305,35 +305,35 @@ export const ChannelFunctionTriggers = {
             props: {
                 labelI18n: (fieldName) => {
                     return {
-                        voltage_avg: 'When average voltage of all phases will be', // i18n
+                        voltage_avg: 'When average voltage will be', // i18n
                         voltage1: 'When the voltage of phase 1 will be', // i18n
                         voltage2: 'When the voltage of phase 2 will be', // i18n
                         voltage3: 'When the voltage of phase 3 will be', // i18n
-                        current_sum: 'When summarized current of all phases will be', // i18n
+                        current_sum: 'When summarized current will be', // i18n
                         current1: 'When the current of phase 1 will be', // i18n
                         current2: 'When the current of phase 2 will be', // i18n
                         current3: 'When the current of phase 3 will be', // i18n
-                        power_active_sum: 'When summarized active power of all phases will be', // i18n
+                        power_active_sum: 'When summarized active power will be', // i18n
                         power_active1: 'When the active power of phase 1 will be', // i18n
                         power_active2: 'When the active power of phase 2 will be', // i18n
                         power_active3: 'When the active power of phase 3 will be', // i18n
-                        power_reactive_sum: 'When summarized reactive power of all phases will be', // i18n
+                        power_reactive_sum: 'When summarized reactive power will be', // i18n
                         power_reactive1: 'When the reactive power of phase 1 will be', // i18n
                         power_reactive2: 'When the reactive power of phase 2 will be', // i18n
                         power_reactive3: 'When the reactive power of phase 3 will be', // i18n
-                        power_apparent_sum: 'When summarized apparent power of all phases will be', // i18n
+                        power_apparent_sum: 'When summarized apparent power will be', // i18n
                         power_apparent1: 'When the apparent power of phase 1 will be', // i18n
                         power_apparent2: 'When the apparent power of phase 2 will be', // i18n
                         power_apparent3: 'When the apparent power of phase 3 will be', // i18n
                         fae1: 'When the forward active energy of phase 1 will be', // i18n
                         fae2: 'When the forward active energy of phase 2 will be', // i18n
                         fae3: 'When the forward active energy of phase 3 will be', // i18n
-                        fae_sum: 'When the forward active energy of all phases will be', // i18n
+                        fae_sum: 'When the forward active energy will be', // i18n
                         fae_balanced: 'When the balanced forward active energy will be', // i18n
                         rae1: 'When the reverse active energy of phase 1 will be', // i18n
                         rae2: 'When the reverse active energy of phase 2 will be', // i18n
                         rae3: 'When the reverse active energy of phase 3 will be', // i18n
-                        rae_sum: 'When the reverse active energy of all phases will be', // i18n
+                        rae_sum: 'When the reverse active energy will be', // i18n
                         rae_balanced: 'When the balanced reverse active energy will be', // i18n
                     }[fieldName];
                 },
