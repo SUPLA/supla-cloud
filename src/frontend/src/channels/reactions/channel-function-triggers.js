@@ -444,7 +444,7 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the water meter value will be', // i18n
+            caption: 'When the water meter value changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
