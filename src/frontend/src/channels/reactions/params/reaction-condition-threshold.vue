@@ -20,10 +20,9 @@
                     :step="step()" :min="min()" :max="max()"
                     @input="updateModel()"
                     class="form-control">
-                <span class="input-group-addon" v-if="unit(field)">{{ $t(unit(field)) }}</span>
+                <span class="input-group-addon" v-if="unit(field, subject)">{{ $t(unit(field, subject)) }}</span>
             </span>
         </div>
-
         <div class="form-group d-flex align-items-center" v-if="resumeOperator">
             <span class="flex-grow-1 pr-4">
                 {{ $t('then execute the action') }}
@@ -41,7 +40,7 @@
                     @input="updateModel()"
                     :min="['lt', 'le'].includes(operator) ? threshold : min()"
                     :max="['gt', 'ge'].includes(operator) ? threshold : max()">
-                <span class="input-group-addon" v-if="unit(field)">{{ unit(field) }}</span>
+                <span class="input-group-addon" v-if="unit(field, subject)">{{ $t(unit(field, subject)) }}</span>
             </span>
         </div>
     </div>

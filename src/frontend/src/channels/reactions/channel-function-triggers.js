@@ -403,6 +403,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                unit: (fieldName, subject) => subject.config?.unit || '',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
                 labelI18n: () => 'When the electricity meter value will be', // i18n
@@ -419,6 +420,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                unit: (fieldName, subject) => subject.config?.unit || '',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
                 labelI18n: () => 'When the gas meter value will be', // i18n
@@ -435,6 +437,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                unit: (fieldName, subject) => subject.config?.unit || '',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
                 labelI18n: () => 'When the water meter value will be', // i18n
@@ -451,6 +454,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                unit: (fieldName, subject) => subject.config?.unit || '',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
                 labelI18n: () => 'When the heat meter value will be', // i18n
