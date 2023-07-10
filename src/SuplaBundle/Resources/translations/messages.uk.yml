@@ -30,13 +30,17 @@ Access to all of your devices through MQTT Broker: Доступ до усіх в
 Account: Обліковий запис
 Account access when you are unavailable: Доступ до вашого облікового запису, коли ви недоступні
 Account has been activated. You can Sign In now.: Обліковий запис активовано. Ви можете авторизуватися
+Action confirmation: Підтвердження дії
 Action execution: Виконання дії
 Action trigger: Команда дії
 'Action trigger no. #{index}': 'Команда #{index}'
 Action triggers: Команди дії
 Actions: Дії
 Active: Діючі
+Active applications: Активні додатки
 Active period: Період дії
+Active sessions: Активні сесії
+Active web sessions: Активні сесії (веб)
 Add: Додати
 Add a delay: Додати затримку
 Add a new icon: Додати нову піктограму
@@ -44,7 +48,6 @@ Add action: Додати дію
 Add first channel to set channel group function and save it: Виберіть перший канал для визначення функції групи та збережіть його
 Add new channel group: Додайте нову групу каналів
 Add new channel to this group: Додайте новий канал до групи
-Add new item to use in the scene: Додайте новий елемент до сценарію
 Adjust parameters: Встановіть параметри
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Усі канали та групи каналів, які використовують цю піктограму, матимуть свої піктограми за замовчуванням після видалення.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Після надання доступу ви завжди можете передумати, скасувавши доступ у налаштуваннях облікового запису.
@@ -52,7 +55,10 @@ After the device enters the configuration mode, it will not be accessible on you
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Після оновлення додаток стане швидшим, зручнішим... просто кращим!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: «Лічильник почне відлік від 0 після цієї операції, незалежно від його поточного стану. Цю операцію неможливо скасувати.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Посилання буде згенеровано відразу після вибору об’єкта. Ви можете ввести всі інші параметри відразу після його створення.
+Aggregation: Агрегація
 All: Все
+All events: Всі події
+All logs has been downloaded. Reload the chart to see them.: Всі дані вимірювань були завантажені. Перезавантажте діаграму, щоб побачити їх.
 All the above and many more can be done from your phone or tablet: Ви можете робити все це та багато іншого за допомогою свого смартфона чи планшета
 Allowed actions: Дозволені дії
 Allows to perform an action only using the HTTP PATCH request.: Дозволяє виконувати дію лише за допомогою запиту HTTP PATCH.
@@ -60,12 +66,15 @@ Alternatively, you can add a GET parameter to specify response format.: Ви т�
 And more: І значно більше
 Any application or device that uses the {tokenName} token will not work anymore.: Усі програми або пристрої, які використовують токен {tokenName}, перестануть працювати.
 'App version: %clientAppSoftwareVersion%': 'Версія застосунку: %clientAppSoftwareVersion%'
+Application: Додаток
 Application name cannot be blank.: Назва програми не може бути пустою
 Application requirements: Вимоги до заявки
 Applications: Застосунки
+Applications with access: Додаток з доступом
 Are you lost?: Ви загубились? Ви щось шукаєте?
 Are you sure you want to change channel’s function?: Ви впевнені, що хочете змінити функцію каналу?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ви впевнені, що бажаєте видалити всю історію вимірювань, зібрану для цього каналу?
+Are you sure you want to delete the events from the voltage aberrations history?: Ви впевнені, що хочете видалити всі події з історії про аберації напруги?
 Are you sure you want to delete this OAuth application?: Ви впевнені, що бажаєте видалити цю програму OAuth?
 Are you sure you want to delete this channel group?: Ви впевнені, що бажаєте видалити цю групу каналів?
 Are you sure you want to delete this client?: Ви впевнені, що бажаєте видалити цю клієнтську програму?
@@ -73,10 +82,12 @@ Are you sure you want to delete this direct link?: Ви впевнені, що �
 Are you sure you want to delete this icon?: Ви впевнені, що хочете видалити цю піктограму?
 Are you sure you want to delete this scene?: Ви впевнені, що хочете видалити цю сцену?
 Are you sure you want to delete this schedule?: Ви впевнені, що хочете видалити цей розклад?
+Are you sure you want to log out this device?: Ви впевнені, що хочете вийти з цього пристрою?
 Are you sure you want to reset the counter state?: Ви впевнені, що бажаєте скинути лічильник?
 Are you sure you want to revoke permissions granted to this OAuth application?: Ви впевнені, що бажаєте відкликати дозволи, надані цій програмі OAuth?
 Are you sure you want to revoke this token?: Ви впевнені, що бажаєте відкликати токен?
 Are you sure?: Ви впевнені?
+Arithmetic balance: Арифметичний баланс
 As in device: Як і в пристрої
 Assign Access Identifiers: Призначити ідентифікатори доступу
 Assign Client apps: Призначити клієнтські програми
@@ -90,6 +101,8 @@ At specified time: На вказаний час
 At sunrise: на сході сонця
 At sunrise, Monday through Friday: на сході сонця, з понеділка по п’ятницю
 At sunset: на заході сонця
+Authentication failure: Помилка входу
+Authentication successful: Успішний вхід в систему
 Authorization callback URLs (one per line): URL-адреси зворотної авторизації (по одному на рядок)
 Authorize the application, so that it can access your account.: Авторизуйте програму, щоб вона мала доступ до вашого облікового запису.
 Authorized: Авторизований
@@ -106,6 +119,8 @@ Below threshold: Нижче порогового значення
 Bottom position: Нижня позиція
 Bridge: Перехід
 Brightness: Яскравість
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Вимкнення цієї опції дозволить керувати цим пристроєм з інтеграції без додаткового підтвердження. Це може призвести до небезпечного або менш безпечного стану (наприклад, випадкове відкриття воріт).
+By signing in, you are authorizing {clientName} to control your devices.: Увійшовши в систему, ви дозволяєте додатку {clientName} керувати вашими пристроями.
 CLICK TO DISABLE: НАТИСНІТЬ, ЩОБ ВИМКНУТИ
 CLICK TO ENABLE: НАТИСНІТЬ, ЩОБ УВІМКНУТИ
 Calibrate: Відкалібрувати
@@ -127,9 +142,11 @@ Change Password: Зміна пароля
 Change channel function: Змінити функцію каналу
 Change function: Змінити функцію
 Change icon: Змінити піктограму
+Change the password and log out: Змініть пароль і вийдіть з системи
 Changing channel’s function will also result in the following changes.: Зміна функції каналу також змінить наступне.
 Channel: Канал
 Channel No: Номер каналу
+Channel available for {serviceName}: Канал доступний для {serviceName}
 Channel for the partial opening sensor: Канал для датчика проміжного відкриття
 Channel for the sensor: Датчик для каналу
 Channel group: Група каналів
@@ -146,6 +163,7 @@ Channel with action triggers: Канал із командами дії
 Channels: Канали
 Channels groups are not supported for this function.: Ця функція не підтримує групи каналів.
 Chart data source type: Тип джерела даних
+Chart mode: Тип графіка
 Chart type: Тип діаграми
 Check the direct link you used and try again.: Перевірте відображене пряме посилання та повторіть спробу.
 Check your email box: Перевірте свою електронну скриньку
@@ -168,8 +186,10 @@ Close: Закрити
 Close after: Закрити після
 Close automatically: Закривати автоматично
 Close partially: Закрити частково
+Colon: Крапка з комою
 Color: Колір
 Color brightness: Яскравість кольору
+Comma: Кома
 Comment: Коментар
 Config of the schedule is too complicated.: Конфігурація розкладу надто складна.
 Configuration: Конфігурація
@@ -179,6 +199,7 @@ Confirm if you want to perform the roller shutter calibration.: Перекона
 Confirm if you want to remove Access Identifier: Підтвердіть, що ви хочете видалити ідентифікатор доступу
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Підтвердіть, що ви хочете видалити ідентифікатор місцезнаходження {locationId}. Пристрої вводу/виводу більше не підключатимуться до цього місця.
 Confirm if you want to remove {deviceName} device and all of its channels.: Підтвердіть, що ви хочете видалити {deviceName} і всі його канали.
+Confirmation: Підтвердження
 Connected: Підключено
 Connection with a private instance of the SUPLA cloud: Підключення до приватного екземпляра хмари SUPLA.
 Constraints: Обмеження
@@ -187,6 +208,8 @@ Could not contact Autodiscover service. Try again in a while.: Не вдалос
 Could not enter the configuration mode.: Не вдалося перевести пристрій у режим конфігурації.
 Could not reset the password.: Помилка скидання пароля.
 Could not reset the password. Please try again later.: Пароль не можна скинути.Спробуйте ще раз за мить.
+Counter: Лічильник
+Counter reset: Скидання лічильника
 Create New Access Identifier: Створіть новий ідентифікатор доступу
 Create New Location: Створіть нове місцезнаходження
 Create New Schedule: Створіть новий розклад
@@ -203,7 +226,9 @@ DHT11 Temperature & Humidity Sensor: Датчик температури та в
 DHT21 Temperature & Humidity Sensor: Датчик температури та вологості DHT21
 DHT22 Temperature & Humidity Sensor: Датчик температури та вологості DHT22
 DS18B20 Thermometer: Термометр DS18B20
+Data limits: Обмеження даних
 Data saved: Дані збережено
+Date and time: Дата і час
 Decline: Будь ласка, відхиліть
 Default: за замовчуванням
 Delete: Видалити
@@ -250,15 +275,18 @@ Door lock operation: Відкриття дверей
 Door opening sensor: Датчик відкриття дверей
 Doors and gates: Двері та ворота
 Doors, Gates, Windows: Двері, ворота, вікна
+Download measurements history: Завантажити історію вимірювань
 Download the history of measurement: Завантажити історію вимірювань
 Drag your image(s) here or click to select from the disk: Перетягніть зображення сюди або натисніть, щоб вибрати з диска
 E-mail notifications: Сповіщення електронною поштою
 Edit: Редагувати
 Electric: Електрика
 Electricity meter: Лічильник електроенергії
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Лічильник електроенергії не повідомляв про можливість налаштувати додаткові значення. Оновіть прошивку пристрою та спробуйте ще раз.
 Empty!: Порожньо!
 Enable: Ввімкнути
 Enabled: В комплекті
+Enabled phases: Активні фази
 End date: Дата закінчення
 Enter new password: Введіть новий пароль
 Enter strong password: Введіть надійний пароль
@@ -282,9 +310,11 @@ Execution history: Історія продуктивності
 Execution limit: Ліміт виконання
 Executions: Виконання
 Expired: Минув термін придатності
+Expires at: Закінчується
 Failed: Не вдалося
 Failed (zombie): Не вдалося (zombie)
 Feature limits: Функціональні межі
+File format: Формат файлу
 File is too large: Файл завеликий
 Flooding: Флуд
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Рекомендовано використовувати {suplaUrl} під час оновлення.
@@ -292,9 +322,11 @@ For devices: Для пристроїв
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: З міркувань безпеки повна URL-адреса цього прямого посилання відображатиметься лише один раз під час його створення.
 Forgot your password?: Забули пароль?
 Forward active energy: Зібрана активна енергія
+Forward active energy balance: Баланс споживання активної енергії
 Forward active energy balanced: Споживана активна енергія (Векторний баланс)
 Forward reactive energy: Розхід реактивної енергії
 Fridays: П’ятниці
+From: Від
 From anywhere: Звідки завгодно
 Full closing time: Загальний час закриття
 Full documentation: Повна документація
@@ -337,10 +369,12 @@ I agree: Я згоден
 I aree, taske me to the app: Згоден, перейти в додаток
 I confirm! Delete my account.: Будинок + обігрівач
 I do not agree, get me out of here: Я не згоден, вийти звідси
+I understand that my SUPLA account will be permanently deleted.: Я розумію, що мій обліковий запис SUPLA буде безповоротно видалено.
 I/O Devices: Пристрої введення-виведення
 I/O devices registration: Реєстрація пристрою
 ID: ID
 INACTIVE: НЕАКТИВНИЙ
+IP Address: Адреса IP
 Icon: Значок
 Idle: Бездіяльність
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Якщо пристрій знаходиться в режимі сну, то зміни в конфігурації можливі лише після виходу з цього режиму.
@@ -371,12 +405,14 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Неактивний
 Include energy corrections in new measurements history (not recommended): Включати додану вартість в історію (не рекомендовано)
 Incorrect password: Невірний пароль
+Incremental: Інкрементний
 Information: Інформація
 Inherit I/O Device location: Використовуйте місцезнаходження пристрою
 Initial value: Початкове значення
 Integration with MQTT Broker has been disabled.: Інтеграцію з брокером MQTT вимкнено.
 Integration with MQTT Broker has been enabled.: Увімкнено інтеграцію з брокером MQTT.
 Integrations: Інтеграції
+Integrations settings: Налаштування інтеграції
 Interpolate measurements: Оцініть пропущені значення
 Interrupt: Перервати
 Interrupt and execute: Перервати і виконати
@@ -388,6 +424,7 @@ Invalid function for channel.: Недійсна функція для канал
 Invalid request: Невірний запит
 Invalid request.: Невірний запит.
 Invalid token.: Неприпустимий токен.
+Invalid username or password: Неправильне ім'я користувача або пароль
 Inverted logic: Зворотна логіка
 Invisible: Невидимий
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Можливо, інший користувач помилково ввів вашу адресу електронної пошти, щоб змінити пароль свого облікового запису.
@@ -409,7 +446,9 @@ Location Identifier: Ідентифікатор місцезнаходження
 Location limit has been exceeded: Ліміт місцезнаходження перевищено
 Location name: Назва місця
 Locations: Місцезнаходження
+Log out: Вийти
 Login: Логін
+Logs transformation: Трансформація цінностей
 Longest aberration: Найдовша аберація
 Lower voltage threshold: Поріг низької напруги
 MQTT Broker: Брокер MQTT
@@ -467,6 +506,7 @@ No of devices: Кількість пристроїв
 No of operations: Кількість операцій
 No results match {0}: Немає результатів, що відповідають {0}
 No schedule configuration.: Конфігурація розкладу не вказана.
+No, take me back!: Ні, заберіть мене звідси!
 No. of Client’s apps: Кількість клієнтських заявок
 No. of access identifiers: Кількість ідентифікаторів доступу
 No. of channel groups: Кількість груп каналів
@@ -475,6 +515,7 @@ No. of devices: Кількість пристроїв
 No. of locations: Кількість місць
 None: Відсутність
 None (channel disabled): Немає (канал вимкнено)
+Noop: Операція не проводиться
 Number of aberrations: Кількість аберацій
 Number of attempts to close: Кількість спроб закриття
 Number of attempts to open: Кількість спроб відкриття
@@ -483,6 +524,7 @@ OAuth application: Програма OAuth
 OAuth apps: Програми OAuth
 OAuth authorization: Авторизація OAuth
 OAuth integrations might stop working after the instance is unregistered.: Інтеграція програми OAuth може перестати працювати після скасування реєстрації екземпляра.
+OK: OK
 'Off': Вимкнено
 Offline access: Офлайн-доступ
 Older: Старший
@@ -493,16 +535,22 @@ Open: Відкрийте
 Open / close: Відкрийте / закрийте
 Open partially: Відкрийте частково
 Opening sensor: Датчик відкриття
+Operation: Операція
 Operations: Операції
 Original location: Оригінальне місцезнаходження
 Other: Інший
 Otherwise go to the homepage.: В іншому випадку перейдіть на [домашню сторінку].
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-код для Google повинен мати щонайменше {minLength} і щонайбільше {maxLength} цифр.
 Partial opening sensor: Датчик непрямого відкриття
 Password: Пароль
 Password Reset: Скидання пароля
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Зміна пароля призведе до виходу з усіх поточних сесій. Однак це не вплине на заявки, які отримали від вас дозвіл. Ви повинні відкликати свою згоду на вхід до програми окремо.
+Password changed: Пароль змінено
 Password has been changed: Пароль змінено
 Password must be at least {minLength} characters.: Пароль має містити принаймні {minLength} символів.
 Password must be no longer than {maxLength} characters.: Пароль не може містити більше {maxLength} символів.
+Password reset: Скинути пароль
 Password reset instructions.: Інструкція по відновленню доступу до облікового запису.
 Percentage of closing: Відсоток закриття
 Personal access tokens: Особисті токени доступу
@@ -512,6 +560,7 @@ Phase 1: Фаза 1
 Phase 2: Фаза 2
 Phase 3: Фаза 3
 Phase number: Фаза
+Phase {phaseNumber}: Фаза {phaseNumber}
 Please choose the schedule subject first.: Спочатку виберіть, чим має керувати розклад
 Please click the following link to reset your %cloudHost% password.: Натисніть на посилання нижче, щоб скинути пароль %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Натисніть посилання в повідомленні, яке ми надіслали вам після створення облікового запису.
@@ -524,6 +573,7 @@ Please read the Terms and Conditions.: Читати правила.
 Please wait a moment before the next login attempt.: Зачекайте деякий час, перш ніж спробувати увійти знову.
 Port: Порт
 Precision: Точність
+Predefined time ranges: Часові діапазони
 Pressure sensor: Датчик тиску
 Price per: Ціна за
 Private Cloud domain name: Ім’я домену приватної хмари
@@ -552,6 +602,7 @@ Registered: Зареєстровано
 'Registered from IP address: %deviceRegIp%': 'Адреса ІР: %deviceRegIp%'
 Relay: Реле
 Relay switching time: Час увімкнення реле
+Reload the chart: Діаграма перезавантаження
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Перш ніж видаляти місцезнаходження, ви повинні спочатку перемістити групи каналів у цьому місці. Ідентифікатори: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Перш ніж видаляти місцезнаходження, ви повинні спочатку перемістити канали, які там знаходяться. Ідентифікатори: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Видаліть спарені пристрої перед видаленням цього розташування. Ідентифікатори: {relatedIds}.'
@@ -564,6 +615,7 @@ Retry on failure: Повторювати, коли не закінчено
 Reveal: Розкрити
 Reveal partially: Частково розкрити
 Reverse active energy: Активна енергія повернулася
+Reverse active energy balance: Баланс активної повернутої енергії
 Reverse active energy balanced: Повернена активна енергія (Векторний баланс)
 Reverse reactive energy: Реактивна енергія повернута
 Revoke: Скасувати
@@ -592,6 +644,7 @@ Save changes: Зберегти зміни
 Save changes to see Access IDs: Збережіть зміни, щоб переглянути ідентифікатори доступу
 Save or discard configuration changes first.: Спочатку збережіть або скасуйте зміни конфігурації.
 Scene: Сцена
+Scene available for {serviceName}: Сцена доступна для {serviceName}
 Scene must consist of at least one operation.: Сцена повинна містити принаймні одну операцію
 Scenes: Сцени
 Scenes limit has been exceeded: Ви не можете створювати більше сцен
@@ -604,12 +657,15 @@ Scopes: Діапазони
 Scopes define which sections of your account can be accessed when using the token.: Області визначають, до яких ресурсів облікового запису можна отримати доступ за допомогою маркера.
 Search: Пошук
 Secret: Секретний ключ (секрет)
+Security: Безпека
+Security log: Журнал безпеки
 See available integrations: Перегляньте доступні інтеграції
 See direct link possibilities: Перегляньте можливості прямого посилання
 See in SUPLA-Cloud: Переглянути на SUPLA-Cloud
 Seems like a secret place: Щось нам підказує, що Вас тут не повинно бути
 Select icon: Виберіть піктограму
 Select the item (subject) you want to control using this link: Виберіть елемент (тему), яким хочете керувати за цим посиланням
+Selected device has been logged out.: Вибраний пристрій вийшов з системи
 Sensor (normal closed): Датчик (нормально закритий)
 Sensor (normal open): Датчик (нормально відкритий)
 Sensor disconnected: Немає датчика
@@ -618,6 +674,7 @@ Server address: Адреса сервера
 Server unreachable: Сервер недоступний
 Service temporarily unavailable: Сервіс тимчасово недоступний
 Set value added: Визначте додану вартість
+Set values for each phase separately: Визначте значення для кожної фази окремо
 Setting the number of attempts to 1 disables the retrying behavior completely.: Встановлення кількості спроб менше 2 може призвести до помилки закриття або відкриття.
 Show my limits: Покажіть мої ліміти
 Show on the Client’s devices: Показати на клієнтських пристроях
@@ -646,10 +703,12 @@ Store measurements history: Зберігати історію вимірюван
 Subject type: Тип суб’єкта
 Success: Успіх
 Successful: Успішний
+Summary for selected time range: Підсумок для вибраного діапазону
 Sundays: Неділі
 Switch the device to configuration mode: Переведіть пристрій у режим конфігурації
 THIS CANNOT BE UNDONE!: ЦЮ ОПЕРАЦІЮ НЕМОЖЛИВО БУДЕ СКАСУВАТИ!
 TLS: TLS
+Tab: Табулятор
 Target Cloud is not registered, or is registered with another e-mail address.: Цей екземпляр SUPLA Cloud не зареєстрований або зареєстрований з іншою електронною адресою.
 Temperature: Температура
 Temperature & Humidity Sensor: Датчик температури та вологості
@@ -668,6 +727,10 @@ The client will be automatically logged out when deleted.: Видалення к
 The counter has been reset.: Лічильник скинуто.
 The device is disabled: Пристрій вимкнено
 The device might be in a sleep mode.: Пристрій може працювати в режимі сну
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Пристрій, який використовує цю сесію, втратить доступ до SUPLA Cloud. Для того, щоб продовжити користуватися додатком, вам потрібно буде знову увійти в нього.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Усю історію аберації напруги для фази {phaseNumber} буде видалено.
+The entire history of the voltage aberrations will be removed from this channel.: Для цього каналу буде видалено всю історію аберації напруги.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Події в історії відхилень напруги будуть автоматично видалені через {days}.
 The following items use the channels of these device. These references will be also removed.: Наступні елементи використовують канали з цього пристрою. Вони також будуть видалені.
 'The following items will be deleted with this device:': Наведені нижче елементи також буде видалено разом із цим пристроєм.
 The gate sensor must function properly in order to execute the Open and Close actions.: Датчик відкриття воріт має працювати належним чином, щоб виконати дію Відкрити або Закрити.
@@ -699,17 +762,21 @@ Thermometer: Термометр
 Thermostat: Термостат
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Це пряме посилання вимагає подальшого уточнення параметрів виконуваної дії. Перегляньте наведені нижче приклади, щоб дізнатися, які параметри можна встановити.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ви отримуєте це повідомлення через невдалий вхід до SUPLA-CLOUD (%cloudHost%) за допомогою вашої електронної адреси.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Це завершальний етап видалення Вашого облікового запису. Заповнення та затвердження форми призведе до незворотного видалення Ваших даних.
 This is the list of applications you have granted access to your account.: Це список програм, яким ви надали доступ до свого облікового запису.
 This link is only valid for an hour.: Посилання буде активним протягом однієї години.
+'This password will protect your home. Therefore, it must:': 'Цей пароль захистить ваш дім. Тому:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Цей режим розкладу призначений для технічних або дуже терплячих користувачів. Він вимагає, щоб час запуску розкладу було зазначено в нотації crontab, збагаченої декількома функціями, доступними лише в SUPLA. Якщо ви раніше не бачили crontab і все ще хочете використовувати цей режим, сайт crontab.guru може бути вам корисним.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ця команда використовується пристроєм локально (наприклад, він вмикає світло, керує ролетами тощо). Якщо ви призначите їй іншу дію, локальну функцію буде вимкнено.
 Thursdays: Четверги
 Timezone: Часовий пояс
+To: До
 Toggle: Переключити
 Token does not exist: Токен не існує
 Too many actions in this schedule.: Забагато дій в одному розкладі.
 Too many channels in this group: У цій групі забагато каналів
 Too many operations in this scene: Забагато операцій у сцені.
+Total: Сума
 Total time: Загальний час
 Triggers: Команди
 Tuesdays: вівторок
@@ -719,6 +786,7 @@ Type: Тип
 Undo registration: Скасувати реєстрацію
 Unit: Одиниця
 Unknown: Невідомий
+Unknown browser: Невідомий браузер
 Unregister my private SUPLA Cloud instance: Скасувати реєстрацію мого приватного екземпляра SUPLA Cloud
 Unsuccessful login attempt: Помилка логіну
 Unsupported function: Функція не підтримується
@@ -729,10 +797,13 @@ Upper voltage threshold: поріг високої напруги
 'Use the {0} server command to change this account''s limits. For example:': 'Щоб змінити обмеження для цього облікового запису, скористайтеся командою {0} на своєму сервері. Наприклад:'
 Use working schedule for this access identifier: Використовуйте графік доступності для цього ідентифікатора доступу
 User is already confirmed. Try to log in.: Цей обліковий запис уже підтверджено. Авторизуйтесь
+Value: Значення
 Value added: Додана вартість
 Value per unit: Вартість за одиницю
+Value separator: Роздільник
 Valve: Вентиль
 Valve closed manually: Вентиль закритий вручну
+Vector balance: Векторний баланс
 Verification method: Метод верифікації
 Visible: Видимий
 Visit app webpage: Відкрийте сайт додатку
@@ -744,6 +815,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Зачекайте трохи, перш ніж робити інший запит. Ви можете перевірити поточне використання своїх лімітів у налаштуваннях облікового запису.
 Wait for this scene to finish before proceeding to the next step ({time}).: Зачекайте, доки завершиться виконання сцени, перш ніж продовжувати дію ({time}).
 Water meter: Лічильник води
+'We also strongly advise you to choose a password that:': 'Крім того, ми наполегливо рекомендуємо вам вибрати пароль, який:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Ми надсилатимемо вам сповіщення про певні події, пов’язані з вашим обліковим записом. Ви можете скасувати підписку на ті, які вам не потрібні.
 We could not connect to your SUPLA Cloud instance.: Нам не вдалося підключитися до вашого приватного примірника SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Ми отримали вказівку видалити ваш обліковий запис SUPLA Cloud (%cloudHost%).
@@ -755,7 +827,9 @@ We should be ready shortly.: Ми повинні невдовзі закінчи
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Ми зберігаємо інформацію про ваші налаштування у вашому браузері, щоб полегшити використання програми (наприклад, за допомогою механізму файлів cookie).
 We try to be faster: Ми стаємо щоразу швидші
 We were not able to find your account.: Нам не вдалося знайти Ваш обліковий запис.
+We were not able to prepare your data. Please see the error details below.: Під час підготовки даних сталася помилка. Детальніше про неї читайте нижче.
 We will miss you: Ми будемо сумувати за Вами
+We will miss you!: Ми будемо сумувати за Вами!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Ми докладемо всіх зусиль, щоб піктограми відображалися найкраще, але ви отримаєте найкращі результати, завантажуючи файли PNG із прозорим фоном і шириною та висотою в пікселях.
 We will use it only in justified situations.: Ми будемо використовувати його лише в обґрунтованих випадках.
 Weather Station: Метеостанція
@@ -775,6 +849,7 @@ Working period: Термін експлуатації
 Working schedule: Графік діяльності
 YOUR LINK CODE: ВАШ КОД ПОСИЛАННЯ
 You are changing the settings too quickly. You have to wait a while before making this change.: Ви занадто швидко змінюєте налаштування. Перш ніж змінити ці параметри, потрібно трохи почекати.
+You can browse only the most recent logs now. Wait a while for the full history.: Наразі відображаються лише останні вимірювання. Зачекайте деякий час, поки завантажиться вся історія.
 You can ignore this message, if you have accidentally entered an incorrect password.: Ви можете проігнорувати це повідомлення, якщо Ви ввели неправильний пароль.
 You can use the application but you will not be able to modify any settings.: Ви можете використовувати програму, але неможливо внести зміни в конфігурацію.
 You cannot delete your last access identifier.: Ви не можете видалити свій останній ідентифікатор доступу.
@@ -787,6 +862,7 @@ You just need to execute the following command inside your host terminal.: Пр�
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Якщо ви все ще хочете використовувати розширений режим розкладу, перегляньте приклади нижче.
 You must agree to the Terms and Conditions.: Потрібне прийняття правил.
 You must enable MQTT Broker first.: Спочатку потрібно ввімкнути інтеграцію з брокером MQTT.
+You must leave at least one phase enabled.: Принаймні одна фаза повинна залишатися активною.
 You must set an action for each scene operation.: Виберіть дію для кожної операції в сцені.
 You must set sections with transparent or opaque parameters or both.: Ви повинні вибрати прозорість принаймні для одного розділу.
 You need to provide icons for all states.: Ви повинні надати піктограми для всіх станів.
@@ -797,7 +873,11 @@ Your account has been deleted. We hope you will come back to us soon.: Облі�
 Your account has been locked.: Ваш обліковий запис заблоковано.
 Your account has not been confirmed yet.: Ваш обліковий запис ще не підтверджено.
 Your account limits: Ваші ліміти
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Ваш браузер не підтримує механізм клієнтської бази даних (IndexedDB). Ця функція необхідна для відображення графіків і підтримки розширених налаштувань експорту даних. Оновіть браузер або вийдіть з режиму інкогніто, щоб скористатися цими можливостями.
 Your channel groups are allowed to have a maximum of {max} channels.: Ваші групи каналів можуть мати максимум {max} каналів.
+Your chart is being drawn...: Ваш графік побудований...
+Your data are being collected. Please be patient.: Ми збираємо ваші дані, наберіться терпіння.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Ваші дані завантажуються з сервера. Зачекайте, поки завантаження завершаться, перш ніж експортувати їх.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Пристрій дозволяє розширити його функціональність і дозволяє виконувати будь-які дії на будь-якому вашому пристрої. Доступні параметри залежать від мікропрограми та пристрою, що використовується.
 Your email: Ваша електронна скринька
 Your instance is not registered or you are trying to authorize an application that is not public.: Ваш екземпляр не зареєстровано, або ви намагаєтеся авторизувати програму, яка не є загальнодоступною.
@@ -833,11 +913,15 @@ actionTrigger_TURN_ON: Увімкнення
 actionableSubjectType_channel: Канал
 actionableSubjectType_channelGroup: Група каналів
 actionableSubjectType_scene: Сцена
+actionableSubjectType_schedule: Розклад
 addToHistoryMeasurementWarningSelected: Якщо вибрати цю опцію, задані значення будуть додані до майбутніх вимірювань, збережених в історії. Це можна побачити на графіках як раптове збільшення введеного значення. Ми рекомендуємо встановлювати ці параметри лише під час першого встановлення лічильника. Для існуючих лічильників ми рекомендуємо видалити історію вимірювань, як тільки ви зміните ці налаштування.
 addToHistoryMeasurementWarningUnselected: Якщо зняти прапорець із цієї опції, задані значення будуть видалені з майбутніх вимірювань, збережених в історії. Це можна побачити на графіках як раптове падіння. Ми рекомендуємо встановлювати ці параметри лише під час першого встановлення лічильника. Для існуючих лічильників ми рекомендуємо видалити історію вимірювань, як тільки ви зміните ці налаштування.
 after: після
+average: середня
+be at least {numChars} characters long: повинен містити не менше {numChars} символів
 before: перед
 caption: назва
+change: змінити
 channel: Канал
 channelConfigHelp_gateCloseAfterHelp: Виберіть дію для кожної операції в сцені.
 channelConfigHelp_numberOfAttemptsGate: «Після того, як ви віддасте наказ відкрити або закрити ворота, система спробує закрити/відкрити їх і зачекає 60 секунд, щоб перевірити, чи ворота досягли бажаного стану. Якщо ні, система спробує закрити/відкрити знову. Цей параметр визначає максимальну кількість спроб системи досягти мети. Рекомендоване значення — 5. Зміна цього параметра не впливає на роботу розкладів.
@@ -851,8 +935,12 @@ choose the action: оберіть дію
 choose the channel: оберіть канал
 choose the channel group: оберіть групу каналів
 choose the scene: оберіть сцену
+choose the schedule: вибрати розклад
 choose the timezone: оберіть часовий пояс
 click here: натисніть тут
+contains a character that is neither a letter nor a digit: містить символ, який не є ні літерою, ні цифрою
+contains a digit: містить число
+contains lower and upper letters: містить великі та малі літери
 copied: скопійовано
 copy: копіювати
 days: дні
@@ -877,11 +965,21 @@ extend: продовжити
 from IP: з IP-адреси
 from the IP: з адреси
 hours: години
+is at least {numChars} characters long: має не менше {numChars} символів
+last 24 hours: за останні 24 години
+last 30 days: останні 30 днів
+last 6 hours: останні 6 годин
+last 7 days: останні 7 днів
+logs_aggregation_day: днів
+logs_aggregation_hour: години
+logs_aggregation_minute: хвилини
+logs_aggregation_month: місяців
 min.: хв.
 minutes: хвилин
-or add a delay: або додайте затримку
 password: пароль
 prefix: префікс
+previous month: попередній місяць
+range: період
 register-slide1-text: На основі доступної електроніки SUPLA дозволить вам створювати прості модулі, які дозволять  контролювати компоненти автоматизації будівель. Завдяки SUPLA ви можете, серед іншого, керувати освітленням, вмикати та вимикати побутову техніку та аудіо/відео пристрої, відкривати та закривати ворота та двері, контролювати температуру в кімнатах. Ви можете зробити все одним рухом пальця.
 register-slide1-title: Власний розумний будинок
 register-slide2-text: Однією з основних ідей проєкту є простота та доступність. SUPLA дозволяє вам увімкнути світло одним пальцем або відкрити ворота, коли ви хочете увійти до помешкання. SUPLA доступна скрізь, де є доступ до Інтернету та під рукою смартфон або планшет. SUPLA розроблено на основі відкритого програмного забезпечення та відкритого апаратного забезпечення, завдяки чому ви також можете розвивати цей проєкт!
@@ -890,6 +988,7 @@ register-slide3-text: Комерційно доступні системи ав�
 register-slide3-title: Безкоштовна і відкрита!
 reset chart view: повернутися до початкового вигляду
 scene: сцена
+schedule: розклад
 scheduleMode_crontab: Просунутий
 scheduleMode_daily: Тиждень
 scheduleMode_minutely: Інтервал
@@ -917,8 +1016,16 @@ sunrise-after: схід
 sunrise-before: східний
 sunset-after: захід
 sunset-before: західний
+the whole history: повна історія
+this month: поточний місяць
+this year: поточний рік
+today: сьогодні
+unknown: невідомий
 username: ім'я користувача
 valid until: закінчиться
+values as seen on chart: значення як на діаграмі
+values as seen on counter: значення як на лічильнику
+yesterday: вчора
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} не зможе взаємодіяти з вашим обліковим записом, доки ви знову не надасте доступ.'
 '{clientName} wants to access your account.': '{clientName} хоче отримати доступ до вашого облікового запису.'
 '{minutes} minutes after sunrise': '{minutes} хвилин після сходу сонця'
@@ -929,11 +1036,13 @@ valid until: закінчиться
 '{requests} out of {limit} / h': '{requests} z {limit} / г'
 '{requests} out of {limit} / min': '{requests} z {limit} / хв'
 '{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} сек.'
+'{serviceName} integration': Інтеграція з {serviceName}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ...and start your adventure with building automation today!: ...і розпочніть свою подорож у сфері інтелектуального будівництва вже сьогодні!
+Add new item to use in the scene: Додайте новий елемент до сценарію
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
 Authorized OAuth apps: Авторизовані програми OAuth
 Calculated value: Покази лічильника
@@ -944,119 +1053,156 @@ Mobile Apps: Мобільні додатки
 Previous login: Попередній вхід
 Sources available from: Джерела доступні в
 Supla for devices: Supla для пристроїв
+or add a delay: або додайте затримку
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: Підтвердження дії
-Active applications: Активні додатки
-Active sessions: Активні сесії
-Active web sessions: Активні сесії (веб)
-Aggregation: Агрегація
-All events: Всі події
-All logs has been downloaded. Reload the chart to see them.: Всі дані вимірювань були завантажені. Перезавантажте діаграму, щоб побачити їх.
-Application: Додаток
-Applications with access: Додаток з доступом
-Are you sure you want to delete the events from the voltage aberrations history?: Ви впевнені, що хочете видалити всі події з історії про аберації напруги?
-Are you sure you want to log out this device?: Ви впевнені, що хочете вийти з цього пристрою?
-Arithmetic balance: Арифметичний баланс
-Authentication failure: Помилка входу
-Authentication successful: Успішний вхід в систему
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Вимкнення цієї опції дозволить керувати цим пристроєм з інтеграції без додаткового підтвердження. Це може призвести до небезпечного або менш безпечного стану (наприклад, випадкове відкриття воріт).
-By signing in, you are authorizing {clientName} to control your devices.: Увійшовши в систему, ви дозволяєте додатку {clientName} керувати вашими пристроями.
-Change the password and log out: Змініть пароль і вийдіть з системи
-Channel available for {serviceName}: Канал доступний для {serviceName}
-Chart mode: Тип графіка
-Colon: Крапка з комою
-Comma: Кома
-Confirmation: Підтвердження
-Counter: Лічильник
-Counter reset: Скидання лічильника
-Data limits: Обмеження даних
-Date and time: Дата і час
-Download measurements history: Завантажити історію вимірювань
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Лічильник електроенергії не повідомляв про можливість налаштувати додаткові значення. Оновіть прошивку пристрою та спробуйте ще раз.
-Enabled phases: Активні фази
-Expires at: Закінчується
-File format: Формат файлу
-Forward active energy balance: Баланс споживання активної енергії
-From: Від
-I understand that my SUPLA account will be permanently deleted.: Я розумію, що мій обліковий запис SUPLA буде безповоротно видалено.
-IP Address: Адреса IP
-Incremental: Інкрементний
-Integrations settings: Налаштування інтеграції
-Invalid username or password: Неправильне ім'я користувача або пароль
-Log out: Вийти
-Logs transformation: Трансформація цінностей
-No, take me back!: Ні, заберіть мене звідси!
-Noop: Операція не проводиться
-OK: OK
-Operation: Операція
-PIN: PIN
-PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-код для Google повинен мати щонайменше {minLength} і щонайбільше {maxLength} цифр.
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Зміна пароля призведе до виходу з усіх поточних сесій. Однак це не вплине на заявки, які отримали від вас дозвіл. Ви повинні відкликати свою згоду на вхід до програми окремо.
-Password changed: Пароль змінено
-Password reset: Скинути пароль
-Phase {phaseNumber}: Фаза {phaseNumber}
-Predefined time ranges: Часові діапазони
-Reload the chart: Діаграма перезавантаження
-Reverse active energy balance: Баланс активної повернутої енергії
-Scene available for {serviceName}: Сцена доступна для {serviceName}
-Security: Безпека
-Security log: Журнал безпеки
-Selected device has been logged out.: Вибраний пристрій вийшов з системи
-Set values for each phase separately: Визначте значення для кожної фази окремо
-Summary for selected time range: Підсумок для вибраного діапазону
-Tab: Табулятор
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Пристрій, який використовує цю сесію, втратить доступ до SUPLA Cloud. Для того, щоб продовжити користуватися додатком, вам потрібно буде знову увійти в нього.
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Усю історію аберації напруги для фази {phaseNumber} буде видалено.
-The entire history of the voltage aberrations will be removed from this channel.: Для цього каналу буде видалено всю історію аберації напруги.
-The events in voltage aberrations history will be automatically deleted after {days} days.: Події в історії відхилень напруги будуть автоматично видалені через {days}.
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Це завершальний етап видалення Вашого облікового запису. Заповнення та затвердження форми призведе до незворотного видалення Ваших даних.
-'This password will protect your home. Therefore, it must:': 'Цей пароль захистить ваш дім. Тому:'
-To: До
-Total: Сума
-Unknown browser: Невідомий браузер
-Value: Значення
-Value separator: Роздільник
-Vector balance: Векторний баланс
-'We also strongly advise you to choose a password that:': 'Крім того, ми наполегливо рекомендуємо вам вибрати пароль, який:'
-We were not able to prepare your data. Please see the error details below.: Під час підготовки даних сталася помилка. Детальніше про неї читайте нижче.
-We will miss you!: Ми будемо сумувати за Вами!
-You can browse only the most recent logs now. Wait a while for the full history.: Наразі відображаються лише останні вимірювання. Зачекайте деякий час, поки завантажиться вся історія.
-You must leave at least one phase enabled.: Принаймні одна фаза повинна залишатися активною.
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Ваш браузер не підтримує механізм клієнтської бази даних (IndexedDB). Ця функція необхідна для відображення графіків і підтримки розширених налаштувань експорту даних. Оновіть браузер або вийдіть з режиму інкогніто, щоб скористатися цими можливостями.
-Your chart is being drawn...: Ваш графік побудований...
-Your data are being collected. Please be patient.: Ми збираємо ваші дані, наберіться терпіння.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Ваші дані завантажуються з сервера. Зачекайте, поки завантаження завершаться, перш ніж експортувати їх.
-actionableSubjectType_schedule: Розклад
-average: середня
-be at least {numChars} characters long: повинен містити не менше {numChars} символів
-change: змінити
-choose the schedule: вибрати розклад
-contains a character that is neither a letter nor a digit: містить символ, який не є ні літерою, ні цифрою
-contains a digit: містить число
-contains lower and upper letters: містить великі та малі літери
-is at least {numChars} characters long: має не менше {numChars} символів
-last 24 hours: за останні 24 години
-last 30 days: останні 30 днів
-last 6 hours: останні 6 годин
-last 7 days: останні 7 днів
-logs_aggregation_day: днів
-logs_aggregation_hour: години
-logs_aggregation_minute: хвилини
-logs_aggregation_month: місяців
-previous month: попередній місяць
-range: період
-schedule: розклад
-the whole history: повна історія
-this month: поточний місяць
-this year: поточний рік
-today: сьогодні
-unknown: невідомий
-values as seen on chart: значення як на діаграмі
-values as seen on counter: значення як на лічильнику
-yesterday: вчора
-'{serviceName} integration': 'Інтеграція з {serviceName}'
+'% of closing': ~
+Add a new action to the scene: ~
+Are you sure you want to delete this reaction?: ~
+Body: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
+Create new reaction: ~
+Current: ~
+Edit reaction: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
+Invalid scene: ~
+Missing action.: ~
+New reaction: ~
+Notification: ~
+Notification must have a body.: ~
+Notifications: ~
+Phase: ~
+Please fix the problems with operations and try again.: ~
+Please select a condition: ~
+Please select an action: ~
+Power active: ~
+Power apparent: ~
+Power reactive: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Recipients: ~
+Send a notification: ~
+Send notification: ~
+The notification must have a recipient.: ~
+The reaction has been added: ~
+The reaction has been changed: ~
+Title: ~
+Voltage: ~
+When a certain distance is reached: ~
+When a lack of liquid is detected: ~
+When a new mail comes: ~
+When flooding is detected: ~
+When liquid is detected: ~
+When liquid or lack thereof is detected: ~
+When the RGB lighting brightness level changes: ~
+When the RGB lighting reaches a certain level of brightness: ~
+When the active power will be: ~
+When the apparent power will be: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the brightness level changes: ~
+When the brightness will be: ~
+When the color changes: ~
+When the condition is met: ~
+When the current will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness level changes: ~
+When the dimmer reaches a certain brightness level: ~
+When the distance changes: ~
+When the distance will be: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter reaches a certain value: ~
+When the electricity meter value changes: ~
+When the electricity meter value will be: ~
+When the forward active energy will be: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter value changes: ~
+When the gas meter value reaches a certain value: ~
+When the gas meter value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter value changes: ~
+When the heat meter value reaches a certain value: ~
+When the heat meter value will be: ~
+When the humidity changes: ~
+When the humidity reaches a certain level: ~
+When the humidity will be: ~
+When the lighting reaches a certain level of brightness: ~
+When the mail comes or is taken: ~
+When the mail has been taken: ~
+When the precipitation amount will be: ~
+When the pressure changes: ~
+When the pressure reaches a certain level: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power will be: ~
+When the reverse active energy will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches a certain position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches a certain position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the temperature changes: ~
+When the temperature reaches a certain value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage will be: ~
+When the water meter reaches a certain value: ~
+When the water meter value changes: ~
+When the water meter value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches a certain speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches a certain value: ~
+You must set an action for each reaction.: ~
+actionableSubjectType_notification: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
+choose access identifiers: ~
+choose the access identifiers: ~
+notification: ~
+or another element: ~
+sum: ~
+then execute the action: ~
 
 #</editor-fold>

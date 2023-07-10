@@ -30,13 +30,17 @@ Access to all of your devices through MQTT Broker: Tilgang til alle enhetene din
 Account: Konto
 Account access when you are unavailable: Tilgang til konto når du ikke er tilgjengelig
 Account has been activated. You can Sign In now.: Konto ble aktivert. Du kan logge inn
+Action confirmation: Bekreftelse på handling
 Action execution: Utfør handlingen
 Action trigger: Handlingsutløser
 'Action trigger no. #{index}': 'Utløser # {indeks}'
 Action triggers: Handlingsutløser
 Actions: Handlinger
 Active: Aktive
+Active applications: Aktive apper
 Active period: Aktivitetsperiode
+Active sessions: Aktive økter
+Active web sessions: Aktive økter (web)
 Add: Legg til
 Add a delay: Legg til en forsinkelse
 Add a new icon: Legg til ny ikon
@@ -44,7 +48,6 @@ Add action: Legg til en handling
 Add first channel to set channel group function and save it: Velg den første kanalen for å bestemme gruppefunksjonen og lagre den
 Add new channel group: Legg til kontaktgruppe
 Add new channel to this group: Legg til ny kanal til gruppen
-Add new item to use in the scene: Legg til et nytt element til scenen
 Adjust parameters: Angi parameterne
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Alle kanaler og kanalgrupper som benytter seg av dette ikonet vil få en standard ikon etter fjerning av denne.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Etter å ha gitt tilgang, kan du alltid ombestemme deg ved å fjerne tilgangen i kontoinnstillingene.
@@ -52,7 +55,10 @@ After the device enters the configuration mode, it will not be accessible on you
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Etter oppdatering vil appen være raskere, mer praktisk ... Rett og slett bedre!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Telleren vil begynne å telle fra 0 etter denne operasjonen, uavhengig av gjeldende tilstand. Denne operasjonen kan ikke angres.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Lenken genereres etter du har valgt enheten. Du kan angi resten av alternativene så snart du oppretter den.
+Aggregation: Aggregering
 All: Alt
+All events: Alle hendelser
+All logs has been downloaded. Reload the chart to see them.: Alle måledata ble lasted ned. Last inn diagrammet på nytt for å se dem.
 All the above and many more can be done from your phone or tablet: Alt dette og mye mer kan du gjøre ved hjelp av din smarttelefon eller nettbrett.
 Allowed actions: Tillate handlinger
 Allows to perform an action only using the HTTP PATCH request.: Gjennomføring av handlingen er kun tillat ved bruk av HTTP PATCH.
@@ -60,12 +66,15 @@ Alternatively, you can add a GET parameter to specify response format.: Du kan o
 And more: Og mye mer.
 Any application or device that uses the {tokenName} token will not work anymore.: Alle applikasjoner og enheter som benytter seg av token {tokenName} vil slutte å fungere.
 'App version: %clientAppSoftwareVersion%': 'Appversjon: %clientAppSoftwareVersion%'
+Application: En app
 Application name cannot be blank.: Applikasjon navnet kan ikke være tomt.
 Application requirements: Krever applikasjon
 Applications: Apper
+Applications with access: En app med tilgang
 Are you lost?: Har du rotet deg vill? Ser du etter noe?
 Are you sure you want to change channel’s function?: CEr du sikker på at du ønsker å endre kanalfunksjonen?
 Are you sure you want to delete the entire measurement history saved for this channel?: Er du sikker på at du ønsker å fjerne hele målingshistorien for denne kanalen?
+Are you sure you want to delete the events from the voltage aberrations history?: Er du sikker på at du vil slette alle hendelser fra historien om spenningsavvik?
 Are you sure you want to delete this OAuth application?: Er du sikker på at du ønsker å fjerne OAuth?
 Are you sure you want to delete this channel group?: Er du sikker på at du ønsker å fjerne denne kanalgruppen?
 Are you sure you want to delete this client?: Er du sikker på at du ønsker å fjerne kundeapplikasjonen?
@@ -73,10 +82,12 @@ Are you sure you want to delete this direct link?: Er du sikker på at du ønske
 Are you sure you want to delete this icon?: Er du sikker på at du ønsker å fjerne dette ikonet?
 Are you sure you want to delete this scene?: Er du sikker på at du vil slette denne scenen?
 Are you sure you want to delete this schedule?: Er du sikker på at du ønsker å fjerne denne planen?
+Are you sure you want to log out this device?: Er du sikker på at du vil logge ut av denne innretningen?
 Are you sure you want to reset the counter state?: Er du sikker på at du vil tilbakestille telleren?
 Are you sure you want to revoke permissions granted to this OAuth application?: Er du sikker på at du ønsker å trekke tilbake tillatelsene gitt til denne applikasjonen?
 Are you sure you want to revoke this token?: Er du sikker på at du vil tilbakekalle token?
 Are you sure?: Er du sikker?
+Arithmetic balance: Aritmetisk balanse
 As in device: Som i enheten
 Assign Access Identifiers: Tildel tilgang identifikator
 Assign Client apps: Tildel kundeapplikasjoner
@@ -90,6 +101,8 @@ At specified time: For den angitte tiden
 At sunrise: ved soloppgang
 At sunrise, Monday through Friday: ved soloppgang, mandag til fredag
 At sunset: ved solnedgang
+Authentication failure: Feil med pålogging
+Authentication successful: Pålogging fullført
 Authorization callback URLs (one per line): Omdirigering autorisasjon URL (en per linje)
 Authorize the application, so that it can access your account.: Autoriser applikasjonen slik at den får tilgang til Din konto.
 Authorized: Autorisert
@@ -106,6 +119,8 @@ Below threshold: Under terskelen
 Bottom position: Lavere posisjon
 Bridge: Bro
 Brightness: Lysstyrke
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Deaktivering av dette alternativet vil tillate deg å kontrollere denne innretningen fra integreringsnivået uten ytterligere bekreftelse. Dette kan lede til usikre eller mindre sikre tilstand (f.eks. utilsiktet åpning av en port).
+By signing in, you are authorizing {clientName} to control your devices.: Ved å logge på tillater du {clientName}-applikasjonen til å kontrollere innretningene dine.
 CLICK TO DISABLE: TRYKK FOR Å SKRU AV
 CLICK TO ENABLE: TRYKK FOR Å SKRU PÅ
 Calibrate: Kalibrer
@@ -127,9 +142,11 @@ Change Password: Endre passord
 Change channel function: Endre funksjonen til kanalen
 Change function: Endre funksjon
 Change icon: Endre ikon
+Change the password and log out: Bytt passord og logg ut
 Changing channel’s function will also result in the following changes.: Endring av kanalfunksjoner vil medføre følgende endringer.
 Channel: Kanal
 Channel No: Kanalnummer
+Channel available for {serviceName}: Kanal tilgjengelig for {serviceName}
 Channel for the partial opening sensor: Kanal for delvisåpning sensor
 Channel for the sensor: Sensor for kanalen
 Channel group: Kanalgruppe
@@ -146,6 +163,7 @@ Channel with action triggers: Kanal med handlingstriggere
 Channels: Kanaler
 Channels groups are not supported for this function.: Denne funksjonen støtter ikke kanalgrupper.
 Chart data source type: Type datakilde
+Chart mode: Diagramtype
 Chart type: Diagramtype
 Check the direct link you used and try again.: Sjekk valgt direkte lenke og prøv en gang til.
 Check your email box: Sjekk din e-post
@@ -168,8 +186,10 @@ Close: Steng
 Close after: Lukk etter
 Close automatically: Lukk automatisk
 Close partially: Lukk delvis
+Colon: Semikolon
 Color: Farge
 Color brightness: Farge lysstyrke
+Comma: Komma
 Comment: Kommentar
 Config of the schedule is too complicated.: Tidsplankonfigurasjonen er for komplisert.
 Configuration: Konfigurasjon
@@ -179,6 +199,7 @@ Confirm if you want to perform the roller shutter calibration.: Bekreft at modul
 Confirm if you want to remove Access Identifier: Bekreft at du vil fjerne tilgang identifikator
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Bekreft at du vil fjerne Lokalisering ID {locationId}. Videre kobling av enheter inngang/utgang med denne lokaliseringen blir ikke mulig.
 Confirm if you want to remove {deviceName} device and all of its channels.: Bekreft at du vil fjerne {deviceName} og alle tilhørende kanaler.
+Confirmation: Bekreftelse
 Connected: Tilkoblet
 Connection with a private instance of the SUPLA cloud: Tilkobling til privat SUPLA Cloud
 Constraints: Begrensninger
@@ -187,6 +208,8 @@ Could not contact Autodiscover service. Try again in a while.: Kan ikke ta konta
 Could not enter the configuration mode.: Kunne ikke sette enheten i konfigurasjonsmodus.
 Could not reset the password.: Ikke mulig å tilbakestille passordet.
 Could not reset the password. Please try again later.: Ikke mulig å tilbakestille passordet. Prøv senere.
+Counter: Teller
+Counter reset: Tilbakestilling av telleren
 Create New Access Identifier: Opprett ny Tilgang Identifikator
 Create New Location: Opprett ny lokalisering
 Create New Schedule: Opprett nytt program
@@ -203,7 +226,9 @@ DHT11 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT11
 DHT21 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT21
 DHT22 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT22
 DS18B20 Thermometer: Termometer DS18B20
+Data limits: Datagrenser
 Data saved: Gara ble lagret
+Date and time: Dato og tid
 Decline: Avvis
 Default: som standard
 Delete: Fjern
@@ -250,15 +275,18 @@ Door lock operation: Døråpning
 Door opening sensor: Døråpner sensor
 Doors and gates: Dører og porter
 Doors, Gates, Windows: Dører, porter, vinduer
+Download measurements history: Last ned målehistorikk
 Download the history of measurement: Last ned målingshistorien
 Drag your image(s) here or click to select from the disk: Dra bildet over her eller trykk for å velge fra disken
 E-mail notifications: E-postvarsler
 Edit: Rediger
 Electric: Elektronikk
 Electricity meter: Elektrisitetsmåler
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Strømmåleren rapporterte ikke om muligheten til å konfigurere merverdier. Oppdater innretnings fastvare og prøv på nytt.
 Empty!: Tomt!
 Enable: På
 Enabled: PÅ
+Enabled phases: Aktive faser
 End date: Avslutningsdato
 Enter new password: Tast inn nytt passord
 Enter strong password: Tast inn et sterkt passord
@@ -282,9 +310,11 @@ Execution history: Utførelse historie
 Execution limit: Grense på utførelser
 Executions: Utførelser
 Expired: Utdatert
+Expires at: Utløper
 Failed: Mislykket
 Failed (zombie): Mislykket (zombie)
 Feature limits: Driftsgrenser
+File format: Feil filformat
 File is too large: Filen er for stor
 Flooding: Vannskader
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Det anbefales å bruke {suplaUrl}-adressen under oppdateringen.
@@ -292,9 +322,11 @@ For devices: For enheter
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: ZFor sikkerhetsmessige grunner full URL av denne direkte lenken blir vist kun en gang ved dens opprettelse.
 Forgot your password?: Husker du ikke passordet?
 Forward active energy: Aktiv energi nedlastet
+Forward active energy balance: Balanse av aktiv energi absorbert
 Forward active energy balanced: Aktivt energiforbruk (vektorbalanse)
 Forward reactive energy: Passiv energi nedlastet
 Fridays: Fredager
+From: Fra
 From anywhere: Fra hvert sted
 Full closing time: Total stengetid
 Full documentation: Full dokumentasjon
@@ -337,10 +369,12 @@ I agree: Jeg samtykker
 I aree, taske me to the app: Jeg samtykker, gå til applikasjonen
 I confirm! Delete my account.: Jeg bekrefter! Fjern min konto.
 I do not agree, get me out of here: Jeg er ikke enig, ta meg bort fra her
+I understand that my SUPLA account will be permanently deleted.: Jeg er innforstått med at SUPLA-kontoen min vil bli ugjenkallelig slettet.
 I/O Devices: Enheter inngang/utgang
 I/O devices registration: Registrering av enheter
 ID: ID
 INACTIVE: INAKTIV
+IP Address: IP-adresse
 Icon: Ikon
 Idle: Hvile modus
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Hvis enheten for øyeblikket er i hvilemodus, vil konfigurasjonsendringer bli gjort når den er våken.
@@ -371,12 +405,14 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Ikke aktiv
 Include energy corrections in new measurements history (not recommended): Inkluder merverdi i historien (anbefales ikke)
 Incorrect password: Feil passord
+Incremental: Inkrementell
 Information: Informasjon
 Inherit I/O Device location: Benytt deg av enhetens lokalisering
 Initial value: Startverdi
 Integration with MQTT Broker has been disabled.: Integrasjon med MQTT er deaktivert.
 Integration with MQTT Broker has been enabled.: Integrasjon med MQTT er aktivert.
 Integrations: Integrasjoner
+Integrations settings: Innstillinger for integrering
 Interpolate measurements: Estimer de manglende verdiene
 Interrupt: Stopp
 Interrupt and execute: Stopp og utfør
@@ -388,6 +424,7 @@ Invalid function for channel.: Ugyldig funksjon for kanale
 Invalid request: Ugyldig forespørsel
 Invalid request.: Feil handling.
 Invalid token.: Feil token.
+Invalid username or password: Feil brukernavnet eller passordet
 Inverted logic: Omvendt logikk
 Invisible: Usynlig
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Det er mulig at en annen bruker tastet inn ved en feil din e-post for å tilbakestille passordet til sin egen konto.
@@ -409,7 +446,9 @@ Location Identifier: Lokalisering identifikator
 Location limit has been exceeded: Grensen på lokaliseringer er overskredet
 Location name: Stedsnavn
 Locations: Sted
+Log out: Logg ut
 Login: Logg inn
+Logs transformation: Verditransformasjon
 Longest aberration: Lengste avvik
 Lower voltage threshold: Lav spenning terskel
 MQTT Broker: MQTT
@@ -467,6 +506,7 @@ No of devices: Antall enheter
 No of operations: Antall handlinger
 No results match {0}: Ingen resultater passer til {0}
 No schedule configuration.: Ingen tidsplankonfigurasjon ble spesifisert.
+No, take me back!: Nei, få meg ut herfra!
 No. of Client’s apps: Antall kundeapplikasjoner
 No. of access identifiers: Antall tilgang identifikatorer
 No. of channel groups: Antall kanalgrupper
@@ -475,6 +515,7 @@ No. of devices: Antall enheter
 No. of locations: Antall lokaliseringer
 None: Mangel
 None (channel disabled): Ingen (kanal av)
+Noop: Ingen drift
 Number of aberrations: Antall avvik
 Number of attempts to close: Antall lukeforsøk
 Number of attempts to open: Antall åpningsforsøk
@@ -483,6 +524,7 @@ OAuth application: Applikasjon OAuth
 OAuth apps: Appene OAuth
 OAuth authorization: Autorisasjon OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integrasjoner med Oauth-apper kan slutte å fungere etter avregistrering av cloud.
+OK: OK
 'Off': Av
 Offline access: Tilgang offline
 Older: Eldre
@@ -493,16 +535,22 @@ Open: Åpne
 Open / close: Åpne / steng
 Open partially: Åpne delvis
 Opening sensor: Åpningssensor
+Operation: Drift
 Operations: Handlinger
 Original location: Opprinnelig lokalisering
 Other: Andre
 Otherwise go to the homepage.: I et annet tilfelle gå til [hjemmeside].
+PIN: PIN-koden
+PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-koden for Google må ha minst {minLength} og høyst {maxLength} sifre.
 Partial opening sensor: Delvisåpning sensor
 Password: Passord
 Password Reset: Tilbakestilling av passordet
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Endring av passord vil logge ut alle aktuelle økter. Dette vil imidlertid ikke påvirke på apper som har fått godkjenning fra deg. Samtykke til pålogging til appen må trekkes tilbake separat.
+Password changed: Passordet har blitt byttet
 Password has been changed: Passordet ble endret
 Password must be at least {minLength} characters.: Passord må ha minst {minLength} tegn.
 Password must be no longer than {maxLength} characters.: Passordet kan ikke være lengre enn {maxLength} tegn.
+Password reset: Tilbakestill passord
 Password reset instructions.: Instruksjoner for å gjenopprette tilgang til kontoen din.
 Percentage of closing: Prosent av stenging
 Personal access tokens: Personlige tilgang token
@@ -512,6 +560,7 @@ Phase 1: Fase 1
 Phase 2: Fase 2
 Phase 3: Fase 3
 Phase number: Fase
+Phase {phaseNumber}: Fase {phaseNumber}
 Please choose the schedule subject first.: Velg først hva timeplanen skal styre
 Please click the following link to reset your %cloudHost% password.: Trykk på lenken nedenfor for å tilbakestille ditt %cloudHost% passord.
 Please click the link we have sent you after the registration to proceed.: Trykk på lenken i meldingen vi sendte til deg etter oppretting av konto.
@@ -524,6 +573,7 @@ Please read the Terms and Conditions.: Les regelverket.
 Please wait a moment before the next login attempt.: Vent litt før det neste pålogging forsøket.
 Port: Port
 Precision: Presisjon
+Predefined time ranges: Tidsintervaller
 Pressure sensor: Trykksensor
 Price per: Pris for
 Private Cloud domain name: Domenenavn på privat Cloud
@@ -552,6 +602,7 @@ Registered: Registrert
 'Registered from IP address: %deviceRegIp%': 'IP-adressen: %deviceRegIp%'
 Relay: Relé
 Relay switching time: Relé koblingstid
+Reload the chart: Last inn diagrammet på nytt
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Før du fjerner lokalisering må du først flytte kanalgrupper som finnes i den. Identifikatorer: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Før du fjerner lokalisering må du først flytte kanalene som finnes i den. Identifikatorer: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Fjern relaterte enheter før du fjerner lokaliseringen. Identifikator: {relatedIds}.'
@@ -564,6 +615,7 @@ Retry on failure: Gjenta når ikke utført
 Reveal: Avdekk
 Reveal partially: Avdekk delvis
 Reverse active energy: Aktiv energi returnert
+Reverse active energy balance: Balanse av aktiv energi som returneres
 Reverse active energy balanced: Aktiv energi returnert (vektorbalanse)Aktivt energiforbruk (vektorbalanse)
 Reverse reactive energy: Passiv energi returnert
 Revoke: Opphev
@@ -592,6 +644,7 @@ Save changes: Lagre endringer
 Save changes to see Access IDs: Lagre endringer for å vise tilgang identifikator
 Save or discard configuration changes first.: Først lagre eller forkast konfigurasjonsendringene.
 Scene: Scene
+Scene available for {serviceName}: Scene tilgjengelig for {serviceName}
 Scene must consist of at least one operation.: Scene må inneholde minst en operasjon.
 Scenes: Scene
 Scenes limit has been exceeded: Du kan ikke lage flere scener
@@ -604,12 +657,15 @@ Scopes: Omfang
 Scopes define which sections of your account can be accessed when using the token.: Omfang bestemmer hvilke konto innhold man kan få tilgang ved bruk av token.
 Search: Søk
 Secret: Hemmelignøkkel (secret)
+Security: Sikkerhet
+Security log: Sikkerhetslogg
 See available integrations: Se tilgjengelige integrasjoner
 See direct link possibilities: Se mulighetene til direkte lenke
 See in SUPLA-Cloud: Se i SUPLA-Cloud
 Seems like a secret place: Vi har på følelse at du ikke burde være her
 Select icon: Velg ikon
 Select the item (subject) you want to control using this link: Velg enhet du ønsker å kontrollere ved bruk av denne lenken
+Selected device has been logged out.: Den valgte innretningen har blitt logget ut
 Sensor (normal closed): Sensor (vanligvis stengt)
 Sensor (normal open): Sensor (vanligvis åpen)
 Sensor disconnected: Manglende sensor
@@ -618,6 +674,7 @@ Server address: Serveradresse
 Server unreachable: Server ikke tilgjengelig
 Service temporarily unavailable: Tjeneste midlertidig ikke tilgjengelig
 Set value added: Estimer merverdi
+Set values for each phase separately: Bestem verdien for hver fase separat
 Setting the number of attempts to 1 disables the retrying behavior completely.: Innstilling av antall forsøk til mindre enn 2 kan føre til at lukking eller åpning ikke finner sted.
 Show my limits: Vis mine begrensninger
 Show on the Client’s devices: Vis i kundeenheter
@@ -646,10 +703,12 @@ Store measurements history: Lagre målehistorikk
 Subject type: Enhetstype
 Success: Suksess
 Successful: Vellykket
+Summary for selected time range: Sammendrag for det valgte omfanget
 Sundays: Søndager
 Switch the device to configuration mode: Sett enheten i konfigurasjonsmodus
 THIS CANNOT BE UNDONE!: DU KAN IKKE ANGRE PÅ DENNE HANDLINGEN!
 TLS: TLS
+Tab: Tabulator
 Target Cloud is not registered, or is registered with another e-mail address.: Denne SUPLA Cloud er ikke registrert eller er registrert med en annen e-postadresse.
 Temperature: Temperatur
 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor
@@ -668,6 +727,10 @@ The client will be automatically logged out when deleted.: Fjerning av kunden be
 The counter has been reset.: Telleren er tilbakestilt.
 The device is disabled: Enheten er av
 The device might be in a sleep mode.: Enheten kan fungere i hvilemodus.
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Innretningen som bruker denne økten, mister tilgangen til SUPLA Cloud. For å kunne fortsette å bruke applikasjonen, må man logge inn på nytt.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: All spenningsavvikshistorikk for fase {phaseNumber} skal bli fjernet.
+The entire history of the voltage aberrations will be removed from this channel.: Alle historien for spenningsavvik fjernes for denne kanalen.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Hendelser i spenningsavvikshistorikken slettes automatisk etter {days} dager.
 The following items use the channels of these device. These references will be also removed.: Følgende elementer bruker kanaler fra denne enheten. De vil også bli slettet.
 'The following items will be deleted with this device:': Følgende elementer vil også bli slettet sammen med denne enheten.
 The gate sensor must function properly in order to execute the Open and Close actions.: Portåpner sensor må fungere riktig for å utføre handlingen Åpne eller Steng.
@@ -699,17 +762,21 @@ Thermometer: Termometer
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Denne lenken krever en presisering av parameter av den utførte handlingen. Se parameterne nedenfor for å finne ut hvilke parameter du kan sette.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Du mottar denne meldingen fordi det har vært et mislykket forsøk på å logge inn til SUPLA-CLOUD med din adresse.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Dette er den siste etappen i slettingen av kontoen din. Hvis du fyller ut og bekrefter skjemaet, slettes opplysningene dine ugjenkallelig.
 This is the list of applications you have granted access to your account.: Dette er en liste med applikasjoner du har gitt tilgang til din konto.
 This link is only valid for an hour.: Lenken er aktiv i en time.
+'This password will protect your home. Therefore, it must:': 'Dette passordet vil verne hjemmet ditt. Derfor:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Denne tidsplanmodusen er designet for tekniske eller svært tålmodige brukere. Det krever at tidsplanens utløsertider spesifiseres i crontab-notasjon, beriket med flere funksjoner som bare finnes i SUPLI. Hvis du ikke har sett crontabs før og fortsatt ønsker å bruke denne modusen, kan nettstedet crontab.guru være til hjelp for deg.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Denne utløseren brukes lokalt av enheten (f.eks. slår den på lyset, kontrollerer rullegardinen osv.). Hvis du tilordner den en annen handling, vil den lokale funksjonen bli deaktivert.
 Thursdays: Torsdager
 Timezone: Tidssone
+To: Til
 Toggle: Bytt
 Token does not exist: Token finnes ikke
 Too many actions in this schedule.: For mange handlinger i én tidsplan.
 Too many channels in this group: For mange kanaler i denne gruppen
 Too many operations in this scene: For mange operasjoner på åstedet.
+Total: Sum
 Total time: Total tid
 Triggers: Utløsere
 Tuesdays: Tirsdager
@@ -719,6 +786,7 @@ Type: Type
 Undo registration: Trekk tilbake registreringen
 Unit: Enhet
 Unknown: Ukjent
+Unknown browser: Ukjent nettleser
 Unregister my private SUPLA Cloud instance: Avregistrer min private SUPLA Cloud
 Unsuccessful login attempt: Innlogging mislyktes
 Unsupported function: Funksjon ikke støttet
@@ -729,10 +797,13 @@ Upper voltage threshold: Høy spenning terskel
 'Use the {0} server command to change this account''s limits. For example:': 'For å endre grensene for denne kontoen, bruk kommandoen {0} på serveren din. For eksempel:'
 Use working schedule for this access identifier: bruk tilgjengelighetsplanen for denne tilgangs-IDen
 User is already confirmed. Try to log in.: Konto er bekreftet. Logg inn.
+Value: Verdi
 Value added: Merverdi
 Value per unit: Verdi per enhet
+Value separator: Separator
 Valve: Ventil
 Valve closed manually: Ventil stengt manuelt
+Vector balance: Vektorbalanse
 Verification method: Verifisering metode
 Visible: Synlig
 Visit app webpage: Åpne nettsiden til applikasjonen
@@ -744,6 +815,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Vent litt før du sender en ny forespørsel. Du kan sjekke den nåværende statusen av begrensningene dine i kontoinnstillingene.
 Wait for this scene to finish before proceeding to the next step ({time}).: Vent til scenen er ferdig før du fortsetter handlingen ({time}).
 Water meter: Vannmåler
+'We also strongly advise you to choose a password that:': 'I tillegg anbefaler vi utvilsomt at du velger et passord som:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Vi vil sende deg varsler om visse hendelser knyttet til kontoen din. Du kan melde deg av de du ikke trenger.
 We could not connect to your SUPLA Cloud instance.: Vi kunne ikke koble til din privat SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Vi har fått beskjed at du ønsker å fjerne din SUPLA Cloud konto (%cloudHost%).
@@ -755,7 +827,9 @@ We should be ready shortly.: Vi bør bli ferdige snart
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Vi lagrer informasjon om dine preferanser i nettleseren din for å gjøre bruken av applikasjoner lettere (f.eks. ved hjelp av informasjonskapsler).
 We try to be faster: Vi er raskere og raskere
 We were not able to find your account.: Vi klarte ikke å finne din konto.
+We were not able to prepare your data. Please see the error details below.: Det oppstod en feil under klargjøring av data. Bli kjent med detaljene nedenfor.
 We will miss you: Vi kommer til å savne deg
+We will miss you!: Vi kommer til å savne deg!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Vi gjør alt vi kan for at ikonene du sendte skal synes godt, men du vil få de beste resultatene hvis du sender PNG filer med gjennomsiktig bakgrunn og bredden {width} og høyden {height} piksler.
 We will use it only in justified situations.: Vi vil kun bruke den i berettiget situasjoner.
 Weather Station: Værstasjon
@@ -775,6 +849,7 @@ Working period: Driftsperiode
 Working schedule: Aktivitetsplan
 YOUR LINK CODE: DIN LENKE KODE
 You are changing the settings too quickly. You have to wait a while before making this change.: Du endrer innstillinger for fort.  Du må vente litt før du endrer disse innstillingene.
+You can browse only the most recent logs now. Wait a while for the full history.: For nå vises det bare de nyeste målingene. Vent et øyeblikk til hele historien er lastet ned.
 You can ignore this message, if you have accidentally entered an incorrect password.: Dersom det er du som har innført feil passord er det bare å se bort ifra denne meldingen.
 You can use the application but you will not be able to modify any settings.: Du kan bruke appen men det er ikke mulig å gjøre endringer
 You cannot delete your last access identifier.: Du kan ikke fjerne din siste tilgang identifikator.
@@ -787,6 +862,7 @@ You just need to execute the following command inside your host terminal.: Det h
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Hvis du fortsatt vil bruke den avanserte planleggingsmodusen, ta en titt på eksemplene nedenfor.
 You must agree to the Terms and Conditions.: Du må godkjenne regelverket.
 You must enable MQTT Broker first.: Først slå på integrasjon med MQTT
+You must leave at least one phase enabled.: Minst én fase må forbli aktiv.
 You must set an action for each scene operation.: Velg en handling for hver handling i scenen.
 You must set sections with transparent or opaque parameters or both.: Du må velge åpenhet for minst én seksjon.
 You need to provide icons for all states.: Du må levere ikoner for alle tilstander.
@@ -797,7 +873,11 @@ Your account has been deleted. We hope you will come back to us soon.: Konto ble
 Your account has been locked.: Din konto er sperret.
 Your account has not been confirmed yet.: Din konto er ikke bekreftet enda.
 Your account limits: Dine begrensninger
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Nettleseren din støtter ikke klientdatabasemekanismen (IndexedDB). Denne funksjonaliteten er nødvendig for å vise diagrammer og støtte avanserte innstillinger for dataeksport. Oppdater nettleseren din eller gå ut av privatmodus for å benytte seg av disse funksjonene.
 Your channel groups are allowed to have a maximum of {max} channels.: Kanalgruppene dine kan ha maksimalt {max} kanaler.
+Your chart is being drawn...: Diagrammet ditt tegnes akkurat nå...
+Your data are being collected. Please be patient.: Vi samler inn dataene dine, vent et øyeblikk.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dataene dine lastes ned fra serveren. Vent til nedlastningene er fullført før du eksporterer dem.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Enheten lar deg utvide funksjonaliteten og lar deg utføre enhver handling på hvilken som helst enhet du eier. De tilgjengelige alternativene avhenger av fastvaren og enheten du bruker.
 Your email: Din e-post
 Your instance is not registered or you are trying to authorize an application that is not public.: Din cloud er enten ikke registrert eller prøver du å autorisere en applikasjon som ikke er offentlig.
@@ -833,11 +913,15 @@ actionTrigger_TURN_ON: Skru på
 actionableSubjectType_channel: Kanal
 actionableSubjectType_channelGroup: Kanalgruppe
 actionableSubjectType_scene: Scene
+actionableSubjectType_schedule: Tidsplan
 addToHistoryMeasurementWarningSelected: Ved å merke av for dette alternativet vil de angitte verdiene legges til fremtidige målinger som er lagret i loggen. Dette kan sees i grafene som en plutselig økning av den angitte verdien. Vi anbefaler at du bare stiller inn disse parameterne når du først installerer måleren. For eksisterende målere anbefaler vi at du sletter målehistorikken så snart du endrer disse innstillingene.
 addToHistoryMeasurementWarningUnselected: Hvis du fjerner valget av dette alternativet, ignoreres de angitte verdiene i fremtidige målinger som er lagret i historikken. Dette kan sees i diagrammene som et plutselig fall. Vi anbefaler at du bare stiller inn disse parameterne når du først installerer måleren. For eksisterende målere anbefaler vi at du sletter målehistorikken så snart du endrer disse innstillingene.
 after: etter
+average: gjennomsnitt
+be at least {numChars} characters long: må inneholde minst {numChars} tegn
 before: før
 caption: navn
+change: bytt
 channel: Kanal
 channelConfigHelp_gateCloseAfterHelp: Agenten som utløser portlukkingsprosedyren kan ha et maksimum på ett minutts forsinkelse i forhold til innstillingstiden.
 channelConfigHelp_numberOfAttemptsGate: Etter at du har beordret porten til å åpne eller lukke, vil systemet forsøke å lukke/åpne den og vente 60 sekunder for å sjekke om porten har nådd ønsket tilstand. Hvis ikke, vil systemet prøve å lukke/åpne igjen. Denne parameteren definerer maksimalt antall forsøk fra systemet for å nå målet. Anbefalt verdi er 5. Endring av denne parameteren påvirker ikke driften av tidsplaner.
@@ -851,8 +935,12 @@ choose the action: velg aksjon
 choose the channel: velg kanal
 choose the channel group: velg kanalgruppe
 choose the scene: velg scene
+choose the schedule: velg tidsplan
 choose the timezone: velg kanalgruppe
 click here: klikk her
+contains a character that is neither a letter nor a digit: inneholder et tegn som verken er en bokstav eller et tall
+contains a digit: inneholder et tall
+contains lower and upper letters: inneholder små og store bokstaver
 copied: kopiert
 copy: kopier
 days: dager
@@ -877,11 +965,21 @@ extend: forleng
 from IP: fra IP-adresse
 from the IP: fra adresse
 hours: timer
+is at least {numChars} characters long: har minst {numChars} tegn
+last 24 hours: siste 24 timer
+last 30 days: siste 30 dager
+last 6 hours: siste 6 timer
+last 7 days: siste 7 dager
+logs_aggregation_day: dager
+logs_aggregation_hour: timer
+logs_aggregation_minute: minutter
+logs_aggregation_month: måneder
 min.: min.
 minutes: minutt
-or add a delay: Eller legg til en forsinkelse
 password: Passord
 prefix: prefiks
+previous month: forrige måned
+range: omfang
 register-slide1-text: Ved hjelp av tilgjengelige enheter SUPLA gir deg mulighet til å skape enkle moduler til å styre og kontrollere deler av automatikken i bygget. Med SUPLA kan du blant annet styre belysningen, skru av og på hvitevarer og elektronikk, åpne og stenge porter og dører samt kontrollere temperaturen i rommene. Alt dette kan du gjøre med et sveip.
 register-slide1-title: Ditt eget smart bygg
 register-slide2-text: Noen av de grunnleggende forutsetningene til prosjektet er enkelhet og tilgjengelighet. SUPLA gir deg muligheten til å åpne porten når du skal kjøre inn på eiendommen din med et sveip. SUPLA er tilgjengelig over alt hvor du har tilgang til internett og har en smarttelefon eller nett brett. SUPLA er en OpenSource programvare derfor kan du også bli med på å utvikle den!
@@ -890,6 +988,7 @@ register-slide3-text: Byggautomatisering systemer tilgjengelig på markedet er v
 register-slide3-title: Gratis og åpen!
 reset chart view: Tilbake til første utsikt
 scene: scene
+schedule: tidsplan
 scheduleMode_crontab: avansert
 scheduleMode_daily: Dagsyklus
 scheduleMode_minutely: Minuttsyklus
@@ -917,8 +1016,16 @@ sunrise-after: soloppgang – etter
 sunrise-before: soloppgang – før
 sunset-after: solnedgang – etter
 sunset-before: solnedgang – før
+the whole history: hele historien
+this month: nåværende måned
+this year: nåværende år
+today: i dag
+unknown: ukjent
 username: Brukernavn
 valid until: utløper
+values as seen on chart: verdier som i diagrammet
+values as seen on counter: verdier som på telleren
+yesterday: i går
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan ikke samhandle med din konto før du gir tilgang på nytt.'
 '{clientName} wants to access your account.': '{clientName} ber om tilgang til din konto.'
 '{minutes} minutes after sunrise': '{minutes} minutter etter soloppgang'
@@ -929,6 +1036,7 @@ valid until: utløper
 '{requests} out of {limit} / h': '{requests} fra {limit} / t'
 '{requests} out of {limit} / min': '{requests} fra {limit} / min'
 '{requests} out of {limit} / {seconds} sec.': '{requests} fra {limit} / {seconds} sek.'
+'{serviceName} integration': Integrering med {serviceName}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -937,6 +1045,7 @@ valid until: utløper
 Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
 Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
 Action: Handling
+Add new item to use in the scene: Legg til et nytt element til scenen
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Er du sikker på at du vil slette all spenningsavvikshistorikk for denne kanalen?
 Are you sure you want to disable this device?: Er du sikker på at du ønsker å skru av denne enheten?
 Assigned Locations: Tildelte lokaliseringer
@@ -990,119 +1099,156 @@ When: Når
 You will be logged out shortly: Snart blir du logget ut.
 execute: utfør
 hourly: Timesyklus
+or add a delay: Eller legg til en forsinkelse
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: Bekreftelse på handling
-Active applications: Aktive apper
-Active sessions: Aktive økter
-Active web sessions: Aktive økter (web)
-Aggregation: Aggregering
-All events: Alle hendelser
-All logs has been downloaded. Reload the chart to see them.: Alle måledata ble lasted ned. Last inn diagrammet på nytt for å se dem.
-Application: En app
-Applications with access: En app med tilgang
-Are you sure you want to delete the events from the voltage aberrations history?: Er du sikker på at du vil slette alle hendelser fra historien om spenningsavvik?
-Are you sure you want to log out this device?: Er du sikker på at du vil logge ut av denne innretningen?
-Arithmetic balance: Aritmetisk balanse
-Authentication failure:  Feil med pålogging
-Authentication successful: Pålogging fullført
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Deaktivering av dette alternativet vil tillate deg å kontrollere denne innretningen fra integreringsnivået uten ytterligere bekreftelse. Dette kan lede til usikre eller mindre sikre tilstand (f.eks. utilsiktet åpning av en port).
-By signing in, you are authorizing {clientName} to control your devices.: Ved å logge på tillater du {clientName}-applikasjonen til å kontrollere innretningene dine.
-Change the password and log out: Bytt passord og logg ut
-Channel available for {serviceName}: Kanal tilgjengelig for {serviceName}
-Chart mode: Diagramtype
-Colon: Semikolon
-Comma: Komma
-Confirmation: Bekreftelse
-Counter: Teller
-Counter reset: Tilbakestilling av telleren
-Data limits: Datagrenser
-Date and time: Dato og tid
-Download measurements history: Last ned målehistorikk
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Strømmåleren rapporterte ikke om muligheten til å konfigurere merverdier. Oppdater innretnings fastvare og prøv på nytt.
-Enabled phases: Aktive faser
-Expires at: Utløper
-File format: Feil filformat
-Forward active energy balance: Balanse av aktiv energi absorbert
-From: Fra
-I understand that my SUPLA account will be permanently deleted.: Jeg er innforstått med at SUPLA-kontoen min vil bli ugjenkallelig slettet.
-IP Address: IP-adresse
-Incremental: Inkrementell 
-Integrations settings: Innstillinger for integrering
-Invalid username or password: Feil brukernavnet eller passordet
-Log out: Logg ut
-Logs transformation: Verditransformasjon
-No, take me back!: Nei, få meg ut herfra!
-Noop: Ingen drift
-OK: OK
-Operation: Drift
-PIN: PIN-koden
-PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN-koden for Google må ha minst {minLength} og høyst {maxLength} sifre.
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Endring av passord vil logge ut alle aktuelle økter. Dette vil imidlertid ikke påvirke på apper som har fått godkjenning fra deg. Samtykke til pålogging til appen må trekkes tilbake separat.
-Password changed: Passordet har blitt byttet
-Password reset: Tilbakestill passord
-Phase {phaseNumber}: Fase {phaseNumber}
-Predefined time ranges: Tidsintervaller
-Reload the chart: Last inn diagrammet på nytt
-Reverse active energy balance: Balanse av aktiv energi som returneres
-Scene available for {serviceName}: Scene tilgjengelig for {serviceName}
-Security: Sikkerhet
-Security log: Sikkerhetslogg
-Selected device has been logged out.: Den valgte innretningen har blitt logget ut
-Set values for each phase separately: Bestem verdien for hver fase separat
-Summary for selected time range: Sammendrag for det valgte omfanget
-Tab: Tabulator
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Innretningen som bruker denne økten, mister tilgangen til SUPLA Cloud. For å kunne fortsette å bruke applikasjonen, må man logge inn på nytt.
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: All spenningsavvikshistorikk for fase {phaseNumber} skal bli fjernet.
-The entire history of the voltage aberrations will be removed from this channel.: Alle historien for spenningsavvik fjernes for denne kanalen.
-The events in voltage aberrations history will be automatically deleted after {days} days.: Hendelser i spenningsavvikshistorikken slettes automatisk etter {days} dager.
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Dette er den siste etappen i slettingen av kontoen din. Hvis du fyller ut og bekrefter skjemaet, slettes opplysningene dine ugjenkallelig.
-'This password will protect your home. Therefore, it must:': 'Dette passordet vil verne hjemmet ditt. Derfor:'
-To: Til
-Total: Sum
-Unknown browser: Ukjent nettleser
-Value: Verdi
-Value separator: Separator
-Vector balance: Vektorbalanse
-'We also strongly advise you to choose a password that:': 'I tillegg anbefaler vi utvilsomt at du velger et passord som:'
-We were not able to prepare your data. Please see the error details below.: Det oppstod en feil under klargjøring av data. Bli kjent med detaljene nedenfor.
-We will miss you!: Vi kommer til å savne deg!
-You can browse only the most recent logs now. Wait a while for the full history.: For nå vises det bare de nyeste målingene. Vent et øyeblikk til hele historien er lastet ned.
-You must leave at least one phase enabled.: Minst én fase må forbli aktiv.
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Nettleseren din støtter ikke klientdatabasemekanismen (IndexedDB). Denne funksjonaliteten er nødvendig for å vise diagrammer og støtte avanserte innstillinger for dataeksport. Oppdater nettleseren din eller gå ut av privatmodus for å benytte seg av disse funksjonene.
-Your chart is being drawn...: Diagrammet ditt tegnes akkurat nå...
-Your data are being collected. Please be patient.: Vi samler inn dataene dine, vent et øyeblikk.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dataene dine lastes ned fra serveren. Vent til nedlastningene er fullført før du eksporterer dem.
-actionableSubjectType_schedule: Tidsplan
-average: gjennomsnitt
-be at least {numChars} characters long: må inneholde minst {numChars} tegn
-change: bytt
-choose the schedule: velg tidsplan
-contains a character that is neither a letter nor a digit: inneholder et tegn som verken er en bokstav eller et tall
-contains a digit: inneholder et tall
-contains lower and upper letters: inneholder små og store bokstaver
-is at least {numChars} characters long: har minst {numChars} tegn
-last 24 hours: siste 24 timer
-last 30 days: siste 30 dager
-last 6 hours: siste 6 timer
-last 7 days: siste 7 dager
-logs_aggregation_day: dager
-logs_aggregation_hour: timer
-logs_aggregation_minute: minutter
-logs_aggregation_month: måneder
-previous month: forrige måned
-range: omfang
-schedule: tidsplan
-the whole history: hele historien
-this month: nåværende måned
-this year: nåværende år
-today: i dag
-unknown: ukjent
-values as seen on chart: verdier som i diagrammet
-values as seen on counter: verdier som på telleren
-yesterday: i går
-'{serviceName} integration': 'Integrering med {serviceName}'
+'% of closing': ~
+Add a new action to the scene: ~
+Are you sure you want to delete this reaction?: ~
+Body: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
+Create new reaction: ~
+Current: ~
+Edit reaction: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
+Invalid scene: ~
+Missing action.: ~
+New reaction: ~
+Notification: ~
+Notification must have a body.: ~
+Notifications: ~
+Phase: ~
+Please fix the problems with operations and try again.: ~
+Please select a condition: ~
+Please select an action: ~
+Power active: ~
+Power apparent: ~
+Power reactive: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Recipients: ~
+Send a notification: ~
+Send notification: ~
+The notification must have a recipient.: ~
+The reaction has been added: ~
+The reaction has been changed: ~
+Title: ~
+Voltage: ~
+When a certain distance is reached: ~
+When a lack of liquid is detected: ~
+When a new mail comes: ~
+When flooding is detected: ~
+When liquid is detected: ~
+When liquid or lack thereof is detected: ~
+When the RGB lighting brightness level changes: ~
+When the RGB lighting reaches a certain level of brightness: ~
+When the active power will be: ~
+When the apparent power will be: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the brightness level changes: ~
+When the brightness will be: ~
+When the color changes: ~
+When the condition is met: ~
+When the current will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness level changes: ~
+When the dimmer reaches a certain brightness level: ~
+When the distance changes: ~
+When the distance will be: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter reaches a certain value: ~
+When the electricity meter value changes: ~
+When the electricity meter value will be: ~
+When the forward active energy will be: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter value changes: ~
+When the gas meter value reaches a certain value: ~
+When the gas meter value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter value changes: ~
+When the heat meter value reaches a certain value: ~
+When the heat meter value will be: ~
+When the humidity changes: ~
+When the humidity reaches a certain level: ~
+When the humidity will be: ~
+When the lighting reaches a certain level of brightness: ~
+When the mail comes or is taken: ~
+When the mail has been taken: ~
+When the precipitation amount will be: ~
+When the pressure changes: ~
+When the pressure reaches a certain level: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power will be: ~
+When the reverse active energy will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches a certain position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches a certain position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the temperature changes: ~
+When the temperature reaches a certain value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage will be: ~
+When the water meter reaches a certain value: ~
+When the water meter value changes: ~
+When the water meter value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches a certain speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches a certain value: ~
+You must set an action for each reaction.: ~
+actionableSubjectType_notification: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
+choose access identifiers: ~
+choose the access identifiers: ~
+notification: ~
+or another element: ~
+sum: ~
+then execute the action: ~
 
 #</editor-fold>

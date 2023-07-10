@@ -44,7 +44,6 @@ Add action: Добавить действие
 Add first channel to set channel group function and save it: Выбрать первый канал для определения функции группы и ее сохранения
 Add new channel group: Добавить новую группу каналов
 Add new channel to this group: Добавить новый канал в группу
-Add new item to use in the scene: Добавить новый элемент на сцену
 Adjust parameters: Задать параметры
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Все каналы и группы каналов, которые используют этот значок, после его удаления получат значки по умолчанию.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: После предоставления доступа вы всегда можете изменить свое мнение, получив доступ в настройках учетной записи.
@@ -879,7 +878,6 @@ from the IP: с адреса
 hours: часы
 min.: мин.
 minutes: Минут
-or add a delay: или добавить задержку
 password: пароль
 prefix: префикс
 register-slide1-text: С помощью простой и доступной электроники с помощью SUPLA можно создать устройства управляющие домашней автоматикой. Двери, роллеты, гаражные ворота и калитки, розетки и лампочкм, бытовая тезника и контроль температуры станут подвластны простому прикосновению пальца.
@@ -937,6 +935,7 @@ valid until: Истечет
 Access identifier password must be at least 8 characters.: Пароль для идентификатора доступа должен быть не менее 8 символов.
 Access identifier password must be no longer than 32 characters.: Пароль для идентификатора доступа не может быть длиннее 32 символов.
 Action: Акция
+Add new item to use in the scene: Добавить новый элемент на сцену
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Вы уверены, что хотите удалить всю историю аббераций напряжения этого канала?
 Are you sure you want to disable this device?: Ты уверен, что хочешь выключить это оборудование?
 Assigned Locations: Подключенные Области
@@ -990,52 +989,74 @@ When: Когда
 You will be logged out shortly: В течение нескольких секунд система удалит тебя как пользователя
 execute: выполни
 hourly: Ежечасный цикл
+or add a delay: или добавить задержку
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
+'% of closing': ~
 Action confirmation: ~
 Active applications: ~
 Active sessions: ~
 Active web sessions: ~
+Add a new action to the scene: ~
 Aggregation: ~
 All events: ~
 All logs has been downloaded. Reload the chart to see them.: ~
 Application: ~
 Applications with access: ~
 Are you sure you want to delete the events from the voltage aberrations history?: ~
+Are you sure you want to delete this reaction?: ~
 Are you sure you want to log out this device?: ~
 Arithmetic balance: ~
 Authentication failure: ~
 Authentication successful: ~
+Body: ~
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
 By signing in, you are authorizing {clientName} to control your devices.: ~
 Change the password and log out: ~
 Channel available for {serviceName}: ~
 Chart mode: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
 Colon: ~
 Comma: ~
 Confirmation: ~
 Counter: ~
 Counter reset: ~
+Create new reaction: ~
+Current: ~
 Data limits: ~
 Date and time: ~
 Download measurements history: ~
+Edit reaction: ~
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
 Enabled phases: ~
 Expires at: ~
 File format: ~
 Forward active energy balance: ~
 From: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
 I understand that my SUPLA account will be permanently deleted.: ~
 IP Address: ~
 Incremental: ~
 Integrations settings: ~
+Invalid scene: ~
 Invalid username or password: ~
 Log out: ~
 Logs transformation: ~
+Missing action.: ~
+New reaction: ~
 No, take me back!: ~
 Noop: ~
+Notification: ~
+Notification must have a body.: ~
+Notifications: ~
 OK: ~
 Operation: ~
 PIN: ~
@@ -1043,14 +1064,26 @@ PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
 Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: ~
 Password changed: ~
 Password reset: ~
+Phase: ~
 Phase {phaseNumber}: ~
+Please fix the problems with operations and try again.: ~
+Please select a condition: ~
+Please select an action: ~
+Power active: ~
+Power apparent: ~
+Power reactive: ~
 Predefined time ranges: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Recipients: ~
 Reload the chart: ~
 Reverse active energy balance: ~
 Scene available for {serviceName}: ~
 Security: ~
 Security log: ~
 Selected device has been logged out.: ~
+Send a notification: ~
+Send notification: ~
 Set values for each phase separately: ~
 Summary for selected time range: ~
 Tab: ~
@@ -1058,27 +1091,136 @@ The device that uses this session will loose access to the SUPLA Cloud and will 
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
 The entire history of the voltage aberrations will be removed from this channel.: ~
 The events in voltage aberrations history will be automatically deleted after {days} days.: ~
+The notification must have a recipient.: ~
+The reaction has been added: ~
+The reaction has been changed: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
 'This password will protect your home. Therefore, it must:': ~
+Title: ~
 To: ~
 Total: ~
 Unknown browser: ~
 Value: ~
 Value separator: ~
 Vector balance: ~
+Voltage: ~
 'We also strongly advise you to choose a password that:': ~
 We were not able to prepare your data. Please see the error details below.: ~
 We will miss you!: ~
+When a certain distance is reached: ~
+When a lack of liquid is detected: ~
+When a new mail comes: ~
+When flooding is detected: ~
+When liquid is detected: ~
+When liquid or lack thereof is detected: ~
+When the RGB lighting brightness level changes: ~
+When the RGB lighting reaches a certain level of brightness: ~
+When the active power will be: ~
+When the apparent power will be: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the brightness level changes: ~
+When the brightness will be: ~
+When the color changes: ~
+When the condition is met: ~
+When the current will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness level changes: ~
+When the dimmer reaches a certain brightness level: ~
+When the distance changes: ~
+When the distance will be: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter reaches a certain value: ~
+When the electricity meter value changes: ~
+When the electricity meter value will be: ~
+When the forward active energy will be: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter value changes: ~
+When the gas meter value reaches a certain value: ~
+When the gas meter value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter value changes: ~
+When the heat meter value reaches a certain value: ~
+When the heat meter value will be: ~
+When the humidity changes: ~
+When the humidity reaches a certain level: ~
+When the humidity will be: ~
+When the lighting reaches a certain level of brightness: ~
+When the mail comes or is taken: ~
+When the mail has been taken: ~
+When the precipitation amount will be: ~
+When the pressure changes: ~
+When the pressure reaches a certain level: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power will be: ~
+When the reverse active energy will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches a certain position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches a certain position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the temperature changes: ~
+When the temperature reaches a certain value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage will be: ~
+When the water meter reaches a certain value: ~
+When the water meter value changes: ~
+When the water meter value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches a certain speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches a certain value: ~
 You can browse only the most recent logs now. Wait a while for the full history.: ~
 You must leave at least one phase enabled.: ~
+You must set an action for each reaction.: ~
 Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: ~
 Your chart is being drawn...: ~
 Your data are being collected. Please be patient.: ~
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: ~
+actionableSubjectType_notification: ~
 actionableSubjectType_schedule: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
 average: ~
 be at least {numChars} characters long: ~
 change: ~
+choose access identifiers: ~
+choose the access identifiers: ~
 choose the schedule: ~
 contains a character that is neither a letter nor a digit: ~
 contains a digit: ~
@@ -1092,10 +1234,14 @@ logs_aggregation_day: ~
 logs_aggregation_hour: ~
 logs_aggregation_minute: ~
 logs_aggregation_month: ~
+notification: ~
+or another element: ~
 previous month: ~
 range: ~
 schedule: ~
+sum: ~
 the whole history: ~
+then execute the action: ~
 this month: ~
 this year: ~
 today: ~

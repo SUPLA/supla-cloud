@@ -226,6 +226,7 @@ Create new direct link: Utwórz nowy link bezpośredni
 Create new reaction: Utwórz nową reakcję
 Create new scene: Utwórz nową scenę
 Currency: Waluta
+Current: Prąd
 Current Overload: Przeciążenie
 Current Password: Aktualne hasło
 Current password is incorrect: Aktualne hasło jest niepoprawne
@@ -596,6 +597,9 @@ Please select a condition: Proszę wybrać warunek
 Please select an action: Proszę wybrać akcję
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Port: Port
+Power active: Energia czynna
+Power apparent: Energia pozorna
+Power reactive: Energia bierna
 Precision: Dokładność
 Predefined time ranges: Zakresy czasu
 Pressure sensor: Czujnik ciśnienia
@@ -840,6 +844,7 @@ Vector balance: Bilans wektorowy
 Verification method: Sposób weryfikacji
 Visible: Widoczne
 Visit app webpage: Otwórz witrynę aplikacji
+Voltage: Napięcie
 Voltage aberrations: Aberracje napięcia
 Voltage monitoring: Monitorowanie napięcia
 WELCOME_MESSAGE: |
@@ -873,33 +878,36 @@ What this token is for?: Do czego służy ten token?
 When a certain distance is reached: Kiedy określona odległość zostanie osiągnięta
 When a lack of liquid is detected: Kiedy zostanie wykryty brak cieczy
 When a new mail comes: Kiedy przyjdzie nowa poczta
-When the voltage will be: Kiedy napięcie będzie
 When flooding is detected: Kiedy zostanie wykryte zalanie
 When liquid is detected: Kiedy zostanie wykryta ciecz
 When liquid or lack thereof is detected: Kiedy zostanie wykryta ciecz lub jej brak
-When the active power will be: Kiedy moc czynna będzie
-When the apparent power will be: Kiedy moc pozorna będzie
-When the current will be: Kiedy prąd będzie
-When the reactive power will be: Kiedy moc bierna będzie
 When the RGB lighting brightness level changes: Kiedy poziom jasności oświetlenia RGB się zmieni
 When the RGB lighting reaches a certain level of brightness: Kiedy oświetlenie RGB osiągnie określony poziom jasności
+When the active power will be: Kiedy moc czynna będzie
+When the apparent power will be: Kiedy moc pozorna będzie
+When the balanced forward active energy will be: Kiedy zbilansowana, pobrana energia czynna będzie
+When the balanced reverse active energy will be: Kiedy zbilansowana, zwrócona energia czynna będzie
 When the brightness level changes: Kiedy poziom jasności się zmieni
 When the brightness will be: Kiedy poziom jasności będzie
 When the color changes: Kiedy kolor się zmieni
 When the condition is met: Kiedy warunek zostanie spełniony
+When the current will be: Kiedy prąd będzie
 When the depth changes: Kiedy pomiar głębokości się zmieni
 When the depth is: Kiedy pomiar głębokości będzie
 When the device is turned off: Kiedy urządzenie zostanie wyłączone
 When the device is turned on: Kiedy urządzenie zostanie włączone
 When the device is turned on or off: Kiedy urządzenie zostanie włączone lub wyłączone
+When the dimmer brightness level changes: Kiedy poziom jasności ściemniacza się zmieni
+When the dimmer reaches a certain brightness level: Kiedy ściemniacz osiągnie określony poziom jasności
 When the distance changes: Kiedy odległość się zmieni
 When the distance will be: Kiedy odległość będzie
 When the door will be closed: Kiedy drzwi zostaną zamknięte
 When the door will be opened: Kiedy drzwi zostaną otwarte
 When the door will be opened or closed: Kiedy drzwi zostaną zamknięte lub otwarte
 When the electricity meter reaches a certain value: Kiedy licznik energii osiągnie określoną wartość
-When the electricity meter value will be: Kiedy wartość licznika energii będzie
 When the electricity meter value changes: Kiedy wartość licznika energii elektrycznej się zmieni
+When the electricity meter value will be: Kiedy wartość licznika energii będzie
+When the forward active energy will be: Kiedy pobrana energia czynna będzie
 When the garage door will be closed: Kiedy brama garażowa zostanie zamknięta
 When the garage door will be opened: Kiedy brama garażowa zostanie otwarta
 When the garage door will be opened or closed: Kiedy brama garażowa zostanie zamknięta lub otwarta
@@ -914,6 +922,7 @@ When the gateway will be opened: Kiedy furtka zostanie otwarta
 When the gateway will be opened or closed: Kiedy furtka zostanie zamknięta lub otwarta
 When the heat meter value changes: Kiedy wartość licznika się zmieni
 When the heat meter value reaches a certain value: Kiedy licznik ciepła osiągnie określoną wartość
+When the heat meter value will be: Kiedy wartość licznika ciepła będzie
 When the humidity changes: Kiedy wilgotność się zmieni
 When the humidity reaches a certain level: Kiedy wilgotność osiągnie określony poziom
 When the humidity will be: Kiedy wilgotność będzie
@@ -925,6 +934,8 @@ When the pressure changes: Kiedy ciśnienie się zmieni
 When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
 When the pressure will be: Kiedy ciśnienie będzie
 When the rain amount changes: Kiedy zmieni się ilość opadów
+When the reactive power will be: Kiedy moc bierna będzie
+When the reverse active energy will be: Kiedy zwrócona energia czynna będzie
 When the roller shutter position changes: Kiedy zmieni się pozycja rolety
 When the roller shutter reaches: Kiedy roleta osiągnie
 When the roller shutter reaches a certain position: Kiedy roleta osiągnie określoną pozycję
@@ -945,7 +956,9 @@ When the valve is closed: Kiedy zawór zostanie zamknięty
 When the valve is manually closed: Kiedy zawór zostanie ręcznie zamknięty
 When the valve is opened: Kiedy zawór zostanie otwarty
 When the valve is opened or closed: Kiedy zawór zostanie zamknięty lub otwarty
+When the voltage will be: Kiedy napięcie będzie
 When the water meter reaches a certain value: Kiedy licznik wody osiągnie określoną wartość
+When the water meter value changes: Kiedy wartość licznika wody się zmieni
 When the water meter value will be: Kiedy wartość licznika wody będzie
 When the weight changes: Kiedy waga się zmieni
 When the weight will be: Kiedy waga będzie
@@ -1039,7 +1052,6 @@ actionableSubjectType_schedule: Harmonogram
 addToHistoryMeasurementWarningSelected: Zaznaczenie tej opcji spowoduje dodanie ustawionych wartości do przyszłych pomiarów zapisywanych w historii. Może to być widoczne na wykresach jako nagły przyrost o wprowadzoną wartość. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 addToHistoryMeasurementWarningUnselected: Odznaczenie tej opcji spowoduje pominięcie ustawionych wartości w przyszłych pomiarach zapisywanych w historii. Może to być widoczne na wykresach jako nagły spadek. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 after: po
-all: wszystko
 and wait until it reaches: i czekaj, aż osiągnie
 and wait until it will be: i czekaj, aż będzie
 and wait until the humidity will be: i czekaj, aż wilgotność będzie
@@ -1073,7 +1085,6 @@ contains a digit: zawiera cyfrę
 contains lower and upper letters: zawiera małe i duże litery
 copied: skopiowano
 copy: kopiuj
-current: prąd
 days: dni
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
@@ -1110,9 +1121,6 @@ minutes: minut
 notification: powiadomienie
 or another element: lub inny element
 password: hasło
-power active: moc czynna
-power apparent: moc pozorna
-power reactive: moc bierna
 prefix: prefiks
 previous month: poprzedni miesiąc
 range: zakres
@@ -1148,6 +1156,7 @@ state-rgb_on_dim_on: RGB i ściemniacz włączone
 state-shut: Zasłonięte
 state-temperature: Temperatura
 suffix: sufiks
+sum: suma
 sunrise-after: wschodzie
 sunrise-before: wschodem
 sunset-after: zachodzie
@@ -1188,7 +1197,6 @@ Are you sure you want to disable this device?: Czy na pewno chcesz wyłączyć t
 Assigned Locations: Przypisane Lokalizacje
 Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Available: Dostępne
-Balance: Bilans
 Calculated value: Stan licznika
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
@@ -1246,30 +1254,12 @@ Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
 Supla for devices: Supla na urządzenia
 Try again later: Spróbuj ponownie później
-When: Kiedy
-When the water meter increases: Kiedy wartość licznika wody wzrasta
-When {field} will be: Gdy {field} będzie
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
 hourly: Każdy dzień
-or add a delay: lub dodaj opóźnienie
-vector balance: bilans wektorowy
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-When the balanced forward active energy will be: Kiedy zbilansowana, pobrana energia czynna będzie
-When the balanced reverse active energy will be: Kiedy zbilansowana, zwrócona energia czynna będzie
-When the heat meter value will be: Kiedy wartość licznika ciepła będzie
-When the forward active energy will be: Kiedy pobrana energia czynna będzie
-When the reverse active energy will be: Kiedy zwrócona energia czynna będzie
-When the dimmer reaches a certain brightness level: Kiedy ściemniacz osiągnie określony poziom jasności
-When the dimmer brightness level changes: Kiedy poziom jasności ściemniacza się zmieni
-sum: suma
-Voltage: Napięcie
-Current: Prąd
-Power active: Energia czynna
-Power reactive: Energia bierna
-Power apparent: Energia pozorna
 
 #</editor-fold>

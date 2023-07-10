@@ -30,13 +30,17 @@ Access to all of your devices through MQTT Broker: Dostop do vseh vaših naprav 
 Account: Račun
 Account access when you are unavailable: Dostop do vašega računa, ko niste na voljo
 Account has been activated. You can Sign In now.: Račun je aktiviran. Lahko se prijavite
+Action confirmation: Potrditev dejanja
 Action execution: Izvajanje dejanj
 Action trigger: Sprožilec dejanja
 'Action trigger no. #{index}': 'Sprožilec #{index}'
 Action triggers: Sprožilci dejanja
 Actions: Dejanja
 Active: Aktivne
+Active applications: Aktivne aplikacije
 Active period: Obdobje dejavnosti
+Active sessions: Aktivne seje
+Active web sessions: Aktivne seje (splet)
 Add: Dodajte
 Add a delay: Dodajte zamik
 Add a new icon: Dodajte novo ikono
@@ -44,7 +48,6 @@ Add action: Dodajte dejanje
 Add first channel to set channel group function and save it: Izberite prvi kanal, da bi določili funkcijo skupine in jo shranili
 Add new channel group: Dodajte novo skupino kanalov
 Add new channel to this group: V skupino dodajte nov kanal
-Add new item to use in the scene: Dodajte nov element na sceno
 Adjust parameters: Nastavite parametre
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Vsi kanali in skupine kanalov, ki uporabljajo to ikono, bodo po odstranitvi prejeli privzete ikone.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po odobritvi dostopa si lahko vedno premislite in prekličete dostop v nastavitvah svojega računa.
@@ -52,7 +55,10 @@ After the device enters the configuration mode, it will not be accessible on you
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Po posodobitvi bo aplikacija hitrejša, bolj priročna ... Enostavno boljša!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: 'Po tej operaciji bo števec začel šteti od 0, ne glede na trenutno stanje. Tega dejanja ni mogoče razveljaviti. '
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Povezava bo ustvarjena takoj po izbiri subjekta. Vse druge možnosti lahko vnesete takoj, ko jih ustvarite.
+Aggregation: Združevanje
 All: Vse
+All events: Vsi dogodki
+All logs has been downloaded. Reload the chart to see them.: Vsi podatki o meritvah so bili preneseni. Če si želite ogledati grafikon, ga ponovno naložite.
 All the above and many more can be done from your phone or tablet: Vse to in še veliko več, kar lahko storite s pametnim telefonom ali tabličnim računalnikom
 Allowed actions: Dovoljena dejanja
 Allows to perform an action only using the HTTP PATCH request.: Omogoča vam, da izvajate dejanja samo z zahtevo HTTP PATCH.
@@ -60,12 +66,15 @@ Alternatively, you can add a GET parameter to specify response format.: Da dolo�
 And more: In še veliko več
 Any application or device that uses the {tokenName} token will not work anymore.: Vse aplikacije ali naprave, ki uporabljajo token {tokenName}, bodo prenehale delovati.
 'App version: %clientAppSoftwareVersion%': 'Različica aplikacije: %clientAppSoftwareVersion%'
+Application: Aplikacija
 Application name cannot be blank.: Ime aplikacije ne sme biti prazno
 Application requirements: Pogoji za aplikacijo
 Applications: Aplikacije
+Applications with access: Aplikacija z dostopom
 Are you lost?: Ste se izgubili? Nekaj iščete?
 Are you sure you want to change channel’s function?: Ali ste prepričani, da želite spremeniti funkcijo kanala?
 Are you sure you want to delete the entire measurement history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino meritev, zbrano za ta kanal?
+Are you sure you want to delete the events from the voltage aberrations history?: Ali ste prepričani, da želite odstraniti vse dogodke iz zgodovine o aberaciji napetosti?
 Are you sure you want to delete this OAuth application?: Ali ste prepričani, da želite izbrisati to aplikacijo OAuth?
 Are you sure you want to delete this channel group?: Ali zares želite odstraniti to skupino kanalov?
 Are you sure you want to delete this client?: Ali ste prepričani, da želite izbrisati to odjemalsko aplikacijo?
@@ -73,10 +82,12 @@ Are you sure you want to delete this direct link?: Ali ste prepričani, da želi
 Are you sure you want to delete this icon?: Ali ste prepričani, da želite izbrisati to ikono?
 Are you sure you want to delete this scene?: Ali ste prepričani, da želite izbrisati to sceno?
 Are you sure you want to delete this schedule?: Ali ste prepričani, da želite izbrisati ta urnik?
+Are you sure you want to log out this device?: Ali ste prepričani, da se želite odjaviti iz te naprave?
 Are you sure you want to reset the counter state?: Ali ste prepričani, da želite resetirati števec?
 Are you sure you want to revoke permissions granted to this OAuth application?: Ali ste prepričani, da želite preklicati dovoljenja, dodeljena tej aplikaciji OAuth?
 Are you sure you want to revoke this token?: Ali ste prepričani, da želite preklicati token?
 Are you sure?: Ali ste prepričani?
+Arithmetic balance: Aritmetično ravnotežje
 As in device: Kot v napravi
 Assign Access Identifiers: Dodelite identifikatorje dostopa
 Assign Client apps: Dodelite odjemalske aplikacije
@@ -90,6 +101,8 @@ At specified time: Do določene ure
 At sunrise: ob sončnem vzhodu
 At sunrise, Monday through Friday: ob sončnem vzhodu, od ponedeljka do petka
 At sunset: ob sončnem zahodu
+Authentication failure: Napaka pri prijavi
+Authentication successful: Prijava je bila uspešna
 Authorization callback URLs (one per line): Vrnite URL-je za avtorizacijo (po enega v vrstici)
 Authorize the application, so that it can access your account.: Dovolite aplikacijo, da lahko dobi dostop do vašega računa.
 Authorized: Overjeno
@@ -106,6 +119,8 @@ Below threshold: Pod pragom
 Bottom position: Spodnji položaj
 Bridge: Most
 Brightness: Svetlost
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Če to možnost onemogočite, bo to napravo mogoče upravljati iz ravni integracije brez dodatne potrditve. To lahko povzroči nevarno ali manj varno stanje (npr. nenamerno odpiranje vrat).
+By signing in, you are authorizing {clientName} to control your devices.: S prijavo pooblastite aplikacijo {clientName} za nadzor vaših naprav.
 CLICK TO DISABLE: KLIKNITE, DA SE IZKLOPITE
 CLICK TO ENABLE: KLIKNITE, DA VKLOPITE
 Calibrate: Umeri
@@ -127,9 +142,11 @@ Change Password: Sprememba gesla
 Change channel function: Spremenite funkcijo kanala
 Change function: Spremenite funkcijo
 Change icon: Spremenite ikono
+Change the password and log out: Spremenite geslo in se odjavite
 Changing channel’s function will also result in the following changes.: Sprememba funkcije kanala bo povzročila tudi naslednje spremembe.
 Channel: Kanal
 Channel No: Številka kanala
+Channel available for {serviceName}: Kanal je na voljo za {serviceName}
 Channel for the partial opening sensor: Kanal za senzor posrednjega odprtja
 Channel for the sensor: Kanalski senzor
 Channel group: Skupina kanalov
@@ -146,6 +163,7 @@ Channel with action triggers: Kanal s sprožilci dejanja
 Channels: Kanali
 Channels groups are not supported for this function.: Ta funkcija ne podpira skupin kanalov.
 Chart data source type: Vrsta vira podatkov
+Chart mode: Vrsta grafa
 Chart type: Vrsta grafike
 Check the direct link you used and try again.: Preverite poklicano direktno povezavo in poskusite znova.
 Check your email box: Preverite svojo e-pošto
@@ -168,8 +186,10 @@ Close: Zaprite
 Close after: Zapri po
 Close automatically: Zapri samodejno
 Close partially: Delno zapri
+Colon: Podpičje
 Color: Barva
 Color brightness: Barvna svetlost
+Comma: Vejica
 Comment: Opombe
 Config of the schedule is too complicated.: Konfiguracija urnika je preveč komplicirana.
 Configuration: KKonfiguracija
@@ -179,6 +199,7 @@ Confirm if you want to perform the roller shutter calibration.: Potrdite, da je 
 Confirm if you want to remove Access Identifier: Potrdite, da želite odstraniti Identifikator dostopa
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Potrdite, da želite odstraniti ID lokacije {locationId}. Na to lokacijo se ne morejo povezati nobene druge naprave.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potrdite, če želite odstraniti napravo {deviceName} in vse njene kanale.
+Confirmation: Potrditev
 Connected: Povezan
 Connection with a private instance of the SUPLA cloud: Povezava z zasebnim primerkom oblaka SUPLA.
 Constraints: Omejitve
@@ -187,6 +208,8 @@ Could not contact Autodiscover service. Try again in a while.: Povezava s storit
 Could not enter the configuration mode.: Naprave ni bilo mogoče preklopiti v konfiguracijski način.
 Could not reset the password.: Ponastavitev gesla ni bila uspešna.
 Could not reset the password. Please try again later.: Gesla ni mogoče ponastaviti. Poskusite znova čez trenutek.
+Counter: Števec
+Counter reset: Ponastavitev števca
 Create New Access Identifier: Ustvarite nov identifikator dostopa
 Create New Location: Ustvarite novo lokacijo
 Create New Schedule: Ustvarite nov urnik
@@ -203,7 +226,9 @@ DHT11 Temperature & Humidity Sensor: DHT11 senzor temperature in vlažnosti
 DHT21 Temperature & Humidity Sensor: DHT21 senzor temperature in vlažnosti
 DHT22 Temperature & Humidity Sensor: DHT22 senzor temperature in vlažnosti
 DS18B20 Thermometer: DS18B20 termometer
+Data limits: Omejitve podatkov
 Data saved: Podatki so shranjeni
+Date and time: Datum in čas
 Decline: Zavrnite
 Default: privzeto
 Delete: Izbrišite
@@ -250,15 +275,18 @@ Door lock operation: Odpiranje vrat
 Door opening sensor: Senzor odprtja vrat
 Doors and gates: Vrata in dvoriščna vrata
 Doors, Gates, Windows: Vrata, prehodi, okna
+Download measurements history: Prenesite zgodovino meritev
 Download the history of measurement: Prenesite zgodovino meritev
 Drag your image(s) here or click to select from the disk: Tu povlecite sliko ali kliknite, da izberete z diska
 E-mail notifications: E-mail obvestila
 Edit: Uredite
 Electric: Elektrika
 Electricity meter: Števec električne energije
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Števec električne energije ni poročal o možnosti konfiguriranja dodanih vrednosti. Posodobite vdelano programsko opremo naprave in poskusite znova.
 Empty!: Prazno!
 Enable: Vklopite
 Enabled: Vklopljeno
+Enabled phases: Aktivne faze
 End date: Datum zaključka
 Enter new password: Vnesite novo geslo
 Enter strong password: Vnesite močno geslo
@@ -282,9 +310,11 @@ Execution history: Zgodovina izvedb
 Execution limit: Omejitev izvedb
 Executions: Izvedbe
 Expired: Potekel
+Expires at: Velja do
 Failed: Neuspešne
 Failed (zombie): Neuspešen (zombie)
 Feature limits: Omejitve funkcij
+File format: Format datoteke
 File is too large: Datoteka je prevelika
 Flooding: Poplava
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: V času posodobitve je priporočljivo, da uporabite naslov {suplaUrl}.
@@ -292,9 +322,11 @@ For devices: Za naprave
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Zaradi varnostnih razlogov bo celoten URL te neposredne povezave prikazan samo enkrat med njegovim ustvarjanjem.
 Forgot your password?: Pozabili ste geslo?
 Forward active energy: Aktivna porabljena energija
+Forward active energy balance: Bilanca vložene aktivne energije
 Forward active energy balanced: Porabljena aktivna energija (vektorsko ravnotežje)
 Forward reactive energy: Zbrana reaktivna energija
 Fridays: Petki
+From: Od
 From anywhere: Z vsakega mesta
 Full closing time: Skupni čas zaključka
 Full documentation: Celotna dokumentacija
@@ -337,10 +369,12 @@ I agree: Strinjam se
 I aree, taske me to the app: Strinjam se, pojdite na aplikacijo
 I confirm! Delete my account.: Potrjujem! Izbrišite moj račun
 I do not agree, get me out of here: Ne strinjam se, spravite me od tu
+I understand that my SUPLA account will be permanently deleted.: Razumem, da bo moj račun SUPLA nepovratno izbrisan.
 I/O Devices: Naprave
 I/O devices registration: Registracija naprav
 ID: ID
 INACTIVE: NEAKTIVNA
+IP Address: IP naslov
 Icon: Ikona
 Idle: Nedejavno
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Če je naprava trenutno v načinu mirovanja, bodo spremembe konfiguracije začele veljati, ko se naprava prebudi.
@@ -371,12 +405,14 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Neaktiven
 Include energy corrections in new measurements history (not recommended): Vključite vrednost, ki je dodana v zgodovini (ni priporočljivo)
 Incorrect password: Nepravilno geslo
+Incremental: Dodatne
 Information: Informacija
 Inherit I/O Device location: Uporabljajte lokacije naprave
 Initial value: Začetna vrednost
 Integration with MQTT Broker has been disabled.: Integracija s posrednikom MQTT je bila onemogočena.
 Integration with MQTT Broker has been enabled.: Integracija s posrednikom MQTT je bila omogočena.
 Integrations: Integracije
+Integrations settings: Nastavitve integracije
 Interpolate measurements: Ocenite manjkajoče vrednosti
 Interrupt: Prekini
 Interrupt and execute: Prekini in izvedi
@@ -388,6 +424,7 @@ Invalid function for channel.: Nepravilna funkcija za kanal
 Invalid request: Nepravilna zahteva
 Invalid request.: Nepravilna zahteva.
 Invalid token.: Nepravilni žeton.
+Invalid username or password: Neveljavno uporabniško ime ali geslo
 Inverted logic: Obrnjena logika
 Invisible: Nevidno
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Mogoče je, da je drug uporabnik pomotoma vnesel vaš e-naslov, da bi ponastavil geslo za svoj račun.
@@ -409,7 +446,9 @@ Location Identifier: Identifikator lokacije
 Location limit has been exceeded: Omejitev lokacije je bila presežena
 Location name: Ime lokacije
 Locations: Lokacije
+Log out: Odjavi
 Login: Prijava
+Logs transformation: Preoblikovanje vrednosti
 Longest aberration: Najdaljše odstopanje
 Lower voltage threshold: Prag nizke napetosti
 MQTT Broker: Posrednik MQTT
@@ -467,6 +506,7 @@ No of devices: Število naprav
 No of operations: Število operacij
 No results match {0}: Noben rezultat se ne ujema z {0}
 No schedule configuration.: Konfiguracija urnika ni bila dodana.
+No, take me back!: Ne, hočem stran!
 No. of Client’s apps: Število odjemalskih aplikacij
 No. of access identifiers: Število identifikatorjev dostopa
 No. of channel groups: Število skupin kanalov
@@ -475,6 +515,7 @@ No. of devices: Število naprav
 No. of locations: Število lokacij
 None: Ni prisotna
 None (channel disabled): Brez (kanal izklopljen)
+Noop: Brez operacij
 Number of aberrations: Število odstopanj
 Number of attempts to close: Število poskusov zapiranja
 Number of attempts to open: Število poskusov odpiranja
@@ -483,6 +524,7 @@ OAuth application: Aplikacija OAuth
 OAuth apps: Aplikacije OAuth
 OAuth authorization: Overitev OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integracije z aplikacijami OAuth lahko prenehajo delovati po preklicu registracije vaše stopnje.
+OK: OK
 'Off': Izklopite
 Offline access: Dostop brez povezave
 Older: Starejše
@@ -493,16 +535,22 @@ Open: Odprite
 Open / close: Odprite / Zaprite
 Open partially: Delno odpri
 Opening sensor: Senzor odprtja
+Operation: Operacija
 Operations: Operacije
 Original location: Originalna lokacija
 Other: Drugo
 Otherwise go to the homepage.: V nasprotnem primeru pojdite na [domačo stran].
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN za Google mora imeti najmanj {minLenght} in največ {maxLenght} številk.
 Partial opening sensor: Senzor posrednjega odprtja
 Password: Geslo
 Password Reset: Ponastavitev gesla
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Če spremenite geslo, se odjavijo vse trenutne seje. Vendar to ne bo vplivalo na vloge, za katere ste prejeli dovoljenje. Soglasja za prijavo morate umakniti ločeno.
+Password changed: Geslo je spremenjeno
 Password has been changed: Geslo je bila spremenjeno
 Password must be at least {minLength} characters.: Geslo mora imeti vsaj {minLength} znakov.
 Password must be no longer than {maxLength} characters.: Geslo ne sme biti daljše od {maxLength} znakov.
+Password reset: Ponastavi geslo
 Password reset instructions.: Navodila za povrnitev dostopa do vašega računa.
 Percentage of closing: Odstotek zapiranja
 Personal access tokens: Osebni tokeni za dostop
@@ -512,6 +560,7 @@ Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
 Phase number: Faza
+Phase {phaseNumber}: Faza {phaseNumber}
 Please choose the schedule subject first.: Najprej izberite predmet urnika.
 Please click the following link to reset your %cloudHost% password.: Kliknite spodnjo povezavo, da ponastavite geslo za %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Kliknite povezavo s sporočila, ki smo ga vam poslali po ustvaritvi računa.
@@ -524,6 +573,7 @@ Please read the Terms and Conditions.: Preberite predpise.
 Please wait a moment before the next login attempt.: Počakajte trenutek, preden se spet prijavite.
 Port: Port
 Precision: Natančnost
+Predefined time ranges: Časovni razponi
 Pressure sensor: Tlačni senzor
 Price per: Cena za
 Private Cloud domain name: Ime domene zasebnega oblaka
@@ -552,6 +602,7 @@ Registered: Registrirani
 'Registered from IP address: %deviceRegIp%': 'Naslov IP: %deviceRegIp%'
 Relay: Rele
 Relay switching time: Čas vklopa releja
+Reload the chart: Ponovno naloži grafikon
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete lokacijo, morate najprej premakniti skupine kanalov v njej. Identifikatorji: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete lokacijo, morate najprej premakniti kanale v njej. Identifikatorji: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Preden izbrišete to lokacijo, odstranite povezane naprave. Identifikatorji: {relatedIds}.'
@@ -564,6 +615,7 @@ Retry on failure: Ponovite, ko še niste končali
 Reveal: Razkrijte
 Reveal partially: Delno razkrijte
 Reverse active energy: Vrnjena aktivna energija
+Reverse active energy balance: Bilanca vrnjene aktivne energije
 Reverse active energy balanced: Vrnjena aktivna energija (vektorsko ravnovesje)
 Reverse reactive energy: Vrnjena reaktivna energija
 Revoke: Prekličite
@@ -592,6 +644,7 @@ Save changes: Shranite spremembe
 Save changes to see Access IDs: Spremembe shranite, da prikažete identifikatorje dostopa
 Save or discard configuration changes first.: Najprej shranite ali zavrzite spremembe v konfguraciji.
 Scene: Scena
+Scene available for {serviceName}: Scena, ki je na voljo za {serviceName}
 Scene must consist of at least one operation.: Scena mora vsebovati vsaj eno operacijo
 Scenes: Scene
 Scenes limit has been exceeded: Ne smete ustvariti več scen
@@ -604,12 +657,15 @@ Scopes: Obsegi
 Scopes define which sections of your account can be accessed when using the token.: Obsegi določajo, do katerih virov računa lahko dostopate s pomočjo tokena.
 Search: Iščite
 Secret: Skrivni ključ (secret)
+Security: Varnost
+Security log: Varnostni dnevnik
 See available integrations: Oglejte si dostopne integracije
 See direct link possibilities: Glejte možnosti neposredne povezave
 See in SUPLA-Cloud: Oglejte si v SUPLA-Cloud
 Seems like a secret place: Nekaj nam govori, da ne bi smeli biti tukaj
 Select icon: Izberite ikono
 Select the item (subject) you want to control using this link: S to povezavo izberite element (subjekt), ki ga želite nadzirati
+Selected device has been logged out.: Izbrana naprava je bila odjavljena
 Sensor (normal closed): Senzor (normalno zaprt)
 Sensor (normal open): Senzor (normalno odprt)
 Sensor disconnected: Brez senzorja
@@ -618,6 +674,7 @@ Server address: Naslov strežnika
 Server unreachable: Strežnik nedosegljiv
 Service temporarily unavailable: Storitev trenutno ni na voljo
 Set value added: Določite dodano vrednost
+Set values for each phase separately: Določite vrednost za vsako fazo posebej
 Setting the number of attempts to 1 disables the retrying behavior completely.: Nastavitev števila poskusov na manj kot 2 lahko povzroči neuspešno zapiranje ali odpiranje.
 Show my limits: Prikaži moje omejitve
 Show on the Client’s devices: Pokažite na odjemalskih napravah
@@ -646,10 +703,12 @@ Store measurements history: Shranite zgodovino meritev
 Subject type: Vrsta subjekta
 Success: Uspeh
 Successful: Uspešno
+Summary for selected time range: Povzetek za izbrano področje uporabe
 Sundays: Nedelje
 Switch the device to configuration mode: Preklopite napravo v konfiguracijski način
 THIS CANNOT BE UNDONE!: TE OPERACIJE NI MOGOčE UMAKNITI!
 TLS: TLS
+Tab: Tabulator
 Target Cloud is not registered, or is registered with another e-mail address.: Ta stopnja SUPLA Cloud ni registrirana ali je registrirana z drugim e-naslovom.
 Temperature: Temperatura
 Temperature & Humidity Sensor: Senzor temperature in vlažnosti
@@ -668,6 +727,10 @@ The client will be automatically logged out when deleted.: Če stranko odstranit
 The counter has been reset.: Števec je ponastavljen.
 The device is disabled: Naprava je izklopljena
 The device might be in a sleep mode.: Naprava lahko deluje v načinu mirovanja.
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Naprava, ki bo uporabila to sejo, bo izgubila dostop do storitve SUPLA Cloud. Če želite nadaljevati z uporabo aplikacije, se boste morali vanjo znova prijaviti.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Odstranjena bo vsa zgodovina aberacije napetosti za fazo {phaseNumber}.
+The entire history of the voltage aberrations will be removed from this channel.: Za ta kanal se odstrani vsa zgodovina aberacije napetosti.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Dogodki v zgodovini aberacije napetosti se samodejno izbrišejo po {days} dneh.
 The following items use the channels of these device. These references will be also removed.: Naslednji elementi uporabljajo kanale iz te naprave. Tudi ti bodo odstranjeni.
 'The following items will be deleted with this device:': Naslednji elementi bodo tudi odstranjeni s to napravo.
 The gate sensor must function properly in order to execute the Open and Close actions.: Senzor odpiranja vrat mora pravilno delovati, da izvede dejanje Odpri ali Zapri.
@@ -699,17 +762,21 @@ Thermometer: Termometer
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ta neposredna povezava zahteva določitev parametrov izvajanega dejanja. Oglejte si spodnje primere, če želite izvedeti, katere parametre lahko nastavite.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: To informacijo prejemate zaradi neuspešnega poskusa prijave v SUPLA-CLOUD s svojim e-naslovom.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To je zadnja faza brisanja računa. Z izpolnitvijo in odobritvijo obrazca bodo vaši podatki nepovratno izbrisani.
 This is the list of applications you have granted access to your account.: To je seznam aplikacij, katerim ste odobrili dostop do svojega računa.
 This link is only valid for an hour.: Povezava bo aktivna eno uro.
+'This password will protect your home. Therefore, it must:': 'To geslo bo zaščitilo vaš dom. Zato:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ta način urnika je zasnovan za tehnično usposobljene ali zelo potrpežljive uporabnike. Zahteva, da so časi sprožitve urnika določeni v zapisu crontab, obogatenem z več funkcijami, ki jih najdemo le v SUPLI. Če prej še niste naleteli na crontabe in še vedno želite uporabljati ta način, vam bo morda v pomoč spletno mesto crontab.guru.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ta sprožilec uporablja naprava lokalno (npr. prižge luč ali krmili roleto). Če mu dodelite drugo dejanje, bo lokalna funkcija onemogočena.
 Thursdays: Četrtki
 Timezone: Časovni pas
+To: Do
 Toggle: Preklopite
 Token does not exist: Token ne obstaja
 Too many actions in this schedule.: Preveč dejanj v enem urniku.
 Too many channels in this group: V tej skupini je preveč kanalov
 Too many operations in this scene: Preveliko operacij v sceni.
+Total: Skupaj
 Total time: Skupni čas
 Triggers: Sprožilci
 Tuesdays: Torki
@@ -719,6 +786,7 @@ Type: Tip
 Undo registration: Prekliči registracijo
 Unit: Enota
 Unknown: Neznan
+Unknown browser: Neznani brskalnik
 Unregister my private SUPLA Cloud instance: Odjavi mojo zasebno instanco SUPLA Cloud
 Unsuccessful login attempt: Nauspešna prijava
 Unsupported function: Nepodprta funkcija
@@ -729,10 +797,13 @@ Upper voltage threshold: Prag visoke napetosti
 'Use the {0} server command to change this account''s limits. For example:': 'Če želite spremeniti omejitve za ta račun, uporabite ukaz {0} na svojem strežniku. Na primer:'
 Use working schedule for this access identifier: Uporabite urnik razpoložljivost za ta identifikator dostopa
 User is already confirmed. Try to log in.: Ta račun je že potrjen. Prijava
+Value: Vrednost
 Value added: Dodana vrednost
 Value per unit: Vrednost na enoto
+Value separator: Separator
 Valve: Ventil
 Valve closed manually: Ventil je bil zaprt ročno
+Vector balance: Vektorsko ravnotežje
 Verification method: Način potrjevanja
 Visible: Vidno
 Visit app webpage: Odprite spletno mesto aplikacij
@@ -744,6 +815,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Počakajte trenutek, preden oddate novo zahtevo. Trenutno uporabo vaših omejitev lahko preverite v nastavitvah računa.
 Wait for this scene to finish before proceeding to the next step ({time}).: Počakajte, da se izvedba scene konča, preden nadaljujete z dejanjem ({time}).
 Water meter: Merilnik vode
+'We also strongly advise you to choose a password that:': 'Poleg tega vam priporočamo, da izberete geslo, ki:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Pošiljali vam bomo obvestila o določenih dogodkih, povezanih z vašim računom. Od tistih, ki jih ne potrebujete, se lahko odjavite.
 We could not connect to your SUPLA Cloud instance.: Nismo se mogli povezati z vašim zasebnim primerom v oblaku SUPLA.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Prejeli smo dipozicijo za izbris vašega računa v oblaku SUPLA (%cloudHost%).
@@ -755,7 +827,9 @@ We should be ready shortly.: Kmalu bomo zaključili.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Podatke o vaših nastavitvah hranimo na vašem brskalniku, da olajšamo uporabo aplikacije (npr. z uporabo piškotkov).
 We try to be faster: Čedalje hitrejši smo
 We were not able to find your account.: Nismo našli vašega računa.
+We were not able to prepare your data. Please see the error details below.: Med pripravo podatkov je prišlo do napake. Podrobnosti si lahko preberete spodaj.
 We will miss you: Pogrešali te bomo
+We will miss you!: Pogrešali vas bomo!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Potrudili se bomo, da bi se ikone prikazale na najboljši način, vendar najboljše rezultate boste dosegli, če boste poslali datoteke PNG s prozornim ozadjem ter širino {width} in višino {height} slikovnih pik.
 We will use it only in justified situations.: Uporabili ga bomo le v upravičenih primerih.
 Weather Station: Vremenska postaja
@@ -775,6 +849,7 @@ Working period: Obdobje delovanja
 Working schedule: Urnik aktivnosti
 YOUR LINK CODE: VAŠ KODEK POVEZAVE
 You are changing the settings too quickly. You have to wait a while before making this change.: Prehitro spreminjate nastavitve. Preden spremenite te nastavitve, morate počakati nekaj časa.
+You can browse only the most recent logs now. Wait a while for the full history.: Trenutno so prikazane samo zadnje meritve. Počakajte nekaj časa, da se prenese celotna zgodovina.
 You can ignore this message, if you have accidentally entered an incorrect password.: To informacijo lahko prezrete, če ste vnesli napačno geslo.
 You can use the application but you will not be able to modify any settings.: Aplikacijo lahko uporabljate, vendar ne morete vnašati sprememb namestitev.
 You cannot delete your last access identifier.: Ne morete izbrisati zadnjega identifikatorja dostopa.
@@ -787,6 +862,7 @@ You just need to execute the following command inside your host terminal.: Samo 
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Če še vedno želite uporabljati napredni način urnika, si oglejte spodnje primere.
 You must agree to the Terms and Conditions.: Sprejemanje predpisov je potrebno.
 You must enable MQTT Broker first.: Najprej morate vklopiti integracijo s posrednikom MQTT.
+You must leave at least one phase enabled.: Vsaj ena faza mora ostati aktivna.
 You must set an action for each scene operation.: Izberite dejanje za vsako operacijo v sceni.
 You must set sections with transparent or opaque parameters or both.: Izbrati morate prosojnost za vsaj en razdelek.
 You need to provide icons for all states.: Navesti morate ikone za vsa stanja.
@@ -797,7 +873,11 @@ Your account has been deleted. We hope you will come back to us soon.: Račun je
 Your account has been locked.: Vaš račun je bil blokiran.
 Your account has not been confirmed yet.: Vaš račun še ni bil potrjen.
 Your account limits: Vaše omejitve
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Vaš brskalnik ne podpira mehanizma odjemalčeve baze podatkov (IndexedDB). Ta funkcija je potrebna za prikaz grafov in podporo naprednim nastavitvam izvoza podatkov. Če želite izkoristiti te funkcije, posodobite brskalnik ali zapustite način incognito.
 Your channel groups are allowed to have a maximum of {max} channels.: Vaše skupine kanalov imajo lahko največ {max} kanalov.
+Your chart is being drawn...: Vaš graf je izrisan...
+Your data are being collected. Please be patient.: Zbiramo vaše podatke, prosimo za potrpežljivost.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vaši podatki se prenašajo iz strežnika. Pred izvozom počakajte, da se prenosi končajo.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: 'Naprava podpira razširitev svojega delovanja in omogoča izvajanje katerega koli želenega dejanja na kateri koli napravi, ki jo imate. Dostopne možnosti so odvisne od vdelane programske in strojne opreme. '
 Your email: Vaš e-naslov
 Your instance is not registered or you are trying to authorize an application that is not public.: Vaš primerek ni registriran ali poskušate odobriti aplikacijo, ki ni javna.
@@ -833,11 +913,15 @@ actionTrigger_TURN_ON: Vklop
 actionableSubjectType_channel: Kanal
 actionableSubjectType_channelGroup: Skupina kanalov
 actionableSubjectType_scene: Scena
+actionableSubjectType_schedule: Urnik
 addToHistoryMeasurementWarningSelected: Če potrdite to možnost, boste nastavljene vrednosti dodali prihodnjim meritvam, shranjenim v zgodovini. To je lahko razvidno na grafikonih kot nenadno povečanje za vneseno vrednost. Priporočamo, da te parametre nastavite samo ob prvi namestitvi števca. Za obstoječe merilnike priporočamo, da izbrišete zgodovino meritev takoj, ko spremenite te nastavitve.
 addToHistoryMeasurementWarningUnselected: Če potrdite to možnost, bodo nastavljene vrednosti izpuščene iz prihodnjih meritev, shranjenih v zgodovini. To je lahko razvidno na grafikonih kot nenaden padec. Priporočamo, da te parametre nastavite samo ob prvi namestitvi števca. Za obstoječe merilnike priporočamo, da izbrišete zgodovino meritev takoj, ko spremenite te nastavitve.
 after: po
+average: srednja
+be at least {numChars} characters long: imeti mora vsaj {numChars} znakov
 before: pred
 caption: Ime
+change: spremeni
 channel: Kanal
 channelConfigHelp_gateCloseAfterHelp: Agent, ki začne postopek zapiranja vrat, se lahko zamakne do ene minute od nastavljenega časa.
 channelConfigHelp_numberOfAttemptsGate: Ko naročite, da se vrata odprejo ali zaprejo, jih bo sistem poskusil zapreti/odpreti in počakal 60 sekund, da preveri, ali so vrata dosegla želeno stanje. Če ne, jih bo sistem poskusil znova zapreti/odpreti. Ta parameter določa največje število poskusov sistema za dosego cilja. Priporočena vrednost je 5. Spreminjanje tega parametra ne vpliva na delovanje urnikov.
@@ -851,8 +935,12 @@ choose the action: izberite dejanje
 choose the channel: Izberite kanal
 choose the channel group: Izberite skupino kanalov
 choose the scene: izberite sceno
+choose the schedule: izberi urnik
 choose the timezone: Izberite časovni pas
 click here: kliknite tukaj
+contains a character that is neither a letter nor a digit: vsebuje znak, ki ni niti črka niti številka
+contains a digit: vsebuje število
+contains lower and upper letters: vsebuje velike in male črke
 copied: Kopirano
 copy: Kopirajte
 days: dni
@@ -877,11 +965,21 @@ extend: podaljšajte
 from IP: z naslova IP
 from the IP: z naslova
 hours: ure
+is at least {numChars} characters long: ima vsaj {numChars} znakov
+last 24 hours: zadnjih 24 ur
+last 30 days: zadnjih 30 dni
+last 6 hours: zadnjih 6 ur
+last 7 days: zadnjih 7 dni
+logs_aggregation_day: dni
+logs_aggregation_hour: ur/-e
+logs_aggregation_minute: minut/-e
+logs_aggregation_month: mesecev
 min.: min.
 minutes: minut
-or add a delay: ali dodajte zamik
 password: geslo
 prefix: prefiks
+previous month: prejšnji mesec
+range: področje
 register-slide1-text: Na podlagi razpoložljive elektronike vam bo SUPLA omogočila izdelavo preprostih modulov, ki zagotavljajo nadzor in kontrolo komponent za avtomatizacijo zgradb. Zahvaljujoč SUPLI lahko med drugim nadzorujete osvetlitev, vklopite in izklopite gospodinjske aparate in elektroniko, odprete in zaprete dvoriščna vrata in vrata ali nadzorujete temperaturo v prostorih. Vse to lahko storite z enim premikom prsta.
 register-slide1-title: Lastna inteligentna zgradba
 register-slide2-text: Ena izmed osnovnih predpostavk projekta je preprostost in razpoložljivost. SUPLA vam omogoča, da z enim premikom prsta vklopite luč  ali odprete vhodna vrata, ko želite vstopiti na posest. SUPLA je na voljo povsod, kjer imate dostop do interneta in imate pri roki pametni telefon ali tablico. SUPLA je razvita na osnovi Odprte programske opreme in Odprte opreme, s katerima lahko tudi vi razvijate ta projekt!
@@ -890,6 +988,7 @@ register-slide3-text: Sistemi za avtomatizacijo zgradb, ki so na voljo na trži�
 register-slide3-title: Brezplačna in odprta!
 reset chart view: vrni se na začeten pogled
 scene: scena
+schedule: urnik
 scheduleMode_crontab: Napredni
 scheduleMode_daily: Dnevni cikel
 scheduleMode_minutely: Minutni cikel
@@ -917,8 +1016,16 @@ sunrise-after: vzhodu
 sunrise-before: vzhodom
 sunset-after: zahodu
 sunset-before: zahodom
+the whole history: celotna zgodovina
+this month: tekoči mesec
+this year: tekoče leto
+today: danes
+unknown: neznan
 username: naziv uporabnika
 valid until: poteče
+values as seen on chart: vrednosti, kot je prikazano v grafu
+values as seen on counter: vrednosti kot na števcu
+yesterday: včeraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne more komunicirati z vašim računom, dokler ponovno ne odobrite dostopa.'
 '{clientName} wants to access your account.': '{clientName} želi dobiti dostop do vašega računa.'
 '{minutes} minutes after sunrise': '{minutes} minut po sončnem vzhodu'
@@ -929,6 +1036,7 @@ valid until: poteče
 '{requests} out of {limit} / h': '{requests} iz {limit} / h'
 '{requests} out of {limit} / min': '{requests} iz {limit} / min'
 '{requests} out of {limit} / {seconds} sec.': '{requests} iz {limit} / {seconds} sek.'
+'{serviceName} integration': Integracija z {serviceName}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -937,6 +1045,7 @@ valid until: poteče
 Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
 Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
 Action: Dejanje
+Add new item to use in the scene: Dodajte nov element na sceno
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino napetostnih odstopanj za ta kanal?
 Are you sure you want to disable this device?: Ali ste prepričani, da želite izklopiti to napravo?
 Assigned Locations: Dodeljene lokacije
@@ -990,119 +1099,156 @@ When: Ko
 You will be logged out shortly: Čez trenutek boste odjavljeni
 execute: Izvedite
 hourly: Urni cikel
+or add a delay: ali dodajte zamik
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: Potrditev dejanja
-Active applications: Aktivne aplikacije
-Active sessions: Aktivne seje
-Active web sessions: Aktivne seje (splet)
-Aggregation: Združevanje
-All events: Vsi dogodki
-All logs has been downloaded. Reload the chart to see them.: Vsi podatki o meritvah so bili preneseni. Če si želite ogledati grafikon, ga ponovno naložite.
-Application: Aplikacija
-Applications with access: Aplikacija z dostopom
-Are you sure you want to delete the events from the voltage aberrations history?: Ali ste prepričani, da želite odstraniti vse dogodke iz zgodovine o aberaciji napetosti?
-Are you sure you want to log out this device?: Ali ste prepričani, da se želite odjaviti iz te naprave?
-Arithmetic balance: Aritmetično ravnotežje
-Authentication failure: Napaka pri prijavi
-Authentication successful: Prijava je bila uspešna
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Če to možnost onemogočite, bo to napravo mogoče upravljati iz ravni integracije brez dodatne potrditve. To lahko povzroči nevarno ali manj varno stanje (npr. nenamerno odpiranje vrat).
-By signing in, you are authorizing {clientName} to control your devices.: S prijavo pooblastite aplikacijo {clientName} za nadzor vaših naprav.
-Change the password and log out: Spremenite geslo in se odjavite
-Channel available for {serviceName}: Kanal je na voljo za {serviceName}
-Chart mode: Vrsta grafa
-Colon: Podpičje
-Comma: Vejica
-Confirmation: Potrditev
-Counter: Števec
-Counter reset: Ponastavitev števca
-Data limits: Omejitve podatkov
-Date and time: Datum in čas
-Download measurements history: Prenesite zgodovino meritev
-Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Števec električne energije ni poročal o možnosti konfiguriranja dodanih vrednosti. Posodobite vdelano programsko opremo naprave in poskusite znova.
-Enabled phases: Aktivne faze
-Expires at: Velja do
-File format: Format datoteke
-Forward active energy balance: Bilanca vložene aktivne energije
-From: Od
-I understand that my SUPLA account will be permanently deleted.: Razumem, da bo moj račun SUPLA nepovratno izbrisan.
-IP Address: IP naslov
-Incremental: Dodatne
-Integrations settings: Nastavitve integracije
-Invalid username or password: Neveljavno uporabniško ime ali geslo
-Log out: Odjavi
-Logs transformation: Preoblikovanje vrednosti
-No, take me back!: Ne, hočem stran!
-Noop: Brez operacij
-OK: OK
-Operation: Operacija
-PIN: PIN
-PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN za Google mora imeti najmanj {minLenght} in največ {maxLenght} številk.
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Če spremenite geslo, se odjavijo vse trenutne seje. Vendar to ne bo vplivalo na vloge, za katere ste prejeli dovoljenje. Soglasja za prijavo morate umakniti ločeno.
-Password changed: Geslo je spremenjeno
-Password reset: Ponastavi geslo
-Phase {phaseNumber}: Faza {phaseNumber}
-Predefined time ranges: Časovni razponi
-Reload the chart: Ponovno naloži grafikon
-Reverse active energy balance: Bilanca vrnjene aktivne energije
-Scene available for {serviceName}: Scena, ki je na voljo za {serviceName}
-Security: Varnost
-Security log: Varnostni dnevnik
-Selected device has been logged out.: Izbrana naprava je bila odjavljena
-Set values for each phase separately: Določite vrednost za vsako fazo posebej
-Summary for selected time range: Povzetek za izbrano področje uporabe
-Tab: Tabulator
-The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Naprava, ki bo uporabila to sejo, bo izgubila dostop do storitve SUPLA Cloud. Če želite nadaljevati z uporabo aplikacije, se boste morali vanjo znova prijaviti.
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Odstranjena bo vsa zgodovina aberacije napetosti za fazo {phaseNumber}.
-The entire history of the voltage aberrations will be removed from this channel.: Za ta kanal se odstrani vsa zgodovina aberacije napetosti.
-The events in voltage aberrations history will be automatically deleted after {days} days.: Dogodki v zgodovini aberacije napetosti se samodejno izbrišejo po {days} dneh.
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To je zadnja faza brisanja računa. Z izpolnitvijo in odobritvijo obrazca bodo vaši podatki nepovratno izbrisani.
-'This password will protect your home. Therefore, it must:': 'To geslo bo zaščitilo vaš dom. Zato:'
-To: Do
-Total: Skupaj
-Unknown browser: Neznani brskalnik
-Value: Vrednost
-Value separator: Separator
-Vector balance: Vektorsko ravnotežje
-'We also strongly advise you to choose a password that:': 'Poleg tega vam priporočamo, da izberete geslo, ki:'
-We were not able to prepare your data. Please see the error details below.: Med pripravo podatkov je prišlo do napake. Podrobnosti si lahko preberete spodaj.
-We will miss you!: Pogrešali vas bomo!
-You can browse only the most recent logs now. Wait a while for the full history.: Trenutno so prikazane samo zadnje meritve. Počakajte nekaj časa, da se prenese celotna zgodovina.
-You must leave at least one phase enabled.: Vsaj ena faza mora ostati aktivna.
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Vaš brskalnik ne podpira mehanizma odjemalčeve baze podatkov (IndexedDB). Ta funkcija je potrebna za prikaz grafov in podporo naprednim nastavitvam izvoza podatkov. Če želite izkoristiti te funkcije, posodobite brskalnik ali zapustite način incognito.
-Your chart is being drawn...: Vaš graf je izrisan...
-Your data are being collected. Please be patient.: Zbiramo vaše podatke, prosimo za potrpežljivost.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vaši podatki se prenašajo iz strežnika. Pred izvozom počakajte, da se prenosi končajo.
-actionableSubjectType_schedule: Urnik
-average: srednja
-be at least {numChars} characters long: imeti mora vsaj {numChars} znakov
-change: spremeni
-choose the schedule: izberi urnik
-contains a character that is neither a letter nor a digit: vsebuje znak, ki ni niti črka niti številka
-contains a digit: vsebuje število
-contains lower and upper letters: vsebuje velike in male črke
-is at least {numChars} characters long: ima vsaj {numChars} znakov
-last 24 hours: zadnjih 24 ur
-last 30 days: zadnjih 30 dni
-last 6 hours: zadnjih 6 ur
-last 7 days: zadnjih 7 dni
-logs_aggregation_day: dni
-logs_aggregation_hour: ur/-e
-logs_aggregation_minute: minut/-e
-logs_aggregation_month: mesecev
-previous month: prejšnji mesec
-range: področje
-schedule: urnik
-the whole history: celotna zgodovina
-this month: tekoči mesec
-this year: tekoče leto
-today: danes
-unknown: neznan
-values as seen on chart: vrednosti, kot je prikazano v grafu
-values as seen on counter: vrednosti kot na števcu
-yesterday: včeraj
-'{serviceName} integration': 'Integracija z {serviceName}'
+'% of closing': ~
+Add a new action to the scene: ~
+Are you sure you want to delete this reaction?: ~
+Body: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
+Create new reaction: ~
+Current: ~
+Edit reaction: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
+Invalid scene: ~
+Missing action.: ~
+New reaction: ~
+Notification: ~
+Notification must have a body.: ~
+Notifications: ~
+Phase: ~
+Please fix the problems with operations and try again.: ~
+Please select a condition: ~
+Please select an action: ~
+Power active: ~
+Power apparent: ~
+Power reactive: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Recipients: ~
+Send a notification: ~
+Send notification: ~
+The notification must have a recipient.: ~
+The reaction has been added: ~
+The reaction has been changed: ~
+Title: ~
+Voltage: ~
+When a certain distance is reached: ~
+When a lack of liquid is detected: ~
+When a new mail comes: ~
+When flooding is detected: ~
+When liquid is detected: ~
+When liquid or lack thereof is detected: ~
+When the RGB lighting brightness level changes: ~
+When the RGB lighting reaches a certain level of brightness: ~
+When the active power will be: ~
+When the apparent power will be: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the brightness level changes: ~
+When the brightness will be: ~
+When the color changes: ~
+When the condition is met: ~
+When the current will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness level changes: ~
+When the dimmer reaches a certain brightness level: ~
+When the distance changes: ~
+When the distance will be: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter reaches a certain value: ~
+When the electricity meter value changes: ~
+When the electricity meter value will be: ~
+When the forward active energy will be: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter value changes: ~
+When the gas meter value reaches a certain value: ~
+When the gas meter value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter value changes: ~
+When the heat meter value reaches a certain value: ~
+When the heat meter value will be: ~
+When the humidity changes: ~
+When the humidity reaches a certain level: ~
+When the humidity will be: ~
+When the lighting reaches a certain level of brightness: ~
+When the mail comes or is taken: ~
+When the mail has been taken: ~
+When the precipitation amount will be: ~
+When the pressure changes: ~
+When the pressure reaches a certain level: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power will be: ~
+When the reverse active energy will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches a certain position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches a certain position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the temperature changes: ~
+When the temperature reaches a certain value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage will be: ~
+When the water meter reaches a certain value: ~
+When the water meter value changes: ~
+When the water meter value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches a certain speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches a certain value: ~
+You must set an action for each reaction.: ~
+actionableSubjectType_notification: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
+choose access identifiers: ~
+choose the access identifiers: ~
+notification: ~
+or another element: ~
+sum: ~
+then execute the action: ~
 
 #</editor-fold>
