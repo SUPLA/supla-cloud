@@ -332,7 +332,7 @@ For devices: Dla urządzeń
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Ze względów bezpieczeństwa, pełny URL tego bezpośredniego linka będzie wyświetlany tylko raz podczas jego tworzenia.
 Forgot your password?: Nie pamiętasz hasła?
 Forward active energy: Energia czynna pobrana
-Forward active energy balance: Balans czynnej energii pobranej
+Forward active energy balance: Bilans czynnej energii pobranej
 Forward active energy balanced: Energia czynna pobrana (Bilans wektorowy)
 Forward reactive energy: Energia bierna indukcyjna
 Fridays: Piątki
@@ -642,7 +642,7 @@ Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
 Reverse active energy: Energia czynna zwrócona
-Reverse active energy balance: Balans czynnej energii zwróconej
+Reverse active energy balance: Bilans czynnej energii zwróconej
 Reverse active energy balanced: Energia czynna zwrócona (Bilans wektorowy)
 Reverse reactive energy: Energia bierna pojemnościowa
 Revoke: Unieważnij
@@ -873,29 +873,20 @@ What this token is for?: Do czego służy ten token?
 When a certain distance is reached: Kiedy określona odległość zostanie osiągnięta
 When a lack of liquid is detected: Kiedy zostanie wykryty brak cieczy
 When a new mail comes: Kiedy przyjdzie nowa poczta
-When average voltage will be: Kiedy średnie napięcie będzie
+When the voltage will be: Kiedy napięcie będzie
 When flooding is detected: Kiedy zostanie wykryte zalanie
 When liquid is detected: Kiedy zostanie wykryta ciecz
 When liquid or lack thereof is detected: Kiedy zostanie wykryta ciecz lub jej brak
-When summarized active power will be: Kiedy suma mocy czynnej będzie
-When summarized apparent power will be: Kiedy suma mocy pozornej będzie
-When summarized current will be: Kiedy suma prądów będzie
-When summarized reactive power will be: Kiedy suma mocy biernej będzie
+When the active power will be: Kiedy moc czynna będzie
+When the apparent power will be: Kiedy moc pozorna będzie
+When the current will be: Kiedy prąd będzie
+When the reactive power will be: Kiedy moc bierna będzie
 When the RGB lighting brightness level changes: Kiedy poziom jasności oświetlenia RGB się zmieni
 When the RGB lighting reaches a certain level of brightness: Kiedy oświetlenie RGB osiągnie określony poziom jasności
-When the active power of phase 1 will be: Kiedy moc czynna na fazie 1 będzie
-When the active power of phase 2 will be: Kiedy moc czynna na fazie 2 będzie
-When the active power of phase 3 will be: Kiedy moc czynna na fazie 3 będzie
-When the apparent power of phase 1 will be: Kiedy moc pozorna na fazie 1 będzie
-When the apparent power of phase 2 will be: Kiedy moc pozorna na fazie 2 będzie
-When the apparent power of phase 3 will be: Kiedy moc pozorna na fazie 3 będzie
 When the brightness level changes: Kiedy poziom jasności się zmieni
 When the brightness will be: Kiedy poziom jasności będzie
 When the color changes: Kiedy kolor się zmieni
 When the condition is met: Kiedy warunek zostanie spełniony
-When the current of phase 1 will be: Kiedy prąd na fazie 1 będzie
-When the current of phase 2 will be: Kiedy prąd na fazie 2 będzie
-When the current of phase 3 will be: Kiedy prąd na fazie 3 będzie
 When the depth changes: Kiedy pomiar głębokości się zmieni
 When the depth is: Kiedy pomiar głębokości będzie
 When the device is turned off: Kiedy urządzenie zostanie wyłączone
@@ -934,9 +925,6 @@ When the pressure changes: Kiedy ciśnienie się zmieni
 When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
 When the pressure will be: Kiedy ciśnienie będzie
 When the rain amount changes: Kiedy zmieni się ilość opadów
-When the reactive power of phase 1 will be: Kiedy moc bierna na fazie 1 będzie
-When the reactive power of phase 2 will be: Kiedy moc bierna na fazie 2 będzie
-When the reactive power of phase 3 will be: Kiedy moc bierna na fazie 3 będzie
 When the roller shutter position changes: Kiedy zmieni się pozycja rolety
 When the roller shutter reaches: Kiedy roleta osiągnie
 When the roller shutter reaches a certain position: Kiedy roleta osiągnie określoną pozycję
@@ -957,9 +945,6 @@ When the valve is closed: Kiedy zawór zostanie zamknięty
 When the valve is manually closed: Kiedy zawór zostanie ręcznie zamknięty
 When the valve is opened: Kiedy zawór zostanie otwarty
 When the valve is opened or closed: Kiedy zawór zostanie zamknięty lub otwarty
-When the voltage of phase 1 will be: Kiedy napięcie na fazie 1 będzie
-When the voltage of phase 2 will be: Kiedy napięcie na fazie 2 będzie
-When the voltage of phase 3 will be: Kiedy napięcie na fazie 3 będzie
 When the water meter reaches a certain value: Kiedy licznik wody osiągnie określoną wartość
 When the water meter value will be: Kiedy wartość licznika wody będzie
 When the weight changes: Kiedy waga się zmieni
@@ -1177,7 +1162,6 @@ username: nazwa użytkownika
 valid until: wygaśnie
 values as seen on chart: wartości tak jak na wykresie
 values as seen on counter: wartości tak jak na liczniku
-voltage: napięcie
 yesterday: wczoraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
@@ -1266,7 +1250,6 @@ When: Kiedy
 When the water meter increases: Kiedy wartość licznika wody wzrasta
 When {field} will be: Gdy {field} będzie
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
-average voltage: średnie napięcie
 execute: wykonaj
 hourly: Każdy dzień
 or add a delay: lub dodaj opóźnienie
@@ -1278,20 +1261,15 @@ vector balance: bilans wektorowy
 When the balanced forward active energy will be: Kiedy zbilansowana, pobrana energia czynna będzie
 When the balanced reverse active energy will be: Kiedy zbilansowana, zwrócona energia czynna będzie
 When the heat meter value will be: Kiedy wartość licznika ciepła będzie
-When the forward active energy of phase 1 will be: Kiedy pobrana energia czynna na fazie 1 będzie
-When the forward active energy of phase 2 will be: Kiedy pobrana energia czynna na fazie 2 będzie
-When the forward active energy of phase 3 will be: Kiedy pobrana energia czynna na fazie 3 będzie
-When the reverse active energy of phase 1 will be: Kiedy zwrócona energia czynna na fazie 1 będzie
-When the reverse active energy of phase 2 will be: Kiedy zwrócona energia czynna na fazie 2 będzie
-When the reverse active energy of phase 3 will be: Kiedy zwrócona energia czynna na fazie 3 będzie
 When the forward active energy will be: Kiedy pobrana energia czynna będzie
 When the reverse active energy will be: Kiedy zwrócona energia czynna będzie
-forward active energy: Energia czynna pobrana
-forward active energy balanced: Zbilansowana energia czynna pobrana
-reverse active energy: Energia czynna zwrócona
-reverse active energy balanced: Zbilansowana energia czynna zwrócona
 When the dimmer reaches a certain brightness level: Kiedy ściemniacz osiągnie określony poziom jasności
 When the dimmer brightness level changes: Kiedy poziom jasności ściemniacza się zmieni
 sum: suma
+Voltage: Napięcie
+Current: Prąd
+Power active: Energia czynna
+Power reactive: Energia bierna
+Power apparent: Energia pozorna
 
 #</editor-fold>

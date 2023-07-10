@@ -50,15 +50,15 @@
         data() {
             return {
                 fields: [
-                    {label: 'voltage', name: 'voltage',}, // i18n
-                    {label: 'current', name: 'current',}, // i18n
-                    {label: 'power active', name: 'power_active'}, // i18n
-                    {label: 'power reactive', name: 'power_reactive'}, // i18n
-                    {label: 'power apparent', name: 'power_apparent'}, // i18n
-                    {label: 'forward active energy', name: 'fae'}, // i18n
-                    {label: 'reverse active energy', name: 'rae'}, // i18n
-                    {label: 'forward active energy balanced', name: 'fae_balanced', disablePhases: true}, // i18n
-                    {label: 'reverse active energy balanced', name: 'rae_balanced', disablePhases: true}, // i18n
+                    {label: 'Voltage', name: 'voltage',}, // i18n
+                    {label: 'Current', name: 'current',}, // i18n
+                    {label: 'Power active', name: 'power_active'}, // i18n
+                    {label: 'Power reactive', name: 'power_reactive'}, // i18n
+                    {label: 'Power apparent', name: 'power_apparent'}, // i18n
+                    {label: 'Forward active energy', name: 'fae'}, // i18n
+                    {label: 'Reverse active energy', name: 'rae'}, // i18n
+                    {label: 'Forward active energy balanced', name: 'fae_balanced', disablePhases: true}, // i18n
+                    {label: 'Reverse active energy balanced', name: 'rae_balanced', disablePhases: true}, // i18n
                 ],
                 phase: 'all',
                 field: undefined,
