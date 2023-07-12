@@ -131,7 +131,7 @@ export const ChannelFunctionTriggers = {
         },
         {
             caption: 'When the brightness level changes', // i18n
-            def: () => ({on_change: {}})
+            def: () => ({on_change: {name: 'brightness'}}),
         },
     ],
     [ChannelFunction.RGBLIGHTING]: [
