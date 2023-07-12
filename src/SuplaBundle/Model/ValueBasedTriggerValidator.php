@@ -135,8 +135,8 @@ class ValueBasedTriggerValidator {
             if ($trigger['on_change']) {
                 Assertion::count($trigger['on_change'], 1, 'Only name can be defined inside on_change trigger.');
                 Assertion::keyExists($trigger['on_change'], 'name', 'Only name can be defined inside on_change trigger.');
-                $this->validateFieldName($channel, $trigger['on_change']);
             }
+            $this->validateFieldName($channel, $trigger['on_change']);
         } elseif (isset($trigger['on_change_to'])) {
             Assertion::isArray($trigger['on_change_to'], 'on_change_to must be an object');
             $onChangeTo = $trigger['on_change_to'];
@@ -158,11 +158,9 @@ class ValueBasedTriggerValidator {
             return in_array($channel->getFunction()->getId(), $functionIds);
         });
         if ($possibleFieldNames) {
-            if (count($possibleFieldNames) > 1 || isset($onChangeTo['name'])) {
-                Assertion::keyExists($onChangeTo, 'name', 'Missing trigger field definition.');
-                $possibleFieldNames = array_keys($possibleFieldNames);
-                Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name.');
-            }
+            Assertion::keyExists($onChangeTo, 'name', 'Missing trigger field definition.');
+            $possibleFieldNames = array_keys($possibleFieldNames);
+            Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name.');
         } else {
             Assertion::keyNotExists($onChangeTo, 'name', 'Field name is not required for this channel. Remove it.');
         }

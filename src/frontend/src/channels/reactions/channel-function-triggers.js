@@ -122,6 +122,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
+                field: 'brightness',
                 min: () => 0, max: () => 100, step: () => 1,
                 unit: () => '%',
                 labelI18n: () => 'When the brightness will be', // i18n
