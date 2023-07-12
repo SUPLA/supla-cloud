@@ -26,8 +26,11 @@ describe('Scenes', () => {
         cy.get('[name=notification-body]').type('Testowe powiadomienie');
         cy.contains('wybierz identyfikatory dostępu').click();
         cy.get('a.dropdown-item').click();
+        cy.contains('Dodaj opóźnienie').click();
         cy.contains('Zapisz zmiany').click();
         cy.contains('div.square-link', 'Testowa scena');
+        cy.contains('div.square-link', '10 sek');
+        cy.contains('div.square-link dt', '4'); // the number of operations
     });
 
     it('contains saved scene', () => {

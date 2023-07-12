@@ -199,7 +199,6 @@
                 if (delay) {
                     operations.push({id: UNIQUE_OPERATION_ID++, delayMs: delay});
                 }
-                this.operations = operations;
                 this.lastValue = operations;
                 this.$emit('input', operations);
             },
