@@ -177,8 +177,8 @@ class OAuthController extends RestController {
     }
 
     /**
-     * @Rest\Delete("/oauth-personal-tokens/{accessToken}")
-     * @Rest\Delete("/access-tokens/{accessToken}")
+     * @Rest\Delete("/oauth-personal-tokens/{accessToken}", name="delete_personal_token")
+     * @Rest\Delete("/access-tokens/{accessToken}", name="delete_access_token")
      * @Security("accessToken.belongsToUser(user) and has_role('ROLE_WEBAPP')")
      * @UnavailableInMaintenance
      */

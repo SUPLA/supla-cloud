@@ -68,6 +68,14 @@ class OAuthControllerIntegrationTest extends IntegrationTestCase {
         return $content;
     }
 
+    public function testDeletingPersonalAccessToken() {
+        $token = $this->testCreatingPersonalAccessToken();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest('DELETE', "/api/oauth-personal-tokens/$token[id]");
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+    }
+
     public function testPersonalAccessTokenIsGrantedImplicitScopes() {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest('POST', '/api/oauth-personal-tokens', [
