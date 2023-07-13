@@ -34,6 +34,7 @@ use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 
 /** @small */
 class IODeviceControllerIntegrationTest extends IntegrationTestCase {
@@ -486,5 +487,22 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse(property_exists($content[0]->channels[0], 'location'));
         $this->assertTrue(property_exists($content[0]->channels[0], 'locationId'));
         $this->assertTrue(property_exists($content[0]->channels[0], 'state'));
+    }
+
+    public function testGettingManagedNotificationsCount() {
+        (new NotificationsFixture())->createDeviceNotification($this->getEntityManager(), $this->device);
+        (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $this->device->getChannels()[0]);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/iodevices/' . $this->device->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($this->device->getId(), $content['id']);
+        $this->assertArrayHasKey('relationsCount', $content);
+        $this->assertArrayHasKey('channels', $content['relationsCount']);
+        $this->assertArrayHasKey('managedNotifications', $content['relationsCount']);
+        $this->assertEquals(5, $content['relationsCount']['channels']);
+        $this->assertEquals(1, $content['relationsCount']['managedNotifications']);
     }
 }

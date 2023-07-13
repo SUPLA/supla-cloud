@@ -17,11 +17,14 @@
 
 namespace SuplaBundle\Tests\Integration\Controller;
 
+use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 
 /** @small */
 class NotificationControllerIntegrationTest extends IntegrationTestCase {
@@ -91,5 +94,81 @@ class NotificationControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $this->assertCount(1, SuplaServerMock::$executedCommands);
+    }
+
+    public function testEditingManagedNotification() {
+        $device = $this->createDeviceSonoff($this->user->getLocations()[0]);
+        $channel = $device->getChannels()[0];
+        $notification = (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $channel, 'A', 'A');
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', "/api/notifications/{$notification->getId()}?include=accessIds", [
+            'title' => 'New title',
+            'body' => 'New body',
+            'accessIds' => [$device->getUser()->getAccessIDS()[0]->getId()],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('New title', $content['title']);
+        $this->assertEquals('New body', $content['body']);
+        $this->assertCount(1, $content['accessIds']);
+        return $notification;
+    }
+
+    /** @depends testEditingManagedNotification */
+    public function testClearingAccessIdsOfManagedNotification(PushNotification $notification) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', "/api/notifications/{$notification->getId()}?include=accessIds", ['accessIds' => []]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('New title', $content['title']);
+        $this->assertEquals('New body', $content['body']);
+        $this->assertEmpty($content['accessIds']);
+    }
+
+    public function testCantEditTitleIfNullFromDevice() {
+        $device = $this->createDeviceSonoff($this->user->getLocations()[0]);
+        $channel = $device->getChannels()[0];
+        $notification = (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $channel, 'A', null);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', "/api/notifications/{$notification->getId()}?include=accessIds", [
+            'title' => 'New title',
+            'body' => 'New body',
+            'accessIds' => [$device->getUser()->getAccessIDS()[0]->getId()],
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    public function testCantEditBodyIfNullFromDevice() {
+        $device = $this->createDeviceSonoff($this->user->getLocations()[0]);
+        $channel = $device->getChannels()[0];
+        $notification = (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $channel, null, 'A');
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', "/api/notifications/{$notification->getId()}?include=accessIds", [
+            'title' => 'New title',
+            'body' => 'New body',
+            'accessIds' => [$device->getUser()->getAccessIDS()[0]->getId()],
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    public function testCantEditNotificationNotManagedByDevice() {
+        $device = $this->createDeviceSonoff($this->user->getLocations()[0]);
+        $channel = $device->getChannels()[0];
+        $notification = (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $channel, 'A', 'A');
+        EntityUtils::setField($notification, 'managedByDevice', false);
+        $this->getEntityManager()->persist($notification);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', "/api/notifications/{$notification->getId()}?include=accessIds", [
+            'title' => 'New title',
+            'body' => 'New body',
+            'accessIds' => [$device->getUser()->getAccessIDS()[0]->getId()],
+        ]);
+        $this->assertStatusCode(404, $client->getResponse());
     }
 }

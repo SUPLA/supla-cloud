@@ -26,6 +26,7 @@ use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Repository\AccessIdRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\PushNotificationRepository")
@@ -66,7 +67,8 @@ class PushNotification implements ActionableSubject {
      *     joinColumns={ @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id", onDelete="CASCADE") },
      *     inverseJoinColumns={ @ORM\JoinColumn(name="access_id", referencedColumnName="id", onDelete="CASCADE") }
      * )
-     * @Groups({"basic"})
+     * @Groups({"notification.accessIds"})
+     * @MaxDepth(1)
      */
     private $accessIds;
 
@@ -121,16 +123,16 @@ class PushNotification implements ActionableSubject {
         return ActionableSubjectType::NOTIFICATION;
     }
 
-    public function getTitle(): string {
-        return $this->title ?: '';
+    public function getTitle(): ?string {
+        return $this->title;
     }
 
     public function setTitle(string $title): void {
         $this->title = $title;
     }
 
-    public function getBody(): string {
-        return $this->body ?: '';
+    public function getBody(): ?string {
+        return $this->body;
     }
 
     public function setBody(string $body): void {
@@ -162,5 +164,9 @@ class PushNotification implements ActionableSubject {
             return $aidRepository->findForUser($this->getUser(), $aid);
         }, $actionParam['accessIds']);
         $this->setAccessIds($accessIds);
+    }
+
+    public function isManagedByDevice(): bool {
+        return $this->managedByDevice;
     }
 }

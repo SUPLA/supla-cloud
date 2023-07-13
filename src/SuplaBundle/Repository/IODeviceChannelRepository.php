@@ -4,6 +4,7 @@ namespace SuplaBundle\Repository;
 use Doctrine\ORM\QueryBuilder;
 use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
@@ -21,6 +22,7 @@ class IODeviceChannelRepository extends EntityWithRelationsRepository {
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s so WHERE so.channel = c) sceneOperations', SceneOperation::class))
             ->addSelect(sprintf('(SELECT COUNT(DISTINCT sos.owningScene) FROM %s sos WHERE sos.channel = c) scenes', SceneOperation::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s vbt WHERE vbt.owningChannel = c) ownReactions', ValueBasedTrigger::class))
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s mpn WHERE mpn.channel = c) managedNotifications', PushNotification::class))
             ->addSelect(sprintf(
                 '(SELECT COUNT(1) FROM %s at WHERE at.function = %d AND at.param1 = c.id) actionTriggers',
                 IODeviceChannel::class,

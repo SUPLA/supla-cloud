@@ -5,6 +5,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -42,6 +43,7 @@ class IODeviceRepository extends EntityWithRelationsRepository {
         return $this->_em->createQueryBuilder()
             ->addSelect('io entity')
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s c WHERE c.iodevice = io) channels', IODeviceChannel::class))
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s mpn WHERE mpn.device = io AND mpn.channel IS NULL) managedNotifications', PushNotification::class))
             ->from(IODevice::class, 'io');
     }
 }

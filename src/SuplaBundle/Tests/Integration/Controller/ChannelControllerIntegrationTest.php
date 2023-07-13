@@ -38,6 +38,7 @@ use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
 /** @small */
@@ -972,5 +973,19 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEmpty($content);
+    }
+
+    public function testGettingChannelManagedNotificationsCount() {
+        $device = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
+        (new NotificationsFixture())->createDeviceNotification($this->getEntityManager(), $device);
+        (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $device->getChannels()[0]);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/channels/' . $device->getChannels()[0]->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('managedNotifications', $content['relationsCount']);
+        $this->assertEquals(1, $content['relationsCount']['managedNotifications']);
     }
 }

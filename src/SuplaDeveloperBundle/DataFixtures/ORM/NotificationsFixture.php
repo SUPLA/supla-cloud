@@ -31,8 +31,11 @@ class NotificationsFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
 
+    public function __construct() {
+        $this->faker = Factory::create('pl_PL');;
+    }
+
     public function load(ObjectManager $manager) {
-        $this->faker = Factory::create('pl_PL');
         $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_SONOFF)->getChannels()[0]);
         $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_SONOFF)->getChannels()[1]);
         $this->createChannelNotification($manager, $this->getReference(DevicesFixture::DEVICE_FULL)->getChannels()[0]);
@@ -45,21 +48,19 @@ class NotificationsFixture extends SuplaFixture {
         $manager->flush();
     }
 
-    private function createChannelNotification(ObjectManager $manager, IODeviceChannel $channel) {
-        $notification = new PushNotification($channel->getUser());
-        EntityUtils::setField($notification, 'managedByDevice', true);
-        EntityUtils::setField($notification, 'device', $channel->getIoDevice());
+    public function createChannelNotification(
+        ObjectManager $manager,
+        IODeviceChannel $channel,
+        $body = false,
+        $title = false
+    ): PushNotification {
+        $notification = $this->createDeviceNotification($manager, $channel->getIoDevice(), $body, $title);
         $notification->setChannel($channel);
-        if ($this->faker->boolean) {
-            $notification->setTitle($this->faker->sentence);
-        }
-        if ($this->faker->boolean) {
-            $notification->setBody($this->faker->sentence);
-        }
         $manager->persist($notification);
+        return $notification;
     }
 
-    private function createDeviceNotification(ObjectManager $manager, IODevice $device) {
+    public function createDeviceNotification(ObjectManager $manager, IODevice $device, $body = false, $title = false): PushNotification {
         $notification = new PushNotification($device->getUser());
         EntityUtils::setField($notification, 'managedByDevice', true);
         EntityUtils::setField($notification, 'device', $device);
@@ -69,6 +70,13 @@ class NotificationsFixture extends SuplaFixture {
         if ($this->faker->boolean) {
             $notification->setBody($this->faker->sentence);
         }
+        if ($body !== false) {
+            EntityUtils::setField($notification, 'body', $body);
+        }
+        if ($title !== false) {
+            EntityUtils::setField($notification, 'title', $title);
+        }
         $manager->persist($notification);
+        return $notification;
     }
 }
