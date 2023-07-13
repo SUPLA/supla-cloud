@@ -82,12 +82,11 @@
             onSubjectChange() {
                 if (this.subject?.ownSubjectType === ActionableSubjectType.OTHER) {
                     this.action = {id: this.subject.id};
-                    this.onActionChange();
                 }
                 if (!this.subject) {
                     this.action = undefined;
-                    this.onActionChange();
                 }
+                this.onActionChange();
             },
             onActionChange() {
                 if (this.isActionFullySpecified()) {
