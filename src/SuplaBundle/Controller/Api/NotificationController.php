@@ -17,9 +17,13 @@
 
 namespace SuplaBundle\Controller\Api;
 
+use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\PushNotification;
+use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\ApiVersions;
+use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Transactional;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,5 +54,29 @@ class NotificationController extends RestController {
      */
     public function getNotificationAction(PushNotification $notification) {
         return $this->handleView($this->view($notification, Response::HTTP_OK));
+    }
+
+    /**
+     * @OA\Patch(
+     *     path="/notifications", operationId="sendNotification", summary="Send a notification.",  tags={"Notifications"},
+     *     @OA\RequestBody(
+     *       required=true,
+     *       @OA\JsonContent(ref="#/components/schemas/ChannelActionParamsSend"),
+     *     ),
+     *     @OA\Response(response="202", description="Notification has been sent."),
+     *     @OA\Response(response="400", description="Invalid request", @OA\JsonContent(
+     *          @OA\Property(property="status", type="integer", example="400"),
+     *     )),
+     * )
+     * @Rest\Patch("/notifications")
+     * @Security("has_role('ROLE_CHANNELS_EA')")
+     */
+    public function sendNotificationAction(Request $request, ChannelActionExecutor $channelActionExecutor) {
+        if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
+            throw $this->createNotFoundException();
+        }
+        $params = json_decode($request->getContent(), true);
+        $channelActionExecutor->executeAction(new PushNotification($this->getUser()), ChannelFunctionAction::SEND(), $params);
+        return $this->handleView($this->view(null, Response::HTTP_ACCEPTED));
     }
 }

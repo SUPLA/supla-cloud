@@ -39,7 +39,15 @@ class SendActionExecutor extends SingleChannelActionExecutor {
 
     /** @param PushNotification $notification */
     public function execute(ActionableSubject $notification, array $actionParams = []) {
-        // TODO
+        $payload = [
+            'title' => $actionParams['title'] ?? '',
+            'body' => $actionParams['body'],
+            'recipients' => [
+                'aids' => $actionParams['accessIds'],
+            ],
+        ];
+        $command = $notification->buildServerActionCommand('SEND-PUSH', $payload);
+        $this->suplaServer->executeCommand($command);
     }
 
     public function validateActionParams(ActionableSubject $notification, array $actionParams): array {

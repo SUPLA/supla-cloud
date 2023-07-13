@@ -80,6 +80,8 @@ class SuplaServerMock extends SuplaServer {
             return "OK\n";
         } elseif (preg_match('#^USER.+:(\d+).*$#', $cmd, $match)) {
             return "OK:$match[1]\n";
+        } elseif (preg_match('#^SEND-PUSH:(\d+).*$#', $cmd, $match)) {
+            return "OK:$match[1]\n";
         } elseif (preg_match('#^SET-(CG-)?(CHAR|RGBW|RAND-RGBW|DIGIGLASS)-VALUE:.+$#', $cmd, $match)) {
             return 'OK:HURRA';
         } elseif (preg_match('#^ACTION-(CG-)?(.+?):.+$#', $cmd, $match)) {

@@ -111,7 +111,9 @@ class PushNotification implements ActionableSubject {
     }
 
     public function buildServerActionCommand(string $command, array $actionParams = []): string {
-        // TODO: Implement buildServerActionCommand() method.
+        $payload = base64_encode(json_encode($actionParams));
+        $params = implode(',', [$this->getUser()->getId(), $payload]);
+        return "$command:$params";
     }
 
     /** @Groups({"basic"}) */
