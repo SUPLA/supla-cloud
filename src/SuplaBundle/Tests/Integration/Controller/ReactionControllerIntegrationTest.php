@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -159,5 +160,23 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertStringContainsString('Unsupported field name', $content['message']);
         $this->assertNotContains('USER-ON-VBT-CHANGED:1', SuplaServerMock::$executedCommands);
+    }
+
+    public function testCreatingReactionWithNotification() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', "/api/channels/{$this->thermometer->getId()}/reactions", [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'actionId' => ChannelFunctionAction::SEND,
+            'actionParam' => ['body' => 'Test', 'accessIds' => [1]],
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $notificationId = $content['subjectId'];
+        $notification = $this->getEntityManager()->find(PushNotification::class, $notificationId);
+        $this->assertNotNull($notification);
+        $this->assertEquals('Test', $notification->getBody());
+        $this->assertEquals($this->thermometer->getId(), $notification->getChannel()->getId());
     }
 }

@@ -2,6 +2,7 @@
 namespace SuplaBundle\Serialization\RequestFiller;
 
 use Assert\Assertion;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Model\CurrentUserAware;
@@ -32,6 +33,9 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
         );
         [$subject, $action, $actionParam] = $this->subjectActionFiller->getSubjectAndAction($data);
         $vbt->setSubject($subject);
+        if ($subject instanceof PushNotification) {
+            $subject->setChannel($vbt->getOwningChannel());
+        }
         $vbt->setAction($action);
         $vbt->setActionParam($actionParam);
         Assertion::keyExists($data, 'trigger', 'Missing trigger.');
