@@ -18,10 +18,13 @@
 namespace SuplaBundle\Controller\Api;
 
 use Assert\Assertion;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\ApiVersions;
@@ -138,5 +141,48 @@ class NotificationController extends RestController {
             $em->persist($notification);
         });
         return $this->serializedView($notification, $request);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/channels/{channel}/notifications", operationId="getChannelNotifications", tags={"Channels"},
+     *     @OA\Parameter(name="onlyManaged", in="query", description="Return only notification managed by the device (i.e. originating from the firmware). Can be only set to `true`.", required=false, @OA\Schema(type="boolean")),
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"accessIds"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Notification"))),
+     * )
+     * @Rest\Get("/channels/{channel}/notifications")
+     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     */
+    public function getChannelNotificationsAction(Request $request, IODeviceChannel $channel) {
+        $criteria = Criteria::create();
+        if (($onlyManaged = $request->get('onlyManaged')) !== null) {
+            $onlyManaged = filter_var($onlyManaged, FILTER_VALIDATE_BOOLEAN);
+            Assertion::true($onlyManaged, 'The onlyManaged param must be set to true or skipped.');
+            $criteria->where(Criteria::expr()->eq('managedByDevice', true));
+        }
+        $notifications = $channel->getPushNotifications()->matching($criteria);
+        return $this->serializedView($notifications, $request);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/iodevices/{device}/notifications", operationId="getIoDeviceNotifications", tags={"Devices"},
+     *     @OA\Parameter(
+     *         description="List of extra fields to include in the response.",
+     *         in="query", name="include", required=false, explode=false,
+     *         @OA\Schema(type="array", @OA\Items(type="string", enum={"accessIds"})),
+     *     ),
+     *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Notification"))),
+     * )
+     * @Rest\Get("/iodevices/{device}/notifications")
+     * @Security("device.belongsToUser(user) and has_role('ROLE_IODEVICES_R') and is_granted('accessIdContains', device)")
+     */
+    public function getIoDeviceNotificationsAction(Request $request, IODevice $device) {
+        $notifications = $device->getPushNotifications();
+        return $this->serializedView($notifications, $request);
     }
 }

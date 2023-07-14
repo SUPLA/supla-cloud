@@ -17,7 +17,9 @@
 
 namespace SuplaBundle\Entity\Main;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use SuplaBundle\Entity\BelongsToUser;
@@ -87,6 +89,12 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $user;
 
     /**
+     * @var PushNotification[]
+     * @ORM\OneToMany(targetEntity="PushNotification", mappedBy="device", cascade={"remove"})
+     */
+    private $pushNotifications;
+
+    /**
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      * @Groups({"basic"})
      */
@@ -154,6 +162,10 @@ class IODevice implements HasLocation, HasRelationsCount {
      * @Groups({"basic"})
      */
     private $productId;
+
+    public function __construct() {
+        $this->pushNotifications = new ArrayCollection();
+    }
 
     public function getEnabled() {
         return $this->enabled;
@@ -261,5 +273,12 @@ class IODevice implements HasLocation, HasRelationsCount {
     /** @Groups({"basic"}) */
     public function isSleepModeEnabled(): bool {
         return IoDeviceFlags::SLEEP_MODE_ENABLED()->isSupported($this->flags);
+    }
+
+    /** @return Collection|PushNotification[] */
+    public function getPushNotifications(): Collection {
+        $criteria = Criteria::create();
+        $criteria->where(Criteria::expr()->isNull('channel'));
+        return $this->pushNotifications->matching($criteria);
     }
 }

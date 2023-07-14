@@ -86,30 +86,32 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     /**
      * @var Schedule[]
      * @ORM\OneToMany(targetEntity="Schedule", mappedBy="channel", cascade={"remove"})
-     * @MaxDepth(1)
      */
     private $schedules;
 
     /**
      * @var SceneOperation[]
      * @ORM\OneToMany(targetEntity="SceneOperation", mappedBy="channel", cascade={"remove"})
-     * @MaxDepth(1)
      */
     private $sceneOperations;
 
     /**
      * @var ValueBasedTrigger[]
      * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="owningChannel", cascade={"remove"})
-     * @MaxDepth(1)
      */
     private $ownReactions;
 
     /**
      * @var ValueBasedTrigger[]
      * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="channel", cascade={"remove"})
-     * @MaxDepth(1)
      */
     private $reactions;
+
+    /**
+     * @var PushNotification[]
+     * @ORM\OneToMany(targetEntity="PushNotification", mappedBy="channel", cascade={"remove"})
+     */
+    private $pushNotifications;
 
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="channels")
@@ -226,6 +228,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->sceneOperations = new ArrayCollection();
         $this->ownReactions = new ArrayCollection();
         $this->reactions = new ArrayCollection();
+        $this->pushNotifications = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -467,5 +470,10 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
 
     public function getProperties(): array {
         return $this->properties ? (json_decode($this->properties, true) ?: []) : [];
+    }
+
+    /** @return Collection|PushNotification[] */
+    public function getPushNotifications(): Collection {
+        return $this->pushNotifications;
     }
 }

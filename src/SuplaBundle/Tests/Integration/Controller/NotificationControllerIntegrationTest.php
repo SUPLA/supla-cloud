@@ -171,4 +171,37 @@ class NotificationControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(404, $client->getResponse());
     }
+
+    public function testFetchingChannelNotifications() {
+        $device = $this->createDeviceSonoff($this->user->getLocations()[0]);
+        $channel = $device->getChannels()[0];
+        (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $channel, 'A', 'A');
+        (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $channel);
+        (new NotificationsFixture())->createDeviceNotification($this->getEntityManager(), $device);
+        $notManaged = (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $channel);
+        EntityUtils::setField($notManaged, 'managedByDevice', false);
+        $this->getEntityManager()->persist($notManaged);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', "/api/channels/{$channel->getId()}/notifications");
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertCount(3, json_decode($client->getResponse()->getContent(), true));
+        $client->apiRequestV24('GET', "/api/channels/{$channel->getId()}/notifications?onlyManaged=true");
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertCount(2, json_decode($client->getResponse()->getContent(), true));
+        $client->apiRequestV24('GET', "/api/channels/{$channel->getId()}/notifications?onlyManaged=false");
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    public function testFetchingIoDeviceNotifications() {
+        $device = $this->createDeviceSonoff($this->user->getLocations()[0]);
+        $channel = $device->getChannels()[0];
+        (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $channel);
+        (new NotificationsFixture())->createDeviceNotification($this->getEntityManager(), $device);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', "/api/iodevices/{$device->getId()}/notifications");
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertCount(1, json_decode($client->getResponse()->getContent(), true));
+    }
 }
