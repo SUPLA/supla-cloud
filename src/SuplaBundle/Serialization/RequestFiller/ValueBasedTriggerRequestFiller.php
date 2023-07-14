@@ -2,6 +2,7 @@
 namespace SuplaBundle\Serialization\RequestFiller;
 
 use Assert\Assertion;
+use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Enums\ActionableSubjectType;
@@ -15,10 +16,17 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
     private $subjectActionFiller;
     /** @var ValueBasedTriggerValidator */
     private $triggerValidator;
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
-    public function __construct(SubjectActionFiller $subjectActionFiller, ValueBasedTriggerValidator $triggerValidator) {
+    public function __construct(
+        SubjectActionFiller $subjectActionFiller,
+        ValueBasedTriggerValidator $triggerValidator,
+        EntityManagerInterface $entityManager
+    ) {
         $this->subjectActionFiller = $subjectActionFiller;
         $this->triggerValidator = $triggerValidator;
+        $this->entityManager = $entityManager;
     }
 
     /** @param ValueBasedTrigger $vbt */
@@ -31,6 +39,9 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
             'actionId',
             'You must set an action for each reaction.' // i18n
         );
+        if ($vbt->getSubject() instanceof PushNotification) {
+            $this->entityManager->remove($vbt->getSubject());
+        }
         [$subject, $action, $actionParam] = $this->subjectActionFiller->getSubjectAndAction($data);
         $vbt->setSubject($subject);
         if ($subject instanceof PushNotification) {
@@ -43,5 +54,16 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
         $this->triggerValidator->validate($vbt->getOwningChannel(), $data['trigger']);
         $vbt->setTrigger($data['trigger']);
         return $vbt;
+    }
+
+    private function clearOldNotifications(array $actionsConfig) {
+        foreach ($actionsConfig as $action) {
+            if ($action['subjectType'] === ActionableSubjectType::NOTIFICATION) {
+                $notification = $this->entityManager->find(PushNotification::class, $action['subjectId'] ?? 0);
+                if ($notification) {
+                    $this->entityManager->remove($notification);
+                }
+            }
+        }
     }
 }

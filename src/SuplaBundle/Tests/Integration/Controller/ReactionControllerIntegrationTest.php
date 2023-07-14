@@ -178,5 +178,27 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($notification);
         $this->assertEquals('Test', $notification->getBody());
         $this->assertEquals($this->thermometer->getId(), $notification->getChannel()->getId());
+        return $content;
+    }
+
+    /** @depends testCreatingReactionWithNotification */
+    public function testEditingReactionWithNotification(array $vbt) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', "/api/channels/{$this->thermometer->getId()}/reactions/{$vbt['id']}", [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'actionId' => ChannelFunctionAction::SEND,
+            'actionParam' => ['body' => 'Test 2', 'accessIds' => [1]],
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $notificationId = $content['subjectId'];
+        $this->assertNotEquals($notificationId, $vbt['subjectId']);
+        $notification = $this->getEntityManager()->find(PushNotification::class, $notificationId);
+        $this->assertNotNull($notification);
+        $this->assertEquals('Test 2', $notification->getBody());
+        $this->assertEquals($this->thermometer->getId(), $notification->getChannel()->getId());
+        $this->assertNull($this->getEntityManager()->find(PushNotification::class, $vbt['subjectId']));
     }
 }
