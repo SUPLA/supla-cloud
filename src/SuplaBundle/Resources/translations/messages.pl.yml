@@ -597,9 +597,9 @@ Please select a condition: Proszę wybrać warunek
 Please select an action: Proszę wybrać akcję
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Port: Port
-Power active: Energia czynna
-Power apparent: Energia pozorna
-Power reactive: Energia bierna
+Power active: Moc czynna
+Power apparent: Moc pozorna
+Power reactive: Moc bierna
 Precision: Dokładność
 Predefined time ranges: Zakresy czasu
 Pressure sensor: Czujnik ciśnienia
