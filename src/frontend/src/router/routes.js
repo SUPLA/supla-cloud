@@ -104,10 +104,30 @@ export default [
                 component: () => import("@/channels/reactions/channel-reaction"),
                 name: 'channelReaction',
                 props: true
-            }
+            },
         ],
     },
-    {path: '/devices/:id', component: () => import("@/devices/details/device-details-page"), name: 'device', props: true},
+    {
+        path: '/devices/:id',
+        component: () => import("@/devices/details/device-details-page"),
+        name: 'device',
+        props: true,
+        redirect: {name: 'device.channels'},
+        children: [
+            {
+                path: 'channels',
+                component: () => import("@/channels/channel-list-page"),
+                name: 'device.channels',
+                props: ({params}) => ({deviceId: params.id}),
+            },
+            {
+                path: 'notifications',
+                component: () => import("@/devices/details/device-managed-notifications"),
+                name: 'device.notifications',
+                props: true
+            },
+        ]
+    },
     {
         path: '/locations', component: () => import("@/locations/locations-page"), name: 'locations', children: [
             {path: ':id', component: () => import("@/locations/location-details"), name: 'location', props: true}

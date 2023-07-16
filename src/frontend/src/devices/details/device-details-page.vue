@@ -8,7 +8,7 @@
                         @cancel="cancelChanges()"
                         @save="saveChanges()"
                         @delete="deleteConfirm = true"
-                        deletable="true"
+                        :deletable="true"
                         :is-pending="hasPendingChanges">
                         <div class="row text-center">
                             <div class="col-sm-4">
@@ -82,8 +82,26 @@
                 </div>
             </div>
         </loading-cover>
-        <channel-list-page :device-id="id"
-            v-if="device"></channel-list-page>
+
+        <div class="container" v-if="device">
+            <div class="form-group">
+                <ul class="nav nav-tabs">
+                    <router-link tag="li" :to="{name: 'device.channels', params: {id}}">
+                        <a>
+                            {{ $t('Channels') }}
+                        </a>
+                    </router-link>
+                    <router-link tag="li" :to="{name: 'device.notifications', params: {id}}">
+                        <a>
+                            {{ $t('Notifications') }}
+                        </a>
+                    </router-link>
+                </ul>
+            </div>
+        </div>
+
+        <RouterView/>
+
         <modal-confirm v-if="deleteConfirm"
             class="modal-warning"
             @confirm="deleteDevice()"
