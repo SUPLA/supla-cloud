@@ -15,14 +15,12 @@
                         </div>
                     </div>
                     <div v-if="isSelected(possibleCondition) && possibleCondition.component">
-                        <transition-expand>
-                            <div class="panel-body" v-if="isSelected(possibleCondition)">
-                                <Component :is="possibleCondition.component"
-                                    :subject="subject"
-                                    v-model="currentConditionJson"
-                                    v-bind="possibleCondition.props || {}"/>
-                            </div>
-                        </transition-expand>
+                        <div class="panel-body" v-if="isSelected(possibleCondition)">
+                            <Component :is="possibleCondition.component"
+                                :subject="subject"
+                                v-model="currentConditionJson"
+                                v-bind="possibleCondition.props || {}"/>
+                        </div>
                     </div>
                 </div>
             </div>
