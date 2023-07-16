@@ -83,7 +83,7 @@
             </div>
         </loading-cover>
 
-        <div class="container" v-if="device">
+        <div class="container" v-if="device && device.relationsCount.managedNotifications">
             <div class="form-group">
                 <ul class="nav nav-tabs">
                     <router-link tag="li" :to="{name: 'device.channels', params: {id}}">
@@ -91,7 +91,8 @@
                             {{ $t('Channels') }}
                         </a>
                     </router-link>
-                    <router-link tag="li" :to="{name: 'device.notifications', params: {id}}">
+                    <router-link tag="li" :to="{name: 'device.notifications', params: {id}}"
+                        v-if="device.relationsCount.managedNotifications">
                         <a>
                             {{ $t('Notifications') }}
                         </a>
