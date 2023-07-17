@@ -25,8 +25,8 @@
         data() {
             return {
                 notificationFields: undefined,
-                disableTitleMessage: '',
-                disableBodyMessage: '',
+                disableTitleMessage: undefined,
+                disableBodyMessage: undefined,
                 loading: false,
             };
         },

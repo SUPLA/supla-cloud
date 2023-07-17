@@ -20,6 +20,14 @@
                 <ChannelReactionsConfig :subject="channel" @count="setCount('reactions', $event)"/>
             </div>
         </div>
+        <div v-if="currentTab == 'notifications'">
+            <ChannelManagedNotifications :id="channel.id"/>
+        </div>
+        <div v-if="currentTab == 'reactions'">
+            <div class="container">
+                <ChannelReactionsConfig :subject="channel" @count="setCount('reactions', $event)"/>
+            </div>
+        </div>
         <div v-if="currentTab == 'actionTriggers'">
             <div class="container">
                 <channel-action-triggers :channel="channel"></channel-action-triggers>
@@ -56,10 +64,12 @@
     import ChannelVoltageHistory from "./channel-voltage-history";
     import ChannelReactionsConfig from "@/channels/reactions/channel-reactions-config.vue";
     import {ChannelFunctionTriggers} from "@/channels/reactions/channel-function-triggers";
+    import ChannelManagedNotifications from "@/channels/reactions/channel-managed-notifications.vue";
 
     export default {
         props: ['channel'],
         components: {
+            ChannelManagedNotifications,
             ChannelReactionsConfig,
             ChannelMeasurementsHistory: () => import(/*webpackChunkName:"measurement-history"*/"./history/channel-measurements-history.vue"),
             ChannelVoltageHistory, ChannelActionTriggers, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
@@ -91,6 +101,12 @@
                     id: 'reactions',
                     header: 'Reactions', // i18n
                     count: this.channel.relationsCount.ownReactions,
+                });
+            }
+            if (this.channel.relationsCount.managedNotifications > 0) {
+                this.availableTabs.push({
+                    id: 'notifications',
+                    header: 'Notifications', // i18n
                 });
             }
             if (this.channel.possibleActions?.length) {
