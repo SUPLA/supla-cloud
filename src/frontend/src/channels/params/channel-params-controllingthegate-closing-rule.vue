@@ -25,13 +25,15 @@
             <dd>{{ $t('Working schedule') }}</dd>
             <dt>
                 <WeekScheduleCaption :schedule="props.channel.config.closingRule.activeHours" :emptyCaption="$t('everyday')"/>
-                <div><a @click="changing = true">{{ $t('Change') }}</a></div>
+                <div><a @click="startEdit()">{{ $t('Change') }}</a></div>
             </dt>
         </dl>
         <modal v-if="changing"
             :header="$t('Automatic closing rule')"
             class="modal-800"
-            @confirm="(changing = false) || $emit('change')">
+            :cancellable="true"
+            @cancel="changing = false"
+            @confirm="confirmEdit()">
             <DateRangePicker v-model="activeDateRange"/>
             <WeekScheduleSelector v-model="activeHours"/>
         </modal>
@@ -46,6 +48,8 @@
     import WeekScheduleCaption from "@/access-ids/week-schedule-caption";
 
     const props = defineProps({channel: Object});
+    const emit = defineEmits(['change'])
+
     const changing = ref(false);
 
     const maxTimeOpenMin = computed({
@@ -57,34 +61,35 @@
         }
     });
 
-    const activeDateRange = computed({
-        get() {
-            return {dateStart: props.channel.config.closingRule.activeFrom, dateEnd: props.channel.config.closingRule.activeTo};
-        },
-        set(dates) {
-            set(props.channel.config.closingRule, 'activeFrom', dates.dateStart || null);
-            set(props.channel.config.closingRule, 'activeTo', dates.dateEnd || null);
-        }
-    });
+    const activeDateRange = ref();
+    const activeHours = ref();
 
-    const activeHours = computed({
-        get() {
-            if (props.channel.config.closingRule.activeHours) {
-                return mapValues(props.channel.config.closingRule.activeHours, (hours) => {
-                    const hoursDef = {};
-                    [...Array(24).keys()].forEach((hour) => hoursDef[hour] = hours.includes(hour) ? 1 : 0);
-                    return hoursDef;
-                });
-            } else {
-                return {};
-            }
-        },
-        set(weekSchedule) {
-            set(props.channel.config.closingRule, 'activeHours', mapValues(weekSchedule, (hours) => {
-                return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
-            }));
+    const startEdit = () => {
+        changing.value = true;
+        activeDateRange.value = {
+            dateStart: props.channel.config.closingRule.activeFrom,
+            dateEnd: props.channel.config.closingRule.activeTo
+        };
+        if (props.channel.config.closingRule.activeHours) {
+            activeHours.value = mapValues(props.channel.config.closingRule.activeHours, (hours) => {
+                const hoursDef = {};
+                [...Array(24).keys()].forEach((hour) => hoursDef[hour] = hours.includes(hour) ? 1 : 0);
+                return hoursDef;
+            });
+        } else {
+            activeHours.value = {};
         }
-    });
+    };
+
+    const confirmEdit = () => {
+        set(props.channel.config.closingRule, 'activeFrom', activeDateRange.value.dateStart || null);
+        set(props.channel.config.closingRule, 'activeTo', activeDateRange.value.dateEnd || null);
+        set(props.channel.config.closingRule, 'activeHours', mapValues(activeHours.value, (hours) => {
+            return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
+        }));
+        changing.value = false;
+        emit('change');
+    };
 </script>
 
 <style lang="scss">
