@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Entity\Main;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -128,6 +129,7 @@ class PushNotification implements ActionableSubject {
     }
 
     public function setTitle(string $title): void {
+        Assertion::maxLength($title, 100);
         $this->title = $title;
     }
 
@@ -136,6 +138,7 @@ class PushNotification implements ActionableSubject {
     }
 
     public function setBody(string $body): void {
+        Assertion::maxLength($body, 255);
         $this->body = $body;
     }
 

@@ -33,7 +33,8 @@
                 <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1">
                     <div v-if="targetSubject" class="mt-3">
                         <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
-                            @input="onChanged()"/>
+                            @input="onChanged()"
+                            :notification-variables="ChannelFunctionNotificationVariables[item.owningChannel.functionId] || []"/>
                     </div>
                 </SubjectDropdown>
             </div>
@@ -58,6 +59,7 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {deepCopy} from "@/common/utils";
     import EventBus from "@/common/event-bus";
+    import {ChannelFunctionNotificationVariables} from "@/channels/reactions/channel-function-notification-variables";
 
     export default {
         components: {TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser},
@@ -74,6 +76,7 @@
                 deleteConfirm: false,
                 loading: false,
                 displayValidationErrors: false,
+                ChannelFunctionNotificationVariables,
             };
         },
         beforeMount() {

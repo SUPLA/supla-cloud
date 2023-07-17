@@ -53,7 +53,8 @@
                                     :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SEND">
-                                <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors/>
+                                <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors
+                                    :variables="notificationVariables"/>
                             </div>
                             <div v-if="executorMode" class="mt-3">
                                 <button
@@ -112,6 +113,10 @@
             executing: {type: Array, default: () => []},
             executed: {type: Array, default: () => []},
             dropdownContainer: String,
+            notificationVariables: {
+                type: Array,
+                default: () => [],
+            },
         },
         data() {
             return {
