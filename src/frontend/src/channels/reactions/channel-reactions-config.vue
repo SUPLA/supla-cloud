@@ -30,6 +30,7 @@
             newReactionFactory() {
                 return {
                     owningChannel: this.subject,
+                    enabled: true,
                 };
             },
         }

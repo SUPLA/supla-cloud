@@ -12,6 +12,17 @@
                     </div>
                 </transition-expand>
                 <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="onChanged()" class="mb-3"/>
+                <div class="details-page-block">
+                    <h3 class="text-center">{{ $t('Settings') }}</h3>
+                    <div class="hover-editable text-left">
+                        <dl>
+                            <dd>{{ $t('Enabled') }}</dd>
+                            <dt>
+                                <toggler v-model="enabled" @input="onChanged()"/>
+                            </dt>
+                        </dl>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-6">
                 <transition-expand>
@@ -58,6 +69,7 @@
                 trigger: undefined,
                 targetSubject: undefined,
                 action: undefined,
+                enabled: undefined,
                 hasPendingChanges: false,
                 deleteConfirm: false,
                 loading: false,
@@ -65,9 +77,7 @@
             };
         },
         beforeMount() {
-            if (this.item.id) {
-                this.initFromItem();
-            }
+            this.initFromItem();
         },
         methods: {
             onChanged() {
@@ -82,6 +92,7 @@
                 this.trigger = item.trigger || {};
                 this.targetSubject = item.subject;
                 this.action = item.actionId ? {id: item.actionId, param: item.actionParam} : undefined;
+                this.enabled = item.enabled;
                 this.$nextTick(() => this.hasPendingChanges = false);
             },
             submitForm() {
@@ -135,6 +146,7 @@
                     subjectType: this.targetSubject?.ownSubjectType,
                     actionId: this.action?.id,
                     actionParam: this.action?.param,
+                    enabled: this.enabled,
                     isValid: !!(this.trigger && this.action && this.targetSubject),
                 };
             },

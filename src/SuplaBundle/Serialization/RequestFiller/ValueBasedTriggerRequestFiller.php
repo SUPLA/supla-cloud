@@ -53,6 +53,9 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
         Assertion::isArray($data['trigger'], 'Invalid trigger definition.');
         $this->triggerValidator->validate($vbt->getOwningChannel(), $data['trigger']);
         $vbt->setTrigger($data['trigger']);
+        if (isset($data['enabled'])) {
+            $vbt->setEnabled(boolval($data['enabled']));
+        }
         return $vbt;
     }
 
