@@ -136,7 +136,6 @@
     import throttle from "lodash/throttle";
     import Toggler from "../../common/gui/toggler";
     import PendingChangesPage from "../../common/pages/pending-changes-page";
-    import ChannelListPage from "../../channels/channel-list-page";
     import ConnectionStatusLabel from "../list/connection-status-label";
     import SquareLocationChooser from "../../locations/square-location-chooser";
     import PageContainer from "../../common/pages/page-container";
@@ -151,7 +150,6 @@
             DependenciesWarningModal,
             PageContainer,
             ConnectionStatusLabel,
-            ChannelListPage,
             PendingChangesPage,
             Toggler,
             SquareLocationChooser,

@@ -136,6 +136,8 @@ class NotificationController extends RestController {
                 return $aidRepository->findForUser($this->getUser(), $aid);
             }, $params['accessIds']);
             $notification->setAccessIds($accessIds);
+        } else {
+            Assertion::notEmpty($notification->getAccessIds(), 'Notification must have recipients.'); // i18n
         }
         $this->transactional(function (EntityManagerInterface $em) use ($notification) {
             $em->persist($notification);

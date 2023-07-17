@@ -7,15 +7,7 @@
                 </p>
                 <div class="row">
                     <div class="col-lg-offset-3 col-lg-6">
-
-                        <NotificationForm/>
-                        <div class="text-center my-3">
-                            <button class="btn btn-white"
-                                type="submit">
-                                <i class="pe-7s-diskette"></i>
-                                {{ $t('Save changes') }}
-                            </button>
-                        </div>
+                        <CustomNotificationEditForm :notification="notification"/>
                     </div>
                 </div>
             </div>
@@ -25,10 +17,10 @@
 </template>
 
 <script>
-    import NotificationForm from "@/notifications/notification-form.vue";
+    import CustomNotificationEditForm from "@/devices/details/custom-notification-edit-form.vue";
 
     export default {
-        components: {NotificationForm},
+        components: {CustomNotificationEditForm},
         props: {
             id: [String, Number],
         },
@@ -38,7 +30,7 @@
             };
         },
         mounted() {
-            this.$http.get(`iodevices/${this.id}/notifications?onlyManaged=true`)
+            this.$http.get(`iodevices/${this.id}/notifications?onlyManaged=true&include=accessIds`)
                 .then(response => {
                     if (response.body.length > 0) {
                         this.notification = response.body[0];
