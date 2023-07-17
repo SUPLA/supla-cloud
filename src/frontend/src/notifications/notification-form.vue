@@ -2,17 +2,17 @@
     <div class="notification-subject-form">
         <div class="form-group">
             <label>{{ $t('Title') }}</label>
-            <div :class="{'input-group': variables.length > 0}">
+            <div class="input-group">
                 <input type="text" class="form-control" v-model="title" name="notification-title" :disabled="disableTitleMessage"
                     maxlength="100">
-                <div class="input-group-btn" v-if="variables.length">
+                <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         {{ $t('Variables') }}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li v-for="variable in variables" :key="variable.code">
+                        <li v-for="variable in allVariables" :key="variable.code">
                             <a @click="insertVariable('title', variable.code)">
                                 {{ variable.label }}
                             </a>
@@ -24,17 +24,17 @@
         </div>
         <div :class="['form-group', {'has-error': displayValidationErrors && !disableBodyMessage && !body}]">
             <label>{{ $t('Body') }}</label>
-            <div :class="{'input-group': variables.length > 0}">
+            <div class="input-group">
                 <input type="text" class="form-control" v-model="body" name="notification-body" :disabled="disableBodyMessage"
                     maxlength="255">
-                <div class="input-group-btn" v-if="variables.length">
+                <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         {{ $t('Variables') }}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li v-for="variable in variables" :key="variable.code">
+                        <li v-for="variable in allVariables" :key="variable.code">
                             <a @click="insertVariable('body', variable.code)">
                                 {{ variable.label }}
                             </a>
@@ -118,6 +118,14 @@
             isValid() {
                 return this.validRecipients && (!!this.disableBodyMessage || !!this.body);
             },
+            allVariables() {
+                return [
+                    ...this.variables,
+                    {label: 'Date', code: '{date}'}, // i18n,
+                    {label: 'Time', code: '{time}'}, // i18n,
+                    {label: 'Date and time', code: '{date-time}'}, // i18n,
+                ];
+            }
         },
     };
 </script>
