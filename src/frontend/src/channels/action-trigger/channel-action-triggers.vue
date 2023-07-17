@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <loading-cover :loading="loading">
             <p>
                 {{ $t('Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).') }}
@@ -33,7 +33,9 @@
 
     export default {
         components: {PendingChangesPage, ActionTriggerPanel},
-        props: ['channel'],
+        props: {
+            subject: Object,
+        },
         data() {
             return {
                 actionTriggers: undefined,
@@ -47,7 +49,7 @@
         methods: {
             loadActionTriggers() {
                 this.loading = true;
-                const promises = this.channel.actionTriggersIds.map((actionTriggerId) => this.$http.get(`channels/${actionTriggerId}`));
+                const promises = this.subject.actionTriggersIds.map((actionTriggerId) => this.$http.get(`channels/${actionTriggerId}`));
                 Promise.all(promises).then((responses) => {
                     this.actionTriggers = responses.map((response) => response.body);
                     this.loading = false;

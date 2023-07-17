@@ -219,17 +219,30 @@
                 executingAction: false,
                 changeFunctionConfirmationObject: undefined,
                 sleepingDeviceWarning: false,
+                onChangeListener: undefined,
             };
         },
         mounted() {
             this.fetchChannel();
+            this.onChangeListener = () => {
+                this.channelRequest().then(({body}) => {
+                    this.channel.relationsCount = body.relationsCount;
+                });
+            }
+            EventBus.$on('channel-updated', this.onChangeListener);
+        },
+        beforeDestroy() {
+            EventBus.$off('channel-updated', this.onChangeListener);
         },
         methods: {
+            channelRequest() {
+                return this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]});
+            },
             fetchChannel() {
                 this.channel = undefined;
                 this.loading = true;
                 this.error = false;
-                this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]})
+                this.channelRequest()
                     .then(response => {
                         this.channel = response.body;
                         this.$set(this.channel, 'enabled', !!this.channel.function.id);

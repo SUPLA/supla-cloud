@@ -46,6 +46,7 @@
     import PendingChangesPage from "@/common/pages/pending-changes-page.vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {deepCopy} from "@/common/utils";
+    import EventBus from "@/common/event-bus";
 
     export default {
         components: {TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser},
@@ -98,6 +99,7 @@
                 return this.$http.post(`channels/${this.owningChannel.id}/reactions?include=subject,owningChannel`, this.reaction)
                     .then((response) => {
                         this.$emit('add', response.body);
+                        EventBus.$emit('channel-updated');
                         successNotification(this.$t('Success'), this.$t('The reaction has been added'));
                     });
             },
@@ -112,6 +114,7 @@
                 this.loading = true;
                 this.$http.delete(`channels/${this.owningChannel.id}/reactions/${this.item.id}`)
                     .then(() => this.$emit('delete'))
+                    .then(() => EventBus.$emit('channel-updated'))
                     .finally(() => this.loading = false);
             }
         },

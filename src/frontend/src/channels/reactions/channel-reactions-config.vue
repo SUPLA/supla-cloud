@@ -1,17 +1,16 @@
 <template>
-    <div class="channel-reactions-config">
+    <div class="channel-reactions-config container">
         <CarouselPage
             permanent-carousel-view
             header-i18n="Reactions"
             tile="reaction-tile"
             :endpoint="`channels/${subject.id}/reactions?include=subject,owningChannel`"
             create-new-label-i18n="Create new reaction"
-            list-route="channel"
-            details-route="channelReaction"
+            list-route="channel.reactions"
+            details-route="channel.reaction"
             id-param-name="reactionId"
             :limit="$user.userData.limits.schedule"
-            :new-item-factory="newReactionFactory"
-            @count="$emit('count', $event)"/>
+            :new-item-factory="newReactionFactory"/>
     </div>
 </template>
 

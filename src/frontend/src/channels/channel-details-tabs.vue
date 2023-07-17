@@ -4,140 +4,88 @@
             v-if="availableTabs.length">
             <div class="form-group">
                 <ul class="nav nav-tabs">
-                    <li :class="currentTab == tabDefinition.id ? 'active' : ''"
-                        v-for="tabDefinition in availableTabs"
-                        :key="tabDefinition.id">
-                        <a @click="changeTab(tabDefinition.id)">
+                    <router-link :to="{name: tabDefinition.route, params: {id: channel.id}}" tag="li"
+                        v-for="tabDefinition in availableTabs" :key="tabDefinition.id">
+                        <a>
                             {{ $t(tabDefinition.header) }}
-                            <span v-if="tabDefinition.count !== undefined">({{ tabDefinition.count }})</span>
+                            <span v-if="tabDefinition.count !== undefined">({{ tabDefinition.count() }})</span>
                         </a>
-                    </li>
+                    </router-link>
                 </ul>
             </div>
         </div>
-        <div v-if="currentTab == 'reactions'">
-            <div class="container">
-                <ChannelReactionsConfig :subject="channel" @count="setCount('reactions', $event)"/>
-            </div>
-        </div>
-        <div v-if="currentTab == 'notifications'">
-            <ChannelManagedNotifications :id="channel.id"/>
-        </div>
-        <div v-if="currentTab == 'reactions'">
-            <div class="container">
-                <ChannelReactionsConfig :subject="channel" @count="setCount('reactions', $event)"/>
-            </div>
-        </div>
-        <div v-if="currentTab == 'actionTriggers'">
-            <div class="container">
-                <channel-action-triggers :channel="channel"></channel-action-triggers>
-            </div>
-        </div>
-        <div v-if="currentTab == 'schedules'">
-            <schedules-list :subject="channel"></schedules-list>
-        </div>
-        <div v-if="currentTab == 'channelGroups'">
-            <channel-groups-list :channel="channel"></channel-groups-list>
-        </div>
-        <div v-if="currentTab == 'scenes'">
-            <scenes-list :subject="channel"></scenes-list>
-        </div>
-        <div v-if="currentTab == 'directLinks'">
-            <direct-links-list :subject="channel"></direct-links-list>
-        </div>
-        <div v-if="currentTab == 'measurementsHistory'">
-            <channel-measurements-history :channel="channel" @rerender="rerenderMeasurementsHistory()"/>
-        </div>
+
+        <RouterView :subject="channel" :channel="channel" @rerender="rerender()" v-if="tabVisible"/>
+
+        <!--
         <div v-if="currentTab == 'voltageHistory'">
             <channel-voltage-history :channel="channel"/>
         </div>
+        -->
     </div>
 </template>
 
 <script>
-    import SchedulesList from "../schedules/schedule-list/schedules-list";
-    import DirectLinksList from "../direct-links/direct-links-list";
-    import ChannelGroupsList from "../channel-groups/channel-groups-list";
-    import ScenesList from "../scenes/scenes-list";
-    import ChannelActionTriggers from "@/channels/action-trigger/channel-action-triggers";
     import ChannelFunction from "../common/enums/channel-function";
-    import ChannelVoltageHistory from "./channel-voltage-history";
-    import ChannelReactionsConfig from "@/channels/reactions/channel-reactions-config.vue";
     import {ChannelFunctionTriggers} from "@/channels/reactions/channel-function-triggers";
-    import ChannelManagedNotifications from "@/channels/reactions/channel-managed-notifications.vue";
 
     export default {
         props: ['channel'],
-        components: {
-            ChannelManagedNotifications,
-            ChannelReactionsConfig,
-            ChannelMeasurementsHistory: () => import(/*webpackChunkName:"measurement-history"*/"./history/channel-measurements-history.vue"),
-            ChannelVoltageHistory, ChannelActionTriggers, ScenesList, ChannelGroupsList, DirectLinksList, SchedulesList
-        },
         data() {
             return {
-                currentTab: '',
+                tabVisible: true,
                 availableTabs: []
             };
         },
         methods: {
-            changeTab(id) {
-                this.currentTab = id;
-                if ((this.$route.name === 'channel' || this.currentTab !== 'reactions') && this.$route.query.tab !== this.currentTab) {
-                    this.$router.push({name: 'channel', params: {id: this.channel.id}, query: {tab: id}});
-                }
-            },
-            rerenderMeasurementsHistory() {
-                this.currentTab = undefined;
-                this.$nextTick(() => this.currentTab = 'measurementsHistory');
-            },
-            setCount(tabId, count) {
-                this.availableTabs.find(t => t.id = tabId).count = count;
+            rerender() {
+                this.tabVisible = false;
+                this.$nextTick(() => this.tabVisible = true);
             },
         },
         mounted() {
             if (ChannelFunctionTriggers[this.channel.functionId]) {
                 this.availableTabs.push({
-                    id: 'reactions',
+                    route: 'channel.reactions',
                     header: 'Reactions', // i18n
-                    count: this.channel.relationsCount.ownReactions,
+                    count: () => this.channel.relationsCount.ownReactions,
                 });
             }
             if (this.channel.relationsCount.managedNotifications > 0) {
                 this.availableTabs.push({
-                    id: 'notifications',
+                    route: 'channel.notifications',
                     header: 'Notifications', // i18n
                 });
             }
             if (this.channel.possibleActions?.length) {
                 if (this.channel.actionTriggersIds?.length) {
                     this.availableTabs.push({
-                        id: 'actionTriggers',
+                        route: 'channel.actionTriggers',
                         header: 'Action triggers', // i18n
-                        count: this.channel.actionTriggersIds.length,
+                        count: () => this.channel.actionTriggersIds.length,
                     });
                 }
                 this.availableTabs.push({
-                    id: 'schedules',
+                    route: 'channel.schedules',
                     header: 'Schedules', // i18n
-                    count: this.channel.relationsCount.schedules,
+                    count: () => this.channel.relationsCount.schedules,
                 });
                 this.availableTabs.push({
-                    id: 'channelGroups',
+                    route: 'channel.channelGroups',
                     header: 'Channel groups', // i18n
-                    count: this.channel.relationsCount.channelGroups,
+                    count: () => this.channel.relationsCount.channelGroups,
                 });
                 this.availableTabs.push({
-                    id: 'scenes',
+                    route: 'channel.scenes',
                     header: 'Scenes', // i18n
-                    count: this.channel.relationsCount.scenes,
+                    count: () => this.channel.relationsCount.scenes,
                 });
             }
             if (this.channel.function.id > 0 && !['ACTION_TRIGGER'].includes(this.channel.function.name)) {
                 this.availableTabs.push({
-                    id: 'directLinks',
+                    route: 'channel.directLinks',
                     header: 'Direct links', // i18n
-                    count: this.channel.relationsCount.directLinks,
+                    count: () => this.channel.relationsCount.directLinks,
                 });
             }
             const measurementsHistoryFunctions = [
@@ -154,25 +102,15 @@
             ];
             if (measurementsHistoryFunctions.includes(this.channel.function.name)) {
                 this.availableTabs.push({
-                    id: 'measurementsHistory',
+                    route: 'channel.measurementsHistory',
                     header: 'History of measurements', // i18n
                 });
             }
             if (this.channel.function.id === ChannelFunction.ELECTRICITYMETER) {
                 this.availableTabs.push({
-                    id: 'voltageHistory',
+                    route: 'channel.voltageAberrations',
                     header: 'Voltage aberrations', // i18n
                 });
-            }
-            const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
-            this.currentTab = currentTab ? currentTab.id : this.availableTabs[0].id;
-        },
-        watch: {
-            '$route.query.tab'() {
-                if (this.$route.name === 'channel') {
-                    const currentTab = this.availableTabs.filter(tab => tab.id == this.$route.query.tab)[0];
-                    this.currentTab = currentTab ? currentTab.id : this.availableTabs[0].id;
-                }
             }
         },
     };

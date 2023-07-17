@@ -22,7 +22,7 @@
     export default {
         components: {CustomNotificationEditForm},
         props: {
-            id: [String, Number],
+            subject: Object,
         },
         data() {
             return {
@@ -30,7 +30,7 @@
             };
         },
         mounted() {
-            this.$http.get(`channels/${this.id}/notifications?onlyManaged=true&include=accessIds`)
+            this.$http.get(`channels/${this.subject.id}/notifications?onlyManaged=true&include=accessIds`)
                 .then(response => {
                     if (response.body.length > 0) {
                         this.notification = response.body[0];

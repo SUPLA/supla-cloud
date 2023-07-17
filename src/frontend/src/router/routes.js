@@ -98,12 +98,60 @@ export default [
         component: () => import(/*webpackChunkName:"channels-details-page"*/"@/channels/channel-details-page"),
         name: 'channel',
         props: true,
+        redirect: {name: 'channel.reactions'},
         children: [
             {
-                path: 'reactions/:reactionId',
-                component: () => import("@/channels/reactions/channel-reaction"),
-                name: 'channelReaction',
-                props: true
+                path: 'reactions',
+                component: () => import("@/channels/reactions/channel-reactions-config"),
+                name: 'channel.reactions',
+                children: [
+                    {
+                        path: ':reactionId',
+                        component: () => import("@/channels/reactions/channel-reaction"),
+                        name: 'channel.reaction',
+                        props: true
+                    },
+                ],
+            },
+            {
+                path: 'direct-links',
+                component: () => import("@/direct-links/direct-links-list"),
+                name: 'channel.directLinks',
+            },
+            {
+                path: 'schedules',
+                component: () => import("@/schedules/schedule-list/schedules-list"),
+                name: 'channel.schedules',
+            },
+            {
+                path: 'channel-groups',
+                component: () => import("@/channel-groups/channel-groups-list"),
+                name: 'channel.channelGroups',
+            },
+            {
+                path: 'scenes',
+                component: () => import("@/scenes/scenes-list"),
+                name: 'channel.scenes',
+            },
+            {
+                path: 'notifications',
+                component: () => import("@/channels/reactions/channel-managed-notifications"),
+                name: 'channel.notifications',
+            },
+            {
+                path: 'action-triggers',
+                component: () => import("@/channels/action-trigger/channel-action-triggers"),
+                name: 'channel.actionTriggers',
+            },
+            {
+                path: 'measurements',
+                component: () => import(/*webpackChunkName:"channel-measurements-history"*/ "@/channels/history/channel-measurements-history"),
+                name: 'channel.measurementsHistory',
+            },
+            {
+                path: 'voltage-aberrations',
+                component: () => import(/*webpackChunkName:"channel-voltage-aberrations"*/ "@/channels/channel-voltage-history"),
+                name: 'channel.voltageAberrations',
             },
         ],
     },
