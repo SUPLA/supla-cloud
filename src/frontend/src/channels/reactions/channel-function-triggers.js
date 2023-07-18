@@ -391,7 +391,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: (fieldName, subject) => subject.config?.unit || '',
+                unit: (fieldName, subject) => subject?.config?.unit || '',
                 operators: ['gt', 'ge', 'eq'],
                 field: 'calculated_value',
                 disableResume: true,
@@ -409,7 +409,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: (fieldName, subject) => subject.config?.unit || '',
+                unit: (fieldName, subject) => subject?.config?.unit || '',
                 field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
@@ -427,7 +427,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: (fieldName, subject) => subject.config?.unit || '',
+                unit: (fieldName, subject) => subject?.config?.unit || '',
                 field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
@@ -445,7 +445,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: (fieldName, subject) => subject.config?.unit || '',
+                unit: (fieldName, subject) => subject?.config?.unit || '',
                 field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
