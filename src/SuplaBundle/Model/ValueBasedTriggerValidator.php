@@ -57,6 +57,8 @@ use SuplaBundle\Enums\ChannelFunction;
  *    "rae_balanced",
  *    "manually_closed",
  *    "flooding",
+ *    "counter",
+ *    "calculated_value",
  * })
  */
 class ValueBasedTriggerValidator {
@@ -98,6 +100,18 @@ class ValueBasedTriggerValidator {
         'rae_balanced' => [ChannelFunction::ELECTRICITYMETER],
         'manually_closed' => [ChannelFunction::VALVEOPENCLOSE],
         'flooding' => [ChannelFunction::VALVEOPENCLOSE],
+        'counter' => [
+            ChannelFunction::IC_HEATMETER,
+            ChannelFunction::IC_WATERMETER,
+            ChannelFunction::IC_GASMETER,
+            ChannelFunction::IC_ELECTRICITYMETER,
+        ],
+        'calculated_value' => [
+            ChannelFunction::IC_HEATMETER,
+            ChannelFunction::IC_WATERMETER,
+            ChannelFunction::IC_GASMETER,
+            ChannelFunction::IC_ELECTRICITYMETER,
+        ],
     ];
 
     private const THRESHOLD_SUPPORT = [

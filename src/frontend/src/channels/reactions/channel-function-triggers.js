@@ -393,13 +393,14 @@ export const ChannelFunctionTriggers = {
             props: {
                 unit: (fieldName, subject) => subject.config?.unit || '',
                 operators: ['gt', 'ge', 'eq'],
+                field: 'calculated_value',
                 disableResume: true,
                 labelI18n: () => 'When the electricity meter value will be', // i18n
             },
         },
         {
             caption: 'When the electricity meter value changes', // i18n
-            def: () => ({on_change: {}})
+            def: () => ({on_change: {name: 'calculated_value'}})
         },
     ],
     [ChannelFunction.IC_GASMETER]: [
@@ -409,6 +410,7 @@ export const ChannelFunctionTriggers = {
             component: ReactionConditionThreshold,
             props: {
                 unit: (fieldName, subject) => subject.config?.unit || '',
+                field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
                 labelI18n: () => 'When the gas meter value will be', // i18n
@@ -416,7 +418,7 @@ export const ChannelFunctionTriggers = {
         },
         {
             caption: 'When the gas meter value changes', // i18n
-            def: () => ({on_change: {}})
+            def: () => ({on_change: {name: 'calculated_value'}})
         },
     ],
     [ChannelFunction.IC_WATERMETER]: [
@@ -426,6 +428,7 @@ export const ChannelFunctionTriggers = {
             component: ReactionConditionThreshold,
             props: {
                 unit: (fieldName, subject) => subject.config?.unit || '',
+                field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
                 labelI18n: () => 'When the water meter value will be', // i18n
@@ -433,7 +436,7 @@ export const ChannelFunctionTriggers = {
         },
         {
             caption: 'When the water meter value changes', // i18n
-            def: () => ({on_change: {}})
+            def: () => ({on_change: {name: 'calculated_value'}})
         },
     ],
     [ChannelFunction.IC_HEATMETER]: [
@@ -443,6 +446,7 @@ export const ChannelFunctionTriggers = {
             component: ReactionConditionThreshold,
             props: {
                 unit: (fieldName, subject) => subject.config?.unit || '',
+                field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
                 labelI18n: () => 'When the heat meter value will be', // i18n
@@ -450,7 +454,7 @@ export const ChannelFunctionTriggers = {
         },
         {
             caption: 'When the heat meter value changes', // i18n
-            def: () => ({on_change: {}})
+            def: () => ({on_change: {name: 'calculated_value'}})
         },
     ],
     [ChannelFunction.VALVEOPENCLOSE]: [
