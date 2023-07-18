@@ -1052,11 +1052,11 @@ actionableSubjectType_schedule: Harmonogram
 addToHistoryMeasurementWarningSelected: Zaznaczenie tej opcji spowoduje dodanie ustawionych wartości do przyszłych pomiarów zapisywanych w historii. Może to być widoczne na wykresach jako nagły przyrost o wprowadzoną wartość. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 addToHistoryMeasurementWarningUnselected: Odznaczenie tej opcji spowoduje pominięcie ustawionych wartości w przyszłych pomiarach zapisywanych w historii. Może to być widoczne na wykresach jako nagły spadek. Zalecamy ustawić te parametry wyłącznie podczas pierwszej instalacji licznika. Dla istniejących liczników, zalecamy usunięcie historii pomiarów tuż po zmianie tych ustawień.
 after: po
-and wait until it reaches: i czekaj, aż osiągnie
-and wait until it will be: i czekaj, aż będzie
-and wait until the humidity will be: i czekaj, aż wilgotność będzie
-and wait until the temperature will be: i czekaj, aż temperatura będzie
-and wait until the value will be: i czekaj, aż wartość będzie
+and wait until it reaches: i nie wykonuj ponownie tej reakcji, aż osiągnie
+and wait until it will be: i nie wykonuj ponownie tej reakcji, aż będzie
+and wait until the humidity will be: i nie wykonuj ponownie tej reakcji, aż wilgotność będzie
+and wait until the temperature will be: i nie wykonuj ponownie tej reakcji, aż temperatura będzie
+and wait until the value will be: i nie wykonuj ponownie tej reakcji, aż wartość będzie
 average: średnia
 be at least {numChars} characters long: musi mieć co najmniej {numChars} znaków
 before: przed
