@@ -757,7 +757,7 @@ The set of icons you have chosen is too large. Maximum upload limit is {limit}.:
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: La valve ne peut pas être ouverte par l’intermédiare d’un lien direct ou via API lorsqu'elle a été fermée manuellement. Afin de reprendre le contrôle, ouvrez la valve manuellement.
 The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: La valve a été fermée manuellement ou par radio. Avant de l'ouvrir, assurez-vous qu'elle n'a pas été fermée en raison d'une inondation. Pour désactiver l'avertissement, ouvrez la valve manuellement. Voulez-vous vraiment ouvrir la valve à distance ?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: La vanne ne sera pas ouverte si elle a été fermée manuellement ou à distance, ce qui aurait pu être dû à une inondation.
-There are no more channels you can add to this group: Il n'y a pas d'autres chaînes qui peuvent être ajoutées à ce groupe.
+There are no more channels you can add to this group: Il n’y a pas d’autres chaînes qui peuvent être ajoutées à ce groupe.
 Thermometer: Thermomètre
 Thermostat: Thermostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ce lien direct nécessite des précisions sur les paramètres de l’action exécutée. Voir les exemples ci-dessous pour savoir quels paramètres vous pouvez définir.
@@ -817,7 +817,7 @@ Wait for this scene to finish before proceeding to the next step ({time}).: Atte
 Water meter: Compteur d'eau
 'We also strongly advise you to choose a password that:': 'En outre, nous vous recommandons définitivement de choisir un mot de passe qui :'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Nous vous enverrons des notifications sur certains événements liés à votre compte. Vous pouvez vous désabonner de ceux dont vous n’avez pas besoin.
-We could not connect to your SUPLA Cloud instance.: Nous n'avons pas pu nous connecter à votre instance privée de SUPLA Cloud.
+We could not connect to your SUPLA Cloud instance.: Nous n’avons pas pu nous connecter à votre instance privée de SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Nous avons reçu l’instruction de supprimer votre compte sur SUPLA Cloud (%cloudHost%).
 We have been asked to unregister your private SUPLA Cloud instance (%targetCloudUrl%).: Une demande de désenregistrement de votre instance SUPLA Cloud privée (%targetCloudUrl%) a été demandée.
 We have just sent you an activation link. You should be receiving it shortly.: Le message avec le lien d’activation de votre compte vient d’être envoyé. Soyez patient.
@@ -825,7 +825,7 @@ We have sent you an e-mail message with a delete confirmation link. Just to be s
 We have sent you an email with further instructions.: Nous vous avons envoyé un message avec des instructions supplémentaires.
 We should be ready shortly.: On devrait finir bientôt.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Nous enregistrons des informations sur vos préférences dans votre navigateur afin de faciliter l'utilisation de l'application (par exemple au moyen de cookies).
-We try to be faster: Nous essayons d'être plus rapides
+We try to be faster: Nous essayons d’être plus rapides
 We were not able to find your account.: Nous n'avons pas pu trouver votre compte.
 We were not able to prepare your data. Please see the error details below.: Une erreur s’est produite lors de la préparation des données. Lire les détails ci-dessous.
 We will miss you: Vous nous manquerez
@@ -842,7 +842,7 @@ Where is the JSON?: Où est JSON?
 Where is your SUPLA Cloud?: Où se trouve votre Supla ?
 White: Blanc
 Wind sensor: Capteur de vent
-Window opening sensor: Capteur d'ouverture de fenêtre
+Window opening sensor: Capteur d’ouverture de fenêtre
 With SUPLA you can operate the lights in your home or office: Avec SUPLA vous pouvez gérer votre éclairage à votre domicile ou au bureau
 With function: Avec la fonction
 Working period: Durée
@@ -851,16 +851,16 @@ YOUR LINK CODE: CODE DE VOTRE LIEN
 You are changing the settings too quickly. You have to wait a while before making this change.: Vous modifiez les paramètres trop rapidement. Vous devez attendre un moment avant de modifier ces paramètres.
 You can browse only the most recent logs now. Wait a while for the full history.: Actuellement, seules les mesures les plus récentes sont affichées. Attendez un peu que l’historique complet soit téléchargé.
 You can ignore this message, if you have accidentally entered an incorrect password.: Vous pouvez ignorer cette information si c`était vous qui avez entré le mauvais mot de passe.
-You can use the application but you will not be able to modify any settings.: Vous pouvez utiliser l'application mais vous ne pourrez modifier aucun paramètre.
-You cannot delete your last access identifier.: Vous ne pouvez pas supprimer votre dernier identifiant d'accès.
+You can use the application but you will not be able to modify any settings.: Vous pouvez utiliser l’application mais vous ne pourrez modifier aucun paramètre.
+You cannot delete your last access identifier.: Vous ne pouvez pas supprimer votre dernier identifiant d’accès.
 You cannot delete your last location.: Vous ne pouvez pas supprimer votre dernier lieu.
 You cannot use SUPLA project name in the domain name.: Vous ne pouvez pas utiliser le nom du projet SUPLA dans le nom de domaine principal.
 You have exceeded your API Rate Limit: Vous avez épuisé votre limite de requêtes API
 You have requested to unregister your SUPLA Cloud instance: Vous avez demandé à désenregistrer votre instance SUPLA Cloud
 You have to choose at least one scope.: Vous devez sélectionner au moins une plage.
-You just need to execute the following command inside your host terminal.: Il suffit d'exécuter la commande suivante à l'intérieur de votre terminal hôte.
+You just need to execute the following command inside your host terminal.: Il suffit d’exécuter la commande suivante à l’intérieur de votre terminal hôte.
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Si vous souhaitez toujours utiliser le mode de programmation avancé, consultez les exemples ci-dessous.
-You must agree to the Terms and Conditions.: L'acceptation du règlement est requise.
+You must agree to the Terms and Conditions.: L’acceptation du règlement est requise.
 You must enable MQTT Broker first.: Vous devez d’abord activer l’intégration avec le broker MQTT.
 You must leave at least one phase enabled.: Au moins une phase doit rester active.
 You must set an action for each scene operation.: Choisir l’action pour chaque opération dans la scène.
@@ -880,14 +880,14 @@ Your data are being collected. Please be patient.: Nous collectons vos données,
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vos données sont téléchargées depuis le serveur. Attendez que la fin de téléchargement avant de les exporter.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: L’appareil vous permet d’étendre ses fonctionnalités et vous permet d’effectuer n’importe quelle action sur n’importe quel appareil dont vous disposez. Les options disponibles dépendent du micrologiciel et de l’appareil que vous utilisez.
 Your email: Votre adresse e-mail
-Your instance is not registered or you are trying to authorize an application that is not public.: Votre instance n'est pas enregistrée ou vous essayez d'autoriser une application qui n'est pas publique.
+Your instance is not registered or you are trying to authorize an application that is not public.: Votre instance n’est pas enregistrée ou vous essayez d’autoriser une application qui n’est pas publique.
 Your password must contain at least one special character.: Le mot de passe doit contenir au moins un caractère spécial.
 Your password must include at least one letter.: Le mot de passe doit contenir au moins une lettre.
 Your password must include at least one number.: Le mot de passe doit contenir au moins un chiffre.
 Your password must include both upper and lower case letters.: Le mot de passe doit contenir des lettres majuscules et minuscules.
 Your preferences has been updated.: Vos paramètres ont été enregistrés.
 Your private SUPLA Cloud instance has been unregistered.: Votre instance privée de SUPLA Cloud a été désenregistrée.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Votre instance privée SUPLA cloud n'est pas disponible. Assurez-vous que votre serveur est en ligne et que la connexion HTTPS fonctionne correctement.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Votre instance privée SUPLA cloud n’est pas disponible. Assurez-vous que votre serveur est en ligne et que la connexion HTTPS fonctionne correctement.
 Your private SUPLA Cloud is almost registered.: Votre nuage SUPLA privé est presque enregistré.
 Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est pas enregistré.
 Your scenes are allowed to have a maximum of {max} operations.: Vos scènes peuvent avoir un maximum de {max} opérations.
@@ -945,24 +945,24 @@ copied: copié
 copy: copier
 days: jours
 directLinkExecutionFailureReason_disabled: Le lien direct est désactivé
-directLinkExecutionFailureReason_executionLimitExceeded: La limite d'applications a été dépassée
-directLinkExecutionFailureReason_expired: Le lien direct n'est plus actif
+directLinkExecutionFailureReason_executionLimitExceeded: La limite d’applications a été dépassée
+directLinkExecutionFailureReason_expired: Le lien direct n’est plus actif
 directLinkExecutionFailureReason_forbiddenAction: Le lien ne permet pas cette action
-directLinkExecutionFailureReason_httpGetForbidden: L'action n'a pas pu être effectuée par l’intermédiare d'une méthode HTTP GET interdite.
+directLinkExecutionFailureReason_httpGetForbidden: L’action n’a pas pu être effectuée par l’intermédiare d’une méthode HTTP GET interdite.
 directLinkExecutionFailureReason_invalidActionParameters: Paramètres du lien direct incorrects
-directLinkExecutionFailureReason_invalidChannelState: L'action ne peut pas être effectuée en raison de l'état de chaîne.
+directLinkExecutionFailureReason_invalidChannelState: L’action ne peut pas être effectuée en raison de l’état de chaîne.
 directLinkExecutionFailureReason_invalidSlug: Code de vérification incorrect
-directLinkExecutionFailureReason_noAllowedActions: Aucune action autorisée n'a été sélectionnée
+directLinkExecutionFailureReason_noAllowedActions: Aucune action autorisée n’a été sélectionnée
 directLinkExecutionFailureReason_noSlugOrAction: Requête incorrecte - code de lien et action requis
-directLinkExecutionFailureReason_notActiveYet: Le lien direct n'est pas encore actif
-directLinkExecutionFailureReason_otherFailure: Erreur d'exécution de l'action
+directLinkExecutionFailureReason_notActiveYet: Le lien direct n’est pas encore actif
+directLinkExecutionFailureReason_otherFailure: Erreur d’exécution de l’action
 directLinkExecutionFailureReason_sceneDuringExecution: La scène est en cours.
 directLinkExecutionFailureReason_unsupportedAction: Action sélectionnée  incorrecte
 empty: vide
 everyday: quotidiennement
 executed: exécuté
 extend: prolongez
-from IP: avec l'adresse IP
+from IP: avec l’adresse IP
 from the IP: de l’adresse
 hours: heures
 is at least {numChars} characters long: contient au moins {numChars} caractères
@@ -980,11 +980,11 @@ password: mot de passe
 prefix: préfixe
 previous month: mois précédent
 range: période
-register-slide1-text: Basée sur l'équipement électronique disponible, SUPLA vous permet de construire des simples modules avec qui vous pouvez gérer et contrôler les composant d'automatisation dans votre bâtiment. Grâce à SUPLA vous pouvez entre autres gérer l'éclairage, allumer et éteindre vos équipements ménager, ouvrir/fermer porte et portails ou bien contrôler la température ambiante. Tout cela vous pouvez faire en un seul click sur l'écran.
+register-slide1-text: Basée sur l’équipement électronique disponible, SUPLA vous permet de construire des simples modules avec qui vous pouvez gérer et contrôler les composant d’automatisation dans votre bâtiment. Grâce à SUPLA vous pouvez entre autres gérer l’éclairage, allumer et éteindre vos équipements ménager, ouvrir/fermer porte et portails ou bien contrôler la température ambiante. Tout cela vous pouvez faire en un seul click sur l’écran.
 register-slide1-title: Développez votre Propre Bâtiment Intelligent
-register-slide2-text: L'une des hypothèses principales du projet c'est simplicité et disponibilité. SUPLA vous permet d'allumer la lumière ou d'ouvrir la porte en un seul clic et cela au moment où on veut entrer dans notre possession. SUPLA est toujours disponible là où vous avec l'accès au réseau internet et à votre smartphone ou tablette. Le développement de SUPLA est basée sur les principes de logiciels open source et open hardware ce vous possibilite votre propre engagement dans ce projet!
+register-slide2-text: L’une des hypothèses principales du projet c’est simplicité et disponibilité. SUPLA vous permet d’allumer la lumière ou d’ouvrir la porte en un seul clic et cela au moment où on veut entrer dans notre possession. SUPLA est toujours disponible là où vous avec l’accès au réseau internet et à votre smartphone ou tablette. Le développement de SUPLA est basée sur les principes de logiciels open source et open hardware ce vous possibilite votre propre engagement dans ce projet!
 register-slide2-title: SUPLA est partout!
-register-slide3-text: Les systèmes d'automatisation bâtiment disponibles sur le marché, sont d'habitude très complexes, fermé et chers. Dans des nombreux cas ils exigent d'être installés déjà à l'étape de construction. SUPLA est simple, ouverte et gratuite. Elle permet de construire des composants pour systèmes d'actionnement à partir de plateforme RaspberryPl, Arduino ou bien ESP8266 et de les connecter au réseau LAN et Wifi. Rejoignez le projet et construisez votre propre version do système d'automatisation bâtiment!
+register-slide3-text: Les systèmes d’automatisation bâtiment disponibles sur le marché, sont d’habitude très complexes, fermé et chers. Dans des nombreux cas ils exigent d’être installés déjà à l’étape de construction. SUPLA est simple, ouverte et gratuite. Elle permet de construire des composants pour systèmes d’actionnement à partir de plateforme RaspberryPl, Arduino ou bien ESP8266 et de les connecter au réseau LAN et Wifi. Rejoignez le projet et construisez votre propre version do système d’automatisation bâtiment!
 register-slide3-title: BGratuite et ouverte!
 reset chart view: réinitialisez la vue du graphique
 scene: scène
@@ -1021,7 +1021,7 @@ this month: mois en cours
 this year: année en cours
 today: aujourd’hui
 unknown: inconnu
-username: nom d'utilisateur
+username: nom d’utilisateur
 valid until: expirera
 values as seen on chart: valeurs comme dans la graphique
 values as seen on counter: valeurs comme sur le compteur
@@ -1042,7 +1042,7 @@ yesterday: hier
 #<editor-fold desc="Extra translations">
 # Translations below have not been found in sources. You might want to delete them.
 ...and start your adventure with building automation today!: ... et commencez une aventure avec des bâtiments intelligent dès aujourd'hui!
-Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
+Access identifier password must be at least 8 characters.: Mot de passe pour l’identifiant d'accès doit être composé d'au moins 8 caractères.
 Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
 Action: Action
 Add new item to use in the scene: Ajouter un nouvel élément à la scène
@@ -1063,9 +1063,9 @@ Days: Jours
 Direct links below will be deleted: Les liens directs énumérés ci-dessous seront supprimés
 Doors, Gates: Portes, Portails
 ENABLED: ACTIVÉ
-Email already exists: L'email existe déjà
+Email already exists: L’email existe déjà
 Existing schedules: Calendriers existants
-From IP: Avec l'adresse IP
+From IP: Avec l’adresse IP
 Get SUPLA on your devices: Téléchargez SUPLA sur vos dispositifs
 Hi: Bonjour
 Hour: Heure
@@ -1104,151 +1104,151 @@ or add a delay: ou ajouter un délai
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% fermeture'
+Add a new action to the scene: Ajouter une nouvelle action à la scène
+Are you sure you want to delete this reaction?: Voulez-vous vraiment supprimer cette réaction ?
+Body: Contenu
+Choose the channel: Sélectionner un canal
+Choose the channel group: Sélectionner un groupe de canaux
+Choose the scene: Sélectionner une scène
+Choose the schedule: Sélectionner un calendrier
+Create new reaction: Créer une nouvelle réaction
+Current: Courant
+Edit reaction: Modifier la réaction
+Go to the channel: Accéder au canal
+Go to the channel group: Accéder au groupe de canaux
+Go to the scene: Accéder à la scène
+Go to the schedule: Accéder au calendrier
+Invalid scene: Scène non valide
+Missing action.: Aucune action
+New reaction: Nouvelle réaction
+Notification: Notification
+Notification must have a body.: La notification doit avoir un contenu.
+Notifications: Notifications
+Phase: Phase
+Please fix the problems with operations and try again.: Veuillez régler les problèmes avec les opérations et réessayer.
+Please select a condition: Veuillez sélectionner une condition
+Please select an action: Veuillez sélectionner une action
+Power active: Énergie active
+Power apparent: Énergie apparente
+Power reactive: Énergie réactive
+Reactions: Réactions
+Reactions limit has been exceeded: Limite de réaction dépassée
+Recipients: Destinataires
+Send a notification: Envoyer une notification
+Send notification: Envoyer une notification
+The notification must have a recipient.: La notification doit avoir un destinataire.
+The reaction has been added: La réaction a été ajoutée
+The reaction has been changed: La réaction a été modifiée
+Title: Titre
+Voltage: Tension
+When a certain distance is reached: Lorsque la distance spécifiée est atteinte
+When a lack of liquid is detected: Lorsqu’aucun liquide n’est détecté
+When a new mail comes: Lorsqu’un nouveau courrier arrive
+When flooding is detected: Lorsqu’une inondation est détectée
+When liquid is detected: Lorsque du liquide est détecté
+When liquid or lack thereof is detected: Lorsque du liquide ou aucun liquide n’est détecté
+When the RGB lighting brightness level changes: Lorsque le niveau de luminosité de l’éclairage RVB change
+When the RGB lighting reaches a certain level of brightness: Lorsque l’éclairage RVB atteint un certain niveau de luminosité
+When the active power will be: Lorsque la puissance active sera
+When the apparent power will be: Lorsque la puissance apparente sera
+When the balanced forward active energy will be: Lorsque l’énergie active équilibrée et absorbée sera
+When the balanced reverse active energy will be: Lorsque l’énergie active équilibrée et renvoyée sera
+When the brightness level changes: Lorsque le niveau de luminosité change
+When the brightness will be: Lorsque le niveau de luminosité sera
+When the color changes: Lorsque la couleur change
+When the condition is met: Lorsque la condition est remplie
+When the current will be: Lorsque le courant sera
+When the depth changes: Lorsque la mesure de profondeur change
+When the depth is: Lorsque la mesure de profondeur sera
+When the device is turned off: Lorsque l’appareil est éteint
+When the device is turned on: Lorsque l’appareil est allumé
+When the device is turned on or off: Lorsque l’appareil est allumé ou éteint
+When the dimmer brightness level changes: Lorsque le niveau de luminosité change
+When the dimmer reaches a certain brightness level: Lorsque le gradateur atteint un certain niveau de luminosité
+When the distance changes: Lorsque la distance change
+When the distance will be: Lorsque la distance sera
+When the door will be closed: Lorsque la porte est fermée
+When the door will be opened: Lorsque la porte est ouverte
+When the door will be opened or closed: Lorsque la porte est fermée ou ouverte
+When the electricity meter reaches a certain value: Lorsque le compteur d’énergie atteint une certaine valeur
+When the electricity meter value changes: Lorsque la valeur du compteur d’électricité change
+When the electricity meter value will be: Lorsque la valeur du compteur d’énergie sera
+When the forward active energy will be: Lorsque l’énergie active absorbée sera
+When the garage door will be closed: Lorsque la porte de garage est fermée
+When the garage door will be opened: Lorsque la porte de garage est ouverte
+When the garage door will be opened or closed: Lorsque la porte de garage est ouverte ou fermée
+When the gas meter value changes: Lorsque la valeur du compteur de gaz change
+When the gas meter value reaches a certain value: Lorsque le compteur de gaz atteint une certaine valeur
+When the gas meter value will be: Lorsque la valeur du compteur de gaz sera
+When the gate will be closed: Lorsque le portail est fermé
+When the gate will be opened: Lorsque le portail est ouvert
+When the gate will be opened or closed: Lorsque le portail est ouvert ou fermé
+When the gateway will be closed: Lorsque le portillon est fermé
+When the gateway will be opened: Lorsque le portillon est ouvert
+When the gateway will be opened or closed: Lorsque le portillon est fermé ou ouvert
+When the heat meter value changes: Lorsque la valeur du compteur change
+When the heat meter value reaches a certain value: Lorsque le compteur de chaleur atteint une certaine valeur
+When the heat meter value will be: Lorsque la valeur du compteur de chaleur sera
+When the humidity changes: Lorsque l’humidité change
+When the humidity reaches a certain level: Lorsque l’humidité atteint un certain niveau
+When the humidity will be: Lorsque l’humidité sera
+When the lighting reaches a certain level of brightness: Lorsque l’éclairage atteint un certain niveau de luminosité
+When the mail comes or is taken: Lorsque le courrier arrive ou est ramassé
+When the mail has been taken: Lorsque le courrier est ramassé
+When the precipitation amount will be: Lorsque la quantité de pluie mesurée sera
+When the pressure changes: Lorsque la pression change
+When the pressure reaches a certain level: Lorsque la pression atteint un certain niveau
+When the pressure will be: Lorsque la pression sera
+When the rain amount changes: Lorsque la quantité de précipitations change
+When the reactive power will be: Lorsque la puissance réactive sera
+When the reverse active energy will be: Lorsque l’énergie active renvoyée sera
+When the roller shutter position changes: Lorsque la position du volet roulant change
+When the roller shutter reaches: Lorsque le volet roulant atteint
+When the roller shutter reaches a certain position: Lorsque le volet roulant atteint une certaine position
+When the roller shutter will be closed: Lorsque le volet roulant est fermé
+When the roller shutter will be opened: Lorsque le volet roulant est ouvert
+When the roller shutter will be opened or closed: Lorsque le volet roulant est ouvert ou fermé
+When the roof window position changes: Lorsque la position de la fenêtre de toit change
+When the roof window reaches: Lorsque la fenêtre de toit atteint
+When the roof window reaches a certain position: Lorsque la fenêtre de toit atteint une certaine position
+When the roof window will be closed: Lorsque la fenêtre de toit est fermée
+When the roof window will be opened: Lorsque la fenêtre de toit est ouverte
+When the roof window will be opened or closed: Lorsque la fenêtre de toit est fermée ou ouverte
+When the temperature changes: Lorsque la température change
+When the temperature reaches a certain value: Lorsque la température atteint une certaine valeur
+When the temperature will be: Lorsque la température sera
+When the value will be: Lorsque la valeur sera
+When the valve is closed: Lorsque la vanne est fermée
+When the valve is manually closed: Lorsque la vanne est fermée manuellement
+When the valve is opened: Lorsque la vanne est ouverte
+When the valve is opened or closed: Lorsque la vanne est fermée ou ouverte
+When the voltage will be: Lorsque la tension sera
+When the water meter reaches a certain value: Lorsque le compteur d’eau atteint une certaine valeur
+When the water meter value changes: Lorsque la valeur du compteur d’eau change
+When the water meter value will be: Lorsque la valeur du compteur d’eau sera
+When the weight changes: Lorsque le poids change
+When the weight will be: Lorsque le poids sera
+When the wind reaches a certain speed: Lorsque le vent atteint une certaine vitesse
+When the wind speed changes: Lorsque la vitesse du vent change
+When the wind speed will be: Lorsque la vitesse du vent sera
+When the window will be closed: Lorsque la fenêtre est fermée
+When the window will be opened: Lorsque la fenêtre est ouverte
+When the window will be opened or closed: Lorsque la fenêtre est fermée ou ouverte
+When there is certain amount of rain: Lorsqu’il pleut une certaine quantité de pluie
+When there weight reaches a certain value: Lorsque le poids atteint une certaine valeur
+You must set an action for each reaction.: Vous devez définir une action pour chaque réaction.
+actionableSubjectType_notification: Notification
+and wait until it reaches: et attendre qu’il atteigne
+and wait until it will be: et attendre jusqu’à ce que ce soit
+and wait until the humidity will be: et attendre que l’humidité soit
+and wait until the temperature will be: et attendre jusqu’à ce que la température soit
+and wait until the value will be: et attendre jusqu’à ce que la valeur soit
+choose access identifiers: sélectionner les identifiants d’accès
+choose the access identifiers: sélectionner les identifiants d’accès
+notification: notification
+or another element: ou autre élément
+sum: total
+then execute the action: puis effectuer l’action
 
 #</editor-fold>
