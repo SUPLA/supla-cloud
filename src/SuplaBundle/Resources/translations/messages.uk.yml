@@ -1058,151 +1058,151 @@ or add a delay: або додайте затримку
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% зачинення'
+Add a new action to the scene: Додати нову дію до сцени
+Are you sure you want to delete this reaction?: Ви впевнені, що хочете видалити цю реакцію?
+Body: Зміст
+Choose the channel: Виберіть канал
+Choose the channel group: Виберіть групу каналів
+Choose the scene: Виберіть сцену
+Choose the schedule: Виберіть розклад
+Create new reaction: Створити нову реакцію
+Current: Струм
+Edit reaction: Редагувати реакцію
+Go to the channel: Перейти на канал
+Go to the channel group: Перейти до групи каналів
+Go to the scene: Перейти до сцени
+Go to the schedule: Перейти до розкладу
+Invalid scene: Неправильна сцена
+Missing action.: Немає акцій
+New reaction: Нова реакція
+Notification: Повідомлення
+Notification must have a body.: Повідомлення повинно мати зміст.
+Notifications: Повідомлення
+Phase: Фаза
+Please fix the problems with operations and try again.: Усуньте проблеми з операціями та повторіть спробу.
+Please select a condition: Будь ласка, виберіть умову
+Please select an action: Будь ласка, виберіть дію
+Power active: Активна енергія
+Power apparent: Видима енергія
+Power reactive: Реактивна енергія
+Reactions: Реакція
+Reactions limit has been exceeded: Перевищено межу реакції
+Recipients: Одержувачу
+Send a notification: Надіслати повідомлення
+Send notification: Надіслати повідомлення
+The notification must have a recipient.: Повідомлення має містити одержувача.
+The reaction has been added: Реакцію додано
+The reaction has been changed: Реакцію змінено
+Title: Назва
+Voltage: Напруга
+When a certain distance is reached: Коли певну відстань буде досягнуто
+When a lack of liquid is detected: Коли виявляється недолік рідини
+When a new mail comes: Коли прийде нова пошта
+When flooding is detected: Коли буде виявлено затоплення
+When liquid is detected: Коли буде виявлена рідина
+When liquid or lack thereof is detected: При виявленні рідини або її відсутності
+When the RGB lighting brightness level changes: Коли рівень яскравості освітлення RGB зміниться
+When the RGB lighting reaches a certain level of brightness: Коли освітлення RGB досягне певного рівня яскравості
+When the active power will be: Коли активна потужність буде
+When the apparent power will be: Коли уявна сила буде
+When the balanced forward active energy will be: Коли збалансована, споживана активна енергія буде
+When the balanced reverse active energy will be: Коли збалансована, повернута активна енергія буде
+When the brightness level changes: Коли рівень яскравості зміниться
+When the brightness will be: Коли рівень яскравості буде
+When the color changes: Коли зміниться колір
+When the condition is met: Коли умова буде виконана
+When the current will be: Коли струм буде
+When the depth changes: Коли зміниться вимірювання глибини
+When the depth is: Коли вимірювання глибини буде
+When the device is turned off: Коли пристрій вимкнеться
+When the device is turned on: Коли пристрій буде увімкнено
+When the device is turned on or off: Коли пристрій увімкнено або вимкнено
+When the dimmer brightness level changes: Коли рівень яскравості диммера зміниться
+When the dimmer reaches a certain brightness level: Коли диммер досягне певного рівня яскравості
+When the distance changes: Коли відстань зміниться
+When the distance will be: Коли відстань буде
+When the door will be closed: Коли двері зачиняться
+When the door will be opened: Коли двері відчиняться
+When the door will be opened or closed: Коли двері зачинені або відчинені
+When the electricity meter reaches a certain value: Коли лічильник енергії досягне певного значення
+When the electricity meter value changes: Коли значення лічильника електроенергії зміниться
+When the electricity meter value will be: Коли значення лічильника енергії буде
+When the forward active energy will be: Коли активна енергія буде
+When the garage door will be closed: Коли гаражні ворота зачиняться
+When the garage door will be opened: Коли гаражні ворота відчиняться
+When the garage door will be opened or closed: Коли гаражні ворота зачиняться або відчиняться
+When the gas meter value changes: Коли значення газового лічильника зміниться
+When the gas meter value reaches a certain value: Коли газовий лічильник досягне певного значення
+When the gas meter value will be: Коли значення газового лічильника буде
+When the gate will be closed: Коли ворота зачиняться
+When the gate will be opened: Коли ворота відчиняться
+When the gate will be opened or closed: Коли ворота відчиняться або зачиняться
+When the gateway will be closed: Коли хвіртка буде зачинена
+When the gateway will be opened: Коли хвіртка буде відчинена
+When the gateway will be opened or closed: Коли хвіртка буде  зачинена або відчинена
+When the heat meter value changes: Коли значення лічильника зміниться
+When the heat meter value reaches a certain value: Коли лічильник тепла досягне певного значення
+When the heat meter value will be: Коли значення лічильника тепла буде
+When the humidity changes: Коли вологість зміниться
+When the humidity reaches a certain level: Коли вологість досягне певного рівня
+When the humidity will be: Коли вологість буде
+When the lighting reaches a certain level of brightness: Коли освітлення досягне певного рівня яскравості
+When the mail comes or is taken: Коли приходить пошта або її забирають
+When the mail has been taken: Коли пошта буде отримана
+When the precipitation amount will be: Коли кількість вимірюваного дощу буде
+When the pressure changes: Коли тиск зміниться
+When the pressure reaches a certain level: Коли тиск досягне певного рівня
+When the pressure will be: Коли тиск буде
+When the rain amount changes: Коли зміниться кількість опадів
+When the reactive power will be: Коли реактивна потужність буде
+When the reverse active energy will be: Коли повернута активна енергія буде
+When the roller shutter position changes: Коли зміниться положення жалюзі
+When the roller shutter reaches: Коли жалюзі досягнуть
+When the roller shutter reaches a certain position: Коли жалюзі досягнуть певної положення
+When the roller shutter will be closed: Коли жалюзі зачиняться
+When the roller shutter will be opened: Коли жалюзі відчиняться
+When the roller shutter will be opened or closed: Коли жалюзі відчиняться або зачиняться
+When the roof window position changes: Коли зміниться положення мансардного вікна
+When the roof window reaches: Коли мансардне вікно досягне
+When the roof window reaches a certain position: Коли мансардне вікно досягне певного положення
+When the roof window will be closed: Коли мансардне вікно зачиниться
+When the roof window will be opened: Коли мансардне вікно відчиниться
+When the roof window will be opened or closed: Коли мансардне вікно зачиниться або відчиниться
+When the temperature changes: Коли температура зміниться
+When the temperature reaches a certain value: Коли температура досягне певного значення
+When the temperature will be: Коли температура буде
+When the value will be: Коли значення буде
+When the valve is closed: Коли клапан зачиниться
+When the valve is manually closed: Коли клапан зачиниться вручну
+When the valve is opened: Коли клапан відчиниться
+When the valve is opened or closed: Коли клапан буде зачинений або відчинений
+When the voltage will be: Коли напруга буде
+When the water meter reaches a certain value: Коли лічильник води досягне певного значення
+When the water meter value changes: Коли значення лічильника води зміниться
+When the water meter value will be: Коли значення лічильника води буде
+When the weight changes: Коли зміниться вага
+When the weight will be: Коли вага буде
+When the wind reaches a certain speed: Коли вітер досягне певної швидкості
+When the wind speed changes: Коли швидкість вітру зміниться
+When the wind speed will be: Коли швидкість вітру буде
+When the window will be closed: Коли вікно зачиниться
+When the window will be opened: Коли вікно відчиниться
+When the window will be opened or closed: Коли вікно зачиниться або відчиниться
+When there is certain amount of rain: Коли йде певна кількість дощу
+When there weight reaches a certain value: Коли вага досягне певного значення
+You must set an action for each reaction.: Ви повинні встановити дію для кожної реакції.
+actionableSubjectType_notification: Повідомлення
+and wait until it reaches: і зачекайте, поки досягне
+and wait until it will be: і зачекайте, поки буде
+and wait until the humidity will be: і зачекайте, поки вологість не стане
+and wait until the temperature will be: і зачекайте, поки температура не стане
+and wait until the value will be: і зачекайте, поки значення буде
+choose access identifiers: виберіть ідентифікатори доступу
+choose the access identifiers: виберіть ідентифікатори доступу
+notification: повідомлення
+or another element: або інший елемент
+sum: сума
+then execute the action: потім виконайте дію
 
 #</editor-fold>
