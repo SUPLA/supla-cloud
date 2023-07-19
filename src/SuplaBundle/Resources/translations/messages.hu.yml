@@ -1108,151 +1108,151 @@ will expire: lejár
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% bezárás'
+Add a new action to the scene: Adjon új műveletet a jelenethez
+Are you sure you want to delete this reaction?: Biztosan törölni akarja ezt a reakciót?
+Body: Törzs
+Choose the channel: Csatorna kiválasztása
+Choose the channel group: Válasszon egy csatornacsoportot
+Choose the scene: Válasszon jelenetet
+Choose the schedule: Válassza ki az ütemtervet
+Create new reaction: Hozzon létre egy új reakciót
+Current: Áram
+Edit reaction: A reakció szerkesztése
+Go to the channel: Tovább a csatornához
+Go to the channel group: Tovább a csatornacsoportokhoz
+Go to the scene: Tovább a jelenethez
+Go to the schedule: Tovább az ütemtervhez
+Invalid scene: Érvénytelen jelenet
+Missing action.: Hiányzó művelet
+New reaction: Új reakció
+Notification: Értesítés
+Notification must have a body.: Az értesítésnek legyen törzse.
+Notifications: Értesítések
+Phase: Fázis
+Please fix the problems with operations and try again.: Kérjük oldja meg a problémát, és próbálja újra.
+Please select a condition: Válassza ki a feltételeket
+Please select an action: Válassza ki a műveletet
+Power active: Aktív energia
+Power apparent: Látszólagos energia
+Power reactive: Reaktív energia
+Reactions: Reakciók
+Reactions limit has been exceeded: A reakciók limitje túllépve
+Recipients: Címzettek
+Send a notification: Küldjön értesítést
+Send notification: Küldjön értesítést
+The notification must have a recipient.: Az értesítésnek legyen címzettje.
+The reaction has been added: A reakció hozzáadásra került
+The reaction has been changed: A reakció megváltozott
+Title: Cím
+Voltage: Feszültség
+When a certain distance is reached: Meghatározott távolság elérésekor
+When a lack of liquid is detected: Észlelhető folyadékhiány esetén
+When a new mail comes: Új üzenet érkezésekor
+When flooding is detected: Elárasztás észlelésekor
+When liquid is detected: Folyadék észlelésekor
+When liquid or lack thereof is detected: Folyadék vagy folyadékhiány észlelésekor
+When the RGB lighting brightness level changes: RGB világítás fényerő változásakor
+When the RGB lighting reaches a certain level of brightness: RGB világítás adott fényerő elérésekor
+When the active power will be: Ha az aktív teljesítmény
+When the apparent power will be: Ha a látszólagos teljesítmény
+When the balanced forward active energy will be: Ha a kiegyenlített fogyasztott aktív energia
+When the balanced reverse active energy will be: Ha a kiegyenlített visszatérő aktív energia
+When the brightness level changes: Fényerő változásakor
+When the brightness will be: Ha a fényerőszint mértéke
+When the color changes: Szín változásakor
+When the condition is met: Feltétel teljesítése esetén
+When the current will be: Ha az áramerősség
+When the depth changes: Mélység mérés eredményének változásakor
+When the depth is: Ha a mélység mérés eredménye
+When the device is turned off: Készülék kikapcsolása esetén
+When the device is turned on: Készülék bekapcsolása esetén
+When the device is turned on or off: Készülék bekapcsolása vagy kikapcsolása esetén
+When the dimmer brightness level changes: Fényerőszabályzó fényerőszint változásakor
+When the dimmer reaches a certain brightness level: Fényerőszabályzó meghatározott fényerőszintje elérésekor
+When the distance changes: Távolság változásakor
+When the distance will be: Ha a távolság
+When the door will be closed: Ajtó bezárása esetén
+When the door will be opened: Ajtó kinyitása esetén
+When the door will be opened or closed: Ajtót bezárása vagy kinyitása esetén
+When the electricity meter reaches a certain value: Meghatározott villamos fogyasztásmérő érték elérésekor
+When the electricity meter value changes: Villamos fogyasztásmérő érték változásakor
+When the electricity meter value will be: Ha a villamos fogyasztásmérő értéke
+When the forward active energy will be: Ha a fogyasztott aktív energia
+When the garage door will be closed: Garázskapu bezárása esetén
+When the garage door will be opened: Garázskapu kinyitása esetén
+When the garage door will be opened or closed: Garázskapu bezárása vagy kinyitása esetén
+When the gas meter value changes: Gázmérő érték változásakor
+When the gas meter value reaches a certain value: Gázmérő adott értéke elérésekor
+When the gas meter value will be: Ha a gázmérő értéke
+When the gate will be closed: Bejárati kapu bezárása esetén
+When the gate will be opened: Bejárati kapu kinyitása esetén
+When the gate will be opened or closed: Bejárati kapu bezárása vagy kinyitása esetén
+When the gateway will be closed: Kiskapu bezárása esetén
+When the gateway will be opened: Kiskapu kinyitása esetén
+When the gateway will be opened or closed: Kiskapu bezárása vagy kinyitása esetén
+When the heat meter value changes: Mérőóra érték változásakor
+When the heat meter value reaches a certain value: Hőmennyiségmérő meghatározott értéke elérésekor
+When the heat meter value will be: Ha a hőmennyiségmérő értéke
+When the humidity changes: Nedvességtartalom változásakor
+When the humidity reaches a certain level: Meghatározott nedvességtartalom érték elérésekor
+When the humidity will be: Ha a nedvességtartalom
+When the lighting reaches a certain level of brightness: Világítás adott fényerőszint elérésekor
+When the mail comes or is taken: Üzenet érkezése vagy elvesztése esetén
+When the mail has been taken: Üzenet kézbesítése esetén
+When the precipitation amount will be: Ha a mért eső mennyisége
+When the pressure changes: Nyomás változásakor
+When the pressure reaches a certain level: Meghatározott nyomás szint elérésekor
+When the pressure will be: Ha a nyomás szint
+When the rain amount changes: Csapadék mennyiség változásakor
+When the reactive power will be: Ha a reaktív teljesítmény
+When the reverse active energy will be: Fordított aktív energia esetén
+When the roller shutter position changes: Redőny pozíció változásakor
+When the roller shutter reaches: Redőny eléri
+When the roller shutter reaches a certain position: Meghatározott redőny pozíció elérésekor
+When the roller shutter will be closed: Redőny lehúzása esetén
+When the roller shutter will be opened: Redőnyt felhúzása esetén
+When the roller shutter will be opened or closed: Redőny le- vagy felhúzása esetén
+When the roof window position changes: Tetőablak pozíció változásakor
+When the roof window reaches: Tetőablak eléri
+When the roof window reaches a certain position: Meghatározott tetőablak pozíció elérésekor
+When the roof window will be closed: Tetőablak bezárása esetén
+When the roof window will be opened: Tetőablak kinyitása esetén
+When the roof window will be opened or closed: Tetőablak bezárása vagy kinyitása esetén
+When the temperature changes: Hőmérséklet változása esetén
+When the temperature reaches a certain value: Meghatározott hőmérsékleti érték elérésekor
+When the temperature will be: Ha a hőmérséklet
+When the value will be: Ha az érték
+When the valve is closed: Szelep lezárásakor
+When the valve is manually closed: Szelep manuális lezárásakor
+When the valve is opened: Szelep manuális megnyitása esetén
+When the valve is opened or closed: Szelep megnyitása vagy lezárása esetén
+When the voltage will be: Ha a feszültég
+When the water meter reaches a certain value: Meghatározott vízmérő érték elérésekor
+When the water meter value changes: Vízmérő érték változásakor
+When the water meter value will be: Vízmérő értéke eléri
+When the weight changes: Súly változása esetén
+When the weight will be: Ha a súly
+When the wind reaches a certain speed: Szél meghatározott sebessége elérésekor
+When the wind speed changes: Szél sebesség változásakor
+When the wind speed will be: Ha a szél sebessége
+When the window will be closed: Ablak bezárása esetén
+When the window will be opened: Ablak kinyitása esetén
+When the window will be opened or closed: Ablak bezárása vagy kinyitása esetén
+When there is certain amount of rain: Meghatározott eső mennyiségének leesésekor
+When there weight reaches a certain value: Meghatározott súly érték elérésekor
+You must set an action for each reaction.: Válasszon ki egy műveletet minden reakcióhoz.
+actionableSubjectType_notification: Értesítés
+and wait until it reaches: és várjon, amíg eléri
+and wait until it will be: és várjon, amíg
+and wait until the humidity will be: és várjon, amíg a páratartalom
+and wait until the temperature will be: és várjon, amíg a hőmérséklet
+and wait until the value will be: és várjon, amíg az érték
+choose access identifiers: Válassza ki a hozzáférési azonosítókat
+choose the access identifiers: Válassza ki a hozzáférési azonosítókat
+notification: Értesítés
+or another element: vagy más elem
+sum: Összeg
+then execute the action: Akkor hajtsa végre a műveletet
 
 #</editor-fold>
