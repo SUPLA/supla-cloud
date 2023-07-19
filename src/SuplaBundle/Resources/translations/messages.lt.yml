@@ -1104,151 +1104,151 @@ or add a delay: arba pridėkite vėlavimą
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% uždarymo'
+Add a new action to the scene: Pridėkite naują veiksmą į sceną
+Are you sure you want to delete this reaction?: Ar tikrai norite ištrinti šią reakciją?
+Body: Turinys
+Choose the channel: Pasirinkite kanalą
+Choose the channel group: Pasirinkite kanalų grupę
+Choose the scene: Pasirinkite sceną
+Choose the schedule: Pasirinkite tvarkaraštį
+Create new reaction: Sukurkite naują reakciją
+Current: Srovė
+Edit reaction: Redaguoti reakciją
+Go to the channel: Eikite į kanalą
+Go to the channel group: Eikite į kanalų grupę
+Go to the scene: Eikite į sceną
+Go to the schedule: Eikite į tvarkaraštį
+Invalid scene: Neteisinga scena
+Missing action.: Jokių veiksmų
+New reaction: Nauja reakcija
+Notification: Pranešimas
+Notification must have a body.: Pranešime turi būti pateiktas turinys.
+Notifications: Pranešimai
+Phase: Fazė
+Please fix the problems with operations and try again.: Pašalinkite operacijų triktis ir bandykite dar kartą.
+Please select a condition: Pasirinkite sąlygą
+Please select an action: Pasirinkite veiksmą
+Power active: Aktyvi energija
+Power apparent: Akyvaizdi energija
+Power reactive: Pasyvi energija
+Reactions: Reakcijos
+Reactions limit has been exceeded: Viršytas reakcijos limitas
+Recipients: Gavėjai
+Send a notification: Siųsti pranešimą
+Send notification: Siųsti pranešimą
+The notification must have a recipient.: Pranešime turi būti pateiktas gavėjas.
+The reaction has been added: Reakcija buvo pridėta
+The reaction has been changed: Reakcija buvo pakeista
+Title: Pavadinimas
+Voltage: Įtampa
+When a certain distance is reached: Pasiekus nurodytą atstumą
+When a lack of liquid is detected: Nustačius skysčio trūkumą
+When a new mail comes: Aėjus naujam laiškui
+When flooding is detected: Nustačius potvynį
+When liquid is detected: Aptinkus skystį
+When liquid or lack thereof is detected: Nustačius skystį arba jo trūkumą
+When the RGB lighting brightness level changes: Pasikeitus RGB apšvietimo ryškumo lygiui
+When the RGB lighting reaches a certain level of brightness: Pasiekus tam tikrą RGB apšvietimo ryškumo lygį
+When the active power will be: Kai bus aktyvi galia
+When the apparent power will be: Kai bus akyvaizdi galia
+When the balanced forward active energy will be: Kai subalansuota, įvesties energija bus aktyvi
+When the balanced reverse active energy will be: Kai subalansuota, grąžinta aktyvi energija bus aktyvi
+When the brightness level changes: Pasikeitus ryškumo lygiui
+When the brightness will be: Kai ryškumo lygis bus
+When the color changes: Pasikeitus spalvai
+When the condition is met: Sąlygai įvykdžius
+When the current will be: Kada bus srovė
+When the depth changes: Pasikeitus gylio matavimui
+When the depth is: Kai matuojamas gylis bus
+When the device is turned off: Išjungus įrenginį
+When the device is turned on: Įjungus įrenginį
+When the device is turned on or off: Įjungus arba išjungus įrenginį
+When the dimmer brightness level changes: Pasikeitus reguliatoriaus ryškumo lygiui
+When the dimmer reaches a certain brightness level: Pasikeitus reguliatoriaus tam tikram ryškumo lygiui
+When the distance changes: Pasikeitus atstumui
+When the distance will be: Kada atstumas bus
+When the door will be closed: Uždarius duris
+When the door will be opened: Atidarius duris
+When the door will be opened or closed: Uždarius arba atidarius duris
+When the electricity meter reaches a certain value: Kai energijos skaitiklis pasiekia tam tikrą vertę
+When the electricity meter value changes: Pasikeitus elektros skaitiklio vertei
+When the electricity meter value will be: Kai energijos skaitiklio vertė bus
+When the forward active energy will be: Kai surinkta energija aktyvi bus
+When the garage door will be closed: Kai garažo vartai bus uždaryti
+When the garage door will be opened: Kai garažo vartai bus atidaryti
+When the garage door will be opened or closed: Kai garažo vartai bus uždaryti arba atidaryti
+When the gas meter value changes: Pasikeitus dujų skaitiklio vertei
+When the gas meter value reaches a certain value: Kai dujų skaitiklis pasieks tam tikrą vertę
+When the gas meter value will be: Kada dujų skaitiklio vertė bus
+When the gate will be closed: Uždarius vartus
+When the gate will be opened: Atidarius vartus
+When the gate will be opened or closed: Atidarius arba uždarius vartus
+When the gateway will be closed: Uždarius vartelius
+When the gateway will be opened: Atidarius vartelius
+When the gateway will be opened or closed: Uždarius arba atidarius vartelius
+When the heat meter value changes: Kai pasikeičia skaitiklio vertė
+When the heat meter value reaches a certain value: Kai šilumos skaitiklis pasiekia tam tikrą vertę
+When the heat meter value will be: Kada šilumos skaitiklio vertė bus
+When the humidity changes: Pasikeitus drėgmei
+When the humidity reaches a certain level: Kai drėgmė pasiekia tam tikrą lygį
+When the humidity will be: Kada drėgmė bus
+When the lighting reaches a certain level of brightness: Kai apšvietimas pasieks tam tikrą ryškumo lygį
+When the mail comes or is taken: Kai atkeliauja arba bus paimamas paštas
+When the mail has been taken: Kai bus gautas paštas
+When the precipitation amount will be: Išmatavus lietaus kiekį
+When the pressure changes: Pasikeitus slėgiui
+When the pressure reaches a certain level: Kai slėgis pasiekia tam tikrą lygį
+When the pressure will be: Kai spaudimas bus
+When the rain amount changes: Pasikeitus kritulių kiekiui
+When the reactive power will be: Kada pasyvioji galia bus
+When the reverse active energy will be: Kai sugrąžinta aktyvioji energija bus
+When the roller shutter position changes: Pasikeitus užrakto padėčiai
+When the roller shutter reaches: Kai žaliuzė pasieks
+When the roller shutter reaches a certain position: Kai žaliuzė pasieks tam tikrą padėtį
+When the roller shutter will be closed: Uždarius žaliuzę
+When the roller shutter will be opened: Atidarius žaliuzę
+When the roller shutter will be opened or closed: Atidarius arba uždarius žaliuzę
+When the roof window position changes: Pasikeitus stoglangio padėčiai
+When the roof window reaches: Kai stogo langas pasieks
+When the roof window reaches a certain position: Kai stoglangis pasieks tam tikrą padėtį
+When the roof window will be closed: Kai stoglangis bus uždarytas
+When the roof window will be opened: Kai stoglangis bus atidarytas
+When the roof window will be opened or closed: Kai stoglangis bus uždarytas arba atidarytas
+When the temperature changes: Pasikeitus temperatūrai
+When the temperature reaches a certain value: Kai temperatūra pasieks tam tikrą vertę
+When the temperature will be: Kai temperatūra bus
+When the value will be: Kai vertė bus
+When the valve is closed: Kai vožtuvas bus uždarytas
+When the valve is manually closed: Kai vožtuvas bus uždarytas rankiniu būdu
+When the valve is opened: Atidarius vožtuvą
+When the valve is opened or closed: Uždarius arba atidarius vožtuvą
+When the voltage will be: Kada įtampa bus
+When the water meter reaches a certain value: Kai vandens skaitiklis pasieks tam tikrą vertę
+When the water meter value changes: Pasikeitus vandens skaitiklio vertei
+When the water meter value will be: Kada vandens skaitiklio vertė bus
+When the weight changes: Pasikeitus svoriui
+When the weight will be: Kai svoris bus
+When the wind reaches a certain speed: Vėjui pasiekus tam tikrą greitį
+When the wind speed changes: Pasikeitus vėjo greičiui
+When the wind speed will be: Kai vėjo greitis bus
+When the window will be closed: Uždarius langą
+When the window will be opened: Atidarius langą
+When the window will be opened or closed: Uždarius arba atidarius langą
+When there is certain amount of rain: Kai iškrenta tam tikras lietaus kiekis
+When there weight reaches a certain value: Svoriui pasiekus tam tikrą vertę
+You must set an action for each reaction.: Kiekvienai reakcijai reikia nustatyti veiksmą.
+actionableSubjectType_notification: Pranešimas
+and wait until it reaches: ir palaukite, kol pasieks
+and wait until it will be: ir palaukite, kol bus
+and wait until the humidity will be: ir palaukite, kol atsiras drėgmės
+and wait until the temperature will be: ir palaukite, kol temperatūra bus
+and wait until the value will be: ir palaukite, kol vertė bus
+choose access identifiers: pasirinkite prieigos ID
+choose the access identifiers: pasirinkite prieigos ID
+notification: pranešimas
+or another element: arba kitas daiktas
+sum: suma
+then execute the action: tada atlikite veiksmą
 
 #</editor-fold>
