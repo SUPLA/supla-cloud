@@ -1104,151 +1104,151 @@ or add a delay: Eller legg til en forsinkelse
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% nedleggelse'
+Add a new action to the scene: Legge til en ny handling i en scene
+Are you sure you want to delete this reaction?: Er du sikker på at du vil fjerne denne reaksjonen?
+Body: Innhold
+Choose the channel: Velg en kanal
+Choose the channel group: Velg en kanalgruppe
+Choose the scene: Velg en scene
+Choose the schedule: Velg en tidsplan
+Create new reaction: Skap en ny reaksjon
+Current: Strøm
+Edit reaction: Rediger reaksjon
+Go to the channel: Gå til kanal
+Go to the channel group: Gå til kanalgruppen
+Go to the scene: Gå til scenen
+Go to the schedule: Gå til tidsplanen
+Invalid scene: Feil scene
+Missing action.: Ingen handling
+New reaction: Ny respons
+Notification: Varsling
+Notification must have a body.: Varselet må ha innhold.
+Notifications: Varslinger
+Phase: Fase
+Please fix the problems with operations and try again.: Feilsøk operasjoner, og prøv på nytt.
+Please select a condition: Velg en betingelse
+Please select an action: Velg en handling
+Power active: Aktiv energi
+Power apparent: Tilsynelatende energi
+Power reactive: Reaktiv energi
+Reactions: Reaksjoner
+Reactions limit has been exceeded: Svargrensen overskredet
+Recipients: Mottakere
+Send a notification: Send varsel
+Send notification: Send varsel
+The notification must have a recipient.: Meldingen må ha en mottaker.
+The reaction has been added: Reaksjon er lagt til
+The reaction has been changed: Reaksjonen er endret
+Title: Tittel
+Voltage: Spenning
+When a certain distance is reached: Når den angitte avstanden er nådd
+When a lack of liquid is detected: Når mangel på væske oppdages
+When a new mail comes: Når den nye posten kommer
+When flooding is detected: Når flom oppdages
+When liquid is detected: Når væsken oppdages
+When liquid or lack thereof is detected: Når væske eller mangel på væske oppdages
+When the RGB lighting brightness level changes: Når lysstyrkenivået til RGB-belysning vil endre seg
+When the RGB lighting reaches a certain level of brightness: Når RGB-belysning når et visst lysstyrkenivå
+When the active power will be: Når den aktive kraften blir
+When the apparent power will be: Når den tilsynelatende kraften blir
+When the balanced forward active energy will be: Når den balanserte, forbrukte aktive energien vil være
+When the balanced reverse active energy will be: Når balansert, returnert aktiv energi blir
+When the brightness level changes: Når lysstyrkenivået  vil endre seg
+When the brightness will be: Når lysstyrkenivået blir
+When the color changes: Når fargen  vil endre seg
+When the condition is met: Når betingelsen er oppfylt
+When the current will be: Når strømmen blir
+When the depth changes: Når dybdemålingen vil endre seg
+When the depth is: Når dybdemålingen blir
+When the device is turned off: Når enheten er slått av
+When the device is turned on: Når enheten er slått på
+When the device is turned on or off: Når enheten er slått på eller av
+When the dimmer brightness level changes: Når dimmerens lysstyrkenivå vil endre seg
+When the dimmer reaches a certain brightness level: Når dimmeren når et visst lysstyrkenivå
+When the distance changes: Når avstanden vil endre seg
+When the distance will be: Når avstanden vil være
+When the door will be closed: Når døren lukkes
+When the door will be opened: Når døren åpnes
+When the door will be opened or closed: Når døren er lukket eller åpnet
+When the electricity meter reaches a certain value: Når energimåleren når en viss verdi
+When the electricity meter value changes: Når verdien på strømmåleren  vil endre seg
+When the electricity meter value will be: Når energimålerverdien blir
+When the forward active energy will be: Når den forbrukte aktive energien vil være
+When the garage door will be closed: Når garasjeporten lukkes
+When the garage door will be opened: Når garasjeporten åpnes
+When the garage door will be opened or closed: Når garasjeporten er lukket eller åpnet
+When the gas meter value changes: Når verdien på gassmåleren vil endre seg
+When the gas meter value reaches a certain value: Når gassmåleren når en viss verdi
+When the gas meter value will be: Når verdien av gassmåleren vil være
+When the gate will be closed: Når porten lukkes
+When the gate will be opened: Når porten åpnes
+When the gate will be opened or closed: Når porten åpnes eller lukkes
+When the gateway will be closed: Når porten er stengt
+When the gateway will be opened: Når porten åpnes
+When the gateway will be opened or closed: Når porten er lukket eller åpnet
+When the heat meter value changes: Når tellerverdien vil endre seg
+When the heat meter value reaches a certain value: Når varmemåleren når en viss verdi
+When the heat meter value will be: Når varmemålerverdien vil være
+When the humidity changes: Når fuktigheten vil endre seg
+When the humidity reaches a certain level: Når fuktigheten når et visst nivå
+When the humidity will be: Når fuktigheten blir
+When the lighting reaches a certain level of brightness: Når belysningen når et visst lysstyrkenivå
+When the mail comes or is taken: Når posten kommer eller blir tatt bort
+When the mail has been taken: Når posten vil bli mottatt
+When the precipitation amount will be: Når mengden målt regn vil være
+When the pressure changes: Når trykket vil endre seg
+When the pressure reaches a certain level: Når trykket rekker et visst nivå
+When the pressure will be: Når trykket blir
+When the rain amount changes: Når mengden nedbør vil endre seg
+When the reactive power will be: Når reaktiv kraft vil være
+When the reverse active energy will be: Når den returnerte aktive energien blir
+When the roller shutter position changes: Når rullegardinens stilling vil endre seg
+When the roller shutter reaches: Når rullegardinen rekker
+When the roller shutter reaches a certain position: Når rullegardinen når en bestemt posisjon
+When the roller shutter will be closed: Når  rullegardinen er lukket
+When the roller shutter will be opened: Når  rullegardinen åpnes
+When the roller shutter will be opened or closed: Når  rullegardinen åpnes eller lukkes
+When the roof window position changes: Når posisjonen til takvinduet vil endre seg
+When the roof window reaches: Når takvinduet rekker
+When the roof window reaches a certain position: Når takvinduet når en bestemt posisjon
+When the roof window will be closed: Når takvinduet er lukket
+When the roof window will be opened: Når takvinduet åpnes
+When the roof window will be opened or closed: Når takvinduet er lukket eller åpnet
+When the temperature changes: Når temperaturen vi endre seg
+When the temperature reaches a certain value: Når temperaturen når en viss verdi
+When the temperature will be: Når temperaturen blir
+When the value will be: Når verdien blir
+When the valve is closed: Når ventilen er lukket
+When the valve is manually closed: Når ventilen lukkes manuelt
+When the valve is opened: Når ventilen åpnes
+When the valve is opened or closed: Når ventilen er lukket eller åpnet
+When the voltage will be: Når spenningen vil være
+When the water meter reaches a certain value: Når vannmåleren rekker en viss verdi
+When the water meter value changes: Når vannmålerverdien vil endre seg
+When the water meter value will be: Når vannmålerverdien blir
+When the weight changes: Når vekten vil endre seg
+When the weight will be: Når vekten blir
+When the wind reaches a certain speed: Når vinden rekker en viss hastighet
+When the wind speed changes: Når vindhastigheten vil endre
+When the wind speed will be: Når vindstyrken blir
+When the window will be closed: Når vinduet blir lukket
+When the window will be opened: Når vinduet åpnes
+When the window will be opened or closed: Når et vindu lukkes eller åpnes
+When there is certain amount of rain: Når det regner en viss mengde
+When there weight reaches a certain value: Når vekten rekker en viss verdi
+You must set an action for each reaction.: Du må angi en handling for hver reaksjon.
+actionableSubjectType_notification: Varsling
+and wait until it reaches: og vent til den når
+and wait until it will be: og vent til det blir
+and wait until the humidity will be: og vent til fuktigheten vil være
+and wait until the temperature will be: og vent til temperaturen blir
+and wait until the value will be: og vent til verdien blir
+choose access identifiers: Velg tilgangs-IDer
+choose the access identifiers: Velg tilgangs-IDer
+notification: varsling
+or another element: eller et annet element
+sum: beløp
+then execute the action: Utfør deretter handlingen
 
 #</editor-fold>

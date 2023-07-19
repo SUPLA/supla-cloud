@@ -1104,151 +1104,151 @@ or add a delay: Hoặc thêm độ trễ
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% đóng cửa'
+Add a new action to the scene: Thêm một hoạt động mới vào cảnh
+Are you sure you want to delete this reaction?: Bạn có chắc muốn xóa phản ứng này không?
+Body: Nội dung
+Choose the channel: Chọn kênh
+Choose the channel group: Chọn nhóm kênh
+Choose the scene: Chọn cảnh
+Choose the schedule: Chọn lịch trình
+Create new reaction: Tạo một phản ứng mới
+Current: Điện
+Edit reaction: Chỉnh sửa phản ứng
+Go to the channel: Chuyển đến kênh
+Go to the channel group: Chuyển đến nhóm kênh
+Go to the scene: Chuyển đến cảnh
+Go to the schedule: Chuyển đến lịch trình
+Invalid scene: Cảnh không hợp lệ
+Missing action.: Không có hành động
+New reaction: Phản ứng mới
+Notification: Thông báo
+Notification must have a body.: Thông báo phải có nội dung
+Notifications: Các thông báo
+Phase: Pha
+Please fix the problems with operations and try again.: Giải quyết các vấn đề với các bên vận hành và thử lại
+Please select a condition: Vui lòng chọn điều kiện
+Please select an action: Vui lòng chọn hoạt động
+Power active: Năng lượng hoạt động
+Power apparent: Năng lượng biểu hiện
+Power reactive: Năng lượng lưu hành
+Reactions: Phản ứng
+Reactions limit has been exceeded: Vượt quá giới hạn phản ứng
+Recipients: Người nhận
+Send a notification: Gửi thông báo
+Send notification: Gửi thông báo
+The notification must have a recipient.: Thông báo phải có người nhận.
+The reaction has been added: Phản ứng đã được thêm vào
+The reaction has been changed: Phản ứng đã được thay đổi
+Title: Tiêu đề
+Voltage: Điện áp
+When a certain distance is reached: Khi đạt được khoảng cách cụ thể
+When a lack of liquid is detected: Khi phát hiện không có chất lỏng
+When a new mail comes: Khi có thư mới đến
+When flooding is detected: Khi phát hiện không có ngập lụt
+When liquid is detected: Khi phát hiện có chất lỏng
+When liquid or lack thereof is detected: Khi phát hiện có hoặc không có chất lỏng
+When the RGB lighting brightness level changes: Khi độ sáng của ánh sáng RGB thay đổi
+When the RGB lighting reaches a certain level of brightness: Khi ánh sáng RGB đạt độ sáng cụ thể
+When the active power will be: Khi công suất hoạt động
+When the apparent power will be: Khi công suất hiển thị
+When the balanced forward active energy will be: Khi năng lượng hoạt động được tiêu thụ và cân bằng
+When the balanced reverse active energy will be: Khi năng lượng hoạt động được trả lại và cân bằng
+When the brightness level changes: Khi độ sáng thay đổi
+When the brightness will be: Khi độ sáng là
+When the color changes: Khi màu sắc thay đổi
+When the condition is met: Khi điều kiện được đáp ứng
+When the current will be: Khi có dòng điện
+When the depth changes: Khi kích thước độ sâu thay đổi
+When the depth is: Khi kích thước độ sâu là
+When the device is turned off: Khi thiết bị được tắt
+When the device is turned on: Khi thiết bị được bật 
+When the device is turned on or off: Khi thiết bị được bật hoặc tắt 
+When the dimmer brightness level changes: Khi mức độ sáng của bộ điều chỉnh sáng tối thay đổi
+When the dimmer reaches a certain brightness level: Khi bộ điều chỉnh sáng tối đạt mức độ sáng cụ thể
+When the distance changes: Khi khoảng cách thay đổi
+When the distance will be: Khi khoảng cách là
+When the door will be closed: Khi cửa được đóng
+When the door will be opened: Khi cửa được mở
+When the door will be opened or closed: Khi cửa được đóng hoặc mở
+When the electricity meter reaches a certain value: Khi bộ đo năng lượng đạt một giá trị cụ thể
+When the electricity meter value changes: Khi giá trị trên bộ đo năng lượng điện thay đổi
+When the electricity meter value will be: Khi giá trị trên bộ đo năng lượng là
+When the forward active energy will be: Khi năng lượng hoạt động được tiêu thụ
+When the garage door will be closed: Khi cổng ga-ra được đóng
+When the garage door will be opened: Khi cổng ga-ra được mở
+When the garage door will be opened or closed: Khi cổng ga-ra được đóng hoặc mở
+When the gas meter value changes: Khi giá trị đo lượng gas thay đổi
+When the gas meter value reaches a certain value: Khi bộ đo khí gas đạt một giá trị cụ thể
+When the gas meter value will be: Khi giá trị bộ đo khí gas là
+When the gate will be closed: Khi cổng được đóng
+When the gate will be opened: Khi cổng được mở
+When the gate will be opened or closed: Khi cổng được mở hoặc đóng
+When the gateway will be closed: Khi cổng nhỏ được đóng
+When the gateway will be opened: Khi cổng nhỏ được mở
+When the gateway will be opened or closed: Khi cổng nhỏ được đóng hoặc mở
+When the heat meter value changes: Khi giá trị bộ đếm thay đổi
+When the heat meter value reaches a certain value: Khi bộ đo nhiệt lượng đạt giá trị cụ thể
+When the heat meter value will be: Khi giá trị bộ trên đo nhiệt lượng là
+When the humidity changes: Khi độ ẩm thay đổi
+When the humidity reaches a certain level: Khi độ ẩm đạt mức độ cụ thể
+When the humidity will be: Khi độ ẩm là
+When the lighting reaches a certain level of brightness: Khi ánh sáng đạt mức độ sáng cụ thể
+When the mail comes or is taken: Khi thư đến hoặc được lấy đi
+When the mail has been taken: Khi thư được nhận
+When the precipitation amount will be: Khi lượng mưa được đo
+When the pressure changes: Khi áp suất thay đổi
+When the pressure reaches a certain level: Khi áp suất đạt mức độ cụ thể
+When the pressure will be: Khi áp suất là
+When the rain amount changes: Khi lượng mưa thay đổi
+When the reactive power will be: Khi có công suất lưu hành
+When the reverse active energy will be: Khi trả lại công suất hoạt động
+When the roller shutter position changes: Khi vị trí rèm thay đổi
+When the roller shutter reaches: Khi rèm đạt đến
+When the roller shutter reaches a certain position: Khi rèm cửa đạt đến vị trí cụ thể
+When the roller shutter will be closed: Khi rèm cửa được đóng
+When the roller shutter will be opened: Khi rèm cửa được mở
+When the roller shutter will be opened or closed: Khi rèm cửa được mở hoặc đóng
+When the roof window position changes: Khi vị trí cửa sổ trên mái thay đổi
+When the roof window reaches: Khi cửa sổ trên mái đạt đến
+When the roof window reaches a certain position: Khi cửa sổ trên mái đạt đến vị trí cụ thể
+When the roof window will be closed: Khi cửa sổ trên mái được đóng
+When the roof window will be opened: Khi cửa sổ trên  mái được mở
+When the roof window will be opened or closed: Khi cửa sổ trên  mái được đóng hoặc mở
+When the temperature changes: Khi nhiệt độ thay đổi
+When the temperature reaches a certain value: Khi nhiệt độ đạt đến giá trị cụ thể
+When the temperature will be: Khi nhiệt độ là
+When the value will be: Khi giá trị là
+When the valve is closed: Khi van được đóng
+When the valve is manually closed: Khi van được đóng thủ công
+When the valve is opened: Khi van được mở
+When the valve is opened or closed: Khi van được đóng hoặc mở
+When the voltage will be: Khi điện áp là
+When the water meter reaches a certain value: Khi bộ đo lượng nước đạt giá trị cụ thể
+When the water meter value changes: Khi giá trị bộ đo lượng nước thay đổi
+When the water meter value will be: Khi giá trị bộ đo lượng nước là
+When the weight changes: Khi trọng lượng thay đổi
+When the weight will be: Khi trọng lượng là
+When the wind reaches a certain speed: Khi gió đạt tốc độ cụ thể
+When the wind speed changes: Khi tốc độ gió thay đổi
+When the wind speed will be: Khi tốc độ gió là
+When the window will be closed: Khi cửa sổ được đóng
+When the window will be opened: Khi cửa sổ được mở
+When the window will be opened or closed: Khi cửa sổ được đóng hoặc mở
+When there is certain amount of rain: Khi lượng mưa đạt mức cụ thể
+When there weight reaches a certain value: Khi trọng lượng đạt giá trị cụ thể
+You must set an action for each reaction.: Bạn cần thiết lập một hành động cho mỗi phản ứng.
+actionableSubjectType_notification: Thông báo
+and wait until it reaches: và đợi đến khi đạt được
+and wait until it will be: và đợi đến khi sẽ
+and wait until the humidity will be: và đợi đến khi độ ẩm sẽ
+and wait until the temperature will be: và đợi đến khi nhiệt độ sẽ
+and wait until the value will be: và đợi đến khi giá trị sẽ
+choose access identifiers: chọn các thông tin xác thực
+choose the access identifiers: chọn các thông tin xác thực
+notification: thông báo
+or another element: hoặc các yếu tố khác
+sum: tổng
+then execute the action: sau đó thực hiện hành động
 
 #</editor-fold>

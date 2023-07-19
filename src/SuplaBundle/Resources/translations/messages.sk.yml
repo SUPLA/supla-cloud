@@ -1104,151 +1104,151 @@ or add a delay: alebo pridať oneskorenie
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% zamknutia'
+Add a new action to the scene: Pridať novú akciu k scéne
+Are you sure you want to delete this reaction?: Ste si istí, že chcete odstrániť túto reakciu?
+Body: Obsah
+Choose the channel: Vybrať kanál
+Choose the channel group: Vybrať skupinu kanálov
+Choose the scene: Vybrať scénu
+Choose the schedule: Vybrať harmonogram
+Create new reaction: Vytvoriť novú reakciu
+Current: Prúd
+Edit reaction: Editovať reakciu
+Go to the channel: Prejsť na kanál
+Go to the channel group: Prejsť na skupinu kanálov
+Go to the scene: Prejsť na scénu
+Go to the schedule: Prejsť na harmonogram
+Invalid scene: Nesprávna scéna
+Missing action.: Žiadna akcia
+New reaction: Nová reakcia
+Notification: Oznámenie
+Notification must have a body.: Upozornenie musí mať obsah.
+Notifications: Oznámenia
+Phase: Fáza
+Please fix the problems with operations and try again.: Vyriešte problémy s operáciami a skúste znova.
+Please select a condition: Zvoľte podmienku prosím
+Please select an action: Zvoľte akciu prosím
+Power active: Činná energia
+Power apparent: Zdanlivá energia
+Power reactive: Jalová energia
+Reactions: Reakcie
+Reactions limit has been exceeded: Limit reakcií bol prekročený
+Recipients: Odberatelia
+Send a notification: Odoslať oznámenie
+Send notification: Odoslať oznámenie
+The notification must have a recipient.: Oznámenie musí obsahovať odberateľa.
+The reaction has been added: Reakcia bola pridaná
+The reaction has been changed: Reakcia bola zmenená
+Title: Názov
+Voltage: Napätie
+When a certain distance is reached: Keď bude dosiahnutá určitá vzdialenosť
+When a lack of liquid is detected: Keď sa zistí neprítomnosť kvapaliny
+When a new mail comes: Keď príde nová pošta
+When flooding is detected: Keď sa zistí zaplavenie
+When liquid is detected: Keď sa zistí prítomnosť kvapaliny
+When liquid or lack thereof is detected: Keď sa zistí prítomnosť kvapaliny alebo jej nedostatok
+When the RGB lighting brightness level changes: Keď sa zmení úroveň jasu osvetlenia RGB
+When the RGB lighting reaches a certain level of brightness: Keď osvetlenie RGB dosiahne určitú úroveň jasu
+When the active power will be: Keď bude činný výkon
+When the apparent power will be: Keď bude zdanlivý výkon
+When the balanced forward active energy will be: Keď vyvážená, spotrebovaná činná energia bude
+When the balanced reverse active energy will be: Keď vyvážená, vrátená činná energia bude
+When the brightness level changes: Keď sa zmení úroveň jasu
+When the brightness will be: Keď bude úroveň jasu
+When the color changes: Keď sa zmení farba
+When the condition is met: Keď bude splnená podmienka
+When the current will be: Keď prúd bude
+When the depth changes: Keď sa zmení meranie hĺbky
+When the depth is: Keď bude meranie hĺbky
+When the device is turned off: Keď sa zariadne vypne
+When the device is turned on: Keď sa zariadne zapne
+When the device is turned on or off: Keď sa zariadne zapne alebo vypne
+When the dimmer brightness level changes: Keď sa úroveň jasu stmievača zmení
+When the dimmer reaches a certain brightness level: Keď stmievač dosiahne určitú úroveň jasu
+When the distance changes: Keď sa zmení vzdialenosť
+When the distance will be: Keď bude vzdialenosť
+When the door will be closed: Keď sa zatvoria dvere
+When the door will be opened: Keď sa otvoria dvere
+When the door will be opened or closed: Keď sa dvere zatvoria alebo otvoria
+When the electricity meter reaches a certain value: Keď elektromer dosiahne určitú hodnotu
+When the electricity meter value changes: Keď sa zmení hodnota elektromera
+When the electricity meter value will be: Keď bude hodnota elektromera
+When the forward active energy will be: Keď bude spotrebovaná aktívna energia
+When the garage door will be closed: Keď sa garážová brána zatvorí
+When the garage door will be opened: Keď sa garážová brána otvorí
+When the garage door will be opened or closed: Keď sa garážová brána zatvorí alebo otvorí
+When the gas meter value changes: Keď sa hodnota plynomeru zmení
+When the gas meter value reaches a certain value: Keď plynomer dosiahne určitú hodnotu
+When the gas meter value will be: Keď plynomer bude
+When the gate will be closed: Keď sa brána zatvorí
+When the gate will be opened: Keď sa brána otvorí
+When the gate will be opened or closed: Keď sa brána otvorí alebo zatvorí
+When the gateway will be closed: Keď sa bránka zatvorí
+When the gateway will be opened: Keď sa bránka otvorí
+When the gateway will be opened or closed: Keď sa bránka zatvorí alebo otvorí
+When the heat meter value changes: Keď sa zmení hodnota merača
+When the heat meter value reaches a certain value: Keď merač tepla dosiahne určitú hodnotu
+When the heat meter value will be: Keď bude hodnota merača tepla
+When the humidity changes: Keď sa zmení vlhkosť
+When the humidity reaches a certain level: Keď vlhkosť dosiahne určitú úroveň
+When the humidity will be: Keď bude vlhkosť
+When the lighting reaches a certain level of brightness: Keď osvetlenie dosiahne určitú úrpveň jasu
+When the mail comes or is taken: Keď príde pošta alebo sa odoberie
+When the mail has been taken: Keď bude pošta prijatá
+When the precipitation amount will be: Keď bude množstvo meraného dažďa
+When the pressure changes: Keď sa zmení tlak
+When the pressure reaches a certain level: Keď tlak dosiahne určitú úroveň
+When the pressure will be: Keď bude tlak
+When the rain amount changes: Keď sa zmení počet zrážok
+When the reactive power will be: Keď bude jalový výkon
+When the reverse active energy will be: Keď bude vrátená činná energia
+When the roller shutter position changes: Keď sa zmení poloha rolety
+When the roller shutter reaches: Keď roleta dosiahne
+When the roller shutter reaches a certain position: Keď roleta dosiahne určitú polohu
+When the roller shutter will be closed: Keď sa roleta zatvorí
+When the roller shutter will be opened: Keď sa roleta otvorí
+When the roller shutter will be opened or closed: Keď sa roleta otvorí alebo zatvorí
+When the roof window position changes: Keď sa zmení poloha strešného okna
+When the roof window reaches: Keď strešné okno dosiahne
+When the roof window reaches a certain position: Keď strešné okno dosiahne určitú polohu
+When the roof window will be closed: Keď sa strešné okno zatvorí
+When the roof window will be opened: Keď sa strešné okno otvorí
+When the roof window will be opened or closed: Keď sa strešné okno zatvorí alebo otvorí
+When the temperature changes: Keď sa zmení teplota
+When the temperature reaches a certain value: Keď teplota dosiahne určitú hodnotu
+When the temperature will be: Keď bude teplota
+When the value will be: Keď bude hodnota
+When the valve is closed: Keď sa ventl zatvorí
+When the valve is manually closed: Keď sa ventíl ručne zatvorí
+When the valve is opened: Keď sa ventíl otvorí
+When the valve is opened or closed: Keď sa ventíl zatvorí alebo otvorí
+When the voltage will be: Keď bude napätie
+When the water meter reaches a certain value: Keď vodomer dosiahne určitú hodnotu
+When the water meter value changes: Keď sa zmení hodnota vodomeru
+When the water meter value will be: Keď bude hodnota vodomeru
+When the weight changes: Keď sa zmení váha
+When the weight will be: Keď bude váha
+When the wind reaches a certain speed: Keď vietor dosiahne určitú rýchlosť
+When the wind speed changes: Keď sa zmení rýchlosť vetra
+When the wind speed will be: Keď bude rýchlosť vetra
+When the window will be closed: Keď sa okno zatvorí
+When the window will be opened: Keď sa okno otvorí
+When the window will be opened or closed: Keď sa okno zatvorí alebo otvorí
+When there is certain amount of rain: Keď padá určité množstvo dažďa
+When there weight reaches a certain value: Keď váha dosiahne určitú hodnotu
+You must set an action for each reaction.: Musíte nastaviť akciu pre každú reakciu.
+actionableSubjectType_notification: Oznámenie
+and wait until it reaches: a čakajte, kým dosiahne
+and wait until it will be: a čakajte, kým bude
+and wait until the humidity will be: a čakajte, kým bude vlhkosť
+and wait until the temperature will be: a čakajte, kým bude teplota
+and wait until the value will be: a čakajte, kým bude hodnota
+choose access identifiers: vybrať identifikátory prístupu
+choose the access identifiers: vybrať identifikátory prístupu
+notification: oznámenie
+or another element: alebo iný prvok
+sum: suma
+then execute the action: vtedy vykonajte akciu
 
 #</editor-fold>

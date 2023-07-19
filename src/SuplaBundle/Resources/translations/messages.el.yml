@@ -1104,151 +1104,151 @@ or add a delay: ή προσθέστε καθυστέρηση
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% κλεισίματος'
+Add a new action to the scene: Πρόσθεση νέας δράσης στη σκηνή
+Are you sure you want to delete this reaction?: Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την αντίδραση;
+Body: Περιεχόμενο
+Choose the channel: Επιλογή καναλιούι
+Choose the channel group: Επιλογή ομάδας καναλιών
+Choose the scene: επιλογή σκηνής
+Choose the schedule: επιλογή χρονοδιαγράμματος
+Create new reaction: Δημιουργία νέας αντίδρασης
+Current: Ρεύμα
+Edit reaction: Επεξεργασία αντίδρασης
+Go to the channel: Μετάβαση στο κανάλι
+Go to the channel group: Μετάβαση στην ομάδα καναλιών
+Go to the scene: Πηγαίνετε στη σκηνή
+Go to the schedule: Μετάβαση στο πρόγραμμα
+Invalid scene: Λάθος σκηνή
+Missing action.: Καμία δράση
+New reaction: Νέα αντίδραση
+Notification: Ειδοποίηση
+Notification must have a body.: Η ειδοποίηση πρέπει να έχει περιεχόμενο.
+Notifications: Ειδοποιήσεις
+Phase: Φάση
+Please fix the problems with operations and try again.: Αντιμετώπιση προβλημάτων με λειτουργίες και ξανά δοκιμή.
+Please select a condition: Επιλογή συνθήκης
+Please select an action: Επιλογή δράσης
+Power active: Ενεργή ενέργεια
+Power apparent: Φαινομενική ενέργεια
+Power reactive: Παθητική ενέργεια
+Reactions: Αντιδράσεις
+Reactions limit has been exceeded: Υπέρβαση ορίου αντίδρασης
+Recipients: Παραλήπτες
+Send a notification: Αποστολή ειδοποίησης
+Send notification: Αποστολή ειδοποίησης
+The notification must have a recipient.: Η ειδοποίηση πρέπει να έχει παραλήπτη.
+The reaction has been added: Η αντίδραση έχει προστεθεί
+The reaction has been changed: Η αντίδραση έχει αλλάξει
+Title: Τίτλος
+Voltage: Ενταση
+When a certain distance is reached: Όταν επιτευχθεί η καθορισμένη απόσταση
+When a lack of liquid is detected: Όταν διαπιστωθεί έλλειψη υγρού
+When a new mail comes: Όταν έρθει νέα αλληλογραφία
+When flooding is detected: Όταν εντοπιστεί πλημμύρα
+When liquid is detected: Όταν ανιχνευτεί υγρό
+When liquid or lack thereof is detected: Όταν εντοπιστεί υγρό ή έλλειψη αυτού
+When the RGB lighting brightness level changes: Όταν αλλάξει το επίπεδο φωτεινότητας του φωτισμού RGB
+When the RGB lighting reaches a certain level of brightness: Όταν ο φωτισμός RGB φτάσει σε ένα ορισμένο επίπεδο φωτεινότητας
+When the active power will be: Όταν η ενεργή ισχύς θα γίνει
+When the apparent power will be: Όταν η φαινομενική ισχύς θα γίνει
+When the balanced forward active energy will be: Όταν η ισορροπημένη, ενεργή ενέργεια εισόδου θα γίνει
+When the balanced reverse active energy will be: Όταν ισορροπημένη, η επιστρεφόμενη  ενεργή ενέργεια θα γίνει
+When the brightness level changes: Όταν αλλάξει το επίπεδο φωτεινότητας
+When the brightness will be: Όταν το επίπεδο φωτεινότητας θα είναι
+When the color changes: Όταν αλλάξει το χρώμα
+When the condition is met: Όταν πληρούται η προϋπόθεση
+When the current will be: Πότε το ρεύμα θα είναι
+When the depth changes: Όταν αλλάξει η μέτρηση του βάθους
+When the depth is: Όταν η μέτρηση του βάθους θα είναι
+When the device is turned off: Όταν απενεργοποιηθεί η συσκευή
+When the device is turned on: Όταν ενεργοποιηθεί η συσκευή
+When the device is turned on or off: Όταν ενεργοποιηθεί ή απενεργοποιηθεί η συσκευή
+When the dimmer brightness level changes: Όταν αλλάξει το επίπεδο φωτεινότητας του ροοστάτη
+When the dimmer reaches a certain brightness level: Όταν ο ροοστάτης φτάσει σε ένα ορισμένο επίπεδο φωτεινότητας
+When the distance changes: Όταν αλλάξει η απόσταση
+When the distance will be: Όταν η απόσταση θα είναι
+When the door will be closed: Όταν κλείσει η πόρτα
+When the door will be opened: Όταν ανοίξει η πόρτα
+When the door will be opened or closed: Όταν κλείσει ή ανοίξει η πόρτα
+When the electricity meter reaches a certain value: Όταν ο μετρητής ενέργειας φτάσει σε μια ορισμένη τιμή
+When the electricity meter value changes: Όταν αλλάξει η τιμή του μετρητή ηλεκτρικής ενέργειας
+When the electricity meter value will be: Όταν η τιμή του μετρητή ενέργειας θα γίνει
+When the forward active energy will be: Όταν η ενεργή ενέργεια εισόδου θα είναι
+When the garage door will be closed: Όταν κλείσει η πόρτα του γκαράζ
+When the garage door will be opened: Όταν ανοίξει η πόρτα του γκαράζ
+When the garage door will be opened or closed: Όταν κλείσει ή ανοίξει η πόρτα του γκαράζ
+When the gas meter value changes: Όταν αλλάξει η τιμή του μετρητή αερίου
+When the gas meter value reaches a certain value: Όταν ο μετρητής αερίου φτάσει σε μια ορισμένη τιμή
+When the gas meter value will be: Όταν η τιμή του μετρητή αερίου θα είναι
+When the gate will be closed: Όταν κλείσει η πύλη 
+When the gate will be opened: Όταν ανοίξει η πύλη
+When the gate will be opened or closed: Όταν ανοίξει ή κλείνει η πύλη 
+When the gateway will be closed: Όταν κλείσει η αυλόπορτα
+When the gateway will be opened: Όταν ανοίξει η αυλόπορτα
+When the gateway will be opened or closed: Όταν κλείσει ή ανοίξει η αυλόπορτα 
+When the heat meter value changes: Όταν αλλάξει η τιμή του μετρητή
+When the heat meter value reaches a certain value: Όταν ο μετρητής θερμότητας φτάσει σε μια ορισμένη τιμή
+When the heat meter value will be: Όταν η τιμή του μετρητή θερμότητας θα είναι
+When the humidity changes: Όταν αλλάξει η υγρασία
+When the humidity reaches a certain level: Όταν η υγρασία φτάσει σε ένα ορισμένο επίπεδο
+When the humidity will be: Όταν η υγρασία θα είναι
+When the lighting reaches a certain level of brightness: Όταν ο φωτισμός φτάσει σε ένα ορισμένο επίπεδο φωτεινότητας
+When the mail comes or is taken: Όταν φτάσει ή ληφθεί η αλληλογραφία
+When the mail has been taken: Όταν ληφθεί η αλληλογραφία
+When the precipitation amount will be: Όταν η ποσότητα της μετρούμενης βροχής θα είναι
+When the pressure changes: Όταν αλλάξει η πίεση
+When the pressure reaches a certain level: Όταν η πίεση φτάσει σε ένα ορισμένο επίπεδο
+When the pressure will be: Όταν η πίεση θα είναι
+When the rain amount changes: Όταν αλλάξει η ποσότητα της βροχόπτωσης
+When the reactive power will be: Όταν η παθητική ισχύς θα είναι
+When the reverse active energy will be: Όταν η επιστρεφόμενη ενέργεια θα είναι ενεργή
+When the roller shutter position changes: Όταν αλλάξει η θέση περσίδων
+When the roller shutter reaches: Όταν οι περσίδες φτάσουν
+When the roller shutter reaches a certain position: Όταν οι περσίδες φτάσουν σε μια ορισμένη θέση
+When the roller shutter will be closed: Όταν κλείσουν οι περσίδες
+When the roller shutter will be opened: Όταν ανοίξουν οι περσίδες
+When the roller shutter will be opened or closed: Όταν ανοίξουν ή κλείσουν οι περσίδες
+When the roof window position changes: Όταν αλλάξει η θέση παράθυρου οροφής
+When the roof window reaches: Όταν το παράθυρο οροφής φτάσει
+When the roof window reaches a certain position: Όταν το παράθυρο οροφής φτάσει σε μια συγκεκριμένη θέση
+When the roof window will be closed: Όταν κλείσει το παράθυρο οροφής
+When the roof window will be opened: Όταν ανοίξει το παράθυρο οροφής
+When the roof window will be opened or closed: Όταν κλείσει ή ανοίξει το παράθυρο οροφής
+When the temperature changes: Όταν αλλάξει η θερμοκρασία
+When the temperature reaches a certain value: Όταν η θερμοκρασία φτάσει σε μια ορισμένη τιμή
+When the temperature will be: Όταν η θερμοκρασία θα είναι
+When the value will be: Όταν η τιμή θα είναι
+When the valve is closed: Όταν κλείσει η βαλβίδα
+When the valve is manually closed: Όταν η βαλβίδα κλείσει χειροκίνητα
+When the valve is opened: Όταν ανοίξει η βαλβίδα
+When the valve is opened or closed: Όταν κλείσει ή ανοίξει η βαλβίδα
+When the voltage will be: Όταν η ένταση θα είναι
+When the water meter reaches a certain value: Όταν ο μετρητής νερού φτάσει σε μια ορισμένη τιμή
+When the water meter value changes: Όταν αλλάξει η τιμή του μετρητή νερού
+When the water meter value will be: Όταν η τιμή του μετρητή νερού θα είναι
+When the weight changes: Όταν αλλάξει το βάρος
+When the weight will be: Όταν το βάρος θα είναι
+When the wind reaches a certain speed: Όταν ο άνεμος φτάσει σε μια ορισμένη ταχύτητα
+When the wind speed changes: Όταν αλλάξει η ταχύτητα του ανέμου
+When the wind speed will be: Όταν η ταχύτητα του ανέμου θα είναι
+When the window will be closed: Όταν κλείσει το παράθυρο
+When the window will be opened: Όταν ανοίξει το παράθυρο
+When the window will be opened or closed: Όταν κλείσει ή ανοίξει το παράθυρο
+When there is certain amount of rain: Όταν βρέξει μια ορισμένη ποσότητα
+When there weight reaches a certain value: Όταν το βάρος φτάσει σε μια ορισμένη τιμή
+You must set an action for each reaction.: Πρέπει να ορίσετε μια δράση για κάθε αντίδραση.
+actionableSubjectType_notification: Ειδοποίηση
+and wait until it reaches: και περίμενε να φτάσει
+and wait until it will be: και περίμενε να γίνει
+and wait until the humidity will be: και περίμενε η υγρασία να φτάσει 
+and wait until the temperature will be: και περίμενε η θερμοκρασία να είναι 
+and wait until the value will be: και περίμενε να η τιμή γίνει
+choose access identifiers: επέλεξε αναγνωριστικά πρόσβασης
+choose the access identifiers: επέλεξε αναγνωριστικά πρόσβασης
+notification: ειδοποίηση
+or another element: ή άλλο στοιχείο
+sum: άθροισμα
+then execute the action: τότε κάνε τη δράση
 
 #</editor-fold>

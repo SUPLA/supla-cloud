@@ -1104,151 +1104,151 @@ or add a delay: oder Verzögerung hinzufügen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% Schließung'
+Add a new action to the scene: Fügen Sie der Szene eine neue Aktion hinzu.
+Are you sure you want to delete this reaction?: Sind Sie sicher, dass Sie diese Reaktion löschen möchten?
+Body: Inhalt
+Choose the channel: Wählen Sie einen Kanal aus.
+Choose the channel group: Wählen Sie eine Kanalgruppe aus.
+Choose the scene: Wählen Sie eine Szene aus.
+Choose the schedule: Wählen Sie einen Zeitplan aus.
+Create new reaction: Erstellen Sie eine neue Reaktion.
+Current: Strom
+Edit reaction: Bearbeiten Sie eine Reaktion.
+Go to the channel: Gehen Sie zum Kanal.
+Go to the channel group: Gehen Sie zu einer Kanalgruppe.
+Go to the scene: Gehen Sie zur Szene.
+Go to the schedule: Gehen Sie zum Zeitplan.
+Invalid scene: Falsche Szene
+Missing action.: Keine Aktion
+New reaction: Neue Reaktion
+Notification: Benachrichtigung
+Notification must have a body.: Die Benachrichtigung muss einen Inhalt haben.
+Notifications: Benachrichtigungen
+Phase: Phase
+Please fix the problems with operations and try again.: Beheben Sie Probleme mit den Vorgängen und versuchen Sie es erneut.
+Please select a condition: Bitte wählen Sie eine Bedingung aus.
+Please select an action: Bitte wählen Sie eine Aktion aus.
+Power active: Wirkleistung
+Power apparent: Scheinleistung
+Power reactive: Blindleistung
+Reactions: Reaktionen
+Reactions limit has been exceeded: Das Limit für Reaktionen wurde überschritten.
+Recipients: Empfänger
+Send a notification: Senden Sie eine Benachrichtigung.
+Send notification: Senden Sie eine Benachrichtigung.
+The notification must have a recipient.: Die Benachrichtigung muss einen Empfänger haben.
+The reaction has been added: Die Reaktion wurde hinzugefügt.
+The reaction has been changed: Die Reaktion wurde geändert.
+Title: Titel
+Voltage: Spannung
+When a certain distance is reached: Wenn die bestimmte Entfernung erreicht ist.
+When a lack of liquid is detected: Wenn ein Flüssigkeitsmangel festgestellt wird.
+When a new mail comes: Wenn neue Post eintrifft.
+When flooding is detected: Wenn eine Überschwemmung erkannt wird.
+When liquid is detected: Wenn Flüssigkeit erkannt wird.
+When liquid or lack thereof is detected: Wenn Flüssigkeit oder ein Mangel daran festgestellt wird.
+When the RGB lighting brightness level changes: Wenn sich die Helligkeitsstufe der RGB-Beleuchtung ändert.
+When the RGB lighting reaches a certain level of brightness: Wenn die RGB-Beleuchtung eine bestimmte Helligkeitsstufe erreicht.
+When the active power will be: Wenn die Wirkleistung ... wird.
+When the apparent power will be: Wenn die Scheinleistung ... wird.
+When the balanced forward active energy will be: Wenn es ausgeglichen wird, wird die aufgenommene Wirkleistung ...
+When the balanced reverse active energy will be: Wenn es ausgeglichen wird, wird die zurückgegebene Wirkleistung ...
+When the brightness level changes: Wenn sich die Helligkeitsstufe ändert.
+When the brightness will be: Wenn die Helligkeitsstufe ... wird.
+When the color changes: Wenn sich die Farbe ändert.
+When the condition is met: Wenn die Bedingung erfüllt ist.
+When the current will be: Wenn der Strom ... wird.
+When the depth changes: Wenn sich die Tiefenmessung ändert.
+When the depth is: Wenn die Tiefenmessung ... wird.
+When the device is turned off: Wenn das Gerät ausgeschaltet ist.
+When the device is turned on: Wenn das Gerät eingeschaltet ist.
+When the device is turned on or off: Wenn das Gerät ein- oder ausgeschaltet ist.
+When the dimmer brightness level changes: Wenn sich die Helligkeitsstufe des Dimmers ändert.
+When the dimmer reaches a certain brightness level: Wenn der Dimmer eine bestimmte Helligkeitsstufe erreicht.
+When the distance changes: Wenn sich die Entfernung ändert.
+When the distance will be: Wenn die Entfernung ... wird.
+When the door will be closed: Wenn die Tür geschlossen ist.
+When the door will be opened: Wenn die Tür geöffnet ist.
+When the door will be opened or closed: Wenn die Tür geschlossen oder geöffnet ist.
+When the electricity meter reaches a certain value: Wenn der Stromzähler einen bestimmten Wert erreicht.
+When the electricity meter value changes: Wenn sich der Wert des Stromzählers ändert.
+When the electricity meter value will be: Wenn der Wert des Stromzählers ... wird.
+When the forward active energy will be: Wenn die aufgenommene Wirkleistung ... wird.
+When the garage door will be closed: Wenn das Garagentor geschlossen ist.
+When the garage door will be opened: Wenn das Garagentor geöffnet wird.
+When the garage door will be opened or closed: Wenn das Garagentor geschlossen oder geöffnet ist.
+When the gas meter value changes: Wenn sich der Wert des Gaszählers ändert.
+When the gas meter value reaches a certain value: Wenn der Gaszähler einen bestimmten Wert erreicht.
+When the gas meter value will be: Wenn der Wert des Gaszählers ... wird.
+When the gate will be closed: Wenn das Tor geschlossen ist.
+When the gate will be opened: Wenn das Tor geöffnet ist.
+When the gate will be opened or closed: Wenn das Tor geöffnet oder geschlossen ist.
+When the gateway will be closed: Wenn die Pforte geschlossen ist.
+When the gateway will be opened: Wenn die Pforte geöffnet ist.
+When the gateway will be opened or closed: Wenn die Pforte geschlossen oder geöffnet ist.
+When the heat meter value changes: Wenn sich der Zählerwert ändert.
+When the heat meter value reaches a certain value: Wenn der Wärmezähler einen bestimmten Wert erreicht.
+When the heat meter value will be: Wenn der Wert des Wärmezählers ... wird.
+When the humidity changes: Wenn sich die Feuchtigkeit ändert.
+When the humidity reaches a certain level: Wenn die Feuchtigkeit ein bestimmtes Niveau erreicht.
+When the humidity will be: Wenn die Feuchtigkeit ... wird.
+When the lighting reaches a certain level of brightness: Wenn die Beleuchtung eine bestimmte Helligkeit erreicht.
+When the mail comes or is taken: Wenn die Post ankommt oder zurückgenommen wird.
+When the mail has been taken: Wenn die Post abgeholt wird.
+When the precipitation amount will be: Wenn die Menge des gemessenen Regens ... wird.
+When the pressure changes: Wenn sich der Druck ändert.
+When the pressure reaches a certain level: Wenn der Druck ein bestimmtes Niveau erreicht.
+When the pressure will be: Wenn der Druck ... wird.
+When the rain amount changes: Wenn sich die Niederschlagsmenge ändert.
+When the reactive power will be: Wenn die Blindleistung ... wird.
+When the reverse active energy will be: Wenn die zurückgegebene Wirkleistung ... wird.
+When the roller shutter position changes: Wenn sich die Position des Rolladens ändert.
+When the roller shutter reaches: Wenn der Rolladen ... erreicht.  
+When the roller shutter reaches a certain position: Wenn der Rolladen eine bestimmte Position erreicht.
+When the roller shutter will be closed: Wenn der Rolladen geschlossen ist.
+When the roller shutter will be opened: Wenn der Rolladen geöffnet ist.
+When the roller shutter will be opened or closed: Wenn der Rolladen geöffnet oder geschlossen ist.
+When the roof window position changes: Wenn sich die Position des Dachfensters ändert.
+When the roof window reaches: Wenn das Dachfenster ... erreicht.
+When the roof window reaches a certain position: Wenn das Dachfenster eine bestimmte Position erreicht.
+When the roof window will be closed: Wenn das Dachfenster geschlossen ist.
+When the roof window will be opened: Wenn das Dachfenster geöffnet ist.
+When the roof window will be opened or closed: Wenn das Dachfenster geschlossen oder geöffnet ist.
+When the temperature changes: Wenn sich die Temperatur ändert.
+When the temperature reaches a certain value: Wenn die Temperatur einen bestimmten Wert erreicht.
+When the temperature will be: Wenn die Temperatur ... wird.
+When the value will be: Wann der Wert ... wird.
+When the valve is closed: Wenn das Ventil geschlossen ist.
+When the valve is manually closed: Wenn das Ventil manuell geschlossen ist.
+When the valve is opened: Wenn das Ventil geöffnet sit.
+When the valve is opened or closed: Wenn das Ventil geschlossen oder geöffnet ist.
+When the voltage will be: Wenn die Spannung ... wird.
+When the water meter reaches a certain value: Wenn der Wasserzähler einen bestimmten Wert erreicht.
+When the water meter value changes: Wenn sich der Wert des Wasserzählers ändert.
+When the water meter value will be: Wenn der Wasserzählerwert ... wird.
+When the weight changes: Wenn sich das Gewicht ändert.
+When the weight will be: Wenn das Gewicht ... wird.
+When the wind reaches a certain speed: Wenn der Wind eine bestimmte Geschwindigkeit erreicht.
+When the wind speed changes: Wenn sich die Windgeschwindigkeit ändert.
+When the wind speed will be: Wenn die Windgeschwindigkeit ... wird.
+When the window will be closed: Wenn das Fenster geschlossen ist.
+When the window will be opened: Wenn das Fenster geöffnet ist.
+When the window will be opened or closed: Wenn das Fenster geschlossen oder geöffnet ist.
+When there is certain amount of rain: Wenn eine bestimmte Menge des Regens fällt.
+When there weight reaches a certain value: Wenn das Gewicht einen bestimmten Wert erreicht.
+You must set an action for each reaction.: Sie müssen für jede Reaktion eine Aktion festlegen.
+actionableSubjectType_notification: Benachrichtigung
+and wait until it reaches: und warten Sie, bis es ... erreicht.
+and wait until it will be: und warten Sie, bis es ... wird.
+and wait until the humidity will be: und warten Sie, bis die Feuchtigkeit ... wird.
+and wait until the temperature will be: und warten Sie, bis die Temperatur ... wird.
+and wait until the value will be: und warten Sie, bis der Wert ... wird.
+choose access identifiers: Wählen Sie Zugangs-IDs aus.
+choose the access identifiers: Wählen Sie Zugangs-IDs aus.
+notification: Benachrichtigung
+or another element: oder ein anderes Element
+sum: Summe
+then execute the action: und dann führen Sie die Aktion aus.
 
 #</editor-fold>

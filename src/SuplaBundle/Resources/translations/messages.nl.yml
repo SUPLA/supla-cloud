@@ -1105,151 +1105,151 @@ or add a delay: of een vertraging toevoegen
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% gesloten'
+Add a new action to the scene: Voeg nieuwe actie aan de scène toe
+Are you sure you want to delete this reaction?: Wil je deze reactie echt verwijderen?
+Body: Inhoud
+Choose the channel: Selecteer kanaal
+Choose the channel group: Selecteer groep kanalen
+Choose the scene: Selecteer scène
+Choose the schedule: Selecteer schema
+Create new reaction: Nieuwe reactie aanmaken
+Current: Stroom
+Edit reaction: Reactie bijwerken
+Go to the channel: Ga door naar het kanaal
+Go to the channel group: Ga door naar de groep kanalen
+Go to the scene: Ga door naar de scène
+Go to the schedule: Ga door naar het schema
+Invalid scene: Verkeerde scène
+Missing action.: Geen acties
+New reaction: Nieuwe reactie
+Notification: Melding
+Notification must have a body.: De melding moet een inhoud hebben
+Notifications: Meldingen
+Phase: Fase
+Please fix the problems with operations and try again.: Los problemen op en probeer opnieuw
+Please select a condition: Selecteer een voorwaarde
+Please select an action: Selecteer een actie
+Power active: Actieve energie
+Power apparent: Schijnbare energie
+Power reactive: Reactieve energie
+Reactions: Reacties
+Reactions limit has been exceeded: Reactielimiet overschreden
+Recipients: Ontvangers
+Send a notification: Stuur een melding
+Send notification: Stuur een melding
+The notification must have a recipient.: De melding heeft een ontvanger nodig
+The reaction has been added: De reactie is toegevoegd
+The reaction has been changed: De reactie is gewijzigd
+Title: Titel
+Voltage: Spanning
+When a certain distance is reached: Als de ingestelde afstand is bereikt
+When a lack of liquid is detected: Als er een vloeistoftekort wordt gedetecteerd
+When a new mail comes: Als er nieuwe post binnenkomt
+When flooding is detected: Als er een overstroming wordt gedetecteerd
+When liquid is detected: Als er vloeistof wordt gedetecteerd
+When liquid or lack thereof is detected: Als de aanwezigheid van/tekort aan vloeistof wordt gedetecteerd
+When the RGB lighting brightness level changes: Als het helderheidsniveau van de RGB-verlichting verandert
+When the RGB lighting reaches a certain level of brightness: Als de RGB-verlichting het gespecificeerde helderheidsniveau bereikt
+When the active power will be: Bij een actief vermogen van
+When the apparent power will be: Bij een schijnbaar vermogen van
+When the balanced forward active energy will be: Bij een gebalanceerde, opgenomen actieve energie van
+When the balanced reverse active energy will be: Bij een gebalanceerde, teruggegeven actieve energie van
+When the brightness level changes: Als het helderheidsniveau verandert
+When the brightness will be: Bij een helderheidsniveau van
+When the color changes: Als de kleur verandert
+When the condition is met: Als er aan een voorwaarde is voldaan
+When the current will be: Bij een stroomsterkte van
+When the depth changes: Als de dieptemeting verandert
+When the depth is: Bij een dieptemeting van
+When the device is turned off: Als het apparaat wordt uitgeschakeld
+When the device is turned on: Als het apparaat wordt ingeschakeld
+When the device is turned on or off: Als het apparaat wordt in-/uitgeschakeld
+When the dimmer brightness level changes: Als het helderheidsniveau van de dimmer verandert
+When the dimmer reaches a certain brightness level: Als de dimmer het gespecificeerde helderheidsniveau bereikt
+When the distance changes: Als de afstand verandert
+When the distance will be: Bij een afstand van
+When the door will be closed: Als de deur wordt gesloten
+When the door will be opened: Als de deur wordt geopend
+When the door will be opened or closed: Als de deur wordt gesloten of geopend
+When the electricity meter reaches a certain value: Als de elektriciteitsmeter een gespecificeerde waarde bereikt
+When the electricity meter value changes: Als de waarde van de elektriciteitsmeter verandert
+When the electricity meter value will be: Bij een waarde op de elektriciteitsmeter van
+When the forward active energy will be: Bij een opgenomen actieve energie van
+When the garage door will be closed: Als de garagedeur gesloten is
+When the garage door will be opened: Als de garagedeur geopend is
+When the garage door will be opened or closed: Als de garagedeur gesloten of geopend is
+When the gas meter value changes: Als de waarde van de gasmeter verandert
+When the gas meter value reaches a certain value: Als de gasmeter een gespecificeerde waarde bereikt
+When the gas meter value will be: Bij een waarde op de gasmeter van
+When the gate will be closed: Als de poort gesloten is
+When the gate will be opened: Als de poort open is
+When the gate will be opened or closed: Als de poort gesloten of geopend is
+When the gateway will be closed: Als het poortje gesloten is
+When the gateway will be opened: Als het poortje geopend is
+When the gateway will be opened or closed: Als het poortje gesloten of geopend is
+When the heat meter value changes: Als de meterwaarde verandert
+When the heat meter value reaches a certain value: Als de warmtemeter een gespecificeerde waarde bereikt
+When the heat meter value will be: Bij een waarde op de warmtemeter van
+When the humidity changes: Als de vochtigheid verandert
+When the humidity reaches a certain level: Als de vochtigheid een gespecificeerd niveau bereikt
+When the humidity will be: Bij een vochtigheid van
+When the lighting reaches a certain level of brightness: Als de verlichting het gespecificeerde helderheidsniveau bereikt
+When the mail comes or is taken: Als er post binnenkomt of wordt opgehaald
+When the mail has been taken: Als de post wordt opgehaald
+When the precipitation amount will be: Bij een gemeten hoeveelheid regen van
+When the pressure changes: Als de druk verandert
+When the pressure reaches a certain level: Als de druk een gespecificeerd niveau bereikt
+When the pressure will be: Bij een druk van
+When the rain amount changes: Als de hoeveelheid regen verandert
+When the reactive power will be: Bij een reactief vermogen van
+When the reverse active energy will be: Bij een teruggegeven actieve energie van
+When the roller shutter position changes: Als de positie van het rolluik verandert
+When the roller shutter reaches: Als het rolluik een positie bereikt van
+When the roller shutter reaches a certain position: Als het rolluik een gespecificeerde positie bereikt
+When the roller shutter will be closed: Als het rolluik gesloten is
+When the roller shutter will be opened: Als het rolluik geopend is
+When the roller shutter will be opened or closed: Als het rolluik gesloten of geopend is
+When the roof window position changes: Als de positie van het dakraam verandert
+When the roof window reaches: Als het dakraam een positie bereikt van
+When the roof window reaches a certain position: Als het dakraam een gespecificeerde positie bereikt
+When the roof window will be closed: Als het dakraam gesloten is
+When the roof window will be opened: Als het dakraam geopend is
+When the roof window will be opened or closed: Als het dakraam gesloten of geopend is
+When the temperature changes: Als de temperatuur verandert
+When the temperature reaches a certain value: Als de temperatuur een gespecificeerde waarde bereikt
+When the temperature will be: Bij een temperatuur van
+When the value will be: Bij een waarde van
+When the valve is closed: Als de klep gesloten is
+When the valve is manually closed: Als de klep handmatig gesloten is
+When the valve is opened: Als de klep geopend is
+When the valve is opened or closed: Als de klep gesloten of geopend is
+When the voltage will be: Bij een spanning van
+When the water meter reaches a certain value: Als de watermeter een gespecificeerde waarde bereikt
+When the water meter value changes: Als de waarde van de watermeter verandert
+When the water meter value will be: Bij een waarde op de watermeter van
+When the weight changes: Als het gewicht verandert
+When the weight will be: Bij een gewicht van
+When the wind reaches a certain speed: Als de wind een gespecificeerde snelheid bereikt
+When the wind speed changes: Als de windsnelheid verandert
+When the wind speed will be: Bij een windsnelheid van
+When the window will be closed: Als het raam gesloten is
+When the window will be opened: Als het raam geopend is
+When the window will be opened or closed: Als het raam gesloten of geopend is
+When there is certain amount of rain: Als een gespecificeerde hoeveelheid regen is gevallen
+When there weight reaches a certain value: Als het gewicht een gespecificeerde waarde bereikt
+You must set an action for each reaction.: Stel voor elke reactie een actie in.
+actionableSubjectType_notification: Melding
+and wait until it reaches: en wacht tot deze de waarde bereikt van
+and wait until it will be: en wacht tot deze gelijk is aan
+and wait until the humidity will be: en wacht tot de vochtigheid gelijk is aan
+and wait until the temperature will be: en wacht tot de temperatuur gelijk is aan
+and wait until the value will be: en wacht tot de waarde gelijk is aan
+choose access identifiers: selecteer toegangs-ID’s
+choose the access identifiers: selecteer toegangs-ID’s
+notification: melding
+or another element: of ander element
+sum: som
+then execute the action: voer vervolgens de actie uit
 
 #</editor-fold>

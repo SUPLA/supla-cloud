@@ -1108,151 +1108,151 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': '% închidere'
+Add a new action to the scene: Adaugă o nouă acțiune în scenă
+Are you sure you want to delete this reaction?: Sigur dorești să ștergi această reacție?
+Body: Conținut
+Choose the channel: Selectează un canal
+Choose the channel group: Selectează o grupă de canale
+Choose the scene: Selectează o scenă
+Choose the schedule: Selectează programul
+Create new reaction: Creează o reacție nouă
+Current: Curent
+Edit reaction: Editează reacția
+Go to the channel: Treci pe canal
+Go to the channel group: Treci la grupa de canale
+Go to the scene: Vino pe scenă
+Go to the schedule: Treci la program
+Invalid scene: Scenă incorectă
+Missing action.: Lipsă acțiune
+New reaction: Reacție nouă
+Notification: Notificare
+Notification must have a body.: Notificarea trebuie să aibă conținut.
+Notifications: Notificare
+Phase: Faza
+Please fix the problems with operations and try again.: Rezolvă problemele cu operațiile și încearcă din nou.
+Please select a condition: Vă rugăm să selectați o condiție
+Please select an action: Vă rugăm să selectați o acțiune
+Power active: Energie activă
+Power apparent: Energie aparentă
+Power reactive: Energie pasivă
+Reactions: Reacție
+Reactions limit has been exceeded: Limita ratei a fost depășită
+Recipients: Receptori
+Send a notification: Trimite notificare
+Send notification: Trimite notificare
+The notification must have a recipient.: Notificarea trebuie să aibă un destinatar.
+The reaction has been added: Reacția a fost adăugată
+The reaction has been changed: Reacția a fost modificată
+Title: Titlu
+Voltage: Tensiune
+When a certain distance is reached: Când se atinge distanța stabilită
+When a lack of liquid is detected: Când se constată lipsa lichidului
+When a new mail comes: Când vine noul e-mail 
+When flooding is detected: Când se constată inundația 
+When liquid is detected: Când este detectat lichidul
+When liquid or lack thereof is detected: Când se detectează lichid sau lipsa acestuia
+When the RGB lighting brightness level changes: Când nivelul de luminozitate al luminii RGB se modifică
+When the RGB lighting reaches a certain level of brightness: Când iluminarea RGB atinge un anumit nivel de luminozitate
+When the active power will be: Când puterea activă va fi
+When the apparent power will be: Când puterea aparentă va fi
+When the balanced forward active energy will be: Când echilibrată, energia acumulată activă va fi
+When the balanced reverse active energy will be: Când echilibrată, energia returnată activă va fi
+When the brightness level changes: Când nivelul de luminozitate se va modifica
+When the brightness will be: Când nivelul de luminozitate va fi
+When the color changes: Când culoarea se va schimba
+When the condition is met: Când condiția va fi îndeplinită
+When the current will be: Când curentul va fi 
+When the depth changes: Când măsurarea adâncimii se va modifica
+When the depth is: Când măsurarea adâncimii va fi
+When the device is turned off: Când dispozitivul va fi oprit
+When the device is turned on: Când dispozitivul va fi pornit
+When the device is turned on or off: Când dispozitivul va fi pornit sau oprit
+When the dimmer brightness level changes: Când nivelul de luminozitate a regulatorului de lumină se modifică
+When the dimmer reaches a certain brightness level: Când regulatorul de lumină atinge un nivel stabilit al nivelului de luminozitate
+When the distance changes: Când distanța se va schimba
+When the distance will be: Când distanța va fi
+When the door will be closed: Când ușile se vor închide
+When the door will be opened: Când ușile se vor deschide
+When the door will be opened or closed: Când ușile sunt deschise sau închise
+When the electricity meter reaches a certain value: Când contorul de energie atinge valoarea stabilită
+When the electricity meter value changes: Când valoarea contorului de energie electrică se va modifica
+When the electricity meter value will be: Când valoarea contorului de energie va fi
+When the forward active energy will be: Când energia absorbită activă va fi
+When the garage door will be closed: Când ușa garajului va fi închisă 
+When the garage door will be opened: Când ușa garajului va fi deschisă
+When the garage door will be opened or closed: Când poarta garajului va fi închisă sau deschisă
+When the gas meter value changes: Când valoarea contorului de gaz se va modifica
+When the gas meter value reaches a certain value: Când contorul de gaz va atinge o anumită valoare
+When the gas meter value will be: Când valoarea contorului de gaz va fi
+When the gate will be closed: Când poarta va fi închisă
+When the gate will be opened: Când poarta va fi deschisă
+When the gate will be opened or closed: Când poarta va fi deschisă sau închisă
+When the gateway will be closed: Când portița va fi închisă
+When the gateway will be opened: Când portița va fi deschisă 
+When the gateway will be opened or closed: Când portița va fi deschisă sau închisă
+When the heat meter value changes: Când valoarea contorului se va modifica
+When the heat meter value reaches a certain value: Când contorul de căldură atinge o anumită valoare
+When the heat meter value will be: Când valoarea contorului de căldură va fi
+When the humidity changes: Când umiditatea se va schimba
+When the humidity reaches a certain level: Când umiditatea atinge un anumit nivel
+When the humidity will be: Când umiditatea va fi
+When the lighting reaches a certain level of brightness: Când iluminarea atinge un anumit nivel de luminozitate
+When the mail comes or is taken: Când poșta sosește sau va fi luată
+When the mail has been taken: Când poșta va fi luată
+When the precipitation amount will be: Când cantitatea de ploaie măsurată va fi
+When the pressure changes: Când presiunea se va schimba
+When the pressure reaches a certain level: Când presiunea atinge un anumit nivel
+When the pressure will be: Când presiunea va fi
+When the rain amount changes: Când se va schimba cantitatea de precipitații
+When the reactive power will be: Când putere pasivă va fi
+When the reverse active energy will be: Când energie returnată activă va fi
+When the roller shutter position changes: Când se schimbă poziția jaluzelei
+When the roller shutter reaches: Când jaluzea atinge
+When the roller shutter reaches a certain position: Când jaluzea ajunge într-o anumită poziție
+When the roller shutter will be closed: Când jaluzea va fi închisă
+When the roller shutter will be opened: Când jaluzeaua va fi deschisă
+When the roller shutter will be opened or closed: Când jaluzeaua va fi deschisă sau închisă
+When the roof window position changes: Când se va schimba poziția ferestrei de la mansardă
+When the roof window reaches: Când fereastra de la mansardă ajunge
+When the roof window reaches a certain position: Când fereastra de la mansardă ajunge într-o anumită poziție 
+When the roof window will be closed: Când fereastra de la mansardă va fi închisă
+When the roof window will be opened: Când fereastra de la mansardă va fi deschisă
+When the roof window will be opened or closed: Când fereastra de la mansardă va fi închisă sau deschisă
+When the temperature changes: Când se schimbă temperatura
+When the temperature reaches a certain value: Când temperatura atinge o valoare stabilită
+When the temperature will be: Când temperatura va fi
+When the value will be: Când valoarea va fi
+When the valve is closed: Când robinetul va fi închis
+When the valve is manually closed: Când robinetul va fi închis manual
+When the valve is opened: Când robinetul va fi deschis
+When the valve is opened or closed: Când robinetul va fi închis sau deschis
+When the voltage will be: Când tensiunea va fi 
+When the water meter reaches a certain value: Când contorul de apă atinge o valoare anume
+When the water meter value changes: Când contorul de apă se va schimbata
+When the water meter value will be: Când valoarea contorului de apă va fi
+When the weight changes: Când greutatea se va schimba
+When the weight will be: Când greutatea va fi
+When the wind reaches a certain speed: Când vântul atinge o valoare stabilită
+When the wind speed changes: Când viteza vântului se va schimba
+When the wind speed will be: Când viteza vântului va fi
+When the window will be closed: Când fereastra va fi închisă
+When the window will be opened: Când fereastra va deschisă
+When the window will be opened or closed: Când fereastra va fi deschisă sau închisă
+When there is certain amount of rain: Când cade o anumită cantitate de ploaie
+When there weight reaches a certain value: Când greutatea atinge o anumită valoare
+You must set an action for each reaction.: Trebuie să setezi o acțiune pentru fiecare reacție
+actionableSubjectType_notification: Notificare
+and wait until it reaches: și așteaptă până ajunge
+and wait until it will be: și așteaptă până va fi
+and wait until the humidity will be: și așteaptă până ce umiditatea va fi
+and wait until the temperature will be: și așteaptă până ce temperatura va fi
+and wait until the value will be: și așteaptă până ce valoarea va fi
+choose access identifiers: selectează ID-urile de acces
+choose the access identifiers: selectează ID-urile de acces
+notification: notificare
+or another element: sau un alt element
+sum: suma
+then execute the action: apoi realizează acțiunea
 
 #</editor-fold>
