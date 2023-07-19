@@ -1107,151 +1107,151 @@ will expire: يبطل مفعولها
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': ~
-Add a new action to the scene: ~
-Are you sure you want to delete this reaction?: ~
-Body: ~
-Choose the channel: ~
-Choose the channel group: ~
-Choose the scene: ~
-Choose the schedule: ~
-Create new reaction: ~
-Current: ~
-Edit reaction: ~
-Go to the channel: ~
-Go to the channel group: ~
-Go to the scene: ~
-Go to the schedule: ~
-Invalid scene: ~
-Missing action.: ~
-New reaction: ~
-Notification: ~
-Notification must have a body.: ~
-Notifications: ~
-Phase: ~
-Please fix the problems with operations and try again.: ~
-Please select a condition: ~
-Please select an action: ~
-Power active: ~
-Power apparent: ~
-Power reactive: ~
-Reactions: ~
-Reactions limit has been exceeded: ~
-Recipients: ~
-Send a notification: ~
-Send notification: ~
-The notification must have a recipient.: ~
-The reaction has been added: ~
-The reaction has been changed: ~
-Title: ~
-Voltage: ~
-When a certain distance is reached: ~
-When a lack of liquid is detected: ~
-When a new mail comes: ~
-When flooding is detected: ~
-When liquid is detected: ~
-When liquid or lack thereof is detected: ~
-When the RGB lighting brightness level changes: ~
-When the RGB lighting reaches a certain level of brightness: ~
-When the active power will be: ~
-When the apparent power will be: ~
-When the balanced forward active energy will be: ~
-When the balanced reverse active energy will be: ~
-When the brightness level changes: ~
-When the brightness will be: ~
-When the color changes: ~
-When the condition is met: ~
-When the current will be: ~
-When the depth changes: ~
-When the depth is: ~
-When the device is turned off: ~
-When the device is turned on: ~
-When the device is turned on or off: ~
-When the dimmer brightness level changes: ~
-When the dimmer reaches a certain brightness level: ~
-When the distance changes: ~
-When the distance will be: ~
-When the door will be closed: ~
-When the door will be opened: ~
-When the door will be opened or closed: ~
-When the electricity meter reaches a certain value: ~
-When the electricity meter value changes: ~
-When the electricity meter value will be: ~
-When the forward active energy will be: ~
-When the garage door will be closed: ~
-When the garage door will be opened: ~
-When the garage door will be opened or closed: ~
-When the gas meter value changes: ~
-When the gas meter value reaches a certain value: ~
-When the gas meter value will be: ~
-When the gate will be closed: ~
-When the gate will be opened: ~
-When the gate will be opened or closed: ~
-When the gateway will be closed: ~
-When the gateway will be opened: ~
-When the gateway will be opened or closed: ~
-When the heat meter value changes: ~
-When the heat meter value reaches a certain value: ~
-When the heat meter value will be: ~
-When the humidity changes: ~
-When the humidity reaches a certain level: ~
-When the humidity will be: ~
-When the lighting reaches a certain level of brightness: ~
-When the mail comes or is taken: ~
-When the mail has been taken: ~
-When the precipitation amount will be: ~
-When the pressure changes: ~
-When the pressure reaches a certain level: ~
-When the pressure will be: ~
-When the rain amount changes: ~
-When the reactive power will be: ~
-When the reverse active energy will be: ~
-When the roller shutter position changes: ~
-When the roller shutter reaches: ~
-When the roller shutter reaches a certain position: ~
-When the roller shutter will be closed: ~
-When the roller shutter will be opened: ~
-When the roller shutter will be opened or closed: ~
-When the roof window position changes: ~
-When the roof window reaches: ~
-When the roof window reaches a certain position: ~
-When the roof window will be closed: ~
-When the roof window will be opened: ~
-When the roof window will be opened or closed: ~
-When the temperature changes: ~
-When the temperature reaches a certain value: ~
-When the temperature will be: ~
-When the value will be: ~
-When the valve is closed: ~
-When the valve is manually closed: ~
-When the valve is opened: ~
-When the valve is opened or closed: ~
-When the voltage will be: ~
-When the water meter reaches a certain value: ~
-When the water meter value changes: ~
-When the water meter value will be: ~
-When the weight changes: ~
-When the weight will be: ~
-When the wind reaches a certain speed: ~
-When the wind speed changes: ~
-When the wind speed will be: ~
-When the window will be closed: ~
-When the window will be opened: ~
-When the window will be opened or closed: ~
-When there is certain amount of rain: ~
-When there weight reaches a certain value: ~
-You must set an action for each reaction.: ~
-actionableSubjectType_notification: ~
-and wait until it reaches: ~
-and wait until it will be: ~
-and wait until the humidity will be: ~
-and wait until the temperature will be: ~
-and wait until the value will be: ~
-choose access identifiers: ~
-choose the access identifiers: ~
-notification: ~
-or another element: ~
-sum: ~
-then execute the action: ~
+'% of closing': 'نسبة الإغلاق ٪'
+Add a new action to the scene: إضافة إجراء جديد إلى المشهد
+Are you sure you want to delete this reaction?: هل أنت متأكد من أنك تريد إزالة رد الفعل هذا؟
+Body: محتوى
+Choose the channel: اختيار قناة
+Choose the channel group: اختيار مجموعة قنوات
+Choose the scene: اختيار مشهد
+Choose the schedule: اختيار جدول زمني
+Create new reaction: إنشاء رد فعل جديد
+Current: التيار
+Edit reaction: تحرير رد الفعل
+Go to the channel: انتقال إلى القناة
+Go to the channel group: انتقال إلى مجموعة القنوات
+Go to the scene: انتقل إلى المشهد
+Go to the schedule: انتقال إلى الجدول الزمني
+Invalid scene: مشهد غير صحيح
+Missing action.: لا يوجد إجراء
+New reaction: رد فعل جديد
+Notification: إشعار
+Notification must have a body.: يجب أن يحتوي الإشعار على محتوى.
+Notifications: إشعارات
+Phase: طور
+Please fix the problems with operations and try again.: قم بحل المشاكل مع العمليات وثم حاول مرة أخرى.
+Please select a condition: الرجاء اختيار شرط
+Please select an action: الرجاء اختيار إجراء
+Power active: الطاقة النشطة
+Power apparent: الطاقة الظاهرة
+Power reactive: الطاقة التفاعلية
+Reactions: ردود الفعل
+Reactions limit has been exceeded: تم تجاوز حد رد الفعل
+Recipients: المستلمون
+Send a notification: إرسال إشعار
+Send notification: إرسال إشعار
+The notification must have a recipient.: يجب أن يكون للإشعار مستلم.
+The reaction has been added: تمت إضافة رد فعل
+The reaction has been changed: تم تغيير رد الفعل
+Title: العنوان
+Voltage: الجهد
+When a certain distance is reached: عندما يتم الوصول إلى المسافة المحددة
+When a lack of liquid is detected: عندما يتم الكشف عن نقص السائل
+When a new mail comes: عند وصول البريد الجديد
+When flooding is detected: عندما يتم الكشف عن التسرب
+When liquid is detected: عندما يتم الكشف عن السائل
+When liquid or lack thereof is detected: عندما يتم الكشف عن السائل أو نقصه
+When the RGB lighting brightness level changes: عندما يتغير مستوى سطوع إضاءة  RGB
+When the RGB lighting reaches a certain level of brightness: عندما تصل إضاءة RGB إلى مستوى سطوع معين
+When the active power will be: عندما تكون القوة النشطة
+When the apparent power will be: متى ستكون القوة الظاهرة
+When the balanced forward active energy will be: عندما تكون الطاقة النشطة المتوازنة المستهلكة
+When the balanced reverse active energy will be: عندما تكون الطاقة النشطة المتوازنة المرتجعة
+When the brightness level changes: عندما يتغير مستوى السطوع
+When the brightness will be: عندما يكون مستوى السطوع
+When the color changes: عندما يتغير اللون
+When the condition is met: عندما يتم استيفاء الشرط
+When the current will be: عندما يكون التيار
+When the depth changes: عندما يتغير قياس العمق
+When the depth is: عندما يكون قياس العمق
+When the device is turned off: عند إيقاف تشغيل الجهاز
+When the device is turned on: عند تشغيل الجهاز
+When the device is turned on or off: عند تشغيل الجهاز أو إيقاف تشغيله
+When the dimmer brightness level changes: عندما يتغير مستوى سطوع خافض الإضاءة
+When the dimmer reaches a certain brightness level: عندما يصل خافض الإضاءة إلى مستوى سطوع معين
+When the distance changes: عندما تتغير المسافة
+When the distance will be: عندما تكون المسافة
+When the door will be closed: عندما يغلق الباب
+When the door will be opened: عندما يفتح الباب
+When the door will be opened or closed: عندما يكون الباب مغلقا أو مفتوحا
+When the electricity meter reaches a certain value: عندما يصل عداد الطاقة إلى قيمة معينة
+When the electricity meter value changes: عندما تتغير قيمة عداد الكهرباء
+When the electricity meter value will be: عندما تكون قيمة عداد الطاقة
+When the forward active energy will be: عندما تكون الطاقة النشطة المستهلكة
+When the garage door will be closed: عندما يغلق باب الجراج
+When the garage door will be opened: عندما يتم فتح باب الجراج
+When the garage door will be opened or closed: عند إغلاق باب الجراج أو فتحه
+When the gas meter value changes: عندما تتغير قيمة عداد الغاز
+When the gas meter value reaches a certain value: عندما يصل عداد الغاز إلى قيمة معينة
+When the gas meter value will be: عندما تكون قيمة عداد الغاز
+When the gate will be closed: عندما تغلق البوابة
+When the gate will be opened: عندما تفتح البوابة
+When the gate will be opened or closed: عندما تكون البوابة مفتوحة أو مغلقة
+When the gateway will be closed: عندما تكون بوابة الدخول مغلقة
+When the gateway will be opened: عند فتح بوابة الدخول
+When the gateway will be opened or closed: عندما تكون بوابة الدخول مغلقة أو مفتوحة
+When the heat meter value changes: عندما تتغير قيمة العداد
+When the heat meter value reaches a certain value: عندما يصل مقياس الحرارة إلى قيمة معينة
+When the heat meter value will be: عندما تكون قيمة مقياس الحرارة
+When the humidity changes: عندما تتغير الرطوبة
+When the humidity reaches a certain level: عندما تصل الرطوبة إلى مستوى معين
+When the humidity will be: عندما تكون الرطوبة
+When the lighting reaches a certain level of brightness: عندما تصل الإضاءة إلى مستوى سطوع معين
+When the mail comes or is taken: عند وصول البريد أو يتم أخذه
+When the mail has been taken: عند استلام البريد
+When the precipitation amount will be: عندما تكون كمية المطر المقاسة
+When the pressure changes: عندما يتغير الضغط
+When the pressure reaches a certain level: عندما يصل الضغط إلى مستوى معين
+When the pressure will be: عندما يكون الضغط
+When the rain amount changes: عندما تتغير كمية الأمطار
+When the reactive power will be: عندما تكون القوة التفاعلية
+When the reverse active energy will be: عندما تكون الطاقة النشطة المرتجعة
+When the roller shutter position changes: عندما يتغير وضع الستارة
+When the roller shutter reaches: عندما تصل الستارة إلى 
+When the roller shutter reaches a certain position: عندما تصل الستارة إلى وضع معين
+When the roller shutter will be closed: عندما تكون الستارة مغلقة
+When the roller shutter will be opened: عندما يتم فتح الستارة
+When the roller shutter will be opened or closed: عندما يتم فتح الستارة أو إغلاقها
+When the roof window position changes: عندما يتغير موضع نافذة السقف
+When the roof window reaches: عندما تصل نافذة السقف
+When the roof window reaches a certain position: عندما تصل نافذة السقف إلى موضع معين
+When the roof window will be closed: عندما تكون نافذة السقف مغلقة
+When the roof window will be opened: عندما تفتح نافذة السقف
+When the roof window will be opened or closed: عند إغلاق نافذة السقف أو فتحها
+When the temperature changes: عندما تتغير درجة الحرارة
+When the temperature reaches a certain value: عندما تصل درجة الحرارة إلى قيمة معينة
+When the temperature will be: عندما تكون درجة الحرارة
+When the value will be: عندما تكون القيمة
+When the valve is closed: عندما يكون الصمام مغلقا
+When the valve is manually closed: عندما يتم إغلاق الصمام يدويا
+When the valve is opened: عند فتح الصمام
+When the valve is opened or closed: عند إغلاق الصمام أو فتحه
+When the voltage will be: عندما يكون الجهد
+When the water meter reaches a certain value: عندما يصل عداد المياه إلى قيمة معينة
+When the water meter value changes: عندما تتغير قيمة عداد المياه
+When the water meter value will be: عندما تكون قيمة عداد المياه
+When the weight changes: عندما يتغير الوزن
+When the weight will be: عندما يكون الوزن
+When the wind reaches a certain speed: عندما تصل الرياح إلى سرعة معينة
+When the wind speed changes: عندما تتغير سرعة الرياح
+When the wind speed will be: عندما تكون سرعة الرياح
+When the window will be closed: عندما تغلق النافذة
+When the window will be opened: عندما تفتح النافذة
+When the window will be opened or closed: عند إغلاق نافذة أو فتحها
+When there is certain amount of rain: عندما تمطر كمية معينة
+When there weight reaches a certain value: عندما يصل الوزن إلى قيمة معينة
+You must set an action for each reaction.: عليك تعيين إجراء لكل رد فعل.
+actionableSubjectType_notification: إشعار
+and wait until it reaches: وانتظر حتى يصل
+and wait until it will be: وانتظر حتى يكون
+and wait until the humidity will be: وانتظر حتى تكون الرطوبة
+and wait until the temperature will be: وانتظر حتى تكون درجة الحرارة
+and wait until the value will be: وانتظر حتى تصبح القيمة
+choose access identifiers: تحديد معرفات الوصول
+choose the access identifiers: تحديد معرفات الوصول
+notification: إشعار
+or another element: أو عنصر آخر
+sum: مجموع
+then execute the action: ثم قم بتنفيذ الإجراء
 
 #</editor-fold>
