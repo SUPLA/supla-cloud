@@ -189,7 +189,7 @@
                 if (this.disabled || (this.executorMode && !this.action.id)) {
                     return;
                 }
-                const param = ChannelFunctionAction.requiresParams(this.action.id) ? {...this.param} : null;
+                const param = ChannelFunctionAction.requiresParams(this.action?.id) ? {...this.param} : null;
                 this.$emit('input', this.isFullySpecified ? {...this.action, param} : undefined);
             },
             isSelected(actionId) {
