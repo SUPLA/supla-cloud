@@ -28,10 +28,10 @@
             @confirm="executeAction(actionToConfirm, true)"
             @cancel="actionToConfirm = false"
             :header="$t('Are you sure?')">
-            <span v-if="actionToConfirm.name === 'OPEN'">
+            <span v-if="actionToConfirm.id === ChannelFunctionAction.OPEN">
                 {{ $t('The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!') }}
             </span>
-            <span v-else-if="actionToConfirm.name === 'TURN_ON'">
+            <span v-else-if="actionToConfirm.id === ChannelFunctionAction.TURN_ON">
                 {{ $t('The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?') }}
             </span>
         </modal-confirm>
@@ -60,6 +60,7 @@
                 executing: [],
                 executed: [],
                 actionToConfirm: false,
+                ChannelFunctionAction,
             };
         },
         methods: {
@@ -79,7 +80,7 @@
                 if (confirmed || this.confirmExecution(action)) {
                     this.actionToConfirm = false;
                     this.executing.push(action.id);
-                    const toSend = {action: action.name, ...action.param};
+                    const toSend = {action: action.id, ...action.param};
                     this.$http.patch(`${this.endpoint}/${this.subject.id}`, toSend)
                         .then(() => {
                             this.executed.push(action.id);

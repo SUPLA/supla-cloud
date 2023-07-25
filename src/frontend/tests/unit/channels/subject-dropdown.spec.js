@@ -208,4 +208,42 @@ describe('SubjectDropdown', () => {
         await percentage.setValue(22);
         expect(wrapper.vm.action.param).toEqual({percentage: 22});
     });
+
+    it('clears action when the subject is cleared', async () => {
+        const channels = [
+            channelStub(ChannelFunction.CONTROLLINGTHEROLLERSHUTTER, {
+                possibleActions: [possibleAction(ChannelFunctionAction.OPEN)],
+            }),
+        ];
+        const wrapper = await subjectDropdown({channels, data: {subject: channels[0]}});
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN');
+        wrapper.vm.subject = undefined;
+        await wrapper.vm.$nextTick();
+        expect(wrapper.vm.subject).toBeUndefined();
+        expect(wrapper.vm.action).toBeUndefined();
+        expect(wrapper.find('div').text()).toContain('Channels');
+        expect(wrapper.find('div').text()).toContain('Schedules');
+        expect(wrapper.find('div').text()).toContain('Send notification');
+    });
+
+    it('can change the params externally', async () => {
+        const channels = [
+            channelStub(ChannelFunction.CONTROLLINGTHEROLLERSHUTTER, {
+                possibleActions: [possibleAction(ChannelFunctionAction.OPEN), possibleAction(ChannelFunctionAction.OPEN_PARTIALLY)],
+            }),
+        ];
+        const wrapper = await subjectDropdown({
+            channels,
+            data: {subject: channels[0]}
+        });
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN');
+        wrapper.vm.action = {id: ChannelFunctionAction.OPEN_PARTIALLY, param: {percentage: 10}};
+        await wrapper.vm.$nextTick();
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN PARTIALLY');
+        const percentage = wrapper.find('input[type=number]');
+        expect(percentage.element.value).toEqual('10');
+        wrapper.vm.action = {id: ChannelFunctionAction.OPEN_PARTIALLY, param: {percentage: 20}};
+        await wrapper.vm.$nextTick();
+        expect(percentage.element.value).toEqual('20');
+    });
 })

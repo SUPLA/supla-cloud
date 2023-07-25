@@ -61,7 +61,7 @@
                 this.loading = true;
                 const promises = this.actionTriggers
                     .map((actionTrigger) => this.$http.put(`channels/${actionTrigger.id}?safe=1`, actionTrigger));
-                Promise.all(promises).then(() => this.loadActionTriggers());
+                Promise.all(promises).finally(() => this.loadActionTriggers());
             }
         }
     }

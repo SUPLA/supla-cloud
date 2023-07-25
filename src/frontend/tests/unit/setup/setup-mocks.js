@@ -11,3 +11,4 @@ config.mocks.$http = {
 };
 config.stubs.fa = true;
 config.stubs['router-link'] = true;
+config.stubs['button-loading-dots'] = true;

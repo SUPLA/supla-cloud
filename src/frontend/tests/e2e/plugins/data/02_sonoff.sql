@@ -1,7 +1,7 @@
 INSERT INTO supla_iodevice
 (id, location_id, user_id, guid, name, enabled, comment, reg_date, reg_ipv4, last_connected, last_ipv4, software_version, protocol_version,
  original_location_id, auth_key, flags, manufacturer_id, product_id)
-VALUES (1, 1, 1, 0x35373030313332, 'SONOFF-DS', 1, NULL, '2023-01-12 05:57:07.000', 26245388, '2023-01-12 05:57:07.000', NULL, '2.26', 2,
+VALUES (1, 1, 1, 0x3537303031333, 'SONOFF-DS', 1, NULL, '2023-01-12 05:57:07.000', 26245388, '2023-01-12 05:57:07.000', NULL, '2.26', 2,
         NULL, NULL, 48, NULL, NULL);
 
 INSERT INTO supla_dev_channel

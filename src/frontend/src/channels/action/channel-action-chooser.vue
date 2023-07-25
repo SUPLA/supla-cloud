@@ -93,6 +93,7 @@
     import ChannelsIdDropdown from "../../devices/channels-id-dropdown";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
     import NotificationForm from "@/notifications/notification-form.vue";
+    import {isEqual} from "lodash";
 
     export default {
         components: {
@@ -168,6 +169,11 @@
                             this.param = {};
                             this.updateModel();
                         }
+                    } else {
+                        this.param = this.value.param || {};
+                    }
+                    if (!this.isFullySpecified) {
+                        this.param = {};
                     }
                 } else {
                     this.action = {};
@@ -228,10 +234,7 @@
                 }
             },
             value() {
-                if (this.value && this.action?.id && this.value.id !== this.action.id) {
-                    this.value.param = {};
-                }
-                if (this.value?.id !== this.modelValue?.id) {
+                if (this.value?.id !== this.modelValue?.id || !isEqual(this.value?.param, this.modelValue?.param)) {
                     this.updateAction();
                 }
             },

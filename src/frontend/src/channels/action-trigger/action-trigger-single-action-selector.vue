@@ -60,7 +60,7 @@
             onValueChanged() {
                 if (this.value?.subjectType) {
                     if (this.value.subjectType === ActionableSubjectType.OTHER) {
-                        if (this.value.action?.id) {
+                        if (this.value?.action?.id) {
                             const otherAction = this.value.action.id;
                             this.subject = {id: otherAction, ownSubjectType: ActionableSubjectType.OTHER};
                             this.action = this.value.action;
@@ -69,10 +69,10 @@
                         this.$http.get(subjectEndpointUrl(this.value))
                             .then(response => {
                                 this.subject = response.body;
-                                this.action = this.value.action;
+                                this.action = this.value?.action;
                             });
                     } else {
-                        this.action = this.value.action;
+                        this.action = this.value?.action;
                     }
                 } else {
                     this.subject = undefined;
@@ -89,18 +89,11 @@
                 this.onActionChange();
             },
             onActionChange() {
-                if (this.isActionFullySpecified()) {
-                    this.$emit('input', {
-                        subjectId: this.subject.ownSubjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
-                        subjectType: this.subject.ownSubjectType,
-                        action: this.action,
-                    });
-                } else {
-                    this.$emit('input');
-                }
-            },
-            isActionFullySpecified() {
-                return this.action?.id;
+                this.$emit('input', {
+                    subjectId: this.subject.ownSubjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
+                    subjectType: this.subject.ownSubjectType,
+                    action: this.action,
+                });
             },
             clearAction() {
                 this.$emit('input');

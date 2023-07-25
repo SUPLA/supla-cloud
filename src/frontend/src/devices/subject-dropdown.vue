@@ -218,6 +218,8 @@
                         this.subject = undefined;
                         if (this.subjectType === ActionableSubjectType.NOTIFICATION) {
                             this.changeSubjectType(ActionableSubjectType.NOTIFICATION);
+                        } else {
+                            this.subjectType = undefined;
                         }
                     });
                 }

@@ -99,11 +99,11 @@
                 this.$set(this.expanded, trigger, !this.expanded[trigger]);
             },
             collapseEmptyActions() {
-                for (const triggerName of (this.channel.config.actionTriggerCapabilities || [])) {
-                    if (!this.channel.config.actions[triggerName]) {
-                        this.$set(this.expanded, triggerName, false);
+                this.$nextTick(() => {
+                    for (const triggerName of (this.channel.config.actionTriggerCapabilities || [])) {
+                        this.$set(this.expanded, triggerName, !!this.channel.config.actions[triggerName]);
                     }
-                }
+                });
             },
             disablesLocalOperation(trigger) {
                 return this.channel.config.disablesLocalOperation?.includes(trigger);
