@@ -18,7 +18,7 @@
                     v-focus="true"
                     v-model="threshold"
                     :step="step()" :min="min()" :max="max()"
-                    @input="updateModel()"
+                    @input="updateModel(true)"
                     class="form-control">
                 <span class="input-group-addon" v-if="unit(field, subject)">{{ $t(unit(field, subject)) }}</span>
             </span>
@@ -109,11 +109,13 @@
                 const resume = this.onChangeTo.resume || {};
                 this.resumeThreshold = Number.isFinite(resume[this.resumeOperator]) ? resume[this.resumeOperator] : this.defaultThreshold;
             },
-            updateModel() {
-                if (Number.isFinite(parseFloat(this.threshold)) && (!this.resumeOperator || Number.isFinite(parseFloat(this.resumeThreshold)))) {
+            updateModel(adjustResumeThreshold = false) {
+                if (adjustResumeThreshold && this.resumeOperator) {
+                    this.adjustResumeThreshold();
+                }
+                if (this.validValues) {
                     const value = {[this.operator]: parseFloat(this.threshold)};
                     if (this.resumeOperator) {
-                        this.adjustResumeThreshold();
                         value.resume = {[this.resumeOperator]: parseFloat(this.resumeThreshold)};
                     }
                     this.onChangeTo = value;
@@ -145,6 +147,20 @@
                 set(value) {
                     this.$emit('input', value ? {on_change_to: {...value, name: this.field}} : undefined);
                 }
+            },
+            resumeMin() {
+                return ['lt', 'le'].includes(this.operator) ? this.threshold : this.min();
+            },
+            resumeMax() {
+                return ['gt', 'ge'].includes(this.operator) ? this.threshold : this.max()
+            },
+            validValues() {
+                return Number.isFinite(parseFloat(this.threshold)) &&
+                    (!this.resumeOperator || Number.isFinite(parseFloat(this.resumeThreshold))) &&
+                    (!Number.isFinite(this.min()) || this.threshold >= this.min()) &&
+                    (!Number.isFinite(this.max()) || this.threshold <= this.max()) &&
+                    (!Number.isFinite(this.resumeMin) || this.resumeThreshold >= this.resumeMin) &&
+                    (!Number.isFinite(this.resumeMax) || this.resumeThreshold <= this.resumeMax);
             },
         },
         watch: {

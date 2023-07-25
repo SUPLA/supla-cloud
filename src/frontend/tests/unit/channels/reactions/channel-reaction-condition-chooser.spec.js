@@ -187,6 +187,19 @@ describe('ChannelReactionsConfig', () => {
             });
             expect(wrapper.find('.panel-success').text()).toContain('temperature changes');
         });
+
+        it('can set invalid threshold for a while', async () => {
+            const wrapper = await mount({
+                data: () => ({channel: {functionId: ChannelFunction.THERMOMETER}, condition: undefined}),
+                template: '<div><cc :subject="channel" v-model="condition"/></div>',
+                components: {cc: ChannelReactionConditionChooser},
+            });
+            await wrapper.find('.panel-heading').trigger('click');
+            await wrapper.findAll('.form-control').at(1).setValue('2');
+            expect(wrapper.vm.condition).toBeUndefined();
+            await wrapper.findAll('.form-control').at(1).setValue('21');
+            expect(wrapper.vm.condition).toEqual({on_change_to: {lt: 20, name: 'temperature', resume: {ge: 21}}});
+        });
     });
 
     describe('HUMIDITYANDTEMPERATURE', () => {
