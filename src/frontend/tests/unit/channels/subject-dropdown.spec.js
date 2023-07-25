@@ -6,10 +6,10 @@ import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 import ChannelFunctionAction from "@/common/enums/channel-function-action";
 
 describe('SubjectDropdown', () => {
-    const subjectDropdown = async (cfg) => {
+    const subjectDropdown = async (cfg = {}) => {
         return mount(
             {
-                data: () => ({subject: undefined, action: undefined}),
+                data: () => ({subject: undefined, action: undefined, ...(cfg.data || {})}),
                 template: `
                     <div>
                     <SubjectDropdown v-model="subject">
@@ -33,6 +33,23 @@ describe('SubjectDropdown', () => {
             });
     };
 
+    const channelStub = (functionId, ext) => ({
+        id: Math.floor(Math.random() * 10000),
+        caption: 'My Channel',
+        ownSubjectType: ActionableSubjectType.CHANNEL,
+        functionId: functionId,
+        function: {id: functionId, caption: 'Function Caption'},
+        iodevice: {id: 1, name: 'SONOFF'},
+        location: {id: 2, caption: 'Location #2'},
+        ...ext,
+    });
+
+    const possibleAction = (id) => ({
+        id,
+        name: Object.keys(ChannelFunctionAction).find(k => ChannelFunctionAction[k] === id),
+        caption: Object.keys(ChannelFunctionAction).find(k => ChannelFunctionAction[k] === id).replace(/_/g, ' '),
+    });
+
     it('reders subject dropdown', async () => {
         const wrapper = await subjectDropdown();
         expect(wrapper.vm.subject).toBeUndefined();
@@ -43,24 +60,10 @@ describe('SubjectDropdown', () => {
     });
 
     it('selects channel action', async () => {
-        const wrapper = await subjectDropdown({
-            channels: [
-                {
-                    id: 5,
-                    caption: 'My Channel',
-                    ownSubjectType: ActionableSubjectType.CHANNEL,
-                    functionId: ChannelFunction.CONTROLLINGTHEGARAGEDOOR,
-                    function: {id: ChannelFunction.CONTROLLINGTHEGARAGEDOOR, caption: 'Garage door operation'},
-                    iodevice: {id: 1, name: 'SONOFF'},
-                    location: {id: 2, caption: 'Location #2'},
-                    possibleActions: [
-                        {id: ChannelFunctionAction.OPEN_CLOSE, name: "OPEN_CLOSE", caption: "Open / Close"},
-                        {id: ChannelFunctionAction.OPEN, name: "OPEN", caption: "Open"},
-                        {id: ChannelFunctionAction.CLOSE, name: "CLOSE", caption: "Close"},
-                    ],
-                }
-            ],
+        const channel = channelStub(ChannelFunction.CONTROLLINGTHEGARAGEDOOR, {
+            possibleActions: [possibleAction(ChannelFunctionAction.OPEN_CLOSE), possibleAction(ChannelFunctionAction.OPEN), possibleAction(ChannelFunctionAction.CLOSE)]
         });
+        const wrapper = await subjectDropdown({channels: [channel]});
         await wrapper.findAll('.panel-heading').at('0').trigger('click');
         await wrapper.vm.$nextTick();
         expect(wrapper.vm.subject).toBeUndefined();
@@ -68,18 +71,141 @@ describe('SubjectDropdown', () => {
         expect(options).toHaveLength(1);
         await options.at(0).setSelected();
         expect(wrapper.vm.subject).not.toBeUndefined();
-        expect(wrapper.vm.subject.id).toEqual(5);
+        expect(wrapper.vm.subject.id).toEqual(channel.id);
         expect(wrapper.vm.subject.ownSubjectType).toEqual(ActionableSubjectType.CHANNEL);
         expect(wrapper.vm.action).not.toBeUndefined();
         expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.OPEN_CLOSE);
         await wrapper.vm.$nextTick();
         expect(wrapper.find('div').text()).toContain('My Channel');
-        expect(wrapper.find('div').text()).toContain('Open / Close');
-        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('Open / Close');
+        expect(wrapper.find('div').text()).toContain('OPEN CLOSE');
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN CLOSE');
         await wrapper.findAll('.channel-action-chooser .panel-heading').at(1).trigger('click');
         expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.OPEN);
-        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('Open');
-        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).not.toContain('Close');
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN');
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).not.toContain('CLOSE');
+    });
 
+    it('changes action when subject changes', async () => {
+        const channels = [
+            channelStub(ChannelFunction.CONTROLLINGTHEGARAGEDOOR, {
+                possibleActions: [possibleAction(ChannelFunctionAction.OPEN_CLOSE), possibleAction(ChannelFunctionAction.OPEN), possibleAction(ChannelFunctionAction.CLOSE)],
+            }),
+            channelStub(ChannelFunction.POWERSWITCH, {
+                possibleActions: [possibleAction(ChannelFunctionAction.TURN_ON), possibleAction(ChannelFunctionAction.TURN_OFF)],
+            }),
+        ];
+        const wrapper = await subjectDropdown({channels});
+        await wrapper.findAll('.panel-heading').at('0').trigger('click');
+        await wrapper.vm.$nextTick();
+        expect(wrapper.vm.subject).toBeUndefined();
+        const options = wrapper.findAll('.selectpicker option');
+        expect(options).toHaveLength(2);
+        await options.at(0).setSelected();
+        expect(wrapper.vm.subject.id).toEqual(channels[0].id);
+        expect(wrapper.vm.subject.ownSubjectType).toEqual(ActionableSubjectType.CHANNEL);
+        expect(wrapper.vm.action).not.toBeUndefined();
+        expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.OPEN_CLOSE);
+        await options.at(1).setSelected();
+        expect(wrapper.vm.subject.id).toEqual(channels[1].id);
+        expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.TURN_ON);
+    });
+
+    it('maintains action when subject changes and has the same function', async () => {
+        const channels = [
+            channelStub(ChannelFunction.POWERSWITCH, {
+                possibleActions: [possibleAction(ChannelFunctionAction.TURN_ON), possibleAction(ChannelFunctionAction.TURN_OFF)],
+            }),
+            channelStub(ChannelFunction.POWERSWITCH, {
+                possibleActions: [possibleAction(ChannelFunctionAction.TURN_ON), possibleAction(ChannelFunctionAction.TURN_OFF)],
+            }),
+        ];
+        const wrapper = await subjectDropdown({channels});
+        await wrapper.findAll('.panel-heading').at('0').trigger('click');
+        await wrapper.vm.$nextTick();
+        const options = wrapper.findAll('.selectpicker option');
+        expect(options).toHaveLength(2);
+        await options.at(0).setSelected();
+        await wrapper.findAll('.channel-action-chooser .panel-heading').at(1).trigger('click');
+        expect(wrapper.vm.subject.id).toEqual(channels[0].id);
+        expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.TURN_OFF);
+        await options.at(1).setSelected();
+        expect(wrapper.vm.subject.id).toEqual(channels[1].id);
+        expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.TURN_OFF);
+    });
+
+    it('sets the subject and action based on props', async () => {
+        const channels = [
+            channelStub(ChannelFunction.POWERSWITCH, {
+                possibleActions: [possibleAction(ChannelFunctionAction.TURN_ON), possibleAction(ChannelFunctionAction.TURN_OFF)],
+            }),
+            channelStub(ChannelFunction.LIGHTSWITCH, {
+                possibleActions: [possibleAction(ChannelFunctionAction.TURN_ON), possibleAction(ChannelFunctionAction.TURN_OFF)],
+            }),
+        ];
+        const wrapper = await subjectDropdown({
+            channels,
+            data: {subject: channels[1], action: possibleAction(ChannelFunctionAction.TURN_OFF)}
+        });
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('TURN OFF');
+        expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.TURN_OFF);
+        expect(wrapper.vm.subject.id).toEqual(channels[1].id);
+    });
+
+    it('can change the action externally', async () => {
+        const channels = [
+            channelStub(ChannelFunction.POWERSWITCH, {
+                possibleActions: [possibleAction(ChannelFunctionAction.TURN_ON), possibleAction(ChannelFunctionAction.TURN_OFF)],
+            }),
+        ];
+        const wrapper = await subjectDropdown({
+            channels,
+            data: {subject: channels[0], action: possibleAction(ChannelFunctionAction.TURN_OFF)}
+        });
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('TURN OFF');
+        wrapper.vm.action = possibleAction(ChannelFunctionAction.TURN_ON);
+        await wrapper.vm.$nextTick();
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('TURN ON');
+        expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.TURN_ON);
+        expect(wrapper.vm.subject.id).toEqual(channels[0].id);
+    });
+
+    it('selects the first action if the action is cleared', async () => {
+        const channels = [
+            channelStub(ChannelFunction.POWERSWITCH, {
+                possibleActions: [possibleAction(ChannelFunctionAction.TURN_ON), possibleAction(ChannelFunctionAction.TURN_OFF)],
+            }),
+        ];
+        const wrapper = await subjectDropdown({
+            channels,
+            data: {subject: channels[0], action: possibleAction(ChannelFunctionAction.TURN_OFF)}
+        });
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('TURN OFF');
+        wrapper.vm.action = undefined;
+        await wrapper.vm.$nextTick();
+        expect(wrapper.findAll('.channel-action-chooser .panel-success .panel-heading')).toHaveLength(1);
+        expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.TURN_ON);
+        expect(wrapper.vm.subject.id).toEqual(channels[0].id);
+    });
+
+    it('selects action with parameters', async () => {
+        const channels = [
+            channelStub(ChannelFunction.CONTROLLINGTHEROLLERSHUTTER, {
+                possibleActions: [possibleAction(ChannelFunctionAction.OPEN), possibleAction(ChannelFunctionAction.CLOSE), possibleAction(ChannelFunctionAction.CLOSE_PARTIALLY)],
+            }),
+        ];
+        const wrapper = await subjectDropdown({
+            channels,
+            data: {subject: channels[0]}
+        });
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('OPEN');
+        await wrapper.findAll('.channel-action-chooser .panel-heading').at(2).trigger('click');
+        expect(wrapper.vm.action).toBeDefined();
+        expect(wrapper.vm.action.id).toEqual(ChannelFunctionAction.CLOSE_PARTIALLY);
+        expect(wrapper.find('.channel-action-chooser .panel-success .panel-heading').text()).toContain('CLOSE PARTIALLY');
+        const percentage = wrapper.find('input[type=number]');
+        expect(percentage.exists()).toBeTruthy();
+        expect(wrapper.vm.action.param).toEqual({percentage: 0});
+        await percentage.setValue(22);
+        expect(wrapper.vm.action.param).toEqual({percentage: 22});
     });
 })

@@ -9,7 +9,7 @@
                 ref="percentageField"
                 maxlength="3"
                 v-model="percentage"
-                @change="onChange()">
+                @input="onChange()">
             <span class="input-group-addon">%</span>
         </span>
     </div>

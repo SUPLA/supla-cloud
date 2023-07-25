@@ -189,8 +189,7 @@
                 if (this.disabled || (this.executorMode && !this.action.id)) {
                     return;
                 }
-                const param = ChannelFunctionAction.requiresParams(this.action?.id) ? {...this.param} : null;
-                this.$emit('input', this.isFullySpecified ? {...this.action, param} : undefined);
+                this.$emit('input', this.modelValue);
             },
             isSelected(actionId) {
                 if (this.executorMode) {
@@ -214,6 +213,10 @@
                     return true;
                 }
             },
+            modelValue() {
+                const param = ChannelFunctionAction.requiresParams(this.action?.id) ? {...this.param} : null;
+                return this.isFullySpecified ? {id: this.action.id, param} : undefined;
+            },
         },
         watch: {
             subject(newSubject, oldSubject) {
@@ -228,7 +231,7 @@
                 if (this.value && this.action?.id && this.value.id !== this.action.id) {
                     this.value.param = {};
                 }
-                if (this.value) {
+                if (this.value?.id !== this.modelValue?.id) {
                     this.updateAction();
                 }
             },
