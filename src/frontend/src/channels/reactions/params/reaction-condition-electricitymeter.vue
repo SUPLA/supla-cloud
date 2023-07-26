@@ -49,17 +49,6 @@
         },
         data() {
             return {
-                fields: [
-                    {label: 'Voltage', name: 'voltage',}, // i18n
-                    {label: 'Current', name: 'current',}, // i18n
-                    {label: 'Power active', name: 'power_active'}, // i18n
-                    {label: 'Power reactive', name: 'power_reactive'}, // i18n
-                    {label: 'Power apparent', name: 'power_apparent'}, // i18n
-                    {label: 'Forward active energy', name: 'fae'}, // i18n
-                    {label: 'Reverse active energy', name: 'rae'}, // i18n
-                    {label: 'Forward active energy balanced', name: 'fae_balanced', disablePhases: true}, // i18n
-                    {label: 'Reverse active energy balanced', name: 'rae_balanced', disablePhases: true}, // i18n
-                ],
                 phase: 'all',
                 field: undefined,
             };
@@ -93,6 +82,30 @@
         computed: {
             availablePhases() {
                 return (this.subject.config.enabledPhases || [1, 2, 3]).concat(['all']);
+            },
+            fields() {
+                const fields = [
+                    {label: 'Voltage', name: 'voltage',}, // i18n
+                    {label: 'Current', name: 'current',}, // i18n
+                    {label: 'Power active', name: 'power_active'}, // i18n
+                    {label: 'Power reactive', name: 'power_reactive'}, // i18n
+                    {label: 'Power apparent', name: 'power_apparent'}, // i18n
+                ];
+                const defaultModes = ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy'];
+                const availableModes = this.subject.config.countersAvailable || defaultModes;
+                if (availableModes.includes('forwardActiveEnergy')) {
+                    fields.push({label: 'Forward active energy', name: 'fae'}); // i18n
+                }
+                if (availableModes.includes('reverseActiveEnergy')) {
+                    fields.push({label: 'Reverse active energy', name: 'rae'}); // i18n
+                }
+                if (availableModes.includes('forwardActiveEnergyBalanced')) {
+                    fields.push({label: 'Forward active energy balanced', name: 'fae_balanced'}); // i18n
+                }
+                if (availableModes.includes('reverseActiveEnergyBalanced')) {
+                    fields.push({label: 'Reverse active energy balanced', name: 'rae_balanced'}); // i18n
+                }
+                return fields;
             },
             trigger: {
                 get() {
