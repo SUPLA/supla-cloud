@@ -6,6 +6,7 @@
     "autoload": {
         "psr-4": {
             "Supla\\Migrations\\": "app/DoctrineMigrations",
+            "Supla\\": "src/",
             "": "src/"
         },
         "classmap": [
@@ -13,10 +14,17 @@
             "app/AppCache.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Supla\\Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=7.3.8",
+        "ext-ctype": "*",
         "ext-curl": "*",
         "ext-gd": "*",
+        "ext-iconv": "*",
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
@@ -36,12 +44,16 @@
         "myclabs/php-enum": "1.5.*",
         "nelmio/cors-bundle": "^1.5",
         "sensio/framework-extra-bundle": "^5.0",
+        "symfony/console": "4.4.*",
+        "symfony/dotenv": "4.4.*",
         "symfony/flex": "^1.20",
+        "symfony/framework-bundle": "4.4.*",
         "symfony/messenger": "^4.4",
         "symfony/monolog-bundle": "^3.2",
         "symfony/polyfill-apcu": "^1.0",
+        "symfony/security": "4.4.*",
         "symfony/swiftmailer-bundle": "^3.0",
-        "symfony/symfony": "4.4.43",
+        "symfony/yaml": "4.4.*",
         "twig/intl-extra": "^3.3",
         "twig/twig": "^3.3",
         "ua-parser/uap-php": "^3.9",
@@ -55,19 +67,20 @@
         "symfony/phpunit-bridge": "^4.4"
     },
     "scripts": {
-        "dump-version": [
-            "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
-        ],
-        "build-parameters": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
         "post-install-cmd": [
-            "@build-parameters",
+            "@auto-scripts",
             "@dump-version"
         ],
         "post-update-cmd": [
-            "@build-parameters",
+            "@auto-scripts",
             "@dump-version"
+        ],
+        "dump-version": [
+            "SuplaBundle\\DependencyInjection\\GitVersionDumper::dumpVersion"
         ],
         "test": [
             "phpunit -c app --testdox"
@@ -116,13 +129,9 @@
         }
     },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+        "symfony": {
+            "allow-contrib": false,
+            "require": "4.4.*"
         }
     }
 }
