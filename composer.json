@@ -36,6 +36,7 @@
         "myclabs/php-enum": "1.5.*",
         "nelmio/cors-bundle": "^1.5",
         "sensio/framework-extra-bundle": "^5.0",
+        "symfony/flex": "^1.20",
         "symfony/messenger": "^4.4",
         "symfony/monolog-bundle": "^3.2",
         "symfony/polyfill-apcu": "^1.0",
@@ -109,7 +110,10 @@
             "php": "7.3.8"
         },
         "process-timeout": 0,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "extra": {
         "symfony-app-dir": "app",
