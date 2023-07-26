@@ -17,7 +17,7 @@
 
 namespace SuplaBundle\Auth;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\Audit\FailedAuthAttemptsUserBlocker;
 use SuplaBundle\Repository\UserRepository;

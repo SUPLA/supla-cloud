@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Auth;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\OAuthServerBundle\Entity\AccessTokenManager;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -11,7 +11,7 @@ class SuplaAccessTokenManager extends AccessTokenManager {
     /** @var RequestStack */
     private $requestStack;
 
-    public function __construct(ObjectManager $em) {
+    public function __construct(EntityManagerInterface $em) {
         parent::__construct($em, AccessToken::class);
     }
 
