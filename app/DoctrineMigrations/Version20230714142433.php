@@ -24,6 +24,15 @@ namespace Supla\Migrations;
  */
 class Version20230714142433 extends NoWayBackMigration {
     public function migrate() {
+        $this->updateVbtPushNotifications();
+        $this->createSuplaDevChannelExtendedValueTable();
+        $this->createSuplaDevChannelUpdateExtendedValueProcedure();
+    }
+
+    /**
+     * @return void
+     */
+    public function updateVbtPushNotifications(): void {
         $this->addSql(<<<SQL
         DELETE FROM supla_push_notification WHERE id IN(
             SELECT pn.id FROM (SELECT * FROM supla_push_notification) pn
@@ -40,28 +49,21 @@ SQL
         WHERE channel_id IS NULL AND iodevice_id IS NULL;
 SQL
         );
-        $this->addSql(<<<SQL
-        CREATE TABLE `supla_dev_channel_extended_value` (
-  `channel_id` int(11) NOT NULL,
-  `update_time` datetime DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-  `type` tinyint NOT NULL,
-  `value` varbinary(1024) DEFAULT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-SQL
-        );
-        $this->addSql(<<<SQL
-        ALTER TABLE `supla_dev_channel_extended_value`
-  ADD PRIMARY KEY (`channel_id`),
-  ADD KEY `IDX_2BA789BF7D3CA75E` (`user_id`);
-SQL
-        );
-        $this->addSql(<<<SQL
-        ALTER TABLE `supla_dev_channel_extended_value`
-  ADD CONSTRAINT `FK_CC60EC4B51E184DE` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_46E226ECDABFAE5C` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`);
-SQL
-        );
+    }
+
+    /**
+     * @return void
+     */
+    public function createSuplaDevChannelExtendedValueTable(): void {
+        $this->addSql('CREATE TABLE supla_dev_channel_extended_value (channel_id INT NOT NULL, user_id INT NOT NULL, update_time DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\', type TINYINT NOT NULL COMMENT \'(DC2Type:tinyint)\', value VARBINARY(1024) DEFAULT NULL, INDEX IDX_3207F134A76ED395 (user_id), PRIMARY KEY(channel_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE supla_dev_channel_extended_value ADD CONSTRAINT FK_3207F13472F5A1AA FOREIGN KEY (channel_id) REFERENCES supla_dev_channel (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE supla_dev_channel_extended_value ADD CONSTRAINT FK_3207F134A76ED395 FOREIGN KEY (user_id) REFERENCES supla_user (id) ON DELETE CASCADE');
+    }
+
+    /**
+     * @return void
+     */
+    public function createSuplaDevChannelUpdateExtendedValueProcedure(): void {
         $this->addSql(<<<SQL
 CREATE PROCEDURE `supla_update_channel_extended_value`(
     IN `_id` INT,
