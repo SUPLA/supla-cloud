@@ -45,5 +45,4 @@ class IODeviceChannelExtendedValue {
 
     /** @ORM\Column(name="value", type="binary", length=1024, nullable=true) */
     private $value;
-
 }
