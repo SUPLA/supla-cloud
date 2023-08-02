@@ -2,7 +2,7 @@
 
 namespace SuplaBundle\Entity;
 
-interface HasUserConfig {
+interface HasUserConfig extends ActionableSubject {
     public function getProperties(): array;
 
     public function setUserConfig(array $config): void;

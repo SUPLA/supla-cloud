@@ -30,13 +30,17 @@ Access to all of your devices through MQTT Broker: Prístup ku všetkým vašim 
 Account: Účet
 Account access when you are unavailable: Prístup k účtu keď nie ste dostupný/-á
 Account has been activated. You can Sign In now.: Účet bol aktivovaný. Môžete sa prihlásiť
+Action confirmation: Potvrdenie akcie
 Action execution: Vykonávanie akcie
 Action trigger: Spúšťač akcie
 'Action trigger no. #{index}': 'Spúšťač #{index}'
 Action triggers: Spúšťače akcií
 Actions: Akcie
 Active: Aktívne
+Active applications: Aktívne aplikácie
 Active period: Obdobie činnosti
+Active sessions: Aktívne relácie
+Active web sessions: Aktívne relácie (web)
 Add: Pridať
 Add a delay: Pridať oneskorenie
 Add a new icon: Pridať novú ikonu
@@ -44,7 +48,6 @@ Add action: Pridať akciu
 Add first channel to set channel group function and save it: Vyberte prvý kanál a určite funkciu skupiny a uložte ju
 Add new channel group: Pridať novú skupinu kanálov
 Add new channel to this group: Pridať nový kanál ku skupine
-Add new item to use in the scene: Pridať novú položku na scénu
 Adjust parameters: Nastaviť parametre
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Všetky kanály a skupiny kanálov, ktoré používajú túto ikonu, budú po odstránení tejto ikony používať predvolené ikony.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Po priznaní prístupu môžete hocikedy zmeniť toto rozhodnutie, v nastaveniach vášho účtu ho môžete odobrať.
@@ -52,7 +55,10 @@ After the device enters the configuration mode, it will not be accessible on you
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Po aktualizácii bude aplikácia rýchlejšia, pohodlnejšia... jednoducho lepšia!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Počítadlo po tejto operácii začne počítať od 0 bez ohľadu na jeho aktuálny stav. Táto operácia sa nedá vrátiť späť.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Odkaz sa vytvorí hneď potom, keď vyberiete subjekt. Všetky iné voľby môžete zadať hneď potom, keď sa vytvorí.
+Aggregation: Agregácia
 All: Všetko
+All events: Všetky udalosti
+All logs has been downloaded. Reload the chart to see them.: Všetky namerané údaje boli stiahnuté. Načítaním grafu ich zobrazíte.
 All the above and many more can be done from your phone or tablet: Toto všetko a ešte oveľa viac môžete robiť na chytrom zariadení
 Allowed actions: Povolené akcie
 Allows to perform an action only using the HTTP PATCH request.: Umožňuje vykonať akciu iba s použitím príkazu HTTP PATCH.
@@ -60,12 +66,15 @@ Alternatively, you can add a GET parameter to specify response format.: Ak chce�
 And more: A oveľa viac
 Any application or device that uses the {tokenName} token will not work anymore.: Všetky aplikácie alebo zariadenia, ktoré používajú token {token Name}, prestanú fungovať.
 'App version: %clientAppSoftwareVersion%': 'Verzia aplikácie: %clientAppSoftwareVersion%'
+Application: Aplikácia
 Application name cannot be blank.: Názov aplikácie nesmú byť prázdny
 Application requirements: Požiadavky aplikácie
 Applications: Aplikácie
+Applications with access: Aplikácia s prístupom
 Are you lost?: Stratili ste sa? Niečo hľadáte?
 Are you sure you want to change channel’s function?: Naozaj chcete zmeniť funkciu kanálu?
 Are you sure you want to delete the entire measurement history saved for this channel?: Naozaj chcete odstrániť celú históriu meraní, ktoré boli zhromaždené pre tento kanál?
+Are you sure you want to delete the events from the voltage aberrations history?: Ste si istí, že chcete odstrániť všetky udalosti z príbehu o odchýlke napätia?
 Are you sure you want to delete this OAuth application?: Naozaj chcete odstrániť túto aplikáciu OAuth?
 Are you sure you want to delete this channel group?: Naozaj chcete odstrániť túto skupinu kanálov?
 Are you sure you want to delete this client?: Naozaj chcete odstrániť túto klientskú aplikáciu?
@@ -73,10 +82,12 @@ Are you sure you want to delete this direct link?: Naozaj chcete odstrániť ten
 Are you sure you want to delete this icon?: Naozaj chcete odstrániť túto ikonu?
 Are you sure you want to delete this scene?: Naozaj chcete odstrániť túto scénu?
 Are you sure you want to delete this schedule?: Naozaj chcete odstrániť tento harmonogram?
+Are you sure you want to log out this device?: Ste si istí, že chcete toto zariadenie odhlásiť?
 Are you sure you want to reset the counter state?: Naozaj chcete vynulovať počítadlo?
 Are you sure you want to revoke permissions granted to this OAuth application?: Naozaj chcete odvolať oprávnenia priznané tejto aplikácii OAuth?
 Are you sure you want to revoke this token?: Naozaj chcete odvolať token?
 Are you sure?: Naozaj?
+Arithmetic balance: Aritmetická rovnováha
 As in device: Ako v zariadení
 Assign Access Identifiers: Priradiť identifikátor Prístupu
 Assign Client apps: Priradiť klientské aplikácie
@@ -90,10 +101,11 @@ At specified time: Pre uvedený čas
 At sunrise: pri východe slnka
 At sunrise, Monday through Friday: pri východe slnka, od pondelka do piatku
 At sunset: pri západe slnka
+Authentication failure: Chyba pri prihlasovaní
+Authentication successful: Úspešné prihlásenie
 Authorization callback URLs (one per line): Spätné autorizačné URL adresy (jeden na linku)
 Authorize the application, so that it can access your account.: Autorizujte aplikáciu, aby mohla získať prístup k vášmu účtu.
 Authorized: Autorizované
-Authorized OAuth apps: Autorizované aplikácie OAuth
 Automatic calibration: Automatická kalibrácia
 Automatic closing rule: Automatické zatváranie brány
 Automation: Automatika
@@ -107,9 +119,10 @@ Below threshold: Pod prahom
 Bottom position: Dolná poloha
 Bridge: Most
 Brightness: Jas
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Zakázanie tejto možnosti umožní ovládanie tohto zariadenia z integrácie bez dodatočného potvrdenia. To môže viesť k nebezpečnému alebo menej bezpečnému stavu (napr. náhodné otvorenie brány).
+By signing in, you are authorizing {clientName} to control your devices.: Prihlásením autorizujete aplikáciu {clientName} na kontrolu vašich zariadení.
 CLICK TO DISABLE: STLAČENÍM VYPNETE
 CLICK TO ENABLE: STLAČENÍM ZAPNETE
-Calculated value: Stav merača
 Calibrate: Kalibrovať
 Calibration: Kalibrácia
 Calibration successful.: Kalibrácia úspešná
@@ -129,9 +142,11 @@ Change Password: Zmena hesla
 Change channel function: Zmeniť funkciu kanála
 Change function: Zmeniť funkciu
 Change icon: Zmeniť ikonu
+Change the password and log out: Zmeniť heslo a odhlásiť sa
 Changing channel’s function will also result in the following changes.: Zmena funkcie kanálu spôsobí tiež nasledujúce zmeny.
 Channel: Kanál
 Channel No: Číslo kanála
+Channel available for {serviceName}: Kanál dostupný pre {serviceName}
 Channel for the partial opening sensor: Kanál pre snímač prostredného otvorenia
 Channel for the sensor: Snímač pre kanál
 Channel group: Skupina kanálov
@@ -148,6 +163,7 @@ Channel with action triggers: Kanál so spúšťačmi akcií
 Channels: Kanály
 Channels groups are not supported for this function.: Táto funkcia nepodporuje skupiny kanálov.
 Chart data source type: Typ zdroja údajov
+Chart mode: Typ grafu
 Chart type: Typ grafu
 Check the direct link you used and try again.: Skontrolujte volaný odkaz a skúste znovu.
 Check your email box: Skontrolujte vašu emailovú schránku
@@ -170,8 +186,10 @@ Close: Zatvoriť
 Close after: Zatvoriť po
 Close automatically: Zatvárať automaticky
 Close partially: Čiastočne zatvoriť
+Colon: Bodkočiarka
 Color: Farba
 Color brightness: Jas farby
+Comma: Čiarka
 Comment: Komentár
 Config of the schedule is too complicated.: Konfigurácia harmonogramu je príliš komplikovaná.
 Configuration: Konfigurácia
@@ -181,6 +199,7 @@ Confirm if you want to perform the roller shutter calibration.: Potvrďte, že m
 Confirm if you want to remove Access Identifier: Naozaj chcete odstrániť Identifikátor Prístupu
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Naozaj chcete odstrániť Polohu ID{locationId}. Zariadenia vstup./výstup. sa už nebudú môcť spájať s touto polohou.
 Confirm if you want to remove {deviceName} device and all of its channels.: Potvrďte, že chcete odstrániť zariadenie {deviceName} a všetky jeho kanály.
+Confirmation: Potvrdenie
 Connected: Spojené
 Connection with a private instance of the SUPLA cloud: Pripojenie k súkromnej inštalácii mraku SUPLA
 Constraints: Obmedzenia
@@ -189,6 +208,8 @@ Could not contact Autodiscover service. Try again in a while.: Nie je možné ko
 Could not enter the configuration mode.: Zariadenie sa nepodarilo uviesť do konfiguračného režimu.
 Could not reset the password.: Heslo sa nepodarilo obnoviť.
 Could not reset the password. Please try again later.: Nedá sa zresetovať heslo. Skúste opäť o chvíľu.
+Counter: Počítadlo
+Counter reset: Reset počítadla
 Create New Access Identifier: Vytvoriť nový Identifikátor Prístupu
 Create New Location: Vytvoriť novú Polohu
 Create New Schedule: Vytvoriť nový harmonogram
@@ -205,7 +226,9 @@ DHT11 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT11
 DHT21 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT21
 DHT22 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT22
 DS18B20 Thermometer: Teplomer DS18B20
+Data limits: Limity údajov
 Data saved: Údaje boli uložené
+Date and time: Dátum a čas
 Decline: Odmietnuť
 Default: predvolene
 Delete: Odstrániť
@@ -252,15 +275,18 @@ Door lock operation: Otváranie dverí
 Door opening sensor: Snímač otvorenia dverí
 Doors and gates: Dvere a brány
 Doors, Gates, Windows: Dvere, brány, okná
+Download measurements history: Stiahnuť históriu meraní
 Download the history of measurement: Prevziať históriu meraní
 Drag your image(s) here or click to select from the disk: Obrázok pretiahnite tu alebo vyberte súbor na disku
 E-mail notifications: E-mailové upozornenia
 Edit: Upraviť
 Electric: Elektrika
 Electricity meter: Elektromer
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Elektromer neoznámil možnosť konfigurácie pridaných hodnôt. Aktualizujte firmvér zariadenia a skúste to znova.
 Empty!: Prázdno!
 Enable: Zapnúť
 Enabled: Zapnuté
+Enabled phases: Aktívne fázy
 End date: Dátum ukončenia
 Enter new password: Zadajte nové heslo
 Enter strong password: Zadajte silné heslo
@@ -284,9 +310,11 @@ Execution history: História vykonaní
 Execution limit: Limit vykonaní
 Executions: Vykonania
 Expired: Po termíne
+Expires at: Stráca platnosť
 Failed: Neúspešné
 Failed (zombie): Neúspešné (zombi)
 Feature limits: Funkčné limity
+File format: Formát súboru
 File is too large: Soubor je příliš velký
 Flooding: Zaplavenie
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Počas aktualizácie sa odporúča použiť adresu {suplaUrl}.
@@ -294,10 +322,11 @@ For devices: Pre zariadenia
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Z bezpečnostných dôvodov bude úplná URL adresa tohto priameho odkazu zobrazená iba raz, a to pri jej vytvorení.
 Forgot your password?: Nepamätáte si heslo?
 Forward active energy: Činná energia prijatá
+Forward active energy balance: Bilancia príkonu aktívnej energie
 Forward active energy balanced: Spotrebovaná aktívna energia (vektorová bilancia)
 Forward reactive energy: Pasívna energia prijatá
 Fridays: Piatky
-From IP: Z IP adresy
+From: Od
 From anywhere: Z každého miesta
 Full closing time: Celkový čas zatvorenia
 Full documentation: Kompletná dokumentácia
@@ -340,10 +369,12 @@ I agree: Súhlasím
 I aree, taske me to the app: Súhlasím, prejsť do aplikácie
 I confirm! Delete my account.: Potvrdzujem! Zmazať môj účet.
 I do not agree, get me out of here: Nesúhlasím, zober ma stadiaľto
+I understand that my SUPLA account will be permanently deleted.: Beriem na vedomie, že môj účet SUPLA bude nenávratne vymazaný.
 I/O Devices: Zariadenia vstup./výstup.
 I/O devices registration: Registrácia zariadení
 ID: ID
 INACTIVE: NEAKTÍVNE
+IP Address: IP adresa
 Icon: Ikona
 Idle: Nečinné
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Ak je zariadenie momentálne v režime spánku, zmeny konfigurácie sa prejavia po jeho prebudení.
@@ -374,12 +405,14 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Neaktívny
 Include energy corrections in new measurements history (not recommended): Zahrnúť pridanú hodnotu do histórie (neodporúča sa)
 Incorrect password: Nesprávne heslo
+Incremental: Prírastkové
 Information: Informácia
 Inherit I/O Device location: Používajte polohu zariadenia
 Initial value: Začetna vrednost
 Integration with MQTT Broker has been disabled.: Integrácia s maklérom MQTT bola vypnutá.
 Integration with MQTT Broker has been enabled.: Integrácia s maklérom MQTT bola zapnutá.
 Integrations: Integrácie
+Integrations settings: Nastavenia integrácie
 Interpolate measurements: Odhadnúť chýbajúce hodnoty
 Interrupt: Zastaviť
 Interrupt and execute: Prerušiť a vykonať
@@ -391,6 +424,7 @@ Invalid function for channel.: Neplatná funkcia kanála
 Invalid request: Nesprávna žiadosť
 Invalid request.: Neplatná požiadavka.
 Invalid token.: Neplatný token.
+Invalid username or password: Neplatné užívateľské meno alebo heslo
 Inverted logic: Obrátená logika
 Invisible: Neviditeľné
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Gali būti, kad kitas vartotojas, norėdamas atstatyti savo paskyros slaptažodį per klaidą įvedė Jūsų el. pašto adresą.
@@ -412,7 +446,9 @@ Location Identifier: Identifikátor Polohy
 Location limit has been exceeded: Bol prekročený limit polôh
 Location name: Názov miesta
 Locations: Polohy
+Log out: Odhlásiť sa
 Login: Prihlásenie
+Logs transformation: Transformácia hodnôt
 Longest aberration: Najdlhšia aberácia
 Lower voltage threshold: Prah nízkeho napätia
 MQTT Broker: Maklér MQTT
@@ -470,6 +506,7 @@ No of devices: Počet zariadení
 No of operations: Počet operácií
 No results match {0}: Žiadne výsledky nepasujú k {0}
 No schedule configuration.: Nebola zadaná žiadna konfigurácia harmonogramu.
+No, take me back!: Nie, dostaňte ma odtiaľto!
 No. of Client’s apps: Počet klientských aplikácií
 No. of access identifiers: Počet identifikátorov prístupu
 No. of channel groups: Počet skupín kanálov
@@ -478,6 +515,7 @@ No. of devices: Počet zariadení
 No. of locations: Počet polôh
 None: Žiadne
 None (channel disabled): Žiadne (kanál je vypnutý)
+Noop: Žiadna operácia
 Number of aberrations: Počet aberácií
 Number of attempts to close: Počet pokusov o zatvorenie
 Number of attempts to open: Počet pokusov o otvorenie
@@ -486,6 +524,7 @@ OAuth application: Aplikácia OAuth
 OAuth apps: Aplikácie OAuth
 OAuth authorization: Autorizácia OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integrácie s aplikáciami OAuth môžu prestať fungovať po zrušení registrácie vašej inštancie.
+OK: OK
 'Off': Vypnúť
 Offline access: Prístup offline
 Older: Staršie
@@ -496,16 +535,22 @@ Open: Otvoriť
 Open / close: Otvoriť / zavrieť
 Open partially: Otvoriť čiastočne
 Opening sensor: Snímač otvorenia
+Operation: Operácia
 Operations: Operácie
 Original location: Originálna poloha
 Other: Iné
 Otherwise go to the homepage.: V inom prípade prejdite na [domovskú stránku].
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN kód pre Google musí mať najmenej {minLength} a najviac {maxLength} číslic.
 Partial opening sensor: Snímač prostredného otvorenia
 Password: Heslo
 Password Reset: Zmena hesla
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Zmena hesla odhlási všetky aktuálne relácie. Neovplyvní to však aplikácie, ktoré od vás dostali autorizáciu. Oprávnenia na prihlásenie do aplikácie musia byť odobraté samostatne.
+Password changed: Heslo bolo zmenené.
 Password has been changed: Heslo bolo zmenené
 Password must be at least {minLength} characters.: Heslo musí mať aspoň {minLength} znakov.
 Password must be no longer than {maxLength} characters.: Heslo nemôže byť dlhšie ako {maxLength} znakov.
+Password reset: Obnoviť heslo
 Password reset instructions.: Pokyny na obnovenie prístupu k vášmu účtu.
 Percentage of closing: Percento zatvorenia
 Personal access tokens: Osobné prístupové tokeny
@@ -515,6 +560,7 @@ Phase 1: Fáza 1
 Phase 2: Fáza 2
 Phase 3: Fáza 3
 Phase number: Fáza
+Phase {phaseNumber}: Fáza {phaseNumber}
 Please choose the schedule subject first.: Najprv sa rozhodnite, čo má harmonogram riadiť
 Please click the following link to reset your %cloudHost% password.: Norėdami atstatyti savo slaptažodį %cloudHost% svetainėje, spustelėkite žemiau pateiktą nuorodą
 Please click the link we have sent you after the registration to proceed.: Kliknite na odkaz zo správy, ktorú sme Vám zaslali po vytvorení účtu.
@@ -527,8 +573,8 @@ Please read the Terms and Conditions.: Prečítať podmienky.
 Please wait a moment before the next login attempt.: Predtým, než sa opäť pokúsite prihlásiť, počkajte chvíľu.
 Port: Port
 Precision: Presnosť
+Predefined time ranges: Časové rozsahy
 Pressure sensor: Snímač tlaku
-Previous login: Predchádzajúce prihlásenie
 Price per: Cena za
 Private Cloud domain name: Názov domény súkromného mraku
 Private instance of the SUPLA cloud with given URL is already registered.: Na tejto adrese je už zaregistrovaný súkromný cloud SUPLA.
@@ -556,6 +602,7 @@ Registered: Zaregistrovaný
 'Registered from IP address: %deviceRegIp%': 'IP adresa: %deviceRegIp%'
 Relay: Relé
 Relay switching time: Čas zapnutia relé
+Reload the chart: Načítať graf
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Predtým, než odstránite túto polohu, odstráňte všetky priradené skupiny kanálov. ID: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Predtým, než odstránite túto polohu, odstráňte všetky priradené kanály. ID: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Predtým, než odstránite túto polohu, odstráňte všetky priradené zariadenia. ID: {relatedIds}.'
@@ -568,6 +615,7 @@ Retry on failure: Zopakovať, keď nevykonané
 Reveal: Otvoriť
 Reveal partially: Otvoriť čiastočne
 Reverse active energy: Činná energia vrátená
+Reverse active energy balance: Bilancia vrátenej aktívnej energie
 Reverse active energy balanced: Vrátená aktívna energia (vektorová bilancia)
 Reverse reactive energy: Pasívna energia vrátená
 Revoke: Anulovať
@@ -596,6 +644,7 @@ Save changes: Uložiť zmeny
 Save changes to see Access IDs: Identifikátory prístupu sa zobrazia, keď uložíte zmeny
 Save or discard configuration changes first.: Najprv uložte alebo zahoďte zmeny konfigurácie.
 Scene: Scéna
+Scene available for {serviceName}: Scéna dostupná pre {serviceName}
 Scene must consist of at least one operation.: Scéna musí obsahovať aspoň jednu operáciu
 Scenes: Scény
 Scenes limit has been exceeded: Nemôžete vytvoriť viac scén
@@ -608,12 +657,15 @@ Scopes: Rozsahy
 Scopes define which sections of your account can be accessed when using the token.: Rozsahy určujú, ku ktorým zdrojom účtu sa dá získať prístup daným tokenom.
 Search: Hľadať
 Secret: Tajný kľúč (secret)
+Security: Bezpečnosť
+Security log: Bezpečnostný log
 See available integrations: Pozrite si dostupné integrácie
 See direct link possibilities: Pozrite si možnosti priameho odkazu
 See in SUPLA-Cloud: Zobraziť na SUPLA-Cloud
 Seems like a secret place: Niečo nám hovorí, že by ste tu nemali byť
 Select icon: Vybrať ikonu
 Select the item (subject) you want to control using this link: Vyberte prvok (subjekt), ktorý chcete kontrolovať prostredníctvom tohto odkazu
+Selected device has been logged out.: Vybrané zariadenie bolo odhlásené
 Sensor (normal closed): Snímač (normálne zatvorený)
 Sensor (normal open): Snímač (normálne otvorený)
 Sensor disconnected: Žiadny snímač
@@ -622,6 +674,7 @@ Server address: Adresa servera
 Server unreachable: Server je nedostupný
 Service temporarily unavailable: Služba je dočasne nedostupná
 Set value added: Určiť pridanú hodnotu
+Set values for each phase separately: Stanoviť hodnotu pre každú fázu zvlášť
 Setting the number of attempts to 1 disables the retrying behavior completely.: Nastavenie počtu pokusov na menej ako 2 môže mať za následok zlyhanie zatvárania alebo otvárania.
 Show my limits: Zobraziť moje limity
 Show on the Client’s devices: Zobraziť v klientských zariadeniach
@@ -650,10 +703,12 @@ Store measurements history: Uchovávať históriu meraní
 Subject type: Typ subjektu
 Success: Úspech
 Successful: Úspešné
+Summary for selected time range: Zhrnutie pre vybraný rozsah
 Sundays: Nedele
 Switch the device to configuration mode: Prepnúť zariadenie do konfiguračného režimu
 THIS CANNOT BE UNDONE!: TÚTO OPERÁCIU NIE JE MOŽNÉ VRÁTIŤ SPÄŤ!
 TLS: TLS
+Tab: Tabulátor
 Target Cloud is not registered, or is registered with another e-mail address.: Táto inštancia SUPLA Cloud nie je zaregistrovaná alebo je zaregistrovaná pomocou inej e-mailovej adresy.
 Temperature: Teplota
 Temperature & Humidity Sensor: Snímač teploty a vlhkosti
@@ -672,6 +727,10 @@ The client will be automatically logged out when deleted.: Keď odstránite klie
 The counter has been reset.: Počítadlo bolo vynulované.
 The device is disabled: Zariadenie je vypnuté
 The device might be in a sleep mode.: Zariadenie môže pracovať v režime spánku.
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Zariadenie, ktoré použije túto reláciu, stratí prístup k službe SUPLA Cloud. Ak chcete pokračovať v používaní aplikácie, musíte sa do nej znova prihlásiť.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Odstráni sa celá história aberácie napätia pre fázu {phaseNumber}.
+The entire history of the voltage aberrations will be removed from this channel.: Pre tento kanál sa odstráni celá história odchýlok napätia.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Udalosti v histórii odchýlok napätia sa automaticky vymažú po {days}.
 The following items use the channels of these device. These references will be also removed.: Nasledujúce položky používajú kanály z tohto zariadenia. Budú taktiež odstránené.
 'The following items will be deleted with this device:': S týmto zariadením budú odstránené aj nasledujúce položky.
 The gate sensor must function properly in order to execute the Open and Close actions.: Snímač otvorenia brány musí fungovať správne, ak má vykonať akciu Otvor alebo Zatvor.
@@ -703,17 +762,21 @@ Thermometer: Teplomer
 Thermostat: Termostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Tento priamy odkaz vyžaduje ďalšie upresnenie parametrov vykonávané akcie. Na nižšie uvedenom príklade zistíte, ktoré parametre môžete nastaviť.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Dostávate túto informáciu, pretože s použitím vašej emailovej adresy bol vykonaný neúspešný pokus o prihlásenie do SUPLA-CLOUD.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Toto je posledná fáza vymazania vášho účtu. Vyplnením a schválením formulára dôjde k nezvratnému vymazaniu vašich údajov.
 This is the list of applications you have granted access to your account.: Toto je zoznam aplikácií, ktorým ste poskytli prístup k vášmu účtu.
 This link is only valid for an hour.: Nuoroda bus aktyvi vieną valandą.
+'This password will protect your home. Therefore, it must:': 'Teto heslo ochráni váš domov. Preto:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Tento režim plánovania je určený pre technických alebo veľmi trpezlivých používateľov. Vyžaduje, aby boli časy spúšťania plánu špecifikované v notácii crontab obohatenej o niekoľko funkcií, ktoré sa nachádzajú iba v SUPLI. Ak ste ešte doteraz nepočuli o crontaboch a stále chcete používať tento režim, môže vám pomôcť webová stránka crontab.guru.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Tento spúšťač používa zariadenie lokálne (napr. zapína svetlo, ovláda roletu atď.). Ak mu priradíte inú činnosť, lokálna funkcia bude deaktivovaná.
 Thursdays: Štvrtky
 Timezone: Časové pásmo
+To: Do
 Toggle: Prepnite
 Token does not exist: Token neexistuje
 Too many actions in this schedule.: Príliš veľa akcií v jednom harmonograme.
 Too many channels in this group: Príliš veľa kanálov v tejto skupine
 Too many operations in this scene: Príliš veľa operácií na scéne.
+Total: Suma
 Total time: Celkový čas
 Triggers: Spúšťače
 Tuesdays: Utorky
@@ -723,6 +786,7 @@ Type: Typ
 Undo registration: Zrušiť registráciu
 Unit: Jednotka
 Unknown: neznámy
+Unknown browser: Neznámy prehliadač
 Unregister my private SUPLA Cloud instance: Zrušiť registráciu mojej súkromnej inštancie SUPLA Cloud
 Unsuccessful login attempt: Prihlásenie zlyhalo
 Unsupported function: Nepodporovaná funkcia
@@ -733,10 +797,13 @@ Upper voltage threshold: Prah vysokého napätia
 'Use the {0} server command to change this account''s limits. For example:': 'Ak chcete zmeniť limity pre tento účet, použite príkaz {0} na vašom serveri. Napríklad:'
 Use working schedule for this access identifier: Použite harmonogram dostupnosti pre toto ID prístupu
 User is already confirmed. Try to log in.: Tento účet je už potvrdený. Prihláste sa.
+Value: Hodnota
 Value added: Pridaná hodnota
 Value per unit: Hodnota na jednotku
+Value separator: Oddeľovač
 Valve: Ventil
 Valve closed manually: Ventil bol manuálne zatvorený
+Vector balance: Vektorová rovnováha
 Verification method: Spôsob overenia
 Visible: Viditeľné
 Visit app webpage: Otvorte miesto aplikácie
@@ -748,6 +815,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Pred vykonaním ďalšej žiadosti chvíľu počkaj. Môžeš si overiť aktuálne využívanie svojich limitov v nastaveniach účtu.
 Wait for this scene to finish before proceeding to the next step ({time}).: Pred pokračovaním v akcii počkajte na dokončenie scény ({time}).
 Water meter: Vodomer
+'We also strongly advise you to choose a password that:': 'Okrem toho dôrazne odporúčame zvoliť si heslo, ktoré:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Budeme Vám posielať upozornenia o určitých udalostiach spojených s vaším účtom. Môžete zrušiť odber tých, ktoré nepotrebujete.
 We could not connect to your SUPLA Cloud instance.: Nepodarilo sa pripojiť s vašou súkromnou inštaláciou SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Dostali sme žiadosť o zrušenie Vášho účtu v SUPLA Cloud (%cloudHost%).
@@ -759,7 +827,9 @@ We should be ready shortly.: O cvhíľu budeme hotoví.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Vo vašom webovom prehliadači uchovávame informácie o vašich preferenciách na účely uľahčenia používania aplikácie (napr. pomocou koláčikov (tzn. súborov cookies)).
 We try to be faster: Sme čoraz rýchlejší
 We were not able to find your account.: Nepodarilo sa nájsť váš účet.
+We were not able to prepare your data. Please see the error details below.: Počas prípravy údajov došlo k chybe. Podrobnosti si prečítajte nižšie.
 We will miss you: Budete nám chýbať
+We will miss you!: Budete nám chýbať!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Robíme všetko preto, aby sa zaslané ikony zobrazovali čo najlepšie, ale najlepšie výsledky dosiahnete, ak budete používať súbory vo formáte .png s priehľadným pozadím a so šírkou {width} a výškou {height} pixelov.
 We will use it only in justified situations.: Použijeme ho výhradne iba v opodstatnených prípadoch.
 Weather Station: Meteorologická stanica
@@ -779,6 +849,7 @@ Working period: Obdobie fungovania
 Working schedule: Harmonogram činností
 YOUR LINK CODE: KÓD VÁŠHO ODKAZU
 You are changing the settings too quickly. You have to wait a while before making this change.: Nastavenia meníte príliš rýchlo. Pred zmenou týchto nastavení musíte chvíľu počkať.
+You can browse only the most recent logs now. Wait a while for the full history.: V súčasnosti sa zobrazujú len najnovšie merania. Počkajte chvíľu, kým sa stiahne celá história.
 You can ignore this message, if you have accidentally entered an incorrect password.: Ak ste to boli vy, kto zadal nesprávne heslo, môžete túto informáciu ignorovať.
 You can use the application but you will not be able to modify any settings.: Aplikáciu môžete používať, ale nie je možné vykonávať zmeny konfigurácie.
 You cannot delete your last access identifier.: Nemôžete odstrániť váš posledný identifikátor prístupu.
@@ -791,6 +862,7 @@ You just need to execute the following command inside your host terminal.: Stač
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Ak stále chcete používať režim rozšíreného harmonogramu, pozrite si príklady nižšie.
 You must agree to the Terms and Conditions.: "Súhlas s\_podmienkami je nutný."
 You must enable MQTT Broker first.: Najprv musíte povoliť integráciu s maklérom MQTT.
+You must leave at least one phase enabled.: Aspoň jedna fáza musí zostať aktívna.
 You must set an action for each scene operation.: Vyberte akciu pre každú operáciu v scéne.
 You must set sections with transparent or opaque parameters or both.: Musíte zvoliť priehľadnosť aspoň pre jednu sekciu.
 You need to provide icons for all states.: Musíte doručiť ikony pre všetky stavy.
@@ -801,7 +873,11 @@ Your account has been deleted. We hope you will come back to us soon.: Účet bo
 Your account has been locked.: Váš účet bol zablokovaný.
 Your account has not been confirmed yet.: Váš účet doteraz nebol potvrdený.
 Your account limits: Vaše limity
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Váš prehliadač nepodporuje mechanizmus klientskej databázy (IndexedDB). Táto funkcia je potrebná na zobrazenie grafov a podporu pokročilých nastavení exportu údajov. Ak chcete využívať tieto funkcie, aktualizujte svoj prehliadač alebo ukončite režim inkognito.
 Your channel groups are allowed to have a maximum of {max} channels.: Vaše skupiny kanálov môžu mať maximálne {max} kanálov.
+Your chart is being drawn...: Váš graf sa kreslí...
+Your data are being collected. Please be patient.: Zhromažďujeme vaše údaje, prosíme o trpezlivosť.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vaše údaje sa stiahnu zo servera. Pred exportom počkajte na dokončenie sťahovania.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Zariadenie vám umožňuje rozšíriť jeho funkčnosť a umožňuje vykonávať akúkoľvek akciu na ľubovoľnom zariadení, ktoré máte. Dostupné možnosti závisia od firmvéru a zariadenia, ktoré používate.
 Your email: Vaša emailová adresa
 Your instance is not registered or you are trying to authorize an application that is not public.: Vaša inštalácia nie je zaregistrovaná alebo sa pokúšate autorizovať aplikáciu, ktorá nie je verejná.
@@ -837,11 +913,15 @@ actionTrigger_TURN_ON: Zapnutie
 actionableSubjectType_channel: Kanál
 actionableSubjectType_channelGroup: Skupina kanálov
 actionableSubjectType_scene: Scéna
+actionableSubjectType_schedule: Harmonogram
 addToHistoryMeasurementWarningSelected: Zaškrtnutím tejto možnosti sa nastavené hodnoty pridajú k budúcim meraniam uloženým v histórii. V grafoch to bude znázornené ako náhle zvýšenie o zadanú hodnotu. Odporúčame, aby ste tieto parametre nastavili len pri prvej inštalácii počítadla. V prípade už existujúcich počítadiel, odporúčame vymazať históriu meraní hneď, ako zmeníte tieto nastavenia.
 addToHistoryMeasurementWarningUnselected: Zrušením začiarknutia tejto možnosti vynecháte nastavené hodnoty z budúcich meraní uložených v histórii. V grafoch to bude znázornené ako náhly pokles. Odporúčame, aby ste tieto parametre nastavili len pri prvej inštalácii počítadla. V prípade už existujúcich počítadiel, odporúčame vymazať históriu meraní hneď, ako zmeníte tieto nastavenia.
 after: po
+average: priemerná
+be at least {numChars} characters long: musí mať aspoň {numChars} znakov
 before: pred
 caption: názov
+change: zmeniť
 channel: Kanál
 channelConfigHelp_gateCloseAfterHelp: Agent, ktorý spustí procedúru zatvárania brány, sa môže oneskoriť maximálne o jednu minútu od nastaveného času.
 channelConfigHelp_numberOfAttemptsGate: Po príkaze na otvorenie alebo zatvorenie brány sa systém pokúsi zatvoriť/otvoriť bránu a počká 60 sekúnd, aby skontroloval, či brána dosiahla požadovaný stav. Ak nie, systém sa pokúsi znova zatvoriť/otvoriť bránu. Tento parameter definuje maximálny počet pokusov systému na dosiahnutie cieľa. Odporúčaná hodnota je 5. Zmena tohto parametra neovplyvní činnosť plánov.
@@ -855,8 +935,12 @@ choose the action: vybrať akciu
 choose the channel: vyberte kanál
 choose the channel group: vyberte skupinu kanálov
 choose the scene: vybrať scénu
+choose the schedule: vybrať harmonogram
 choose the timezone: vyberte časové pásmo
 click here: kliknite sem
+contains a character that is neither a letter nor a digit: obsahuje znak, ktorý nie je písmenom ani číslom
+contains a digit: obsahuje číslo
+contains lower and upper letters: obsahuje veľké a malé písmená
 copied: skopírované
 copy: kopírovať
 days: dni
@@ -881,11 +965,21 @@ extend: predĺžiť
 from IP: z IP adresy
 from the IP: z adresy
 hours: hodiny
+is at least {numChars} characters long: má aspoň {numChars} znakov
+last 24 hours: posledných 24 hodín
+last 30 days: posledných 30 dní
+last 6 hours: posledných 6 hodín
+last 7 days: ostatných 7 dní
+logs_aggregation_day: dni
+logs_aggregation_hour: hodiny
+logs_aggregation_minute: minúty
+logs_aggregation_month: mesiace
 min.: min.
 minutes: minút
-or add a delay: alebo pridať oneskorenie
 password: heslo
 prefix: predvoľba
+previous month: predchádzajúci mesiac
+range: rozsah
 register-slide1-text: SUPLA s použitím dostupnej elektroniky vám umožní vytvoriť jednoduché moduly, prostredníctvom ktorých budete môcť ovládať a kontrolovať prvky automatiky budovy. Vďaka SUPLA môžete okrem iného ovládať osvetlenie, zapínať a vypínať spotrebiče, otvárať a zatvárať brány a dvere, alebo nastavovať teplotu v miestnostiach. A toto všetko môžete robiť jedným presunutím prstu.
 register-slide1-title: Vlastná Inteligentná budova
 register-slide2-text: Jedným zo základných predpokladov projektu je jednoduchosť a dostupnosť. SUPLA umožňuje jedným presunutím prstu zapnúť svetlo či otvoriť vjazdovú bránu, napríklad keď sa vraciate domov. SUPLA je dostupná všade tam, kde máte prístup na internet a máte nejaké chytré zariadenie. SUPLA je rozvíjaná ako otvorený softvér a otvorený hardvér, vďaka tomu môžete tento projekt rozvíjať aj vy!
@@ -894,6 +988,7 @@ register-slide3-text: Systémy automatiky budovy, ktoré sú v súčasnosti dost
 register-slide3-title: Bezplatná a otvorená!
 reset chart view: späť na pôvodné zobrazenie
 scene: scéna
+schedule: harmonogram
 scheduleMode_crontab: Pokročilý
 scheduleMode_daily: Denný cyklus
 scheduleMode_minutely: Minútový cyklus
@@ -921,8 +1016,16 @@ sunrise-after: východe
 sunrise-before: východom
 sunset-after: západe
 sunset-before: západom
+the whole history: celá história
+this month: aktuálny mesiac
+this year: aktuálny rok
+today: dnes
+unknown: neznámy
 username: názov používateľa
 valid until: uplynie
+values as seen on chart: hodnoty ako na grafe
+values as seen on counter: hodnoty ako na počítadle
+yesterday: včera
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nemôže spolupracovať s vašim účtom, kým jej opätovne neudelíte prístup.'
 '{clientName} wants to access your account.': '{clientName} chce získať prístup k vášmu účtu.'
 '{minutes} minutes after sunrise': '{minutes} minút po východe slnka'
@@ -933,6 +1036,7 @@ valid until: uplynie
 '{requests} out of {limit} / h': '{requests} z {limit} / hod'
 '{requests} out of {limit} / min': '{requests} z {limit} / min'
 '{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} sek.'
+'{serviceName} integration': Integrácia s {serviceName}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -941,9 +1045,12 @@ valid until: uplynie
 Access identifier password must be at least 8 characters.: Heslo pre identifikátor prístupu musí mať dĺžku aspoň 8 znakov.
 Access identifier password must be no longer than 32 characters.: Heslo pre identifikátor prístupu nesmie byť dlhšie ako 32 znakov.
 Action: Akcia
+Add new item to use in the scene: Pridať novú položku na scénu
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Naozaj chcete vymazať celú históriu odchýlok napätia pre tento kanál?
 Are you sure you want to disable this device?: Naozaj chcete vypnúť toto zariadenie?
 Assigned Locations: Priradené Polohy
+Authorized OAuth apps: Autorizované aplikácie OAuth
+Calculated value: Stav merača
 Cannot send an activation e-mail. Try again later.: Nie je možné odoslať správu s aktivačným odkazom. Skúste to znova neskôr.
 Channel will be deleted from the channel group below: Kanál bude odstránený z nasledujúcich skupín kanálov
 Channels in channel group: Kanály v skupinách kanálov
@@ -958,6 +1065,7 @@ Doors, Gates: Dvere, Brány
 ENABLED: ZAPNUTÉ
 Email already exists: Emailová adresa už existuje
 Existing schedules: Existujúce harmonogramy
+From IP: Z IP adresy
 Get SUPLA on your devices: Prevezmite si SUPLA na vaše zariadenia
 Hi: Dobrý deň
 Hour: Čas
@@ -975,6 +1083,7 @@ Next: Ďalej
 Number: Číslo
 Output: Výstup
 Please select the schedules that should also be enabled.: Zaznačte harmonogramy, ktoré tiež majú byť zapnuté.
+Previous login: Predchádzajúce prihlásenie
 Registration: Registrácia
 Remove: Odstrániť
 Schedule cannot be enabled: Nepodarilo sa zapnúť harmonogram
@@ -990,34 +1099,156 @@ When: Kedy
 You will be logged out shortly: O chvíľu budete odhlásený
 execute: vykonať
 hourly: Hodinový cyklus
+or add a delay: alebo pridať oneskorenie
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-All events: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Channel available for {serviceName}: ~
-Confirmation: ~
-Data limits: ~
-Enabled phases: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-Integrations settings: ~
-Invalid username or password: ~
-No, take me back!: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Phase {phaseNumber}: ~
-Scene available for {serviceName}: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-We will miss you!: ~
-You must leave at least one phase enabled.: ~
-change: ~
-'{serviceName} integration': ~
+'% of closing': ~
+Add a new action to the scene: ~
+Are you sure you want to delete this reaction?: ~
+Body: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
+Create new reaction: ~
+Current: ~
+Edit reaction: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
+Invalid scene: ~
+Missing action.: ~
+New reaction: ~
+Notification: ~
+Notification must have a body.: ~
+Notifications: ~
+Phase: ~
+Please fix the problems with operations and try again.: ~
+Please select a condition: ~
+Please select an action: ~
+Power active: ~
+Power apparent: ~
+Power reactive: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Recipients: ~
+Send a notification: ~
+Send notification: ~
+The notification must have a recipient.: ~
+The reaction has been added: ~
+The reaction has been changed: ~
+Title: ~
+Voltage: ~
+When a certain distance is reached: ~
+When a lack of liquid is detected: ~
+When a new mail comes: ~
+When flooding is detected: ~
+When liquid is detected: ~
+When liquid or lack thereof is detected: ~
+When the RGB lighting brightness level changes: ~
+When the RGB lighting reaches a certain level of brightness: ~
+When the active power will be: ~
+When the apparent power will be: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the brightness level changes: ~
+When the brightness will be: ~
+When the color changes: ~
+When the condition is met: ~
+When the current will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness level changes: ~
+When the dimmer reaches a certain brightness level: ~
+When the distance changes: ~
+When the distance will be: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter reaches a certain value: ~
+When the electricity meter value changes: ~
+When the electricity meter value will be: ~
+When the forward active energy will be: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter value changes: ~
+When the gas meter value reaches a certain value: ~
+When the gas meter value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter value changes: ~
+When the heat meter value reaches a certain value: ~
+When the heat meter value will be: ~
+When the humidity changes: ~
+When the humidity reaches a certain level: ~
+When the humidity will be: ~
+When the lighting reaches a certain level of brightness: ~
+When the mail comes or is taken: ~
+When the mail has been taken: ~
+When the precipitation amount will be: ~
+When the pressure changes: ~
+When the pressure reaches a certain level: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power will be: ~
+When the reverse active energy will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches a certain position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches a certain position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the temperature changes: ~
+When the temperature reaches a certain value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage will be: ~
+When the water meter reaches a certain value: ~
+When the water meter value changes: ~
+When the water meter value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches a certain speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches a certain value: ~
+You must set an action for each reaction.: ~
+actionableSubjectType_notification: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
+choose access identifiers: ~
+choose the access identifiers: ~
+notification: ~
+or another element: ~
+sum: ~
+then execute the action: ~
 
 #</editor-fold>

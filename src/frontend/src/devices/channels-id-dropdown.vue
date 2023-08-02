@@ -2,6 +2,7 @@
     <channels-dropdown :params="params"
         v-model="channel"
         :hide-none="hideNone"
+        :dropdown-container="dropdownContainer"
         @input="channelChanged()"></channels-dropdown>
 </template>
 
@@ -10,7 +11,7 @@
 
     export default {
         components: {ChannelsDropdown},
-        props: ['value', 'params', 'hideNone'],
+        props: ['value', 'params', 'hideNone', 'dropdownContainer'],
         data() {
             return {
                 channel: undefined,

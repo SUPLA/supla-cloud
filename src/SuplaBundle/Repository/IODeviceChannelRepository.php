@@ -6,6 +6,7 @@ use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\Schedule;
+use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Enums\ChannelFunction;
 
 class IODeviceChannelRepository extends EntityWithRelationsRepository {
@@ -19,6 +20,7 @@ class IODeviceChannelRepository extends EntityWithRelationsRepository {
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s s WHERE s.channel = c) schedules', Schedule::class))
             ->addSelect(sprintf('(SELECT COUNT(1) FROM %s so WHERE so.channel = c) sceneOperations', SceneOperation::class))
             ->addSelect(sprintf('(SELECT COUNT(DISTINCT sos.owningScene) FROM %s sos WHERE sos.channel = c) scenes', SceneOperation::class))
+            ->addSelect(sprintf('(SELECT COUNT(1) FROM %s vbt WHERE vbt.owningChannel = c) ownReactions', ValueBasedTrigger::class))
             ->addSelect(sprintf(
                 '(SELECT COUNT(1) FROM %s at WHERE at.function = %d AND at.param1 = c.id) actionTriggers',
                 IODeviceChannel::class,

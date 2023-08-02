@@ -55,6 +55,8 @@
                             <div>
                                 <div class="form-group">
                                     <subject-dropdown v-model="schedule.subject"
+                                        disable-schedules
+                                        disable-notifications
                                         channels-dropdown-params="io=output&hasFunction=1"
                                         :filter="filterOutNotSchedulableSubjects"></subject-dropdown>
                                 </div>
@@ -164,7 +166,7 @@
             },
             canSetRetry() {
                 return this.schedule.subject
-                    && this.schedule.subject.subjectType === ActionableSubjectType.CHANNEL
+                    && this.schedule.subject.ownSubjectType === ActionableSubjectType.CHANNEL
                     && [20, 30].indexOf(this.schedule.subject.functionId) === -1;
             },
         },
@@ -209,7 +211,7 @@
                 if (subject.possibleActions.length === 0) {
                     return false;
                 }
-                if (subject.subjectType === 'channelGroup'
+                if (subject.ownSubjectType === 'channelGroup'
                     && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
                     return false;
                 }

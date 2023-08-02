@@ -56,7 +56,7 @@
         mounted() {
             let endpoint = this.endpoint;
             if (this.subject) {
-                endpoint = `${changeCase.paramCase(this.subject.subjectType)}s/${this.subject.id}/${endpoint}`;
+                endpoint = `${changeCase.paramCase(this.subject.ownSubjectType)}s/${this.subject.id}/${endpoint}`;
             }
             this.$http.get(endpoint)
                 .then(response => this.items = response.body)
@@ -69,10 +69,14 @@
         },
         methods: {
             createNewItem() {
-                if (this.subject) {
-                    AppState.addTask(this.detailsRoute + 'Create', this.subject);
+                if (this.detailsRoute) {
+                    if (this.subject) {
+                        AppState.addTask(this.detailsRoute + 'Create', this.subject);
+                    }
+                    this.$router.push({name: this.detailsRoute, params: {id: 'new'}});
+                } else {
+                    this.$emit('add');
                 }
-                this.$router.push({name: this.detailsRoute, params: {id: 'new'}});
             },
             filter: debounce(function () {
                 this.filteredItems = this.items ? this.items.filter(this.filterFunction) : this.items;

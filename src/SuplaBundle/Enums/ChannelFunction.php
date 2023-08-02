@@ -25,10 +25,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use UnexpectedValueException;
 
 /**
- * @OA\Schema(schema="ChannelFunctionEnumNames", type="string", example="OPENINGSENSOR_GATE", enum={"UNSUPPORTED","NONE","SCENE","CONTROLLINGTHEGATEWAYLOCK","CONTROLLINGTHEGATE","CONTROLLINGTHEGARAGEDOOR","THERMOMETER","HUMIDITY","HUMIDITYANDTEMPERATURE","OPENINGSENSOR_GATEWAY","OPENINGSENSOR_GATE","OPENINGSENSOR_GARAGEDOOR","NOLIQUIDSENSOR","CONTROLLINGTHEDOORLOCK","OPENINGSENSOR_DOOR","CONTROLLINGTHEROLLERSHUTTER","CONTROLLINGTHEROOFWINDOW","OPENINGSENSOR_ROLLERSHUTTER","OPENINGSENSOR_ROOFWINDOW","POWERSWITCH","LIGHTSWITCH","DIMMER","RGBLIGHTING","DIMMERANDRGBLIGHTING","DEPTHSENSOR","DISTANCESENSOR","OPENINGSENSOR_WINDOW","MAILSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","STAIRCASETIMER","ELECTRICITYMETER","IC_ELECTRICITYMETER","IC_GASMETER","IC_WATERMETER","IC_HEATMETER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","VALVEOPENCLOSE","VALVEPERCENTAGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS_HORIZONTAL","DIGIGLASS_VERTICAL"})
+ * @OA\Schema(schema="ChannelFunctionEnumNames", type="string", example="OPENINGSENSOR_GATE", enum={"UNSUPPORTED","NONE","SCENE","SCHEDULE","NOTIFICATION","CONTROLLINGTHEGATEWAYLOCK","CONTROLLINGTHEGATE","CONTROLLINGTHEGARAGEDOOR","THERMOMETER","HUMIDITY","HUMIDITYANDTEMPERATURE","OPENINGSENSOR_GATEWAY","OPENINGSENSOR_GATE","OPENINGSENSOR_GARAGEDOOR","NOLIQUIDSENSOR","CONTROLLINGTHEDOORLOCK","OPENINGSENSOR_DOOR","CONTROLLINGTHEROLLERSHUTTER","CONTROLLINGTHEROOFWINDOW","OPENINGSENSOR_ROLLERSHUTTER","OPENINGSENSOR_ROOFWINDOW","POWERSWITCH","LIGHTSWITCH","DIMMER","RGBLIGHTING","DIMMERANDRGBLIGHTING","DEPTHSENSOR","DISTANCESENSOR","OPENINGSENSOR_WINDOW","MAILSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","STAIRCASETIMER","ELECTRICITYMETER","IC_ELECTRICITYMETER","IC_GASMETER","IC_WATERMETER","IC_HEATMETER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","VALVEOPENCLOSE","VALVEPERCENTAGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS_HORIZONTAL","DIGIGLASS_VERTICAL"})
  * @OA\Schema(
  *   schema="ChannelFunction", type="object",
- *   @OA\Property(property="id", type="integer", example=60, enum={-1,0,2000,10,20,30,40,42,45,50,60,70,80,90,100,110,115,120,125,130,140,180,190,200,210,220,230,240,250,260,270,280,290,300,310,315,320,330,340,400,410,500,510,520,700,800,810}),
+ *   @OA\Property(property="id", type="integer", example=60, enum={-1,0,2000,2010,2020,10,20,30,40,42,45,50,60,70,80,90,100,110,115,120,125,130,140,180,190,200,210,220,230,240,250,260,270,280,290,300,310,315,320,330,340,400,410,500,510,520,700,800,810}),
  *   @OA\Property(property="name", ref="#/components/schemas/ChannelFunctionEnumNames"),
  *   @OA\Property(property="caption", type="string", example="Gate opening sensor"),
  *   @OA\Property(property="maxAlternativeIconIndex", type="integer"),
@@ -39,6 +39,8 @@ use UnexpectedValueException;
  * @method static ChannelFunction UNSUPPORTED()
  * @method static ChannelFunction NONE()
  * @method static ChannelFunction SCENE()
+ * @method static ChannelFunction SCHEDULE()
+ * @method static ChannelFunction NOTIFICATION()
  * @method static ChannelFunction CONTROLLINGTHEGATEWAYLOCK()
  * @method static ChannelFunction CONTROLLINGTHEGATE()
  * @method static ChannelFunction CONTROLLINGTHEGARAGEDOOR()
@@ -88,6 +90,8 @@ final class ChannelFunction extends Enum {
     const UNSUPPORTED = -1;
     const NONE = 0;
     const SCENE = 2000;
+    const SCHEDULE = 2010;
+    const NOTIFICATION = 2020;
     const CONTROLLINGTHEGATEWAYLOCK = 10;
     const CONTROLLINGTHEGATE = 20;
     const CONTROLLINGTHEGARAGEDOOR = 30;
@@ -282,6 +286,13 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::INTERRUPT(),
                 ChannelFunctionAction::INTERRUPT_AND_EXECUTE(),
             ],
+            self::SCHEDULE => [
+                ChannelFunctionAction::ENABLE(),
+                ChannelFunctionAction::DISABLE(),
+            ],
+            self::NOTIFICATION => [
+                ChannelFunctionAction::SEND(),
+            ],
             self::DIGIGLASS_HORIZONTAL => [
                 ChannelFunctionAction::SET(),
             ],
@@ -296,6 +307,8 @@ final class ChannelFunction extends Enum {
             self::UNSUPPORTED => 'Unsupported function', // i18n
             self::NONE => 'None', // i18n
             self::SCENE => 'Scene', // i18n
+            self::SCHEDULE => 'Schedule', // i18n
+            self::NOTIFICATION => 'Notification', // i18n
             self::CONTROLLINGTHEGATEWAYLOCK => 'Gateway lock operation', // i18n
             self::CONTROLLINGTHEGATE => 'Gate operation', // i18n
             self::CONTROLLINGTHEGARAGEDOOR => 'Garage door operation', // i18n
@@ -364,6 +377,8 @@ final class ChannelFunction extends Enum {
             self::UNSUPPORTED => [],
             self::NONE => [],
             self::SCENE => ['default'],
+            self::SCHEDULE => [],
+            self::NOTIFICATION => [],
             self::CONTROLLINGTHEGATEWAYLOCK => ['opened', 'closed'],
             self::CONTROLLINGTHEGATE => ['opened', 'closed', 'partially_closed'],
             self::CONTROLLINGTHEGARAGEDOOR => ['opened', 'closed', 'partially_closed'],

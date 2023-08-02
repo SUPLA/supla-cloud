@@ -6,6 +6,7 @@
             <button-loading-dots v-if="loading"></button-loading-dots>
             <div v-else>
                 <a @click="$emit('cancel')"
+                    v-if="cancellable"
                     class="cancel">
                     <i class="pe-7s-close"></i>
                 </a>
@@ -20,6 +21,17 @@
 
 <script>
     export default {
-        props: ['header', 'loading'],
+        props: {
+            header: String,
+            loading: {
+                type: Boolean,
+                required: false,
+            },
+            cancellable: {
+                type: Boolean,
+                required: false,
+                default: true,
+            }
+        },
     };
 </script>

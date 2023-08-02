@@ -90,6 +90,7 @@ class AuthorizeOAuthController extends Controller {
 
         $askForTargetCloud = false;
         $client = null;
+        $publicClientName = null;
         if ($this->autodiscover->enabled()) {
             $targetPath = $session->get('_security.oauth_authorize.target_path');
             if (preg_match('#/oauth/v2/auth/?\?(.+)#', $targetPath, $match)) {
@@ -105,6 +106,8 @@ class AuthorizeOAuthController extends Controller {
                     } elseif ($this->autodiscover->isBroker()) {
                         // this client neither exists nor AD provided it. Maybe it exists somewhere else... lets ask for the Target Cloud!
                         $askForTargetCloud = true;
+                        $publicClient = $this->autodiscover->getPublicClient($oauthParams['client_id']) ?: [];
+                        $publicClientName = $publicClient['name'] ?? null;
                     }
                 }
             }
@@ -138,6 +141,7 @@ class AuthorizeOAuthController extends Controller {
             'askForTargetCloud' => $askForTargetCloud,
             'lastTargetCloud' => $lastTargetCloudAddress,
             'client' => $client,
+            'clientName' => ($client ? $client->getName() : $publicClientName) ?: '',
         ];
     }
 

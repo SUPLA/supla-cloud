@@ -49,9 +49,11 @@ class AppKernel extends Kernel {
 
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
-        $optionalLocalConfigFile = $this->getRootDir() . '/config/config_local.yml';
-        if (file_exists($optionalLocalConfigFile)) {
-            $loader->load($optionalLocalConfigFile);
+        foreach (['config_docker.yml', 'config_local.yml'] as $optionalConfigFilename) {
+            $optionalConfigFile = $this->getRootDir() . '/config/' . $optionalConfigFilename;
+            if (file_exists($optionalConfigFile)) {
+                $loader->load($optionalConfigFile);
+            }
         }
     }
 

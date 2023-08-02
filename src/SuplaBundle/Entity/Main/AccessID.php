@@ -75,6 +75,13 @@ class AccessID implements HasRelationsCount {
     private $locations;
 
     /**
+     * @ORM\ManyToMany(targetEntity="PushNotification", mappedBy="accessIds", cascade={"persist"})
+     * @Groups({"accessId.notifications"})
+     * @MaxDepth(1)
+     */
+    private $pushNotifications;
+
+    /**
      * @ORM\OneToMany(targetEntity="ClientApp", mappedBy="accessId")
      * @Groups({"accessId.clientApps"})
      * @MaxDepth(1)

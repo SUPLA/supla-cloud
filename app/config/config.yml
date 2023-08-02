@@ -2,7 +2,7 @@ imports:
   - {resource: parameters.yml}
   - {resource: security.yml}
   - {resource: services/*.yml}
-  - {resource: config_build.yml, ignore_errors: true}
+  - {resource: config_build.yml, ignore_errors: not_found}
 
 doctrine:
   dbal:
@@ -75,6 +75,7 @@ fos_oauth_server:
     options:
       access_token_lifetime: 300
       refresh_token_lifetime: 500
+    access_token_manager: SuplaBundle\Auth\SuplaAccessTokenManager
     storage: SuplaBundle\Auth\SuplaOAuthStorage
 
 fos_rest:

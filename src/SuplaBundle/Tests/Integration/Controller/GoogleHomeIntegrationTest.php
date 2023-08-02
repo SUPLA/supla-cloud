@@ -312,4 +312,109 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, $fetchedChannels);
         $this->assertNotContains(1, array_column($fetchedChannels, 'id'));
     }
+
+    public function testSettingGoogleHomeConfigDisabledForScene() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/1', [
+            'config' => ['googleHome' => ['googleHomeDisabled' => true]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $scene = $this->freshEntity($this->scene);
+        $sceneConfig = $scene->getUserConfig();
+        $this->assertArrayHasKey('googleHome', $sceneConfig);
+        $this->assertTrue($sceneConfig['googleHome']['googleHomeDisabled']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigDisabledForScene */
+    public function testExecutingActionWithGoogleDisabledScene() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/1', json_encode([
+            'action' => 'execute',
+            'googleRequestId' => 'unicorn',
+        ]));
+        $this->assertStatusCode(Response::HTTP_CONFLICT, $client);
+    }
+
+    public function testSettingGoogleHomeConfigPinForScene() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/1', [
+            'config' => ['googleHome' => [
+                'googleHomeDisabled' => false,
+                'needsUserConfirmation' => false,
+                'pin' => '1234',
+            ]],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $scene = $this->freshEntity($this->scene);
+        $sceneConfig = $scene->getUserConfig();
+        $this->assertArrayHasKey('googleHome', $sceneConfig);
+        $this->assertNotNull($sceneConfig['googleHome']['pin']);
+        $this->assertEquals(40, strlen($sceneConfig['googleHome']['pin']));
+        $configFromBody = $client->getResponseBody()['config']['googleHome'];
+        $this->assertArrayHasKey('pinSet', $configFromBody);
+        $this->assertArrayNotHasKey('pin', $configFromBody);
+        $this->assertTrue($configFromBody['pinSet']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigPinForScene */
+    public function testExecutingSceneWithoutPinWithoutGoogle() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/1', json_encode([
+            'action' => 'execute',
+        ]));
+        $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
+    }
+
+    /** @depends testSettingGoogleHomeConfigPinForScene */
+    public function testExecutingSceneWithoutPin() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/1', json_encode([
+            'action' => 'execute',
+            'googleRequestId' => 'unicorn',
+        ]));
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client);
+        $body = $client->getResponseBody();
+        $this->assertArrayHasKey('details', $body);
+        $this->assertTrue($body['details']['needsPin']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigPinForScene */
+    public function testExecutingSceneWithInvalidPin() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/1', json_encode([
+            'action' => 'execute',
+            'googleRequestId' => 'unicorn',
+            'googlePin' => '1222',
+        ]));
+        $this->assertStatusCode(Response::HTTP_BAD_REQUEST, $client);
+        $body = $client->getResponseBody();
+        $this->assertArrayHasKey('details', $body);
+        $this->assertTrue($body['details']['invalidPin']);
+    }
+
+    /** @depends testSettingGoogleHomeConfigPinForScene */
+    public function testExecutingSceneWithPin() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PATCH', '/api/scenes/1', json_encode([
+            'action' => 'execute',
+            'googleRequestId' => 'unicorn',
+            'googlePin' => '1234',
+        ]));
+        $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
+    }
+
+    public function testFetchingScenesForGoogleIntegration() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/scenes/1', ['config' => ['googleHome' => ['googleHomeDisabled' => true]]]);
+        $this->createScene($this->location, $this->channelGroup);
+        $client->apiRequestV24('GET', '/api/scenes?forIntegration=google-home');
+        $this->assertCount(1, $client->getResponseBody());
+        $this->assertEquals(2, $client->getResponseBody()[0]['id']);
+        $client->apiRequestV24('PUT', '/api/scenes/1', ['config' => ['googleHome' => ['googleHomeDisabled' => false]]]);
+        $client->apiRequestV24('GET', '/api/scenes?forIntegration=google-home');
+        $fetchedScenes = $client->getResponseBody();
+        $this->assertContains(1, array_column($fetchedScenes, 'id'));
+    }
 }

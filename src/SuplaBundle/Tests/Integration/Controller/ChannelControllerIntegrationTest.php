@@ -23,6 +23,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\DirectLink;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
+use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\User;
@@ -32,7 +33,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
@@ -110,10 +111,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
         $this->assertArrayHasKey('relationsCount', $content);
-        $this->assertArrayHasKey('subjectType', $content);
+        $this->assertArrayHasKey('ownSubjectType', $content);
         $this->assertArrayNotHasKey('param1', $content);
         $this->assertArrayHasKey('config', $content);
-        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['subjectType']);
+        $this->assertEquals(ActionableSubjectType::CHANNEL, $content['ownSubjectType']);
     }
 
     public function testGettingChannelInfoWithDeviceLocationV24() {
@@ -293,7 +294,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testChangingChannelFunctionClearsRelatedSensorInOtherDevices() {
         $client = $this->createAuthenticatedClient();
-        $channelParamConfigTranslator = self::$container->get(ChannelParamConfigTranslator::class);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
@@ -304,7 +305,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         })->first();
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         // assign sensor to the gate from other device
-        $channelParamConfigTranslator->setParamsFromConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $channelParamConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
         $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId(), [
@@ -881,5 +882,95 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('sceneOperations', $content['relationsCount']);
         $this->assertEquals(1, $content['relationsCount']['scenes']);
         $this->assertEquals(2, $content['relationsCount']['sceneOperations']);
+    }
+
+    public function testSettingNotificationForActionTrigger() {
+        $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
+        $trigger = $anotherDevice->getChannels()[2];
+        $actions = ['TURN_ON' => [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'action' => ['id' => ChannelFunctionAction::SEND, 'param' => ['body' => 'ABC', 'accessIds' => [1]]]]];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertArrayHasKey('actions', $trigger->getUserConfig());
+        $this->assertCount(1, $trigger->getUserConfig()['actions']);
+        $notificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
+        $notification = $this->getEntityManager()->find(PushNotification::class, $notificationId);
+        $this->assertNotNull($notification);
+        $this->assertEquals('ABC', $notification->getBody());
+        $this->assertEquals($trigger->getId(), $notification->getChannel()->getId());
+        return $trigger;
+    }
+
+    /** @depends testSettingNotificationForActionTrigger */
+    public function testChangingNotificationForActionTrigger(IODeviceChannel $trigger) {
+        $previousNotificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
+        $actions = ['TURN_ON' => [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'action' => ['id' => ChannelFunctionAction::SEND, 'param' => ['body' => 'DEF', 'accessIds' => [1]]]]];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $trigger->getId(), ['config' => ['actions' => $actions]]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertArrayHasKey('actions', $trigger->getUserConfig());
+        $this->assertCount(1, $trigger->getUserConfig()['actions']);
+        $notificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
+        $this->assertNotEquals($notificationId, $previousNotificationId);
+        $notification = $this->getEntityManager()->find(PushNotification::class, $notificationId);
+        $this->assertNotNull($notification);
+        $this->assertEquals('DEF', $notification->getBody());
+        $this->assertNull($this->getEntityManager()->find(PushNotification::class, $previousNotificationId));
+    }
+
+    public function testChangingChannelFunctionClearsOwnReactions() {
+        $thermometer = $this->device->getChannels()[6];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('POST', "/api/channels/{$thermometer->getId()}/reactions", [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'actionId' => ChannelFunctionAction::SEND,
+            'actionParam' => ['body' => 'sdf', 'accessIds' => [1]],
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId() . '?safe=1', ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('ownReactions', $content);
+        $this->assertCount(1, $content['ownReactions']);
+        $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId(), ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEmpty($content);
+    }
+
+    public function testChangingChannelFunctionClearsRelatedReactions() {
+        $thermometer = $this->device->getChannels()[6];
+        $relay = $this->device->getChannels()[1];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId() . '?safe=1', ['functionId' => ChannelFunction::THERMOMETER]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('POST', "/api/channels/{$thermometer->getId()}/reactions", [
+            'subjectId' => $relay->getId(),
+            'subjectType' => ActionableSubjectType::CHANNEL,
+            'actionId' => ChannelFunctionAction::OPEN,
+            'trigger' => ['on_change_to' => ['lt' => 20, 'name' => 'temperature', 'resume' => ['ge' => 20]]],
+        ]);
+        $this->assertStatusCode(201, $client->getResponse());
+        $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId() . '?safe=1', ['functionId' => ChannelFunction::POWERSWITCH]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('reactions', $content);
+        $this->assertCount(1, $content['reactions']);
+        $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId(), ['functionId' => ChannelFunction::POWERSWITCH]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEmpty($content);
     }
 }

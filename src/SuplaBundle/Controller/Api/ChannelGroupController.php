@@ -36,6 +36,7 @@ use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\Dependencies\ChannelGroupDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\ChannelGroupRepository;
+use SuplaBundle\Serialization\RequestFiller\ChannelGroupRequestFiller;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,7 +48,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   @OA\Property(property="caption", type="string", description="Caption"),
  *   @OA\Property(property="altIcon", type="integer", description="Chosen alternative icon idenifier. Should not be greater than the `function.maxAlternativeIconIndex`."),
  *   @OA\Property(property="hidden", type="boolean", description="Whether this channel group is shown on client apps or not"),
- *   @OA\Property(property="subjectType", type="string", enum={"channelGroup"}),
+ *   @OA\Property(property="ownSubjectType", type="string", enum={"channelGroup"}),
  *   @OA\Property(property="functionId", type="integer", example=60),
  *   @OA\Property(property="function", ref="#/components/schemas/ChannelFunction"),
  *   @OA\Property(property="locationId", type="integer"),
@@ -186,18 +187,14 @@ class ChannelGroupController extends RestController {
      * @Security("has_role('ROLE_CHANNELGROUPS_RW')")
      * @UnavailableInMaintenance
      */
-    public function postChannelGroupAction(IODeviceChannelGroup $channelGroup, Request $request) {
+    public function postChannelGroupAction(Request $request, ChannelGroupRequestFiller $channelGroupFiller) {
         $user = $this->getUser();
         Assertion::lessThan(
             $user->getChannelGroups()->count(),
             $user->getLimitChannelGroup(),
             'Channel group limit has been exceeded' // i18n
         );
-        Assertion::lessOrEqualThan(
-            $channelGroup->getChannels()->count(),
-            $user->getLimitChannelPerGroup(),
-            'Too many channels in this group' // i18n
-        );
+        $channelGroup = $channelGroupFiller->fillFromRequest($request);
         Assertion::notInArray(
             $channelGroup->getFunction()->getId(),
             [ChannelFunction::DIGIGLASS_VERTICAL, ChannelFunction::DIGIGLASS_HORIZONTAL],
@@ -232,20 +229,13 @@ class ChannelGroupController extends RestController {
      * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
      * @UnavailableInMaintenance
      */
-    public function putChannelGroupAction(IODeviceChannelGroup $channelGroup, IODeviceChannelGroup $updated, Request $request) {
-        $user = $this->getUser();
-        Assertion::lessOrEqualThan(
-            $updated->getChannels()->count(),
-            $user->getLimitChannelPerGroup(),
-            'Too many channels in this group' // i18n
-        );
-        $channelGroup = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup, $updated) {
-            $channelGroup->setCaption($updated->getCaption());
-            $channelGroup->setAltIcon($updated->getAltIcon());
-            $channelGroup->setUserIcon($updated->getUserIcon());
-            $channelGroup->setChannels($updated->getChannels());
-            $channelGroup->setHidden($updated->getHidden());
-            $channelGroup->setLocation($updated->getLocation());
+    public function putChannelGroupAction(
+        IODeviceChannelGroup $channelGroup,
+        ChannelGroupRequestFiller $channelGroupFiller,
+        Request $request
+    ) {
+        $channelGroup = $channelGroupFiller->fillFromRequest($request, $channelGroup);
+        $channelGroup = $this->transactional(function (EntityManagerInterface $em) use ($channelGroup) {
             $em->persist($channelGroup);
             return $channelGroup;
         });

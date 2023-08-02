@@ -26,9 +26,11 @@ class SceneOperationSerializer extends AbstractSerializer {
      */
     protected function addExtraFields(array &$normalized, $sceneOperation, array $context) {
         unset($normalized['id']);
-        $normalized['subjectType'] = $sceneOperation->getSubjectType()->getValue();
-        $normalized['subjectId'] = $sceneOperation->getSubject()->getId();
-        $normalized['actionId'] = $sceneOperation->getAction()->getId();
+        if ($sceneOperation->hasSubject()) {
+            $normalized['subjectType'] = $sceneOperation->getSubjectType()->getValue();
+            $normalized['subjectId'] = $sceneOperation->getSubject()->getId();
+            $normalized['actionId'] = $sceneOperation->getAction()->getId();
+        }
         $normalized['owningSceneId'] = $sceneOperation->getOwningScene()->getId();
     }
 

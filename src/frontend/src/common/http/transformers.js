@@ -114,7 +114,7 @@ export function scheduleTransformer(request, next) {
             const toSend = Vue.util.extend({}, request.body);
             if (toSend.subject) {
                 toSend.subjectId = toSend.subject.id;
-                toSend.subjectType = toSend.subject.subjectType;
+                toSend.subjectType = toSend.subject.ownSubjectType;
                 delete toSend.subject;
             }
             if (toSend.action) {

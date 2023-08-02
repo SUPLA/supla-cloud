@@ -35,14 +35,14 @@
                         label: 'Disable local function', // i18n
                         description: 'Disables local device function and does nothing more.', // i18n
                         icon: 'power',
-                        subjectType: ActionableSubjectType.OTHER,
+                        ownSubjectType: ActionableSubjectType.OTHER,
                     },
                     {
                         id: ChannelFunctionAction.AT_FORWARD_OUTSIDE,
                         label: 'Publish to integrations', // i18n
                         description: 'Publishes the event to integrated services like MQTT or webhooks.', // i18n
                         icon: 'speaker',
-                        subjectType: ActionableSubjectType.OTHER,
+                        ownSubjectType: ActionableSubjectType.OTHER,
                     },
                 ],
                 chosenAction: undefined,

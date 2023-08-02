@@ -30,13 +30,17 @@ Access to all of your devices through MQTT Broker: الوصول إلى جميع 
 Account: الحساب
 Account access when you are unavailable: الوصول إلى حسابك عندما تكون غير متاح
 Account has been activated. You can Sign In now.: تم تفعيل الحساب. يمكنك تسجيل الدخول
+Action confirmation: تأكيد الإجراء
 Action execution: أداء الاجراء
 Action trigger: مشغل الإجراء
 'Action trigger no. #{index}': 'مشغل #{index}'
 Action triggers: مشغلات الإجراء
 Actions: الاجراءات
 Active: نشطة
+Active applications: التطبيقات النشطة
 Active period: فترة النشاط
+Active sessions: الجلسات النشطة
+Active web sessions: الجلسات النشطة (web)
 Add: إضافة
 Add a delay: إضافة تأخير
 Add a new icon: أضف أيقونة جديدة
@@ -44,7 +48,6 @@ Add action: إضافة إجراء
 Add first channel to set channel group function and save it: حدد القناة الأولى لتحديد وظيفة المجموعة وحفظها
 Add new channel group: إضافة مجموعة قنوات جديدة
 Add new channel to this group: أضف قناة جديدة إلى المجموعة
-Add new item to use in the scene: إضافة عنصر جديد إلى المشهد
 Adjust parameters: ضبط المعلمات
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: ستتلقى جميع القنوات ومجموعات القنوات التي تستخدم هذا الرمز الرموز الافتراضية عند إزالتها.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: بعد منح حق الوصول، يمكنك دائمًا تغيير رأيك عن طريق إلغاء الوصول في إعدادات حسابك.
@@ -52,7 +55,10 @@ After the device enters the configuration mode, it will not be accessible on you
 After the update, the application will be faster, more comfortable, more powerful... Just better!: بعد التحديث، سيكون التطبيق أسرع وأكثر ملاءمة ... ببساطة أفضل!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: سيبدأ العداد العد من 0 بعد هذه العملية، بغض النظر عن حالته الحالية. لا يمكن التراجع عن هذه العملية.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: سيتم إنشاء الرابط مباشرة بعد اختيار الكيان. يمكنك إدخال جميع الخيارات الأخرى بمجرد إنشائها.
+Aggregation: التّجميع
 All: الكل
+All events: كل الأحداث
+All logs has been downloaded. Reload the chart to see them.: تم جمع كل بيانات القياس. أعد تحميل الرسم البياني لرؤيتها.
 All the above and many more can be done from your phone or tablet: كل هذا وأكثر يمكنك القيام به عبر الهاتف الذكي أو الكمبيوتر اللوحي
 Allowed actions: الإجراءات المسموح بها
 Allows to perform an action only using the HTTP PATCH request.: يتيح لك تنفيذ الإجراءات فقط باستخدام طلب HTTP PATCH.
@@ -60,12 +66,15 @@ Alternatively, you can add a GET parameter to specify response format.: يمكن
 And more: وأكثر من ذلك بكثير
 Any application or device that uses the {tokenName} token will not work anymore.: ستتوقف جميع التطبيقات أو الأجهزة التي تستخدم الرمز المميز {tokenName} عن العمل.
 'App version: %clientAppSoftwareVersion%': 'إصدار التطبيق: %clientAppSoftwareVersion%'
+Application: التطبيق
 Application name cannot be blank.: لا يمكن أن يكون اسم التطبيق فارغًا
 Application requirements: متطلبات التطبيق
 Applications: تطبيقات
+Applications with access: التطبيق مع إمكانية الوصول
 Are you lost?: هل ضعت؟ هل تبحث عن شيء ما؟
 Are you sure you want to change channel’s function?: هل أنت متأكد من أنك تريد تغيير وظيفة القناة؟
 Are you sure you want to delete the entire measurement history saved for this channel?: هل تريد بالتأكيد حذف جميع تواريخ القياس المتراكمة لهذه القناة؟
+Are you sure you want to delete the events from the voltage aberrations history?: هل أنت متأكد أنك تريد حذف جميع الأحداث من سجل انحراف الجهد؟
 Are you sure you want to delete this OAuth application?: هل تريد بالتأكيد حذف تطبيق OAuth هذا؟
 Are you sure you want to delete this channel group?: هل تريد بالتأكيد حذف مجموعة القنوات هذه؟
 Are you sure you want to delete this client?: هل أنت متأكد أنك تريد حذف تطبيق العميل هذا؟
@@ -73,10 +82,12 @@ Are you sure you want to delete this direct link?: هل أنت متأكد من �
 Are you sure you want to delete this icon?: هل أنت متأكد أنك تريد حذف هذا الرمز؟
 Are you sure you want to delete this scene?: هل أنت متأكد من أنك تريد حذف هذا المشهد؟
 Are you sure you want to delete this schedule?: هل أنت متأكد أنك تريد حذف هذا الجدول؟
+Are you sure you want to log out this device?: هل أنت متأكد أنك تريد تسجيل الخروج من هذا الجهاز ؟
 Are you sure you want to reset the counter state?: هل أنت متأكد من أنك تريد تصفير العداد؟
 Are you sure you want to revoke permissions granted to this OAuth application?: هل أنت متأكد من أنك تريد إلغاء الأذونات الممنوحة لتطبيق OAuth؟
 Are you sure you want to revoke this token?: هل أنت متأكد من أنك تريد إلغاء الرمز المميز؟
 Are you sure?: هل انت متأكد؟
+Arithmetic balance: الرصيد الحسابي
 As in device: كما هو الحال في الجهاز
 Assign Access Identifiers: تعيين معرفات الوصول
 Assign Client apps: تعيين تطبيقات العميل
@@ -90,10 +101,11 @@ At specified time: للساعة المحددة
 At sunrise: عند شروق الشمس
 At sunrise, Monday through Friday: عند شروق الشمس، من الاثنين إلى الجمعة
 At sunset: عند غروب الشمس
+Authentication failure: خطأ في تسجيل الدخول
+Authentication successful: تم تسجيل الدخول بنجاح
 Authorization callback URLs (one per line): عناوين  URLالمرتجعة للاعتماد (واحد لكل سطر)
 Authorize the application, so that it can access your account.: قم باعتماد التطبيق حتى يتمكن من الوصول إلى حسابك.
 Authorized: تم الاعتماد
-Authorized OAuth apps: تطبيقات OAuth المعتمدة
 Automatic calibration: المعايرة التلقائية
 Automatic closing rule: إغلاق تلقائي للبوابة
 Automation: الأتمتة
@@ -107,9 +119,10 @@ Below threshold: تحت العتبة
 Bottom position: الموضع السفلي
 Bridge: جسر
 Brightness: السطوع
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: تعطيل هذا الخيار يتيح التحكم في هذا الجهاز من مستوى التكامل دون تأكيد إضافي. قد يؤدي ذلك إلى حالة خطرة أو أقل أمانًا (على سبيل المثال فتح البوابة عن طريق الخطأ).
+By signing in, you are authorizing {clientName} to control your devices.: من خلال تسجيل الدخول، فإنك تفوض التطبيق {clientName} للتحكم في أجهزتك.
 CLICK TO DISABLE: أنقر لإيقاف التشغيل
 CLICK TO ENABLE: أنقر للتشغيل
-Calculated value: حالة العداد
 Calibrate: معايرة
 Calibration: المعايرة
 Calibration successful.: تمت معايرة ناجحة
@@ -129,9 +142,11 @@ Change Password: تغيير كلمة المرور
 Change channel function: تغيير وظيفة القناة
 Change function: تغيير الوظيفة
 Change icon: تغيير الأيقونة
+Change the password and log out: قم بتغيير كلمة المرور وتسجيل الخروج
 Changing channel’s function will also result in the following changes.: سيؤدي تغيير وظيفة القناة أيضًا إلى حدوث التغييرات التالية.
 Channel: القناة
 Channel No: رقم القناة
+Channel available for {serviceName}: القناة متاحة لـ {serviceName}
 Channel for the partial opening sensor: قناة لمستشعر الفتح غير المباشر
 Channel for the sensor: مستشعر القناة
 Channel group: مجموعة القنوات
@@ -148,6 +163,7 @@ Channel with action triggers: قناة مع مشغلات الإجراء
 Channels: القنوات
 Channels groups are not supported for this function.: لا تدعم هذه الوظيفة مجموعات القنوات.
 Chart data source type: نوع مصدر البيانات
+Chart mode: نوع الرسم البياني
 Chart type: نوع الرسم البياني
 Check the direct link you used and try again.: تحقق من الرابط المباشر الذي تم الاتصال به وحاول مرة أخرى.
 Check your email box: تحقق من صندوق بريدك الإلكتروني
@@ -170,8 +186,10 @@ Close: إغلاق
 Close after: إغلاق بعد
 Close automatically: إغلاق تلقائي
 Close partially: إغلاق جزئي
+Colon: فاصلة منقوطة
 Color: اللون
 Color brightness: سطوع اللون
+Comma: فاصلة
 Comment: تعليق
 Config of the schedule is too complicated.: إن ترتيب الجدول الزمني أكثر تعقيدا من اللازم.
 Configuration: الترتيب
@@ -181,6 +199,7 @@ Confirm if you want to perform the roller shutter calibration.: تأكيد إت�
 Confirm if you want to remove Access Identifier: تأكد من أنك تريد إزالة معرف الوصول
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: تأكد أنك تريد إزالة معرف الموقع {locationId}. لا يمكن لأي أجهزة إدخال / إخراج أخرى الاتصال بهذا الموقع.
 Confirm if you want to remove {deviceName} device and all of its channels.: قم بالتأكيد بأنك تريد حذف {deviceName} وجميع قنواته.
+Confirmation: تأكيد
 Connected: متصل
 Connection with a private instance of the SUPLA cloud: اتصال بمثيل سحابةSUPLA الخاص.
 Constraints: القيود
@@ -189,6 +208,8 @@ Could not contact Autodiscover service. Try again in a while.: تعذر الات
 Could not enter the configuration mode.: فشل في تحويل الجهاز إلى وضع الترتيب.
 Could not reset the password.: فشل إعادة تعيين كلمة المرور.
 Could not reset the password. Please try again later.: غير قادر على إعادة تعيين كلمة المرور. يرجى المحاولة مرة أخرى في لحظة.
+Counter: عداد
+Counter reset: إعادة تعيين العداد
 Create New Access Identifier: إنشاء معرف وصول جديد
 Create New Location: إنشاء موقع جديد
 Create New Schedule: إنشاء جدول جديد
@@ -205,7 +226,9 @@ DHT11 Temperature & Humidity Sensor: مستشعر درجة الحرارة وال
 DHT21 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة  DHT21
 DHT22 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة  DHT22
 DS18B20 Thermometer: ميزان الحرارة DS18B20
+Data limits: حدود البيانات
 Data saved: تم حفظ البيانات
+Date and time: التاريخ و الوقت
 Decline: رفض
 Default: افتراضيا
 Delete: حذف
@@ -252,15 +275,18 @@ Door lock operation: فتح الباب
 Door opening sensor: مستشعر فتح الباب
 Doors and gates: الأبواب والبوابات
 Doors, Gates, Windows: أبواب، بوابات، نوافذ
+Download measurements history: تنزيل سجل القياسات
 Download the history of measurement: تحميل تاريخ القياسات
 Drag your image(s) here or click to select from the disk: اسحب الصورة هنا أو انقر للتحديد من القرص
 E-mail notifications: إشعارات البريد الإلكتروني
 Edit: تحرير
 Electric: الكهرباء
 Electricity meter: عداد الكهرباء
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: لم يبلغ عداد الكهرباء عن إمكانية معايرة القيم المضافة. يرجى تحديث البرنامج الثابت لجهازك والمحاولة مرة أخرى.
 Empty!: فارغ!
 Enable: تشغيل
 Enabled: مفعل
+Enabled phases: الأطوار النشطة
 End date: تاريخ الانتهاء
 Enter new password: أدخل كلمة مرور جديدة
 Enter strong password: أدخل كلمة مرور قوية
@@ -284,9 +310,11 @@ Execution history: تاريخ الاجراء
 Execution limit: حد الاجراء
 Executions: الاجراءات
 Expired: منتهي الصلاحية
+Expires at: تنتهي
 Failed: غير ناجح
 Failed (zombie): فشل (زومبي)
 Feature limits: حدود الوظائف
+File format: صيغة الملف
 File is too large: الملف كبير جدًا
 Flooding: إغراق
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: أثناء التحديث، يوصى باستخدام العنوان {suplaUrl}.
@@ -294,10 +322,11 @@ For devices: للأجهزة
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: لأسباب أمنية، لن يتم عرض عنوان URL الكامل لهذا الرابط المباشر إلا مرة واحدة أثناء إنشائه.
 Forgot your password?: هل نسيت كلمة المرور؟
 Forward active energy: الطاقة النشطة المستهلكة
+Forward active energy balance: رصيد استهلاك الطاقة النشطة
 Forward active energy balanced: الطاقة النشطة المأخوذة (التوازن المتجه)
 Forward reactive energy: الطاقة التفاعلية المأخوذة
 Fridays: الجمعة
-From IP: من عنوان  IP
+From: منذ
 From anywhere: من أي مكان
 Full closing time: إجمالي وقت الإغلاق
 Full documentation: الوثائق الكاملة
@@ -340,10 +369,12 @@ I agree: انا موافق
 I aree, taske me to the app: أوافق، انتقل إلى التطبيق
 I confirm! Delete my account.: أؤكد! قم بحذف حسابي.
 I do not agree, get me out of here: أنا لا أوافق، أخرجني من هنا
+I understand that my SUPLA account will be permanently deleted.: إني فهمت أنه سيتم حذف حساب SUPLA الخاص بي نهائيًا.
 I/O Devices: أجهزة الإدخال / الإخراج
 I/O devices registration: تسجيل الأجهزة
 ID: المعرف
 INACTIVE: غير مفعلة
+IP Address: عنوان الـ IP
 Icon: الأيقونة
 Idle: خامل
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: إذا كان الجهاز في وضع السكون حاليًا، فستسري تغييرات الإعدادات بعد تشغيله.
@@ -374,12 +405,14 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: غير نشط
 Include energy corrections in new measurements history (not recommended): تضمين قيمة مضافة في السجل (غير مستحسن)
 Incorrect password: كلمة المرور غير صحيحة
+Incremental: تصاعدي
 Information: المعلومات
 Inherit I/O Device location: استخدام موقع الجهاز
 Initial value: القيمة الأولية
 Integration with MQTT Broker has been disabled.: تم تعطيل التكامل مع وسيط MQTT.
 Integration with MQTT Broker has been enabled.: تم تمكين التكامل مع وسيط MQTT.
 Integrations: التكامل
+Integrations settings: إعدادات التكامل
 Interpolate measurements: تقدير القيم الناقصة
 Interrupt: إيقاف تشغيل
 Interrupt and execute: قم بالمقاطعة والتنفيذ
@@ -391,6 +424,7 @@ Invalid function for channel.: وظيفة غير صحيحة للقناة.
 Invalid request: الطلب غير صالح
 Invalid request.: طلب غير صالح.
 Invalid token.: رمز مميز غير صالح.
+Invalid username or password: كلمة السر أو اسم المستخدم غير صالح
 Inverted logic: منطق معكوس
 Invisible: مخفية
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: من الممكن أن يقوم مستخدم آخر بإدخال عنوان بريدك الإلكتروني عن طريق الخطأ لإعادة تعيين كلمة مرور حسابك.
@@ -412,7 +446,9 @@ Location Identifier: معرف الموقع
 Location limit has been exceeded: تم تجاوز حد الموقع
 Location name: اسم الموقع
 Locations: المواقع
+Log out: تسجيل الخروج
 Login: تسجيل الدخول
+Logs transformation: تحويل القيمة
 Longest aberration: أطول انحراف
 Lower voltage threshold: عتبة الجهد المنخفض
 MQTT Broker: وسيط MQTT
@@ -470,6 +506,7 @@ No of devices: عدد الأجهزة
 No of operations: عدد العمليات
 No results match {0}: لا توجد نتائج مطابقة مع {0}
 No schedule configuration.: لم يتم تحديد تكوين الجدول الزمني.
+No, take me back!: لا، أخرجني من هنا!
 No. of Client’s apps: عدد طلبات العميل
 No. of access identifiers: عدد معرفات الوصول
 No. of channel groups: عدد مجموعات القنوات
@@ -478,6 +515,7 @@ No. of devices: عدد الاجهزة
 No. of locations: عدد المواقع
 None: لا يوجد
 None (channel disabled): لا يوجد (إيقاف تشغيل القناة)
+Noop: عدم وجود إجراء
 Number of aberrations: عدد الانحرافات
 Number of attempts to close: عدد محاولات الإغلاق
 Number of attempts to open: عدد محاولات الفتح
@@ -486,6 +524,7 @@ OAuth application: تطبيق  OAuth
 OAuth apps: تطبيقات OAuth
 OAuth authorization: إذن  OAuth
 OAuth integrations might stop working after the instance is unregistered.: قد تتوقف عمليات التكامل مع تطبيقات OAuth عن العمل بعد إلغاء تسجيل المثيل الخاص بك.
+OK: موافق
 'Off': إيقاف التشغيل
 Offline access: الوصول دون اتصال
 Older: أقدم
@@ -496,16 +535,22 @@ Open: فتح
 Open / close: فتح / إغلاق
 Open partially: فتح جزئيا
 Opening sensor: مستشعر الفتح
+Operation: إجراء
 Operations: العمليات
 Original location: الموقع الأصلي
 Other: غيرها
 Otherwise go to the homepage.: خلاف ذلك، انتقل إلى [الصفحة الرئيسية].
+PIN: رقم التعريف الشخصي PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: يجب ألا يقل رقم التعريف الشخصي (PIN) في Google عن {minLength} رقما، ولا يزيد على {maxLength} رقما.
 Partial opening sensor: مستشعر الفتح غير المباشر
 Password: كلمة المرور
 Password Reset: إعادة تعيين كلمة المرور
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: سيؤدي تغيير كلمة المرور إلى تسجيل الخروج من جميع الجلسات الحالية. ومع ذلك، لن يؤثر ذلك على التطبيقات المرخصة منك. يجب عليك سحب أذونات تسجيل الدخول إلى التطبيق بشكل منفصل.
+Password changed: تم تغيير كلمة المرور
 Password has been changed: تم تغيير كلمة المرور
 Password must be at least {minLength} characters.: يجب أن تتكون كلمة المرور من أحرف {minLength} على الأقل.
 Password must be no longer than {maxLength} characters.: لا يمكن أن تكون كلمة المرور أطول من {maxLength} أحرف.
+Password reset: إعادة تعيين كلمة المرور
 Password reset instructions.: تعليمات لاستعادة الوصول إلى حسابك.
 Percentage of closing: النسبة المئوية للإغلاق
 Personal access tokens: رموز الوصول الشخصية
@@ -515,6 +560,7 @@ Phase 1: المرحلة 1
 Phase 2: المرحلة 2
 Phase 3: المرحلة 3
 Phase number: طور
+Phase {phaseNumber}: الطور {phaseNumber}
 Please choose the schedule subject first.: أولا، اختر ما تريد أن يتحكم فيه الجدول الزمني
 Please click the following link to reset your %cloudHost% password.: انقر على الرابط أدناه لإعادة تعيين كلمة المرور لـ %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: انقر على الرابط بالرسالة التي أرسلناها إليك بعد إنشاء الحساب.
@@ -527,8 +573,8 @@ Please read the Terms and Conditions.: اقرأ اللوائح.
 Please wait a moment before the next login attempt.: انتظر لحظة قبل محاولة تسجيل الدخول التالية.
 Port: منفذ
 Precision: دقة
+Predefined time ranges: النطاقات الزمنية
 Pressure sensor: مستشعر الضغط
-Previous login: تسجيل الدخول السابق
 Price per: السعر مقابل
 Private Cloud domain name: اسم المجال السحابي الخاص
 Private instance of the SUPLA cloud with given URL is already registered.: سحابة SUPLA خاصة مسجلة بالفعل في هذا العنوان.
@@ -556,6 +602,7 @@ Registered: مسجل
 'Registered from IP address: %deviceRegIp%': 'عنوان IP: %deviceRegIp%'
 Relay: المرحل
 Relay switching time: وقت تبديل المرحل
+Reload the chart: إعادة تحميل الرسم البياني
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'قبل أن تتمكن من حذف الموقع، يجب عليك أولاً نقل مجموعات القنوات الموجودة فيه. المعرفات: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': قبل أن تتمكن من حذف الموقع، يجب عليك أولاً نقل القنوات الموجودة فيه. المعرفات:{relatedIds}.
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'احذف الأجهزة المقترنة قبل حذف هذا الموقع. المعرفات: {relatedIds}'
@@ -568,6 +615,7 @@ Retry on failure: كرر عندما لا يتم الاجراء
 Reveal: الكشف
 Reveal partially: الكشف جزئيا
 Reverse active energy: الطاقة النشطة المرتجعة
+Reverse active energy balance: رصيد الطاقة النشطة المعادة
 Reverse active energy balanced: الطاقة النشطة المرتجعة (التوازن المتجه)
 Reverse reactive energy: الطاقة التفاعلية التفاعلية
 Revoke: إبطال
@@ -596,6 +644,7 @@ Save changes: حفظ التغييرات
 Save changes to see Access IDs: حفظ التغييرات لعرض معرفات الوصول
 Save or discard configuration changes first.: أولا، احفظ تغييرات التكوين أو تجاهلها.
 Scene: المشهد
+Scene available for {serviceName}: المشهد متاح لـ {serviceName}
 Scene must consist of at least one operation.: يجب أن يحتوي المشهد على عملية واحدة على الأقل
 Scenes: المشاهد
 Scenes limit has been exceeded: لا يمكنك إنشاء المزيد من المشاهد
@@ -608,12 +657,15 @@ Scopes: النطاقات
 Scopes define which sections of your account can be accessed when using the token.: تحدد النطاقات موارد الحساب التي يمكن الوصول إليها باستخدام رمز مميز.
 Search: بحث
 Secret: المفتاح السري
+Security: السلامة
+Security log: سجل السلامة
 See available integrations: اطلاع على عمليات الدمج المتاحة
 See direct link possibilities: أنظر إمكانيات الرابط المباشر
 See in SUPLA-Cloud: عرض في SUPLA-Cloud
 Seems like a secret place: هناك شيء يخبرنا أنه يجب ألا تكون هنا
 Select icon: اختر الأيقونة
 Select the item (subject) you want to control using this link: حدد العنصر (الكيان) الذي تريد التحكم به باستخدام هذا الرابط
+Selected device has been logged out.: تم تسجيل خروج الجهاز المعين
 Sensor (normal closed): مستشعر (مغلق عادة)
 Sensor (normal open): مستشعر (مفتوح بصورة طبيعية)
 Sensor disconnected: لا يوجد مستشعر
@@ -622,6 +674,7 @@ Server address: عنوان الخادم
 Server unreachable: لا يمكن الوصول للخادم
 Service temporarily unavailable: الخدمة غير متاحة مؤقتًا
 Set value added: تحديد القيمة المضافة
+Set values for each phase separately: قم بتعيين القيمة لكل طور على حدة
 Setting the number of attempts to 1 disables the retrying behavior completely.: قد يؤدي تحديد عدد المحاولات إلى أقل من 2 إلى عدم حدوث الإغلاق أو الفتح.
 Show my limits: إظهار الحدود الخاصة بي
 Show on the Client’s devices: اعرض على الأجهزة العميلة
@@ -650,10 +703,12 @@ Store measurements history: احتفاظ بتاريخ من القياسات
 Subject type: نوع الكيان
 Success: نجاح
 Successful: تم بناجح
+Summary for selected time range: ملخص للنطاق المعين
 Sundays: الأحد
 Switch the device to configuration mode: وضع الجهاز في وضع التكوين
 THIS CANNOT BE UNDONE!: لا يمكن الانسحاب من هذه العملية!
 TLS: TLS
+Tab: مفتاح الجدولة
 Target Cloud is not registered, or is registered with another e-mail address.: لم يتم تسجيل مثيل SUPLA Cloud هذا، أو تم تسجيله بعنوان بريد إلكتروني آخر.
 Temperature: درجة الحرارة
 Temperature & Humidity Sensor: مستشعر درجة الحرارة والرطوبة
@@ -672,6 +727,10 @@ The client will be automatically logged out when deleted.: ستؤدي إزالة
 The counter has been reset.: تم تصفير العداد.
 The device is disabled: الجهاز مغلق
 The device might be in a sleep mode.: يمكن للجهاز العمل في وضع السكون.
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: الجهاز الذي يستخدم هذه الجلسة سيفقد الوصول إلى سحابة SUPLA. ستحتاج إلى تسجيل الدخول مرة أخرى لمتابعة استخدام التطبيق.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: سيتم حذف سجل انحراف الجهد بالكامل للطور {phaseNumber}.
+The entire history of the voltage aberrations will be removed from this channel.: ستتم حذف سجل انحراف الجهد بالكامل لهذه القناة.
+The events in voltage aberrations history will be automatically deleted after {days} days.: سيتم حذف الأحداث في سجل انحراف الجهد تلقائيًا بعد {days} أيام.
 The following items use the channels of these device. These references will be also removed.: تستخدم العناصر التالية قنوات من هذا الجهاز. سيتم حذفها كذلك.
 'The following items will be deleted with this device:': سيتم أيضا حذف العناصر التالية مع هذا الجهاز.
 The gate sensor must function properly in order to execute the Open and Close actions.: يجب أن يعمل مستشعر فتح البوابة بشكل صحيح لتنفيذ إجراء "فتح" أو "إغلاق".
@@ -703,17 +762,21 @@ Thermometer: ميزان الحرارة
 Thermostat: منظم الحرارة
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: يتطلب هذا الرابط المباشر توضيح معلمات الإجراء الذي يتم تنفيذه. انظر الأمثلة أدناه لمعرفة المعلمات التي يمكنك تعيينها.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: استلمت هذه المعلومات بسبب محاولة فاشلة لتسجيل الدخول إلى SUPLA-CLOUD باستخدام عنوان بريدك الإلكتروني.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: هذه هي الخطوة الأخيرة في حذف حسابك. سيؤدي إكمال النموذج وتأكيده إلى حذف بياناتك بشكل لا رجعة فيه.
 This is the list of applications you have granted access to your account.: هذه هي قائمة التطبيقات التي منحت حق الوصول إلى حسابك.
 This link is only valid for an hour.: سوف يكون الرابط نشطًا لمدة ساعة واحدة.
+'This password will protect your home. Therefore, it must:': 'كلمة المرور هذه تحمي بيتك. لذلك:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: تم تصميم وضع الجدول الزمني هذا للمستخدمين التقنيين أو الصبورين للغاية. يتطلب تحديد لحظات تشغيل الجدول الزمني في تدوين crontab المخصب بالعديد من الوظائف الموجودة فقط في ASUPL. إذا لم تكن قد واجهت crontabs من قبل  وما زلت ترغب في استخدام هذا الوضع،  فقد يكون موقع crontab.guru مفيدا لك.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: يتم استخدام هذا المشغل محليا بواسطة الجهاز (على سبيل المثال، يقوم بتشغيل الضوء، والتحكم في الستارة، وما إلى ذلك) إذا قمت بتعيين إجراء مختلف له، فسيتم تعطيل الوظيفة المحلية.
 Thursdays: الخميس
 Timezone: المنطقة الزمنية
+To: إلى
 Toggle: تحويل
 Token does not exist: الرمز المميز غير موجود
 Too many actions in this schedule.: عدد الإجراءات في جدول زمني واحد أكبر من اللازم.
 Too many channels in this group: العديد من القنوات في هذه المجموعة
 Too many operations in this scene: عدد العمليات في المشهد أكبر من اللازم.
+Total: مجموع
 Total time: الوقت الكلي
 Triggers: مشغلات
 Tuesdays: الثلاثاء
@@ -723,6 +786,7 @@ Type: النوع
 Undo registration: سحب التسجيل
 Unit: الوحدة
 Unknown: غير معروف
+Unknown browser: متصفح غير معروف
 Unregister my private SUPLA Cloud instance: إلغاء تسجيل مثيل SUPLA Cloud الخاص بي
 Unsuccessful login attempt: فشل تسجيل الدخول
 Unsupported function: وظيفة غير مدعومة
@@ -733,10 +797,13 @@ Upper voltage threshold: عتبة الجهد العالي
 'Use the {0} server command to change this account''s limits. For example:': 'لتغيير حدود هذا الحساب، استخدم الأمر {0} على الخادم الخاص بك. على سبيل المثال:'
 Use working schedule for this access identifier: استخدام جدول توفر لمعرف الوصول هذا
 User is already confirmed. Try to log in.: تم تأكيد هذا الحساب بالفعل. قم بتسجيل الدخول
+Value: القيمة
 Value added: القيمة المضافة
 Value per unit: القيمة لكل وحدة
+Value separator: محدّد
 Valve: صمام
 Valve closed manually: صمام مغلق يدويا
+Vector balance: توازن المتجهات
 Verification method: طريقة التحقق
 Visible: مرئي
 Visit app webpage: افتح موقع التطبيق
@@ -747,6 +814,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: انتظر بعض الوقت قبل تقديم طلب آخر. يمكنك التحقق من الاستخدام الحالي لحدودك في إعدادات حسابك.
 Wait for this scene to finish before proceeding to the next step ({time}).: انتظر حتى ينتهي تنفيذ المشهد قبل متابعة الإجراء ({time}).
 Water meter: عداد المياه
+'We also strongly advise you to choose a password that:': 'بالإضافة إلى ذلك، نوصي بشدة باختيار كلمة المرور التي:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: سنرسل إليك إشعارات حول أحداث معينة تتعلق بحسابك. يمكنك إلغاء الاشتراك من تلك التي لا تحتاجها.
 We could not connect to your SUPLA Cloud instance.: لم نتمكن من الاتصال بمثيل SUPLA Cloud الخاص بك.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: لقد تلقينا تعليمات لحذف حسابك في SUPLA Cloud.
@@ -758,7 +826,9 @@ We should be ready shortly.: Powinniśmy niedługo skończyć.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: نقوم بتخزين معلومات حول تفضيلاتك في متصفحك لتسهيل استخدام التطبيق (مثل استخدام آلية ملفات تعريف الارتباط).
 We try to be faster: نحن نصبح أسرع
 We were not able to find your account.: لم نتمكن من العثور على حسابك.
+We were not able to prepare your data. Please see the error details below.: حدث خطأ أثناء إعداد البيانات. اطلع على التفاصيل أدناه.
 We will miss you: سنفتقدك
+We will miss you!: سوف نفتقدك!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: سنبذل قصارى جهدنا لإرسال الرموز المعروضة بأفضل طريقة، لكنك ستحصل على أفضل النتائج عن طريق إرسال ملفات PNG بخلفية شفافة وعرض {width} وارتفاع {height} بكسل.
 We will use it only in justified situations.: سوف نستخدمها فقط في الحالات المبررة.
 Weather Station: محطة الطقس
@@ -778,6 +848,7 @@ Working period: فترة التشغيل
 Working schedule: جدول زمني للأنشطة
 YOUR LINK CODE: رمز الارتباط الخاص بك
 You are changing the settings too quickly. You have to wait a while before making this change.: إنك تغير الإعدادات بسرعة زائدة. عليك الانتظار بعض الوقت قبل تغيير هذه الإعدادات.
+You can browse only the most recent logs now. Wait a while for the full history.: في الوقت الحالي، يتم عرض أحدث القياسات فقط. انتظر دقيقة لتنزيل السجل بأكمله.
 You can ignore this message, if you have accidentally entered an incorrect password.: يمكنك تجاهل هذه المعلومات إذا أدخلت كلمة مرور خاطئة.
 You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
 You cannot delete your last access identifier.: لا يمكنك حذف معرف الوصول الأخير.
@@ -790,6 +861,7 @@ You just need to execute the following command inside your host terminal.: فق�
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: إذا كنت لا تزال ترغب في الاستفادة من وضع الجدول الزمني المتقدم، فألق نظرة على الأمثلة أدناه.
 You must agree to the Terms and Conditions.: قبول اللوائح مطلوب.
 You must enable MQTT Broker first.: يجب عليك أولا تمكين التكامل مع وسيط MQTT.
+You must leave at least one phase enabled.: يجب أن يظل طور واحد على الأقل نشطا.
 You must set an action for each scene operation.: حدد إجراءً لكل عملية في المشهد.
 You must set sections with transparent or opaque parameters or both.: يجب عليك تحديد شفافية قسم واحد على الأقل.
 You need to provide icons for all states.: يجب عليك توفير الرموز لجميع الحالات.
@@ -800,7 +872,11 @@ Your account has been deleted. We hope you will come back to us soon.: تم حذ
 Your account has been locked.: تم حظر حسابك.
 Your account has not been confirmed yet.: لم يتم تأكيد حسابك بعد.
 Your account limits: حدودك
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: لا يدعم متصفحك آلية قاعدة بيانات العميل (IndexedDB). هذه الوظيفة مطلوبة لعرض الرسومات البيانية ودعم إعدادات تصدير البيانات المتقدمة. قم بتحديث المتصفح الخاص بك أو الخروج من وضع التصفح المتخفي للاستفادة من هذه الوظيفة.
 Your channel groups are allowed to have a maximum of {max} channels.: يُسمح أن تحتوي مجموعات قنواتك على ما يصل إلى{max}  قنوات.
+Your chart is being drawn...: جاري إعداد الرسم البياني الخاص بك...
+Your data are being collected. Please be patient.: نجمع البيانات الخاصة بك، يرجى الصبر.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: يتم استرداد البيانات الخاصة بك من الخادم. يرجى الانتظار حتى تكتمل عملية التنزيل قبل التصدير.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: يتيح الجهاز توسيع وظائفه ويمكن من تنفيذ أي إجراء على أي جهاز تملكه. تعتمد الخيارات المتاحة لك على البرامج الثابتة والجهاز الذي تستخدمه.
 Your email: بريدك الالكتروني
 Your instance is not registered or you are trying to authorize an application that is not public.: المثيل الخاص بك غير مسجل أو تحاول تفويض تطبيق غير عام.
@@ -836,11 +912,15 @@ actionTrigger_TURN_ON: بدء التشغيل
 actionableSubjectType_channel: القناة
 actionableSubjectType_channelGroup: مجموعة القنوات
 actionableSubjectType_scene: المشهد
+actionableSubjectType_schedule: الجدول الزمني
 addToHistoryMeasurementWarningSelected: يؤدي تعيين هذا الخيار إلى إضافة القيم المحددة إلى القياسات المستقبلية المحفوظة في السجل. قد يظهر هذا على الرسوم البيانية كزيادة مفاجئة بالقيمة التي أدخلتها. نوصي بتعيين هذه المعلمات فقط أثناء التثبيت الأول للعداد. بالنسبة إلى العدادات الموجودة، نوصي بحذف سجل القياسات بمجرد تغيير هذه الإعدادات.
 addToHistoryMeasurementWarningUnselected: سيؤدي إلغاء تعيين هذا الخيار إلى حذف القيم المحددة من القياسات المستقبلية التي يتم حفظها في السجل. قد يظهر ذلك على الرسوم البيانية على أنه انخفاض مفاجئ. نوصي بتعيين هذه المعلمات فقط أثناء التثبيت الأول للعداد. بالنسبة إلى العدادات الموجودة، نوصي بحذف سجل القياسات بمجرد تغيير هذه الإعدادات.
 after: بعد
+average: المتوسط
+be at least {numChars} characters long: يجب أن يكون {numChars} حرفًا (أحرف) على الأقل
 before: قبل
 caption: اسم
+change: قم بتغيير
 channel: القناة
 channelConfigHelp_gateCloseAfterHelp: يمكن أن يتأخر العميل الذي يبدأ عملية إغلاق البوابة لمدة تصل إلى دقيقة واحدة من الوقت المحدد.
 channelConfigHelp_numberOfAttemptsGate: بعد فتحك للبوابة أو إغلاقها، سيحاول النظام إغلاق / فتح البوابة والانتظار لمدة 60 ثانية للتحقق مما إذا كانت البوابة قد وصلت إلى الحالة المطلوبة. إذا لم يكن الأمر كذلك، فسيحاول النظام الإغلاق / الفتح مرة أخرى. تحدد هذه المعلمة الحد الأقصى لعدد المحاولات التي يقوم بها النظام لتحقيق الهدف. القيمة الموصى بها هي 5. لا يؤثر تغيير هذه المعلمة على تشغيل الجداول الزمنية.
@@ -854,8 +934,12 @@ choose the action: تحديد إجراء
 choose the channel: اختر القناة
 choose the channel group: اختر مجموعة القنوات
 choose the scene: تحديد مشهد
+choose the schedule: قم بتحديد الجدول الزمني
 choose the timezone: حدد المنطقة الزمنية
 click here: انقر هنا
+contains a character that is neither a letter nor a digit: تحتوي على حرف ليس رقما
+contains a digit: تحتوي على رقم
+contains lower and upper letters: تحتوي على أحرف صغيرة وكبيرة
 copied: تم النسخ
 copy: نسخ
 days: أيام
@@ -880,11 +964,21 @@ extend: تمديد
 from IP: من عنوان IP
 from the IP: من العنوان
 hours: ساعات
+is at least {numChars} characters long: تحتوي على {numChars} حرفًا (أحرف) على الأقل
+last 24 hours: آخر 24 ساعة
+last 30 days: آخر 30 يومًا
+last 6 hours: آخر 6 ساعات
+last 7 days: آخر 7 أيام
+logs_aggregation_day: أيّام
+logs_aggregation_hour: ساعات
+logs_aggregation_minute: دقائق
+logs_aggregation_month: شهرا
 min.: دقيقة
 minutes: دقائق
-or add a delay: أو إضافة تأخير
 password: كلمة المرور
 prefix: المزيد المقدم
+previous month: الشهر الماضي
+range: النطاق
 register-slide1-text: استنادًا إلى الأجهزة الإلكترونية المتاحة، سوف تسمح لك SUPLA ببناء وحدات بسيطة تسمح لك بالتحكم في مكونات التشغيل الآلي للبناء والتحكم فيها. بفضل SUPLI ، يمكنك من بين أمور أخرى، التحكم في الإضاءة، وتشغيل وإيقاف الأجهزة المنزلية والإلكترونيات، فتح وإغلاق البوابات والأبواب، أو التحكم في درجة الحرارة في الغرف. يمكنك القيام بكل هذا بضغطة واحدة من إصبعك.
 register-slide1-title: بناء ذكي الخاصة
 register-slide2-text: واحدة من الافتراضات الأساسية للمشروع هي البساطة والتوافر. يتيح لك SUPLA تشغيل الضوء بضغطة واحدة من إصبعك أو فتح بوابة المدخل عندما تريد الدخول إلى العقار. SUPLA متاح أينما كان لديك وصول إلى الإنترنت ولديك هاتف ذكي أو جهاز لوحي في متناول اليد. تم تطوير SUPLA وفقًا لمبادئ البرامج المفتوحة والأجهزة المفتوحة، وبفضل ذلك يمكنك أيضًا تطوير هذا المشروع!
@@ -893,6 +987,7 @@ register-slide3-text: نظم أتمتة البناء المتاحة في الس�
 register-slide3-title: مجانية ومفتوحة!
 reset chart view: عودة إلى طريقة العرض الأولية
 scene: مشهد
+schedule: الجدول الزمني
 scheduleMode_crontab: متقدم
 scheduleMode_daily: الدورة اليومية
 scheduleMode_minutely: دورة بالدقيقة
@@ -920,8 +1015,16 @@ sunrise-after: شرق
 sunrise-before: شرق
 sunset-after: غرب
 sunset-before: غرب
+the whole history: السجل الكامل
+this month: الشهر الحالي
+this year: السنة الحالية
+today: اليوم
+unknown: غير معروف
 username: اسم المستخدم
 valid until: ينتهي
+values as seen on chart: القيم كما في الرسم البياني
+values as seen on counter: القيم كما على العداد
+yesterday: أمس
 '{applicationName} will not be able to interact with your account until you grant the access again.': لا يمكن {applicationName} التفاعل مع حسابك حتى تمنح حق الوصول مرة أخرى.
 '{clientName} wants to access your account.': يريد {clientName} الوصول إلى حسابك.
 '{minutes} minutes after sunrise': '{minutes} دقيقة بعد شروق الشمس'
@@ -932,6 +1035,7 @@ valid until: ينتهي
 '{requests} out of {limit} / h': '{requests} مع {limit} / ساعة'
 '{requests} out of {limit} / min': '{requests} مع {limit} / دقيقة'
 '{requests} out of {limit} / {seconds} sec.': '{requests} من {limit} / {seconds} ثانية.'
+'{serviceName} integration': التكامل مع {serviceName}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -940,9 +1044,12 @@ valid until: ينتهي
 Access identifier password must be at least 8 characters.: يجب أن تتكون كلمة المرور الخاصة بمعرف الوصول من 8 أحرف على الأقل.
 Access identifier password must be no longer than 32 characters.: لا يمكن أن تكون كلمة المرور الخاصة بمعرف الوصول أطول من 32 حرفًا.
 Action: الاجراء
+Add new item to use in the scene: إضافة عنصر جديد إلى المشهد
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: هل أنت متأكد أنك تريد حذف كل تاريخ انحراف الجهد لهذه القناة؟
 Are you sure you want to disable this device?: هل أنت متأكد من أنك تريد إيقاف تشغيل هذا الجهاز؟
 Assigned Locations: المواقع المخصصة
+Authorized OAuth apps: تطبيقات OAuth المعتمدة
+Calculated value: حالة العداد
 Cannot send an activation e-mail. Try again later.: غير قادر على إرسال رسالة مع رابط التفعيل. يرجى المحاولة مرة أخرى لاحقًا.
 Channel will be deleted from the channel group below: ستتم إزالة القناة من مجموعات القنوات التالية
 Chosen hour: الوقت المحدد
@@ -956,6 +1063,7 @@ Doors, Gates: الأبواب ، البوابات
 ENABLED: مفعلة
 Email already exists: البريد الإلكتروني موجود بالفعل
 Existing schedules: الجداول الزمنية الحالية
+From IP: من عنوان  IP
 Get SUPLA on your devices: قم بتنزيل SUPLA للأجهزة الخاصة بك
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: الرسالة مع رابط تفعيل حسابك لم تصل؟ تأكد من أنه غير موجود في مجلد الرسائل غير المطلوبة (البريد العشوائي). يمكنك أيضًا النقر [هنا] لإرسالها مرة أخرى.
 Hi: مرحبا
@@ -974,6 +1082,7 @@ Next: التالي
 Number: رقم
 Output: خروج
 Please select the schedules that should also be enabled.: حدد الجداول التي ينبغي أن تدرج أيضا.
+Previous login: تسجيل الدخول السابق
 Registration: تسجيل
 Registration of new I/O devices: تسجيل الجهاز
 Registration of new clients: تسجيل العملاء
@@ -992,35 +1101,157 @@ When: عندما
 You will be logged out shortly: سيتم تسجيل خروجك بعد لحظة
 execute: تنفيذ
 hourly: دورة ساعية
+or add a delay: أو إضافة تأخير
 will expire: يبطل مفعولها
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-All events: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Channel available for {serviceName}: ~
-Confirmation: ~
-Data limits: ~
-Enabled phases: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-Integrations settings: ~
-Invalid username or password: ~
-No, take me back!: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Phase {phaseNumber}: ~
-Scene available for {serviceName}: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-We will miss you!: ~
-You must leave at least one phase enabled.: ~
-change: ~
-'{serviceName} integration': ~
+'% of closing': ~
+Add a new action to the scene: ~
+Are you sure you want to delete this reaction?: ~
+Body: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
+Create new reaction: ~
+Current: ~
+Edit reaction: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
+Invalid scene: ~
+Missing action.: ~
+New reaction: ~
+Notification: ~
+Notification must have a body.: ~
+Notifications: ~
+Phase: ~
+Please fix the problems with operations and try again.: ~
+Please select a condition: ~
+Please select an action: ~
+Power active: ~
+Power apparent: ~
+Power reactive: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Recipients: ~
+Send a notification: ~
+Send notification: ~
+The notification must have a recipient.: ~
+The reaction has been added: ~
+The reaction has been changed: ~
+Title: ~
+Voltage: ~
+When a certain distance is reached: ~
+When a lack of liquid is detected: ~
+When a new mail comes: ~
+When flooding is detected: ~
+When liquid is detected: ~
+When liquid or lack thereof is detected: ~
+When the RGB lighting brightness level changes: ~
+When the RGB lighting reaches a certain level of brightness: ~
+When the active power will be: ~
+When the apparent power will be: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the brightness level changes: ~
+When the brightness will be: ~
+When the color changes: ~
+When the condition is met: ~
+When the current will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness level changes: ~
+When the dimmer reaches a certain brightness level: ~
+When the distance changes: ~
+When the distance will be: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter reaches a certain value: ~
+When the electricity meter value changes: ~
+When the electricity meter value will be: ~
+When the forward active energy will be: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter value changes: ~
+When the gas meter value reaches a certain value: ~
+When the gas meter value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter value changes: ~
+When the heat meter value reaches a certain value: ~
+When the heat meter value will be: ~
+When the humidity changes: ~
+When the humidity reaches a certain level: ~
+When the humidity will be: ~
+When the lighting reaches a certain level of brightness: ~
+When the mail comes or is taken: ~
+When the mail has been taken: ~
+When the precipitation amount will be: ~
+When the pressure changes: ~
+When the pressure reaches a certain level: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power will be: ~
+When the reverse active energy will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches a certain position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches a certain position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the temperature changes: ~
+When the temperature reaches a certain value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage will be: ~
+When the water meter reaches a certain value: ~
+When the water meter value changes: ~
+When the water meter value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches a certain speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches a certain value: ~
+You must set an action for each reaction.: ~
+actionableSubjectType_notification: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
+choose access identifiers: ~
+choose the access identifiers: ~
+notification: ~
+or another element: ~
+sum: ~
+then execute the action: ~
 
 #</editor-fold>

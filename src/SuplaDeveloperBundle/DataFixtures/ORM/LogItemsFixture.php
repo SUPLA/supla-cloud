@@ -1,7 +1,7 @@
 <?php
 /*
  Copyright (C) AC SOFTWARE SP. Z O.O.
- 
+
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  as published by the Free Software Foundation; either version 2
@@ -47,7 +47,7 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     public function load(ObjectManager $manager) {
-        ini_set('memory_limit', '1G');
+        ini_set('memory_limit', '4G');
         $this->createTemperatureLogItems();
         $this->entityManager->flush();
         $this->createHumidityLogItems();
@@ -75,6 +75,7 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'channel_id', $thermometerId);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 100;
+            $temperature = max(-270, $temperature);
             EntityUtils::setField($logItem, 'temperature', $temperature);
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
@@ -176,7 +177,7 @@ class LogItemsFixture extends SuplaFixture {
         $channelId = $ecChannel->getId();
         $from = strtotime(self::SINCE);
         $to = time();
-        $state = [
+        $state = $initialState = [
             'phase1_fae' => 1,
             'phase1_rae' => 0,
             'phase1_fre' => 1,
@@ -202,6 +203,9 @@ class LogItemsFixture extends SuplaFixture {
             }
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
+            }
+            if ($this->faker->boolean(1) && $this->faker->boolean(10)) {
+                $state = $initialState;
             }
         }
     }
@@ -234,7 +238,7 @@ class LogItemsFixture extends SuplaFixture {
                     'measurementTimeSec' => $this->faker->numberBetween(595, 605),
                 ];
                 $state['countTotal'] = $state['countAbove'] + $state['countBelow'];
-                $state['secTotal'] = $state['secAbove'] + $state['secBelow'];
+                $state['secAbove'] + $state['secBelow'];
                 $state['maxSecAbove'] = $above
                     ? ($state['countAbove'] === 1 ? $state['secAbove'] : $this->faker->numberBetween(1, $state['secAbove']))
                     : 0;

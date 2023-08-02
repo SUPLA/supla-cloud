@@ -1,5 +1,5 @@
 <template>
-    <div v-if="true || channel.config.resetCountersAvailable">
+    <div v-if="channel.config.resetCountersAvailable">
         <button @click="resetConfirm = true"
             type="button"
             class="btn btn-default btn-block">

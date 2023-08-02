@@ -26,6 +26,8 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
@@ -159,5 +161,14 @@ trait UserFixtures {
         $em->persist($schedule);
         $em->flush();
         return $schedule;
+    }
+
+    protected function createScene(Location $location, ActionableSubject $subjectForOperation): Scene {
+        $scene = new Scene($this->freshEntity($location));
+        /** @var ActionableSubject $subject */
+        $subject = $this->freshEntity($subjectForOperation);
+        $scene->setOpeartions([new SceneOperation($subject, $subject->getFunction()->getDefaultPossibleActions()[0])]);
+        $this->persist($scene);
+        return $scene;
     }
 }

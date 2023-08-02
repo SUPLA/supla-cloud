@@ -55,7 +55,7 @@
                     </router-link>
 
                     <li class="dropdown"
-                        :class="{'active': subIsActive(['/schedules', '/channel-groups'])}">
+                        :class="{'active': subIsActive(['/schedules', '/channel-groups', '/scenes', '/direct-links'])}">
                         <a class="dropdown-toggle"
                             data-toggle="dropdown">
                             <i class="hidden-sm hidden-xs pe-7s-config"></i>
@@ -63,34 +63,30 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <router-link tag="li"
-                                to="/schedules">
-                                <a>
-                                    <i class="hidden-sm hidden-xs pe-7s-clock"></i>
+                            <li>
+                                <router-link :to="{name: 'schedules'}">
+                                    <i class="hidden-sm hidden-xs pe-7s-clock mr-1"></i>
                                     {{ $t('Schedules') }}
-                                </a>
-                            </router-link>
-                            <router-link tag="li"
-                                to="/channel-groups">
-                                <a>
-                                    <i class="hidden-sm hidden-xs pe-7s-keypad"></i>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'channelGroups'}">
+                                    <i class="hidden-sm hidden-xs pe-7s-keypad mr-1"></i>
                                     {{ $t('Channel groups') }}
-                                </a>
-                            </router-link>
-                            <router-link tag="li"
-                                :to="{name: 'directLinks'}">
-                                <a>
-                                    <i class="hidden-sm hidden-xs pe-7s-link"></i>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'directLinks'}">
+                                    <i class="hidden-sm hidden-xs pe-7s-link mr-1"></i>
                                     {{ $t('Direct links') }}
-                                </a>
-                            </router-link>
-                            <router-link tag="li"
-                                :to="{name: 'scenes'}">
-                                <a>
-                                    <i class="hidden-sm hidden-xs supla-icon supla-icon-scene"></i>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'scenes'}">
+                                    <i class="hidden-sm hidden-xs supla-icon supla-icon-scene mr-1"></i>
                                     {{ $t('Scenes') }}
-                                </a>
-                            </router-link>
+                                </router-link>
+                            </li>
                             <li role="separator"
                                 class="divider"></li>
                             <li>
@@ -110,27 +106,31 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <router-link tag="li"
-                                to="/account">
-                                <a class="my-account">
-                                    <span class="username"
-                                        v-if="$user">{{ $user.username }}</span>
+                            <li>
+                                <router-link to="/account" class="text-center">
+                                    <span class="username" v-if="$user">{{ $user.username }}</span>
                                     {{ $t('Go to your account') }}
-                                </a>
-                            </router-link>
+                                </router-link>
+                            </li>
                             <li class="divider"></li>
-                            <li class="bottom">
-                                <div class="btn-group btn-group-justified">
-                                    <router-link :to="{name: 'authorized-oauth-apps'}"
-                                        class="btn btn-default btn-wrapped">
-                                        {{ $t('Integrations') }}
-                                    </router-link>
-                                    <a class="btn btn-default btn-wrapped"
-                                        id="logoutButton"
-                                        @click="logout()">
-                                        {{ $t('Sign Out') }}
-                                    </a>
-                                </div>
+                            <li>
+                                <router-link :to="{name: 'integrations.myOauthApps'}">
+                                    <fa icon="puzzle-piece" class="mr-1" fixed-width/>
+                                    {{ $t('Integrations') }}
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{name: 'safety.log'}">
+                                    <fa icon="shield-halved" class="mr-1" fixed-width/>
+                                    {{ $t('Security') }}
+                                </router-link>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a id="logoutButton" @click="logout()">
+                                    <fa icon="sign-out" fixed-width/>
+                                    {{ $t('Sign Out') }}
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -255,25 +255,16 @@
                 min-width: 240px;
             }
 
-            &, a {
-                text-align: center;
-            }
-
             .username {
                 display: block;
                 text-align: center;
                 font-size: 1.3em;
                 font-family: $supla-font-special;
             }
+        }
 
-            .btn-group {
-                margin: 0;
-                padding: 0;
-
-                .btn {
-                    border: 0;
-                }
-            }
+        .dropdown-menu li > a {
+            white-space: nowrap;
         }
     }
 </style>

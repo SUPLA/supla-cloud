@@ -107,7 +107,7 @@
         },
         computed: {
             endpoint() {
-                switch (this.subject.subjectType) {
+                switch (this.subject.ownSubjectType) {
                     case ActionableSubjectType.SCENE:
                         return 'scenes';
                     case ActionableSubjectType.CHANNEL_GROUP:

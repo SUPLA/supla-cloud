@@ -21,6 +21,7 @@ import App from "./App";
 import EventBus from "./common/event-bus";
 import {DateTime, Settings} from 'luxon';
 import './hello';
+import './styles/fontawesome';
 
 Vue.use(VueResource);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
@@ -47,6 +48,10 @@ Vue.http.get('server-info')
         Vue.config.external = info.config;
         Vue.prototype.$frontendConfig = Vue.config.external;
         Vue.prototype.compareFrontendAndBackendVersion(info.cloudVersion);
+        if (['dev', 'e2e'].includes(info.env)) {
+            Vue.prototype.$backendAndFrontendVersionMatches = true;
+            EventBus.$emit('backend-version-updated');
+        }
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }

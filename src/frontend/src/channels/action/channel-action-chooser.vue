@@ -1,11 +1,13 @@
 <template>
-    <div class="channel-action-chooser">
-        <div class="w-100 mb-3">
-            <div :class="['panel-group panel-accordion', {'panel-accordion-disabled': disabled}]">
-                <div :class="['panel panel-default', {'panel-success': isSelected(possibleAction.id), 'action-without-params': !ChannelFunctionAction.requiresParams(possibleAction.id)}]"
+    <div :class="['channel-action-chooser', `channel-action-chooser-action-${action && action.id}`]">
+        <div class="w-100">
+            <div :class="['panel-group panel-accordion m-0', {'panel-accordion-disabled': disabled}]">
+                <div
+                    :class="[{'panel panel-default': possibleAction.name !== 'SEND', 'panel-success': isSelected(possibleAction.id), 'action-without-params': !ChannelFunctionAction.requiresParams(possibleAction.id)}]"
                     v-for="possibleAction in actionsToShow"
                     :key="possibleAction.id">
                     <div class="panel-heading"
+                        v-show="possibleAction.name !== 'SEND'"
                         @click="changeAction(possibleAction)">
                         <a role="button"
                             tabindex="0"
@@ -25,9 +27,10 @@
                         </div>
                     </div>
                     <transition-expand>
-                        <div class="panel-body"
+                        <div :class="{'panel-body': possibleAction.name !== 'SEND'}"
                             v-if="ChannelFunctionAction.requiresParams(possibleAction.id) && action && action.id === possibleAction.id">
-                            <div v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
+                            <div
+                                v-if="[ChannelFunctionAction.REVEAL_PARTIALLY, ChannelFunctionAction.SHUT_PARTIALLY, ChannelFunctionAction.OPEN_PARTIALLY, ChannelFunctionAction.CLOSE_PARTIALLY].includes(action.id)">
                                 <rolette-shutter-partial-percentage v-model="param"
                                     @input="paramsChanged()"></rolette-shutter-partial-percentage>
                             </div>
@@ -44,15 +47,19 @@
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.COPY">
                                 <channels-id-dropdown v-model="param.sourceChannelId"
+                                    :dropdown-container="dropdownContainer"
                                     :hide-none="true"
                                     @input="paramsChanged()"
-                                    :params="`function=${subject.function.id}&skipIds=${(subject.subjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
+                                    :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
-                            <div v-if="executorMode"
-                                class="mt-3">
-                                <button :class="['btn btn-block btn-execute', {'btn-grey': !isSelected(possibleAction.id), 'btn-green': isSelected(possibleAction.id)}]"
+                            <div v-if="action.id === ChannelFunctionAction.SEND">
+                                <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors/>
+                            </div>
+                            <div v-if="executorMode" class="mt-3">
+                                <button
+                                    :class="['btn btn-block btn-execute', {'btn-grey': !isSelected(possibleAction.id), 'btn-green': isSelected(possibleAction.id)}]"
                                     type="button"
-                                    :disabled="!paramsSet || executing.includes(action.id)"
+                                    :disabled="!isFullySpecified || executing.includes(action.id)"
                                     @click="updateModel()">
                                     <span
                                         class="text-inherit">
@@ -84,9 +91,11 @@
     import DigiglassParametersSetter from "./digiglass-parameters-setter";
     import ChannelsIdDropdown from "../../devices/channels-id-dropdown";
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
+    import NotificationForm from "@/notifications/notification-form.vue";
 
     export default {
         components: {
+            NotificationForm,
             ChannelsIdDropdown,
             DigiglassParametersSetter,
             RgbwParametersSetter,
@@ -102,13 +111,13 @@
             alwaysSelectFirstAction: {type: Boolean, default: false},
             executing: {type: Array, default: () => []},
             executed: {type: Array, default: () => []},
+            dropdownContainer: String,
         },
         data() {
             return {
                 action: {},
                 param: {},
                 paramHistory: {},
-                paramsSet: false,
                 ChannelFunctionAction,
             };
         },
@@ -121,7 +130,7 @@
                 if (action.id === this.action?.id && this.executorMode && ChannelFunctionAction.requiresParams(action.id)) {
                     return this.changeAction({}); // collapse params panel
                 }
-                if (this.action && this.paramsSet) {
+                if (this.action && this.isFullySpecified) {
                     this.paramHistory[this.action.id] = {...this.param};
                 }
                 this.action = action;
@@ -133,14 +142,11 @@
             resetParams() {
                 if (this.paramHistory[this.action.id]) {
                     this.param = {...this.paramHistory[this.action.id]};
-                    this.paramsSet = true;
                 } else {
                     this.param = {};
-                    this.paramsSet = false;
                 }
             },
             paramsChanged() {
-                this.paramsSet = true;
                 if (!this.executorMode) {
                     this.updateModel();
                 }
@@ -152,14 +158,13 @@
                         if (action) {
                             this.action = action;
                             this.param = this.value.param || {};
-                            this.paramsSet = true;
                         } else {
                             this.action = {};
                             this.param = {};
                             this.updateModel();
                         }
                     }
-                } else if (this.isFullySpecified) {
+                } else {
                     this.action = {};
                     this.param = {};
                     this.selectFirstActionIfOnlyOne();
@@ -186,7 +191,7 @@
                 if (this.executorMode) {
                     return this.executed.includes(actionId);
                 } else {
-                    return this.action.id === actionId && (this.paramsSet || !ChannelFunctionAction.requiresParams(actionId));
+                    return this.action.id === actionId && this.isFullySpecified;
                 }
             },
         },
@@ -199,7 +204,7 @@
                     return false;
                 }
                 if (ChannelFunctionAction.requiresParams(this.action.id)) {
-                    return this.paramsSet;
+                    return ChannelFunctionAction.paramsValid(this.action.id, this.param);
                 } else {
                     return true;
                 }
@@ -211,21 +216,24 @@
                     this.changeAction({});
                     Vue.nextTick(() => this.selectFirstActionIfOnlyOne());
                 } else {
-                    this.updateModel();
+                    this.updateAction();
                 }
             },
             value() {
                 if (this.value && this.action?.id && this.value.id !== this.action.id) {
                     this.value.param = {};
                 }
-                this.updateAction();
+                if (this.value) {
+                    this.updateAction();
+                }
             },
-
         },
     };
 </script>
 
 <style lang="scss">
+    @import "../../styles/variables";
+
     .channel-action-chooser {
         .panel-heading {
             display: flex;

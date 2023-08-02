@@ -45,7 +45,17 @@ body.green {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px $supla-green inset !important;
+    -webkit-box-shadow: 0 0 0 30px darken($supla-green, 16.5%) inset !important;
+    -webkit-text-fill-color: $supla-white !important;
+  }
+}
+
+body.blue {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px darken($supla-blue, 7%) inset !important;
     -webkit-text-fill-color: $supla-white !important;
   }
 }
@@ -61,6 +71,14 @@ body.green {
   margin-left: .3em;
 }
 
+.help-block.help-error {
+  display: none;
+}
+
+.has-error .help-error {
+  display: block;
+}
+
 h1 {
   font-size: 42px;
   line-height: 42px;
@@ -71,9 +89,13 @@ h1 {
   }
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
   font-family: $supla-font-special;
   word-break: break-word;
+}
+
+h5 {
+  font-size: 1.3em;
 }
 
 a {
@@ -313,8 +335,12 @@ table {
 }
 
 body.green {
-  background: $supla-green;
+  background-color: $supla-green;
   color: $supla-white;
+
+  &.darker {
+    background-color: darken($supla-green, 6%);
+  }
 
   nav.navbar-top {
     background: $supla-green;
@@ -341,6 +367,10 @@ body.green {
 
   p a:not(.btn) {
     color: $supla-yellow;
+  }
+
+  @include on-xs-and-down {
+    background: darken($supla-green, 10%) !important;
   }
 }
 
@@ -423,9 +453,20 @@ body.warning {
   text-overflow: ellipsis;
 }
 
-.in-app-register {
+.in-app-register, .smartphone-webview {
   .page-footer {
     display: none;
+  }
+}
+
+.dropdown-menu > li {
+  > a {
+    white-space: normal;
+  }
+  &.active > a {
+    &, &:focus, &:hover {
+      background-color: $supla-green;
+    }
   }
 }
 
@@ -436,16 +477,6 @@ body.warning {
   }
   .dropdown-toggle {
     color: $supla-black;
-  }
-  .dropdown-menu > li {
-    > a {
-      white-space: normal;
-    }
-    &.active > a {
-      &, &:focus, &:hover {
-        background-color: $supla-green;
-      }
-    }
   }
   .subject-dropdown-option {
     padding: 5px 3px;
@@ -669,6 +700,7 @@ input.no-spinner {
     -moz-appearance: textfield;
   }
 }
+
 
 @import "./buttons";
 @import "./checkbox";

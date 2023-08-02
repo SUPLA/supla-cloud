@@ -19,9 +19,13 @@ namespace SuplaBundle\Tests\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Enums\ActionableSubjectType;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Tests\Integration\Traits\UnitTestHelper;
 use SuplaBundle\Utils\SceneUtils;
 
@@ -57,9 +61,14 @@ class SceneUtilsTest extends TestCase {
         $operation2->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
         $operation1->method('getSubject')->willReturn($scene2);
         $operation2->method('getSubject')->willReturn($scene2);
+        $operation1->method('getOwningScene')->willReturn($scene1);
+        $operation2->method('getOwningScene')->willReturn($scene1);
         $scene1->method('getOperations')->willReturn([$operation1, $operation2]);
         $scene2->method('getOperations')->willReturn([]);
+        $scene1->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection([]));
+        $scene2->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection([$operation1, $operation2]));
         SceneUtils::ensureOperationsAreNotCyclic($scene1);
+        SceneUtils::ensureOperationsAreNotCyclic($scene2);
         $this->assertTrue(true);
     }
 
@@ -90,27 +99,25 @@ class SceneUtilsTest extends TestCase {
             $scene->method('getOperations')->willReturn($operations);
             $scene = $sceneNext;
         }
+        $scene->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection([]));
         $scene->method('getOperations')->willReturn([]);
         SceneUtils::ensureOperationsAreNotCyclic($firstScene);
     }
 
     public function testCalculatingSceneEstimatedExecutionTime() {
-        $scene = $this->createEntityMock(Scene::class);
-        $operation1 = $this->createEntityMock(SceneOperation::class);
-        $operation1->method('getUserDelayMs')->willReturn(10);
-        $operation1->expects($this->once())->method('setDelayMs')->with(10);
-        $operation2 = $this->createEntityMock(SceneOperation::class);
-        $operation2->method('getUserDelayMs')->willReturn(20);
-        $operation2->expects($this->once())->method('setDelayMs')->with(20);
-        $scene->method('getOperations')->willReturn([$operation1, $operation2]);
-        $scene->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection());
-        $scene->expects($this->once())->method('setEstimatedExecutionTime')->with(10 + 20);
+        $scene = new Scene($this->createEntityMock(Location::class));
+        $operation1 = new SceneOperation($this->createSubjectMock(IODeviceChannel::class), ChannelFunctionAction::TURN_ON(), [], 10);
+        $operation2 = new SceneOperation($this->createSubjectMock(IODeviceChannel::class), ChannelFunctionAction::TURN_ON(), [], 20);
+        $scene->setOpeartions([$operation1, $operation2]);
         SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $this->createMock(EntityManagerInterface::class));
+        $this->assertEquals(10, $operation1->getDelayMs());
+        $this->assertEquals(20, $operation2->getDelayMs());
+        $this->assertEquals(30, $scene->getEstimatedExecutionTime());
     }
 
     public function testTakingOtherSceneTimeIntoConsideration() {
-        $scene1 = $this->createEntityMock(Scene::class);
-        $scene2 = $this->createEntityMock(Scene::class);
+        $scene1 = $this->createSubjectMock(Scene::class);
+        $scene2 = $this->createSubjectMock(Scene::class);
         $scene2->method('getEstimatedExecutionTime')->willReturn(100);
         $operation1 = $this->createEntityMock(SceneOperation::class);
         $operation1->method('getUserDelayMs')->willReturn(10);
@@ -120,6 +127,7 @@ class SceneUtilsTest extends TestCase {
         $operation1->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
         $operation2 = $this->createEntityMock(SceneOperation::class);
         $operation2->method('getUserDelayMs')->willReturn(20);
+        $operation2->method('getSubjectType')->willReturn(ActionableSubjectType::CHANNEL());
         $operation2->expects($this->once())->method('setDelayMs')->with(20 + 100);
         $scene1->method('getOperations')->willReturn([$operation1, $operation2]);
         $scene1->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection());
@@ -139,6 +147,7 @@ class SceneUtilsTest extends TestCase {
         $operation1->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
         $operation2 = $this->createEntityMock(SceneOperation::class);
         $operation2->method('getUserDelayMs')->willReturn(20);
+        $operation2->method('getSubjectType')->willReturn(ActionableSubjectType::CHANNEL());
         $operation2->expects($this->once())->method('setDelayMs')->with(20);
         $scene1->method('getOperations')->willReturn([$operation2, $operation1]);
         $scene1->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection());
@@ -160,6 +169,7 @@ class SceneUtilsTest extends TestCase {
         $operation1->method('getOwningScene')->willReturn($scene1);
         $operation2 = $this->createEntityMock(SceneOperation::class);
         $operation2->method('getUserDelayMs')->willReturn(20);
+        $operation2->method('getSubjectType')->willReturn(ActionableSubjectType::CHANNEL());
         $operation2->expects($this->once())->method('setDelayMs')->with(20);
         $scene1->method('getOperations')->willReturn([$operation1]);
         $scene2->method('getOperations')->willReturn([$operation2]);
@@ -168,5 +178,69 @@ class SceneUtilsTest extends TestCase {
         $scene1->expects($this->once())->method('setEstimatedExecutionTime')->with(10 + 100);
         $scene2->expects($this->once())->method('setEstimatedExecutionTime')->with(20);
         SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene2, $this->createMock(EntityManagerInterface::class));
+    }
+
+    /**
+     * @see https://github.com/SUPLA/supla-cloud/issues/641
+     */
+    public function testDetectingTooManyExecutionsInBothDirections() {
+        $sceneChild = new Scene($this->createEntityMock(Location::class));
+        EntityUtils::setField($sceneChild, 'id', 2);
+        $operations = [];
+        for ($operationCounter = 0; $operationCounter < 100; $operationCounter++) {
+            $operation = $this->createEntityMock(SceneOperation::class);
+            $operation->method('getSubjectType')->willReturn(ActionableSubjectType::CHANNEL());
+            $operation->method('getOwningScene')->willReturn($sceneChild);
+            $operations[] = $operation;
+        }
+        $sceneChild->setOpeartions($operations);
+        SceneUtils::updateDelaysAndEstimatedExecutionTimes($sceneChild, $this->createMock(EntityManagerInterface::class));
+        $this->assertEquals(100, $sceneChild->getCommandExecutionsCount());
+        $sceneParent = new Scene($this->createEntityMock(Location::class));
+        EntityUtils::setField($sceneParent, 'id', 3);
+        $operations = [];
+        for ($operationCounter = 0; $operationCounter < 10; $operationCounter++) {
+            $operation = $this->createEntityMock(SceneOperation::class);
+            $operation->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+            $operation->method('getSubject')->willReturn($sceneChild);
+            $operation->method('getOwningScene')->willReturn($sceneParent);
+            $operations[] = $operation;
+        }
+        $sceneParent->setOpeartions($operations);
+        EntityUtils::setField($sceneChild, 'sceneOperations', new ArrayCollection($operations));
+        SceneUtils::ensureOperationsAreNotCyclic($sceneChild);
+        try {
+            SceneUtils::ensureOperationsAreNotCyclic($sceneParent);
+            $this->fail('The above should fail and it worked even before the fix.');
+        } catch (\InvalidArgumentException $e) {
+        }
+        try {
+            SceneUtils::updateDelaysAndEstimatedExecutionTimes($sceneParent, $this->createMock(EntityManagerInterface::class));
+            $this->fail('The above should fail and it worked even before the fix.');
+        } catch (\InvalidArgumentException $e) {
+        }
+        $this->expectExceptionMessage('too many operations');
+        $sceneChild->setCommandExecutionsCount(0);
+        SceneUtils::updateDelaysAndEstimatedExecutionTimes($sceneChild, $this->createMock(EntityManagerInterface::class));
+    }
+
+    public function testCreatingSceneThatExecutesSceneThatExecutesSceneYouKnowWhatIMean() {
+        $scene = $this->createEntityMock(Scene::class);
+        $scene->method('getOperations')->willReturn([]);
+        $startTime = microtime(true);
+        for ($i = 0; $i < 50; $i++) {
+            $newScene = $this->createEntityMock(Scene::class, $i + 2);
+            $operation = $this->createEntityMock(SceneOperation::class);
+            $operation->method('getSubjectType')->willReturn(ActionableSubjectType::SCENE());
+            $operation->method('getSubject')->willReturn($scene);
+            $operation->method('getOwningScene')->willReturn($newScene);
+            $operation->method('isWaitForCompletion')->willReturn(true);
+            $scene->method('getOperationsThatReferToThisScene')->willReturn(new ArrayCollection([$operation]));
+            $newScene->method('getOperations')->willReturn([$operation]);
+            SceneUtils::ensureOperationsAreNotCyclic($scene);
+            SceneUtils::updateDelaysAndEstimatedExecutionTimes($scene, $this->createMock(EntityManagerInterface::class));
+            $scene = $newScene;
+        }
+        $this->assertLessThan(1, microtime(true) - $startTime);
     }
 }

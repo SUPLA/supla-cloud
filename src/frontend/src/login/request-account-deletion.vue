@@ -2,41 +2,38 @@
     <div class="container text-center">
         <h1 v-title>{{ $t('We will miss you!') }}</h1>
         <p class="text-center">{{ $t('Deleting your account will result also in deletion of all your data, including your connected devices, configured channels, direct links and measurement history. Deleting an account is irreversible.') }}</p>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="username">{{ $t('Your email') }}</label>
-                    <input type="email" id="username" class="form-control" autocomplete="new-password" v-model="username">
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="password">{{ $t('Password') }}</label>
-                    <input type="password" id="password" class="form-control" autocomplete="new-password" v-model="password">
-                </div>
-            </div>
+        <div v-if="isSent">
+            <fa icon="check" fixed-width size="xl"/>
+            <p class="my-3">{{ $t('We have sent you an e-mail message with a delete confirmation link. Just to be sure!') }}</p>
+            <a href="?ack=true" class="btn btn-green btn-lg">{{ $t('Close') }}</a>
         </div>
-        <div class="row">
-            <div class="col-sm-6 text-left">
-                <router-link to="/" class="btn btn-green btn-lg">
-                    {{ $t('No, take me back!') }}
-                </router-link>
+        <div v-else>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="username">{{ $t('Your email') }}</label>
+                        <input type="email" id="username" class="form-control" autocomplete="new-password" v-model="username">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="password">{{ $t('Password') }}</label>
+                        <input type="password" id="password" class="form-control" autocomplete="new-password" v-model="password">
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-6 text-right">
+            <div class="text-center mb-3">
                 <div v-if="captchaEnabled">
                     <invisible-recaptcha
                         :sitekey="captchaSiteKey"
                         :callback="checkCaptcha"
                         id="registerRecaptcha"
-                        type="submit"
                         btn-class="btn btn-danger"
                         :disabled="isBusy"
                         :form-valid="!!requestData">
                         <template>
-                            <span v-if="!isBusy">
-                                {{ $t('Delete my account') }}
-                            </span>
-                            <button-loading-dots v-else></button-loading-dots>
+                            <span v-if="!isBusy">{{ $t('Delete my account') }}</span>
+                            <button-loading-dots v-else/>
                         </template>
                     </invisible-recaptcha>
                 </div>
@@ -45,10 +42,8 @@
                         @click="confirmDeletion()"
                         :disabled="!requestData"
                         class="btn btn-danger">
-                        <span v-if="!isBusy">
-                            {{ $t('Delete my account') }}
-                        </span>
-                        <button-loading-dots v-else></button-loading-dots>
+                        <span v-if="!isBusy">{{ $t('Delete my account') }}</span>
+                        <button-loading-dots v-else/>
                     </button>
                 </div>
             </div>
@@ -57,7 +52,7 @@
 </template>
 
 <script>
-    import {errorNotification, successNotification} from "../common/notifier";
+    import {errorNotification} from "../common/notifier";
     import Vue from "vue";
     import InvisibleRecaptcha from "@/register/invisible-recaptcha";
 
@@ -68,6 +63,7 @@
                 username: '',
                 password: '',
                 isBusy: false,
+                isSent: false,
                 captchaEnabled: Vue.config.external.recaptchaEnabled,
                 captchaSiteKey: Vue.config.external.recaptchaSiteKey,
             };
@@ -80,13 +76,7 @@
                 this.isBusy = true;
                 const requestData = {...this.requestData, captchaCode};
                 this.$http.put('account-deletion', requestData, {skipErrorHandler: [400]})
-                    .then(() => {
-                        successNotification(
-                            this.$t('Successful'),
-                            this.$t('We have sent you an e-mail message with a delete confirmation link. Just to be sure!')
-                        );
-                        this.$router.push({name: 'login'});
-                    })
+                    .then(() => this.isSent = true)
                     .catch(() => errorNotification(this.$t('Error'), this.$t('Invalid username or password')))
                     .finally(() => this.isBusy = false);
             },
@@ -103,7 +93,9 @@
     };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    @import "../styles/mixins";
+
     p {
         font-size: 1.3em;
         margin-bottom: 2em;

@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
@@ -36,7 +37,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\ChannelGroupRepository")
  * @ORM\Table(name="supla_dev_channel_group")
  */
-class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelationsCount {
+class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelationsCount, HasIcon {
     use BelongsToUser;
     use HasRelationsCountTrait;
 
@@ -122,6 +123,13 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
      */
     private $sceneOperations;
 
+    /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="channelGroup", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $reactions;
+
     /** @param IODeviceChannel[] $channels */
     public function __construct(User $user = null, Location $location = null, array $channels = []) {
         $this->channels = new ArrayCollection();
@@ -129,12 +137,12 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
         $this->schedules = new ArrayCollection();
         $this->sceneOperations = new ArrayCollection();
         $this->user = $user;
+        $this->location = $location;
+        $this->reactions = new ArrayCollection();
         if (count($channels)) {
             Assertion::notNull($user);
             Assertion::notNull($location);
-            $this->location = $location;
             $this->setChannels($channels);
-            $this->altIcon = 0;
         }
     }
 
@@ -143,7 +151,7 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
     }
 
     /** @Groups({"basic"}) */
-    public function getSubjectType(): string {
+    public function getOwnSubjectType(): string {
         return ActionableSubjectType::CHANNEL_GROUP;
     }
 
@@ -200,8 +208,7 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
         $this->altIcon = intval($altIcon);
     }
 
-    /** @return UserIcon|null */
-    public function getUserIcon() {
+    public function getUserIcon(): ?UserIcon {
         return $this->userIcon;
     }
 
@@ -250,5 +257,10 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
     /** @return Collection|SceneOperation[] */
     public function getSceneOperations(): Collection {
         return $this->sceneOperations;
+    }
+
+    /** @return Collection|ValueBasedTrigger[] */
+    public function getReactions(): Collection {
+        return $this->reactions;
     }
 }

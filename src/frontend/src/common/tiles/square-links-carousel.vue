@@ -91,6 +91,8 @@
                     this.selectedIds = this.selected.map(item => item.id || item);
                 } else if (this.selected && !this.isSelected(this.selected)) {
                     this.selectedIds = [this.selected.id];
+                } else if (!this.selected) {
+                    this.selectedIds = [];
                 }
             }
         },
@@ -104,13 +106,15 @@
             selectedItemIndex() {
                 if (this.selected && !this.multiple) {
                     Vue.nextTick(() => {
-                        const index = this.items.findIndex(item => this.isSelected(item));
-                        let desiredPage = index - this.$refs.carousel.perPage + 2;
-                        if (this.showNewItemTile) {
-                            ++desiredPage;
+                        if (this.$refs.carousel) {
+                            const index = this.items.findIndex(item => this.isSelected(item));
+                            let desiredPage = index - this.$refs.carousel.perPage + 2;
+                            if (this.showNewItemTile) {
+                                ++desiredPage;
+                            }
+                            desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount - 1, desiredPage));
+                            this.$refs.carousel.goToPage(desiredPage);
                         }
-                        desiredPage = Math.max(0, Math.min(this.$refs.carousel.pageCount - 1, desiredPage));
-                        this.$refs.carousel.goToPage(desiredPage);
                     });
                 }
             },

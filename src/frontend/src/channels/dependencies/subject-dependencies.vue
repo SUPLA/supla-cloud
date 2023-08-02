@@ -1,9 +1,9 @@
 <template>
     <div>
-        <p v-if="dependencies.schedules.length > 0 || dependencies.directLinks.length > 0">
+        <p v-if="dependencies.schedules.length > 0 || dependencies.directLinks.length > 0 || dependencies.reactions.length > 0 || (dependencies.ownReactions && dependencies.ownReactions.length)">
             <slot name="deletingHeader">{{ $t('The items below rely on this channel function, so they will be deleted.') }}</slot>
         </p>
-        <div class="row form-group">
+        <div class="row">
             <div class="col-sm-6 col-12-if-alone"
                 v-if="dependencies.schedules.length > 0">
                 <h5>{{ $t('Schedules') }}</h5>
@@ -26,8 +26,33 @@
                     </li>
                 </ul>
             </div>
+            <div class="col-sm-6 col-12-if-alone"
+                v-if="dependencies.reactions.length > 0 || (dependencies.ownReactions && dependencies.ownReactions.length)">
+                <h5>{{ $t('Reactions') }}</h5>
+                <ul>
+                    <li v-for="reaction in dependencies.reactions"
+                        :key="reaction.id">
+                        ID{{ reaction.owningChannelId }}
+                        <span class="small">
+                            {{ humanizeTrigger(reaction) }}
+                            &raquo;
+                            {{ $t(reaction.action.caption) }}
+                        </span>
+                    </li>
+                    <li v-for="reaction in (dependencies.ownReactions || [])"
+                        :key="reaction.id">
+                        ID{{ reaction.owningChannelId }}
+                        <span class="small">
+                            {{ humanizeTrigger(reaction) }}
+                            &raquo;
+                            {{ $t(reaction.action.caption) }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <p v-if="(dependencies.channelGroups || []).length > 0 || dependencies.sceneOperations.length > 0 || dependencies.actionTriggers.length > 0">
+        <p class="mt-3"
+            v-if="(dependencies.channelGroups || []).length > 0 || dependencies.sceneOperations.length > 0 || dependencies.actionTriggers.length > 0">
             <slot name="removingHeader">{{ $t('Channel reference will be removed from the items below.') }}</slot>
         </p>
         <div class="row">
@@ -71,8 +96,15 @@
 </template>
 
 <script>
+    import {channelFunctionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
+
     export default {
         props: ['dependencies'],
+        methods: {
+            humanizeTrigger(reaction) {
+                return channelFunctionTriggerCaption(reaction.functionId, reaction.trigger, this);
+            }
+        },
         computed: {
             dependentScenes() {
                 return [...new Map(this.dependencies.sceneOperations.map(item => [item.owningSceneId, item.owningScene])).values()];

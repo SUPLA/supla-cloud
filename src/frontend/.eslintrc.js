@@ -24,6 +24,7 @@ module.exports = {
             {
                 "ignores": [
                     "dashboard",
+                    "fa",
                     "flipper",
                     "modal",
                     "navbar",

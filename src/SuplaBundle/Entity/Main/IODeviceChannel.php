@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
+use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
@@ -49,7 +50,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *     }
  * )
  */
-class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCount, HasUserConfig {
+class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCount, HasUserConfig, HasIcon {
     use BelongsToUser;
     use HasRelationsCountTrait;
     use HasUserConfigTrait;
@@ -95,6 +96,20 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
      * @MaxDepth(1)
      */
     private $sceneOperations;
+
+    /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="owningChannel", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $ownReactions;
+
+    /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="channel", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $reactions;
 
     /**
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="channels")
@@ -209,6 +224,8 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->schedules = new ArrayCollection();
         $this->channelGroups = new ArrayCollection();
         $this->sceneOperations = new ArrayCollection();
+        $this->ownReactions = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -216,7 +233,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     }
 
     /** @Groups({"basic"}) */
-    public function getSubjectType(): string {
+    public function getOwnSubjectType(): string {
         return ActionableSubjectType::CHANNEL;
     }
 
@@ -269,6 +286,16 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     /** @return Collection|SceneOperation[] */
     public function getSceneOperations(): Collection {
         return $this->sceneOperations;
+    }
+
+    /** @return Collection|ValueBasedTrigger[] */
+    public function getOwnReactions(): Collection {
+        return $this->ownReactions;
+    }
+
+    /** @return Collection|ValueBasedTrigger[] */
+    public function getReactions(): Collection {
+        return $this->reactions;
     }
 
     public function getFunction(): ChannelFunction {
@@ -399,8 +426,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->altIcon = intval($altIcon);
     }
 
-    /** @return UserIcon|null */
-    public function getUserIcon() {
+    public function getUserIcon(): ?UserIcon {
         return $this->userIcon;
     }
 

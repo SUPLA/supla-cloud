@@ -30,13 +30,17 @@ Access to all of your devices through MQTT Broker: Hozzáférés az összes eszk
 Account: Felhasznalói fiók
 Account access when you are unavailable: Hozzáférés a fiókhoz, ha nem  elérhető
 Account has been activated. You can Sign In now.: A fiók aktiválva lett. A bejelentkezés megengedett.
+Action confirmation: Művelet megerősítése
 Action execution: Műveletek végrehajtása
 Action trigger: Eseményindító
 'Action trigger no. #{index}': 'Eseményindító #{index}'
 Action triggers: Eseményindítók
 Actions: Műveletek
 Active: Aktív
+Active applications: Aktív alkalmazások
 Active period: Tevékenység időszaka
+Active sessions: Aktív munkamenetek
+Active web sessions: Aktív munkamenetek (web)
 Add: Hozzáadás
 Add a delay: Késleltetés hozzáadása
 Add a new icon: Új ikon hozzáadása
@@ -44,7 +48,6 @@ Add action: Művelet hozzáadása
 Add first channel to set channel group function and save it: Válassza ki az első csatornát a csoport funkció meghatározásához és mentéséhez
 Add new channel group: Új csatornacsoport hozzáadása
 Add new channel to this group: Új csatorna hozzáadása a csoporthoz
-Add new item to use in the scene: Új elem hozzáadása a jelenethez
 Adjust parameters: Állítsa be a paramétereket
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Minden csatorna és csatornacsoport, amely ezt az ikont használja, az alapértelmezett ikonokat kapja eltávolításukkor.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: A hozzáférés megadása után bármikor meggondolhatja magát úgy, hogy visszavonja a hozzáférést a fiókbeállításokban.
@@ -52,7 +55,10 @@ After the device enters the configuration mode, it will not be accessible on you
 After the update, the application will be faster, more comfortable, more powerful... Just better!: A frissítés után az alkalmazás gyorsabb, kényelmesebb.... Egyszerűen jobb lesz!
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: A művelet után a számláló a jelenlegi állapotától függetlenül 0-ról indul. A művelet nem visszavonható.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: A link közvetlenül az entitás kiválasztása után jön létre. Az összes többi lehetőséget megadhatja, miután az entitást létrehozta.
+Aggregation: Aggregálás
 All: Minden
+All events: Minden esemény
+All logs has been downloaded. Reload the chart to see them.: Az összes mérési adat le van töltve. A megtekintéshez töltse újra a diagramot.
 All the above and many more can be done from your phone or tablet: Mindezt és még sok mást, megtehet okostelefonon vagy táblagépen
 Allowed actions: Megengedett műveletek
 Allows to perform an action only using the HTTP PATCH request.: Lehetővé teszi a műveletek végrehajtását csak a HTTP PATCH kéréssel.
@@ -60,12 +66,15 @@ Alternatively, you can add a GET parameter to specify response format.: A válas
 And more: És még sok más
 Any application or device that uses the {tokenName} token will not work anymore.: Az összes alkalmazás vagy eszköz, amely a {tokenName} tokent használja, nem fog működni.
 'App version: %clientAppSoftwareVersion%': 'Az alkalmazás verziója: %clientAppSoftwareVersion%'
+Application: Alkalmazás
 Application name cannot be blank.: Az alkalmazás neve nem lehet üres
 Application requirements: Alkalmazási követelmények
 Applications: Alkalmazások
+Applications with access: Alkalmazás hozzáféréssel
 Are you lost?: Eltévedt? Keres valamit?
 Are you sure you want to change channel’s function?: Biztosan meg akarja változtatni a csatorna funkciót?
 Are you sure you want to delete the entire measurement history saved for this channel?: Biztos benne, hogy törli ezen a csatornán összesített mérési előzményeit?
+Are you sure you want to delete the events from the voltage aberrations history?: Biztosan ki akar törölni minden eseményt a feszültségeltérések történetből?
 Are you sure you want to delete this OAuth application?: Biztosan törli az OAuth alkalmazást?
 Are you sure you want to delete this channel group?: Biztosan törölni akarja ezt a csatorna csoportot?
 Are you sure you want to delete this client?: Biztosan törli ezt az ügyfélalkalmazást?
@@ -73,10 +82,12 @@ Are you sure you want to delete this direct link?: Biztosan törli ezt a közvet
 Are you sure you want to delete this icon?: Biztosan törli ezt az ikont?
 Are you sure you want to delete this scene?: Biztos, hogy törölni akarja ezt a képernyőt?
 Are you sure you want to delete this schedule?: Biztosan törli ezt az ütemtervet?
+Are you sure you want to log out this device?: Biztosan ki akar jelentkezni ezzel a berendezéssel?
 Are you sure you want to reset the counter state?: Biztos, hogy vissza akarja állítani a mérőórát?
 Are you sure you want to revoke permissions granted to this OAuth application?: Biztosan visszavonja az OAuth alkalmazás számára biztosított engedélyeket?
 Are you sure you want to revoke this token?: Biztos benne, hogy visszavonja a tokent?
 Are you sure?: Biztosan ezt szeretné?
+Arithmetic balance: Aritmetikai mérleg
 As in device: Mint a készülékben
 Assign Access Identifiers: Rendelje hozzá  a hozzáférési azonosítókat
 Assign Client apps: Rendelje hozzá az ügyfélalkalmazásokat
@@ -90,10 +101,11 @@ At specified time: A megadott időpontban
 At sunrise: napfelkeltekor
 At sunrise, Monday through Friday: napfelkeltekor, hétfőtől péntekig
 At sunset: naplementekor
+Authentication failure: Bejelentkezési hiba
+Authentication successful: Sikeres bejelentkezés
 Authorization callback URLs (one per line): Visszatérési engedély URL (soronként egy)
 Authorize the application, so that it can access your account.: Hitelesítse az alkalmazást, hogy hozzáférhessen a fiókjához.
 Authorized: Hitelesített
-Authorized OAuth apps: Engedélyezett OAuth alkalmazások
 Automatic calibration: Automatikus kalibrálás
 Automatic closing rule: Ajtó automatikus bezárása
 Automation: Automatizálás
@@ -107,9 +119,10 @@ Below threshold: Küszöbérték alatt
 Bottom position: Alsó pozíció
 Bridge: Híd
 Brightness: Fényerő
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Ha letiltja ezt az opciót, akkor ez az eszköz további megerősítés nélkül vezérelhető az integrációból. Ez nem biztonságos vagy kevésbé biztonságos állapothoz vezethet (pl. egy kapu véletlen kinyitása).
+By signing in, you are authorizing {clientName} to control your devices.: A bejelentkezéssel Ön engedélyezi a {clientName} alkalmazásnak, hogy irányítsa az eszközeit.
 CLICK TO DISABLE: KATTINTSON KIKAPCSOLÁSHOZ
 CLICK TO ENABLE: KATTINTSON A BEKAPCSOLÁSHOZ
-Calculated value: Mérőóra állás
 Calibrate: Kalibrálás
 Calibration: Kalibrálás
 Calibration successful.: Sikeres kalibrálás
@@ -129,9 +142,11 @@ Change Password: Jelszó módosítása
 Change channel function: A csatorna funkció módosítása
 Change function: Funkcióváltás
 Change icon: Ikon váltása
+Change the password and log out: Jelszó módosítása és kijelentkezés
 Changing channel’s function will also result in the following changes.: A csatorna funkciójának megváltoztatása a következő változásokat is okozza.
 Channel: Csatorna
 Channel No: Csatorna száma
+Channel available for {serviceName}: Csatorna elérhető a {serviceName} számára
 Channel for the partial opening sensor: Csatorna az indirekt nyitású érzékelőhöz
 Channel for the sensor: Csatorna érzékelő
 Channel group: Csatorna csoport
@@ -148,6 +163,7 @@ Channel with action triggers: Csatorna eseményindítókkal
 Channels: Csatornák
 Channels groups are not supported for this function.: A funkció nem támogatja a csatornacsoportokat.
 Chart data source type: Adatforrás típusa
+Chart mode: Diagram típusa
 Chart type: Diagram típusa
 Check the direct link you used and try again.: Ellenőrizze a hívott közvetlen linket, és próbálja újra.
 Check your email box: Ellenőrizze az e-mail postafiókját
@@ -170,8 +186,10 @@ Close: Bezárás
 Close after: Bezárás miután
 Close automatically: Automatikus bezárás
 Close partially: Részleges bezárás
+Colon: Pontosvessző
 Color: Szín
 Color brightness: Szín fényerő
+Comma: Vessző
 Comment: Megjegyzés
 Config of the schedule is too complicated.: Az ütemezés konfigurálása túl bonyolult.
 Configuration: Konfigurálás
@@ -181,6 +199,7 @@ Confirm if you want to perform the roller shutter calibration.: Erősítse meg a
 Confirm if you want to remove Access Identifier: Erősítse meg, hogy el akarja távolítani a Hozzáférési Azonosítót
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Erősítse meg, hogy el akarja távolítani a {locationId} helyazonosítót. Nincs további I / O eszköz csatlakozási lehetőség ehhez a lokálizációhoz.
 Confirm if you want to remove {deviceName} device and all of its channels.: Erősítse meg, hogy törölni kívánja a {eszközNév} eszközt és annak összes csatornáját.
+Confirmation: Megerősítés
 Connected: Csatlakozva
 Connection with a private instance of the SUPLA cloud: Csatlakozás egy magán SUPLA felhőhöz.
 Constraints: Korlátozások
@@ -189,6 +208,8 @@ Could not contact Autodiscover service. Try again in a while.: Nem sikerült kap
 Could not enter the configuration mode.: Nem sikerült az eszközt konfigurációs üzemmódba helyezni.
 Could not reset the password.: A jelszó visszaállítása sikertelen.
 Could not reset the password. Please try again later.: Nem lehet visszaállítani a jelszót. Kérjük, rövidesen próbálja újra.
+Counter: Számláló
+Counter reset: Számláló visszaállítása
 Create New Access Identifier: Hozzon létre egy új Hozzáférési Azonosítót
 Create New Location: Hozzon létre új Lokálizációt
 Create New Schedule: Hozzon létre egy új ütemezést
@@ -205,7 +226,9 @@ DHT11 Temperature & Humidity Sensor: DHT 11 hőmérséklet- és páratartalom-é
 DHT21 Temperature & Humidity Sensor: DHT21 hőmérséklet- és páratartalom-érzékelő
 DHT22 Temperature & Humidity Sensor: DHT22  hőmérséklet- és páratartalom-érzékelő
 DS18B20 Thermometer: DS18B20 hőmérő
+Data limits: Adatkorlátok
 Data saved: Az adatok mentésre kerültek
+Date and time: Dátum és idő
 Decline: Elutasítás
 Default: alapértelmezett
 Delete: Eltávolítás
@@ -252,15 +275,18 @@ Door lock operation: Az ajtó kinyitása
 Door opening sensor: Ajtónyitás érzékelő
 Doors and gates: Ajtók és kapuk
 Doors, Gates, Windows: Ajtók, kapuk, ablakok
+Download measurements history: Töltse le a mérési előzményeket
 Download the history of measurement: Töltse le a mérési előzményeket
 Drag your image(s) here or click to select from the disk: Húzza ide a képet, vagy kattintson a lemezről való kiválasztáshoz
 E-mail notifications: E-mail értesítések
 Edit: Szerkesztés
 Electric: Villamosság
 Electricity meter: Elektromos energia mérő
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: A villamosenergia-mérő nem jelentette a hozzáadott értékek konfigurálásának lehetőségét. Frissítse a vezérlőprogramot, és próbálja meg újra.
 Empty!: Üres!
 Enable: Bekapcsolás
 Enabled: Bekapcsolva
+Enabled phases: Aktív fázisok
 End date: Záró dátum
 Enter new password: Adjon meg egy új jelszót
 Enter strong password: Írjon be egy erős jelszót
@@ -284,9 +310,11 @@ Execution history: Végrehejtott műveletek előzményei
 Execution limit: Teljesítménykorlát
 Executions: Végrehajtott műveletek
 Expired: Lejárt
+Expires at: Lejárat
 Failed: Sikertelen
 Failed (zombie): Sikertelen (zombie)
 Feature limits: Szolgáltatási korlátok
+File format: Fájlformátum
 File is too large: A fájl túl nagy
 Flooding: Elárasztás
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: A frissítések során ajánlott a {suplaUrl} cím használata.
@@ -294,10 +322,11 @@ For devices: Eszközökhöz
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Biztonsági okokból a közvetlen link teljes URL-je csak egyszer jelenik meg a létrehozása során.
 Forgot your password?: Elfelejtetted a jelszavad?
 Forward active energy: Fogyasztott aktív energia
+Forward active energy balance: Az aktív energiabevitel mérlege
 Forward active energy balanced: Aktív energiafogyasztás (Egyensúlyi vektor)
 Forward reactive energy: Reaktív energiafogyasztás
 Fridays: Péntekek
-From IP: IP-címről
+From: '-től'
 From anywhere: Bárhonnan
 Full closing time: Teljes bezárási idő
 Full documentation: Teljes dokumentáció
@@ -340,10 +369,12 @@ I agree: Egyetértek
 I aree, taske me to the app: Egyetértek, tovább az alkalmazáshoz
 I confirm! Delete my account.: Megerősítés! A fiók törlése.
 I do not agree, get me out of here: Nem értek egyet, vigyél el innen
+I understand that my SUPLA account will be permanently deleted.: Tudomásul veszem, hogy a SUPLA-fiókom visszavonhatatlanul törlésre kerül.
 I/O Devices: I / O eszközök
 I/O devices registration: Készülék regisztráció
 ID: ID
 INACTIVE: INAKTIV
+IP Address: IP-cím
 Icon: Ikon
 Idle: Üres járat
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Ha a készülék jelenleg alvó üzemmódban van, a konfigurációk módosításai akkor kerülnek végrehajtásra, amikor a készülék elindul.
@@ -374,12 +405,14 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Inaktív
 Include energy corrections in new measurements history (not recommended): Vegye figyelembe a történethez hozzáadott állapotatribútumot (nem ajánlott)
 Incorrect password: Hibás jelszó
+Incremental: Inkrementális
 Information: Tájékoztatás
 Inherit I/O Device location: Használja az eszköz lokálizálást
 Initial value: Kezdőérték
 Integration with MQTT Broker has been disabled.: Az MQTT brókerrel való integráció ki van kapcsolva.
 Integration with MQTT Broker has been enabled.: Az MQTT brókerrel való integráció be van kapcsolva.
 Integrations: integrációk
+Integrations settings: Integrációs beállítások
 Interpolate measurements: A hiányzó állapotattribútum becsült értéke
 Interrupt: Szünet
 Interrupt and execute: Tartson szünetet majd végezze el
@@ -391,6 +424,7 @@ Invalid function for channel.: A csatorna nem megfelelő funkciója.
 Invalid request: Érvénytelen kérés
 Invalid request.: Érvénytelen kérés.
 Invalid token.: Érvénytelen token.
+Invalid username or password: Helytelen felhasználónév vagy jelszó
 Inverted logic: Fordított logika
 Invisible: Láthatatlan
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Lehetséges, hogy egy másik felhasználó véletlenül megadta az e-mail címét, hogy visszaállítsa a fiókja jelszavát.
@@ -412,7 +446,9 @@ Location Identifier: Helyazonosító
 Location limit has been exceeded: A helyazonosító korlát túllépve
 Location name: Hely neve
 Locations: Helyszínek
+Log out: Kijelentkezés
 Login: Belépés
+Logs transformation: Értékátalakítás
 Longest aberration: Leghosszabb eltérés
 Lower voltage threshold: Alacsony feszültség küszöbértéke
 MQTT Broker: MQTT bróker
@@ -470,6 +506,7 @@ No of devices: Eszközök száma
 No of operations: Műveletek száma
 No results match {0}: Nincs találat {0}
 No schedule configuration.: Az ütemterv konfigurálása nincs megadva.
+No, take me back!: Nem, vigyél ki innen!
 No. of Client’s apps: Az ügyfélalkalmazások száma
 No. of access identifiers: Hozzáférési azonosítók száma
 No. of channel groups: Csatornacsoportok száma
@@ -478,6 +515,7 @@ No. of devices: Eszközök száma
 No. of locations: Lokálizációk száma
 None: Hiány
 None (channel disabled): Hiány (a csatorna kikapcsolt állapotban van)
+Noop: Hiányzó művelet
 Number of aberrations: Eltérések száma
 Number of attempts to close: Kijelentkezési kísérletek száma
 Number of attempts to open: Belépési kísérletek száma
@@ -486,6 +524,7 @@ OAuth application: OAuth alkalmazás
 OAuth apps: OAuth alkalmazások
 OAuth authorization: OAuth engedélyezés
 OAuth integrations might stop working after the instance is unregistered.: Előfordulhat, hogy az OAuth-alkalmazásokkal való integrációk a regisztráció törlése után nem működnek.
+OK: OK
 'Off': Kikapcsolás
 Offline access: Offline hozzáférés
 Older: Régebbi
@@ -496,16 +535,22 @@ Open: Megnyitás
 Open / close: Nyitás / Bezárás
 Open partially: Részleges megnyitás
 Opening sensor: Nyitó érzékelő
+Operation: Művelet
 Operations: Műveletek
 Original location: Eredeti lokálizáció
 Other: Egyéb
 Otherwise go to the homepage.: Más esetben lépjen a [kezdőlapra].
+PIN: PIN-KÓD
+PIN for Google must have a length between {minLength} and {maxLength} digits.: A Google PIN-kódjának legalább {minLength} és legfeljebb {maxLength} számjegyből kell állnia.
 Partial opening sensor: Közvetett nyitás érzékelője
 Password: Jelszó
 Password Reset: Jelszó visszaállítása
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: A jelszó megváltoztatásával az összes jelenlegi munkamenet kijelentkezik. Ez azonban nem érinti azokat a alkalmazásokat, amelyekre Ön már adott engedélyt. Az alkalmazások bejelentkezési hozzájárulásait külön kell visszavonnia.
+Password changed: Módosított jelszó
 Password has been changed: A jelszava megváltozott.
 Password must be at least {minLength} characters.: A jelszónak legalább {minLength} karaktereknek kell lennie.
 Password must be no longer than {maxLength} characters.: A jelszó nem lehet hosszabb, mint {maxLength} karakter.
+Password reset: Jelszó módosítása
 Password reset instructions.: Utasítások a fiókjához való hozzáférés visszaállításához.
 Percentage of closing: A bezárás százalékos aránya
 Personal access tokens: Személyes hozzáférési tokenek
@@ -515,6 +560,7 @@ Phase 1: 1 Szakasz
 Phase 2: 2 Szakasz
 Phase 3: 3 Szakasz
 Phase number: Fázis
+Phase {phaseNumber}: Fázis {phaseNumber}
 Please choose the schedule subject first.: Először válassza ki az ütemterv tárgyát.
 Please click the following link to reset your %cloudHost% password.: Kattintson az alábbi linkre a %cloudHost% jelszavának visszaállításához.
 Please click the link we have sent you after the registration to proceed.: Kattintson az üzenetben kapott linkre, amelyet a fiók létrehozása után küldtünk neked.
@@ -527,8 +573,8 @@ Please read the Terms and Conditions.: Olvassa el a Szabályzatot.
 Please wait a moment before the next login attempt.: Várjon egy pillanatot a következő bejelentkezési kísérlet előtt.
 Port: Port
 Precision: Pontosság
+Predefined time ranges: Időtartományok
 Pressure sensor: Nyomásérzékelő
-Previous login: Előző bejelentkezés
 Price per: Ára
 Private Cloud domain name: Magán felhő domain név
 Private instance of the SUPLA cloud with given URL is already registered.: A megadott címmel már regisztráltak saját SUPLA felhőt.
@@ -556,6 +602,7 @@ Registered: Regisztrált
 'Registered from IP address: %deviceRegIp%': 'IP cím: %deviceRegIp%'
 Relay: Relé
 Relay switching time: A relé bekapcsolásának ideje
+Reload the chart: Táblázat újratöltése
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Mielőtt eltávolítana egy helyet, előbb át kell helyeznie a benne lévő csatornacsoportokat. Azonosítók: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Mielőtt törölne egy lokálizációt, előbb át kell helyeznie a benne lévő csatornákat. Azonosítók: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'A hely törlése előtt törölje a párosított eszközöket. Azonosítók: {relatedIds}.'
@@ -568,6 +615,7 @@ Retry on failure: Ismételje meg, ha nincs végrehajtva
 Reveal: Elhúzás
 Reveal partially: Részbeni elhúzás
 Reverse active energy: Visszatérő aktív energia
+Reverse active energy balance: A visszaadott aktív energia egyenlege
 Reverse active energy balanced: Visszatérő aktív energia (Egyensúlyi vektor)
 Reverse reactive energy: Visszatérő passzív energia
 Revoke: Érvénytelenítés
@@ -596,6 +644,7 @@ Save changes: Változtatások mentése
 Save changes to see Access IDs: A változtatások mentése a hozzáférési azonosítók megjelenítéséhez
 Save or discard configuration changes first.: Először mentse vagy utasítsa el a konfigurációs módosításokat.
 Scene: Jelenet
+Scene available for {serviceName}: A {serviceName} számára elérhető jelenet
 Scene must consist of at least one operation.: A jelenetnek legalább egy műveletet tartalmaznia kell
 Scenes: Jelenetek
 Scenes limit has been exceeded: Nem lehet több jelenetet létrehozni
@@ -608,12 +657,15 @@ Scopes: Az alkalmazási területek
 Scopes define which sections of your account can be accessed when using the token.: Az alkalmazási tartományok határozzák meg, hogy melyik fiók forrásokhoz érhető el a hozzáférés a token segítségével.
 Search: Keresés
 Secret: Titkos kulcs (secret)
+Security: Biztonság
+Security log: Biztonsági napló
 See available integrations: Nézze meg a rendelkezésre álló integrációkat
 See direct link possibilities: Lássa meg a közvetlen link lehetőségeit
 See in SUPLA-Cloud: Nézze meg a SUPLA-felhőben
 Seems like a secret place: Valami azt súgja, hogy nem szabad itt lennie
 Select icon: Ikon kiválasztása
 Select the item (subject) you want to control using this link: Válassza ki az elemet  (entitást), amelyet ellenőrizni szeretne ezzel a linkkel
+Selected device has been logged out.: A kiválasztott eszköz kijelentkezett
 Sensor (normal closed): Érzékelő (általában zárt)
 Sensor (normal open): Érzékelő (általában nyitva)
 Sensor disconnected: Érzékelőhiány
@@ -622,6 +674,7 @@ Server address: A szerver címe
 Server unreachable: A Szerver nem érhető el
 Service temporarily unavailable: A szolgáltatás ideiglenesen nem érhető el
 Set value added: Hozzáadott érték beállítása
+Set values for each phase separately: Határozza meg az értéket minden egyes fázisra külön
 Setting the number of attempts to 1 disables the retrying behavior completely.: Ha a próbálkozások számát kevesebb, mint 2-re állítja, előfordulhat, hogy a lezárás vagy megnyitás sikertelen.
 Show my limits: Korlátozásaim megjelenítése
 Show on the Client’s devices: Megjelenítés az ügyfél eszközökön
@@ -650,10 +703,12 @@ Store measurements history: Mentse a mérési előzményeket
 Subject type: Entitás típusa
 Success: Siker
 Successful: Sikeres
+Summary for selected time range: Összefoglaló a kiválasztott hatókörre vonatkozóan
 Sundays: Vasárnapok
 Switch the device to configuration mode: Csatlakoztassa a készüléket konfigurációs módba
 THIS CANNOT BE UNDONE!: EZT A MŰVELETET NEM LEHET VISSZAVONNI!
 TLS: TLS
+Tab: Tabulátor
 Target Cloud is not registered, or is registered with another e-mail address.: Ez a SUPLA felhő nincs regisztrálva, vagy más e-mail címmel van regisztrálva.
 Temperature: Hőmérséklet
 Temperature & Humidity Sensor: Hőmérséklet- és páratartalom-érzékelő
@@ -672,6 +727,10 @@ The client will be automatically logged out when deleted.: Az ügyfél eltávol�
 The counter has been reset.: A mérőóra alaphelyzetbe került.
 The device is disabled: Az eszköz ki van kapcsolva
 The device might be in a sleep mode.: A készülék alvó üzemmódban is működhet.
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Ezt a munkamenetet használó eszköz elveszíti a SUPLA Cloud-hozzáférést. Az alkalmazás további használatához újra be kell jelentkeznie az alkalmazásba.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: A {phaseNumber} fázisra vonatkozó összes feszültségeltérési előzményt eltávolítjuk.
+The entire history of the voltage aberrations will be removed from this channel.: A feszültségeltérés minden előzménye eltávolításra kerül ezen a csatornán.
+The events in voltage aberrations history will be automatically deleted after {days} days.: A feszültségeltérési előzmények {days} nap után automatikusan törlődnek.
 The following items use the channels of these device. These references will be also removed.: Az alábbi elemek a készülék csatornáit használják. Ezek szintén törlésre kerülnek.
 'The following items will be deleted with this device:': Az alábbi elemek a készülékkel együtt törlésre kerülnek.
 The gate sensor must function properly in order to execute the Open and Close actions.: A kapu nyitó érzékelőnek rendeltetésszerűen kell működnie ahhoz, hogy a Nyitás Zárás művelet végrehajtása megtörténjen.
@@ -703,17 +762,21 @@ Thermometer: Hőmérő
 Thermostat: Termosztát
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ez a közvetlen link megköveteli a végrehajtandó művelet paramétereinek pontosítását. Nézze meg az alábbi példákat, hogy megtudja, milyen paramétereket állíthat be.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Ezt az információt azért kapja meg, mert az e-mail címével sikertelenül megkisérelt bejelentkezni a SUPLA-CLOUD-ba.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: Ez a fiók törlésének utolsó szakasza. Az űrlap kitöltése és jóváhagyása az Ön adatainak visszafordíthatatlan törlését eredményezi.
 This is the list of applications you have granted access to your account.: Ez olyan alkalmazások listája, amelyeknek hozzáférést biztosított a fiókjához.
 This link is only valid for an hour.: A link egy órán keresztül aktív lesz.
+'This password will protect your home. Therefore, it must:': 'Ez a jelszó védi az otthonát. Ezért:'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ez az ütemterv a műszaki beállítottságú vagy nagyon türelmes felhasználók számára készült. Meg kell adni az ütemterv végrehajtási módját a crontab megjelölésben, amelyet néhány csak a SUPLI-ban található funkció egészít ki. Ha még soha nem találkozott a crontabokkal, és ennek ellenére szeretné használni ezt a módot, a crontab.guru oldal a segíthet Önnek.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ezt az eseményindítót a készülék helyileg használja (például bekapcsolja a fényt, vezérli a redönyt stb.) A helyi funkció kikapcsolódik, ha más műveletet rendel hozzá.
 Thursdays: Csütörtökök
 Timezone: Időzóna
+To: '-ig'
 Toggle: Átkapcsolás
 Token does not exist: A token nem létezik
 Too many actions in this schedule.: Túl sok munka egy ütemtervben.
 Too many channels in this group: Túl sok csatorna van ebben a csoportban
 Too many operations in this scene: Túl sok művelet a jelenetben.
+Total: Összeg
 Total time: Teljes idő
 Triggers: Eseményindítók
 Tuesdays: Keddek
@@ -723,6 +786,7 @@ Type: Típus
 Undo registration: Regisztráció visszavonása
 Unit: Egység
 Unknown: Ismeretlen
+Unknown browser: Ismeretlen böngésző
 Unregister my private SUPLA Cloud instance: Regisztrálja a saját SUPLA felhőjét
 Unsuccessful login attempt: Sikertelen bejelentkezési kisérlet
 Unsupported function: Nem támogatott funkció
@@ -733,10 +797,13 @@ Upper voltage threshold: Magas feszültség küszöbértéke
 'Use the {0} server command to change this account''s limits. For example:': 'A {0} kiszolgálóparanccsal módosíthatja a fiók korlátozásait. Például:'
 Use working schedule for this access identifier: Használja a hozzáférési ütemtervet a hozzáférési azonosítóhoz
 User is already confirmed. Try to log in.: Ezt a fiókot már megerősítettük. Belépés
+Value: Érték
 Value added: Hozzáadott érték
 Value per unit: Egységenkénti érték
+Value separator: Fix távolság
 Valve: Szelep
 Valve closed manually: Manuálisan lezárt szelep
+Vector balance: Vektor egyensúly
 Verification method: Ellenőrzés módja
 Visible: Látható
 Visit app webpage: Nyissa meg az alkalmazás webhelyét
@@ -748,6 +815,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Várjon egy percet a következő kérés előtt. Az aktuális korlátozásokat a fiók beállításokban ellenőrizheti.
 Wait for this scene to finish before proceeding to the next step ({time}).: Várja meg, amíg a helyszín befejeződik, mielőtt folytatja a műveletet ({time}).
 Water meter: Vízmérő
+'We also strongly advise you to choose a password that:': 'Továbbá erősen javasoljuk, hogy olyan jelszót válasszon, amely:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Értesítéseket küldünk Önnek a fiókjához kapcsolódó bizonyos eseményekről. Leiratkozhat azokról, amikre nincs szüksége.
 We could not connect to your SUPLA Cloud instance.: Nem sikerült csatlakozni a magán SUPLA cloudra.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Utasítást kaptunk fiókja törlésére a SUPLA Cloud (%cloudHost%) szolgáltatásban.
@@ -759,7 +827,9 @@ We should be ready shortly.: Powinniśmy niedługo skończyć.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Az alkalmazás használatának megkönnyítése érdekében az Ön böngészőjében tárolunk információkat az Ön preferenciáiról (például egy cookie-mechanizmus használatával).
 We try to be faster: Egyre gyorsabbak vagyunk
 We were not able to find your account.: Nem találtuk a fiókját.
+We were not able to prepare your data. Please see the error details below.: Hiba történt az adatok előkészítése során. A részleteket alább olvashatja.
 We will miss you: Hiányozni fog
+We will miss you!: Hiányozni fog nekünk!
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Mindent megteszünk annak érdekében, hogy a megjelenített ikonokat a lehető legjobb módon láthatóak legyenek, de a legjobb eredményt akkor érheti el, ha átlátszó háttérrel és {width} szélességgel  és {height} magassággal  képpontos PNG fájlokat küld.
 We will use it only in justified situations.: Csak indokolt esetekben fogjuk alkalmazni.
 Weather Station: Időjárás
@@ -779,6 +849,7 @@ Working period: A működési időszaka
 Working schedule: Tevékenységi ütemterv
 YOUR LINK CODE: A LINKJE KÓDJA
 You are changing the settings too quickly. You have to wait a while before making this change.: Túl gyorsan módosítja a beállításokat. Az aktuális beállítások módosítása előtt várjon egy percet.
+You can browse only the most recent logs now. Wait a while for the full history.: Jelenleg csak a legfrissebb mérések jelennek meg. Várjon egy kicsit, amíg az összes előzmény letöltődik.
 You can ignore this message, if you have accidentally entered an incorrect password.: Ha hibás jelszót adott meg, akkor ezt az információt figyelmen kívül hagyhatja.
 You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
 You cannot delete your last access identifier.: Az utolsó hozzáférési azonosítót nem törölheti.
@@ -791,6 +862,7 @@ You just need to execute the following command inside your host terminal.: Elege
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Ha továbbra is használni kívánja a speciális ütemtervet, nézze meg az alábbi példákat.
 You must agree to the Terms and Conditions.: A szabályzat elfogadása kötelező.
 You must enable MQTT Broker first.: Először engedélyezze az integrációt az MQTT brókerrel.
+You must leave at least one phase enabled.: Legalább egy fázisnak aktívnak kell maradnia.
 You must set an action for each scene operation.: Válasszon ki egy műveletet a helyszín minden egyes műveletéhez.
 You must set sections with transparent or opaque parameters or both.: Válassza ki legalább egy szekció átláthatóságát.
 You need to provide icons for all states.: Minden állapothoz meg kell adnia egy ikont.
@@ -801,7 +873,11 @@ Your account has been deleted. We hope you will come back to us soon.: A fiókot
 Your account has been locked.: A fiókja letiltásra került.
 Your account has not been confirmed yet.: Még nem erősítette meg a fiókját.
 Your account limits: Az Ön határértékei
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Az Ön böngészője nem támogatja az ügyféladatbázis-mechanizmust (IndexedDB). Ez a funkció a diagramok megjelenítéséhez és a fejlett adatexport-beállítások támogatásához szükséges. Frissítse böngészőjét, vagy lépjen ki az inkognitó módból, hogy használhassa ezeket a funkciókat.
 Your channel groups are allowed to have a maximum of {max} channels.: A csatorna csoportok maximum {max} csatornákkal rendelkezhetnek.
+Your chart is being drawn...: A diagram megjelenítése folyamatban...
+Your data are being collected. Please be patient.: Gyűjtjük az adatait, türelmét köszönjük.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Az adatai letöltődnek a szerverről. Az exportálás előtt várja meg, amíg a letöltések befejeződnek.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: A készülék lehetővé teszi a funkciók bővítését, és lehetővé teszi, hogy bármilyen műveletet végezzen bármilyen eszközön. A rendelkezésre álló beállítások a használt hardver és szoftver függvényében állnak rendelkezésre.
 Your email: Az e-mail címe
 Your instance is not registered or you are trying to authorize an application that is not public.: Az entitása nincs regisztrálva, vagy nem nyilvános alkalmazást próbál engedélyeztetni.
@@ -837,11 +913,15 @@ actionTrigger_TURN_ON: Bekapcsol
 actionableSubjectType_channel: Csatorna
 actionableSubjectType_channelGroup: Csatorna csoport
 actionableSubjectType_scene: Jelenet
+actionableSubjectType_schedule: Ütemterv
 addToHistoryMeasurementWarningSelected: Ha ezt a beállítást választja, a beállított értékek hozzáadódnak a történetben tárolt jövőbeli mérésekhez. Ez a diagramokban a megadott értékeknek köszönhető, hirtelen növekedésként látható. Javasoljuk, hogy ezeket a paramétereket csak a mérő első telepítésekor állítsa be. A meglévő mérőórák esetében javasoljuk, hogy törölje a mérési előzményeket, e beállítások módosítása után.
 addToHistoryMeasurementWarningUnselected: Ha ezt a beállítást választja, beállított értékeket a jövőbeli méréseknél kihagyja a történetéből. Ez a diagramokban hirtelen csökkenésnek tekinthető. Javasoljuk, hogy ezeket a paramétereket csak a mérő első telepítésekor állítsa be. A meglévő mérőórák esetében javasoljuk, hogy törölje a mérési előzményeket, e beállítások módosítása után.
 after: utána
+average: Átlag
+be at least {numChars} characters long: legalább {numChars} karakterekből kell állnia
 before: előtte
 caption: név
+change: változtassa meg
 channel: Csatorna
 channelConfigHelp_gateCloseAfterHelp: A kapunyitási eljárást kezdeményező ágens a beállított időponttól számított legfeljebb egy perc késleltetést kaphat.
 channelConfigHelp_numberOfAttemptsGate: Miután a kapu nyitási vagy zárási parancsát elrendelte, a rendszer megkísérli a kapu zárását/nyitását, és 60 másodpercig várakozik, hogy ellenőrizhesse, a kapu a kívánt állapotba került-e. Hiba esetén a rendszer újra megkisérli a művelet végrehajtását. Az alábbi paraméterrel lehet meghatározni a próbálkozások számát. Az ajánlott érték 5. A paraméter módosítása nincs hatással az ütemtervre.
@@ -855,8 +935,12 @@ choose the action: Válasszon akciót
 choose the channel: csatorna kiválasztása
 choose the channel group: válasszon egy csatornacsoportot
 choose the scene: Válasszon jelenetet
+choose the schedule: Válassza ki a ütemtervet
 choose the timezone: válassza ki az időzónát
 click here: Kattintson ide
+contains a character that is neither a letter nor a digit: olyan karaktert tartalmaz, amely sem betű, sem szám nem lehet
+contains a digit: tartalmaz egy számot
+contains lower and upper letters: kis- és nagybetűket tartalmaz
 copied: átmásolva
 copy: másolás
 days: napok
@@ -881,11 +965,21 @@ extend: meghosszábbítása
 from IP: az IP-címről
 from the IP: a címről
 hours: óra
+is at least {numChars} characters long: legalább {numChars} karakterekkel rendelkezik
+last 24 hours: az elmúlt 24 órában
+last 30 days: az elmúlt 30 napban
+last 6 hours: az elmúlt 6 órában
+last 7 days: az elmúlt 7 napban
+logs_aggregation_day: nap
+logs_aggregation_hour: óra
+logs_aggregation_minute: perc
+logs_aggregation_month: hónap
 min.: perc
 minutes: perc
-or add a delay: vagy késleltetés megadása
 password: jelszó
 prefix: előtag
+previous month: előző hónap
+range: Tartomány
 register-slide1-text: A rendelkezésre álló elektronika alapján a SUPLA lehetővé teszi az egyszerű modulok elkészítését, amelyek lehetővé teszik az épület automatizálási részeinek vezérlését és irányítását. A SUPLA-nak köszönhetően többek között ellenőrizheti a világítást, be- és kikapcsolhatja a háztartási készülékeket, kinyithatja és bezárhatja a kapukat és az ajtókat, vagy szabályozhatja a helyiség hőmérsékletét. Mindezt egy mozdulattal megteheti.
 register-slide1-title: Saját Intelligens Épület
 register-slide2-text: A projekt alapelvei az egyszerűség és hogy álandóan rendelkezésre áll. A SUPLA lehetővé teszi, hogy egy mozdulattal bekapcsolja a világjtást vagy megnyissa a bejárati kaput, amikor az ingatlanba kíván belépni. A SUPLA bárhol elérhető, ahol van internet-hozzáférés, és kéznél van okostelefon vagy táblagép. A SUPLA-t a nyílt szoftver és a nyílt forráskódú szoftver és hardver elve alapján fejlesztették ki, amelynek köszönhetően Ön is fejlesztheti ezt a projektet!
@@ -894,6 +988,7 @@ register-slide3-text: A piacon elérhető épületi automatizálási rendszerek 
 register-slide3-title: Ingyenes és nyitott!
 reset chart view: vissza az eredeti nézethez
 scene: jelenet
+schedule: Ütemterv
 scheduleMode_crontab: haladó
 scheduleMode_daily: Napi ciklus
 scheduleMode_minutely: Perces ciklus
@@ -921,8 +1016,16 @@ sunrise-after: napkeltekor
 sunrise-before: napkelte előtt
 sunset-after: napnyugtakor
 sunset-before: napnyugta előtt
+the whole history: Összes előzmény
+this month: Folyó hó
+this year: Folyó év
+today: Ma
+unknown: Ismeretlen
 username: felhasználó neve
 valid until: érvényessége lejár
+values as seen on chart: a diagramon szereplő értékek
+values as seen on counter: a számlálóban szereplő értékek
+yesterday: Tegnap
 '{applicationName} will not be able to interact with your account until you grant the access again.': A (z) {applicationName} csak akkor léphet kapcsolatba fiókjával, ha újra hozzáférést biztosít.
 '{clientName} wants to access your account.': A (z) {clientName} hozzáférni kíván fiókjához.
 '{minutes} minutes after sunrise': perccel napfelkelte után
@@ -933,6 +1036,7 @@ valid until: érvényessége lejár
 '{requests} out of {limit} / h': '{requests} {limit} / óra'
 '{requests} out of {limit} / min': '{requests} {limit} / perc'
 '{requests} out of {limit} / {seconds} sec.': '{requests} a {limit} / {seconds} másodperc.'
+'{serviceName} integration': Integráció a {serviceName} szolgáltatással}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -941,9 +1045,12 @@ valid until: érvényessége lejár
 Access identifier password must be at least 8 characters.: A hozzáférési azonosító jelszavának legalább 8 karakter hosszúnak kell lennie.
 Access identifier password must be no longer than 32 characters.: A hozzáférési azonosító jelszava nem lehet hosszabb 32 karakternél.
 Action: Műveletek
+Add new item to use in the scene: Új elem hozzáadása a jelenethez
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Biztos, hogy törölni akarja a csatorna teljes feszültségeltérési előzményét?
 Are you sure you want to disable this device?: Biztosan ki akarja kapcsolni ezt az eszközt?
 Assigned Locations: Hozzárendelt Lokálizációk
+Authorized OAuth apps: Engedélyezett OAuth alkalmazások
+Calculated value: Mérőóra állás
 Cannot send an activation e-mail. Try again later.: Nem lehet üzenetet küldeni az aktiválási linkkel. Kérjük, próbálja meg újra később.
 Channel will be deleted from the channel group below: A csatorná eltávolítva a következő csatornacsoportokból
 Chosen hour: Kiválasztott óra
@@ -957,6 +1064,7 @@ Doors, Gates: Ajtók,  Kapuk
 ENABLED: BEKAPCSOLVA
 Email already exists: Az e-mail cím már létezik
 Existing schedules: Meglévő ütemtervek
+From IP: IP-címről
 Get SUPLA on your devices: Töltse le  SUPLA-t a készülékeire
 Having problems with account activation? Make sure that the message did not landed in the SPAM/Junk folder. You can also click [here] to resend the account activation link.: Nem érkezett üzenet a fiókját aktiváló linkkel? Ellenőrizze, hogy nincs-e a SPAM (levélszemét) mappában. A [ide] gombra kattintva ismét elküldheti.
 Hi: Szia!
@@ -975,6 +1083,7 @@ Next: Tovább
 Number: Szám
 Output: Kilépés
 Please select the schedules that should also be enabled.: Jelölje be az ütemezéseket, amelyeket szintén be akarja kapcsolni.
+Previous login: Előző bejelentkezés
 Registration: Regisztráció
 Registration of new I/O devices: Eszköz regisztráció
 Registration of new clients: Ügyfél regisztráció
@@ -993,35 +1102,157 @@ When: Mikor
 You will be logged out shortly: Hamarosan ki lesz léptetve
 execute: végrehajtás
 hourly: Óránkénti ciklus
+or add a delay: vagy késleltetés megadása
 will expire: lejár
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-All events: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Channel available for {serviceName}: ~
-Confirmation: ~
-Data limits: ~
-Enabled phases: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-Integrations settings: ~
-Invalid username or password: ~
-No, take me back!: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Phase {phaseNumber}: ~
-Scene available for {serviceName}: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-We will miss you!: ~
-You must leave at least one phase enabled.: ~
-change: ~
-'{serviceName} integration': ~
+'% of closing': ~
+Add a new action to the scene: ~
+Are you sure you want to delete this reaction?: ~
+Body: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
+Create new reaction: ~
+Current: ~
+Edit reaction: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
+Invalid scene: ~
+Missing action.: ~
+New reaction: ~
+Notification: ~
+Notification must have a body.: ~
+Notifications: ~
+Phase: ~
+Please fix the problems with operations and try again.: ~
+Please select a condition: ~
+Please select an action: ~
+Power active: ~
+Power apparent: ~
+Power reactive: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Recipients: ~
+Send a notification: ~
+Send notification: ~
+The notification must have a recipient.: ~
+The reaction has been added: ~
+The reaction has been changed: ~
+Title: ~
+Voltage: ~
+When a certain distance is reached: ~
+When a lack of liquid is detected: ~
+When a new mail comes: ~
+When flooding is detected: ~
+When liquid is detected: ~
+When liquid or lack thereof is detected: ~
+When the RGB lighting brightness level changes: ~
+When the RGB lighting reaches a certain level of brightness: ~
+When the active power will be: ~
+When the apparent power will be: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the brightness level changes: ~
+When the brightness will be: ~
+When the color changes: ~
+When the condition is met: ~
+When the current will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness level changes: ~
+When the dimmer reaches a certain brightness level: ~
+When the distance changes: ~
+When the distance will be: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter reaches a certain value: ~
+When the electricity meter value changes: ~
+When the electricity meter value will be: ~
+When the forward active energy will be: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter value changes: ~
+When the gas meter value reaches a certain value: ~
+When the gas meter value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter value changes: ~
+When the heat meter value reaches a certain value: ~
+When the heat meter value will be: ~
+When the humidity changes: ~
+When the humidity reaches a certain level: ~
+When the humidity will be: ~
+When the lighting reaches a certain level of brightness: ~
+When the mail comes or is taken: ~
+When the mail has been taken: ~
+When the precipitation amount will be: ~
+When the pressure changes: ~
+When the pressure reaches a certain level: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power will be: ~
+When the reverse active energy will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches a certain position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches a certain position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the temperature changes: ~
+When the temperature reaches a certain value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage will be: ~
+When the water meter reaches a certain value: ~
+When the water meter value changes: ~
+When the water meter value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches a certain speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches a certain value: ~
+You must set an action for each reaction.: ~
+actionableSubjectType_notification: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
+choose access identifiers: ~
+choose the access identifiers: ~
+notification: ~
+or another element: ~
+sum: ~
+then execute the action: ~
 
 #</editor-fold>

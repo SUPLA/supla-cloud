@@ -35,7 +35,15 @@ class MeasurementCsvExporter {
         $this->entityManager = $measurementLogsEntityManager;
     }
 
-    public function generateCsv(IODeviceChannel $channel, ?string $logsType = 'default'): string {
+    public function createZipArchiveWithLogs(IODeviceChannel $channel, ?string $logsType = 'default'): string {
+        $csvDumpPath = $this->dumpLogsToCsv($channel, $logsType ?: 'default');
+        $exportedPath = $csvDumpPath;
+        $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
+        $filename = $this->compress($exportedPath, $prefix . $channel->getId() . '.csv');
+        return $filename;
+    }
+
+    private function dumpLogsToCsv(IODeviceChannel $channel, string $logsType): string {
         $tempFile = tempnam(sys_get_temp_dir(), 'supla_csv_');
         Assertion::string($tempFile, 'Could not generate temporary file.');
         DatabaseUtils::turnOffQueryBuffering($this->entityManager);
@@ -49,14 +57,12 @@ class MeasurementCsvExporter {
             fputcsv($handle, $row);
         }
         fclose($handle);
-        $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
-        $filename = $this->compress($tempFile, $prefix . $channel->getId() . '.csv');
-        return $filename;
+        return $tempFile;
     }
 
     private function getDataFetchDefinition(IODeviceChannel $channel, string $logsType): array {
         // @codingStandardsIgnoreStart
-        $timestampSelect = "UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`)) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
+        $timestampSelect = "UNIX_TIMESTAMP(IFNULL(CONVERT_TZ(`date`, '+00:00', 'SYSTEM'), `date`)) AS date_ts, IFNULL(CONVERT_TZ(`date`, '+00:00', :timezone), `date`) AS date";
         switch ($channel->getFunction()->getId()) {
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
@@ -83,7 +89,6 @@ class MeasurementCsvExporter {
                             'Total count',
                             'Count above',
                             'Count below',
-                            'Total seconds',
                             'Seconds above',
                             'Seconds below',
                             'Maximum seconds above',
@@ -92,7 +97,7 @@ class MeasurementCsvExporter {
                             'Maximum voltage',
                             'Average voltage',
                         ],
-                        "SELECT $timestampSelect, measurement_time_sec, phase_no, count_total, count_above, count_below, sec_total, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage FROM `supla_em_voltage_log` WHERE channel_id = :channelId",
+                        "SELECT $timestampSelect, measurement_time_sec, phase_no, count_total, count_above, count_below, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage FROM `supla_em_voltage_log` WHERE channel_id = :channelId",
                     ];
                 } else {
                     return [

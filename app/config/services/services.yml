@@ -15,8 +15,8 @@ services:
       tags: [request.param_converter]
     SuplaBundle\Model\ChannelActionExecutor\SingleChannelActionExecutor:
       tags: [supla.channel_action_executor]
-    SuplaBundle\Model\ChannelParamsTranslator\ChannelParamTranslator:
-      tags: [supla.channel_params_translator]
+    SuplaBundle\Model\UserConfigTranslator\UserConfigTranslator:
+      tags: [supla.user_config_translator]
     SuplaBundle\Model\ChannelStateGetter\SingleChannelStateGetter:
       tags: [supla.channel_state_getter]
     SuplaBundle\Command\Cyclic\CyclicCommand:
@@ -82,6 +82,11 @@ services:
       $authorizeForm: '@fos_oauth_server.authorize.form'
       $authorizeFormHandler: '@fos_oauth_server.authorize.form.handler.default'
 
+  SuplaBundle\Entity\Main\Listeners\:
+    resource: '../../../src/SuplaBundle/Entity/Main/Listeners'
+    tags:
+      - {name: doctrine.orm.entity_listener}
+
   SuplaBundle\Message\:
     resource: '../../../src/SuplaBundle/Message'
 
@@ -109,8 +114,8 @@ services:
   SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor:
     - !tagged supla.channel_action_executor
 
-  SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator:
-    - !tagged supla.channel_params_translator
+  SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator:
+    - !tagged supla.user_config_translator
 
   SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter:
     - !tagged supla.channel_state_getter
@@ -149,6 +154,7 @@ services:
     resource: '../../../src/SuplaBundle/Auth/Voter'
 
   SuplaBundle\Auth\UserProvider: ~
+  SuplaBundle\Auth\SuplaAccessTokenManager: ~
   SuplaBundle\Auth\UserLoginAttemptListener:
     tags:
       - {name: kernel.event_listener, event: security.authentication.failure, method: onInteractiveAuthenticationFailure}

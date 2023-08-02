@@ -2,15 +2,15 @@
     <div>
         <button :class="'invisible-recaptcha ' + btnClass"
             v-show="formValid"
-            :type="type"
+            type="submit"
             :disabled="isDisabled"
             :id="id">
             <slot></slot>
         </button>
         <button :class="btnClass"
             v-show="!formValid"
-            :type="type"
-            :disabled="true">
+            type="submit"
+            :disabled="isDisabled">
             <slot></slot>
         </button>
     </div>
@@ -45,10 +45,6 @@
                 required: false
             },
             id: {
-                type: String,
-                required: false
-            },
-            type: {
                 type: String,
                 required: false
             },

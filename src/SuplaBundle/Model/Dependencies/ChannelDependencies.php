@@ -4,8 +4,8 @@ namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\Schedule\ScheduleManager;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /**
  * This class is responsible for detecting and possibly clearing all items that rely on the given channel (and its function).
@@ -18,7 +18,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ChannelParamConfigTranslator $channelParamConfigTranslator,
+        SubjectConfigTranslator $channelParamConfigTranslator,
         ScheduleManager $scheduleManager,
         ChannelGroupDependencies $channelGroupDependencies
     ) {
@@ -34,6 +34,8 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             'schedules' => $channel->getSchedules()->toArray(),
             'sceneOperations' => $channel->getSceneOperations()->toArray(),
             'actionTriggers' => $this->findActionTriggersForSubject($channel)->getValues(),
+            'ownReactions' => $channel->getOwnReactions()->toArray(),
+            'reactions' => $channel->getReactions()->toArray(),
         ];
     }
 
@@ -55,7 +57,13 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($directLink);
         }
         foreach ($channel->getSceneOperations() as $sceneOperation) {
-            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager, $this->suplaServer);
+            $sceneOperation->getOwningScene()->removeOperation($sceneOperation, $this->entityManager);
+        }
+        foreach ($channel->getOwnReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
+        }
+        foreach ($channel->getReactions() as $reaction) {
+            $this->entityManager->remove($reaction);
         }
         $this->clearActionTriggersThatReferencesSubject($channel);
     }

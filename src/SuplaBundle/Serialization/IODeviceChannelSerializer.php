@@ -20,9 +20,9 @@ namespace SuplaBundle\Serialization;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Model\ChannelParamsTranslator\ChannelParamConfigTranslator;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\CurrentUserAware;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\JsonArrayObject;
@@ -35,18 +35,18 @@ class IODeviceChannelSerializer extends AbstractSerializer {
     private $channelStateGetter;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
-    /** @var ChannelParamConfigTranslator */
-    private $paramsTranslator;
+    /** @var SubjectConfigTranslator */
+    private $configTranslator;
 
     public function __construct(
         ChannelStateGetter $channelStateGetter,
         IODeviceChannelRepository $channelRepository,
-        ChannelParamConfigTranslator $paramsTranslator
+        SubjectConfigTranslator $configTranslator
     ) {
         parent::__construct();
         $this->channelStateGetter = $channelStateGetter;
         $this->channelRepository = $channelRepository;
-        $this->paramsTranslator = $paramsTranslator;
+        $this->configTranslator = $configTranslator;
     }
 
     /**
@@ -59,10 +59,10 @@ class IODeviceChannelSerializer extends AbstractSerializer {
         $normalized['functionId'] = $channel->getFunction()->getId();
         $normalized['userIconId'] = $channel->getUserIcon() ? $channel->getUserIcon()->getId() : null;
         $normalized['typeId'] = $channel->getType()->getId();
-        if (in_array('connected', $context[self::GROUPS])) {
+        if ($this->isSerializationGroupRequested('connected', $context)) {
             $normalized['connected'] = $this->suplaServer->isChannelConnected($channel);
         }
-        if (in_array('state', $context[self::GROUPS])) {
+        if ($this->isSerializationGroupRequested('state', $context)) {
             $normalized['state'] = new JsonArrayObject($this->channelStateGetter->getState($channel));
         }
         if (!isset($normalized['relationsCount']) && (
@@ -72,11 +72,7 @@ class IODeviceChannelSerializer extends AbstractSerializer {
             $normalized['relationsCount'] = $this->channelRepository->find($channel->getId())->getRelationsCount();
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
-            $config = (new JsonArrayObject($this->paramsTranslator->getConfigFromParams($channel)))->jsonSerialize();
-            if (is_array($config) && isset($config['googleHome']) && isset($config['googleHome']['pin'])) {
-                unset($config['googleHome']['pin']);
-            }
-            $normalized['config'] = $config;
+            $normalized['config'] = $this->configTranslator->getPublicConfig($channel);
             if ($this->isSerializationGroupRequested('channel.actionTriggers', $context)) {
                 $actionTriggers = $this->channelRepository->findActionTriggers($channel);
                 $normalized['actionTriggersIds'] = EntityUtils::mapToIds($actionTriggers);

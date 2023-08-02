@@ -10,14 +10,15 @@
                         :filter="filterOtherActions"
                         @input="props.onInput"></action-trigger-other-actions-dropdown>
                 </template>
+                <div v-if="subject && subject.ownSubjectType !== 'other'" class="mt-3">
+                    <channel-action-chooser :subject="subject"
+                        @input="onActionChange()"
+                        :alwaysSelectFirstAction="true"
+                        v-model="action"/>
+                </div>
             </subject-dropdown>
         </div>
-        <div v-if="subject && subject.subjectType !== 'other'">
-            <channel-action-chooser :subject="subject"
-                @input="onActionChange()"
-                :alwaysSelectFirstAction="true"
-                v-model="action"/>
-        </div>
+
         <button v-if="value"
             type="button"
             class="btn btn-default btn-block mt-3"
@@ -61,7 +62,7 @@
                     if (this.value.subjectType === ActionableSubjectType.OTHER) {
                         if (this.value.action?.id) {
                             const otherAction = this.value.action.id;
-                            this.subject = {id: otherAction, subjectType: ActionableSubjectType.OTHER};
+                            this.subject = {id: otherAction, ownSubjectType: ActionableSubjectType.OTHER};
                             this.action = this.value.action;
                         }
                     } else if (!this.subject || this.value.subjectId !== this.subject.id) {
@@ -70,6 +71,8 @@
                                 this.subject = response.body;
                                 this.action = this.value.action;
                             });
+                    } else {
+                        this.action = this.value.action;
                     }
                 } else {
                     this.subject = undefined;
@@ -77,16 +80,20 @@
                 }
             },
             onSubjectChange() {
-                if (this.subject?.subjectType === ActionableSubjectType.OTHER) {
+                if (this.subject?.ownSubjectType === ActionableSubjectType.OTHER) {
                     this.action = {id: this.subject.id};
+                    this.onActionChange();
+                }
+                if (!this.subject) {
+                    this.action = undefined;
                     this.onActionChange();
                 }
             },
             onActionChange() {
                 if (this.isActionFullySpecified()) {
                     this.$emit('input', {
-                        subjectId: this.subject.subjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
-                        subjectType: this.subject.subjectType,
+                        subjectId: this.subject.ownSubjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
+                        subjectType: this.subject.ownSubjectType,
                         action: this.action,
                     });
                 } else {
@@ -106,6 +113,11 @@
             },
             filterOtherActions(action) {
                 return action.id !== ChannelFunctionAction.AT_DISABLE_LOCAL_FUNCTION || this.disablesLocalOperation(this.trigger);
+            }
+        },
+        watch: {
+            value() {
+                this.onValueChanged();
             }
         }
     };

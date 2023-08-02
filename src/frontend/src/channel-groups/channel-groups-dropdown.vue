@@ -9,6 +9,7 @@
             ref="dropdown"
             data-live-search="true"
             data-width="100%"
+            :data-container="dropdownContainer"
             data-style="btn-default btn-wrapped"
             v-model="chosenChannelGroup"
             @change="$emit('input', chosenChannelGroup)">
@@ -30,7 +31,7 @@
     import $ from "jquery";
 
     export default {
-        props: ['params', 'value', 'filter'],
+        props: ['params', 'value', 'filter', 'dropdownContainer'],
         components: {ButtonLoadingDots},
         data() {
             return {

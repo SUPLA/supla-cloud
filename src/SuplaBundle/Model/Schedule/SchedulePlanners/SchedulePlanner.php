@@ -19,7 +19,6 @@ namespace SuplaBundle\Model\Schedule\SchedulePlanners;
 
 use DateTime;
 use RuntimeException;
-use SuplaBundle\Entity\Main\Schedule;
 
 abstract class SchedulePlanner {
     /**
@@ -33,9 +32,9 @@ abstract class SchedulePlanner {
     abstract public function calculateNextScheduleExecution(string $crontab, DateTime $currentDate): DateTime;
 
     /**
-     * Checks if it can calculate the next run date for given schedule.
+     * Checks if it can calculate the next run date for given crontab..
      *
-     * @param Schedule $schedule the schedule to calculate the next run date for
+     * @param string $crontab
      * @return boolean true if the calculation is possible, false otherwise
      */
     abstract public function canCalculateFor(string $crontab): bool;

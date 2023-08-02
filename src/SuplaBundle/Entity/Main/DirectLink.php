@@ -89,6 +89,12 @@ class DirectLink implements HasSubject {
     private $scene;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Schedule", inversedBy="directLinks")
+     * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $schedule;
+
+    /**
      * @ORM\Column(name="allowed_actions", type="string", nullable=false, length=255)
      */
     private $allowedActions;

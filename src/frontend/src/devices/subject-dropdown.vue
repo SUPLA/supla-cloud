@@ -1,39 +1,156 @@
 <template>
     <div :class="'subject-dropdown ' + (subjectType == 'channel' ? 'first-selected' : '')">
-        <ul class="nav nav-tabs">
-            <li :class="subjectType == 'channel' ? 'active' : ''">
-                <a @click="changeSubjectType('channel')">{{ $t('Channels') }}</a>
-            </li>
-            <li :class="subjectType == 'channelGroup' ? 'active' : ''">
-                <a @click="changeSubjectType('channelGroup')">{{ $t('Channel groups') }}</a>
-            </li>
-            <li :class="subjectType == 'scene' ? 'active' : ''">
-                <a @click="changeSubjectType('scene')">{{ $t('Scenes') }}</a>
-            </li>
-            <li :class="subjectType == 'other' ? 'active' : ''"
-                v-if="hasOthersSlot">
-                <a @click="changeSubjectType('other')">{{ $t('Other') }}</a>
-            </li>
-        </ul>
-        <channels-dropdown v-model="subject"
-            v-if="subjectType == 'channel'"
-            @input="subjectChanged"
-            :filter="filter"
-            :params="channelsDropdownParams"></channels-dropdown>
-        <channel-groups-dropdown @input="subjectChanged"
-            v-if="subjectType == 'channelGroup'"
-            :filter="filter"
-            :params="channelsDropdownParams"
-            v-model="subject"></channel-groups-dropdown>
-        <scenes-dropdown
-            @input="subjectChanged"
-            v-if="subjectType == 'scene'"
-            :filter="filter"
-            v-model="subject"></scenes-dropdown>
-        <slot name="other"
-            :subject="subject"
-            :on-input="subjectChanged"
-            v-if="subjectType == 'other'"></slot>
+        <div class="panel-group panel-accordion m-0">
+            <transition-expand>
+                <div :class="`panel panel-${subjectType === 'channel' ? 'success' : 'default'}`"
+                    v-if="!subjectType || subjectType === 'channel'">
+                    <div class="panel-heading d-flex" @click="changeSubjectType('channel')">
+                        <a role="button" tabindex="0" class="text-inherit flex-grow-1">
+                            {{ $t('Channels') }}
+                        </a>
+                        <fa :icon="subjectType === 'channel' ? 'chevron-down' : 'chevron-right'"/>
+                    </div>
+                    <transition-expand>
+                        <div class="panel-body" v-if="subjectType == 'channel'">
+                            <div class="d-flex">
+                                <label class="flex-grow-1">{{ $t('Choose the channel') }}</label>
+                                <router-link v-if="subject" :to="{name: 'channel', params: {id: subject.id}}" target="_blank">
+                                    {{ $t('Go to the channel') }}
+                                    <fa icon="arrow-right" class="ml-2"/>
+                                </router-link>
+                            </div>
+                            <ChannelsDropdown v-model="subject"
+                                @input="subjectChanged"
+                                :dropdownContainer="dropdownContainer"
+                                :filter="filter"
+                                :params="channelsDropdownParams"/>
+
+                            <slot></slot>
+                        </div>
+                    </transition-expand>
+                </div>
+            </transition-expand>
+            <transition-expand>
+                <div :class="`panel panel-${subjectType === 'channelGroup' ? 'success' : 'default'}`"
+                    v-if="!subjectType || subjectType === 'channelGroup'">
+                    <div class="panel-heading d-flex" @click="changeSubjectType('channelGroup')">
+                        <a role="button" tabindex="0" class="text-inherit flex-grow-1">
+                            {{ $t('Channel groups') }}
+                        </a>
+                        <fa :icon="subjectType === 'channelGroup' ? 'chevron-down' : 'chevron-right'"/>
+                    </div>
+                    <transition-expand>
+                        <div class="panel-body" v-if="subjectType == 'channelGroup'">
+                            <div class="d-flex">
+                                <label class="flex-grow-1">{{ $t('Choose the channel group') }}</label>
+                                <router-link v-if="subject" :to="{name: 'channelGroup', params: {id: subject.id}}" target="_blank">
+                                    {{ $t('Go to the channel group') }}
+                                    <fa icon="arrow-right" class="ml-2"/>
+                                </router-link>
+                            </div>
+                            <ChannelGroupsDropdown @input="subjectChanged"
+                                :dropdownContainer="dropdownContainer"
+                                :filter="filter"
+                                :params="channelsDropdownParams"
+                                v-model="subject"/>
+
+                            <slot></slot>
+                        </div>
+                    </transition-expand>
+                </div>
+            </transition-expand>
+            <transition-expand>
+                <div :class="`panel panel-${subjectType === 'scene' ? 'success' : 'default'}`"
+                    v-if="!subjectType || subjectType === 'scene'">
+                    <div class="panel-heading d-flex" @click="changeSubjectType('scene')">
+                        <a role="button" tabindex="0" class="text-inherit flex-grow-1">
+                            {{ $t('Scenes') }}
+                        </a>
+                        <fa :icon="subjectType === 'scene' ? 'chevron-down' : 'chevron-right'"/>
+                    </div>
+                    <transition-expand>
+                        <div class="panel-body" v-if="subjectType == 'scene'">
+                            <div class="d-flex">
+                                <label class="flex-grow-1">{{ $t('Choose the scene') }}</label>
+                                <router-link v-if="subject" :to="{name: 'scene', params: {id: subject.id}}" target="_blank">
+                                    {{ $t('Go to the scene') }}
+                                    <fa icon="arrow-right" class="ml-2"/>
+                                </router-link>
+                            </div>
+                            <ScenesDropdown
+                                @input="subjectChanged"
+                                :dropdownContainer="dropdownContainer"
+                                :filter="filter"
+                                v-model="subject"/>
+                            <slot></slot>
+                        </div>
+                    </transition-expand>
+                </div>
+            </transition-expand>
+            <transition-expand>
+                <div :class="`panel panel-${subjectType === 'schedule' ? 'success' : 'default'}`"
+                    v-if="!disableSchedules && (!subjectType || subjectType === 'schedule')">
+                    <div class="panel-heading d-flex" @click="changeSubjectType('schedule')">
+                        <a role="button" tabindex="0" class="text-inherit flex-grow-1">
+                            {{ $t('Schedules') }}
+                        </a>
+                        <fa :icon="subjectType === 'schedule' ? 'chevron-down' : 'chevron-right'"/>
+                    </div>
+                    <transition-expand>
+                        <div class="panel-body" v-if="subjectType == 'schedule'">
+                            <div class="d-flex">
+                                <label class="flex-grow-1">{{ $t('Choose the schedule') }}</label>
+                                <router-link v-if="subject" :to="{name: 'schedule', params: {id: subject.id}}" target="_blank">
+                                    {{ $t('Go to the schedule') }}
+                                    <fa icon="arrow-right" class="ml-2"/>
+                                </router-link>
+                            </div>
+                            <SchedulesDropdown
+                                @input="subjectChanged"
+                                :dropdownContainer="dropdownContainer"
+                                :filter="filter"
+                                v-model="subject"/>
+                            <slot></slot>
+                        </div>
+                    </transition-expand>
+                </div>
+            </transition-expand>
+            <transition-expand>
+                <div :class="`panel panel-${subjectType === 'notification' ? 'success' : 'default'}`"
+                    v-if="!disableNotifications && (!subjectType || subjectType === 'notification')">
+                    <div class="panel-heading d-flex" @click="changeSubjectType('notification')">
+                        <a role="button" tabindex="0" class="text-inherit flex-grow-1">
+                            {{ $t('Send notification') }}
+                        </a>
+                        <fa :icon="subjectType === 'notification' ? 'chevron-down' : 'chevron-right'"/>
+                    </div>
+                    <transition-expand>
+                        <div class="panel-body" v-if="subjectType == 'notification'">
+                            <slot></slot>
+                        </div>
+                    </transition-expand>
+                </div>
+            </transition-expand>
+            <transition-expand>
+                <div :class="`panel panel-${subjectType === 'other' ? 'success' : 'default'}`"
+                    v-if="hasOthersSlot && (!subjectType || subjectType === 'other')">
+                    <div class="panel-heading d-flex" @click="changeSubjectType('other')">
+                        <a role="button" tabindex="0" class="text-inherit flex-grow-1">
+                            {{ $t('Other') }}
+                        </a>
+                        <fa :icon="subjectType === 'other' ? 'chevron-down' : 'chevron-right'"/>
+                    </div>
+                    <transition-expand>
+                        <div class="panel-body" v-if="subjectType == 'other'">
+                            <slot name="other"
+                                :subject="subject"
+                                :on-input="subjectChanged"
+                                v-if="subjectType == 'other'"></slot>
+                        </div>
+                    </transition-expand>
+                </div>
+            </transition-expand>
+        </div>
     </div>
 </template>
 
@@ -42,14 +159,29 @@
     import ChannelGroupsDropdown from "../channel-groups/channel-groups-dropdown";
     import ScenesDropdown from "../scenes/scenes-dropdown";
     import Vue from "vue";
+    import SchedulesDropdown from "@/schedules/schedules-dropdown.vue";
+    import ActionableSubjectType from "@/common/enums/actionable-subject-type";
+    import ChannelFunctionAction from "@/common/enums/channel-function-action";
+    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     export default {
-        props: ['value', 'channelsDropdownParams', 'filter', 'clearOnSelect'],
-        components: {ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
+        props: {
+            value: Object,
+            channelsDropdownParams: String,
+            filter: {
+                type: Function,
+                default: () => true,
+            },
+            clearOnSelect: Boolean,
+            disableSchedules: Boolean,
+            disableNotifications: Boolean,
+            dropdownContainer: String,
+        },
+        components: {TransitionExpand, SchedulesDropdown, ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
         data() {
             return {
                 subject: undefined,
-                subjectType: 'channel'
+                subjectType: undefined,
             };
         },
         mounted() {
@@ -57,9 +189,16 @@
         },
         methods: {
             changeSubjectType(subjectType) {
-                this.subjectType = subjectType;
+                this.subjectType = subjectType === this.subjectType ? undefined : subjectType;
                 this.subject = undefined;
-                this.subjectChanged();
+                if (this.subjectType === ActionableSubjectType.NOTIFICATION) {
+                    this.subject = {
+                        id: -1,
+                        ownSubjectType: ActionableSubjectType.NOTIFICATION,
+                        possibleActions: [{id: ChannelFunctionAction.SEND, name: 'SEND', caption: 'Send notification'}],
+                    };
+                }
+                this.subjectChanged(this.subject);
             },
             subjectChanged(subject) {
                 if (this.subject != subject) {
@@ -67,15 +206,20 @@
                 }
                 this.$emit('input', this.subject);
                 if (this.clearOnSelect && this.subject) {
-                    Vue.nextTick(() => this.subject = undefined);
+                    Vue.nextTick(() => this.subject = this.subjectType = undefined);
                 }
             },
             updateBasedOnValue() {
-                if (this.value && this.value.subjectType) {
-                    this.subjectType = this.value.subjectType;
+                if (this.value && this.value.ownSubjectType) {
+                    this.subjectType = this.value.ownSubjectType;
                     this.subject = this.value;
                 } else if (this.subject) {
-                    Vue.nextTick(() => this.subject = undefined);
+                    Vue.nextTick(() => {
+                        this.subject = undefined;
+                        if (this.subjectType === ActionableSubjectType.NOTIFICATION) {
+                            this.changeSubjectType(ActionableSubjectType.NOTIFICATION);
+                        }
+                    });
                 }
             },
         },

@@ -185,6 +185,21 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     private $limitOAuthClient;
 
     /**
+     * @ORM\Column(name="limit_push_notifications", type="integer", options={"default"=200})
+     */
+    private $limitPushNotifications;
+
+    /**
+     * @ORM\Column(name="limit_push_notifications_per_hour", type="integer", options={"default"=20})
+     */
+    private $limitPushNotificationsPerHour;
+
+    /**
+     * @ORM\Column(name="limit_value_based_triggers", type="integer", options={"default"=50})
+     */
+    private $limitValueBasedTriggers;
+
+    /**
      * @ORM\OneToMany(targetEntity="AccessID", mappedBy="user", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $accessids;
@@ -238,6 +253,16 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
      * @ORM\OneToMany(targetEntity="Scene", mappedBy="user", cascade={"persist"})
      */
     private $scenes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="user")
+     */
+    private $valueBasedTriggers;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PushNotification", mappedBy="user")
+     */
+    private $pushNotifications;
 
     /**
      * @ORM\OneToMany(targetEntity="AuditEntry", mappedBy="user", cascade={"persist"})
@@ -327,6 +352,9 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitOperationsPerScene' => 20,
             'limitSchedule' => 20,
             'limitActionsPerSchedule' => 20,
+            'limitPushNotifications' => 200,
+            'limitPushNotificationsPerHour' => 20,
+            'limitValueBasedTriggers' => 50,
         ],
         'big' => [
             'limitIoDev' => 200,
@@ -341,6 +369,9 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
             'limitOperationsPerScene' => 50,
             'limitSchedule' => 150,
             'limitActionsPerSchedule' => 40,
+            'limitPushNotifications' => 500,
+            'limitPushNotificationsPerHour' => 100,
+            'limitValueBasedTriggers' => 200,
         ],
     ];
 
@@ -350,6 +381,9 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         $this->iodevices = new ArrayCollection();
         $this->schedules = new ArrayCollection();
         $this->clientApps = new ArrayCollection();
+        $this->scenes = new ArrayCollection();
+        $this->pushNotifications = new ArrayCollection();
+        $this->valueBasedTriggers = new ArrayCollection();
         $this->apiClientAuthorizations = new ArrayCollection();
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->shortUniqueId = bin2hex(random_bytes(16));
@@ -479,6 +513,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         $this->enabled = $boolean;
     }
 
+    /** @return Collection|AccessID[] */
     public function getAccessIDS() {
         return $this->accessids;
     }
@@ -511,6 +546,16 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     /** @return Collection|Scene[] */
     public function getScenes() {
         return $this->scenes;
+    }
+
+    /** @return Collection|Scene[] */
+    public function getValueBasedTriggers() {
+        return $this->valueBasedTriggers;
+    }
+
+    /** @return Collection|Scene[] */
+    public function getPushNotifications() {
+        return $this->pushNotifications;
     }
 
     /** @return Collection|Location[] */
@@ -584,6 +629,22 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     public function isLimitSceneExceeded() {
         return $this->limitScene > 0 && count($this->getScenes()) >= $this->limitScene;
+    }
+
+    public function isLimitReactionsExceeded(): bool {
+        return $this->limitValueBasedTriggers > 0 && count($this->getValueBasedTriggers()) >= $this->limitValueBasedTriggers;
+    }
+
+    public function isLimitNotificationsExceeded(): bool {
+        if ($this->limitPushNotifications) {
+            if ($this->relationsCount) {
+                return $this->relationsCount['pushNotifications'] >= $this->limitPushNotifications;
+            } else {
+                return count($this->getPushNotifications()) >= $this->limitPushNotifications;
+            }
+        } else {
+            return false;
+        }
     }
 
     public function getLimitOperationsPerScene(): int {

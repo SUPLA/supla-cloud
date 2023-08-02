@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\HasSubject;
 use SuplaBundle\Entity\HasSubjectTrait;
+use SuplaBundle\Entity\Main\Listeners\SceneOperationEntityListener;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -29,6 +30,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity
+ * @ORM\EntityListeners({SceneOperationEntityListener::class})
  * @ORM\Table(name="supla_scene_operation")
  */
 class SceneOperation implements HasSubject {
@@ -51,22 +53,34 @@ class SceneOperation implements HasSubject {
     private $owningScene;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannel")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannel", inversedBy="sceneOperations")
      * @ORM\JoinColumn(name="channel_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup")
+     * @ORM\ManyToOne(targetEntity="IODeviceChannelGroup", inversedBy="sceneOperations")
      * @ORM\JoinColumn(name="channel_group_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $channelGroup;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Scene")
+     * @ORM\ManyToOne(targetEntity="Scene", inversedBy="sceneOperations")
      * @ORM\JoinColumn(name="scene_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $scene;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Schedule", inversedBy="sceneOperations")
+     * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $schedule;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PushNotification", inversedBy="pushNotifications", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="push_notification_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    private $pushNotification;
 
     /**
      * @ORM\Column(name="action", type="integer", nullable=false)
@@ -98,19 +112,25 @@ class SceneOperation implements HasSubject {
     private $waitForCompletion = false;
 
     public function __construct(
-        ActionableSubject $subject,
+        ?ActionableSubject $subject,
         ChannelFunctionAction $action,
         array $actionParam = [],
         $userDelayMs = 0,
         $waitForCompletion = false
     ) {
-        $this->initializeSubject($subject);
+        if ($subject) {
+            $this->initializeSubject($subject);
+        }
         $this->action = $action->getId();
         $this->setActionParam($actionParam);
         Assertion::between($userDelayMs, 0, 3600000, 'Maximum delay is 60 minutes.'); // i18n
         $this->userDelayMs = $userDelayMs;
         $this->delayMs = $userDelayMs;
         $this->waitForCompletion = $waitForCompletion;
+    }
+
+    public static function delayOnly(int $delayMs): self {
+        return new self(null, ChannelFunctionAction::VOID(), [], $delayMs);
     }
 
     public function getId(): int {
@@ -154,6 +174,10 @@ class SceneOperation implements HasSubject {
 
     public function setDelayMs(int $delayMs): void {
         $this->delayMs = $delayMs;
+    }
+
+    public function getDelayMs(): int {
+        return $this->delayMs;
     }
 
     public function isWaitForCompletion(): bool {

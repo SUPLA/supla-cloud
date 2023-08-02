@@ -18,11 +18,24 @@
 namespace SuplaBundle\Tests\Integration\Traits;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Enums\ActionableSubjectType;
 
 trait UnitTestHelper {
     public function createEntityMock(string $entityClass, int $id = 1): MockObject {
         $mock = $this->createMock($entityClass);
         $mock->method('getId')->willReturn($id);
+        return $mock;
+    }
+
+    public function createSubjectMock(string $entityClass, int $id = 1): MockObject {
+        $mock = $this->createEntityMock($entityClass, $id);
+        if ($entityClass === IODeviceChannel::class) {
+            $mock->method('getOwnSubjectType')->willReturn(ActionableSubjectType::CHANNEL());
+        } elseif ($entityClass === Scene::class) {
+            $mock->method('getOwnSubjectType')->willReturn(ActionableSubjectType::SCENE());
+        }
         return $mock;
     }
 }

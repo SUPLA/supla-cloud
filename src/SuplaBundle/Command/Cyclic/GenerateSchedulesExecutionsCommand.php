@@ -93,6 +93,6 @@ class GenerateSchedulesExecutionsCommand extends AbstractCyclicCommand {
     }
 
     public function getIntervalInMinutes(): int {
-        return 360; // every six hours
+        return 1; // every one minute
     }
 }

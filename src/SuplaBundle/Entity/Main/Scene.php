@@ -25,23 +25,25 @@ use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\HasIcon;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\HasUserConfigTrait;
+use SuplaBundle\Entity\Main\Listeners\SceneEntityListener;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Supla\SuplaServer;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\SceneRepository")
+ * @ORM\EntityListeners({SceneEntityListener::class})
  * @ORM\Table(name="supla_scene")
  */
-class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig {
+class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUserConfig, HasIcon {
     use BelongsToUser;
     use HasRelationsCountTrait;
     use HasUserConfigTrait;
@@ -133,11 +135,21 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
      */
     private $directLinks;
 
+    /**
+     * @var ValueBasedTrigger[]
+     * @ORM\OneToMany(targetEntity="ValueBasedTrigger", mappedBy="scene", cascade={"remove"})
+     * @MaxDepth(1)
+     */
+    private $reactions;
+
+    private $commandExecutionsCount = 0;
+
     public function __construct(Location $location) {
         $this->user = $location->getUser();
         $this->location = $location;
         $this->operations = new ArrayCollection();
         $this->sceneOperations = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): int {
@@ -149,7 +161,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
     }
 
     /** @Groups({"basic"}) */
-    public function getSubjectType(): string {
+    public function getOwnSubjectType(): string {
         return ActionableSubjectType::SCENE;
     }
 
@@ -211,6 +223,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
     }
 
     public function setOpeartions($operations) {
+        $this->commandExecutionsCount = 0;
         $this->operations->clear();
         foreach ($operations as $operation) {
             EntityUtils::setField($operation, 'owningScene', $this);
@@ -243,6 +256,11 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         return $this->schedules;
     }
 
+    public function getReactions(): Collection {
+        return $this->reactions;
+    }
+
+    /** @return SceneOperation[] */
     public function getOperationsThatReferToThisScene(): Collection {
         return $this->sceneOperations;
     }
@@ -258,19 +276,25 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
         return "$command:$params";
     }
 
-    public function removeOperation(SceneOperation $sceneOperation, EntityManagerInterface $entityManager, SuplaServer $suplaServer) {
+    public function removeOperation(SceneOperation $sceneOperation, EntityManagerInterface $entityManager) {
         $this->getOperations()->removeElement($sceneOperation);
         $entityManager->remove($sceneOperation);
         if ($this->getOperations()->isEmpty()) {
             $entityManager->remove($this);
-            $suplaServer->userAction('ON-SCENE-REMOVED', $this->getId(), $this->getUser());
         } else {
             $entityManager->persist($this);
-            $suplaServer->userAction('ON-SCENE-CHANGED', $this->getId(), $this->getUser());
         }
     }
 
     public function getProperties(): array {
         return [];
+    }
+
+    public function getCommandExecutionsCount(): int {
+        return $this->commandExecutionsCount;
+    }
+
+    public function setCommandExecutionsCount(int $commandExecutionsCount): void {
+        $this->commandExecutionsCount = $commandExecutionsCount;
     }
 }

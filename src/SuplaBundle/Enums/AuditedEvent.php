@@ -30,6 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static AuditedEvent USER_ACCOUNT_DELETED()
  * @method static AuditedEvent USER_ACTIVATION_EMAIL_SENT()
  * @method static AuditedEvent MQTT_ENABLED_DISABLED()
+ * @method static AuditedEvent PASSWORD_CHANGED()
  */
 final class AuditedEvent extends Enum {
     const AUTHENTICATION_SUCCESS = 1;
@@ -41,6 +42,7 @@ final class AuditedEvent extends Enum {
     const USER_ACCOUNT_DELETED = 7;
     const USER_ACTIVATION_EMAIL_SENT = 8;
     const MQTT_ENABLED_DISABLED = 9;
+    const PASSWORD_CHANGED = 10;
 
     /** @Groups({"basic"}) */
     public function getId(): int {

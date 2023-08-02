@@ -104,16 +104,12 @@ class TokenController extends RestController {
             'grant_type' => $grantType,
             'scope' => (string)OAuthScope::getScopeForWebappToken(),
         ];
-        if ($grantType == OAuth2::GRANT_TYPE_REFRESH_TOKEN) {
-            $requestData['refresh_token'] = $request->get('refresh_token');
-        } else {
-            $requestData = array_merge($requestData, [
-                'username' => $request->get('username'),
-                'password' => $request->get('password'),
-            ]);
-            Assertion::notBlank($requestData['username'], 'Please enter a valid email address'); // i18n
-            Assertion::notEmpty($requestData['password'], 'The password should be 8 or more characters.'); // i18n
-        }
+        $requestData = array_merge($requestData, [
+            'username' => $request->get('username'),
+            'password' => $request->get('password'),
+        ]);
+        Assertion::notBlank($requestData['username'], 'Please enter a valid email address'); // i18n
+        Assertion::notEmpty($requestData['password'], 'The password should be 8 or more characters.'); // i18n
         $tokenRequest = Request::create($this->router->generate('fos_oauth_server_token'), 'POST', $requestData);
         try {
             return $this->server->grantAccessToken($tokenRequest);

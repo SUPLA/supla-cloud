@@ -30,13 +30,17 @@ Access to all of your devices through MQTT Broker: Accès à tous vos appareils 
 Account: Mon compte
 Account access when you are unavailable: Accès à votre compte en cas d'indisponibilité
 Account has been activated. You can Sign In now.: Votre compte a été activé. Vous pouvez dorénavant vous connecter
+Action confirmation: Confirmation de l’action
 Action execution: Exécution d'une action
 Action trigger: Déclencheur d’action
 'Action trigger no. #{index}': 'Déclencheur # {index}'
 Action triggers: Déclencheurs d’action
 Actions: Actions
 Active: Actifs
+Active applications: Applications actives
 Active period: Période d’activité
+Active sessions: Sessions actives
+Active web sessions: Sessions actives (web)
 Add: Ajouter
 Add a delay: Ajouter un délai
 Add a new icon: Ajouter une nouvelle icône
@@ -44,7 +48,6 @@ Add action: Ajouter une action
 Add first channel to set channel group function and save it: Sélectionner la première chaîne pour spécifier la fonction du groupe et l'enregistrer.
 Add new channel group: Ajouter un nouveau groupe de chaînes
 Add new channel to this group: Ajouter une nouvelle chaîne au groupe
-Add new item to use in the scene: Ajouter un nouvel élément à la scène
 Adjust parameters: Mettre les paramètres
 After deletion of this icon all channels and channel groups that use this icon, will receive default icons.: Tous les chaines et groupes de chaines qui utilisent cette icône recevront les icônes par défaut après l'avoir supprimée.
 After granting the access, you can always remove it by adjusting the settings in your account settings section.: Après avoir accordé l'accès, vous pouvez toujours changer d'avis en accédant aux paramètres de votre compte.
@@ -52,7 +55,10 @@ After the device enters the configuration mode, it will not be accessible on you
 After the update, the application will be faster, more comfortable, more powerful... Just better!: Après la mise à jour, l’application sera plus rapide, plus pratique... Tout simplement meilleure !
 After this operation, the counter will start counting from 0 regardless of its current state. This action cannot be reverted.: Le compteur commencera à compter à partir de 0 après cette opération, quel que soit son état actuel. Cette opération ne peut être annulée.
 After you choose a subject, a direct link will be generated. You will be able to set all other options after its creation.: Le lien sera généré dès que vous aurez sélectionné une entité. Toutes les autres options peuvent être introduites dès sa création.
+Aggregation: Agrégation
 All: Tout
+All events: Tous les événements
+All logs has been downloaded. Reload the chart to see them.: Toutes les données de mesure ont été téléchargées. Recharger le graphique pour les voir.
 All the above and many more can be done from your phone or tablet: Tout cela et beaucoup plus vous pouvez faire par l'intermédiaire d'un smartphone ou d'une tablette
 Allowed actions: Actions autorisées
 Allows to perform an action only using the HTTP PATCH request.: Vous permet d'effectuer une action seulement à l'aide de la demande HTTP PATCH.
@@ -60,12 +66,15 @@ Alternatively, you can add a GET parameter to specify response format.: Vous pou
 And more: Et beaucoup plus
 Any application or device that uses the {tokenName} token will not work anymore.: Toutes les applications ou appareils qui utilisent ce jeton {tokenName} cesseront de fonctionner.
 'App version: %clientAppSoftwareVersion%': 'Version de l’application : %clientAppSoftwareVersion%'
+Application: Application
 Application name cannot be blank.: Nom de l'application ne peut être vide.
 Application requirements: Exigences de l'application
 Applications: Applications
+Applications with access: Application avec accès
 Are you lost?: Tu t'es perdu ? Tu cherches quelque chose?
 Are you sure you want to change channel’s function?: Voulez-vous vraiment changer la fonction de la chaîne?
 Are you sure you want to delete the entire measurement history saved for this channel?: Etes-vous sûr de vouloir supprimer tout l'historique de mesures rassemblé pour cette chaîne ?
+Are you sure you want to delete the events from the voltage aberrations history?: Êtes-vous sûr de vouloir supprimer tous les événements de l’historique de l’aberration de la tension ?
 Are you sure you want to delete this OAuth application?: Êtes-vous sûr de vouloir supprimer cette application OAuth ?
 Are you sure you want to delete this channel group?: Voulez-vous vraiment supprimer ce groupe de chaînes?
 Are you sure you want to delete this client?: Voulez-vous vraiment supprimer cette application client?
@@ -73,10 +82,12 @@ Are you sure you want to delete this direct link?: Êtes-vous sûr de vouloir su
 Are you sure you want to delete this icon?: Êtes-vous sûr de vouloir supprimer cette icône ?
 Are you sure you want to delete this scene?: Voulez-vous vraiment supprimer cette scène ?
 Are you sure you want to delete this schedule?: Êtes-vous sûrs que vous voulez supprimer ce calendrier?
+Are you sure you want to log out this device?: Êtes-vous sûr de vouloir vous déconnecter de cet appareil ?
 Are you sure you want to reset the counter state?: Êtes-vous sûr de vouloir réinitialiser le compteur ?
 Are you sure you want to revoke permissions granted to this OAuth application?: Êtes-vous sûr de vouloir révoquer les permissions accordées à cette application OAuth ?
 Are you sure you want to revoke this token?: Vous êtes sûr de vouloir révoquer le jeton ?
 Are you sure?: Êtes-vous sûrs ?
+Arithmetic balance: Bilan arithmétique
 As in device: Comme dans l'appareil
 Assign Access Identifiers: Attribuer mes Identifiants d'Accès
 Assign Client apps: Attribuer des applications clients
@@ -90,10 +101,11 @@ At specified time: Pour l'heure indiquée
 At sunrise: au lever du soleil
 At sunrise, Monday through Friday: au lever du soleil, du lundi au vendredi
 At sunset: au coucher du soleil
+Authentication failure: Erreur de connexion
+Authentication successful: Connexion réussie
 Authorization callback URLs (one per line): URL d'autorisation de retour (une par ligne)
 Authorize the application, so that it can access your account.: Autorisez l'application pour qu'elle puisse accéder à votre compte.
 Authorized: Autorisé
-Authorized OAuth apps: Applications OAuth autorisées
 Automatic calibration: Étalonnage automatique
 Automatic closing rule: Fermeture automatique de la porte
 Automation: Automatique
@@ -107,9 +119,10 @@ Below threshold: Au-dessous du seuil
 Bottom position: Position basse
 Bridge: Pont
 Brightness: Luminosité
+By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: La désactivation de cette option permettra à ce dispositif d’être contrôlé à partir de l’intégration sans confirmation supplémentaire. Cela peut conduire à une situation dangereuse ou moins sûre (par exemple, l’ouverture accidentelle d’un portail).
+By signing in, you are authorizing {clientName} to control your devices.: En vous connectant, vous autorisez l’application {clientName} à contrôler vos appareils.
 CLICK TO DISABLE: CLIQUER ICI POUR DÉSACTIVER
 CLICK TO ENABLE: CLIQUER ICI POUR ACTIVER
-Calculated value: État du compteur
 Calibrate: Étalonner
 Calibration: Calibration
 Calibration successful.: Étalonnage réussi
@@ -129,9 +142,11 @@ Change Password: Modification de mot de passe
 Change channel function: Modifier la fonction de la chaîne
 Change function: Changer la fonction
 Change icon: Changer d'icône
+Change the password and log out: Modifier votre mot de passe et vous déconnecter
 Changing channel’s function will also result in the following changes.: La modification de la fonction de la chaîne entraînera également les changements suivants.
 Channel: Chaîne
 Channel No: N° chaîne
+Channel available for {serviceName}: Canal disponible pour {serviceName}
 Channel for the partial opening sensor: Chaîne pour capteur d'ouverture partielle
 Channel for the sensor: Capteur chaîne
 Channel group: Groupe de chaînes
@@ -148,6 +163,7 @@ Channel with action triggers: Chaîne avec déclencheurs d’action
 Channels: Chaînes
 Channels groups are not supported for this function.: Cette fonction ne prend pas en charge les groupes de chaînes.
 Chart data source type: Type de source des données
+Chart mode: Type de graphique
 Chart type: Type de graphique
 Check the direct link you used and try again.: Vérifiez le lien direct et réessayez
 Check your email box: Vérifiez votre messagerie électronique
@@ -170,8 +186,10 @@ Close: Fermer
 Close after: Fermer après
 Close automatically: Fermer automatiquement
 Close partially: Fermer partiellement
+Colon: Point-virgule
 Color: Couleur
 Color brightness: Luminosité de la couleur
+Comma: Virgule
 Comment: Commentaire
 Config of the schedule is too complicated.: La configuration de la programmation est trop compliquée.
 Configuration: Configuration
@@ -181,6 +199,7 @@ Confirm if you want to perform the roller shutter calibration.: Confirmer que le
 Confirm if you want to remove Access Identifier: Confirmer la suppression de mon Identifiant d'Accès
 Confirm if you want to remove the Location ID{locationId}. You will no longer be able to connect the i/o devices to this Location.: Confirmez que vous voulez supprimer le lieu ID{locationId}. Vous ne pourrez plus connecter vos dispositifs d’E/S à ce lieu.
 Confirm if you want to remove {deviceName} device and all of its channels.: Confirmer que vous souhaitez supprimer {deviceName} et tous ses chaînes.
+Confirmation: Confirmation
 Connected: Connecté
 Connection with a private instance of the SUPLA cloud: Connexion avec l'instance privée du nuage SUPLA.
 Constraints: Limitations
@@ -189,6 +208,8 @@ Could not contact Autodiscover service. Try again in a while.: Impossible de con
 Could not enter the configuration mode.: L’appareil n’a pas pu être mis en mode de configuration.
 Could not reset the password.: Mot de passe n'a pas pu être réinitialisé.
 Could not reset the password. Please try again later.: Impossible de réinitialiser le mot de passe Réessayez dans un moment.
+Counter: Compteur
+Counter reset: Remise à zéro du compteur
 Create New Access Identifier: Créer un nouvel Identifiant d'Accès
 Create New Location: Créer un nouveau Lieu
 Create New Schedule: Créer un nouveau calendrier
@@ -205,7 +226,9 @@ DHT11 Temperature & Humidity Sensor: Capteur de température et d'humidité DHT1
 DHT21 Temperature & Humidity Sensor: Capteur de température et d'humidité DHT21
 DHT22 Temperature & Humidity Sensor: Capteur de température et d'humidité DHT22
 DS18B20 Thermometer: Termometr DS18B20
+Data limits: Limites des données
 Data saved: Vos données ont été enregistrées
+Date and time: Date et heure
 Decline: Refuser
 Default: par défaut
 Delete: Supprimer
@@ -252,15 +275,18 @@ Door lock operation: Ouverture de porte
 Door opening sensor: Capteur d'ouverture de porte
 Doors and gates: Portes, Portails
 Doors, Gates, Windows: Portes, portails, fenêtres
+Download measurements history: Télécharger l’historique des mesures
 Download the history of measurement: Télécharger l'historique des mesures
 Drag your image(s) here or click to select from the disk: Faites glisser l'image ici ou cliquez pour la choisir depuis le disque
 E-mail notifications: Notifications par email
 Edit: Modifier
 Electric: Electricité
 Electricity meter: Compteur d'énergie
+Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Le compteur d’électricité n’indiquait pas la possibilité de configurer des valeurs ajoutées. Mettez à jour le firmware de l’appareil et réessayez.
 Empty!: Vide!
 Enable: Activer
 Enabled: Activé
+Enabled phases: Phases actives
 End date: Date de désactivation
 Enter new password: Saisissez un nouveau mot de passe
 Enter strong password: Il faut que le mot de passe soit fort
@@ -284,9 +310,11 @@ Execution history: Historique des exécutions
 Execution limit: Limite des exécutions
 Executions: Programmes
 Expired: Terminé
+Expires at: Expiration
 Failed: Échec
 Failed (zombie): Échec (zombie)
 Feature limits: Limites fonctionnelles
+File format: Format de fichier
 File is too large: Le fichier est trop volumineux
 Flooding: Inondation
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: Il est recommandé d’utiliser l’adresse {suplaUrl} lors de la mise à jour.
@@ -294,10 +322,11 @@ For devices: Pour les dispositifs
 For security reasons, the full URL of this direct link will be displayed only once, during creation.: Pour des raisons de sécurité, l'URL complète de ce lien direct ne sera affichée qu'une seule fois lors de sa création.
 Forgot your password?: J'ai oublié le mot de passe?
 Forward active energy: Energie active importée
+Forward active energy balance: Bilan de l’énergie active consommée
 Forward active energy balanced: Énergie active prise (Balance vectorielle)
 Forward reactive energy: Énergie réactive prise
 Fridays: Vendredi
-From IP: Avec l'adresse IP
+From: De
 From anywhere: À chaque endroit
 Full closing time: Durée totale de fermeture
 Full documentation: Documentation complète
@@ -340,10 +369,12 @@ I agree: J'accepte
 I aree, taske me to the app: J'accepte, allez à l'application
 I confirm! Delete my account.: Je confirme! Supprimer mon compte.
 I do not agree, get me out of here: Je ne suis pas d'accord, faites-moi sortir d'ici
+I understand that my SUPLA account will be permanently deleted.: Je comprends que mon compte SUPLA sera irrémédiablement supprimé.
 I/O Devices: Dispositifs d'E/S
 I/O devices registration: Enregistrement appareil
 ID: ID
 INACTIVE: INACTIVE
+IP Address: Adresse IP
 Icon: Icône
 Idle: Inactif
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Si l’appareil est en mode veille les modificactions de configuration ne seront appliquées qu’au moment de la mise en marche
@@ -374,12 +405,14 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Inactif
 Include energy corrections in new measurements history (not recommended): Inclure une valeur ajoutée dans l’histoire (non recommandé)
 Incorrect password: Mauvais mot de passe
+Incremental: Incrémental
 Information: Information
 Inherit I/O Device location: Utiliser le lieu du dispositif
 Initial value: Valeur initiale
 Integration with MQTT Broker has been disabled.: L’intégration avec le broker MQTT a été désactivée.
 Integration with MQTT Broker has been enabled.: L’intégration avec le broker MQTT a été activée.
 Integrations: Intégrations
+Integrations settings: Paramètres d’intégration
 Interpolate measurements: Estimer les valeurs manquantes
 Interrupt: Arrêter
 Interrupt and execute: Faire une pause et exécuter
@@ -391,6 +424,7 @@ Invalid function for channel.: Fonction invalide pour le canal
 Invalid request: Requête incorrecte.
 Invalid request.: Requête invalide.
 Invalid token.: Jeton invalide.
+Invalid username or password: Nom d’utilisateur ou mot de passe incorrect
 Inverted logic: Logique inversée
 Invisible: Non affichés
 It is possible that another user have entered your email address by mistake while resetting password to their own account.: Il est possible qu'un autre utilisateur ait saisi votre adresse e-mail par erreur afin de réinitaliser le mot de passe de son compte.
@@ -412,7 +446,9 @@ Location Identifier: Identifiant de lieu
 Location limit has been exceeded: Vous avez dépassé la limite des lieux
 Location name: Nom de la localisation
 Locations: Lieux
+Log out: Déconnexion
 Login: Connexion
+Logs transformation: Transformation de la valeur
 Longest aberration: Abberation la plus longue
 Lower voltage threshold: Seuil de la plus basse tension
 MQTT Broker: Broker MQTT
@@ -470,6 +506,7 @@ No of devices: Nombre d’appareils
 No of operations: Nombre d’interventions
 No results match {0}: Aucun résultat ne correspond à {0}
 No schedule configuration.: Aucune configuration du calendrier n’est fournie.
+No, take me back!: Non, faites-moi sortir d’ici !
 No. of Client’s apps: Nombre des applications clientes
 No. of access identifiers: Nombre d'identifiants d'accès
 No. of channel groups: Nombre de groupes de chaînes
@@ -478,6 +515,7 @@ No. of devices: Nombre de dispositifs
 No. of locations: Nombre des lieux
 None: Nul
 None (channel disabled): Aucun (chaîne désactivée)
+Noop: Aucune opération
 Number of aberrations: Quantité d’aberrations
 Number of attempts to close: Nombre de tentatives de fermeture
 Number of attempts to open: Nombre de tentatives d’ouverture
@@ -486,6 +524,7 @@ OAuth application: Application OAuth
 OAuth apps: Applications OAuth
 OAuth authorization: Autorisation OAuth
 OAuth integrations might stop working after the instance is unregistered.: Les intégrations d’applications OAuth peuvent cesser de fonctionner après la désinscription de votre instance.
+OK: OK
 'Off': Désactiver
 Offline access: Accès hors ligne
 Older: Plus ancien
@@ -496,16 +535,22 @@ Open: Ouvrir
 Open / close: Ouvrez / fermez
 Open partially: Ouvrez partiellement
 Opening sensor: Détecteur d'ouverture
+Operation: Opération
 Operations: Activités
 Original location: Lieu d'origine
 Other: Autres
 Otherwise go to the homepage.: Sinon, allez à [page d'accueil].
+PIN: PIN
+PIN for Google must have a length between {minLength} and {maxLength} digits.: Le code PIN pour Google doit comporter au moins {minLength} et au plus {maxLength} chiffres.
 Partial opening sensor: Capteur d'ouverture partielle
 Password: Mot de passe
 Password Reset: Réinitialisation du mot de passe
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: La modification du mot de passe entraîne la déconnexion de toutes les sessions en cours. Toutefois, cela n’affectera pas les applications qui ont reçu une autorisation de votre part. Vous devez retirer votre demande d’autorisation de connexion séparément.
+Password changed: Mot de passe modifié
 Password has been changed: Votre mot de passe a été modifié
 Password must be at least {minLength} characters.: Le mot de passe doit comporter au moins {minLength} caractères.
 Password must be no longer than {maxLength} characters.: Le mot de passe ne peut pas dépasser {maxLength} caractères.
+Password reset: Réinitialiser le mot de passe
 Password reset instructions.: Instructions pour restaurer l’accès à votre compte.
 Percentage of closing: Pourcentage fermeture
 Personal access tokens: Jetons d'accès personnels
@@ -515,6 +560,7 @@ Phase 1: Phase 1
 Phase 2: Phase 2
 Phase 3: Phase 3
 Phase number: Phase
+Phase {phaseNumber}: Phase {phaseNumber}
 Please choose the schedule subject first.: Tout d'abord, choisissez ce que le calendrier doit contrôler
 Please click the following link to reset your %cloudHost% password.: Veuillez cliquer le lien ci-dessous afin de réinitaliser votre mot de passe sur le site %cloudHost%.
 Please click the link we have sent you after the registration to proceed.: Cliquer sur le lien fourni dans le message que nous vous avons envoyé après l’ouverture de votre compte.
@@ -527,8 +573,8 @@ Please read the Terms and Conditions.: Lire le règlement.
 Please wait a moment before the next login attempt.: Attendez un moment avant la prochaine tentative de connexion.
 Port: Port
 Precision: Précision
+Predefined time ranges: Plages de temps
 Pressure sensor: Capteur de pression
-Previous login: Dernière connexion
 Price per: Prix pour
 Private Cloud domain name: Nom de domaine privé du nuage
 Private instance of the SUPLA cloud with given URL is already registered.: Un cloud SUPLA privé est déjà enregistré à cette adresse.
@@ -556,6 +602,7 @@ Registered: Enregistré
 'Registered from IP address: %deviceRegIp%': 'Adresse IP : %deviceRegIp%'
 Relay: Relais
 Relay switching time: Durée d'activation de relais
+Reload the chart: Recharger le graphique
 'Relocate all the associated channel groups before you delete this location. Ids: {relatedIds}.': 'Avant de pouvoir supprimer un lieu, vous devez d''abord déplacer les groupes de chaînes attribués. Identifiants: {relatedIds}.'
 'Relocate all the associated channels before you delete this location. Ids: {relatedIds}.': 'Avant de supprimer un lieu, vous devez d''abord déplacer les chaînes attribuées. Identifiants: {relatedIds}.'
 'Remove all the associated devices before you delete this location. Ids: {relatedIds}.': 'Supprimer les dispositifs attribués avant de supprimer le lieu. Identifiants: {relatedIds}.'
@@ -568,6 +615,7 @@ Retry on failure: Répéter lorsqu'il n'est pas exécuté
 Reveal: Dévoiler
 Reveal partially: Dévoiler partiellement
 Reverse active energy: Énergie active restituée
+Reverse active energy balance: Bilan de l’énergie active restituée
 Reverse active energy balanced: Énergie active restituée (équilibre vectoriel)
 Reverse reactive energy: Énergie réactive renvoyée
 Revoke: Révoquer
@@ -596,6 +644,7 @@ Save changes: Enregistrer les modifications
 Save changes to see Access IDs: Sauvegarder les modifications pour afficher les identifiants d'accès
 Save or discard configuration changes first.: Tout d’abord, enregistrez ou ignorez les modifications de configuration.
 Scene: Scène
+Scene available for {serviceName}: Scène disponible pour {serviceName}
 Scene must consist of at least one operation.: La scène doit contenir au moins une opération
 Scenes: Scènes
 Scenes limit has been exceeded: Vous ne pouvez pas créer plus de scènes
@@ -608,12 +657,15 @@ Scopes: Champs
 Scopes define which sections of your account can be accessed when using the token.: Les champs déterminent les parties de votre compte auxquelles vous pouvez accéder à l'aide d'un jeton.
 Search: Chercher
 Secret: Clé secrète (secret)
+Security: Sécurité
+Security log: Journal de sécurité
 See available integrations: Voir les intégrations disponibles
 See direct link possibilities: Voir les possibilités d'un lien direct
 See in SUPLA-Cloud: Voir sur SUPLA-Cloud
 Seems like a secret place: On a l’impression que tu ne devrais pas être ici
 Select icon: Sélectionnez l'icône
 Select the item (subject) you want to control using this link: Sélectionnez le(s) élément(s) que vous voulez contrôler à l'aide de ce lien.
+Selected device has been logged out.: L’appareil sélectionné a été déconnecté
 Sensor (normal closed): Capteur (fermé par défaut)
 Sensor (normal open): Capteur (ouvert par défaut)
 Sensor disconnected: Aucun capteur
@@ -622,6 +674,7 @@ Server address: Adresse du serveur
 Server unreachable: Ce serveur est injoignable
 Service temporarily unavailable: Ce service est temporairement indisponible
 Set value added: Déterminer la valeur ajoutée
+Set values for each phase separately: Déterminer la valeur de chaque phase séparément
 Setting the number of attempts to 1 disables the retrying behavior completely.: Si le nombre de tentatives est inférieur à 2, la fermeture ou l’ouverture peut échouer.
 Show my limits: Montrez mes limites
 Show on the Client’s devices: Afficher dans les dispositifs client
@@ -650,10 +703,12 @@ Store measurements history: Enregistrer l’historique des mesures
 Subject type: Type d'entité
 Success: Succès
 Successful: Succès
+Summary for selected time range: Résumé pour le champ d’application sélectionné
 Sundays: Dimanche
 Switch the device to configuration mode: Mettre l’appareil en mode configuration
 THIS CANNOT BE UNDONE!: CETTE OPÉRATION NE PEUT PAS ÊTRE ANNULÉE!
 TLS: TLS
+Tab: Tabulateur
 Target Cloud is not registered, or is registered with another e-mail address.: Cette instance SUPLA Cloud n’est pas enregistrée ou est enregistrée avec une adresse e-mail différente.
 Temperature: Température
 Temperature & Humidity Sensor: Capteur de température et humidité
@@ -672,6 +727,10 @@ The client will be automatically logged out when deleted.: Si le client est reti
 The counter has been reset.: Le compteur a été réinitialisé.
 The device is disabled: Ce dispositif est désactivé
 The device might be in a sleep mode.: Appareil peut fonctionner en mode veille
+The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Un appareil qui utilise cette session va perdre l’accès à SUPLA Cloud. Pour continuer à utiliser l’application, vous devrez vous connecter à nouveau.
+The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Tout l’historique des aberrations de tension pour la phase {phaseNumber} sera supprimé.
+The entire history of the voltage aberrations will be removed from this channel.: Tous les antécédents d’aberration de tension seront supprimés pour ce canal.
+The events in voltage aberrations history will be automatically deleted after {days} days.: Les événements de l’historique des aberrations de tension seront automatiquement supprimés après {days} jours.
 The following items use the channels of these device. These references will be also removed.: Les éléments suivants utilisent les chaînes de cet appareil. Elles seront également supprimées.
 'The following items will be deleted with this device:': Les éléments suivants seront également supprimés avec cet appareil.
 The gate sensor must function properly in order to execute the Open and Close actions.: Le capteur d'ouverture du portail doit fonctionner correctement pour effectuer l'action Ouvrir ou Fermer.
@@ -703,17 +762,21 @@ Thermometer: Thermomètre
 Thermostat: Thermostat
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ce lien direct nécessite des précisions sur les paramètres de l’action exécutée. Voir les exemples ci-dessous pour savoir quels paramètres vous pouvez définir.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Vous recevez cette information en raison d'une tentative infructueuse de connexion à SUPLA-CLOUD en utilisant votre adresse e-mail.
+This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: C’est l’étape finale de la suppression de votre compte. Le fait de remplir et d’approuver le formulaire entraînera la suppression irréversible de vos données.
 This is the list of applications you have granted access to your account.: Voici la liste des applications que vous avez autorisées à accéder à votre compte.
 This link is only valid for an hour.: Le lien restera actif pendant une heure.
+'This password will protect your home. Therefore, it must:': 'Ce mot de passe protégera votre maison. C’est pourqoui :'
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ce mode de programmation est conçu pour les utilisateurs techniques ou très patients. Il nécessite que les moments de déclenchement de la programmation soient spécifiés dans la notation crontab, enrichie de plusieurs fonctionnalités que l’on ne trouve que dans SUPLI. Si vous n’avez jamais vu de crontabs auparavant et que vous souhaitez toujours utiliser ce mode, le site Web crontab.guru peut vous être utile.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ce déclencheur est utilisé localement par l’appareil (par ex. allume la lumière, commande le store, etc.) Si vous lui affectez une action différente, la fonction locale sera désactivée.
 Thursdays: Jeudi
 Timezone: Fuseau horaire
+To: À
 Toggle: Changer
 Token does not exist: Ce tokken n'existe pas
 Too many actions in this schedule.: Trop d’actions dans une programmation.
 Too many channels in this group: Trop de canaux dans ce groupe
 Too many operations in this scene: Trop d’opérations dans la scène.
+Total: Total
 Total time: Temps complet
 Triggers: Déclencheurs
 Tuesdays: Mardi
@@ -723,6 +786,7 @@ Type: Type
 Undo registration: Retirer votre inscription
 Unit: Unité
 Unknown: Inconnu
+Unknown browser: Navigateur inconnu
 Unregister my private SUPLA Cloud instance: Désenregistrer mon instance privée de SUPLA Cloud
 Unsuccessful login attempt: Échec de la connexion
 Unsupported function: Fonction non supportée
@@ -733,10 +797,13 @@ Upper voltage threshold: Seuil de la tension haute
 'Use the {0} server command to change this account''s limits. For example:': 'Pour modifier les limites de ce compte, utilisez la commande {0} sur votre serveur. Par exemple :'
 Use working schedule for this access identifier: Utiliser un horaire de disponibilité pour cet ID d’accès
 User is already confirmed. Try to log in.: Ce compte est déjà confirmé. Connectez-vous.
+Value: Valeur
 Value added: Valeur ajoutée
 Value per unit: Valeur unitaire
+Value separator: Séparateur
 Valve: Vanne
 Valve closed manually: Vanne fermée manuellement
+Vector balance: Bilan vectoriel
 Verification method: Méthode de vérification
 Visible: Affichés
 Visit app webpage: Ouvrez le site de l'application.
@@ -748,6 +815,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Attendez un peu avant d’executer une autre demande. Vous pouvez vérifier l'utilisation actuelle de vos limites dans les paramètres de votre compte.
 Wait for this scene to finish before proceeding to the next step ({time}).: Attendez la fin de la scène avant de continuer l’opération ({time}).
 Water meter: Compteur d'eau
+'We also strongly advise you to choose a password that:': 'En outre, nous vous recommandons définitivement de choisir un mot de passe qui :'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Nous vous enverrons des notifications sur certains événements liés à votre compte. Vous pouvez vous désabonner de ceux dont vous n’avez pas besoin.
 We could not connect to your SUPLA Cloud instance.: Nous n'avons pas pu nous connecter à votre instance privée de SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Nous avons reçu l’instruction de supprimer votre compte sur SUPLA Cloud (%cloudHost%).
@@ -759,7 +827,9 @@ We should be ready shortly.: On devrait finir bientôt.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Nous enregistrons des informations sur vos préférences dans votre navigateur afin de faciliter l'utilisation de l'application (par exemple au moyen de cookies).
 We try to be faster: Nous essayons d'être plus rapides
 We were not able to find your account.: Nous n'avons pas pu trouver votre compte.
+We were not able to prepare your data. Please see the error details below.: Une erreur s’est produite lors de la préparation des données. Lire les détails ci-dessous.
 We will miss you: Vous nous manquerez
+We will miss you!: Vous allez nous manquer !
 We will try to display the received icons the best possible way, however you will obtain the greatest results by sending us over a PNG file with a transparent background, width {width}px and height {height}.: Zrobimy co w naszej mocy aby przesłane ikony wyświetlały się jak najlepiej, ale najlepsze rezultaty uzyskasz przesyłając pliki PNG z przezroczystym tłem oraz szerokością {width} i wysokością {height} pikseli.Nous ferons de notre mieux pour nous assurer que les icônes sont affichées aussi bien que possible, mais vous obtiendrez les meilleurs résultats en téléchargeant des fichiers PNG avec un fond transparent et une largeur de {width} pixels et une hauteur de {height} pixels.
 We will use it only in justified situations.: Nous ne l'utiliserons que dans des cas justifiés.
 Weather Station: Station météo
@@ -779,6 +849,7 @@ Working period: Durée
 Working schedule: Horaire des activités
 YOUR LINK CODE: CODE DE VOTRE LIEN
 You are changing the settings too quickly. You have to wait a while before making this change.: Vous modifiez les paramètres trop rapidement. Vous devez attendre un moment avant de modifier ces paramètres.
+You can browse only the most recent logs now. Wait a while for the full history.: Actuellement, seules les mesures les plus récentes sont affichées. Attendez un peu que l’historique complet soit téléchargé.
 You can ignore this message, if you have accidentally entered an incorrect password.: Vous pouvez ignorer cette information si c`était vous qui avez entré le mauvais mot de passe.
 You can use the application but you will not be able to modify any settings.: Vous pouvez utiliser l'application mais vous ne pourrez modifier aucun paramètre.
 You cannot delete your last access identifier.: Vous ne pouvez pas supprimer votre dernier identifiant d'accès.
@@ -791,6 +862,7 @@ You just need to execute the following command inside your host terminal.: Il su
 You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Si vous souhaitez toujours utiliser le mode de programmation avancé, consultez les exemples ci-dessous.
 You must agree to the Terms and Conditions.: L'acceptation du règlement est requise.
 You must enable MQTT Broker first.: Vous devez d’abord activer l’intégration avec le broker MQTT.
+You must leave at least one phase enabled.: Au moins une phase doit rester active.
 You must set an action for each scene operation.: Choisir l’action pour chaque opération dans la scène.
 You must set sections with transparent or opaque parameters or both.: Vous devez choisir la transparence pour au moins une section.
 You need to provide icons for all states.: Vous devez fournir des icônes pour tous les états.
@@ -801,7 +873,11 @@ Your account has been deleted. We hope you will come back to us soon.: Le compte
 Your account has been locked.: Votre compte a été bloqué.
 Your account has not been confirmed yet.: Votre compte n’est pas encore confirmé.
 Your account limits: Limites de votre compte
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Votre navigateur ne supporte pas le mécanisme de base de données client (IndexedDB). Cette fonctionnalité est nécessaire pour afficher des graphiques et prendre en charge des paramètres avancés d’exportation de données. Mettez à jour votre navigateur ou quittez le mode incognito pour profiter de ces fonctionnalités.
 Your channel groups are allowed to have a maximum of {max} channels.: Vos groupes de chaînes peuvent contenir au maximum {max} chaînes.
+Your chart is being drawn...: Votre graphique est dessiné...
+Your data are being collected. Please be patient.: Nous collectons vos données, merci de patienter.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vos données sont téléchargées depuis le serveur. Attendez que la fin de téléchargement avant de les exporter.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: L’appareil vous permet d’étendre ses fonctionnalités et vous permet d’effectuer n’importe quelle action sur n’importe quel appareil dont vous disposez. Les options disponibles dépendent du micrologiciel et de l’appareil que vous utilisez.
 Your email: Votre adresse e-mail
 Your instance is not registered or you are trying to authorize an application that is not public.: Votre instance n'est pas enregistrée ou vous essayez d'autoriser une application qui n'est pas publique.
@@ -837,11 +913,15 @@ actionTrigger_TURN_ON: Mise en marche
 actionableSubjectType_channel: Chaîne
 actionableSubjectType_channelGroup: Groupe de chaînes
 actionableSubjectType_scene: Scène
+actionableSubjectType_schedule: Calendrier
 addToHistoryMeasurementWarningSelected: En cochant cette option, les valeurs définies seront ajoutées aux futures mesures stockées dans l’historique. Cela peut être vu dans les graphiques comme une augmentation soudaine de la valeur saisie. Nous recommandons de régler ces paramètres uniquement lors de la première installation du compteur. Pour les compteurs existants, nous recommandons de supprimer l’historique des mesures immédiatement après avoir modifié ces paramètres.
 addToHistoryMeasurementWarningUnselected: Décocher cette option omettra les valeurs définies des futures mesures enregistrées dans l’historique. Cela peut être vu dans les graphiques comme une chute soudaine. Nous recommandons de régler ces paramètres uniquement lors de la première installation du compteur. Pour les compteurs existants, nous recommandons de supprimer l’historique des mesures immédiatement après avoir modifié ces paramètres.
 after: après
+average: moyenne
+be at least {numChars} characters long: doit comporter au moins {numChars} caractères
 before: avant
 caption: Nom
+change: modifier
 channel: Chaîne
 channelConfigHelp_gateCloseAfterHelp: Agent qui lance la procédure de la fermeture peut avoir maximum une minute de retard par rapport au temps imparti.
 channelConfigHelp_numberOfAttemptsGate: Après avoir ordonné l’ouverture ou la fermeture du portail, le système tente de fermer/ouvrir le portail et attend 60 secondes pour vérifier que le portail a atteint l’état souhaité. Si ce n’est pas le cas, le système essaiera de se fermer/s’ouvrir à nouveau. Ce paramètre spécifie le nombre maximal de tentatives par le système pour atteindre l’objectif. La valeur recommandée est 5. La modification de ce paramètre n’affecte pas le fonctionnement des programmations.
@@ -855,8 +935,12 @@ choose the action: sélectionner l’action
 choose the channel: choisir la chaîne
 choose the channel group: choisissez le groupe de chaînes
 choose the scene: sélectionner une scène
+choose the schedule: sélectionner un calendrier
 choose the timezone: choisissez le fuseau horaire
 click here: cliquez ici
+contains a character that is neither a letter nor a digit: contient un caractère qui n’est ni une lettre ni un chiffre
+contains a digit: contient un chiffre
+contains lower and upper letters: contient des lettres majuscules et minuscules
 copied: copié
 copy: copier
 days: jours
@@ -881,11 +965,21 @@ extend: prolongez
 from IP: avec l'adresse IP
 from the IP: de l’adresse
 hours: heures
+is at least {numChars} characters long: contient au moins {numChars} caractères
+last 24 hours: 24 dernières heures
+last 30 days: 30 derniers jours
+last 6 hours: 6 dernières heures
+last 7 days: 7 derniers jours
+logs_aggregation_day: jours
+logs_aggregation_hour: heures
+logs_aggregation_minute: minutes
+logs_aggregation_month: mois
 min.: min.
 minutes: minutes
-or add a delay: ou ajouter un délai
 password: mot de passe
 prefix: préfixe
+previous month: mois précédent
+range: période
 register-slide1-text: Basée sur l'équipement électronique disponible, SUPLA vous permet de construire des simples modules avec qui vous pouvez gérer et contrôler les composant d'automatisation dans votre bâtiment. Grâce à SUPLA vous pouvez entre autres gérer l'éclairage, allumer et éteindre vos équipements ménager, ouvrir/fermer porte et portails ou bien contrôler la température ambiante. Tout cela vous pouvez faire en un seul click sur l'écran.
 register-slide1-title: Développez votre Propre Bâtiment Intelligent
 register-slide2-text: L'une des hypothèses principales du projet c'est simplicité et disponibilité. SUPLA vous permet d'allumer la lumière ou d'ouvrir la porte en un seul clic et cela au moment où on veut entrer dans notre possession. SUPLA est toujours disponible là où vous avec l'accès au réseau internet et à votre smartphone ou tablette. Le développement de SUPLA est basée sur les principes de logiciels open source et open hardware ce vous possibilite votre propre engagement dans ce projet!
@@ -894,6 +988,7 @@ register-slide3-text: Les systèmes d'automatisation bâtiment disponibles sur l
 register-slide3-title: BGratuite et ouverte!
 reset chart view: réinitialisez la vue du graphique
 scene: scène
+schedule: calendrier
 scheduleMode_crontab: Avancé
 scheduleMode_daily: Cycle par jours
 scheduleMode_minutely: Cycle par minutes
@@ -921,8 +1016,16 @@ sunrise-after: le lever du soleil
 sunrise-before: le lever du soleil
 sunset-after: le coucher du soleil
 sunset-before: le coucher du soleil
+the whole history: historique complet
+this month: mois en cours
+this year: année en cours
+today: aujourd’hui
+unknown: inconnu
 username: nom d'utilisateur
 valid until: expirera
+values as seen on chart: valeurs comme dans la graphique
+values as seen on counter: valeurs comme sur le compteur
+yesterday: hier
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne peut pas interagir avec votre compte jusqu''à ce que vous accordiez à nouveau l''accès.'
 '{clientName} wants to access your account.': '{clientName} veux accéder à votre compte.'
 '{minutes} minutes after sunrise': '{minutes} minutes après le lever du soleil'
@@ -933,6 +1036,7 @@ valid until: expirera
 '{requests} out of {limit} / h': '{requêtes} de {limite} / h'
 '{requests} out of {limit} / min': '{requêtes} de {limite} / min'
 '{requests} out of {limit} / {seconds} sec.': '{requêtes} de {limite} / sec'
+'{serviceName} integration': Intégration avec {serviceName}
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">
@@ -941,9 +1045,12 @@ valid until: expirera
 Access identifier password must be at least 8 characters.: Mot de passe pour l'identifiant d'accès doit être composé d'au moins 8 caractères.
 Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
 Action: Action
+Add new item to use in the scene: Ajouter un nouvel élément à la scène
 Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Etes-vous sûr de vouloir effacer tout l’historique de l’aberration de la tension de ce canal ?
 Are you sure you want to disable this device?: Voulez-vous vraiement désactiver ce dispositif?
 Assigned Locations: Lieux attribués
+Authorized OAuth apps: Applications OAuth autorisées
+Calculated value: État du compteur
 Cannot send an activation e-mail. Try again later.: Impossible d’envoyer le message avec le lien d’activation. Réessayez plus tard.
 Channel will be deleted from the channel group below: La chaîne sera supprimée des groupes de chaînes suivants
 Channels in channel group: Canaux dans les groupes de canaux
@@ -958,6 +1065,7 @@ Doors, Gates: Portes, Portails
 ENABLED: ACTIVÉ
 Email already exists: L'email existe déjà
 Existing schedules: Calendriers existants
+From IP: Avec l'adresse IP
 Get SUPLA on your devices: Téléchargez SUPLA sur vos dispositifs
 Hi: Bonjour
 Hour: Heure
@@ -975,6 +1083,7 @@ Next: Suivre
 Number: Numéro
 Output: Sortie
 Please select the schedules that should also be enabled.: Sélectionnez les calendriers qui doivent être aussi activés.
+Previous login: Dernière connexion
 Registration: Inscription
 Remove: Supprimer
 Schedule cannot be enabled: Échec d'activation de calendrier
@@ -990,34 +1099,156 @@ When: Quand
 You will be logged out shortly: Vous allez être maintenant déconnectés
 execute: exécuter
 hourly: Cycle par heures
+or add a delay: ou ajouter un délai
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-Action confirmation: ~
-All events: ~
-Are you sure you want to delete the events from the voltage aberrations history?: ~
-By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
-By signing in, you are authorizing {clientName} to control your devices.: ~
-Channel available for {serviceName}: ~
-Confirmation: ~
-Data limits: ~
-Enabled phases: ~
-I understand that my SUPLA account will be permanently deleted.: ~
-Integrations settings: ~
-Invalid username or password: ~
-No, take me back!: ~
-PIN: ~
-PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
-Phase {phaseNumber}: ~
-Scene available for {serviceName}: ~
-The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
-The entire history of the voltage aberrations will be removed from this channel.: ~
-The events in voltage aberrations history will be automatically deleted after {days} days.: ~
-This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
-We will miss you!: ~
-You must leave at least one phase enabled.: ~
-change: ~
-'{serviceName} integration': ~
+'% of closing': ~
+Add a new action to the scene: ~
+Are you sure you want to delete this reaction?: ~
+Body: ~
+Choose the channel: ~
+Choose the channel group: ~
+Choose the scene: ~
+Choose the schedule: ~
+Create new reaction: ~
+Current: ~
+Edit reaction: ~
+Go to the channel: ~
+Go to the channel group: ~
+Go to the scene: ~
+Go to the schedule: ~
+Invalid scene: ~
+Missing action.: ~
+New reaction: ~
+Notification: ~
+Notification must have a body.: ~
+Notifications: ~
+Phase: ~
+Please fix the problems with operations and try again.: ~
+Please select a condition: ~
+Please select an action: ~
+Power active: ~
+Power apparent: ~
+Power reactive: ~
+Reactions: ~
+Reactions limit has been exceeded: ~
+Recipients: ~
+Send a notification: ~
+Send notification: ~
+The notification must have a recipient.: ~
+The reaction has been added: ~
+The reaction has been changed: ~
+Title: ~
+Voltage: ~
+When a certain distance is reached: ~
+When a lack of liquid is detected: ~
+When a new mail comes: ~
+When flooding is detected: ~
+When liquid is detected: ~
+When liquid or lack thereof is detected: ~
+When the RGB lighting brightness level changes: ~
+When the RGB lighting reaches a certain level of brightness: ~
+When the active power will be: ~
+When the apparent power will be: ~
+When the balanced forward active energy will be: ~
+When the balanced reverse active energy will be: ~
+When the brightness level changes: ~
+When the brightness will be: ~
+When the color changes: ~
+When the condition is met: ~
+When the current will be: ~
+When the depth changes: ~
+When the depth is: ~
+When the device is turned off: ~
+When the device is turned on: ~
+When the device is turned on or off: ~
+When the dimmer brightness level changes: ~
+When the dimmer reaches a certain brightness level: ~
+When the distance changes: ~
+When the distance will be: ~
+When the door will be closed: ~
+When the door will be opened: ~
+When the door will be opened or closed: ~
+When the electricity meter reaches a certain value: ~
+When the electricity meter value changes: ~
+When the electricity meter value will be: ~
+When the forward active energy will be: ~
+When the garage door will be closed: ~
+When the garage door will be opened: ~
+When the garage door will be opened or closed: ~
+When the gas meter value changes: ~
+When the gas meter value reaches a certain value: ~
+When the gas meter value will be: ~
+When the gate will be closed: ~
+When the gate will be opened: ~
+When the gate will be opened or closed: ~
+When the gateway will be closed: ~
+When the gateway will be opened: ~
+When the gateway will be opened or closed: ~
+When the heat meter value changes: ~
+When the heat meter value reaches a certain value: ~
+When the heat meter value will be: ~
+When the humidity changes: ~
+When the humidity reaches a certain level: ~
+When the humidity will be: ~
+When the lighting reaches a certain level of brightness: ~
+When the mail comes or is taken: ~
+When the mail has been taken: ~
+When the precipitation amount will be: ~
+When the pressure changes: ~
+When the pressure reaches a certain level: ~
+When the pressure will be: ~
+When the rain amount changes: ~
+When the reactive power will be: ~
+When the reverse active energy will be: ~
+When the roller shutter position changes: ~
+When the roller shutter reaches: ~
+When the roller shutter reaches a certain position: ~
+When the roller shutter will be closed: ~
+When the roller shutter will be opened: ~
+When the roller shutter will be opened or closed: ~
+When the roof window position changes: ~
+When the roof window reaches: ~
+When the roof window reaches a certain position: ~
+When the roof window will be closed: ~
+When the roof window will be opened: ~
+When the roof window will be opened or closed: ~
+When the temperature changes: ~
+When the temperature reaches a certain value: ~
+When the temperature will be: ~
+When the value will be: ~
+When the valve is closed: ~
+When the valve is manually closed: ~
+When the valve is opened: ~
+When the valve is opened or closed: ~
+When the voltage will be: ~
+When the water meter reaches a certain value: ~
+When the water meter value changes: ~
+When the water meter value will be: ~
+When the weight changes: ~
+When the weight will be: ~
+When the wind reaches a certain speed: ~
+When the wind speed changes: ~
+When the wind speed will be: ~
+When the window will be closed: ~
+When the window will be opened: ~
+When the window will be opened or closed: ~
+When there is certain amount of rain: ~
+When there weight reaches a certain value: ~
+You must set an action for each reaction.: ~
+actionableSubjectType_notification: ~
+and wait until it reaches: ~
+and wait until it will be: ~
+and wait until the humidity will be: ~
+and wait until the temperature will be: ~
+and wait until the value will be: ~
+choose access identifiers: ~
+choose the access identifiers: ~
+notification: ~
+or another element: ~
+sum: ~
+then execute the action: ~
 
 #</editor-fold>

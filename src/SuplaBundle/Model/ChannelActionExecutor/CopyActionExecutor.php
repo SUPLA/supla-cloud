@@ -46,7 +46,7 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
         Assertion::count($params, 1, 'Choose the source channel.'); // i18n
         $sourceChannelId = $params['sourceChannelId'];
         Assertion::greaterThan($sourceChannelId, 0, 'Choose the source channel.'); // i18n
-        if ($subject->getSubjectType() === ActionableSubjectType::CHANNEL) {
+        if ($subject->getOwnSubjectType() === ActionableSubjectType::CHANNEL) {
             Assertion::notEq($sourceChannelId, $subject->getId(), 'Source and target channel must be different.');
         }
         $sourceChannel = $this->subjectRepository

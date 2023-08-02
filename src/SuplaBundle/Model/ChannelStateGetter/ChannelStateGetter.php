@@ -7,6 +7,7 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\Schedule;
 use SuplaBundle\Supla\SuplaServerIsDownException;
 
 /**
@@ -40,31 +41,36 @@ class ChannelStateGetter {
     private $stateGetters = [];
     /** @var SceneStateGetter */
     private $sceneStateGetter;
+    /** @var ScheduleStateGetter */
+    private $scheduleStateGetter;
 
-    public function __construct($stateGetters, SceneStateGetter $sceneStateGetter) {
+    public function __construct($stateGetters, SceneStateGetter $sceneStateGetter, ScheduleStateGetter $scheduleStateGetter) {
         $this->stateGetters = $stateGetters;
         $this->sceneStateGetter = $sceneStateGetter;
+        $this->scheduleStateGetter = $scheduleStateGetter;
     }
 
-    public function getState(ActionableSubject $channel): array {
-        if ($channel instanceof IODeviceChannel) {
+    public function getState(ActionableSubject $subject): array {
+        if ($subject instanceof IODeviceChannel) {
             $state = [];
             try {
                 foreach ($this->stateGetters as $stateGetter) {
-                    if (in_array($channel->getFunction(), $stateGetter->supportedFunctions())) {
-                        $state = array_merge($state, $stateGetter->getState($channel));
+                    if (in_array($subject->getFunction(), $stateGetter->supportedFunctions())) {
+                        $state = array_merge($state, $stateGetter->getState($subject));
                     }
                 }
             } catch (SuplaServerIsDownException $e) {
                 $state = ['connected' => false];
             }
             return $state;
-        } elseif ($channel instanceof IODeviceChannelGroup) {
-            return $this->getStateForChannelGroup($channel);
-        } elseif ($channel instanceof Scene) {
-            return $this->sceneStateGetter->getState($channel);
+        } elseif ($subject instanceof IODeviceChannelGroup) {
+            return $this->getStateForChannelGroup($subject);
+        } elseif ($subject instanceof Scene) {
+            return $this->sceneStateGetter->getState($subject);
+        } elseif ($subject instanceof Schedule) {
+            return $this->scheduleStateGetter->getState($subject);
         } else {
-            throw new InvalidArgumentException('Could not get state for entity ' . get_class($channel));
+            throw new InvalidArgumentException('Could not get state for entity ' . get_class($subject));
         }
     }
 
