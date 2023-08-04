@@ -163,6 +163,9 @@ class IODevice implements HasLocation, HasRelationsCount {
      */
     private $productId;
 
+    /** @ORM\Column(name="user_config", type="string", length=4096, nullable=true) */
+    private $userConfig;
+
     public function __construct() {
         $this->pushNotifications = new ArrayCollection();
     }
