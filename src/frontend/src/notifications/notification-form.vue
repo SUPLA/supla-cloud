@@ -123,7 +123,7 @@
                     ...this.variables,
                     {label: 'Date', code: '{date}'}, // i18n,
                     {label: 'Time', code: '{time}'}, // i18n,
-                    {label: 'Date and time', code: '{date-time}'}, // i18n,
+                    {label: 'Date and time', code: '{date_time}'}, // i18n,
                 ];
             }
         },
