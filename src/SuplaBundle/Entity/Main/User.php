@@ -338,6 +338,16 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
      */
     private $preferences;
 
+    /**
+     * @ORM\Column(name="home_latitude", type="decimal", precision=9, scale=6)
+     */
+    private $homeLatitude;
+
+    /**
+     * @ORM\Column(name="home_longitude", type="decimal", precision=9, scale=6)
+     */
+    private $homeLongitude;
+
     const PREDEFINED_LIMITS = [
         'default' => [
             'limitIoDev' => 100,

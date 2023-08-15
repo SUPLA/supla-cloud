@@ -112,6 +112,30 @@ class ValueBasedTrigger implements HasSubject {
      */
     protected $enabled = true;
 
+    /**
+     * @ORM\Column(name="active_from", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activeFrom;
+
+    /**
+     * @ORM\Column(name="active_to", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activeTo;
+
+    /**
+     * @ORM\Column(name="active_hours", type="string", length=768, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activeHours;
+
+    /**
+     * @ORM\Column(name="activity_conditions", type="string", length=1024, nullable=true)
+     * @Groups({"basic"})
+     */
+    private $activityConditions;
+
     public function __construct(User $user, IODeviceChannel $channel) {
         $this->user = $user;
         $this->owningChannel = $channel;
