@@ -339,12 +339,12 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
     private $preferences;
 
     /**
-     * @ORM\Column(name="home_latitude", type="decimal", precision=9, scale=6)
+     * @ORM\Column(name="home_latitude", type="decimal", precision=9, scale=6, nullable=false)
      */
     private $homeLatitude;
 
     /**
-     * @ORM\Column(name="home_longitude", type="decimal", precision=9, scale=6)
+     * @ORM\Column(name="home_longitude", type="decimal", precision=9, scale=6, nullable=false)
      */
     private $homeLongitude;
 
@@ -610,6 +610,10 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         } catch (Exception $e) {
             $this->timezone = date_default_timezone_get();
         }
+        $timezone = new DateTimeZone($this->timezone);
+        $location = $timezone->getLocation();
+        $this->homeLatitude = $location['latitude'];
+        $this->homeLongitude = $location['longitude'];
     }
 
     public function getLimitSchedule(): int {
@@ -843,5 +847,13 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
 
     public function hashValue(string $value): string {
         return sha1($this->longUniqueId . $value);
+    }
+
+    public function getHomeLatitude(): float {
+        return $this->homeLatitude;
+    }
+
+    public function getHomeLongitude(): float {
+        return $this->homeLongitude;
     }
 }

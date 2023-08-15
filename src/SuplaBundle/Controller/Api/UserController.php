@@ -279,6 +279,9 @@ class UserController extends RestController {
         if (in_array($data['action'], ['change:mqttBrokerEnabled', 'change:mqttBrokerPassword'])) {
             $this->suplaServer->mqttSettingsChanged();
         }
+        if (in_array($data['action'], ['change:userTimezone'])) {
+            $this->suplaServer->userAction('ON-SETTINGS-CHANGED');
+        }
         return $this->view($user, Response::HTTP_OK, $headers);
     }
 
