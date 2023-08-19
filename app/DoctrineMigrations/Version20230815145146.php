@@ -27,7 +27,7 @@ class Version20230815145146 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_value_based_trigger ADD active_from DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\', ADD active_to DATETIME DEFAULT NULL COMMENT \'(DC2Type:utcdatetime)\', ADD active_hours VARCHAR(768) DEFAULT NULL, ADD activity_conditions VARCHAR(1024) DEFAULT NULL');
         $this->generateUserHomeCoordinates();
         $this->addSql('ALTER TABLE supla_user CHANGE home_latitude home_latitude NUMERIC(9, 6) NOT NULL');
-        $this->addSql('ALTER TABLE supla_user CHANGE home_latitude home_latitude NUMERIC(9, 6) NOT NULL');
+        $this->addSql('ALTER TABLE supla_user CHANGE home_longitude home_longitude NUMERIC(9, 6) NOT NULL');
     }
 
     private function generateUserHomeCoordinates() {
