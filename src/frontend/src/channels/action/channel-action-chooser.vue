@@ -54,7 +54,7 @@
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SEND">
                                 <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors
-                                    :variables="notificationVariables"/>
+                                    :subject="contextSubject"/>
                             </div>
                             <div v-if="executorMode" class="mt-3">
                                 <button
@@ -62,8 +62,7 @@
                                     type="button"
                                     :disabled="!isFullySpecified || executing.includes(action.id)"
                                     @click="updateModel()">
-                                    <span
-                                        class="text-inherit">
+                                    <span class="text-inherit">
                                         {{ executed.includes(action.id) ? $t('executed') : $t('Execute') }}
                                     </span>
                                     <span>
@@ -106,6 +105,7 @@
         },
         props: {
             subject: {type: Object},
+            contextSubject: {type: Object},
             value: {type: Object},
             disabled: {type: Boolean, default: false},
             possibleActionFilter: {type: Function, required: false, default: () => true},
@@ -114,10 +114,6 @@
             executing: {type: Array, default: () => []},
             executed: {type: Array, default: () => []},
             dropdownContainer: String,
-            notificationVariables: {
-                type: Array,
-                default: () => [],
-            },
         },
         data() {
             return {

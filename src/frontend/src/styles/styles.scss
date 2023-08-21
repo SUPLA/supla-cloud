@@ -701,6 +701,11 @@ input.no-spinner {
   }
 }
 
+code {
+  color: $supla-blue;
+  background-color: lighten($supla-blue, 72%);
+}
+
 
 @import "./buttons";
 @import "./checkbox";

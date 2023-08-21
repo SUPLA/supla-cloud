@@ -1,11 +1,11 @@
 <template>
     <div class="notification-subject-form">
         <div class="form-group">
-            <NotificationInputWithVariables label-i18n="Title" v-model="title" :disabled="!!disableTitleMessage" :variables="variables"/>
+            <NotificationInputWithVariables label-i18n="Title" v-model="title" :disabled="!!disableTitleMessage" :subject="subject"/>
             <div class="help-block" v-if="disableTitleMessage">{{ disableTitleMessage }}</div>
         </div>
         <div :class="['form-group', {'has-error': displayValidationErrors && !disableBodyMessage && !body}]">
-            <NotificationInputWithVariables label-i18n="Body" v-model="body" :disabled="!!disableBodyMessage" :variables="variables"/>
+            <NotificationInputWithVariables label-i18n="Body" v-model="body" :disabled="!!disableBodyMessage" :subject="subject"/>
             <div class="help-block" v-if="disableBodyMessage">{{ disableBodyMessage }}</div>
             <div class="help-block help-error" v-else>{{ $t('Notification must have a body.') }}</div>
         </div>
@@ -24,6 +24,7 @@
     export default {
         components: {NotificationInputWithVariables, AccessIdsDropdown},
         props: {
+            subject: Object,
             value: {type: Object},
             disableTitleMessage: String,
             disableBodyMessage: String,
@@ -46,10 +47,6 @@
                 const data = {...this.value, ...newProps};
                 data.isValid = data.accessIds?.length > 0 && (!!this.disableBodyMessage || !!data.body);
                 this.$emit('input', data);
-            },
-            insertVariable(field, variable) {
-                const newValue = this[field] + variable;
-                this.change({[field]: newValue});
             },
         },
         computed: {
@@ -94,22 +91,3 @@
         },
     };
 </script>
-
-<style lang="scss">
-    @import '../styles/variables';
-
-    .mention-item {
-        padding: 4px 10px;
-        border-radius: 4px;
-    }
-
-    .mention-selected {
-        background: $supla-green;
-    }
-
-    .label-hint {
-        font-weight: normal;
-        font-size: .8em;
-        color: $supla-grey-dark;
-    }
-</style>
