@@ -1,47 +1,11 @@
 <template>
     <div class="notification-subject-form">
         <div class="form-group">
-            <label>{{ $t('Title') }}</label>
-            <div class="input-group">
-                <input type="text" class="form-control" v-model="title" name="notification-title" :disabled="disableTitleMessage"
-                    maxlength="100">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        {{ $t('Variables') }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li v-for="variable in allVariables" :key="variable.code">
-                            <a @click="insertVariable('title', variable.code)">
-                                {{ variable.label }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <NotificationInputWithVariables label-i18n="Title" v-model="title" :disabled="!!disableTitleMessage" :variables="variables"/>
             <div class="help-block" v-if="disableTitleMessage">{{ disableTitleMessage }}</div>
         </div>
         <div :class="['form-group', {'has-error': displayValidationErrors && !disableBodyMessage && !body}]">
-            <label>{{ $t('Body') }}</label>
-            <div class="input-group">
-                <input type="text" class="form-control" v-model="body" name="notification-body" :disabled="disableBodyMessage"
-                    maxlength="255">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        {{ $t('Variables') }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li v-for="variable in allVariables" :key="variable.code">
-                            <a @click="insertVariable('body', variable.code)">
-                                {{ variable.label }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <NotificationInputWithVariables label-i18n="Body" v-model="body" :disabled="!!disableBodyMessage" :variables="variables"/>
             <div class="help-block" v-if="disableBodyMessage">{{ disableBodyMessage }}</div>
             <div class="help-block help-error" v-else>{{ $t('Notification must have a body.') }}</div>
         </div>
@@ -55,9 +19,10 @@
 
 <script>
     import AccessIdsDropdown from "@/access-ids/access-ids-dropdown.vue";
+    import NotificationInputWithVariables from "@/notifications/notification-input-with-variables.vue";
 
     export default {
-        components: {AccessIdsDropdown},
+        components: {NotificationInputWithVariables, AccessIdsDropdown},
         props: {
             value: {type: Object},
             disableTitleMessage: String,
@@ -121,11 +86,30 @@
             allVariables() {
                 return [
                     ...this.variables,
-                    {label: 'Date', code: '{date}'}, // i18n,
-                    {label: 'Time', code: '{time}'}, // i18n,
-                    {label: 'Date and time', code: '{date_time}'}, // i18n,
-                ];
+                    {label: 'Date', value: '{date}'}, // i18n,
+                    {label: 'Time', value: '{time}'}, // i18n,
+                    {label: 'Date and time', value: '{date_time}'}, // i18n,
+                ].map(v => ({label: this.$t(v.label), value: v.value.substring(1), searchText: `${this.$t(v.label)} ${v.value}`}))
             }
         },
     };
 </script>
+
+<style lang="scss">
+    @import '../styles/variables';
+
+    .mention-item {
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+    .mention-selected {
+        background: $supla-green;
+    }
+
+    .label-hint {
+        font-weight: normal;
+        font-size: .8em;
+        color: $supla-grey-dark;
+    }
+</style>
