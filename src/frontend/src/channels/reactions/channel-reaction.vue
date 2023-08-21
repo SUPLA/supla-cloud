@@ -34,7 +34,7 @@
                     <div v-if="targetSubject" class="mt-3">
                         <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
                             @input="onChanged()"
-                            :notification-variables="ChannelFunctionNotificationVariables[item.owningChannel.functionId] || []"/>
+                            :notification-variables="ChannelFunctionNotificationVariables(item.owningChannel)"/>
                     </div>
                 </SubjectDropdown>
             </div>
