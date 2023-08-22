@@ -30,7 +30,7 @@
                 :items="allVariables"
                 insert-space>
                 <input type="text" class="form-control" v-model="model" name="notification-title" :disabled="disabled"
-                    maxlength="100" autocomplete="off" @scroll="syncScroll()" ref="input">
+                    maxlength="100" autocomplete="off" @scroll="syncScroll()" @keyup="syncScroll()" @click="syncScroll()" ref="input">
                 <template #no-result>
                     <div>{{ $t('No results') }}</div>
                 </template>
@@ -60,13 +60,25 @@
         data() {
             return {
                 helpShown: false,
+                lastCaretPosition: 0,
             };
         },
         methods: {
             insertVariable(variable) {
-                this.model = this.model + '{' + variable.value;
+                this.model = (this.model.substring(0, this.lastCaretPosition)
+                    + '{' + variable.value
+                    + this.model.substring(this.lastCaretPosition))
+                    .substring(0, 100)
+                this.$nextTick(() => {
+                    this.$refs.input.focus();
+                    const caretPosition = Math.min(this.lastCaretPosition + variable.value.length + 1, 100);
+                    this.$refs.input.selectionStart = caretPosition;
+                    this.$refs.input.selectionEnd = caretPosition;
+                    this.lastCaretPosition = caretPosition;
+                });
             },
             syncScroll() {
+                this.lastCaretPosition = this.$refs.input.selectionEnd;
                 this.$refs.preview.scrollLeft = this.$refs.input.scrollLeft;
             }
         },
@@ -201,8 +213,8 @@
             left: 0;
             padding: 8px 23px 0 13px;
             overflow: hidden;
-            white-space: nowrap;
             width: 100%;
+            white-space: pre;
             .variable {
                 color: #3f903f;
                 text-shadow: -0.5px 0 #3f903f;
