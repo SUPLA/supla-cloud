@@ -16,12 +16,6 @@
         </div>
 
         <RouterView :subject="channel" :channel="channel" @rerender="rerender()" v-if="tabVisible"/>
-
-        <!--
-        <div v-if="currentTab == 'voltageHistory'">
-            <channel-voltage-history :channel="channel"/>
-        </div>
-        -->
     </div>
 </template>
 
@@ -111,6 +105,9 @@
                     route: 'channel.voltageAberrations',
                     header: 'Voltage aberrations', // i18n
                 });
+            }
+            if (this.$router.currentRoute.name === 'channel' && this.availableTabs.length) {
+                this.$router.replace({name: this.availableTabs[0].route, params: {id: this.channel.id}});
             }
         },
     };

@@ -98,7 +98,6 @@ export default [
         component: () => import(/*webpackChunkName:"channels-details-page"*/"@/channels/channel-details-page"),
         name: 'channel',
         props: true,
-        redirect: {name: 'channel.reactions'},
         children: [
             {
                 path: 'reactions',
