@@ -70,10 +70,15 @@
                             <account-limit-progressbar :limit="limits.directLink"
                                 :value="relationsCount.directLinks"></account-limit-progressbar>
                         </dd>
-                        <dt>{{ $t('Notifications') }}</dt>
+                        <dt>{{ $t('Notifications (defined)') }}</dt>
                         <dd>
                             <account-limit-progressbar :limit="limits.pushNotifications"
                                 :value="relationsCount.pushNotifications"></account-limit-progressbar>
+                        </dd>
+                        <dt>{{ $t('Notifications (sent per hour)') }}</dt>
+                        <dd>
+                            <account-limit-progressbar :limit="limits.pushNotificationsPerHour.limit"
+                                :value="limits.pushNotificationsPerHour.limit - limits.pushNotificationsPerHour.left"/>
                         </dd>
                         <dt>{{ $t('Reactions') }}</dt>
                         <dd>

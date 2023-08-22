@@ -24,8 +24,11 @@ use SuplaBundle\EventListener\ApiRateLimit\DefaultUserApiRateLimit;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\TimeProvider;
 use SuplaBundle\Repository\UserRepository;
+use SuplaBundle\Supla\SuplaServerAware;
 
 class UserSerializer extends AbstractSerializer {
+    use SuplaServerAware;
+
     /** @var ApiRateLimitStorage */
     private $apiRateLimitStorage;
     /** @var DefaultUserApiRateLimit */
@@ -71,6 +74,7 @@ class UserSerializer extends AbstractSerializer {
                 'rule' => $rule->toArray(),
                 'status' => $status->toArray(),
             ];
+            $normalized['limits']['pushNotificationsPerHour'] = $this->suplaServer->getPushNotificationLimit($user);
         }
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($context)) {
             if (!isset($normalized['relationsCount']) && $this->isSerializationGroupRequested('user.relationsCount', $context)) {

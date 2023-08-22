@@ -221,12 +221,17 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
         $body = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('relationsCount', $body);
         $this->assertArrayHasKey('apiRateLimit', $body);
+        $this->assertArrayHasKey('limits', $body);
         $relationsCount = $body['relationsCount'];
         $this->assertEquals(2, $relationsCount['locations']);
         $this->assertEquals(1, $relationsCount['accessIds']);
         $this->assertEquals(1, $relationsCount['ioDevices']);
         $this->assertEquals(0, $relationsCount['schedules']);
         $this->assertEquals(3, $relationsCount['channels']);
+        $limits = $body['limits'];
+        $this->assertArrayHasKey('pushNotificationsPerHour', $limits);
+        $this->assertArrayHasKey('left', $limits['pushNotificationsPerHour']);
+        $this->assertEquals(100, $limits['pushNotificationsPerHour']['limit']);
     }
 
     /** @small */
@@ -259,6 +264,24 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @small */
+    public function testChangingUserTimezone() {
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequest(
+            'PATCH',
+            '/api/users/current',
+            ['action' => 'change:userTimezone', 'timezone' => 'Africa/Ndjamena']
+        );
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertContains('USER-ON-SETTINGS-CHANGED:1', SuplaServerMock::$executedCommands);
+        $user = $this->freshEntity($this->user);
+        $this->assertEquals('Africa/Ndjamena', $user->getTimezone());
+        $this->assertEquals(12.11666, $user->getHomeLatitude());
+        $this->assertEquals(15.05, $user->getHomeLongitude());
+    }
+
+    /** @small */
     public function testChangingUserPassword() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();
@@ -277,23 +300,5 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
      */
     public function testChangingUserPasswordClearsWebappTokens() {
         $this->assertEquals(0, $this->getEntityManager()->getRepository(AccessToken::class)->count([]));
-    }
-
-    /** @small */
-    public function testChangingUserTimezone() {
-        /** @var TestClient $client */
-        $client = self::createAuthenticatedClient();
-        $client->apiRequest(
-            'PATCH',
-            '/api/users/current',
-            ['action' => 'change:userTimezone', 'timezone' => 'Africa/Ndjamena']
-        );
-        $response = $client->getResponse();
-        $this->assertStatusCode(200, $response);
-        $this->assertContains('USER-ON-SETTINGS-CHANGED:1', SuplaServerMock::$executedCommands);
-        $user = $this->freshEntity($this->user);
-        $this->assertEquals('Africa/Ndjamena', $user->getTimezone());
-        $this->assertEquals(12.11666, $user->getHomeLatitude());
-        $this->assertEquals(15.05, $user->getHomeLongitude());
     }
 }

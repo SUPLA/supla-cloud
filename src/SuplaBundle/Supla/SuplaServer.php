@@ -196,6 +196,21 @@ abstract class SuplaServer {
         return $this->userAction('GOOGLE-HOME-CREDENTIALS-CHANGED');
     }
 
+    public function getPushNotificationLimit(User $user = null): array {
+        $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
+        $command = "PN-GET-LIMIT:$userId";
+        $result = $this->doExecuteCommand($command);
+        if ($result && preg_match('#PN-LIMIT:(-?\d+),(-?\d+)#', $result, $match)) {
+            [, $limit, $left] = $match;
+            return ['limit' => intval($limit), 'left' => intval($left)];
+        } else {
+            throw new ApiExceptionWithDetails(
+                'SUPLA Server was unable to check the push notification limits.', // i18n
+                ['error' => 'suplaServerError', 'response' => $result],
+            );
+        }
+    }
+
     public function onOAuthClientRemoved(): bool {
         return $this->amazonAlexaCredentialsChanged();
     }
