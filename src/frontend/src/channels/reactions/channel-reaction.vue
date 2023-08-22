@@ -27,7 +27,7 @@
             <div class="col-sm-6">
                 <transition-expand>
                     <div class="alert alert-danger" v-if="displayValidationErrors && (!action || !targetSubject)">
-                        {{ $t('Please select an action') }}
+                        {{ $t('Please select and configure the action') }}
                     </div>
                 </transition-expand>
                 <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1">
