@@ -30,7 +30,7 @@
                 :items="allVariables"
                 :limit="7"
                 insert-space>
-                <input type="text" class="form-control" v-model="model" name="notification-title" :disabled="disabled"
+                <input type="text" class="form-control" v-model="model" :disabled="disabled"
                     maxlength="100" autocomplete="off" @scroll="syncScroll()" @keyup="syncScroll()" @click="syncScroll()" ref="input">
                 <template #no-result>
                     <div>{{ $t('No results') }}</div>
