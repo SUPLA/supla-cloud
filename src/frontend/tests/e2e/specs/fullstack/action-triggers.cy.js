@@ -5,8 +5,7 @@ describe('Action Triggers', () => {
 
     it('can define an action trigger', () => {
         cy.login();
-        cy.visit('/channels/1');
-        cy.contains('Wyzwalacze akcji').click();
+        cy.visit('/channels/1/action-triggers');
         cy.contains('Przełączenie 4x').click();
         cy.contains('Kanały').click();
         cy.contains('.panel-default button', 'wybierz kanał').click();
@@ -17,8 +16,7 @@ describe('Action Triggers', () => {
 
     it('can define an action trigger with COPY action', () => {
         cy.login();
-        cy.visit('/channels/1');
-        cy.contains('Wyzwalacze akcji').click();
+        cy.visit('/channels/1/action-triggers');
         cy.contains('Przełączenie 3x').click();
         cy.contains('Kanały').click();
         cy.contains('.panel-default button', 'wybierz kanał').click();
@@ -32,8 +30,7 @@ describe('Action Triggers', () => {
 
     it('can change the action and revert', () => {
         cy.login();
-        cy.visit('/channels/1');
-        cy.contains('Wyzwalacze akcji').click();
+        cy.visit('/channels/1/action-triggers');
         cy.contains('#collapseTOGGLE_X3 .panel-heading', 'Włącz').click();
         cy.contains('a', 'Anuluj zmiany').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x');
@@ -43,8 +40,7 @@ describe('Action Triggers', () => {
 
     it('can clear the action and revert', () => {
         cy.login();
-        cy.visit('/channels/1');
-        cy.contains('Wyzwalacze akcji').click();
+        cy.visit('/channels/1/action-triggers');
         cy.contains('#collapseTOGGLE_X3 .panel-heading', 'Włącz').click();
         cy.contains('#collapseTOGGLE_X3 button', 'Wyczyść').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x').should('not.exist');
@@ -56,8 +52,7 @@ describe('Action Triggers', () => {
 
     it('can clear the action', () => {
         cy.login();
-        cy.visit('/channels/1');
-        cy.contains('Wyzwalacze akcji').click();
+        cy.visit('/channels/1/action-triggers');
         cy.contains('#collapseTOGGLE_X3 .panel-heading', 'Włącz').click();
         cy.contains('#collapseTOGGLE_X3 button', 'Wyczyść').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x').should('not.exist');
