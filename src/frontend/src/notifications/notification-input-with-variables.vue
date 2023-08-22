@@ -28,6 +28,7 @@
             <Mentionable
                 :keys="['{']"
                 :items="allVariables"
+                :limit="7"
                 insert-space>
                 <input type="text" class="form-control" v-model="model" name="notification-title" :disabled="disabled"
                     maxlength="100" autocomplete="off" @scroll="syncScroll()" @keyup="syncScroll()" @click="syncScroll()" ref="input">
@@ -115,53 +116,79 @@
                         ];
                     case ChannelFunction.ELECTRICITYMETER: {
                         const enabledPhases = this.subject.config.enabledPhases || [1, 2, 3];
+                        const onePhase = enabledPhases.length <= 1;
                         const defaultModes = ['forwardActiveEnergy', 'reverseActiveEnergy', 'forwardReactiveEnergy', 'reverseReactiveEnergy'];
                         const availableModes = this.subject.config.countersAvailable || defaultModes;
                         const variables = [];
-                        variables.push({label: this.$t('Average voltage'), value: '{voltage_avg}'});
-                        enabledPhases.forEach(phaseNo => variables.push({
-                            label: `${this.$t('Voltage')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                            value: `{voltage${phaseNo}}`
-                        }));
-                        variables.push({label: this.$t('Current'), value: '{current_sum}'});
-                        enabledPhases.forEach(phaseNo => variables.push({
-                            label: `${this.$t('Current')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                            value: `{current${phaseNo}}`
-                        }));
-                        variables.push({label: this.$t('Power active'), value: '{power_active_sum}'});
-                        enabledPhases.forEach(phaseNo => variables.push({
-                            label: `${this.$t('Power active')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                            value: `{power_active${phaseNo}}`
-                        }));
-                        variables.push({label: this.$t('Power reactive'), value: '{power_reactive_sum}'});
-                        enabledPhases.forEach(phaseNo => variables.push({
-                            label: `${this.$t('Power reactive')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                            value: `{power_reactive${phaseNo}}`
-                        }));
-                        variables.push({label: this.$t('Power apparent'), value: '{power_apparent_sum}'});
-                        enabledPhases.forEach(phaseNo => variables.push({
-                            label: `${this.$t('Power apparent')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                            value: `{power_apparent${phaseNo}}`
-                        }));
+                        variables.push({label: this.$t('Voltage') + (onePhase ? '' : ` (${this.$t('average')})`), value: '{voltage_avg}'});
+                        variables.push({label: this.$t('Current') + (onePhase ? '' : ` (${this.$t('sum')})`), value: '{current_sum}'});
+                        variables.push({
+                            label: this.$t('Power active') + (onePhase ? '' : ` (${this.$t('sum')})`),
+                            value: '{power_active_sum}'
+                        });
+                        variables.push({
+                            label: this.$t('Power reactive') + (onePhase ? '' : ` (${this.$t('sum')})`),
+                            value: '{power_reactive_sum}'
+                        });
+                        variables.push({
+                            label: this.$t('Power apparent') + (onePhase ? '' : ` (${this.$t('sum')})`),
+                            value: '{power_apparent_sum}'
+                        });
                         if (availableModes.includes('forwardActiveEnergy')) {
-                            variables.push({label: this.$t('Forward active energy'), value: '{fae_sum}'});
+                            variables.push({
+                                label: this.$t('Forward active energy') + (onePhase ? '' : ` (${this.$t('sum')})`),
+                                value: '{fae_sum}'
+                            });
+                        }
+                        if (availableModes.includes('reverseActiveEnergy')) {
+                            variables.push({
+                                label: this.$t('Reverse active energy') + (onePhase ? '' : ` (${this.$t('sum')})`),
+                                value: '{rae_sum}'
+                            });
+                        }
+                        if (!onePhase) {
+                            enabledPhases.forEach(phaseNo => variables.push({
+                                label: `${this.$t('Voltage')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
+                                value: `{voltage${phaseNo}}`
+                            }));
+                            enabledPhases.forEach(phaseNo => variables.push({
+                                label: `${this.$t('Current')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
+                                value: `{current${phaseNo}}`
+                            }));
+                            enabledPhases.forEach(phaseNo => variables.push({
+                                label: `${this.$t('Power active')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
+                                value: `{power_active${phaseNo}}`
+                            }));
+                            enabledPhases.forEach(phaseNo => variables.push({
+                                label: `${this.$t('Power reactive')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
+                                value: `{power_reactive${phaseNo}}`
+                            }));
+                            enabledPhases.forEach(phaseNo => variables.push({
+                                label: `${this.$t('Power apparent')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
+                                value: `{power_apparent${phaseNo}}`
+                            }));
+                        }
+                        if (availableModes.includes('forwardActiveEnergy')) {
                             if (availableModes.includes('forwardActiveEnergyBalanced')) {
                                 variables.push({label: this.$t('Forward active energy balanced'), value: '{fae_balanced}'});
                             }
-                            enabledPhases.forEach(phaseNo => variables.push({
-                                label: `${this.$t('Forward active energy')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                                value: `{fae${phaseNo}}`
-                            }));
+                            if (!onePhase) {
+                                enabledPhases.forEach(phaseNo => variables.push({
+                                    label: `${this.$t('Forward active energy')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
+                                    value: `{fae${phaseNo}}`
+                                }));
+                            }
                         }
                         if (availableModes.includes('reverseActiveEnergy')) {
-                            variables.push({label: this.$t('Reverse active energy'), value: '{rae_sum}'});
                             if (availableModes.includes('reverseActiveEnergyBalanced')) {
                                 variables.push({label: this.$t('Reverse active energy balanced'), value: '{rae_balanced}'});
                             }
-                            enabledPhases.forEach(phaseNo => variables.push({
-                                label: `${this.$t('Reverse active energy')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
-                                value: `{rae${phaseNo}}`
-                            }));
+                            if (!onePhase) {
+                                enabledPhases.forEach(phaseNo => variables.push({
+                                    label: `${this.$t('Reverse active energy')} (${this.$t(`Phase ${phaseNo}`).toLowerCase()})`,
+                                    value: `{rae${phaseNo}}`
+                                }));
+                            }
                         }
                         return variables;
                     }
