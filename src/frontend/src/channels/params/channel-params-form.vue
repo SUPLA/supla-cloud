@@ -37,7 +37,6 @@
     import ChannelParamsIcWatermeter from "./channel-params-impulsecounter";
     import ChannelParamsIcHeatmeter from "./channel-params-impulsecounter";
     import ChannelParamsGeneralPurposeMeasurement from "./channel-params-general-purpose-measurement";
-    import ChannelParamsActionTrigger from "./channel-params-action-trigger";
     import ChannelParamsDigiglassVertical from "./channel-params-digiglass";
     import ChannelParamsDigiglassHorizontal from "./channel-params-digiglass";
     import ChannelParamsPowerswitch from "./channel-params-powerswitch";
@@ -74,7 +73,6 @@
             ChannelParamsIcWatermeter,
             ChannelParamsIcHeatmeter,
             ChannelParamsGeneralPurposeMeasurement,
-            ChannelParamsActionTrigger,
             ChannelParamsDigiglassVertical,
             ChannelParamsDigiglassHorizontal,
             ChannelParamsPowerswitch,

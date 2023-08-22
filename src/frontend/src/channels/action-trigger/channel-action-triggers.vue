@@ -30,6 +30,7 @@
     import ActionTriggerPanel from "@/channels/action-trigger/action-trigger-panel";
     import PendingChangesPage from "@/common/pages/pending-changes-page";
     import EventBus from "@/common/event-bus";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {PendingChangesPage, ActionTriggerPanel},
@@ -50,6 +51,9 @@
             loadActionTriggers() {
                 this.loading = true;
                 const promises = this.subject.actionTriggersIds.map((actionTriggerId) => this.$http.get(`channels/${actionTriggerId}`));
+                if (this.subject.functionId === ChannelFunction.ACTION_TRIGGER) {
+                    promises.push(Promise.resolve({body: this.subject}));
+                }
                 Promise.all(promises).then((responses) => {
                     this.actionTriggers = responses.map((response) => response.body);
                     this.loading = false;

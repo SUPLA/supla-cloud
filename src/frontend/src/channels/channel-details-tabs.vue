@@ -38,6 +38,8 @@
             },
         },
         mounted() {
+            const hasActions = this.channel.possibleActions?.length > 0;
+            const isActionTrigger = this.channel.functionId === ChannelFunction.ACTION_TRIGGER;
             if (ChannelFunctionTriggers[this.channel.functionId]) {
                 this.availableTabs.push({
                     route: 'channel.reactions',
@@ -51,14 +53,14 @@
                     header: 'Notifications', // i18n
                 });
             }
-            if (this.channel.possibleActions?.length) {
-                if (this.channel.actionTriggersIds?.length) {
-                    this.availableTabs.push({
-                        route: 'channel.actionTriggers',
-                        header: 'Action triggers', // i18n
-                        count: () => this.channel.actionTriggersIds.length,
-                    });
-                }
+            if ((hasActions && this.channel.actionTriggersIds?.length) || isActionTrigger) {
+                this.availableTabs.push({
+                    route: 'channel.actionTriggers',
+                    header: 'Action triggers', // i18n
+                    count: () => this.channel.actionTriggersIds?.length + (isActionTrigger ? 1 : 0),
+                });
+            }
+            if (hasActions) {
                 this.availableTabs.push({
                     route: 'channel.schedules',
                     header: 'Schedules', // i18n
@@ -75,7 +77,7 @@
                     count: () => this.channel.relationsCount.scenes,
                 });
             }
-            if (this.channel.function.id > 0 && !['ACTION_TRIGGER'].includes(this.channel.function.name)) {
+            if (this.channel.function.id > 0 && !isActionTrigger) {
                 this.availableTabs.push({
                     route: 'channel.directLinks',
                     header: 'Direct links', // i18n
