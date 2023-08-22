@@ -979,6 +979,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $device = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
         (new NotificationsFixture())->createDeviceNotification($this->getEntityManager(), $device);
         (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $device->getChannels()[0]);
+        $notManaged = (new NotificationsFixture())->createChannelNotification($this->getEntityManager(), $device->getChannels()[0]);
+        EntityUtils::setField($notManaged, 'managedByDevice', false);
+        $this->getEntityManager()->persist($notManaged);
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('GET', '/api/channels/' . $device->getChannels()[0]->getId());
