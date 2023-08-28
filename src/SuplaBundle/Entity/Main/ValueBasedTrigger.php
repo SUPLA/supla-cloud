@@ -19,6 +19,7 @@ namespace SuplaBundle\Entity\Main;
 
 use Doctrine\ORM\Mapping as ORM;
 use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Entity\ActiveHours;
 use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\HasSubject;
 use SuplaBundle\Entity\HasSubjectTrait;
@@ -114,16 +115,19 @@ class ValueBasedTrigger implements HasSubject {
 
     /**
      * @ORM\Column(name="active_from", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
      */
     private $activeFrom;
 
     /**
      * @ORM\Column(name="active_to", type="utcdatetime", nullable=true)
+     * @Groups({"basic"})
      */
     private $activeTo;
 
     /**
      * @ORM\Column(name="active_hours", type="string", length=768, nullable=true)
+     * @Groups({"basic"})
      */
     private $activeHours;
 
@@ -199,5 +203,29 @@ class ValueBasedTrigger implements HasSubject {
 
     public function setEnabled(bool $enabled): void {
         $this->enabled = $enabled;
+    }
+
+    public function getActiveFrom(): ?\DateTime {
+        return $this->activeFrom;
+    }
+
+    public function setActiveFrom(?\DateTime $activeFrom): void {
+        $this->activeFrom = $activeFrom;
+    }
+
+    public function getActiveTo(): ?\DateTime {
+        return $this->activeTo;
+    }
+
+    public function setActiveTo(?\DateTime $activeTo): void {
+        $this->activeTo = $activeTo;
+    }
+
+    public function getActiveHours(): ?array {
+        return ActiveHours::fromString($this->activeHours)->toArray();
+    }
+
+    public function setActiveHours(?array $activeHours): void {
+        $this->activeHours = ActiveHours::fromArray($activeHours)->toString();
     }
 }

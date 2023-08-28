@@ -18,7 +18,8 @@
                 <th v-for="(weekday, $index) in ['Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays']"
                     :key="weekday"
                     :class="['hidden-xs weekday-header ellipsis', 'weekday-column-' + ($index + 1)]">
-                    {{ $t(weekday) }}
+                    <span class="full-weekday-name">{{ $t(weekday) }}</span>
+                    <span class="short-weekday-name">{{ shortWeekdayLabels[$index] }}</span>
                 </th>
             </tr>
             </thead>
@@ -66,7 +67,7 @@
 
 <script>
     import {cloneDeep} from "lodash";
-    import {DateTime} from "luxon";
+    import {DateTime, Info} from "luxon";
 
     export default {
         components: {},
@@ -80,6 +81,7 @@
                 copyFrom: undefined,
                 mouseUpCatcher: undefined,
                 mobileWeekdayDisplay: 1,
+                shortWeekdayLabels: Info.weekdays('short'),
             };
         },
         mounted() {
@@ -145,7 +147,11 @@
             }
         },
         computed: {},
-        watch: {}
+        watch: {
+            '$i18n.locale'() {
+                this.shortWeekdayLabels = Info.weekdays('short');
+            }
+        }
     };
 </script>
 
@@ -219,6 +225,21 @@
                     display: table-cell !important;
                 }
             }
+        }
+        .short-weekday-name {
+            display: none;
+        }
+    }
+
+    .narrow table.week-schedule-selector {
+        .hour-header {
+            width: 90px;
+        }
+        .short-weekday-name {
+            display: inline;
+        }
+        .full-weekday-name {
+            display: none;
         }
     }
 </style>

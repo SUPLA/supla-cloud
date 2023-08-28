@@ -56,6 +56,35 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
         if (isset($data['enabled'])) {
             $vbt->setEnabled(boolval($data['enabled']));
         }
+        if (array_key_exists('activeFrom', $data)) {
+            $activeFrom = $data['activeFrom'];
+            if ($activeFrom) {
+                Assertion::string($activeFrom);
+                Assertion::integer(strtotime($activeFrom));
+                $vbt->setActiveFrom(new \DateTime($activeFrom));
+            } else {
+                $vbt->setActiveFrom(null);
+            }
+        }
+        if (array_key_exists('activeTo', $data)) {
+            $activeFrom = $data['activeTo'];
+            if ($activeFrom) {
+                Assertion::string($activeFrom);
+                Assertion::integer(strtotime($activeFrom));
+                $vbt->setActiveTo(new \DateTime($activeFrom));
+            } else {
+                $vbt->setActiveTo(null);
+            }
+        }
+        if (array_key_exists('activeHours', $data)) {
+            $activeHours = $data['activeHours'];
+            if ($activeHours) {
+                Assertion::isArray($activeHours);
+                $vbt->setActiveHours($activeHours);
+            } else {
+                $vbt->setActiveHours(null);
+            }
+        }
         return $vbt;
     }
 

@@ -23,6 +23,26 @@
                         </dl>
                     </div>
                 </div>
+                <div class="details-page-block">
+                    <h3 class="text-center">{{ $t('Activity conditions') }}</h3>
+                    <DateRangePicker v-model="activeDateRange"
+                        :label-date-start="$t('Active from')"
+                        :label-date-end="$t('Active to')"
+                        @input="onChanged()"/>
+                    <div class="form-group text-center">
+                        <label>
+                            <label class="checkbox2 checkbox2-grey">
+                                <input type="checkbox" v-model="useWorkingSchedule" @change="accessIdChanged()">
+                                {{ $t('Use working schedule for this reaction') }}
+                            </label>
+                        </label>
+                    </div>
+                    <transition-expand>
+                        <week-schedule-selector v-if="useWorkingSchedule" class="narrow"
+                            v-model="activeHours"
+                            @input="onChanged()"></week-schedule-selector>
+                    </transition-expand>
+                </div>
             </div>
             <div class="col-sm-6">
                 <transition-expand>
@@ -58,9 +78,16 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {deepCopy} from "@/common/utils";
     import EventBus from "@/common/event-bus";
+    import DateRangePicker from "@/direct-links/date-range-picker.vue";
+    import WeekScheduleSelector from "@/access-ids/week-schedule-selector.vue";
+    import {mapValues, pickBy} from "lodash";
 
     export default {
-        components: {TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser},
+        components: {
+            WeekScheduleSelector,
+            DateRangePicker,
+            TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser
+        },
         props: {
             item: Object,
         },
@@ -74,6 +101,9 @@
                 deleteConfirm: false,
                 loading: false,
                 displayValidationErrors: false,
+                activeDateRange: {},
+                useWorkingSchedule: false,
+                activeHours: {},
             };
         },
         beforeMount() {
@@ -89,10 +119,22 @@
             initFromItem() {
                 this.displayValidationErrors = false;
                 const item = deepCopy(this.item);
-                this.trigger = item.trigger || {};
+                this.trigger = item.trigger || undefined;
                 this.targetSubject = item.subject;
                 this.action = item.actionId ? {id: item.actionId, param: item.actionParam} : undefined;
                 this.enabled = item.enabled;
+                this.activeDateRange = {dateStart: item.activeFrom, dateEnd: item.activeTo};
+                if (item.activeHours) {
+                    this.activeHours = mapValues(item.activeHours, (hours) => {
+                        const hoursDef = {};
+                        [...Array(24).keys()].forEach((hour) => hoursDef[hour] = hours.includes(hour) ? 1 : 0);
+                        return hoursDef;
+                    });
+                    this.useWorkingSchedule = true;
+                } else {
+                    this.activeHours = {};
+                    this.useWorkingSchedule = false;
+                }
                 this.$nextTick(() => this.hasPendingChanges = false);
             },
             submitForm() {
@@ -148,6 +190,11 @@
                     actionParam: this.action?.param,
                     enabled: this.enabled,
                     isValid: !!(this.trigger && this.action && this.targetSubject),
+                    activeFrom: this.activeDateRange.dateStart,
+                    activeTo: this.activeDateRange.dateEnd,
+                    activeHours: mapValues(this.activeHours, (hours) => {
+                        return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
+                    }),
                 };
             },
         }
