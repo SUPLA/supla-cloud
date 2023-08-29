@@ -133,6 +133,7 @@ class ValueBasedTrigger implements HasSubject {
 
     /**
      * @ORM\Column(name="activity_conditions", type="string", length=1024, nullable=true)
+     * @Groups({"basic"})
      */
     private $activityConditions;
 
@@ -227,5 +228,13 @@ class ValueBasedTrigger implements HasSubject {
 
     public function setActiveHours(?array $activeHours): void {
         $this->activeHours = ActiveHours::fromArray($activeHours)->toString();
+    }
+
+    public function getActivityConditions(): array {
+        return $this->activityConditions ? json_decode($this->activityConditions, true) : [];
+    }
+
+    public function setActivityConditions(array $activityConditions): void {
+        $this->activityConditions = json_encode($activityConditions);
     }
 }

@@ -42,6 +42,8 @@
                             v-model="activeHours"
                             @input="onChanged()"></week-schedule-selector>
                     </transition-expand>
+                    <ChannelReactionActivityConditions class="mt-4" :display-validation-errors="displayValidationErrors"
+                        v-model="activityConditions" @input="onChanged()"/>
                 </div>
             </div>
             <div class="col-sm-6">
@@ -81,9 +83,11 @@
     import DateRangePicker from "@/direct-links/date-range-picker.vue";
     import WeekScheduleSelector from "@/access-ids/week-schedule-selector.vue";
     import {mapValues, pickBy} from "lodash";
+    import ChannelReactionActivityConditions from "@/channels/reactions/channel-reaction-activity-conditions.vue";
 
     export default {
         components: {
+            ChannelReactionActivityConditions,
             WeekScheduleSelector,
             DateRangePicker,
             TransitionExpand, PendingChangesPage, ChannelActionChooser, SubjectDropdown, ChannelReactionConditionChooser
@@ -104,6 +108,7 @@
                 activeDateRange: {},
                 useWorkingSchedule: false,
                 activeHours: {},
+                activityConditions: [],
             };
         },
         beforeMount() {
@@ -195,6 +200,7 @@
                     activeHours: mapValues(this.activeHours, (hours) => {
                         return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
                     }),
+                    activityConditions: this.activityConditions,
                 };
             },
         }

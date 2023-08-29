@@ -85,6 +85,26 @@ class ValueBasedTriggerRequestFiller extends AbstractRequestFiller {
                 $vbt->setActiveHours(null);
             }
         }
+        if (array_key_exists('activityConditions', $data)) {
+            $conditions = $data['activityConditions'];
+            if ($conditions) {
+                Assertion::isArray($conditions);
+                foreach ($conditions as $condition) {
+                    Assertion::isArray($condition);
+                    Assertion::allIsArray($condition);
+                    Assertion::allCount($condition, 1);
+                    foreach ($condition as $threshold) {
+                        Assertion::isArray($threshold);
+                        Assertion::count($threshold, 1);
+                        Assertion::inArray(key($threshold), ['beforeSunrise', 'afterSunrise', 'beforeSunset', 'afterSunset']);
+                        Assertion::integer(current($threshold));
+                    }
+                }
+                $vbt->setActivityConditions($conditions);
+            } else {
+                $vbt->setActivityConditions(null);
+            }
+        }
         return $vbt;
     }
 
