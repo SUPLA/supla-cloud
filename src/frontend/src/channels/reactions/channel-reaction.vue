@@ -140,6 +140,7 @@
                     this.activeHours = {};
                     this.useWorkingSchedule = false;
                 }
+                this.activityConditions = item.activityConditions;
                 this.$nextTick(() => this.hasPendingChanges = false);
             },
             submitForm() {

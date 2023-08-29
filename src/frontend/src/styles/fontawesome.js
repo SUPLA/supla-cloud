@@ -16,6 +16,7 @@ import {
     faPuzzlePiece,
     faQuestionCircle,
     faShieldHalved,
+    faShuffle,
     faSignIn,
     faSignOut,
     faTimesCircle,
@@ -23,6 +24,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle, faCheck,
-    faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash);
+    faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash, faShuffle);
 
 Vue.component('fa', FontAwesomeIcon)

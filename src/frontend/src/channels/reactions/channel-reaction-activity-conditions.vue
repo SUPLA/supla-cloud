@@ -1,29 +1,28 @@
 <template>
     <div>
         <h4 class="text-center">
-            {{ $t('Additional criteria') }}
+            {{ $t('Daytime criteria') }}
             <a @click="showHelp = !showHelp">
                 <fa icon="question-circle" class="ml-2 small"/>
             </a>
         </h4>
         <transition-expand>
             <div v-if="showHelp" class="alert alert-info">
-                {{ $t('The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the additional criteria.') }}
+                {{ $t('The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.') }}
             </div>
         </transition-expand>
         <div>
-            <div v-for="(c, $index) in conditions" :key="$index">
+            <div v-for="(t, $index) in times" :key="$index">
                 <div class="d-flex">
-                    <ChannelReactionActivityCondition v-model="c.condition" @input="updateModel()"
-                        :display-validation-errors="displayValidationErrors" class="flex-grow-1"/>
-                    <a class="text-default">
+                    <ChannelReactionActivityCondition v-model="t.times" @input="updateModel()" class="flex-grow-1"/>
+                    <a class="text-default" @click="removeTime($index)">
                         <fa icon="trash" class="text-muted"/>
                     </a>
                 </div>
-                <div class="or-hr mb-3" v-if="$index < conditions.length - 1">{{ $t('OR') }}</div>
+                <div class="or-hr mb-3" v-if="$index < times.length - 1">{{ $t('OR') }}</div>
             </div>
         </div>
-        <a class="btn btn-white" @click="addCondition()">
+        <a class="btn btn-white" @click="addTime()" v-if="times.length < 2">
             <fa icon="plus"/>
             {{ $t('Add') }}
         </a>
@@ -32,8 +31,8 @@
 
 <script>
     import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import {deepCopy} from "@/common/utils";
     import ChannelReactionActivityCondition from "@/channels/reactions/channel-reaction-activity-condition.vue";
+    import {startCase} from "lodash";
 
     export default {
         components: {
@@ -47,15 +46,91 @@
         data() {
             return {
                 showHelp: false,
-                conditions: [],
+                times: [],
             };
         },
         mounted() {
-            this.conditions = (deepCopy(this.value || [])).map(condition => ({condition}));
+            this.times = this.conditionsToTimes(this.value || []).map(times => ({times}));
         },
         methods: {
-            addCondition() {
-                this.conditions.push({condition: []});
+            conditionsToTimes(conditions) {
+                const times = [];
+                conditions.forEach(condition => {
+                    if (condition.length === 2) {
+                        const time = [-120, 120];
+                        condition.forEach(t => {
+                            const key = Object.keys(t)[0];
+                            const timeIndex = key.startsWith('after') ? 0 : 1;
+                            const delta = key.endsWith('rise') ? -60 : 60;
+                            time[timeIndex] = t[key] + delta;
+                        });
+                        times.push(time);
+                    } else if (condition.length === 1) {
+                        const time = [-120, 120];
+                        const t = condition[0];
+                        const key = Object.keys(t)[0];
+                        const timeIndex = key.startsWith('after') ? 0 : 1;
+                        const delta = key.endsWith('rise') ? -60 : 60;
+                        time[timeIndex] = t[key] + delta;
+                        times.push(time);
+                    }
+                });
+                const finalTimes = [];
+                for (let i = 0; i < times.length; i++) {
+                    const t = times[i];
+                    const nextT = times[i + 1];
+                    if (t[1] === 120 && nextT?.[0] === -120) {
+                        finalTimes.push([t[0], nextT[1]]);
+                        ++i;
+                    } else {
+                        finalTimes.push(t);
+                    }
+                }
+                return finalTimes;
+            },
+            timesToConditions(times) {
+                const conditions = [];
+                times.forEach(time => {
+                    const timeLeft = this.timeToSun(time[0]);
+                    const timeRight = this.timeToSun(time[1]);
+                    if (time[0] < time[1]) {
+                        const condition = [];
+                        if (timeLeft) {
+                            condition.push({[`after${startCase(timeLeft.mode)}`]: timeLeft.offset});
+                        }
+                        if (timeRight) {
+                            condition.push({[`before${startCase(timeRight.mode)}`]: timeRight.offset});
+                        }
+                        if (condition.length) {
+                            conditions.push(condition);
+                        }
+                    } else if (time[0] > time[1]) {
+                        if (timeLeft) {
+                            conditions.push([{[`after${startCase(timeLeft.mode)}`]: timeLeft.offset}])
+                        }
+                        if (timeRight) {
+                            conditions.push([{[`before${startCase(timeRight.mode)}`]: timeRight.offset}]);
+                        }
+                    }
+                });
+                return conditions;
+            },
+            timeToSun(time) {
+                if (time >= 120 || time <= -120) {
+                    return undefined;
+                } else if (time < 0) {
+                    return {mode: 'sunrise', offset: time + 60};
+                } else {
+                    return {mode: 'sunset', offset: time - 60};
+                }
+            },
+            addTime() {
+                this.times.push({times: [-60, 60]});
+                this.updateModel();
+            },
+            removeTime(index) {
+                this.times.splice(index, 1);
+                this.updateModel();
             },
             updateModel() {
                 this.$emit('input', this.modelValue);
@@ -63,7 +138,7 @@
         },
         computed: {
             modelValue() {
-                return this.conditions.map(({condition}) => condition).filter(c => c.length > 0);
+                return this.timesToConditions(this.times.map(({times}) => times));
             }
         },
     }

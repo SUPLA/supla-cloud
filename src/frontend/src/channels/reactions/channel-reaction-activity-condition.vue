@@ -1,88 +1,140 @@
 <template>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <div>
-                <label>{{ $t('Active from') }}</label>
-            </div>
-            <div class="text-center mb-3">
-                <div class="btn-group btn-group-xs">
-                    <a :class="['btn', `btn-${afterCondition ? 'white' : 'green'}`]"
-                        @click="afterCondition = undefined; updateModel()">
-                        {{ $t('midnight') }}
-                    </a>
-                    <a :class="['btn', `btn-${!afterCondition ? 'white' : 'green'}`]"
-                        @click="afterCondition = {mode: 'sunrise', offset: 0}; updateModel()">
-                        {{ $t('sunrise / sunset') }}
-                    </a>
-                </div>
-            </div>
-            <transition-expand>
-                <sunrise-sunset-offset-selector v-model="afterCondition" v-if="afterCondition" @input="updateModel()"/>
-            </transition-expand>
+    <div :class="{night: times[0] > times[1]}">
+        <div class="mt-5 mb-5 px-2">
+            <vue-slider v-model="times" :enable-cross="true" :min="-120" :max="120" :marks="marks" :order="false"
+                tooltip="none" @change="updateModel()"
+            />
         </div>
-        <div class="col-sm-6">
-            <div>
-                <label>{{ $t('Active to') }}</label>
-            </div>
-            <div class="text-center mb-3">
-                <div class="btn-group btn-group-xs">
-                    <a :class="['btn', `btn-${beforeCondition ? 'white' : 'green'}`]"
-                        @click="beforeCondition = undefined; updateModel()">
-                        {{ $t('midnight') }}
-                    </a>
-                    <a :class="['btn', `btn-${!beforeCondition ? 'white' : 'green'}`]"
-                        @click="beforeCondition = {mode: 'sunset', offset: 0}; updateModel()">
-                        {{ $t('sunrise / sunset') }}
-                    </a>
+        <div class="alert alert-info">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <div>
+                        <strong>{{ $t('Active from') }}:</strong>
+                        {{ timeFormatter(times[0]) }}
+                    </div>
+                    <div>
+                        <strong>{{ $t('Active to') }}:</strong>
+                        {{ timeFormatter(times[1]) }}
+                    </div>
                 </div>
+                <a @click="swapTimes()">
+                    {{ $t('swap') }}
+                    <fa icon="shuffle"/>
+                </a>
             </div>
-            <transition-expand>
-                <sunrise-sunset-offset-selector v-model="beforeCondition" v-if="beforeCondition"/>
-            </transition-expand>
         </div>
     </div>
-
 </template>
 
 <script>
-    import SunriseSunsetOffsetSelector from "@/schedules/schedule-form/modes/sunrise-sunset-offset-selector.vue";
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
-    import {startCase} from "lodash";
+    import 'vue-slider-component/theme/antd.css';
+    import {deepCopy} from "@/common/utils";
 
     export default {
-        components: {TransitionExpand, SunriseSunsetOffsetSelector},
+        components: {
+            VueSlider: () => import('vue-slider-component'),
+        },
         props: {
             value: Array,
-            displayValidationErrors: Boolean,
         },
         data() {
             return {
+                times: [-60, 60],
+                marks: {
+                    '-120': '🌃',
+                    '-60': '🌅',
+                    '0': '☀️',
+                    '60': '🌇',
+                    '120': '🌃',
+                },
                 afterCondition: undefined,
                 beforeCondition: undefined,
             };
         },
         mounted() {
-            // this.condition = deepCopy(this.value) || [];
+            this.times = deepCopy(this.value || [-60, 60]);
         },
         methods: {
             updateModel() {
-                this.$emit('input', this.condition);
-            }
-        },
-        computed: {
-            condition() {
-                const condition = [];
-                if (this.afterCondition) {
-                    const field = `after${startCase(this.afterCondition.mode)}`;
-                    condition.push({[field]: this.afterCondition.offset});
+                this.$emit('input', this.times);
+            },
+            swapTimes() {
+                this.times = [this.times[1], this.times[0]];
+                this.updateModel();
+            },
+            timeFormatter(value) {
+                if (value === -120 || value === 120) {
+                    return this.$t('midnight');
+                } else if (value < -60) {
+                    return this.$t('{count} minutes before sunrise', {count: Math.abs(value + 60)});
+                } else if (value === -60) {
+                    return this.$t('sunrise');
+                } else if (value < 0) {
+                    return this.$t('{count} minutes after sunrise', {count: Math.abs(value + 60)});
+                } else if (value < 60) {
+                    return this.$t('{count} minutes before sunset', {count: 60 - value});
+                } else if (value === 60) {
+                    return this.$t('sunset');
+                } else {
+                    return this.$t('{count} minutes after sunset', {count: value - 60});
                 }
-                if (this.beforeCondition) {
-                    const field = `before${startCase(this.beforeCondition.mode)}`;
-                    condition.push({[field]: this.beforeCondition.offset});
-                }
-                return condition;
             }
         },
     }
 </script>
+
+<style lang="scss">
+    @import "../../styles/variables";
+
+    $activeColor: $supla-green;
+    $activeColorHover: lighten($supla-green, 5%);
+    $inactiveColor: darken($supla-grey-light, 10%);
+
+    .vue-slider {
+        .vue-slider-rail {
+            background-color: $inactiveColor;
+        }
+        .vue-slider-process {
+            background-color: $activeColor;
+        }
+        .vue-slider-dot-handle {
+            border-color: $activeColor;
+            border-color: $activeColor;
+        }
+        .vue-slider-mark-step {
+            box-shadow: 0 0 0 2px $inactiveColor;
+        }
+        &:hover {
+            .vue-slider-process {
+                background-color: $activeColorHover;
+            }
+            .vue-slider-dot-handle {
+                &, &:hover {
+                    border-color: $activeColorHover;
+                }
+            }
+            .vue-slider-mark-step {
+                box-shadow: 0 0 0 2px $inactiveColor;
+            }
+        }
+    }
+
+    .night {
+        .vue-slider {
+            .vue-slider-rail {
+                background-color: $activeColor;
+            }
+            .vue-slider-process {
+                background-color: $inactiveColor;
+            }
+        }
+        &:hover {
+            .vue-slider-rail {
+                background-color: $activeColorHover;
+            }
+            .vue-slider-process {
+                background-color: $inactiveColor;
+            }
+        }
+    }
+</style>
