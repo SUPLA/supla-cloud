@@ -129,6 +129,7 @@ class ReactionControllerIntegrationTest extends IntegrationTestCase {
             'subjectId' => $this->lightswitch->getId(), 'subjectType' => $this->lightswitch->getOwnSubjectType(),
             'actionId' => ChannelFunctionAction::TURN_OFF,
             'trigger' => ['on_change_to' => ['lt' => 30, 'name' => 'temperature', 'resume' => ['ge' => 30]]],
+            'activityConditions' => null,
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);

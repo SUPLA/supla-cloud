@@ -234,7 +234,7 @@ class ValueBasedTrigger implements HasSubject {
         return $this->activityConditions ? json_decode($this->activityConditions, true) : [];
     }
 
-    public function setActivityConditions(array $activityConditions): void {
-        $this->activityConditions = json_encode($activityConditions);
+    public function setActivityConditions(?array $activityConditions): void {
+        $this->activityConditions = $activityConditions ? json_encode($activityConditions) : null;
     }
 }
