@@ -174,7 +174,7 @@ class UserController extends RestController {
 
     protected function getDefaultAllowedSerializationGroups(Request $request): array {
         return ['longUniqueId', 'limits', 'relationsCount',
-            'relationsCount' => 'user.relationsCount',
+            'relationsCount' => 'user.relationsCount', 'sun',
         ];
     }
 

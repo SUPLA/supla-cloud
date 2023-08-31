@@ -6,6 +6,10 @@ function toLuxon(anything) {
         return DateTime.fromISO(anything);
     } else if (typeof anything === 'number') {
         return DateTime.fromSeconds(anything);
+    } else if (anything instanceof DateTime) {
+        return anything;
+    } else {
+        throw new Error('Unsupported date format: ' + anything);
     }
 }
 

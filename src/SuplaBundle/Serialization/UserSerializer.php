@@ -81,6 +81,11 @@ class UserSerializer extends AbstractSerializer {
                 $normalized['relationsCount'] = $this->userRepository->find($user->getId())->getRelationsCount();
             }
         }
+        if ($this->isSerializationGroupRequested('sun', $context)) {
+            $fmt = SUNFUNCS_RET_TIMESTAMP;
+            $normalized['closestSunset'] = date_sunset(time(), $fmt, $user->getHomeLatitude(), $user->getHomeLongitude());
+            $normalized['closestSunrise'] = date_sunrise(time(), $fmt, $user->getHomeLatitude(), $user->getHomeLongitude());
+        }
     }
 
     public function supportsNormalization($entity, $format = null) {

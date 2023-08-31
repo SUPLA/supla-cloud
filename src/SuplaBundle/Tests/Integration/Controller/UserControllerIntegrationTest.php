@@ -235,6 +235,24 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @small */
+    public function testGettingUserWithSunsetAndSunriseTime() {
+        SuplaAutodiscoverMock::clear(false);
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/users/current?include=sun');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('closestSunset', $body);
+        $this->assertArrayHasKey('closestSunrise', $body);
+        $this->assertIsInt($body['closestSunset']);
+        $this->assertIsInt($body['closestSunrise']);
+        $this->assertGreaterThanOrEqual(time() - 86400, $body['closestSunset']);
+        $this->assertGreaterThanOrEqual(time() - 86400, $body['closestSunrise']);
+        $this->assertNotEquals($body['closestSunset'], $body['closestSunrise']);
+    }
+
+    /** @small */
     public function testChangingOptOutNotifications() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();
