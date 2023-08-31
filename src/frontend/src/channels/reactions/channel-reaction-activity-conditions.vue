@@ -13,13 +13,16 @@
         </transition-expand>
         <div>
             <div v-for="(t, $index) in times" :key="$index">
-                <div class="d-flex">
+                <div>
                     <ChannelReactionActivityCondition v-model="t.times" @input="updateModel()" class="flex-grow-1"/>
-                    <a class="text-default" @click="removeTime($index)">
-                        <fa icon="trash" class="text-muted"/>
-                    </a>
+                    <div class="text-right">
+                        <a class="text-default small" @click="removeTime($index)">
+                            <fa icon="trash" class="text-muted"/>
+                            {{ $t('Delete') }}
+                        </a>
+                    </div>
                 </div>
-                <div class="or-hr mb-3" v-if="$index < times.length - 1">{{ $t('OR') }}</div>
+                <div class="or-hr" v-if="$index < times.length - 1">{{ $t('OR') }}</div>
             </div>
         </div>
         <a class="btn btn-white" @click="addTime()" v-if="times.length < 2">
@@ -143,29 +146,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    @import "../../styles/variables";
-
-    .or-hr {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        color: $supla-grey-dark;
-
-        &::before,
-        &::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid $supla-grey-dark;
-        }
-
-        &:not(:empty)::before {
-            margin-right: 1em;
-        }
-
-        &:not(:empty)::after {
-            margin-left: 1em;
-        }
-    }
-</style>

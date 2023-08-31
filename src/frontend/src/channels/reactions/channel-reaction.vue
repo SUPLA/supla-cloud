@@ -12,6 +12,20 @@
                     </div>
                 </transition-expand>
                 <ChannelReactionConditionChooser :subject="owningChannel" v-model="trigger" @input="onChanged()" class="mb-3"/>
+                <div class="or-hr">{{ $t('THEN') }}</div>
+                <transition-expand>
+                    <div class="alert alert-danger" v-if="displayValidationErrors && (!action || !targetSubject)">
+                        {{ $t('Please select and configure the action') }}
+                    </div>
+                </transition-expand>
+                <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1">
+                    <div v-if="targetSubject" class="mt-3">
+                        <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
+                            @input="onChanged()" :contextSubject="owningChannel"/>
+                    </div>
+                </SubjectDropdown>
+            </div>
+            <div class="col-sm-6">
                 <div class="details-page-block">
                     <h3 class="text-center">{{ $t('Settings') }}</h3>
                     <div class="hover-editable text-left">
@@ -45,19 +59,6 @@
                     <ChannelReactionActivityConditions class="mt-4" :display-validation-errors="displayValidationErrors"
                         v-model="activityConditions" @input="onChanged()"/>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <transition-expand>
-                    <div class="alert alert-danger" v-if="displayValidationErrors && (!action || !targetSubject)">
-                        {{ $t('Please select and configure the action') }}
-                    </div>
-                </transition-expand>
-                <SubjectDropdown v-model="targetSubject" class="mb-3" channels-dropdown-params="io=output&hasFunction=1">
-                    <div v-if="targetSubject" class="mt-3">
-                        <ChannelActionChooser :subject="targetSubject" :alwaysSelectFirstAction="true" v-model="action"
-                            @input="onChanged()" :contextSubject="owningChannel"/>
-                    </div>
-                </SubjectDropdown>
             </div>
         </div>
         <modal-confirm v-if="deleteConfirm"

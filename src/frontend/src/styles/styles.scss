@@ -706,6 +706,28 @@ code {
   background-color: lighten($supla-blue, 72%);
 }
 
+.or-hr {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: $supla-grey-dark;
+  margin-bottom: 1em;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid $supla-grey-dark;
+  }
+
+  &:not(:empty)::before {
+    margin-right: 1em;
+  }
+
+  &:not(:empty)::after {
+    margin-left: 1em;
+  }
+}
 
 @import "./buttons";
 @import "./checkbox";
