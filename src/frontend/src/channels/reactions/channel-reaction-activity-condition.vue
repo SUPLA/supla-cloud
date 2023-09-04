@@ -23,8 +23,16 @@
         </div>
         <div class="mt-5 mb-5 px-2">
             <vue-slider v-model="times" :enable-cross="true" :min="-120" :max="120" :marks="marks" :order="false"
-                tooltip="none" @change="updateModel()"
-            />
+                tooltip="none" @change="updateModel()">
+                <template #label="{ label }">
+                    <div class="vue-slider-mark-label">
+                        <img v-if="label === 'sunset'" src="../../assets/icons/sunset.svg" alt="sunset">
+                        <img v-else-if="label === 'sunrise'" src="../../assets/icons/sunrise.svg" alt="sunrise">
+                        <img v-else-if="label === 'midday'" src="../../assets/icons/sun.svg" alt="midday">
+                        <img v-else src="../../assets/icons/moon.svg" alt="midnight">
+                    </div>
+                </template>
+            </vue-slider>
         </div>
     </div>
 </template>
@@ -46,11 +54,11 @@
             return {
                 times: [-60, 60],
                 marks: {
-                    '-120': '🌃',
-                    '-60': '🌅',
-                    '0': '☀️',
-                    '60': '🌇',
-                    '120': '🌃',
+                    '-120': 'midnight',
+                    '-60': 'sunrise',
+                    '0': 'midday',
+                    '60': 'sunset',
+                    '120': 'midnight',
                 },
                 afterCondition: undefined,
                 beforeCondition: undefined,
@@ -143,6 +151,11 @@
         }
         .vue-slider-mark-step {
             box-shadow: 0 0 0 2px $inactiveColor;
+        }
+        .vue-slider-mark-label {
+            img {
+                max-height: 28px;
+            }
         }
         &:hover {
             .vue-slider-process {
