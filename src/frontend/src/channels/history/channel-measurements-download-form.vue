@@ -179,7 +179,6 @@
                 const worksheet = XLSX.utils.json_to_sheet(rows, {
                     header: jsonFields,
                     dateNF: 'yyyy"-"mm"-"dd" "hh":"mm":"ss',
-                    cellDates: true
                 });
                 XLSX.utils.sheet_add_aoa(worksheet, [columnLabels], {origin: "A1"});
                 const workbook = XLSX.utils.book_new();
