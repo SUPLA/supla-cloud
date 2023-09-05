@@ -62,22 +62,14 @@
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import ChannelParamsMeterReset from "@/channels/params/channel-params-meter-reset";
     import ChannelParamsMeterInitialValuesMode from "./channel-params-meter-initial-values-mode";
+    import {measurementUnit} from "@/channels/channel-helpers";
 
     export default {
         components: {ChannelParamsMeterInitialValuesMode, ChannelParamsMeterReset, ChannelsIdDropdown, ChannelParamsMeterCost},
         props: ['channel'],
         computed: {
             unit() {
-                let defaultUnit = 'm³';
-                switch (this.channel.function.name) {
-                    case 'IC_ELECTRICITYMETER':
-                        defaultUnit = 'kWh';
-                        break;
-                    case 'IC_HEATMETER':
-                        defaultUnit = 'GJ';
-                        break;
-                }
-                return this.channel.config.unit || defaultUnit;
+                return measurementUnit(this.channel);
             }
         }
     };

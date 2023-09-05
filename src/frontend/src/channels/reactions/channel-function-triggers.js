@@ -2,6 +2,7 @@ import ChannelFunction from "@/common/enums/channel-function";
 import ReactionConditionThreshold from "@/channels/reactions/params/reaction-condition-threshold.vue";
 import ReactionConditionElectricitymeter from "@/channels/reactions/params/reaction-condition-electricitymeter.vue";
 import {isEqual} from "lodash";
+import {measurementUnit} from "@/channels/channel-helpers";
 
 export const ChannelFunctionTriggers = {
     [ChannelFunction.HUMIDITYANDTEMPERATURE]: [
@@ -391,7 +392,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: (fieldName, subject) => subject?.config?.unit || '',
+                unit: (fieldName, subject) => measurementUnit(subject),
                 operators: ['gt', 'ge', 'eq'],
                 field: 'calculated_value',
                 disableResume: true,
@@ -409,7 +410,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: (fieldName, subject) => subject?.config?.unit || '',
+                unit: (fieldName, subject) => measurementUnit(subject),
                 field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
@@ -427,7 +428,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: (fieldName, subject) => subject?.config?.unit || '',
+                unit: (fieldName, subject) => measurementUnit(subject),
                 field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
@@ -445,7 +446,7 @@ export const ChannelFunctionTriggers = {
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
-                unit: (fieldName, subject) => subject?.config?.unit || '',
+                unit: (fieldName, subject) => measurementUnit(subject),
                 field: 'calculated_value',
                 operators: ['gt', 'ge', 'eq'],
                 disableResume: true,
