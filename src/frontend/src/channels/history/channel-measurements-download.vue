@@ -19,7 +19,7 @@
 
             <modal v-if="showDownloadConfig" :header="$t('Download measurements history')" display-close-button
                 @cancel="showDownloadConfig = false">
-                <ChannelMeasurementsDownloadForm :storage="storage" @downloaded="showDownloadConfig = false"/>
+                <ChannelMeasurementsDownloadForm :storage="storage" @downloaded="showDownloadConfig = false" :date-range="dateRange"/>
                 <template #footer>
                     <div></div>
                 </template>
@@ -43,6 +43,7 @@
         props: {
             channel: Object,
             storage: Object,
+            dateRange: Object,
         },
         data() {
             return {

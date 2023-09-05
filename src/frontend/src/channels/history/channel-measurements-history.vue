@@ -2,7 +2,8 @@
     <loading-cover :loading="hasLogs === undefined || fetchingDenseLogs">
         <div class="container">
             <div :class="'download-buttons form-group text-' + (hasLogs ? 'right' : 'center')" v-if="hasLogs">
-                <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()" :storage="storage"/>
+                <ChannelMeasurementsDownload :channel="channel" @delete="onMeasurementsDelete()" :storage="storage"
+                    :date-range="dateRange"/>
             </div>
 
             <div v-if="supportsChart && storage && hasStorageSupport">

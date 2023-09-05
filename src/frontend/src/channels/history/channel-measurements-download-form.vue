@@ -4,6 +4,15 @@
             <div v-if="storage.isReady">
 
                 <div class="form-group">
+                    <label>{{ $t('Date range') }}</label>
+                    <div class="radio d-flex justify-content-center">
+                        <label class="mx-3"><input type="radio" value="selected"
+                            v-model="downloadConfig.dateRange"> {{ $t('Selected') }}</label>
+                        <label class="mx-3"><input type="radio" value="all" v-model="downloadConfig.dateRange"> {{ $t('All') }}</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label>{{ $t('File format') }}</label>
                     <div class="radio d-flex justify-content-center">
                         <label class="mx-3"><input type="radio" value="csv" v-model="downloadConfig.format"> CSV</label>
@@ -76,6 +85,7 @@
     import XLSX from "xlsx";
     import ChannelFunction from "@/common/enums/channel-function";
     import {channelTitle} from "@/common/filters";
+    import {DateTime} from "luxon";
 
     const EXPORT_DEFINITIONS = {
         [ChannelFunction.THERMOMETER]: [
@@ -131,12 +141,14 @@
         components: {TransitionExpand},
         props: {
             storage: Object,
+            dateRange: Object,
         },
         data() {
             return {
                 downloading: false,
                 downloadError: undefined,
                 downloadConfig: {
+                    dateRange: 'selected',
                     format: 'csv',
                     separator: ',',
                     transformation: 'none',
@@ -148,7 +160,10 @@
                 this.downloading = true;
                 this.downloadError = undefined;
                 try {
-                    let rows = (await (await this.storage.db).getAllFromIndex('logs', 'date'));
+                    const fromDate = DateTime.fromISO(this.dateRange.dateStart).toJSDate();
+                    const toDate = DateTime.fromISO(this.dateRange.dateEnd).toJSDate();
+                    const range = IDBKeyRange.bound(fromDate, toDate);
+                    let rows = (await (await this.storage.db).getAllFromIndex('logs', 'date', this.downloadConfig.dateRange === 'all' ? undefined : range));
                     rows.shift(); // removes the first null log
                     if (this.downloadConfig.transformation === 'cumulative') {
                         const firstLogResponse = await this.$http.get(`channels/${this.storage.channel.id}/measurement-logs?order=ASC&limit=1`);
