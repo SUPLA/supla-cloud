@@ -253,6 +253,24 @@ class UserControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @small */
+    public function testGettingUserWithSunsetAndSunriseTimeInPolarNight() {
+        TestTimeProvider::setTime('2023-12-22');
+        $this->user->setTimezone('Arctic/Longyearbyen');
+        $this->getEntityManager()->persist($this->user);
+        $this->getEntityManager()->flush();
+        /** @var TestClient $client */
+        $client = self::createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/users/current?include=sun');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $body = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('closestSunset', $body);
+        $this->assertArrayHasKey('closestSunrise', $body);
+        $this->assertNull($body['closestSunset']);
+        $this->assertNull($body['closestSunrise']);
+    }
+
+    /** @small */
     public function testChangingOptOutNotifications() {
         /** @var TestClient $client */
         $client = self::createAuthenticatedClient();

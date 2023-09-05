@@ -78,8 +78,10 @@
         mounted() {
             this.times = deepCopy(this.value || [-60, 60]);
             this.$http.get('users/current?include=sun').then(({body}) => {
-                this.closestSunrise = DateTime.fromSeconds(body.closestSunrise);
-                this.closestSunset = DateTime.fromSeconds(body.closestSunset);
+                if (body.closestSunrise && body.closestSunset) {
+                    this.closestSunrise = DateTime.fromSeconds(body.closestSunrise);
+                    this.closestSunset = DateTime.fromSeconds(body.closestSunset);
+                }
             });
         },
         methods: {

@@ -34,6 +34,7 @@
             value: Object,
             labelDateStart: {type: String},
             labelDateEnd: {type: String},
+            minNow: Boolean,
             min: {type: Date, default: undefined},
             max: {type: Date, default: undefined},
         },
@@ -75,14 +76,11 @@
         computed: {
             minDate() {
                 if (this.min !== undefined) {
-                    if (this.min) {
-                        return formatDateForHtmlInput(DateTime.fromJSDate(this.min).toISO());
-                    } else {
-                        return undefined;
-                    }
-                } else {
+                    return formatDateForHtmlInput(DateTime.fromJSDate(this.min).toISO());
+                } else if (this.minNow) {
                     return formatDateForHtmlInput(DateTime.now().toISO());
                 }
+                return undefined;
             },
             maxDate() {
                 if (this.max !== undefined && this.max) {

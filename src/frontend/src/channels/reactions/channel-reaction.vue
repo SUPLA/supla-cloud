@@ -50,7 +50,6 @@
                         </div>
                     </transition-expand>
                     <DateRangePicker v-model="activeDateRange"
-                        :min="false"
                         :label-date-start="$t('Active from')"
                         :label-date-end="$t('Active to')"
                         @input="onChanged()"/>
