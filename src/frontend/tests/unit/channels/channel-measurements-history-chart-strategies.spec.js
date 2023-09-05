@@ -160,6 +160,21 @@ describe('Channel measurement history data strategies', () => {
             expect(adjustedLogs[4].counterReset).toBeTruthy();
         });
 
+        it('does not detect counter resets on small changes', () => {
+            const logs = [
+                {date_timestamp: 0, phase1_fae: 100},
+                {date_timestamp: 1, phase1_fae: 200},
+                {date_timestamp: 2, phase1_fae: 400},
+                {date_timestamp: 3, phase1_fae: 400},
+                {date_timestamp: 4, phase1_fae: 390},
+                {date_timestamp: 5, phase1_fae: 450},
+            ];
+            const adjustedLogs = strategy.adjustLogs(logs);
+            const adjustedPhase1Fae = adjustedLogs.map(l => l.phase1_fae);
+            expect(adjustedPhase1Fae).toEqual([100, 100, 200, 0, 0, 50]);
+            expect(adjustedLogs[4].counterReset).toBeFalsy();
+        });
+
         it('cumulates logs back with counter reset', () => {
             const logs = [
                 {date_timestamp: 0, phase1_fae: 1},
@@ -324,6 +339,20 @@ describe('Channel measurement history data strategies', () => {
             const adjustedLogs = strategy.adjustLogs(logs);
             expect(adjustedLogs.map(l => l.counter)).toEqual([1, 2, 1, 1, 2]);
             expect(adjustedLogs[3].counterReset).toBeTruthy();
+        });
+
+        it('does not detect counter resets on small changes', () => {
+            const logs = [
+                {date_timestamp: 1, counter: 100, calculated_value: 10000},
+                {date_timestamp: 2, counter: 300, calculated_value: 30000},
+                {date_timestamp: 3, counter: 400, calculated_value: 40000},
+                {date_timestamp: 4, counter: 390, calculated_value: 39000},
+                {date_timestamp: 5, counter: 450, calculated_value: 45000},
+            ];
+            const adjustedLogs = strategy.adjustLogs(logs);
+            expect(adjustedLogs.map(l => l.counter)).toEqual([100, 200, 100, 0, 50]);
+            expect(adjustedLogs.map(l => l.calculated_value)).toEqual([10000, 20000, 10000, 0, 5000]);
+            expect(adjustedLogs[3].counterReset).toBeFalsy();
         });
     });
 })

@@ -252,14 +252,23 @@ export const CHART_TYPES = {
             const adjustedLogs = [logs[0]];
             for (let i = 1; i < logs.length; i++) {
                 const log = {...logs[i]};
-                if (log.counter >= previousLog.counter) {
-                    log.calculated_value -= previousLog.calculated_value;
-                    log.counter -= previousLog.counter;
+                let skipThisLog = false;
+                if (log.counter >= previousLog.counter * .9) { // .9 for reset misdetections
+                    if (log.counter >= previousLog.counter) {
+                        log.calculated_value -= previousLog.calculated_value;
+                        log.counter -= previousLog.counter;
+                    } else {
+                        log.calculated_value = 0;
+                        log.counter = 0;
+                        skipThisLog = true;
+                    }
                 } else {
                     log.counterReset = true;
                 }
                 adjustedLogs.push(log);
-                previousLog = logs[i];
+                if (!skipThisLog) {
+                    previousLog = logs[i];
+                }
             }
             return adjustedLogs;
         },
@@ -490,11 +499,17 @@ export const CHART_TYPES = {
                         } else {
                             const newState = log[attributeName];
                             log[attributeName] -= latestState[attributeName] || 0;
-                            if (log[attributeName] < 0) {
+                            let skipThisLog = false;
+                            if (log[attributeName] < -latestState[attributeName] * .1) {
                                 log[attributeName] += latestState[attributeName];
                                 log.counterReset = true;
+                            } else if (log[attributeName] < 0) {
+                                log[attributeName] = 0;
+                                skipThisLog = true;
                             }
-                            latestState[attributeName] = newState;
+                            if (!skipThisLog) {
+                                latestState[attributeName] = newState;
+                            }
                         }
                     } else {
                         log[attributeName] = 0;
