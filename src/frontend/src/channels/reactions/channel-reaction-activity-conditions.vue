@@ -2,17 +2,9 @@
     <div>
         <h4 class="text-center">
             {{ $t('Daytime criteria') }}
-            <a @click="showHelp = !showHelp">
-                <fa icon="question-circle" class="ml-2 small"/>
-            </a>
         </h4>
-        <transition-expand>
-            <div v-if="showHelp" class="alert alert-info">
-                {{ $t('The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.') }}
-            </div>
-        </transition-expand>
         <div>
-            <div v-for="(t, $index) in times" :key="$index">
+            <div v-for="(t, $index) in times" :key="t.id">
                 <div>
                     <ChannelReactionActivityCondition v-model="t.times" @input="updateModel()" class="flex-grow-1"/>
                     <div class="text-right">
@@ -33,29 +25,27 @@
 </template>
 
 <script>
-    import TransitionExpand from "@/common/gui/transition-expand.vue";
     import ChannelReactionActivityCondition from "@/channels/reactions/channel-reaction-activity-condition.vue";
-    import {startCase} from "lodash";
+    import {isEqual, startCase} from "lodash";
 
     export default {
-        components: {
-            ChannelReactionActivityCondition,
-            TransitionExpand
-        },
+        components: {ChannelReactionActivityCondition},
         props: {
             value: Array,
-            displayValidationErrors: Boolean,
         },
         data() {
             return {
-                showHelp: false,
                 times: [],
+                timeIdCounter: 0,
             };
         },
         mounted() {
-            this.times = this.conditionsToTimes(this.value || []).map(times => ({times}));
+            this.initTimesFromModel();
         },
         methods: {
+            initTimesFromModel() {
+                this.times = this.conditionsToTimes(this.value || []).map(times => ({id: ++this.timeIdCounter, times}));
+            },
             conditionsToTimes(conditions) {
                 const times = [];
                 conditions.forEach(condition => {
@@ -144,5 +134,12 @@
                 return this.timesToConditions(this.times.map(({times}) => times));
             }
         },
+        watch: {
+            value(value) {
+                if (!isEqual(value, this.modelValue)) {
+                    this.initTimesFromModel();
+                }
+            }
+        }
     }
 </script>

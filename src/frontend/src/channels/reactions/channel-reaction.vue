@@ -38,15 +38,26 @@
                     </div>
                 </div>
                 <div class="details-page-block">
-                    <h3 class="text-center">{{ $t('Activity conditions') }}</h3>
+                    <h3 class="text-center">
+                        {{ $t('Activity conditions') }}
+                        <a @click="showConditionsHelp = !showConditionsHelp">
+                            <fa icon="info-circle" class="ml-2 small"/>
+                        </a>
+                    </h3>
+                    <transition-expand>
+                        <div v-if="showConditionsHelp" class="alert alert-info">
+                            {{ $t('The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.') }}
+                        </div>
+                    </transition-expand>
                     <DateRangePicker v-model="activeDateRange"
+                        :min="false"
                         :label-date-start="$t('Active from')"
                         :label-date-end="$t('Active to')"
                         @input="onChanged()"/>
                     <div class="form-group text-center">
                         <label>
                             <label class="checkbox2 checkbox2-grey">
-                                <input type="checkbox" v-model="useWorkingSchedule" @change="accessIdChanged()">
+                                <input type="checkbox" v-model="useWorkingSchedule" @change="onChanged()">
                                 {{ $t('Use working schedule for this reaction') }}
                             </label>
                         </label>
@@ -56,8 +67,7 @@
                             v-model="activeHours"
                             @input="onChanged()"></week-schedule-selector>
                     </transition-expand>
-                    <ChannelReactionActivityConditions class="mt-4" :display-validation-errors="displayValidationErrors"
-                        v-model="activityConditions" @input="onChanged()"/>
+                    <ChannelReactionActivityConditions class="mt-4" v-model="activityConditions" @input="onChanged()"/>
                 </div>
             </div>
         </div>
@@ -110,6 +120,7 @@
                 useWorkingSchedule: false,
                 activeHours: {},
                 activityConditions: [],
+                showConditionsHelp: false,
             };
         },
         beforeMount() {
@@ -197,15 +208,15 @@
                     actionParam: this.action?.param,
                     enabled: this.enabled,
                     isValid: !!(this.trigger && this.action && this.targetSubject),
-                    activeFrom: this.activeDateRange.dateStart,
-                    activeTo: this.activeDateRange.dateEnd,
-                    activeHours: mapValues(this.activeHours, (hours) => {
+                    activeFrom: this.activeDateRange.dateStart || null,
+                    activeTo: this.activeDateRange.dateEnd || null,
+                    activeHours: this.useWorkingSchedule ? mapValues(this.activeHours, (hours) => {
                         return Object.keys(pickBy(hours, (selection) => !!selection)).map((hour) => parseInt(hour));
-                    }),
+                    }) : null,
                     activityConditions: this.activityConditions,
                 };
             },
-        }
+        },
     }
 </script>
 

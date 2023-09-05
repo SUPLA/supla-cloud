@@ -17,9 +17,11 @@
                     <fa icon="shuffle"/>
                 </a>
             </div>
-            <div class="text-center mt-2" v-if="closestSunrise">
-                {{ $t('It will be active from {from} to {to} today.', {from: humanizedTimes[0], to: humanizedTimes[1]}) }}
-            </div>
+            <transition-expand>
+                <div class="text-center mt-2" v-if="closestSunrise && changed">
+                    {{ $t('Today, it would be active from {from} to {to}.', {from: humanizedTimes[0], to: humanizedTimes[1]}) }}
+                </div>
+            </transition-expand>
         </div>
         <div class="mt-5 mb-5 px-2">
             <vue-slider v-model="times" :enable-cross="true" :min="-120" :max="120" :marks="marks" :order="false"
@@ -28,8 +30,12 @@
                     <div class="vue-slider-mark-label">
                         <img v-if="label === 'sunset'" src="../../assets/icons/sunset.svg" alt="sunset">
                         <img v-else-if="label === 'sunrise'" src="../../assets/icons/sunrise.svg" alt="sunrise">
-                        <img v-else-if="label === 'midday'" src="../../assets/icons/sun.svg" alt="midday">
-                        <img v-else src="../../assets/icons/moon.svg" alt="midnight">
+                        <img v-else-if="label === 'midnight'" src="../../assets/icons/moon.svg" alt="midnight">
+                    </div>
+                </template>
+                <template #step="{ label }">
+                    <div :class="['vue-slider-mark-step', {midday: label === 'midday' || label === 'midnight'}]">
+                        <span v-if="label === 'midday' || label === 'midnight'">...</span>
                     </div>
                 </template>
             </vue-slider>
@@ -42,9 +48,11 @@
     import {deepCopy} from "@/common/utils";
     import {DateTime} from "luxon";
     import {formatDate} from "@/common/filters-date";
+    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     export default {
         components: {
+            TransitionExpand,
             VueSlider: () => import('vue-slider-component'),
         },
         props: {
@@ -53,6 +61,7 @@
         data() {
             return {
                 times: [-60, 60],
+                changed: false,
                 marks: {
                     '-120': 'midnight',
                     '-60': 'sunrise',
@@ -75,6 +84,7 @@
         },
         methods: {
             updateModel() {
+                this.changed = true;
                 if (this.times[0] === this.times[1]) {
                     this.times[0] -= 1;
                 }
@@ -151,6 +161,21 @@
         }
         .vue-slider-mark-step {
             box-shadow: 0 0 0 2px $inactiveColor;
+            &.midday {
+                position: relative;
+                width: 18px;
+                box-shadow: none;
+                border-radius: 0;
+                > span {
+                    display: block;
+                    position: absolute;
+                    width: 18px;
+                    text-align: center;
+                    color: $supla-grey-dark;
+                    top: -12px;
+                }
+
+            }
         }
         .vue-slider-mark-label {
             img {
@@ -168,6 +193,10 @@
             }
             .vue-slider-mark-step {
                 box-shadow: 0 0 0 2px $inactiveColor;
+                &.midday {
+                    box-shadow: none;
+                    border-radius: 0;
+                }
             }
         }
     }

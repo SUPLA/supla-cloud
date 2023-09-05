@@ -48,11 +48,17 @@
         },
         methods: {
             setFromValue() {
-                if (this.value && this.value.dateStart) {
-                    this.dateStart = formatDateForHtmlInput(this.value.dateStart);
-                }
-                if (this.value && this.value.dateEnd) {
-                    this.dateEnd = formatDateForHtmlInput(this.value.dateEnd);
+                if (this.value) {
+                    if (this.value.dateStart) {
+                        this.dateStart = formatDateForHtmlInput(this.value.dateStart);
+                    } else {
+                        this.dateStart = undefined;
+                    }
+                    if (this.value.dateEnd) {
+                        this.dateEnd = formatDateForHtmlInput(this.value.dateEnd);
+                    } else {
+                        this.dateEnd = undefined;
+                    }
                 }
             },
             onChange() {
