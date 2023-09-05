@@ -119,8 +119,10 @@
             humanizedTimes() {
                 return this.times.map(value => {
                     let date;
-                    if (value === -120 || value === 120) {
-                        return this.$t('midnight');
+                    if (value === -120) {
+                        date = this.closestSunrise.startOf('day');
+                    } else if (value === 120) {
+                        date = this.closestSunrise.endOf('day');
                     } else if (value < -60) {
                         date = this.closestSunrise.minus({minutes: Math.abs(value + 60)});
                     } else if (value === -60) {

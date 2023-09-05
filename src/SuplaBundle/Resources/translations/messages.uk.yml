@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% зачинення'
 '%s trigger is not supported by the hardware.': Команда %s  не підтримується пристроєм.
 ...open and shut roller shutters: …відкривати і закривати ролети
 ...open gateways, gates or doors: ...відкрити хвіртку, ворота або двері
@@ -43,6 +44,7 @@ Active sessions: Активні сесії
 Active web sessions: Активні сесії (веб)
 Add: Додати
 Add a delay: Додати затримку
+Add a new action to the scene: Додати нову дію до сцени
 Add a new icon: Додати нову піктограму
 Add action: Додати дію
 Add first channel to set channel group function and save it: Виберіть перший канал для визначення функції групи та збережіть його
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Ви впевнені, що
 Are you sure you want to delete this client?: Ви впевнені, що бажаєте видалити цю клієнтську програму?
 Are you sure you want to delete this direct link?: Ви впевнені, що хочете видалити це пряме посилання?
 Are you sure you want to delete this icon?: Ви впевнені, що хочете видалити цю піктограму?
+Are you sure you want to delete this reaction?: Ви впевнені, що хочете видалити цю реакцію?
 Are you sure you want to delete this scene?: Ви впевнені, що хочете видалити цю сцену?
 Are you sure you want to delete this schedule?: Ви впевнені, що хочете видалити цей розклад?
 Are you sure you want to log out this device?: Ви впевнені, що хочете вийти з цього пристрою?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: З розрахунку схід/захід
 Be notified when your channels change state: Повідомлення про зміни статусу каналу
 Be right back!: Поверніться через кілька хвилин!
 Below threshold: Нижче порогового значення
+Body: Зміст
 Bottom position: Нижня позиція
 Bridge: Перехід
 Brightness: Яскравість
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: «Виберіть і
 Choose channel function: Виберіть функцію каналу
 Choose client apps: Виберіть клієнтські програми
 Choose location: Будь ласка, виберіть місце
+Choose the channel: Виберіть канал
+Choose the channel group: Виберіть групу каналів
+Choose the scene: Виберіть сцену
+Choose the schedule: Виберіть розклад
 Choose the source channel.: Виберіть вихідний канал.
 Clear: Очистити
 Click the following link to confirm removal of your account on %cloudHost%.: Щоб підтвердити, що ви хочете видалити свій обліковий запис %cloudHost%, натисніть посилання нижче.
@@ -215,8 +223,10 @@ Create New Location: Створіть нове місцезнаходження
 Create New Schedule: Створіть новий розклад
 Create an account: Створіть обліковий запис
 Create new direct link: Створіть нове пряме посилання
+Create new reaction: Створити нову реакцію
 Create new scene: Створіть нову сцену
 Currency: Валюта
+Current: Струм
 Current Overload: Перевантаження
 Current Password: Поточний пароль
 Current password is incorrect: Поточний пароль неправильний
@@ -280,6 +290,7 @@ Download the history of measurement: Завантажити історію ви�
 Drag your image(s) here or click to select from the disk: Перетягніть зображення сюди або натисніть, щоб вибрати з диска
 E-mail notifications: Сповіщення електронною поштою
 Edit: Редагувати
+Edit reaction: Редагувати реакцію
 Electric: Електрика
 Electricity meter: Лічильник електроенергії
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Лічильник електроенергії не повідомляв про можливість налаштувати додаткові значення. Оновіть прошивку пристрою та спробуйте ще раз.
@@ -349,6 +360,10 @@ Generate new token: Згенеруйте новий токен
 Generate token: Згенеруйте токен
 Go to I/O device details: Перейдіть до деталей пристрою
 Go to channel details: Перейдіть до деталей каналу
+Go to the channel: Перейти на канал
+Go to the channel group: Перейти до групи каналів
+Go to the scene: Перейти до сцени
+Go to the schedule: Перейти до розкладу
 Go to your account: Перейдіть до свого облікового запису
 Grant access: Надайте доступ
 Guru Meditation: Guru Meditation
@@ -423,6 +438,7 @@ Invalid function for channel.: Недійсна функція для канал
 'Invalid redirect URI: {uri}': 'Недійсна URL-адреса зворотного виклику: {uri}'
 Invalid request: Невірний запит
 Invalid request.: Невірний запит.
+Invalid scene: Неправильна сцена
 Invalid token.: Неприпустимий токен.
 Invalid username or password: Неправильне ім'я користувача або пароль
 Inverted logic: Зворотна логіка
@@ -472,6 +488,7 @@ Measurement window: Час вимірювання
 Meter value: Покази лічильника
 Meters: Лічильники
 Minimum voltage: Найнижча напруга
+Missing action.: Немає акцій
 Mode: Режим
 Modification: Модифікація
 Mondays: Понеділки
@@ -490,6 +507,7 @@ New channel group: Нова група каналів
 New client app (smartphone) added to your account: Реєстрація нового клієнтського додатку (смартфон)
 New direct link: Нове пряме посилання
 New password: Новий пароль
+New reaction: Нова реакція
 New scene: Нова сцена
 Newer: Новіший
 'Next limit renewal: {date}': Ліміт буде поновлено {date}
@@ -516,6 +534,9 @@ No. of locations: Кількість місць
 None: Відсутність
 None (channel disabled): Немає (канал вимкнено)
 Noop: Операція не проводиться
+Notification: Повідомлення
+Notification must have a body.: Повідомлення повинно мати зміст.
+Notifications: Повідомлення
 Number of aberrations: Кількість аберацій
 Number of attempts to close: Кількість спроб закриття
 Number of attempts to open: Кількість спроб відкриття
@@ -556,6 +577,7 @@ Percentage of closing: Відсоток закриття
 Personal access tokens: Особисті токени доступу
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Особисті токени доступу працюють як звичайні токени доступу з тією різницею, що вони працюють необмежений час.
 Personal token name is required.: Потрібне ім’я особистого токена.
+Phase: Фаза
 Phase 1: Фаза 1
 Phase 2: Фаза 2
 Phase 3: Фаза 3
@@ -567,11 +589,16 @@ Please click the link we have sent you after the registration to proceed.: На�
 Please confirm your SUPLA account.: Активуйте свій обліковий запис SUPLA.
 Please enter a valid email address: Будь ласка, введіть дійсну адресу електронної пошти
 Please fill a valid email address: Будь ласка, введіть дійсну адресу електронної пошти
+Please fix the problems with operations and try again.: Усуньте проблеми з операціями та повторіть спробу.
 Please log in again to proceed.: Будь ласка, увійдіть знову, щоб продовжити.
 Please provide a valid domain name for your private SUPLA Cloud: Вкажіть дійсне доменне ім’я для вашої приватної хмари SUPLA
 Please read the Terms and Conditions.: Читати правила.
+Please select a condition: Будь ласка, виберіть умову
 Please wait a moment before the next login attempt.: Зачекайте деякий час, перш ніж спробувати увійти знову.
 Port: Порт
+Power active: Активна енергія
+Power apparent: Видима енергія
+Power reactive: Реактивна енергія
 Precision: Точність
 Predefined time ranges: Часові діапазони
 Pressure sensor: Датчик тиску
@@ -589,7 +616,10 @@ RGB led controller: Контролер освітлення RGB
 RGB lighting: RGB освітлення
 Rain sensor: Датчик дощу
 Random: Випадковий
+Reactions: Реакція
+Reactions limit has been exceeded: Перевищено межу реакції
 Read: Зчитування
+Recipients: Одержувачу
 Reference to the scene will be removed from the items below.: Наведення на сцену буде видалено з наступних елементів.
 Refresh: Оновити
 Regeneration starts at: Початок відновлення
@@ -666,6 +696,8 @@ Seems like a secret place: Щось нам підказує, що Вас тут 
 Select icon: Виберіть піктограму
 Select the item (subject) you want to control using this link: Виберіть елемент (тему), яким хочете керувати за цим посиланням
 Selected device has been logged out.: Вибраний пристрій вийшов з системи
+Send a notification: Надіслати повідомлення
+Send notification: Надіслати повідомлення
 Sensor (normal closed): Датчик (нормально закритий)
 Sensor (normal open): Датчик (нормально відкритий)
 Sensor disconnected: Немає датчика
@@ -745,8 +777,11 @@ The measurement history has been deleted.: Історія вимірювань �
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Новий пароль замінить той, який ви зараз використовуєте. Деякі інтеграції можуть перестати працювати після його зміни. Продовжувати?
 The next available executions: Майбутні операції
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: За допомогою рамки ми позначили сповіщення, у якому ви натиснули посилання для скасування підписки.
+The notification must have a recipient.: Повідомлення має містити одержувача.
 The password and its confirm are not the same.: Пароль і його підтвердження не збігаються.
 The password should be 8 or more characters.: Пароль має бути не менше 8 символів.
+The reaction has been added: Реакцію додано
+The reaction has been changed: Реакцію змінено
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Пристрій було вимкнено захистом від перевищення напруги. Перш ніж увімкнути його, переконайтеся, що проблему, яка призвела до цього, вирішено. Ви впевнені, що бажаєте ввімкнути цей пристрій віддалено?
 The scene would execute too many operations.: Сцена виконує забагато операцій.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Сервер видав помилку 400, що означає, що відправлений запит неправильний.
@@ -770,6 +805,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ця команда використовується пристроєм локально (наприклад, він вмикає світло, керує ролетами тощо). Якщо ви призначите їй іншу дію, локальну функцію буде вимкнено.
 Thursdays: Четверги
 Timezone: Часовий пояс
+Title: Назва
 To: До
 Toggle: Переключити
 Token does not exist: Токен не існує
@@ -778,7 +814,6 @@ Too many channels in this group: У цій групі забагато кана�
 Too many operations in this scene: Забагато операцій у сцені.
 Total: Сума
 Total time: Загальний час
-Triggers: Команди
 Tuesdays: вівторок
 Turning this device off will cause its channels not working in the following features.: Вимкнення пристрою призведе до того, що його канали перестануть працювати в наступних елементах.
 Turning this device off will result in disabling features listed below.: Вимкнення пристрою призведе до вимкнення наступних елементів.
@@ -807,6 +842,7 @@ Vector balance: Векторний баланс
 Verification method: Метод верифікації
 Visible: Видимий
 Visit app webpage: Відкрийте сайт додатку
+Voltage: Напруга
 Voltage aberrations: Аберації напруги
 Voltage monitoring: Моніторинг напруги
 WELCOME_MESSAGE: |
@@ -837,265 +873,6 @@ Wednesdays: Середи
 Weight sensor: Вага
 Welcome!: Привіт!
 What this token is for?: Для чого цей токен?
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Ви можете виконати дію прямого посилання, вказавши його унікальний ідентифікатор у тілі запиту HTTP PATCH. Це безпечніше, оскільки запобігає збереженню повної адреси вашого посилання в журналах доступу серверів, через які проходить ваш запит. Нижче ви знайдете приклад виконання за допомогою інструменту cURL.
-Where is the JSON?: Де знаходиться JSON?
-Where is your SUPLA Cloud?: Де знаходиться Ваша Supla?
-White: Білий
-Wind sensor: Датчик вітру
-Window opening sensor: Датчик відкриття вікна
-With SUPLA you can operate the lights in your home or office: За допомогою SUPLA ви можете контролювати освітлення у Вашому домі чи офісі
-With function: З функцією
-Working period: Термін експлуатації
-Working schedule: Графік діяльності
-YOUR LINK CODE: ВАШ КОД ПОСИЛАННЯ
-You are changing the settings too quickly. You have to wait a while before making this change.: Ви занадто швидко змінюєте налаштування. Перш ніж змінити ці параметри, потрібно трохи почекати.
-You can browse only the most recent logs now. Wait a while for the full history.: Наразі відображаються лише останні вимірювання. Зачекайте деякий час, поки завантажиться вся історія.
-You can ignore this message, if you have accidentally entered an incorrect password.: Ви можете проігнорувати це повідомлення, якщо Ви ввели неправильний пароль.
-You can use the application but you will not be able to modify any settings.: Ви можете використовувати програму, але неможливо внести зміни в конфігурацію.
-You cannot delete your last access identifier.: Ви не можете видалити свій останній ідентифікатор доступу.
-You cannot delete your last location.: Ви не можете видалити своє останнє місцезнаходження.
-You cannot use SUPLA project name in the domain name.: Ви не можете використовувати назву проекту SUPLA в основному доменному імені.
-You have exceeded your API Rate Limit: Ви використали ліміт запитів API
-You have requested to unregister your SUPLA Cloud instance: Ви попросили скасувати реєстрацію свого екземпляра SUPLA Cloud
-You have to choose at least one scope.: Необхідно вибрати принаймні один діапазон.
-You just need to execute the following command inside your host terminal.: Просто виконайте наступну команду всередині свого хост-терміналу.
-You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Якщо ви все ще хочете використовувати розширений режим розкладу, перегляньте приклади нижче.
-You must agree to the Terms and Conditions.: Потрібне прийняття правил.
-You must enable MQTT Broker first.: Спочатку потрібно ввімкнути інтеграцію з брокером MQTT.
-You must leave at least one phase enabled.: Принаймні одна фаза повинна залишатися активною.
-You must set an action for each scene operation.: Виберіть дію для кожної операції в сцені.
-You must set sections with transparent or opaque parameters or both.: Ви повинні вибрати прозорість принаймні для одного розділу.
-You need to provide icons for all states.: Ви повинні надати піктограми для всіх станів.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Вам потрібно оновити свій екземпляр SUPLA Cloud принаймні до версії 2.3.0.
-You will not be able to generate a direct link with the same URL again.: Ви не зможете створити посилання за тією самою URL-адресою.
-Your account and MQTT Broker connection.: Зв’язування облікового запису з брокером MQTT.
-Your account has been deleted. We hope you will come back to us soon.: Обліковий запис видалено. Ми сподіваємося, що ви скоро повернетеся до нас.
-Your account has been locked.: Ваш обліковий запис заблоковано.
-Your account has not been confirmed yet.: Ваш обліковий запис ще не підтверджено.
-Your account limits: Ваші ліміти
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Ваш браузер не підтримує механізм клієнтської бази даних (IndexedDB). Ця функція необхідна для відображення графіків і підтримки розширених налаштувань експорту даних. Оновіть браузер або вийдіть з режиму інкогніто, щоб скористатися цими можливостями.
-Your channel groups are allowed to have a maximum of {max} channels.: Ваші групи каналів можуть мати максимум {max} каналів.
-Your chart is being drawn...: Ваш графік побудований...
-Your data are being collected. Please be patient.: Ми збираємо ваші дані, наберіться терпіння.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Ваші дані завантажуються з сервера. Зачекайте, поки завантаження завершаться, перш ніж експортувати їх.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Пристрій дозволяє розширити його функціональність і дозволяє виконувати будь-які дії на будь-якому вашому пристрої. Доступні параметри залежать від мікропрограми та пристрою, що використовується.
-Your email: Ваша електронна скринька
-Your instance is not registered or you are trying to authorize an application that is not public.: Ваш екземпляр не зареєстровано, або ви намагаєтеся авторизувати програму, яка не є загальнодоступною.
-Your password must contain at least one special character.: Пароль повинен містити хоча б один спеціальний символ.
-Your password must include at least one letter.: Пароль повинен містити хоча б одну букву.
-Your password must include at least one number.: Пароль повинен містити хоча б одне число.
-Your password must include both upper and lower case letters.: Пароль має містити великі та малі літери.
-Your preferences has been updated.: Ваші налаштування збережено.
-Your private SUPLA Cloud instance has been unregistered.: Ваш приватний екземпляр SUPLA Cloud скасовано.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ваш приватний екземпляр хмари SUPLA недоступний. Будь ласка, переконайтеся, що ваш сервер підключено до Інтернету та з’єднання HTTPS працює належним чином.
-Your private SUPLA Cloud is almost registered.: Ваша приватна хмара SUPLA майже зареєстрована.
-Your private SUPLA Cloud is not registered.: Ваша приватна хмара SUPLA не зареєстрована.
-Your scenes are allowed to have a maximum of {max} operations.: Ваші сцени можуть мати максимум {max} операцій.
-Your schedules are allowed to have a maximum of {max} actions.: Ваші розклади можуть мати максимум {max} дій.
-Your session has been expired.: Ваш сеанс закінчився.
-Your session is about to expire: Ваш сеанс скоро закінчиться
-Your session will expire in {0}.: Ваш сеанс закінчиться через {0}.
-Yours faithfully,: З повагою
-access to your e-mail address: доступ до Вашої адреси електронної пошти
-actionTrigger_HOLD: Утримання кнопки
-actionTrigger_SHORT_PRESS_X1: Натиснення 1x
-actionTrigger_SHORT_PRESS_X2: Натиснення 2x
-actionTrigger_SHORT_PRESS_X3: Натиснення 3x
-actionTrigger_SHORT_PRESS_X4: Натиснення 4x
-actionTrigger_SHORT_PRESS_X5: Натиснення 5x
-actionTrigger_TOGGLE_X1: Переключення 1x
-actionTrigger_TOGGLE_X2: Переключення 2x
-actionTrigger_TOGGLE_X3: Переключення 3x
-actionTrigger_TOGGLE_X4: Переключення 4x
-actionTrigger_TOGGLE_X5: Переключення 5x
-actionTrigger_TURN_OFF: Вимкнення
-actionTrigger_TURN_ON: Увімкнення
-actionableSubjectType_channel: Канал
-actionableSubjectType_channelGroup: Група каналів
-actionableSubjectType_scene: Сцена
-actionableSubjectType_schedule: Розклад
-addToHistoryMeasurementWarningSelected: Якщо вибрати цю опцію, задані значення будуть додані до майбутніх вимірювань, збережених в історії. Це можна побачити на графіках як раптове збільшення введеного значення. Ми рекомендуємо встановлювати ці параметри лише під час першого встановлення лічильника. Для існуючих лічильників ми рекомендуємо видалити історію вимірювань, як тільки ви зміните ці налаштування.
-addToHistoryMeasurementWarningUnselected: Якщо зняти прапорець із цієї опції, задані значення будуть видалені з майбутніх вимірювань, збережених в історії. Це можна побачити на графіках як раптове падіння. Ми рекомендуємо встановлювати ці параметри лише під час першого встановлення лічильника. Для існуючих лічильників ми рекомендуємо видалити історію вимірювань, як тільки ви зміните ці налаштування.
-after: після
-average: середня
-be at least {numChars} characters long: повинен містити не менше {numChars} символів
-before: перед
-caption: назва
-change: змінити
-channel: Канал
-channelConfigHelp_gateCloseAfterHelp: Виберіть дію для кожної операції в сцені.
-channelConfigHelp_numberOfAttemptsGate: «Після того, як ви віддасте наказ відкрити або закрити ворота, система спробує закрити/відкрити їх і зачекає 60 секунд, щоб перевірити, чи ворота досягли бажаного стану. Якщо ні, система спробує закрити/відкрити знову. Цей параметр визначає максимальну кількість спроб системи досягти мети. Рекомендоване значення — 5. Зміна цього параметра не впливає на роботу розкладів.
-channelConfigHelp_stateVerificationMethod: 'Активний: перша зміна стану датчика на цільовий стан перериває повторення спроб. Пасивний: ми перевіряємо стан датчика кожні 60 секунд і перериваємо повторні спроби, коли датчик повідомляє про цільовий стан.'
-channelConfig_stateVerificationMethod_active: Активний
-channelConfig_stateVerificationMethod_passive: Пасивний
-channelGroup: Група каналів
-choose: вибрати
-choose a currency: оберіть валюту
-choose the action: оберіть дію
-choose the channel: оберіть канал
-choose the channel group: оберіть групу каналів
-choose the scene: оберіть сцену
-choose the schedule: вибрати розклад
-choose the timezone: оберіть часовий пояс
-click here: натисніть тут
-contains a character that is neither a letter nor a digit: містить символ, який не є ні літерою, ні цифрою
-contains a digit: містить число
-contains lower and upper letters: містить великі та малі літери
-copied: скопійовано
-copy: копіювати
-days: дні
-directLinkExecutionFailureReason_disabled: Пряме посилання вимкнено
-directLinkExecutionFailureReason_executionLimitExceeded: Ліміт виконань перевищено
-directLinkExecutionFailureReason_expired: Термін дії прямого посилання закінчився
-directLinkExecutionFailureReason_forbiddenAction: Посилання не дозволяє виконати цю дію
-directLinkExecutionFailureReason_httpGetForbidden: Цю дію було виконано за допомогою незаконного методу HTTP GET
-directLinkExecutionFailureReason_invalidActionParameters: Неправильні параметри прямого посилання
-directLinkExecutionFailureReason_invalidChannelState: Дія не може бути виконана через стан каналу.
-directLinkExecutionFailureReason_invalidSlug: Надісланий код перевірки неправильний.
-directLinkExecutionFailureReason_noAllowedActions: Не вибрано жодної дозволеної дії
-directLinkExecutionFailureReason_noSlugOrAction: Недійсний запит - потрібні код посилання та дія
-directLinkExecutionFailureReason_notActiveYet: Пряме посилання ще не активне
-directLinkExecutionFailureReason_otherFailure: Помилка під час виконання дії
-directLinkExecutionFailureReason_sceneDuringExecution: Сцена триває.
-directLinkExecutionFailureReason_unsupportedAction: Вибрана дія недійсна
-empty: порожньо
-everyday: Щоденно
-executed: виконано
-extend: продовжити
-from IP: з IP-адреси
-from the IP: з адреси
-hours: години
-is at least {numChars} characters long: має не менше {numChars} символів
-last 24 hours: за останні 24 години
-last 30 days: останні 30 днів
-last 6 hours: останні 6 годин
-last 7 days: останні 7 днів
-logs_aggregation_day: днів
-logs_aggregation_hour: години
-logs_aggregation_minute: хвилини
-logs_aggregation_month: місяців
-min.: хв.
-minutes: хвилин
-password: пароль
-prefix: префікс
-previous month: попередній місяць
-range: період
-register-slide1-text: На основі доступної електроніки SUPLA дозволить вам створювати прості модулі, які дозволять  контролювати компоненти автоматизації будівель. Завдяки SUPLA ви можете, серед іншого, керувати освітленням, вмикати та вимикати побутову техніку та аудіо/відео пристрої, відкривати та закривати ворота та двері, контролювати температуру в кімнатах. Ви можете зробити все одним рухом пальця.
-register-slide1-title: Власний розумний будинок
-register-slide2-text: Однією з основних ідей проєкту є простота та доступність. SUPLA дозволяє вам увімкнути світло одним пальцем або відкрити ворота, коли ви хочете увійти до помешкання. SUPLA доступна скрізь, де є доступ до Інтернету та під рукою смартфон або планшет. SUPLA розроблено на основі відкритого програмного забезпечення та відкритого апаратного забезпечення, завдяки чому ви також можете розвивати цей проєкт!
-register-slide2-title: SUPLA всюди!
-register-slide3-text: Комерційно доступні системи автоматизації будівель зазвичай дуже складні, закриті та дорогі. У багатьох випадках вони вимагають установки вже на етапі будівництва об'єкта. SUPLA проста, відкрита і безкоштовна. Вона дозволяє створювати виконувальні елементи на основі платформ RaspberryPI, Arduino або ESP8266 і підключати їх за допомогою LAN і WiFi. Приєднуйтесь до проєкту та створюйте власну версію системи автоматизації будівлі!
-register-slide3-title: Безкоштовна і відкрита!
-reset chart view: повернутися до початкового вигляду
-scene: сцена
-schedule: розклад
-scheduleMode_crontab: Просунутий
-scheduleMode_daily: Тиждень
-scheduleMode_minutely: Інтервал
-scheduleMode_once: Один раз
-sec.: сек.
-smartphones, tablets, etc.: смартфони, планшети тощо
-state-closed: Зачинено
-state-default: За замовчуванням
-state-empty: Порожній
-state-full: Повний
-state-humidity: Вологість
-state-off: Вимкнено
-state-on: Увімкнено
-state-opened: Відчинено
-state-partially_closed: Частково зачинено
-state-revealed: Привідкрите
-state-rgb_off_dim_off: RGB і диммер вимкнено
-state-rgb_off_dim_on: RGB вимкнено, диммер увімкнено
-state-rgb_on_dim_off: RGB увімкнено, затемнення вимкнено
-state-rgb_on_dim_on: RGB і диммер включені
-state-shut: Зашторено
-state-temperature: Температура
-suffix: суфікс
-sunrise-after: схід
-sunrise-before: східний
-sunset-after: захід
-sunset-before: західний
-the whole history: повна історія
-this month: поточний місяць
-this year: поточний рік
-today: сьогодні
-unknown: невідомий
-username: ім'я користувача
-valid until: закінчиться
-values as seen on chart: значення як на діаграмі
-values as seen on counter: значення як на лічильнику
-yesterday: вчора
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} не зможе взаємодіяти з вашим обліковим записом, доки ви знову не надасте доступ.'
-'{clientName} wants to access your account.': '{clientName} хоче отримати доступ до вашого облікового запису.'
-'{minutes} minutes after sunrise': '{minutes} хвилин після сходу сонця'
-'{minutes} minutes after sunset': '{minutes} хвилин після заходу сонця'
-'{minutes} minutes before sunrise': '{minutes} хвилин до сходу сонця'
-'{minutes} minutes before sunset': '{minutes} хвилин до заходу сонця'
-'{requests} out of {limit} / day': '{requests} from {limit} / день'
-'{requests} out of {limit} / h': '{requests} z {limit} / г'
-'{requests} out of {limit} / min': '{requests} z {limit} / хв'
-'{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} сек.'
-'{serviceName} integration': Інтеграція з {serviceName}
-
-#</editor-fold>
-#<editor-fold desc="Extra translations">
-# Translations below have not been found in sources. You might want to delete them.
-...and start your adventure with building automation today!: ...і розпочніть свою подорож у сфері інтелектуального будівництва вже сьогодні!
-Add new item to use in the scene: Додайте новий елемент до сценарію
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
-Authorized OAuth apps: Авторизовані програми OAuth
-Calculated value: Покази лічильника
-Coming Soon: Незабаром буде доступно
-From IP: З IP-адреси
-Get SUPLA on your devices: Завантажте SUPLA на свої пристрої
-Mobile Apps: Мобільні додатки
-Previous login: Попередній вхід
-Sources available from: Джерела доступні в
-Supla for devices: Supla для пристроїв
-or add a delay: або додайте затримку
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-'% of closing': '% зачинення'
-Add a new action to the scene: Додати нову дію до сцени
-Are you sure you want to delete this reaction?: Ви впевнені, що хочете видалити цю реакцію?
-Body: Зміст
-Choose the channel: Виберіть канал
-Choose the channel group: Виберіть групу каналів
-Choose the scene: Виберіть сцену
-Choose the schedule: Виберіть розклад
-Create new reaction: Створити нову реакцію
-Current: Струм
-Edit reaction: Редагувати реакцію
-Go to the channel: Перейти на канал
-Go to the channel group: Перейти до групи каналів
-Go to the scene: Перейти до сцени
-Go to the schedule: Перейти до розкладу
-Invalid scene: Неправильна сцена
-Missing action.: Немає акцій
-New reaction: Нова реакція
-Notification: Повідомлення
-Notification must have a body.: Повідомлення повинно мати зміст.
-Notifications: Повідомлення
-Phase: Фаза
-Please fix the problems with operations and try again.: Усуньте проблеми з операціями та повторіть спробу.
-Please select a condition: Будь ласка, виберіть умову
-Please select an action: Будь ласка, виберіть дію
-Power active: Активна енергія
-Power apparent: Видима енергія
-Power reactive: Реактивна енергія
-Reactions: Реакція
-Reactions limit has been exceeded: Перевищено межу реакції
-Recipients: Одержувачу
-Send a notification: Надіслати повідомлення
-Send notification: Надіслати повідомлення
-The notification must have a recipient.: Повідомлення має містити одержувача.
-The reaction has been added: Реакцію додано
-The reaction has been changed: Реакцію змінено
-Title: Назва
-Voltage: Напруга
 When a certain distance is reached: Коли певну відстань буде досягнуто
 When a lack of liquid is detected: Коли виявляється недолік рідини
 When a new mail comes: Коли прийде нова пошта
@@ -1191,18 +968,274 @@ When the window will be opened: Коли вікно відчиниться
 When the window will be opened or closed: Коли вікно зачиниться або відчиниться
 When there is certain amount of rain: Коли йде певна кількість дощу
 When there weight reaches a certain value: Коли вага досягне певного значення
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Ви можете виконати дію прямого посилання, вказавши його унікальний ідентифікатор у тілі запиту HTTP PATCH. Це безпечніше, оскільки запобігає збереженню повної адреси вашого посилання в журналах доступу серверів, через які проходить ваш запит. Нижче ви знайдете приклад виконання за допомогою інструменту cURL.
+Where is the JSON?: Де знаходиться JSON?
+Where is your SUPLA Cloud?: Де знаходиться Ваша Supla?
+White: Білий
+Wind sensor: Датчик вітру
+Window opening sensor: Датчик відкриття вікна
+With SUPLA you can operate the lights in your home or office: За допомогою SUPLA ви можете контролювати освітлення у Вашому домі чи офісі
+With function: З функцією
+Working period: Термін експлуатації
+Working schedule: Графік діяльності
+YOUR LINK CODE: ВАШ КОД ПОСИЛАННЯ
+You are changing the settings too quickly. You have to wait a while before making this change.: Ви занадто швидко змінюєте налаштування. Перш ніж змінити ці параметри, потрібно трохи почекати.
+You can browse only the most recent logs now. Wait a while for the full history.: Наразі відображаються лише останні вимірювання. Зачекайте деякий час, поки завантажиться вся історія.
+You can ignore this message, if you have accidentally entered an incorrect password.: Ви можете проігнорувати це повідомлення, якщо Ви ввели неправильний пароль.
+You can use the application but you will not be able to modify any settings.: Ви можете використовувати програму, але неможливо внести зміни в конфігурацію.
+You cannot delete your last access identifier.: Ви не можете видалити свій останній ідентифікатор доступу.
+You cannot delete your last location.: Ви не можете видалити своє останнє місцезнаходження.
+You cannot use SUPLA project name in the domain name.: Ви не можете використовувати назву проекту SUPLA в основному доменному імені.
+You have exceeded your API Rate Limit: Ви використали ліміт запитів API
+You have requested to unregister your SUPLA Cloud instance: Ви попросили скасувати реєстрацію свого екземпляра SUPLA Cloud
+You have to choose at least one scope.: Необхідно вибрати принаймні один діапазон.
+You just need to execute the following command inside your host terminal.: Просто виконайте наступну команду всередині свого хост-терміналу.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Якщо ви все ще хочете використовувати розширений режим розкладу, перегляньте приклади нижче.
+You must agree to the Terms and Conditions.: Потрібне прийняття правил.
+You must enable MQTT Broker first.: Спочатку потрібно ввімкнути інтеграцію з брокером MQTT.
+You must leave at least one phase enabled.: Принаймні одна фаза повинна залишатися активною.
 You must set an action for each reaction.: Ви повинні встановити дію для кожної реакції.
+You must set an action for each scene operation.: Виберіть дію для кожної операції в сцені.
+You must set sections with transparent or opaque parameters or both.: Ви повинні вибрати прозорість принаймні для одного розділу.
+You need to provide icons for all states.: Ви повинні надати піктограми для всіх станів.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Вам потрібно оновити свій екземпляр SUPLA Cloud принаймні до версії 2.3.0.
+You will not be able to generate a direct link with the same URL again.: Ви не зможете створити посилання за тією самою URL-адресою.
+Your account and MQTT Broker connection.: Зв’язування облікового запису з брокером MQTT.
+Your account has been deleted. We hope you will come back to us soon.: Обліковий запис видалено. Ми сподіваємося, що ви скоро повернетеся до нас.
+Your account has been locked.: Ваш обліковий запис заблоковано.
+Your account has not been confirmed yet.: Ваш обліковий запис ще не підтверджено.
+Your account limits: Ваші ліміти
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Ваш браузер не підтримує механізм клієнтської бази даних (IndexedDB). Ця функція необхідна для відображення графіків і підтримки розширених налаштувань експорту даних. Оновіть браузер або вийдіть з режиму інкогніто, щоб скористатися цими можливостями.
+Your channel groups are allowed to have a maximum of {max} channels.: Ваші групи каналів можуть мати максимум {max} каналів.
+Your chart is being drawn...: Ваш графік побудований...
+Your data are being collected. Please be patient.: Ми збираємо ваші дані, наберіться терпіння.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Ваші дані завантажуються з сервера. Зачекайте, поки завантаження завершаться, перш ніж експортувати їх.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Пристрій дозволяє розширити його функціональність і дозволяє виконувати будь-які дії на будь-якому вашому пристрої. Доступні параметри залежать від мікропрограми та пристрою, що використовується.
+Your email: Ваша електронна скринька
+Your instance is not registered or you are trying to authorize an application that is not public.: Ваш екземпляр не зареєстровано, або ви намагаєтеся авторизувати програму, яка не є загальнодоступною.
+Your password must contain at least one special character.: Пароль повинен містити хоча б один спеціальний символ.
+Your password must include at least one letter.: Пароль повинен містити хоча б одну букву.
+Your password must include at least one number.: Пароль повинен містити хоча б одне число.
+Your password must include both upper and lower case letters.: Пароль має містити великі та малі літери.
+Your preferences has been updated.: Ваші налаштування збережено.
+Your private SUPLA Cloud instance has been unregistered.: Ваш приватний екземпляр SUPLA Cloud скасовано.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ваш приватний екземпляр хмари SUPLA недоступний. Будь ласка, переконайтеся, що ваш сервер підключено до Інтернету та з’єднання HTTPS працює належним чином.
+Your private SUPLA Cloud is almost registered.: Ваша приватна хмара SUPLA майже зареєстрована.
+Your private SUPLA Cloud is not registered.: Ваша приватна хмара SUPLA не зареєстрована.
+Your scenes are allowed to have a maximum of {max} operations.: Ваші сцени можуть мати максимум {max} операцій.
+Your schedules are allowed to have a maximum of {max} actions.: Ваші розклади можуть мати максимум {max} дій.
+Your session has been expired.: Ваш сеанс закінчився.
+Your session is about to expire: Ваш сеанс скоро закінчиться
+Your session will expire in {0}.: Ваш сеанс закінчиться через {0}.
+Yours faithfully,: З повагою
+access to your e-mail address: доступ до Вашої адреси електронної пошти
+actionTrigger_HOLD: Утримання кнопки
+actionTrigger_SHORT_PRESS_X1: Натиснення 1x
+actionTrigger_SHORT_PRESS_X2: Натиснення 2x
+actionTrigger_SHORT_PRESS_X3: Натиснення 3x
+actionTrigger_SHORT_PRESS_X4: Натиснення 4x
+actionTrigger_SHORT_PRESS_X5: Натиснення 5x
+actionTrigger_TOGGLE_X1: Переключення 1x
+actionTrigger_TOGGLE_X2: Переключення 2x
+actionTrigger_TOGGLE_X3: Переключення 3x
+actionTrigger_TOGGLE_X4: Переключення 4x
+actionTrigger_TOGGLE_X5: Переключення 5x
+actionTrigger_TURN_OFF: Вимкнення
+actionTrigger_TURN_ON: Увімкнення
+actionableSubjectType_channel: Канал
+actionableSubjectType_channelGroup: Група каналів
 actionableSubjectType_notification: Повідомлення
+actionableSubjectType_scene: Сцена
+actionableSubjectType_schedule: Розклад
+addToHistoryMeasurementWarningSelected: Якщо вибрати цю опцію, задані значення будуть додані до майбутніх вимірювань, збережених в історії. Це можна побачити на графіках як раптове збільшення введеного значення. Ми рекомендуємо встановлювати ці параметри лише під час першого встановлення лічильника. Для існуючих лічильників ми рекомендуємо видалити історію вимірювань, як тільки ви зміните ці налаштування.
+addToHistoryMeasurementWarningUnselected: Якщо зняти прапорець із цієї опції, задані значення будуть видалені з майбутніх вимірювань, збережених в історії. Це можна побачити на графіках як раптове падіння. Ми рекомендуємо встановлювати ці параметри лише під час першого встановлення лічильника. Для існуючих лічильників ми рекомендуємо видалити історію вимірювань, як тільки ви зміните ці налаштування.
+after: після
 and wait until it reaches: і зачекайте, поки досягне
 and wait until it will be: і зачекайте, поки буде
 and wait until the humidity will be: і зачекайте, поки вологість не стане
 and wait until the temperature will be: і зачекайте, поки температура не стане
 and wait until the value will be: і зачекайте, поки значення буде
+average: середня
+be at least {numChars} characters long: повинен містити не менше {numChars} символів
+before: перед
+caption: назва
+change: змінити
+channel: Канал
+channelConfigHelp_gateCloseAfterHelp: Виберіть дію для кожної операції в сцені.
+channelConfigHelp_numberOfAttemptsGate: «Після того, як ви віддасте наказ відкрити або закрити ворота, система спробує закрити/відкрити їх і зачекає 60 секунд, щоб перевірити, чи ворота досягли бажаного стану. Якщо ні, система спробує закрити/відкрити знову. Цей параметр визначає максимальну кількість спроб системи досягти мети. Рекомендоване значення — 5. Зміна цього параметра не впливає на роботу розкладів.
+channelConfigHelp_stateVerificationMethod: 'Активний: перша зміна стану датчика на цільовий стан перериває повторення спроб. Пасивний: ми перевіряємо стан датчика кожні 60 секунд і перериваємо повторні спроби, коли датчик повідомляє про цільовий стан.'
+channelConfig_stateVerificationMethod_active: Активний
+channelConfig_stateVerificationMethod_passive: Пасивний
+channelGroup: Група каналів
+choose: вибрати
+choose a currency: оберіть валюту
 choose access identifiers: виберіть ідентифікатори доступу
 choose the access identifiers: виберіть ідентифікатори доступу
+choose the action: оберіть дію
+choose the channel: оберіть канал
+choose the channel group: оберіть групу каналів
+choose the scene: оберіть сцену
+choose the schedule: вибрати розклад
+choose the timezone: оберіть часовий пояс
+click here: натисніть тут
+contains a character that is neither a letter nor a digit: містить символ, який не є ні літерою, ні цифрою
+contains a digit: містить число
+contains lower and upper letters: містить великі та малі літери
+copied: скопійовано
+copy: копіювати
+days: дні
+directLinkExecutionFailureReason_disabled: Пряме посилання вимкнено
+directLinkExecutionFailureReason_executionLimitExceeded: Ліміт виконань перевищено
+directLinkExecutionFailureReason_expired: Термін дії прямого посилання закінчився
+directLinkExecutionFailureReason_forbiddenAction: Посилання не дозволяє виконати цю дію
+directLinkExecutionFailureReason_httpGetForbidden: Цю дію було виконано за допомогою незаконного методу HTTP GET
+directLinkExecutionFailureReason_invalidActionParameters: Неправильні параметри прямого посилання
+directLinkExecutionFailureReason_invalidChannelState: Дія не може бути виконана через стан каналу.
+directLinkExecutionFailureReason_invalidSlug: Надісланий код перевірки неправильний.
+directLinkExecutionFailureReason_noAllowedActions: Не вибрано жодної дозволеної дії
+directLinkExecutionFailureReason_noSlugOrAction: Недійсний запит - потрібні код посилання та дія
+directLinkExecutionFailureReason_notActiveYet: Пряме посилання ще не активне
+directLinkExecutionFailureReason_otherFailure: Помилка під час виконання дії
+directLinkExecutionFailureReason_sceneDuringExecution: Сцена триває.
+directLinkExecutionFailureReason_unsupportedAction: Вибрана дія недійсна
+empty: порожньо
+everyday: Щоденно
+executed: виконано
+extend: продовжити
+from IP: з IP-адреси
+from the IP: з адреси
+hours: години
+is at least {numChars} characters long: має не менше {numChars} символів
+last 24 hours: за останні 24 години
+last 30 days: останні 30 днів
+last 6 hours: останні 6 годин
+last 7 days: останні 7 днів
+logs_aggregation_day: днів
+logs_aggregation_hour: години
+logs_aggregation_minute: хвилини
+logs_aggregation_month: місяців
+min.: хв.
+minutes: хвилин
 notification: повідомлення
 or another element: або інший елемент
+password: пароль
+prefix: префікс
+previous month: попередній місяць
+range: період
+register-slide1-text: На основі доступної електроніки SUPLA дозволить вам створювати прості модулі, які дозволять  контролювати компоненти автоматизації будівель. Завдяки SUPLA ви можете, серед іншого, керувати освітленням, вмикати та вимикати побутову техніку та аудіо/відео пристрої, відкривати та закривати ворота та двері, контролювати температуру в кімнатах. Ви можете зробити все одним рухом пальця.
+register-slide1-title: Власний розумний будинок
+register-slide2-text: Однією з основних ідей проєкту є простота та доступність. SUPLA дозволяє вам увімкнути світло одним пальцем або відкрити ворота, коли ви хочете увійти до помешкання. SUPLA доступна скрізь, де є доступ до Інтернету та під рукою смартфон або планшет. SUPLA розроблено на основі відкритого програмного забезпечення та відкритого апаратного забезпечення, завдяки чому ви також можете розвивати цей проєкт!
+register-slide2-title: SUPLA всюди!
+register-slide3-text: Комерційно доступні системи автоматизації будівель зазвичай дуже складні, закриті та дорогі. У багатьох випадках вони вимагають установки вже на етапі будівництва об'єкта. SUPLA проста, відкрита і безкоштовна. Вона дозволяє створювати виконувальні елементи на основі платформ RaspberryPI, Arduino або ESP8266 і підключати їх за допомогою LAN і WiFi. Приєднуйтесь до проєкту та створюйте власну версію системи автоматизації будівлі!
+register-slide3-title: Безкоштовна і відкрита!
+reset chart view: повернутися до початкового вигляду
+scene: сцена
+schedule: розклад
+scheduleMode_crontab: Просунутий
+scheduleMode_daily: Тиждень
+scheduleMode_minutely: Інтервал
+scheduleMode_once: Один раз
+sec.: сек.
+smartphones, tablets, etc.: смартфони, планшети тощо
+state-closed: Зачинено
+state-default: За замовчуванням
+state-empty: Порожній
+state-full: Повний
+state-humidity: Вологість
+state-off: Вимкнено
+state-on: Увімкнено
+state-opened: Відчинено
+state-partially_closed: Частково зачинено
+state-revealed: Привідкрите
+state-rgb_off_dim_off: RGB і диммер вимкнено
+state-rgb_off_dim_on: RGB вимкнено, диммер увімкнено
+state-rgb_on_dim_off: RGB увімкнено, затемнення вимкнено
+state-rgb_on_dim_on: RGB і диммер включені
+state-shut: Зашторено
+state-temperature: Температура
+suffix: суфікс
 sum: сума
+sunrise-after: схід
+sunrise-before: східний
+sunset-after: захід
+sunset-before: західний
+the whole history: повна історія
 then execute the action: потім виконайте дію
+this month: поточний місяць
+this year: поточний рік
+today: сьогодні
+unknown: невідомий
+username: ім'я користувача
+valid until: закінчиться
+values as seen on chart: значення як на діаграмі
+values as seen on counter: значення як на лічильнику
+yesterday: вчора
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} не зможе взаємодіяти з вашим обліковим записом, доки ви знову не надасте доступ.'
+'{clientName} wants to access your account.': '{clientName} хоче отримати доступ до вашого облікового запису.'
+'{minutes} minutes after sunrise': '{minutes} хвилин після сходу сонця'
+'{minutes} minutes after sunset': '{minutes} хвилин після заходу сонця'
+'{minutes} minutes before sunrise': '{minutes} хвилин до сходу сонця'
+'{minutes} minutes before sunset': '{minutes} хвилин до заходу сонця'
+'{requests} out of {limit} / day': '{requests} from {limit} / день'
+'{requests} out of {limit} / h': '{requests} z {limit} / г'
+'{requests} out of {limit} / min': '{requests} z {limit} / хв'
+'{requests} out of {limit} / {seconds} sec.': '{requests} z {limit} / {seconds} сек.'
+'{serviceName} integration': Інтеграція з {serviceName}
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...і розпочніть свою подорож у сфері інтелектуального будівництва вже сьогодні!
+Add new item to use in the scene: Додайте новий елемент до сценарію
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ви впевнені, що хочете видалити всю історію аберації цього каналу?
+Authorized OAuth apps: Авторизовані програми OAuth
+Calculated value: Покази лічильника
+Coming Soon: Незабаром буде доступно
+From IP: З IP-адреси
+Get SUPLA on your devices: Завантажте SUPLA на свої пристрої
+Mobile Apps: Мобільні додатки
+Please select an action: Будь ласка, виберіть дію
+Previous login: Попередній вхід
+Sources available from: Джерела доступні в
+Supla for devices: Supla для пристроїв
+Triggers: Команди
+or add a delay: або додайте затримку
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>

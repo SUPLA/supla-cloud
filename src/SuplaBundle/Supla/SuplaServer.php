@@ -205,7 +205,7 @@ abstract class SuplaServer {
             return ['limit' => intval($limit), 'left' => intval($left)];
         } else {
             throw new ApiExceptionWithDetails(
-                'SUPLA Server was unable to check the push notification limits.', // i18n
+                'SUPLA Server was unable to check the push notification limits.',
                 ['error' => 'suplaServerError', 'response' => $result],
             );
         }

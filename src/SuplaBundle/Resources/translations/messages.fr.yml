@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% fermeture'
 '%s trigger is not supported by the hardware.': Le déclencheur %s n’est pas pris en charge par l’appareil.
 ...open and shut roller shutters: ... vous pouvez ouvrir ou fermer les volets roulants
 ...open gateways, gates or doors: ... vous pouvez ouvrir portillon, portail ou porte
@@ -43,6 +44,7 @@ Active sessions: Sessions actives
 Active web sessions: Sessions actives (web)
 Add: Ajouter
 Add a delay: Ajouter un délai
+Add a new action to the scene: Ajouter une nouvelle action à la scène
 Add a new icon: Ajouter une nouvelle icône
 Add action: Ajouter une action
 Add first channel to set channel group function and save it: Sélectionner la première chaîne pour spécifier la fonction du groupe et l'enregistrer.
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Voulez-vous vraiment suppri
 Are you sure you want to delete this client?: Voulez-vous vraiment supprimer cette application client?
 Are you sure you want to delete this direct link?: Êtes-vous sûr de vouloir supprimer ce lien direct ?
 Are you sure you want to delete this icon?: Êtes-vous sûr de vouloir supprimer cette icône ?
+Are you sure you want to delete this reaction?: Voulez-vous vraiment supprimer cette réaction ?
 Are you sure you want to delete this scene?: Voulez-vous vraiment supprimer cette scène ?
 Are you sure you want to delete this schedule?: Êtes-vous sûrs que vous voulez supprimer ce calendrier?
 Are you sure you want to log out this device?: Êtes-vous sûr de vouloir vous déconnecter de cet appareil ?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: Basé sur l’est / l’ouest
 Be notified when your channels change state: Notification des changements d'état des chaînes
 Be right back!: Revenez dans quelques instants !
 Below threshold: Au-dessous du seuil
+Body: Contenu
 Bottom position: Position basse
 Bridge: Pont
 Brightness: Luminosité
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Choisir les Identifia
 Choose channel function: Changer la fonction de chaîne
 Choose client apps: Choisissez les applications  pour les clients
 Choose location: Sélectionner le lieu
+Choose the channel: Sélectionner un canal
+Choose the channel group: Sélectionner un groupe de canaux
+Choose the scene: Sélectionner une scène
+Choose the schedule: Sélectionner un calendrier
 Choose the source channel.: Sélectionnez une chaîne source.
 Clear: Effacer
 Click the following link to confirm removal of your account on %cloudHost%.: Pour confirmer votre désir de supprimer votre compte SUPLA, cliquez sur le lien ci-dessous.
@@ -215,8 +223,10 @@ Create New Location: Créer un nouveau Lieu
 Create New Schedule: Créer un nouveau calendrier
 Create an account: Créer un nouveau compte
 Create new direct link: Créer un nouveau lien direct.
+Create new reaction: Créer une nouvelle réaction
 Create new scene: Créer une nouvelle scène
 Currency: Devise
+Current: Courant
 Current Overload: Surcharge
 Current Password: Mot de passe actuel
 Current password is incorrect: Votre mot de passe actuel est incorrect
@@ -228,6 +238,7 @@ DHT22 Temperature & Humidity Sensor: Capteur de température et d'humidité DHT2
 DS18B20 Thermometer: Termometr DS18B20
 Data limits: Limites des données
 Data saved: Vos données ont été enregistrées
+Date: Date
 Date and time: Date et heure
 Decline: Refuser
 Default: par défaut
@@ -280,6 +291,7 @@ Download the history of measurement: Télécharger l'historique des mesures
 Drag your image(s) here or click to select from the disk: Faites glisser l'image ici ou cliquez pour la choisir depuis le disque
 E-mail notifications: Notifications par email
 Edit: Modifier
+Edit reaction: Modifier la réaction
 Electric: Electricité
 Electricity meter: Compteur d'énergie
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Le compteur d’électricité n’indiquait pas la possibilité de configurer des valeurs ajoutées. Mettez à jour le firmware de l’appareil et réessayez.
@@ -349,6 +361,10 @@ Generate new token: Générer un nouveau jeton
 Generate token: Générer un jeton
 Go to I/O device details: Aller aux détails du dispositif
 Go to channel details: Aller aux détails de la chaîne
+Go to the channel: Accéder au canal
+Go to the channel group: Accéder au groupe de canaux
+Go to the scene: Accéder à la scène
+Go to the schedule: Accéder au calendrier
 Go to your account: Accéder à mon compte
 Grant access: Accorder l'accès
 Guru Meditation: Guru Meditation
@@ -423,6 +439,7 @@ Invalid function for channel.: Fonction invalide pour le canal
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Requête incorrecte.
 Invalid request.: Requête invalide.
+Invalid scene: Scène non valide
 Invalid token.: Jeton invalide.
 Invalid username or password: Nom d’utilisateur ou mot de passe incorrect
 Inverted logic: Logique inversée
@@ -472,6 +489,7 @@ Measurement window: Temps de mesure
 Meter value: Valeur du compteur
 Meters: Compteurs
 Minimum voltage: Tension la plus basse
+Missing action.: Aucune action
 Mode: Mode
 Modification: Modification
 Mondays: Lundi
@@ -490,6 +508,7 @@ New channel group: Nouveau groupe de chaînes
 New client app (smartphone) added to your account: Enregistrement d’une nouvelle application client (smartphone)
 New direct link: Nouveau lien direct
 New password: Nouveau mot de passe
+New reaction: Nouvelle réaction
 New scene: Une nouvelle scène
 Newer: Plus récent
 'Next limit renewal: {date}': La limite sera renouvelée le {date}
@@ -516,6 +535,9 @@ No. of locations: Nombre des lieux
 None: Nul
 None (channel disabled): Aucun (chaîne désactivée)
 Noop: Aucune opération
+Notification: Notification
+Notification must have a body.: La notification doit avoir un contenu.
+Notifications: Notifications
 Number of aberrations: Quantité d’aberrations
 Number of attempts to close: Nombre de tentatives de fermeture
 Number of attempts to open: Nombre de tentatives d’ouverture
@@ -556,6 +578,7 @@ Percentage of closing: Pourcentage fermeture
 Personal access tokens: Jetons d'accès personnels
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Les jetons d'accès personnels fonctionnent comme d'habitude, sauf qu'ils fonctionnent indéfiniment.
 Personal token name is required.: Il est nécessaire de fournir le nom du token d’authentification
+Phase: Phase
 Phase 1: Phase 1
 Phase 2: Phase 2
 Phase 3: Phase 3
@@ -567,11 +590,16 @@ Please click the link we have sent you after the registration to proceed.: Cliqu
 Please confirm your SUPLA account.: Activer votre compte SUPLA.
 Please enter a valid email address: Entrez une adresse email valide
 Please fill a valid email address: Introduisez une correcte adresse e-mail
+Please fix the problems with operations and try again.: Veuillez régler les problèmes avec les opérations et réessayer.
 Please log in again to proceed.: Connectez-vous encore une fois pour continuer.
 Please provide a valid domain name for your private SUPLA Cloud: Entrez un nom de domaine valide pour votre nuage privé SUPLA
 Please read the Terms and Conditions.: Lire le règlement.
+Please select a condition: Veuillez sélectionner une condition
 Please wait a moment before the next login attempt.: Attendez un moment avant la prochaine tentative de connexion.
 Port: Port
+Power active: Énergie active
+Power apparent: Énergie apparente
+Power reactive: Énergie réactive
 Precision: Précision
 Predefined time ranges: Plages de temps
 Pressure sensor: Capteur de pression
@@ -589,7 +617,10 @@ RGB led controller: Contrôleur d'éclairage RGB
 RGB lighting: Éclairage RGB
 Rain sensor: Capteur de pluie
 Random: Aléatoire
+Reactions: Réactions
+Reactions limit has been exceeded: Limite de réaction dépassée
 Read: Lecture
+Recipients: Destinataires
 Reference to the scene will be removed from the items below.: L’indication d’une scène sera supprimée de ce qui suit.
 Refresh: Rafraîchir
 Regeneration starts at: Début de régénération
@@ -666,6 +697,8 @@ Seems like a secret place: On a l’impression que tu ne devrais pas être ici
 Select icon: Sélectionnez l'icône
 Select the item (subject) you want to control using this link: Sélectionnez le(s) élément(s) que vous voulez contrôler à l'aide de ce lien.
 Selected device has been logged out.: L’appareil sélectionné a été déconnecté
+Send a notification: Envoyer une notification
+Send notification: Envoyer une notification
 Sensor (normal closed): Capteur (fermé par défaut)
 Sensor (normal open): Capteur (ouvert par défaut)
 Sensor disconnected: Aucun capteur
@@ -745,8 +778,11 @@ The measurement history has been deleted.: Historique de mesures a été supprim
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Le nouveau mot de passe remplacera celui que vous utilisez actuellement. Certaines intégrations peuvent cesser de fonctionner après l’avoir modifiée. Continuer ?
 The next available executions: Prochains programmes
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Avec un cadre, nous avons marqué la notification à partir de laquelle vous avez cliqué/cliqué sur le lien de désinscription.
+The notification must have a recipient.: La notification doit avoir un destinataire.
 The password and its confirm are not the same.: Le mot de passe et sa confirmation sont différents.
 The password should be 8 or more characters.: Le mot de passe doit contenir au moins 8 caractères.
+The reaction has been added: La réaction a été ajoutée
+The reaction has been changed: La réaction a été modifiée
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: L’appareil a été éteint par une protection contre les surintensités. Avant de les activer, assurez-vous que le problème qui y a conduit a été résolu. Voulez-vous vraiment allumer cet appareil à distance ?
 The scene would execute too many operations.: Scène effectue trop d’opérations.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Le serveur a renvoyé une erreur 400, ce qui signifie que la requête envoyée est incorrecte.
@@ -770,6 +806,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ce déclencheur est utilisé localement par l’appareil (par ex. allume la lumière, commande le store, etc.) Si vous lui affectez une action différente, la fonction locale sera désactivée.
 Thursdays: Jeudi
 Timezone: Fuseau horaire
+Title: Titre
 To: À
 Toggle: Changer
 Token does not exist: Ce tokken n'existe pas
@@ -778,7 +815,6 @@ Too many channels in this group: Trop de canaux dans ce groupe
 Too many operations in this scene: Trop d’opérations dans la scène.
 Total: Total
 Total time: Temps complet
-Triggers: Déclencheurs
 Tuesdays: Mardi
 Turning this device off will cause its channels not working in the following features.: La mise hors tension de l’appareil entraîne l’arrêt du fonctionnement de ses chaînes dans les cas suivants.
 Turning this device off will result in disabling features listed below.: La mise hors tension de l’appareil entraîne également la mise hors tension des éléments suivants.
@@ -807,6 +843,7 @@ Vector balance: Bilan vectoriel
 Verification method: Méthode de vérification
 Visible: Affichés
 Visit app webpage: Ouvrez le site de l'application.
+Voltage: Tension
 Voltage aberrations: Aberration de la tension
 Voltage monitoring: Suivi de la tension
 WELCOME_MESSAGE: |
@@ -837,311 +874,6 @@ Wednesdays: Mercredi
 Weight sensor: Poids
 Welcome!: Bienvenue!
 What this token is for?: A quoi sert ce jeton ?
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Vous pouvez réaliser une action du lien direct en fournissant son identifiant unique dans le contenu de la demande HTTP PATCH. C`est plus sûr et empêche de sauvegarder l`adresse complète de votre lien dans les fichiers journaux d`accès des serveurs par lesquels votre requête est transmise. Vous trouverez ci-dessous un exemple de réalisation à l’aide de l`outil cURL.
-Where is the JSON?: Où est JSON?
-Where is your SUPLA Cloud?: Où se trouve votre Supla ?
-White: Blanc
-Wind sensor: Capteur de vent
-Window opening sensor: Capteur d’ouverture de fenêtre
-With SUPLA you can operate the lights in your home or office: Avec SUPLA vous pouvez gérer votre éclairage à votre domicile ou au bureau
-With function: Avec la fonction
-Working period: Durée
-Working schedule: Horaire des activités
-YOUR LINK CODE: CODE DE VOTRE LIEN
-You are changing the settings too quickly. You have to wait a while before making this change.: Vous modifiez les paramètres trop rapidement. Vous devez attendre un moment avant de modifier ces paramètres.
-You can browse only the most recent logs now. Wait a while for the full history.: Actuellement, seules les mesures les plus récentes sont affichées. Attendez un peu que l’historique complet soit téléchargé.
-You can ignore this message, if you have accidentally entered an incorrect password.: Vous pouvez ignorer cette information si c`était vous qui avez entré le mauvais mot de passe.
-You can use the application but you will not be able to modify any settings.: Vous pouvez utiliser l’application mais vous ne pourrez modifier aucun paramètre.
-You cannot delete your last access identifier.: Vous ne pouvez pas supprimer votre dernier identifiant d’accès.
-You cannot delete your last location.: Vous ne pouvez pas supprimer votre dernier lieu.
-You cannot use SUPLA project name in the domain name.: Vous ne pouvez pas utiliser le nom du projet SUPLA dans le nom de domaine principal.
-You have exceeded your API Rate Limit: Vous avez épuisé votre limite de requêtes API
-You have requested to unregister your SUPLA Cloud instance: Vous avez demandé à désenregistrer votre instance SUPLA Cloud
-You have to choose at least one scope.: Vous devez sélectionner au moins une plage.
-You just need to execute the following command inside your host terminal.: Il suffit d’exécuter la commande suivante à l’intérieur de votre terminal hôte.
-You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Si vous souhaitez toujours utiliser le mode de programmation avancé, consultez les exemples ci-dessous.
-You must agree to the Terms and Conditions.: L’acceptation du règlement est requise.
-You must enable MQTT Broker first.: Vous devez d’abord activer l’intégration avec le broker MQTT.
-You must leave at least one phase enabled.: Au moins une phase doit rester active.
-You must set an action for each scene operation.: Choisir l’action pour chaque opération dans la scène.
-You must set sections with transparent or opaque parameters or both.: Vous devez choisir la transparence pour au moins une section.
-You need to provide icons for all states.: Vous devez fournir des icônes pour tous les états.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Vous devez mettre à jour votre instance SUPLA Cloud vers au moins la version 2.3.0.
-You will not be able to generate a direct link with the same URL again.: Il ne sera pas possible de créer un lien avec la même URL.
-Your account and MQTT Broker connection.: Lier votre compte avec le broker MQTT.
-Your account has been deleted. We hope you will come back to us soon.: Le compte a été supprimé. Nous espérons que vous reviendrez bientôt chez nous.
-Your account has been locked.: Votre compte a été bloqué.
-Your account has not been confirmed yet.: Votre compte n’est pas encore confirmé.
-Your account limits: Limites de votre compte
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Votre navigateur ne supporte pas le mécanisme de base de données client (IndexedDB). Cette fonctionnalité est nécessaire pour afficher des graphiques et prendre en charge des paramètres avancés d’exportation de données. Mettez à jour votre navigateur ou quittez le mode incognito pour profiter de ces fonctionnalités.
-Your channel groups are allowed to have a maximum of {max} channels.: Vos groupes de chaînes peuvent contenir au maximum {max} chaînes.
-Your chart is being drawn...: Votre graphique est dessiné...
-Your data are being collected. Please be patient.: Nous collectons vos données, merci de patienter.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vos données sont téléchargées depuis le serveur. Attendez que la fin de téléchargement avant de les exporter.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: L’appareil vous permet d’étendre ses fonctionnalités et vous permet d’effectuer n’importe quelle action sur n’importe quel appareil dont vous disposez. Les options disponibles dépendent du micrologiciel et de l’appareil que vous utilisez.
-Your email: Votre adresse e-mail
-Your instance is not registered or you are trying to authorize an application that is not public.: Votre instance n’est pas enregistrée ou vous essayez d’autoriser une application qui n’est pas publique.
-Your password must contain at least one special character.: Le mot de passe doit contenir au moins un caractère spécial.
-Your password must include at least one letter.: Le mot de passe doit contenir au moins une lettre.
-Your password must include at least one number.: Le mot de passe doit contenir au moins un chiffre.
-Your password must include both upper and lower case letters.: Le mot de passe doit contenir des lettres majuscules et minuscules.
-Your preferences has been updated.: Vos paramètres ont été enregistrés.
-Your private SUPLA Cloud instance has been unregistered.: Votre instance privée de SUPLA Cloud a été désenregistrée.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Votre instance privée SUPLA cloud n’est pas disponible. Assurez-vous que votre serveur est en ligne et que la connexion HTTPS fonctionne correctement.
-Your private SUPLA Cloud is almost registered.: Votre nuage SUPLA privé est presque enregistré.
-Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est pas enregistré.
-Your scenes are allowed to have a maximum of {max} operations.: Vos scènes peuvent avoir un maximum de {max} opérations.
-Your schedules are allowed to have a maximum of {max} actions.: Vos calendriers peuvent avoir un maximum de {max} actions.
-Your session has been expired.: Votre session a expiré.
-Your session is about to expire: Votre session est sur le point d'expirer
-Your session will expire in {0}.: Votre session va expirer dans {0}.
-Yours faithfully,: Cordialement,
-access to your e-mail address: accès à votre adresse e-mail
-actionTrigger_HOLD: Tenir le bouton
-actionTrigger_SHORT_PRESS_X1: Appuyer 1x
-actionTrigger_SHORT_PRESS_X2: Appuyer 2x
-actionTrigger_SHORT_PRESS_X3: Appuyer 3x
-actionTrigger_SHORT_PRESS_X4: Appuyer 4x
-actionTrigger_SHORT_PRESS_X5: Appuyer 5x
-actionTrigger_TOGGLE_X1: Commutation 1x
-actionTrigger_TOGGLE_X2: Commutation 2x
-actionTrigger_TOGGLE_X3: Commutation 3x
-actionTrigger_TOGGLE_X4: Commutation 4x
-actionTrigger_TOGGLE_X5: Commutation 5x
-actionTrigger_TURN_OFF: Arrêt
-actionTrigger_TURN_ON: Mise en marche
-actionableSubjectType_channel: Chaîne
-actionableSubjectType_channelGroup: Groupe de chaînes
-actionableSubjectType_scene: Scène
-actionableSubjectType_schedule: Calendrier
-addToHistoryMeasurementWarningSelected: En cochant cette option, les valeurs définies seront ajoutées aux futures mesures stockées dans l’historique. Cela peut être vu dans les graphiques comme une augmentation soudaine de la valeur saisie. Nous recommandons de régler ces paramètres uniquement lors de la première installation du compteur. Pour les compteurs existants, nous recommandons de supprimer l’historique des mesures immédiatement après avoir modifié ces paramètres.
-addToHistoryMeasurementWarningUnselected: Décocher cette option omettra les valeurs définies des futures mesures enregistrées dans l’historique. Cela peut être vu dans les graphiques comme une chute soudaine. Nous recommandons de régler ces paramètres uniquement lors de la première installation du compteur. Pour les compteurs existants, nous recommandons de supprimer l’historique des mesures immédiatement après avoir modifié ces paramètres.
-after: après
-average: moyenne
-be at least {numChars} characters long: doit comporter au moins {numChars} caractères
-before: avant
-caption: Nom
-change: modifier
-channel: Chaîne
-channelConfigHelp_gateCloseAfterHelp: Agent qui lance la procédure de la fermeture peut avoir maximum une minute de retard par rapport au temps imparti.
-channelConfigHelp_numberOfAttemptsGate: Après avoir ordonné l’ouverture ou la fermeture du portail, le système tente de fermer/ouvrir le portail et attend 60 secondes pour vérifier que le portail a atteint l’état souhaité. Si ce n’est pas le cas, le système essaiera de se fermer/s’ouvrir à nouveau. Ce paramètre spécifie le nombre maximal de tentatives par le système pour atteindre l’objectif. La valeur recommandée est 5. La modification de ce paramètre n’affecte pas le fonctionnement des programmations.
-channelConfigHelp_stateVerificationMethod: 'Actifs :  un premier changement de l’état du capteur vers effectif arrête la série des essais. Passifs : une fois toutes les 60 secondes nous vérifions l’état du capteur et arrêtons les essais quant le capteur renvoie le statut demandé.'
-channelConfig_stateVerificationMethod_active: Actif
-channelConfig_stateVerificationMethod_passive: Passif
-channelGroup: Groupe de chaînes
-choose: sélectionner
-choose a currency: choisissez la devise
-choose the action: sélectionner l’action
-choose the channel: choisir la chaîne
-choose the channel group: choisissez le groupe de chaînes
-choose the scene: sélectionner une scène
-choose the schedule: sélectionner un calendrier
-choose the timezone: choisissez le fuseau horaire
-click here: cliquez ici
-contains a character that is neither a letter nor a digit: contient un caractère qui n’est ni une lettre ni un chiffre
-contains a digit: contient un chiffre
-contains lower and upper letters: contient des lettres majuscules et minuscules
-copied: copié
-copy: copier
-days: jours
-directLinkExecutionFailureReason_disabled: Le lien direct est désactivé
-directLinkExecutionFailureReason_executionLimitExceeded: La limite d’applications a été dépassée
-directLinkExecutionFailureReason_expired: Le lien direct n’est plus actif
-directLinkExecutionFailureReason_forbiddenAction: Le lien ne permet pas cette action
-directLinkExecutionFailureReason_httpGetForbidden: L’action n’a pas pu être effectuée par l’intermédiare d’une méthode HTTP GET interdite.
-directLinkExecutionFailureReason_invalidActionParameters: Paramètres du lien direct incorrects
-directLinkExecutionFailureReason_invalidChannelState: L’action ne peut pas être effectuée en raison de l’état de chaîne.
-directLinkExecutionFailureReason_invalidSlug: Code de vérification incorrect
-directLinkExecutionFailureReason_noAllowedActions: Aucune action autorisée n’a été sélectionnée
-directLinkExecutionFailureReason_noSlugOrAction: Requête incorrecte - code de lien et action requis
-directLinkExecutionFailureReason_notActiveYet: Le lien direct n’est pas encore actif
-directLinkExecutionFailureReason_otherFailure: Erreur d’exécution de l’action
-directLinkExecutionFailureReason_sceneDuringExecution: La scène est en cours.
-directLinkExecutionFailureReason_unsupportedAction: Action sélectionnée  incorrecte
-empty: vide
-everyday: quotidiennement
-executed: exécuté
-extend: prolongez
-from IP: avec l’adresse IP
-from the IP: de l’adresse
-hours: heures
-is at least {numChars} characters long: contient au moins {numChars} caractères
-last 24 hours: 24 dernières heures
-last 30 days: 30 derniers jours
-last 6 hours: 6 dernières heures
-last 7 days: 7 derniers jours
-logs_aggregation_day: jours
-logs_aggregation_hour: heures
-logs_aggregation_minute: minutes
-logs_aggregation_month: mois
-min.: min.
-minutes: minutes
-password: mot de passe
-prefix: préfixe
-previous month: mois précédent
-range: période
-register-slide1-text: Basée sur l’équipement électronique disponible, SUPLA vous permet de construire des simples modules avec qui vous pouvez gérer et contrôler les composant d’automatisation dans votre bâtiment. Grâce à SUPLA vous pouvez entre autres gérer l’éclairage, allumer et éteindre vos équipements ménager, ouvrir/fermer porte et portails ou bien contrôler la température ambiante. Tout cela vous pouvez faire en un seul click sur l’écran.
-register-slide1-title: Développez votre Propre Bâtiment Intelligent
-register-slide2-text: L’une des hypothèses principales du projet c’est simplicité et disponibilité. SUPLA vous permet d’allumer la lumière ou d’ouvrir la porte en un seul clic et cela au moment où on veut entrer dans notre possession. SUPLA est toujours disponible là où vous avec l’accès au réseau internet et à votre smartphone ou tablette. Le développement de SUPLA est basée sur les principes de logiciels open source et open hardware ce vous possibilite votre propre engagement dans ce projet!
-register-slide2-title: SUPLA est partout!
-register-slide3-text: Les systèmes d’automatisation bâtiment disponibles sur le marché, sont d’habitude très complexes, fermé et chers. Dans des nombreux cas ils exigent d’être installés déjà à l’étape de construction. SUPLA est simple, ouverte et gratuite. Elle permet de construire des composants pour systèmes d’actionnement à partir de plateforme RaspberryPl, Arduino ou bien ESP8266 et de les connecter au réseau LAN et Wifi. Rejoignez le projet et construisez votre propre version do système d’automatisation bâtiment!
-register-slide3-title: BGratuite et ouverte!
-reset chart view: réinitialisez la vue du graphique
-scene: scène
-schedule: calendrier
-scheduleMode_crontab: Avancé
-scheduleMode_daily: Cycle par jours
-scheduleMode_minutely: Cycle par minutes
-scheduleMode_once: unique
-sec.: secondes
-smartphones, tablets, etc.: smartphones, tablettes, etc.
-state-closed: Fermé
-state-default: Défaut
-state-empty: Vide
-state-full: Complet
-state-humidity: Humidité
-state-off: Désactivé
-state-on: Activé
-state-opened: Ouvert
-state-partially_closed: Partiellement fermé
-state-revealed: Révélé
-state-rgb_off_dim_off: RGB et gradateur désactivés
-state-rgb_off_dim_on: RGB désactivé, gradateur allumé
-state-rgb_on_dim_off: RGB activé, gradateur désactivé
-state-rgb_on_dim_on: RGB et gradateur allumé
-state-shut: Couvert
-state-temperature: Température
-suffix: suffixe
-sunrise-after: le lever du soleil
-sunrise-before: le lever du soleil
-sunset-after: le coucher du soleil
-sunset-before: le coucher du soleil
-the whole history: historique complet
-this month: mois en cours
-this year: année en cours
-today: aujourd’hui
-unknown: inconnu
-username: nom d’utilisateur
-valid until: expirera
-values as seen on chart: valeurs comme dans la graphique
-values as seen on counter: valeurs comme sur le compteur
-yesterday: hier
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne peut pas interagir avec votre compte jusqu''à ce que vous accordiez à nouveau l''accès.'
-'{clientName} wants to access your account.': '{clientName} veux accéder à votre compte.'
-'{minutes} minutes after sunrise': '{minutes} minutes après le lever du soleil'
-'{minutes} minutes after sunset': '{minutes} minutes après le coucher du soleil'
-'{minutes} minutes before sunrise': '{minutes} minutes avant le lever du soleil'
-'{minutes} minutes before sunset': '{minutes} minutes avant le coucher du soleil'
-'{requests} out of {limit} / day': '{requêtes} de {limite} / jour'
-'{requests} out of {limit} / h': '{requêtes} de {limite} / h'
-'{requests} out of {limit} / min': '{requêtes} de {limite} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requêtes} de {limite} / sec'
-'{serviceName} integration': Intégration avec {serviceName}
-
-#</editor-fold>
-#<editor-fold desc="Extra translations">
-# Translations below have not been found in sources. You might want to delete them.
-...and start your adventure with building automation today!: ... et commencez une aventure avec des bâtiments intelligent dès aujourd'hui!
-Access identifier password must be at least 8 characters.: Mot de passe pour l’identifiant d'accès doit être composé d'au moins 8 caractères.
-Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
-Action: Action
-Add new item to use in the scene: Ajouter un nouvel élément à la scène
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Etes-vous sûr de vouloir effacer tout l’historique de l’aberration de la tension de ce canal ?
-Are you sure you want to disable this device?: Voulez-vous vraiement désactiver ce dispositif?
-Assigned Locations: Lieux attribués
-Authorized OAuth apps: Applications OAuth autorisées
-Calculated value: État du compteur
-Cannot send an activation e-mail. Try again later.: Impossible d’envoyer le message avec le lien d’activation. Réessayez plus tard.
-Channel will be deleted from the channel group below: La chaîne sera supprimée des groupes de chaînes suivants
-Channels in channel group: Canaux dans les groupes de canaux
-Chosen hour: Heure choisie
-Coming Soon: Prochainement disponible
-Confirm if you want to remove {deviceName} device: Confirmez la suppression de dispositif {deviceName}
-DISABLED: DÉSACTIVÉ
-Date: Date
-Days: Jours
-Direct links below will be deleted: Les liens directs énumérés ci-dessous seront supprimés
-Doors, Gates: Portes, Portails
-ENABLED: ACTIVÉ
-Email already exists: L’email existe déjà
-Existing schedules: Calendriers existants
-From IP: Avec l’adresse IP
-Get SUPLA on your devices: Téléchargez SUPLA sur vos dispositifs
-Hi: Bonjour
-Hour: Heure
-Hours: Heures
-I/O: E/S
-If you want to stay here, do something!: Si vous voulez rester ici, faites quelque chose!
-Input: Entrée
-Languages: Langues
-Loading: Chargement
-Location password must be at least 4 characters.: Mot de passe pour la localisation doit être composé d'au moins 4 caractères.
-Location password must be no longer than 32 characters.: Mot de passe pour la localisation ne peut être composé de plus de 32 caractères.
-Minute: Minute
-Mobile Apps: Applications mobiles
-Next: Suivre
-Number: Numéro
-Output: Sortie
-Please select the schedules that should also be enabled.: Sélectionnez les calendriers qui doivent être aussi activés.
-Previous login: Dernière connexion
-Registration: Inscription
-Remove: Supprimer
-Schedule cannot be enabled: Échec d'activation de calendrier
-Schedules below will be deleted: Les calendriers suivants seront supprimés
-Sources available from: Sources disponibles dans
-Status: Statut
-Subject: Sujet
-Sunrise / Sunset: Lever du soleil / Coucher du soleil
-Supla for devices: SUPLA pour vos dispositifs
-Try again later: Réessayez ultérieurement
-Turning this device off will result in disabling all the associated schedules.: La désactivation de ce dispositif provoquera aussi la désactivation de tous les calendriers qui y sont associés.
-When: Quand
-You will be logged out shortly: Vous allez être maintenant déconnectés
-execute: exécuter
-hourly: Cycle par heures
-or add a delay: ou ajouter un délai
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-'% of closing': '% fermeture'
-Add a new action to the scene: Ajouter une nouvelle action à la scène
-Are you sure you want to delete this reaction?: Voulez-vous vraiment supprimer cette réaction ?
-Body: Contenu
-Choose the channel: Sélectionner un canal
-Choose the channel group: Sélectionner un groupe de canaux
-Choose the scene: Sélectionner une scène
-Choose the schedule: Sélectionner un calendrier
-Create new reaction: Créer une nouvelle réaction
-Current: Courant
-Edit reaction: Modifier la réaction
-Go to the channel: Accéder au canal
-Go to the channel group: Accéder au groupe de canaux
-Go to the scene: Accéder à la scène
-Go to the schedule: Accéder au calendrier
-Invalid scene: Scène non valide
-Missing action.: Aucune action
-New reaction: Nouvelle réaction
-Notification: Notification
-Notification must have a body.: La notification doit avoir un contenu.
-Notifications: Notifications
-Phase: Phase
-Please fix the problems with operations and try again.: Veuillez régler les problèmes avec les opérations et réessayer.
-Please select a condition: Veuillez sélectionner une condition
-Please select an action: Veuillez sélectionner une action
-Power active: Énergie active
-Power apparent: Énergie apparente
-Power reactive: Énergie réactive
-Reactions: Réactions
-Reactions limit has been exceeded: Limite de réaction dépassée
-Recipients: Destinataires
-Send a notification: Envoyer une notification
-Send notification: Envoyer une notification
-The notification must have a recipient.: La notification doit avoir un destinataire.
-The reaction has been added: La réaction a été ajoutée
-The reaction has been changed: La réaction a été modifiée
-Title: Titre
-Voltage: Tension
 When a certain distance is reached: Lorsque la distance spécifiée est atteinte
 When a lack of liquid is detected: Lorsqu’aucun liquide n’est détecté
 When a new mail comes: Lorsqu’un nouveau courrier arrive
@@ -1237,18 +969,318 @@ When the window will be opened: Lorsque la fenêtre est ouverte
 When the window will be opened or closed: Lorsque la fenêtre est fermée ou ouverte
 When there is certain amount of rain: Lorsqu’il pleut une certaine quantité de pluie
 When there weight reaches a certain value: Lorsque le poids atteint une certaine valeur
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Vous pouvez réaliser une action du lien direct en fournissant son identifiant unique dans le contenu de la demande HTTP PATCH. C`est plus sûr et empêche de sauvegarder l`adresse complète de votre lien dans les fichiers journaux d`accès des serveurs par lesquels votre requête est transmise. Vous trouverez ci-dessous un exemple de réalisation à l’aide de l`outil cURL.
+Where is the JSON?: Où est JSON?
+Where is your SUPLA Cloud?: Où se trouve votre Supla ?
+White: Blanc
+Wind sensor: Capteur de vent
+Window opening sensor: Capteur d’ouverture de fenêtre
+With SUPLA you can operate the lights in your home or office: Avec SUPLA vous pouvez gérer votre éclairage à votre domicile ou au bureau
+With function: Avec la fonction
+Working period: Durée
+Working schedule: Horaire des activités
+YOUR LINK CODE: CODE DE VOTRE LIEN
+You are changing the settings too quickly. You have to wait a while before making this change.: Vous modifiez les paramètres trop rapidement. Vous devez attendre un moment avant de modifier ces paramètres.
+You can browse only the most recent logs now. Wait a while for the full history.: Actuellement, seules les mesures les plus récentes sont affichées. Attendez un peu que l’historique complet soit téléchargé.
+You can ignore this message, if you have accidentally entered an incorrect password.: Vous pouvez ignorer cette information si c`était vous qui avez entré le mauvais mot de passe.
+You can use the application but you will not be able to modify any settings.: Vous pouvez utiliser l’application mais vous ne pourrez modifier aucun paramètre.
+You cannot delete your last access identifier.: Vous ne pouvez pas supprimer votre dernier identifiant d’accès.
+You cannot delete your last location.: Vous ne pouvez pas supprimer votre dernier lieu.
+You cannot use SUPLA project name in the domain name.: Vous ne pouvez pas utiliser le nom du projet SUPLA dans le nom de domaine principal.
+You have exceeded your API Rate Limit: Vous avez épuisé votre limite de requêtes API
+You have requested to unregister your SUPLA Cloud instance: Vous avez demandé à désenregistrer votre instance SUPLA Cloud
+You have to choose at least one scope.: Vous devez sélectionner au moins une plage.
+You just need to execute the following command inside your host terminal.: Il suffit d’exécuter la commande suivante à l’intérieur de votre terminal hôte.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Si vous souhaitez toujours utiliser le mode de programmation avancé, consultez les exemples ci-dessous.
+You must agree to the Terms and Conditions.: L’acceptation du règlement est requise.
+You must enable MQTT Broker first.: Vous devez d’abord activer l’intégration avec le broker MQTT.
+You must leave at least one phase enabled.: Au moins une phase doit rester active.
 You must set an action for each reaction.: Vous devez définir une action pour chaque réaction.
+You must set an action for each scene operation.: Choisir l’action pour chaque opération dans la scène.
+You must set sections with transparent or opaque parameters or both.: Vous devez choisir la transparence pour au moins une section.
+You need to provide icons for all states.: Vous devez fournir des icônes pour tous les états.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Vous devez mettre à jour votre instance SUPLA Cloud vers au moins la version 2.3.0.
+You will not be able to generate a direct link with the same URL again.: Il ne sera pas possible de créer un lien avec la même URL.
+Your account and MQTT Broker connection.: Lier votre compte avec le broker MQTT.
+Your account has been deleted. We hope you will come back to us soon.: Le compte a été supprimé. Nous espérons que vous reviendrez bientôt chez nous.
+Your account has been locked.: Votre compte a été bloqué.
+Your account has not been confirmed yet.: Votre compte n’est pas encore confirmé.
+Your account limits: Limites de votre compte
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Votre navigateur ne supporte pas le mécanisme de base de données client (IndexedDB). Cette fonctionnalité est nécessaire pour afficher des graphiques et prendre en charge des paramètres avancés d’exportation de données. Mettez à jour votre navigateur ou quittez le mode incognito pour profiter de ces fonctionnalités.
+Your channel groups are allowed to have a maximum of {max} channels.: Vos groupes de chaînes peuvent contenir au maximum {max} chaînes.
+Your chart is being drawn...: Votre graphique est dessiné...
+Your data are being collected. Please be patient.: Nous collectons vos données, merci de patienter.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vos données sont téléchargées depuis le serveur. Attendez que la fin de téléchargement avant de les exporter.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: L’appareil vous permet d’étendre ses fonctionnalités et vous permet d’effectuer n’importe quelle action sur n’importe quel appareil dont vous disposez. Les options disponibles dépendent du micrologiciel et de l’appareil que vous utilisez.
+Your email: Votre adresse e-mail
+Your instance is not registered or you are trying to authorize an application that is not public.: Votre instance n’est pas enregistrée ou vous essayez d’autoriser une application qui n’est pas publique.
+Your password must contain at least one special character.: Le mot de passe doit contenir au moins un caractère spécial.
+Your password must include at least one letter.: Le mot de passe doit contenir au moins une lettre.
+Your password must include at least one number.: Le mot de passe doit contenir au moins un chiffre.
+Your password must include both upper and lower case letters.: Le mot de passe doit contenir des lettres majuscules et minuscules.
+Your preferences has been updated.: Vos paramètres ont été enregistrés.
+Your private SUPLA Cloud instance has been unregistered.: Votre instance privée de SUPLA Cloud a été désenregistrée.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Votre instance privée SUPLA cloud n’est pas disponible. Assurez-vous que votre serveur est en ligne et que la connexion HTTPS fonctionne correctement.
+Your private SUPLA Cloud is almost registered.: Votre nuage SUPLA privé est presque enregistré.
+Your private SUPLA Cloud is not registered.: Votre cloud personnel SUPLA n'est pas enregistré.
+Your scenes are allowed to have a maximum of {max} operations.: Vos scènes peuvent avoir un maximum de {max} opérations.
+Your schedules are allowed to have a maximum of {max} actions.: Vos calendriers peuvent avoir un maximum de {max} actions.
+Your session has been expired.: Votre session a expiré.
+Your session is about to expire: Votre session est sur le point d'expirer
+Your session will expire in {0}.: Votre session va expirer dans {0}.
+Yours faithfully,: Cordialement,
+access to your e-mail address: accès à votre adresse e-mail
+actionTrigger_HOLD: Tenir le bouton
+actionTrigger_SHORT_PRESS_X1: Appuyer 1x
+actionTrigger_SHORT_PRESS_X2: Appuyer 2x
+actionTrigger_SHORT_PRESS_X3: Appuyer 3x
+actionTrigger_SHORT_PRESS_X4: Appuyer 4x
+actionTrigger_SHORT_PRESS_X5: Appuyer 5x
+actionTrigger_TOGGLE_X1: Commutation 1x
+actionTrigger_TOGGLE_X2: Commutation 2x
+actionTrigger_TOGGLE_X3: Commutation 3x
+actionTrigger_TOGGLE_X4: Commutation 4x
+actionTrigger_TOGGLE_X5: Commutation 5x
+actionTrigger_TURN_OFF: Arrêt
+actionTrigger_TURN_ON: Mise en marche
+actionableSubjectType_channel: Chaîne
+actionableSubjectType_channelGroup: Groupe de chaînes
 actionableSubjectType_notification: Notification
+actionableSubjectType_scene: Scène
+actionableSubjectType_schedule: Calendrier
+addToHistoryMeasurementWarningSelected: En cochant cette option, les valeurs définies seront ajoutées aux futures mesures stockées dans l’historique. Cela peut être vu dans les graphiques comme une augmentation soudaine de la valeur saisie. Nous recommandons de régler ces paramètres uniquement lors de la première installation du compteur. Pour les compteurs existants, nous recommandons de supprimer l’historique des mesures immédiatement après avoir modifié ces paramètres.
+addToHistoryMeasurementWarningUnselected: Décocher cette option omettra les valeurs définies des futures mesures enregistrées dans l’historique. Cela peut être vu dans les graphiques comme une chute soudaine. Nous recommandons de régler ces paramètres uniquement lors de la première installation du compteur. Pour les compteurs existants, nous recommandons de supprimer l’historique des mesures immédiatement après avoir modifié ces paramètres.
+after: après
 and wait until it reaches: et attendre qu’il atteigne
 and wait until it will be: et attendre jusqu’à ce que ce soit
 and wait until the humidity will be: et attendre que l’humidité soit
 and wait until the temperature will be: et attendre jusqu’à ce que la température soit
 and wait until the value will be: et attendre jusqu’à ce que la valeur soit
+average: moyenne
+be at least {numChars} characters long: doit comporter au moins {numChars} caractères
+before: avant
+caption: Nom
+change: modifier
+channel: Chaîne
+channelConfigHelp_gateCloseAfterHelp: Agent qui lance la procédure de la fermeture peut avoir maximum une minute de retard par rapport au temps imparti.
+channelConfigHelp_numberOfAttemptsGate: Après avoir ordonné l’ouverture ou la fermeture du portail, le système tente de fermer/ouvrir le portail et attend 60 secondes pour vérifier que le portail a atteint l’état souhaité. Si ce n’est pas le cas, le système essaiera de se fermer/s’ouvrir à nouveau. Ce paramètre spécifie le nombre maximal de tentatives par le système pour atteindre l’objectif. La valeur recommandée est 5. La modification de ce paramètre n’affecte pas le fonctionnement des programmations.
+channelConfigHelp_stateVerificationMethod: 'Actifs :  un premier changement de l’état du capteur vers effectif arrête la série des essais. Passifs : une fois toutes les 60 secondes nous vérifions l’état du capteur et arrêtons les essais quant le capteur renvoie le statut demandé.'
+channelConfig_stateVerificationMethod_active: Actif
+channelConfig_stateVerificationMethod_passive: Passif
+channelGroup: Groupe de chaînes
+choose: sélectionner
+choose a currency: choisissez la devise
 choose access identifiers: sélectionner les identifiants d’accès
 choose the access identifiers: sélectionner les identifiants d’accès
+choose the action: sélectionner l’action
+choose the channel: choisir la chaîne
+choose the channel group: choisissez le groupe de chaînes
+choose the scene: sélectionner une scène
+choose the schedule: sélectionner un calendrier
+choose the timezone: choisissez le fuseau horaire
+click here: cliquez ici
+contains a character that is neither a letter nor a digit: contient un caractère qui n’est ni une lettre ni un chiffre
+contains a digit: contient un chiffre
+contains lower and upper letters: contient des lettres majuscules et minuscules
+copied: copié
+copy: copier
+days: jours
+directLinkExecutionFailureReason_disabled: Le lien direct est désactivé
+directLinkExecutionFailureReason_executionLimitExceeded: La limite d’applications a été dépassée
+directLinkExecutionFailureReason_expired: Le lien direct n’est plus actif
+directLinkExecutionFailureReason_forbiddenAction: Le lien ne permet pas cette action
+directLinkExecutionFailureReason_httpGetForbidden: L’action n’a pas pu être effectuée par l’intermédiare d’une méthode HTTP GET interdite.
+directLinkExecutionFailureReason_invalidActionParameters: Paramètres du lien direct incorrects
+directLinkExecutionFailureReason_invalidChannelState: L’action ne peut pas être effectuée en raison de l’état de chaîne.
+directLinkExecutionFailureReason_invalidSlug: Code de vérification incorrect
+directLinkExecutionFailureReason_noAllowedActions: Aucune action autorisée n’a été sélectionnée
+directLinkExecutionFailureReason_noSlugOrAction: Requête incorrecte - code de lien et action requis
+directLinkExecutionFailureReason_notActiveYet: Le lien direct n’est pas encore actif
+directLinkExecutionFailureReason_otherFailure: Erreur d’exécution de l’action
+directLinkExecutionFailureReason_sceneDuringExecution: La scène est en cours.
+directLinkExecutionFailureReason_unsupportedAction: Action sélectionnée  incorrecte
+empty: vide
+everyday: quotidiennement
+executed: exécuté
+extend: prolongez
+from IP: avec l’adresse IP
+from the IP: de l’adresse
+hours: heures
+is at least {numChars} characters long: contient au moins {numChars} caractères
+last 24 hours: 24 dernières heures
+last 30 days: 30 derniers jours
+last 6 hours: 6 dernières heures
+last 7 days: 7 derniers jours
+logs_aggregation_day: jours
+logs_aggregation_hour: heures
+logs_aggregation_minute: minutes
+logs_aggregation_month: mois
+min.: min.
+minutes: minutes
 notification: notification
 or another element: ou autre élément
+password: mot de passe
+prefix: préfixe
+previous month: mois précédent
+range: période
+register-slide1-text: Basée sur l’équipement électronique disponible, SUPLA vous permet de construire des simples modules avec qui vous pouvez gérer et contrôler les composant d’automatisation dans votre bâtiment. Grâce à SUPLA vous pouvez entre autres gérer l’éclairage, allumer et éteindre vos équipements ménager, ouvrir/fermer porte et portails ou bien contrôler la température ambiante. Tout cela vous pouvez faire en un seul click sur l’écran.
+register-slide1-title: Développez votre Propre Bâtiment Intelligent
+register-slide2-text: L’une des hypothèses principales du projet c’est simplicité et disponibilité. SUPLA vous permet d’allumer la lumière ou d’ouvrir la porte en un seul clic et cela au moment où on veut entrer dans notre possession. SUPLA est toujours disponible là où vous avec l’accès au réseau internet et à votre smartphone ou tablette. Le développement de SUPLA est basée sur les principes de logiciels open source et open hardware ce vous possibilite votre propre engagement dans ce projet!
+register-slide2-title: SUPLA est partout!
+register-slide3-text: Les systèmes d’automatisation bâtiment disponibles sur le marché, sont d’habitude très complexes, fermé et chers. Dans des nombreux cas ils exigent d’être installés déjà à l’étape de construction. SUPLA est simple, ouverte et gratuite. Elle permet de construire des composants pour systèmes d’actionnement à partir de plateforme RaspberryPl, Arduino ou bien ESP8266 et de les connecter au réseau LAN et Wifi. Rejoignez le projet et construisez votre propre version do système d’automatisation bâtiment!
+register-slide3-title: BGratuite et ouverte!
+reset chart view: réinitialisez la vue du graphique
+scene: scène
+schedule: calendrier
+scheduleMode_crontab: Avancé
+scheduleMode_daily: Cycle par jours
+scheduleMode_minutely: Cycle par minutes
+scheduleMode_once: unique
+sec.: secondes
+smartphones, tablets, etc.: smartphones, tablettes, etc.
+state-closed: Fermé
+state-default: Défaut
+state-empty: Vide
+state-full: Complet
+state-humidity: Humidité
+state-off: Désactivé
+state-on: Activé
+state-opened: Ouvert
+state-partially_closed: Partiellement fermé
+state-revealed: Révélé
+state-rgb_off_dim_off: RGB et gradateur désactivés
+state-rgb_off_dim_on: RGB désactivé, gradateur allumé
+state-rgb_on_dim_off: RGB activé, gradateur désactivé
+state-rgb_on_dim_on: RGB et gradateur allumé
+state-shut: Couvert
+state-temperature: Température
+suffix: suffixe
 sum: total
+sunrise-after: le lever du soleil
+sunrise-before: le lever du soleil
+sunset-after: le coucher du soleil
+sunset-before: le coucher du soleil
+the whole history: historique complet
 then execute the action: puis effectuer l’action
+this month: mois en cours
+this year: année en cours
+today: aujourd’hui
+unknown: inconnu
+username: nom d’utilisateur
+valid until: expirera
+values as seen on chart: valeurs comme dans la graphique
+values as seen on counter: valeurs comme sur le compteur
+yesterday: hier
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne peut pas interagir avec votre compte jusqu''à ce que vous accordiez à nouveau l''accès.'
+'{clientName} wants to access your account.': '{clientName} veux accéder à votre compte.'
+'{minutes} minutes after sunrise': '{minutes} minutes après le lever du soleil'
+'{minutes} minutes after sunset': '{minutes} minutes après le coucher du soleil'
+'{minutes} minutes before sunrise': '{minutes} minutes avant le lever du soleil'
+'{minutes} minutes before sunset': '{minutes} minutes avant le coucher du soleil'
+'{requests} out of {limit} / day': '{requêtes} de {limite} / jour'
+'{requests} out of {limit} / h': '{requêtes} de {limite} / h'
+'{requests} out of {limit} / min': '{requêtes} de {limite} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requêtes} de {limite} / sec'
+'{serviceName} integration': Intégration avec {serviceName}
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ... et commencez une aventure avec des bâtiments intelligent dès aujourd'hui!
+Access identifier password must be at least 8 characters.: Mot de passe pour l’identifiant d'accès doit être composé d'au moins 8 caractères.
+Access identifier password must be no longer than 32 characters.: Mot de passe pour cet identifiant ne peut être composé de plus de 32 caractères.
+Action: Action
+Add new item to use in the scene: Ajouter un nouvel élément à la scène
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Etes-vous sûr de vouloir effacer tout l’historique de l’aberration de la tension de ce canal ?
+Are you sure you want to disable this device?: Voulez-vous vraiement désactiver ce dispositif?
+Assigned Locations: Lieux attribués
+Authorized OAuth apps: Applications OAuth autorisées
+Calculated value: État du compteur
+Cannot send an activation e-mail. Try again later.: Impossible d’envoyer le message avec le lien d’activation. Réessayez plus tard.
+Channel will be deleted from the channel group below: La chaîne sera supprimée des groupes de chaînes suivants
+Channels in channel group: Canaux dans les groupes de canaux
+Chosen hour: Heure choisie
+Coming Soon: Prochainement disponible
+Confirm if you want to remove {deviceName} device: Confirmez la suppression de dispositif {deviceName}
+DISABLED: DÉSACTIVÉ
+Days: Jours
+Direct links below will be deleted: Les liens directs énumérés ci-dessous seront supprimés
+Doors, Gates: Portes, Portails
+ENABLED: ACTIVÉ
+Email already exists: L’email existe déjà
+Existing schedules: Calendriers existants
+From IP: Avec l’adresse IP
+Get SUPLA on your devices: Téléchargez SUPLA sur vos dispositifs
+Hi: Bonjour
+Hour: Heure
+Hours: Heures
+I/O: E/S
+If you want to stay here, do something!: Si vous voulez rester ici, faites quelque chose!
+Input: Entrée
+Languages: Langues
+Loading: Chargement
+Location password must be at least 4 characters.: Mot de passe pour la localisation doit être composé d'au moins 4 caractères.
+Location password must be no longer than 32 characters.: Mot de passe pour la localisation ne peut être composé de plus de 32 caractères.
+Minute: Minute
+Mobile Apps: Applications mobiles
+Next: Suivre
+Number: Numéro
+Output: Sortie
+Please select an action: Veuillez sélectionner une action
+Please select the schedules that should also be enabled.: Sélectionnez les calendriers qui doivent être aussi activés.
+Previous login: Dernière connexion
+Registration: Inscription
+Remove: Supprimer
+Schedule cannot be enabled: Échec d'activation de calendrier
+Schedules below will be deleted: Les calendriers suivants seront supprimés
+Sources available from: Sources disponibles dans
+Status: Statut
+Subject: Sujet
+Sunrise / Sunset: Lever du soleil / Coucher du soleil
+Supla for devices: SUPLA pour vos dispositifs
+Triggers: Déclencheurs
+Try again later: Réessayez ultérieurement
+Turning this device off will result in disabling all the associated schedules.: La désactivation de ce dispositif provoquera aussi la désactivation de tous les calendriers qui y sont associés.
+When: Quand
+You will be logged out shortly: Vous allez être maintenant déconnectés
+execute: exécuter
+hourly: Cycle par heures
+or add a delay: ou ajouter un délai
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>

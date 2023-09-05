@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% uždarymo'
 '%s trigger is not supported by the hardware.': Įrenginys nepalaiko %s trigerio.
 ...open and shut roller shutters: ...uždengti ir atidengti žaliuzes
 ...open gateways, gates or doors: ...atidaryti dureles, vartus ar duris
@@ -43,6 +44,7 @@ Active sessions: Aktyvios sesijos
 Active web sessions: Aktyvios sesijos (web)
 Add: Pridėti
 Add a delay: Pridėti vėlavimą
+Add a new action to the scene: Pridėkite naują veiksmą į sceną
 Add a new icon: Pridėti naują piktogramą
 Add action: Pridėti veiksmą
 Add first channel to set channel group function and save it: Pasirinkite pirmą kanalą, kad nustatyti grupės funkciją ir ją išsaugoti
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Ar tikrai norite pašalinti
 Are you sure you want to delete this client?: Ar tikrai norite pašalinti šią kliento programą?
 Are you sure you want to delete this direct link?: Ar tikrai norite pašalinti šią tiesioginę nuorodą?
 Are you sure you want to delete this icon?: Ar tikrai norite pašalinti šią piktogramą?
+Are you sure you want to delete this reaction?: Ar tikrai norite ištrinti šią reakciją?
 Are you sure you want to delete this scene?: Ar tikrai norite pašalinti šią sceną?
 Are you sure you want to delete this schedule?: Ar tikrai norite pašalinti šį tvarkaraštį?
 Are you sure you want to log out this device?: Ar tikrai norite atsijungti nuo šio prietaiso?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: Pagal rytus / vakarus
 Be notified when your channels change state: Pranešimas apie kanalų būsenos pasikeitimus
 Be right back!: Grįžkite po kelių akimirkų!
 Below threshold: Žemiau slenksčio
+Body: Turinys
 Bottom position: Apatinė padėtis
 Bridge: Tiltas
 Brightness: Ryškumas
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Pasirinkite Prieigos 
 Choose channel function: Pasirinkti kanalo funkciją
 Choose client apps: Izvēlieties klienta lietojumprogrammas
 Choose location: Pasirinkti vietą
+Choose the channel: Pasirinkite kanalą
+Choose the channel group: Pasirinkite kanalų grupę
+Choose the scene: Pasirinkite sceną
+Choose the schedule: Pasirinkite tvarkaraštį
 Choose the source channel.: Pasirinkti šaltinio kanalą.
 Clear: Išvalyti
 Click the following link to confirm removal of your account on %cloudHost%.: Jei nori patvirtinti norą pašalinti savo paskyrą SUPLA, spustelėk žemiau pateiktą nuorodą.
@@ -215,8 +223,10 @@ Create New Location: Sukurti naują Vietą
 Create New Schedule: Sukurti naują tvarkaraštį
 Create an account: Sukurti paskyrą
 Create new direct link: Sukurti naują tiesioginę nuorodą
+Create new reaction: Sukurkite naują reakciją
 Create new scene: Sukurti naują sceną
 Currency: Valiuta
+Current: Srovė
 Current Overload: Perkrova
 Current Password: Dabartinis slaptažodis
 Current password is incorrect: Dabartinis slaptažodis yra neteisingas
@@ -228,6 +238,7 @@ DHT22 Temperature & Humidity Sensor: Temperatūros ir drėgmės jutiklis DHT22
 DS18B20 Thermometer: Termometras DS18B20
 Data limits: Duomenų apribojimai
 Data saved: Duomenys išsaugoti
+Date: Data
 Date and time: Data ir laikas
 Decline: Atsisakyti
 Default: pagal nutylėjimą
@@ -280,6 +291,7 @@ Download the history of measurement: Atsisiųsti matavimų istoriją
 Drag your image(s) here or click to select from the disk: Įkelkite vaizdą čia arba paspauskite, kad pasirinkti iš disko
 E-mail notifications: Pranešimai el. paštu
 Edit: Redaguoti
+Edit reaction: Redaguoti reakciją
 Electric: Elektra
 Electricity meter: Elektros energijos skaitiklis
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Elektros skaitiklis nepranešė apie galimybę konfigūruoti pridėtines vertes. Atnaujinkite prietaiso programinę įrangą ir bandykite dar kartą.
@@ -349,6 +361,10 @@ Generate new token: Generuoti naują tokeną
 Generate token: Generuoti tokeną
 Go to I/O device details: Eiti į įrenginio detalę informaciją
 Go to channel details: Eiti į kanalo detalę informaciją
+Go to the channel: Eikite į kanalą
+Go to the channel group: Eikite į kanalų grupę
+Go to the scene: Eikite į sceną
+Go to the schedule: Eikite į tvarkaraštį
 Go to your account: Eiti į savo paskyrą
 Grant access: Pateikti prieigą
 Guru Meditation: Guru Meditation
@@ -423,6 +439,7 @@ Invalid function for channel.: Neteisinga kanalo funkcija
 'Invalid redirect URI: {uri}': 'Invalid redirect URI: {uri}'
 Invalid request: Neteisinga užklausa
 Invalid request.: Neteisingas reikalavimas.
+Invalid scene: Neteisinga scena
 Invalid token.: Neteisingas tokenas.
 Invalid username or password: Neteisingas naudotojo vardas arba slaptažodis
 Inverted logic: Atvirkštinė logika
@@ -472,6 +489,7 @@ Measurement window: Matavimo laikas
 Meter value: Skaitiklio būsena
 Meters: Skaitikliai
 Minimum voltage: Žemiausia įtampa
+Missing action.: Jokių veiksmų
 Mode: Režimas
 Modification: Modifikavimas
 Mondays: Pirmadieniai
@@ -490,6 +508,7 @@ New channel group: Nauja kanalų grupė
 New client app (smartphone) added to your account: Naujos kliento programos (išmaniojo telefono) registracija
 New direct link: Nauja tiesioginė nuoroda
 New password: Naujas slaptažodis
+New reaction: Nauja reakcija
 New scene: Nauja scena
 Newer: Naujesnės
 'Next limit renewal: {date}': Limitas bus atnaujintas {date}
@@ -516,6 +535,9 @@ No. of locations: Vietų skaičius
 None: Nėra
 None (channel disabled): Nėra (kanalas išjungtas)
 Noop: Nėra operacijos
+Notification: Pranešimas
+Notification must have a body.: Pranešime turi būti pateiktas turinys.
+Notifications: Pranešimai
 Number of aberrations: Aberacijų skaičius
 Number of attempts to close: Uždarymo bandymų skaičius
 Number of attempts to open: Atidarymo bandymų skaičius
@@ -556,6 +578,7 @@ Percentage of closing: Uždengimo procentas
 Personal access tokens: Asmeniški prieigos tokenai
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Asmeniniai tokenai veikia, tai kaip ir paprasti, skirtumas, toks, kad neturi nustatyto termino.
 Personal token name is required.: Būtina nurodyti asmeninio atpažinimo identifikatoriaus (tokeno) pavadinimą.
+Phase: Fazė
 Phase 1: 1 fazė
 Phase 2: 2 fazė
 Phase 3: 3 fazė
@@ -567,11 +590,16 @@ Please click the link we have sent you after the registration to proceed.: Paspa
 Please confirm your SUPLA account.: Aktyvuokite savo paskyrą SUPLA.
 Please enter a valid email address: Įveskite teisingą el. pašto adresą
 Please fill a valid email address: Įveskite teisingą el. pašto adresą
+Please fix the problems with operations and try again.: Pašalinkite operacijų triktis ir bandykite dar kartą.
 Please log in again to proceed.: Prisijunkite dar kartą, kad galėtumėte tęsti toliau.
 Please provide a valid domain name for your private SUPLA Cloud: Pateikite taisyklingą domeno pavadinimą savo privačiam SUPLA debesiui
 Please read the Terms and Conditions.: Perskaitykite taisykles.
+Please select a condition: Pasirinkite sąlygą
 Please wait a moment before the next login attempt.: Prieš pakartotiną bandymą prisijungti šiek tiek luktelėkite.
 Port: Portas
+Power active: Aktyvi energija
+Power apparent: Akyvaizdi energija
+Power reactive: Pasyvi energija
 Precision: Tikslumas
 Predefined time ranges: Laiko intervalai
 Pressure sensor: Slėgio jutiklis
@@ -589,7 +617,10 @@ RGB led controller: RGB apšvietimo reguliatorius
 RGB lighting: RGB apšvietimas
 Rain sensor: Lietaus jutiklis
 Random: Atsitiktinis
+Reactions: Reakcijos
+Reactions limit has been exceeded: Viršytas reakcijos limitas
 Read: Rodmenys
+Recipients: Gavėjai
 Reference to the scene will be removed from the items below.: Nuoroda į sceną žemiau nurodytose elementuose bus pašalinta.
 Refresh: Atnaujink
 Regeneration starts at: Regeneracijos pradžia
@@ -666,6 +697,8 @@ Seems like a secret place: Kažkas mums sako, kad Jūs neturėtumėte čia būti
 Select icon: Pasirinkti piktogramą
 Select the item (subject) you want to control using this link: Pasirinkite elementą (subjektas), kurį norite kontroliuoti su šios nuorodos pagalba
 Selected device has been logged out.: Pasirinktas įrenginys buvo išregistruotas
+Send a notification: Siųsti pranešimą
+Send notification: Siųsti pranešimą
 Sensor (normal closed): Jutiklis (normaliai uždarytas)
 Sensor (normal open): Jutiklis (normaliai atidarytas)
 Sensor disconnected: Nėra jutiklio
@@ -745,8 +778,11 @@ The measurement history has been deleted.: Matmenų istorija pašalinta.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Naujas slaptažodis pakeis šį, kurį naudojate dabar. Po jo pakeitimo kai kurios integracijos gali nustoti veikti. Tęsti?
 The next available executions: Artimiausiais atlikimas
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Naudojant rėmelį pažymėjome pranešimą, iš kurio spustelėjote nuorodą išsiregistravimui.
+The notification must have a recipient.: Pranešime turi būti pateiktas gavėjas.
 The password and its confirm are not the same.: Slaptažodis ir jo patvirtinimas nėra identiški.
 The password should be 8 or more characters.: Slaptažodį turi sudaryti mažiausiai 8 simboliai.
+The reaction has been added: Reakcija buvo pridėta
+The reaction has been changed: Reakcija buvo pakeista
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: 'Įrenginys buvo išjungtas dėl srovės perkrovos. Prieš jį išjungdami, įsitikinkite, kad problema, kurį tai sukėlė, buvo išspręsta. Ar tikrai norite išjungti šį įrenginį nuotoliniu būdu? '
 The scene would execute too many operations.: Scena atlieka per daug operacijų.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serveris grąžino 400 klaidą, kas reiškia, kad siunčiama užklausa yra klaidinga.
@@ -770,6 +806,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Šį trigerį įrenginys naudoja tik lokaliai (pvz. įjungia šviesą, valdo žaliuzę ir t.t.). Jei jam priskirsite kitą veiksmą tai lokali funkcija bus išjungta.
 Thursdays: Ketvirtadieniai
 Timezone: Laiko juosta
+Title: Pavadinimas
 To: Iki
 Toggle: Perjungti
 Token does not exist: Atpažinimo ženklas neegzistuoja
@@ -778,7 +815,6 @@ Too many channels in this group: Šioje grupė per daug kanalų
 Too many operations in this scene: Scenoje per daug operacijų.
 Total: Iš viso
 Total time: Bendras laikas
-Triggers: Trigeriai
 Tuesdays: Antradieniai
 Turning this device off will cause its channels not working in the following features.: Jei įrenginys bus išjungtas, žemiau nurodytose elementuose nustos veikti jo kanalai.
 Turning this device off will result in disabling features listed below.: Jei įrenginys bus išjungtas taip pat bus išjungti žemiau nurodyti elementai.
@@ -807,6 +843,7 @@ Vector balance: Vektorinis balansas
 Verification method: Tikrinimo būdas
 Visible: Matomi
 Visit app webpage: Atveriet lietojumprogrammas vietni
+Voltage: Įtampa
 Voltage aberrations: Įtampos aberacijos
 Voltage monitoring: Įtampos stebėjimas
 WELCOME_MESSAGE: |
@@ -837,311 +874,6 @@ Wednesdays: Trečiadieniai
 Weight sensor: Svoris
 Welcome!: Sveiki!
 What this token is for?: Kam yra skirtas šis tokenas?
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.
-Where is the JSON?: Kur yra JSON?
-Where is your SUPLA Cloud?: Kur yra Jūsų SUPLA?
-White: Balta
-Wind sensor: Vėjo jutiklis
-Window opening sensor: Lango atidarymo jutiklis
-With SUPLA you can operate the lights in your home or office: Su SUPLA galite valdyti Savo namų ar ofiso apšvietimą
-With function: Su funkcija
-Working period: Veiklos trukmė
-Working schedule: Aktyvumo tvarkaraštis
-YOUR LINK CODE: TAVO NUORODOS KODAS
-You are changing the settings too quickly. You have to wait a while before making this change.: Per greitai keičiate nustatymus. Prieš keisdami šiuos nustatymus privalote šiek tiek palaukti.
-You can browse only the most recent logs now. Wait a while for the full history.: Šiuo metu rodomi tik naujausi matavimai. Palaukite, kol bus atsisiųsta visa istorija.
-You can ignore this message, if you have accidentally entered an incorrect password.: Galite ignoruoti šią informaciją, jei tai Jūs įvedėte klaidingą slaptažodį.
-You can use the application but you will not be able to modify any settings.: Galite naudoti programėlę, tačiau nėra galimybės keisti konfigūracijos.
-You cannot delete your last access identifier.: Negalite pašalinti savo paskutinio prieigos identifikatoriaus.
-You cannot delete your last location.: Negalite pašalinti paskutinės savo vietos.
-You cannot use SUPLA project name in the domain name.: Pagrindinio domeno pavadinime negalite naudoti projekto pavadinimo SUPLA.
-You have exceeded your API Rate Limit: Išnaudojote savo API užklausų limitą
-You have requested to unregister your SUPLA Cloud instance: Paprašėte išregistruoti Jūsų paskyrą SUPLA Cloud
-You have to choose at least one scope.: Turite pasirinkti bent vieną diapazoną.
-You just need to execute the following command inside your host terminal.: Pakanka atlikti šį nurodymą Jūsų serveryje (host) terminalo viduje.
-You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Jei ir toliau norite naudoti išplėstinį tvarkaraščio režimą, peržiūrėkite žemiau pateiktus pavyzdžius.
-You must agree to the Terms and Conditions.: Sutikimas su taisyklėmis būtinas.
-You must enable MQTT Broker first.: Pirmiau turite įjungti integravimą su MQTT brokeriu.
-You must leave at least one phase enabled.: Bent viena fazė turi išlikti aktyvi.
-You must set an action for each scene operation.: Pasirinkite akciją kiekvienai scenos operacijai.
-You must set sections with transparent or opaque parameters or both.: Turite pasirinkti bent vieno skyriaus skaidrumą.
-You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Privalote atnaujinti savo SUPLA Cloud versija bent iki 2.3.0 versijos.
-You will not be able to generate a direct link with the same URL again.: Nuorodos su tuo pačiu URL sukūrimas nebus įmanomas.
-Your account and MQTT Broker connection.: Jūsų paskyros su MQTT brokeriu perjungimas.
-Your account has been deleted. We hope you will come back to us soon.: Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.
-Your account has been locked.: El. pašto adresas jau egzistuoja
-Your account has not been confirmed yet.: Jūsų paskyra dar nepatvirtinta.
-Your account limits: Jūsų limitai
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Jūsų naršyklė nepalaiko kliento duomenų bazės mechanizmo (IndexedDB). Ši funkcija reikalinga norint rodyti grafikus ir palaikyti išplėstinius duomenų eksporto nustatymus. Atnaujinkite naršyklę arba išeikite iš inkognito režimo, kad galėtumėte naudotis šiomis funkcijomis.
-Your channel groups are allowed to have a maximum of {max} channels.: Jūsų kanalų grupėse gali būti daugiausiai {max} kanalų.
-Your chart is being drawn...: Jūsų diagrama yra brėžiama...
-Your data are being collected. Please be patient.: Renkame Jūsų duomenis, prašome kantrybės.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Jūsų duomenys parsiunčiami iš serverio. Prieš eksportuodami palaukite, kol parsiuntimas bus baigtas.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Įrenginys leidžia išplėsti jo funkcionalumą ir atlikti bet kokį veiksmą bet kuriame turimame Jūsų įrenginyje. Galimi pasirinkimai priklauso nuo naudojamos programinės įrangos ir įrenginio.
-Your email: Jūsų el. paštas
-Your instance is not registered or you are trying to authorize an application that is not public.: Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.
-Your password must contain at least one special character.: Slaptažodyje turi būti bent vienas specialus simbolis.
-Your password must include at least one letter.: Slaptažodyje turi būti bent viena raidė.
-Your password must include at least one number.: Slaptažodyje turi būti bent vienas skaičius.
-Your password must include both upper and lower case letters.: Slaptažodį turi sudaryti mažos ir didelės raidės.
-Your preferences has been updated.: Jūsų nustatymai buvo išsaugoti.
-Your private SUPLA Cloud instance has been unregistered.: Jūsų privati paskyrą SUPLA Cloud buvo išregistruota.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.
-Your private SUPLA Cloud is almost registered.: Jūsų privatus debesis SUPLA yra beveik užregistruotas.
-Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav reģistrēts.
-Your scenes are allowed to have a maximum of {max} operations.: Jūsų scenose gali būti daugiausiai {max} operacijų.
-Your schedules are allowed to have a maximum of {max} actions.: Jūsų tvarkaraščiuose gali būti daugiausiai {max} veiksmų.
-Your session has been expired.: Jūsų sesija baigėsi.
-Your session is about to expire: Jūsų sesija baigsis.
-Your session will expire in {0}.: Jūsų sesija baigsis po {0}.
-Yours faithfully,: Pagarbiai,
-access to your e-mail address: prieiga prie Jūsų el. pašto adreso
-actionTrigger_HOLD: Mygtuko prilaikymas
-actionTrigger_SHORT_PRESS_X1: Paspaudimas 1x
-actionTrigger_SHORT_PRESS_X2: Paspaudimas 2x
-actionTrigger_SHORT_PRESS_X3: Paspaudimas 3x
-actionTrigger_SHORT_PRESS_X4: Paspaudimas 4x
-actionTrigger_SHORT_PRESS_X5: Paspaudimas 5x
-actionTrigger_TOGGLE_X1: Perjungimas 1x
-actionTrigger_TOGGLE_X2: Perjungimas 2x
-actionTrigger_TOGGLE_X3: Perjungimas 3x
-actionTrigger_TOGGLE_X4: Perjungimas 4x
-actionTrigger_TOGGLE_X5: Perjungimas 5x
-actionTrigger_TURN_OFF: Išjungimas
-actionTrigger_TURN_ON: Įjungimas
-actionableSubjectType_channel: Kanalas
-actionableSubjectType_channelGroup: Kanalų grupė
-actionableSubjectType_scene: Scena
-actionableSubjectType_schedule: Tvarkaraštis
-addToHistoryMeasurementWarningSelected: Pažymėjus tą parinktį, nustatytos reikšmės bus pridėtos prie būsimų matavimų, kurie išsaugomi istorijoje. Tai gali matytis diagramose kaip staigus didėjimas įvestos reikšmės dydžiu. Šiuos parametrus rekomenduojame nustatyti tik skaitiklio pirmo diegimo metu. Esamiems skaitikliams pakeitus šiuos nustatymus rekomenduojame pašalinti matavimų istoriją.
-addToHistoryMeasurementWarningUnselected: Jei ši parinktis bus atžymėta, nustatytos reikšmės būsimuose matavimuose, kurie išsaugomi istorijoje, bus nepaisomos. Diagramose tai gali matytis kaip staigus kritimas. Šiuos parametrus rekomenduojame nustatyti tik skaitiklio pirmo diegimo metu. Esamiems skaitikliams pakeitus šiuos nustatymus rekomenduojame pašalinti matavimų istoriją.
-after: po
-average: vidutinė
-be at least {numChars} characters long: turi turėti ne mažiau kaip {numChars} simbolių
-before: prieš
-caption: pavadinimas
-change: keisti
-channel: Kanalas
-channelConfigHelp_gateCloseAfterHelp: Agentas paleidžiantis vartų uždarymo procedūrą gali vėluoti daugiausiai iki vienos minutės nustatyto laiko atžvilgiu.
-channelConfigHelp_numberOfAttemptsGate: Kai nurodysite vartų atidarymą arba uždarymą, sistema bandys juos uždaryti / atidaryti ir palauks 60 sekundžių, kad patikrintų, ar vartai pasiekė norimą būseną. Jei ne, sistema vėl bandys juos uždaryti / atidaryt. Šis parametras nustato maksimalų sistemos bandymų pasiekti tikslą skaičių. Rekomenduojama reikšmė, tai 5. Šio parametro pakeitimas neįtakos tvarkaraščių veikimo.
-channelConfigHelp_stateVerificationMethod: 'Aktyvūs: pirmas būsenos jutiklio pakeitimas į numatytąjį nutraukia bandymų kartojimą. Pasyvūs: kartą per 60 s. tikriname jutiklio būseną ir nutraukiame kartojimą, kai jutiklis praneš tada apie nustatytą būseną.'
-channelConfig_stateVerificationMethod_active: Aktyvus
-channelConfig_stateVerificationMethod_passive: Pasyvus
-channelGroup: Kanalų grupė
-choose: pasirinkti
-choose a currency: pasirinkti valiutą
-choose the action: pasirinkti veiksmą
-choose the channel: pasirinkite kanalą
-choose the channel group: pasirinkti kanalų grupę
-choose the scene: pasirinkti sceną
-choose the schedule: pasirinkti tvarkaraštį
-choose the timezone: pasirinkti laiko zoną
-click here: spustelėkite čia
-contains a character that is neither a letter nor a digit: yra simbolis, kuris nėra nei raidė, nei skaičius.
-contains a digit: yra skaičius
-contains lower and upper letters: yra didžiosios ir mažosios raidės
-copied: nukopijuota
-copy: kopijuoti
-days: dienų
-directLinkExecutionFailureReason_disabled: Tiesioginė nuoroda yra išjungta
-directLinkExecutionFailureReason_executionLimitExceeded: Buvo viršytas atlikimų limitas
-directLinkExecutionFailureReason_expired: Tiesioginė nuoroda prarado galiojimo laiką
-directLinkExecutionFailureReason_forbiddenAction: Nuoroda neleidžia atlikti šios akcijos
-directLinkExecutionFailureReason_httpGetForbidden: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
-directLinkExecutionFailureReason_invalidActionParameters: Neteisingi tiesioginės nuorodos parametrai
-directLinkExecutionFailureReason_invalidChannelState: Šio veiksmo negalima atlikti dėl kanalo būsenos.
-directLinkExecutionFailureReason_invalidSlug: Pateiktas patikros kodas neteisingas
-directLinkExecutionFailureReason_noAllowedActions: Nebuvo pasirinkta jokių leidžiamų akcijų
-directLinkExecutionFailureReason_noSlugOrAction: Neteisinga užklausa – būtina pateikti nuorodos kodą ir akciją
-directLinkExecutionFailureReason_notActiveYet: Tiesioginė nuoroda dar nėra aktyvi
-directLinkExecutionFailureReason_otherFailure: Akcijos vykdymo klaida
-directLinkExecutionFailureReason_sceneDuringExecution: Scena vykdoma.
-directLinkExecutionFailureReason_unsupportedAction: Pasirinkta akcija neteisinga
-empty: tuščias
-everyday: kasdien
-executed: atlikta
-extend: tęsti
-from IP: iš IP adreso
-from the IP: iš adreso
-hours: valandos
-is at least {numChars} characters long: turi bent {numChars} simbolių
-last 24 hours: paskutinės 24 valandos
-last 30 days: paskutinės 30 dienų
-last 6 hours: paskutinės 6 valandos
-last 7 days: paskutinės 7 dienos
-logs_aggregation_day: dienų
-logs_aggregation_hour: valandos
-logs_aggregation_minute: minutės
-logs_aggregation_month: mėnesių
-min.: min.
-minutes: minutes
-password: slaptažodis
-prefix: prefiksas
-previous month: ankstesnis mėnuo
-range: diapazonas
-register-slide1-text: Remiantis prieinama elektronika, SUPLA leis Jums sukurti paprastus modulius, leidžiančius valdyti ir kontroliuoti pastato automatikos elementus. SUPLA dėka galite be kita ko valdyti apšvietimą, įjungti ir išjungti buitinę techniką ir RTV įrangą, atidaryti ir uždaryti vartus ir duris, taip pat ir kontroliuoti temperatūrą patalpose. Viską tai galite atlikti vienu piršto perbraukimu.
-register-slide1-title: Nuosavas Išmanusis Pastatas
-register-slide2-text: Viena iš pagrindinių projekto prielaidų tai paprastumas ir prieinamumas. SUPLA leidžia vienu piršto perbraukimu įjungti šviesą ar atidaryti įvažiavimo vartus tuo momentu, kai norime įvažiuoti į teritoriją. SUPLA prieinama visur, kur turite prieigą prie interneto ryšio ir turite prie savęs išmanųjį telefoną arba planšetinį kompiuterį. SUPLA vystoma Atviro Kodo Programinės Įrangos ir Atviros Įrangos principu, dėka ko ir Jūs galite vystyti šį projektą!
-register-slide2-title: SUPLA visur!
-register-slide3-text: Prieinamos rinkoje pastatų automatikos sistemos dažniausiai yra sudėtingos, uždaros ir brangios. Daugelyje atvejų jau pastato statybų etape reikalingas montavimas. SUPLA yra paprasta, atvira ir nemokama. Leidžia kurti vykdomuosius elementus su RaspberryPI, Arduino ar ESP8266 platformomis ir jungti juos LAN bei WiFi tinklo pagalba. Prisijunkite prie projekto ir sukurkite savo pastato automatikos sistemos versiją!
-register-slide3-title: Nemokama ir atvira!
-reset chart view: grįžti prie pradinio vaizdo
-scene: scena
-schedule: tvarkaraštis
-scheduleMode_crontab: Išplėstinis
-scheduleMode_daily: Dieninis ciklas
-scheduleMode_minutely: Minutinis ciklas
-scheduleMode_once: Vienkartinis
-sec.: sek.
-smartphones, tablets, etc.: išmanieji telefonai, planšetiniai kompiuteriai ir t.t.
-state-closed: Uždaryta
-state-default: Numatyta
-state-empty: Tuščia
-state-full: Pilna
-state-humidity: Drėgmė
-state-off: Išjungta
-state-on: Įjungta
-state-opened: Atidaryta
-state-partially_closed: Iš dalies uždaryta
-state-revealed: Atidengta
-state-rgb_off_dim_off: RGB ir apšvietimo reguliatorius išjungta
-state-rgb_off_dim_on: RGB išjungta, apšvietimo reguliatorius įjungta
-state-rgb_on_dim_off: RGB įjungta, apšvietimo reguliatorius išjungta
-state-rgb_on_dim_on: RGB ir apšvietimo reguliatorius įjungta
-state-shut: Uždengta
-state-temperature: Temperatūra
-suffix: sufiksas
-sunrise-after: saulėtekio
-sunrise-before: saulėtekį
-sunset-after: saulėlydžio
-sunset-before: saulėlydį
-the whole history: visa istorija
-this month: einamasis mėnuo
-this year: einamieji metai
-today: šiandien
-unknown: nežinomas
-username: vartotojo vardas
-valid until: baigsis
-values as seen on chart: vertės, kaip parodyta diagramoje
-values as seen on counter: reikšmes, kaip skaitiklyje
-yesterday: vakar
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} negalima atlikti jokių veiksmu Jūsų paskyroje, kol pakartotinai nepateiksite prieigos.'
-'{clientName} wants to access your account.': '{clientName} nori gauti prieigą prie Tavo paskyros.'
-'{minutes} minutes after sunrise': '{minutes} minučių po saulėtekio'
-'{minutes} minutes after sunset': '{minutes} minučių po saulėlydžio'
-'{minutes} minutes before sunrise': '{minutes} minučių iki saulėtekio'
-'{minutes} minutes before sunset': '{minutes} minučių iki saulėlydžio'
-'{requests} out of {limit} / day': '{requests} iš {limit} / parą'
-'{requests} out of {limit} / h': '{requests} iš {limit} / h'
-'{requests} out of {limit} / min': '{requests} iš {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} iš {limit} / {seconds} s'
-'{serviceName} integration': Integravimas su {serviceName}
-
-#</editor-fold>
-#<editor-fold desc="Extra translations">
-# Translations below have not been found in sources. You might want to delete them.
-...and start your adventure with building automation today!: ...ir pradėkite savo nuotykius su išmaniaisiais pastatais jau šiandien!
-Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
-Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
-Action: Veiksmas
-Add new item to use in the scene: Pridėti naują elementą prie scenos
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ar esate tikri, kad norite pašalinti visą šio kanalo įtampos aberacijų istoriją?
-Are you sure you want to disable this device?: Ar tikrai norite išjungti šį įrenginį?
-Assigned Locations: Priskirtos Vietos
-Authorized OAuth apps: Autorizuotos programos OAuth
-Calculated value: Skaitiklio būsena
-Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti pranešimo su aktyvavimo nuoroda. Bandykite dar kartą vėliau.
-Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
-Channels in channel group: Kanalai kanalų grupėse
-Chosen hour: Pasirinktas laikas
-Coming Soon: Netrukus bus prieinami
-Confirm if you want to remove {deviceName} device: Patvirtinkite, kad norite pašalinti įrenginį {deviceName}
-DISABLED: IŠJUNGTA
-Date: Data
-Days: Dienos
-Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
-Doors, Gates: Durys, Vartai
-ENABLED: ĮJUNGTA
-Email already exists: El. pašto adresas jau egzistuoja
-Existing schedules: Egzistuojantys tvarkaraščiai
-From IP: Iš IP adreso
-Get SUPLA on your devices: Atsisiųskite SUPLA į savo įrenginius
-Hi: Sveiki
-Hour: Laikas
-Hours: Valandos
-I/O: Įvestis/Išvestis
-If you want to stay here, do something!: Jei norite likti čia, padarykite ką nors!
-Input: Įvestis
-Languages: Kalbos
-Loading: Krovimas
-Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
-Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
-Minute: Minutė
-Mobile Apps: Mobiliosios programos
-Next: Toliau
-Number: Numeris
-Output: Išvestis
-Please select the schedules that should also be enabled.: Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.
-Previous login: Ankstesnis prisijungimas
-Registration: Registracija
-Remove: Pašalinti
-Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
-Schedules below will be deleted: Šie tvarkaraščiai bus pašalinti
-Sources available from: Šaltiniai prieinami
-Status: Statusas
-Subject: Subjektas
-Sunrise / Sunset: Saulėtekis / Saulėlydis
-Supla for devices: Supla įrenginiams
-Try again later: Pabandykite dar kartą vėliau
-Turning this device off will result in disabling all the associated schedules.: Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.
-When: Kada
-You will be logged out shortly: Netrukus busite atjungti
-execute: atlik
-hourly: Valandinis ciklas
-or add a delay: arba pridėkite vėlavimą
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-'% of closing': '% uždarymo'
-Add a new action to the scene: Pridėkite naują veiksmą į sceną
-Are you sure you want to delete this reaction?: Ar tikrai norite ištrinti šią reakciją?
-Body: Turinys
-Choose the channel: Pasirinkite kanalą
-Choose the channel group: Pasirinkite kanalų grupę
-Choose the scene: Pasirinkite sceną
-Choose the schedule: Pasirinkite tvarkaraštį
-Create new reaction: Sukurkite naują reakciją
-Current: Srovė
-Edit reaction: Redaguoti reakciją
-Go to the channel: Eikite į kanalą
-Go to the channel group: Eikite į kanalų grupę
-Go to the scene: Eikite į sceną
-Go to the schedule: Eikite į tvarkaraštį
-Invalid scene: Neteisinga scena
-Missing action.: Jokių veiksmų
-New reaction: Nauja reakcija
-Notification: Pranešimas
-Notification must have a body.: Pranešime turi būti pateiktas turinys.
-Notifications: Pranešimai
-Phase: Fazė
-Please fix the problems with operations and try again.: Pašalinkite operacijų triktis ir bandykite dar kartą.
-Please select a condition: Pasirinkite sąlygą
-Please select an action: Pasirinkite veiksmą
-Power active: Aktyvi energija
-Power apparent: Akyvaizdi energija
-Power reactive: Pasyvi energija
-Reactions: Reakcijos
-Reactions limit has been exceeded: Viršytas reakcijos limitas
-Recipients: Gavėjai
-Send a notification: Siųsti pranešimą
-Send notification: Siųsti pranešimą
-The notification must have a recipient.: Pranešime turi būti pateiktas gavėjas.
-The reaction has been added: Reakcija buvo pridėta
-The reaction has been changed: Reakcija buvo pakeista
-Title: Pavadinimas
-Voltage: Įtampa
 When a certain distance is reached: Pasiekus nurodytą atstumą
 When a lack of liquid is detected: Nustačius skysčio trūkumą
 When a new mail comes: Aėjus naujam laiškui
@@ -1237,18 +969,318 @@ When the window will be opened: Atidarius langą
 When the window will be opened or closed: Uždarius arba atidarius langą
 When there is certain amount of rain: Kai iškrenta tam tikras lietaus kiekis
 When there weight reaches a certain value: Svoriui pasiekus tam tikrą vertę
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Tiesioginės nuorodos akciją gali atlikti nurodant jos unikalųjį identifikatorių HTTP PATCH užklausos turinyje. Tai yra saugiau, nes tai neleidžia išsaugoti pilno Tavo nuorodos adreso prieigos serverių, per kuriuos perduodama Tavo užklausa, žurnale. Žemiau pateikiamas pavyzdinis atlikimas cURL įrankio pagalba.
+Where is the JSON?: Kur yra JSON?
+Where is your SUPLA Cloud?: Kur yra Jūsų SUPLA?
+White: Balta
+Wind sensor: Vėjo jutiklis
+Window opening sensor: Lango atidarymo jutiklis
+With SUPLA you can operate the lights in your home or office: Su SUPLA galite valdyti Savo namų ar ofiso apšvietimą
+With function: Su funkcija
+Working period: Veiklos trukmė
+Working schedule: Aktyvumo tvarkaraštis
+YOUR LINK CODE: TAVO NUORODOS KODAS
+You are changing the settings too quickly. You have to wait a while before making this change.: Per greitai keičiate nustatymus. Prieš keisdami šiuos nustatymus privalote šiek tiek palaukti.
+You can browse only the most recent logs now. Wait a while for the full history.: Šiuo metu rodomi tik naujausi matavimai. Palaukite, kol bus atsisiųsta visa istorija.
+You can ignore this message, if you have accidentally entered an incorrect password.: Galite ignoruoti šią informaciją, jei tai Jūs įvedėte klaidingą slaptažodį.
+You can use the application but you will not be able to modify any settings.: Galite naudoti programėlę, tačiau nėra galimybės keisti konfigūracijos.
+You cannot delete your last access identifier.: Negalite pašalinti savo paskutinio prieigos identifikatoriaus.
+You cannot delete your last location.: Negalite pašalinti paskutinės savo vietos.
+You cannot use SUPLA project name in the domain name.: Pagrindinio domeno pavadinime negalite naudoti projekto pavadinimo SUPLA.
+You have exceeded your API Rate Limit: Išnaudojote savo API užklausų limitą
+You have requested to unregister your SUPLA Cloud instance: Paprašėte išregistruoti Jūsų paskyrą SUPLA Cloud
+You have to choose at least one scope.: Turite pasirinkti bent vieną diapazoną.
+You just need to execute the following command inside your host terminal.: Pakanka atlikti šį nurodymą Jūsų serveryje (host) terminalo viduje.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Jei ir toliau norite naudoti išplėstinį tvarkaraščio režimą, peržiūrėkite žemiau pateiktus pavyzdžius.
+You must agree to the Terms and Conditions.: Sutikimas su taisyklėmis būtinas.
+You must enable MQTT Broker first.: Pirmiau turite įjungti integravimą su MQTT brokeriu.
+You must leave at least one phase enabled.: Bent viena fazė turi išlikti aktyvi.
 You must set an action for each reaction.: Kiekvienai reakcijai reikia nustatyti veiksmą.
+You must set an action for each scene operation.: Pasirinkite akciją kiekvienai scenos operacijai.
+You must set sections with transparent or opaque parameters or both.: Turite pasirinkti bent vieno skyriaus skaidrumą.
+You need to provide icons for all states.: Turite pristatyti ikonas visoms būklėms.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Privalote atnaujinti savo SUPLA Cloud versija bent iki 2.3.0 versijos.
+You will not be able to generate a direct link with the same URL again.: Nuorodos su tuo pačiu URL sukūrimas nebus įmanomas.
+Your account and MQTT Broker connection.: Jūsų paskyros su MQTT brokeriu perjungimas.
+Your account has been deleted. We hope you will come back to us soon.: Paskyra buvo pašalinta. Tikimės, kad netrūkus sugrįšite pas mus.
+Your account has been locked.: El. pašto adresas jau egzistuoja
+Your account has not been confirmed yet.: Jūsų paskyra dar nepatvirtinta.
+Your account limits: Jūsų limitai
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Jūsų naršyklė nepalaiko kliento duomenų bazės mechanizmo (IndexedDB). Ši funkcija reikalinga norint rodyti grafikus ir palaikyti išplėstinius duomenų eksporto nustatymus. Atnaujinkite naršyklę arba išeikite iš inkognito režimo, kad galėtumėte naudotis šiomis funkcijomis.
+Your channel groups are allowed to have a maximum of {max} channels.: Jūsų kanalų grupėse gali būti daugiausiai {max} kanalų.
+Your chart is being drawn...: Jūsų diagrama yra brėžiama...
+Your data are being collected. Please be patient.: Renkame Jūsų duomenis, prašome kantrybės.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Jūsų duomenys parsiunčiami iš serverio. Prieš eksportuodami palaukite, kol parsiuntimas bus baigtas.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Įrenginys leidžia išplėsti jo funkcionalumą ir atlikti bet kokį veiksmą bet kuriame turimame Jūsų įrenginyje. Galimi pasirinkimai priklauso nuo naudojamos programinės įrangos ir įrenginio.
+Your email: Jūsų el. paštas
+Your instance is not registered or you are trying to authorize an application that is not public.: Jūsų instancija nėra įregistruota arba bandote autorizuoti programą, kuri nėra vieša.
+Your password must contain at least one special character.: Slaptažodyje turi būti bent vienas specialus simbolis.
+Your password must include at least one letter.: Slaptažodyje turi būti bent viena raidė.
+Your password must include at least one number.: Slaptažodyje turi būti bent vienas skaičius.
+Your password must include both upper and lower case letters.: Slaptažodį turi sudaryti mažos ir didelės raidės.
+Your preferences has been updated.: Jūsų nustatymai buvo išsaugoti.
+Your private SUPLA Cloud instance has been unregistered.: Jūsų privati paskyrą SUPLA Cloud buvo išregistruota.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Jūsų privati instancija SUPLA cloud neprieinama. Įsitikinkite, kad Jūsų serveris yra online režime, o HTTPS ryšys tinkamai veikia.
+Your private SUPLA Cloud is almost registered.: Jūsų privatus debesis SUPLA yra beveik užregistruotas.
+Your private SUPLA Cloud is not registered.: Jūsu privātais mākonis SUPLA nav reģistrēts.
+Your scenes are allowed to have a maximum of {max} operations.: Jūsų scenose gali būti daugiausiai {max} operacijų.
+Your schedules are allowed to have a maximum of {max} actions.: Jūsų tvarkaraščiuose gali būti daugiausiai {max} veiksmų.
+Your session has been expired.: Jūsų sesija baigėsi.
+Your session is about to expire: Jūsų sesija baigsis.
+Your session will expire in {0}.: Jūsų sesija baigsis po {0}.
+Yours faithfully,: Pagarbiai,
+access to your e-mail address: prieiga prie Jūsų el. pašto adreso
+actionTrigger_HOLD: Mygtuko prilaikymas
+actionTrigger_SHORT_PRESS_X1: Paspaudimas 1x
+actionTrigger_SHORT_PRESS_X2: Paspaudimas 2x
+actionTrigger_SHORT_PRESS_X3: Paspaudimas 3x
+actionTrigger_SHORT_PRESS_X4: Paspaudimas 4x
+actionTrigger_SHORT_PRESS_X5: Paspaudimas 5x
+actionTrigger_TOGGLE_X1: Perjungimas 1x
+actionTrigger_TOGGLE_X2: Perjungimas 2x
+actionTrigger_TOGGLE_X3: Perjungimas 3x
+actionTrigger_TOGGLE_X4: Perjungimas 4x
+actionTrigger_TOGGLE_X5: Perjungimas 5x
+actionTrigger_TURN_OFF: Išjungimas
+actionTrigger_TURN_ON: Įjungimas
+actionableSubjectType_channel: Kanalas
+actionableSubjectType_channelGroup: Kanalų grupė
 actionableSubjectType_notification: Pranešimas
+actionableSubjectType_scene: Scena
+actionableSubjectType_schedule: Tvarkaraštis
+addToHistoryMeasurementWarningSelected: Pažymėjus tą parinktį, nustatytos reikšmės bus pridėtos prie būsimų matavimų, kurie išsaugomi istorijoje. Tai gali matytis diagramose kaip staigus didėjimas įvestos reikšmės dydžiu. Šiuos parametrus rekomenduojame nustatyti tik skaitiklio pirmo diegimo metu. Esamiems skaitikliams pakeitus šiuos nustatymus rekomenduojame pašalinti matavimų istoriją.
+addToHistoryMeasurementWarningUnselected: Jei ši parinktis bus atžymėta, nustatytos reikšmės būsimuose matavimuose, kurie išsaugomi istorijoje, bus nepaisomos. Diagramose tai gali matytis kaip staigus kritimas. Šiuos parametrus rekomenduojame nustatyti tik skaitiklio pirmo diegimo metu. Esamiems skaitikliams pakeitus šiuos nustatymus rekomenduojame pašalinti matavimų istoriją.
+after: po
 and wait until it reaches: ir palaukite, kol pasieks
 and wait until it will be: ir palaukite, kol bus
 and wait until the humidity will be: ir palaukite, kol atsiras drėgmės
 and wait until the temperature will be: ir palaukite, kol temperatūra bus
 and wait until the value will be: ir palaukite, kol vertė bus
+average: vidutinė
+be at least {numChars} characters long: turi turėti ne mažiau kaip {numChars} simbolių
+before: prieš
+caption: pavadinimas
+change: keisti
+channel: Kanalas
+channelConfigHelp_gateCloseAfterHelp: Agentas paleidžiantis vartų uždarymo procedūrą gali vėluoti daugiausiai iki vienos minutės nustatyto laiko atžvilgiu.
+channelConfigHelp_numberOfAttemptsGate: Kai nurodysite vartų atidarymą arba uždarymą, sistema bandys juos uždaryti / atidaryti ir palauks 60 sekundžių, kad patikrintų, ar vartai pasiekė norimą būseną. Jei ne, sistema vėl bandys juos uždaryti / atidaryt. Šis parametras nustato maksimalų sistemos bandymų pasiekti tikslą skaičių. Rekomenduojama reikšmė, tai 5. Šio parametro pakeitimas neįtakos tvarkaraščių veikimo.
+channelConfigHelp_stateVerificationMethod: 'Aktyvūs: pirmas būsenos jutiklio pakeitimas į numatytąjį nutraukia bandymų kartojimą. Pasyvūs: kartą per 60 s. tikriname jutiklio būseną ir nutraukiame kartojimą, kai jutiklis praneš tada apie nustatytą būseną.'
+channelConfig_stateVerificationMethod_active: Aktyvus
+channelConfig_stateVerificationMethod_passive: Pasyvus
+channelGroup: Kanalų grupė
+choose: pasirinkti
+choose a currency: pasirinkti valiutą
 choose access identifiers: pasirinkite prieigos ID
 choose the access identifiers: pasirinkite prieigos ID
+choose the action: pasirinkti veiksmą
+choose the channel: pasirinkite kanalą
+choose the channel group: pasirinkti kanalų grupę
+choose the scene: pasirinkti sceną
+choose the schedule: pasirinkti tvarkaraštį
+choose the timezone: pasirinkti laiko zoną
+click here: spustelėkite čia
+contains a character that is neither a letter nor a digit: yra simbolis, kuris nėra nei raidė, nei skaičius.
+contains a digit: yra skaičius
+contains lower and upper letters: yra didžiosios ir mažosios raidės
+copied: nukopijuota
+copy: kopijuoti
+days: dienų
+directLinkExecutionFailureReason_disabled: Tiesioginė nuoroda yra išjungta
+directLinkExecutionFailureReason_executionLimitExceeded: Buvo viršytas atlikimų limitas
+directLinkExecutionFailureReason_expired: Tiesioginė nuoroda prarado galiojimo laiką
+directLinkExecutionFailureReason_forbiddenAction: Nuoroda neleidžia atlikti šios akcijos
+directLinkExecutionFailureReason_httpGetForbidden: Neleidžiama atlikti akcijos naudojant neleidžiamą HTTP GET metodą
+directLinkExecutionFailureReason_invalidActionParameters: Neteisingi tiesioginės nuorodos parametrai
+directLinkExecutionFailureReason_invalidChannelState: Šio veiksmo negalima atlikti dėl kanalo būsenos.
+directLinkExecutionFailureReason_invalidSlug: Pateiktas patikros kodas neteisingas
+directLinkExecutionFailureReason_noAllowedActions: Nebuvo pasirinkta jokių leidžiamų akcijų
+directLinkExecutionFailureReason_noSlugOrAction: Neteisinga užklausa – būtina pateikti nuorodos kodą ir akciją
+directLinkExecutionFailureReason_notActiveYet: Tiesioginė nuoroda dar nėra aktyvi
+directLinkExecutionFailureReason_otherFailure: Akcijos vykdymo klaida
+directLinkExecutionFailureReason_sceneDuringExecution: Scena vykdoma.
+directLinkExecutionFailureReason_unsupportedAction: Pasirinkta akcija neteisinga
+empty: tuščias
+everyday: kasdien
+executed: atlikta
+extend: tęsti
+from IP: iš IP adreso
+from the IP: iš adreso
+hours: valandos
+is at least {numChars} characters long: turi bent {numChars} simbolių
+last 24 hours: paskutinės 24 valandos
+last 30 days: paskutinės 30 dienų
+last 6 hours: paskutinės 6 valandos
+last 7 days: paskutinės 7 dienos
+logs_aggregation_day: dienų
+logs_aggregation_hour: valandos
+logs_aggregation_minute: minutės
+logs_aggregation_month: mėnesių
+min.: min.
+minutes: minutes
 notification: pranešimas
 or another element: arba kitas daiktas
+password: slaptažodis
+prefix: prefiksas
+previous month: ankstesnis mėnuo
+range: diapazonas
+register-slide1-text: Remiantis prieinama elektronika, SUPLA leis Jums sukurti paprastus modulius, leidžiančius valdyti ir kontroliuoti pastato automatikos elementus. SUPLA dėka galite be kita ko valdyti apšvietimą, įjungti ir išjungti buitinę techniką ir RTV įrangą, atidaryti ir uždaryti vartus ir duris, taip pat ir kontroliuoti temperatūrą patalpose. Viską tai galite atlikti vienu piršto perbraukimu.
+register-slide1-title: Nuosavas Išmanusis Pastatas
+register-slide2-text: Viena iš pagrindinių projekto prielaidų tai paprastumas ir prieinamumas. SUPLA leidžia vienu piršto perbraukimu įjungti šviesą ar atidaryti įvažiavimo vartus tuo momentu, kai norime įvažiuoti į teritoriją. SUPLA prieinama visur, kur turite prieigą prie interneto ryšio ir turite prie savęs išmanųjį telefoną arba planšetinį kompiuterį. SUPLA vystoma Atviro Kodo Programinės Įrangos ir Atviros Įrangos principu, dėka ko ir Jūs galite vystyti šį projektą!
+register-slide2-title: SUPLA visur!
+register-slide3-text: Prieinamos rinkoje pastatų automatikos sistemos dažniausiai yra sudėtingos, uždaros ir brangios. Daugelyje atvejų jau pastato statybų etape reikalingas montavimas. SUPLA yra paprasta, atvira ir nemokama. Leidžia kurti vykdomuosius elementus su RaspberryPI, Arduino ar ESP8266 platformomis ir jungti juos LAN bei WiFi tinklo pagalba. Prisijunkite prie projekto ir sukurkite savo pastato automatikos sistemos versiją!
+register-slide3-title: Nemokama ir atvira!
+reset chart view: grįžti prie pradinio vaizdo
+scene: scena
+schedule: tvarkaraštis
+scheduleMode_crontab: Išplėstinis
+scheduleMode_daily: Dieninis ciklas
+scheduleMode_minutely: Minutinis ciklas
+scheduleMode_once: Vienkartinis
+sec.: sek.
+smartphones, tablets, etc.: išmanieji telefonai, planšetiniai kompiuteriai ir t.t.
+state-closed: Uždaryta
+state-default: Numatyta
+state-empty: Tuščia
+state-full: Pilna
+state-humidity: Drėgmė
+state-off: Išjungta
+state-on: Įjungta
+state-opened: Atidaryta
+state-partially_closed: Iš dalies uždaryta
+state-revealed: Atidengta
+state-rgb_off_dim_off: RGB ir apšvietimo reguliatorius išjungta
+state-rgb_off_dim_on: RGB išjungta, apšvietimo reguliatorius įjungta
+state-rgb_on_dim_off: RGB įjungta, apšvietimo reguliatorius išjungta
+state-rgb_on_dim_on: RGB ir apšvietimo reguliatorius įjungta
+state-shut: Uždengta
+state-temperature: Temperatūra
+suffix: sufiksas
 sum: suma
+sunrise-after: saulėtekio
+sunrise-before: saulėtekį
+sunset-after: saulėlydžio
+sunset-before: saulėlydį
+the whole history: visa istorija
 then execute the action: tada atlikite veiksmą
+this month: einamasis mėnuo
+this year: einamieji metai
+today: šiandien
+unknown: nežinomas
+username: vartotojo vardas
+valid until: baigsis
+values as seen on chart: vertės, kaip parodyta diagramoje
+values as seen on counter: reikšmes, kaip skaitiklyje
+yesterday: vakar
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} negalima atlikti jokių veiksmu Jūsų paskyroje, kol pakartotinai nepateiksite prieigos.'
+'{clientName} wants to access your account.': '{clientName} nori gauti prieigą prie Tavo paskyros.'
+'{minutes} minutes after sunrise': '{minutes} minučių po saulėtekio'
+'{minutes} minutes after sunset': '{minutes} minučių po saulėlydžio'
+'{minutes} minutes before sunrise': '{minutes} minučių iki saulėtekio'
+'{minutes} minutes before sunset': '{minutes} minučių iki saulėlydžio'
+'{requests} out of {limit} / day': '{requests} iš {limit} / parą'
+'{requests} out of {limit} / h': '{requests} iš {limit} / h'
+'{requests} out of {limit} / min': '{requests} iš {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} iš {limit} / {seconds} s'
+'{serviceName} integration': Integravimas su {serviceName}
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...ir pradėkite savo nuotykius su išmaniaisiais pastatais jau šiandien!
+Access identifier password must be at least 8 characters.: Piekļuves identifikatora parolei jābūt vismaz 8 rakstzīmēm.
+Access identifier password must be no longer than 32 characters.: Piekļuves identifikatora parole nedrīkst būt garāka par 32 rakstzīmēm.
+Action: Veiksmas
+Add new item to use in the scene: Pridėti naują elementą prie scenos
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ar esate tikri, kad norite pašalinti visą šio kanalo įtampos aberacijų istoriją?
+Are you sure you want to disable this device?: Ar tikrai norite išjungti šį įrenginį?
+Assigned Locations: Priskirtos Vietos
+Authorized OAuth apps: Autorizuotos programos OAuth
+Calculated value: Skaitiklio būsena
+Cannot send an activation e-mail. Try again later.: Nepavyksta išsiųsti pranešimo su aktyvavimo nuoroda. Bandykite dar kartą vėliau.
+Channel will be deleted from the channel group below: Kanalas bus pašalintas iš šių kanalų grupių
+Channels in channel group: Kanalai kanalų grupėse
+Chosen hour: Pasirinktas laikas
+Coming Soon: Netrukus bus prieinami
+Confirm if you want to remove {deviceName} device: Patvirtinkite, kad norite pašalinti įrenginį {deviceName}
+DISABLED: IŠJUNGTA
+Days: Dienos
+Direct links below will be deleted: Žemiau pateiktos tiesioginės nuorodos bus pašalintos
+Doors, Gates: Durys, Vartai
+ENABLED: ĮJUNGTA
+Email already exists: El. pašto adresas jau egzistuoja
+Existing schedules: Egzistuojantys tvarkaraščiai
+From IP: Iš IP adreso
+Get SUPLA on your devices: Atsisiųskite SUPLA į savo įrenginius
+Hi: Sveiki
+Hour: Laikas
+Hours: Valandos
+I/O: Įvestis/Išvestis
+If you want to stay here, do something!: Jei norite likti čia, padarykite ką nors!
+Input: Įvestis
+Languages: Kalbos
+Loading: Krovimas
+Location password must be at least 4 characters.: Atrašanās vietas parolei jābūt vismaz 4 rakstzīmēm.
+Location password must be no longer than 32 characters.: Atrašanās vietas parole nedrīkst būt garāka par 32 rakstzīmēm.
+Minute: Minutė
+Mobile Apps: Mobiliosios programos
+Next: Toliau
+Number: Numeris
+Output: Išvestis
+Please select an action: Pasirinkite veiksmą
+Please select the schedules that should also be enabled.: Pažymėkite tvarkaraščius, kurie taip pat turi būti išjungti.
+Previous login: Ankstesnis prisijungimas
+Registration: Registracija
+Remove: Pašalinti
+Schedule cannot be enabled: Nepavyko įjungti tvarkaraščio
+Schedules below will be deleted: Šie tvarkaraščiai bus pašalinti
+Sources available from: Šaltiniai prieinami
+Status: Statusas
+Subject: Subjektas
+Sunrise / Sunset: Saulėtekis / Saulėlydis
+Supla for devices: Supla įrenginiams
+Triggers: Trigeriai
+Try again later: Pabandykite dar kartą vėliau
+Turning this device off will result in disabling all the associated schedules.: Šio įrenginio išjungimas taip pat sukels tvarkaraščių, kurie yra susieti su juo, išjungimą.
+When: Kada
+You will be logged out shortly: Netrukus busite atjungti
+execute: atlik
+hourly: Valandinis ciklas
+or add a delay: arba pridėkite vėlavimą
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>

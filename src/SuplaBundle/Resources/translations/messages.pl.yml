@@ -39,9 +39,12 @@ Action triggers: Wyzwalacze akcji
 Actions: Akcje
 Active: Aktywne
 Active applications: Aktywne aplikacje
+Active from: Aktywne od
 Active period: Okres aktywności
 Active sessions: Aktywne sesje
+Active to: Aktywne do
 Active web sessions: Aktywne sesje (web)
+Activity conditions: Warunki aktywności
 Add: Dodaj
 Add a delay: Dodaj opóźnienie
 Add a new action to the scene: Dodaj nową akcję do sceny
@@ -112,6 +115,7 @@ Authorized: Zautoryzowano
 Automatic calibration: Automatyczna kalibracja
 Automatic closing rule: Automatyczne zamykanie bramy
 Automation: Automatyka
+Available variables: Dostępne zmienne
 Average voltage: Średnie napięcie
 Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
@@ -238,7 +242,10 @@ DHT22 Temperature & Humidity Sensor: Czujnik temperatury i wilgotności DHT22
 DS18B20 Thermometer: Termometr DS18B20
 Data limits: Limity danych
 Data saved: Dane zostały zapisane
+Date: Data
 Date and time: Data i czas
+Date range: Zakres dat
+Daytime criteria: Kryteria w oparciu o długość dnia
 Decline: Odmów
 Default: domyślnie
 Delete: Usuń
@@ -327,6 +334,8 @@ Failed (zombie): Nieudane (zombie)
 Feature limits: Limity funkcjonalności
 File format: Format pliku
 File is too large: Plik jest za duży
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia w kontekście tego kanału. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
 Flooding: Zalanie
 For a short period of time, it is recommended for you to use the {suplaUrl} address.: W trakcie aktualizacji zalecane jest korzystanie z adresu {suplaUrl}.
 For devices: Dla urządzeń
@@ -522,6 +531,7 @@ No of channels: Liczba kanałów
 No of client apps: Liczba aplikacji klienckich
 No of devices: Liczba urządzeń
 No of operations: Liczba operacji
+No results: Brak wyników
 No results match {0}: Żadne wyniki nie pasują do {0}
 No schedule configuration.: Nie podano konfiguracji harmonogramu.
 No, take me back!: Nie, zabierz mnie stąd!
@@ -535,8 +545,13 @@ None: Brak
 None (channel disabled): Brak (kanał wyłączony)
 Noop: Brak operacji
 Notification: Powiadomienie
+Notification body is set by the firmware.: Treść powiadomienia jest ustawiana przez firmware.
 Notification must have a body.: Powiadomienie musi mieć treść.
+Notification must have recipients.: Powiadomienie musi mieć odbiorców.
+Notification title is set by the firmware.: Nagłówek powiadomienia jest ustawiany przez firmware.
 Notifications: Powiadomienia
+Notifications (defined): Powiadomienia (zdefiniowane)
+Notifications (sent per hour): Powiadomienia (wysłane na godzinę)
 Number of aberrations: Liczba aberracji
 Number of attempts to close: Liczba prób zamknięcia
 Number of attempts to open: Liczba prób otwarcia
@@ -546,6 +561,7 @@ OAuth apps: Aplikacje OAuth
 OAuth authorization: Autoryzacja OAuth
 OAuth integrations might stop working after the instance is unregistered.: Integracje z aplikacjami OAuth mogą przestać działać po wyrejestrowaniu twojej instancji.
 OK: OK
+OR: LUB
 'Off': Wyłącz
 Offline access: Dostęp offline
 Older: Starsze
@@ -594,7 +610,7 @@ Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
 Please read the Terms and Conditions.: Przeczytaj regulamin.
 Please select a condition: Proszę wybrać warunek
-Please select an action: Proszę wybrać akcję
+Please select and configure the action: Wybierz i skonfiguruj akcję.
 Please wait a moment before the next login attempt.: Zaczekaj chwilę przed kolejną próbą logowania.
 Port: Port
 Power active: Moc czynna
@@ -696,6 +712,7 @@ See in SUPLA-Cloud: Zobacz w SUPLA-Cloud
 Seems like a secret place: Coś nam mówi, że nie powinno Cię tu być
 Select icon: Wybierz ikonę
 Select the item (subject) you want to control using this link: Wybierz element (podmiot), który chcesz kontrolować za pomocą tego linka
+Selected: Wybrane
 Selected device has been logged out.: Wybrane urządzenie zostało wylogowane
 Send a notification: Wyślij powiadomienie
 Send notification: Wyślij powiadomienie
@@ -709,6 +726,7 @@ Service temporarily unavailable: Usługa tymczasowo niedostępna
 Set value added: Ustal wartość dodaną
 Set values for each phase separately: Ustal wartość dla każdej fazy osobno
 Setting the number of attempts to 1 disables the retrying behavior completely.: Ustawienie liczby prób poniżej 2 może skutkować tym, że zamknięcie lub otwarcie nie dojdzie do skutku.
+Settings: Ustawienia
 Show my limits: Pokaż moje limity
 Show on the Client’s devices: Pokaż w urządzeniach klienckich
 Shut: Zasłoń
@@ -739,6 +757,7 @@ Successful: Udane
 Summary for selected time range: Podsumowanie dla wybranego zakresu
 Sundays: Niedziele
 Switch the device to configuration mode: Przełącz urządzenie w tryb konfiguracyjny
+THEN: WTEDY
 THIS CANNOT BE UNDONE!: TEJ OPERACJI NIE DA SIĘ COFNĄĆ!
 TLS: TLS
 Tab: Tabulator
@@ -783,6 +802,7 @@ The password and its confirm are not the same.: Hasło i jego potwierdzenie nie 
 The password should be 8 or more characters.: Hasło powinno mieć minimum 8 znaków.
 The reaction has been added: Reakcja została dodana
 The reaction has been changed: Reakcja została zmieniona
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: Reakcja będzie aktywna, gdy wszystkie poniższe warunki zostaną spełnione. Jeśli ustawisz wszystkie dostępne opcje, reakcja aktywuję się wyłącznie pomiędzy wybranymi datami, w wybrane godziny i dni tygodnia i gdy jedno z odniesień do zachodu lub wschodu słońca będzie spełnione.
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Urządzenie zostało wyłączone zabezpieczeniem nadprądowym. Zanim je włączysz, upewnij się że rozwiązano problem, który do tego doprowadził. Czy na pewno chcesz włączyć to urządzenie zdalnie?
 The scene would execute too many operations.: Scena wykonuje zbyt wiele operacji.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serwer zwrócił błąd 400, co oznacza że przesłane żądanie jest niepoprawne.
@@ -805,9 +825,11 @@ This link is only valid for an hour.: Link będzie aktywny przez godzinę.
 This schedule mode is meant to be used by advanced or patient users only. You need to specify schedule execution behavior in a Crontab notation (extended by some SUPLA flavours). You may find the crontab.guru website helpful, if you have not came across crontabs yet.: Ten tryb harmonogramu jest zaprojektowany z myślą o technicznych lub bardzo cierpliwych użytkownikach. Wymaga on podania momentów wyzwalania harmonogramu w notacji crontab, wzbogaconej o kilka funkcjonalności spotykanych tylko w SUPLI. Jeśli nie spotkałeś/aś się wcześniej z crontabami a nadal chcesz użyć tego trybu, strona crontab.guru może się okazać dla Ciebie pomocna.
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ten wyzwalacz jest używany lokalnie przez urządzenie (np. włącza światło, steruje roletą itd.) Jeśli przypiszesz mu inną akcję, to lokalna funkcja zostanie wyłączona.
 Thursdays: Czwartki
+Time: Czas
 Timezone: Strefa czasowa
 Title: Tytuł
 To: Do
+Today, it would be active from {from} to {to}.: Dziś okres aktywności przypadłby na godziny od {from} do {to}.
 Toggle: Przełącz
 Token does not exist: Token nie istnieje
 Too many actions in this schedule.: Zbyt wiele akcji w jednym harmonogramie.
@@ -815,7 +837,6 @@ Too many channels in this group: Zbyt dużo kanałów w tej grupie
 Too many operations in this scene: Zbyt wiele operacji w scenie.
 Total: Suma
 Total time: Całkowity czas
-Triggers: Wyzwalacze
 Tuesdays: Wtorki
 Turning this device off will cause its channels not working in the following features.: Wyłączenie urządzenia spowoduje, że jego kanały przestaną działać w poniższych elementach.
 Turning this device off will result in disabling features listed below.: Wyłączenie urządzenia spowoduje także wyłączenie poniższych elementów.
@@ -833,6 +854,7 @@ Uploaded files do not contain any inappropriate or copyrighted content, nor do t
 Upper voltage threshold: Próg wysokiego napięcia
 'Use the {0} server command to change this account''s limits. For example:': 'Aby zmienić limity dla tego konta, użyj komendy {0} na Twoim serwerze. Na przykład:'
 Use working schedule for this access identifier: Używaj harmonogramu dostępności dla tego identyfikatora dostępu
+Use working schedule for this reaction: Używaj harmonogramu aktywności dla tej reakcji
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
 Value: Wartość
 Value added: Wartość dodana
@@ -1116,6 +1138,7 @@ logs_aggregation_day: dni
 logs_aggregation_hour: godziny
 logs_aggregation_minute: minuty
 logs_aggregation_month: miesiące
+midnight: północ
 min.: min.
 minutes: minut
 notification: powiadomienie
@@ -1157,15 +1180,19 @@ state-shut: Zasłonięte
 state-temperature: Temperatura
 suffix: sufiks
 sum: suma
+sunrise: wschód słońca
 sunrise-after: wschodzie
 sunrise-before: wschodem
+sunset: zachód słońca
 sunset-after: zachodzie
 sunset-before: zachodem
+swap: zamień
 the whole history: cała historia
 then execute the action: wtedy wykonaj akcję
 this month: bieżący miesiąc
 this year: bieżący rok
 today: dziś
+type {code} to show available variables: wpisz {code} by pokazać dostępne zmienne
 unknown: nieznany
 username: nazwa użytkownika
 valid until: wygaśnie
@@ -1174,6 +1201,10 @@ values as seen on counter: wartości tak jak na liczniku
 yesterday: wczoraj
 '{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nie może wchodzić w interakcje z Twoim kontem, dopóki nie przyznasz ponownie dostępu.'
 '{clientName} wants to access your account.': '{clientName} chce uzyskać dostęp do Twojego konta.'
+'{count} minutes after sunrise': '{count} minut po wschodzie słońca'
+'{count} minutes after sunset': '{count} minut po zachodzie słońca'
+'{count} minutes before sunrise': '{count} minut przed wschodem słońca'
+'{count} minutes before sunset': '{count} minut przed zachodem słońca'
 '{minutes} minutes after sunrise': '{minutes} minut po wschodzie słońca'
 '{minutes} minutes after sunset': '{minutes} minut po zachodzie słońca'
 '{minutes} minutes before sunrise': '{minutes} minut przed wschodem słońca'
@@ -1207,7 +1238,6 @@ Confirm if you want to remove {deviceName} device: Potwierdź chęć usunięcia 
 Copy channel state: Powiel stan kanału
 Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
 DISABLED: WYŁĄCZONE
-Date: Data
 Days: Dni
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
 Doors, Gates: Drzwi, Bramy
@@ -1236,6 +1266,7 @@ Next: Dalej
 No current API usages: Brak bieżących żądań API
 Number: Numer
 Output: Wyjście
+Please select an action: Proszę wybrać akcję
 Please select the schedules that should also be enabled.: Zaznacz harmonogramy, które także powinny zostać włączone.
 Previous login: Poprzednie logowanie
 Read the following channel's state: Odczytaj stan poniższego kanału
@@ -1253,6 +1284,7 @@ Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
 Supla for devices: Supla na urządzenia
+Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
@@ -1263,4 +1295,3 @@ hourly: Każdy dzień
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-OR: LUB

@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% închidere'
 '%s trigger is not supported by the hardware.': Declanșatorul %s nu este acceptat de dispozitiv.
 ...open and shut roller shutters: ...închiderea și deschiderea jaluzelelor
 ...open gateways, gates or doors: ...deschiderea portiței, porții sau ușii
@@ -43,6 +44,7 @@ Active sessions: Sesiuni active
 Active web sessions: Sesiuni active (web)
 Add: Adaugă
 Add a delay: Adăugați  întârziere
+Add a new action to the scene: Adaugă o nouă acțiune în scenă
 Add a new icon: Adaugă o pictogramă nouă
 Add action: Adăugați  acțiune
 Add first channel to set channel group function and save it: Selectați primul canal pentru a specifica funcția grupei și pentru a o salva
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Sigur doriți să ștergeț
 Are you sure you want to delete this client?: Sigur doriți să ștergeți această aplicație de client?
 Are you sure you want to delete this direct link?: Sigur doriți să ștergeți acest link direct?
 Are you sure you want to delete this icon?: Sigur doriți să ștergeți această pictogramă?
+Are you sure you want to delete this reaction?: Sigur dorești să ștergi această reacție?
 Are you sure you want to delete this scene?: Sigur doriți să ștergeți această scenă?
 Are you sure you want to delete this schedule?: Sigur doriți să ștergeți această planificare?
 Are you sure you want to log out this device?: Ești sigur că dorești să te deconectezi de pe acest dispozitiv?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: Bazat pe est/vest
 Be notified when your channels change state: Notificarea modificărilor stării canalului
 Be right back!: Reveniți în câteva clipe!
 Below threshold: Sub pragul
+Body: Conținut
 Bottom position: Poziție inferioară
 Bridge: Pod
 Brightness: Claritate
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Selectați Identifica
 Choose channel function: Selectați o funcție de canal
 Choose client apps: Selectați aplicațiile de client
 Choose location: Selectați o locație
+Choose the channel: Selectează un canal
+Choose the channel group: Selectează o grupă de canale
+Choose the scene: Selectează o scenă
+Choose the schedule: Selectează programul
 Choose the source channel.: Selectați un canal sursă.
 Clear: Șterge
 Click the following link to confirm removal of your account on %cloudHost%.: Pentru a confirma că doriți să ștergeți contul dvs. SUPLA, faceți clic pe linkul de mai jos.
@@ -215,8 +223,10 @@ Create New Location: Creați o locație nouă
 Create New Schedule: Creați un plan nou
 Create an account: Creați un cont
 Create new direct link: Creați un link direct nou
+Create new reaction: Creează o reacție nouă
 Create new scene: Creați o scenă nouă
 Currency: Valuta
+Current: Curent
 Current Overload: Supraîncărcare
 Current Password: Parola curentă
 Current password is incorrect: Parola curentă este incorectă
@@ -228,6 +238,7 @@ DHT22 Temperature & Humidity Sensor: Senzor de temperatură și umiditate DHT22
 DS18B20 Thermometer: Termometru DS18B20
 Data limits: Limitele datelor
 Data saved: Datele au fost salvate
+Date: Data
 Date and time: Data şi ora
 Decline: Respinge
 Default: în mod implicit
@@ -280,6 +291,7 @@ Download the history of measurement: Descărcați istoricul măsurătorilor
 Drag your image(s) here or click to select from the disk: Trageți imaginea aici sau faceți clic pentru a selecta de pe disc
 E-mail notifications: Notificări prin email
 Edit: Editează
+Edit reaction: Editează reacția
 Electric: Electricitate
 Electricity meter: Contor de electricitate
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Contorul de energie electrică nu a raportat posibilitatea de a configura valorile adăugate. Actualizează firmware-ul dispozitivului și încercă din nou.
@@ -349,6 +361,10 @@ Generate new token: Generează un token nou
 Generate token: Generează un token
 Go to I/O device details: Treceți la detaliile dispozitivului
 Go to channel details: Treceți la detaliile canalului
+Go to the channel: Treci pe canal
+Go to the channel group: Treci la grupa de canale
+Go to the scene: Vino pe scenă
+Go to the schedule: Treci la program
 Go to your account: Accesați contul dvs.
 Grant access: Acordați acces
 Guru Meditation: Guru Meditation
@@ -423,6 +439,7 @@ Invalid function for channel.: Funcție nevalidă pentru canal.
 'Invalid redirect URI: {uri}': 'Adresa URL de returnare este incorectă: {uri}'
 Invalid request: Cerere nevalidă
 Invalid request.: Cerere nevalidă.
+Invalid scene: Scenă incorectă
 Invalid token.: Token nevalid.
 Invalid username or password: Nume de utilizator sau parolă incorectă
 Inverted logic: Logică inversă
@@ -472,6 +489,7 @@ Measurement window: Timpul de măsurare
 Meter value: Starea contorului
 Meters: Contoare
 Minimum voltage: Tensiune cea mai joasă
+Missing action.: Lipsă acțiune
 Mode: Mod
 Modification: Modificare
 Mondays: Zilele de luni
@@ -490,6 +508,7 @@ New channel group: Grupă nouă de canale
 New client app (smartphone) added to your account: Înregistrarea unei noi aplicații client (smartphone)
 New direct link: Link direct nou
 New password: Parolă nouă
+New reaction: Reacție nouă
 New scene: O noua scena
 Newer: Mai noi
 'Next limit renewal: {date}': Limita va fi reînnoită {date}
@@ -516,6 +535,9 @@ No. of locations: Numărul de locații
 None: Lipsă
 None (channel disabled): Niciuna (canal oprit)
 Noop: Lipsea activității
+Notification: Notificare
+Notification must have a body.: Notificarea trebuie să aibă conținut.
+Notifications: Notificare
 Number of aberrations: Numărul de aberații
 Number of attempts to close: Numărul de încercări de închidere
 Number of attempts to open: Numărul de încercări de deschidere
@@ -556,6 +578,7 @@ Percentage of closing: Procentul de închidere
 Personal access tokens: Token-uri personale de acces
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Token-urile personale de acces funcționează ca cele obișnuite, cu diferența că nu expiră.
 Personal token name is required.: Este necesară furnizarea numelui token-ului personal.
+Phase: Faza
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
@@ -567,11 +590,16 @@ Please click the link we have sent you after the registration to proceed.: Face�
 Please confirm your SUPLA account.: Activează-ți contul SUPLA.
 Please enter a valid email address: Vă rugăm să introduceți o adresă de e-mail validă
 Please fill a valid email address: Vă rugăm să introduceți o adresă de e-mail validă
+Please fix the problems with operations and try again.: Rezolvă problemele cu operațiile și încearcă din nou.
 Please log in again to proceed.: Conectați-vă din nou pentru a continua.
 Please provide a valid domain name for your private SUPLA Cloud: Introduceți numele de domeniu corect pentru cloud-ul dvs. privat SUPLA
 Please read the Terms and Conditions.: Citiți regulamentul.
+Please select a condition: Vă rugăm să selectați o condiție
 Please wait a moment before the next login attempt.: Așteptați un moment înainte de următoarea încercare de conectare.
 Port: Port
+Power active: Energie activă
+Power apparent: Energie aparentă
+Power reactive: Energie pasivă
 Precision: Precizie
 Predefined time ranges: Domeniu de timp
 Pressure sensor: Senzor de presiune
@@ -589,7 +617,10 @@ RGB led controller: Reglator de iluminare RGB
 RGB lighting: Iluminare RGB
 Rain sensor: Senzor de ploaie
 Random: Aleatoriu
+Reactions: Reacție
+Reactions limit has been exceeded: Limita ratei a fost depășită
 Read: Citire
+Recipients: Receptori
 Reference to the scene will be removed from the items below.: Indicarea scenei va fi eliminată din elemente de mai jos.
 Refresh: Actualizează
 Regeneration starts at: Începutul regenerării
@@ -666,6 +697,8 @@ Seems like a secret place: Credem că nu ar trebui să fii aici
 Select icon: Alegeți pictograma
 Select the item (subject) you want to control using this link: Selectați elementul (entitatea) pe care doriți să îl controlați folosind acest link
 Selected device has been logged out.: Dispozitivul selectat a fost deconectat
+Send a notification: Trimite notificare
+Send notification: Trimite notificare
 Sensor (normal closed): Senzor (normal închis)
 Sensor (normal open): Senzor (normal deschis)
 Sensor disconnected: Nu există senzor
@@ -745,8 +778,11 @@ The measurement history has been deleted.: Istoricul măsurătorilor a fost ște
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Noua parolă o va înlocui pe cea pe care o utilizați în prezent. Unele integrări pot înceta să funcționeze după ce le-au schimbat. A continua?
 The next available executions: Execuțiile următoare
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Cu un cadru, am marcat notificarea din care ați dat clic / ați dat clic pe linkul de dezabonare.
+The notification must have a recipient.: Notificarea trebuie să aibă un destinatar.
 The password and its confirm are not the same.: Parola și confirmarea acesteia nu corespund.
 The password should be 8 or more characters.: Parola trebuie să aibă cel puțin 8 caractere.
+The reaction has been added: Reacția a fost adăugată
+The reaction has been changed: Reacția a fost modificată
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Dispozitivul a fost oprit prin protecție la supracurent. Înainte de a le activa, asigurați-vă că problema care a dus la aceasta a fost rezolvată. Sigur doriți să porniți acest dispozitiv de la distanță?
 The scene would execute too many operations.: Scena efectuează prea multe operații.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Serverul a returnat o eroare 400, ceea ce înseamnă că solicitarea trimisă nu este validă.
@@ -770,6 +806,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Acest declanșator este utilizat local de dispozitiv (de exemplu, aprinde lumina, comandă jaluzea etc.). Dacă îi atribuiți o altă acțiune, funcția locală va fi dezactivată.
 Thursdays: Zilele de joi
 Timezone: Fus orar
+Title: Titlu
 To: Până la
 Toggle: Comutare
 Token does not exist: Token-ul nu există
@@ -778,7 +815,6 @@ Too many channels in this group: Prea multe canale în această grupă
 Too many operations in this scene: Prea multe operațiuni în scenă.
 Total: Suma
 Total time: Timpul total
-Triggers: Declanșatoare
 Tuesdays: Zilele de marți
 Turning this device off will cause its channels not working in the following features.: Oprirea dispozitivului va face ca canalele acestuia să nu mai funcționeze în următoarele elemente.
 Turning this device off will result in disabling features listed below.: Oprirea dispozitivului va dezactiva și elemente de mai jos.
@@ -807,6 +843,7 @@ Vector balance: Bilanț vectorial
 Verification method: Metoda de verificare
 Visible: Vizibil
 Visit app webpage: Deschide site-ul aplicației
+Voltage: Tensiune
 Voltage aberrations: Aberații de tensiune
 Voltage monitoring: Monitorizarea tensiunii
 WELCOME_MESSAGE: |
@@ -837,6 +874,101 @@ Wednesdays: Zilele de miercuri
 Weight sensor: Greutate
 Welcome!: Salut!
 What this token is for?: Pentru ce servește acest token?
+When a certain distance is reached: Când se atinge distanța stabilită
+When a lack of liquid is detected: Când se constată lipsa lichidului
+When a new mail comes: Când vine noul e-mail
+When flooding is detected: Când se constată inundația
+When liquid is detected: Când este detectat lichidul
+When liquid or lack thereof is detected: Când se detectează lichid sau lipsa acestuia
+When the RGB lighting brightness level changes: Când nivelul de luminozitate al luminii RGB se modifică
+When the RGB lighting reaches a certain level of brightness: Când iluminarea RGB atinge un anumit nivel de luminozitate
+When the active power will be: Când puterea activă va fi
+When the apparent power will be: Când puterea aparentă va fi
+When the balanced forward active energy will be: Când echilibrată, energia acumulată activă va fi
+When the balanced reverse active energy will be: Când echilibrată, energia returnată activă va fi
+When the brightness level changes: Când nivelul de luminozitate se va modifica
+When the brightness will be: Când nivelul de luminozitate va fi
+When the color changes: Când culoarea se va schimba
+When the condition is met: Când condiția va fi îndeplinită
+When the current will be: Când curentul va fi
+When the depth changes: Când măsurarea adâncimii se va modifica
+When the depth is: Când măsurarea adâncimii va fi
+When the device is turned off: Când dispozitivul va fi oprit
+When the device is turned on: Când dispozitivul va fi pornit
+When the device is turned on or off: Când dispozitivul va fi pornit sau oprit
+When the dimmer brightness level changes: Când nivelul de luminozitate a regulatorului de lumină se modifică
+When the dimmer reaches a certain brightness level: Când regulatorul de lumină atinge un nivel stabilit al nivelului de luminozitate
+When the distance changes: Când distanța se va schimba
+When the distance will be: Când distanța va fi
+When the door will be closed: Când ușile se vor închide
+When the door will be opened: Când ușile se vor deschide
+When the door will be opened or closed: Când ușile sunt deschise sau închise
+When the electricity meter reaches a certain value: Când contorul de energie atinge valoarea stabilită
+When the electricity meter value changes: Când valoarea contorului de energie electrică se va modifica
+When the electricity meter value will be: Când valoarea contorului de energie va fi
+When the forward active energy will be: Când energia absorbită activă va fi
+When the garage door will be closed: Când ușa garajului va fi închisă
+When the garage door will be opened: Când ușa garajului va fi deschisă
+When the garage door will be opened or closed: Când poarta garajului va fi închisă sau deschisă
+When the gas meter value changes: Când valoarea contorului de gaz se va modifica
+When the gas meter value reaches a certain value: Când contorul de gaz va atinge o anumită valoare
+When the gas meter value will be: Când valoarea contorului de gaz va fi
+When the gate will be closed: Când poarta va fi închisă
+When the gate will be opened: Când poarta va fi deschisă
+When the gate will be opened or closed: Când poarta va fi deschisă sau închisă
+When the gateway will be closed: Când portița va fi închisă
+When the gateway will be opened: Când portița va fi deschisă
+When the gateway will be opened or closed: Când portița va fi deschisă sau închisă
+When the heat meter value changes: Când valoarea contorului se va modifica
+When the heat meter value reaches a certain value: Când contorul de căldură atinge o anumită valoare
+When the heat meter value will be: Când valoarea contorului de căldură va fi
+When the humidity changes: Când umiditatea se va schimba
+When the humidity reaches a certain level: Când umiditatea atinge un anumit nivel
+When the humidity will be: Când umiditatea va fi
+When the lighting reaches a certain level of brightness: Când iluminarea atinge un anumit nivel de luminozitate
+When the mail comes or is taken: Când poșta sosește sau va fi luată
+When the mail has been taken: Când poșta va fi luată
+When the precipitation amount will be: Când cantitatea de ploaie măsurată va fi
+When the pressure changes: Când presiunea se va schimba
+When the pressure reaches a certain level: Când presiunea atinge un anumit nivel
+When the pressure will be: Când presiunea va fi
+When the rain amount changes: Când se va schimba cantitatea de precipitații
+When the reactive power will be: Când putere pasivă va fi
+When the reverse active energy will be: Când energie returnată activă va fi
+When the roller shutter position changes: Când se schimbă poziția jaluzelei
+When the roller shutter reaches: Când jaluzea atinge
+When the roller shutter reaches a certain position: Când jaluzea ajunge într-o anumită poziție
+When the roller shutter will be closed: Când jaluzea va fi închisă
+When the roller shutter will be opened: Când jaluzeaua va fi deschisă
+When the roller shutter will be opened or closed: Când jaluzeaua va fi deschisă sau închisă
+When the roof window position changes: Când se va schimba poziția ferestrei de la mansardă
+When the roof window reaches: Când fereastra de la mansardă ajunge
+When the roof window reaches a certain position: Când fereastra de la mansardă ajunge într-o anumită poziție
+When the roof window will be closed: Când fereastra de la mansardă va fi închisă
+When the roof window will be opened: Când fereastra de la mansardă va fi deschisă
+When the roof window will be opened or closed: Când fereastra de la mansardă va fi închisă sau deschisă
+When the temperature changes: Când se schimbă temperatura
+When the temperature reaches a certain value: Când temperatura atinge o valoare stabilită
+When the temperature will be: Când temperatura va fi
+When the value will be: Când valoarea va fi
+When the valve is closed: Când robinetul va fi închis
+When the valve is manually closed: Când robinetul va fi închis manual
+When the valve is opened: Când robinetul va fi deschis
+When the valve is opened or closed: Când robinetul va fi închis sau deschis
+When the voltage will be: Când tensiunea va fi
+When the water meter reaches a certain value: Când contorul de apă atinge o valoare anume
+When the water meter value changes: Când contorul de apă se va schimbata
+When the water meter value will be: Când valoarea contorului de apă va fi
+When the weight changes: Când greutatea se va schimba
+When the weight will be: Când greutatea va fi
+When the wind reaches a certain speed: Când vântul atinge o valoare stabilită
+When the wind speed changes: Când viteza vântului se va schimba
+When the wind speed will be: Când viteza vântului va fi
+When the window will be closed: Când fereastra va fi închisă
+When the window will be opened: Când fereastra va deschisă
+When the window will be opened or closed: Când fereastra va fi deschisă sau închisă
+When there is certain amount of rain: Când cade o anumită cantitate de ploaie
+When there weight reaches a certain value: Când greutatea atinge o anumită valoare
 When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Puteți efectua acțiunea linkului direct, completând identificatorul său unic direct în corpul cererii HTTP PATCH. Acest lucru este mai sigur, deoarece împiedică salvarea adresei complete a linkului dvs. în jurnalele de acces ale serverelor prin care trece solicitarea. Mai jos veți găsi un exemplu de executare folosind instrumentul cURL.
 Where is the JSON?: Unde este JSON?
 Where is your SUPLA Cloud?: Unde se află Supla ta?
@@ -863,6 +995,7 @@ You may find the below examples helpful, provided that you are still willing to 
 You must agree to the Terms and Conditions.: Acceptarea regulamentului este obligatorie.
 You must enable MQTT Broker first.: Mai întâi trebuie să activați integrarea cu brokerul MQTT.
 You must leave at least one phase enabled.: Cel puțin o fază trebuie să rămână activă.
+You must set an action for each reaction.: Trebuie să setezi o acțiune pentru fiecare reacție
 You must set an action for each scene operation.: Selectați acțiune pentru fiecare operațiune din scenă.
 You must set sections with transparent or opaque parameters or both.: Trebuie să alegeți transparența pentru cel puțin o secțiune.
 You need to provide icons for all states.: Trebuie să furnizați pictograme pentru toate stările.
@@ -912,11 +1045,17 @@ actionTrigger_TURN_OFF: Închidere
 actionTrigger_TURN_ON: Pornire
 actionableSubjectType_channel: Canal
 actionableSubjectType_channelGroup: Grupă de canale
+actionableSubjectType_notification: Notificare
 actionableSubjectType_scene: Scenă
 actionableSubjectType_schedule: Program
 addToHistoryMeasurementWarningSelected: Bifarea acestei opțiuni va adăuga valorile setate la măsurătorile viitoare salvate în istoric. Acest lucru poate fi văzut în grafice ca o creștere bruscă a valorii introduse. Vă recomandăm să setați acești parametri numai atunci când instalați contorul pentru prima dată. Pentru contoarele existente, vă recomandăm să ștergeți istoricul măsurătorilor imediat ce modificați aceste setări.
 addToHistoryMeasurementWarningUnselected: Trasarea acestei opțiuni va omite valorile setate din măsurătorile viitoare salvate în istoric. Acest lucru poate fi văzut în grafice ca o scădere bruscă. Vă recomandăm să setați acești parametri numai atunci când instalați contorul pentru prima dată. Pentru contoarele existente, vă recomandăm să ștergeți istoricul măsurătorilor imediat ce modificați aceste setări.
 after: după
+and wait until it reaches: și așteaptă până ajunge
+and wait until it will be: și așteaptă până va fi
+and wait until the humidity will be: și așteaptă până ce umiditatea va fi
+and wait until the temperature will be: și așteaptă până ce temperatura va fi
+and wait until the value will be: și așteaptă până ce valoarea va fi
 average: medie
 be at least {numChars} characters long: trebuie să aibă cel puțin {numChars} caractere
 before: înainte de
@@ -931,6 +1070,8 @@ channelConfig_stateVerificationMethod_passive: Pasiv
 channelGroup: Grupă de canale
 choose: alegeți
 choose a currency: alegeți valuta
+choose access identifiers: selectează ID-urile de acces
+choose the access identifiers: selectează ID-urile de acces
 choose the action: selectați acțiunea
 choose the channel: selectați un canal
 choose the channel group: selectați o grupă de canale
@@ -976,6 +1117,8 @@ logs_aggregation_minute: minute
 logs_aggregation_month: luni
 min.: min.
 minutes: minute
+notification: notificare
+or another element: sau un alt element
 password: parola
 prefix: prefix
 previous month: luna precedentă
@@ -1012,11 +1155,13 @@ state-rgb_on_dim_on: RGB și variatorul de lumină activate
 state-shut: Închise
 state-temperature: Temperatură
 suffix: sufix
+sum: suma
 sunrise-after: răsărit
 sunrise-before: răsărit
 sunset-after: apus
 sunset-before: apus
 the whole history: istoricul întreg
+then execute the action: apoi realizează acțiunea
 this month: luna curentă
 this year: anul curent
 today: azi
@@ -1057,7 +1202,6 @@ Chosen hour: Ora selectată
 Coming Soon: Disponibil în curând
 Confirm if you want to remove {deviceName} device: Confirmați că doriți să eliminați dispozitivul {deviceName}
 DISABLED: DEZACTIVAT
-Date: Data
 Days: Zile
 Direct links below will be deleted: Linkurile directe enumerate mai jos vor fi eliminate
 Doors, Gates: Uși, Porți
@@ -1082,6 +1226,7 @@ Mobile Apps: Aplicații mobile
 Next: Mai departe
 Number: Număr
 Output: Ieșire
+Please select an action: Vă rugăm să selectați o acțiune
 Please select the schedules that should also be enabled.: Selectați planurile care ar trebui să fie, de asemenea, activate.
 Previous login: Conectarea precedentă
 Registration: Înregistrare
@@ -1095,6 +1240,7 @@ Status: Stare
 Subject: Entitate
 Sunrise / Sunset: Est / Vest
 Supla for devices: Supla pentru dispozitive
+Triggers: Declanșatoare
 Try again later: Încercați din nou mai târziu
 Turning this device off will result in disabling all the associated schedules.: Dezactivarea acestui dispozitiv va dezactiva, de asemenea, planurile de executare asociate cu acesta.
 We have just sent you an activation link. Be patient.: Tocmai a fost trimis un mesaj cu un link pentru activarea contului dvs. Răbdare.
@@ -1108,151 +1254,37 @@ will expire: expiră
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-'% of closing': '% închidere'
-Add a new action to the scene: Adaugă o nouă acțiune în scenă
-Are you sure you want to delete this reaction?: Sigur dorești să ștergi această reacție?
-Body: Conținut
-Choose the channel: Selectează un canal
-Choose the channel group: Selectează o grupă de canale
-Choose the scene: Selectează o scenă
-Choose the schedule: Selectează programul
-Create new reaction: Creează o reacție nouă
-Current: Curent
-Edit reaction: Editează reacția
-Go to the channel: Treci pe canal
-Go to the channel group: Treci la grupa de canale
-Go to the scene: Vino pe scenă
-Go to the schedule: Treci la program
-Invalid scene: Scenă incorectă
-Missing action.: Lipsă acțiune
-New reaction: Reacție nouă
-Notification: Notificare
-Notification must have a body.: Notificarea trebuie să aibă conținut.
-Notifications: Notificare
-Phase: Faza
-Please fix the problems with operations and try again.: Rezolvă problemele cu operațiile și încearcă din nou.
-Please select a condition: Vă rugăm să selectați o condiție
-Please select an action: Vă rugăm să selectați o acțiune
-Power active: Energie activă
-Power apparent: Energie aparentă
-Power reactive: Energie pasivă
-Reactions: Reacție
-Reactions limit has been exceeded: Limita ratei a fost depășită
-Recipients: Receptori
-Send a notification: Trimite notificare
-Send notification: Trimite notificare
-The notification must have a recipient.: Notificarea trebuie să aibă un destinatar.
-The reaction has been added: Reacția a fost adăugată
-The reaction has been changed: Reacția a fost modificată
-Title: Titlu
-Voltage: Tensiune
-When a certain distance is reached: Când se atinge distanța stabilită
-When a lack of liquid is detected: Când se constată lipsa lichidului
-When a new mail comes: Când vine noul e-mail 
-When flooding is detected: Când se constată inundația 
-When liquid is detected: Când este detectat lichidul
-When liquid or lack thereof is detected: Când se detectează lichid sau lipsa acestuia
-When the RGB lighting brightness level changes: Când nivelul de luminozitate al luminii RGB se modifică
-When the RGB lighting reaches a certain level of brightness: Când iluminarea RGB atinge un anumit nivel de luminozitate
-When the active power will be: Când puterea activă va fi
-When the apparent power will be: Când puterea aparentă va fi
-When the balanced forward active energy will be: Când echilibrată, energia acumulată activă va fi
-When the balanced reverse active energy will be: Când echilibrată, energia returnată activă va fi
-When the brightness level changes: Când nivelul de luminozitate se va modifica
-When the brightness will be: Când nivelul de luminozitate va fi
-When the color changes: Când culoarea se va schimba
-When the condition is met: Când condiția va fi îndeplinită
-When the current will be: Când curentul va fi 
-When the depth changes: Când măsurarea adâncimii se va modifica
-When the depth is: Când măsurarea adâncimii va fi
-When the device is turned off: Când dispozitivul va fi oprit
-When the device is turned on: Când dispozitivul va fi pornit
-When the device is turned on or off: Când dispozitivul va fi pornit sau oprit
-When the dimmer brightness level changes: Când nivelul de luminozitate a regulatorului de lumină se modifică
-When the dimmer reaches a certain brightness level: Când regulatorul de lumină atinge un nivel stabilit al nivelului de luminozitate
-When the distance changes: Când distanța se va schimba
-When the distance will be: Când distanța va fi
-When the door will be closed: Când ușile se vor închide
-When the door will be opened: Când ușile se vor deschide
-When the door will be opened or closed: Când ușile sunt deschise sau închise
-When the electricity meter reaches a certain value: Când contorul de energie atinge valoarea stabilită
-When the electricity meter value changes: Când valoarea contorului de energie electrică se va modifica
-When the electricity meter value will be: Când valoarea contorului de energie va fi
-When the forward active energy will be: Când energia absorbită activă va fi
-When the garage door will be closed: Când ușa garajului va fi închisă 
-When the garage door will be opened: Când ușa garajului va fi deschisă
-When the garage door will be opened or closed: Când poarta garajului va fi închisă sau deschisă
-When the gas meter value changes: Când valoarea contorului de gaz se va modifica
-When the gas meter value reaches a certain value: Când contorul de gaz va atinge o anumită valoare
-When the gas meter value will be: Când valoarea contorului de gaz va fi
-When the gate will be closed: Când poarta va fi închisă
-When the gate will be opened: Când poarta va fi deschisă
-When the gate will be opened or closed: Când poarta va fi deschisă sau închisă
-When the gateway will be closed: Când portița va fi închisă
-When the gateway will be opened: Când portița va fi deschisă 
-When the gateway will be opened or closed: Când portița va fi deschisă sau închisă
-When the heat meter value changes: Când valoarea contorului se va modifica
-When the heat meter value reaches a certain value: Când contorul de căldură atinge o anumită valoare
-When the heat meter value will be: Când valoarea contorului de căldură va fi
-When the humidity changes: Când umiditatea se va schimba
-When the humidity reaches a certain level: Când umiditatea atinge un anumit nivel
-When the humidity will be: Când umiditatea va fi
-When the lighting reaches a certain level of brightness: Când iluminarea atinge un anumit nivel de luminozitate
-When the mail comes or is taken: Când poșta sosește sau va fi luată
-When the mail has been taken: Când poșta va fi luată
-When the precipitation amount will be: Când cantitatea de ploaie măsurată va fi
-When the pressure changes: Când presiunea se va schimba
-When the pressure reaches a certain level: Când presiunea atinge un anumit nivel
-When the pressure will be: Când presiunea va fi
-When the rain amount changes: Când se va schimba cantitatea de precipitații
-When the reactive power will be: Când putere pasivă va fi
-When the reverse active energy will be: Când energie returnată activă va fi
-When the roller shutter position changes: Când se schimbă poziția jaluzelei
-When the roller shutter reaches: Când jaluzea atinge
-When the roller shutter reaches a certain position: Când jaluzea ajunge într-o anumită poziție
-When the roller shutter will be closed: Când jaluzea va fi închisă
-When the roller shutter will be opened: Când jaluzeaua va fi deschisă
-When the roller shutter will be opened or closed: Când jaluzeaua va fi deschisă sau închisă
-When the roof window position changes: Când se va schimba poziția ferestrei de la mansardă
-When the roof window reaches: Când fereastra de la mansardă ajunge
-When the roof window reaches a certain position: Când fereastra de la mansardă ajunge într-o anumită poziție 
-When the roof window will be closed: Când fereastra de la mansardă va fi închisă
-When the roof window will be opened: Când fereastra de la mansardă va fi deschisă
-When the roof window will be opened or closed: Când fereastra de la mansardă va fi închisă sau deschisă
-When the temperature changes: Când se schimbă temperatura
-When the temperature reaches a certain value: Când temperatura atinge o valoare stabilită
-When the temperature will be: Când temperatura va fi
-When the value will be: Când valoarea va fi
-When the valve is closed: Când robinetul va fi închis
-When the valve is manually closed: Când robinetul va fi închis manual
-When the valve is opened: Când robinetul va fi deschis
-When the valve is opened or closed: Când robinetul va fi închis sau deschis
-When the voltage will be: Când tensiunea va fi 
-When the water meter reaches a certain value: Când contorul de apă atinge o valoare anume
-When the water meter value changes: Când contorul de apă se va schimbata
-When the water meter value will be: Când valoarea contorului de apă va fi
-When the weight changes: Când greutatea se va schimba
-When the weight will be: Când greutatea va fi
-When the wind reaches a certain speed: Când vântul atinge o valoare stabilită
-When the wind speed changes: Când viteza vântului se va schimba
-When the wind speed will be: Când viteza vântului va fi
-When the window will be closed: Când fereastra va fi închisă
-When the window will be opened: Când fereastra va deschisă
-When the window will be opened or closed: Când fereastra va fi deschisă sau închisă
-When there is certain amount of rain: Când cade o anumită cantitate de ploaie
-When there weight reaches a certain value: Când greutatea atinge o anumită valoare
-You must set an action for each reaction.: Trebuie să setezi o acțiune pentru fiecare reacție
-actionableSubjectType_notification: Notificare
-and wait until it reaches: și așteaptă până ajunge
-and wait until it will be: și așteaptă până va fi
-and wait until the humidity will be: și așteaptă până ce umiditatea va fi
-and wait until the temperature will be: și așteaptă până ce temperatura va fi
-and wait until the value will be: și așteaptă până ce valoarea va fi
-choose access identifiers: selectează ID-urile de acces
-choose the access identifiers: selectează ID-urile de acces
-notification: notificare
-or another element: sau un alt element
-sum: suma
-then execute the action: apoi realizează acțiunea
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>

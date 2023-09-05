@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% nedleggelse'
 '%s trigger is not supported by the hardware.': '% S-utløser støttes ikke av enheten.'
 ...open and shut roller shutters: ...åpne og stenge rullegardiner
 ...open gateways, gates or doors: ...åpne hageport, port eller dør
@@ -43,6 +44,7 @@ Active sessions: Aktive økter
 Active web sessions: Aktive økter (web)
 Add: Legg til
 Add a delay: Legg til en forsinkelse
+Add a new action to the scene: Legge til en ny handling i en scene
 Add a new icon: Legg til ny ikon
 Add action: Legg til en handling
 Add first channel to set channel group function and save it: Velg den første kanalen for å bestemme gruppefunksjonen og lagre den
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Er du sikker på at du øns
 Are you sure you want to delete this client?: Er du sikker på at du ønsker å fjerne kundeapplikasjonen?
 Are you sure you want to delete this direct link?: Er du sikker på at du ønsker å fjerne denne direkte lenken?
 Are you sure you want to delete this icon?: Er du sikker på at du ønsker å fjerne dette ikonet?
+Are you sure you want to delete this reaction?: Er du sikker på at du vil fjerne denne reaksjonen?
 Are you sure you want to delete this scene?: Er du sikker på at du vil slette denne scenen?
 Are you sure you want to delete this schedule?: Er du sikker på at du ønsker å fjerne denne planen?
 Are you sure you want to log out this device?: Er du sikker på at du vil logge ut av denne innretningen?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: I henhold til oppgang/ nedgang
 Be notified when your channels change state: Varsling om endringer i kanalers tilstand
 Be right back!: Kom tilbake om noen få øyeblikk!
 Below threshold: Under terskelen
+Body: Innhold
 Bottom position: Lavere posisjon
 Bridge: Bro
 Brightness: Lysstyrke
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Velg Tilgang ID som b
 Choose channel function: Velg en kanalfunksjon
 Choose client apps: Velg kundeapplikasjoner
 Choose location: Velg lokalisering
+Choose the channel: Velg en kanal
+Choose the channel group: Velg en kanalgruppe
+Choose the scene: Velg en scene
+Choose the schedule: Velg en tidsplan
 Choose the source channel.: Velg en kildekanal.
 Clear: Fjern
 Click the following link to confirm removal of your account on %cloudHost%.: For å bekrefte fjerning av din SUPLA konto trykk på lenken nedenfor.
@@ -215,8 +223,10 @@ Create New Location: Opprett ny lokalisering
 Create New Schedule: Opprett nytt program
 Create an account: Opprett konto
 Create new direct link: Opprett ny direkte lenke
+Create new reaction: Skap en ny reaksjon
 Create new scene: Lag en ny scene
 Currency: Valuta
+Current: Strøm
 Current Overload: Overbelastning
 Current Password: Nåværende passord
 Current password is incorrect: Aktuelt passord er ikke korrekt
@@ -228,6 +238,7 @@ DHT22 Temperature & Humidity Sensor: Temperatur- og fuktighetssensor DHT22
 DS18B20 Thermometer: Termometer DS18B20
 Data limits: Datagrenser
 Data saved: Gara ble lagret
+Date: Dato
 Date and time: Dato og tid
 Decline: Avvis
 Default: som standard
@@ -280,6 +291,7 @@ Download the history of measurement: Last ned målingshistorien
 Drag your image(s) here or click to select from the disk: Dra bildet over her eller trykk for å velge fra disken
 E-mail notifications: E-postvarsler
 Edit: Rediger
+Edit reaction: Rediger reaksjon
 Electric: Elektronikk
 Electricity meter: Elektrisitetsmåler
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Strømmåleren rapporterte ikke om muligheten til å konfigurere merverdier. Oppdater innretnings fastvare og prøv på nytt.
@@ -349,6 +361,10 @@ Generate new token: Generer ny token
 Generate token: Generer token
 Go to I/O device details: Gå til opplysninger om enheten
 Go to channel details: Gå til opplysninger om kanalen
+Go to the channel: Gå til kanal
+Go to the channel group: Gå til kanalgruppen
+Go to the scene: Gå til scenen
+Go to the schedule: Gå til tidsplanen
 Go to your account: Gå til din konto
 Grant access: Gi tilgang
 Guru Meditation: Guru Meditation
@@ -423,6 +439,7 @@ Invalid function for channel.: Ugyldig funksjon for kanale
 'Invalid redirect URI: {uri}': 'Ugyldig omdirigering URL: {uri}'
 Invalid request: Ugyldig forespørsel
 Invalid request.: Feil handling.
+Invalid scene: Feil scene
 Invalid token.: Feil token.
 Invalid username or password: Feil brukernavnet eller passordet
 Inverted logic: Omvendt logikk
@@ -472,6 +489,7 @@ Measurement window: Måling tid
 Meter value: Meterlesing
 Meters: Tellere
 Minimum voltage: Laveste spenning
+Missing action.: Ingen handling
 Mode: Modus
 Modification: Modifisering
 Mondays: Mandag
@@ -490,6 +508,7 @@ New channel group: Ny kanalgruppe
 New client app (smartphone) added to your account: Legger til en ny enhet
 New direct link: Ny direkte lenke
 New password: Nytt passord
+New reaction: Ny respons
 New scene: En ny scene
 Newer: Nyere
 'Next limit renewal: {date}': Begrensningen vil bli fornyet {date}
@@ -516,6 +535,9 @@ No. of locations: Antall lokaliseringer
 None: Mangel
 None (channel disabled): Ingen (kanal av)
 Noop: Ingen drift
+Notification: Varsling
+Notification must have a body.: Varselet må ha innhold.
+Notifications: Varslinger
 Number of aberrations: Antall avvik
 Number of attempts to close: Antall lukeforsøk
 Number of attempts to open: Antall åpningsforsøk
@@ -556,6 +578,7 @@ Percentage of closing: Prosent av stenging
 Personal access tokens: Personlige tilgang token
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Personlige tilgang token fungerer som vanlige, med den forskjellen at de er aktive på ubestemt tid.
 Personal token name is required.: Det er påkrevd å oppgi navnet på personlig token.
+Phase: Fase
 Phase 1: Fase 1
 Phase 2: Fase 2
 Phase 3: Fase 3
@@ -567,11 +590,16 @@ Please click the link we have sent you after the registration to proceed.: Trykk
 Please confirm your SUPLA account.: Aktiver SUPLA-kontoen din.
 Please enter a valid email address: Tast inn korrekt e-post adresse
 Please fill a valid email address: Tast inn korrekt e-post adresse
+Please fix the problems with operations and try again.: Feilsøk operasjoner, og prøv på nytt.
 Please log in again to proceed.: Logg inn på nytt for å fortsette.
 Please provide a valid domain name for your private SUPLA Cloud: Oppgi korrekt navn på din private SUPLA Cloud.
 Please read the Terms and Conditions.: Les regelverket.
+Please select a condition: Velg en betingelse
 Please wait a moment before the next login attempt.: Vent litt før det neste pålogging forsøket.
 Port: Port
+Power active: Aktiv energi
+Power apparent: Tilsynelatende energi
+Power reactive: Reaktiv energi
 Precision: Presisjon
 Predefined time ranges: Tidsintervaller
 Pressure sensor: Trykksensor
@@ -589,7 +617,10 @@ RGB led controller: Belysningskontroll RGB
 RGB lighting: Belysning RGB
 Rain sensor: Regnsensor
 Random: Tilfeldig
+Reactions: Reaksjoner
+Reactions limit has been exceeded: Svargrensen overskredet
 Read: Avlesning
+Recipients: Mottakere
 Reference to the scene will be removed from the items below.: Indikasjonen på scenen vil bli fjernet fra følgende elementer.
 Refresh: Last inn på nytt
 Regeneration starts at: Begynnelsen av regenerering
@@ -666,6 +697,8 @@ Seems like a secret place: Vi har på følelse at du ikke burde være her
 Select icon: Velg ikon
 Select the item (subject) you want to control using this link: Velg enhet du ønsker å kontrollere ved bruk av denne lenken
 Selected device has been logged out.: Den valgte innretningen har blitt logget ut
+Send a notification: Send varsel
+Send notification: Send varsel
 Sensor (normal closed): Sensor (vanligvis stengt)
 Sensor (normal open): Sensor (vanligvis åpen)
 Sensor disconnected: Manglende sensor
@@ -745,8 +778,11 @@ The measurement history has been deleted.: Målingshistorie ble fjernet.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Det nye passordet vil bytte det du bruker for øyeblikket. Noen integrasjoner kan slutte å fungere etter at de er endret. Å fortsette?
 The next available executions: Neste utførelser.
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Ved hjelp av en ramme markerte vi varselet du klikket / klikket på avmeldingslenken fra.
+The notification must have a recipient.: Meldingen må ha en mottaker.
 The password and its confirm are not the same.: Passord og bekreftelse er ikke like.
 The password should be 8 or more characters.: Passord bør ha minimum 8 tegn.
+The reaction has been added: Reaksjon er lagt til
+The reaction has been changed: Reaksjonen er endret
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Enheten er slått av av overstrømsbeskyttelse. Før du aktiverer den, må du kontrollere at problemet som førte til det er løst. Er du sikker på at du vil slå på denne enheten eksternt?
 The scene would execute too many operations.: Scenen utfører for mange operasjoner.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Server viser feil 400, dette betyr at innsendt forespørsel er feil.
@@ -770,6 +806,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Denne utløseren brukes lokalt av enheten (f.eks. slår den på lyset, kontrollerer rullegardinen osv.). Hvis du tilordner den en annen handling, vil den lokale funksjonen bli deaktivert.
 Thursdays: Torsdager
 Timezone: Tidssone
+Title: Tittel
 To: Til
 Toggle: Bytt
 Token does not exist: Token finnes ikke
@@ -778,7 +815,6 @@ Too many channels in this group: For mange kanaler i denne gruppen
 Too many operations in this scene: For mange operasjoner på åstedet.
 Total: Sum
 Total time: Total tid
-Triggers: Utløsere
 Tuesdays: Tirsdager
 Turning this device off will cause its channels not working in the following features.: Å slå av enheten vil slutte kanalene å fungere i følgende elementer.
 Turning this device off will result in disabling features listed below.: Å slå av enheten vil også slå av følgende elementer.
@@ -807,6 +843,7 @@ Vector balance: Vektorbalanse
 Verification method: Verifisering metode
 Visible: Synlig
 Visit app webpage: Åpne nettsiden til applikasjonen
+Voltage: Spenning
 Voltage aberrations: Spenningsavvik
 Voltage monitoring: Spenning overvåking
 WELCOME_MESSAGE: |
@@ -837,311 +874,6 @@ Wednesdays: Onsdager
 Weight sensor: Vekt
 Welcome!: Hei!
 What this token is for?: Hva brukes denne token til?
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Du kan utføre handlingen til direkte lenke ved å oppgi dens unik identifikator i HTTP PATCH forespørselen. Det er sikrere da det hindrer lagring av full adresse til din lenke i loggbøkene til tilgjengelige servere din forespørsel går gjennom. Nedenfor ser du eksempel på handlingen utført ved hjelp av verktøyet cURL.
-Where is the JSON?: Hvor er JSON?
-Where is your SUPLA Cloud?: Hvor er din SUPLA?
-White: Hvit
-Wind sensor: Vinnsensor
-Window opening sensor: Vindusåpner sensor
-With SUPLA you can operate the lights in your home or office: Med SUPLA kan du styre belysningen hjemme hos deg og på kontoret
-With function: Med funksjon
-Working period: Driftsperiode
-Working schedule: Aktivitetsplan
-YOUR LINK CODE: DIN LENKE KODE
-You are changing the settings too quickly. You have to wait a while before making this change.: Du endrer innstillinger for fort.  Du må vente litt før du endrer disse innstillingene.
-You can browse only the most recent logs now. Wait a while for the full history.: For nå vises det bare de nyeste målingene. Vent et øyeblikk til hele historien er lastet ned.
-You can ignore this message, if you have accidentally entered an incorrect password.: Dersom det er du som har innført feil passord er det bare å se bort ifra denne meldingen.
-You can use the application but you will not be able to modify any settings.: Du kan bruke appen men det er ikke mulig å gjøre endringer
-You cannot delete your last access identifier.: Du kan ikke fjerne din siste tilgang identifikator.
-You cannot delete your last location.: Du kan ikke fjerne din siste lokalisering.
-You cannot use SUPLA project name in the domain name.: Du kan ikke bruke SUPLA-prosjektnavnet i hoveddomenenavnet.
-You have exceeded your API Rate Limit: Du har overskredet din begrensning for etterspørsler til API
-You have requested to unregister your SUPLA Cloud instance: Du ba om å avregistrere SUPLA Cloud-forekomsten
-You have to choose at least one scope.: Du må velge minst ett område.
-You just need to execute the following command inside your host terminal.: Det holder med å utføre følgende forespørsel innen din host sin terminal.
-You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Hvis du fortsatt vil bruke den avanserte planleggingsmodusen, ta en titt på eksemplene nedenfor.
-You must agree to the Terms and Conditions.: Du må godkjenne regelverket.
-You must enable MQTT Broker first.: Først slå på integrasjon med MQTT
-You must leave at least one phase enabled.: Minst én fase må forbli aktiv.
-You must set an action for each scene operation.: Velg en handling for hver handling i scenen.
-You must set sections with transparent or opaque parameters or both.: Du må velge åpenhet for minst én seksjon.
-You need to provide icons for all states.: Du må levere ikoner for alle tilstander.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Du må oppdatere din SUPLA Cloud minst til versjonen 2.3.0.
-You will not be able to generate a direct link with the same URL again.: Oppretting av lenke med den samme URL blir ikke mulig.
-Your account and MQTT Broker connection.: Koble kontoen din til MQTT.
-Your account has been deleted. We hope you will come back to us soon.: Konto ble fjernet. Vi håper at du kommer tilbake til oss snart.
-Your account has been locked.: Din konto er sperret.
-Your account has not been confirmed yet.: Din konto er ikke bekreftet enda.
-Your account limits: Dine begrensninger
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Nettleseren din støtter ikke klientdatabasemekanismen (IndexedDB). Denne funksjonaliteten er nødvendig for å vise diagrammer og støtte avanserte innstillinger for dataeksport. Oppdater nettleseren din eller gå ut av privatmodus for å benytte seg av disse funksjonene.
-Your channel groups are allowed to have a maximum of {max} channels.: Kanalgruppene dine kan ha maksimalt {max} kanaler.
-Your chart is being drawn...: Diagrammet ditt tegnes akkurat nå...
-Your data are being collected. Please be patient.: Vi samler inn dataene dine, vent et øyeblikk.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dataene dine lastes ned fra serveren. Vent til nedlastningene er fullført før du eksporterer dem.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Enheten lar deg utvide funksjonaliteten og lar deg utføre enhver handling på hvilken som helst enhet du eier. De tilgjengelige alternativene avhenger av fastvaren og enheten du bruker.
-Your email: Din e-post
-Your instance is not registered or you are trying to authorize an application that is not public.: Din cloud er enten ikke registrert eller prøver du å autorisere en applikasjon som ikke er offentlig.
-Your password must contain at least one special character.: Passordet må inneholde minst ett spesialtegn.
-Your password must include at least one letter.: Passordet må inneholde minst én bokstav.
-Your password must include at least one number.: Passordet må inneholde minst ett tall.
-Your password must include both upper and lower case letters.: Passordet må inneholde store og små bokstaver.
-Your preferences has been updated.: Innstillingene dine ble lagret
-Your private SUPLA Cloud instance has been unregistered.: Din privat SUPLA Cloud ble avregistrert.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Din privat SUPLA cloud er ikke tilgjengelig. Sjekk om din server er online og at forbindelsen HTTPS fungerer korrekt.
-Your private SUPLA Cloud is almost registered.: Din privat SUPLA cloud er nesten registrert.
-Your private SUPLA Cloud is not registered.: Din privat SUPLA cloud er ikke registrert.
-Your scenes are allowed to have a maximum of {max} operations.: Dine scener kan ha maksimalt {max} operasjoner.
-Your schedules are allowed to have a maximum of {max} actions.: Dine ruter kan ha maksimalt {max} aksjoner.
-Your session has been expired.: Din sesjon er over.
-Your session is about to expire: Din sesjon er snart over.
-Your session will expire in {0}.: Din sesjon er over om {0}.
-Yours faithfully,: Med vennlig hilsen,
-access to your e-mail address: tilgang til e-postadressen din
-actionTrigger_HOLD: Hold på knappen
-actionTrigger_SHORT_PRESS_X1: Trykk 1x
-actionTrigger_SHORT_PRESS_X2: Trykk 2x
-actionTrigger_SHORT_PRESS_X3: Trykk 3x
-actionTrigger_SHORT_PRESS_X4: Trykk 4x
-actionTrigger_SHORT_PRESS_X5: Trykk 5x
-actionTrigger_TOGGLE_X1: Bytt 1x
-actionTrigger_TOGGLE_X2: Bytt 2x
-actionTrigger_TOGGLE_X3: Bytt 3x
-actionTrigger_TOGGLE_X4: Bytt 4x
-actionTrigger_TOGGLE_X5: Bytt 5x
-actionTrigger_TURN_OFF: Skru av
-actionTrigger_TURN_ON: Skru på
-actionableSubjectType_channel: Kanal
-actionableSubjectType_channelGroup: Kanalgruppe
-actionableSubjectType_scene: Scene
-actionableSubjectType_schedule: Tidsplan
-addToHistoryMeasurementWarningSelected: Ved å merke av for dette alternativet vil de angitte verdiene legges til fremtidige målinger som er lagret i loggen. Dette kan sees i grafene som en plutselig økning av den angitte verdien. Vi anbefaler at du bare stiller inn disse parameterne når du først installerer måleren. For eksisterende målere anbefaler vi at du sletter målehistorikken så snart du endrer disse innstillingene.
-addToHistoryMeasurementWarningUnselected: Hvis du fjerner valget av dette alternativet, ignoreres de angitte verdiene i fremtidige målinger som er lagret i historikken. Dette kan sees i diagrammene som et plutselig fall. Vi anbefaler at du bare stiller inn disse parameterne når du først installerer måleren. For eksisterende målere anbefaler vi at du sletter målehistorikken så snart du endrer disse innstillingene.
-after: etter
-average: gjennomsnitt
-be at least {numChars} characters long: må inneholde minst {numChars} tegn
-before: før
-caption: navn
-change: bytt
-channel: Kanal
-channelConfigHelp_gateCloseAfterHelp: Agenten som utløser portlukkingsprosedyren kan ha et maksimum på ett minutts forsinkelse i forhold til innstillingstiden.
-channelConfigHelp_numberOfAttemptsGate: Etter at du har beordret porten til å åpne eller lukke, vil systemet forsøke å lukke/åpne den og vente 60 sekunder for å sjekke om porten har nådd ønsket tilstand. Hvis ikke, vil systemet prøve å lukke/åpne igjen. Denne parameteren definerer maksimalt antall forsøk fra systemet for å nå målet. Anbefalt verdi er 5. Endring av denne parameteren påvirker ikke driften av tidsplaner.
-channelConfigHelp_stateVerificationMethod: 'Aktiv: Den første endringen i sensorstatusen til målet avbryter forsøket på nytt. Passiv: en gang på 60-tallet sjekker vi statusen til sensoren og slutter å prøve på nytt når sensoren deretter infiserer den gitte tilstanden.'
-channelConfig_stateVerificationMethod_active: Aktiv
-channelConfig_stateVerificationMethod_passive: Passiv
-channelGroup: Kanalgruppe
-choose: velg
-choose a currency: velg valuta
-choose the action: velg aksjon
-choose the channel: velg kanal
-choose the channel group: velg kanalgruppe
-choose the scene: velg scene
-choose the schedule: velg tidsplan
-choose the timezone: velg kanalgruppe
-click here: klikk her
-contains a character that is neither a letter nor a digit: inneholder et tegn som verken er en bokstav eller et tall
-contains a digit: inneholder et tall
-contains lower and upper letters: inneholder små og store bokstaver
-copied: kopiert
-copy: kopier
-days: dager
-directLinkExecutionFailureReason_disabled: Direkte lenke er av
-directLinkExecutionFailureReason_executionLimitExceeded: Grensen på utførelser er overskredet
-directLinkExecutionFailureReason_expired: Direkte lenke er utløpt
-directLinkExecutionFailureReason_forbiddenAction: Lenken tillater ikke utføring av denne handlingen
-directLinkExecutionFailureReason_httpGetForbidden: Utføring av handlingen ved bruk av ulovlig HTTP GET metode ble forhindret
-directLinkExecutionFailureReason_invalidActionParameters: Feil parameter på direkte lenke
-directLinkExecutionFailureReason_invalidChannelState: Handlingen kan ikke utføres på grunn av kanalens tilstand.
-directLinkExecutionFailureReason_invalidSlug: Innsendt verifiseringskode er ikke korrekt.
-directLinkExecutionFailureReason_noAllowedActions: Ingen tillate handlinger ble valgt
-directLinkExecutionFailureReason_noSlugOrAction: Feil forespørsel – lenke kode og handling er påkrevd
-directLinkExecutionFailureReason_notActiveYet: Direkte lenke er ikke aktiv
-directLinkExecutionFailureReason_otherFailure: Feil i valg av handling
-directLinkExecutionFailureReason_sceneDuringExecution: Scenen er i gang.
-directLinkExecutionFailureReason_unsupportedAction: Valgt handling er ikke korrekt
-empty: tom
-everyday: hver dag
-executed: utført
-extend: forleng
-from IP: fra IP-adresse
-from the IP: fra adresse
-hours: timer
-is at least {numChars} characters long: har minst {numChars} tegn
-last 24 hours: siste 24 timer
-last 30 days: siste 30 dager
-last 6 hours: siste 6 timer
-last 7 days: siste 7 dager
-logs_aggregation_day: dager
-logs_aggregation_hour: timer
-logs_aggregation_minute: minutter
-logs_aggregation_month: måneder
-min.: min.
-minutes: minutt
-password: Passord
-prefix: prefiks
-previous month: forrige måned
-range: omfang
-register-slide1-text: Ved hjelp av tilgjengelige enheter SUPLA gir deg mulighet til å skape enkle moduler til å styre og kontrollere deler av automatikken i bygget. Med SUPLA kan du blant annet styre belysningen, skru av og på hvitevarer og elektronikk, åpne og stenge porter og dører samt kontrollere temperaturen i rommene. Alt dette kan du gjøre med et sveip.
-register-slide1-title: Ditt eget smart bygg
-register-slide2-text: Noen av de grunnleggende forutsetningene til prosjektet er enkelhet og tilgjengelighet. SUPLA gir deg muligheten til å åpne porten når du skal kjøre inn på eiendommen din med et sveip. SUPLA er tilgjengelig over alt hvor du har tilgang til internett og har en smarttelefon eller nett brett. SUPLA er en OpenSource programvare derfor kan du også bli med på å utvikle den!
-register-slide2-title: SUPLA over alt
-register-slide3-text: Byggautomatisering systemer tilgjengelig på markedet er vanligvis veldig komplekse, stengte og dyre. Ofte må man installere de allerede under oppføring av bygget. SUPLA er enkel, åpen og gratis. Den gir mulighet til å bygge aktuatorer ved bruk av RaspberryPI, Arduino eller ESP8266 plattformer og kombinere dem med LAN og WiFi nettverk. Bli en del av prosjektet og bygg din egen versjon av byggautomatisering systemer.
-register-slide3-title: Gratis og åpen!
-reset chart view: Tilbake til første utsikt
-scene: scene
-schedule: tidsplan
-scheduleMode_crontab: avansert
-scheduleMode_daily: Dagsyklus
-scheduleMode_minutely: Minuttsyklus
-scheduleMode_once: Engangs
-sec.: sek.
-smartphones, tablets, etc.: smarttelefoner, nettbrett, etc.
-state-closed: Stengt
-state-default: Forhåndsinnstilling
-state-empty: Tomt
-state-full: Fult
-state-humidity: Fuktighet
-state-off: Av
-state-on: På
-state-opened: Åpnet
-state-partially_closed: Delvis stengt
-state-revealed: Avdekket
-state-rgb_off_dim_off: RGB og dimmer er av
-state-rgb_off_dim_on: RGB av, dimmer av
-state-rgb_on_dim_off: RGB på, dimmer på
-state-rgb_on_dim_on: RGB og dimmer på
-state-shut: Gardiner dratt for
-state-temperature: Temperatur
-suffix: sufiks
-sunrise-after: soloppgang – etter
-sunrise-before: soloppgang – før
-sunset-after: solnedgang – etter
-sunset-before: solnedgang – før
-the whole history: hele historien
-this month: nåværende måned
-this year: nåværende år
-today: i dag
-unknown: ukjent
-username: Brukernavn
-valid until: utløper
-values as seen on chart: verdier som i diagrammet
-values as seen on counter: verdier som på telleren
-yesterday: i går
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan ikke samhandle med din konto før du gir tilgang på nytt.'
-'{clientName} wants to access your account.': '{clientName} ber om tilgang til din konto.'
-'{minutes} minutes after sunrise': '{minutes} minutter etter soloppgang'
-'{minutes} minutes after sunset': '{minutes} minutter etter solnedgang'
-'{minutes} minutes before sunrise': '{minutes} minutter før soloppgang'
-'{minutes} minutes before sunset': '{minutes} minutter før solnedgang'
-'{requests} out of {limit} / day': '{requests} fra {limit} / døgn'
-'{requests} out of {limit} / h': '{requests} fra {limit} / t'
-'{requests} out of {limit} / min': '{requests} fra {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} fra {limit} / {seconds} sek.'
-'{serviceName} integration': Integrering med {serviceName}
-
-#</editor-fold>
-#<editor-fold desc="Extra translations">
-# Translations below have not been found in sources. You might want to delete them.
-...and start your adventure with building automation today!: ...start ditt eventyr med smarte hus allerede i dag!
-Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
-Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
-Action: Handling
-Add new item to use in the scene: Legg til et nytt element til scenen
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Er du sikker på at du vil slette all spenningsavvikshistorikk for denne kanalen?
-Are you sure you want to disable this device?: Er du sikker på at du ønsker å skru av denne enheten?
-Assigned Locations: Tildelte lokaliseringer
-Authorized OAuth apps: Autoriserte OAuth applikasjoner
-Calculated value: Målerstatus
-Cannot send an activation e-mail. Try again later.: Sending av melding med aktiviseringslenken var ikke mulig. Vennligst prøv senere.
-Channel will be deleted from the channel group below: Kanalen blir fjernet fra kanalgruppene nedenfor
-Channels in channel group: Kanaler i kanalgrupper
-Chosen hour: Valgt time
-Coming Soon: Tilgjengelig snart
-Confirm if you want to remove {deviceName} device: Bekreft at du vil fjerne enheten {deviceName}
-DISABLED: AV
-Date: Dato
-Days: Dager
-Direct links below will be deleted: Direkte lenker nevnt nedenfor blir fjernet
-Doors, Gates: Dører, Porter
-ENABLED: PÅ
-Email already exists: Denne e-post adressen eksisterer allerede
-Existing schedules: Eksisterende planer
-From IP: Fra IP adressen
-Get SUPLA on your devices: Last ned SUPLA på dine enheter
-Hi: Hei
-Hour: Time
-Hours: Timer
-I/O: Inngang/Utgang
-If you want to stay here, do something!: Hvis du ønsker å bli igjen her, gjør noe!
-Input: Inngang
-Languages: Språk
-Loading: Lading
-Location password must be at least 4 characters.: Passord for lokalisering må ha minst 4 tegn.
-Location password must be no longer than 32 characters.: Passord for lokalisering kan ikke ha mer enn 32 tegn.
-Minute: Minutt
-Mobile Apps: Mobilapper
-Next: Videre
-Number: Nummer
-Output: Utgang
-Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
-Previous login: Sist innlogging
-Registration: Registrering
-Remove: Fjern
-Schedule cannot be enabled: Aktivering av planen mislykket
-Schedules below will be deleted: Planene nedenfor blir fjernet
-Sources available from: Kilder tilgjengelig i
-Status: Status
-Subject: Enhet
-Sunrise / Sunset: Soloppgang / Solnedgang
-Supla for devices: SUPLA for enheter
-Try again later: Prøv en gang til senere
-Turning this device off will result in disabling all the associated schedules.: Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.
-When: Når
-You will be logged out shortly: Snart blir du logget ut.
-execute: utfør
-hourly: Timesyklus
-or add a delay: Eller legg til en forsinkelse
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-'% of closing': '% nedleggelse'
-Add a new action to the scene: Legge til en ny handling i en scene
-Are you sure you want to delete this reaction?: Er du sikker på at du vil fjerne denne reaksjonen?
-Body: Innhold
-Choose the channel: Velg en kanal
-Choose the channel group: Velg en kanalgruppe
-Choose the scene: Velg en scene
-Choose the schedule: Velg en tidsplan
-Create new reaction: Skap en ny reaksjon
-Current: Strøm
-Edit reaction: Rediger reaksjon
-Go to the channel: Gå til kanal
-Go to the channel group: Gå til kanalgruppen
-Go to the scene: Gå til scenen
-Go to the schedule: Gå til tidsplanen
-Invalid scene: Feil scene
-Missing action.: Ingen handling
-New reaction: Ny respons
-Notification: Varsling
-Notification must have a body.: Varselet må ha innhold.
-Notifications: Varslinger
-Phase: Fase
-Please fix the problems with operations and try again.: Feilsøk operasjoner, og prøv på nytt.
-Please select a condition: Velg en betingelse
-Please select an action: Velg en handling
-Power active: Aktiv energi
-Power apparent: Tilsynelatende energi
-Power reactive: Reaktiv energi
-Reactions: Reaksjoner
-Reactions limit has been exceeded: Svargrensen overskredet
-Recipients: Mottakere
-Send a notification: Send varsel
-Send notification: Send varsel
-The notification must have a recipient.: Meldingen må ha en mottaker.
-The reaction has been added: Reaksjon er lagt til
-The reaction has been changed: Reaksjonen er endret
-Title: Tittel
-Voltage: Spenning
 When a certain distance is reached: Når den angitte avstanden er nådd
 When a lack of liquid is detected: Når mangel på væske oppdages
 When a new mail comes: Når den nye posten kommer
@@ -1237,18 +969,318 @@ When the window will be opened: Når vinduet åpnes
 When the window will be opened or closed: Når et vindu lukkes eller åpnes
 When there is certain amount of rain: Når det regner en viss mengde
 When there weight reaches a certain value: Når vekten rekker en viss verdi
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Du kan utføre handlingen til direkte lenke ved å oppgi dens unik identifikator i HTTP PATCH forespørselen. Det er sikrere da det hindrer lagring av full adresse til din lenke i loggbøkene til tilgjengelige servere din forespørsel går gjennom. Nedenfor ser du eksempel på handlingen utført ved hjelp av verktøyet cURL.
+Where is the JSON?: Hvor er JSON?
+Where is your SUPLA Cloud?: Hvor er din SUPLA?
+White: Hvit
+Wind sensor: Vinnsensor
+Window opening sensor: Vindusåpner sensor
+With SUPLA you can operate the lights in your home or office: Med SUPLA kan du styre belysningen hjemme hos deg og på kontoret
+With function: Med funksjon
+Working period: Driftsperiode
+Working schedule: Aktivitetsplan
+YOUR LINK CODE: DIN LENKE KODE
+You are changing the settings too quickly. You have to wait a while before making this change.: Du endrer innstillinger for fort.  Du må vente litt før du endrer disse innstillingene.
+You can browse only the most recent logs now. Wait a while for the full history.: For nå vises det bare de nyeste målingene. Vent et øyeblikk til hele historien er lastet ned.
+You can ignore this message, if you have accidentally entered an incorrect password.: Dersom det er du som har innført feil passord er det bare å se bort ifra denne meldingen.
+You can use the application but you will not be able to modify any settings.: Du kan bruke appen men det er ikke mulig å gjøre endringer
+You cannot delete your last access identifier.: Du kan ikke fjerne din siste tilgang identifikator.
+You cannot delete your last location.: Du kan ikke fjerne din siste lokalisering.
+You cannot use SUPLA project name in the domain name.: Du kan ikke bruke SUPLA-prosjektnavnet i hoveddomenenavnet.
+You have exceeded your API Rate Limit: Du har overskredet din begrensning for etterspørsler til API
+You have requested to unregister your SUPLA Cloud instance: Du ba om å avregistrere SUPLA Cloud-forekomsten
+You have to choose at least one scope.: Du må velge minst ett område.
+You just need to execute the following command inside your host terminal.: Det holder med å utføre følgende forespørsel innen din host sin terminal.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Hvis du fortsatt vil bruke den avanserte planleggingsmodusen, ta en titt på eksemplene nedenfor.
+You must agree to the Terms and Conditions.: Du må godkjenne regelverket.
+You must enable MQTT Broker first.: Først slå på integrasjon med MQTT
+You must leave at least one phase enabled.: Minst én fase må forbli aktiv.
 You must set an action for each reaction.: Du må angi en handling for hver reaksjon.
+You must set an action for each scene operation.: Velg en handling for hver handling i scenen.
+You must set sections with transparent or opaque parameters or both.: Du må velge åpenhet for minst én seksjon.
+You need to provide icons for all states.: Du må levere ikoner for alle tilstander.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Du må oppdatere din SUPLA Cloud minst til versjonen 2.3.0.
+You will not be able to generate a direct link with the same URL again.: Oppretting av lenke med den samme URL blir ikke mulig.
+Your account and MQTT Broker connection.: Koble kontoen din til MQTT.
+Your account has been deleted. We hope you will come back to us soon.: Konto ble fjernet. Vi håper at du kommer tilbake til oss snart.
+Your account has been locked.: Din konto er sperret.
+Your account has not been confirmed yet.: Din konto er ikke bekreftet enda.
+Your account limits: Dine begrensninger
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Nettleseren din støtter ikke klientdatabasemekanismen (IndexedDB). Denne funksjonaliteten er nødvendig for å vise diagrammer og støtte avanserte innstillinger for dataeksport. Oppdater nettleseren din eller gå ut av privatmodus for å benytte seg av disse funksjonene.
+Your channel groups are allowed to have a maximum of {max} channels.: Kanalgruppene dine kan ha maksimalt {max} kanaler.
+Your chart is being drawn...: Diagrammet ditt tegnes akkurat nå...
+Your data are being collected. Please be patient.: Vi samler inn dataene dine, vent et øyeblikk.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dataene dine lastes ned fra serveren. Vent til nedlastningene er fullført før du eksporterer dem.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Enheten lar deg utvide funksjonaliteten og lar deg utføre enhver handling på hvilken som helst enhet du eier. De tilgjengelige alternativene avhenger av fastvaren og enheten du bruker.
+Your email: Din e-post
+Your instance is not registered or you are trying to authorize an application that is not public.: Din cloud er enten ikke registrert eller prøver du å autorisere en applikasjon som ikke er offentlig.
+Your password must contain at least one special character.: Passordet må inneholde minst ett spesialtegn.
+Your password must include at least one letter.: Passordet må inneholde minst én bokstav.
+Your password must include at least one number.: Passordet må inneholde minst ett tall.
+Your password must include both upper and lower case letters.: Passordet må inneholde store og små bokstaver.
+Your preferences has been updated.: Innstillingene dine ble lagret
+Your private SUPLA Cloud instance has been unregistered.: Din privat SUPLA Cloud ble avregistrert.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Din privat SUPLA cloud er ikke tilgjengelig. Sjekk om din server er online og at forbindelsen HTTPS fungerer korrekt.
+Your private SUPLA Cloud is almost registered.: Din privat SUPLA cloud er nesten registrert.
+Your private SUPLA Cloud is not registered.: Din privat SUPLA cloud er ikke registrert.
+Your scenes are allowed to have a maximum of {max} operations.: Dine scener kan ha maksimalt {max} operasjoner.
+Your schedules are allowed to have a maximum of {max} actions.: Dine ruter kan ha maksimalt {max} aksjoner.
+Your session has been expired.: Din sesjon er over.
+Your session is about to expire: Din sesjon er snart over.
+Your session will expire in {0}.: Din sesjon er over om {0}.
+Yours faithfully,: Med vennlig hilsen,
+access to your e-mail address: tilgang til e-postadressen din
+actionTrigger_HOLD: Hold på knappen
+actionTrigger_SHORT_PRESS_X1: Trykk 1x
+actionTrigger_SHORT_PRESS_X2: Trykk 2x
+actionTrigger_SHORT_PRESS_X3: Trykk 3x
+actionTrigger_SHORT_PRESS_X4: Trykk 4x
+actionTrigger_SHORT_PRESS_X5: Trykk 5x
+actionTrigger_TOGGLE_X1: Bytt 1x
+actionTrigger_TOGGLE_X2: Bytt 2x
+actionTrigger_TOGGLE_X3: Bytt 3x
+actionTrigger_TOGGLE_X4: Bytt 4x
+actionTrigger_TOGGLE_X5: Bytt 5x
+actionTrigger_TURN_OFF: Skru av
+actionTrigger_TURN_ON: Skru på
+actionableSubjectType_channel: Kanal
+actionableSubjectType_channelGroup: Kanalgruppe
 actionableSubjectType_notification: Varsling
+actionableSubjectType_scene: Scene
+actionableSubjectType_schedule: Tidsplan
+addToHistoryMeasurementWarningSelected: Ved å merke av for dette alternativet vil de angitte verdiene legges til fremtidige målinger som er lagret i loggen. Dette kan sees i grafene som en plutselig økning av den angitte verdien. Vi anbefaler at du bare stiller inn disse parameterne når du først installerer måleren. For eksisterende målere anbefaler vi at du sletter målehistorikken så snart du endrer disse innstillingene.
+addToHistoryMeasurementWarningUnselected: Hvis du fjerner valget av dette alternativet, ignoreres de angitte verdiene i fremtidige målinger som er lagret i historikken. Dette kan sees i diagrammene som et plutselig fall. Vi anbefaler at du bare stiller inn disse parameterne når du først installerer måleren. For eksisterende målere anbefaler vi at du sletter målehistorikken så snart du endrer disse innstillingene.
+after: etter
 and wait until it reaches: og vent til den når
 and wait until it will be: og vent til det blir
 and wait until the humidity will be: og vent til fuktigheten vil være
 and wait until the temperature will be: og vent til temperaturen blir
 and wait until the value will be: og vent til verdien blir
+average: gjennomsnitt
+be at least {numChars} characters long: må inneholde minst {numChars} tegn
+before: før
+caption: navn
+change: bytt
+channel: Kanal
+channelConfigHelp_gateCloseAfterHelp: Agenten som utløser portlukkingsprosedyren kan ha et maksimum på ett minutts forsinkelse i forhold til innstillingstiden.
+channelConfigHelp_numberOfAttemptsGate: Etter at du har beordret porten til å åpne eller lukke, vil systemet forsøke å lukke/åpne den og vente 60 sekunder for å sjekke om porten har nådd ønsket tilstand. Hvis ikke, vil systemet prøve å lukke/åpne igjen. Denne parameteren definerer maksimalt antall forsøk fra systemet for å nå målet. Anbefalt verdi er 5. Endring av denne parameteren påvirker ikke driften av tidsplaner.
+channelConfigHelp_stateVerificationMethod: 'Aktiv: Den første endringen i sensorstatusen til målet avbryter forsøket på nytt. Passiv: en gang på 60-tallet sjekker vi statusen til sensoren og slutter å prøve på nytt når sensoren deretter infiserer den gitte tilstanden.'
+channelConfig_stateVerificationMethod_active: Aktiv
+channelConfig_stateVerificationMethod_passive: Passiv
+channelGroup: Kanalgruppe
+choose: velg
+choose a currency: velg valuta
 choose access identifiers: Velg tilgangs-IDer
 choose the access identifiers: Velg tilgangs-IDer
+choose the action: velg aksjon
+choose the channel: velg kanal
+choose the channel group: velg kanalgruppe
+choose the scene: velg scene
+choose the schedule: velg tidsplan
+choose the timezone: velg kanalgruppe
+click here: klikk her
+contains a character that is neither a letter nor a digit: inneholder et tegn som verken er en bokstav eller et tall
+contains a digit: inneholder et tall
+contains lower and upper letters: inneholder små og store bokstaver
+copied: kopiert
+copy: kopier
+days: dager
+directLinkExecutionFailureReason_disabled: Direkte lenke er av
+directLinkExecutionFailureReason_executionLimitExceeded: Grensen på utførelser er overskredet
+directLinkExecutionFailureReason_expired: Direkte lenke er utløpt
+directLinkExecutionFailureReason_forbiddenAction: Lenken tillater ikke utføring av denne handlingen
+directLinkExecutionFailureReason_httpGetForbidden: Utføring av handlingen ved bruk av ulovlig HTTP GET metode ble forhindret
+directLinkExecutionFailureReason_invalidActionParameters: Feil parameter på direkte lenke
+directLinkExecutionFailureReason_invalidChannelState: Handlingen kan ikke utføres på grunn av kanalens tilstand.
+directLinkExecutionFailureReason_invalidSlug: Innsendt verifiseringskode er ikke korrekt.
+directLinkExecutionFailureReason_noAllowedActions: Ingen tillate handlinger ble valgt
+directLinkExecutionFailureReason_noSlugOrAction: Feil forespørsel – lenke kode og handling er påkrevd
+directLinkExecutionFailureReason_notActiveYet: Direkte lenke er ikke aktiv
+directLinkExecutionFailureReason_otherFailure: Feil i valg av handling
+directLinkExecutionFailureReason_sceneDuringExecution: Scenen er i gang.
+directLinkExecutionFailureReason_unsupportedAction: Valgt handling er ikke korrekt
+empty: tom
+everyday: hver dag
+executed: utført
+extend: forleng
+from IP: fra IP-adresse
+from the IP: fra adresse
+hours: timer
+is at least {numChars} characters long: har minst {numChars} tegn
+last 24 hours: siste 24 timer
+last 30 days: siste 30 dager
+last 6 hours: siste 6 timer
+last 7 days: siste 7 dager
+logs_aggregation_day: dager
+logs_aggregation_hour: timer
+logs_aggregation_minute: minutter
+logs_aggregation_month: måneder
+min.: min.
+minutes: minutt
 notification: varsling
 or another element: eller et annet element
+password: Passord
+prefix: prefiks
+previous month: forrige måned
+range: omfang
+register-slide1-text: Ved hjelp av tilgjengelige enheter SUPLA gir deg mulighet til å skape enkle moduler til å styre og kontrollere deler av automatikken i bygget. Med SUPLA kan du blant annet styre belysningen, skru av og på hvitevarer og elektronikk, åpne og stenge porter og dører samt kontrollere temperaturen i rommene. Alt dette kan du gjøre med et sveip.
+register-slide1-title: Ditt eget smart bygg
+register-slide2-text: Noen av de grunnleggende forutsetningene til prosjektet er enkelhet og tilgjengelighet. SUPLA gir deg muligheten til å åpne porten når du skal kjøre inn på eiendommen din med et sveip. SUPLA er tilgjengelig over alt hvor du har tilgang til internett og har en smarttelefon eller nett brett. SUPLA er en OpenSource programvare derfor kan du også bli med på å utvikle den!
+register-slide2-title: SUPLA over alt
+register-slide3-text: Byggautomatisering systemer tilgjengelig på markedet er vanligvis veldig komplekse, stengte og dyre. Ofte må man installere de allerede under oppføring av bygget. SUPLA er enkel, åpen og gratis. Den gir mulighet til å bygge aktuatorer ved bruk av RaspberryPI, Arduino eller ESP8266 plattformer og kombinere dem med LAN og WiFi nettverk. Bli en del av prosjektet og bygg din egen versjon av byggautomatisering systemer.
+register-slide3-title: Gratis og åpen!
+reset chart view: Tilbake til første utsikt
+scene: scene
+schedule: tidsplan
+scheduleMode_crontab: avansert
+scheduleMode_daily: Dagsyklus
+scheduleMode_minutely: Minuttsyklus
+scheduleMode_once: Engangs
+sec.: sek.
+smartphones, tablets, etc.: smarttelefoner, nettbrett, etc.
+state-closed: Stengt
+state-default: Forhåndsinnstilling
+state-empty: Tomt
+state-full: Fult
+state-humidity: Fuktighet
+state-off: Av
+state-on: På
+state-opened: Åpnet
+state-partially_closed: Delvis stengt
+state-revealed: Avdekket
+state-rgb_off_dim_off: RGB og dimmer er av
+state-rgb_off_dim_on: RGB av, dimmer av
+state-rgb_on_dim_off: RGB på, dimmer på
+state-rgb_on_dim_on: RGB og dimmer på
+state-shut: Gardiner dratt for
+state-temperature: Temperatur
+suffix: sufiks
 sum: beløp
+sunrise-after: soloppgang – etter
+sunrise-before: soloppgang – før
+sunset-after: solnedgang – etter
+sunset-before: solnedgang – før
+the whole history: hele historien
 then execute the action: Utfør deretter handlingen
+this month: nåværende måned
+this year: nåværende år
+today: i dag
+unknown: ukjent
+username: Brukernavn
+valid until: utløper
+values as seen on chart: verdier som i diagrammet
+values as seen on counter: verdier som på telleren
+yesterday: i går
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} kan ikke samhandle med din konto før du gir tilgang på nytt.'
+'{clientName} wants to access your account.': '{clientName} ber om tilgang til din konto.'
+'{minutes} minutes after sunrise': '{minutes} minutter etter soloppgang'
+'{minutes} minutes after sunset': '{minutes} minutter etter solnedgang'
+'{minutes} minutes before sunrise': '{minutes} minutter før soloppgang'
+'{minutes} minutes before sunset': '{minutes} minutter før solnedgang'
+'{requests} out of {limit} / day': '{requests} fra {limit} / døgn'
+'{requests} out of {limit} / h': '{requests} fra {limit} / t'
+'{requests} out of {limit} / min': '{requests} fra {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} fra {limit} / {seconds} sek.'
+'{serviceName} integration': Integrering med {serviceName}
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...start ditt eventyr med smarte hus allerede i dag!
+Access identifier password must be at least 8 characters.: Passord for tilgang Identifikator må ha minst 8 tegn.
+Access identifier password must be no longer than 32 characters.: Passord for tilgang Identifikator kan ikke være lengre enn 32 tegn.
+Action: Handling
+Add new item to use in the scene: Legg til et nytt element til scenen
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Er du sikker på at du vil slette all spenningsavvikshistorikk for denne kanalen?
+Are you sure you want to disable this device?: Er du sikker på at du ønsker å skru av denne enheten?
+Assigned Locations: Tildelte lokaliseringer
+Authorized OAuth apps: Autoriserte OAuth applikasjoner
+Calculated value: Målerstatus
+Cannot send an activation e-mail. Try again later.: Sending av melding med aktiviseringslenken var ikke mulig. Vennligst prøv senere.
+Channel will be deleted from the channel group below: Kanalen blir fjernet fra kanalgruppene nedenfor
+Channels in channel group: Kanaler i kanalgrupper
+Chosen hour: Valgt time
+Coming Soon: Tilgjengelig snart
+Confirm if you want to remove {deviceName} device: Bekreft at du vil fjerne enheten {deviceName}
+DISABLED: AV
+Days: Dager
+Direct links below will be deleted: Direkte lenker nevnt nedenfor blir fjernet
+Doors, Gates: Dører, Porter
+ENABLED: PÅ
+Email already exists: Denne e-post adressen eksisterer allerede
+Existing schedules: Eksisterende planer
+From IP: Fra IP adressen
+Get SUPLA on your devices: Last ned SUPLA på dine enheter
+Hi: Hei
+Hour: Time
+Hours: Timer
+I/O: Inngang/Utgang
+If you want to stay here, do something!: Hvis du ønsker å bli igjen her, gjør noe!
+Input: Inngang
+Languages: Språk
+Loading: Lading
+Location password must be at least 4 characters.: Passord for lokalisering må ha minst 4 tegn.
+Location password must be no longer than 32 characters.: Passord for lokalisering kan ikke ha mer enn 32 tegn.
+Minute: Minutt
+Mobile Apps: Mobilapper
+Next: Videre
+Number: Nummer
+Output: Utgang
+Please select an action: Velg en handling
+Please select the schedules that should also be enabled.: Velg planer som bør aktiveres på.
+Previous login: Sist innlogging
+Registration: Registrering
+Remove: Fjern
+Schedule cannot be enabled: Aktivering av planen mislykket
+Schedules below will be deleted: Planene nedenfor blir fjernet
+Sources available from: Kilder tilgjengelig i
+Status: Status
+Subject: Enhet
+Sunrise / Sunset: Soloppgang / Solnedgang
+Supla for devices: SUPLA for enheter
+Triggers: Utløsere
+Try again later: Prøv en gang til senere
+Turning this device off will result in disabling all the associated schedules.: Dersom denne enheten blir skrudd av vil alle planene som er relatert til den også bli skrudd av.
+When: Når
+You will be logged out shortly: Snart blir du logget ut.
+execute: utfør
+hourly: Timesyklus
+or add a delay: Eller legg til en forsinkelse
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>

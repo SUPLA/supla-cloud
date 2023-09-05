@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% đóng cửa'
 '%s trigger is not supported by the hardware.': Kích hoạt %s không được thiết bị hỗ trợ.
 ...open and shut roller shutters: ...mở và đóng cửa chớp lăn
 ...open gateways, gates or doors: ...Mở cổng hoặc cửa
@@ -43,6 +44,7 @@ Active sessions: Các phiên hoạt động
 Active web sessions: Các phiên hoạt động (trang mạng)
 Add: Thêm
 Add a delay: Thêm thời gian trễ
+Add a new action to the scene: Thêm một hoạt động mới vào cảnh
 Add a new icon: Thêm mới
 Add action: Thêm một hành động
 Add first channel to set channel group function and save it: Thêm kênh đầu tiên để đặt chức năng nhóm kênh và lứu.
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Chắc chắc xóa nhóm k�
 Are you sure you want to delete this client?: Chắc chắn muốn xóa Client này ?
 Are you sure you want to delete this direct link?: Chắc chắn muốn xóa liên kết này?
 Are you sure you want to delete this icon?: Chắc chắn muốn xóa biểu tượng này?
+Are you sure you want to delete this reaction?: Bạn có chắc muốn xóa phản ứng này không?
 Are you sure you want to delete this scene?: Bạn có chắc chắn muốn xóa cảnh này không?
 Are you sure you want to delete this schedule?: Chắc chắn muốn xóa lịch trình này?
 Are you sure you want to log out this device?: Bạn có chắc chắn muốn đăng xuất thiết bị này?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: Dựa trên hướng đông / tây
 Be notified when your channels change state: Thông báo về những thay đổi trong trạng thái kênh
 Be right back!: Hãy quay lại sau vài phút nữa!
 Below threshold: Dưới ngưỡng
+Body: Nội dung
 Bottom position: Vị trí thấp hơn
 Bridge: Cầu
 Brightness: Độ sáng
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Chọn định danh t
 Choose channel function: Chọn chức năng cho kênh
 Choose client apps: Chọn ứng dụng khách
 Choose location: Chọn vị trí
+Choose the channel: Chọn kênh
+Choose the channel group: Chọn nhóm kênh
+Choose the scene: Chọn cảnh
+Choose the schedule: Chọn lịch trình
 Choose the source channel.: Chọn kênh chính.
 Clear: Xóa bỏ
 Click the following link to confirm removal of your account on %cloudHost%.: Nhấp vào liên kết sau để xác nhận xóa tài khoản của bạn trên %cloudHost%.
@@ -215,8 +223,10 @@ Create New Location: Tạo vị trí mới.
 Create New Schedule: Tạo lịch trình mới.
 Create an account: Tạo mới tài khoản
 Create new direct link: Tạo link liên kết.
+Create new reaction: Tạo một phản ứng mới
 Create new scene: Tạo hoạt cảnh mới
 Currency: Devise
+Current: Điện
 Current Overload: Quá tải
 Current Password: Mật khẩu hiện tại
 Current password is incorrect: Mật khẩu hiện tại không đúng
@@ -228,6 +238,7 @@ DHT22 Temperature & Humidity Sensor: Cảm biến nhiệt & độ ẩm DHT22
 DS18B20 Thermometer: Nhiệt kế DS18B20
 Data limits: Giới hạn dữ liệu
 Data saved: Lưu dữ liệu
+Date: Ngày
 Date and time: Ngày giờ
 Decline: Refuser
 Default: Mặc định
@@ -280,6 +291,7 @@ Download the history of measurement: Tải xuống lịch sử đo lường
 Drag your image(s) here or click to select from the disk: Kéo hình ảnh ở đây hoặc nhấp để chọn nó từ đĩa
 E-mail notifications: Thông báo qua e-mail
 Edit: Chỉnh sửa
+Edit reaction: Chỉnh sửa phản ứng
 Electric: Điện
 Electricity meter: Đồng hồ điện
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Bộ đếm năng lượng điện không báo cáo khả năng tạo cấu hình cho f các giá trị đã thêm. Vui lòng cập nhật phần sụn của thiết bị và thử lại.
@@ -349,6 +361,10 @@ Generate new token: Tạo mã thông báo mới
 Generate token: Tạo mã thông báo
 Go to I/O device details: Chi tiết thiết bị I/O
 Go to channel details: Chi tiết kênh
+Go to the channel: Chuyển đến kênh
+Go to the channel group: Chuyển đến nhóm kênh
+Go to the scene: Chuyển đến cảnh
+Go to the schedule: Chuyển đến lịch trình
 Go to your account: Chi tiết tài khoản
 Grant access: Cấp phép chi cập
 Guru Meditation: Guru Meditation
@@ -423,6 +439,7 @@ Invalid function for channel.: Chức năng không hợp lệ cho kênh.
 'Invalid redirect URI: {uri}': 'URI chuyển hướng không hợp lệ: {uri}'
 Invalid request: Yêu cầu không hợp lệ.
 Invalid request.: Yêu cầu không hợp lệ.
+Invalid scene: Cảnh không hợp lệ
 Invalid token.: Mã token không hợp lệ.
 Invalid username or password: Tên người dùng hoặc mật khẩu không đúng
 Inverted logic: Inverted logic
@@ -472,6 +489,7 @@ Measurement window: Thời gian đo
 Meter value: giá trị bộ đếm
 Meters: Bộ đếm
 Minimum voltage: Điện áp thấp nhất
+Missing action.: Không có hành động
 Mode: Chế độ
 Modification: Sửa đổi
 Mondays: Thứ hai
@@ -490,6 +508,7 @@ New channel group: Nhóm kênh mới
 New client app (smartphone) added to your account: Đăng kí ứng dụng client mới (điện thoại smartphone)
 New direct link: Link liên kết mới
 New password: Mật khẩu mới
+New reaction: Phản ứng mới
 New scene: Hoạt cảnh mới
 Newer: Gần đây
 'Next limit renewal: {date}': Gia hạn tiếp theo {date}
@@ -516,6 +535,9 @@ No. of locations: Số khu vực
 None: không
 None (channel disabled): Không có (kênh đang tắt)
 Noop: Không có hoạt động
+Notification: Thông báo
+Notification must have a body.: Thông báo phải có nội dung
+Notifications: Các thông báo
 Number of aberrations: Số sai lệch
 Number of attempts to close: Số lần thử đóng
 Number of attempts to open: Số lần thử mở
@@ -556,6 +578,7 @@ Percentage of closing: Tỷ lệ đóng
 Personal access tokens: Mã thông báo truy cập cá nhân
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Mã thông báo truy cập cá nhân hoạt động giống như mã thông báo truy cập OAuth thông thường nhưng chúng không có thời gian hết hạn
 Personal token name is required.: Tên mã thông báo cá nhân là bắt buộc
+Phase: Pha
 Phase 1: Giai đoạn 1
 Phase 2: Giai đoạn 2
 Phase 3: Giai đoạn 3
@@ -567,11 +590,16 @@ Please click the link we have sent you after the registration to proceed.: Vui l
 Please confirm your SUPLA account.: Kích hoạt tài khoản SUPLA của bạn
 Please enter a valid email address: Vui lòng nhập một địa chỉ email hợp lệ
 Please fill a valid email address: Vui lòng điền địa chỉ email hợp lệ
+Please fix the problems with operations and try again.: Giải quyết các vấn đề với các bên vận hành và thử lại
 Please log in again to proceed.: Vui lòng đăng nhập lại để tiếp tục.
 Please provide a valid domain name for your private SUPLA Cloud: Vui lòng cung cấp một tên miền hợp lệ cho Đám mây SUPLA riêng tư của bạn
 Please read the Terms and Conditions.: Vui lòng đọc Điều khoản và Điều kiện.
+Please select a condition: Vui lòng chọn điều kiện
 Please wait a moment before the next login attempt.: Vui lòng đợi trong giây lát trước lần đăng nhập tiếp theo.
 Port: Cổng
+Power active: Năng lượng hoạt động
+Power apparent: Năng lượng biểu hiện
+Power reactive: Năng lượng lưu hành
 Precision: Độ chính xác
 Predefined time ranges: Khoảng thời gian
 Pressure sensor: Cảm biến áp suất
@@ -589,7 +617,10 @@ RGB led controller: Bộ điều khiển led RGB
 RGB lighting: Ánh sáng RGB
 Rain sensor: Cảm biến mưa
 Random: Ngẫu nhiên
+Reactions: Phản ứng
+Reactions limit has been exceeded: Vượt quá giới hạn phản ứng
 Read: Đọc
+Recipients: Người nhận
 Reference to the scene will be removed from the items below.: Nhưng mục đã chọn trong cảnh này sẽ được xóa cùng những mục dưới đây.
 Refresh: Làm mới
 Regeneration starts at: Bắt đầu tái tạo
@@ -666,6 +697,8 @@ Seems like a secret place: Có vẻ như là một nơi bí mật
 Select icon: Chọn biểu tượng
 Select the item (subject) you want to control using this link: Chọn mục (chủ đề) bạn muốn kiểm soát bằng liên kết này.
 Selected device has been logged out.: Thiết bị được chọn đã đăng xuất
+Send a notification: Gửi thông báo
+Send notification: Gửi thông báo
 Sensor (normal closed): Cảm biến (đóng bình thường)
 Sensor (normal open): Cảm biến (mở bình thường)
 Sensor disconnected: Cảm biến bị ngắt kết nối
@@ -745,8 +778,11 @@ The measurement history has been deleted.: Lịch sử đo lường đã đượ
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Mật khẩu mới sẽ thay thế mật khẩu bạn đang sử dụng. Một số tích hợp có thể sẽ dừng hoạt động sau thay đổi này. Bạn có tiếp tục?
 The next available executions: Các thực thi có sẵn tiếp theo
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Chúng tôi đã đóng khung nhằm dấu những thông báo mà bạn  đã nhấp  vào liên kết hủy đăng ký.
+The notification must have a recipient.: Thông báo phải có người nhận.
 The password and its confirm are not the same.: Mật khẩu và xác nhận không giống nhau.
 The password should be 8 or more characters.: Mật khẩu phải có 8 ký tự trở lên.
+The reaction has been added: Phản ứng đã được thêm vào
+The reaction has been changed: Phản ứng đã được thay đổi
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Thiệt bị đã được tắt chế độ bảo vệ trong trường hợp cháy/chập điện. Trước khi bật chúng, hãy đảm bảo rằng sự cố dẫn đến nó đã được giải quyết. Bạn có chắc chắn muốn bật thiết bị này từ xa không?
 The scene would execute too many operations.: Cảnh này đã qua quá nhiều thao tác.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Máy chủ đã trả về Lỗi HTTP 400. Điều đó có nghĩa là yêu cầu bạn cố gắng thực hiện không hợp lệ.
@@ -770,6 +806,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: 'Công tắc kích hoạt này được sử dụng nội bộ bởi thiết bị (ví dụ: bật đèn, điều khiển rèm cửa, v.v.). Nếu bạn gán cho nó một tác vụ khác, chức năng nội bộ sẽ bị tắt.'
 Thursdays: Thứ năm
 Timezone: Múi giờ
+Title: Tiêu đề
 To: Đến
 Toggle: Chuyển đổi
 Token does not exist: Mã thông báo không tồn tại
@@ -778,7 +815,6 @@ Too many channels in this group: Quá nhiều kênh trong nhóm này
 Too many operations in this scene: Quá nhiều thao tác trong hoạt cảnh.
 Total: Tổng
 Total time: Tổng thời gian
-Triggers: Công tắc kích hoạt
 Tuesdays: Thứ ba
 Turning this device off will cause its channels not working in the following features.: Tắt thiệt bị sẽ khiến cho các kênh của nó dừng hoạt động trong các mục dưới đây.
 Turning this device off will result in disabling features listed below.: Tắt thiệt bị sẽ khiến cho những mục sau bị tắt theo.
@@ -807,6 +843,7 @@ Vector balance: Cân bằng vector
 Verification method: Phương pháp xác minh
 Visible: Có thể nhìn thấy
 Visit app webpage: Truy cập trang web ứng dụng
+Voltage: Điện áp
 Voltage aberrations: Sai lệch điện áp
 Voltage monitoring: Giám sát điện áp
 WELCOME_MESSAGE: |
@@ -837,311 +874,6 @@ Wednesdays: Thứ tư
 Weight sensor: Cảm biến trọng lượng
 Welcome!: Chào mừng bạn
 What this token is for?: Mã thông báo này để làm gì ?
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Khi bạn thực hiện liên kết với phương thức HTTP PATCH, bạn có thể bỏ qua phần ngẫu nhiên của liên kết và gửi nó trong phần thân yêu cầu. Điều này an toàn hơn vì yêu cầu như vậy sẽ không được lưu trữ trong bất kỳ nhật ký máy chủ hoặc proxy nào, bất kể cấu hình của chúng. Vui lòng tìm một yêu cầu ví dụ cURL dưới đây.
-Where is the JSON?: JSON ở đâu?
-Where is your SUPLA Cloud?: Đám mây SUPLA của bạn ở đâu??
-White: Trắng
-Wind sensor: Cảm biến gió
-Window opening sensor: Cảm biến mở cửa sổ
-With SUPLA you can operate the lights in your home or office: Với SUPLA, bạn có thể vận hành đèn trong nhà hoặc văn phòng của bạn
-With function: Với chức năng
-Working period: Thời gian làm việc
-Working schedule: Lịch hoạt động
-YOUR LINK CODE: MÃ LIÊN KẾT CỦA BẠN
-You are changing the settings too quickly. You have to wait a while before making this change.: Bạn thay đổi các cài đặt quá nhanh. Bạn cần đợi một lúc trước khi tiếp tục thay đổi các cài đặt này.
-You can browse only the most recent logs now. Wait a while for the full history.: Hiện chỉ hiển thị các đo đạc mới nhất. Vui lòng đợi một chút để tải toàn bộ lịch sử.
-You can ignore this message, if you have accidentally entered an incorrect password.: Bạn có thể bỏ qua thông báo này, nếu bạn vô tình nhập sai mật khẩu.
-You can use the application but you will not be able to modify any settings.: Bạn có thể sử dụng ứng dụng nhưng bạn sẽ không thể sửa đổi bất kỳ cài đặt nào.
-You cannot delete your last access identifier.: Bạn không thể xóa định danh truy cập cuối cùng của bạn.
-You cannot delete your last location.: Bạn không thể xóa vị trí cuối cùng của bạn.
-You cannot use SUPLA project name in the domain name.: Bạn không thể sử dụng tên dự án SUPLA trong phần tên ở domain chủ.
-You have exceeded your API Rate Limit: Bạn đã sử dụng hết giới hạn yêu cầu đối với API
-You have requested to unregister your SUPLA Cloud instance: Bạn đã yêu cầu hủy đăng kí phiên bản SUPLA Cloud của bạn.
-You have to choose at least one scope.: Bạn phải chọn ít nhất một phạm vi
-You just need to execute the following command inside your host terminal.: Bạn chỉ cần thực hiện lệnh sau trong thiết bị đầu cuối máy chủ của bạn.
-You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Nếu bạn muốn tiếp tục sử dụng chế độ lịch biểu nâng cao, hãy xem những ví dụ dưới đây.
-You must agree to the Terms and Conditions.: Bạn phải đồng ý với các Điều khoản và Điều kiện.
-You must enable MQTT Broker first.: Trước tiên bạn phải bật kết nối với giao thức MQTT.
-You must leave at least one phase enabled.: Ít nhất một pha phải được giữ nguyên hoạt động.
-You must set an action for each scene operation.: Chọn hành động cho từng diễn biến trong cảnh.
-You must set sections with transparent or opaque parameters or both.: Bạn phải chọn độ trong suốt cho ít nhất một phần.
-You need to provide icons for all states.: Bạn cần cung cấp các biểu tượng cho tất cả các tiểu bang
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Bạn cần cập nhật SUPLA Cloud lên phiên bản 2.3.0. hoặc mới hơn.
-You will not be able to generate a direct link with the same URL again.: Bạn sẽ không thể tạo lại một liên kết trực tiếp với cùng một URL.
-Your account and MQTT Broker connection.: Kết nối tài khoản của bạn với giao thức MQTT/
-Your account has been deleted. We hope you will come back to us soon.: Tài khoản của bạn đã bị xóa. Chúng tôi hy vọng bạn sẽ quay lại với chúng tôi sớm.
-Your account has been locked.: Tài khoản của bạn đã bị khóa.
-Your account has not been confirmed yet.: Tài khoản của bạn chưa được xác nhận.
-Your account limits: Giới hạn tài khoản của bạn
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Trình duyệt của bạn không hỗ trợ cơ chế cơ sở dữ liệu khách hàng (IndexedDB). Chức năng này là cần thiết để hiển thị biểu đồ và hỗ trợ các cài đặt nâng cao để xuất dữ liệu. Vui lòng cập nhật trình duyệt hoặc thoát khỏi chế độ ẩn danh để sử dụng các chức năng này.
-Your channel groups are allowed to have a maximum of {max} channels.: Các nhóm kênh có thể có tối đã {max} kênh
-Your chart is being drawn...: Biểu đồ của bạn đang được vẽ...
-Your data are being collected. Please be patient.: Chúng tôi đang thu thập dữ liệu của bạn, hãy kiên nhẫn.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dữ liệu của bạn đang được tải từ máy chủ. Vui lòng đợi cho đến khi hoàn tất việc tải xuống trước khi xuất dữ liệu.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Thiết bị cho phép mở rộng các tính năng và cho phép thực hiện các thao tác bất kì trên thiết bị bạn sở hữu. Những tính năng có phụ thuộc vào phiên bản phần mềm trên thiết bị.
-Your email: Địa chỉ email của bạn
-Your instance is not registered or you are trying to authorize an application that is not public.: Trường hợp của bạn chưa được đăng ký hoặc bạn đang cố gắng ủy quyền cho một ứng dụng không công khai.
-Your password must contain at least one special character.: Mật khẩu phải bao gồm ít nhất một kí tự đặc biệt.
-Your password must include at least one letter.: Mật khẩu phải bao gồm ít nhất một chữ cái.
-Your password must include at least one number.: Mật khẩu phải bao gồm ít nhất một con số.
-Your password must include both upper and lower case letters.: Mật khẩu phải bao gồm chữ viêt thường và chữ viết hoa.
-Your preferences has been updated.: Cài đặt của bạn đã được ghi nhớ,
-Your private SUPLA Cloud instance has been unregistered.: Phiên bản SUPLA Cloud riêng của bạn đã bị hủy đăng kí.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ví dụ SUPLA Cloud riêng tư của bạn không khả dụng. Đảm bảo rằng máy chủ của bạn đang trực tuyến và kết nối https của bạn hoạt động chính xác.
-Your private SUPLA Cloud is almost registered.: Đám mây SUPLA riêng tư của bạn gần như đã được đăng ký.
-Your private SUPLA Cloud is not registered.: Đám mây SUPLA riêng tư của bạn chưa được đăng ký.
-Your scenes are allowed to have a maximum of {max} operations.: Những hoạt cảnh của bạn có thể có tối đa {max} thao tác.
-Your schedules are allowed to have a maximum of {max} actions.: Những lịch biểu của bạn có thể có tối đa {max} hành động.
-Your session has been expired.: Phiên của bạn đã hết hạn.
-Your session is about to expire: Phiên bản của bạn sắp hết hạn
-Your session will expire in {0}.: Phiên của bạn sẽ hết hạn trong {0}.
-Yours faithfully,: Trân trọng
-access to your e-mail address: Quyền truy cập vào e-mail của bạn
-actionTrigger_HOLD: Giữ nút bấm
-actionTrigger_SHORT_PRESS_X1: Bấm 1x
-actionTrigger_SHORT_PRESS_X2: Bấm 2x
-actionTrigger_SHORT_PRESS_X3: Bấm 3x
-actionTrigger_SHORT_PRESS_X4: Bấm 4x
-actionTrigger_SHORT_PRESS_X5: Bấm 5x
-actionTrigger_TOGGLE_X1: Chuyển 1x
-actionTrigger_TOGGLE_X2: Chuyển 2x
-actionTrigger_TOGGLE_X3: Chuyển 3x
-actionTrigger_TOGGLE_X4: Chuyển 4x
-actionTrigger_TOGGLE_X5: Chuyển 5x
-actionTrigger_TURN_OFF: Tắt
-actionTrigger_TURN_ON: Bật
-actionableSubjectType_channel: Kênh
-actionableSubjectType_channelGroup: Nhóm kênh
-actionableSubjectType_scene: Hoạt cảnh
-actionableSubjectType_schedule: Lịch trình
-addToHistoryMeasurementWarningSelected: Chọn mục này sẽ khiến cho các giá trị đã cài đặt được thêm vào các tính toán đã lưu trong lịch sử. Có thể sẽ được hiển thị trên biểu đồ tăng đột biến. Khuyến nghị cài đặt các giá trị này chỉ trong trường hợp cài đặt máy đếm lần đầu. Đối với các máy đếm đã được tạo thì nên xóa lịch sử các tính toán đã được lưu trữ sau khi thay đổi cài đặt này.
-addToHistoryMeasurementWarningUnselected: Bủy chọn mục này sẽ khiến cho các giá trị đã cài đặt được bỏ qua trong các tính toán đã lưu trong lịch sử. Có thể sẽ được hiển thị trên biểu đồ giảm đột biến. Khuyến nghị cài đặt các giá trị này chỉ trong trường hợp cài đặt máy đếm lần đầu. Đối với các máy đếm đã được tạo thì nên xóa lịch sử các tính toán đã được lưu trữ sau khi thay đổi cài đặt này.
-after: Sau
-average: Trung bình
-be at least {numChars} characters long: phải có ít nhất {numChars} ký tự
-before: Trước
-caption: Tên
-change: thay đổi
-channel: Kênh
-channelConfigHelp_gateCloseAfterHelp: Bên chạy quy trình tắt cổng có thể chậm hơn tối đa một phút so với thời gian quy định.
-channelConfigHelp_numberOfAttemptsGate: Sau khi bạn ra lệnh mở hoặc đóng cổng, hệ thống sẽ thử đóng / mở và chờ 60 giây để kiểm tra xem cổng đã đạt trạng thái mong muốn hay chưa. Nếu chưa, hệ thống sẽ thử đóng / mở 1 lần nữa. Tham số bên dưới xác định số lần thử tối đa của hệ thống để đạt được mục tiêu. Giá trị được khuyến khích là 5. Việc thay đổi thông số này không ảnh hưởng đến hoạt động của lịch trình.
-channelConfigHelp_stateVerificationMethod: 'Hoạt động: Thay đổi lần đầu tiên trạng thái của cảm biến theo mục tiêu sẽ ngừng các lần thử lại. Thụ động: cứ sau 60 giây, chúng tôi kiểm tra trạng thái của cảm biến và dừng lặp lại khi cảm biến đã báo cáo ở trạng thái cài đặt.'
-channelConfig_stateVerificationMethod_active: Hoạt động
-channelConfig_stateVerificationMethod_passive: Bị động
-channelGroup: Nhóm kênh
-choose: chọn
-choose a currency: chọn tiền tệ
-choose the action: Chọn hành động
-choose the channel: chọn kênh
-choose the channel group: chọn nhóm kênh
-choose the scene: Chọn hoạt cảnh
-choose the schedule: chọn lịch trình
-choose the timezone: chọn múi giờ
-click here: bấm vào đây
-contains a character that is neither a letter nor a digit: chứa ký tự không phải là chữ cái hoặc số
-contains a digit: chứa số
-contains lower and upper letters: chứa chữ cái in hoa và chữ cái thường
-copied: sao chép
-copy: sao chép
-days: ngày
-directLinkExecutionFailureReason_disabled: Liên kết trực tiếp bị vô hiệu hóa
-directLinkExecutionFailureReason_executionLimitExceeded: Giới hạn ứng dụng đã bị vượt quá
-directLinkExecutionFailureReason_expired: Liên kết trực tiếp không còn hoạt động
-directLinkExecutionFailureReason_forbiddenAction: Liên kết không cho phép hành động này
-directLinkExecutionFailureReason_httpGetForbidden: Không thể thực hiện hành động thông qua phương thức HTTP GET bị cấm.
-directLinkExecutionFailureReason_invalidActionParameters: Cài đặt liên kết trực tiếp không chính xác
-directLinkExecutionFailureReason_invalidChannelState: Không thể thực hiện tác vụ do trạng thái của kênh.
-directLinkExecutionFailureReason_invalidSlug: Mã xác minh không chính xác
-directLinkExecutionFailureReason_noAllowedActions: Không có hành động được ủy quyền đã được chọn
-directLinkExecutionFailureReason_noSlugOrAction: Yêu cầu xấu - mã liên kết và hành động cần thiết
-directLinkExecutionFailureReason_notActiveYet: Liên kết trực tiếp chưa hoạt động
-directLinkExecutionFailureReason_otherFailure: Lỗi thực thi hành động
-directLinkExecutionFailureReason_sceneDuringExecution: Hoạt cảnh trong khóa trình thực thi.
-directLinkExecutionFailureReason_unsupportedAction: Chọn hành động không chính xác
-empty: Trống
-everyday: Hàng ngày
-executed: Thực thi
-extend: mở rộng
-from IP: từ địa chỉ IP
-from the IP: từ IP
-hours: Giờ
-is at least {numChars} characters long: phải có ít nhất {numChars} ký tự
-last 24 hours: 24 giờ gần nhất
-last 30 days: 30 ngày gần nhất
-last 6 hours: 6 giờ gần nhất
-last 7 days: 7 ngày gần nhất
-logs_aggregation_day: ngày
-logs_aggregation_hour: giờ
-logs_aggregation_minute: phút
-logs_aggregation_month: tháng
-min.: Tối thiểu
-minutes: phút
-password: mật khẩu
-prefix: Tiền tố
-previous month: tháng trước
-range: khoảng thời gian
-register-slide1-text: Dựa trên các thiết bị điện tử có sẵn, SUPLA cho phép bạn xây dựng các mô-đun đơn giản mà bạn có thể quản lý và điều khiển các thành phần tự động hóa trong tòa nhà của mình. Nhờ SUPLA, trong số những thứ khác, bạn có thể quản lý ánh sáng, bật và tắt thiết bị gia dụng, mở / đóng cửa và cổng hoặc kiểm soát nhiệt độ phòng. Tất cả điều này bạn có thể làm chỉ với một cú nhấp chuột trên màn hình
-register-slide1-title: Phát triển tòa nhà thông minh của riêng bạn
-register-slide2-text: Một trong những giả định chính của dự án là sự đơn giản và sẵn có. SUPLA cho phép bạn bật đèn hoặc mở cửa chỉ bằng một cú nhấp chuột và khi bạn muốn vào sở hữu của chúng tôi. SUPLA luôn khả dụng mọi lúc mọi nơi với quyền truy cập vào mạng Internet và điện thoại thông minh hoặc máy tính bảng của bạn. Sự phát triển của SUPLA dựa trên các nguyên tắc của phần mềm nguồn mở và phần cứng mở để bạn có thể tự cam kết với dự án này!
-register-slide2-title: SUPLA ở khắp mọi nơi!
-register-slide3-text: Các hệ thống tự động hóa tòa nhà có sẵn trên thị trường thường rất phức tạp, khép kín và đắt tiền. Trong nhiều trường hợp, chúng đòi hỏi phải được cài đặt ở giai đoạn xây dựng. SUPLA rất đơn giản, cởi mở và miễn phí. Nó cho phép bạn xây dựng các thành phần cho các hệ thống truyền động từ nền tảng RaspberryPl, Arduino hoặc ESP8266 và kết nối chúng với mạng LAN và WiFi. Tham gia dự án và xây dựng phiên bản hệ thống tự động hóa tòa nhà của riêng bạn!
-register-slide3-title: Miễn phí và mở!
-reset chart view: đặt lại chế độ xem biểu đồ
-scene: Hoạt cảnh
-schedule: lịch trình
-scheduleMode_crontab: Nâng cao
-scheduleMode_daily: hằng ngày
-scheduleMode_minutely: từng phút
-scheduleMode_once: một lần
-sec.: giây
-smartphones, tablets, etc.: smartphones, tablettes, etc.
-state-closed: Đóng
-state-default: Mặc định
-state-empty: Trống
-state-full: Hoàn toàn
-state-humidity: Độ ẩm
-state-off: Đóng
-state-on: Mở
-state-opened: Mở
-state-partially_closed: Đóng một phần
-state-revealed: Tiết lộ
-state-rgb_off_dim_off: RGB và dimmer bị vô hiệu hóa
-state-rgb_off_dim_on: Tắt RGB, mở dimmer
-state-rgb_on_dim_off: Bật RGB, tắt dần
-state-rgb_on_dim_on: bật RGB và dim
-state-shut: Chuyển đổi
-state-temperature: nhiệt độ
-suffix: Hậu tố
-sunrise-after: sau bình minh
-sunrise-before: trước bình minh
-sunset-after: sau hoàng hôn
-sunset-before: trước hoàng hôn
-the whole history: toàn bộ lịch sử
-this month: tháng hiện tại
-this year: năm hiện tại
-today: hôm nay
-unknown: không xác định
-username: Tên người dùng
-valid until: sẽ hết hạn
-values as seen on chart: giá trị như trên biểu đồ
-values as seen on counter: giá trị như trên đồng hồ đo
-yesterday: hôm qua
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} sẽ không thể tương tác với tài khoản của bạn cho đến khi bạn cấp lại quyền truy cập.'
-'{clientName} wants to access your account.': '{clientName} muốn truy cập tài khoản của bạn'
-'{minutes} minutes after sunrise': '{minutes} phút sau bình minh'
-'{minutes} minutes after sunset': '{minutes} phút sau hoàng hôn'
-'{minutes} minutes before sunrise': '{minutes} phút trước bình minh'
-'{minutes} minutes before sunset': '{minutes} phút trước hoàng hôn'
-'{requests} out of {limit} / day': '{requêtes} trong {limite} / ngày'
-'{requests} out of {limit} / h': '{requêtes} trong {limite} / h'
-'{requests} out of {limit} / min': '{requêtes} trong {limite} / phút'
-'{requests} out of {limit} / {seconds} sec.': '{requêtes} trong {limit} / {seconds} giây'
-'{serviceName} integration': tích hợp với {serviceName}
-
-#</editor-fold>
-#<editor-fold desc="Extra translations">
-# Translations below have not been found in sources. You might want to delete them.
-...and start your adventure with building automation today!: ...và bắt đầu cuộc phiêu lưu của bạn với tự động hóa tòa nhà ngày hôm nay!
-Access identifier password must be at least 8 characters.: Mật khẩu truy cập tối thiểu 8 kí tự..
-Access identifier password must be no longer than 32 characters.: Mật khẩu truy cập không quá 32 kí tự.
-Action: Hoạt động
-Add new item to use in the scene: Thêm một mục mới vào cảnh
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Bạn có chắc chắn muốn xóa toàn bộ lịch sử độ sai lệch điện áp của kênh này không?
-Are you sure you want to disable this device?: Chắc chắn muốn xóa thiết bị này?
-Assigned Locations: Địa điểm được phân công
-Authorized OAuth apps: Ứng dụng OAuth ủy quyền
-Calculated value: Đọc đồng hồ
-Cannot send an activation e-mail. Try again later.: Không gửi mail được. Thử lại sau.
-Channel will be deleted from the channel group below: Kênh sẽ bị xóa khỏi nhóm kênh
-Channels in channel group: Các kênh trong nhóm kênh
-Chosen hour: Giờ được chọn
-Coming Soon: Sắp có
-Confirm if you want to remove {deviceName} device: Xác nhận muốn xóa {deviceName} thiết bị
-DISABLED: TẮT
-Date: Ngày
-Days: Từ chối.
-Direct links below will be deleted: Link liên kết dưới đây sẽ bị xóa
-Doors, Gates: Cửa, Cổng
-ENABLED: BẬT
-Email already exists: Email đã tồn tại
-Existing schedules: Lịch trình hiện có
-From IP: Từ IP
-Get SUPLA on your devices: Get SUPLA on your devices
-Hi: Hi
-Hour: Giờ
-Hours: Giờ
-I/O: Đầu vào/Đầu ra
-If you want to stay here, do something!: Nếu bạn muốn ở lại đây, hãy làm gì đó!
-Input: Đầu vào
-Languages: Idiomas
-Loading: Đang tải
-Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
-Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
-Minute: Phút
-Mobile Apps: Ứng dụng di động
-Next: Tiếp theo
-Number: Số
-Output: Đầu ra
-Please select the schedules that should also be enabled.: Vui lòng chọn lịch trình cũng sẽ được kích hoạt.
-Previous login: Đăng nhập trước
-Registration: Đăng ký
-Remove: Gỡ bỏ
-Schedule cannot be enabled: Lịch trình không thể được kích hoạt
-Schedules below will be deleted: Lịch trình dưới đây sẽ bị xóa
-Sources available from: Nguồn có sẵn từ
-Status: Trạng thái
-Subject: Đối tượng
-Sunrise / Sunset: Sáng / Chiều
-Supla for devices: Supla cho các thiết bị
-Try again later: Thử lại sau
-Turning this device off will result in disabling all the associated schedules.: Tắt thiết bị này sẽ dẫn đến vô hiệu hóa tất cả các lịch trình liên quan.
-When: Khi
-You will be logged out shortly: Bạn sẽ được đăng xuất ngay
-execute: Thực thi
-hourly: hàng giờ
-or add a delay: Hoặc thêm độ trễ
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-'% of closing': '% đóng cửa'
-Add a new action to the scene: Thêm một hoạt động mới vào cảnh
-Are you sure you want to delete this reaction?: Bạn có chắc muốn xóa phản ứng này không?
-Body: Nội dung
-Choose the channel: Chọn kênh
-Choose the channel group: Chọn nhóm kênh
-Choose the scene: Chọn cảnh
-Choose the schedule: Chọn lịch trình
-Create new reaction: Tạo một phản ứng mới
-Current: Điện
-Edit reaction: Chỉnh sửa phản ứng
-Go to the channel: Chuyển đến kênh
-Go to the channel group: Chuyển đến nhóm kênh
-Go to the scene: Chuyển đến cảnh
-Go to the schedule: Chuyển đến lịch trình
-Invalid scene: Cảnh không hợp lệ
-Missing action.: Không có hành động
-New reaction: Phản ứng mới
-Notification: Thông báo
-Notification must have a body.: Thông báo phải có nội dung
-Notifications: Các thông báo
-Phase: Pha
-Please fix the problems with operations and try again.: Giải quyết các vấn đề với các bên vận hành và thử lại
-Please select a condition: Vui lòng chọn điều kiện
-Please select an action: Vui lòng chọn hoạt động
-Power active: Năng lượng hoạt động
-Power apparent: Năng lượng biểu hiện
-Power reactive: Năng lượng lưu hành
-Reactions: Phản ứng
-Reactions limit has been exceeded: Vượt quá giới hạn phản ứng
-Recipients: Người nhận
-Send a notification: Gửi thông báo
-Send notification: Gửi thông báo
-The notification must have a recipient.: Thông báo phải có người nhận.
-The reaction has been added: Phản ứng đã được thêm vào
-The reaction has been changed: Phản ứng đã được thay đổi
-Title: Tiêu đề
-Voltage: Điện áp
 When a certain distance is reached: Khi đạt được khoảng cách cụ thể
 When a lack of liquid is detected: Khi phát hiện không có chất lỏng
 When a new mail comes: Khi có thư mới đến
@@ -1162,8 +894,8 @@ When the current will be: Khi có dòng điện
 When the depth changes: Khi kích thước độ sâu thay đổi
 When the depth is: Khi kích thước độ sâu là
 When the device is turned off: Khi thiết bị được tắt
-When the device is turned on: Khi thiết bị được bật 
-When the device is turned on or off: Khi thiết bị được bật hoặc tắt 
+When the device is turned on: Khi thiết bị được bật
+When the device is turned on or off: Khi thiết bị được bật hoặc tắt
 When the dimmer brightness level changes: Khi mức độ sáng của bộ điều chỉnh sáng tối thay đổi
 When the dimmer reaches a certain brightness level: Khi bộ điều chỉnh sáng tối đạt mức độ sáng cụ thể
 When the distance changes: Khi khoảng cách thay đổi
@@ -1237,18 +969,318 @@ When the window will be opened: Khi cửa sổ được mở
 When the window will be opened or closed: Khi cửa sổ được đóng hoặc mở
 When there is certain amount of rain: Khi lượng mưa đạt mức cụ thể
 When there weight reaches a certain value: Khi trọng lượng đạt giá trị cụ thể
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Khi bạn thực hiện liên kết với phương thức HTTP PATCH, bạn có thể bỏ qua phần ngẫu nhiên của liên kết và gửi nó trong phần thân yêu cầu. Điều này an toàn hơn vì yêu cầu như vậy sẽ không được lưu trữ trong bất kỳ nhật ký máy chủ hoặc proxy nào, bất kể cấu hình của chúng. Vui lòng tìm một yêu cầu ví dụ cURL dưới đây.
+Where is the JSON?: JSON ở đâu?
+Where is your SUPLA Cloud?: Đám mây SUPLA của bạn ở đâu??
+White: Trắng
+Wind sensor: Cảm biến gió
+Window opening sensor: Cảm biến mở cửa sổ
+With SUPLA you can operate the lights in your home or office: Với SUPLA, bạn có thể vận hành đèn trong nhà hoặc văn phòng của bạn
+With function: Với chức năng
+Working period: Thời gian làm việc
+Working schedule: Lịch hoạt động
+YOUR LINK CODE: MÃ LIÊN KẾT CỦA BẠN
+You are changing the settings too quickly. You have to wait a while before making this change.: Bạn thay đổi các cài đặt quá nhanh. Bạn cần đợi một lúc trước khi tiếp tục thay đổi các cài đặt này.
+You can browse only the most recent logs now. Wait a while for the full history.: Hiện chỉ hiển thị các đo đạc mới nhất. Vui lòng đợi một chút để tải toàn bộ lịch sử.
+You can ignore this message, if you have accidentally entered an incorrect password.: Bạn có thể bỏ qua thông báo này, nếu bạn vô tình nhập sai mật khẩu.
+You can use the application but you will not be able to modify any settings.: Bạn có thể sử dụng ứng dụng nhưng bạn sẽ không thể sửa đổi bất kỳ cài đặt nào.
+You cannot delete your last access identifier.: Bạn không thể xóa định danh truy cập cuối cùng của bạn.
+You cannot delete your last location.: Bạn không thể xóa vị trí cuối cùng của bạn.
+You cannot use SUPLA project name in the domain name.: Bạn không thể sử dụng tên dự án SUPLA trong phần tên ở domain chủ.
+You have exceeded your API Rate Limit: Bạn đã sử dụng hết giới hạn yêu cầu đối với API
+You have requested to unregister your SUPLA Cloud instance: Bạn đã yêu cầu hủy đăng kí phiên bản SUPLA Cloud của bạn.
+You have to choose at least one scope.: Bạn phải chọn ít nhất một phạm vi
+You just need to execute the following command inside your host terminal.: Bạn chỉ cần thực hiện lệnh sau trong thiết bị đầu cuối máy chủ của bạn.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Nếu bạn muốn tiếp tục sử dụng chế độ lịch biểu nâng cao, hãy xem những ví dụ dưới đây.
+You must agree to the Terms and Conditions.: Bạn phải đồng ý với các Điều khoản và Điều kiện.
+You must enable MQTT Broker first.: Trước tiên bạn phải bật kết nối với giao thức MQTT.
+You must leave at least one phase enabled.: Ít nhất một pha phải được giữ nguyên hoạt động.
 You must set an action for each reaction.: Bạn cần thiết lập một hành động cho mỗi phản ứng.
+You must set an action for each scene operation.: Chọn hành động cho từng diễn biến trong cảnh.
+You must set sections with transparent or opaque parameters or both.: Bạn phải chọn độ trong suốt cho ít nhất một phần.
+You need to provide icons for all states.: Bạn cần cung cấp các biểu tượng cho tất cả các tiểu bang
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Bạn cần cập nhật SUPLA Cloud lên phiên bản 2.3.0. hoặc mới hơn.
+You will not be able to generate a direct link with the same URL again.: Bạn sẽ không thể tạo lại một liên kết trực tiếp với cùng một URL.
+Your account and MQTT Broker connection.: Kết nối tài khoản của bạn với giao thức MQTT/
+Your account has been deleted. We hope you will come back to us soon.: Tài khoản của bạn đã bị xóa. Chúng tôi hy vọng bạn sẽ quay lại với chúng tôi sớm.
+Your account has been locked.: Tài khoản của bạn đã bị khóa.
+Your account has not been confirmed yet.: Tài khoản của bạn chưa được xác nhận.
+Your account limits: Giới hạn tài khoản của bạn
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Trình duyệt của bạn không hỗ trợ cơ chế cơ sở dữ liệu khách hàng (IndexedDB). Chức năng này là cần thiết để hiển thị biểu đồ và hỗ trợ các cài đặt nâng cao để xuất dữ liệu. Vui lòng cập nhật trình duyệt hoặc thoát khỏi chế độ ẩn danh để sử dụng các chức năng này.
+Your channel groups are allowed to have a maximum of {max} channels.: Các nhóm kênh có thể có tối đã {max} kênh
+Your chart is being drawn...: Biểu đồ của bạn đang được vẽ...
+Your data are being collected. Please be patient.: Chúng tôi đang thu thập dữ liệu của bạn, hãy kiên nhẫn.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Dữ liệu của bạn đang được tải từ máy chủ. Vui lòng đợi cho đến khi hoàn tất việc tải xuống trước khi xuất dữ liệu.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Thiết bị cho phép mở rộng các tính năng và cho phép thực hiện các thao tác bất kì trên thiết bị bạn sở hữu. Những tính năng có phụ thuộc vào phiên bản phần mềm trên thiết bị.
+Your email: Địa chỉ email của bạn
+Your instance is not registered or you are trying to authorize an application that is not public.: Trường hợp của bạn chưa được đăng ký hoặc bạn đang cố gắng ủy quyền cho một ứng dụng không công khai.
+Your password must contain at least one special character.: Mật khẩu phải bao gồm ít nhất một kí tự đặc biệt.
+Your password must include at least one letter.: Mật khẩu phải bao gồm ít nhất một chữ cái.
+Your password must include at least one number.: Mật khẩu phải bao gồm ít nhất một con số.
+Your password must include both upper and lower case letters.: Mật khẩu phải bao gồm chữ viêt thường và chữ viết hoa.
+Your preferences has been updated.: Cài đặt của bạn đã được ghi nhớ,
+Your private SUPLA Cloud instance has been unregistered.: Phiên bản SUPLA Cloud riêng của bạn đã bị hủy đăng kí.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Ví dụ SUPLA Cloud riêng tư của bạn không khả dụng. Đảm bảo rằng máy chủ của bạn đang trực tuyến và kết nối https của bạn hoạt động chính xác.
+Your private SUPLA Cloud is almost registered.: Đám mây SUPLA riêng tư của bạn gần như đã được đăng ký.
+Your private SUPLA Cloud is not registered.: Đám mây SUPLA riêng tư của bạn chưa được đăng ký.
+Your scenes are allowed to have a maximum of {max} operations.: Những hoạt cảnh của bạn có thể có tối đa {max} thao tác.
+Your schedules are allowed to have a maximum of {max} actions.: Những lịch biểu của bạn có thể có tối đa {max} hành động.
+Your session has been expired.: Phiên của bạn đã hết hạn.
+Your session is about to expire: Phiên bản của bạn sắp hết hạn
+Your session will expire in {0}.: Phiên của bạn sẽ hết hạn trong {0}.
+Yours faithfully,: Trân trọng
+access to your e-mail address: Quyền truy cập vào e-mail của bạn
+actionTrigger_HOLD: Giữ nút bấm
+actionTrigger_SHORT_PRESS_X1: Bấm 1x
+actionTrigger_SHORT_PRESS_X2: Bấm 2x
+actionTrigger_SHORT_PRESS_X3: Bấm 3x
+actionTrigger_SHORT_PRESS_X4: Bấm 4x
+actionTrigger_SHORT_PRESS_X5: Bấm 5x
+actionTrigger_TOGGLE_X1: Chuyển 1x
+actionTrigger_TOGGLE_X2: Chuyển 2x
+actionTrigger_TOGGLE_X3: Chuyển 3x
+actionTrigger_TOGGLE_X4: Chuyển 4x
+actionTrigger_TOGGLE_X5: Chuyển 5x
+actionTrigger_TURN_OFF: Tắt
+actionTrigger_TURN_ON: Bật
+actionableSubjectType_channel: Kênh
+actionableSubjectType_channelGroup: Nhóm kênh
 actionableSubjectType_notification: Thông báo
+actionableSubjectType_scene: Hoạt cảnh
+actionableSubjectType_schedule: Lịch trình
+addToHistoryMeasurementWarningSelected: Chọn mục này sẽ khiến cho các giá trị đã cài đặt được thêm vào các tính toán đã lưu trong lịch sử. Có thể sẽ được hiển thị trên biểu đồ tăng đột biến. Khuyến nghị cài đặt các giá trị này chỉ trong trường hợp cài đặt máy đếm lần đầu. Đối với các máy đếm đã được tạo thì nên xóa lịch sử các tính toán đã được lưu trữ sau khi thay đổi cài đặt này.
+addToHistoryMeasurementWarningUnselected: Bủy chọn mục này sẽ khiến cho các giá trị đã cài đặt được bỏ qua trong các tính toán đã lưu trong lịch sử. Có thể sẽ được hiển thị trên biểu đồ giảm đột biến. Khuyến nghị cài đặt các giá trị này chỉ trong trường hợp cài đặt máy đếm lần đầu. Đối với các máy đếm đã được tạo thì nên xóa lịch sử các tính toán đã được lưu trữ sau khi thay đổi cài đặt này.
+after: Sau
 and wait until it reaches: và đợi đến khi đạt được
 and wait until it will be: và đợi đến khi sẽ
 and wait until the humidity will be: và đợi đến khi độ ẩm sẽ
 and wait until the temperature will be: và đợi đến khi nhiệt độ sẽ
 and wait until the value will be: và đợi đến khi giá trị sẽ
+average: Trung bình
+be at least {numChars} characters long: phải có ít nhất {numChars} ký tự
+before: Trước
+caption: Tên
+change: thay đổi
+channel: Kênh
+channelConfigHelp_gateCloseAfterHelp: Bên chạy quy trình tắt cổng có thể chậm hơn tối đa một phút so với thời gian quy định.
+channelConfigHelp_numberOfAttemptsGate: Sau khi bạn ra lệnh mở hoặc đóng cổng, hệ thống sẽ thử đóng / mở và chờ 60 giây để kiểm tra xem cổng đã đạt trạng thái mong muốn hay chưa. Nếu chưa, hệ thống sẽ thử đóng / mở 1 lần nữa. Tham số bên dưới xác định số lần thử tối đa của hệ thống để đạt được mục tiêu. Giá trị được khuyến khích là 5. Việc thay đổi thông số này không ảnh hưởng đến hoạt động của lịch trình.
+channelConfigHelp_stateVerificationMethod: 'Hoạt động: Thay đổi lần đầu tiên trạng thái của cảm biến theo mục tiêu sẽ ngừng các lần thử lại. Thụ động: cứ sau 60 giây, chúng tôi kiểm tra trạng thái của cảm biến và dừng lặp lại khi cảm biến đã báo cáo ở trạng thái cài đặt.'
+channelConfig_stateVerificationMethod_active: Hoạt động
+channelConfig_stateVerificationMethod_passive: Bị động
+channelGroup: Nhóm kênh
+choose: chọn
+choose a currency: chọn tiền tệ
 choose access identifiers: chọn các thông tin xác thực
 choose the access identifiers: chọn các thông tin xác thực
+choose the action: Chọn hành động
+choose the channel: chọn kênh
+choose the channel group: chọn nhóm kênh
+choose the scene: Chọn hoạt cảnh
+choose the schedule: chọn lịch trình
+choose the timezone: chọn múi giờ
+click here: bấm vào đây
+contains a character that is neither a letter nor a digit: chứa ký tự không phải là chữ cái hoặc số
+contains a digit: chứa số
+contains lower and upper letters: chứa chữ cái in hoa và chữ cái thường
+copied: sao chép
+copy: sao chép
+days: ngày
+directLinkExecutionFailureReason_disabled: Liên kết trực tiếp bị vô hiệu hóa
+directLinkExecutionFailureReason_executionLimitExceeded: Giới hạn ứng dụng đã bị vượt quá
+directLinkExecutionFailureReason_expired: Liên kết trực tiếp không còn hoạt động
+directLinkExecutionFailureReason_forbiddenAction: Liên kết không cho phép hành động này
+directLinkExecutionFailureReason_httpGetForbidden: Không thể thực hiện hành động thông qua phương thức HTTP GET bị cấm.
+directLinkExecutionFailureReason_invalidActionParameters: Cài đặt liên kết trực tiếp không chính xác
+directLinkExecutionFailureReason_invalidChannelState: Không thể thực hiện tác vụ do trạng thái của kênh.
+directLinkExecutionFailureReason_invalidSlug: Mã xác minh không chính xác
+directLinkExecutionFailureReason_noAllowedActions: Không có hành động được ủy quyền đã được chọn
+directLinkExecutionFailureReason_noSlugOrAction: Yêu cầu xấu - mã liên kết và hành động cần thiết
+directLinkExecutionFailureReason_notActiveYet: Liên kết trực tiếp chưa hoạt động
+directLinkExecutionFailureReason_otherFailure: Lỗi thực thi hành động
+directLinkExecutionFailureReason_sceneDuringExecution: Hoạt cảnh trong khóa trình thực thi.
+directLinkExecutionFailureReason_unsupportedAction: Chọn hành động không chính xác
+empty: Trống
+everyday: Hàng ngày
+executed: Thực thi
+extend: mở rộng
+from IP: từ địa chỉ IP
+from the IP: từ IP
+hours: Giờ
+is at least {numChars} characters long: phải có ít nhất {numChars} ký tự
+last 24 hours: 24 giờ gần nhất
+last 30 days: 30 ngày gần nhất
+last 6 hours: 6 giờ gần nhất
+last 7 days: 7 ngày gần nhất
+logs_aggregation_day: ngày
+logs_aggregation_hour: giờ
+logs_aggregation_minute: phút
+logs_aggregation_month: tháng
+min.: Tối thiểu
+minutes: phút
 notification: thông báo
 or another element: hoặc các yếu tố khác
+password: mật khẩu
+prefix: Tiền tố
+previous month: tháng trước
+range: khoảng thời gian
+register-slide1-text: Dựa trên các thiết bị điện tử có sẵn, SUPLA cho phép bạn xây dựng các mô-đun đơn giản mà bạn có thể quản lý và điều khiển các thành phần tự động hóa trong tòa nhà của mình. Nhờ SUPLA, trong số những thứ khác, bạn có thể quản lý ánh sáng, bật và tắt thiết bị gia dụng, mở / đóng cửa và cổng hoặc kiểm soát nhiệt độ phòng. Tất cả điều này bạn có thể làm chỉ với một cú nhấp chuột trên màn hình
+register-slide1-title: Phát triển tòa nhà thông minh của riêng bạn
+register-slide2-text: Một trong những giả định chính của dự án là sự đơn giản và sẵn có. SUPLA cho phép bạn bật đèn hoặc mở cửa chỉ bằng một cú nhấp chuột và khi bạn muốn vào sở hữu của chúng tôi. SUPLA luôn khả dụng mọi lúc mọi nơi với quyền truy cập vào mạng Internet và điện thoại thông minh hoặc máy tính bảng của bạn. Sự phát triển của SUPLA dựa trên các nguyên tắc của phần mềm nguồn mở và phần cứng mở để bạn có thể tự cam kết với dự án này!
+register-slide2-title: SUPLA ở khắp mọi nơi!
+register-slide3-text: Các hệ thống tự động hóa tòa nhà có sẵn trên thị trường thường rất phức tạp, khép kín và đắt tiền. Trong nhiều trường hợp, chúng đòi hỏi phải được cài đặt ở giai đoạn xây dựng. SUPLA rất đơn giản, cởi mở và miễn phí. Nó cho phép bạn xây dựng các thành phần cho các hệ thống truyền động từ nền tảng RaspberryPl, Arduino hoặc ESP8266 và kết nối chúng với mạng LAN và WiFi. Tham gia dự án và xây dựng phiên bản hệ thống tự động hóa tòa nhà của riêng bạn!
+register-slide3-title: Miễn phí và mở!
+reset chart view: đặt lại chế độ xem biểu đồ
+scene: Hoạt cảnh
+schedule: lịch trình
+scheduleMode_crontab: Nâng cao
+scheduleMode_daily: hằng ngày
+scheduleMode_minutely: từng phút
+scheduleMode_once: một lần
+sec.: giây
+smartphones, tablets, etc.: smartphones, tablettes, etc.
+state-closed: Đóng
+state-default: Mặc định
+state-empty: Trống
+state-full: Hoàn toàn
+state-humidity: Độ ẩm
+state-off: Đóng
+state-on: Mở
+state-opened: Mở
+state-partially_closed: Đóng một phần
+state-revealed: Tiết lộ
+state-rgb_off_dim_off: RGB và dimmer bị vô hiệu hóa
+state-rgb_off_dim_on: Tắt RGB, mở dimmer
+state-rgb_on_dim_off: Bật RGB, tắt dần
+state-rgb_on_dim_on: bật RGB và dim
+state-shut: Chuyển đổi
+state-temperature: nhiệt độ
+suffix: Hậu tố
 sum: tổng
+sunrise-after: sau bình minh
+sunrise-before: trước bình minh
+sunset-after: sau hoàng hôn
+sunset-before: trước hoàng hôn
+the whole history: toàn bộ lịch sử
 then execute the action: sau đó thực hiện hành động
+this month: tháng hiện tại
+this year: năm hiện tại
+today: hôm nay
+unknown: không xác định
+username: Tên người dùng
+valid until: sẽ hết hạn
+values as seen on chart: giá trị như trên biểu đồ
+values as seen on counter: giá trị như trên đồng hồ đo
+yesterday: hôm qua
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} sẽ không thể tương tác với tài khoản của bạn cho đến khi bạn cấp lại quyền truy cập.'
+'{clientName} wants to access your account.': '{clientName} muốn truy cập tài khoản của bạn'
+'{minutes} minutes after sunrise': '{minutes} phút sau bình minh'
+'{minutes} minutes after sunset': '{minutes} phút sau hoàng hôn'
+'{minutes} minutes before sunrise': '{minutes} phút trước bình minh'
+'{minutes} minutes before sunset': '{minutes} phút trước hoàng hôn'
+'{requests} out of {limit} / day': '{requêtes} trong {limite} / ngày'
+'{requests} out of {limit} / h': '{requêtes} trong {limite} / h'
+'{requests} out of {limit} / min': '{requêtes} trong {limite} / phút'
+'{requests} out of {limit} / {seconds} sec.': '{requêtes} trong {limit} / {seconds} giây'
+'{serviceName} integration': tích hợp với {serviceName}
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...và bắt đầu cuộc phiêu lưu của bạn với tự động hóa tòa nhà ngày hôm nay!
+Access identifier password must be at least 8 characters.: Mật khẩu truy cập tối thiểu 8 kí tự..
+Access identifier password must be no longer than 32 characters.: Mật khẩu truy cập không quá 32 kí tự.
+Action: Hoạt động
+Add new item to use in the scene: Thêm một mục mới vào cảnh
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Bạn có chắc chắn muốn xóa toàn bộ lịch sử độ sai lệch điện áp của kênh này không?
+Are you sure you want to disable this device?: Chắc chắn muốn xóa thiết bị này?
+Assigned Locations: Địa điểm được phân công
+Authorized OAuth apps: Ứng dụng OAuth ủy quyền
+Calculated value: Đọc đồng hồ
+Cannot send an activation e-mail. Try again later.: Không gửi mail được. Thử lại sau.
+Channel will be deleted from the channel group below: Kênh sẽ bị xóa khỏi nhóm kênh
+Channels in channel group: Các kênh trong nhóm kênh
+Chosen hour: Giờ được chọn
+Coming Soon: Sắp có
+Confirm if you want to remove {deviceName} device: Xác nhận muốn xóa {deviceName} thiết bị
+DISABLED: TẮT
+Days: Từ chối.
+Direct links below will be deleted: Link liên kết dưới đây sẽ bị xóa
+Doors, Gates: Cửa, Cổng
+ENABLED: BẬT
+Email already exists: Email đã tồn tại
+Existing schedules: Lịch trình hiện có
+From IP: Từ IP
+Get SUPLA on your devices: Get SUPLA on your devices
+Hi: Hi
+Hour: Giờ
+Hours: Giờ
+I/O: Đầu vào/Đầu ra
+If you want to stay here, do something!: Nếu bạn muốn ở lại đây, hãy làm gì đó!
+Input: Đầu vào
+Languages: Idiomas
+Loading: Đang tải
+Location password must be at least 4 characters.: Mật khẩu vị trí phải có ít nhất 4 ký tự.
+Location password must be no longer than 32 characters.: Mật khẩu vị trí phải không dài hơn 32 ký tự.
+Minute: Phút
+Mobile Apps: Ứng dụng di động
+Next: Tiếp theo
+Number: Số
+Output: Đầu ra
+Please select an action: Vui lòng chọn hoạt động
+Please select the schedules that should also be enabled.: Vui lòng chọn lịch trình cũng sẽ được kích hoạt.
+Previous login: Đăng nhập trước
+Registration: Đăng ký
+Remove: Gỡ bỏ
+Schedule cannot be enabled: Lịch trình không thể được kích hoạt
+Schedules below will be deleted: Lịch trình dưới đây sẽ bị xóa
+Sources available from: Nguồn có sẵn từ
+Status: Trạng thái
+Subject: Đối tượng
+Sunrise / Sunset: Sáng / Chiều
+Supla for devices: Supla cho các thiết bị
+Triggers: Công tắc kích hoạt
+Try again later: Thử lại sau
+Turning this device off will result in disabling all the associated schedules.: Tắt thiết bị này sẽ dẫn đến vô hiệu hóa tất cả các lịch trình liên quan.
+When: Khi
+You will be logged out shortly: Bạn sẽ được đăng xuất ngay
+execute: Thực thi
+hourly: hàng giờ
+or add a delay: Hoặc thêm độ trễ
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>

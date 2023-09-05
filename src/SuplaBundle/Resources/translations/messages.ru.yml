@@ -203,6 +203,7 @@ DHT21 Temperature & Humidity Sensor: Датчик температуры и вл
 DHT22 Temperature & Humidity Sensor: Датчик температуры и влажности DHT22
 DS18B20 Thermometer: Термометр DS18B20
 Data saved: Данные сохранены
+Date: Дата
 Decline: Отказать
 Default: по умолчанию
 Delete: Удалить
@@ -710,7 +711,6 @@ Too many actions in this schedule.: Слишком много действий �
 Too many channels in this group: Слишком много каналов в этой группе
 Too many operations in this scene: Слишком много операций на сцене.
 Total time: Общее время
-Triggers: Триггеры
 Tuesdays: Вторники
 Turning this device off will cause its channels not working in the following features.: Выключение устройства приведет к тому, что его каналы перестанут работать в следующих элементах.
 Turning this device off will result in disabling features listed below.: Выключение устройства также отключит следующие элементы.
@@ -948,7 +948,6 @@ Chosen hour: Заданное время
 Coming Soon: Скоро будет
 Confirm if you want to remove {deviceName} device: Подтвердите удаление {deviceName}
 DISABLED: НЕ ИСПОЛЬЗУЕТСЯ
-Date: Дата
 Days: Дней
 Direct links below will be deleted: Прямые ссылки, перечисленные ниже, будут удалены
 Doors, Gates: Двери, Калитки
@@ -983,6 +982,7 @@ Status: Статус
 Subject: Субъект
 Sunrise / Sunset: Восход/Закат
 Supla for devices: Supla для устройств
+Triggers: Триггеры
 Try again later: Попытайся повторно задать команду
 Turning this device off will result in disabling all the associated schedules.: Выключение этого оборудования приведет  к одновременному выключению графиков, которые с ним соединены.
 When: Когда
@@ -997,8 +997,11 @@ or add a delay: или добавить задержку
 '% of closing': ~
 Action confirmation: ~
 Active applications: ~
+Active from: ~
 Active sessions: ~
+Active to: ~
 Active web sessions: ~
+Activity conditions: ~
 Add a new action to the scene: ~
 Aggregation: ~
 All events: ~
@@ -1011,6 +1014,7 @@ Are you sure you want to log out this device?: ~
 Arithmetic balance: ~
 Authentication failure: ~
 Authentication successful: ~
+Available variables: ~
 Body: ~
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: ~
 By signing in, you are authorizing {clientName} to control your devices.: ~
@@ -1030,12 +1034,16 @@ Create new reaction: ~
 Current: ~
 Data limits: ~
 Date and time: ~
+Date range: ~
+Daytime criteria: ~
 Download measurements history: ~
 Edit reaction: ~
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: ~
 Enabled phases: ~
 Expires at: ~
 File format: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
 Forward active energy balance: ~
 From: ~
 Go to the channel: ~
@@ -1052,12 +1060,19 @@ Log out: ~
 Logs transformation: ~
 Missing action.: ~
 New reaction: ~
+No results: ~
 No, take me back!: ~
 Noop: ~
 Notification: ~
+Notification body is set by the firmware.: ~
 Notification must have a body.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
 Notifications: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
 OK: ~
+OR: ~
 Operation: ~
 PIN: ~
 PIN for Google must have a length between {minLength} and {maxLength} digits.: ~
@@ -1068,7 +1083,7 @@ Phase: ~
 Phase {phaseNumber}: ~
 Please fix the problems with operations and try again.: ~
 Please select a condition: ~
-Please select an action: ~
+Please select and configure the action: ~
 Power active: ~
 Power apparent: ~
 Power reactive: ~
@@ -1081,11 +1096,14 @@ Reverse active energy balance: ~
 Scene available for {serviceName}: ~
 Security: ~
 Security log: ~
+Selected: ~
 Selected device has been logged out.: ~
 Send a notification: ~
 Send notification: ~
 Set values for each phase separately: ~
+Settings: ~
 Summary for selected time range: ~
+THEN: ~
 Tab: ~
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: ~
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: ~
@@ -1094,12 +1112,16 @@ The events in voltage aberrations history will be automatically deleted after {d
 The notification must have a recipient.: ~
 The reaction has been added: ~
 The reaction has been changed: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: ~
 'This password will protect your home. Therefore, it must:': ~
+Time: ~
 Title: ~
 To: ~
+Today, it would be active from {from} to {to}.: ~
 Total: ~
 Unknown browser: ~
+Use working schedule for this reaction: ~
 Value: ~
 Value separator: ~
 Vector balance: ~
@@ -1234,21 +1256,30 @@ logs_aggregation_day: ~
 logs_aggregation_hour: ~
 logs_aggregation_minute: ~
 logs_aggregation_month: ~
+midnight: ~
 notification: ~
 or another element: ~
 previous month: ~
 range: ~
 schedule: ~
 sum: ~
+sunrise: ~
+sunset: ~
+swap: ~
 the whole history: ~
 then execute the action: ~
 this month: ~
 this year: ~
 today: ~
+type {code} to show available variables: ~
 unknown: ~
 values as seen on chart: ~
 values as seen on counter: ~
 yesterday: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 '{serviceName} integration': ~
 
 #</editor-fold>

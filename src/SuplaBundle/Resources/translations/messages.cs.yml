@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% uzamčení'
 '%s trigger is not supported by the hardware.': Spouštěč %s není zařízením podporován.
 ...open and shut roller shutters: ...otevírat a zavírat rolety
 ...open gateways, gates or doors: ...otevřít branky, brány a dveře
@@ -43,6 +44,7 @@ Active sessions: Aktivní relace
 Active web sessions: Aktivní relace (web)
 Add: Přidat
 Add a delay: Přidat zpoždění
+Add a new action to the scene: Přidat novou akci ke scéně
 Add a new icon: Přidat novou ikonu
 Add action: Přidat akci
 Add first channel to set channel group function and save it: Vyberte první kanál pro definici funkce skupiny a uložte ji
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Opravdu chcete tuto skupinu
 Are you sure you want to delete this client?: Opravdu chcete tuto klientskou aplikaci smazat?
 Are you sure you want to delete this direct link?: Opravdu chcete smazat tento přímý odkaz?
 Are you sure you want to delete this icon?: Opravdu chcete tuto ikonu smazat?
+Are you sure you want to delete this reaction?: Jste si jisti, že chcete tuto reakci odstranit?
 Are you sure you want to delete this scene?: Opravdu chcete smazat tuto scénu?
 Are you sure you want to delete this schedule?: Opravdu chcete tento plán smazat?
 Are you sure you want to log out this device?: Opravdu chceš toto zařízení odhlásit?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: Na základě východu / západu
 Be notified when your channels change state: Oznámení o změnách stavu kanálů
 Be right back!: Za chvíli se vraťte zpět!
 Below threshold: Pod prahovou hodnotou
+Body: Obsah
 Bottom position: Dolní pozice
 Bridge: Most
 Brightness: Jas
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Vyberte ID přístupu
 Choose channel function: Vyberte funkci kanálu
 Choose client apps: Vyberte klientské aplikace
 Choose location: Vyberte umístění
+Choose the channel: Vybrat kanál
+Choose the channel group: Vybrat skupinu kanálů
+Choose the scene: Vybrat scénu
+Choose the schedule: Vybrat harmonogram
 Choose the source channel.: Vyberte zdrojový kanál.
 Clear: Vymazat
 Click the following link to confirm removal of your account on %cloudHost%.: Pokud chcete opravdu smazat Váš účet SUPLA, tak klikněte na níže uvedený odkaz.
@@ -215,8 +223,10 @@ Create New Location: Vytvořte nové umístění
 Create New Schedule: Vytvořte nový plán
 Create an account: Vytvořte si účet
 Create new direct link: Vytvořte nový přímý odkaz
+Create new reaction: Vytvořit novou reakci
 Create new scene: Vytvořte novou scénu
 Currency: Měna
+Current: Aktuální
 Current Overload: Přetížení
 Current Password: Aktuální heslo
 Current password is incorrect: Aktuální heslo je nesprávné
@@ -228,6 +238,7 @@ DHT22 Temperature & Humidity Sensor: Snímač teploty a vlhkosti DHT22
 DS18B20 Thermometer: Teploměr DS18B20
 Data limits: Datové limity
 Data saved: Data byla uložena
+Date: Datum
 Date and time: Datum a čas
 Decline: Odmítnout
 Default: výchozí stav
@@ -280,6 +291,7 @@ Download the history of measurement: Stáhnout historii měření
 Drag your image(s) here or click to select from the disk: Přetáhněte obrázek zde nebo klepnutím vyberte z disku
 E-mail notifications: E-mailové upozornění
 Edit: Editovat
+Edit reaction: Upravit reakci
 Electric: Elektrika
 Electricity meter: Elektroměr
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Elektroměr neohlásil možnost konfigurace přidaných hodnot. Aktualizuj firmware zařízení a zkus to znovu.
@@ -349,6 +361,10 @@ Generate new token: Generovat nový token
 Generate token: Generovat token
 Go to I/O device details: Přejděte na detaily zařízení
 Go to channel details: Přejděte na detaily kanálu
+Go to the channel: Přejít na kanál
+Go to the channel group: Přejít na skupinu kanálů
+Go to the scene: Přejít na scénu
+Go to the schedule: Přejít na harmonogram
 Go to your account: Přejděte do účtu
 Grant access: Poskytněte přístup
 Guru Meditation: Guru Meditation
@@ -423,6 +439,7 @@ Invalid function for channel.: Nesprávná funkce kanálu
 'Invalid redirect URI: {uri}': 'Neplatné přesměrování URI : {uri}'
 Invalid request: Nesprávná žádost
 Invalid request.: Neplatná žádost.
+Invalid scene: Nesprávná scéna
 Invalid token.: Neplatný token.
 Invalid username or password: Nesprávné uživatelské jméno nebo heslo
 Inverted logic: Obrácená logika
@@ -472,6 +489,7 @@ Measurement window: Čas měření
 Meter value: Stav měřiče
 Meters: Měřiče
 Minimum voltage: Nízké napětí
+Missing action.: Žádná akce
 Mode: Režim
 Modification: Modifikace
 Mondays: Pondělky
@@ -490,6 +508,7 @@ New channel group: Nová skupina kanálů
 New client app (smartphone) added to your account: Registrace nové klientské aplikace (smartphone)
 New direct link: Nový přímý odkaz
 New password: Nové heslo
+New reaction: Nová reakce
 New scene: Nová scéna
 Newer: Novější
 'Next limit renewal: {date}': Limit bude brzy obnoven {date}
@@ -516,6 +535,9 @@ No. of locations: Počet umístění
 None: Žádný
 None (channel disabled): Žádná (kanál vypnutý)
 Noop: Žádná operace
+Notification: Oznámení
+Notification must have a body.: Oznámení musí mít obsah.
+Notifications: Oznámení
 Number of aberrations: Počet aberací
 Number of attempts to close: Počet pokusů o uzavření
 Number of attempts to open: Počet pokusů o otevření
@@ -556,6 +578,7 @@ Percentage of closing: Procento uzavření
 Personal access tokens: Osobní přístupové tokeny
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osobní přístupové tokeny fungují stejně jako obyčejné tokeny s tím rozdílem, že fungují neomezeně.
 Personal token name is required.: Je třeba poskytnout název osobního tokenu.
+Phase: Fáze
 Phase 1: Jednofázová
 Phase 2: Dvoufázová
 Phase 3: Třífázová
@@ -567,11 +590,16 @@ Please click the link we have sent you after the registration to proceed.: Klikn
 Please confirm your SUPLA account.: Aktivujte si svůj SUPLA účet.
 Please enter a valid email address: Zadejte správnou mailovou adresu
 Please fill a valid email address: Zadejte správnou e-mailovou adresu
+Please fix the problems with operations and try again.: Vyřešte problémy s operacemi a zkuste to znovu.
 Please log in again to proceed.: Chcete-li pokračovat, přihlaste se znovu.
 Please provide a valid domain name for your private SUPLA Cloud: Zadejte správný název domény pro váš soukromý cloud SUPLA
 Please read the Terms and Conditions.: Přečtěte si pravidla.
+Please select a condition: Vyberte podmínku prosím
 Please wait a moment before the next login attempt.: Počkejte chvíli na další pokus o přihlášení.
 Port: Port
+Power active: Činná energie
+Power apparent: Zdánlivá energie
+Power reactive: Jalová energie
 Precision: Přesnost
 Predefined time ranges: Časové rozsahy
 Pressure sensor: Snímač tlaku
@@ -589,7 +617,10 @@ RGB led controller: Kontroler oświetlenia RGB
 RGB lighting: Osvětlení RGB
 Rain sensor: Snímač deště
 Random: Náhodný
+Reactions: Reakce
+Reactions limit has been exceeded: Překročení limitu reakce
 Read: Odečet
+Recipients: Odběratelé
 Reference to the scene will be removed from the items below.: Indikace obrazového panelu bude odstraněna z následujících položek.
 Refresh: Obnovit
 Regeneration starts at: Začátek regenerace
@@ -666,6 +697,8 @@ Seems like a secret place: Něco nám říká, že byste tady neměl být
 Select icon: Vyberte ikonu
 Select the item (subject) you want to control using this link: Vyberte prvek (předmět), který chcete ovládat pomocí tohoto odkazu
 Selected device has been logged out.: Vybrané zařízení bylo odhlášeno
+Send a notification: Odeslat oznámení
+Send notification: Odeslat oznámení
 Sensor (normal closed): Snímač (normálně zavřený)
 Sensor (normal open): Snímač (normálně otevřený)
 Sensor disconnected: Žádný snímač
@@ -745,8 +778,11 @@ The measurement history has been deleted.: Historie měření byla odstraněná.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Nové heslo nahradí to, které aktuálně používáte. Některé integrace mohou po změně přestat fungovat. Pokračovat?
 The next available executions: Nejbližší výkony
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Pomocí rámečku jsme označili oznámení, ze kterého jste klikl/klikla na odkaz pro odhlášení.
+The notification must have a recipient.: Oznámení musí obsahovat odběratele.
 The password and its confirm are not the same.: Heslo a jeho potvrzení nejsou stejné.
 The password should be 8 or more characters.: Heslo musí mít ninimum 8 znaků.
+The reaction has been added: Reakce byla přidána
+The reaction has been changed: Reakce byla změněna
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Zařízení bylo vypnuto bezpečnostní ochranou. Před jejich povolením se prosím ujistěte, že problém, který k tomu vedl, byl vyřešen. Opravdu chcete toto zařízení zapnout na dálku?
 The scene would execute too many operations.: Scéna provádí příliš mnoho operací.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Server signalizuje chybu 400, což znamená, že požadovaná žádost je nesprávná.
@@ -770,6 +806,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Tento spouštěč je lokálně používán zařízením (např. rozsvěcuje světlo, ovládá roletu atd.) Pokud jí přiřadíte jinou akci, lokální funkce bude deaktivována.
 Thursdays: Čtvrtky
 Timezone: Časová zóna
+Title: Název
 To: Do
 Toggle: Přepnout
 Token does not exist: Token neexistuje
@@ -778,7 +815,6 @@ Too many channels in this group: Příliš mnoho kanálů v této skupině
 Too many operations in this scene: Příliš mnoho operací na scéně.
 Total: Součet
 Total time: Celkový čas
-Triggers: Spouštěče
 Tuesdays: Úterky
 Turning this device off will cause its channels not working in the following features.: Vypnutí zařízení způsobí, že jeho kanály přestanou fungovat v následujících položkách.
 Turning this device off will result in disabling features listed below.: Vypnutím zařízení se vypnou také následující položky.
@@ -807,6 +843,7 @@ Vector balance: Vektorová rovnováha
 Verification method: Způsob ověření
 Visible: Viditelný
 Visit app webpage: Otevřete okno aplikace
+Voltage: Napětí
 Voltage aberrations: Napěťové aberace
 Voltage monitoring: Monitorování napětí
 WELCOME_MESSAGE: |
@@ -837,311 +874,6 @@ Wednesdays: Středy
 Weight sensor: Váha
 Welcome!: Vítejte!
 What this token is for?: K čemu je tento token?
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Proces vytvoření přímého linku můžete vyvolat tím, že podáte jeho unikátní identifikátor v obsahu požadavku  HTTP PATCH. Tato cesta je bezpečnější, protože neumožňuje uložit celou Vaší adresu odkazu v loginech dostupných serverů, pomocí kterých přechází Tvůj požadavek. Níže se nacházejí příkladové požadované akce dostupné pomocí nástroje  cURL.
-Where is the JSON?: Kde je JSON?
-Where is your SUPLA Cloud?: Kde se nachází Vaše Supla?
-White: Bílý
-Wind sensor: Snímač větru
-Window opening sensor: Snímač otevření okna
-With SUPLA you can operate the lights in your home or office: Se SUPLOU můžete ovládat osvětlení ve Vašem domu nebo kanceláři
-With function: S funkcí
-Working period: Období provozu
-Working schedule: Plán činnosti
-YOUR LINK CODE: KÓD VAŠEHO ODKAZU
-You are changing the settings too quickly. You have to wait a while before making this change.: Měníte nastavení příliš rychle. Před změnou těchto nastavení musíte chvíli počkat.
-You can browse only the most recent logs now. Wait a while for the full history.: V současné době se zobrazují pouze nejnovější měření. Chvíli počkej, až se celá  stáhne.
-You can ignore this message, if you have accidentally entered an incorrect password.: Tyto informace můžete ignorovat, pokud jste zadali nesprávné heslo.
-You can use the application but you will not be able to modify any settings.: Můžete používat aplikaci, ale není možné změnit nastavení konfigurace
-You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
-You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
-You cannot use SUPLA project name in the domain name.: V názvu hlavní domény nemůžete použít název projektu SUPLA.
-You have exceeded your API Rate Limit: Využili jste svůj maximální limit API požadavků
-You have requested to unregister your SUPLA Cloud instance: Požádali jste o zrušení registrace vaší instance SUPLA Cloud
-You have to choose at least one scope.: Musíte vybrat alespoň jeden rozsah.
-You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
-You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Pokud stále chcete používat režim pokročilého plánování, podívejte se na níže uvedené příklady.
-You must agree to the Terms and Conditions.: Je nutné souhlasit se Smluvními podmínkami.
-You must enable MQTT Broker first.: Nejprve musíte povolit integraci s brokerem MQTT.
-You must leave at least one phase enabled.: Alespoň jedna fáze musí zůstat aktivní.
-You must set an action for each scene operation.: Vyberte akci pro každou operaci ve scéně.
-You must set sections with transparent or opaque parameters or both.: Musíte zvolit průhlednost alespoň pro jednu sekci.
-You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musíte aktualizovat svojí instanci SUPLA Cloud do minimální verze 2.3.0.
-You will not be able to generate a direct link with the same URL again.: Není možné vytvořit odkaz se stejnou adresou URL.
-Your account and MQTT Broker connection.: Propojení vašeho účtu s brokerem MQTT.
-Your account has been deleted. We hope you will come back to us soon.: Účet był odstraněn. Doufáme, že se k nám zase vrátite.
-Your account has been locked.: Váš účet byl zablokován.
-Your account has not been confirmed yet.: Váš účet dosud nebyl potvrzen.
-Your account limits: Vaše limity
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Tvůj prohlížeč nepodporuje mechanismus klientské databáze (IndexedDB). Tato funkce je nutná pro zobrazení grafů a podporu pokročilých nastavení exportu dat. Chceš-li tyto funkce využívat, aktualizuj prohlížeč nebo ukonči režim inkognito.
-Your channel groups are allowed to have a maximum of {max} channels.: Vaše skupiny kanálů mohou mít maximálně {max} kanálů.
-Your chart is being drawn...: Tvůj graf je nakreslen...
-Your data are being collected. Please be patient.: Shromažďujeme tvé údaje, prosíme o trpělivost.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Tvé udaje se stahují ze serveru. Před exportem počkej na dokončení stahování.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Zařízení umožňuje rozšířit jeho funkčnost a umožňuje provádět jakoukoli činnost na jakémkoli vašem zařízení. Dostupné možnosti závisí na firmwaru a zařízení, které používáte.
-Your email: Váš e-mail
-Your instance is not registered or you are trying to authorize an application that is not public.: Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.
-Your password must contain at least one special character.: Heslo musí obsahovat alespoň jeden speciální znak.
-Your password must include at least one letter.: Heslo musí obsahovat alespoň jedno písmeno.
-Your password must include at least one number.: Heslo musí obsahovat alespoň jedno číslo.
-Your password must include both upper and lower case letters.: Heslo musí obsahovat velká a malá písmena.
-Your preferences has been updated.: Vaše nastavení bylo uloženo.
-Your private SUPLA Cloud instance has been unregistered.: Vaše soukromá instance SUPLA Cloud byla zrušena.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.
-Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
-Your private SUPLA Cloud is not registered.: Váš soukromý cloud SUPLA není registrován.
-Your scenes are allowed to have a maximum of {max} operations.: Vaše scény mohou mít maximálně {max} operací.
-Your schedules are allowed to have a maximum of {max} actions.: Vaše plány mohou mít maximálně {max} akcí.
-Your session has been expired.: Vaše relace vypršela.
-Your session is about to expire: Vaše relace brzy vyprší
-Your session will expire in {0}.: Vaše relace vyprší za {0}.
-Yours faithfully,: S pozdravem,
-access to your e-mail address: přístup k vaší e-mailové adrese
-actionTrigger_HOLD: Držení tlačítka
-actionTrigger_SHORT_PRESS_X1: Stiskněte 1x
-actionTrigger_SHORT_PRESS_X2: Stiskněte 2x
-actionTrigger_SHORT_PRESS_X3: Stiskněte 3x
-actionTrigger_SHORT_PRESS_X4: Stiskněte 4x
-actionTrigger_SHORT_PRESS_X5: Stiskněte 5x
-actionTrigger_TOGGLE_X1: Přepnout 1x
-actionTrigger_TOGGLE_X2: Přepnout 2x
-actionTrigger_TOGGLE_X3: Přepnout 3x
-actionTrigger_TOGGLE_X4: Přepnout 4x
-actionTrigger_TOGGLE_X5: Přepnout 5x
-actionTrigger_TURN_OFF: Vyloučení
-actionTrigger_TURN_ON: Zařazení
-actionableSubjectType_channel: Kanál
-actionableSubjectType_channelGroup: Skupina kanálů
-actionableSubjectType_scene: Scéna
-actionableSubjectType_schedule: Harmonogram
-addToHistoryMeasurementWarningSelected: Zaškrtnutím této možnosti se nastavené hodnoty přidají k budoucím měřením uloženým v historii. V grafech je to vidět jako náhlé zvýšení o zadanou hodnotu. Doporučujeme, abyste tyto parametry nastavili pouze při první instalaci měřiče. U stávajících měřičů doporučujeme vymazat historii měření, jakmile tato nastavení změníte.
-addToHistoryMeasurementWarningUnselected: Zrušením zaškrtnutí této možnosti vynecháte nastavené hodnoty z budoucích měření uložených v historii. To lze v grafech vidět jako náhlý pokles. Doporučujeme, abyste tyto parametry nastavili pouze při první instalaci měřiče. U stávajících měřičů doporučujeme vymazat historii měření, jakmile tato nastavení změníte.
-after: po
-average: průměr
-be at least {numChars} characters long: musí mít alespoň {numChars} znaků
-before: před
-caption: název
-change: změň
-channel: Kanál
-channelConfigHelp_gateCloseAfterHelp: Agent, který spustí proceduru zavírání brány, může být zpožděn až o jednu minutu od nastaveného času.
-channelConfigHelp_numberOfAttemptsGate: Poté, co nařídíte otevření nebo zavření brány, se jí systém pokusí zavřít/otevřít a počká 60 sekund, proto aby mohl zkontrolovat, zda brána dosáhla požadovaného stavu. Pokud ne, systém se pokusí bránu znovu zavřít/otevřít. Tento parametr definuje maximální počet pokusů systému o dosažení cíle. Doporučená hodnota je 5. Změna tohoto parametru neovlivní činnost plánů.
-channelConfigHelp_stateVerificationMethod: 'Aktivní: Když se senzor poprvé přepne do cílového stavu, zastaví pokusy. Pasivní: jednou za 60 sekund zkontrolujeme stav senzoru a opakování pokusu se přeruší, když senzor nahlásí cílový stav.'
-channelConfig_stateVerificationMethod_active: Aktivní
-channelConfig_stateVerificationMethod_passive: Pasivní
-channelGroup: Skupina kanálů
-choose: vybrat
-choose a currency: vyberte měnu
-choose the action: vyberte akci
-choose the channel: vyberte kanál
-choose the channel group: vyberte skupinu kanálů
-choose the scene: vyberte scénu
-choose the schedule: vyber harmonogram
-choose the timezone: vyberte časové pásmo
-click here: klikněte zde
-contains a character that is neither a letter nor a digit: obsahuje znak, který není ani písmenem, ani číslicí.
-contains a digit: obsahuje číslo
-contains lower and upper letters: obsahuje velká a malá písmena
-copied: kopírováno
-copy: kopíruj
-days: dny
-directLinkExecutionFailureReason_disabled: Přímý odkaz je vypnutý
-directLinkExecutionFailureReason_executionLimitExceeded: Limit výkonů byl překročen
-directLinkExecutionFailureReason_expired: Přímý odkaz je zastaralý
-directLinkExecutionFailureReason_forbiddenAction: Odkaz neumožňuje provedení této akce
-directLinkExecutionFailureReason_httpGetForbidden: Akci nebylo možné provést pomocí metody HTTP GET.
-directLinkExecutionFailureReason_invalidActionParameters: Nesprávné parametry přímého odkazu
-directLinkExecutionFailureReason_invalidChannelState: Stav kanálu nedovoluje provést požadovanou akci.
-directLinkExecutionFailureReason_invalidSlug: Vyslaný ověřovací kód je nesprávný
-directLinkExecutionFailureReason_noAllowedActions: Nebyly vybrány žádné povolené akce
-directLinkExecutionFailureReason_noSlugOrAction: Nesprávný požadavek, je nutné provést akci a zadat kód linku
-directLinkExecutionFailureReason_notActiveYet: Přímý odkaz ještě není aktivní
-directLinkExecutionFailureReason_otherFailure: Chyba při provádění akce
-directLinkExecutionFailureReason_sceneDuringExecution: Probíhá scéna.
-directLinkExecutionFailureReason_unsupportedAction: Vybraná akce byla špatně provedena
-empty: prázdný
-everyday: denně
-executed: hotovo
-extend: prodloužit
-from IP: z adresy IP
-from the IP: z adresy
-hours: hodiny
-is at least {numChars} characters long: má alespoň {numChars} znaků
-last 24 hours: posledních 24 hodin
-last 30 days: posledních 30 dní
-last 6 hours: posledních 6 hodin
-last 7 days: posledních 7 dní
-logs_aggregation_day: dní
-logs_aggregation_hour: hodiny
-logs_aggregation_minute: minuty
-logs_aggregation_month: měsíce
-min.: min.
-minutes: minuty
-password: heslo
-prefix: předpona
-previous month: předchozí měsíc
-range: rozsah
-register-slide1-text: Na základě dostupné elektroniky Vám SUPLA umožní vytvářet jednoduché moduly, které vám umožní ovládat a řídit komponenty automatizace budov. Díky SUPLI můžete mimo jiné ovládat osvětlení, zapínat a vypínat domácí spotřebiče a elektroniku, otvírat a zavírat brány a dveře nebo řídit teplotu v místnostech. To vše můžete udělat jedním prstem.
-register-slide1-title: Vlastní inteligentní budova
-register-slide2-text: Jedním ze základních předpokladů projektu je jednoduchost a dostupnost. SUPLA umožňuje zapnout světlo jedním pohybem prstu nebo otevřít bránu, když chcete vstoupit do areálu. SUPLA je k dispozici všude tam, kde máte přístup k Internetu a máte k dispozici smartphone nebo tablet. SUPLA je vyvíjen na principech Open Software a Open Equipment, díky nimž můžete také tento projekt vyvíjet!
-register-slide2-title: SUPLA všude!
-register-slide3-text: Systémy automatizace budov dostupné na trhu jsou obvykle velmi složité, uzavřené a nákladné. V mnoha případech vyžadují instalaci již ve fázi výstavby budovy. SUPLA je jednoduchá, otevřená a zdarma. Umožňuje vytvářet výkonné prvky založené na platformách RaspberryPI, Arduino nebo ESP8266 a kombinovat je pomocí LAN a WiFi sítí. Připojte se k projektu a sestavte vlastní verzi systému automatizace budov!
-register-slide3-title: Zdarma a otevřená!
-reset chart view: vrátit se na původní náhled
-scene: scéna
-schedule: harmonogram
-scheduleMode_crontab: Pokročilý
-scheduleMode_daily: Denní cyklus
-scheduleMode_minutely: Minutový cyklus
-scheduleMode_once: Jednorázový
-sec.: sek.
-smartphones, tablets, etc.: smartphony, tablety atd.
-state-closed: Zavřené
-state-default: Výchozí
-state-empty: Prázdné
-state-full: Plné
-state-humidity: Vlhkost
-state-off: Vypnuté
-state-on: Zapnuté
-state-opened: Otevřené
-state-partially_closed: Částečně zavřené
-state-revealed: Odkryté
-state-rgb_off_dim_off: RGB a stmívač vypnutý
-state-rgb_off_dim_on: RGB vypnuté, stmívač zapnutý
-state-rgb_on_dim_off: RGB zapnuté, stmívač vypnutý
-state-rgb_on_dim_on: RGB a stmívač zapnuté
-state-shut: Zakryté
-state-temperature: Teplota
-suffix: přípona
-sunrise-after: po východu slunce
-sunrise-before: před východem slunce
-sunset-after: po západu slunce
-sunset-before: před západem slunce
-the whole history: celá historie
-this month: aktuální měsíc
-this year: aktuální rok
-today: dnes
-unknown: neznámý
-username: název uživatele
-valid until: vyprší
-values as seen on chart: hodnoty jako v diagramu
-values as seen on counter: hodnoty jako na počítadle
-yesterday: včera
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nemůže komunikovat s Vaším účtem, dokud znovu neudělíte přístup.'
-'{clientName} wants to access your account.': '{clientName} chce získat přístup k vašemu účtu.'
-'{minutes} minutes after sunrise': '{minutes} minut po východu slunce'
-'{minutes} minutes after sunset': '{minutes} minut po západu slunce'
-'{minutes} minutes before sunrise': '{minutes} minut před východem slunce'
-'{minutes} minutes before sunset': '{minutes} minut před západem slunce'
-'{requests} out of {limit} / day': '{requests} za {limit} / den'
-'{requests} out of {limit} / h': '{requests} za {limit} / h'
-'{requests} out of {limit} / min': '{requests} za {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} za {limit} / {seconds} sek.'
-'{serviceName} integration': Integrace s {serviceName}.
-
-#</editor-fold>
-#<editor-fold desc="Extra translations">
-# Translations below have not been found in sources. You might want to delete them.
-...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
-Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
-Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
-Action: Akce
-Add new item to use in the scene: Přidat na scénu novou položku
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Opravdu chcete vymazat veškerou historii napěťových aberací pro tento kanál?
-Are you sure you want to disable this device?: Opravdu chcete toto zařízení deaktivovat?
-Assigned Locations: Přiřazené umístění
-Authorized OAuth apps: Autorizované aplikace OAuth
-Calculated value: Stav elektroměru
-Cannot send an activation e-mail. Try again later.: Nelze odeslat zprávu s aktivačním odkazem. Zkuste to prosím znovu později.
-Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
-Channels in channel group: Kanály ve skupinách kanálů
-Chosen hour: Vybraný čas
-Coming Soon: Brzy k dispozici
-Confirm if you want to remove {deviceName} device: Potvrďte, že chcete odebrat zařízení {deviceName}
-DISABLED: VYPNUTO
-Date: Datum
-Days: Dny
-Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
-Doors, Gates: Dveře, Brány
-ENABLED: ZAPNUTO
-Email already exists: E-mailová adresa již existuje
-Existing schedules: Stávající plány
-From IP: Z adresy IP
-Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
-Hi: Ahoj
-Hour: Hodina
-Hours: Hodiny
-I/O: Vstup/ Výstup
-If you want to stay here, do something!: Pokud chcete zůstat, udělejte něco!
-Input: Vvstup
-Languages: Jazyky
-Loading: Načítání
-Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
-Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
-Minute: Minuta
-Mobile Apps: Mobilní aplikace
-Next: Dále
-Number: Číslo
-Output: Výstup
-Please select the schedules that should also be enabled.: Vyberte plány, které by měly být také zahrnuty.
-Previous login: Předchozí přihlášení
-Registration: Registrace
-Remove: Vymazat
-Schedule cannot be enabled: Plán nemohl být zapnutý
-Schedules below will be deleted: Následující plány budou smazány
-Sources available from: Zdroje dostupné v
-Status: Stav
-Subject: Předmět
-Sunrise / Sunset: Východ / Západ
-Supla for devices: Supla na zařízeních
-Try again later: Zkuste to prosím později
-Turning this device off will result in disabling all the associated schedules.: Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.
-When: Kdy
-You will be logged out shortly: Budete brzy odhlášeni
-execute: proveď
-hourly: Hodinový cyklus
-or add a delay: nebo přidat zpoždění
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-'% of closing': '% uzamčení'
-Add a new action to the scene: Přidat novou akci ke scéně
-Are you sure you want to delete this reaction?: Jste si jisti, že chcete tuto reakci odstranit?
-Body: Obsah
-Choose the channel: Vybrat kanál
-Choose the channel group: Vybrat skupinu kanálů
-Choose the scene: Vybrat scénu
-Choose the schedule: Vybrat harmonogram
-Create new reaction: Vytvořit novou reakci
-Current: Aktuální
-Edit reaction: Upravit reakci
-Go to the channel: Přejít na kanál
-Go to the channel group: Přejít na skupinu kanálů
-Go to the scene: Přejít na scénu
-Go to the schedule: Přejít na harmonogram
-Invalid scene: Nesprávná scéna
-Missing action.: Žádná akce
-New reaction: Nová reakce
-Notification: Oznámení
-Notification must have a body.: Oznámení musí mít obsah.
-Notifications: Oznámení
-Phase: Fáze
-Please fix the problems with operations and try again.: Vyřešte problémy s operacemi a zkuste to znovu.
-Please select a condition: Vyberte podmínku prosím
-Please select an action: Vyberte akci prosím
-Power active: Činná energie
-Power apparent: Zdánlivá energie
-Power reactive: Jalová energie
-Reactions: Reakce
-Reactions limit has been exceeded: Překročení limitu reakce
-Recipients: Odběratelé
-Send a notification: Odeslat oznámení
-Send notification: Odeslat oznámení
-The notification must have a recipient.: Oznámení musí obsahovat odběratele.
-The reaction has been added: Reakce byla přidána
-The reaction has been changed: Reakce byla změněna
-Title: Název
-Voltage: Napětí
 When a certain distance is reached: Když bude dosažena určitá vzdálenost
 When a lack of liquid is detected: Když bude zjištěna nepřítomnost kapaliny
 When a new mail comes: Když přijde nová pošta
@@ -1237,18 +969,318 @@ When the window will be opened: Když se okno otevře
 When the window will be opened or closed: Když se okno zavře nebo otevře
 When there is certain amount of rain: Když padá určité množství deště
 When there weight reaches a certain value: Když hmotnost dosáhne určité hodnoty
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Proces vytvoření přímého linku můžete vyvolat tím, že podáte jeho unikátní identifikátor v obsahu požadavku  HTTP PATCH. Tato cesta je bezpečnější, protože neumožňuje uložit celou Vaší adresu odkazu v loginech dostupných serverů, pomocí kterých přechází Tvůj požadavek. Níže se nacházejí příkladové požadované akce dostupné pomocí nástroje  cURL.
+Where is the JSON?: Kde je JSON?
+Where is your SUPLA Cloud?: Kde se nachází Vaše Supla?
+White: Bílý
+Wind sensor: Snímač větru
+Window opening sensor: Snímač otevření okna
+With SUPLA you can operate the lights in your home or office: Se SUPLOU můžete ovládat osvětlení ve Vašem domu nebo kanceláři
+With function: S funkcí
+Working period: Období provozu
+Working schedule: Plán činnosti
+YOUR LINK CODE: KÓD VAŠEHO ODKAZU
+You are changing the settings too quickly. You have to wait a while before making this change.: Měníte nastavení příliš rychle. Před změnou těchto nastavení musíte chvíli počkat.
+You can browse only the most recent logs now. Wait a while for the full history.: V současné době se zobrazují pouze nejnovější měření. Chvíli počkej, až se celá  stáhne.
+You can ignore this message, if you have accidentally entered an incorrect password.: Tyto informace můžete ignorovat, pokud jste zadali nesprávné heslo.
+You can use the application but you will not be able to modify any settings.: Můžete používat aplikaci, ale není možné změnit nastavení konfigurace
+You cannot delete your last access identifier.: Nemůžete smazat poslední ID přístupu.
+You cannot delete your last location.: Nemůžete smazat vaše poslední umístění.
+You cannot use SUPLA project name in the domain name.: V názvu hlavní domény nemůžete použít název projektu SUPLA.
+You have exceeded your API Rate Limit: Využili jste svůj maximální limit API požadavků
+You have requested to unregister your SUPLA Cloud instance: Požádali jste o zrušení registrace vaší instance SUPLA Cloud
+You have to choose at least one scope.: Musíte vybrat alespoň jeden rozsah.
+You just need to execute the following command inside your host terminal.: Stačí spustit následující příkaz uvnitř terminálu hostitele.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Pokud stále chcete používat režim pokročilého plánování, podívejte se na níže uvedené příklady.
+You must agree to the Terms and Conditions.: Je nutné souhlasit se Smluvními podmínkami.
+You must enable MQTT Broker first.: Nejprve musíte povolit integraci s brokerem MQTT.
+You must leave at least one phase enabled.: Alespoň jedna fáze musí zůstat aktivní.
 You must set an action for each reaction.: Pro každou reakci je třeba nastavit akci.
+You must set an action for each scene operation.: Vyberte akci pro každou operaci ve scéně.
+You must set sections with transparent or opaque parameters or both.: Musíte zvolit průhlednost alespoň pro jednu sekci.
+You need to provide icons for all states.: Musíte přidat ikony pro všechny stavy.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Musíte aktualizovat svojí instanci SUPLA Cloud do minimální verze 2.3.0.
+You will not be able to generate a direct link with the same URL again.: Není možné vytvořit odkaz se stejnou adresou URL.
+Your account and MQTT Broker connection.: Propojení vašeho účtu s brokerem MQTT.
+Your account has been deleted. We hope you will come back to us soon.: Účet był odstraněn. Doufáme, že se k nám zase vrátite.
+Your account has been locked.: Váš účet byl zablokován.
+Your account has not been confirmed yet.: Váš účet dosud nebyl potvrzen.
+Your account limits: Vaše limity
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Tvůj prohlížeč nepodporuje mechanismus klientské databáze (IndexedDB). Tato funkce je nutná pro zobrazení grafů a podporu pokročilých nastavení exportu dat. Chceš-li tyto funkce využívat, aktualizuj prohlížeč nebo ukonči režim inkognito.
+Your channel groups are allowed to have a maximum of {max} channels.: Vaše skupiny kanálů mohou mít maximálně {max} kanálů.
+Your chart is being drawn...: Tvůj graf je nakreslen...
+Your data are being collected. Please be patient.: Shromažďujeme tvé údaje, prosíme o trpělivost.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Tvé udaje se stahují ze serveru. Před exportem počkej na dokončení stahování.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Zařízení umožňuje rozšířit jeho funkčnost a umožňuje provádět jakoukoli činnost na jakémkoli vašem zařízení. Dostupné možnosti závisí na firmwaru a zařízení, které používáte.
+Your email: Váš e-mail
+Your instance is not registered or you are trying to authorize an application that is not public.: Vaše instance není registrována nebo se pokoušíte autorizovat aplikaci, která není veřejná.
+Your password must contain at least one special character.: Heslo musí obsahovat alespoň jeden speciální znak.
+Your password must include at least one letter.: Heslo musí obsahovat alespoň jedno písmeno.
+Your password must include at least one number.: Heslo musí obsahovat alespoň jedno číslo.
+Your password must include both upper and lower case letters.: Heslo musí obsahovat velká a malá písmena.
+Your preferences has been updated.: Vaše nastavení bylo uloženo.
+Your private SUPLA Cloud instance has been unregistered.: Vaše soukromá instance SUPLA Cloud byla zrušena.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Twoja prywatna instancja SUPLA cloud jest niedostępna. Upewnij się, że Twój serwer jest online, a połączenie HTTPS poprawnie działa.
+Your private SUPLA Cloud is almost registered.: Váš soukromý cloud SUPLA je téměř registrován.
+Your private SUPLA Cloud is not registered.: Váš soukromý cloud SUPLA není registrován.
+Your scenes are allowed to have a maximum of {max} operations.: Vaše scény mohou mít maximálně {max} operací.
+Your schedules are allowed to have a maximum of {max} actions.: Vaše plány mohou mít maximálně {max} akcí.
+Your session has been expired.: Vaše relace vypršela.
+Your session is about to expire: Vaše relace brzy vyprší
+Your session will expire in {0}.: Vaše relace vyprší za {0}.
+Yours faithfully,: S pozdravem,
+access to your e-mail address: přístup k vaší e-mailové adrese
+actionTrigger_HOLD: Držení tlačítka
+actionTrigger_SHORT_PRESS_X1: Stiskněte 1x
+actionTrigger_SHORT_PRESS_X2: Stiskněte 2x
+actionTrigger_SHORT_PRESS_X3: Stiskněte 3x
+actionTrigger_SHORT_PRESS_X4: Stiskněte 4x
+actionTrigger_SHORT_PRESS_X5: Stiskněte 5x
+actionTrigger_TOGGLE_X1: Přepnout 1x
+actionTrigger_TOGGLE_X2: Přepnout 2x
+actionTrigger_TOGGLE_X3: Přepnout 3x
+actionTrigger_TOGGLE_X4: Přepnout 4x
+actionTrigger_TOGGLE_X5: Přepnout 5x
+actionTrigger_TURN_OFF: Vyloučení
+actionTrigger_TURN_ON: Zařazení
+actionableSubjectType_channel: Kanál
+actionableSubjectType_channelGroup: Skupina kanálů
 actionableSubjectType_notification: Oznámení
+actionableSubjectType_scene: Scéna
+actionableSubjectType_schedule: Harmonogram
+addToHistoryMeasurementWarningSelected: Zaškrtnutím této možnosti se nastavené hodnoty přidají k budoucím měřením uloženým v historii. V grafech je to vidět jako náhlé zvýšení o zadanou hodnotu. Doporučujeme, abyste tyto parametry nastavili pouze při první instalaci měřiče. U stávajících měřičů doporučujeme vymazat historii měření, jakmile tato nastavení změníte.
+addToHistoryMeasurementWarningUnselected: Zrušením zaškrtnutí této možnosti vynecháte nastavené hodnoty z budoucích měření uložených v historii. To lze v grafech vidět jako náhlý pokles. Doporučujeme, abyste tyto parametry nastavili pouze při první instalaci měřiče. U stávajících měřičů doporučujeme vymazat historii měření, jakmile tato nastavení změníte.
+after: po
 and wait until it reaches: a počkejte, dokud nedosáhne
 and wait until it will be: a počkejte, až bude
 and wait until the humidity will be: a počkejte, až bude vlhkost
 and wait until the temperature will be: a počkejte, až bude teplota
 and wait until the value will be: a počkejte, až bude hodnota
+average: průměr
+be at least {numChars} characters long: musí mít alespoň {numChars} znaků
+before: před
+caption: název
+change: změň
+channel: Kanál
+channelConfigHelp_gateCloseAfterHelp: Agent, který spustí proceduru zavírání brány, může být zpožděn až o jednu minutu od nastaveného času.
+channelConfigHelp_numberOfAttemptsGate: Poté, co nařídíte otevření nebo zavření brány, se jí systém pokusí zavřít/otevřít a počká 60 sekund, proto aby mohl zkontrolovat, zda brána dosáhla požadovaného stavu. Pokud ne, systém se pokusí bránu znovu zavřít/otevřít. Tento parametr definuje maximální počet pokusů systému o dosažení cíle. Doporučená hodnota je 5. Změna tohoto parametru neovlivní činnost plánů.
+channelConfigHelp_stateVerificationMethod: 'Aktivní: Když se senzor poprvé přepne do cílového stavu, zastaví pokusy. Pasivní: jednou za 60 sekund zkontrolujeme stav senzoru a opakování pokusu se přeruší, když senzor nahlásí cílový stav.'
+channelConfig_stateVerificationMethod_active: Aktivní
+channelConfig_stateVerificationMethod_passive: Pasivní
+channelGroup: Skupina kanálů
+choose: vybrat
+choose a currency: vyberte měnu
 choose access identifiers: vybrat identifikátory přístupu
 choose the access identifiers: vybrat identifikátory přístupu
+choose the action: vyberte akci
+choose the channel: vyberte kanál
+choose the channel group: vyberte skupinu kanálů
+choose the scene: vyberte scénu
+choose the schedule: vyber harmonogram
+choose the timezone: vyberte časové pásmo
+click here: klikněte zde
+contains a character that is neither a letter nor a digit: obsahuje znak, který není ani písmenem, ani číslicí.
+contains a digit: obsahuje číslo
+contains lower and upper letters: obsahuje velká a malá písmena
+copied: kopírováno
+copy: kopíruj
+days: dny
+directLinkExecutionFailureReason_disabled: Přímý odkaz je vypnutý
+directLinkExecutionFailureReason_executionLimitExceeded: Limit výkonů byl překročen
+directLinkExecutionFailureReason_expired: Přímý odkaz je zastaralý
+directLinkExecutionFailureReason_forbiddenAction: Odkaz neumožňuje provedení této akce
+directLinkExecutionFailureReason_httpGetForbidden: Akci nebylo možné provést pomocí metody HTTP GET.
+directLinkExecutionFailureReason_invalidActionParameters: Nesprávné parametry přímého odkazu
+directLinkExecutionFailureReason_invalidChannelState: Stav kanálu nedovoluje provést požadovanou akci.
+directLinkExecutionFailureReason_invalidSlug: Vyslaný ověřovací kód je nesprávný
+directLinkExecutionFailureReason_noAllowedActions: Nebyly vybrány žádné povolené akce
+directLinkExecutionFailureReason_noSlugOrAction: Nesprávný požadavek, je nutné provést akci a zadat kód linku
+directLinkExecutionFailureReason_notActiveYet: Přímý odkaz ještě není aktivní
+directLinkExecutionFailureReason_otherFailure: Chyba při provádění akce
+directLinkExecutionFailureReason_sceneDuringExecution: Probíhá scéna.
+directLinkExecutionFailureReason_unsupportedAction: Vybraná akce byla špatně provedena
+empty: prázdný
+everyday: denně
+executed: hotovo
+extend: prodloužit
+from IP: z adresy IP
+from the IP: z adresy
+hours: hodiny
+is at least {numChars} characters long: má alespoň {numChars} znaků
+last 24 hours: posledních 24 hodin
+last 30 days: posledních 30 dní
+last 6 hours: posledních 6 hodin
+last 7 days: posledních 7 dní
+logs_aggregation_day: dní
+logs_aggregation_hour: hodiny
+logs_aggregation_minute: minuty
+logs_aggregation_month: měsíce
+min.: min.
+minutes: minuty
 notification: oznámení
 or another element: nebo jiný prvek
+password: heslo
+prefix: předpona
+previous month: předchozí měsíc
+range: rozsah
+register-slide1-text: Na základě dostupné elektroniky Vám SUPLA umožní vytvářet jednoduché moduly, které vám umožní ovládat a řídit komponenty automatizace budov. Díky SUPLI můžete mimo jiné ovládat osvětlení, zapínat a vypínat domácí spotřebiče a elektroniku, otvírat a zavírat brány a dveře nebo řídit teplotu v místnostech. To vše můžete udělat jedním prstem.
+register-slide1-title: Vlastní inteligentní budova
+register-slide2-text: Jedním ze základních předpokladů projektu je jednoduchost a dostupnost. SUPLA umožňuje zapnout světlo jedním pohybem prstu nebo otevřít bránu, když chcete vstoupit do areálu. SUPLA je k dispozici všude tam, kde máte přístup k Internetu a máte k dispozici smartphone nebo tablet. SUPLA je vyvíjen na principech Open Software a Open Equipment, díky nimž můžete také tento projekt vyvíjet!
+register-slide2-title: SUPLA všude!
+register-slide3-text: Systémy automatizace budov dostupné na trhu jsou obvykle velmi složité, uzavřené a nákladné. V mnoha případech vyžadují instalaci již ve fázi výstavby budovy. SUPLA je jednoduchá, otevřená a zdarma. Umožňuje vytvářet výkonné prvky založené na platformách RaspberryPI, Arduino nebo ESP8266 a kombinovat je pomocí LAN a WiFi sítí. Připojte se k projektu a sestavte vlastní verzi systému automatizace budov!
+register-slide3-title: Zdarma a otevřená!
+reset chart view: vrátit se na původní náhled
+scene: scéna
+schedule: harmonogram
+scheduleMode_crontab: Pokročilý
+scheduleMode_daily: Denní cyklus
+scheduleMode_minutely: Minutový cyklus
+scheduleMode_once: Jednorázový
+sec.: sek.
+smartphones, tablets, etc.: smartphony, tablety atd.
+state-closed: Zavřené
+state-default: Výchozí
+state-empty: Prázdné
+state-full: Plné
+state-humidity: Vlhkost
+state-off: Vypnuté
+state-on: Zapnuté
+state-opened: Otevřené
+state-partially_closed: Částečně zavřené
+state-revealed: Odkryté
+state-rgb_off_dim_off: RGB a stmívač vypnutý
+state-rgb_off_dim_on: RGB vypnuté, stmívač zapnutý
+state-rgb_on_dim_off: RGB zapnuté, stmívač vypnutý
+state-rgb_on_dim_on: RGB a stmívač zapnuté
+state-shut: Zakryté
+state-temperature: Teplota
+suffix: přípona
 sum: suma
+sunrise-after: po východu slunce
+sunrise-before: před východem slunce
+sunset-after: po západu slunce
+sunset-before: před západem slunce
+the whole history: celá historie
 then execute the action: pak proveďte akci
+this month: aktuální měsíc
+this year: aktuální rok
+today: dnes
+unknown: neznámý
+username: název uživatele
+valid until: vyprší
+values as seen on chart: hodnoty jako v diagramu
+values as seen on counter: hodnoty jako na počítadle
+yesterday: včera
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} nemůže komunikovat s Vaším účtem, dokud znovu neudělíte přístup.'
+'{clientName} wants to access your account.': '{clientName} chce získat přístup k vašemu účtu.'
+'{minutes} minutes after sunrise': '{minutes} minut po východu slunce'
+'{minutes} minutes after sunset': '{minutes} minut po západu slunce'
+'{minutes} minutes before sunrise': '{minutes} minut před východem slunce'
+'{minutes} minutes before sunset': '{minutes} minut před západem slunce'
+'{requests} out of {limit} / day': '{requests} za {limit} / den'
+'{requests} out of {limit} / h': '{requests} za {limit} / h'
+'{requests} out of {limit} / min': '{requests} za {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} za {limit} / {seconds} sek.'
+'{serviceName} integration': Integrace s {serviceName}.
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ... a začněte dobrodružství s inteligentními budovami již dnes!
+Access identifier password must be at least 8 characters.: Heslo pro identifikátor přístupu musí mít délku alespoň 8 znaků.
+Access identifier password must be no longer than 32 characters.: Heslo pro identifikátor přístupu nesmí být delší než 32 znaků.
+Action: Akce
+Add new item to use in the scene: Přidat na scénu novou položku
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Opravdu chcete vymazat veškerou historii napěťových aberací pro tento kanál?
+Are you sure you want to disable this device?: Opravdu chcete toto zařízení deaktivovat?
+Assigned Locations: Přiřazené umístění
+Authorized OAuth apps: Autorizované aplikace OAuth
+Calculated value: Stav elektroměru
+Cannot send an activation e-mail. Try again later.: Nelze odeslat zprávu s aktivačním odkazem. Zkuste to prosím znovu později.
+Channel will be deleted from the channel group below: Kanál bude odstraněn z následujících skupin kanálů
+Channels in channel group: Kanály ve skupinách kanálů
+Chosen hour: Vybraný čas
+Coming Soon: Brzy k dispozici
+Confirm if you want to remove {deviceName} device: Potvrďte, že chcete odebrat zařízení {deviceName}
+DISABLED: VYPNUTO
+Days: Dny
+Direct links below will be deleted: Přímý odkaz uvedené níže budou odstraněny
+Doors, Gates: Dveře, Brány
+ENABLED: ZAPNUTO
+Email already exists: E-mailová adresa již existuje
+Existing schedules: Stávající plány
+From IP: Z adresy IP
+Get SUPLA on your devices: Stáhněte si zařízení SUPLA do vašeho zařízení
+Hi: Ahoj
+Hour: Hodina
+Hours: Hodiny
+I/O: Vstup/ Výstup
+If you want to stay here, do something!: Pokud chcete zůstat, udělejte něco!
+Input: Vvstup
+Languages: Jazyky
+Loading: Načítání
+Location password must be at least 4 characters.: Heslo pro umístění musí mít délku alespoň 4 znaků.
+Location password must be no longer than 32 characters.: Heslo pro umístění nesmí být delší než 32 znaků.
+Minute: Minuta
+Mobile Apps: Mobilní aplikace
+Next: Dále
+Number: Číslo
+Output: Výstup
+Please select an action: Vyberte akci prosím
+Please select the schedules that should also be enabled.: Vyberte plány, které by měly být také zahrnuty.
+Previous login: Předchozí přihlášení
+Registration: Registrace
+Remove: Vymazat
+Schedule cannot be enabled: Plán nemohl být zapnutý
+Schedules below will be deleted: Následující plány budou smazány
+Sources available from: Zdroje dostupné v
+Status: Stav
+Subject: Předmět
+Sunrise / Sunset: Východ / Západ
+Supla for devices: Supla na zařízeních
+Triggers: Spouštěče
+Try again later: Zkuste to prosím později
+Turning this device off will result in disabling all the associated schedules.: Vypnutí tohoto zařízení způsobí také vypnutí plánů, které jsou s ním spojeny.
+When: Kdy
+You will be logged out shortly: Budete brzy odhlášeni
+execute: proveď
+hourly: Hodinový cyklus
+or add a delay: nebo přidat zpoždění
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>

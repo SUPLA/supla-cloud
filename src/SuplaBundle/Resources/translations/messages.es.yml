@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% de cierre'
 '%s trigger is not supported by the hardware.': El activador %s no es compatible con el dispositivo.
 ...open and shut roller shutters: ...abrir y cerrar las persianas
 ...open gateways, gates or doors: ...abrir el portillo, la cancela o la puerta
@@ -43,6 +44,7 @@ Active sessions: Sesiones activas
 Active web sessions: Sesiones activas (web)
 Add: Añadir
 Add a delay: Agregar un retraso
+Add a new action to the scene: Agregar una nueva acción a la escena
 Add a new icon: Añadir icono nuevo
 Add action: Agregar una acción
 Add first channel to set channel group function and save it: Elige primer canal para determinar función del conjunto y guardárla
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: ¿Seguro que quieres borrar
 Are you sure you want to delete this client?: ¿Estás seguro de que quieres eliminar esta aplicación cliente?
 Are you sure you want to delete this direct link?: ¿Estás seguro/a de que deseas eliminar este enlace directo?
 Are you sure you want to delete this icon?: ¿Estás seguro/a de que deseas eliminar este icono?
+Are you sure you want to delete this reaction?: ¿Estás seguro de que deseas eliminar esta reacción?
 Are you sure you want to delete this scene?: ¿Seguro que quieres eliminar esta escena?
 Are you sure you want to delete this schedule?: ¿Seguro de que quieres eliminar este horario?
 Are you sure you want to log out this device?: ¿Estás seguro de que quieres desconectar este dispositivo?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: Basado en almanecer / atardecer
 Be notified when your channels change state: Notificación de cambio de estado de los canales
 Be right back!: ¡Vuelve en unos momentos!
 Below threshold: Por debajo del umbral
+Body: Contenido
 Bottom position: Posición inferior
 Bridge: Puente
 Brightness: Brillo
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Selecciona Identifica
 Choose channel function: Seleccionar una función de canal
 Choose client apps: Selecciona las aplicaciones del cliente
 Choose location: Elige localización
+Choose the channel: Seleccionar canal
+Choose the channel group: Seleccionar grupo de canales
+Choose the scene: Seleccionar una escena
+Choose the schedule: Seleccionar un horario
 Choose the source channel.: Seleccionar un canal de origen.
 Clear: Limpiar
 Click the following link to confirm removal of your account on %cloudHost%.: Para confirmar la eliminación de tu cuenta SUPLA, haz clic en el siguiente enlace.
@@ -215,8 +223,10 @@ Create New Location: Crea nueva Localización
 Create New Schedule: Crea nuevo horario
 Create an account: Crea cuenta
 Create new direct link: Crear un nuevo enlace directo
+Create new reaction: Crear una nueva reacción
 Create new scene: Crear una nueva escena
 Currency: Divisa
+Current: Corriente
 Current Overload: Sobrecarga
 Current Password: Contraseña actual
 Current password is incorrect: La contraseña actual es incorrectae
@@ -228,6 +238,7 @@ DHT22 Temperature & Humidity Sensor: Sensor de temperatura y humedad DHT22
 DS18B20 Thermometer: Termómetro DS18B20
 Data limits: Límites de datos
 Data saved: Se han guardado los datos
+Date: Fecha
 Date and time: Fecha y hora
 Decline: Rechazar
 Default: supuestamente
@@ -280,6 +291,7 @@ Download the history of measurement: Descargar el historial de medidas
 Drag your image(s) here or click to select from the disk: Arrastra la imagen aquí o haz clic para seleccionar desde el disco
 E-mail notifications: Notificaciónes de correo electrónico
 Edit: Edita
+Edit reaction: Editar la reacción
 Electric: Electricidad
 Electricity meter: Contador de electricidad
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: El contador de electricidad no informaba de la posibilidad de configurar valores añadidos. Actualiza el firmware del dispositivo y vuelve a intentarlo.
@@ -349,6 +361,10 @@ Generate new token: Generar token nuevo
 Generate token: Generar token
 Go to I/O device details: Pasa a los detalles de dispositivo
 Go to channel details: Pasa a los detalles del canal
+Go to the channel: Ir al canal
+Go to the channel group: Ir al grupo de canales
+Go to the scene: Ir a la escena
+Go to the schedule: Ir al horario
 Go to your account: Ve a tu cuenta
 Grant access: Otorgar acceso
 Guru Meditation: Guru Meditation
@@ -423,6 +439,7 @@ Invalid function for channel.: Función incorrecta para el canal
 'Invalid redirect URI: {uri}': 'URI de redireccionamiento no válido: {uri}'
 Invalid request: La solicitud incorrecta
 Invalid request.: Solicitud inválida.
+Invalid scene: Escena incorrecta
 Invalid token.: Token no valido.
 Invalid username or password: Nombre de usuario o contraseña no válidos
 Inverted logic: Lógica inversa
@@ -472,6 +489,7 @@ Measurement window: Tiempo de medición
 Meter value: Lectura del contador
 Meters: Contadores
 Minimum voltage: El voltaje más bajo
+Missing action.: Sin acción
 Mode: Modo
 Modification: Modificación
 Mondays: Los lunes
@@ -490,6 +508,7 @@ New channel group: Nuevo conjunto de canales
 New client app (smartphone) added to your account: Registro de una nueva aplicación cliente (smartphone)
 New direct link: Nuevo enlace directo
 New password: Nueva contraseña
+New reaction: Nueva reacción
 New scene: Nueva escena
 Newer: Más recientes
 'Next limit renewal: {date}': El límite será restaurado el {date}
@@ -516,6 +535,9 @@ No. of locations: Número de localizaciones
 None: No hay
 None (channel disabled): Ninguno (canal apagado)
 Noop: Ninguna operación
+Notification: Notificación
+Notification must have a body.: La notificación debe tener contenido.
+Notifications: Notificaciones
 Number of aberrations: Número de aberraciones
 Number of attempts to close: Número de intentos de cierre
 Number of attempts to open: Número de intentos de apertura
@@ -556,6 +578,7 @@ Percentage of closing: Porcentaje de cierre
 Personal access tokens: Tokens de acceso personales
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Los tokens de acceso personal funcionan igual que los tokens de acceso ordinarios, con la diferencia de que funcionan sin límite de tiempo.
 Personal token name is required.: Es necesario proporcionar un nombre de token personal.
+Phase: Fase
 Phase 1: Fase 1
 Phase 2: Fase 2
 Phase 3: Fase 3
@@ -567,11 +590,16 @@ Please click the link we have sent you after the registration to proceed.: Haz c
 Please confirm your SUPLA account.: Activa tu cuenta SUPLA.
 Please enter a valid email address: Introduce la dirección de correo electrónico correcta
 Please fill a valid email address: Introduce un correo electrónico correcto
+Please fix the problems with operations and try again.: Soluciona los problemas con las operaciones y vuelve a intentarlo.
 Please log in again to proceed.: Vuelve a iniciar sesión para continuar.
 Please provide a valid domain name for your private SUPLA Cloud: Proporciona el nombre de dominio correcto para tu nube privada SUPLA
 Please read the Terms and Conditions.: Lee el reglamento.
+Please select a condition: Seleccionar una condición
 Please wait a moment before the next login attempt.: Espere un rato antes del siguiente intento de acceso.
 Port: Puerto
+Power active: Energía activa
+Power apparent: Energía aparente
+Power reactive: Energía reactiva
 Precision: Precisión
 Predefined time ranges: Rangos de tiempo
 Pressure sensor: Sensor de presión atmosférica
@@ -589,7 +617,10 @@ RGB led controller: Controlador de alumbrado RGB
 RGB lighting: Alumbrado RGB
 Rain sensor: CSensor de lluvia
 Random: Aleatorio
+Reactions: Reacciones
+Reactions limit has been exceeded: Límite de reacción excedido
 Read: Lectura
+Recipients: Destinatarios
 Reference to the scene will be removed from the items below.: La indicación de cameo se eliminará de los siguientes elementos.
 Refresh: Refrescar
 Regeneration starts at: Inicio de la regeneración
@@ -666,6 +697,8 @@ Seems like a secret place: Algo nos dice que no deberías estar aquí
 Select icon: Elegir icono
 Select the item (subject) you want to control using this link: Selecciona el elemento (entidad) que deseas controlar usando este enlace
 Selected device has been logged out.: El dispositivo seleccionado se ha desconectado
+Send a notification: Enviar notificación
+Send notification: Enviar notificación
 Sensor (normal closed): Sensor (normalmente cerrado)
 Sensor (normal open): Sensor (normalmente abierto)
 Sensor disconnected: No hay sensor
@@ -745,8 +778,11 @@ The measurement history has been deleted.: El historial de mediciones ha sido el
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: La nueva contraseña reemplazará a la que estás utilizando actualmente. Algunas integraciones pueden dejar de funcionar después de cambiarla. ¿Continuar?
 The next available executions: Próximas ejecuciones
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Con un marco, marcamos la notificación desde la que hizo clic en el enlace para darse de baja.
+The notification must have a recipient.: La notificación debe tener un destinatario.
 The password and its confirm are not the same.: La contraseña y su confirmación no son iguales.
 The password should be 8 or more characters.: La contraseña debe tener al menos 8 carácteres.
+The reaction has been added: Se ha añadido la reacción
+The reaction has been changed: Se ha cambiado la reacción
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: El dispositivo ha sido apagado por protección contra sobrecorriente. Antes de encenderlo, asegúrate de que el problema que lo provocó se haya resuelto. ¿Seguro que quieres encender este dispositivo de forma remota?
 The scene would execute too many operations.: La escena está realizando demasiadas operaciones.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: El servidor devolvió el error 400, lo que significa que la solicitud solicitada es incorrecta.
@@ -770,6 +806,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Este activador es utilizado localmente por el dispositivo (por ejemplo, enciende la luz, controla la persiana, etc.) Si le asigna una acción diferente, la función local se desactivará.
 Thursdays: Los jueves
 Timezone: Zona horaria
+Title: Título
 To: Hasta
 Toggle: Cambiar
 Token does not exist: Token no existe
@@ -778,7 +815,6 @@ Too many channels in this group: Demasiados canales en este grupo
 Too many operations in this scene: Demasiadas operaciones en la escena.
 Total: Total
 Total time: Tiempo total
-Triggers: Activadores
 Tuesdays: Los martes
 Turning this device off will cause its channels not working in the following features.: Apagar el dispositivo hará que sus canales dejen de funcionar en los siguientes elementos.
 Turning this device off will result in disabling features listed below.: Apagar el dispositivo también apagará los siguientes elementos.
@@ -807,6 +843,7 @@ Vector balance: Balance vectorial
 Verification method: Modo de verificación
 Visible: Visible
 Visit app webpage: Abre el sitio de la aplicación
+Voltage: Tensión
 Voltage aberrations: Aberraciones de voltaje
 Voltage monitoring: Control de voltaje
 WELCOME_MESSAGE: |
@@ -837,311 +874,6 @@ Wednesdays: Los miércoles
 Weight sensor: Peso
 Welcome!: ¡Hola!
 What this token is for?: ¿Para qué sirve este token?
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Puedes realizar la acción del enlace directo, dando su identificador único en el testo de la orden HTTP PATCH.  Esto es más seguro, ya que hace imposible grabar tu dirección completa de Tu enlace entre los logos de acceso a servidores, por los que pasa Tu orden. A continuación encontraras una acción ejemplo, realizada a través de la herramienta cURL.
-Where is the JSON?: ¿Dónde está JSON?
-Where is your SUPLA Cloud?: ¿Dónde está tu Supla?
-White: Blanco
-Wind sensor: Sensor de viento
-Window opening sensor: Dectector de apertura de ventanas
-With SUPLA you can operate the lights in your home or office: Con SUPLA puedes controlar el alumbrado en tu casa u oficina
-With function: Con función
-Working period: Período de funcionamiento
-Working schedule: Horario de actividades
-YOUR LINK CODE: CÓDIGO DE TU ENLACE
-You are changing the settings too quickly. You have to wait a while before making this change.: Cambias la configuración demasiado rápido. Debes esperar un poco antes de cambiar esta configuración.
-You can browse only the most recent logs now. Wait a while for the full history.: Actualmente, sólo se muestran las mediciones más recientes. Espera un poco a que se descargue todo el historial.
-You can ignore this message, if you have accidentally entered an incorrect password.: Si ha introducido la contraseña incorrecta, ignora este mensaje.
-You can use the application but you will not be able to modify any settings.: Puedes usar la aplicación, pero no es posible cambiar la configuración.
-You cannot delete your last access identifier.: No puedes borrar tu último  identificador de acceso.
-You cannot delete your last location.: No puedes borrar tu  última localización.
-You cannot use SUPLA project name in the domain name.: No puedes utilizar el nombre del proyecto SUPLA en el nombre de dominio principal.
-You have exceeded your API Rate Limit: Has llegado al límite de tus solicitudes API
-You have requested to unregister your SUPLA Cloud instance: Has solicitado dar de baja tu instancia de SUPLA Cloud
-You have to choose at least one scope.: Debes seleccionar al menos un rango.
-You just need to execute the following command inside your host terminal.: Simplemente realiza las instrucciones dentro de la terminal de tu host.
-You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Si aún deseas utilizar el modo de programación avanzada, echa un vistazo a los ejemplos a continuación.
-You must agree to the Terms and Conditions.: Aceptación del reglamento es necesaria.
-You must enable MQTT Broker first.: Primero debes apagar la integración con el bróker MQTT.
-You must leave at least one phase enabled.: Al menos una fase debe permanecer activa.
-You must set an action for each scene operation.: Seleccionar una acción para cada operación en la escena.
-You must set sections with transparent or opaque parameters or both.: Debes elegir transparencia para al menos una sección.
-You need to provide icons for all states.: Debes proporcionar iconos para todos los estados.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Debes actualizar tu instacia de SUPLA Cloud al menos a la versión 2.3.0.
-You will not be able to generate a direct link with the same URL again.: No será posible crear un enlace con el mismo URL.
-Your account and MQTT Broker connection.: Vinculación de tu cuenta con el bróker MQTT.
-Your account has been deleted. We hope you will come back to us soon.: La cuenta ha sido eliminada. Esperamos que vuelvas pronto.
-Your account has been locked.: Su cuenta está bloqueada.
-Your account has not been confirmed yet.: Tu cuenta aún no ha sido confirmada.
-Your account limits: Tus límites
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Tu navegador no soporta el mecanismo de base de datos cliente (IndexedDB). Esta funcionalidad es necesaria para mostrar gráficos y admitir configuraciones avanzadas de exportación de datos. Actualiza tu navegador o sal del modo incógnito para aprovechar estas funciones.
-Your channel groups are allowed to have a maximum of {max} channels.: Tus grupos de canales pueden tener un máximo de {max} canales.
-Your chart is being drawn...: Tu gráfico está dibujado...
-Your data are being collected. Please be patient.: Estamos recopilando tus datos, un poco de paciencia.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Tus datos se descargan del servidor. Espere a que finalicen las descargas antes de exportarlas.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: El dispositivo te permite ampliar su funcionalidad y te permite realizar cualquier acción en cualquier dispositivo que tengas. Las opciones disponibles dependerán del firmware y el dispositivo que estés utilizando.
-Your email: Tu correo electrónico
-Your instance is not registered or you are trying to authorize an application that is not public.: Tu instancia no está registrada o estás intentando autorizar una aplicación que no es pública.
-Your password must contain at least one special character.: La contraseña debe contener al menos un carácter especial.
-Your password must include at least one letter.: La contraseña debe contener al menos una letra.
-Your password must include at least one number.: La contraseña debe contener al menos un número.
-Your password must include both upper and lower case letters.: La contraseña debe contener letras mayúsculas y minúsculas.
-Your preferences has been updated.: Tu configuración ha sido guardada.
-Your private SUPLA Cloud instance has been unregistered.: Tu instancia privada de SUPLA Cloud ha sido dada de baja.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Tu instancia privada SUPLA cloud no está disponible. Asegúrate de que tu servidor está online y la conexión HTTPS funciona correctamente.
-Your private SUPLA Cloud is almost registered.: Tu nube privada SUPLA está casi registrada.
-Your private SUPLA Cloud is not registered.: Tu nube privada SUPLA no está registrada.
-Your scenes are allowed to have a maximum of {max} operations.: Tus escenas pueden tener un máximo de {max} operaciones.
-Your schedules are allowed to have a maximum of {max} actions.: Tus programaciones pueden tener un máximo de {max} acciones.
-Your session has been expired.: Tu sesión ha expirado.
-Your session is about to expire: Tu sesión está a punto de caducar
-Your session will expire in {0}.: Tu sesión va a expirar en {0}.
-Yours faithfully,: Atentamente
-access to your e-mail address: acceso a tu dirección de correo electrónico
-actionTrigger_HOLD: Manteniendo pulsao el botón
-actionTrigger_SHORT_PRESS_X1: Presionando 1x
-actionTrigger_SHORT_PRESS_X2: Presionando 2x
-actionTrigger_SHORT_PRESS_X3: Presionando 3x
-actionTrigger_SHORT_PRESS_X4: Presionando 4x
-actionTrigger_SHORT_PRESS_X5: Presionando 5x
-actionTrigger_TOGGLE_X1: Cambiando 1x
-actionTrigger_TOGGLE_X2: Cambiando 2x
-actionTrigger_TOGGLE_X3: Cambiando 3x
-actionTrigger_TOGGLE_X4: Cambiando r 4x
-actionTrigger_TOGGLE_X5: Cambiando 5x
-actionTrigger_TURN_OFF: Apagando
-actionTrigger_TURN_ON: Encendiendo
-actionableSubjectType_channel: Canal
-actionableSubjectType_channelGroup: Conjunto de canales
-actionableSubjectType_scene: Escenario
-actionableSubjectType_schedule: Horario
-addToHistoryMeasurementWarningSelected: Al marcar esta opción, se agregarán los valores establecidos a futuras mediciones guardadas en el historial. Esto se puede ver en los gráficos como un aumento repentino del valor ingresado. Recomendamos que solo establezcas estos parámetros cuando instale el medidor por primera vez. Para los medidores existentes, recomendamos que elimines el historial de mediciones tan pronto como cambie esta configuración.
-addToHistoryMeasurementWarningUnselected: Al desmarcar esta opción, se omitirán los valores establecidos de futuras mediciones guardadas en el historial. Esto se puede ver en los gráficos como una caída repentina. Recomendamos que solo establezcas estos parámetros cuando instales el medidor por primera vez. Para los medidores existentes, te recomendamos que elimines el historial de mediciones tan pronto como cambie esta configuración.
-after: Después de
-average: Media
-be at least {numChars} characters long: debe tener al menos {numChars} caracteres
-before: Antes de
-caption: nombre
-change: cambiar
-channel: Canal
-channelConfigHelp_gateCloseAfterHelp: El agente que inicia el procedimiento de cierre de la puerta puede retrasarse hasta un minuto del tiempo establecido.
-channelConfigHelp_numberOfAttemptsGate: Después de ordenar que el portón se abra o se cierre, el sistema intentará cerrarlo/abrirlo y esperará 60 segundos para verificar si el portón ha alcanzado el estado deseado. De lo contrario, el sistema intentará cerrar/abrir de nuevo. Este parámetro define el número máximo de intentos del sistema para lograr el objetivo. El valor recomendado es 5. Cambiar este parámetro no afecta el funcionamiento de cronogramas.
-channelConfigHelp_stateVerificationMethod: 'Activo: el primer cambio del estado del sensor al definitivo, frena la repetición de las pruebas. Pasivo: una vez cada 60 segundos, verificamos el estado del sensor y dejamos de repetirlo cuando el sensor informe el estado establecido.'
-channelConfig_stateVerificationMethod_active: Activo
-channelConfig_stateVerificationMethod_passive: Pasivo
-channelGroup: Conjunto de canales
-choose: elige
-choose a currency: elegir divisa
-choose the action: seleccionar la acción
-choose the channel: selecciona canal
-choose the channel group: elige el grupo de canales
-choose the scene: selecciona la escena
-choose the schedule: seleccionar horario
-choose the timezone: elige una zona horaria
-click here: haz clic aquí
-contains a character that is neither a letter nor a digit: contiene un carácter que no es ni una letra ni un número
-contains a digit: contiene un número
-contains lower and upper letters: contiene mayúsculas y minúsculas
-copied: copiado
-copy: Copiar
-days: días
-directLinkExecutionFailureReason_disabled: El enlace directo está desactivado
-directLinkExecutionFailureReason_executionLimitExceeded: Se ha superado el límite de acciones
-directLinkExecutionFailureReason_expired: El enlace directo ha expirado
-directLinkExecutionFailureReason_forbiddenAction: El enlace no permite realizar esta acción
-directLinkExecutionFailureReason_httpGetForbidden: No se ha podido realizar la acción utilizando un método HTTP GET no permitido.
-directLinkExecutionFailureReason_invalidActionParameters: Los parámetros de enlace directo incorrectos
-directLinkExecutionFailureReason_invalidChannelState: La acción no puede ser realizada debido al estado del canal
-directLinkExecutionFailureReason_invalidSlug: El código de verificación mandado es incorrecto
-directLinkExecutionFailureReason_noAllowedActions: No se seleccionaron acciones permitidas
-directLinkExecutionFailureReason_noSlugOrAction: Una orden incorrecta- se necesita el código de enlace y la acción
-directLinkExecutionFailureReason_notActiveYet: El enlace directo aún no está activo
-directLinkExecutionFailureReason_otherFailure: Error al realizar la acción
-directLinkExecutionFailureReason_sceneDuringExecution: La escena en curso de realización.
-directLinkExecutionFailureReason_unsupportedAction: La acción elegida es incorrecta
-empty: vacío
-everyday: a diario
-executed: ejecutado
-extend: prolongar
-from IP: desde la dirección IP
-from the IP: de la dirección
-hours: horas
-is at least {numChars} characters long: tiene al menos {numChars} caracteres
-last 24 hours: últimas 24 horas
-last 30 days: últimos 30 días
-last 6 hours: últimas 6 horas
-last 7 days: últimos 7 días
-logs_aggregation_day: días
-logs_aggregation_hour: horas
-logs_aggregation_minute: minutos
-logs_aggregation_month: meses
-min.: mín.
-minutes: minutos
-password: contraseña
-prefix: prefijo
-previous month: mes anterior
-range: rango
-register-slide1-text: Haciendo uso  de la electrónica disponible, SUPLA te facilitará crear módulos fáciles que permiten el manejo y control de los elementos de automatización de edificios. Gracias a SUPLA puedes, entre otros, controlar el alumbrado, encender y apagar los electrodomésticos, abrir y cerrar cancelas y puertas o controlar la temperatura en habitaciones. Todo eso lo puedes hacer moviendo un dedo.
-register-slide1-title: Propio Edificio Inteligente
-register-slide2-text: Unos de los supuestos fundamentales del proyecto son sencillez y accesibilidad. SUPLA posibilita encender la luz o abrir la puerta cuando quieres entrar en tu vivienda solo moviendo un dedo. SUPLA está disponible desde cualquier lugar donde tengas acceso a Internet y a tu smartphone o tablet. SUPLA está desarrollada de acuerdo con los principios de Software y Hardware Abiertos asi qué ¡tú también puedes desarrollar este proyecto!
-register-slide2-title: ¡SUPLA en todas partes!
-register-slide3-text: Los sistemas de automatización de edificios disponibles en el mercado son por lo general muy complejos, cerrados y costosos. En muchos casos requieren instalación ya en la etapa de construcción del edificio. SUPLA es fácil, abierta y gratuita. Permite construir elementos ejecutivos basándose en plataformas Raspberry PI, Arduino o ESP8266 y además combinarlas a través de las redes LAN y WiFi. ¡Únete al proyecto y crea tu propia versión de un sistema de automatización de edificios!
-register-slide3-title: ¡Gratuita y abierta!
-reset chart view: volver a la vista principal
-scene: escena
-schedule: horario
-scheduleMode_crontab: Avanzado
-scheduleMode_daily: Cada día
-scheduleMode_minutely: Cada minuto
-scheduleMode_once: Una vez
-sec.: s.
-smartphones, tablets, etc.: smartphones, tabletas etc.
-state-closed: Cerrado
-state-default: Por defecto
-state-empty: Vacío
-state-full: Lleno
-state-humidity: Humedad
-state-off: Apagado
-state-on: Encendido
-state-opened: Abierto
-state-partially_closed: Parcialmente cerrado
-state-revealed: Descubierto
-state-rgb_off_dim_off: RGB y atenuador apagados
-state-rgb_off_dim_on: RGB apagado, atenuador encendido
-state-rgb_on_dim_off: RGB encendido, atenuador apagado
-state-rgb_on_dim_on: RGB y atenuador encendidos
-state-shut: Cubierto
-state-temperature: Temperatura
-suffix: sufijo
-sunrise-after: la salida del sol
-sunrise-before: la salida del sol
-sunset-after: la puesta del sol
-sunset-before: la puesta del sol
-the whole history: historial completo
-this month: mes en curso
-this year: año en curso
-today: hoy
-unknown: desconocido
-username: nombre de usuario
-valid until: caducará
-values as seen on chart: valores como en el diagrama
-values as seen on counter: valores como en el contador
-yesterday: ayer
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} no puede interactuar con tu cuenta hasta que no vuelvas a otorgar el acceso.'
-'{clientName} wants to access your account.': '{clientName} quiere acceder a tu cuenta.'
-'{minutes} minutes after sunrise': '{minutos} minutos después del amanecer'
-'{minutes} minutes after sunset': '{minutos} minutos después del anochecer'
-'{minutes} minutes before sunrise': '{minutos} minutos antes del amanecer'
-'{minutes} minutes before sunset': '{minutos} minutos antes de anochecer'
-'{requests} out of {limit} / day': '{requests} de {limit} / día'
-'{requests} out of {limit} / h': '{requests} de {limit} / h'
-'{requests} out of {limit} / min': '{requests} de {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} de {limit} / {seconds} seg.'
-'{serviceName} integration': Integración con {serviceName}
-
-#</editor-fold>
-#<editor-fold desc="Extra translations">
-# Translations below have not been found in sources. You might want to delete them.
-...and start your adventure with building automation today!: ...y ¡empieza la aventura con edificios inteligentes ahora mismo!
-Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
-Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
-Action: Acción
-Add new item to use in the scene: Agregar un nuevo elemento a la escena
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ¿Estás seguro/-a de que quieres eliminar todo el historial de aberraciones de voltaje de este canal?
-Are you sure you want to disable this device?: ¿Seguro de que quieres apagar este dispositivo?
-Assigned Locations: Localizaciones asignadas
-Authorized OAuth apps: Aplicaciones autorizadas OAuth
-Calculated value: Lectura del contador
-Cannot send an activation e-mail. Try again later.: No se puede enviar el mensaje con el enlace de activación. Por favor inténtalo de nuevo más tarde.
-Channel will be deleted from the channel group below: El canal será borrado de los grupos de canales siguientes
-Channels in channel group: Canales en grupos de canales
-Chosen hour: Hora seleccionada
-Coming Soon: Disponible próximamente
-Confirm if you want to remove {deviceName} device: Confirma que quieres eliminar el dispositivo {deviceName}
-DISABLED: DESACTIVADO
-Date: Fecha
-Days: Días
-Direct links below will be deleted: Los enlaces directos que figuran a continuación serán eliminados
-Doors, Gates: Puertas, Cancelas
-ENABLED: ACTIVADO
-Email already exists: El Email ya existe
-Existing schedules: Horarios existentes
-From IP: Desde la dirección IP
-Get SUPLA on your devices: Descarga SUPLA en tus dispositivos
-Hi: Hola
-Hour: Hora
-Hours: Horas
-I/O: Entrada/Salida
-If you want to stay here, do something!: Si quieres quedarte aquí, ¡haz algo!
-Input: Entrada
-Languages: Idiomas
-Loading: Carga
-Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
-Location password must be no longer than 32 characters.: La contraseña para la ubicación no puede tener más de 32 caracteres.
-Minute: Minuto
-Mobile Apps: Aplicaciones móviles
-Next: Siguiente
-Number: Número
-Output: Salida
-Please select the schedules that should also be enabled.: ZSeñala los horarios que también deben estar activados.
-Previous login: Sesión anterior
-Registration: Registro
-Remove: Eliminar
-Schedule cannot be enabled: No se ha podido activar el horario
-Schedules below will be deleted: Las programaciones siguientes  serán borrados
-Sources available from: Fuentes disponibles en
-Status: Estatus
-Subject: Sujeto
-Sunrise / Sunset: Puesta del sol / Salida del sol
-Supla for devices: Supla para dispositivos
-Try again later: Intenta más tarde
-Turning this device off will result in disabling all the associated schedules.: La desconexión de este dispositivo ocasionará también la desactivación de los horarios asignados.
-When: Cuando
-You will be logged out shortly: Tu sesión se cerrará dentro de un rato
-execute: ejecutar
-hourly: Cada hora
-or add a delay: o agregar un retraso
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-'% of closing': '% de cierre'
-Add a new action to the scene: Agregar una nueva acción a la escena
-Are you sure you want to delete this reaction?: ¿Estás seguro de que deseas eliminar esta reacción?
-Body: Contenido
-Choose the channel: Seleccionar canal
-Choose the channel group: Seleccionar grupo de canales
-Choose the scene: Seleccionar una escena
-Choose the schedule: Seleccionar un horario
-Create new reaction: Crear una nueva reacción
-Current: Corriente
-Edit reaction: Editar la reacción
-Go to the channel: Ir al canal
-Go to the channel group: Ir al grupo de canales
-Go to the scene: Ir a la escena
-Go to the schedule: Ir al horario
-Invalid scene: Escena incorrecta
-Missing action.: Sin acción
-New reaction: Nueva reacción
-Notification: Notificación
-Notification must have a body.: La notificación debe tener contenido.
-Notifications: Notificaciones
-Phase: Fase
-Please fix the problems with operations and try again.: Soluciona los problemas con las operaciones y vuelve a intentarlo.
-Please select a condition: Seleccionar una condición
-Please select an action: Seleccionar una acción
-Power active: Energía activa
-Power apparent: Energía aparente
-Power reactive: Energía reactiva
-Reactions: Reacciones
-Reactions limit has been exceeded: Límite de reacción excedido
-Recipients: Destinatarios
-Send a notification: Enviar notificación
-Send notification: Enviar notificación
-The notification must have a recipient.: La notificación debe tener un destinatario.
-The reaction has been added: Se ha añadido la reacción
-The reaction has been changed: Se ha cambiado la reacción
-Title: Título
-Voltage: Tensión
 When a certain distance is reached: Cuando se alcanza la distancia especificada
 When a lack of liquid is detected: Cuando se detecta falta de líquido
 When a new mail comes: Cuando llega correo nuevo
@@ -1237,18 +969,318 @@ When the window will be opened: Cuando la ventana esté abierta
 When the window will be opened or closed: Cuando la ventana esté cerrada o abierta
 When there is certain amount of rain: Cuando caiga una cierta cantidad de lluvia
 When there weight reaches a certain value: Cuando el peso alcance un cierto valor
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Puedes realizar la acción del enlace directo, dando su identificador único en el testo de la orden HTTP PATCH.  Esto es más seguro, ya que hace imposible grabar tu dirección completa de Tu enlace entre los logos de acceso a servidores, por los que pasa Tu orden. A continuación encontraras una acción ejemplo, realizada a través de la herramienta cURL.
+Where is the JSON?: ¿Dónde está JSON?
+Where is your SUPLA Cloud?: ¿Dónde está tu Supla?
+White: Blanco
+Wind sensor: Sensor de viento
+Window opening sensor: Dectector de apertura de ventanas
+With SUPLA you can operate the lights in your home or office: Con SUPLA puedes controlar el alumbrado en tu casa u oficina
+With function: Con función
+Working period: Período de funcionamiento
+Working schedule: Horario de actividades
+YOUR LINK CODE: CÓDIGO DE TU ENLACE
+You are changing the settings too quickly. You have to wait a while before making this change.: Cambias la configuración demasiado rápido. Debes esperar un poco antes de cambiar esta configuración.
+You can browse only the most recent logs now. Wait a while for the full history.: Actualmente, sólo se muestran las mediciones más recientes. Espera un poco a que se descargue todo el historial.
+You can ignore this message, if you have accidentally entered an incorrect password.: Si ha introducido la contraseña incorrecta, ignora este mensaje.
+You can use the application but you will not be able to modify any settings.: Puedes usar la aplicación, pero no es posible cambiar la configuración.
+You cannot delete your last access identifier.: No puedes borrar tu último  identificador de acceso.
+You cannot delete your last location.: No puedes borrar tu  última localización.
+You cannot use SUPLA project name in the domain name.: No puedes utilizar el nombre del proyecto SUPLA en el nombre de dominio principal.
+You have exceeded your API Rate Limit: Has llegado al límite de tus solicitudes API
+You have requested to unregister your SUPLA Cloud instance: Has solicitado dar de baja tu instancia de SUPLA Cloud
+You have to choose at least one scope.: Debes seleccionar al menos un rango.
+You just need to execute the following command inside your host terminal.: Simplemente realiza las instrucciones dentro de la terminal de tu host.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Si aún deseas utilizar el modo de programación avanzada, echa un vistazo a los ejemplos a continuación.
+You must agree to the Terms and Conditions.: Aceptación del reglamento es necesaria.
+You must enable MQTT Broker first.: Primero debes apagar la integración con el bróker MQTT.
+You must leave at least one phase enabled.: Al menos una fase debe permanecer activa.
 You must set an action for each reaction.: Es necesario establecer una acción para cada reacción.
+You must set an action for each scene operation.: Seleccionar una acción para cada operación en la escena.
+You must set sections with transparent or opaque parameters or both.: Debes elegir transparencia para al menos una sección.
+You need to provide icons for all states.: Debes proporcionar iconos para todos los estados.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Debes actualizar tu instacia de SUPLA Cloud al menos a la versión 2.3.0.
+You will not be able to generate a direct link with the same URL again.: No será posible crear un enlace con el mismo URL.
+Your account and MQTT Broker connection.: Vinculación de tu cuenta con el bróker MQTT.
+Your account has been deleted. We hope you will come back to us soon.: La cuenta ha sido eliminada. Esperamos que vuelvas pronto.
+Your account has been locked.: Su cuenta está bloqueada.
+Your account has not been confirmed yet.: Tu cuenta aún no ha sido confirmada.
+Your account limits: Tus límites
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Tu navegador no soporta el mecanismo de base de datos cliente (IndexedDB). Esta funcionalidad es necesaria para mostrar gráficos y admitir configuraciones avanzadas de exportación de datos. Actualiza tu navegador o sal del modo incógnito para aprovechar estas funciones.
+Your channel groups are allowed to have a maximum of {max} channels.: Tus grupos de canales pueden tener un máximo de {max} canales.
+Your chart is being drawn...: Tu gráfico está dibujado...
+Your data are being collected. Please be patient.: Estamos recopilando tus datos, un poco de paciencia.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Tus datos se descargan del servidor. Espere a que finalicen las descargas antes de exportarlas.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: El dispositivo te permite ampliar su funcionalidad y te permite realizar cualquier acción en cualquier dispositivo que tengas. Las opciones disponibles dependerán del firmware y el dispositivo que estés utilizando.
+Your email: Tu correo electrónico
+Your instance is not registered or you are trying to authorize an application that is not public.: Tu instancia no está registrada o estás intentando autorizar una aplicación que no es pública.
+Your password must contain at least one special character.: La contraseña debe contener al menos un carácter especial.
+Your password must include at least one letter.: La contraseña debe contener al menos una letra.
+Your password must include at least one number.: La contraseña debe contener al menos un número.
+Your password must include both upper and lower case letters.: La contraseña debe contener letras mayúsculas y minúsculas.
+Your preferences has been updated.: Tu configuración ha sido guardada.
+Your private SUPLA Cloud instance has been unregistered.: Tu instancia privada de SUPLA Cloud ha sido dada de baja.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Tu instancia privada SUPLA cloud no está disponible. Asegúrate de que tu servidor está online y la conexión HTTPS funciona correctamente.
+Your private SUPLA Cloud is almost registered.: Tu nube privada SUPLA está casi registrada.
+Your private SUPLA Cloud is not registered.: Tu nube privada SUPLA no está registrada.
+Your scenes are allowed to have a maximum of {max} operations.: Tus escenas pueden tener un máximo de {max} operaciones.
+Your schedules are allowed to have a maximum of {max} actions.: Tus programaciones pueden tener un máximo de {max} acciones.
+Your session has been expired.: Tu sesión ha expirado.
+Your session is about to expire: Tu sesión está a punto de caducar
+Your session will expire in {0}.: Tu sesión va a expirar en {0}.
+Yours faithfully,: Atentamente
+access to your e-mail address: acceso a tu dirección de correo electrónico
+actionTrigger_HOLD: Manteniendo pulsao el botón
+actionTrigger_SHORT_PRESS_X1: Presionando 1x
+actionTrigger_SHORT_PRESS_X2: Presionando 2x
+actionTrigger_SHORT_PRESS_X3: Presionando 3x
+actionTrigger_SHORT_PRESS_X4: Presionando 4x
+actionTrigger_SHORT_PRESS_X5: Presionando 5x
+actionTrigger_TOGGLE_X1: Cambiando 1x
+actionTrigger_TOGGLE_X2: Cambiando 2x
+actionTrigger_TOGGLE_X3: Cambiando 3x
+actionTrigger_TOGGLE_X4: Cambiando r 4x
+actionTrigger_TOGGLE_X5: Cambiando 5x
+actionTrigger_TURN_OFF: Apagando
+actionTrigger_TURN_ON: Encendiendo
+actionableSubjectType_channel: Canal
+actionableSubjectType_channelGroup: Conjunto de canales
 actionableSubjectType_notification: Notificación
+actionableSubjectType_scene: Escenario
+actionableSubjectType_schedule: Horario
+addToHistoryMeasurementWarningSelected: Al marcar esta opción, se agregarán los valores establecidos a futuras mediciones guardadas en el historial. Esto se puede ver en los gráficos como un aumento repentino del valor ingresado. Recomendamos que solo establezcas estos parámetros cuando instale el medidor por primera vez. Para los medidores existentes, recomendamos que elimines el historial de mediciones tan pronto como cambie esta configuración.
+addToHistoryMeasurementWarningUnselected: Al desmarcar esta opción, se omitirán los valores establecidos de futuras mediciones guardadas en el historial. Esto se puede ver en los gráficos como una caída repentina. Recomendamos que solo establezcas estos parámetros cuando instales el medidor por primera vez. Para los medidores existentes, te recomendamos que elimines el historial de mediciones tan pronto como cambie esta configuración.
+after: Después de
 and wait until it reaches: y espera hasta que alcance
 and wait until it will be: y espera hasta que sea
 and wait until the humidity will be: y espera hasta que la humedad sea
 and wait until the temperature will be: y espera hasta que la temperatura sea
 and wait until the value will be: y espera hasta que el valor sea
+average: Media
+be at least {numChars} characters long: debe tener al menos {numChars} caracteres
+before: Antes de
+caption: nombre
+change: cambiar
+channel: Canal
+channelConfigHelp_gateCloseAfterHelp: El agente que inicia el procedimiento de cierre de la puerta puede retrasarse hasta un minuto del tiempo establecido.
+channelConfigHelp_numberOfAttemptsGate: Después de ordenar que el portón se abra o se cierre, el sistema intentará cerrarlo/abrirlo y esperará 60 segundos para verificar si el portón ha alcanzado el estado deseado. De lo contrario, el sistema intentará cerrar/abrir de nuevo. Este parámetro define el número máximo de intentos del sistema para lograr el objetivo. El valor recomendado es 5. Cambiar este parámetro no afecta el funcionamiento de cronogramas.
+channelConfigHelp_stateVerificationMethod: 'Activo: el primer cambio del estado del sensor al definitivo, frena la repetición de las pruebas. Pasivo: una vez cada 60 segundos, verificamos el estado del sensor y dejamos de repetirlo cuando el sensor informe el estado establecido.'
+channelConfig_stateVerificationMethod_active: Activo
+channelConfig_stateVerificationMethod_passive: Pasivo
+channelGroup: Conjunto de canales
+choose: elige
+choose a currency: elegir divisa
 choose access identifiers: seleccionar ID de acceso
 choose the access identifiers: seleccionar IDs de acceso
+choose the action: seleccionar la acción
+choose the channel: selecciona canal
+choose the channel group: elige el grupo de canales
+choose the scene: selecciona la escena
+choose the schedule: seleccionar horario
+choose the timezone: elige una zona horaria
+click here: haz clic aquí
+contains a character that is neither a letter nor a digit: contiene un carácter que no es ni una letra ni un número
+contains a digit: contiene un número
+contains lower and upper letters: contiene mayúsculas y minúsculas
+copied: copiado
+copy: Copiar
+days: días
+directLinkExecutionFailureReason_disabled: El enlace directo está desactivado
+directLinkExecutionFailureReason_executionLimitExceeded: Se ha superado el límite de acciones
+directLinkExecutionFailureReason_expired: El enlace directo ha expirado
+directLinkExecutionFailureReason_forbiddenAction: El enlace no permite realizar esta acción
+directLinkExecutionFailureReason_httpGetForbidden: No se ha podido realizar la acción utilizando un método HTTP GET no permitido.
+directLinkExecutionFailureReason_invalidActionParameters: Los parámetros de enlace directo incorrectos
+directLinkExecutionFailureReason_invalidChannelState: La acción no puede ser realizada debido al estado del canal
+directLinkExecutionFailureReason_invalidSlug: El código de verificación mandado es incorrecto
+directLinkExecutionFailureReason_noAllowedActions: No se seleccionaron acciones permitidas
+directLinkExecutionFailureReason_noSlugOrAction: Una orden incorrecta- se necesita el código de enlace y la acción
+directLinkExecutionFailureReason_notActiveYet: El enlace directo aún no está activo
+directLinkExecutionFailureReason_otherFailure: Error al realizar la acción
+directLinkExecutionFailureReason_sceneDuringExecution: La escena en curso de realización.
+directLinkExecutionFailureReason_unsupportedAction: La acción elegida es incorrecta
+empty: vacío
+everyday: a diario
+executed: ejecutado
+extend: prolongar
+from IP: desde la dirección IP
+from the IP: de la dirección
+hours: horas
+is at least {numChars} characters long: tiene al menos {numChars} caracteres
+last 24 hours: últimas 24 horas
+last 30 days: últimos 30 días
+last 6 hours: últimas 6 horas
+last 7 days: últimos 7 días
+logs_aggregation_day: días
+logs_aggregation_hour: horas
+logs_aggregation_minute: minutos
+logs_aggregation_month: meses
+min.: mín.
+minutes: minutos
 notification: notificación
 or another element: u otro elemento
+password: contraseña
+prefix: prefijo
+previous month: mes anterior
+range: rango
+register-slide1-text: Haciendo uso  de la electrónica disponible, SUPLA te facilitará crear módulos fáciles que permiten el manejo y control de los elementos de automatización de edificios. Gracias a SUPLA puedes, entre otros, controlar el alumbrado, encender y apagar los electrodomésticos, abrir y cerrar cancelas y puertas o controlar la temperatura en habitaciones. Todo eso lo puedes hacer moviendo un dedo.
+register-slide1-title: Propio Edificio Inteligente
+register-slide2-text: Unos de los supuestos fundamentales del proyecto son sencillez y accesibilidad. SUPLA posibilita encender la luz o abrir la puerta cuando quieres entrar en tu vivienda solo moviendo un dedo. SUPLA está disponible desde cualquier lugar donde tengas acceso a Internet y a tu smartphone o tablet. SUPLA está desarrollada de acuerdo con los principios de Software y Hardware Abiertos asi qué ¡tú también puedes desarrollar este proyecto!
+register-slide2-title: ¡SUPLA en todas partes!
+register-slide3-text: Los sistemas de automatización de edificios disponibles en el mercado son por lo general muy complejos, cerrados y costosos. En muchos casos requieren instalación ya en la etapa de construcción del edificio. SUPLA es fácil, abierta y gratuita. Permite construir elementos ejecutivos basándose en plataformas Raspberry PI, Arduino o ESP8266 y además combinarlas a través de las redes LAN y WiFi. ¡Únete al proyecto y crea tu propia versión de un sistema de automatización de edificios!
+register-slide3-title: ¡Gratuita y abierta!
+reset chart view: volver a la vista principal
+scene: escena
+schedule: horario
+scheduleMode_crontab: Avanzado
+scheduleMode_daily: Cada día
+scheduleMode_minutely: Cada minuto
+scheduleMode_once: Una vez
+sec.: s.
+smartphones, tablets, etc.: smartphones, tabletas etc.
+state-closed: Cerrado
+state-default: Por defecto
+state-empty: Vacío
+state-full: Lleno
+state-humidity: Humedad
+state-off: Apagado
+state-on: Encendido
+state-opened: Abierto
+state-partially_closed: Parcialmente cerrado
+state-revealed: Descubierto
+state-rgb_off_dim_off: RGB y atenuador apagados
+state-rgb_off_dim_on: RGB apagado, atenuador encendido
+state-rgb_on_dim_off: RGB encendido, atenuador apagado
+state-rgb_on_dim_on: RGB y atenuador encendidos
+state-shut: Cubierto
+state-temperature: Temperatura
+suffix: sufijo
 sum: suma
+sunrise-after: la salida del sol
+sunrise-before: la salida del sol
+sunset-after: la puesta del sol
+sunset-before: la puesta del sol
+the whole history: historial completo
 then execute the action: entonces realiza la acción
+this month: mes en curso
+this year: año en curso
+today: hoy
+unknown: desconocido
+username: nombre de usuario
+valid until: caducará
+values as seen on chart: valores como en el diagrama
+values as seen on counter: valores como en el contador
+yesterday: ayer
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} no puede interactuar con tu cuenta hasta que no vuelvas a otorgar el acceso.'
+'{clientName} wants to access your account.': '{clientName} quiere acceder a tu cuenta.'
+'{minutes} minutes after sunrise': '{minutos} minutos después del amanecer'
+'{minutes} minutes after sunset': '{minutos} minutos después del anochecer'
+'{minutes} minutes before sunrise': '{minutos} minutos antes del amanecer'
+'{minutes} minutes before sunset': '{minutos} minutos antes de anochecer'
+'{requests} out of {limit} / day': '{requests} de {limit} / día'
+'{requests} out of {limit} / h': '{requests} de {limit} / h'
+'{requests} out of {limit} / min': '{requests} de {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} de {limit} / {seconds} seg.'
+'{serviceName} integration': Integración con {serviceName}
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ...y ¡empieza la aventura con edificios inteligentes ahora mismo!
+Access identifier password must be at least 8 characters.: La contraseña para el identificador de acceso debe tener al menos 8 caracteres.
+Access identifier password must be no longer than 32 characters.: La contraseña para el identificador de acceso no puede tener más de 32 caracteres.
+Action: Acción
+Add new item to use in the scene: Agregar un nuevo elemento a la escena
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: ¿Estás seguro/-a de que quieres eliminar todo el historial de aberraciones de voltaje de este canal?
+Are you sure you want to disable this device?: ¿Seguro de que quieres apagar este dispositivo?
+Assigned Locations: Localizaciones asignadas
+Authorized OAuth apps: Aplicaciones autorizadas OAuth
+Calculated value: Lectura del contador
+Cannot send an activation e-mail. Try again later.: No se puede enviar el mensaje con el enlace de activación. Por favor inténtalo de nuevo más tarde.
+Channel will be deleted from the channel group below: El canal será borrado de los grupos de canales siguientes
+Channels in channel group: Canales en grupos de canales
+Chosen hour: Hora seleccionada
+Coming Soon: Disponible próximamente
+Confirm if you want to remove {deviceName} device: Confirma que quieres eliminar el dispositivo {deviceName}
+DISABLED: DESACTIVADO
+Days: Días
+Direct links below will be deleted: Los enlaces directos que figuran a continuación serán eliminados
+Doors, Gates: Puertas, Cancelas
+ENABLED: ACTIVADO
+Email already exists: El Email ya existe
+Existing schedules: Horarios existentes
+From IP: Desde la dirección IP
+Get SUPLA on your devices: Descarga SUPLA en tus dispositivos
+Hi: Hola
+Hour: Hora
+Hours: Horas
+I/O: Entrada/Salida
+If you want to stay here, do something!: Si quieres quedarte aquí, ¡haz algo!
+Input: Entrada
+Languages: Idiomas
+Loading: Carga
+Location password must be at least 4 characters.: La contraseña para la ubicación debe tener al menos 4 caracteres.
+Location password must be no longer than 32 characters.: La contraseña para la ubicación no puede tener más de 32 caracteres.
+Minute: Minuto
+Mobile Apps: Aplicaciones móviles
+Next: Siguiente
+Number: Número
+Output: Salida
+Please select an action: Seleccionar una acción
+Please select the schedules that should also be enabled.: ZSeñala los horarios que también deben estar activados.
+Previous login: Sesión anterior
+Registration: Registro
+Remove: Eliminar
+Schedule cannot be enabled: No se ha podido activar el horario
+Schedules below will be deleted: Las programaciones siguientes  serán borrados
+Sources available from: Fuentes disponibles en
+Status: Estatus
+Subject: Sujeto
+Sunrise / Sunset: Puesta del sol / Salida del sol
+Supla for devices: Supla para dispositivos
+Triggers: Activadores
+Try again later: Intenta más tarde
+Turning this device off will result in disabling all the associated schedules.: La desconexión de este dispositivo ocasionará también la desactivación de los horarios asignados.
+When: Cuando
+You will be logged out shortly: Tu sesión se cerrará dentro de un rato
+execute: ejecutar
+hourly: Cada hora
+or add a delay: o agregar un retraso
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>

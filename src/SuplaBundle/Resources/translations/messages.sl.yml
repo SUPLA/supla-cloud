@@ -1,5 +1,6 @@
 # Do not add new translation keys manually. Run npm run collect-translations in order to update this file.
 #<editor-fold desc="Complete translations" defaultstate="collapsed">
+'% of closing': '% zaprtja'
 '%s trigger is not supported by the hardware.': Naprava ne podpira sprožilca %s.
 ...open and shut roller shutters: ...spustiti in dvigniti rolete
 ...open gateways, gates or doors: ...odpreti vratca, dvoriščna vrata ali vrata
@@ -43,6 +44,7 @@ Active sessions: Aktivne seje
 Active web sessions: Aktivne seje (splet)
 Add: Dodajte
 Add a delay: Dodajte zamik
+Add a new action to the scene: Dodajte na sceno novo dejanje
 Add a new icon: Dodajte novo ikono
 Add action: Dodajte dejanje
 Add first channel to set channel group function and save it: Izberite prvi kanal, da bi določili funkcijo skupine in jo shranili
@@ -80,6 +82,7 @@ Are you sure you want to delete this channel group?: Ali zares želite odstranit
 Are you sure you want to delete this client?: Ali ste prepričani, da želite izbrisati to odjemalsko aplikacijo?
 Are you sure you want to delete this direct link?: Ali ste prepričani, da želite izbrisati to direktno povezavo?
 Are you sure you want to delete this icon?: Ali ste prepričani, da želite izbrisati to ikono?
+Are you sure you want to delete this reaction?: Ali ste prepričani, da želite izbrisati to reakcijo?
 Are you sure you want to delete this scene?: Ali ste prepričani, da želite izbrisati to sceno?
 Are you sure you want to delete this schedule?: Ali ste prepričani, da želite izbrisati ta urnik?
 Are you sure you want to log out this device?: Ali ste prepričani, da se želite odjaviti iz te naprave?
@@ -116,6 +119,7 @@ Based on sunrise or sunset: Na podlagi sončnega vzhoda / zahoda
 Be notified when your channels change state: Obveščanje o spremembah stanja kanalov
 Be right back!: Vrnite se čez nekaj trenutkov!
 Below threshold: Pod pragom
+Body: Vsebina
 Bottom position: Spodnji položaj
 Bridge: Most
 Brightness: Svetlost
@@ -174,6 +178,10 @@ Choose Access Identifiers to be assigned to this Location: Izberite Identifikato
 Choose channel function: Izberite funkcijo kanala
 Choose client apps: Izberite odjemalske aplikacije
 Choose location: Izberite novo lokacijo
+Choose the channel: Izberite kanal
+Choose the channel group: Izberite skupino kanalov
+Choose the scene: Izberite sceno
+Choose the schedule: Izberite razpored
 Choose the source channel.: Izberite izvorni kanal.
 Clear: Počisti
 Click the following link to confirm removal of your account on %cloudHost%.: Če želite potrditi, da bi radi izbrisati svoj račun SUPLA, kliknite spodnjo povezavo.
@@ -215,8 +223,10 @@ Create New Location: Ustvarite novo lokacijo
 Create New Schedule: Ustvarite nov urnik
 Create an account: Ustvarite račun
 Create new direct link: Ustvarite novo direktno povezavo
+Create new reaction: Odprite novo reakcijo
 Create new scene: Ustvarite novo sceno
 Currency: Valuta
+Current: Tok
 Current Overload: Preobremenitev
 Current Password: Aktualno geslo
 Current password is incorrect: Trenutno geslo ni pravilno
@@ -228,6 +238,7 @@ DHT22 Temperature & Humidity Sensor: DHT22 senzor temperature in vlažnosti
 DS18B20 Thermometer: DS18B20 termometer
 Data limits: Omejitve podatkov
 Data saved: Podatki so shranjeni
+Date: Datum
 Date and time: Datum in čas
 Decline: Zavrnite
 Default: privzeto
@@ -280,6 +291,7 @@ Download the history of measurement: Prenesite zgodovino meritev
 Drag your image(s) here or click to select from the disk: Tu povlecite sliko ali kliknite, da izberete z diska
 E-mail notifications: E-mail obvestila
 Edit: Uredite
+Edit reaction: Uredite reakcijo
 Electric: Elektrika
 Electricity meter: Števec električne energije
 Electricity meter device has no available counters configured. Please upgrade the device firmware and try again.: Števec električne energije ni poročal o možnosti konfiguriranja dodanih vrednosti. Posodobite vdelano programsko opremo naprave in poskusite znova.
@@ -349,6 +361,10 @@ Generate new token: Ustvarite nov token
 Generate token: Ustvarite token
 Go to I/O device details: Pojdite na podrobnosti o napravi
 Go to channel details: Pojdite na podrobnosti kanala
+Go to the channel: Pojdite na kanal
+Go to the channel group: Pojdite na skupino kanalov
+Go to the scene: Pojdite na sceno
+Go to the schedule: Pojdite na razpored
 Go to your account: Pojdite na svoj račun
 Grant access: Odobrite dostop
 Guru Meditation: Guru Meditation
@@ -423,6 +439,7 @@ Invalid function for channel.: Nepravilna funkcija za kanal
 'Invalid redirect URI: {uri}': 'Nepravilen povratni URL: {uri}'
 Invalid request: Nepravilna zahteva
 Invalid request.: Nepravilna zahteva.
+Invalid scene: Nepravulna scena
 Invalid token.: Nepravilni žeton.
 Invalid username or password: Neveljavno uporabniško ime ali geslo
 Inverted logic: Obrnjena logika
@@ -472,6 +489,7 @@ Measurement window: Čas meritve
 Meter value: Stanje števca
 Meters: Števci
 Minimum voltage: Najnižja napetost
+Missing action.: Brez dejanja
 Mode: Način
 Modification: Modifikacija
 Mondays: Ponedeljki
@@ -490,6 +508,7 @@ New channel group: Nova skupina kanalov
 New client app (smartphone) added to your account: Registracija nove odjemalske aplikacije (pametnega telefona)
 New direct link: Nova neposredna povezava
 New password: Novo geslo
+New reaction: Nova reakcija
 New scene: Nova scena
 Newer: Novejše
 'Next limit renewal: {date}': Omejitev bo obnovljena {date}
@@ -516,6 +535,9 @@ No. of locations: Število lokacij
 None: Ni prisotna
 None (channel disabled): Brez (kanal izklopljen)
 Noop: Brez operacij
+Notification: Obvestilo
+Notification must have a body.: Obvestilo mora imeti vsebino.
+Notifications: Obvestila
 Number of aberrations: Število odstopanj
 Number of attempts to close: Število poskusov zapiranja
 Number of attempts to open: Število poskusov odpiranja
@@ -556,6 +578,7 @@ Percentage of closing: Odstotek zapiranja
 Personal access tokens: Osebni tokeni za dostop
 Personal access tokens function like ordinary OAuth access tokens but they have no expiration time.: Osebni tokeni za dostop delujejo kot običajno, le da delujejo za nedoločen čas.
 Personal token name is required.: Ime osebnega tokena je obvezno.
+Phase: Faza
 Phase 1: Faza 1
 Phase 2: Faza 2
 Phase 3: Faza 3
@@ -567,11 +590,16 @@ Please click the link we have sent you after the registration to proceed.: Klikn
 Please confirm your SUPLA account.: Aktivirajte svoj račun v SUPLA.
 Please enter a valid email address: Vnesite pravi enaslov
 Please fill a valid email address: Vnesite pravi e-naslov
+Please fix the problems with operations and try again.: Odpravite težave pri operacijah in poskusite znova.
 Please log in again to proceed.: Za nadaljevanje se ponovno prijavite.
 Please provide a valid domain name for your private SUPLA Cloud: Vnesite pravo ime domene za vaš zasebni oblak SUPLA
 Please read the Terms and Conditions.: Preberite predpise.
+Please select a condition: Izberite pogoj
 Please wait a moment before the next login attempt.: Počakajte trenutek, preden se spet prijavite.
 Port: Port
+Power active: Aktivna energija
+Power apparent: Navidezna energija
+Power reactive: Neaktivna energija
 Precision: Natančnost
 Predefined time ranges: Časovni razponi
 Pressure sensor: Tlačni senzor
@@ -589,7 +617,10 @@ RGB led controller: RGB svetlobni regulator
 RGB lighting: RGB osvetlitev
 Rain sensor: Senzor za dež
 Random: Naključno
+Reactions: Reakcije
+Reactions limit has been exceeded: Meja reakcije je presežena
 Read: Branje
+Recipients: Prejemniki
 Reference to the scene will be removed from the items below.: Oznaka scene bo odstranjena iz naslednjih elementov.
 Refresh: Osvežite
 Regeneration starts at: Začetek regeneracije
@@ -666,6 +697,8 @@ Seems like a secret place: Nekaj nam govori, da ne bi smeli biti tukaj
 Select icon: Izberite ikono
 Select the item (subject) you want to control using this link: S to povezavo izberite element (subjekt), ki ga želite nadzirati
 Selected device has been logged out.: Izbrana naprava je bila odjavljena
+Send a notification: Pošljite obvestilo
+Send notification: Pošljite obvestilo
 Sensor (normal closed): Senzor (normalno zaprt)
 Sensor (normal open): Senzor (normalno odprt)
 Sensor disconnected: Brez senzorja
@@ -745,8 +778,11 @@ The measurement history has been deleted.: Zgodovina meritev je izbrisana.
 The new password will replace the existing one. Some of the current integrations may not work anymore. Proceed?: Novo geslo bo zamenjalo obstoječe. Nekatere trenutne integracije morda ne bodo več delovale. Želite nadaljevati?
 The next available executions: Naslednje izvršitve
 The notification marked with a border is the one you saw when you clicked the unsubscribe link.: Z okvirjem smo označili obvestilo, iz katerega ste kliknili na povezavo za odjavo.
+The notification must have a recipient.: Obvestilo mora imeti prejemnika.
 The password and its confirm are not the same.: Geslo in potrditev nista enaka.
 The password should be 8 or more characters.: Geslo mora imeti najmanj 8 znakov.
+The reaction has been added: Reakcija je dodana
+The reaction has been changed: Reakcija je spremenjena
 The relay has been turned off due to a current overload. Before you turn it on, make sure you took required steps to solve the problem. Are you sure you want to turn it on remotely?: Naprava je bila izklopljena zaradi pretokovne zaščite. Preden jo vklopite, se prepričajte, da je težava, ki je to povzročila, odpravljena. Ali ste prepričani, da želite vklopiti to napravo na daljavo?
 The scene would execute too many operations.: Scena izvaja preveč operacij.
 The server has returned an HTTP 400 Error. It means that the request you tried to perform is invalid.: Strežnik je vrnil napako 400, kar pomeni, da poslana zahteva ni prava.
@@ -770,6 +806,7 @@ This schedule mode is meant to be used by advanced or patient users only. You ne
 This trigger is used by the device itself (e.g. it turns on the light or starts the roller shutter). Setting any action on this trigger will disable the local function.: Ta sprožilec uporablja naprava lokalno (npr. prižge luč ali krmili roleto). Če mu dodelite drugo dejanje, bo lokalna funkcija onemogočena.
 Thursdays: Četrtki
 Timezone: Časovni pas
+Title: Naslov
 To: Do
 Toggle: Preklopite
 Token does not exist: Token ne obstaja
@@ -778,7 +815,6 @@ Too many channels in this group: V tej skupini je preveč kanalov
 Too many operations in this scene: Preveliko operacij v sceni.
 Total: Skupaj
 Total time: Skupni čas
-Triggers: Sprožilci
 Tuesdays: Torki
 Turning this device off will cause its channels not working in the following features.: Če napravo izklopite, bodo njeni kanali prenehali delovati v naslednjih elementih.
 Turning this device off will result in disabling features listed below.: Če napravo izklopite, bodo izklopljeni tudi spodnji elementi.
@@ -807,6 +843,7 @@ Vector balance: Vektorsko ravnotežje
 Verification method: Način potrjevanja
 Visible: Vidno
 Visit app webpage: Odprite spletno mesto aplikacij
+Voltage: Napetost
 Voltage aberrations: Napetostna odstopanja
 Voltage monitoring: Nadzor napetosti
 WELCOME_MESSAGE: |
@@ -837,311 +874,6 @@ Wednesdays: Srede
 Weight sensor: Teža
 Welcome!: Pozdravljeni!
 What this token is for?: Kaj naredi ta token?
-When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Dejanje neposredne povezave lahko izvedete tako, da v vsebino zahteve HTTP PATCH vnesete svoj edinstven identifikator. To je varnejše, ker preprečuje, da bi se celotni naslov vaše povezave shranil v dnevnikih za dostop do strežnika, skozi katere gre vaša zahteva. Spodaj boste našli primer izvršitve s pomočjo orodja cURL.
-Where is the JSON?: Kje je JSON?
-Where is your SUPLA Cloud?: Kje se nahaja vaša Supla?
-White: Bel
-Wind sensor: Senzor za veter
-Window opening sensor: Senzor odprtja oken
-With SUPLA you can operate the lights in your home or office: S SUPLO lahko nadzorujete osvetlitev v vaši hiši ali pisarni
-With function: S funkcijo
-Working period: Obdobje delovanja
-Working schedule: Urnik aktivnosti
-YOUR LINK CODE: VAŠ KODEK POVEZAVE
-You are changing the settings too quickly. You have to wait a while before making this change.: Prehitro spreminjate nastavitve. Preden spremenite te nastavitve, morate počakati nekaj časa.
-You can browse only the most recent logs now. Wait a while for the full history.: Trenutno so prikazane samo zadnje meritve. Počakajte nekaj časa, da se prenese celotna zgodovina.
-You can ignore this message, if you have accidentally entered an incorrect password.: To informacijo lahko prezrete, če ste vnesli napačno geslo.
-You can use the application but you will not be able to modify any settings.: Aplikacijo lahko uporabljate, vendar ne morete vnašati sprememb namestitev.
-You cannot delete your last access identifier.: Ne morete izbrisati zadnjega identifikatorja dostopa.
-You cannot delete your last location.: Ne morete izbrisati zadnje lokacije.
-You cannot use SUPLA project name in the domain name.: Imena projekta SUPLA ne morete uporabiti v imenu glavne domene.
-You have exceeded your API Rate Limit: Izrabili ste vašo omejitev zahtev za API
-You have requested to unregister your SUPLA Cloud instance: Zahtevali ste odjavo vaše stopnje v SUPLA Cloud
-You have to choose at least one scope.: Izbrati morate vsaj en obseg.
-You just need to execute the following command inside your host terminal.: Samo izvedite naslednji ukaz znotraj terminala vašega gostitelja.
-You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Če še vedno želite uporabljati napredni način urnika, si oglejte spodnje primere.
-You must agree to the Terms and Conditions.: Sprejemanje predpisov je potrebno.
-You must enable MQTT Broker first.: Najprej morate vklopiti integracijo s posrednikom MQTT.
-You must leave at least one phase enabled.: Vsaj ena faza mora ostati aktivna.
-You must set an action for each scene operation.: Izberite dejanje za vsako operacijo v sceni.
-You must set sections with transparent or opaque parameters or both.: Izbrati morate prosojnost za vsaj en razdelek.
-You need to provide icons for all states.: Navesti morate ikone za vsa stanja.
-You need to update your SUPLA Cloud to version 2.3.0. or newer.: Svoj primerek SUPLA Cloud morate posodobiti na različico vsaj 2.3.0.
-You will not be able to generate a direct link with the same URL again.: Ustvarjanje povezave z istim URL-jem ne bo mogoče.
-Your account and MQTT Broker connection.: Povezava vašega računa s posrednikom MQTT.
-Your account has been deleted. We hope you will come back to us soon.: Račun je bil izbrisan. Upamo, da se kmalu vrnete.
-Your account has been locked.: Vaš račun je bil blokiran.
-Your account has not been confirmed yet.: Vaš račun še ni bil potrjen.
-Your account limits: Vaše omejitve
-Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Vaš brskalnik ne podpira mehanizma odjemalčeve baze podatkov (IndexedDB). Ta funkcija je potrebna za prikaz grafov in podporo naprednim nastavitvam izvoza podatkov. Če želite izkoristiti te funkcije, posodobite brskalnik ali zapustite način incognito.
-Your channel groups are allowed to have a maximum of {max} channels.: Vaše skupine kanalov imajo lahko največ {max} kanalov.
-Your chart is being drawn...: Vaš graf je izrisan...
-Your data are being collected. Please be patient.: Zbiramo vaše podatke, prosimo za potrpežljivost.
-Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vaši podatki se prenašajo iz strežnika. Pred izvozom počakajte, da se prenosi končajo.
-Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: 'Naprava podpira razširitev svojega delovanja in omogoča izvajanje katerega koli želenega dejanja na kateri koli napravi, ki jo imate. Dostopne možnosti so odvisne od vdelane programske in strojne opreme. '
-Your email: Vaš e-naslov
-Your instance is not registered or you are trying to authorize an application that is not public.: Vaš primerek ni registriran ali poskušate odobriti aplikacijo, ki ni javna.
-Your password must contain at least one special character.: Geslo mora vsebovati vsaj en poseben znak.
-Your password must include at least one letter.: Geslo mora vsebovati vsaj eno črko.
-Your password must include at least one number.: Geslo mora vsebovati vsaj eno številko.
-Your password must include both upper and lower case letters.: Geslo mora vsebovati velike in male črke.
-Your preferences has been updated.: Vaše nastavitve so bile shranjene.
-Your private SUPLA Cloud instance has been unregistered.: Vaša zasebna stopnja SUPLA Cloud je bila odjavljena.
-Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Vaš zasebni primerek oblaka SUPLA ni na voljo. Preverite, ali je vaš strežnik online in povezava HTTPS deluje pravilno.
-Your private SUPLA Cloud is almost registered.: Vaš zasebni oblak SUPLA je skoraj registriran.
-Your private SUPLA Cloud is not registered.: Vaš zasebni oblak SUPLA ni registriran.
-Your scenes are allowed to have a maximum of {max} operations.: Vaše scene lahko imajo največ {max} operacij.
-Your schedules are allowed to have a maximum of {max} actions.: Vaši urniki lahko imajo največ {max} dejanj.
-Your session has been expired.: Vaša seja je potekla.
-Your session is about to expire: Vaša seja poteče čez trenutek
-Your session will expire in {0}.: Vaša seja bo potekla čez {0}.
-Yours faithfully,: S spoštovanjem,
-access to your e-mail address: Dostop do vašega e-naslova.
-actionTrigger_HOLD: Držanje gumba.
-actionTrigger_SHORT_PRESS_X1: Pritisk 1x
-actionTrigger_SHORT_PRESS_X2: Pritisk 2x
-actionTrigger_SHORT_PRESS_X3: Pritisk 3x
-actionTrigger_SHORT_PRESS_X4: Pritisk 4x
-actionTrigger_SHORT_PRESS_X5: Pritisk 5x
-actionTrigger_TOGGLE_X1: Preklop 1x
-actionTrigger_TOGGLE_X2: Preklop 2x
-actionTrigger_TOGGLE_X3: Preklop 3x
-actionTrigger_TOGGLE_X4: Preklop 4x
-actionTrigger_TOGGLE_X5: Preklop 5x
-actionTrigger_TURN_OFF: Izklop
-actionTrigger_TURN_ON: Vklop
-actionableSubjectType_channel: Kanal
-actionableSubjectType_channelGroup: Skupina kanalov
-actionableSubjectType_scene: Scena
-actionableSubjectType_schedule: Urnik
-addToHistoryMeasurementWarningSelected: Če potrdite to možnost, boste nastavljene vrednosti dodali prihodnjim meritvam, shranjenim v zgodovini. To je lahko razvidno na grafikonih kot nenadno povečanje za vneseno vrednost. Priporočamo, da te parametre nastavite samo ob prvi namestitvi števca. Za obstoječe merilnike priporočamo, da izbrišete zgodovino meritev takoj, ko spremenite te nastavitve.
-addToHistoryMeasurementWarningUnselected: Če potrdite to možnost, bodo nastavljene vrednosti izpuščene iz prihodnjih meritev, shranjenih v zgodovini. To je lahko razvidno na grafikonih kot nenaden padec. Priporočamo, da te parametre nastavite samo ob prvi namestitvi števca. Za obstoječe merilnike priporočamo, da izbrišete zgodovino meritev takoj, ko spremenite te nastavitve.
-after: po
-average: srednja
-be at least {numChars} characters long: imeti mora vsaj {numChars} znakov
-before: pred
-caption: Ime
-change: spremeni
-channel: Kanal
-channelConfigHelp_gateCloseAfterHelp: Agent, ki začne postopek zapiranja vrat, se lahko zamakne do ene minute od nastavljenega časa.
-channelConfigHelp_numberOfAttemptsGate: Ko naročite, da se vrata odprejo ali zaprejo, jih bo sistem poskusil zapreti/odpreti in počakal 60 sekund, da preveri, ali so vrata dosegla želeno stanje. Če ne, jih bo sistem poskusil znova zapreti/odpreti. Ta parameter določa največje število poskusov sistema za dosego cilja. Priporočena vrednost je 5. Spreminjanje tega parametra ne vpliva na delovanje urnikov.
-channelConfigHelp_stateVerificationMethod: 'Aktivno: Ko se senzor prvič spremeni v ciljno stanje, ustavi ponovne poskuse. Pasivno: enkrat na 60 sekund preverimo stanje senzorja in prenehamo s ponavljanjem, ko senzor javi nastavljeno stanje.'
-channelConfig_stateVerificationMethod_active: Aktiven
-channelConfig_stateVerificationMethod_passive: Pasiven
-channelGroup: Skupina kanalov
-choose: Izberite
-choose a currency: Izberite valuto
-choose the action: izberite dejanje
-choose the channel: Izberite kanal
-choose the channel group: Izberite skupino kanalov
-choose the scene: izberite sceno
-choose the schedule: izberi urnik
-choose the timezone: Izberite časovni pas
-click here: kliknite tukaj
-contains a character that is neither a letter nor a digit: vsebuje znak, ki ni niti črka niti številka
-contains a digit: vsebuje število
-contains lower and upper letters: vsebuje velike in male črke
-copied: Kopirano
-copy: Kopirajte
-days: dni
-directLinkExecutionFailureReason_disabled: Neposredna povezava je izklopljena
-directLinkExecutionFailureReason_executionLimitExceeded: Omejitev izvedb je bila presežena
-directLinkExecutionFailureReason_expired: Neposredna povezava je potekla
-directLinkExecutionFailureReason_forbiddenAction: Povezava ne omogoča izvajanja tega dejanja
-directLinkExecutionFailureReason_httpGetForbidden: Dejanje je bilo onemogočeno z uporabo nezakonite metode HTTP GET
-directLinkExecutionFailureReason_invalidActionParameters: Nepravilni parametri neposredne povezave
-directLinkExecutionFailureReason_invalidChannelState: Dejanja ni mogoče izvesti zaradi stanja kanala.
-directLinkExecutionFailureReason_invalidSlug: Verifikacijska koda, ki ste jo poslali, je napačna.
-directLinkExecutionFailureReason_noAllowedActions: Ni bila izbrana nobena dovoljena dejanja
-directLinkExecutionFailureReason_noSlugOrAction: Nepravilna zahteva - koda povezave in dejanje sta potrebni
-directLinkExecutionFailureReason_notActiveYet: Neposredna povezava še ni aktivna
-directLinkExecutionFailureReason_otherFailure: Napaka pri izvajanju dejanja
-directLinkExecutionFailureReason_sceneDuringExecution: Scena je v času izvajanja.
-directLinkExecutionFailureReason_unsupportedAction: Izbrano dejanje ni pravilno
-empty: prazen
-everyday: vsakodnevno
-executed: opravljeno
-extend: podaljšajte
-from IP: z naslova IP
-from the IP: z naslova
-hours: ure
-is at least {numChars} characters long: ima vsaj {numChars} znakov
-last 24 hours: zadnjih 24 ur
-last 30 days: zadnjih 30 dni
-last 6 hours: zadnjih 6 ur
-last 7 days: zadnjih 7 dni
-logs_aggregation_day: dni
-logs_aggregation_hour: ur/-e
-logs_aggregation_minute: minut/-e
-logs_aggregation_month: mesecev
-min.: min.
-minutes: minut
-password: geslo
-prefix: prefiks
-previous month: prejšnji mesec
-range: področje
-register-slide1-text: Na podlagi razpoložljive elektronike vam bo SUPLA omogočila izdelavo preprostih modulov, ki zagotavljajo nadzor in kontrolo komponent za avtomatizacijo zgradb. Zahvaljujoč SUPLI lahko med drugim nadzorujete osvetlitev, vklopite in izklopite gospodinjske aparate in elektroniko, odprete in zaprete dvoriščna vrata in vrata ali nadzorujete temperaturo v prostorih. Vse to lahko storite z enim premikom prsta.
-register-slide1-title: Lastna inteligentna zgradba
-register-slide2-text: Ena izmed osnovnih predpostavk projekta je preprostost in razpoložljivost. SUPLA vam omogoča, da z enim premikom prsta vklopite luč  ali odprete vhodna vrata, ko želite vstopiti na posest. SUPLA je na voljo povsod, kjer imate dostop do interneta in imate pri roki pametni telefon ali tablico. SUPLA je razvita na osnovi Odprte programske opreme in Odprte opreme, s katerima lahko tudi vi razvijate ta projekt!
-register-slide2-title: SUPLA povsod!
-register-slide3-text: Sistemi za avtomatizacijo zgradb, ki so na voljo na tržišču, so ponavadi zelo zapleteni, zaprti in dragi. V mnogih primerih zahtevajo namestitev že v fazi gradnje objekta. SUPLA je preprosta, odprta in brezplačna. Omogoča gradnjo izvršilnih elementov, ki temeljijo na platformah RaspberryPI, Arduino ali ESP8266, in njihovo povezovanje z uporabo mreže LAN in WiFi. Pridružite se projektu in ustvarite svojo različico sistema avtomatizacije stavb!
-register-slide3-title: Brezplačna in odprta!
-reset chart view: vrni se na začeten pogled
-scene: scena
-schedule: urnik
-scheduleMode_crontab: Napredni
-scheduleMode_daily: Dnevni cikel
-scheduleMode_minutely: Minutni cikel
-scheduleMode_once: Enkraten
-sec.: sek.
-smartphones, tablets, etc.: pametni telefoni, tablice itp.
-state-closed: Zaprto
-state-default: Privzeto
-state-empty: Prazno
-state-full: Polno
-state-humidity: Vlažnost
-state-off: Izklopljeno
-state-on: Vklopljeno
-state-opened: Odprto
-state-partially_closed: Delno zaprto
-state-revealed: Odstrto
-state-rgb_off_dim_off: RGB in zatemnilnik izklopljena
-state-rgb_off_dim_on: RGB izklopljen, zatemnilnik vključen
-state-rgb_on_dim_off: RGB vklopljen, zatemnilnik izključen
-state-rgb_on_dim_on: RGB in zatemnilnik vklopljena
-state-shut: Zastrto
-state-temperature: Temperatura
-suffix: sufiks
-sunrise-after: vzhodu
-sunrise-before: vzhodom
-sunset-after: zahodu
-sunset-before: zahodom
-the whole history: celotna zgodovina
-this month: tekoči mesec
-this year: tekoče leto
-today: danes
-unknown: neznan
-username: naziv uporabnika
-valid until: poteče
-values as seen on chart: vrednosti, kot je prikazano v grafu
-values as seen on counter: vrednosti kot na števcu
-yesterday: včeraj
-'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne more komunicirati z vašim računom, dokler ponovno ne odobrite dostopa.'
-'{clientName} wants to access your account.': '{clientName} želi dobiti dostop do vašega računa.'
-'{minutes} minutes after sunrise': '{minutes} minut po sončnem vzhodu'
-'{minutes} minutes after sunset': '{minutes} minut po sončnem zahodu'
-'{minutes} minutes before sunrise': '{minutes} minut pred sončnim vzhodom'
-'{minutes} minutes before sunset': '{minutes} minut pred sončnim zahodom'
-'{requests} out of {limit} / day': '{requests} iz {limit} / dan'
-'{requests} out of {limit} / h': '{requests} iz {limit} / h'
-'{requests} out of {limit} / min': '{requests} iz {limit} / min'
-'{requests} out of {limit} / {seconds} sec.': '{requests} iz {limit} / {seconds} sek.'
-'{serviceName} integration': Integracija z {serviceName}
-
-#</editor-fold>
-#<editor-fold desc="Extra translations">
-# Translations below have not been found in sources. You might want to delete them.
-...and start your adventure with building automation today!: ... in začnite svojo pustolovščino z inteligentnimi zgradbami že danes!
-Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
-Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
-Action: Dejanje
-Add new item to use in the scene: Dodajte nov element na sceno
-Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino napetostnih odstopanj za ta kanal?
-Are you sure you want to disable this device?: Ali ste prepričani, da želite izklopiti to napravo?
-Assigned Locations: Dodeljene lokacije
-Authorized OAuth apps: Overjene aplikacije OAuth
-Calculated value: Stanje števca
-Cannot send an activation e-mail. Try again later.: Sporočila ni mogoče poslati s povezavo za aktiviranje. Poskusite znova pozneje.
-Channel will be deleted from the channel group below: Kanal bo odstranjen z naslednjih skupin kanalov
-Channels in channel group: Kanali v skupinah kanalov
-Chosen hour: Izbrana ura
-Coming Soon: Kmalu na voljo
-Confirm if you want to remove {deviceName} device: Potrdite, da želite odstraniti napravo {deviceName}
-DISABLED: IZKLOPLJENO
-Date: Datum
-Days: Dni
-Direct links below will be deleted: Spodaj navedene neposredne povezave bodo odstranjene
-Doors, Gates: Vrata, Dvoriščna vrata
-ENABLED: VKLOPLJENO
-Email already exists: E-naslov že obstaja
-Existing schedules: Obstoječi urniki
-From IP: Z naslova IP
-Get SUPLA on your devices: Prenesite SUPLA na svoje naprave
-Hi: Pozdravljeni!
-Hour: Ura
-Hours: Ure
-I/O: Vstop/Izstop
-If you want to stay here, do something!: Če želite ostati tukaj, naredite nekaj!
-Input: Vstop
-Languages: Jeziki
-Loading: Polnjenje
-Location password must be at least 4 characters.: Lokacijsko geslo mora vsebovati vsaj 4 znake.
-Location password must be no longer than 32 characters.: Lokacijsko geslo ne sme biti daljše od 32 znakov.
-Minute: Minuta
-Mobile Apps: Stanje števca
-Next: Naprej
-Number: Številka
-Output: Izstop
-Please select the schedules that should also be enabled.: Izberite urnike, ki naj bi bili tudi vključeni.
-Previous login: Prejšnja prijava
-Registration: Registracija
-Remove: Izbrišite
-Schedule cannot be enabled: Ni bilo mogoče vklopiti urnika
-Schedules below will be deleted: Spodnji urniki bodo izbrisani
-Sources available from: Viri, ki so na voljo v
-Status: Status
-Subject: Subjekt
-Sunrise / Sunset: Vzhod / Zahod
-Supla for devices: Supla za naprave
-Try again later: Poskusite znova pozneje.
-Turning this device off will result in disabling all the associated schedules.: Če izklopite to napravo, bo tudi izklopljen urnik, ki je z njo povezan.
-When: Ko
-You will be logged out shortly: Čez trenutek boste odjavljeni
-execute: Izvedite
-hourly: Urni cikel
-or add a delay: ali dodajte zamik
-
-#</editor-fold>
-#<editor-fold desc="Missing translations">
-# Translations below are missing. You want to translate them.
-'% of closing': '% zaprtja'
-Add a new action to the scene: Dodajte na sceno novo dejanje
-Are you sure you want to delete this reaction?: Ali ste prepričani, da želite izbrisati to reakcijo?
-Body: Vsebina
-Choose the channel: Izberite kanal
-Choose the channel group: Izberite skupino kanalov
-Choose the scene: Izberite sceno
-Choose the schedule: Izberite razpored
-Create new reaction: Odprite novo reakcijo
-Current: Tok
-Edit reaction: Uredite reakcijo
-Go to the channel: Pojdite na kanal
-Go to the channel group: Pojdite na skupino kanalov
-Go to the scene: Pojdite na sceno
-Go to the schedule: Pojdite na razpored
-Invalid scene: Nepravulna scena
-Missing action.: Brez dejanja
-New reaction: Nova reakcija
-Notification: Obvestilo
-Notification must have a body.: Obvestilo mora imeti vsebino.
-Notifications: Obvestila
-Phase: Faza
-Please fix the problems with operations and try again.: Odpravite težave pri operacijah in poskusite znova.
-Please select a condition: Izberite pogoj
-Please select an action: Izberite dejanje
-Power active: Aktivna energija
-Power apparent: Navidezna energija
-Power reactive: Neaktivna energija
-Reactions: Reakcije
-Reactions limit has been exceeded: Meja reakcije je presežena
-Recipients: Prejemniki
-Send a notification: Pošljite obvestilo
-Send notification: Pošljite obvestilo
-The notification must have a recipient.: Obvestilo mora imeti prejemnika.
-The reaction has been added: Reakcija je dodana
-The reaction has been changed: Reakcija je spremenjena
-Title: Naslov
-Voltage: Napetost
 When a certain distance is reached: Ko je dosežena določena razdalja
 When a lack of liquid is detected: Ko je ugotovljeno pomanjkanje tekočine
 When a new mail comes: Ko prispe nova pošta
@@ -1237,18 +969,318 @@ When the window will be opened: Ko je okno odprto
 When the window will be opened or closed: Ko je okno zaprto ali odprto
 When there is certain amount of rain: Ko pade določena količina dežja
 When there weight reaches a certain value: Ko teža doseže določeno vrednost
+When you execute the link with HTTP PATCH method, you can omit the random part of the link and send it in the request body. This is safer because such request will not be stored in any server or proxy logs, regardless of their configuration. Please find an cURL example request below.: Dejanje neposredne povezave lahko izvedete tako, da v vsebino zahteve HTTP PATCH vnesete svoj edinstven identifikator. To je varnejše, ker preprečuje, da bi se celotni naslov vaše povezave shranil v dnevnikih za dostop do strežnika, skozi katere gre vaša zahteva. Spodaj boste našli primer izvršitve s pomočjo orodja cURL.
+Where is the JSON?: Kje je JSON?
+Where is your SUPLA Cloud?: Kje se nahaja vaša Supla?
+White: Bel
+Wind sensor: Senzor za veter
+Window opening sensor: Senzor odprtja oken
+With SUPLA you can operate the lights in your home or office: S SUPLO lahko nadzorujete osvetlitev v vaši hiši ali pisarni
+With function: S funkcijo
+Working period: Obdobje delovanja
+Working schedule: Urnik aktivnosti
+YOUR LINK CODE: VAŠ KODEK POVEZAVE
+You are changing the settings too quickly. You have to wait a while before making this change.: Prehitro spreminjate nastavitve. Preden spremenite te nastavitve, morate počakati nekaj časa.
+You can browse only the most recent logs now. Wait a while for the full history.: Trenutno so prikazane samo zadnje meritve. Počakajte nekaj časa, da se prenese celotna zgodovina.
+You can ignore this message, if you have accidentally entered an incorrect password.: To informacijo lahko prezrete, če ste vnesli napačno geslo.
+You can use the application but you will not be able to modify any settings.: Aplikacijo lahko uporabljate, vendar ne morete vnašati sprememb namestitev.
+You cannot delete your last access identifier.: Ne morete izbrisati zadnjega identifikatorja dostopa.
+You cannot delete your last location.: Ne morete izbrisati zadnje lokacije.
+You cannot use SUPLA project name in the domain name.: Imena projekta SUPLA ne morete uporabiti v imenu glavne domene.
+You have exceeded your API Rate Limit: Izrabili ste vašo omejitev zahtev za API
+You have requested to unregister your SUPLA Cloud instance: Zahtevali ste odjavo vaše stopnje v SUPLA Cloud
+You have to choose at least one scope.: Izbrati morate vsaj en obseg.
+You just need to execute the following command inside your host terminal.: Samo izvedite naslednji ukaz znotraj terminala vašega gostitelja.
+You may find the below examples helpful, provided that you are still willing to use the advanced schedule mode.: Če še vedno želite uporabljati napredni način urnika, si oglejte spodnje primere.
+You must agree to the Terms and Conditions.: Sprejemanje predpisov je potrebno.
+You must enable MQTT Broker first.: Najprej morate vklopiti integracijo s posrednikom MQTT.
+You must leave at least one phase enabled.: Vsaj ena faza mora ostati aktivna.
 You must set an action for each reaction.: Za vsako reakcijo morate nastaviti reakcijo.
+You must set an action for each scene operation.: Izberite dejanje za vsako operacijo v sceni.
+You must set sections with transparent or opaque parameters or both.: Izbrati morate prosojnost za vsaj en razdelek.
+You need to provide icons for all states.: Navesti morate ikone za vsa stanja.
+You need to update your SUPLA Cloud to version 2.3.0. or newer.: Svoj primerek SUPLA Cloud morate posodobiti na različico vsaj 2.3.0.
+You will not be able to generate a direct link with the same URL again.: Ustvarjanje povezave z istim URL-jem ne bo mogoče.
+Your account and MQTT Broker connection.: Povezava vašega računa s posrednikom MQTT.
+Your account has been deleted. We hope you will come back to us soon.: Račun je bil izbrisan. Upamo, da se kmalu vrnete.
+Your account has been locked.: Vaš račun je bil blokiran.
+Your account has not been confirmed yet.: Vaš račun še ni bil potrjen.
+Your account limits: Vaše omejitve
+Your browser does not support client-side database mechanism (IndexedDB). It is required to render the charts and enable advanced export modes. You may need to upgrade your browser or exit private browsing mode to use these features.: Vaš brskalnik ne podpira mehanizma odjemalčeve baze podatkov (IndexedDB). Ta funkcija je potrebna za prikaz grafov in podporo naprednim nastavitvam izvoza podatkov. Če želite izkoristiti te funkcije, posodobite brskalnik ali zapustite način incognito.
+Your channel groups are allowed to have a maximum of {max} channels.: Vaše skupine kanalov imajo lahko največ {max} kanalov.
+Your chart is being drawn...: Vaš graf je izrisan...
+Your data are being collected. Please be patient.: Zbiramo vaše podatke, prosimo za potrpežljivost.
+Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Vaši podatki se prenašajo iz strežnika. Pred izvozom počakajte, da se prenosi končajo.
+Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: 'Naprava podpira razširitev svojega delovanja in omogoča izvajanje katerega koli želenega dejanja na kateri koli napravi, ki jo imate. Dostopne možnosti so odvisne od vdelane programske in strojne opreme. '
+Your email: Vaš e-naslov
+Your instance is not registered or you are trying to authorize an application that is not public.: Vaš primerek ni registriran ali poskušate odobriti aplikacijo, ki ni javna.
+Your password must contain at least one special character.: Geslo mora vsebovati vsaj en poseben znak.
+Your password must include at least one letter.: Geslo mora vsebovati vsaj eno črko.
+Your password must include at least one number.: Geslo mora vsebovati vsaj eno številko.
+Your password must include both upper and lower case letters.: Geslo mora vsebovati velike in male črke.
+Your preferences has been updated.: Vaše nastavitve so bile shranjene.
+Your private SUPLA Cloud instance has been unregistered.: Vaša zasebna stopnja SUPLA Cloud je bila odjavljena.
+Your private SUPLA Cloud instance is not available. Make sure your server is online and your https connection works properly.: Vaš zasebni primerek oblaka SUPLA ni na voljo. Preverite, ali je vaš strežnik online in povezava HTTPS deluje pravilno.
+Your private SUPLA Cloud is almost registered.: Vaš zasebni oblak SUPLA je skoraj registriran.
+Your private SUPLA Cloud is not registered.: Vaš zasebni oblak SUPLA ni registriran.
+Your scenes are allowed to have a maximum of {max} operations.: Vaše scene lahko imajo največ {max} operacij.
+Your schedules are allowed to have a maximum of {max} actions.: Vaši urniki lahko imajo največ {max} dejanj.
+Your session has been expired.: Vaša seja je potekla.
+Your session is about to expire: Vaša seja poteče čez trenutek
+Your session will expire in {0}.: Vaša seja bo potekla čez {0}.
+Yours faithfully,: S spoštovanjem,
+access to your e-mail address: Dostop do vašega e-naslova.
+actionTrigger_HOLD: Držanje gumba.
+actionTrigger_SHORT_PRESS_X1: Pritisk 1x
+actionTrigger_SHORT_PRESS_X2: Pritisk 2x
+actionTrigger_SHORT_PRESS_X3: Pritisk 3x
+actionTrigger_SHORT_PRESS_X4: Pritisk 4x
+actionTrigger_SHORT_PRESS_X5: Pritisk 5x
+actionTrigger_TOGGLE_X1: Preklop 1x
+actionTrigger_TOGGLE_X2: Preklop 2x
+actionTrigger_TOGGLE_X3: Preklop 3x
+actionTrigger_TOGGLE_X4: Preklop 4x
+actionTrigger_TOGGLE_X5: Preklop 5x
+actionTrigger_TURN_OFF: Izklop
+actionTrigger_TURN_ON: Vklop
+actionableSubjectType_channel: Kanal
+actionableSubjectType_channelGroup: Skupina kanalov
 actionableSubjectType_notification: Obvestilo
+actionableSubjectType_scene: Scena
+actionableSubjectType_schedule: Urnik
+addToHistoryMeasurementWarningSelected: Če potrdite to možnost, boste nastavljene vrednosti dodali prihodnjim meritvam, shranjenim v zgodovini. To je lahko razvidno na grafikonih kot nenadno povečanje za vneseno vrednost. Priporočamo, da te parametre nastavite samo ob prvi namestitvi števca. Za obstoječe merilnike priporočamo, da izbrišete zgodovino meritev takoj, ko spremenite te nastavitve.
+addToHistoryMeasurementWarningUnselected: Če potrdite to možnost, bodo nastavljene vrednosti izpuščene iz prihodnjih meritev, shranjenih v zgodovini. To je lahko razvidno na grafikonih kot nenaden padec. Priporočamo, da te parametre nastavite samo ob prvi namestitvi števca. Za obstoječe merilnike priporočamo, da izbrišete zgodovino meritev takoj, ko spremenite te nastavitve.
+after: po
 and wait until it reaches: in počakajte, da doseže
 and wait until it will be: in počakajte, da bo
 and wait until the humidity will be: in počakajte, da bo vlažnost
 and wait until the temperature will be: in počakajte, da bo temperatura
 and wait until the value will be: in počakajte, da bo vrednost
+average: srednja
+be at least {numChars} characters long: imeti mora vsaj {numChars} znakov
+before: pred
+caption: Ime
+change: spremeni
+channel: Kanal
+channelConfigHelp_gateCloseAfterHelp: Agent, ki začne postopek zapiranja vrat, se lahko zamakne do ene minute od nastavljenega časa.
+channelConfigHelp_numberOfAttemptsGate: Ko naročite, da se vrata odprejo ali zaprejo, jih bo sistem poskusil zapreti/odpreti in počakal 60 sekund, da preveri, ali so vrata dosegla želeno stanje. Če ne, jih bo sistem poskusil znova zapreti/odpreti. Ta parameter določa največje število poskusov sistema za dosego cilja. Priporočena vrednost je 5. Spreminjanje tega parametra ne vpliva na delovanje urnikov.
+channelConfigHelp_stateVerificationMethod: 'Aktivno: Ko se senzor prvič spremeni v ciljno stanje, ustavi ponovne poskuse. Pasivno: enkrat na 60 sekund preverimo stanje senzorja in prenehamo s ponavljanjem, ko senzor javi nastavljeno stanje.'
+channelConfig_stateVerificationMethod_active: Aktiven
+channelConfig_stateVerificationMethod_passive: Pasiven
+channelGroup: Skupina kanalov
+choose: Izberite
+choose a currency: Izberite valuto
 choose access identifiers: izberite identifikatorje za dostop
 choose the access identifiers: izberite identifikatorje za dostop
+choose the action: izberite dejanje
+choose the channel: Izberite kanal
+choose the channel group: Izberite skupino kanalov
+choose the scene: izberite sceno
+choose the schedule: izberi urnik
+choose the timezone: Izberite časovni pas
+click here: kliknite tukaj
+contains a character that is neither a letter nor a digit: vsebuje znak, ki ni niti črka niti številka
+contains a digit: vsebuje število
+contains lower and upper letters: vsebuje velike in male črke
+copied: Kopirano
+copy: Kopirajte
+days: dni
+directLinkExecutionFailureReason_disabled: Neposredna povezava je izklopljena
+directLinkExecutionFailureReason_executionLimitExceeded: Omejitev izvedb je bila presežena
+directLinkExecutionFailureReason_expired: Neposredna povezava je potekla
+directLinkExecutionFailureReason_forbiddenAction: Povezava ne omogoča izvajanja tega dejanja
+directLinkExecutionFailureReason_httpGetForbidden: Dejanje je bilo onemogočeno z uporabo nezakonite metode HTTP GET
+directLinkExecutionFailureReason_invalidActionParameters: Nepravilni parametri neposredne povezave
+directLinkExecutionFailureReason_invalidChannelState: Dejanja ni mogoče izvesti zaradi stanja kanala.
+directLinkExecutionFailureReason_invalidSlug: Verifikacijska koda, ki ste jo poslali, je napačna.
+directLinkExecutionFailureReason_noAllowedActions: Ni bila izbrana nobena dovoljena dejanja
+directLinkExecutionFailureReason_noSlugOrAction: Nepravilna zahteva - koda povezave in dejanje sta potrebni
+directLinkExecutionFailureReason_notActiveYet: Neposredna povezava še ni aktivna
+directLinkExecutionFailureReason_otherFailure: Napaka pri izvajanju dejanja
+directLinkExecutionFailureReason_sceneDuringExecution: Scena je v času izvajanja.
+directLinkExecutionFailureReason_unsupportedAction: Izbrano dejanje ni pravilno
+empty: prazen
+everyday: vsakodnevno
+executed: opravljeno
+extend: podaljšajte
+from IP: z naslova IP
+from the IP: z naslova
+hours: ure
+is at least {numChars} characters long: ima vsaj {numChars} znakov
+last 24 hours: zadnjih 24 ur
+last 30 days: zadnjih 30 dni
+last 6 hours: zadnjih 6 ur
+last 7 days: zadnjih 7 dni
+logs_aggregation_day: dni
+logs_aggregation_hour: ur/-e
+logs_aggregation_minute: minut/-e
+logs_aggregation_month: mesecev
+min.: min.
+minutes: minut
 notification: obvestilo
 or another element: ali drugi predmet
+password: geslo
+prefix: prefiks
+previous month: prejšnji mesec
+range: področje
+register-slide1-text: Na podlagi razpoložljive elektronike vam bo SUPLA omogočila izdelavo preprostih modulov, ki zagotavljajo nadzor in kontrolo komponent za avtomatizacijo zgradb. Zahvaljujoč SUPLI lahko med drugim nadzorujete osvetlitev, vklopite in izklopite gospodinjske aparate in elektroniko, odprete in zaprete dvoriščna vrata in vrata ali nadzorujete temperaturo v prostorih. Vse to lahko storite z enim premikom prsta.
+register-slide1-title: Lastna inteligentna zgradba
+register-slide2-text: Ena izmed osnovnih predpostavk projekta je preprostost in razpoložljivost. SUPLA vam omogoča, da z enim premikom prsta vklopite luč  ali odprete vhodna vrata, ko želite vstopiti na posest. SUPLA je na voljo povsod, kjer imate dostop do interneta in imate pri roki pametni telefon ali tablico. SUPLA je razvita na osnovi Odprte programske opreme in Odprte opreme, s katerima lahko tudi vi razvijate ta projekt!
+register-slide2-title: SUPLA povsod!
+register-slide3-text: Sistemi za avtomatizacijo zgradb, ki so na voljo na tržišču, so ponavadi zelo zapleteni, zaprti in dragi. V mnogih primerih zahtevajo namestitev že v fazi gradnje objekta. SUPLA je preprosta, odprta in brezplačna. Omogoča gradnjo izvršilnih elementov, ki temeljijo na platformah RaspberryPI, Arduino ali ESP8266, in njihovo povezovanje z uporabo mreže LAN in WiFi. Pridružite se projektu in ustvarite svojo različico sistema avtomatizacije stavb!
+register-slide3-title: Brezplačna in odprta!
+reset chart view: vrni se na začeten pogled
+scene: scena
+schedule: urnik
+scheduleMode_crontab: Napredni
+scheduleMode_daily: Dnevni cikel
+scheduleMode_minutely: Minutni cikel
+scheduleMode_once: Enkraten
+sec.: sek.
+smartphones, tablets, etc.: pametni telefoni, tablice itp.
+state-closed: Zaprto
+state-default: Privzeto
+state-empty: Prazno
+state-full: Polno
+state-humidity: Vlažnost
+state-off: Izklopljeno
+state-on: Vklopljeno
+state-opened: Odprto
+state-partially_closed: Delno zaprto
+state-revealed: Odstrto
+state-rgb_off_dim_off: RGB in zatemnilnik izklopljena
+state-rgb_off_dim_on: RGB izklopljen, zatemnilnik vključen
+state-rgb_on_dim_off: RGB vklopljen, zatemnilnik izključen
+state-rgb_on_dim_on: RGB in zatemnilnik vklopljena
+state-shut: Zastrto
+state-temperature: Temperatura
+suffix: sufiks
 sum: vsota
+sunrise-after: vzhodu
+sunrise-before: vzhodom
+sunset-after: zahodu
+sunset-before: zahodom
+the whole history: celotna zgodovina
 then execute the action: nato izvršite akcijo
+this month: tekoči mesec
+this year: tekoče leto
+today: danes
+unknown: neznan
+username: naziv uporabnika
+valid until: poteče
+values as seen on chart: vrednosti, kot je prikazano v grafu
+values as seen on counter: vrednosti kot na števcu
+yesterday: včeraj
+'{applicationName} will not be able to interact with your account until you grant the access again.': '{applicationName} ne more komunicirati z vašim računom, dokler ponovno ne odobrite dostopa.'
+'{clientName} wants to access your account.': '{clientName} želi dobiti dostop do vašega računa.'
+'{minutes} minutes after sunrise': '{minutes} minut po sončnem vzhodu'
+'{minutes} minutes after sunset': '{minutes} minut po sončnem zahodu'
+'{minutes} minutes before sunrise': '{minutes} minut pred sončnim vzhodom'
+'{minutes} minutes before sunset': '{minutes} minut pred sončnim zahodom'
+'{requests} out of {limit} / day': '{requests} iz {limit} / dan'
+'{requests} out of {limit} / h': '{requests} iz {limit} / h'
+'{requests} out of {limit} / min': '{requests} iz {limit} / min'
+'{requests} out of {limit} / {seconds} sec.': '{requests} iz {limit} / {seconds} sek.'
+'{serviceName} integration': Integracija z {serviceName}
+
+#</editor-fold>
+#<editor-fold desc="Extra translations">
+# Translations below have not been found in sources. You might want to delete them.
+...and start your adventure with building automation today!: ... in začnite svojo pustolovščino z inteligentnimi zgradbami že danes!
+Access identifier password must be at least 8 characters.: Geslo za identifikator dostopa mora imeti vsaj 8 znakov.
+Access identifier password must be no longer than 32 characters.: Geslo za identifikator dostopa ne sme biti daljše od 32 znakov.
+Action: Dejanje
+Add new item to use in the scene: Dodajte nov element na sceno
+Are you sure you want to delete the entire voltage aberrations history saved for this channel?: Ali ste prepričani, da želite izbrisati vso zgodovino napetostnih odstopanj za ta kanal?
+Are you sure you want to disable this device?: Ali ste prepričani, da želite izklopiti to napravo?
+Assigned Locations: Dodeljene lokacije
+Authorized OAuth apps: Overjene aplikacije OAuth
+Calculated value: Stanje števca
+Cannot send an activation e-mail. Try again later.: Sporočila ni mogoče poslati s povezavo za aktiviranje. Poskusite znova pozneje.
+Channel will be deleted from the channel group below: Kanal bo odstranjen z naslednjih skupin kanalov
+Channels in channel group: Kanali v skupinah kanalov
+Chosen hour: Izbrana ura
+Coming Soon: Kmalu na voljo
+Confirm if you want to remove {deviceName} device: Potrdite, da želite odstraniti napravo {deviceName}
+DISABLED: IZKLOPLJENO
+Days: Dni
+Direct links below will be deleted: Spodaj navedene neposredne povezave bodo odstranjene
+Doors, Gates: Vrata, Dvoriščna vrata
+ENABLED: VKLOPLJENO
+Email already exists: E-naslov že obstaja
+Existing schedules: Obstoječi urniki
+From IP: Z naslova IP
+Get SUPLA on your devices: Prenesite SUPLA na svoje naprave
+Hi: Pozdravljeni!
+Hour: Ura
+Hours: Ure
+I/O: Vstop/Izstop
+If you want to stay here, do something!: Če želite ostati tukaj, naredite nekaj!
+Input: Vstop
+Languages: Jeziki
+Loading: Polnjenje
+Location password must be at least 4 characters.: Lokacijsko geslo mora vsebovati vsaj 4 znake.
+Location password must be no longer than 32 characters.: Lokacijsko geslo ne sme biti daljše od 32 znakov.
+Minute: Minuta
+Mobile Apps: Stanje števca
+Next: Naprej
+Number: Številka
+Output: Izstop
+Please select an action: Izberite dejanje
+Please select the schedules that should also be enabled.: Izberite urnike, ki naj bi bili tudi vključeni.
+Previous login: Prejšnja prijava
+Registration: Registracija
+Remove: Izbrišite
+Schedule cannot be enabled: Ni bilo mogoče vklopiti urnika
+Schedules below will be deleted: Spodnji urniki bodo izbrisani
+Sources available from: Viri, ki so na voljo v
+Status: Status
+Subject: Subjekt
+Sunrise / Sunset: Vzhod / Zahod
+Supla for devices: Supla za naprave
+Triggers: Sprožilci
+Try again later: Poskusite znova pozneje.
+Turning this device off will result in disabling all the associated schedules.: Če izklopite to napravo, bo tudi izklopljen urnik, ki je z njo povezan.
+When: Ko
+You will be logged out shortly: Čez trenutek boste odjavljeni
+execute: Izvedite
+hourly: Urni cikel
+or add a delay: ali dodajte zamik
+
+#</editor-fold>
+#<editor-fold desc="Missing translations">
+# Translations below are missing. You want to translate them.
+Active from: ~
+Active to: ~
+Activity conditions: ~
+Available variables: ~
+Date range: ~
+Daytime criteria: ~
+Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: ~
+No results: ~
+Notification body is set by the firmware.: ~
+Notification must have recipients.: ~
+Notification title is set by the firmware.: ~
+Notifications (defined): ~
+Notifications (sent per hour): ~
+OR: ~
+Please select and configure the action: ~
+Selected: ~
+Settings: ~
+THEN: ~
+The reaction will be active when all of the conditions will be meet. If you choose to set all of the available time settings, the reaction will be active when the time is between active from and active to, is within the selected working schedule and meets one of the daytime criteria.: ~
+Time: ~
+Today, it would be active from {from} to {to}.: ~
+Use working schedule for this reaction: ~
+midnight: ~
+sunrise: ~
+sunset: ~
+swap: ~
+type {code} to show available variables: ~
+'{count} minutes after sunrise': ~
+'{count} minutes after sunset': ~
+'{count} minutes before sunrise': ~
+'{count} minutes before sunset': ~
 
 #</editor-fold>
