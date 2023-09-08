@@ -4,8 +4,11 @@ import ChannelActionChooser from "@/channels/action/channel-action-chooser.vue";
 import ChannelFunction from "@/common/enums/channel-function";
 import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 import ChannelFunctionAction from "@/common/enums/channel-function-action";
+import Vue from "vue";
 
 describe('SubjectDropdown', () => {
+    Vue.config.external.notificationsEnabled = true;
+
     const subjectDropdown = async (cfg = {}) => {
         return mount(
             {

@@ -53,6 +53,7 @@ class FrontendConfig {
             $parameters,
             [
                 'isCloudRegistered' => $this->autodiscover->isTarget(),
+                'notificationsEnabled' => $this->container->getParameter('act_as_broker_cloud'),
                 'max_upload_size' => [
                     'file' => $this->getMaxUploadSizePerFile(),
                     'total' => $this->getMaxUploadSize(),

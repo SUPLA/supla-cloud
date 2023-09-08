@@ -117,7 +117,7 @@
             </transition-expand>
             <transition-expand>
                 <div :class="`panel panel-${subjectType === 'notification' ? 'success' : 'default'}`"
-                    v-if="!disableNotifications && (!subjectType || subjectType === 'notification')">
+                    v-if="notificationsEnabled && (!subjectType || subjectType === 'notification')">
                     <div class="panel-heading d-flex" @click="changeSubjectType('notification')">
                         <a role="button" tabindex="0" class="text-inherit flex-grow-1">
                             {{ $t('Send notification') }}
@@ -228,6 +228,9 @@
         computed: {
             hasOthersSlot() {
                 return !!this.$slots['other'] || !!this.$scopedSlots['other'];
+            },
+            notificationsEnabled() {
+                return !this.disableNotifications && Vue.config.external.notificationsEnabled;
             },
         },
         watch: {

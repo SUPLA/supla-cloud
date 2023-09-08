@@ -97,6 +97,7 @@
                                     {{ $t('Add a delay') }}
                                 </button>
                                 <button type="button"
+                                    v-if="notificationsEnabled"
                                     @click="addNotification()"
                                     class="btn btn-default">
                                     <i class="pe-7s-volume"></i>
@@ -139,6 +140,7 @@
                 dragging: false,
                 lastValue: undefined,
                 operations: [],
+                notificationsEnabled: Vue.config.external.notificationsEnabled,
             };
         },
         mounted() {
