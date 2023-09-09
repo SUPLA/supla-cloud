@@ -40,13 +40,13 @@
                     <div v-if="supportsCumulativeLogs" class="form-group">
                         <label>{{ $t('Logs transformation') }}</label>
                         <div class="radio text-center">
-                            <label class="mx-3"><input type="radio" value="none" v-model="downloadConfig.transformation">
-                                {{ $t('Incremental') }}
-                                <span class="small">({{ $t('values as seen on chart') }})</span>
-                            </label>
                             <label class="mx-3"><input type="radio" value="cumulative" v-model="downloadConfig.transformation">
                                 {{ $t('Counter') }}
                                 <span class="small">({{ $t('values as seen on counter') }})</span>
+                            </label>
+                            <label class="mx-3"><input type="radio" value="none" v-model="downloadConfig.transformation">
+                                {{ $t('Incremental') }}
+                                <span class="small">({{ $t('values as seen on chart') }})</span>
                             </label>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                     dateRange: 'selected',
                     format: 'csv',
                     separator: ',',
-                    transformation: 'none',
+                    transformation: 'cumulative',
                 },
             };
         },
