@@ -35,6 +35,10 @@ class Version20230815145146 extends NoWayBackMigration {
         foreach ($users as $user) {
             $timezone = new \DateTimeZone($user['timezone'] ?? null ?: date_default_timezone_get());
             $location = $timezone->getLocation();
+            if (!$location) {
+                $timezone = new \DateTimeZone('Europe/Warsaw');
+                $location = $timezone->getLocation();
+            }
             $this->addSql(
                 'UPDATE supla_user SET home_latitude=:latitude, home_longitude=:longitude WHERE id=:id',
                 ['id' => $user['id'], 'latitude' => $location['latitude'], 'longitude' => $location['longitude']]

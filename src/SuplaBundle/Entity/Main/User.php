@@ -612,6 +612,10 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         }
         $timezone = new DateTimeZone($this->timezone);
         $location = $timezone->getLocation();
+        if (!$location) {
+            $this->setTimezone('Europe/Warsaw');
+            return;
+        }
         $this->homeLatitude = $location['latitude'];
         $this->homeLongitude = $location['longitude'];
     }

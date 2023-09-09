@@ -35,6 +35,12 @@ class UserTest extends TestCase {
         $this->assertEquals(date_default_timezone_get(), $user->getTimezone());
     }
 
+    public function testSettingDefaultTimezoneIfSupportedButNoLocation() {
+        $user = new User();
+        $user->setTimezone('CET');
+        $this->assertEquals('Europe/Warsaw', $user->getTimezone());
+    }
+
     public function testSettingCustomTimezone() {
         $user = new \SuplaBundle\Entity\Main\User();
         $user->setTimezone('Europe/Skopje');
