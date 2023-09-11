@@ -56,7 +56,7 @@ class SubjectActionFiller {
     private function createNotificationSubject(array $data) {
         $user = $this->getCurrentUserOrThrow();
         $user = $this->userRepository->find($user->getId()); // to fetch relations count
-        Assertion::false($user->isLimitNotificationsExceeded(), 'Reactions limit has been exceeded'); // i18n
+        Assertion::false($user->isLimitNotificationsExceeded(), 'Push notifications limit has been exceeded'); // i18n
         $notification = new PushNotification($user);
         $actionParam = $data['actionParam'] ?? [] ?: [];
         $actionParam = $this->channelActionExecutor->validateActionParams($notification, ChannelFunctionAction::SEND(), $actionParam);
