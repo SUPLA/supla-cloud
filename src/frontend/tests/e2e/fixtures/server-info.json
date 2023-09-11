@@ -24,6 +24,7 @@
         "suplaUrl": "http:\/\/supla.local",
         "maintenanceMode": false,
         "accountsRegistrationEnabled": true,
+        "notificationsEnabled": true,
         "mqttBrokerEnabled": true,
         "max_upload_size": {
             "file": 2097152,
