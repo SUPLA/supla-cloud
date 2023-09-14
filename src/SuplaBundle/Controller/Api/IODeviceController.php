@@ -296,7 +296,12 @@ class IODeviceController extends RestController {
                     }
                     if (count(array_filter($dependencies))) {
                         $view = $this->view($dependencies, Response::HTTP_CONFLICT);
-                        $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                        $this->setSerializationGroups(
+                            $view,
+                            $request,
+                            ['scene', 'reaction.owningChannel'],
+                            ['scene', 'reaction.owningChannel']
+                        );
                         return $view;
                     }
                 }
@@ -381,7 +386,12 @@ class IODeviceController extends RestController {
             }
             if (count(array_filter($dependencies))) {
                 $view = $this->view($dependencies, Response::HTTP_CONFLICT);
-                $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                $this->setSerializationGroups(
+                    $view,
+                    $request,
+                    ['scene', 'reaction.owningChannel'],
+                    ['scene', 'reaction.owningChannel']
+                );
                 return $view;
             }
         }

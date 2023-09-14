@@ -14,13 +14,13 @@
 
 <script>
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
-    import {channelFunctionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
+    import {reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
 
     export default {
         props: ['model'],
         computed: {
             triggerCaption() {
-                return channelFunctionTriggerCaption(this.model.owningChannel.functionId, this.model.trigger, this);
+                return reactionTriggerCaption(this.model, this);
             },
             subjectCaption() {
                 if (this.model.subject.ownSubjectType === ActionableSubjectType.NOTIFICATION) {

@@ -483,11 +483,11 @@ export function findTriggerDefinition(channelFunction, trigger) {
     return (ChannelFunctionTriggers[channelFunction] || []).find(t => t.test ? t.test(trigger) : isEqual(t.def(), trigger));
 }
 
-export function channelFunctionTriggerCaption(channelFunction, trigger, vue) {
-    const triggerDef = findTriggerDefinition(channelFunction, trigger);
+export function reactionTriggerCaption(reaction, vue) {
+    const triggerDef = findTriggerDefinition(reaction.owningChannel.functionId, reaction.trigger);
     if (triggerDef) {
         if ([ReactionConditionThreshold, ReactionConditionElectricitymeter].includes(triggerDef.component)) {
-            const onChangeTo = trigger?.on_change_to || {};
+            const onChangeTo = reaction.trigger?.on_change_to || {};
             let operator;
             for (const op of ['eq', 'ne', 'lt', 'gt', 'le', 'ge']) {
                 if (Object.hasOwn(onChangeTo, op)) {
@@ -495,7 +495,7 @@ export function channelFunctionTriggerCaption(channelFunction, trigger, vue) {
                 }
             }
             const operatorLabel = {eq: '=', ne: '≠', le: '≤', lt: '<', ge: '≥', gt: '>'}[operator];
-            const unit = triggerDef.props.unit ? triggerDef.props.unit(onChangeTo.name) : '';
+            const unit = triggerDef.props.unit ? triggerDef.props.unit(onChangeTo.name, reaction.owningChannel) : '';
             return vue.$t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${onChangeTo[operator]}${unit}`;
         } else {
             return vue.$t(triggerDef.caption);

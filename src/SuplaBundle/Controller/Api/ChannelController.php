@@ -286,7 +286,12 @@ class ChannelController extends RestController {
                         $dependencies = $channelDependencies->getDependencies($channel);
                         if (array_filter($dependencies)) {
                             $view = $this->view($dependencies, Response::HTTP_CONFLICT);
-                            $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
+                            $this->setSerializationGroups(
+                                $view,
+                                $request,
+                                ['scene', 'reaction.owningChannel'],
+                                ['scene', 'reaction.owningChannel']
+                            );
                             return $view;
                         }
                     }

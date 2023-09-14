@@ -1,5 +1,5 @@
 import ChannelFunction from "@/common/enums/channel-function";
-import {channelFunctionTriggerCaption, ChannelFunctionTriggers} from "@/channels/reactions/channel-function-triggers";
+import {ChannelFunctionTriggers, reactionTriggerCaption} from "@/channels/reactions/channel-function-triggers";
 
 describe('ChannelFunctionTriggers', () => {
     it('defines triggers for all functions', () => {
@@ -48,8 +48,12 @@ describe('ChannelFunctionTriggers', () => {
             ['When the condition is met', ChannelFunction.HUMIDITY, {}],
         ];
 
-        it.each(tests)('humanizes trigger to %p', (expectedText, channelFunction, trigger) => {
-            const humanized = channelFunctionTriggerCaption(channelFunction, trigger, {
+        it.each(tests)('humanizes trigger to %p', (expectedText, functionId, trigger) => {
+            const reaction = {
+                owningChannel: {functionId},
+                trigger,
+            };
+            const humanized = reactionTriggerCaption(reaction, {
                 $t: (t, p = {}) => {
                     return t.replace('{field}', p.field).replace('{value}', p.value).replace('{operator}', p.operator);
                 }
