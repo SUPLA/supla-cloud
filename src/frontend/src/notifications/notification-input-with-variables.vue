@@ -31,6 +31,7 @@
                 :limit="7"
                 insert-space>
                 <input type="text" class="form-control" v-model="model" :disabled="disabled"
+                    @input="model = $event.currentTarget.value"
                     maxlength="100" autocomplete="off" @scroll="syncScroll()" @keyup="syncScroll()" @click="syncScroll()" ref="input">
                 <template #no-result>
                     <div>{{ $t('No results') }}</div>
