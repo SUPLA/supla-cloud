@@ -53,13 +53,18 @@ class FrontendConfig {
             $parameters,
             [
                 'isCloudRegistered' => $this->autodiscover->isTarget(),
-                'notificationsEnabled' => $this->container->getParameter('act_as_broker_cloud'),
+                'notificationsEnabled' => $this->isNotificationsEnabled(),
                 'max_upload_size' => [
                     'file' => $this->getMaxUploadSizePerFile(),
                     'total' => $this->getMaxUploadSize(),
                 ],
             ]
         );
+    }
+
+    private function isNotificationsEnabled(): bool {
+        return $this->container->getParameter('act_as_broker_cloud')
+            || ($this->container->hasParameter('notifications_enabled') && $this->container->getParameter('notifications_enabled'));
     }
 
     private function mapParameters(array $parameters): array {

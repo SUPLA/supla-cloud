@@ -4,7 +4,7 @@ imports:
 parameters:
   supla_protocol: http
   database_name: supla_e2e
-  act_as_broker_cloud: true
+  notifications_enabled: true
 
 services:
   SuplaBundle\Supla\SuplaServer: '@SuplaBundle\Supla\SuplaServerMock'
