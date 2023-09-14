@@ -729,6 +729,10 @@ code {
   }
 }
 
+.text-normal {
+  font-weight: normal;
+}
+
 @import "./buttons";
 @import "./checkbox";
 @import "./notifications";

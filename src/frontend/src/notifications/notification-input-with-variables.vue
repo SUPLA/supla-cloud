@@ -2,10 +2,9 @@
     <div>
         <label class="d-flex">
             <span class="flex-grow-1">{{ $t(labelI18n) }}</span>
-            <span class="label-hint" v-if="!disabled"
-                v-html="$t('type {code} to show available variables', {code: '<code>{</code>'})"></span>
-            <a class="ml-2" @click="helpShown = !helpShown" v-if="!disabled">
-                <fa icon="question-circle"/>
+            <a class="ml-2 text-normal" @click="helpShown = !helpShown" v-if="!disabled">
+                {{ $t('List of available variables') }}
+                <fa icon="question-circle" class="ml-1"/>
             </a>
         </label>
         <transition-expand>

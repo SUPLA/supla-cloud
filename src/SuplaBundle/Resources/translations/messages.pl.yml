@@ -1192,7 +1192,6 @@ then execute the action: wtedy wykonaj akcję
 this month: bieżący miesiąc
 this year: bieżący rok
 today: dziś
-type {code} to show available variables: wpisz {code} by pokazać dostępne zmienne
 unknown: nieznany
 username: nazwa użytkownika
 valid until: wygaśnie
@@ -1295,3 +1294,4 @@ hourly: Każdy dzień
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+List of available variables: Lista dostępnych zmiennych
