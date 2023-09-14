@@ -24,6 +24,7 @@ use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
+use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -421,6 +422,24 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertFalse($this->getEntityManager()->find(IODevice::class, $this->device->getId())->getEnabled());
         $this->assertNotNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
+    }
+
+    public function testTurningOffWithChannelReactions() {
+        $this->getEntityManager()->refresh($this->device);
+        $this->device->setEnabled(true);
+        $this->getEntityManager()->persist($this->device);
+        $reaction = new ValueBasedTrigger($this->device->getUser(), $this->device->getChannels()[0]);
+        $reaction->setTrigger(['on_change' => []]);
+        $reaction->setSubject($this->device->getChannels()[1]);
+        $reaction->setAction(ChannelFunctionAction::TURN_ON());
+        $this->getEntityManager()->persist($reaction);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/iodevices/' . $this->device->getId(), ['enabled' => false]);
+        $this->assertStatusCode(200, $client->getResponse());
+        /** @var ValueBasedTrigger $reaction */
+        $reaction = $this->getEntityManager()->find(ValueBasedTrigger::class, $reaction->getId());
+        $this->assertFalse($reaction->isEnabled());
     }
 
     public function testDeletingWithDependencies() {

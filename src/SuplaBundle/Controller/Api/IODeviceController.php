@@ -308,6 +308,12 @@ class IODeviceController extends RestController {
                 $ioDevice->setEnabled($updatedDevice->getEnabled());
                 if (!$ioDevice->getEnabled()) {
                     $this->scheduleManager->disableSchedulesForDevice($ioDevice);
+                    foreach ($ioDevice->getChannels() as $channel) {
+                        foreach ($channel->getReactions() as $reaction) {
+                            $reaction->setEnabled(false);
+                            $em->persist($reaction);
+                        }
+                    }
                 }
             }
             if ($updatedDevice->getLocation()->getId()) {
