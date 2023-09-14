@@ -151,9 +151,14 @@
                     dateRange: 'selected',
                     format: 'csv',
                     separator: ',',
-                    transformation: 'cumulative',
+                    transformation: 'none',
                 },
             };
+        },
+        beforeMount() {
+            if (this.supportsCumulativeLogs) {
+                this.downloadConfig.transformation = 'cumulative';
+            }
         },
         methods: {
             async download() {
