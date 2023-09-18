@@ -60,7 +60,7 @@
             initFromModel() {
                 this.sunrise = this.value?.mode === 'sunrise';
                 this.sunMinute = Math.abs(this.value?.offset || 0);
-                this.sunBefore = this.value?.offset >= 0;
+                this.sunBefore = this.value?.offset <= 0;
             }
         },
         mounted() {
