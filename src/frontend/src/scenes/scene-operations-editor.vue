@@ -11,12 +11,12 @@
                 v-for="operation of operations"
                 :key="operation.id">
                 <template v-if="operation.subject && operation.subjectType !== 'notification'">
-                    <div :class="['timeline-badge action', {'danger': operation.isValid === false}]"
+                    <div :class="['timeline-badge action', {'warning': !isOperationValid(operation)}]"
                         v-tooltip="!(operation.action && operation.action.id) ? $t('choose the action') : ''">
                         <function-icon :model="operation.subject"
                             width="38"></function-icon>
                     </div>
-                    <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !operation.isValid}]">
+                    <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !isOperationValid(operation)}]">
                         <div class="timeline-heading">
                             <h4 class="timeline-title">
                                 {{ channelTitle(operation.subject) }}
@@ -34,7 +34,7 @@
                                 @input="updateModel()"
                                 :possible-action-filter="possibleActionFilter(operation.subject)">
                             </channel-action-chooser>
-                            <div v-if="waitForCompletionAvailable(operation)">
+                            <div v-if="waitForCompletionAvailable(operation)" class="mt-2">
                                 <label class="checkbox2 text-left">
                                     <input type="checkbox"
                                         @change="updateModel()"
@@ -46,10 +46,10 @@
                     </div>
                 </template>
                 <template v-else-if="operation.subject && operation.subjectType === 'notification'">
-                    <div :class="['timeline-badge action', {'danger': operation.isValid === false}]">
+                    <div :class="['timeline-badge action', {'warning': !isOperationValid(operation)}]">
                         <i class="pe-7s-volume"></i>
                     </div>
-                    <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !operation.isValid}]">
+                    <div :class="['timeline-panel', {'timeline-panel-danger': displayValidationErrors && !isOperationValid(operation)}]">
                         <div class="timeline-heading">
                             <h4 class="timeline-title">{{ $t('Send a notification') }}</h4>
                             <div class="timeline-panel-controls">
@@ -153,6 +153,8 @@
                     for (const op of (this.value || [])) {
                         const operation = Vue.util.extend({}, op);
                         operation.action = {id: operation.actionId, param: operation.actionParam};
+                        delete operation.actionId;
+                        delete operation.actionParam;
                         operation.id = UNIQUE_OPERATION_ID++;
                         if (operation.subject && !operation.subjectType) {
                             operation.subjectType = operation.subject.ownSubjectType;
@@ -191,8 +193,8 @@
                         operation.delayMs = delay;
                         operation.actionId = operation.action?.id;
                         operation.actionParam = operation.action?.param;
-                        operation.isValid = !!operation.actionId && ChannelFunctionAction.paramsValid(operation.actionId, operation.actionParam),
-                            operations.push(operation);
+                        operation.isValid = this.isOperationValid(operation);
+                        operations.push(operation);
                         delay = 0;
                     } else if (operation.delayMs) {
                         delay += operation.delayMs;
@@ -203,6 +205,11 @@
                 }
                 this.lastValue = operations;
                 this.$emit('input', operations);
+            },
+            isOperationValid(operation) {
+                return !operation.subjectType ||
+                    (!!operation.actionId && ChannelFunctionAction.paramsValid(operation.actionId, operation.actionParam)) ||
+                    (!!operation.action && ChannelFunctionAction.paramsValid(operation.action.id, operation.action.param));
             },
             addDelay() {
                 this.operations.push({id: UNIQUE_OPERATION_ID++, delayMs: 5000});
