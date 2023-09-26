@@ -46,7 +46,7 @@ const ChannelFunctionAction = Object.freeze({
             case ChannelFunctionAction.SET:
                 return params.transparent?.length > 0 || params.opaque?.length > 0;
             case ChannelFunctionAction.SET_RGBW_PARAMETERS:
-                return !!(params.brightness >= 0 || params.brightness <= 100 || params.hue
+                return !!(params.brightness >= 0 || params.brightness <= 100 || (params.hue || params.hue === 0)
                     || params.colorBrightness >= 0 || params.colorBrightness <= 100);
             case ChannelFunctionAction.REVEAL_PARTIALLY:
             case ChannelFunctionAction.SHUT_PARTIALLY:
