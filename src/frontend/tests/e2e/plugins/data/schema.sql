@@ -249,19 +249,19 @@ CREATE TABLE `supla_dev_channel`
     `location_id`    int(11) DEFAULT NULL,
     `flags`          int(11) DEFAULT NULL,
     `user_icon_id`   int(11) DEFAULT NULL,
-    `user_config` varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
-    `param4`      int(11) NOT NULL DEFAULT '0',
-    `properties`  varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
+    `user_config`    varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
+    `param4`         int(11) NOT NULL DEFAULT '0',
+    `properties`     varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_CHANNEL` (`iodevice_id`,`channel_number`),
-    KEY           `IDX_81E928C9125F95D6` (`iodevice_id`),
-    KEY           `IDX_81E928C9A76ED395` (`user_id`),
-    KEY           `IDX_81E928C964D218E` (`location_id`),
-    KEY           `IDX_81E928C9CB4C938` (`user_icon_id`),
-    KEY           `supla_dev_channel_param1_idx` (`param1`),
-    KEY           `supla_dev_channel_param2_idx` (`param2`),
-    KEY           `supla_dev_channel_param3_idx` (`param3`),
-    KEY           `supla_dev_channel_param4_idx` (`param4`),
+    KEY              `IDX_81E928C9125F95D6` (`iodevice_id`),
+    KEY              `IDX_81E928C9A76ED395` (`user_id`),
+    KEY              `IDX_81E928C964D218E` (`location_id`),
+    KEY              `IDX_81E928C9CB4C938` (`user_icon_id`),
+    KEY              `supla_dev_channel_param1_idx` (`param1`),
+    KEY              `supla_dev_channel_param2_idx` (`param2`),
+    KEY              `supla_dev_channel_param3_idx` (`param3`),
+    KEY              `supla_dev_channel_param4_idx` (`param4`),
     CONSTRAINT `FK_81E928C9125F95D6` FOREIGN KEY (`iodevice_id`) REFERENCES `supla_iodevice` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_81E928C964D218E` FOREIGN KEY (`location_id`) REFERENCES `supla_location` (`id`),
     CONSTRAINT `FK_81E928C9A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`),
@@ -2958,4 +2958,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-22 10:15:26
+-- Dump completed on 2023-09-26 14:33:56

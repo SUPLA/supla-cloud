@@ -38,7 +38,8 @@ Vue.prototype.compareFrontendAndBackendVersion = (backendVersion) => {
     Vue.prototype.$backendVersion = backendVersion;
     const frontendUnknown = Vue.prototype.$frontendVersion === 'UNKNOWN_VERSION';
     const frontendAndBackendMatches = Vue.prototype.$frontendVersion.indexOf(Vue.prototype.$backendVersion) === 0;
-    Vue.prototype.$backendAndFrontendVersionMatches = frontendAndBackendMatches || frontendUnknown;
+    const isDev = ['dev', 'e2e'].includes(Vue.prototype.$appEnv);
+    Vue.prototype.$backendAndFrontendVersionMatches = frontendAndBackendMatches || frontendUnknown || isDev;
     EventBus.$emit('backend-version-updated');
 };
 
@@ -46,12 +47,9 @@ const renderStart = new Date();
 Vue.http.get('server-info')
     .then(({body: info}) => {
         Vue.config.external = info.config;
+        Vue.prototype.$appEnv = info.env || 'prod';
         Vue.prototype.$frontendConfig = Vue.config.external;
         Vue.prototype.compareFrontendAndBackendVersion(info.cloudVersion);
-        if (['dev', 'e2e'].includes(info.env)) {
-            Vue.prototype.$backendAndFrontendVersionMatches = true;
-            EventBus.$emit('backend-version-updated');
-        }
         if (!Vue.config.external.baseUrl) {
             Vue.config.external.baseUrl = '';
         }
