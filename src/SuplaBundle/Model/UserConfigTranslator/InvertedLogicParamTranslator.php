@@ -16,13 +16,13 @@ class InvertedLogicParamTranslator implements UserConfigTranslator {
 
     public function getConfig(HasUserConfig $subject): array {
         return [
-            'invertedLogic' => boolval($subject->getParam3()),
+            'invertedLogic' => $subject->getUserConfigValue('invertedLogic', false),
         ];
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('invertedLogic', $config)) {
-            $subject->setParam3($config['invertedLogic'] ? 1 : 0);
+            $subject->setUserConfigValue('invertedLogic', boolval($config['invertedLogic']));
         }
     }
 
