@@ -249,7 +249,7 @@ CREATE TABLE `supla_dev_channel`
     `location_id`    int(11) DEFAULT NULL,
     `flags`          int(11) DEFAULT NULL,
     `user_icon_id`   int(11) DEFAULT NULL,
-    `user_config`    varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
+    `user_config`    varchar(4096) COLLATE utf8_unicode_ci                         DEFAULT NULL,
     `param4`         int(11) NOT NULL DEFAULT '0',
     `properties`     varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
     PRIMARY KEY (`id`),
@@ -519,6 +519,7 @@ CREATE TABLE `supla_iodevice`
     `flags`                int(11) DEFAULT NULL,
     `manufacturer_id`      smallint(6) DEFAULT NULL,
     `product_id`           smallint(6) DEFAULT NULL,
+    `user_config`          varchar(4096) COLLATE utf8_unicode_ci                         DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_USER_GUID` (`user_id`,`guid`),
     KEY                    `IDX_793D49D64D218E` (`location_id`),
@@ -2329,7 +2330,7 @@ DELIMITER;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `supla_set_closing_attempt` */;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_set_channel_user_config` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -2337,6 +2338,34 @@ DELIMITER;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_set_channel_user_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` VARCHAR(4096) CHARSET utf8mb4, IN `_md5` VARCHAR(32))
+BEGIN
+UPDATE supla_dev_channel
+SET user_config = _user_config
+WHERE id = _channel_id
+  AND user_id = _user_id
+  AND MD5(IFNULL(user_config, '')) = _md5;
+SELECT STRCMP(user_config, _user_config)
+FROM supla_dev_channel
+WHERE id = _channel_id
+  AND user_id = _user_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_set_closing_attempt` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
 CREATE
 DEFINER=`root`@`%` PROCEDURE `supla_set_closing_attempt`(IN `_channel_id` INT)
 UPDATE
@@ -2350,7 +2379,7 @@ DELIMITER;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `supla_set_location_caption` */;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_set_device_user_config` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -2358,6 +2387,34 @@ DELIMITER;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_set_device_user_config`(IN `_user_id` INT, IN `_device_id` INT, IN `_user_config` VARCHAR(4096) CHARSET utf8mb4, IN `_md5` VARCHAR(32))
+BEGIN
+UPDATE supla_iodevice
+SET user_config = _user_config
+WHERE id = _device_id
+  AND user_id = _user_id
+  AND MD5(IFNULL(user_config, '')) = _md5;
+SELECT STRCMP(user_config, _user_config)
+FROM supla_iodevice
+WHERE id = _device_id
+  AND user_id = _user_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_set_location_caption` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
 CREATE
 DEFINER=`root`@`%` PROCEDURE `supla_set_location_caption`(IN `_user_id` INT, IN `_location_id` INT, IN `_caption` VARCHAR(100) CHARSET utf8mb4)
     NO SQL
@@ -2958,4 +3015,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-26 14:33:56
+-- Dump completed on 2023-09-26 14:47:34
