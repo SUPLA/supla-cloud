@@ -37,4 +37,16 @@ class Version20230926065848MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals(0, $sensorInverted->getParam3());
         $this->assertEquals(0, $sensorNotInverted->getParam3());
     }
+
+    public function testMovedTemperatureAndHumidityAdjustmentsToUserConfig() {
+        $tempHumAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 63);
+        $this->assertEquals(1.23, $tempHumAdjusted->getUserConfigValue('temperatureAdjustment'));
+        $this->assertEquals(-1.23, $tempHumAdjusted->getUserConfigValue('humidityAdjustment'));
+        $this->assertEquals(0, $tempHumAdjusted->getParam2());
+        $this->assertEquals(0, $tempHumAdjusted->getParam3());
+        $tempAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 62);
+        $this->assertEquals(0.12, $tempAdjusted->getUserConfigValue('temperatureAdjustment'));
+        $humNotAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 64);
+        $this->assertEquals(0, $humNotAdjusted->getUserConfigValue('humidityAdjustment'));
+    }
 }

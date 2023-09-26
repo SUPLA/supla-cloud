@@ -146,8 +146,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
             [ChannelFunction::ELECTRICITYMETER(), [null, 123, null, null, 'PLN'], ['pricePerUnit' => 0.0123, 'currency' => 'PLN']],
             [ChannelFunction::IC_GASMETER(), [null, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
-            [ChannelFunction::HUMIDITY(), [null, null, 124], ['humidityAdjustment' => 1.24]],
-            [ChannelFunction::HUMIDITYANDTEMPERATURE(), [null, 123, 124], ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]],
+            [ChannelFunction::HUMIDITY(), [null, null, null], ['humidityAdjustment' => 1.24]],
+            [ChannelFunction::HUMIDITYANDTEMPERATURE(), [null, null, null], ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]],
             [ChannelFunction::LIGHTSWITCH(), [], []],
             [ChannelFunction::MAILSENSOR(), [null, null, null], ['invertedLogic' => true]],
             [ChannelFunction::NOLIQUIDSENSOR(), [null, null, null], ['invertedLogic' => false]],
@@ -158,7 +158,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::OPENINGSENSOR_ROLLERSHUTTER(), [null, null, null], ['invertedLogic' => false]],
             [ChannelFunction::OPENINGSENSOR_WINDOW(), [null, null, null], ['invertedLogic' => true]],
             [ChannelFunction::STAIRCASETIMER(), [1011], ['relayTimeS' => 101.1]],
-            [ChannelFunction::THERMOMETER(), [null, 123], ['temperatureAdjustment' => 1.23]],
+            [ChannelFunction::THERMOMETER(), [null, null], ['temperatureAdjustment' => 1.23]],
             [ChannelFunction::IC_WATERMETER(), [null, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
             [
                 ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(),
@@ -201,8 +201,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setFunction(ChannelFunction::HUMIDITYANDTEMPERATURE());
         $this->configTranslator->setConfig($channel, ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]);
         $this->configTranslator->setConfig($channel, ['temperatureAdjustment' => 1]);
-        $this->assertEquals(100, $channel->getParam2());
-        $this->assertEquals(124, $channel->getParam3());
+        $this->assertEquals(1, $channel->getUserConfigValue('temperatureAdjustment'));
+        $this->assertEquals(1.24, $channel->getUserConfigValue('humidityAdjustment'));
     }
 
     public function testReturningDefaultsIfNoneSet() {

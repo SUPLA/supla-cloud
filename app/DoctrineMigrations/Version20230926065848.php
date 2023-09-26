@@ -25,6 +25,7 @@ use SuplaBundle\Enums\ChannelFunction;
 class Version20230926065848 extends NoWayBackMigration {
     public function migrate() {
         $this->moveInvertedLogicParamToUserConfig();
+        $this->moveTemperatureHumidityAdjustmentsToUserConfig();
     }
 
     private function moveInvertedLogicParamToUserConfig() {
@@ -48,6 +49,31 @@ class Version20230926065848 extends NoWayBackMigration {
                 'id' => $sensor['id'],
                 'user_config' => $userConfigJson,
             ]);
+        }
+    }
+
+    private function moveTemperatureHumidityAdjustmentsToUserConfig() {
+        $sensorFunctions = implode(',', [
+            ChannelFunction::THERMOMETER,
+            ChannelFunction::HUMIDITY,
+            ChannelFunction::HUMIDITYANDTEMPERATURE,
+        ]);
+        $sensors = $this->fetchAll("SELECT id, param2, param3, user_config FROM supla_dev_channel WHERE func IN($sensorFunctions)");
+        foreach ($sensors as $sensor) {
+            $userConfig = json_decode($sensor['user_config'] ?: '{}', true) ?: [];
+            if ($sensor['param2']) {
+                $userConfig['temperatureAdjustment'] = $sensor['param2'] / 100;
+            }
+            if ($sensor['param3']) {
+                $userConfig['humidityAdjustment'] = $sensor['param3'] / 100;
+            }
+            if ($sensor['param2'] || $sensor['param3']) {
+                $userConfigJson = json_encode($userConfig);
+                $this->addSql('UPDATE supla_dev_channel SET user_config=:user_config, param2=0, param3=0 WHERE id=:id', [
+                    'id' => $sensor['id'],
+                    'user_config' => $userConfigJson,
+                ]);
+            }
         }
     }
 }
