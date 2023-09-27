@@ -40,6 +40,7 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_SONOFF = 'deviceSonoff';
     const DEVICE_FULL = 'deviceFull';
     const DEVICE_RGB = 'deviceRgb';
+    const DEVICE_HVAC = 'deviceHvac';
     const DEVICE_SUPLER = 'deviceSupler';
     const DEVICE_EVERY_FUNCTION = 'ALL-IN-ONE MEGA DEVICE';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
@@ -56,6 +57,7 @@ class DevicesFixture extends SuplaFixture {
         $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), self::DEVICE_EVERY_FUNCTION);
+        $hvac = $this->createDeviceHvac($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $device = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
             $noFunctionChannel->setFunction(ChannelFunction::NONE());
@@ -137,6 +139,36 @@ class DevicesFixture extends SuplaFixture {
             ];
         }
         return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
+    }
+
+    private function createDeviceHvac(Location $location) {
+        return $this->createDevice('HVAC-Monster', $location, [
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
+            [
+                ChannelType::HVAC,
+                ChannelFunction::HVAC_THERMOSTAT,
+                [
+                    'properties' => json_encode([
+                        'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
+                        'modeCapabilities' => ['ONOFF', 'AUTO', 'COOL', 'HEAT'],
+                        'temperatureConstraints' => [
+                            'roomMin' => 1000,
+                            'roomMax' => 4000,
+                            'auxMin' => 500,
+                            'auxMax' => 5000,
+                            'histeresisMin' => 100,
+                            'histeresisMax' => 500,
+                            'autoOffsetMin' => 100,
+                            'autoOffsetMax' => 200,
+                        ],
+                    ]),
+                    'userConfig' => json_encode([
+                        'subfunction' => 'HEAT',
+                    ]),
+                ],
+            ],
+        ], self::DEVICE_HVAC);
     }
 
     private function createDevice(string $name, Location $location, array $channelTypes, string $registerAs): IODevice {

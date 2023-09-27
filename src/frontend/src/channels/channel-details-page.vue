@@ -227,6 +227,7 @@
             this.onChangeListener = () => {
                 this.channelRequest().then(({body}) => {
                     this.channel.relationsCount = body.relationsCount;
+                    this.channel.config = body.config;
                 });
             }
             EventBus.$on('channel-updated', this.onChangeListener);

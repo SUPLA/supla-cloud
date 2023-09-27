@@ -41,6 +41,7 @@
     import ChannelParamsDigiglassHorizontal from "./channel-params-digiglass";
     import ChannelParamsPowerswitch from "./channel-params-powerswitch";
     import ChannelParamsLightswitch from "./channel-params-powerswitch";
+    import ChannelParamsHvacThermostat from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
 
     export default {
@@ -77,6 +78,7 @@
             ChannelParamsDigiglassHorizontal,
             ChannelParamsPowerswitch,
             ChannelParamsLightswitch,
+            ChannelParamsHvacThermostat,
         },
         computed: {
             additionalChannelParamsComponent() {
