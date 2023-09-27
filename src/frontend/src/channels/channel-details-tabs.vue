@@ -24,7 +24,9 @@
     import {ChannelFunctionTriggers} from "@/channels/reactions/channel-function-triggers";
 
     export default {
-        props: ['channel'],
+        props: {
+            channel: Object,
+        },
         data() {
             return {
                 tabVisible: true,
@@ -51,6 +53,12 @@
                 this.availableTabs.push({
                     route: 'channel.notifications',
                     header: 'Notifications', // i18n
+                });
+            }
+            if ([ChannelFunction.HVAC_THERMOSTAT].includes(this.channel.functionId)) {
+                this.availableTabs.push({
+                    route: 'channel.thermostatPrograms',
+                    header: 'Programs', // i18n
                 });
             }
             if ((hasActions && this.channel.actionTriggersIds?.length) || isActionTrigger) {

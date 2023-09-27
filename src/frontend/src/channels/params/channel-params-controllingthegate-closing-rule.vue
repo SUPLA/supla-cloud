@@ -35,7 +35,7 @@
             @cancel="changing = false"
             @confirm="confirmEdit()">
             <DateRangePicker v-model="activeDateRange"/>
-            <WeekScheduleSelector v-model="activeHours"/>
+            <WeekScheduleSelector v-model="activeHours" class="mode-1-green"/>
         </modal>
     </div>
 </template>

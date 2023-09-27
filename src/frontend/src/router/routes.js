@@ -138,6 +138,11 @@ export default [
                 name: 'channel.notifications',
             },
             {
+                path: 'thermostat-programs',
+                component: () => import("@/channels/hvac/thermostat-programs-config"),
+                name: 'channel.thermostatPrograms',
+            },
+            {
                 path: 'action-triggers',
                 component: () => import("@/channels/action-trigger/channel-action-triggers"),
                 name: 'channel.actionTriggers',

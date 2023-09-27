@@ -9,7 +9,7 @@
                 {{ $t(weekday) }}
             </option>
         </select>
-        <table :class="['week-schedule-selector', 'selection-mode-' + selectionMode, 'mobile-weekday-' + mobileWeekdayDisplay]"
+        <table :class="['week-schedule-selector', 'selection-mode-' + currentSelectionMode, 'mobile-weekday-' + mobileWeekdayDisplay]"
             v-if="temporaryModel">
             <thead>
             <tr>
@@ -33,11 +33,34 @@
                 <td v-for="weekday in [1,2,3,4,5,6,7]"
                     :class="['hidden-xs', 'weekday-column-' + weekday]"
                     :key="'0' + hour + weekday">
-                    <div :class="['time-slot', {'green': temporaryModel[weekday][hour]}]"
-                        @mousedown="startSelection(weekday, hour)"
-                        @mouseenter="expandSelection(weekday, hour)"
-                        @mouseup="finishSelection()">
-                        &nbsp;
+                    <div class="d-flex w-100">
+                        <div :class="['time-slot flex-grow-1', `time-slot-mode-${temporaryModel[weekday][hour * quarterMultiplicator]}`]"
+                            @mousedown="startSelection(weekday, hour * quarterMultiplicator)"
+                            @mouseenter="expandSelection(weekday, hour * quarterMultiplicator)"
+                            @mouseup="finishSelection()">
+                            &nbsp;
+                        </div>
+                        <div :class="['time-slot flex-grow-1', `time-slot-mode-${temporaryModel[weekday][hour * 4 + 1]}`]"
+                            v-if="quarters"
+                            @mousedown="startSelection(weekday, hour * 4 + 1)"
+                            @mouseenter="expandSelection(weekday, hour * 4 + 1)"
+                            @mouseup="finishSelection()">
+                            &nbsp;
+                        </div>
+                        <div :class="['time-slot flex-grow-1', `time-slot-mode-${temporaryModel[weekday][hour * 4 + 2]}`]"
+                            v-if="quarters"
+                            @mousedown="startSelection(weekday, hour * 4 + 2)"
+                            @mouseenter="expandSelection(weekday, hour * 4 + 2)"
+                            @mouseup="finishSelection()">
+                            &nbsp;
+                        </div>
+                        <div :class="['time-slot flex-grow-1', `time-slot-mode-${temporaryModel[weekday][hour * 4 + 3]}`]"
+                            v-if="quarters"
+                            @mousedown="startSelection(weekday, hour * 4 + 3)"
+                            @mouseenter="expandSelection(weekday, hour * 4 + 3)"
+                            @mouseup="finishSelection()">
+                            &nbsp;
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -71,12 +94,16 @@
 
     export default {
         components: {},
-        props: ['value'],
+        props: {
+            value: Object,
+            quarters: Boolean,
+            selectionMode: Number,
+        },
         data() {
             return {
                 model: undefined,
                 temporaryModel: undefined,
-                selectionMode: undefined,
+                currentSelectionMode: undefined,
                 selectionStartCoords: undefined,
                 copyFrom: undefined,
                 mouseUpCatcher: undefined,
@@ -90,7 +117,7 @@
             [...Array(7).keys()].forEach((weekday) => {
                 weekday += 1;
                 const hours = {};
-                [...Array(24).keys()].forEach((hour) => {
+                [...Array(24 * this.quarterMultiplicator).keys()].forEach((hour) => {
                     hours[hour] = (this.value && this.value[weekday] && this.value[weekday][hour]) || defaultValue;
                 });
                 this.$set(this.model, weekday, hours);
@@ -114,7 +141,11 @@
             startSelection(weekday, hour) {
                 this.copyFrom = undefined;
                 this.selectionStartCoords = {weekday, hour};
-                this.selectionMode = this.temporaryModel[weekday][hour] ? 0 : 1;
+                if (this.selectionMode === undefined) {
+                    this.currentSelectionMode = this.temporaryModel[weekday][hour] ? 0 : 1;
+                } else {
+                    this.currentSelectionMode = this.selectionMode;
+                }
                 this.expandSelection(weekday, hour);
             },
             expandSelection(weekday, hour) {
@@ -126,7 +157,7 @@
                     const toHour = Math.max(this.selectionStartCoords.hour, hour);
                     for (let i = fromWeekday; i <= toWeekday; i++) {
                         for (let j = fromHour; j <= toHour; j++) {
-                            this.temporaryModel[i][j] = this.selectionMode;
+                            this.temporaryModel[i][j] = this.currentSelectionMode;
                         }
                     }
                 }
@@ -146,7 +177,11 @@
                 this.updateModel();
             }
         },
-        computed: {},
+        computed: {
+            quarterMultiplicator() {
+                return this.quarters ? 4 : 1;
+            }
+        },
         watch: {
             '$i18n.locale'() {
                 this.shortWeekdayLabels = Info.weekdays('short');
@@ -193,20 +228,18 @@
             display: block;
             height: 100%;
             background: $supla-grey-light;
-            &:hover {
-                background: lighten($supla-green, 40%);
-            }
-            &.green {
-                background: $supla-green;
+            @media (hover: hover) {
                 &:hover {
-                    background: lighten($supla-green, 20%);
+                    background: darken($supla-grey-light, 10%);
                 }
             }
-            @media (hover: none) {
-                background: $supla-grey-light !important;
-                &.green {
-                    background: $supla-green !important;
-                }
+            &:first-child {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+            &:last-child {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
             }
         }
         .copy-buttons {
@@ -240,6 +273,17 @@
         }
         .full-weekday-name {
             display: none;
+        }
+    }
+
+    .mode-1-green table.week-schedule-selector {
+        .time-slot.time-slot-mode-1 {
+            background: $supla-green;
+            @media (hover: hover) {
+                &:hover {
+                    background: lighten($supla-green, 20%);
+                }
+            }
         }
     }
 </style>

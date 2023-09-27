@@ -72,6 +72,7 @@
                                 </div>
                                 <transition-expand>
                                     <week-schedule-selector v-if="useWorkingSchedule"
+                                        class="mode-1-green"
                                         v-model="activeHours"
                                         @input="accessIdChanged()"></week-schedule-selector>
                                 </transition-expand>

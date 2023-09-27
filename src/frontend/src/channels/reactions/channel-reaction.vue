@@ -62,7 +62,7 @@
                         </label>
                     </div>
                     <transition-expand>
-                        <week-schedule-selector v-if="useWorkingSchedule" class="narrow"
+                        <week-schedule-selector v-if="useWorkingSchedule" class="narrow mode-1-green"
                             v-model="activeHours"
                             @input="onChanged()"></week-schedule-selector>
                     </transition-expand>
