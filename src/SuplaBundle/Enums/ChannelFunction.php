@@ -28,11 +28,11 @@ use UnexpectedValueException;
  * @OA\Schema(schema="ChannelFunctionEnumNames", type="string", example="OPENINGSENSOR_GATE", enum={"UNSUPPORTED","NONE","SCENE","SCHEDULE","NOTIFICATION","CONTROLLINGTHEGATEWAYLOCK","CONTROLLINGTHEGATE","CONTROLLINGTHEGARAGEDOOR","THERMOMETER","HUMIDITY","HUMIDITYANDTEMPERATURE","OPENINGSENSOR_GATEWAY","OPENINGSENSOR_GATE","OPENINGSENSOR_GARAGEDOOR","NOLIQUIDSENSOR","CONTROLLINGTHEDOORLOCK","OPENINGSENSOR_DOOR","CONTROLLINGTHEROLLERSHUTTER","CONTROLLINGTHEROOFWINDOW","OPENINGSENSOR_ROLLERSHUTTER","OPENINGSENSOR_ROOFWINDOW","POWERSWITCH","LIGHTSWITCH","DIMMER","RGBLIGHTING","DIMMERANDRGBLIGHTING","DEPTHSENSOR","DISTANCESENSOR","OPENINGSENSOR_WINDOW","MAILSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","STAIRCASETIMER","ELECTRICITYMETER","IC_ELECTRICITYMETER","IC_GASMETER","IC_WATERMETER","IC_HEATMETER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","VALVEOPENCLOSE","VALVEPERCENTAGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS_HORIZONTAL","DIGIGLASS_VERTICAL"})
  * @OA\Schema(
  *   schema="ChannelFunction", type="object",
- *   @OA\Property(property="id", type="integer", example=60, enum={-1,0,2000,2010,2020,10,20,30,40,42,45,50,60,70,80,90,100,110,115,120,125,130,140,180,190,200,210,220,230,240,250,260,270,280,290,300,310,315,320,330,340,400,410,500,510,520,700,800,810}),
+ *   @OA\Property(property="id", type="integer", example=60, enum={-1,0,2000,2010,2020,10,20,30,40,42,45,50,60,70,80,90,100,110,115,120,125,130,140,180,190,200,210,220,230,240,250,260,270,280,290,300,310,315,320,330,340,400,410,420,422,423,424,425,426,500,510,520,700,800,810}),
  *   @OA\Property(property="name", ref="#/components/schemas/ChannelFunctionEnumNames"),
  *   @OA\Property(property="caption", type="string", example="Gate opening sensor"),
  *   @OA\Property(property="maxAlternativeIconIndex", type="integer"),
- *   @OA\Property(property="possibleVisualStates", type="array", description="Possible visual states of channel with this function. Ordered.", @OA\Items(type="string", enum={"default","opened","closed","partially_closed","empty","full","revealed","shut","off","on","humidity","temperature","rgb_off_dim_off","rgb_off_dim_on","rgb_on_dim_off","rgb_on_dim_on"})),
+ *   @OA\Property(property="possibleVisualStates", type="array", description="Possible visual states of channel with this function. Ordered.", @OA\Items(type="string", enum={"default","opened","closed","partially_closed","empty","full","revealed","shut","off","on","humidity","temperature","rgb_off_dim_off","rgb_off_dim_on","rgb_on_dim_off","rgb_on_dim_on","heating","cooling"})),
  *   @OA\Property(property="output", type="boolean", description="Whether the function is output type (i.e. can execute action) or input (i.e. provides data)", example=false),
  * )
  *
@@ -79,6 +79,12 @@ use UnexpectedValueException;
  * @method static ChannelFunction IC_WATERMETER()
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
+ * @method static ChannelFunction HVAC_THERMOSTAT()
+ * @method static ChannelFunction HVAC_THERMOSTAT_AUTO()
+ * @method static ChannelFunction HVAC_DRYER()
+ * @method static ChannelFunction HVAC_FAN()
+ * @method static ChannelFunction HVAC_THERMOSTAT_DIFFERENTIAL()
+ * @method static ChannelFunction HVAC_DOMESTIC_HOT_WATER()
  * @method static ChannelFunction VALVEOPENCLOSE()
  * @method static ChannelFunction VALVEPERCENTAGE()
  * @method static ChannelFunction GENERAL_PURPOSE_MEASUREMENT()
@@ -130,6 +136,12 @@ final class ChannelFunction extends Enum {
     const IC_HEATMETER = 340;
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
+    const HVAC_THERMOSTAT = 420;
+    const HVAC_THERMOSTAT_AUTO = 422;
+    const HVAC_DRYER = 423;
+    const HVAC_FAN = 424;
+    const HVAC_THERMOSTAT_DIFFERENTIAL = 425;
+    const HVAC_DOMESTIC_HOT_WATER = 426;
     const VALVEOPENCLOSE = 500;
     const VALVEPERCENTAGE = 510;
     const GENERAL_PURPOSE_MEASUREMENT = 520;
@@ -274,6 +286,36 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
             ],
+            self::HVAC_THERMOSTAT => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
+            self::HVAC_THERMOSTAT_AUTO => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
+            self::HVAC_DRYER => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
+            self::HVAC_FAN => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
+            self::HVAC_THERMOSTAT_DIFFERENTIAL => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
+            self::HVAC_DOMESTIC_HOT_WATER => [
+                ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
+                ChannelFunctionAction::TOGGLE(),
+            ],
             self::VALVEOPENCLOSE => [
                 ChannelFunctionAction::OPEN(),
                 ChannelFunctionAction::CLOSE(),
@@ -347,6 +389,12 @@ final class ChannelFunction extends Enum {
             self::IC_HEATMETER => 'Heat meter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
+            self::HVAC_THERMOSTAT => 'Thermostat', // i18n
+            self::HVAC_THERMOSTAT_AUTO => 'Automatic thermostat', // i18n
+            self::HVAC_DRYER => 'Dryer', // i18n
+            self::HVAC_FAN => 'Fan', // i18n
+            self::HVAC_THERMOSTAT_DIFFERENTIAL => 'Differential thermostat', // i18n
+            self::HVAC_DOMESTIC_HOT_WATER => 'Domestic hot water', // i18n
             self::VALVEOPENCLOSE => 'Valve', // i18n
             self::VALVEPERCENTAGE => 'Valve', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
@@ -417,6 +465,12 @@ final class ChannelFunction extends Enum {
             self::IC_HEATMETER => ['default'],
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
+            self::HVAC_THERMOSTAT => ['off', 'heating', 'cooling'],
+            self::HVAC_THERMOSTAT_AUTO => ['off', 'heating', 'cooling'],
+            self::HVAC_DRYER => ['off', 'on'],
+            self::HVAC_FAN => ['off', 'on'],
+            self::HVAC_THERMOSTAT_DIFFERENTIAL => ['off', 'on'],
+            self::HVAC_DOMESTIC_HOT_WATER => ['off', 'on'],
             self::VALVEOPENCLOSE => ['opened', 'closed'],
             self::VALVEPERCENTAGE => ['opened', 'closed'],
             self::GENERAL_PURPOSE_MEASUREMENT => ['default'],

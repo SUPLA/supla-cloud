@@ -118,6 +118,7 @@ class ChannelFunctionTest extends TestCase {
         {label: $t('Liquid, Temp'), value: '40,42,45,80'},
         {label: $t('Sensors'), value: '50,60,70,80,100,120,210,220,230,240,250,260,270,280'},
         {label: $t('Meters'), value: '310,315,320,330,340,520'},
+        {label: $t('HVAC'), value: '420,422,423,424,425,426'},
         {label: $t('Other'), value: '290,400,410,500,510,700'},
         {label: $t('No function'), value: '0,-1'}
 FRONTEND;

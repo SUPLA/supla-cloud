@@ -23,10 +23,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use UnexpectedValueException;
 
 /**
+ * @see https://github.com/SUPLA/supla-core/blob/develop/supla-common/proto.h#L405
+ *
  * @OA\Schema(
  *   schema="ChannelType", type="object",
- *   @OA\Property(property="id", type="integer", example=1000, enum={-1,1000,1010,1020,1500,2000,2010,2020,2900,3000,3010,3022,3020,3032,3030,3034,3036,3038,3042,3044,3048,3050,3100,4000,4010,4020,5000,5010,6000,6010,7000,7010,8000,9000,11000,12000}),
- *   @OA\Property(property="name", type="string", example="SENSORNO", enum={"UNSUPPORTED","SENSORNO","SENSORNC","DISTANCESENSOR","CALLBUTTON","RELAYHFD4","RELAYG5LA1A","RELAY2XG5LA1A","RELAY","THERMOMETERDS18B20","DHT11","DHT21","DHT22","AM2301","AM2302","THERMOMETER","HUMIDITYSENSOR","HUMIDITYANDTEMPSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","DIMMER","RGBLEDCONTROLLER","DIMMERANDRGBLED","ELECTRICITYMETER","IMPULSECOUNTER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","VALVEOPENCLOSE","VALVEPERCENTAGE","BRIDGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS"}),
+ *   @OA\Property(property="id", type="integer", example=1000, enum={-1,1000,1010,1020,1500,2000,2010,2020,2900,3000,3010,3022,3020,3032,3030,3034,3036,3038,3042,3044,3048,3050,3100,4000,4010,4020,5000,5010,6000,6010,6100,7000,7010,8000,9000,11000,12000}),
+ *   @OA\Property(property="name", type="string", example="SENSORNO", enum={"UNSUPPORTED","SENSORNO","SENSORNC","DISTANCESENSOR","CALLBUTTON","RELAYHFD4","RELAYG5LA1A","RELAY2XG5LA1A","RELAY","THERMOMETERDS18B20","DHT11","DHT21","DHT22","AM2301","AM2302","THERMOMETER","HUMIDITYSENSOR","HUMIDITYANDTEMPSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","DIMMER","RGBLEDCONTROLLER","DIMMERANDRGBLED","ELECTRICITYMETER","IMPULSECOUNTER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","HVAC","VALVEOPENCLOSE","VALVEPERCENTAGE","BRIDGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS"}),
  *   @OA\Property(property="caption", type="string", example="Sensor (normal open)"),
  * )
  *
@@ -60,6 +62,7 @@ use UnexpectedValueException;
  * @method static ChannelType IMPULSECOUNTER()
  * @method static ChannelType THERMOSTAT()
  * @method static ChannelType THERMOSTATHEATPOLHOMEPLUS()
+ * @method static ChannelType HVAC()
  * @method static ChannelType VALVEOPENCLOSE()
  * @method static ChannelType VALVEPERCENTAGE()
  * @method static ChannelType BRIDGE()
@@ -98,6 +101,7 @@ final class ChannelType extends Enum {
     const IMPULSECOUNTER = 5010;
     const THERMOSTAT = 6000;
     const THERMOSTATHEATPOLHOMEPLUS = 6010;
+    const HVAC = 6100;
     const VALVEOPENCLOSE = 7000;
     const VALVEPERCENTAGE = 7010;
     const BRIDGE = 8000;
@@ -154,6 +158,7 @@ final class ChannelType extends Enum {
             self::IMPULSECOUNTER => 'Impulse counter', // i18n
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
+            self::HVAC => 'Heating / ventilation / air conditioning', // i18n
             self::VALVEOPENCLOSE => 'Valve', // i18n
             self::VALVEPERCENTAGE => 'Valve', // i18n
             self::BRIDGE => 'Bridge', // i18n
@@ -230,6 +235,14 @@ final class ChannelType extends Enum {
             ],
             self::THERMOSTAT => [ChannelFunction::THERMOSTAT()],
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
+            self::HVAC => [
+                ChannelFunction::HVAC_THERMOSTAT(),
+                ChannelFunction::HVAC_THERMOSTAT_AUTO(),
+                ChannelFunction::HVAC_DRYER(),
+                ChannelFunction::HVAC_FAN(),
+                ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),
+                ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
+            ],
             self::VALVEOPENCLOSE => [ChannelFunction::VALVEOPENCLOSE()],
             self::VALVEPERCENTAGE => [ChannelFunction::VALVEPERCENTAGE()],
             self::GENERAL_PURPOSE_MEASUREMENT => [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT()],
