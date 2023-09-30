@@ -148,6 +148,26 @@ class DevicesFixture extends SuplaFixture {
     }
 
     public function createDeviceHvac(Location $location) {
+        $sampleQuarters1 = array_map(
+            'intval',
+            str_split(
+                str_repeat(
+                    str_repeat('0', 6 * 4) .
+                    str_repeat('1', 2 * 4) .
+                    str_repeat('3', 6 * 4) .
+                    str_repeat('2', 2 * 4) .
+                    str_repeat('1', 6 * 4) .
+                    str_repeat('0', 2 * 4),
+                    5
+                ) . str_repeat(
+                    str_repeat('0', 8 * 4 + 2) .
+                    str_repeat('2', 12 * 4) .
+                    str_repeat('1', 2 * 4) .
+                    str_repeat('0', 4 + 2),
+                    2
+                )
+            )
+        );
         return $this->createDevice('HVAC-Monster', $location, [
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
@@ -157,7 +177,6 @@ class DevicesFixture extends SuplaFixture {
                 [
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
-                        'modeCapabilities' => ['ONOFF', 'AUTO', 'COOL', 'HEAT'],
                         'temperatures' => [
                             'roomMin' => 1000,
                             'roomMax' => 4000,
@@ -175,31 +194,12 @@ class DevicesFixture extends SuplaFixture {
                         'auxThermometerChannelNo' => null,
                         'weeklySchedule' => [
                             'programSettings' => [
-                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2400],
-                                '2' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2100],
-                                '3' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 1800],
-                                '4' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2800],
+                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2400, 'setpointTemperatureMax' => 0],
+                                '2' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2100, 'setpointTemperatureMax' => 0],
+                                '3' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 1800, 'setpointTemperatureMax' => 0],
+                                '4' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2800, 'setpointTemperatureMax' => 0],
                             ],
-                            'quarters' => array_map(
-                                'intval',
-                                str_split(
-                                    str_repeat(
-                                        str_repeat('0', 6 * 4) .
-                                        str_repeat('1', 2 * 4) .
-                                        str_repeat('3', 6 * 4) .
-                                        str_repeat('2', 2 * 4) .
-                                        str_repeat('1', 6 * 4) .
-                                        str_repeat('0', 2 * 4),
-                                        5
-                                    ) . str_repeat(
-                                        str_repeat('0', 8 * 4 + 2) .
-                                        str_repeat('2', 12 * 4) .
-                                        str_repeat('1', 2 * 4) .
-                                        str_repeat('0', 4 + 2),
-                                        2
-                                    )
-                                )
-                            ),
+                            'quarters' => $sampleQuarters1,
                         ],
                         'altWeeklySchedule' => [
                             'programSettings' => [
@@ -208,26 +208,71 @@ class DevicesFixture extends SuplaFixture {
                                 '3' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 1800],
                                 '4' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2800],
                             ],
-                            'quarters' => array_map(
-                                'intval',
-                                str_split(
-                                    str_repeat(
-                                        str_repeat('0', 6 * 4) .
-                                        str_repeat('1', 2 * 4) .
-                                        str_repeat('3', 6 * 4) .
-                                        str_repeat('2', 2 * 4) .
-                                        str_repeat('1', 6 * 4) .
-                                        str_repeat('0', 2 * 4),
-                                        5
-                                    ) . str_repeat(
-                                        str_repeat('0', 8 * 4 + 2) .
-                                        str_repeat('2', 12 * 4) .
-                                        str_repeat('1', 2 * 4) .
-                                        str_repeat('0', 4 + 2),
-                                        2
-                                    )
-                                )
-                            ),
+                            'quarters' => $sampleQuarters1,
+                        ],
+                    ]),
+                ],
+            ],
+            [
+                ChannelType::HVAC,
+                ChannelFunction::HVAC_THERMOSTAT_AUTO,
+                [
+                    'properties' => json_encode([
+                        'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
+                        'temperatures' => [
+                            'roomMin' => 1000,
+                            'roomMax' => 4000,
+                            'auxMin' => 500,
+                            'auxMax' => 5000,
+                            'histeresisMin' => 100,
+                            'histeresisMax' => 500,
+                            'autoOffsetMin' => 100,
+                            'autoOffsetMax' => 200,
+                        ],
+                    ]),
+                    'userConfig' => json_encode([
+                        'mainThermometerChannelNo' => 3,
+                        'auxThermometerChannelNo' => null,
+                        'weeklySchedule' => [
+                            'programSettings' => [
+                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2400, 'setpointTemperatureMax' => 0],
+                                '2' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2100],
+                                '3' => ['mode' => 'AUTO', 'setpointTemperatureMin' => 1800, 'setpointTemperatureMax' => 2200],
+                                '4' => ['mode' => 'AUTO', 'setpointTemperatureMin' => 2200, 'setpointTemperatureMax' => 2800],
+                            ],
+                            'quarters' => $sampleQuarters1,
+                        ],
+                    ]),
+                ],
+            ],
+            [
+                ChannelType::HVAC,
+                ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+                [
+                    'properties' => json_encode([
+                        'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
+                        'temperatures' => [
+                            'roomMin' => 1000,
+                            'roomMax' => 4000,
+                            'auxMin' => 500,
+                            'auxMax' => 5000,
+                            'histeresisMin' => 100,
+                            'histeresisMax' => 500,
+                            'autoOffsetMin' => 100,
+                            'autoOffsetMax' => 200,
+                        ],
+                    ]),
+                    'userConfig' => json_encode([
+                        'mainThermometerChannelNo' => 4,
+                        'auxThermometerChannelNo' => null,
+                        'weeklySchedule' => [
+                            'programSettings' => [
+                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2400, 'setpointTemperatureMax' => 0],
+                                '2' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2100, 'setpointTemperatureMax' => 0],
+                                '3' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 1800, 'setpointTemperatureMax' => 0],
+                                '4' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2200, 'setpointTemperatureMax' => 0],
+                            ],
+                            'quarters' => $sampleQuarters1,
                         ],
                     ]),
                 ],

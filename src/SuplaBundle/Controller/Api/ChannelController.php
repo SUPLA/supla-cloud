@@ -29,6 +29,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
@@ -276,6 +277,7 @@ class ChannelController extends RestController {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
             $requestData = $request->request->all();
             $newFunction = false;
+            $functionHasBeenChanged = false;
             if (isset($requestData['functionId'])) {
                 $function = ChannelFunction::fromString($requestData['functionId']);
                 $functionHasBeenChanged = $function->getId() !== $channel->getFunction()->getId();
@@ -348,7 +350,8 @@ class ChannelController extends RestController {
                 $paramConfigTranslator,
                 $channelDependencies,
                 $request,
-                $channel
+                $channel,
+                $functionHasBeenChanged
             ) {
                 if ($newFunction) {
                     $paramConfigTranslator->clearConfig($channel);
@@ -358,7 +361,9 @@ class ChannelController extends RestController {
                     $channel->setAltIcon(0);
                     $em->persist($channel);
                 }
-                $paramConfigTranslator->setConfig($channel, $channelConfig);
+                if (!$functionHasBeenChanged || !in_array($channel->getType()->getId(), [ChannelType::HVAC])) {
+                    $paramConfigTranslator->setConfig($channel, $channelConfig);
+                }
                 if (isset($requestData['altIcon'])) {
                     Assertion::integer($requestData['altIcon']);
                     $channel->setAltIcon($requestData['altIcon']);

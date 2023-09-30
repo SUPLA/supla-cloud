@@ -47,21 +47,68 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->hvacChannel = $this->device->getChannels()[2];
     }
 
-    public function testFixtureDeviceConfig() {
+    /** @dataProvider hvacChannelConfigs */
+    public function testFixtureDeviceConfig(int $hvacChannelIndex, callable $configValidator) {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
+        $hvacChannel = $this->device->getChannels()[$hvacChannelIndex];
+        $client->apiRequestV24('GET', '/api/channels/' . $hvacChannel->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $config = $content['config'];
         $this->assertArrayNotHasKey('waitingForConfigInit', $config);
-        $this->assertEquals('HEAT', $config['subfunction']);
-        $this->assertNull($config['mainThermometerChannelId']);
         $this->assertNotNull($config['weeklySchedule']);
         $this->assertCount(24 * 4 * 7, $config['weeklySchedule']['quarters']);
         $this->assertCount(4, $config['weeklySchedule']['programSettings']);
-        $this->assertEquals(0, $config['weeklySchedule']['programSettings'][2]['setpointTemperatureMin']);
-        $this->assertEquals(21, $config['weeklySchedule']['programSettings'][2]['setpointTemperatureMax']);
+        $configValidator($config);
+    }
+
+    /** @dataProvider hvacChannelConfigs */
+    public function testFixtureConfigsCanBeSavedWithoutModifications(int $hvacChannelIndex) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $hvacChannel = $this->device->getChannels()[$hvacChannelIndex];
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelConfig = $channelParamConfigTranslator->getConfig($hvacChannel);
+        $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannel->getId(), ['config' => $channelConfig]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(json_decode(json_encode($channelConfig), true), $content['config']);
+    }
+
+    public function hvacChannelConfigs() {
+        return [
+            'THERMOSTAT' => [
+                2,
+                function (array $config) {
+                    $this->assertEquals('HEAT', $config['subfunction']);
+                    $this->assertNull($config['mainThermometerChannelId']);
+                    $this->assertEquals(21, $config['weeklySchedule']['programSettings'][2]['setpointTemperatureMin']);
+                    $this->assertEquals(21, $config['altWeeklySchedule']['programSettings'][2]['setpointTemperatureMax']);
+                },
+            ],
+            'THERMOSTAT_AUTO' => [
+                3,
+                function (array $config) {
+                    $this->assertArrayNotHasKey('subfunction', $config);
+                    $this->assertArrayNotHasKey('altWeeklySchedule', $config);
+                    $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
+                    $this->assertEquals('COOL', $config['weeklySchedule']['programSettings'][2]['mode']);
+                    $this->assertEquals('AUTO', $config['weeklySchedule']['programSettings'][3]['mode']);
+                    $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureMin']);
+                },
+            ],
+            'DOMESTIC_HOT_WATER' => [
+                4,
+                function (array $config) {
+                    $this->assertArrayNotHasKey('subfunction', $config);
+                    $this->assertArrayNotHasKey('altWeeklySchedule', $config);
+                    $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
+                    $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][2]['mode']);
+                    $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureMin']);
+                },
+            ],
+        ];
     }
 
     public function testSettingMainThermometer() {
@@ -138,11 +185,25 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $client->getResponse());
     }
 
-    public function testSettingWeeklyScheduleWithInvalidProgram() {
+    public function testSettingWeeklyScheduleWithInvalidProgramInQuarters() {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $channelConfig = $channelParamConfigTranslator->getConfig($this->hvacChannel);
         $week = $channelConfig['weeklySchedule'];
         $week['quarters'][123] = 8;
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+            'config' => [
+                'weeklySchedule' => $week,
+            ],
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    public function testSettingWeeklyScheduleWithInvalidProgramMode() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelConfig = $channelParamConfigTranslator->getConfig($this->hvacChannel);
+        $week = $channelConfig['weeklySchedule'];
+        $week['programSettings'][2]['mode'] = 'COOL';
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
             'config' => [
@@ -158,7 +219,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $week = $channelConfig['altWeeklySchedule'];
         $this->assertNotEquals(2, $week['quarters'][125]);
         $week['quarters'][125] = 2;
-        $week['programSettings'][3]['setpointTemperatureMin'] = 10;
+        $week['programSettings'][3]['setpointTemperatureMin'] = 5;
+        $week['programSettings'][3]['setpointTemperatureMax'] = 10;
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
             'config' => ['altWeeklySchedule' => $week],
@@ -168,7 +230,22 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertNotEquals(2, $content['config']['weeklySchedule']['quarters'][125]);
         $this->assertEquals(2, $content['config']['altWeeklySchedule']['quarters'][125]);
-        $this->assertEquals(10, $content['config']['altWeeklySchedule']['programSettings'][3]['setpointTemperatureMin']);
+        $this->assertEquals(0, $content['config']['altWeeklySchedule']['programSettings'][3]['setpointTemperatureMin']);
+        $this->assertEquals(10, $content['config']['altWeeklySchedule']['programSettings'][3]['setpointTemperatureMax']);
+    }
+
+    public function testSettingAltWeeklyScheduleWithInvalidProgramMode() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelConfig = $channelParamConfigTranslator->getConfig($this->hvacChannel);
+        $week = $channelConfig['weeklySchedule'];
+        $week['programSettings'][2]['mode'] = 'HEAT';
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+            'config' => [
+                'altWeeklySchedule' => $week,
+            ],
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
     }
 
     public function testWaitingForConfigInit() {
@@ -217,7 +294,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testConfigInitialized */
-    public function testClearingSubfunctionOnFunctionChange(IODeviceChannel $hvacChannel) {
+    public function testClearingConfigOnFunctionChange(IODeviceChannel $hvacChannel) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannel->getId(), [
             'functionId' => ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
@@ -227,7 +304,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals([], $content['config']);
+        $this->assertEquals(['waitingForConfigInit' => true], $content['config']);
         $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannel->getId(), [
             'functionId' => ChannelFunction::HVAC_THERMOSTAT,
         ]);

@@ -236,12 +236,14 @@
             display: block;
             height: 100%;
             background: $supla-grey-light;
+            border-left: 1px dotted #EEE;
             @media (hover: hover) {
                 &:hover {
                     background: darken($supla-grey-light, 10%);
                 }
             }
             &:first-child {
+                border-left: 0;
                 border-top-left-radius: 4px;
                 border-bottom-left-radius: 4px;
             }

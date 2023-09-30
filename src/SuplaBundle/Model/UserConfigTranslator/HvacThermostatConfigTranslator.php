@@ -19,6 +19,15 @@ use function Assert\Assert;
 class HvacThermostatConfigTranslator implements UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
+    public function supports(HasUserConfig $subject): bool {
+        return in_array($subject->getFunction()->getId(), [
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_AUTO,
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+        ]);
+    }
+
     public function getConfig(HasUserConfig $subject): array {
         $mainThermometerChannelNo = $subject->getUserConfigValue('mainThermometerChannelNo');
         if (is_int($mainThermometerChannelNo) && $mainThermometerChannelNo >= 0) {
@@ -28,13 +37,16 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             if ($auxThermometerChannelNo >= 0) {
                 $auxThermometer = $this->channelNoToId($subject, $auxThermometerChannelNo);
             }
-            return [
-                'subfunction' => $subject->getUserConfigValue('subfunction'),
+            $config = [
                 'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
-                'altWeeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('altWeeklySchedule')),
             ];
+            if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
+                $config['subfunction'] = $subject->getUserConfigValue('subfunction');
+                $config['altWeeklySchedule'] = $this->adjustWeeklySchedule($subject->getUserConfigValue('altWeeklySchedule'));
+            }
+            return $config;
         } else {
             return [
                 'waitingForConfigInit' => true,
@@ -74,20 +86,17 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         }
         if (array_key_exists('weeklySchedule', $config) && $config['weeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('weeklySchedule'));
-            $weeklySchedule = $this->validateWeeklySchedule($config['weeklySchedule']);
+            $availableProgramModes = $subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_AUTO
+                ? ['HEAT', 'COOL', 'AUTO']
+                : ['HEAT'];
+            $weeklySchedule = $this->validateWeeklySchedule($config['weeklySchedule'], $availableProgramModes);
             $subject->setUserConfigValue('weeklySchedule', $weeklySchedule);
         }
         if (array_key_exists('altWeeklySchedule', $config) && $config['altWeeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('altWeeklySchedule'));
-            $weeklySchedule = $this->validateWeeklySchedule($config['altWeeklySchedule']);
+            $weeklySchedule = $this->validateWeeklySchedule($config['altWeeklySchedule'], ['COOL']);
             $subject->setUserConfigValue('altWeeklySchedule', $weeklySchedule);
         }
-    }
-
-    public function supports(HasUserConfig $subject): bool {
-        return in_array($subject->getFunction()->getId(), [
-            ChannelFunction::HVAC_THERMOSTAT,
-        ]);
     }
 
     private function channelNoToId(IODeviceChannel $channel, int $channelNo): IODeviceChannel {
@@ -125,7 +134,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         }
     }
 
-    private function validateWeeklySchedule(array $weeklySchedule): array {
+    private function validateWeeklySchedule(array $weeklySchedule, array $availableProgramModes): array {
         Assert::that($weeklySchedule)->isArray()->notEmptyKey('quarters')->notEmptyKey('programSettings');
         Assert::that($weeklySchedule['programSettings'])
             ->isArray()
@@ -139,13 +148,21 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             ->all()
             ->inArray($availablePrograms);
         return [
-            'programSettings' => array_map(function (array $programSettings) {
-                Assertion::inArray($programSettings['mode'], ['COOL', 'HEAT']);
-                return [
-                    'mode' => $programSettings['mode'],
-                    'setpointTemperatureMin' => round($programSettings['setpointTemperatureMin'] * 100),
-                    'setpointTemperatureMax' => round($programSettings['setpointTemperatureMax'] * 100),
-                ];
+            'programSettings' => array_map(function (array $programSettings) use ($availableProgramModes) {
+                $programMode = $programSettings['mode'];
+                Assertion::inArray($programMode, $availableProgramModes);
+                $min = 0;
+                $max = 0;
+                if (in_array($programMode, ['HEAT', 'AUTO'])) {
+                    $min = round($programSettings['setpointTemperatureMin'] * 100);
+                }
+                if (in_array($programMode, ['COOL', 'AUTO'])) {
+                    $max = round($programSettings['setpointTemperatureMax'] * 100);
+                }
+                if ($programMode === 'AUTO') {
+                    Assertion::lessThan($min, $max);
+                }
+                return ['mode' => $programMode, 'setpointTemperatureMin' => $min, 'setpointTemperatureMax' => $max];
             }, $weeklySchedule['programSettings']),
             'quarters' => $weeklySchedule['quarters'],
         ];
