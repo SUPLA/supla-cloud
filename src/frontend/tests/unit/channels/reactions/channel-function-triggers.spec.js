@@ -22,6 +22,7 @@ describe('ChannelFunctionTriggers', () => {
             ChannelFunction.DIGIGLASS_HORIZONTAL,
             ChannelFunction.DIGIGLASS_VERTICAL,
             ChannelFunction.HVAC_THERMOSTAT,
+            ChannelFunction.HVAC_THERMOSTAT_AUTO,
         ];
         for (const fncName in ChannelFunction) {
             const fncId = ChannelFunction[fncName];
