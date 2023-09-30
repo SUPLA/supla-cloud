@@ -25,7 +25,7 @@ class AccessIdAwareToken extends OAuthToken {
     private $accessId;
 
     public function __construct(OAuthToken $token, AccessID $accessId) {
-        parent::__construct($token->getRoles());
+        parent::__construct($token->getRoleNames());
         $this->setAuthenticated($token->isAuthenticated());
         $this->setUser($token->getUser());
         $this->setToken($token->getToken());

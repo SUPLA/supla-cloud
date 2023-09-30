@@ -23,7 +23,7 @@ class WebappToken extends OAuthToken {
     const ROLE_WEBAPP = 'ROLE_WEBAPP';
 
     public function __construct(OAuthToken $token) {
-        parent::__construct(array_merge($token->getRoles(), [self::ROLE_WEBAPP]));
+        parent::__construct(array_merge($token->getRoleNames(), [self::ROLE_WEBAPP]));
         $this->setAuthenticated($token->isAuthenticated());
         $this->setUser($token->getUser());
         $this->setToken($token->getToken());

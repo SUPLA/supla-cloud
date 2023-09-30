@@ -21,7 +21,7 @@ use FOS\OAuthServerBundle\Security\Authentication\Token\OAuthToken;
 
 class PublicOauthAppToken extends OAuthToken {
     public function __construct(OAuthToken $token) {
-        parent::__construct($token->getRoles());
+        parent::__construct($token->getRoleNames());
         $this->setAuthenticated($token->isAuthenticated());
         $this->setUser($token->getUser());
         $this->setToken($token->getToken());
