@@ -82,7 +82,7 @@ class UserIconController extends RestController {
      *   ),
      *   @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/UserIcon")),
      * )
-     * @Security("has_role('ROLE_CHANNELS_RW')")
+     * @Security("is_granted('ROLE_CHANNELS_RW')")
      * @Rest\Post("/user-icons")
      * @UnavailableInMaintenance
      */
@@ -114,7 +114,7 @@ class UserIconController extends RestController {
      *   ),
      *   @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/UserIcon")),
      * )
-     * @Security("has_role('ROLE_CHANNELS_RW')")
+     * @Security("is_granted('ROLE_CHANNELS_RW')")
      * @Rest\Post("/user-icons.base64")
      * @UnavailableInMaintenance
      */
@@ -201,7 +201,7 @@ class UserIconController extends RestController {
      *   @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/UserIcon")))
      * )
      * @Rest\Get("/user-icons", name="user_icons_list")
-     * @Security("has_role('ROLE_CHANNELS_R')")
+     * @Security("is_granted('ROLE_CHANNELS_R')")
      */
     public function getUserIconsAction(Request $request) {
         $criteria = Criteria::create();
@@ -228,7 +228,7 @@ class UserIconController extends RestController {
      *   @OA\Response(response="200", description="User Icon image", @OA\JsonContent(ref="#/components/schemas/UserIcon")),
      * )
      * @Rest\Get("/user-icons/{userIcon}")
-     * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("userIcon.belongsToUser(user) and is_granted('ROLE_CHANNELS_R')")
      */
     public function getUserIconAction(Request $request, UserIcon $userIcon) {
         return $this->serializedView($userIcon, $request);
@@ -242,7 +242,7 @@ class UserIconController extends RestController {
      *   @OA\Response(response="200", description="User Icon image", @OA\MediaType(mediaType="image/*", @OA\Schema(type="string", format="binary"))),
      * )
      * @Rest\Get("/user-icons/{userIcon}/{imageIndex}")
-     * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES')")
+     * @Security("userIcon.belongsToUser(user) and is_granted('ROLE_CHANNELS_FILES')")
      * @Cache(maxage="86400", smaxage=86400)
      */
     public function getUserIconImageAction(UserIcon $userIcon, int $imageIndex) {
@@ -261,7 +261,7 @@ class UserIconController extends RestController {
      *     @OA\Response(response="204", description="Success"),
      * )
      * @Rest\Delete("/user-icons/{userIcon}")
-     * @Security("userIcon.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Security("userIcon.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW')")
      * @UnavailableInMaintenance
      */
     public function deleteUserIconAction(UserIcon $userIcon) {

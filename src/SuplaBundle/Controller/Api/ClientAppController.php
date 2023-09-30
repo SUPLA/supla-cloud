@@ -69,7 +69,7 @@ class ClientAppController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/ClientApp"))),
      * )
      * @Rest\Get("/client-apps")
-     * @Security("has_role('ROLE_CLIENTAPPS_R')")
+     * @Security("is_granted('ROLE_CLIENTAPPS_R')")
      */
     public function getClientAppsAction(Request $request) {
         $clientApps = $this->getUser()->getClientApps();
@@ -95,7 +95,7 @@ class ClientAppController extends RestController {
      *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/ClientApp")),
      * )
      * @Rest\Put("/client-apps/{clientApp}")
-     * @Security("clientApp.belongsToUser(user) and has_role('ROLE_CLIENTAPPS_RW')")
+     * @Security("clientApp.belongsToUser(user) and is_granted('ROLE_CLIENTAPPS_RW')")
      * @UnavailableInMaintenance
      */
     public function putClientAppAction(Request $request, ClientApp $clientApp) {
@@ -133,7 +133,7 @@ class ClientAppController extends RestController {
      *     @OA\Response(response="204", description="Success"),
      * )
      * @Rest\Delete("/client-apps/{clientApp}")
-     * @Security("clientApp.belongsToUser(user) and has_role('ROLE_CLIENTAPPS_RW')")
+     * @Security("clientApp.belongsToUser(user) and is_granted('ROLE_CLIENTAPPS_RW')")
      * @UnavailableInMaintenance
      */
     public function deleteClientAppAction(ClientApp $clientApp): Response {

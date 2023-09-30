@@ -115,7 +115,7 @@ class ChannelGroupController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/ChannelGroup"))),
      * )
      * @Rest\Get(path="/channel-groups", name="channelGroups_list")
-     * @Security("has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("is_granted('ROLE_CHANNELGROUPS_R')")
      */
     public function getChannelGroupsAction(Request $request) {
         $filters = function (QueryBuilder $builder, string $alias) use ($request) {
@@ -138,7 +138,7 @@ class ChannelGroupController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/ChannelGroup"))),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R')")
      * @Rest\Get("/channels/{channel}/channel-groups", name="channels_channelGroups_list")
      */
     public function getChannelChannelGroupsAction(IODeviceChannel $channel, Request $request) {
@@ -161,7 +161,7 @@ class ChannelGroupController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/ChannelGroup")),
      * )
      * @Rest\Get("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R') and is_granted('accessIdContains', channelGroup)")
+     * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_R') and is_granted('accessIdContains', channelGroup)")
      */
     public function getChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         return $this->serializedView($channelGroup, $request, ['location.relationsCount', 'channelGroup.relationsCount']);
@@ -184,7 +184,7 @@ class ChannelGroupController extends RestController {
      *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/ChannelGroup")),
      * )
      * @Rest\Post("/channel-groups")
-     * @Security("has_role('ROLE_CHANNELGROUPS_RW')")
+     * @Security("is_granted('ROLE_CHANNELGROUPS_RW')")
      * @UnavailableInMaintenance
      */
     public function postChannelGroupAction(Request $request, ChannelGroupRequestFiller $channelGroupFiller) {
@@ -226,7 +226,7 @@ class ChannelGroupController extends RestController {
      *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/ChannelGroup")),
      * )
      * @Rest\Put("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
+     * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
      * @UnavailableInMaintenance
      */
     public function putChannelGroupAction(
@@ -250,7 +250,7 @@ class ChannelGroupController extends RestController {
      *     @OA\Response(response="204", description="Success"),
      * )
      * @Rest\Delete("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
+     * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_RW') and is_granted('accessIdContains', channelGroup)")
      * @UnavailableInMaintenance
      */
     public function deleteChannelGroupAction(
@@ -300,7 +300,7 @@ class ChannelGroupController extends RestController {
      *     )),
      * )
      * @Rest\Patch("/channel-groups/{channelGroup}")
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_EA') and is_granted('accessIdContains', channelGroup)")
+     * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_EA') and is_granted('accessIdContains', channelGroup)")
      */
     public function patchChannelGroupAction(Request $request, IODeviceChannelGroup $channelGroup) {
         $params = json_decode($request->getContent(), true);

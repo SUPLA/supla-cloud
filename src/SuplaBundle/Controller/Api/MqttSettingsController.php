@@ -52,7 +52,7 @@ class MqttSettingsController extends RestController {
 
     /**
      * @Post("/integrations/mqtt-credentials")
-     * @Security("has_role('ROLE_MQTT_BROKER')")
+     * @Security("is_granted('ROLE_MQTT_BROKER')")
      */
     public function postMqttBrokerCredentialsAction() {
         $user = $this->getCurrentUserOrThrow();

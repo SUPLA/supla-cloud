@@ -118,7 +118,7 @@ class AccessIDController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/AccessIdentifier"))),
      * )
-     * @Security("has_role('ROLE_ACCESSIDS_R')")
+     * @Security("is_granted('ROLE_ACCESSIDS_R')")
      */
     public function getAccessidsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -140,7 +140,7 @@ class AccessIDController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
      * )
-     * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_R')")
+     * @Security("accessId.belongsToUser(user) and is_granted('ROLE_ACCESSIDS_R')")
      */
     public function getAccessidAction(Request $request, AccessID $accessId) {
         return $this->serializedView($accessId, $request, ['accessId.relationsCount']);
@@ -151,7 +151,7 @@ class AccessIDController extends RestController {
      *     path="/accessids", operationId="createAccessIdentifier", summary="Create a new Access Identifier", tags={"Access Identifiers"},
      *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/AccessIdentifier")),
      * )
-     * @Security("has_role('ROLE_ACCESSIDS_RW')")
+     * @Security("is_granted('ROLE_ACCESSIDS_RW')")
      * @UnavailableInMaintenance
      */
     public function postAccessidAction(Request $request) {
@@ -176,7 +176,7 @@ class AccessIDController extends RestController {
      *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response="204", description="Success"),
      * )
-     * @Security("accessId.belongsToUser(user) and has_role('ROLE_ACCESSIDS_RW')")
+     * @Security("accessId.belongsToUser(user) and is_granted('ROLE_ACCESSIDS_RW')")
      * @UnavailableInMaintenance
      */
     public function deleteAccessidAction(AccessID $accessId) {

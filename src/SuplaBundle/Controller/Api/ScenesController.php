@@ -147,7 +147,7 @@ class ScenesController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
      * )
      * @Rest\Get("/scenes", name="scenes_list")
-     * @Security("has_role('ROLE_SCENES_R')")
+     * @Security("is_granted('ROLE_SCENES_R')")
      */
     public function getScenesAction(Request $request) {
         $this->ensureApiVersion24($request);
@@ -176,7 +176,7 @@ class ScenesController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R')")
      * @Rest\Get("/channels/{channel}/scenes")
      */
     public function getChannelScenesAction(IODeviceChannel $channel, Request $request) {
@@ -196,7 +196,7 @@ class ScenesController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
      * )
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_R')")
      * @Rest\Get("/channel-groups/{channelGroup}/scenes")
      */
     public function getChannelGroupScenesAction(IODeviceChannelGroup $channelGroup, Request $request) {
@@ -216,7 +216,7 @@ class ScenesController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Scene"))),
      * )
-     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
+     * @Security("scene.belongsToUser(user) and is_granted('ROLE_SCENES_R')")
      * @Rest\Get("/scenes/{scene}/scenes")
      */
     public function getSceneScenesAction(Scene $scene, Request $request) {
@@ -237,7 +237,7 @@ class ScenesController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Scene")),
      * )
      * @Rest\Get("/scenes/{scene}")
-     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
+     * @Security("scene.belongsToUser(user) and is_granted('ROLE_SCENES_R')")
      */
     public function getSceneAction(Request $request, Scene $scene) {
         $this->ensureApiVersion24($request);
@@ -269,7 +269,7 @@ class ScenesController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Scene")),
      * )
      * @Rest\Post("/scenes")
-     * @Security("has_role('ROLE_SCENES_RW')")
+     * @Security("is_granted('ROLE_SCENES_RW')")
      */
     public function postSceneAction(Request $request, SceneRequestFiller $sceneFiller, TranslatorInterface $translator) {
         $this->ensureApiVersion24($request);
@@ -314,7 +314,7 @@ class ScenesController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Scene")),
      * )
      * @Rest\Put("/scenes/{scene}")
-     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
+     * @Security("scene.belongsToUser(user) and is_granted('ROLE_SCENES_RW')")
      */
     public function putSceneAction(Scene $scene, SceneRequestFiller $sceneFiller, Request $request) {
         $this->ensureApiVersion24($request);
@@ -338,7 +338,7 @@ class ScenesController extends RestController {
      *     @OA\Response(response="204", description="Success"),
      * )
      * @Rest\Delete("/scenes/{scene}")
-     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_RW')")
+     * @Security("scene.belongsToUser(user) and is_granted('ROLE_SCENES_RW')")
      */
     public function deleteSceneAction(Scene $scene, Request $request, SceneDependencies $sceneDependencies) {
         $this->ensureApiVersion24($request);
@@ -381,7 +381,7 @@ class ScenesController extends RestController {
      *     )),
      * )
      * @Rest\Patch("/scenes/{scene}")
-     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_EA') and is_granted('accessIdContains', scene)")
+     * @Security("scene.belongsToUser(user) and is_granted('ROLE_SCENES_EA') and is_granted('accessIdContains', scene)")
      */
     public function patchSceneAction(Request $request, Scene $scene, ChannelActionExecutor $channelActionExecutor) {
         $this->ensureApiVersion24($request);

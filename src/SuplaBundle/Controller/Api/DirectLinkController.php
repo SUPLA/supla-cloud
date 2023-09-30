@@ -108,7 +108,7 @@ class DirectLinkController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/DirectLink"))),
      * )
      * @Rest\Get("/direct-links")
-     * @Security("has_role('ROLE_DIRECTLINKS_R')")
+     * @Security("is_granted('ROLE_DIRECTLINKS_R')")
      */
     public function getDirectLinksAction(Request $request) {
         $directLinks = $this->returnDirectLinks();
@@ -134,7 +134,7 @@ class DirectLinkController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/DirectLink"))),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R')")
      * @Rest\Get("/channels/{channel}/direct-links")
      */
     public function getChannelDirectLinksAction(IODeviceChannel $channel, Request $request) {
@@ -153,7 +153,7 @@ class DirectLinkController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/DirectLink"))),
      * )
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_R')")
      * @Rest\Get("/channel-groups/{channelGroup}/direct-links")
      */
     public function getChannelGroupDirectLinksAction(IODeviceChannelGroup $channelGroup, Request $request) {
@@ -172,7 +172,7 @@ class DirectLinkController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/DirectLink"))),
      * )
-     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
+     * @Security("scene.belongsToUser(user) and is_granted('ROLE_SCENES_R')")
      * @Rest\Get("/scenes/{scene}/direct-links")
      */
     public function getSceneDirectLinksAction(Scene $scene, Request $request) {
@@ -192,7 +192,7 @@ class DirectLinkController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/DirectLink")),
      * )
      * @Rest\Get("/direct-links/{directLink}")
-     * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_R')")
+     * @Security("directLink.belongsToUser(user) and is_granted('ROLE_DIRECTLINKS_R')")
      */
     public function getDirectLinkAction(Request $request, DirectLink $directLink) {
         return $this->serializedView($directLink, $request, ['subject.relationsCount']);
@@ -200,7 +200,7 @@ class DirectLinkController extends RestController {
 
     /**
      * @Rest\Post("/direct-links")
-     * @Security("has_role('ROLE_DIRECTLINKS_RW')")
+     * @Security("is_granted('ROLE_DIRECTLINKS_RW')")
      * @UnavailableInMaintenance
      */
     public function postDirectLinkAction(Request $request, DirectLink $directLink, TranslatorInterface $translator) {
@@ -223,7 +223,7 @@ class DirectLinkController extends RestController {
 
     /**
      * @Rest\Put("/direct-links/{directLink}")
-     * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_RW')")
+     * @Security("directLink.belongsToUser(user) and is_granted('ROLE_DIRECTLINKS_RW')")
      * @UnavailableInMaintenance
      */
     public function putDirectLinkAction(DirectLink $directLink, DirectLink $updated, Request $request) {
@@ -243,7 +243,7 @@ class DirectLinkController extends RestController {
 
     /**
      * @Rest\Delete("/direct-links/{directLink}")
-     * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_RW')")
+     * @Security("directLink.belongsToUser(user) and is_granted('ROLE_DIRECTLINKS_RW')")
      * @UnavailableInMaintenance
      */
     public function deleteDirectLinkAction(DirectLink $directLink) {
@@ -255,7 +255,7 @@ class DirectLinkController extends RestController {
 
     /**
      * @Rest\Get("/direct-links/{directLink}/audit")
-     * @Security("directLink.belongsToUser(user) and has_role('ROLE_DIRECTLINKS_R')")
+     * @Security("directLink.belongsToUser(user) and is_granted('ROLE_DIRECTLINKS_R')")
      */
     public function getDirectLinkAuditAction(DirectLink $directLink, Request $request) {
         $page = $request->get('page', 1);

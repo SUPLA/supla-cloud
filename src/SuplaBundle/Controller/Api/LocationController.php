@@ -107,7 +107,7 @@ class LocationController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Location"))),
      * )
-     * @Security("has_role('ROLE_LOCATIONS_R')")
+     * @Security("is_granted('ROLE_LOCATIONS_R')")
      */
     public function getLocationsAction(Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -123,7 +123,7 @@ class LocationController extends RestController {
      *     path="/locations", operationId="createLocation", summary="Create a new location", tags={"Locations"},
      *     @OA\Response(response="201", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
-     * @Security("has_role('ROLE_LOCATIONS_RW')")
+     * @Security("is_granted('ROLE_LOCATIONS_RW')")
      * @UnavailableInMaintenance
      */
     public function postLocationAction(Request $request) {
@@ -153,7 +153,7 @@ class LocationController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
-     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_R') and is_granted('accessIdContains', location)")
+     * @Security("location.belongsToUser(user) and is_granted('ROLE_LOCATIONS_R') and is_granted('accessIdContains', location)")
      */
     public function getLocationAction(Request $request, Location $location) {
         return $this->serializedView($location, $request, ['location.relationsCount']);
@@ -165,7 +165,7 @@ class LocationController extends RestController {
      *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response="204", description="Success"),
      * )
-     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
+     * @Security("location.belongsToUser(user) and is_granted('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      * @UnavailableInMaintenance
      */
     public function deleteLocationAction(Location $location) {
@@ -217,7 +217,7 @@ class LocationController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Location")),
      * )
-     * @Security("location.belongsToUser(user) and has_role('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
+     * @Security("location.belongsToUser(user) and is_granted('ROLE_LOCATIONS_RW') and is_granted('accessIdContains', location)")
      * @UnavailableInMaintenance
      */
     public function putLocationAction(Request $request, Location $location, Location $updatedLocation) {

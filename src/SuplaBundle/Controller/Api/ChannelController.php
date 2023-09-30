@@ -142,7 +142,7 @@ class ChannelController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Channel"))),
      * )
      * @Rest\Get(name="channels_list")
-     * @Security("has_role('ROLE_CHANNELS_R')")
+     * @Security("is_granted('ROLE_CHANNELS_R')")
      */
     public function getChannelsAction(Request $request) {
         $filters = function (QueryBuilder $builder, string $alias) use ($request) {
@@ -212,7 +212,7 @@ class ChannelController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getChannelAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -263,7 +263,7 @@ class ChannelController extends RestController {
      *       )
      *    ),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
      */
     public function putChannelAction(
@@ -422,7 +422,7 @@ class ChannelController extends RestController {
      *          @OA\Property(property="message", type="string", example="Cannot execute requested action on this channel."),
      *     )),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_EA') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_EA') and is_granted('accessIdContains', channel)")
      */
     public function patchChannelAction(Request $request, IODeviceChannel $channel) {
         $params = json_decode($request->getContent(), true);
@@ -448,7 +448,7 @@ class ChannelController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
      * )
      * @Rest\Patch("/channels/{channel}/settings")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      */
     public function patchChannelSettingsAction(
         Request $request,
@@ -478,7 +478,7 @@ class ChannelController extends RestController {
     }
 
     /**
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', ioDevice)")
+     * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', ioDevice)")
      */
     public function getIodeviceChannelsAction(Request $request, IODevice $ioDevice) {
         $channels = $this->channelRepository->findAllForUser(

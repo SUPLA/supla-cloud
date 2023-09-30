@@ -62,7 +62,7 @@ class StateWebhookController extends RestController {
 
     /**
      * @Put("/integrations/state-webhook")
-     * @Security("has_role('ROLE_STATE_WEBHOOK')")
+     * @Security("is_granted('ROLE_STATE_WEBHOOK')")
      */
     public function updateStateWebhookAction(Request $request) {
         $data = $request->request->all();
@@ -108,7 +108,7 @@ class StateWebhookController extends RestController {
 
     /**
      * @Rest\Delete("/integrations/state-webhook")
-     * @Security("has_role('ROLE_STATE_WEBHOOK')")
+     * @Security("is_granted('ROLE_STATE_WEBHOOK')")
      */
     public function deleteStateWebhookAction() {
         $webhook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->getCurrentApiClient(), $this->getCurrentUser());
@@ -122,7 +122,7 @@ class StateWebhookController extends RestController {
 
     /**
      * @Get("/integrations/state-webhook")
-     * @Security("has_role('ROLE_STATE_WEBHOOK')")
+     * @Security("is_granted('ROLE_STATE_WEBHOOK')")
      */
     public function getStateWebhookAction() {
         $webhook = $this->stateWebhookRepository->findOrCreateForApiClientAndUser($this->getCurrentApiClient(), $this->getCurrentUser());

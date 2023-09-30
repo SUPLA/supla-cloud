@@ -63,7 +63,7 @@ class OAuthController extends RestController {
     }
 
     /**
-     * @Security("has_role('ROLE_WEBAPP')")
+     * @Security("is_granted('ROLE_WEBAPP')")
      * @Rest\Get("/oauth-clients")
      */
     public function getOAuthClientsAction(Request $request) {
@@ -72,7 +72,7 @@ class OAuthController extends RestController {
     }
 
     /**
-     * @Security("client.belongsToUser(user) and has_role('ROLE_WEBAPP')")
+     * @Security("client.belongsToUser(user) and is_granted('ROLE_WEBAPP')")
      * @Rest\Get("/oauth-clients/{client}")
      */
     public function getOAuthClientAction(ApiClient $client, Request $request) {
@@ -82,7 +82,7 @@ class OAuthController extends RestController {
     }
 
     /**
-     * @Security("has_role('ROLE_WEBAPP')")
+     * @Security("is_granted('ROLE_WEBAPP')")
      * @Rest\Post("/oauth-clients")
      * @UnavailableInMaintenance
      */
@@ -96,7 +96,7 @@ class OAuthController extends RestController {
     }
 
     /**
-     * @Security("client.belongsToUser(user) && has_role('ROLE_WEBAPP')")
+     * @Security("client.belongsToUser(user) && is_granted('ROLE_WEBAPP')")
      * @Rest\Put("/oauth-clients/{client}")
      * @UnavailableInMaintenance
      */
@@ -109,7 +109,7 @@ class OAuthController extends RestController {
     }
 
     /**
-     * @Security("client.belongsToUser(user) and has_role('ROLE_WEBAPP')")
+     * @Security("client.belongsToUser(user) and is_granted('ROLE_WEBAPP')")
      * @Rest\Delete("/oauth-clients/{client}")
      * @UnavailableInMaintenance
      */
@@ -123,7 +123,7 @@ class OAuthController extends RestController {
 
     /**
      * @Rest\Get("/oauth-authorized-clients")
-     * @Security("has_role('ROLE_WEBAPP')")
+     * @Security("is_granted('ROLE_WEBAPP')")
      */
     public function getAuthorizedClientsAction(Request $request) {
         $apps = $this->getUser()->getApiClientAuthorizations();
@@ -134,7 +134,7 @@ class OAuthController extends RestController {
 
     /**
      * @Rest\Delete("/oauth-authorized-clients/{authorizedApp}")
-     * @Security("authorizedApp.belongsToUser(user) and has_role('ROLE_WEBAPP')")
+     * @Security("authorizedApp.belongsToUser(user) and is_granted('ROLE_WEBAPP')")
      * @UnavailableInMaintenance
      */
     public function deleteAuthorizedClientsAction(ApiClientAuthorization $authorizedApp, Request $request) {
@@ -146,7 +146,7 @@ class OAuthController extends RestController {
 
     /**
      * @Rest\Get("/oauth-personal-tokens")
-     * @Security("has_role('ROLE_WEBAPP')")
+     * @Security("is_granted('ROLE_WEBAPP')")
      */
     public function getPersonalTokensAction(Request $request) {
         $accessTokens = $this->accessTokenRepository->findPersonalTokens($this->getUser());
@@ -155,7 +155,7 @@ class OAuthController extends RestController {
 
     /**
      * @Rest\Post("/oauth-personal-tokens")
-     * @Security("has_role('ROLE_WEBAPP')")
+     * @Security("is_granted('ROLE_WEBAPP')")
      * @UnavailableInMaintenance
      */
     public function postPersonalTokensAction(Request $request) {
@@ -179,7 +179,7 @@ class OAuthController extends RestController {
     /**
      * @Rest\Delete("/oauth-personal-tokens/{accessToken}", name="delete_personal_token")
      * @Rest\Delete("/access-tokens/{accessToken}", name="delete_access_token")
-     * @Security("accessToken.belongsToUser(user) and has_role('ROLE_WEBAPP')")
+     * @Security("accessToken.belongsToUser(user) and is_granted('ROLE_WEBAPP')")
      * @UnavailableInMaintenance
      */
     public function deletePersonalTokenAction(AccessToken $accessToken) {
@@ -205,7 +205,7 @@ class OAuthController extends RestController {
     }
 
     /**
-     * @Security("has_role('ROLE_WEBAPP')")
+     * @Security("is_granted('ROLE_WEBAPP')")
      * @Rest\Get("/access-tokens")
      */
     public function getAccessTokensAction(Request $request, TimeProvider $timeProvider) {

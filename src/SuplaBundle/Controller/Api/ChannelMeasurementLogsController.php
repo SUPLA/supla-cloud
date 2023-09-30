@@ -330,7 +330,7 @@ class ChannelMeasurementLogsController extends RestController {
     /**
      * @deprecated
      * @Rest\Get("/channels/{channel}/temperature-log-count")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getObsoleteMeasurementTempLogsCountAction(IODeviceChannel $channel, Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -347,7 +347,7 @@ class ChannelMeasurementLogsController extends RestController {
     /**
      * @deprecated
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-count")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getObsoleteMeasurementHumLogsCountAction(IODeviceChannel $channel, Request $request) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -364,7 +364,7 @@ class ChannelMeasurementLogsController extends RestController {
     /**
      * @deprecated
      * @Rest\Get("/channels/{channel}/temperature-log-items")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getTempLogItemsAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -385,7 +385,7 @@ class ChannelMeasurementLogsController extends RestController {
     /**
      * @deprecated
      * @Rest\Get("/channels/{channel}/temperature-and-humidity-items")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getTempHumLogItemsAction(Request $request, IODeviceChannel $channel) {
         if (ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -484,7 +484,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
      * @Rest\Get("/channels/{channel}/measurement-logs")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
         if (!ApiVersions::V2_2()->isRequestedEqualOrGreaterThan($request)) {
@@ -627,7 +627,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
      * @Rest\Delete("/channels/{channel}/measurement-logs")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
      */
     public function deleteMeasurementLogsAction(Request $request, IODeviceChannel $channel) {
@@ -663,7 +663,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
      * @Rest\Get("/channels/{channel}/measurement-logs-csv")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_FILES') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_FILES') and is_granted('accessIdContains', channel)")
      */
     public function channelItemGetCSVAction(Request $request, IODeviceChannel $channel, MeasurementCsvExporter $measurementCsvExporter) {
         $logsType = $request->query->get('logsType');

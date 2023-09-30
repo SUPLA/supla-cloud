@@ -196,7 +196,7 @@ class UserController extends RestController {
      *   path="/users/current", operationId="getCurrentUser", summary="Get info about user for the token.", tags={"Users"},
      *   @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/User")),
      * )
-     * @Security("has_role('ROLE_ACCOUNT_R')")
+     * @Security("is_granted('ROLE_ACCOUNT_R')")
      */
     public function currentUserAction(Request $request) {
         return $this->serializedView($this->getUser(), $request);
@@ -204,7 +204,7 @@ class UserController extends RestController {
 
     /**
      * @Rest\Patch("/users/current")
-     * @Security("has_role('ROLE_ACCOUNT_RW')")
+     * @Security("is_granted('ROLE_ACCOUNT_RW')")
      * @UnavailableInMaintenance
      */
     public function patchUsersCurrentAction(Request $request) {
@@ -303,7 +303,7 @@ class UserController extends RestController {
         return $this->view($user, Response::HTTP_OK, $headers);
     }
 
-    /** @Security("has_role('ROLE_ACCOUNT_R')") */
+    /** @Security("is_granted('ROLE_ACCOUNT_R')") */
     public function getUsersCurrentAuditAction(Request $request) {
         $events = $request->get('events', []);
         Assertion::isArray($events);

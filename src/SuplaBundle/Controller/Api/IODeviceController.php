@@ -107,7 +107,7 @@ class IODeviceController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Device"))),
      * )
-     * @Security("has_role('ROLE_IODEVICES_R')")
+     * @Security("is_granted('ROLE_IODEVICES_R')")
      */
     public function getIodevicesAction(Request $request) {
         $result = [];
@@ -182,7 +182,7 @@ class IODeviceController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
      * )
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_R') and is_granted('accessIdContains', ioDevice)")
+     * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_R') and is_granted('accessIdContains', ioDevice)")
      * @Rest\Get("/iodevices/{ioDevice}", requirements={"ioDevice"="^\d+$"})
      */
     public function getIodeviceAction(Request $request, IODevice $ioDevice) {
@@ -236,7 +236,7 @@ class IODeviceController extends RestController {
 
     /**
      * Documented above (id oneOf).
-     * @Security("has_role('ROLE_IODEVICES_R')")
+     * @Security("is_granted('ROLE_IODEVICES_R')")
      * @Rest\Get("/iodevices/{guid}")
      */
     public function getIodeviceByGuidAction(Request $request, string $guid, IODeviceRepository $repository) {
@@ -269,7 +269,7 @@ class IODeviceController extends RestController {
      *       )
      *    ),
      * )
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
+     * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
     public function putIodeviceAction(
@@ -340,7 +340,7 @@ class IODeviceController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
      *    ),
      * )
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
+     * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
     public function patchIodeviceAction(Request $request, IODevice $ioDevice) {
@@ -380,7 +380,7 @@ class IODeviceController extends RestController {
      *       )
      *    ),
      * )
-     * @Security("ioDevice.belongsToUser(user) and has_role('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
+     * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
     public function deleteIodeviceAction(IODevice $ioDevice, Request $request, ChannelDependencies $channelDependencies) {

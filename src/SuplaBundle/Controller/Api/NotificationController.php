@@ -66,7 +66,7 @@ class NotificationController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Notification")),
      * )
-     * @Security("notification.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', notification.getChannel())")
+     * @Security("notification.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', notification.getChannel())")
      */
     public function getNotificationAction(Request $request, PushNotification $notification) {
         return $this->serializedView($notification, $request);
@@ -85,7 +85,7 @@ class NotificationController extends RestController {
      *     )),
      * )
      * @Rest\Patch("/notifications")
-     * @Security("has_role('ROLE_CHANNELS_EA')")
+     * @Security("is_granted('ROLE_CHANNELS_EA')")
      */
     public function sendNotificationAction(Request $request, ChannelActionExecutor $channelActionExecutor) {
         if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
@@ -109,7 +109,7 @@ class NotificationController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Notification")),
      * )
      * @Rest\Put("/notifications/{notification}")
-     * @Security("notification.belongsToUser(user) and has_role('ROLE_CHANNELS_RW') and is_granted('accessIdContains', notification.getChannel())")
+     * @Security("notification.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', notification.getChannel())")
      */
     public function updateNotificationAction(Request $request, PushNotification $notification, AccessIdRepository $aidRepository) {
         if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
@@ -157,7 +157,7 @@ class NotificationController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Notification"))),
      * )
      * @Rest\Get("/channels/{channel}/notifications")
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R') and is_granted('accessIdContains', channel)")
      */
     public function getChannelNotificationsAction(Request $request, IODeviceChannel $channel) {
         $criteria = Criteria::create();
@@ -181,7 +181,7 @@ class NotificationController extends RestController {
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Notification"))),
      * )
      * @Rest\Get("/iodevices/{device}/notifications")
-     * @Security("device.belongsToUser(user) and has_role('ROLE_IODEVICES_R') and is_granted('accessIdContains', device)")
+     * @Security("device.belongsToUser(user) and is_granted('ROLE_IODEVICES_R') and is_granted('accessIdContains', device)")
      */
     public function getIoDeviceNotificationsAction(Request $request, IODevice $device) {
         $notifications = $device->getPushNotifications();

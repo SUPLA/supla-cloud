@@ -41,7 +41,7 @@ class GoogleHomeController extends RestController {
     }
 
     /**
-     * @Security("has_role('ROLE_CHANNELS_EA')")
+     * @Security("is_granted('ROLE_CHANNELS_EA')")
      * @Rest\Put("/integrations/google-home")
      */
     public function putGoogleHomeAction(Request $request, GoogleHome $source) {

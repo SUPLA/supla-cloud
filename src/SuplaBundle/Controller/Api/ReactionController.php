@@ -78,7 +78,7 @@ class ReactionController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Reaction")),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW')")
      * @Rest\Post("/channels/{channel}/reactions")
      */
     public function postChannelReactionsAction(IODeviceChannel $channel, Request $request, ValueBasedTriggerRequestFiller $requestFiller) {
@@ -117,7 +117,7 @@ class ReactionController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Reaction")),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW')")
      * @Rest\Put("/channels/{channel}/reactions/{vbt}")
      */
     public function putChannelReactionAction(
@@ -147,7 +147,7 @@ class ReactionController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Reaction"))),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R')")
      * @Rest\Get("/channels/{channel}/reactions")
      */
     public function getChannelReactionsAction(IODeviceChannel $channel, Request $request) {
@@ -167,7 +167,7 @@ class ReactionController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Reaction")),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R')")
      * @Rest\Get("/channels/{channel}/reactions/{vbt}")
      */
     public function getChannelReactionAction(IODeviceChannel $channel, ValueBasedTrigger $vbt, Request $request) {
@@ -183,7 +183,7 @@ class ReactionController extends RestController {
      *     @OA\Parameter(description="Reaction ID", in="path", name="reaction", required=true, @OA\Schema(type="integer")),
      *     @OA\Response(response="204", description="Success"),
      * )
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_RW')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW')")
      * @Rest\Delete("/channels/{channel}/reactions/{vbt}")
      */
     public function deleteChannelReactionAction(IODeviceChannel $channel, ValueBasedTrigger $vbt, Request $request) {

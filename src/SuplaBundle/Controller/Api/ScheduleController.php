@@ -113,21 +113,21 @@ class ScheduleController extends RestController {
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Schedule"))),
      * )
-     * @Security("has_role('ROLE_SCHEDULES_R')")
+     * @Security("is_granted('ROLE_SCHEDULES_R')")
      */
     public function getSchedulesAction(Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByUser($this->getUser()), $request);
     }
 
     /**
-     * @Security("channel.belongsToUser(user) and has_role('ROLE_CHANNELS_R')")
+     * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_R')")
      */
     public function getChannelSchedulesAction(IODeviceChannel $channel, Request $request) {
         return $this->returnSchedules(ScheduleListQuery::create()->filterByChannel($channel), $request);
     }
 
     /**
-     * @Security("channelGroup.belongsToUser(user) and has_role('ROLE_CHANNELGROUPS_R')")
+     * @Security("channelGroup.belongsToUser(user) and is_granted('ROLE_CHANNELGROUPS_R')")
      * @Rest\Get("/channel-groups/{channelGroup}/schedules")
      */
     public function getChannelGroupSchedulesAction(IODeviceChannelGroup $channelGroup, Request $request) {
@@ -135,7 +135,7 @@ class ScheduleController extends RestController {
     }
 
     /**
-     * @Security("scene.belongsToUser(user) and has_role('ROLE_SCENES_R')")
+     * @Security("scene.belongsToUser(user) and is_granted('ROLE_SCENES_R')")
      * @Rest\Get("/scenes/{scene}/schedules")
      */
     public function getSceneSchedulesAction(Scene $scene, Request $request) {
@@ -153,14 +153,14 @@ class ScheduleController extends RestController {
     }
 
     /**
-     * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_R')")
+     * @Security("schedule.belongsToUser(user) and is_granted('ROLE_SCHEDULES_R')")
      */
     public function getScheduleAction(Request $request, Schedule $schedule) {
         return $this->serializedView($schedule, $request, ['subject.relationsCount']);
     }
 
     /**
-     * @Security("has_role('ROLE_SCHEDULES_RW')")
+     * @Security("is_granted('ROLE_SCHEDULES_RW')")
      * @UnavailableInMaintenance
      */
     public function postScheduleAction(Request $request) {
@@ -176,7 +176,7 @@ class ScheduleController extends RestController {
     }
 
     /**
-     * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
+     * @Security("schedule.belongsToUser(user) and is_granted('ROLE_SCHEDULES_RW')")
      * @UnavailableInMaintenance
      */
     public function putScheduleAction(Request $request, Schedule $schedule) {
@@ -230,7 +230,7 @@ class ScheduleController extends RestController {
     }
 
     /**
-     * @Security("has_role('ROLE_SCHEDULES_RW')")
+     * @Security("is_granted('ROLE_SCHEDULES_RW')")
      * @UnavailableInMaintenance
      */
     public function patchSchedulesAction(Request $request) {
@@ -248,7 +248,7 @@ class ScheduleController extends RestController {
     }
 
     /**
-     * @Security("schedule.belongsToUser(user) and has_role('ROLE_SCHEDULES_RW')")
+     * @Security("schedule.belongsToUser(user) and is_granted('ROLE_SCHEDULES_RW')")
      * @UnavailableInMaintenance
      */
     public function deleteScheduleAction(Schedule $schedule) {
@@ -258,7 +258,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Rest\Post("/schedules/next-run-dates")
-     * @Security("has_role('ROLE_SCHEDULES_R')")
+     * @Security("is_granted('ROLE_SCHEDULES_R')")
      * @deprecated
      */
     public function getNextRunDatesAction(Request $request) {
@@ -274,7 +274,7 @@ class ScheduleController extends RestController {
 
     /**
      * @Rest\Post("/schedules/next-schedule-executions")
-     * @Security("has_role('ROLE_SCHEDULES_R')")
+     * @Security("is_granted('ROLE_SCHEDULES_R')")
      */
     public function getNextScheduleExecutionsAction(Request $request) {
         $data = $request->request->all();
