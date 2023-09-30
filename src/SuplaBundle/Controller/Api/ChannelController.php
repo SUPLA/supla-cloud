@@ -127,6 +127,7 @@ class ChannelController extends RestController {
      *     @OA\Parameter(name="io", in="query", description="Return only `input` or `output` channels.", required=false, @OA\Schema(type="string", enum={"input", "output"})),
      *     @OA\Parameter(name="hasFunction", in="query", description="Return only channels with (`true`) or without (`false`) chosen functions.", required=false, @OA\Schema(type="boolean")),
      *     @OA\Parameter(name="skipIds", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
+     *     @OA\Parameter(name="deviceIds", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,
@@ -165,6 +166,12 @@ class ChannelController extends RestController {
                 $skipIds = array_filter(array_map('intval', explode(',', $skipIds)));
                 if ($skipIds) {
                     $builder->andWhere("$alias.id NOT IN(:skipIds)")->setParameter('skipIds', $skipIds);
+                }
+            }
+            if (($deviceIds = $request->get('deviceIds')) !== null) {
+                $deviceIds = array_filter(array_map('intval', explode(',', $deviceIds)));
+                if ($deviceIds) {
+                    $builder->andWhere("$alias.iodevice IN(:deviceIds)")->setParameter('deviceIds', $deviceIds);
                 }
             }
             if (($forIntegration = $request->get('forIntegration')) !== null) {

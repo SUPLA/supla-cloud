@@ -1,16 +1,23 @@
 <template>
     <div>
-        <component :is="additionalChannelParamsComponent"
-            :channel="channel"
-            @change="$emit('change')"
-            @save="$emit('save')"></component>
-        <ChannelParamsIntegrationsSettings :subject="channel" @change="$emit('change')"
-            v-if="channel.config.googleHome || channel.config.alexa"/>
+        <div class="alert alert-warning m-0 mt-3" v-if="channel.config.waitingForConfigInit">
+            {{ $t('Configuration not available yet. Waiting for the device to connect.') }}
+            <fa icon="circle-notch" spin></fa>
+        </div>
+        <div v-else>
+            <component :is="additionalChannelParamsComponent"
+                :channel="channel"
+                @change="$emit('change')"
+                @save="$emit('save')"></component>
+            <ChannelParamsIntegrationsSettings :subject="channel" @change="$emit('change')"
+                v-if="channel.config.googleHome || channel.config.alexa"/>
+        </div>
     </div>
 </template>
 
 <script>
     import changeCase from "change-case";
+    import EventBus from "@/common/event-bus";
     import ChannelParamsNone from "./channel-params-none";
     import ChannelParamsControllingthedoorlock from "./channel-params-controllingthedoorlock";
     import ChannelParamsControllingthegatewaylock from "./channel-params-controllingthegatewaylock";
@@ -91,6 +98,27 @@
                     return 'channel-params-none';
                 }
             },
+        },
+        data() {
+            return {
+                configWaiterInterval: undefined,
+            };
+        },
+        beforeMount() {
+            if (this.channel.config.waitingForConfigInit) {
+                this.configWaiterInterval = setInterval(
+                    () => this.$http.get(`channels/${this.channel.id}`).then(response => {
+                        if (!response.body.config?.waitingForConfigInit) {
+                            clearInterval(this.configWaiterInterval);
+                            EventBus.$emit('channel-updated');
+                        }
+                    }),
+                    5000
+                );
+            }
+        },
+        beforeDestroy() {
+            clearInterval(this.configWaiterInterval);
         }
     };
 </script>

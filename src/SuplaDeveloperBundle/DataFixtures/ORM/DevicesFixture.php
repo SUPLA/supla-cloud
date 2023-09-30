@@ -165,6 +165,7 @@ class DevicesFixture extends SuplaFixture {
                     ]),
                     'userConfig' => json_encode([
                         'subfunction' => 'HEAT',
+                        'mainThermometerChannelNo' => 2,
                     ]),
                 ],
             ],

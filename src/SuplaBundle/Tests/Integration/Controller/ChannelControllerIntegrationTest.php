@@ -69,6 +69,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::NONE],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
         ]);
+        $this->createDevice($this->location, [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+        ]);
         $oauth = self::$container->get(SuplaOAuth2::class);
         $this->peronsalToken = $oauth->createPersonalAccessToken($this->user, 'TEST', new OAuthScope(OAuthScope::getSupportedScopes()));
         $this->getEntityManager()->persist($this->peronsalToken);
@@ -151,7 +155,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(3, $content);
+        $this->assertCount(4, $content);
     }
 
     public function testFilteringBySkipIds() {
@@ -160,7 +164,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(5, $content);
+        $this->assertCount(7, $content);
     }
 
     public function testFilteringByInput() {
@@ -169,7 +173,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(1, $content);
+        $this->assertCount(2, $content);
     }
 
     public function testFilteringByInvalidInput() {
@@ -185,7 +189,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertLessThan(count($this->device->getChannels()), count($content));
+        $this->assertLessThan(count($this->device->getChannels()) + 2, count($content));
     }
 
     public function testFilteringByHasFunctionNone() {
@@ -213,6 +217,15 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertLessThan(count($this->device->getChannels()), count($content));
+    }
+
+    public function testFilteringByDeviceIds() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?deviceIds=' . $this->device->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(9, $content);
     }
 
     public function testGettingChannelsWithDeviceLocationsV24() {

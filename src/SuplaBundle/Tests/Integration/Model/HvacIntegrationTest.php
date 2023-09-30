@@ -120,4 +120,24 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelId'));
         $this->assertEquals(0, $hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
     }
+
+    /** @depends testConfigInitialized */
+    public function testSettingAuxThermometer() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+            'config' => [
+                'auxThermometerChannelId' => $this->device->getChannels()[1]->getId(),
+            ],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('HEAT', $content['config']['subfunction']);
+        $this->assertEquals($this->device->getChannels()[1]->getId(), $content['config']['auxThermometerChannelId']);
+        $hvacChannel = $this->freshEntity($this->hvacChannel);
+        $this->assertNull($hvacChannel->getUserConfigValue('auxThermometerChannelId'));
+        $this->assertEquals(1, $hvacChannel->getUserConfigValue('auxThermometerChannelNo'));
+    }
 }

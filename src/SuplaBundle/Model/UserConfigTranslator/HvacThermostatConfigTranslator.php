@@ -20,9 +20,15 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         $mainThermometerChannelNo = $subject->getUserConfigValue('mainThermometerChannelNo');
         if (is_int($mainThermometerChannelNo) && $mainThermometerChannelNo >= 0) {
             $mainThermometer = $this->channelNoToId($subject, $mainThermometerChannelNo);
+            $auxThermometerChannelNo = $subject->getUserConfigValue('auxThermometerChannelNo', -1);
+            $auxThermometer = null;
+            if ($auxThermometerChannelNo >= 0) {
+                $auxThermometer = $this->channelNoToId($subject, $auxThermometerChannelNo);
+            }
             return [
                 'subfunction' => $subject->getUserConfigValue('subfunction'),
                 'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
+                'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
             ];
         } else {
             return [
@@ -42,6 +48,19 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
             } else {
                 $subject->setUserConfigValue('mainThermometerChannelNo', $subject->getChannelNumber());
+            }
+        }
+        if (array_key_exists('auxThermometerChannelId', $config)) {
+            if ($config['auxThermometerChannelId']) {
+                $thermometer = $this->channelIdToNo($subject, $config['auxThermometerChannelId']);
+                Assertion::inArray(
+                    $thermometer->getFunction()->getId(),
+                    [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
+                );
+                Assertion::notEq($thermometer->getChannelNumber(), $subject->getUserConfigValue('mainThermometerChannelNo'));
+                $subject->setUserConfigValue('auxThermometerChannelNo', $thermometer->getChannelNumber());
+            } else {
+                $subject->setUserConfigValue('auxThermometerChannelNo', null);
             }
         }
         if (array_key_exists('subfunction', $config)) {
