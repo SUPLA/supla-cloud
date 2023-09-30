@@ -24,6 +24,7 @@ use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -137,7 +138,8 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $channel = $this->freshEntity($this->device->getChannels()[1]);
-        $channelConfig = $channel->getUserConfig();
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelConfig = $channelParamConfigTranslator->getConfig($channel);
         $this->assertArrayHasKey('googleHome', $channelConfig);
         $this->assertTrue($channelConfig['googleHome']['googleHomeDisabled']);
         $this->assertArrayHasKey('needsUserConfirmation', $channelConfig['googleHome']);
@@ -163,7 +165,8 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $channel = $this->freshEntity($this->device->getChannels()[0]);
-        $channelConfig = $channel->getUserConfig();
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelConfig = $channelParamConfigTranslator->getConfig($channel);
         $this->assertArrayHasKey('googleHome', $channelConfig);
         $this->assertTrue($channelConfig['googleHome']['googleHomeDisabled']);
         $this->assertFalse($channelConfig['googleHome']['needsUserConfirmation']);
