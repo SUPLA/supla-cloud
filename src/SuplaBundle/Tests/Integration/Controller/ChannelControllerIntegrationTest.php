@@ -488,9 +488,10 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'numberOfAttemptsToOpen' => 5,
             'numberOfAttemptsToClose' => 5,
             'stateVerificationMethodActive' => false,
-            'closingRule' => [],
         ];
-        $userConfig = array_diff_key($gateChannel->getUserConfig(), ['googleHome' => '', 'alexa' => '']);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $config = $channelParamConfigTranslator->getConfig($gateChannel);
+        $userConfig = array_diff_key($config, ['googleHome' => '', 'alexa' => '', 'closingRule' => '']);
         $this->assertEquals($expectedConfig, $userConfig);
     }
 

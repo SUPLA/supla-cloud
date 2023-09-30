@@ -54,6 +54,7 @@ class SubjectConfigTranslator {
             return null;
         }, $config);
         $this->setConfig($subject, $config);
+        $subject->setUserConfig([]);
     }
 
     public function getPublicConfig(HasUserConfig $subject) {

@@ -352,7 +352,6 @@ class ChannelController extends RestController {
                     $em->persist($channel);
                 }
                 $paramConfigTranslator->setConfig($channel, $channelConfig);
-                $channel->setUserConfig($paramConfigTranslator->getConfig($channel));
                 if (isset($requestData['altIcon'])) {
                     Assertion::integer($requestData['altIcon']);
                     $channel->setAltIcon($requestData['altIcon']);
