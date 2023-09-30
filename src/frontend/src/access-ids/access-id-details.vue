@@ -6,7 +6,7 @@
                 <pending-changes-page :header="$t('Access Identifier') + ' ID' + accessId.id"
                     @cancel="cancelChanges()"
                     @save="saveAccessId()"
-                    deletable="true"
+                    :deletable="true"
                     @delete="deleteConfirm = true"
                     :is-pending="hasPendingChanges">
 

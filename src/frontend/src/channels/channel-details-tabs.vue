@@ -55,7 +55,7 @@
                     header: 'Notifications', // i18n
                 });
             }
-            if ([ChannelFunction.HVAC_THERMOSTAT].includes(this.channel.functionId)) {
+            if ([ChannelFunction.HVAC_THERMOSTAT].includes(this.channel.functionId) && this.channel.config?.weeklySchedule) {
                 this.availableTabs.push({
                     route: 'channel.thermostatPrograms',
                     header: 'Programs', // i18n

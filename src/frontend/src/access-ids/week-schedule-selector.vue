@@ -112,17 +112,7 @@
             };
         },
         mounted() {
-            this.model = {};
-            const defaultValue = this.value && Object.keys(this.value).length ? 0 : 1;
-            [...Array(7).keys()].forEach((weekday) => {
-                weekday += 1;
-                const hours = {};
-                [...Array(24 * this.quarterMultiplicator).keys()].forEach((hour) => {
-                    hours[hour] = (this.value && this.value[weekday] && this.value[weekday][hour]) || defaultValue;
-                });
-                this.$set(this.model, weekday, hours);
-            });
-            this.temporaryModel = cloneDeep(this.model);
+            this.initModelFromValue();
             this.mouseUpCatcher = () => this.finishSelection();
             window.addEventListener('mouseup', this.mouseUpCatcher);
         },
@@ -130,6 +120,19 @@
             window.removeEventListener('mouseup', this.mouseUpCatcher);
         },
         methods: {
+            initModelFromValue() {
+                this.model = {};
+                const defaultValue = this.value && Object.keys(this.value).length ? 0 : 1;
+                [...Array(7).keys()].forEach((weekday) => {
+                    weekday += 1;
+                    const hours = {};
+                    [...Array(24 * this.quarterMultiplicator).keys()].forEach((hour) => {
+                        hours[hour] = (this.value && this.value[weekday] && this.value[weekday][hour]) || defaultValue;
+                    });
+                    this.$set(this.model, weekday, hours);
+                });
+                this.temporaryModel = cloneDeep(this.model);
+            },
             hourLabelStart(hour) {
                 const start = DateTime.fromFormat(('0' + hour).substr(-2), 'HH');
                 return start.toLocaleString(DateTime.TIME_SIMPLE);
@@ -185,6 +188,11 @@
         watch: {
             '$i18n.locale'() {
                 this.shortWeekdayLabels = Info.weekdays('short');
+            },
+            value() {
+                if (JSON.stringify(this.value) !== JSON.stringify(this.model)) {
+                    this.initModelFromValue();
+                }
             }
         }
     };

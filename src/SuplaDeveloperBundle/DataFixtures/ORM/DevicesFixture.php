@@ -50,14 +50,20 @@ class DevicesFixture extends SuplaFixture {
     /** @var Generator */
     private $faker;
 
-    public function load(ObjectManager $manager) {
-        $this->entityManager = $manager;
+    public function setObjectManager(ObjectManager $m): self {
+        $this->entityManager = $m;
         $this->faker = Factory::create('pl_PL');
+        return $this;
+    }
+
+    public function load(ObjectManager $manager) {
+        $this->setObjectManager($manager);
         $this->createDeviceSonoff($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
         $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), self::DEVICE_EVERY_FUNCTION);
         $hvac = $this->createDeviceHvac($this->getReference(LocationsFixture::LOCATION_BEDROOM));
+        $this->setReference(self::DEVICE_HVAC, $hvac);
         $device = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
             $noFunctionChannel->setFunction(ChannelFunction::NONE());
@@ -141,7 +147,7 @@ class DevicesFixture extends SuplaFixture {
         return $this->createDevice('OH-MY-GATES. This device also has ridiculously long name!', $location, $channels, 'gatesDevice');
     }
 
-    private function createDeviceHvac(Location $location) {
+    public function createDeviceHvac(Location $location) {
         return $this->createDevice('HVAC-Monster', $location, [
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
@@ -152,7 +158,7 @@ class DevicesFixture extends SuplaFixture {
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
                         'modeCapabilities' => ['ONOFF', 'AUTO', 'COOL', 'HEAT'],
-                        'temperatureConstraints' => [
+                        'temperatures' => [
                             'roomMin' => 1000,
                             'roomMax' => 4000,
                             'auxMin' => 500,
@@ -166,10 +172,67 @@ class DevicesFixture extends SuplaFixture {
                     'userConfig' => json_encode([
                         'subfunction' => 'HEAT',
                         'mainThermometerChannelNo' => 2,
+                        'auxThermometerChannelNo' => null,
+                        'weeklySchedule' => [
+                            'programSettings' => [
+                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2400],
+                                '2' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2100],
+                                '3' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 1800],
+                                '4' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2800],
+                            ],
+                            'quarters' => array_map(
+                                'intval',
+                                str_split(
+                                    str_repeat(
+                                        str_repeat('0', 6 * 4) .
+                                        str_repeat('1', 2 * 4) .
+                                        str_repeat('3', 6 * 4) .
+                                        str_repeat('2', 2 * 4) .
+                                        str_repeat('1', 6 * 4) .
+                                        str_repeat('0', 2 * 4),
+                                        5
+                                    ) . str_repeat(
+                                        str_repeat('0', 8 * 4 + 2) .
+                                        str_repeat('2', 12 * 4) .
+                                        str_repeat('1', 2 * 4) .
+                                        str_repeat('0', 4 + 2),
+                                        2
+                                    )
+                                )
+                            ),
+                        ],
+                        'altWeeklySchedule' => [
+                            'programSettings' => [
+                                '1' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2400],
+                                '2' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2100],
+                                '3' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 1800],
+                                '4' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2800],
+                            ],
+                            'quarters' => array_map(
+                                'intval',
+                                str_split(
+                                    str_repeat(
+                                        str_repeat('0', 6 * 4) .
+                                        str_repeat('1', 2 * 4) .
+                                        str_repeat('3', 6 * 4) .
+                                        str_repeat('2', 2 * 4) .
+                                        str_repeat('1', 6 * 4) .
+                                        str_repeat('0', 2 * 4),
+                                        5
+                                    ) . str_repeat(
+                                        str_repeat('0', 8 * 4 + 2) .
+                                        str_repeat('2', 12 * 4) .
+                                        str_repeat('1', 2 * 4) .
+                                        str_repeat('0', 4 + 2),
+                                        2
+                                    )
+                                )
+                            ),
+                        ],
                     ]),
                 ],
             ],
-        ], self::DEVICE_HVAC);
+        ], '');
     }
 
     private function createDevice(string $name, Location $location, array $channelTypes, string $registerAs): IODevice {

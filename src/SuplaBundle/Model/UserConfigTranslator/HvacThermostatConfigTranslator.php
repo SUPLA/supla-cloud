@@ -2,11 +2,14 @@
 
 namespace SuplaBundle\Model\UserConfigTranslator;
 
+use Assert\Assert;
 use Assert\Assertion;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Utils\NumberUtils;
+use function Assert\Assert;
 
 /**
  * @OA\Schema(schema="ChannelConfigHvacThermostat", description="Config for HVAC Thermostat.",
@@ -29,6 +32,8 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'subfunction' => $subject->getUserConfigValue('subfunction'),
                 'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
+                'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
+                'altWeeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('altWeeklySchedule')),
             ];
         } else {
             return [
@@ -63,13 +68,19 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 $subject->setUserConfigValue('auxThermometerChannelNo', null);
             }
         }
-        if (array_key_exists('subfunction', $config)) {
-            if ($config['subfunction']) {
-                Assertion::inArray($config['subfunction'], ['COOL', 'HEAT']);
-                $subject->setUserConfigValue('subfunction', $config['subfunction']);
-            } else {
-                $subject->setUserConfigValue('subfunction', null);
-            }
+        if (array_key_exists('subfunction', $config) && $config['subfunction']) {
+            Assertion::inArray($config['subfunction'], ['COOL', 'HEAT']);
+            $subject->setUserConfigValue('subfunction', $config['subfunction']);
+        }
+        if (array_key_exists('weeklySchedule', $config) && $config['weeklySchedule']) {
+            Assertion::isArray($subject->getUserConfigValue('weeklySchedule'));
+            $weeklySchedule = $this->validateWeeklySchedule($config['weeklySchedule']);
+            $subject->setUserConfigValue('weeklySchedule', $weeklySchedule);
+        }
+        if (array_key_exists('altWeeklySchedule', $config) && $config['altWeeklySchedule']) {
+            Assertion::isArray($subject->getUserConfigValue('altWeeklySchedule'));
+            $weeklySchedule = $this->validateWeeklySchedule($config['altWeeklySchedule']);
+            $subject->setUserConfigValue('altWeeklySchedule', $weeklySchedule);
         }
     }
 
@@ -95,5 +106,48 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         })->first();
         Assertion::isObject($channelWithId, 'Invalid channel ID given: ' . $channelId);
         return $channelWithId;
+    }
+
+    private function adjustWeeklySchedule(?array $week): ?array {
+        if ($week) {
+            return [
+                'programSettings' => array_map(function (array $programSettings) {
+                    return [
+                        'mode' => $programSettings['mode'],
+                        'setpointTemperatureMin' => NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureMin'] / 100),
+                        'setpointTemperatureMax' => NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureMax'] / 100),
+                    ];
+                }, $week['programSettings']),
+                'quarters' => $week['quarters'],
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    private function validateWeeklySchedule(array $weeklySchedule): array {
+        Assert::that($weeklySchedule)->isArray()->notEmptyKey('quarters')->notEmptyKey('programSettings');
+        Assert::that($weeklySchedule['programSettings'])
+            ->isArray()
+            ->all()
+            ->isArray()
+            ->keyExists('mode', 'setpointTemperatureMin', 'setpointTemperatureMax');
+        $availablePrograms = array_merge([0], array_keys($weeklySchedule['programSettings']));
+        Assert::that($weeklySchedule['quarters'])
+            ->isArray()
+            ->count(24 * 7 * 4)
+            ->all()
+            ->inArray($availablePrograms);
+        return [
+            'programSettings' => array_map(function (array $programSettings) {
+                Assertion::inArray($programSettings['mode'], ['COOL', 'HEAT']);
+                return [
+                    'mode' => $programSettings['mode'],
+                    'setpointTemperatureMin' => round($programSettings['setpointTemperatureMin'] * 100),
+                    'setpointTemperatureMax' => round($programSettings['setpointTemperatureMax'] * 100),
+                ];
+            }, $weeklySchedule['programSettings']),
+            'quarters' => $weeklySchedule['quarters'],
+        ];
     }
 }
