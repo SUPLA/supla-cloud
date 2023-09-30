@@ -121,11 +121,13 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         if ($week) {
             return [
                 'programSettings' => array_map(function (array $programSettings) {
-                    return [
-                        'mode' => $programSettings['mode'],
-                        'setpointTemperatureMin' => NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureMin'] / 100),
-                        'setpointTemperatureMax' => NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureMax'] / 100),
-                    ];
+                    $min = in_array($programSettings['mode'], ['HEAT', 'AUTO'])
+                        ? NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureMin'] / 100)
+                        : null;
+                    $max = in_array($programSettings['mode'], ['COOL', 'AUTO'])
+                        ? NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureMax'] / 100)
+                        : null;
+                    return ['mode' => $programSettings['mode'], 'setpointTemperatureMin' => $min, 'setpointTemperatureMax' => $max];
                 }, $week['programSettings']),
                 'quarters' => $week['quarters'],
             ];

@@ -97,7 +97,10 @@
         props: {
             value: Object,
             quarters: Boolean,
-            selectionMode: Number,
+            selectionMode: {
+                type: [Number, Boolean],
+                default: undefined,
+            }
         },
         data() {
             return {
@@ -112,6 +115,7 @@
             };
         },
         mounted() {
+            this.currentSelectionMode = this.selectionMode !== undefined ? this.selectionMode : 0;
             this.initModelFromValue();
             this.mouseUpCatcher = () => this.finishSelection();
             window.addEventListener('mouseup', this.mouseUpCatcher);
@@ -142,6 +146,9 @@
                 return end.toLocaleString(DateTime.TIME_SIMPLE);
             },
             startSelection(weekday, hour) {
+                if (this.selectionMode === false) {
+                    return;
+                }
                 this.copyFrom = undefined;
                 this.selectionStartCoords = {weekday, hour};
                 if (this.selectionMode === undefined) {
@@ -193,6 +200,9 @@
                 if (JSON.stringify(this.value) !== JSON.stringify(this.model)) {
                     this.initModelFromValue();
                 }
+            },
+            selectionMode() {
+                this.currentSelectionMode = this.selectionMode !== undefined ? this.selectionMode : 0;
             }
         }
     };
@@ -294,6 +304,12 @@
                     background: lighten($supla-green, 20%);
                 }
             }
+        }
+    }
+
+    .selection-mode-false {
+        .time-slot {
+            cursor: default !important;
         }
     }
 </style>

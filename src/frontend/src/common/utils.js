@@ -30,5 +30,9 @@ export function removeByValue(array, value) {
 }
 
 export function deepCopy(object) {
-    return JSON.parse(JSON.stringify(object));
+    if (object) {
+        return JSON.parse(JSON.stringify(object));
+    } else {
+        return object;
+    }
 }

@@ -85,6 +85,22 @@
       color: $supla-white;
     }
   }
+  &-blue {
+    background: $supla-blue;
+    border: 1px solid $supla-blue;
+    outline-color: $supla-blue !important;
+    color: $supla-white;
+    &:hover {
+      background: $supla-blue;
+      color: $supla-white;
+    }
+  }
+  &-link {
+    color: $supla-green;
+    &:hover {
+      color: $supla-green;
+    }
+  }
   &-outline {
     background: transparent;
     &.btn-green {

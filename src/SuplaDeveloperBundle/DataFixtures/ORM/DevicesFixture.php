@@ -162,7 +162,7 @@ class DevicesFixture extends SuplaFixture {
                 ) . str_repeat(
                     str_repeat('0', 8 * 4 + 2) .
                     str_repeat('2', 12 * 4) .
-                    str_repeat('1', 2 * 4) .
+                    str_repeat('4', 2 * 4) .
                     str_repeat('0', 4 + 2),
                     2
                 )
@@ -235,8 +235,8 @@ class DevicesFixture extends SuplaFixture {
                         'auxThermometerChannelNo' => null,
                         'weeklySchedule' => [
                             'programSettings' => [
-                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2400, 'setpointTemperatureMax' => 0],
-                                '2' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2100],
+                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2100, 'setpointTemperatureMax' => 0],
+                                '2' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2400],
                                 '3' => ['mode' => 'AUTO', 'setpointTemperatureMin' => 1800, 'setpointTemperatureMax' => 2200],
                                 '4' => ['mode' => 'AUTO', 'setpointTemperatureMin' => 2200, 'setpointTemperatureMax' => 2800],
                             ],

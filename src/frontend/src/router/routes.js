@@ -139,7 +139,7 @@ export default [
             },
             {
                 path: 'thermostat-programs',
-                component: () => import("@/channels/hvac/thermostat-programs-config"),
+                component: () => import("@/channels/hvac/thermostat-programs-tab"),
                 name: 'channel.thermostatPrograms',
             },
             {

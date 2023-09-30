@@ -84,6 +84,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals('HEAT', $config['subfunction']);
                     $this->assertNull($config['mainThermometerChannelId']);
                     $this->assertEquals(21, $config['weeklySchedule']['programSettings'][2]['setpointTemperatureMin']);
+                    $this->assertNull($config['weeklySchedule']['programSettings'][2]['setpointTemperatureMax']);
                     $this->assertEquals(21, $config['altWeeklySchedule']['programSettings'][2]['setpointTemperatureMax']);
                 },
             ],
@@ -95,7 +96,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
                     $this->assertEquals('COOL', $config['weeklySchedule']['programSettings'][2]['mode']);
                     $this->assertEquals('AUTO', $config['weeklySchedule']['programSettings'][3]['mode']);
-                    $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureMin']);
+                    $this->assertEquals(21, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureMin']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
