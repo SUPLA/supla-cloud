@@ -8,6 +8,7 @@ use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Utils\NumberUtils;
 use function Assert\Assert;
 
@@ -58,10 +59,16 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             if ($auxThermometerChannelNo >= 0) {
                 $auxThermometer = $this->channelNoToId($subject, $auxThermometerChannelNo);
             }
+            $binarySensorChannelNo = $subject->getUserConfigValue('binarySensorChannelNo', -1);
+            $binarySensor = null;
+            if ($binarySensorChannelNo >= 0) {
+                $binarySensor = $this->channelNoToId($subject, $binarySensorChannelNo);
+            }
             $config = [
                 'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
                 'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
+                'binarySensorChannelId' => $binarySensor ? $binarySensor->getId() : null,
                 'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
                 'temperatureSetpointChangeSwitchesToManualMode' =>
                     $subject->getUserConfigValue('temperatureSetpointChangeSwitchesToManualMode', false),
@@ -110,6 +117,17 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             } else {
                 $subject->setUserConfigValue('auxThermometerChannelNo', null);
                 $config['auxThermometerType'] = 'NOT_SET';
+            }
+        }
+        if (array_key_exists('binarySensorChannelId', $config)) {
+            if ($config['binarySensorChannelId']) {
+                Assertion::numeric($config['binarySensorChannelId']);
+                $sensor = $this->channelIdToNo($subject, $config['binarySensorChannelId']);
+                Assertion::eq(ChannelType::SENSORNO, $sensor->getType()->getId(), 'Invalid sensor type.');
+                Assertion::notEq(ChannelFunction::NONE, $sensor->getFunction()->getId(), 'Sensor function not chosen.');
+                $subject->setUserConfigValue('binarySensorChannelNo', $sensor->getChannelNumber());
+            } else {
+                $subject->setUserConfigValue('binarySensorChannelId', null);
             }
         }
         if (array_key_exists('auxThermometerType', $config)) {

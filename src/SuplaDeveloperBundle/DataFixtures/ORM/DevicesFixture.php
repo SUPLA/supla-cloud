@@ -276,6 +276,7 @@ class DevicesFixture extends SuplaFixture {
                     'userConfig' => json_encode([
                         'mainThermometerChannelNo' => 4,
                         'auxThermometerChannelNo' => null,
+                        'binarySensorChannelNo' => 5,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_AT_MOST',
                         'weeklySchedule' => [
                             'programSettings' => [
@@ -289,6 +290,7 @@ class DevicesFixture extends SuplaFixture {
                     ]),
                 ],
             ],
+            [ChannelType::SENSORNO, ChannelFunction::MAILSENSOR],
         ], '');
     }
 

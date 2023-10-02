@@ -38,6 +38,14 @@
             </dl>
         </transition-expand>
         <dl>
+            <dd>{{ $t('Binary sensor') }}</dd>
+            <dt>
+                <channels-id-dropdown :params="`function=MAILSENSOR&deviceIds=${channel.iodeviceId}`"
+                    v-model="channel.config.binarySensorChannelId"
+                    @input="$emit('change')"></channels-id-dropdown>
+            </dt>
+        </dl>
+        <dl>
             <dd>{{ $t('Enable anti freeze and overheat protection') }}</dd>
             <dt class="text-center">
                 <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @input="$emit('change')"/>

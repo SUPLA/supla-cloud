@@ -91,6 +91,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertFalse($config['temperatureSetpointChangeSwitchesToManualMode']);
                     $this->assertCount(2, $config['availableAlgorithms']);
                     $this->assertEquals(0, $config['minOnTimeS']);
+                    $this->assertNull($config['binarySensorChannelId']);
                 },
             ],
             'THERMOSTAT_AUTO' => [
@@ -120,6 +121,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][2]['mode']);
                     $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
                     $this->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
+                    $this->assertEquals(6, $config['binarySensorChannelId']);
                 },
             ],
         ];
@@ -320,7 +322,9 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [['auxThermometerType' => 'unicorn']],
             [['auxThermometerChannelId' => 123]],
             [['auxThermometerChannelId' => 3]],
-            [['mainThermometerChannelId' => 3]],
+            [['mainThermometerChannelId' => 5]],
+            [['binarySensorChannelId' => 3]],
+            [['binarySensorChannelId' => 1]],
             [['mainThermometerChannelId' => ['abc']]],
             [['weeklySchedule' => 'abc']],
             [['minOnTimeS' => -5]],
