@@ -234,7 +234,8 @@ class DevicesFixture extends SuplaFixture {
                     ]),
                     'userConfig' => json_encode([
                         'mainThermometerChannelNo' => 3,
-                        'auxThermometerChannelNo' => null,
+                        'auxThermometerChannelNo' => 1,
+                        'auxThermometerType' => 'FLOOR',
                         'weeklySchedule' => [
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],

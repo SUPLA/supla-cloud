@@ -23,6 +23,12 @@ actionableSubjectType_scene: Scene
 actionableSubjectType_schedule: Schedule
 addToHistoryMeasurementWarningSelected: Selecting this option will result in adding the added value to the future measurements. It might produce an undesired increase in the measurement history chart. We recommend to set this option only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.
 addToHistoryMeasurementWarningUnselected: Unselecting this option will result in ignoring the added value in the future measurements. It might produce an undesired decrease in the measurement history chart. We recommend to set this option only during the first counter configuration. If you change it for a counter that already has some logs, consider clearing the history immediately after you save the changes.
+auxThermometerType_DISABLED: Disabled
+auxThermometerType_FLOOR: Floor
+auxThermometerType_GENERIC_COOLER: Generic cooler
+auxThermometerType_GENERIC_HEATER: Generic heater
+auxThermometerType_NOT_SET: Not set
+auxThermometerType_WATER: Water
 channel: Channel
 channelConfigHelp_gateCloseAfterHelp: The agent that starts the gate closing procedure can be delayed up to one minute from the set time.
 channelConfigHelp_numberOfAttemptsGate: After you request to open or close the gate, we will wait 60 seconds after each relay switch and see if the gate reached the desired state. In case of failure, we will retry the action and check again. Here you can limit the number of these attempts. Recommended value is 5. Change of this parameter does not influence schedules.

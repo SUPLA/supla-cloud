@@ -14,14 +14,36 @@
                     @input="$emit('change')"></channels-id-dropdown>
             </dt>
         </dl>
+        <transition-expand>
+            <dl v-if="channel.config.auxThermometerChannelId">
+                <dd>{{ $t('Aux thermometer type') }}</dd>
+                <dt>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
+                            {{ $t(`auxThermometerType_${channel.config.auxThermometerType}`) }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li v-for="type in ['DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']" :key="type">
+                                <a @click="channel.config.auxThermometerType = type; $emit('change')"
+                                    v-show="type !== channel.config.auxThermometerType">
+                                    {{ $t(`auxThermometerType_${type}`) }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </dt>
+            </dl>
+        </transition-expand>
     </div>
 </template>
 
 <script>
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
+    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     export default {
-        components: {ChannelsIdDropdown},
+        components: {TransitionExpand, ChannelsIdDropdown},
         props: ['channel'],
         watch: {
             'channel.config.mainThermometerChannelId'() {

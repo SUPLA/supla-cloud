@@ -26,6 +26,7 @@ use function Assert\Assert;
  *   @OA\Property(property="subfunction", type="string", enum={"COOL", "HEAT"}, description="Only for the `HVAC_THERMOSTAT` function."),
  *   @OA\Property(property="mainThermometerChannelId", type="integer"),
  *   @OA\Property(property="auxThermometerChannelId", type="integer"),
+ *   @OA\Property(property="auxThermometerType", type="string", enum={"NOT_SET", "DISABLED", "FLOOR", "WATER", "GENERIC_HEATER", "GENERIC_COOLER"}),
  *   @OA\Property(property="weeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule"),
  *   @OA\Property(property="altWeeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule", description="Only for the `HVAC_THERMOSTAT` function."),
  * )
@@ -54,6 +55,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             $config = [
                 'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
+                'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
             ];
             if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
@@ -92,7 +94,19 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 $subject->setUserConfigValue('auxThermometerChannelNo', $thermometer->getChannelNumber());
             } else {
                 $subject->setUserConfigValue('auxThermometerChannelNo', null);
+                $config['auxThermometerType'] = 'NOT_SET';
             }
+        }
+        if (array_key_exists('auxThermometerType', $config)) {
+            if ($config['auxThermometerType']) {
+                // i18n:['auxThermometerType_NOT_SET', 'auxThermometerType_DISABLED', 'auxThermometerType_FLOOR']
+                // i18n:['auxThermometerType_WATER', 'auxThermometerType_GENERIC_HEATER', 'auxThermometerType_GENERIC_COOLER']
+                Assertion::inArray(
+                    $config['auxThermometerType'],
+                    ['NOT_SET', 'DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']
+                );
+            }
+            $subject->setUserConfigValue('auxThermometerType', $config['auxThermometerType'] ?: 'NOT_SET');
         }
         if (array_key_exists('subfunction', $config) && $config['subfunction']) {
             Assertion::inArray($config['subfunction'], ['COOL', 'HEAT']);
