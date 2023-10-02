@@ -112,6 +112,7 @@
                     () => this.$http.get(`channels/${this.channel.id}`).then(response => {
                         if (!response.body.config?.waitingForConfigInit) {
                             clearInterval(this.configWaiterInterval);
+                            this.channel.config = response.body.config;
                             EventBus.$emit('channel-updated');
                         }
                     }),
