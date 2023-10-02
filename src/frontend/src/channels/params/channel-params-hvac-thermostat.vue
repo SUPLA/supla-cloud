@@ -43,6 +43,26 @@
                 <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @input="$emit('change')"/>
             </dt>
         </dl>
+        <dl v-if="channel.config.availableAlgorithms.length > 1">
+            <dd>{{ $t('Algorithm') }}</dd>
+            <dt>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
+                        {{ $t(`thermostatAlgorithm_${channel.config.usedAlgorithm}`) }}
+                        <span class="caret"></span>
+                    </button>
+                    <!-- i18n:['thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE', 'thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST'] -->
+                    <ul class="dropdown-menu">
+                        <li v-for="type in channel.config.availableAlgorithms" :key="type">
+                            <a @click="channel.config.usedAlgorithm = type; $emit('change')"
+                                v-show="type !== channel.config.usedAlgorithm">
+                                {{ $t(`thermostatAlgorithm_${type}`) }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </dt>
+        </dl>
     </div>
 </template>
 

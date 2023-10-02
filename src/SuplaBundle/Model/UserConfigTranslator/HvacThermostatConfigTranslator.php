@@ -27,6 +27,9 @@ use function Assert\Assert;
  *   @OA\Property(property="mainThermometerChannelId", type="integer"),
  *   @OA\Property(property="auxThermometerChannelId", type="integer"),
  *   @OA\Property(property="auxThermometerType", type="string", enum={"NOT_SET", "DISABLED", "FLOOR", "WATER", "GENERIC_HEATER", "GENERIC_COOLER"}),
+ *   @OA\Property(property="antiFreezeAndOverheatProtectionEnabled", type="boolean"),
+ *   @OA\Property(property="availableAlgorithms", type="array", readOnly=true, @OA\Items(type="string", enum={"ON_OFF_SETPOINT_MIDDLE", "ON_OFF_SETPOINT_AT_MOST"})),
+ *   @OA\Property(property="usedAlgorithm", type="string", enum={"ON_OFF_SETPOINT_MIDDLE", "ON_OFF_SETPOINT_AT_MOST"}),
  *   @OA\Property(property="weeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule"),
  *   @OA\Property(property="altWeeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule", description="Only for the `HVAC_THERMOSTAT` function."),
  * )
@@ -57,6 +60,8 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
                 'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
                 'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
+                'availableAlgorithms' => $subject->getProperties()['availableAlgorithms'] ?? [],
+                'usedAlgorithm' => $subject->getUserConfigValue('usedAlgorithm'),
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
             ];
             if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
@@ -74,6 +79,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('mainThermometerChannelId', $config)) {
             if ($config['mainThermometerChannelId']) {
+                Assertion::numeric($config['mainThermometerChannelId']);
                 $thermometer = $this->channelIdToNo($subject, $config['mainThermometerChannelId']);
                 Assertion::inArray(
                     $thermometer->getFunction()->getId(),
@@ -86,6 +92,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         }
         if (array_key_exists('auxThermometerChannelId', $config)) {
             if ($config['auxThermometerChannelId']) {
+                Assertion::numeric($config['auxThermometerChannelId']);
                 $thermometer = $this->channelIdToNo($subject, $config['auxThermometerChannelId']);
                 Assertion::inArray(
                     $thermometer->getFunction()->getId(),
@@ -111,12 +118,18 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             $enabled = filter_var($config['antiFreezeAndOverheatProtectionEnabled'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('antiFreezeAndOverheatProtectionEnabled', $enabled);
         }
+        if (array_key_exists('usedAlgorithm', $config) && $config['usedAlgorithm']) {
+            $availableAlgorithms = $subject->getProperties()['availableAlgorithms'] ?? [];
+            Assertion::inArray($config['usedAlgorithm'], $availableAlgorithms);
+            $subject->setUserConfigValue('usedAlgorithm', $config['usedAlgorithm']);
+        }
         if (array_key_exists('subfunction', $config) && $config['subfunction']) {
             Assertion::inArray($config['subfunction'], ['COOL', 'HEAT']);
             $subject->setUserConfigValue('subfunction', $config['subfunction']);
         }
         if (array_key_exists('weeklySchedule', $config) && $config['weeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('weeklySchedule'));
+            Assertion::isArray($config['weeklySchedule']);
             $availableProgramModes = $subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_AUTO
                 ? ['HEAT', 'COOL', 'AUTO']
                 : ['HEAT'];
@@ -125,6 +138,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         }
         if (array_key_exists('altWeeklySchedule', $config) && $config['altWeeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('altWeeklySchedule'));
+            Assertion::isArray($config['altWeeklySchedule']);
             $weeklySchedule = $this->validateWeeklySchedule($config['altWeeklySchedule'], ['COOL']);
             $subject->setUserConfigValue('altWeeklySchedule', $weeklySchedule);
         }

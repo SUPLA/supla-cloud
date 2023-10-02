@@ -88,6 +88,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(21, $config['altWeeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
                     $this->assertEquals('NOT_SET', $config['auxThermometerType']);
                     $this->assertFalse($config['antiFreezeAndOverheatProtectionEnabled']);
+                    $this->assertCount(2, $config['availableAlgorithms']);
                 },
             ],
             'THERMOSTAT_AUTO' => [
@@ -102,6 +103,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(2, $config['auxThermometerChannelId']);
                     $this->assertEquals('FLOOR', $config['auxThermometerType']);
                     $this->assertTrue($config['antiFreezeAndOverheatProtectionEnabled']);
+                    $this->assertCount(1, $config['availableAlgorithms']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
@@ -112,6 +114,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
                     $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][2]['mode']);
                     $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
+                    $this->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
                 },
             ],
         ];
@@ -296,6 +299,26 @@ class HvacIntegrationTest extends IntegrationTestCase {
             ],
         ]);
         $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    /** @dataProvider invalidConfigRequests */
+    public function testSettingInvalidConfigs(array $invalidConfig) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), ['config' => $invalidConfig]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function invalidConfigRequests() {
+        return [
+            [['usedAlgorithm' => 'unicorn']],
+            [['auxThermometerType' => 'unicorn']],
+            [['auxThermometerChannelId' => 123]],
+            [['auxThermometerChannelId' => 3]],
+            [['mainThermometerChannelId' => 3]],
+            [['mainThermometerChannelId' => ['abc']]],
+            [['weeklySchedule' => 'abc']],
+        ];
     }
 
     public function testWaitingForConfigInit() {

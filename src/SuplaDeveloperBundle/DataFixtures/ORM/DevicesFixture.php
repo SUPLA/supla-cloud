@@ -193,6 +193,7 @@ class DevicesFixture extends SuplaFixture {
                         'subfunction' => 'HEAT',
                         'mainThermometerChannelNo' => 2,
                         'auxThermometerChannelNo' => null,
+                        'usedAlgorithm' => 'ON_OFF_SETPOINT_MIDDLE',
                         'weeklySchedule' => [
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2400, 'setpointTemperatureCool' => 0],
@@ -220,7 +221,7 @@ class DevicesFixture extends SuplaFixture {
                 [
                     'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_AUTO,
                     'properties' => json_encode([
-                        'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
+                        'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE'],
                         'temperatures' => [
                             'roomMin' => 1000,
                             'roomMax' => 4000,
@@ -237,6 +238,7 @@ class DevicesFixture extends SuplaFixture {
                         'auxThermometerChannelNo' => 1,
                         'auxThermometerType' => 'FLOOR',
                         'antiFreezeAndOverheatProtectionEnabled' => true,
+                        'usedAlgorithm' => 'ON_OFF_SETPOINT_MIDDLE',
                         'weeklySchedule' => [
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],
@@ -271,6 +273,7 @@ class DevicesFixture extends SuplaFixture {
                     'userConfig' => json_encode([
                         'mainThermometerChannelNo' => 4,
                         'auxThermometerChannelNo' => null,
+                        'usedAlgorithm' => 'ON_OFF_SETPOINT_AT_MOST',
                         'weeklySchedule' => [
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2400, 'setpointTemperatureCool' => 0],
