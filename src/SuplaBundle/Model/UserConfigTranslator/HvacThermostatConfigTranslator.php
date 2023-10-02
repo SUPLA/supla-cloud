@@ -56,6 +56,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
                 'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
+                'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
             ];
             if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
@@ -99,14 +100,16 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         }
         if (array_key_exists('auxThermometerType', $config)) {
             if ($config['auxThermometerType']) {
-                // i18n:['auxThermometerType_NOT_SET', 'auxThermometerType_DISABLED', 'auxThermometerType_FLOOR']
-                // i18n:['auxThermometerType_WATER', 'auxThermometerType_GENERIC_HEATER', 'auxThermometerType_GENERIC_COOLER']
                 Assertion::inArray(
                     $config['auxThermometerType'],
                     ['NOT_SET', 'DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']
                 );
             }
             $subject->setUserConfigValue('auxThermometerType', $config['auxThermometerType'] ?: 'NOT_SET');
+        }
+        if (array_key_exists('antiFreezeAndOverheatProtectionEnabled', $config)) {
+            $enabled = filter_var($config['antiFreezeAndOverheatProtectionEnabled'], FILTER_VALIDATE_BOOLEAN);
+            $subject->setUserConfigValue('antiFreezeAndOverheatProtectionEnabled', $enabled);
         }
         if (array_key_exists('subfunction', $config) && $config['subfunction']) {
             Assertion::inArray($config['subfunction'], ['COOL', 'HEAT']);

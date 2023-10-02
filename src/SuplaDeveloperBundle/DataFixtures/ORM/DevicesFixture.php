@@ -236,6 +236,7 @@ class DevicesFixture extends SuplaFixture {
                         'mainThermometerChannelNo' => 3,
                         'auxThermometerChannelNo' => 1,
                         'auxThermometerType' => 'FLOOR',
+                        'antiFreezeAndOverheatProtectionEnabled' => true,
                         'weeklySchedule' => [
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],

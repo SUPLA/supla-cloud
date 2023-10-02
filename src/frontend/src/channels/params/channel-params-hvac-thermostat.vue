@@ -23,6 +23,8 @@
                             {{ $t(`auxThermometerType_${channel.config.auxThermometerType}`) }}
                             <span class="caret"></span>
                         </button>
+                        <!-- i18n:['auxThermometerType_NOT_SET', 'auxThermometerType_DISABLED', 'auxThermometerType_FLOOR'] -->
+                        <!-- i18n:['auxThermometerType_WATER', 'auxThermometerType_GENERIC_HEATER', 'auxThermometerType_GENERIC_COOLER'] -->
                         <ul class="dropdown-menu">
                             <li v-for="type in ['DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']" :key="type">
                                 <a @click="channel.config.auxThermometerType = type; $emit('change')"
@@ -35,6 +37,12 @@
                 </dt>
             </dl>
         </transition-expand>
+        <dl>
+            <dd>{{ $t('Enable anti freeze and overheat protection') }}</dd>
+            <dt class="text-center">
+                <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @input="$emit('change')"/>
+            </dt>
+        </dl>
     </div>
 </template>
 

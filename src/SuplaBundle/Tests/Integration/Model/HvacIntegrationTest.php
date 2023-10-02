@@ -87,6 +87,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertNull($config['weeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
                     $this->assertEquals(21, $config['altWeeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
                     $this->assertEquals('NOT_SET', $config['auxThermometerType']);
+                    $this->assertFalse($config['antiFreezeAndOverheatProtectionEnabled']);
                 },
             ],
             'THERMOSTAT_AUTO' => [
@@ -100,6 +101,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(21, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
                     $this->assertEquals(2, $config['auxThermometerChannelId']);
                     $this->assertEquals('FLOOR', $config['auxThermometerType']);
+                    $this->assertTrue($config['antiFreezeAndOverheatProtectionEnabled']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
