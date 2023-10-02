@@ -106,6 +106,16 @@
                     </span>
                 </span>
             </dt>
+            <dd>{{ $t('Output value on error') }}</dd>
+            <dt>
+                <input type="number"
+                    step="1"
+                    min="-100"
+                    max="100"
+                    class="form-control text-center"
+                    v-model="channel.config.outputValueOnError"
+                    @change="$emit('change')">
+            </dt>
         </dl>
     </div>
 </template>

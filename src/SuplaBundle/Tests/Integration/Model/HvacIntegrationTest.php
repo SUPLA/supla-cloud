@@ -91,6 +91,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertFalse($config['temperatureSetpointChangeSwitchesToManualMode']);
                     $this->assertCount(2, $config['availableAlgorithms']);
                     $this->assertEquals(0, $config['minOnTimeS']);
+                    $this->assertEquals(0, $config['outputValueOnError']);
                     $this->assertNull($config['binarySensorChannelId']);
                 },
             ],
@@ -110,6 +111,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertCount(1, $config['availableAlgorithms']);
                     $this->assertEquals(60, $config['minOnTimeS']);
                     $this->assertEquals(120, $config['minOffTimeS']);
+                    $this->assertEquals(42, $config['outputValueOnError']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
@@ -330,6 +332,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [['minOnTimeS' => -5]],
             [['minOffTimeS' => 5000]],
             [['minOnTimeS' => 'abc']],
+            [['outputValueOnError' => 'abc']],
+            [['outputValueOnError' => 101]],
         ];
     }
 
