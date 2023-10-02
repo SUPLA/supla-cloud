@@ -31,6 +31,7 @@ class HiLowChannelStateGetter implements SingleChannelStateGetter {
             ChannelFunction::OPENINGSENSOR_GATE(),
             ChannelFunction::OPENINGSENSOR_WINDOW(),
             ChannelFunction::MAILSENSOR(),
+            ChannelFunction::HOTELCARDSENSOR(),
             ChannelFunction::NOLIQUIDSENSOR(),
         ];
     }

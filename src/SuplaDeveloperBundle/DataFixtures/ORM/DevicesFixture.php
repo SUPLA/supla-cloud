@@ -291,7 +291,7 @@ class DevicesFixture extends SuplaFixture {
                     ]),
                 ],
             ],
-            [ChannelType::SENSORNO, ChannelFunction::MAILSENSOR],
+            [ChannelType::SENSORNO, ChannelFunction::HOTELCARDSENSOR],
         ], '');
     }
 

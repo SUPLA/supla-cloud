@@ -40,7 +40,7 @@
         <dl>
             <dd>{{ $t('Binary sensor') }}</dd>
             <dt>
-                <channels-id-dropdown :params="`function=MAILSENSOR&deviceIds=${channel.iodeviceId}`"
+                <channels-id-dropdown :params="`function=HOTELCARDSENSOR&deviceIds=${channel.iodeviceId}`"
                     v-model="channel.config.binarySensorChannelId"
                     @input="$emit('change')"></channels-id-dropdown>
             </dt>
