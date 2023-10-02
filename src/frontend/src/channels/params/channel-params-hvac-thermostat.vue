@@ -42,6 +42,10 @@
             <dt class="text-center">
                 <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @input="$emit('change')"/>
             </dt>
+            <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
+            <dt class="text-center">
+                <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"/>
+            </dt>
         </dl>
         <dl v-if="channel.config.availableAlgorithms.length > 1">
             <dd>{{ $t('Algorithm') }}</dd>

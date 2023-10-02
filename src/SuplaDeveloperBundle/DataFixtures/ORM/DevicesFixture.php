@@ -238,6 +238,7 @@ class DevicesFixture extends SuplaFixture {
                         'auxThermometerChannelNo' => 1,
                         'auxThermometerType' => 'FLOOR',
                         'antiFreezeAndOverheatProtectionEnabled' => true,
+                        'temperatureSetpointChangeSwitchesToManualMode' => true,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_MIDDLE',
                         'minOnTimeS' => 60,
                         'minOffTimeS' => 120,

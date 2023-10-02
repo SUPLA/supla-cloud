@@ -28,6 +28,7 @@ use function Assert\Assert;
  *   @OA\Property(property="auxThermometerChannelId", type="integer"),
  *   @OA\Property(property="auxThermometerType", type="string", enum={"NOT_SET", "DISABLED", "FLOOR", "WATER", "GENERIC_HEATER", "GENERIC_COOLER"}),
  *   @OA\Property(property="antiFreezeAndOverheatProtectionEnabled", type="boolean"),
+ *   @OA\Property(property="temperatureSetpointChangeSwitchesToManualMode", type="boolean"),
  *   @OA\Property(property="availableAlgorithms", type="array", readOnly=true, @OA\Items(type="string", enum={"ON_OFF_SETPOINT_MIDDLE", "ON_OFF_SETPOINT_AT_MOST"})),
  *   @OA\Property(property="usedAlgorithm", type="string", enum={"ON_OFF_SETPOINT_MIDDLE", "ON_OFF_SETPOINT_AT_MOST"}),
  *   @OA\Property(property="minOnTimeS", type="integer", minimum=0, maximum=600),
@@ -62,6 +63,8 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
                 'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
                 'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
+                'temperatureSetpointChangeSwitchesToManualMode' =>
+                    $subject->getUserConfigValue('temperatureSetpointChangeSwitchesToManualMode', false),
                 'availableAlgorithms' => $subject->getProperties()['availableAlgorithms'] ?? [],
                 'usedAlgorithm' => $subject->getUserConfigValue('usedAlgorithm'),
                 'minOnTimeS' => $subject->getUserConfigValue('minOnTimeS', 0),
@@ -121,6 +124,10 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         if (array_key_exists('antiFreezeAndOverheatProtectionEnabled', $config)) {
             $enabled = filter_var($config['antiFreezeAndOverheatProtectionEnabled'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('antiFreezeAndOverheatProtectionEnabled', $enabled);
+        }
+        if (array_key_exists('temperatureSetpointChangeSwitchesToManualMode', $config)) {
+            $enabled = filter_var($config['temperatureSetpointChangeSwitchesToManualMode'], FILTER_VALIDATE_BOOLEAN);
+            $subject->setUserConfigValue('temperatureSetpointChangeSwitchesToManualMode', $enabled);
         }
         if (array_key_exists('usedAlgorithm', $config) && $config['usedAlgorithm']) {
             $availableAlgorithms = $subject->getProperties()['availableAlgorithms'] ?? [];
