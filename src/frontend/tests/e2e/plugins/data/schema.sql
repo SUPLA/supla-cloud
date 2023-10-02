@@ -520,6 +520,7 @@ CREATE TABLE `supla_iodevice`
     `manufacturer_id`      smallint(6) DEFAULT NULL,
     `product_id`           smallint(6) DEFAULT NULL,
     `user_config`          varchar(4096) COLLATE utf8_unicode_ci                         DEFAULT NULL,
+    `properties`           varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_USER_GUID` (`user_id`,`guid`),
     KEY                    `IDX_793D49D64D218E` (`location_id`),
@@ -1194,7 +1195,9 @@ character_set_client = utf8;
   1 AS `value`,
   1 AS `validity_time_sec`,
   1 AS `user_config`,
-  1 AS `em_subc_user_config` */;
+  1 AS `properties`,
+  1 AS `em_subc_user_config`,
+  1 AS `em_subc_properties` */;
 SET
 character_set_client = @saved_cs_client;
 
@@ -2330,7 +2333,7 @@ DELIMITER;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `supla_set_channel_user_config` */;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_set_channel_json_config` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -2339,14 +2342,16 @@ DELIMITER;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_set_channel_user_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` VARCHAR(4096) CHARSET utf8mb4, IN `_md5` VARCHAR(32))
+DEFINER=`root`@`%` PROCEDURE `supla_set_channel_json_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` VARCHAR(4096) CHARSET utf8mb4, IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048) CHARSET utf8mb4, IN `_properties_md5` VARCHAR(32))
 BEGIN
 UPDATE supla_dev_channel
-SET user_config = _user_config
+SET user_config = _user_config,
+    properties  = _properties
 WHERE id = _channel_id
   AND user_id = _user_id
-  AND MD5(IFNULL(user_config, '')) = _md5;
-SELECT STRCMP(user_config, _user_config)
+  AND MD5(IFNULL(user_config, '')) = _user_config_md5
+  AND MD5(IFNULL(properties, '')) = _properties_md5;
+SELECT ABS(STRCMP(user_config, _user_config)) + ABS(STRCMP(properties, _properties))
 FROM supla_dev_channel
 WHERE id = _channel_id
   AND user_id = _user_id;
@@ -2379,7 +2384,7 @@ DELIMITER;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `supla_set_device_user_config` */;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_set_device_json_config` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -2388,14 +2393,16 @@ DELIMITER;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_set_device_user_config`(IN `_user_id` INT, IN `_device_id` INT, IN `_user_config` VARCHAR(4096) CHARSET utf8mb4, IN `_md5` VARCHAR(32))
+DEFINER=`root`@`%` PROCEDURE `supla_set_device_json_config`(IN `_user_id` INT, IN `_device_id` INT, IN `_user_config` VARCHAR(4096) CHARSET utf8mb4, IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048) CHARSET utf8mb4, IN `_properties_md5` VARCHAR(32))
 BEGIN
 UPDATE supla_iodevice
-SET user_config = _user_config
+SET user_config = _user_config,
+    properties  = _properties
 WHERE id = _device_id
   AND user_id = _user_id
-  AND MD5(IFNULL(user_config, '')) = _md5;
-SELECT STRCMP(user_config, _user_config)
+  AND MD5(IFNULL(user_config, '')) = _user_config_md5
+  AND MD5(IFNULL(properties, '')) = _properties_md5;
+SELECT ABS(STRCMP(user_config, _user_config)) + ABS(STRCMP(properties, _properties))
 FROM supla_iodevice
 WHERE id = _device_id
   AND user_id = _user_id;
@@ -2893,7 +2900,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `supla_v_client_channel` AS select `c`.`id` AS `id`,`c`.`type` AS `type`,`c`.`func` AS `func`,ifnull(`c`.`param1`,0) AS `param1`,ifnull(`c`.`param2`,0) AS `param2`,`c`.`caption` AS `caption`,ifnull(`c`.`param3`,0) AS `param3`,ifnull(`c`.`param4`,0) AS `param4`,`c`.`text_param1` AS `text_param1`,`c`.`text_param2` AS `text_param2`,`c`.`text_param3` AS `text_param3`,ifnull(`d`.`manufacturer_id`,0) AS `manufacturer_id`,ifnull(`d`.`product_id`,0) AS `product_id`,ifnull(`c`.`user_icon_id`,0) AS `user_icon_id`,`c`.`user_id` AS `user_id`,`c`.`channel_number` AS `channel_number`,`c`.`iodevice_id` AS `iodevice_id`,`cl`.`id` AS `client_id`,(case ifnull(`c`.`location_id`,0) when 0 then `d`.`location_id` else `c`.`location_id` end) AS `location_id`,ifnull(`c`.`alt_icon`,0) AS `alt_icon`,`d`.`protocol_version` AS `protocol_version`,ifnull(`c`.`flags`,0) AS `flags`,ifnull(`em_subc`.`flags`,0) AS `em_subc_flags`,`v`.`value` AS `value`,(case when (`v`.`valid_to` >= utc_timestamp()) then time_to_sec(timediff(`v`.`valid_to`,utc_timestamp())) else NULL end) AS `validity_time_sec`,`c`.`user_config` AS `user_config`,`em_subc`.`user_config` AS `em_subc_user_config` from (((((((`supla_dev_channel` `c` join `supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) join `supla_location` `l` on((`l`.`id` = (case ifnull(`c`.`location_id`,0) when 0 then `d`.`location_id` else `c`.`location_id` end)))) join `supla_rel_aidloc` `r` on((`r`.`location_id` = `l`.`id`))) join `supla_accessid` `a` on((`a`.`id` = `r`.`access_id`))) join `supla_client` `cl` on((`cl`.`access_id` = `r`.`access_id`))) left join `supla_dev_channel_value` `v` on((`c`.`id` = `v`.`channel_id`))) left join `supla_dev_channel` `em_subc` on(((`em_subc`.`user_id` = `c`.`user_id`) and (`em_subc`.`type` = 5000) and ((((`c`.`func` = 130) or (`c`.`func` = 140)) and (`c`.`param1` = `em_subc`.`id`)) or ((`c`.`func` = 300) and (`c`.`param2` = `em_subc`.`id`)))))) where ((((`c`.`func` is not null) and (`c`.`func` <> 0)) or (`c`.`type` = 8000)) and (ifnull(`c`.`hidden`,0) = 0) and (`d`.`enabled` = 1) and (`l`.`enabled` = 1) and (`a`.`enabled` = 1)) */;
+/*!50001 VIEW `supla_v_client_channel` AS select `c`.`id` AS `id`,`c`.`type` AS `type`,`c`.`func` AS `func`,ifnull(`c`.`param1`,0) AS `param1`,ifnull(`c`.`param2`,0) AS `param2`,`c`.`caption` AS `caption`,ifnull(`c`.`param3`,0) AS `param3`,ifnull(`c`.`param4`,0) AS `param4`,`c`.`text_param1` AS `text_param1`,`c`.`text_param2` AS `text_param2`,`c`.`text_param3` AS `text_param3`,ifnull(`d`.`manufacturer_id`,0) AS `manufacturer_id`,ifnull(`d`.`product_id`,0) AS `product_id`,ifnull(`c`.`user_icon_id`,0) AS `user_icon_id`,`c`.`user_id` AS `user_id`,`c`.`channel_number` AS `channel_number`,`c`.`iodevice_id` AS `iodevice_id`,`cl`.`id` AS `client_id`,(case ifnull(`c`.`location_id`,0) when 0 then `d`.`location_id` else `c`.`location_id` end) AS `location_id`,ifnull(`c`.`alt_icon`,0) AS `alt_icon`,`d`.`protocol_version` AS `protocol_version`,ifnull(`c`.`flags`,0) AS `flags`,ifnull(`em_subc`.`flags`,0) AS `em_subc_flags`,`v`.`value` AS `value`,(case when (`v`.`valid_to` >= utc_timestamp()) then time_to_sec(timediff(`v`.`valid_to`,utc_timestamp())) else NULL end) AS `validity_time_sec`,`c`.`user_config` AS `user_config`,`c`.`properties` AS `properties`,`em_subc`.`user_config` AS `em_subc_user_config`,`em_subc`.`properties` AS `em_subc_properties` from (((((((`supla_dev_channel` `c` join `supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) join `supla_location` `l` on((`l`.`id` = (case ifnull(`c`.`location_id`,0) when 0 then `d`.`location_id` else `c`.`location_id` end)))) join `supla_rel_aidloc` `r` on((`r`.`location_id` = `l`.`id`))) join `supla_accessid` `a` on((`a`.`id` = `r`.`access_id`))) join `supla_client` `cl` on((`cl`.`access_id` = `r`.`access_id`))) left join `supla_dev_channel_value` `v` on((`c`.`id` = `v`.`channel_id`))) left join `supla_dev_channel` `em_subc` on(((`em_subc`.`user_id` = `c`.`user_id`) and (`em_subc`.`type` = 5000) and ((((`c`.`func` = 130) or (`c`.`func` = 140)) and (`c`.`param1` = `em_subc`.`id`)) or ((`c`.`func` = 300) and (`c`.`param2` = `em_subc`.`id`)))))) where ((((`c`.`func` is not null) and (`c`.`func` <> 0)) or (`c`.`type` = 8000)) and (ifnull(`c`.`hidden`,0) = 0) and (`d`.`enabled` = 1) and (`l`.`enabled` = 1) and (`a`.`enabled` = 1)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -3015,4 +3022,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-26 14:47:34
+-- Dump completed on 2023-10-02 22:09:55
