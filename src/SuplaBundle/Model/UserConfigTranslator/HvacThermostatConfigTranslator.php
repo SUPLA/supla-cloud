@@ -38,6 +38,28 @@ use function Assert\Assert;
  *   @OA\Property(property="outputValueOnError", type="integer", minimum=-100, maximum=100),
  *   @OA\Property(property="weeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule"),
  *   @OA\Property(property="altWeeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule", description="Only for the `HVAC_THERMOSTAT` function."),
+ *   @OA\Property(property="temperatures",
+ *     @OA\Property(property="freezeProtection", type="float"),
+ *     @OA\Property(property="eco", type="float"),
+ *     @OA\Property(property="comfort", type="float"),
+ *     @OA\Property(property="boost", type="float"),
+ *     @OA\Property(property="heatProtection", type="float"),
+ *     @OA\Property(property="histeresis", type="float"),
+ *     @OA\Property(property="belowAlarm", type="float"),
+ *     @OA\Property(property="aboveAlarm", type="float"),
+ *     @OA\Property(property="auxMinSetpoint", type="float"),
+ *     @OA\Property(property="auxMaxSetpoint", type="float"),
+ *   ),
+ *   @OA\Property(property="temperatureConstraints",
+ *     @OA\Property(property="roomMin", type="float"),
+ *     @OA\Property(property="roomMax", type="float"),
+ *     @OA\Property(property="auxMin", type="float"),
+ *     @OA\Property(property="auxMax", type="float"),
+ *     @OA\Property(property="histeresisMin", type="float"),
+ *     @OA\Property(property="histeresisMax", type="float"),
+ *     @OA\Property(property="autoOffsetMin", type="float"),
+ *     @OA\Property(property="autoOffsetMax", type="float"),
+ *   )
  * )
  */
 class HvacThermostatConfigTranslator implements UserConfigTranslator {
@@ -302,7 +324,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                     $min = $this->validateTemperature($subject, $programSettings['setpointTemperatureHeat'], 'room');
                 }
                 if (in_array($programMode, ['COOL', 'AUTO'])) {
-                    $max = $this->validateTemperature($subject, $programSettings['setpointTemperatureCool'], 'room');;
+                    $max = $this->validateTemperature($subject, $programSettings['setpointTemperatureCool'], 'room');
                 }
                 if ($programMode === 'AUTO') {
                     Assertion::lessThan($min, $max);
