@@ -175,6 +175,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::HVAC,
                 ChannelFunction::HVAC_THERMOSTAT,
                 [
+                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT | ChannelFunctionBitsFlist::HVAC_DOMESTIC_HOT_WATER,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
                         'temperatures' => [
@@ -217,6 +218,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::HVAC,
                 ChannelFunction::HVAC_THERMOSTAT_AUTO,
                 [
+                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_AUTO,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
                         'temperatures' => [
@@ -249,6 +251,8 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::HVAC,
                 ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
                 [
+                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_AUTO | ChannelFunctionBitsFlist::HVAC_DOMESTIC_HOT_WATER |
+                        ChannelFunctionBitsFlist::HVAC_THERMOSTAT | ChannelFunctionBitsFlist::HVAC_THERMOSTAT_DIFFERENTIAL,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
                         'temperatures' => [

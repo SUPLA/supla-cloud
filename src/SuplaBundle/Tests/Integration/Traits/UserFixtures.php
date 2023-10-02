@@ -139,7 +139,7 @@ trait UserFixtures {
             $fieldSetter->call($channel, 'type', $channelData[0]);
             $fieldSetter->call($channel, 'function', $channelData[1]);
             $fieldSetter->call($channel, 'channelNumber', $channelNumber++);
-            if ($channel->getType() == ChannelType::RELAY()) {
+            if (in_array($channel->getType()->getId(), [ChannelType::RELAY, ChannelType::HVAC])) {
                 $fieldSetter->call($channel, 'funcList', ChannelFunctionBitsFlist::getAllFeaturesFlag());
             }
             $fieldSetter->call($channel, 'flags', 0b1111111111);

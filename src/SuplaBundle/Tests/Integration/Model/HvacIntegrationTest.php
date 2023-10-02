@@ -112,6 +112,24 @@ class HvacIntegrationTest extends IntegrationTestCase {
         ];
     }
 
+    public function testSupportedFunctions() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId() . '?include=supportedFunctions');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(2, $content['supportedFunctions']);
+        $this->assertEquals(
+            [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_DOMESTIC_HOT_WATER],
+            array_column($content['supportedFunctions'], 'id')
+        );
+        $client->apiRequestV24('GET', '/api/channels/' . $this->device->getChannels()[4]->getId() . '?include=supportedFunctions');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(4, $content['supportedFunctions']);
+    }
+
     public function testSettingMainThermometer() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
