@@ -12,8 +12,22 @@ use SuplaBundle\Utils\NumberUtils;
 use function Assert\Assert;
 
 /**
+ * @OA\Schema(schema="ChannelConfigHvacThermostatSchedule", description="Weekly schedule for thermostats.",
+ *   @OA\Property(property="programSettings", type="array", @OA\Items(type="object",
+ *     @OA\Property(property="mode", type="string", enum={"COOL", "HEAT", "AUTO"}),
+ *     @OA\Property(property="setpointTemperatureHeat", type="float"),
+ *     @OA\Property(property="setpointTemperatureCool", type="float"),
+ *   )),
+ *   @OA\Property(property="quarters", type="array", minLength=672, maxLength=672, @OA\Items(type="integer", enum={0,1,2,3,4}),
+ *     description="Every item in the array represents the consequent quarter in the week and the chosen program. `0` is OFF. Starts with Monday."
+ *   ),
+ * )
  * @OA\Schema(schema="ChannelConfigHvacThermostat", description="Config for HVAC Thermostat.",
- *   @OA\Property(property="subfunction", type="string", enum={"COOL", "HEAT"}),
+ *   @OA\Property(property="subfunction", type="string", enum={"COOL", "HEAT"}, description="Only for the `HVAC_THERMOSTAT` function."),
+ *   @OA\Property(property="mainThermometerChannelId", type="integer"),
+ *   @OA\Property(property="auxThermometerChannelId", type="integer"),
+ *   @OA\Property(property="weeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule"),
+ *   @OA\Property(property="altWeeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule", description="Only for the `HVAC_THERMOSTAT` function."),
  * )
  */
 class HvacThermostatConfigTranslator implements UserConfigTranslator {
@@ -119,6 +133,11 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
 
     private function adjustWeeklySchedule(?array $week): ?array {
         if ($week) {
+            $quartersGoToChurch = array_merge(
+                array_slice($week['quarters'], 24 * 4, 24 * 4), // Monday
+                array_slice($week['quarters'], 2 * 24 * 4), // Tuesday - Saturday
+                array_slice($week['quarters'], 0, 24 * 4) // Sunday
+            );
             return [
                 'programSettings' => array_map(function (array $programSettings) {
                     $min = in_array($programSettings['mode'], ['HEAT', 'AUTO'])
@@ -129,7 +148,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                         : null;
                     return ['mode' => $programSettings['mode'], 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
                 }, $week['programSettings']),
-                'quarters' => $week['quarters'],
+                'quarters' => $quartersGoToChurch,
             ];
         } else {
             return null;
@@ -149,6 +168,10 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             ->count(24 * 7 * 4)
             ->all()
             ->inArray($availablePrograms);
+        $quartersGoToChurch = array_merge(
+            array_slice($weeklySchedule['quarters'], 6 * 24 * 4), // Sunday
+            array_slice($weeklySchedule['quarters'], 0, 6 * 24 * 4) // Monday - Saturday
+        );
         return [
             'programSettings' => array_map(function (array $programSettings) use ($availableProgramModes) {
                 $programMode = $programSettings['mode'];
@@ -166,7 +189,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 }
                 return ['mode' => $programMode, 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
             }, $weeklySchedule['programSettings']),
-            'quarters' => $weeklySchedule['quarters'],
+            'quarters' => $quartersGoToChurch,
         ];
     }
 }

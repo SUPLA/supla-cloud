@@ -168,6 +168,29 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(1, $hvacChannel->getUserConfigValue('auxThermometerChannelNo'));
     }
 
+    public function testApiQuartersStartWithMondayAndBackendQuartersStartWithSunday() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channel = $this->device->getChannels()[3];
+        $channelConfig = $channelParamConfigTranslator->getConfig($channel);
+        $week = $channelConfig['weeklySchedule'];
+        // Monday - 1s, rest - 0s
+        $week['quarters'] = array_map(
+            'intval',
+            // MONDAY                           TUE - SUN
+            str_split(str_repeat('1', 24 * 4) . str_repeat('0', 24 * 4 * 6))
+        );
+        $channelParamConfigTranslator->setConfig($channel, ['weeklySchedule' => $week]);
+        $quartersForApi = $channelParamConfigTranslator->getConfig($channel)['weeklySchedule']['quarters'];
+        $quartersInDb = $channel->getUserConfigValue('weeklySchedule')['quarters'];
+        $this->assertEquals($week['quarters'], $quartersForApi);
+        $expectedQuartersInDb = array_map(
+            'intval',
+            // SUNDAY                           MONDAY                    TUE - SAT
+            str_split(str_repeat('0', 24 * 4) . str_repeat('1', 24 * 4) . str_repeat('0', 24 * 4 * 5))
+        );
+        $this->assertEquals($expectedQuartersInDb, $quartersInDb);
+    }
+
     public function testSettingWeeklySchedule() {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $channelConfig = $channelParamConfigTranslator->getConfig($this->hvacChannel);
