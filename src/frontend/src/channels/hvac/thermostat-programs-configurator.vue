@@ -15,7 +15,7 @@
                                 min="-10"
                                 max="150"
                                 class="form-control text-center"
-                                v-model="program.settings.setpointTemperatureMin">
+                                v-model="program.settings.setpointTemperatureHeat">
                             <span class="input-group-addon">
                                 &deg;C
                             </span>
@@ -31,7 +31,7 @@
                                 min="-10"
                                 max="150"
                                 class="form-control text-center"
-                                v-model="program.settings.setpointTemperatureMax">
+                                v-model="program.settings.setpointTemperatureCool">
                             <span class="input-group-addon">
                                 &deg;C
                             </span>
@@ -68,18 +68,18 @@
                         <div>
                             <span v-if="program.settings.mode === 'HEAT'">
                                 <IconHeating/>
-                                {{ program.settings.setpointTemperatureMin }}&deg;C
+                                {{ program.settings.setpointTemperatureHeat }}&deg;C
                             </span>
                             <span v-else-if="program.settings.mode === 'COOL'">
                                 <IconCooling/>
-                                {{ program.settings.setpointTemperatureMax }}&deg;C
+                                {{ program.settings.setpointTemperatureCool }}&deg;C
                             </span>
                             <span v-else>
                                 <IconHeating/>
-                                {{ program.settings.setpointTemperatureMin }}&deg;C
+                                {{ program.settings.setpointTemperatureHeat }}&deg;C
                                 &hyphen;
                                 <IconCooling/>
-                                {{ program.settings.setpointTemperatureMax }}&deg;C
+                                {{ program.settings.setpointTemperatureCool }}&deg;C
                             </span>
                         </div>
                     </div>
@@ -151,19 +151,19 @@
                 this.invalidProgramErrorText = '';
                 const newPrograms = {};
                 this.editingPrograms.forEach(({programNo, settings}) => {
-                    const hasMin = settings.setpointTemperatureMin !== null && settings.setpointTemperatureMin !== '';
-                    const hasMax = settings.setpointTemperatureMax !== null && settings.setpointTemperatureMax !== '';
+                    const hasMin = settings.setpointTemperatureHeat !== null && settings.setpointTemperatureHeat !== '';
+                    const hasMax = settings.setpointTemperatureCool !== null && settings.setpointTemperatureCool !== '';
                     if (!hasMin && !hasMax) {
                         this.invalidProgramErrorText = this.$t('All programs must define at least one temperature threshold.');
                     }
-                    if (hasMin && hasMax && +settings.setpointTemperatureMin >= +settings.setpointTemperatureMax) {
+                    if (hasMin && hasMax && +settings.setpointTemperatureHeat >= +settings.setpointTemperatureCool) {
                         this.invalidProgramErrorText = this.$t('When the program defines both heating and cooling temperatures, the first must be lower than the second.');
                     }
                     const mode = this.autoModeAvailable ? (hasMin ? (hasMax ? 'AUTO' : 'HEAT') : 'COOL') : settings.mode;
                     newPrograms[programNo] = {
                         mode,
-                        setpointTemperatureMin: hasMin ? +settings.setpointTemperatureMin : null,
-                        setpointTemperatureMax: hasMax ? +settings.setpointTemperatureMax : null,
+                        setpointTemperatureHeat: hasMin ? +settings.setpointTemperatureHeat : null,
+                        setpointTemperatureCool: hasMax ? +settings.setpointTemperatureCool : null,
                     };
                 });
                 if (!this.invalidProgramErrorText) {

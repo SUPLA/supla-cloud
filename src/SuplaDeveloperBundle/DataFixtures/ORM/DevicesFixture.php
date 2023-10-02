@@ -195,19 +195,19 @@ class DevicesFixture extends SuplaFixture {
                         'auxThermometerChannelNo' => null,
                         'weeklySchedule' => [
                             'programSettings' => [
-                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2400, 'setpointTemperatureMax' => 0],
-                                '2' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2100, 'setpointTemperatureMax' => 0],
-                                '3' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 1800, 'setpointTemperatureMax' => 0],
-                                '4' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2800, 'setpointTemperatureMax' => 0],
+                                '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2400, 'setpointTemperatureCool' => 0],
+                                '2' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],
+                                '3' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 1800, 'setpointTemperatureCool' => 0],
+                                '4' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2800, 'setpointTemperatureCool' => 0],
                             ],
                             'quarters' => $sampleQuarters1,
                         ],
                         'altWeeklySchedule' => [
                             'programSettings' => [
-                                '1' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2400],
-                                '2' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2100],
-                                '3' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 1800],
-                                '4' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2800],
+                                '1' => ['mode' => 'COOL', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 2400],
+                                '2' => ['mode' => 'COOL', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 2100],
+                                '3' => ['mode' => 'COOL', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 1800],
+                                '4' => ['mode' => 'COOL', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 2800],
                             ],
                             'quarters' => $sampleQuarters1,
                         ],
@@ -237,10 +237,10 @@ class DevicesFixture extends SuplaFixture {
                         'auxThermometerChannelNo' => null,
                         'weeklySchedule' => [
                             'programSettings' => [
-                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2100, 'setpointTemperatureMax' => 0],
-                                '2' => ['mode' => 'COOL', 'setpointTemperatureMin' => 0, 'setpointTemperatureMax' => 2400],
-                                '3' => ['mode' => 'AUTO', 'setpointTemperatureMin' => 1800, 'setpointTemperatureMax' => 2200],
-                                '4' => ['mode' => 'AUTO', 'setpointTemperatureMin' => 2200, 'setpointTemperatureMax' => 2800],
+                                '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],
+                                '2' => ['mode' => 'COOL', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 2400],
+                                '3' => ['mode' => 'AUTO', 'setpointTemperatureHeat' => 1800, 'setpointTemperatureCool' => 2200],
+                                '4' => ['mode' => 'AUTO', 'setpointTemperatureHeat' => 2200, 'setpointTemperatureCool' => 2800],
                             ],
                             'quarters' => $sampleQuarters1,
                         ],
@@ -271,10 +271,10 @@ class DevicesFixture extends SuplaFixture {
                         'auxThermometerChannelNo' => null,
                         'weeklySchedule' => [
                             'programSettings' => [
-                                '1' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2400, 'setpointTemperatureMax' => 0],
-                                '2' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2100, 'setpointTemperatureMax' => 0],
-                                '3' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 1800, 'setpointTemperatureMax' => 0],
-                                '4' => ['mode' => 'HEAT', 'setpointTemperatureMin' => 2200, 'setpointTemperatureMax' => 0],
+                                '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2400, 'setpointTemperatureCool' => 0],
+                                '2' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],
+                                '3' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 1800, 'setpointTemperatureCool' => 0],
+                                '4' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2200, 'setpointTemperatureCool' => 0],
                             ],
                             'quarters' => $sampleQuarters1,
                         ],

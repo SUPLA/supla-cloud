@@ -122,12 +122,12 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             return [
                 'programSettings' => array_map(function (array $programSettings) {
                     $min = in_array($programSettings['mode'], ['HEAT', 'AUTO'])
-                        ? NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureMin'] / 100)
+                        ? NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureHeat'] / 100)
                         : null;
                     $max = in_array($programSettings['mode'], ['COOL', 'AUTO'])
-                        ? NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureMax'] / 100)
+                        ? NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureCool'] / 100)
                         : null;
-                    return ['mode' => $programSettings['mode'], 'setpointTemperatureMin' => $min, 'setpointTemperatureMax' => $max];
+                    return ['mode' => $programSettings['mode'], 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
                 }, $week['programSettings']),
                 'quarters' => $week['quarters'],
             ];
@@ -142,7 +142,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             ->isArray()
             ->all()
             ->isArray()
-            ->keyExists('mode', 'setpointTemperatureMin', 'setpointTemperatureMax');
+            ->keyExists('mode', 'setpointTemperatureHeat', 'setpointTemperatureCool');
         $availablePrograms = array_merge([0], array_keys($weeklySchedule['programSettings']));
         Assert::that($weeklySchedule['quarters'])
             ->isArray()
@@ -156,15 +156,15 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 $min = 0;
                 $max = 0;
                 if (in_array($programMode, ['HEAT', 'AUTO'])) {
-                    $min = round($programSettings['setpointTemperatureMin'] * 100);
+                    $min = round($programSettings['setpointTemperatureHeat'] * 100);
                 }
                 if (in_array($programMode, ['COOL', 'AUTO'])) {
-                    $max = round($programSettings['setpointTemperatureMax'] * 100);
+                    $max = round($programSettings['setpointTemperatureCool'] * 100);
                 }
                 if ($programMode === 'AUTO') {
                     Assertion::lessThan($min, $max);
                 }
-                return ['mode' => $programMode, 'setpointTemperatureMin' => $min, 'setpointTemperatureMax' => $max];
+                return ['mode' => $programMode, 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
             }, $weeklySchedule['programSettings']),
             'quarters' => $weeklySchedule['quarters'],
         ];
