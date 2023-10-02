@@ -86,6 +86,8 @@ sunset-after: the sunset
 sunset-before: the sunset
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Setpoint at most
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Setpoint middle
+thermostatSubfunction_HEAT: Heating
+thermostatSubfunction_COOL: Cooling
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">

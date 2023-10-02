@@ -136,9 +136,7 @@
                 </div>
             </div>
 
-
-            <channel-details-tabs v-if="channel && !loading"
-                :channel="channel"></channel-details-tabs>
+            <channel-details-tabs v-if="channel && !loading" :channel="channel"></channel-details-tabs>
 
         </loading-cover>
 

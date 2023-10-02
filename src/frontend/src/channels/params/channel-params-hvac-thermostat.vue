@@ -1,5 +1,19 @@
 <template>
     <div>
+        <dl v-if="channel.function.name === 'HVAC_THERMOSTAT'">
+            <dd>{{ $t('Subfunction') }}</dd>
+            <dt>
+                <!-- i18n:['thermostatSubfunction_HEAT', 'thermostatSubfunction_COOL'] -->
+                <div class="btn-group btn-group-flex">
+                    <a :class="'btn ' + (channel.config.subfunction == type ? 'btn-green' : 'btn-default')"
+                        v-for="type in ['HEAT', 'COOL']"
+                        :key="type"
+                        @click="channel.config.subfunction = type; $emit('change')">
+                        {{ $t(`thermostatSubfunction_${type}`) }}
+                    </a>
+                </div>
+            </dt>
+        </dl>
         <dl>
             <dd>{{ $t('Main thermometer') }}</dd>
             <dt>

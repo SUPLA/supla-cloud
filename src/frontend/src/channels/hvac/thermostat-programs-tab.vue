@@ -58,6 +58,7 @@
         },
         beforeMount() {
             this.cancelChanges();
+            this.editingMode = this.subject.config.subfunction === 'HEAT' ? 'weeklySchedule' : 'altWeeklySchedule';
         },
         methods: {
             saveWeeklySchedules() {
@@ -131,11 +132,11 @@
         }
     }
 
-    $program0Color: #B4B7BA;
-    $program1Color: #8C9DFF;
-    $program2Color: #B0E0A8;
-    $program3Color: #FFD19A;
-    $program4Color: #FFAA8C;
+    $program0Color: #b4b7ba;
+    $program1Color: #8c9dff;
+    $program2Color: #b0e0a8;
+    $program3Color: #ffd19a;
+    $program4Color: #ffaa8c;
 
     @include timeSlotColor(0, $program0Color, lighten($program0Color, 10%));
     @include timeSlotColor(1, $program1Color, lighten($program1Color, 10%));
