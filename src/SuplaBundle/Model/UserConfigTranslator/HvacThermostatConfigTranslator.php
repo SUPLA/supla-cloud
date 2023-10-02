@@ -80,6 +80,10 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'minOffTimeS' => $subject->getUserConfigValue('minOffTimeS', 0),
                 'outputValueOnError' => $subject->getUserConfigValue('outputValueOnError', 0),
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
+                'temperatures' =>
+                    array_map([$this, 'adjustTemperature'], $subject->getUserConfigValue('temperatures', [])) ?: new \stdClass(),
+                'temperatureConstraints' =>
+                    array_map([$this, 'adjustTemperature'], $subject->getProperties()['temperatures'] ?? []) ?: new \stdClass(),
             ];
             if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
                 $config['subfunction'] = $subject->getUserConfigValue('subfunction');
@@ -189,14 +193,25 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             $availableProgramModes = $subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_AUTO
                 ? ['HEAT', 'COOL', 'AUTO']
                 : ['HEAT'];
-            $weeklySchedule = $this->validateWeeklySchedule($config['weeklySchedule'], $availableProgramModes);
+            $weeklySchedule = $this->validateWeeklySchedule($subject, $config['weeklySchedule'], $availableProgramModes);
             $subject->setUserConfigValue('weeklySchedule', $weeklySchedule);
         }
         if (array_key_exists('altWeeklySchedule', $config) && $config['altWeeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('altWeeklySchedule'));
             Assertion::isArray($config['altWeeklySchedule']);
-            $weeklySchedule = $this->validateWeeklySchedule($config['altWeeklySchedule'], ['COOL']);
+            $weeklySchedule = $this->validateWeeklySchedule($subject, $config['altWeeklySchedule'], ['COOL']);
             $subject->setUserConfigValue('altWeeklySchedule', $weeklySchedule);
+        }
+        if (array_key_exists('temperatures', $config) && $config['temperatures']) {
+            Assert::that($config['temperatures'])->isArray()->all()->numeric();
+            $newTemps = $config['temperatures'];
+            $temps = $subject->getUserConfigValue('temperatures', []);
+            foreach ($newTemps as $tempKey => $newTemp) {
+                Assertion::keyExists($temps, $tempKey);
+                $constraintName = ['histeresis' => 'histeresis', 'auxMinSetpoint' => 'aux', 'auxMaxSetpoint' => 'aux'][$tempKey] ?? 'room';
+                $temps[$tempKey] = $this->validateTemperature($subject, $newTemp, $constraintName);
+            }
+            $subject->setUserConfigValue('temperatures', $temps);
         }
     }
 
@@ -218,6 +233,24 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         return $channelWithId;
     }
 
+    private function adjustTemperature(int $temperature): float {
+        return NumberUtils::maximumDecimalPrecision($temperature / 100);
+    }
+
+    private function validateTemperature(HasUserConfig $subject, $valueFromApi, string $constraintName = ''): int {
+        $adjustedTemperature = round($valueFromApi * 100);
+        if ($constraintName) {
+            $constraints = $subject->getProperties()['temperatures'] ?? [];
+            if (array_key_exists("{$constraintName}Min", $constraints)) {
+                Assertion::greaterOrEqualThan($adjustedTemperature, $constraints["{$constraintName}Min"]);
+            }
+            if (array_key_exists("{$constraintName}Max", $constraints)) {
+                Assertion::lessOrEqualThan($adjustedTemperature, $constraints["{$constraintName}Max"]);
+            }
+        }
+        return $adjustedTemperature;
+    }
+
     private function adjustWeeklySchedule(?array $week): ?array {
         if ($week) {
             $quartersGoToChurch = array_merge(
@@ -228,10 +261,10 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             return [
                 'programSettings' => array_map(function (array $programSettings) {
                     $min = in_array($programSettings['mode'], ['HEAT', 'AUTO'])
-                        ? NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureHeat'] / 100)
+                        ? $this->adjustTemperature($programSettings['setpointTemperatureHeat'])
                         : null;
                     $max = in_array($programSettings['mode'], ['COOL', 'AUTO'])
-                        ? NumberUtils::maximumDecimalPrecision($programSettings['setpointTemperatureCool'] / 100)
+                        ? $this->adjustTemperature($programSettings['setpointTemperatureCool'])
                         : null;
                     return ['mode' => $programSettings['mode'], 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
                 }, $week['programSettings']),
@@ -242,7 +275,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         }
     }
 
-    private function validateWeeklySchedule(array $weeklySchedule, array $availableProgramModes): array {
+    private function validateWeeklySchedule(HasUserConfig $subject, array $weeklySchedule, array $availableProgramModes): array {
         Assert::that($weeklySchedule)->isArray()->notEmptyKey('quarters')->notEmptyKey('programSettings');
         Assert::that($weeklySchedule['programSettings'])
             ->isArray()
@@ -260,16 +293,16 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             array_slice($weeklySchedule['quarters'], 0, 6 * 24 * 4) // Monday - Saturday
         );
         return [
-            'programSettings' => array_map(function (array $programSettings) use ($availableProgramModes) {
+            'programSettings' => array_map(function (array $programSettings) use ($subject, $availableProgramModes) {
                 $programMode = $programSettings['mode'];
                 Assertion::inArray($programMode, $availableProgramModes);
                 $min = 0;
                 $max = 0;
                 if (in_array($programMode, ['HEAT', 'AUTO'])) {
-                    $min = round($programSettings['setpointTemperatureHeat'] * 100);
+                    $min = $this->validateTemperature($subject, $programSettings['setpointTemperatureHeat'], 'room');
                 }
                 if (in_array($programMode, ['COOL', 'AUTO'])) {
-                    $max = round($programSettings['setpointTemperatureCool'] * 100);
+                    $max = $this->validateTemperature($subject, $programSettings['setpointTemperatureCool'], 'room');;
                 }
                 if ($programMode === 'AUTO') {
                     Assertion::lessThan($min, $max);

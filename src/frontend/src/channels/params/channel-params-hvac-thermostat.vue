@@ -17,7 +17,7 @@
         <a class="d-flex accordion-header" @click="displayGroup('related')">
             <span class="flex-grow-1">{{ $t('Related channels') }}</span>
             <span>
-                <fa icon="chevron-right" :rotation="group === 'related' ? 90 : 0"/>
+                <fa :icon="group === 'related' ? 'chevron-down' : 'chevron-right'"/>
             </span>
         </a>
         <transition-expand>
@@ -72,7 +72,7 @@
         <a class="d-flex accordion-header" @click="displayGroup('flags')">
             <span class="flex-grow-1">{{ $t('Flags') }}</span>
             <span>
-                <fa icon="chevron-right" :rotation="group === 'flags' ? 90 : 0"/>
+                <fa :icon="group === 'flags' ? 'chevron-down' : 'chevron-right'"/>
             </span>
         </a>
         <transition-expand>
@@ -92,7 +92,7 @@
         <a class="d-flex accordion-header" @click="displayGroup('behavior')">
             <span class="flex-grow-1">{{ $t('Behavior') }}</span>
             <span>
-                <fa icon="chevron-right" :rotation="group === 'behavior' ? 90 : 0"/>
+                <fa :icon="group === 'behavior' ? 'chevron-down' : 'chevron-right'"/>
             </span>
         </a>
         <transition-expand>
@@ -151,20 +151,41 @@
                 </dl>
             </div>
         </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('temperatures')">
+        <a class="d-flex accordion-header" @click="displayGroup('temperatures')" v-if="availableTemperatures.length">
             <span class="flex-grow-1">{{ $t('Temperatures') }}</span>
             <span>
-                <fa icon="chevron-right" :rotation="group === 'temperatures' ? 90 : 0"/>
+                <fa :icon="group === 'temperatures' ? 'chevron-down' : 'chevron-right'"/>
             </span>
         </a>
         <transition-expand>
             <div v-show="group === 'temperatures'">
+                <!-- i18n:['thermostatTemperature_freezeProtection','thermostatTemperature_eco','thermostatTemperature_comfort'] -->
+                <!-- i18n:['thermostatTemperature_boost','thermostatTemperature_heatProtection','thermostatTemperature_histeresis'] -->
+                <!-- i18n:['thermostatTemperature_belowAlarm','thermostatTemperature_aboveAlarm','thermostatTemperature_auxMinSetpoint'] -->
+                <!-- i18n:['thermostatTemperature_auxMaxSetpoint'] -->
+                <dl>
+                    <template v-for="temp in availableTemperatures">
+                        <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                        <dt :key="`dt${temp.name}`">
+                            <span class="input-group">
+                                <input type="number"
+                                    step="0.1"
+                                    :min="temp.min"
+                                    :max="temp.max"
+                                    class="form-control text-center"
+                                    v-model="channel.config.temperatures[temp.name]"
+                                    @change="$emit('change')">
+                                <span class="input-group-addon">&deg;C</span>
+                            </span>
+                        </dt>
+                    </template>
+                </dl>
             </div>
         </transition-expand>
         <a class="d-flex accordion-header" @click="displayGroup('other')">
             <span class="flex-grow-1">{{ $t('Other') }}</span>
             <span>
-                <fa icon="chevron-right" :rotation="group === 'other' ? 90 : 0"/>
+                <fa :icon="group === 'other' ? 'chevron-down' : 'chevron-right'"/>
             </span>
         </a>
         <transition-expand>
@@ -205,6 +226,16 @@
                 } else {
                     this.group = group;
                 }
+            },
+        },
+        computed: {
+            availableTemperatures() {
+                return Object.keys(this.channel.config.temperatures || {}).map(name => {
+                    const constraintName = {histeresis: 'histeresis', auxMinSetpoint: 'aux', auxMaxSetpoint: 'aux'}[name] || 'room';
+                    const min = this.channel.config.temperatureConstraints?.[`${constraintName}Min`];
+                    const max = this.channel.config.temperatureConstraints?.[`${constraintName}Max`];
+                    return {name, min, max};
+                })
             },
         },
         watch: {

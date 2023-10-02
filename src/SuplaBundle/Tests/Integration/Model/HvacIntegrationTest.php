@@ -93,6 +93,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(0, $config['minOnTimeS']);
                     $this->assertEquals(0, $config['outputValueOnError']);
                     $this->assertNull($config['binarySensorChannelId']);
+                    $this->assertCount(5, $config['temperatures']);
                 },
             ],
             'THERMOSTAT_AUTO' => [
@@ -112,6 +113,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(60, $config['minOnTimeS']);
                     $this->assertEquals(120, $config['minOffTimeS']);
                     $this->assertEquals(42, $config['outputValueOnError']);
+                    $this->assertCount(10, $config['temperatures']);
+                    $this->assertCount(8, $config['temperatureConstraints']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
@@ -124,6 +127,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
                     $this->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
                     $this->assertEquals(6, $config['binarySensorChannelId']);
+                    $this->assertCount(0, $config['temperatures']);
                 },
             ],
         ];
@@ -334,6 +338,9 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [['minOnTimeS' => 'abc']],
             [['outputValueOnError' => 'abc']],
             [['outputValueOnError' => 101]],
+            [['temperatures' => ['freezeProtection' => 100]]],
+            [['temperatures' => ['unknownTemperature' => 10]]],
+            [['temperatures' => ['roomMin' => 10]]],
         ];
     }
 

@@ -86,8 +86,18 @@ sunset-after: the sunset
 sunset-before: the sunset
 thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Setpoint at most
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Setpoint middle
-thermostatSubfunction_HEAT: Heating
 thermostatSubfunction_COOL: Cooling
+thermostatSubfunction_HEAT: Heating
+thermostatTemperature_aboveAlarm: Above alarm
+thermostatTemperature_auxMaxSetpoint: Aux max setpoint
+thermostatTemperature_auxMinSetpoint: Aux min setpoint
+thermostatTemperature_belowAlarm: Below alarm
+thermostatTemperature_boost: Boost
+thermostatTemperature_comfort: Comfort
+thermostatTemperature_eco: ECO
+thermostatTemperature_freezeProtection: Freeze protection
+thermostatTemperature_heatProtection: Heat protection
+thermostatTemperature_histeresis: Histeresis
 
 #</editor-fold>
 #<editor-fold desc="Extra translations">

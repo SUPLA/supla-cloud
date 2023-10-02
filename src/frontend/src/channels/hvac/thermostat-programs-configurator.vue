@@ -12,8 +12,8 @@
                             </span>
                             <input type="number"
                                 step="0.1"
-                                min="-10"
-                                max="150"
+                                :min="roomMin"
+                                :max="roomMax"
                                 class="form-control text-center"
                                 v-model="program.settings.setpointTemperatureHeat">
                             <span class="input-group-addon">
@@ -28,8 +28,8 @@
                             </span>
                             <input type="number"
                                 step="0.1"
-                                min="-10"
-                                max="150"
+                                :min="roomMin"
+                                :max="roomMax"
                                 class="form-control text-center"
                                 v-model="program.settings.setpointTemperatureCool">
                             <span class="input-group-addon">
@@ -151,19 +151,21 @@
                 this.invalidProgramErrorText = '';
                 const newPrograms = {};
                 this.editingPrograms.forEach(({programNo, settings}) => {
-                    const hasMin = settings.setpointTemperatureHeat !== null && settings.setpointTemperatureHeat !== '';
-                    const hasMax = settings.setpointTemperatureCool !== null && settings.setpointTemperatureCool !== '';
-                    if (!hasMin && !hasMax) {
+                    const hasHeat = settings.setpointTemperatureHeat !== null && settings.setpointTemperatureHeat !== '';
+                    const hasCool = settings.setpointTemperatureCool !== null && settings.setpointTemperatureCool !== '';
+                    const heat = +settings.setpointTemperatureHeat;
+                    const cool = +settings.setpointTemperatureCool;
+                    if (!hasHeat && !hasCool) {
                         this.invalidProgramErrorText = this.$t('All programs must define at least one temperature threshold.');
                     }
-                    if (hasMin && hasMax && +settings.setpointTemperatureHeat >= +settings.setpointTemperatureCool) {
+                    if (hasHeat && hasCool && heat >= cool) {
                         this.invalidProgramErrorText = this.$t('When the program defines both heating and cooling temperatures, the first must be lower than the second.');
                     }
-                    const mode = this.autoModeAvailable ? (hasMin ? (hasMax ? 'AUTO' : 'HEAT') : 'COOL') : settings.mode;
+                    const mode = this.autoModeAvailable ? (hasHeat ? (hasCool ? 'AUTO' : 'HEAT') : 'COOL') : settings.mode;
                     newPrograms[programNo] = {
                         mode,
-                        setpointTemperatureHeat: hasMin ? +settings.setpointTemperatureHeat : null,
-                        setpointTemperatureCool: hasMax ? +settings.setpointTemperatureCool : null,
+                        setpointTemperatureHeat: hasHeat ? heat : null,
+                        setpointTemperatureCool: hasCool ? cool : null,
                     };
                 });
                 if (!this.invalidProgramErrorText) {
@@ -174,6 +176,12 @@
         computed: {
             autoModeAvailable() {
                 return this.subject.functionId === ChannelFunction.HVAC_THERMOSTAT_AUTO;
+            },
+            roomMin() {
+                return this.subject.config?.temperatureConstraints?.roomMin;
+            },
+            roomMax() {
+                return this.subject.config?.temperatureConstraints?.roomMax;
             },
         },
         watch: {

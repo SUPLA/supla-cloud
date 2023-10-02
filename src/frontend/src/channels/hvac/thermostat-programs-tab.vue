@@ -58,7 +58,7 @@
         },
         beforeMount() {
             this.cancelChanges();
-            this.editingMode = this.subject.config.subfunction === 'HEAT' ? 'weeklySchedule' : 'altWeeklySchedule';
+            this.editingMode = this.subject.config.subfunction === 'COOL' ? 'altWeeklySchedule' : 'weeklySchedule';
         },
         methods: {
             saveWeeklySchedules() {

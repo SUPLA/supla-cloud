@@ -194,6 +194,13 @@ class DevicesFixture extends SuplaFixture {
                         'mainThermometerChannelNo' => 2,
                         'auxThermometerChannelNo' => null,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_MIDDLE',
+                        'temperatures' => [
+                            'freezeProtection' => 1000,
+                            'heatProtection' => 3300,
+                            'histeresis' => 200,
+                            'auxMinSetpoint' => 550,
+                            'auxMaxSetpoint' => 4000,
+                        ],
                         'weeklySchedule' => [
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2400, 'setpointTemperatureCool' => 0],
@@ -243,6 +250,18 @@ class DevicesFixture extends SuplaFixture {
                         'minOnTimeS' => 60,
                         'minOffTimeS' => 120,
                         'outputValueOnError' => 42,
+                        'temperatures' => [
+                            'freezeProtection' => 1000,
+                            'eco' => 1800,
+                            'comfort' => 2000,
+                            'boost' => 2500,
+                            'heatProtection' => 3300,
+                            'histeresis' => 200,
+                            'belowAlarm' => 1200,
+                            'aboveAlarm' => 3600,
+                            'auxMinSetpoint' => 1000,
+                            'auxMaxSetpoint' => 2000,
+                        ],
                         'weeklySchedule' => [
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],
