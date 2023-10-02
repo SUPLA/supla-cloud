@@ -126,14 +126,20 @@
         .thermostat-program-button-#{$programNo} {
             border: 2px solid $color;
             &.chosen {
-                background: lighten($colorHover, 20%);
+                background: $colorHover;
             }
         }
     }
 
-    @include timeSlotColor(0, $supla-grey-light, lighten($supla-grey-dark, 20%));
-    @include timeSlotColor(1, $supla-blue, lighten($supla-blue, 20%));
-    @include timeSlotColor(2, $supla-green, lighten($supla-green, 20%));
-    @include timeSlotColor(3, $supla-orange, lighten($supla-orange, 20%));
-    @include timeSlotColor(4, $supla-red, lighten($supla-red, 20%));
+    $program0Color: #B4B7BA;
+    $program1Color: #8C9DFF;
+    $program2Color: #B0E0A8;
+    $program3Color: #FFD19A;
+    $program4Color: #FFAA8C;
+
+    @include timeSlotColor(0, $program0Color, lighten($program0Color, 10%));
+    @include timeSlotColor(1, $program1Color, lighten($program1Color, 10%));
+    @include timeSlotColor(2, $program2Color, lighten($program2Color, 10%));
+    @include timeSlotColor(3, $program3Color, lighten($program3Color, 10%));
+    @include timeSlotColor(4, $program4Color, lighten($program4Color, 10%));
 </style>
