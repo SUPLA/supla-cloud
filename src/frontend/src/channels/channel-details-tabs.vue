@@ -60,7 +60,7 @@
                 if (this.channel.typeId === 6100 && this.channel.config?.weeklySchedule) {
                     this.availableTabs.push({
                         route: 'channel.thermostatPrograms',
-                        header: 'Programs', // i18n
+                        header: 'Week', // i18n
                     });
                 }
                 if ((hasActions && this.channel.actionTriggersIds?.length) || isActionTrigger) {
