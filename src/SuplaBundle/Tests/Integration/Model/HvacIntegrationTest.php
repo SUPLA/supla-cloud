@@ -89,6 +89,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals('NOT_SET', $config['auxThermometerType']);
                     $this->assertFalse($config['antiFreezeAndOverheatProtectionEnabled']);
                     $this->assertCount(2, $config['availableAlgorithms']);
+                    $this->assertEquals(0, $config['minOnTimeS']);
                 },
             ],
             'THERMOSTAT_AUTO' => [
@@ -104,6 +105,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals('FLOOR', $config['auxThermometerType']);
                     $this->assertTrue($config['antiFreezeAndOverheatProtectionEnabled']);
                     $this->assertCount(1, $config['availableAlgorithms']);
+                    $this->assertEquals(60, $config['minOnTimeS']);
+                    $this->assertEquals(120, $config['minOffTimeS']);
                 },
             ],
             'DOMESTIC_HOT_WATER' => [
@@ -318,6 +321,9 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [['mainThermometerChannelId' => 3]],
             [['mainThermometerChannelId' => ['abc']]],
             [['weeklySchedule' => 'abc']],
+            [['minOnTimeS' => -5]],
+            [['minOffTimeS' => 5000]],
+            [['minOnTimeS' => 'abc']],
         ];
     }
 

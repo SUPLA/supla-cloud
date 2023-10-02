@@ -63,6 +63,38 @@
                 </div>
             </dt>
         </dl>
+        <dl>
+            <dd>{{ $t('Minimum time when turned on') }}</dd>
+            <dt>
+                <span class="input-group">
+                    <input type="number"
+                        step="1"
+                        min="0"
+                        max="600"
+                        class="form-control text-center"
+                        v-model="channel.config.minOnTimeS"
+                        @change="$emit('change')">
+                    <span class="input-group-addon">
+                        {{ $t('sec.') }}
+                    </span>
+                </span>
+            </dt>
+            <dd>{{ $t('Minimum time when turned off') }}</dd>
+            <dt>
+                <span class="input-group">
+                    <input type="number"
+                        step="1"
+                        min="0"
+                        max="600"
+                        class="form-control text-center"
+                        v-model="channel.config.minOffTimeS"
+                        @change="$emit('change')">
+                    <span class="input-group-addon">
+                        {{ $t('sec.') }}
+                    </span>
+                </span>
+            </dt>
+        </dl>
     </div>
 </template>
 

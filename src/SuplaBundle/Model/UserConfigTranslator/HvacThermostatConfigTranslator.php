@@ -30,6 +30,8 @@ use function Assert\Assert;
  *   @OA\Property(property="antiFreezeAndOverheatProtectionEnabled", type="boolean"),
  *   @OA\Property(property="availableAlgorithms", type="array", readOnly=true, @OA\Items(type="string", enum={"ON_OFF_SETPOINT_MIDDLE", "ON_OFF_SETPOINT_AT_MOST"})),
  *   @OA\Property(property="usedAlgorithm", type="string", enum={"ON_OFF_SETPOINT_MIDDLE", "ON_OFF_SETPOINT_AT_MOST"}),
+ *   @OA\Property(property="minOnTimeS", type="integer", minimum=0, maximum=600),
+ *   @OA\Property(property="minOffTimeS", type="integer", minimum=0, maximum=600),
  *   @OA\Property(property="weeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule"),
  *   @OA\Property(property="altWeeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule", description="Only for the `HVAC_THERMOSTAT` function."),
  * )
@@ -62,6 +64,8 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
                 'availableAlgorithms' => $subject->getProperties()['availableAlgorithms'] ?? [],
                 'usedAlgorithm' => $subject->getUserConfigValue('usedAlgorithm'),
+                'minOnTimeS' => $subject->getUserConfigValue('minOnTimeS', 0),
+                'minOffTimeS' => $subject->getUserConfigValue('minOffTimeS', 0),
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
             ];
             if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
@@ -126,6 +130,22 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         if (array_key_exists('subfunction', $config) && $config['subfunction']) {
             Assertion::inArray($config['subfunction'], ['COOL', 'HEAT']);
             $subject->setUserConfigValue('subfunction', $config['subfunction']);
+        }
+        if (array_key_exists('minOnTimeS', $config)) {
+            if ($config['minOnTimeS']) {
+                Assert::that($config['minOnTimeS'])->numeric()->between(0, 600);
+                $subject->setUserConfigValue('minOnTimeS', intval($config['minOnTimeS']));
+            } else {
+                $subject->setUserConfigValue('minOnTimeS', 0);
+            }
+        }
+        if (array_key_exists('minOffTimeS', $config)) {
+            if ($config['minOffTimeS']) {
+                Assert::that($config['minOffTimeS'])->numeric()->between(0, 600);
+                $subject->setUserConfigValue('minOffTimeS', intval($config['minOffTimeS']));
+            } else {
+                $subject->setUserConfigValue('minOffTimeS', 0);
+            }
         }
         if (array_key_exists('weeklySchedule', $config) && $config['weeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('weeklySchedule'));
