@@ -62,10 +62,10 @@ class Version20230926065848 extends NoWayBackMigration {
         foreach ($sensors as $sensor) {
             $userConfig = json_decode($sensor['user_config'] ?: '{}', true) ?: [];
             if ($sensor['param2']) {
-                $userConfig['temperatureAdjustment'] = $sensor['param2'] / 100;
+                $userConfig['temperatureAdjustment'] = $sensor['param2'];
             }
             if ($sensor['param3']) {
-                $userConfig['humidityAdjustment'] = $sensor['param3'] / 100;
+                $userConfig['humidityAdjustment'] = $sensor['param3'];
             }
             if ($sensor['param2'] || $sensor['param3']) {
                 $userConfigJson = json_encode($userConfig);

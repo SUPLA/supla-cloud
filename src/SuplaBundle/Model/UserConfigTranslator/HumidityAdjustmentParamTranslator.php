@@ -5,6 +5,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Utils\NumberUtils;
 
 /**
  * @OA\Schema(schema="ChannelConfigHumidity", description="Config for `HUMIDITY`",
@@ -16,14 +17,14 @@ class HumidityAdjustmentParamTranslator implements UserConfigTranslator {
 
     public function getConfig(HasUserConfig $subject): array {
         return [
-            'humidityAdjustment' => $subject->getUserConfigValue('humidityAdjustment', 0),
+            'humidityAdjustment' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('humidityAdjustment', 0) / 100),
         ];
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('humidityAdjustment', $config)) {
             $adjustment = $this->getValueInRange($config['humidityAdjustment'], -1000, 1000, 0);
-            $subject->setUserConfigValue('humidityAdjustment', $adjustment);
+            $subject->setUserConfigValue('humidityAdjustment', round($adjustment * 100));
         }
     }
 

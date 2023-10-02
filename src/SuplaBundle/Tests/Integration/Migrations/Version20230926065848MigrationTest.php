@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Integration\Migrations;
 
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 /**
  * @see Version20230926065848
@@ -39,14 +40,18 @@ class Version20230926065848MigrationTest extends DatabaseMigrationTestCase {
     }
 
     public function testMovedTemperatureAndHumidityAdjustmentsToUserConfig() {
-        $tempHumAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 63);
-        $this->assertEquals(1.23, $tempHumAdjusted->getUserConfigValue('temperatureAdjustment'));
-        $this->assertEquals(-1.23, $tempHumAdjusted->getUserConfigValue('humidityAdjustment'));
+        $tempHumAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 64);
+        $this->assertEquals(123, $tempHumAdjusted->getUserConfigValue('temperatureAdjustment'));
+        $this->assertEquals(-123, $tempHumAdjusted->getUserConfigValue('humidityAdjustment'));
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channelConfig = $channelParamConfigTranslator->getConfig($tempHumAdjusted);
+        $this->assertEquals(1.23, $channelConfig['temperatureAdjustment']);
+        $this->assertEquals(-1.23, $channelConfig['humidityAdjustment']);
         $this->assertEquals(0, $tempHumAdjusted->getParam2());
         $this->assertEquals(0, $tempHumAdjusted->getParam3());
         $tempAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 62);
-        $this->assertEquals(0.12, $tempAdjusted->getUserConfigValue('temperatureAdjustment'));
-        $humNotAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 64);
+        $this->assertEquals(12, $tempAdjusted->getUserConfigValue('temperatureAdjustment'));
+        $humNotAdjusted = $this->getEntityManager()->find(IODeviceChannel::class, 63);
         $this->assertEquals(0, $humNotAdjusted->getUserConfigValue('humidityAdjustment'));
     }
 }

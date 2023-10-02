@@ -5,6 +5,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Utils\NumberUtils;
 
 /**
  * @OA\Schema(schema="ChannelConfigThermometer", description="Config for `THERMOMETER`",
@@ -20,14 +21,14 @@ class TemperatureAdjustmentParamTranslator implements UserConfigTranslator {
 
     public function getConfig(HasUserConfig $subject): array {
         return [
-            'temperatureAdjustment' => $subject->getUserConfigValue('temperatureAdjustment', 0),
+            'temperatureAdjustment' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('temperatureAdjustment', 0) / 100),
         ];
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('temperatureAdjustment', $config)) {
-            $adjustment = $this->getValueInRange($config['temperatureAdjustment'], -100, 100, 0);
-            $subject->setUserConfigValue('temperatureAdjustment', $adjustment);
+            $adjustment = $this->getValueInRange($config['temperatureAdjustment'], -1000, 1000, 0);
+            $subject->setUserConfigValue('temperatureAdjustment', round($adjustment * 100));
         }
     }
 

@@ -101,6 +101,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->assertEquals($expectedParams[4] ?? 'aaa', $channel->getTextParam1());
         $this->assertEquals($expectedParams[5] ?? 'bbb', $channel->getTextParam2());
         $this->assertEquals($expectedParams[6] ?? 'ccc', $channel->getTextParam3());
+        $actualConfig = $this->configTranslator->getConfig($channel);
+        $this->assertEquals(array_intersect_key($actualConfig, $config), $config);
     }
 
     /** @dataProvider paramsConfigsExamples */
@@ -201,8 +203,8 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $channel->setFunction(ChannelFunction::HUMIDITYANDTEMPERATURE());
         $this->configTranslator->setConfig($channel, ['temperatureAdjustment' => 1.23, 'humidityAdjustment' => 1.24]);
         $this->configTranslator->setConfig($channel, ['temperatureAdjustment' => 1]);
-        $this->assertEquals(1, $channel->getUserConfigValue('temperatureAdjustment'));
-        $this->assertEquals(1.24, $channel->getUserConfigValue('humidityAdjustment'));
+        $this->assertEquals(100, $channel->getUserConfigValue('temperatureAdjustment'));
+        $this->assertEquals(124, $channel->getUserConfigValue('humidityAdjustment'));
     }
 
     public function testReturningDefaultsIfNoneSet() {
