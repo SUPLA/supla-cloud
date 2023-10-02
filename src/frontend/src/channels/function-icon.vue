@@ -68,11 +68,16 @@
                         return '-transparent';
                     }
                 }
+                if (this.model.config?.subfunction) {
+                    if (this.model.config.subfunction === 'COOL') {
+                        return '-cool';
+                    }
+                }
                 return '';
             },
             stateIndex() {
                 const suffix = this.stateSuffix;
-                if (['-closed', '-on', '-onoff'].indexOf(suffix) !== -1) {
+                if (['-closed', '-on', '-onoff', '-cool'].indexOf(suffix) !== -1) {
                     return 1;
                 } else if (['-offon', '-partial'].indexOf(suffix) !== -1) {
                     return 2;
