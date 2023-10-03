@@ -74,6 +74,9 @@
                                 <IconCooling/>
                                 {{ program.settings.setpointTemperatureCool }}&deg;C
                             </span>
+                            <span v-else-if="program.settings.mode === 'NOT_SET'">
+                                ?
+                            </span>
                             <span v-else>
                                 <IconHeating/>
                                 {{ program.settings.setpointTemperatureHeat }}&deg;C
@@ -112,6 +115,10 @@
         props: {
             subject: Object,
             value: Object,
+            defaultProgramMode: {
+                type: String,
+                default: 'HEAT',
+            }
         },
         data() {
             return {
@@ -143,6 +150,12 @@
                 this.chooseForSelection(-1);
                 this.editingPrograms = deepCopy(this.programs);
                 this.editingPrograms.pop();
+                this.editingPrograms = this.editingPrograms.map(program => {
+                    if (program.settings.mode === 'NOT_SET') {
+                        program.settings.mode = this.defaultProgramMode;
+                    }
+                    return program;
+                });
             },
             cancelProgramsEdit() {
                 this.editingPrograms = undefined;

@@ -168,6 +168,7 @@ class DevicesFixture extends SuplaFixture {
                 )
             )
         );
+        $sampleQuarters2 = array_map('intval', str_split(str_replace('4', '1', implode('', $sampleQuarters1))));
         return $this->createDevice('HVAC-Monster', $location, [
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
@@ -267,9 +268,9 @@ class DevicesFixture extends SuplaFixture {
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],
                                 '2' => ['mode' => 'COOL', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 2400],
                                 '3' => ['mode' => 'AUTO', 'setpointTemperatureHeat' => 1800, 'setpointTemperatureCool' => 2200],
-                                '4' => ['mode' => 'NOT_SET', 'setpointTemperatureHeat' => 1000, 'setpointTemperatureCool' => 0],
+                                '4' => ['mode' => 'NOT_SET', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 0],
                             ],
-                            'quarters' => array_map('intval', str_split(str_replace('4', '1', implode('', $sampleQuarters1)))),
+                            'quarters' => $sampleQuarters2,
                         ],
                     ]),
                 ],
@@ -303,9 +304,9 @@ class DevicesFixture extends SuplaFixture {
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2400, 'setpointTemperatureCool' => 0],
                                 '2' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],
                                 '3' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 1800, 'setpointTemperatureCool' => 0],
-                                '4' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2200, 'setpointTemperatureCool' => 0],
+                                '4' => ['mode' => 'NOT_SET', 'setpointTemperatureHeat' => 2200, 'setpointTemperatureCool' => 0],
                             ],
-                            'quarters' => $sampleQuarters1,
+                            'quarters' => $sampleQuarters2,
                         ],
                     ]),
                 ],

@@ -21,6 +21,7 @@
             </div>
 
             <ThermostatProgramsConfigurator v-model="editingSchedule.programSettings" :subject="subject"
+                :default-program-mode="editingMode === 'weeklySchedule' ? 'HEAT' : 'COOL'"
                 @input="hasPendingChanges = true"
                 @programChosen="(programNo) => currentProgram = programNo"/>
 
