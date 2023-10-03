@@ -101,7 +101,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'minOnTimeS' => $subject->getUserConfigValue('minOnTimeS', 0),
                 'minOffTimeS' => $subject->getUserConfigValue('minOffTimeS', 0),
                 'outputValueOnError' => $subject->getUserConfigValue('outputValueOnError', 0),
-                'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
+                'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule'), 'HEAT'),
                 'temperatures' =>
                     array_map([$this, 'adjustTemperature'], $subject->getUserConfigValue('temperatures', [])) ?: new \stdClass(),
                 'temperatureConstraints' =>
@@ -109,7 +109,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             ];
             if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT) {
                 $config['subfunction'] = $subject->getUserConfigValue('subfunction');
-                $config['altWeeklySchedule'] = $this->adjustWeeklySchedule($subject->getUserConfigValue('altWeeklySchedule'));
+                $config['altWeeklySchedule'] = $this->adjustWeeklySchedule($subject->getUserConfigValue('altWeeklySchedule'), 'COOL');
             }
             return $config;
         } else {
@@ -273,7 +273,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
         return $adjustedTemperature;
     }
 
-    private function adjustWeeklySchedule(?array $week): ?array {
+    private function adjustWeeklySchedule(?array $week, string $defaultProgramMode): ?array {
         if ($week) {
             $quartersGoToChurch = array_merge(
                 array_slice($week['quarters'], 24 * 4, 24 * 4), // Monday
@@ -281,14 +281,18 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 array_slice($week['quarters'], 0, 24 * 4) // Sunday
             );
             return [
-                'programSettings' => array_map(function (array $programSettings) {
-                    $min = in_array($programSettings['mode'], ['HEAT', 'AUTO'])
+                'programSettings' => array_map(function (array $programSettings) use ($defaultProgramMode) {
+                    $programMode = $programSettings['mode'];
+                    if ($programMode === 'NOT_SET') {
+                        $programMode = $defaultProgramMode;
+                    }
+                    $min = in_array($programMode, ['HEAT', 'AUTO'])
                         ? $this->adjustTemperature($programSettings['setpointTemperatureHeat'])
                         : null;
-                    $max = in_array($programSettings['mode'], ['COOL', 'AUTO'])
+                    $max = in_array($programMode, ['COOL', 'AUTO'])
                         ? $this->adjustTemperature($programSettings['setpointTemperatureCool'])
                         : null;
-                    return ['mode' => $programSettings['mode'], 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
+                    return ['mode' => $programMode, 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
                 }, $week['programSettings']),
                 'quarters' => $quartersGoToChurch,
             ];
@@ -304,7 +308,10 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             ->all()
             ->isArray()
             ->keyExists('mode', 'setpointTemperatureHeat', 'setpointTemperatureCool');
-        $availablePrograms = array_merge([0], array_keys($weeklySchedule['programSettings']));
+        $availablePrograms = array_filter($weeklySchedule['programSettings'], function (array $settings) use ($availableProgramModes) {
+            return in_array($settings['mode'], $availableProgramModes);
+        });
+        $availablePrograms = array_merge([0], array_keys($availablePrograms));
         Assert::that($weeklySchedule['quarters'])
             ->isArray()
             ->count(24 * 7 * 4)
