@@ -32,6 +32,7 @@ use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
+use SuplaBundle\Serialization\RequestFiller\IODeviceRequestFiller;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,6 +67,7 @@ use Symfony\Component\HttpFoundation\Response;
  *   ),
  *   @OA\Property(property="enterConfigurationModeAvailable", type="boolean"),
  *   @OA\Property(property="isSleepModeEnabled", type="boolean"),
+ *   @OA\Property(property="config", ref="#/components/schemas/DeviceConfig"),
  * )
  */
 class IODeviceController extends RestController {
@@ -256,6 +258,7 @@ class IODeviceController extends RestController {
      *          @OA\Property(property="enabled", type="boolean"),
      *          @OA\Property(property="comment", type="string"),
      *          @OA\Property(property="locationId", type="integer"),
+     *          @OA\Property(property="config", ref="#/components/schemas/DeviceConfig"),
      *       )
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
@@ -275,21 +278,22 @@ class IODeviceController extends RestController {
     public function putIodeviceAction(
         Request $request,
         IODevice $ioDevice,
-        IODevice $updatedDevice,
+        IODeviceRequestFiller $requestFiller,
         ChannelDependencies $channelDependencies
     ) {
         $result = $this->transactional(function (EntityManagerInterface $em) use (
+            $requestFiller,
             $channelDependencies,
             $request,
-            $ioDevice,
-            $updatedDevice
+            $ioDevice
         ) {
-            $enabledChanged = $ioDevice->getEnabled() !== $updatedDevice->getEnabled();
+            $requestData = $request->request->all();
+            $enabledChanged = array_key_exists('enabled', $requestData) && $ioDevice->getEnabled() !== $requestData['enabled'];
             if ($enabledChanged) {
                 $shouldAsk = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
                     ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
                     : !$request->get('confirm', false);
-                if (!$updatedDevice->getEnabled() && $shouldAsk) {
+                if (!$requestData['enabled'] && $shouldAsk) {
                     $dependencies = [];
                     foreach ($ioDevice->getChannels() as $channel) {
                         $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
@@ -305,7 +309,7 @@ class IODeviceController extends RestController {
                         return $view;
                     }
                 }
-                $ioDevice->setEnabled($updatedDevice->getEnabled());
+                $ioDevice->setEnabled($requestData['enabled']);
                 if (!$ioDevice->getEnabled()) {
                     $this->scheduleManager->disableSchedulesForDevice($ioDevice);
                     foreach ($ioDevice->getChannels() as $channel) {
@@ -316,10 +320,7 @@ class IODeviceController extends RestController {
                     }
                 }
             }
-            if ($updatedDevice->getLocation()->getId()) {
-                $ioDevice->setLocation($updatedDevice->getLocation());
-            }
-            $ioDevice->setComment($updatedDevice->getComment());
+            $requestFiller->fillFromData($requestData, $ioDevice);
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
         $this->suplaServer->onDeviceSettingsChanged($ioDevice);

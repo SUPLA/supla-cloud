@@ -130,6 +130,7 @@ trait UserFixtures {
         $fieldSetter->call($device, 'location', $location);
         $fieldSetter->call($device, 'user', $location->getUser());
         $fieldSetter->call($device, 'flags', IoDeviceFlags::getAllFeaturesFlag());
+        $fieldSetter->call($device, 'userConfig', '{"statusLed": "ON_WHEN_CONNECTED"}');
         $this->getEntityManager()->persist($device);
 
         foreach ($channelTypes as $channelNumber => $channelData) {

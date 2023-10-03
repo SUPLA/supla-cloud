@@ -169,7 +169,7 @@ class DevicesFixture extends SuplaFixture {
             )
         );
         $sampleQuarters2 = array_map('intval', str_split(str_replace('4', '1', implode('', $sampleQuarters1))));
-        return $this->createDevice('HVAC-Monster', $location, [
+        $hvac = $this->createDevice('HVAC-Monster', $location, [
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
             [ChannelType::HUMIDITYANDTEMPSENSOR, ChannelFunction::HUMIDITYANDTEMPERATURE],
             [
@@ -313,6 +313,23 @@ class DevicesFixture extends SuplaFixture {
             ],
             [ChannelType::SENSORNO, ChannelFunction::HOTELCARDSENSOR],
         ], '');
+        AnyFieldSetter::set($hvac, [
+            'userConfig' => json_encode([
+                'statusLed' => 'OFF_WHEN_CONNECTED',
+                'screenBrightness' => 13,
+                'buttonVolume' => 14,
+                'userInterfaceDisabled' => false,
+                'automaticTimeSync' => false,
+                'screenSaver' => ['mode' => 'TEMPERATURE', 'delay' => 30000],
+            ]),
+            'properties' => json_encode([
+                'screenSaverModesAvailable' => [
+                    'OFF', 'TEMPERATURE', 'HUMIDITY', 'TIME', 'TIME_DATE', 'TEMPERATURE_TIME', 'MAIN_AND_AUX_TEMPERATURE',
+                ],
+            ]),
+        ]);
+        $this->entityManager->persist($hvac);
+        return $hvac;
     }
 
     private function createDevice(string $name, Location $location, array $channelTypes, string $registerAs): IODevice {
@@ -328,6 +345,7 @@ class DevicesFixture extends SuplaFixture {
             'location' => $location,
             'user' => $location->getUser(),
             'flags' => IoDeviceFlags::getAllFeaturesFlag(),
+            'userConfig' => '{"statusLed": "ON_WHEN_CONNECTED"}',
         ]);
         $this->entityManager->persist($device);
         foreach ($channelTypes as $channelNumber => $channelData) {

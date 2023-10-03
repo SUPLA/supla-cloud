@@ -174,6 +174,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($this->device->getId(), $content['id']);
         $this->assertArrayHasKey('relationsCount', $content['location']);
         $this->assertTrue($content['enterConfigurationModeAvailable']);
+        $this->assertArrayHasKey('config', $content);
     }
 
     public function testGettingDeviceDetailsWhenFlagsIsNull() {
@@ -422,6 +423,14 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertFalse($this->getEntityManager()->find(IODevice::class, $this->device->getId())->getEnabled());
         $this->assertNotNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $cg->getId()));
+    }
+
+    public function testUpdatingDeviceConfig() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/iodevices/' . $this->device->getId(), ['config' => ['statusLed' => 'ALWAYS_OFF']]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $device = $this->freshEntity($this->device);
+        $this->assertEquals('ALWAYS_OFF', $device->getUserConfigValue('statusLed'));
     }
 
     public function testTurningOffWithChannelReactions() {

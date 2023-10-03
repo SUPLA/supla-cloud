@@ -21,6 +21,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\CurrentUserAware;
 use SuplaBundle\Model\Schedule\ScheduleManager;
+use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -35,11 +36,18 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
     private $scheduleManager;
     /** @var IODeviceRepository */
     private $iodeviceRepository;
+    /** @var IODeviceConfigTranslator */
+    private $configTranslator;
 
-    public function __construct(ScheduleManager $scheduleManager, IODeviceRepository $iodeviceRepository) {
+    public function __construct(
+        ScheduleManager $scheduleManager,
+        IODeviceRepository $iodeviceRepository,
+        IODeviceConfigTranslator $configTranslator
+    ) {
         parent::__construct();
         $this->scheduleManager = $scheduleManager;
         $this->iodeviceRepository = $iodeviceRepository;
+        $this->configTranslator = $configTranslator;
     }
 
     /**
@@ -61,6 +69,7 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
                     $normalized['relationsCount'] = $this->iodeviceRepository->find($ioDevice->getId())->getRelationsCount();
                 }
             }
+            $normalized['config'] = $this->configTranslator->getConfig($ioDevice);
         } else {
             $normalized['channelsIds'] = $this->toIds($ioDevice->getChannels());
             $normalized['regIpv4'] = ($normalized['regIpv4'] ?? null) ? ip2long($normalized['regIpv4']) : null;

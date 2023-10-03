@@ -26,6 +26,7 @@ use SuplaBundle\Entity\BelongsToUser;
 use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
+use SuplaBundle\Entity\HasUserConfigTrait;
 use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Enums\Manufacturer;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -38,6 +39,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 class IODevice implements HasLocation, HasRelationsCount {
     use BelongsToUser;
     use HasRelationsCountTrait;
+    use HasUserConfigTrait;
 
     /**
      * @ORM\Id
@@ -286,5 +288,9 @@ class IODevice implements HasLocation, HasRelationsCount {
         $criteria = Criteria::create();
         $criteria->where(Criteria::expr()->isNull('channel'));
         return $this->pushNotifications->matching($criteria);
+    }
+
+    public function getProperties(): array {
+        return $this->properties ? (json_decode($this->properties, true) ?: []) : [];
     }
 }
