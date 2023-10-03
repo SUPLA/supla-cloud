@@ -8,8 +8,8 @@ module.exports = defineConfig({
         DATABASE: "mysql://root:php@localhost/supla_e2e",
     },
     e2e: {
-        baseUrl: 'http://localhost:8080',
-        defaultCommandTimeout: 5000,
+        baseUrl: 'http://localhost:5173',
+        defaultCommandTimeout: 6000,
         taskTimeout: 10000,
         pageLoadTimeout: 10000,
         setupNodeEvents(on, config) {

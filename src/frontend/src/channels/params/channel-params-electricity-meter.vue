@@ -73,7 +73,7 @@
     import ChannelParamsElectricityMeterVoltageThresholds from "@/channels/params/channel-params-electricity-meter-voltage-thresholds";
     import ChannelParamsElectricityMeterEnabledPhases from "@/channels/params/channel-params-electricity-meter-enabled-phases";
     import ChannelParamsMeterKeepHistoryMode from "@/channels/params/channel-params-meter-keep-history-mode.vue";
-    import {computed, ref} from "vue";
+    import {defineProps, computed, ref} from "vue";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import ChannelParamsElectricityMeterOtherSettings from "@/channels/params/channel-params-electricity-meter-other-settings.vue";
 

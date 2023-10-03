@@ -78,7 +78,6 @@ steps:
     commands:
       - apt-get update && apt-get install -y dialog php7.4 php7.4-curl php7.4-dom php7.4-intl php7.4-json php7.4-mbstring php7.4-mysql php7.4-zip
       - cd src/frontend
-      - npm ci
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:ci
 
@@ -90,7 +89,6 @@ steps:
       event: cron
     commands:
       - cd src/frontend
-      - npm ci
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:nightly
 

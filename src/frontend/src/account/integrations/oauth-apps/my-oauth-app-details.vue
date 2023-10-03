@@ -86,7 +86,6 @@
 <script>
     import PageContainer from "../../../common/pages/page-container.vue";
     import PendingChangesPage from "../../../common/pages/pending-changes-page.vue";
-    import Vue from "vue";
     import CopyButton from "../../../common/copy-button.vue";
     import autosize from "autosize";
     import {urlParams} from "@/common/utils";
@@ -123,7 +122,7 @@
                 }
             },
             saveOauthApp() {
-                const toSend = Vue.util.extend({}, this.app);
+                const toSend = {...this.app};
                 toSend.redirectUris = this.redirectUris.split("\n").map(u => u.trim()).filter(u => u);
                 this.loading = true;
                 if (this.isNew) {

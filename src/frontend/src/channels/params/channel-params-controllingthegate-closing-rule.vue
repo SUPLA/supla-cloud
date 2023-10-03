@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-    import {computed, ref, set} from "vue";
+    import {computed, defineEmits, defineProps, ref, set} from "vue";
     import DateRangePicker from "@/direct-links/date-range-picker";
     import WeekScheduleSelector from "@/access-ids/week-schedule-selector";
     import {mapValues, pickBy} from "lodash";

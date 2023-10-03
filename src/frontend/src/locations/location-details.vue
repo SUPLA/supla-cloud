@@ -120,7 +120,8 @@
                                             <function-icon :model="channelGroup"></function-icon>
                                         </td>
                                         <td>
-                                            <router-link :to="{name: 'channelGroup', params: {id: channelGroup.id}}">{{ channelGroup.id }}</router-link>
+                                            <router-link :to="{name: 'channelGroup', params: {id: channelGroup.id}}">{{ channelGroup.id }}
+                                            </router-link>
                                         </td>
                                         <td>
                                             <span v-if="channelGroup.caption">{{ channelGroup.caption }}</span>
@@ -177,7 +178,6 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import FunctionIcon from "../channels/function-icon";
     import EmptyListPlaceholder from "../common/gui/empty-list-placeholder";
     import AccessIdChooser from "../access-ids/access-id-chooser";
@@ -232,7 +232,7 @@
                 this.initForModel();
             },
             saveLocation() {
-                const toSend = Vue.util.extend({}, this.location);
+                const toSend = {...this.location};
                 this.loading = true;
                 this.$http.put('locations/' + this.location.id, toSend)
                     .then(response => this.$emit('update', response.body))

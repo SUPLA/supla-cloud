@@ -110,13 +110,20 @@
         },
         methods: {
             async initializeStorage() {
-                this.chartStrategy = CHART_TYPES.forChannel(this.channel, this.chartMode);
-                this.storage = new IndexedDbMeasurementLogsStorage(this.channel, this.chartMode);
+                this.chartStrategy = CHART_TYPES[this.channel.function.name];
+                this.storage = new IndexedDbMeasurementLogsStorage(this.channel);
                 await this.storage.connect();
                 this.hasStorageSupport = await this.storage.checkSupport();
                 this.hasLogs = (await this.storage.init(this)).length > 1;
                 if (this.hasLogs && this.hasStorageSupport) {
+                    this.newestLog = await this.storage.getNewestLog();
+                    this.oldestLog = await this.storage.getOldestLog();
                     this.fetchAllLogs();
+                    this.renderCharts();
+                    this.setTimeRange({
+                        afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86400000 * 7),
+                        beforeTimestampMs: this.newestLog.date_timestamp * 1000,
+                    })
                 }
             },
             fetchAllLogs() {

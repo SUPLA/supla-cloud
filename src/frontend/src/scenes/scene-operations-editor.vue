@@ -151,7 +151,7 @@
                 if (this.value != this.lastValue) {
                     this.operations = [];
                     for (const op of (this.value || [])) {
-                        const operation = Vue.util.extend({}, op);
+                        const operation = {...op};
                         operation.action = {id: operation.actionId, param: operation.actionParam};
                         delete operation.actionId;
                         delete operation.actionParam;
@@ -188,7 +188,7 @@
                 const operations = [];
                 let delay = 0;
                 for (const op of this.operations) {
-                    const operation = Vue.util.extend({}, op);
+                    const operation = {...op};
                     if (operation.subjectType) {
                         operation.delayMs = delay;
                         operation.actionId = operation.action?.id;
