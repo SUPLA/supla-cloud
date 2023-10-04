@@ -178,6 +178,11 @@ export default [
                 name: 'device.notifications',
                 props: true
             },
+            {
+                path: 'settings',
+                component: () => import("@/devices/details/device-settings.vue"),
+                name: 'device.settings',
+            },
         ]
     },
     {

@@ -109,4 +109,10 @@ class IODeviceConfigTranslatorTest extends TestCase {
         $this->expectException(\InvalidArgumentException::class);
         $this->translator->setConfig(new IODevice(), ['statusLed' => 'ALWAYS_OFF']);
     }
+
+    public function testIgnoresSettingScreenSaverModesAvailable() {
+        $device = new IODevice();
+        $this->translator->setConfig($device, ['screenSaverModesAvailable' => 'ALWAYS_OFF']);
+        $this->assertEmpty($this->translator->getConfig($device));
+    }
 }

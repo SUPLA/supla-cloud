@@ -318,6 +318,10 @@ dl {
   }
 }
 
+.details-tabs {
+  min-height: 500px;
+}
+
 .modal-body {
   .nav-tabs {
     li.active a, li.active a:hover {
@@ -731,6 +735,26 @@ code {
 
 .text-normal {
   font-weight: normal;
+}
+
+.vue-slider.green {
+  .vue-slider-process {
+    background-color: $supla-green;
+  }
+  .vue-slider-dot-handle {
+    border-color: $supla-green;
+  }
+  &:hover {
+    .vue-slider-process {
+      background-color: darken($supla-green, 10%);
+    }
+    .vue-slider-dot-handle {
+      border-color: darken($supla-green, 10%);
+      &:hover {
+        border-color: $supla-green;
+      }
+    }
+  }
 }
 
 @import "./buttons";

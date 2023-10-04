@@ -1,5 +1,5 @@
 <template>
-    <div class="channel-details-tabs">
+    <div class="channel-details-tabs details-tabs">
         <div class="container"
             v-if="availableTabs.length">
             <div class="form-group">

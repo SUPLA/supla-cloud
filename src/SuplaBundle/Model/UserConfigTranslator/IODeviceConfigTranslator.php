@@ -21,15 +21,23 @@ use SuplaBundle\Entity\Main\IODevice;
  *     @OA\Property(property="mode", type="string", enum={"OFF", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE", "TEMPERATURE_TIME", "MAIN_AND_AUX_TEMPERATURE"}),
  *     @OA\Property(property="delay", type="integer", description="ms"),
  *   ),
+ *   @OA\Property(property="screenSaverModesAvailable", type="string", enum={"OFF", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE", "TEMPERATURE_TIME", "MAIN_AND_AUX_TEMPERATURE"}),
  * )
  */
 class IODeviceConfigTranslator {
     public function getConfig(IODevice $device): array {
-        return $device->getUserConfig();
+        $config = $device->getUserConfig();
+        $properties = $device->getProperties();
+        if ($properties['screenSaverModesAvailable'] ?? false) {
+            $config['screenSaverModesAvailable'] = $properties['screenSaverModesAvailable'];
+        }
+        return $config;
     }
 
     public function setConfig(IODevice $device, array $config): void {
         $currentConfig = $device->getUserConfig();
+        $config = array_diff_key($config, ['screenSaverModesAvailable' => '']);
+        Assertion::allInArray(array_keys($config), array_keys($currentConfig));
         foreach ($config as $settingName => $value) {
             Assertion::keyExists($currentConfig, $settingName, 'Cannot set this setting in this device: ' . $settingName);
             if ($settingName === 'statusLed') {

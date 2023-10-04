@@ -4,6 +4,7 @@
             @change="updateModel()"
             :data="possibleValues"
             :lazy="true"
+            class="green"
             tooltip="always"
             tooltip-placement="top"
             :tooltip-formatter="formattedValue"></vue-slider>
@@ -63,27 +64,3 @@
         }
     };
 </script>
-
-<style lang="scss">
-    @import "../styles/variables";
-
-    .vue-slider {
-        .vue-slider-process {
-            background-color: $supla-green;
-        }
-        .vue-slider-dot-handle {
-            border-color: $supla-green;
-        }
-        &:hover {
-            .vue-slider-process {
-                background-color: darken($supla-green, 10%);
-            }
-            .vue-slider-dot-handle {
-                border-color: darken($supla-green, 10%);
-                &:hover {
-                    border-color: $supla-green;
-                }
-            }
-        }
-    }
-</style>

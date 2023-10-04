@@ -63,7 +63,11 @@ export function prettyMilliseconds(ms, vue) {
     } else if (ms < 60000) {
         return (Math.round(ms / 100) / 10) + ' ' + vue.$t('sec.');
     } else {
-        return Math.round(ms / 60000) + ' ' + vue.$t('min.');
+        let formatted = Math.round(ms / 60000) + ' ' + vue.$t('min.');
+        if (ms % 60000) {
+            formatted += ' ' + prettyMilliseconds(ms % 60000, vue);
+        }
+        return formatted;
     }
 }
 

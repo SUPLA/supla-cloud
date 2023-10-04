@@ -83,25 +83,7 @@
             </div>
         </loading-cover>
 
-        <div class="container" v-if="device && device.relationsCount.managedNotifications">
-            <div class="form-group">
-                <ul class="nav nav-tabs">
-                    <router-link tag="li" :to="{name: 'device.channels', params: {id}}">
-                        <a>
-                            {{ $t('Channels') }}
-                        </a>
-                    </router-link>
-                    <router-link tag="li" :to="{name: 'device.notifications', params: {id}}"
-                        v-if="device.relationsCount.managedNotifications">
-                        <a>
-                            {{ $t('Notifications') }}
-                        </a>
-                    </router-link>
-                </ul>
-            </div>
-        </div>
-
-        <RouterView/>
+        <DeviceDetailsTabs :device="device" v-if="device"/>
 
         <modal-confirm v-if="deleteConfirm"
             class="modal-warning"
@@ -142,10 +124,12 @@
     import $ from "jquery";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
     import DeviceEnterConfigurationModeButton from "./device-enter-configuration-mode-button";
+    import DeviceDetailsTabs from "@/devices/details/device-details-tabs.vue";
 
     export default {
         props: ['id'],
         components: {
+            DeviceDetailsTabs,
             DeviceEnterConfigurationModeButton,
             DependenciesWarningModal,
             PageContainer,
