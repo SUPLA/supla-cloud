@@ -15,7 +15,7 @@
             </dt>
         </dl>
         <a class="d-flex accordion-header" @click="displayGroup('related')">
-            <span class="flex-grow-1">{{ $t('Related channels') }}</span>
+            <span class="flex-grow-1">{{ $t('Thermometers configuration') }}</span>
             <span>
                 <fa :icon="group === 'related' ? 'chevron-down' : 'chevron-right'"/>
             </span>
@@ -37,66 +37,109 @@
                     </dt>
                 </dl>
                 <transition-expand>
-                    <dl v-if="channel.config.auxThermometerChannelId">
-                        <dd>{{ $t('Aux thermometer type') }}</dd>
-                        <dt>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                                    {{ $t(`auxThermometerType_${channel.config.auxThermometerType}`) }}
-                                    <span class="caret"></span>
-                                </button>
-                                <!-- i18n:['auxThermometerType_NOT_SET', 'auxThermometerType_DISABLED', 'auxThermometerType_FLOOR'] -->
-                                <!-- i18n:['auxThermometerType_WATER', 'auxThermometerType_GENERIC_HEATER', 'auxThermometerType_GENERIC_COOLER'] -->
-                                <ul class="dropdown-menu">
-                                    <li v-for="type in ['DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']" :key="type">
-                                        <a @click="channel.config.auxThermometerType = type; $emit('change')"
-                                            v-show="type !== channel.config.auxThermometerType">
-                                            {{ $t(`auxThermometerType_${type}`) }}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </dt>
-                    </dl>
+                    <div v-if="channel.config.auxThermometerChannelId">
+                        <dl>
+                            <dd>{{ $t('Aux thermometer type') }}</dd>
+                            <dt>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button"
+                                        data-toggle="dropdown">
+                                        {{ $t(`auxThermometerType_${channel.config.auxThermometerType}`) }}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <!-- i18n:['auxThermometerType_NOT_SET', 'auxThermometerType_DISABLED', 'auxThermometerType_FLOOR'] -->
+                                    <!-- i18n:['auxThermometerType_WATER', 'auxThermometerType_GENERIC_HEATER', 'auxThermometerType_GENERIC_COOLER'] -->
+                                    <ul class="dropdown-menu">
+                                        <li v-for="type in ['DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']" :key="type">
+                                            <a @click="channel.config.auxThermometerType = type; $emit('change')"
+                                                v-show="type !== channel.config.auxThermometerType">
+                                                {{ $t(`auxThermometerType_${type}`) }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </dt>
+                        </dl>
+                        <dl>
+                            <dd>{{ $t('Enable aux min and max setpoints') }}</dd>
+                            <dt class="text-center">
+                                <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"/>
+                            </dt>
+                        </dl>
+                        <transition-expand>
+                            <dl v-if="channel.config.auxMinMaxSetpointEnabled">
+                                <template v-for="temp in auxMinMaxTemperatures">
+                                    <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                                    <dt :key="`dt${temp.name}`">
+                                        <span class="input-group">
+                                            <input type="number"
+                                                step="0.1"
+                                                :min="temp.min"
+                                                :max="temp.max"
+                                                class="form-control text-center"
+                                                v-model="channel.config.temperatures[temp.name]"
+                                                @change="$emit('change')">
+                                            <span class="input-group-addon">&deg;C</span>
+                                        </span>
+                                    </dt>
+                                </template>
+                            </dl>
+                        </transition-expand>
+                    </div>
                 </transition-expand>
-                <dl>
-                    <dd>{{ $t('Binary sensor') }}</dd>
-                    <dt>
-                        <channels-id-dropdown :params="`function=HOTELCARDSENSOR&deviceIds=${channel.iodeviceId}`"
-                            v-model="channel.config.binarySensorChannelId"
-                            @input="$emit('change')"></channels-id-dropdown>
-                    </dt>
-                </dl>
             </div>
         </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('flags')">
-            <span class="flex-grow-1">{{ $t('Flags') }}</span>
+        <a class="d-flex accordion-header" @click="displayGroup('freeze')">
+            <span class="flex-grow-1">{{ $t('Anti freeze and overheat protection') }}</span>
             <span>
-                <fa :icon="group === 'flags' ? 'chevron-down' : 'chevron-right'"/>
+                <fa :icon="group === 'freeze' ? 'chevron-down' : 'chevron-right'"/>
             </span>
         </a>
         <transition-expand>
-            <div v-show="group === 'flags'">
+            <div v-show="group === 'freeze'">
                 <dl>
-                    <dd>{{ $t('Enable anti freeze and overheat protection') }}</dd>
+                    <dd>{{ $t('Enabled') }}</dd>
                     <dt class="text-center">
                         <toggler v-model="channel.config.antiFreezeAndOverheatProtectionEnabled" @input="$emit('change')"/>
                     </dt>
-                    <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
-                    <dt class="text-center">
-                        <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"/>
-                    </dt>
                 </dl>
+                <transition-expand>
+                    <dl v-if="channel.config.antiFreezeAndOverheatProtectionEnabled">
+                        <template v-for="temp in freezeHeatProtectionTemperatures">
+                            <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                            <dt :key="`dt${temp.name}`">
+                                <span class="input-group">
+                                    <input type="number"
+                                        step="0.1"
+                                        :min="temp.min"
+                                        :max="temp.max"
+                                        class="form-control text-center"
+                                        v-model="channel.config.temperatures[temp.name]"
+                                        @change="$emit('change')">
+                                    <span class="input-group-addon">&deg;C</span>
+                                </span>
+                            </dt>
+                        </template>
+                    </dl>
+                </transition-expand>
             </div>
         </transition-expand>
         <a class="d-flex accordion-header" @click="displayGroup('behavior')">
-            <span class="flex-grow-1">{{ $t('Behavior') }}</span>
+            <span class="flex-grow-1">{{ $t('Behavior settings') }}</span>
             <span>
                 <fa :icon="group === 'behavior' ? 'chevron-down' : 'chevron-right'"/>
             </span>
         </a>
         <transition-expand>
             <div v-show="group === 'behavior'">
+                <dl>
+                    <dd>{{ $t('Related binary sensor') }}</dd>
+                    <dt>
+                        <channels-id-dropdown :params="`function=HOTELCARDSENSOR&deviceIds=${channel.iodeviceId}`"
+                            v-model="channel.config.binarySensorChannelId"
+                            @input="$emit('change')"></channels-id-dropdown>
+                    </dt>
+                </dl>
                 <dl v-if="channel.config.availableAlgorithms.length > 1">
                     <dd>{{ $t('Algorithm') }}</dd>
                     <dt>
@@ -116,6 +159,23 @@
                             </ul>
                         </div>
                     </dt>
+                </dl>
+                <dl>
+                    <template v-for="temp in histeresisTemperatures">
+                        <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                        <dt :key="`dt${temp.name}`">
+                            <span class="input-group">
+                                <input type="number"
+                                    step="0.1"
+                                    :min="temp.min"
+                                    :max="temp.max"
+                                    class="form-control text-center"
+                                    v-model="channel.config.temperatures[temp.name]"
+                                    @change="$emit('change')">
+                                <span class="input-group-addon">&deg;C</span>
+                            </span>
+                        </dt>
+                    </template>
                 </dl>
                 <dl>
                     <dd>{{ $t('Minimum time when turned on') }}</dd>
@@ -148,49 +208,6 @@
                             </span>
                         </span>
                     </dt>
-                </dl>
-            </div>
-        </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('temperatures')" v-if="availableTemperatures.length">
-            <span class="flex-grow-1">{{ $t('Temperatures') }}</span>
-            <span>
-                <fa :icon="group === 'temperatures' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'temperatures'">
-                <!-- i18n:['thermostatTemperature_freezeProtection','thermostatTemperature_eco','thermostatTemperature_comfort'] -->
-                <!-- i18n:['thermostatTemperature_boost','thermostatTemperature_heatProtection','thermostatTemperature_histeresis'] -->
-                <!-- i18n:['thermostatTemperature_belowAlarm','thermostatTemperature_aboveAlarm','thermostatTemperature_auxMinSetpoint'] -->
-                <!-- i18n:['thermostatTemperature_auxMaxSetpoint'] -->
-                <dl>
-                    <template v-for="temp in availableTemperatures">
-                        <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                        <dt :key="`dt${temp.name}`">
-                            <span class="input-group">
-                                <input type="number"
-                                    step="0.1"
-                                    :min="temp.min"
-                                    :max="temp.max"
-                                    class="form-control text-center"
-                                    v-model="channel.config.temperatures[temp.name]"
-                                    @change="$emit('change')">
-                                <span class="input-group-addon">&deg;C</span>
-                            </span>
-                        </dt>
-                    </template>
-                </dl>
-            </div>
-        </transition-expand>
-        <a class="d-flex accordion-header" @click="displayGroup('other')">
-            <span class="flex-grow-1">{{ $t('Other') }}</span>
-            <span>
-                <fa :icon="group === 'other' ? 'chevron-down' : 'chevron-right'"/>
-            </span>
-        </a>
-        <transition-expand>
-            <div v-show="group === 'other'">
-                <dl>
                     <dd>{{ $t('Output value on error') }}</dd>
                     <dt>
                         <input type="number"
@@ -200,6 +217,10 @@
                             class="form-control text-center"
                             v-model="channel.config.outputValueOnError"
                             @change="$emit('change')">
+                    </dt>
+                    <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
+                    <dt class="text-center">
+                        <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"/>
                     </dt>
                 </dl>
             </div>
@@ -230,12 +251,33 @@
         },
         computed: {
             availableTemperatures() {
+                // i18n:['thermostatTemperature_freezeProtection','thermostatTemperature_eco','thermostatTemperature_comfort']
+                // i18n:['thermostatTemperature_boost','thermostatTemperature_heatProtection','thermostatTemperature_histeresis']
+                // i18n:['thermostatTemperature_belowAlarm','thermostatTemperature_aboveAlarm','thermostatTemperature_auxMinSetpoint']
+                // i18n:['thermostatTemperature_auxMaxSetpoint']
                 return Object.keys(this.channel.config.temperatures || {}).map(name => {
                     const constraintName = {histeresis: 'histeresis', auxMinSetpoint: 'aux', auxMaxSetpoint: 'aux'}[name] || 'room';
                     const min = this.channel.config.temperatureConstraints?.[`${constraintName}Min`];
                     const max = this.channel.config.temperatureConstraints?.[`${constraintName}Max`];
                     return {name, min, max};
                 })
+            },
+            auxMinMaxTemperatures() {
+                return [
+                    this.availableTemperatures.find(t => t.name === 'auxMinSetpoint'),
+                    this.availableTemperatures.find(t => t.name === 'auxMaxSetpoint'),
+                ].filter(a => a);
+            },
+            freezeHeatProtectionTemperatures() {
+                return [
+                    this.availableTemperatures.find(t => t.name === 'freezeProtection'),
+                    this.availableTemperatures.find(t => t.name === 'heatProtection'),
+                ].filter(a => a);
+            },
+            histeresisTemperatures() {
+                return [
+                    this.availableTemperatures.find(t => t.name === 'histeresis'),
+                ].filter(a => a);
             },
         },
         watch: {

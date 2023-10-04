@@ -127,7 +127,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(24, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
                     $this->assertEquals('ON_OFF_SETPOINT_AT_MOST', $config['usedAlgorithm']);
                     $this->assertEquals(6, $config['binarySensorChannelId']);
-                    $this->assertCount(0, $config['temperatures']);
+                    $this->assertCount(5, $config['temperatures']);
+                    $this->assertCount(0, array_filter($config['temperatures']));
                 },
             ],
         ];

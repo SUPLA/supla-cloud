@@ -30,6 +30,7 @@ use function Assert\Assert;
  *   @OA\Property(property="auxThermometerType", type="string", enum={"NOT_SET", "DISABLED", "FLOOR", "WATER", "GENERIC_HEATER", "GENERIC_COOLER"}),
  *   @OA\Property(property="binarySensorChannelId", type="integer"),
  *   @OA\Property(property="antiFreezeAndOverheatProtectionEnabled", type="boolean"),
+ *   @OA\Property(property="auxMinMaxSetpointEnabled", type="boolean"),
  *   @OA\Property(property="temperatureSetpointChangeSwitchesToManualMode", type="boolean"),
  *   @OA\Property(property="availableAlgorithms", type="array", readOnly=true, @OA\Items(type="string", enum={"ON_OFF_SETPOINT_MIDDLE", "ON_OFF_SETPOINT_AT_MOST"})),
  *   @OA\Property(property="usedAlgorithm", type="string", enum={"ON_OFF_SETPOINT_MIDDLE", "ON_OFF_SETPOINT_AT_MOST"}),
@@ -40,15 +41,15 @@ use function Assert\Assert;
  *   @OA\Property(property="altWeeklySchedule", ref="#/components/schemas/ChannelConfigHvacThermostatSchedule", description="Only for the `HVAC_THERMOSTAT` function."),
  *   @OA\Property(property="temperatures",
  *     @OA\Property(property="freezeProtection", type="float"),
+ *     @OA\Property(property="heatProtection", type="float"),
+ *     @OA\Property(property="auxMinSetpoint", type="float"),
+ *     @OA\Property(property="auxMaxSetpoint", type="float"),
+ *     @OA\Property(property="histeresis", type="float"),
  *     @OA\Property(property="eco", type="float"),
  *     @OA\Property(property="comfort", type="float"),
  *     @OA\Property(property="boost", type="float"),
- *     @OA\Property(property="heatProtection", type="float"),
- *     @OA\Property(property="histeresis", type="float"),
  *     @OA\Property(property="belowAlarm", type="float"),
  *     @OA\Property(property="aboveAlarm", type="float"),
- *     @OA\Property(property="auxMinSetpoint", type="float"),
- *     @OA\Property(property="auxMaxSetpoint", type="float"),
  *   ),
  *   @OA\Property(property="temperatureConstraints",
  *     @OA\Property(property="roomMin", type="float"),
@@ -94,6 +95,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
                 'binarySensorChannelId' => $binarySensor ? $binarySensor->getId() : null,
                 'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
+                'auxMinMaxSetpointEnabled' => $subject->getUserConfigValue('auxMinMaxSetpointEnabled', false),
                 'temperatureSetpointChangeSwitchesToManualMode' =>
                     $subject->getUserConfigValue('temperatureSetpointChangeSwitchesToManualMode', false),
                 'availableAlgorithms' => $subject->getProperties()['availableAlgorithms'] ?? [],
@@ -102,8 +104,10 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 'minOffTimeS' => $subject->getUserConfigValue('minOffTimeS', 0),
                 'outputValueOnError' => $subject->getUserConfigValue('outputValueOnError', 0),
                 'weeklySchedule' => $this->adjustWeeklySchedule($subject->getUserConfigValue('weeklySchedule')),
-                'temperatures' =>
-                    array_map([$this, 'adjustTemperature'], $subject->getUserConfigValue('temperatures', [])) ?: new \stdClass(),
+                'temperatures' => array_merge(
+                    ['auxMinSetpoint' => '', 'auxMaxSetpoint' => '', 'freezeProtection' => '', 'heatProtection' => '', 'histeresis' => ''],
+                    array_map([$this, 'adjustTemperature'], $subject->getUserConfigValue('temperatures', []))
+                ),
                 'temperatureConstraints' =>
                     array_map([$this, 'adjustTemperature'], $subject->getProperties()['temperatures'] ?? []) ?: new \stdClass(),
             ];
@@ -172,6 +176,10 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             $enabled = filter_var($config['antiFreezeAndOverheatProtectionEnabled'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('antiFreezeAndOverheatProtectionEnabled', $enabled);
         }
+        if (array_key_exists('auxMinMaxSetpointEnabled', $config)) {
+            $enabled = filter_var($config['auxMinMaxSetpointEnabled'], FILTER_VALIDATE_BOOLEAN);
+            $subject->setUserConfigValue('auxMinMaxSetpointEnabled', $enabled);
+        }
         if (array_key_exists('temperatureSetpointChangeSwitchesToManualMode', $config)) {
             $enabled = filter_var($config['temperatureSetpointChangeSwitchesToManualMode'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('temperatureSetpointChangeSwitchesToManualMode', $enabled);
@@ -225,11 +233,21 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             $subject->setUserConfigValue('altWeeklySchedule', $weeklySchedule);
         }
         if (array_key_exists('temperatures', $config) && $config['temperatures']) {
-            Assert::that($config['temperatures'])->isArray()->all()->numeric();
+            Assert::that($config['temperatures'])->isArray();
             $newTemps = $config['temperatures'];
             $temps = $subject->getUserConfigValue('temperatures', []);
             foreach ($newTemps as $tempKey => $newTemp) {
-                Assertion::keyExists($temps, $tempKey);
+                Assertion::inArray($tempKey, [
+                    'freezeProtection', 'heatProtection', 'auxMinSetpoint', 'auxMaxSetpoint', 'histeresis', 'eco', 'comfort', 'boost',
+                    'belowAlarm', 'aboveAlarm',
+                ]);
+                if (!$newTemp && $newTemp !== 0) {
+                    if (isset($temps[$tempKey])) {
+                        unset($temps[$tempKey]);
+                    }
+                    continue;
+                }
+                Assertion::numeric($newTemp);
                 $constraintName = ['histeresis' => 'histeresis', 'auxMinSetpoint' => 'aux', 'auxMaxSetpoint' => 'aux'][$tempKey] ?? 'room';
                 $temps[$tempKey] = $this->validateTemperature($subject, $newTemp, $constraintName);
             }
