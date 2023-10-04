@@ -1,57 +1,22 @@
-.ui-pnotify-container {
+.pnotify-container {
   background: $supla-white;
   padding: 20px;
-  &, .ui-pnotify-title {
+  &, .pnotify-title {
     font-weight: 300;
   }
-  .ui-pnotify-title {
+  .pnotify-title {
     text-transform: uppercase;
   }
-  .ui-pnotify-title, .ui-pnotify-icon {
+  .pnotify-title, .pnotify-icon {
     font-size: 26px;
   }
-  &.brighttheme {
-    &-success {
-      color: $supla-green;
-    }
-    &-info {
-      color: $supla-blue
-    }
-    &-notice {
-      color: $supla-orange;
-    }
-    &-error {
-      color: $supla-black;
-      background: $supla-yellow;
-    }
-  }
-  .brighttheme {
-    &-icon-error, &-icon-success, &-icon-notice, &-icon-info {
-      font-family: 'Pe-icon-7-stroke';
-      line-height: 1;
-    }
-    &-icon-error:before {
-      content: "\e67b"; // pe-7s-attention
-    }
-    &-icon-success:before {
-      content: "\e66c"; // pe-7s-check
-    }
-    &-icon-notice:before {
-      content: "\e681"; // pe-7s-close-circle
-    }
-    &-icon-info:before {
-      content: "\e647"; // pe-7s-info
-    }
-  }
-  .ui-pnotify-closer {
+
+  .pnotify-closer {
     outline: none !important;
-    position: absolute;
-    top: 0;
-    right: 10px;
     > span {
       font-family: 'Pe-icon-7-stroke';
       font-size: 30px;
-      &:before {
+      &:after {
         content: "\e680"; // pe-7s-close
       }
     }

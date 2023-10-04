@@ -1,16 +1,19 @@
-import PNotify from "pnotify";
-import "pnotify/dist/pnotify.buttons";
-import "pnotify/dist/pnotify.buttons.css";
-import "pnotify/dist/pnotify.mobile";
-import "pnotify/dist/pnotify.mobile.css";
-import "pnotify/dist/pnotify.css";
+import {alert, defaultModules} from '@pnotify/core';
+import '@pnotify/core/dist/PNotify.css';
+import * as PNotifyMobile from '@pnotify/mobile';
+import '@pnotify/mobile/dist/PNotifyMobile.css';
+import * as PNotifyBootstrap3 from '@pnotify/bootstrap3';
+import '@pnotify/core/dist/BrightTheme.css';
+
+defaultModules.set(PNotifyMobile, {});
+defaultModules.set(PNotifyBootstrap3, {});
 
 function showNotification(title, text, type, vue = null) {
     if (vue) {
         title = vue.$t(title);
         text = vue.$t(text);
     }
-    return new PNotify({title, text, type});
+    return alert({title, text, type});
 }
 
 export function successNotification(title, text = '', vue = null) {
