@@ -50,6 +50,7 @@
     import ChannelParamsLightswitch from "./channel-params-powerswitch";
     import ChannelParamsHvacThermostat from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsHvacThermostatAuto from "./channel-params-hvac-thermostat.vue";
+    import ChannelParamsHvacDomesticHotWater from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
 
     export default {
@@ -88,6 +89,7 @@
             ChannelParamsLightswitch,
             ChannelParamsHvacThermostat,
             ChannelParamsHvacThermostatAuto,
+            ChannelParamsHvacDomesticHotWater,
         },
         computed: {
             additionalChannelParamsComponent() {
