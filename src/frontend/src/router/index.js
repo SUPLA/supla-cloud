@@ -11,7 +11,7 @@ const router = new VueRouter({
     linkActiveClass: 'active',
     mode: 'history',
     scrollBehavior(to, from, savedPosition) {
-        if (to.path === from.path || to.name.indexOf('.') > 0) {
+        if (to.path === from.path || to.name?.indexOf('.') > 0) {
             return savedPosition;
         }
         return new Promise((resolve) => {
