@@ -106,13 +106,13 @@ thermostatTemperature_histeresis: Histeresis
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-screenSaverMode_HUMIDITY: Humidity
-screenSaverMode_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
-screenSaverMode_OFF: Off
-screenSaverMode_TEMPERATURE: Temperature
-screenSaverMode_TEMPERATURE_TIME: Temperature and time
-screenSaverMode_TIME: Time
-screenSaverMode_TIME_DATE: Date and time
+homeScreenContent_HUMIDITY: Humidity
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
+homeScreenContent_NONE: None
+homeScreenContent_TEMPERATURE: Temperature
+homeScreenContent_TEMPERATURE_TIME: Temperature and time
+homeScreenContent_TIME: Time
+homeScreenContent_TIME_DATE: Date and time
 statusLed_ALWAYS_OFF: Always off
 statusLed_OFF_WHEN_CONNECTED: Off when connected
 statusLed_ON_WHEN_CONNECTED: On when connected

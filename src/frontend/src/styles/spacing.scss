@@ -3,7 +3,7 @@
 @use 'sass:list';
 
 $spacer: 1em;
-$levels: (0, .25, .5, 1, 1.5, 3);
+$levels: (0, .25, .5, 1, 1.5, 3, 5);
 $pos: (top, bottom, left, right);
 
 @for $step from 0 to list.length($levels) {

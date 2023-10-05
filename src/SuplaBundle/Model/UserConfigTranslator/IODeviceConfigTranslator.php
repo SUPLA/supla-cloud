@@ -17,26 +17,26 @@ use SuplaBundle\Entity\Main\IODevice;
  *   @OA\Property(property="buttonVolume", type="integer", minimum=0, maximum=100),
  *   @OA\Property(property="userInterfaceDisabled", type="boolean"),
  *   @OA\Property(property="automaticTimeSync", type="boolean"),
- *   @OA\Property(property="screenSaver", type="object",
- *     @OA\Property(property="mode", type="string", enum={"OFF", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE", "TEMPERATURE_TIME", "MAIN_AND_AUX_TEMPERATURE"}),
- *     @OA\Property(property="delay", type="integer", description="ms"),
+ *   @OA\Property(property="homeScreen", type="object",
+ *     @OA\Property(property="content", type="string", enum={"NONE", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE", "TEMPERATURE_TIME", "MAIN_AND_AUX_TEMPERATURE"}),
+ *     @OA\Property(property="offDelay", type="integer", description="Number of seconds or `0` to disable."),
  *   ),
- *   @OA\Property(property="screenSaverModesAvailable", type="string", enum={"OFF", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE", "TEMPERATURE_TIME", "MAIN_AND_AUX_TEMPERATURE"}),
+ *   @OA\Property(property="homeScreenContentAvailable", type="string", enum={"OFF", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE", "TEMPERATURE_TIME", "MAIN_AND_AUX_TEMPERATURE"}),
  * )
  */
 class IODeviceConfigTranslator {
     public function getConfig(IODevice $device): array {
         $config = $device->getUserConfig();
         $properties = $device->getProperties();
-        if ($properties['screenSaverModesAvailable'] ?? false) {
-            $config['screenSaverModesAvailable'] = $properties['screenSaverModesAvailable'];
+        if ($properties['homeScreenContentAvailable'] ?? false) {
+            $config['homeScreenContentAvailable'] = $properties['homeScreenContentAvailable'];
         }
         return $config;
     }
 
     public function setConfig(IODevice $device, array $config): void {
         $currentConfig = $device->getUserConfig();
-        $config = array_diff_key($config, ['screenSaverModesAvailable' => '']);
+        $config = array_diff_key($config, ['homeScreenContentAvailable' => '']);
         Assertion::allInArray(array_keys($config), array_keys($currentConfig));
         foreach ($config as $settingName => $value) {
             Assertion::keyExists($currentConfig, $settingName, 'Cannot set this setting in this device: ' . $settingName);
@@ -57,11 +57,11 @@ class IODeviceConfigTranslator {
             if ($settingName === 'automaticTimeSync') {
                 Assert::that($value, null, 'automaticTimeSync')->boolean();
             }
-            if ($settingName === 'screenSaver') {
-                Assert::that($value)->isArray()->keyExists('mode')->keyExists('delay')->count(2);
-                $availableModes = $device->getProperties()['screenSaverModesAvailable'] ?? [];
-                Assertion::inArray($value['mode'], $availableModes, null, 'screenSaver.mode');
-                Assert::that($value['delay'], null, 'screenSaver.delay')->integer()->between(500, 300000);
+            if ($settingName === 'homeScreen') {
+                Assert::that($value, null, 'homeScreen')->isArray()->keyExists('content')->keyExists('offDelay')->count(2);
+                $availableModes = $device->getProperties()['homeScreenContentAvailable'] ?? [];
+                Assertion::inArray($value['content'], $availableModes, null, 'homeScreen.content');
+                Assert::that($value['offDelay'], null, 'homeScreen.offDelay')->integer()->between(0, 3600);
             }
             $device->setUserConfigValue($settingName, $value);
         }

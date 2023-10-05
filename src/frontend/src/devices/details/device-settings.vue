@@ -25,7 +25,7 @@
                             </label>
                         </div>
                         <transition-expand>
-                            <div v-if="!screenBrightnessAuto" class="mt-3 mb-5">
+                            <div v-if="!screenBrightnessAuto" class="mt-3 mb-6">
                                 <VueSlider v-model="config.screenBrightness" :min="0" :max="100" @change="onChange()" tooltip="always"
                                     tooltip-placement="bottom" class="green"/>
                             </div>
@@ -33,30 +33,36 @@
                     </div>
                     <div class="form-group" v-if="config.buttonVolume !== undefined">
                         <label>{{ $t('Button volume') }}</label>
-                        <div class="mt-3 mb-5">
+                        <div class="mt-3 mb-6">
                             <VueSlider v-model="config.buttonVolume" :min="0" :max="100" @change="onChange()" tooltip="always"
                                 tooltip-placement="bottom" class="green"/>
                         </div>
                     </div>
                     <div
-                        v-if="config.screenSaver !== undefined && config.screenSaverModesAvailable && config.screenSaverModesAvailable.length">
+                        v-if="config.homeScreen !== undefined && config.homeScreenContentAvailable && config.homeScreenContentAvailable.length">
                         <div class="form-group">
-                            <label for="screenSaverMode">{{ $t('Screen saver mode') }}</label>
-                            <!-- i18n:["screenSaverMode_OFF", "screenSaverMode_TEMPERATURE", "screenSaverMode_HUMIDITY"] -->
-                            <!-- i18n:["screenSaverMode_TIME", "screenSaverMode_TIME_DATE", "screenSaverMode_TEMPERATURE_TIME"] -->
-                            <!-- i18n:["screenSaverMode_MAIN_AND_AUX_TEMPERATURE"] -->
-                            <select id="screenSaverMode" class="form-control" v-model="config.screenSaver.mode" @change="onChange()">
-                                <option v-for="mode in config.screenSaverModesAvailable" :key="mode" :value="mode">
-                                    {{ $t(`screenSaverMode_${mode}`) }}
+                            <label for="homeScreen">{{ $t('Home screen content') }}</label>
+                            <!-- i18n:["homeScreenContent_NONE", "homeScreenContent_TEMPERATURE", "homeScreenContent_HUMIDITY"] -->
+                            <!-- i18n:["homeScreenContent_TIME", "homeScreenContent_TIME_DATE", "homeScreenContent_TEMPERATURE_TIME"] -->
+                            <!-- i18n:["homeScreenContent_MAIN_AND_AUX_TEMPERATURE"] -->
+                            <select id="homeScreen" class="form-control" v-model="config.homeScreen.content" @change="onChange()">
+                                <option v-for="mode in config.homeScreenContentAvailable" :key="mode" :value="mode">
+                                    {{ $t(`homeScreenContent_${mode}`) }}
                                 </option>
                             </select>
                         </div>
+                        <div>
+                            <label class="checkbox2 checkbox2-grey">
+                                <input type="checkbox" v-model="homeScreenOff" @change="onChange()">
+                                {{ $t('Turn off the screen when inactive') }}
+                            </label>
+                        </div>
                         <transition-expand>
-                            <div class="form-group" v-if="config.screenSaver.mode !== 'OFF'">
-                                <label>{{ $t('Screen saver delay') }}</label>
-                                <div class="mt-3 mb-5">
-                                    <VueSlider v-model="config.screenSaver.delay" @change="onChange()" tooltip="always"
-                                        :data="screenSaverPossibleDelays" :tooltip-formatter="formatMilliseconds"
+                            <div class="form-group mt-2" v-if="homeScreenOff">
+                                <label>{{ $t('Turn off after') }}</label>
+                                <div class="mt-3 mb-6">
+                                    <VueSlider v-model="config.homeScreen.offDelay" @change="onChange()" tooltip="always"
+                                        :data="homeScreenOffPossibleDelays" :tooltip-formatter="formatSeconds"
                                         tooltip-placement="bottom" class="green"/>
                                 </div>
                             </div>
@@ -103,10 +109,12 @@
                 hasPendingChanges: false,
                 config: undefined,
                 screenBrightnessAuto: false,
-                screenSaverPossibleDelays: [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, // ms
-                    ...[...Array(26).keys()].map(k => k * 1000 + 5000), // s 5 - 30
-                    ...[...Array(5).keys()].map(k => k * 5000 + 1000 * 35), // s 35 - 55
-                    ...[...Array(9).keys()].map(k => k * 30000 + 60000), // min 1, 1.5, 2, ... 5
+                homeScreenOff: false,
+                homeScreenOffPossibleDelays: [
+                    ...[...Array(30).keys()].map(k => k + 1), // s 1 - 30
+                    ...[...Array(5).keys()].map(k => k * 5 + 35), // s 35 - 55
+                    ...[...Array(9).keys()].map(k => k * 30 + 60), // min 1, 1.5, 2, ... 5
+                    ...[6, 7, 8, 9, 10, 15, 20, 30].map(k => k * 60)
                 ]
             };
         },
@@ -125,6 +133,12 @@
                 } else {
                     this.screenBrightnessAuto = false;
                 }
+                if (this.config.homeScreen) {
+                    this.homeScreenOff = !!this.config.homeScreen?.offDelay;
+                    if (!this.homeScreenOff) {
+                        this.config.homeScreen.offDelay = 60;
+                    }
+                }
                 this.hasPendingChanges = false;
             },
             saveDeviceSettings() {
@@ -132,12 +146,15 @@
                 if (this.screenBrightnessAuto) {
                     config.screenBrightness = 'auto';
                 }
+                if (config.homeScreen && !this.homeScreenOff) {
+                    config.homeScreen.offDelay = 0;
+                }
                 this.$http.put(`iodevices/${this.device.id}`, {config})
                     .then(response => this.device.config = response.body.config)
                     .then(() => this.cancelChanges());
             },
-            formatMilliseconds(sliderValue) {
-                return prettyMilliseconds(+sliderValue, this);
+            formatSeconds(sliderValue) {
+                return prettyMilliseconds(+sliderValue * 1000, this);
             },
         },
     }

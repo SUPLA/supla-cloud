@@ -40,10 +40,10 @@ class IODeviceConfigTranslatorTest extends TestCase {
             'buttonVolume' => 14,
             'userInterfaceDisabled' => false,
             'automaticTimeSync' => false,
-            'screenSaver' => [],
+            'homeScreen' => [],
         ]);
         EntityUtils::setField($device, 'properties', json_encode([
-            'screenSaverModesAvailable' => ["OFF", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE"],
+            'homeScreenContentAvailable' => ["NONE", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE"],
         ]));
         $this->translator->setConfig($device, $config);
         $newConfig = $this->translator->getConfig($device);
@@ -65,8 +65,9 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['userInterfaceDisabled' => false]],
             [['automaticTimeSync' => true]],
             [['automaticTimeSync' => false]],
-            [['screenSaver' => ['mode' => 'OFF', 'delay' => 1000]]],
-            [['screenSaver' => ['mode' => 'TEMPERATURE', 'delay' => 10000]]],
+            [['homeScreen' => ['content' => 'NONE', 'offDelay' => 100]]],
+            [['homeScreen' => ['content' => 'TEMPERATURE', 'offDelay' => 300]]],
+            [['homeScreen' => ['content' => 'NONE', 'offDelay' => 0]]],
         ];
     }
 
@@ -94,14 +95,13 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['userInterfaceDisabled' => 'true']],
             [['automaticTimeSync' => 50.3]],
             [['automaticTimeSync' => 'true']],
-            [['screenSaver' => ['mode' => 'MAIN_AND_AUX_TEMPERATURE', 'delay' => 1000]]],
-            [['screenSaver' => ['mode' => 'UNICORN', 'delay' => 10000]]],
-            [['screenSaver' => ['mode' => 'OFF', 'delay' => 0]]],
-            [['screenSaver' => ['mode' => 'OFF', 'delay' => 8999999]]],
-            [['screenSaver' => ['mode' => 'OFF']]],
-            [['screenSaver' => ['delay' => 10000]]],
-            [['screenSaver' => ['mode' => 'OFF', 'delay' => 1000, 'extra' => 'unicorn']]],
-            [['screenSaver' => 2]],
+            [['homeScreen' => ['content' => 'MAIN_AND_AUX_TEMPERATURE', 'offDelay' => 1000]]],
+            [['homeScreen' => ['content' => 'UNICORN', 'offDelay' => 10000]]],
+            [['homeScreen' => ['content' => 'NONE', 'offDelay' => 4000]]],
+            [['homeScreen' => ['content' => 'NONE']]],
+            [['homeScreen' => ['offDelay' => 10000]]],
+            [['homeScreen' => ['content' => 'NONE', 'offDelay' => 1000, 'extra' => 'unicorn']]],
+            [['homeScreen' => 2]],
         ];
     }
 
@@ -110,9 +110,9 @@ class IODeviceConfigTranslatorTest extends TestCase {
         $this->translator->setConfig(new IODevice(), ['statusLed' => 'ALWAYS_OFF']);
     }
 
-    public function testIgnoresSettingScreenSaverModesAvailable() {
+    public function testIgnoresSettingHomeScreenContentAvailable() {
         $device = new IODevice();
-        $this->translator->setConfig($device, ['screenSaverModesAvailable' => 'ALWAYS_OFF']);
+        $this->translator->setConfig($device, ['homeScreenContentAvailable' => 'ALWAYS_OFF']);
         $this->assertEmpty($this->translator->getConfig($device));
     }
 }

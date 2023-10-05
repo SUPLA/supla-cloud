@@ -321,11 +321,11 @@ class DevicesFixture extends SuplaFixture {
                 'buttonVolume' => 14,
                 'userInterfaceDisabled' => false,
                 'automaticTimeSync' => false,
-                'screenSaver' => ['mode' => 'TEMPERATURE', 'delay' => 30000],
+                'homeScreen' => ['content' => 'TEMPERATURE', 'offDelay' => 60],
             ]),
             'properties' => json_encode([
-                'screenSaverModesAvailable' => [
-                    'OFF', 'TEMPERATURE', 'HUMIDITY', 'TIME', 'TIME_DATE', 'TEMPERATURE_TIME', 'MAIN_AND_AUX_TEMPERATURE',
+                'homeScreenContentAvailable' => [
+                    'NONE', 'TEMPERATURE', 'HUMIDITY', 'TIME', 'TIME_DATE', 'TEMPERATURE_TIME', 'MAIN_AND_AUX_TEMPERATURE',
                 ],
             ]),
         ]);
