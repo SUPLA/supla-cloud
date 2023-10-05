@@ -7,10 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
- * @method static ApiVersions V2_1()
  * @method static ApiVersions V2_2()
  * @method static ApiVersions V2_3()
  * @method static ApiVersions V2_4()
+ * @method static ApiVersions v3()
  * @method static ApiVersions DEFAULT()
  * @method static ApiVersions LATEST()
  */
@@ -19,8 +19,9 @@ class ApiVersions extends Enum {
     const V2_2 = '2.2.0';
     const V2_3 = '2.3.0';
     const V2_4 = '2.4.0';
+    const v3 = '3';
     const DEFAULT = self::V2_1;
-    const LATEST = self::V2_4;
+    const LATEST = self::v3;
 
     /** @param Request|array $request */
     public function isRequestedEqualOrGreaterThan($request): bool {
@@ -40,9 +41,9 @@ class ApiVersions extends Enum {
 
     public static function fromString(string $version): ApiVersions {
         if ($version) {
-            $matched = preg_match('#v?(\d+\.\d+)#i', $version, $matches);
+            $matched = preg_match('#v?(\d+(\.\d+)?(\.0)?)#i', $version, $matches);
             if ($matched) {
-                $requestedVersion = $matches[1] . '.0';
+                $requestedVersion = $matches[1];
             }
             if (!$matched || !self::isValid($requestedVersion)) {
                 throw new HttpException(

@@ -27,7 +27,7 @@ Vue.use(vMediaQuery, {variables: {xs: 768}});
 
 Vue.prototype.$frontendVersion = FRONTEND_VERSION; // eslint-disable-line no-undef
 Vue.config.productionTip = false;
-Vue.http.headers.common['X-Accept-Version'] = '2.4.0';
+Vue.http.headers.common['X-Accept-Version'] = '3';
 Vue.http.headers.common['X-Client-Version'] = Vue.prototype.$frontendVersion;
 
 Vue.prototype.$localStorage = new LocalStorageWithMemoryFallback();
