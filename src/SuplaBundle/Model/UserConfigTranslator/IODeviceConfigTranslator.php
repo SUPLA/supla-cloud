@@ -41,27 +41,27 @@ class IODeviceConfigTranslator {
         foreach ($config as $settingName => $value) {
             Assertion::keyExists($currentConfig, $settingName, 'Cannot set this setting in this device: ' . $settingName);
             if ($settingName === 'statusLed') {
-                Assertion::inArray($value, ['OFF_WHEN_CONNECTED', 'ALWAYS_OFF', 'ON_WHEN_CONNECTED']);
+                Assertion::inArray($value, ['OFF_WHEN_CONNECTED', 'ALWAYS_OFF', 'ON_WHEN_CONNECTED'], null, 'statusLed');
             }
             if ($settingName === 'screenBrightness') {
                 if ($value !== 'auto') {
-                    Assert::that($value)->integer()->between(0, 100);
+                    Assert::that($value, null, 'screenBrightness')->integer()->between(0, 100);
                 }
             }
             if ($settingName === 'buttonVolume') {
-                Assert::that($value)->integer()->between(0, 100);
+                Assert::that($value, null, 'buttonVolume')->integer()->between(0, 100);
             }
             if ($settingName === 'userInterfaceDisabled') {
-                Assert::that($value)->boolean();
+                Assert::that($value, null, 'userInterfaceDisabled')->boolean();
             }
             if ($settingName === 'automaticTimeSync') {
-                Assert::that($value)->boolean();
+                Assert::that($value, null, 'automaticTimeSync')->boolean();
             }
             if ($settingName === 'screenSaver') {
                 Assert::that($value)->isArray()->keyExists('mode')->keyExists('delay')->count(2);
                 $availableModes = $device->getProperties()['screenSaverModesAvailable'] ?? [];
-                Assertion::inArray($value['mode'], $availableModes);
-                Assert::that($value['delay'])->integer()->between(500, 300000);
+                Assertion::inArray($value['mode'], $availableModes, null, 'screenSaver.mode');
+                Assert::that($value['delay'], null, 'screenSaver.delay')->integer()->between(500, 300000);
             }
             $device->setUserConfigValue($settingName, $value);
         }

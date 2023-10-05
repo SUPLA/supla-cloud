@@ -77,6 +77,12 @@ class ApiExceptionHandler implements EventSubscriberInterface {
         if ($e instanceof ApiExceptionWithDetails) {
             $data['details'] = $e->getDetails();
         }
+        if ($e instanceof InvalidArgumentException && $e->getPropertyPath()) {
+            if (!isset($data['details'])) {
+                $data['details'] = [];
+            }
+            $data['details']['propertyPath'] = $e->getPropertyPath();
+        }
         return new JsonResponse($data, $status);
     }
 
