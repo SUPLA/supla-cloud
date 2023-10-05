@@ -160,7 +160,7 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 Assertion::notEq(ChannelFunction::NONE, $sensor->getFunction()->getId(), 'Sensor function not chosen.');
                 $subject->setUserConfigValue('binarySensorChannelNo', $sensor->getChannelNumber());
             } else {
-                $subject->setUserConfigValue('binarySensorChannelId', null);
+                $subject->setUserConfigValue('binarySensorChannelNo', null);
             }
         }
         if (array_key_exists('auxThermometerType', $config)) {
