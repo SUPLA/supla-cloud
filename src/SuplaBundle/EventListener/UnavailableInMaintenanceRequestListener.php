@@ -20,7 +20,7 @@ namespace SuplaBundle\EventListener;
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 class UnavailableInMaintenanceRequestListener {
     /** @var Reader */
@@ -33,7 +33,7 @@ class UnavailableInMaintenanceRequestListener {
         $this->maintenanceMode = $maintenanceMode;
     }
 
-    public function onKernelController(FilterControllerEvent $event) {
+    public function onKernelController(ControllerEvent $event) {
         if (!$this->maintenanceMode) {
             return;
         }
