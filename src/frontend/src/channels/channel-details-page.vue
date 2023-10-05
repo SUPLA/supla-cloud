@@ -179,7 +179,6 @@
     import throttle from "lodash/throttle";
     import Toggler from "../common/gui/toggler";
     import PageContainer from "../common/pages/page-container";
-    import $ from "jquery";
     import ChannelFunctionEditModal from "@/channels/channel-function-edit-modal";
     import DeviceTile from "@/devices/list/device-tile";
     import EventBus from "@/common/event-bus";
@@ -187,6 +186,7 @@
     import ChannelActionExecutor from "@/channels/action/channel-action-executor";
     import ChannelActionExecutorModal from "./action/channel-action-executor-modal";
     import TransitionExpand from "../common/gui/transition-expand";
+    import {extendObject} from "@/common/utils";
 
     export default {
         props: ['id'],
@@ -267,7 +267,7 @@
                 this.loading = true;
                 this.changeFunctionConfirmationObject = undefined;
                 this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), channel, {skipErrorHandler: [409]})
-                    .then(response => $.extend(this.channel, response.body))
+                    .then(response => extendObject(this.channel, response.body))
                     .then(() => this.afterSave())
                     .catch(response => {
                         if (response.status === 409) {
@@ -280,7 +280,7 @@
             saveChanges: throttle(function () {
                 this.loading = true;
                 return this.$http.put(`channels/${this.id}?safe=1`, this.channel)
-                    .then(response => $.extend(this.channel, response.body))
+                    .then(response => extendObject(this.channel, response.body))
                     .then(() => {
                         this.hasPendingChanges = false;
                         this.$set(this.channel, 'hasPendingChanges', false);

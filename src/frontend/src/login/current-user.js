@@ -1,7 +1,7 @@
 import Vue from "vue";
 import {Base64} from 'js-base64';
-import $ from "jquery";
 import {DateTime, Settings} from 'luxon';
+import {extendObject} from "@/common/utils";
 
 export class CurrentUser {
     constructor() {
@@ -84,7 +84,7 @@ export class CurrentUser {
                 return Vue.http.get('server-info')
                     .then(({body: info}) => {
                         if (info.config) {
-                            $.extend(Vue.config.external, info.config);
+                            extendObject(Vue.config.external, info.config);
                         }
                         if (info.cloudVersion) {
                             Vue.prototype.compareFrontendAndBackendVersion(info.cloudVersion);

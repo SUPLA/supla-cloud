@@ -48,7 +48,7 @@
     import SquareLinksCarouselWithFilters from "../tiles/square-links-carousel-with-filters";
     import {warningNotification} from "../notifier";
     import ListPage from "./list-page";
-    import $ from "jquery";
+    import {extendObject} from "@/common/utils";
 
     export default {
         props: {
@@ -109,7 +109,7 @@
             },
             onItemUpdated(item) {
                 const itemToUpdate = this.items.find(c => item.id == c.id);
-                $.extend(itemToUpdate, item);
+                extendObject(itemToUpdate, item);
             },
             onItemDeleted() {
                 this.items.splice(this.items.indexOf(this.item), 1);

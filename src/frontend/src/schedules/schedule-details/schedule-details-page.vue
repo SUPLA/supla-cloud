@@ -102,7 +102,6 @@
 </template>
 
 <script>
-    import $ from "jquery";
     import ChannelTile from "../../channels/channel-tile";
     import ChannelGroupTile from "../../channel-groups/channel-group-tile";
     import SceneTile from "../../scenes/scene-tile";
@@ -112,6 +111,7 @@
     import PageContainer from "../../common/pages/page-container";
     import ScheduleForm from "../schedule-form/schedule-form";
     import ActionableSubjectType from "../../common/enums/actionable-subject-type";
+    import {extendObject} from "@/common/utils";
 
     export default {
         components: {
@@ -159,7 +159,7 @@
             saveChanges() {
                 this.loading = true;
                 this.$http.put(`schedules/${this.id}`, this.schedule)
-                    .then(response => $.extend(this.schedule, response.body))
+                    .then(response => extendObject(this.schedule, response.body))
                     .then(() => this.hasPendingChanges = false)
                     .finally(() => this.loading = false);
             },

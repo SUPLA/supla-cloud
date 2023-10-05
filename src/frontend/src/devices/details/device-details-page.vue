@@ -121,10 +121,10 @@
     import ConnectionStatusLabel from "../list/connection-status-label";
     import SquareLocationChooser from "../../locations/square-location-chooser";
     import PageContainer from "../../common/pages/page-container";
-    import $ from "jquery";
     import DependenciesWarningModal from "@/channels/dependencies/dependencies-warning-modal";
     import DeviceEnterConfigurationModeButton from "./device-enter-configuration-mode-button";
     import DeviceDetailsTabs from "@/devices/details/device-details-tabs.vue";
+    import {extendObject} from "@/common/utils";
 
     export default {
         props: ['id'],
@@ -176,7 +176,7 @@
                 this.loading = true;
                 this.dependenciesThatWillBeDisabled = undefined;
                 this.$http.put(`iodevices/${this.id}` + (safe ? '?safe=1' : ''), this.device, {skipErrorHandler: [409]})
-                    .then(response => $.extend(this.device, response.body))
+                    .then(response => extendObject(this.device, response.body))
                     .then(() => this.hasPendingChanges = false)
                     .then(() => this.$set(this.device, 'hasPendingChanges', false))
                     .then(() => {

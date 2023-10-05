@@ -42,3 +42,12 @@ export function urlParams(paramsAsObject) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(paramsAsObject[k])
     }).join('&');
 }
+
+export function extendObject(a, b) {
+    for (let key in b) {
+        if (Object.prototype.hasOwnProperty.call(b, key)) {
+            a[key] = b[key];
+        }
+    }
+    return a;
+}
