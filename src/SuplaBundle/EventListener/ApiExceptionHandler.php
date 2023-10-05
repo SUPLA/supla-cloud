@@ -23,7 +23,7 @@ use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -37,7 +37,7 @@ class ApiExceptionHandler implements EventSubscriberInterface {
         $this->logger = $logger;
     }
 
-    public function onException(GetResponseForExceptionEvent $event) {
+    public function onException(ExceptionEvent $event) {
         $request = $event->getRequest();
         $isApiRequest = preg_match('#/api/#', $request->getRequestUri());
         $exception = $event->getThrowable();
