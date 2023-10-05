@@ -32,6 +32,7 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
@@ -250,6 +251,7 @@ class ChannelController extends RestController {
      *          @OA\Property(property="inheritedLocation", type="boolean"),
      *          @OA\Property(property="userIconId", type="integer"),
      *          @OA\Property(property="config", ref="#/components/schemas/ChannelConfig"),
+     *          @OA\Property(property="configBefore", ref="#/components/schemas/ChannelConfig"),
      *       ),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
@@ -278,6 +280,27 @@ class ChannelController extends RestController {
             $requestData = $request->request->all();
             $newFunction = false;
             $functionHasBeenChanged = false;
+            $channelConfig = $requestData['config'] ?? $paramConfigTranslator->getConfig($channel);
+            if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
+                Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
+                Assertion::isArray($requestData['config'], null, 'config');
+                $newConfig = $requestData['config'];
+                $beforeConfig = $requestData['configBefore'];
+                $currentConfig = $paramConfigTranslator->getConfig($channel);
+                foreach ($newConfig as $settingName => $newValue) {
+                    if ($beforeConfig[$settingName] != $newValue) {
+                        if ($currentConfig[$settingName] != $beforeConfig[$settingName] && $currentConfig[$settingName] != $newValue) {
+                            throw new ApiExceptionWithDetails(
+                                'Config has been changed externally.',
+                                ['config' => $paramConfigTranslator->getConfig($channel)],
+                                Response::HTTP_CONFLICT
+                            );
+                        }
+                    } else {
+                        unset($channelConfig[$settingName]);
+                    }
+                }
+            }
             if (isset($requestData['functionId'])) {
                 $function = ChannelFunction::fromString($requestData['functionId']);
                 $functionHasBeenChanged = $function->getId() !== $channel->getFunction()->getId();
@@ -308,7 +331,6 @@ class ChannelController extends RestController {
                     Assertion::true($this->suplaServer->userAction('BEFORE-CHANNEL-FUNCTION-CHANGE', $channel->getId()), $cannotChangeMsg);
                 }
             }
-            $channelConfig = $requestData['config'] ?? $paramConfigTranslator->getConfig($channel);
             if (!ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
                 $channelToReadConfig = new IODeviceChannel();
                 EntityUtils::setField($channelToReadConfig, 'id', $channel->getId());
@@ -324,7 +346,6 @@ class ChannelController extends RestController {
                 $channelToReadConfig->setTextParam3($requestData['textParam3'] ?? null);
                 $channelConfig = $paramConfigTranslator->getConfig($channelToReadConfig);
             }
-
             if (isset($requestData['inheritedLocation']) && $requestData['inheritedLocation']) {
                 $channel->setLocation(null);
             } elseif (isset($requestData['locationId'])) {

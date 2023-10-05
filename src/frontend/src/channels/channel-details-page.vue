@@ -186,7 +186,7 @@
     import ChannelActionExecutor from "@/channels/action/channel-action-executor";
     import ChannelActionExecutorModal from "./action/channel-action-executor-modal";
     import TransitionExpand from "../common/gui/transition-expand";
-    import {extendObject} from "@/common/utils";
+    import {deepCopy, extendObject} from "@/common/utils";
 
     export default {
         props: ['id'],
@@ -225,6 +225,7 @@
                 this.channelRequest().then(({body}) => {
                     this.channel.relationsCount = body.relationsCount;
                     this.channel.config = body.config;
+                    this.channel.configBefore = body.configBefore;
                 });
             }
             EventBus.$on('channel-updated', this.onChangeListener);
@@ -234,7 +235,11 @@
         },
         methods: {
             channelRequest() {
-                return this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]});
+                return this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]})
+                    .then(response => {
+                        response.body.configBefore = deepCopy(response.body.config);
+                        return response;
+                    });
             },
             fetchChannel() {
                 this.channel = undefined;

@@ -135,7 +135,6 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('relationsCount', $content);
         $this->assertArrayHasKey('ownSubjectType', $content);
         $this->assertArrayNotHasKey('param1', $content);
-        $this->assertArrayHasKey('configHash', $content);
         $this->assertArrayHasKey('config', $content);
         $this->assertEquals(ActionableSubjectType::CHANNEL, $content['ownSubjectType']);
     }
@@ -1022,5 +1021,107 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('managedNotifications', $content['relationsCount']);
         $this->assertEquals(1, $content['relationsCount']['managedNotifications']);
+    }
+
+    public function testUpdatingConfigWithComparison() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
+        ]);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $channel = $anotherDevice->getChannels()[0];
+        $channelParamConfigTranslator->setConfig($channel, ['temperatureAdjustment' => 10]);
+        $this->getEntityManager()->persist($channel);
+        $this->getEntityManager()->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+            'config' => ['temperatureAdjustment' => 11],
+            'configBefore' => ['temperatureAdjustment' => 10],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $channel = $this->freshEntity($channel);
+        $config = $channelParamConfigTranslator->getConfig($channel);
+        $this->assertEquals(11, $config['temperatureAdjustment']);
+        return $channel;
+    }
+
+    /** @depends testUpdatingConfigWithComparison */
+    public function testCantUpdateWithoutConfigBefore(IODeviceChannel $channel) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+            'config' => ['temperatureAdjustment' => 11],
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    /** @depends testUpdatingConfigWithComparison */
+    public function testCanUpdateCaptionWithoutConfigBefore(IODeviceChannel $channel) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+            'caption' => 'Unicorn channel',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $channel = $this->freshEntity($channel);
+        $this->assertEquals('Unicorn channel', $channel->getCaption());
+    }
+
+    /** @depends testUpdatingConfigWithComparison */
+    public function testUpdatingConfigWithInvalidConfigBefore(IODeviceChannel $channel) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+            'config' => ['temperatureAdjustment' => 13],
+            'configBefore' => ['temperatureAdjustment' => 12],
+        ]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('details', $content);
+        $this->assertEquals(11, $content['details']['config']['temperatureAdjustment']);
+    }
+
+    /** @depends testUpdatingConfigWithComparison */
+    public function testUpdatingConfigWhenBeforeDifferentButCurrentTheSame(IODeviceChannel $channel) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+            'config' => ['temperatureAdjustment' => 11],
+            'configBefore' => ['temperatureAdjustment' => 12],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+    }
+
+    public function testMergingExternalModifications() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+        ]);
+        $gateChannel = $anotherDevice->getChannels()[0];
+        $initialConfig = [
+            'relayTimeMs' => 1567,
+            'numberOfAttemptsToOpen' => 5,
+            'numberOfAttemptsToClose' => 5,
+        ];
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $gateChannel = $this->freshEntity($gateChannel);
+        $channelParamConfigTranslator->setConfig($gateChannel, $initialConfig);
+        $this->getEntityManager()->persist($gateChannel);
+        $this->getEntityManager()->flush();
+        $this->assertEquals($initialConfig, array_intersect_key($channelParamConfigTranslator->getConfig($gateChannel), $initialConfig));
+        // external modification
+        $channelParamConfigTranslator->setConfig($gateChannel, ['numberOfAttemptsToOpen' => 3]);
+        $this->getEntityManager()->persist($gateChannel);
+        $this->getEntityManager()->flush();
+        // API modification
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $gateChannel->getId(), [
+            'config' => array_replace($initialConfig, ['relayTimeMs' => 999]),
+            'configBefore' => $initialConfig,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $gateChannel = $this->freshEntity($gateChannel);
+        $this->assertEquals(
+            [
+                'relayTimeMs' => 999,
+                'numberOfAttemptsToOpen' => 3,
+                'numberOfAttemptsToClose' => 5,
+            ],
+            array_intersect_key($channelParamConfigTranslator->getConfig($gateChannel), $initialConfig)
+        );
     }
 }
