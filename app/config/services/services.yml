@@ -196,6 +196,9 @@ services:
     tags:
       - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
 
+  SuplaBundle\EventListener\ResponseContentLengthListener:
+    tags: ['kernel.event_listener']
+
   SuplaBundle\ParamConverter\:
     resource: '../../../src/SuplaBundle/ParamConverter'
 
