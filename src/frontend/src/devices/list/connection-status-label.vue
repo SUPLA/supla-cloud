@@ -24,6 +24,12 @@
         },
         beforeDestroy() {
             this.monitor.unregister(this.model, this.callback);
+        },
+        watch: {
+            model(newModel, oldModel) {
+                this.monitor.unregister(oldModel, this.callback);
+                this.monitor.register(newModel, this.callback);
+            }
         }
     };
 </script>

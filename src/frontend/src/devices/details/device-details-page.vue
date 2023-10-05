@@ -175,7 +175,7 @@
             saveChanges: throttle(function (safe = true) {
                 this.loading = true;
                 this.dependenciesThatWillBeDisabled = undefined;
-                this.$http.put(`iodevices/${this.id}` + (safe ? '?safe=1' : ''), this.device, {skipErrorHandler: true})
+                this.$http.put(`iodevices/${this.id}` + (safe ? '?safe=1' : ''), this.device, {skipErrorHandler: [409]})
                     .then(response => $.extend(this.device, response.body))
                     .then(() => this.hasPendingChanges = false)
                     .then(() => this.$set(this.device, 'hasPendingChanges', false))
