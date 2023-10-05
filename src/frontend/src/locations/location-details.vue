@@ -8,7 +8,7 @@
                         @cancel="cancelChanges()"
                         @save="saveLocation()"
                         @delete="deleteConfirm = true"
-                        deletable="true"
+                        :deletable="true"
                         :is-pending="hasPendingChanges">
                         <div class="row">
                             <div class="col-lg-4 col-md-6 col-sm-8">
