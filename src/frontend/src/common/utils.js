@@ -36,3 +36,9 @@ export function deepCopy(object) {
         return object;
     }
 }
+
+export function urlParams(paramsAsObject) {
+    return Object.keys(paramsAsObject).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(paramsAsObject[k])
+    }).join('&');
+}

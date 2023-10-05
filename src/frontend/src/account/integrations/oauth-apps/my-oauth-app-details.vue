@@ -7,7 +7,7 @@
                         :header="app.id ? $t('OAuth application') : $t('New OAuth application') + (app.id ? ' ID'+ app.id : '')"
                         @cancel="cancelChanges()"
                         @save="saveOauthApp()"
-                        :deletable="app.id"
+                        :deletable="!!app.id"
                         @delete="deleteConfirm = true"
                         :is-pending="hasPendingChanges && !isNew">
                         <div class="row">
@@ -88,8 +88,8 @@
     import PendingChangesPage from "../../../common/pages/pending-changes-page.vue";
     import Vue from "vue";
     import CopyButton from "../../../common/copy-button.vue";
-    import $ from "jquery";
     import autosize from "autosize";
+    import {urlParams} from "@/common/utils";
 
     export default {
         props: ['id'],
@@ -155,7 +155,7 @@
                 return !this.app.id;
             },
             exampleAuthUrl() {
-                return this.$user.serverUrl + '/oauth/v2/auth?' + $.param({
+                return this.$user.serverUrl + '/oauth/v2/auth?' + urlParams({
                     client_id: this.app.publicId,
                     scope: 'account_r',
                     state: 'example-state',
