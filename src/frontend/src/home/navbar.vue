@@ -3,10 +3,8 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button"
-                    class="navbar-toggle collapsed"
-                    data-toggle="collapse"
-                    data-target="#supla-navbar"
-                    aria-expanded="false">
+                    :class="['navbar-toggle', {collapsed}]"
+                    @click="collapsed = !collapsed">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -19,8 +17,7 @@
                 </router-link>
             </div>
 
-            <div class="collapse navbar-collapse"
-                id="supla-navbar">
+            <div :class="['collapse navbar-collapse', {in: !collapsed}]">
                 <ul class="nav navbar-nav">
                     <router-link tag="li"
                         active-class="link-active"
@@ -145,6 +142,11 @@
 
     export default {
         components: {SuplaLogo},
+        data() {
+            return {
+                collapsed: true,
+            };
+        },
         methods: {
             subIsActive(input) {
                 const paths = Array.isArray(input) ? input : [input];
@@ -155,6 +157,11 @@
             logout() {
                 this.$user.forget();
                 this.$router.push({name: 'login'});
+            }
+        },
+        watch: {
+            $route() {
+                this.collapsed = true;
             }
         }
     };
