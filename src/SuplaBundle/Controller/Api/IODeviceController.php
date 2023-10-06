@@ -261,6 +261,7 @@ class IODeviceController extends RestController {
      *          @OA\Property(property="comment", type="string"),
      *          @OA\Property(property="locationId", type="integer"),
      *          @OA\Property(property="config", ref="#/components/schemas/DeviceConfig"),
+     *          @OA\Property(property="configBefore", ref="#/components/schemas/DeviceConfig"),
      *       )
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),

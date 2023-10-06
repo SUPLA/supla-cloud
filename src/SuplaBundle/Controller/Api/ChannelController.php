@@ -126,6 +126,7 @@ class ChannelController extends RestController {
      * @OA\Get(
      *     path="/channels", operationId="getChannels", summary="Get Channels", tags={"Channels"},
      *     @OA\Parameter(name="function", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(ref="#/components/schemas/ChannelFunctionEnumNames"))),
+     *     @OA\Parameter(name="type", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(ref="#/components/schemas/ChannelTypeEnumNames"))),
      *     @OA\Parameter(name="io", in="query", description="Return only `input` or `output` channels.", required=false, @OA\Schema(type="string", enum={"input", "output"})),
      *     @OA\Parameter(name="hasFunction", in="query", description="Return only channels with (`true`) or without (`false`) chosen functions.", required=false, @OA\Schema(type="boolean")),
      *     @OA\Parameter(name="skipIds", in="query", explode=false, required=false, @OA\Schema(type="array", @OA\Items(type="integer"))),
@@ -150,6 +151,10 @@ class ChannelController extends RestController {
             if (($function = $request->get('function')) !== null) {
                 $functionIds = EntityUtils::mapToIds(ChannelFunction::fromStrings(explode(',', $function)));
                 $builder->andWhere("$alias.function IN(:functionIds)")->setParameter('functionIds', $functionIds);
+            }
+            if (($type = $request->get('type')) !== null) {
+                $typeIds = EntityUtils::mapToIds(ChannelType::fromStrings(explode(',', $type)));
+                $builder->andWhere("$alias.type IN(:typeIds)")->setParameter('typeIds', $typeIds);
             }
             if (($io = $request->get('io')) !== null) {
                 Assertion::inArray($io, ['input', 'output']);

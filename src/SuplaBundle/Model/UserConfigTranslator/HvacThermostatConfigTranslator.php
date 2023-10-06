@@ -157,7 +157,6 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
                 Assertion::numeric($config['binarySensorChannelId']);
                 $sensor = $this->channelIdToNo($subject, $config['binarySensorChannelId']);
                 Assertion::eq(ChannelType::SENSORNO, $sensor->getType()->getId(), 'Invalid sensor type.');
-                Assertion::notEq(ChannelFunction::NONE, $sensor->getFunction()->getId(), 'Sensor function not chosen.');
                 $subject->setUserConfigValue('binarySensorChannelNo', $sensor->getChannelNumber());
             } else {
                 $subject->setUserConfigValue('binarySensorChannelNo', null);

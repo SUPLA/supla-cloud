@@ -65,7 +65,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER],
             [ChannelType::DIMMERANDRGBLED, ChannelFunction::DIMMERANDRGBLIGHTING],
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
-            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+            [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
             [ChannelType::RELAY, ChannelFunction::NONE],
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH],
         ]);
@@ -173,6 +173,15 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertCount(4, $content);
+    }
+
+    public function testFilteringByType() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels?type=THERMOMETER');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertCount(1, $content);
     }
 
     public function testFilteringBySkipIds() {

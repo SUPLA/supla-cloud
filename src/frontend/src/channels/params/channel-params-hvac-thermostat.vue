@@ -135,7 +135,7 @@
                 <dl>
                     <dd>{{ $t('Related binary sensor') }}</dd>
                     <dt>
-                        <channels-id-dropdown :params="`function=HOTELCARDSENSOR&deviceIds=${channel.iodeviceId}`"
+                        <channels-id-dropdown :params="`type=SENSORNO&deviceIds=${channel.iodeviceId}`"
                             v-model="channel.config.binarySensorChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
