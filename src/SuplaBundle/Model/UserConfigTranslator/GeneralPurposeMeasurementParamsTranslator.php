@@ -6,7 +6,7 @@ use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Utils\NumberUtils;
 
-class GeneralPurposeMeasurementParamsTranslator implements UserConfigTranslator {
+class GeneralPurposeMeasurementParamsTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfig(HasUserConfig $subject): array {

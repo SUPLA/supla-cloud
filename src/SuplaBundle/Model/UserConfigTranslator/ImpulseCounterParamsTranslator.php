@@ -19,7 +19,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="relatedChannelId", type="integer"),
  * )
  */
-class ImpulseCounterParamsTranslator implements UserConfigTranslator {
+class ImpulseCounterParamsTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfig(HasUserConfig $subject): array {

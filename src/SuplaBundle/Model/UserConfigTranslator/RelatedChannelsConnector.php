@@ -10,7 +10,7 @@ use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class RelatedChannelsConnector implements UserConfigTranslator {
+class RelatedChannelsConnector extends UserConfigTranslator {
     use Transactional;
 
     /** @var IODeviceChannelRepository */

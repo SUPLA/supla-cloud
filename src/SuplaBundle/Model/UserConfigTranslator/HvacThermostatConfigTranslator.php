@@ -63,7 +63,7 @@ use function Assert\Assert;
  *   )
  * )
  */
-class HvacThermostatConfigTranslator implements UserConfigTranslator {
+class HvacThermostatConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function supports(HasUserConfig $subject): bool {
@@ -125,17 +125,14 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
 
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('mainThermometerChannelId', $config)) {
-            if ($config['mainThermometerChannelId']) {
-                Assertion::numeric($config['mainThermometerChannelId']);
-                $thermometer = $this->channelIdToNo($subject, $config['mainThermometerChannelId']);
-                Assertion::inArray(
-                    $thermometer->getFunction()->getId(),
-                    [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
-                );
-                $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
-            } else {
-                $subject->setUserConfigValue('mainThermometerChannelNo', $subject->getChannelNumber());
-            }
+            Assertion::integer($config['mainThermometerChannelId'], null, 'mainThermometerChannelId');
+            Assertion::numeric($config['mainThermometerChannelId']);
+            $thermometer = $this->channelIdToNo($subject, $config['mainThermometerChannelId']);
+            Assertion::inArray(
+                $thermometer->getFunction()->getId(),
+                [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
+            );
+            $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
         }
         if (array_key_exists('auxThermometerChannelId', $config)) {
             if ($config['auxThermometerChannelId']) {
@@ -357,5 +354,9 @@ class HvacThermostatConfigTranslator implements UserConfigTranslator {
             }, $weeklySchedule['programSettings']),
             'quarters' => $quartersGoToChurch,
         ];
+    }
+
+    public function clearConfig(HasUserConfig $subject): void {
+        $subject->setUserConfig([]);
     }
 }

@@ -26,7 +26,7 @@
                     <dd>{{ $t('Main thermometer') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
-                            v-model="channel.config.mainThermometerChannelId"
+                            v-model="channel.config.mainThermometerChannelId" :hide-none="true"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
                     <dd>{{ $t('Aux thermometer') }}</dd>

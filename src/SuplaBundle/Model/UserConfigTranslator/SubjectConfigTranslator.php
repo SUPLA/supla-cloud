@@ -50,11 +50,11 @@ class SubjectConfigTranslator {
     }
 
     public function clearConfig(HasUserConfig $subject) {
-        $config = $this->getConfig($subject);
-        $config = array_map(function () {
-            return null;
-        }, $config);
-        $this->setConfig($subject, $config);
+        foreach ($this->translators as $translator) {
+            if ($translator->supports($subject)) {
+                $translator->clearConfig($subject);
+            }
+        }
         $subject->setUserConfig([]);
     }
 

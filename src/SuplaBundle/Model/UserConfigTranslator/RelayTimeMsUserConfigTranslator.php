@@ -26,7 +26,7 @@ use SuplaBundle\Enums\ChannelFunctionBitsFlags;
  *   ),
  * )
  */
-class RelayTimeMsUserConfigTranslator implements UserConfigTranslator {
+class RelayTimeMsUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const TIMES = [

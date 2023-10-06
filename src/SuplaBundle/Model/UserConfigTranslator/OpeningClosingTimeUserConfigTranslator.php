@@ -7,7 +7,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Utils\NumberUtils;
 
-class OpeningClosingTimeUserConfigTranslator implements UserConfigTranslator {
+class OpeningClosingTimeUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfig(HasUserConfig $subject): array {

@@ -11,7 +11,7 @@ use SuplaBundle\Enums\ChannelFunction;
  *   @OA\Property(property="invertedLogic", type="boolean"),
  * )
  */
-class InvertedLogicParamTranslator implements UserConfigTranslator {
+class InvertedLogicParamTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfig(HasUserConfig $subject): array {

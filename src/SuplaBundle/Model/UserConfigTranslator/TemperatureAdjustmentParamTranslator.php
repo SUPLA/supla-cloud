@@ -16,7 +16,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="humidityAdjustment", type="number", minimum=-1000, maximum=1000),
  * )
  */
-class TemperatureAdjustmentParamTranslator implements UserConfigTranslator {
+class TemperatureAdjustmentParamTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfig(HasUserConfig $subject): array {

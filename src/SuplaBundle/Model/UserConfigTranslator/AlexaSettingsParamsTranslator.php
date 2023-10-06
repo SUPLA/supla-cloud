@@ -14,7 +14,7 @@ use SuplaBundle\Enums\ChannelFunction;
  *   ),
  * )
  */
-class AlexaSettingsParamsTranslator implements UserConfigTranslator {
+class AlexaSettingsParamsTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const MIN_PIN_LENGTH = 4;

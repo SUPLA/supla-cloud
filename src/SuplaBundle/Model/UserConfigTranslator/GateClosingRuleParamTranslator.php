@@ -11,7 +11,7 @@ use SuplaBundle\Repository\GateClosingRuleRepository;
 use SuplaBundle\Utils\JsonArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class GateClosingRuleParamTranslator implements UserConfigTranslator {
+class GateClosingRuleParamTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const MIN_TIME = 300;

@@ -192,7 +192,7 @@ class DevicesFixture extends SuplaFixture {
                     ]),
                     'userConfig' => json_encode([
                         'subfunction' => 'HEAT',
-                        'mainThermometerChannelNo' => 2,
+                        'mainThermometerChannelNo' => 1,
                         'auxThermometerChannelNo' => null,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_MIDDLE',
                         'temperatures' => [
@@ -242,7 +242,7 @@ class DevicesFixture extends SuplaFixture {
                         ],
                     ]),
                     'userConfig' => json_encode([
-                        'mainThermometerChannelNo' => 3,
+                        'mainThermometerChannelNo' => 0,
                         'auxThermometerChannelNo' => 1,
                         'auxThermometerType' => 'FLOOR',
                         'antiFreezeAndOverheatProtectionEnabled' => true,
@@ -296,7 +296,7 @@ class DevicesFixture extends SuplaFixture {
                         ],
                     ]),
                     'userConfig' => json_encode([
-                        'mainThermometerChannelNo' => 4,
+                        'mainThermometerChannelNo' => 1,
                         'auxThermometerChannelNo' => null,
                         'binarySensorChannelNo' => 5,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_AT_MOST',

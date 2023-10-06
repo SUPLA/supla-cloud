@@ -15,7 +15,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="relatedChannelId", type="integer"),
  * )
  */
-class RelayTimeSUserConfigTranslator implements UserConfigTranslator {
+class RelayTimeSUserConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     public function getConfig(HasUserConfig $subject): array {

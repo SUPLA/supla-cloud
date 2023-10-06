@@ -5,7 +5,7 @@ namespace SuplaBundle\Model\UserConfigTranslator;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 
-class NumberOfAttemptsToOpenOrCloseParamTranslator implements UserConfigTranslator {
+class NumberOfAttemptsToOpenOrCloseParamTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     private const MIN_ATTEMPTS = 1;

@@ -6,7 +6,7 @@ use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 
-class DigiglassParamTranslator implements UserConfigTranslator {
+class DigiglassParamTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
     const MINUTES_IN_DAY = 1440;

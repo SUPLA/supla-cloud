@@ -24,7 +24,7 @@ use SuplaBundle\Utils\JsonArrayObject;
  *     @OA\Property(property="actions", type="object", description="List of configured AT actions."),
  * )
  */
-class ActionTriggerParamsTranslator implements UserConfigTranslator {
+class ActionTriggerParamsTranslator extends UserConfigTranslator {
     use CurrentUserAware;
 
     /** @var EntityManagerInterface */

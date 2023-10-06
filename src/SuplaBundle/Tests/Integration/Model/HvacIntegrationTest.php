@@ -82,7 +82,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                 2,
                 function (array $config) {
                     $this->assertEquals('HEAT', $config['subfunction']);
-                    $this->assertNull($config['mainThermometerChannelId']);
+                    $this->assertEquals(2, $config['mainThermometerChannelId']);
                     $this->assertEquals(21, $config['weeklySchedule']['programSettings'][2]['setpointTemperatureHeat']);
                     $this->assertNull($config['weeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
                     $this->assertEquals(21, $config['altWeeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
