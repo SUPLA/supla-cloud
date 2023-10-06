@@ -155,6 +155,7 @@
                 });
             },
             logout() {
+                this.$http.post('logout', undefined, {skipErrorHandler: true});
                 this.$user.forget();
                 this.$router.push({name: 'login'});
             }

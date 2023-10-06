@@ -25,6 +25,8 @@ use OAuth2\OAuth2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\OAuthScope;
 use SuplaBundle\Auth\SuplaOAuth2;
+use SuplaBundle\Auth\SuplaOAuthStorage;
+use SuplaBundle\Auth\Token\WebappToken;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
@@ -184,6 +186,20 @@ class OAuthController extends RestController {
      */
     public function deletePersonalTokenAction(AccessToken $accessToken) {
         return $this->transactional(function (EntityManagerInterface $em) use ($accessToken) {
+            $em->remove($accessToken);
+            return new Response('', Response::HTTP_NO_CONTENT);
+        });
+    }
+
+    /**
+     * @Security("is_granted('ROLE_WEBAPP')")
+     * @Rest\Post("/logout")
+     */
+    public function logoutAction(SuplaOAuthStorage $storage) {
+        return $this->transactional(function (EntityManagerInterface $em) use ($storage) {
+            /** @var WebappToken $webappToken */
+            $webappToken = $this->getCurrentUserToken();
+            $accessToken = $storage->getAccessToken($webappToken->getToken());
             $em->remove($accessToken);
             return new Response('', Response::HTTP_NO_CONTENT);
         });
