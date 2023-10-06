@@ -63,8 +63,26 @@
                                         @save="saveChanges()"
                                         @change="updateChannel()"></channel-params-form>
                                     <transition-expand>
-                                        <div class="text-center mt-3"
-                                            v-if="hasPendingChanges">
+                                        <div class="alert alert-danger mt-3 mb-0" v-if="configConflictDetected">
+                                            <p>
+                                                <strong>{{ $t('Setting have not been saved!') }}</strong>
+                                            </p>
+                                            <p>
+                                                {{ $t('The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.') }}
+                                            </p>
+                                            <p>
+                                                {{ $t('Refreshing the configuration will overwrite the changes you made here.') }}
+                                            </p>
+                                            <p class="text-center">
+                                                <a @click="refreshChannelConfig()">
+                                                    <fa icon="refresh"/>
+                                                    {{ $t('Refresh the config') }}
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </transition-expand>
+                                    <transition-expand>
+                                        <div class="text-center mt-3" v-if="!configConflictDetected && hasPendingChanges">
                                             <a class="btn btn-grey mx-1"
                                                 @click="cancelChanges()">
                                                 <i class="pe-7s-back"></i>
@@ -164,7 +182,6 @@
             @confirm="sleepingDeviceWarning = false">
             {{ $t('If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.') }}
         </modal>
-
     </page-container>
 </template>
 
@@ -217,17 +234,12 @@
                 changeFunctionConfirmationObject: undefined,
                 sleepingDeviceWarning: false,
                 onChangeListener: undefined,
+                configConflictDetected: false,
             };
         },
         mounted() {
             this.fetchChannel();
-            this.onChangeListener = () => {
-                this.channelRequest().then(({body}) => {
-                    this.channel.relationsCount = body.relationsCount;
-                    this.channel.config = body.config;
-                    this.channel.configBefore = body.configBefore;
-                });
-            }
+            this.onChangeListener = () => this.refreshChannelConfig();
             EventBus.$on('channel-updated', this.onChangeListener);
         },
         beforeDestroy() {
@@ -276,15 +288,19 @@
                     .then(() => this.afterSave())
                     .catch(response => {
                         if (response.status === 409) {
-                            this.changeFunctionConfirmationObject = response.body;
-                            this.changeFunctionConfirmationObject.newFunction = newFunction;
+                            if (response.body.details) {
+                                this.configConflictDetected = true;
+                            } else {
+                                this.changeFunctionConfirmationObject = response.body;
+                                this.changeFunctionConfirmationObject.newFunction = newFunction;
+                            }
                         }
                     })
                     .finally(() => this.changingFunction = this.loading = false);
             },
             saveChanges: throttle(function () {
                 this.loading = true;
-                return this.$http.put(`channels/${this.id}?safe=1`, this.channel)
+                return this.$http.put(`channels/${this.id}?safe=1`, this.channel, {skipErrorHandler: [409]})
                     .then(response => extendObject(this.channel, response.body))
                     .then(() => {
                         this.hasPendingChanges = false;
@@ -292,6 +308,11 @@
                         EventBus.$emit('channel-updated');
                     })
                     .then(() => this.afterSave())
+                    .catch(response => {
+                        if (response.status === 409) {
+                            this.configConflictDetected = true;
+                        }
+                    })
                     .finally(() => this.loading = false);
             }, 1000),
             onLocationChange(location) {
@@ -307,6 +328,16 @@
                     this.sleepingDeviceWarning = true;
                 }
             },
+            refreshChannelConfig() {
+                this.loading = true;
+                this.channelRequest().then(({body}) => {
+                    this.channel.relationsCount = body.relationsCount;
+                    this.channel.config = body.config;
+                    this.channel.configBefore = body.configBefore;
+                    this.configConflictDetected = false;
+                    this.loading = false;
+                });
+            }
         },
         computed: {
             channelTitle() {
