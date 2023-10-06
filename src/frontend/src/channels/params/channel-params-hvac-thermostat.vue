@@ -94,7 +94,13 @@
             </div>
         </transition-expand>
         <a class="d-flex accordion-header" @click="displayGroup('freeze')">
-            <span class="flex-grow-1">{{ $t('Anti freeze and overheat protection') }}</span>
+            <span class="flex-grow-1" v-if="freezeHeatProtectionTemperatures.length === 2">
+                {{ $t('Anti freeze and overheat protection') }}
+            </span>
+            <span class="flex-grow-1" v-else-if="freezeHeatProtectionTemperatures[0].name === 'heatProtection'">
+                {{ $t('Overheat protection') }}
+            </span>
+            <span class="flex-grow-1" v-else>{{ $t('Anti freeze protection') }}</span>
             <span>
                 <fa :icon="group === 'freeze' ? 'chevron-down' : 'chevron-right'"/>
             </span>
@@ -119,7 +125,7 @@
                                         :max="temp.max"
                                         class="form-control text-center"
                                         v-model="channel.config.temperatures[temp.name]"
-                                        @change="$emit('change')">
+                                        @change="temperatureChanged(temp.name)">
                                     <span class="input-group-addon">&deg;C</span>
                                 </span>
                             </dt>
@@ -272,6 +278,16 @@
                         this.channel.config.temperatures.auxMinSetpoint,
                         +this.channel.config.temperatures.auxMaxSetpoint - this.channel.config.temperatureConstraints.autoOffsetMin
                     );
+                } else if (name === 'freezeProtection') {
+                    this.channel.config.temperatures.heatProtection = Math.max(
+                        this.channel.config.temperatures.heatProtection,
+                        +this.channel.config.temperatures.freezeProtection + this.channel.config.temperatureConstraints.autoOffsetMin
+                    );
+                } else if (name === 'heatProtection') {
+                    this.channel.config.temperatures.freezeProtection = Math.min(
+                        this.channel.config.temperatures.freezeProtection,
+                        +this.channel.config.temperatures.heatProtection - this.channel.config.temperatureConstraints.autoOffsetMin
+                    );
                 }
                 this.$emit('change');
             }
@@ -296,10 +312,14 @@
                 ].filter(a => a);
             },
             freezeHeatProtectionTemperatures() {
-                return [
-                    this.availableTemperatures.find(t => t.name === 'freezeProtection'),
-                    this.availableTemperatures.find(t => t.name === 'heatProtection'),
-                ].filter(a => a);
+                const temps = [];
+                if (this.channel.function.id === ChannelFunction.HVAC_THERMOSTAT_AUTO || this.channel.config.subfunction !== 'COOL') {
+                    temps.push(this.availableTemperatures.find(t => t.name === 'freezeProtection'));
+                }
+                if (this.channel.function.id === ChannelFunction.HVAC_THERMOSTAT_AUTO || this.channel.config.subfunction === 'COOL') {
+                    temps.push(this.availableTemperatures.find(t => t.name === 'heatProtection'));
+                }
+                return temps.filter(a => a);
             },
             histeresisTemperatures() {
                 return [

@@ -365,5 +365,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $minOffset = $constraints['autoOffsetMin'] ?? 0;
             Assertion::lessOrEqualThan($temps['auxMinSetpoint'], $temps['auxMaxSetpoint'] - $minOffset, null, 'auxMinSetpoint');
         }
+        if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_AUTO &&
+            isset($temps['freezeProtection']) && isset($temps['heatProtection'])) {
+            $minOffset = $constraints['autoOffsetMin'] ?? 0;
+            Assertion::lessOrEqualThan($temps['freezeProtection'], $temps['heatProtection'] - $minOffset, null, 'freezeProtection');
+        }
     }
 }
