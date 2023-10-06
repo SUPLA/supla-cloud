@@ -60,30 +60,34 @@
                                 </div>
                             </dt>
                         </dl>
-                        <dl>
-                            <dd>{{ $t('Enable aux min and max setpoints') }}</dd>
-                            <dt class="text-center">
-                                <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"/>
-                            </dt>
-                        </dl>
                         <transition-expand>
-                            <dl v-if="channel.config.auxMinMaxSetpointEnabled">
-                                <template v-for="temp in auxMinMaxTemperatures">
-                                    <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
-                                    <dt :key="`dt${temp.name}`">
-                                        <span class="input-group">
-                                            <input type="number"
-                                                step="0.1"
-                                                :min="temp.min"
-                                                :max="temp.max"
-                                                class="form-control text-center"
-                                                v-model="channel.config.temperatures[temp.name]"
-                                                @change="$emit('change')">
-                                            <span class="input-group-addon">&deg;C</span>
-                                        </span>
+                            <div v-if="channel.config.auxThermometerType !== 'DISABLED'">
+                                <dl>
+                                    <dd>{{ $t('Enable aux min and max setpoints') }}</dd>
+                                    <dt class="text-center">
+                                        <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"/>
                                     </dt>
-                                </template>
-                            </dl>
+                                </dl>
+                                <transition-expand>
+                                    <dl v-if="channel.config.auxMinMaxSetpointEnabled">
+                                        <template v-for="temp in auxMinMaxTemperatures">
+                                            <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
+                                            <dt :key="`dt${temp.name}`">
+                                                <span class="input-group">
+                                                    <input type="number"
+                                                        step="0.1"
+                                                        :min="temp.min"
+                                                        :max="temp.max"
+                                                        class="form-control text-center"
+                                                        v-model="channel.config.temperatures[temp.name]"
+                                                        @change="$emit('change')">
+                                                    <span class="input-group-addon">&deg;C</span>
+                                                </span>
+                                            </dt>
+                                        </template>
+                                    </dl>
+                                </transition-expand>
+                            </div>
                         </transition-expand>
                     </div>
                 </transition-expand>

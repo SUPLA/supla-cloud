@@ -92,7 +92,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $config = [
                 'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
-                'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
+                'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'FLOOR'),
                 'binarySensorChannelId' => $binarySensor ? $binarySensor->getId() : null,
                 'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
                 'auxMinMaxSetpointEnabled' => $subject->getUserConfigValue('auxMinMaxSetpointEnabled', false),
@@ -126,7 +126,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('mainThermometerChannelId', $config)) {
             Assertion::integer($config['mainThermometerChannelId'], null, 'mainThermometerChannelId');
-            Assertion::numeric($config['mainThermometerChannelId']);
             $thermometer = $this->channelIdToNo($subject, $config['mainThermometerChannelId']);
             Assertion::inArray(
                 $thermometer->getFunction()->getId(),
@@ -146,7 +145,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $subject->setUserConfigValue('auxThermometerChannelNo', $thermometer->getChannelNumber());
             } else {
                 $subject->setUserConfigValue('auxThermometerChannelNo', null);
-                $config['auxThermometerType'] = 'NOT_SET';
             }
         }
         if (array_key_exists('binarySensorChannelId', $config)) {
@@ -163,7 +161,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             if ($config['auxThermometerType']) {
                 Assertion::inArray(
                     $config['auxThermometerType'],
-                    ['NOT_SET', 'DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']
+                    ['DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']
                 );
             }
             $subject->setUserConfigValue('auxThermometerType', $config['auxThermometerType'] ?: 'NOT_SET');
