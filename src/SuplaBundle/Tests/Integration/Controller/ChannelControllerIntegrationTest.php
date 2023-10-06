@@ -1084,7 +1084,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testUpdatingConfigWithComparison */
-    public function testUpdatingConfigWithInvalidConfigBefore(IODeviceChannel $channel) {
+    public function testUpdatingConfigWithConflictingConfigBefore(IODeviceChannel $channel) {
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
             'config' => ['temperatureAdjustment' => 13],
@@ -1094,6 +1094,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('details', $content);
         $this->assertEquals(11, $content['details']['config']['temperatureAdjustment']);
+        $this->assertEquals('temperatureAdjustment', $content['details']['conflictingField']);
     }
 
     /** @depends testUpdatingConfigWithComparison */

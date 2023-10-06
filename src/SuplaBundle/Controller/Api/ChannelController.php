@@ -32,7 +32,6 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
-use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
@@ -44,6 +43,7 @@ use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\LocationRepository;
 use SuplaBundle\Repository\UserIconRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\ArrayUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -284,24 +284,9 @@ class ChannelController extends RestController {
             if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
                 Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
                 Assertion::isArray($requestData['config'], null, 'config');
-                $newConfig = $channelConfig;
-                $beforeConfig = $requestData['configBefore'];
+                Assertion::isArray($requestData['configBefore'], null, 'configBefore');
                 $currentConfig = json_decode(json_encode($paramConfigTranslator->getConfig($channel)), true);
-                foreach ($newConfig as $settingName => $newValue) {
-                    $beforeValue = $beforeConfig[$settingName] ?? null;
-                    $currentValue = $currentConfig[$settingName] ?? null;
-                    if ($beforeValue != $newValue) {
-                        if ($currentValue != $beforeValue && $currentValue != $newValue) {
-                            throw new ApiExceptionWithDetails(
-                                'Config has been changed externally.',
-                                ['config' => $paramConfigTranslator->getConfig($channel), 'conflictingField' => $settingName],
-                                Response::HTTP_CONFLICT
-                            );
-                        }
-                    } else {
-                        unset($channelConfig[$settingName]);
-                    }
-                }
+                $channelConfig = ArrayUtils::mergeConfigs($requestData['configBefore'], $channelConfig, $currentConfig);
             }
             if (isset($requestData['functionId'])) {
                 $function = ChannelFunction::fromString($requestData['functionId']);

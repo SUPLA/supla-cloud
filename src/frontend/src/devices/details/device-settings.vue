@@ -8,6 +8,9 @@
             :is-pending="hasPendingChanges">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
+                    <transition-expand>
+                        <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()" v-if="conflictingConfig"/>
+                    </transition-expand>
                     <div class="form-group" v-if="config.statusLed">
                         <label for="statusLed">{{ $t('LED status') }}</label>
                         <select id="statusLed" class="form-control" v-model="config.statusLed" @change="onChange()">
@@ -94,9 +97,11 @@
     import 'vue-slider-component/theme/antd.css';
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {prettyMilliseconds} from "@/common/filters";
+    import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
 
     export default {
         components: {
+            ConfigConflictWarning,
             TransitionExpand,
             PendingChangesPage,
             VueSlider: () => import('vue-slider-component'),
@@ -115,7 +120,8 @@
                     ...[...Array(5).keys()].map(k => k * 5 + 35), // s 35 - 55
                     ...[...Array(9).keys()].map(k => k * 30 + 60), // min 1, 1.5, 2, ... 5
                     ...[6, 7, 8, 9, 10, 15, 20, 30].map(k => k * 60)
-                ]
+                ],
+                conflictingConfig: false,
             };
         },
         beforeMount() {
@@ -149,13 +155,27 @@
                 if (config.homeScreen && !this.homeScreenOff) {
                     config.homeScreen.offDelay = 0;
                 }
-                this.$http.put(`iodevices/${this.device.id}`, {config})
-                    .then(response => this.device.config = response.body.config)
-                    .then(() => this.cancelChanges());
+                this.$http.put(`iodevices/${this.device.id}`, {config, configBefore: this.device.configBefore}, {skipErrorHandler: [409]})
+                    .then(response => {
+                        this.device.config = response.body.config;
+                        this.device.configBefore = response.body.configBefore;
+                    })
+                    .then(() => this.cancelChanges())
+                    .catch(response => {
+                        if (response.status === 409) {
+                            this.conflictingConfig = response.body.details.config;
+                        }
+                    });
             },
             formatSeconds(sliderValue) {
                 return prettyMilliseconds(+sliderValue * 1000, this);
             },
+            replaceConfigWithConflictingConfig() {
+                this.device.config = this.conflictingConfig;
+                this.device.configBefore = deepCopy(this.device.config);
+                this.conflictingConfig = false;
+                this.cancelChanges();
+            }
         },
     }
 </script>

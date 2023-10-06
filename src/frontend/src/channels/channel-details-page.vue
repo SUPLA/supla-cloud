@@ -63,23 +63,8 @@
                                         @save="saveChanges()"
                                         @change="updateChannel()"></channel-params-form>
                                     <transition-expand>
-                                        <div class="alert alert-danger mt-3 mb-0" v-if="configConflictDetected">
-                                            <p>
-                                                <strong>{{ $t('Setting have not been saved!') }}</strong>
-                                            </p>
-                                            <p>
-                                                {{ $t('The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.') }}
-                                            </p>
-                                            <p>
-                                                {{ $t('Refreshing the configuration will overwrite the changes you made here.') }}
-                                            </p>
-                                            <p class="text-center">
-                                                <a @click="refreshChannelConfig()">
-                                                    <fa icon="refresh"/>
-                                                    {{ $t('Refresh the config') }}
-                                                </a>
-                                            </p>
-                                        </div>
+                                        <ConfigConflictWarning @refresh="refreshChannelConfig()" v-if="configConflictDetected"
+                                            class="mt-3 mb-0"/>
                                     </transition-expand>
                                     <transition-expand>
                                         <div class="text-center mt-3" v-if="!configConflictDetected && hasPendingChanges">
@@ -204,10 +189,12 @@
     import ChannelActionExecutorModal from "./action/channel-action-executor-modal";
     import TransitionExpand from "../common/gui/transition-expand";
     import {extendObject} from "@/common/utils";
+    import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
 
     export default {
         props: ['id'],
         components: {
+            ConfigConflictWarning,
             TransitionExpand,
             ChannelActionExecutorModal,
             ChannelActionExecutor,

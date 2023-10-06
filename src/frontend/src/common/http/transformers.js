@@ -112,6 +112,11 @@ export function iodeviceTransformer(request, next) {
         }
     }
     next();
+    return function (response) {
+        if (response.body?.config) {
+            response.body.configBefore = deepCopy(response.body.config);
+        }
+    }
 }
 
 export function scheduleTransformer(request, next) {

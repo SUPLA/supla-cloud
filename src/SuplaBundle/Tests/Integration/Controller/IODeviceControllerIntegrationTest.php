@@ -533,4 +533,53 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(5, $content['relationsCount']['channels']);
         $this->assertEquals(1, $content['relationsCount']['managedNotifications']);
     }
+
+    public function testUpdatingConfigWithComparison() {
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::THERMOMETER, ChannelFunction::THERMOMETER],
+        ]);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $anotherDevice->getId(), [
+            'config' => ['statusLed' => 'ALWAYS_OFF'],
+            'configBefore' => ['statusLed' => 'ON_WHEN_CONNECTED'],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $anotherDevice = $this->freshEntity($anotherDevice);
+        $this->assertEquals('ALWAYS_OFF', $anotherDevice->getUserConfigValue('statusLed'));
+        return $anotherDevice;
+    }
+
+    /** @depends testUpdatingConfigWithComparison */
+    public function testCantUpdateWithoutConfigBefore(IODevice $device) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId(), [
+            'config' => ['statusLed' => 'OFF_WHEN_CONNECTED'],
+        ]);
+        $this->assertStatusCode(400, $client->getResponse());
+    }
+
+    /** @depends testUpdatingConfigWithComparison */
+    public function testCanUpdateCaptionWithoutConfigBefore(IODevice $device) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId(), [
+            'comment' => 'Unicorn device',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $device = $this->freshEntity($device);
+        $this->assertEquals('Unicorn device', $device->getComment());
+    }
+
+    /** @depends testUpdatingConfigWithComparison */
+    public function testUpdatingConfigWithConflictingConfigBefore(IODevice $device) {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId(), [
+            'config' => ['statusLed' => 'OFF_WHEN_CONNECTED'],
+            'configBefore' => ['statusLed' => 'ON_WHEN_CONNECTED'],
+        ]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('details', $content);
+        $this->assertEquals('ALWAYS_OFF', $content['details']['config']['statusLed']);
+        $this->assertEquals('statusLed', $content['details']['conflictingField']);
+    }
 }

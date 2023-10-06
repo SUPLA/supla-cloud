@@ -30,10 +30,12 @@ use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\Transactional;
+use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Serialization\RequestFiller\IODeviceRequestFiller;
 use SuplaBundle\Supla\SuplaServerAware;
+use SuplaBundle\Utils\ArrayUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -279,9 +281,11 @@ class IODeviceController extends RestController {
         Request $request,
         IODevice $ioDevice,
         IODeviceRequestFiller $requestFiller,
-        ChannelDependencies $channelDependencies
+        ChannelDependencies $channelDependencies,
+        IODeviceConfigTranslator $configTranslator
     ) {
         $result = $this->transactional(function (EntityManagerInterface $em) use (
+            $configTranslator,
             $requestFiller,
             $channelDependencies,
             $request,
@@ -319,6 +323,13 @@ class IODeviceController extends RestController {
                         }
                     }
                 }
+            }
+            if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
+                Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
+                Assertion::isArray($requestData['config'], null, 'config');
+                Assertion::isArray($requestData['configBefore'], null, 'configBefore');
+                $currentConfig = json_decode(json_encode($configTranslator->getConfig($ioDevice)), true);
+                $requestData['config'] = ArrayUtils::mergeConfigs($requestData['configBefore'], $requestData['config'], $currentConfig);
             }
             $requestFiller->fillFromData($requestData, $ioDevice);
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);

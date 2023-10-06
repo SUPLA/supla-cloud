@@ -17,6 +17,7 @@
 namespace SuplaBundle\Tests\Utils;
 
 use PHPUnit\Framework\TestCase;
+use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Utils\ArrayUtils;
 
 class ArrayUtilsTest extends TestCase {
@@ -30,5 +31,15 @@ class ArrayUtilsTest extends TestCase {
         $this->assertEquals(['a' => 1], ArrayUtils::leaveKeys(['a' => 1, 'b' => 1], ['a']));
         $this->assertEquals([], ArrayUtils::leaveKeys(['a' => 1, 'b' => 1], ['c']));
         $this->assertEquals(['a' => 1, 'b' => 1], ArrayUtils::leaveKeys(['a' => 1, 'b' => 1], ['a', 'b']));
+    }
+
+    public function testMergeConfigs() {
+        $this->assertEquals(['a' => 1], ArrayUtils::mergeConfigs(['a' => 0], ['a' => 1], ['a' => 0]));
+        $this->assertEquals([], ArrayUtils::mergeConfigs(['a' => 1], ['a' => 1], ['a' => 0]));
+        $this->assertEquals([], ArrayUtils::mergeConfigs(['a' => 0], ['a' => 1], ['a' => 1]));
+        $this->assertEquals(['a' => 1], ArrayUtils::mergeConfigs(['a' => 0, 'b' => 1], ['a' => 1, 'b' => 1], ['a' => 0, 'b' => 1]));
+        $this->assertEquals(['a' => 1], ArrayUtils::mergeConfigs(['a' => 0, 'b' => 1], ['a' => 1], ['a' => 0, 'b' => 2]));
+        $this->expectException(ApiExceptionWithDetails::class);
+        ArrayUtils::mergeConfigs(['a' => 0], ['a' => 1], ['a' => 2]);
     }
 }

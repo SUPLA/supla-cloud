@@ -16,6 +16,9 @@
 
 namespace SuplaBundle\Utils;
 
+use SuplaBundle\Exception\ApiExceptionWithDetails;
+use Symfony\Component\HttpFoundation\Response;
+
 final class ArrayUtils {
     private function __construct() {
     }
@@ -27,5 +30,24 @@ final class ArrayUtils {
 
     public static function leaveKeys(array $array, array $keys): array {
         return array_intersect_key($array, array_flip($keys));
+    }
+
+    public static function mergeConfigs(array $old, array $new, array $current): array {
+        foreach ($new as $settingName => $newValue) {
+            $beforeValue = $old[$settingName] ?? null;
+            $currentValue = $current[$settingName] ?? null;
+            if ($beforeValue != $newValue && $currentValue != $newValue) {
+                if ($currentValue != $beforeValue) {
+                    throw new ApiExceptionWithDetails(
+                        'Config has been changed externally.',
+                        ['config' => $current, 'conflictingField' => $settingName],
+                        Response::HTTP_CONFLICT
+                    );
+                }
+            } else {
+                unset($new[$settingName]);
+            }
+        }
+        return $new;
     }
 }
