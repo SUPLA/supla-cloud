@@ -89,11 +89,13 @@
                 this.onActionChange();
             },
             onActionChange() {
-                this.$emit('input', {
-                    subjectId: this.subject.ownSubjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
-                    subjectType: this.subject.ownSubjectType,
-                    action: this.action,
-                });
+                if (this.subject) {
+                    this.$emit('input', {
+                        subjectId: this.subject.ownSubjectType === ActionableSubjectType.OTHER ? undefined : this.subject.id,
+                        subjectType: this.subject.ownSubjectType,
+                        action: this.action,
+                    });
+                }
             },
             clearAction() {
                 this.$emit('input');

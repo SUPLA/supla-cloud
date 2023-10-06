@@ -29,7 +29,6 @@
 <script>
     import ActionTriggerPanel from "@/channels/action-trigger/action-trigger-panel";
     import PendingChangesPage from "@/common/pages/pending-changes-page";
-    import EventBus from "@/common/event-bus";
     import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
@@ -58,7 +57,6 @@
                     this.actionTriggers = responses.map((response) => response.body);
                     this.loading = false;
                     this.hasPendingChanges = false;
-                    EventBus.$emit('channel-updated');
                 });
             },
             saveChanges() {

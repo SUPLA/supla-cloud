@@ -284,15 +284,17 @@ class ChannelController extends RestController {
             if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
                 Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
                 Assertion::isArray($requestData['config'], null, 'config');
-                $newConfig = $requestData['config'];
+                $newConfig = $channelConfig;
                 $beforeConfig = $requestData['configBefore'];
-                $currentConfig = $paramConfigTranslator->getConfig($channel);
+                $currentConfig = json_decode(json_encode($paramConfigTranslator->getConfig($channel)), true);
                 foreach ($newConfig as $settingName => $newValue) {
-                    if ($beforeConfig[$settingName] != $newValue) {
-                        if ($currentConfig[$settingName] != $beforeConfig[$settingName] && $currentConfig[$settingName] != $newValue) {
+                    $beforeValue = $beforeConfig[$settingName] ?? null;
+                    $currentValue = $currentConfig[$settingName] ?? null;
+                    if ($beforeValue != $newValue) {
+                        if ($currentValue != $beforeValue && $currentValue != $newValue) {
                             throw new ApiExceptionWithDetails(
                                 'Config has been changed externally.',
-                                ['config' => $paramConfigTranslator->getConfig($channel)],
+                                ['config' => $paramConfigTranslator->getConfig($channel), 'conflictingField' => $settingName],
                                 Response::HTTP_CONFLICT
                             );
                         }

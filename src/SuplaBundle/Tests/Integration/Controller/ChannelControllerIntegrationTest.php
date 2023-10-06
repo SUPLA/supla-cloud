@@ -635,6 +635,25 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEmpty($trigger->getUserConfig()['actions']);
     }
 
+    public function testSettingConfigForActionTriggerV3() {
+        $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
+        $trigger = $anotherDevice->getChannels()[2];
+        $channel = $this->device->getChannels()[0];
+        $actions = ['TURN_ON' => [
+            'subjectId' => $channel->getId(), 'subjectType' => ActionableSubjectType::CHANNEL,
+            'action' => ['id' => $channel->getPossibleActions()[0]->getId()]]];
+        $client = $this->createAuthenticatedClient();
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client->apiRequestV3('PUT', '/api/channels/' . $trigger->getId(), [
+            'config' => ['actions' => $actions],
+            'configBefore' => $channelParamConfigTranslator->getConfig($trigger),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $this->assertArrayHasKey('actions', $trigger->getUserConfig());
+        $this->assertCount(1, $trigger->getUserConfig()['actions']);
+    }
+
     public function testChangingChannelFunctionClearsRelatedActionTriggersOnly() {
         $anotherDevice = $this->createDeviceSonoff($this->getEntityManager()->find(Location::class, $this->location->getId()));
         $trigger = $anotherDevice->getChannels()[2];

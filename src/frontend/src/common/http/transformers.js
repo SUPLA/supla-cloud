@@ -1,4 +1,5 @@
 import Vue from "vue";
+import {deepCopy} from "@/common/utils";
 
 export function channelGroupTransformer(request, next) {
     if (request.url.startsWith('channel-groups')) {
@@ -44,6 +45,11 @@ export function channelTransformer(request, next) {
         }
     }
     next();
+    return function (response) {
+        if (response.body?.config) {
+            response.body.configBefore = deepCopy(response.body.config);
+        }
+    }
 }
 
 export function locationTransformer(request, next) {

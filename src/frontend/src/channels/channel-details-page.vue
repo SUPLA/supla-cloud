@@ -203,7 +203,7 @@
     import ChannelActionExecutor from "@/channels/action/channel-action-executor";
     import ChannelActionExecutorModal from "./action/channel-action-executor-modal";
     import TransitionExpand from "../common/gui/transition-expand";
-    import {deepCopy, extendObject} from "@/common/utils";
+    import {extendObject} from "@/common/utils";
 
     export default {
         props: ['id'],
@@ -247,11 +247,7 @@
         },
         methods: {
             channelRequest() {
-                return this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]})
-                    .then(response => {
-                        response.body.configBefore = deepCopy(response.body.config);
-                        return response;
-                    });
+                return this.$http.get(`channels/${this.id}?include=iodevice,location,supportedFunctions,iodevice.location,actionTriggers`, {skipErrorHandler: [403, 404]});
             },
             fetchChannel() {
                 this.channel = undefined;
