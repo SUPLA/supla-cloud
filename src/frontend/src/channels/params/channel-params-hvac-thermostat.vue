@@ -8,7 +8,7 @@
                     <a :class="'btn ' + (channel.config.subfunction == type ? 'btn-green' : 'btn-default')"
                         v-for="type in ['HEAT', 'COOL']"
                         :key="type"
-                        @click="channel.config.subfunction = type; $emit('change')">
+                        @click="changeSubfunction(type)">
                         {{ $t(`thermostatSubfunction_${type}`) }}
                     </a>
                 </div>
@@ -214,13 +214,14 @@
                     </dt>
                     <dd>{{ $t('Output value on error') }}</dd>
                     <dt>
-                        <input type="number"
-                            step="1"
-                            min="-100"
-                            max="100"
-                            class="form-control text-center"
-                            v-model="channel.config.outputValueOnError"
-                            @change="$emit('change')">
+                        <div class="btn-group btn-group-flex">
+                            <a :class="'btn ' + (channel.config.outputValueOnError == possibleValue.value ? 'btn-green' : 'btn-default')"
+                                v-for="possibleValue in possibleOutputValueOnErrorValues"
+                                :key="possibleValue.value"
+                                @click="channel.config.outputValueOnError = possibleValue.value; $emit('change')">
+                                {{ $t(possibleValue.label) }}
+                            </a>
+                        </div>
                     </dt>
                     <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
                     <dt class="text-center">
@@ -235,6 +236,7 @@
 <script>
     import ChannelsIdDropdown from "@/devices/channels-id-dropdown";
     import TransitionExpand from "@/common/gui/transition-expand.vue";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {TransitionExpand, ChannelsIdDropdown},
@@ -252,6 +254,13 @@
                     this.group = group;
                 }
             },
+            changeSubfunction(subfunction) {
+                this.channel.config.subfunction = subfunction;
+                if (this.channel.config.outputValueOnError) {
+                    this.channel.config.outputValueOnError = 0;
+                }
+                this.$emit('change');
+            }
         },
         computed: {
             availableTemperatures() {
@@ -283,6 +292,16 @@
                     this.availableTemperatures.find(t => t.name === 'histeresis'),
                 ].filter(a => a);
             },
+            possibleOutputValueOnErrorValues() {
+                const values = [{value: 0, label: 'off'}]; // i18n
+                if (this.channel.function.id === ChannelFunction.HVAC_THERMOSTAT_AUTO || this.channel.config.subfunction === 'COOL') {
+                    values.push({value: -100, label: 'cool'}); // i18n
+                }
+                if (this.channel.config.subfunction !== 'COOL') {
+                    values.push({value: 100, label: 'heat'}); // i18n
+                }
+                return values;
+            }
         },
         watch: {
             'channel.config.mainThermometerChannelId'() {
