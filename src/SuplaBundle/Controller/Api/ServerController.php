@@ -20,13 +20,11 @@ namespace SuplaBundle\Controller\Api;
 use DateTime;
 use FOS\RestBundle\Controller\Annotations\Get;
 use OpenApi\Annotations as OA;
-use SuplaBundle\Model\APIManager;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Twig\FrontendConfig;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ServerController extends RestController {
     use SuplaServerAware;
@@ -112,14 +110,6 @@ class ServerController extends RestController {
             $result['serverStatus'] = $this->suplaServer->getServerStatus();
         }
         return $this->view($result, Response::HTTP_OK);
-    }
-
-    /**
-     * @Get("/logout/{refreshToken}", name="api_logout")
-     */
-    public function logoutAction($refreshToken, APIManager $apiManager, TokenStorageInterface $tokenStorage) {
-        $apiManager->userLogout($tokenStorage->getUser(), $tokenStorage->getToken(), $refreshToken);
-        return $this->view(null, Response::HTTP_OK);
     }
 
     /**
