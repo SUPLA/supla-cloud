@@ -274,4 +274,13 @@
             white-space: nowrap;
         }
     }
+
+    .red nav.navbar-top {
+        .nav > li > a {
+            color: $supla-white;
+        }
+        .nav > li.active, .nav > li.open, .dropdown-menu > li.active {
+            background: darken($supla-red, 10%);
+        }
+    }
 </style>

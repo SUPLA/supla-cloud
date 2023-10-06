@@ -6,6 +6,11 @@ import {extendObject} from "@/common/utils";
 export class CurrentUser {
     constructor() {
         this.synchronizeAuthState();
+        window.addEventListener('storage', (e) => {
+            if (e.key === '_token') {
+                setTimeout(() => window.location.href = window.location.toString());
+            }
+        });
     }
 
     getToken() {
