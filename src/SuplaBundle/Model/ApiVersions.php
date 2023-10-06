@@ -44,6 +44,9 @@ class ApiVersions extends Enum {
             $matched = preg_match('#v?(\d+(\.\d+)?(\.0)?)#i', $version, $matches);
             if ($matched) {
                 $requestedVersion = $matches[1];
+                if (substr_count($requestedVersion, '.') === 1) {
+                    $requestedVersion .= '.0';
+                }
             }
             if (!$matched || !self::isValid($requestedVersion)) {
                 throw new HttpException(
