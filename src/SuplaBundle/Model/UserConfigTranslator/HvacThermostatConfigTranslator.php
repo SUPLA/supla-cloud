@@ -9,6 +9,7 @@ use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Exception\ApiExceptionWithDetails;
 use SuplaBundle\Utils\NumberUtils;
 use function Assert\Assert;
 
@@ -277,10 +278,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         if ($constraintName) {
             $constraints = $subject->getProperties()['temperatures'] ?? [];
             if (array_key_exists("{$constraintName}Min", $constraints)) {
-                Assertion::greaterOrEqualThan($adjustedTemperature, $constraints["{$constraintName}Min"]);
+                Assertion::greaterOrEqualThan($adjustedTemperature / 100, $constraints["{$constraintName}Min"] / 100);
             }
             if (array_key_exists("{$constraintName}Max", $constraints)) {
-                Assertion::lessOrEqualThan($adjustedTemperature, $constraints["{$constraintName}Max"]);
+                Assertion::lessOrEqualThan($adjustedTemperature / 100, $constraints["{$constraintName}Max"] / 100);
             }
         }
         return $adjustedTemperature;
@@ -347,7 +348,16 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                     $max = $this->validateTemperature($subject, $programSettings['setpointTemperatureCool'], 'room');
                 }
                 if ($programMode === 'AUTO') {
-                    Assertion::lessThan($min, $max);
+                    $constraints = $subject->getProperties()['temperatures'] ?? [];
+                    $minOffset = $constraints['autoOffsetMin'] ?? 0;
+                    $maxOffset = $constraints['autoOffsetMax'] ?? 0;
+                    Assertion::lessOrEqualThan($min / 100, ($max - $minOffset) / 100, null, 'setpointTemperatureHeat');
+                    if ($maxOffset && $min < $max - $maxOffset) {
+                        throw new ApiExceptionWithDetails(
+                            'Temperature difference is too big between {min}°C and {max}°C.', // i18n
+                            ['min' => $min / 100, 'max' => $max / 100]
+                        );
+                    }
                 }
                 return ['mode' => $programMode, 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
             }, $weeklySchedule['programSettings']),
@@ -363,12 +373,22 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         $constraints = $subject->getProperties()['temperatures'] ?? [];
         if (isset($temps['auxMinSetpoint']) && isset($temps['auxMaxSetpoint'])) {
             $minOffset = $constraints['autoOffsetMin'] ?? 0;
-            Assertion::lessOrEqualThan($temps['auxMinSetpoint'], $temps['auxMaxSetpoint'] - $minOffset, null, 'auxMinSetpoint');
+            Assertion::lessOrEqualThan(
+                $temps['auxMinSetpoint'] / 100,
+                ($temps['auxMaxSetpoint'] - $minOffset) / 100,
+                null,
+                'auxMinSetpoint'
+            );
         }
         if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_AUTO &&
             isset($temps['freezeProtection']) && isset($temps['heatProtection'])) {
             $minOffset = $constraints['autoOffsetMin'] ?? 0;
-            Assertion::lessOrEqualThan($temps['freezeProtection'], $temps['heatProtection'] - $minOffset, null, 'freezeProtection');
+            Assertion::lessOrEqualThan(
+                $temps['freezeProtection'] / 100,
+                ($temps['heatProtection'] - $minOffset) / 100,
+                null,
+                'freezeProtection'
+            );
         }
     }
 }

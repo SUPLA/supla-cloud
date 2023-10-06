@@ -238,7 +238,7 @@ class DevicesFixture extends SuplaFixture {
                             'histeresisMin' => 100,
                             'histeresisMax' => 500,
                             'autoOffsetMin' => 100,
-                            'autoOffsetMax' => 200,
+                            'autoOffsetMax' => 2000,
                         ],
                     ]),
                     'userConfig' => json_encode([
@@ -292,7 +292,7 @@ class DevicesFixture extends SuplaFixture {
                             'histeresisMin' => 100,
                             'histeresisMax' => 500,
                             'autoOffsetMin' => 100,
-                            'autoOffsetMax' => 200,
+                            'autoOffsetMax' => 2000,
                         ],
                     ]),
                     'userConfig' => json_encode([

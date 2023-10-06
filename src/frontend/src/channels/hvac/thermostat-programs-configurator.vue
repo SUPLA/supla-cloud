@@ -15,6 +15,7 @@
                                 :min="roomMin"
                                 :max="roomMax"
                                 class="form-control text-center"
+                                @change="temperatureChanged(program, 'setpointTemperatureHeat')"
                                 v-model="program.settings.setpointTemperatureHeat">
                             <span class="input-group-addon">
                                 &deg;C
@@ -31,6 +32,7 @@
                                 :min="roomMin"
                                 :max="roomMax"
                                 class="form-control text-center"
+                                @change="temperatureChanged(program, 'setpointTemperatureCool')"
                                 v-model="program.settings.setpointTemperatureCool">
                             <span class="input-group-addon">
                                 &deg;C
@@ -171,9 +173,6 @@
                     if (!hasHeat && !hasCool) {
                         this.invalidProgramErrorText = this.$t('All programs must define at least one temperature threshold.');
                     }
-                    if (hasHeat && hasCool && heat >= cool) {
-                        this.invalidProgramErrorText = this.$t('When the program defines both heating and cooling temperatures, the first must be lower than the second.');
-                    }
                     const mode = this.autoModeAvailable ? (hasHeat ? (hasCool ? 'AUTO' : 'HEAT') : 'COOL') : settings.mode;
                     newPrograms[programNo] = {
                         mode,
@@ -185,6 +184,22 @@
                     this.$emit('input', newPrograms);
                 }
             },
+            temperatureChanged(program, name) {
+                const hasHeat = program.settings.setpointTemperatureHeat !== null && program.settings.setpointTemperatureHeat !== '';
+                const hasCool = program.settings.setpointTemperatureCool !== null && program.settings.setpointTemperatureCool !== '';
+                if (name === 'setpointTemperatureHeat' && hasCool) {
+                    program.settings.setpointTemperatureCool = Math.max(
+                        program.settings.setpointTemperatureCool,
+                        +program.settings.setpointTemperatureHeat + this.subject.config.temperatureConstraints.autoOffsetMin
+                    );
+                }
+                if (name === 'setpointTemperatureCool' && hasHeat) {
+                    program.settings.setpointTemperatureHeat = Math.min(
+                        program.settings.setpointTemperatureHeat,
+                        +program.settings.setpointTemperatureCool - this.subject.config.temperatureConstraints.autoOffsetMin
+                    );
+                }
+            }
         },
         computed: {
             autoModeAvailable() {
