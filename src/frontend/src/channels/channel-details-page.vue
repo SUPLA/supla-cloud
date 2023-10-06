@@ -226,7 +226,7 @@
         },
         mounted() {
             this.fetchChannel();
-            this.onChangeListener = () => this.refreshChannelConfig();
+            this.onChangeListener = () => this.refreshChannelConfig(false);
             EventBus.$on('channel-updated', this.onChangeListener);
         },
         beforeDestroy() {
@@ -311,8 +311,8 @@
                     this.sleepingDeviceWarning = true;
                 }
             },
-            refreshChannelConfig() {
-                this.loading = true;
+            refreshChannelConfig(showLoading = true) {
+                this.loading = showLoading;
                 this.channelRequest().then(({body}) => {
                     this.channel.relationsCount = body.relationsCount;
                     this.channel.config = body.config;

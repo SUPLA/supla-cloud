@@ -7,6 +7,14 @@
             @save="saveWeeklySchedules()"
             :is-pending="hasPendingChanges">
 
+            <transition-expand>
+                <div class="row" v-if="conflictingConfig">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()"/>
+                    </div>
+                </div>
+            </transition-expand>
+
             <div class="text-center mb-5" v-if="subject.config.altWeeklySchedule">
                 <a :class="['btn mx-2', editingMode === 'weeklySchedule' ? 'btn-orange' : 'btn-default']"
                     @click="editingMode = 'weeklySchedule'">
@@ -41,9 +49,13 @@
     import IconHeating from "@/common/icons/icon-heating.vue";
     import IconCooling from "@/common/icons/icon-cooling.vue";
     import ThermostatProgramsConfigurator from "@/channels/hvac/thermostat-programs-configurator.vue";
+    import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
 
     export default {
-        components: {ThermostatProgramsConfigurator, IconCooling, IconHeating, PendingChangesPage, WeekScheduleSelector},
+        components: {
+            ConfigConflictWarning,
+            ThermostatProgramsConfigurator, IconCooling, IconHeating, PendingChangesPage, WeekScheduleSelector
+        },
         props: {
             subject: Object,
         },
@@ -55,6 +67,7 @@
                 initialConfig: undefined,
                 weeklySchedule: undefined,
                 altWeeklySchedule: undefined,
+                conflictingConfig: undefined,
             }
         },
         beforeMount() {
@@ -67,16 +80,27 @@
                     config: {
                         weeklySchedule: this.weeklySchedule,
                         altWeeklySchedule: this.altWeeklySchedule,
-                    }
-                }).then(() => {
+                    },
+                    configBefore: this.subject.configBefore,
+                }, {skipErrorHandler: [409]}).then(() => {
                     this.hasPendingChanges = false;
                     EventBus.$emit('channel-updated');
+                }).catch(response => {
+                    if (response.status === 409) {
+                        this.conflictingConfig = response.body.details.config;
+                    }
                 });
             },
             cancelChanges() {
                 this.weeklySchedule = deepCopy(this.subject.config.weeklySchedule);
                 this.altWeeklySchedule = deepCopy(this.subject.config.altWeeklySchedule);
                 this.hasPendingChanges = false;
+            },
+            replaceConfigWithConflictingConfig() {
+                this.subject.config = this.conflictingConfig;
+                this.subject.configBefore = deepCopy(this.subject.config);
+                this.conflictingConfig = false;
+                this.cancelChanges();
             }
         },
         computed: {
