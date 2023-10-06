@@ -158,9 +158,11 @@
                     }
                     return program;
                 });
+                this.$emit('editing', true);
             },
             cancelProgramsEdit() {
                 this.editingPrograms = undefined;
+                this.$emit('editing', false);
             },
             submitProgramsEdit() {
                 this.invalidProgramErrorText = '';
@@ -181,6 +183,7 @@
                     };
                 });
                 if (!this.invalidProgramErrorText) {
+                    this.$emit('editing', false);
                     this.$emit('input', newPrograms);
                 }
             },

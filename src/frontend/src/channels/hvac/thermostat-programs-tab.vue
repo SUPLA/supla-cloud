@@ -5,7 +5,7 @@
             dont-set-page-title
             @cancel="cancelChanges()"
             @save="saveWeeklySchedules()"
-            :is-pending="hasPendingChanges">
+            :is-pending="hasPendingChanges && !editingPrograms">
 
             <transition-expand>
                 <div class="row" v-if="conflictingConfig">
@@ -30,6 +30,7 @@
 
             <ThermostatProgramsConfigurator v-model="editingSchedule.programSettings" :subject="subject"
                 :default-program-mode="editingMode === 'weeklySchedule' ? 'HEAT' : 'COOL'"
+                @editing="editingPrograms = $event"
                 @input="hasPendingChanges = true"
                 @programChosen="(programNo) => currentProgram = programNo"/>
 
@@ -70,6 +71,7 @@
                 weeklySchedule: undefined,
                 altWeeklySchedule: undefined,
                 conflictingConfig: undefined,
+                editingPrograms: false,
             }
         },
         beforeMount() {
