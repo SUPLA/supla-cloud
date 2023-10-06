@@ -245,6 +245,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $constraintName = ['histeresis' => 'histeresis', 'auxMinSetpoint' => 'aux', 'auxMaxSetpoint' => 'aux'][$tempKey] ?? 'room';
                 $temps[$tempKey] = $this->validateTemperature($subject, $newTemp, $constraintName);
             }
+            $this->validateTemperatures($subject, $temps);
             $subject->setUserConfigValue('temperatures', $temps);
         }
     }
@@ -356,5 +357,13 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
 
     public function clearConfig(HasUserConfig $subject): void {
         $subject->setUserConfig([]);
+    }
+
+    private function validateTemperatures(HasUserConfig $subject, $temps) {
+        $constraints = $subject->getProperties()['temperatures'] ?? [];
+        if (isset($temps['auxMinSetpoint']) && isset($temps['auxMaxSetpoint'])) {
+            $minOffset = $constraints['autoOffsetMin'] ?? 0;
+            Assertion::lessOrEqualThan($temps['auxMinSetpoint'], $temps['auxMaxSetpoint'] - $minOffset, null, 'auxMinSetpoint');
+        }
     }
 }

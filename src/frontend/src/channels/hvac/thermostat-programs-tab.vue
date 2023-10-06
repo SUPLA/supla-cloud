@@ -50,9 +50,11 @@
     import IconCooling from "@/common/icons/icon-cooling.vue";
     import ThermostatProgramsConfigurator from "@/channels/hvac/thermostat-programs-configurator.vue";
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
+    import TransitionExpand from "@/common/gui/transition-expand.vue";
 
     export default {
         components: {
+            TransitionExpand,
             ConfigConflictWarning,
             ThermostatProgramsConfigurator, IconCooling, IconHeating, PendingChangesPage, WeekScheduleSelector
         },

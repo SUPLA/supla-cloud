@@ -80,7 +80,7 @@
                                                         :max="temp.max"
                                                         class="form-control text-center"
                                                         v-model="channel.config.temperatures[temp.name]"
-                                                        @change="$emit('change')">
+                                                        @change="temperatureChanged(temp.name)">
                                                     <span class="input-group-addon">&deg;C</span>
                                                 </span>
                                             </dt>
@@ -258,6 +258,20 @@
                 this.channel.config.subfunction = subfunction;
                 if (this.channel.config.outputValueOnError) {
                     this.channel.config.outputValueOnError = 0;
+                }
+                this.$emit('change');
+            },
+            temperatureChanged(name) {
+                if (name === 'auxMinSetpoint') {
+                    this.channel.config.temperatures.auxMaxSetpoint = Math.max(
+                        this.channel.config.temperatures.auxMaxSetpoint,
+                        +this.channel.config.temperatures.auxMinSetpoint + this.channel.config.temperatureConstraints.autoOffsetMin
+                    );
+                } else if (name === 'auxMaxSetpoint') {
+                    this.channel.config.temperatures.auxMinSetpoint = Math.min(
+                        this.channel.config.temperatures.auxMinSetpoint,
+                        +this.channel.config.temperatures.auxMaxSetpoint - this.channel.config.temperatureConstraints.autoOffsetMin
+                    );
                 }
                 this.$emit('change');
             }
