@@ -40,6 +40,30 @@ module.exports = (on, config) => {
                 });
             });
         },
+        async sql(query) {
+            const connectionString = config.env.DATABASE;
+            const connectionConfig = new ConnectionString(connectionString);
+            const database = connectionConfig.path ? connectionConfig.path[0] : 'supla_e2e';
+            const connection = mysql.createConnection({
+                host: connectionConfig.host,
+                user: connectionConfig.user,
+                port: connectionConfig.port || 3306,
+                database,
+                password: connectionConfig.password,
+                multipleStatements: true,
+            });
+            connection.connect();
+            return new Promise((resolve, reject) => {
+                connection.query(query, async (error, result) => {
+                    connection.end();
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+        },
     });
     return config;
 };
