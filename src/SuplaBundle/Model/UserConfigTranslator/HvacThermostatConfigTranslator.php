@@ -93,7 +93,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $config = [
                 'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
-                'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'FLOOR'),
+                'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
                 'binarySensorChannelId' => $binarySensor ? $binarySensor->getId() : null,
                 'antiFreezeAndOverheatProtectionEnabled' => $subject->getUserConfigValue('antiFreezeAndOverheatProtectionEnabled', false),
                 'auxMinMaxSetpointEnabled' => $subject->getUserConfigValue('auxMinMaxSetpointEnabled', false),
@@ -147,7 +147,17 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $subject->setUserConfigValue('auxThermometerChannelNo', $thermometer->getChannelNumber());
             } else {
                 $subject->setUserConfigValue('auxThermometerChannelNo', null);
+                $config['auxThermometerType'] = 'NOT_SET';
             }
+        }
+        if (array_key_exists('auxThermometerType', $config)) {
+            if ($config['auxThermometerType']) {
+                Assertion::inArray(
+                    $config['auxThermometerType'],
+                    ['NOT_SET', 'DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']
+                );
+            }
+            $subject->setUserConfigValue('auxThermometerType', $config['auxThermometerType'] ?: 'NOT_SET');
         }
         if (array_key_exists('binarySensorChannelId', $config)) {
             if ($config['binarySensorChannelId']) {
@@ -158,15 +168,6 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             } else {
                 $subject->setUserConfigValue('binarySensorChannelNo', null);
             }
-        }
-        if (array_key_exists('auxThermometerType', $config)) {
-            if ($config['auxThermometerType']) {
-                Assertion::inArray(
-                    $config['auxThermometerType'],
-                    ['DISABLED', 'FLOOR', 'WATER', 'GENERIC_HEATER', 'GENERIC_COOLER']
-                );
-            }
-            $subject->setUserConfigValue('auxThermometerType', $config['auxThermometerType'] ?: 'NOT_SET');
         }
         if (array_key_exists('antiFreezeAndOverheatProtectionEnabled', $config)) {
             $enabled = filter_var($config['antiFreezeAndOverheatProtectionEnabled'], FILTER_VALIDATE_BOOLEAN);

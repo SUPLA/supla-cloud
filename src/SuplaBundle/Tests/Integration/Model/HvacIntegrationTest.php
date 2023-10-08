@@ -86,7 +86,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertEquals(21, $config['weeklySchedule']['programSettings'][2]['setpointTemperatureHeat']);
                     $this->assertNull($config['weeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
                     $this->assertEquals(21, $config['altWeeklySchedule']['programSettings'][2]['setpointTemperatureCool']);
-                    $this->assertEquals('FLOOR', $config['auxThermometerType']);
+                    $this->assertEquals('NOT_SET', $config['auxThermometerType']);
                     $this->assertFalse($config['antiFreezeAndOverheatProtectionEnabled']);
                     $this->assertFalse($config['temperatureSetpointChangeSwitchesToManualMode']);
                     $this->assertCount(2, $config['availableAlgorithms']);

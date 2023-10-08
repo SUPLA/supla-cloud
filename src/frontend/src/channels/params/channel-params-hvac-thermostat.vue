@@ -33,7 +33,7 @@
                     <dt>
                         <channels-id-dropdown :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"
                             v-model="channel.config.auxThermometerChannelId"
-                            @input="$emit('change')"></channels-id-dropdown>
+                            @input="auxThermometerChanged()"></channels-id-dropdown>
                     </dt>
                 </dl>
                 <transition-expand>
@@ -293,6 +293,15 @@
                             +this.channel.config.temperatures.heatProtection - this.channel.config.temperatureConstraints.autoOffsetMin
                         );
                     }
+                }
+                this.$emit('change');
+            },
+            auxThermometerChanged() {
+                const auxType = this.channel.config.auxThermometerType || 'NOT_SET';
+                if (this.channel.config.auxThermometerChannelId && auxType === 'NOT_SET') {
+                    this.channel.config.auxThermometerType = 'FLOOR';
+                } else if (!this.channel.config.auxThermometerChannelId) {
+                    this.channel.config.auxThermometerType = 'NOT_SET';
                 }
                 this.$emit('change');
             }
