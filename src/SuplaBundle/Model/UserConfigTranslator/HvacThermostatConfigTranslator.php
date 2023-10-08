@@ -126,8 +126,9 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
 
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('mainThermometerChannelId', $config)) {
-            Assertion::integer($config['mainThermometerChannelId'], null, 'mainThermometerChannelId');
-            $thermometer = $this->channelIdToNo($subject, $config['mainThermometerChannelId']);
+            $mainThermometerChannelId = $config['mainThermometerChannelId'];
+            Assertion::integer($mainThermometerChannelId, 'Main thermometer must be set.'); // i18n
+            $thermometer = $this->channelIdToNo($subject, $mainThermometerChannelId);
             Assertion::inArray(
                 $thermometer->getFunction()->getId(),
                 [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
