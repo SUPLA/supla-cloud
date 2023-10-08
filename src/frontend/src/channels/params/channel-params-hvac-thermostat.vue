@@ -268,26 +268,31 @@
                 this.$emit('change');
             },
             temperatureChanged(name) {
-                if (name === 'auxMinSetpoint') {
-                    this.channel.config.temperatures.auxMaxSetpoint = Math.max(
-                        this.channel.config.temperatures.auxMaxSetpoint,
-                        +this.channel.config.temperatures.auxMinSetpoint + this.channel.config.temperatureConstraints.autoOffsetMin
-                    );
-                } else if (name === 'auxMaxSetpoint') {
-                    this.channel.config.temperatures.auxMinSetpoint = Math.min(
-                        this.channel.config.temperatures.auxMinSetpoint,
-                        +this.channel.config.temperatures.auxMaxSetpoint - this.channel.config.temperatureConstraints.autoOffsetMin
-                    );
-                } else if (name === 'freezeProtection') {
-                    this.channel.config.temperatures.heatProtection = Math.max(
-                        this.channel.config.temperatures.heatProtection,
-                        +this.channel.config.temperatures.freezeProtection + this.channel.config.temperatureConstraints.autoOffsetMin
-                    );
-                } else if (name === 'heatProtection') {
-                    this.channel.config.temperatures.freezeProtection = Math.min(
-                        this.channel.config.temperatures.freezeProtection,
-                        +this.channel.config.temperatures.heatProtection - this.channel.config.temperatureConstraints.autoOffsetMin
-                    );
+                if (this.channel.config.temperatures.auxMaxSetpoint !== '' && this.channel.config.temperatures.auxMinSetpoint !== '') {
+                    if (name === 'auxMinSetpoint' && this.channel.config.temperatures.auxMaxSetpoint !== '') {
+                        this.channel.config.temperatures.auxMaxSetpoint = Math.max(
+                            this.channel.config.temperatures.auxMaxSetpoint,
+                            +this.channel.config.temperatures.auxMinSetpoint + this.channel.config.temperatureConstraints.autoOffsetMin
+                        );
+                    } else if (name === 'auxMaxSetpoint') {
+                        this.channel.config.temperatures.auxMinSetpoint = Math.min(
+                            this.channel.config.temperatures.auxMinSetpoint,
+                            +this.channel.config.temperatures.auxMaxSetpoint - this.channel.config.temperatureConstraints.autoOffsetMin
+                        );
+                    }
+                }
+                if (this.channel.config.temperatures.heatProtection !== '' && this.channel.config.temperatures.freezeProtection !== '') {
+                    if (name === 'freezeProtection') {
+                        this.channel.config.temperatures.heatProtection = Math.max(
+                            this.channel.config.temperatures.heatProtection,
+                            +this.channel.config.temperatures.freezeProtection + this.channel.config.temperatureConstraints.autoOffsetMin
+                        );
+                    } else if (name === 'heatProtection') {
+                        this.channel.config.temperatures.freezeProtection = Math.min(
+                            this.channel.config.temperatures.freezeProtection,
+                            +this.channel.config.temperatures.heatProtection - this.channel.config.temperatureConstraints.autoOffsetMin
+                        );
+                    }
                 }
                 this.$emit('change');
             }
