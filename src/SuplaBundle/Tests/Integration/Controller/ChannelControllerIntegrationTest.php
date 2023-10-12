@@ -277,8 +277,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function changingChannelStateDataProvider() {
         return [
-            [1, 'turn-on', 'SET-CHAR-VALUE:1,1,1,1'],
-            [1, 'turn-off', 'SET-CHAR-VALUE:1,1,1,0'],
+            [1, 'turn-on', 'ACTION-TURN-ON:1,1,1'],
+            [1, 'turn-off', 'ACTION-TURN-OFF:1,1,1'],
             [2, 'open', 'SET-CHAR-VALUE:1,1,2,1'],
             [3, 'open-close', 'SET-CHAR-VALUE:1,1,3,1'],
             [3, 'open', 'ACTION-OPEN:1,1,3'],
@@ -910,7 +910,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingActionOnOfflineChannel() {
-        SuplaServerMock::mockResponse('SET-CHAR-VALUE:1,1,1,1', "FAIL:1\n");
+        SuplaServerMock::mockResponse('ACTION-TURN-ON:1,1,1', "FAIL:1\n");
         $client = $this->createAuthenticatedClient($this->user);
         $client->request('PATCH', '/api/channels/1', [], [], [], json_encode(['action' => ChannelFunctionAction::TURN_ON]));
         $response = $client->getResponse();

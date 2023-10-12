@@ -9,7 +9,8 @@ class TurnOffActionExecutor extends TurnOnActionExecutor {
         return ChannelFunctionAction::TURN_OFF();
     }
 
-    protected function getCharValue(ActionableSubject $subject, array $actionParams = []): int {
-        return 0;
+    public function execute(ActionableSubject $subject, array $actionParams = []) {
+        $command = $subject->buildServerActionCommand('ACTION-TURN-OFF');
+        $this->suplaServer->executeCommand($command);
     }
 }

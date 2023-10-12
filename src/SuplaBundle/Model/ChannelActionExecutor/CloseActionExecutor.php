@@ -7,7 +7,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class CloseActionExecutor extends TurnOffActionExecutor {
+class CloseActionExecutor extends SetCharValueActionExecutor {
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::VALVEOPENCLOSE(),
@@ -24,5 +24,9 @@ class CloseActionExecutor extends TurnOffActionExecutor {
             "Cannot execute the requested action CLOSE on channel group."
         );
         return parent::validateActionParams($subject, $actionParams);
+    }
+
+    protected function getCharValue(ActionableSubject $subject, array $actionParams = []): int {
+        return 0;
     }
 }

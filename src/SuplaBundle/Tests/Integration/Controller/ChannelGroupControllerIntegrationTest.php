@@ -83,8 +83,8 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
 
     public function changingChannelGroupStateDataProvider() {
         return [
-            [1, 'turn-on', 'SET-CG-CHAR-VALUE:1,1,1'],
-            [1, 'turn-off', 'SET-CG-CHAR-VALUE:1,1,0'],
+            [1, 'turn-on', 'ACTION-CG-TURN-ON:1,1'],
+            [1, 'turn-off', 'ACTION-CG-TURN-OFF:1,1'],
             [2, 'open', 'SET-CG-CHAR-VALUE:1,2,1'],
         ];
     }
