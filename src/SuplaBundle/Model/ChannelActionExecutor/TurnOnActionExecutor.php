@@ -16,6 +16,10 @@ class TurnOnActionExecutor extends SingleChannelActionExecutor {
             ChannelFunction::DIMMERANDRGBLIGHTING(),
             ChannelFunction::THERMOSTAT(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
+            ChannelFunction::HVAC_THERMOSTAT(),
+            ChannelFunction::HVAC_THERMOSTAT_AUTO(),
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
         ];
     }
 

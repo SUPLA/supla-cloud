@@ -417,4 +417,14 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->persist($hvacChannel);
         $this->getEntityManager()->flush();
     }
+
+    public function testTurningHvacOn() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->enableProfiler();
+        $client->request('PATCH', '/api/channels/' . $this->hvacChannel->getId(), [], [], [], json_encode(['action' => 'TURN_ON']));
+        $response = $client->getResponse();
+        $this->assertStatusCode('2xx', $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('ACTION-TURN-ON:1,1,3', $commands, implode(PHP_EOL, $commands));
+    }
 }
