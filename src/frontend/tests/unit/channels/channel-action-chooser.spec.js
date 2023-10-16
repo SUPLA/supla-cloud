@@ -2,6 +2,8 @@ import {mount} from '@vue/test-utils'
 import ChannelActionChooser from '@/channels/action/channel-action-chooser.vue'
 import ActionableSubjectType from "@/common/enums/actionable-subject-type";
 import {deepCopy} from "@/common/utils";
+import ChannelFunction from "@/common/enums/channel-function";
+import ChannelFunctionAction from "@/common/enums/channel-function-action";
 
 describe('ChannelActionChooser', () => {
 
@@ -175,5 +177,41 @@ describe('ChannelActionChooser', () => {
         await wrapper.setProps({subject: deepCopy(SCENE)});
         expect(wrapper.find('.panel-success').text()).not.toContain('execute');
         expect(wrapper.vm.action.id).toEqual(3001);
+    });
+
+    describe('HVAC', () => {
+        const HVAC_AUTO = {
+            id: 5,
+            ownSubjectType: ActionableSubjectType.CHANNEL,
+            possibleActions: [
+                {"id": ChannelFunctionAction.TURN_ON, "name": "TURN_ON", "nameSlug": "on", "caption": "On"},
+                {"id": ChannelFunctionAction.TURN_OFF_TIMER, "name": "TURN_OFF_TIMER", "nameSlug": "off", "caption": "Off"},
+            ],
+            functionId: ChannelFunction.HVAC_THERMOSTAT_AUTO,
+            "function": {
+                "id": ChannelFunction.HVAC_THERMOSTAT_AUTO,
+                "name": "HVAC_THERMOSTAT_AUTO",
+                "caption": "HVAC Auto",
+                "possibleVisualStates": ["heating", "cooling"],
+            },
+        };
+
+        it('turns off without duration', async () => {
+            const wrapper = await mount(ChannelActionChooser, {
+                propsData: {subject: HVAC_AUTO, value: undefined},
+            });
+            const actions = wrapper.findAll('.panel-heading');
+            expect(actions.length).toBe(2);
+            expect(actions.at(0).text()).toEqual('On');
+            expect(actions.at(1).text()).toEqual('Off');
+            expect(wrapper.emitted().input).toBeFalsy();
+            await actions.at(1).trigger('click');
+            const action = wrapper.emitted().input[0][0];
+            expect(action).toEqual({id: ChannelFunctionAction.TURN_OFF_TIMER, param: {}});
+            const radios = wrapper.findAll('.radio');
+            expect(radios.length).toBe(2);
+            expect(radios.at(1).text()).toEqual('For a period');
+
+        });
     });
 })

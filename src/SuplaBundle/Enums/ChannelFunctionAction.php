@@ -24,8 +24,8 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @OA\Schema(schema="ChannelFunctionActionEnumNames", type="string", example="OPEN", enum={"READ","SET","EXECUTE","INTERRUPT","INTERRUPT_AND_EXECUTE","VOID","OPEN","CLOSE","SHUT","REVEAL","REVEAL_PARTIALLY","SHUT_PARTIALLY","TURN_ON","TURN_OFF","SET_RGBW_PARAMETERS","OPEN_CLOSE","STOP","TOGGLE","OPEN_PARTIALLY","CLOSE_PARTIALLY","UP_OR_STOP","DOWN_OR_STOP","STEP_BY_STEP","SET_HVAC_PARAMETERS","COPY","ENABLE","DISABLE","SEND","AT_FORWARD_OUTSIDE","AT_DISABLE_LOCAL_FUNCTION"})
- * @OA\Schema(schema="ChannelFunctionActionIds", type="integer", example=10, enum={1000,2000,3000,3001,3002,-1,10,20,30,40,50,51,60,70,80,90,100,110,120,130,140,150,160,230,10100,200,210,220,10000,10200})
+ * @OA\Schema(schema="ChannelFunctionActionEnumNames", type="string", example="OPEN", enum={"READ","SET","EXECUTE","INTERRUPT","INTERRUPT_AND_EXECUTE","VOID","OPEN","CLOSE","SHUT","REVEAL","REVEAL_PARTIALLY","SHUT_PARTIALLY","TURN_ON","TURN_OFF","SET_RGBW_PARAMETERS","OPEN_CLOSE","STOP","TOGGLE","OPEN_PARTIALLY","CLOSE_PARTIALLY","UP_OR_STOP","DOWN_OR_STOP","STEP_BY_STEP","HVAC_SET_WEEKLY_SCHEDULE","TURN_OFF_TIMER","HVAC_SWITCH_TO_MANUAL","HVAC_SET_TEMPERATURES","COPY","ENABLE","DISABLE","SEND","AT_FORWARD_OUTSIDE","AT_DISABLE_LOCAL_FUNCTION"})
+ * @OA\Schema(schema="ChannelFunctionActionIds", type="integer", example=10, enum={1000,2000,3000,3001,3002,-1,10,20,30,40,50,51,60,70,80,90,100,110,120,130,140,150,160,231,232,233,234,10100,200,210,220,10000,10200})
  * @OA\Schema(
  *   schema="ChannelFunctionAction", type="object",
  *   @OA\Property(property="id", ref="#/components/schemas/ChannelFunctionActionIds"),
@@ -48,7 +48,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction TURN_ON()
  * @method static ChannelFunctionAction TURN_OFF()
  * @method static ChannelFunctionAction SET_RGBW_PARAMETERS()
- * @method static ChannelFunctionAction SET_HVAC_PARAMETERS()
+ * @method static ChannelFunctionAction HVAC_SET_WEEKLY_SCHEDULE()
+ * @method static ChannelFunctionAction TURN_OFF_TIMER()
+ * @method static ChannelFunctionAction HVAC_SWITCH_TO_MANUAL()
+ * @method static ChannelFunctionAction HVAC_SET_TEMPERATURES()
  * @method static ChannelFunctionAction OPEN_CLOSE()
  * @method static ChannelFunctionAction STOP()
  * @method static ChannelFunctionAction TOGGLE()
@@ -88,7 +91,11 @@ final class ChannelFunctionAction extends Enum {
     const UP_OR_STOP = 140;
     const DOWN_OR_STOP = 150;
     const STEP_BY_STEP = 160;
-    const SET_HVAC_PARAMETERS = 230;
+
+    const HVAC_SET_WEEKLY_SCHEDULE = 231;
+    const TURN_OFF_TIMER = 232;
+    const HVAC_SWITCH_TO_MANUAL = 233;
+    const HVAC_SET_TEMPERATURES = 234;
 
     const COPY = 10100;
 
@@ -133,7 +140,6 @@ final class ChannelFunctionAction extends Enum {
             self::TURN_ON => 'On', // i18n
             self::TURN_OFF => 'Off', // i18n
             self::SET_RGBW_PARAMETERS => 'Adjust parameters', // i18n
-            self::SET_HVAC_PARAMETERS => 'Adjust parameters', // i18n
             self::OPEN_CLOSE => 'Open / close', // i18n
             self::STOP => 'Stop', // i18n
             self::TOGGLE => 'Toggle', // i18n
@@ -151,6 +157,10 @@ final class ChannelFunctionAction extends Enum {
             self::SEND => 'Send notification', // i18n
             self::AT_DISABLE_LOCAL_FUNCTION => 'Disable local function', // i18n
             self::AT_FORWARD_OUTSIDE => 'Publish to integrations', // i18n
+            self::HVAC_SET_WEEKLY_SCHEDULE => 'Switch to weekly schedule', // i18n
+            self::HVAC_SWITCH_TO_MANUAL => 'Switch to manual mode', // i18n
+            self::TURN_OFF_TIMER => 'Off', // i18n
+            self::HVAC_SET_TEMPERATURES => 'Adjust temperature', // i18n
         ];
     }
 

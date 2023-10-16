@@ -418,13 +418,29 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->flush();
     }
 
-    public function testTurningHvacOn() {
+    /**
+     * @dataProvider hvacActionsProvider
+     */
+    public function testExecutingActionOnHvac(int $channelId, array $actionRequest, string $expectedCommand) {
         $client = $this->createAuthenticatedClient($this->user);
         $client->enableProfiler();
-        $client->request('PATCH', '/api/channels/' . $this->hvacChannel->getId(), [], [], [], json_encode(['action' => 'TURN_ON']));
+        $client->request('PATCH', '/api/channels/' . $channelId, [], [], [], json_encode($actionRequest));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('ACTION-TURN-ON:1,1,3', $commands, implode(PHP_EOL, $commands));
+        $this->assertContains($expectedCommand, $commands, implode(PHP_EOL, $commands));
+    }
+
+    public function hvacActionsProvider() {
+        return [
+            [3, ['action' => 'TURN_ON'], 'ACTION-TURN-ON:1,1,3'],
+            [4, ['action' => 'TURN_ON'], 'ACTION-TURN-ON:1,1,4'],
+            [3, ['action' => 'TURN_OFF'], 'ACTION-TURN-OFF:1,1,3'],
+            [4, ['action' => 'TURN_OFF'], 'ACTION-TURN-OFF:1,1,4'],
+            [4, ['action' => 'TURN_OFF_TIMER'], 'ACTION-TURN-OFF:1,1,4'],
+            [4, ['action' => 'TURN_OFF_TIMER', 'duration' => 0], 'ACTION-TURN-OFF:1,1,4'],
+            [3, ['action' => 'TURN_OFF_TIMER', 'duration' => 100], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,100,1,0,0,0'],
+            [4, ['action' => 'TURN_OFF_TIMER', 'duration' => 100], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,100,1,0,0,0'],
+        ];
     }
 }

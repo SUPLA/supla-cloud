@@ -28,12 +28,20 @@ const ChannelFunctionAction = Object.freeze({
     AT_FORWARD_OUTSIDE: 10000,
     AT_DISABLE_LOCAL_FUNCTION: 10200,
 
+    HVAC_SET_WEEKLY_SCHEDULE: 231,
+    TURN_OFF_TIMER: 232,
+    HVAC_SWITCH_TO_MANUAL: 233,
+    HVAC_SET_TEMPERATURES: 234,
+
     requiresParams(actionId) {
         return [
             ChannelFunctionAction.SET,
             ChannelFunctionAction.REVEAL_PARTIALLY,
             ChannelFunctionAction.SHUT_PARTIALLY,
             ChannelFunctionAction.SET_RGBW_PARAMETERS,
+            ChannelFunctionAction.TURN_OFF_TIMER,
+            ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL,
+            ChannelFunctionAction.HVAC_SET_TEMPERATURES,
             ChannelFunctionAction.OPEN_PARTIALLY,
             ChannelFunctionAction.CLOSE_PARTIALLY,
             ChannelFunctionAction.COPY,
