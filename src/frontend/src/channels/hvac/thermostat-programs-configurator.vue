@@ -193,13 +193,13 @@
                 if (name === 'setpointTemperatureHeat' && hasCool) {
                     program.settings.setpointTemperatureCool = Math.max(
                         program.settings.setpointTemperatureCool,
-                        +program.settings.setpointTemperatureHeat + this.subject.config.temperatureConstraints.autoOffsetMin
+                        +program.settings.setpointTemperatureHeat + this.offsetMin
                     );
                 }
                 if (name === 'setpointTemperatureCool' && hasHeat) {
                     program.settings.setpointTemperatureHeat = Math.min(
                         program.settings.setpointTemperatureHeat,
-                        +program.settings.setpointTemperatureCool - this.subject.config.temperatureConstraints.autoOffsetMin
+                        +program.settings.setpointTemperatureCool - this.offsetMin
                     );
                 }
             }
@@ -207,6 +207,9 @@
         computed: {
             autoModeAvailable() {
                 return this.subject.functionId === ChannelFunction.HVAC_THERMOSTAT_AUTO;
+            },
+            offsetMin() {
+                return this.subject.config.temperatureConstraints?.autoOffsetMin || 0;
             },
             roomMin() {
                 return this.subject.config?.temperatureConstraints?.roomMin;

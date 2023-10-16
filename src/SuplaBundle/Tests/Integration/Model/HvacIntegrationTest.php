@@ -432,6 +432,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
     }
 
     public function hvacActionsProvider() {
+        // @codingStandardsIgnoreStart
         return [
             [3, ['action' => 'TURN_ON'], 'ACTION-TURN-ON:1,1,3'],
             [4, ['action' => 'TURN_ON'], 'ACTION-TURN-ON:1,1,4'],
@@ -443,6 +444,32 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'TURN_OFF_TIMER', 'duration' => 100], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,100,1,0,0,0'],
             [3, ['action' => 'HVAC_SET_WEEKLY_SCHEDULE'], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,9,0,0,0'],
             [4, ['action' => 'HVAC_SET_WEEKLY_SCHEDULE'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,9,0,0,0'],
+            [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,0,2250,0,1'],
+            [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,0,2250,0,1'],
+            [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['cool' => 21.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,0,0,2150,2'],
+            [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,0,2250,2150,3'],
         ];
+        // @codingStandardsIgnoreEnd
+    }
+
+    /**
+     * @dataProvider hvacInvalidActionsProvider
+     */
+    public function testExecutingInvalidActionOnHvac(int $channelId, array $actionRequest) {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->enableProfiler();
+        $client->request('PATCH', '/api/channels/' . $channelId, [], [], [], json_encode($actionRequest));
+        $response = $client->getResponse();
+        $this->assertStatusCode('400', $response);
+    }
+
+    public function hvacInvalidActionsProvider() {
+        // @codingStandardsIgnoreStart
+        return [
+            [3, ['action' => 'OPEN']],
+            [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['cool' => 22.5]]],
+            [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]]],
+        ];
+        // @codingStandardsIgnoreEnd
     }
 }

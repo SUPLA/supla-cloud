@@ -55,6 +55,9 @@
                             <div v-if="action.id === ChannelFunctionAction.TURN_OFF_TIMER">
                                 <HvacCountdownSetter v-model="param.duration" :with-calendar="executorMode"/>
                             </div>
+                            <div v-if="action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURES">
+                                <HvacSetpointsSetter v-model="param.setpoints" :subject="subject"/>
+                            </div>
                             <div v-if="action.id === ChannelFunctionAction.SEND">
                                 <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors
                                     :subject="contextSubject"/>
@@ -97,9 +100,11 @@
     import NotificationForm from "@/notifications/notification-form.vue";
     import {isEqual} from "lodash";
     import HvacCountdownSetter from "@/channels/action/hvac-countdown-setter.vue";
+    import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
 
     export default {
         components: {
+            HvacSetpointsSetter,
             HvacCountdownSetter,
             NotificationForm,
             ChannelsIdDropdown,

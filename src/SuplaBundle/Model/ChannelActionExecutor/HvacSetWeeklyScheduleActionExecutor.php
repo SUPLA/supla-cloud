@@ -6,7 +6,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\HvacIpcActionMode;
 
-class HvacSetWeeklyScheduleActionExecutor extends TurnOffActionExecutor {
+class HvacSetWeeklyScheduleActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::HVAC_THERMOSTAT(),
@@ -30,5 +30,4 @@ class HvacSetWeeklyScheduleActionExecutor extends TurnOffActionExecutor {
         ]);
         $this->suplaServer->executeCommand($command);
     }
-
 }
