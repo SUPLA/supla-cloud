@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="radio">
+        <div class="radio mt-0">
             <label>
                 <input type="radio" value="none" v-model="countdownMode" @change="onChange()">
                 {{ $t('Until the next change') }}

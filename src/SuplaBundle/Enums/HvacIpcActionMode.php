@@ -20,14 +20,14 @@ namespace SuplaBundle\Enums;
 use MyCLabs\Enum\Enum;
 
 final class HvacIpcActionMode extends Enum {
-    const MODE_NOT_SET = 0;
-    const MODE_OFF = 1;
-    const MODE_HEAT = 2;
-    const MODE_COOL = 3;
-    const MODE_AUTO = 4;
-    const MODE_FAN_ONLY = 6;
-    const MODE_DRY = 7;
-    const MODE_CMD_TURN_ON = 8;
-    const MODE_CMD_WEEKLY_SCHEDULE = 9;
-    const MODE_CMD_SWITCH_TO_MANUAL = 10;
+    const NOT_SET = 0;
+    const OFF = 1;
+    const HEAT = 2;
+    const COOL = 3;
+    const AUTO = 4;
+    const FAN_ONLY = 6;
+    const DRY = 7;
+    const CMD_TURN_ON = 8;
+    const CMD_WEEKLY_SCHEDULE = 9;
+    const CMD_SWITCH_TO_MANUAL = 10;
 }

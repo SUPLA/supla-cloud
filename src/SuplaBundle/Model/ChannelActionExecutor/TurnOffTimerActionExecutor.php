@@ -40,11 +40,10 @@ class TurnOffTimerActionExecutor extends TurnOffActionExecutor {
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
         if ($duration = ($actionParams['duration'] ?? 0)) {
-            $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [$duration, HvacIpcActionMode::MODE_OFF, 0, 0, 0]);
+            $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [$duration, HvacIpcActionMode::OFF, 0, 0, 0]);
             $this->suplaServer->executeCommand($command);
         } else {
             parent::execute($subject, $actionParams);
         }
     }
-
 }

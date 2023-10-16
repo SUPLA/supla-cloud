@@ -441,6 +441,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'TURN_OFF_TIMER', 'duration' => 0], 'ACTION-TURN-OFF:1,1,4'],
             [3, ['action' => 'TURN_OFF_TIMER', 'duration' => 100], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,100,1,0,0,0'],
             [4, ['action' => 'TURN_OFF_TIMER', 'duration' => 100], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,100,1,0,0,0'],
+            [3, ['action' => 'HVAC_SET_WEEKLY_SCHEDULE'], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,9,0,0,0'],
+            [4, ['action' => 'HVAC_SET_WEEKLY_SCHEDULE'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,9,0,0,0'],
         ];
     }
 }
