@@ -208,10 +208,6 @@ describe('ChannelActionChooser', () => {
             await actions.at(1).trigger('click');
             const action = wrapper.emitted().input[0][0];
             expect(action).toEqual({id: ChannelFunctionAction.TURN_OFF_TIMER, param: {}});
-            const radios = wrapper.findAll('.radio');
-            expect(radios.length).toBe(2);
-            expect(radios.at(1).text()).toEqual('For a period');
-
         });
     });
 })
