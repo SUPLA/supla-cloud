@@ -144,7 +144,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+        $this->assertContains('ACTION-TURN-ON:1,1,1', $commands);
     }
 
     /** @depends testCreatingDirectLink */
@@ -155,7 +155,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+        $this->assertContains('ACTION-TURN-ON:1,1,1', $commands);
     }
 
     /** @depends testCreatingDirectLink */
@@ -178,7 +178,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+        $this->assertContains('ACTION-TURN-ON:1,1,1', $commands);
     }
 
     /** @depends testCreatingDirectLink */
@@ -411,7 +411,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+        $this->assertContains('ACTION-TURN-ON:1,1,1', $commands);
     }
 
     public function testCreatingDirectLinkForChannelGroup() {
@@ -439,7 +439,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
         $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-CG-CHAR-VALUE:1,1,1', $commands);
+        $this->assertContains('ACTION-CG-TURN-ON:1,1', $commands, implode(PHP_EOL, $commands));
     }
 
     public function testReadingDirectLinkForChannelGroup() {
