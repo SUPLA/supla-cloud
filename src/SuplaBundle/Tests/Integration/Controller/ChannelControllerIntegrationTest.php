@@ -414,7 +414,6 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'functionId' => ChannelFunction::THERMOMETER,
         ]);
         $this->assertStatusCode(400, $client->getResponse());
-        return $sensorChannel;
     }
 
     public function testChangingChannelFunctionDeletesExistingDirectLinks() {
@@ -432,12 +431,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(409, $client->getResponse());
         $this->assertEmpty(SuplaServerMock::$executedCommands);
-        return $sensorChannel;
+        return $sensorChannel->getId();
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinks */
-    public function testChangingChannelFunctionDeletesExistingDirectLinksWhenConfirmed(IODeviceChannel $sensorChannel) {
-        $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
+    public function testChangingChannelFunctionDeletesExistingDirectLinksWhenConfirmed(int $sensorChannelId) {
+        $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannelId);
         $directLink = $sensorChannel->getDirectLinks()[0];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId() . '?confirm=1', [
@@ -445,12 +444,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(DirectLink::class, $directLink->getId()));
-        return $sensorChannel;
+        return $sensorChannel->getId();
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenConfirmed */
-    public function testNotifiesSuplaServerAboutFunctionChange(IODeviceChannel $sensorChannel) {
-        $this->assertContains('USER-BEFORE-CHANNEL-FUNCTION-CHANGE:1,' . $sensorChannel->getId(), SuplaServerMock::$executedCommands);
+    public function testNotifiesSuplaServerAboutFunctionChange(int $sensorChannelId) {
+        $this->assertContains('USER-BEFORE-CHANNEL-FUNCTION-CHANGE:1,' . $sensorChannelId, SuplaServerMock::$executedCommands);
     }
 
     public function testChangingChannelFunctionDeletesExistingScenes() {
@@ -470,12 +469,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertCount(1, $content['sceneOperations']);
         $this->assertArrayHasKey('owningScene', $content['sceneOperations'][0]); // important for frontend - it displays scene name
-        return $gateChannel;
+        return $gateChannel->getId();
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingScenes */
-    public function testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe(IODeviceChannel $gateChannel) {
-        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+    public function testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe(int $gateChannelId) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannelId);
         $sceneOperation = $gateChannel->getSceneOperations()[0];
         $scene = $sceneOperation->getOwningScene();
         $client = $this->createAuthenticatedClient();
@@ -485,12 +484,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(SceneOperation::class, $sceneOperation->getId()));
         $this->assertNull($this->getEntityManager()->find(Scene::class, $scene->getId()));
-        return $gateChannel;
+        return $gateChannel->getId();
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe */
-    public function testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorksV23(IODeviceChannel $gateChannel) {
-        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+    public function testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorksV23(int $gateChannelId) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannelId);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV23('PUT', '/api/channels/' . $gateChannel->getId(), [
             'functionId' => ChannelFunction::CONTROLLINGTHEDOORLOCK,
@@ -499,12 +498,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         $this->assertEquals(1566, $gateChannel->getParam1());
-        return $gateChannel;
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe */
-    public function testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorks(IODeviceChannel $gateChannel) {
-        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+    public function testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorks(int $gateChannelId) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannelId);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
             'functionId' => ChannelFunction::CONTROLLINGTHEGATE,
@@ -513,12 +511,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         $this->assertEquals(1567, $gateChannel->getParam1());
-        return $gateChannel;
+        return $gateChannel->getId();
     }
 
     /** @depends testChangingChannelFunctionAndSettingConfigAtTheSameTimeWorks */
-    public function testSavingParamsConfigInDatabaseAsJson(IODeviceChannel $gateChannel) {
-        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+    public function testSavingParamsConfigInDatabaseAsJson(int $gateChannelId) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannelId);
         $expectedConfig = [
             'relayTimeMs' => 1567,
             'openingSensorChannelId' => null,
@@ -535,8 +533,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenNotSafe */
-    public function testCannotStoreRubbishInConfig(IODeviceChannel $gateChannel) {
-        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
+    public function testCannotStoreRubbishInConfig(int $gateChannelId) {
+        $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannelId);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
             'config' => ['unicorn' => 123],
@@ -547,8 +545,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinks */
-    public function testChangingChannelFunctionToNoneClearsConfig(IODeviceChannel $channel) {
-        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channel->getId());
+    public function testChangingChannelFunctionToNoneClearsConfig(int $channelId) {
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channelId);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId(), ['functionId' => ChannelFunction::NONE]);
         $this->assertStatusCode(200, $client->getResponse());
@@ -572,11 +570,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
         $this->assertArrayHasKey('actions', $trigger->getUserConfig());
         $this->assertCount(1, $trigger->getUserConfig()['actions']);
-        return $trigger;
+        return $trigger->getId();
     }
 
     /** @depends testSettingConfigForActionTrigger */
-    public function testGettingChannelActionTriggersCount(IODeviceChannel $trigger) {
+    public function testGettingChannelActionTriggersCount(int $triggerId) {
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $triggerId);
         $channelWithRelatedTrigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getParam1());
         $this->assertNotNull($channelWithRelatedTrigger);
         $client = $this->createAuthenticatedClient($this->user);
@@ -590,7 +589,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testSettingConfigForActionTrigger */
-    public function testUpdatingCaptionForPairedActionTrigger(IODeviceChannel $trigger) {
+    public function testUpdatingCaptionForPairedActionTrigger(int $triggerId) {
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $triggerId);
         $channelWithRelatedTrigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getParam1());
         $this->assertNotNull($channelWithRelatedTrigger);
         $client = $this->createAuthenticatedClient($this->user);
@@ -605,7 +605,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testSettingConfigForActionTrigger */
-    public function testGettingIoDeviceChannels(IODeviceChannel $trigger) {
+    public function testGettingIoDeviceChannels(int $triggerId) {
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $triggerId);
         $device = $trigger->getIoDevice();
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', "/api/iodevices/{$device->getId()}/channels");
@@ -618,7 +619,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testSettingConfigForActionTrigger */
-    public function testChangingChannelFunctionTriesToClearRelatedActionTriggers(IODeviceChannel $trigger) {
+    public function testChangingChannelFunctionTriesToClearRelatedActionTriggers(int $triggerId) {
         $channel = $this->device->getChannels()[0];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId() . '?safe=1', [
@@ -628,19 +629,19 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('actionTriggers', $content);
         $this->assertCount(1, $content['actionTriggers']);
-        $this->assertEquals($trigger->getId(), $content['actionTriggers'][0]['id']);
-        return $trigger;
+        $this->assertEquals($triggerId, $content['actionTriggers'][0]['id']);
+        return $triggerId;
     }
 
     /** @depends testChangingChannelFunctionTriesToClearRelatedActionTriggers */
-    public function testChangingChannelFunctionClearsRelatedActionTriggers(IODeviceChannel $trigger) {
+    public function testChangingChannelFunctionClearsRelatedActionTriggers(int $triggerId) {
         $channel = $this->device->getChannels()[0];
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId(), [
             'functionId' => ChannelFunction::POWERSWITCH,
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $triggerId);
         $this->assertEmpty($trigger->getUserConfig()['actions']);
     }
 
@@ -961,11 +962,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($notification);
         $this->assertEquals('ABC', $notification->getBody());
         $this->assertEquals($trigger->getId(), $notification->getChannel()->getId());
-        return $trigger;
+        return $trigger->getId();
     }
 
     /** @depends testSettingNotificationForActionTrigger */
-    public function testChangingNotificationForActionTrigger(IODeviceChannel $trigger) {
+    public function testChangingNotificationForActionTrigger(int $triggerId) {
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $triggerId);
         $previousNotificationId = $trigger->getUserConfigValue('actions')['TURN_ON']['subjectId'];
         $actions = ['TURN_ON' => [
             'subjectType' => ActionableSubjectType::NOTIFICATION,
@@ -1069,33 +1071,33 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channel = $this->freshEntity($channel);
         $config = $channelParamConfigTranslator->getConfig($channel);
         $this->assertEquals(11, $config['temperatureAdjustment']);
-        return $channel;
+        return $channel->getId();
     }
 
     /** @depends testUpdatingConfigWithComparison */
-    public function testCantUpdateWithoutConfigBefore(IODeviceChannel $channel) {
+    public function testCantUpdateWithoutConfigBefore(int $channelId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+        $client->apiRequestV3('PUT', '/api/channels/' . $channelId, [
             'config' => ['temperatureAdjustment' => 11],
         ]);
         $this->assertStatusCode(400, $client->getResponse());
     }
 
     /** @depends testUpdatingConfigWithComparison */
-    public function testCanUpdateCaptionWithoutConfigBefore(IODeviceChannel $channel) {
+    public function testCanUpdateCaptionWithoutConfigBefore(int $channelId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+        $client->apiRequestV3('PUT', '/api/channels/' . $channelId, [
             'caption' => 'Unicorn channel',
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $channel = $this->freshEntity($channel);
+        $channel = $this->getEntityManager()->find(IODeviceChannel::class, $channelId);
         $this->assertEquals('Unicorn channel', $channel->getCaption());
     }
 
     /** @depends testUpdatingConfigWithComparison */
-    public function testUpdatingConfigWithConflictingConfigBefore(IODeviceChannel $channel) {
+    public function testUpdatingConfigWithConflictingConfigBefore(int $channelId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+        $client->apiRequestV3('PUT', '/api/channels/' . $channelId, [
             'config' => ['temperatureAdjustment' => 13],
             'configBefore' => ['temperatureAdjustment' => 12],
         ]);
@@ -1107,9 +1109,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     }
 
     /** @depends testUpdatingConfigWithComparison */
-    public function testUpdatingConfigWhenBeforeDifferentButCurrentTheSame(IODeviceChannel $channel) {
+    public function testUpdatingConfigWhenBeforeDifferentButCurrentTheSame(int $channelId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/channels/' . $channel->getId(), [
+        $client->apiRequestV3('PUT', '/api/channels/' . $channelId, [
             'config' => ['temperatureAdjustment' => 11],
             'configBefore' => ['temperatureAdjustment' => 12],
         ]);

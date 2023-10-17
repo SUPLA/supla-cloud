@@ -546,33 +546,33 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $anotherDevice = $this->freshEntity($anotherDevice);
         $this->assertEquals('ALWAYS_OFF', $anotherDevice->getUserConfigValue('statusLed'));
-        return $anotherDevice;
+        return $anotherDevice->getId();
     }
 
     /** @depends testUpdatingConfigWithComparison */
-    public function testCantUpdateWithoutConfigBefore(IODevice $device) {
+    public function testCantUpdateWithoutConfigBefore(int $deviceId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId(), [
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $deviceId, [
             'config' => ['statusLed' => 'OFF_WHEN_CONNECTED'],
         ]);
         $this->assertStatusCode(400, $client->getResponse());
     }
 
     /** @depends testUpdatingConfigWithComparison */
-    public function testCanUpdateCaptionWithoutConfigBefore(IODevice $device) {
+    public function testCanUpdateCaptionWithoutConfigBefore(int $deviceId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId(), [
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $deviceId, [
             'comment' => 'Unicorn device',
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $device = $this->freshEntity($device);
+        $device = $this->getEntityManager()->find(IODevice::class, $deviceId);
         $this->assertEquals('Unicorn device', $device->getComment());
     }
 
     /** @depends testUpdatingConfigWithComparison */
-    public function testUpdatingConfigWithConflictingConfigBefore(IODevice $device) {
+    public function testUpdatingConfigWithConflictingConfigBefore(int $deviceId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId(), [
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $deviceId, [
             'config' => ['statusLed' => 'OFF_WHEN_CONNECTED'],
             'configBefore' => ['statusLed' => 'ON_WHEN_CONNECTED'],
         ]);

@@ -4,12 +4,12 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.5/phpunit.xsd"
          colors="true"
-         beStrictAboutOutputDuringTests="true"
          bootstrap="autoload.php">
 
     <php>
         <env name="KERNEL_CLASS" value="AppKernel" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+        <ini name="memory_limit" value="128M"/>
     </php>
 
     <listeners>

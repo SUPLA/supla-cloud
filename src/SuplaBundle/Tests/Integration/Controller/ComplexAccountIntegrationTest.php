@@ -78,8 +78,8 @@ class ComplexAccountIntegrationTest extends IntegrationTestCase {
                 $this->getEntityManager()->persist($group1);
                 $this->getEntityManager()->persist($group2);
             }
+            $this->getEntityManager()->flush();
         }
-        $this->getEntityManager()->flush();
     }
 
     public function testSerializingChannelGroupWithLocationThatContainsChannelsWithTheirOwnLocationsDoesNotGoCrazy() {

@@ -59,13 +59,13 @@ class ScheduleControllerIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $scheduleFromResponse->id);
         $schedule = self::$container->get('doctrine')->getRepository(Schedule::class)->find($scheduleFromResponse->id);
         $this->assertEquals($scheduleFromResponse->config[0]->crontab, '2 2 * * *');
-        return $schedule;
+        return $schedule->getId();
     }
 
     /** @depends testCreatingNewSchedule */
-    public function testGetScheduleDetails(Schedule $schedule) {
+    public function testGetScheduleDetails(int $scheduleId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV23(Request::METHOD_GET, '/api/schedules/' . $schedule->getId() . '?include=subject,closestExecutions');
+        $client->apiRequestV23(Request::METHOD_GET, '/api/schedules/' . $scheduleId . '?include=subject,closestExecutions');
         $this->assertStatusCode(Response::HTTP_OK, $client->getResponse());
         $scheduleFromResponse = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('subject', $scheduleFromResponse);

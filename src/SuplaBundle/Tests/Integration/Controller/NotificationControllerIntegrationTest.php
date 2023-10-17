@@ -18,7 +18,6 @@
 namespace SuplaBundle\Tests\Integration\Controller;
 
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\Main\PushNotification;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -113,13 +112,13 @@ class NotificationControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('New title', $content['title']);
         $this->assertEquals('New body', $content['body']);
         $this->assertCount(1, $content['accessIds']);
-        return $notification;
+        return $notification->getId();
     }
 
     /** @depends testEditingManagedNotification */
-    public function testClearingAccessIdsOfManagedNotification(PushNotification $notification) {
+    public function testClearingAccessIdsOfManagedNotification(int $notificationId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('PUT', "/api/notifications/{$notification->getId()}?include=accessIds", ['accessIds' => []]);
+        $client->apiRequestV24('PUT', "/api/notifications/{$notificationId}?include=accessIds", ['accessIds' => []]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);

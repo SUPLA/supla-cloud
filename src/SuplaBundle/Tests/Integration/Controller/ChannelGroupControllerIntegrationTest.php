@@ -226,7 +226,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingChannelGroupWithLocationAndChannels() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV22('GET', '/api/channel-groups/1?include=location,channels');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
@@ -238,7 +238,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingChannelGroupWithLocationAndChannelsV24() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channel-groups/1?include=location,channels');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
@@ -252,7 +252,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingChannelGroupWithExplicitLocationAndChannelsNamespacesV24() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channel-groups/1?include=channelGroup.location,channelGroup.channels');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
@@ -266,7 +266,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testGettingNotExistingChannelGroup() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channel-groups/12345');
         $response = $client->getResponse();
         $this->assertStatusCode(404, $response);
@@ -278,7 +278,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $dl->generateSlug(new PlaintextPasswordEncoder());
         $this->getEntityManager()->persist($dl);
         $this->getEntityManager()->flush();
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channel-groups/1');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
@@ -301,7 +301,7 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
         $this->assertArrayHasKey('actions', $trigger->getUserConfig());
         $this->assertCount(1, $trigger->getUserConfig()['actions']);
-        return [$trigger, $group];
+        return [$trigger->getId(), $group->getId()];
     }
 
     private function setActionTriggerForChannelGroup(IODeviceChannelGroup $group, IODeviceChannel $trigger): void {
@@ -315,38 +315,40 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testSettingConfigForActionTrigger */
     public function testDeletingChannelGroupTriesToClearRelatedActionTriggers(array $params) {
-        [$trigger, $group] = $params;
+        [$triggerId, $groupId] = $params;
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $group->getId() . '?safe=1');
+        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $groupId . '?safe=1');
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('actionTriggers', $content);
         $this->assertCount(1, $content['actionTriggers']);
-        $this->assertEquals($trigger->getId(), $content['actionTriggers'][0]['id']);
-        return [$trigger, $group];
+        $this->assertEquals($triggerId, $content['actionTriggers'][0]['id']);
+        return [$triggerId, $groupId];
     }
 
     /** @depends testDeletingChannelGroupTriesToClearRelatedActionTriggers */
     public function testDeletingChannelGroupClearsRelatedActionTriggers(array $params) {
-        [$trigger, $group] = $params;
+        [$triggerId, $groupId] = $params;
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $group->getId());
+        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $groupId);
         $this->assertStatusCode(204, $client->getResponse());
-        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getId());
+        $trigger = $this->getEntityManager()->find(IODeviceChannel::class, $triggerId);
         $this->assertEmpty($trigger->getUserConfig()['actions']);
-        $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $group->getId()));
+        $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $groupId));
     }
 
     public function testDeletingIoDeviceWithChannelDeletesAlsoTheChannelGroupThatContainedThisChannelOnlyAndClearsItsActionTriggers() {
-        [$triggerInTheSameDevice, $group] = $this->testSettingConfigForActionTrigger();
-        [$triggerInAnotherDevice,] = $this->testSettingConfigForActionTrigger();
+        [$triggerInTheSameDeviceId, $groupId] = $this->testSettingConfigForActionTrigger();
+        [$triggerInAnotherDeviceId,] = $this->testSettingConfigForActionTrigger();
+        $triggerInAnotherDevice = $this->getEntityManager()->find(IODeviceChannel::class, $triggerInAnotherDeviceId);
+        $group = $this->getEntityManager()->find(IODeviceChannelGroup::class, $groupId);
         $ioDevice = $group->getChannels()[0]->getIoDevice();
         $this->setActionTriggerForChannelGroup($group, $triggerInAnotherDevice);
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('DELETE', '/api/iodevices/' . $ioDevice->getId());
         $this->assertStatusCode(204, $client->getResponse());
-        $triggerInTheSameDevice = $this->getEntityManager()->find(IODeviceChannel::class, $triggerInTheSameDevice->getId());
-        $triggerInAnotherDevice = $this->getEntityManager()->find(IODeviceChannel::class, $triggerInAnotherDevice->getId());
+        $triggerInTheSameDevice = $this->getEntityManager()->find(IODeviceChannel::class, $triggerInTheSameDeviceId);
+        $triggerInAnotherDevice = $this->getEntityManager()->find(IODeviceChannel::class, $triggerInAnotherDeviceId);
         $this->assertNull($triggerInTheSameDevice);
         $this->assertNull($this->getEntityManager()->find(IODeviceChannelGroup::class, $group->getId()));
         $this->assertEmpty($triggerInAnotherDevice->getUserConfig()['actions']);
@@ -372,16 +374,16 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('reactions', $content);
         $this->assertCount(1, $content['reactions']);
-        return [$thermometer, $group];
+        return [$thermometer->getId(), $group->getId()];
     }
 
     /** @depends testDeletingChannelGroupTriesToClearRelatedReactions */
     public function testDeletingChannelGroupDeletesRelatedReactions(array $params) {
-        [$thermometer, $group] = $params;
+        [$thermometerId, $groupId] = $params;
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $group->getId());
+        $client->apiRequestV24('DELETE', '/api/channel-groups/' . $groupId);
         $this->assertStatusCode(204, $client->getResponse());
-        $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
+        $client->apiRequestV24('GET', "/api/channels/{$thermometerId}/reactions");
         $this->assertStatusCode(200, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
         $this->assertEmpty($content);
