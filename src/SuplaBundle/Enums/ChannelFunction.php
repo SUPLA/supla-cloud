@@ -290,6 +290,7 @@ final class ChannelFunction extends Enum {
             ],
             self::HVAC_THERMOSTAT => [
                 ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_TIMER(),
                 ChannelFunctionAction::HVAC_SET_WEEKLY_SCHEDULE(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
@@ -297,6 +298,7 @@ final class ChannelFunction extends Enum {
             ],
             self::HVAC_THERMOSTAT_AUTO => [
                 ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_TIMER(),
                 ChannelFunctionAction::HVAC_SET_WEEKLY_SCHEDULE(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
@@ -304,6 +306,7 @@ final class ChannelFunction extends Enum {
             ],
             self::HVAC_DRYER => [
                 ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_TIMER(),
                 ChannelFunctionAction::HVAC_SET_WEEKLY_SCHEDULE(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
@@ -311,6 +314,7 @@ final class ChannelFunction extends Enum {
             ],
             self::HVAC_FAN => [
                 ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_TIMER(),
                 ChannelFunctionAction::HVAC_SET_WEEKLY_SCHEDULE(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
@@ -318,6 +322,7 @@ final class ChannelFunction extends Enum {
             ],
             self::HVAC_THERMOSTAT_DIFFERENTIAL => [
                 ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_TIMER(),
                 ChannelFunctionAction::HVAC_SET_WEEKLY_SCHEDULE(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
@@ -325,6 +330,7 @@ final class ChannelFunction extends Enum {
             ],
             self::HVAC_DOMESTIC_HOT_WATER => [
                 ChannelFunctionAction::TURN_ON(),
+                ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_TIMER(),
                 ChannelFunctionAction::HVAC_SET_WEEKLY_SCHEDULE(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),

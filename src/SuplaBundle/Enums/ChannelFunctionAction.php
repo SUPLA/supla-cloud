@@ -159,7 +159,7 @@ final class ChannelFunctionAction extends Enum {
             self::AT_FORWARD_OUTSIDE => 'Publish to integrations', // i18n
             self::HVAC_SET_WEEKLY_SCHEDULE => 'Switch to weekly schedule', // i18n
             self::HVAC_SWITCH_TO_MANUAL => 'Switch to manual mode', // i18n
-            self::TURN_OFF_TIMER => 'Off', // i18n
+            self::TURN_OFF_TIMER => 'Off with a timer', // i18n
             self::HVAC_SET_TEMPERATURES => 'Adjust temperature', // i18n
         ];
     }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="radio mt-0">
+        <div class="radio mt-0" v-show="!hideNoTimer">
             <label>
                 <input type="radio" value="none" v-model="countdownMode" @change="onChange()">
                 {{ $t('Until the next change') }}
@@ -53,6 +53,7 @@
         props: {
             value: Number,
             withCalendar: Boolean,
+            hideNoTimer: Boolean,
         },
         data() {
             return {
@@ -83,7 +84,7 @@
                         break;
                     }
                 }
-                if (this.value) {
+                if (this.value || this.hideNoTimer) {
                     this.countdownMode = 'delay';
                 }
             },

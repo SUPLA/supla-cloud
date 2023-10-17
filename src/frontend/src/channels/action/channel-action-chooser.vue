@@ -53,7 +53,7 @@
                                     :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.TURN_OFF_TIMER">
-                                <HvacCountdownSetter v-model="param.duration" :with-calendar="executorMode"/>
+                                <HvacCountdownSetter v-model="param.duration" :with-calendar="executorMode" hide-no-timer/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURES">
                                 <HvacSetpointsSetter v-model="param.setpoints" :subject="subject"/>
