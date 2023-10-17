@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="hvac-setpoints-setter">
         <div class="form-group form-group-sm my-1" v-if="heatAvailable">
             <span class="input-group">
                 <span class="input-group-addon">
@@ -140,4 +140,10 @@
     };
 </script>
 
-
+<style lang="scss">
+    .hvac-setpoints-setter {
+        .input-group-addon {
+            border: 0 !important;
+        }
+    }
+</style>

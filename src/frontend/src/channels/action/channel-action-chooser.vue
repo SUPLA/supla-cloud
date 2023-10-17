@@ -53,13 +53,15 @@
                                     :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.TURN_OFF_TIMER">
-                                <HvacCountdownSetter v-model="param.duration" :with-calendar="executorMode" hide-no-timer/>
+                                <HvacCountdownSetter v-model="param.duration" :with-calendar="executorMode" hide-no-timer
+                                    @input="paramsChanged()"/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURES">
-                                <HvacSetpointsSetter v-model="param.setpoints" :subject="subject"/>
+                                <HvacSetpointsSetter v-model="param.setpoints" :subject="subject" @input="paramsChanged()"/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL">
-                                <HvacManualModeSetter v-model="param" :subject="subject" :executor-mode="executorMode"/>
+                                <HvacManualModeSetter v-model="param" :subject="subject" :executor-mode="executorMode"
+                                    @input="paramsChanged()"/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SEND">
                                 <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors

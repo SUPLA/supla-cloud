@@ -74,6 +74,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="well">
+                            {{ schedule.config }}
                             <div v-if="!schedule.subject">
                                 {{ $t('Please choose the schedule subject first.') }}
                             </div>

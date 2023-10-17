@@ -6,7 +6,7 @@
                 {{ $t('Until the next change') }}
             </label>
         </div>
-        <div class="radio">
+        <div class="radio" v-if="withCalendar || !hideNoTimer">
             <label>
                 <input type="radio" value="delay" v-model="countdownMode" @change="onChange()">
                 {{ $t('For a period') }}
@@ -80,12 +80,15 @@
                 for (const multiplier of [86400, 3600, 60, 1]) {
                     if (value % multiplier === 0) {
                         this.multiplier = multiplier;
-                        this.value = Math.round(value / multiplier);
+                        this.countdownValue = Math.round(value / multiplier);
                         break;
                     }
                 }
                 if (this.value || this.hideNoTimer) {
                     this.countdownMode = 'delay';
+                }
+                if (!this.value && this.countdownMode === 'delay') {
+                    this.onChange();
                 }
             },
             onChange() {

@@ -21,12 +21,16 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
 class HvacIntegrationTest extends IntegrationTestCase {
@@ -485,5 +489,23 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'unicorn' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
         ];
         // @codingStandardsIgnoreEnd
+    }
+
+    public function testCreatingNewScheduleForHvac() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
+            'channelId' => $this->hvacChannel->getId(),
+            'actionId' => ChannelFunctionAction::TURN_OFF_TIMER,
+            'actionParam' => ['duration' => 300],
+            'mode' => ScheduleMode::ONCE,
+            'timeExpression' => '2 2 * * *',
+        ]);
+        $this->assertStatusCode(Response::HTTP_CREATED, $client->getResponse());
+        $scheduleFromResponse = json_decode($client->getResponse()->getContent(), true);
+        $this->assertGreaterThan(0, $scheduleFromResponse['id']);
+        $config = $scheduleFromResponse['config'][0];
+        $this->assertEquals('2 2 * * *', $config['crontab']);
+        $this->assertEquals(ChannelFunctionAction::TURN_OFF_TIMER, $config['action']['id']);
+        $this->assertEquals(['duration' => 300], $config['action']['param']);
     }
 }
