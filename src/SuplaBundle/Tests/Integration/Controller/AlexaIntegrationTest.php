@@ -72,7 +72,7 @@ class AlexaIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains(
-            'SET-CHAR-VALUE:1,1,1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
+            'ACTION-TURN-ON:1,1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
             $commands,
             implode(PHP_EOL, $commands)
         );
@@ -107,7 +107,7 @@ class AlexaIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode('2xx', $response);
         $commands = $this->getSuplaServerCommands($client);
         $this->assertContains(
-            'SET-CG-CHAR-VALUE:1,1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
+            'ACTION-CG-TURN-ON:1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
             $commands,
             implode(PHP_EOL, $commands)
         );

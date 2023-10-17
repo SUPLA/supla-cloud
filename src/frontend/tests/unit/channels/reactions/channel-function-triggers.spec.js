@@ -23,6 +23,8 @@ describe('ChannelFunctionTriggers', () => {
             ChannelFunction.DIGIGLASS_VERTICAL,
             ChannelFunction.HVAC_THERMOSTAT,
             ChannelFunction.HVAC_THERMOSTAT_AUTO,
+            ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
+            ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
         ];
         for (const fncName in ChannelFunction) {
             const fncId = ChannelFunction[fncName];
