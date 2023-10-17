@@ -49,6 +49,8 @@
         props: {
             subject: Object,
             value: Object,
+            hideHeat: Boolean,
+            hideCool: Boolean,
         },
         data() {
             return {
@@ -91,6 +93,9 @@
                 return this.subject.config?.temperatureConstraints?.roomMax || 100;
             },
             heatAvailable() {
+                if (this.hideHeat) {
+                    return false;
+                }
                 let heatFunctions = [
                     ChannelFunction.HVAC_THERMOSTAT_AUTO,
                     ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
@@ -99,6 +104,9 @@
                 return heatFunctions.includes(this.subject.functionId) || this.subject.config?.subfunction === 'HEAT';
             },
             coolAvailable() {
+                if (this.hideCool) {
+                    return false;
+                }
                 return [ChannelFunction.HVAC_THERMOSTAT_AUTO].includes(this.subject.functionId)
                     || this.subject.config?.subfunction === 'COOL';
             },

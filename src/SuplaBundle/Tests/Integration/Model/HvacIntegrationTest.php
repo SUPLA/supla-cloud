@@ -446,8 +446,18 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'HVAC_SET_WEEKLY_SCHEDULE'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,9,0,0,0'],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,0,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,0,2250,0,1'],
+            [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,0,2250,0,1'],
+            [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,0,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['cool' => 21.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,0,0,2150,2'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,0,2250,2150,3'],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL'], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,10,0,0,0'],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,10,2250,0,1'],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'setpoints' => ['heat' => 22.5], 'duration' => 1200], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,1200,10,2250,0,1'],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'duration' => 1200], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,1200,10,0,0,0'],
+            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,10,0,0,0'],
+            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'mode' => 'HEAT'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,2,0,0,0'],
+            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'mode' => 'COOL', 'setpoints' => ['cool' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,3,0,2250,2'],
+            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'mode' => 'AUTO', 'setpoints' => ['heat' => 123, 'cool' => 22.5], 'duration' => 3600], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,3600,4,12300,2250,3'],
         ];
         // @codingStandardsIgnoreEnd
     }
@@ -469,6 +479,10 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [3, ['action' => 'OPEN']],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['cool' => 22.5]]],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]]],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'setpoints' => ['cool' => 22.5]]],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'duration' => -1]],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'mode' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'unicorn' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
         ];
         // @codingStandardsIgnoreEnd
     }

@@ -15,7 +15,11 @@ class HvacSetTemperaturesActionExecutor extends HvacSetWeeklyScheduleActionExecu
     public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         Assertion::count($actionParams, 1, 'Parameter setpoints is required.');
         Assertion::keyIsset($actionParams, 'setpoints');
-        $setpoints = $actionParams['setpoints'];
+        $this->validateSetpoints($subject, $actionParams['setpoints']);
+        return $actionParams;
+    }
+
+    protected function validateSetpoints(ActionableSubject $subject, $setpoints) {
         Assertion::isArray($setpoints);
         Assertion::between(count($setpoints), 1, 2, null, 'param.setpoints');
         $availableTemperatures = array_filter([
@@ -29,11 +33,21 @@ class HvacSetTemperaturesActionExecutor extends HvacSetWeeklyScheduleActionExecu
         if (isset($setpoints['cool'])) {
             Assertion::numeric($setpoints['cool']);
         }
-        return $actionParams;
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $setpoints = $actionParams['setpoints'];
+        [$heat, $cool, $flag] = $this->getHeatCoolFlag($actionParams['setpoints']);
+        $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [
+            0,
+            HvacIpcActionMode::NOT_SET,
+            $heat,
+            $cool,
+            $flag,
+        ]);
+        $this->suplaServer->executeCommand($command);
+    }
+
+    protected function getHeatCoolFlag(array $setpoints): array {
         $setpointFlag = 0;
         $heat = 0;
         $cool = 0;
@@ -47,14 +61,7 @@ class HvacSetTemperaturesActionExecutor extends HvacSetWeeklyScheduleActionExecu
             $cool = round(floatval($setpoints['cool']) * 100);
             $setpointFlag |= 2;
         }
-        $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [
-            0,
-            HvacIpcActionMode::NOT_SET,
-            $heat,
-            $cool,
-            $setpointFlag,
-        ]);
-        $this->suplaServer->executeCommand($command);
+        return [$heat, $cool, $setpointFlag];
     }
 
     protected function heatAvailable(ActionableSubject $subject): bool {

@@ -88,7 +88,6 @@
                 }
             },
             onChange() {
-                console.log('blablabla')
                 if (this.countdownMode === 'delay' && !this.countdownValue) {
                     this.countdownValue = 15;
                     this.multiplier = 60;
