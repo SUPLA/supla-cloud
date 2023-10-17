@@ -65,6 +65,10 @@ const ChannelFunctionAction = Object.freeze({
                 return !!params.sourceChannelId;
             case ChannelFunctionAction.SEND:
                 return !!(params.body && params.accessIds?.length > 0);
+            case ChannelFunctionAction.TURN_OFF_TIMER:
+                return params.duration >= 0;
+            case ChannelFunctionAction.HVAC_SET_TEMPERATURES:
+                return params.setpoints?.heat || params.setpoints?.cool;
             default:
                 return true;
         }

@@ -36,6 +36,9 @@
                     <div v-if="action === 'COPY'">
                         <div><code>{{ currentUrl }}?sourceChannelId=123</code></div>
                     </div>
+                    <div v-if="action === 'HVAC_SET_TEMPERATURES'">
+                        <div><code>{{ currentUrl }}?setpoints[heat]=2100&setpoints[cool]=2300</code></div>
+                    </div>
                 </div>
             </div>
             <div v-else-if="failureReason == 'directLinkExecutionFailureReason_invalidChannelState'">
@@ -70,7 +73,7 @@
                                 <button :class="'btn btn-' + (allowedAction.executed ? 'success' : 'default')"
                                     :disabled="allowedAction.executing"
                                     type="button"
-                                    v-if="['READ', 'SET_RGBW_PARAMETERS', 'SHUT_PARTIALLY', 'REVEAL_PARTIALLY', 'SET', 'COPY'].indexOf(allowedAction.name) === -1"
+                                    v-if="allowedAction.name !== 'READ' && !ChannelFunctionAction.requiresParams(allowedAction.id)"
                                     @click="executeAction(allowedAction)">
                                     <span>
                                         <i :class="'pe-7s-' + (allowedAction.executed ? 'check' : 'rocket')"></i>
@@ -113,6 +116,8 @@
 <script>
     import CopyButton from "../../common/copy-button";
     import DirectLinkChannelStatus from "./direct-link-channel-status";
+    import ChannelFunction from "@/common/enums/channel-function";
+    import ChannelFunctionAction from "@/common/enums/channel-function-action";
 
     export default {
         props: ['failureReason', 'action'],
@@ -159,6 +164,12 @@
             }
         },
         computed: {
+            ChannelFunctionAction() {
+                return ChannelFunctionAction
+            },
+            ChannelFunction() {
+                return ChannelFunction
+            },
             currentUrl() {
                 return window.location.protocol + "//" + window.location.host + window.location.pathname;
             }

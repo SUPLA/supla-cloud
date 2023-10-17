@@ -59,6 +59,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
             [ChannelType::DIGIGLASS, ChannelFunction::DIGIGLASS_HORIZONTAL],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
+            [ChannelType::HVAC, ChannelFunction::HVAC_THERMOSTAT_AUTO],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
             $this->device->getChannels()[0],
@@ -661,5 +662,20 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('enabled', $content);
+    }
+
+    public function testExecutingDirectLinkToHvac() {
+        $response = $this->createDirectLink([
+            'subjectId' => $this->device->getChannels()[7]->getId(),
+            'allowedActions' => ['read', 'hvac-set-temperatures'],
+        ]);
+        $directLink = json_decode($response->getContent(), true);
+        $client = $this->createClient();
+        $client->enableProfiler();
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/hvac-set-temperatures?setpoints[heat]=2150");
+        $response = $client->getResponse();
+        $this->assertStatusCode(202, $response);
+        $commands = $this->getSuplaServerCommands($client);
+        $this->assertContains('ACTION-SET-HVAC-PARAMETERS:1,1,8,0,0,215000,0,1', $commands, implode(PHP_EOL, $commands));
     }
 }
