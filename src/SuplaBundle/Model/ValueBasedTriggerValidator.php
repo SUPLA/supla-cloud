@@ -119,6 +119,7 @@ class ValueBasedTriggerValidator {
         ChannelFunction::HUMIDITYANDTEMPERATURE,
         ChannelFunction::HUMIDITY,
         ChannelFunction::DEPTHSENSOR,
+        ChannelFunction::DISTANCESENSOR,
         ChannelFunction::ELECTRICITYMETER,
         ChannelFunction::CONTROLLINGTHEROOFWINDOW,
         ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
