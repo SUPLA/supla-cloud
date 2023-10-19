@@ -7,7 +7,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\HvacIpcActionMode;
 
-class HvacSetTemperaturesActionExecutor extends HvacSetWeeklyScheduleActionExecutor {
+class HvacSetTemperaturesActionExecutor extends HvacSwitchToProgramModeActionExecutor {
     public function getSupportedAction(): ChannelFunctionAction {
         return ChannelFunctionAction::HVAC_SET_TEMPERATURES();
     }

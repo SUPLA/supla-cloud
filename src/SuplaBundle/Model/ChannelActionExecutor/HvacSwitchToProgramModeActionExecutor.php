@@ -4,9 +4,8 @@ namespace SuplaBundle\Model\ChannelActionExecutor;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\HvacIpcActionMode;
 
-class HvacSetWeeklyScheduleActionExecutor extends SingleChannelActionExecutor {
+class HvacSwitchToProgramModeActionExecutor extends SingleChannelActionExecutor {
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::HVAC_THERMOSTAT(),
@@ -17,17 +16,11 @@ class HvacSetWeeklyScheduleActionExecutor extends SingleChannelActionExecutor {
     }
 
     public function getSupportedAction(): ChannelFunctionAction {
-        return ChannelFunctionAction::HVAC_SET_WEEKLY_SCHEDULE();
+        return ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE();
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [
-            0,
-            HvacIpcActionMode::CMD_WEEKLY_SCHEDULE,
-            0,
-            0,
-            0,
-        ]);
+        $command = $subject->buildServerActionCommand('ACTION-HVAC-SWITCH-TO-PROGRAM-MODE');
         $this->suplaServer->executeCommand($command);
     }
 }
