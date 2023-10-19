@@ -52,8 +52,8 @@
                                     @input="paramsChanged()"
                                     :params="`function=${subject.function.id}&skipIds=${(subject.ownSubjectType === 'channel' && subject.id) || ''}`"></channels-id-dropdown>
                             </div>
-                            <div v-if="action.id === ChannelFunctionAction.TURN_OFF_TIMER">
-                                <HvacCountdownSetter v-model="param.duration" :with-calendar="executorMode" hide-no-timer
+                            <div v-if="action.id === ChannelFunctionAction.TURN_OFF_WITH_DURATION">
+                                <DurationParamSetter v-model="param.durationMs" :with-calendar="executorMode" hide-no-timer disable-ms
                                     @input="paramsChanged()"/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURES">
@@ -104,7 +104,7 @@
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
     import NotificationForm from "@/notifications/notification-form.vue";
     import {isEqual} from "lodash";
-    import HvacCountdownSetter from "@/channels/action/hvac-countdown-setter.vue";
+    import DurationParamSetter from "@/channels/action/duration-param-setter.vue";
     import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
     import HvacManualModeSetter from "@/channels/action/hvac-manual-mode-setter.vue";
 
@@ -112,7 +112,7 @@
         components: {
             HvacManualModeSetter,
             HvacSetpointsSetter,
-            HvacCountdownSetter,
+            DurationParamSetter,
             NotificationForm,
             ChannelsIdDropdown,
             DigiglassParametersSetter,

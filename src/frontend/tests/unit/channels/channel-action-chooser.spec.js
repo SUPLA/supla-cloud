@@ -185,7 +185,7 @@ describe('ChannelActionChooser', () => {
             ownSubjectType: ActionableSubjectType.CHANNEL,
             possibleActions: [
                 {"id": ChannelFunctionAction.TURN_ON, "name": "TURN_ON", "nameSlug": "on", "caption": "On"},
-                {"id": ChannelFunctionAction.TURN_OFF_TIMER, "name": "TURN_OFF_TIMER", "nameSlug": "off", "caption": "Off"},
+                {"id": ChannelFunctionAction.TURN_OFF_WITH_DURATION, "name": "TURN_OFF_WITH_DURATION", "nameSlug": "off", "caption": "Off"},
             ],
             functionId: ChannelFunction.HVAC_THERMOSTAT_AUTO,
             "function": {
@@ -207,7 +207,7 @@ describe('ChannelActionChooser', () => {
             expect(wrapper.emitted().input).toBeFalsy();
             await actions.at(1).trigger('click');
             const action = wrapper.emitted().input[0][0];
-            expect(action).toEqual({id: ChannelFunctionAction.TURN_OFF_TIMER, param: {}});
+            expect(action).toEqual({id: ChannelFunctionAction.TURN_OFF_WITH_DURATION, param: {}});
         });
     });
 })

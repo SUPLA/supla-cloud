@@ -18,10 +18,11 @@
                     <input type="number" class="form-control" min="0" v-model="countdownValue" @change="onChange()">
                     <span class="input-group-btn">
                         <a class="btn btn-white" @click="changeMultiplier()">
-                            <span v-if="multiplier === 1">{{ $t('seconds') }}</span>
-                            <span v-if="multiplier === 60">{{ $t('minutes') }}</span>
-                            <span v-if="multiplier === 3600">{{ $t('hours') }}</span>
-                            <span v-if="multiplier === 86400">{{ $t('days') }}</span>
+                            <span v-if="multiplier === 1">{{ $t('milliseconds') }}</span>
+                            <span v-if="multiplier === 1000">{{ $t('seconds') }}</span>
+                            <span v-if="multiplier === 60000">{{ $t('minutes') }}</span>
+                            <span v-if="multiplier === 3600000">{{ $t('hours') }}</span>
+                            <span v-if="multiplier === 86400000">{{ $t('days') }}</span>
                         </a>
                     </span>
                 </span>
@@ -54,11 +55,12 @@
             value: Number,
             withCalendar: Boolean,
             hideNoTimer: Boolean,
+            disableMs: Boolean,
         },
         data() {
             return {
                 countdownMode: 'none',
-                multiplier: 60,
+                multiplier: 60000,
                 countdownValue: 15,
                 countdownDate: undefined,
                 dateUpdateInterval: undefined,
@@ -77,7 +79,7 @@
         },
         methods: {
             setValueAndMultiplier(value) {
-                for (const multiplier of [86400, 3600, 60, 1]) {
+                for (const multiplier of [86400000, 3600000, 60000, 1000, 1]) {
                     if (value % multiplier === 0) {
                         this.multiplier = multiplier;
                         this.countdownValue = Math.round(value / multiplier);
@@ -94,7 +96,7 @@
             onChange() {
                 if (this.countdownMode === 'delay' && !this.countdownValue) {
                     this.countdownValue = 15;
-                    this.multiplier = 60;
+                    this.multiplier = 60000;
                 } else if (this.countdownMode === 'none') {
                     this.countdownValue = 0;
                 }
@@ -102,18 +104,20 @@
             },
             changeMultiplier() {
                 if (this.multiplier === 1) {
-                    this.multiplier = 60;
-                } else if (this.multiplier === 60) {
-                    this.multiplier = 3600;
-                } else if (this.multiplier === 3600) {
-                    this.multiplier = 86400;
+                    this.multiplier = 1000;
+                } else if (this.multiplier === 1000) {
+                    this.multiplier = 60000;
+                } else if (this.multiplier === 60000) {
+                    this.multiplier = 3600000;
+                } else if (this.multiplier === 3600000) {
+                    this.multiplier = 86400000;
                 } else {
-                    this.multiplier = 1;
+                    this.multiplier = this.disableMs ? 1000 : 1;
                 }
                 this.onChange();
             },
             onDateChange() {
-                this.multiplier = 60;
+                this.multiplier = 60000;
                 const targetDate = DateTime.fromISO(this.countdownDate).startOf('minute');
                 const now = DateTime.now().startOf('minute');
                 if (now < targetDate) {

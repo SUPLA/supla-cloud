@@ -42,20 +42,20 @@
                 </transition-expand>
             </div>
         </transition-expand>
-        <HvacCountdownSetter v-model="param.duration" :with-calendar="executorMode" @input="onChange()"/>
+        <DurationParamSetter v-model="param.durationMs" :with-calendar="executorMode" @input="onChange()" disable-ms/>
     </div>
 </template>
 
 <script>
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
-    import HvacCountdownSetter from "@/channels/action/hvac-countdown-setter.vue";
     import {deepCopy} from "@/common/utils";
     import {isEqual} from "lodash";
     import ChannelFunction from "@/common/enums/channel-function";
+    import DurationParamSetter from "@/channels/action/duration-param-setter.vue";
 
     export default {
-        components: {HvacCountdownSetter, HvacSetpointsSetter, TransitionExpand},
+        components: {DurationParamSetter, HvacSetpointsSetter, TransitionExpand},
         props: {
             subject: Object,
             value: Object,
@@ -65,7 +65,7 @@
             return {
                 param: {
                     setpoints: {},
-                    duration: 0,
+                    durationMs: 0,
                 },
                 mode: '',
                 temperaturesEnabled: false,
@@ -85,7 +85,7 @@
                 } else {
                     this.temperaturesEnabled = false;
                 }
-                this.param.duration = deepCopy(this.value.duration);
+                this.param.durationMs = deepCopy(this.value.durationMs);
                 this.param.mode = deepCopy(this.value.mode) || '';
             },
             onChange() {
@@ -100,7 +100,7 @@
                 if (this.temperaturesEnabled) {
                     modelValue.setpoints = this.param.setpoints;
                 }
-                modelValue.duration = this.param.duration;
+                modelValue.durationMs = this.param.durationMs;
                 if (this.mode) {
                     modelValue.mode = this.mode;
                 }

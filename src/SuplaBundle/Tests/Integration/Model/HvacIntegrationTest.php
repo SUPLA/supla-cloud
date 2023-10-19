@@ -442,10 +442,10 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'TURN_ON'], 'ACTION-TURN-ON:1,1,4'],
             [3, ['action' => 'TURN_OFF'], 'ACTION-TURN-OFF:1,1,3'],
             [4, ['action' => 'TURN_OFF'], 'ACTION-TURN-OFF:1,1,4'],
-            [4, ['action' => 'TURN_OFF_TIMER'], 'ACTION-TURN-OFF:1,1,4'],
-            [4, ['action' => 'TURN_OFF_TIMER', 'duration' => 0], 'ACTION-TURN-OFF:1,1,4'],
-            [3, ['action' => 'TURN_OFF_TIMER', 'duration' => 100], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,100,1,0,0,0'],
-            [4, ['action' => 'TURN_OFF_TIMER', 'duration' => 100], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,100,1,0,0,0'],
+            [4, ['action' => 'TURN_OFF_WITH_DURATION'], 'ACTION-TURN-OFF:1,1,4'],
+            [4, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 0], 'ACTION-TURN-OFF:1,1,4'],
+            [3, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 100], 'ACTION-TURN-OFF-WITH-DURATION:1,1,3,100'],
+            [4, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 31535000000], 'ACTION-TURN-OFF-WITH-DURATION:1,1,4,31535000000'],
             [3, ['action' => 'HVAC_SET_WEEKLY_SCHEDULE'], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,9,0,0,0'],
             [4, ['action' => 'HVAC_SET_WEEKLY_SCHEDULE'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,9,0,0,0'],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,0,2250,0,1'],
@@ -481,6 +481,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         // @codingStandardsIgnoreStart
         return [
             [3, ['action' => 'OPEN']],
+            [3, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => -1]],
+            [3, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 931536000000]],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['cool' => 22.5]]],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]]],
             [3, ['action' => 'HVAC_SWITCH_TO_MANUAL', 'setpoints' => ['cool' => 22.5]]],
@@ -495,8 +497,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
             'channelId' => $this->hvacChannel->getId(),
-            'actionId' => ChannelFunctionAction::TURN_OFF_TIMER,
-            'actionParam' => ['duration' => 300],
+            'actionId' => ChannelFunctionAction::TURN_OFF_WITH_DURATION,
+            'actionParam' => ['durationMs' => 300],
             'mode' => ScheduleMode::ONCE,
             'timeExpression' => '2 2 * * *',
         ]);
@@ -505,7 +507,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $scheduleFromResponse['id']);
         $config = $scheduleFromResponse['config'][0];
         $this->assertEquals('2 2 * * *', $config['crontab']);
-        $this->assertEquals(ChannelFunctionAction::TURN_OFF_TIMER, $config['action']['id']);
-        $this->assertEquals(['duration' => 300], $config['action']['param']);
+        $this->assertEquals(ChannelFunctionAction::TURN_OFF_WITH_DURATION, $config['action']['id']);
+        $this->assertEquals(['durationMs' => 300], $config['action']['param']);
     }
 }

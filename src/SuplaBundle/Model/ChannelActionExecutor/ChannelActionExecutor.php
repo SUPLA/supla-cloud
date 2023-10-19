@@ -21,7 +21,7 @@ use SuplaBundle\Supla\SuplaServerAware;
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsRgbw"),
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsCopy"),
  *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsSend"),
- *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsTurnOffTimer"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelActionParamsDuration"),
  *   }
  * )
  */

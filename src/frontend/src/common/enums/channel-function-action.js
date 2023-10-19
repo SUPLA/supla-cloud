@@ -12,6 +12,7 @@ const ChannelFunctionAction = Object.freeze({
     SHUT_PARTIALLY: 51,
     TURN_ON: 60,
     TURN_OFF: 70,
+    TURN_OFF_WITH_DURATION: 235,
     SET_RGBW_PARAMETERS: 80,
     OPEN_CLOSE: 90,
     STOP: 100,
@@ -29,7 +30,6 @@ const ChannelFunctionAction = Object.freeze({
     AT_DISABLE_LOCAL_FUNCTION: 10200,
 
     HVAC_SET_WEEKLY_SCHEDULE: 231,
-    TURN_OFF_TIMER: 232,
     HVAC_SWITCH_TO_MANUAL: 233,
     HVAC_SET_TEMPERATURES: 234,
 
@@ -39,7 +39,7 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.REVEAL_PARTIALLY,
             ChannelFunctionAction.SHUT_PARTIALLY,
             ChannelFunctionAction.SET_RGBW_PARAMETERS,
-            ChannelFunctionAction.TURN_OFF_TIMER,
+            ChannelFunctionAction.TURN_OFF_WITH_DURATION,
             ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL,
             ChannelFunctionAction.HVAC_SET_TEMPERATURES,
             ChannelFunctionAction.OPEN_PARTIALLY,

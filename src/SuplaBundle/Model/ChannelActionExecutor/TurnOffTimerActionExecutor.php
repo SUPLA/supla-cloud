@@ -7,12 +7,11 @@ use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\HvacIpcActionMode;
 
 /**
- * @OA\Schema(schema="ChannelActionParamsTurnOffTimer",
- *   description="Action params for `TURN_OFF_TIMER` action.",
- *   @OA\Property(property="duration", type="integer", minimum=0),
+ * @OA\Schema(schema="ChannelActionParamsDuration",
+ *   description="Action params for actions with duration.",
+ *   @OA\Property(property="durationMs", type="integer", minimum=0, maximum=31536000000),
  * )
  */
 class TurnOffTimerActionExecutor extends TurnOffActionExecutor {
@@ -26,21 +25,24 @@ class TurnOffTimerActionExecutor extends TurnOffActionExecutor {
     }
 
     public function getSupportedAction(): ChannelFunctionAction {
-        return ChannelFunctionAction::TURN_OFF_TIMER();
+        return ChannelFunctionAction::TURN_OFF_WITH_DURATION();
     }
 
     public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
         if ($actionParams) {
-            Assertion::count($actionParams, 1, 'Only duration parameter is allowed.');
-            Assertion::keyIsset($actionParams, 'duration');
-            Assert::that($actionParams['duration'])->integer()->greaterOrEqualThan(0);
+            Assertion::count($actionParams, 1, 'Only durationMs parameter is allowed.');
+            Assertion::keyIsset($actionParams, 'durationMs');
+            Assert::that($actionParams['durationMs'])
+                ->integer()
+                ->greaterOrEqualThan(0)
+                ->lessOrEqualThan(31536000000, 'Maximum duration is one year.'); // i18n
         }
         return $actionParams;
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        if ($duration = ($actionParams['duration'] ?? 0)) {
-            $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [$duration, HvacIpcActionMode::OFF, 0, 0, 0]);
+        if ($duration = ($actionParams['durationMs'] ?? 0)) {
+            $command = $subject->buildServerActionCommand('ACTION-TURN-OFF-WITH-DURATION', [$duration]);
             $this->suplaServer->executeCommand($command);
         } else {
             parent::execute($subject, $actionParams);
