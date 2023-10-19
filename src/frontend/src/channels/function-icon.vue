@@ -20,7 +20,7 @@
     import {withDownloadAccessToken} from "../common/filters";
 
     export default {
-        props: ['model', 'width', 'alternative', 'userIcon'],
+        props: ['model', 'width', 'alternative', 'userIcon', 'config'],
         computed: {
             functionId() {
                 if (this.model) {
@@ -48,28 +48,30 @@
                 return '';
             },
             stateSuffix() {
-                if (this.model.state) {
-                    if (this.model.state.hi || this.model.state.shut > 99
-                        || (this.model.state.closed === true || this.model.state.closed > 99)) {
+                const state = this.model.state;
+                if (state) {
+                    if (state.hi || state.shut > 99
+                        || (state.closed === true || state.closed > 99)) {
                         return '-closed';
                     }
-                    if (this.model.state.partial_hi) {
+                    if (state.partial_hi) {
                         return '-partial';
                     }
-                    if (this.model.state.color_brightness !== undefined && this.model.state.brightness !== undefined) {
-                        return '-' + (this.model.state.brightness ? 'on' : 'off') + (this.model.state.color_brightness ? 'on' : 'off');
-                    } else if (this.model.state.color_brightness > 0 || this.model.state.brightness > 0) {
+                    if (state.color_brightness !== undefined && state.brightness !== undefined) {
+                        return '-' + (state.brightness ? 'on' : 'off') + (state.color_brightness ? 'on' : 'off');
+                    } else if (state.color_brightness > 0 || state.brightness > 0) {
                         return '-on';
                     }
-                    if (this.model.state.on === true) {
+                    if (state.on === true) {
                         return '-on';
                     }
-                    if (this.model.state.transparent && this.model.state.transparent.length > 0) {
+                    if (state.transparent && state.transparent.length > 0) {
                         return '-transparent';
                     }
                 }
-                if (this.model.config?.subfunction) {
-                    if (this.model.config.subfunction === 'COOL') {
+                const config = this.model.config || this.config || {};
+                if (config.subfunction) {
+                    if (config.subfunction === 'COOL') {
                         return '-cool';
                     }
                 }

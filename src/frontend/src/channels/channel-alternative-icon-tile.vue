@@ -11,6 +11,7 @@
                 v-else-if="model.function"></channel-user-icon-preview>
             <function-icon v-else
                 :model="model.channel.function"
+                :config="model.channel.config"
                 :alternative="model.index"></function-icon>
         </a>
     </square-link>
