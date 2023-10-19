@@ -54,6 +54,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method static ChannelFunctionAction HVAC_SWITCH_TO_PROGRAM_MODE()
  * @method static ChannelFunctionAction HVAC_SWITCH_TO_MANUAL_MODE()
  * @method static ChannelFunctionAction HVAC_SET_TEMPERATURES()
+ * @method static ChannelFunctionAction HVAC_SET_TEMPERATURE()
  * @method static ChannelFunctionAction OPEN_CLOSE()
  * @method static ChannelFunctionAction STOP()
  * @method static ChannelFunctionAction TOGGLE()
@@ -83,9 +84,9 @@ final class ChannelFunctionAction extends Enum {
     const REVEAL_PARTIALLY = 50;
     const SHUT_PARTIALLY = 51;
     const TURN_ON = 60;
-    const TURN_ON_WITH_DURATION = 234;
+    const TURN_ON_WITH_DURATION = 61;
     const TURN_OFF = 70;
-    const TURN_OFF_WITH_DURATION = 235;
+    const TURN_OFF_WITH_DURATION = 71;
     const SET_RGBW_PARAMETERS = 80;
     const OPEN_CLOSE = 90;
     const STOP = 100;
@@ -100,6 +101,7 @@ final class ChannelFunctionAction extends Enum {
     const HVAC_SWITCH_TO_PROGRAM_MODE = 231;
     const HVAC_SWITCH_TO_MANUAL_MODE = 232;
     const HVAC_SET_TEMPERATURES = 233;
+    const HVAC_SET_TEMPERATURE = 234;
 
     const COPY = 10100;
 
@@ -167,6 +169,7 @@ final class ChannelFunctionAction extends Enum {
             self::HVAC_SWITCH_TO_PROGRAM_MODE => 'Switch to program mode', // i18n
             self::HVAC_SWITCH_TO_MANUAL_MODE => 'Switch to manual mode', // i18n
             self::HVAC_SET_TEMPERATURES => 'Adjust temperature', // i18n
+            self::HVAC_SET_TEMPERATURE => 'Adjust temperature', // i18n
         ];
     }
 

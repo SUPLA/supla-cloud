@@ -517,7 +517,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,4'],
             [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,3'],
             [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,4'],
-            [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,3,2250,0,1'],
+            [3, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5], 'ACTION-HVAC-SET-TEMPERATURE:1,1,3,2250'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,0,1'],
@@ -552,7 +552,9 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [3, ['action' => 'OPEN']],
             [3, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => -1]],
             [3, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 931536000000]],
-            [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['cool' => 22.5]]],
+            [3, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 0.5]],
+            [4, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5]],
+            [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]]],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]]],
             [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'setpoints' => ['heat' => 22.5]]],
             [3, ['action' => 'HVAC_SET_PARAMETERS', 'setpoints' => ['cool' => 22.5]]],
@@ -567,8 +569,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
             'channelId' => $this->hvacChannel->getId(),
-            'actionId' => ChannelFunctionAction::HVAC_SET_TEMPERATURES,
-            'actionParam' => ['setpoints' => ['heat' => 22.5]],
+            'actionId' => ChannelFunctionAction::HVAC_SET_TEMPERATURE,
+            'actionParam' => ['temperature' => 22.5],
             'mode' => ScheduleMode::ONCE,
             'timeExpression' => '2 2 * * *',
         ]);
@@ -577,7 +579,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $scheduleFromResponse['id']);
         $config = $scheduleFromResponse['config'][0];
         $this->assertEquals('2 2 * * *', $config['crontab']);
-        $this->assertEquals(ChannelFunctionAction::HVAC_SET_TEMPERATURES, $config['action']['id']);
-        $this->assertEquals(['setpoints' => ['heat' => 22.5]], $config['action']['param']);
+        $this->assertEquals(ChannelFunctionAction::HVAC_SET_TEMPERATURE, $config['action']['id']);
+        $this->assertEquals(['temperature' => 22.5], $config['action']['param']);
     }
 }

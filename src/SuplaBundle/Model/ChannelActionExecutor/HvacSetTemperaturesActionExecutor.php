@@ -6,7 +6,13 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
-class HvacSetTemperaturesActionExecutor extends HvacSwitchToProgramModeActionExecutor {
+class HvacSetTemperaturesActionExecutor extends SingleChannelActionExecutor {
+    public function getSupportedFunctions(): array {
+        return [
+            ChannelFunction::HVAC_THERMOSTAT_AUTO(),
+        ];
+    }
+
     public function getSupportedAction(): ChannelFunctionAction {
         return ChannelFunctionAction::HVAC_SET_TEMPERATURES();
     }

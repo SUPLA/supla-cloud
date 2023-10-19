@@ -9,6 +9,15 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\HvacIpcActionMode;
 
 class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor {
+    public function getSupportedFunctions(): array {
+        return [
+            ChannelFunction::HVAC_THERMOSTAT(),
+            ChannelFunction::HVAC_THERMOSTAT_AUTO(),
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
+        ];
+    }
+
     public function getSupportedAction(): ChannelFunctionAction {
         return ChannelFunctionAction::HVAC_SET_PARAMETERS();
     }

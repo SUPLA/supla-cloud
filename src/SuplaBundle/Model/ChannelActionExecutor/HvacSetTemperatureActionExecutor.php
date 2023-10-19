@@ -1,0 +1,54 @@
+<?php
+namespace SuplaBundle\Model\ChannelActionExecutor;
+
+use Assert\Assert;
+use Assert\Assertion;
+use SuplaBundle\Entity\ActionableSubject;
+use SuplaBundle\Entity\HasUserConfig;
+use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+
+class HvacSetTemperatureActionExecutor extends SingleChannelActionExecutor {
+    /** @var SubjectConfigTranslator */
+    private $configTranslator;
+
+    public function __construct(SubjectConfigTranslator $configTranslator) {
+        $this->configTranslator = $configTranslator;
+    }
+
+    public function getSupportedFunctions(): array {
+        return [
+            ChannelFunction::HVAC_THERMOSTAT(),
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
+        ];
+    }
+
+    public function getSupportedAction(): ChannelFunctionAction {
+        return ChannelFunctionAction::HVAC_SET_TEMPERATURE();
+    }
+
+    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+        Assertion::count($actionParams, 1, 'Parameter temperature is required.');
+        Assertion::keyIsset($actionParams, 'temperature');
+        $min = -1000;
+        $max = 1000;
+        if ($subject instanceof HasUserConfig) {
+            $config = $this->configTranslator->getConfig($subject);
+            $constraints = $config['temperatureConstraints'] ?? [];
+            $min = $constraints['roomMin'] ?? -1000;
+            $max = $constraints['roomMax'] ?? -1000;
+        }
+        Assert::that($actionParams['temperature'], null, 'temperature')
+            ->numeric()
+            ->between($min, $max);
+        return $actionParams;
+    }
+
+    public function execute(ActionableSubject $subject, array $actionParams = []) {
+        $temp = round(floatval($actionParams['temperature']) * 100);
+        $command = $subject->buildServerActionCommand('ACTION-HVAC-SET-TEMPERATURE', [$temp]);
+        $this->suplaServer->executeCommand($command);
+    }
+}
