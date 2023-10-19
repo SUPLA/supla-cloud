@@ -25,9 +25,11 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +38,7 @@ use Symfony\Component\HttpFoundation\Response;
 class HvacIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var User */
     private $user;
@@ -158,10 +161,12 @@ class HvacIntegrationTest extends IntegrationTestCase {
 
     public function testSettingMainThermometer() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
             'config' => [
                 'mainThermometerChannelId' => $this->device->getChannels()[0]->getId(),
             ],
+            'configBefore' => $channelParamConfigTranslator->getConfig($this->hvacChannel),
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
@@ -173,6 +178,67 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $hvacChannel = $this->freshEntity($this->hvacChannel);
         $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelId'));
         $this->assertEquals(0, $hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
+        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('havac'));
+    }
+
+    /** @depends testSettingMainThermometer */
+    public function testSendingFullConfigButChangingMainThermometerOnly() {
+        SuplaServerMock::reset();
+        $client = $this->createAuthenticatedClient($this->user);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $config = $channelParamConfigTranslator->getConfig($this->hvacChannel);
+        $configBefore = $channelParamConfigTranslator->getConfig($this->hvacChannel);
+        $config['mainThermometerChannelId'] = $this->device->getChannels()[1]->getId();
+        $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+            'config' => $config,
+            'configBefore' => $configBefore,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('HEAT', $content['config']['subfunction']);
+        $this->assertEquals($this->device->getChannels()[1]->getId(), $content['config']['mainThermometerChannelId']);
+        $hvacChannel = $this->freshEntity($this->hvacChannel);
+        $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelId'));
+        $this->assertEquals(1, $hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
+        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('havac'));
+    }
+
+    /** @depends testSendingFullConfigButChangingMainThermometerOnly */
+    public function testSettingSubfunction() {
+        SuplaServerMock::reset();
+        $client = $this->createAuthenticatedClient($this->user);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+            'config' => ['subfunction' => 'COOL'],
+            'configBefore' => $channelParamConfigTranslator->getConfig($this->hvacChannel),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals('COOL', $content['config']['subfunction']);
+        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('subfunction'));
+    }
+
+    /** @depends testSettingSubfunction */
+    public function testSettingSubfunctionAndThermometer() {
+        SuplaServerMock::reset();
+        $client = $this->createAuthenticatedClient($this->user);
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), [
+            'config' => ['subfunction' => 'HEAT', 'mainThermometerChannelId' => $this->device->getChannels()[0]->getId()],
+            'configBefore' => $channelParamConfigTranslator->getConfig($this->hvacChannel),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('havac,subfunction'));
+        $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
     }
 
     public function testSettingAuxThermometer() {
@@ -240,6 +306,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             1000,
             $this->hvacChannel->getUserConfigValue('weeklySchedule')['programSettings'][2]['setpointTemperatureHeat']
         );
+        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('weekly_schedule'));
     }
 
     public function testSettingWeeklyScheduleWithIncompleteQuarters() {
@@ -303,6 +370,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(2, $content['config']['altWeeklySchedule']['quarters'][125]);
         $this->assertEquals(0, $content['config']['altWeeklySchedule']['programSettings'][3]['setpointTemperatureHeat']);
         $this->assertEquals(10, $content['config']['altWeeklySchedule']['programSettings'][3]['setpointTemperatureCool']);
+        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('weekly_schedule'));
     }
 
     public function testSettingAltWeeklyScheduleWithInvalidProgramMode() {
@@ -363,13 +431,13 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals(['waitingForConfigInit' => true], $content['config']);
-        return $hvacChannel;
+        return $hvacChannel->getId();
     }
 
     /** @depends testWaitingForConfigInit */
-    public function testConfigInitialized(IODeviceChannel $hvacChannel) {
+    public function testConfigInitialized(int $hvacChannelId) {
         $client = $this->createAuthenticatedClient($this->user);
-        $hvacChannel = $this->freshEntity($hvacChannel);
+        $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacChannelId);
         $hvacChannel->setUserConfigValue('subfunction', 'HEAT');
         $hvacChannel->setUserConfigValue('mainThermometerChannelNo', 2);
         $this->getEntityManager()->persist($hvacChannel);
@@ -381,42 +449,43 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertArrayNotHasKey('waitingForConfigInit', $content['config']);
         $this->assertEquals('HEAT', $content['config']['subfunction']);
         $this->assertNull($content['config']['mainThermometerChannelId']);
-        return $hvacChannel;
+        return $hvacChannel->getId();
     }
 
     /** @depends testConfigInitialized */
-    public function testCantSetWeeklyScheduleIfNoneProvided(IODeviceChannel $hvacChannel) {
+    public function testCantSetWeeklyScheduleIfNoneProvided(int $hvacChannelId) {
         $client = $this->createAuthenticatedClient($this->user);
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
         $channelConfig = $channelParamConfigTranslator->getConfig($this->hvacChannel);
-        $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannel->getId(), [
+        $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannelId, [
             'config' => ['weeklySchedule' => $channelConfig['weeklySchedule']],
         ]);
         $this->assertStatusCode(400, $client->getResponse());
     }
 
     /** @depends testConfigInitialized */
-    public function testClearingConfigOnFunctionChange(IODeviceChannel $hvacChannel) {
+    public function testClearingConfigOnFunctionChange(int $hvacChannelId) {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannel->getId(), [
+        $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannelId, [
             'functionId' => ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $client->apiRequestV24('GET', '/api/channels/' . $hvacChannel->getId());
+        $this->assertSuplaCommandExecuted("CHANNEL-SETTINGS-CHANGED:1,2,$hvacChannelId," . base64_encode('function'));
+        $client->apiRequestV24('GET', '/api/channels/' . $hvacChannelId);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals(['waitingForConfigInit' => true], $content['config']);
-        $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannel->getId(), [
+        $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannelId, [
             'functionId' => ChannelFunction::HVAC_THERMOSTAT,
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $client->apiRequestV24('GET', '/api/channels/' . $hvacChannel->getId());
+        $client->apiRequestV24('GET', '/api/channels/' . $hvacChannelId);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals(['waitingForConfigInit' => true], $content['config']);
-        $hvacChannel = $this->freshEntity($hvacChannel);
+        $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacChannelId);
         $hvacChannel->setUserConfigValue('subfunction', 'HEAT');
         $this->getEntityManager()->persist($hvacChannel);
         $this->getEntityManager()->flush();

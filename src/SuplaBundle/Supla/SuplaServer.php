@@ -373,4 +373,12 @@ abstract class SuplaServer {
         $this->postponedCommands = [];
         return $results;
     }
+
+    public function channelSettingsChanged(IODeviceChannel $channel, array $changes): void {
+        if ($changes) {
+            $changesList = implode(',', array_unique($changes));
+            $command = $channel->buildServerActionCommand('CHANNEL-SETTINGS-CHANGED', [base64_encode($changesList)]);
+            $this->postponeCommand($command);
+        }
+    }
 }

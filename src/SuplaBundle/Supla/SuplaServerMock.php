@@ -204,4 +204,9 @@ class SuplaServerMock extends SuplaServer {
         }
         self::$mockedResponses[$command] = $response;
     }
+
+    public static function reset() {
+        self::$executedCommands = [];
+        self::$mockedResponses = [];
+    }
 }

@@ -23,7 +23,6 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
                 ->integer()
                 ->greaterOrEqualThan(0)
                 ->lessOrEqualThan(31536000000, 'Maximum duration is one year.'); // i18n
-
         }
         if (isset($actionParams['mode'])) {
             if ($actionParams['mode']) {

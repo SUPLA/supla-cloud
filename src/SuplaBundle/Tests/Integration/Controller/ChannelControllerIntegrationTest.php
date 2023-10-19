@@ -38,6 +38,7 @@ use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
@@ -45,6 +46,7 @@ use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 class ChannelControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var User */
     private $user;
@@ -511,6 +513,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         $this->assertEquals(1567, $gateChannel->getParam1());
+        $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
         return $gateChannel->getId();
     }
 

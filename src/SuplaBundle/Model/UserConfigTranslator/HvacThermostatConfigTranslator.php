@@ -10,6 +10,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Exception\ApiExceptionWithDetails;
+use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\NumberUtils;
 use function Assert\Assert;
 
@@ -66,6 +67,7 @@ use function Assert\Assert;
  */
 class HvacThermostatConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
+    use SuplaServerAware;
 
     public function supports(HasUserConfig $subject): bool {
         return in_array($subject->getFunction()->getId(), [
@@ -125,6 +127,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
+        $changes = [];
         if (array_key_exists('mainThermometerChannelId', $config)) {
             $mainThermometerChannelId = $config['mainThermometerChannelId'];
             Assertion::integer($mainThermometerChannelId, 'Main thermometer must be set.'); // i18n
@@ -134,6 +137,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
             );
             $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
+            $changes[] = 'havac';
         }
         if (array_key_exists('auxThermometerChannelId', $config)) {
             if ($config['auxThermometerChannelId']) {
@@ -149,6 +153,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $subject->setUserConfigValue('auxThermometerChannelNo', null);
                 $config['auxThermometerType'] = 'NOT_SET';
             }
+            $changes[] = 'havac';
         }
         if (array_key_exists('auxThermometerType', $config)) {
             if ($config['auxThermometerType']) {
@@ -158,6 +163,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 );
             }
             $subject->setUserConfigValue('auxThermometerType', $config['auxThermometerType'] ?: 'NOT_SET');
+            $changes[] = 'havac';
         }
         if (array_key_exists('binarySensorChannelId', $config)) {
             if ($config['binarySensorChannelId']) {
@@ -168,27 +174,33 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             } else {
                 $subject->setUserConfigValue('binarySensorChannelNo', null);
             }
+            $changes[] = 'havac';
         }
         if (array_key_exists('antiFreezeAndOverheatProtectionEnabled', $config)) {
             $enabled = filter_var($config['antiFreezeAndOverheatProtectionEnabled'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('antiFreezeAndOverheatProtectionEnabled', $enabled);
+            $changes[] = 'havac';
         }
         if (array_key_exists('auxMinMaxSetpointEnabled', $config)) {
             $enabled = filter_var($config['auxMinMaxSetpointEnabled'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('auxMinMaxSetpointEnabled', $enabled);
+            $changes[] = 'havac';
         }
         if (array_key_exists('temperatureSetpointChangeSwitchesToManualMode', $config)) {
             $enabled = filter_var($config['temperatureSetpointChangeSwitchesToManualMode'], FILTER_VALIDATE_BOOLEAN);
             $subject->setUserConfigValue('temperatureSetpointChangeSwitchesToManualMode', $enabled);
+            $changes[] = 'havac';
         }
         if (array_key_exists('usedAlgorithm', $config) && $config['usedAlgorithm']) {
             $availableAlgorithms = $subject->getProperties()['availableAlgorithms'] ?? [];
             Assertion::inArray($config['usedAlgorithm'], $availableAlgorithms);
             $subject->setUserConfigValue('usedAlgorithm', $config['usedAlgorithm']);
+            $changes[] = 'havac';
         }
         if (array_key_exists('subfunction', $config) && $config['subfunction']) {
             Assertion::inArray($config['subfunction'], ['COOL', 'HEAT']);
             $subject->setUserConfigValue('subfunction', $config['subfunction']);
+            $changes[] = 'subfunction';
         }
         if (array_key_exists('minOnTimeS', $config)) {
             if ($config['minOnTimeS']) {
@@ -197,6 +209,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             } else {
                 $subject->setUserConfigValue('minOnTimeS', 0);
             }
+            $changes[] = 'havac';
         }
         if (array_key_exists('minOffTimeS', $config)) {
             if ($config['minOffTimeS']) {
@@ -205,6 +218,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             } else {
                 $subject->setUserConfigValue('minOffTimeS', 0);
             }
+            $changes[] = 'havac';
         }
         if (array_key_exists('outputValueOnError', $config)) {
             if ($config['outputValueOnError']) {
@@ -213,6 +227,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             } else {
                 $subject->setUserConfigValue('outputValueOnError', 0);
             }
+            $changes[] = 'havac';
         }
         if (array_key_exists('weeklySchedule', $config) && $config['weeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('weeklySchedule'));
@@ -222,12 +237,14 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 : ['HEAT'];
             $weeklySchedule = $this->validateWeeklySchedule($subject, $config['weeklySchedule'], $availableProgramModes);
             $subject->setUserConfigValue('weeklySchedule', $weeklySchedule);
+            $changes[] = 'weekly_schedule';
         }
         if (array_key_exists('altWeeklySchedule', $config) && $config['altWeeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('altWeeklySchedule'));
             Assertion::isArray($config['altWeeklySchedule']);
             $weeklySchedule = $this->validateWeeklySchedule($subject, $config['altWeeklySchedule'], ['COOL']);
             $subject->setUserConfigValue('altWeeklySchedule', $weeklySchedule);
+            $changes[] = 'weekly_schedule';
         }
         if (array_key_exists('temperatures', $config) && $config['temperatures']) {
             Assert::that($config['temperatures'])->isArray();
@@ -250,7 +267,9 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             }
             $this->validateTemperatures($subject, $temps);
             $subject->setUserConfigValue('temperatures', $temps);
+            $changes[] = 'havac';
         }
+        $this->suplaServer->channelSettingsChanged($subject, $changes);
     }
 
     private function channelNoToId(IODeviceChannel $channel, int $channelNo): IODeviceChannel {

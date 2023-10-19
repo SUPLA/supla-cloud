@@ -211,7 +211,11 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     protected function freshEntity($entity) {
-        return $this->getEntityManager()->find(get_class($entity), $entity->getId());
+        return $this->freshEntityById(get_class($entity), $entity->getId());
+    }
+
+    protected function freshEntityById(string $class, int $id) {
+        return $this->getEntityManager()->find($class, $id);
     }
 
     protected function flushMessagesQueue(?TestClient $client = null) {

@@ -285,13 +285,13 @@ class ChannelController extends RestController {
             $requestData = $request->request->all();
             $newFunction = false;
             $functionHasBeenChanged = false;
-            $channelConfig = $requestData['config'] ?? $paramConfigTranslator->getConfig($channel);
+            $newConfigToSet = $requestData['config'] ?? $paramConfigTranslator->getConfig($channel);
             if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
                 Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
                 Assertion::isArray($requestData['config'], null, 'config');
                 Assertion::isArray($requestData['configBefore'], null, 'configBefore');
                 $currentConfig = json_decode(json_encode($paramConfigTranslator->getConfig($channel)), true);
-                $channelConfig = ArrayUtils::mergeConfigs($requestData['configBefore'], $channelConfig, $currentConfig);
+                $newConfigToSet = ArrayUtils::mergeConfigs($requestData['configBefore'], $newConfigToSet, $currentConfig);
             }
             if (isset($requestData['functionId'])) {
                 $function = ChannelFunction::fromString($requestData['functionId']);
@@ -336,7 +336,7 @@ class ChannelController extends RestController {
                 $channelToReadConfig->setTextParam1($requestData['textParam1'] ?? null);
                 $channelToReadConfig->setTextParam2($requestData['textParam2'] ?? null);
                 $channelToReadConfig->setTextParam3($requestData['textParam3'] ?? null);
-                $channelConfig = $paramConfigTranslator->getConfig($channelToReadConfig);
+                $newConfigToSet = $paramConfigTranslator->getConfig($channelToReadConfig);
             }
             if (isset($requestData['inheritedLocation']) && $requestData['inheritedLocation']) {
                 $channel->setLocation(null);
@@ -359,7 +359,7 @@ class ChannelController extends RestController {
                 $userIconRepository,
                 $requestData,
                 $newFunction,
-                $channelConfig,
+                $newConfigToSet,
                 $paramConfigTranslator,
                 $channelDependencies,
                 $request,
@@ -372,10 +372,11 @@ class ChannelController extends RestController {
                     $channelDependencies->clearDependencies($channel);
                     $channel->setUserIcon(null);
                     $channel->setAltIcon(0);
+                    $this->suplaServer->channelSettingsChanged($channel, ['function']);
                     $em->persist($channel);
                 }
                 if (!$functionHasBeenChanged || !in_array($channel->getType()->getId(), [ChannelType::HVAC])) {
-                    $paramConfigTranslator->setConfig($channel, $channelConfig);
+                    $paramConfigTranslator->setConfig($channel, $newConfigToSet);
                 }
                 if (isset($requestData['altIcon'])) {
                     Assertion::integer($requestData['altIcon']);
@@ -404,8 +405,10 @@ class ChannelController extends RestController {
                 }
                 return $channel;
             });
-            $this->suplaServer->onDeviceSettingsChanged($channel->getIoDevice());
-            $this->suplaServer->reconnect();
+            if (!in_array($channel->getType()->getId(), [ChannelType::HVAC])) {
+                $this->suplaServer->onDeviceSettingsChanged($channel->getIoDevice());
+                $this->suplaServer->reconnect();
+            }
             return $this->getChannelAction($request, $channel->clearRelationsCount());
         } else {
             $actionParams = json_decode($request->getContent(), true);
