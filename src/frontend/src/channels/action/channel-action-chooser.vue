@@ -59,7 +59,7 @@
                             <div v-if="action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURES">
                                 <HvacSetpointsSetter v-model="param.setpoints" :subject="subject" @input="paramsChanged()"/>
                             </div>
-                            <div v-if="action.id === ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL">
+                            <div v-if="action.id === ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL_MODE">
                                 <HvacManualModeSetter v-model="param" :subject="subject" :executor-mode="executorMode"
                                     @input="paramsChanged()"/>
                             </div>

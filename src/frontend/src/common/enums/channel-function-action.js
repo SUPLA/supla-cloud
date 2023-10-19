@@ -30,7 +30,7 @@ const ChannelFunctionAction = Object.freeze({
     AT_DISABLE_LOCAL_FUNCTION: 10200,
 
     HVAC_SWITCH_TO_PROGRAM_MODE: 231,
-    HVAC_SWITCH_TO_MANUAL: 232,
+    HVAC_SWITCH_TO_MANUAL_MODE: 232,
     HVAC_SET_TEMPERATURES: 233,
 
     requiresParams(actionId) {
@@ -40,7 +40,7 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.SHUT_PARTIALLY,
             ChannelFunctionAction.SET_RGBW_PARAMETERS,
             ChannelFunctionAction.TURN_OFF_WITH_DURATION,
-            ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL,
+            ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL_MODE,
             ChannelFunctionAction.HVAC_SET_TEMPERATURES,
             ChannelFunctionAction.OPEN_PARTIALLY,
             ChannelFunctionAction.CLOSE_PARTIALLY,

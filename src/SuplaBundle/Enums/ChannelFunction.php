@@ -293,7 +293,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_WITH_DURATION(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
+                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURES(),
             ],
             self::HVAC_THERMOSTAT_AUTO => [
@@ -301,7 +301,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_WITH_DURATION(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
+                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURES(),
             ],
             self::HVAC_DRYER => [
@@ -309,7 +309,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_WITH_DURATION(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
+                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURES(),
             ],
             self::HVAC_FAN => [
@@ -317,7 +317,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_WITH_DURATION(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
+                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURES(),
             ],
             self::HVAC_THERMOSTAT_DIFFERENTIAL => [
@@ -325,7 +325,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_WITH_DURATION(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
+                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURES(),
             ],
             self::HVAC_DOMESTIC_HOT_WATER => [
@@ -333,7 +333,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TURN_OFF_WITH_DURATION(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
-                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL(),
+                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURES(),
             ],
             self::VALVEOPENCLOSE => [
