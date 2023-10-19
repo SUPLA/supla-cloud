@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @OA\Schema(schema="ChannelFunctionActionEnumNames", type="string", example="OPEN", enum={"AT_DISABLE_LOCAL_FUNCTION","AT_FORWARD_OUTSIDE","CLOSE","CLOSE_PARTIALLY","COPY","DISABLE","DOWN_OR_STOP","ENABLE","EXECUTE","HVAC_SET_TEMPERATURES","HVAC_SWITCH_TO_MANUAL","HVAC_SWITCH_TO_PROGRAM_MODE","INTERRUPT","INTERRUPT_AND_EXECUTE","OPEN","OPEN_CLOSE","OPEN_PARTIALLY","READ","REVEAL","REVEAL_PARTIALLY","SEND","SET","SET_RGBW_PARAMETERS","SHUT","SHUT_PARTIALLY","STEP_BY_STEP","STOP","TOGGLE","TURN_OFF","TURN_OFF_WITH_DURATION","TURN_ON","TURN_ON_WITH_DURATION","UP_OR_STOP","VOID"})
- * @OA\Schema(schema="ChannelFunctionActionIds", type="integer", example=10, enum={-1,10,20,30,40,50,51,60,70,80,90,100,110,120,130,140,150,160,200,210,220,231,233,234,234,235,1000,2000,3000,3001,3002,10000,10100,10200})
+ * @OA\Schema(schema="ChannelFunctionActionIds", type="integer", example=10, enum={-1,10,20,30,40,50,51,60,70,80,90,100,110,120,130,140,150,160,200,210,220,231,232,233,234,235,1000,2000,3000,3001,3002,10000,10100,10200})
  * @OA\Schema(
  *   schema="ChannelFunctionAction", type="object",
  *   @OA\Property(property="id", ref="#/components/schemas/ChannelFunctionActionIds"),
@@ -96,8 +96,8 @@ final class ChannelFunctionAction extends Enum {
     const STEP_BY_STEP = 160;
 
     const HVAC_SWITCH_TO_PROGRAM_MODE = 231;
-    const HVAC_SWITCH_TO_MANUAL = 233;
-    const HVAC_SET_TEMPERATURES = 234;
+    const HVAC_SWITCH_TO_MANUAL = 232;
+    const HVAC_SET_TEMPERATURES = 233;
 
     const COPY = 10100;
 
@@ -140,6 +140,7 @@ final class ChannelFunctionAction extends Enum {
             self::REVEAL_PARTIALLY => 'Reveal partially', // i18n
             self::SHUT_PARTIALLY => 'Shut partially', // i18n
             self::TURN_ON => 'On', // i18n
+            self::TURN_ON_WITH_DURATION => 'On with duration', // i18n
             self::TURN_OFF => 'Off', // i18n
             self::TURN_OFF_WITH_DURATION => 'Off with duration', // i18n
             self::SET_RGBW_PARAMETERS => 'Adjust parameters', // i18n

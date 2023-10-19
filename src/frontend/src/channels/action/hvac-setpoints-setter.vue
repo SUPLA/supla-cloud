@@ -73,11 +73,13 @@
                 this.temperatureCool = this.value.cool;
             },
             onChange(changed) {
-                if (changed === 'heat' && this.hasCool) {
-                    this.temperatureCool = Math.max(this.temperatureCool, +this.temperatureHeat + this.offsetMin);
-                }
-                if (changed === 'cool' && this.hasHeat) {
-                    this.temperatureHeat = Math.min(this.temperatureHeat, +this.temperatureCool - this.offsetMin);
+                if (this.hasHeat && this.hasCool) {
+                    if (changed === 'heat' && this.hasCool) {
+                        this.temperatureCool = Math.max(this.temperatureCool, +this.temperatureHeat + this.offsetMin);
+                    }
+                    if (changed === 'cool' && this.hasHeat) {
+                        this.temperatureHeat = Math.min(this.temperatureHeat, +this.temperatureCool - this.offsetMin);
+                    }
                 }
                 this.$emit('input', this.modelValue);
             },

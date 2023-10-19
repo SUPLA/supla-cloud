@@ -5,7 +5,6 @@ use Assert\Assertion;
 use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
-use SuplaBundle\Enums\HvacIpcActionMode;
 
 class HvacSetTemperaturesActionExecutor extends HvacSwitchToProgramModeActionExecutor {
     public function getSupportedAction(): ChannelFunctionAction {
@@ -37,13 +36,7 @@ class HvacSetTemperaturesActionExecutor extends HvacSwitchToProgramModeActionExe
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
         [$heat, $cool, $flag] = $this->getHeatCoolFlag($actionParams['setpoints']);
-        $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [
-            0,
-            HvacIpcActionMode::NOT_SET,
-            $heat,
-            $cool,
-            $flag,
-        ]);
+        $command = $subject->buildServerActionCommand('ACTION-HVAC-SET-TEMPERATURES', [$heat, $cool, $flag]);
         $this->suplaServer->executeCommand($command);
     }
 
