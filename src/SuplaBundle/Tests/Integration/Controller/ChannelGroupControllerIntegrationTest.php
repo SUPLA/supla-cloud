@@ -30,12 +30,14 @@ use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
 /** @small */
 class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -72,13 +74,11 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         array $additionalRequest = []
     ) {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $request = array_merge(['action' => $action], $additionalRequest);
         $client->apiRequestV22('PATCH', '/api/channel-groups/' . $channelGroupId, $request);
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains($expectedCommand, $commands);
+        $this->assertSuplaCommandExecuted($expectedCommand);
     }
 
     public function changingChannelGroupStateDataProvider() {
@@ -209,13 +209,11 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingChannelGroupState() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV22('GET', '/api/channel-groups/1?include=state');
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
-        $this->assertContains('GET-RELAY-VALUE:1,1,2', $commands);
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,2');
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('state', $content);
         $this->assertCount(2, $content['state']);

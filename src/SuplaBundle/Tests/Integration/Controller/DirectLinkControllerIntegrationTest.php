@@ -34,12 +34,14 @@ use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
 class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -140,63 +142,55 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingDirectLink */
     public function testExecutingDirectLink(array $directLink) {
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/turn-on");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('ACTION-TURN-ON:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('ACTION-TURN-ON:1,1,1');
     }
 
     /** @depends testCreatingDirectLink */
     public function testExecutingDirectLinkWithPatch(array $directLink) {
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('PATCH', "/direct/$directLink[id]/$directLink[slug]/turn-on");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('ACTION-TURN-ON:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('ACTION-TURN-ON:1,1,1');
     }
 
     /** @depends testCreatingDirectLink */
     public function testExecutingDirectLinkWithPut(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('PUT', "/direct/$directLink[id]/$directLink[slug]/turn-on");
         $response = $client->getResponse();
         $this->assertStatusCode(405, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertEmpty($commands);
+        $this->assertNoSuplaCommandsExecuted();
     }
 
     /** @depends testCreatingDirectLink */
     public function testExecutingDirectLinkWithPatchAndCredentialsInRequestBody(array $directLinkDetails) {
         $client = $this->createClient();
-        $client->enableProfiler();
         $requestData = ['code' => $directLinkDetails['slug'], 'action' => 'turn-on'];
         $client->request('PATCH', "/direct/$directLinkDetails[id]", $requestData, [], ['CONTENT_TYPE' => 'application/json']);
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('ACTION-TURN-ON:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('ACTION-TURN-ON:1,1,1');
     }
 
     /** @depends testCreatingDirectLink */
     public function testCannotExecuteForbiddenAction(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/turn-off");
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+        $this->assertNoSuplaCommandsExecuted();
     }
 
     /** @depends testCreatingDirectLink */
     public function testCannotExecuteActionWithInvalidSlug(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]X/turn-on", [], [], ['HTTP_ACCEPT' => '*/*']);
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
@@ -204,71 +198,67 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($content['success']);
         $this->assertEquals(DirectLinkExecutionFailureReason::INVALID_SLUG, $content['message']);
         $this->assertEquals('Given verification code is not valid.', $content['messageText']);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+        $this->assertNoSuplaCommandsExecuted();
     }
 
     /** @depends testCreatingDirectLink */
     public function testExecutingDirectLinkCopyAction(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/copy?sourceChannelId=2");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('ACTION-COPY:1,1,1,1,2', $commands);
+        $this->assertSuplaCommandExecuted('ACTION-COPY:1,1,1,1,2');
     }
 
     /** @depends testCreatingDirectLink */
     public function testCannotExecuteNotExistingAction(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/unicornify");
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertNotContains('SET-CHAR-VALUE:1,1,1,1', $commands);
+        $this->assertNoSuplaCommandsExecuted();
     }
 
     /** @depends testCreatingDirectLink */
     public function testReadingDirectLinkAsJson(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => 'application/json']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('on', $content);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 
     /** @depends testCreatingDirectLink */
     public function testReadingDirectLinkAsJsonThroughGetParam(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read?format=json");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertArrayHasKey('on', $content);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 
     /** @depends testCreatingDirectLink */
     public function testReadingDirectLinkWithInvalidFormat(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read?format=unicorn");
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
+        $this->assertNoSuplaCommandsExecuted();
     }
 
     /** @depends testCreatingDirectLink */
     public function testPreferJson(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $acceptHeader = ['HTTP_ACCEPT' => 'text/html, text/plain, application/json'];
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], $acceptHeader);
         $response = $client->getResponse();
@@ -279,53 +269,49 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingDirectLink */
     public function testReadingDirectLinkAsText(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => 'text/plain']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $this->assertContains('ON: ', $response->getContent());
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 
     /** @depends testCreatingDirectLink */
     public function testReadingDirectLinkAsHtml(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => 'text/html']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
         $this->assertContains('"on":', $response->getContent());
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 
     /** @depends testCreatingDirectLink */
     public function testReadingDoNotExposeLinkDataIfInvalidSlug(array $directLink) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]X/read", [], [], ['HTTP_ACCEPT' => 'text/html']);
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
         $this->assertNotContains('directLink = {"id":' . $directLink['id'], $response->getContent());
         $this->assertNotContains('"on":', $response->getContent());
         $this->assertContains('directLink = [];', $response->getContent());
-        $this->assertEmpty($this->getSuplaServerCommands($client));
+        $this->assertNoSuplaCommandsExecuted();
     }
 
     /** @depends testCreatingDirectLink */
     public function testDisplayingDirectLinkOptionsPage(array $directLink) {
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
         $this->assertContains('"on":', $response->getContent());
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 
     public function testCreatingDirectLinkForScene() {
@@ -365,20 +351,19 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingDirectLinkForScene */
     public function testExecutingDirectLinkForScene($linkData) {
+        SuplaServerMock::reset();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$linkData[id]/$linkData[slug]/execute");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('EXECUTE-SCENE:1,1', $commands);
+        $this->assertSuplaCommandExecuted('EXECUTE-SCENE:1,1');
     }
 
     /** @depends testCreatingDirectLinkForScene */
     public function testExecutingDirectLinkForSceneWhenDuringExecution($linkData) {
+        SuplaServerMock::reset();
         SuplaServerMock::mockResponse('EXECUTE-SCENE:1,1', 'IS-DURING-EXECUTION:1');
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$linkData[id]/$linkData[slug]/execute");
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
@@ -386,33 +371,31 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testExecutingDirectLinkWithGetWhenGetDisabled() {
+        SuplaServerMock::reset();
         $directLinkDetails = $this->testCreatingDirectLink();
         $directLink = $this->getEntityManager()->find(DirectLink::class, $directLinkDetails['id']);
         $directLink->setDisableHttpGet(true);
         $this->getEntityManager()->persist($directLink);
         $this->getEntityManager()->flush();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLinkDetails[id]/$directLinkDetails[slug]/turn-on");
         $response = $client->getResponse();
         $this->assertStatusCode(405, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertEmpty($commands);
+        $this->assertNoSuplaCommandsExecuted();
     }
 
     public function testExecutingDirectLinkWithPatchWhenGetDisabled() {
+        SuplaServerMock::reset();
         $directLinkDetails = $this->testCreatingDirectLink();
         $directLink = $this->getEntityManager()->find(DirectLink::class, $directLinkDetails['id']);
         $directLink->setDisableHttpGet(true);
         $this->getEntityManager()->persist($directLink);
         $this->getEntityManager()->flush();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('PATCH', "/direct/$directLinkDetails[id]/$directLinkDetails[slug]/turn-on");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('ACTION-TURN-ON:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('ACTION-TURN-ON:1,1,1');
     }
 
     public function testCreatingDirectLinkForChannelGroup() {
@@ -435,18 +418,15 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingDirectLinkForChannelGroup */
     public function testExecutingDirectLinkForChannelGroup(array $directLink) {
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/turn-on");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('ACTION-CG-TURN-ON:1,1', $commands, implode(PHP_EOL, $commands));
+        $this->assertSuplaCommandExecuted('ACTION-CG-TURN-ON:1,1');
     }
 
     public function testReadingDirectLinkForChannelGroup() {
         $directLink = $this->testCreatingDirectLinkForChannelGroup();
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => '*/*']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -454,9 +434,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertCount(2, $content);
         $this->assertArrayHasKey(1, $content);
         $this->assertArrayHasKey('on', $content[1]);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
-        $this->assertContains('GET-RELAY-VALUE:1,1,2', $commands);
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,2');
     }
 
     public function testExecutingDirectLinkWithParameters() {
@@ -467,12 +446,10 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,0', $commands);
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,1,0,66,0');
     }
 
     public function testExecutingDirectLinkWithTurnOnOffParameter() {
@@ -483,12 +460,10 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set-rgbw-parameters?brightness=66&turnOnOff=2");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,1,0,66,2', $commands);
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,1,0,66,2');
     }
 
     public function testExecutingDirectLinkWithComplexParameters() {
@@ -499,13 +474,11 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]"
             . '/set-rgbw-parameters?hsv[saturation]=66&hsv[value]=67&hsv[hue]=100');
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,4,9437015,67,100,0', $commands);
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,4,9437015,67,100,0');
     }
 
     public function testExecutingDirectLinkToOpenValve() {
@@ -516,12 +489,10 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/open");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-CHAR-VALUE:1,1,5,1', $commands);
+        $this->assertSuplaCommandExecuted('SET-CHAR-VALUE:1,1,5,1');
         return $directLink;
     }
 
@@ -529,7 +500,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     public function testCantExecuteDirectLinkToOpenValveIfManuallyShut(array $directLink) {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,2\n");
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/open");
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
@@ -539,7 +509,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
     public function testCantExecuteDirectLinkToOpenValveIfFlooding(array $directLink) {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,1\n");
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/open");
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
@@ -552,12 +521,10 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set?transparent[]=0");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-DIGIGLASS-VALUE:1,1,6,1,1', $commands);
+        $this->assertSuplaCommandExecuted('SET-DIGIGLASS-VALUE:1,1,6,1,1');
     }
 
     public function testExecutingDirectLinkToDigiglassWithDifferentFormat() {
@@ -567,12 +534,10 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/set?transparent=0&opaque=1,2");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-DIGIGLASS-VALUE:1,1,6,7,1', $commands);
+        $this->assertSuplaCommandExecuted('SET-DIGIGLASS-VALUE:1,1,6,7,1');
     }
 
     public function testExecutingDirectLinkToDigiglassRead() {
@@ -582,7 +547,6 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => 'application/json']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -590,8 +554,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('transparent', $content);
         $this->assertArrayHasKey('opaque', $content);
         $this->assertArrayHasKey('mask', $content);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-DIGIGLASS-VALUE:1,1,6', $commands);
+        $this->assertSuplaCommandExecuted('GET-DIGIGLASS-VALUE:1,1,6');
     }
 
     public function testCreatingDirectLinkWithDefaultCaption() {
@@ -671,11 +634,9 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->enableProfiler();
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/hvac-set-temperatures?setpoints[heat]=2150");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('ACTION-SET-HVAC-PARAMETERS:1,1,8,0,0,215000,0,1', $commands, implode(PHP_EOL, $commands));
+        $this->assertSuplaCommandExecuted('ACTION-HVAC-SET-TEMPERATURES:1,1,8,215000,0,1');
     }
 }

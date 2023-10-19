@@ -83,20 +83,17 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingChannelInfo() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $channel = $this->device->getChannels()[0];
         $client->request('GET', '/api/channels/' . $channel->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent());
         $this->assertTrue($content->enabled);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertGreaterThanOrEqual(1, count($commands));
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 
     public function testGettingChannelInfoV23() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $channel = $this->device->getChannels()[0];
         $client->apiRequestV23('GET', '/api/channels/' . $channel->getId());
         $response = $client->getResponse();
@@ -104,7 +101,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['functionId']);
         $this->assertEquals(ChannelFunction::LIGHTSWITCH, $content['function']['id']);
-        $this->assertEmpty($this->getSuplaServerCommands($client));
+        $this->assertNoSuplaCommandsExecuted();
         $this->assertArrayHasKey('param1', $content);
     }
 
@@ -268,13 +265,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
      */
     public function testChangingChannelState(int $channelId, string $action, string $expectedCommand, array $additionalRequest = []) {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $request = array_merge(['action' => $action], $additionalRequest);
         $client->request('PATCH', '/api/channels/' . $channelId, [], [], [], json_encode($request));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains($expectedCommand, $commands, implode(PHP_EOL, $commands));
+        $this->assertSuplaCommandExecuted($expectedCommand);
     }
 
     public function changingChannelStateDataProvider() {
@@ -325,13 +320,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testChangingChannelRgbwState21() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $request = ['color' => 0xFF00FF, 'color_brightness' => 58, 'brightness' => 42];
         $client->request('PUT', '/api/channels/5', [], [], $this->versionHeader(ApiVersions::V2_1()), json_encode($request));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('SET-RGBW-VALUE:1,1,5,16711935,58,42,0', $commands);
+        $this->assertSuplaCommandExecuted('SET-RGBW-VALUE:1,1,5,16711935,58,42,0');
     }
 
     public function testChangingChannelFunctionClearsRelatedSensorInOtherDevices() {

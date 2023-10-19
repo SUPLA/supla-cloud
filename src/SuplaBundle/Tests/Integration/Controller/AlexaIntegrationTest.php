@@ -28,12 +28,14 @@ use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
 class AlexaIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var User */
     private $user;
@@ -63,24 +65,17 @@ class AlexaIntegrationTest extends IntegrationTestCase {
 
     public function testChangingChannelStateWithAlexa() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
             'action' => 'turn-on',
             'alexaCorrelationToken' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains(
-            'ACTION-TURN-ON:1,1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
-            $commands,
-            implode(PHP_EOL, $commands)
-        );
+        $this->assertSuplaCommandExecuted('ACTION-TURN-ON:1,1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'));
     }
 
     public function testChangingChannelStateWithAlexaAndParams() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channels/2', json_encode([
             'action' => ChannelFunctionAction::SHUT_PARTIALLY,
             'percentage' => 45,
@@ -88,46 +83,29 @@ class AlexaIntegrationTest extends IntegrationTestCase {
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains(
-            'SET-CHAR-VALUE:1,1,2,55,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
-            $commands,
-            implode(PHP_EOL, $commands)
-        );
+        $this->assertSuplaCommandExecuted('SET-CHAR-VALUE:1,1,2,55,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'));
     }
 
     public function testChangingChannelGroupStateWithAlexa() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channel-groups/1', json_encode([
             'action' => 'turn-on',
             'alexaCorrelationToken' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains(
-            'ACTION-CG-TURN-ON:1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
-            $commands,
-            implode(PHP_EOL, $commands)
-        );
+        $this->assertSuplaCommandExecuted('ACTION-CG-TURN-ON:1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'));
     }
 
     public function testExecutingSceneWithAlexa() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/scenes/1', json_encode([
             'action' => 'execute',
             'alexaCorrelationToken' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains(
-            'EXECUTE-SCENE:1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'),
-            $commands,
-            implode(PHP_EOL, $commands)
-        );
+        $this->assertSuplaCommandExecuted('EXECUTE-SCENE:1,1,ALEXA-CORRELATION-TOKEN=' . base64_encode('unicorn'));
     }
 
     public function testSettingAlexaConfigDisabled() {

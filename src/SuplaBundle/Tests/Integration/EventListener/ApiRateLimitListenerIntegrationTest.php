@@ -32,10 +32,12 @@ use SuplaBundle\Enums\ApiClientType;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\EventListener\ApiRateLimit\ApiRateLimitRule;
 use SuplaBundle\EventListener\ApiRateLimit\GlobalApiRateLimit;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,6 +47,7 @@ use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var ClientManager */
     private $clientManager;
@@ -380,14 +383,12 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(4, $response->headers->get('X-RateLimit-Remaining'));
-        $client->enableProfiler();
         $client->request('GET', "/direct/{$directLink->getId()}/$slug/read");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $this->assertEquals(5, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(3, $response->headers->get('X-RateLimit-Remaining'));
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains('GET-RELAY-VALUE:1,1,1', $commands);
+        $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
         $this->assertContains('<direct-link-execution-result', $response->getContent());
         return $slug;
     }
@@ -431,7 +432,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $this->assertEquals(1, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(0, $response->headers->get('X-RateLimit-Remaining'));
-        $client->enableProfiler();
+        SuplaServerMock::reset();
         $client->request('GET', "/direct/1/$slug/read");
         $response = $client->getResponse();
         $this->assertStatusCode(429, $response);
@@ -440,8 +441,7 @@ class ApiRateLimitListenerIntegrationTest extends IntegrationTestCase {
         $this->assertContains('You have exceeded your API Rate Limit', $response->getContent());
         $this->assertEquals(1, $response->headers->get('X-RateLimit-Limit'));
         $this->assertEquals(0, $response->headers->get('X-RateLimit-Remaining'));
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertEmpty($commands);
+        $this->assertNoSuplaCommandsExecuted();
     }
 
     /** @depends testDirectLinksUsesLimitOfOwner */

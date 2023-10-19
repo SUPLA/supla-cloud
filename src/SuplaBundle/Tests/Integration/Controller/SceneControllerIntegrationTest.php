@@ -65,7 +65,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
 
     // upgrade, dude :-)
     public function testCreatingSceneIn23Fails() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV23('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene',
             'enabled' => true,
@@ -81,7 +81,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingScene() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene',
             'enabled' => true,
@@ -108,7 +108,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingSceneWithOpenGateAction() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene',
             'enabled' => true,
@@ -132,7 +132,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingScene */
     public function testGettingSceneDetails($sceneDetails) {
         $id = $sceneDetails['id'];
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/scenes/' . $id . '?include=subject,operations');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -150,7 +150,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingScene */
     public function testGettingScenesList($sceneDetails) {
         $id = $sceneDetails['id'];
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/scenes');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -162,7 +162,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingScene */
     public function testGettingScenesListForChannel($sceneDetails) {
         $id = $sceneDetails['id'];
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', sprintf('/api/channels/%d/scenes', $this->device->getChannels()[0]->getId()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -173,7 +173,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingScene */
     public function testGettingScenesListForChannel2() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', sprintf('/api/channels/%d/scenes', $this->device->getChannels()[1]->getId()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -448,7 +448,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testAddingOperationsWithChannelAndChannelGroupToScene */
     public function testGettingScenesListForChannelGroup($sceneDetails) {
         $id = $sceneDetails['id'];
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', sprintf('/api/channel-groups/%d/scenes', $this->channelGroup->getId()));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -563,7 +563,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testCreatingSceneWithOtherScene */
     public function testGettingScenesListForScene($sceneDetails) {
         $id = $sceneDetails['id'];
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', sprintf('/api/scenes/%d/scenes', $sceneDetails['operations'][0]['subjectId']));
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
@@ -680,7 +680,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
                 'delayMs' => 1000 * $i,
             ];
         }, range(1, 21));
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene',
             'enabled' => true,
@@ -693,7 +693,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingSceneWithThermometerFails() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene',
             'enabled' => true,
@@ -713,7 +713,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCreatingSceneThatExecutesAnotherSceneTwice() {
         $scene1 = $this->testCreatingScene();
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/scenes', [
             'caption' => 'My scene',
             'enabled' => true,
@@ -738,7 +738,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $schedule = $this->createSchedule($this->channelGroup, '*/5 * * * *', [
             'mode' => ScheduleMode::MINUTELY,
         ]);
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene with schedule',
             'enabled' => true,
@@ -760,7 +760,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingSceneWithDelayOnlyOperation() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene',
             'enabled' => true,
@@ -784,7 +784,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testCreatingSceneWithNotification() {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $aid = $this->user->getAccessIDS()[0];
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene with notification',
@@ -812,7 +812,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testCreatingSceneWithNotification */
     public function testEditingSceneWithNotification(array $scene) {
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $aid = $this->user->getAccessIDS()[0];
         $client->apiRequestV24('PUT', "/api/scenes/$scene[id]", [
             'caption' => 'My scene with notification updated',
@@ -841,7 +841,7 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
     public function testDeletingSceneThatIsUsedAsOnlyOperationInAnotherSceneThatIsReferencedByValueBasedTrigger() {
         $sceneOne = $this->testCreatingScene();
         $sceneOne = $this->getEntityManager()->find(Scene::class, $sceneOne['id']);
-        $client = $this->createAuthenticatedClientDebug($this->user);
+        $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('POST', '/api/scenes?include=operations', [
             'caption' => 'My scene',
             'enabled' => true,

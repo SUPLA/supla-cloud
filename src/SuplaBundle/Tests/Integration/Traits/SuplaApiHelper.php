@@ -17,10 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Traits;
 
-use Assert\Assertion;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\ApiVersions;
-use SuplaBundle\Supla\SuplaServerMockCommandsCollector;
 use SuplaBundle\Tests\Integration\TestClient;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -54,14 +52,6 @@ trait SuplaApiHelper {
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
         self::$container->get('security.token_storage')->setToken($token);
         self::$container->get(TokenStorageInterface::class)->setToken($token);
-    }
-
-    public function getSuplaServerCommands(Client $client): array {
-        $profile = $client->getProfile();
-        Assertion::isObject($profile, 'There is no profile available. Have you enabled it with $client->enableProfiler()?');
-        /** @var SuplaServerMockCommandsCollector $suplaCommandsCollector */
-        $suplaCommandsCollector = $profile->getCollector(SuplaServerMockCommandsCollector::NAME);
-        return $suplaCommandsCollector->getCommands();
     }
 
     public function versionHeader(ApiVersions $version): array {

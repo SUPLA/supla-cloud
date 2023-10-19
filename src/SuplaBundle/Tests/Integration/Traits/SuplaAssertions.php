@@ -27,4 +27,8 @@ trait SuplaAssertions {
     protected function assertSuplaCommandNotExecuted(string $command) {
         $this->assertNotContains($command, SuplaServerMock::$executedCommands);
     }
+
+    protected function assertNoSuplaCommandsExecuted() {
+        $this->assertEmpty(SuplaServerMock::$executedCommands, implode(PHP_EOL, SuplaServerMock::$executedCommands));
+    }
 }

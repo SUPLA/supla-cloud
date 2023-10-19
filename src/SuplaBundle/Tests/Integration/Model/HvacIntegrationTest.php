@@ -496,12 +496,10 @@ class HvacIntegrationTest extends IntegrationTestCase {
      */
     public function testExecutingActionOnHvac(int $channelId, array $actionRequest, string $expectedCommand) {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->request('PATCH', '/api/channels/' . $channelId, [], [], [], json_encode($actionRequest));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains($expectedCommand, $commands, implode(PHP_EOL, $commands));
+        $this->assertSuplaCommandExecuted($expectedCommand);
     }
 
     public function hvacActionsProvider() {

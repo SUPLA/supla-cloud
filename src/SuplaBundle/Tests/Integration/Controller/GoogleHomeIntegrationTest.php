@@ -28,12 +28,14 @@ use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use Symfony\Component\HttpFoundation\Response;
 
 /** @small */
 class GoogleHomeIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var User */
     private $user;
@@ -63,24 +65,17 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
 
     public function testChangingChannelStateWithGoogle() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channels/1', json_encode([
             'action' => 'open-close',
             'googleRequestId' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains(
-            'SET-CHAR-VALUE:1,1,1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'),
-            $commands,
-            implode(PHP_EOL, $commands)
-        );
+        $this->assertSuplaCommandExecuted('SET-CHAR-VALUE:1,1,1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'));
     }
 
     public function testChangingChannelStateWithGoogleAndParams() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channels/2', json_encode([
             'action' => ChannelFunctionAction::SHUT_PARTIALLY,
             'percentage' => 45,
@@ -88,46 +83,29 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains(
-            'SET-CHAR-VALUE:1,1,2,55,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'),
-            $commands,
-            implode(PHP_EOL, $commands)
-        );
+        $this->assertSuplaCommandExecuted('SET-CHAR-VALUE:1,1,2,55,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'));
     }
 
     public function testChangingChannelGroupStateWithGoogle() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/channel-groups/1', json_encode([
             'action' => 'open-close',
             'googleRequestId' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains(
-            'SET-CG-CHAR-VALUE:1,1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'),
-            $commands,
-            implode(PHP_EOL, $commands)
-        );
+        $this->assertSuplaCommandExecuted('SET-CG-CHAR-VALUE:1,1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'));
     }
 
     public function testExecutingSceneWithGoogle() {
         $client = $this->createAuthenticatedClient($this->user);
-        $client->enableProfiler();
         $client->apiRequestV24('PATCH', '/api/scenes/1', json_encode([
             'action' => 'execute',
             'googleRequestId' => 'unicorn',
         ]));
         $response = $client->getResponse();
         $this->assertStatusCode('2xx', $response);
-        $commands = $this->getSuplaServerCommands($client);
-        $this->assertContains(
-            'EXECUTE-SCENE:1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'),
-            $commands,
-            implode(PHP_EOL, $commands)
-        );
+        $this->assertSuplaCommandExecuted('EXECUTE-SCENE:1,1,GOOGLE-REQUEST-ID=' . base64_encode('unicorn'));
     }
 
     public function testSettingGoogleHomeConfigDisabledForRollerShutter() {
