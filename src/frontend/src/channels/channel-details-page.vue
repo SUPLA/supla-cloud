@@ -269,6 +269,7 @@
                 this.$http.put(`channels/${this.id}` + (safe ? '?safe=1' : ''), channel, {skipErrorHandler: [409]})
                     .then(response => extendObject(this.channel, response.body))
                     .then(() => this.afterSave())
+                    .then(() => this.$router.replace({name: 'channel', params: {id: this.channel.id}}))
                     .catch(response => {
                         if (response.status === 409) {
                             if (response.body.details) {

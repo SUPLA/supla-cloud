@@ -109,21 +109,23 @@
             };
         },
         beforeMount() {
-            if (this.channel.config.waitingForConfigInit) {
-                this.configWaiterInterval = setInterval(
-                    () => this.$http.get(`channels/${this.channel.id}`).then(response => {
+            this.configWaiterInterval = setInterval(() => this.fetchConfigIfWaiting(), 5000);
+        },
+        beforeDestroy() {
+            clearInterval(this.configWaiterInterval);
+        },
+        methods: {
+            fetchConfigIfWaiting() {
+                if (this.channel.config.waitingForConfigInit) {
+                    this.$http.get(`channels/${this.channel.id}`).then(response => {
                         if (!response.body.config?.waitingForConfigInit) {
                             clearInterval(this.configWaiterInterval);
                             this.channel.config = response.body.config;
                             EventBus.$emit('channel-updated');
                         }
-                    }),
-                    5000
-                );
+                    });
+                }
             }
-        },
-        beforeDestroy() {
-            clearInterval(this.configWaiterInterval);
         }
     };
 </script>
