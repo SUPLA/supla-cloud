@@ -40,7 +40,6 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.SHUT_PARTIALLY,
             ChannelFunctionAction.SET_RGBW_PARAMETERS,
             ChannelFunctionAction.TURN_OFF_WITH_DURATION,
-            ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL_MODE,
             ChannelFunctionAction.HVAC_SET_TEMPERATURES,
             ChannelFunctionAction.OPEN_PARTIALLY,
             ChannelFunctionAction.CLOSE_PARTIALLY,

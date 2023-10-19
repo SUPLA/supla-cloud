@@ -448,20 +448,22 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 31535000000], 'ACTION-TURN-OFF-WITH-DURATION:1,1,4,31535000000'],
             [3, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,3'],
             [4, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,4'],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,3'],
+            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,4'],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,3,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['cool' => 21.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,0,2150,2'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,2150,3'],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,3,0,10,0,0,0'],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'setpoints' => ['heat' => 22.5]], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,3,0,10,2250,0,1'],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'setpoints' => ['heat' => 22.5], 'durationMs' => 1200], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,3,1200,10,2250,0,1'],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'durationMs' => 1200], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,3,1200,10,0,0,0'],
-            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,4,0,10,0,0,0'],
-            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'mode' => 'HEAT'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,4,0,2,0,0,0'],
-            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'mode' => 'COOL', 'setpoints' => ['cool' => 22.5]], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,4,0,3,0,2250,2'],
-            [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'mode' => 'AUTO', 'setpoints' => ['heat' => 123, 'cool' => 22.5], 'durationMs' => 3600], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,4,3600,4,12300,2250,3'],
+            [3, ['action' => 'HVAC_SET_PARAMETERS'], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,10,0,0,0'],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'setpoints' => ['heat' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,10,2250,0,1'],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'setpoints' => ['heat' => 22.5], 'durationMs' => 1200], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,1200,10,2250,0,1'],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'durationMs' => 1200], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,1200,10,0,0,0'],
+            [4, ['action' => 'HVAC_SET_PARAMETERS'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,10,0,0,0'],
+            [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,2,0,0,0'],
+            [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'COOL', 'setpoints' => ['cool' => 22.5]], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,3,0,2250,2'],
+            [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'AUTO', 'setpoints' => ['heat' => 123, 'cool' => 22.5], 'durationMs' => 3600], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,3600,4,12300,2250,3'],
         ];
         // @codingStandardsIgnoreEnd
     }
@@ -485,10 +487,11 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [3, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 931536000000]],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['cool' => 22.5]]],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]]],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'setpoints' => ['cool' => 22.5]]],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'duration' => -1]],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'mode' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'unicorn' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'setpoints' => ['heat' => 22.5]]],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'setpoints' => ['cool' => 22.5]]],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'duration' => -1]],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'unicorn' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
         ];
         // @codingStandardsIgnoreEnd
     }
@@ -497,8 +500,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client = $this->createAuthenticatedClient();
         $client->apiRequest(Request::METHOD_POST, '/api/schedules', [
             'channelId' => $this->hvacChannel->getId(),
-            'actionId' => ChannelFunctionAction::TURN_OFF_WITH_DURATION,
-            'actionParam' => ['durationMs' => 300],
+            'actionId' => ChannelFunctionAction::HVAC_SET_TEMPERATURES,
+            'actionParam' => ['setpoints' => ['heat' => 22.5]],
             'mode' => ScheduleMode::ONCE,
             'timeExpression' => '2 2 * * *',
         ]);
@@ -507,7 +510,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThan(0, $scheduleFromResponse['id']);
         $config = $scheduleFromResponse['config'][0];
         $this->assertEquals('2 2 * * *', $config['crontab']);
-        $this->assertEquals(ChannelFunctionAction::TURN_OFF_WITH_DURATION, $config['action']['id']);
-        $this->assertEquals(['durationMs' => 300], $config['action']['param']);
+        $this->assertEquals(ChannelFunctionAction::HVAC_SET_TEMPERATURES, $config['action']['id']);
+        $this->assertEquals(['setpoints' => ['heat' => 22.5]], $config['action']['param']);
     }
 }

@@ -59,10 +59,6 @@
                             <div v-if="action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURES">
                                 <HvacSetpointsSetter v-model="param.setpoints" :subject="subject" @input="paramsChanged()"/>
                             </div>
-                            <div v-if="action.id === ChannelFunctionAction.HVAC_SWITCH_TO_MANUAL_MODE">
-                                <HvacManualModeSetter v-model="param" :subject="subject" :executor-mode="executorMode"
-                                    @input="paramsChanged()"/>
-                            </div>
                             <div v-if="action.id === ChannelFunctionAction.SEND">
                                 <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors
                                     :subject="contextSubject"/>
@@ -106,11 +102,9 @@
     import {isEqual} from "lodash";
     import DurationParamSetter from "@/channels/action/duration-param-setter.vue";
     import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
-    import HvacManualModeSetter from "@/channels/action/hvac-manual-mode-setter.vue";
 
     export default {
         components: {
-            HvacManualModeSetter,
             HvacSetpointsSetter,
             DurationParamSetter,
             NotificationForm,
