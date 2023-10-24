@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DEV init" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/bin/console" scriptParameters="supla:dev:dropAndLoadFixtures -e dev">
+    <method v="2" />
+  </configuration>
+</component>
