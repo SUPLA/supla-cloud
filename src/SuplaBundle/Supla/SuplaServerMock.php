@@ -22,6 +22,8 @@ use Faker\Factory;
 use Faker\Generator;
 use Psr\Log\LoggerInterface;
 use SuplaBundle\Enums\ElectricityMeterSupportBits;
+use SuplaBundle\Enums\HvacIpcActionMode;
+use SuplaBundle\Enums\HvacIpcValueFlags;
 use SuplaBundle\Enums\SceneInitiatiorType;
 use SuplaBundle\Model\LocalSuplaCloud;
 
@@ -144,6 +146,46 @@ class SuplaServerMock extends SuplaServer {
                 round($counter * 1000 / $impulsesPerUnit), // CalculatedValue * 1000
                 $this->faker->boolean ? $this->faker->currencyCode : '', // currency
                 $this->faker->boolean ? base64_encode($this->faker->randomElement(['m³', 'wahnięć', 'l'])) : '' // base-64 unit name
+            );
+        } elseif (preg_match('#^GET-HVAC-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // HVAC
+            $mode = $this->faker->randomElement(
+                [HvacIpcActionMode::OFF, HvacIpcActionMode::HEAT, HvacIpcActionMode::COOL, HvacIpcActionMode::AUTO]
+            );
+            $flags = 0;
+            if ($this->faker->boolean) {
+                if ($mode === HvacIpcActionMode::HEAT) {
+                    $flags |= HvacIpcValueFlags::HEATING;
+                } elseif ($mode === HvacIpcActionMode::COOL) {
+                    $flags |= HvacIpcValueFlags::COOLING;
+                } elseif ($mode === HvacIpcActionMode::AUTO) {
+                    $flags |= $this->faker->boolean ? HvacIpcValueFlags::COOLING : HvacIpcValueFlags::HEATING;
+                }
+            }
+            if ($this->faker->boolean) {
+                $flags |= HvacIpcValueFlags::WEEKLY_SCHEDULE;
+            }
+            if ($this->faker->boolean(30)) {
+                $flags |= HvacIpcValueFlags::COUNTDOWN_TIMER;
+            }
+            if ($this->faker->boolean(10)) {
+                $flags |= HvacIpcValueFlags::THERMOMETER_ERROR;
+            }
+            if ($this->faker->boolean(10)) {
+                $flags |= HvacIpcValueFlags::CLOCK_ERROR;
+            }
+            if ($this->faker->boolean(10)) {
+                $flags |= HvacIpcValueFlags::FORCED_OFF_BY_SENSOR;
+            }
+            if ($this->faker->boolean(10)) {
+                $flags |= HvacIpcValueFlags::WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE;
+            }
+            return sprintf(
+                'VALUE:%d,%d,%d,%d,%d',
+                $this->faker->numberBetween(0, 100),
+                $mode,
+                $this->faker->numberBetween(1800, 2200),
+                $this->faker->numberBetween(2300, 2600),
+                $flags,
             );
         } elseif (preg_match('#^GET-EM-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // ELECTRICITY_METER
             $fullSupportMask = array_reduce(ElectricityMeterSupportBits::toArray(), function (int $acc, int $bit) {

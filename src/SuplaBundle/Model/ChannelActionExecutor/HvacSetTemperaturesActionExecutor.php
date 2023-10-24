@@ -7,6 +7,7 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
+use SuplaBundle\Enums\HvacIpcValueFlags;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 
 class HvacSetTemperaturesActionExecutor extends SingleChannelActionExecutor {
@@ -73,11 +74,11 @@ class HvacSetTemperaturesActionExecutor extends SingleChannelActionExecutor {
         $cool = 0;
         if (isset($setpoints['temperatureHeat'])) {
             $heat = round(floatval($setpoints['temperatureHeat']) * 100);
-            $setpointFlag |= 1;
+            $setpointFlag |= HvacIpcValueFlags::TEMPERATURE_HEAT_SET;
         }
         if (isset($setpoints['temperatureCool'])) {
             $cool = round(floatval($setpoints['temperatureCool']) * 100);
-            $setpointFlag |= 2;
+            $setpointFlag |= HvacIpcValueFlags::TEMPERATURE_COOL_SET;
         }
         return [$heat, $cool, $setpointFlag];
     }

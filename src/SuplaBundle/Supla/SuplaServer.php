@@ -220,7 +220,7 @@ abstract class SuplaServer {
         return $result !== false && preg_match("/^OK:" . $clientApp->getId() . "\n/", $result) === 1 ? true : false;
     }
 
-    private function getRawValue($type, IODeviceChannel $channel) {
+    public function getRawValue($type, IODeviceChannel $channel) {
         $args = [$channel->getUser()->getId(), $channel->getIoDevice()->getId(), $channel->getId()];
         $result = $this->doExecuteCommand("GET-" . $type . "-VALUE:" . implode(',', $args));
         if ($result !== false && preg_match("/^VALUE:/", $result) === 1) {
