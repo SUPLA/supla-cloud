@@ -50,6 +50,24 @@
             <dd>{{ $t('Forward active energy') }}</dd>
             <dt>{{ (currentState.phases[0].totalForwardActiveEnergy + currentState.phases[1].totalForwardActiveEnergy + currentState.phases[2].totalForwardActiveEnergy) | roundToDecimals }} kWh</dt>
         </dl>
+        <dl v-if="currentState.heating">
+            <dd>{{ $t('Heating to') }}</dd>
+            <dt>
+                {{ currentState.temperatureHeat }}&deg;C
+                <span class="arrow-container">
+                    <fa icon="caret-up" class="arrow heating"/>
+                </span>
+            </dt>
+        </dl>
+        <dl v-if="currentState.cooling">
+            <dd>{{ $t('Cooling to') }}</dd>
+            <dt>
+                {{ currentState.temperatureCool }}&deg;C
+                <span class="arrow-container">
+                    <fa icon="caret-down" class="arrow"/>
+                </span>
+            </dt>
+        </dl>
         <dl v-if="currentState.value !== undefined">
             <dd>{{ $t('State') }}</dd>
             <dt>
@@ -76,22 +94,36 @@
             </dt>
         </dl>
         <div class="channel-state-labels">
-            <span class="label label-danger"
-                v-if="currentState.flooding === true">
-                {{ $t('Flooding') }}
-            </span>
-            <span class="label label-warning"
-                v-if="currentState.manuallyClosed === true">
-                {{ $t('Manually closed') }}
-            </span>
-            <span class="label label-danger"
-                v-if="currentState.connected === false">
-                {{ $t('Disconnected') }}
-            </span>
-            <span class="label label-danger"
-                v-if="currentState.currentOverload === true">
-                {{ $t('Current Overload') }}
-            </span>
+            <div v-if="currentState.flooding === true">
+                <span class="label label-danger">{{ $t('Flooding') }}</span>
+            </div>
+            <div v-if="currentState.manuallyClosed === true">
+                <span class="label label-warning">{{ $t('Manually closed') }}</span>
+            </div>
+            <div v-if="currentState.connected === false">
+                <span class="label label-danger">{{ $t('Disconnected') }}</span>
+            </div>
+            <div v-if="currentState.currentOverload === true">
+                <span class="label label-danger">{{ $t('Current Overload') }}</span>
+            </div>
+            <div v-if="currentState.clockError === true">
+                <span class="label label-warning">{{ $t('Clock error') }}</span>
+            </div>
+            <div v-if="currentState.weeklyScheduleTemporalOverride === true">
+                <span class="label label-warning">{{ $t('Temporal temperature override') }}</span>
+            </div>
+            <div v-if="currentState.thermometerError === true">
+                <span class="label label-danger">{{ $t('Thermometer error') }}</span>
+            </div>
+            <div v-if="currentState.clockError === true">
+                <span class="label label-info">{{ $t('Forced off by sensor') }}</span>
+            </div>
+            <div v-if="currentState.manual === true">
+                <span class="label label-info">{{ $t('Manual mode') }}</span>
+            </div>
+            <div v-if="currentState.countdownTimer === true">
+                <span class="label label-info">{{ $t('With a timer') }}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -139,8 +171,7 @@
     };
 </script>
 
-<style scoped
-    lang="scss">
+<style scoped lang="scss">
     dl {
         margin-bottom: 0;
         dd, dt {
@@ -161,7 +192,67 @@
 
     .channel-state-labels .label {
         display: inline-block;
-        clear: both;
         margin-top: 5px;
     }
+
+    .arrow-container {
+        position: relative;
+        .arrow {
+            position: absolute;
+            left: 10px;
+            animation: passing-down 2s linear infinite;
+            color: #3498db;
+            &.heating {
+                animation: passing-up 2s linear infinite;
+                color: #e74c3c;
+            }
+        }
+    }
+
+    @keyframes passing-down {
+        0% {
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+
+        50% {
+            -webkit-transform: translateY(0%);
+            -ms-transform: translateY(0%);
+            transform: translateY(0%);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translateY(50%);
+            -ms-transform: translateY(50%);
+            transform: translateY(50%);
+            opacity: 0;
+        }
+    }
+
+    @keyframes passing-up {
+        0% {
+            -webkit-transform: translateY(50%);
+            -ms-transform: translateY(50%);
+            transform: translateY(50%);
+            opacity: 0;
+        }
+
+        50% {
+            -webkit-transform: translateY(0%);
+            -ms-transform: translateY(0%);
+            transform: translateY(0%);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+    }
+
 </style>

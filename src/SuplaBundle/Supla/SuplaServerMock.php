@@ -154,11 +154,12 @@ class SuplaServerMock extends SuplaServer {
             $flags = 0;
             if ($this->faker->boolean) {
                 if ($mode === HvacIpcActionMode::HEAT) {
-                    $flags |= HvacIpcValueFlags::HEATING;
+                    $flags |= HvacIpcValueFlags::HEATING | HvacIpcValueFlags::TEMPERATURE_HEAT_SET;
                 } elseif ($mode === HvacIpcActionMode::COOL) {
-                    $flags |= HvacIpcValueFlags::COOLING;
+                    $flags |= HvacIpcValueFlags::COOLING | HvacIpcValueFlags::TEMPERATURE_COOL_SET;
                 } elseif ($mode === HvacIpcActionMode::AUTO) {
                     $flags |= $this->faker->boolean ? HvacIpcValueFlags::COOLING : HvacIpcValueFlags::HEATING;
+                    $flags |= HvacIpcValueFlags::TEMPERATURE_HEAT_SET | HvacIpcValueFlags::TEMPERATURE_COOL_SET;
                 }
             }
             if ($this->faker->boolean) {

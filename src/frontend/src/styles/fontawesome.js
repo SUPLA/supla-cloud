@@ -5,6 +5,8 @@ import {faSquare} from '@fortawesome/free-regular-svg-icons'
 import {
     faArrowRight,
     faCancel,
+    faCaretDown,
+    faCaretUp,
     faCheck,
     faCheckSquare,
     faChevronDown,
@@ -32,6 +34,6 @@ import {
 
 library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle, faCheck,
     faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash, faShuffle, faInfoCircle, faCircleNotch,
-    faPowerOff, faEdit, faSave, faCancel, faRefresh);
+    faPowerOff, faEdit, faSave, faCancel, faRefresh, faCaretUp, faCaretDown);
 
 Vue.component('fa', FontAwesomeIcon)
