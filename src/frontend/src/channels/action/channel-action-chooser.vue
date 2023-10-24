@@ -56,8 +56,9 @@
                                 <DurationParamSetter v-model="param.durationMs" :with-calendar="executorMode" hide-no-timer disable-ms
                                     @input="paramsChanged()"/>
                             </div>
-                            <div v-if="action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURES">
-                                <HvacSetpointsSetter v-model="param.setpoints" :subject="subject" @input="paramsChanged()"/>
+                            <div
+                                v-if="action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURES || action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURE">
+                                <HvacSetpointsSetter v-model="temperatureSetpoints" :subject="subject" @input="paramsChanged()"/>
                             </div>
                             <div v-if="action.id === ChannelFunctionAction.SEND">
                                 <NotificationForm v-model="param" @input="paramsChanged()" display-validation-errors
@@ -229,6 +230,23 @@
             modelValue() {
                 const param = ChannelFunctionAction.requiresParams(this.action?.id) ? {...this.param} : null;
                 return this.isFullySpecified ? {id: this.action.id, param} : undefined;
+            },
+            temperatureSetpoints: {
+                get() {
+                    if (this.action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURE) {
+                        return {heat: this.param.temperature, cool: this.param.temperature};
+                    } else {
+                        return {heat: this.param.temperatureHeat, cool: this.param.temperatureCool};
+                    }
+                },
+                set(setpoints) {
+                    if (this.action.id === ChannelFunctionAction.HVAC_SET_TEMPERATURE) {
+                        this.$set(this.param, 'temperature', Number.isFinite(setpoints.heat) ? setpoints.heat : setpoints.cool);
+                    } else {
+                        this.$set(this.param, 'temperatureHeat', setpoints.heat);
+                        this.$set(this.param, 'temperatureCool', setpoints.cool);
+                    }
+                }
             },
         },
         watch: {

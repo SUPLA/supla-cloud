@@ -133,7 +133,7 @@
             value() {
                 if (this.value) {
                     const {heat, cool} = this.modelValue;
-                    if (this.value.heat !== heat || this.value.cool !== cool) {
+                    if ((this.heatAvailable && this.value.heat !== heat) || (this.coolAvailable && this.value.cool !== cool)) {
                         this.initFromValue();
                     }
                 }

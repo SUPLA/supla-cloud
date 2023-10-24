@@ -168,7 +168,7 @@ final class ChannelFunctionAction extends Enum {
             self::HVAC_SET_PARAMETERS => 'Set HVAC parameters', // i18n
             self::HVAC_SWITCH_TO_PROGRAM_MODE => 'Switch to program mode', // i18n
             self::HVAC_SWITCH_TO_MANUAL_MODE => 'Switch to manual mode', // i18n
-            self::HVAC_SET_TEMPERATURES => 'Adjust temperature', // i18n
+            self::HVAC_SET_TEMPERATURES => 'Adjust temperatures', // i18n
             self::HVAC_SET_TEMPERATURE => 'Adjust temperature', // i18n
         ];
     }

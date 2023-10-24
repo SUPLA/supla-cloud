@@ -23,10 +23,8 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
     }
 
     public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
-        Assertion::allInArray(array_keys($actionParams), ['setpoints', 'durationMs', 'mode']);
-        if (isset($actionParams['setpoints'])) {
-            $this->validateSetpoints($subject, $actionParams['setpoints']);
-        }
+        Assertion::allInArray(array_keys($actionParams), ['temperatureHeat', 'temperatureCool', 'durationMs', 'mode']);
+        $this->validateTemperatures($subject, $actionParams);
         if (isset($actionParams['durationMs'])) {
             Assert::that($actionParams['durationMs'])
                 ->integer()
@@ -49,7 +47,7 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        [$heat, $cool, $flag] = $this->getHeatCoolFlag($actionParams['setpoints'] ?? []);
+        [$heat, $cool, $flag] = $this->getHeatCoolFlag($actionParams);
         $duration = $actionParams['durationMs'] ?? 0;
         $mode = HvacIpcActionMode::toArray()[$actionParams['mode'] ?? ''] ?? HvacIpcActionMode::CMD_SWITCH_TO_MANUAL;
         $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [$duration, $mode, $heat, $cool, $flag]);

@@ -32,6 +32,7 @@ const ChannelFunctionAction = Object.freeze({
     HVAC_SWITCH_TO_PROGRAM_MODE: 231,
     HVAC_SWITCH_TO_MANUAL_MODE: 232,
     HVAC_SET_TEMPERATURES: 233,
+    HVAC_SET_TEMPERATURE: 234,
 
     requiresParams(actionId) {
         return [
@@ -40,6 +41,7 @@ const ChannelFunctionAction = Object.freeze({
             ChannelFunctionAction.SHUT_PARTIALLY,
             ChannelFunctionAction.SET_RGBW_PARAMETERS,
             ChannelFunctionAction.TURN_OFF_WITH_DURATION,
+            ChannelFunctionAction.HVAC_SET_TEMPERATURE,
             ChannelFunctionAction.HVAC_SET_TEMPERATURES,
             ChannelFunctionAction.OPEN_PARTIALLY,
             ChannelFunctionAction.CLOSE_PARTIALLY,
@@ -65,7 +67,9 @@ const ChannelFunctionAction = Object.freeze({
             case ChannelFunctionAction.SEND:
                 return !!(params.body && params.accessIds?.length > 0);
             case ChannelFunctionAction.HVAC_SET_TEMPERATURES:
-                return params.setpoints?.heat || params.setpoints?.cool;
+                return Number.isFinite(params.temperatureHeat) || Number.isFinite(params.temperatureCool);
+            case ChannelFunctionAction.HVAC_SET_TEMPERATURE:
+                return Number.isFinite(params.temperature);
             default:
                 return true;
         }

@@ -38,7 +38,7 @@ class HvacSetTemperatureActionExecutor extends SingleChannelActionExecutor {
             $config = $this->configTranslator->getConfig($subject);
             $constraints = $config['temperatureConstraints'] ?? [];
             $min = $constraints['roomMin'] ?? -1000;
-            $max = $constraints['roomMax'] ?? -1000;
+            $max = $constraints['roomMax'] ?? 1000;
         }
         Assert::that($actionParams['temperature'], null, 'temperature')
             ->numeric()

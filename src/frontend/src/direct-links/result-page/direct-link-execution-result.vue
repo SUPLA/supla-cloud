@@ -36,8 +36,11 @@
                     <div v-if="action === 'COPY'">
                         <div><code>{{ currentUrl }}?sourceChannelId=123</code></div>
                     </div>
+                    <div v-if="action === 'HVAC_SET_TEMPERATURE'">
+                        <div><code>{{ currentUrl }}?temperature=21</code></div>
+                    </div>
                     <div v-if="action === 'HVAC_SET_TEMPERATURES'">
-                        <div><code>{{ currentUrl }}?setpoints[heat]=2100&setpoints[cool]=2300</code></div>
+                        <div><code>{{ currentUrl }}?temperatureHeat=21&temperatureCool=2300</code></div>
                     </div>
                 </div>
             </div>

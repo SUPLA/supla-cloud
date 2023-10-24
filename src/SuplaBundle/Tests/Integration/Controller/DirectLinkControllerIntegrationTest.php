@@ -634,9 +634,9 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $directLink = json_decode($response->getContent(), true);
         $client = $this->createClient();
-        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/hvac-set-temperatures?setpoints[heat]=2150");
+        $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/hvac-set-temperatures?temperatureHeat=21.5");
         $response = $client->getResponse();
         $this->assertStatusCode(202, $response);
-        $this->assertSuplaCommandExecuted('ACTION-HVAC-SET-TEMPERATURES:1,1,8,215000,0,1');
+        $this->assertSuplaCommandExecuted('ACTION-HVAC-SET-TEMPERATURES:1,1,8,2150,0,1');
     }
 }
