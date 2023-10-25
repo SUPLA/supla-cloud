@@ -152,14 +152,19 @@ class SuplaServerMock extends SuplaServer {
                 [HvacIpcActionMode::OFF, HvacIpcActionMode::HEAT, HvacIpcActionMode::COOL, HvacIpcActionMode::AUTO]
             );
             $flags = 0;
+            if ($mode === HvacIpcActionMode::HEAT || $mode === HvacIpcActionMode::AUTO) {
+                $flags |= HvacIpcValueFlags::TEMPERATURE_HEAT_SET;
+            }
+            if ($mode === HvacIpcActionMode::COOL || $mode === HvacIpcActionMode::AUTO) {
+                $flags |= HvacIpcValueFlags::TEMPERATURE_COOL_SET;
+            }
             if ($this->faker->boolean) {
                 if ($mode === HvacIpcActionMode::HEAT) {
-                    $flags |= HvacIpcValueFlags::HEATING | HvacIpcValueFlags::TEMPERATURE_HEAT_SET;
+                    $flags |= HvacIpcValueFlags::HEATING;
                 } elseif ($mode === HvacIpcActionMode::COOL) {
-                    $flags |= HvacIpcValueFlags::COOLING | HvacIpcValueFlags::TEMPERATURE_COOL_SET;
+                    $flags |= HvacIpcValueFlags::COOLING;
                 } elseif ($mode === HvacIpcActionMode::AUTO) {
                     $flags |= $this->faker->boolean ? HvacIpcValueFlags::COOLING : HvacIpcValueFlags::HEATING;
-                    $flags |= HvacIpcValueFlags::TEMPERATURE_HEAT_SET | HvacIpcValueFlags::TEMPERATURE_COOL_SET;
                 }
             }
             if ($this->faker->boolean) {
