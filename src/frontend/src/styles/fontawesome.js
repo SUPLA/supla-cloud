@@ -3,7 +3,11 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {faSquare} from '@fortawesome/free-regular-svg-icons'
 import {
+    faAngleDoubleDown,
+    faAngleDoubleRight,
+    faAngleDoubleUp,
     faArrowRight,
+    faCalendarWeek,
     faCancel,
     faCaretDown,
     faCaretUp,
@@ -13,9 +17,11 @@ import {
     faChevronLeft,
     faChevronRight,
     faCircleNotch,
+    faClock,
     faDownload,
     faEdit,
     faGear,
+    faHand,
     faInfoCircle,
     faKey,
     faPlus,
@@ -34,6 +40,6 @@ import {
 
 library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle, faCheck,
     faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash, faShuffle, faInfoCircle, faCircleNotch,
-    faPowerOff, faEdit, faSave, faCancel, faRefresh, faCaretUp, faCaretDown);
-
+    faPowerOff, faEdit, faSave, faCancel, faRefresh, faCaretUp, faCaretDown, faAngleDoubleDown, faAngleDoubleRight, faAngleDoubleUp,
+    faCalendarWeek, faHand, faClock);
 Vue.component('fa', FontAwesomeIcon)

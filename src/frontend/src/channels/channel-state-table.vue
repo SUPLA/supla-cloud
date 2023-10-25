@@ -1,5 +1,5 @@
 <template>
-    <div v-if="currentState">
+    <div v-if="currentState" class="channel-state-table">
         <dl v-if="currentState.temperature !== undefined">
             <dd>{{ $t('Temperature') }}</dd>
             <dt v-if="currentState.temperature > -272">{{ currentState.temperature }}&deg;C</dt>
@@ -50,24 +50,7 @@
             <dd>{{ $t('Forward active energy') }}</dd>
             <dt>{{ (currentState.phases[0].totalForwardActiveEnergy + currentState.phases[1].totalForwardActiveEnergy + currentState.phases[2].totalForwardActiveEnergy) | roundToDecimals }} kWh</dt>
         </dl>
-        <dl v-if="currentState.heating">
-            <dd>{{ $t('Heating to') }}</dd>
-            <dt>
-                {{ currentState.temperatureHeat }}&deg;C
-                <span class="arrow-container">
-                    <fa icon="caret-up" class="arrow heating"/>
-                </span>
-            </dt>
-        </dl>
-        <dl v-if="currentState.cooling">
-            <dd>{{ $t('Cooling to') }}</dd>
-            <dt>
-                {{ currentState.temperatureCool }}&deg;C
-                <span class="arrow-container">
-                    <fa icon="caret-down" class="arrow"/>
-                </span>
-            </dt>
-        </dl>
+        <ChannelStateTableHvac v-if="channel.type.name === 'HVAC'" :channel="channel" :state="currentState"/>
         <dl v-if="currentState.value !== undefined">
             <dd>{{ $t('State') }}</dd>
             <dt>
@@ -109,20 +92,11 @@
             <div v-if="currentState.clockError === true">
                 <span class="label label-warning">{{ $t('Clock error') }}</span>
             </div>
-            <div v-if="currentState.weeklyScheduleTemporalOverride === true">
-                <span class="label label-warning">{{ $t('Temporal temperature override') }}</span>
-            </div>
             <div v-if="currentState.thermometerError === true">
                 <span class="label label-danger">{{ $t('Thermometer error') }}</span>
             </div>
-            <div v-if="currentState.clockError === true">
+            <div v-if="currentState.forcedOffBySensor === true">
                 <span class="label label-info">{{ $t('Forced off by sensor') }}</span>
-            </div>
-            <div v-if="currentState.manual === true">
-                <span class="label label-info">{{ $t('Manual mode') }}</span>
-            </div>
-            <div v-if="currentState.countdownTimer === true">
-                <span class="label label-info">{{ $t('With a timer') }}</span>
             </div>
         </div>
     </div>
@@ -130,8 +104,10 @@
 
 <script>
     import EventBus from "../common/event-bus";
+    import ChannelStateTableHvac from "@/channels/channel-state-table-hvac.vue";
 
     export default {
+        components: {ChannelStateTableHvac},
         props: ['channel', 'state'],
         data() {
             return {
@@ -171,88 +147,39 @@
     };
 </script>
 
-<style scoped lang="scss">
-    dl {
-        margin-bottom: 0;
-        dd, dt {
-            display: inline;
+<style lang="scss">
+    @import "../styles/variables";
+
+    .channel-state-table {
+        dl {
+            margin-bottom: 0;
+            dd, dt {
+                display: inline;
+            }
+            dt:after {
+                display: block;
+                content: '';
+            }
         }
-        dt:after {
-            display: block;
-            content: '';
+
+        .rgb-color-preview {
+            display: inline-block;
+            height: 10px;
+            width: 40px;
+            border-radius: 5px;
         }
-    }
 
-    .rgb-color-preview {
-        display: inline-block;
-        height: 10px;
-        width: 40px;
-        border-radius: 5px;
-    }
+        .channel-state-labels .label {
+            display: inline-block;
+            margin-top: 5px;
+        }
 
-    .channel-state-labels .label {
-        display: inline-block;
-        margin-top: 5px;
-    }
-
-    .arrow-container {
-        position: relative;
-        .arrow {
-            position: absolute;
-            left: 10px;
-            animation: passing-down 2s linear infinite;
-            color: #3498db;
-            &.heating {
-                animation: passing-up 2s linear infinite;
-                color: #e74c3c;
+        .channel-state-icons {
+            > span {
+                display: inline-block;
+                padding: 0 5px;
+                font-size: 1.3em;
             }
         }
     }
-
-    @keyframes passing-down {
-        0% {
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-            opacity: 0;
-        }
-
-        50% {
-            -webkit-transform: translateY(0%);
-            -ms-transform: translateY(0%);
-            transform: translateY(0%);
-            opacity: 1;
-        }
-
-        100% {
-            -webkit-transform: translateY(50%);
-            -ms-transform: translateY(50%);
-            transform: translateY(50%);
-            opacity: 0;
-        }
-    }
-
-    @keyframes passing-up {
-        0% {
-            -webkit-transform: translateY(50%);
-            -ms-transform: translateY(50%);
-            transform: translateY(50%);
-            opacity: 0;
-        }
-
-        50% {
-            -webkit-transform: translateY(0%);
-            -ms-transform: translateY(0%);
-            transform: translateY(0%);
-            opacity: 1;
-        }
-
-        100% {
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-            opacity: 0;
-        }
-    }
-
 </style>

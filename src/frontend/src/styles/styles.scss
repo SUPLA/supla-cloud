@@ -666,6 +666,18 @@ body.warning {
   color: $supla-black;
 }
 
+.text-green {
+  color: $supla-green;
+}
+
+.text-blue {
+  color: $supla-blue;
+}
+
+.text-red {
+  color: darken($supla-red, 10%);
+}
+
 .text-inherit {
   color: inherit;
 }

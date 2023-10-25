@@ -24,6 +24,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Enums\ScheduleMode;
+use SuplaBundle\Model\ChannelStateGetter\ChannelStateGetter;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
@@ -579,5 +580,54 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('2 2 * * *', $config['crontab']);
         $this->assertEquals(ChannelFunctionAction::HVAC_SET_TEMPERATURE, $config['action']['id']);
         $this->assertEquals(['temperature' => 22.5], $config['action']['param']);
+    }
+
+    /** @dataProvider stateExamples */
+    public function testGettingState(string $suplaServerResponse, array $expectedState) {
+        $stateGetter = self::$container->get(ChannelStateGetter::class);
+        $configTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $hvacConfig = $configTranslator->getConfig($this->hvacChannel);
+        SuplaServerMock::mockResponse('GET-HVAC-VALUE:1,1,3', $suplaServerResponse);
+        SuplaServerMock::mockResponse("GET-TEMPERATURE-VALUE:1,1,$hvacConfig[mainThermometerChannelId]", 'VALUE:20.1');
+        $state = $stateGetter->getState($this->hvacChannel);
+        $this->assertEquals($expectedState, array_intersect_key($state, $expectedState));
+    }
+
+    public function stateExamples() {
+        return [
+            ['VALUE:0,1,2,3,0', [
+                'heating' => false,
+                'cooling' => false,
+                'manual' => true,
+                'countdownTimer' => false,
+                'thermometerError' => false,
+                'clockError' => false,
+                'forcedOffBySensor' => false,
+                'weeklyScheduleTemporalOverride' => false,
+                'mode' => 'OFF',
+                'temperatureHeat' => null,
+                'temperatureCool' => null,
+                'temperatureMain' => 20.1,
+            ]],
+            ['VALUE:0,1,2,3,1', ['temperatureHeat' => 0.02, 'temperatureCool' => null]],
+            ['VALUE:0,1,2,3,3', ['heating' => false, 'temperatureHeat' => 0.02, 'temperatureCool' => 0.03]],
+            ['VALUE:0,1,2,3,7', ['heating' => true, 'cooling' => false, 'temperatureHeat' => 0.02, 'temperatureCool' => 0.03]],
+            ['VALUE:0,1,2,3,8', ['heating' => false, 'cooling' => true, 'temperatureHeat' => null, 'temperatureCool' => null]],
+            ['VALUE:0,1,2,3,16', ['manual' => false]],
+            ['VALUE:0,1,2,3,384', ['thermometerError' => true, 'clockError' => true]],
+            ['VALUE:0,1,2,3,512', ['forcedOffBySensor' => true]],
+            ['VALUE:0,1,2,3,2048', ['weeklyScheduleTemporalOverride' => true]],
+        ];
+    }
+
+    public function testGettingStateWithoutMainThermometerSet() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $channel = $device->getChannels()[2];
+        // simulate main thermometer not set
+        $channel->setUserConfigValue('mainThermometerChannelNo', $channel->getChannelNumber());
+        $this->persist($channel);
+        $stateGetter = self::$container->get(ChannelStateGetter::class);
+        $state = $stateGetter->getState($channel);
+        $this->assertNull($state['temperatureMain']);
     }
 }
