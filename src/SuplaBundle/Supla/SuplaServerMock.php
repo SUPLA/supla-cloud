@@ -114,7 +114,7 @@ class SuplaServerMock extends SuplaServer {
             }
             return 'VALUE:' . implode(',', $values);
         } elseif (preg_match('#^GET-TEMPERATURE-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
-            return 'VALUE:' . (rand(-2000, 2000) / 1000);
+            return 'VALUE:' . (rand(-500, 3000) / 100);
         } elseif (preg_match('#^GET-HUMIDITY-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
             return 'VALUE:' . (rand(0, 1000) / 10);
         } elseif (preg_match('#^GET-DOUBLE-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) {
