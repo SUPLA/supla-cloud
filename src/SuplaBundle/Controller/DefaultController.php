@@ -65,7 +65,7 @@ class DefaultController extends AbstractController {
      * @Template()
      */
     public function apiDocsAction(Request $request) {
-        return ['supla_url' => $this->suplaUrl, 'yaml_suffix' => ($request->get('v') === '2.3.0' ? '' : '-2.4.0')];
+        return ['supla_url' => $this->suplaUrl, 'yaml_suffix' => ($request->get('v') === '2.3.0' ? '' : '-v3')];
     }
 
     /**
@@ -81,7 +81,7 @@ class DefaultController extends AbstractController {
      * @OA\OpenApi(
      *   security={{"BearerAuth": {}}, {"OAuth2": {}}},
      *   @OA\Info(title="SUPLA Cloud API", version="X.X.X"),
-     *   @OA\Server(url="https://cloud.supla.org/api/v2.4.0"),
+     *   @OA\Server(url="https://cloud.supla.org/api/v3"),
      * )
      * @OA\SecurityScheme(securityScheme="BearerAuth", type="http", scheme="bearer")
      * @OA\SecurityScheme(securityScheme="OAuth2", type="oauth2", @OA\Flow(
@@ -116,7 +116,7 @@ class DefaultController extends AbstractController {
      *     "offline_access": "Issue refresh token",
      *   }
      * ))
-     * @Route("/api-docs/supla-api-docs-2.4.0.yaml", methods={"GET"})
+     * @Route("/api-docs/supla-api-docs-v3.yaml", methods={"GET"})
      */
     public function getApiDocsSchemaActionV24() {
         $version = $this->getParameter('supla.version');
