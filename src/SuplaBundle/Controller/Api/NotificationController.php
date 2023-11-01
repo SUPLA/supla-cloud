@@ -148,6 +148,7 @@ class NotificationController extends RestController {
     /**
      * @OA\Get(
      *     path="/channels/{channel}/notifications", operationId="getChannelNotifications", tags={"Channels"},
+     *     @OA\Parameter(name="channel", description="ID", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(name="onlyManaged", in="query", description="Return only notification managed by the device (i.e. originating from the firmware). Can be only set to `true`.", required=false, @OA\Schema(type="boolean")),
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
@@ -173,6 +174,7 @@ class NotificationController extends RestController {
     /**
      * @OA\Get(
      *     path="/iodevices/{device}/notifications", operationId="getIoDeviceNotifications", tags={"Devices"},
+     *     @OA\Parameter(name="device", description="ID", in="path", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(
      *         description="List of extra fields to include in the response.",
      *         in="query", name="include", required=false, explode=false,

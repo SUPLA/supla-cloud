@@ -26,10 +26,10 @@ use UnexpectedValueException;
 /**
  * @see https://github.com/SUPLA/supla-core/blob/develop/supla-common/proto.h#L405
  *
- * @OA\Schema(schema="ChannelTypeEnumNames", type="string", example="SENSORNO", enum={"UNSUPPORTED","SENSORNO","SENSORNC","DISTANCESENSOR","CALLBUTTON","RELAYHFD4","RELAYG5LA1A","RELAY2XG5LA1A","RELAY","THERMOMETERDS18B20","DHT11","DHT21","DHT22","AM2301","AM2302","THERMOMETER","HUMIDITYSENSOR","HUMIDITYANDTEMPSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","DIMMER","RGBLEDCONTROLLER","DIMMERANDRGBLED","ELECTRICITYMETER","IMPULSECOUNTER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","HVAC","VALVEOPENCLOSE","VALVEPERCENTAGE","BRIDGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS"})
+ * @OA\Schema(schema="ChannelTypeEnumNames", type="string", example="SENSORNO")
  * @OA\Schema(
  *   schema="ChannelType", type="object",
- *   @OA\Property(property="id", type="integer", example=1000, enum={-1,1000,1010,1020,1500,2000,2010,2020,2900,3000,3010,3022,3020,3032,3030,3034,3036,3038,3042,3044,3048,3050,3100,4000,4010,4020,5000,5010,6000,6010,6100,7000,7010,8000,9000,11000,12000}),
+ *   @OA\Property(property="id", type="integer", example=1000),
  *   @OA\Property(property="name", ref="#/components/schemas/ChannelTypeEnumNames"),
  *   @OA\Property(property="caption", type="string", example="Sensor (normal open)"),
  * )

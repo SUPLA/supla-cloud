@@ -37,24 +37,6 @@ class ChannelFunctionActionTest extends TestCase {
         $this->assertEquals(ChannelFunctionAction::OPEN_CLOSE(), ChannelFunctionAction::fromString('open-close'));
     }
 
-    public function testEveryChannelFunctionActionIdIsDocumented() {
-        $ids = ChannelFunctionAction::toArray();
-        sort($ids);
-        $ids = implode(',', $ids);
-        $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelFunctionAction.php');
-        $message = 'Invalid documentation for channel function action ids. Enum should be: ' . PHP_EOL . PHP_EOL . $ids . PHP_EOL;
-        $this->assertStringContainsString($ids, $source, $message);
-    }
-
-    public function testEveryChannelFunctionActionNameIsDocumented() {
-        $keys = ChannelFunctionAction::keys();
-        sort($keys);
-        $names = '"' . implode('","', $keys) . '"';
-        $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelFunctionAction.php');
-        $message = 'Invalid documentation for channel function action names. Enum should be: ' . PHP_EOL . PHP_EOL . $names . PHP_EOL;
-        $this->assertStringContainsString($names, $source, $message);
-    }
-
     public function testGeneratingChannelFunctionActionMarkdownTableForDocs() {
         // https://github.com/SUPLA/supla-cloud/wiki/Channel-Actions
         $this->markTestSkipped('Only for docs');

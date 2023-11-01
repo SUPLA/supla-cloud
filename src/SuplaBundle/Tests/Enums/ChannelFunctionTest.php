@@ -139,29 +139,6 @@ FRONTEND;
         }
     }
 
-    public function testEveryChannelFunctionIdIsDocumented() {
-        $ids = implode(',', ChannelFunction::toArray());
-        $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelFunction.php');
-        $message = 'Invalid documentation for channel function ids. Enum should be: ' . PHP_EOL . PHP_EOL . $ids . PHP_EOL;
-        $this->assertStringContainsString($ids, $source, $message);
-    }
-
-    public function testEveryChannelFunctionNameIsDocumented() {
-        $names = '"' . implode('","', ChannelFunction::keys()) . '"';
-        $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelFunction.php');
-        $message = 'Invalid documentation for channel function names. Enum should be: ' . PHP_EOL . PHP_EOL . $names . PHP_EOL;
-        $this->assertStringContainsString($names, $source, $message);
-    }
-
-    public function testEveryChannelFunctionPossibleVisualStateIsDocumented() {
-        $visualStates = array_unique(ArrayUtils::flattenOnce(ChannelFunction::possibleVisualStates()));
-        $names = '"' . implode('","', $visualStates) . '"';
-        $source = file_get_contents(\AppKernel::ROOT_PATH . '/../src/SuplaBundle/Enums/ChannelFunction.php');
-        $message = 'Invalid documentation for channel function possible visual states. Enum should be: '
-            . PHP_EOL . PHP_EOL . $names . PHP_EOL;
-        $this->assertStringContainsString($names, $source, $message);
-    }
-
     public function testNoneAndUnsupportedFunctionsAreNeitherInputNorOutput() {
         $this->assertNotContains(ChannelFunction::NONE, ChannelFunction::inputFunctions());
         $this->assertNotContains(ChannelFunction::NONE, ChannelFunction::outputFunctions());

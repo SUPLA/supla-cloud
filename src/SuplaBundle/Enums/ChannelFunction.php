@@ -25,14 +25,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use UnexpectedValueException;
 
 /**
- * @OA\Schema(schema="ChannelFunctionEnumNames", type="string", example="OPENINGSENSOR_GATE", enum={"UNSUPPORTED","NONE","SCENE","SCHEDULE","NOTIFICATION","CONTROLLINGTHEGATEWAYLOCK","CONTROLLINGTHEGATE","CONTROLLINGTHEGARAGEDOOR","THERMOMETER","HUMIDITY","HUMIDITYANDTEMPERATURE","OPENINGSENSOR_GATEWAY","OPENINGSENSOR_GATE","OPENINGSENSOR_GARAGEDOOR","NOLIQUIDSENSOR","CONTROLLINGTHEDOORLOCK","OPENINGSENSOR_DOOR","CONTROLLINGTHEROLLERSHUTTER","CONTROLLINGTHEROOFWINDOW","OPENINGSENSOR_ROLLERSHUTTER","OPENINGSENSOR_ROOFWINDOW","POWERSWITCH","LIGHTSWITCH","DIMMER","RGBLIGHTING","DIMMERANDRGBLIGHTING","DEPTHSENSOR","DISTANCESENSOR","OPENINGSENSOR_WINDOW","HOTELCARDSENSOR","MAILSENSOR","WINDSENSOR","PRESSURESENSOR","RAINSENSOR","WEIGHTSENSOR","WEATHER_STATION","STAIRCASETIMER","ELECTRICITYMETER","IC_ELECTRICITYMETER","IC_GASMETER","IC_WATERMETER","IC_HEATMETER","THERMOSTAT","THERMOSTATHEATPOLHOMEPLUS","HVAC_THERMOSTAT","HVAC_THERMOSTAT_AUTO","HVAC_DRYER","HVAC_FAN","HVAC_THERMOSTAT_DIFFERENTIAL","HVAC_DOMESTIC_HOT_WATER","VALVEOPENCLOSE","VALVEPERCENTAGE","GENERAL_PURPOSE_MEASUREMENT","ACTION_TRIGGER","DIGIGLASS_HORIZONTAL","DIGIGLASS_VERTICAL"})
+ * @OA\Schema(schema="ChannelFunctionEnumNames", type="string", example="OPENINGSENSOR_GATE")
  * @OA\Schema(
  *   schema="ChannelFunction", type="object",
- *   @OA\Property(property="id", type="integer", example=60, enum={-1,0,2000,2010,2020,10,20,30,40,42,45,50,60,70,80,90,100,110,115,120,125,130,140,180,190,200,210,220,230,235,240,250,260,270,280,290,300,310,315,320,330,340,400,410,420,422,423,424,425,426,500,510,520,700,800,810}),
+ *   @OA\Property(property="id", type="integer", example=60),
  *   @OA\Property(property="name", ref="#/components/schemas/ChannelFunctionEnumNames"),
  *   @OA\Property(property="caption", type="string", example="Gate opening sensor"),
  *   @OA\Property(property="maxAlternativeIconIndex", type="integer"),
- *   @OA\Property(property="possibleVisualStates", type="array", description="Possible visual states of channel with this function. Ordered.", @OA\Items(type="string", enum={"default","opened","closed","partially_closed","empty","full","revealed","shut","off","on","humidity","temperature","rgb_off_dim_off","rgb_off_dim_on","rgb_on_dim_off","rgb_on_dim_on","heating","cooling"})),
+ *   @OA\Property(property="possibleVisualStates", type="array", description="Possible visual states of channel with this function. Ordered.", @OA\Items(type="string", example="opened")),
  *   @OA\Property(property="output", type="boolean", description="Whether the function is output type (i.e. can execute action) or input (i.e. provides data)", example=false),
  * )
  *
