@@ -335,7 +335,7 @@ class IODeviceController extends RestController {
             $requestFiller->fillFromData($requestData, $ioDevice);
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
-        $this->suplaServer->onDeviceSettingsChanged($ioDevice);
+        $this->suplaServer->deviceAction($ioDevice, 'USER-ON-DEVICE-CONFIG-CHANGED');
         $this->suplaServer->reconnect();
         return $result;
     }

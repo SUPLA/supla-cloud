@@ -27,9 +27,11 @@ use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Enums\PrzemekBitsBuilder;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
@@ -338,24 +340,30 @@ class ChannelController extends RestController {
                 $channelToReadConfig->setTextParam3($requestData['textParam3'] ?? null);
                 $newConfigToSet = $paramConfigTranslator->getConfig($channelToReadConfig);
             }
+            $changes = new PrzemekBitsBuilder();
             if (isset($requestData['inheritedLocation']) && $requestData['inheritedLocation']) {
                 $channel->setLocation(null);
+                $changes->add(ChannelConfigChangeScope::LOCATION);
             } elseif (isset($requestData['locationId'])) {
                 Assertion::integer($requestData['locationId']);
                 $location = $locationRepository->findForUser($channel->getUser(), $requestData['locationId']);
                 $channel->setLocation($location);
+                $changes->add(ChannelConfigChangeScope::LOCATION);
             }
             if (isset($requestData['caption'])) {
                 Assertion::string($requestData['caption']);
                 Assertion::maxLength($requestData['caption'], 100, 'Caption is too long.'); // i18n
                 $channel->setCaption($requestData['caption']);
+                $changes->add(ChannelConfigChangeScope::CAPTION);
             }
             if (isset($requestData['hidden'])) {
                 Assertion::boolean($requestData['hidden']);
                 $channel->setHidden($requestData['hidden']);
+                $changes->add(ChannelConfigChangeScope::VISIBILITY);
             }
             /** @var IODeviceChannel $channel */
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
+                $changes,
                 $userIconRepository,
                 $requestData,
                 $newFunction,
@@ -372,8 +380,9 @@ class ChannelController extends RestController {
                     $channelDependencies->clearDependencies($channel);
                     $channel->setUserIcon(null);
                     $channel->setAltIcon(0);
-                    $this->suplaServer->channelSettingsChanged($channel, ['function']);
                     $em->persist($channel);
+                    $changes->add(ChannelConfigChangeScope::FUNCTION);
+                    $changes->add(ChannelConfigChangeScope::ICON);
                 }
                 if (!$functionHasBeenChanged || !in_array($channel->getType()->getId(), [ChannelType::HVAC])) {
                     $paramConfigTranslator->setConfig($channel, $newConfigToSet);
@@ -381,8 +390,10 @@ class ChannelController extends RestController {
                 if (isset($requestData['altIcon'])) {
                     Assertion::integer($requestData['altIcon']);
                     $channel->setAltIcon($requestData['altIcon']);
+                    $changes->add(ChannelConfigChangeScope::ICON);
                 }
                 if (array_key_exists('userIconId', $requestData)) {
+                    $changes->add(ChannelConfigChangeScope::ICON);
                     if ($requestData['userIconId'] === null) {
                         $channel->setUserIcon(null);
                     } else {
@@ -403,10 +414,25 @@ class ChannelController extends RestController {
                     $actionTrigger->setCaption($caption);
                     $em->persist($actionTrigger);
                 }
+                if ($newConfigToSet) {
+                    $changes->add(ChannelConfigChangeScope::JSON_BASIC);
+                    if (array_intersect_key($newConfigToSet, array_flip(['weeklySchedule']))) {
+                        $changes->add(ChannelConfigChangeScope::JSON_WEEKLY_SCHEDULE);
+                    }
+                    if (array_intersect_key($newConfigToSet, array_flip(['altWeeklySchedule']))) {
+                        $changes->add(ChannelConfigChangeScope::JSON_ALT_WEEKLY_SCHEDULE);
+                    }
+                    $channelIdKeys = array_filter(array_keys($newConfigToSet), function ($key) {
+                        return strpos($key, 'ChannelId') > 0;
+                    });
+                    if ($channelIdKeys) {
+                        $changes->add(ChannelConfigChangeScope::RELATIONS);
+                    }
+                }
+                $this->suplaServer->channelConfigChanged($channel, $changes->getValue());
                 return $channel;
             });
             if (!in_array($channel->getType()->getId(), [ChannelType::HVAC])) {
-                $this->suplaServer->onDeviceSettingsChanged($channel->getIoDevice());
                 $this->suplaServer->reconnect();
             }
             return $this->getChannelAction($request, $channel->clearRelationsCount());

@@ -179,7 +179,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $hvacChannel = $this->freshEntity($this->hvacChannel);
         $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelId'));
         $this->assertEquals(0, $hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
-        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('havac'));
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,3,6100,420,288');
     }
 
     /** @depends testSettingMainThermometer */
@@ -204,7 +204,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $hvacChannel = $this->freshEntity($this->hvacChannel);
         $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelId'));
         $this->assertEquals(1, $hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
-        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('havac'));
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,3,6100,420,288');
     }
 
     /** @depends testSendingFullConfigButChangingMainThermometerOnly */
@@ -222,7 +222,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
         $this->assertEquals('COOL', $content['config']['subfunction']);
-        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('subfunction'));
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,3,6100,420,32');
     }
 
     /** @depends testSettingSubfunction */
@@ -238,7 +238,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('GET', '/api/channels/' . $this->hvacChannel->getId());
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('havac,subfunction'));
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,3,6100,420,288');
         $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
     }
 
@@ -307,7 +307,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             1000,
             $this->hvacChannel->getUserConfigValue('weeklySchedule')['programSettings'][2]['setpointTemperatureHeat']
         );
-        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('weekly_schedule'));
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,3,6100,420,96');
     }
 
     public function testSettingWeeklyScheduleWithIncompleteQuarters() {
@@ -371,7 +371,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(2, $content['config']['altWeeklySchedule']['quarters'][125]);
         $this->assertEquals(0, $content['config']['altWeeklySchedule']['programSettings'][3]['setpointTemperatureHeat']);
         $this->assertEquals(10, $content['config']['altWeeklySchedule']['programSettings'][3]['setpointTemperatureCool']);
-        $this->assertSuplaCommandExecuted('CHANNEL-SETTINGS-CHANGED:1,1,3,' . base64_encode('weekly_schedule'));
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,3,6100,420,160');
     }
 
     public function testSettingAltWeeklyScheduleWithInvalidProgramMode() {
@@ -471,7 +471,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             'functionId' => ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
         ]);
         $this->assertStatusCode(200, $client->getResponse());
-        $this->assertSuplaCommandExecuted("CHANNEL-SETTINGS-CHANGED:1,2,$hvacChannelId," . base64_encode('function'));
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,2,10,6100,426,497');
         $client->apiRequestV24('GET', '/api/channels/' . $hvacChannelId);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);

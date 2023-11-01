@@ -153,9 +153,10 @@ abstract class SuplaServer {
     }
 
     public function postponeCommand(string $command): void {
-        $this->postponedCommands[] = [
-            'command' => $command,
-        ];
+        $postponedCommand = ['command' => $command];
+        if (!in_array($postponedCommand, $this->postponedCommands)) {
+            $this->postponedCommands[] = $postponedCommand;
+        }
     }
 
     public function deviceAction(IODevice $device, string $commandName): bool {
@@ -178,10 +179,6 @@ abstract class SuplaServer {
 
     public function amazonAlexaCredentialsChanged(): bool {
         return $this->userAction('ALEXA-CREDENTIALS-CHANGED');
-    }
-
-    public function onDeviceSettingsChanged(IODevice $device): bool {
-        return $this->deviceAction($device, 'USER-ON-DEVICE-SETTINGS-CHANGED');
     }
 
     public function stateWebhookChanged(): bool {
@@ -374,10 +371,10 @@ abstract class SuplaServer {
         return $results;
     }
 
-    public function channelSettingsChanged(IODeviceChannel $channel, array $changes): void {
-        if ($changes) {
-            $changesList = implode(',', array_unique($changes));
-            $command = $channel->buildServerActionCommand('CHANNEL-SETTINGS-CHANGED', [base64_encode($changesList)]);
+    public function channelConfigChanged(IODeviceChannel $channel, int $changeBits): void {
+        if ($changeBits) {
+            $params = [$channel->getType()->getId(), $channel->getFunction()->getId(), $changeBits];
+            $command = $channel->buildServerActionCommand('USER-ON-CHANNEL-CONFIG-CHANGED', $params);
             $this->postponeCommand($command);
         }
     }

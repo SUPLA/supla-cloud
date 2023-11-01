@@ -343,6 +343,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channelParamConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
+        SuplaServerMock::reset();
         $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId(), [
             'functionId' => ChannelFunction::OPENINGSENSOR_GARAGEDOOR,
         ]);
@@ -351,6 +352,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals(0, $gateChannel->getParam2(), 'The paired sensor has not been cleared.');
         $this->assertEquals(ChannelFunction::OPENINGSENSOR_GARAGEDOOR, $sensorChannel->getFunction()->getId());
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,3,2900,20,256');
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,3,12,1000,70,256');
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,3,12,1000,70,305');
     }
 
     public function testCanChangeChannelFunctionToNone() {

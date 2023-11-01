@@ -5,13 +5,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
+use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RelatedChannelsConnector extends UserConfigTranslator {
     use Transactional;
+    use SuplaServerAware;
 
     /** @var IODeviceChannelRepository */
     private $channelRepository;
@@ -60,6 +63,7 @@ class RelatedChannelsConnector extends UserConfigTranslator {
                     try {
                         $currentSensor = $this->channelRepository->findForUser($user, $currentRelatedId);
                         $currentSensor->setParam($relatedParamNo, 0);
+                        $this->suplaServer->channelConfigChanged($currentSensor, ChannelConfigChangeScope::RELATIONS);
                         $em->persist($currentSensor);
                     } catch (NotFoundHttpException $e) {
                     }
@@ -68,6 +72,7 @@ class RelatedChannelsConnector extends UserConfigTranslator {
                     try {
                         $currentControlling = $this->channelRepository->findForUser($user, $currentThisId);
                         $currentControlling->setParam($thisParamNo, 0);
+                        $this->suplaServer->channelConfigChanged($currentControlling, ChannelConfigChangeScope::RELATIONS);
                         $em->persist($currentControlling);
                     } catch (NotFoundHttpException $e) {
                     }
@@ -75,10 +80,12 @@ class RelatedChannelsConnector extends UserConfigTranslator {
                 if ($thisChannel && $currentRelatedId != $relatedId) {
                     $thisChannel->setParam($thisParamNo, $relatedId);
                     $em->persist($thisChannel);
+                    $this->suplaServer->channelConfigChanged($thisChannel, ChannelConfigChangeScope::RELATIONS);
                 }
                 if ($relatedChannel && $currentThisId != $thisId) {
                     $relatedChannel->setParam($relatedParamNo, $thisId);
                     $em->persist($relatedChannel);
+                    $this->suplaServer->channelConfigChanged($relatedChannel, ChannelConfigChangeScope::RELATIONS);
                 }
             }
         }
