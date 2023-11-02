@@ -311,6 +311,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
             return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
         })->first();
         $paramConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $this->flush();
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals($gateChannel->getId(), $sensorChannel->getParam1());
         $client->request('DELETE', '/api/iodevices/' . $device->getId());
@@ -333,6 +334,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         // assign sensor to the gate from other device
         $paramConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $this->flush();
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
         $client->request('DELETE', '/api/iodevices/' . $anotherDevice->getId());
@@ -354,6 +356,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
             return $channel->getFunction()->getId() == ChannelFunction::CONTROLLINGTHEGATE;
         })->first();
         $paramConfigTranslator->setConfig($gateChannel, ['openingSensorSecondaryChannelId' => $sensorChannel->getId()]);
+        $this->flush();
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals($gateChannel->getId(), $sensorChannel->getParam2());
         $client->request('DELETE', '/api/iodevices/' . $device->getId());
@@ -376,6 +379,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         // assign sensor to the gate from other device
         $paramConfigTranslator->setConfig($gateChannel, ['openingSensorSecondaryChannelId' => $sensorChannel->getId()]);
+        $this->flush();
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam3());
         $client->request('DELETE', '/api/iodevices/' . $anotherDevice->getId());
