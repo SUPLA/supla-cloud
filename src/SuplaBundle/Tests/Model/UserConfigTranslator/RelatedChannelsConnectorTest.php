@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Tests\Model\UserConfigTranslator;
 
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction as CF;
@@ -30,7 +31,8 @@ class RelatedChannelsConnectorTest extends TestCase {
     /** @before */
     public function init() {
         $channelRepository = $this->createMock(IODeviceChannelRepository::class);
-        $this->connector = new RelatedChannelsConnector($channelRepository);
+        $entityManager = $this->createMock(EntityManagerInterface::class);
+        $this->connector = new RelatedChannelsConnector($channelRepository, $entityManager);
     }
 
     public function testBuildingConnections() {
