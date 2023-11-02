@@ -599,7 +599,7 @@ class User implements UserInterface, EncoderAwareInterface, HasRelationsCount {
         return $this->limitChannelPerGroup;
     }
 
-    public function getTimezone() {
+    public function getTimezone(): string {
         return $this->timezone;
     }
 

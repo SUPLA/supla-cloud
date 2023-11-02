@@ -275,22 +275,33 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testSettingDeviceTime() {
+        $this->user->setTimezone('Europe/Warsaw');
+        $this->persist($this->user);
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
-        $time = new \DateTime();
-        $request = ['action' => 'setTime', 'time' => $time->format(\DateTime::ATOM)];
+        $request = ['action' => 'setTime', 'time' => '2023-11-02T22:07:25+02:00'];
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), $request);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertSuplaCommandExecuted("DEVICE-SET-TIME:1,{$device->getId()}," . $time->getTimestamp());
+        $this->assertSuplaCommandExecuted("DEVICE-SET-TIME:1,{$device->getId()},2023,11,2,5,21,07,25,RXVyb3BlL1dhcnNhdw==");
+    }
+
+    public function testSettingDeviceTimeWithInvalidDate() {
+        $this->user->setTimezone('Europe/Warsaw');
+        $this->persist($this->user);
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $client = $this->createAuthenticatedClient();
+        $request = ['action' => 'setTime', 'time' => 'unicorn'];
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), $request);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
     }
 
     public function testSettingDeviceTimeWhenServerRefuses() {
         SuplaServerMock::mockResponse('DEVICE-SET-TIME', 'NO!');
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
-        $time = new \DateTime();
-        $request = ['action' => 'setTime', 'time' => $time->format(\DateTime::ATOM)];
+        $request = ['action' => 'setTime', 'time' => (new \DateTime())->format(\DateTime::ATOM)];
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), $request);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);

@@ -372,7 +372,12 @@ class IODeviceController extends RestController {
                 Assertion::keyExists($body, 'time', 'Missing time.');
                 $timestamp = strtotime($body['time']);
                 Assertion::integer($timestamp, 'Unsupported date format given.');
-                $result = $this->suplaServer->deviceAction($ioDevice, 'DEVICE-SET-TIME', [$timestamp]);
+                $timezoneName = $this->getCurrentUserOrThrow()->getTimezone();
+                $dateTime = new \DateTime($body['time']);
+                $dateTime->setTimezone(new \DateTimeZone($timezoneName));
+                $suplaDayOfWeek = intval($dateTime->format('w')) + 1; // 1 - Sunday, ... 7 - Monday
+                $params = $dateTime->format("Y,n,j,$suplaDayOfWeek,G,i,s,") . base64_encode($timezoneName);
+                $result = $this->suplaServer->deviceAction($ioDevice, 'DEVICE-SET-TIME', [$params]);
                 Assertion::true($result, 'Could not set the device time.'); // i18n
             } else {
                 throw new ApiException('Invalid action given.');
