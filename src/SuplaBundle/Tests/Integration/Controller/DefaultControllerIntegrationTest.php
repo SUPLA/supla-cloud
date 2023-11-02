@@ -39,7 +39,7 @@ class DefaultControllerIntegrationTest extends IntegrationTestCase {
 
     public function testGettingApiDocsV24() {
         $client = $this->createClient();
-        $client->request('GET', '/api-docs/supla-api-docs-2.4.0.yaml');
+        $client->request('GET', '/api-docs/supla-api-docs-v3.yaml');
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = $response->getContent();

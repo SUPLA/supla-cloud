@@ -18,7 +18,7 @@
 namespace SuplaBundle\Enums;
 
 /**
- * @method static ChannelConfigChangeScope FUNCTION()
+ * @method static ChannelConfigChangeScope CHANNEL_FUNCTION()
  * @method static ChannelConfigChangeScope CAPTION()
  * @method static ChannelConfigChangeScope LOCATION()
  * @method static ChannelConfigChangeScope VISIBILITY()
@@ -29,7 +29,7 @@ namespace SuplaBundle\Enums;
  * @method static ChannelConfigChangeScope RELATIONS()
  */
 final class ChannelConfigChangeScope extends ChannelFunctionBits {
-    const FUNCTION = 0x1;
+    const CHANNEL_FUNCTION = 0x1;
     const CAPTION = 0x2;
     const LOCATION = 0x4;
     const VISIBILITY = 0x8;

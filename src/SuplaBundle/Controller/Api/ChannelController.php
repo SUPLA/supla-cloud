@@ -381,7 +381,7 @@ class ChannelController extends RestController {
                     $channel->setUserIcon(null);
                     $channel->setAltIcon(0);
                     $em->persist($channel);
-                    $changes->add(ChannelConfigChangeScope::FUNCTION);
+                    $changes->add(ChannelConfigChangeScope::CHANNEL_FUNCTION);
                     $changes->add(ChannelConfigChangeScope::ICON);
                 }
                 if (!$functionHasBeenChanged || !in_array($channel->getType()->getId(), [ChannelType::HVAC])) {
