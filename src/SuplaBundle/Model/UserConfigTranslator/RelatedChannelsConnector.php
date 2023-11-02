@@ -5,22 +5,20 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
-use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RelatedChannelsConnector extends UserConfigTranslator {
-    use Transactional;
     use SuplaServerAware;
 
     /** @var IODeviceChannelRepository */
     private $channelRepository;
 
-    public function __construct(IODeviceChannelRepository $channelRepository) {
+    public function __construct(IODeviceChannelRepository $channelRepository, EntityManagerInterface $em) {
         $this->channelRepository = $channelRepository;
+        $this->em = $em;
     }
 
     public function getConfig(HasUserConfig $subject): array {
@@ -35,13 +33,11 @@ class RelatedChannelsConnector extends UserConfigTranslator {
     }
 
     public function setConfig(HasUserConfig $subject, array $config) {
-        $this->transactional(function (EntityManagerInterface $em) use ($subject, $config) {
-            $user = $subject->getUser();
-            $this->pairRelatedChannel($em, $user, $subject, $config);
-        });
+        $user = $subject->getUser();
+        $this->pairRelatedChannel($user, $subject, $config);
     }
 
-    public function pairRelatedChannel(EntityManagerInterface $em, User $user, IODeviceChannel $channel, array $config) {
+    private function pairRelatedChannel(User $user, IODeviceChannel $channel, array $config) {
         $possibleRelations = self::getPossibleRelations()[$channel->getFunction()->getId()];
         foreach ($possibleRelations as $relatedFunction => $possibleParamPairs) {
             foreach ($possibleParamPairs as $paramName => $params) {
@@ -63,8 +59,8 @@ class RelatedChannelsConnector extends UserConfigTranslator {
                     try {
                         $currentSensor = $this->channelRepository->findForUser($user, $currentRelatedId);
                         $currentSensor->setParam($relatedParamNo, 0);
-                        $this->suplaServer->channelConfigChanged($currentSensor, ChannelConfigChangeScope::RELATIONS);
-                        $em->persist($currentSensor);
+                        $currentSensor->setUserConfigValue($paramName, null);
+                        $this->em->persist($currentSensor);
                     } catch (NotFoundHttpException $e) {
                     }
                 }
@@ -72,20 +68,20 @@ class RelatedChannelsConnector extends UserConfigTranslator {
                     try {
                         $currentControlling = $this->channelRepository->findForUser($user, $currentThisId);
                         $currentControlling->setParam($thisParamNo, 0);
-                        $this->suplaServer->channelConfigChanged($currentControlling, ChannelConfigChangeScope::RELATIONS);
-                        $em->persist($currentControlling);
+                        $currentControlling->setUserConfigValue($paramName, null);
+                        $this->em->persist($currentControlling);
                     } catch (NotFoundHttpException $e) {
                     }
                 }
                 if ($thisChannel && $currentRelatedId != $relatedId) {
                     $thisChannel->setParam($thisParamNo, $relatedId);
-                    $em->persist($thisChannel);
-                    $this->suplaServer->channelConfigChanged($thisChannel, ChannelConfigChangeScope::RELATIONS);
+                    $thisChannel->setUserConfigValue($paramName, $relatedId);
+                    $this->em->persist($thisChannel);
                 }
                 if ($relatedChannel && $currentThisId != $thisId) {
                     $relatedChannel->setParam($relatedParamNo, $thisId);
-                    $em->persist($relatedChannel);
-                    $this->suplaServer->channelConfigChanged($relatedChannel, ChannelConfigChangeScope::RELATIONS);
+                    $relatedChannel->setUserConfigValue($paramName, $relatedId);
+                    $this->em->persist($relatedChannel);
                 }
             }
         }

@@ -36,8 +36,8 @@ final class ArrayUtils {
         foreach ($new as $settingName => $newValue) {
             $beforeValue = $old[$settingName] ?? null;
             $currentValue = $current[$settingName] ?? null;
-            if ($beforeValue != $newValue && $currentValue != $newValue) {
-                if ($currentValue != $beforeValue) {
+            if ($beforeValue !== $newValue && $currentValue !== $newValue) {
+                if ($currentValue !== $beforeValue) {
                     throw new ApiExceptionWithDetails(
                         'Config has been changed externally.',
                         ['config' => $current, 'conflictingField' => $settingName],

@@ -20,16 +20,20 @@ namespace SuplaBundle\Tests\Integration\Controller;
 use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\OAuth\AccessToken;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /** @small */
 class UserIconControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
+    use SuplaAssertions;
     use ResponseAssertions;
 
     private const SAMPLE_PNG_FILEPATH = \AppKernel::ROOT_PATH . '/../src/SuplaBundle/Tests/Utils/sample-icon.png';
@@ -140,17 +144,30 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $response);
         $channel = $this->freshEntity($channel);
         $this->assertNotNull($channel->getUserIcon());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,3000,40,%d',
+            $channel->getIoDevice()->getId(),
+            $channel->getId(),
+            ChannelConfigChangeScope::ICON,
+        ));
         return $iconId;
     }
 
     /** @depends testAssigningUserIcon */
     public function testDeletingUserIcon(int $iconId) {
         $client = $this->createAuthenticatedClient($this->user);
+        SuplaServerMock::reset();
         $client->apiRequestV24('DELETE', '/api/user-icons/' . $iconId);
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
         $channel = $this->freshEntity($this->device->getChannels()[1]);
         $this->assertNull($channel->getUserIcon());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,3000,40,%d',
+            $channel->getIoDevice()->getId(),
+            $channel->getId(),
+            ChannelConfigChangeScope::ICON,
+        ));
     }
 
     public function testCreatingIconWithNotEnoughFiles() {

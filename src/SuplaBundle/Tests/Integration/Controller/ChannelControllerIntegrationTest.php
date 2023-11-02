@@ -28,6 +28,7 @@ use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ActionableSubjectType;
+use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
@@ -341,6 +342,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         // assign sensor to the gate from other device
         $channelParamConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $this->getEntityManager()->flush();
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
         SuplaServerMock::reset();
@@ -352,9 +354,18 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->refresh($sensorChannel);
         $this->assertEquals(0, $gateChannel->getParam2(), 'The paired sensor has not been cleared.');
         $this->assertEquals(ChannelFunction::OPENINGSENSOR_GARAGEDOOR, $sensorChannel->getFunction()->getId());
-        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,3,2900,20,256');
-        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,3,12,1000,70,256');
-        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,3,12,1000,70,305');
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,70,%d',
+            $sensorChannel->getIoDevice()->getId(),
+            $sensorChannel->getId(),
+            ChannelConfigChangeScope::CHANNEL_FUNCTION
+        ));
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
+            $gateChannel->getIoDevice()->getId(),
+            $gateChannel->getId(),
+            ChannelConfigChangeScope::RELATIONS
+        ));
     }
 
     public function testCanChangeChannelFunctionToNone() {
@@ -395,12 +406,85 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV24('PUT', '/api/channels/' . $sensorChannel->getId(), [
+        $client->apiRequestV3('PUT', '/api/channels/' . $sensorChannel->getId(), [
             'caption' => 'Gate 🏎️',
+            'hidden' => false,
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
         $this->assertEquals('Gate 🏎️', $sensorChannel->getCaption());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,60,%d',
+            $anotherDevice->getId(),
+            $sensorChannel->getId(),
+            ChannelConfigChangeScope::CAPTION
+        ));
+        return $sensorChannel->getId();
+    }
+
+    /** @depends testChangingChannelCaptionToEmoji */
+    public function testChangingChannelVisibilityAndNoCaption($channelId) {
+        $sensorChannel = $this->freshEntityById(IODeviceChannel::class, $channelId);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $sensorChannel->getId(), [
+            'caption' => 'Gate 🏎️',
+            'hidden' => true,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
+        $this->assertTrue($sensorChannel->getHidden());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,60,%d',
+            $sensorChannel->getIoDevice()->getId(),
+            $sensorChannel->getId(),
+            ChannelConfigChangeScope::VISIBILITY
+        ));
+    }
+
+    public function testChangingChannelLocation() {
+        $anotherLocation = $this->createLocation($this->user);
+        $anotherDevice = $this->createDevice($this->freshEntityById(Location::class, $this->location->getId()), [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $sensorChannel = $anotherDevice->getChannels()[0];
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $sensorChannel->getId(), [
+            'locationId' => $anotherLocation->getId(),
+            'caption' => 'Inny caption',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
+        $this->assertEquals('Inny caption', $sensorChannel->getCaption());
+        $this->assertEquals($anotherLocation->getId(), $sensorChannel->getLocation()->getId());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,60,%d',
+            $anotherDevice->getId(),
+            $sensorChannel->getId(),
+            ChannelConfigChangeScope::CAPTION | ChannelConfigChangeScope::LOCATION
+        ));
+        return $sensorChannel->getId();
+    }
+
+    /** @depends testChangingChannelLocation */
+    public function testChangingChannelLocationToInherited(int $channelId) {
+        $sensorChannel = $this->freshEntityById(IODeviceChannel::class, $channelId);
+        $client = $this->createAuthenticatedClient();
+        SuplaServerMock::reset();
+        $client->apiRequestV3('PUT', '/api/channels/' . $channelId, [
+            'inheritedLocation' => true,
+            'caption' => 'Inny caption',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $sensorChannel = $this->getEntityManager()->find(IODeviceChannel::class, $sensorChannel->getId());
+        $this->assertEquals('Inny caption', $sensorChannel->getCaption());
+        $this->assertTrue($sensorChannel->hasInheritedLocation());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,60,%d',
+            $sensorChannel->getIoDevice()->getId(),
+            $sensorChannel->getId(),
+            ChannelConfigChangeScope::LOCATION
+        ));
+        return $sensorChannel->getId();
     }
 
     public function testCannotChangeChannelFunctionToNotSupported() {
@@ -443,6 +527,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(DirectLink::class, $directLink->getId()));
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,70,%d',
+            $sensorChannel->getIoDevice()->getId(),
+            $sensorChannel->getId(),
+            ChannelConfigChangeScope::CHANNEL_FUNCTION,
+        ));
         return $sensorChannel->getId();
     }
 
@@ -536,12 +626,19 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     public function testCannotStoreRubbishInConfig(int $gateChannelId) {
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannelId);
         $client = $this->createAuthenticatedClient();
+        SuplaServerMock::reset();
         $client->apiRequestV24('PUT', '/api/channels/' . $gateChannel->getId(), [
             'config' => ['unicorn' => 123],
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $gateChannel = $this->getEntityManager()->find(IODeviceChannel::class, $gateChannel->getId());
         $this->assertArrayNotHasKey('unicorn', $gateChannel->getUserConfig());
+        $this->assertSuplaCommandNotExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
+            $gateChannel->getIoDevice()->getId(),
+            $gateChannel->getId(),
+            ChannelConfigChangeScope::JSON_BASIC,
+        ));
     }
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinks */
@@ -594,6 +691,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $channelWithRelatedTrigger = $this->getEntityManager()->find(IODeviceChannel::class, $trigger->getParam1());
         $this->assertNotNull($channelWithRelatedTrigger);
         $client = $this->createAuthenticatedClient($this->user);
+        SuplaServerMock::reset();
         $client->apiRequestV24('PUT', '/api/channels/' . $channelWithRelatedTrigger->getId(), [
             'caption' => 'Unicorn channel',
         ]);
@@ -602,6 +700,18 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         /** @var IODeviceChannel $trigger */
         $trigger = $this->freshEntity($trigger);
         $this->assertEquals('Unicorn channel AT#1', $trigger->getCaption());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,140,%d',
+            $channelWithRelatedTrigger->getIoDevice()->getId(),
+            $channelWithRelatedTrigger->getId(),
+            ChannelConfigChangeScope::CAPTION,
+        ));
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,11000,700,%d',
+            $trigger->getIoDevice()->getId(),
+            $trigger->getId(),
+            ChannelConfigChangeScope::CAPTION,
+        ));
     }
 
     /** @depends testSettingConfigForActionTrigger */

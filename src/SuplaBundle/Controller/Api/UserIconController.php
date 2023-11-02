@@ -266,6 +266,11 @@ class UserIconController extends RestController {
      */
     public function deleteUserIconAction(UserIcon $userIcon) {
         return $this->transactional(function (EntityManagerInterface $em) use ($userIcon) {
+            foreach ($userIcon->getChannels() as $channel) {
+                $channel->setUserIcon(null);
+                $channel->setAltIcon(0);
+                $em->persist($channel);
+            }
             $em->remove($userIcon);
             return new Response('', Response::HTTP_NO_CONTENT);
         });

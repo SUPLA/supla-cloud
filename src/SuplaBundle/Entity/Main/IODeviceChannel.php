@@ -29,6 +29,7 @@ use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\HasUserConfigTrait;
+use SuplaBundle\Entity\Main\Listeners\IODeviceChannelEntityListener;
 use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -40,6 +41,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\IODeviceChannelRepository")
+ * @ORM\EntityListeners({IODeviceChannelEntityListener::class})
  * @ORM\Table(name="supla_dev_channel",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="UNIQUE_CHANNEL", columns={"iodevice_id","channel_number"})},
  *     indexes={
