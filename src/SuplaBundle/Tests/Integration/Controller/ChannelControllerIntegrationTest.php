@@ -358,7 +358,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,70,%d',
             $sensorChannel->getIoDevice()->getId(),
             $sensorChannel->getId(),
-            ChannelConfigChangeScope::CHANNEL_FUNCTION
+            ChannelConfigChangeScope::CHANNEL_FUNCTION | ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC
         ));
         $this->assertSuplaCommandExecuted(sprintf(
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
@@ -531,7 +531,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,70,%d',
             $sensorChannel->getIoDevice()->getId(),
             $sensorChannel->getId(),
-            ChannelConfigChangeScope::CHANNEL_FUNCTION,
+            ChannelConfigChangeScope::CHANNEL_FUNCTION | ChannelConfigChangeScope::JSON_BASIC,
         ));
         return $sensorChannel->getId();
     }

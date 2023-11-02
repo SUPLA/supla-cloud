@@ -28,33 +28,32 @@ class IODeviceChannelEntityListener {
         }
         if (isset($changeArray['function'])) {
             $changes->add(ChannelConfigChangeScope::CHANNEL_FUNCTION);
-        } else {
-            if (isset($changeArray['userConfig'])) {
-                $before = json_decode($changeArray['userConfig'][0] ?: '[]', true);
-                $after = json_decode($changeArray['userConfig'][1] ?: '[]', true);
-                $changedKeys = array_keys(ArrayUtils::mergeConfigs($before, $after, $before));
-                $relationsChanges = array_filter($changedKeys, function ($key) {
-                    return strpos($key, 'ChannelId') > 0 || strpos($key, 'ChannelNo') > 0;
-                });
-                if ($relationsChanges) {
-                    $changes->add(ChannelConfigChangeScope::RELATIONS);
-                    $changedKeys = array_diff($changedKeys, $relationsChanges);
-                }
-                if (in_array('weeklySchedule', $changedKeys)) {
-                    $changes->add(ChannelConfigChangeScope::JSON_WEEKLY_SCHEDULE);
-                    unset($changedKeys[array_search('weeklySchedule', $changedKeys)]);
-                }
-                if (in_array('altWeeklySchedule', $changedKeys)) {
-                    $changes->add(ChannelConfigChangeScope::JSON_ALT_WEEKLY_SCHEDULE);
-                    unset($changedKeys[array_search('altWeeklySchedule', $changedKeys)]);
-                }
-                if ($changedKeys) {
-                    $changes->add(ChannelConfigChangeScope::JSON_BASIC);
-                }
+        }
+        if (isset($changeArray['userConfig'])) {
+            $before = json_decode($changeArray['userConfig'][0] ?: '[]', true);
+            $after = json_decode($changeArray['userConfig'][1] ?: '[]', true);
+            $changedKeys = array_keys(ArrayUtils::mergeConfigs($before, $after, $before));
+            $relationsChanges = array_filter($changedKeys, function ($key) {
+                return strpos($key, 'ChannelId') > 0 || strpos($key, 'ChannelNo') > 0;
+            });
+            if ($relationsChanges) {
+                $changes->add(ChannelConfigChangeScope::RELATIONS);
+                $changedKeys = array_diff($changedKeys, $relationsChanges);
             }
-            if (isset($changeArray['userIcon']) || isset($changeArray['altIcon'])) {
-                $changes->add(ChannelConfigChangeScope::ICON);
+            if (in_array('weeklySchedule', $changedKeys)) {
+                $changes->add(ChannelConfigChangeScope::JSON_WEEKLY_SCHEDULE);
+                unset($changedKeys[array_search('weeklySchedule', $changedKeys)]);
             }
+            if (in_array('altWeeklySchedule', $changedKeys)) {
+                $changes->add(ChannelConfigChangeScope::JSON_ALT_WEEKLY_SCHEDULE);
+                unset($changedKeys[array_search('altWeeklySchedule', $changedKeys)]);
+            }
+            if ($changedKeys) {
+                $changes->add(ChannelConfigChangeScope::JSON_BASIC);
+            }
+        }
+        if (isset($changeArray['userIcon']) || isset($changeArray['altIcon'])) {
+            $changes->add(ChannelConfigChangeScope::ICON);
         }
         $this->suplaServer->channelConfigChanged($channel, $changes->getValue());
     }
