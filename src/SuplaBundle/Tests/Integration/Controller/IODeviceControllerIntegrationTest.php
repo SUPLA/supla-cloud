@@ -35,12 +35,14 @@ use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 
 /** @small */
 class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
@@ -249,6 +251,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted('ENTER-CONFIGURATION-MODE:1,' . $device->getId());
     }
 
     public function testEnteringConfigurationModeWhenDeviceDoesNotSupportIt() {
@@ -267,6 +270,28 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $device = $this->createDeviceSonoff($this->freshEntity($this->location));
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), ['action' => 'enterConfigurationMode']);
+        $response = $client->getResponse();
+        $this->assertStatusCode(400, $response);
+    }
+
+    public function testSettingDeviceTime() {
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $client = $this->createAuthenticatedClient();
+        $time = new \DateTime();
+        $request = ['action' => 'setTime', 'time' => $time->format(\DateTime::ATOM)];
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), $request);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $this->assertSuplaCommandExecuted("DEVICE-SET-TIME:1,{$device->getId()}," . $time->getTimestamp());
+    }
+
+    public function testSettingDeviceTimeWhenServerRefuses() {
+        SuplaServerMock::mockResponse('DEVICE-SET-TIME', 'NO!');
+        $device = $this->createDeviceSonoff($this->freshEntity($this->location));
+        $client = $this->createAuthenticatedClient();
+        $time = new \DateTime();
+        $request = ['action' => 'setTime', 'time' => $time->format(\DateTime::ATOM)];
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $device->getId(), $request);
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
     }

@@ -347,7 +347,7 @@ class IODeviceController extends RestController {
      *     @OA\RequestBody(
      *       required=true,
      *       @OA\JsonContent(
-     *          @OA\Property(property="action", type="string", enum={"enterConfigurationMode"}),
+     *          @OA\Property(property="action", type="string", enum={"enterConfigurationMode", "setTime"}),
      *       )
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
@@ -368,6 +368,12 @@ class IODeviceController extends RestController {
                 );
                 $result = $this->suplaServer->deviceAction($ioDevice, 'ENTER-CONFIGURATION-MODE');
                 Assertion::true($result, 'Could not enter the configuration mode.'); // i18n
+            } elseif ($action === 'setTime') {
+                Assertion::keyExists($body, 'time', 'Missing time.');
+                $timestamp = strtotime($body['time']);
+                Assertion::integer($timestamp, 'Unsupported date format given.');
+                $result = $this->suplaServer->deviceAction($ioDevice, 'DEVICE-SET-TIME', [$timestamp]);
+                Assertion::true($result, 'Could not set the device time.'); // i18n
             } else {
                 throw new ApiException('Invalid action given.');
             }

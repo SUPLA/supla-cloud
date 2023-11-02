@@ -159,8 +159,8 @@ abstract class SuplaServer {
         }
     }
 
-    public function deviceAction(IODevice $device, string $commandName): bool {
-        $params = implode(',', [$device->getUser()->getId(), $device->getId()]);
+    public function deviceAction(IODevice $device, string $commandName, array $params = []): bool {
+        $params = implode(',', array_merge([$device->getUser()->getId(), $device->getId()], $params));
         $command = "$commandName:$params";
         $result = $this->doExecuteCommand($command);
         return $result !== false && preg_match("/^OK:/", $result) === 1;

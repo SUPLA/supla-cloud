@@ -109,6 +109,10 @@ a {
     outline: none;
     box-shadow: none;
   }
+  &.disabled {
+    opacity: .8;
+    pointer-events: none;
+  }
 }
 
 h1 > a {
