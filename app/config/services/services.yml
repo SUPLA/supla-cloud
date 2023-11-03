@@ -199,6 +199,9 @@ services:
   SuplaBundle\EventListener\ResponseContentLengthListener:
     tags: ['kernel.event_listener']
 
+  SuplaBundle\EventListener\FlushSuplaServerCommandsOnResponseListener:
+    tags: ['kernel.event_listener']
+
   SuplaBundle\ParamConverter\:
     resource: '../../../src/SuplaBundle/ParamConverter'
 
