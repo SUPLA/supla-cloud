@@ -151,10 +151,11 @@
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
+                const previousBrightness = Number.isFinite(this.config?.screenBrightness) ? this.config.screenBrightness : 100;
                 this.config = deepCopy(this.device.config);
                 if (this.config.screenBrightness === 'auto') {
                     this.screenBrightnessAuto = true;
-                    this.config.screenBrightness = 100;
+                    this.config.screenBrightness = previousBrightness;
                 } else {
                     this.screenBrightnessAuto = false;
                 }
