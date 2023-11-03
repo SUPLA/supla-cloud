@@ -1,6 +1,7 @@
 <?php
 namespace SuplaBundle\Model\UserConfigTranslator;
 
+use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Entity\Main\IODeviceChannel;
@@ -75,6 +76,13 @@ class RelatedChannelsConnector extends UserConfigTranslator {
                         $this->em->persist($currentControlling);
                     } catch (NotFoundHttpException $e) {
                     }
+                }
+                if ($thisChannel && $relatedChannel) {
+                    Assertion::eq(
+                        $thisChannel->getLocation()->getId(),
+                        $relatedChannel->getLocation()->getId(),
+                        'Channels that are meant to work with each other must be in the same location.' // i18n
+                    );
                 }
                 if ($thisChannel && $currentRelatedId != $relatedId) {
                     $thisChannel->setParam($thisParamNo, $relatedId);

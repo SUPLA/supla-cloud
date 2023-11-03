@@ -150,13 +150,29 @@ class ControllingAnyLockRelatedSensorIntegrationTest extends IntegrationTestCase
         $this->assertEquals($this->device->getChannels()[4]->getId(), $this->device->getChannels()[5]->getParam4());
     }
 
-    /** @large */
+    public function testCannotPairChannelsInDifferentLocations() {
+        $this->expectExceptionMessage('must be in the same location');
+        $device1 = $this->createDevice($this->createLocation($this->user), [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $device2 = $this->createDevice($this->createLocation($this->user), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+        ]);
+        $sensorChannel = $device1->getChannels()[0];
+        $gateChannel = $device2->getChannels()[0];
+        $this->paramsTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+    }
+
     public function testClearingOpeningSensorIfWrongIdIsInDevice() {
-        $this->device->getChannels()[0]->setParam2(1234);
-        $this->getEntityManager()->persist($this->device->getChannels()[0]);
+        $device = $this->createDevice($this->createLocation($this->user), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK],
+        ]);
+        $channel = $device->getChannels()[0];
+        $channel->setParam2(1234);
+        $this->persist($channel);
         // unpair invalid channel
-        $this->paramsTranslator->setConfig($this->device->getChannels()[0], ['openingSensorChannelId' => null]);
+        $this->paramsTranslator->setConfig($channel, ['openingSensorChannelId' => null]);
         $this->getEntityManager()->refresh($this->device);
-        $this->assertEquals(0, $this->device->getChannels()[0]->getParam2());
+        $this->assertEquals(0, $this->freshEntity($channel)->getParam2());
     }
 }

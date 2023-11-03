@@ -301,8 +301,6 @@ class IODeviceController extends RestController {
                 : !$request->get('confirm', false);
             if ($enabledChanged) {
                 // TODO migration
-                // TODO allow to pair only when in the same location
-                // TODO filter in frontend for the location
                 if (!$requestData['enabled'] && $shouldAsk) {
                     $dependencies = [];
                     foreach ($ioDevice->getChannels() as $channel) {

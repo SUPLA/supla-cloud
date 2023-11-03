@@ -130,6 +130,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
             );
             $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
+            Assertion::eq(
+                $subject->getLocation()->getId(),
+                $thermometer->getLocation()->getId(),
+                'Channels that are meant to work with each other must be in the same location.' // i18n
+            );
         }
         if (array_key_exists('auxThermometerChannelId', $config)) {
             if ($config['auxThermometerChannelId']) {
@@ -141,6 +146,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 );
                 Assertion::notEq($thermometer->getChannelNumber(), $subject->getUserConfigValue('mainThermometerChannelNo'));
                 $subject->setUserConfigValue('auxThermometerChannelNo', $thermometer->getChannelNumber());
+                Assertion::eq(
+                    $subject->getLocation()->getId(),
+                    $thermometer->getLocation()->getId(),
+                    'Channels that are meant to work with each other must be in the same location.' // i18n
+                );
             } else {
                 $subject->setUserConfigValue('auxThermometerChannelNo', null);
                 $config['auxThermometerType'] = 'NOT_SET';
@@ -161,6 +171,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $sensor = $this->channelIdToNo($subject, $config['binarySensorChannelId']);
                 Assertion::eq(ChannelType::SENSORNO, $sensor->getType()->getId(), 'Invalid sensor type.');
                 $subject->setUserConfigValue('binarySensorChannelNo', $sensor->getChannelNumber());
+                Assertion::eq(
+                    $subject->getLocation()->getId(),
+                    $sensor->getLocation()->getId(),
+                    'Channels that are meant to work with each other must be in the same location.' // i18n
+                );
             } else {
                 $subject->setUserConfigValue('binarySensorChannelNo', null);
             }

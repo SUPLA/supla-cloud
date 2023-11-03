@@ -1268,10 +1268,11 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testCannotChangeLocationOfPairedChannelWithoutConfirmation() {
         $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
-        $device1 = $this->createDevice($this->createLocation($this->user), [
+        $deviceLocation = $this->createLocation($this->user);
+        $device1 = $this->createDevice($deviceLocation, [
             [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
         ]);
-        $device2 = $this->createDevice($this->createLocation($this->user), [
+        $device2 = $this->createDevice($deviceLocation, [
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
         ]);
         $sensorChannel = $device1->getChannels()[0];
