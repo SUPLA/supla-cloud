@@ -12,7 +12,7 @@
                         <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()" v-if="conflictingConfig"/>
                     </transition-expand>
                     <div class="form-group" v-if="config.statusLed">
-                        <label for="statusLed">{{ $t('LED status') }}</label>
+                        <label for="statusLed">{{ $t('Status LED') }}</label>
                         <select id="statusLed" class="form-control" v-model="config.statusLed" @change="onChange()">
                             <option value="OFF_WHEN_CONNECTED">{{ $t('statusLed_OFF_WHEN_CONNECTED') }}</option>
                             <option value="ALWAYS_OFF">{{ $t('statusLed_ALWAYS_OFF') }}</option>
@@ -46,6 +46,7 @@
                         <div class="form-group">
                             <label for="homeScreen">{{ $t('Home screen content') }}</label>
                             <!-- i18n:["homeScreenContent_NONE", "homeScreenContent_TEMPERATURE", "homeScreenContent_HUMIDITY"] -->
+                            <!-- i18n:["homeScreenContent_TEMPERATURE_AND_HUMIDITY"] -->
                             <!-- i18n:["homeScreenContent_TIME", "homeScreenContent_TIME_DATE", "homeScreenContent_TEMPERATURE_TIME"] -->
                             <!-- i18n:["homeScreenContent_MAIN_AND_AUX_TEMPERATURE"] -->
                             <select id="homeScreen" class="form-control" v-model="config.homeScreen.content" @change="onChange()">

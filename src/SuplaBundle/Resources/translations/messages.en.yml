@@ -110,6 +110,7 @@ homeScreenContent_HUMIDITY: Humidity
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
 homeScreenContent_NONE: None
 homeScreenContent_TEMPERATURE: Temperature
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperature and humidity
 homeScreenContent_TEMPERATURE_TIME: Temperature and time
 homeScreenContent_TIME: Time
 homeScreenContent_TIME_DATE: Date and time

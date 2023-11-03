@@ -10,7 +10,7 @@ use SuplaBundle\Utils\NumberUtils;
 
 /**
  * @OA\Schema(schema="DeviceConfig", description="Configuration of the IO Device.",
- *   @OA\Property(property="statusLed", type="string", enum={"OFF_WHEN_CONNECTED", "ALWAYS_OFF", "ON_WHEN_CONNECTED"}),
+ *   @OA\Property(property="statusLed", type="string"),
  *   @OA\Property(property="screenBrightness", oneOf={
  *     @OA\Schema(type="integer", minimum=0, maximum=100),
  *     @OA\Schema(type="string", enum={"auto"})
@@ -18,7 +18,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="buttonVolume", type="integer", minimum=0, maximum=100),
  *   @OA\Property(property="automaticTimeSync", type="boolean"),
  *   @OA\Property(property="homeScreen", type="object",
- *     @OA\Property(property="content", type="string", enum={"NONE", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE", "TEMPERATURE_TIME", "MAIN_AND_AUX_TEMPERATURE"}),
+ *     @OA\Property(property="content", type="string"),
  *     @OA\Property(property="offDelay", type="integer", description="Number of seconds or `0` to disable."),
  *   ),
  *   @OA\Property(property="userInterface", type="object",
@@ -30,7 +30,7 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="minAllowedTemperatureSetpoint", type="number"),
  *     @OA\Property(property="maxAllowedTemperatureSetpoint", type="number"),
  *   ),
- *   @OA\Property(property="homeScreenContentAvailable", type="string", enum={"OFF", "TEMPERATURE", "HUMIDITY", "TIME", "TIME_DATE", "TEMPERATURE_TIME", "MAIN_AND_AUX_TEMPERATURE"}),
+ *   @OA\Property(property="homeScreenContentAvailable", type="string"),
  * )
  */
 class IODeviceConfigTranslator {
