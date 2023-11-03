@@ -52,7 +52,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $id;
 
     /**
-     * @ORM\Column(name="guid", type="binary", length=17, nullable=false)
+     * @ORM\Column(name="guid", type="binary", length=16, nullable=false)
      */
     private $guid;
 

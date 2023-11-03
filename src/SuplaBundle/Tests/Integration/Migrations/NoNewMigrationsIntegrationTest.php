@@ -20,9 +20,6 @@ namespace SuplaBundle\Tests\Integration\Migrations;
 use Doctrine\Migrations\Generator\Exception\NoChangesDetected;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 
-/**
- * @see Version20180518131234
- */
 class NoNewMigrationsIntegrationTest extends IntegrationTestCase {
     public function testNoNewMigrations() {
         $this->initializeDatabaseWithMigrations();
