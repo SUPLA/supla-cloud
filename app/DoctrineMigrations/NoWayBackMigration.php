@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 abstract class NoWayBackMigration extends AbstractMigration implements ContainerAwareInterface {
     use ContainerAwareTrait;
 
-    public final function up(Schema $schema): void {
+    final public function up(Schema $schema): void {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
         $this->migrate();
     }

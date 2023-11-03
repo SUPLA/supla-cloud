@@ -62,8 +62,12 @@ doctrine:
 
 
 doctrine_migrations:
-  namespace: Supla\Migrations
+  migrations_paths:
+    Supla\Migrations: "%kernel.project_dir%/app/DoctrineMigrations"
   custom_template: "%kernel.project_dir%/app/DoctrineMigrations/migration.tpl"
+  storage:
+    table_storage:
+      table_name: 'migration_versions'
 
 fos_oauth_server:
   access_token_class: SuplaBundle\Entity\Main\OAuth\AccessToken
