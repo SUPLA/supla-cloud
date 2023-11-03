@@ -152,8 +152,9 @@ abstract class SuplaServer {
         $this->postponeCommand($command);
     }
 
-    public function postponeCommand(string $command): void {
-        $postponedCommand = ['command' => $command];
+    public function postponeCommand(string $command, array $params = []): void {
+        $commandString = $command . ($params ? ':' . implode(',', $params) : '');
+        $postponedCommand = ['command' => $commandString];
         if (!in_array($postponedCommand, $this->postponedCommands)) {
             $this->postponedCommands[] = $postponedCommand;
         }
@@ -173,8 +174,9 @@ abstract class SuplaServer {
         return $result !== false && preg_match("/^OK:" . $channel->getId() . "\n/", $result) === 1;
     }
 
-    public function reconnect(User $user = null): bool {
-        return $this->userAction('RECONNECT', [], $user);
+    public function reconnect(User $user = null): void {
+        $userId = $user ? $user->getId() : $this->getCurrentUserOrThrow()->getId();
+        $this->postponeCommand('USER-RECONNECT', [$userId]);
     }
 
     public function amazonAlexaCredentialsChanged(): bool {

@@ -300,7 +300,6 @@ class IODeviceController extends RestController {
                 ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
                 : !$request->get('confirm', false);
             if ($enabledChanged) {
-                // TODO migration
                 if (!$requestData['enabled'] && $shouldAsk) {
                     $dependencies = [];
                     foreach ($ioDevice->getChannels() as $channel) {

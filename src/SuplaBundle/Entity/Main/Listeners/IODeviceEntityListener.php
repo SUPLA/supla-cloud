@@ -14,7 +14,7 @@ class IODeviceEntityListener {
     public function postUpdate(IODevice $device, LifecycleEventArgs $args) {
         $changeArray = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($args->getObject());
         if (isset($changeArray['userConfig'])) {
-            $this->suplaServer->deviceAction($device, 'USER-ON-DEVICE-CONFIG-CHANGED');
+            $this->suplaServer->postponeCommand('USER-ON-DEVICE-CONFIG-CHANGED', [$device->getUser()->getId(), $device->getId()]);
         }
         if (isset($changeArray['comment']) || isset($changeArray['enabled']) || isset($changeArray['location'])) {
             $this->suplaServer->reconnect();
