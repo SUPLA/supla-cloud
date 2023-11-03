@@ -15,13 +15,13 @@
  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace SuplaBundle\Migrations;
+namespace <namespace>;
 
 /**
  * TODO comment
  */
-class Version<version> extends NoWayBackMigration {
+class <className> extends NoWayBackMigration {
 public function migrate() {
 <up>
     }
-    }
+}

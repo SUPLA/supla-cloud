@@ -26,6 +26,7 @@ class InitializeCommand extends Command {
         $this->getApplication()->setAutoExit(false);
         $this->getApplication()->run(new StringInput('supla:check-db-connection'), $output);
         $this->getApplication()->setCatchExceptions(false);
+        $this->getApplication()->run(new StringInput('doctrine:migrations:sync-metadata-storage --no-interaction'), $output);
         $this->getApplication()->run(new StringInput('doctrine:migrations:migrate --no-interaction --allow-no-migration'), $output);
         $this->getApplication()->run(new StringInput('messenger:setup-transports'), $output);
         foreach ($this->initializationCommands as $initializationCommand) {
