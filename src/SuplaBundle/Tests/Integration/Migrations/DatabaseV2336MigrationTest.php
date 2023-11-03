@@ -22,28 +22,43 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 /**
  * @see Version20220208164512
  */
-class Version20220208164512MigrationTest extends DatabaseMigrationTestCase {
+class DatabaseV2336MigrationTest extends DatabaseMigrationTestCase {
     /** @before */
     public function prepare() {
         $this->loadDumpV2336();
         $this->initialize();
     }
 
-    public function testMigratedElectricityMeterWithInitialValues() {
+    public function testMigratedCorrectly() {
+        $this->configHasBeenChangedCoorrectlyVersion20220208164512();
+    }
+
+    /**
+     * @see Version20220208164512
+     */
+    private function configHasBeenChangedCoorrectlyVersion20220208164512() {
+        $this->migratedElectricityMeterWithInitialValues();
+        $this->migratedElectricityMeterWithoutInitialValues();
+        $this->migratedImpulseCounterWithInitialValue();
+        $this->migratedImpulseCounterWithoutInitialValue();
+        $this->migratedNumberOfAttemptsToOpenOrClose();
+    }
+
+    private function migratedElectricityMeterWithInitialValues() {
         /** @var IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 143);
         $this->assertArrayHasKey('addToHistory', $channel->getUserConfig());
         $this->assertTrue($channel->getUserConfigValue('addToHistory'));
     }
 
-    public function testMigratedElectricityMeterWithoutInitialValues() {
+    private function migratedElectricityMeterWithoutInitialValues() {
         /** @var IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 73);
         $this->assertArrayHasKey('addToHistory', $channel->getUserConfig());
         $this->assertFalse($channel->getUserConfigValue('addToHistory'));
     }
 
-    public function testMigratedImpulseCounterWithInitialValue() {
+    private function migratedImpulseCounterWithInitialValue() {
         /** @var IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 185);
         $this->assertArrayHasKey('addToHistory', $channel->getUserConfig());
@@ -51,7 +66,7 @@ class Version20220208164512MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals(123, $channel->getUserConfigValue('initialValue'));
     }
 
-    public function testMigratedImpulseCounterWithoutInitialValue() {
+    private function migratedImpulseCounterWithoutInitialValue() {
         /** @var IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 195);
         $this->assertArrayHasKey('addToHistory', $channel->getUserConfig());
@@ -59,7 +74,7 @@ class Version20220208164512MigrationTest extends DatabaseMigrationTestCase {
         $this->assertEquals(0, $channel->getUserConfigValue('initialValue'));
     }
 
-    public function testMigratedNumberOfAttemptsToOpenOrClose() {
+    private function migratedNumberOfAttemptsToOpenOrClose() {
         /** @var \SuplaBundle\Entity\Main\IODeviceChannel $channel */
         $channel = $this->getEntityManager()->find(IODeviceChannel::class, 156);
         $this->assertArrayNotHasKey('numberOfAttemptsToOpenOrClose', $channel->getUserConfig());

@@ -17,22 +17,35 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
+use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 
-/**
- * @see Version20230815145146
- */
-class Version20230815145146MigrationTest extends DatabaseMigrationTestCase {
+class DatabaseV22MigrationTest extends DatabaseMigrationTestCase {
+    use ResponseAssertions;
+    use SuplaApiHelper;
+
     /** @before */
     public function prepare() {
-        $this->loadDumpV2207();
-        $this->initialize();
+        $this->loadDumpV22();
+        $this->migrate();
     }
 
-    public function testUserHomeCoordinatesCalculated() {
+    public function testMigratedCorrectly() {
+        $this->transitionToOauth2Version20180518131234();
+    }
+
+    /**
+     * @see Version20180518131234
+     */
+    private function transitionToOauth2Version20180518131234() {
+        $this->assertCompatFieldsAreSet();
+    }
+
+    private function assertCompatFieldsAreSet() {
         $user = $this->getEntityManager()->find(User::class, 1);
-        $this->assertEquals(52.5, EntityUtils::getField($user, 'homeLatitude'));
-        $this->assertEquals(13.36666, EntityUtils::getField($user, 'homeLongitude'));
+        $user->setOAuthOldApiCompatEnabled();
+        $this->assertEquals('api_1', $user->getUsername());
+        $this->assertEquals('$2y$04$0ydWylMOTNDnSA/GNhl.nulSldoCVbKCo4AyT3wrXnZwncnA2iqaa', $user->getPassword());
     }
 }
