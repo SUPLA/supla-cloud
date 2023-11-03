@@ -14,5 +14,6 @@
             <property name="absoluteLineLimit" value="180"/>
             <property name="ignoreComments" value="true"/>
         </properties>
+        <exclude-pattern>src/SuplaBundle/Migrations/*.php</exclude-pattern>
     </rule>
 </ruleset>

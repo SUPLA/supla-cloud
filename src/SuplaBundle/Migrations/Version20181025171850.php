@@ -10,8 +10,8 @@ use Doctrine\DBAL\Migrations\AbstractMigration;
  * access_id_id renamed to access_id,
  * New procedures. Ref. #67
  */
-class Version20181025171850 extends NoWayBackMigration
-{
+class Version20181025171850 extends NoWayBackMigration {
+
     public function migrate() {
 
         $this->addSql('CREATE TABLE supla_ic_log (id INT AUTO_INCREMENT NOT NULL, channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:utcdatetime)\', counter BIGINT NOT NULL, calculated_value BIGINT NOT NULL, INDEX channel_id_idx (channel_id), INDEX date_idx (date), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -223,5 +223,4 @@ END
 PROCEDURE
         );
     }
-
 }

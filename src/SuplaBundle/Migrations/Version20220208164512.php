@@ -172,7 +172,5 @@ RETURN result;
 END
 FUNC
         );
-
-
     }
 }
