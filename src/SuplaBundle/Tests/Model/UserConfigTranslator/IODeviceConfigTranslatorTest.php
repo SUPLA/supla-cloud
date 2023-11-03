@@ -20,6 +20,7 @@ namespace SuplaBundle\Tests\Model\UserConfigTranslator;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
+use SuplaBundle\Model\UserConfigTranslator\HvacThermostatConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 
 class IODeviceConfigTranslatorTest extends TestCase {
@@ -28,7 +29,8 @@ class IODeviceConfigTranslatorTest extends TestCase {
 
     /** @before */
     public function init() {
-        $this->translator = new IODeviceConfigTranslator();
+        $hvacConfigTranslator = $this->createMock(HvacThermostatConfigTranslator::class);
+        $this->translator = new IODeviceConfigTranslator($hvacConfigTranslator);
     }
 
     /** @dataProvider validConfigs */
@@ -38,7 +40,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
             'statusLed' => 'OFF_WHEN_CONNECTED',
             'screenBrightness' => 13,
             'buttonVolume' => 14,
-            'userInterfaceDisabled' => false,
+            'userInterface' => ['disabled' => false],
             'automaticTimeSync' => false,
             'homeScreen' => [],
         ]);
@@ -61,8 +63,13 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['buttonVolume' => 0]],
             [['buttonVolume' => 55]],
             [['buttonVolume' => 100]],
-            [['userInterfaceDisabled' => true]],
-            [['userInterfaceDisabled' => false]],
+            [['userInterface' => ['disabled' => true]]],
+            [['userInterface' => ['disabled' => false]]],
+            [['userInterface' => [
+                'disabled' => 'partial',
+                'minAllowedTemperatureSetpointFromLocalUI' => 10,
+                'maxAllowedTemperatureSetpointFromLocalUI' => 30,
+            ]]],
             [['automaticTimeSync' => true]],
             [['automaticTimeSync' => false]],
             [['homeScreen' => ['content' => 'NONE', 'offDelay' => 100]]],
@@ -91,8 +98,20 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['buttonVolume' => 120]],
             [['buttonVolume' => '50']],
             [['buttonVolume' => 50.3]],
-            [['userInterfaceDisabled' => 50.3]],
-            [['userInterfaceDisabled' => 'true']],
+            [['userInterface' => true]],
+            [['userInterface' => []]],
+            [['userInterface' => ['unicorn' => 'rainbow']]],
+            [['userInterface' => ['disabled' => true, 'unicorn' => 'rainbow']]],
+            [['userInterface' => [
+                'disabled' => 'partial',
+                'minAllowedTemperatureSetpointFromLocalUI' => 20,
+                'maxAllowedTemperatureSetpointFromLocalUI' => 10,
+            ]]],
+            [['userInterface' => [
+                'disabled' => 'partial',
+                'minAllowedTemperatureSetpointFromLocalUI' => -2000,
+                'maxAllowedTemperatureSetpointFromLocalUI' => 10,
+            ]]],
             [['automaticTimeSync' => 50.3]],
             [['automaticTimeSync' => 'true']],
             [['homeScreen' => ['content' => 'MAIN_AND_AUX_TEMPERATURE', 'offDelay' => 1000]]],
@@ -114,5 +133,30 @@ class IODeviceConfigTranslatorTest extends TestCase {
         $device = new IODevice();
         $this->translator->setConfig($device, ['homeScreenContentAvailable' => 'ALWAYS_OFF']);
         $this->assertEmpty($this->translator->getConfig($device));
+    }
+
+    public function testDefaultUserInterfaceConstraints() {
+        $device = new IODevice();
+        $device->setUserConfig(['userInterface' => ['disabled' => false]]);
+        $config = $this->translator->getConfig($device);
+        $this->assertArrayHasKey('userInterfaceConstraints', $config);
+        $this->assertEquals(-1000, $config['userInterfaceConstraints']['minAllowedTemperatureSetpoint']);
+        $this->assertEquals(1000, $config['userInterfaceConstraints']['maxAllowedTemperatureSetpoint']);
+    }
+
+    public function testSettingUserInterfacePartialWithoutTemperatures() {
+        $device = new IODevice();
+        $device->setUserConfig(['userInterface' => ['disabled' => false]]);
+        $this->translator->setConfig($device, ['userInterface' => ['disabled' => 'partial']]);
+        $config = $this->translator->getConfig($device);
+        $this->assertArrayHasKey('userInterface', $config);
+        $this->assertEquals(
+            $config['userInterfaceConstraints']['minAllowedTemperatureSetpoint'],
+            $config['userInterface']['minAllowedTemperatureSetpointFromLocalUI']
+        );
+        $this->assertEquals(
+            $config['userInterfaceConstraints']['maxAllowedTemperatureSetpoint'],
+            $config['userInterface']['maxAllowedTemperatureSetpointFromLocalUI']
+        );
     }
 }

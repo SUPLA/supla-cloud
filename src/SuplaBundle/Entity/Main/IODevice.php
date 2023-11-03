@@ -174,6 +174,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $properties;
 
     public function __construct() {
+        $this->channels = new ArrayCollection();
         $this->pushNotifications = new ArrayCollection();
     }
 

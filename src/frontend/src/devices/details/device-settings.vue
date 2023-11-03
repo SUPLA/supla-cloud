@@ -71,13 +71,44 @@
                             </div>
                         </transition-expand>
                     </div>
-                    <div class="mt-5">
-                        <div class="form-group" v-if="config.userInterfaceDisabled !== undefined">
-                            <label class="checkbox2 checkbox2-grey">
-                                <input type="checkbox" v-model="config.userInterfaceDisabled" @change="onChange()">
-                                {{ $t('Disable user interface') }}
-                            </label>
+                    <div class="form-group" v-if="config.userInterface">
+                        <label>{{ $t('User interface') }}</label>
+                        <div>
+                            <div class="btn-group">
+                                <button type="button" @click="config.userInterface.disabled = false; onChange()"
+                                    :class="['btn', config.userInterface.disabled === false ? 'btn-green' : 'btn-white']">
+                                    {{ $t('Unlocked') }}
+                                </button>
+                                <button type="button" @click="config.userInterface.disabled = true; onChange()"
+                                    :class="['btn', config.userInterface.disabled === true ? 'btn-green' : 'btn-white']">
+                                    {{ $t('Locked') }}
+                                </button>
+                                <button type="button" @click="config.userInterface.disabled = 'partial'; onChange()"
+                                    :class="['btn', config.userInterface.disabled === 'partial' ? 'btn-green' : 'btn-white']">
+                                    {{ $t('Temperature adjustment only') }}
+                                </button>
+                            </div>
                         </div>
+                        <div class="pl-4 mt-3" v-if="config.userInterface.disabled === 'partial'">
+                            <div class="form-group">
+                                <label>{{ $t('Minimum temperature that can be set from the device') }}</label>
+                                <input type="number" class="form-control" step="0.1"
+                                    @change="onChange()"
+                                    v-model="config.userInterface.minAllowedTemperatureSetpointFromLocalUI"
+                                    :max="config.userInterface.maxAllowedTemperatureSetpointFromLocalUI || maxUiTemperature"
+                                    :min="minUiTemperature" :placeholder="minUiTemperature">
+                            </div>
+                            <div class="form-group">
+                                <label>{{ $t('Maximum temperature that can be set from the device') }}</label>
+                                <input type="number" class="form-control" step="0.1"
+                                    @change="onChange()"
+                                    v-model="config.userInterface.maxAllowedTemperatureSetpointFromLocalUI"
+                                    :min="config.userInterface.minAllowedTemperatureSetpointFromLocalUI || minUiTemperature"
+                                    :max="maxUiTemperature" :placeholder="maxUiTemperature">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
                         <div class="form-group" v-if="config.automaticTimeSync !== undefined">
                             <label class="checkbox2 checkbox2-grey">
                                 <input type="checkbox" v-model="config.automaticTimeSync" @change="onChange()">
@@ -175,6 +206,9 @@
                 if (config.homeScreen && !this.homeScreenOff) {
                     config.homeScreen.offDelay = 0;
                 }
+                if (config.userInterface && config.userInterface.disabled !== 'partial') {
+                    config.userInterface = {disabled: config.userInterface.disabled};
+                }
                 this.$http.put(`iodevices/${this.device.id}`, {config, configBefore: this.device.configBefore}, {skipErrorHandler: [409]})
                     .then(response => {
                         this.device.config = response.body.config;
@@ -211,6 +245,14 @@
                 }
             },
         },
+        computed: {
+            minUiTemperature() {
+                return this.config.userInterfaceConstraints?.minAllowedTemperatureSetpoint;
+            },
+            maxUiTemperature() {
+                return this.config.userInterfaceConstraints?.maxAllowedTemperatureSetpoint
+            },
+        }
     }
 </script>
 

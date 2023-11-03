@@ -53,6 +53,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($location);
+        $this->flush();
         $this->hvacChannel = $this->device->getChannels()[2];
     }
 
@@ -682,5 +683,16 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), ['locationId' => $location->getId()]);
         $this->assertEquals($location->getId(), $this->freshEntity($this->hvacChannel)->getLocation()->getId());
         $this->assertEquals($location->getId(), $this->freshEntity($this->device->getChannels()[1])->getLocation()->getId());
+    }
+
+    public function testGettingHvacDeviceConfig() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('GET', '/api/iodevices/' . $this->device->getId());
+        $this->assertStatusCode(200, $client->getResponse());
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $config = $response['config'];
+        $this->assertArrayHasKey('userInterfaceConstraints', $config);
+        $this->assertEquals(11, $config['userInterfaceConstraints']['minAllowedTemperatureSetpoint']);
+        $this->assertEquals(39, $config['userInterfaceConstraints']['maxAllowedTemperatureSetpoint']);
     }
 }

@@ -181,7 +181,7 @@ class DevicesFixture extends SuplaFixture {
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],
                         'temperatures' => [
                             'roomMin' => 1000,
-                            'roomMax' => 4000,
+                            'roomMax' => 3900,
                             'auxMin' => 500,
                             'auxMax' => 5000,
                             'histeresisMin' => 100,
@@ -231,7 +231,7 @@ class DevicesFixture extends SuplaFixture {
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE'],
                         'temperatures' => [
-                            'roomMin' => 1000,
+                            'roomMin' => 1100,
                             'roomMax' => 4000,
                             'auxMin' => 500,
                             'auxMax' => 5000,
@@ -253,7 +253,7 @@ class DevicesFixture extends SuplaFixture {
                         'minOffTimeS' => 120,
                         'outputValueOnError' => 42,
                         'temperatures' => [
-                            'freezeProtection' => 1000,
+                            'freezeProtection' => 1100,
                             'eco' => 1800,
                             'comfort' => 2000,
                             'boost' => 2500,
@@ -320,7 +320,7 @@ class DevicesFixture extends SuplaFixture {
                 'statusLed' => 'OFF_WHEN_CONNECTED',
                 'screenBrightness' => 13,
                 'buttonVolume' => 14,
-                'userInterfaceDisabled' => false,
+                'userInterface' => ['disabled' => false],
                 'automaticTimeSync' => false,
                 'homeScreen' => ['content' => 'TEMPERATURE', 'offDelay' => 60],
             ]),
