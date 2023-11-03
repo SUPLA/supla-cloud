@@ -40,8 +40,9 @@
                                                 @input="updateDevice()"></toggler>
                                         </dt>
                                     </dl>
-                                    <device-enter-configuration-mode-button :device="device"></device-enter-configuration-mode-button>
                                 </div>
+                                <DeviceEnterConfigurationModeButton :device="device"/>
+                                <DeviceSetTimeButton :device="device"/>
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Location') }}</h3>
@@ -134,10 +135,12 @@
     import DeviceEnterConfigurationModeButton from "./device-enter-configuration-mode-button";
     import DeviceDetailsTabs from "@/devices/details/device-details-tabs.vue";
     import {extendObject} from "@/common/utils";
+    import DeviceSetTimeButton from "@/devices/details/device-set-time-button.vue";
 
     export default {
         props: ['id'],
         components: {
+            DeviceSetTimeButton,
             DeviceDetailsTabs,
             DeviceEnterConfigurationModeButton,
             DependenciesWarningModal,

@@ -132,6 +132,6 @@ class IODeviceConfigTranslator {
         return [
             'minAllowedTemperatureSetpoint' => $roomMins ? max($roomMins) : -1000,
             'maxAllowedTemperatureSetpoint' => $roomMaxs ? min($roomMaxs) : 1000,
-        ];;
+        ];
     }
 }

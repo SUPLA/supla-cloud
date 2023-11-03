@@ -114,26 +114,11 @@
                                 <input type="checkbox" v-model="config.automaticTimeSync" @change="onChange()">
                                 {{ $t('Automatic time synchronization') }}
                             </label>
-                            <div class="d-flex">
-                                <div v-if="!config.automaticTimeSync"
-                                    v-tooltip.bottom="hasPendingChanges ? $t('Save or discard configuration changes first.') : ''">
-                                    <a :class="{disabled: hasPendingChanges}" @click="setDeviceTime()">{{ $t('Set the device time') }}</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </pending-changes-page>
-        <modal-confirm v-if="deviceTime"
-            :header="$t('Set the device time')"
-            :loading="settingDeviceTime"
-            @cancel="deviceTime = undefined"
-            @confirm="setDeviceTime(deviceTime)">
-            <div class="form-group">
-                <input type="datetime-local" v-model="deviceTime" class="form-control">
-            </div>
-        </modal-confirm>
     </div>
 </template>
 
@@ -144,8 +129,6 @@
     import TransitionExpand from "@/common/gui/transition-expand.vue";
     import {prettyMilliseconds} from "@/common/filters";
     import ConfigConflictWarning from "@/channels/config-conflict-warning.vue";
-    import {DateTime} from "luxon";
-    import {successNotification} from "@/common/notifier";
 
     export default {
         components: {
@@ -170,8 +153,6 @@
                     ...[6, 7, 8, 9, 10, 15, 20, 30].map(k => k * 60)
                 ],
                 conflictingConfig: false,
-                deviceTime: undefined,
-                settingDeviceTime: false,
             };
         },
         beforeMount() {
@@ -229,20 +210,6 @@
                 this.device.configBefore = deepCopy(this.device.config);
                 this.conflictingConfig = false;
                 this.cancelChanges();
-            },
-            setDeviceTime(deviceTime) {
-                if (deviceTime) {
-                    const time = DateTime.fromISO(deviceTime).startOf('second').toISO({suppressMilliseconds: true});
-                    this.settingDeviceTime = true;
-                    this.$http.patch(`iodevices/${this.device.id}`, {action: 'setTime', time}).then(() => {
-                        this.deviceTime = undefined;
-                        successNotification(this.$t('Success'), this.$t('Device time has been set.'));
-                    }).finally(() => this.settingDeviceTime = false);
-                } else {
-                    this.deviceTime = DateTime.now()
-                        .startOf('second')
-                        .toISO({includeOffset: false, suppressMilliseconds: true});
-                }
             },
         },
         computed: {
