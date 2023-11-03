@@ -202,6 +202,11 @@ services:
   SuplaBundle\EventListener\FlushSuplaServerCommandsOnResponseListener:
     tags: ['kernel.event_listener']
 
+  Doctrine\Migrations\Version\DbalMigrationFactory: ~
+  SuplaBundle\Migrations\Factory\MigrationFactoryDecorator:
+    decorates: Doctrine\Migrations\Version\DbalMigrationFactory
+    arguments: ['@SuplaBundle\Migrations\Factory\MigrationFactoryDecorator.inner', '@service_container']
+
   SuplaBundle\ParamConverter\:
     resource: '../../../src/SuplaBundle/ParamConverter'
 

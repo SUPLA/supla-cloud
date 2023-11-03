@@ -67,6 +67,8 @@ doctrine_migrations:
   storage:
     table_storage:
       table_name: 'migration_versions'
+  services:
+    Doctrine\Migrations\Version\MigrationFactory: 'SuplaBundle\Migrations\Factory\MigrationFactoryDecorator'
 
 fos_oauth_server:
   access_token_class: SuplaBundle\Entity\Main\OAuth\AccessToken
