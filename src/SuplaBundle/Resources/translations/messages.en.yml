@@ -84,8 +84,13 @@ sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset
 sunset-before: the sunset
-thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: Setpoint at most
-thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: Setpoint middle
+thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: On/off with setpoint at most
+thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: On/off with setpoint middle
+thermostatAlgorithm_help: |
+  Algorithms on/off work based on histeresis setting. Histeresis can be applied with temperature setpoint in the middle of histeresis range (setpoint middle) or below/above temperature setpoint (setpoint at most).
+  I.e. histeresis 1 degree and temperature setpoint 23, will:
+  - for "setpoint middle": turn on heating when temperature is below 22.5 and turn off heating when temperature will go above 23.5
+  - for "setpoint at most": turn on heating when temperature is below 22 and turn off heating when temperature will go above 23
 thermostatSubfunction_COOL: Cooling
 thermostatSubfunction_HEAT: Heating
 thermostatTemperature_aboveAlarm: Above alarm
@@ -95,8 +100,8 @@ thermostatTemperature_belowAlarm: Below alarm
 thermostatTemperature_boost: Boost
 thermostatTemperature_comfort: Comfort
 thermostatTemperature_eco: ECO
-thermostatTemperature_freezeProtection: Freeze protection
-thermostatTemperature_heatProtection: Heat protection
+thermostatTemperature_freezeProtection: Anti-freeze temperature
+thermostatTemperature_heatProtection: Overheat temperature
 thermostatTemperature_histeresis: Histeresis
 
 #</editor-fold>
@@ -117,5 +122,8 @@ homeScreenContent_TIME_DATE: Date and time
 statusLed_ALWAYS_OFF: Always off
 statusLed_OFF_WHEN_CONNECTED: Off when connected
 statusLed_ON_WHEN_CONNECTED: On when connected
+thermostatOutputValue_help: >
+  By default thermostat should have output disabled in case of some critical error (like missing temperature measurement). 
+  Don't change it unless your are sure what you are doing.
 
 #</editor-fold>

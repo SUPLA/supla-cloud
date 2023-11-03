@@ -13,11 +13,7 @@
             data-style="btn-default btn-wrapped"
             v-model="chosenChannel"
             @change="$emit('input', chosenChannel)">
-            <option :value="undefined"
-                :title="$t('choose the channel')"
-                v-if="!hideNone && chosenChannel">
-                {{ $t('None') }}
-            </option>
+            <option :value="undefined" v-if="!hideNone && chosenChannel">{{ $t('None') }}</option>
             <option v-for="channel in channelsForDropdown"
                 :key="channel.id"
                 :value="channel"
@@ -36,7 +32,7 @@
     import {channelIconUrl} from "../common/filters";
 
     export default {
-        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'dropdownContainer'],
+        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'dropdownContainer', 'choosePromptI18n'],
         components: {ButtonLoadingDots},
         data() {
             return {
@@ -106,7 +102,7 @@
             },
             selectOptions() {
                 return {
-                    noneSelectedText: this.$t('choose the channel'),
+                    noneSelectedText: this.choosePromptI18n ? this.$t(this.choosePromptI18n) : this.$t('choose the channel'),
                     liveSearchPlaceholder: this.$t('Search'),
                     noneResultsText: this.$t('No results match {0}'),
                 };

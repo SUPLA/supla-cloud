@@ -63,7 +63,20 @@
                         <transition-expand>
                             <div v-if="channel.config.auxThermometerType !== 'DISABLED'">
                                 <dl>
-                                    <dd>{{ $t('Enable aux min and max setpoints') }}</dd>
+                                    <dd>
+                                        <span v-if="channel.config.auxThermometerType === 'FLOOR'">
+                                            {{ $t('Enable floor temperature control') }}
+                                        </span>
+                                        <span v-else-if="channel.config.auxThermometerType === 'WATER'">
+                                            {{ $t('Enable water temperature control') }}
+                                        </span>
+                                        <span v-else-if="channel.config.auxThermometerType === 'GENERIC_HEATER'">
+                                            {{ $t('Enable generic heater temperature control') }}
+                                        </span>
+                                        <span v-else-if="channel.config.auxThermometerType === 'GENERIC_COOLER'">
+                                            {{ $t('Enable generic cooler temperature control') }}
+                                        </span>
+                                    </dd>
                                     <dt class="text-center">
                                         <toggler v-model="channel.config.auxMinMaxSetpointEnabled" @input="$emit('change')"/>
                                     </dt>
@@ -95,12 +108,12 @@
         </transition-expand>
         <a class="d-flex accordion-header" @click="displayGroup('freeze')">
             <span class="flex-grow-1" v-if="freezeHeatProtectionTemperatures.length === 2">
-                {{ $t('Anti freeze and overheat protection') }}
+                {{ $t('Anti-freeze and overheat protection') }}
             </span>
             <span class="flex-grow-1" v-else-if="freezeHeatProtectionTemperatures[0].name === 'heatProtection'">
                 {{ $t('Overheat protection') }}
             </span>
-            <span class="flex-grow-1" v-else>{{ $t('Anti freeze protection') }}</span>
+            <span class="flex-grow-1" v-else>{{ $t('Anti-freeze protection') }}</span>
             <span>
                 <fa :icon="group === 'freeze' ? 'chevron-down' : 'chevron-right'"/>
             </span>
@@ -143,33 +156,44 @@
         <transition-expand>
             <div v-show="group === 'behavior'">
                 <dl>
-                    <dd>{{ $t('Related binary sensor') }}</dd>
+                    <dd>{{ $t('External sensor disabling the thermostat') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`type=SENSORNO&deviceIds=${channel.iodeviceId}`"
+                            choose-prompt-i18n="Function disabled"
                             v-model="channel.config.binarySensorChannelId"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
                 </dl>
-                <dl v-if="channel.config.availableAlgorithms.length > 1">
-                    <dd>{{ $t('Algorithm') }}</dd>
-                    <dt>
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
-                                {{ $t(`thermostatAlgorithm_${channel.config.usedAlgorithm}`) }}
-                                <span class="caret"></span>
-                            </button>
-                            <!-- i18n:['thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE', 'thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST'] -->
-                            <ul class="dropdown-menu">
-                                <li v-for="type in channel.config.availableAlgorithms" :key="type">
-                                    <a @click="channel.config.usedAlgorithm = type; $emit('change')"
-                                        v-show="type !== channel.config.usedAlgorithm">
-                                        {{ $t(`thermostatAlgorithm_${type}`) }}
-                                    </a>
-                                </li>
-                            </ul>
+                <div v-if="channel.config.availableAlgorithms.length > 1">
+                    <dl>
+                        <dd>
+                            {{ $t('Algorithm') }}
+                            <a @click="algorithmHelpShown = !algorithmHelpShown"><i class="pe-7s-help1"></i></a>
+                        </dd>
+                        <dt>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle btn-block btn-wrapped" type="button" data-toggle="dropdown">
+                                    {{ $t(`thermostatAlgorithm_${channel.config.usedAlgorithm}`) }}
+                                    <span class="caret"></span>
+                                </button>
+                                <!-- i18n:['thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE', 'thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST'] -->
+                                <ul class="dropdown-menu">
+                                    <li v-for="type in channel.config.availableAlgorithms" :key="type">
+                                        <a @click="channel.config.usedAlgorithm = type; $emit('change')"
+                                            v-show="type !== channel.config.usedAlgorithm">
+                                            {{ $t(`thermostatAlgorithm_${type}`) }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </dt>
+                    </dl>
+                    <transition-expand>
+                        <div class="well small text-muted p-2 display-newlines" v-if="algorithmHelpShown">
+                            {{ $t('thermostatAlgorithm_help') }}
                         </div>
-                    </dt>
-                </dl>
+                    </transition-expand>
+                </div>
                 <dl>
                     <template v-for="temp in histeresisTemperatures">
                         <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
@@ -188,7 +212,13 @@
                     </template>
                 </dl>
                 <dl>
-                    <dd>{{ $t('Minimum time when turned on') }}</dd>
+                    <dd>
+                        <span v-if="heatAvailable && !coolAvailable">{{ $t('Minimum ON time before heating can be turned off') }}</span>
+                        <span v-else-if="!heatAvailable && coolAvailable">
+                            {{ $t('Minimum ON time before cooling can be turned off') }}
+                        </span>
+                        <span v-else>{{ $t('Minimum ON time before heating/cooling can be turned off') }}</span>
+                    </dd>
                     <dt>
                         <span class="input-group">
                             <input type="number"
@@ -203,7 +233,13 @@
                             </span>
                         </span>
                     </dt>
-                    <dd>{{ $t('Minimum time when turned off') }}</dd>
+                    <dd>
+                        <span v-if="heatAvailable && !coolAvailable">{{ $t('Minimum OFF time before heating can be turned on') }}</span>
+                        <span v-else-if="!heatAvailable && coolAvailable">
+                            {{ $t('Minimum OFF time before cooling can be turned on') }}
+                        </span>
+                        <span v-else>{{ $t('Minimum OFF time before heating/cooling can be turned on') }}</span>
+                    </dd>
                     <dt>
                         <span class="input-group">
                             <input type="number"
@@ -218,7 +254,10 @@
                             </span>
                         </span>
                     </dt>
-                    <dd>{{ $t('Output value on error') }}</dd>
+                    <dd>
+                        {{ $t('Output value on error') }}
+                        <a @click="outputValueHelpShown = !outputValueHelpShown"><i class="pe-7s-help1"></i></a>
+                    </dd>
                     <dt>
                         <div class="btn-group btn-group-flex">
                             <a :class="'btn ' + (channel.config.outputValueOnError == possibleValue.value ? 'btn-green' : 'btn-default')"
@@ -229,6 +268,11 @@
                             </a>
                         </div>
                     </dt>
+                    <transition-expand>
+                        <div class="well small text-muted p-2 display-newlines" v-if="outputValueHelpShown">
+                            {{ $t('thermostatOutputValue_help') }}
+                        </div>
+                    </transition-expand>
                     <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
                     <dt class="text-center">
                         <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"/>
@@ -250,6 +294,8 @@
         data() {
             return {
                 group: undefined,
+                algorithmHelpShown: false,
+                outputValueHelpShown: false,
             };
         },
         methods: {
@@ -327,10 +373,10 @@
             },
             freezeHeatProtectionTemperatures() {
                 const temps = [];
-                if (this.channel.function.id === ChannelFunction.HVAC_THERMOSTAT_AUTO || this.channel.config.subfunction !== 'COOL') {
+                if (this.heatAvailable) {
                     temps.push(this.availableTemperatures.find(t => t.name === 'freezeProtection'));
                 }
-                if (this.channel.function.id === ChannelFunction.HVAC_THERMOSTAT_AUTO || this.channel.config.subfunction === 'COOL') {
+                if (this.coolAvailable) {
                     temps.push(this.availableTemperatures.find(t => t.name === 'heatProtection'));
                 }
                 return temps.filter(a => a);
@@ -342,14 +388,26 @@
             },
             possibleOutputValueOnErrorValues() {
                 const values = [{value: 0, label: 'off'}]; // i18n
-                if (this.channel.function.id === ChannelFunction.HVAC_THERMOSTAT_AUTO || this.channel.config.subfunction === 'COOL') {
+                if (this.coolAvailable) {
                     values.push({value: -100, label: 'cool'}); // i18n
                 }
-                if (this.channel.config.subfunction !== 'COOL') {
+                if (this.heatAvailable) {
                     values.push({value: 100, label: 'heat'}); // i18n
                 }
                 return values;
-            }
+            },
+            heatAvailable() {
+                const heatFunctions = [
+                    ChannelFunction.HVAC_THERMOSTAT_AUTO,
+                    ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
+                    ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
+                ];
+                return heatFunctions.includes(this.channel.functionId) || this.channel.config?.subfunction === 'HEAT';
+            },
+            coolAvailable() {
+                return [ChannelFunction.HVAC_THERMOSTAT_AUTO].includes(this.channel.functionId)
+                    || this.channel.config?.subfunction === 'COOL';
+            },
         },
         watch: {
             'channel.config.mainThermometerChannelId'() {
