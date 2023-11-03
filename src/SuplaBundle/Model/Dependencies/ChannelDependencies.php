@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+use SuplaBundle\Repository\IODeviceChannelRepository;
 
 /**
  * This class is responsible for detecting and possibly clearing all items that rely on the given channel (and its function).
@@ -15,20 +16,25 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     private $scheduleManager;
     /** @var ChannelGroupDependencies */
     private $channelGroupDependencies;
+    /** @var IODeviceChannelRepository */
+    private $channelRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         SubjectConfigTranslator $channelParamConfigTranslator,
         ScheduleManager $scheduleManager,
-        ChannelGroupDependencies $channelGroupDependencies
+        ChannelGroupDependencies $channelGroupDependencies,
+        IODeviceChannelRepository $channelRepository
     ) {
         parent::__construct($entityManager, $channelParamConfigTranslator);
         $this->scheduleManager = $scheduleManager;
         $this->channelGroupDependencies = $channelGroupDependencies;
+        $this->channelRepository = $channelRepository;
     }
 
     public function getDependencies(IODeviceChannel $channel): array {
         return [
+            'channels' => $this->findDependentChannels($channel),
             'channelGroups' => $channel->getChannelGroups()->toArray(),
             'directLinks' => $channel->getDirectLinks()->toArray(),
             'schedules' => $channel->getSchedules()->toArray(),
@@ -66,5 +72,17 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($reaction);
         }
         $this->clearActionTriggersThatReferencesSubject($channel);
+    }
+
+    private function findDependentChannels(IODeviceChannel $channel): array {
+        $config = $this->channelParamConfigTranslator->getConfig($channel);
+        $channels = [];
+        foreach ($config as $key => $value) {
+            if ((strpos($key, 'ChannelId') > 0) && is_int($value) && $value > 0) {
+                $channels[] = $this->entityManager->find(IODeviceChannel::class, $value);
+            }
+        }
+        $channels = array_merge($channels, $this->channelRepository->findActionTriggers($channel));
+        return $channels;
     }
 }

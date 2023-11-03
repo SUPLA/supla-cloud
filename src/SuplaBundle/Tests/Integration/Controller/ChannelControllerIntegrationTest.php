@@ -346,7 +346,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->getEntityManager()->refresh($gateChannel);
         $this->assertEquals($sensorChannel->getId(), $gateChannel->getParam2());
         SuplaServerMock::reset();
-        $client->apiRequestV23('PUT', '/api/channels/' . $sensorChannel->getId(), [
+        $client->apiRequestV24('PUT', '/api/channels/' . $sensorChannel->getId(), [
             'functionId' => ChannelFunction::OPENINGSENSOR_GARAGEDOOR,
         ]);
         $this->assertStatusCode(200, $client->getResponse());
@@ -358,7 +358,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,70,%d',
             $sensorChannel->getIoDevice()->getId(),
             $sensorChannel->getId(),
-            ChannelConfigChangeScope::CHANNEL_FUNCTION | ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC
+            ChannelConfigChangeScope::CHANNEL_FUNCTION
         ));
         $this->assertSuplaCommandExecuted(sprintf(
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
@@ -1264,5 +1264,81 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             ],
             array_intersect_key($channelParamConfigTranslator->getConfig($gateChannel), $initialConfig)
         );
+    }
+
+    public function testCannotChangeLocationOfPairedChannelWithoutConfirmation() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $device1 = $this->createDevice($this->createLocation($this->user), [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $device2 = $this->createDevice($this->createLocation($this->user), [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+        ]);
+        $sensorChannel = $device1->getChannels()[0];
+        $gateChannel = $device2->getChannels()[0];
+        $channelParamConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $this->flush();
+        $location = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $gateChannel->getId() . '?safe=true', [
+            'locationId' => $location->getId(),
+        ]);
+        $this->assertStatusCode(409, $client->getResponse());
+        return [$gateChannel->getId(), $sensorChannel->getId(), $location->getId()];
+    }
+
+    /** @depends testCannotChangeLocationOfPairedChannelWithoutConfirmation */
+    public function testChangingLocationOfDependentChannelsWhenConfirmed($ids) {
+        [$gateId, $sensorId, $locationId] = $ids;
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $gateId, [
+            'locationId' => $locationId,
+        ]);
+        $gate = $this->freshEntityById(IODeviceChannel::class, $gateId);
+        $sensor = $this->freshEntityById(IODeviceChannel::class, $sensorId);
+        $this->assertEquals($locationId, $gate->getLocation()->getId());
+        $this->assertEquals($locationId, $sensor->getLocation()->getId());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
+            $gate->getIoDevice()->getId(),
+            $gate->getId(),
+            ChannelConfigChangeScope::LOCATION
+        ));
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,60,%d',
+            $sensor->getIoDevice()->getId(),
+            $sensor->getId(),
+            ChannelConfigChangeScope::LOCATION
+        ));
+        return $ids;
+    }
+
+    /** @depends testChangingLocationOfDependentChannelsWhenConfirmed */
+    public function testChangingLocationToInheritedWithDependencies($ids) {
+        [$gateId, $sensorId, $locationId] = $ids;
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $gateId, [
+            'inheritedLocation' => true,
+        ]);
+        $gate = $this->freshEntityById(IODeviceChannel::class, $gateId);
+        $sensor = $this->freshEntityById(IODeviceChannel::class, $sensorId);
+        $this->assertNotEquals($locationId, $gate->getLocation()->getId());
+        $this->assertEquals($gate->getIoDevice()->getLocation()->getId(), $gate->getLocation()->getId());
+        $this->assertEquals($gate->getLocation()->getId(), $sensor->getLocation()->getId());
+        $this->assertTrue($gate->hasInheritedLocation());
+        $this->assertFalse($sensor->hasInheritedLocation());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
+            $gate->getIoDevice()->getId(),
+            $gate->getId(),
+            ChannelConfigChangeScope::LOCATION
+        ));
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,60,%d',
+            $sensor->getIoDevice()->getId(),
+            $sensor->getId(),
+            ChannelConfigChangeScope::LOCATION
+        ));
+        return $ids;
     }
 }

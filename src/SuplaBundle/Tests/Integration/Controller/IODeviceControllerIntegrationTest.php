@@ -25,6 +25,7 @@ use SuplaBundle\Entity\Main\Location;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
+use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
@@ -621,5 +622,119 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('details', $content);
         $this->assertEquals('ALWAYS_OFF', $content['details']['config']['statusLed']);
         $this->assertEquals('statusLed', $content['details']['conflictingField']);
+    }
+
+    public function testChangingLocation() {
+        $device = $this->createDevice($this->createLocation($this->user), [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $anotherLocation = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId() . '?safe=true', [
+            'locationId' => $anotherLocation->getId(),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $device = $this->freshEntity($device);
+        $this->assertEquals($anotherLocation->getId(), $device->getLocation()->getId());
+    }
+
+    public function testChangingLocationOfADeviceWithChannelRelationsSafe() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $location = $this->createLocation($this->user);
+        $device1 = $this->createDevice($location, [[ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE]]);
+        $device2 = $this->createDevice($location, [[ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE]]);
+        $sensorChannel = $device1->getChannels()[0];
+        $gateChannel = $device2->getChannels()[0];
+        $channelParamConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $this->flush();
+        $anotherLocation = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device1->getId() . '?safe=true', [
+            'locationId' => $anotherLocation->getId(),
+        ]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent());
+        $this->assertEquals([$gateChannel->getId()], array_column($content->channels, 'id'));
+        return [$device1->getId(), $device2->getId()];
+    }
+
+    /** @depends testChangingLocationOfADeviceWithChannelRelationsSafe */
+    public function testChangingLocationOfADeviceWithChannelRelationsConfirm($ids) {
+        [$device1Id, $device2Id] = $ids;
+        $device1 = $this->freshEntityById(IODevice::class, $device1Id);
+        $device2 = $this->freshEntityById(IODevice::class, $device2Id);
+        $sensorChannel = $device1->getChannels()[0];
+        $gateChannel = $device2->getChannels()[0];
+        $anotherLocation = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device1->getId(), [
+            'locationId' => $anotherLocation->getId(),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($device1)->getLocation()->getId());
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($sensorChannel)->getLocation()->getId());
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($gateChannel)->getLocation()->getId());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
+            $gateChannel->getIoDevice()->getId(),
+            $gateChannel->getId(),
+            ChannelConfigChangeScope::LOCATION
+        ));
+        return [$device1->getId(), $device2->getId()];
+    }
+
+    /** @depends testChangingLocationOfADeviceWithChannelRelationsConfirm */
+    public function testChangingLocationOfADeviceWithChannelRelationsButNotInheritedLocation($ids) {
+        [$device1Id, $device2Id] = $ids;
+        $device1 = $this->freshEntityById(IODevice::class, $device1Id);
+        $device2 = $this->freshEntityById(IODevice::class, $device2Id);
+        $sensorChannel = $device1->getChannels()[0];
+        $sensorChannel->setLocation($device1->getLocation());
+        $this->persist($sensorChannel);
+        $gateChannel = $device2->getChannels()[0];
+        $anotherLocation = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device1->getId() . '?safe=true', [
+            'locationId' => $anotherLocation->getId(),
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($device1)->getLocation()->getId());
+        $this->assertEquals($sensorChannel->getLocation()->getId(), $this->freshEntity($sensorChannel)->getLocation()->getId());
+        $this->assertEquals($sensorChannel->getLocation()->getId(), $this->freshEntity($gateChannel)->getLocation()->getId());
+    }
+
+    public function testChangingLocationOfADeviceWithChannelRelationsToEachOtherSafe() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $location = $this->createLocation($this->user);
+        $device = $this->createDevice($location, [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+        ]);
+        $sensorChannel = $device->getChannels()[0];
+        $gateChannel = $device->getChannels()[1];
+        $channelParamConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $this->flush();
+        $anotherLocation = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId() . '?safe=true', ['locationId' => $anotherLocation->getId()]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent());
+        $this->assertEquals([$gateChannel->getId(), $sensorChannel->getId()], array_column($content->channels, 'id'));
+        return [$device->getId()];
+    }
+
+    /** @depends testChangingLocationOfADeviceWithChannelRelationsToEachOtherSafe */
+    public function testChangingLocationOfADeviceWithChannelRelationsToEachOtherConfirm(array $ids) {
+        [$deviceId] = $ids;
+        $device = $this->freshEntityById(IODevice::class, $deviceId);
+        $sensorChannel = $device->getChannels()[0];
+        $gateChannel = $device->getChannels()[1];
+        $anotherLocation = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId(), ['locationId' => $anotherLocation->getId()]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($device)->getLocation()->getId());
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($sensorChannel)->getLocation()->getId());
+        $this->assertEquals($anotherLocation->getId(), $this->freshEntity($gateChannel)->getLocation()->getId());
     }
 }

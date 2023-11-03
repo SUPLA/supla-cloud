@@ -44,8 +44,8 @@
                                     </div>
                                     <div class="details-page-block text-center">
                                         <h3 class="text-center">{{ $t('Location') }}</h3>
-                                        <square-location-chooser v-model="scene.location"
-                                            @input="sceneChanged()"></square-location-chooser>
+                                        <SquareLocationChooser v-model="scene.location"
+                                            @chosen="changeLocation($event)"></SquareLocationChooser>
                                     </div>
                                     <div v-if="scene.id"
                                         class="details-page-block">
@@ -169,6 +169,10 @@
             },
             sceneChanged() {
                 this.hasPendingChanges = true;
+            },
+            changeLocation(location) {
+                this.$set(this.scene, 'location', location);
+                this.sceneChanged();
             },
             saveScene() {
                 this.displayValidationErrors = true;

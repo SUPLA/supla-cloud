@@ -51,8 +51,7 @@
                                     {{ $t('Original location') }}
                                     <strong>{{ device.originalLocation.caption }}</strong>
                                 </router-link>
-                                <square-location-chooser v-model="device.location"
-                                    @input="onLocationChange($event)"></square-location-chooser>
+                                <SquareLocationChooser v-model="device.location" @chosen="changeLocation($event)"/>
                             </div>
                             <div class="col-sm-4">
                                 <h3>{{ $t('Access ID') }}</h3>
@@ -110,6 +109,16 @@
             :dependencies="dependenciesThatPreventsDeletion"
             @confirm="deleteDevice(false)"
             @cancel="dependenciesThatPreventsDeletion = undefined"></dependencies-warning-modal>
+        <dependencies-warning-modal
+            header-i18n="Are you sure you want to change device’s location?"
+            description-i18n="Changing the location will also imply changing the location of the following items."
+            deleting-header-i18n=""
+            removing-header-i18n=""
+            :loading="loading"
+            v-if="dependenciesThatWillChangeLocation"
+            :dependencies="dependenciesThatWillChangeLocation"
+            @cancel="loading = dependenciesThatWillChangeLocation = undefined"
+            @confirm="changeLocation(dependenciesThatWillChangeLocation.newLocation, false)"></dependencies-warning-modal>
     </page-container>
 </template>
 
@@ -146,7 +155,8 @@
                 deleteConfirm: false,
                 hasPendingChanges: false,
                 dependenciesThatWillBeDisabled: undefined,
-                dependenciesThatPreventsDeletion: undefined
+                dependenciesThatPreventsDeletion: undefined,
+                dependenciesThatWillChangeLocation: undefined,
             };
         },
         mounted() {
@@ -202,10 +212,21 @@
                     })
                     .finally(() => this.loading = this.deleteConfirm = false);
             },
-            onLocationChange(location) {
-                this.$set(this.device, 'location', location);
-                this.updateDevice();
-            }
+            changeLocation(location, safe = true) {
+                this.loading = true;
+                return this.$http.put(`iodevices/${this.id}${safe ? '?safe=1' : ''}`, {locationId: location.id}, {skipErrorHandler: [409]})
+                    .then(() => {
+                        this.dependenciesThatWillChangeLocation = undefined;
+                        this.$set(this.device, 'location', location);
+                    })
+                    .catch(response => {
+                        if (response.status === 409) {
+                            this.dependenciesThatWillChangeLocation = response.body;
+                            this.dependenciesThatWillChangeLocation.newLocation = location;
+                        }
+                    })
+                    .finally(() => this.loading = false);
+            },
         },
         computed: {
             deviceTitle() {

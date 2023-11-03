@@ -286,6 +286,9 @@ class ChannelController extends RestController {
             $newFunction = false;
             $functionHasBeenChanged = false;
             $newConfigToSet = $requestData['config'] ?? [];
+            $changesConfirmed = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
+                ? !filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
+                : $request->get('confirm');
             if (ApiVersions::V3()->isRequestedEqualOrGreaterThan($request) && isset($requestData['config'])) {
                 Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
                 Assertion::isArray($requestData['config'], null, 'config');
@@ -303,10 +306,7 @@ class ChannelController extends RestController {
                         array_merge([ChannelFunction::NONE], EntityUtils::mapToIds(ChannelFunction::forChannel($channel))),
                         'Invalid function for channel.' // i18n
                     );
-                    $shouldConfirm = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
-                        ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
-                        : !$request->get('confirm');
-                    if ($shouldConfirm) {
+                    if (!$changesConfirmed) {
                         $dependencies = $channelDependencies->getDependencies($channel);
                         if (array_filter($dependencies)) {
                             $view = $this->view($dependencies, Response::HTTP_CONFLICT);
@@ -338,15 +338,22 @@ class ChannelController extends RestController {
                 $channelToReadConfig->setTextParam3($requestData['textParam3'] ?? null);
                 $newConfigToSet = $paramConfigTranslator->getConfig($channelToReadConfig);
             }
+            $newLocation = false;
             if (isset($requestData['inheritedLocation']) && $requestData['inheritedLocation']) {
                 if (!$channel->hasInheritedLocation()) {
-                    $channel->setLocation(null);
+                    $newLocation = null;
                 }
             } elseif (isset($requestData['locationId'])) {
                 Assertion::integer($requestData['locationId']);
                 if ($channel->hasInheritedLocation() || $channel->getLocation()->getId() !== $requestData['locationId']) {
                     $location = $locationRepository->findForUser($channel->getUser(), $requestData['locationId']);
-                    $channel->setLocation($location);
+                    $newLocation = $location;
+                }
+            }
+            if ($newLocation !== false && !$changesConfirmed) {
+                $dependencies = $channelDependencies->getDependencies($channel);
+                if ($dependencies['channels']) {
+                    return $this->view(['channels' => $dependencies['channels']], Response::HTTP_CONFLICT);
                 }
             }
             if (isset($requestData['caption'])) {
@@ -368,7 +375,8 @@ class ChannelController extends RestController {
                 $channelDependencies,
                 $request,
                 $channel,
-                $functionHasBeenChanged
+                $functionHasBeenChanged,
+                $newLocation
             ) {
                 if ($newFunction) {
                     $paramConfigTranslator->clearConfig($channel);
@@ -397,6 +405,14 @@ class ChannelController extends RestController {
                             'Chosen user icon is for other function.'
                         );
                         $channel->setUserIcon($icon);
+                    }
+                }
+                if ($newLocation !== false) {
+                    $channel->setLocation($newLocation);
+                    $dependencies = $channelDependencies->getDependencies($channel);
+                    foreach ($dependencies['channels'] as $depChannel) {
+                        $depChannel->setLocation($channel->getLocation());
+                        $em->persist($depChannel);
                     }
                 }
                 $em->persist($channel);

@@ -3,6 +3,7 @@
         class="modal-warning"
         @confirm="$emit('confirm')"
         @cancel="$emit('cancel')"
+        :loading="loading"
         :header="$t(headerI18n)">
         <p v-if="descriptionI18n">{{ $t(descriptionI18n) }}</p>
         <subject-dependencies :dependencies="dependencies">
@@ -21,6 +22,6 @@
 
     export default {
         components: {SubjectDependencies},
-        props: ['dependencies', 'headerI18n', 'descriptionI18n', 'deletingHeaderI18n', 'removingHeaderI18n'],
+        props: ['dependencies', 'headerI18n', 'descriptionI18n', 'deletingHeaderI18n', 'removingHeaderI18n', 'loading'],
     };
 </script>

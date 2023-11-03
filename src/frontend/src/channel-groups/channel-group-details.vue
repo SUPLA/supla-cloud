@@ -39,8 +39,7 @@
                                 <div class="col-md-4 col-sm-6">
                                     <div class="details-page-block">
                                         <h3>{{ $t('Location') }}</h3>
-                                        <square-location-chooser v-model="channelGroup.location"
-                                            @input="onLocationChange($event)"></square-location-chooser>
+                                        <SquareLocationChooser v-model="channelGroup.location" @chosen="onLocationChange($event)"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6">

@@ -41,10 +41,13 @@ class RelatedChannelsConnector extends UserConfigTranslator {
         $possibleRelations = self::getPossibleRelations()[$channel->getFunction()->getId()];
         foreach ($possibleRelations as $relatedFunction => $possibleParamPairs) {
             foreach ($possibleParamPairs as $paramName => $params) {
+                if (!array_key_exists($paramName, $config)) {
+                    continue;
+                }
                 [$thisParamNo, $relatedParamNo] = $params;
                 $this->clearAlreadyChosenChannels($config, $paramName, $possibleParamPairs);
                 $thisId = $channel->getId();
-                $relatedId = $config[$paramName] ?? 0;
+                $relatedId = $config[$paramName] ?: 0;
                 $thisChannel = $thisId ? $this->channelRepository->findForUserOrNull($user, $thisId) : null;
                 $relatedChannel = $relatedId ? $this->channelRepository->findForUserOrNull($user, $relatedId) : null;
                 $currentRelatedId = $thisChannel ? $thisChannel->getParam($thisParamNo) : $relatedId;

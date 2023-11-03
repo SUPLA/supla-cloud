@@ -95,14 +95,14 @@
                             <h3 class="text-center">{{ $t('Location') }}</h3>
                             <div class="form-group"
                                 v-tooltip.bottom="(hasPendingChanges && $t('Save or discard configuration changes first.')) || (channel.inheritedLocation && $t('Channel is assigned to the I/O device location'))">
-                                <square-location-chooser v-model="channel.location"
+                                <SquareLocationChooser v-model="channel.location"
                                     :disabled="hasPendingChanges"
                                     :square-link-class="channel.inheritedLocation ? 'yellow' : ''"
-                                    @input="onLocationChange($event)"></square-location-chooser>
+                                    @chosen="(location) => changeLocation(location)"/>
                             </div>
                             <div class="text-center">
                                 <a v-if="!channel.inheritedLocation && !hasPendingChanges"
-                                    @click="onLocationChange(null)">
+                                    @click="changeLocation(null)">
                                     {{ $t('Inherit I/O Device location') }}
                                 </a>
                             </div>
@@ -162,6 +162,17 @@
             @cancel="loading = changeFunctionConfirmationObject = undefined"
             @confirm="changeFunction(changeFunctionConfirmationObject.newFunction, false)"></dependencies-warning-modal>
 
+        <dependencies-warning-modal
+            header-i18n="Are you sure you want to change channel’s location?"
+            description-i18n="Changing the location will also imply changing the location of the following items."
+            deleting-header-i18n=""
+            removing-header-i18n=""
+            :loading="loading"
+            v-if="changeLocationConfirmationObject"
+            :dependencies="changeLocationConfirmationObject"
+            @cancel="loading = changeLocationConfirmationObject = undefined"
+            @confirm="changeLocation(changeLocationConfirmationObject.newLocation, false)"></dependencies-warning-modal>
+
         <modal v-if="sleepingDeviceWarning"
             :header="$t('Device might be sleeping')"
             @confirm="sleepingDeviceWarning = false">
@@ -219,6 +230,7 @@
                 changingFunction: false,
                 executingAction: false,
                 changeFunctionConfirmationObject: undefined,
+                changeLocationConfirmationObject: undefined,
                 sleepingDeviceWarning: false,
                 onChangeListener: undefined,
                 configConflictDetected: false,
@@ -299,13 +311,25 @@
                     })
                     .finally(() => this.loading = false);
             }, 1000),
-            onLocationChange(location) {
-                this.channel.inheritedLocation = !location;
-                if (!location) {
-                    location = this.channel.iodevice.location;
-                }
-                this.$set(this.channel, 'location', location);
-                this.saveChanges();
+            changeLocation(location, safe = true) {
+                this.loading = true;
+                const request = location ? {locationId: location.id} : {inheritedLocation: true};
+                return this.$http.put(`channels/${this.id}${safe ? '?safe=1' : ''}`, request, {skipErrorHandler: [409]})
+                    .then(() => {
+                        this.changeLocationConfirmationObject = undefined;
+                        this.channel.inheritedLocation = !location;
+                        if (!location) {
+                            location = this.channel.iodevice.location;
+                        }
+                        this.$set(this.channel, 'location', location);
+                    })
+                    .catch(response => {
+                        if (response.status === 409) {
+                            this.changeLocationConfirmationObject = response.body;
+                            this.changeLocationConfirmationObject.newLocation = location;
+                        }
+                    })
+                    .finally(() => this.loading = false);
             },
             afterSave() {
                 if (this.channel.iodevice.sleepModeEnabled) {

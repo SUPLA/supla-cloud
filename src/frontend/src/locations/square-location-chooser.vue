@@ -34,7 +34,7 @@
         methods: {
             onLocationChange(location) {
                 this.chooseLocation = false;
-                this.$emit('input', location);
+                this.$emit('chosen', location);
             }
         }
     };

@@ -294,10 +294,15 @@ class IODeviceController extends RestController {
         ) {
             $requestData = $request->request->all();
             $enabledChanged = array_key_exists('enabled', $requestData) && $ioDevice->getEnabled() !== $requestData['enabled'];
+            $locationChanged = array_key_exists('locationId', $requestData)
+                && $ioDevice->getLocation()->getId() !== $requestData['locationId'];
+            $shouldAsk = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
+                ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
+                : !$request->get('confirm', false);
             if ($enabledChanged) {
-                $shouldAsk = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
-                    ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
-                    : !$request->get('confirm', false);
+                // TODO migration
+                // TODO allow to pair only when in the same location
+                // TODO filter in frontend for the location
                 if (!$requestData['enabled'] && $shouldAsk) {
                     $dependencies = [];
                     foreach ($ioDevice->getChannels() as $channel) {
@@ -325,6 +330,17 @@ class IODeviceController extends RestController {
                     }
                 }
             }
+            if ($locationChanged && $shouldAsk) {
+                $dependencies = [];
+                foreach ($ioDevice->getChannels() as $channel) {
+                    if ($channel->hasInheritedLocation()) {
+                        $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
+                    }
+                }
+                if ($dependencies['channels'] ?? null) {
+                    return $this->view(['channels' => $dependencies['channels']], Response::HTTP_CONFLICT);
+                }
+            }
             if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
                 Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
                 Assertion::isArray($requestData['config'], null, 'config');
@@ -333,6 +349,17 @@ class IODeviceController extends RestController {
                 $requestData['config'] = ArrayUtils::mergeConfigs($requestData['configBefore'], $requestData['config'], $currentConfig);
             }
             $requestFiller->fillFromData($requestData, $ioDevice);
+            if ($locationChanged) {
+                foreach ($ioDevice->getChannels() as $channel) {
+                    if ($channel->hasInheritedLocation()) {
+                        $channelDeps = $channelDependencies->getDependencies($channel);
+                        foreach ($channelDeps['channels'] as $channelDep) {
+                            $channelDep->setLocation($ioDevice->getLocation());
+                            $em->persist($channelDep);
+                        }
+                    }
+                }
+            }
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
         $this->suplaServer->deviceAction($ioDevice, 'USER-ON-DEVICE-CONFIG-CHANGED');
