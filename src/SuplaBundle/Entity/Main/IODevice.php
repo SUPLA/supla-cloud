@@ -27,6 +27,7 @@ use SuplaBundle\Entity\HasLocation;
 use SuplaBundle\Entity\HasRelationsCount;
 use SuplaBundle\Entity\HasRelationsCountTrait;
 use SuplaBundle\Entity\HasUserConfigTrait;
+use SuplaBundle\Entity\Main\Listeners\IODeviceEntityListener;
 use SuplaBundle\Enums\IoDeviceFlags;
 use SuplaBundle\Enums\Manufacturer;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -34,6 +35,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SuplaBundle\Repository\IODeviceRepository")
+ * @ORM\EntityListeners({IODeviceEntityListener::class})
  * @ORM\Table(name="supla_iodevice", uniqueConstraints={@UniqueConstraint(name="UNIQUE_USER_GUID", columns={"user_id", "guid"})})
  */
 class IODevice implements HasLocation, HasRelationsCount {

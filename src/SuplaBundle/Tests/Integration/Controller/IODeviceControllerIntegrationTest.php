@@ -475,6 +475,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     }
 
     public function testTurningOffWithChannelReactions() {
+        $this->simulateAuthentication($this->user);
         $this->getEntityManager()->refresh($this->device);
         $this->device->setEnabled(true);
         $this->getEntityManager()->persist($this->device);
@@ -587,6 +588,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $anotherDevice = $this->freshEntity($anotherDevice);
         $this->assertEquals('ALWAYS_OFF', $anotherDevice->getUserConfigValue('statusLed'));
+        $this->assertSuplaCommandExecuted('USER-ON-DEVICE-CONFIG-CHANGED:1,' . $anotherDevice->getId());
+        $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
         return $anotherDevice->getId();
     }
 
@@ -602,12 +605,15 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testUpdatingConfigWithComparison */
     public function testCanUpdateCaptionWithoutConfigBefore(int $deviceId) {
         $client = $this->createAuthenticatedClient();
+        SuplaServerMock::reset();
         $client->apiRequestV3('PUT', '/api/iodevices/' . $deviceId, [
             'comment' => 'Unicorn device',
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $device = $this->getEntityManager()->find(IODevice::class, $deviceId);
         $this->assertEquals('Unicorn device', $device->getComment());
+        $this->assertSuplaCommandNotExecuted('USER-ON-DEVICE-CONFIG-CHANGED:1,2');
+        $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
     }
 
     /** @depends testUpdatingConfigWithComparison */
@@ -636,6 +642,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(200, $client->getResponse());
         $device = $this->freshEntity($device);
         $this->assertEquals($anotherLocation->getId(), $device->getLocation()->getId());
+        $this->assertSuplaCommandNotExecuted('USER-ON-DEVICE-CONFIG-CHANGED:1,2');
+        $this->assertSuplaCommandExecuted('USER-RECONNECT:1');
     }
 
     public function testChangingLocationOfADeviceWithChannelRelationsSafe() {

@@ -360,8 +360,6 @@ class IODeviceController extends RestController {
             }
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
-        $this->suplaServer->deviceAction($ioDevice, 'USER-ON-DEVICE-CONFIG-CHANGED');
-        $this->suplaServer->reconnect();
         return $result;
     }
 
