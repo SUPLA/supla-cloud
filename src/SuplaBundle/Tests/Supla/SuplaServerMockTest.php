@@ -69,6 +69,8 @@ class SuplaServerMockTest extends TestCase {
 
     public function testReconnecting() {
         $this->server->reconnect($this->user);
+        $this->assertNotContains('USER-RECONNECT:111', SuplaServerMock::$executedCommands);
+        $this->server->flushPostponedCommands();
         $this->assertContains('USER-RECONNECT:111', SuplaServerMock::$executedCommands);
     }
 
