@@ -60,11 +60,10 @@ doctrine:
             dir: '%kernel.project_dir%/src/SuplaBundle/Entity/MeasurementLogs'
             prefix: 'SuplaBundle\Entity\MeasurementLogs'
 
-
 doctrine_migrations:
   migrations_paths:
-    Supla\Migrations: "%kernel.project_dir%/app/DoctrineMigrations"
-  custom_template: "%kernel.project_dir%/app/DoctrineMigrations/migration.tpl"
+    SuplaBundle\Migrations: "%kernel.project_dir%/src/SuplaBundle/Migrations"
+  custom_template: "%kernel.project_dir%/src/SuplaBundle/Migrations/migration.tpl"
   storage:
     table_storage:
       table_name: 'migration_versions'
