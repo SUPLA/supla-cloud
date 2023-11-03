@@ -50,6 +50,14 @@ directLinkExecutionFailureReason_notActiveYet: Direct link is not active yet.
 directLinkExecutionFailureReason_otherFailure: Direct link execution failure.
 directLinkExecutionFailureReason_sceneDuringExecution: Scene is being executed now.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
+homeScreenContent_HUMIDITY: Humidity
+homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
+homeScreenContent_NONE: None
+homeScreenContent_TEMPERATURE: Temperature
+homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperature and humidity
+homeScreenContent_TEMPERATURE_TIME: Temperature and time
+homeScreenContent_TIME: Time
+homeScreenContent_TIME_DATE: Date and time
 logs_aggregation_day: Days
 logs_aggregation_hour: Hours
 logs_aggregation_minute: Minutes
@@ -80,6 +88,9 @@ state-rgb_on_dim_off: RGB on, dimmer off
 state-rgb_on_dim_on: RGB and dimmer on
 state-shut: Shut
 state-temperature: Temperature
+statusLed_ALWAYS_OFF: Always off
+statusLed_OFF_WHEN_CONNECTED: Off when connected
+statusLed_ON_WHEN_CONNECTED: On when connected
 sunrise-after: the sunrise
 sunrise-before: the sunrise
 sunset-after: the sunset
@@ -88,9 +99,11 @@ thermostatAlgorithm_ON_OFF_SETPOINT_AT_MOST: On/off with setpoint at most
 thermostatAlgorithm_ON_OFF_SETPOINT_MIDDLE: On/off with setpoint middle
 thermostatAlgorithm_help: |
   Algorithms on/off work based on histeresis setting. Histeresis can be applied with temperature setpoint in the middle of histeresis range (setpoint middle) or below/above temperature setpoint (setpoint at most).
-  I.e. histeresis 1 degree and temperature setpoint 23, will:
-  - for "setpoint middle": turn on heating when temperature is below 22.5 and turn off heating when temperature will go above 23.5
-  - for "setpoint at most": turn on heating when temperature is below 22 and turn off heating when temperature will go above 23
+  I.e. histeresis 1°C and temperature setpoint 23°C, will:
+  - for "setpoint middle": turn on heating when temperature is below 22.5°C and turn off heating when temperature will go above 23.5°C
+  - for "setpoint at most": turn on heating when temperature is below 22°C and turn off heating when temperature will go above 23°C
+thermostatOutputValue_help: |
+  By default thermostat should have output disabled in case of some critical error (like missing temperature measurement).  Don't change it unless your are sure what you are doing.
 thermostatSubfunction_COOL: Cooling
 thermostatSubfunction_HEAT: Heating
 thermostatTemperature_aboveAlarm: Above alarm
@@ -111,19 +124,5 @@ thermostatTemperature_histeresis: Histeresis
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
-homeScreenContent_HUMIDITY: Humidity
-homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
-homeScreenContent_NONE: None
-homeScreenContent_TEMPERATURE: Temperature
-homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperature and humidity
-homeScreenContent_TEMPERATURE_TIME: Temperature and time
-homeScreenContent_TIME: Time
-homeScreenContent_TIME_DATE: Date and time
-statusLed_ALWAYS_OFF: Always off
-statusLed_OFF_WHEN_CONNECTED: Off when connected
-statusLed_ON_WHEN_CONNECTED: On when connected
-thermostatOutputValue_help: >
-  By default thermostat should have output disabled in case of some critical error (like missing temperature measurement). 
-  Don't change it unless your are sure what you are doing.
 
 #</editor-fold>
