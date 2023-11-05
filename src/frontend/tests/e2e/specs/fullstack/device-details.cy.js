@@ -26,8 +26,8 @@ describe('Device details', () => {
                             WHERE id = 1`);
             cy.get('#statusLed').select('ON_WHEN_CONNECTED');
             cy.contains('Zapisz zmiany').click();
-            cy.contains('Settings have not been saved');
-            cy.contains('Refresh the config').click();
+            cy.contains('Ustawienia nie zostały zapisane');
+            cy.contains('Odśwież konfigurację').click();
             cy.get('#statusLed').should('have.value', 'OFF_WHEN_CONNECTED');
             cy.get('#statusLed').select('ON_WHEN_CONNECTED');
             cy.contains('Zapisz zmiany').click();
