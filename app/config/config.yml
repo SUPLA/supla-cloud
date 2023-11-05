@@ -62,7 +62,7 @@ doctrine:
 
 doctrine_migrations:
   migrations_paths:
-    SuplaBundle\Migrations: "%kernel.project_dir%/src/SuplaBundle/Migrations"
+    SuplaBundle\Migrations\Migration: "%kernel.project_dir%/src/SuplaBundle/Migrations/Migration"
   custom_template: "%kernel.project_dir%/src/SuplaBundle/Migrations/migration.tpl"
   storage:
     table_storage:
