@@ -57,8 +57,8 @@ class ChannelGroupRequestFiller extends AbstractRequestFiller {
                 'Too many channels in this group' // i18n
             );
         }
-        if (array_key_exists('caption', $data)) {
-            Assertion::string($data['caption']);
+        if (isset($data['caption'])) {
+            Assertion::string($data['caption'], null, 'caption');
             $channelGroup->setCaption($data['caption'] ?? '');
             Assertion::maxLength($channelGroup->getCaption(), 100, 'Caption is too long.'); // i18n
         }

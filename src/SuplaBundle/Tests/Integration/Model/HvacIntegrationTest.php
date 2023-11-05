@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration\Model;
 
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Entity\Main\IODeviceChannelGroup;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
@@ -694,5 +695,16 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertArrayHasKey('userInterfaceConstraints', $config);
         $this->assertEquals(11, $config['userInterfaceConstraints']['minAllowedTemperatureSetpoint']);
         $this->assertEquals(39, $config['userInterfaceConstraints']['maxAllowedTemperatureSetpoint']);
+    }
+
+    public function testAddingChannelToThermostatGroup() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $group = new IODeviceChannelGroup($this->user, $this->device->getLocation(), [$this->device->getChannels()[2]]);
+        $this->persist($group);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channel-groups/' . $group->getId(), [
+            'channelIds' => [$this->device->getChannels()[2], $device->getChannels()[2]->getId()],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
     }
 }
