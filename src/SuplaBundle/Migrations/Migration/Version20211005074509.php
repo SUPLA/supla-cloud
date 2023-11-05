@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Limit actions per schedule.
  */

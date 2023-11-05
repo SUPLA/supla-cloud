@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Add disable_http_get to direct links.
  */

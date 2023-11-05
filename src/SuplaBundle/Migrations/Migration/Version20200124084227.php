@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Introduce custom type for IP address.
  */

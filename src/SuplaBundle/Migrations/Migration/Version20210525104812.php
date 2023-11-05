@@ -3,6 +3,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use PDO;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * New schedule modes.

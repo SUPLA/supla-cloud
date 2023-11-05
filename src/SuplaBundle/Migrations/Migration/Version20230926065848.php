@@ -18,6 +18,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Move invertedLogic (param3) to user_config.

@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * AccessID active_from, active_to, active_hours.
  */

@@ -20,6 +20,7 @@ namespace SuplaBundle\Migrations\Migration;
 use AppKernel;
 use Doctrine\DBAL\Schema\Schema;
 use SuplaBundle\Enums\InstanceSettings;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * supla_settings_string.

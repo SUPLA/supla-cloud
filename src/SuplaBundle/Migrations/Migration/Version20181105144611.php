@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Manufacturers update
  */

@@ -3,6 +3,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Double icon for HUMIDITYANDTEMPERATURE channel function.

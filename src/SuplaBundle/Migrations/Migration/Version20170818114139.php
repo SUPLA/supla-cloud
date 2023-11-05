@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Add user_id column to supla_client.
  * Add auth_key to supla_client and supla_iodevice.

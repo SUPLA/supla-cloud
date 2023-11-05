@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Renaming the supla_channel_value table and giud column to supla_dev_channel_value, value
  * A new procedure named supla_update_channel_value has been added

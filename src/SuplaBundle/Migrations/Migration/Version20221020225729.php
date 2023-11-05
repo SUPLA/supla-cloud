@@ -3,6 +3,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * 1.Rename the function supla_is_access_id_now_active to supla_is_now_active + Modify dependent view

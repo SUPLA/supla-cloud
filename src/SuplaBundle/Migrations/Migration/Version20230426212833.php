@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * 1. supla_v_client_channel - Join the value from supla_dev_channel_value regardless of expiration date
  * 2. supla_update_channel_value - First do an update, and if no rows are affected then try to insert

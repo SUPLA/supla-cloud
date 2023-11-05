@@ -18,6 +18,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Migrations\NoWayBackMigration;
 use SuplaBundle\Utils\NumberUtils;
 
 class Version20211108120835 extends NoWayBackMigration {

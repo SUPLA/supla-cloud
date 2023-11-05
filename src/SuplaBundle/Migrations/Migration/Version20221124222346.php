@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Add supla_oauth_access_tokens.issued_with_refresh_token_id
  * Add scenes.hidden and scenes.user_config

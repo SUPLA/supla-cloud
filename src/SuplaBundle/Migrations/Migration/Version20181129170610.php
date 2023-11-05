@@ -3,6 +3,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Remove table supla_alexa_egc if exists

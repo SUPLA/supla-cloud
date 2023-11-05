@@ -4,6 +4,7 @@ namespace SuplaBundle\Migrations\Migration;
 
 use Doctrine\DBAL\Connection;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Fix order of user icons.

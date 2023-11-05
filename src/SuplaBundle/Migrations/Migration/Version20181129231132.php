@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * the user_icon_id field has been added to the supla_v_client_channel_group view,
  * fields user_icon_id, text_param1, text_param2 and text_param3 have been added to the supla_v_client_channel view,

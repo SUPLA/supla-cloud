@@ -3,6 +3,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Adding two columns to the esp_update table.

@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * OAuth mqtt_broker_auth_password.
  * api_client_authorization_id field in AccessToken and RefreshToken tables.

@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * The view now also returns data of the associated measurement channel in the case of a staircase timer (func 300)
  */

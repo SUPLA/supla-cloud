@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * New functions: supla_current_weekday_hour, supla_is_access_id_now_active.
  * New view: supla_v_accessid_active.

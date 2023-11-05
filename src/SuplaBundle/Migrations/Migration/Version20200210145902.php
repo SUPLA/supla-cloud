@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * The 'on' parameter has been added to the supla_add_thermostat_log_item procedure
  */

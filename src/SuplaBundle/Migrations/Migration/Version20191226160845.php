@@ -3,6 +3,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * 1. https://github.com/SUPLA/supla-core/issues/115

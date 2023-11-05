@@ -17,6 +17,8 @@
 
 namespace <namespace>;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * TODO comment
  */

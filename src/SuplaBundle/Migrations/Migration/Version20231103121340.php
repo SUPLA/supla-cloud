@@ -21,6 +21,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Migrations\Factory\ChannelDependenciesAware;
 use SuplaBundle\Migrations\Factory\EntityManagerAware;
+use SuplaBundle\Migrations\NoWayBackMigration;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 
 /**

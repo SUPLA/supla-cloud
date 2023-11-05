@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Add supla_scene_operation.user_delay_ms.
  * Add supla_scene_operation.wait_for_completion.

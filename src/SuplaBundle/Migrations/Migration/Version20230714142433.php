@@ -17,6 +17,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Delete zombie notifications left after VBT edits.
  * Added supla_dev_channel_extended_value table.

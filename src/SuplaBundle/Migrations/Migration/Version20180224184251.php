@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Auto-generated Migration: supla_v_client_channel - skip hidden channels. Include channel location.
  */

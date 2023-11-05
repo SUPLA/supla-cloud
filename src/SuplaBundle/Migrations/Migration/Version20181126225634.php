@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * Add ON DELETE CASCADE to channel and channelGroup <-> DirectLink relation.
  */

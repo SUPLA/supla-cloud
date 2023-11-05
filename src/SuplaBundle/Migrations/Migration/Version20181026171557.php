@@ -2,6 +2,8 @@
 
 namespace SuplaBundle\Migrations\Migration;
 
+use SuplaBundle\Migrations\NoWayBackMigration;
+
 /**
  * New fields text_param2, text_param3 for supla_dev_channel,
  * New fields manufacturer_id, product_id for supal_iodevice,

@@ -3,6 +3,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Bugfix. Procedures should return `_id`

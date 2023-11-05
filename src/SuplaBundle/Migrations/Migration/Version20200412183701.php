@@ -3,6 +3,7 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use SuplaBundle\Enums\ChannelType;
+use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * supla_set_channel_function - device_id changed to user_id
