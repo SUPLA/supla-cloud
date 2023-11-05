@@ -206,6 +206,8 @@ services:
   SuplaBundle\Migrations\Factory\MigrationFactoryDecorator:
     decorates: Doctrine\Migrations\Version\DbalMigrationFactory
     arguments: ['@SuplaBundle\Migrations\Factory\MigrationFactoryDecorator.inner', '@service_container']
+    tags:
+      - {name: monolog.logger, channel: supla_migrations}
 
   SuplaBundle\ParamConverter\:
     resource: '../../../src/SuplaBundle/ParamConverter'

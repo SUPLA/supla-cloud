@@ -17,20 +17,22 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
+use AppKernel;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\Scene;
 use SuplaBundle\Entity\Main\SettingsString;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Migrations\Version20230612185931;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\SettingsStringRepository;
 
 class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
+    private const PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH = AppKernel::VAR_PATH . '/local/target-cloud-token';
+
     /** @before */
     public function prepare() {
         $this->loadDumpV2207();
-        file_put_contents(Version20230612185931::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH, 'the_token_for_test');
+        file_put_contents(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH, 'the_token_for_test');
         $this->initialize();
     }
 
@@ -61,7 +63,7 @@ class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
         $repository = $this->getDoctrine()->getRepository(SettingsString::class);
         $this->assertTrue($repository->hasValue(InstanceSettings::TARGET_TOKEN));
         $this->assertEquals('the_token_for_test', $repository->getValue(InstanceSettings::TARGET_TOKEN));
-        $this->assertFileNotExists(Version20230612185931::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH);
+        $this->assertFileNotExists(self::PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH);
     }
 
     /**

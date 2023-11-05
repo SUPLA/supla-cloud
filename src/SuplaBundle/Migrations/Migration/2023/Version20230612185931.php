@@ -26,7 +26,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * supla_settings_string.
  */
 class Version20230612185931 extends NoWayBackMigration {
-    const PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH = AppKernel::VAR_PATH . '/local/target-cloud-token';
+    private const PREVIOUS_TARGET_CLOUD_TOKEN_SAVE_PATH = AppKernel::VAR_PATH . '/local/target-cloud-token';
 
     public function migrate() {
         $this->addSql('CREATE TABLE supla_settings_string (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL, value VARCHAR(1024) NOT NULL, UNIQUE INDEX UNIQ_814604C95E237E06 (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

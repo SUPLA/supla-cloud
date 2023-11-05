@@ -18,6 +18,8 @@
 namespace SuplaBundle\Migrations\Migration;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Migrations\Factory\ChannelDependenciesAware;
 use SuplaBundle\Migrations\Factory\EntityManagerAware;
@@ -27,11 +29,13 @@ use SuplaBundle\Model\Dependencies\ChannelDependencies;
 /**
  * Ensure the related channels are in the same location.
  */
-class Version20231103121340 extends NoWayBackMigration implements EntityManagerAware, ChannelDependenciesAware {
+class Version20231103121340 extends NoWayBackMigration implements EntityManagerAware, ChannelDependenciesAware, LoggerAwareInterface {
     /** @var ChannelDependencies */
     private $channelDependencies;
     /** @var EntityManagerInterface */
     private $em;
+    /** @var LoggerInterface */
+    private $migrationsLogger;
 
     /** @required */
     public function setChannelDependencies(ChannelDependencies $channelDependencies): void {
@@ -40,6 +44,10 @@ class Version20231103121340 extends NoWayBackMigration implements EntityManagerA
 
     public function setEntityManager(EntityManagerInterface $em): void {
         $this->em = $em;
+    }
+
+    public function setLogger(LoggerInterface $logger) {
+        $this->migrationsLogger = $logger;
     }
 
     public function migrate() {
@@ -58,10 +66,17 @@ class Version20231103121340 extends NoWayBackMigration implements EntityManagerA
             }
         }
         foreach ($newLocationIds as $channelId => $newLocationId) {
+            $this->log(sprintf('Moved channel ID=%d to the location ID=%d.', $channelId, $newLocationId));
             $this->addSql('UPDATE supla_dev_channel SET location_id=:locationId WHERE id=:id', [
                 'id' => $channelId,
                 'locationId' => $newLocationId,
             ]);
         }
+    }
+
+    private function log(string $message): void {
+        $this->migrationsLogger->debug($message, [
+            'migrationClass' => get_class($this),
+        ]);
     }
 }
