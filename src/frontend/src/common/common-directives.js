@@ -1,5 +1,4 @@
 import Vue from "vue";
-import $ from "jquery";
 
 Vue.directive('go-to-link-on-row-click', {
     inserted: function (el) {
@@ -42,21 +41,3 @@ Vue.directive('input-digits-only', {
         });
     }
 });
-
-function insertTooltip(element, binding) {
-    if (binding.value) {
-        const placement = binding.modifiers.bottom ? 'bottom' : 'top';
-        $(element).tooltip({
-            title: binding.value,
-            placement,
-        });
-    } else {
-        $(element).tooltip('destroy');
-    }
-}
-
-Vue.directive('tooltip', {
-    inserted: insertTooltip,
-    update: insertTooltip,
-    componentUpdated: insertTooltip,
-})

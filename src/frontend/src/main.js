@@ -21,8 +21,11 @@ import EventBus from "./common/event-bus";
 import {DateTime, Settings} from 'luxon';
 import './hello';
 import './styles/fontawesome';
+import FloatingVue from 'floating-vue';
+import 'floating-vue/dist/style.css'
 
 Vue.use(VueResource);
+Vue.use(FloatingVue);
 Vue.use(vMediaQuery, {variables: {xs: 768}});
 
 Vue.prototype.$frontendVersion = FRONTEND_VERSION; // eslint-disable-line no-undef
