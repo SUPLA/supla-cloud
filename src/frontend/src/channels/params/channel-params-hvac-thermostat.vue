@@ -62,7 +62,7 @@
                         </dl>
                         <transition-expand>
                             <div v-if="channel.config.auxThermometerType !== 'DISABLED'">
-                                <dl>
+                                <dl class="wide-label">
                                     <dd>
                                         <span v-if="channel.config.auxThermometerType === 'FLOOR'">
                                             {{ $t('Enable floor temperature control') }}
@@ -211,7 +211,7 @@
                         </dt>
                     </template>
                 </dl>
-                <dl>
+                <dl class="wide-label">
                     <dd>
                         <span v-if="heatAvailable && !coolAvailable">{{ $t('Minimum ON time before heating can be turned off') }}</span>
                         <span v-else-if="!heatAvailable && coolAvailable">
@@ -254,6 +254,8 @@
                             </span>
                         </span>
                     </dt>
+                </dl>
+                <dl>
                     <dd>
                         {{ $t('Output value on error') }}
                         <a @click="outputValueHelpShown = !outputValueHelpShown"><i class="pe-7s-help1"></i></a>
@@ -268,11 +270,13 @@
                             </a>
                         </div>
                     </dt>
-                    <transition-expand>
-                        <div class="well small text-muted p-2 display-newlines" v-if="outputValueHelpShown">
-                            {{ $t('thermostatOutputValue_help') }}
-                        </div>
-                    </transition-expand>
+                </dl>
+                <transition-expand>
+                    <div class="well small text-muted p-2 display-newlines" v-if="outputValueHelpShown">
+                        {{ $t('thermostatOutputValue_help') }}
+                    </div>
+                </transition-expand>
+                <dl class="wide-label">
                     <dd>{{ $t('Temperature setpoint change switches to manual mode') }}</dd>
                     <dt class="text-center">
                         <toggler v-model="channel.config.temperatureSetpointChangeSwitchesToManualMode" @input="$emit('change')"/>

@@ -279,25 +279,30 @@ input[type=text], input[type=password], input[type=email], input[type=number] {
   dl {
     margin-bottom: 0;
     font-size: .95em;
-
     dd, dt {
       display: inline-block;
       vertical-align: middle;
       margin-bottom: 4px;
     }
-
     dt:after {
       display: block;
       content: ' ';
     }
-
     dt {
       width: calc(100% - 105px);
       font-weight: normal;
     }
-
     dd {
       width: 100px;
+    }
+    &.wide-label {
+      dt {
+        width: calc(100% - 175px);
+        font-weight: normal;
+      }
+      dd {
+        width: 170px;
+      }
     }
   }
 
