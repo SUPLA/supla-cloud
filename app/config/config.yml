@@ -65,6 +65,7 @@ doctrine_migrations:
     SuplaBundle\Migrations\Migration: "%kernel.project_dir%/src/SuplaBundle/Migrations/Migration"
   custom_template: "%kernel.project_dir%/src/SuplaBundle/Migrations/migration.tpl"
   organize_migrations: BY_YEAR
+  all_or_nothing: true
   storage:
     table_storage:
       table_name: 'migration_versions'
