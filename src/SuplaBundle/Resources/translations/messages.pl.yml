@@ -1233,10 +1233,10 @@ extend: przedłuż
 from IP: z adresu IP
 from the IP: z adresu
 heat: ogrzewanie
-homeScreenContent_HUMIDITY: wilgotność
+homeScreenContent_HUMIDITY: Wilgotność
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Główna i dodatkowa temperatura
 homeScreenContent_NONE: Brak
-homeScreenContent_TEMPERATURE: Temperature
+homeScreenContent_TEMPERATURE: Temperatura
 homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperatura i wilgotność
 homeScreenContent_TEMPERATURE_TIME: Temperatura i czas
 homeScreenContent_TIME: Czas
@@ -1317,7 +1317,7 @@ thermostatAlgorithm_help: |
   - włączy ogrzewanie przy 22°C i zakończy pracę, gdy temperatura osiągnie 23°C dla nastawy górnej
 thermostatOutputValue_help: |
   Domyślnie termostat po wykryciu błędu w działaniu powinien się wyłączyć (np. w przypadku awarii termometru głównego). Nie zmieniaj tego zachowania, jeśli nie jesteś absolutnie pewny/pewna jakie będzie to mieć skutki.
-thermostatSubfunction_COOL: Ochładzanie
+thermostatSubfunction_COOL: Chłodzenie
 thermostatSubfunction_HEAT: Ogrzewanie
 thermostatTemperature_aboveAlarm: Powyżej alarmu
 thermostatTemperature_auxMaxSetpoint: Maksymalna temperatura dodatkowa
