@@ -141,6 +141,8 @@ Body: Treść
 Bottom position: Dolna pozycja
 Bridge: Most
 Brightness: Jasność
+Brightness adjustment for automatic mode: Dostosowanie jasności trybu automatycznego
+Brightness level: Poziom jasności
 Button volume: Przycisk głośności
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Wyłączenie tej opcji umożliwi sterowanie tym urządzeniem z poziomu integracji bez dodatkowego potwierdzenia. To może prowadzić do niebezpiecznego lub mniej bezpiecznego stanu (np. przypadkowego otwarcia bramy).
 By signing in, you are authorizing {clientName} to control your devices.: Logując się, upoważaniasz aplikację {clientName} do kontrolowania Twoich urządzeń.
@@ -1212,6 +1214,7 @@ cool: chłodzenie
 copied: skopiowano
 copy: kopiuj
 days: dni
+default: domyślnie
 directLinkExecutionFailureReason_disabled: Link bezpośredni jest wyłączony
 directLinkExecutionFailureReason_executionLimitExceeded: Limit wykonań został przekroczony
 directLinkExecutionFailureReason_expired: Link bezpośredni wygasł
@@ -1233,7 +1236,6 @@ extend: przedłuż
 from IP: z adresu IP
 from the IP: z adresu
 heat: ogrzewanie
-homeScreenContent_HUMIDITY: Wilgotność
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Główna i dodatkowa temperatura
 homeScreenContent_NONE: Brak
 homeScreenContent_TEMPERATURE: Temperatura
@@ -1427,6 +1429,7 @@ Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
+homeScreenContent_HUMIDITY: Wilgotność
 hourly: Każdy dzień
 
 #</editor-fold>

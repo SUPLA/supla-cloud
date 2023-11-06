@@ -50,7 +50,6 @@ directLinkExecutionFailureReason_notActiveYet: Direct link is not active yet.
 directLinkExecutionFailureReason_otherFailure: Direct link execution failure.
 directLinkExecutionFailureReason_sceneDuringExecution: Scene is being executed now.
 directLinkExecutionFailureReason_unsupportedAction: The requested action is not supported.
-homeScreenContent_HUMIDITY: Humidity
 homeScreenContent_MAIN_AND_AUX_TEMPERATURE: Main and auxiliary temperature
 homeScreenContent_NONE: None
 homeScreenContent_TEMPERATURE: Temperature
