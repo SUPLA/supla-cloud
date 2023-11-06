@@ -23,16 +23,14 @@
                         <label>{{ $t('Screen brightness') }}</label>
                         <div>
                             <label class="checkbox2 checkbox2-grey">
-                                <input type="checkbox" v-model="screenBrightnessAuto" @change="onChange()">
+                                <input type="checkbox" v-model="config.screenBrightness.auto" @change="onChange()">
                                 {{ $t('Automatic') }}
                             </label>
                         </div>
-                        <transition-expand>
-                            <div v-if="!screenBrightnessAuto" class="mt-3 mb-6">
-                                <VueSlider v-model="config.screenBrightness" :min="0" :max="100" @change="onChange()" tooltip="always"
-                                    tooltip-placement="bottom" class="green"/>
-                            </div>
-                        </transition-expand>
+                        <div class="mt-3 mb-6">
+                            <VueSlider v-model="screenBrightnessLevel" :min="0" :max="20" @change="onChange()" tooltip="always"
+                                tooltip-placement="bottom" class="green" :tooltip-formatter="formatScreenBrightnessValue"/>
+                        </div>
                     </div>
                     <div class="form-group" v-if="config.buttonVolume !== undefined">
                         <label>{{ $t('Button volume') }}</label>
@@ -45,7 +43,7 @@
                         v-if="config.homeScreen !== undefined && config.homeScreenContentAvailable && config.homeScreenContentAvailable.length">
                         <div class="form-group">
                             <label for="homeScreen">{{ $t('Home screen content') }}</label>
-                            <!-- i18n:["homeScreenContent_NONE", "homeScreenContent_TEMPERATURE", "homeScreenContent_HUMIDITY"] -->
+                            <!-- i18n:["homeScreenContent_NONE", "homeScreenContent_TEMPERATURE"] -->
                             <!-- i18n:["homeScreenContent_TEMPERATURE_AND_HUMIDITY"] -->
                             <!-- i18n:["homeScreenContent_TIME", "homeScreenContent_TIME_DATE", "homeScreenContent_TEMPERATURE_TIME"] -->
                             <!-- i18n:["homeScreenContent_MAIN_AND_AUX_TEMPERATURE"] -->
@@ -145,7 +143,7 @@
             return {
                 hasPendingChanges: false,
                 config: undefined,
-                screenBrightnessAuto: false,
+                screenBrightnessLevel: undefined,
                 homeScreenOff: false,
                 homeScreenOffPossibleDelays: [
                     ...[...Array(30).keys()].map(k => k + 1), // s 1 - 30
@@ -164,13 +162,10 @@
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
-                const previousBrightness = Number.isFinite(this.config?.screenBrightness) ? this.config.screenBrightness : 100;
                 this.config = deepCopy(this.device.config);
-                if (this.config.screenBrightness === 'auto') {
-                    this.screenBrightnessAuto = true;
-                    this.config.screenBrightness = previousBrightness;
-                } else {
-                    this.screenBrightnessAuto = false;
+                if (this.config.screenBrightness) {
+                    const {auto, level} = this.config.screenBrightness;
+                    this.screenBrightnessLevel = auto ? (level + 100) / 10 : level / 5;
                 }
                 if (this.config.homeScreen) {
                     this.homeScreenOff = !!this.config.homeScreen?.offDelay;
@@ -182,8 +177,8 @@
             },
             saveDeviceSettings() {
                 const config = deepCopy(this.config);
-                if (this.screenBrightnessAuto) {
-                    config.screenBrightness = 'auto';
+                if (config.screenBrightness) {
+                    config.screenBrightness.level = this.formatScreenBrightnessValue(this.screenBrightnessLevel);
                 }
                 if (config.homeScreen && !this.homeScreenOff) {
                     config.homeScreen.offDelay = 0;
@@ -205,6 +200,9 @@
             },
             formatSeconds(sliderValue) {
                 return prettyMilliseconds(+sliderValue * 1000, this);
+            },
+            formatScreenBrightnessValue(sliderValue) {
+                return this.config.screenBrightness.auto ? sliderValue * 10 - 100 : sliderValue * 5;
             },
             replaceConfigWithConflictingConfig() {
                 this.device.config = this.conflictingConfig;

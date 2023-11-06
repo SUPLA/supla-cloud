@@ -318,7 +318,7 @@ class DevicesFixture extends SuplaFixture {
         AnyFieldSetter::set($hvac, [
             'userConfig' => json_encode([
                 'statusLed' => 'OFF_WHEN_CONNECTED',
-                'screenBrightness' => 13,
+                'screenBrightness' => ['level' => 13],
                 'buttonVolume' => 14,
                 'userInterface' => ['disabled' => false],
                 'automaticTimeSync' => false,

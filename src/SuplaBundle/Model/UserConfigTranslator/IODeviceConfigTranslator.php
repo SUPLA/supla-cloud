@@ -11,10 +11,10 @@ use SuplaBundle\Utils\NumberUtils;
 /**
  * @OA\Schema(schema="DeviceConfig", description="Configuration of the IO Device.",
  *   @OA\Property(property="statusLed", type="string"),
- *   @OA\Property(property="screenBrightness", oneOf={
- *     @OA\Schema(type="integer", minimum=0, maximum=100),
- *     @OA\Schema(type="string", enum={"auto"})
- *   }),
+ *   @OA\Property(property="screenBrightness", type="object",
+ *     @OA\Property(property="auto", type="boolean"),
+ *     @OA\Property(property="level", type="integer", min=-100, max=100),
+ *   ),
  *   @OA\Property(property="buttonVolume", type="integer", minimum=0, maximum=100),
  *   @OA\Property(property="automaticTimeSync", type="boolean"),
  *   @OA\Property(property="homeScreen", type="object",
@@ -56,6 +56,13 @@ class IODeviceConfigTranslator {
                     NumberUtils::maximumDecimalPrecision($config['userInterface']['maxAllowedTemperatureSetpointFromLocalUI'] / 100);
             }
         }
+        if ($config['screenBrightness'] ?? false) {
+            $auto = $config['screenBrightness']['level'] === 'auto';
+            $config['screenBrightness'] = [
+                'auto' => $auto,
+                'level' => $config['screenBrightness'][$auto ? 'adjustment' : 'level'],
+            ];
+        }
         return $config;
     }
 
@@ -69,8 +76,14 @@ class IODeviceConfigTranslator {
                 Assertion::inArray($value, ['OFF_WHEN_CONNECTED', 'ALWAYS_OFF', 'ON_WHEN_CONNECTED'], null, 'statusLed');
             }
             if ($settingName === 'screenBrightness') {
-                if ($value !== 'auto') {
-                    Assert::that($value, null, 'screenBrightness')->integer()->between(0, 100);
+                Assert::that($value, null, 'screenBrightness')->isArray()->keyIsset('level');
+                $auto = $value['auto'] ?? false;
+                if ($auto) {
+                    Assert::that($value['level'], null, 'level')->integer()->between(-100, 100);
+                    $value = ['level' => 'auto', 'adjustment' => $value['level']];
+                } else {
+                    Assert::that($value['level'], null, 'level')->integer()->between(0, 100);
+                    $value = ['level' => $value['level']];
                 }
             }
             if ($settingName === 'buttonVolume') {
