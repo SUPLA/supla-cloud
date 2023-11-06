@@ -3,8 +3,8 @@ INSERT INTO supla_iodevice (id, location_id, user_id, guid, name, enabled, comme
                             user_config, properties)
 VALUES (3, 1, 1, 0x31313234383536, 'HVAC-Monster', 1, NULL, '2023-10-06 19:38:31.000', 1138728189, '2023-10-06 19:38:31.000', NULL, '2.32',
         2, NULL, NULL, 48, NULL, NULL,
-        '{"statusLed":"OFF_WHEN_CONNECTED","screenBrightness":13,"buttonVolume":14,"userInterfaceDisabled":false,"automaticTimeSync":false,"homeScreen":{"content":"TEMPERATURE","offDelay":60}}',
-        '{"homeScreenContentAvailable":["NONE","TEMPERATURE","HUMIDITY","TIME","TIME_DATE","TEMPERATURE_TIME","MAIN_AND_AUX_TEMPERATURE"]}');
+        '{"statusLed":"OFF_WHEN_CONNECTED","screenBrightness":{"level":13},"buttonVolume":14,"userInterface":{"disabled":false},"automaticTimeSync":false,"homeScreen":{"content":"TEMPERATURE","offDelay":60}}',
+        '{"homeScreenContentAvailable":["NONE","TEMPERATURE","TIME","TIME_DATE","TEMPERATURE_TIME","MAIN_AND_AUX_TEMPERATURE"]}');
 
 
 INSERT INTO supla_dev_channel (iodevice_id, user_id, channel_number, caption, `type`, func, flist, param1, param2, param3, text_param1,
