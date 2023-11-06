@@ -13,7 +13,7 @@ use SuplaBundle\Utils\NumberUtils;
  *   @OA\Property(property="statusLed", type="string"),
  *   @OA\Property(property="screenBrightness", type="object",
  *     @OA\Property(property="auto", type="boolean"),
- *     @OA\Property(property="level", type="integer", min=-100, max=100),
+ *     @OA\Property(property="level", type="integer", minimum=-100, maximum=100),
  *   ),
  *   @OA\Property(property="buttonVolume", type="integer", minimum=0, maximum=100),
  *   @OA\Property(property="automaticTimeSync", type="boolean"),
@@ -82,7 +82,7 @@ class IODeviceConfigTranslator {
                     Assert::that($value['level'], null, 'level')->integer()->between(-100, 100);
                     $value = ['level' => 'auto', 'adjustment' => $value['level']];
                 } else {
-                    Assert::that($value['level'], null, 'level')->integer()->between(0, 100);
+                    Assert::that($value['level'], null, 'level')->integer()->between(1, 100);
                     $value = ['level' => $value['level']];
                 }
             }

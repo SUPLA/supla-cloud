@@ -56,7 +56,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
         return [
             [['statusLed' => 'OFF_WHEN_CONNECTED']],
             [['statusLed' => 'ALWAYS_OFF']],
-            [['screenBrightness' => ['level' => 12, 'auto' => false]]],
+            [['screenBrightness' => ['level' => 1, 'auto' => false]]],
             [['screenBrightness' => ['level' => 12, 'auto' => false]]],
             [['screenBrightness' => ['level' => 12, 'auto' => true]]],
             [['screenBrightness' => ['level' => -12, 'auto' => true]]],
@@ -92,6 +92,7 @@ class IODeviceConfigTranslatorTest extends TestCase {
             [['screenBrightness' => -5]],
             [['screenBrightness' => ['level' => -12, 'auto' => false]]],
             [['screenBrightness' => ['level' => 102, 'auto' => false]]],
+            [['screenBrightness' => ['level' => 0, 'auto' => false]]],
             [['screenBrightness' => ['level' => '53', 'auto' => false]]],
             [['screenBrightness' => ['level' => 50.3, 'auto' => false]]],
             [['screenBrightness' => ['level' => -101, 'auto' => true]]],
