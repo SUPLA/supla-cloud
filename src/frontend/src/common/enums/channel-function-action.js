@@ -51,6 +51,9 @@ const ChannelFunctionAction = Object.freeze({
     },
 
     paramsValid(actionId, params) {
+        if (!params && ChannelFunctionAction.requiresParams(actionId)) {
+            return false;
+        }
         switch (actionId) {
             case ChannelFunctionAction.SET:
                 return params.transparent?.length > 0 || params.opaque?.length > 0;
