@@ -25,7 +25,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
             $this->expectException(InvalidArgumentException::class);
         }
         $executor = new SetRgbwParametersActionExecutor($this->createMock(ColorAndBrightnessChannelStateGetter::class));
-        $params = $executor->validateActionParams($this->createMock(ActionableSubject::class), $actionParams);
+        $params = $executor->validateAndTransformActionParamsFromApi($this->createMock(ActionableSubject::class), $actionParams);
         $this->assertNotNull($params);
     }
 
@@ -83,7 +83,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
     public function testConvertingStringColorToInt() {
         $executor = new SetRgbwParametersActionExecutor($this->createMock(ColorAndBrightnessChannelStateGetter::class));
         $subject = $this->createMock(ActionableSubject::class);
-        $validated = $executor->validateActionParams($subject, ['color' => '12', 'color_brightness' => '56']);
+        $validated = $executor->validateAndTransformActionParamsFromApi($subject, ['color' => '12', 'color_brightness' => '56']);
         $this->assertSame(12, $validated['color']);
         $this->assertSame(56, $validated['color_brightness']);
     }
@@ -91,7 +91,7 @@ class SetRgbwParametersActionExecutorTest extends TestCase {
     public function testConvertingHexColorToInt() {
         $executor = new SetRgbwParametersActionExecutor($this->createMock(ColorAndBrightnessChannelStateGetter::class));
         $subject = $this->createMock(ActionableSubject::class);
-        $validated = $executor->validateActionParams($subject, ['color' => '0xFFCC77', 'color_brightness' => '56']);
+        $validated = $executor->validateAndTransformActionParamsFromApi($subject, ['color' => '0xFFCC77', 'color_brightness' => '56']);
         $this->assertSame(0xFFCC77, $validated['color']);
     }
 

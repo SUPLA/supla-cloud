@@ -47,7 +47,7 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
         return ChannelFunctionAction::OPEN();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         if ($subject->getFunction()->getId() == ChannelFunction::VALVEOPENCLOSE) {
             $state = $this->valveManuallyShutChannelStateGetter->getState($subject);
             $manuallyClosed = $state['manuallyClosed'] ?? true;
@@ -62,6 +62,6 @@ class OpenActionExecutor extends SetCharValueActionExecutor {
                 }
             }
         }
-        return parent::validateActionParams($subject, $actionParams);
+        return parent::validateAndTransformActionParamsFromApi($subject, $actionParams);
     }
 }

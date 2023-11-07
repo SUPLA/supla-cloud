@@ -63,7 +63,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::SET_RGBW_PARAMETERS();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::between(count($actionParams), 1, 4, 'You need to specify at least brightness or color for this action.');
         Assertion::count(
             array_intersect_key(

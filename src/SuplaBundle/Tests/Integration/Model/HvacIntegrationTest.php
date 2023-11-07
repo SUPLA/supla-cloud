@@ -20,7 +20,10 @@ namespace SuplaBundle\Tests\Integration\Model;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\Main\IODeviceChannelGroup;
+use SuplaBundle\Entity\Main\Scene;
+use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\User;
+use SuplaBundle\Enums\ActionableSubjectType;
 use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
@@ -714,5 +717,37 @@ class HvacIntegrationTest extends IntegrationTestCase {
             'channelIds' => [$this->device->getChannels()[2], $device->getChannels()[2]->getId()],
         ]);
         $this->assertStatusCode(200, $client->getResponse());
+    }
+
+    public function testCreatingSceneForHvac() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', '/api/scenes?include=operations', [
+            'caption' => 'My scene with HVAC',
+            'enabled' => true,
+            'operations' => [
+                [
+                    'subjectId' => $this->hvacChannel->getId(),
+                    'subjectType' => ActionableSubjectType::CHANNEL,
+                    'actionId' => ChannelFunctionAction::HVAC_SET_TEMPERATURE,
+                    'actionParam' => ['temperature' => 22.5],
+                ],
+            ],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertTrue($content['enabled']);
+        $this->assertEquals('My scene with HVAC', $content['caption']);
+        $this->assertEquals(1, $content['relationsCount']['operations']);
+        $scene = $this->freshEntityById(Scene::class, $content['id']);
+        /** @var SceneOperation $operation */
+        $operation = $scene->getOperations()[0];
+        $this->assertEquals(ChannelFunctionAction::HVAC_SET_TEMPERATURE, $operation->getAction()->getId());
+        $this->assertEquals(['temperature' => 2250], $operation->getActionParam());
+        $client->apiRequestV24('GET', '/api/scenes/' . $scene->getId() . '?include=operations');
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(['temperature' => 22.5], $content['operations'][0]['actionParam']);
     }
 }

@@ -8,6 +8,7 @@ use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+use SuplaBundle\Utils\NumberUtils;
 
 class HvacSetTemperatureActionExecutor extends SingleChannelActionExecutor {
     /** @var SubjectConfigTranslator */
@@ -29,7 +30,7 @@ class HvacSetTemperatureActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::HVAC_SET_TEMPERATURE();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::count($actionParams, 1, 'Parameter temperature is required.');
         Assertion::keyIsset($actionParams, 'temperature');
         $min = -1000;
@@ -43,12 +44,15 @@ class HvacSetTemperatureActionExecutor extends SingleChannelActionExecutor {
         Assert::that($actionParams['temperature'], null, 'temperature')
             ->numeric()
             ->between($min, $max);
-        return $actionParams;
+        return ['temperature' => round($actionParams['temperature'] * 100)];
+    }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
+        return ['temperature' => NumberUtils::maximumDecimalPrecision($actionParams['temperature'] / 100)];
     }
 
     public function execute(ActionableSubject $subject, array $actionParams = []) {
-        $temp = round(floatval($actionParams['temperature']) * 100);
-        $command = $subject->buildServerActionCommand('ACTION-HVAC-SET-TEMPERATURE', [$temp]);
+        $command = $subject->buildServerActionCommand('ACTION-HVAC-SET-TEMPERATURE', [$actionParams['temperature']]);
         $this->suplaServer->executeCommand($command);
     }
 }

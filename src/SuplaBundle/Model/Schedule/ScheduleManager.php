@@ -182,7 +182,7 @@ class ScheduleManager {
                 EntityUtils::mapToIds($possibleActions),
                 "Action {$action->getName()} cannot be executed on this channel."
             );
-            $this->channelActionExecutor->validateActionParams(
+            $this->channelActionExecutor->validateAndTransformActionParamsFromApi(
                 $schedule->getSubject(),
                 new ChannelFunctionAction($configEntry['action']['id']),
                 $configEntry['action']['param'] ?? []

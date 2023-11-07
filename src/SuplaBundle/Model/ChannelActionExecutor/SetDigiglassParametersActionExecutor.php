@@ -20,7 +20,7 @@ class SetDigiglassParametersActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::SET();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::isInstanceOf($subject, IODeviceChannel::class, 'SET DIGIGLASS action can be executed on channels only.');
         $validParameters = array_intersect_key($actionParams, array_flip(['transparent', 'opaque', 'mask', 'activeBits']));
         Assertion::count(

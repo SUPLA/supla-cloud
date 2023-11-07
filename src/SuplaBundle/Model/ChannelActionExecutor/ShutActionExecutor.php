@@ -10,7 +10,7 @@ class ShutActionExecutor extends StopActionExecutor {
         return ChannelFunctionAction::SHUT();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         if ($actionParams) {
             Assertion::count($actionParams, 1, 'Invalid number of action parameters');
             Assertion::count(

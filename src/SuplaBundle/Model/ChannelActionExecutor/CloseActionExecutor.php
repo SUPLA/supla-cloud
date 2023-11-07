@@ -18,12 +18,12 @@ class CloseActionExecutor extends SetCharValueActionExecutor {
         return ChannelFunctionAction::CLOSE();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::true(
             $subject instanceof IODeviceChannel,
             "Cannot execute the requested action CLOSE on channel group."
         );
-        return parent::validateActionParams($subject, $actionParams);
+        return parent::validateAndTransformActionParamsFromApi($subject, $actionParams);
     }
 
     protected function getCharValue(ActionableSubject $subject, array $actionParams = []): int {

@@ -7,6 +7,7 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\HvacIpcActionMode;
+use SuplaBundle\Utils\NumberUtils;
 
 class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor {
     public function getSupportedFunctions(): array {
@@ -22,7 +23,7 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
         return ChannelFunctionAction::HVAC_SET_PARAMETERS();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::allInArray(array_keys($actionParams), ['temperatureHeat', 'temperatureCool', 'durationMs', 'mode']);
         $this->validateTemperatures($subject, $actionParams);
         if (isset($actionParams['durationMs'])) {
@@ -42,6 +43,22 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
             } else {
                 unset($actionParams['mode']);
             }
+        }
+        if (isset($actionParams['temperatureHeat'])) {
+            $actionParams['temperatureHeat'] = round($actionParams['temperatureHeat'] * 100);
+        }
+        if (isset($actionParams['temperatureCool'])) {
+            $actionParams['temperatureCool'] = round($actionParams['temperatureCool'] * 100);
+        }
+        return $actionParams;
+    }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
+        if (isset($actionParams['temperatureHeat'])) {
+            $actionParams['temperatureHeat'] = NumberUtils::maximumDecimalPrecision($actionParams['temperatureHeat'] / 100);
+        }
+        if (isset($actionParams['temperatureCool'])) {
+            $actionParams['temperatureCool'] = NumberUtils::maximumDecimalPrecision($actionParams['temperatureCool'] / 100);
         }
         return $actionParams;
     }

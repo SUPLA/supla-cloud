@@ -3,6 +3,7 @@
         <div class="form-group">
             <subject-dropdown v-model="subject"
                 @input="onSubjectChange()"
+                :filter="filterOutNotSupportedSubjects"
                 channels-dropdown-params="io=output&hasFunction=1">
                 <template #other="props">
                     <action-trigger-other-actions-dropdown
@@ -37,6 +38,7 @@
     import ChannelFunctionAction from "@/common/enums/channel-function-action";
     import ActionableSubjectType from "@/common/enums/actionable-subject-type";
     import {subjectEndpointUrl} from "@/common/utils";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {ActionTriggerOtherActionsDropdown, ChannelActionChooser, SubjectDropdown},
@@ -107,7 +109,16 @@
             },
             filterOtherActions(action) {
                 return action.id !== ChannelFunctionAction.AT_DISABLE_LOCAL_FUNCTION || this.disablesLocalOperation(this.trigger);
-            }
+            },
+            filterOutNotSupportedSubjects(subject) {
+                const notSupportedInAt = [
+                    ChannelFunction.HVAC_THERMOSTAT,
+                    ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
+                    ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
+                    ChannelFunction.HVAC_THERMOSTAT_AUTO,
+                ];
+                return !notSupportedInAt.includes(subject.functionId);
+            },
         },
         watch: {
             value() {

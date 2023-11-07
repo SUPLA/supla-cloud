@@ -17,7 +17,7 @@ class RevealActionExecutorTest extends TestCase {
             $this->expectException(InvalidArgumentException::class);
         }
         $executor = new RevealActionExecutor();
-        $validParams = $executor->validateActionParams($this->createMock(ActionableSubject::class), $actionParams);
+        $validParams = $executor->validateAndTransformActionParamsFromApi($this->createMock(ActionableSubject::class), $actionParams);
         $this->assertNotNull($validParams);
     }
 
@@ -38,14 +38,14 @@ class RevealActionExecutorTest extends TestCase {
     public function testConvertingStringPercentageToInt() {
         $executor = new RevealActionExecutor();
         $subject = $this->createMock(ActionableSubject::class);
-        $validated = $executor->validateActionParams($subject, ['percentage' => '56']);
+        $validated = $executor->validateAndTransformActionParamsFromApi($subject, ['percentage' => '56']);
         $this->assertSame(56, $validated['percentage']);
     }
 
     public function testConvertingPercentToPercentage() {
         $executor = new RevealActionExecutor();
         $subject = $this->createMock(ActionableSubject::class);
-        $validated = $executor->validateActionParams($subject, ['percent' => 99]);
+        $validated = $executor->validateAndTransformActionParamsFromApi($subject, ['percent' => 99]);
         $this->assertSame(99, $validated['percentage']);
     }
 

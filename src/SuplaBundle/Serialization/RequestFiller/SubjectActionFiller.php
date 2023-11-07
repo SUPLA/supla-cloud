@@ -59,7 +59,7 @@ class SubjectActionFiller {
         Assertion::false($user->isLimitNotificationsExceeded(), 'Push notifications limit has been exceeded'); // i18n
         $notification = new PushNotification($user);
         $actionParam = $data['actionParam'] ?? [] ?: [];
-        $actionParam = $this->channelActionExecutor->validateActionParams($notification, ChannelFunctionAction::SEND(), $actionParam);
+        $actionParam = $this->channelActionExecutor->validateAndTransformActionParamsFromApi($notification, ChannelFunctionAction::SEND(), $actionParam);
         $notification->initFromValidatedActionParams($actionParam, $this->aidRepository);
         return [$notification, ChannelFunctionAction::SEND(), $actionParam];
     }
@@ -72,7 +72,7 @@ class SubjectActionFiller {
         Assertion::true($subject->getFunction()->isOutput(), 'Cannot execute an action on this subject.');
         $action = ChannelFunctionAction::fromString($data['actionId']);
         $actionParam = $data['actionParam'] ?? [] ?: [];
-        $actionParam = $this->channelActionExecutor->validateActionParams($subject, $action, $actionParam);
+        $actionParam = $this->channelActionExecutor->validateAndTransformActionParamsFromApi($subject, $action, $actionParam);
         Assertion::inArray(
             $action->getId(),
             EntityUtils::mapToIds($subject->getPossibleActions()),

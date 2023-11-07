@@ -43,18 +43,30 @@ class ChannelActionExecutor {
     public function executeAction(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParams = []) {
         $executor = $this->getExecutor($subject, $action);
         [$actionParams, $integrationsParams] = $this->groupActionParams($actionParams);
-        $actionParams = $executor->validateActionParams($subject, $actionParams);
+        $actionParams = $executor->validateAndTransformActionParamsFromApi($subject, $actionParams);
         $this->processIntegrationParams($subject, $integrationsParams);
         $executor->execute($subject, $actionParams);
         $this->suplaServer->clearCommandContext();
     }
 
-    public function validateActionParams(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(
+        ActionableSubject $subject,
+        ChannelFunctionAction $action,
+        array $actionParams
+    ): array {
         try {
             $executor = $this->getExecutor($subject, $action);
         } catch (\InvalidArgumentException $e) {
         }
-        return isset($executor) ? $executor->validateActionParams($subject, $actionParams) : [];
+        return isset($executor) ? $executor->validateAndTransformActionParamsFromApi($subject, $actionParams) : [];
+    }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, ChannelFunctionAction $action, array $actionParams): array {
+        try {
+            $executor = $this->getExecutor($subject, $action);
+        } catch (\InvalidArgumentException $e) {
+        }
+        return isset($executor) ? $executor->transformActionParamsForApi($subject, $actionParams) : $actionParams;
     }
 
     private function getExecutor(ActionableSubject $subject, ChannelFunctionAction $action): SingleChannelActionExecutor {

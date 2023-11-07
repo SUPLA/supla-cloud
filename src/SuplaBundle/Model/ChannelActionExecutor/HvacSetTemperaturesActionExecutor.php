@@ -9,6 +9,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\HvacIpcValueFlags;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+use function SuplaBundle\Utils\NumberUtils;
 
 class HvacSetTemperaturesActionExecutor extends SingleChannelActionExecutor {
     /** @var SubjectConfigTranslator */
@@ -28,11 +29,19 @@ class HvacSetTemperaturesActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::HVAC_SET_TEMPERATURES();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::allInArray(array_keys($actionParams), ['temperatureHeat', 'temperatureCool']);
         Assertion::greaterOrEqualThan(count($actionParams), 1, 'At least one of temperatureHeat, temperatureCool is required.');
         $this->validateTemperatures($subject, $actionParams);
-        return $actionParams;
+        return array_map(function ($temp) {
+            return round($temp * 100);
+        }, $actionParams);
+    }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
+        return array_map(function ($temp) {
+            return NumberUtils::maximumDecimalPrecision($temp / 100);
+        }, $actionParams);
     }
 
     protected function validateTemperatures(ActionableSubject $subject, array $actionParams) {
@@ -73,11 +82,11 @@ class HvacSetTemperaturesActionExecutor extends SingleChannelActionExecutor {
         $heat = 0;
         $cool = 0;
         if (isset($setpoints['temperatureHeat'])) {
-            $heat = round(floatval($setpoints['temperatureHeat']) * 100);
+            $heat = $setpoints['temperatureHeat'];
             $setpointFlag |= HvacIpcValueFlags::TEMPERATURE_HEAT_SET;
         }
         if (isset($setpoints['temperatureCool'])) {
-            $cool = round(floatval($setpoints['temperatureCool']) * 100);
+            $cool = $setpoints['temperatureCool'];
             $setpointFlag |= HvacIpcValueFlags::TEMPERATURE_COOL_SET;
         }
         return [$heat, $cool, $setpointFlag];

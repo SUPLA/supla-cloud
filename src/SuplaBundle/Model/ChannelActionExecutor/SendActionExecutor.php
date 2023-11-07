@@ -50,7 +50,7 @@ class SendActionExecutor extends SingleChannelActionExecutor {
         $this->suplaServer->executeCommand($command);
     }
 
-    public function validateActionParams(ActionableSubject $notification, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $notification, array $actionParams): array {
         $actionParams = array_intersect_key($actionParams, array_flip(['title', 'body', 'accessIds']));
         if (isset($actionParams['title'])) {
             Assertion::string($actionParams['title']);

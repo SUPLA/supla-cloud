@@ -24,7 +24,7 @@ class SetDigiglassParametersActionExecutorTest extends TestCase {
         $server->expects($this->once())->method('executeCommand')->with($expectCommand);
         $channel = new ChannelStub(ChannelFunction::DIGIGLASS_VERTICAL(), $this);
         $channel->id(111);
-        $actionParams = $executor->validateActionParams($channel, $actionParams);
+        $actionParams = $executor->validateAndTransformActionParamsFromApi($channel, $actionParams);
         $executor->execute($channel, $actionParams);
     }
 
@@ -54,7 +54,7 @@ class SetDigiglassParametersActionExecutorTest extends TestCase {
         $executor = new SetDigiglassParametersActionExecutor();
         $channel = $this->createMock(IODeviceChannel::class);
         $channel->method('getType')->willReturn(ChannelType::DIGIGLASS());
-        $executor->validateActionParams($channel, $actionParams);
+        $executor->validateAndTransformActionParamsFromApi($channel, $actionParams);
         $this->assertTrue(true);
     }
 

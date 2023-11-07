@@ -41,7 +41,7 @@ class CopyActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::COPY();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         $params = array_intersect_key($actionParams, ['sourceChannelId' => '']);
         Assertion::count($params, 1, 'Choose the source channel.'); // i18n
         $sourceChannelId = $params['sourceChannelId'];

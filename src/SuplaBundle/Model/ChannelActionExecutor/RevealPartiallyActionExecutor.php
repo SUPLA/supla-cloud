@@ -10,8 +10,8 @@ class RevealPartiallyActionExecutor extends RevealActionExecutor {
         return ChannelFunctionAction::REVEAL_PARTIALLY();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::count($actionParams, 1, 'Reveal percent missing.');
-        return parent::validateActionParams($subject, $actionParams);
+        return parent::validateAndTransformActionParamsFromApi($subject, $actionParams);
     }
 }

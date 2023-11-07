@@ -24,7 +24,7 @@ class UpOrStopActionExecutor extends SingleChannelActionExecutor {
         return ChannelFunctionAction::UP_OR_STOP();
     }
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::true(
             $subject instanceof IODeviceChannel,
             "Cannot execute the requested action on channel group."
@@ -34,6 +34,6 @@ class UpOrStopActionExecutor extends SingleChannelActionExecutor {
             ChannelFunctionBitsFlags::ROLLER_SHUTTER_STEP_BY_STEP_ACTIONS()->isSupported(($subject->getFlags())),
             'This action is not supported by the hardware.'
         );
-        return parent::validateActionParams($subject, $actionParams);
+        return parent::validateAndTransformActionParamsFromApi($subject, $actionParams);
     }
 }

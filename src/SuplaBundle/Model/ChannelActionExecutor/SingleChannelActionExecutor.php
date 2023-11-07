@@ -17,8 +17,12 @@ abstract class SingleChannelActionExecutor {
 
     abstract public function execute(ActionableSubject $subject, array $actionParams = []);
 
-    public function validateActionParams(ActionableSubject $subject, array $actionParams): array {
+    public function validateAndTransformActionParamsFromApi(ActionableSubject $subject, array $actionParams): array {
         Assertion::noContent($actionParams, 'This action is not supposed to have any parameters.');
+        return $actionParams;
+    }
+
+    public function transformActionParamsForApi(ActionableSubject $subject, array $actionParams): array {
         return $actionParams;
     }
 }

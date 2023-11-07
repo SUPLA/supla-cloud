@@ -15,7 +15,7 @@ class TurnOnActionExecutorTest extends TestCase {
             $this->expectException(InvalidArgumentException::class);
         }
         $executor = new TurnOnActionExecutor();
-        $params = $executor->validateActionParams($this->createMock(ActionableSubject::class), $actionParams);
+        $params = $executor->validateAndTransformActionParamsFromApi($this->createMock(ActionableSubject::class), $actionParams);
         $this->assertNotNull($params);
     }
 

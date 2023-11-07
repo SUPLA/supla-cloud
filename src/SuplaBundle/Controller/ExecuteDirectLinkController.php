@@ -264,7 +264,7 @@ class ExecuteDirectLinkController extends Controller {
                 unset($params['format']);
             }
             try {
-                $this->channelActionExecutor->validateActionParams($directLink->getSubject(), $action, $params);
+                $this->channelActionExecutor->validateAndTransformActionParamsFromApi($directLink->getSubject(), $action, $params);
             } catch (InvalidArgumentException $e) {
                 throw new DirectLinkExecutionFailureException(DirectLinkExecutionFailureReason::INVALID_ACTION_PARAMETERS());
             }
