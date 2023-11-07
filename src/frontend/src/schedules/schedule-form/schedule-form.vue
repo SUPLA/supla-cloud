@@ -123,6 +123,7 @@
     import ChannelFunctionAction from "../../common/enums/channel-function-action";
     import DateRangePicker from "../../direct-links/date-range-picker";
     import {DateTime} from "luxon";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         props: ['id'],
@@ -215,7 +216,14 @@
                     && ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'].indexOf(subject.function.name) !== -1) {
                     return false;
                 }
-                return true;
+                const nonScheduleFunctions = [
+                    ChannelFunction.HVAC_THERMOSTAT,
+                    ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
+                    ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
+                    ChannelFunction.HVAC_THERMOSTAT_AUTO,
+                ];
+                return !nonScheduleFunctions.includes(subject.functionId);
+
             },
             possibleActionFilter(possibleAction) {
                 return ChannelFunctionAction.availableInSchedules(possibleAction.id);
