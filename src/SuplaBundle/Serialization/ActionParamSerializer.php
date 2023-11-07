@@ -21,20 +21,17 @@ use SuplaBundle\Entity\Main\SceneOperation;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
 use SuplaBundle\Model\ChannelActionExecutor\ChannelActionExecutor;
 
-class ActionParamSerializer extends AbstractSerializer {
+trait ActionParamSerializer {
     /** @var ChannelActionExecutor */
     private $channelActionExecutor;
 
-    public function __construct(ChannelActionExecutor $channelActionExecutor) {
-        parent::__construct();
+    /** @required */
+    public function setChannelActionExecutor(ChannelActionExecutor $channelActionExecutor): void {
         $this->channelActionExecutor = $channelActionExecutor;
     }
 
-    /**
-     * @param SceneOperation|ValueBasedTrigger $entity
-     * @inheritdoc
-     */
-    protected function addExtraFields(array &$normalized, $entity, array $context) {
+    /** @param SceneOperation|ValueBasedTrigger $entity */
+    protected function transformActionParam(array &$normalized, $entity) {
         if (isset($normalized['actionParam']) && $normalized['actionParam']) {
             $normalized['actionParam'] = $this->channelActionExecutor->transformActionParamsForApi(
                 $entity->getSubject(),
@@ -42,9 +39,5 @@ class ActionParamSerializer extends AbstractSerializer {
                 $entity->getActionParam()
             );
         }
-    }
-
-    public function supportsNormalization($entity, $format = null) {
-        return $entity instanceof SceneOperation || $entity instanceof ValueBasedTrigger;
     }
 }

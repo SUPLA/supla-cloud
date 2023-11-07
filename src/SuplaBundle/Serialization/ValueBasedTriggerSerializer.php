@@ -20,6 +20,8 @@ namespace SuplaBundle\Serialization;
 use SuplaBundle\Entity\Main\ValueBasedTrigger;
 
 class ValueBasedTriggerSerializer extends AbstractSerializer {
+    use ActionParamSerializer;
+
     /**
      * @param ValueBasedTrigger $vbt
      * @inheritdoc
@@ -30,6 +32,7 @@ class ValueBasedTriggerSerializer extends AbstractSerializer {
             $normalized['subjectId'] = $vbt->getSubject()->getId();
             $normalized['functionId'] = $vbt->getSubject()->getFunction()->getId();
             $normalized['actionId'] = $vbt->getAction()->getId();
+            $this->transformActionParam($normalized, $vbt);
         }
         $normalized['trigger'] = $vbt->getTrigger();
         $normalized['owningChannelId'] = $vbt->getOwningChannel()->getId();

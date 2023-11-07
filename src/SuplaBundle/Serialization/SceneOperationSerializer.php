@@ -20,6 +20,8 @@ namespace SuplaBundle\Serialization;
 use SuplaBundle\Entity\Main\SceneOperation;
 
 class SceneOperationSerializer extends AbstractSerializer {
+    use ActionParamSerializer;
+
     /**
      * @param SceneOperation $sceneOperation
      * @inheritdoc
@@ -30,6 +32,7 @@ class SceneOperationSerializer extends AbstractSerializer {
             $normalized['subjectType'] = $sceneOperation->getSubjectType()->getValue();
             $normalized['subjectId'] = $sceneOperation->getSubject()->getId();
             $normalized['actionId'] = $sceneOperation->getAction()->getId();
+            $this->transformActionParam($normalized, $sceneOperation);
         }
         $normalized['owningSceneId'] = $sceneOperation->getOwningScene()->getId();
     }
