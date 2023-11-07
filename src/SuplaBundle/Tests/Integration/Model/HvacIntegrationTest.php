@@ -186,7 +186,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
             $hvacChannel->getIoDevice()->getId(),
             $hvacChannel->getId(),
-            ChannelConfigChangeScope::RELATIONS,
+            ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC,
         ));
     }
 
@@ -217,7 +217,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
             $hvacChannel->getIoDevice()->getId(),
             $hvacChannel->getId(),
-            ChannelConfigChangeScope::RELATIONS,
+            ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC,
         ));
     }
 
@@ -288,7 +288,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,6100,420,%d',
             $this->hvacChannel->getIoDevice()->getId(),
             $this->hvacChannel->getId(),
-            ChannelConfigChangeScope::RELATIONS,
+            ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC,
         ));
     }
 

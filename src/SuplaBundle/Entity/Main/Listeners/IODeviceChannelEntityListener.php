@@ -48,7 +48,7 @@ class IODeviceChannelEntityListener {
                 $changes->add(ChannelConfigChangeScope::JSON_ALT_WEEKLY_SCHEDULE);
                 unset($changedKeys[array_search('altWeeklySchedule', $changedKeys)]);
             }
-            if ($changedKeys) {
+            if ($changedKeys || $relationsChanges) {
                 $changes->add(ChannelConfigChangeScope::JSON_BASIC);
             }
         }

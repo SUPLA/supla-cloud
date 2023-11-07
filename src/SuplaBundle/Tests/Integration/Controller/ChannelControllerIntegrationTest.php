@@ -364,7 +364,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
             $gateChannel->getIoDevice()->getId(),
             $gateChannel->getId(),
-            ChannelConfigChangeScope::RELATIONS
+            ChannelConfigChangeScope::RELATIONS | ChannelConfigChangeScope::JSON_BASIC
         ));
     }
 
