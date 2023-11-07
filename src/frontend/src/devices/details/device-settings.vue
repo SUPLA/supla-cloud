@@ -24,7 +24,7 @@
                             <label>{{ $t('Screen brightness') }}</label>
                             <div>
                                 <label class="checkbox2 checkbox2-grey">
-                                    <input type="checkbox" v-model="config.screenBrightness.auto" @change="onChange()">
+                                    <input type="checkbox" v-model="config.screenBrightness.auto" @change="onScreenBrightnessAutoChange()">
                                     {{ $t('Automatic') }}
                                 </label>
                             </div>
@@ -180,14 +180,14 @@
             this.cancelChanges();
         },
         methods: {
-            onChange() {
-                if (this.config.screenBrightness) {
-                    if (!this.config.screenBrightness.auto && this.config.screenBrightness.level < 0) {
-                        this.config.screenBrightness.level = 100;
-                    } else if (this.config.screenBrightness.auto && this.config.screenBrightness.level % 5 !== 0) {
-                        this.config.screenBrightness.level = 0;
-                    }
+            onScreenBrightnessAutoChange() {
+                if (this.config.screenBrightness.auto) {
+                    this.config.screenBrightness.level = 0;
+                } else {
+                    this.config.screenBrightness.level = 50;
                 }
+            },
+            onChange() {
                 this.hasPendingChanges = true;
             },
             cancelChanges() {
