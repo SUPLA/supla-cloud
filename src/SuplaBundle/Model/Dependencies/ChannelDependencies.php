@@ -4,6 +4,7 @@ namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
+use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\Schedule\ScheduleManager;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -79,10 +80,21 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         $channels = [];
         foreach ($config as $key => $value) {
             if ((strpos($key, 'ChannelId') > 0) && is_int($value) && $value > 0) {
-                $channels[] = $this->entityManager->find(IODeviceChannel::class, $value);
+                $channel = $this->entityManager->find(IODeviceChannel::class, $value);
+                $channels[$channel->getId()] = $channel;
             }
         }
-        $channels = array_merge($channels, $this->channelRepository->findActionTriggers($channel));
-        return $channels;
+        foreach ($this->channelRepository->findActionTriggers($channel) as $atChannel) {
+            $channels[$atChannel->getId()] = $atChannel;
+        }
+        foreach ($this->channelRepository->findBy(['type' => ChannelType::HVAC]) as $possibleChannel) {
+            $config = $this->channelParamConfigTranslator->getConfig($possibleChannel);
+            foreach ($config as $key => $value) {
+                if ((strpos($key, 'ChannelId') > 0) && $value === $channel->getId()) {
+                    $channels[$possibleChannel->getId()] = $possibleChannel;
+                }
+            }
+        }
+        return array_values($channels);
     }
 }

@@ -662,7 +662,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent());
-        $this->assertEquals([$gateChannel->getId()], array_column($content->channels, 'id'));
+        $this->assertEquals([$sensorChannel->getId(), $gateChannel->getId()], array_column($content->channels, 'id'));
         return [$device1->getId(), $device2->getId()];
     }
 
@@ -727,7 +727,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId() . '?safe=true', ['locationId' => $anotherLocation->getId()]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent());
-        $this->assertEquals([$gateChannel->getId(), $sensorChannel->getId()], array_column($content->channels, 'id'));
+        $this->assertEquals([$sensorChannel->getId(), $gateChannel->getId()], array_column($content->channels, 'id'));
         return [$device->getId()];
     }
 

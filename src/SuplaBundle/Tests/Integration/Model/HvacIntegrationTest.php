@@ -686,6 +686,14 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($location->getId(), $this->freshEntity($this->device->getChannels()[1])->getLocation()->getId());
     }
 
+    public function testChangingLocationOfThermometerAlsoChangesThermostatLocation() {
+        $location = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $this->device->getChannels()[1]->getId(), ['locationId' => $location->getId()]);
+        $this->assertEquals($location->getId(), $this->freshEntity($this->device->getChannels()[1])->getLocation()->getId());
+        $this->assertEquals($location->getId(), $this->freshEntity($this->hvacChannel)->getLocation()->getId());
+    }
+
     public function testGettingHvacDeviceConfig() {
         $client = $this->createAuthenticatedClient();
         $client->apiRequestV3('GET', '/api/iodevices/' . $this->device->getId());

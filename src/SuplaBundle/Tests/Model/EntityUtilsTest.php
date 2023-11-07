@@ -41,4 +41,15 @@ class EntityUtilsTest extends TestCase {
         EntityUtils::setField($entity2, 'id', 2);
         $this->assertEquals([1, 2], EntityUtils::mapToIds([$entity1, $entity2]));
     }
+
+    public function testUniqueById() {
+        $entity1 = new IODeviceChannel();
+        $entity2 = new IODeviceChannel();
+        $entity3 = new IODeviceChannel();
+        EntityUtils::setField($entity1, 'id', 1);
+        EntityUtils::setField($entity2, 'id', 2);
+        EntityUtils::setField($entity3, 'id', 2);
+        $uniqueEntities = EntityUtils::uniqueByIds([$entity1, $entity2, $entity3]);
+        $this->assertEquals([$entity1, $entity2], $uniqueEntities);
+    }
 }

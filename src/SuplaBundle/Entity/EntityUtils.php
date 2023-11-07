@@ -44,4 +44,8 @@ final class EntityUtils {
             return $entity->getId();
         }, $entities));
     }
+
+    public static function uniqueByIds(array $entities): array {
+        return array_values(array_combine(self::mapToIds($entities), $entities));
+    }
 }

@@ -23,6 +23,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
+use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
@@ -306,6 +307,9 @@ class IODeviceController extends RestController {
                         $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
                     }
                     if (count(array_filter($dependencies))) {
+                        $dependencies = array_map(function (array $deps) {
+                            return EntityUtils::uniqueByIds($deps);
+                        }, $dependencies);
                         $view = $this->view($dependencies, Response::HTTP_CONFLICT);
                         $this->setSerializationGroups(
                             $view,
@@ -327,15 +331,20 @@ class IODeviceController extends RestController {
                     }
                 }
             }
-            if ($locationChanged && $shouldAsk) {
-                $dependencies = [];
+            if ($locationChanged) {
+                $dependentChannels = [];
                 foreach ($ioDevice->getChannels() as $channel) {
                     if ($channel->hasInheritedLocation()) {
-                        $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
+                        $deps = $channelDependencies->getDependencies($channel);
+                        if ($deps['channels']) {
+                            $dependentChannels[] = $channel;
+                            $dependentChannels = array_merge_recursive($dependentChannels, $deps['channels']);
+                        }
                     }
                 }
-                if ($dependencies['channels'] ?? null) {
-                    return $this->view(['channels' => $dependencies['channels']], Response::HTTP_CONFLICT);
+                $dependentChannels = EntityUtils::uniqueByIds($dependentChannels);
+                if ($dependentChannels && $shouldAsk) {
+                    return $this->view(['channels' => $dependentChannels], Response::HTTP_CONFLICT);
                 }
             }
             if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
@@ -347,14 +356,12 @@ class IODeviceController extends RestController {
             }
             $requestFiller->fillFromData($requestData, $ioDevice);
             if ($locationChanged) {
-                foreach ($ioDevice->getChannels() as $channel) {
-                    if ($channel->hasInheritedLocation()) {
-                        $channelDeps = $channelDependencies->getDependencies($channel);
-                        foreach ($channelDeps['channels'] as $channelDep) {
-                            $channelDep->setLocation($ioDevice->getLocation());
-                            $em->persist($channelDep);
-                        }
+                foreach ($dependentChannels as $channel) {
+                    if ($channel->hasInheritedLocation() && $channel->getIodevice()->getId() === $ioDevice->getId()) {
+                        continue;
                     }
+                    $channel->setLocation($ioDevice->getLocation());
+                    $em->persist($channel);
                 }
             }
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
