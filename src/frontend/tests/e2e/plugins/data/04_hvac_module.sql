@@ -2,7 +2,7 @@ INSERT INTO supla_iodevice (id, location_id, user_id, guid, name, enabled, comme
                             software_version, protocol_version, original_location_id, auth_key, flags, manufacturer_id, product_id,
                             user_config, properties)
 VALUES (3, 1, 1, 0x31313234383536, 'HVAC-Monster', 1, NULL, '2023-10-06 19:38:31.000', 1138728189, '2023-10-06 19:38:31.000', NULL, '2.32',
-        2, NULL, NULL, 48, NULL, NULL,
+        2, NULL, NULL, 16, NULL, NULL,
         '{"statusLed":"OFF_WHEN_CONNECTED","screenBrightness":{"level":13},"buttonVolume":14,"userInterface":{"disabled":false},"automaticTimeSync":false,"homeScreen":{"content":"TEMPERATURE","offDelay":60}}',
         '{"homeScreenContentAvailable":["NONE","TEMPERATURE","TIME","TIME_DATE","TEMPERATURE_TIME","MAIN_AND_AUX_TEMPERATURE"]}');
 
@@ -21,7 +21,7 @@ VALUES (3, 1, 0, NULL, 3000, 40, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0,
         0,
         '{"availableAlgorithms":["ON_OFF_SETPOINT_MIDDLE"],"temperatures":{"roomMin":1000,"roomMax":4000,"auxMin":500,"auxMax":5000,"histeresisMin":100,"histeresisMax":500,"autoOffsetMin":100,"autoOffsetMax":2000}}'),
        (3, 1, 4, 'Dolores tenetur pariatur ut.', 6100, 426, 1966080, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, NULL,
-        '{}',
+        '{"mainThermometerChannelNo":1,"auxThermometerChannelNo":null,"binarySensorChannelNo":5,"usedAlgorithm":"ON_OFF_SETPOINT_AT_MOST","weeklySchedule":{"programSettings":{"1":{"mode":"HEAT","setpointTemperatureHeat":2400,"setpointTemperatureCool":0},"2":{"mode":"HEAT","setpointTemperatureHeat":2100,"setpointTemperatureCool":0},"3":{"mode":"HEAT","setpointTemperatureHeat":1800,"setpointTemperatureCool":0},"4":{"mode":"NOT_SET","setpointTemperatureHeat":2200,"setpointTemperatureCool":0}},"quarters":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,0,0,0,0,0,0]}}',
         0,
         '{"availableAlgorithms":["ON_OFF_SETPOINT_MIDDLE","ON_OFF_SETPOINT_AT_MOST"],"temperatures":{"roomMin":1000,"roomMax":4000,"auxMin":500,"auxMax":5000,"histeresisMin":100,"histeresisMax":500,"autoOffsetMin":100,"autoOffsetMax":2000}}'),
        (3, 1, 5, NULL, 1000, 235, NULL, 0, 0, 0, NULL, NULL, NULL, 0, 0, NULL, 0, NULL, NULL, 0, NULL),
