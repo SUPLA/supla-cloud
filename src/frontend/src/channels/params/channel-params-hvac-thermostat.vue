@@ -127,11 +127,11 @@
                     </dt>
                 </dl>
                 <transition-expand>
-                    <dl v-if="channel.config.antiFreezeAndOverheatProtectionEnabled">
+                    <dl v-if="channel.config.antiFreezeAndOverheatProtectionEnabled" class="wide-label">
                         <template v-for="temp in freezeHeatProtectionTemperatures">
                             <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
                             <dt :key="`dt${temp.name}`">
-                                <span class="input-group">
+                                <span class="input-group d-flex align-items-center justify-content-end">
                                     <input type="number"
                                         step="0.1"
                                         :min="temp.min"
@@ -194,7 +194,7 @@
                         </div>
                     </transition-expand>
                 </div>
-                <dl>
+                <dl class="wide-label">
                     <template v-for="temp in histeresisTemperatures">
                         <dd :key="`dd${temp.name}`">{{ $t(`thermostatTemperature_${temp.name}`) }}</dd>
                         <dt :key="`dt${temp.name}`">
@@ -255,7 +255,7 @@
                         </span>
                     </dt>
                 </dl>
-                <dl>
+                <dl class="wide-label">
                     <dd>
                         {{ $t('Output value on error') }}
                         <a @click="outputValueHelpShown = !outputValueHelpShown"><i class="pe-7s-help1"></i></a>
