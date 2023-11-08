@@ -35,6 +35,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
 
     public function getItemsThatDependOnFunction(IODeviceChannel $channel): array {
         return [
+            'channels' => array_values($this->findDependentChannels($channel)),
             'channelGroups' => $channel->getChannelGroups()->toArray(),
             'directLinks' => $channel->getDirectLinks()->toArray(),
             'schedules' => $channel->getSchedules()->toArray(),
@@ -47,7 +48,7 @@ class ChannelDependencies extends ActionableSubjectDependencies {
 
     public function getItemsThatDependOnLocation(IODeviceChannel $channel): array {
         return [
-            'channels' => array_values($this->findDependentChannels($channel)),
+            'channels' => array_values($this->findDependentChannelsRecursive($channel)),
         ];
     }
 
@@ -80,8 +81,21 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         $this->clearActionTriggersThatReferencesSubject($channel);
     }
 
-    private function findDependentChannels(IODeviceChannel $channel, array &$checkedChannelsIds = []): array {
+    private function findDependentChannelsRecursive(IODeviceChannel $channel, array $checkedChannelsIds = []): array {
         $checkedChannelsIds[] = $channel->getId();
+        $dependentChannels = $this->findDependentChannels($channel);
+        foreach ($dependentChannels as $ch) {
+            if (!in_array($ch->getId(), $checkedChannelsIds)) {
+                $dependentChannels = array_replace($dependentChannels, $this->findDependentChannelsRecursive($ch, $checkedChannelsIds));
+            }
+        }
+        if (isset($dependentChannels[$channel->getId()])) {
+            unset($dependentChannels[$channel->getId()]);
+        }
+        return $dependentChannels;
+    }
+
+    private function findDependentChannels(IODeviceChannel $channel): array {
         $config = $this->channelParamConfigTranslator->getConfig($channel);
         $dependentChannels = [];
         foreach ($config as $key => $value) {
@@ -100,14 +114,6 @@ class ChannelDependencies extends ActionableSubjectDependencies {
                     $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
                 }
             }
-        }
-        foreach ($dependentChannels as $ch) {
-            if (!in_array($ch->getId(), $checkedChannelsIds)) {
-                $dependentChannels = array_replace($dependentChannels, $this->findDependentChannels($ch, $checkedChannelsIds));
-            }
-        }
-        if (isset($dependentChannels[$channel->getId()])) {
-            unset($dependentChannels[$channel->getId()]);
         }
         return $dependentChannels;
     }
