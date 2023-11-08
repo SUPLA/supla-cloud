@@ -556,8 +556,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertCount(1, $content['sceneOperations']);
-        $this->assertArrayHasKey('owningScene', $content['sceneOperations'][0]); // important for frontend - it displays scene name
+        $this->assertCount(1, $content['dependencies']['sceneOperations']);
+        $this->assertArrayHasKey('owningScene', $content['dependencies']['sceneOperations'][0]); // important for frontend - it displays scene name
         return $gateChannel->getId();
     }
 
@@ -737,9 +737,9 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('actionTriggers', $content);
-        $this->assertCount(1, $content['actionTriggers']);
-        $this->assertEquals($triggerId, $content['actionTriggers'][0]['id']);
+        $this->assertArrayHasKey('actionTriggers', $content['dependencies']);
+        $this->assertCount(1, $content['dependencies']['actionTriggers']);
+        $this->assertEquals($triggerId, $content['dependencies']['actionTriggers'][0]['id']);
         return $triggerId;
     }
 
@@ -1108,8 +1108,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId() . '?safe=1', ['functionId' => ChannelFunction::NONE]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('ownReactions', $content);
-        $this->assertCount(1, $content['ownReactions']);
+        $this->assertArrayHasKey('ownReactions', $content['dependencies']);
+        $this->assertCount(1, $content['dependencies']['ownReactions']);
         $client->apiRequestV24('PUT', '/api/channels/' . $thermometer->getId(), ['functionId' => ChannelFunction::NONE]);
         $this->assertStatusCode(200, $client->getResponse());
         $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
@@ -1135,8 +1135,8 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId() . '?safe=1', ['functionId' => ChannelFunction::POWERSWITCH]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('reactions', $content);
-        $this->assertCount(1, $content['reactions']);
+        $this->assertArrayHasKey('reactions', $content['dependencies']);
+        $this->assertCount(1, $content['dependencies']['reactions']);
         $client->apiRequestV24('PUT', '/api/channels/' . $relay->getId(), ['functionId' => ChannelFunction::POWERSWITCH]);
         $this->assertStatusCode(200, $client->getResponse());
         $client->apiRequestV24('GET', "/api/channels/{$thermometer->getId()}/reactions");
@@ -1187,7 +1187,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testUpdatingConfigWithComparison */
     public function testCantUpdateWithoutConfigBefore(int $channelId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/channels/' . $channelId, [
+        $client->apiRequestV3('PUT', '/api/channels/' . $channelId . '?safe=true', [
             'config' => ['temperatureAdjustment' => 11],
         ]);
         $this->assertStatusCode(400, $client->getResponse());
@@ -1295,6 +1295,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('PUT', '/api/channels/' . $gateId, [
             'locationId' => $locationId,
         ]);
+        $this->assertStatusCode(200, $client->getResponse());
         $gate = $this->freshEntityById(IODeviceChannel::class, $gateId);
         $sensor = $this->freshEntityById(IODeviceChannel::class, $sensorId);
         $this->assertEquals($locationId, $gate->getLocation()->getId());
@@ -1321,6 +1322,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('PUT', '/api/channels/' . $gateId, [
             'inheritedLocation' => true,
         ]);
+        $this->assertStatusCode(200, $client->getResponse());
         $gate = $this->freshEntityById(IODeviceChannel::class, $gateId);
         $sensor = $this->freshEntityById(IODeviceChannel::class, $sensorId);
         $this->assertNotEquals($locationId, $gate->getLocation()->getId());
@@ -1340,6 +1342,54 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             $sensor->getId(),
             ChannelConfigChangeScope::LOCATION
         ));
-        return $ids;
+    }
+
+    public function testCannotChangeHiddenOfPairedChannelWithoutConfirmation() {
+        $channelParamConfigTranslator = self::$container->get(SubjectConfigTranslator::class);
+        $deviceLocation = $this->createLocation($this->user);
+        $device1 = $this->createDevice($deviceLocation, [
+            [ChannelType::SENSORNO, ChannelFunction::OPENINGSENSOR_GATE],
+        ]);
+        $device2 = $this->createDevice($deviceLocation, [
+            [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE],
+        ]);
+        $sensorChannel = $device1->getChannels()[0];
+        $gateChannel = $device2->getChannels()[0];
+        $channelParamConfigTranslator->setConfig($gateChannel, ['openingSensorChannelId' => $sensorChannel->getId()]);
+        $this->flush();
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $gateChannel->getId() . '?safe=true', ['hidden' => true]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals('hidden', $content['conflictOn']);
+        $this->assertCount(1, $content['dependencies']['channels']);
+        $this->assertEquals($sensorChannel->getId(), $content['dependencies']['channels'][0]['id']);
+        return [$gateChannel->getId(), $sensorChannel->getId()];
+    }
+
+    /** @depends testCannotChangeHiddenOfPairedChannelWithoutConfirmation */
+    public function testChangingHiddenOfDependentChannelsWhenConfirmed($ids) {
+        [$gateId, $sensorId] = $ids;
+        $sensor = $this->freshEntityById(IODeviceChannel::class, $sensorId);
+        $this->assertFalse($sensor->getHidden());
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', '/api/channels/' . $gateId, ['hidden' => true]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $gate = $this->freshEntityById(IODeviceChannel::class, $gateId);
+        $sensor = $this->freshEntityById(IODeviceChannel::class, $sensorId);
+        $this->assertTrue($gate->getHidden());
+        $this->assertTrue($sensor->getHidden());
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,2900,20,%d',
+            $gate->getIoDevice()->getId(),
+            $gate->getId(),
+            ChannelConfigChangeScope::VISIBILITY
+        ));
+        $this->assertSuplaCommandExecuted(sprintf(
+            'USER-ON-CHANNEL-CONFIG-CHANGED:1,%d,%d,1000,60,%d',
+            $sensor->getIoDevice()->getId(),
+            $sensor->getId(),
+            ChannelConfigChangeScope::VISIBILITY
+        ));
     }
 }

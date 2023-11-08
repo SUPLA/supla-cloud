@@ -433,15 +433,16 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client->request('DELETE', '/api/iodevices/' . $this->device->getId() . '?safe=yes');
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('sceneOperations', $content);
-        $this->assertArrayHasKey('channelGroups', $content);
-        $this->assertArrayHasKey('directLinks', $content);
-        $this->assertArrayHasKey('schedules', $content);
-        $this->assertArrayHasKey('reactions', $content);
-        $this->assertCount(1, $content['channelGroups']);
-        $this->assertEmpty($content['directLinks']);
-        $this->assertEquals($cg->getId(), $content['channelGroups'][0]['id']);
-        return $cg;
+        $this->assertArrayHasKey('conflictOn', $content);
+        $this->assertArrayHasKey('dependencies', $content);
+        $this->assertArrayHasKey('sceneOperations', $content['dependencies']);
+        $this->assertArrayHasKey('channelGroups', $content['dependencies']);
+        $this->assertArrayHasKey('directLinks', $content['dependencies']);
+        $this->assertArrayHasKey('schedules', $content['dependencies']);
+        $this->assertArrayHasKey('reactions', $content['dependencies']);
+        $this->assertCount(1, $content['dependencies']['channelGroups']);
+        $this->assertEmpty($content['dependencies']['directLinks']);
+        $this->assertEquals($cg->getId(), $content['dependencies']['channelGroups'][0]['id']);
     }
 
     public function testTurningOffWithAskingAboutDependencies() {
@@ -596,7 +597,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
     /** @depends testUpdatingConfigWithComparison */
     public function testCantUpdateWithoutConfigBefore(int $deviceId) {
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/iodevices/' . $deviceId, [
+        $client->apiRequestV3('PUT', '/api/iodevices/' . $deviceId . '?safe=true', [
             'config' => ['statusLed' => 'OFF_WHEN_CONNECTED'],
         ]);
         $this->assertStatusCode(400, $client->getResponse());
@@ -662,7 +663,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent());
-        $this->assertEquals([$sensorChannel->getId(), $gateChannel->getId()], array_column($content->channels, 'id'));
+        $this->assertEquals([$sensorChannel->getId(), $gateChannel->getId()], array_column($content->dependencies->channels, 'id'));
         return [$device1->getId(), $device2->getId()];
     }
 
@@ -727,7 +728,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('PUT', '/api/iodevices/' . $device->getId() . '?safe=true', ['locationId' => $anotherLocation->getId()]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent());
-        $this->assertEquals([$sensorChannel->getId(), $gateChannel->getId()], array_column($content->channels, 'id'));
+        $this->assertEquals([$sensorChannel->getId(), $gateChannel->getId()], array_column($content->dependencies->channels, 'id'));
         return [$device->getId()];
     }
 

@@ -216,7 +216,10 @@
                 if (config.userInterface && config.userInterface.disabled !== 'partial') {
                     config.userInterface = {disabled: config.userInterface.disabled};
                 }
-                this.$http.put(`iodevices/${this.device.id}`, {config, configBefore: this.device.configBefore}, {skipErrorHandler: [409]})
+                this.$http.put(`iodevices/${this.device.id}?safe=true`, {
+                    config,
+                    configBefore: this.device.configBefore
+                }, {skipErrorHandler: [409]})
                     .then(response => {
                         this.device.config = response.body.config;
                         this.device.configBefore = response.body.configBefore;

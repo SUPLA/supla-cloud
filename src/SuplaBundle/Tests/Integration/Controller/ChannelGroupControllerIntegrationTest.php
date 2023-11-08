@@ -318,9 +318,9 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('DELETE', '/api/channel-groups/' . $groupId . '?safe=1');
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('actionTriggers', $content);
-        $this->assertCount(1, $content['actionTriggers']);
-        $this->assertEquals($triggerId, $content['actionTriggers'][0]['id']);
+        $this->assertArrayHasKey('actionTriggers', $content['dependencies']);
+        $this->assertCount(1, $content['dependencies']['actionTriggers']);
+        $this->assertEquals($triggerId, $content['dependencies']['actionTriggers'][0]['id']);
         return [$triggerId, $groupId];
     }
 
@@ -370,8 +370,8 @@ class ChannelGroupControllerIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('DELETE', '/api/channel-groups/' . $group->getId() . '?safe=1');
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent(), true);
-        $this->assertArrayHasKey('reactions', $content);
-        $this->assertCount(1, $content['reactions']);
+        $this->assertArrayHasKey('reactions', $content['dependencies']);
+        $this->assertCount(1, $content['dependencies']['reactions']);
         return [$thermometer->getId(), $group->getId()];
     }
 

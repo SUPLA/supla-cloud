@@ -173,6 +173,16 @@
             @cancel="loading = changeLocationConfirmationObject = undefined"
             @confirm="changeLocation(changeLocationConfirmationObject.newLocation, false)"></dependencies-warning-modal>
 
+        <dependencies-warning-modal
+            header-i18n="Are you sure you want to change channel’s visibility?"
+            description-i18n="Changing channel’s visibility will also change the visibility of other items."
+            removing-header-i18n=""
+            :loading="loading"
+            v-if="saveConfigConfirmationObject"
+            :dependencies="saveConfigConfirmationObject"
+            @cancel="loading = saveConfigConfirmationObject = undefined"
+            @confirm="saveChanges(false)"></dependencies-warning-modal>
+
         <modal v-if="sleepingDeviceWarning"
             :header="$t('Device might be sleeping')"
             @confirm="sleepingDeviceWarning = false">
@@ -231,6 +241,7 @@
                 executingAction: false,
                 changeFunctionConfirmationObject: undefined,
                 changeLocationConfirmationObject: undefined,
+                saveConfigConfirmationObject: undefined,
                 sleepingDeviceWarning: false,
                 onChangeListener: undefined,
                 configConflictDetected: false,
@@ -284,21 +295,22 @@
                     .then(() => this.$router.replace({name: 'channel', params: {id: this.channel.id}}))
                     .catch(response => {
                         if (response.status === 409) {
-                            if (response.body.details) {
-                                this.configConflictDetected = true;
-                            } else {
+                            if (response.body.dependencies) {
                                 this.changeFunctionConfirmationObject = response.body;
                                 this.changeFunctionConfirmationObject.newFunction = newFunction;
+                            } else {
+                                this.configConflictDetected = true;
                             }
                         }
                     })
                     .finally(() => this.changingFunction = this.loading = false);
             },
-            saveChanges: throttle(function () {
+            saveChanges: throttle(function (safe = true) {
                 this.loading = true;
-                return this.$http.put(`channels/${this.id}?safe=1`, this.channel, {skipErrorHandler: [409]})
+                return this.$http.put(`channels/${this.id}${safe ? '?safe=1' : ''}`, this.channel, {skipErrorHandler: [409]})
                     .then(response => extendObject(this.channel, response.body))
                     .then(() => {
+                        this.saveConfigConfirmationObject = undefined;
                         this.hasPendingChanges = false;
                         this.$set(this.channel, 'hasPendingChanges', false);
                         EventBus.$emit('channel-updated');
@@ -306,7 +318,11 @@
                     .then(() => this.afterSave())
                     .catch(response => {
                         if (response.status === 409) {
-                            this.configConflictDetected = true;
+                            if (response.body.dependencies) {
+                                this.saveConfigConfirmationObject = response.body;
+                            } else {
+                                this.configConflictDetected = true;
+                            }
                         }
                     })
                     .finally(() => this.loading = false);

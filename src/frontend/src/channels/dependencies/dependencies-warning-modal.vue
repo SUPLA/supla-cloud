@@ -6,7 +6,7 @@
         :loading="loading"
         :header="$t(headerI18n)">
         <p v-if="descriptionI18n">{{ $t(descriptionI18n) }}</p>
-        <subject-dependencies :dependencies="dependencies">
+        <subject-dependencies :dependencies="dependencies.dependencies">
             <template v-slot:deletingHeader>
                 {{ $t(deletingHeaderI18n) }}
             </template>

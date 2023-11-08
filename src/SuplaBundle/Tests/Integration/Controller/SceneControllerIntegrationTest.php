@@ -375,8 +375,8 @@ class SceneControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));
         $this->assertNotContains('USER-ON-SCENE-REMOVED:1,' . $sceneDetails['id'], SuplaServerMock::$executedCommands);
         $content = json_decode($response->getContent(), true);
-        $this->assertCount(1, $content['directLinks']);
-        $this->assertCount(0, $content['sceneOperations']);
+        $this->assertCount(1, $content['dependencies']['directLinks']);
+        $this->assertCount(0, $content['dependencies']['sceneOperations']);
         $client->apiRequestV24('DELETE', '/api/scenes/' . $sceneDetails['id']);
         $this->assertStatusCode(204, $client->getResponse());
         $this->assertNull($this->getEntityManager()->find(Scene::class, $sceneDetails['id']));

@@ -697,7 +697,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('PUT', "/api/channels/$hvacId?safe=true", ['locationId' => $location->getId()]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent());
-        $this->assertEquals([$mainThermoId, $auxThermoId], array_column($content->channels, 'id'));
+        $this->assertEquals([$mainThermoId, $auxThermoId], array_column($content->dependencies->channels, 'id'));
         $client->apiRequestV3('PUT', "/api/channels/$hvacId", ['locationId' => $location->getId()]);
         $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $mainThermoId)->getLocation()->getId());
         $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $auxThermoId)->getLocation()->getId());
@@ -713,7 +713,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV3('PUT', "/api/channels/$mainThermoId?safe=true", ['locationId' => $location->getId()]);
         $this->assertStatusCode(409, $client->getResponse());
         $content = json_decode($client->getResponse()->getContent());
-        $this->assertEquals([$hvacId, $auxThermoId], array_column($content->channels, 'id'));
+        $this->assertEquals([$hvacId, $auxThermoId], array_column($content->dependencies->channels, 'id'));
         $client->apiRequestV3('PUT', "/api/channels/$mainThermoId", ['locationId' => $location->getId()]);
         $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $mainThermoId)->getLocation()->getId());
         $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $auxThermoId)->getLocation()->getId());

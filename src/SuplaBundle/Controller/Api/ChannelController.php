@@ -260,15 +260,7 @@ class ChannelController extends RestController {
      *       ),
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Channel")),
-     *     @OA\Response(response="409", description="Channel update would result in data loss, and the safe parameter has been set to true.",
-     *       @OA\JsonContent(
-     *         @OA\Property(property="channelGroups", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="directLinks", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="schedules", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="sceneOperations", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="actionTriggers", type="array", @OA\Items(type="object")),
-     *       )
-     *    ),
+     *     @OA\Response(response="409", description="Channel update would result in data loss, and the safe parameter has been set to true."),
      * )
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_RW') and is_granted('accessIdContains', channel)")
      * @UnavailableInMaintenance
@@ -290,11 +282,16 @@ class ChannelController extends RestController {
                 ? !filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
                 : $request->get('confirm');
             if (ApiVersions::V3()->isRequestedEqualOrGreaterThan($request) && isset($requestData['config'])) {
-                Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
                 Assertion::isArray($requestData['config'], null, 'config');
-                Assertion::isArray($requestData['configBefore'], null, 'configBefore');
                 $currentConfig = json_decode(json_encode($paramConfigTranslator->getConfig($channel)), true);
-                $newConfigToSet = ArrayUtils::mergeConfigs($requestData['configBefore'], $newConfigToSet, $currentConfig);
+                if (!$changesConfirmed || isset($requestData['configBefore'])) {
+                    Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
+                    Assertion::isArray($requestData['configBefore'], null, 'configBefore');
+                    $configBefore = $requestData['configBefore'];
+                } else {
+                    $configBefore = $currentConfig;
+                }
+                $newConfigToSet = ArrayUtils::mergeConfigs($configBefore, $newConfigToSet, $currentConfig);
             }
             if (isset($requestData['functionId'])) {
                 $function = ChannelFunction::fromString($requestData['functionId']);
@@ -309,7 +306,7 @@ class ChannelController extends RestController {
                     if (!$changesConfirmed) {
                         $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
                         if (array_filter($dependencies)) {
-                            $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                            $view = $this->view(['conflictOn' => 'function', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
                             $this->setSerializationGroups(
                                 $view,
                                 $request,
@@ -352,18 +349,21 @@ class ChannelController extends RestController {
             }
             if ($newLocation !== false && !$changesConfirmed) {
                 $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
-                if ($dependencies['channels']) {
-                    return $this->view(['channels' => $dependencies['channels']], Response::HTTP_CONFLICT);
+                if (array_filter($dependencies)) {
+                    return $this->view(['conflictOn' => 'location', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
+                }
+            }
+            $hiddenChanged = isset($requestData['hidden']) && $requestData['hidden'] !== $channel->getHidden();
+            if ($hiddenChanged && !$changesConfirmed) {
+                $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
+                if (array_filter($dependencies)) {
+                    return $this->view(['conflictOn' => 'hidden', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
                 }
             }
             if (isset($requestData['caption'])) {
                 Assertion::string($requestData['caption']);
                 Assertion::maxLength($requestData['caption'], 100, 'Caption is too long.'); // i18n
                 $channel->setCaption($requestData['caption']);
-            }
-            if (isset($requestData['hidden'])) {
-                Assertion::boolean($requestData['hidden']);
-                $channel->setHidden($requestData['hidden']);
             }
             /** @var IODeviceChannel $channel */
             $channel = $this->transactional(function (EntityManagerInterface $em) use (
@@ -376,7 +376,8 @@ class ChannelController extends RestController {
                 $request,
                 $channel,
                 $functionHasBeenChanged,
-                $newLocation
+                $newLocation,
+                $hiddenChanged
             ) {
                 if ($newFunction) {
                     $paramConfigTranslator->clearConfig($channel);
@@ -412,6 +413,14 @@ class ChannelController extends RestController {
                     $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
                     foreach ($dependencies['channels'] as $depChannel) {
                         $depChannel->setLocation($channel->getLocation());
+                        $em->persist($depChannel);
+                    }
+                }
+                if ($hiddenChanged) {
+                    $channel->setHidden(boolval($requestData['hidden']));
+                    $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
+                    foreach ($dependencies['channels'] as $depChannel) {
+                        $depChannel->setHidden($channel->getHidden());
                         $em->persist($depChannel);
                     }
                 }

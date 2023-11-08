@@ -342,12 +342,11 @@ class ScenesController extends RestController {
      */
     public function deleteSceneAction(Scene $scene, Request $request, SceneDependencies $sceneDependencies) {
         $this->ensureApiVersion24($request);
-        $sceneId = $scene->getId();
         $shouldConfirm = filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN);
         if ($shouldConfirm) {
             $dependencies = $sceneDependencies->getDependencies($scene);
             if (array_filter($dependencies)) {
-                $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                $view = $this->view(['conflictOn' => 'deletion', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
                 $this->setSerializationGroups($view, $request, ['scene'], ['scene']);
                 return $view;
             }

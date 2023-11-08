@@ -262,15 +262,7 @@ class IODeviceController extends RestController {
      *       )
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
-     *     @OA\Response(response="409", description="Device update would result in data loss, and the safe parameter has been set to true.",
-     *       @OA\JsonContent(
-     *         @OA\Property(property="channelGroups", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="directLinks", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="schedules", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="sceneOperations", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="actionTriggers", type="array", @OA\Items(type="object")),
-     *       )
-     *    ),
+     *     @OA\Response(response="409", description="Device update would result in data loss, and the safe parameter has been set to true."),
      * )
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
@@ -300,13 +292,13 @@ class IODeviceController extends RestController {
                 if ($locationChanged) {
                     $locationDependencies = $deviceDependencies->getItemsThatDependOnLocation($ioDevice);
                     if (array_filter($locationDependencies) && $shouldAsk) {
-                        return $this->view($locationDependencies, Response::HTTP_CONFLICT);
+                        return $this->view(['conflictOn' => 'location', 'dependencies' => $locationDependencies], Response::HTTP_CONFLICT);
                     }
                 }
                 if ($enabledChanged && !$requestData['enabled']) {
                     $dependencies = $deviceDependencies->getItemsThatDependOnEnabled($ioDevice);
                     if (array_filter($dependencies)) {
-                        $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                        $view = $this->view(['conflictOn' => 'enabled', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
                         $this->setSerializationGroups(
                             $view,
                             $request,
@@ -318,11 +310,16 @@ class IODeviceController extends RestController {
                 }
             }
             if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
-                Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
                 Assertion::isArray($requestData['config'], null, 'config');
-                Assertion::isArray($requestData['configBefore'], null, 'configBefore');
                 $currentConfig = json_decode(json_encode($configTranslator->getConfig($ioDevice)), true);
-                $requestData['config'] = ArrayUtils::mergeConfigs($requestData['configBefore'], $requestData['config'], $currentConfig);
+                if ($shouldAsk || isset($requestData['configBefore'])) {
+                    Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
+                    Assertion::isArray($requestData['configBefore'], null, 'configBefore');
+                    $configBefore = $requestData['configBefore'];
+                } else {
+                    $configBefore = $currentConfig;
+                }
+                $requestData['config'] = ArrayUtils::mergeConfigs($configBefore, $requestData['config'], $currentConfig);
             }
             $requestFiller->fillFromData($requestData, $ioDevice);
             $em->persist($ioDevice);
@@ -391,15 +388,7 @@ class IODeviceController extends RestController {
      *     @OA\Parameter(description="ID", in="path", name="id", required=true, @OA\Schema(type="integer")),
      *     @OA\Parameter(description="Whether to perform actions that require data loss (e.g. delete schedules when deleting the device)", in="query", name="safe", required=false, @OA\Schema(type="boolean")),
      *     @OA\Response(response="204", description="Success"),
-     *     @OA\Response(response="409", description="Device deletion would result in data loss, and the safe parameter has been set to true.",
-     *       @OA\JsonContent(
-     *         @OA\Property(property="channelGroups", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="directLinks", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="schedules", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="sceneOperations", type="array", @OA\Items(type="object")),
-     *         @OA\Property(property="actionTriggers", type="array", @OA\Items(type="object")),
-     *       )
-     *    ),
+     *     @OA\Response(response="409", description="Device deletion would result in data loss, and the safe parameter has been set to true."),
      * )
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
@@ -412,7 +401,7 @@ class IODeviceController extends RestController {
                 $dependencies = array_merge_recursive($dependencies, $channelDependencies->getItemsThatDependOnFunction($channel));
             }
             if (count(array_filter($dependencies))) {
-                $view = $this->view($dependencies, Response::HTTP_CONFLICT);
+                $view = $this->view(['conflictOn' => 'deletion', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
                 $this->setSerializationGroups(
                     $view,
                     $request,
