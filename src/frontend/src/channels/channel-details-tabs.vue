@@ -71,11 +71,19 @@
                     });
                 }
                 if (hasActions) {
-                    this.availableTabs.push({
-                        route: 'channel.schedules',
-                        header: 'Schedules', // i18n
-                        count: () => this.channel.relationsCount.schedules,
-                    });
+                    const nonScheduleFunctions = [
+                        ChannelFunction.HVAC_THERMOSTAT,
+                        ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
+                        ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
+                        ChannelFunction.HVAC_THERMOSTAT_AUTO,
+                    ];
+                    if (!nonScheduleFunctions.includes(this.channel.functionId)) {
+                        this.availableTabs.push({
+                            route: 'channel.schedules',
+                            header: 'Schedules', // i18n
+                            count: () => this.channel.relationsCount.schedules,
+                        });
+                    }
                     this.availableTabs.push({
                         route: 'channel.channelGroups',
                         header: 'Channel groups', // i18n

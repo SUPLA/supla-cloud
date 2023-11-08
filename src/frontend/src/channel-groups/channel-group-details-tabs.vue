@@ -31,6 +31,7 @@
     import SchedulesList from "../schedules/schedule-list/schedules-list";
     import DirectLinksList from "../direct-links/direct-links-list";
     import ScenesList from "../scenes/scenes-list";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         props: ['channelGroup'],
@@ -48,8 +49,15 @@
             }
         },
         mounted() {
-            const noScheduleActions = ['CONTROLLINGTHEGATE', 'CONTROLLINGTHEGARAGEDOOR'];
-            if (!noScheduleActions.includes(this.channelGroup.function.name)) {
+            const nonScheduleFunctions = [
+                ChannelFunction.CONTROLLINGTHEGATE,
+                ChannelFunction.CONTROLLINGTHEGARAGEDOOR,
+                ChannelFunction.HVAC_THERMOSTAT,
+                ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
+                ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
+                ChannelFunction.HVAC_THERMOSTAT_AUTO,
+            ];
+            if (!nonScheduleFunctions.includes(this.channelGroup.functionId)) {
                 this.availableTabs.push({id: 'schedules', header: 'Schedules', count: this.channelGroup.relationsCount.schedules});
             }
             this.availableTabs.push({id: 'scenes', header: 'Scenes', count: this.channelGroup.relationsCount.scenes});
