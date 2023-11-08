@@ -307,7 +307,7 @@ class ChannelController extends RestController {
                         'Invalid function for channel.' // i18n
                     );
                     if (!$changesConfirmed) {
-                        $dependencies = $channelDependencies->getDependencies($channel);
+                        $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
                         if (array_filter($dependencies)) {
                             $view = $this->view($dependencies, Response::HTTP_CONFLICT);
                             $this->setSerializationGroups(
@@ -351,7 +351,7 @@ class ChannelController extends RestController {
                 }
             }
             if ($newLocation !== false && !$changesConfirmed) {
-                $dependencies = $channelDependencies->getDependencies($channel);
+                $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
                 if ($dependencies['channels']) {
                     return $this->view(['channels' => $dependencies['channels']], Response::HTTP_CONFLICT);
                 }
@@ -409,7 +409,7 @@ class ChannelController extends RestController {
                 }
                 if ($newLocation !== false) {
                     $channel->setLocation($newLocation);
-                    $dependencies = $channelDependencies->getDependencies($channel);
+                    $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
                     foreach ($dependencies['channels'] as $depChannel) {
                         $depChannel->setLocation($channel->getLocation());
                         $em->persist($depChannel);

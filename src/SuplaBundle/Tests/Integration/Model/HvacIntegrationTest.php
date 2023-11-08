@@ -681,20 +681,43 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $this->assertNull($state['temperatureMain']);
     }
 
-    public function testChangingLocationOfThermostatAlsoChangesThermometerLocation() {
+    public function testChangingLocationOfThermostatAlsoChangesThermometersLocation() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $device->getChannels()[2]->setUserConfig([]);
+        $device->getChannels()[4]->setUserConfig([]);
+        $this->persist($device->getChannels()[2]);
+        $this->persist($device->getChannels()[4]);
+        [$mainThermoId, $auxThermoId, $hvacId] = [
+            $device->getChannels()[0]->getId(),
+            $device->getChannels()[1]->getId(),
+            $device->getChannels()[3]->getId(),
+        ];
         $location = $this->createLocation($this->user);
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/channels/' . $this->hvacChannel->getId(), ['locationId' => $location->getId()]);
-        $this->assertEquals($location->getId(), $this->freshEntity($this->hvacChannel)->getLocation()->getId());
-        $this->assertEquals($location->getId(), $this->freshEntity($this->device->getChannels()[1])->getLocation()->getId());
+        $client->apiRequestV3('PUT', "/api/channels/$hvacId?safe=true", ['locationId' => $location->getId()]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent());
+        $this->assertEquals([$mainThermoId, $auxThermoId], array_column($content->channels, 'id'));
+        $client->apiRequestV3('PUT', "/api/channels/$hvacId", ['locationId' => $location->getId()]);
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $mainThermoId)->getLocation()->getId());
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $auxThermoId)->getLocation()->getId());
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $hvacId)->getLocation()->getId());
+        return [$mainThermoId, $auxThermoId, $hvacId];
     }
 
-    public function testChangingLocationOfThermometerAlsoChangesThermostatLocation() {
+    /** @depends testChangingLocationOfThermostatAlsoChangesThermometersLocation */
+    public function testChangingLocationOfThermometerAlsoChangesThermostatLocation(array $ids) {
+        [$mainThermoId, $auxThermoId, $hvacId] = $ids;
         $location = $this->createLocation($this->user);
         $client = $this->createAuthenticatedClient();
-        $client->apiRequestV3('PUT', '/api/channels/' . $this->device->getChannels()[1]->getId(), ['locationId' => $location->getId()]);
-        $this->assertEquals($location->getId(), $this->freshEntity($this->device->getChannels()[1])->getLocation()->getId());
-        $this->assertEquals($location->getId(), $this->freshEntity($this->hvacChannel)->getLocation()->getId());
+        $client->apiRequestV3('PUT', "/api/channels/$mainThermoId?safe=true", ['locationId' => $location->getId()]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent());
+        $this->assertEquals([$hvacId, $auxThermoId], array_column($content->channels, 'id'));
+        $client->apiRequestV3('PUT', "/api/channels/$mainThermoId", ['locationId' => $location->getId()]);
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $mainThermoId)->getLocation()->getId());
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $auxThermoId)->getLocation()->getId());
+        $this->assertEquals($location->getId(), $this->freshEntityById(IODeviceChannel::class, $hvacId)->getLocation()->getId());
     }
 
     public function testGettingHvacDeviceConfig() {

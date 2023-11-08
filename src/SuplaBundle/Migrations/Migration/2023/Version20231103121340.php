@@ -55,7 +55,7 @@ class Version20231103121340 extends NoWayBackMigration implements EntityManagerA
         $newLocationIds = [];
         foreach ($channels as $channelData) {
             $channel = $this->em->find(IODeviceChannel::class, $channelData['id']);
-            $dependencies = $this->channelDependencies->getDependencies($channel);
+            $dependencies = $this->channelDependencies->getItemsThatDependOnLocation($channel);
             if ($dependencies['channels']) {
                 $expectedLocationId = $newLocationIds[$channel->getId()] ?? $channel->getLocation()->getId();
                 foreach ($dependencies['channels'] as $channel) {

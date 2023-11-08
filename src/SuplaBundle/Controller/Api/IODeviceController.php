@@ -23,13 +23,12 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
-use SuplaBundle\Model\Schedule\ScheduleManager;
+use SuplaBundle\Model\Dependencies\IODeviceDependencies;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
@@ -77,13 +76,10 @@ class IODeviceController extends RestController {
     use SuplaServerAware;
     use Transactional;
 
-    /** @var ScheduleManager */
-    private $scheduleManager;
     /** @var IODeviceChannelRepository */
     private $iodeviceRepository;
 
-    public function __construct(ScheduleManager $scheduleManager, IODeviceRepository $iodeviceRepository) {
-        $this->scheduleManager = $scheduleManager;
+    public function __construct(IODeviceRepository $iodeviceRepository) {
         $this->iodeviceRepository = $iodeviceRepository;
     }
 
@@ -283,15 +279,15 @@ class IODeviceController extends RestController {
         Request $request,
         IODevice $ioDevice,
         IODeviceRequestFiller $requestFiller,
-        ChannelDependencies $channelDependencies,
+        IODeviceDependencies $deviceDependencies,
         IODeviceConfigTranslator $configTranslator
     ) {
         $result = $this->transactional(function (EntityManagerInterface $em) use (
-            $configTranslator,
             $requestFiller,
-            $channelDependencies,
             $request,
-            $ioDevice
+            $ioDevice,
+            $deviceDependencies,
+            $configTranslator
         ) {
             $requestData = $request->request->all();
             $enabledChanged = array_key_exists('enabled', $requestData) && $ioDevice->getEnabled() !== $requestData['enabled'];
@@ -300,16 +296,16 @@ class IODeviceController extends RestController {
             $shouldAsk = ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)
                 ? filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)
                 : !$request->get('confirm', false);
-            if ($enabledChanged) {
-                if (!$requestData['enabled'] && $shouldAsk) {
-                    $dependencies = [];
-                    foreach ($ioDevice->getChannels() as $channel) {
-                        $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
+            if ($shouldAsk) {
+                if ($locationChanged) {
+                    $locationDependencies = $deviceDependencies->getItemsThatDependOnLocation($ioDevice);
+                    if (array_filter($locationDependencies) && $shouldAsk) {
+                        return $this->view($locationDependencies, Response::HTTP_CONFLICT);
                     }
-                    if (count(array_filter($dependencies))) {
-                        $dependencies = array_map(function (array $deps) {
-                            return EntityUtils::uniqueByIds($deps);
-                        }, $dependencies);
+                }
+                if ($enabledChanged && !$requestData['enabled']) {
+                    $dependencies = $deviceDependencies->getItemsThatDependOnEnabled($ioDevice);
+                    if (array_filter($dependencies)) {
                         $view = $this->view($dependencies, Response::HTTP_CONFLICT);
                         $this->setSerializationGroups(
                             $view,
@@ -320,32 +316,6 @@ class IODeviceController extends RestController {
                         return $view;
                     }
                 }
-                $ioDevice->setEnabled($requestData['enabled']);
-                if (!$ioDevice->getEnabled()) {
-                    $this->scheduleManager->disableSchedulesForDevice($ioDevice);
-                    foreach ($ioDevice->getChannels() as $channel) {
-                        foreach ($channel->getReactions() as $reaction) {
-                            $reaction->setEnabled(false);
-                            $em->persist($reaction);
-                        }
-                    }
-                }
-            }
-            if ($locationChanged) {
-                $dependentChannels = [];
-                foreach ($ioDevice->getChannels() as $channel) {
-                    if ($channel->hasInheritedLocation()) {
-                        $deps = $channelDependencies->getDependencies($channel);
-                        if ($deps['channels']) {
-                            $dependentChannels[] = $channel;
-                            $dependentChannels = array_merge_recursive($dependentChannels, $deps['channels']);
-                        }
-                    }
-                }
-                $dependentChannels = EntityUtils::uniqueByIds($dependentChannels);
-                if ($dependentChannels && $shouldAsk) {
-                    return $this->view(['channels' => $dependentChannels], Response::HTTP_CONFLICT);
-                }
             }
             if (isset($requestData['config']) && ApiVersions::V3()->isRequestedEqualOrGreaterThan($request)) {
                 Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
@@ -355,14 +325,12 @@ class IODeviceController extends RestController {
                 $requestData['config'] = ArrayUtils::mergeConfigs($requestData['configBefore'], $requestData['config'], $currentConfig);
             }
             $requestFiller->fillFromData($requestData, $ioDevice);
+            $em->persist($ioDevice);
             if ($locationChanged) {
-                foreach ($dependentChannels as $channel) {
-                    if ($channel->hasInheritedLocation() && $channel->getIodevice()->getId() === $ioDevice->getId()) {
-                        continue;
-                    }
-                    $channel->setLocation($ioDevice->getLocation());
-                    $em->persist($channel);
-                }
+                $deviceDependencies->updateLocation($ioDevice, $ioDevice->getLocation());
+            }
+            if ($enabledChanged && !$ioDevice->getEnabled()) {
+                $deviceDependencies->disableDependencies($ioDevice);
             }
             return $this->serializedView($ioDevice, $request, ['iodevice.schedules']);
         });
@@ -441,7 +409,7 @@ class IODeviceController extends RestController {
         if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
             $dependencies = [];
             foreach ($ioDevice->getChannels() as $channel) {
-                $dependencies = array_merge_recursive($dependencies, $channelDependencies->getDependencies($channel));
+                $dependencies = array_merge_recursive($dependencies, $channelDependencies->getItemsThatDependOnFunction($channel));
             }
             if (count(array_filter($dependencies))) {
                 $view = $this->view($dependencies, Response::HTTP_CONFLICT);

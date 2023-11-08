@@ -33,9 +33,8 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         $this->channelRepository = $channelRepository;
     }
 
-    public function getDependencies(IODeviceChannel $channel): array {
+    public function getItemsThatDependOnFunction(IODeviceChannel $channel): array {
         return [
-            'channels' => $this->findDependentChannels($channel),
             'channelGroups' => $channel->getChannelGroups()->toArray(),
             'directLinks' => $channel->getDirectLinks()->toArray(),
             'schedules' => $channel->getSchedules()->toArray(),
@@ -43,6 +42,12 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             'actionTriggers' => $this->findActionTriggersForSubject($channel)->getValues(),
             'ownReactions' => $channel->getOwnReactions()->toArray(),
             'reactions' => $channel->getReactions()->toArray(),
+        ];
+    }
+
+    public function getItemsThatDependOnLocation(IODeviceChannel $channel): array {
+        return [
+            'channels' => array_values($this->findDependentChannels($channel)),
         ];
     }
 
@@ -75,26 +80,35 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         $this->clearActionTriggersThatReferencesSubject($channel);
     }
 
-    private function findDependentChannels(IODeviceChannel $channel): array {
+    private function findDependentChannels(IODeviceChannel $channel, array &$checkedChannelsIds = []): array {
+        $checkedChannelsIds[] = $channel->getId();
         $config = $this->channelParamConfigTranslator->getConfig($channel);
-        $channels = [];
+        $dependentChannels = [];
         foreach ($config as $key => $value) {
             if ((strpos($key, 'ChannelId') > 0) && is_int($value) && $value > 0) {
-                $channel = $this->entityManager->find(IODeviceChannel::class, $value);
-                $channels[$channel->getId()] = $channel;
+                $depChannel = $this->entityManager->find(IODeviceChannel::class, $value);
+                $dependentChannels[$depChannel->getId()] = $depChannel;
             }
         }
         foreach ($this->channelRepository->findActionTriggers($channel) as $atChannel) {
-            $channels[$atChannel->getId()] = $atChannel;
+            $dependentChannels[$atChannel->getId()] = $atChannel;
         }
         foreach ($this->channelRepository->findBy(['type' => ChannelType::HVAC]) as $possibleChannel) {
             $config = $this->channelParamConfigTranslator->getConfig($possibleChannel);
             foreach ($config as $key => $value) {
                 if ((strpos($key, 'ChannelId') > 0) && $value === $channel->getId()) {
-                    $channels[$possibleChannel->getId()] = $possibleChannel;
+                    $dependentChannels[$possibleChannel->getId()] = $possibleChannel;
                 }
             }
         }
-        return array_values($channels);
+        foreach ($dependentChannels as $ch) {
+            if (!in_array($ch->getId(), $checkedChannelsIds)) {
+                $dependentChannels = array_replace($dependentChannels, $this->findDependentChannels($ch, $checkedChannelsIds));
+            }
+        }
+        if (isset($dependentChannels[$channel->getId()])) {
+            unset($dependentChannels[$channel->getId()]);
+        }
+        return $dependentChannels;
     }
 }

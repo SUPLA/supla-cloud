@@ -264,19 +264,6 @@ class ScheduleManager {
         return $schedules;
     }
 
-    /** @return \SuplaBundle\Entity\Main\Schedule[] */
-    public function onlyEnabled(array $schedules): array {
-        return array_filter($schedules, function (Schedule $schedule) {
-            return $schedule->getEnabled();
-        });
-    }
-
-    public function disableSchedulesForDevice(IODevice $device) {
-        foreach ($this->onlyEnabled($this->findSchedulesForDevice($device)) as $schedule) {
-            $this->disable($schedule);
-        }
-    }
-
     private function getNow(): DateTime {
         return new DateTime('now', new DateTimeZone('UTC'));
     }
