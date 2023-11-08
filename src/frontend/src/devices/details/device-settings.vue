@@ -19,6 +19,7 @@
                             <option value="ON_WHEN_CONNECTED">{{ $t('statusLed_ON_WHEN_CONNECTED') }}</option>
                         </select>
                     </div>
+                    <hr>
                     <div v-if="config.screenBrightness !== undefined">
                         <div class="form-group">
                             <label>{{ $t('Screen brightness') }}</label>
@@ -55,6 +56,7 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group" v-if="config.buttonVolume !== undefined">
                         <label>{{ $t('Button volume') }}</label>
                         <div class="mt-3 mb-6">
@@ -62,7 +64,8 @@
                                 tooltip-placement="bottom" class="green"/>
                         </div>
                     </div>
-                    <div
+                    <hr>
+                    <div class="form-group"
                         v-if="config.homeScreen !== undefined && config.homeScreenContentAvailable && config.homeScreenContentAvailable.length">
                         <div class="form-group">
                             <label for="homeScreen">{{ $t('Home screen content') }}</label>
@@ -93,6 +96,7 @@
                             </div>
                         </transition-expand>
                     </div>
+                    <hr>
                     <div class="form-group" v-if="config.userInterface">
                         <label>{{ $t('User interface') }}</label>
                         <div>
@@ -130,13 +134,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <div class="form-group" v-if="config.automaticTimeSync !== undefined">
-                            <label class="checkbox2 checkbox2-grey">
-                                <input type="checkbox" v-model="config.automaticTimeSync" @change="onChange()">
-                                {{ $t('Automatic time synchronization') }}
-                            </label>
-                        </div>
+                    <hr>
+                    <div class="form-group" v-if="config.automaticTimeSync !== undefined">
+                        <label class="checkbox2 checkbox2-grey">
+                            <input type="checkbox" v-model="config.automaticTimeSync" @change="onChange()">
+                            {{ $t('Automatic time synchronization') }}
+                        </label>
                     </div>
                 </div>
             </div>

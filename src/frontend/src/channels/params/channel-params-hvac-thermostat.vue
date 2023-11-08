@@ -261,14 +261,12 @@
                         <a @click="outputValueHelpShown = !outputValueHelpShown"><i class="pe-7s-help1"></i></a>
                     </dd>
                     <dt>
-                        <div class="btn-group btn-group-flex">
-                            <a :class="'btn ' + (channel.config.outputValueOnError == possibleValue.value ? 'btn-green' : 'btn-default')"
-                                v-for="possibleValue in possibleOutputValueOnErrorValues"
-                                :key="possibleValue.value"
-                                @click="channel.config.outputValueOnError = possibleValue.value; $emit('change')">
+                        <select v-model="channel.config.outputValueOnError" @change="$emit('change')" class="form-control">
+                            <option v-for="possibleValue in possibleOutputValueOnErrorValues" :value="possibleValue.value"
+                                :key="possibleValue.value">
                                 {{ $t(possibleValue.label) }}
-                            </a>
-                        </div>
+                            </option>
+                        </select>
                     </dt>
                 </dl>
                 <transition-expand>
