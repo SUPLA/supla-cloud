@@ -393,13 +393,15 @@ class IODeviceController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
-    public function deleteIodeviceAction(IODevice $ioDevice, Request $request, ChannelDependencies $channelDependencies) {
+    public function deleteIodeviceAction(
+        IODevice $ioDevice,
+        Request $request,
+        IODeviceDependencies $deviceDependencies,
+        ChannelDependencies $channelDependencies
+    ) {
         $deviceId = $ioDevice->getId();
         if (filter_var($request->get('safe', false), FILTER_VALIDATE_BOOLEAN)) {
-            $dependencies = [];
-            foreach ($ioDevice->getChannels() as $channel) {
-                $dependencies = array_merge_recursive($dependencies, $channelDependencies->getItemsThatDependOnFunction($channel));
-            }
+            $dependencies = $deviceDependencies->getItemsThatDependOnEnabled($ioDevice);
             if (count(array_filter($dependencies))) {
                 $view = $this->view(['conflictOn' => 'deletion', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
                 $this->setSerializationGroups(
