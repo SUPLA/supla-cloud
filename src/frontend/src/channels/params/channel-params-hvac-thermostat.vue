@@ -14,6 +14,11 @@
                 </div>
             </dt>
         </dl>
+        <transition-expand>
+            <div class="alert alert-warning mt-2" v-if="!channel.config.mainThermometerChannelId">
+                {{ $t('The thermostat will not work if the main thermometer is not set.') }}
+            </div>
+        </transition-expand>
         <a class="d-flex accordion-header" @click="displayGroup('related')">
             <span class="flex-grow-1">{{ $t('Thermometers configuration') }}</span>
             <span>
@@ -29,6 +34,8 @@
                             v-model="channel.config.mainThermometerChannelId" :hide-none="true"
                             @input="$emit('change')"></channels-id-dropdown>
                     </dt>
+                </dl>
+                <dl>
                     <dd>{{ $t('Aux thermometer') }}</dd>
                     <dt>
                         <channels-id-dropdown :params="`function=THERMOMETER,HUMIDITYANDTEMPERATURE&deviceIds=${channel.iodeviceId}`"

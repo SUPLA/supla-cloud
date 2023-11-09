@@ -123,18 +123,22 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('mainThermometerChannelId', $config)) {
             $mainThermometerChannelId = $config['mainThermometerChannelId'];
-            Assertion::integer($mainThermometerChannelId, 'Main thermometer must be set.'); // i18n
-            $thermometer = $this->channelIdToNo($subject, $mainThermometerChannelId);
-            Assertion::inArray(
-                $thermometer->getFunction()->getId(),
-                [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
-            );
-            $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
-            Assertion::eq(
-                $subject->getLocation()->getId(),
-                $thermometer->getLocation()->getId(),
-                'Channels that are meant to work with each other must be in the same location.' // i18n
-            );
+            if ($mainThermometerChannelId) {
+                Assertion::integer($mainThermometerChannelId);
+                $thermometer = $this->channelIdToNo($subject, $mainThermometerChannelId);
+                Assertion::inArray(
+                    $thermometer->getFunction()->getId(),
+                    [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE]
+                );
+                $subject->setUserConfigValue('mainThermometerChannelNo', $thermometer->getChannelNumber());
+                Assertion::eq(
+                    $subject->getLocation()->getId(),
+                    $thermometer->getLocation()->getId(),
+                    'Channels that are meant to work with each other must be in the same location.' // i18n
+                );
+            } else {
+                $subject->setUserConfigValue('mainThermometerChannelNo', $subject->getChannelNumber());
+            }
         }
         if (array_key_exists('auxThermometerChannelId', $config)) {
             if ($config['auxThermometerChannelId']) {

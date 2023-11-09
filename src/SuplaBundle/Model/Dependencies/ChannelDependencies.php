@@ -79,6 +79,15 @@ class ChannelDependencies extends ActionableSubjectDependencies {
             $this->entityManager->remove($reaction);
         }
         $this->clearActionTriggersThatReferencesSubject($channel);
+        foreach ($this->findDependentChannels($channel) as $depChannel) {
+            $config = $this->channelParamConfigTranslator->getConfig($depChannel);
+            foreach ($config as $key => $value) {
+                if ((strpos($key, 'ChannelId') > 0) && $value === $channel->getId()) {
+                    $this->channelParamConfigTranslator->setConfig($depChannel, [$key => null]);
+                    $this->entityManager->persist($depChannel);
+                }
+            }
+        }
     }
 
     private function findDependentChannelsRecursive(IODeviceChannel $channel, array $checkedChannelsIds = []): array {

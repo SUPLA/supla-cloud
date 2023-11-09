@@ -773,4 +773,29 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $content = json_decode($response->getContent(), true);
         $this->assertEquals(['temperature' => 22.5], $content['operations'][0]['actionParam']);
     }
+
+    public function testChangingFunctionOfThermometerUnbindsThermometer() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $device->getChannels()[2]->setUserConfig([]);
+        $device->getChannels()[4]->setUserConfig([]);
+        $this->persist($device->getChannels()[2]);
+        $this->persist($device->getChannels()[4]);
+        [$mainThermoId, $auxThermoId, $hvacId] = [
+            $device->getChannels()[0]->getId(),
+            $device->getChannels()[1]->getId(),
+            $device->getChannels()[3]->getId(),
+        ];
+        $location = $this->createLocation($this->user);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV3('PUT', "/api/channels/$mainThermoId?safe=true", ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(409, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent());
+        $this->assertEquals([$hvacId], array_column($content->dependencies->channels, 'id'));
+        $client->apiRequestV3('PUT', "/api/channels/$mainThermoId", ['functionId' => ChannelFunction::NONE]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertEquals(ChannelFunction::NONE, $this->freshEntityById(IODeviceChannel::class, $mainThermoId)->getFunction()->getId());
+        /** @var IODeviceChannel $hvacChannel */
+        $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacId);
+        $this->assertEquals($hvacChannel->getChannelNumber(), $hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
+    }
 }
