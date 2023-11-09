@@ -85,6 +85,7 @@ Applications with access: Aplikacja z dostępem
 Are you lost?: Zgubiłeś(aś) się? Szukasz czegoś?
 Are you sure you want to change channel’s function?: Czy na pewno chcesz zmienić funkcję kanału?
 Are you sure you want to change channel’s location?: Czy na pewno chcesz zmienić lokalizację kanału?
+Are you sure you want to change channel’s visibility?: Czy na pewno chcesz zmienić widoczność kanału?
 Are you sure you want to change device’s location?: Czy na pewno chcesz zmienić lokalizację urządzenia?
 Are you sure you want to delete the entire measurement history saved for this channel?: Czy na pewno chcesz usunąć całą historię pomiarów zgromadzoną dla tego kanału?
 Are you sure you want to delete the events from the voltage aberrations history?: Czy na pewno chcesz usunąć wszystkie zdarzenia z historii aberracji napięcia?
@@ -169,6 +170,7 @@ Change function: Zmień funkcję
 Change icon: Zmień ikonę
 Change the password and log out: Zmień hasło i wyloguj się
 Changing channel’s function will also result in the following changes.: Zmiana funkcji kanału spowoduje także poniższe zmiany.
+Changing channel’s visibility will also change the visibility of other items.: Zmiana widoczności kanału zmieni także widoczność innych elementów.
 Changing the location will also imply changing the location of the following items.: Zmiana lokalizacji wpłynie także na jej zmianę dla poniższych elementów.
 Channel: Kanał
 Channel No: Numer kanału
@@ -532,7 +534,6 @@ MQTT Broker password has been changed.: Hasło brokera MQTT zostało zmienione.
 MQTT Broker username and password is not configured in this SUPLA Cloud instance.: Nazwa użytkownika lub hasło nie są skonfigurowane w tej instancji.
 Mail sensor: Czujnik poczty
 Main thermometer: Termometr główny
-Main thermometer must be set.: Termometr główny musi być ustawiony.
 Maintenance mode active. You cannot modify any data now.: Działanie w trybie serwisowym. Nie możesz modyfikować żadnych danych.
 Make sure to copy it now because you won’t be able to see it again!: Upewnij się, że zachowasz je w bezpiecznym miejscu.
 Make sure to save it in a secure place if you wish to access it in the future. The link won’t be again displayed after you leave this page.: Upewnij się, że jest zapisany w bezpiecznym miejscu jeżeli zechcesz go jeszcze użyć w przyszłości. Link nie będzie już więcej wyświetlany po opuszczeniu tej strony.
@@ -895,6 +896,7 @@ The server has returned an HTTP 403 Error. It means that you are not authorized 
 The server has returned an HTTP 404 Error. It means that the item you are looking for does not exist.: Serwer zwrócił błąd HTTP 404. Oznacza to, że element którego poszukujesz nie istnieje.
 The server has returned an HTTP {statusCode} error.: Serwer zwrócił błąd {statusCode}.
 The set of icons you have chosen is too large. Maximum upload limit is {limit}.: Wybrane przez Ciebie pliki ikon są zbyt duże. Maksymalny dopuszczony rozmiar uploadu to {limit}.
+The thermostat will not work if the main thermometer is not set.: Główny termometr musi być ustawiony by termostat działał.
 The valve cannot be opened via a direct link or via API once it has been closed manually. To resume control, open the valve manually.: Zawór nie może zostać otwarty za pomocą linku bezpośredniego bądź za pośrednictwem API, gdy został zamknięty manualnie. Aby wznowić sterowanie otwórz zawór ręcznie.
 The valve has been closed in manual or radio mode. Before you open it, make sure it has not been closed due to flooding. To turn off the warning, open the valve manually. Are you sure you want to open it remotely?!: Zawór został zamknięty w trybie manualnym lub radiowo. Zanim go otworzysz upewnij się, że nie został zamknięty z powodu zalania. Aby wyłączyć ostrzeżenie otwórz zawór manualnie. Czy na pewno chcesz otworzyć zawór zdalnie?!
 The valve will not be opened if it was closed manually or remotely, which might could been caused by flooding.: Zawór nie zostanie otwarty jeśli został zamknięty manualnie lub radiowo co mogło być związane z zalaniem.
@@ -1401,6 +1403,7 @@ Languages: Języki
 Loading: Ładowanie
 Location password must be at least 4 characters.: Hasło dla lokalizacji musi mieć co najmniej 4 znaki.
 Location password must be no longer than 32 characters.: Hasło dla lokalizacji nie może być dłuższe niż 32 znaki.
+Main thermometer must be set.: Termometr główny musi być ustawiony.
 Minute: Minuta
 Mobile Apps: Aplikacje mobilne
 Next: Dalej
