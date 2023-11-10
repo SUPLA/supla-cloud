@@ -99,6 +99,7 @@
             removing-header-i18n="Turning this device off will cause its channels not working in the following features."
             v-if="dependenciesThatWillBeDisabled"
             :dependencies="dependenciesThatWillBeDisabled"
+            :loading="loading"
             @confirm="saveChanges(false)"
             @cancel="dependenciesThatWillBeDisabled = undefined"></dependencies-warning-modal>
         <dependencies-warning-modal
@@ -106,6 +107,7 @@
             description-i18n="Some of the features you have configured rely on channels from this device."
             deleting-header-i18n="The following items will be deleted with this device:"
             removing-header-i18n="The following items use the channels of these device. These references will be also removed."
+            :loading="loading"
             v-if="dependenciesThatPreventsDeletion"
             :dependencies="dependenciesThatPreventsDeletion"
             @confirm="deleteDevice(false)"
