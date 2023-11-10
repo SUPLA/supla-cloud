@@ -157,6 +157,7 @@
             description-i18n="Changing channel’s function will also result in the following changes."
             deleting-header-i18n="The items below rely on this channel function, so they will be deleted."
             removing-header-i18n="Channel reference will be removed from the items below."
+            :loading="loading"
             v-if="changeFunctionConfirmationObject"
             :dependencies="changeFunctionConfirmationObject"
             @cancel="loading = changeFunctionConfirmationObject = undefined"
