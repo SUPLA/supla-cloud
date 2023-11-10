@@ -296,7 +296,7 @@ class DevicesFixture extends SuplaFixture {
                         ],
                     ]),
                     'userConfig' => json_encode([
-                        'mainThermometerChannelNo' => 1,
+                        'mainThermometerChannelNo' => null,
                         'auxThermometerChannelNo' => null,
                         'binarySensorChannelNo' => 5,
                         'usedAlgorithm' => 'ON_OFF_SETPOINT_AT_MOST',

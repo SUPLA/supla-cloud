@@ -73,9 +73,16 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
     }
 
     public function getConfig(HasUserConfig $subject): array {
-        $mainThermometerChannelNo = $subject->getUserConfigValue('mainThermometerChannelNo');
-        if (is_int($mainThermometerChannelNo) && $mainThermometerChannelNo >= 0) {
-            $mainThermometer = $this->channelNoToId($subject, $mainThermometerChannelNo);
+        $userConfig = $subject->getUserConfig();
+        if (array_key_exists('mainThermometerChannelNo', $userConfig)) {
+            $mainThermometerChannelNo = $subject->getUserConfigValue('mainThermometerChannelNo');
+            $mainThermometer = null;
+            if (is_int($mainThermometerChannelNo)) {
+                $mainThermometer = $this->channelNoToId($subject, $mainThermometerChannelNo);
+                if ($mainThermometer->getId() === $subject->getId()) {
+                    $mainThermometer = null;
+                }
+            }
             $auxThermometerChannelNo = $subject->getUserConfigValue('auxThermometerChannelNo', -1);
             $auxThermometer = null;
             if ($auxThermometerChannelNo >= 0) {
@@ -87,7 +94,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 $binarySensor = $this->channelNoToId($subject, $binarySensorChannelNo);
             }
             $config = [
-                'mainThermometerChannelId' => $mainThermometer->getId() === $subject->getId() ? null : $mainThermometer->getId(),
+                'mainThermometerChannelId' => $mainThermometer ? $mainThermometer->getId() : null,
                 'auxThermometerChannelId' => $auxThermometer ? $auxThermometer->getId() : null,
                 'auxThermometerType' => $subject->getUserConfigValue('auxThermometerType', 'NOT_SET'),
                 'binarySensorChannelId' => $binarySensor ? $binarySensor->getId() : null,
@@ -137,7 +144,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                     'Channels that are meant to work with each other must be in the same location.' // i18n
                 );
             } else {
-                $subject->setUserConfigValue('mainThermometerChannelNo', $subject->getChannelNumber());
+                $subject->setUserConfigValue('mainThermometerChannelNo', null);
             }
         }
         if (array_key_exists('auxThermometerChannelId', $config)) {
