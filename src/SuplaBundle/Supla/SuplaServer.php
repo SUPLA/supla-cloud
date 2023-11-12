@@ -83,7 +83,7 @@ abstract class SuplaServer {
         $this->commandContext = [];
     }
 
-    private function doExecuteCommand(string $command) {
+    private function doConnectAndExecuteCommand(string $command) {
         if ($this->connect() !== false) {
             if ($this->commandContext) {
                 $commandSuffix = implode(',', array_map(function ($key, $value) {
@@ -97,6 +97,22 @@ abstract class SuplaServer {
         }
         $this->logger->debug('SuplaServer command', ['command' => $command, 'result' => $result]);
         return $result;
+    }
+
+    private function doExecuteCommand(string $command) {
+        try {
+            return $this->doConnectAndExecuteCommand($command);
+        } catch (SuplaSocketWriteException $e) {
+            $this->logger->warning('Failed attempt to execute the command. Retrying...');
+            $this->disconnect();
+        }
+
+        try {
+            return $this->doConnectAndExecuteCommand($command);
+        } catch (SuplaSocketWriteException $e) {
+            $this->logger->error('Retrying the command failed. Unable to write socket.');
+            $this->disconnect();
+        }
     }
 
     private function isConnected(string $what, int ...$args): bool {
