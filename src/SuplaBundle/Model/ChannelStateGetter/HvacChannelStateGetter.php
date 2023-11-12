@@ -20,8 +20,9 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
     }
 
     public function getState(IODeviceChannel $channel): array {
-        // VALUE:%isOn,%mode,%setpointTemperatureHeat,%setpointTemperatureCool,%flags
+        // VALUE:%isOn,%mode,%setpointTemperatureHeat,%setpointTemperatureCool,%flags\n
         $value = $this->suplaServer->getRawValue('HVAC', $channel);
+        $value = rtrim($value);
         $values = explode(',', substr($value, strlen('VALUE:')));
         if (count($values) !== 5) {
             throw new SuplaServerIsDownException();
