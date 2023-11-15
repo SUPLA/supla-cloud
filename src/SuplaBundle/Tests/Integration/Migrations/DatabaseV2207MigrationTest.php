@@ -115,6 +115,7 @@ class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
         $this->assertMovedPowerSwitchAndAtToTheSameLocation();
         $this->assertMovedGateAndSensorToTheSameLocation();
         $this->assertNotMovedUnpairedSensorToAnyNewLocation();
+        $this->assertMovedIcToPowerSwitchLocation();
     }
 
     private function assertMovedPowerSwitchAndAtToTheSameLocation() {
@@ -132,5 +133,12 @@ class DatabaseV2207MigrationTest extends DatabaseMigrationTestCase {
     private function assertNotMovedUnpairedSensorToAnyNewLocation() {
         $sensor = $this->freshEntityById(IODeviceChannel::class, 9);
         $this->assertEquals(1, $sensor->getLocation()->getId());
+    }
+
+    private function assertMovedIcToPowerSwitchLocation() {
+        $powerSwitch = $this->freshEntityById(IODeviceChannel::class, 114);
+        $ic = $this->freshEntityById(IODeviceChannel::class, 74);
+        $this->assertEquals($ic->getLocation()->getId(), $powerSwitch->getLocation()->getId());
+        $this->assertEquals(2, $powerSwitch->getLocation()->getId());
     }
 }
