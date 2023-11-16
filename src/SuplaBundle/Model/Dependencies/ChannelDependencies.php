@@ -3,6 +3,7 @@
 namespace SuplaBundle\Model\Dependencies;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\Schedule\ScheduleManager;
@@ -19,18 +20,22 @@ class ChannelDependencies extends ActionableSubjectDependencies {
     private $channelGroupDependencies;
     /** @var IODeviceChannelRepository */
     private $channelRepository;
+    /** @var LoggerInterface */
+    private $logger;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         SubjectConfigTranslator $channelParamConfigTranslator,
         ScheduleManager $scheduleManager,
         ChannelGroupDependencies $channelGroupDependencies,
-        IODeviceChannelRepository $channelRepository
+        IODeviceChannelRepository $channelRepository,
+        LoggerInterface $logger
     ) {
         parent::__construct($entityManager, $channelParamConfigTranslator);
         $this->scheduleManager = $scheduleManager;
         $this->channelGroupDependencies = $channelGroupDependencies;
         $this->channelRepository = $channelRepository;
+        $this->logger = $logger;
     }
 
     public function getItemsThatDependOnFunction(IODeviceChannel $channel): array {
@@ -110,7 +115,17 @@ class ChannelDependencies extends ActionableSubjectDependencies {
         foreach ($config as $key => $value) {
             if ((strpos($key, 'ChannelId') > 0) && is_int($value) && $value > 0) {
                 $depChannel = $this->entityManager->find(IODeviceChannel::class, $value);
-                $dependentChannels[$depChannel->getId()] = $depChannel;
+                if ($depChannel) {
+                    $dependentChannels[$depChannel->getId()] = $depChannel;
+                } else {
+                    $this->logger->warning('Zombie relationship detected.', [
+                        'channelId' => $channel->getId(),
+                        'channelFunctionId' => $channel->getFunction()->getId(),
+                        'channelFunctionName' => $channel->getFunction()->getName(),
+                        'relatedId' => $value,
+                        'relationName' => $key,
+                    ]);
+                }
             }
         }
         foreach ($this->channelRepository->findActionTriggers($channel) as $atChannel) {
