@@ -68,7 +68,7 @@
     "chalk": "2.1.0",
     "connection-string": "^4.3.6",
     "cross-env": "5.0.5",
-    "cypress": "^12.6.0",
+    "cypress": "^13.5.1",
     "cypress-plugin-tab": "^1.0.5",
     "del": "^6.0.0",
     "eslint": "^7.32.0",
