@@ -11,7 +11,7 @@
                     <transition-expand>
                         <ConfigConflictWarning @refresh="replaceConfigWithConflictingConfig()" v-if="conflictingConfig"/>
                     </transition-expand>
-                    <div class="form-group" v-if="config.statusLed">
+                    <div class="form-group with-border-bottom" v-if="config.statusLed">
                         <label for="statusLed">{{ $t('Status LED') }}</label>
                         <select id="statusLed" class="form-control" v-model="config.statusLed" @change="onChange()">
                             <option value="OFF_WHEN_CONNECTED">{{ $t('statusLed_OFF_WHEN_CONNECTED') }}</option>
@@ -19,8 +19,7 @@
                             <option value="ON_WHEN_CONNECTED">{{ $t('statusLed_ON_WHEN_CONNECTED') }}</option>
                         </select>
                     </div>
-                    <hr>
-                    <div v-if="config.screenBrightness !== undefined">
+                    <div v-if="config.screenBrightness !== undefined" class="with-border-bottom">
                         <div class="form-group">
                             <label>{{ $t('Screen brightness') }}</label>
                             <div>
@@ -56,16 +55,14 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="form-group" v-if="config.buttonVolume !== undefined">
+                    <div class="form-group with-border-bottom" v-if="config.buttonVolume !== undefined">
                         <label>{{ $t('Button volume') }}</label>
                         <div class="mt-3 mb-6">
                             <VueSlider v-model="config.buttonVolume" :min="0" :max="100" @change="onChange()" tooltip="always"
                                 tooltip-placement="bottom" class="green"/>
                         </div>
                     </div>
-                    <hr>
-                    <div class="form-group"
+                    <div class="form-group with-border-bottom"
                         v-if="config.homeScreen !== undefined && config.homeScreenContentAvailable && config.homeScreenContentAvailable.length">
                         <div class="form-group">
                             <label for="homeScreen">{{ $t('Home screen content') }}</label>
@@ -96,8 +93,7 @@
                             </div>
                         </transition-expand>
                     </div>
-                    <hr>
-                    <div class="form-group" v-if="config.userInterface">
+                    <div class="form-group with-border-bottom" v-if="config.userInterface">
                         <label>{{ $t('User interface') }}</label>
                         <div>
                             <div class="btn-group">
@@ -134,8 +130,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="form-group" v-if="config.automaticTimeSync !== undefined">
+                    <div class="form-group with-border-bottom" v-if="config.automaticTimeSync !== undefined">
                         <label class="checkbox2 checkbox2-grey">
                             <input type="checkbox" v-model="config.automaticTimeSync" @change="onChange()">
                             {{ $t('Automatic time synchronization') }}
@@ -253,9 +248,20 @@
 </script>
 
 <style lang="scss">
+    @import "../../styles/variables";
+
     .vue-slider-mark-label.mark-on-top {
         top: auto !important;
         bottom: 100%;
         margin-bottom: 10px;
+    }
+
+    .with-border-bottom {
+        padding-bottom: 1.5em;
+        margin-bottom: 1.5em;
+        border-bottom: 1px solid $supla-grey-light;
+        &:last-child {
+            border: 0;
+        }
     }
 </style>
