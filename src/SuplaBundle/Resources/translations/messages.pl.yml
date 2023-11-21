@@ -643,7 +643,7 @@ Operations: Operacje
 Original location: Oryginalna lokalizacja
 Other: Inne
 Otherwise go to the homepage.: W innym przypadku przejdź do [strony domowej].
-Output value on error: Wyjście podczas błędu
+Output value on error: Stan wyjścia podczas błędu
 Overheat protection: Ochrona przed przegrzaniem
 PIN: PIN
 PIN for Google must have a length between {minLength} and {maxLength} digits.: PIN dla Google musi mieć co najmniej {minLength} i co najwyżej {maxLength} cyfr.
