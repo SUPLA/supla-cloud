@@ -79,7 +79,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $mainThermometer = null;
             if (is_int($mainThermometerChannelNo)) {
                 $mainThermometer = $this->channelNoToId($subject, $mainThermometerChannelNo);
-                if ($mainThermometer->getId() === $subject->getId()) {
+                if (!$mainThermometer || $mainThermometer->getId() === $subject->getId()) {
                     $mainThermometer = null;
                 }
             }
@@ -275,13 +275,11 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         }
     }
 
-    private function channelNoToId(IODeviceChannel $channel, int $channelNo): IODeviceChannel {
+    private function channelNoToId(IODeviceChannel $channel, int $channelNo): ?IODeviceChannel {
         $device = $channel->getIoDevice();
-        $channelWithNo = $device->getChannels()->filter(function (IODeviceChannel $ch) use ($channelNo) {
+        return $device->getChannels()->filter(function (IODeviceChannel $ch) use ($channelNo) {
             return $ch->getChannelNumber() == $channelNo;
-        })->first();
-        Assertion::isObject($channelWithNo, 'Invalid channel number given: ' . $channelNo);
-        return $channelWithNo;
+        })->first() ?: null;
     }
 
     private function channelIdToNo(IODeviceChannel $channel, int $channelId): IODeviceChannel {

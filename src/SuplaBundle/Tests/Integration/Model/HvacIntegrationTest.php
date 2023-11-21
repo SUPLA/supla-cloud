@@ -793,4 +793,14 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacId);
         $this->assertNull($hvacChannel->getUserConfigValue('mainThermometerChannelNo'));
     }
+
+    public function testDeletingHvacDeviceWithInvalidConfig() {
+        $device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceHvac($this->device->getLocation());
+        $device->getChannels()[2]->setUserConfigValue('mainThermometerChannelNo', 123);
+        $this->persist($device->getChannels()[2]);
+        $client = $this->createAuthenticatedClient();
+        $client->request('DELETE', '/api/iodevices/' . $device->getId());
+        $response = $client->getResponse();
+        $this->assertStatusCode(204, $response);
+    }
 }
