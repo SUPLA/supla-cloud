@@ -382,7 +382,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(ChannelFunction::NONE, $sensorChannel->getFunction()->getId());
     }
 
-    public function testChangingChannelFunctionFromPowerswitchToOpeningGate() {
+    public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithParam() {
         $client = $this->createAuthenticatedClient();
         $this->simulateAuthentication($this->user);
         $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
@@ -392,7 +392,42 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         // change function to the opening gate with default params from GUI
         $client->apiRequestV23('PUT', '/api/channels/' . $relayChannel->getId(), [
             'functionId' => ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
-            'param1' => 500,
+            'param1' => 1000,
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->getEntityManager()->refresh($relayChannel);
+        $this->assertEquals(1000, $relayChannel->getParam1(), 'Opening time has been set.');
+        $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATEWAYLOCK, $relayChannel->getFunction()->getId());
+    }
+
+    public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithConfig() {
+        $client = $this->createAuthenticatedClient();
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
+        ]);
+        $relayChannel = $anotherDevice->getChannels()[0];
+        // change function to the opening gate with default params from GUI
+        $client->apiRequestV3('PUT', '/api/channels/' . $relayChannel->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
+            'config' => ['relayTimeMs' => 1500],
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->getEntityManager()->refresh($relayChannel);
+        $this->assertEquals(1500, $relayChannel->getParam1(), 'Opening time has been set.');
+        $this->assertEquals(ChannelFunction::CONTROLLINGTHEGATEWAYLOCK, $relayChannel->getFunction()->getId());
+    }
+
+    public function testChangingChannelFunctionFromPowerswitchToOpeningGateWithoutParam() {
+        $client = $this->createAuthenticatedClient();
+        $this->simulateAuthentication($this->user);
+        $anotherDevice = $this->createDevice($this->getEntityManager()->find(Location::class, $this->location->getId()), [
+            [ChannelType::RELAY, ChannelFunction::POWERSWITCH],
+        ]);
+        $relayChannel = $anotherDevice->getChannels()[0];
+        // change function to the opening gate with default params from GUI
+        $client->apiRequestV3('PUT', '/api/channels/' . $relayChannel->getId(), [
+            'functionId' => ChannelFunction::CONTROLLINGTHEGATEWAYLOCK,
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->getEntityManager()->refresh($relayChannel);
