@@ -63,7 +63,7 @@
                         header: 'Week', // i18n
                     });
                 }
-                if ((hasActions && this.channel.actionTriggersIds?.length) || isActionTrigger) {
+                if (this.channel.actionTriggersIds?.length || isActionTrigger) {
                     this.availableTabs.push({
                         route: 'channel.actionTriggers',
                         header: 'Action triggers', // i18n
