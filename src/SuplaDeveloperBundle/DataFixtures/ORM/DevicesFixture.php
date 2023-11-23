@@ -98,7 +98,7 @@ class DevicesFixture extends SuplaFixture {
     }
 
     protected function createDeviceFull(Location $location, $name = 'UNI-MODULE'): IODevice {
-        return $this->createDevice($name, $location, [
+        $device = $this->createDevice($name, $location, [
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEDOORLOCK, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
             [ChannelType::RELAY, ChannelFunction::CONTROLLINGTHEGATE, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag()]],
@@ -109,7 +109,12 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
             [ChannelType::BRIDGE, ChannelFunction::CONTROLLINGTHEROLLERSHUTTER, ['funcList' => ChannelFunctionBitsFlist::getAllFeaturesFlag(), 'flags' => ChannelFunctionBitsFlags::AUTO_CALIBRATION_AVAILABLE]],
             [ChannelType::IMPULSECOUNTER, ChannelFunction::IC_WATERMETER, ['flags' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE]],
+            [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
         ], self::DEVICE_FULL);
+        $at = $device->getChannels()[10];
+        $at->setParam1($device->getChannels()[4]->getId());
+        $this->entityManager->persist($at);
+        return $device;
     }
 
     protected function createEveryFunctionDevice(
