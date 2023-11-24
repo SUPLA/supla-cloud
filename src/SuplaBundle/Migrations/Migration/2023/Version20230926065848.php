@@ -22,6 +22,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
  * Move invertedLogic (param3) to user_config.
+ * Move temperature (param2) and humidity adjustment (param3) to user_config.
  */
 class Version20230926065848 extends NoWayBackMigration {
     public function migrate() {

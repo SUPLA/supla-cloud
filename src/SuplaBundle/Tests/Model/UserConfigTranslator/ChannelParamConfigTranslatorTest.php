@@ -128,9 +128,9 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->assertEquals(($expectedParams[1] ?? null) !== null ? 0 : 222, $channel->getParam2());
         $this->assertEquals(($expectedParams[2] ?? null) !== null ? 0 : 333, $channel->getParam3());
         $this->assertEquals(($expectedParams[3] ?? null) !== null ? 0 : 444, $channel->getParam4());
-        $this->assertEquals(($expectedParams[4] ?? null) !== null ? 0 : 'aaa', $channel->getTextParam1());
-        $this->assertEquals(($expectedParams[5] ?? null) !== null ? 0 : 'bbb', $channel->getTextParam2());
-        $this->assertEquals(($expectedParams[6] ?? null) !== null ? 0 : 'ccc', $channel->getTextParam3());
+        $this->assertEquals(($expectedParams[4] ?? null) !== null ? '' : 'aaa', $channel->getTextParam1());
+        $this->assertEquals(($expectedParams[5] ?? null) !== null ? '' : 'bbb', $channel->getTextParam2());
+        $this->assertEquals(($expectedParams[6] ?? null) !== null ? '' : 'ccc', $channel->getTextParam3());
     }
 
     public function paramsConfigsExamples() {
@@ -236,5 +236,18 @@ class ChannelParamConfigTranslatorTest extends TestCase {
         $this->configTranslator->setConfig($channel, ['initialValue' => '']);
         $config = $this->configTranslator->getConfig($channel);
         $this->assertEquals(0, $config['initialValue']);
+    }
+
+    public function testSavingIcConfigAsBothParamsAndJson() {
+        $channel = new IODeviceChannel();
+        $channel->setFunction(ChannelFunction::IC_GASMETER());
+        $this->configTranslator->setConfig(
+            $channel,
+            ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']
+        );
+        $this->assertEquals(124, $channel->getParam3());
+        $this->assertEquals(124, $channel->getUserConfigValue('impulsesPerUnit'));
+        $this->assertEquals(123, $channel->getParam2());
+        $this->assertEquals(123, $channel->getUserConfigValue('pricePerUnit'));
     }
 }

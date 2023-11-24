@@ -43,20 +43,27 @@ class ImpulseCounterParamsTranslator extends UserConfigTranslator {
             $subject->setUserConfigValue('addToHistory', boolval($config['addToHistory']));
         }
         if (array_key_exists('pricePerUnit', $config)) {
-            $subject->setParam2($this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000);
+            $value = $this->getValueInRange($config['pricePerUnit'], 0, 1000) * 10000;
+            $subject->setParam2($value);
+            $subject->setUserConfigValue('pricePerUnit', $value);
         }
         if (array_key_exists('impulsesPerUnit', $config)) {
-            $subject->setParam3($this->getValueInRange($config['impulsesPerUnit'], 0, 1000000));
+            $value = $this->getValueInRange($config['impulsesPerUnit'], 0, 1000000);
+            $subject->setParam3($value);
+            $subject->setUserConfigValue('impulsesPerUnit', $value);
         }
         if (array_key_exists('currency', $config)) {
             $currency = $config['currency'];
             if (!$currency || preg_match('/^[A-Z]{3}$/', $currency)) {
                 $subject->setTextParam1($currency);
+                $subject->setUserConfigValue('currency', $value ?: null);
             }
         }
         if (array_key_exists('unit', $config)) {
-            if (mb_strlen($config['unit'] ?? '', 'UTF-8') <= 4) {
-                $subject->setTextParam2($config['unit']);
+            $value = $config['unit'] ?? '';
+            if (mb_strlen($value, 'UTF-8') <= 4) {
+                $subject->setTextParam2($value);
+                $subject->setUserConfigValue('unit', $value ?: null);
             }
         }
     }
