@@ -56,7 +56,7 @@ class ImpulseCounterParamsTranslator extends UserConfigTranslator {
             $currency = $config['currency'];
             if (!$currency || preg_match('/^[A-Z]{3}$/', $currency)) {
                 $subject->setTextParam1($currency);
-                $subject->setUserConfigValue('currency', $value ?: null);
+                $subject->setUserConfigValue('currency', $currency ?: null);
             }
         }
         if (array_key_exists('unit', $config)) {
