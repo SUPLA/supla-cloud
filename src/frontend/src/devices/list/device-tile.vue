@@ -1,5 +1,5 @@
 <template>
-    <square-link :class="'clearfix pointer with-label ' + (device.enabled ? 'green' : 'grey')">
+    <square-link :class="'clearfix pointer with-label ' + (device.enabled && !device.locked ? 'green' : 'grey')">
         <router-link :to="linkSpec">
             <h3>{{ caption }}</h3>
             <dl>
@@ -15,11 +15,14 @@
                 <dd>{{ $t('SoftVer') }}</dd>
                 <dt>{{ device.softwareVersion }}</dt>
             </dl>
-            <dl class="ellipsis">
+            <dl class="ellipsis" v-if="!device.locked">
                 <dd>{{ $t('Location') }}</dd>
                 <dt>ID{{ device.location.id }} {{ device.location.caption }}</dt>
             </dl>
-            <div class="square-link-label">
+            <div class="square-link-label" v-if="device.locked">
+                <span class="label label-warning">{{ $t('Locked') }}</span>
+            </div>
+            <div class="square-link-label" v-else>
                 <connection-status-label :model="device"></connection-status-label>
             </div>
         </router-link>

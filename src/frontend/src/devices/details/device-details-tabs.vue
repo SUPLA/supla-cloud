@@ -38,26 +38,36 @@
             },
             detectAvailableTabs() {
                 this.availableTabs = [];
-                this.availableTabs.push({
-                    route: 'device.channels',
-                    header: 'Channels', // i18n
-                });
-                if (this.device.relationsCount.managedNotifications) {
+                if (this.device.locked) {
                     this.availableTabs.push({
-                        route: 'device.notifications',
-                        header: 'Notifications', // i18n
+                        route: 'device.unlock',
+                        header: 'Unlock device', // i18n
                     });
-                }
-                if (Object.keys(this.device.config || {}).length) {
+                } else {
                     this.availableTabs.push({
-                        route: 'device.settings',
-                        header: 'Settings', // i18n
+                        route: 'device.channels',
+                        header: 'Channels', // i18n
                     });
+                    if (this.device.relationsCount.managedNotifications) {
+                        this.availableTabs.push({
+                            route: 'device.notifications',
+                            header: 'Notifications', // i18n
+                        });
+                    }
+                    if (Object.keys(this.device.config || {}).length) {
+                        this.availableTabs.push({
+                            route: 'device.settings',
+                            header: 'Settings', // i18n
+                        });
+                    }
                 }
             },
         },
         mounted() {
             this.detectAvailableTabs();
+            if (this.$router.currentRoute.name === 'device' && this.availableTabs.length) {
+                this.$router.replace({name: this.availableTabs[0].route, params: {id: this.device.id}});
+            }
         },
     };
 </script>

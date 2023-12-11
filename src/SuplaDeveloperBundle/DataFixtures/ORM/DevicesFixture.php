@@ -58,19 +58,20 @@ class DevicesFixture extends SuplaFixture {
 
     public function load(ObjectManager $manager) {
         $this->setObjectManager($manager);
-        $this->createDeviceSonoff($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
+        $location = $this->getReference(LocationsFixture::LOCATION_OUTSIDE);
+        $this->createDeviceSonoff($location);
         $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE));
         $this->createDeviceRgb($this->getReference(LocationsFixture::LOCATION_BEDROOM));
-        $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), self::DEVICE_EVERY_FUNCTION);
+        $this->createEveryFunctionDevice($location, self::DEVICE_EVERY_FUNCTION);
         $hvac = $this->createDeviceHvac($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->setReference(self::DEVICE_HVAC, $hvac);
-        $device = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_OUTSIDE), 'SECOND MEGA DEVICE');
+        $device = $this->createEveryFunctionDevice($location, 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
             $noFunctionChannel->setFunction(ChannelFunction::NONE());
             $this->entityManager->persist($noFunctionChannel);
         }
-        $this->createDeviceManyGates($this->getReference(LocationsFixture::LOCATION_OUTSIDE));
-        $nonDeviceLocations = [null, $this->getReference(LocationsFixture::LOCATION_OUTSIDE), $this->getReference(LocationsFixture::LOCATION_BEDROOM)];
+        $this->createDeviceManyGates($location);
+        $nonDeviceLocations = [null, $location, $this->getReference(LocationsFixture::LOCATION_BEDROOM)];
         for ($i = 0; $i < self::NUMBER_OF_RANDOM_DEVICES; $i++) {
             $name = strtoupper(implode('-', $this->faker->words($this->faker->numberBetween(1, 3))));
             $device = $this->createDeviceFull($this->getReference(LocationsFixture::LOCATION_GARAGE), $name);
@@ -82,6 +83,7 @@ class DevicesFixture extends SuplaFixture {
         }
         $suplerDevice = $this->createEveryFunctionDevice($this->getReference(LocationsFixture::LOCATION_SUPLER), 'SUPLER MEGA DEVICE', '');
         $this->setReference(self::DEVICE_SUPLER, $suplerDevice);
+        $this->createDeviceLocked($location);
         $manager->flush();
     }
 
@@ -339,7 +341,18 @@ class DevicesFixture extends SuplaFixture {
         return $hvac;
     }
 
-    private function createDevice(string $name, Location $location, array $channelTypes, string $registerAs): IODevice {
+    public function createDeviceLocked(Location $location): IODevice {
+        $device = $this->createDevice('LOCKED-DEVICE', $location, [
+            [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
+            [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
+        ]);
+        AnyFieldSetter::set($device, ['flags' => IoDeviceFlags::DEVICE_LOCKED]);
+        $this->entityManager->persist($device);
+        $this->entityManager->flush();
+        return $device;
+    }
+
+    private function createDevice(string $name, Location $location, array $channelTypes, string $registerAs = ''): IODevice {
         $device = new IODevice();
         AnyFieldSetter::set($device, [
             'name' => $name,
@@ -351,7 +364,7 @@ class DevicesFixture extends SuplaFixture {
             'protocolVersion' => '2.' . rand(0, 50),
             'location' => $location,
             'user' => $location->getUser(),
-            'flags' => IoDeviceFlags::getAllFeaturesFlag(),
+            'flags' => IoDeviceFlags::getAllFeaturesFlag() & ~IoDeviceFlags::DEVICE_LOCKED,
             'userConfig' => '{"statusLed": "ON_WHEN_CONNECTED"}',
         ]);
         $this->entityManager->persist($device);

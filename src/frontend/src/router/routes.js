@@ -164,7 +164,6 @@ export default [
         component: () => import("@/devices/details/device-details-page"),
         name: 'device',
         props: true,
-        redirect: {name: 'device.channels'},
         children: [
             {
                 path: 'channels',
@@ -182,6 +181,11 @@ export default [
                 path: 'settings',
                 component: () => import("@/devices/details/device-settings.vue"),
                 name: 'device.settings',
+            },
+            {
+                path: 'unlock',
+                component: () => import("@/devices/details/device-unlock.vue"),
+                name: 'device.unlock',
             },
         ]
     },

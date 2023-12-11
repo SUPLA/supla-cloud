@@ -75,6 +75,9 @@ class IODeviceSerializer extends AbstractSerializer implements NormalizerAwareIn
             $normalized['regIpv4'] = ($normalized['regIpv4'] ?? null) ? ip2long($normalized['regIpv4']) : null;
             $normalized['lastIpv4'] = ($normalized['lastIpv4'] ?? null) ? ip2long($normalized['lastIpv4']) : null;
         }
+        if ($ioDevice->isLocked()) {
+            $normalized['locked'] = true;
+        }
     }
 
     private function serializeSchedules(IODevice $ioDevice, array $context = []): array {

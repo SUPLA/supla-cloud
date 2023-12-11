@@ -1,7 +1,7 @@
 <template>
     <page-container :error="error">
         <loading-cover :loading="!device || loading">
-            <div class="bg-green form-group"
+            <div :class="['bg-green form-group', {'bg-red': device.locked}]"
                 v-if="device">
                 <div class="container">
                     <pending-changes-page :header="deviceTitle"
@@ -13,7 +13,7 @@
                         <div class="row text-center">
                             <div class="col-sm-4">
                                 <h3>{{ $t('Device') }}</h3>
-                                <div class="text-center form-group">
+                                <div class="text-center form-group" v-if="!device.locked">
                                     <connection-status-label :model="device"></connection-status-label>
                                 </div>
                                 <div class="hover-editable text-left">
@@ -33,6 +33,8 @@
                                         <dt>{{ device.regDate | formatDateTime }}</dt>
                                         <dd>{{ $t('Last connection') }}</dd>
                                         <dt>{{ device.lastConnected | formatDateTime }}</dt>
+                                    </dl>
+                                    <dl v-if="!device.locked">
                                         <dd>{{ $t('Enabled') }}</dd>
                                         <dt>
                                             <toggler v-model="device.enabled"
@@ -41,10 +43,12 @@
                                         </dt>
                                     </dl>
                                 </div>
-                                <DeviceEnterConfigurationModeButton :device="device"/>
-                                <DeviceSetTimeButton :device="device"/>
+                                <div v-if="!device.locked">
+                                    <DeviceEnterConfigurationModeButton :device="device"/>
+                                    <DeviceSetTimeButton :device="device"/>
+                                </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" v-if="!device.locked">
                                 <h3>{{ $t('Location') }}</h3>
                                 <router-link :to="{name: 'location', params: {id: device.originalLocationId}}"
                                     class="original-location"
@@ -54,7 +58,7 @@
                                 </router-link>
                                 <SquareLocationChooser v-model="device.location" @chosen="changeLocation($event)"/>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-4" v-if="!device.locked">
                                 <h3>{{ $t('Access ID') }}</h3>
                                 <div class="list-group"
                                     v-if="device.location.relationsCount.accessIds > 0 && device.location.accessIds">
@@ -249,6 +253,9 @@
         padding: 20px 0 10px;
         color: $supla-white;
         background-color: $supla-green;
+        &.bg-red {
+            background-color: $supla-grey-dark !important;
+        }
         .square-link {
             border-color: $supla-black;
         }

@@ -40,6 +40,7 @@ use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
+use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
 use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
@@ -1426,5 +1427,16 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
             $sensor->getId(),
             ChannelConfigChangeScope::VISIBILITY
         ));
+    }
+
+    public function testHidingChannelsOfLockedDevices() {
+        $lockedDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceLocked($this->location);
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', '/api/channels?deviceIds=' . $lockedDevice->getId());
+        $this->assertStatusCode(200, $client->getResponse());
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertCount(2, $content);
+        $this->assertTrue($content[0]['config']['hideInChannelsList']);
+        $this->assertTrue($content[1]['config']['hideInChannelsList']);
     }
 }

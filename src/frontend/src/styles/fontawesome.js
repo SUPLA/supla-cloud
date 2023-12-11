@@ -37,10 +37,11 @@ import {
     faSignOut,
     faTimesCircle,
     faTrash,
+    faUnlock,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faSquare, faCheckSquare, faGear, faDownload, faSignOut, faSignIn, faShieldHalved, faPuzzlePiece, faKey, faTimesCircle, faCheck,
     faChevronLeft, faChevronRight, faChevronDown, faArrowRight, faQuestionCircle, faPlus, faTrash, faShuffle, faInfoCircle, faCircleNotch,
     faPowerOff, faEdit, faSave, faCancel, faRefresh, faCaretUp, faCaretDown, faAngleDoubleDown, faAngleDoubleRight, faAngleDoubleUp,
-    faCalendarWeek, faHand, faClock, faCircleHalfStroke);
+    faCalendarWeek, faHand, faClock, faCircleHalfStroke, faUnlock);
 Vue.component('fa', FontAwesomeIcon)
