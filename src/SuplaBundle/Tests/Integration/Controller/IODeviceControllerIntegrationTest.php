@@ -776,4 +776,3 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
     }
 }
-
