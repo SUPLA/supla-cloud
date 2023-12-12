@@ -6,7 +6,7 @@ describe('Device details', () => {
     describe('config', () => {
         it('can update config', () => {
             cy.login();
-            cy.visit('/devices/1');
+            cy.visit('/devices/1/channels');
             cy.contains('Ustawienia').click();
             cy.get('#statusLed').should('have.value', 'ON_WHEN_CONNECTED')
             cy.get('#statusLed').select('ALWAYS_OFF');
@@ -18,7 +18,7 @@ describe('Device details', () => {
 
         it('detects conflicts when config has been changed externally', () => {
             cy.login();
-            cy.visit('/devices/1');
+            cy.visit('/devices/1/channels');
             cy.contains('Ustawienia').click();
             cy.get('#statusLed').should('have.value', 'ALWAYS_OFF')
             cy.task('sql', `UPDATE supla_iodevice

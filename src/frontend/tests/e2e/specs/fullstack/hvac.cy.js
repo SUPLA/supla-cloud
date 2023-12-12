@@ -17,7 +17,7 @@ describe('HVAC', () => {
 
     it('can edit week schedule', () => {
         cy.login();
-        cy.visit('/channels/4');
+        cy.visit('/channels/4/thermostat-programs');
         for (let i = 0; i < 5; i++) {
             cy.get('.thermostat-program-button-' + (i % 5)).click();
             cy.get('.time-slot').eq(i).click();
@@ -30,10 +30,9 @@ describe('HVAC', () => {
         }
     });
 
-    // TODO fix this test after the weekend
-    it.skip('waits for config initialization after function change', () => {
+    it('waits for config initialization after function change', () => {
         cy.login();
-        cy.visit('/channels/5');
+        cy.visit('/channels/5/thermostat-programs');
         cy.contains('Zmień funkcję').click();
         cy.contains('Brak (kanał wyłączony)').click();
         cy.get('a.confirm').click();
