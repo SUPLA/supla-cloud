@@ -28,5 +28,5 @@ final class IoDeviceFlags extends ChannelFunctionBits {
     /** @see https://github.com/SUPLA/supla-cloud/issues/622 */
     const SLEEP_MODE_ENABLED = 0x0020;
 
-    const DEVICE_LOCKED = 0x0080;
+    const DEVICE_LOCKED = 0x0100;
 }
