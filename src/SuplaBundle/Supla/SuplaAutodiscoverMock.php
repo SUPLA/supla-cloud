@@ -185,6 +185,9 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
         } elseif (preg_match('#/set-broker-ip-addresses#', $endpoint, $match)) {
             $responseStatus = 204;
             return null;
+        } elseif (preg_match('#/unlock-device#', $endpoint, $match)) {
+            $responseStatus = 200;
+            return null;
         }
         $responseStatus = 404;
         return false;

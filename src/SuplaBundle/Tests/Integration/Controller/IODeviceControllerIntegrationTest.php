@@ -31,12 +31,14 @@ use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\ChannelType;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
+use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
+use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
 use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
 
 /** @small */
@@ -746,4 +748,32 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($anotherLocation->getId(), $this->freshEntity($sensorChannel)->getLocation()->getId());
         $this->assertEquals($anotherLocation->getId(), $this->freshEntity($gateChannel)->getLocation()->getId());
     }
+
+    public function testUnlockingDevice() {
+        $lockedDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceLocked($this->location);
+        $client = $this->createAuthenticatedClient();
+        $request = ['action' => 'unlock', 'email' => 'installer@supla.org', 'code' => 'abcdef'];
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $lockedDevice->getId(), $request);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        /** @var IODevice $lockedDevice */
+        $lockedDevice = $this->freshEntity($lockedDevice);
+        $this->assertFalse($lockedDevice->isLocked());
+        $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+    }
+
+    public function testDoesNotUnlockDeviceWhenAdRefuses() {
+        $lockedDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceLocked($this->location);
+        $client = $this->createAuthenticatedClient();
+        $request = ['action' => 'unlock', 'email' => 'installer@supla.org', 'code' => 'abcdef'];
+        SuplaAutodiscoverMock::mockResponse('unlock-device', null, 404, 'POST');
+        $client->apiRequestV24('PATCH', '/api/iodevices/' . $lockedDevice->getId(), $request);
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+        /** @var IODevice $lockedDevice */
+        $lockedDevice = $this->freshEntity($lockedDevice);
+        $this->assertTrue($lockedDevice->isLocked());
+        $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+    }
 }
+

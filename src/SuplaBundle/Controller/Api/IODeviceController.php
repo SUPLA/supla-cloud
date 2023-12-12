@@ -34,6 +34,7 @@ use SuplaBundle\Model\UserConfigTranslator\IODeviceConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Repository\IODeviceRepository;
 use SuplaBundle\Serialization\RequestFiller\IODeviceRequestFiller;
+use SuplaBundle\Supla\SuplaAutodiscover;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\ArrayUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -341,7 +342,7 @@ class IODeviceController extends RestController {
      *     @OA\RequestBody(
      *       required=true,
      *       @OA\JsonContent(
-     *          @OA\Property(property="action", type="string", enum={"enterConfigurationMode", "setTime"}),
+     *          @OA\Property(property="action", type="string"),
      *       )
      *     ),
      *     @OA\Response(response="200", description="Success", @OA\JsonContent(ref="#/components/schemas/Device")),
@@ -350,10 +351,10 @@ class IODeviceController extends RestController {
      * @Security("ioDevice.belongsToUser(user) and is_granted('ROLE_IODEVICES_RW') and is_granted('accessIdContains', ioDevice)")
      * @UnavailableInMaintenance
      */
-    public function patchIodeviceAction(Request $request, IODevice $ioDevice) {
+    public function patchIodeviceAction(Request $request, IODevice $ioDevice, SuplaAutodiscover $ad) {
         $body = json_decode($request->getContent(), true);
         Assertion::keyExists($body, 'action', 'Missing action.');
-        $device = $this->transactional(function (EntityManagerInterface $em) use ($body, $ioDevice) {
+        $device = $this->transactional(function (EntityManagerInterface $em) use ($ad, $body, $ioDevice) {
             $action = $body['action'];
             if ($action === 'enterConfigurationMode') {
                 Assertion::true(
@@ -373,6 +374,13 @@ class IODeviceController extends RestController {
                 $params = $dateTime->format("Y,n,j,$suplaDayOfWeek,G,i,s,") . base64_encode($timezoneName);
                 $result = $this->suplaServer->deviceAction($ioDevice, 'DEVICE-SET-TIME', [$params]);
                 Assertion::true($result, 'Could not set the device time.'); // i18n
+            } elseif ($action === 'unlock') {
+                Assertion::keyExists($body, 'email');
+                Assertion::keyExists($body, 'code');
+                Assertion::email($body['email']);
+                Assertion::string($body['code']);
+                $ad->unlockDevice($ioDevice, $body['email'], $body['code']);
+                $ioDevice->unlock();
             } else {
                 throw new ApiException('Invalid action given.');
             }

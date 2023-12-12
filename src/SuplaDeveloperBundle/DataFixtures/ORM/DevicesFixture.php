@@ -346,7 +346,7 @@ class DevicesFixture extends SuplaFixture {
             [ChannelType::RELAY, ChannelFunction::LIGHTSWITCH, ['funcList' => ChannelFunctionBitsFlist::LIGHTSWITCH | ChannelFunctionBitsFlist::POWERSWITCH]],
             [ChannelType::THERMOMETERDS18B20, ChannelFunction::THERMOMETER],
         ]);
-        AnyFieldSetter::set($device, ['flags' => IoDeviceFlags::DEVICE_LOCKED]);
+        AnyFieldSetter::set($device, ['flags' => IoDeviceFlags::DEVICE_LOCKED | IoDeviceFlags::ENTER_CONFIGURATION_MODE_AVAILABLE]);
         $this->entityManager->persist($device);
         $this->entityManager->flush();
         return $device;

@@ -22,6 +22,7 @@ use Assert\Assertion;
 use DateTime;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Psr\Log\LoggerInterface;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\InstanceSettings;
@@ -362,5 +363,30 @@ abstract class SuplaAutodiscover {
             ]
         );
         return $responseStatus === 204;
+    }
+
+    public function unlockDevice(IODevice $device, string $email, string $unlockCode): void {
+        $this->remoteRequest('/unlock-device', [
+            'email' => $email,
+            'code' => $unlockCode,
+            'deviceName' => $device->getName(),
+            'guidString' => $device->getGUIDString(),
+            'userEmail' => $device->getUser()->getEmail(),
+        ], $responseStatus);
+        $this->logger->debug(
+            __FUNCTION__,
+            [
+                'targetCloud' => $this->localSuplaCloud->getAddress(),
+                'responseStatus' => $responseStatus,
+            ]
+        );
+        if ($responseStatus !== 200) {
+            $errors = [
+                404 => 'Invalid unlock code.', // i18n
+                409 => 'The device has been unlocked already.', // i18n
+                503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
+            ];
+            throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
+        }
     }
 }
