@@ -54,6 +54,8 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::OPENINGSENSOR_GARAGEDOOR(), '{"on_change": {}}'],
             [ChannelFunction::CONTROLLINGTHEROOFWINDOW(), '{"on_change": {}}'],
             [ChannelFunction::DIMMER(), '{"on_change": {"name": "brightness"}}'],
+            [ChannelFunction::VALVEOPENCLOSE(), '{"on_change_to": {"eq": "closed"}}'],
+            [ChannelFunction::VALVEOPENCLOSE(), '{"on_change_to": {"eq": "closed", "name": "manually_closed"}}'],
         ];
     }
 

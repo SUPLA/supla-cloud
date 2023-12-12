@@ -112,6 +112,7 @@ class ValueBasedTriggerValidator {
             ChannelFunction::IC_GASMETER,
             ChannelFunction::IC_ELECTRICITYMETER,
         ],
+        'default' => [ChannelFunction::VALVEOPENCLOSE],
     ];
 
     private const THRESHOLD_SUPPORT = [
@@ -173,9 +174,12 @@ class ValueBasedTriggerValidator {
             return in_array($channel->getFunction()->getId(), $functionIds);
         });
         if ($possibleFieldNames) {
-            Assertion::keyExists($onChangeTo, 'name', 'Missing trigger field definition.');
             $possibleFieldNames = array_keys($possibleFieldNames);
-            Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name.');
+            if (isset($onChangeTo['name'])) {
+                Assertion::inArray($onChangeTo['name'], $possibleFieldNames, 'Unsupported field name.');
+            } else {
+                Assertion::inArray('default', $possibleFieldNames, 'Missing trigger field definition.');
+            }
         } else {
             Assertion::keyNotExists($onChangeTo, 'name', 'Field name is not required for this channel. Remove it.');
         }
