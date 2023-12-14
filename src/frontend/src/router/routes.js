@@ -79,6 +79,12 @@ export default [
         props: true
     },
     {
+        path: '/confirm-device-unlock/:deviceId/:unlockCode',
+        component: () => import("@/devices/confirm-device-unlock.vue"),
+        meta: {unrestricted: true},
+        props: true
+    },
+    {
         path: '/access-identifiers', component: () => import("@/access-ids/access-ids-page"), name: "accessIds", children: [
             {path: ':id', component: () => import("@/access-ids/access-id-details"), name: 'accessId', props: true}
         ]

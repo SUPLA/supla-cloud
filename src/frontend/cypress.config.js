@@ -14,6 +14,7 @@ module.exports = defineConfig({
         pageLoadTimeout: 10000,
         setupNodeEvents(on, config) {
             require('./tests/e2e/plugins/seeder')(on, config);
+            require('./tests/e2e/plugins/smtp-server')(on, config);
         },
         specPattern: 'tests/e2e/specs/**/*.cy.{js,jsx,ts,tsx}',
         supportFile: 'tests/e2e/support/index.js',

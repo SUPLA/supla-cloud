@@ -114,8 +114,6 @@ framework:
         dsn: "doctrine://default"
         options:
           table_name: supla_email_notifications
-    routing:
-      SuplaBundle\Message\AsyncMessage: async
   router:
     resource: "%kernel.root_dir%/config/routing.yml"
     strict_requirements: ~

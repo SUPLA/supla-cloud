@@ -7,6 +7,9 @@ framework:
   session:
     storage_id: session.storage.mock_file
   test: ~
+  messenger:
+    routing:
+      SuplaBundle\Message\AsyncMessage: 'async'
 
 monolog:
   handlers:
