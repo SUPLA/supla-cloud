@@ -26,6 +26,8 @@ use SuplaBundle\Auth\Voter\AccessIdSecurityVoter;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\EventListener\UnavailableInMaintenance;
 use SuplaBundle\Exception\ApiException;
+use SuplaBundle\Message\Emails\ConfirmationAfterDeviceUnlockEmailNotification;
+use SuplaBundle\Message\Emails\ConfirmDeviceUnlockEmailNotification;
 use SuplaBundle\Model\ApiVersions;
 use SuplaBundle\Model\Dependencies\ChannelDependencies;
 use SuplaBundle\Model\Dependencies\IODeviceDependencies;
@@ -376,11 +378,10 @@ class IODeviceController extends RestController {
                 Assertion::true($result, 'Could not set the device time.'); // i18n
             } elseif ($action === 'unlock') {
                 Assertion::keyExists($body, 'email');
-                Assertion::keyExists($body, 'code');
                 Assertion::email($body['email']);
-                Assertion::string($body['code']);
-                $ad->unlockDevice($ioDevice, $body['email'], $body['code']);
-                $ioDevice->unlock();
+                $unlockCode = $ad->requestDeviceUnlockCode($ioDevice, $body['email']);
+                $email = new ConfirmDeviceUnlockEmailNotification($body['email'], $ioDevice, $unlockCode);
+                $this->dispatchMessage($email);
             } else {
                 throw new ApiException('Invalid action given.');
             }
@@ -435,5 +436,28 @@ class IODeviceController extends RestController {
         $this->suplaServer->reconnect();
         $this->suplaServer->userAction('ON-DEVICE-DELETED', $deviceId);
         return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @Rest\Patch("/confirm-device-unlock/{device}")
+     * @UnavailableInMaintenance
+     */
+    public function confirmDeviceUnlockAction(IODevice $device, Request $request, SuplaAutodiscover $ad) {
+        if (!$device->isLocked()) {
+            throw $this->createNotFoundException();
+        }
+        $body = json_decode($request->getContent(), true);
+        Assertion::isArray($body);
+        Assertion::keyExists($body, 'code');
+        $unlockCode = $body['code'];
+        Assertion::string($unlockCode);
+        $ad->unlockDevice($device, $unlockCode);
+        $this->transactional(function (EntityManagerInterface $em) use ($device) {
+            $device->unlock();
+            $em->persist($device);
+        });
+        $email = new ConfirmationAfterDeviceUnlockEmailNotification($device);
+        $this->dispatchMessage($email);
+        return $this->view($device);
     }
 }

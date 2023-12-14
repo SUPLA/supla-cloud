@@ -365,13 +365,36 @@ abstract class SuplaAutodiscover {
         return $responseStatus === 204;
     }
 
-    public function unlockDevice(IODevice $device, string $email, string $unlockCode): void {
-        $this->remoteRequest('/unlock-device', [
-            'email' => $email,
-            'code' => $unlockCode,
+    public function requestDeviceUnlockCode(IODevice $device, string $unlockerEmail): string {
+        $response = $this->remoteRequest('/unlock-device', [
+            'email' => $unlockerEmail,
             'deviceName' => $device->getName(),
             'guidString' => $device->getGUIDString(),
             'userEmail' => $device->getUser()->getEmail(),
+        ], $responseStatus);
+        $this->logger->debug(
+            __FUNCTION__,
+            [
+                'targetCloud' => $this->localSuplaCloud->getAddress(),
+                'responseStatus' => $responseStatus,
+                'response' => $response,
+            ]
+        );
+        if ($responseStatus !== 200) {
+            $errors = [
+                404 => 'Invalid e-mail address.', // i18n
+                409 => 'The device has been unlocked already.', // i18n
+                503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
+            ];
+            throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);
+        }
+        return $response['unlock_code'];
+    }
+
+    public function unlockDevice(IODevice $device, string $unlockCode): void {
+        $this->remoteRequest('/unlock-device', [
+            'unlockCode' => $unlockCode,
+            'guidString' => $device->getGUIDString(),
         ], $responseStatus);
         $this->logger->debug(
             __FUNCTION__,
@@ -382,8 +405,8 @@ abstract class SuplaAutodiscover {
         );
         if ($responseStatus !== 200) {
             $errors = [
+                400 => 'Invalid unlock code.', // i18n
                 404 => 'Invalid unlock code.', // i18n
-                409 => 'The device has been unlocked already.', // i18n
                 503 => 'Could not contact Autodiscover service. Try again in a while.', // i18n
             ];
             throw new ApiException($errors[$responseStatus] ?? $errors[503], $responseStatus);

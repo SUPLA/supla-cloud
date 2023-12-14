@@ -1,6 +1,5 @@
 <template>
-    <loading-cover :loading="true"
-        class="pt-5"></loading-cover>
+    <loading-cover :loading="true" class="pt-5"></loading-cover>
 </template>
 
 <script>

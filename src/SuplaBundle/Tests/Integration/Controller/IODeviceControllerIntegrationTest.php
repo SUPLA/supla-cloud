@@ -35,6 +35,7 @@ use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\AnyFieldSetter;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
+use SuplaBundle\Tests\Integration\TestMailer;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
@@ -749,23 +750,73 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertEquals($anotherLocation->getId(), $this->freshEntity($gateChannel)->getLocation()->getId());
     }
 
-    public function testUnlockingDevice() {
+    public function testRequestingDeviceUnlockCode() {
+        SuplaAutodiscoverMock::mockResponse('unlock-device', ['unlock_code' => 'abcdefg'], 200, 'POST');
         $lockedDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceLocked($this->location);
+        $user = $lockedDevice->getUser();
+        $user->setLocale('pl');
+        $this->persist($user);
         $client = $this->createAuthenticatedClient();
-        $request = ['action' => 'unlock', 'email' => 'installer@supla.org', 'code' => 'abcdef'];
+        $request = ['action' => 'unlock', 'email' => 'installer@supla.org'];
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $lockedDevice->getId(), $request);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        /** @var IODevice $lockedDevice */
+        $lockedDevice = $this->freshEntity($lockedDevice);
+        $this->assertTrue($lockedDevice->isLocked());
+        $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+        $this->flushMessagesQueue($client);
+        $this->assertNotEmpty(TestMailer::getMessages());
+        $confirmationMessage = TestMailer::getMessages()[0];
+        $this->assertArrayHasKey('installer@supla.org', $confirmationMessage->getTo());
+        $this->assertContains('Confirm device unlock', $confirmationMessage->getSubject());
+        $this->assertContains($lockedDevice->getName(), $confirmationMessage->getBody());
+        $this->assertContains($lockedDevice->getGUIDString(), $confirmationMessage->getBody());
+        $this->assertContains('/abcdefg', $confirmationMessage->getBody());
+        $this->assertContains('link nie działa', $confirmationMessage->getBody());
+        return $lockedDevice->getId();
+    }
+
+    /** @depends testRequestingDeviceUnlockCode */
+    public function testCantUnlockDeviceWithBadCode(int $deviceId) {
+        SuplaAutodiscoverMock::mockResponse('unlock-device', null, 404, 'POST');
+        $lockedDevice = $this->freshEntityById(IODevice::class, $deviceId);
+        $client = $this->createAuthenticatedClient();
+        $request = ['code' => 'abcdefg'];
+        $client->apiRequestV24('PATCH', '/api/confirm-device-unlock/' . $lockedDevice->getId(), $request);
+        $response = $client->getResponse();
+        $this->assertStatusCode(404, $response);
+        /** @var IODevice $lockedDevice */
+        $lockedDevice = $this->freshEntity($lockedDevice);
+        $this->assertTrue($lockedDevice->isLocked());
+        $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+    }
+
+    /** @depends testRequestingDeviceUnlockCode */
+    public function testUnlockingDeviceWithCode(int $deviceId) {
+        $lockedDevice = $this->freshEntityById(IODevice::class, $deviceId);
+        $client = $this->createAuthenticatedClient();
+        $request = ['code' => 'abcdefg'];
+        TestMailer::reset();
+        $client->apiRequestV24('PATCH', '/api/confirm-device-unlock/' . $lockedDevice->getId(), $request);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         /** @var IODevice $lockedDevice */
         $lockedDevice = $this->freshEntity($lockedDevice);
         $this->assertFalse($lockedDevice->isLocked());
         $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+        $this->flushMessagesQueue($client);
+        $this->assertNotEmpty(TestMailer::getMessages());
+        $confirmationMessage = TestMailer::getMessages()[0];
+        $this->assertArrayHasKey($lockedDevice->getUser()->getEmail(), $confirmationMessage->getTo());
+        $this->assertContains('has been unlocked', $confirmationMessage->getSubject());
+        $this->assertContains($lockedDevice->getName(), $confirmationMessage->getBody());
     }
 
     public function testDoesNotUnlockDeviceWhenAdRefuses() {
         $lockedDevice = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceLocked($this->location);
         $client = $this->createAuthenticatedClient();
-        $request = ['action' => 'unlock', 'email' => 'installer@supla.org', 'code' => 'abcdef'];
+        $request = ['action' => 'unlock', 'email' => 'installer@supla.org'];
         SuplaAutodiscoverMock::mockResponse('unlock-device', null, 404, 'POST');
         $client->apiRequestV24('PATCH', '/api/iodevices/' . $lockedDevice->getId(), $request);
         $response = $client->getResponse();
@@ -774,5 +825,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $lockedDevice = $this->freshEntity($lockedDevice);
         $this->assertTrue($lockedDevice->isLocked());
         $this->assertTrue($lockedDevice->isEnterConfigurationModeAvailable());
+        $this->flushMessagesQueue($client);
+        $this->assertEmpty(TestMailer::getMessages());
     }
 }

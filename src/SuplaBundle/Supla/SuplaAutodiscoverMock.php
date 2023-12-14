@@ -187,7 +187,7 @@ class SuplaAutodiscoverMock extends SuplaAutodiscover {
             return null;
         } elseif (preg_match('#/unlock-device#', $endpoint, $match)) {
             $responseStatus = 200;
-            return null;
+            return ['unlock_code' => md5(microtime(true))];
         }
         $responseStatus = 404;
         return false;

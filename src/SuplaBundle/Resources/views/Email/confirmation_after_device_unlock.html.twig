@@ -1,0 +1,20 @@
+{% extends '@Supla/Email/template.html.twig' %}
+
+{% block subject %}
+    {% trans into userLocale %} SUPLA – your device has been unlocked! {% endtrans %}
+{% endblock %}
+
+{% block preheader %}
+    {% trans into userLocale %} A confirmation upon successful device unlocking. {% endtrans %}
+{% endblock %}
+
+{% block body %}
+    {% apply paragraph %} {% trans into userLocale %} Your device has been unlocked by the installer. {% endtrans %} {% endapply %}
+    {% apply paragraph %}
+        {% trans with {'%deviceId%': '<b>' ~ deviceId ~ '</b>'} into userLocale %} Device ID: %deviceId% {% endtrans %}
+        <br>
+        {% trans with {'%deviceName%': '<b>' ~ deviceLabel ~ '</b>'} into userLocale %} Device name: %deviceName% {% endtrans %}
+    {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app. {% endtrans %} {% endapply %}
+    {% apply linkButton(cloudUrl('devices/' ~ deviceId)) %} {% trans into userLocale %} See in SUPLA-Cloud {% endtrans %} {% endapply %}
+{% endblock %}

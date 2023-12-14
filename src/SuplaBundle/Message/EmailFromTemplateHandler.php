@@ -43,12 +43,13 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
         if ($email->isBurnt($this->timeProvider)) {
             return;
         }
+        $locale = (($email->getData() ?: [])['locale'] ?? null) ?: $this->defaultLocale;
         if ($email->getUserId()) {
             $user = $this->userRepository->find($email->getUserId());
             if (!$user || in_array($email->getTemplateName(), $user->getPreference('optOutNotifications', []))) {
                 return;
             }
-            $userLocale = $user->getLocale() ?: $this->defaultLocale;
+            $userLocale = $user->getLocale() ?: $locale;
             $data = [
                 'userId' => $user->getId(),
                 'userEmail' => $user->getEmail(),
@@ -57,7 +58,7 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
         } elseif ($email->getRecipient()) {
             $data = [
                 'userEmail' => $email->getRecipient(),
-                'userLocale' => $this->defaultLocale,
+                'userLocale' => $locale,
             ];
         } else {
             throw new \InvalidArgumentException('No userId and no recipient given.');
