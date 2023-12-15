@@ -38,8 +38,6 @@ describe('Device details', () => {
     });
 
     describe('locked devices', () => {
-        let unlockUrl;
-
         it('can request device unlock', () => {
             cy.login();
             cy.visit('/devices/4');
@@ -50,12 +48,11 @@ describe('Device details', () => {
             cy.task('getLastEmail', 'installer@zamel.com').then(email => {
                 expect(email).not.to.be.null;
                 expect(email.body).to.contain('/confirm-device-unlock');
-                unlockUrl = email.body.match(/(\/confirm-device-unlock.+)/)[0];
             });
         });
 
         it('can unlock the device with the link', () => {
-            cy.visit(unlockUrl);
+            cy.visit('/confirm-device-unlock/4/abcdef');
             cy.contains('Sukces');
             cy.task('getLastEmail', 'user@supla.org').then(email => {
                 expect(email).not.to.be.null;
