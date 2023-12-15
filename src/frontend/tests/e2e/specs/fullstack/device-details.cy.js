@@ -52,7 +52,7 @@ describe('Device details', () => {
         });
 
         it('can unlock the device with the link', () => {
-            cy.visit('/confirm-device-unlock/4/abcdef');
+            cy.visit('/confirm-device-unlock/4/abcdef?lang=pl');
             cy.contains('Sukces');
             cy.task('getLastEmail', 'user@supla.org').then(email => {
                 expect(email).not.to.be.null;
