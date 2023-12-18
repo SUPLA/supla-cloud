@@ -21,7 +21,6 @@ use SuplaBundle\Utils\NumberUtils;
  *     @OA\Property(property="thermometerError", type="boolean"),
  *     @OA\Property(property="clockError", type="boolean"),
  *     @OA\Property(property="forcedOffBySensor", type="boolean"),
- *     @OA\Property(property="forcedOffBySensor", type="boolean"),
  *     @OA\Property(property="weeklyScheduleTemporalOverride", type="boolean"),
  *     @OA\Property(property="mode", type="string"),
  *     @OA\Property(property="temperatureHeat", type="number"),

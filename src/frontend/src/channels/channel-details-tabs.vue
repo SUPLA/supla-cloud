@@ -44,6 +44,12 @@
                 this.availableTabs = [];
                 const hasActions = this.channel.possibleActions?.length > 0;
                 const isActionTrigger = this.channel.functionId === ChannelFunction.ACTION_TRIGGER;
+                if (this.channel.typeId === 6100 && this.channel.config?.weeklySchedule) {
+                    this.availableTabs.push({
+                        route: 'channel.thermostatPrograms',
+                        header: 'Week', // i18n
+                    });
+                }
                 if (ChannelFunctionTriggers[this.channel.functionId]) {
                     this.availableTabs.push({
                         route: 'channel.reactions',
@@ -55,12 +61,6 @@
                     this.availableTabs.push({
                         route: 'channel.notifications',
                         header: 'Notifications', // i18n
-                    });
-                }
-                if (this.channel.typeId === 6100 && this.channel.config?.weeklySchedule) {
-                    this.availableTabs.push({
-                        route: 'channel.thermostatPrograms',
-                        header: 'Week', // i18n
                     });
                 }
                 if (this.channel.actionTriggersIds?.length || isActionTrigger) {
