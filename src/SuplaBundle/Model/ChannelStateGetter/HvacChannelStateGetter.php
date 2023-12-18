@@ -55,6 +55,7 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
             ChannelFunction::HVAC_THERMOSTAT(),
             ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
         ];
     }
 
