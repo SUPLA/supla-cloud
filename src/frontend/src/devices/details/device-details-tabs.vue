@@ -65,8 +65,10 @@
         },
         mounted() {
             this.detectAvailableTabs();
-            if (this.$router.currentRoute.name === 'device' && this.availableTabs.length) {
-                this.$router.replace({name: this.availableTabs[0].route, params: {id: this.device.id}});
+            if (this.availableTabs.length) {
+                if (this.$router.currentRoute.name === 'device' || !this.availableTabs.map(t => t.route).includes(this.$router.currentRoute.name)) {
+                    this.$router.replace({name: this.availableTabs[0].route, params: {id: this.device.id}});
+                }
             }
         },
     };

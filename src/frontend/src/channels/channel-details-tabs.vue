@@ -130,8 +130,10 @@
         },
         mounted() {
             this.detectAvailableTabs();
-            if (this.$router.currentRoute.name === 'channel' && this.availableTabs.length) {
-                this.$router.replace({name: this.availableTabs[0].route, params: {id: this.channel.id}});
+            if (this.availableTabs.length) {
+                if (this.$router.currentRoute.name === 'channel' || !this.availableTabs.map(t => t.route).includes(this.$router.currentRoute.name)) {
+                    this.$router.replace({name: this.availableTabs[0].route, params: {id: this.channel.id}});
+                }
             }
             this.channelUpdatedListener = () => this.detectAvailableTabs();
             EventBus.$on('channel-updated', this.channelUpdatedListener);
