@@ -26,6 +26,7 @@ use SuplaBundle\Supla\SuplaServerIsDownException;
  *     @OA\Schema(ref="#/components/schemas/ChannelStateSensorPartial"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateHumidity"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateHumidityAndTemperature"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelStateHvac"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateTemperature"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateImpulseCounter"),
  *     @OA\Schema(ref="#/components/schemas/ChannelStateOnOff"),
