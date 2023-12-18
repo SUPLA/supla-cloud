@@ -798,7 +798,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             'subjectType' => ActionableSubjectType::NOTIFICATION,
             'actionId' => ChannelFunctionAction::SEND,
             'actionParam' => ['body' => 'Test', 'accessIds' => [1]],
-            'trigger' => ['on_change_to' => ['eq' => 'off', 'name' => 'is_on']],
+            'trigger' => ['on_change_to' => ['eq' => 'off', 'name' => 'heating']],
         ]);
         $response = $client->getResponse();
         $this->assertStatusCode(201, $response);

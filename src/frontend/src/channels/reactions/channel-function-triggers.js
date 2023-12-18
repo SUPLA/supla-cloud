@@ -465,27 +465,12 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the valve is manually closed', def: () => ({on_change_to: {eq: 'closed', name: 'manually_closed'}})}, // i18n
         {caption: () => 'When flooding is detected', def: () => ({on_change_to: {eq: 'hi', name: 'flooding'}})}, // i18n
     ],
-    [ChannelFunction.HVAC_THERMOSTAT]: [
-        {
-            caption: (subject) => subject.config?.subfunction === 'COOL' ?
-                'When the thermostat starts cooling' : // i18n
-                'When the thermostat starts heating', // i18n
-            def: () => ({on_change_to: {eq: 'on', name: 'is_on'}})
-        },
-        {
-            caption: (subject) => subject.config?.subfunction === 'COOL' ?
-                'When the thermostat stops cooling' : // i18n
-                'When the thermostat stops heating', // i18n
-            def: () => ({on_change_to: {eq: 'off', name: 'is_on'}})
-        },
-        {
-            caption: (subject) => subject.config?.subfunction === 'COOL' ?
-                'When the thermostat starts or stops cooling' : // i18n
-                'When the thermostat starts or stops heating', // i18n
-            def: () => ({on_change: {name: 'is_on'}})
-        },
+    [ChannelFunction.HVAC_DOMESTIC_HOT_WATER]: [
+        {caption: () => 'When the thermostat starts heating', def: () => ({on_change_to: {eq: 'on', name: 'is_on'}})}, // i18n
+        {caption: () => 'When the thermostat stops heating', def: () => ({on_change_to: {eq: 'off', name: 'is_on'}})}, // i18n
+        {caption: () => 'When the thermostat starts or stops heating', def: () => ({on_change: {name: 'is_on'}})}, // i18n
     ],
-    [ChannelFunction.HVAC_THERMOSTAT_AUTO]: [
+    [ChannelFunction.HVAC_THERMOSTAT]: [
         {caption: () => 'When the thermostat starts heating', def: () => ({on_change_to: {eq: 'on', name: 'heating'}})}, // i18n
         {caption: () => 'When the thermostat starts cooling', def: () => ({on_change_to: {eq: 'on', name: 'cooling'}})}, // i18n
         {caption: () => 'When the thermostat stops heating', def: () => ({on_change_to: {eq: 'off', name: 'heating'}})}, // i18n
@@ -516,9 +501,9 @@ ChannelFunctionTriggers[ChannelFunction.HUMIDITY] = [
 ChannelFunctionTriggers[ChannelFunction.LIGHTSWITCH] = ChannelFunctionTriggers[ChannelFunction.POWERSWITCH];
 ChannelFunctionTriggers[ChannelFunction.STAIRCASETIMER] = ChannelFunctionTriggers[ChannelFunction.POWERSWITCH];
 
-ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
-ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
-ChannelFunctionTriggers[ChannelFunction.THERMOSTATHEATPOLHOMEPLUS] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
+ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL] = ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER];
+ChannelFunctionTriggers[ChannelFunction.THERMOSTATHEATPOLHOMEPLUS] = ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER];
+ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_AUTO] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
 
 export function findTriggerDefinition(channelFunction, trigger) {
     return (ChannelFunctionTriggers[channelFunction] || []).find(t => t.test ? t.test(trigger) : isEqual(t.def(), trigger));
