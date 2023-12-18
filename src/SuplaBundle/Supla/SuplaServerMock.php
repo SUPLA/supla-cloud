@@ -188,12 +188,14 @@ class SuplaServerMock extends SuplaServer {
                 $flags |= HvacIpcValueFlags::WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE;
             }
             return sprintf(
-                'VALUE:%d,%d,%d,%d,%d',
+                'VALUE:%d,%d,%d,%d,%d,%d,%d',
                 $this->faker->numberBetween(0, 100),
                 $mode,
                 $this->faker->numberBetween(1800, 2200),
                 $this->faker->numberBetween(2300, 2600),
                 $flags,
+                $this->faker->numberBetween(1600, 2400),
+                $this->faker->numberBetween(-1, 50),
             );
         } elseif (preg_match('#^GET-EM-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // ELECTRICITY_METER
             $fullSupportMask = array_reduce(ElectricityMeterSupportBits::toArray(), function (int $acc, int $bit) {

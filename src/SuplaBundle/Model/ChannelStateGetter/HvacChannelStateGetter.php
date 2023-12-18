@@ -33,24 +33,16 @@ use SuplaBundle\Utils\NumberUtils;
 class HvacChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
-    /** @var TemperatureChannelStateGetter */
-    private $temperatureChannelStateGetter;
-
-    public function __construct(TemperatureChannelStateGetter $temperatureChannelStateGetter) {
-        $this->temperatureChannelStateGetter = $temperatureChannelStateGetter;
-    }
-
     public function getState(IODeviceChannel $channel): array {
         // VALUE:%isOn,%mode,%setpointTemperatureHeat,%setpointTemperatureCool,%flags\n
         $value = $this->suplaServer->getRawValue('HVAC', $channel);
         $value = rtrim($value);
         $values = explode(',', substr($value, strlen('VALUE:')));
-        if (count($values) !== 5) {
+        if (count($values) !== 7) {
             throw new SuplaServerIsDownException();
         }
-        [, $modeId, $tempHeat, $tempCool, $flags] = $values;
-        $mainThermometerState = $this->getMainThermometerState($channel);
-        return array_merge([
+        [, $modeId, $tempHeat, $tempCool, $flags, $tempMain, $humidityMain] = $values;
+        return [
             'heating' => HvacIpcValueFlags::HEATING()->isOn($flags),
             'cooling' => HvacIpcValueFlags::COOLING()->isOn($flags),
             'manual' => !HvacIpcValueFlags::WEEKLY_SCHEDULE()->isOn($flags),
@@ -66,7 +58,11 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
             'temperatureCool' => HvacIpcValueFlags::TEMPERATURE_COOL_SET()->isOn($flags)
                 ? NumberUtils::maximumDecimalPrecision($tempCool / 100)
                 : null,
-        ], $mainThermometerState);
+            'temperatureMain' => $tempMain > -27300
+                ? NumberUtils::maximumDecimalPrecision($tempMain / 100)
+                : null,
+            'humidityMain' => $humidityMain > -1 ? $humidityMain : null,
+        ];
     }
 
     public function supportedFunctions(): array {
@@ -77,23 +73,5 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
         ];
-    }
-
-    private function getMainThermometerState(IODeviceChannel $channel): array {
-        $thermometerNo = $channel->getUserConfigValue('mainThermometerChannelNo');
-        $thermometerChannel = $channel->getIoDevice()->getChannels()->filter(function (IODeviceChannel $c) use ($thermometerNo) {
-            return $c->getChannelNumber() === $thermometerNo;
-        })->first();
-        $thermometerState = [
-            'temperatureMain' => null,
-            'humidityMain' => null,
-        ];
-        $thermometerFunctions = [ChannelFunction::THERMOMETER, ChannelFunction::HUMIDITYANDTEMPERATURE];
-        if ($thermometerChannel && in_array($thermometerChannel->getFunction()->getId(), $thermometerFunctions)) {
-            $state = $this->temperatureChannelStateGetter->getState($thermometerChannel);
-            $thermometerState['temperatureMain'] = $state['temperature'];
-            $thermometerState['humidityMain'] = $state['humidity'] ?? null;
-        }
-        return $thermometerState;
     }
 }
