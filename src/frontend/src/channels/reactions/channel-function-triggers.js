@@ -7,7 +7,7 @@ import {measurementUnit} from "@/channels/channel-helpers";
 export const ChannelFunctionTriggers = {
     [ChannelFunction.HUMIDITYANDTEMPERATURE]: [
         {
-            caption: 'When the temperature reaches a certain value', // i18n
+            caption: () => 'When the temperature reaches a certain value', // i18n
             test: ({on_change_to = {}}) => on_change_to.name === 'temperature',
             component: ReactionConditionThreshold,
             props: {
@@ -18,11 +18,11 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the temperature changes', // i18n
+            caption: () => 'When the temperature changes', // i18n
             def: () => ({on_change: {name: 'temperature'}})
         },
         {
-            caption: 'When the humidity reaches a certain level', // i18n
+            caption: () => 'When the humidity reaches a certain level', // i18n
             test: ({on_change_to = {}}) => on_change_to.name === 'humidity',
             component: ReactionConditionThreshold,
             props: {
@@ -34,53 +34,53 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the humidity changes', // i18n
+            caption: () => 'When the humidity changes', // i18n
             def: () => ({on_change: {name: 'humidity'}})
         },
     ],
     [ChannelFunction.OPENINGSENSOR_GARAGEDOOR]: [
-        {caption: 'When the garage door will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
-        {caption: 'When the garage door will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
-        {caption: 'When the garage door will be opened or closed', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the garage door will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
+        {caption: () => 'When the garage door will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
+        {caption: () => 'When the garage door will be opened or closed', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.OPENINGSENSOR_GATE]: [
-        {caption: 'When the gate will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
-        {caption: 'When the gate will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
-        {caption: 'When the gate will be opened or closed', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the gate will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
+        {caption: () => 'When the gate will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
+        {caption: () => 'When the gate will be opened or closed', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.OPENINGSENSOR_GATEWAY]: [
-        {caption: 'When the gateway will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
-        {caption: 'When the gateway will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
-        {caption: 'When the gateway will be opened or closed', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the gateway will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
+        {caption: () => 'When the gateway will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
+        {caption: () => 'When the gateway will be opened or closed', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.OPENINGSENSOR_DOOR]: [
-        {caption: 'When the door will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
-        {caption: 'When the door will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
-        {caption: 'When the door will be opened or closed', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the door will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
+        {caption: () => 'When the door will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
+        {caption: () => 'When the door will be opened or closed', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.OPENINGSENSOR_ROLLERSHUTTER]: [
-        {caption: 'When the roller shutter will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
-        {caption: 'When the roller shutter will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
-        {caption: 'When the roller shutter will be opened or closed', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the roller shutter will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
+        {caption: () => 'When the roller shutter will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
+        {caption: () => 'When the roller shutter will be opened or closed', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.OPENINGSENSOR_ROOFWINDOW]: [
-        {caption: 'When the roof window will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
-        {caption: 'When the roof window will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
-        {caption: 'When the roof window will be opened or closed', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the roof window will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
+        {caption: () => 'When the roof window will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
+        {caption: () => 'When the roof window will be opened or closed', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.OPENINGSENSOR_WINDOW]: [
-        {caption: 'When the window will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
-        {caption: 'When the window will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
-        {caption: 'When the window will be opened or closed', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the window will be opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
+        {caption: () => 'When the window will be closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
+        {caption: () => 'When the window will be opened or closed', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.NOLIQUIDSENSOR]: [
-        {caption: 'When a lack of liquid is detected', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
-        {caption: 'When liquid is detected', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
-        {caption: 'When liquid or lack thereof is detected', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When a lack of liquid is detected', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
+        {caption: () => 'When liquid is detected', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
+        {caption: () => 'When liquid or lack thereof is detected', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.CONTROLLINGTHEROLLERSHUTTER]: [
         {
-            caption: 'When the roller shutter reaches a certain position', // i18n
+            caption: () => 'When the roller shutter reaches a certain position', // i18n
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -91,13 +91,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the roller shutter position changes', // i18n
+            caption: () => 'When the roller shutter position changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.CONTROLLINGTHEROOFWINDOW]: [
         {
-            caption: 'When the roof window reaches a certain position', // i18n
+            caption: () => 'When the roof window reaches a certain position', // i18n
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -108,18 +108,18 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the roof window position changes', // i18n
+            caption: () => 'When the roof window position changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.POWERSWITCH]: [
-        {caption: 'When the device is turned on', def: () => ({on_change_to: {eq: 'on'}})}, // i18n
-        {caption: 'When the device is turned off', def: () => ({on_change_to: {eq: 'off'}})}, // i18n
-        {caption: 'When the device is turned on or off', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the device is turned on', def: () => ({on_change_to: {eq: 'on'}})}, // i18n
+        {caption: () => 'When the device is turned off', def: () => ({on_change_to: {eq: 'off'}})}, // i18n
+        {caption: () => 'When the device is turned on or off', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.DIMMER]: [
         {
-            caption: 'When the lighting reaches a certain level of brightness', // i18n
+            caption: () => 'When the lighting reaches a certain level of brightness', // i18n
             test: (t) => !!t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -131,13 +131,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the brightness level changes', // i18n
+            caption: () => 'When the brightness level changes', // i18n
             def: () => ({on_change: {name: 'brightness'}}),
         },
     ],
     [ChannelFunction.RGBLIGHTING]: [
         {
-            caption: 'When the RGB lighting reaches a certain level of brightness', // i18n
+            caption: () => 'When the RGB lighting reaches a certain level of brightness', // i18n
             test: (t) => t.on_change_to?.name === 'color_brightness',
             component: ReactionConditionThreshold,
             props: {
@@ -149,18 +149,18 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the RGB lighting brightness level changes', // i18n
+            caption: () => 'When the RGB lighting brightness level changes', // i18n
             def: () => ({on_change: {name: 'color_brightness'}})
         },
         {
-            caption: 'When the color changes', // i18n
+            caption: () => 'When the color changes', // i18n
             def: () => ({on_change: {name: 'color'}})
         },
     ],
     [ChannelFunction.DIMMERANDRGBLIGHTING]: [
         {
             min: () => 0, max: () => 100, step: () => 1,
-            caption: 'When the dimmer reaches a certain brightness level', // i18n
+            caption: () => 'When the dimmer reaches a certain brightness level', // i18n
             test: (t) => t.on_change_to?.name === 'brightness',
             component: ReactionConditionThreshold,
             props: {
@@ -172,11 +172,11 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the dimmer brightness level changes', // i18n
+            caption: () => 'When the dimmer brightness level changes', // i18n
             def: () => ({on_change: {name: 'brightness'}})
         },
         {
-            caption: 'When the RGB lighting reaches a certain level of brightness', // i18n
+            caption: () => 'When the RGB lighting reaches a certain level of brightness', // i18n
             test: (t) => t.on_change_to?.name === 'color_brightness',
             component: ReactionConditionThreshold,
             props: {
@@ -188,17 +188,17 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the RGB lighting brightness level changes', // i18n
+            caption: () => 'When the RGB lighting brightness level changes', // i18n
             def: () => ({on_change: {name: 'color_brightness'}})
         },
         {
-            caption: 'When the color changes', // i18n
+            caption: () => 'When the color changes', // i18n
             def: () => ({on_change: {name: 'color'}})
         },
     ],
     [ChannelFunction.DEPTHSENSOR]: [
         {
-            caption: 'When the depth is', // i18n
+            caption: () => 'When the depth is', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -208,13 +208,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the depth changes', // i18n
+            caption: () => 'When the depth changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.DISTANCESENSOR]: [
         {
-            caption: 'When a certain distance is reached', // i18n
+            caption: () => 'When a certain distance is reached', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -224,18 +224,18 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the distance changes', // i18n
+            caption: () => 'When the distance changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.MAILSENSOR]: [
-        {caption: 'When a new mail comes', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
-        {caption: 'When the mail has been taken', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
-        {caption: 'When the mail comes or is taken', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When a new mail comes', def: () => ({on_change_to: {eq: 'hi'}})}, // i18n
+        {caption: () => 'When the mail has been taken', def: () => ({on_change_to: {eq: 'lo'}})}, // i18n
+        {caption: () => 'When the mail comes or is taken', def: () => ({on_change: {}})}, // i18n
     ],
     [ChannelFunction.WINDSENSOR]: [
         {
-            caption: 'When the wind reaches a certain speed', // i18n
+            caption: () => 'When the wind reaches a certain speed', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -246,13 +246,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the wind speed changes', // i18n
+            caption: () => 'When the wind speed changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.PRESSURESENSOR]: [
         {
-            caption: 'When the pressure reaches a certain level', // i18n
+            caption: () => 'When the pressure reaches a certain level', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -263,13 +263,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the pressure changes', // i18n
+            caption: () => 'When the pressure changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.RAINSENSOR]: [
         {
-            caption: 'When there is certain amount of rain', // i18n
+            caption: () => 'When there is certain amount of rain', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -280,13 +280,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the rain amount changes', // i18n
+            caption: () => 'When the rain amount changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
     [ChannelFunction.WEIGHTSENSOR]: [
         {
-            caption: 'When there weight reaches a certain value', // i18n
+            caption: () => 'When there weight reaches a certain value', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -296,7 +296,7 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the weight changes', // i18n
+            caption: () => 'When the weight changes', // i18n
             def: () => ({on_change: {}})
         },
     ],
@@ -388,7 +388,7 @@ export const ChannelFunctionTriggers = {
     ],
     [ChannelFunction.IC_ELECTRICITYMETER]: [
         {
-            caption: 'When the electricity meter reaches a certain value', // i18n
+            caption: () => 'When the electricity meter reaches a certain value', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -400,13 +400,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the electricity meter value changes', // i18n
+            caption: () => 'When the electricity meter value changes', // i18n
             def: () => ({on_change: {name: 'calculated_value'}})
         },
     ],
     [ChannelFunction.IC_GASMETER]: [
         {
-            caption: 'When the gas meter value reaches a certain value', // i18n
+            caption: () => 'When the gas meter value reaches a certain value', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -418,13 +418,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the gas meter value changes', // i18n
+            caption: () => 'When the gas meter value changes', // i18n
             def: () => ({on_change: {name: 'calculated_value'}})
         },
     ],
     [ChannelFunction.IC_WATERMETER]: [
         {
-            caption: 'When the water meter reaches a certain value', // i18n
+            caption: () => 'When the water meter reaches a certain value', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -436,13 +436,13 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the water meter value changes', // i18n
+            caption: () => 'When the water meter value changes', // i18n
             def: () => ({on_change: {name: 'calculated_value'}})
         },
     ],
     [ChannelFunction.IC_HEATMETER]: [
         {
-            caption: 'When the heat meter value reaches a certain value', // i18n
+            caption: () => 'When the heat meter value reaches a certain value', // i18n
             test: (t) => t.on_change_to,
             component: ReactionConditionThreshold,
             props: {
@@ -454,16 +454,53 @@ export const ChannelFunctionTriggers = {
             },
         },
         {
-            caption: 'When the heat meter value changes', // i18n
+            caption: () => 'When the heat meter value changes', // i18n
             def: () => ({on_change: {name: 'calculated_value'}})
         },
     ],
     [ChannelFunction.VALVEOPENCLOSE]: [
-        {caption: 'When the valve is closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
-        {caption: 'When the valve is opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
-        {caption: 'When the valve is opened or closed', def: () => ({on_change: {}})}, // i18n
-        {caption: 'When the valve is manually closed', def: () => ({on_change_to: {eq: 'closed', name: 'manually_closed'}})}, // i18n
-        {caption: 'When flooding is detected', def: () => ({on_change_to: {eq: 'hi', name: 'flooding'}})}, // i18n
+        {caption: () => 'When the valve is closed', def: () => ({on_change_to: {eq: 'closed'}})}, // i18n
+        {caption: () => 'When the valve is opened', def: () => ({on_change_to: {eq: 'open'}})}, // i18n
+        {caption: () => 'When the valve is opened or closed', def: () => ({on_change: {}})}, // i18n
+        {caption: () => 'When the valve is manually closed', def: () => ({on_change_to: {eq: 'closed', name: 'manually_closed'}})}, // i18n
+        {caption: () => 'When flooding is detected', def: () => ({on_change_to: {eq: 'hi', name: 'flooding'}})}, // i18n
+    ],
+    [ChannelFunction.HVAC_THERMOSTAT]: [
+        {
+            caption: (subject) => subject.config?.subfunction === 'COOL' ?
+                'When the thermostat starts cooling' : // i18n
+                'When the thermostat starts heating', // i18n
+            def: () => ({on_change_to: {eq: 'on', name: 'is_on'}})
+        },
+        {
+            caption: (subject) => subject.config?.subfunction === 'COOL' ?
+                'When the thermostat stops cooling' : // i18n
+                'When the thermostat stops heating', // i18n
+            def: () => ({on_change_to: {eq: 'off', name: 'is_on'}})
+        },
+        {
+            caption: (subject) => subject.config?.subfunction === 'COOL' ?
+                'When the thermostat starts or stops cooling' : // i18n
+                'When the thermostat starts or stops heating', // i18n
+            def: () => ({on_change: {name: 'is_on'}})
+        },
+    ],
+    [ChannelFunction.HVAC_THERMOSTAT_AUTO]: [
+        {caption: () => 'When the thermostat starts heating', def: () => ({on_change_to: {eq: 'on', name: 'heating'}})}, // i18n
+        {caption: () => 'When the thermostat starts cooling', def: () => ({on_change_to: {eq: 'on', name: 'cooling'}})}, // i18n
+        {caption: () => 'When the thermostat stops heating', def: () => ({on_change_to: {eq: 'off', name: 'heating'}})}, // i18n
+        {caption: () => 'When the thermostat stops cooling', def: () => ({on_change_to: {eq: 'off', name: 'cooling'}})}, // i18n
+        {
+            caption: () => 'When the thermostat starts heating or cooling',
+            def: () => ({on_change_to: {eq: 'on', name: 'heating_or_cooling'}})
+        }, // i18n
+        {
+            caption: () => 'When the thermostat stops heating or cooling',
+            def: () => ({on_change_to: {eq: 'off', name: 'heating_or_cooling'}})
+        }, // i18n
+        {caption: () => 'When the thermostat starts or stops heating', def: () => ({on_change: {name: 'heating'}})}, // i18n
+        {caption: () => 'When the thermostat starts or stops cooling', def: () => ({on_change: {name: 'cooling'}})}, // i18n
+        {caption: () => 'When the thermostat starts or stops heating or cooling', def: () => ({on_change: {name: 'heating_or_cooling'}})}, // i18n
     ],
 };
 
@@ -478,6 +515,10 @@ ChannelFunctionTriggers[ChannelFunction.HUMIDITY] = [
 
 ChannelFunctionTriggers[ChannelFunction.LIGHTSWITCH] = ChannelFunctionTriggers[ChannelFunction.POWERSWITCH];
 ChannelFunctionTriggers[ChannelFunction.STAIRCASETIMER] = ChannelFunctionTriggers[ChannelFunction.POWERSWITCH];
+
+ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
+ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
+ChannelFunctionTriggers[ChannelFunction.THERMOSTATHEATPOLHOMEPLUS] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
 
 export function findTriggerDefinition(channelFunction, trigger) {
     return (ChannelFunctionTriggers[channelFunction] || []).find(t => t.test ? t.test(trigger) : isEqual(t.def(), trigger));
@@ -498,7 +539,7 @@ export function reactionTriggerCaption(reaction, vue) {
             const unit = triggerDef.props.unit ? triggerDef.props.unit(onChangeTo.name, reaction.owningChannel) : '';
             return vue.$t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${onChangeTo[operator]}${unit}`;
         } else {
-            return vue.$t(triggerDef.caption);
+            return vue.$t(triggerDef.caption(reaction.owningChannel));
         }
     } else {
         return vue.$t('When the condition is met');

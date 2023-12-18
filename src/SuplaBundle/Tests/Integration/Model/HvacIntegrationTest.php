@@ -803,4 +803,21 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(204, $response);
     }
+
+    public function testCreatingReaction() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('POST', "/api/channels/{$this->hvacChannel->getId()}/reactions", [
+            'subjectType' => ActionableSubjectType::NOTIFICATION,
+            'actionId' => ChannelFunctionAction::SEND,
+            'actionParam' => ['body' => 'Test', 'accessIds' => [1]],
+            'trigger' => ['on_change_to' => ['eq' => 'off', 'name' => 'is_on']],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(201, $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertArrayHasKey('subjectId', $content);
+        $this->assertArrayHasKey('trigger', $content);
+        $this->assertEquals(ActionableSubjectType::NOTIFICATION, $content['subjectType']);
+        $this->assertSuplaCommandExecuted('USER-ON-VBT-CHANGED:1');
+    }
 }

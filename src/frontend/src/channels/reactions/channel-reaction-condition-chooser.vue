@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="panel-group panel-accordion m-0">
-            <div v-for="possibleCondition in possibleConditions" :key="possibleCondition.caption">
+            <div v-for="(possibleCondition, $index) in possibleConditions" :key="$index">
                 <div :class="['panel panel-default', {'panel-success': isSelected(possibleCondition)}]">
                     <div class="panel-heading d-flex" v-if="possibleConditions.length > 1"
                         @click="changeCondition(possibleCondition)">
                         <a role="button"
                             tabindex="0" @keydown.enter.stop="changeCondition(possibleCondition)"
                             class="text-inherit flex-grow-1">
-                            {{ $t(possibleCondition.caption) }}
+                            {{ $t(possibleCondition.caption(subject)) }}
                         </a>
                         <div>
                             <span v-if="isSelected(possibleCondition)" class="glyphicon glyphicon-ok"></span>

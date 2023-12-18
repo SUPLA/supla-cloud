@@ -100,6 +100,15 @@ class ValueBasedTriggerValidator {
         'rae_balanced' => [ChannelFunction::ELECTRICITYMETER],
         'manually_closed' => [ChannelFunction::VALVEOPENCLOSE],
         'flooding' => [ChannelFunction::VALVEOPENCLOSE],
+        'is_on' => [
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+        ],
+        'heating' => [ChannelFunction::HVAC_THERMOSTAT_AUTO],
+        'cooling' => [ChannelFunction::HVAC_THERMOSTAT_AUTO],
+        'heating_or_cooling' => [ChannelFunction::HVAC_THERMOSTAT_AUTO],
         'counter' => [
             ChannelFunction::IC_HEATMETER,
             ChannelFunction::IC_WATERMETER,
@@ -271,7 +280,11 @@ class ValueBasedTriggerValidator {
         if (in_array($channel->getFunction()->getId(), self::THRESHOLD_SUPPORT)) {
             Assertion::numeric($onChangeTo[$operator], 'Threshold must be numeric.');
         } else {
-            Assertion::inArray($onChangeTo[$operator], ['hi', 'closed', 'on', 'lo', 'low', 'open', 'off'], 'Invalid comparison value.');
+            Assertion::inArray(
+                $onChangeTo[$operator],
+                ['hi', 'closed', 'on', 'lo', 'low', 'open', 'off'],
+                'Invalid comparison value: ' . var_export($onChangeTo[$operator], true)
+            );
         }
     }
 }
