@@ -6,8 +6,9 @@
             @input="$emit('filter')"
             :filters="filters"></btn-filters>
         <btn-filters v-model="connected"
+            id="channelsFilterConnection"
             @input="$emit('filter')"
-            :filters="[{label: $t('All'), value: undefined}, {label: $t('Connected'), value: true}, {label: $t('Disconnected'), value: false}]"></btn-filters>
+            :filters="[{label: $t('All'), value: 'all'}, {label: $t('Connected'), value: 'connected'}, {label: $t('Disconnected'), value: 'disconnected'}]"></btn-filters>
         <btn-filters v-model="functionality"
             class="always-dropdown"
             @input="$emit('filter')"
@@ -59,7 +60,7 @@
         },
         methods: {
             matches(channel) {
-                if (this.connected !== undefined && this.connected !== channel.connected) {
+                if ((this.connected === 'disconnected' && channel.connected) || (this.connected === 'connected' && !channel.connected)) {
                     return false;
                 }
                 if (this.functionality && this.functionality !== '*') {
