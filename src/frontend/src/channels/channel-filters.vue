@@ -5,6 +5,9 @@
             :default-sort="hasDevice && 'channelNumber'"
             @input="$emit('filter')"
             :filters="filters"></btn-filters>
+        <btn-filters v-model="connected"
+            @input="$emit('filter')"
+            :filters="[{label: $t('All'), value: undefined}, {label: $t('Connected'), value: true}, {label: $t('Disconnected'), value: false}]"></btn-filters>
         <btn-filters v-model="functionality"
             class="always-dropdown"
             @input="$emit('filter')"
@@ -44,6 +47,7 @@
         components: {BtnFilters},
         data() {
             return {
+                connected: undefined,
                 functionality: '*',
                 search: '',
                 sort: 'caption',
@@ -55,6 +59,9 @@
         },
         methods: {
             matches(channel) {
+                if (this.connected !== undefined && this.connected !== channel.connected) {
+                    return false;
+                }
                 if (this.functionality && this.functionality !== '*') {
                     if (this.functionality === 'withFunction') {
                         if (!channel.function.id) {
