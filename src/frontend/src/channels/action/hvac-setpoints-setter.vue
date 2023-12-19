@@ -99,7 +99,7 @@
                     return false;
                 }
                 let heatFunctions = [
-                    ChannelFunction.HVAC_THERMOSTAT_AUTO,
+                    ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
                     ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
                     ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
                 ];
@@ -109,7 +109,7 @@
                 if (this.hideCool) {
                     return false;
                 }
-                return [ChannelFunction.HVAC_THERMOSTAT_AUTO].includes(this.subject.functionId)
+                return [ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL].includes(this.subject.functionId)
                     || this.subject.config?.subfunction === 'COOL';
             },
             hasHeat() {

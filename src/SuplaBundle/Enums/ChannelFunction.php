@@ -81,7 +81,7 @@ use UnexpectedValueException;
  * @method static ChannelFunction THERMOSTAT()
  * @method static ChannelFunction THERMOSTATHEATPOLHOMEPLUS()
  * @method static ChannelFunction HVAC_THERMOSTAT()
- * @method static ChannelFunction HVAC_THERMOSTAT_AUTO()
+ * @method static ChannelFunction HVAC_THERMOSTAT_HEAT_COOL()
  * @method static ChannelFunction HVAC_DRYER()
  * @method static ChannelFunction HVAC_FAN()
  * @method static ChannelFunction HVAC_THERMOSTAT_DIFFERENTIAL()
@@ -139,7 +139,7 @@ final class ChannelFunction extends Enum {
     const THERMOSTAT = 400;
     const THERMOSTATHEATPOLHOMEPLUS = 410;
     const HVAC_THERMOSTAT = 420;
-    const HVAC_THERMOSTAT_AUTO = 422;
+    const HVAC_THERMOSTAT_HEAT_COOL = 422;
     const HVAC_DRYER = 423;
     const HVAC_FAN = 424;
     const HVAC_THERMOSTAT_DIFFERENTIAL = 425;
@@ -157,6 +157,7 @@ final class ChannelFunction extends Enum {
         'GASMETER' => 'IC_GASMETER',
         'WATERMETER' => 'IC_WATERMETER',
         'HEATMETER' => 'IC_HEATMETER',
+        'HVAC_THERMOSTAT_AUTO' => 'HVAC_THERMOSTAT_HEAT_COOL',
     ];
 
     /** @Groups({"basic"}) */
@@ -297,7 +298,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
             ],
-            self::HVAC_THERMOSTAT_AUTO => [
+            self::HVAC_THERMOSTAT_HEAT_COOL => [
                 ChannelFunctionAction::TURN_ON(),
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
@@ -407,7 +408,7 @@ final class ChannelFunction extends Enum {
             self::THERMOSTAT => 'Thermostat', // i18n
             self::THERMOSTATHEATPOLHOMEPLUS => 'Home+ Heater', // i18n
             self::HVAC_THERMOSTAT => 'Thermostat', // i18n
-            self::HVAC_THERMOSTAT_AUTO => 'Automatic thermostat', // i18n
+            self::HVAC_THERMOSTAT_HEAT_COOL => 'Automatic thermostat', // i18n
             self::HVAC_DRYER => 'Dryer', // i18n
             self::HVAC_FAN => 'Fan', // i18n
             self::HVAC_THERMOSTAT_DIFFERENTIAL => 'Differential thermostat', // i18n
@@ -484,7 +485,7 @@ final class ChannelFunction extends Enum {
             self::THERMOSTAT => ['off', 'on'],
             self::THERMOSTATHEATPOLHOMEPLUS => ['off', 'on'],
             self::HVAC_THERMOSTAT => ['heating', 'cooling'],
-            self::HVAC_THERMOSTAT_AUTO => ['default'],
+            self::HVAC_THERMOSTAT_HEAT_COOL => ['default'],
             self::HVAC_DRYER => ['default'],
             self::HVAC_FAN => ['default'],
             self::HVAC_THERMOSTAT_DIFFERENTIAL => ['default'],

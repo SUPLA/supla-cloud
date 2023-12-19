@@ -503,7 +503,7 @@ ChannelFunctionTriggers[ChannelFunction.STAIRCASETIMER] = ChannelFunctionTrigger
 
 ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL] = ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER];
 ChannelFunctionTriggers[ChannelFunction.THERMOSTATHEATPOLHOMEPLUS] = ChannelFunctionTriggers[ChannelFunction.HVAC_DOMESTIC_HOT_WATER];
-ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_AUTO] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
+ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL] = ChannelFunctionTriggers[ChannelFunction.HVAC_THERMOSTAT];
 
 export function findTriggerDefinition(channelFunction, trigger) {
     return (ChannelFunctionTriggers[channelFunction] || []).find(t => t.test ? t.test(trigger) : isEqual(t.def(), trigger));

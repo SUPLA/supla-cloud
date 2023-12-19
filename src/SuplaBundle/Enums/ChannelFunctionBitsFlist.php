@@ -36,7 +36,7 @@ final class ChannelFunctionBitsFlist extends ChannelFunctionBits {
     const CONTROLLINGTHEROOFWINDOW = 1 << 15;
 //    const CONTROLLINGTHEFACADEBLIND = 1 << 16;
     const HVAC_THERMOSTAT = 1 << 17;
-    const HVAC_THERMOSTAT_AUTO = 1 << 18;
+    const HVAC_THERMOSTAT_HEAT_COOL = 1 << 18;
     const HVAC_THERMOSTAT_DIFFERENTIAL = 1 << 19;
     const HVAC_DOMESTIC_HOT_WATER = 1 << 20;
 

@@ -61,7 +61,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
             [ChannelType::VALVEOPENCLOSE, ChannelFunction::VALVEOPENCLOSE],
             [ChannelType::DIGIGLASS, ChannelFunction::DIGIGLASS_HORIZONTAL],
             [ChannelType::ACTION_TRIGGER, ChannelFunction::ACTION_TRIGGER],
-            [ChannelType::HVAC, ChannelFunction::HVAC_THERMOSTAT_AUTO],
+            [ChannelType::HVAC, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
         ]);
         $this->channelGroup = new IODeviceChannelGroup($this->user, $location, [
             $this->device->getChannels()[0],

@@ -21,7 +21,7 @@ class HvacSetTemperaturesActionExecutor extends SingleChannelActionExecutor {
 
     public function getSupportedFunctions(): array {
         return [
-            ChannelFunction::HVAC_THERMOSTAT_AUTO(),
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL(),
         ];
     }
 

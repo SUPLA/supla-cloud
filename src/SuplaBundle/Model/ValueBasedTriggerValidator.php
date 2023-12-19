@@ -105,9 +105,9 @@ class ValueBasedTriggerValidator {
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
         ],
-        'heating' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_AUTO],
-        'cooling' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_AUTO],
-        'heating_or_cooling' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_AUTO],
+        'heating' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
+        'cooling' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
+        'heating_or_cooling' => [ChannelFunction::HVAC_THERMOSTAT, ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL],
         'counter' => [
             ChannelFunction::IC_HEATMETER,
             ChannelFunction::IC_WATERMETER,

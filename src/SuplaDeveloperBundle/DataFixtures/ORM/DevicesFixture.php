@@ -232,9 +232,9 @@ class DevicesFixture extends SuplaFixture {
             ],
             [
                 ChannelType::HVAC,
-                ChannelFunction::HVAC_THERMOSTAT_AUTO,
+                ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
                 [
-                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_AUTO,
+                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_HEAT_COOL,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE'],
                         'temperatures' => [
@@ -275,7 +275,7 @@ class DevicesFixture extends SuplaFixture {
                             'programSettings' => [
                                 '1' => ['mode' => 'HEAT', 'setpointTemperatureHeat' => 2100, 'setpointTemperatureCool' => 0],
                                 '2' => ['mode' => 'COOL', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 2400],
-                                '3' => ['mode' => 'AUTO', 'setpointTemperatureHeat' => 1800, 'setpointTemperatureCool' => 2200],
+                                '3' => ['mode' => 'HEAT_COOL', 'setpointTemperatureHeat' => 1800, 'setpointTemperatureCool' => 2200],
                                 '4' => ['mode' => 'NOT_SET', 'setpointTemperatureHeat' => 0, 'setpointTemperatureCool' => 0],
                             ],
                             'quarters' => $sampleQuarters2,
@@ -287,7 +287,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::HVAC,
                 ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
                 [
-                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_AUTO | ChannelFunctionBitsFlist::HVAC_DOMESTIC_HOT_WATER |
+                    'funcList' => ChannelFunctionBitsFlist::HVAC_THERMOSTAT_HEAT_COOL | ChannelFunctionBitsFlist::HVAC_DOMESTIC_HOT_WATER |
                         ChannelFunctionBitsFlist::HVAC_THERMOSTAT | ChannelFunctionBitsFlist::HVAC_THERMOSTAT_DIFFERENTIAL,
                     'properties' => json_encode([
                         'availableAlgorithms' => ['ON_OFF_SETPOINT_MIDDLE', 'ON_OFF_SETPOINT_AT_MOST'],

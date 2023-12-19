@@ -115,7 +115,7 @@
                     ChannelFunction.HVAC_THERMOSTAT,
                     ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
                     ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
-                    ChannelFunction.HVAC_THERMOSTAT_AUTO,
+                    ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
                 ];
                 return !notSupportedInAt.includes(subject.functionId);
             },

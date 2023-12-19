@@ -57,7 +57,7 @@ class ChannelFunctionBitsFlistTest extends TestCase {
             ]],
             [0xFF000000, []],
             [0x00008000, [ChannelFunction::CONTROLLINGTHEROOFWINDOW()]],
-            [0x00040000, [ChannelFunction::HVAC_THERMOSTAT_AUTO()]],
+            [0x00040000, [ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL()]],
         ];
     }
 

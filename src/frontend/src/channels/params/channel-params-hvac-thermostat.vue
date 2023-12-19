@@ -407,14 +407,14 @@
             },
             heatAvailable() {
                 const heatFunctions = [
-                    ChannelFunction.HVAC_THERMOSTAT_AUTO,
+                    ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
                     ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
                     ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
                 ];
                 return heatFunctions.includes(this.channel.functionId) || this.channel.config?.subfunction === 'HEAT';
             },
             coolAvailable() {
-                return [ChannelFunction.HVAC_THERMOSTAT_AUTO].includes(this.channel.functionId)
+                return [ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL].includes(this.channel.functionId)
                     || this.channel.config?.subfunction === 'COOL';
             },
         },

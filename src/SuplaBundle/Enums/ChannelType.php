@@ -240,7 +240,7 @@ final class ChannelType extends Enum {
             self::THERMOSTATHEATPOLHOMEPLUS => [ChannelFunction::THERMOSTATHEATPOLHOMEPLUS()],
             self::HVAC => [
                 ChannelFunction::HVAC_THERMOSTAT(),
-                ChannelFunction::HVAC_THERMOSTAT_AUTO(),
+                ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL(),
                 ChannelFunction::HVAC_DRYER(),
                 ChannelFunction::HVAC_FAN(),
                 ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),

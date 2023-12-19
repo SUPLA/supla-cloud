@@ -187,10 +187,10 @@ describe('ChannelActionChooser', () => {
                 {"id": ChannelFunctionAction.TURN_ON, "name": "TURN_ON", "nameSlug": "on", "caption": "On"},
                 {"id": ChannelFunctionAction.TURN_OFF_WITH_DURATION, "name": "TURN_OFF_WITH_DURATION", "nameSlug": "off", "caption": "Off"},
             ],
-            functionId: ChannelFunction.HVAC_THERMOSTAT_AUTO,
+            functionId: ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
             "function": {
-                "id": ChannelFunction.HVAC_THERMOSTAT_AUTO,
-                "name": "HVAC_THERMOSTAT_AUTO",
+                "id": ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
+                "name": "HVAC_THERMOSTAT_HEAT_COOL",
                 "caption": "HVAC Auto",
                 "possibleVisualStates": ["heating", "cooling"],
             },

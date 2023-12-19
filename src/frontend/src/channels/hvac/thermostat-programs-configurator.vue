@@ -175,7 +175,7 @@
                     if (!hasHeat && !hasCool) {
                         this.invalidProgramErrorText = this.$t('All programs must define at least one temperature threshold.');
                     }
-                    const mode = this.autoModeAvailable ? (hasHeat ? (hasCool ? 'AUTO' : 'HEAT') : 'COOL') : settings.mode;
+                    const mode = this.autoModeAvailable ? (hasHeat ? (hasCool ? 'HEAT_COOL' : 'HEAT') : 'COOL') : settings.mode;
                     newPrograms[programNo] = {
                         mode,
                         setpointTemperatureHeat: hasHeat ? heat : null,
@@ -206,7 +206,7 @@
         },
         computed: {
             autoModeAvailable() {
-                return this.subject.functionId === ChannelFunction.HVAC_THERMOSTAT_AUTO;
+                return this.subject.functionId === ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL;
             },
             offsetMin() {
                 return this.subject.config.temperatureConstraints?.autoOffsetMin || 0;

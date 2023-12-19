@@ -9,7 +9,7 @@ abstract class DatabaseMigrationTestCase extends IntegrationTestCase {
         $this->executeCommand('doctrine:database:create --if-not-exists');
     }
 
-    private function loadDump(string $name) {
+    protected function loadDump(string $name) {
         $dumpFilePath = addcslashes(__DIR__ . '/dumps/test_dump_v' . $name . '.sql', '\\');
         $dump = file_get_contents($dumpFilePath);
         // remove procedures as they can't be imported via doctrine, see https://stackoverflow.com/a/20910558/878514

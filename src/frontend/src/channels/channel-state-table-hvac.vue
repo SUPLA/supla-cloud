@@ -9,7 +9,7 @@
             </span>
             <span class="small" v-if="state.mode !== 'OFF'">
                 <span v-if="state.mode !== 'COOL'">{{ state.temperatureHeat }}&deg;C</span>
-                <span v-if="state.mode === 'AUTO'">&nbsp;&hyphen;&nbsp;</span>
+                <span v-if="state.mode === 'HEAT_COOL'">&nbsp;&hyphen;&nbsp;</span>
                 <span v-if="state.mode !== 'HEAT'">{{ state.temperatureCool }}&deg;C</span>
                 <span class="ml-2" v-if="state.weeklyScheduleTemporalOverride" v-tooltip.bottom="$t('Temporal override')">
                     <fa icon="hand" fixed-width/>
@@ -20,10 +20,10 @@
             <span v-if="state.mode === 'OFF'" v-tooltip.bottom="$t('Mode: off')">
                 <fa icon="power-off" fixed-width/>
             </span>
-            <span v-if="['AUTO', 'HEAT'].includes(state.mode)" v-tooltip.bottom="$t('Mode: heat')">
+            <span v-if="['HEAT_COOL', 'HEAT'].includes(state.mode)" v-tooltip.bottom="$t('Mode: heat')">
                 <IconHeating class="text-red"/>
             </span>
-            <span v-if="['AUTO', 'COOL'].includes(state.mode)" v-tooltip.bottom="$t('Mode: cool')">
+            <span v-if="['HEAT_COOL', 'COOL'].includes(state.mode)" v-tooltip.bottom="$t('Mode: cool')">
                 <IconCooling class="text-blue"/>
             </span>
             <span v-if="!state.manual" v-tooltip.bottom="$t('Weekly schedule')">

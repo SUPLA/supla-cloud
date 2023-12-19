@@ -13,7 +13,7 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
     public function getSupportedFunctions(): array {
         return [
             ChannelFunction::HVAC_THERMOSTAT(),
-            ChannelFunction::HVAC_THERMOSTAT_AUTO(),
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL(),
             ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
         ];
@@ -35,11 +35,11 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
         if (isset($actionParams['mode'])) {
             if ($actionParams['mode']) {
                 Assertion::eq(
-                    ChannelFunction::HVAC_THERMOSTAT_AUTO,
+                    ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
                     $subject->getFunction()->getId(),
-                    'Mode can be set only for HVAC_THERMOSTAT_AUTO.'
+                    'Mode can be set only for HVAC_THERMOSTAT_HEAT_COOL.'
                 );
-                Assert::that($actionParams['mode'])->string()->inArray(['HEAT', 'COOL', 'AUTO']);
+                Assert::that($actionParams['mode'])->string()->inArray(['HEAT', 'COOL', 'HEAT_COOL']);
             } else {
                 unset($actionParams['mode']);
             }

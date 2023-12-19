@@ -63,10 +63,14 @@ use function Assert\Assert;
 class HvacThermostatConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
+    private const PROGRAM_MODE_COOL = 'COOL';
+    private const PROGRAM_MODE_HEAT = 'HEAT';
+    private const PROGRAM_MODE_HEAT_COOL = 'HEAT_COOL';
+
     public function supports(HasUserConfig $subject): bool {
         return in_array($subject->getFunction()->getId(), [
             ChannelFunction::HVAC_THERMOSTAT,
-            ChannelFunction::HVAC_THERMOSTAT_AUTO,
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
             ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL,
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
         ]);
@@ -209,7 +213,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             $subject->setUserConfigValue('usedAlgorithm', $config['usedAlgorithm']);
         }
         if (array_key_exists('subfunction', $config) && $config['subfunction']) {
-            Assertion::inArray($config['subfunction'], ['COOL', 'HEAT']);
+            Assertion::inArray($config['subfunction'], [self::PROGRAM_MODE_COOL, self::PROGRAM_MODE_HEAT]);
             $subject->setUserConfigValue('subfunction', $config['subfunction']);
         }
         if (array_key_exists('minOnTimeS', $config)) {
@@ -239,9 +243,9 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
         if (array_key_exists('weeklySchedule', $config) && $config['weeklySchedule']) {
             Assertion::isArray($subject->getUserConfigValue('weeklySchedule'));
             Assertion::isArray($config['weeklySchedule']);
-            $availableProgramModes = $subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_AUTO
-                ? ['HEAT', 'COOL', 'AUTO']
-                : ['HEAT'];
+            $availableProgramModes = $subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL
+                ? [self::PROGRAM_MODE_HEAT, self::PROGRAM_MODE_COOL, self::PROGRAM_MODE_HEAT_COOL]
+                : [self::PROGRAM_MODE_HEAT];
             $weeklySchedule = $this->validateWeeklySchedule($subject, $config['weeklySchedule'], $availableProgramModes);
             $subject->setUserConfigValue('weeklySchedule', $weeklySchedule);
         }
@@ -319,10 +323,10 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
             return [
                 'programSettings' => array_map(function (array $programSettings) {
                     $programMode = $programSettings['mode'];
-                    $min = in_array($programMode, ['HEAT', 'AUTO'])
+                    $min = in_array($programMode, [self::PROGRAM_MODE_HEAT, self::PROGRAM_MODE_HEAT_COOL])
                         ? $this->adjustTemperature($programSettings['setpointTemperatureHeat'])
                         : null;
-                    $max = in_array($programMode, ['COOL', 'AUTO'])
+                    $max = in_array($programMode, [self::PROGRAM_MODE_COOL, self::PROGRAM_MODE_HEAT_COOL])
                         ? $this->adjustTemperature($programSettings['setpointTemperatureCool'])
                         : null;
                     return ['mode' => $programMode, 'setpointTemperatureHeat' => $min, 'setpointTemperatureCool' => $max];
@@ -363,13 +367,13 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 Assertion::inArray($programMode, $availableProgramModes);
                 $min = 0;
                 $max = 0;
-                if (in_array($programMode, ['HEAT', 'AUTO'])) {
+                if (in_array($programMode, [self::PROGRAM_MODE_HEAT, self::PROGRAM_MODE_HEAT_COOL])) {
                     $min = $this->validateTemperature($subject, $programSettings['setpointTemperatureHeat'], 'room');
                 }
-                if (in_array($programMode, ['COOL', 'AUTO'])) {
+                if (in_array($programMode, [self::PROGRAM_MODE_COOL, self::PROGRAM_MODE_HEAT_COOL])) {
                     $max = $this->validateTemperature($subject, $programSettings['setpointTemperatureCool'], 'room');
                 }
-                if ($programMode === 'AUTO') {
+                if ($programMode === self::PROGRAM_MODE_HEAT_COOL) {
                     $constraints = $subject->getProperties()['temperatures'] ?? [];
                     $minOffset = $constraints['autoOffsetMin'] ?? 0;
                     $maxOffset = $constraints['autoOffsetMax'] ?? 0;
@@ -402,7 +406,7 @@ class HvacThermostatConfigTranslator extends UserConfigTranslator {
                 'auxMinSetpoint'
             );
         }
-        if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_AUTO &&
+        if ($subject->getFunction()->getId() === ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL &&
             isset($temps['freezeProtection']) && isset($temps['heatProtection'])) {
             $minOffset = $constraints['autoOffsetMin'] ?? 0;
             Assertion::lessOrEqualThan(

@@ -117,7 +117,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                     $this->assertArrayNotHasKey('altWeeklySchedule', $config);
                     $this->assertEquals('HEAT', $config['weeklySchedule']['programSettings'][1]['mode']);
                     $this->assertEquals('COOL', $config['weeklySchedule']['programSettings'][2]['mode']);
-                    $this->assertEquals('AUTO', $config['weeklySchedule']['programSettings'][3]['mode']);
+                    $this->assertEquals('HEAT_COOL', $config['weeklySchedule']['programSettings'][3]['mode']);
                     $this->assertEquals(21, $config['weeklySchedule']['programSettings'][1]['setpointTemperatureHeat']);
                     $this->assertEquals(2, $config['auxThermometerChannelId']);
                     $this->assertEquals('FLOOR', $config['auxThermometerType']);
@@ -579,7 +579,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'HVAC_SET_PARAMETERS'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,10,0,0,0'],
             [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,2,0,0,0'],
             [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'COOL', 'temperatureCool' => 22.5], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,3,0,2250,2'],
-            [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'AUTO', 'temperatureHeat' => 12, 'temperatureCool' => 22.5, 'durationMs' => 3600], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,3600,4,1200,2250,3'],
+            [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT_COOL', 'temperatureHeat' => 12, 'temperatureCool' => 22.5, 'durationMs' => 3600], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,3600,4,1200,2250,3'],
         ];
         // @codingStandardsIgnoreEnd
     }
