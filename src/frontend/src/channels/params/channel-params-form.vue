@@ -49,7 +49,7 @@
     import ChannelParamsPowerswitch from "./channel-params-powerswitch";
     import ChannelParamsLightswitch from "./channel-params-powerswitch";
     import ChannelParamsHvacThermostat from "./channel-params-hvac-thermostat.vue";
-    import ChannelParamsHvacThermostatAuto from "./channel-params-hvac-thermostat.vue";
+    import ChannelParamsHvacThermostatHeatCool from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsHvacDomesticHotWater from "./channel-params-hvac-thermostat.vue";
     import ChannelParamsIntegrationsSettings from "@/channels/params/channel-params-integrations-settings";
 
@@ -88,7 +88,7 @@
             ChannelParamsPowerswitch,
             ChannelParamsLightswitch,
             ChannelParamsHvacThermostat,
-            ChannelParamsHvacThermostatAuto,
+            ChannelParamsHvacThermostatHeatCool,
             ChannelParamsHvacDomesticHotWater,
         },
         computed: {
