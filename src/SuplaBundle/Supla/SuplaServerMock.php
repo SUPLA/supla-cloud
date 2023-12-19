@@ -151,13 +151,13 @@ class SuplaServerMock extends SuplaServer {
             );
         } elseif (preg_match('#^GET-HVAC-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // HVAC
             $mode = $this->faker->randomElement(
-                [HvacIpcActionMode::OFF, HvacIpcActionMode::HEAT, HvacIpcActionMode::COOL, HvacIpcActionMode::AUTO]
+                [HvacIpcActionMode::OFF, HvacIpcActionMode::HEAT, HvacIpcActionMode::COOL, HvacIpcActionMode::HEAT_COOL]
             );
             $flags = 0;
-            if ($mode === HvacIpcActionMode::HEAT || $mode === HvacIpcActionMode::AUTO) {
+            if ($mode === HvacIpcActionMode::HEAT || $mode === HvacIpcActionMode::HEAT_COOL) {
                 $flags |= HvacIpcValueFlags::TEMPERATURE_HEAT_SET;
             }
-            if ($mode === HvacIpcActionMode::COOL || $mode === HvacIpcActionMode::AUTO) {
+            if ($mode === HvacIpcActionMode::COOL || $mode === HvacIpcActionMode::HEAT_COOL) {
                 $flags |= HvacIpcValueFlags::TEMPERATURE_COOL_SET;
             }
             if ($this->faker->boolean) {
@@ -165,7 +165,7 @@ class SuplaServerMock extends SuplaServer {
                     $flags |= HvacIpcValueFlags::HEATING;
                 } elseif ($mode === HvacIpcActionMode::COOL) {
                     $flags |= HvacIpcValueFlags::COOLING;
-                } elseif ($mode === HvacIpcActionMode::AUTO) {
+                } elseif ($mode === HvacIpcActionMode::HEAT_COOL) {
                     $flags |= $this->faker->boolean ? HvacIpcValueFlags::COOLING : HvacIpcValueFlags::HEATING;
                 }
             }

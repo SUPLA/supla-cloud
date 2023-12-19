@@ -24,7 +24,7 @@ final class HvacIpcActionMode extends Enum {
     const OFF = 1;
     const HEAT = 2;
     const COOL = 3;
-    const AUTO = 4;
+    const HEAT_COOL = 4;
     const FAN_ONLY = 6;
     const DRY = 7;
     const CMD_TURN_ON = 8;
