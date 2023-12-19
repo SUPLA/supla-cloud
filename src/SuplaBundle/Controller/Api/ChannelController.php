@@ -283,7 +283,7 @@ class ChannelController extends RestController {
                 : $request->get('confirm');
             if (ApiVersions::V3()->isRequestedEqualOrGreaterThan($request) && isset($requestData['config'])) {
                 Assertion::isArray($requestData['config'], null, 'config');
-                $currentConfig = json_decode(json_encode($paramConfigTranslator->getConfig($channel)), true);
+                $currentConfig = json_decode(json_encode($paramConfigTranslator->getPublicConfig($channel)), true);
                 if (!$changesConfirmed || isset($requestData['configBefore'])) {
                     Assertion::keyExists($requestData, 'configBefore', 'You need to provide a configuration that has been fetched.');
                     Assertion::isArray($requestData['configBefore'], null, 'configBefore');

@@ -279,6 +279,28 @@ class GoogleHomeIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(Response::HTTP_ACCEPTED, $client);
     }
 
+    /** @depends testSettingGoogleHomeConfigPin */
+    public function testClearingGoogleHomeConfigPin() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV3('GET', '/api/channels/1');
+        $channelData = json_decode($client->getResponse()->getContent(), true);
+        $client->apiRequestV3('PUT', '/api/channels/1?safe=1', [
+            'config' => ['googleHome' => [
+                'googleHomeDisabled' => false,
+                'needsUserConfirmation' => false,
+                'pin' => null,
+                'pinSet' => true,
+            ]],
+            'configBefore' => $channelData['config'],
+        ]);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $channel = $this->freshEntity($this->device->getChannels()[0]);
+        $channelConfig = $channel->getUserConfig();
+        $this->assertArrayHasKey('googleHome', $channelConfig);
+        $this->assertNull($channelConfig['googleHome']['pin']);
+    }
+
     public function testFetchingChannelsForGoogleIntegration() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('PUT', '/api/channels/1', ['config' => ['googleHome' => ['googleHomeDisabled' => false]]]);
