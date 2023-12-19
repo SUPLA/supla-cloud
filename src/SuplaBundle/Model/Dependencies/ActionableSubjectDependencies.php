@@ -24,6 +24,16 @@ abstract class ActionableSubjectDependencies {
         $this->channelParamConfigTranslator = $channelParamConfigTranslator;
     }
 
+    public function onlyDependenciesVisibleToUser(array $dependencies): array {
+        if ($dependencies['channels'] ?? []) {
+            $dependencies['channels'] = array_values(array_filter($dependencies['channels'], function (IODeviceChannel $channel) {
+                $config = $this->channelParamConfigTranslator->getConfig($channel);
+                return !($config['hideInChannelsList'] ?? false);
+            }));
+        }
+        return $dependencies;
+    }
+
     protected function clearActionTriggersThatReferencesSubject(ActionableSubject $subject): void {
         foreach ($this->findActionTriggersForSubject($subject) as $actionTrigger) {
             $config = $this->channelParamConfigTranslator->getConfig($actionTrigger);

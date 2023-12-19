@@ -1439,4 +1439,18 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($content[0]['config']['hideInChannelsList']);
         $this->assertTrue($content[1]['config']['hideInChannelsList']);
     }
+
+    public function testChangingChannelFunctionDoesNotWarnAboutOwnAts() {
+        $location = $this->createLocation($this->user);
+        $sonoff = $this->createDeviceSonoff($this->location);
+        $channel = $sonoff->getChannels()[0];
+        $at = $sonoff->getChannels()[2];
+        $this->assertTrue($at->hasInheritedLocation());
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PUT', '/api/channels/' . $channel->getId() . '?safe=1', ['locationId' => $location->getId()]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $at = $this->freshEntity($at);
+        $this->assertFalse($at->hasInheritedLocation());
+        $this->assertEquals($location->getId(), $at->getLocation()->getId());
+    }
 }

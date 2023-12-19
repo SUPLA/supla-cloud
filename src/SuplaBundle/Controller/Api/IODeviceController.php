@@ -294,14 +294,16 @@ class IODeviceController extends RestController {
             if ($shouldAsk) {
                 if ($locationChanged) {
                     $locationDependencies = $deviceDependencies->getItemsThatDependOnLocation($ioDevice);
-                    if (array_filter($locationDependencies) && $shouldAsk) {
-                        return $this->view(['conflictOn' => 'location', 'dependencies' => $locationDependencies], Response::HTTP_CONFLICT);
+                    $visibleDependencies = $deviceDependencies->onlyDependenciesVisibleToUser($locationDependencies);
+                    if (array_filter($visibleDependencies) && $shouldAsk) {
+                        return $this->view(['conflictOn' => 'location', 'dependencies' => $visibleDependencies], Response::HTTP_CONFLICT);
                     }
                 }
                 if ($enabledChanged && !$requestData['enabled']) {
                     $dependencies = $deviceDependencies->getItemsThatDependOnEnabled($ioDevice);
-                    if (array_filter($dependencies)) {
-                        $view = $this->view(['conflictOn' => 'enabled', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
+                    $visibleDependencies = $deviceDependencies->onlyDependenciesVisibleToUser($dependencies);
+                    if (array_filter($visibleDependencies)) {
+                        $view = $this->view(['conflictOn' => 'enabled', 'dependencies' => $visibleDependencies], Response::HTTP_CONFLICT);
                         $this->setSerializationGroups(
                             $view,
                             $request,

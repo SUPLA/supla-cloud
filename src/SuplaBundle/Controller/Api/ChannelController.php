@@ -305,8 +305,12 @@ class ChannelController extends RestController {
                     );
                     if (!$changesConfirmed) {
                         $dependencies = $channelDependencies->getItemsThatDependOnFunction($channel);
-                        if (array_filter($dependencies)) {
-                            $view = $this->view(['conflictOn' => 'function', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
+                        $visibleDependencies = $channelDependencies->onlyDependenciesVisibleToUser($dependencies);
+                        if (array_filter($visibleDependencies)) {
+                            $view = $this->view(
+                                ['conflictOn' => 'function', 'dependencies' => $visibleDependencies],
+                                Response::HTTP_CONFLICT
+                            );
                             $this->setSerializationGroups(
                                 $view,
                                 $request,
@@ -349,15 +353,17 @@ class ChannelController extends RestController {
             }
             if ($newLocation !== false && !$changesConfirmed) {
                 $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
-                if (array_filter($dependencies)) {
-                    return $this->view(['conflictOn' => 'location', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
+                $visibleDependencies = $channelDependencies->onlyDependenciesVisibleToUser($dependencies);
+                if (array_filter($visibleDependencies)) {
+                    return $this->view(['conflictOn' => 'location', 'dependencies' => $visibleDependencies], Response::HTTP_CONFLICT);
                 }
             }
             $hiddenChanged = isset($requestData['hidden']) && $requestData['hidden'] !== $channel->getHidden();
             if ($hiddenChanged && !$changesConfirmed) {
                 $dependencies = $channelDependencies->getItemsThatDependOnLocation($channel);
-                if (array_filter($dependencies)) {
-                    return $this->view(['conflictOn' => 'hidden', 'dependencies' => $dependencies], Response::HTTP_CONFLICT);
+                $visibleDependencies = $channelDependencies->onlyDependenciesVisibleToUser($dependencies);
+                if (array_filter($visibleDependencies)) {
+                    return $this->view(['conflictOn' => 'hidden', 'dependencies' => $visibleDependencies], Response::HTTP_CONFLICT);
                 }
             }
             if (isset($requestData['caption'])) {
