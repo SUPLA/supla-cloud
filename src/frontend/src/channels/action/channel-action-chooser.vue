@@ -103,6 +103,7 @@
     import {isEqual} from "lodash";
     import DurationParamSetter from "@/channels/action/duration-param-setter.vue";
     import HvacSetpointsSetter from "@/channels/action/hvac-setpoints-setter.vue";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
         components: {
@@ -197,6 +198,10 @@
                 }
             },
             shouldShowAction(possibleAction) {
+                if (possibleAction.id === ChannelFunctionAction.HVAC_SET_TEMPERATURE
+                    && this.subject.functionId === ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL) {
+                    return false;
+                }
                 return this.possibleActionFilter ? this.possibleActionFilter(possibleAction) : true;
             },
             updateModel() {

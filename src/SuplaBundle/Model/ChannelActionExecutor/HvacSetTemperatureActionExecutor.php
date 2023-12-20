@@ -23,6 +23,7 @@ class HvacSetTemperatureActionExecutor extends SingleChannelActionExecutor {
             ChannelFunction::HVAC_THERMOSTAT(),
             ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL(),
             ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
         ];
     }

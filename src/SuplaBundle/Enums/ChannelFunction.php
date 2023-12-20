@@ -304,6 +304,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
+                ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURES(),
             ],
             self::HVAC_DRYER => [
