@@ -59,5 +59,6 @@ class UpdateChannelConfigsInitializationCommand extends Command implements Initi
         } elseif ($input->isInteractive()) {
             $output->writeln('No channels without config found. Nothing changed.');
         }
+        return 0;
     }
 }

@@ -19,6 +19,7 @@ namespace SuplaBundle\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
@@ -26,7 +27,6 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -129,12 +129,12 @@ abstract class IntegrationTestCase extends WebTestCase {
         return $result;
     }
 
-    protected function getDoctrine(): RegistryInterface {
+    protected function getDoctrine(): ManagerRegistry {
         return self::$container->get('doctrine');
     }
 
     protected function getEntityManager($name = null): EntityManagerInterface {
-        return $this->getDoctrine()->getEntityManager($name);
+        return $this->getDoctrine()->getManager($name);
     }
 
     protected function persist($entity) {

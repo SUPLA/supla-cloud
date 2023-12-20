@@ -35,5 +35,6 @@ class CheckDbConnectionCommand extends Command {
             }
         } while ($connectionStatus !== 0);
         $output->writeln("Database connection has been established.");
+        return 0;
     }
 }

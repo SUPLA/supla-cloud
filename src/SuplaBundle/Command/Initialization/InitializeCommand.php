@@ -32,5 +32,6 @@ class InitializeCommand extends Command {
         foreach ($this->initializationCommands as $initializationCommand) {
             $this->getApplication()->run(new StringInput($initializationCommand->getName() . ' --no-interaction'), $output);
         }
+        return 0;
     }
 }
