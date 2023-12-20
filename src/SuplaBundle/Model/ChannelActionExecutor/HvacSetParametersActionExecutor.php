@@ -68,7 +68,7 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
         [$heat, $cool, $flag] = $this->getHeatCoolFlag($actionParams);
         $duration = $actionParams['durationMs'] ?? 0;
         $mode = HvacIpcActionMode::toArray()[$actionParams['mode'] ?? ''] ?? HvacIpcActionMode::CMD_SWITCH_TO_MANUAL;
-        $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [$duration, $mode, $heat, $cool, $flag]);
+        $command = $subject->buildServerActionCommand('ACTION-HVAC-SET-PARAMETERS', [$duration, $mode, $heat, $cool, $flag]);
         $this->suplaServer->executeCommand($command);
     }
 
