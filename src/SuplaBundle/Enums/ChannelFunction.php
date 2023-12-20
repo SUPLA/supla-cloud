@@ -290,6 +290,7 @@ final class ChannelFunction extends Enum {
                 ChannelFunctionAction::TURN_OFF(),
                 ChannelFunctionAction::TOGGLE(),
                 ChannelFunctionAction::HVAC_SWITCH_TO_PROGRAM_MODE(),
+                ChannelFunctionAction::HVAC_SWITCH_TO_MANUAL_MODE(),
                 ChannelFunctionAction::HVAC_SET_TEMPERATURE(),
             ],
             self::HVAC_THERMOSTAT => [
