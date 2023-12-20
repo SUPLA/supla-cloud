@@ -644,7 +644,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
 
     public function stateExamples() {
         return [
-            ['VALUE:0,1,2,3,0,2010,50', [
+            ['VALUE:0,1,2,3,0,2010,5010', [
                 'heating' => false,
                 'cooling' => false,
                 'manual' => true,
@@ -657,7 +657,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
                 'temperatureHeat' => null,
                 'temperatureCool' => null,
                 'temperatureMain' => 20.1,
-                'humidityMain' => 50,
+                'humidityMain' => 50.1,
             ]],
             ['VALUE:0,1,2,3,1,0,0', ['temperatureHeat' => 0.02, 'temperatureCool' => null]],
             ['VALUE:0,1,2,3,1,-27300,-1', ['temperatureMain' => null, 'humidityMain' => null]],

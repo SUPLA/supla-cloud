@@ -60,7 +60,9 @@ class HvacChannelStateGetter implements SingleChannelStateGetter {
             'temperatureMain' => $tempMain > -27300
                 ? NumberUtils::maximumDecimalPrecision($tempMain / 100)
                 : null,
-            'humidityMain' => $humidityMain > -1 ? $humidityMain : null,
+            'humidityMain' => $humidityMain > -1
+                ? NumberUtils::maximumDecimalPrecision($humidityMain / 100)
+                : null,
         ];
     }
 
