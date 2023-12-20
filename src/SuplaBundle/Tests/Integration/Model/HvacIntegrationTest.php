@@ -576,6 +576,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [3, ['action' => 'HVAC_SET_PARAMETERS', 'temperatureHeat' => 22.5], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,0,10,2250,0,1'],
             [3, ['action' => 'HVAC_SET_PARAMETERS', 'temperatureHeat' => 22.5, 'durationMs' => 1200], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,1200,10,2250,0,1'],
             [3, ['action' => 'HVAC_SET_PARAMETERS', 'durationMs' => 1200], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,1200,10,0,0,0'],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT', 'durationMs' => 1200], 'ACTION-SET-HVAC-PARAMETERS:1,1,3,1200,2,0,0,0'],
             [4, ['action' => 'HVAC_SET_PARAMETERS'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,10,0,0,0'],
             [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT'], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,2,0,0,0'],
             [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'COOL', 'temperatureCool' => 22.5], 'ACTION-SET-HVAC-PARAMETERS:1,1,4,0,3,0,2250,2'],
@@ -592,7 +593,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $client->enableProfiler();
         $client->request('PATCH', '/api/channels/' . $channelId, [], [], [], json_encode($actionRequest));
         $response = $client->getResponse();
-        $this->assertStatusCode('400', $response);
+        $this->assertStatusCode(400, $response);
     }
 
     public function hvacInvalidActionsProvider() {
@@ -605,11 +606,12 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5]],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5]]],
             [3, ['action' => 'HVAC_SET_TEMPERATURES', 'setpoints' => ['heat' => 22.5, 'cool' => 21.5]]],
-            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'setpoints' => ['heat' => 22.5]]],
-            [3, ['action' => 'HVAC_SET_PARAMETERS', 'setpoints' => ['cool' => 22.5]]],
+            [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE', 'temperatureHeat' => 22.5]],
+            [5, ['action' => 'HVAC_SET_PARAMETERS', 'temperatureCool' => 22.5]],
             [3, ['action' => 'HVAC_SET_PARAMETERS', 'duration' => -1]],
-            [3, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
-            [3, ['action' => 'HVAC_SET_PARAMETERS', 'unicorn' => 'HEAT', 'setpoints' => ['heat' => 22.5]]],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT_COOL', 'temperatureHeat' => 22.5]],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'UNICORN', 'temperatureHeat' => 22.5]],
+            [3, ['action' => 'HVAC_SET_PARAMETERS', 'unicorn' => 'HEAT', 'temperatureHeat' => 22.5]],
         ];
         // @codingStandardsIgnoreEnd
     }

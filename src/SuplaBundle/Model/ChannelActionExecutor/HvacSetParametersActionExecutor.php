@@ -7,6 +7,7 @@ use SuplaBundle\Entity\ActionableSubject;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 use SuplaBundle\Enums\HvacIpcActionMode;
+use SuplaBundle\Model\UserConfigTranslator\HvacThermostatConfigTranslator;
 use SuplaBundle\Utils\NumberUtils;
 
 class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor {
@@ -32,22 +33,22 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
                 ->greaterOrEqualThan(0)
                 ->lessOrEqualThan(31536000000, 'Maximum duration is one year.'); // i18n
         }
+        $availableModes = $this->getAvailableModes($subject);
         if (isset($actionParams['mode'])) {
             if ($actionParams['mode']) {
-                Assertion::eq(
-                    ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
-                    $subject->getFunction()->getId(),
-                    'Mode can be set only for HVAC_THERMOSTAT_HEAT_COOL.'
-                );
-                Assert::that($actionParams['mode'])->string()->inArray(['HEAT', 'COOL', 'HEAT_COOL']);
+                Assert::that($actionParams['mode'])
+                    ->string()
+                    ->inArray($availableModes, 'Mode %s cannot be used with this channel. Supported: %s.');
             } else {
                 unset($actionParams['mode']);
             }
         }
         if (isset($actionParams['temperatureHeat'])) {
+            Assertion::inArray(HvacThermostatConfigTranslator::PROGRAM_MODE_HEAT, $availableModes, 'Cannot set temperatureHeat.');
             $actionParams['temperatureHeat'] = round($actionParams['temperatureHeat'] * 100);
         }
         if (isset($actionParams['temperatureCool'])) {
+            Assertion::inArray(HvacThermostatConfigTranslator::PROGRAM_MODE_COOL, $availableModes, 'Cannot set temperatureCool.');
             $actionParams['temperatureCool'] = round($actionParams['temperatureCool'] * 100);
         }
         return $actionParams;
@@ -69,5 +70,23 @@ class HvacSetParametersActionExecutor extends HvacSetTemperaturesActionExecutor 
         $mode = HvacIpcActionMode::toArray()[$actionParams['mode'] ?? ''] ?? HvacIpcActionMode::CMD_SWITCH_TO_MANUAL;
         $command = $subject->buildServerActionCommand('ACTION-SET-HVAC-PARAMETERS', [$duration, $mode, $heat, $cool, $flag]);
         $this->suplaServer->executeCommand($command);
+    }
+
+    private function getAvailableModes(ActionableSubject $subject): array {
+        switch ($subject->getFunction()->getId()) {
+            case ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL:
+                return [
+                    HvacThermostatConfigTranslator::PROGRAM_MODE_HEAT,
+                    HvacThermostatConfigTranslator::PROGRAM_MODE_COOL,
+                    HvacThermostatConfigTranslator::PROGRAM_MODE_HEAT_COOL,
+                ];
+            case ChannelFunction::HVAC_THERMOSTAT:
+                return [
+                    HvacThermostatConfigTranslator::PROGRAM_MODE_HEAT,
+                    HvacThermostatConfigTranslator::PROGRAM_MODE_COOL,
+                ];
+            default:
+                return [HvacThermostatConfigTranslator::PROGRAM_MODE_HEAT];
+        }
     }
 }

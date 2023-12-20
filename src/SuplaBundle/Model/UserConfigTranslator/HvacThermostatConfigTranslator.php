@@ -63,9 +63,9 @@ use function Assert\Assert;
 class HvacThermostatConfigTranslator extends UserConfigTranslator {
     use FixedRangeParamsTranslator;
 
-    private const PROGRAM_MODE_COOL = 'COOL';
-    private const PROGRAM_MODE_HEAT = 'HEAT';
-    private const PROGRAM_MODE_HEAT_COOL = 'HEAT_COOL';
+    public const PROGRAM_MODE_COOL = 'COOL';
+    public const PROGRAM_MODE_HEAT = 'HEAT';
+    public const PROGRAM_MODE_HEAT_COOL = 'HEAT_COOL';
 
     public function supports(HasUserConfig $subject): bool {
         return in_array($subject->getFunction()->getId(), [
