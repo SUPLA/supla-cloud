@@ -12,6 +12,7 @@ class HvacSwitchToProgramModeActionExecutor extends SingleChannelActionExecutor 
             ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL(),
             ChannelFunction::HVAC_THERMOSTAT_DIFFERENTIAL(),
             ChannelFunction::HVAC_DOMESTIC_HOT_WATER(),
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS(),
         ];
     }
 
