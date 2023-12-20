@@ -99,6 +99,7 @@
                     return false;
                 }
                 let heatFunctions = [
+                    ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
                     ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
                     ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
                     ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,

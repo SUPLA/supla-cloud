@@ -50,7 +50,7 @@
             <dd>{{ $t('Forward active energy') }}</dd>
             <dt>{{ (currentState.phases[0].totalForwardActiveEnergy + currentState.phases[1].totalForwardActiveEnergy + currentState.phases[2].totalForwardActiveEnergy) | roundToDecimals }} kWh</dt>
         </dl>
-        <ChannelStateTableHvac v-if="currentState.connected && channel.type.name === 'HVAC'" :channel="channel" :state="currentState"/>
+        <ChannelStateTableHvac v-if="currentState.connected && isHvac" :channel="channel" :state="currentState"/>
         <dl v-if="currentState.value !== undefined">
             <dd>{{ $t('State') }}</dd>
             <dt>
@@ -138,7 +138,10 @@
         computed: {
             currentState() {
                 return this.state || this.channel.state;
-            }
+            },
+            isHvac() {
+                return ['HVAC', 'THERMOSTATHEATPOLHOMEPLUS'].includes(this.channel.type.name);
+            },
         },
         beforeDestroy() {
             clearInterval(this.timer);
