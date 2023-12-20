@@ -58,6 +58,7 @@ class DeleteObsoleteOauthTokensCommand extends AbstractCyclicCommand {
             ->delete()->where('t.expiresAt < ?1')->setParameters([1 => strtotime('-7 days')])
             ->getQuery()->execute();
         $output->writeln(sprintf('Removed <info>%d</info> items from <comment>RefreshToken</comment> storage.', $result));
+        return 0;
     }
 
     protected function getIntervalInMinutes(): int {

@@ -56,6 +56,7 @@ class GenerateSchedulesExecutionsCommand extends AbstractCyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->generateFutureExecutions($output);
+        return 0;
     }
 
     private function generateFutureExecutions(OutputInterface $output) {

@@ -274,7 +274,7 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => 'text/plain']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertContains('ON: ', $response->getContent());
+        $this->assertStringContainsString('ON: ', $response->getContent());
         $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 
@@ -285,8 +285,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]/read", [], [], ['HTTP_ACCEPT' => 'text/html']);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
-        $this->assertContains('"on":', $response->getContent());
+        $this->assertStringContainsString('directLink = {"id":' . $directLink['id'], $response->getContent());
+        $this->assertStringContainsString('"on":', $response->getContent());
         $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 
@@ -297,9 +297,9 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]X/read", [], [], ['HTTP_ACCEPT' => 'text/html']);
         $response = $client->getResponse();
         $this->assertStatusCode(403, $response);
-        $this->assertNotContains('directLink = {"id":' . $directLink['id'], $response->getContent());
-        $this->assertNotContains('"on":', $response->getContent());
-        $this->assertContains('directLink = [];', $response->getContent());
+        $this->assertStringNotContainsString('directLink = {"id":' . $directLink['id'], $response->getContent());
+        $this->assertStringNotContainsString('"on":', $response->getContent());
+        $this->assertStringContainsString('directLink = [];', $response->getContent());
         $this->assertNoSuplaCommandsExecuted();
     }
 
@@ -309,8 +309,8 @@ class DirectLinkControllerIntegrationTest extends IntegrationTestCase {
         $client->request('GET', "/direct/$directLink[id]/$directLink[slug]");
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertContains('directLink = {"id":' . $directLink['id'], $response->getContent());
-        $this->assertContains('"on":', $response->getContent());
+        $this->assertStringContainsString('directLink = {"id":' . $directLink['id'], $response->getContent());
+        $this->assertStringContainsString('"on":', $response->getContent());
         $this->assertSuplaCommandExecuted('GET-RELAY-VALUE:1,1,1');
     }
 

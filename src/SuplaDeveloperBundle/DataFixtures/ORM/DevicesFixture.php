@@ -381,7 +381,7 @@ class DevicesFixture extends SuplaFixture {
             if (isset($channelData[2])) {
                 AnyFieldSetter::set($channel, $channelData[2]);
             }
-            if ($this->faker->boolean) {
+            if ($this->faker->boolean()) {
                 $channel->setCaption($this->faker->sentence(3));
             }
             $this->setChannelProperties($channel);

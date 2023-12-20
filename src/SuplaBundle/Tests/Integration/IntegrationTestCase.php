@@ -63,8 +63,8 @@ abstract class IntegrationTestCase extends WebTestCase {
         self::$dataForTests = array_intersect_key(self::$dataForTests, [static::class => '']);
         $initializedAtLeastOnce = isset(self::$dataForTests[static::class]);
         if (!$initializedAtLeastOnce || $this->isLarge() || (!$this->hasDependencies() && !$this->isSmall())) {
-            $this->executeCommand('doctrine:schema:drop --force --em=default');
-            $this->executeCommand('doctrine:schema:drop --force --em=measurement_logs');
+            $this->executeCommand('doctrine:schema:drop --force --full-database --em=default');
+            $this->executeCommand('doctrine:schema:drop --force --full-database --em=measurement_logs');
             $this->executeCommand('doctrine:schema:create --em=default');
             $this->executeCommand('doctrine:schema:create --em=measurement_logs');
             $this->executeCommand('supla:initialize:create-webapp-client');
@@ -187,6 +187,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     protected function createHttpsClient(bool $followRedirects = true, string $ipAddress = '1.2.3.4'): TestClient {
+        self::ensureKernelShutdown();
         $client = self::createClient(['debug' => false], [
             'HTTPS' => true,
             'HTTP_Accept' => 'application/json',
@@ -209,6 +210,7 @@ abstract class IntegrationTestCase extends WebTestCase {
     }
 
     protected function createInsulatedClient(array $options = [], array $server = []) {
+        self::ensureKernelShutdown();
         $client = self::createClient($options, $server);
         $client->insulate();
         return $client;

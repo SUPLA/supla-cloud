@@ -6,7 +6,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionAction;
 
 interface ActionableSubject {
-    public function getId(): int;
+//    public function getId();
 
     public function getFunction(): ChannelFunction;
 

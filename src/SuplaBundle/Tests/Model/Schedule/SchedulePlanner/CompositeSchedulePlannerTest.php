@@ -33,7 +33,7 @@ class CompositeSchedulePlannerTest extends TestCase {
     /** @var CompositeSchedulePlanner */
     private $planner;
 
-    public function setUp() {
+    public function setUp(): void {
         $this->planner = new CompositeSchedulePlanner([
             new OnceSchedulePlanner(),
             new IntervalSchedulePlanner(),

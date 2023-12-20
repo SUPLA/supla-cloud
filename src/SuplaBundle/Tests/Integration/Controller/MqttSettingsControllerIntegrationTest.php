@@ -78,7 +78,7 @@ class MqttSettingsControllerIntegrationTest extends IntegrationTestCase {
             'username' => $this->user->getShortUniqueId(),
             'password' => $password,
         ]);
-        $this->assertTrue(!!$result->fetchColumn());
+        $this->assertTrue(!!$result->fetchOne());
     }
 
     /** @depends testGeneratingMqttPasswordForApiClient */

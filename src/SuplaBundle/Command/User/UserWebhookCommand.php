@@ -98,5 +98,6 @@ class UserWebhookCommand extends Command {
             $this->suplaServer->stateWebhookChanged();
             $io->success('Webhook has been deleted.');
         }
+        return 0;
     }
 }

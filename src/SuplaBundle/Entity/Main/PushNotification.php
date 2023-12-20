@@ -96,7 +96,7 @@ class PushNotification implements ActionableSubject {
         $this->accessIds = new ArrayCollection();
     }
 
-    public function getId(): int {
+    public function getId() {
         return $this->id;
     }
 

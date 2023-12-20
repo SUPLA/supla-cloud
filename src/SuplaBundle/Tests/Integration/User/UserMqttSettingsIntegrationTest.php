@@ -65,7 +65,7 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
             'username' => $this->user->getShortUniqueId(),
             'password' => $password,
         ]);
-        $this->assertTrue(!!$result->fetchColumn());
+        $this->assertTrue(!!$result->fetchOne());
     }
 
     /** @depends testEnablingMqttSupport */
@@ -76,7 +76,7 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $body = json_decode($response->getContent(), true);
-        $this->assertContains('too quickly', $body['message']);
+        $this->assertStringContainsString('too quickly', $body['message']);
     }
 
     /** @depends testEnablingMqttSupport */
@@ -95,7 +95,7 @@ class UserMqttSettingsIntegrationTest extends IntegrationTestCase {
             'username' => $this->user->getShortUniqueId(),
             'password' => $password,
         ]);
-        $this->assertFalse(!!$result->fetchColumn());
+        $this->assertFalse(!!$result->fetchOne());
     }
 
     /** @depends testDisablingMqttSupport */

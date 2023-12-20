@@ -18,6 +18,7 @@
 namespace SuplaBundle\Tests\Controller\Api;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\View;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -36,15 +37,15 @@ class ClientAppControllerTest extends TestCase {
     /** @var SuplaServer|MockObject */
     private $suplaServer;
 
-    protected function setUp() {
+    protected function setUp(): void {
         $this->controller = $this->getMockBuilder(ClientAppController::class)
-            ->setMethods(['getUser'])
+            ->onlyMethods(['getUser'])
             ->getMock();
         $this->suplaServer = $this->createMock(SuplaServer::class);
         $this->controller->setSuplaServer($this->suplaServer);
-        $this->entityManager = $this->createMock(EntityManagerInterface::class);
+        $this->entityManager = $this->createMock(EntityManager::class);
         $this->controller->setEntityManager($this->entityManager);
-        $this->entityManager->method('transactional')->willReturnCallback(function (callable $closure) {
+        $this->entityManager->method('wrapInTransaction')->willReturnCallback(function (callable $closure) {
             return $closure($this->entityManager);
         });
     }

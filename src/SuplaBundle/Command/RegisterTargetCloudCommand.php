@@ -41,6 +41,7 @@ class RegisterTargetCloudCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output) {
         try {
             $this->registerTargetCloud($input, $output);
+            return 0;
         } catch (\InvalidArgumentException $e) {
             $output->writeln("<error>{$e->getMessage()}</error>");
             return 1;

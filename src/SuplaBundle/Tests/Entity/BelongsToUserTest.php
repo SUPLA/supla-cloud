@@ -29,7 +29,7 @@ class BelongsToUserTest extends TestCase {
     /** @var BelongsToUser */
     private $entity;
 
-    protected function setUp() {
+    protected function setUp(): void {
         $this->user = $user = $this->createMock(\SuplaBundle\Entity\Main\User::class);
         $this->user->method('getId')->willReturn(1);
         $this->entity = new Schedule($this->user);

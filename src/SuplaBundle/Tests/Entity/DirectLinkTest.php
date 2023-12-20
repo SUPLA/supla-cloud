@@ -29,7 +29,7 @@ class DirectLinkTest extends TestCase {
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
         $this->assertGreaterThanOrEqual(\SuplaBundle\Entity\Main\DirectLink::SLUG_LENGTH_MIN, strlen($slug));
         $this->assertLessThanOrEqual(\SuplaBundle\Entity\Main\DirectLink::SLUG_LENGTH_MAX, strlen($slug));
-        $this->assertNotContains('0', $slug);
+        $this->assertStringNotContainsString('0', $slug);
     }
 
     public function testCreatingForChannelGroup() {
@@ -37,7 +37,7 @@ class DirectLinkTest extends TestCase {
         $slug = $directLink->generateSlug(new PlaintextPasswordEncoder());
         $this->assertGreaterThanOrEqual(DirectLink::SLUG_LENGTH_MIN, strlen($slug));
         $this->assertLessThanOrEqual(\SuplaBundle\Entity\Main\DirectLink::SLUG_LENGTH_MAX, strlen($slug));
-        $this->assertNotContains('0', $slug);
+        $this->assertStringNotContainsString('0', $slug);
     }
 
     public function testCannotGenerateSlugTwice() {

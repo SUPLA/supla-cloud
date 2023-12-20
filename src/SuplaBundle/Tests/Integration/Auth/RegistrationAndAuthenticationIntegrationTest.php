@@ -218,10 +218,10 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $messages);
         $confirmationMessage = end($messages);
         $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
-        $this->assertContains('Activation', $confirmationMessage->getSubject());
-        $this->assertContains($this->createdUser->getToken(), $confirmationMessage->getBody());
-        $this->assertContains('supla.local/', $confirmationMessage->getBody());
-        $this->assertContains('?lang=en', $confirmationMessage->getBody());
+        $this->assertStringContainsString('Activation', $confirmationMessage->getSubject());
+        $this->assertStringContainsString($this->createdUser->getToken(), $confirmationMessage->getBody());
+        $this->assertStringContainsString('supla.local/', $confirmationMessage->getBody());
+        $this->assertStringContainsString('?lang=en', $confirmationMessage->getBody());
         return $this->createdUser;
     }
 
@@ -240,10 +240,10 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $messages);
         $confirmationMessage = end($messages);
         $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
-        $this->assertContains('Aktywacja konta', $confirmationMessage->getSubject());
-        $this->assertContains('kliknij', $confirmationMessage->getBody());
-        $this->assertContains('supla.local/', $confirmationMessage->getBody());
-        $this->assertContains('?lang=pl', $confirmationMessage->getBody());
+        $this->assertStringContainsString('Aktywacja konta', $confirmationMessage->getSubject());
+        $this->assertStringContainsString('kliknij', $confirmationMessage->getBody());
+        $this->assertStringContainsString('supla.local/', $confirmationMessage->getBody());
+        $this->assertStringContainsString('?lang=pl', $confirmationMessage->getBody());
     }
 
     public function testSendsEmailWithConfirmationTokenInItalian() {
@@ -261,10 +261,10 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertCount(1, $messages);
         $confirmationMessage = end($messages);
         $this->assertArrayHasKey(self::EMAIL, $confirmationMessage->getTo());
-        $this->assertContains('Attivazione', $confirmationMessage->getSubject());
-        $this->assertContains('copialo oppure', $confirmationMessage->getBody());
-        $this->assertContains('supla.local/', $confirmationMessage->getBody());
-        $this->assertContains('?lang=it', $confirmationMessage->getBody());
+        $this->assertStringContainsString('Attivazione', $confirmationMessage->getSubject());
+        $this->assertStringContainsString('copialo oppure', $confirmationMessage->getBody());
+        $this->assertStringContainsString('supla.local/', $confirmationMessage->getBody());
+        $this->assertStringContainsString('?lang=it', $confirmationMessage->getBody());
     }
 
     /** @depends testSendsEmailWithConfirmationToken */
@@ -361,9 +361,9 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThanOrEqual(1, count($messages));
         $notifyMessage = end($messages);
         $this->assertArrayHasKey('admin@supla.org', $notifyMessage->getTo());
-        $this->assertContains('New account activated', $notifyMessage->getSubject());
-        $this->assertContains(self::EMAIL, $notifyMessage->getBody());
-        $this->assertContains('supla.local', $notifyMessage->getBody());
+        $this->assertStringContainsString('New account activated', $notifyMessage->getSubject());
+        $this->assertStringContainsString(self::EMAIL, $notifyMessage->getBody());
+        $this->assertStringContainsString('supla.local', $notifyMessage->getBody());
     }
 
     /** @depends testConfirmingWithGoodToken */
@@ -419,8 +419,8 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertGreaterThanOrEqual(1, count($messages));
         $warnMessage = end($messages);
         $this->assertArrayHasKey(self::EMAIL, $warnMessage->getTo());
-        $this->assertContains('unsuccessful login', $warnMessage->getSubject());
-        $this->assertContains('1.2.3.4', $warnMessage->getBody());
+        $this->assertStringContainsString('unsuccessful login', $warnMessage->getSubject());
+        $this->assertStringContainsString('1.2.3.4', $warnMessage->getBody());
     }
 
     public function testPasswordResetForUnknownUserFailsSilently() {
@@ -443,8 +443,8 @@ class RegistrationAndAuthenticationIntegrationTest extends IntegrationTestCase {
         $messages = TestMailer::getMessages();
         $message = end($messages);
         $this->assertArrayHasKey(self::EMAIL, $message->getTo());
-        $this->assertContains('Password reset', $message->getSubject());
-        $this->assertContains($this->createdUser->getToken(), $message->getBody());
+        $this->assertStringContainsString('Password reset', $message->getSubject());
+        $this->assertStringContainsString($this->createdUser->getToken(), $message->getBody());
     }
 
     public function testDoesNotSendResetPasswordEmailTwiceInARow() {

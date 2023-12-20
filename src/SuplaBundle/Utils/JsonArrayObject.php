@@ -36,4 +36,8 @@ class JsonArrayObject implements \JsonSerializable, \ArrayAccess, \Countable {
     public function count() {
         return count($this->array);
     }
+
+    public function toArray(): array {
+        return $this->array;
+    }
 }

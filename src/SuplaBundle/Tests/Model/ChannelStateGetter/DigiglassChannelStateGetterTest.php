@@ -28,7 +28,7 @@ class DigiglassChannelStateGetterTest extends TestCase {
     use UnitTestHelper;
 
     /** @dataProvider stateExamples */
-    public function testGettingState(int $suplaServerValue, array $expectedState) {
+    public function testGettingState($suplaServerValue, array $expectedState) {
         $channel = $this->createEntityMock(IODeviceChannel::class, 111);
         $channel->method('getType')->willReturn(ChannelType::DIGIGLASS());
         $suplaServer = $this->createMock(SuplaServer::class);

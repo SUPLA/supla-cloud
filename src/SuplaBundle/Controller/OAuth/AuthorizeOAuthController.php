@@ -34,7 +34,7 @@ use SuplaBundle\Model\LocalSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloud;
 use SuplaBundle\Model\TargetSuplaCloudRequestForwarder;
 use SuplaBundle\Supla\SuplaAutodiscover;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -42,7 +42,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-class AuthorizeOAuthController extends Controller {
+class AuthorizeOAuthController extends AbstractController {
     /** @var FailedAuthAttemptsUserBlocker */
     private $failedAuthAttemptsUserBlocker;
     /** @var SuplaAutodiscover */
@@ -79,8 +79,8 @@ class AuthorizeOAuthController extends Controller {
     }
 
     /**
-     * @Route("/oauth-authorize", name="_oauth_login")
-     * @Route("/oauth/v2/auth_login", name="_oauth_login_check")
+     * @Route("/oauth-authorize", name="_oauth_login", methods={"GET", "POST"})
+     * @Route("/oauth/v2/auth_login", name="_oauth_login_check", methods={"GET", "POST"})
      * @Route("/oauth/v2/broker_login", name="_oauth_broker_check", methods={"POST"})
      * @Template()
      */

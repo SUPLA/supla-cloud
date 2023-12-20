@@ -89,5 +89,6 @@ class SynchronizeUsersWithAutodiscoverCommand extends Command {
         }
         $progressbar->clear();
         $io->newLine();
+        return 0;
     }
 }

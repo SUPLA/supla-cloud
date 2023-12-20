@@ -35,7 +35,7 @@ class SynchronizeEspUpdatesCommandIntegrationTest extends IntegrationTestCase {
         $updates = [SuplaAutodiscoverMock::sampleEspUpdate(), SuplaAutodiscoverMock::sampleEspUpdate()];
         SuplaAutodiscoverMock::mockResponse('esp-updates', $updates);
         $this->executeCommand('supla:esp:sync');
-        $existingUpdates = $this->getEntityManager()->getConnection()->fetchAll('SELECT * FROM esp_update');
+        $existingUpdates = $this->getEntityManager()->getConnection()->fetchAllAssociative('SELECT * FROM esp_update');
         $this->assertCount(2, $existingUpdates);
         $this->assertTrue(boolval($existingUpdates[0]['is_synced']));
         $this->assertEquals($updates[0], array_diff_key($existingUpdates[0], ['id' => '', 'is_synced' => '']));
@@ -45,7 +45,7 @@ class SynchronizeEspUpdatesCommandIntegrationTest extends IntegrationTestCase {
     public function testNotUpdatingWhenFailsToContactAd() {
         SuplaAutodiscoverMock::mockResponse('esp-updates', false);
         $this->executeCommand('supla:esp:sync');
-        $existingUpdates = $this->getEntityManager()->getConnection()->fetchAll('SELECT * FROM esp_update');
+        $existingUpdates = $this->getEntityManager()->getConnection()->fetchAllAssociative('SELECT * FROM esp_update');
         $this->assertCount(2, $existingUpdates);
     }
 
@@ -54,7 +54,7 @@ class SynchronizeEspUpdatesCommandIntegrationTest extends IntegrationTestCase {
         $updates = [SuplaAutodiscoverMock::sampleEspUpdate()];
         SuplaAutodiscoverMock::mockResponse('esp-updates', $updates);
         $this->executeCommand('supla:esp:sync');
-        $existingUpdates = $this->getEntityManager()->getConnection()->fetchAll('SELECT * FROM esp_update');
+        $existingUpdates = $this->getEntityManager()->getConnection()->fetchAllAssociative('SELECT * FROM esp_update');
         $this->assertCount(1, $existingUpdates);
         $this->assertEquals($updates[0]['latest_software_version'], $existingUpdates[0]['latest_software_version']);
     }

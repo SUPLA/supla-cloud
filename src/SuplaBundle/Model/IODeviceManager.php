@@ -17,23 +17,16 @@
 
 namespace SuplaBundle\Model;
 
-use Doctrine\Persistence\ManagerRegistry;
 use SuplaBundle\Enums\ChannelFunction;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class IODeviceManager {
     protected $translator;
-    protected $doctrine;
     protected $sec;
 
-    public function __construct(
-        TranslatorInterface $translator,
-        ManagerRegistry $doctrine,
-        TokenStorageInterface $security_token
-    ) {
+    public function __construct(TranslatorInterface $translator, TokenStorageInterface $security_token) {
         $this->translator = $translator;
-        $this->doctrine = $doctrine;
         $this->sec = $security_token;
     }
 

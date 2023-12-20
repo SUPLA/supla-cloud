@@ -64,6 +64,7 @@ class CreateConfirmedUserCommand extends Command {
             $this->createConfirmedUser($username, $password);
             $output->writeln("New account has been created.");
         }
+        return 0;
     }
 
     private function usernameQuestion(): Question {

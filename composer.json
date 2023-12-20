@@ -14,7 +14,7 @@
         ]
     },
     "require": {
-        "php": ">=7.3.8",
+        "php": ">=7.4.33",
         "ext-curl": "*",
         "ext-gd": "*",
         "ext-intl": "*",
@@ -24,11 +24,11 @@
         "composer-runtime-api": "^2",
         "beberlei/assert": "^2.7",
         "cocur/slugify": "^2.3",
-        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-bundle": "^2.7.0",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.5",
         "dragonmantank/cron-expression": "3.1.*",
-        "friendsofsymfony/oauth-server-bundle": "^1.6",
+        "friendsofsymfony/oauth-server-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "^2.7",
         "google/recaptcha": "^1.1",
         "gumlet/php-image-resize": "^2.0",
@@ -48,8 +48,8 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.2",
-        "fzaninotto/faker": "^1.8",
-        "phpunit/phpunit": "^7.0",
+        "fakerphp/faker": "^1.23",
+        "phpunit/phpunit": "^8.0",
         "squizlabs/php_codesniffer": "^3.6",
         "symfony/phpunit-bridge": "^4.4"
     },
@@ -106,7 +106,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.3.8"
+            "php": "7.4.33"
         },
         "process-timeout": 0,
         "sort-packages": true

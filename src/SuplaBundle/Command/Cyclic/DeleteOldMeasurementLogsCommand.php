@@ -44,6 +44,7 @@ class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->logClean($output, ElectricityMeterVoltageLogItem::class, $this->logsRetentionDaysForEmVoltageLogs);
+        return 0;
     }
 
     protected function logClean(OutputInterface $output, string $entity, int $olderThanDays): void {
@@ -53,8 +54,7 @@ class DeleteOldMeasurementLogsCommand extends Command implements CyclicCommand {
             $olderThanDays
         );
         $stmt = $this->entityManager->getConnection()->prepare($sql);
-        $stmt->executeStatement();
-        $rowCount = $stmt->rowCount();
+        $rowCount = $stmt->executeStatement();
         if ($rowCount || $output->isVerbose()) {
             $className = basename(str_replace('\\', '/', $entity));
             $output->writeln(sprintf('Deleted <info>%d</info> items from <comment>%s</comment> storage.', $rowCount, $className));

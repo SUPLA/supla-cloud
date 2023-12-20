@@ -84,17 +84,20 @@ class DisableBrokenSchedulesCommand extends Command implements CyclicCommand {
 	HAVING successful = 0 AND failed > 10
 QUERY;
         $stmt = $this->entityManager->getConnection()->prepare($query);
-        $stmt->execute();
-        while ($scheduleIdToDisable = $stmt->fetchColumn()) {
+        $result = $stmt->executeQuery();
+        $disabledCount = 0;
+        while ($scheduleToDisable = $result->fetchAssociative()) {
             /** @var Schedule $schedule */
-            $schedule = $this->scheduleRepository->find($scheduleIdToDisable);
+            $schedule = $this->scheduleRepository->find($scheduleToDisable['id']);
             $this->scheduleManager->disable($schedule);
             $this->audit->newEntry(AuditedEvent::SCHEDULE_BROKEN_DISABLED())
                 ->setIntParam($schedule->getId())
                 ->setUser($schedule->getUser())
                 ->buildAndFlush();
+            ++$disabledCount;
         }
-        $output->writeln(sprintf('Disabled <info>%d</info> schedules due to failed executions.', $stmt->rowCount()));
+        $output->writeln(sprintf('Disabled <info>%d</info> schedules due to failed executions.', $disabledCount));
+        return 0;
     }
 
     public function shouldRunNow(TimeProvider $timeProvider): bool {

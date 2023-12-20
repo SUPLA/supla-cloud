@@ -73,5 +73,6 @@ class SetAutodiscoverIpsCommand extends Command {
         } else {
             $io->warning('Aborted.');
         }
+        return 0;
     }
 }

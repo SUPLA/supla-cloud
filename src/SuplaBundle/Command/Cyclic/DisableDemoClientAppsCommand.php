@@ -63,6 +63,7 @@ class DisableDemoClientAppsCommand extends AbstractCyclicCommand {
             $this->entityManager->persist($clientApp);
             $this->entityManager->flush();
         }
+        return 0;
     }
 
     protected function getIntervalInMinutes(): int {

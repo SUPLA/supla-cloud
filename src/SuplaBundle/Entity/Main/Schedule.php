@@ -144,7 +144,7 @@ class Schedule implements HasSubject, ActionableSubject {
         $this->setConfig($data['config'] ?? null);
     }
 
-    public function getId(): int {
+    public function getId() {
         return $this->id;
     }
 

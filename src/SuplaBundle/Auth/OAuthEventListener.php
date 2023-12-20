@@ -18,20 +18,23 @@
 namespace SuplaBundle\Auth;
 
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\OAuthServerBundle\Event\OAuthEvent;
+use FOS\OAuthServerBundle\Event\AbstractAuthorizationEvent;
+use FOS\OAuthServerBundle\Event\PostAuthorizationEvent;
+use FOS\OAuthServerBundle\Event\PreAuthorizationEvent;
 use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Model\Transactional;
 use SuplaBundle\Repository\ApiClientAuthorizationRepository;
 use SuplaBundle\Repository\UserRepository;
 use SuplaBundle\Supla\SuplaServerAware;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @see https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/blob/master/Resources/doc/the_oauth_event_class.md
  */
-class OAuthEventListener {
+class OAuthEventListener implements EventSubscriberInterface {
     use Transactional;
     use SuplaServerAware;
 
@@ -56,7 +59,14 @@ class OAuthEventListener {
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function onPreAuthorizationProcess(OAuthEvent $event) {
+    public static function getSubscribedEvents() {
+        return [
+            PreAuthorizationEvent::class => 'onPreAuthorization',
+            PostAuthorizationEvent::class => 'onPostAuthorization',
+        ];
+    }
+
+    public function onPreAuthorization(PreAuthorizationEvent $event) {
         if ($user = $this->getUser($event)) {
             $scope = $this->requestStack->getCurrentRequest()->get('scope', null);
             $authorization = $this->authorizationRepository->findOneByUserAndApiClient($user, $event->getClient());
@@ -67,7 +77,7 @@ class OAuthEventListener {
         }
     }
 
-    public function onPostAuthorizationProcess(OAuthEvent $event) {
+    public function onPostAuthorization(PostAuthorizationEvent $event) {
         if ($event->isAuthorizedClient()) {
             if (null !== $client = $event->getClient()) {
                 $user = $this->getUser($event);
@@ -113,8 +123,7 @@ class OAuthEventListener {
         }
     }
 
-    /** @return User|null */
-    private function getUser(OAuthEvent $event) {
+    private function getUser(AbstractAuthorizationEvent $event): ?User {
         return $this->userRepository->findOneByEmail($event->getUser()->getUsername());
     }
 }

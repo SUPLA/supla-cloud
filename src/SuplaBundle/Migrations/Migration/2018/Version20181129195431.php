@@ -27,7 +27,7 @@ class Version20181129195431 extends NoWayBackMigration {
     private function rewindWrongMigrationIfNeeded() {
         $wrongMigrationSelector = ['version' => '20181129100106'];
         $migratedPreviously = $this->getConnection()
-            ->fetchAll('SELECT * FROM migration_versions WHERE version=:version', $wrongMigrationSelector);
+            ->fetchAllAssociative('SELECT * FROM migration_versions WHERE version=:version', $wrongMigrationSelector);
         if ($migratedPreviously) {
             $this->addSql('DELETE FROM `migration_versions` WHERE version=:version', $wrongMigrationSelector);
             $this->addSql('ALTER TABLE `supla_user` DROP COLUMN `short_unique_id`, DROP COLUMN `long_unique_id`, DROP INDEX `UNIQ_71BAEAC6AB4C1E2D`, DROP INDEX `UNIQ_71BAEAC69DAF5974`');

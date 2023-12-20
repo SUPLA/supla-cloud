@@ -51,14 +51,14 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
         $this->logClean($output, TemperatureLogItem::class);
         $this->logClean($output, TempHumidityLogItem::class);
         $this->logClean($output, ThermostatLogItem::class);
+        return 0;
     }
 
     protected function logClean(OutputInterface $output, string $entity): void {
         $sql = "DELETE t FROM `" . $this->entityManager->getClassMetadata($entity)->getTableName()
             . "` AS t LEFT JOIN supla_dev_channel AS c ON c.id = t.channel_id WHERE c.id IS NULL";
         $stmt = $this->entityManager->getConnection()->prepare($sql);
-        $stmt->executeStatement();
-        $rowCount = $stmt->rowCount();
+        $rowCount = $stmt->executeStatement();
         if ($rowCount || $output->isVerbose()) {
             $className = basename(str_replace('\\', '/', $entity));
             $output->writeln(sprintf('Deleted <info>%d</info> items from <comment>%s</comment> storage.', $rowCount, $className));

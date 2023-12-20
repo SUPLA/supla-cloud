@@ -597,7 +597,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $firstTimestamp,
             time()
         );
-        $this->assertEquals(35, floor(($firstTimestamp - $lastTimestamp) / 86400), '', 1); // 5000 logs per 10 minutes each ~= 35 days
+        $this->assertEqualsWithDelta(35, floor(($firstTimestamp - $lastTimestamp) / 86400), 1); // 5000 logs per 10 minutes each ~= 35 days
     }
 
     public function testGettingLogsFromChannelWithNoLogs() {
@@ -621,7 +621,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $response = $client->getResponse();
         $this->assertStatusCode('200', $response);
         $logItems = json_decode($response->getContent(), true);
-        $this->assertEquals(500, count($logItems), '', 50);
+        $this->assertEqualsWithDelta(500, count($logItems), 50);
         $minTimestamp = $response->headers->get('X-Min-Timestamp');
         $maxTimestamp = $response->headers->get('X-Max-Timestamp');
         $firstTimestamp = current($logItems)['date_timestamp'];
@@ -636,7 +636,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $maxTimestamp,
             time()
         );
-        $this->assertEquals(60, floor(($firstTimestamp - $lastTimestamp) / 86400), '', 1);
+        $this->assertEqualsWithDelta(60, floor(($firstTimestamp - $lastTimestamp) / 86400), 1);
     }
 
     public function testGettingSparseLogsFromChannelWithManyLogsOrderedAsc() {
@@ -646,7 +646,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $response = $client->getResponse();
         $this->assertStatusCode('200', $response);
         $logItems = json_decode($response->getContent(), true);
-        $this->assertEquals(500, count($logItems), '', 50);
+        $this->assertEqualsWithDelta(500, count($logItems), 50);
         $minTimestamp = $response->headers->get('X-Min-Timestamp');
         $maxTimestamp = $response->headers->get('X-Max-Timestamp');
         $firstTimestamp = current($logItems)['date_timestamp'];
@@ -661,7 +661,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $maxTimestamp,
             time()
         );
-        $this->assertEquals(60, floor(($lastTimestamp - $firstTimestamp) / 86400), '', 1);
+        $this->assertEqualsWithDelta(60, floor(($lastTimestamp - $firstTimestamp) / 86400), 1);
     }
 
     public function testGettingSparseLogsBetweenTimestamps() {
@@ -674,7 +674,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $response = $client->getResponse();
         $this->assertStatusCode('200', $response);
         $logItems = json_decode($response->getContent(), true);
-        $this->assertEquals(100, count($logItems), '', 15);
+        $this->assertEqualsWithDelta(100, count($logItems), 15);
         $minTimestamp = $response->headers->get('X-Min-Timestamp');
         $maxTimestamp = $response->headers->get('X-Max-Timestamp');
         $firstTimestamp = current($logItems)['date_timestamp'];
@@ -688,7 +688,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $beforeTimestamp,
             time()
         );
-        $this->assertEquals(7, floor(($firstTimestamp - $lastTimestamp) / 86400), '', 1);
+        $this->assertEqualsWithDelta(7, floor(($firstTimestamp - $lastTimestamp) / 86400), 1);
     }
 
     private function assertTimestampsGrow(...$timestamps) {
@@ -714,7 +714,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $response = $client->getResponse();
         $this->assertStatusCode('200', $response);
         $logItems = json_decode($response->getContent(), true);
-        $this->assertEquals(100, count($logItems), '', 15);
+        $this->assertEqualsWithDelta(100, count($logItems), 15);
         $minTimestamp = $response->headers->get('X-Min-Timestamp');
         $maxTimestamp = $response->headers->get('X-Max-Timestamp');
         $firstTimestamp = current($logItems)['date_timestamp'];
@@ -728,7 +728,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $beforeTimestamp,
             time()
         );
-        $this->assertEquals(7, floor(($lastTimestamp - $firstTimestamp) / 86400), '', 1);
+        $this->assertEqualsWithDelta(7, floor(($lastTimestamp - $firstTimestamp) / 86400), 1);
     }
 
     /** @dataProvider invalidLimits */

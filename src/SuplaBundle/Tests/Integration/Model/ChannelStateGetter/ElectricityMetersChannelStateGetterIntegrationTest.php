@@ -152,20 +152,20 @@ class ElectricityMetersChannelStateGetterIntegrationTest extends IntegrationTest
         $state = $this->channelStateGetter->getState($this->device->getChannels()[2]);
         $this->assertArrayHasKey('totalCost', $state);
         $this->assertGreaterThan(0, $state['totalCost']);
-        $this->assertInternalType('float', $state['totalCost']);
+        $this->assertIsFloat($state['totalCost']);
         $this->assertArrayHasKey('phases', $state);
         $this->assertCount(3, $state['phases']);
-        $this->assertInternalType('array', $state['phases'][0]);
+        $this->assertIsArray($state['phases'][0]);
         $this->assertArrayHasKey('number', $state['phases'][0]);
         $this->assertEquals(1, $state['phases'][0]['number']);
         $this->assertArrayHasKey('powerActive', $state['phases'][0]);
-        $this->assertInternalType('float', $state['phases'][0]['powerActive']);
+        $this->assertIsFloat($state['phases'][0]['powerActive']);
         $this->assertArrayHasKey('totalForwardReactiveEnergy', $state['phases'][1]);
-        $this->assertInternalType('float', $state['phases'][1]['totalForwardReactiveEnergy']);
+        $this->assertIsFloat($state['phases'][1]['totalForwardReactiveEnergy']);
         $this->assertArrayHasKey('pricePerUnit', $state);
-        $this->assertInternalType('float', $state['pricePerUnit']);
+        $this->assertIsFloat($state['pricePerUnit']);
         $this->assertArrayHasKey('support', $state);
-        $this->assertInternalType('int', $state['support']);
+        $this->assertIsInt($state['support']);
     }
 
     /** @dataProvider transformingNonImpulseCounterElectricityMeterResponsesExamples */

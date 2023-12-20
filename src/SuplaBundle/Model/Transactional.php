@@ -32,7 +32,7 @@ trait Transactional {
     }
 
     public function transactional(callable $function) {
-        $result = $this->entityManager->transactional($function);
+        $result = $this->entityManager->wrapInTransaction($function);
         $this->suplaServer->flushPostponedCommands();
         return $result;
     }

@@ -108,8 +108,7 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                 }
             } else {
                 $color = $actionParams['color'] ?? 1;
-                Assertion::true(is_numeric($color) || in_array($color, ['random']) || strpos($color, '0x') === 0);
-                if (strpos($color, '0x') === 0) {
+                if (is_string($color) && preg_match('#^0x[0-9A-F]+$#i', $color)) {
                     $color = hexdec($color);
                 }
                 if (is_numeric($color)) {
@@ -119,6 +118,8 @@ class SetRgbwParametersActionExecutor extends SingleChannelActionExecutor {
                         [, , $v] = ColorUtils::decToHsv($color);
                         $actionParams['color_brightness'] = $v;
                     }
+                } else {
+                    Assertion::inArray($color, ['random'], 'Invalid color definition "%s".');
                 }
             }
             $colorBrightness = $actionParams['color_brightness'] ?? 100;

@@ -18,8 +18,8 @@
 namespace SuplaBundle\Tests\Model\Schedule;
 
 use DateTime;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SuplaBundle\Entity\Main\ScheduledExecution;
@@ -39,7 +39,7 @@ class ScheduleManagerTest extends TestCase {
     private $manager;
     private $scheduledExecutionsRepository;
 
-    public function setUp() {
+    public function setUp(): void {
         $this->doctrine = $this->createMock(ManagerRegistry::class);
         $this->scheduledExecutionsRepository = $this->createMock(EntityRepository::class);
         $this->doctrine->method('getRepository')->willReturn($this->scheduledExecutionsRepository);

@@ -60,6 +60,7 @@ class SynchronizeEspUpdatesCommand extends AbstractCyclicCommand {
         } else {
             $io->error('Could not contact AD.');
         }
+        return 0;
     }
 
     private function deleteAllSyncedUpdates() {

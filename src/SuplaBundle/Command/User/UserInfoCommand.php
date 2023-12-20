@@ -59,6 +59,7 @@ class UserInfoCommand extends Command {
         $this->basicInfo($io, $user);
         $this->entityLimitsInfo($io, $user);
         $this->apiRateLimitInfo($io, $user);
+        return 0;
     }
 
     private function basicInfo(SymfonyStyle $io, User $user) {

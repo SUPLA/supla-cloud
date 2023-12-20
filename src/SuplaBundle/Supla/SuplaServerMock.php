@@ -146,8 +146,8 @@ class SuplaServerMock extends SuplaServer {
                 $impulsesPerUnit, // ImpulsesPerUnit
                 $counter, // Counter
                 round($counter * 1000 / $impulsesPerUnit), // CalculatedValue * 1000
-                $this->faker->boolean ? $this->faker->currencyCode : '', // currency
-                $this->faker->boolean ? base64_encode($this->faker->randomElement(['m³', 'wahnięć', 'l'])) : '' // base-64 unit name
+                $this->faker->boolean() ? $this->faker->currencyCode : '', // currency
+                $this->faker->boolean() ? base64_encode($this->faker->randomElement(['m³', 'wahnięć', 'l'])) : '' // base-64 unit name
             );
         } elseif (preg_match('#^GET-HVAC-VALUE:(\d+),(\d+),(\d+)#', $cmd, $match)) { // HVAC
             $mode = $this->faker->randomElement(
@@ -160,16 +160,16 @@ class SuplaServerMock extends SuplaServer {
             if ($mode === HvacIpcActionMode::COOL || $mode === HvacIpcActionMode::HEAT_COOL) {
                 $flags |= HvacIpcValueFlags::TEMPERATURE_COOL_SET;
             }
-            if ($this->faker->boolean) {
+            if ($this->faker->boolean()) {
                 if ($mode === HvacIpcActionMode::HEAT) {
                     $flags |= HvacIpcValueFlags::HEATING;
                 } elseif ($mode === HvacIpcActionMode::COOL) {
                     $flags |= HvacIpcValueFlags::COOLING;
                 } elseif ($mode === HvacIpcActionMode::HEAT_COOL) {
-                    $flags |= $this->faker->boolean ? HvacIpcValueFlags::COOLING : HvacIpcValueFlags::HEATING;
+                    $flags |= $this->faker->boolean() ? HvacIpcValueFlags::COOLING : HvacIpcValueFlags::HEATING;
                 }
             }
-            if ($this->faker->boolean) {
+            if ($this->faker->boolean()) {
                 $flags |= HvacIpcValueFlags::WEEKLY_SCHEDULE;
             }
             if ($this->faker->boolean(30)) {

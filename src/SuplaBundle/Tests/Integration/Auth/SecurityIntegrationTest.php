@@ -29,7 +29,7 @@ use SuplaBundle\Enums\ScheduleMode;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 class SecurityIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
@@ -53,7 +53,7 @@ class SecurityIntegrationTest extends IntegrationTestCase {
             $channelGroup = new IODeviceChannelGroup($user, $location, [$device->getChannels()[0], $device->getChannels()[1]]);
             $this->getEntityManager()->persist($channelGroup);
             $directLink = new DirectLink($device->getChannels()[0]);
-            $directLink->generateSlug(new BCryptPasswordEncoder(4));
+            $directLink->generateSlug(new NativePasswordEncoder(4));
             $this->getEntityManager()->persist($directLink);
             $scene = new Scene($location);
             $scene->setOpeartions([new SceneOperation($device->getChannels()[0], ChannelFunctionAction::TURN_ON())]);

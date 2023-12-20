@@ -64,11 +64,11 @@ class NotificationsFixture extends SuplaFixture {
         $notification = new PushNotification($device->getUser());
         EntityUtils::setField($notification, 'managedByDevice', true);
         EntityUtils::setField($notification, 'device', $device);
-        if ($this->faker->boolean) {
-            $notification->setTitle($this->faker->sentence);
+        if ($this->faker->boolean()) {
+            $notification->setTitle($this->faker->sentence());
         }
-        if ($this->faker->boolean) {
-            $notification->setBody($this->faker->sentence);
+        if ($this->faker->boolean()) {
+            $notification->setBody($this->faker->sentence());
         }
         if ($body !== false) {
             EntityUtils::setField($notification, 'body', $body);

@@ -76,6 +76,7 @@ class ApiInfoCommand extends Command {
                 $this->testLimit($io);
             }
         }
+        return 0;
     }
 
     protected function displayGlobalLimitStatus(SymfonyStyle $io) {

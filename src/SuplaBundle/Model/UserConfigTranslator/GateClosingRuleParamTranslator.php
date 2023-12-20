@@ -37,6 +37,9 @@ class GateClosingRuleParamTranslator extends UserConfigTranslator {
 
     public function setConfig(HasUserConfig $subject, array $config) {
         $ruleConfig = $config['closingRule'] ?? [];
+        if ($ruleConfig instanceof JsonArrayObject) {
+            $ruleConfig = $ruleConfig->toArray();
+        }
         if ($ruleConfig) {
             /** @var GateClosingRule $rule */
             $rule = $this->repository->find($subject->getId());

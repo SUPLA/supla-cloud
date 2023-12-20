@@ -42,7 +42,7 @@ use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
 use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use SuplaDeveloperBundle\DataFixtures\ORM\DevicesFixture;
 use SuplaDeveloperBundle\DataFixtures\ORM\NotificationsFixture;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 /** @small */
 class ChannelControllerIntegrationTest extends IntegrationTestCase {
@@ -541,7 +541,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         ]);
         $sensorChannel = $anotherDevice->getChannels()[0];
         $directLink = new DirectLink($sensorChannel);
-        $directLink->generateSlug(new BCryptPasswordEncoder(4));
+        $directLink->generateSlug(new NativePasswordEncoder(4));
         $this->getEntityManager()->persist($directLink);
         $this->getEntityManager()->flush();
         $client = $this->createAuthenticatedClient();
@@ -574,7 +574,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     /** @depends testChangingChannelFunctionDeletesExistingDirectLinksWhenConfirmed */
     public function testNotifiesSuplaServerAboutFunctionChange(int $sensorChannelId) {
-        $this->assertContains('USER-BEFORE-CHANNEL-FUNCTION-CHANGE:1,' . $sensorChannelId, SuplaServerMock::$executedCommands);
+        $this->assertSuplaCommandExecuted('USER-BEFORE-CHANNEL-FUNCTION-CHANGE:1,' . $sensorChannelId);
     }
 
     public function testChangingChannelFunctionDeletesExistingScenes() {
@@ -916,6 +916,7 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
 
     public function testPreventingToOpenValveIfManuallyShutFromApiClient() {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,2\n");
+        self::ensureKernelShutdown();
         $client = self::createClient(
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
@@ -924,11 +925,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($response->getContent(), true);
-        $this->assertContains('closed manually', $body['message']);
+        $this->assertStringContainsString('closed manually', $body['message']);
     }
 
     public function testPreventingToOpenValveIfFloodingFromApiClient() {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,1\n");
+        self::ensureKernelShutdown();
         $client = self::createClient(
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]
@@ -937,11 +939,12 @@ class ChannelControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(409, $response);
         $body = json_decode($response->getContent(), true);
-        $this->assertContains('closed manually', $body['message']);
+        $this->assertStringContainsString('closed manually', $body['message']);
     }
 
     public function testCanOpenValveIfNotManuallyShutFromApiClient() {
         SuplaServerMock::mockResponse('GET-VALVE-VALUE', "VALUE:1,0\n");
+        self::ensureKernelShutdown();
         $client = self::createClient(
             ['debug' => false],
             ['HTTP_AUTHORIZATION' => 'Bearer ' . $this->peronsalToken->getToken(), 'HTTPS' => true]

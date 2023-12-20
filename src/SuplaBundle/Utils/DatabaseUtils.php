@@ -24,6 +24,6 @@ final class DatabaseUtils {
     }
 
     public static function turnOffQueryBuffering(EntityManagerInterface $entityManager): void {
-        $entityManager->getConnection()->getWrappedConnection()->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+        $entityManager->getConnection()->getNativeConnection()->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
     }
 }

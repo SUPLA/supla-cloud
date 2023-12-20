@@ -52,5 +52,6 @@ class DispatchCyclicTasksCommand extends Command {
             $io->writeln(implode(PHP_EOL, $notRunCommands));
             $io->note('Add -a to run these commands anyway.');
         }
+        return 0;
     }
 }

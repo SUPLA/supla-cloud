@@ -149,8 +149,8 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(400, $response);
         $content = json_decode($response->getContent());
-        $this->assertContains('not supported: turtles', $content->message);
-        $this->assertContains('unicorns', $content->message);
+        $this->assertStringContainsString('not supported: turtles', $content->message);
+        $this->assertStringContainsString('unicorns', $content->message);
     }
 
     public function testGettingDevicesDetails() {
@@ -770,10 +770,10 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $confirmationMessage = TestMailer::getMessages()[0];
         $this->assertArrayHasKey('installer@supla.org', $confirmationMessage->getTo());
         $this->assertStringContainsString('Odblokowanie urządzenia przeznaczonego', $confirmationMessage->getSubject());
-        $this->assertContains($lockedDevice->getName(), $confirmationMessage->getBody());
-        $this->assertContains($lockedDevice->getGUIDString(), $confirmationMessage->getBody());
-        $this->assertContains('/abcdefg', $confirmationMessage->getBody());
-        $this->assertContains('link nie działa', $confirmationMessage->getBody());
+        $this->assertStringContainsString($lockedDevice->getName(), $confirmationMessage->getBody());
+        $this->assertStringContainsString($lockedDevice->getGUIDString(), $confirmationMessage->getBody());
+        $this->assertStringContainsString('/abcdefg', $confirmationMessage->getBody());
+        $this->assertStringContainsString('link nie działa', $confirmationMessage->getBody());
         return $lockedDevice->getId();
     }
 
@@ -810,7 +810,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $confirmationMessage = TestMailer::getMessages()[0];
         $this->assertArrayHasKey($lockedDevice->getUser()->getEmail(), $confirmationMessage->getTo());
         $this->assertStringContainsString('zostało odblokowane', $confirmationMessage->getSubject());
-        $this->assertContains($lockedDevice->getName(), $confirmationMessage->getBody());
+        $this->assertStringContainsString($lockedDevice->getName(), $confirmationMessage->getBody());
     }
 
     public function testDoesNotUnlockDeviceWhenAdRefuses() {

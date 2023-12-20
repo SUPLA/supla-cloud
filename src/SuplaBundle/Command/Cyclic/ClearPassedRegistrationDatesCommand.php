@@ -42,6 +42,7 @@ class ClearPassedRegistrationDatesCommand extends AbstractCyclicCommand {
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->regDatesClean('client', $output);
         $this->regDatesClean('iodevice', $output);
+        return 0;
     }
 
     protected function regDatesClean($scope, $output) {

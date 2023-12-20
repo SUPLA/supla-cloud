@@ -71,6 +71,7 @@ class DeleteNotConfirmedUsersCommand extends AbstractCyclicCommand {
                 $output->writeln('Could not delete user ' . $userToDelete->getUsername());
             }
         }
+        return 0;
     }
 
     public function getIntervalInMinutes(): int {

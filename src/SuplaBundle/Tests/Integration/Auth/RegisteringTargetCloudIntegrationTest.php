@@ -68,7 +68,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('message', $body);
-        $this->assertContains('not available', $body['message']);
+        $this->assertStringContainsString('not available', $body['message']);
     }
 
     public function testRegisteringTargetIfDomainWithSuplaName() {
@@ -78,7 +78,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('message', $body);
-        $this->assertContains('You cannot use SUPLA', $body['message']);
+        $this->assertStringContainsString('You cannot use SUPLA', $body['message']);
     }
 
     public function testRegisteringTargetWithSuplaIoDomain() {
@@ -112,7 +112,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(400, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('message', $body);
-        $this->assertContains('2.3.0', $body['message']);
+        $this->assertStringContainsString('2.3.0', $body['message']);
     }
 
     public function testAdNotAvailable() {
@@ -131,7 +131,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(503, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('message', $body);
-        $this->assertContains('Could not contact Autodiscover', $body['message']);
+        $this->assertStringContainsString('Could not contact Autodiscover', $body['message']);
     }
 
     public function testAdFails() {
@@ -150,7 +150,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(500, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('message', $body);
-        $this->assertContains('Could not contact Autodiscover', $body['message']);
+        $this->assertStringContainsString('Could not contact Autodiscover', $body['message']);
     }
 
     public function testTargetCloudAlreadyRegistered() {
@@ -174,7 +174,7 @@ class RegisteringTargetCloudIntegrationTest extends IntegrationTestCase {
         $this->assertStatusCode(409, $response);
         $body = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('message', $body);
-        $this->assertContains('already registered', $body['message']);
+        $this->assertStringContainsString('already registered', $body['message']);
     }
 
     public function testTargetCloudRemovalRequest() {

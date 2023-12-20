@@ -265,16 +265,16 @@ BEGIN
                 SET @host = '';
                 SET @port = 0;
                 SET @path = '';
-                
+
                 SET @fparam1 = fparam1;
                 SET @fparam2 = fparam2;
                 SET @platform = platform;
                 SET @device_id = device_id;
-                
+
                 INSERT INTO `esp_update_log`(`date`, `device_id`, `platform`, `fparam1`, `fparam2`, `fparam3`, `fparam4`) VALUES (NOW(),device_id,platform,fparam1,fparam2,fparam3,fparam4);
-                
+
                 SELECT u.`protocols`, u.`host`, u.`port`, u.`path` INTO @protocols, @host, @port, @path FROM supla_iodevice AS d, esp_update AS u WHERE d.id = @device_id AND u.`platform` = @platform AND u.`fparam1` = @fparam1 AND u.`fparam2` = @fparam2 AND u.`device_name` = d.name AND u.`latest_software_version` != d.`software_version` AND ( u.`device_id` = 0 OR u.`device_id` = device_id ) LIMIT 1;
-                
+
                 SET protocols = @protocols;
                 SET host = @host;
                 SET port = @port;
@@ -443,7 +443,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `supla_on_newclient`(IN `_client_id` INT)
     NO SQL
-BEGIN	
+BEGIN
 			END//
 DELIMITER ;
 
@@ -667,7 +667,7 @@ DROP TABLE IF EXISTS `supla_v_client`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client` AS SELECT `c`.`id` AS `id`,`c`.`access_id` AS `access_id`,`c`.`guid` AS `guid`,`c`.`name` AS `name`,`c`.`reg_ipv4` AS `reg_ipv4`,
                `c`.`reg_date` AS `reg_date`,`c`.`last_access_ipv4` AS `last_access_ipv4`,`c`.`last_access_date` AS `last_access_date`,
                `c`.`software_version` AS `software_version`,`c`.`protocol_version` AS `protocol_version`,`c`.`enabled` AS `enabled`,
-               `a`.`user_id` AS `user_id` 
+                                                                                `a`.`user_id` AS `user_id`
         FROM (`supla_client` `c` JOIN `supla_accessid` `a` ON((`a`.`id` = `c`.`access_id`))) ;
 
 DROP TABLE IF EXISTS `supla_v_client_channel`;
@@ -712,11 +712,11 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_channel_gro
 				 `g`.`location_id`,
 				 ifnull(`g`.`alt_icon`,0) AS `alt_icon`,
 				 `cl`.`id` AS `client_id`
-				FROM `supla`.`supla_dev_channel_group` `g`
-				  JOIN `supla`.`supla_location` `l` on(`l`.`id` = `g`.`location_id`)
-				  JOIN `supla`.`supla_rel_aidloc` `r` on(`r`.`location_id` = `l`.`id`)
-				  JOIN `supla`.`supla_accessid` `a` on(`a`.`id` = `r`.`access_id`)
-				  JOIN `supla`.`supla_client` `cl` on(`cl`.`access_id` = `r`.`access_id`)
+                                                                                       FROM `supla_dev_channel_group` `g`
+                                                                                                JOIN `supla_location` `l` on (`l`.`id` = `g`.`location_id`)
+                                                                                                JOIN `supla_rel_aidloc` `r` on (`r`.`location_id` = `l`.`id`)
+                                                                                                JOIN `supla_accessid` `a` on (`a`.`id` = `r`.`access_id`)
+                                                                                                JOIN `supla_client` `cl` on (`cl`.`access_id` = `r`.`access_id`)
 				WHERE ((`g`.`func` IS NOT NULL)
 				  AND (ifnull(`g`.`hidden`,0) = 0)
 				  AND (`g`.`func` <> 0)
@@ -724,14 +724,16 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_channel_gro
 				  AND (`a`.`enabled` = 1)) ;
 
 DROP TABLE IF EXISTS `supla_v_client_location`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_location` AS SELECT `l`.`id` AS `id`,`l`.`caption` AS `caption`,`c`.`id` AS `client_id` 
-        FROM ((`supla_rel_aidloc` `al` JOIN `supla_location` `l` ON((`l`.`id` = `al`.`location_id`))) 
-        JOIN `supla_client` `c` ON((`c`.`access_id` = `al`.`access_id`))) 
+CREATE
+ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_client_location` AS
+SELECT `l`.`id` AS `id`, `l`.`caption` AS `caption`, `c`.`id` AS `client_id`
+FROM ((`supla_rel_aidloc` `al` JOIN `supla_location` `l` ON ((`l`.`id` = `al`.`location_id`)))
+    JOIN `supla_client` `c` ON ((`c`.`access_id` = `al`.`access_id`)))
         WHERE (`l`.`enabled` = 1) ;
 
 DROP TABLE IF EXISTS `supla_v_device_accessid`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_device_accessid` AS SELECT `a`.`id` AS `id`,`a`.`user_id` AS `user_id`,cast(`a`.`enabled` as unsigned) AS `enabled`,`a`.`password` AS `password`,
-               `u`.`limit_client` AS `limit_client` 
+                                                                                         `u`.`limit_client` AS `limit_client`
         FROM (`supla_accessid` `a` JOIN `supla_user` `u` ON((`u`.`id` = `a`.`user_id`))) ;
 
 DROP TABLE IF EXISTS `supla_v_device_location`;
@@ -742,19 +744,25 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `supla_v_device_location` A
 DROP TABLE IF EXISTS `supla_v_rel_cg`;
 CREATE ALGORITHM=UNDEFINED VIEW `supla_v_rel_cg` AS SELECT `r`.`group_id` AS `group_id`,`r`.`channel_id` AS `channel_id`,
                  `c`.`iodevice_id` AS `iodevice_id`,`d`.`protocol_version` AS `protocol_version`,
-                 `g`.`client_id` AS `client_id`,`c`.`hidden` AS `channel_hidden` from 
-                 (((`supla`.`supla_v_client_channel_group` `g` join `supla`.`supla_rel_cg` `r` on((`r`.`group_id` = `g`.`id`))) 
-                 join `supla`.`supla_dev_channel` `c` on((`c`.`id` = `r`.`channel_id`))) 
-                 join `supla`.`supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) where `d`.`enabled` = 1 ;
+                                                           `g`.`client_id` AS `client_id`,
+                                                           `c`.`hidden`    AS `channel_hidden`
+                                                    from (((`supla_v_client_channel_group` `g` join `supla_rel_cg` `r`
+                                                            on ((`r`.`group_id` = `g`.`id`)))
+                                                        join `supla_dev_channel` `c` on ((`c`.`id` = `r`.`channel_id`)))
+                                                        join `supla_iodevice` `d` on ((`d`.`id` = `c`.`iodevice_id`)))
+                                                    where `d`.`enabled` = 1;
 
 CREATE ALGORITHM=UNDEFINED VIEW `supla_v_user_channel_group` AS select `g`.`id` AS `id`,`g`.`func` AS `func`,`g`.`caption` AS `caption`,`g`.`user_id` AS `user_id`,
 				 `g`.`location_id` AS `location_id`,ifnull(`g`.`alt_icon`,0) AS `alt_icon`,
-				 `rel`.`channel_id` AS `channel_id`,`c`.`iodevice_id` AS `iodevice_id` 
-				 from ((((`supla_dev_channel_group` `g` join `supla_location` `l` on((`l`.`id` = `g`.`location_id`))) 
-				 join `supla_rel_cg` `rel` on((`rel`.`group_id` = `g`.`id`))) 
-				 join `supla_dev_channel` `c` on((`c`.`id` = `rel`.`channel_id`))) 
-				 join `supla_iodevice` `d` on((`d`.`id` = `c`.`iodevice_id`))) 
-				 where ((`g`.`func` is not null) and (ifnull(`g`.`hidden`,0) = 0) and (`g`.`func` <> 0) 
+                                                                       `rel`.`channel_id` AS `channel_id`,
+                                                                       `c`.`iodevice_id`  AS `iodevice_id`
+                                                                from ((((`supla_dev_channel_group` `g` join `supla_location` `l`
+                                                                         on ((`l`.`id` = `g`.`location_id`)))
+                                                                    join `supla_rel_cg` `rel` on ((`rel`.`group_id` = `g`.`id`)))
+                                                                    join `supla_dev_channel` `c` on ((`c`.`id` = `rel`.`channel_id`)))
+                                                                    join `supla_iodevice` `d` on ((`d`.`id` = `c`.`iodevice_id`)))
+                                                                where ((`g`.`func` is not null) and (ifnull(`g`.`hidden`, 0) = 0) and
+                                                                       (`g`.`func` <> 0)
 				 and (`l`.`enabled` = 1) and (`d`.`enabled` = 1)) ;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

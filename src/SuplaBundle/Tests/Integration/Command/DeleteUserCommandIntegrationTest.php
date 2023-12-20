@@ -33,7 +33,7 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
     /** @var \SuplaBundle\Entity\Main\User */
     private $user;
 
-    protected function setUp() {
+    protected function setUp(): void {
         $this->user = $this->createConfirmedUser();
         $location = $this->createLocation($this->user);
         $this->createDevice($location, [[ChannelType::RELAY, ChannelFunction::LIGHTSWITCH]]);
@@ -43,7 +43,7 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
     public function testDeletingUserNoAd() {
         SuplaAutodiscoverMock::clear(false);
         $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
-        $this->assertContains('has been deleted', $output);
+        $this->assertStringContainsString('has been deleted', $output);
         $this->assertNull($this->getEntityManager()->find(Location::class, 2));
         $this->assertCount(0, SuplaAutodiscoverMock::$requests);
     }
@@ -53,7 +53,7 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
         SuplaAutodiscoverMock::$userMapping[$this->user->getUsername()] = 'supla.local';
         SuplaAutodiscoverMock::mockResponse('users/supler%40supla.org', [], 204, 'DELETE');
         $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
-        $this->assertContains('has been deleted', $output);
+        $this->assertStringContainsString('has been deleted', $output);
         $this->assertNull($this->getEntityManager()->find(Location::class, 2));
         $this->assertCount(2, SuplaAutodiscoverMock::$requests);
     }
@@ -62,7 +62,7 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
         SuplaAutodiscoverMock::clear(true);
         SuplaAutodiscoverMock::$userMapping[$this->user->getUsername()] = 'supla2.local';
         $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
-        $this->assertContains('has been deleted', $output);
+        $this->assertStringContainsString('has been deleted', $output);
         $this->assertNull($this->getEntityManager()->find(Location::class, 2));
         $this->assertCount(1, SuplaAutodiscoverMock::$requests);
     }
@@ -70,7 +70,7 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
     public function testNotDeletingFromAdIfNoTarget() {
         SuplaAutodiscoverMock::clear(true);
         $output = $this->executeCommand('supla:delete-user ' . $this->user->getUsername());
-        $this->assertContains('has been deleted', $output);
+        $this->assertStringContainsString('has been deleted', $output);
         $this->assertNull($this->getEntityManager()->find(Location::class, 2));
         $this->assertCount(1, SuplaAutodiscoverMock::$requests);
     }
@@ -82,6 +82,6 @@ class DeleteUserCommandIntegrationTest extends IntegrationTestCase {
         $this->createDeviceFull($location);
         $this->getEntityManager()->refresh($this->user);
         $output = $this->executeCommand(['command' => 'supla:delete-user', 'username' => $this->user->getUsername()]);
-        $this->assertContains('has been deleted', $output);
+        $this->assertStringContainsString('has been deleted', $output);
     }
 }

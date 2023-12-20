@@ -75,7 +75,7 @@ class EmailFromTemplateHandler implements MessageHandlerInterface {
     }
 
     private function render(string $templateName, array $data): ?string {
-        $path = "SuplaBundle::Email/$templateName.twig";
+        $path = "@Supla/Email/$templateName.twig";
         try {
             return $this->twig->render($path, $data);
         } catch (LoaderError $e) {

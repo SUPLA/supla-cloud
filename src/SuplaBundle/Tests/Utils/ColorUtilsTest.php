@@ -52,7 +52,7 @@ class ColorUtilsTest extends TestCase {
 
     /** @dataProvider colorExamples */
     public function testHsvToDec(array $hsv, int $dec, string $hex) {
-        $this->assertEquals($dec, ColorUtils::hsvToDec($hsv), '', 1.0);
+        $this->assertEqualsWithDelta($dec, ColorUtils::hsvToDec($hsv), 1.0);
     }
 
     /** @dataProvider colorExamples */
@@ -67,7 +67,7 @@ class ColorUtilsTest extends TestCase {
 
     /** @dataProvider colorExamples */
     public function testRgbToDec(array $hsv, int $dec, string $hex, array $rgb) {
-        $this->assertEquals($dec, ColorUtils::rgbToDec($rgb), '', 1);
+        $this->assertEqualsWithDelta($dec, ColorUtils::rgbToDec($rgb), 1);
     }
 
     public function colorExamples(): array {

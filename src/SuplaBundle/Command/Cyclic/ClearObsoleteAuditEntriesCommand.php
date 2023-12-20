@@ -95,6 +95,7 @@ class ClearObsoleteAuditEntriesCommand extends AbstractCyclicCommand {
                 $output->writeln("Deleted obsolete audit entries of type $type: " . $deletedRows);
             }
         }
+        return 0;
     }
 
     public function getIntervalInMinutes(): int {

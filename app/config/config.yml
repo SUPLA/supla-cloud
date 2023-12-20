@@ -125,9 +125,6 @@ framework:
   session:
     cookie_lifetime: 0
     handler_id: ~
-  templating:
-    engines:
-      - twig
   translator:
     fallbacks: en
   trusted_hosts: ~
@@ -258,3 +255,4 @@ twig:
   strict_variables: "%kernel.debug%"
   paths:
     '%kernel.project_dir%/web': web
+    '%kernel.project_dir%/src/SuplaBundle/Resources/views': Supla

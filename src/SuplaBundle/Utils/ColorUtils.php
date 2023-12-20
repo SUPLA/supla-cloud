@@ -98,7 +98,7 @@ final class ColorUtils {
 
     /** @see https://stackoverflow.com/a/13887939/878514 */
     public static function hexToHsv(string $hex): array {
-        if ($hex{1} == 'x') {
+        if ($hex[1] == 'x') {
             $hex = substr($hex, 2);
         }
         $hex = [$hex[0] . $hex[1], $hex[2] . $hex[3], $hex[4] . $hex[5]];

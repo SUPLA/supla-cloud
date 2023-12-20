@@ -93,6 +93,7 @@ class ResendActivationEmailsCommand extends AbstractCyclicCommand {
             } catch (Exception $e) {
             }
         }
+        return 0;
     }
 
     public function getIntervalInMinutes(): int {

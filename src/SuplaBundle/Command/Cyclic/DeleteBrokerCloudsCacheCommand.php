@@ -35,6 +35,7 @@ class DeleteBrokerCloudsCacheCommand extends AbstractCyclicCommand {
             $success = unlink(SuplaAutodiscover::BROKER_CLOUDS_SAVE_PATH);
             Assertion::true($success, 'Could not delete cache file that contains broker clouds list.');
         }
+        return 0;
     }
 
     protected function getIntervalInMinutes(): int {

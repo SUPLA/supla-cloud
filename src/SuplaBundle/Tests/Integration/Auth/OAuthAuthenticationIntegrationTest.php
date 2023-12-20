@@ -25,16 +25,17 @@ use SuplaBundle\Entity\Main\OAuth\ApiClient;
 use SuplaBundle\Entity\Main\OAuth\ApiClientAuthorization;
 use SuplaBundle\Entity\Main\OAuth\AuthCode;
 use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\TestClient;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
+use SuplaBundle\Tests\Integration\Traits\SuplaAssertions;
 use Symfony\Component\DomCrawler\Crawler;
 
 class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
     use SuplaApiHelper;
     use ResponseAssertions;
+    use SuplaAssertions;
 
     /** @var ApiClient */
     private $client;
@@ -90,9 +91,9 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirection());
         $targetUrl = $response->headers->get('Location');
-        $this->assertContains('https://unicorns.pl?', $targetUrl);
-        $this->assertContains('state=horse', $targetUrl);
-        $this->assertContains('code=', $targetUrl);
+        $this->assertStringContainsString('https://unicorns.pl?', $targetUrl);
+        $this->assertStringContainsString('state=horse', $targetUrl);
+        $this->assertStringContainsString('code=', $targetUrl);
     }
 
     public function testRequestForInvalidScopeResultsInRedirectionWithError() {
@@ -100,9 +101,9 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirection());
         $targetUrl = $response->headers->get('Location');
-        $this->assertContains('https://unicorns.pl?', $targetUrl);
-        $this->assertContains('error=invalid_scope', $targetUrl);
-        $this->assertContains('state=horse', $targetUrl);
+        $this->assertStringContainsString('https://unicorns.pl?', $targetUrl);
+        $this->assertStringContainsString('error=invalid_scope', $targetUrl);
+        $this->assertStringContainsString('state=horse', $targetUrl);
     }
 
     public function testRequestForInvalidResponseTypeResultsInRedirectionWithError() {
@@ -110,9 +111,9 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirection());
         $targetUrl = $response->headers->get('Location');
-        $this->assertContains('https://unicorns.pl?', $targetUrl);
-        $this->assertContains('error=unsupported_response_type', $targetUrl);
-        $this->assertContains('state=horse', $targetUrl);
+        $this->assertStringContainsString('https://unicorns.pl?', $targetUrl);
+        $this->assertStringContainsString('error=unsupported_response_type', $targetUrl);
+        $this->assertStringContainsString('state=horse', $targetUrl);
     }
 
     public function testRequestForInvalidRedirectUriResultsInError() {
@@ -127,7 +128,7 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $client = $this->makeOAuthAuthorizeRequest(['client_id' => '1_local'], ['login' => false]);
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
-        $this->assertContains('ask-for-target-cloud', $response->getContent());
+        $this->assertStringContainsString('ask-for-target-cloud', $response->getContent());
     }
 
     private function issueTokenBasedOnAuthCode($authCode = null, array $params = []) {
@@ -425,6 +426,6 @@ class OAuthAuthenticationIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('mqtt_broker', $response['scope']);
         $this->user = $this->getEntityManager()->find(User::class, $this->user->getId());
         $this->assertTrue($this->user->isMqttBrokerEnabled());
-        $this->assertContains('USER-ON-MQTT-SETTINGS-CHANGED:' . $this->user->getId(), SuplaServerMock::$executedCommands);
+        $this->assertSuplaCommandExecuted('USER-ON-MQTT-SETTINGS-CHANGED:' . $this->user->getId());
     }
 }

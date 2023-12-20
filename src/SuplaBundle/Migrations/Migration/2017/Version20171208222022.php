@@ -111,6 +111,6 @@ PROCEDURE
     }
 
     private function procedureExists(string $name): bool {
-        return !!$this->getConnection()->fetchColumn('SELECT COUNT(*) FROM information_schema.routines WHERE routine_type="PROCEDURE" AND routine_schema=DATABASE() AND routine_name="' . $name . '"');
+        return !!$this->getConnection()->fetchOne('SELECT COUNT(*) FROM information_schema.routines WHERE routine_type="PROCEDURE" AND routine_schema=DATABASE() AND routine_name="' . $name . '"');
     }
 }

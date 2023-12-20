@@ -233,7 +233,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
         $this->pushNotifications = new ArrayCollection();
     }
 
-    public function getId(): int {
+    public function getId() {
         return $this->id;
     }
 

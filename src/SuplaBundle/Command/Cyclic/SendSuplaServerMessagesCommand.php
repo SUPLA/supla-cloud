@@ -19,7 +19,6 @@ namespace SuplaBundle\Command\Cyclic;
 
 use Assert\Assertion;
 use Doctrine\ORM\EntityManagerInterface;
-use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\ClientApp;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Message\EmailFromTemplate;
@@ -65,8 +64,6 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
             } elseif ($type === 'email') {
                 try {
                     $message = $this->getMessage($template, $data, $userId);
-                    $eventTime = new \DateTime($suplaServerMessage['available_at'], new \DateTimeZone('UTC'));
-                    EntityUtils::setField($message, 'eventTimestamp', $eventTime->getTimestamp());
                     $this->messageBus->dispatch($message);
                 } catch (\InvalidArgumentException $e) {
                     $output->writeln('<error>Invalid message data.</error>');
@@ -82,6 +79,7 @@ class SendSuplaServerMessagesCommand extends AbstractCyclicCommand {
                 $output->writeln("<info>Dispatched supla server message ($template to user ID $userId)</info>");
             }
         }
+        return 0;
     }
 
     private function getMessage(string $template, array $data, int $userId): EmailFromTemplate {

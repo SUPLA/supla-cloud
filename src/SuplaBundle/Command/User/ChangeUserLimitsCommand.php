@@ -91,6 +91,7 @@ class ChangeUserLimitsCommand extends Command {
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         $output->writeln('<info>User limits have been updated.</info>');
+        return 0;
     }
 
     private function apiRateLimitQuestion(ApiRateLimitRule $currentLimit): Question {

@@ -71,6 +71,7 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
 
     public function testDisplaysNormalLoginFormIfLocalClientDoesNotExistButCloudIsNotBroker() {
         SuplaAutodiscoverMock::$isBroker = false;
+        self::ensureKernelShutdown();
         $client = self::createClient(['debug' => false], ['HTTPS' => true, 'HTTP_Accept' => 'text/html']);
         $client->followRedirects();
         $crawler = $client->request('GET', $this->oauthAuthorizeUrl('1_public'));
@@ -95,11 +96,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirect());
         $targetUrl = $response->headers->get('Location');
-        $this->assertContains('https://target.cloud/oauth/v2/auth?', $targetUrl);
-        $this->assertContains('client_id=1_local', $targetUrl);
-        $this->assertContains('scope=account_r', $targetUrl);
-        $this->assertContains('ad_username=ala%40supla.org', $targetUrl);
-        $this->assertContains('state=some-state', $targetUrl);
+        $this->assertStringContainsString('https://target.cloud/oauth/v2/auth?', $targetUrl);
+        $this->assertStringContainsString('client_id=1_local', $targetUrl);
+        $this->assertStringContainsString('scope=account_r', $targetUrl);
+        $this->assertStringContainsString('ad_username=ala%40supla.org', $targetUrl);
+        $this->assertStringContainsString('state=some-state', $targetUrl);
         $this->assertTrue($targetCalled);
     }
 
@@ -127,11 +128,11 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertTrue($response->isRedirect());
         $targetUrl = $response->headers->get('Location');
-        $this->assertContains('https://target.cloud/oauth/v2/auth?', $targetUrl);
-        $this->assertContains('client_id=1_local', $targetUrl);
-        $this->assertContains('scope=account_r', $targetUrl);
-        $this->assertContains('ad_username=ala%40supla.org', $targetUrl);
-        $this->assertContains('state=some-state', $targetUrl);
+        $this->assertStringContainsString('https://target.cloud/oauth/v2/auth?', $targetUrl);
+        $this->assertStringContainsString('client_id=1_local', $targetUrl);
+        $this->assertStringContainsString('scope=account_r', $targetUrl);
+        $this->assertStringContainsString('ad_username=ala%40supla.org', $targetUrl);
+        $this->assertStringContainsString('state=some-state', $targetUrl);
     }
 
     public function testDisplaysErrorIfTargetCloudIsNotRegisteredInAutodiscover() {
@@ -176,8 +177,8 @@ class OAuthBrokerAuthorizationIntegrationTest extends IntegrationTestCase {
         $targetUrl = $response->headers->get('Location');
         /** @var \SuplaBundle\Entity\Main\OAuth\ApiClient $createdClient */
         $createdClient = $this->clientManager->findClientBy(['name' => 'unicorn']);
-        $this->assertContains('https://supla.local/oauth/v2/auth?', $targetUrl);
-        $this->assertContains('client_id=' . $createdClient->getPublicId(), $targetUrl);
+        $this->assertStringContainsString('https://supla.local/oauth/v2/auth?', $targetUrl);
+        $this->assertStringContainsString('client_id=' . $createdClient->getPublicId(), $targetUrl);
         $this->assertEquals('Cool app', $createdClient->getDescription());
         $this->assertEquals('1_public', $createdClient->getPublicClientId());
         $this->assertEquals(['https://cool.app'], $createdClient->getRedirectUris());

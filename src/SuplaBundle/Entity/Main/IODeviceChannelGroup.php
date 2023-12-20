@@ -146,7 +146,7 @@ class IODeviceChannelGroup implements ActionableSubject, HasLocation, HasRelatio
         }
     }
 
-    public function getId(): int {
+    public function getId() {
         return $this->id;
     }
 

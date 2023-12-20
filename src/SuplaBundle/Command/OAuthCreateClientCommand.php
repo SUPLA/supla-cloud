@@ -35,7 +35,6 @@ class OAuthCreateClientCommand extends Command {
 
     /** @inheritdoc */
     protected function execute(InputInterface $input, OutputInterface $output) {
-
         $io = new SymfonyStyle($input, $output);
         $io->title('Client Credentials');
         // Create a new client
@@ -50,5 +49,6 @@ class OAuthCreateClientCommand extends Command {
             [$client->getPublicId(), $client->getSecret()],
         ];
         $io->table($headers, $rows);
+        return 0;
     }
 }

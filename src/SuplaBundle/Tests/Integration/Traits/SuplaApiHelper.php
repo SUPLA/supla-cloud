@@ -28,6 +28,7 @@ trait SuplaApiHelper {
     use UserFixtures;
 
     protected function authenticate($username = 'supler@supla.org', string $password = 'supla123') {
+        self::ensureKernelShutdown();
         $client = self::createClient([], ['HTTPS' => true]);
         $client->request('POST', '/api/webapp-tokens', [
             'username' => $username,
@@ -38,6 +39,7 @@ trait SuplaApiHelper {
     }
 
     protected function createAuthenticatedClient($username = 'supler@supla.org', $debug = false): TestClient {
+        self::ensureKernelShutdown();
         $username = $username instanceof User ? $username->getUsername() : $username;
         /** @var Client $client */
         $client = self::createClient(['debug' => $debug], ['HTTP_AUTHORIZATION' => 'Bearer ' . base64_encode($username), 'HTTPS' => true]);

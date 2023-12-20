@@ -32,7 +32,7 @@ class MigratingUserMd5PasswordToBcryptIntegrationTest extends IntegrationTestCas
     /** @var EncoderFactoryInterface */
     private $encoderFactory;
 
-    protected function setUp() {
+    protected function setUp(): void {
         $this->user = $this->createConfirmedUser();
         $this->encoderFactory = self::$container->get('security.encoder_factory');
         $encoderFactory = $this->encoderFactory;

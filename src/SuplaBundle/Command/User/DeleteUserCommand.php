@@ -51,5 +51,6 @@ USERINFO;
             $output->writeln('<error>User does not exist.</error>');
             return 1;
         }
+        return 0;
     }
 }

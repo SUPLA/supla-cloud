@@ -50,7 +50,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
     /** @small */
     public function testNotDisablingScheduleWithFutureExecutionsOnly() {
         $output = $this->executeCommand('supla:clean:disable-broken-schedules');
-        $this->assertContains('Disabled 0 schedules', $output);
+        $this->assertStringContainsString('Disabled 0 schedules', $output);
         $this->getEntityManager()->refresh($this->schedule);
         $this->assertTrue($this->schedule->getEnabled());
     }
@@ -62,7 +62,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
             "UPDATE supla_scheduled_executions SET result=$this->resultSuccess WHERE id=100"
         );
         $output = $this->executeCommand('supla:clean:disable-broken-schedules');
-        $this->assertContains('Disabled 0 schedules', $output);
+        $this->assertStringContainsString('Disabled 0 schedules', $output);
     }
 
     /** @small */
@@ -71,7 +71,7 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
             'UPDATE supla_scheduled_executions SET result=' . ScheduleActionExecutionResult::EXECUTED_WITHOUT_CONFIRMATION
         );
         $output = $this->executeCommand('supla:clean:disable-broken-schedules');
-        $this->assertContains('Disabled 0 schedules', $output);
+        $this->assertStringContainsString('Disabled 0 schedules', $output);
     }
 
     public function testDisablingScheduleSuccessfulEntryLongTimeAgo() {
@@ -81,13 +81,13 @@ class DisableBrokenSchedulesCommandIntegrationTest extends IntegrationTestCase {
             "UPDATE supla_scheduled_executions SET result=$this->resultSuccess, planned_timestamp='$fiveWeeksAgo' WHERE id=100"
         );
         $output = $this->executeCommand('supla:clean:disable-broken-schedules');
-        $this->assertContains('Disabled 1 schedules', $output);
+        $this->assertStringContainsString('Disabled 1 schedules', $output);
     }
 
     public function testDisablingScheduleIfALotOfFailedExecutions() {
         $this->getEntityManager()->getConnection()->executeQuery("UPDATE supla_scheduled_executions SET result=$this->resultFailure");
         $output = $this->executeCommand('supla:clean:disable-broken-schedules');
-        $this->assertContains('Disabled 1 schedules', $output);
+        $this->assertStringContainsString('Disabled 1 schedules', $output);
         $this->getEntityManager()->refresh($this->schedule);
         $this->assertFalse($this->schedule->getEnabled());
     }
