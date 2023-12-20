@@ -321,6 +321,7 @@ class DevicesFixture extends SuplaFixture {
             ],
             [ChannelType::SENSORNO, ChannelFunction::HOTELCARDSENSOR],
             [ChannelType::SENSORNO, ChannelFunction::NONE],
+            [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
         ], '');
         AnyFieldSetter::set($hvac, [
             'userConfig' => json_encode([

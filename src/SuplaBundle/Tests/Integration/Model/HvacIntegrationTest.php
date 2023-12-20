@@ -566,10 +566,12 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'TURN_OFF_WITH_DURATION', 'durationMs' => 31535000000], 'ACTION-TURN-OFF-WITH-DURATION:1,1,4,31535000000'],
             [3, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,3'],
             [4, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,4'],
+            [8, ['action' => 'HVAC_SWITCH_TO_PROGRAM_MODE'], 'ACTION-HVAC-SWITCH-TO-PROGRAM-MODE:1,1,8'],
             [3, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,3'],
             [4, ['action' => 'HVAC_SWITCH_TO_MANUAL_MODE'], 'ACTION-HVAC-SWITCH-TO-MANUAL-MODE:1,1,4'],
             [3, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5], 'ACTION-HVAC-SET-TEMPERATURE:1,1,3,2250'],
             [4, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5], 'ACTION-HVAC-SET-TEMPERATURE:1,1,4,2250'],
+            [8, ['action' => 'HVAC_SET_TEMPERATURE', 'temperature' => 22.5], 'ACTION-HVAC-SET-TEMPERATURE:1,1,8,2250'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'temperatureHeat' => 22.5], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,0,1'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'temperatureCool' => 21.5], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,0,2150,2'],
             [4, ['action' => 'HVAC_SET_TEMPERATURES', 'temperatureHeat' => 22.5, 'temperatureCool' => 23.5], 'ACTION-HVAC-SET-TEMPERATURES:1,1,4,2250,2350,3'],
@@ -582,6 +584,7 @@ class HvacIntegrationTest extends IntegrationTestCase {
             [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT'], 'ACTION-HVAC-SET-PARAMETERS:1,1,4,0,2,0,0,0'],
             [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'COOL', 'temperatureCool' => 22.5], 'ACTION-HVAC-SET-PARAMETERS:1,1,4,0,3,0,2250,2'],
             [4, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT_COOL', 'temperatureHeat' => 12, 'temperatureCool' => 22.5, 'durationMs' => 3600], 'ACTION-HVAC-SET-PARAMETERS:1,1,4,3600,4,1200,2250,3'],
+            [8, ['action' => 'HVAC_SET_PARAMETERS', 'mode' => 'HEAT'], 'ACTION-HVAC-SET-PARAMETERS:1,1,8,0,2,0,0,0'],
         ];
         // @codingStandardsIgnoreEnd
     }
