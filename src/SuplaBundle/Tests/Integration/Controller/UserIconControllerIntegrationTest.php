@@ -111,7 +111,7 @@ class UserIconControllerIntegrationTest extends IntegrationTestCase {
     public function testCreatingIconForLightSwitch() {
         $client = $this->createAuthenticatedClient($this->user);
         $image1 = new UploadedFile(self::SAMPLE_PNG_FILEPATH, 'devices.png');
-        $image2 = new UploadedFile(\AppKernel::ROOT_PATH . '/../web/assets/img/user.png', 'user.png');
+        $image2 = new UploadedFile(\AppKernel::ROOT_PATH . '/../web/assets/img/digiglass/opaque.png', 'user.png');
         $client->apiRequestV24(
             'POST',
             '/api/user-icons',

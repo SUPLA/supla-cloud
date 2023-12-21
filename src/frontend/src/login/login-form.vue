@@ -94,9 +94,8 @@
                 <span class="pe-7s-help1 mr-1 login-button-icon"></span>
                 {{ $t('Forgot your password?') }}
             </router-link>
-            <router-link to="/register"
-                class="btn btn-white btn-wrapped">
-                <img src="/assets/img/user.png">
+            <router-link to="/register" class="btn btn-white btn-wrapped">
+                <img src="../assets/img/user.png">
                 {{ $t('Create an account') }}
             </router-link>
         </div>

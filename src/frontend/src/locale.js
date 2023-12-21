@@ -62,7 +62,7 @@ Vue.prototype.$updateUserLocale = (lang) => {
 const loadedLanguages = [];
 
 const loadLanguage = (lang) => {
-    return import(`json-loader!yaml-loader!../../SuplaBundle/Resources/translations/messages.${lang}.yml`)
+    return import(`../../SuplaBundle/Resources/translations/messages.${lang}.yml`)
         .then((translations) => {
             i18n.setLocaleMessage(lang, translations.default);
             loadedLanguages.push(lang);

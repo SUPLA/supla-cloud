@@ -3,41 +3,38 @@ name: default
 
 steps:
   - name: install-frontend
-    image: node:14.18.1-slim
+    image: node:16.20.2-slim
     depends_on: [clone]
     commands:
-      - npm install --global npm@7
       - npm -v
       - node -v
       - cd src/frontend
       - (ls node_modules && npm prune) || true
-      - npm install
+      - npm ci
 
   - name: build-frontend
-    image: node:14.18.1-slim
+    image: node:16.20.2-slim
     depends_on: [install-frontend]
     commands:
       - cd src/frontend && npm run build
 
   - name: lint-frontend
-    image: node:14.18.1-slim
+    image: node:16.20.2-slim
     depends_on: [install-frontend]
     commands:
       - cd src/frontend && npm run lint -s
 
   - name: audit-frontend
-    image: node:14.18.1-slim
+    image: node:16.20.2-slim
     depends_on: [install-frontend]
     commands:
       - cd src/frontend && npm audit --production
 
   - name: test-frontend-unit
-    image: node:14.18.1-slim
+    image: node:16.20.2-slim
     depends_on: [build-frontend]
     commands:
-      - npm install --global npm@7
       - cd src/frontend
-      - npm install
       - npm run test:unit
 
   - name: install-backend
@@ -81,22 +78,18 @@ steps:
       CYPRESS_DATABASE: mysql://root@database/supla_e2e
     commands:
       - apt-get update && apt-get install -y dialog php7.3 php7.3-curl php7.3-dom php7.3-intl php7.3-json php7.3-mbstring php7.3-mysql php7.3-zip
-      - npm install --global npm@7
       - cd src/frontend
-      - npm install
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:ci
 
   - name: test-e2e-nightly
-    image: cypress/base:14.18.1
+    image: cypress/base:16.18.1
     depends_on: [test-e2e]
     when:
       cron: nightly
       event: cron
     commands:
-      - npm install --global npm@7
       - cd src/frontend
-      - npm install
       - node_modules/cypress/bin/cypress install
       - npm run test:e2e:nightly
 

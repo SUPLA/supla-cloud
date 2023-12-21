@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-    import {computed} from "vue";
+    import {computed, defineProps} from "vue";
     import TransitionExpand from "@/common/gui/transition-expand";
 
     const props = defineProps({channel: Object});

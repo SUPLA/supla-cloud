@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-    import {computed, ref} from "vue";
+    import {computed, defineEmits, defineProps, ref} from "vue";
     import TransitionExpand from "@/common/gui/transition-expand";
 
     const props = defineProps({channel: Object});

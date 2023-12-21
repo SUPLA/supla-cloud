@@ -46,7 +46,7 @@
     import FunctionIcon from "./function-icon";
     import ConnectionStatusLabel from "../devices/list/connection-status-label.vue";
     import ActionTriggerIndicator from "@/channels/action-trigger/action-trigger-indicator";
-    import {computed} from "vue";
+    import {computed, defineProps} from "vue";
     import {i18n} from "@/locale";
 
     const props = defineProps({

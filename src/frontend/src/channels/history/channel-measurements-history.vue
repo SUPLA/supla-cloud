@@ -187,7 +187,7 @@
                     this.fetchAllLogs();
                     this.renderCharts();
                     this.setTimeRange({
-                        afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86_400_000 * 7),
+                        afterTimestampMs: Math.max(this.oldestLog.date_timestamp * 1000, this.newestLog.date_timestamp * 1000 - 86400000 * 7),
                         beforeTimestampMs: this.newestLog.date_timestamp * 1000,
                     })
                 }

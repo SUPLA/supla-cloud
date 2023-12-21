@@ -73,10 +73,10 @@
 <script>
     import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import Switches from "vue-switches";
-    import Vue from "vue";
     import {successNotification, warningNotification} from "../common/notifier";
     import ClientAppTile from "./client-app-tile";
     import AccessIdChooser from "../access-ids/access-id-chooser";
+    import {assign} from "lodash";
 
     export default {
         props: ['app'],
@@ -94,7 +94,7 @@
         },
         methods: {
             edit() {
-                this.editingModel = Vue.util.extend({}, this.app);
+                this.editingModel = {...this.app};
             },
             cancelEdit() {
                 this.editingModel = null;
@@ -102,7 +102,7 @@
             save() {
                 this.saving = true;
                 this.$http.put(`client-apps/${this.app.id}`, this.editingModel)
-                    .then(({body}) => Vue.util.extend(this.app, body))
+                    .then(({body}) => assign(this.app, body))
                     .then(() => this.editingModel = null)
                     .then(() => successNotification(this.$t('Success'), this.$t('Data saved')))
                     .then(() => this.$emit('change'))

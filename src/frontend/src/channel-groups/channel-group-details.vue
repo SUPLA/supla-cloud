@@ -108,7 +108,6 @@
 </template>
 
 <script>
-    import Vue from "vue";
     import FunctionIcon from "../channels/function-icon.vue";
     import ChannelGroupNewChannelChooser from "./channel-group-new-channel-chooser.vue";
     import ChannelGroupChannelTile from "./channel-group-channel-tile";
@@ -160,7 +159,7 @@
                         .then(response => this.channelGroup = response.body)
                         .then(() => {
                             if (AppState.shiftTask('channelGroupNew')) {
-                                Vue.nextTick(() => this.$refs.channelGroupChannels.scrollIntoView());
+                                this.$nextTick(() => this.$refs.channelGroupChannels.scrollIntoView());
                             }
                         })
                         .catch(response => this.error = response.status)
@@ -186,7 +185,7 @@
                 }
             },
             saveChannelGroup() {
-                const toSend = Vue.util.extend({}, this.channelGroup);
+                const toSend = {...this.channelGroup};
                 this.loading = true;
                 if (this.isNewGroup) {
                     this.$http.post('channel-groups', toSend).then(response => {
