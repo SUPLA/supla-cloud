@@ -769,7 +769,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotEmpty(TestMailer::getMessages());
         $confirmationMessage = TestMailer::getMessages()[0];
         $this->assertArrayHasKey('installer@supla.org', $confirmationMessage->getTo());
-        $this->assertContains('Confirm device unlock', $confirmationMessage->getSubject());
+        $this->assertStringContainsString('Odblokowanie urządzenia przeznaczonego', $confirmationMessage->getSubject());
         $this->assertContains($lockedDevice->getName(), $confirmationMessage->getBody());
         $this->assertContains($lockedDevice->getGUIDString(), $confirmationMessage->getBody());
         $this->assertContains('/abcdefg', $confirmationMessage->getBody());
@@ -809,7 +809,7 @@ class IODeviceControllerIntegrationTest extends IntegrationTestCase {
         $this->assertNotEmpty(TestMailer::getMessages());
         $confirmationMessage = TestMailer::getMessages()[0];
         $this->assertArrayHasKey($lockedDevice->getUser()->getEmail(), $confirmationMessage->getTo());
-        $this->assertContains('has been unlocked', $confirmationMessage->getSubject());
+        $this->assertStringContainsString('zostało odblokowane', $confirmationMessage->getSubject());
         $this->assertContains($lockedDevice->getName(), $confirmationMessage->getBody());
     }
 
