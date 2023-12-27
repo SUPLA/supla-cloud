@@ -43,6 +43,7 @@ class AccessTokenSerializer extends AbstractSerializer implements NormalizerAwar
             }
             $normalized['issuerIp'] = $accessToken->getIssuerIp();
             $normalized['isForWebapp'] = $accessToken->isForWebapp();
+            $normalized['apiClient'] = $this->normalizer->normalize($accessToken->getClient(), null, $context);
             $normalized['apiClientAuthorization'] = $this->normalizer->normalize($accessToken->getApiClientAuthorization(), null, $context);
             $normalized['expiresAt'] = (new \DateTime('@' . $accessToken->getExpiresAt()))->format(\DateTime::ATOM);
         }

@@ -46,7 +46,7 @@
                 <tbody>
                 <tr v-for="accessToken in applicationTokens" :key="accessToken.id">
                     <td>
-                        {{ accessToken.apiClientAuthorization.apiClient.name }}
+                        {{ accessToken.apiClient.name }}
                     </td>
                     <td>
                         {{ accessToken.expiresAt | formatDateTime }}
