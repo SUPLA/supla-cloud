@@ -1092,6 +1092,13 @@ When the roof window will be opened or closed: Kiedy okno dachowe zostanie zamkn
 When the temperature changes: Kiedy zmieni się temperatura
 When the temperature reaches a certain value: Kiedy temperatura osiągnie określoną wartość
 When the temperature will be: Kiedy temperatura będzie
+When the thermostat starts cooling: Gdy termostat zacznie chłodzić
+When the thermostat starts heating: Gdy termostat zacznie grzać
+When the thermostat starts or stops cooling: Gdy termostat zacznie lub przestanie chłodzić
+When the thermostat starts or stops heating: Gdy termostat zacznie lub przestanie grzać
+When the thermostat starts or stops heating or cooling: Gdy termostat zacznie lub przestanie grzać lub chłodzić
+When the thermostat stops cooling: Gdy termostat przestanie chłodzić
+When the thermostat stops heating: Gdy termostat przestanie grzać
 When the value will be: Kiedy wartość będzie
 When the valve is closed: Kiedy zawór zostanie zamknięty
 When the valve is manually closed: Kiedy zawór zostanie ręcznie zamknięty
@@ -1203,8 +1210,8 @@ and wait until the temperature will be: i nie wykonuj ponownie tej reakcji, aż 
 and wait until the value will be: i nie wykonuj ponownie tej reakcji, aż wartość będzie
 auxThermometerType_DISABLED: Wyłączony
 auxThermometerType_FLOOR: Podłoga
-auxThermometerType_GENERIC_COOLER: Źródło ciepła
-auxThermometerType_GENERIC_HEATER: Źródło chłodu
+auxThermometerType_GENERIC_COOLER: Źródło chłodu
+auxThermometerType_GENERIC_HEATER: Źródło ciepła
 auxThermometerType_NOT_SET: Nieustawiony
 auxThermometerType_WATER: Woda
 average: średnia
