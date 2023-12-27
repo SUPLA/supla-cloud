@@ -10,6 +10,7 @@
 15 minutes after sunrise, every 2 days: 15 minut po wschodzie słońca, co drugi dzień
 A confirmation upon successful client app registration.: Potwierdzenie rejestracji nowej aplikacji klienckiej.
 A confirmation upon successful device registration.: Potwierdzenie pomyślnej rejestracji urządzenia.
+A confirmation upon successful device unlocking.: Potwierdzenie odblokowania urządzenia.
 A new client app (smartphone) been added to your SUPLA-Cloud account.: Nowa aplikacja kliencka (smartfon) została dodana do Twojego konta SUPLA-Cloud.
 A new device has been added to your SUPLA-Cloud account.: Nowe urządzenie zostało dodane do Twojego konta SUPLA-Cloud.
 A new personal access token has been generated.: Wygenerowano nowy osobisty token dostępowy
@@ -27,7 +28,7 @@ Access ID is not active right now.: Identyfikator dostępu nie jest teraz aktywn
 Access Identifier: Identyfikator Dostępu
 Access Identifiers: Identyfikatory dostępu
 Access identifier limit has been exceeded: Limit identyfikatorów dostępu został przekroczony
-Access to all of your devices through MQTT Broker: Dostęp do wszystich Twoich urządzeń przez Brokera MQTT
+Access to all of your devices through MQTT Broker: Dostęp do wszystkich Twoich urządzeń przez Brokera MQTT
 Account: Konto
 Account access when you are unavailable: Dostęp do konta kiedy jesteś niedostępny(a)
 Account has been activated. You can Sign In now.: Konto zostało aktywowane. Możesz się zalogować
@@ -146,7 +147,7 @@ Brightness adjustment for automatic mode: Dostosowanie jasności trybu automatyc
 Brightness level: Poziom jasności
 Button volume: Przycisk głośności
 By opting out you are agreeing that your device can be controlled without secondary user verification, potentially leading to an unsecure state (or less secure setting).: Wyłączenie tej opcji umożliwi sterowanie tym urządzeniem z poziomu integracji bez dodatkowego potwierdzenia. To może prowadzić do niebezpiecznego lub mniej bezpiecznego stanu (np. przypadkowego otwarcia bramy).
-By signing in, you are authorizing {clientName} to control your devices.: Logując się, upoważaniasz aplikację {clientName} do kontrolowania Twoich urządzeń.
+By signing in, you are authorizing {clientName} to control your devices.: Logując się, upoważniasz aplikację {clientName} do kontrolowania Twoich urządzeń.
 CLICK TO DISABLE: KLIKNIJ ABY WYŁĄCZYĆ
 CLICK TO ENABLE: KLIKNIJ ABY WŁĄCZYĆ
 Calibrate: Kalibruj
@@ -284,6 +285,7 @@ Depth sensor: Czujnik głębokości
 Description: Opis
 Details: Szczegóły
 Device: Urządzenie
+'Device GUID: %deviceGuid%': 'GUID urządzenia: %deviceGuid%'
 'Device ID: %deviceId%': 'Identyfikator urządzenia: %deviceId%'
 Device channel value: Wartość z urządzenia
 Device is disconnected.: Urządzenie jest rozłączone.
@@ -450,12 +452,14 @@ IP Address: Adres IP
 Icon: Ikona
 Idle: Bezczynne
 If the device is currently in the sleep mode, the configuration changes you made will be applied after it is woken up.: Jeśli urządzenie jest obecnie w trybie uśpienia, zmiany w konfiguracji zostaną wprowadzone po jego wybudzeniu.
-If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jeśli urządzenie jest teraz uśpione, zostanie wprowadzone w tryb konfiguracjiu przy jego najbliższym wybudzeniu.
+If the device is not awaken now, it will enter the configuration mode at the next wake up.: Jeśli urządzenie jest teraz uśpione, zostanie wprowadzone w tryb konfiguracji, przy jego najbliższym wybudzeniu.
 If the link is not working, please copy and paste it or enter manually in a new browser window.: Jeśli link nie działa, skopiuj go do paska adresu przeglądarki internetowej lub wpisz ręcznie.
 If you are a developer who wants to provide additional features for SUPLA, create an OAuth application that users can authorize and use.: Jeśli jesteś programistą, który chce dostarczyć dodatkowe funkcje dla SUPLI, utwórz aplikację OAuth, którą użytkownicy będą mogli autoryzować i używać.
 If you are sure you have an account on cloud.supla.org, check if the application you are trying to authorize is public.: Jeśli masz pewność, że posiadasz konto na cloud.supla.org, sprawdź, czy aplikacja, którą próbujesz autoryzować, jest publiczna.
+If you confirm the installation and wish to unlock this device, please click the link below.: Jeżeli to Ty próbujesz dodać nowe urządzenie, kliknij poniższy link, aby potwierdzić odblokowanie.
 If you did not request this password reset, please ignore this information.: Jeżeli nie zażądałeś(aś) zresetowania hasła zignoruj tę wiadomość.
 If you do not want to delete your account on %cloudHost%, please do not click the link.: Jeżeli nie chcesz usuwać konta w serwisie %cloudHost%, nie klikaj odnośnika.
+If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.: Jeżeli to nie Ty próbujesz odblokować urządzenie, zignoruj ten e-mail. Link potwierdzający wygaśnie automatycznie po upłynięciu 24 godzin.
 If you do not want to unregister your instance, please do not click the link.: Jeśli nie chcesz wyrejestrować twojej instancji, nie klikaj linku.
 If you fail to connect this AP for several minutes, it will restart itself and use the last settings.: Jeśli nie uda Ci się połączyć z tym punktem dostępowym przez kilka minut, urządzenie zrestartuje się i połączy używając ostatnich ustawień.
 If you have doubts or more questions, you can contact us directly at %securityEmail%.: Jeśli masz wątpliwości lub pytania, możesz się z nami skontaktować pisząc na adres %securityEmail%.
@@ -481,6 +485,7 @@ Incremental: Przyrostowe
 Information: Informacja
 Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
 Initial value: Wartość początkowa
+Installer e-mail address: Adres e-mail instalatora
 Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
 Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
 Integrations: Integracje
@@ -491,12 +496,14 @@ Interrupt and execute: Przerwij i wykonaj
 Interval: Interwał
 Invalid SUPLA Cloud URL.: Niepoprawny adres URL instancji SUPLA Cloud.
 Invalid action parameters: Niepoprawne parametry wykonania.
+Invalid e-mail address.: Nieprawidłowy adres e-mail.
 Invalid function for channel.: Niepoprawna funkcja dla kanału.
 'Invalid redirect URI: {uri}': 'Niepoprawny URL zwrotny: {uri}'
 Invalid request: Niepoprawne żądanie
 Invalid request.: Niepoprawne żądanie.
 Invalid scene: Niepoprawna scena
 Invalid token.: Niepoprawny token.
+Invalid unlock code.: Niepoprawny link odblokowujący.
 Invalid username or password: Niepoprawna nazwa użytkownika lub hasło
 Inverted logic: Odwrócona logika
 Invisible: Niewidoczne
@@ -650,7 +657,7 @@ PIN for Google must have a length between {minLength} and {maxLength} digits.: P
 Partial opening sensor: Czujnik pośredniego otwarcia
 Password: Hasło
 Password Reset: Resetowanie hasła
-Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Zmiana hasła spowoduje wylogowanie wszytkich aktualnych sesji. Nie wpłynie to jednak na aplikacje, które otrzymały od Ciebie autoryzację. Zgody na logowanie aplikacji musisz wycofać oddzielnie.
+Password change will result in clearing all active sessions. However, apps that have access to your account will still be able to authenticate unless you withdraw their permissions.: Zmiana hasła spowoduje wylogowanie wszystkich aktualnych sesji. Nie wpłynie to jednak na aplikacje, które otrzymały od Ciebie autoryzację. Zgody na logowanie aplikacji musisz wycofać oddzielnie.
 Password changed: Hasło zmienione
 Password has been changed: Hasło zostało zmienione
 Password must be at least {minLength} characters.: Hasło musi mieć co najmniej {minLength} znaków.
@@ -669,13 +676,16 @@ Phase number: Faza
 Phase {phaseNumber}: Faza {phaseNumber}
 Please choose the schedule subject first.: Najpierw wybierz czym harmonogram ma sterować
 Please click the following link to reset your %cloudHost% password.: Kliknij poniższy link w celu zresetowania Twojego hasła do aplikacji %cloudHost%.
-Please click the link we have sent you after the registration to proceed.: Kliknij link z wiadomośći, którą wysłaliśmy do Ciebie po założeniu konta.
+Please click the link we have sent you after the registration to proceed.: Kliknij link z wiadomości, którą wysłaliśmy do Ciebie po założeniu konta.
 Please confirm your SUPLA account.: Aktywuj swoje konto w SUPLA.
 Please enter a valid email address: Wprowadź poprawny adres email
 Please fill a valid email address: Wprowadź poprawny adres e-mail
+Please find the device details below.: Szczegóły urządzenia znajdziesz poniżej.
 Please fix the problems with operations and try again.: Rozwiąż problemy z operacjami i spróbuj ponownie.
 Please log in again to proceed.: Zaloguj się ponownie by kontynuować.
+Please note, that the device mentioned in this message should be installed by certified SUPLA installers only.: Zwróć uwagę, że urządzenie, którego dotyczy ta prośba przeznaczone jest wyłącznie dla certyfikowanych instalatorów.
 Please provide a valid domain name for your private SUPLA Cloud: Podaj poprawną nazwę domeny dla swojej prywatnej chmury SUPLA
+Please provide the installer e-mail address to request the device unlock.: Aby odblokować urządzenie, podaj adres e-mail, który podano w procesie uzyskiwania certyfikatu instalatora.
 Please read the Terms and Conditions.: Przeczytaj regulamin.
 Please select a condition: Proszę wybrać warunek
 Please select and configure the action: Wybierz i skonfiguruj akcję.
@@ -728,6 +738,7 @@ Reload the chart: Przeładuj wykres
 'Remove all the associated scenes before you delete this location. Ids: {relatedIds}.': 'Usuń wszystkie powiązane sceny przed usunięciem tej lokalizacji. Identyfikatory: {relatedIds}.'
 'Remove all the devices using this location as an official before you delete it. Ids: {relatedIds}.': 'Najpierw usuń wszystkie urządzenia, które używają tej lokalizacji jako oryginalna lokalizacja. Identyfikatory: {relatedIds}.'
 Repeat password: Powtórz hasło
+Request device unlock: Zgłoś chęć odblokowania urządzenia
 Reset Your Password: Ustaw nowe hasło
 Reset counter: Resetuj licznik
 Retry on failure: Powtórz gdy niewykonane
@@ -745,8 +756,9 @@ Roof window opening sensor: Czujnik otwarcia okna dachowego
 Roof window shutter operation: Otwieranie okna dachowego
 SUPLA - Account Activation: SUPLA - Aktywacja konta
 SUPLA - Account Removal: SUPLA - Usunięcie konta
+SUPLA - Confirm unlocking device for authorized installers: SUPLA - Odblokowanie urządzenia przeznaczonego dla certyfikowanego instalatora
 SUPLA - Password reset: SUPLA - Resetowanie hasła
-SUPLA - Private instance unregistration: SUPLA - wyrejstrowanie prywatnej instancji
+SUPLA - Private instance unregistration: SUPLA - wyrejestrowanie prywatnej instancji
 SUPLA Cloud is under maintenance.: Trwa aktualizacja SUPLA Cloud.
 SUPLA Server was unable to execute the action.: Błąd przy wykonaniu akcji w SUPLA Server.
 SUPLA Server was unable to execute the scene.: SUPLA Server nie był w stanie wykonać sceny.
@@ -755,6 +767,7 @@ SUPLA is available from anywhere at any time, so do not worry, if you forget to 
 SUPLA – %cloudHost% unsuccessful login attempt notification: SUPLA – Powiadomienie o nieudanym logowaniu do %cloudHost%
 SUPLA – new client app has been added to your account: SUPLA – zarejestrowano nową aplikację kliencką
 SUPLA – new device has been added to your account: SUPLA - nowe urządzenie zostało dodane do Twojego konta
+SUPLA – your device has been unlocked!: SUPLA - Twoje urządzenie zostało odblokowane!
 SUPLA.ORG Team: Zespół SUPLA.ORG
 Saturdays: Soboty
 Save: Zapisz
@@ -863,7 +876,11 @@ The client will be automatically logged out when deleted.: Usunięcie klienta sp
 The configuration has been changed from another source (e.g. another browser tab, mobile app, device). In order to prevent data loss, you have to refresh the configuration first.: |
   Konfiguracja została zmieniona z innego miejsca (np. inne okno przeglądarki, aplikacja mobilna lub urządzenie). Musisz odświeżyć konfigurację zanim wprowadzisz kolejne zmiany.
 The counter has been reset.: Licznik został zresetowany.
+The device could not be unlocked.: Nie udało się odblokować urządzenia.
+The device has been unlocked already.: Urządzenie już jest odblokowane.
+The device has been unlocked.: Urządzenie zostało odblokowane.
 The device is disabled: Urządzenie jest wyłączone
+The device is locked: Urządzenie zablokowane
 The device might be in a sleep mode.: Urządzenie może pracować w trybie uśpienia.
 The device that uses this session will loose access to the SUPLA Cloud and will need to reauthenticate.: Urządzenie, które używa tej sesji straci dostęp do SUPLA Cloud. W celu dalszego korzystania z aplikacji będzie wymagane na nim ponowne zalogowanie się.
 The entire history of the voltage aberrations from phase {phaseNumber} will be removed from this channel.: Cała historia aberracji napięcia dla fazy {phaseNumber} zostanie usunięta.
@@ -906,6 +923,7 @@ Thermometer error: Błąd termometru
 Thermometers configuration: Konfiguracja termometrów
 Thermostat: Termostat
 Thermostat programs: Programy termostatu
+This device should be distributed and installed by the authorized installers only. If you are not an installer of the SUPLA devices and you do not own a valid installer certificate, please return this device to the seller.: To urządzenie jest przeznaczone do dystrybucji i instalacji tylko przez autoryzowanych instalatorów. Jeśli nie jesteś autoryzowanym instalatorem SUPLA i nie dysponujesz aktywnym certyfikatem szkoleniowym zwróć je do sprzedawcy.
 This direct link requires further parameters in order to be executed properly. See the examples below to get an idea of what you might do.: Ten link bezpośredni wymaga doprecyzowania parametrów wykonywanej akcji. Zobacz poniższe przykłady aby dowiedzieć się, jakie parametry możesz ustawić.
 This information has been generated automatically due to an unsuccessful login attempt to SUPLA-CLOUD (%cloudHost%) with the use of your email address.: Otrzymujesz tę informację w związku z nieudaną próbą logowania do SUPLA-CLOUD (%cloudHost%) przy użyciu Twojego adresu email.
 This is the final step in the deletion process. Completing the form will result in an irreversible data loss.: To jest ostatni etap usuwania Twojego konta. Wypełnienie i zatwierdzenie formularza będzie skutkować nieodwracalnym usunięciem Twoich danych.
@@ -938,6 +956,7 @@ Undo registration: Wycofaj rejestrację
 Unit: Jednostka
 Unknown: Nieznany
 Unknown browser: Nieznana przeglądarka
+Unlock the device: Odblokuj urządzenie
 Unlocked: Odblokowany
 Unregister my private SUPLA Cloud instance: Wyrejestruj moją prywatną instancję SUPLA Cloud
 Unsuccessful login attempt: Nieudane logowanie
@@ -972,7 +991,7 @@ WELCOME_MESSAGE: |
 Wait a while before the next request. You can check your limits in the account settings.: Odczekaj chwilę przed wykonaniem kolejnego żądania. Możesz sprawdzić aktualne wykorzystanie Twoich limitów w ustawieniach konta.
 Wait for this scene to finish before proceeding to the next step ({time}).: Czekaj na zakończenie wykonania sceny przed kontynuowaniem akcji ({time}).
 Water meter: Licznik wody
-'We also strongly advise you to choose a password that:': 'Ponadto, zdecydownanie zalecamy aby wybrać hasło które:'
+'We also strongly advise you to choose a password that:': 'Ponadto, zdecydowanie zalecamy aby wybrać hasło które:'
 We can notify you about certain events with your account. Opt out if you don't want us to bother you.: Będziemy wysyłać Ci powiadomienia o niektórych zdarzeniach związanych z Twoim kontem. Możesz wypisać się z tych, których nie potrzebujesz.
 We could not connect to your SUPLA Cloud instance.: Nie mogliśmy połączyć się z twoją prywatną instancją SUPLA Cloud.
 We have been asked to delete your SUPLA Cloud account (%cloudHost%).: Otrzymaliśmy dyspozycję usunięcia Twojego konta w SUPLA Cloud (%cloudHost%).
@@ -980,6 +999,7 @@ We have been asked to unregister your private SUPLA Cloud instance (%targetCloud
 We have just sent you an activation link. You should be receiving it shortly.: Wiadomość z linkiem aktywującym Twoje konto została dopiero co wysłana. Cierpliwości.
 We have sent you an e-mail message with a delete confirmation link. Just to be sure!: Wysłaliśmy do Ciebie wiadomość e-mail z linkiem potwierdzającym usunięcie konta. Może się jeszcze rozmyślisz!
 We have sent you an email with further instructions.: Wysłaliśmy do Ciebie wiadomość z dalszymi instrukcjami.
+We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%.: Otrzymaliśmy prośbę o odblokowanie urządzenia przeznaczonego tylko dla certyfikowanych instalatorów. Prośba została wysłana przez użytkownika %deviceUserEmail% z instancji SUPLA Cloud pod adresem %targetCloudUrl%.
 We should be ready shortly.: Powinniśmy niedługo skończyć.
 We store some data (e.g. cookies) in your browser to remember your preferences and to make the application usage easier.: Przechowujemy w Twojej przeglądarce informacje o Twoich preferencjach w celu ułatwienia korzystania z aplikacji (np. za pomocą mechanizmu ciasteczek).
 We try to be faster: Jesteśmy coraz szybsi
@@ -1108,9 +1128,10 @@ You can browse only the most recent logs now. Wait a while for the full history.
 You can ignore this message, if you have accidentally entered an incorrect password.: Możesz zignorować tę wiadomość jeżeli to Ty wprowadziłeś(aś) błędne hasło.
 You can use the application but you will not be able to modify any settings.: Możesz używać aplikacji, ale nie jest możliwe wprowadzanie zmian konfiguracji.
 You cannot delete your last access identifier.: Nie możesz usunąć swojego ostatniego identyfikatora dostępu.
-You cannot delete your last location.: Nie możesz usunać swojej ostatniej lokalizacji.
+You cannot delete your last location.: Nie możesz usunąć swojej ostatniej lokalizacji.
 You cannot use SUPLA project name in the domain name.: Nie możesz używać nazwy projektu SUPLA w nazwie głównej domeny.
 You have exceeded your API Rate Limit: Wykorzystałeś/aś swój limit żądań do API
+You have requested the device to be unlocked by the installer. We will notify you when they confirm your request.: Prośba została wysłana. Powiadomimy Cię, gdy instalator ja zatwierdzi i odblokuje urządzenie.
 You have requested to unregister your SUPLA Cloud instance: Poprosiłeś/aś o wyrejestrowanie twojej instancji SUPLA Cloud
 You have to choose at least one scope.: Musisz wybrać przynajmniej jeden zakres.
 You just need to execute the following command inside your host terminal.: Wystarczy wykonać następujące polecenie wewnątrz terminala Twojego hosta.
@@ -1134,6 +1155,7 @@ Your channel groups are allowed to have a maximum of {max} channels.: Twoje grup
 Your chart is being drawn...: Twój wykres jest rysowany...
 Your data are being collected. Please be patient.: Gromadzimy Twoje dane, cierpliwości.
 Your data are being fetched from the server. Wait for it to complete before exporting your logs.: Twoje dane są pobierane z serwera. Poczekaj na zakończenie pobierania przed ich eksportowaniem.
+Your device has been unlocked by the installer.: Twoje urządzenie zostało odblokowane przez instalatora.
 Your device supports extending its behavior by executing any desired action on any device that you own. Depending on the firmware, it may support different triggers (often limited by the hardware).: Urządzenie umożliwia rozszerzenie jego funkcjonalności i pozwala na wykonanie dowolnej akcji na dowolnym posiadanym przez Ciebie urządzeniu. Dostępne opcje zależą od używanego oprogramowania sprzętowego i urządzenia.
 Your email: Twój email
 Your instance is not registered or you are trying to authorize an application that is not public.: Twoja instancja nie jest zarejestrowana lub próbujesz autoryzować aplikację, która nie jest publiczna.
@@ -1427,12 +1449,10 @@ Sources available from: Źródła dostępne w
 Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
-Supla for devices: Supla na urządzenia
 Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
 execute: wykonaj
-homeScreenContent_HUMIDITY: Wilgotność
 hourly: Każdy dzień
 
 #</editor-fold>

@@ -1,26 +1,27 @@
 {% extends '@Supla/Email/template.html.twig' %}
 
 {% block subject %}
-    {% trans into userLocale %} SUPLA - Confirm device unlock {% endtrans %}
+    {% trans into userLocale %} SUPLA - Confirm unlocking device for authorized installers {% endtrans %}
 {% endblock %}
 
 {% block preheader %}
-    {% trans into userLocale %} Unlock the device you have installed in the customer's home. {% endtrans %}
+    {% trans into userLocale %} SUPLA - Confirm unlocking device for authorized installers {% endtrans %}
 {% endblock %}
 
 {% block body %}
-    {% apply paragraph %} {% trans with {'%targetCloudUrl%': svrUrl(), '%deviceUserEmail%': "<strong>#{deviceUserEmail}</strong>"} into userLocale %} You are permitted to unlock SUPLA devices as an authorized installer. We have received a request to unlock one of the devices from user with e-mail address %deviceUserEmail% from the SUPLA Cloud instance at %targetCloudUrl%.{% endtrans %} {% endapply %}
+    {% apply paragraph %} {% trans with {'%targetCloudUrl%': svrUrl(), '%deviceUserEmail%': "<strong>#{deviceUserEmail}</strong>"} into userLocale %} We received an attempt to unlock a SUPLA device distributed for authorized installers only. The request came from the %deviceUserEmail% user from the SUPLA Cloud instance at %targetCloudUrl%. {% endtrans %} {% endapply %}
     {% apply paragraph %} {% trans into userLocale %}Please find the device details below.{% endtrans %} {% endapply %}
     {% apply paragraph %}
         {% trans with {'%deviceName%': deviceName} into userLocale %}Device name: %deviceName%{% endtrans %}<br>
         {% trans with {'%deviceGuid%': deviceGuid} into userLocale %}Device GUID: %deviceGuid%{% endtrans %}
     {% endapply %}
-    {% apply paragraph %} {% trans into userLocale %}If you confirm the installation and wish to unlock this device, please click the link below. This operation is irreversible and will allow the user to use the device.{% endtrans %} {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %}If you confirm the installation and wish to unlock this device, please click the link below.{% endtrans %} {% endapply %}
     {% apply linkButton(svrUrl(confirmationUrl), 'success') %} {% trans into userLocale %} Unlock the device {% endtrans %} {% endapply %}
     {% apply paragraph %}
         <b>{% trans into userLocale %}NOTICE!{% endtrans %}</b>
         {% trans into userLocale %}If you do not want to unlock this device, please do not click the link. It will automatically expire after 24 hours.{% endtrans %}
     {% endapply %}
+    {% apply paragraph %} {% trans into userLocale %} Please note, that the device mentioned in this message should be installed by certified SUPLA installers only. {% endtrans %}{% endapply %}
 {% endblock %}
 
 {% block footer %}{% endblock %}

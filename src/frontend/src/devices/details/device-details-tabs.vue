@@ -41,7 +41,7 @@
                 if (this.device.locked) {
                     this.availableTabs.push({
                         route: 'device.unlock',
-                        header: 'Unlock device', // i18n
+                        header: 'Unlock the device', // i18n
                     });
                 } else {
                     this.availableTabs.push({
