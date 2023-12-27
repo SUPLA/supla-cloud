@@ -119,6 +119,7 @@ class AlexaIntegrationTest extends IntegrationTestCase {
         $channelConfig = $channel->getUserConfig();
         $this->assertArrayHasKey('alexa', $channelConfig);
         $this->assertTrue($channelConfig['alexa']['alexaDisabled']);
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,1,2900,140,544'); // JSON + ALEXA
     }
 
     /** @depends testSettingAlexaConfigDisabled */
@@ -150,6 +151,7 @@ class AlexaIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('PUT', '/api/channels/1', [
             'config' => ['alexa' => ['alexaDisabled' => true]],
         ]);
+        $this->assertSuplaCommandExecuted('USER-ON-CHANNEL-CONFIG-CHANGED:1,1,1,2900,140,544'); // JSON + ALEXA
         $client->apiRequestV24('GET', '/api/channels?forIntegration=alexa');
         $fetchedChannels = $client->getResponseBody();
         $this->assertCount(2, $fetchedChannels);

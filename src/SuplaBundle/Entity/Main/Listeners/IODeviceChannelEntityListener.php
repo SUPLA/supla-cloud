@@ -48,6 +48,13 @@ class IODeviceChannelEntityListener {
                 $changes->add(ChannelConfigChangeScope::JSON_ALT_WEEKLY_SCHEDULE);
                 unset($changedKeys[array_search('altWeeklySchedule', $changedKeys)]);
             }
+            if (in_array('alexa', $changedKeys)) {
+                $previousDisabled = ($before['alexa'] ?? [])['alexaDisabled'] ?? false;
+                $currentDisabled = $after['alexa']['alexaDisabled'] ?? false;
+                if ($previousDisabled !== $currentDisabled) {
+                    $changes->add(ChannelConfigChangeScope::ALEXA_INTEGRATION_ENABLED);
+                }
+            }
             if ($changedKeys || $relationsChanges) {
                 $changes->add(ChannelConfigChangeScope::JSON_BASIC);
             }

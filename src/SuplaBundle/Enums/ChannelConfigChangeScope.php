@@ -27,6 +27,7 @@ namespace SuplaBundle\Enums;
  * @method static ChannelConfigChangeScope JSON_WEEKLY_SCHEDULE()
  * @method static ChannelConfigChangeScope JSON_ALT_WEEKLY_SCHEDULE()
  * @method static ChannelConfigChangeScope RELATIONS()
+ * @method static ChannelConfigChangeScope ALEXA_INTEGRATION_ENABLED()
  */
 final class ChannelConfigChangeScope extends ChannelFunctionBits {
     const CHANNEL_FUNCTION = 0x1;
@@ -38,4 +39,5 @@ final class ChannelConfigChangeScope extends ChannelFunctionBits {
     const JSON_WEEKLY_SCHEDULE = 0x40;
     const JSON_ALT_WEEKLY_SCHEDULE = 0x80;
     const RELATIONS = 0x100;
+    const ALEXA_INTEGRATION_ENABLED = 0x200;
 }
