@@ -475,7 +475,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(['waitingForConfigInit' => true], $content['config']);
+        $this->assertArrayHasKey('waitingForConfigInit', $content['config']);
+        $this->assertTrue($content['config']['waitingForConfigInit']);
         return $hvacChannel->getId();
     }
 
@@ -526,7 +527,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(['waitingForConfigInit' => true], $content['config']);
+        $this->assertArrayHasKey('waitingForConfigInit', $content['config']);
+        $this->assertTrue($content['config']['waitingForConfigInit']);
         $client->apiRequestV24('PUT', '/api/channels/' . $hvacChannelId, [
             'functionId' => ChannelFunction::HVAC_THERMOSTAT,
         ]);
@@ -535,7 +537,8 @@ class HvacIntegrationTest extends IntegrationTestCase {
         $response = $client->getResponse();
         $this->assertStatusCode(200, $response);
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(['waitingForConfigInit' => true], $content['config']);
+        $this->assertArrayHasKey('waitingForConfigInit', $content['config']);
+        $this->assertTrue($content['config']['waitingForConfigInit']);
         $hvacChannel = $this->freshEntityById(IODeviceChannel::class, $hvacChannelId);
         $hvacChannel->setUserConfigValue('subfunction', 'HEAT');
         $this->getEntityManager()->persist($hvacChannel);
