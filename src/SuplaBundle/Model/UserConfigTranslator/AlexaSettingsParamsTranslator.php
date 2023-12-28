@@ -67,6 +67,10 @@ class AlexaSettingsParamsTranslator extends UserConfigTranslator {
             ChannelFunction::HUMIDITYANDTEMPERATURE,
             ChannelFunction::CONTROLLINGTHEROLLERSHUTTER,
             ChannelFunction::SCENE,
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
         ]);
     }
 }

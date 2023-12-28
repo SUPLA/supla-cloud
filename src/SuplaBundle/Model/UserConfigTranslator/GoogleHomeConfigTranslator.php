@@ -83,6 +83,10 @@ class GoogleHomeConfigTranslator extends UserConfigTranslator {
             ChannelFunction::CONTROLLINGTHEGATE,
             ChannelFunction::CONTROLLINGTHEGARAGEDOOR,
             ChannelFunction::SCENE,
+            ChannelFunction::HVAC_THERMOSTAT,
+            ChannelFunction::HVAC_THERMOSTAT_HEAT_COOL,
+            ChannelFunction::HVAC_DOMESTIC_HOT_WATER,
+            ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
         ]);
     }
 }
