@@ -73,7 +73,7 @@ BEGIN
           ORDER BY expires_at DESC LIMIT 1;
 
    
-   SELECT t.token INTO token FROM `supla_oauth_access_tokens` t WHERE t.client_id IS NULL AND name = 'ALEXA DISCOVER' AND user_id = _user_id AND expires_at - UNIX_TIMESTAMP() >= 60;
+   SELECT t.token INTO token FROM `supla_oauth_access_tokens` t WHERE t.client_id = client_id AND name = 'ALEXA DISCOVER' AND user_id = _user_id AND expires_at - UNIX_TIMESTAMP() >= 60;
 
    IF token IS NOT NULL THEN
      SELECT token;
@@ -88,8 +88,8 @@ BEGIN
      IF client_id > 0 THEN
        SET token = CONCAT(token, '.', svr);
     
-       INSERT INTO `supla_oauth_access_tokens`(`client_id`, `user_id`, `token`, `expires_at`, `scope`, `name`, `access_id`) VALUES 
-           (client_id, _user_id, token, UNIX_TIMESTAMP()+3600, 'channels_r iodevices_r locations_r account_r scenes_r', 'ALEXA DISCOVER', NULL);
+       INSERT INTO `supla_oauth_access_tokens`(`client_id`, `user_id`, `token`, `expires_at`, `scope`, `name`, `access_id`, `issuer_browser_string`) VALUES 
+           (client_id, _user_id, token, UNIX_TIMESTAMP()+3600, 'channels_r iodevices_r locations_r account_r scenes_r', 'ALEXA DISCOVER', NULL, 'supla-server');
     
        SELECT token;
      END IF;
