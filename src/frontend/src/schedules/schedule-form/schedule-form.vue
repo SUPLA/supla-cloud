@@ -221,6 +221,7 @@
                     ChannelFunction.HVAC_DOMESTIC_HOT_WATER,
                     ChannelFunction.HVAC_THERMOSTAT_DIFFERENTIAL,
                     ChannelFunction.HVAC_THERMOSTAT_HEAT_COOL,
+                    ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
                 ];
                 return !nonScheduleFunctions.includes(subject.functionId);
 
