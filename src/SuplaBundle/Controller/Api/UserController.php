@@ -331,12 +331,12 @@ class UserController extends RestController {
      */
     public function routeAccountCreateAction(Request $request) {
         $server = $this->autodiscover->getRegisterServerForUser($request);
-//        if ($server->isLocal()) {
+        if ($server->isLocal()) {
             return $this->accountCreateAction($request);
-//        } else {
-//            [$response, $status] = $this->suplaCloudRequestForwarder->registerUser($server, $request);
-//            return $this->view($response, $status);
-//        }
+        } else {
+            [$response, $status] = $this->suplaCloudRequestForwarder->registerUser($server, $request);
+            return $this->view($response, $status);
+        }
     }
 
     /**
