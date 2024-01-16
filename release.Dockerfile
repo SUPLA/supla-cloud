@@ -5,7 +5,7 @@ ARG RELEASE_VERSION
 ENV RELEASE_VERSION=$RELEASE_VERSION
 RUN composer install --optimize-autoloader --ignore-platform-req=ext-gd --ignore-platform-req=ext-intl --no-dev && composer dump-version
 
-FROM node:14.18.3-alpine AS frontend
+FROM node:16.20.2-alpine AS frontend
 ARG RELEASE_FILENAME
 ARG RELEASE_VERSION
 ENV RELEASE_FILENAME=$RELEASE_FILENAME

@@ -98,6 +98,6 @@
     "not dead"
   ],
   "engines": {
-    "node": "^14.0"
+    "node": "^16.0"
   }
 }
