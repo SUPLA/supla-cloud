@@ -28,9 +28,10 @@ class IODeviceRequestFiller extends AbstractRequestFiller {
             $device->setEnabled($enabled);
         }
         if (array_key_exists('comment', $data)) {
-            Assertion::string($data['comment']);
-            Assertion::maxLength($data['comment'], 200, 'Caption is too long.'); // i18n
-            $device->setComment($data['comment']);
+            $comment = $data['comment'] ?: '';
+            Assertion::string($comment);
+            Assertion::maxLength($comment, 200, 'Caption is too long.'); // i18n
+            $device->setComment($comment);
         }
         if (array_key_exists('config', $data)) {
             Assertion::isArray($data['config']);
