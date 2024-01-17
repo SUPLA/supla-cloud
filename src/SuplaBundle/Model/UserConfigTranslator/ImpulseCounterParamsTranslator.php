@@ -2,6 +2,7 @@
 
 namespace SuplaBundle\Model\UserConfigTranslator;
 
+use Assert\Assert;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
@@ -61,10 +62,9 @@ class ImpulseCounterParamsTranslator extends UserConfigTranslator {
         }
         if (array_key_exists('unit', $config)) {
             $value = $config['unit'] ?? '';
-            if (mb_strlen($value, 'UTF-8') <= 4) {
-                $subject->setTextParam2($value);
-                $subject->setUserConfigValue('unit', $value ?: null);
-            }
+            Assert::that($value, null, 'unit')->string()->maxLength(6, null, null, 'ASCII');
+            $subject->setTextParam2($value);
+            $subject->setUserConfigValue('unit', $value ?: null);
         }
     }
 
