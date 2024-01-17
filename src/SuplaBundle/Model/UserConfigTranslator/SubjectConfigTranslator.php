@@ -20,6 +20,7 @@ use SuplaBundle\Utils\JsonArrayObject;
  *     @OA\Schema(ref="#/components/schemas/ChannelConfigStaircaseTimer"),
  *     @OA\Schema(ref="#/components/schemas/ChannelConfigControllingTheGate"),
  *     @OA\Schema(ref="#/components/schemas/ChannelConfigHvacThermostat"),
+ *     @OA\Schema(ref="#/components/schemas/ChannelConfigGeneralPurposeMeasurement"),
  *   }
  * )
  */

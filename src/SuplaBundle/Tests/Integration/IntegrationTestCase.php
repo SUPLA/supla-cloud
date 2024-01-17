@@ -24,6 +24,7 @@ use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Supla\SuplaAutodiscoverMock;
 use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\Traits\TestTimeProvider;
@@ -222,6 +223,10 @@ abstract class IntegrationTestCase extends WebTestCase {
 
     protected function freshEntityById(string $class, int $id) {
         return $this->getEntityManager()->find($class, $id);
+    }
+
+    protected function freshChannelById(int $id): IODeviceChannel {
+        return $this->getEntityManager()->find(IODeviceChannel::class, $id);
     }
 
     protected function flushMessagesQueue(?TestClient $client = null) {

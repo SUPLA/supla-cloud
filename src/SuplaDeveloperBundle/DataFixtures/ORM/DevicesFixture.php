@@ -65,6 +65,7 @@ class DevicesFixture extends SuplaFixture {
         $this->createEveryFunctionDevice($location, self::DEVICE_EVERY_FUNCTION);
         $hvac = $this->createDeviceHvac($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $this->setReference(self::DEVICE_HVAC, $hvac);
+        $this->createDeviceGeneralPurposeMeasurement($this->getReference(LocationsFixture::LOCATION_BEDROOM));
         $device = $this->createEveryFunctionDevice($location, 'SECOND MEGA DEVICE');
         foreach ($this->faker->randomElements($device->getChannels(), 3) as $noFunctionChannel) {
             $noFunctionChannel->setFunction(ChannelFunction::NONE());
@@ -340,6 +341,67 @@ class DevicesFixture extends SuplaFixture {
         ]);
         $this->entityManager->persist($hvac);
         return $hvac;
+    }
+
+    public function createDeviceGeneralPurposeMeasurement(Location $location) {
+        $device = $this->createDevice('Measurement Freak', $location, [
+            [
+                ChannelType::GENERAL_PURPOSE_MEASUREMENT,
+                ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+                [
+                    'properties' => json_encode([
+                        'defaultValueDivider' => 78,
+                        'defaultValueMultiplier' => 910,
+                        'defaultValueAdded' => 1112,
+                        'defaultValuePrecision' => 9,
+                        'defaultUnitBeforeValue' => 'XCVB',
+                        'defaultUnitAfterValue' => 'GHJK',
+                    ]),
+                    'userConfig' => json_encode([
+                        'valueDivider' => 12,
+                        'valueMultiplier' => 34,
+                        'valueAdded' => 56,
+                        'valuePrecision' => 5,
+                        'unitBeforeValue' => 'ABCD',
+                        'unitAfterValue' => 'EFGH',
+                        'noSpaceAfterValue' => true,
+                        'keepHistory' => true,
+                        'chartType' => 'CANDLE',
+                    ]),
+                ],
+            ],
+            [
+                ChannelType::GENERAL_PURPOSE_METER,
+                ChannelFunction::GENERAL_PURPOSE_METER,
+                [
+                    'properties' => json_encode([
+                        'defaultValueDivider' => 78,
+                        'defaultValueMultiplier' => 910,
+                        'defaultValueAdded' => 1112,
+                        'defaultValuePrecision' => 9,
+                        'defaultUnitBeforeValue' => 'XCVB',
+                        'defaultUnitAfterValue' => 'GHJK',
+                    ]),
+                    'userConfig' => json_encode([
+                        'valueDivider' => 12,
+                        'valueMultiplier' => 34,
+                        'valueAdded' => 56,
+                        'valuePrecision' => 5,
+                        'unitBeforeValue' => 'ABCD',
+                        'unitAfterValue' => 'EFGH',
+                        'noSpaceAfterValue' => true,
+                        'keepHistory' => true,
+                        'chartType' => 'CANDLE',
+                        'includeValueAddedInHistory' => true,
+                        'fillMissingData' => true,
+                        'allowCounterReset' => true,
+                        'alwaysDecrement' => true,
+                    ]),
+                ],
+            ],
+        ], '');
+        $this->entityManager->persist($device);
+        return $device;
     }
 
     public function createDeviceLocked(Location $location): IODevice {

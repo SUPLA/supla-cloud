@@ -24,7 +24,7 @@ use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Enums\ChannelFunctionBitsFlags;
 use SuplaBundle\Model\UserConfigTranslator\DigiglassParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ElectricityMeterParamsTranslator;
-use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementParamsTranslator;
+use SuplaBundle\Model\UserConfigTranslator\GeneralPurposeMeasurementConfigTranslator;
 use SuplaBundle\Model\UserConfigTranslator\HumidityAdjustmentParamTranslator;
 use SuplaBundle\Model\UserConfigTranslator\ImpulseCounterParamsTranslator;
 use SuplaBundle\Model\UserConfigTranslator\InvertedLogicParamTranslator;
@@ -50,7 +50,7 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             new HumidityAdjustmentParamTranslator(),
             new TemperatureAdjustmentParamTranslator(),
             new InvertedLogicParamTranslator(),
-            new GeneralPurposeMeasurementParamsTranslator(),
+            new GeneralPurposeMeasurementConfigTranslator(),
             new DigiglassParamTranslator(),
             new NumberOfAttemptsToOpenOrCloseParamTranslator(),
         ]);
@@ -162,36 +162,6 @@ class ChannelParamConfigTranslatorTest extends TestCase {
             [ChannelFunction::STAIRCASETIMER(), [1011], ['relayTimeS' => 101.1]],
             [ChannelFunction::THERMOMETER(), [null, null], ['temperatureAdjustment' => 1.23]],
             [ChannelFunction::IC_WATERMETER(), [null, 123, 124, null, 'PLN', 'm3'], ['pricePerUnit' => 0.0123, 'impulsesPerUnit' => 124, 'currency' => 'PLN', 'initialValue' => 1.11, 'unit' => 'm3']],
-            [
-                ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(),
-                [121230, 0b000011011, 131300, null, '$', 'USD'],
-                [
-                    'initialValue' => 12.123,
-                    'impulsesPerUnit' => 13.13,
-                    'precision' => 3,
-                    'storeMeasurementHistory' => true,
-                    'chartType' => 1,
-                    'chartDataSourceType' => 0,
-                    'interpolateMeasurements' => false,
-                    'unitPrefix' => '$',
-                    'unitSuffix' => 'USD',
-                ],
-            ],
-            [
-                ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(),
-                [121230, 0b101011101, 131300, null, '$', 'USD'],
-                [
-                    'initialValue' => 12.123,
-                    'impulsesPerUnit' => 13.13,
-                    'precision' => 5,
-                    'storeMeasurementHistory' => true,
-                    'chartType' => 1,
-                    'chartDataSourceType' => 1,
-                    'interpolateMeasurements' => true,
-                    'unitPrefix' => '$',
-                    'unitSuffix' => 'USD',
-                ],
-            ],
             [ChannelFunction::DIGIGLASS_VERTICAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
             [ChannelFunction::DIGIGLASS_HORIZONTAL(), [2, 1000], ['sectionsCount' => 2, 'regenerationTimeStart' => 1000]],
         ];

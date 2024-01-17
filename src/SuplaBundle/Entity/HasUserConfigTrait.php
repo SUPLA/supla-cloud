@@ -24,4 +24,8 @@ trait HasUserConfigTrait {
     public function getUserConfigValue(string $valueName, $default = null) {
         return $this->getUserConfig()[$valueName] ?? $default;
     }
+
+    public function getProperty(string $valueName, $default = null) {
+        return $this->getProperties()[$valueName] ?? $default;
+    }
 }

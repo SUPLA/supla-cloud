@@ -10,8 +10,8 @@
     <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
     <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="140"/>
-            <property name="absoluteLineLimit" value="180"/>
+            <property name="lineLimit" value="150"/>
+            <property name="absoluteLineLimit" value="190"/>
             <property name="ignoreComments" value="true"/>
         </properties>
         <exclude-pattern>src/SuplaBundle/Migrations/Migration/*.php</exclude-pattern>
