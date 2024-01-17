@@ -62,7 +62,7 @@ class ImpulseCounterParamsTranslator extends UserConfigTranslator {
         }
         if (array_key_exists('unit', $config)) {
             $value = $config['unit'] ?? '';
-            Assert::that($value, null, 'unit')->string()->maxLength(6, null, null, 'ASCII');
+            Assert::that($value, null, 'unit')->string()->maxLength(8, null, null, 'ASCII');
             $subject->setTextParam2($value);
             $subject->setUserConfigValue('unit', $value ?: null);
         }

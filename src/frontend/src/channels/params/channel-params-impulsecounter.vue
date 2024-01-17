@@ -4,7 +4,7 @@
             <dd>{{ $t('Unit') }}</dd>
             <dt>
                 <input type="text"
-                    maxlength="6"
+                    maxlength="8"
                     class="form-control text-center"
                     v-model="channel.config.unit"
                     @input="$emit('change')">
