@@ -92,7 +92,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $client->apiRequestV24('PUT', '/api/channels/' . $this->measurementChannelId, ['config' => [
             'valueDivider' => 12.34,
             'valueMultiplier' => -11.223,
-            'valueAdded' => 100.1,
+            'valueAdded' => null,
             'valuePrecision' => 2,
             'unitBeforeValue' => '$$$',
             'unitAfterValue' => 'metrów ³',
@@ -101,7 +101,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         ]]);
         $channel = $this->freshChannelById($this->measurementChannelId);
         $this->assertEquals(12340, $channel->getUserConfigValue('valueDivider'));
-        $this->assertEquals(100100, $channel->getUserConfigValue('valueAdded'));
+        $this->assertEquals(1112, $channel->getUserConfigValue('valueAdded'));
         $this->assertEquals(2, $channel->getUserConfigValue('valuePrecision'));
         $this->assertEquals('$$$', $channel->getUserConfigValue('unitBeforeValue'));
         $this->assertEquals('metrów ³', $channel->getUserConfigValue('unitAfterValue'));
@@ -150,16 +150,17 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
 
     public function invalidConfigRequests() {
         return [
-            [['valueDivider' => 999999]],
+            [['valueDivider' => 3_000_000]],
             [['valueDivider' => [1]]],
-            [['valueMultiplier' => 999999]],
+            [['valueMultiplier' => -3_000_000]],
             [['valueMultiplier' => 'abc']],
-            [['valueAdded' => 200000000]],
+            [['valueAdded' => 200_000_000]],
             [['valuePrecision' => -1]],
             [['valuePrecision' => 11]],
             [['valuePrecision' => '2']],
             [['valuePrecision' => 2.5]],
             [['unitAfterValue' => 21]],
+            [['unitBeforeValue' => '🙉🙉🙉🙉']],
             [['unitBeforeValue' => 'very very long unit']],
             [['chartType' => 'UNICORN']],
         ];

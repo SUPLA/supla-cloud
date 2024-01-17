@@ -52,18 +52,18 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
         $config = $subject->getUserConfig();
         if (array_key_exists('valueMultiplier', $config)) {
             return [
-                'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueDivider', 0) / 1000 ?: null, 3),
-                'valueMultiplier' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueMultiplier', 0) / 1000 ?: null, 3),
-                'valueAdded' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueAdded', 0) / 1000 ?: null, 3),
+                'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueDivider', 1) / 1000, 3),
+                'valueMultiplier' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueMultiplier', 1) / 1000, 3),
+                'valueAdded' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueAdded', 0) / 1000, 3),
                 'valuePrecision' => $subject->getUserConfigValue('valuePrecision'),
                 'unitBeforeValue' => $subject->getUserConfigValue('unitBeforeValue'),
                 'unitAfterValue' => $subject->getUserConfigValue('unitAfterValue'),
                 'keepHistory' => $subject->getUserConfigValue('keepHistory', false),
                 'chartType' => $subject->getUserConfigValue('chartType', self::CHART_TYPES[0]),
                 'defaults' => [
-                    'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueDivider', 0) / 1000 ?: null, 3),
-                    'valueMultiplier' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueMultiplier', 0) / 1000 ?: null, 3),
-                    'valueAdded' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueAdded', 0) / 1000 ?: null, 3),
+                    'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueDivider', 1) / 1000, 3),
+                    'valueMultiplier' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueMultiplier', 1) / 1000, 3),
+                    'valueAdded' => NumberUtils::maximumDecimalPrecision($subject->getProperty('defaultValueAdded', 0) / 1000, 3),
                     'valuePrecision' => $subject->getProperty('defaultValuePrecision', 0),
                     'unitBeforeValue' => $subject->getProperty('defaultUnitBeforeValue'),
                     'unitAfterValue' => $subject->getProperty('defaultUnitAfterValue'),
@@ -79,26 +79,26 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
     public function setConfig(HasUserConfig $subject, array $config) {
         if (array_key_exists('valueDivider', $config)) {
             if ($config['valueDivider']) {
-                Assert::that($config['valueDivider'], null, 'valueDivider')->numeric()->between(-1000, 1000);
+                Assert::that($config['valueDivider'], null, 'valueDivider')->numeric()->between(-2_000_000, 2_000_000);
                 $subject->setUserConfigValue('valueDivider', intval($config['valueDivider'] * 1000));
             } else {
-                $subject->setUserConfigValue('valueDivider', null);
+                $subject->setUserConfigValue('valueDivider', $subject->getProperty('defaultValueDivider', 1));
             }
         }
         if (array_key_exists('valueMultiplier', $config)) {
             if ($config['valueMultiplier']) {
-                Assert::that($config['valueMultiplier'], null, 'valueMultiplier')->numeric()->between(-1000, 1000);
+                Assert::that($config['valueMultiplier'], null, 'valueMultiplier')->numeric()->between(-2_000_000, 2_000_000);
                 $subject->setUserConfigValue('valueMultiplier', intval($config['valueMultiplier'] * 1000));
             } else {
-                $subject->setUserConfigValue('valueMultiplier', null);
+                $subject->setUserConfigValue('valueMultiplier', $subject->getProperty('defaultValueMultiplier', 1));
             }
         }
         if (array_key_exists('valueAdded', $config)) {
             if ($config['valueAdded']) {
-                Assert::that($config['valueAdded'], null, 'valueAdded')->numeric()->between(-100000000, 100000000);
+                Assert::that($config['valueAdded'], null, 'valueAdded')->numeric()->between(-100_000_000, 100_000_000);
                 $subject->setUserConfigValue('valueAdded', intval($config['valueAdded'] * 1000));
             } else {
-                $subject->setUserConfigValue('valueAdded', null);
+                $subject->setUserConfigValue('valueAdded', $subject->getProperty('defaultValueAdded', 1));
             }
         }
         if (array_key_exists('valuePrecision', $config)) {
@@ -106,23 +106,23 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
                 Assert::that($config['valuePrecision'], null, 'valuePrecision')->integer()->between(0, 10);
                 $subject->setUserConfigValue('valuePrecision', $config['valuePrecision']);
             } else {
-                $subject->setUserConfigValue('valuePrecision', null);
+                $subject->setUserConfigValue('valuePrecision', $subject->getProperty('defaultValuePrecision', 2));
             }
         }
         if (array_key_exists('unitBeforeValue', $config)) {
             if ($config['unitBeforeValue']) {
-                Assert::that($config['unitBeforeValue'], null, 'unitBeforeValue')->string()->maxLength(12);
+                Assert::that($config['unitBeforeValue'], null, 'unitBeforeValue')->string()->maxLength(14, null, null, 'ASCII');
                 $subject->setUserConfigValue('unitBeforeValue', $config['unitBeforeValue']);
             } else {
-                $subject->setUserConfigValue('unitBeforeValue', null);
+                $subject->setUserConfigValue('unitBeforeValue', $subject->getProperty('defaultUnitBeforeValue', ''));
             }
         }
         if (array_key_exists('unitAfterValue', $config)) {
             if ($config['unitAfterValue']) {
-                Assert::that($config['unitAfterValue'], null, 'unitAfterValue')->string()->maxLength(12);
+                Assert::that($config['unitAfterValue'], null, 'unitAfterValue')->string()->maxLength(14, null, null, 'ASCII');
                 $subject->setUserConfigValue('unitAfterValue', $config['unitAfterValue']);
             } else {
-                $subject->setUserConfigValue('unitAfterValue', null);
+                $subject->setUserConfigValue('unitAfterValue', $subject->getProperty('defaultUnitAfterValue', ''));
             }
         }
         if (array_key_exists('keepHistory', $config)) {
