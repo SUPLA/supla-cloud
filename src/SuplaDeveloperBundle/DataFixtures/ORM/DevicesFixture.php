@@ -394,7 +394,7 @@ class DevicesFixture extends SuplaFixture {
                         'chartType' => 'CANDLE',
                         'includeValueAddedInHistory' => true,
                         'fillMissingData' => true,
-                        'allowCounterReset' => true,
+                        'allowCounterReset' => false,
                         'alwaysDecrement' => true,
                     ]),
                 ],

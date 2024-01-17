@@ -36,6 +36,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
     private ?User $user;
     private ?IODevice $device;
     private ?int $measurementChannelId;
+    private ?int $meterChannelId;
 
     protected function initializeDatabaseForTests() {
         $this->user = $this->createConfirmedUser();
@@ -43,9 +44,10 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->device = (new DevicesFixture())->setObjectManager($this->getEntityManager())->createDeviceGeneralPurposeMeasurement($location);
         $this->flush();
         $this->measurementChannelId = $this->device->getChannels()[0]->getId();
+        $this->meterChannelId = $this->device->getChannels()[1]->getId();
     }
 
-    public function testGettingConfig() {
+    public function testGettingConfigMeasurement() {
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', '/api/channels/' . $this->measurementChannelId);
         $response = $client->getResponse();
@@ -60,12 +62,29 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('EFGH', $config['unitAfterValue']);
         $this->assertTrue($config['keepHistory']);
         $this->assertEquals('CANDLE', $config['chartType']);
+        $this->assertArrayNotHasKey('fillMissingData', $config);
         $this->assertEquals(0.078, $config['defaults']['valueDivider']);
         $this->assertEquals(0.910, $config['defaults']['valueMultiplier']);
         $this->assertEquals(1.112, $config['defaults']['valueAdded']);
         $this->assertEquals(9, $config['defaults']['valuePrecision']);
         $this->assertEquals('XCVB', $config['defaults']['unitBeforeValue']);
         $this->assertEquals('GHJK', $config['defaults']['unitAfterValue']);
+    }
+
+    public function testGettingConfigMeter() {
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', '/api/channels/' . $this->meterChannelId);
+        $response = $client->getResponse();
+        $this->assertStatusCode(200, $response);
+        $content = json_decode($response->getContent(), true);
+        $config = $content['config'];
+        $this->assertEquals(0.056, $config['valueAdded']);
+        $this->assertEquals('EFGH', $config['unitAfterValue']);
+        $this->assertTrue($config['keepHistory']);
+        $this->assertTrue($config['includeValueAddedInHistory']);
+        $this->assertTrue($config['fillMissingData']);
+        $this->assertFalse($config['allowCounterReset']);
+        $this->assertEquals(0.910, $config['defaults']['valueMultiplier']);
     }
 
     public function testSettingConfig() {

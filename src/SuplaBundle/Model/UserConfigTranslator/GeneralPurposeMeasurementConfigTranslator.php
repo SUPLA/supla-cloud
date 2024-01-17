@@ -137,7 +137,6 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
     public function supports(HasUserConfig $subject): bool {
         return in_array($subject->getFunction()->getId(), [
             ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
-            ChannelFunction::GENERAL_PURPOSE_METER,
         ]);
     }
 
