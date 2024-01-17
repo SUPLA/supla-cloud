@@ -36,7 +36,9 @@ class Version20240117180316 extends NoWayBackMigration {
                      'supla_scene',
                      'supla_scene_operation',
                      'supla_schedule',
+                     'supla_settings_string',
                      'supla_user',
+                     'supla_value_based_trigger',
                  ] as $tableName) {
             $this->addSql("ALTER TABLE `$tableName` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
         }
