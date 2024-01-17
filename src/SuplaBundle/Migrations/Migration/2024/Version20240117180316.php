@@ -38,7 +38,7 @@ class Version20240117180316 extends NoWayBackMigration {
                      'supla_schedule',
                      'supla_user',
                  ] as $tableName) {
-            $this->addSql("ALTER TABLE `$tableName` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+            $this->addSql("ALTER TABLE `$tableName` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
         }
     }
 }
