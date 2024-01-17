@@ -89,6 +89,7 @@ use UnexpectedValueException;
  * @method static ChannelFunction VALVEOPENCLOSE()
  * @method static ChannelFunction VALVEPERCENTAGE()
  * @method static ChannelFunction GENERAL_PURPOSE_MEASUREMENT()
+ * @method static ChannelFunction GENERAL_PURPOSE_METER()
  * @method static ChannelFunction ACTION_TRIGGER()
  * @method static ChannelFunction DIGIGLASS_VERTICAL()
  * @method static ChannelFunction DIGIGLASS_HORIZONTAL()
@@ -147,6 +148,7 @@ final class ChannelFunction extends Enum {
     const VALVEOPENCLOSE = 500;
     const VALVEPERCENTAGE = 510;
     const GENERAL_PURPOSE_MEASUREMENT = 520;
+    const GENERAL_PURPOSE_METER = 530;
     const ACTION_TRIGGER = 700;
     const DIGIGLASS_HORIZONTAL = 800;
     const DIGIGLASS_VERTICAL = 810;
@@ -418,6 +420,7 @@ final class ChannelFunction extends Enum {
             self::VALVEOPENCLOSE => 'Valve', // i18n
             self::VALVEPERCENTAGE => 'Valve', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
+            self::GENERAL_PURPOSE_METER => 'General purpose meter', // i18n
             self::ACTION_TRIGGER => 'Action trigger', // i18n
             self::DIGIGLASS_VERTICAL => 'Digi Glass Vertical', // i18n
             self::DIGIGLASS_HORIZONTAL => 'Digi Glass Horizontal', // i18n
@@ -495,6 +498,7 @@ final class ChannelFunction extends Enum {
             self::VALVEOPENCLOSE => ['opened', 'closed'],
             self::VALVEPERCENTAGE => ['opened', 'closed'],
             self::GENERAL_PURPOSE_MEASUREMENT => ['default'],
+            self::GENERAL_PURPOSE_METER => ['default'],
             self::ACTION_TRIGGER => ['default'],
             self::DIGIGLASS_VERTICAL => ['revealed', 'shut'],
             self::DIGIGLASS_HORIZONTAL => ['revealed', 'shut'],

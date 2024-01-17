@@ -69,6 +69,7 @@ use UnexpectedValueException;
  * @method static ChannelType VALVEPERCENTAGE()
  * @method static ChannelType BRIDGE()
  * @method static ChannelType GENERAL_PURPOSE_MEASUREMENT()
+ * @method static ChannelType GENERAL_PURPOSE_METER()
  * @method static ChannelType ACTION_TRIGGER()
  * @method static ChannelType DIGIGLASS()
  */
@@ -108,6 +109,7 @@ final class ChannelType extends Enum {
     const VALVEPERCENTAGE = 7010;
     const BRIDGE = 8000;
     const GENERAL_PURPOSE_MEASUREMENT = 9000;
+    const GENERAL_PURPOSE_METER = 9010;
     const ACTION_TRIGGER = 11000;
     const DIGIGLASS = 12000;
 
@@ -165,6 +167,7 @@ final class ChannelType extends Enum {
             self::VALVEPERCENTAGE => 'Valve', // i18n
             self::BRIDGE => 'Bridge', // i18n
             self::GENERAL_PURPOSE_MEASUREMENT => 'General purpose measurement', // i18n
+            self::GENERAL_PURPOSE_METER => 'General purpose meter', // i18n
             self::ACTION_TRIGGER => 'Action trigger', // i18n
             self::DIGIGLASS => 'Digi Glass', // i18n
         ];
@@ -249,6 +252,7 @@ final class ChannelType extends Enum {
             self::VALVEOPENCLOSE => [ChannelFunction::VALVEOPENCLOSE()],
             self::VALVEPERCENTAGE => [ChannelFunction::VALVEPERCENTAGE()],
             self::GENERAL_PURPOSE_MEASUREMENT => [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT()],
+            self::GENERAL_PURPOSE_METER => [ChannelFunction::GENERAL_PURPOSE_METER()],
             self::ACTION_TRIGGER => [ChannelFunction::ACTION_TRIGGER()],
             self::DIGIGLASS => [ChannelFunction::DIGIGLASS_VERTICAL(), ChannelFunction::DIGIGLASS_HORIZONTAL()],
         ];
