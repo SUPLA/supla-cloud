@@ -132,11 +132,9 @@ class AnyMeterIntegrationTest extends IntegrationTestCase {
             $this->paramsTranslator->setConfig($channel, ['unit' => 'kWh']);
             $this->assertEquals("kWh", $channel->getTextParam2());
             $this->paramsTranslator->setConfig($channel, ['unit' => 'kWh²']);
-            $this->assertEquals("kWh²", $channel->getTextParam2());
-            $this->paramsTranslator->setConfig($channel, ['unit' => 'kWh²³']);
             $this->assertEquals('kWh²', $channel->getTextParam2());
             $this->paramsTranslator->setConfig($channel, ['unit' => 'kWh²³']);
-            $this->assertEquals('kWh²', $channel->getTextParam2());
+            $this->assertEquals('kWh²³', $channel->getTextParam2());
             $this->paramsTranslator->setConfig($channel, ['unit' => '💞']);
             $this->assertEquals("💞", $channel->getTextParam2());
             $this->paramsTranslator->setConfig($channel, ['unit' => null]);
