@@ -61,6 +61,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('ABCD', $config['unitBeforeValue']);
         $this->assertEquals('EFGH', $config['unitAfterValue']);
         $this->assertTrue($config['keepHistory']);
+        $this->assertFalse($config['noSpaceAfterValue']);
         $this->assertEquals('CANDLE', $config['chartType']);
         $this->assertArrayNotHasKey('fillMissingData', $config);
         $this->assertEquals(0.078, $config['defaults']['valueDivider']);
@@ -97,6 +98,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
             'unitBeforeValue' => '$$$',
             'unitAfterValue' => 'metrów ³',
             'keepHistory' => false,
+            'noSpaceAfterValue' => true,
             'chartType' => 'BAR',
         ]]);
         $channel = $this->freshChannelById($this->measurementChannelId);
@@ -107,6 +109,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertEquals('metrów ³', $channel->getUserConfigValue('unitAfterValue'));
         $this->assertFalse($channel->getUserConfigValue('keepHistory'));
         $this->assertEquals('BAR', $channel->getUserConfigValue('chartType'));
+        $this->assertTrue($channel->getUserConfigValue('noSpaceAfterValue'));
     }
 
     public function testClearingConfigOnFunctionChange() {
