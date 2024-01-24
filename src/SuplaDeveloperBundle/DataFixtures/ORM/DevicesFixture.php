@@ -43,6 +43,7 @@ class DevicesFixture extends SuplaFixture {
     const DEVICE_HVAC = 'deviceHvac';
     const DEVICE_SUPLER = 'deviceSupler';
     const DEVICE_EVERY_FUNCTION = 'ALL-IN-ONE MEGA DEVICE';
+    const DEVICE_MEASUREMENTS = 'deviceMeasurements';
     const RANDOM_DEVICE_PREFIX = 'randomDevice';
 
     /** @var EntityManagerInterface */
@@ -399,7 +400,7 @@ class DevicesFixture extends SuplaFixture {
                     ]),
                 ],
             ],
-        ], '');
+        ], self::DEVICE_MEASUREMENTS);
         $this->entityManager->persist($device);
         return $device;
     }

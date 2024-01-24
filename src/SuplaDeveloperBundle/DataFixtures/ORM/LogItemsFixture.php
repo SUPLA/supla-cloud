@@ -25,6 +25,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
@@ -59,6 +60,8 @@ class LogItemsFixture extends SuplaFixture {
         $this->createElectricityMeterLogItems();
         $this->entityManager->flush();
         $this->createElectricityMeterVoltageLogItems();
+        $this->entityManager->flush();
+        $this->createGeneralPurposeMeasurementLogItems();
         $this->entityManager->flush();
     }
 
@@ -249,6 +252,35 @@ class LogItemsFixture extends SuplaFixture {
                 foreach ($state as $stateName => $value) {
                     EntityUtils::setField($logItem, $stateName, $state[$stateName]);
                 }
+                $this->entityManager->persist($logItem);
+            }
+        }
+    }
+
+    private function createGeneralPurposeMeasurementLogItems() {
+        $device = $this->getReference(DevicesFixture::DEVICE_MEASUREMENTS);
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $gpm */
+        $gpm = $device->getChannels()[0];
+        $gpmId = $gpm->getId();
+        $from = strtotime(self::SINCE);
+        $to = time();
+        $temperature = 10;
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+            $logItem = new GeneralPurposeMeasurementLogItem();
+            EntityUtils::setField($logItem, 'channel_id', $gpmId);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+            $openValue = $temperature;
+            $temperature += ($this->faker->boolean() ? -1 : 1) * $this->faker->biasedNumberBetween(0, 100) / 111;
+            $avgValue = ($openValue + $temperature) / 2 * (0.9 + rand(1, 20) / 100);
+            $maxValue = max($openValue, $temperature) * (1 + rand(0, 100) / 100);
+            $minValue = min($openValue, $temperature) * (1 - rand(0, 100) / 100);
+            $temperature = max(-270, $temperature);
+            EntityUtils::setField($logItem, 'open_value', $openValue);
+            EntityUtils::setField($logItem, 'close_value', $temperature);
+            EntityUtils::setField($logItem, 'avg_value', $avgValue);
+            EntityUtils::setField($logItem, 'max_value', $maxValue);
+            EntityUtils::setField($logItem, 'min_value', $minValue);
+            if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
             }
         }
