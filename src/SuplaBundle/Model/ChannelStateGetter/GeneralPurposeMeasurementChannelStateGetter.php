@@ -19,7 +19,8 @@ class GeneralPurposeMeasurementChannelStateGetter implements SingleChannelStateG
     public function getState(IODeviceChannel $channel): array {
         $value = $this->suplaServer->getRawValue('GPM', $channel);
         $value = rtrim($value);
-        $value = floatval(substr($value, strlen('VALUE:')));
+        $value = substr($value, strlen('VALUE:'));
+        $value = is_numeric($value) ? floatval($value) : null;
         return ['calculatedValue' => $value];
     }
 
