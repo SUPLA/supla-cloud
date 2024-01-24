@@ -138,7 +138,7 @@
 
     export default {
         components: {TransitionExpand, ChannelParamsButtonSelector, UnitSymbolHelper, VueNumber},
-        props: ['channel'],
+        props: ['channel', 'currentGroup'],
         data() {
             return {
                 formValues: {
@@ -162,6 +162,7 @@
                 } else {
                     this.group = group;
                 }
+                this.$emit('changeGroup', group);
             },
             initFormFromChannel() {
                 this.formValues.valueDivider = this.channel.config.valueDivider;
@@ -213,6 +214,11 @@
                     return this.formValues.valuePrecision;
                 }
             },
+        },
+        watch: {
+            currentGroup() {
+                this.group = this.currentGroup;
+            }
         }
     };
 </script>
