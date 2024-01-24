@@ -26,6 +26,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
+use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
@@ -211,6 +213,10 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::THERMOSTAT:
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return 'supla_thermostat_log';
+            case ChannelFunction::GENERAL_PURPOSE_MEASUREMENT:
+                return 'supla_gpm_measurement_log';
+            case ChannelFunction::GENERAL_PURPOSE_METER:
+                return 'supla_gpm_meter_log';
             default:
                 throw new ApiException('Invalid function.');
         }
@@ -229,6 +235,8 @@ class ChannelMeasurementLogsController extends RestController {
                 ChannelFunction::IC_HEATMETER,
                 ChannelFunction::THERMOSTAT,
                 ChannelFunction::THERMOSTATHEATPOLHOMEPLUS,
+                ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
+                ChannelFunction::GENERAL_PURPOSE_METER,
             ];
         }
         Assertion::inArray(
@@ -314,6 +322,30 @@ class ChannelMeasurementLogsController extends RestController {
                 return $this->logItems(
                     $table,
                     '`on`,`measured_temperature`,`preset_temperature`',
+                    $channel,
+                    $offset,
+                    $limit,
+                    $afterTimestamp,
+                    $beforeTimestamp,
+                    $orderDesc,
+                    $sparse
+                );
+            case ChannelFunction::GENERAL_PURPOSE_MEASUREMENT:
+                return $this->logItems(
+                    $table,
+                    'open_value, close_value, avg_value, max_value, min_value',
+                    $channel,
+                    $offset,
+                    $limit,
+                    $afterTimestamp,
+                    $beforeTimestamp,
+                    $orderDesc,
+                    $sparse
+                );
+            case ChannelFunction::GENERAL_PURPOSE_METER:
+                return $this->logItems(
+                    $table,
+                    '`counter`, `calculated_value`',
                     $channel,
                     $offset,
                     $limit,
@@ -564,6 +596,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
             case ChannelFunction::IC_HEATMETER:
+            case ChannelFunction::GENERAL_PURPOSE_METER:
                 return array_map(function (array $item) {
                     return [
                         'date_timestamp' => intval($item['date_timestamp']),
@@ -579,6 +612,17 @@ class ChannelMeasurementLogsController extends RestController {
                         'on' => boolval($item['on']),
                         'measured_temperature' => floatval($item['measured_temperature']),
                         'preset_temperature' => floatval($item['preset_temperature']),
+                    ];
+                }, $logs);
+            case ChannelFunction::GENERAL_PURPOSE_MEASUREMENT:
+                return array_map(function (array $item) {
+                    return [
+                        'date_timestamp' => intval($item['date_timestamp']),
+                        'open_value' => floatval($item['open_value']),
+                        'close_value' => floatval($item['close_value']),
+                        'avg_value' => floatval($item['avg_value']),
+                        'min_value' => floatval($item['min_value']),
+                        'max_value' => floatval($item['max_value']),
                     ];
                 }, $logs);
             default:
@@ -649,6 +693,8 @@ class ChannelMeasurementLogsController extends RestController {
             $this->deleteMeasurementLogs(ImpulseCounterLogItem::class, $channel);
             $this->deleteMeasurementLogs(TemperatureLogItem::class, $channel);
             $this->deleteMeasurementLogs(TempHumidityLogItem::class, $channel);
+            $this->deleteMeasurementLogs(GeneralPurposeMeasurementLogItem::class, $channel);
+            $this->deleteMeasurementLogs(GeneralPurposeMeterLogItem::class, $channel);
         }
         return new Response('', Response::HTTP_NO_CONTENT);
     }

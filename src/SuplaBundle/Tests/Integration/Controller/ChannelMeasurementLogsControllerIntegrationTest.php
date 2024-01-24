@@ -24,6 +24,8 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
+use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
@@ -130,6 +132,29 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $date->add($oneday);
         }
 
+        foreach ([21, 22, 23] as $measurement) {
+            $logItem = new GeneralPurposeMeasurementLogItem();
+            EntityUtils::setField($logItem, 'channel_id', 13 + $offset);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
+            EntityUtils::setField($logItem, 'open_value', $measurement * .9);
+            EntityUtils::setField($logItem, 'close_value', $measurement * 1.1);
+            EntityUtils::setField($logItem, 'avg_value', $measurement);
+            EntityUtils::setField($logItem, 'max_value', $measurement * 1.11);
+            EntityUtils::setField($logItem, 'min_value', $measurement * .89);
+            $this->getMeasurementLogsEntityManager()->persist($logItem);
+            $date->add($oneday);
+        }
+
+        foreach ([100, 200, 300] as $impulses) {
+            $logItem = new GeneralPurposeMeterLogItem();
+            EntityUtils::setField($logItem, 'channel_id', 14 + $offset);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
+            EntityUtils::setField($logItem, 'counter', $impulses);
+            EntityUtils::setField($logItem, 'calculated_value', $impulses * 0.56 / 0.98 + 3.14);
+            $this->getMeasurementLogsEntityManager()->persist($logItem);
+            $date->add($oneday);
+        }
+
         $fixture = new LogItemsFixture($this->getDoctrine());
         $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-2 day', 1);
         $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-2 day', 2);
@@ -153,6 +178,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             [ChannelType::THERMOSTATHEATPOLHOMEPLUS, ChannelFunction::THERMOSTATHEATPOLHOMEPLUS],
             [ChannelType::RELAY, ChannelFunction::STAIRCASETIMER],
             [ChannelType::HUMIDITYSENSOR, ChannelFunction::HUMIDITY],
+            [ChannelType::GENERAL_PURPOSE_MEASUREMENT, ChannelFunction::GENERAL_PURPOSE_MEASUREMENT],
+            [ChannelType::GENERAL_PURPOSE_METER, ChannelFunction::GENERAL_PURPOSE_METER],
         ];
 
         $this->device1 = $this->createDevice($location, $channels);
@@ -307,9 +334,27 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $content = $this->getMeasurementLogsV22($channelId);
         $impulsesInOrder = ['300', '200', '100'];
         $calculatedValuesInOrder = ['0.3000', '0.2000', '0.1000'];
-
         $this->assertSame($impulsesInOrder, array_column($content, 'counter'));
         $this->assertSame($calculatedValuesInOrder, array_column($content, 'calculated_value'));
+    }
+
+    public function testGettingGeneralPurposeMeasurementLogs() {
+        $firstLog = $this->getMeasurementLogsV24(13)[0];
+        $this->assertIsInt($firstLog['date_timestamp']);
+        $this->assertSame(23, $firstLog['avg_value']);
+        $this->assertEqualsWithDelta(20.7, $firstLog['open_value'], 0.001);
+        $this->assertEqualsWithDelta(25.3, $firstLog['close_value'], 0.001);
+        $this->assertEqualsWithDelta(23, $firstLog['avg_value'], 0.001);
+        $this->assertEqualsWithDelta(20.47, $firstLog['min_value'], 0.001);
+        $this->assertEqualsWithDelta(25.53, $firstLog['max_value'], 0.001);
+    }
+
+    public function testGettingGeneralPurposeMeterLogs() {
+        $firstLog = $this->getMeasurementLogsV24(14)[0];
+        $this->assertIsInt($firstLog['date_timestamp']);
+        $this->assertSame(300, $firstLog['counter']);
+        $this->assertIsFloat($firstLog['calculated_value']);
+        $this->assertEqualsWithDelta(174.568, $firstLog['calculated_value'], 0.001);
     }
 
     public function testGettingElectricityCounterLogsV22() {
