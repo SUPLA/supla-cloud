@@ -24,6 +24,24 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  */
 class Version20231221114509 extends NoWayBackMigration {
     public function migrate() {
+        foreach ([
+                     'supla_accessid',
+                     'supla_audit',
+                     'supla_client',
+                     'supla_dev_channel',
+                     'supla_direct_link',
+                     'supla_iodevice',
+                     'supla_dev_channel_group',
+                     'supla_location',
+                     'supla_scene',
+                     'supla_scene_operation',
+                     'supla_schedule',
+                     'supla_settings_string',
+                     'supla_user',
+                     'supla_value_based_trigger',
+                 ] as $tableName) {
+            $this->addSql("ALTER TABLE `$tableName` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+        }
         $this->addSql('ALTER TABLE supla_accessid CHANGE caption caption VARCHAR(100) DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_auto_gate_closing CHANGE active_hours active_hours VARCHAR(768) DEFAULT NULL');
         $this->addSql('ALTER TABLE supla_client CHANGE name name VARCHAR(100) DEFAULT NULL, CHANGE caption caption VARCHAR(100) DEFAULT NULL');
