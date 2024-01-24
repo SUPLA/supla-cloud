@@ -44,7 +44,14 @@
         </dl>
         <dl v-if="currentState.calculatedValue !== undefined">
             <dd>{{ $t('Meter value') }}</dd>
-            <dt>{{ currentState.calculatedValue|roundToDecimals }} {{ currentState.unit || '' }}</dt>
+            <dt>
+                <span v-if="['GENERAL_PURPOSE_MEASUREMENT', 'GENERAL_PURPOSE_METER'].includes(channel.function.name)">
+                    {{ currentState.calculatedValue | formatGpmValue(channel.config) }}
+                </span>
+                <span v-else>
+                    {{ currentState.calculatedValue|roundToDecimals }} {{ currentState.unit || '' }}
+                </span>
+            </dt>
         </dl>
         <dl v-if="currentState.phases && currentState.phases[0].totalForwardActiveEnergy !== undefined">
             <dd>{{ $t('Forward active energy') }}</dd>
