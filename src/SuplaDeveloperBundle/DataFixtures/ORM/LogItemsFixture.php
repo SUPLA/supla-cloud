@@ -26,6 +26,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
+use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
@@ -62,6 +63,8 @@ class LogItemsFixture extends SuplaFixture {
         $this->createElectricityMeterVoltageLogItems();
         $this->entityManager->flush();
         $this->createGeneralPurposeMeasurementLogItems();
+        $this->entityManager->flush();
+        $this->createGeneralPurposeMeterLogItems();
         $this->entityManager->flush();
     }
 
@@ -282,6 +285,34 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'min_value', $minValue);
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
+            }
+        }
+    }
+
+    private function createGeneralPurposeMeterLogItems() {
+        $device = $this->getReference(DevicesFixture::DEVICE_MEASUREMENTS);
+        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $gpm */
+        $gpm = $device->getChannels()[1];
+        $gpmId = $gpm->getId();
+        $from = strtotime(self::SINCE);
+        $to = time();
+        $counter = 0;
+        $valueMultiplier = $gpm->getUserConfigValue('valueMultiplier');
+        $valueDivider = $gpm->getUserConfigValue('valueDivider');
+        $valueAdded = $gpm->getUserConfigValue('valueAdded');
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+            $logItem = new GeneralPurposeMeterLogItem();
+            EntityUtils::setField($logItem, 'channel_id', $gpmId);
+            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+            $counter += $this->faker->biasedNumberBetween(0, 100) / 11;
+            EntityUtils::setField($logItem, 'counter', $counter);
+            $calculatedValue = $counter * $valueMultiplier / $valueDivider + $valueAdded;
+            EntityUtils::setField($logItem, 'calculated_value', $calculatedValue);
+            if ($this->faker->boolean(95)) {
+                $this->entityManager->persist($logItem);
+            }
+            if ($this->faker->boolean(1)) {
+                $counter = 0;
             }
         }
     }
