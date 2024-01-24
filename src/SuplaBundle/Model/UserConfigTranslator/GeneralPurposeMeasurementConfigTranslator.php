@@ -59,6 +59,7 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
                 'unitBeforeValue' => $subject->getUserConfigValue('unitBeforeValue'),
                 'unitAfterValue' => $subject->getUserConfigValue('unitAfterValue'),
                 'noSpaceAfterValue' => $subject->getUserConfigValue('noSpaceAfterValue', false),
+                'noSpaceBeforeValue' => $subject->getUserConfigValue('noSpaceBeforeValue', false),
                 'keepHistory' => $subject->getUserConfigValue('keepHistory', false),
                 'chartType' => $subject->getUserConfigValue('chartType', self::CHART_TYPES[0]),
                 'defaults' => [
@@ -131,6 +132,9 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
         }
         if (array_key_exists('noSpaceAfterValue', $config)) {
             $subject->setUserConfigValue('noSpaceAfterValue', filter_var($config['noSpaceAfterValue'], FILTER_VALIDATE_BOOLEAN));
+        }
+        if (array_key_exists('noSpaceBeforeValue', $config)) {
+            $subject->setUserConfigValue('noSpaceBeforeValue', filter_var($config['noSpaceBeforeValue'], FILTER_VALIDATE_BOOLEAN));
         }
         if (array_key_exists('chartType', $config)) {
             Assert::that($config['chartType'], null, 'chartType')->string()->inArray(self::CHART_TYPES);

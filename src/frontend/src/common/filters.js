@@ -71,6 +71,13 @@ export function prettyMilliseconds(ms, vue) {
     }
 }
 
+export function formatGpmValue(value, config) {
+    const roundedValue = roundToDecimals(value, config?.valuePrecision || 0);
+    const unitBefore = ((config?.unitBeforeValue || '') + (config?.noSpaceBeforeValue ? '' : ' '));
+    const unitAfter = ((config?.noSpaceAfterValue ? '' : ' ') + (config?.unitAfterValue || ''));
+    return (unitBefore + roundedValue + unitAfter).trim();
+}
+
 Vue.filter('withBaseUrl', withBaseUrl);
 Vue.filter('withDownloadAccessToken', withDownloadAccessToken);
 Vue.filter('deviceTitle', deviceTitle);
@@ -78,3 +85,4 @@ Vue.filter('toUpperCase', (text) => text.toUpperCase());
 Vue.filter('ellipsis', ellipsis);
 Vue.filter('prettyBytes', prettyBytes);
 Vue.filter('roundToDecimals', roundToDecimals);
+Vue.filter('formatGpmValue', formatGpmValue);
