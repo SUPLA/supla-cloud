@@ -57,7 +57,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0.012, $config['valueDivider']);
         $this->assertEquals(0.034, $config['valueMultiplier']);
         $this->assertEquals(0.056, $config['valueAdded']);
-        $this->assertEquals(5, $config['valuePrecision']);
+        $this->assertEquals(2, $config['valuePrecision']);
         $this->assertEquals('ABCD', $config['unitBeforeValue']);
         $this->assertEquals('EFGH', $config['unitAfterValue']);
         $this->assertTrue($config['keepHistory']);
@@ -67,7 +67,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertEquals(0.078, $config['defaults']['valueDivider']);
         $this->assertEquals(0.910, $config['defaults']['valueMultiplier']);
         $this->assertEquals(1.112, $config['defaults']['valueAdded']);
-        $this->assertEquals(9, $config['defaults']['valuePrecision']);
+        $this->assertEquals(4, $config['defaults']['valuePrecision']);
         $this->assertEquals('XCVB', $config['defaults']['unitBeforeValue']);
         $this->assertEquals('GHJK', $config['defaults']['unitAfterValue']);
     }

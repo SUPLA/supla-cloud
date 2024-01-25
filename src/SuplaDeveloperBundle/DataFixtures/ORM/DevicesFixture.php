@@ -354,7 +354,7 @@ class DevicesFixture extends SuplaFixture {
                         'defaultValueDivider' => 78,
                         'defaultValueMultiplier' => 910,
                         'defaultValueAdded' => 1112,
-                        'defaultValuePrecision' => 9,
+                        'defaultValuePrecision' => 4,
                         'defaultUnitBeforeValue' => 'XCVB',
                         'defaultUnitAfterValue' => 'GHJK',
                     ]),
@@ -362,7 +362,7 @@ class DevicesFixture extends SuplaFixture {
                         'valueDivider' => 12,
                         'valueMultiplier' => 34,
                         'valueAdded' => 56,
-                        'valuePrecision' => 5,
+                        'valuePrecision' => 2,
                         'unitBeforeValue' => 'ABCD',
                         'unitAfterValue' => 'EFGH',
                         'noSpaceAfterValue' => false,
@@ -379,7 +379,7 @@ class DevicesFixture extends SuplaFixture {
                         'defaultValueDivider' => 78,
                         'defaultValueMultiplier' => 910,
                         'defaultValueAdded' => 1112,
-                        'defaultValuePrecision' => 9,
+                        'defaultValuePrecision' => 4,
                         'defaultUnitBeforeValue' => 'XCVB',
                         'defaultUnitAfterValue' => 'GHJK',
                     ]),
@@ -387,7 +387,7 @@ class DevicesFixture extends SuplaFixture {
                         'valueDivider' => 12,
                         'valueMultiplier' => 34,
                         'valueAdded' => 56,
-                        'valuePrecision' => 5,
+                        'valuePrecision' => 3,
                         'unitBeforeValue' => 'ABCD',
                         'unitAfterValue' => 'EFGH',
                         'noSpaceAfterValue' => false,
@@ -452,7 +452,7 @@ class DevicesFixture extends SuplaFixture {
             $this->entityManager->flush();
         }
         $this->entityManager->refresh($device);
-        if ($registerAs) {
+        if ($registerAs && $this->referenceRepository) {
             $this->setReference($registerAs, $device);
         }
         return $device;

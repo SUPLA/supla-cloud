@@ -105,7 +105,7 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
         }
         if (array_key_exists('valuePrecision', $config)) {
             if ($config['valuePrecision']) {
-                Assert::that($config['valuePrecision'], null, 'valuePrecision')->integer()->between(0, 10);
+                Assert::that($config['valuePrecision'], null, 'valuePrecision')->integer()->between(0, 4);
                 $subject->setUserConfigValue('valuePrecision', $config['valuePrecision']);
             } else {
                 $subject->setUserConfigValue('valuePrecision', $subject->getProperty('defaultValuePrecision', 2));

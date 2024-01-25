@@ -42,7 +42,7 @@
                 <VueNumber v-model="valuePrecision"
                     @change="$emit('change')"
                     :min="0"
-                    :max="10"
+                    :max="4"
                     :placeholder="channel.config.defaults.valuePrecision"
                     v-bind="{precision: 0}"
                     class="form-control text-center"/>
@@ -84,7 +84,8 @@
             <dt>
                 <span class="help-block text-center">
                     (
-                    <input type="number" class="example-measurement-input no-spinner text-center" step="1" v-model="exampleValue">
+                    <input type="number" class="example-measurement-input no-spinner text-center" step="1" v-model="exampleValue"
+                        placeholder="0">
                     &middot; {{ channel.config.valueMultiplier }}
                     ÷ {{ channel.config.valueDivider }})
                     + {{ channel.config.valueAdded | formatGpmValue(channel.config) }}
