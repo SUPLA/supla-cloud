@@ -103,18 +103,19 @@
                     });
                 }
                 const measurementsHistoryFunctions = [
-                    'THERMOMETER',
-                    'HUMIDITY',
-                    'HUMIDITYANDTEMPERATURE',
-                    'ELECTRICITYMETER',
-                    'IC_ELECTRICITYMETER',
-                    'IC_GASMETER',
-                    'IC_WATERMETER',
-                    'IC_HEATMETER',
-                    'THERMOSTAT',
-                    'THERMOSTATHEATPOLHOMEPLUS'
+                    ChannelFunction.THERMOMETER,
+                    ChannelFunction.HUMIDITY,
+                    ChannelFunction.HUMIDITYANDTEMPERATURE,
+                    ChannelFunction.ELECTRICITYMETER,
+                    ChannelFunction.IC_ELECTRICITYMETER,
+                    ChannelFunction.IC_GASMETER,
+                    ChannelFunction.IC_WATERMETER,
+                    ChannelFunction.IC_HEATMETER,
+                    ChannelFunction.THERMOSTAT,
+                    ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
+                    ChannelFunction.GENERAL_PURPOSE_METER,
                 ];
-                if (measurementsHistoryFunctions.includes(this.channel.function.name)) {
+                if (measurementsHistoryFunctions.includes(this.channel.functionId)) {
                     this.availableTabs.push({
                         route: 'channel.measurementsHistory',
                         header: 'History of measurements', // i18n

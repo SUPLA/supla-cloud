@@ -311,7 +311,7 @@ class LogItemsFixture extends SuplaFixture {
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
             }
-            if ($this->faker->boolean(1)) {
+            if ($this->faker->boolean(.2)) {
                 $counter = 0;
             }
         }
