@@ -131,11 +131,21 @@
             {field: 'counter', label: 'Counter'},
             {field: 'calculated_value', label: 'Calculated value'},
         ],
+        [ChannelFunction.GENERAL_PURPOSE_MEASUREMENT]: [
+            {field: 'date_timestamp', label: 'Timestamp'},
+            {field: 'date', label: 'Date and time'},
+            {field: 'avg_value', label: 'Average'},
+            {field: 'open_value', label: 'Open value'},
+            {field: 'max_value', label: 'High value'},
+            {field: 'min_value', label: 'Low value'},
+            {field: 'close_value', label: 'Close value'},
+        ],
     };
 
     EXPORT_DEFINITIONS[ChannelFunction.IC_HEATMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
     EXPORT_DEFINITIONS[ChannelFunction.IC_WATERMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
     EXPORT_DEFINITIONS[ChannelFunction.IC_ELECTRICITYMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
+    EXPORT_DEFINITIONS[ChannelFunction.GENERAL_PURPOSE_METER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
 
     export default {
         components: {TransitionExpand},
@@ -224,6 +234,3 @@
         }
     };
 </script>
-
-<style lang="scss" scoped>
-</style>
