@@ -18,7 +18,7 @@ doctrine:
         charset: utf8mb4
         default_table_options:
           charset: utf8
-          collate: utf8_general_ci
+          collate: utf8_unicode_ci
       measurement_logs:
         driver: pdo_mysql
         dbname: "%database_name%"
@@ -30,7 +30,7 @@ doctrine:
         charset: utf8
         default_table_options:
           charset: utf8
-          collate: utf8_general_ci
+          collate: utf8_unicode_ci
     default_connection: default
     types:
       ipaddress: SuplaBundle\Model\Doctrine\IpAddressType
