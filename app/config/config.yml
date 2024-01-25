@@ -15,7 +15,7 @@ doctrine:
         port: "%database_port%"
         user: "%database_user%"
         schema_filter: ~^(?!(esp_|supla_email_notifications|supla_(.+)_log))~
-        charset: utf8
+        charset: utf8mb4
         default_table_options:
           charset: utf8
           collate: utf8_unicode_ci
