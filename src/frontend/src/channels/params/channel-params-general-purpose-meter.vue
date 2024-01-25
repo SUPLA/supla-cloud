@@ -1,16 +1,37 @@
 <template>
     <div>
-        <ChannelParamsGeneralPurposeMeasurement :channel="channel" @change="$emit('change')" @changeGroup="(g) => displayGroup(g)"
-            :current-group="group"/>
-        <a class="d-flex accordion-header" @click="displayGroup('other')">
-            <span class="flex-grow-1">{{ $t('Other') }}</span>
+        <a class="d-flex accordion-header" @click="displayGroup('measurements')">
+            <span class="flex-grow-1">{{ $t('Measurement settings') }}</span>
             <span>
-                <fa :icon="group === 'other' ? 'chevron-down' : 'chevron-right'"/>
+                <fa :icon="group === 'measurements' ? 'chevron-down' : 'chevron-right'"/>
             </span>
         </a>
         <transition-expand>
-            <div v-show="group === 'other'">
+            <div v-show="group === 'measurements'">
+                <ChannelParamsGeneralPurposeCommon :channel="channel" @change="$emit('change')"/>
+            </div>
+        </transition-expand>
+        <a class="d-flex accordion-header" @click="displayGroup('history')">
+            <span class="flex-grow-1">{{ $t('History') }}</span>
+            <span>
+                <fa :icon="group === 'history' ? 'chevron-down' : 'chevron-right'"/>
+            </span>
+        </a>
+        <transition-expand>
+            <div v-show="group === 'history'">
                 <dl>
+                    <dd>{{ $t('Store measurements history') }}</dd>
+                    <dt class="text-center">
+                        <toggler v-model="channel.config.keepHistory"
+                            @input="$emit('change')"></toggler>
+                    </dt>
+                    <dd>{{ $t('Chart type') }}</dd>
+                    <dt>
+                        <ChannelParamsButtonSelector
+                            v-model="channel.config.chartType"
+                            @input="$emit('change')"
+                            :values="[{id: 'LINEAR', label: $t('Linear')}, {id: 'BAR', label: $t('Bar')}]"/>
+                    </dt>
                     <dd>{{ $t('Include value added in history') }}</dd>
                     <dt class="text-center">
                         <toggler v-model="channel.config.includeValueAddedInHistory"
@@ -39,10 +60,11 @@
 
 <script>
     import TransitionExpand from "../../common/gui/transition-expand";
-    import ChannelParamsGeneralPurposeMeasurement from "@/channels/params/channel-params-general-purpose-measurement.vue";
+    import ChannelParamsGeneralPurposeCommon from "@/channels/params/channel-params-general-purpose-common.vue";
+    import ChannelParamsButtonSelector from "@/channels/params/channel-params-button-selector.vue";
 
     export default {
-        components: {ChannelParamsGeneralPurposeMeasurement, TransitionExpand},
+        components: {ChannelParamsButtonSelector, ChannelParamsGeneralPurposeCommon, TransitionExpand},
         props: ['channel'],
         data() {
             return {
