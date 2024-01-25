@@ -22,7 +22,7 @@ export function fillGaps(logs, expectedInterval, defaultLog) {
 
 export const CHART_TYPES = {
     THERMOMETER: {
-        chartType: 'rangeArea',
+        chartType: () => 'rangeArea',
         chartOptions: () => ({
             fill: {opacity: [1, .25]},
             stroke: {curve: 'straight', width: [2, 0]},
@@ -81,7 +81,7 @@ export const CHART_TYPES = {
         emptyLog: () => ({date_timestamp: null, temperature: null}),
     },
     HUMIDITYANDTEMPERATURE: {
-        chartType: 'rangeArea',
+        chartType: () => 'rangeArea',
         chartOptions() {
             return {
                 fill: {opacity: [1, 1, .25, .25]},
@@ -160,7 +160,7 @@ export const CHART_TYPES = {
         emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
     },
     HUMIDITY: {
-        chartType: 'rangeArea',
+        chartType: () => 'rangeArea',
         chartOptions: () => ({
             fill: {opacity: [1, .25]},
             stroke: {curve: 'straight', width: [2, 0]},
@@ -216,7 +216,7 @@ export const CHART_TYPES = {
         emptyLog: () => ({date_timestamp: null, temperature: null, humidity: null}),
     },
     IC_GASMETER: {
-        chartType: 'bar',
+        chartType: () => 'bar',
         chartOptions: () => ({
             legend: {show: false},
             tooltip: {followCursor: true, theme: 'no-series-label'},
@@ -324,7 +324,7 @@ export const CHART_TYPES = {
             }
             return logs;
         },
-        yaxes: function () {
+        yaxes() {
             return [
                 {
                     seriesName: this.$t('Value'),
@@ -336,7 +336,7 @@ export const CHART_TYPES = {
         emptyLog: () => ({date_timestamp: null, counter: null, calculated_value: null}),
     },
     ELECTRICITYMETER: {
-        chartType: 'bar',
+        chartType: () => 'bar',
         allAttributesArray() {
             return ['fae', 'rae', 'fre', 'rre']
                 .map((suffix) => {
@@ -587,7 +587,7 @@ export const CHART_TYPES = {
         }),
     },
     GENERAL_PURPOSE_MEASUREMENT: {
-        chartType: 'candlestick',
+        chartType: () => 'candlestick',
         chartOptions() {
             const vue = this;
             return {
@@ -660,4 +660,18 @@ export const CHART_TYPES = {
 CHART_TYPES.IC_HEATMETER = CHART_TYPES.IC_GASMETER;
 CHART_TYPES.IC_WATERMETER = CHART_TYPES.IC_GASMETER;
 CHART_TYPES.IC_ELECTRICITYMETER = CHART_TYPES.IC_GASMETER;
-CHART_TYPES.GENERAL_PURPOSE_METER = CHART_TYPES.IC_GASMETER;
+CHART_TYPES.GENERAL_PURPOSE_METER = {
+    ...CHART_TYPES.IC_GASMETER,
+    ...{
+        chartType: (channel) => channel?.config?.chartType === 'LINEAR' ? 'line' : 'bar',
+        yaxes() {
+            return [
+                {
+                    seriesName: this.$t('Value'),
+                    title: {text: this.$t('Value')},
+                    labels: {formatter: (v) => v !== null ? formatGpmValue(v, this.channel.config) : '?'},
+                }
+            ];
+        },
+    }
+};

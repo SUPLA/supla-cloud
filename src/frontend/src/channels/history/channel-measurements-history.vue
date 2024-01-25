@@ -265,7 +265,7 @@
                 const bigChartOptions = {
                     chart: {
                         id: chartId,
-                        type: this.chartStrategy.chartType,
+                        type: this.chartStrategy.chartType(this.channel),
                         height: 400,
                         toolbar: {
                             show: true,
