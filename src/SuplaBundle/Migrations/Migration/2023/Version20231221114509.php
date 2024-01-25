@@ -20,37 +20,26 @@ namespace SuplaBundle\Migrations\Migration;
 use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
- * Detected changes after migrating to PHP 7.4 (removes default collation).
+ * Fix collation of some user input fields.
  */
 class Version20231221114509 extends NoWayBackMigration {
     public function migrate() {
-        foreach ([
-                     'supla_accessid',
-                     'supla_audit',
-                     'supla_client',
-                     'supla_dev_channel',
-                     'supla_direct_link',
-                     'supla_iodevice',
-                     'supla_dev_channel_group',
-                     'supla_location',
-                     'supla_scene',
-                     'supla_scene_operation',
-                     'supla_schedule',
-                     'supla_settings_string',
-                     'supla_user',
-                     'supla_value_based_trigger',
-                 ] as $tableName) {
-            $this->addSql("ALTER TABLE `$tableName` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-        }
-        $this->addSql('ALTER TABLE supla_accessid CHANGE caption caption VARCHAR(100) DEFAULT NULL');
+        $this->addSql("ALTER TABLE supla_auto_gate_closing DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        $this->addSql("ALTER TABLE supla_dev_channel_extended_value DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        $this->addSql("ALTER TABLE supla_dev_channel_value DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        $this->addSql("ALTER TABLE supla_em_voltage_log DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        $this->addSql("ALTER TABLE supla_push_notification DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        $this->addSql("ALTER TABLE supla_rel_aid_pushnotification DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        $this->addSql("ALTER TABLE supla_settings_string DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        $this->addSql("ALTER TABLE supla_state_webhooks DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        $this->addSql("ALTER TABLE supla_value_based_trigger DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+
         $this->addSql('ALTER TABLE supla_auto_gate_closing CHANGE active_hours active_hours VARCHAR(768) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_client CHANGE name name VARCHAR(100) DEFAULT NULL, CHANGE caption caption VARCHAR(100) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_dev_channel CHANGE caption caption VARCHAR(100) DEFAULT NULL, CHANGE text_param1 text_param1 VARCHAR(255) DEFAULT NULL, CHANGE text_param2 text_param2 VARCHAR(255) DEFAULT NULL, CHANGE text_param3 text_param3 VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_dev_channel_group CHANGE caption caption VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_direct_link CHANGE caption caption VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_iodevice CHANGE name name VARCHAR(100) DEFAULT NULL, CHANGE comment comment VARCHAR(200) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_location CHANGE caption caption VARCHAR(100) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_scene CHANGE caption caption VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_schedule CHANGE caption caption VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_dev_channel CHANGE user_config user_config VARCHAR(4096) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE supla_push_notification CHANGE title title VARCHAR(100) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE body body VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE supla_scene CHANGE user_config user_config VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE supla_settings_string CHANGE name name VARCHAR(50) NOT NULL, CHANGE value value VARCHAR(1024) NOT NULL');
+        $this->addSql('ALTER TABLE supla_state_webhooks CHANGE url url VARCHAR(255) NOT NULL, CHANGE access_token access_token VARCHAR(255) NOT NULL, CHANGE refresh_token refresh_token VARCHAR(255) NOT NULL, CHANGE functions_ids functions_ids VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE supla_value_based_trigger CHANGE `trigger` `trigger` VARCHAR(2048) DEFAULT NULL, CHANGE action_param action_param VARCHAR(255) DEFAULT NULL, CHANGE active_hours active_hours VARCHAR(768) DEFAULT NULL, CHANGE activity_conditions activity_conditions VARCHAR(1024) DEFAULT NULL');
     }
 }

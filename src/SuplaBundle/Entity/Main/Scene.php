@@ -71,7 +71,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
     private $location;
 
     /**
-     * @ORM\Column(name="caption", type="string", length=255, nullable=true)
+     * @ORM\Column(name="caption", type="string", length=255, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $caption;
@@ -88,7 +88,7 @@ class Scene implements HasLocation, ActionableSubject, HasRelationsCount, HasUse
      */
     private $hidden = false;
 
-    /** @ORM\Column(name="user_config", type="string", length=2048, nullable=true) */
+    /** @ORM\Column(name="user_config", type="string", length=2048, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
     private $userConfig;
 
     /**

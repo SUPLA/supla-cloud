@@ -17,8 +17,8 @@ doctrine:
         schema_filter: ~^(?!(esp_|supla_email_notifications|supla_(.+)_log))~
         charset: utf8mb4
         default_table_options:
-          charset: utf8mb4
-          collate: utf8mb4_unicode_ci
+          charset: utf8
+          collate: utf8_general_ci
       measurement_logs:
         driver: pdo_mysql
         dbname: "%database_name%"
@@ -27,10 +27,10 @@ doctrine:
         port: "%database_port%"
         user: "%database_user%"
         schema_filter: ~^(migration_versions|supla_(.+)_log)$~
-        charset: utf8mb4
+        charset: utf8
         default_table_options:
-          charset: utf8mb4
-          collate: utf8mb4_unicode_ci
+          charset: utf8
+          collate: utf8_general_ci
     default_connection: default
     types:
       ipaddress: SuplaBundle\Model\Doctrine\IpAddressType

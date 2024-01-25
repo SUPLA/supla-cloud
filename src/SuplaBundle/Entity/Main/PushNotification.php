@@ -77,13 +77,13 @@ class PushNotification implements ActionableSubject {
     private $managedByDevice = false;
 
     /**
-     * @ORM\Column(name="title", type="string", length=100, nullable=true)
+     * @ORM\Column(name="title", type="string", length=100, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $title;
 
     /**
-     * @ORM\Column(name="body", type="string", length=255, nullable=true)
+     * @ORM\Column(name="body", type="string", length=255, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $body;

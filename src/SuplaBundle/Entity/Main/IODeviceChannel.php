@@ -124,7 +124,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     private $location;
 
     /**
-     * @ORM\Column(name="caption", type="string", length=100, nullable=true)
+     * @ORM\Column(name="caption", type="string", length=100, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $caption;
@@ -167,17 +167,17 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
     private $param4 = 0;
 
     /**
-     * @ORM\Column(name="text_param1", type="string", length=255, nullable=true)
+     * @ORM\Column(name="text_param1", type="string", length=255, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      */
     private $textParam1;
 
     /**
-     * @ORM\Column(name="text_param2", type="string", length=255, nullable=true)
+     * @ORM\Column(name="text_param2", type="string", length=255, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      */
     private $textParam2;
 
     /**
-     * @ORM\Column(name="text_param3", type="string", length=255, nullable=true)
+     * @ORM\Column(name="text_param3", type="string", length=255, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      */
     private $textParam3;
 
@@ -217,7 +217,7 @@ class IODeviceChannel implements ActionableSubject, HasLocation, HasRelationsCou
      */
     private $flags = 0;
 
-    /** @ORM\Column(name="user_config", type="string", length=4096, nullable=true) */
+    /** @ORM\Column(name="user_config", type="string", length=4096, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
     private $userConfig;
 
     /** @ORM\Column(name="properties", type="string", length=2048, nullable=true) */

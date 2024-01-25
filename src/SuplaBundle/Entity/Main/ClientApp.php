@@ -58,7 +58,7 @@ class ClientApp {
     private $user;
 
     /**
-     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     * @ORM\Column(name="name", type="string", length=100, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $name;
@@ -111,7 +111,7 @@ class ClientApp {
     private $authKey;
 
     /**
-     * @ORM\Column(name="caption", type="string", length=100, nullable=true)
+     * @ORM\Column(name="caption", type="string", length=100, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $caption;
