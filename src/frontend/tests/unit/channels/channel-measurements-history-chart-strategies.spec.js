@@ -121,6 +121,18 @@ describe('Channel measurement history data strategies', () => {
             expect(interpolated[4].phase3_rre).toEqual(logs[3].phase3_rre);
         });
 
+        it('cumulates logs back for EM logs', () => {
+            const logs = require('./measurement-logs/em_logs_case1.json');
+            const filled = fillGaps(logs, 600, CHART_TYPES.ELECTRICITYMETER.emptyLog());
+            expect(filled).toHaveLength(logs.length + 3);
+            const interpolated = strategy.interpolateGaps(filled);
+            const adjusted = strategy.adjustLogs(interpolated);
+            const cumulated = strategy.cumulateLogs(adjusted);
+            expect(cumulated).toHaveLength(logs.length);
+            expect(cumulated[2].phase3_rre).toEqual(logs[2].phase3_rre);
+            expect(cumulated[6].phase1_fae).toEqual(logs[6].phase1_fae);
+        });
+
         it('adjusts logs and store deltas for charts', () => {
             const logs = [
                 {date_timestamp: 0, phase1_fae: 1},
@@ -314,6 +326,19 @@ describe('Channel measurement history data strategies', () => {
             const adjustedLogs = strategy.interpolateGaps(logs);
             expect(adjustedLogs[2].calculated_value).toEqual(8);
             expect(adjustedLogs[2].counter).toEqual(4);
+        });
+
+        it('cumulates interpolated logs', () => {
+            const logs = [
+                {date_timestamp: 0, counter: 1, calculated_value: 2},
+                {date_timestamp: 100, counter: 3, calculated_value: 6},
+                {date_timestamp: 200, counter: null, calculated_value: null, interpolated: true},
+                {date_timestamp: 300, counter: 5, calculated_value: 10},
+            ];
+            const adjustedLogs = strategy.adjustLogs(strategy.interpolateGaps(logs));
+            expect(adjustedLogs.map(log => log.counter)).toEqual([1, 2, 1, 1]);
+            const cumulatedLogs = strategy.cumulateLogs(adjustedLogs);
+            expect(cumulatedLogs.map(log => log.counter)).toEqual([1, 3, 5]);
         });
 
         it('does not interpolate before counter reset logs', () => {
