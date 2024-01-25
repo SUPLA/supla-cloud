@@ -1,4 +1,5 @@
 import {measurementUnit} from "@/channels/channel-helpers";
+import {formatGpmValue} from "@/common/filters";
 
 export function fillGaps(logs, expectedInterval, defaultLog) {
     if (logs.length < 2) {
@@ -584,6 +585,75 @@ export const CHART_TYPES = {
             fae_total: 0, rae_total: 0, fae_rae_balance: 0,
             fae_balanced: null, rae_balanced: null,
         }),
+    },
+    GENERAL_PURPOSE_MEASUREMENT: {
+        chartType: 'candlestick',
+        chartOptions() {
+            const vue = this;
+            return {
+                // fill: {opacity: [1, .25]},
+                // stroke: {curve: 'straight', width: [2, 0]},
+                // colors: ['#00d150', '#00d150'],
+                legend: {show: false},
+                tooltip: {
+                    custom(ctx) {
+                        const o = ctx.w.globals.seriesCandleO[0][ctx.dataPointIndex];
+                        const h = ctx.w.globals.seriesCandleH[0][ctx.dataPointIndex];
+                        const l = ctx.w.globals.seriesCandleL[0][ctx.dataPointIndex];
+                        const c = ctx.w.globals.seriesCandleC[0][ctx.dataPointIndex];
+                        // debugger;
+                        const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
+                        return `<div class="p-3">
+                        <strong>${vue.$t('Open value')}:</strong> ${format(o)}<br>
+                        <strong>${vue.$t('High value')}:</strong> ${format(h)}<br>
+                        <strong>${vue.$t('Low value')}:</strong> ${format(l)}<br>
+                        <strong>${vue.$t('Close value')}:</strong> ${format(c)}
+                    </div>`;
+                    }
+                },
+            };
+        },
+        series: function (allLogs) {
+            const series = allLogs.map((item) => ({
+                x: item.date_timestamp * 1000,
+                y: [item.open_value, item.max_value, item.min_value, item.close_value],
+            }));
+            return [
+                {
+                    name: `${this.$t('Value')}`,
+                    data: series
+                },
+            ];
+        },
+        fixLog: (log) => log,
+        adjustLogs: (logs) => logs,
+        interpolateGaps: (logs) => logs,
+        aggregateLogs: (logs) => {
+            const avgs = logs.map(log => log.avg_value).filter(t => t || t === 0);
+            const average = avgs.reduce((a, b) => a + b, 0) / avgs.length;
+            const mins = logs.map(log => log.min_value).filter(t => t || t === 0);
+            const maxs = logs.map(log => log.max_value).filter(t => t || t === 0);
+            const opens = logs.map(log => log.open_value).filter(t => t || t === 0);
+            const closes = logs.map(log => log.close_value).filter(t => t || t === 0);
+            return {
+                ...logs[0],
+                avg_value: isNaN(average) ? null : average,
+                min_value: isNaN(average) ? null : Math.min.apply(null, mins),
+                max_value: isNaN(average) ? null : Math.max.apply(null, maxs),
+                open_value: isNaN(average) ? null : opens[0],
+                close_value: isNaN(average) ? null : closes.pop(),
+            };
+        },
+        yaxes() {
+            return [
+                {
+                    seriesName: this.$t('Value'),
+                    title: {text: this.$t("Value")},
+                    labels: {formatter: (v) => v !== null ? formatGpmValue(v, this.channel.config) : '?'},
+                }
+            ];
+        },
+        emptyLog: () => ({date_timestamp: null, avg_value: null, open_value: null, close_value: null, max_value: null, min_value: null}),
     },
 };
 

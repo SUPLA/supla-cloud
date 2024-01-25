@@ -114,6 +114,7 @@
                     ChannelFunction.THERMOSTAT,
                     ChannelFunction.THERMOSTATHEATPOLHOMEPLUS,
                     ChannelFunction.GENERAL_PURPOSE_METER,
+                    ChannelFunction.GENERAL_PURPOSE_MEASUREMENT,
                 ];
                 if (measurementsHistoryFunctions.includes(this.channel.functionId)) {
                     this.availableTabs.push({
