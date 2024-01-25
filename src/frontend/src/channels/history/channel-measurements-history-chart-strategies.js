@@ -587,15 +587,17 @@ export const CHART_TYPES = {
         }),
     },
     GENERAL_PURPOSE_MEASUREMENT: {
-        chartType: () => 'candlestick',
+        chartType: (channel) => ({'CANDLE': 'candlestick', 'LINEAR': 'rangeArea'}[channel?.config?.chartType || ''] || 'bar'),
         chartOptions() {
             const vue = this;
-            return {
-                // fill: {opacity: [1, .25]},
-                // stroke: {curve: 'straight', width: [2, 0]},
-                // colors: ['#00d150', '#00d150'],
+            const options = {
+                fill: {opacity: [1, .25]},
+                stroke: {curve: 'straight', width: [2, 0]},
+                colors: ['#00d150', '#00d150'],
                 legend: {show: false},
-                tooltip: {
+            };
+            if (this.channel?.config?.chartType === 'CANDLE') {
+                options.tooltip = {
                     custom(ctx) {
                         const o = ctx.w.globals.seriesCandleO[0][ctx.dataPointIndex];
                         const h = ctx.w.globals.seriesCandleH[0][ctx.dataPointIndex];
@@ -604,26 +606,47 @@ export const CHART_TYPES = {
                         // debugger;
                         const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
                         return `<div class="p-3">
-                        <strong>${vue.$t('Open value')}:</strong> ${format(o)}<br>
-                        <strong>${vue.$t('High value')}:</strong> ${format(h)}<br>
-                        <strong>${vue.$t('Low value')}:</strong> ${format(l)}<br>
-                        <strong>${vue.$t('Close value')}:</strong> ${format(c)}
-                    </div>`;
+                             <strong>${vue.$t('Open value')}:</strong> ${format(o)}<br>
+                             <strong>${vue.$t('High value')}:</strong> ${format(h)}<br>
+                             <strong>${vue.$t('Low value')}:</strong> ${format(l)}<br>
+                             <strong>${vue.$t('Close value')}:</strong> ${format(c)}
+                         </div>`;
                     }
-                },
-            };
+                };
+            }
+            return options;
         },
         series: function (allLogs) {
-            const series = allLogs.map((item) => ({
-                x: item.date_timestamp * 1000,
-                y: [item.open_value, item.max_value, item.min_value, item.close_value],
-            }));
-            return [
+            let baseSeries;
+            if (this.channel?.config?.chartType === 'CANDLE') {
+                baseSeries = allLogs.map((item) => ({
+                    x: item.date_timestamp * 1000,
+                    y: [item.open_value, item.max_value, item.min_value, item.close_value],
+                }));
+            } else {
+                baseSeries = allLogs.map((item) => ({
+                    x: item.date_timestamp * 1000,
+                    y: item.avg_value,
+                }));
+            }
+            const series = [
                 {
                     name: `${this.$t('Value')}`,
-                    data: series
+                    data: baseSeries,
                 },
             ];
+            if (this.channel?.config?.chartType === 'LINEAR') {
+                const rangeSeries = allLogs
+                    .filter((item) => item.min !== null)
+                    .map((item) => ({x: item.date_timestamp * 1000, y: [item.min_value, item.max_value]}));
+                series.push({
+                    name: `${this.$t('Value')} - ${this.$t('range')}`,
+                    type: 'rangeArea',
+                    data: rangeSeries
+                });
+                series[0].name = `${this.$t('Value')} - ${this.$t('average')}`;
+            }
+            return series;
         },
         fixLog: (log) => log,
         adjustLogs: (logs) => logs,
