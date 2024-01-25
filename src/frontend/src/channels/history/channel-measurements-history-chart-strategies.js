@@ -23,12 +23,28 @@ export function fillGaps(logs, expectedInterval, defaultLog) {
 export const CHART_TYPES = {
     THERMOMETER: {
         chartType: () => 'rangeArea',
-        chartOptions: () => ({
-            fill: {opacity: [1, .25]},
-            stroke: {curve: 'straight', width: [2, 0]},
-            colors: ['#00d150', '#00d150'],
-            legend: {show: false}
-        }),
+        chartOptions() {
+            const vue = this;
+            return {
+                fill: {opacity: [1, .25]},
+                stroke: {curve: 'straight', width: [2, 0]},
+                colors: ['#00d150', '#00d150'],
+                legend: {show: false},
+                tooltip: {
+                    custom(ctx) {
+                        const avg = ctx.w.globals.seriesRange[0][ctx.dataPointIndex].y[0].y1;
+                        const min = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y1;
+                        const max = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y2;
+                        const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
+                        return `<div class="p-3">
+                             <strong>${vue.$t('Average')}:</strong> ${format(avg)}<br>
+                             <strong>${vue.$t('Min')}:</strong> ${format(min)}<br>
+                             <strong>${vue.$t('Max')}:</strong> ${format(max)}
+                         </div>`;
+                    }
+                },
+            };
+        },
         series: function (allLogs) {
             const temperatureSeries = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.temperature}));
             const series = [
@@ -610,6 +626,21 @@ export const CHART_TYPES = {
                              <strong>${vue.$t('High value')}:</strong> ${format(h)}<br>
                              <strong>${vue.$t('Low value')}:</strong> ${format(l)}<br>
                              <strong>${vue.$t('Close value')}:</strong> ${format(c)}
+                         </div>`;
+                    }
+                };
+            }
+            if (this.channel?.config?.chartType === 'LINEAR') {
+                options.tooltip = {
+                    custom(ctx) {
+                        const avg = ctx.w.globals.seriesRange[0][ctx.dataPointIndex].y[0].y1;
+                        const min = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y1;
+                        const max = ctx.w.globals.seriesRange[1][ctx.dataPointIndex].y[0].y2;
+                        const format = (v) => ctx.w.config.yaxis[0].labels.formatter(v);
+                        return `<div class="p-3">
+                             <strong>${vue.$t('Average')}:</strong> ${format(avg)}<br>
+                             <strong>${vue.$t('Min')}:</strong> ${format(min)}<br>
+                             <strong>${vue.$t('Max')}:</strong> ${format(max)}
                          </div>`;
                     }
                 };
