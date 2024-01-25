@@ -392,7 +392,7 @@ class DevicesFixture extends SuplaFixture {
                         'unitAfterValue' => 'EFGH',
                         'noSpaceAfterValue' => false,
                         'keepHistory' => true,
-                        'chartType' => 'CANDLE',
+                        'chartType' => 'BAR',
                         'includeValueAddedInHistory' => true,
                         'fillMissingData' => true,
                         'allowCounterReset' => false,
