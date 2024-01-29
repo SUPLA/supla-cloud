@@ -214,9 +214,9 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::THERMOSTATHEATPOLHOMEPLUS:
                 return 'supla_thermostat_log';
             case ChannelFunction::GENERAL_PURPOSE_MEASUREMENT:
-                return 'supla_gpm_measurement_log';
+                return 'supla_gp_measurement_log';
             case ChannelFunction::GENERAL_PURPOSE_METER:
-                return 'supla_gpm_meter_log';
+                return 'supla_gp_meter_log';
             default:
                 throw new ApiException('Invalid function.');
         }
@@ -345,7 +345,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::GENERAL_PURPOSE_METER:
                 return $this->logItems(
                     $table,
-                    '`counter`, `calculated_value`',
+                    '`value`',
                     $channel,
                     $offset,
                     $limit,

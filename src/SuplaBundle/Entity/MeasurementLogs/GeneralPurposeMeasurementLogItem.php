@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_gpm_measurement_log")
+ * @ORM\Table(name="supla_gp_measurement_log")
  */
 class GeneralPurposeMeasurementLogItem {
     /**

@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_gpm_meter_log")
+ * @ORM\Table(name="supla_gp_meter_log")
  */
 class GeneralPurposeMeterLogItem {
     /**
@@ -38,14 +38,9 @@ class GeneralPurposeMeterLogItem {
     private $date;
 
     /**
-     * @ORM\Column(name="counter", type="float")
+     * @ORM\Column(name="value", type="float")
      */
-    private $counter;
-
-    /**
-     * @ORM\Column(name="calculated_value", type="float")
-     */
-    private $calculated_value;
+    private $value;
 
     public function getChannelId(): int {
         return $this->channel_id;
