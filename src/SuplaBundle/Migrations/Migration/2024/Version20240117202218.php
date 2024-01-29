@@ -26,6 +26,8 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * The size of the "flags" variable has been increased, from INT to UNSIGNED BIGINT
  * New procedure: supla_add_gp_measurement_log_item
  * New procedure: supla_add_gp_meter_log_item
+ * Remove collation from the input parameters of the supla_set_channel_json_config procedure
+ * Remove collation from the input parameters of the supla_set_device_json_config procedure
  */
 class Version20240117202218 extends NoWayBackMigration {
     public function migrate() {
@@ -36,5 +38,9 @@ class Version20240117202218 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE `supla_dev_channel` CHANGE `flags` `flags` BIGINT UNSIGNED NULL DEFAULT NULL');
         $this->addSql('CREATE PROCEDURE `supla_add_gp_measurement_log_item`(IN `_channel_id` INT, IN `_open_value` DOUBLE, IN `_close_value` DOUBLE, IN `_avg_value` DOUBLE, IN `_max_value` DOUBLE, IN `_min_value` DOUBLE) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER INSERT INTO `supla_gp_measurement_log`(`channel_id`, `date`, `open_value`, `close_value`, `avg_value`, `max_value`, `min_value`) VALUES (_channel_id, NOW(),_open_value, _close_value, _avg_value, _max_value, _min_value)');
         $this->addSql('CREATE PROCEDURE `supla_add_gp_meter_log_item`(IN `_channel_id` INT, IN `_value` DOUBLE) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER INSERT INTO `supla_gp_meter_log`(`channel_id`, `date`, `value`) VALUES (_channel_id, NOW(), _value)');
+        $this->addSql('DROP PROCEDURE `supla_set_channel_json_config`');
+        $this->addSql('CREATE PROCEDURE `supla_set_channel_json_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` VARCHAR(4096), IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048), IN `_properties_md5` VARCHAR(32)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN UPDATE supla_dev_channel SET user_config = _user_config, properties = _properties WHERE id = _channel_id AND user_id = _user_id AND MD5(IFNULL(user_config, '')) = _user_config_md5 AND MD5(IFNULL(properties, '')) = _properties_md5; SELECT ABS(STRCMP(user_config, _user_config))+ABS(STRCMP(properties, _properties)) FROM supla_dev_channel WHERE id = _channel_id AND user_id = _user_id; END');
+        $this->addSql('DROP PROCEDURE `supla_set_device_json_config`');
+        $this->addSql('CREATE PROCEDURE `supla_set_device_json_config`(IN `_user_id` INT, IN `_device_id` INT, IN `_user_config` VARCHAR(4096), IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048), IN `_properties_md5` VARCHAR(32)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN UPDATE supla_iodevice SET user_config = _user_config, properties = _properties WHERE id = _device_id AND user_id = _user_id AND MD5(IFNULL(user_config, '')) = _user_config_md5 AND MD5(IFNULL(properties, '')) = _properties_md5; SELECT ABS(STRCMP(user_config, _user_config))+ABS(STRCMP(properties, _properties)) FROM supla_iodevice WHERE id = _device_id AND user_id = _user_id; END');
     }
 }
