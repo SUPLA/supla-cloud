@@ -28,6 +28,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * New procedure: supla_add_gp_meter_log_item
  * Remove collation from the input parameters of the supla_set_channel_json_config procedure
  * Remove collation from the input parameters of the supla_set_device_json_config procedure
+ * Changing charset to utf8mb4 in the supla_mqtt_broker_auth procedure
  */
 class Version20240117202218 extends NoWayBackMigration {
     public function migrate() {
@@ -42,5 +43,7 @@ class Version20240117202218 extends NoWayBackMigration {
         $this->addSql('CREATE PROCEDURE `supla_set_channel_json_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` VARCHAR(4096), IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048), IN `_properties_md5` VARCHAR(32)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN UPDATE supla_dev_channel SET user_config = _user_config, properties = _properties WHERE id = _channel_id AND user_id = _user_id AND MD5(IFNULL(user_config, '')) = _user_config_md5 AND MD5(IFNULL(properties, '')) = _properties_md5; SELECT ABS(STRCMP(user_config, _user_config))+ABS(STRCMP(properties, _properties)) FROM supla_dev_channel WHERE id = _channel_id AND user_id = _user_id; END');
         $this->addSql('DROP PROCEDURE `supla_set_device_json_config`');
         $this->addSql('CREATE PROCEDURE `supla_set_device_json_config`(IN `_user_id` INT, IN `_device_id` INT, IN `_user_config` VARCHAR(4096), IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048), IN `_properties_md5` VARCHAR(32)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN UPDATE supla_iodevice SET user_config = _user_config, properties = _properties WHERE id = _device_id AND user_id = _user_id AND MD5(IFNULL(user_config, '')) = _user_config_md5 AND MD5(IFNULL(properties, '')) = _properties_md5; SELECT ABS(STRCMP(user_config, _user_config))+ABS(STRCMP(properties, _properties)) FROM supla_iodevice WHERE id = _device_id AND user_id = _user_id; END');
+        $this->addSql('DROP PROCEDURE `supla_mqtt_broker_auth`');
+        $this->addSql('CREATE PROCEDURE `supla_mqtt_broker_auth`(IN `in_suid` VARCHAR(255) CHARSET utf8mb4, IN `in_password` VARCHAR(255) CHARSET utf8mb4) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER BEGIN SET @hashed_password = SHA2(in_password, 512); SELECT 1 FROM supla_user su LEFT JOIN supla_oauth_client_authorizations soca ON su.id = soca.user_id WHERE mqtt_broker_enabled = 1 AND short_unique_id = BINARY in_suid AND( su.mqtt_broker_auth_password = @hashed_password OR soca.mqtt_broker_auth_password = @hashed_password ) LIMIT 1; END');
     }
 }
