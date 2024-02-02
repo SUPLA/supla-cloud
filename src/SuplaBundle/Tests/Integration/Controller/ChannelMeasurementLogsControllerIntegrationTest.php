@@ -149,8 +149,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
             $logItem = new GeneralPurposeMeterLogItem();
             EntityUtils::setField($logItem, 'channel_id', 14 + $offset);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString($date));
-            EntityUtils::setField($logItem, 'counter', $impulses);
-            EntityUtils::setField($logItem, 'calculated_value', $impulses * 0.56 / 0.98 + 3.14);
+            EntityUtils::setField($logItem, 'value', $impulses * 0.56 / 0.98 + 3.14);
             $this->getMeasurementLogsEntityManager()->persist($logItem);
             $date->add($oneday);
         }
@@ -352,9 +351,8 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
     public function testGettingGeneralPurposeMeterLogs() {
         $firstLog = $this->getMeasurementLogsV24(14)[0];
         $this->assertIsInt($firstLog['date_timestamp']);
-        $this->assertSame(300, $firstLog['counter']);
-        $this->assertIsFloat($firstLog['calculated_value']);
-        $this->assertEqualsWithDelta(174.568, $firstLog['calculated_value'], 0.001);
+        $this->assertIsFloat($firstLog['value']);
+        $this->assertEqualsWithDelta(174.568, $firstLog['value'], 0.001);
     }
 
     public function testGettingElectricityCounterLogsV22() {

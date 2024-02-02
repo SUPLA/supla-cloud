@@ -732,15 +732,116 @@ export const CHART_TYPES = {
         },
         emptyLog: () => ({date_timestamp: null, avg_value: null, open_value: null, close_value: null, max_value: null, min_value: null}),
     },
-};
-
-CHART_TYPES.IC_HEATMETER = CHART_TYPES.IC_GASMETER;
-CHART_TYPES.IC_WATERMETER = CHART_TYPES.IC_GASMETER;
-CHART_TYPES.IC_ELECTRICITYMETER = CHART_TYPES.IC_GASMETER;
-CHART_TYPES.GENERAL_PURPOSE_METER = {
-    ...CHART_TYPES.IC_GASMETER,
-    ...{
+    GENERAL_PURPOSE_METER: {
         chartType: (channel) => channel?.config?.chartType === 'LINEAR' ? 'line' : 'bar',
+        chartOptions: () => ({
+            legend: {show: false},
+            tooltip: {followCursor: true, theme: 'no-series-label'},
+        }),
+        series: function (allLogs) {
+            const calculatedValues = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.value}));
+            return [{name: this.$t('Value'), data: calculatedValues}];
+        },
+        fixLog: (log) => {
+            if (log.value !== undefined && log.value !== null) {
+                log.value = +(+log.value).toFixed(5);
+            }
+            return log;
+        },
+        aggregateLogs: (logs) => {
+            const aggregatedLog = {
+                ...(CHART_TYPES.GENERAL_PURPOSE_METER.emptyLog()),
+                date_timestamp: logs[0].date_timestamp,
+                date: logs[0].date
+            };
+            logs.forEach(log => {
+                if (log.value) {
+                    aggregatedLog.value += log.value;
+                    if (log.counterReset) {
+                        aggregatedLog.counterReset = true;
+                    }
+                }
+            });
+            return aggregatedLog;
+        },
+        adjustLogs: (logs) => {
+            let previousLog = logs[0];
+            const adjustedLogs = [logs[0]];
+            for (let i = 1; i < logs.length; i++) {
+                const log = {...logs[i]};
+                let skipThisLog = false;
+                if (log.value >= previousLog.value * .9) { // .9 for reset misdetections
+                    if (log.value >= previousLog.value) {
+                        log.value -= previousLog.value;
+                    } else {
+                        log.value = 0;
+                        skipThisLog = true;
+                    }
+                } else {
+                    log.counterReset = true;
+                }
+                adjustedLogs.push(log);
+                if (!skipThisLog) {
+                    previousLog = logs[i];
+                }
+            }
+            return adjustedLogs;
+        },
+        cumulateLogs: (logs) => {
+            const adjustedLogs = [logs[0]];
+            let cumulatedInterpolations = {value: 0};
+            for (let i = 1; i < logs.length; i++) {
+                let log = {...logs[i]};
+                if (log.interpolated) {
+                    cumulatedInterpolations.value += log.value;
+                } else {
+                    if (!log.counterReset && log.value !== null) {
+                        log.value += adjustedLogs[adjustedLogs.length - 1].value || 0;
+                    }
+                    if (cumulatedInterpolations.value) {
+                        log.value += cumulatedInterpolations.value;
+                        cumulatedInterpolations = {value: 0};
+                    }
+                    adjustedLogs.push(log);
+                }
+            }
+            return adjustedLogs;
+        },
+        getAnnotations: function (logs) {
+            return logs.filter(log => log.counterReset).map(log => ({
+                x: log.date_timestamp * 1000,
+                borderColor: '#f00',
+                label: {
+                    borderColor: '#f00',
+                    style: {color: '#f00',},
+                    text: this.$t('Counter reset'),
+                }
+            }));
+        },
+        interpolateGaps: (logs) => {
+            let firstNullLog = undefined;
+            let lastNonNullLog = undefined;
+            for (let currentNonNullLog = 0; currentNonNullLog < logs.length; currentNonNullLog++) {
+                const currentValue = logs[currentNonNullLog].value;
+                if (currentValue === null && firstNullLog === undefined) {
+                    firstNullLog = currentNonNullLog;
+                } else if (currentValue !== null && firstNullLog !== undefined && lastNonNullLog !== undefined) {
+                    const logsToFill = currentNonNullLog - firstNullLog;
+                    const lastKnownValue = logs[lastNonNullLog].value;
+                    const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
+                    if (normalizedStep >= 0) {
+                        for (let i = 0; i < logsToFill; i++) {
+                            logs[i + firstNullLog].value = lastKnownValue + normalizedStep * (i + 1);
+                        }
+                    }
+                    firstNullLog = undefined;
+                }
+                if (currentValue !== null) {
+                    lastNonNullLog = currentNonNullLog;
+                }
+            }
+            return logs;
+        },
         yaxes() {
             return [
                 {
@@ -750,5 +851,10 @@ CHART_TYPES.GENERAL_PURPOSE_METER = {
                 }
             ];
         },
-    }
+        emptyLog: () => ({date_timestamp: null, value: null}),
+    },
 };
+
+CHART_TYPES.IC_HEATMETER = CHART_TYPES.IC_GASMETER;
+CHART_TYPES.IC_WATERMETER = CHART_TYPES.IC_GASMETER;
+CHART_TYPES.IC_ELECTRICITYMETER = CHART_TYPES.IC_GASMETER;

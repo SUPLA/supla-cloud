@@ -305,9 +305,8 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'channel_id', $gpmId);
             EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             $counter += $this->faker->biasedNumberBetween(0, 100) / 11;
-            EntityUtils::setField($logItem, 'counter', $counter);
             $calculatedValue = $counter * $valueMultiplier / $valueDivider + $valueAdded;
-            EntityUtils::setField($logItem, 'calculated_value', $calculatedValue);
+            EntityUtils::setField($logItem, 'value', $calculatedValue);
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
             }

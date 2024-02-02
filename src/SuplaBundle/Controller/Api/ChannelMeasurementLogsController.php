@@ -596,12 +596,18 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
             case ChannelFunction::IC_HEATMETER:
-            case ChannelFunction::GENERAL_PURPOSE_METER:
                 return array_map(function (array $item) {
                     return [
                         'date_timestamp' => intval($item['date_timestamp']),
                         'counter' => floatval($item['counter']),
                         'calculated_value' => floatval($item['calculated_value']),
+                    ];
+                }, $logs);
+            case ChannelFunction::GENERAL_PURPOSE_METER:
+                return array_map(function (array $item) {
+                    return [
+                        'date_timestamp' => intval($item['date_timestamp']),
+                        'value' => floatval($item['value']),
                     ];
                 }, $logs);
             case ChannelFunction::THERMOSTAT:
