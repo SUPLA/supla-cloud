@@ -720,7 +720,7 @@ class ChannelMeasurementLogsController extends RestController {
     public function channelItemGetCSVAction(Request $request, IODeviceChannel $channel, MeasurementCsvExporter $measurementCsvExporter) {
         $logsType = $request->query->get('logsType');
         $filePath = $measurementCsvExporter->createZipArchiveWithLogs($channel, $logsType);
-        $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
+        $prefix = $logsType === 'voltage' ? 'voltage_aberration' : 'measurement_';
         return new StreamedResponse(
             function () use ($filePath) {
                 readfile($filePath);
