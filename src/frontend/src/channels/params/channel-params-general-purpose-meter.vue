@@ -32,11 +32,6 @@
                             @input="$emit('change')"
                             :values="[{id: 'LINEAR', label: $t('Linear')}, {id: 'BAR', label: $t('Bar')}]"/>
                     </dt>
-                    <dd>{{ $t('Include value added in history') }}</dd>
-                    <dt class="text-center">
-                        <toggler v-model="props.channel.config.includeValueAddedInHistory"
-                            @input="$emit('change')"></toggler>
-                    </dt>
                     <dd>{{ $t('Fill missing data') }}</dd>
                     <dt class="text-center">
                         <toggler v-model="props.channel.config.fillMissingData"

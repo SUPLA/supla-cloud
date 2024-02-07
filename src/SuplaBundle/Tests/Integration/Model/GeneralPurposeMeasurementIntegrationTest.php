@@ -95,7 +95,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
             'valueMultiplier' => -11.223,
             'valueAdded' => null,
             'valuePrecision' => 2,
-            'unitBeforeValue' => '$$$',
+            'unitBeforeValue' => '',
             'unitAfterValue' => 'metrów ³',
             'keepHistory' => false,
             'noSpaceAfterValue' => true,
@@ -103,9 +103,9 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         ]]);
         $channel = $this->freshChannelById($this->measurementChannelId);
         $this->assertEquals(12340, $channel->getUserConfigValue('valueDivider'));
-        $this->assertEquals(1112, $channel->getUserConfigValue('valueAdded'));
+        $this->assertEquals(0, $channel->getUserConfigValue('valueAdded'));
         $this->assertEquals(2, $channel->getUserConfigValue('valuePrecision'));
-        $this->assertEquals('$$$', $channel->getUserConfigValue('unitBeforeValue'));
+        $this->assertEquals('', $channel->getUserConfigValue('unitBeforeValue'));
         $this->assertEquals('metrów ³', $channel->getUserConfigValue('unitAfterValue'));
         $this->assertFalse($channel->getUserConfigValue('keepHistory'));
         $this->assertEquals('BAR', $channel->getUserConfigValue('chartType'));

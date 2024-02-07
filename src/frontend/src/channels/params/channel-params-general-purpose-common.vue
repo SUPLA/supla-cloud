@@ -1,51 +1,53 @@
 <template>
     <div>
         <dl>
+            <dd></dd>
+            <dt>
+                <button type="button" class="btn btn-white btn-xs" @click="resetToDefaults()">
+                    {{ $t('Reset to defaults') }}
+                </button>
+            </dt>
             <dd>{{ $t('Value multiplier') }}</dd>
             <dt>
                 <VueNumber v-model="valueMultiplier"
-                    @change="$emit('change')"
                     :min="-2000000"
                     :max="2000000"
-                    :placeholder="channel.config.defaults.valueMultiplier"
+                    :placeholder="1"
                     v-bind="{decimal: '.', precision: 3, separator: ' '}"
                     class="form-control text-center"/>
             </dt>
             <dd>{{ $t('Value divider') }}</dd>
             <dt>
                 <VueNumber v-model="valueDivider"
-                    @change="$emit('change')"
                     :min="-2000000"
                     :max="2000000"
-                    :placeholder="channel.config.defaults.valueDivider"
+                    :placeholder="1"
                     v-bind="{decimal: '.', precision: 3, separator: ' '}"
                     class="form-control text-center"/>
             </dt>
             <dd>{{ $t('Value added') }}</dd>
             <dt>
                 <VueNumber v-model="valueAdded"
-                    @change="$emit('change')"
                     :min="-100000000"
                     :max="100000000"
-                    :placeholder="channel.config.defaults.valueAdded"
+                    :placeholder="0"
                     v-bind="{
                         decimal: '.',
                         precision: 3,
                         separator: ' ',
-                        prefix: channel.config.unitBeforeValue + (channel.config.noSpaceBeforeValue ? '' : ' '),
-                        suffix: (channel.config.noSpaceAfterValue ? '' : ' ') + channel.config.unitAfterValue,
                     }"
                     class="form-control text-center"/>
+                <ChannelParamsMeterInitialValuesMode v-if="channel.function.name === 'GENERAL_PURPOSE_METER'"
+                    v-model="channel.config.includeValueAddedInHistory" @input="$emit('change')"/>
             </dt>
             <dd>{{ $t('Precision') }}</dd>
             <dt>
-                <VueNumber v-model="valuePrecision"
-                    @change="$emit('change')"
-                    :min="0"
-                    :max="4"
-                    :placeholder="channel.config.defaults.valuePrecision"
-                    v-bind="{precision: 0}"
-                    class="form-control text-center"/>
+                <div class="btn-group btn-group-flex">
+                    <a :class="'btn ' + (prec === valuePrecision ? 'btn-green' : 'btn-default')"
+                        v-for="prec in [0,1,2,3,4]" :key="prec" @click="valuePrecision = prec">
+                        {{ prec }}
+                    </a>
+                </div>
             </dt>
             <dd>{{ $t('Unit') }}</dd>
             <dt>
@@ -100,9 +102,10 @@
 <script>
     import UnitSymbolHelper from "./unit-symbol-helper";
     import {component as VueNumber} from '@coders-tm/vue-number-format'
+    import ChannelParamsMeterInitialValuesMode from "@/channels/params/channel-params-meter-initial-values-mode.vue";
 
     export default {
-        components: {UnitSymbolHelper, VueNumber},
+        components: {ChannelParamsMeterInitialValuesMode, UnitSymbolHelper, VueNumber},
         props: ['channel'],
         data() {
             return {
@@ -113,7 +116,7 @@
                     valuePrecision: 0,
                 },
                 exampleValue: 100,
-                lastUnitField: 'unitPrefix',
+                lastUnitField: 'unitAfterValue',
             };
         },
         beforeMount() {
@@ -128,13 +131,21 @@
             },
             setConfigValue(name, value, valueIfZero = 0) {
                 this.formValues[name] = value;
-                if (!value) {
-                    this.channel.config[name] = this.channel.config.defaults[name] || valueIfZero;
-                } else if (+value === 0) {
+                if (!value || +value === 0) {
                     this.channel.config[name] = valueIfZero;
                 } else {
                     this.channel.config[name] = +value;
                 }
+                this.$emit('change');
+            },
+            resetToDefaults() {
+                this.valueDivider = this.channel.config.defaults.valueDivider || 1;
+                this.valueMultiplier = this.channel.config.defaults.valueMultiplier || 1;
+                this.valueAdded = this.channel.config.defaults.valueAdded || 0;
+                this.valuePrecision = this.channel.config.defaults.valuePrecision || 0;
+                this.channel.config.unitBeforeValue = this.channel.config.defaults.unitBeforeValue || '';
+                this.channel.config.unitAfterValue = this.channel.config.defaults.unitAfterValue || '';
+                this.$emit('change');
             },
         },
         computed: {
