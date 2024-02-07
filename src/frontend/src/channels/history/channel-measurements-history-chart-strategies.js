@@ -764,21 +764,37 @@ export const CHART_TYPES = {
             });
             return aggregatedLog;
         },
-        adjustLogs: (logs) => {
+        adjustLogs: (logs, channel) => {
             let previousLog = logs[0];
             const adjustedLogs = [logs[0]];
+            const counterType = channel.config.counterType;
             for (let i = 1; i < logs.length; i++) {
                 const log = {...logs[i]};
                 let skipThisLog = false;
-                if (log.value >= previousLog.value * .9) { // .9 for reset misdetections
-                    if (log.value >= previousLog.value) {
-                        log.value -= previousLog.value;
+                if (counterType === 'ALWAYS_INCREMENT') {
+                    if (log.value >= previousLog.value * .9) { // .9 for reset misdetections
+                        if (log.value >= previousLog.value) {
+                            log.value -= previousLog.value;
+                        } else {
+                            log.value = 0;
+                            skipThisLog = true;
+                        }
                     } else {
-                        log.value = 0;
-                        skipThisLog = true;
+                        log.counterReset = true;
+                    }
+                } else if (counterType === 'ALWAYS_DECREMENT') {
+                    if (log.value <= previousLog.value * .9) { // .9 for reset misdetections
+                        if (log.value <= previousLog.value) {
+                            log.value -= previousLog.value;
+                        } else {
+                            log.value = 0;
+                            skipThisLog = true;
+                        }
+                    } else {
+                        log.counterReset = true;
                     }
                 } else {
-                    log.counterReset = true;
+                    log.value -= previousLog.value;
                 }
                 adjustedLogs.push(log);
                 if (!skipThisLog) {
@@ -818,7 +834,10 @@ export const CHART_TYPES = {
                 }
             }));
         },
-        interpolateGaps: (logs) => {
+        interpolateGaps: (logs, channel) => {
+            if (channel.config.fillMissingData === false) {
+                return logs;
+            }
             let firstNullLog = undefined;
             let lastNonNullLog = undefined;
             for (let currentNonNullLog = 0; currentNonNullLog < logs.length; currentNonNullLog++) {
@@ -829,7 +848,7 @@ export const CHART_TYPES = {
                     const logsToFill = currentNonNullLog - firstNullLog;
                     const lastKnownValue = logs[lastNonNullLog].value;
                     const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
-                    if (normalizedStep >= 0) {
+                    if (normalizedStep !== 0) {
                         for (let i = 0; i < logsToFill; i++) {
                             logs[i + firstNullLog].value = lastKnownValue + normalizedStep * (i + 1);
                         }

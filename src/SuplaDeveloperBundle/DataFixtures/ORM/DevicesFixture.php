@@ -350,6 +350,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::GENERAL_PURPOSE_MEASUREMENT,
                 ChannelFunction::GENERAL_PURPOSE_MEASUREMENT,
                 [
+                    'caption' => 'KPOP',
                     'properties' => json_encode([
                         'defaultValueDivider' => 78,
                         'defaultValueMultiplier' => 910,
@@ -375,6 +376,7 @@ class DevicesFixture extends SuplaFixture {
                 ChannelType::GENERAL_PURPOSE_METER,
                 ChannelFunction::GENERAL_PURPOSE_METER,
                 [
+                    'caption' => 'KLOP rosnący',
                     'properties' => json_encode([
                         'defaultValueDivider' => 78,
                         'defaultValueMultiplier' => 910,
@@ -395,8 +397,36 @@ class DevicesFixture extends SuplaFixture {
                         'chartType' => 'BAR',
                         'includeValueAddedInHistory' => true,
                         'fillMissingData' => true,
-                        'allowCounterReset' => false,
-                        'alwaysDecrement' => true,
+                        'counterType' => 'ALWAYS_INCREMENT',
+                    ]),
+                ],
+            ],
+            [
+                ChannelType::GENERAL_PURPOSE_METER,
+                ChannelFunction::GENERAL_PURPOSE_METER,
+                [
+                    'caption' => 'KLOP malejący',
+                    'properties' => json_encode([
+                        'defaultValueDivider' => 1,
+                        'defaultValueMultiplier' => 1,
+                        'defaultValueAdded' => 0,
+                        'defaultValuePrecision' => 0,
+                        'defaultUnitBeforeValue' => '',
+                        'defaultUnitAfterValue' => 'ciastek',
+                    ]),
+                    'userConfig' => json_encode([
+                        'valueDivider' => 1,
+                        'valueMultiplier' => 1,
+                        'valueAdded' => 0,
+                        'valuePrecision' => 0,
+                        'unitBeforeValue' => '',
+                        'unitAfterValue' => 'ciastek',
+                        'noSpaceAfterValue' => false,
+                        'keepHistory' => true,
+                        'chartType' => 'LINEAR',
+                        'includeValueAddedInHistory' => true,
+                        'fillMissingData' => true,
+                        'counterType' => 'ALWAYS_DECREMENT',
                     ]),
                 ],
             ],
@@ -434,6 +464,9 @@ class DevicesFixture extends SuplaFixture {
         $this->entityManager->persist($device);
         foreach ($channelTypes as $channelNumber => $channelData) {
             $channel = new IODeviceChannel();
+            if ($this->faker->boolean()) {
+                $channel->setCaption($this->faker->sentence(3));
+            }
             AnyFieldSetter::set($channel, [
                 'iodevice' => $device,
                 'user' => $location->getUser(),
@@ -443,9 +476,6 @@ class DevicesFixture extends SuplaFixture {
             ]);
             if (isset($channelData[2])) {
                 AnyFieldSetter::set($channel, $channelData[2]);
-            }
-            if ($this->faker->boolean()) {
-                $channel->setCaption($this->faker->sentence(3));
             }
             $this->setChannelProperties($channel);
             $this->entityManager->persist($channel);

@@ -84,7 +84,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertTrue($config['keepHistory']);
         $this->assertTrue($config['includeValueAddedInHistory']);
         $this->assertTrue($config['fillMissingData']);
-        $this->assertFalse($config['allowCounterReset']);
+        $this->assertEquals('ALWAYS_INCREMENT', $config['counterType']);
         $this->assertEquals(0.910, $config['defaults']['valueMultiplier']);
     }
 

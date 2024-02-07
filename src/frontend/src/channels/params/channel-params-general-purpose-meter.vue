@@ -28,23 +28,22 @@
                     <dd>{{ $t('Chart type') }}</dd>
                     <dt>
                         <ChannelParamsButtonSelector
+                            use-dropdown
                             v-model="props.channel.config.chartType"
                             @input="$emit('change')"
                             :values="[{id: 'LINEAR', label: $t('Linear')}, {id: 'BAR', label: $t('Bar')}]"/>
                     </dt>
+                    <dd>{{ $t('Counter type') }}</dd>
+                    <dt class="text-center">
+                        <ChannelParamsButtonSelector
+                            v-model="props.channel.config.counterType"
+                            use-dropdown
+                            @input="$emit('change')"
+                            :values="[{id: 'ALWAYS_INCREMENT', label: $t('Always increment')}, {id: 'ALWAYS_DECREMENT', label: $t('Always decrement')}, {id: 'INCREMENT_AND_DECREMENT', label: $t('Increment and decrement')}]"/>
+                    </dt>
                     <dd>{{ $t('Fill missing data') }}</dd>
                     <dt class="text-center">
                         <toggler v-model="props.channel.config.fillMissingData"
-                            @input="$emit('change')"></toggler>
-                    </dt>
-                    <dd>{{ $t('Allow counter reset') }}</dd>
-                    <dt class="text-center">
-                        <toggler v-model="props.channel.config.allowCounterReset"
-                            @input="$emit('change')"></toggler>
-                    </dt>
-                    <dd>{{ $t('Always decrement') }}</dd>
-                    <dt class="text-center">
-                        <toggler v-model="props.channel.config.alwaysDecrement"
                             @input="$emit('change')"></toggler>
                     </dt>
                 </dl>

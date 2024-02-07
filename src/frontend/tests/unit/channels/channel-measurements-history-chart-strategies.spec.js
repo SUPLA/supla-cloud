@@ -380,4 +380,141 @@ describe('Channel measurement history data strategies', () => {
             expect(adjustedLogs[3].counterReset).toBeFalsy();
         });
     });
+
+    describe('GENERAL_PURPOSE_METER', function () {
+        const strategy = CHART_TYPES.GENERAL_PURPOSE_METER;
+
+        describe('ALWAYS_INCREMENT', function () {
+            const channel = {
+                config: {counterType: 'ALWAYS_INCREMENT', fillMissingData: true},
+            };
+
+            it('adjusts logs', () => {
+                const logs = [
+                    {date_timestamp: 1, value: 1},
+                    {date_timestamp: 2, value: 3},
+                    {date_timestamp: 3, value: 4},
+                    {date_timestamp: 4, value: 3},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs, channel);
+                expect(adjustedLogs.map(l => l.value)).toEqual([1, 2, 1, 3]);
+                expect(adjustedLogs[3].counterReset).toBeTruthy();
+            });
+
+            it('aggregates simple logs', () => {
+                const logs = [
+                    {date_timestamp: 1, value: 1},
+                    {date_timestamp: 2, value: 3},
+                    {date_timestamp: 3, value: 1},
+                ];
+                const aggregatedLog = strategy.aggregateLogs(logs);
+                expect(aggregatedLog.value).toEqual(5);
+            });
+
+            it('interpolates logs', () => {
+                const logs = [
+                    {date_timestamp: 0, value: 1},
+                    {date_timestamp: 100, value: 3},
+                    {date_timestamp: 200, value: null},
+                    {date_timestamp: 300, value: 5},
+                ];
+                const adjustedLogs = strategy.interpolateGaps(logs, channel);
+                expect(adjustedLogs[2].value).toEqual(4);
+            });
+
+            it('cumulates interpolated logs', () => {
+                const logs = [
+                    {date_timestamp: 0, value: 1},
+                    {date_timestamp: 100, value: 3},
+                    {date_timestamp: 200, value: null, interpolated: true},
+                    {date_timestamp: 300, value: 5},
+                ];
+                const interpolatedLogs = strategy.interpolateGaps(logs, channel);
+                expect(interpolatedLogs.map(log => log.value)).toEqual([1, 3, 4, 5]);
+                const adjustedLogs = strategy.adjustLogs(interpolatedLogs, channel);
+                expect(adjustedLogs.map(log => log.value)).toEqual([1, 2, 1, 1]);
+                const cumulatedLogs = strategy.cumulateLogs(adjustedLogs);
+                expect(cumulatedLogs.map(log => log.value)).toEqual([1, 3, 5]);
+            });
+        });
+
+        describe('ALWAYS_DECREMENT', function () {
+            const channel = {
+                config: {counterType: 'ALWAYS_DECREMENT', fillMissingData: true},
+            };
+
+            it('adjusts logs', () => {
+                const logs = [
+                    {date_timestamp: 1, value: 4},
+                    {date_timestamp: 2, value: 3},
+                    {date_timestamp: 3, value: 1},
+                    {date_timestamp: 4, value: 2},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs, channel);
+                expect(adjustedLogs.map(l => l.value)).toEqual([4, -1, -2, 2]);
+                expect(adjustedLogs[3].counterReset).toBeTruthy();
+            });
+
+            it('aggregates simple logs', () => {
+                const logs = [
+                    {date_timestamp: 1, value: 4},
+                    {date_timestamp: 2, value: -1},
+                    {date_timestamp: 3, value: -2},
+                ];
+                const aggregatedLog = strategy.aggregateLogs(logs, channel);
+                expect(aggregatedLog.value).toEqual(1);
+            });
+
+            it('interpolates logs', () => {
+                const logs = [
+                    {date_timestamp: 0, value: 5},
+                    {date_timestamp: 100, value: 3},
+                    {date_timestamp: 200, value: null},
+                    {date_timestamp: 300, value: 1},
+                ];
+                const adjustedLogs = strategy.interpolateGaps(logs, channel);
+                expect(adjustedLogs[2].value).toEqual(2);
+            });
+        });
+
+        describe('INCREMENT_AND_DECREMENT', function () {
+            const channel = {
+                config: {counterType: 'INCREMENT_AND_DECREMENT', fillMissingData: true},
+            };
+
+            it('adjusts logs', () => {
+                const logs = [
+                    {date_timestamp: 1, value: 1},
+                    {date_timestamp: 2, value: 3},
+                    {date_timestamp: 3, value: 4},
+                    {date_timestamp: 3, value: 3},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs, channel);
+                expect(adjustedLogs.map(l => l.value)).toEqual([1, 2, 1, -1]);
+                expect(adjustedLogs[3].counterReset).toBeFalsy();
+            });
+
+            it('aggregates simple logs', () => {
+                const logs = [
+                    {date_timestamp: 1, value: 1},
+                    {date_timestamp: 2, value: 2},
+                    {date_timestamp: 3, value: 1},
+                    {date_timestamp: 3, value: -1},
+                ];
+                const aggregatedLog = strategy.aggregateLogs(logs, channel);
+                expect(aggregatedLog.value).toEqual(3);
+            });
+
+            it('interpolates logs', () => {
+                const logs = [
+                    {date_timestamp: 0, value: 5},
+                    {date_timestamp: 100, value: 3},
+                    {date_timestamp: 200, value: null},
+                    {date_timestamp: 300, value: 5},
+                ];
+                const adjustedLogs = strategy.interpolateGaps(logs, channel);
+                expect(adjustedLogs[2].value).toEqual(4);
+            });
+        });
+    });
 })

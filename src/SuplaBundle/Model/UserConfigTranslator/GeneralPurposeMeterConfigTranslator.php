@@ -17,6 +17,7 @@
 
 namespace SuplaBundle\Model\UserConfigTranslator;
 
+use Assert\Assert;
 use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\HasUserConfig;
 use SuplaBundle\Enums\ChannelFunction;
@@ -37,13 +38,14 @@ use SuplaBundle\Enums\ChannelFunction;
 class GeneralPurposeMeterConfigTranslator extends GeneralPurposeMeasurementConfigTranslator {
     use FixedRangeParamsTranslator;
 
+    private const COUNTER_TYPES = ['ALWAYS_INCREMENT', 'ALWAYS_DECREMENT', 'INCREMENT_AND_DECREMENT'];
+
     public function getConfig(HasUserConfig $subject): array {
         $config = parent::getConfig($subject);
         if (array_key_exists('valueMultiplier', $config)) {
             $config['includeValueAddedInHistory'] = $subject->getUserConfigValue('includeValueAddedInHistory');
             $config['fillMissingData'] = $subject->getUserConfigValue('fillMissingData');
-            $config['allowCounterReset'] = $subject->getUserConfigValue('allowCounterReset');
-            $config['alwaysDecrement'] = $subject->getUserConfigValue('alwaysDecrement');
+            $config['counterType'] = $subject->getUserConfigValue('counterType');
         }
         return $config;
     }
@@ -56,11 +58,9 @@ class GeneralPurposeMeterConfigTranslator extends GeneralPurposeMeasurementConfi
         if (array_key_exists('fillMissingData', $config)) {
             $subject->setUserConfigValue('fillMissingData', filter_var($config['fillMissingData'], FILTER_VALIDATE_BOOLEAN));
         }
-        if (array_key_exists('allowCounterReset', $config)) {
-            $subject->setUserConfigValue('allowCounterReset', filter_var($config['allowCounterReset'], FILTER_VALIDATE_BOOLEAN));
-        }
-        if (array_key_exists('alwaysDecrement', $config)) {
-            $subject->setUserConfigValue('alwaysDecrement', filter_var($config['alwaysDecrement'], FILTER_VALIDATE_BOOLEAN));
+        if (array_key_exists('counterType', $config)) {
+            Assert::that($config['counterType'], null, 'counterType')->string()->inArray(self::COUNTER_TYPES);
+            $subject->setUserConfigValue('counterType', $config['counterType']);
         }
     }
 

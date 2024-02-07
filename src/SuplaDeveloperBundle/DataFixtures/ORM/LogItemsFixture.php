@@ -22,6 +22,7 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use SuplaBundle\Entity\EntityUtils;
+use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
@@ -290,25 +291,32 @@ class LogItemsFixture extends SuplaFixture {
     }
 
     private function createGeneralPurposeMeterLogItems() {
+        /** @var IODevice $device */
         $device = $this->getReference(DevicesFixture::DEVICE_MEASUREMENTS);
-        /** @var \SuplaBundle\Entity\Main\IODeviceChannel $gpm */
-        $gpm = $device->getChannels()[1];
-        $gpmId = $gpm->getId();
+        $gpmInc = $device->getChannels()[1];
+        $gpmIncId = $gpmInc->getId();
+        $gpmDec = $device->getChannels()[2];
+        $gpmDecId = $gpmDec->getId();
         $from = strtotime(self::SINCE);
         $to = time();
         $counter = 0;
-        $valueMultiplier = $gpm->getUserConfigValue('valueMultiplier');
-        $valueDivider = $gpm->getUserConfigValue('valueDivider');
-        $valueAdded = $gpm->getUserConfigValue('valueAdded');
+        $valueMultiplier = $gpmInc->getUserConfigValue('valueMultiplier');
+        $valueDivider = $gpmInc->getUserConfigValue('valueDivider');
+        $valueAdded = $gpmInc->getUserConfigValue('valueAdded');
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
-            $logItem = new GeneralPurposeMeterLogItem();
-            EntityUtils::setField($logItem, 'channel_id', $gpmId);
-            EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+            $incLogItem = new GeneralPurposeMeterLogItem();
+            EntityUtils::setField($incLogItem, 'channel_id', $gpmIncId);
+            EntityUtils::setField($incLogItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+            $decLogItem = new GeneralPurposeMeterLogItem();
+            EntityUtils::setField($decLogItem, 'channel_id', $gpmDecId);
+            EntityUtils::setField($decLogItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
             $counter += $this->faker->biasedNumberBetween(0, 100) / 11;
             $calculatedValue = $counter * $valueMultiplier / $valueDivider + $valueAdded;
-            EntityUtils::setField($logItem, 'value', $calculatedValue);
+            EntityUtils::setField($incLogItem, 'value', $calculatedValue);
+            EntityUtils::setField($decLogItem, 'value', 1000 - $counter);
             if ($this->faker->boolean(95)) {
-                $this->entityManager->persist($logItem);
+                $this->entityManager->persist($incLogItem);
+                $this->entityManager->persist($decLogItem);
             }
             if ($this->faker->boolean(.2)) {
                 $counter = 0;

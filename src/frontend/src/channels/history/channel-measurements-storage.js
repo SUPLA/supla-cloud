@@ -11,7 +11,13 @@ export class IndexedDbMeasurementLogsStorage {
     async connect() {
         if (window.indexedDB) {
             try {
-                this.db = await openDB(`channel_measurement_logs_${this.channel.id}`, 4, {
+                const dbName = [
+                    'channel_measurement_logs',
+                    this.channel.id,
+                    this.channel.config.counterType || 'default',
+                    this.channel.config.fillMissingData === false ? 'not_filled' : 'filled',
+                ]
+                this.db = await openDB(dbName.join('_'), 5, {
                     async upgrade(db) {
                         if (db.objectStoreNames.contains('logs')) {
                             await db.deleteObjectStore('logs');
@@ -46,7 +52,7 @@ export class IndexedDbMeasurementLogsStorage {
             log.date = DateTime.fromSeconds(log.date_timestamp).toJSDate();
             return log;
         });
-        logs = this.chartStrategy.adjustLogs(logs);
+        logs = this.chartStrategy.adjustLogs(logs, this.channel);
         return logs.map(log => this.chartStrategy.fixLog(log));
     }
 
@@ -163,7 +169,7 @@ export class IndexedDbMeasurementLogsStorage {
 
     async storeLogs(logs) {
         logs = fillGaps(logs, 600, this.chartStrategy.emptyLog());
-        logs = this.chartStrategy.interpolateGaps(logs);
+        logs = this.chartStrategy.interpolateGaps(logs, this.channel);
         const tx = (await this.db).transaction('logs', 'readwrite');
         logs = this.adjustLogsBeforeStorage(logs);
         // the following if-s mitigate risk of bad-filled gaps when fetching logs by pages

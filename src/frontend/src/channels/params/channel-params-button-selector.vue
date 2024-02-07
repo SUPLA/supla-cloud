@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="btn-group btn-group-flex"
-            v-if="values.length < 5">
+            v-if="values.length < 5 && !useDropdown">
             <a :class="'btn ' + (value == valueDef.id ? 'btn-green' : 'btn-default')"
                 :key="valueDef.id"
                 v-for="valueDef in values"
@@ -30,7 +30,11 @@
 
 <script>
     export default {
-        props: ['value', 'values'],
+        props: {
+            value: String,
+            values: Array,
+            useDropdown: Boolean,
+        },
         mounted() {
             if (!this.values.find(v => v.id === this.value)) {
                 this.$emit('input', this.values[0].id);
