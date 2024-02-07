@@ -29,6 +29,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * Remove collation from the input parameters of the supla_set_channel_json_config procedure
  * Remove collation from the input parameters of the supla_set_device_json_config procedure
  * Changing charset to utf8mb4 in the supla_mqtt_broker_auth procedure
+ * Table supla_em_voltage_log renabled to supla_em_voltage_aberration_log
  */
 class Version20240117202218 extends NoWayBackMigration {
     public function migrate() {
@@ -45,5 +46,30 @@ class Version20240117202218 extends NoWayBackMigration {
         $this->addSql('CREATE PROCEDURE `supla_set_device_json_config`(IN `_user_id` INT, IN `_device_id` INT, IN `_user_config` VARCHAR(4096), IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048), IN `_properties_md5` VARCHAR(32)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN UPDATE supla_iodevice SET user_config = _user_config, properties = _properties WHERE id = _device_id AND user_id = _user_id AND MD5(IFNULL(user_config, \'\')) = _user_config_md5 AND MD5(IFNULL(properties, \'\')) = _properties_md5; SELECT ABS(STRCMP(user_config, _user_config))+ABS(STRCMP(properties, _properties)) FROM supla_iodevice WHERE id = _device_id AND user_id = _user_id; END');
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_mqtt_broker_auth`');
         $this->addSql('CREATE PROCEDURE `supla_mqtt_broker_auth`(IN `in_suid` VARCHAR(255) CHARSET utf8mb4, IN `in_password` VARCHAR(255) CHARSET utf8mb4) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER BEGIN SET @hashed_password = SHA2(in_password, 512); SELECT 1 FROM supla_user su LEFT JOIN supla_oauth_client_authorizations soca ON su.id = soca.user_id WHERE mqtt_broker_enabled = 1 AND short_unique_id = BINARY in_suid AND( su.mqtt_broker_auth_password = @hashed_password OR soca.mqtt_broker_auth_password = @hashed_password ) LIMIT 1; END');
+        $this->addSql('RENAME TABLE `supla_em_voltage_log` TO `supla_em_voltage_aberration_log`');
+        $this->addSql('DROP PROCEDURE IF EXISTS `supla_add_em_voltage_log_item`');
+        $this->addSql(<<<PROCEDURE
+            CREATE PROCEDURE `supla_add_em_voltage_aberration_log_item`(
+                IN `_date` DATETIME, 
+                IN `_channel_id` INT(11), 
+                IN `_phase_no` TINYINT,
+                IN `_count_total` INT(11),
+                IN `_count_above` INT(11),
+                IN `_count_below` INT(11),
+                IN `_sec_above` INT(11),
+                IN `_sec_below` INT(11),
+                IN `_max_sec_above` INT(11),
+                IN `_max_sec_below` INT(11),
+                IN `_min_voltage` NUMERIC(7,2),
+                IN `_max_voltage` NUMERIC(7,2),
+                IN `_avg_voltage` NUMERIC(7,2),
+                IN `_measurement_time_sec` INT(11)
+            ) NO SQL BEGIN
+            INSERT INTO `supla_em_voltage_aberration_log` (`date`,channel_id, phase_no, count_total, count_above, count_below, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage, measurement_time_sec)
+                                        VALUES (_date,_channel_id,_phase_no,_count_total,_count_above,_count_below,_sec_above,_sec_below,_max_sec_above,_max_sec_below,_min_voltage,_max_voltage,_avg_voltage,_measurement_time_sec);
+
+            END
+PROCEDURE
+        );
     }
 }

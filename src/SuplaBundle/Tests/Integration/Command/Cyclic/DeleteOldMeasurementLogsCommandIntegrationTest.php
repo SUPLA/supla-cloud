@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterAberrationVoltageLogItem;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -38,18 +38,18 @@ class DeleteOldMeasurementLogsCommandIntegrationTest extends IntegrationTestCase
         $this->createEmVoltageLogItem('now');
         $this->createEmVoltageLogItem('-60 days');
         $this->createEmVoltageLogItem('-200 days');
-        $logItems = $this->entityManager->getRepository(ElectricityMeterVoltageLogItem::class)->findAll();
+        $logItems = $this->entityManager->getRepository(ElectricityMeterVoltageAberrationLogItem::class)->findAll();
         $this->assertCount(3, $logItems);
         $command = $this->application->find('supla:clean:old-measurement-logs');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([]);
         $this->assertEquals(0, $exitCode);
-        $logItems = $this->entityManager->getRepository(ElectricityMeterVoltageLogItem::class)->findAll();
+        $logItems = $this->entityManager->getRepository(ElectricityMeterVoltageAberrationLogItem::class)->findAll();
         $this->assertCount(2, $logItems);
     }
 
     private function createEmVoltageLogItem(string $date) {
-        $logItem = new ElectricityMeterVoltageLogItem();
+        $logItem = new ElectricityMeterVoltageAberrationLogItem();
         EntityUtils::setField($logItem, 'channel_id', 2);
         EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . strtotime($date)));
         $state = [

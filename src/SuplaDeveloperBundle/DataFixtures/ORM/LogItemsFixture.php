@@ -60,7 +60,7 @@ class LogItemsFixture extends SuplaFixture {
         $this->entityManager->flush();
         $this->createElectricityMeterLogItems();
         $this->entityManager->flush();
-        $this->createElectricityMeterVoltageLogItems();
+        $this->createElectricityMeterVoltageAberrationLogItems();
         $this->entityManager->flush();
         $this->createGeneralPurposeMeasurementLogItems();
         $this->entityManager->flush();
@@ -216,7 +216,7 @@ class LogItemsFixture extends SuplaFixture {
         }
     }
 
-    public function createElectricityMeterVoltageLogItems(?int $channelId = null, ?string $since = null, int $phaseNo = null) {
+    public function createElectricityMeterVoltageAberrationLogItems(?int $channelId = null, ?string $since = null, int $phaseNo = null) {
         if (!$channelId) {
             $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
             $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {

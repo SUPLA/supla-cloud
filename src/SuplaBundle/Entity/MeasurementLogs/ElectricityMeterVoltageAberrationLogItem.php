@@ -21,9 +21,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="supla_em_voltage_log")
+ * @ORM\Table(name="supla_em_voltage_aberration_log")
  */
-class ElectricityMeterVoltageLogItem {
+class ElectricityMeterVoltageAberrationLogItem {
     /**
      * @ORM\Id
      * @ORM\Column(name="channel_id", type="integer")

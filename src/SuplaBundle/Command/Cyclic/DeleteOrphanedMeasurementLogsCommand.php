@@ -19,7 +19,7 @@ namespace SuplaBundle\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TemperatureLogItem;
 use SuplaBundle\Entity\MeasurementLogs\TempHumidityLogItem;
@@ -46,7 +46,7 @@ class DeleteOrphanedMeasurementLogsCommand extends Command implements CyclicComm
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $this->logClean($output, ElectricityMeterLogItem::class);
-        $this->logClean($output, ElectricityMeterVoltageLogItem::class);
+        $this->logClean($output, ElectricityMeterVoltageAberrationLogItem::class);
         $this->logClean($output, ImpulseCounterLogItem::class);
         $this->logClean($output, TemperatureLogItem::class);
         $this->logClean($output, TempHumidityLogItem::class);

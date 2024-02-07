@@ -25,7 +25,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
@@ -687,7 +687,7 @@ class ChannelMeasurementLogsController extends RestController {
         $this->ensureChannelHasMeasurementLogs($channel);
         $logsType = $request->query->get('logsType');
         if ($logsType === 'voltage') {
-            $this->deleteMeasurementLogs(ElectricityMeterVoltageLogItem::class, $channel, function (QueryBuilder $qb) use ($request) {
+            $this->deleteMeasurementLogs(ElectricityMeterVoltageAberrationLogItem::class, $channel, function (QueryBuilder $qb) use ($request) {
                 if (in_array($phaseNo = $request->get('phase'), [1, 2, 3])) {
                     $qb->andWhere('log.phaseNo = :phaseNo')->setParameter('phaseNo', $phaseNo);
                 }
