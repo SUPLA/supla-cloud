@@ -30,6 +30,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * Remove collation from the input parameters of the supla_set_device_json_config procedure
  * Changing charset to utf8mb4 in the supla_mqtt_broker_auth procedure
  * Table supla_em_voltage_log renabled to supla_em_voltage_aberration_log
+ * Added tables and procedures for storing the history of voltage, current and active power
  */
 class Version20240117202218 extends NoWayBackMigration {
     public function migrate() {
@@ -67,6 +68,54 @@ class Version20240117202218 extends NoWayBackMigration {
             ) NO SQL BEGIN
             INSERT INTO `supla_em_voltage_aberration_log` (`date`,channel_id, phase_no, count_total, count_above, count_below, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage, measurement_time_sec)
                                         VALUES (_date,_channel_id,_phase_no,_count_total,_count_above,_count_below,_sec_above,_sec_below,_max_sec_above,_max_sec_below,_min_voltage,_max_voltage,_avg_voltage,_measurement_time_sec);
+
+            END
+PROCEDURE
+        );
+        $this->addSql('CREATE TABLE supla_em_voltage_log (channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:stringdatetime)\', phase_no TINYINT NOT NULL COMMENT \'(DC2Type:tinyint)\', min NUMERIC(5, 2) NOT NULL, max NUMERIC(5, 2) NOT NULL, avg NUMERIC(5, 2) NOT NULL, PRIMARY KEY(channel_id, date, phase_no)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql(<<<PROCEDURE
+            CREATE PROCEDURE `supla_add_em_voltage_log_item`(
+                IN `_date` DATETIME, 
+                IN `_channel_id` INT(11), 
+                IN `_phase_no` TINYINT,
+                IN `_min` NUMERIC(5,2),
+                IN `_max` NUMERIC(5,2),
+                IN `_avg` NUMERIC(5,2)
+            ) NO SQL BEGIN
+            INSERT INTO `supla_em_voltage_log` (`date`,channel_id, phase_no, min, max, avg)
+                                        VALUES (_date,_channel_id,_phase_no,_min,_max,_avg);
+
+            END
+PROCEDURE
+        );
+        $this->addSql('CREATE TABLE supla_em_current_log (channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:stringdatetime)\', phase_no TINYINT NOT NULL COMMENT \'(DC2Type:tinyint)\', min NUMERIC(6, 3) NOT NULL, max NUMERIC(6, 3) NOT NULL, avg NUMERIC(6, 3) NOT NULL, PRIMARY KEY(channel_id, date, phase_no)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql(<<<PROCEDURE
+            CREATE PROCEDURE `supla_add_em_current_log_item`(
+                IN `_date` DATETIME, 
+                IN `_channel_id` INT(11), 
+                IN `_phase_no` TINYINT,
+                IN `_min` NUMERIC(6,3),
+                IN `_max` NUMERIC(6,3),
+                IN `_avg` NUMERIC(6,3)
+            ) NO SQL BEGIN
+            INSERT INTO `supla_em_current_log` (`date`,channel_id, phase_no, min, max, avg)
+                                        VALUES (_date,_channel_id,_phase_no,_min,_max,_avg);
+
+            END
+PROCEDURE
+        );
+        $this->addSql('CREATE TABLE supla_em_power_active_log (channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:stringdatetime)\', phase_no TINYINT NOT NULL COMMENT \'(DC2Type:tinyint)\', min NUMERIC(11, 5) NOT NULL, max NUMERIC(11, 5) NOT NULL, avg NUMERIC(11, 5) NOT NULL, PRIMARY KEY(channel_id, date, phase_no)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql(<<<PROCEDURE
+            CREATE PROCEDURE `supla_add_em_power_active_log_item`(
+                IN `_date` DATETIME, 
+                IN `_channel_id` INT(11), 
+                IN `_phase_no` TINYINT,
+                IN `_min` NUMERIC(11,5),
+                IN `_max` NUMERIC(11,5),
+                IN `_avg` NUMERIC(11,5)
+            ) NO SQL BEGIN
+            INSERT INTO `supla_em_power_active_log` (`date`,channel_id, phase_no, min, max, avg)
+                                        VALUES (_date,_channel_id,_phase_no,_min,_max,_avg);
 
             END
 PROCEDURE
