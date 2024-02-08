@@ -13,6 +13,7 @@
                         <span v-else>&ge;</span>
                     </a>
                 </span>
+                <span class="input-group-addon" v-if="unitBefore(field, subject)">{{ $t(unitBefore(field, subject)) }}</span>
                 <input type="number"
                     required
                     v-focus="true"
@@ -69,6 +70,10 @@
                 default: () => 0.01,
             },
             unit: {
+                type: Function,
+                default: () => '',
+            },
+            unitBefore: {
                 type: Function,
                 default: () => '',
             },

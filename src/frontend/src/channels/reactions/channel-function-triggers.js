@@ -487,6 +487,25 @@ export const ChannelFunctionTriggers = {
         {caption: () => 'When the thermostat starts or stops cooling', def: () => ({on_change: {name: 'cooling'}})}, // i18n
         {caption: () => 'When the thermostat starts or stops heating or cooling', def: () => ({on_change: {name: 'heating_or_cooling'}})}, // i18n
     ],
+    [ChannelFunction.GENERAL_PURPOSE_METER]: [
+        {
+            caption: () => 'When the meter reaches a certain value', // i18n
+            test: (t) => t.on_change_to,
+            component: ReactionConditionThreshold,
+            props: {
+                unit: (fieldName, subject) => (subject.config.noSpaceAfterValue ? '' : ' ') + subject.config.unitAfterValue,
+                unitBefore: (fieldName, subject) => subject.config.unitBeforeValue + (subject.config.noSpaceBeforeValue ? '' : ' '),
+                // field: 'value',
+                operators: ['gt', 'ge', 'eq'],
+                disableResume: true,
+                labelI18n: () => 'When the meter value will be', // i18n
+            },
+        },
+        {
+            caption: () => 'When the meter value changes', // i18n
+            def: () => ({on_change: {}})
+        },
+    ],
 };
 
 ChannelFunctionTriggers[ChannelFunction.THERMOMETER] = [
@@ -522,7 +541,8 @@ export function reactionTriggerCaption(reaction, vue) {
             }
             const operatorLabel = {eq: '=', ne: '≠', le: '≤', lt: '<', ge: '≥', gt: '>'}[operator];
             const unit = triggerDef.props.unit ? triggerDef.props.unit(onChangeTo.name, reaction.owningChannel) : '';
-            return vue.$t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${onChangeTo[operator]}${unit}`;
+            const unitBefore = triggerDef.props.unitBefore ? triggerDef.props.unitBefore(onChangeTo.name, reaction.owningChannel) : ''
+            return vue.$t(triggerDef.props.labelI18n(onChangeTo.name)) + ` ${operatorLabel} ${unitBefore}${onChangeTo[operator]}${unit}`;
         } else {
             return vue.$t(triggerDef.caption(reaction.owningChannel));
         }

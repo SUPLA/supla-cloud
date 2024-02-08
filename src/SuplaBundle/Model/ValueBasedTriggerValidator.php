@@ -143,6 +143,7 @@ class ValueBasedTriggerValidator {
         ChannelFunction::IC_GASMETER,
         ChannelFunction::IC_WATERMETER,
         ChannelFunction::IC_HEATMETER,
+        ChannelFunction::GENERAL_PURPOSE_METER,
     ];
 
     /**

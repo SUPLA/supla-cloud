@@ -56,6 +56,9 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::DIMMER(), '{"on_change": {"name": "brightness"}}'],
             [ChannelFunction::VALVEOPENCLOSE(), '{"on_change_to": {"eq": "closed"}}'],
             [ChannelFunction::VALVEOPENCLOSE(), '{"on_change_to": {"eq": "closed", "name": "manually_closed"}}'],
+            [ChannelFunction::GENERAL_PURPOSE_METER(), '{"on_change_to": {"eq": 20}}'],
+            [ChannelFunction::GENERAL_PURPOSE_METER(), '{"on_change_to": {"gt": 20}}'],
+            [ChannelFunction::GENERAL_PURPOSE_METER(), '{"on_change": {}}'],
         ];
     }
 
