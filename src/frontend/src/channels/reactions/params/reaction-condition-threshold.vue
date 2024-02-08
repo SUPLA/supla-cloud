@@ -36,6 +36,7 @@
                     <span v-else-if="resumeOperator === 'gt'">&gt;</span>
                     <span v-else>&ge;</span>
                 </span>
+                <span class="input-group-addon" v-if="unitBefore(field, subject)">{{ $t(unitBefore(field, subject)) }}</span>
                 <input type="number" required class="form-control" v-model="resumeThreshold"
                     :step="step()"
                     @input="updateModel()"

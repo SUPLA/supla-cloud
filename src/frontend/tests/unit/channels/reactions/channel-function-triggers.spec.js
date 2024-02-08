@@ -16,8 +16,6 @@ describe('ChannelFunctionTriggers', () => {
             ChannelFunction.WEATHER_STATION,
             ChannelFunction.THERMOSTAT,
             ChannelFunction.VALVEPERCENTAGE,
-            ChannelFunction.GENERAL_PURPOSE_MEASUREMENT,
-            ChannelFunction.GENERAL_PURPOSE_METER,
             ChannelFunction.ACTION_TRIGGER,
             ChannelFunction.DIGIGLASS_HORIZONTAL,
             ChannelFunction.DIGIGLASS_VERTICAL,

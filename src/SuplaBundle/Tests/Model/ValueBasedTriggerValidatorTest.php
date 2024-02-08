@@ -59,6 +59,9 @@ class ValueBasedTriggerValidatorTest extends TestCase {
             [ChannelFunction::GENERAL_PURPOSE_METER(), '{"on_change_to": {"eq": 20}}'],
             [ChannelFunction::GENERAL_PURPOSE_METER(), '{"on_change_to": {"gt": 20}}'],
             [ChannelFunction::GENERAL_PURPOSE_METER(), '{"on_change": {}}'],
+            [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), '{"on_change_to": {"gt": 20}}'],
+            [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), '{"on_change_to": {"gt": 20, "resume": {"le": 10}}}'],
+            [ChannelFunction::GENERAL_PURPOSE_MEASUREMENT(), '{"on_change": {}}'],
         ];
     }
 
