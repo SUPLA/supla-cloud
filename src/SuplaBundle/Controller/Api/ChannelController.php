@@ -439,7 +439,11 @@ class ChannelController extends RestController {
                 }
                 return $channel;
             });
-            if (!in_array($channel->getType()->getId(), [ChannelType::HVAC])) {
+            if (!in_array($channel->getType()->getId(), [
+                ChannelType::HVAC,
+                ChannelType::GENERAL_PURPOSE_MEASUREMENT,
+                ChannelType::GENERAL_PURPOSE_METER,
+            ])) {
                 $this->suplaServer->reconnect();
             }
             return $this->getChannelAction($request, $channel->clearRelationsCount());

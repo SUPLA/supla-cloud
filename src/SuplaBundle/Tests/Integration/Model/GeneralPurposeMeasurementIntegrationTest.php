@@ -110,6 +110,7 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         $this->assertFalse($channel->getUserConfigValue('keepHistory'));
         $this->assertEquals('BAR', $channel->getUserConfigValue('chartType'));
         $this->assertTrue($channel->getUserConfigValue('noSpaceAfterValue'));
+        $this->assertSuplaCommandNotExecuted('USER-RECONNECT:1');
     }
 
     public function testClearingConfigOnFunctionChange() {
