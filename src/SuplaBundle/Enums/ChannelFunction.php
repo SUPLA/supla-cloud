@@ -440,6 +440,7 @@ final class ChannelFunction extends Enum {
             self::DIGIGLASS_HORIZONTAL => 1,
             self::ELECTRICITYMETER => 1,
             self::SCENE => 19,
+            self::GENERAL_PURPOSE_MEASUREMENT => 31,
         ];
     }
 
