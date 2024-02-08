@@ -60,17 +60,31 @@
             flex: 1;
             border: 1px solid $supla-grey-dark;
             padding: 5px;
+            position: relative;
             img {
                 display: block;
                 clear: both;
                 margin: 0 auto;
             }
             &:hover {
-                background: lighten($supla-green, 45%);
+                border-color: $supla-green;
             }
             &.active {
-                background: $supla-green;
-                color: $supla-white;
+                border-color: $supla-black;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 50px;
+                    height: 51px;
+                    background: url('../assets/checked-corner.svg') no-repeat;
+                    top: -1px;
+                    right: -1px;
+                    border-top-right-radius: 3px;
+                    transition: all .5s ease-in-out;
+                    animation-duration: 0.5s;
+                    animation-fill-mode: both;
+                    animation-name: fadeIn;
+                }
             }
             @include on-xs-and-down {
                 min-width: 45%;
