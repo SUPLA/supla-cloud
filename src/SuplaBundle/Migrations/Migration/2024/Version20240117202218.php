@@ -20,7 +20,6 @@ namespace SuplaBundle\Migrations\Migration;
 use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
- * Added profile_name field to the supla_client table.
  * New table: supla_gp_measurement_log.
  * New table: supla_gp_meter_log.
  * The supla_add_channel procedure has been extended with the 'alt_icon' parameter.
@@ -32,10 +31,10 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * Changing charset to utf8mb4 in the supla_mqtt_broker_auth procedure
  * Table supla_em_voltage_log renabled to supla_em_voltage_aberration_log
  * Added tables and procedures for storing the history of voltage, current and active power
+ * Added profile_name field to the supla_client table.
  */
 class Version20240117202218 extends NoWayBackMigration {
     public function migrate() {
-        $this->sqlSql('ALTER TABLE `supla_client` ADD `profile_name` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `devel_env`');
         $this->addSql('CREATE TABLE supla_gp_measurement_log (channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:stringdatetime)\', open_value DOUBLE PRECISION NOT NULL, close_value DOUBLE PRECISION NOT NULL, avg_value DOUBLE PRECISION NOT NULL, max_value DOUBLE PRECISION NOT NULL, min_value DOUBLE PRECISION NOT NULL, PRIMARY KEY(channel_id, date)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_general_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE supla_gp_meter_log (channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:stringdatetime)\', value DOUBLE PRECISION NOT NULL, PRIMARY KEY(channel_id, date)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_general_ci` ENGINE = InnoDB');
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_add_channel`');
@@ -122,5 +121,8 @@ PROCEDURE
             END
 PROCEDURE
         );
+        $this->sqlSql('ALTER TABLE `supla_client` ADD `profile_name` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `devel_env`');
+        $this->addSql('DROP PROCEDURE `supla_update_push_notification_client_token`');
+        $this->addSql('CREATE PROCEDURE `supla_update_push_notification_client_token`(IN `_user_id` INT, IN `_client_id` INT, IN `_token` VARCHAR(255) CHARSET utf8mb4, IN `_platform` TINYINT, IN `_app_id` INT, IN `_devel_env` TINYINT, IN `_profile_name` VARCHAR(50) CHARSET utf8mb4) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER UPDATE supla_client SET push_token = _token, push_token_update_time = UTC_TIMESTAMP(), platform = _platform, app_id = _app_id, devel_env = _devel_env, profile_name = _profile_name WHERE id = _client_id AND user_id = _user_id');
     }
 }
