@@ -20,11 +20,11 @@
                                 </router-link>
                             </div>
                             <ChannelsDropdown v-model="subject"
+                                :hide-none="true"
                                 @input="subjectChanged"
                                 :dropdownContainer="dropdownContainer"
                                 :filter="filter"
                                 :params="channelsDropdownParams"/>
-
                             <slot></slot>
                         </div>
                     </transition-expand>

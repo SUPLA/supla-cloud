@@ -14,9 +14,9 @@ export class IndexedDbMeasurementLogsStorage {
                 const dbName = [
                     'channel_measurement_logs',
                     this.channel.id,
-                    this.channel.config.counterType || 'default',
-                    this.channel.config.fillMissingData === false ? 'not_filled' : 'filled',
-                ]
+                    this.channel.config?.counterType || 'default',
+                    this.channel.config?.fillMissingData === false ? 'not_filled' : 'filled',
+                ];
                 this.db = await openDB(dbName.join('_'), 5, {
                     async upgrade(db) {
                         if (db.objectStoreNames.contains('logs')) {
