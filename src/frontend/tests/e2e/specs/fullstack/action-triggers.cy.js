@@ -8,7 +8,7 @@ describe('Action Triggers', () => {
         cy.visit('/channels/1/action-triggers');
         cy.contains('Przełączenie 4x').click();
         cy.contains('Kanały').click();
-        cy.contains('.panel-default button', 'wybierz kanał').click();
+        cy.get('#collapseTOGGLE_X4 .panel-body .panel-body .channel-dropdown .ts-control').click();
         cy.contains('.subject-dropdown-option', 'ID4').click();
         cy.contains('button', 'Zapisz zmiany').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 4x');
@@ -19,10 +19,10 @@ describe('Action Triggers', () => {
         cy.visit('/channels/1/action-triggers');
         cy.contains('Przełączenie 3x').click();
         cy.contains('Kanały').click();
-        cy.contains('.panel-default button', 'wybierz kanał').click();
+        cy.get('#collapseTOGGLE_X3 .panel-body .panel-body .channel-dropdown .ts-control').click();
         cy.contains('.subject-dropdown-option', 'ID4').click();
         cy.contains('.channel-params-action-trigger-selector a', 'Skopiuj stan').click();
-        cy.contains('.channel-params-action-trigger-selector button', 'wybierz kanał').click();
+        cy.get('#collapseTOGGLE_X3 .panel-body .panel-body .panel-body .channel-dropdown .ts-control').click();
         cy.contains('#collapseTOGGLE_X3 .channel-action-chooser .subject-dropdown-option', 'Et velit dolor').click();
         cy.contains('button', 'Zapisz zmiany').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x');
@@ -35,7 +35,7 @@ describe('Action Triggers', () => {
         cy.contains('a', 'Anuluj zmiany').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x');
         cy.contains('.panel-success .panel-heading', 'Skopiuj stan z innego');
-        cy.contains('#collapseTOGGLE_X3 .dropdown-toggle', 'Et velit dolor');
+        cy.contains('#collapseTOGGLE_X3 .ts-control .item', 'Et velit dolor');
     });
 
     it('can clear the action and revert', () => {
@@ -47,7 +47,7 @@ describe('Action Triggers', () => {
         cy.contains('a', 'Anuluj zmiany').click();
         cy.contains('.panel-success .panel-heading', 'Przełączenie 3x');
         cy.contains('.panel-success .panel-heading', 'Skopiuj stan z innego');
-        cy.contains('#collapseTOGGLE_X3 .dropdown-toggle', 'Et velit dolor');
+        cy.contains('#collapseTOGGLE_X3 .ts-control .item', 'Et velit dolor');
     });
 
     it('can clear the action', () => {

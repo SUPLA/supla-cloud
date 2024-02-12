@@ -29,7 +29,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  * Remove collation from the input parameters of the supla_set_channel_json_config procedure
  * Remove collation from the input parameters of the supla_set_device_json_config procedure
  * Changing charset to utf8mb4 in the supla_mqtt_broker_auth procedure
- * Table supla_em_voltage_log renabled to supla_em_voltage_aberration_log
+ * Table supla_em_voltage_log renamed to supla_em_voltage_aberration_log
  * Added tables and procedures for storing the history of voltage, current and active power
  * Added profile_name field to the supla_client table.
  */

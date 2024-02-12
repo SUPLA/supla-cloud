@@ -25,7 +25,7 @@ use SuplaBundle\Entity\EntityUtils;
 use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
@@ -231,7 +231,7 @@ class LogItemsFixture extends SuplaFixture {
             $above = $this->faker->boolean(2);
             $below = $this->faker->boolean(2);
             if ($above || $below) {
-                $logItem = new ElectricityMeterVoltageLogItem();
+                $logItem = new ElectricityMeterVoltageAberrationLogItem();
                 EntityUtils::setField($logItem, 'channel_id', $channelId);
                 EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
                 $state = [

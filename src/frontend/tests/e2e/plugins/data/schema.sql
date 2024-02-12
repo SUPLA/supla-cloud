@@ -4,7 +4,7 @@
 --
 -- Host: 127.0.0.1    Database: supla
 -- ------------------------------------------------------
--- Server version	5.7.40
+-- Server version	5.7.44
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -80,10 +80,11 @@ DROP TABLE IF EXISTS `migration_versions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `migration_versions`
 (
-    `version`     varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `executed_at` datetime                               NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+    `version`        varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+    `executed_at`    datetime DEFAULT NULL,
+    `execution_time` int(11) DEFAULT NULL,
     PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,18 +170,18 @@ CREATE TABLE `supla_auto_gate_closing`
     `channel_id`      int(11) NOT NULL,
     `user_id`         int(11) NOT NULL,
     `enabled`         tinyint(1) NOT NULL DEFAULT '0',
-    `active_from`     datetime                                                DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `active_to`       datetime                                                DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `active_hours`    varchar(768) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+    `active_from`     datetime                             DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_to`       datetime                             DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_hours`    varchar(768) COLLATE utf8_unicode_ci DEFAULT NULL,
     `max_time_open`   int(11) NOT NULL,
     `seconds_open`    int(11) DEFAULT NULL,
-    `closing_attempt` datetime                                                DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `last_seen_open`  datetime                                                DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `closing_attempt` datetime                             DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `last_seen_open`  datetime                             DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
     PRIMARY KEY (`channel_id`),
     KEY               `IDX_E176CB9FA76ED395` (`user_id`),
     CONSTRAINT `FK_E176CB9F72F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_E176CB9FA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,6 +213,7 @@ CREATE TABLE `supla_client`
     `platform`               tinyint(3) unsigned DEFAULT NULL COMMENT '(DC2Type:tinyint)',
     `app_id`                 int(11) NOT NULL DEFAULT '0',
     `devel_env`              tinyint(1) NOT NULL DEFAULT '0',
+    `profile_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_CLIENTAPP` (`user_id`,`guid`),
     KEY                      `IDX_5430007F4FEA67CF` (`access_id`),
@@ -234,24 +236,24 @@ CREATE TABLE `supla_dev_channel`
     `iodevice_id`    int(11) NOT NULL,
     `user_id`        int(11) NOT NULL,
     `channel_number` int(11) NOT NULL,
-    `caption`        varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `caption`     varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
     `type`           int(11) NOT NULL,
     `func`           int(11) NOT NULL,
     `flist`          int(11) DEFAULT NULL,
     `param1`         int(11) NOT NULL,
     `param2`         int(11) NOT NULL,
     `param3`         int(11) NOT NULL,
-    `text_param1`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `text_param2`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `text_param3`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `text_param1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `text_param2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `text_param3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
     `alt_icon`       int(11) DEFAULT NULL,
     `hidden`         tinyint(1) NOT NULL DEFAULT '0',
     `location_id`    int(11) DEFAULT NULL,
-    `flags`          int(11) DEFAULT NULL,
+    `flags`       bigint(20) unsigned DEFAULT NULL,
     `user_icon_id`   int(11) DEFAULT NULL,
-    `user_config`    varchar(4096) COLLATE utf8_unicode_ci                         DEFAULT NULL,
+    `user_config` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `param4`         int(11) NOT NULL DEFAULT '0',
-    `properties`     varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
+    `properties`  varchar(2048) COLLATE utf8_unicode_ci                          DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQUE_CHANNEL` (`iodevice_id`,`channel_number`),
     KEY              `IDX_81E928C9125F95D6` (`iodevice_id`),
@@ -287,7 +289,7 @@ CREATE TABLE `supla_dev_channel_extended_value`
     KEY           `IDX_3207F134A76ED395` (`user_id`),
     CONSTRAINT `FK_3207F13472F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_3207F134A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,7 +337,7 @@ CREATE TABLE `supla_dev_channel_value`
     KEY           `IDX_1B99E014A76ED395` (`user_id`),
     CONSTRAINT `FK_1B99E01472F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_1B99E014A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -378,6 +380,25 @@ CREATE TABLE `supla_direct_link`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `supla_em_current_log`
+--
+
+DROP TABLE IF EXISTS `supla_em_current_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_em_current_log`
+(
+    `channel_id` int(11) NOT NULL,
+    `date`       datetime      NOT NULL COMMENT '(DC2Type:stringdatetime)',
+    `phase_no`   tinyint(4) NOT NULL COMMENT '(DC2Type:tinyint)',
+    `min`        decimal(6, 3) NOT NULL,
+    `max`        decimal(6, 3) NOT NULL,
+    `avg`        decimal(6, 3) NOT NULL,
+    PRIMARY KEY (`channel_id`, `date`, `phase_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `supla_em_log`
 --
 
@@ -407,13 +428,32 @@ CREATE TABLE `supla_em_log`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `supla_em_voltage_log`
+-- Table structure for table `supla_em_power_active_log`
 --
 
-DROP TABLE IF EXISTS `supla_em_voltage_log`;
+DROP TABLE IF EXISTS `supla_em_power_active_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `supla_em_voltage_log`
+CREATE TABLE `supla_em_power_active_log`
+(
+    `channel_id` int(11) NOT NULL,
+    `date`       datetime       NOT NULL COMMENT '(DC2Type:stringdatetime)',
+    `phase_no`   tinyint(4) NOT NULL COMMENT '(DC2Type:tinyint)',
+    `min`        decimal(11, 5) NOT NULL,
+    `max`        decimal(11, 5) NOT NULL,
+    `avg`        decimal(11, 5) NOT NULL,
+    PRIMARY KEY (`channel_id`, `date`, `phase_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `supla_em_voltage_aberration_log`
+--
+
+DROP TABLE IF EXISTS `supla_em_voltage_aberration_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_em_voltage_aberration_log`
 (
     `channel_id`           int(11) NOT NULL,
     `date`                 datetime      NOT NULL COMMENT '(DC2Type:stringdatetime)',
@@ -430,6 +470,25 @@ CREATE TABLE `supla_em_voltage_log`
     `avg_voltage`          decimal(7, 2) NOT NULL,
     `measurement_time_sec` int(11) NOT NULL,
     PRIMARY KEY (`channel_id`, `date`, `phase_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `supla_em_voltage_log`
+--
+
+DROP TABLE IF EXISTS `supla_em_voltage_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_em_voltage_log`
+(
+    `channel_id` int(11) NOT NULL,
+    `date`       datetime      NOT NULL COMMENT '(DC2Type:stringdatetime)',
+    `phase_no`   tinyint(4) NOT NULL COMMENT '(DC2Type:tinyint)',
+    `min`        decimal(5, 2) NOT NULL,
+    `max`        decimal(5, 2) NOT NULL,
+    `avg`        decimal(5, 2) NOT NULL,
+    PRIMARY KEY (`channel_id`, `date`, `phase_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -443,17 +502,17 @@ DROP TABLE IF EXISTS `supla_email_notifications`;
 CREATE TABLE `supla_email_notifications`
 (
     `id`           bigint(20) NOT NULL AUTO_INCREMENT,
-    `body`         longtext COLLATE utf8mb4_unicode_ci     NOT NULL,
-    `headers`      longtext COLLATE utf8mb4_unicode_ci     NOT NULL,
-    `queue_name`   varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `created_at`   datetime                                NOT NULL,
-    `available_at` datetime                                NOT NULL,
+    `body`         longtext COLLATE utf8_unicode_ci     NOT NULL,
+    `headers`      longtext COLLATE utf8_unicode_ci     NOT NULL,
+    `queue_name`   varchar(190) COLLATE utf8_unicode_ci NOT NULL,
+    `created_at`   datetime                             NOT NULL,
+    `available_at` datetime                             NOT NULL,
     `delivered_at` datetime DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY            `IDX_7C77A74CFB7336F0` (`queue_name`),
     KEY            `IDX_7C77A74CE3BD61CE` (`available_at`),
     KEY            `IDX_7C77A74C16BA31DB` (`delivered_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,6 +532,42 @@ CREATE TABLE `supla_google_home`
     UNIQUE KEY `UNIQ_98090074A76ED395` (`user_id`),
     CONSTRAINT `FK_98090074A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `supla_gp_measurement_log`
+--
+
+DROP TABLE IF EXISTS `supla_gp_measurement_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_gp_measurement_log`
+(
+    `channel_id` int(11) NOT NULL,
+    `date`       datetime NOT NULL COMMENT '(DC2Type:stringdatetime)',
+    `open_value` double NOT NULL,
+    `close_value` double NOT NULL,
+    `avg_value` double NOT NULL,
+    `max_value` double NOT NULL,
+    `min_value` double NOT NULL,
+    PRIMARY KEY (`channel_id`, `date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `supla_gp_meter_log`
+--
+
+DROP TABLE IF EXISTS `supla_gp_meter_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supla_gp_meter_log`
+(
+    `channel_id` int(11) NOT NULL,
+    `date`       datetime NOT NULL COMMENT '(DC2Type:stringdatetime)',
+    `value` double NOT NULL,
+    PRIMARY KEY (`channel_id`, `date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -706,8 +801,8 @@ CREATE TABLE `supla_push_notification`
     `channel_id`        int(11) DEFAULT NULL,
     `iodevice_id`       int(11) DEFAULT NULL,
     `managed_by_device` tinyint(1) NOT NULL DEFAULT '0',
-    `title`             varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-    `body`              varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `body`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     `sound`             int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY                 `IDX_2B227408A76ED395` (`user_id`),
@@ -716,7 +811,7 @@ CREATE TABLE `supla_push_notification`
     CONSTRAINT `FK_2B227408125F95D6` FOREIGN KEY (`iodevice_id`) REFERENCES `supla_iodevice` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_2B22740872F5A1AA` FOREIGN KEY (`channel_id`) REFERENCES `supla_dev_channel` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_2B227408A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -735,7 +830,7 @@ CREATE TABLE `supla_rel_aid_pushnotification`
     KEY                    `IDX_4A24B3E04FEA67CF` (`access_id`),
     CONSTRAINT `FK_4A24B3E04E328CBE` FOREIGN KEY (`push_notification_id`) REFERENCES `supla_push_notification` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_4A24B3E04FEA67CF` FOREIGN KEY (`access_id`) REFERENCES `supla_accessid` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -788,13 +883,13 @@ CREATE TABLE `supla_scene`
     `id`                       int(11) NOT NULL AUTO_INCREMENT,
     `user_id`                  int(11) NOT NULL,
     `location_id`              int(11) NOT NULL,
-    `caption`                  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `caption`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
     `enabled`                  tinyint(1) NOT NULL,
     `user_icon_id`             int(11) DEFAULT NULL,
     `alt_icon`                 tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '(DC2Type:tinyint)',
     `estimated_execution_time` int(11) NOT NULL DEFAULT '0',
     `hidden`                   tinyint(1) NOT NULL DEFAULT '0',
-    `user_config`              varchar(2048) COLLATE utf8_unicode_ci                         DEFAULT NULL,
+    `user_config` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY                        `IDX_A4825857A76ED395` (`user_id`),
     KEY                        `IDX_A482585764D218E` (`location_id`),
@@ -921,11 +1016,11 @@ DROP TABLE IF EXISTS `supla_settings_string`;
 CREATE TABLE `supla_settings_string`
 (
     `id`    int(11) NOT NULL AUTO_INCREMENT,
-    `name`  varchar(50) COLLATE utf8mb4_unicode_ci   NOT NULL,
-    `value` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `name`  varchar(50) COLLATE utf8_unicode_ci   NOT NULL,
+    `value` varchar(1024) COLLATE utf8_unicode_ci NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UNIQ_814604C95E237E06` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -940,18 +1035,18 @@ CREATE TABLE `supla_state_webhooks`
     `id`            int(11) NOT NULL AUTO_INCREMENT,
     `client_id`     int(11) DEFAULT NULL,
     `user_id`       int(11) DEFAULT NULL,
-    `url`           varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `access_token`  varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `refresh_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `expires_at`    datetime                                NOT NULL COMMENT '(DC2Type:utcdatetime)',
-    `functions_ids` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `url`           varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+    `access_token`  varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+    `refresh_token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+    `expires_at`    datetime                             NOT NULL COMMENT '(DC2Type:utcdatetime)',
+    `functions_ids` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
     `enabled`       tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY (`id`),
     KEY             `IDX_3C9361E019EB6921` (`client_id`),
     KEY             `IDX_3C9361E0A76ED395` (`user_id`),
     CONSTRAINT `FK_3C9361E019EB6921` FOREIGN KEY (`client_id`) REFERENCES `supla_oauth_clients` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_3C9361E0A76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1338,14 +1433,14 @@ CREATE TABLE `supla_value_based_trigger`
     `scene_id`             int(11) DEFAULT NULL,
     `schedule_id`          int(11) DEFAULT NULL,
     `push_notification_id` int(11) DEFAULT NULL,
-    `trigger`              varchar(2048) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `trigger`             varchar(2048) COLLATE utf8_unicode_ci DEFAULT NULL,
     `action`               int(11) NOT NULL,
-    `action_param`         varchar(255) COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
+    `action_param`        varchar(255) COLLATE utf8_unicode_ci  DEFAULT NULL,
     `enabled`              tinyint(1) NOT NULL DEFAULT '1',
-    `active_from`          datetime                                 DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `active_to`            datetime                                 DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
-    `active_hours`         varchar(768) COLLATE utf8mb4_unicode_ci  DEFAULT NULL,
-    `activity_conditions`  varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `active_from`         datetime                              DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_to`           datetime                              DEFAULT NULL COMMENT '(DC2Type:utcdatetime)',
+    `active_hours`        varchar(768) COLLATE utf8_unicode_ci  DEFAULT NULL,
+    `activity_conditions` varchar(1024) COLLATE utf8_unicode_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY                    `IDX_1DFF99CAA76ED395` (`user_id`),
     KEY                    `IDX_1DFF99CA13740A2` (`owning_channel_id`),
@@ -1361,7 +1456,7 @@ CREATE TABLE `supla_value_based_trigger`
     CONSTRAINT `FK_1DFF99CA89E4AAEE` FOREIGN KEY (`channel_group_id`) REFERENCES `supla_dev_channel_group` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_1DFF99CAA40BC2D5` FOREIGN KEY (`schedule_id`) REFERENCES `supla_schedule` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FK_1DFF99CAA76ED395` FOREIGN KEY (`user_id`) REFERENCES `supla_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1530,15 +1625,12 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER ;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_add_channel`(IN `_type` INT, IN `_func` INT, IN `_param1` INT, IN `_param2` INT, IN `_param3` INT,
-IN `_user_id` INT, IN `_channel_number` INT, IN `_iodevice_id` INT, IN `_flist` INT, IN `_flags` INT)
+DEFINER=`root`@`%` PROCEDURE `supla_add_channel`(IN `_type` INT, IN `_func` INT, IN `_param1` INT, IN `_param2` INT, IN `_param3` INT, IN `_user_id` INT, IN `_channel_number` INT, IN `_iodevice_id` INT, IN `_flist` INT, IN `_flags` INT, IN `_alt_icon` INT)
     NO SQL
 BEGIN
-
-INSERT INTO `supla_dev_channel` (`type`, `func`, `param1`, `param2`, `param3`, `user_id`, `channel_number`,
-                                 `iodevice_id`, `flist`, `flags`)
-VALUES (_type, _func, _param1, _param2, _param3, _user_id, _channel_number, _iodevice_id, _flist, _flags);
-
+INSERT INTO `supla_dev_channel` (`type`, `func`, `param1`, `param2`, `param3`, `user_id`, `channel_number`, `iodevice_id`, `flist`, `flags`,
+                                 `alt_icon`)
+VALUES (_type, _func, _param1, _param2, _param3, _user_id, _channel_number, _iodevice_id, _flist, _flags, _alt_icon);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1583,6 +1675,36 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_add_em_current_log_item` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_add_em_current_log_item`(
+                IN `_date` DATETIME,
+                IN `_channel_id` INT(11),
+                IN `_phase_no` TINYINT,
+                IN `_min` NUMERIC(6,3),
+                IN `_max` NUMERIC(6,3),
+                IN `_avg` NUMERIC(6,3)
+            )
+    NO SQL
+BEGIN
+INSERT INTO `supla_em_current_log` (`date`, channel_id, phase_no, min, max, avg)
+VALUES (_date, _channel_id, _phase_no, _min, _max, _avg);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `supla_add_em_log_item` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1614,7 +1736,7 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `supla_add_em_voltage_log_item` */;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_add_em_power_active_log_item` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1623,7 +1745,37 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER ;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_add_em_voltage_log_item`(
+DEFINER=`root`@`%` PROCEDURE `supla_add_em_power_active_log_item`(
+                IN `_date` DATETIME,
+                IN `_channel_id` INT(11),
+                IN `_phase_no` TINYINT,
+                IN `_min` NUMERIC(11,5),
+                IN `_max` NUMERIC(11,5),
+                IN `_avg` NUMERIC(11,5)
+            )
+    NO SQL
+BEGIN
+INSERT INTO `supla_em_power_active_log` (`date`, channel_id, phase_no, min, max, avg)
+VALUES (_date, _channel_id, _phase_no, _min, _max, _avg);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_add_em_voltage_aberration_log_item` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_add_em_voltage_aberration_log_item`(
                 IN `_date` DATETIME,
                 IN `_channel_id` INT(11),
                 IN `_phase_no` TINYINT,
@@ -1641,12 +1793,78 @@ DEFINER=`root`@`%` PROCEDURE `supla_add_em_voltage_log_item`(
             )
     NO SQL
 BEGIN
-INSERT INTO `supla_em_voltage_log` (`date`, channel_id, phase_no, count_total, count_above, count_below, sec_above, sec_below,
-                                    max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage, measurement_time_sec)
+INSERT INTO `supla_em_voltage_aberration_log` (`date`, channel_id, phase_no, count_total, count_above, count_below, sec_above, sec_below,
+                                               max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage, measurement_time_sec)
 VALUES (_date, _channel_id, _phase_no, _count_total, _count_above, _count_below, _sec_above, _sec_below, _max_sec_above, _max_sec_below,
         _min_voltage, _max_voltage, _avg_voltage, _measurement_time_sec);
 
 END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_add_em_voltage_log_item` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_add_em_voltage_log_item`(
+                IN `_date` DATETIME,
+                IN `_channel_id` INT(11),
+                IN `_phase_no` TINYINT,
+                IN `_min` NUMERIC(5,2),
+                IN `_max` NUMERIC(5,2),
+                IN `_avg` NUMERIC(5,2)
+            )
+    NO SQL
+BEGIN
+INSERT INTO `supla_em_voltage_log` (`date`, channel_id, phase_no, min, max, avg)
+VALUES (_date, _channel_id, _phase_no, _min, _max, _avg);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_add_gp_measurement_log_item` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_add_gp_measurement_log_item`(IN `_channel_id` INT, IN `_open_value` DOUBLE, IN `_close_value` DOUBLE, IN `_avg_value` DOUBLE, IN `_max_value` DOUBLE, IN `_min_value` DOUBLE)
+INSERT INTO `supla_gp_measurement_log`(`channel_id`, `date`, `open_value`, `close_value`, `avg_value`, `max_value`, `min_value`) VALUES (_channel_id, UTC_TIMESTAMP(),_open_value, _close_value, _avg_value, _max_value, _min_value) ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_add_gp_meter_log_item` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_add_gp_meter_log_item`(IN `_channel_id` INT, IN `_value` DOUBLE)
+INSERT INTO `supla_gp_meter_log`(`channel_id`, `date`, `value`) VALUES (_channel_id, UTC_TIMESTAMP(), _value) ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -2010,19 +2228,15 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER ;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_mqtt_broker_auth`(IN `in_suid` VARCHAR(255) CHARSET utf8, IN `in_password` VARCHAR(255) CHARSET utf8)
+DEFINER=`root`@`%` PROCEDURE `supla_mqtt_broker_auth`(IN `in_suid` VARCHAR(255) CHARSET utf8mb4, IN `in_password` VARCHAR(255) CHARSET utf8mb4)
     NO SQL
-BEGIN
-                SET
+BEGIN SET
 @hashed_password = SHA2(in_password, 512);
 SELECT 1
 FROM supla_user su
          LEFT JOIN supla_oauth_client_authorizations soca ON su.id = soca.user_id
 WHERE mqtt_broker_enabled = 1
-  AND short_unique_id = BINARY in_suid AND(
-                su.mqtt_broker_auth_password = @hashed_password OR soca.mqtt_broker_auth_password = @hashed_password
-            )
-            LIMIT 1;
+  AND short_unique_id = BINARY in_suid AND( su.mqtt_broker_auth_password = @hashed_password OR soca.mqtt_broker_auth_password = @hashed_password ) LIMIT 1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -2079,6 +2293,77 @@ END IF;
 
 END IF;
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `supla_oauth_add_token_for_alexa_discover` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+DELIMITER ;;
+CREATE
+DEFINER=`root`@`%` PROCEDURE `supla_oauth_add_token_for_alexa_discover`(IN `_user_id` INT)
+BEGIN
+   DECLARE
+characters VARCHAR(62) DEFAULT 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+   DECLARE
+i INT DEFAULT 1;
+   DECLARE
+svr VARCHAR(168) DEFAULT '';
+   DECLARE
+token VARCHAR(255) DEFAULT NULL;
+   DECLARE
+client_id INT DEFAULT 0;
+
+SELECT t.client_id, SUBSTRING_INDEX(t.token, '.', -1)
+INTO client_id, svr
+FROM `supla_oauth_refresh_tokens` t
+WHERE t.user_id = _user_id
+  AND t.client_id IN (SELECT id FROM `supla_oauth_clients` WHERE name = 'AMAZON ALEXA')
+ORDER BY expires_at DESC LIMIT 1;
+
+
+SELECT t.token
+INTO token
+FROM `supla_oauth_access_tokens` t
+WHERE t.client_id = client_id
+  AND name = 'ALEXA DISCOVER'
+  AND user_id = _user_id
+  AND expires_at - UNIX_TIMESTAMP() >= 60;
+
+IF
+token IS NOT NULL THEN
+SELECT token;
+ELSE
+     SET token = '';
+
+     WHILE
+i <= 86 DO
+        SET token = CONCAT(token, SUBSTRING(characters, FLOOR(RAND() * 62) + 1, 1));
+        SET
+i = i + 1;
+END WHILE;
+
+     IF
+client_id > 0 THEN
+       SET token = CONCAT(token, '.', svr);
+
+INSERT INTO `supla_oauth_access_tokens`(`client_id`, `user_id`, `token`, `expires_at`, `scope`, `name`, `access_id`,
+                                        `issuer_browser_string`)
+VALUES (client_id, _user_id, token, UNIX_TIMESTAMP() + 3600, 'channels_r iodevices_r locations_r account_r scenes_r', 'ALEXA DISCOVER',
+        NULL, 'supla-server');
+
+SELECT token;
+END IF;
+END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -2229,14 +2514,13 @@ SELECT _user_id,
        CASE _sm_body WHEN 0 THEN NULL ELSE '' END,
        CASE _sm_sound WHEN 0 THEN NULL ELSE 0 END
 FROM DUAL
-WHERE NOT EXISTS(
-        SELECT id
-        FROM `supla_push_notification`
-        WHERE user_id = _user_id
-          AND iodevice_id = _device_id
-          AND managed_by_device = 1
-          AND ((_channel_id = 0 AND channel_id IS NULL)
-            OR (channel_id != 0 AND channel_id =
+WHERE NOT EXISTS(SELECT id
+                 FROM `supla_push_notification`
+                 WHERE user_id = _user_id
+                   AND iodevice_id = _device_id
+                   AND managed_by_device = 1
+                   AND ((_channel_id = 0 AND channel_id IS NULL)
+                     OR (channel_id != 0 AND channel_id =
            _channel_id)) LIMIT 1);;
 DELIMITER;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -2342,7 +2626,7 @@ DELIMITER;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_set_channel_json_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` VARCHAR(4096) CHARSET utf8mb4, IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048) CHARSET utf8mb4, IN `_properties_md5` VARCHAR(32))
+DEFINER=`root`@`%` PROCEDURE `supla_set_channel_json_config`(IN `_user_id` INT, IN `_channel_id` INT, IN `_user_config` VARCHAR(4096), IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048), IN `_properties_md5` VARCHAR(32))
 BEGIN
 UPDATE supla_dev_channel
 SET user_config = _user_config,
@@ -2393,7 +2677,7 @@ DELIMITER;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_set_device_json_config`(IN `_user_id` INT, IN `_device_id` INT, IN `_user_config` VARCHAR(4096) CHARSET utf8mb4, IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048) CHARSET utf8mb4, IN `_properties_md5` VARCHAR(32))
+DEFINER=`root`@`%` PROCEDURE `supla_set_device_json_config`(IN `_user_id` INT, IN `_device_id` INT, IN `_user_config` VARCHAR(4096), IN `_user_config_md5` VARCHAR(32), IN `_properties` VARCHAR(2048), IN `_properties_md5` VARCHAR(32))
 BEGIN
 UPDATE supla_iodevice
 SET user_config = _user_config,
@@ -2793,13 +3077,14 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 DELIMITER ;;
 CREATE
-DEFINER=`root`@`%` PROCEDURE `supla_update_push_notification_client_token`(IN `_user_id` INT, IN `_client_id` INT, IN `_token` VARCHAR(255) CHARSET utf8mb4, IN `_platform` TINYINT, IN `_app_id` INT, IN `_devel_env` TINYINT)
+DEFINER=`root`@`%` PROCEDURE `supla_update_push_notification_client_token`(IN `_user_id` INT, IN `_client_id` INT, IN `_token` VARCHAR(255) CHARSET utf8mb4, IN `_platform` TINYINT, IN `_app_id` INT, IN `_devel_env` TINYINT, IN `_profile_name` VARCHAR(50) CHARSET utf8mb4)
 UPDATE supla_client
 SET push_token             = _token,
     push_token_update_time = UTC_TIMESTAMP(),
     platform               = _platform,
     app_id                 = _app_id,
-    devel_env              = _devel_env
+    devel_env    = _devel_env,
+    profile_name = _profile_name
 WHERE id = _client_id
   AND user_id = _user_id;;
 DELIMITER;
@@ -3022,4 +3307,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-02 22:09:55
+-- Dump completed on 2024-02-12 22:29:18

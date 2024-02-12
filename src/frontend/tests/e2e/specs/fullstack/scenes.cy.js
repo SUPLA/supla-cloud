@@ -13,15 +13,15 @@ describe('Scenes', () => {
         cy.login();
         cy.visit('/scenes');
         cy.contains('Utwórz nową scenę').click();
+        cy.get('[type=text]').type('Testowa scena');
         cy.contains('Kanały').click();
-        cy.contains('wybierz kanał').click();
+        cy.get('.channel-dropdown .ts-control').click();
         cy.contains('ID1 Włącznik światła').click({force: true});
         cy.contains('Wyłącz').click();
         cy.contains('Dodaj opóźnienie').click();
         cy.contains('Kanały').click();
-        cy.contains('wybierz kanał').click({force: true});
+        cy.get('.channel-dropdown .ts-control').click();
         cy.contains('ID1 Włącznik światła').click();
-        cy.get('[type=text]').type('Testowa scena');
         cy.contains('Wyślij powiadomienie').click();
         cy.contains('.form-group', 'Treść').find('.form-control').type('Testowe powiadomienie');
         cy.contains('wybierz identyfikatory dostępu').click();

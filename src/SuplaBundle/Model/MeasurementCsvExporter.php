@@ -97,7 +97,7 @@ class MeasurementCsvExporter {
                             'Maximum voltage',
                             'Average voltage',
                         ],
-                        "SELECT $timestampSelect, measurement_time_sec, phase_no, count_total, count_above, count_below, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage FROM `supla_em_voltage_log` WHERE channel_id = :channelId",
+                        "SELECT $timestampSelect, measurement_time_sec, phase_no, count_total, count_above, count_below, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage FROM `supla_em_voltage_aberration_log` WHERE channel_id = :channelId",
                     ];
                 } else {
                     return [

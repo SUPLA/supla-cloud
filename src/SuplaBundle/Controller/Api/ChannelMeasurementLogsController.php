@@ -204,7 +204,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::ELECTRICITYMETER:
                 return 'supla_em_log';
             case 'voltage' . ChannelFunction::ELECTRICITYMETER:
-                return 'supla_em_voltage_log';
+                return 'supla_em_voltage_aberration_log';
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:

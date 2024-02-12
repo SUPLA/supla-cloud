@@ -1,6 +1,7 @@
 <template>
     <div>
         <SelectForSubjects
+            class="channel-dropdown"
             :none-option="!hideNone"
             :options="channelsForDropdown"
             :caption="channelCaption"
