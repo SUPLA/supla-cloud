@@ -77,10 +77,10 @@
                 }
             }
         }
-        .loading-content {
+        > .loading-content {
             transition: opacity .3s;
         }
-        .loading {
+        > .loading {
             display: none;
             .loader-dots {
                 position: absolute;

@@ -1,43 +1,25 @@
 <template>
     <div>
-        <div class="select-loader"
-            v-if="!channels">
-            <button-loading-dots></button-loading-dots>
-        </div>
-        <select class="selectpicker"
-            :disabled="!channels"
-            ref="dropdown"
-            data-live-search="true"
-            data-width="100%"
-            :data-container="dropdownContainer"
-            data-style="btn-default btn-wrapped"
-            v-model="chosenChannel"
-            @change="$emit('input', chosenChannel)">
-            <option :value="undefined" v-if="!hideNone && chosenChannel">{{ $t('None') }}</option>
-            <option v-for="channel in channelsForDropdown"
-                :key="channel.id"
-                :value="channel"
-                :data-content="channelHtml(channel)">
-                {{ channelCaption(channel) }}
-            </option>
-        </select>
+        <SelectForSubjects
+            none-option
+            :options="channelsForDropdown"
+            :caption="channelCaption"
+            :option-html="channelHtml"
+            :choose-prompt-i18n="choosePromptI18n || 'choose the channel'"
+            v-model="chosenChannel"/>
     </div>
 </template>
 
 <script>
-    import Vue from "vue";
-    import $ from "jquery";
-    import "@/common/bootstrap-select";
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import {channelIconUrl} from "../common/filters";
+    import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
     export default {
-        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'dropdownContainer', 'choosePromptI18n'],
-        components: {ButtonLoadingDots},
+        props: ['params', 'value', 'hiddenChannels', 'hideNone', 'filter', 'choosePromptI18n'],
+        components: {SelectForSubjects},
         data() {
             return {
-                channels: undefined,
-                chosenChannel: undefined
+                channels: undefined
             };
         },
         mounted() {
@@ -48,44 +30,28 @@
                 this.channels = undefined;
                 this.$http.get('channels?include=iodevice,location&' + (this.params || '')).then(({body: channels}) => {
                     this.channels = channels;
-                    this.setChannelFromModel();
-                    this.initSelectPicker();
                 });
             },
             channelCaption(channel) {
                 return channel.caption || `ID${channel.id} ${this.$t(channel.function.caption)}`;
             },
-            channelHtml(channel) {
-                let content = `<div class='subject-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels full"><h4><span class="line-clamp line-clamp-2">${this.channelCaption(channel)}</span>`;
-                if (channel.caption) {
-                    content += ` <span class='small text-muted'>ID${channel.id} ${this.$t(channel.function.caption)}</span>`;
-                }
-                content += '</h4>';
-                content += `<p class="line-clamp line-clamp-2">${channel.location.caption} / ${channel.iodevice.name}</p></div>`;
-                content += `<div class="icon"><img src="${channelIconUrl(channel)}"></div></div>`;
-                return content;
-            },
-            updateDropdownOptions() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker('refresh'));
-            },
-            setChannelFromModel() {
-                if (this.value && this.channels) {
-                    this.chosenChannel = this.channels.filter(ch => ch.id == this.value.id)[0];
-                    if (!this.chosenChannel) {
-                        this.$emit('input');
-                    }
-                } else {
-                    this.chosenChannel = undefined;
-                }
-            },
-            initSelectPicker() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+            channelHtml(channel, escape) {
+                return `<div>
+                            <div class="subject-dropdown-option d-flex">
+                                <div class="flex-grow-1">
+                                    <h5 class="my-1">
+                                        <span class="line-clamp line-clamp-2">${escape(channel.fullCaption)}</span>
+                                        ${channel.caption ? `<span class="small text-muted">ID${channel.id} ${this.$t(channel.function.caption)}</span>` : ''}
+                                    </h5>
+                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${channel.location.caption} / ${channel.iodevice.name}</p>
+                                </div>
+                                <div class="icon option-extra"><img src="${channelIconUrl(channel)}"></div></div>
+                            </div>
+                        </div>`;
             },
         },
         computed: {
             channelsForDropdown() {
-                this.updateDropdownOptions();
                 if (!this.channels) {
                     return [];
                 }
@@ -97,28 +63,23 @@
                 }
                 const channels = this.channels.filter(filter);
                 this.$emit('update', channels);
-                this.updateDropdownOptions();
-                return channels;
+                return channels.map(channel => {
+                    channel.fullCaption = this.channelCaption(channel);
+                    return channel;
+                })
             },
-            selectOptions() {
-                return {
-                    noneSelectedText: this.choosePromptI18n ? this.$t(this.choosePromptI18n) : this.$t('choose the channel'),
-                    liveSearchPlaceholder: this.$t('Search'),
-                    noneResultsText: this.$t('No results match {0}'),
-                };
-            },
+            chosenChannel: {
+                get() {
+                    return this.value;
+                },
+                set(channel) {
+                    this.$emit('input', channel);
+                }
+            }
         },
         watch: {
-            value() {
-                this.setChannelFromModel();
-                this.updateDropdownOptions();
-            },
             params() {
                 this.fetchChannels();
-            },
-            '$i18n.locale'() {
-                $(this.$refs.dropdown).selectpicker('destroy');
-                this.initSelectPicker();
             },
         }
     };
