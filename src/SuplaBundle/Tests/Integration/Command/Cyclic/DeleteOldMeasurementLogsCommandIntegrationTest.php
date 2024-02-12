@@ -19,7 +19,7 @@ namespace SuplaBundle\Tests\Integration\Command\Cyclic;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SuplaBundle\Entity\EntityUtils;
-use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterAberrationVoltageLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\MysqlUtcDate;
 use Symfony\Component\Console\Tester\CommandTester;
