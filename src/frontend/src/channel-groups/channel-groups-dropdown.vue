@@ -1,42 +1,25 @@
 <template>
     <div>
-        <div class="select-loader"
-            v-if="!channelGroups">
-            <button-loading-dots></button-loading-dots>
-        </div>
-        <select class="selectpicker"
-            :disabled="!channelGroups"
-            ref="dropdown"
-            data-live-search="true"
-            data-width="100%"
-            :data-container="dropdownContainer"
-            data-style="btn-default btn-wrapped"
-            v-model="chosenChannelGroup"
-            @change="$emit('input', chosenChannelGroup)">
-            <option v-for="channelGroup in channelGroupsForDropdown"
-                :key="channelGroup.id"
-                :value="channelGroup"
-                :data-content="channelGroupHtml(channelGroup)">
-                {{ channelGroupCaption(channelGroup) }}
-            </option>
-        </select>
+        <SelectForSubjects
+            none-option
+            :options="channelGroupsForDropdown"
+            :caption="channelGroupCaption"
+            :option-html="channelGroupHtml"
+            :choose-prompt-i18n="'choose the channel group'"
+            v-model="chosenChannelGroup"/>
     </div>
 </template>
 
 <script>
-    import Vue from "vue";
-    import "@/common/bootstrap-select";
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import {channelIconUrl} from "../common/filters";
-    import $ from "jquery";
+    import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
     export default {
         props: ['params', 'value', 'filter', 'dropdownContainer'],
-        components: {ButtonLoadingDots},
+        components: {SelectForSubjects},
         data() {
             return {
                 channelGroups: undefined,
-                chosenChannelGroup: undefined
             };
         },
         mounted() {
@@ -47,44 +30,28 @@
                 this.channelGroups = undefined;
                 this.$http.get('channel-groups?' + (this.params || '')).then(({body: channelGroups}) => {
                     this.channelGroups = channelGroups;
-                    this.setChannelGroupFromModel();
-                    this.initSelectPicker();
                 });
             },
             channelGroupCaption(channelGroup) {
                 return channelGroup.caption || `ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}`;
             },
-            channelGroupHtml(channelGroup) {
-                let content = `<div class='subject-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels full"><h4>${this.channelGroupCaption(channelGroup)}`;
-                if (channelGroup.caption) {
-                    content += ` <span class='small text-muted'>ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}</span>`;
-                }
-                content += '</h4>';
-                content += `<p>${this.$t('No. of channels')}: ${channelGroup.relationsCount.channels}</p></div>`;
-                content += `<div class="icon"><img src="${channelIconUrl(channelGroup)}"></div></div>`;
-                return content;
-            },
-            updateDropdownOptions() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker('refresh'));
-            },
-            setChannelGroupFromModel() {
-                if (this.value && this.channelGroups) {
-                    this.chosenChannelGroup = this.channelGroups.filter(ch => ch.id == this.value.id)[0];
-                    if (!this.chosenChannelGroup) {
-                        this.$emit('input');
-                    }
-                } else {
-                    this.chosenChannelGroup = undefined;
-                }
-            },
-            initSelectPicker() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+            channelGroupHtml(channelGroup, escape) {
+                return `<div>
+                            <div class="subject-dropdown-option d-flex">
+                                <div class="flex-grow-1">
+                                    <h5 class="my-1">
+                                        <span class="line-clamp line-clamp-2">${escape(channelGroup.fullCaption)}</span>
+                                        ${channelGroup.caption ? `<span class="small text-muted">ID${channelGroup.id} ${this.$t(channelGroup.function.caption)}</span>` : ''}
+                                    </h5>
+                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${this.$t('No. of channels')}: ${channelGroup.relationsCount.channels}</p>
+                                </div>
+                                <div class="icon option-extra"><img src="${channelIconUrl(channelGroup)}"></div></div>
+                            </div>
+                        </div>`;
             },
         },
         computed: {
             channelGroupsForDropdown() {
-                this.updateDropdownOptions();
                 if (!this.channelGroups) {
                     return [];
                 }
@@ -92,25 +59,18 @@
                 this.$emit('update', channelGroups);
                 return channelGroups;
             },
-            selectOptions() {
-                return {
-                    noneSelectedText: this.$t('choose the channel group'),
-                    liveSearchPlaceholder: this.$t('Search'),
-                    noneResultsText: this.$t('No results match {0}'),
-                };
+            chosenChannelGroup: {
+                get() {
+                    return this.value;
+                },
+                set(channelGroup) {
+                    this.$emit('input', channelGroup);
+                }
             },
         },
         watch: {
-            value() {
-                this.setChannelGroupFromModel();
-                this.updateDropdownOptions();
-            },
             params() {
                 this.fetchChannelGroups();
-            },
-            '$i18n.locale'() {
-                $(this.$refs.dropdown).selectpicker('destroy');
-                this.initSelectPicker();
             },
         }
     };
