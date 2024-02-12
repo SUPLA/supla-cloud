@@ -20,6 +20,7 @@ namespace SuplaBundle\Migrations\Migration;
 use SuplaBundle\Migrations\NoWayBackMigration;
 
 /**
+ * Added profile_name field to the supla_client table.
  * New table: supla_gp_measurement_log.
  * New table: supla_gp_meter_log.
  * The supla_add_channel procedure has been extended with the 'alt_icon' parameter.
@@ -34,6 +35,7 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  */
 class Version20240117202218 extends NoWayBackMigration {
     public function migrate() {
+        $this->sqlSql('ALTER TABLE `supla_client` ADD `profile_name` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `devel_env`');
         $this->addSql('CREATE TABLE supla_gp_measurement_log (channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:stringdatetime)\', open_value DOUBLE PRECISION NOT NULL, close_value DOUBLE PRECISION NOT NULL, avg_value DOUBLE PRECISION NOT NULL, max_value DOUBLE PRECISION NOT NULL, min_value DOUBLE PRECISION NOT NULL, PRIMARY KEY(channel_id, date)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_general_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE supla_gp_meter_log (channel_id INT NOT NULL, date DATETIME NOT NULL COMMENT \'(DC2Type:stringdatetime)\', value DOUBLE PRECISION NOT NULL, PRIMARY KEY(channel_id, date)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_general_ci` ENGINE = InnoDB');
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_add_channel`');

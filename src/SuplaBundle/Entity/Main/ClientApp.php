@@ -136,6 +136,9 @@ class ClientApp {
     /** @ORM\Column(name="devel_env", type="boolean", options={"default": 0}) */
     private $isDevEnv = false;
 
+    /** @ORM\Column(name="profile_name", type="string", length=50, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
+    private $profileName;
+
     public function getId(): int {
         return $this->id;
     }
