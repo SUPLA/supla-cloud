@@ -79,12 +79,12 @@
                         @change="$emit('change')">
                 </span>
                 <span class="help-block text-center">
-                    <unit-symbol-helper @typed="channel.config[lastUnitField] += $event"></unit-symbol-helper>
+                    <unit-symbol-helper @typed="channel.config[lastUnitField] += $event; $emit('change')"></unit-symbol-helper>
                 </span>
             </dt>
             <dd>{{ $t('Example value') }}</dd>
             <dt>
-                <span class="help-block text-center">
+                <div class="help-block text-center">
                     (
                     <input type="number" class="example-measurement-input no-spinner text-center" step="1" v-model="exampleValue"
                         placeholder="0">
@@ -95,7 +95,7 @@
                     <div>
                         <strong>{{ exampleValue * channel.config.valueMultiplier / (channel.config.valueDivider || 1) + channel.config.valueAdded | formatGpmValue(channel.config) }}</strong>
                     </div>
-                </span>
+                </div>
             </dt>
         </dl>
     </div>
