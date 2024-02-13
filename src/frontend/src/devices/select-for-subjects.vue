@@ -11,10 +11,11 @@
     export default {
         props: {
             options: Array,
-            value: Object,
+            value: [Object, Array],
             choosePromptI18n: String,
             noneOption: Boolean,
             doNotHideSelected: Boolean,
+            multiple: Boolean,
             caption: {
                 type: Function,
                 default: (option) => option.caption,
@@ -41,6 +42,7 @@
                         labelField: 'fullCaption',
                         searchField: 'fullCaption',
                         hideSelected: !this.doNotHideSelected,
+                        maxItems: this.multiple ? null : 1,
                         onInitialize: () => this.syncDropdown(),
                         render: {
                             option: (option, escape) => {
@@ -60,11 +62,19 @@
                             },
                         },
                         onChange: (optId) => {
-                            if (optId === 0) {
-                                this.dropdown.setValue(undefined);
-                            } else if (+optId != this.value?.id) {
-                                const chosenChannel = this.options.find((opt) => opt.id == optId);
-                                this.$emit('input', chosenChannel);
+                            if (this.multiple) {
+                                if (optId.length !== (this.value || []).length) {
+                                    const ids = optId.map(id => +id);
+                                    const chosenOptions = this.options.filter(opt => ids.includes(opt.id));
+                                    this.$emit('input', chosenOptions);
+                                }
+                            } else {
+                                if (optId === 0) {
+                                    this.dropdown.setValue([]);
+                                } else if (optId != this.value?.id) {
+                                    const chosenOption = this.options.find((opt) => opt.id == optId);
+                                    this.$emit('input', chosenOption);
+                                }
                             }
                         }
                     });
@@ -85,10 +95,14 @@
                             ...o,
                             fullCaption: this.caption(o),
                         }));
-                        this.dropdown.setValue(this.value?.id || undefined);
+                        if (this.multiple) {
+                            this.dropdown.setValue((this.value || []).map(v => v.id));
+                        } else {
+                            this.dropdown.setValue(this.value?.id || undefined);
+                        }
                     } else {
                         this.dropdown.disable();
-                        this.dropdown.setValue(undefined);
+                        this.dropdown.setValue(this.multiple ? [] : undefined);
                     }
                 }
             }
@@ -99,7 +113,11 @@
             },
             value() {
                 if (this.dropdown) {
-                    this.dropdown.setValue(this.value?.id || undefined);
+                    if (this.multiple) {
+                        this.dropdown.setValue((this.value || []).map(v => v.id));
+                    } else {
+                        this.dropdown.setValue(this.value?.id || undefined);
+                    }
                 }
             },
             '$i18n.locale'() {

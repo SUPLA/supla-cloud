@@ -1,42 +1,23 @@
 <template>
     <div>
-        <div class="select-loader"
-            v-if="!aids">
-            <button-loading-dots></button-loading-dots>
-        </div>
-        <select class="selectpicker"
-            :disabled="!aids"
-            ref="dropdown"
-            data-live-search="true"
-            data-width="100%"
-            data-style="btn-default btn-wrapped"
+        <SelectForSubjects
             multiple
-            v-model="chosenAids">
-            <!--            <option :value="undefined"-->
-            <!--                :title="$t('choose the access identifiers')"-->
-            <!--                v-show="!hideNone && chosenChannel">-->
-            <!--                {{ $t('None') }}-->
-            <!--            </option>-->
-            <option v-for="aid in aids"
-                :key="aid.id"
-                :value="aid">
-                {{ aidCaption(aid) }}
-            </option>
-        </select>
+            class="aid-dropdown"
+            :options="aids"
+            :caption="aidCaption"
+            choose-prompt-i18n="choose the access identifiers"
+            v-model="chosenAids"/>
     </div>
 </template>
 
 <script>
-    import Vue from "vue";
-    import $ from "jquery";
-    import "@/common/bootstrap-select";
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
+    import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
     export default {
         props: {
             value: Array,
         },
-        components: {ButtonLoadingDots},
+        components: {SelectForSubjects},
         data() {
             return {
                 aids: undefined,
@@ -47,20 +28,12 @@
         },
         methods: {
             fetchAids() {
-                this.aids = undefined;
                 this.$http.get('accessids').then(({body: aids}) => {
                     this.aids = aids;
-                    this.initSelectPicker();
                 });
             },
             aidCaption(aid) {
                 return (aid.caption || `ID${aid.id}`) + ` (${aid.relationsCount.clientApps})`;
-            },
-            updateDropdownOptions() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker('refresh'));
-            },
-            initSelectPicker() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
             },
         },
         computed: {
@@ -77,25 +50,6 @@
                     this.$emit('input', aids);
                 }
             },
-            selectOptions() {
-                return {
-                    noneSelectedText: this.$t('choose access identifiers'),
-                    liveSearchPlaceholder: this.$t('Search'),
-                    noneResultsText: this.$t('No results match {0}'),
-                };
-            },
         },
-        watch: {
-            '$i18n.locale'() {
-                $(this.$refs.dropdown).selectpicker('destroy');
-                this.initSelectPicker();
-            },
-        }
     };
 </script>
-
-<style lang="scss">
-    .bootstrap-select.show-tick .dropdown-menu li a span.text {
-        margin-right: 0 !important;
-    }
-</style>
