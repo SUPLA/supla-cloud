@@ -14,6 +14,7 @@
             value: Object,
             choosePromptI18n: String,
             noneOption: Boolean,
+            doNotHideSelected: Boolean,
             caption: {
                 type: Function,
                 default: (option) => option.caption,
@@ -39,7 +40,7 @@
                         valueField: 'id',
                         labelField: 'fullCaption',
                         searchField: 'fullCaption',
-                        hideSelected: true,
+                        hideSelected: !this.doNotHideSelected,
                         onInitialize: () => this.syncDropdown(),
                         render: {
                             option: (option, escape) => {

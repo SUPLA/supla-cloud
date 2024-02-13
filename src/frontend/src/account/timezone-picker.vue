@@ -2,6 +2,7 @@
     <span class="timezone-picker">
         <SelectForSubjects
             class="timezones-dropdown"
+            do-not-hide-selected
             :options="availableTimezones"
             :caption="(timezone) => `${timezone.name} (UTC${timezone.offset >= 0 ? '+' : ''}${timezone.offset}) ${timezone.currentTime}`"
             choose-prompt-i18n="choose the timezone"

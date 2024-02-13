@@ -2,6 +2,7 @@
     <span class="currency-picker">
         <SelectForSubjects
             class="schedules-dropdown"
+            do-not-hide-selected
             :options="currencyCodesList"
             choose-prompt-i18n="choose the currency"
             v-model="chosenCurrency"/>
