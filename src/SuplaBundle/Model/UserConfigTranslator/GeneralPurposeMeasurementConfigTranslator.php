@@ -52,8 +52,9 @@ class GeneralPurposeMeasurementConfigTranslator extends UserConfigTranslator {
         $config = $subject->getUserConfig();
         if (array_key_exists('valueMultiplier', $config)) {
             return [
-                'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueDivider', 1) / 1000, 3),
-                'valueMultiplier' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueMultiplier', 1) / 1000, 3),
+                'valueDivider' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueDivider', 1) / 1000, 3) ?: 1,
+                'valueMultiplier' =>
+                    NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueMultiplier', 1) / 1000, 3) ?: 1,
                 'valueAdded' => NumberUtils::maximumDecimalPrecision($subject->getUserConfigValue('valueAdded', 0) / 1000, 3),
                 'valuePrecision' => $subject->getUserConfigValue('valuePrecision', 0),
                 'unitBeforeValue' => $subject->getUserConfigValue('unitBeforeValue', ''),

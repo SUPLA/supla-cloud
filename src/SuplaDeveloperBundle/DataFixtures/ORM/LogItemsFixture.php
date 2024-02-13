@@ -301,7 +301,7 @@ class LogItemsFixture extends SuplaFixture {
         $to = time();
         $counter = 0;
         $valueMultiplier = $gpmInc->getUserConfigValue('valueMultiplier');
-        $valueDivider = $gpmInc->getUserConfigValue('valueDivider');
+        $valueDivider = $gpmInc->getUserConfigValue('valueDivider') ?: 1;
         $valueAdded = $gpmInc->getUserConfigValue('valueAdded');
         for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
             $incLogItem = new GeneralPurposeMeterLogItem();

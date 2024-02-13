@@ -386,7 +386,7 @@ class DevicesFixture extends SuplaFixture {
                         'defaultUnitAfterValue' => 'GHJK',
                     ]),
                     'userConfig' => json_encode([
-                        'valueDivider' => 12,
+                        'valueDivider' => 0,
                         'valueMultiplier' => 34,
                         'valueAdded' => 56,
                         'valuePrecision' => 3,
