@@ -61,8 +61,8 @@
                         onChange: (optId) => {
                             if (optId === 0) {
                                 this.dropdown.setValue(undefined);
-                            } else if (+optId !== this.value?.id) {
-                                const chosenChannel = this.options.find((opt) => opt.id === optId);
+                            } else if (+optId != this.value?.id) {
+                                const chosenChannel = this.options.find((opt) => opt.id == optId);
                                 this.$emit('input', chosenChannel);
                             }
                         }
