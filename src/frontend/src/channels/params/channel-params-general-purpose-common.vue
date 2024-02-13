@@ -195,7 +195,8 @@
         font-size: .8em;
     }
 
-    .with-space {
+    .with-space, .without-space {
+        position: relative;
         display: inline-block;
         height: 5px;
         width: 10px;
@@ -204,11 +205,14 @@
         border-bottom: 1px dotted $supla-grey-dark;
     }
 
-    .without-space {
+    .without-space::after {
         display: inline-block;
-        height: 5px;
-        width: 2px;
-        margin: 0 4px;
-        border-left: 1px solid $supla-grey-dark;
+        content: ' ';
+        position: absolute;
+        transform: rotate(-45deg);
+        width: 13px;
+        left: -2px;
+        top: 2px;
+        border-bottom: 1px solid $supla-red;
     }
 </style>
