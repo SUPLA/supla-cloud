@@ -90,9 +90,11 @@
                         placeholder="0">
                     &middot; {{ channel.config.valueMultiplier }}
                     ÷ {{ channel.config.valueDivider }})
-                    + {{ channel.config.valueAdded | formatGpmValue(channel.config) }}
+                    + {{ channel.config.valueAdded }}
                     =
-                    <strong>{{ exampleValue * channel.config.valueMultiplier / channel.config.valueDivider + channel.config.valueAdded | formatGpmValue(channel.config) }}</strong>
+                    <div>
+                        <strong>{{ exampleValue * channel.config.valueMultiplier / (channel.config.valueDivider || 1) + channel.config.valueAdded | formatGpmValue(channel.config) }}</strong>
+                    </div>
                 </span>
             </dt>
         </dl>
