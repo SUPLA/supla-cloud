@@ -124,7 +124,6 @@
             alwaysSelectFirstAction: {type: Boolean, default: false},
             executing: {type: Array, default: () => []},
             executed: {type: Array, default: () => []},
-            dropdownContainer: String,
         },
         data() {
             return {

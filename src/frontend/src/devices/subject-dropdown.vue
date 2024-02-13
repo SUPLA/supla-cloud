@@ -22,7 +22,6 @@
                             <ChannelsDropdown v-model="subject"
                                 :hide-none="true"
                                 @input="subjectChanged"
-                                :dropdownContainer="dropdownContainer"
                                 :filter="filter"
                                 :params="channelsDropdownParams"/>
                             <slot></slot>
@@ -49,7 +48,6 @@
                                 </router-link>
                             </div>
                             <ChannelGroupsDropdown @input="subjectChanged"
-                                :dropdownContainer="dropdownContainer"
                                 :filter="filter"
                                 :params="channelsDropdownParams"
                                 v-model="subject"/>
@@ -79,7 +77,6 @@
                             </div>
                             <ScenesDropdown
                                 @input="subjectChanged"
-                                :dropdownContainer="dropdownContainer"
                                 :filter="filter"
                                 v-model="subject"/>
                             <slot></slot>
@@ -107,7 +104,6 @@
                             </div>
                             <SchedulesDropdown
                                 @input="subjectChanged"
-                                :dropdownContainer="dropdownContainer"
                                 :filter="filter"
                                 v-model="subject"/>
                             <slot></slot>
@@ -175,7 +171,6 @@
             clearOnSelect: Boolean,
             disableSchedules: Boolean,
             disableNotifications: Boolean,
-            dropdownContainer: String,
         },
         components: {TransitionExpand, SchedulesDropdown, ScenesDropdown, ChannelGroupsDropdown, ChannelsDropdown},
         data() {

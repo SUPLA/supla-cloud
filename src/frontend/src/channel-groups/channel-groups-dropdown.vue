@@ -15,7 +15,7 @@
     import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
     export default {
-        props: ['params', 'value', 'filter', 'dropdownContainer'],
+        props: ['params', 'value', 'filter'],
         components: {SelectForSubjects},
         data() {
             return {

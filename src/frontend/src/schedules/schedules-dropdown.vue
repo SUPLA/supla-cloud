@@ -9,7 +9,6 @@
             ref="dropdown"
             data-live-search="true"
             data-width="100%"
-            :data-container="dropdownContainer"
             data-style="btn-default btn-wrapped"
             v-model="chosenSchedule"
             @change="$emit('input', chosenSchedule)">
@@ -30,7 +29,7 @@
     import $ from "jquery";
 
     export default {
-        props: ['value', 'filter', 'dropdownContainer'],
+        props: ['value', 'filter'],
         components: {ButtonLoadingDots},
         data() {
             return {
