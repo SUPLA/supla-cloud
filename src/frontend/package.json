@@ -25,7 +25,6 @@
     "apexcharts": "^3.45.2",
     "autosize": "^4.0.2",
     "bootstrap": "3.4.1",
-    "bootstrap-select": "^1.13.18",
     "change-case": "3.0.1",
     "core-js": "^3.27.1",
     "cronstrue": "^2.27.0",

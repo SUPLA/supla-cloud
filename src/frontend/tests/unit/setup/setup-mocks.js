@@ -1,10 +1,6 @@
 import {config} from "@vue/test-utils";
 import "@/common/common-directives";
-import $ from "jquery";
-import "@/common/bootstrap-select";
 import Vue from "vue";
-
-$.fn.selectpicker.Constructor.BootstrapVersion = '3.4.1';
 
 Vue.config.external = {};
 
