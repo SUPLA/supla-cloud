@@ -169,4 +169,13 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
             [['chartType' => 'UNICORN']],
         ];
     }
+
+    public function testResettingCounters() {
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('PATCH', "/api/channels/{$this->meterChannelId}/settings", [
+            'action' => 'resetCounters',
+        ]);
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSuplaCommandExecuted("RESET-COUNTERS:1,{$this->device->getId()},{$this->meterChannelId}");
+    }
 }

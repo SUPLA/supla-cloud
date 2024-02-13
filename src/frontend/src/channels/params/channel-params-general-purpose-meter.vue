@@ -49,6 +49,7 @@
                 </dl>
             </div>
         </transition-expand>
+        <ChannelParamsMeterReset :channel="channel"/>
     </div>
 </template>
 
@@ -57,6 +58,7 @@
     import ChannelParamsGeneralPurposeCommon from "@/channels/params/channel-params-general-purpose-common.vue";
     import ChannelParamsButtonSelector from "@/channels/params/channel-params-button-selector.vue";
     import {useConfigGroups} from "@/channels/params/useConfigGroups";
+    import ChannelParamsMeterReset from "@/channels/params/channel-params-meter-reset.vue";
 
     const props = defineProps({channel: Object});
     const {configGroup, displayConfigGroup, configGroupChevron} = useConfigGroups();

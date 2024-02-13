@@ -399,6 +399,7 @@ class DevicesFixture extends SuplaFixture {
                         'fillMissingData' => true,
                         'counterType' => 'ALWAYS_INCREMENT',
                     ]),
+                    'flags' => ChannelFunctionBitsFlags::RESET_COUNTERS_ACTION_AVAILABLE,
                 ],
             ],
             [
