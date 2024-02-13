@@ -1,42 +1,25 @@
 <template>
     <div>
-        <div class="select-loader"
-            v-if="!scenes">
-            <button-loading-dots></button-loading-dots>
-        </div>
-        <select class="selectpicker"
-            :disabled="!scenes"
-            ref="dropdown"
-            data-live-search="true"
-            data-width="100%"
-            :data-container="dropdownContainer"
-            data-style="btn-default btn-wrapped"
-            v-model="chosenScene"
-            @change="$emit('input', chosenScene)">
-            <option v-for="scene in scenesForDropdown"
-                :key="scene.id"
-                :value="scene"
-                :data-content="sceneHtml(scene)">
-                {{ sceneCaption(scene) }}
-            </option>
-        </select>
+        <SelectForSubjects
+            class="scenes-dropdown"
+            :options="scenesForDropdown"
+            :caption="sceneCaption"
+            :option-html="sceneHtml"
+            choose-prompt-i18n="choose the scene"
+            v-model="chosenScene"/>
     </div>
 </template>
 
 <script>
-    import Vue from "vue";
-    import "@/common/bootstrap-select";
-    import ButtonLoadingDots from "../common/gui/loaders/button-loading-dots.vue";
     import {channelIconUrl} from "../common/filters";
-    import $ from "jquery";
+    import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
     export default {
-        props: ['params', 'value', 'filter', 'dropdownContainer'],
-        components: {ButtonLoadingDots},
+        props: ['params', 'value', 'filter'],
+        components: {SelectForSubjects},
         data() {
             return {
                 scenes: undefined,
-                chosenScene: undefined
             };
         },
         mounted() {
@@ -47,92 +30,47 @@
                 this.scenes = undefined;
                 this.$http.get('scenes' + (this.params || '')).then(({body: scenes}) => {
                     this.scenes = scenes.filter(this.filter || (() => true));
-                    this.setSceneFromModel();
-                    this.initSelectPicker();
                 });
             },
             sceneCaption(scene) {
                 return scene.caption || `ID${scene.id}`;
             },
-            sceneHtml(scene) {
-                let content = `<div class='channel-dropdown-option flex-left-full-width'>`
-                    + `<div class="labels full"><h4>${this.sceneCaption(scene)}`;
-                if (scene.caption) {
-                    content += ` <span class='small text-muted'>ID${scene.id}</span>`;
-                }
-                content += '</h4>';
-                content += `<p>${this.$t('No of operations')}: ${scene.relationsCount.operations}</p></div>`;
-                content += `<div class="icon"><img src="${channelIconUrl(scene)}"></div></div>`;
-                content += '</div>';
-                return content;
-            },
-            updateDropdownOptions() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker('refresh'));
-            },
-            setSceneFromModel() {
-                if (this.value && this.scenes) {
-                    this.chosenScene = this.scenes.filter(ch => ch.id == this.value.id)[0];
-                } else {
-                    this.chosenScene = undefined;
-                }
-            },
-            initSelectPicker() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+            sceneHtml(scene, escape) {
+                return `<div>
+                            <div class="subject-dropdown-option d-flex">
+                                <div class="flex-grow-1">
+                                    <h5 class="my-1">
+                                        <span class="line-clamp line-clamp-2">${escape(scene.fullCaption)}</span>
+                                        ${scene.caption ? `<span class="small text-muted">ID${scene.id}</span>` : ''}
+                                    </h5>
+                                    <p class="line-clamp line-clamp-2 small mb-0 option-extra">${this.$t('No of operations')}: ${scene.relationsCount.operations}</p>
+                                </div>
+                                <div class="icon option-extra"><img src="${channelIconUrl(scene)}"></div></div>
+                            </div>
+                        </div>`;
             },
         },
         computed: {
             scenesForDropdown() {
-                this.updateDropdownOptions();
                 if (!this.scenes) {
                     return [];
                 }
                 this.$emit('update', this.scenes);
                 return this.scenes;
             },
-            selectOptions() {
-                return {
-                    noneSelectedText: this.$t('choose the scene'),
-                    liveSearchPlaceholder: this.$t('Search'),
-                    noneResultsText: this.$t('No results match {0}'),
-                };
-            },
+            chosenScene: {
+                get() {
+                    return this.value;
+                },
+                set(scene) {
+                    this.$emit('input', scene);
+                }
+            }
         },
         watch: {
-            value() {
-                this.setSceneFromModel();
-                this.updateDropdownOptions();
-            },
             params() {
                 this.fetchScenes();
-            },
-            '$i18n.locale'() {
-                $(this.$refs.dropdown).selectpicker('destroy');
-                this.initSelectPicker();
             },
         }
     };
 </script>
-
-<style lang="scss">
-    @import "../styles/variables";
-
-    .select-loader {
-        position: relative;
-        text-align: center;
-        .button-loading-dots {
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            margin-left: -25px;
-            z-index: 20;
-        }
-    }
-
-    .channel-dropdown-option {
-        .icon {
-            img {
-                height: 60px;
-            }
-        }
-    }
-</style>
