@@ -97,7 +97,9 @@
                 this.syncDropdown();
             },
             value() {
-                this.dropdown.setValue(this.value?.id || undefined);
+                if (this.dropdown) {
+                    this.dropdown.setValue(this.value?.id || undefined);
+                }
             },
             '$i18n.locale'() {
                 this.syncDropdown();

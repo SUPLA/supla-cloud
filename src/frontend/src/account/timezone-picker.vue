@@ -1,50 +1,40 @@
 <template>
     <span class="timezone-picker">
-        <select data-live-search="true"
-            data-width="100%"
+        <SelectForSubjects
+            class="timezones-dropdown"
+            :options="availableTimezones"
+            :caption="(timezone) => `${timezone.name} (UTC${timezone.offset >= 0 ? '+' : ''}${timezone.offset}) ${timezone.currentTime}`"
+            choose-prompt-i18n="choose the timezone"
             v-model="chosenTimezone"
-            @change="updateTimezone()"
-            ref="dropdown">
-            <option v-for="timezone in availableTimezones"
-                :key="timezone.name"
-                :value="timezone.name">
-                {{ timezone.name }}
-                (UTC{{ timezone.offset >= 0 ? '+' : '' }}{{ timezone.offset }})
-                {{ timezone.currentTime }}
-            </option>
-        </select>
+            @input="updateTimezone"/>
     </span>
 </template>
 
 <script>
-    import Vue from "vue";
-    import "@/common/bootstrap-select";
-    import $ from "jquery";
     import {DateTime, Settings} from "luxon";
     import TIMEZONES_LIST from "./timezones-list.json";
+    import SelectForSubjects from "@/devices/select-for-subjects.vue";
 
     export default {
+        components: {SelectForSubjects},
         props: ['timezone'],
         data() {
             return {chosenTimezone: undefined};
         },
         mounted() {
-            this.chosenTimezone = this.timezone;
-            this.initSelectPicker();
+            this.chosenTimezone = this.timezone ? {id: this.timezone} : undefined;
         },
         methods: {
             updateTimezone() {
-                Settings.defaultZone = this.chosenTimezone;
-                this.$http.patch('users/current', {timezone: this.chosenTimezone, action: 'change:userTimezone'});
-            },
-            initSelectPicker() {
-                Vue.nextTick(() => $(this.$refs.dropdown).selectpicker(this.selectOptions));
+                Settings.defaultZone = this.chosenTimezone.id;
+                this.$http.patch('users/current', {timezone: this.chosenTimezone.id, action: 'change:userTimezone'});
             },
         },
         computed: {
             availableTimezones() {
                 return TIMEZONES_LIST.map(function (timezone) {
                     return {
+                        id: timezone,
                         name: timezone,
                         offset: DateTime.now().setZone(timezone).offset / 60,
                         currentTime: DateTime.now().setZone(timezone).toLocaleString(DateTime.TIME_SIMPLE),
@@ -56,19 +46,6 @@
                         return timezone1.offset - timezone2.offset;
                     }
                 });
-            },
-            selectOptions() {
-                return {
-                    noneSelectedText: this.$t('choose the timezone'),
-                    liveSearchPlaceholder: this.$t('Search'),
-                    noneResultsText: this.$t('No results match {0}'),
-                };
-            },
-        },
-        watch: {
-            '$i18n.locale'() {
-                $(this.$refs.dropdown).selectpicker('destroy');
-                this.initSelectPicker();
             },
         },
     };
