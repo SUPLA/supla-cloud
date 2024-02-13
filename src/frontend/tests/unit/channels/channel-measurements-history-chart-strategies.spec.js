@@ -381,6 +381,24 @@ describe('Channel measurement history data strategies', () => {
         });
     });
 
+    describe('GENERAL_PURPOSE_MEASUREMENT', function () {
+        const strategy = CHART_TYPES.GENERAL_PURPOSE_MEASUREMENT;
+
+        it('aggregates simple logs', () => {
+            const logs = [
+                {date_timestamp: 1, avg_value: 5, min_value: 2, max_value: 8, open_value: 4, close_value: 6},
+                {date_timestamp: 2, avg_value: 6, min_value: 1, max_value: 9, open_value: 6, close_value: 7},
+                {date_timestamp: 3, avg_value: 7, min_value: 2, max_value: 8, open_value: 7, close_value: 5},
+            ];
+            const aggregatedLog = strategy.aggregateLogs(logs);
+            expect(aggregatedLog.avg_value).toEqual(6);
+            expect(aggregatedLog.min_value).toEqual(1);
+            expect(aggregatedLog.max_value).toEqual(9);
+            expect(aggregatedLog.open_value).toEqual(4);
+            expect(aggregatedLog.close_value).toEqual(5);
+        });
+    });
+
     describe('GENERAL_PURPOSE_METER', function () {
         const strategy = CHART_TYPES.GENERAL_PURPOSE_METER;
 

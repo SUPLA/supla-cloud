@@ -28,6 +28,7 @@
                     <dd>{{ $t('Chart type') }}</dd>
                     <dt>
                         <ChannelParamsButtonSelector
+                            use-dropdown
                             v-model="props.channel.config.chartType"
                             @input="$emit('change')"
                             :values="[{id: 'LINEAR', label: $t('Linear')}, {id: 'BAR', label: $t('Bar')}, {id: 'CANDLE', label: $t('Candle')}]"/>

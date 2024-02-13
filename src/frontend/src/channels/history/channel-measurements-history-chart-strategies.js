@@ -692,7 +692,11 @@ export const CHART_TYPES = {
             if (this.channel?.config?.chartType === 'LINEAR') {
                 const rangeSeries = allLogs
                     .filter((item) => item.min !== null)
-                    .map((item) => ({x: item.date_timestamp * 1000, y: [item.min_value, item.max_value]}));
+                    .map((item) => ({x: item.date_timestamp * 1000, y: [item.min_value, item.max_value]}))
+                    // TODO remove filter after fix https://github.com/apexcharts/apexcharts.js/issues/3821
+                    // it should correctly display ranges on null logs
+                    .filter(item => item.y[0] !== null);
+                console.log(rangeSeries[5]?.y);
                 series.push({
                     name: `${this.$t('Value')} - ${this.$t('range')}`,
                     type: 'rangeArea',

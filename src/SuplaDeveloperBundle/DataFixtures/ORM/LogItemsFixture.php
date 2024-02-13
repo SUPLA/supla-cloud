@@ -282,8 +282,8 @@ class LogItemsFixture extends SuplaFixture {
             EntityUtils::setField($logItem, 'open_value', $openValue);
             EntityUtils::setField($logItem, 'close_value', $temperature);
             EntityUtils::setField($logItem, 'avg_value', $avgValue);
-            EntityUtils::setField($logItem, 'max_value', $maxValue);
-            EntityUtils::setField($logItem, 'min_value', $minValue);
+            EntityUtils::setField($logItem, 'max_value', max($maxValue, $minValue));
+            EntityUtils::setField($logItem, 'min_value', min($maxValue, $minValue));
             if ($this->faker->boolean(95)) {
                 $this->entityManager->persist($logItem);
             }
