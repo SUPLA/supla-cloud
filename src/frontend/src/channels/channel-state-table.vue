@@ -45,12 +45,7 @@
         <dl v-if="currentState.calculatedValue !== undefined">
             <dd>{{ $t('Meter value') }}</dd>
             <dt>
-                <span v-if="['GENERAL_PURPOSE_MEASUREMENT', 'GENERAL_PURPOSE_METER'].includes(channel.function.name)">
-                    {{ currentState.calculatedValue | formatGpmValue(channel.config) }}
-                </span>
-                <span v-else>
-                    {{ currentState.calculatedValue|roundToDecimals }} {{ currentState.unit || '' }}
-                </span>
+                {{ currentState.calculatedValue|roundToDecimals }} {{ currentState.unit || '' }}
             </dt>
         </dl>
         <dl v-if="currentState.phases && currentState.phases[0].totalForwardActiveEnergy !== undefined">
@@ -77,6 +72,9 @@
                 </span>
                 <span v-else-if="channel.function.name === 'WINDSENSOR'">
                     {{ currentState.value }} m/s
+                </span>
+                <span v-else-if="['GENERAL_PURPOSE_MEASUREMENT', 'GENERAL_PURPOSE_METER'].includes(channel.function.name)">
+                    {{ currentState.value | formatGpmValue(channel.config) }}
                 </span>
                 <span v-else>
                     {{ currentState.value }}

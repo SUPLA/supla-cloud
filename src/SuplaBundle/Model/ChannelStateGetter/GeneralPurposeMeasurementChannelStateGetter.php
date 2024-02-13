@@ -1,18 +1,10 @@
 <?php
 namespace SuplaBundle\Model\ChannelStateGetter;
 
-use OpenApi\Annotations as OA;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Supla\SuplaServerAware;
 
-/**
- * @OA\Schema(schema="ChannelStateGeneralPurposeMeasurement",
- *     description="State of `HVAC` thermostat channels.",
- *     @OA\Property(property="connected", type="boolean"),
- *     @OA\Property(property="calculatedValue", type="number"),
- * )
- */
 class GeneralPurposeMeasurementChannelStateGetter implements SingleChannelStateGetter {
     use SuplaServerAware;
 
@@ -21,7 +13,7 @@ class GeneralPurposeMeasurementChannelStateGetter implements SingleChannelStateG
         $value = rtrim($value);
         $value = substr($value, strlen('VALUE:'));
         $value = is_numeric($value) ? floatval($value) : null;
-        return ['calculatedValue' => $value];
+        return ['value' => $value];
     }
 
     public function supportedFunctions(): array {

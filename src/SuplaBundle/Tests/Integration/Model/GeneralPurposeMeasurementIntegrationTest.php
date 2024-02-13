@@ -21,6 +21,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\User;
 use SuplaBundle\Enums\ChannelConfigChangeScope;
 use SuplaBundle\Enums\ChannelFunction;
+use SuplaBundle\Supla\SuplaServerMock;
 use SuplaBundle\Tests\Integration\IntegrationTestCase;
 use SuplaBundle\Tests\Integration\Traits\ResponseAssertions;
 use SuplaBundle\Tests\Integration\Traits\SuplaApiHelper;
@@ -177,5 +178,15 @@ class GeneralPurposeMeasurementIntegrationTest extends IntegrationTestCase {
         ]);
         $this->assertStatusCode(200, $client->getResponse());
         $this->assertSuplaCommandExecuted("RESET-COUNTERS:1,{$this->device->getId()},{$this->meterChannelId}");
+    }
+
+    public function testGettingState() {
+        SuplaServerMock::mockResponse('GET-GPM-VALUE', "VALUE:2.3\n");
+        $client = $this->createAuthenticatedClient();
+        $client->apiRequestV24('GET', "/api/channels/{$this->meterChannelId}?include=state");
+        $this->assertStatusCode(200, $client->getResponse());
+        $this->assertSuplaCommandExecuted("GET-GPM-VALUE:1,{$this->device->getId()},{$this->meterChannelId}");
+        $content = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals(['connected' => true, 'value' => 2.3], $content['state']);
     }
 }
