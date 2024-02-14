@@ -740,10 +740,11 @@ export const CHART_TYPES = {
         chartType: (channel) => channel?.config?.chartType === 'LINEAR' ? 'line' : 'bar',
         chartOptions: () => ({
             legend: {show: false},
+            colors: ['#01c2fb'],
             tooltip: {followCursor: true, theme: 'no-series-label'},
         }),
         series: function (allLogs) {
-            const calculatedValues = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.value}));
+            const calculatedValues = allLogs.map((item) => ({x: item.date_timestamp * 1000, y: item.counterReset ? null : item.value}));
             return [{name: this.$t('Value'), data: calculatedValues}];
         },
         fixLog: (log) => {
@@ -774,36 +775,32 @@ export const CHART_TYPES = {
             const counterType = channel.config.counterType;
             for (let i = 1; i < logs.length; i++) {
                 const log = {...logs[i]};
-                let skipThisLog = false;
                 if (counterType === 'ALWAYS_INCREMENT') {
                     if (log.value >= previousLog.value * .9) { // .9 for reset misdetections
                         if (log.value >= previousLog.value) {
                             log.value -= previousLog.value;
                         } else {
                             log.value = 0;
-                            skipThisLog = true;
                         }
                     } else {
                         log.counterReset = true;
                     }
                 } else if (counterType === 'ALWAYS_DECREMENT') {
-                    if (log.value <= previousLog.value * .9) { // .9 for reset misdetections
+                    if (log.value <= previousLog.value * 1.1) { // 1.1 for reset misdetections
                         if (log.value <= previousLog.value) {
                             log.value -= previousLog.value;
                         } else {
                             log.value = 0;
-                            skipThisLog = true;
                         }
                     } else {
+                        debugger;
                         log.counterReset = true;
                     }
                 } else {
                     log.value -= previousLog.value;
                 }
                 adjustedLogs.push(log);
-                if (!skipThisLog) {
-                    previousLog = logs[i];
-                }
+                previousLog = logs[i];
             }
             return adjustedLogs;
         },
@@ -839,9 +836,6 @@ export const CHART_TYPES = {
             }));
         },
         interpolateGaps: (logs, channel) => {
-            if (channel.config.fillMissingData === false) {
-                return logs;
-            }
             let firstNullLog = undefined;
             let lastNonNullLog = undefined;
             for (let currentNonNullLog = 0; currentNonNullLog < logs.length; currentNonNullLog++) {
@@ -851,11 +845,9 @@ export const CHART_TYPES = {
                 } else if (currentValue !== null && firstNullLog !== undefined && lastNonNullLog !== undefined) {
                     const logsToFill = currentNonNullLog - firstNullLog;
                     const lastKnownValue = logs[lastNonNullLog].value;
-                    const normalizedStep = (currentValue - lastKnownValue) / (logsToFill + 1);
-                    if (normalizedStep !== 0) {
-                        for (let i = 0; i < logsToFill; i++) {
-                            logs[i + firstNullLog].value = lastKnownValue + normalizedStep * (i + 1);
-                        }
+                    const normalizedStep = channel.config.fillMissingData ? (currentValue - lastKnownValue) / (logsToFill + 1) : 0;
+                    for (let i = 0; i < logsToFill; i++) {
+                        logs[i + firstNullLog].value = lastKnownValue + normalizedStep * (i + 1);
                     }
                     firstNullLog = undefined;
                 }

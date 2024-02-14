@@ -440,6 +440,17 @@ describe('Channel measurement history data strategies', () => {
                 expect(adjustedLogs[2].value).toEqual(4);
             });
 
+            it('interpolates logs when filling off', () => {
+                const logs = [
+                    {date_timestamp: 0, value: 1},
+                    {date_timestamp: 100, value: 3},
+                    {date_timestamp: 200, value: null},
+                    {date_timestamp: 300, value: 5},
+                ];
+                const adjustedLogs = strategy.interpolateGaps(logs, {config: {...channel.config, fillMissingData: false}});
+                expect(adjustedLogs[2].value).toEqual(3);
+            });
+
             it('cumulates interpolated logs', () => {
                 const logs = [
                     {date_timestamp: 0, value: 1},
