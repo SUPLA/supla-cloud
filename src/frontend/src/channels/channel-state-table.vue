@@ -53,34 +53,31 @@
             <dt>{{ (currentState.phases[0].totalForwardActiveEnergy + currentState.phases[1].totalForwardActiveEnergy + currentState.phases[2].totalForwardActiveEnergy) | roundToDecimals }} kWh</dt>
         </dl>
         <ChannelStateTableHvac v-if="currentState.connected && isHvac" :channel="channel" :state="currentState"/>
-        <dl v-if="currentState.value !== undefined">
-            <dd>{{ $t('State') }}</dd>
-            <dt>
-                <span v-if="channel.function.name === 'WEIGHTSENSOR'">
-                    <span v-if="currentState.value >= 2000">
-                        {{ currentState.value / 1000 | roundToDecimals(4) }} kg
-                    </span>
-                    <span v-else>
-                        {{ currentState.value }} g
-                    </span>
-                </span>
-                <span v-else-if="channel.function.name === 'RAINSENSOR'">
-                    {{ currentState.value / 1000 | roundToDecimals(4) }} l/m
-                </span>
-                <span v-else-if="channel.function.name === 'PRESSURESENSOR'">
-                    {{ currentState.value }} hPa
-                </span>
-                <span v-else-if="channel.function.name === 'WINDSENSOR'">
-                    {{ currentState.value }} m/s
-                </span>
-                <span v-else-if="['GENERAL_PURPOSE_MEASUREMENT', 'GENERAL_PURPOSE_METER'].includes(channel.function.name)">
-                    {{ currentState.value | formatGpmValue(channel.config) }}
+        <strong v-if="currentState.value !== undefined">
+            <span v-if="channel.function.name === 'WEIGHTSENSOR'">
+                <span v-if="currentState.value >= 2000">
+                    {{ currentState.value / 1000 | roundToDecimals(4) }} kg
                 </span>
                 <span v-else>
-                    {{ currentState.value }}
+                    {{ currentState.value }} g
                 </span>
-            </dt>
-        </dl>
+            </span>
+            <span v-else-if="channel.function.name === 'RAINSENSOR'">
+                {{ currentState.value / 1000 | roundToDecimals(4) }} l/m
+            </span>
+            <span v-else-if="channel.function.name === 'PRESSURESENSOR'">
+                {{ currentState.value }} hPa
+            </span>
+            <span v-else-if="channel.function.name === 'WINDSENSOR'">
+                {{ currentState.value }} m/s
+            </span>
+            <span v-else-if="['GENERAL_PURPOSE_MEASUREMENT', 'GENERAL_PURPOSE_METER'].includes(channel.function.name)">
+                {{ currentState.value | formatGpmValue(channel.config) }}
+            </span>
+            <span v-else>
+                {{ currentState.value }}
+            </span>
+        </strong>
         <div class="channel-state-labels">
             <div v-if="currentState.flooding === true">
                 <span class="label label-danger">{{ $t('Flooding') }}</span>
