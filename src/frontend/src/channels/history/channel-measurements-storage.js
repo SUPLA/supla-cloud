@@ -17,13 +17,18 @@ export class IndexedDbMeasurementLogsStorage {
                     this.channel.config?.counterType || 'default',
                     this.channel.config?.fillMissingData === false ? 'not_filled' : 'filled',
                 ];
-                this.db = await openDB(dbName.join('_'), 5, {
+                this.db = await openDB(dbName.join('_'), 6, {
                     async upgrade(db) {
                         if (db.objectStoreNames.contains('logs')) {
                             await db.deleteObjectStore('logs');
                         }
-                        const os = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
-                        os.createIndex("date", "date", {unique: true});
+                        if (db.objectStoreNames.contains('logs_raw')) {
+                            await db.deleteObjectStore('logs_raw');
+                        }
+                        const logs = db.createObjectStore("logs", {keyPath: 'date_timestamp'});
+                        logs.createIndex("date", "date", {unique: true});
+                        const logsRaw = db.createObjectStore("logs_raw", {keyPath: 'date_timestamp'});
+                        logsRaw.createIndex("date", "date", {unique: true});
                     }
                 });
             } catch (e) {
@@ -168,20 +173,25 @@ export class IndexedDbMeasurementLogsStorage {
     }
 
     async storeLogs(logs) {
-        logs = fillGaps(logs, 600, this.chartStrategy.emptyLog());
-        logs = this.chartStrategy.interpolateGaps(logs, this.channel);
-        const tx = (await this.db).transaction('logs', 'readwrite');
-        logs = this.adjustLogsBeforeStorage(logs);
+        let adjustedLogs = fillGaps(logs, 600, this.chartStrategy.emptyLog());
+        adjustedLogs = this.chartStrategy.interpolateGaps(adjustedLogs, this.channel);
+        adjustedLogs = this.adjustLogsBeforeStorage(adjustedLogs);
         // the following if-s mitigate risk of bad-filled gaps when fetching logs by pages
-        if (logs.length > 100) {
-            logs.splice(0, 15);
+        if (adjustedLogs.length > 100) {
+            adjustedLogs.splice(0, 15);
         }
-        if (logs.length > 1) {
-            logs.shift();
+        if (adjustedLogs.length > 1) {
+            adjustedLogs.shift();
         }
-        logs.forEach(async (log) => {
+        const tx = (await this.db).transaction('logs', 'readwrite');
+        adjustedLogs.forEach(async (log) => {
             await tx.store.put(log);
         });
         await tx.done;
+        const txRaw = (await this.db).transaction('logs_raw', 'readwrite');
+        logs.forEach(async (log) => {
+            await txRaw.store.put(log);
+        });
+        await txRaw.done;
     }
 }

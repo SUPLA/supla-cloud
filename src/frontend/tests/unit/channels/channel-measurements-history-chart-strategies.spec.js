@@ -121,18 +121,6 @@ describe('Channel measurement history data strategies', () => {
             expect(interpolated[4].phase3_rre).toEqual(logs[3].phase3_rre);
         });
 
-        it('cumulates logs back for EM logs', () => {
-            const logs = require('./measurement-logs/em_logs_case1.json');
-            const filled = fillGaps(logs, 600, CHART_TYPES.ELECTRICITYMETER.emptyLog());
-            expect(filled).toHaveLength(logs.length + 3);
-            const interpolated = strategy.interpolateGaps(filled);
-            const adjusted = strategy.adjustLogs(interpolated);
-            const cumulated = strategy.cumulateLogs(adjusted);
-            expect(cumulated).toHaveLength(logs.length);
-            expect(cumulated[2].phase3_rre).toEqual(logs[2].phase3_rre);
-            expect(cumulated[6].phase1_fae).toEqual(logs[6].phase1_fae);
-        });
-
         it('adjusts logs and store deltas for charts', () => {
             const logs = [
                 {date_timestamp: 0, phase1_fae: 1},
@@ -143,18 +131,6 @@ describe('Channel measurement history data strategies', () => {
             const adjustedLogs = strategy.adjustLogs(logs);
             const adjustedPhase1Fae = adjustedLogs.map(l => l.phase1_fae);
             expect(adjustedPhase1Fae).toEqual([1, 1, 2, 0]);
-        });
-
-        it('can cumulate data back for export', () => {
-            const logs = [
-                {date_timestamp: 0, phase1_fae: 1},
-                {date_timestamp: 1, phase1_fae: 1},
-                {date_timestamp: 2, phase1_fae: 2},
-                {date_timestamp: 3, phase1_fae: 0},
-            ];
-            const cumulatedLogs = strategy.cumulateLogs(logs);
-            const cumulatedPhase1Fae = cumulatedLogs.map(l => l.phase1_fae);
-            expect(cumulatedPhase1Fae).toEqual([1, 2, 4, 4]);
         });
 
         it('detects counter resets', () => {
@@ -185,20 +161,6 @@ describe('Channel measurement history data strategies', () => {
             const adjustedPhase1Fae = adjustedLogs.map(l => l.phase1_fae);
             expect(adjustedPhase1Fae).toEqual([100, 100, 200, 0, 0, 50]);
             expect(adjustedLogs[4].counterReset).toBeFalsy();
-        });
-
-        it('cumulates logs back with counter reset', () => {
-            const logs = [
-                {date_timestamp: 0, phase1_fae: 1},
-                {date_timestamp: 1, phase1_fae: 2},
-                {date_timestamp: 2, phase1_fae: 4},
-                {date_timestamp: 3, phase1_fae: 4},
-                {date_timestamp: 4, phase1_fae: 1, counterReset: true},
-                {date_timestamp: 5, phase1_fae: 7},
-            ];
-            const cumulatedLogs = strategy.cumulateLogs(strategy.adjustLogs(logs));
-            expect(cumulatedLogs.map(l => l.phase1_fae)).toEqual(logs.map(l => l.phase1_fae));
-            expect(cumulatedLogs.map(l => l.counterReset)).toEqual(logs.map(l => l.counterReset));
         });
 
         it('adjusts null values', () => {
@@ -328,19 +290,6 @@ describe('Channel measurement history data strategies', () => {
             expect(adjustedLogs[2].counter).toEqual(4);
         });
 
-        it('cumulates interpolated logs', () => {
-            const logs = [
-                {date_timestamp: 0, counter: 1, calculated_value: 2},
-                {date_timestamp: 100, counter: 3, calculated_value: 6},
-                {date_timestamp: 200, counter: null, calculated_value: null, interpolated: true},
-                {date_timestamp: 300, counter: 5, calculated_value: 10},
-            ];
-            const adjustedLogs = strategy.adjustLogs(strategy.interpolateGaps(logs));
-            expect(adjustedLogs.map(log => log.counter)).toEqual([1, 2, 1, 1]);
-            const cumulatedLogs = strategy.cumulateLogs(adjustedLogs);
-            expect(cumulatedLogs.map(log => log.counter)).toEqual([1, 3, 5]);
-        });
-
         it('does not interpolate before counter reset logs', () => {
             const logs = [
                 {date_timestamp: 0, counter: 1, calculated_value: 2},
@@ -449,21 +398,6 @@ describe('Channel measurement history data strategies', () => {
                 ];
                 const adjustedLogs = strategy.interpolateGaps(logs, {config: {...channel.config, fillMissingData: false}});
                 expect(adjustedLogs[2].value).toEqual(3);
-            });
-
-            it('cumulates interpolated logs', () => {
-                const logs = [
-                    {date_timestamp: 0, value: 1},
-                    {date_timestamp: 100, value: 3},
-                    {date_timestamp: 200, value: null, interpolated: true},
-                    {date_timestamp: 300, value: 5},
-                ];
-                const interpolatedLogs = strategy.interpolateGaps(logs, channel);
-                expect(interpolatedLogs.map(log => log.value)).toEqual([1, 3, 4, 5]);
-                const adjustedLogs = strategy.adjustLogs(interpolatedLogs, channel);
-                expect(adjustedLogs.map(log => log.value)).toEqual([1, 2, 1, 1]);
-                const cumulatedLogs = strategy.cumulateLogs(adjustedLogs);
-                expect(cumulatedLogs.map(log => log.value)).toEqual([1, 3, 5]);
             });
         });
 

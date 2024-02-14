@@ -289,29 +289,6 @@ export const CHART_TYPES = {
             }
             return adjustedLogs;
         },
-        cumulateLogs: (logs) => {
-            const adjustedLogs = [logs[0]];
-            let cumulatedInterpolations = {counter: 0, calculated_value: 0};
-            for (let i = 1; i < logs.length; i++) {
-                let log = {...logs[i]};
-                if (log.interpolated) {
-                    cumulatedInterpolations.counter += log.counter;
-                    cumulatedInterpolations.calculated_value += log.calculated_value;
-                } else {
-                    if (!log.counterReset && log.counter !== null) {
-                        log.counter += adjustedLogs[adjustedLogs.length - 1].counter || 0;
-                        log.calculated_value += adjustedLogs[adjustedLogs.length - 1].calculated_value || 0;
-                    }
-                    if (cumulatedInterpolations.counter) {
-                        log.counter += cumulatedInterpolations.counter;
-                        log.calculated_value += cumulatedInterpolations.calculated_value;
-                        cumulatedInterpolations = {counter: 0, calculated_value: 0};
-                    }
-                    adjustedLogs.push(log);
-                }
-            }
-            return adjustedLogs;
-        },
         getAnnotations: function (logs) {
             return logs.filter(log => log.counterReset).map(log => ({
                 x: log.date_timestamp * 1000,
@@ -547,36 +524,6 @@ export const CHART_TYPES = {
             }
             return adjustedLogs;
         },
-        cumulateLogs: (logs) => {
-            const adjustedLogs = [logs[0]];
-            const cumulatedInterpolations = {};
-            CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => cumulatedInterpolations[attributeName] = 0);
-            for (let i = 1; i < logs.length; i++) {
-                let log = {...logs[i]};
-                if (log.interpolated) {
-                    CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
-                        cumulatedInterpolations[attributeName] += log[attributeName];
-                    });
-                } else {
-                    CHART_TYPES.ELECTRICITYMETER.allAttributesArray().forEach((attributeName) => {
-                        if (Object.prototype.hasOwnProperty.call(log, attributeName)) {
-                            if (log[attributeName] === null) {
-                                log[attributeName] = adjustedLogs[adjustedLogs.length - 1][attributeName];
-                            }
-                            if (!log.counterReset) {
-                                log[attributeName] += adjustedLogs[adjustedLogs.length - 1][attributeName] || log[attributeName];
-                            }
-                            if (cumulatedInterpolations[attributeName]) {
-                                log[attributeName] += cumulatedInterpolations[attributeName];
-                                cumulatedInterpolations[attributeName] = 0;
-                            }
-                        }
-                    });
-                    adjustedLogs.push(log);
-                }
-            }
-            return adjustedLogs;
-        },
         getAnnotations: function (logs) {
             return logs.filter(log => log.counterReset).map(log => ({
                 x: log.date_timestamp * 1000,
@@ -801,26 +748,6 @@ export const CHART_TYPES = {
                 }
                 adjustedLogs.push(log);
                 previousLog = logs[i];
-            }
-            return adjustedLogs;
-        },
-        cumulateLogs: (logs) => {
-            const adjustedLogs = [logs[0]];
-            let cumulatedInterpolations = {value: 0};
-            for (let i = 1; i < logs.length; i++) {
-                let log = {...logs[i]};
-                if (log.interpolated) {
-                    cumulatedInterpolations.value += log.value;
-                } else {
-                    if (!log.counterReset && log.value !== null) {
-                        log.value += adjustedLogs[adjustedLogs.length - 1].value || 0;
-                    }
-                    if (cumulatedInterpolations.value) {
-                        log.value += cumulatedInterpolations.value;
-                        cumulatedInterpolations = {value: 0};
-                    }
-                    adjustedLogs.push(log);
-                }
             }
             return adjustedLogs;
         },

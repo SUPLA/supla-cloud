@@ -37,7 +37,7 @@
                 </transition-expand>
 
                 <transition-expand>
-                    <div v-if="supportsCumulativeLogs" class="form-group">
+                    <div v-if="supportsIncrementalLogs" class="form-group">
                         <label>{{ $t('Logs transformation') }}</label>
                         <div class="radio text-center">
                             <label class="mx-3"><input type="radio" value="cumulative" v-model="downloadConfig.transformation">
@@ -140,12 +140,16 @@
             {field: 'min_value', label: 'Low value'},
             {field: 'close_value', label: 'Close value'},
         ],
+        [ChannelFunction.GENERAL_PURPOSE_METER]: [
+            {field: 'date_timestamp', label: 'Timestamp'},
+            {field: 'date', label: 'Date and time'},
+            {field: 'value', label: 'Value'},
+        ],
     };
 
     EXPORT_DEFINITIONS[ChannelFunction.IC_HEATMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
     EXPORT_DEFINITIONS[ChannelFunction.IC_WATERMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
     EXPORT_DEFINITIONS[ChannelFunction.IC_ELECTRICITYMETER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
-    EXPORT_DEFINITIONS[ChannelFunction.GENERAL_PURPOSE_METER] = EXPORT_DEFINITIONS[ChannelFunction.IC_GASMETER];
 
     export default {
         components: {TransitionExpand},
@@ -166,7 +170,7 @@
             };
         },
         beforeMount() {
-            if (this.supportsCumulativeLogs) {
+            if (this.supportsIncrementalLogs) {
                 this.downloadConfig.transformation = 'cumulative';
             }
         },
@@ -178,14 +182,10 @@
                     const fromDate = DateTime.fromISO(this.dateRange.dateStart).toJSDate();
                     const toDate = DateTime.fromISO(this.dateRange.dateEnd).toJSDate();
                     const range = IDBKeyRange.bound(fromDate, toDate);
-                    let rows = (await (await this.storage.db).getAllFromIndex('logs', 'date', this.downloadConfig.dateRange === 'all' ? undefined : range));
-                    rows.shift(); // removes the first null log
-                    if (this.downloadConfig.transformation === 'cumulative') {
-                        const firstLogResponse = await this.$http.get(`channels/${this.storage.channel.id}/measurement-logs?order=ASC&limit=1`);
-                        const firstLog = firstLogResponse.body[0];
-                        rows.unshift(this.storage.chartStrategy.fixLog(firstLog));
-                        rows = this.storage.chartStrategy.cumulateLogs(rows);
-                        rows.shift();
+                    const table = this.downloadConfig.transformation === 'cumulative' ? 'logs_raw' : 'logs';
+                    let rows = (await (await this.storage.db).getAllFromIndex(table, 'date', this.downloadConfig.dateRange === 'all' ? undefined : range));
+                    if (table !== 'logs_raw') {
+                        rows.shift(); // removes the first null log
                     }
                     rows = rows
                         .filter(row => !row.interpolated)
@@ -228,8 +228,15 @@
             supportsFrontendExport() {
                 return window.indexedDB && this.storage.hasSupport && !!this.exportFields;
             },
-            supportsCumulativeLogs() {
-                return !!this.storage.chartStrategy.cumulateLogs;
+            supportsIncrementalLogs() {
+                return [
+                    ChannelFunction.IC_WATERMETER,
+                    ChannelFunction.IC_HEATMETER,
+                    ChannelFunction.IC_GASMETER,
+                    ChannelFunction.IC_ELECTRICITYMETER,
+                    ChannelFunction.ELECTRICITYMETER,
+                    ChannelFunction.GENERAL_PURPOSE_METER,
+                ].includes(this.channel.functionId);
             },
         }
     };
