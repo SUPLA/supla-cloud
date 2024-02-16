@@ -73,6 +73,8 @@ All the above and many more can be done from your phone or tablet: Wszystko to i
 Allowed actions: Dozwolone akcje
 Allows to perform an action only using the HTTP PATCH request.: Pozwala na wykonanie akcji tylko przy użyciu żądania HTTP PATCH.
 Alternatively, you can add a GET parameter to specify response format.: Możesz również dodać parametr GET by określić format odpowiedzi.
+Always decrement: Zawsze rosnący
+Always increment: Zawsze malejący
 And more: I znacznie więcej
 Anti-freeze and overheat protection: Ochrona przed przegrzaniem i przeciwzamrożeniowa
 Anti-freeze protection: Ochrona przeciwzamrożeniowa
@@ -131,6 +133,7 @@ Automation: Automatyka
 Aux thermometer: Termometr dodatkowy
 Aux thermometer type: Typ termometru dodatkowego
 Available variables: Dostępne zmienne
+Average: Średnia
 Average voltage: Średnie napięcie
 Back to apps list: Powrót do listy aplikacji
 Bar: Słupkowy
@@ -156,6 +159,7 @@ Calibration successful.: Kalibracja udana
 Cancel: Anuluj
 Cancel changes: Anuluj zmiany
 Cancelled: Anulowane
+Candle: Świecowy
 Cannot calculate when to run the schedule - incorrect configuration?: Nie udało się obliczyć żadnej daty uruchomienia harmonogramu - niepoprawna konfiguracja?
 Cannot change the channel function right now.: Nie można zmienić funkcji tego kanału w tej chwili.
 Cannot delete this I/O Device right now.: Nie można usunąć tego urządzenia w tej chwili.
@@ -187,12 +191,10 @@ Channel is assigned to the I/O device location: Kanał jest przypisany do lokali
 Channel is disconnected.: Kanał jest rozłączony.
 Channel name: Nazwa kanału
 Channel reference will be removed from the items below.: Kanał zostanie usunięty z poniższych elementów.
-Channel value: Wartość
 Channel with action triggers: Kanał z wyzwalaczami akcji
 Channels: Kanały
 Channels groups are not supported for this function.: Ta funkcja nie wspiera grup kanałów.
 Channels that are meant to work with each other must be in the same location.: Kanały, które mają ze sobą współpracować, muszą być w jednej lokalizacji.
-Chart data source type: Rodzaj źródła danych
 Chart mode: Typ wykresu
 Chart type: Typ wykresu
 Check the direct link you used and try again.: Sprawdź wywołany link bezpośredni i spróbuj ponownie.
@@ -221,6 +223,7 @@ Close: Zamknij
 Close after: Zamknij po
 Close automatically: Zamykaj automatycznie
 Close partially: Zamknij częściowo
+Close value: Wartość zamknięcia
 Colon: Średnik
 Color: Kolor
 Color brightness: Jasność koloru
@@ -249,6 +252,7 @@ Could not reset the password. Please try again later.: Nie można zresetować ha
 Could not set the device time.: Nie udało się ustawić daty i godziny na urządzeniu.
 Counter: Licznik
 Counter reset: Reset licznika
+Counter type: Rodzaj licznika
 Create New Access Identifier: Utwórz nowy Identyfikator Dostępu
 Create New Location: Utwórz nową Lokalizację
 Create New Schedule: Utwórz nowy harmonogram
@@ -287,7 +291,6 @@ Details: Szczegóły
 Device: Urządzenie
 'Device GUID: %deviceGuid%': 'GUID urządzenia: %deviceGuid%'
 'Device ID: %deviceId%': 'Identyfikator urządzenia: %deviceId%'
-Device channel value: Wartość z urządzenia
 Device is disconnected.: Urządzenie jest rozłączone.
 Device might be sleeping: Urządzenie może być w trybie uśpienia
 'Device name: %deviceName%': 'Nazwa urządzenia: %deviceName%'
@@ -296,7 +299,6 @@ Device should be now in configuration mode.: Urządzenie powinno być teraz w tr
 'Device software version: %deviceSoftwareVersion%': 'Wersja oprogramowania: %deviceSoftwareVersion%'
 Device time has been set.: Data i godzina urządzenia zostały ustawione.
 Device unavailable: Urządzenie niedostępne
-Differential: Różnicowy
 Differential thermostat: Termostat różnicowy
 Digi Glass: Digi Glass
 Digi Glass Horizontal: Digi Glass poziomy
@@ -358,6 +360,7 @@ Error when communicating the server. Try again in a while.: Wystąpił problem w
 Estimated execution time: Szacowany czas wykonania
 Every: Co
 Example Auth URL: Przykładowy URL autoryzacyjny
+Example value: Przykładowa wartość
 Execute: Wykonaj
 Execute an action: Wykonaj akcję
 Executed action: Wykonana akcja
@@ -375,6 +378,7 @@ Feature limits: Limity funkcjonalności
 'Field: {propertyPath}.': Pole {propertyPath}.
 File format: Format pliku
 File is too large: Plik jest za duży
+Fill missing data: Wypełniaj brakujące pomiary
 Firmware of this device sends notifications in context of this channel. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia w kontekście tego kanału. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
 Firmware of this device sends notifications. You can configure its recipients and content here. For more information consult the firmware issuer.: Firmware tego urządzenie wysyła powiadomienia. W tym miejscu możesz skonfigurować treść oraz odbiorców. Aby uzyskać więcej informacji, skontaktuj się z dostawcą urządzenia.
 Flooding: Zalanie
@@ -408,6 +412,7 @@ Gate's state verification: Weryfikacja stanu bramy
 Gateway lock operation: Otwieranie furtki
 Gateway opening sensor: Czujnik otwarcia furtki
 General purpose measurement: Ogólny kanał pomiarowy
+General purpose meter: Kanał licznikowy ogólnego przeznaczenia
 Generate new password: Wygeneruj nowe hasło
 Generate new token: Generuj nowy token
 Generate token: Generuj token
@@ -427,6 +432,8 @@ Heat to: Grzej do
 Heating / ventilation / air conditioning: Ogrzewanie / wentylacja / klimatyzacja (HVAC)
 Heating mode: Tryb ogrzewania
 Hide days without aberrations: Ukryj dni bez aberracji
+High value: Wartość maksymalna
+History: Historia
 History of measurements: Historia pomiarów
 Home appliances: Sprzęt AGD/RTV
 Home screen content: Zawartość ekranu głównego
@@ -481,16 +488,15 @@ In order to get the MQTT Broker credentials, concact the administator of this SU
 Inactive: Nieaktywny
 Include energy corrections in new measurements history (not recommended): Uwzględnij wartość dodaną w historii (niezalecane)
 Incorrect password: Nieprawidłowe hasło
+Increment and decrement: Rosnący i malejący
 Incremental: Przyrostowe
 Information: Informacja
 Inherit I/O Device location: Korzystaj z lokalizacji urządzenia
-Initial value: Wartość początkowa
 Installer e-mail address: Adres e-mail instalatora
 Integration with MQTT Broker has been disabled.: Integracja z brokerem MQTT została wyłączona.
 Integration with MQTT Broker has been enabled.: Integracja z brokerem MQTT została włączona.
 Integrations: Integracje
 Integrations settings: Ustawienia integracji
-Interpolate measurements: Szacuj brakujące wartości
 Interrupt: Przerwij
 Interrupt and execute: Przerwij i wykonaj
 Interval: Interwał
@@ -532,6 +538,7 @@ Log out: Wyloguj
 Login: Logowanie
 Logs transformation: Przekształcenie wartości
 Longest aberration: Najdłuższa aberracja
+Low value: Wartość minimalna
 Lower voltage threshold: Próg niskiego napięcia
 MQTT Broker: Broker MQTT
 MQTT Broker Username: Nazwa użytkownika
@@ -548,14 +555,17 @@ Manage your new client app in the SUPLA-Cloud.: Zarządzaj ustawieniami aplikacj
 Manage your new device in the SUPLA-Cloud or with your smartphone SUPLA app.: Zarządzaj swoim urządzeniem w SUPLA-Cloud lub za pomocą aplikacji SUPLA w Twoim smartfonie.
 Manual: Instrukcja
 Manually closed: Zamknięty manualnie
+Max: Max
 Maximum delay is 60 minutes.: Maksymalne opóźnienie to 60 minut.
 Maximum duration is one year.: Maksymalny okres to jeden rok.
 Maximum filesize limit is {limit}.: Maksymalny rozmiar pliku to {limit}.
 Maximum temperature that can be set from the device: Maksymalna temperatura, która może być ustawiona za pomocą urządzenia
 Maximum voltage: Najwyższe napięcie
+Measurement settings: Ustawienia pomiaru
 Measurement window: Czas pomiaru
 Meter value: Stan licznika
 Meters: Liczniki
+Min: Min
 Minimum OFF time before cooling can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem chłodzenia
 Minimum OFF time before heating can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem ogrzewania
 Minimum OFF time before heating/cooling can be turned on: Minimalny czas WYŁĄCZENIA przed ponownym włączeniem chłodzenia/ogrzewania
@@ -603,7 +613,6 @@ No of client apps: Liczba aplikacji klienckich
 No of devices: Liczba urządzeń
 No of operations: Liczba operacji
 No results: Brak wyników
-No results match {0}: Żadne wyniki nie pasują do {0}
 No schedule configuration.: Nie podano konfiguracji harmonogramu.
 No, take me back!: Nie, zabierz mnie stąd!
 No. of Client’s apps: Liczba aplikacji klienckich
@@ -644,6 +653,7 @@ Only domain names with an optional port number are allowed. E.g. mysupla.org or 
 Open: Otwórz
 Open / close: Otwórz / zamknij
 Open partially: Otwórz częściowo
+Open value: Wartość otwarcia
 Opening sensor: Czujnik otwarcia
 Operation: Operacja
 Operations: Operacje
@@ -741,6 +751,7 @@ Repeat password: Powtórz hasło
 Request device unlock: Zgłoś chęć odblokowania urządzenia
 Reset Your Password: Ustaw nowe hasło
 Reset counter: Resetuj licznik
+Reset to defaults: Przywróć domyślne wartości
 Retry on failure: Powtórz gdy niewykonane
 Reveal: Odsłoń
 Reveal partially: Odsłoń częściowo
@@ -831,7 +842,6 @@ Some features depend on this device: Niektóre funkcjonalności zależą od tego
 Some features depend on this scene: Niektóre funkcjonalności zależą od tej sceny.
 Some of the features you have configured rely on channels from this device.: Niektóre funkcjonalności używają kanałów z tego urządzenia.
 Staircase timer: Automat schodowy
-Standard: Standardowe
 Start Here: Rozpocznij tutaj
 Start date: Data rozpoczęcia
 Start from the homepage.: Zacznij od strony głównej.
@@ -974,7 +984,8 @@ User interface: Interfejs użytkownika
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
 Value: Wartość
 Value added: Wartość dodana
-Value per unit: Wartość na jednostkę
+Value divider: Dzielnik wartości
+Value multiplier: Mnożnik wartości
 Value separator: Separator
 Valve: Zawór
 Valve closed manually: Zawór zamknięty manualnie
@@ -1070,6 +1081,9 @@ When the humidity will be: Kiedy wilgotność będzie
 When the lighting reaches a certain level of brightness: Gdy oświetlenie osiągnie określony poziom jasności
 When the mail comes or is taken: Kiedy przyjdzie poczta lub zostanie zabrana
 When the mail has been taken: Kiedy poczta zostanie odebrana
+When the meter reaches a certain value: Gdy licznik osiągnie zadaną wartość
+When the meter value changes: Gdy wartość zmieni się
+When the meter value will be: Gdy wartość będzie
 When the precipitation amount will be: Kiedy ilość mierzonego deszczu będzie
 When the pressure changes: Kiedy ciśnienie się zmieni
 When the pressure reaches a certain level: Kiedy ciśnienie osiągnie określony poziom
@@ -1206,6 +1220,7 @@ after: po
 and wait until it reaches: i nie wykonuj ponownie tej reakcji, aż osiągnie
 and wait until it will be: i nie wykonuj ponownie tej reakcji, aż będzie
 and wait until the humidity will be: i nie wykonuj ponownie tej reakcji, aż wilgotność będzie
+and wait until the meter will be: i nie wykonuj ponownie tej reakcji, dopóki wartość nie będzie
 and wait until the temperature will be: i nie wykonuj ponownie tej reakcji, aż temperatura będzie
 and wait until the value will be: i nie wykonuj ponownie tej reakcji, aż wartość będzie
 auxThermometerType_DISABLED: Wyłączony
@@ -1227,17 +1242,13 @@ channelConfig_stateVerificationMethod_active: Aktywny
 channelConfig_stateVerificationMethod_passive: Pasywny
 channelGroup: Grupa kanałów
 choose: wybierz
-choose a currency: wybierz walutę
-choose access identifiers: wybierz identyfikatory dostępu
 choose the access identifiers: wybierz identyfikatory dostępu
 choose the action: wybierz akcję
-choose the channel: wybierz kanał
-choose the channel group: wybierz grupę kanałów
+choose the currency: wybierz walutę
 choose the scene: wybierz scenę
 choose the schedule: wybierz harmonogram
 choose the timezone: wybierz strefę czasową
 click here: kliknij tutaj
-comment: komentarz
 contains a character that is neither a letter nor a digit: zawiera znak, który nie jest literą ani cyfrą
 contains a digit: zawiera cyfrę
 contains lower and upper letters: zawiera małe i duże litery
@@ -1276,6 +1287,7 @@ homeScreenContent_TIME: Czas
 homeScreenContent_TIME_DATE: Data i czas
 hours: godziny
 is at least {numChars} characters long: posiada conajmniej {numChars} znaków
+keepHistoryMeasurementWarningSelected: Czy ta historia na pewno jest Ci potrzebna? Supla to projekt OpenSource utrzymywany ze środków własnych. Jeśli ta historia nie jest Ci niezbędna, pomóż nam w oszczędzaniu cennej dla nas przestrzeni dyskowej poprzez zostawienie tej opcji wyłączonej.
 last 24 hours: ostatnie 24 godziny
 last 30 days: ostatnie 30 dni
 last 6 hours: ostatnie 6 godzin
@@ -1292,7 +1304,6 @@ notification: powiadomienie
 'off': wyłącz
 or another element: lub inny element
 password: hasło
-prefix: prefiks
 previous month: poprzedni miesiąc
 range: zakres
 register-slide1-text: W oparciu o dostępną elektronikę, SUPLA umożliwi Ci zbudowanie prostych modułów, pozwalających na sterowanie i kontrolę elementów automatyki budynkowej. Dzięki SUPLI możesz między innymi sterować oświetleniem,  włączać i wyłączać urządzenia AGD i RTV, otwierać i zamykać bramy oraz drzwi, czy też kontrolować temperaturę w pomieszczeniach. To wszystko możesz zrobić jednym przesunięciem palca.
@@ -1330,7 +1341,6 @@ state-temperature: Temperatura
 statusLed_ALWAYS_OFF: Zawsze wyłącz
 statusLed_OFF_WHEN_CONNECTED: Wyłącz gdy połączono
 statusLed_ON_WHEN_CONNECTED: Włącz gdy połączono
-suffix: sufiks
 sum: suma
 sunrise: wschód słońca
 sunrise-after: wschodzie
@@ -1402,8 +1412,10 @@ Authorized OAuth apps: Zautoryzowane aplikacje OAuth
 Available: Dostępne
 Calculated value: Stan licznika
 Cannot send an activation e-mail. Try again later.: Nie można wysłać wiadomości z linkiem aktywacyjnym. Spróbuj ponownie później.
+Channel value: Wartość
 Channel will be deleted from the channel group below: Kanał zostanie usunięty z poniższych grup kanałów
 Channels in channel group: Kanały w grupach kanałów
+Chart data source type: Rodzaj źródła danych
 Chosen hour: Wybrana godzina
 Coming Soon: Dostępne wkrótce
 Confirm if you want to remove {deviceName} device: Potwierdź chęć usunięcia urządzenia {deviceName}
@@ -1411,6 +1423,8 @@ Copy channel state: Powiel stan kanału
 Could not perform the calibration.: Nie udało się przeprowadzić kalibracji.
 DISABLED: WYŁĄCZONE
 Days: Dni
+Device channel value: Wartość z urządzenia
+Differential: Różnicowy
 Direct links below will be deleted: Linki bezpośrednie wymienione poniżej zostaną usunięte
 Doors, Gates: Drzwi, Bramy
 ENABLED: WŁĄCZONE
@@ -1425,8 +1439,10 @@ Hour: Godzina
 Hours: Godziny
 I/O: Wejście/Wyjście
 If you want to stay here, do something!: Jeśli chcesz tu zostać, zrób coś!
+Initial value: Wartość początkowa
 Initial values: Wartości początkowe
 Input: Wejście
+Interpolate measurements: Szacuj brakujące wartości
 Invalid schedule config (incorrect action).: Niepoprawna akcja harmonogramu
 Languages: Języki
 Loading: Ładowanie
@@ -1437,6 +1453,7 @@ Minute: Minuta
 Mobile Apps: Aplikacje mobilne
 Next: Dalej
 No current API usages: Brak bieżących żądań API
+No results match {0}: Żadne wyniki nie pasują do {0}
 Number: Numer
 Output: Wyjście
 Please select an action: Proszę wybrać akcję
@@ -1453,18 +1470,26 @@ Schedules below will be deleted: Poniższe harmonogramy zostaną usunięte
 Set initial values: Ustaw wartości początkowe
 Show days with issues only: Pokaż tylko dni, w których odnotowano naruszenia
 Sources available from: Źródła dostępne w
+Standard: Standardowe
 Status: Status
 Subject: Podmiot
 Sunrise / Sunset: Wschód / Zachód
 Triggers: Wyzwalacze
 Try again later: Spróbuj ponownie później
+Value per unit: Wartość na jednostkę
 You will be logged out shortly: Za chwilę zostaniesz wylogowany
+choose a currency: wybierz walutę
+choose access identifiers: wybierz identyfikatory dostępu
+choose the channel: wybierz kanał
+choose the channel group: wybierz grupę kanałów
+comment: komentarz
 execute: wykonaj
 hourly: Każdy dzień
+prefix: prefiks
+suffix: sufiks
 
 #</editor-fold>
 #<editor-fold desc="Missing translations">
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-keepHistoryMeasurementWarningSelected: Czy ta historia na pewno jest Ci potrzebna? Supla to projekt OpenSource utrzymywany ze środków własnych. Jeśli ta historia nie jest Ci niezbędna, pomóż nam w oszczędzaniu cennej dla nas przestrzeni dyskowej poprzez zostawienie tej opcji wyłączonej.

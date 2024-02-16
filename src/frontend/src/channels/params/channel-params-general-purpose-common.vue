@@ -63,9 +63,7 @@
                             <span :class="channel.config.noSpaceBeforeValue ? 'without-space' : 'with-space'"></span>
                         </a>
                     </span>
-                    <span class="input-group-addon">
-                        {{ $t('x') }}
-                    </span>
+                    <span class="input-group-addon">x</span>
                     <span class="input-group-addon pl-0">
                         <a @click="channel.config.noSpaceAfterValue = !channel.config.noSpaceAfterValue; $emit('change')">
                             <span :class="channel.config.noSpaceAfterValue ? 'without-space' : 'with-space'"></span>

@@ -57,6 +57,7 @@ homeScreenContent_TEMPERATURE_AND_HUMIDITY: Temperature and humidity
 homeScreenContent_TEMPERATURE_TIME: Temperature and time
 homeScreenContent_TIME: Time
 homeScreenContent_TIME_DATE: Date and time
+keepHistoryMeasurementWarningSelected: Are you sure you need it? Supla is an open source, free project that is being maintained with its own resources. Consider helping the project infrastructure by leaving this option disabled, if you do not plan to use the stored logs.
 logs_aggregation_day: Days
 logs_aggregation_hour: Hours
 logs_aggregation_minute: Minutes
@@ -125,5 +126,3 @@ thermostatTemperature_histeresis: Histeresis
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
-
-keepHistoryMeasurementWarningSelected: Are you sure you need it? Supla is an open source, free project that is being maintained with its own resources. Consider helping the project infrastructure by leaving this option disabled, if you do not plan to use the stored logs.
