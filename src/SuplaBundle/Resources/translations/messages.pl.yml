@@ -1467,3 +1467,4 @@ hourly: Każdy dzień
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+keepHistoryMeasurementWarningSelected: Czy ta historia na pewno jest Ci potrzebna? Supla to projekt OpenSource utrzymywany ze środków własnych. Jeśli ta historia nie jest Ci niezbędna, pomóż nam w oszczędzaniu cennej dla nas przestrzeni dyskowej poprzez zostawienie tej opcji wyłączonej.

@@ -19,12 +19,8 @@
         </a>
         <transition-expand>
             <div v-show="configGroup === 'history'">
+                <ChannelParamsMeterKeepHistoryMode v-model="props.channel.config.keepHistory" @input="$emit('change')"/>
                 <dl>
-                    <dd>{{ $t('Store measurements history') }}</dd>
-                    <dt class="text-center">
-                        <toggler v-model="props.channel.config.keepHistory"
-                            @input="$emit('change')"></toggler>
-                    </dt>
                     <dd>{{ $t('Chart type') }}</dd>
                     <dt>
                         <ChannelParamsButtonSelector
@@ -44,6 +40,7 @@
     import TransitionExpand from "../../common/gui/transition-expand";
     import ChannelParamsGeneralPurposeCommon from "@/channels/params/channel-params-general-purpose-common.vue";
     import {useConfigGroups} from "@/channels/params/useConfigGroups";
+    import ChannelParamsMeterKeepHistoryMode from "@/channels/params/channel-params-meter-keep-history-mode.vue";
 
     const props = defineProps({channel: Object});
     const {configGroup, displayConfigGroup, configGroupChevron} = useConfigGroups();

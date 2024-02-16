@@ -125,3 +125,5 @@ thermostatTemperature_histeresis: Histeresis
 # Translations below are missing. You want to translate them.
 
 #</editor-fold>
+
+keepHistoryMeasurementWarningSelected: Are you sure you need it? Supla is an open source, free project that is being maintained with its own resources. Consider helping the project infrastructure by leaving this option disabled, if you do not plan to use the stored logs.
