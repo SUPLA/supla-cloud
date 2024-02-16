@@ -399,6 +399,22 @@ describe('Channel measurement history data strategies', () => {
                 const adjustedLogs = strategy.interpolateGaps(logs, {config: {...channel.config, fillMissingData: false}});
                 expect(adjustedLogs[2].value).toEqual(3);
             });
+
+            it('detects counter resets', () => {
+                const logs = [
+                    {date_timestamp: 1, value: 100},
+                    {date_timestamp: 1, value: 99},
+                    {date_timestamp: 1, value: 98},
+                    {date_timestamp: 1, value: 85},
+                    {date_timestamp: 1, value: 84},
+                    {date_timestamp: 1, value: 81},
+                ];
+                const adjustedLogs = strategy.adjustLogs(logs, channel);
+                expect(adjustedLogs.map(l => l.value)).toEqual([100, 0, 0, 85, 0, 0]);
+                expect(adjustedLogs[3].counterReset).toBeTruthy();
+                const series = strategy.series.call({$t: a => a}, adjustedLogs)[0].data;
+                expect(series.map(l => l.y)).toEqual([100, 0, 0, null, 0, 0]);
+            });
         });
 
         describe('ALWAYS_DECREMENT', function () {
