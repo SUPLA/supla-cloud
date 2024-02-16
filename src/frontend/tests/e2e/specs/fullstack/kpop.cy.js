@@ -16,7 +16,7 @@ describe('KPOP', () => {
         cy.task('sql', `UPDATE supla_dev_channel
                         SET user_config='{"valueDivider":12,"valueMultiplier":34,"valueAdded":56,"valuePrecision":2,"unitBeforeValue":"ABCD","unitAfterValue":"EFGH","noSpaceAfterValue":false,"keepHistory":true,"chartType":"CANDLE"}'
                         WHERE id = 1`);
-        cy.contains('Measurement settings', {timeout: 10000}).click();
+        cy.contains('Ustawienia pomiaru', {timeout: 10000}).click();
         cy.contains('ABCD 283.39 EFGH');
     });
 })
