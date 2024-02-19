@@ -360,7 +360,7 @@ Error when communicating the server. Try again in a while.: Wystąpił problem w
 Estimated execution time: Szacowany czas wykonania
 Every: Co
 Example Auth URL: Przykładowy URL autoryzacyjny
-Example value: Przykładowa wartość
+Example value: Przykład
 Execute: Wykonaj
 Execute an action: Wykonaj akcję
 Executed action: Wykonana akcja
@@ -704,7 +704,7 @@ Port: Port
 Power active: Moc czynna
 Power apparent: Moc pozorna
 Power reactive: Moc bierna
-Precision: Dokładność
+Precision: Liczba miejsc po przecinku
 Predefined time ranges: Zakresy czasu
 Pressure sensor: Czujnik ciśnienia
 Price per: Cena za
@@ -984,8 +984,8 @@ User interface: Interfejs użytkownika
 User is already confirmed. Try to log in.: To konto jest już potwierdzone. Zaloguj się.
 Value: Wartość
 Value added: Wartość dodana
-Value divider: Dzielnik wartości
-Value multiplier: Mnożnik wartości
+Value divider: Dzielnik
+Value multiplier: Mnożnik
 Value separator: Separator
 Valve: Zawór
 Valve closed manually: Zawór zamknięty manualnie
@@ -1287,7 +1287,7 @@ homeScreenContent_TIME: Czas
 homeScreenContent_TIME_DATE: Data i czas
 hours: godziny
 is at least {numChars} characters long: posiada conajmniej {numChars} znaków
-keepHistoryMeasurementWarningSelected: Czy ta historia na pewno jest Ci potrzebna? Supla to projekt OpenSource utrzymywany ze środków własnych. Jeśli ta historia nie jest Ci niezbędna, pomóż nam w oszczędzaniu cennej dla nas przestrzeni dyskowej poprzez zostawienie tej opcji wyłączonej.
+keepHistoryMeasurementWarningSelected: Czy ta historia na pewno jest Ci potrzebna? Supla to projekt open source utrzymywany ze środków własnych. Jeśli ta historia nie jest Ci niezbędna, pomóż nam w oszczędzaniu cennej dla nas przestrzeni dyskowej poprzez zostawienie tej opcji wyłączonej.
 last 24 hours: ostatnie 24 godziny
 last 30 days: ostatnie 30 dni
 last 6 hours: ostatnie 6 godzin
