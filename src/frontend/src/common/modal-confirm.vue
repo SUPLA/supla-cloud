@@ -11,6 +11,7 @@
                     <i class="pe-7s-close"></i>
                 </a>
                 <a class="confirm"
+                    v-if="confirmable"
                     @click="$emit('confirm')">
                     <i class="pe-7s-check"></i>
                 </a>
@@ -30,6 +31,10 @@
             cancellable: {
                 type: Boolean,
                 required: false,
+                default: true,
+            },
+            confirmable: {
+                type: Boolean,
                 default: true,
             }
         },

@@ -10,8 +10,7 @@
                 :class="{active: chosenFunction.id === fnc.id}"
                 @click="chosenFunction = fnc">
                 <span>
-                    <function-icon :model="fnc"
-                        width="80"></function-icon>
+                    <function-icon :model="fnc" width="80"></function-icon>
                     {{ $t(fnc.caption) }}
                 </span>
             </a>
