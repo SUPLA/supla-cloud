@@ -72,6 +72,9 @@ export function prettyMilliseconds(ms, vue) {
 }
 
 export function formatGpmValue(value, config) {
+    if (value === null) {
+        return '---';
+    }
     const roundedValue = roundToDecimals(value, config?.valuePrecision || 0);
     const unitBefore = ((config?.unitBeforeValue || '') + (config?.noSpaceBeforeValue ? '' : ' '));
     const unitAfter = ((config?.noSpaceAfterValue ? '' : ' ') + (config?.unitAfterValue || ''));
