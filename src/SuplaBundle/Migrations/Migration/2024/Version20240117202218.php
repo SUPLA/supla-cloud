@@ -125,7 +125,7 @@ PROCEDURE
         $this->addSql('ALTER TABLE `supla_client` ADD `profile_name` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci AFTER `devel_env`');
         $this->addSql('DROP PROCEDURE IF EXISTS `supla_update_push_notification_client_token`');
         $this->addSql('CREATE PROCEDURE `supla_update_push_notification_client_token`(IN `_user_id` INT, IN `_client_id` INT, IN `_token` VARCHAR(255) CHARSET utf8mb4, IN `_platform` TINYINT, IN `_app_id` INT, IN `_devel_env` TINYINT, IN `_profile_name` VARCHAR(50) CHARSET utf8mb4) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER UPDATE supla_client SET push_token = _token, push_token_update_time = UTC_TIMESTAMP(), platform = _platform, app_id = _app_id, devel_env = _devel_env, profile_name = _profile_name WHERE id = _client_id AND user_id = _user_id');
-        $this->addSql('DROP PROCEDURE `supla_set_channel_caption`');
+        $this->addSql('DROP PROCEDURE IF EXISTS `supla_set_channel_caption`');
         $this->addSql('CREATE PROCEDURE `supla_set_channel_caption`(IN `_user_id` INT, IN `_channel_id` INT, IN `_caption` VARCHAR(100) CHARSET utf8mb4, IN `_when_not_null` BIT) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER UPDATE supla_dev_channel SET caption = _caption WHERE id = _channel_id AND user_id = _user_id AND (caption IS NOT NULL OR _when_not_null = 0)');
     }
 }
