@@ -40,6 +40,6 @@ class Version20231221114509 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_scene CHANGE user_config user_config VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE supla_settings_string CHANGE name name VARCHAR(50) NOT NULL, CHANGE value value VARCHAR(1024) NOT NULL');
         $this->addSql('ALTER TABLE supla_state_webhooks CHANGE url url VARCHAR(255) NOT NULL, CHANGE access_token access_token VARCHAR(255) NOT NULL, CHANGE refresh_token refresh_token VARCHAR(255) NOT NULL, CHANGE functions_ids functions_ids VARCHAR(255) NOT NULL');
-        $this->addSql('ALTER TABLE supla_value_based_trigger CHANGE `trigger` `trigger` VARCHAR(2048) DEFAULT NULL, CHANGE action_param action_param VARCHAR(255) DEFAULT NULL, CHANGE active_hours active_hours VARCHAR(768) DEFAULT NULL, CHANGE activity_conditions activity_conditions VARCHAR(1024) DEFAULT NULL');
+        $this->addSql('ALTER TABLE supla_value_based_trigger CHANGE `trigger` `trigger` VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE action_param action_param VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE active_hours active_hours VARCHAR(768) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE activity_conditions activity_conditions VARCHAR(1024) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }
