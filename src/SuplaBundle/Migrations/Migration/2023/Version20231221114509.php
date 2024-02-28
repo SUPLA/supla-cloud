@@ -35,7 +35,8 @@ class Version20231221114509 extends NoWayBackMigration {
         $this->addSql("ALTER TABLE supla_value_based_trigger DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 
         $this->addSql('ALTER TABLE supla_auto_gate_closing CHANGE active_hours active_hours VARCHAR(768) DEFAULT NULL');
-        $this->addSql('ALTER TABLE supla_dev_channel CHANGE user_config user_config VARCHAR(4096) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE supla_iodevice CHANGE user_config user_config VARCHAR(4096) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE properties properties VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE software_version software_version VARCHAR(20) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE auth_key auth_key VARCHAR(64) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE supla_dev_channel CHANGE user_config user_config VARCHAR(4096) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE properties properties VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE supla_push_notification CHANGE title title VARCHAR(100) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE body body VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE supla_scene CHANGE user_config user_config VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE supla_settings_string CHANGE name name VARCHAR(50) NOT NULL, CHANGE value value VARCHAR(1024) NOT NULL');
@@ -43,3 +44,7 @@ class Version20231221114509 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_value_based_trigger CHANGE `trigger` `trigger` VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE action_param action_param VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE active_hours active_hours VARCHAR(768) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE activity_conditions activity_conditions VARCHAR(1024) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }
+
+ALTER TABLE supla_iodevice CHANGE user_config user_config VARCHAR(4096) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE properties properties VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE software_version software_version VARCHAR(20) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE auth_key auth_key VARCHAR(64) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`;
+
+ALTER TABLE supla_dev_channel CHANGE user_config user_config VARCHAR(4096) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE properties properties VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`;
