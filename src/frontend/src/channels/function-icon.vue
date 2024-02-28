@@ -2,25 +2,28 @@
     <span class="channel-icon"
         v-if="functionId !== undefined">
         <template v-if="model.userIconId || userIcon">
-            <img :src="userIconSrc"
-                :class="`icon-size-${width}`">
+            <img :src="userIconSrc" :style="{maxWidth: imageWidth + 'px', maxHeight: imageWidth + 'px'}">
             <!-- Double icon display for HUMIDITYANDTEMPERATURE function. -->
             <img :src="userIconSrcForState(1)"
-                v-if="functionId == 45"
-                :class="`icon-size-${width}`">
+                v-if="functionId === 45"
+                :style="{maxWidth: imageWidth + 'px', maxHeight: imageWidth + 'px'}">
         </template>
         <template v-else>
+            <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + '-hum.svg' | withBaseUrl"
+                v-if="functionId === 45"
+                :width="imageWidth" :height="imageWidth">
             <img :src="'/assets/img/functions/' + functionId + alternativeSuffix + stateSuffix + '.svg' | withBaseUrl"
-                :width="width" :height="width">
+                :width="imageWidth" :height="imageWidth">
         </template>
     </span>
 </template>
 
 <script>
     import {withDownloadAccessToken} from "../common/filters";
+    import ChannelFunction from "@/common/enums/channel-function";
 
     export default {
-        props: ['model', 'width', 'alternative', 'userIcon', 'config'],
+        props: ['model', 'width', 'alternative', 'userIcon', 'config', 'flexibleWidth'],
         computed: {
             functionId() {
                 if (this.model) {
@@ -91,6 +94,13 @@
             },
             userIconSrc() {
                 return this.userIconSrcForState(this.stateIndex);
+            },
+            imageWidth() {
+                if (this.functionId === ChannelFunction.HUMIDITYANDTEMPERATURE && !this.flexibleWidth) {
+                    return this.width / 2;
+                } else {
+                    return this.width;
+                }
             }
         },
         methods: {
@@ -110,13 +120,6 @@
         line-height: 0;
         img {
             max-width: 100%;
-            @for $i from 5 to 12 {
-                $width: $i * 10;
-                &.icon-size-#{$width} {
-                    max-width: $width * 1px;
-                    max-height: $width * 1px;
-                }
-            }
         }
     }
 </style>

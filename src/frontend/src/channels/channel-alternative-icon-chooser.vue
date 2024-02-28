@@ -113,7 +113,9 @@
     .icons-list {
         gap: 2px;
         > a {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             width: 120px;
             max-height: 100px;
             border: 1px solid $supla-grey-dark;

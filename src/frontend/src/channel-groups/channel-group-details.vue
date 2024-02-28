@@ -46,8 +46,7 @@
                                     <div class="details-page-block">
                                         <h3>{{ $t('Function') }}</h3>
                                         <div v-if="channelGroup.function">
-                                            <function-icon :model="channelGroup"
-                                                width="100"></function-icon>
+                                            <function-icon :model="channelGroup" width="100"></function-icon>
                                             <h4>{{ $t(channelGroup.function.caption) }}</h4>
                                             <channel-alternative-icon-chooser :channel="channelGroup"
                                                 @change="channelGroupChanged()"></channel-alternative-icon-chooser>

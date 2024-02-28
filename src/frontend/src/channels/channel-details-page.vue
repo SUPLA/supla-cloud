@@ -112,7 +112,7 @@
                         <div class="details-page-block">
                             <h3 class="text-center">{{ $t('State') }}</h3>
                             <div class="text-center">
-                                <function-icon :model="channel" width="100"></function-icon>
+                                <function-icon :model="channel" width="100" :flexible-width="true"></function-icon>
                                 <div v-if="channelFunctionIsChosen">
                                     <span v-if="hasPendingChanges"
                                         v-tooltip.bottom="$t('Save or discard configuration changes first.')">

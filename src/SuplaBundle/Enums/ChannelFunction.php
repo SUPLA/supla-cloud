@@ -442,6 +442,8 @@ final class ChannelFunction extends Enum {
             self::SCENE => 19,
             self::GENERAL_PURPOSE_MEASUREMENT => 31,
             self::GENERAL_PURPOSE_METER => 14,
+            self::THERMOMETER => 7,
+            self::HUMIDITYANDTEMPERATURE => 7,
         ];
     }
 
