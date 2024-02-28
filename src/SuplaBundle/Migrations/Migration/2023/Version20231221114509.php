@@ -44,7 +44,3 @@ class Version20231221114509 extends NoWayBackMigration {
         $this->addSql('ALTER TABLE supla_value_based_trigger CHANGE `trigger` `trigger` VARCHAR(2048) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE action_param action_param VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE active_hours active_hours VARCHAR(768) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE activity_conditions activity_conditions VARCHAR(1024) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }
-
-
-
-
