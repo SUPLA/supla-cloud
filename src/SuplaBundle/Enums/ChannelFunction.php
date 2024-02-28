@@ -441,7 +441,7 @@ final class ChannelFunction extends Enum {
             self::ELECTRICITYMETER => 1,
             self::SCENE => 19,
             self::GENERAL_PURPOSE_MEASUREMENT => 31,
-            self::GENERAL_PURPOSE_METER => 13,
+            self::GENERAL_PURPOSE_METER => 14,
         ];
     }
 

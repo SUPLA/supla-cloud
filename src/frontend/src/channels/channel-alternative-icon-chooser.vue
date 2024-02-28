@@ -114,7 +114,7 @@
         gap: 2px;
         > a {
             display: block;
-            max-width: 120px;
+            width: 120px;
             max-height: 100px;
             border: 1px solid $supla-grey-dark;
             padding: 5px;
