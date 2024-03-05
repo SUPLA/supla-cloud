@@ -24,6 +24,8 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  */
 class Version20231221114509 extends NoWayBackMigration {
     public function migrate() {
+        $this->addSql("ALTER DATABASE CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+
         $this->addSql("ALTER TABLE supla_auto_gate_closing DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
         $this->addSql("ALTER TABLE supla_dev_channel_extended_value DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
         $this->addSql("ALTER TABLE supla_dev_channel_value DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");

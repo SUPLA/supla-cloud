@@ -17,14 +17,8 @@
 
 namespace SuplaBundle\Tests\Integration\Migrations;
 
-use AppKernel;
 use SuplaBundle\Entity\Main\IODeviceChannel;
-use SuplaBundle\Entity\Main\Scene;
-use SuplaBundle\Entity\Main\SettingsString;
-use SuplaBundle\Entity\Main\User;
-use SuplaBundle\Enums\InstanceSettings;
-use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
-use SuplaBundle\Repository\SettingsStringRepository;
+use SuplaBundle\Entity\Main\PushNotification;
 
 class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
     /** @before */
@@ -35,6 +29,7 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
 
     public function testMigratedCorrectly() {
         $this->migratedHvacAutoToHeatCool();
+        $this->migratedEmojisInTextColumns();
     }
 
     /**
@@ -44,5 +39,17 @@ class DatabaseV2312MigrationTest extends DatabaseMigrationTestCase {
         $hvacChannel = $this->freshEntityById(IODeviceChannel::class, 98);
         $weeklySchedule = $hvacChannel->getUserConfigValue('weeklySchedule');
         $this->assertEquals('HEAT_COOL', $weeklySchedule['programSettings']['3']['mode']);
+    }
+
+    /**
+     * @see Version20231221114509
+     */
+    private function migratedEmojisInTextColumns() {
+        $channel = $this->freshEntityById(IODeviceChannel::class, 1);
+        $this->assertStringContainsString('❤️', $channel->getCaption());
+        $channel = $this->freshEntityById(IODeviceChannel::class, 13);
+        $this->assertStringContainsString('❤️', $channel->getUserConfigValue('unit'));
+        $notification = $this->freshEntityById(PushNotification::class, 1);
+        $this->assertStringContainsString('❤️', $notification->getBody());
     }
 }

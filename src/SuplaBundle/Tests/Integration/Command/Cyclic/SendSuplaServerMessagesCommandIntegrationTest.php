@@ -88,6 +88,27 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $this->assertStringContainsString('3.33', $message->getBody());
     }
 
+    public function testAddDeviceWithEmojiInName() {
+        $parameters = [
+            $this->user->getLocations()[0]->getId(),
+            $this->user->getId(),
+            "'abc'",
+            "'ZAMEL-❤️-CHOINKA'",
+            "INET_ATON('1.1.2.2')",
+            "'3.33'",
+            10,
+            'NULL',
+            'NULL',
+            'NULL',
+            'NULL',
+            'NULL',
+            '@outId',
+        ];
+        $query = 'CALL supla_add_iodevice(' . implode(', ', $parameters) . ')';
+        $this->getEntityManager()->getConnection()->executeQuery($query);
+        $this->assertEquals('ZAMEL-❤️-CHOINKA', $this->getEntityManager()->find(IODevice::class, 1)->getName());
+    }
+
     public function testNoNewIoDeviceNotificationWhenOptOut() {
         $this->user = $this->freshEntity($this->user);
         $this->user->setPreference('optOutNotifications', [UserOptOutNotifications::NEW_IO_DEVICE]);

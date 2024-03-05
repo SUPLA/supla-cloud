@@ -9,6 +9,8 @@ use SuplaBundle\Migrations\NoWayBackMigration;
  */
 class Version20170101000000 extends NoWayBackMigration {
     public function migrate() {
+        $this->addSql("ALTER DATABASE CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+
         $userTableExists = !!$this->getConnection()->fetchOne('SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = "supla_user";');
 
         if (!$userTableExists) {
