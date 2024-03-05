@@ -92,7 +92,7 @@ class SendSuplaServerMessagesCommandIntegrationTest extends IntegrationTestCase 
         $parameters = [
             $this->user->getLocations()[0]->getId(),
             $this->user->getId(),
-            "'abc'",
+            "'abd'",
             "'ZAMEL-❤️-CHOINKA'",
             "INET_ATON('1.1.2.2')",
             "'3.33'",
