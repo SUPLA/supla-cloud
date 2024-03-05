@@ -135,7 +135,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $lastIpv4;
 
     /**
-     * @ORM\Column(name="software_version", type="string", length=20, nullable=false)
+     * @ORM\Column(name="software_version", type="string", length=20, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $softwareVersion;
@@ -146,7 +146,7 @@ class IODevice implements HasLocation, HasRelationsCount {
     private $protocolVersion;
 
     /**
-     * @ORM\Column(name="auth_key", type="string", length=64, nullable=true)
+     * @ORM\Column(name="auth_key", type="string", length=64, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      */
     private $authKey;
 
@@ -167,10 +167,10 @@ class IODevice implements HasLocation, HasRelationsCount {
      */
     private $productId;
 
-    /** @ORM\Column(name="user_config", type="string", length=4096, nullable=true) */
+    /** @ORM\Column(name="user_config", type="string", length=4096, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
     private $userConfig;
 
-    /** @ORM\Column(name="properties", type="string", length=2048, nullable=true) */
+    /** @ORM\Column(name="properties", type="string", length=2048, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"}) */
     private $properties;
 
     public function __construct() {

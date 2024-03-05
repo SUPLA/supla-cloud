@@ -90,7 +90,7 @@ class ValueBasedTrigger implements HasSubject {
     private $pushNotification;
 
     /**
-     * @ORM\Column(name="`trigger`", type="string", length=2048, nullable=true)
+     * @ORM\Column(name="`trigger`", type="string", length=2048, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $trigger;
@@ -102,7 +102,7 @@ class ValueBasedTrigger implements HasSubject {
     private $action;
 
     /**
-     * @ORM\Column(name="action_param", type="string", nullable=true, length=255)
+     * @ORM\Column(name="action_param", type="string", nullable=true, length=255, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $actionParam;
@@ -126,13 +126,13 @@ class ValueBasedTrigger implements HasSubject {
     private $activeTo;
 
     /**
-     * @ORM\Column(name="active_hours", type="string", length=768, nullable=true)
+     * @ORM\Column(name="active_hours", type="string", length=768, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $activeHours;
 
     /**
-     * @ORM\Column(name="activity_conditions", type="string", length=1024, nullable=true)
+     * @ORM\Column(name="activity_conditions", type="string", length=1024, nullable=true, options={"charset"="utf8mb4", "collation"="utf8mb4_unicode_ci"})
      * @Groups({"basic"})
      */
     private $activityConditions;
