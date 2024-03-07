@@ -17,7 +17,7 @@ export class IndexedDbMeasurementLogsStorage {
                     this.channel.config?.counterType || 'default',
                     this.channel.config?.fillMissingData === false ? 'not_filled' : 'filled',
                 ];
-                this.db = await openDB(dbName.join('_'), 6, {
+                this.db = await openDB(dbName.join('_'), 7, {
                     async upgrade(db) {
                         if (db.objectStoreNames.contains('logs')) {
                             await db.deleteObjectStore('logs');
@@ -189,7 +189,7 @@ export class IndexedDbMeasurementLogsStorage {
         });
         await tx.done;
         const txRaw = (await this.db).transaction('logs_raw', 'readwrite');
-        logs.forEach(async (log) => {
+        logs.map(log => this.chartStrategy.fixLog(log)).forEach(async (log) => {
             await txRaw.store.put(log);
         });
         await txRaw.done;
