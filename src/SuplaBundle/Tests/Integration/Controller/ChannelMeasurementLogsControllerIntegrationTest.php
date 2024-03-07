@@ -157,6 +157,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $fixture = new LogItemsFixture($this->getDoctrine());
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-2 day', 1);
         $fixture->createElectricityMeterVoltageAberrationLogItems($offset + 4, '-2 day', 2);
+        $fixture->createElectricityMeterVoltageLogItems($offset + 4, '-2 day');
         $this->getMeasurementLogsEntityManager()->flush();
     }
 
@@ -829,7 +830,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertStringContainsString($expectedRow, $csv);
     }
 
-    public function testGeneratingCsvFromChannelWithVoltageLogs() {
+    public function testGeneratingCsvFromChannelWithVoltageAberrationLogs() {
         $channelId = $this->device1->getChannels()[3]->getId();
         $client = $this->createAuthenticatedClient($this->user);
         $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs");
@@ -844,7 +845,7 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         // https://stackoverflow.com/a/23113182/878514
         $head = unpack("Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen", substr($data, 0, 30));
         $filename = substr($data, 30, $head['namelen']);
-        $this->assertStringContainsString('voltage', $filename);
+        $this->assertStringContainsString('voltage_aberrations', $filename);
         $csv = gzinflate(substr($data, 30 + $head['namelen'] + $head['exlen'], $head['csize']));
         $this->assertStringContainsString("Count above", $csv);
         $this->assertStringContainsString("Seconds below", $csv);
@@ -855,6 +856,34 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $testItem = $content[3];
         $dateTime = new \DateTime('@' . $testItem['date_timestamp'], new \DateTimeZone($this->user->getTimezone()));
         $expectedRow = "$testItem[date_timestamp],\"" . $dateTime->format('Y-m-d H:i:s') . "\",$testItem[measurementTimeSec]";
+        $this->assertStringContainsString($expectedRow, $csv);
+    }
+
+    public function testGeneratingCsvFromChannelWithVoltageHistoryLogs() {
+        $channelId = $this->device1->getChannels()[3]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs");
+        $memBefore = memory_get_usage();
+        ob_start();
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs-csv?logsType=voltageHistory");
+        $data = ob_get_contents();
+        ob_end_clean();
+        $memAfter = memory_get_usage();
+        $memDiff = ($memAfter - $memBefore) / 1024;
+        $this->assertLessThan(5000, $memDiff); // less than ~5MB memory consumption
+        // https://stackoverflow.com/a/23113182/878514
+        $head = unpack("Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen", substr($data, 0, 30));
+        $filename = substr($data, 30, $head['namelen']);
+        $this->assertStringContainsString('voltage_history', $filename);
+        $csv = gzinflate(substr($data, 30 + $head['namelen'] + $head['exlen'], $head['csize']));
+        $this->assertStringContainsString("Minimum voltage", $csv);
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?limit=10&logsType=voltageHistory");
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent(), true);
+        $testItem = $content[3];
+        $dateTime = new \DateTime('@' . $testItem['date_timestamp'], new \DateTimeZone($this->user->getTimezone()));
+        $expectedRow = "$testItem[date_timestamp],\"" . $dateTime->format('Y-m-d H:i:s') . "\",$testItem[phaseNo],$testItem[min]";
         $this->assertStringContainsString($expectedRow, $csv);
     }
 
@@ -882,10 +911,10 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertStatusCode('200', $response);
     }
 
-    public function testGettingVoltageLogs() {
+    public function testGettingVoltageAberrationsLogs() {
         $channelId = $this->device1->getChannels()[3]->getId();
         $client = $this->createAuthenticatedClient($this->user);
-        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=voltage");
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=voltageAberrations");
         $response = $client->getResponse();
         $this->assertStatusCode('200', $response);
         $content = json_decode($response->getContent(), true);
@@ -902,6 +931,22 @@ class ChannelMeasurementLogsControllerIntegrationTest extends IntegrationTestCas
         $this->assertArrayHasKey('measurementTimeSec', $log);
         $this->assertSame($log['avgVoltage'], floatval($log['avgVoltage']));
         $this->assertNotSame($log['avgVoltage'], intval($log['avgVoltage']));
+    }
+
+    public function testGettingVoltageHistoryLogs() {
+        $channelId = $this->device1->getChannels()[3]->getId();
+        $client = $this->createAuthenticatedClient($this->user);
+        $client->apiRequestV24('GET', "/api/channels/{$channelId}/measurement-logs?logsType=voltageHistory");
+        $response = $client->getResponse();
+        $this->assertStatusCode('200', $response);
+        $content = json_decode($response->getContent(), true);
+        $this->assertGreaterThan(0, count($content));
+        $log = $content[0];
+        $this->assertArrayHasKey('phaseNo', $log);
+        $this->assertArrayHasKey('min', $log);
+        $this->assertArrayHasKey('max', $log);
+        $this->assertArrayHasKey('avg', $log);
+        $this->assertSame($log['min'], floatval($log['min']));
     }
 
     public function testDeletingVoltageLogsForSelectedPhase() {

@@ -31,6 +31,10 @@ final class StringUtils {
         return strtoupper(trim(preg_replace('#([A-Z])#', '_$1', $string), '_'));
     }
 
+    public static function camelCaseToSnakeCaseLower(string $string): string {
+        return strtolower(self::camelCaseToSnakeCase($string));
+    }
+
     /** https://stackoverflow.com/a/31284266/878514 */
     public static function randomString(
         int $length,

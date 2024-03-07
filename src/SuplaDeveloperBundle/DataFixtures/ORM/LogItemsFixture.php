@@ -26,6 +26,7 @@ use SuplaBundle\Entity\Main\IODevice;
 use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageAberrationLogItem;
+use SuplaBundle\Entity\MeasurementLogs\ElectricityMeterVoltageLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeasurementLogItem;
 use SuplaBundle\Entity\MeasurementLogs\GeneralPurposeMeterLogItem;
 use SuplaBundle\Entity\MeasurementLogs\ImpulseCounterLogItem;
@@ -62,6 +63,8 @@ class LogItemsFixture extends SuplaFixture {
         $this->createElectricityMeterLogItems();
         $this->entityManager->flush();
         $this->createElectricityMeterVoltageAberrationLogItems();
+        $this->entityManager->flush();
+        $this->createElectricityMeterVoltageLogItems();
         $this->entityManager->flush();
         $this->createGeneralPurposeMeasurementLogItems();
         $this->entityManager->flush();
@@ -213,6 +216,36 @@ class LogItemsFixture extends SuplaFixture {
             }
             if ($this->faker->boolean(1) && $this->faker->boolean(10)) {
                 $state = $initialState;
+            }
+        }
+    }
+
+    public function createElectricityMeterVoltageLogItems(?int $channelId = null, ?string $since = null) {
+        if (!$channelId) {
+            $device = $this->getReference(DevicesFixture::DEVICE_EVERY_FUNCTION);
+            $ecChannel = $device->getChannels()->filter(function (IODeviceChannel $channel) {
+                return $channel->getType()->getId() === ChannelType::ELECTRICITYMETER;
+            })->first();
+            $channelId = $ecChannel->getId();
+        }
+        $from = strtotime($since ?: self::SINCE);
+        $to = time();
+        $phases = [230.0, 230.0];
+        for ($timestamp = $from; $timestamp < $to; $timestamp += 600) {
+            for ($phaseNo = 0; $phaseNo < 2; $phaseNo++) {
+                $logItem = new ElectricityMeterVoltageLogItem();
+                EntityUtils::setField($logItem, 'channel_id', $channelId);
+                EntityUtils::setField($logItem, 'phaseNo', $phaseNo + 1);
+                EntityUtils::setField($logItem, 'date', MysqlUtcDate::toString('@' . $timestamp));
+                $phases[$phaseNo] += ($this->faker->biasedNumberBetween()) / 100 * ($this->faker->boolean() ? 1 : -1);
+                $phases[$phaseNo] = min($phases[$phaseNo], 241.55);
+                $phases[$phaseNo] = max($phases[$phaseNo], 219.55);
+                EntityUtils::setField($logItem, 'avg', $phases[$phaseNo]);
+                EntityUtils::setField($logItem, 'min', $phases[$phaseNo] - $this->faker->biasedNumberBetween() / 100);
+                EntityUtils::setField($logItem, 'max', $phases[$phaseNo] + $this->faker->biasedNumberBetween() / 100);
+                if ($this->faker->boolean(98)) {
+                    $this->entityManager->persist($logItem);
+                }
             }
         }
     }

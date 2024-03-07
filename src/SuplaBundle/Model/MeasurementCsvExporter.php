@@ -23,6 +23,7 @@ use SuplaBundle\Entity\Main\IODeviceChannel;
 use SuplaBundle\Enums\ChannelFunction;
 use SuplaBundle\Exception\ApiException;
 use SuplaBundle\Utils\DatabaseUtils;
+use SuplaBundle\Utils\StringUtils;
 use ZipArchive;
 
 class MeasurementCsvExporter {
@@ -35,10 +36,10 @@ class MeasurementCsvExporter {
         $this->entityManager = $measurementLogsEntityManager;
     }
 
-    public function createZipArchiveWithLogs(IODeviceChannel $channel, ?string $logsType = 'default'): string {
+    public function createZipArchiveWithLogs(IODeviceChannel $channel, string $logsType): string {
         $csvDumpPath = $this->dumpLogsToCsv($channel, $logsType ?: 'default');
         $exportedPath = $csvDumpPath;
-        $prefix = $logsType === 'voltage' ? 'voltage_' : 'measurement_';
+        $prefix = StringUtils::camelCaseToSnakeCaseLower($logsType ?: 'measurement') . '_';
         $filename = $this->compress($exportedPath, $prefix . $channel->getId() . '.csv');
         return $filename;
     }
@@ -79,7 +80,7 @@ class MeasurementCsvExporter {
                     "SELECT $timestampSelect, `counter`, `calculated_value` / 1000 calculated_value FROM `supla_ic_log` WHERE channel_id = :channelId",
                 ];
             case ChannelFunction::ELECTRICITYMETER:
-                if ($logsType === 'voltage') {
+                if ($logsType === 'voltageAberrations') {
                     return [
                         [
                             'Measurement end (timestamp)',
@@ -98,6 +99,18 @@ class MeasurementCsvExporter {
                             'Average voltage',
                         ],
                         "SELECT $timestampSelect, measurement_time_sec, phase_no, count_total, count_above, count_below, sec_above, sec_below, max_sec_above, max_sec_below, min_voltage, max_voltage, avg_voltage FROM `supla_em_voltage_aberration_log` WHERE channel_id = :channelId",
+                    ];
+                } elseif ($logsType === 'voltageHistory') {
+                    return [
+                        [
+                            'Measurement end (timestamp)',
+                            'Measurement end',
+                            'Phase number',
+                            'Minimum voltage',
+                            'Maximum voltage',
+                            'Average voltage',
+                        ],
+                        "SELECT $timestampSelect, phase_no, min, max, avg FROM `supla_em_voltage_log` WHERE channel_id = :channelId",
                     ];
                 } else {
                     return [

@@ -42,6 +42,7 @@ use SuplaBundle\Model\UserConfigTranslator\SubjectConfigTranslator;
 use SuplaBundle\Repository\IODeviceChannelRepository;
 use SuplaBundle\Supla\SuplaServerAware;
 use SuplaBundle\Utils\DatabaseUtils;
+use SuplaBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -51,6 +52,9 @@ class ChannelMeasurementLogsController extends RestController {
     use SuplaServerAware;
 
     const RECORD_LIMIT_PER_REQUEST = 5000;
+
+    private const LOGS_TYPE_VOLTAGE_ABERRATIONS = 'voltageAberrations';
+    private const LOGS_TYPE_VOLTAGE_HISTORY = 'voltageHistory';
 
     /** @var IODeviceManager */
     private $deviceManager;
@@ -77,7 +81,7 @@ class ChannelMeasurementLogsController extends RestController {
         IODeviceChannel $channel,
         $afterTimestamp = 0,
         $beforeTimestamp = 0,
-        ?string $logsType = 'default'
+        string $logsType = ''
     ) {
         $table = $this->getLogsTableName($channel, $logsType);
 
@@ -189,12 +193,9 @@ class ChannelMeasurementLogsController extends RestController {
         return $result->fetchAllAssociative();
     }
 
-    private function getLogsTableName(IODeviceChannel $channel, ?string $logsType = 'default'): string {
+    private function getLogsTableName(IODeviceChannel $channel, string $logsType): string {
         $this->ensureChannelHasMeasurementLogs($channel);
-        if ($logsType === 'default') {
-            $logsType = '';
-        }
-        $functionDescriptor = ($logsType ?: '') . $channel->getFunction()->getId();
+        $functionDescriptor = $logsType . $channel->getFunction()->getId();
         switch ($functionDescriptor) {
             case ChannelFunction::HUMIDITYANDTEMPERATURE:
             case ChannelFunction::HUMIDITY:
@@ -203,8 +204,10 @@ class ChannelMeasurementLogsController extends RestController {
                 return 'supla_temperature_log';
             case ChannelFunction::ELECTRICITYMETER:
                 return 'supla_em_log';
-            case 'voltage' . ChannelFunction::ELECTRICITYMETER:
+            case self::LOGS_TYPE_VOLTAGE_ABERRATIONS . ChannelFunction::ELECTRICITYMETER:
                 return 'supla_em_voltage_aberration_log';
+            case self::LOGS_TYPE_VOLTAGE_HISTORY . ChannelFunction::ELECTRICITYMETER:
+                return 'supla_em_voltage_log';
             case ChannelFunction::IC_ELECTRICITYMETER:
             case ChannelFunction::IC_GASMETER:
             case ChannelFunction::IC_WATERMETER:
@@ -254,7 +257,7 @@ class ChannelMeasurementLogsController extends RestController {
         $beforeTimestamp = 0,
         $orderDesc = true,
         $sparse = null,
-        $logsType = 'default'
+        string $logsType = ''
     ): array {
         $table = $this->getLogsTableName($channel, $logsType);
         switch ($channel->getFunction()->getId()) {
@@ -284,13 +287,17 @@ class ChannelMeasurementLogsController extends RestController {
                     $sparse
                 );
             case ChannelFunction::ELECTRICITYMETER:
-                $columns = $logsType === 'voltage' ?
-                    'phase_no phaseNo, count_total countTotal, count_above countAbove, count_below countBelow, ' .
-                    'sec_below secBelow, sec_above secAbove, max_sec_above maxSecAbove, max_sec_below maxSecBelow,' .
-                    'min_voltage minVoltage, max_voltage maxVoltage, avg_voltage avgVoltage, measurement_time_sec measurementTimeSec' :
-                    '`phase1_fae`, `phase1_rae`, `phase1_fre`, '
+                $columns = '`phase1_fae`, `phase1_rae`, `phase1_fre`, '
                     . '`phase1_rre`, `phase2_fae`, `phase2_rae`, `phase2_fre`, `phase2_rre`, `phase3_fae`, '
                     . '`phase3_rae`, `phase3_fre`, `phase3_rre`, `fae_balanced`, `rae_balanced`';
+                if ($logsType === self::LOGS_TYPE_VOLTAGE_ABERRATIONS) {
+                    $columns = 'phase_no phaseNo, count_total countTotal, count_above countAbove, count_below countBelow, ' .
+                        'sec_below secBelow, sec_above secAbove, max_sec_above maxSecAbove, max_sec_below maxSecBelow,' .
+                        'min_voltage minVoltage, max_voltage maxVoltage, avg_voltage avgVoltage, measurement_time_sec measurementTimeSec';
+                }
+                if ($logsType === self::LOGS_TYPE_VOLTAGE_HISTORY) {
+                    $columns = 'phase_no phaseNo, avg avg, min min, max max';
+                }
                 return $this->logItems(
                     $table,
                     $columns,
@@ -444,7 +451,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     @OA\Parameter(name="beforeTimestamp", description="Fetch log items created before this timestamp.", in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="order", description="Whether to order items ascending or descending by creation date.", in="query", @OA\Schema(type="string", default="DESC", enum={"ASC", "DESC"})),
      *     @OA\Parameter(name="sparse", description="Set the maximum items to return from the given period. If specified, the `limit` and `offset` params are ignored. For example, if you fetches the logs from the whole year and set the `sparse` param to `12`, the API will try to return up to 12 log items, equally distributed throug the whole year. Min: 1, Max: 1000.", in="query", @OA\Schema(type="integer", minimum=1, maximum=1000)),
-     *     @OA\Parameter(name="logsType", description="Type of the logs to return. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage"})),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to return. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageHistory", "voltageAberrations"})),
      *     @OA\Parameter(name="limit", description="Maximum items count in response, from 1 to 5000.", in="query", @OA\Schema(type="integer", default=5000, minimum=1, maximum=5000)),
      *     @OA\Parameter(name="offset", description="Pagination offset.", in="query", @OA\Schema(type="integer", default=0)),
      *     @OA\Response(response="200", description="Success",
@@ -533,7 +540,7 @@ class ChannelMeasurementLogsController extends RestController {
             $maxTimestampParam,
             $request->query->get('order') !== 'ASC',
             $request->query->get('sparse'),
-            $request->query->get('logsType'),
+            $this->getLogsType($request),
         );
         if (ApiVersions::V2_4()->isRequestedEqualOrGreaterThan($request)) {
             $logs = $this->adjustLogsFormat($logs, $channel);
@@ -543,10 +550,10 @@ class ChannelMeasurementLogsController extends RestController {
             $channel,
             $minTimestampParam,
             $maxTimestampParam,
-            $request->query->get('logsType')
+            $this->getLogsType($request)
         );
         if ($minTimestampParam || $maxTimestampParam) {
-            [$totalCount,] = $this->getMeasureLogsCount($channel, 0, 0, $request->query->get('logsType'));
+            [$totalCount,] = $this->getMeasureLogsCount($channel, 0, 0, $this->getLogsType($request));
         } else {
             $totalCount = $totalCountWithCondition;
         }
@@ -584,7 +591,7 @@ class ChannelMeasurementLogsController extends RestController {
             case ChannelFunction::ELECTRICITYMETER:
                 return array_map(function (array $item) {
                     array_walk($item, function (&$value, string $field) {
-                        if (in_array($field, ['minVoltage', 'maxVoltage', 'avgVoltage'])) {
+                        if (in_array($field, ['minVoltage', 'maxVoltage', 'avgVoltage', 'min', 'max', 'avg'])) {
                             $value = floatval($value);
                         } else {
                             $value = is_numeric($value) ? intval($value) : $value;
@@ -672,7 +679,7 @@ class ChannelMeasurementLogsController extends RestController {
      *     path="/channels/{channel}/measurement-logs", operationId="deleteChannelMeasurementLogs",
      *     summary="Delete channel measurement logs.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
-     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage"})),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageHistory", "voltageAberrations"})),
      *     @OA\Response(response="204", description="Success"),
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
@@ -685,9 +692,11 @@ class ChannelMeasurementLogsController extends RestController {
             throw new NotFoundHttpException();
         }
         $this->ensureChannelHasMeasurementLogs($channel);
-        $logsType = $request->query->get('logsType');
-        if ($logsType === 'voltage') {
-            $this->deleteMeasurementLogs(ElectricityMeterVoltageAberrationLogItem::class, $channel, function (QueryBuilder $qb) use ($request) {
+        $logsType = $this->getLogsType($request);
+        if ($logsType === self::LOGS_TYPE_VOLTAGE_ABERRATIONS) {
+            $this->deleteMeasurementLogs(ElectricityMeterVoltageAberrationLogItem::class, $channel, function (QueryBuilder $qb) use (
+                $request
+            ) {
                 if (in_array($phaseNo = $request->get('phase'), [1, 2, 3])) {
                     $qb->andWhere('log.phaseNo = :phaseNo')->setParameter('phaseNo', $phaseNo);
                 }
@@ -705,12 +714,24 @@ class ChannelMeasurementLogsController extends RestController {
         return new Response('', Response::HTTP_NO_CONTENT);
     }
 
+    private function getLogsType(Request $request): string {
+        $logsType = $request->query->get('logsType', 'default');
+        if ($logsType === 'default') {
+            return '';
+        } elseif ($logsType === 'voltage') {
+            return self::LOGS_TYPE_VOLTAGE_ABERRATIONS;
+        } else {
+            Assertion::inArray($logsType, [self::LOGS_TYPE_VOLTAGE_ABERRATIONS, self::LOGS_TYPE_VOLTAGE_HISTORY]);
+            return $logsType;
+        }
+    }
+
     /**
      * @OA\Get(
      *     path="/channels/{channel}/measurement-logs-download", operationId="downloadChannelMeasurementLogs",
      *     summary="Get measurement logs as a zipped CSV file.", tags={"Channels"},
      *     @OA\Parameter(description="ID", in="path", name="channel", required=true, @OA\Schema(type="integer")),
-     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage"})),
+     *     @OA\Parameter(name="logsType", description="Type of the logs to delete. Some devices may gather multiple log types.", in="query", @OA\Schema(type="string", enum={"default", "voltage", "voltageAberrations", "voltageHistory"})),
      *     @OA\Response(response="200", description="Success", @OA\MediaType(mediaType="application/zip")),
      *     @OA\Response(response="400", description="Unsupported function", @OA\JsonContent(ref="#/components/schemas/ErrorResponse")),
      * )
@@ -718,9 +739,9 @@ class ChannelMeasurementLogsController extends RestController {
      * @Security("channel.belongsToUser(user) and is_granted('ROLE_CHANNELS_FILES') and is_granted('accessIdContains', channel)")
      */
     public function channelItemGetCSVAction(Request $request, IODeviceChannel $channel, MeasurementCsvExporter $measurementCsvExporter) {
-        $logsType = $request->query->get('logsType');
+        $logsType = $this->getLogsType($request);
         $filePath = $measurementCsvExporter->createZipArchiveWithLogs($channel, $logsType);
-        $prefix = $logsType === 'voltage' ? 'voltage_aberration' : 'measurement_';
+        $prefix = StringUtils::camelCaseToSnakeCaseLower($logsType ?: 'measurement') . '_';
         return new StreamedResponse(
             function () use ($filePath) {
                 readfile($filePath);
